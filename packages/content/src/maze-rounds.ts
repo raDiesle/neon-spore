@@ -1,8 +1,9 @@
 import { type MazeGeometry, type MazeWheel, mazeWheel } from "@neon-spore/sim";
+import { MAZE_DRAWN } from "./maze-drawn.js";
 
 /**
  * THE MAZE's drum: a real maze, copied wall for wall off the sheet the owner
- * handed the lane, and the three rounds played against it.
+ * handed the lane, and the five rounds played against it.
  *
  * **This is the drum and not a drum like it.** What stood here before was
  * three sets of plain circles with mouths on the rim and a route typed beside
@@ -40,10 +41,13 @@ import { type MazeGeometry, type MazeWheel, mazeWheel } from "@neon-spore/sim";
  * generated at load.
  *
  * **One more way in each round**, which is the owner's own shape for the
- * fight: the first sheet has one gap in its rim, the second two and the third
- * three. All of them reach the middle — the walls are a tree, so any gap in
- * the rim is joined to it — so the widening is a choice of *which* gap to turn
- * down onto the ship rather than a gamble on whether it goes anywhere.
+ * fight: one gap in the first sheet's rim, two in the second, and so on to
+ * five. **Exactly one of them reaches the middle**; the rest open onto regions
+ * of the maze that simply do not join it, and a shot sent down one of those is
+ * a shot that gets lost. So the widening is a widening gamble rather than a
+ * choice of scenic route, which is what the owner asked for after seeing the
+ * first version — where the walls were a perfect tree and therefore every gap
+ * arrived, leaving nothing at stake in choosing one.
  */
 
 /** The corridors between the middle and the rim, the middle not counted. */
@@ -83,68 +87,6 @@ const SENT: MazeGeometry = {
 };
 
 /**
- * The second round: the same seven corridors with two gaps in the rim, so the
- * pilot has a gap to choose as well as a gap to reach. Drawn by
- * `bun run maze 7 2 179`.
- */
-const TWO_WAYS: MazeGeometry = {
-  rings: RINGS,
-  coreMilli: 177,
-  openMilli: 55,
-  walls: [
-    [],
-    [0, 45_000, 90_000, 270_000],
-    [45_000, 135_000, 270_000],
-    [45_000, 135_000, 225_000, 315_000],
-    [135_000, 180_000, 270_000, 315_000],
-    [0, 45_000, 225_000, 270_000],
-    [0, 90_000, 180_000, 225_000],
-    [135_000, 180_000, 270_000, 315_000],
-  ],
-  openings: [
-    [64_122, 165_003, 294_872],
-    [15_113, 147_559, 282_625],
-    [74_468, 211_694, 337_275],
-    [111_903, 236_470, 294_971, 344_810],
-    [17_732, 66_477, 168_668, 213_240, 236_995, 283_721],
-    [23_404, 151_748, 348_393],
-    [155_056, 201_634, 240_939, 292_323, 332_333],
-    [31_377, 210_512],
-  ],
-};
-
-/**
- * The third: three gaps in the rim, on a sheet whose three walks are ten
- * crossings each, so no way in is the cheap one. Drawn by
- * `bun run maze 7 3 161`.
- */
-const THREE_WAYS: MazeGeometry = {
-  rings: RINGS,
-  coreMilli: 177,
-  openMilli: 55,
-  walls: [
-    [],
-    [45_000, 135_000, 180_000, 225_000],
-    [45_000, 135_000, 180_000, 225_000, 270_000, 315_000],
-    [0, 45_000, 90_000, 225_000, 315_000],
-    [135_000, 180_000, 225_000],
-    [45_000, 225_000, 270_000],
-    [135_000, 180_000, 225_000, 270_000],
-    [0, 90_000, 180_000],
-  ],
-  openings: [
-    [58_579, 146_542, 192_909, 246_920],
-    [11_728, 64_310, 159_866, 253_960, 297_775],
-    [119_977, 194_364, 237_083, 328_324],
-    [12_178, 74_933, 162_267, 199_154],
-    [108_300, 207_419, 256_100, 281_862],
-    [26_877, 198_562, 247_507],
-    [70_929, 112_558, 163_813, 238_418],
-    [24_615, 152_009, 257_564],
-  ],
-};
-
-/**
  * Half a turn, which is where every drum stands when its round opens: the
  * sheet the right way up, with its gaps as far from the ship as they go.
  * Bringing one of them all the way down onto the ship's own column is the
@@ -153,13 +95,10 @@ const THREE_WAYS: MazeGeometry = {
 const UPRIGHT = 180_000;
 
 /**
- * The fight, in order: the owner's sheet, then one with two ways in, then one
- * with three. Each one finished takes a third of the boss's hull, the author
- * setting the length of the fight by writing rounds and never by tuning a
- * number.
+ * The fight, in order: the owner's sheet with its single way in, then the four
+ * drawn ones (`maze-drawn.ts`), each with a gap more in its rim than the last.
+ * Each round finished takes a fifth of the boss's hull — the author sets the
+ * length of the fight by writing rounds and never by tuning a number, so this
+ * list is the only place the answer to "how long is this boss" is written.
  */
-export const MAZE_ROUNDS: MazeWheel[] = [
-  mazeWheel(SENT, UPRIGHT),
-  mazeWheel(TWO_WAYS, UPRIGHT),
-  mazeWheel(THREE_WAYS, UPRIGHT),
-];
+export const MAZE_ROUNDS: MazeWheel[] = [SENT, ...MAZE_DRAWN].map((geo) => mazeWheel(geo, UPRIGHT));

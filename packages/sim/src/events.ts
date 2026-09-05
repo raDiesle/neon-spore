@@ -1,5 +1,5 @@
 import type { CreatureEvent } from "./events-creature.js";
-import type { MazeVerdictReason } from "./maze-round.js";
+import type { MazeVerdictReason } from "./maze-verdict.js";
 import type { MirrorStep, MirrorVerdictReason } from "./simon.js";
 import type { Color, Creature, PodKind } from "./types.js";
 

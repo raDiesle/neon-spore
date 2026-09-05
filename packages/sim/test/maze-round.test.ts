@@ -64,7 +64,7 @@ test("the way in that reaches the middle takes a share of the boss", () => {
   expect(mazeOf(world).hullMilli).toBe(100_000 - Math.round(100_000 / WHEELS.length));
 });
 
-test("a dead end costs the hull and leaves the wheel standing for another go", () => {
+test("a dead end costs the hull and takes the whole stage with it", () => {
   const world = install();
   untilReading(world);
   const answer = mazeCoreEntrance(WHEELS[0]!);
@@ -81,14 +81,20 @@ test("a dead end costs the hull and leaves the wheel standing for another go", (
   expect(breach).toHaveLength(1);
   expect(breach[0]).toMatchObject({ col });
   expect(before - world.hullMilli).toBe(CFG.damageMaze * 1000);
+  expect(mazeOf(world).lost).toBe("mouth");
 
-  // The verdict stands, and then the same wheel is there to try again — with
-  // the dead end remembered, which is what the next attempt is talked about.
+  // The verdict stands, the drum comes apart over the ship, and the *same*
+  // stage is built again from the top: back at its opening angle with nothing
+  // ruled out. The boss's own hull is untouched — a stage lost is a stage
+  // repeated, never a stage undone.
   past(world, "verdict", TPB * (1 + 8));
-  expect(mazeOf(world).phase).toBe("read");
+  expect(mazeOf(world).phase).toBe("lead");
   expect(mazeOf(world).round).toBe(0);
-  expect(mazeOf(world).tried).toEqual([dud]);
+  expect(mazeOf(world).tried).toEqual([]);
+  expect(mazeOf(world).angleMilli).toBe(WHEELS[0]!.startMilli);
   expect(mazeOf(world).hullMilli).toBe(100_000);
+  untilReading(world);
+  expect(mazeOf(world).phase).toBe("read");
 });
 
 test("saying nothing at all costs the same as a dead end", () => {
@@ -126,6 +132,13 @@ test("the heart takes its own colour, and the other one costs the hull", () => {
   expect(verdict[0]).toMatchObject({ right: false, reason: "color" });
   expect(before - world.hullMilli).toBe(CFG.damageMaze * 1000);
   expect(mazeOf(world).hullMilli).toBe(100_000);
+
+  // And the wheel survives it. A shot the heart refused never touched the
+  // walls, so the drum is handed straight back standing where it was left —
+  // which is the whole difference between this and a dead end.
+  past(world, "verdict", TPB * (1 + 8));
+  expect(mazeOf(world).phase).toBe("read");
+  expect(mazeOf(world).tried).toEqual([mazeCoreEntrance(WHEELS[0]!)]);
 });
 
 test("three wheels finished bring it down", () => {

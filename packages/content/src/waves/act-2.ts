@@ -52,8 +52,8 @@ export const WAVES_ACT_2: Wave[] = [
     name: "THE MAZE",
     sentence: "The one where he turns the wheel and she fires, and neither can do the other half.",
     guide: {
-      both: "A real maze of rings turns above the ship, with one gap cut in its rim and a heart beating in the middle. Bring the gap round to face the ship, and a shot goes in and finds its own way to the heart.",
-      p1: "You pull the string. The wheel turns until the gap clicks onto a column and lights up, and you cannot fire.",
+      both: "A real maze of rings turns above the ship, with gaps cut in its rim and a heart beating in the middle. Only one gap goes anywhere: the rest are dead ends, and a shot lost in one brings the whole maze down and starts the stage again.",
+      p1: "You pull the string. The wheel turns until a gap clicks onto a column and lights up, and you cannot fire. Later mazes have more gaps to choose between and still only one way through.",
       p2: "You fire, and you cannot turn anything. A shot only counts up the column the light is standing on, and the heart only takes the colour it is beating in — anything else costs the hull.",
       scene: "theMaze",
     },

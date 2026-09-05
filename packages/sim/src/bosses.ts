@@ -97,12 +97,12 @@ export { mazeRound } from "./maze-controls.js";
 export {
   installMaze,
   type MazeState,
-  type MazeVerdictReason,
   mazeCurrent,
   mazeHeartColor,
   mazeHeartShot,
 } from "./maze-round.js";
 export { mazeEntrances, mazeSolveRoute, mazeWheel } from "./maze-solve.js";
+export { MAZE_REASONS, type MazeVerdictReason } from "./maze-verdict.js";
 export {
   type MazeEntrance,
   type MazeGeometry,

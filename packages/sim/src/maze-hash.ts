@@ -1,5 +1,6 @@
 import { MAZE_PHASES } from "./maze.js";
 import type { MazeState } from "./maze-round.js";
+import { MAZE_REASONS } from "./maze-verdict.js";
 
 /**
  * What THE MAZE puts into `hashWorld`, and nothing else.
@@ -42,6 +43,11 @@ export function mazeHashParts(m: MazeState): number[] {
     m.hullMilli,
     m.verdict,
     m.verdictCol,
+    // Why the last attempt was lost, as its place in the list. A dead end is
+    // the one verdict that builds the stage again rather than handing the
+    // wheel straight back, so two devices that disagreed about this would be
+    // playing different rounds from the next beat on. `-1` is "not lost".
+    m.lost === null ? -1 : MAZE_REASONS.indexOf(m.lost),
   ];
   // Every wheel, not only the one in front of the pair. `m.round` above says
   // which is current; what these cover is the assumption that both devices

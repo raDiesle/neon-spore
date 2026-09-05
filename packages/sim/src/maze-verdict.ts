@@ -1,5 +1,5 @@
 import { breachHull } from "./hull.js";
-import { enterMazePhase, type MazeState, type MazeVerdictReason } from "./maze-round.js";
+import { enterMazePhase, type MazeState } from "./maze-round.js";
 import { MILLI, type World } from "./world.js";
 
 /**
@@ -11,11 +11,24 @@ import { MILLI, type World } from "./world.js";
  * here reads a wheel; everything here writes a hull.
  */
 
+/**
+ * Why an attempt was lost: a dead end, the wrong colour at the heart, or
+ * nothing fired at all. All three cost the hull the same; what they are for is
+ * the sentence the pair says before the next attempt, which is different in
+ * each case — and, for a dead end, the fact that the drum does not survive it.
+ *
+ * The list is ordered rather than a bare union because `mazeHashParts` sends
+ * the *index* over the wire, the way `MAZE_PHASES` is sent.
+ */
+export const MAZE_REASONS = ["mouth", "color", "silence"] as const;
+export type MazeVerdictReason = (typeof MAZE_REASONS)[number];
+
 /** A dead end, or nothing at all. Out of the column it went up. */
 export function mazeWrong(world: World, m: MazeState, reason: MazeVerdictReason): void {
   const col = m.lockedCol < 0 ? world.cannonCol : m.lockedCol;
   m.verdict = -1;
   m.verdictCol = col;
+  m.lost = reason;
   enterMazePhase(m, "verdict", world.beat);
   breachHull(world, col, "meteorFastest", world.cfg.mazeRow, world.cfg.damageMaze);
   world.events.push({ type: "mazeVerdict", right: false, col, reason });
@@ -29,6 +42,8 @@ export function mazeRight(world: World, m: MazeState): void {
   m.verdictCol = col;
   enterMazePhase(m, "verdict", world.beat);
 
+  m.lost = null;
+
   const done = m.round + 1;
   const total = Math.max(1, m.rounds.length);
   m.hullMilli = Math.max(0, 100 * MILLI - Math.round((done * 100 * MILLI) / total));
@@ -39,13 +54,30 @@ export function mazeRight(world: World, m: MazeState): void {
 }
 
 /**
- * The verdict is over. The middle moves the fight to the next wheel; a dead
- * end goes back to the same one, which is standing exactly where it was left
- * with the route that failed still on it. That is the whole difference between
- * this boss and one the pair only waits out.
+ * The verdict is over, and there are three ways on from it.
+ *
+ * **The middle moves the fight to the next wheel.** That is the only way
+ * forward there is.
+ *
+ * **A dead end takes the drum with it.** The shot is lost in a region that
+ * does not join the middle, the whole maze comes apart over the ship, and the
+ * *same* stage is built again from the top — back at its opening angle with
+ * nothing ruled out. The owner asked for exactly that, and it is what makes a
+ * wrong gap cost something a pair can feel: not a wasted attempt but the stage
+ * over again. The heart is untouched by it — the hull it has already lost
+ * stays lost, and the blood stays on the floor (`render/maze-blood.ts`), so
+ * the fight never goes backwards even when a stage does.
+ *
+ * **Anything else goes straight back to reading the same wheel**, standing
+ * exactly where it was left. A shot refused at the heart for its colour never
+ * touched the walls, so there is nothing for them to be shaken by.
  */
 export function mazeSettle(world: World, m: MazeState): void {
   if (m.verdict !== 1) {
+    if (m.lost === "mouth") {
+      enterMazePhase(m, "lead", world.beat);
+      return;
+    }
     m.way = -1;
     m.shotColor = -1;
     m.step = 0;

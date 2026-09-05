@@ -1,8 +1,10 @@
 import { type MazeState, mazeCircleMilli, mazeCurrent, type SimConfig } from "@neon-spore/sim";
 import type { Layout, ViewRole } from "./layout.js";
 import { drawMazeDoors } from "./maze-door.js";
+import { mazeFall } from "./maze-fall.js";
 import { drawMazeHeart } from "./maze-heart.js";
 import { drawMazeShot } from "./maze-shot.js";
+import { drawMazeStages } from "./maze-stage.js";
 import { drawMazeString } from "./maze-string.js";
 import { drawMazeWalls, mazeDrum } from "./maze-walls.js";
 
@@ -27,6 +29,13 @@ import { drawMazeWalls, mazeDrum } from "./maze-walls.js";
  * the exception and not a breach of it: only the pilot may turn the wheel, so
  * the handle has to say whose it is, the same way the tether's does.
  *
+ * **A dead end takes the drum apart, and the heart is left standing in it.**
+ * The walls drift out, turn and fade over the three beats of the verdict
+ * (`maze-fall.ts`) while the body in the middle carries on beating, which is
+ * the picture of what has actually happened: the stage is gone and the boss is
+ * not. The ways in stop being drawn the moment it starts — there are no doors
+ * in a wall that is coming down.
+ *
  * Where the wheel stands, which column the gap has taken, how wide the drum is
  * and which way the shot turns are all read out of `sim` rather than worked
  * out again — a picture that lit a column the shot does not go up would be the
@@ -46,7 +55,8 @@ export function drawMaze(
   const wheel = mazeCurrent(m);
   if (wheel === null) return;
   const drum = mazeDrum(l, cfg);
-  drawMazeWalls(ctx, drum, wheel, m.angleMilli);
+  const fall = mazeFall(m, beat, beatPhase);
+  drawMazeWalls(ctx, drum, wheel, m.angleMilli, fall);
   // What is at the end of the walk, drawn before the trail and the shot so
   // both of them arrive *on* it rather than behind it.
   drawMazeHeart(
@@ -59,6 +69,7 @@ export function drawMaze(
     beatPhase,
   );
   drawMazeString(ctx, l, cfg, m, role);
-  drawMazeDoors(ctx, l, cfg, m, wheel, beat, beatPhase);
+  drawMazeDoors(ctx, l, cfg, m, wheel, beat, beatPhase, fall);
   drawMazeShot(ctx, l, cfg, m, wheel, beat, beatPhase);
+  drawMazeStages(ctx, l, m, beat, beatPhase);
 }

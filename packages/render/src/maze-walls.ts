@@ -7,6 +7,7 @@ import {
   type SimConfig,
 } from "@neon-spore/sim";
 import type { Layout } from "./layout.js";
+import { mazeFallen } from "./maze-fall.js";
 import { PALETTE } from "./palette.js";
 
 /**
@@ -28,7 +29,22 @@ import { PALETTE } from "./palette.js";
  * rising as `mazeSinMilli` rises. Canvas measures from the +x axis the other
  * way round, so the one conversion is `mazeCanvasAngle` below, and everything
  * that draws on one of these circles calls it rather than writing it again.
+ *
+ * **The rim's gaps are drawn wider than the sheet's own.** Every opening
+ * inside the drum is the width the sheet says; the ways in are twice that,
+ * because they are the one thing a pair has to *find* on a turning wheel from
+ * across a room, and at the sheet's own width the break in the rim was too
+ * small to see coming. It changes nothing the simulation decides — where a way
+ * in stands is its centre angle either way (`mazeEntranceCol`) — which is why
+ * it is a number here and not in the drum's data.
  */
+
+/**
+ * How much wider a gap in the rim is drawn than the same gap inside the drum.
+ * `maze-door.ts` cuts its doorway at the same width, out of the same helper,
+ * so the light leaves the hole rather than the wall beside it.
+ */
+export const MAZE_RIM_OPEN_MUL = 2;
 
 /** How far the rim sits below the top of the field, in tiles. */
 const CLEAR_TILES = 0.6;
@@ -71,6 +87,15 @@ function halfGapMilli(radiusPx: number, openPx: number): number {
 }
 
 /**
+ * Half a way in, as an angle at the rim — the widened one. Exported because
+ * `maze-door.ts` stands the doorway on exactly these two cut ends; a second
+ * copy of the width is how a door comes to be drawn beside its own hole.
+ */
+export function mazeRimHalfGapMilli(wheel: MazeWheel, r: number): number {
+  return halfGapMilli(r, (r * wheel.openMilli * MAZE_RIM_OPEN_MUL) / 1000);
+}
+
+/**
  * The whole drum as the sheet has it: every circle broken where the sheet
  * breaks it, every radial wall where the sheet stands one, and the middle
  * filled so it reads as somewhere to arrive rather than as one more ring.
@@ -80,36 +105,53 @@ export function drawMazeWalls(
   drum: { cx: number; cy: number; r: number },
   wheel: MazeWheel,
   angleMilli: number,
+  fall = 0,
 ): void {
   const { cx, cy, r } = drum;
   const openPx = (r * wheel.openMilli) / 1000;
-  const radiusOf = (k: number) => (r * mazeCircleMilli(wheel, k)) / 1000;
+  // Every circle takes its own drift, its own turn and its own fade while the
+  // drum is breaking up (`maze-fall.ts`), and all three are zero while it is
+  // whole — so the drum standing still is this same code with nothing added.
+  const gone = (k: number) => mazeFallen(k, fall);
+  const radiusOf = (k: number) => ((r * mazeCircleMilli(wheel, k)) / 1000) * (1 + gone(k).spread);
+  const centreOf = (k: number) => ({ cx, cy: cy + r * gone(k).sag });
+  const turnOf = (k: number) => angleMilli + gone(k).spinMilli;
 
+  const middle = centreOf(0);
+  ctx.globalAlpha = gone(0).alpha;
   ctx.beginPath();
-  ctx.arc(cx, cy, radiusOf(0), 0, Math.PI * 2);
+  ctx.arc(middle.cx, middle.cy, radiusOf(0), 0, Math.PI * 2);
   ctx.fillStyle = PALETTE.grid;
   ctx.fill();
 
   for (let k = 0; k <= wheel.rings; k++) {
     const rim = k === wheel.rings;
+    const at = centreOf(k);
+    ctx.globalAlpha = gone(k).alpha;
     ctx.strokeStyle = rim ? PALETTE.hullRim : PALETTE.hull;
     ctx.lineWidth = rim ? 2.4 : 1.6;
-    circle(ctx, cx, cy, radiusOf(k), wheel.openings[k] ?? [], openPx, angleMilli);
+    const wide = rim ? openPx * MAZE_RIM_OPEN_MUL : openPx;
+    circle(ctx, at.cx, at.cy, radiusOf(k), wheel.openings[k] ?? [], wide, turnOf(k));
   }
 
   ctx.strokeStyle = PALETTE.hull;
   ctx.lineWidth = 1.6;
   for (let k = 1; k <= wheel.rings; k++) {
-    const inner = radiusOf(k - 1);
+    // A radial wall goes with the ring it walls, so a drum coming apart leaves
+    // it standing off the circle inside it rather than stretching to follow.
+    const at = centreOf(k);
+    const inner = ((r * mazeCircleMilli(wheel, k - 1)) / 1000) * (1 + gone(k).spread);
     const outer = radiusOf(k);
+    ctx.globalAlpha = gone(k).alpha;
     for (const wall of wheel.walls[k] ?? []) {
-      const p = phi(angleMilli + wall);
+      const p = phi(turnOf(k) + wall);
       ctx.beginPath();
-      ctx.moveTo(cx + inner * Math.cos(p), cy + inner * Math.sin(p));
-      ctx.lineTo(cx + outer * Math.cos(p), cy + outer * Math.sin(p));
+      ctx.moveTo(at.cx + inner * Math.cos(p), at.cy + inner * Math.sin(p));
+      ctx.lineTo(at.cx + outer * Math.cos(p), at.cy + outer * Math.sin(p));
       ctx.stroke();
     }
   }
+  ctx.globalAlpha = 1;
 }
 
 /** One circle, with a gap left at each of its openings and wall everywhere else. */

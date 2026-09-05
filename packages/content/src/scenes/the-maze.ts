@@ -7,6 +7,9 @@ import type { GuideScene } from "../scene-types.js";
  *
  * A real maze of rings above the ship with one gap cut in its rim. Player 1
  * pulls the string and cannot fire; player 2 fires and cannot turn anything.
+ * The caption says ONE WAY THROUGH rather than ONE WAY IN, because that is the
+ * rule that outlives this first drum: every later sheet has more gaps in its
+ * rim and still exactly one of them reaches the middle.
  * The film is one long turn that brings the gap from the top of the drum right
  * down to the ship, one lock and one shot, and then the shot crawling the
  * corridors it was let into, a crossing at a time, on the beat.
@@ -38,7 +41,7 @@ export const THE_MAZE: GuideScene = {
     { tick: 700, control: "fireRed" },
   ],
   steps: [
-    { tick: 0, seat: 2, text: "ONE WAY INTO THE MAZE", anchor: { at: "hull" } },
+    { tick: 0, seat: 2, text: "ONE WAY THROUGH THE MAZE", anchor: { at: "hull" } },
     {
       tick: 240,
       seat: 1,

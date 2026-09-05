@@ -6,7 +6,7 @@ import {
   MAZE_VERDICT_BEATS,
   mazeReadBeats,
 } from "./maze-clock.js";
-import { mazeRight, mazeSettle, mazeWrong } from "./maze-verdict.js";
+import { type MazeVerdictReason, mazeRight, mazeSettle, mazeWrong } from "./maze-verdict.js";
 import { type MazeWheel, mazeCopyWheel, mazeReachesCore } from "./maze-wheel.js";
 import type { Color, Scar } from "./types.js";
 import { MILLI, type World } from "./world.js";
@@ -35,18 +35,13 @@ import { MILLI, type World } from "./world.js";
  * MIRROR answers a wrong step. It is also what makes the *next* attempt worth
  * a sentence.
  *
- * **A dead end does not end the round.** The wheel stands, the failed route
- * stays drawn, and the pair goes again with one way in ruled out. Only the
- * middle finishes a wheel, and the next comes up harder.
+ * **A dead end brings the drum down.** Exactly one gap in each rim reaches
+ * the middle (`content/maze-drawn.ts`); the rest open onto regions walled off
+ * from it, and a shot sent down one of those is lost. The maze comes apart
+ * over the ship and the same stage is built again from the top — so a wrong
+ * gap costs the stage rather than an attempt (`maze-verdict.ts`). Only the
+ * middle moves the fight on, and the next wheel comes up with a gap more.
  */
-
-/**
- * Why an attempt was lost: a dead end, the wrong colour at the heart, or
- * nothing fired at all. All three cost the hull the same; what they are for is
- * the sentence the pair says before the next attempt, which is different in
- * each case.
- */
-export type MazeVerdictReason = "mouth" | "color" | "silence";
 
 /**
  * Everything THE MAZE remembers between ticks. It carries a hull and scars for
@@ -105,6 +100,16 @@ export interface MazeState {
   scars: Scar[];
   /** The last verdict: 1 right, -1 wrong, 0 none yet. */
   verdict: -1 | 0 | 1;
+  /**
+   * Why the last attempt was lost, or `null` when the last one was not.
+   *
+   * State rather than an event because two things downstream have to know
+   * after the fact: `mazeSettle` builds the stage again for a dead end and
+   * only for a dead end, and the picture shakes the drum apart for the same
+   * one (`render/maze-fall.ts`). An event is gone by the next tick, and both
+   * of those are asked on every tick of the verdict.
+   */
+  lost: MazeVerdictReason | null;
   /** The column that verdict landed in — the one the shot went up. */
   verdictCol: number;
 }
@@ -179,6 +184,7 @@ export function installMaze(world: World, rounds: MazeWheel[]): MazeState {
     scars: [],
     verdict: 0,
     verdictCol: -1,
+    lost: null,
   };
 }
 

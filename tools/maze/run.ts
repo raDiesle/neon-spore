@@ -23,16 +23,28 @@
  * takes the picture — but this narrows two hundred seeds to eight.
  */
 
-import { mazeFault, mazeSweep, mazeWheel } from "@neon-spore/sim";
+import { mazeFault, mazeReachesCore, mazeSweep, mazeWheel } from "@neon-spore/sim";
 import { drawSheet } from "./draw.js";
 
-/** How far the shot travels round its rings, and how often it is sent back out. */
+/**
+ * How far the shot travels round its rings, how often it is sent back out, and
+ * how long the dead ends are.
+ *
+ * A sheet is refused outright unless **exactly one** way in reaches the middle.
+ * `sever` in `draw.ts` is what arranges that, and it reasons over cells while
+ * the shot reasons over *arcs* — two sectors of a ring with no wall between
+ * them are one room — so on some seeds a wall meant to close a way in leaves
+ * it open through its neighbour. Checking the solver's own answer rather than
+ * the carving's intent is what makes that harmless: such a seed does not print.
+ */
 function walk(rings: number, ways: number, seed: number) {
   const sheet = drawSheet(rings, ways, seed);
   const wheel = mazeWheel(sheet, 180_000);
   if (mazeFault(wheel) !== null) return null;
+  if (wheel.entrances.filter(mazeReachesCore).length !== 1) return null;
   let leastSweep = Number.POSITIVE_INFINITY;
   let backs = 0;
+  let shortestDud = Number.POSITIVE_INFINITY;
   for (const way of wheel.entrances) {
     let sweep = 0;
     for (const [i, cell] of way.route.entries()) {
@@ -41,11 +53,20 @@ function walk(rings: number, ways: number, seed: number) {
       sweep += Math.abs(mazeSweep(wheel, cell.ring, cell.angleMilli, next.angleMilli));
       if (next.ring > cell.ring) backs += 1;
     }
-    leastSweep = Math.min(leastSweep, sweep / 1000);
+    if (mazeReachesCore(way)) leastSweep = Math.min(leastSweep, sweep / 1000);
+    else shortestDud = Math.min(shortestDud, way.route.length);
   }
   const walls = sheet.walls.reduce((n, list) => n + list.length, 0);
   const doors = sheet.openings[0]?.length ?? 0;
-  return { sheet, wheel, leastSweep, backs, walls, doors };
+  return {
+    sheet,
+    wheel,
+    leastSweep,
+    backs,
+    walls,
+    doors,
+    shortestDud: Number.isFinite(shortestDud) ? shortestDud : 0,
+  };
 }
 
 const args = process.argv.slice(2);
@@ -58,11 +79,20 @@ if (args[0] === "scan") {
     const found = walk(rings, ways, seed);
     if (found === null) continue;
     rows.push({
-      score: found.leastSweep + found.backs * 120 + found.doors * 20 + found.walls * 4,
+      // A short dead end is the one thing that spoils a sheet outright: a shot
+      // that turns twice and stops has not been anywhere, so the pair cannot
+      // tell a wrong guess from a bug. It is weighted above everything else.
+      score:
+        found.leastSweep +
+        found.shortestDud * 400 +
+        found.backs * 120 +
+        found.doors * 20 +
+        found.walls * 4,
       line:
         `seed ${String(seed).padStart(3)}  walls ${found.walls}  doors into the middle ` +
         `${found.doors}  sent back out ${found.backs}  least sweep ` +
-        `${found.leastSweep.toFixed(0)}deg  crossings ` +
+        `${found.leastSweep.toFixed(0)}deg  shortest dead end ${found.shortestDud}  ` +
+        `crossings ` +
         found.wheel.entrances.map((e) => e.route.length).join(","),
     });
   }
@@ -94,5 +124,6 @@ console.log(`  walls: [\n${sheet.walls.map((w) => `    ${list(w)},`).join("\n")}
 console.log(`  openings: [\n${sheet.openings.map((o) => `    ${list(o)},`).join("\n")}\n  ],`);
 console.error(
   `\n${found.wheel.entrances.length} way(s) in; walks of ` +
-    `${found.wheel.entrances.map((e) => e.route.length).join(", ")} crossings.`,
+    `${found.wheel.entrances.map((e) => e.route.length).join(", ")} crossings. ` +
+    `Way ${found.wheel.entrances.findIndex(mazeReachesCore)} is the one that arrives.`,
 );

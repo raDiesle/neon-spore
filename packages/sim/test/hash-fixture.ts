@@ -278,6 +278,7 @@ function patchBoss(world: World): void {
     boss.scars = [scar()];
     boss.verdict = -1;
     boss.verdictCol = 3;
+    boss.lost = "mouth";
   }
   if (boss.kind === "gauge") {
     boss.phase = "play";

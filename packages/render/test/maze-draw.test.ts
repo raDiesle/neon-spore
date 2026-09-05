@@ -84,6 +84,7 @@ function bossState(overrides: Partial<MazeState> = {}): MazeState {
     scars: [],
     verdict: 0,
     verdictCol: -1,
+    lost: null,
   };
   return { ...base, ...overrides };
 }

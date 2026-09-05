@@ -298,6 +298,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-volley.ts` | THE VOLLEY's rehearsal: a ward that works is not a body that is gone |
 | `packages/content/src/scenes/catch-and-aim.ts` | CATCH AND AIM's rehearsal: the hand aims, so the cannon does not have to |
 | `packages/content/src/waves/act-1b.ts` | The last of act one, cut off `act-1.ts` when that file reached the 250-line ceiling on `CATCH AND AIM` |
+| `packages/content/src/maze-drawn.ts` | The four sheets THE MAZE plays after the owner's own, drawn by `bun run maze` and printed here |
 
 ### packages/render
 
@@ -541,6 +542,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/intro-flash.ts` | THE LOUD HALF OF THE INTRO: a headline on a lit slab, a price-tag flash |
 | `packages/render/src/creature-body.ts` | Which body draw a kind gets, as a lookup a stray statement cannot sever |
 | `packages/render/src/effects-spark-silent.ts` | The events that are deliberately not a burst, and why each one is not |
+| `packages/render/src/maze-fall.ts` | THE MAZE coming apart, which is what a dead end looks like |
+| `packages/render/src/maze-stage.ts` | How far through THE MAZE the pair is: one cell per stage, under the ship's own hull bar |
 
 ### packages/net
 
@@ -988,5 +991,6 @@ place — the generator keeps whatever is there.
 | `tools/maze/draw.ts` | Draw a sheet for THE MAZE: the walls of one circular maze |
 | `tools/maze/run.ts` | `bun run maze` — draw a sheet for THE MAZE, ready to paste into `packages/content/src/maze-rounds.ts` |
 | `tools/frames/page.ts` | Getting a tab to the moment the world is the capture's, before the first tick |
+| `tools/maze/carve.ts` | The walls of THE MAZE's grid: which of them are opened |
 
 <!-- index:code:end -->

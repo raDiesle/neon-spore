@@ -4,6 +4,7 @@ import { FLEET_DIRS } from "../src/fleet-board.js";
 import { GAUGE_PHASES } from "../src/gauge.js";
 import { hashWorld } from "../src/hash.js";
 import { MAZE_PHASES } from "../src/maze.js";
+import { MAZE_REASONS } from "../src/maze-verdict.js";
 import { PIN_SHOTS, PINBALL_PHASES } from "../src/pinball.js";
 import { PIN_PIECE_KINDS } from "../src/pinball-contact.js";
 import { MIRROR_PHASES, MIRROR_STEPS } from "../src/simon.js";
@@ -74,6 +75,7 @@ const FAMILIES: readonly (readonly string[])[] = [
   POD_KINDS,
   MIRROR_STEPS,
   MAZE_PHASES,
+  MAZE_REASONS,
   MIRROR_PHASES,
   GAUGE_PHASES,
   FLEET_DIRS,

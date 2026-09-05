@@ -4,6 +4,7 @@ import {
   mazeArc,
   mazeCoreEntrance,
   mazeFault,
+  mazeReachesCore,
   mazeSolveRoute,
 } from "@neon-spore/sim";
 import { MAZE_ROUNDS } from "../src/maze-rounds.js";
@@ -30,17 +31,31 @@ test("every authored wheel is a wheel, with a way in that reaches the middle", (
 });
 
 /**
- * The shape of the fight the owner asked for: one more way in each round. Every
- * one of them reaches the middle — the walls of each sheet are a tree, so any
- * gap in the rim is joined to it — so what widens is the choice of which gap to
- * turn down onto the ship, never a gamble on whether it goes anywhere.
+ * The shape of the fight the owner asked for: one more way in each round, and
+ * **exactly one of them arrives**. The rest open onto regions of the maze that
+ * are walled off from the middle, so what widens each round is the gamble
+ * rather than the scenery. The first sheet is his own and has a single gap, so
+ * it satisfies this by having nothing to choose between.
  */
-test("each round has one more way in than the last, and all of them arrive", () => {
-  expect(MAZE_ROUNDS.length).toBeGreaterThan(1);
+test("each round has one more way in than the last, and exactly one arrives", () => {
+  expect(MAZE_ROUNDS.length).toBe(5);
   for (const [i, wheel] of MAZE_ROUNDS.entries()) {
     expect(wheel.entrances.length, `round ${i}`).toBe(i + 1);
+    expect(wheel.entrances.filter(mazeReachesCore).length, `round ${i}`).toBe(1);
+  }
+});
+
+/**
+ * A dead end has to be somewhere to get lost in rather than a cupboard. Four
+ * crossings is the floor: the shot goes in, turns, doubles back and only then
+ * stops, which is long enough that the pair reads it as a wrong guess instead
+ * of as the boss failing to do anything.
+ */
+test("every dead end is a walk of its own, not a step in and a stop", () => {
+  for (const [i, wheel] of MAZE_ROUNDS.entries()) {
     for (const [w, way] of wheel.entrances.entries()) {
-      expect(way.route.at(-1)?.ring, `round ${i} way ${w}`).toBe(0);
+      if (mazeReachesCore(way)) continue;
+      expect(way.route.length, `round ${i} way ${w}`).toBeGreaterThanOrEqual(4);
     }
   }
 });
