@@ -2,6 +2,7 @@ import { markMoment } from "./balance.js";
 import { hullRow } from "./config.js";
 import { guardArmed, shieldRow } from "./hull-guard.js";
 import { impactDamage } from "./impact.js";
+import { beadIsSpent } from "./strand.js";
 import {
   bodyCenterCol,
   type Color,
@@ -80,6 +81,13 @@ export function resolveHull(world: World): void {
       survivors.push(c);
       continue;
     }
+
+    // A raisin is a corpse on a string and it breaks nothing. One reaches the
+    // ship only because the pair ran out of thread to shoot, and the bead it
+    // was has already been paid for — charging the hull for it a second time
+    // would make finishing a strand worth nothing on the beat the rest of it
+    // lands (`strand.ts`).
+    if (beadIsSpent(c)) continue;
 
     if (wardable) {
       // It leaves the field here, so this is where it counts as a try — once,

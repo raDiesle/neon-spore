@@ -63,7 +63,7 @@ table in a document cannot be wrong in a way a compiler notices.
 
 | Category | Answered by | Members today |
 |---|---|---|
-| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid` |
+| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand` |
 | `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch`, `veer` |
 | `mixed` | `aim` and `guard` | `queen`, `warden`, `clasp`, `carom`, `volley` |
 | `special` | neither | `tether`, `mount`, `chute` |
@@ -100,7 +100,7 @@ directly, `"suck"`, after what taking one in is called throughout the sim
 | **Meteor** | matt, angular, no glow | ward only (the mirror image of the strand) |
 | **Veil** | a thundercloud; the pilot sees into it, the navigator does not, and the body inside turns over every few beats | announce the body *and* how long it is good for |
 | **Bulb** | round, many fine lobes, rotating ring of light; pumps — always cyan | mark + colour |
-| **Strand** | chain of segments, boring head | shoot through; warding locked out |
+| **Strand** | chain of segments on one thread, alternating red and cyan | shoot them in order — and only one of you is shown which is next |
 | **Crystal** | facets, breaks into two halves | fast switching |
 | **Gum** | sticky; grabs and holds on | three evasive manoeuvres in a row |
 | **Throb** | swells and shrinks on a fixed beat | timing instead of a snap call |
@@ -109,12 +109,12 @@ directly, `"suck"`, after what taking one in is called throughout the sim
 | **Glyph** | pattern across its skin | look it up in a table |
 | **Pod** | capsule with a blinking core | power-up |
 
-Built: slick, bulb, meteor, lure, throb, dart, veil, torch. Slick, bulb and
-meteor carry the teaching waves; the torch is the meteor's own widened
-relative, not one of the original thirteen. Lure, throb, dart and veil are the
-next four of that thirteen — none of them needed a new control group, only an
-entry and a state machine (see THE LURE, THE THROB, THE DART and THE VEIL
-waves, and `.claude/skills/new-creature`).
+Built: slick, bulb, meteor, lure, throb, dart, veil, strand, torch. Slick, bulb
+and meteor carry the teaching waves; the torch is the meteor's own widened
+relative, not one of the original thirteen. Lure, throb, dart, veil and strand
+are the next five of that thirteen — none of them needed a new control group,
+only an entry and a state machine (see THE LURE, THE THROB, THE DART, THE VEIL
+and THE STRAND waves, and `.claude/skills/new-creature`).
 
 **The veil is the lure's split turned over**, and the pair is the point: THE
 LURE hides something from the navigator's *trigger finger* by showing the pilot
@@ -195,15 +195,32 @@ gives the strip a second, louder cue: a pulsing band and a role-specific line,
 because three columns of warning is worth more than a blip the size of every
 other rock's.
 
-**The strand in detail:** it appears, turns lengthways, fires an unavoidable
-marking shot at the hull, **extinguishes its own drive** (visibly), whereupon
-player 2's controls **grey out**. After that the only way through is shooting
-its 5–7 segments in alternating colours.
+**The strand in detail, as it was written:** it appears, turns lengthways,
+fires an unavoidable marking shot at the hull, **extinguishes its own drive**
+(visibly), whereupon player 2's controls **grey out**. After that the only way
+through is shooting its 5–7 segments in alternating colours.
 
 > The strand and the gum depend on evasion, which no longer exists. (The pod
 > did too; it was re-designed rather than dropped — see above.)
 > The strand's whole point — greying out a control group — survives if it greys
 > out `guard` instead, but that has to be re-designed rather than renamed.
+
+**And as it is built**, which is the last sentence of that paragraph and
+nothing else: two to five segments on one thread, alternating red and cyan, and
+only the next one along the thread can be shot. The marking shot, the turn
+lengthways and the greyed-out control group are all gone with the evasion they
+were written against — what is left is the *order*, and the order is what makes
+the pair talk.
+
+The split is the part the original did not have, and it is the first one in
+this game that runs **both ways**. The navigator is shown which segment is lit
+and no colours at all; the pilot is shown the colours and no mark. So neither
+of them can answer a thread with what is on their own screen: the column has to
+cross the room one way and the colour the other, for every bead. A shot at the
+wrong one swells the last dead bead back into a live one, which is what the
+greyed-out control group used to be for — a mistake that costs the pair
+something they had already earned. `packages/sim/src/strand.ts` is the whole of
+it, and THE STRAND is the wave that teaches it.
 
 ## The ghost
 

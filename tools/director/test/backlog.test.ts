@@ -28,12 +28,14 @@ describe("buildBacklog", () => {
     expect(names(backlog.bestiary)).not.toContain("Meteor");
     expect(names(backlog.bestiary)).not.toContain("Dart");
     expect(names(backlog.bestiary)).not.toContain("Veil");
-    expect(names(backlog.bestiary)).toContain("Strand");
+    expect(names(backlog.bestiary)).not.toContain("Strand");
+    expect(names(backlog.bestiary)).toContain("Crystal");
 
     const thirteen = backlog.bestiary[0]!;
-    // Slick, bulb, meteor, lure, throb, dart and veil — the four of the first
-    // thirteen built after the original three, and the three themselves.
-    expect(thirteen.builtHidden).toBe(7);
+    // Slick, bulb, meteor, lure, throb, dart, veil and strand — the five of
+    // the first thirteen built after the original three, and the three
+    // themselves.
+    expect(thirteen.builtHidden).toBe(8);
     expect(thirteen.entries.length + thirteen.builtHidden).toBe(13);
 
     expect(names(backlog.bosses)).not.toContain("Bulb Queen");

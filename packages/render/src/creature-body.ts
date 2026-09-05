@@ -1,4 +1,5 @@
 import {
+  beadIsSpent,
   type Creature,
   type CreatureKind,
   colourArmourLeft,
@@ -11,6 +12,8 @@ import type { Layout } from "./layout.js";
 import { drawLid } from "./lid.js";
 import { drawLiving } from "./living-draw.js";
 import { drawMeteor } from "./meteor.js";
+import { showsBeadColor } from "./strand.js";
+import { drawRaisin, drawSealedBead } from "./strand-bead.js";
 import { drawTorch } from "./torch.js";
 import { showsVeilCore } from "./veil.js";
 import { showsVolleyCore } from "./volley.js";
@@ -141,12 +144,39 @@ function drawLivingBody(b: Body): void {
   );
 }
 
+/**
+ * One bead of THE STRAND, and the only row in this table whose answer depends
+ * on **which screen is asking**.
+ *
+ * A bead already shot is a raisin on both, because how far along the thread
+ * the pair has got is the one fact about this creature that is not split. A
+ * live one is the slick or the bulb its colour names on the pilot's screen —
+ * the ordinary living draw, `wornKind` and all — and a sealed bead on the
+ * navigator's. Deliberately not the real body drawn grey: a slick is flat and
+ * a bulb is round, so the silhouette alone would name the colour, which is
+ * `showsVeilCore`'s argument about a halo said about a shape instead
+ * (`strand-bead.ts`).
+ */
+function drawStrandBody(b: Body): void {
+  const { ctx, l, world, c, x, y, time, near } = b;
+  if (beadIsSpent(c)) {
+    drawRaisin(ctx, l, world.cfg, c, x, y, time, near);
+    return;
+  }
+  if (!showsBeadColor(l)) {
+    drawSealedBead(ctx, l, world.cfg, c, x, y, time, near);
+    return;
+  }
+  drawLivingBody(b);
+}
+
 /** The kinds whose body is not the ordinary blob and not a rock. */
 const EXCLUSIVE: ReadonlyMap<CreatureKind, BodyDraw> = new Map<CreatureKind, BodyDraw>([
   ["torch", drawTorchBody],
   ["ghost", drawGhostBody],
   ["wisp", drawWispBody],
   ["lid", drawLidBody],
+  ["strand", drawStrandBody],
 ]);
 
 /**

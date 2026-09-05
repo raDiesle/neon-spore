@@ -3,10 +3,14 @@ import {
   type Color,
   type CreatureKind,
   colSpan,
+  DEFAULT_CONFIG,
   type GhostPath,
   isMeteorKind,
   METEOR_TIER_KINDS,
   type RockSize,
+  STRAND_MAX,
+  STRAND_MIN,
+  strandBeadCount,
 } from "@neon-spore/sim";
 
 /**
@@ -105,6 +109,41 @@ export function ghostPathOf(entry: WaveEntry): GhostPath {
  */
 export function setGhostPath(entry: WaveEntry, path: GhostPath): void {
   entry.path = path === "down" ? undefined : path;
+}
+
+/**
+ * The lengths a thread may be authored at, read off the simulation's own two
+ * bounds rather than typed out here: `STRAND_MIN` and `STRAND_MAX` are what
+ * `strandBeadCount` clamps to, and a second list would be a panel offering a
+ * length the field then quietly refuses.
+ */
+export const STRAND_COUNTS: readonly number[] = Array.from(
+  { length: STRAND_MAX - STRAND_MIN + 1 },
+  (_, i) => STRAND_MIN + i,
+);
+
+/** Whether this entry is a strand, and therefore has a length to set. The one
+ * kind that does: `beads` means nothing on anything else, and a row offered on
+ * a slick would write a field the simulation never reads. */
+export function hasBeadCount(entry: WaveEntry): boolean {
+  return entry.kind === "strand";
+}
+
+/** How many beads this thread carries. Unset means the default, which is
+ * `strandBeads` — asked of the shipped configuration rather than repeated, so
+ * the number under the map is the number the field will build. */
+export function beadCountOf(entry: WaveEntry): number {
+  return strandBeadCount(DEFAULT_CONFIG, entry.beads);
+}
+
+/**
+ * Set the length. The default is written as *no* field rather than as the
+ * number itself, so a thread left at the shipped length serialises exactly as
+ * it always did — the same arrangement `setMeteorSize` makes with a rock left
+ * at its ordinary width, and `setGhostPath` with a ghost left falling.
+ */
+export function setBeadCount(entry: WaveEntry, beads: number): void {
+  entry.beads = beads === DEFAULT_CONFIG.strandBeads ? undefined : beads;
 }
 
 /** The bodies a colour can name. Both, always — the choice is the point. */

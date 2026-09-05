@@ -182,7 +182,13 @@ export type CreatureKind =
    * move the shield. `veer.ts` holds the whole of it and `Creature.veerDir` is
    * the whole of its state — how many changes are left is the row it is on.
    */
-  | "veer";
+  | "veer"
+  /**
+   * One bead of a thread of two to five, alternating red and cyan along the
+   * order they must be shot in: player 2 is shown which is lit and no colour,
+   * player 1 the colours and no mark. `strand.ts` is the whole of it.
+   */
+  | "strand";
 
 /**
  * Every `CreatureKind`, in one fixed order, so a kind can be written into the
@@ -225,6 +231,7 @@ export const CREATURE_KINDS = [
   "chute",
   "volley",
   "veer",
+  "strand",
 ] as const satisfies readonly CreatureKind[];
 
 /** Compile-time proof that the list above names every kind. */

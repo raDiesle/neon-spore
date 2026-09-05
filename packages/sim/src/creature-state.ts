@@ -1,5 +1,6 @@
 import type { CaromDir } from "./carom.js";
 import type { HeldState } from "./creature-state-held.js";
+import type { StrandState } from "./creature-state-strand.js";
 import type { DartDir } from "./dart.js";
 import type { GhostDir } from "./ghost.js";
 import type { VeerDir } from "./veer.js";
@@ -34,7 +35,7 @@ import type { VeerDir } from "./veer.js";
  * siblings are the rules, and a second spelling of a fallback is how the
  * picture and the shot come to disagree about the same body.
  */
-export interface CreatureState extends HeldState {
+export interface CreatureState extends HeldState, StrandState {
   /**
    * The dart's three fields, and `dart.ts` is the whole of what they mean.
    * `dartDir` is the side it is concerned with now (`-1` left, `1` right),

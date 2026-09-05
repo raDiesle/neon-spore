@@ -81,6 +81,10 @@ export function queueFromWave(wave: Pick<Wave, "entries">, cols: number): SpawnE
       // authored `"down"` — or written before crossing existed — carries no
       // field at all and produces the identical world.
       ...(e.path === undefined || e.path === "down" ? {} : { path: e.path }),
+      // How long a thread is, on the same terms: only when the wave asked for
+      // a length, so a strand left at the default carries no field at all and
+      // `strandBeadCount` is the one place that default is read.
+      ...(e.beads === undefined ? {} : { beads: e.beads }),
     });
   }
   return queue.sort((a, b) => a.beat - b.beat);

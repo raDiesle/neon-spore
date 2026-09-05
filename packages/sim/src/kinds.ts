@@ -224,6 +224,11 @@ const UNGRIPPABLE: readonly CreatureKind[] = [
   "carom",
   "chute",
   "volley",
+  // And a bead, for a reason of its own: a thread is several bodies falling
+  // level with each other, and a hand on one of them would slow that one while
+  // its neighbours went on — a picture of a string stretching, drawn over a
+  // world in which nothing is joined at all.
+  "strand",
 ];
 
 export function isGrippable(kind: CreatureKind): boolean {

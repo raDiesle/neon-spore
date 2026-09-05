@@ -94,6 +94,7 @@ function serializeEntry(entry: WaveEntry): string {
   if (entry.wears !== undefined) parts.push(`wears: "${entry.wears}"`);
   if (entry.size !== undefined) parts.push(`size: ${entry.size}`);
   if (entry.path !== undefined) parts.push(`path: "${entry.path}"`);
+  if (entry.beads !== undefined) parts.push(`beads: ${entry.beads}`);
   return `{ ${parts.join(", ")} }`;
 }
 

@@ -115,3 +115,60 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 `exports.Room.storage`) still holds — miniflare 5 changed it from 4's flat
 `{ modules, script, durableObjects }`, and `convertV4MiniflareOptions` is the
 shim that shows what the new shape wants if it changed again.
+
+
+## Five files stand exactly on the 250-line limit, so the next creature cannot land
+
+- **Found:** 2026-09-05, claude/string-connected-enemy-0dae70
+- **Files:** `packages/sim/src/creature-kinds.ts`, `packages/sim/src/creature-state.ts`,
+  `packages/sim/src/beat.ts`, `packages/sim/src/events-creature.ts`,
+  `packages/render/src/effects-spark.ts`
+
+Adding THE STRAND ended with all five of these at exactly 250 lines. Each was
+already at 247–249 and each takes one or two lines per creature — a kind in the
+union, a field, a sweep on the beat, an event arm, a burst — so the next body
+added to the bestiary cannot land in any of them without first paying for the
+room. That lane paid it by folding new cases into existing ones and by
+shortening a comment that belonged to another creature, which is the exact
+move `packages/render/src/effects-spark-silent.ts` was created to stop anybody
+having to make.
+
+Cut each along a seam that already exists, the way `creature-state-held.ts`,
+`events-carom.ts` and `effects-spark-silent.ts` were cut:
+
+- `creature-kinds.ts` — the per-kind paragraphs are the bulk. The union and
+  `CREATURE_KINDS` are the file; the prose could be one line each pointing at
+  the rule file that owns the creature, which every paragraph already names.
+- `creature-state.ts` — one more `…-state-<creature>.ts` beside the strand's,
+  for whichever group is next largest (THE GYRE's four, THE LID's five).
+- `beat.ts` — the branch chain in the fall loop is the half that grows; a
+  `step-body.ts` holding "what this kind does instead of falling" is the seam
+  the comments in it already describe.
+- `events-creature.ts` — the same cut `events-carom.ts` and `events-volley.ts`
+  made twice already, for whichever creature's arm is longest.
+- `effects-spark.ts` — the bursts that are a body's own colour are one group
+  and the structural ones another; either is a file.
+
+Nothing about the game changes. `bun run check` proves it: `limits.test.ts` is
+the whole of the acceptance.
+
+
+## THE STRAND is drawn by nothing in `packages/render/test/frame.test.ts`
+
+- **Found:** 2026-09-05, claude/string-connected-enemy-0dae70
+- **Files:** `packages/render/test/frame.test.ts`, `packages/render/src/strand.ts`,
+  `packages/render/src/strand-bead.ts`, `packages/render/src/creature-body.ts`
+
+Every other creature is drawn again through the stub canvas that refuses what
+a real one refuses — that is what catches a value which is a perfectly good
+`string` and not a colour. The strand's three new pictures are not: the thread
+(`drawStrands`), the sealed bead player 2 sees in place of a body, and the
+raisin a shrivelled one leaves behind. All three take a colour out of
+`PALETTE`, go through `hazed`, and are only ever reached with a `strand` on the
+field, which no existing frame test puts there.
+
+Add a case beside the gyre's and the veer's: a world with one thread on it,
+drawn at each of the three `ViewRole`s, with at least one bead shrivelled so
+`drawRaisin` is reached, and once with the thread's last bead spent so the
+sweep has run. `gyre-frame.test.ts` and `veer-frame.test.ts` are the shape to
+copy.

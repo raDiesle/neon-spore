@@ -7,6 +7,7 @@ import { gyreOnSpawn, mountsFor } from "./gyre.js";
 import { recoilOnSpawn } from "./recoil.js";
 import { rindOnSpawn } from "./rind.js";
 import { shellOnSpawn } from "./shell.js";
+import { stringStrand } from "./strand.js";
 import { clampSpanCol, colSpan, fallTilesPerBeat, spanOf } from "./types.js";
 import { veerOnSpawn } from "./veer.js";
 import { veilOnSpawn } from "./veil.js";
@@ -159,6 +160,15 @@ export function spawnArrivals(world: World): void {
     if (entry.kind === "gyre") {
       const hub = world.creatures[world.creatures.length - 1]!;
       world.creatures.push(...mountsFor(world, hub));
+    }
+    // And a strand is the second, on the same terms with one difference: the
+    // entry itself *is* one of the bodies. It becomes the leftmost bead of the
+    // thread and `stringStrand` hangs the rest to its right — settling that
+    // first bead's own colour and place in the order on the way, because both
+    // follow from a roll that cannot be taken until the count is known.
+    if (entry.kind === "strand") {
+      const first = world.creatures[world.creatures.length - 1]!;
+      world.creatures.push(...stringStrand(world, first, entry.beads));
     }
     world.spawned += 1;
   }

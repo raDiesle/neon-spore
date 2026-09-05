@@ -146,11 +146,12 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
         pitch: pitchForRow(e.row, rows),
       };
     case "gyreBroke":
+    case "strandBroke":
       // A mechanism letting go rather than a body dying, and the one cue in
       // the catalogue written for exactly that — "something structural
-      // failing over a second and a half". It was spare, kept for a boss
-      // coming apart after it is already dead, which is what a wheel with
-      // nothing left on its rim is.
+      // failing over a second and a half". A wheel with nothing left on its
+      // rim is one; so is a thread with nothing alive left on it, which is why
+      // the two share a case rather than each naming the same sound.
       return { id: "ruin.collapse", pan: panForCol(e.col, cols) };
     case "wardenDown":
       return { id: "boss.queenDown", pan: panForCol(e.col, cols) };
@@ -226,6 +227,8 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "ghostRelease":
     case "ghostTurn":
     case "ghostCharge":
+    case "strandBead":
+    case "strandSwell":
       return creatureCue(e, cols, rows);
     // THE CAROM's four, in `bind-carom.ts` — one arrival taken apart, cut out
     // of `bind-creatures.ts` the way `events-carom.ts` is cut out of

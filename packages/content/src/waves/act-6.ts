@@ -38,6 +38,37 @@ import type { Wave } from "../wave-types.js";
  * A veer entry names its kind and no colour, the way every rock does: nothing
  * about it can be shot, so there is nothing on the arrival to author.
  */
+/**
+ * **THE STRAND, in three threads**, and the habit it has to break is the one
+ * every aim target so far has rewarded: *look at your own screen and act on
+ * what is there*. A slick is a colour and a column on both phones. A veil
+ * hides one fact from one seat, a wisp hides a body from one seat, a dart
+ * hides a side — and in every one of them the seat that can see is the seat
+ * that speaks, while the other simply does as it is told.
+ *
+ * Here neither of them can do anything alone. The navigator is shown which
+ * bead is lit and no colours at all; the pilot is shown the colours and no
+ * mark. So the sentence is two halves in two mouths — *third from the left*
+ * against *that one is cyan* — and it has to be said again for every bead.
+ *
+ * 1. Beat 0, a thread of two, dead centre and alone. Two beads is one exchange
+ *    and then the last one, which is the smallest version of the creature
+ *    there is: enough to discover that only one of them answers, and short
+ *    enough that discovering it costs nothing.
+ * 2. Beats 18-22, a thread of three with an ordinary slick beside it. This is
+ *    the wave. The slick is what a strand is defined *against* — a body either
+ *    of them could have answered without saying a word — and it is on the
+ *    field while the pair spends three exchanges on the thread.
+ * 3. Beats 36-40, a thread of five and a plain rock. Five beads is five
+ *    exchanges under one fall, and the rock is the shield's, which is the
+ *    other thumb on the other phone.
+ *
+ * A strand entry names its kind, one colour and a length. The colour is the
+ * bead that has to be shot **first** and every other one alternates from it;
+ * which end of the thread that bead is standing at is rolled on the beat it
+ * arrives, and is the one thing about this creature nobody may compose
+ * against (`stringStrand`).
+ */
 export const WAVES_ACT_6: Wave[] = [
   {
     id: "theVeer",
@@ -55,6 +86,23 @@ export const WAVES_ACT_6: Wave[] = [
       { beat: 34, col: 2, kind: "veer", color: null },
       { beat: 36, col: 4, kind: "meteor", color: null },
       { beat: 38, col: 6, kind: "veer", color: null },
+    ],
+  },
+  {
+    id: "theStrand",
+    name: "THE STRAND",
+    sentence: "The one where firing on what you can see is what puts a body back.",
+    guide: {
+      both: "Beads on one thread, alternating red and cyan. Only the next one along it can be shot — and a shot at any other one swells the last dead bead back to life.",
+      p1: "You can see the colours and not which bead is lit. Wait to be told which one, put the cannon under it, and say its colour out loud before the trigger comes.",
+      p2: "You can see which bead is lit and no colour at all. Count it from an end and say the number — then load what you are told, not what you guess.",
+    },
+    entries: [
+      { beat: 0, col: 3, kind: "strand", color: "red", beads: 2 },
+      { beat: 18, col: 1, kind: "strand", color: "cyan", beads: 3 },
+      { beat: 22, col: 6, color: "red" },
+      { beat: 36, col: 1, kind: "strand", color: "red", beads: 5 },
+      { beat: 40, col: 0, kind: "meteor", color: null },
     ],
   },
 ];

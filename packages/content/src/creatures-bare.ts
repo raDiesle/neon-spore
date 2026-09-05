@@ -19,9 +19,34 @@ import type { CreatureDef } from "./creatures.js";
  * Both records are spread into `WORN_CREATURES`, so `creatures-table.ts` and
  * everything downstream still ask one question in one place.
  */
-export type BareKind = Extract<CreatureKind, "echo" | "rind" | "mount">;
+export type BareKind = Extract<CreatureKind, "echo" | "rind" | "mount" | "strand">;
 
 export const BARE_CREATURES: Record<BareKind, CreatureDef> = {
+  strand: {
+    kind: "strand",
+    // The cannon alone, and the panel says so. Nothing about the shield, the
+    // beat or the ward changes — what changes is that the pair cannot work out
+    // between them which column to put the cannon in without both of them
+    // saying something, and control visibility has nothing to say about that.
+    controls: ["aim"],
+    // No colour of its own, the way an echo and a rind have none: a strand
+    // arrives red or cyan and that is the colour of the bead which has to be
+    // shot **first**, from which every other one follows by alternating
+    // (`beadColor`). So the authored colour is a fact about one arrival, and
+    // the fourth blank in this table for the plainest of reasons — a bead
+    // simply *is* a slick or a bulb, and a colour here would be the kind
+    // claiming one of the two bodies each of them can be.
+    color: null,
+    authorsColor: true,
+    // Player 1's strip, and the same rule THE DART and THE WISP are on rather
+    // than an exception to it: the seat that is shown one coming is not the
+    // seat that can fire. The pilot has to have the cannon somewhere along the
+    // thread before the navigator can name a bead, and they hold no trigger to
+    // do anything else with the warning.
+    radar: "p1",
+    blurb:
+      "Two to five slicks and bulbs threaded on one line, alternating, and only one of them can be shot at a time. The navigator is shown which — and no colours at all; the pilot is shown the colours and no mark. A shot at the wrong bead swells the last dead one back to life.",
+  },
   echo: {
     kind: "echo",
     // The cannon alone, and the panel says so. Everything hard about this one

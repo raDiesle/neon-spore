@@ -4,10 +4,12 @@ import type { GhostPath, RockSize } from "@neon-spore/sim";
 import {
   authorsBody,
   BODY_KINDS,
+  beadCountOf,
   bodyOf,
   colorForBody,
   GHOST_PATHS,
   ghostPathOf,
+  hasBeadCount,
   hasGhostPath,
   isTieredRock,
   METEOR_SIZES,
@@ -15,6 +17,8 @@ import {
   type MeteorSpeed,
   meteorSize,
   meteorSpeed,
+  STRAND_COUNTS,
+  setBeadCount,
   setBody,
   setGhostPath,
   setMeteorSize,
@@ -87,6 +91,20 @@ export function cellConfig({ entry, onEdit }: CellConfigOptions): HTMLElement | 
       }),
     );
   }
+  if (hasBeadCount(e)) {
+    // THE STRAND's own row, and the third per-arrival fact in the game that
+    // changes what an entry *is* rather than only how it moves. How many beads
+    // hang on the thread is how many times the pair has to say the same two
+    // halves of one sentence — not two creatures, for the reason
+    // `WaveEntry.beads` gives, so it is a number here rather than four more
+    // brushes in the palette.
+    rows.push(
+      choiceRow("BEADS", STRAND_COUNTS, beadCountOf(e), beadLabel, (beads: number) => {
+        setBeadCount(e, beads);
+        onEdit();
+      }),
+    );
+  }
   if (!rows.length) return null;
 
   const box = document.createElement("div");
@@ -105,6 +123,12 @@ function speedLabel(speed: MeteorSpeed): string {
  * or it goes across. */
 function pathLabel(path: GhostPath): string {
   return path === "down" ? "DOWN" : "ACROSS";
+}
+
+/** How many bodies hang on the thread. The bare number: the label beside it
+ * already says what is being counted. */
+function beadLabel(beads: number): string {
+  return String(beads);
 }
 
 /** One tile or the 2x2 square. The number is the width in tiles, so the label

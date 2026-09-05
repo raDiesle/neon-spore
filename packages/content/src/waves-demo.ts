@@ -74,6 +74,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   slick: { wave: "firstStep" },
   bulb: { wave: "cyan" },
   lure: { wave: "theLure" },
+  strand: { wave: "theStrand" },
   throb: { wave: "theThrob" },
   shell: { wave: "theThirdShot" },
   meteor: { wave: "theRock" },

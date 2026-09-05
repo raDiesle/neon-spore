@@ -239,4 +239,9 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
   // resolves it right up until the shell bursts, after which there is nothing
   // left to resolve.
   volley: WORN_CREATURES.volley,
+  // THE STRAND, and the fourth bare body: two to five slicks and bulbs on one
+  // thread, with nothing laid over any of them. Next door with the echo, the
+  // rind and the mount for their reason — what makes a bead a bead is where it
+  // is on the line and which one is lit, and neither is a costume.
+  strand: BARE_CREATURES.strand,
 };

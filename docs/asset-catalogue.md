@@ -332,7 +332,7 @@ Roughly in the order the work is worth doing.
    What is left undrawn is not an idea without a picture, it is a **creature**
    without one:
    the thirteen in [bestiary](spec/bestiary.md) 10.1 and 10.2 that were never
-   built — Dart, Veil, Strand, Crystal, Gum, Choke, Glyph, Thread, The Shadow,
+   built — Dart, Veil, Crystal, Gum, Choke, Glyph, Thread, The Shadow,
    The Doppelgänger, The Clamp, The Beat-breaker, The Jammer. They are not here
    because the bestiary is not the idea store: a draft's `suggests` has to
    resolve to a heading, the test only reads `ideas.md` and `bosses.md`, and a

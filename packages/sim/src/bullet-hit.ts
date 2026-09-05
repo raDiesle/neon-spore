@@ -16,6 +16,7 @@ import { recoilStruck } from "./recoil.js";
 import { rindStruck } from "./rind.js";
 import { shellIsBare } from "./shell.js";
 import { shellStruck } from "./shell-round.js";
+import { beadStruck } from "./strand-round.js";
 import { type Bullet, type Creature, isWardable } from "./types.js";
 import { veilStruck } from "./veil.js";
 import { wispStruck } from "./wisp.js";
@@ -103,6 +104,11 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
   // its own thrust has nothing to cut and falls through to the ordinary kill
   // below, which is the branch a slick takes.
   if (hit.kind === "chute" && chuteIsOpen(hit)) return chuteStruck(world, b, hit);
+  // One bead of a thread, and the one body in the game a shot can be wrong
+  // about in two different ways at once: the wrong bead, or the right bead in
+  // the wrong colour. Both answers are one rule, in `strand-round.ts` for
+  // `claspStruck`'s reason (`strand.ts` for what the creature is).
+  if (hit.kind === "strand") return beadStruck(world, b, hit);
   if (hit.kind === "lid") {
     // Plates that only part while a hand is on the cord, and the lens behind
     // them. All three answers a shot can get are one rule, in `lid.ts` for

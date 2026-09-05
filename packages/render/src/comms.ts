@@ -42,6 +42,21 @@ import { torchWarning } from "./torch-alarm.js";
 export type Seat = "p1" | "p2";
 
 /**
+ * Who has to speak about a kind: one seat, **both**, or neither.
+ *
+ * `"both"` arrived with THE STRAND and is the first of its kind in the game.
+ * Every split before it hid one fact from one screen — what is inside a cloud,
+ * which side a dart takes, where a wisp is standing — so naming the seat that
+ * could see it named the seat that had to talk, and the other one listened. A
+ * thread hides a different thing from each of them: the navigator is shown
+ * which bead is lit and no colour, the pilot the colours and no mark, and
+ * neither can act on what they have got. So both mouths light for one body,
+ * which is what `commsCall` already draws when two creatures are on the field
+ * at once — this is the first time one creature does it on its own.
+ */
+export type Talker = Seat | "both";
+
+/**
  * **Every kind has a row, including the twelve that say nothing.** This was a
  * `Partial<Record<…>>` with five entries, which reads as the shorter list and
  * is the one that goes wrong: a kind whose whole point is that one screen sees
@@ -150,11 +165,15 @@ const TALKER = {
   meteorFast: null,
   meteorFaster: null,
   meteorFastest: null,
-} as const satisfies Record<CreatureKind, Seat | null>;
+  // THE STRAND, and the only `"both"` in the table. See `Talker` above: this
+  // is the one body where each seat is holding half of one sentence and
+  // neither half is worth anything alone.
+  strand: "both",
+} as const satisfies Record<CreatureKind, Talker | null>;
 
 /** The seat that has to say something about this kind, or null if the two of
  * them can both see everything there is to see about it. */
-function commsTalker(kind: CreatureKind): Seat | null {
+function commsTalker(kind: CreatureKind): Talker | null {
   return TALKER[kind];
 }
 
@@ -186,7 +205,10 @@ export function commsCall(world: World): CommsCall | null {
   let p2 = false;
   for (const c of world.creatures) {
     const seat = commsTalker(c.kind);
-    if (seat === "p1") p1 = true;
+    if (seat === "both") {
+      p1 = true;
+      p2 = true;
+    } else if (seat === "p1") p1 = true;
     else if (seat === "p2") p2 = true;
   }
   if (torchWarning(world, world.cfg.radarLead)) p1 = true;

@@ -83,6 +83,14 @@ const LIVING_LOOK = {
   // row describes the creature only while it is a creature, and a contour here
   // would be a second shape for a body the pair already has one word for.
   volley: null,
+  // THE STRAND is the eleventh, and the one whose answer depends on which
+  // screen is asking. On the pilot's it is a slick or a bulb with nothing laid
+  // over it — `wornKind` resolves one, so a row here would be a second shape
+  // for a body the pair already has a word for. On the navigator's it is not
+  // drawn as a body at all: a sealed bead, with no colour anywhere on it, by
+  // a path of its own in `render/strand.ts`. Neither half is a contour this
+  // table could hold.
+  strand: null,
   // A body of its own, and not a blob — so `livingSilhouette` has nothing to
   // return for it and `drawLiving` never sees one. THE GHOST's outline is a
   // dome over a hanging hem (`ghost-shape.ts`), which no radial contour can

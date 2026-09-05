@@ -215,6 +215,11 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/mid-beat.ts` | **Where a thing stands between two beats**, in thousandths of a tile |
 | `packages/sim/src/scene-aim.ts` | The three acts a film aims rather than writes down, resolved against a world |
 | `packages/sim/src/boss-round.ts` | Stand the boss on a numbered round, through that fight's own way into one |
+| `packages/sim/src/config-strand.ts` | THE STRAND's three numbers: the default length of a thread, and what a bead and a whole thread are worth |
+| `packages/sim/src/creature-state-strand.ts` | **THE STRAND's three fields**, and the whole of what one bead remembers |
+| `packages/sim/src/events-strand.ts` | THE STRAND's three: a bead shrivelling, a raisin swelling back, and the thread itself parting |
+| `packages/sim/src/strand-round.ts` | What **happens** to a thread: the shot that meets a bead, and the thread parting once nothing on it is alive |
+| `packages/sim/src/strand.ts` | THE STRAND: what a thread of beads is — where they stand, what colour each carries, and which one may be shot |
 
 ### packages/content
 
@@ -555,6 +560,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/fleet-water.ts` | The water THE FLEET's chart stands on, and what closes over a hull that has gone down in it |
 | `packages/render/src/frame-field.ts` | The two passes that are about the field: the empty board, and the bodies on it |
 | `packages/render/src/frame-ship.ts` | The two passes that are about the ship: the hull with its controls, and the overlays |
+| `packages/render/src/strand-bead.ts` | The two bodies THE STRAND draws that are **not** a slick or a bulb |
+| `packages/render/src/strand.ts` | THE STRAND's thread, and the mark on the bead that has to be shot next |
 
 ### packages/net
 

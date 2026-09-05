@@ -135,6 +135,20 @@ export {
   laying,
   type ShotCharge,
 } from "./shot-charge.js";
+export {
+  beadColor,
+  beadIsActive,
+  beadIsSpent,
+  beadOrder,
+  beadStrand,
+  STRAND_MAX,
+  STRAND_MIN,
+  strandBeadCount,
+  strandBeads,
+  strandBecomes,
+  strandHead,
+  strandLeft,
+} from "./strand.js";
 export type {
   Bullet,
   Color,

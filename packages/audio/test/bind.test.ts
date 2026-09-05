@@ -34,6 +34,8 @@ async function eventTypes(): Promise<string[]> {
     ["packages/sim/src/events-carom.ts", "export type CaromEvent ="],
     // THE VOLLEY's two, on exactly the same terms and for the same reason.
     ["packages/sim/src/events-volley.ts", "export type VolleyEvent ="],
+    // And THE STRAND's three, cut out for the same reason again.
+    ["packages/sim/src/events-strand.ts", "export type StrandEvent ="],
   ] as const) {
     const src = await Bun.file(join(ROOT, file)).text();
     const start = src.indexOf(decl);
@@ -86,6 +88,9 @@ const SAMPLES: Record<string, SimEvent> = {
   mazeDown: { type: "mazeDown", col: 5 },
   lureHit: { type: "lureHit", col: 3, row: 4, color: "cyan" },
   lureSeen: { type: "lureSeen", col: 3 },
+  strandBead: { type: "strandBead", id: 6, col: 2, row: 3, color: "red", left: 2 },
+  strandSwell: { type: "strandSwell", id: 6, col: 2, row: 3, color: "cyan", left: 3 },
+  strandBroke: { type: "strandBroke", col: 3, row: 5 },
   lureVanished: { type: "lureVanished", col: 3, row: 4, color: "cyan" },
   shellBreak: { type: "shellBreak", col: 3, row: 4, left: 1 },
   shellBare: { type: "shellBare", col: 3, row: 5, color: "cyan" },
@@ -266,6 +271,8 @@ const CREATURE_IDS: Record<string, string> = {
   ghostRelease: "creature.ghostRelease",
   ghostTurn: "creature.ghostTurn",
   ghostCharge: "creature.ghostCharge",
+  strandBead: "impact.split",
+  strandSwell: "impact.wrongTarget",
 };
 
 /**

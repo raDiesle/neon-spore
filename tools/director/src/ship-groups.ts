@@ -40,6 +40,7 @@ export type GroupName =
   | "THE CAROM — a rock with something alive in it"
   | "THE VOLLEY — a rock you have to hit back three times"
   | "THE VEER — a rock that changes lane on the way down"
+  | "THE STRAND — beads on a thread, shot in order"
   | "THE GYRE — six bodies on a turning rim"
   | "THE LID — an armoured eye held open by a hand"
   | "SCORE"
@@ -77,6 +78,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE CAROM — a rock with something alive in it",
   "THE VOLLEY — a rock you have to hit back three times",
   "THE VEER — a rock that changes lane on the way down",
+  "THE STRAND — beads on a thread, shot in order",
   "THE GYRE — six bodies on a turning rim",
   "THE LID — an armoured eye held open by a hand",
   "SCORE",

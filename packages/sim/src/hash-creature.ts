@@ -198,5 +198,18 @@ export function creatureHashParts(c: Creature): number[] {
   // the fingerprint. How many changes are left needs no field of its own: it
   // is `c.row` far above, which `veerChangesLeft` divides.
   out.push(c.veerDir ?? 0);
+  // THE STRAND's three. Which thread a bead hangs on and where it stands in
+  // the order together decide *which bead may be shot at all*, so two devices
+  // that disagree about either are two devices where one player's press kills
+  // and the other's swells a raisin back — one field walking in two
+  // directions. Whether it is spent decides the same thing a beat later, and
+  // when the whole thread goes with it (`breakSpentStrands`). `-1` for a body
+  // that is not a bead, a value neither an id nor an order can take, so "not
+  // a strand" and "head of one" are never the same number in the fingerprint.
+  // The colour needs no field of its own: it is `c.color` far above, drawn
+  // from the order by `beadColor` on the beat the thread arrives.
+  out.push(c.strandId ?? -1);
+  out.push(c.strandOrder ?? -1);
+  out.push(c.strandSpent ? 1 : 0);
   return out;
 }

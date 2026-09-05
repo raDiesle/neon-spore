@@ -54,6 +54,19 @@ export interface SpawnEntry {
    * or might not prowl is a wave whose whole shape is decided after it starts.
    */
   path?: GhostPath;
+  /**
+   * How many beads a `strand` arrives with, and absent on every other kind —
+   * and on a strand the author left at the default, which is what
+   * `strandBeadCount` answers. Two to five; the clamp is that function's and
+   * is never re-derived here, because the field's own width has a say in it.
+   *
+   * Authored rather than rolled, for `wears`' reason: how long the order is
+   * *is* how long the exchange is, and a wave cannot be composed against a
+   * length its author does not know. What is rolled is which end of the thread
+   * the order starts at, which is the half neither player may plan against
+   * (`stringStrand`).
+   */
+  beads?: number;
 }
 
 /**

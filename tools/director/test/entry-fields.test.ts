@@ -123,10 +123,11 @@ describe("a rock's width", () => {
 describe("the kinds whose colour a wave authors", () => {
   const bodied = (Object.keys(CREATURES) as CreatureKind[]).filter(authorsBodyColor);
 
-  test("is exactly the eleven", () => {
+  test("is exactly the twelve", () => {
     // The lure's disguise, the shell's core, the clasp's prisoner, the dart's
     // colour, the ghost's, the echo's, the rind's, the lid's lens, the
-    // recoil's first body, the carom's prisoner and the volley's — eleven
+    // recoil's first body, the carom's prisoner, the volley's and the head of
+    // the strand — twelve
     // bodies whose colour is a fact about one arrival rather than about the
     // kind. The recoil's is the shortest-lived of them: an author writes which
     // trigger answers it *first*, and every bounce turns it over from there
@@ -134,7 +135,10 @@ describe("the kinds whose colour a wave authors", () => {
     // then stops existing, because what the shot leaves behind is a rock with
     // no colour at all. The volley's is that one read backwards: it never
     // changes either, and it stops being sealed in rock instead of becoming
-    // it (`hatchVolley`).
+    // it (`hatchVolley`). The strand's is the only one that is not about a
+    // single body at all: an author writes the colour of the bead that has to
+    // be shot **first**, and every other one on the thread alternates from it
+    // (`beadColor`), so what is authored is one end of a pattern.
     expect(new Set(bodied)).toEqual(
       new Set([
         "lure",
@@ -148,6 +152,7 @@ describe("the kinds whose colour a wave authors", () => {
         "lid",
         "carom",
         "volley",
+        "strand",
       ]),
     );
   });

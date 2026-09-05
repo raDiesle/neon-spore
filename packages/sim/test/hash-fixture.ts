@@ -62,6 +62,9 @@ const creature = (): Required<Creature> => ({
   veerDir: -1,
   volleyPlates: 2,
   volleyRise: 3,
+  strandId: 4,
+  strandOrder: 2,
+  strandSpent: true,
 });
 
 const bullet = (): Required<Bullet> => ({

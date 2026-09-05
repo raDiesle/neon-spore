@@ -8,6 +8,7 @@ import { gyreBecomes } from "./gyre-rim.js";
 import { recoilBecomes } from "./recoil.js";
 import { rindBecomes } from "./rind.js";
 import { shellBecomes } from "./shell.js";
+import { strandBecomes } from "./strand.js";
 import type { Creature, CreatureKind } from "./types.js";
 import { veilBecomes } from "./veil.js";
 import { volleyBecomes } from "./volley.js";
@@ -134,6 +135,13 @@ export function wornKind(c: Creature): CreatureKind {
   // one copy of the pairing, and it is the same call the hatch makes — so what
   // the pair has been looking at and what falls out are never two bodies.
   if (c.kind === "volley") return volleyBecomes(c);
+  // A bead is a slick or a bulb with nothing laid over it at all, the way a
+  // mount is — the thread between them is drawn *beside* the bodies rather
+  // than on top of one (`render/strand.ts`). It is here rather than given a
+  // silhouette of its own because the word player 1 has to say out loud about
+  // one is the word they already have; the shape player 2 sees instead is the
+  // sealed bead, and that one is never resolved through this function.
+  if (c.kind === "strand") return strandBecomes(c);
   return c.kind === "lure" ? (c.wears ?? "slick") : c.kind;
 }
 

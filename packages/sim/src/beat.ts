@@ -13,6 +13,7 @@ import { breakSpentGyres, stepGyre } from "./gyre.js";
 import { resolveHull } from "./hull.js";
 import { spawnPods } from "./pods.js";
 import { spawnArrivals } from "./spawn.js";
+import { breakSpentStrands } from "./strand-round.js";
 import { isBossBody } from "./types.js";
 import { stepVeer } from "./veer.js";
 import { veilMorph } from "./veil.js";
@@ -72,12 +73,12 @@ export function onBeat(world: World): void {
     );
   }
 
-  // Every wheel with nothing left on its rim, taken off before anything else
-  // this beat looks at the field. It has to be before the clear test at the
-  // bottom, or a bare hub would hold a wave open with nothing in it to shoot;
-  // and it is a whole beat after the last mount died on purpose, so the wheel
-  // is seen to come apart rather than vanishing inside one frame (`gyre.ts`).
+  // Every wheel with nothing left on its rim and every thread with nothing
+  // alive on it, taken off before the clear test below — or a bare hub or a
+  // thread of raisins would hold a wave open with nothing in it to shoot. A
+  // beat after the last body on either went, so it is seen to come apart.
   breakSpentGyres(world);
+  breakSpentStrands(world);
 
   // Said once for the whole field rather than once per body: every wisp takes
   // the hop on the same beat (`wispHops`), and what the event is for is the

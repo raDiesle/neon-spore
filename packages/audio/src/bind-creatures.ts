@@ -44,7 +44,9 @@ export function creatureCue(
         | "wispHop"
         | "ghostRelease"
         | "ghostTurn"
-        | "ghostCharge";
+        | "ghostCharge"
+        | "strandBead"
+        | "strandSwell";
     }
   >,
   cols: number,
@@ -72,13 +74,15 @@ export function creatureCue(
         pitch: pitchForRow(e.row, rows),
       };
     case "rindShed":
+    case "strandBead":
       // The same crack THE SHELL's pieces get, and for the same reason: a
-      // piece leaving a body that is still there afterwards. Deliberately not
-      // `impact.destroyRed`/`Cyan` — those are the sound of a column closing,
-      // and the whole of this creature is that it has not closed. Nor
-      // `creature.moult`, which is the sound of the *last* covering coming
-      // off: a rind's layers all sound alike, because "again" is the same word
-      // both times.
+      // piece leaving a body that is still there afterwards — or, on a thread,
+      // a bead that has stopped being a target without leaving the field.
+      // Deliberately not `impact.destroyRed`/`Cyan` — those are the sound of a
+      // column closing, and the whole of both creatures is that it has not
+      // closed. Nor `creature.moult`, which is the sound of the *last*
+      // covering coming off: a rind's layers and a thread's beads all sound
+      // alike, because "again" is the same word every time.
       return {
         id: "impact.split",
         pan: panForCol(e.col, cols),
@@ -114,9 +118,11 @@ export function creatureCue(
         pitch: pitchForRow(e.row, rows),
       };
     case "lureHit":
+    case "strandSwell":
       // Not `impact.destroyRed`/`Cyan`: those are the sound of the pair doing
-      // the right thing, and this is the one hit that must not be mistaken
-      // for one (`docs/spec/audio.md`).
+      // the right thing, and these are the two hits that must not be mistaken
+      // for one (`docs/spec/audio.md`). A bead swelling back on a thread is
+      // the lure's mistake exactly — a shot that landed and cost something.
       return {
         id: "impact.wrongTarget",
         pan: panForCol(e.col, cols),

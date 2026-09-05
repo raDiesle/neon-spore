@@ -51,6 +51,7 @@ const TWO_BODIED: readonly CreatureKind[] = [
   "carom",
   "chute",
   "volley",
+  "strand",
 ];
 
 export function cardSubjects(kind: CreatureKind): string[] {
@@ -113,6 +114,7 @@ export const SHORT_NOTE: Partial<Record<CreatureKind, string>> = {
   slick: "shot with the red cannon",
   bulb: "shot with the cyan cannon",
   lure: "do not shoot it",
+  strand: "beads on a thread; only p2 sees which is next",
   throb: "only a shot while it is swollen lands",
   shell: "shoot the armour away first",
   clasp: "ward it, then shoot",

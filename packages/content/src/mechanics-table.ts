@@ -122,6 +122,15 @@ export const MECHANICS = {
     // neither can be worked out from the other.
     waveNames: true,
   },
+  strand: {
+    what: "Two to five slicks and bulbs threaded on one line, alternating red and cyan, and only one of them can be shot at a time — the next along the thread. One of you is shown which that is and no colours; the other is shown the colours and no mark. A shot at the wrong one swells the last dead bead back to life.",
+    reach: "spawn",
+    // A wave names this kind and gives it a colour, the way it does for an
+    // echo: the colour is the bead that has to be shot *first*, and every
+    // other one on the thread follows from it by alternating — so what is
+    // authored is one end of a pattern rather than one body.
+    waveNames: true,
+  },
   gyre: {
     what: "A wheel with six bodies bolted round its rim, alternating red and cyan, turning as it comes. It falls to the middle of the field and then walks a diamond there, faster every beat and a row lower every lap, until the bottom of it grinds along the ship. Opening the maw slows the turn for four beats, wherever the cannon is standing — it is the only thing either of you can do about the speed.",
     reach: "spawn",

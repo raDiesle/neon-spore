@@ -56,12 +56,13 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
       return at(l, e.col, e.row, 24, PALETTE.red);
     case "wardenDown":
       return at(l, e.col, e.row, 24, PALETTE.rock);
-    // THE GYRE's armature failing, a beat after the last body came off it.
-    // The rock's colour and not a body's: nothing living broke here — the six
-    // were already gone, each with its own burst — and this is a mechanism
-    // letting go. Sized with the two bosses for the reason they are: it is the
-    // end of the wave, and the pair has earned being shown one.
+    // THE GYRE's armature failing, and THE STRAND's thread parting, both a beat
+    // after the last body on them went. The rock's colour and not a body's:
+    // nothing living broke here — every bead and every mount was already gone,
+    // each with its own burst — and what is left is structure letting go.
+    // Sized with the two bosses, because it is the end of an arrival.
     case "gyreBroke":
+    case "strandBroke":
       return at(l, e.col, e.row, 24, PALETTE.rock);
     case "podLoose":
       return at(l, e.col, e.row, 10, PALETTE.ember);
@@ -70,9 +71,10 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     // The ignition, at the tile the body stood in. It used to be eight grey
     // particles, smaller than a kill so a shot that felt satisfying to fire
     // read as smaller than it felt; a lure now goes up and takes the hull with
-    // it in three places (`resolveLure`), so it is the other way round on both
-    // counts. The rest of it is `lure-blast.ts`, over the whole stage.
+    // it in three places, so it is the other way round on both counts. And a
+    // bead swelling back on a thread is the same mistake in the same colour.
     case "lureHit":
+    case "strandSwell":
       return at(l, e.col, e.row, 26, e.color === "red" ? PALETTE.red : PALETTE.cyan);
     // A piece coming off THE SHELL: an ordinary burst in the armour's own
     // material colour. The raw edge it leaves behind is not drawn here —
@@ -96,13 +98,14 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "claspBreak":
       return at(l, e.col, e.row, 14, PALETTE.claspShield);
 
-    // A layer off THE RIND: the body's own colour, because the shot landed and
-    // the pair should feel that it did — and half the particles of a `destroy`,
-    // because the thing is still coming and the burst must not read as the end
-    // of it. The size it steps down to is not drawn here at all: that is read
-    // fresh every frame off `rindLayers` (`livingBodyMul`), which is the one
-    // thing that cannot go stale across a restart.
+    // A layer off THE RIND, and a bead shrivelling on THE STRAND: the body's
+    // own colour, because the shot landed and the pair should feel that it did
+    // — and half the particles of a `destroy`, because the thing is still
+    // there and the burst must not read as the end of it. What each becomes is
+    // not drawn here at all: both are read fresh every frame off the body,
+    // which is the one thing that cannot go stale across a restart.
     case "rindShed":
+    case "strandBead":
       return at(l, e.col, e.row, 10, e.color === "red" ? PALETTE.red : PALETTE.cyan);
 
     // A recoil bouncing, and the one hit in this table whose burst is **not**

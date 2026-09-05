@@ -154,6 +154,12 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "crossing on a diagonal and turning at the walls twice before it lands. " +
     "The shield cannot touch it whole; the cannon cracks it, and what drops " +
     "out is a meteor that has to be warded. See carom.ts.",
+  "THE STRAND — beads on a thread, shot in order":
+    "Two to five slicks and bulbs on one line, alternating, and only the " +
+    "next one along it can be shot. The navigator is shown which that is " +
+    "and no colours; the pilot is shown the colours and no mark, so the " +
+    "column and the trigger are two halves of one sentence. A shot at the " +
+    "wrong bead swells the last dead one back. See strand.ts.",
   "THE VEER — a rock that changes lane on the way down":
     "The first rock that does not hold its column. It falls a row a beat like " +
     "the plain tier and steps one lane to the side three times on the way, at " +

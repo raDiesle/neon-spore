@@ -187,6 +187,13 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
     // there is nothing to carry into the next frame: the hub is off the field
     // on the same beat, so an entry keyed to it would have nothing to look up.
     case "gyreBroke":
+    // A bead shrivelling or filling again, and the thread parting. None of the
+    // three leaves a transient: a raisin is drawn off `strandSpent` on the
+    // body every frame (`strand.ts`), and the thread is off the field on the
+    // beat it breaks, so an entry keyed to it would have nothing to look up.
+    case "strandBead":
+    case "strandSwell":
+    case "strandBroke":
     case "wispHop":
     // THE GHOST's three, and all three for the same reason: none of them is a
     // particle on the field. The escape is `ghost-release.ts`, a transient

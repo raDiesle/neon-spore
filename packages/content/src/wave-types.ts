@@ -91,6 +91,22 @@ export interface WaveEntry {
    * again the first time a third path existed. So the path is a field.
    */
   path?: GhostPath;
+  /**
+   * How many beads a `strand` arrives with: `2`..`5`. Absent on every other
+   * kind, and absent on a strand left at the default — so a thread nobody
+   * lengthened serialises exactly as it always did, the same arrangement
+   * `size` and `path` make above.
+   *
+   * **A field and not five kinds**, and the asymmetry `size` argues for said
+   * about a count instead of a width: a thread of two and a thread of five are
+   * not two creatures — the pair says exactly the same two sentences about
+   * both, and what changes is how many times they have to say them. Five kinds
+   * in the bestiary would teach five words for one thing.
+   *
+   * The clamp is `strandBeadCount`'s and is never re-derived here, because the
+   * field's own width has a say in it.
+   */
+  beads?: number;
 }
 
 /**
