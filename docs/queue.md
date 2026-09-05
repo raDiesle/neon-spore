@@ -172,6 +172,7 @@ bursting in mid-air over a body the cannon then takes. The rehearsal walk in
 ## THE MIRROR's glyphs draw player one's tissue on player two's screen
 
 - **Found:** 2026-09-04, claude/ship-graphics-p2-colors-616a16
+- **Taken:** 2026-09-05, claude/queue-the-mirrors-glyphs-draw-player-ones-tissue-on-pl
 - **Files:** `packages/render/src/simon-glyph.ts`, `packages/render/src/simon-row.ts`, `packages/render/src/simon-verdict.ts`, `packages/render/src/controls.ts`
 
 Every body a control is made of is the seat's colour now — violet on player
