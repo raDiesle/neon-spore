@@ -29,7 +29,16 @@ const ALLOWED = new Set([
   join("tools", "test", "build-stamp.test.ts"),
 ]);
 
-const SKIP = new Set(["node_modules", "dist", ".git", "legacy", "assets"]);
+/**
+ * Directories this never descends into. **`.claude` is here because a
+ * worktree is a full copy of the repository sitting inside the repository**:
+ * the owner keeps every open lane under `.claude/worktrees/`, and without
+ * this the scan reports each lane's own `build.ts` and `build-stamp.ts` as
+ * offenders — the same allowed files over and over, from a path `ALLOWED`
+ * cannot match because it is relative to the outer root. In a fresh clone
+ * there are no worktrees, which is why the hole was invisible.
+ */
+const SKIP = new Set([".claude", "node_modules", "dist", ".git", "legacy", "assets"]);
 
 function sources(dir: string, found: string[] = []): string[] {
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
