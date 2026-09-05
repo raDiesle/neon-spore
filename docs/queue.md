@@ -147,6 +147,7 @@ commit, and `packages/render/test/fleet-frame.test.ts` still has to pass.
 ## `bun run frames` cannot magnify the thing it photographed
 
 - **Found:** 2026-09-05, claude/eye-eyelid-shape-194988
+- **Taken:** 2026-09-05, claude/queue-bun-run-frames-cannot-magnify-the-thing-it-photo
 - **Files:** `tools/frames/run.ts`, `tools/frames/capture.ts`, `tools/frames/test/`
 
 A creature is drawn at `l.tile * 0.4`, which on a 390 px phone is about forty
