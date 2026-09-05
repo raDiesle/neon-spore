@@ -41,6 +41,21 @@ export interface IntroPage {
    * most of the work anyway.
    */
   line: string;
+  /**
+   * The shout on the page's tag, in the voice a shop window uses.
+   *
+   * The owner's correction, and his own comparison: *highlights in banners
+   * like the advertising of price offers in a supermarket.* A page of even
+   * type reads as a manual however short the sentences are — what a shop does
+   * instead is take the one number worth stopping for and print it enormous on
+   * a starburst, and that is what this is. Two or three words, an exclamation
+   * mark, and nothing that has to be read twice.
+   *
+   * Never a figure this file cannot stand behind. A tag is the loudest thing
+   * on the screen, and a loud claim that is not true is the only kind anybody
+   * remembers.
+   */
+  flash: string;
   figure: IntroFigure;
 }
 
@@ -49,36 +64,42 @@ export const INTRO_PAGES: readonly IntroPage[] = [
     id: "two",
     title: "TWO OF YOU",
     line: "Two players. Two screens. One voice.",
+    flash: "2 PLAYERS!",
     figure: "twoScreens",
   },
   {
     id: "voice",
     title: "SAY IT OUT LOUD",
     line: "You see it. They shoot it. Talk fast.",
+    flash: "OUT LOUD!",
     figure: "voice",
   },
   {
     id: "field",
     title: "IT KEEPS COMING",
     line: "Slimes, liars and rocks. All at once.",
+    flash: "NON-STOP!",
     figure: "columns",
   },
   {
     id: "panel",
     title: "THE BUTTONS MOVE",
     line: "New wave, new controls. Good luck.",
+    flash: "ALL NEW!",
     figure: "panel",
   },
   {
     id: "boss",
     title: "BOSSES ARE LITTLE GAMES",
-    line: "Eight of them, and each one is its own.",
+    line: "Nine of them, and each one is its own.",
+    flash: "MINI GAMES!",
     figure: "boss",
   },
   {
     id: "run",
     title: "IT NEVER ENDS",
     line: "Endless waves. Come back whenever.",
+    flash: "NO END!",
     figure: "run",
   },
 ];

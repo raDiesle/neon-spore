@@ -106,6 +106,19 @@ describe("what the pages say", () => {
     }
   });
 
+  it("prints a shout on every page's tag, short enough to fit across one", () => {
+    // The owner's second correction, and his own comparison: *highlights in
+    // banners like the advertising of price offers in a supermarket.* A tag is
+    // sized to its text (`render/intro-flash.ts`), so a long one does not
+    // overflow — it shrinks until nobody across the room can read it, which is
+    // the only thing a sign is for.
+    for (const page of INTRO_PAGES) {
+      expect(page.flash.length, page.id).toBeGreaterThan(0);
+      expect(page.flash.length, `${page.id}: ${page.flash}`).toBeLessThanOrEqual(12);
+      expect(page.flash, page.id).toBe(page.flash.toUpperCase());
+    }
+  });
+
   it("names no page twice", () => {
     expect(new Set(INTRO_PAGES.map((p) => p.id)).size).toBe(INTRO_PAGES.length);
   });

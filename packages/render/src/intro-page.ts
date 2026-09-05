@@ -1,6 +1,9 @@
-import { INTRO_PAGES } from "@neon-spore/content";
+import { INTRO_PAGES, type IntroFigure } from "@neon-spore/content";
+import { halo } from "./glow.js";
 import { drawGuideNav, NAV_H, navHit } from "./guide-nav.js";
 import { drawIntroFigure } from "./intro-figure.js";
+import { accentFor, headline, stickTag, surge, towards } from "./intro-flash.js";
+import type { FigureBox } from "./intro-parts.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drop } from "./text-drop.js";
@@ -17,6 +20,11 @@ import { wrapText } from "./wrap-text.js";
  * the same three buttons. A card in front of the game says *press me*; this
  * says *this is the game*.
  *
+ * It is laid out the way a store page is, which is the owner's own comparison:
+ * a headline on a lit banner, a price-tag flash slapped across the corner of
+ * the picture, and the picture itself coming at the reader and going back.
+ * `intro-flash.ts` draws those three and carries the argument for them.
+ *
  * The words are `packages/content/src/intro.ts` and nothing about them is
  * decided here. The pictures are `intro-figure.ts`.
  *
@@ -28,8 +36,12 @@ import { wrapText } from "./wrap-text.js";
 /** What a press on the intro means. `page` is the page area — a tap forward. */
 export type IntroHit = "back" | "next" | "skip" | "page" | null;
 
-const TITLE_FONT = '700 19px "Courier New",monospace';
-const BODY_FONT = '13px "Courier New",monospace';
+const TITLE_FONT = '700 22px "Courier New",monospace';
+/** One line of headline to the next. */
+const TITLE_STEP = 27;
+const BODY_FONT = '14px "Courier New",monospace';
+/** One line of the page's own sentence to the next. */
+const BODY_STEP = 21;
 const SKIP_FONT = '600 11px "Courier New",monospace';
 /** The corner word that leaves: a hit box, so it is answered where it is drawn. */
 export function skipBox(l: Layout): { x: number; y: number; w: number; h: number } {
@@ -69,19 +81,25 @@ export function drawIntroPage(
 ): void {
   const entry = INTRO_PAGES[Math.max(0, Math.min(INTRO_PAGES.length - 1, page))];
   if (!entry) return;
+  const accent = accentFor(entry.figure);
 
-  // Deep enough that the field's own words — a wave's name, the paused line —
-  // do not compete with the page's, and not black: the field goes on moving
-  // behind this, which is the point of drawing it here at all.
-  ctx.fillStyle = "rgba(5,4,11,.988)";
-  ctx.fillRect(0, 0, l.width, l.height);
+  // Opaque. It used to be a hair short of it, on the argument that the field
+  // goes on moving behind the pages — but the intro takes the menu's own hold
+  // (`apps/game/src/intro.ts`), so nothing back there moves. What came through
+  // was a stopped picture: the wave's name, PAUSED, and the field's own edge.
+  ctx.fillStyle = PALETTE.background;
+  // Past the stage on every side, because the stage is not the canvas: it is a
+  // phone-shaped rectangle centred in the window (`computeStage`), and a veil
+  // drawn to `l.width` left a strip of the stopped field down the edge of a
+  // page that is supposed to be the whole screen.
+  ctx.fillRect(-l.width, -l.height, l.width * 3, l.height * 3);
 
   const mid = l.width / 2;
-  const top = l.height * 0.08;
+  const top = l.height * 0.06;
   ctx.textAlign = "center";
 
   let line = 0;
-  drop(ctx, mid, top + 24, age, line++, 0, () => {
+  drop(ctx, mid, top + 20, age, line++, 0, () => {
     ctx.font = SKIP_FONT;
     ctx.fillStyle = PALETTE.dim;
     ctx.fillText("NEON SPORE", 0, 0);
@@ -91,44 +109,60 @@ export function drawIntroPage(
   // rather than shrinking: a long one on a narrow phone is two lines of the
   // same size, not one line nobody can read.
   ctx.font = TITLE_FONT;
-  let y = top + 58;
-  for (const wrapped of wrapText(ctx, entry.title, l.width - 44)) {
+  const titled = wrapText(ctx, entry.title, l.width - 84);
+  const widest = Math.max(...titled.map((w) => ctx.measureText(w).width));
+  const slab = {
+    w: Math.max(0, Math.min(l.width - 20, widest + 52)),
+    h: titled.length * TITLE_STEP + 22,
+    top: top + 32,
+  };
+  // The banner is out of phase with the picture below it, so the two read as
+  // two planes rather than as one screen breathing (`intro-flash.ts`).
+  headline(ctx, mid, slab.top, slab.w, slab.h, accent, age, surge(age, 0.25));
+  let y = slab.top + slab.h / 2 - ((titled.length - 1) * TITLE_STEP) / 2 + 8;
+  for (const wrapped of titled) {
     drop(ctx, mid, y, age, line, 0, () => {
       ctx.font = TITLE_FONT;
-      ctx.fillStyle = PALETTE.hullRim;
+      ctx.fillStyle = accent.rim;
       ctx.fillText(wrapped, 0, 0);
     });
-    y += 27;
+    y += TITLE_STEP;
   }
   line++;
 
-  // The picture takes the room the words gave back: it is doing most of the
-  // work now that there is one line under it rather than two paragraphs.
-  const figureTop = y + 6;
-  // Neither side may go negative. Below about 230 device pixels of height the
-  // title and the nav bar already fill the window and the subtraction went
+  // The line goes where a caption goes — hard against the bar — and the
+  // picture takes everything left between it and the headline. Measured first
+  // and drawn second, because a line that wraps on a narrow phone has to take
+  // its second row out of the picture rather than off the bottom of the page.
+  ctx.font = BODY_FONT;
+  const said = wrapText(ctx, entry.line, l.width - 52);
+  const sayAt = l.height - NAV_H - 22 - (said.length - 1) * BODY_STEP;
+  const figureTop = slab.top + slab.h + 14;
+  // Neither side may go negative, which is a lane's fix carried through this
+  // rewrite rather than lost in it. Below about 230 device pixels of height
+  // the headline and the bar already fill the window and the subtraction went
   // past zero; a canvas that has not been laid out yet — a tab drawing while
   // hidden, which still runs its frames — is 0 wide and takes the width past
   // zero the same way. Either one reached `plate` as a negative corner radius,
   // which a real canvas throws `IndexSizeError` on, so the first screen of the
   // game died rather than drawing a squeezed one.
-  const figureHeight = Math.max(0, (l.height - NAV_H - figureTop) * 0.66);
-  drawIntroFigure(
-    ctx,
-    entry.figure,
-    { x: 14, y: figureTop, w: Math.max(0, l.width - 28), h: figureHeight },
-    age,
-  );
+  const box = {
+    x: 14,
+    y: figureTop,
+    w: Math.max(0, l.width - 28),
+    h: Math.max(0, sayAt - 30 - figureTop),
+  };
+  stage(ctx, entry.figure, box, age, accent);
+  stickTag(ctx, box, entry.flash, accent, age);
 
-  ctx.font = BODY_FONT;
-  y = figureTop + figureHeight + 34;
-  for (const wrapped of wrapText(ctx, entry.line, l.width - 52)) {
+  y = sayAt;
+  for (const wrapped of said) {
     drop(ctx, mid, y, age, line, 0, () => {
       ctx.font = BODY_FONT;
       ctx.fillStyle = PALETTE.text;
       ctx.fillText(wrapped, 0, 0);
     });
-    y += 21;
+    y += BODY_STEP;
   }
 
   skip(ctx, l, page, pointer);
@@ -146,6 +180,36 @@ export function drawIntroPage(
     played: true,
     pointer,
   });
+}
+
+/**
+ * The picture, coming at the reader and going back — the effect the owner
+ * asked for by name.
+ *
+ * Clipped to its own window, and the window is the reason this reads as depth
+ * rather than as a zoom: something that grows past a hard edge is behind that
+ * edge, and something that shrinks away from one has gone off into the screen.
+ * Without the clip the near end of the trip simply lands on the headline.
+ */
+function stage(
+  ctx: CanvasRenderingContext2D,
+  figure: IntroFigure,
+  box: FigureBox,
+  age: number,
+  accent: { hex: string; rim: string },
+): void {
+  const cx = box.x + box.w / 2;
+  const cy = box.y + box.h / 2;
+  const depth = surge(age);
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(box.x - 6, box.y - 6, box.w + 12, box.h + 12);
+  ctx.clip();
+  // It lights up as it arrives. The radius is fixed and only the alpha moves,
+  // because `haloSprite` bakes a canvas per radius (`glow.ts`).
+  halo(ctx, cx, cy, Math.min(box.w, box.h) * 0.5, accent.hex, 0.06 + 0.22 * depth);
+  towards(ctx, cx, cy, 0.84 + 0.3 * depth, () => drawIntroFigure(ctx, figure, box, age));
+  ctx.restore();
 }
 
 /** The way out, in the corner, on every page — including the last. */

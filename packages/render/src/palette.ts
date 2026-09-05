@@ -19,6 +19,11 @@ export const PALETTE = {
   podRim: "#FFF0C2",
   podDark: "#2C1C05",
   ember: "#FF7A2F",
+  /** The rim `ember` never had. Every other hue here carries one and this
+   * one did not, because until the intro nothing outlined an ember shape —
+   * a spark is a filled dot. Added rather than derived in a component: a
+   * colour decided next to a `fillStyle` is a colour nobody can find. */
+  emberRim: "#FFC7A0",
   rock: "#C7CBD6",
   rockDark: "#3C3F49",
   /** The one thing in the game that goes right: a Simon round answered in
