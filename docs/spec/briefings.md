@@ -126,7 +126,7 @@ the two can be compared by opening the wave.
 | 5 | **The pod** | shooting it loose is half of getting it; then it sinks and drifts | p2 frees it, p1 chases and opens the maw | 14 · SALVAGE |
 | 6 | **The queen** | two marks, one real; she opens for two beats; a torch drops every eight | p1 sees *what*, p2 sees *where* | 16 · BULB QUEEN |
 | 7 | **The bosses** | the mirror, the maze, the gauge, the warden and its line, the vane | one guide each, on their own wave | 17 · THE MIRROR, 18 · THE MAZE, 19 · THE GAUGE, 20 · THE WARDEN, 28 · THE VANE |
-| 8 | **The rest of the bestiary** | the runt, the throb, the shell, the pods, the rock speed tiers | one guide each | 22–27 |
+| 8 | **The rest of the bestiary** | the lure that took the runt's place, the throb, the shell, the pods, the rock speed tiers | one guide each | 22 · THE LURE, 23 · THE THROB, 24 · THE THIRD SHOT, 30 · THE PURGE, 31 · THE WARD |
 
 **The grip and the lance are still the odd ones out**, and neither has a guide.
 They are controls no wave *contains*, so no wave is the first to carry them and
@@ -138,7 +138,7 @@ now: placing a guide did not solve it, it only moved where the hole is.
 Where two or more subjects first landed on the *same* wave, their words were
 merged into that wave's single guide rather than dropped: `THE WARDEN` carries
 the ring and its line, `THE VANE` carries the arm and the quicker rock, `THE
-WARD` carries the pod and all three rock speed tiers, and `FIRST STEP` carries
+WARD` carries the pod and the rock speed tiers, and `FIRST STEP` carries
 the split itself and the slick. Nothing was deleted; four moments were.
 The fix, if it turns out to matter, is a wave each rather than a second
 guide on one wave.

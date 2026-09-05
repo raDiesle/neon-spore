@@ -149,31 +149,3 @@ And the file launches **four separate headless Chrome instances**, one per
 `captureFrames`, inside a 272-file parallel run — that is the part of the cost
 which is neither measured nor bounded, and sharing one browser across the file
 is the change to reach for once the failure can be produced on demand.
-
-## Row 8 of `docs/spec/briefings.md` §1 names a range, and the range is wrong
-
-- **Found:** 2026-09-05, claude/queue-items-bj85ja
-- **Taken:** 2026-09-05, claude/queue-row-8-of-docs-spec-briefings-md-1-names-a-range
-- **Files:** `docs/spec/briefings.md`, `packages/content/test/waves.test.ts`
-
-The right-hand column of that table now names its waves as `N · NAME` cells
-and `packages/content/test/waves.test.ts` holds every one of them against
-`WAVES`. Row 8, "the rest of the bestiary", is the one cell it skips, because
-it still reads `22–27` — a range, which the test says out loud that it cannot
-check.
-
-The range is not merely uncheckable, it is untrue, and the subject list beside
-it has drifted further than the numbers. **The runt was retired for THE LURE**
-(`packages/content/src/index.ts` says so where the spare contour is kept), so
-the first subject names a creature the game has not got. **The pods and the
-rock speed tiers are taught on THE PURGE (30) and THE WARD (31)**, both
-outside `22–27` — the merge note four paragraphs below the table already says
-"THE WARD carries the pod and all three rock speed tiers".
-
-Read the guides on waves 22 to 31 and give the row its waves by name, the way
-row 7 now has them. That is a reading rather than an arithmetic fix, which is
-why it was not done by the lane that wrote the test: the question is which
-wave teaches which subject, and the guides are the only place that answers it.
-The test needs no change — a cell that names waves is checked the moment it
-names them — but its paragraph about the skipped row should go once nothing is
-skipped.
