@@ -127,6 +127,7 @@ commit, and `packages/render/test/fleet-frame.test.ts` still has to pass.
 ## Split `frame-passes.ts`: it sits exactly on the 250-line limit
 
 - **Found:** 2026-09-05, claude/lock-wave-and-guide
+- **Taken:** 2026-09-05, claude/queue-split-frame-passes-ts-it-sits-exactly-on-the-250
 - **Files:** `packages/render/src/frame-passes.ts`
 
 THE LOCK's dotted line needed one parameter and four lines of comment on
