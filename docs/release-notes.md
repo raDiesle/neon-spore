@@ -9,6 +9,22 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 23814f2 — Queue: two flakes measured, and the hole a film cannot author around
+
+Three findings from a session draining the queue, none of which belongs in the work that found them.
+
+## 2026-09-05 · 700ca1e — THE CAROM's guide is watched rather than read
+
+It shipped with three lines of prose and nothing moving, and it is the worst wave of act five to describe in a sentence: what the pair has to learn is a shape — a body crossing three lanes a beat that turns *at* the side wall rather than reflecting somewhere between two columns — and an order, the cannon opening it and the shield finishing what falls out. Neither reads off a line of text and both are one glance in a picture.
+
+## 2026-09-05 · aeabfa0 — THE MIRROR's glyphs are drawn in the seat's own flesh
+
+Every body a control is made of has been the seat's colour since the two screens stopped looking alike, and `drawFireButton`, `drawActionButton` and `drawStripMark` all take that colour as an argument. THE MIRROR's sequence never passed one, so the glyphs the boss played back were drawn in player one's tissue on a gold panel, on both devices — the pair is meant to recognise a glyph as the button it is about, and on player two's seat it no longer looked like one.
+
+## 2026-09-05 · 35f69e9 — An unwarded volley hits the ship as the rock it looks like
+
+The simulation has charged THE VOLLEY through `damageSpan` since it landed, and the scar it leaves names `kind: "volley"` — but render still asked `isMeteorKind` at the three places downstream of that, so the one body on the field that is unmistakably a rock was drawn breaching as a red burst at the hull, with no crater and no fall to watch it arrive. The breach picture, the crater and the delay that holds a crack back until its rock has landed all ask `isWardable` now, which is the rule `hull.ts` and `bullet-hit.ts` were already moved onto.
+
 ## 2026-09-05 · a4dc854 — A warded volley keeps its rim and loses its filling
 
 The owner asked for the outer line of the basketball to stay — a skeleton, and still round. It was cutting a sector out of the whole ball, so a body warded twice was a shape with a bite taken out of it and the silhouette meant something it should not.
