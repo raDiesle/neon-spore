@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · cf150cf — A test that raises its own relay gets a budget that says why
+
+"ends a run nobody came back to, so the next arrival starts a fresh one" failed on bun's five-second default at 5000.30 ms, with three copies of the suite running at once. It is one of four cases that stand up a second workerd of their own so `SEAT_SILENT_MS` and `RUN_OVER_MS` can be shortened, and each of them pays for a worker boot, three socket handshakes and several hundred milliseconds it then waits out on purpose. On an idle machine that is comfortably inside five seconds; a workerd starting under load is not, and the budget was never written down for it.
+
 ## 2026-09-05 · 1d6c8d4 — `bun run index` drops a row with nothing behind it
 
 The generator completed the "## Code" table — every in-scope file with no row got one — and deliberately kept whatever text was already there, which is right for a row somebody wrote by hand. A row whose file had been *deleted* stayed too: `bun run index` reported "865 in-scope files checked" and wrote nothing while `tools/index/test/index.test.ts` failed on "every row's path exists". The tool that exists to fix the table could not fix the half the test was failing on, and the repair was a hand edit found by reading test output.
