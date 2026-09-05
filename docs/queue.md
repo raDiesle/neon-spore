@@ -236,6 +236,7 @@ Then write THE VOLLEY's film, which is a queue entry of its own and stays there.
 ## `apps/server`'s room test loses a race under a loaded machine
 
 - **Found:** 2026-09-05, claude/queued-items-d3ce8d
+- **Taken:** 2026-09-05, claude/queue-apps-server-s-room-test-loses-a-race-under-a-loa
 - **Files:** `apps/server/test/room.test.ts`
 
 "ends a run nobody came back to, so the next arrival starts a fresh one" failed
