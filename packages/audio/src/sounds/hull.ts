@@ -137,8 +137,8 @@ export const HULL_SOUNDS: SoundDef[] = [
     id: "hull.cockpitCrack",
     family: "hull",
     blurb: "Glass giving way somewhere behind you, one line at a time.",
-    status: "spare",
-    use: "Cracks in the cockpit (ideas.md, deliberately deferred).",
+    status: "bound",
+    use: "THE CRAWLER eating its way into the hull at the far wall (`crawlerBurrow`).",
     level: 0.3,
     layers: [
       burst(

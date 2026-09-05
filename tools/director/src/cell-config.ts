@@ -1,15 +1,19 @@
 import type { WaveEntry } from "@neon-spore/content";
 import { PALETTE } from "@neon-spore/render";
-import type { GhostPath, RockSize } from "@neon-spore/sim";
+import { CRAWLER_SIDES, type CrawlerSide, type GhostPath, type RockSize } from "@neon-spore/sim";
 import {
   authorsBody,
   BODY_KINDS,
   beadCountOf,
   bodyOf,
+  CRAWLER_COUNTS,
   colorForBody,
+  crawlerCountOf,
+  crawlerSideOf,
   GHOST_PATHS,
   ghostPathOf,
   hasBeadCount,
+  hasCrawlerFields,
   hasGhostPath,
   isTieredRock,
   METEOR_SIZES,
@@ -20,6 +24,8 @@ import {
   STRAND_COUNTS,
   setBeadCount,
   setBody,
+  setCrawlerCount,
+  setCrawlerSide,
   setGhostPath,
   setMeteorSize,
   setMeteorSpeed,
@@ -105,6 +111,24 @@ export function cellConfig({ entry, onEdit }: CellConfigOptions): HTMLElement | 
       }),
     );
   }
+  if (hasCrawlerFields(e)) {
+    // THE CRAWLER's two rows, and the fourth and fifth per-arrival facts in
+    // the game. SEGMENTS is how many times the pair has to change control on
+    // one body; SIDE is which wall it comes over, and it is offered as a
+    // choice rather than left to the column because the column is also what
+    // the radar strip announces — a wave may want a worm called on one side
+    // and entering over the other (`WaveEntry.side`).
+    rows.push(
+      choiceRow("SEGMENTS", CRAWLER_COUNTS, crawlerCountOf(e), beadLabel, (segments: number) => {
+        setCrawlerCount(e, segments);
+        onEdit();
+      }),
+      choiceRow("SIDE", CRAWLER_SIDES, crawlerSideOf(e), sideLabel, (side: CrawlerSide) => {
+        setCrawlerSide(e, side);
+        onEdit();
+      }),
+    );
+  }
   if (!rows.length) return null;
 
   const box = document.createElement("div");
@@ -125,10 +149,15 @@ function pathLabel(path: GhostPath): string {
   return path === "down" ? "DOWN" : "ACROSS";
 }
 
-/** How many bodies hang on the thread. The bare number: the label beside it
- * already says what is being counted. */
+/** How many bodies hang on the thread, or run along the worm. The bare
+ * number: the label beside it already says what is being counted. */
 function beadLabel(beads: number): string {
   return String(beads);
+}
+
+/** Which wall a worm comes over, said the way the wave's guide says it. */
+function sideLabel(side: CrawlerSide): string {
+  return side === "left" ? "LEFT" : "RIGHT";
 }
 
 /** One tile or the 2x2 square. The number is the width in tiles, so the label

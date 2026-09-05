@@ -1,5 +1,6 @@
 import type { SimEvent } from "@neon-spore/sim";
 import type { Arrivals } from "./arrivals.js";
+import type { CrawlerFx } from "./crawler-fx.js";
 import type { DeflectFx } from "./deflect.js";
 import { ingestBreach, ingestDeflect } from "./effects-breach.js";
 import type { LayEcho } from "./lay-echo.js";
@@ -29,6 +30,7 @@ export interface IngestOneCtx {
   deflectFx: DeflectFx;
   swallow: SwallowFx;
   layEcho: LayEcho;
+  crawler: CrawlerFx;
   blockedUntil: Map<number, number>;
   setGuardHit: (v: number) => void;
   setQueenShake: (v: number) => void;
@@ -63,6 +65,16 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
       if (id) ctx.blockedUntil.set(id, REJECT_FLASH);
       break;
     }
+    // THE CRAWLER's two endings, and both of them outlive the worm they are
+    // about: by the frame after either event there is nothing standing there
+    // to hang a picture on, which is `rockImpactFx`'s reason for existing said
+    // about a body that left sideways (`crawler-fx.ts`).
+    case "crawlerBeam":
+      ctx.crawler.beam(e.col, e.row);
+      break;
+    case "crawlerBurrow":
+      ctx.crawler.mound(e.col, e.row);
+      break;
     case "destroy":
       // The one event this is hung on so far: a cannon shot that killed the
       // thing it hit. The sparks still fly — the sprite is offered beside the

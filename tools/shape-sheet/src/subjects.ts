@@ -1,7 +1,11 @@
 import {
+  CRAWLER,
+  type CrawlerSilhouette,
   type CreatureSilhouette,
   type CrystalSilhouette,
   catmullRomToBezierPath,
+  crawlerOutline,
+  crawlerSqueeze,
   crystalRadiusMul,
   GHOST,
   type GhostSilhouette,
@@ -133,6 +137,22 @@ export function lid(name: string, s: LidSilhouette, note: string): Subject {
   };
 }
 
+/**
+ * One link of THE CRAWLER. `t` is a wall clock everywhere else on this sheet
+ * and here it is read as beats, which is right rather than convenient: the
+ * contraction is on the shared clock (`crawlerSqueeze`), because a wave the
+ * pair counts links along has to run at the same rate on both phones.
+ */
+export function crawler(name: string, s: CrawlerSilhouette, note: string): Subject {
+  return {
+    name,
+    note,
+    open: false,
+    pointsAt: (t) => crawlerOutline(s.rx, s.ry, s.pulse, crawlerSqueeze(t, 0)),
+    path: catmullRomToBezierPath,
+  };
+}
+
 export function crystal(name: string, s: CrystalSilhouette, radius: number, note: string): Subject {
   return {
     name,
@@ -184,6 +204,12 @@ export const SUBJECTS: Subject[] = [
   // `render/lid.ts` rather than by `drawLiving`, so `living-look.ts` gives it
   // no row and nothing here is generated for it.
   lid("LID", LID, `${LID.lashes} lashes · two arcs meeting at a corner`),
+  // Off `LIVING_SUBJECTS` for THE LID's reason again: one link of a worm is
+  // drawn by `render/crawler.ts` rather than by `drawLiving`, so
+  // `living-look.ts` gives it no row. Drawn at the top of its contraction, so
+  // the card shows the widest a link ever is — which is the one measurement
+  // that decides whether a run of them reads as an animal or as a stack.
+  crawler("CRAWLER", CRAWLER, `fatter across than long · ${CRAWLER.pulse} squeeze`),
   blob("POD", POD),
   meteor,
   torch,

@@ -1,9 +1,5 @@
-import type { FleetShip } from "./fleet-board.js";
+import type { CrawlerSide } from "./crawler.js";
 import type { GhostPath } from "./ghost.js";
-import type { MazeWheel } from "./maze-wheel.js";
-import type { PinballRound } from "./pinball.js";
-import type { MirrorStep } from "./simon.js";
-import type { SnakeRound } from "./snake.js";
 import type { RockSize } from "./span.js";
 import type { Color, CreatureKind, PodKind } from "./types.js";
 
@@ -67,6 +63,32 @@ export interface SpawnEntry {
    * (`stringStrand`).
    */
   beads?: number;
+  /**
+   * How many segments a `crawler` arrives with between its two ends, and
+   * absent on every other kind — and on a worm the author left at the default,
+   * which is what `crawlerSegmentCount` answers. Two to seven; the clamp is
+   * that function's and is never re-derived here.
+   *
+   * Authored rather than rolled, for `beads`' reason: how long the body is
+   * *is* how many times the pair has to change control, and a wave cannot be
+   * composed against a length its author does not know. Nothing about this
+   * creature is rolled at all — the order along the body is a rule
+   * (`segmentColor`) and the side is either authored or read off the column.
+   */
+  segments?: number;
+  /**
+   * Which wall a `crawler` comes over, and absent on every other kind. Absent
+   * on a crawler too means *the wall the authored column is nearest*, so a
+   * worm placed on the left of the director's map comes over the left edge and
+   * a wave that names nothing still reads the way it looks
+   * (`crawlerSide`).
+   *
+   * It is an override rather than the only way of saying it, because the two
+   * facts can want to differ: the column is what the radar strip announces,
+   * and a wave may want a worm called out on one side of the field and
+   * entering over the other.
+   */
+  side?: CrawlerSide;
 }
 
 /**
@@ -83,168 +105,21 @@ export interface PodEntry {
   kind?: PodKind;
 }
 
-/**
- * What a wave authors when it wants the queen. The sim turns it into one
- * creature of kind `"queen"` plus a filled `QueenState`.
- */
-export interface QueenEntry {
-  kind: "queen";
-  /** The column she starts on. */
-  col: number;
-  /** Petals she starts with. */
-  petals: number;
-}
-
-/**
- * What a wave authors when it wants THE MIRROR: the sequences, in order, one
- * per round. No column and no health — it stands over the ship wherever the
- * ship is, and how much of it a round takes off follows from how many rounds
- * there are (`mirror.ts`), so the author sets the fight by writing it out
- * rather than by tuning a number beside it.
- */
-export interface MirrorEntry {
-  kind: "mirror";
-  rounds: MirrorStep[][];
-}
-
-/**
- * What a wave authors when it wants THE WARDEN. No column: it is a fixture,
- * dead centre, and a Warden placed anywhere else would be a Warden with a
- * short side. Only how many plates it wears, which is how long the fight is.
- */
-export interface WardenEntry {
-  kind: "warden";
-  plates?: number;
-}
-
-/**
- * What a wave authors when it wants THE VANE. No column: the bearing hangs dead
- * centre off the top edge, and an arm on an off-centre pivot would have a long
- * side and a short one, so the fold would mean a different thing depending on
- * which half of the field a body came down in. Only how many pins hold the
- * bearing, which is how long the fight is.
- */
-export interface VaneEntry {
-  kind: "vane";
-  pins?: number;
-}
-
-/**
- * What a wave authors when it wants THE MAZE: the wheels, in order, one per
- * round. No column and no health, for the same two reasons THE MIRROR has
- * neither — the mouths are spread across the field by `mazeMouthCol` rather
- * than placed, and how much of it a round takes off follows from how many
- * rounds there are (`maze-round.ts`). The author sets the fight by writing the
- * wheel out, and `mazeFault` says whether what they wrote is a round at all.
- */
-export interface MazeEntry {
-  kind: "maze";
-  rounds: MazeWheel[];
-}
-
-/**
- * What a wave authors when it wants THE GAUGE, which is nothing at all.
- *
- * No column, no health and no rounds: the whole encounter is one dial, and how
- * long it lasts, how far the band walks and how many marks pass it are tuning
- * rather than content (`config-gauge.ts`). It is the shortest entry in this
- * file on purpose — the eleven rounds behind it are eleven more bosses, and
- * the point of the shape is that a round with nothing to author costs one line
- * here and one line in `waves.ts`.
- */
-export interface GaugeEntry {
-  kind: "gauge";
-}
-
-/**
- * What a wave authors when it wants THE FLEET: where the ships are, and
- * nothing else.
- *
- * The placement *is* the fight — how long it lasts, how much of the chart is
- * water, whether the pair has one long hull to walk along or five short ones
- * scattered — so it is the only thing here, exactly as THE MIRROR's sequences
- * are the only thing in its entry. How long the pair has and what running out
- * costs are tuning (`config-fleet.ts`).
- *
- * The squares are the real field's and not the seven authored columns; see
- * `FleetShip`, which says why a run of squares cannot survive a remap.
- */
-export interface FleetEntry {
-  kind: "fleet";
-  ships: FleetShip[];
-}
-
-/**
- * What a wave authors when it wants SNAKE: the rounds, in order.
- *
- * No column, no health and no arena — the arena is the same size in every
- * snake wave there will ever be, so it is `SnakeConfig`'s. What is authored is
- * the only thing that changes between one round of it and the next: how many
- * points pass, how many beats there are, and how fast the body goes. Written
- * out rather than generated from a difficulty number, for THE MIRROR's reason
- * — a fight the author cannot read off the page is a fight nobody designed.
- */
-export interface SnakeEntry {
-  kind: "snake";
-  rounds: SnakeRound[];
-}
-
-/**
- * What a wave authors when it wants PINBALL: the boards, in order.
- *
- * The board *is* the fight — where the targets are, what stands between them
- * and the bucket, whether there is a lane back down — so it is authored, the
- * way THE FLEET's placement is, and `pinballFault` says whether what was
- * written is a table at all. Everything about the ball is tuning
- * (`config-pinball.ts`): a round whose gravity was authored per board would be
- * eleven different games with one name.
- */
-export interface PinballEntry {
-  kind: "pinball";
-  rounds: PinballRound[];
-}
-
-/** The boss counterpart of `PodEntry`: whichever boss a wave carries. */
-export type BossEntry =
-  | QueenEntry
-  | MirrorEntry
-  | WardenEntry
-  | VaneEntry
-  | MazeEntry
-  | GaugeEntry
-  | FleetEntry
-  | SnakeEntry
-  | PinballEntry;
-
-/**
- * Whether this boss *is* the wave, or only bends what the wave sends.
- *
- * All but one are the whole encounter and a creature placed beside one is
- * a wave nobody designed — THE GAUGE most of all, which does not draw a field
- * for a creature to stand on. THE VANE is the opposite — it spawns nothing at all,
- * and a wave without arrivals for it to throw is a mechanism turning over an
- * empty field. So the director's guard against a creature brush on a boss wave
- * asks this rather than `wave.boss !== undefined`, and there is one place the
- * answer lives.
- */
-export function bossFillsWave(kind: BossEntry["kind"]): boolean {
-  return kind !== "vane";
-}
-
-/**
- * The bosses that exist, as data. `tools/director` reads this to say which of
- * the twelve names in `docs/spec/bosses.md` are actually in the game — the
- * same question `CREATURES` answers for the bestiary, and one a tool must
- * never answer from a list of its own.
- */
-export const BOSS_KINDS: readonly BossEntry["kind"][] = [
-  "queen",
-  "mirror",
-  "warden",
-  "vane",
-  "maze",
-  "gauge",
-  "fleet",
-  "snake",
-  "pinball",
-];
+// **What a wave authors when it wants a boss** is `boss-entries.ts` next door,
+// cut out when THE CRAWLER's two fields took this file over its limit: nine
+// shapes, the union of them, and `bossFillsWave`. Re-exported here so nothing
+// that already reached for one through this file had to move.
+export {
+  BOSS_KINDS,
+  type BossEntry,
+  bossFillsWave,
+  type FleetEntry,
+  type GaugeEntry,
+  type MazeEntry,
+  type MirrorEntry,
+  type PinballEntry,
+  type QueenEntry,
+  type SnakeEntry,
+  type VaneEntry,
+  type WardenEntry,
+} from "./boss-entries.js";

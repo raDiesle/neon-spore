@@ -1,4 +1,5 @@
 import { caromOnSpawn } from "./carom.js";
+import { growCrawler } from "./crawler-round.js";
 import { dartOnSpawn } from "./dart.js";
 import { echoOnSpawn } from "./echo.js";
 import { ghostOnSpawn } from "./ghost.js";
@@ -167,6 +168,15 @@ export function spawnArrivals(world: World): void {
     if (entry.kind === "strand") {
       const first = world.creatures[world.creatures.length - 1]!;
       world.creatures.push(...stringStrand(world, first, entry.beads));
+    }
+    // And a crawler is the third, on the strand's terms: the entry itself is
+    // the **head** and `growCrawler` hangs the segments and the tail out
+    // behind it, settling the head's own wall, row and heading on the way.
+    // Every link but the head starts off the field, so the worm feeds itself
+    // onto the ship a link at a time whatever length the wave asked for.
+    if (entry.kind === "crawler") {
+      const head = world.creatures[world.creatures.length - 1]!;
+      world.creatures.push(...growCrawler(world, head, entry.segments, entry.side));
     }
     world.spawned += 1;
   }

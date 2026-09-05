@@ -36,6 +36,10 @@ async function eventTypes(): Promise<string[]> {
     ["packages/sim/src/events-volley.ts", "export type VolleyEvent ="],
     // And THE STRAND's three, cut out for the same reason again.
     ["packages/sim/src/events-strand.ts", "export type StrandEvent ="],
+    // THE GHOST's three and THE CRAWLER's two, both cut out of
+    // `events-creature.ts` on the day THE CRAWLER needed room in it.
+    ["packages/sim/src/events-ghost.ts", "export type GhostEvent ="],
+    ["packages/sim/src/events-crawler.ts", "export type CrawlerEvent ="],
   ] as const) {
     const src = await Bun.file(join(ROOT, file)).text();
     const start = src.indexOf(decl);
@@ -126,6 +130,8 @@ const SAMPLES: Record<string, SimEvent> = {
   fleetSunk: { type: "fleetSunk", col: 4, row: 6, len: 3, left: 2 },
   fleetDown: { type: "fleetDown", col: 4, row: 6 },
   gyreBroke: { type: "gyreBroke", col: 3, row: 7 },
+  crawlerBeam: { type: "crawlerBeam", col: 6, row: 10, links: 2 },
+  crawlerBurrow: { type: "crawlerBurrow", col: 10, row: 10, links: 4 },
 };
 
 describe("bindings", () => {

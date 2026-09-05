@@ -66,6 +66,9 @@ const creature = (): Required<Creature> => ({
   strandOrder: 2,
   strandSpent: true,
   strandLit: true,
+  crawlerId: 6,
+  crawlerOrder: 3,
+  crawlerDir: -1,
 });
 
 const bullet = (): Required<Bullet> => ({

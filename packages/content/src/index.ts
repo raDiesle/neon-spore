@@ -35,6 +35,13 @@ export {
   type PanelForm,
 } from "./controls.js";
 export {
+  CRAWLER,
+  type CrawlerSilhouette,
+  crawlerOutline,
+  crawlerPath,
+  crawlerSqueeze,
+} from "./crawler-shape.js";
+export {
   authorsBodyColor,
   type ControlGroup,
   CREATURES,

@@ -6,6 +6,7 @@ import { caromStruck } from "./carom.js";
 import { chuteIsOpen, chuteStruck } from "./chute.js";
 import { claspIsShielded, claspStruck } from "./clasp.js";
 import { colourIsArmoured } from "./colour-armour.js";
+import { linkStruck } from "./crawler-round.js";
 import { lureBlastCols } from "./creature-rules.js";
 import { echoStruck } from "./echo.js";
 import { removeCreature } from "./field.js";
@@ -110,6 +111,11 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
   // the wrong colour. Both answers are one rule, in `strand-round.ts` for
   // `claspStruck`'s reason (`strand.ts` for what the creature is).
   if (hit.kind === "strand") return beadStruck(world, b, hit);
+  // One link of a worm walking the ship's surface. Three answers and two of
+  // them are a rock's — an end and an armoured segment both take a crater and
+  // nothing else, because neither is the cannon's to answer at all
+  // (`crawler-round.ts`, and `crawler.ts` for what the creature is).
+  if (hit.kind === "crawler") return linkStruck(world, b, hit);
   if (hit.kind === "lid") {
     // Plates that only part while a hand is on the cord, and the lens behind
     // them. All three answers a shot can get are one rule, in `lid.ts` for

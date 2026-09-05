@@ -2,6 +2,7 @@ import { isBossBody, recoilTurn, veilArmourPhase, type World, wispOnField } from
 import { drawCaromCrust } from "./carom.js";
 import { drawChute } from "./chute.js";
 import { claspResonance, drawClaspShield } from "./clasp.js";
+import { linkOnField } from "./crawler.js";
 import { bodyDraw } from "./creature-body.js";
 import { creatureCenter } from "./creature-place.js";
 import { drawDartJet } from "./dart.js";
@@ -70,6 +71,11 @@ export function drawCreatures(
     // under the ones below. The six on its rim are `mount`s and go through
     // the ordinary living draw below, which is the whole creature.
     if (c.kind === "gyre") continue;
+    // And a link of a worm that is still off the side of the field. A crawler
+    // feeds itself on a link at a time, so most of its body spends the first
+    // few beats in a column no phone has (`crawler.ts`) — and one drawn there
+    // would be a body the pilot can see and can never reach.
+    if (c.kind === "crawler" && !linkOnField(world.cfg, c, beatPhase)) continue;
     // A body on a rim is placed by the wheel that carries it, not by the walk
     // every falling body takes: it turns rather than crosses, and the arc is
     // written down once in `gyre-place.ts` so the rim, the spokes and the six

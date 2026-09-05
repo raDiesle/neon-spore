@@ -1,5 +1,6 @@
 import { BOSS_DEFAULTS, type BossConfig } from "./config-boss.js";
 import { CAROM_DEFAULTS, type CaromConfig } from "./config-carom.js";
+import { CRAWLER_DEFAULTS, type CrawlerConfig } from "./config-crawler.js";
 import { CREATURE_DEFAULTS, type CreatureConfig } from "./config-creatures.js";
 import { FLEET_DEFAULTS, type FleetConfig } from "./config-fleet.js";
 import { GAUGE_DEFAULTS, type GaugeConfig } from "./config-gauge.js";
@@ -17,6 +18,7 @@ import { VOLLEY_DEFAULTS, type VolleyConfig } from "./config-volley.js";
 
 export { BOSS_DEFAULTS, type BossConfig } from "./config-boss.js";
 export { CAROM_DEFAULTS, type CaromConfig } from "./config-carom.js";
+export { CRAWLER_DEFAULTS, type CrawlerConfig } from "./config-crawler.js";
 export { CREATURE_DEFAULTS, type CreatureConfig } from "./config-creatures.js";
 export { FLEET_DEFAULTS, FLEET_SHELL_BEATS, type FleetConfig } from "./config-fleet.js";
 export { GAUGE_DEFAULTS, type GaugeConfig } from "./config-gauge.js";
@@ -39,6 +41,7 @@ export { VOLLEY_DEFAULTS, type VolleyConfig } from "./config-volley.js";
 export interface SimConfig
   extends BossConfig,
     CaromConfig,
+    CrawlerConfig,
     CreatureConfig,
     FleetConfig,
     GaugeConfig,
@@ -185,6 +188,7 @@ export interface SimConfig
 export const DEFAULT_CONFIG: SimConfig = {
   ...BOSS_DEFAULTS,
   ...CAROM_DEFAULTS,
+  ...CRAWLER_DEFAULTS,
   ...STRAND_DEFAULTS,
   ...VEER_DEFAULTS,
   ...VOLLEY_DEFAULTS,

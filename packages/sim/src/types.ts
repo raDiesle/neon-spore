@@ -11,12 +11,13 @@ export type { Bullet } from "./bullet-types.js";
 // that reaches for a `Command` through this file had to move.
 export type { Command, DragTarget, SnakeTurn, TimedCommand } from "./command-types.js";
 export { SNAKE_TURNS } from "./command-types.js";
-export { CREATURE_KINDS, type CreatureKind, kindCode } from "./creature-kinds.js";
+export { CREATURE_KINDS, type CreatureKind } from "./creature-kinds.js";
 // What a body on the field is: the last and largest half to leave this file,
 // and the one that was actually growing. `creature-types.ts` says why, and it
 // is re-exported here so nothing reaching for a `Creature` had to move.
 export type { Creature } from "./creature-types.js";
 export type { GuardStats, Scar } from "./hull-types.js";
+export { kindCode } from "./kind-code.js";
 export type { RockKind } from "./kinds.js";
 export {
   fallTilesPerBeat,

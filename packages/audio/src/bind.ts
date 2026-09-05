@@ -14,8 +14,10 @@
 import type { SimEvent } from "@neon-spore/sim";
 import { breachCue } from "./bind-breach.js";
 import { caromCue } from "./bind-carom.js";
+import { crawlerCue } from "./bind-crawler.js";
 import { creatureCue } from "./bind-creatures.js";
 import { fleetCue } from "./bind-fleet.js";
+import { MIRROR_STEP_SOUNDS, POD_TAKEN_SOUNDS } from "./bind-lookups.js";
 import { volleyCue } from "./bind-volley.js";
 
 export interface Cue {
@@ -67,20 +69,9 @@ export function pitchForRow(row: number, rows: number): number {
   return 1 + t * 0.5;
 }
 
-const MIRROR_STEP_SOUNDS: Record<string, string> = {
-  fireRed: "mirror.showFireRed",
-  fireCyan: "mirror.showFireCyan",
-  guard: "mirror.showGuard",
-  intake: "mirror.showIntake",
-  cannonLeft: "mirror.showCannonLeft",
-  cannonRight: "mirror.showCannonRight",
-};
-
-const POD_TAKEN_SOUNDS: Record<string, string> = {
-  mend: "pod.takenMend",
-  purge: "pod.takenPurge",
-  ward: "pod.takenWard",
-};
+// The two id-to-id lookups this file reads are `bind-lookups.ts` next door,
+// cut out when THE CRAWLER took this one over its limit: they are data, and
+// everything here is an argument about which sound a moment deserves.
 
 /**
  * One event, one cue, or none. `needWave` is bookkeeping between the host and
@@ -145,6 +136,10 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
         pan: panForCol(e.col, cols),
         pitch: pitchForRow(e.row, rows),
       };
+    // THE CRAWLER's two endings, in `bind-crawler.ts`, on the same terms.
+    case "crawlerBeam":
+    case "crawlerBurrow":
+      return crawlerCue(e, cols);
     case "gyreBroke":
     case "strandBroke":
       // A mechanism letting go rather than a body dying, and the one cue in

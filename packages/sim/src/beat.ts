@@ -2,14 +2,14 @@ import { stepBoss } from "./boss.js";
 import { stepCarom } from "./carom.js";
 import { stepChute } from "./chute.js";
 import { hullRow } from "./config.js";
-import { lureIsSpent } from "./creature-rules.js";
+import { stepCrawlers } from "./crawler-beat.js";
 import { stepDart } from "./dart.js";
 import { splitEchoes } from "./echo-split.js";
-import { removeCreatures } from "./field.js";
 import { ghostCrosses, stepGhostAcross } from "./ghost.js";
 import { grippedFallTiles } from "./grip.js";
 import { breakSpentGyres, stepGyre } from "./gyre.js";
 import { resolveHull } from "./hull.js";
+import { removeSpentLures } from "./lure-exit.js";
 import { spawnPods } from "./pods.js";
 import { slowStep } from "./slow-fall.js";
 import { spawnArrivals } from "./spawn.js";
@@ -49,29 +49,10 @@ export function onBeat(world: World): void {
   beatMetronome(world);
   world.waveBeat += 1;
 
-  // A lure goes on the beat it would step off the row `lureVanishRows` above
-  // the hull — asked *before* the fall, so the beat it spent gliding into that
-  // row was in plain sight of both players and nothing about it read as
-  // different until it was not there. Collected rather than filtered in place:
-  // the loop below is still walking `world.creatures`.
-  const spent = world.creatures.filter((c) => lureIsSpent(world.cfg, c));
-  if (spent.length > 0) {
-    for (const c of spent) {
-      world.events.push({
-        type: "lureVanished",
-        col: c.col,
-        row: c.row,
-        // Not null: `resolveLure` is the only branch a lure can take with a
-        // shot in it, so a lure always carries the disguise's own colour, and
-        // that is the colour the picture that fades has to be drawn in.
-        color: c.color ?? "cyan",
-      });
-    }
-    removeCreatures(
-      world,
-      spent.map((c) => c.id),
-    );
-  }
+  // Every lure that has reached the row it goes on, taken off before the fall
+  // so the beat it spent gliding into that row was in plain sight of both
+  // players (`lure-exit.ts`).
+  removeSpentLures(world);
 
   // Every wheel with nothing left on its rim and every thread with nothing
   // alive on it, taken off before the clear test below — or a bare hub or a
@@ -79,6 +60,13 @@ export function onBeat(world: World): void {
   // beat after the last body on either went, so it is seen to come apart.
   breakSpentGyres(world);
   breakSpentStrands(world);
+
+  // Every worm, one beat: the column it walks, the shield it may walk into,
+  // and the two ways it stops existing (`crawler-beat.ts`). Before the fall
+  // loop below rather than inside it, because a crawler does not fall — it
+  // holds the row the shield covers and travels along it — so both of its
+  // `from` fields are written there and the loop skips it entirely.
+  stepCrawlers(world);
 
   // Said once for the whole field rather than once per body: every wisp takes
   // the hop on the same beat (`wispHops`), and what the event is for is the
@@ -105,6 +93,12 @@ export function onBeat(world: World): void {
     // jumps rather than a wheel that moves. Stepping it again would carry it
     // twice as well: once around the rim and once straight down.
     if (c.kind === "mount") continue;
+    // And a link of a worm, skipped **before** the two lines below for the
+    // mount's reason exactly: `stepCrawlers` has already written its `col` and
+    // both `from` fields, so a link falling through here would have where it
+    // came from overwritten with where it now is — a body that teleports a
+    // column once a beat instead of walking one.
+    if (c.kind === "crawler") continue;
     c.fromRow = c.row;
     // Where it is coming *from*, sideways. Set for every kind and moved by
     // one, so `drawnCol` has an origin to glide a dart out of and every other

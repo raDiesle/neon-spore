@@ -29,8 +29,8 @@ export const MOTION_SOUNDS: SoundDef[] = [
     id: "motion.teleport",
     family: "motion",
     blurb: "Something leaving a tile and being in another one. Two clicks and a hole between them.",
-    status: "spare",
-    use: "Teleport jumps, which hang off the beat (systems.md 5.3).",
+    status: "bound",
+    use: "THE CRAWLER taken by the beam once its last segment is off (`crawlerBeam`).",
     level: 0.32,
     layers: [
       tick(0.5, 0, 6800),

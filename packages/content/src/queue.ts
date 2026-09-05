@@ -85,6 +85,12 @@ export function queueFromWave(wave: Pick<Wave, "entries">, cols: number): SpawnE
       // a length, so a strand left at the default carries no field at all and
       // `strandBeadCount` is the one place that default is read.
       ...(e.beads === undefined ? {} : { beads: e.beads }),
+      // How long a worm is and which wall it comes over, on the same terms
+      // again: a crawler left at the shipped length and at the side its own
+      // column implies carries neither field, and `crawlerSegmentCount` and
+      // `crawlerSide` are the one place each of those defaults is read.
+      ...(e.segments === undefined ? {} : { segments: e.segments }),
+      ...(e.side === undefined ? {} : { side: e.side }),
     });
   }
   return queue.sort((a, b) => a.beat - b.beat);

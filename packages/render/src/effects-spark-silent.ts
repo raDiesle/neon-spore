@@ -92,8 +92,25 @@ export const SILENT = [
   // And the one event in the union that carries no position at all, so a spark
   // could not be put anywhere even if this creature wanted one.
   "wispHop",
-  // The last ship of a fleet. The sinking that rides beside it on the same
-  // tick is the picture, and `fleetSunk` has already thrown for it.
+  // THE CRAWLER's two endings, and neither throws anything from here. The beam
+  // is a column of light the ship opens and the worm climbs, and the burrow is
+  // a mound thrown up on both sides of a hole — two pictures with shapes of
+  // their own (`crawler-fx.ts`), not a spray of dots. The `breach` events the
+  // burrow causes throw the ordinary hull burst beside it.
+  "crawlerBeam",
+  "crawlerBurrow",
+  // THE FLEET's five, and none of them throws anything from here. A salvo is
+  // not resolved where it is pressed: the shell arcs out of the cannon and
+  // takes `FLEET_SHELL_BEATS` to reach the square, so a burst thrown on the
+  // tick of the event would land a second and a quarter before anything got
+  // there. `FleetFx` holds the flight and throws the same three sizes — 6
+  // cyan, 14 red, 26 ember — on the frame the shell arrives (`fleet-fx.ts`).
+  // The last of them never threw one: the sinking that rides beside it on the
+  // same tick is the picture, and `fleetSunk` has already thrown for it.
+  "fleetSalvo",
+  "fleetSplash",
+  "fleetHit",
+  "fleetSunk",
   "fleetDown",
 ] as const satisfies readonly SimEvent["type"][];
 

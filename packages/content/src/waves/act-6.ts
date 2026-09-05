@@ -71,6 +71,41 @@ import type { Wave } from "../wave-types.js";
  * about this creature nobody may compose against — and the reason a raisin
  * tells neither seat what is coming (`lightStrandEnd`).
  */
+/**
+ * **THE CRAWLER, in three worms**, and the habit it has to break is older than
+ * any creature in the bestiary: *the field comes to you*. Every arrival since
+ * the first slick has fallen out of the top of the screen at the ship, and
+ * everything the pair has learned is a way of meeting one — a column held, a
+ * colour loaded, a trigger on the beat. Nothing has ever had to be *chased*.
+ *
+ * A crawler is already landed. It cannot hurt the hull while it walks and
+ * doing nothing about it is the only way to lose to it, which is the exact
+ * inversion of every wave before this one.
+ *
+ * The other half is that it is the first body **both controls have to take
+ * apart together**. The order along it is red, cyan, plate and round again,
+ * and it is in plain sight on both screens from the moment the head comes over
+ * the wall — so what the pair has to say is not a secret, it is a *plan*: who
+ * has the next link, and therefore which of them is about to be holding a
+ * column and which a trigger.
+ *
+ * 1. Beat 0, three segments off the left wall, alone. Three is one full turn
+ *    of the cycle: red, cyan, plate, and then the two ends and the beam. The
+ *    smallest worm at which the pair meets every answer this creature has, and
+ *    short enough that meeting them the wrong way round costs nothing.
+ * 2. Beat 24, five off the right, with a slick beside it. This is the wave. A
+ *    slick is what a crawler is defined *against* — a body that falls, that
+ *    threatens the hull, and that has to be answered *now* — and it is on the
+ *    field while the pair is halfway down a worm's back.
+ * 3. Beat 48, seven off the left, with a plain rock. The longest body the field
+ *    holds, and the rock is the other thumb on the other phone: the shield is
+ *    already owed to two plates on the worm when a rock arrives wanting it.
+ *
+ * A crawler entry names its kind, no colour and a length. The colour is not
+ * authored at all — the order along the body is a rule (`segmentColor`) — and
+ * the side is written out here rather than left to the column, so the wave
+ * reads as what it is on the page.
+ */
 export const WAVES_ACT_6: Wave[] = [
   {
     id: "theVeer",
@@ -105,6 +140,23 @@ export const WAVES_ACT_6: Wave[] = [
       { beat: 22, col: 6, color: "red" },
       { beat: 36, col: 1, kind: "strand", color: "red", beads: 5 },
       { beat: 40, col: 0, kind: "meteor", color: null },
+    ],
+  },
+  {
+    id: "theCrawler",
+    name: "THE CRAWLER",
+    sentence: "The one where nothing is falling and standing still is what loses it.",
+    guide: {
+      both: "A maggot that walks along the ship instead of falling on it. It cannot hurt you while it walks — but it must not reach the far wall. Head and tail are armour. The segments between run red, cyan, plate, red, cyan, plate.",
+      p1: "Take the cannon under a colour segment and say which colour you are standing under. Every third one is a plate and the trigger is yours — so keep a thumb on GUARD and press when you are told the shield is under it.",
+      p2: "Load what you are told and fire straight up. When the next one is a plate, take the shield under it yourself and say when you are there — you cannot fire it, and they cannot move it.",
+    },
+    entries: [
+      { beat: 0, col: 0, kind: "crawler", color: null, segments: 3, side: "left" },
+      { beat: 24, col: 6, kind: "crawler", color: null, segments: 5, side: "right" },
+      { beat: 30, col: 3, color: "cyan" },
+      { beat: 48, col: 0, kind: "crawler", color: null, segments: 7, side: "left" },
+      { beat: 54, col: 5, kind: "meteor", color: null },
     ],
   },
 ];

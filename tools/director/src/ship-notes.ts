@@ -162,6 +162,15 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "is and no colours; the pilot is shown the colours and no mark, so the " +
     "column and the trigger are two halves of one sentence. A shot at the " +
     "wrong bead swells a dead one back. See strand.ts.",
+  "THE CRAWLER — a worm that walks the ship instead of falling":
+    "The one arrival that never arrives. It comes over a side wall onto the " +
+    "row the shield covers and walks the ship lengthways, costing the hull " +
+    "nothing while it does. Its head and tail are armour; the segments " +
+    "between them run red, cyan, plate and round again, so a colour wants " +
+    "the matching cannon under it and a plate wants the shield — and the " +
+    "body snaps together behind every one taken off. Strip it and a beam " +
+    "takes what is left; let it reach the far wall and it eats in, for as " +
+    "much as the pair left on it. See crawler.ts.",
   "THE VEER — a rock that changes lane on the way down":
     "The first rock that does not hold its column. It falls a row a beat like " +
     "the plain tier and steps one to four lanes to the side three times on the " +

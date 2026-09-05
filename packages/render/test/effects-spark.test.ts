@@ -88,7 +88,7 @@ describe("the list of events that are not a burst", () => {
   });
 
   it("holds nothing that the burst table draws", () => {
-    for (const type of ["destroy", "reject", "grip", "lureHit", "fleetSunk"] as const) {
+    for (const type of ["destroy", "reject", "grip", "lureHit", "shellBare"] as const) {
       expect(isSilent({ type } as never), type).toBe(false);
     }
   });

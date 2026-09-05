@@ -130,6 +130,15 @@ const LIVING_LOOK = {
   queen: null,
   warden: null,
   tether: null,
+  // THE CRAWLER's links are the third body drawn by a path of its own rather
+  // than by a radial contour, and THE LID's case exactly: a segment of a worm
+  // is a ring that is wider across the body than along it, with a seam where
+  // it meets the next one, and `blobRadiusMul` samples one radius all the way
+  // round — so every millimetre it gained at the sides it would gain fore and
+  // aft as well, and a chain drawn that way is a row of lumpy balls with no
+  // joints in it. `render/crawler.ts` strokes it, routed away in
+  // `drawCreatures` before the living pass ever sees one.
+  crawler: null,
 } as const satisfies Record<CreatureKind, { shape: CreatureSilhouette; motion: OwnMotion } | null>;
 
 /**

@@ -1,4 +1,4 @@
-import { kindCode } from "./creature-kinds.js";
+import { kindCode } from "./kind-code.js";
 import { spanOf } from "./span.js";
 import type { Creature } from "./types.js";
 
@@ -214,5 +214,22 @@ export function creatureHashParts(c: Creature): number[] {
   out.push(c.strandOrder ?? -1);
   out.push(c.strandSpent ? 1 : 0);
   out.push(c.strandLit ? 1 : 0);
+  // THE CRAWLER's three. Which worm a link belongs to and where it sits along
+  // it decide, between them, *where every link on the field is standing*:
+  // a link stands at its rank among the living, so two devices that disagree
+  // about either put the same body in two columns — one player's cannon under
+  // a red segment and the other's under a plate. The heading is the same fact
+  // one beat ahead: it is which way the whole body is about to walk, and which
+  // wall the head is going to reach. `-1` for a body that is not a link, a
+  // value neither an id nor a place can take, and `0` for the heading, which
+  // is a value no direction can take — so "not a crawler" and "the head of
+  // one, walking left" are never the same numbers in the fingerprint.
+  //
+  // What answers each link needs no field of its own: it is `c.color` far
+  // above, written once from `segmentColor` on the beat the worm comes on, and
+  // which links are the two ends follows from the run itself (`linkIsEnd`).
+  out.push(c.crawlerId ?? -1);
+  out.push(c.crawlerOrder ?? -1);
+  out.push(c.crawlerDir ?? 0);
   return out;
 }

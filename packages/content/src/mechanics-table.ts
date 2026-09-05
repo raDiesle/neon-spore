@@ -1,5 +1,6 @@
 import type { Mechanic, MechanicId } from "./mechanics.js";
 import { ROCK_MECHANICS } from "./mechanics-rocks.js";
+import { RUN_MECHANICS } from "./mechanics-run.js";
 
 /**
  * The rows themselves, lifted out of `mechanics.ts` when that file crossed the
@@ -224,26 +225,17 @@ export const MECHANICS = {
     what: "The ship folds into a bucket that is both the gun and the glove. One of you slides it and stops the aiming needle, the other picks the strength off a bar and fires — and then the same bucket has to be under the ball when it comes back down.",
     reach: "spawn",
   },
-  briefing: {
-    what: "A wave opens on its number, its name and its sentence, then on a split guide if it carries one — and that guide ends on two circles the pair hold until both say READY.",
-    reach: "run",
-    switch: { field: "briefings", off: false },
+  crawler: {
+    what: "A maggot that comes over a side wall and walks the ship's surface instead of falling on it, a column every other beat, costing the hull nothing while it walks. Its head and tail are armour; the segments between them run red, cyan, plate, red, cyan, plate — a colour wants the matching cannon under it, a plate wants the shield. Every one taken off snaps the body together behind it. Strip it and a beam takes what is left; let it reach the far wall and it eats its way in.",
+    reach: "spawn",
+    // A wave names this kind and never a colour, the way it does for a gyre:
+    // what carries one is each segment, and each follows from its place along
+    // the body (`segmentColor`) rather than from anything an author writes.
+    waveNames: true,
   },
-  windup: {
-    what: "A press does not fire; the shot leaves on the next point of a grid measured in beats, where player 1 can watch it happen.",
-    reach: "run",
-    switch: { field: "shotChargeBeats", off: 0 },
-  },
-  lance: {
-    what: "Player 1 holds the cannon still until the lobe fills, and player 2's next shot leaves slower and passes through bodies of its own colour.",
-    reach: "run",
-  },
-  grip: {
-    what: "A finger held on something falling drags at it, and it falls slower for as long as the finger stays.",
-    reach: "run",
-  },
-  lock: {
-    what: "The same finger, held by player 1 on a body that can be shot: every shot the cannon puts out steers into it and lands, from whatever column it left the muzzle in. Not over a rock and not over a ghost, and it says nothing at all about the colour.",
-    reach: "run",
-  },
+  // The five that are not a thing the field sends — a wave's own opening, the
+  // wind-up, and the three things a held thumb does — are `mechanics-run.ts`
+  // next door, cut out when THE CRAWLER took this file past its limit along
+  // the seam `reach` already names.
+  ...RUN_MECHANICS,
 } as const satisfies Record<MechanicId, Mechanic>;

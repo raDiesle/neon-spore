@@ -143,6 +143,11 @@ export function fallTilesPerBeat(kind: CreatureKind): number {
   // its rim are carried by it (`stepGyre`), so neither has a fall for a number
   // here to describe.
   if (kind === "gyre" || kind === "mount") return 0;
+  // And a link of THE CRAWLER, which walks the ship's surface sideways and
+  // never comes down at all (`crawler-beat.ts`). Zero here is also what makes
+  // one *arrive* rather than glide in — `spawnArrivals` seeds `fromRow` from
+  // this number, and a worm coming over a wall has no fall to enter on.
+  if (kind === "crawler") return 0;
   const tier = (METEOR_TIER_KINDS as readonly CreatureKind[]).indexOf(kind);
   return tier === -1 ? 1 : tier + 1;
 }
@@ -229,6 +234,11 @@ const UNGRIPPABLE: readonly CreatureKind[] = [
   // its neighbours went on — a picture of a string stretching, drawn over a
   // world in which nothing is joined at all.
   "strand",
+  // And a link of a worm, for the dart's reason with nothing left over: a
+  // crawler does not fall in any degree — it holds one row and walks along it
+  // — so a brake has no rate to scale and a hand on one would drag at nothing
+  // while showing every sign of working.
+  "crawler",
 ];
 
 export function isGrippable(kind: CreatureKind): boolean {

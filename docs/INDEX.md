@@ -225,6 +225,16 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/strand-shape.ts` | THE STRAND's shape, as arithmetic |
 | `packages/sim/src/strand-spawn.ts` | How a thread comes onto the field: one queue entry in, two to five bodies out |
 | `packages/sim/src/throb.ts` | the throb's clockwise turn, which half a shot met, and what it costs |
+| `packages/sim/src/boss-entries.ts` | **What a wave authors when it wants a boss** — nine shapes, the union of them |
+| `packages/sim/src/config-crawler.ts` | THE CRAWLER's five numbers: how long a worm is when the wave does not say, how fast it walks |
+| `packages/sim/src/crawler-beat.ts` | **A beat of every worm on the field**: the step it takes, the shield it may walk into |
+| `packages/sim/src/crawler-round.ts` |  |
+| `packages/sim/src/crawler.ts` | THE CRAWLER: a maggot that walks the ship's own surface, and the first body |
+| `packages/sim/src/creature-state-crawler.ts` | **THE CRAWLER's three fields**, and the whole of what one link remembers |
+| `packages/sim/src/events-crawler.ts` | THE CRAWLER's two: the worm taken by the beam, and the worm getting in |
+| `packages/sim/src/events-ghost.ts` | THE GHOST's three: the body letting go, a wall turned at, and the dive |
+| `packages/sim/src/kind-code.ts` | **A kind as a number**, and the compile-time proof that every kind has one |
+| `packages/sim/src/lure-exit.ts` | **THE LURE leaving on its own**, which is the one thing in this game a body does at the end of a beat for no… |
 
 ### packages/content
 
@@ -312,6 +322,10 @@ place — the generator keeps whatever is there.
 | `packages/content/src/maze-drawn.ts` | The four sheets THE MAZE plays after the owner's own, drawn by `bun run maze` and printed here |
 | `packages/content/src/body-path.ts` | one living body's contour — a blob, or the walk that puts clubs on its rim |
 | `packages/content/src/crystals.ts` | the angular family — the rock, the torch and the queen's shell, which do not live |
+| `packages/content/src/crawler-shape.ts` | THE CRAWLER's contour: one link of a worm, and the fifth family of contour in this package |
+| `packages/content/src/creatures-fixtures.ts` | **The three bodies a wave never sends** |
+| `packages/content/src/mechanics-run.ts` | **The five mechanics that are not a thing the field sends**, and the whole of `reach: "run"` |
+| `packages/content/src/wave-entry.ts` | **What one arrival is**, and the half of a wave that grows |
 
 ### packages/render
 
@@ -574,6 +588,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/strand-mark.ts` | THE STRAND's two marks: the bead that has to be shot next on the navigator's screen |
 | `packages/render/src/duty.ts` | The one word (or two) a seat owes the other while a split body is on the field |
 | `packages/render/src/throb.ts` | the plating over a throb's armoured half — the green that means a shot does nothing |
+| `packages/render/src/crawler-fx.ts` | THE CRAWLER's two endings, as pictures that outlive the body they are about |
+| `packages/render/src/crawler.ts` | THE CRAWLER, drawn one link at a time — a maggot lying along the ship's surface |
 
 ### packages/net
 
@@ -617,6 +633,8 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-volley.ts` | **What THE VOLLEY sounds like**: a ward that sends it back |
 | `packages/audio/src/bind-fleet.ts` | **What THE FLEET sounds like**: a salvo leaving the cannon, and the water |
 | `packages/audio/src/bind-breach.ts` | What a hull breach sounds like, split by what it cost rather than by what hit |
+| `packages/audio/src/bind-crawler.ts` | THE CRAWLER's two endings, as sounds |
+| `packages/audio/src/bind-lookups.ts` | The two id-to-id tables `bind.ts` reads, and the only *data* in a file that is otherwise a switch |
 
 ### apps/game
 
@@ -1034,5 +1052,6 @@ place — the generator keeps whatever is there.
 | `tools/hooks/session-start.ts` | Pin bun to a version new enough for this repo, in Claude Code on the web |
 | `tools/director/src/brush-poses-echo.ts` | THE ECHO's specimen, split out of `brush-poses.ts` when THE CAROM took that file over its 250-line limit |
 | `tools/land/state.ts` | the facts a landing is decided from, read off git — `run.ts` moves refs, `land.ts` decides |
+| `tools/director/src/entry-fields-rock.ts` | **A rock's two numbers**: how fast it falls and how wide it arrives |
 
 <!-- index:code:end -->

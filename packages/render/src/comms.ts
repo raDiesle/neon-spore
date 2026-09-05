@@ -169,6 +169,16 @@ const TALKER = {
   // is the one body where each seat is holding half of one sentence and
   // neither half is worth anything alone.
   strand: "both",
+  // THE CRAWLER, and it is THE GYRE's `null` said about two *controls* instead
+  // of one moment. Both screens carry the whole worm — the head, the tail, and
+  // every segment in the colour or the plate that answers it — and nothing
+  // whatever is withheld. The pair still cannot stop talking, because what
+  // they have to agree is an *order of work* on one body that is walking: who
+  // takes the next link, and therefore which of them is about to be holding a
+  // column and which a trigger. A siren here would teach them to look for
+  // something hidden, and the whole point of this creature is that the plan is
+  // in plain sight and still has to be spoken.
+  crawler: null,
 } as const satisfies Record<CreatureKind, Talker | null>;
 
 /** The seat that has to say something about this kind, or null if the two of

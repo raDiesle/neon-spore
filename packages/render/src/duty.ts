@@ -68,6 +68,12 @@ const DUTY_WORD = {
   carom: null,
   chute: null,
   volley: null,
+  // THE CRAWLER, and it is the loudest `null` in this table: both screens draw
+  // every link, every colour and every plate, and the pair still cannot stop
+  // talking. What they have to agree is an order of work on one body that is
+  // walking, not a fact one of them is missing — so there is no word for a
+  // siren to carry (`comms.ts`).
+  crawler: null,
 } as const satisfies Record<CreatureKind, { p1?: string; p2?: string } | null>;
 
 /** Whether a kind counts as active for this word, including the one kind

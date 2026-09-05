@@ -188,7 +188,15 @@ export type CreatureKind =
    * from its ends inward at an end rolled again after every shot: player 2 is
    * shown which is lit and no colour, player 1 the colours and no mark.
    */
-  | "strand";
+  | "strand"
+  /**
+   * One link of a maggot that walks the ship's surface instead of falling onto
+   * it, and the first body **both controls answer, one link at a time**. Its
+   * two ends are armour nothing takes off; the segments between them cycle
+   * red, cyan, armour, so every third one turns the two seats round.
+   * `crawler.ts`, `crawler-round.ts` and `crawler-beat.ts` are the whole of it.
+   */
+  | "crawler";
 
 /**
  * Every `CreatureKind`, in one fixed order, so a kind can be written into the
@@ -232,19 +240,10 @@ export const CREATURE_KINDS = [
   "volley",
   "veer",
   "strand",
+  "crawler",
 ] as const satisfies readonly CreatureKind[];
 
-/** Compile-time proof that the list above names every kind. */
-type ListedKind = (typeof CREATURE_KINDS)[number];
-export type KindsAreExhaustive = CreatureKind extends ListedKind ? true : never;
-const KINDS_ARE_EXHAUSTIVE: KindsAreExhaustive = true;
-void KINDS_ARE_EXHAUSTIVE;
-
-/**
- * A kind as a stable small integer, for the world fingerprint. Never a ternary
- * chain at the call site: a kind added to the union and not to a chain would
- * hash as whatever the chain fell through to.
- */
-export function kindCode(kind: CreatureKind): number {
-  return CREATURE_KINDS.indexOf(kind);
-}
+// What that order is *for* — `kindCode`, and the proof that the list above
+// names every member of the union — is `kind-code.ts` next door, cut out when
+// THE CRAWLER took this file over its limit. See that file for why the roster
+// and the number it hashes as are two questions.

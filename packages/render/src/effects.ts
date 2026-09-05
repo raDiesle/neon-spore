@@ -2,6 +2,7 @@ import type { SimConfig, SimEvent, World } from "@neon-spore/sim";
 import { Arrivals } from "./arrivals.js";
 import { drawBanner } from "./banner.js";
 import { CoordGrid } from "./coord-grid.js";
+import { CrawlerFx } from "./crawler-fx.js";
 import { DeflectFx } from "./deflect.js";
 import { BodyTransients } from "./effects-body.js";
 import { ingestOne, QUEEN_SHAKE_LIFE } from "./effects-ingest.js";
@@ -48,6 +49,10 @@ export class Effects {
   readonly arrivals = new Arrivals();
   /** The two transients that belong to one body — `effects-body.ts`. */
   private bodies = new BodyTransients();
+  /** THE CRAWLER's two endings, both of which outlive the worm they are about
+   * (`crawler-fx.ts`): the lane the ship opens for a stripped one, and the
+   * banks a burrowing one throws up. */
+  private crawler = new CrawlerFx();
   /**
    * THE MIRROR's own transients. Public because the boss is drawn as a whole
    * ship rather than as a handful of particles: `canvas2d` reads `armed` and
@@ -153,6 +158,7 @@ export class Effects {
         deflectFx: this.deflectFx,
         swallow: this.swallow,
         layEcho: this.layEcho,
+        crawler: this.crawler,
         blockedUntil: this.blockedUntil,
         setGuardHit: (v) => {
           this.guardHit = v;
@@ -181,6 +187,7 @@ export class Effects {
     this.mirror.update(dt);
     this.warden.update(dt);
     this.bodies.update(dt);
+    this.crawler.update(dt);
     this.spriteBursts.update(dt);
     this.ghostTrail.update(dt);
     // A salvo's particles are thrown from here on the frame it lands, not from
@@ -195,6 +202,7 @@ export class Effects {
     this.deflectFx.draw(ctx);
     this.sparks.draw(ctx);
     this.bodies.draw(ctx);
+    this.crawler.draw(ctx, l);
     this.spriteBursts.draw(ctx);
     this.bodies.drawOnBodies(ctx, l, world, beatPhase);
   }
@@ -217,6 +225,7 @@ export class Effects {
     this.warden.reset();
     this.fleet.clear();
     this.bodies.clear();
+    this.crawler.clear();
     this.spriteBursts.clear();
     this.coordGrid.clear();
     this.ghostTrail.clear();

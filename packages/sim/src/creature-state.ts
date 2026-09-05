@@ -1,4 +1,5 @@
 import type { CaromDir } from "./carom.js";
+import type { CrawlerState } from "./creature-state-crawler.js";
 import type { HeldState } from "./creature-state-held.js";
 import type { StrandState } from "./creature-state-strand.js";
 import type { VeerState } from "./creature-state-veer.js";
@@ -17,11 +18,10 @@ import type { GhostDir } from "./ghost.js";
  * This is the list that grows, and it has grown by a field for nearly every
  * creature added since THE DART.
  *
- * **The four fields a hand writes live next door**, in `creature-state-held.ts`.
- * Everything here is written by the beat; those are written by player 1's
- * thumb, and that is the one seam this file has — see that file's own doc, and
- * `config-veer.ts`, which was cut out of `config-creatures.ts` on the same day
- * for the same reason.
+ * **Three groups have gone next door**, each a set of fields that only mean
+ * anything against each other and each with its own argument in its own
+ * header: `creature-state-held.ts` (the four a hand writes),
+ * `creature-state-strand.ts` and `creature-state-crawler.ts`.
  *
  * `Creature extends CreatureState` rather than nesting it under a key, so
  * every call site still reads `c.ghostLaps` and nothing moved. It is the same
@@ -35,7 +35,7 @@ import type { GhostDir } from "./ghost.js";
  * siblings are the rules, and a second spelling of a fallback is how the
  * picture and the shot come to disagree about the same body.
  */
-export interface CreatureState extends HeldState, StrandState, VeerState {
+export interface CreatureState extends CrawlerState, HeldState, StrandState, VeerState {
   /**
    * The dart's three fields, and `dart.ts` is the whole of what they mean.
    * `dartDir` is the side it is concerned with now (`-1` left, `1` right),

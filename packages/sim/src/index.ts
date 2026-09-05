@@ -55,7 +55,21 @@ export {
   type SimConfig,
   ticksPerBeat,
 } from "./config.js";
+// THE CRAWLER, narrowed to what is asked from outside the simulation; the rest
+// of `crawler.ts` is the sim's own and is imported from that file.
+export {
+  CRAWLER_MAX,
+  CRAWLER_MIN,
+  CRAWLER_SIDES,
+  type CrawlerSide,
+  crawlerHeading,
+  crawlerSegmentCount,
+  crawlerSide,
+  linkIsEnd,
+  linkOrder,
+} from "./crawler.js";
 export { lureVanishRow, wornKind } from "./creature-rules.js";
+
 export {
   DART_COLS,
   DART_ROWS,

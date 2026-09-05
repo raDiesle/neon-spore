@@ -1,6 +1,7 @@
 import type { CreatureKind } from "@neon-spore/sim";
 import type { CreatureDef } from "./creatures.js";
 import { BARE_CREATURES } from "./creatures-bare.js";
+import { FIXTURE_CREATURES } from "./creatures-fixtures.js";
 import { ROCK_CREATURES } from "./creatures-rocks.js";
 import { WORN_CREATURES } from "./creatures-worn.js";
 
@@ -41,22 +42,12 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
   // always held, so key order is untouched — the director reads its brush
   // strip off it. See that file for why the rocks are the half that moved.
   ...ROCK_CREATURES,
-  queen: {
-    kind: "queen",
-    controls: ["aim", "guard"],
-    color: null,
-    radar: "p2",
-    blurb:
-      "Huge and armoured. Two marks under her middle, one real and one not: one of you sees what is coming, the other sees which side. Every eight beats one of the two torches she carries drops straight out of its socket.",
-  },
-  warden: {
-    kind: "warden",
-    controls: ["aim", "guard"],
-    color: null,
-    radar: "p2",
-    blurb:
-      "A ring five columns wide with a hole you can see the field through, and it never moves. The hole slides; the core stands in it for two beats after every line you pull free, and only a shot of the rim's own colour, in the hole's own column, takes a plate.",
-  },
+  // The three bodies a wave never *sends* — the two bosses and the rope one of
+  // them lowers — live next door in `creatures-fixtures.ts`, named one by one
+  // rather than spread so this table still reads in the order the bestiary has
+  // always had it. See that file for why the fixtures are the half that moved.
+  queen: FIXTURE_CREATURES.queen,
+  warden: FIXTURE_CREATURES.warden,
   // The four bodies drawn as something else live next door, in
   // `creatures-worn.ts` — named one by one rather than spread, so this table
   // still reads in the order the bestiary has always had it. See that file for
@@ -126,22 +117,9 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     blurb:
       "It is on one of your screens and not the other, and it is never in the same tile twice: every two beats it is somewhere else on the field. It does not fall, so it never reaches the ship and never leaves — the wave stays open until it is shot, and either colour will do it. While one is out, both screens carry the lettered grid.",
   },
-  tether: {
-    kind: "tether",
-    // The first `special`: answered by neither cannon nor shield. A hand is
-    // the only thing that touches it — dragged rather than gripped — so it
-    // carries no control group at all and a wave containing one shows the band
-    // its other creatures ask for.
-    controls: [],
-    color: null,
-    // Nobody's strip. It is installed by the boss rather than arriving from
-    // above, and the boss is already announced — a second warning of a thing
-    // that is not travelling anywhere would be noise on a strip that exists
-    // to say what is coming.
-    radar: "none",
-    blurb:
-      "A rope lowered out of the middle of THE WARDEN's rim, with a handle on the end of it. Cannot be shot and cannot be warded, and it never falls — the pilot takes the handle and pulls it aside, and the hatch over the eye opens as far as the rope is taut.",
-  },
+  // The third fixture, and the only `special` that is not a body something
+  // else brought onto the field with it.
+  tether: FIXTURE_CREATURES.tether,
   ghost: {
     kind: "ghost",
     // An ordinary aim target, and the panel says so. The whole difficulty is
@@ -247,4 +225,26 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
   // rind and the mount for their reason — what makes a bead a bead is where it
   // is on the line and which one is lit, and neither is a costume.
   strand: BARE_CREATURES.strand,
+  crawler: {
+    kind: "crawler",
+    // **Both**, and the only kind where the two are not two halves of one
+    // arrival but two halves of one *body*: a crawler wants them turn and turn
+    // about along a line the pair can read off the field before it has
+    // finished coming on. A wave showing one panel is a wave where every third
+    // link cannot be answered at all.
+    controls: ["aim", "guard"],
+    // No colour of its own and none ever authored, which is the throb's blank
+    // rather than the dart's: what carries a colour here is each *segment*,
+    // and each follows from its place along the body (`segmentColor`). One
+    // offered here would be an offer to turn the creature off, because the
+    // order red, cyan, plate is the whole of what the pair plans against.
+    color: null,
+    // Player 2's strip, like every other mixed body. Deliberately not split: a
+    // worm announces itself by walking on over a wall, which both screens
+    // watch for several beats, so a second strip would warn about a thing
+    // already in plain sight.
+    radar: "p2",
+    blurb:
+      "A maggot that comes over one side wall and walks the ship's surface instead of falling on it, a column every other beat. It costs the hull nothing while it walks. Its head and tail are armour; the segments between them run red, cyan, plate, red, cyan, plate — a colour wants the matching cannon under it, a plate wants the shield. Take one off and the body snaps together behind it. Strip it and a beam takes what is left; let it reach the far wall and it eats its way in.",
+  },
 };

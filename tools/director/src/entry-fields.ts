@@ -1,13 +1,14 @@
 import { authorsBodyColor, kindForColor, type WaveEntry } from "@neon-spore/content";
 import {
   type Color,
+  CRAWLER_MAX,
+  CRAWLER_MIN,
+  type CrawlerSide,
   type CreatureKind,
-  colSpan,
+  crawlerSegmentCount,
+  crawlerSide,
   DEFAULT_CONFIG,
   type GhostPath,
-  isMeteorKind,
-  METEOR_TIER_KINDS,
-  type RockSize,
   STRAND_MAX,
   STRAND_MIN,
   strandBeadCount,
@@ -30,60 +31,6 @@ import {
  * `authorsBodyColor` for which kinds take a colour at all — so the tool cannot
  * come to disagree with the game about any of the three.
  */
-
-/** How fast a rock falls, as the tier number the bestiary counts in: 1..5,
- * one tile per beat each. */
-export type MeteorSpeed = 1 | 2 | 3 | 4 | 5;
-
-export const METEOR_SPEEDS: readonly MeteorSpeed[] = [1, 2, 3, 4, 5];
-export const METEOR_SIZES: readonly RockSize[] = [1, 2];
-
-/**
- * Whether this entry is a plain meteor — a rock whose speed and size are the
- * author's to set. The torch is a rock and is deliberately not one of these:
- * it is not a tier (`fallTilesPerBeat`) and its width is what it is. Nor is
- * THE VEER, for the sharper version of the same reason — it *is* one of the
- * tiers' speeds, but its kind is what makes it step sideways, so a speed dial
- * that writes `METEOR_TIER_KINDS[n]` back over it would quietly turn the
- * author's creature into a plain rock.
- *
- * Asked of `METEOR_TIER_KINDS` rather than by excluding two names, so a rock
- * added beside those two is out of here by default rather than by being
- * remembered.
- */
-export function isTieredRock(entry: WaveEntry): boolean {
-  if (entry.kind === undefined || !isMeteorKind(entry.kind)) return false;
-  return (METEOR_TIER_KINDS as readonly string[]).includes(entry.kind);
-}
-
-/** The tier this rock falls at, counted from 1. */
-export function meteorSpeed(entry: WaveEntry): MeteorSpeed {
-  const tier = METEOR_TIER_KINDS.indexOf(entry.kind as (typeof METEOR_TIER_KINDS)[number]);
-  return (METEOR_SPEEDS[tier] ?? 1) as MeteorSpeed;
-}
-
-/**
- * Set the fall speed, which means changing the *kind* — five tiers, and the
- * tier is the speed (`fallTilesPerBeat`). Nothing else about the arrival moves:
- * a rock made wide stays wide when it is made faster.
- */
-export function setMeteorSpeed(entry: WaveEntry, speed: MeteorSpeed): void {
-  entry.kind = METEOR_TIER_KINDS[speed - 1] ?? "meteor";
-}
-
-/** How many tiles wide this rock arrives. Unsized means the kind's own width. */
-export function meteorSize(entry: WaveEntry): RockSize {
-  return entry.size ?? (colSpan(entry.kind ?? "meteor") as RockSize);
-}
-
-/**
- * Set the width. One tile is written as *no* field rather than as `size: 1`,
- * so a rock left at the ordinary width serialises exactly as it always did and
- * the diff of a wave nobody widened is empty.
- */
-export function setMeteorSize(entry: WaveEntry, size: RockSize): void {
-  entry.size = size === 1 ? undefined : size;
-}
 
 /** How a ghost travels. Both, always — the choice is what this row is for. */
 export const GHOST_PATHS: readonly GhostPath[] = ["down", "across"];
@@ -146,6 +93,55 @@ export function setBeadCount(entry: WaveEntry, beads: number): void {
   entry.beads = beads === DEFAULT_CONFIG.strandBeads ? undefined : beads;
 }
 
+/**
+ * The lengths a worm may be authored at, read off the simulation's own two
+ * bounds rather than typed out here — `STRAND_COUNTS`' arrangement, and for
+ * its reason: `crawlerSegmentCount` is what clamps, and a second list would be
+ * a panel offering a length the field then quietly refuses.
+ */
+export const CRAWLER_COUNTS: readonly number[] = Array.from(
+  { length: CRAWLER_MAX - CRAWLER_MIN + 1 },
+  (_, i) => CRAWLER_MIN + i,
+);
+
+/** Whether this entry is a crawler, and therefore has a length and a side to
+ * set. Neither field means anything on any other kind. */
+export function hasCrawlerFields(entry: WaveEntry): boolean {
+  return entry.kind === "crawler";
+}
+
+/** How many segments this worm carries between its two ends. Unset means the
+ * default, asked of the shipped configuration rather than repeated. */
+export function crawlerCountOf(entry: WaveEntry): number {
+  return crawlerSegmentCount(DEFAULT_CONFIG, entry.segments);
+}
+
+/** Set the length, writing the default as *no* field so a worm nobody
+ * lengthened serialises exactly as it always did. */
+export function setCrawlerCount(entry: WaveEntry, segments: number): void {
+  entry.segments = segments === DEFAULT_CONFIG.crawlerSegments ? undefined : segments;
+}
+
+/**
+ * Which wall this worm comes over. Unset means the wall its column is nearest,
+ * which is `crawlerSide`'s own fallback asked rather than repeated — so the
+ * panel shows the side the field will actually use, not a blank.
+ */
+export function crawlerSideOf(entry: WaveEntry): CrawlerSide {
+  return crawlerSide(DEFAULT_CONFIG.cols, entry.col, entry.side);
+}
+
+/**
+ * Set the side. Writing the one the column already implies is written as *no*
+ * field, `setGhostPath`'s arrangement: a worm placed on the left and told to
+ * come from the left is a worm nobody has overridden, and its wave should
+ * serialise byte for byte as it did before anybody clicked.
+ */
+export function setCrawlerSide(entry: WaveEntry, side: CrawlerSide): void {
+  const implied = crawlerSide(DEFAULT_CONFIG.cols, entry.col, undefined);
+  entry.side = side === implied ? undefined : side;
+}
+
 /** The bodies a colour can name. Both, always — the choice is the point. */
 export const BODY_KINDS: readonly ("slick" | "bulb")[] = ["slick", "bulb"];
 
@@ -202,3 +198,18 @@ const COLOR_FOR_BODY: Record<"slick" | "bulb", Color> = (() => {
   }
   return out;
 })();
+
+// **A rock's two numbers** — how fast it falls and how wide it arrives — are
+// `entry-fields-rock.ts` next door, cut out when THE CRAWLER's two took this
+// file over its limit. Re-exported here so nothing that already reached for
+// one had to move.
+export {
+  isTieredRock,
+  METEOR_SIZES,
+  METEOR_SPEEDS,
+  type MeteorSpeed,
+  meteorSize,
+  meteorSpeed,
+  setMeteorSize,
+  setMeteorSpeed,
+} from "./entry-fields-rock.js";

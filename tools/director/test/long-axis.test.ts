@@ -64,15 +64,19 @@ const axes = CATALOGUE.map((e) => ({
 }));
 
 describe("the catalogue's long axes", () => {
-  it("splits a hundred and one bodies into wide, round and tall", () => {
+  it("splits a hundred and two bodies into wide, round and tall", () => {
     const count = (a: "x" | "y" | null) => axes.filter((e) => e.long === a).length;
-    expect(axes.length).toBe(101);
+    expect(axes.length).toBe(102);
     expect(count("x")).toBe(39);
     expect(count(null)).toBe(50);
-    expect(count("y")).toBe(12);
+    expect(count("y")).toBe(13);
   });
 
-  it("names the twelve tall ones", () => {
+  // THE CRAWLER is tall for the one reason that matters about this creature:
+  // the worm travels *sideways*, so a link's long axis is across the direction
+  // of travel and therefore up the screen. A round card would be a link that
+  // had stopped being a segment.
+  it("names the thirteen tall ones", () => {
     expect(
       axes
         .filter((e) => e.long === "y")
@@ -80,6 +84,7 @@ describe("the catalogue's long axes", () => {
         .sort(),
     ).toEqual([
       "COMB",
+      "CRAWLER",
       "GHOST",
       "HUSK 1",
       "HUSK 2",

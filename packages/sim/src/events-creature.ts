@@ -1,4 +1,6 @@
 import type { CaromEvent } from "./events-carom.js";
+import type { CrawlerEvent } from "./events-crawler.js";
+import type { GhostEvent } from "./events-ghost.js";
 import type { StrandEvent } from "./events-strand.js";
 import type { VolleyEvent } from "./events-volley.js";
 import type { Color, CreatureKind } from "./types.js";
@@ -135,38 +137,11 @@ export type CreatureEvent =
    * is read off the shared beat and every wisp takes it at once (`wispHops`).
    */
   | { type: "wispHop" }
-  /**
-   * A ghost was shot, and for the length of one escape both screens draw it.
-   *
-   * It rides beside the ordinary `destroy` on the same tick rather than in
-   * place of it, exactly as `veilTorn` does: the kill is a kill and keeps its
-   * burst, its sound and its score, and this is the body letting go and
-   * climbing out of the top of the field (`render/ghost-release.ts`).
-   *
-   * Its own event and not a flag on `destroy`, because what it is for is the
-   * *other* screen. Player 1 has never seen this body — only the band across
-   * its row — so the one moment it is worth drawing for them is the moment it
-   * is no longer a secret, and an event nobody could tell from a slick's death
-   * could not carry that.
-   */
-  | { type: "ghostRelease"; col: number; row: number; color: Color }
-  /**
-   * A crossing ghost ran out of field, stood at the wall and turned back.
-   * `laps` is how many walls it has now touched, which is the number the pair
-   * is counting: at `ghostChargeLaps` it stops prowling.
-   *
-   * Both devices carry it, and that is deliberate rather than a leak of the
-   * split. Player 1 cannot see the body and is not told which wall — only
-   * that one more turn has gone by, which is the half of this creature that
-   * is about *time* rather than about place, and time was never the secret.
-   */
-  | { type: "ghostTurn"; col: number; row: number; laps: number }
-  /**
-   * It has given up on prowling and is coming down at the ship, head first.
-   * From this moment it is drawn on both screens (`showsGhostBody`): a hull
-   * hit nobody could see coming is a hull hit the pair cannot learn from.
-   */
-  | { type: "ghostCharge"; col: number; row: number }
+  // THE GHOST's three — the body letting go, a wall turned at, and the dive —
+  // are `events-ghost.ts` next door, cut out when THE CRAWLER took this file
+  // over its limit. One arrival taken apart, and the one whose every event is
+  // aimed at the seat that cannot see the body.
+  | GhostEvent
   /**
    * A layer came off THE RIND, and the body standing there is a size smaller.
    * `left` is how many it still wears, which is the number the pair is
@@ -242,9 +217,16 @@ export type CreatureEvent =
   // arrival taken apart, in a file of its own because this one is at its
   // limit.
   | VolleyEvent
+  // And THE CRAWLER's two — the beam that takes a stripped worm and the burrow
+  // when one gets in — are `events-crawler.ts`, on the same terms: the two
+  // endings of one arrival, in a file of its own because this one is at its
+  // limit. Its two *answers* are a plain `destroy` and a plain `deflect`.
+  | CrawlerEvent
   | StrandEvent;
 
 // Re-exported so nothing that reaches for one through this file has to move.
 export type { CaromEvent } from "./events-carom.js";
+export type { CrawlerEvent } from "./events-crawler.js";
+export type { GhostEvent } from "./events-ghost.js";
 export type { StrandEvent } from "./events-strand.js";
 export type { VolleyEvent } from "./events-volley.js";

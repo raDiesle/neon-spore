@@ -46,6 +46,11 @@ const BY_ID: Record<string, Subject> = {
   "ship.reload": control("fireCyan"),
   "ship.charge": control("fireRed"),
   "ship.merge": control("fireCyan"),
+  // The beam that takes a stripped worm. Its own family would send it to the
+  // field's generic card, and what goes up the lane is two links of a crawler —
+  // the head and the tail, the only two things on this creature nothing can
+  // take off. So the picture is the link, which is the card the sheet has.
+  "motion.teleport": shape("CRAWLER"),
   "boss.warden": WARDEN_OPEN,
   "boss.wardenTether": WARDEN,
   "boss.wardenPlate": WARDEN,
