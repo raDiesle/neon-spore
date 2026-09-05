@@ -64,6 +64,13 @@ The file is 21,991 characters in the repository and fits under the 22,000 ceilin
 ## 2026-09-05 · ea3cf39 — The intro is advertised rather than explained
 
 The six pages that say what this game is were even type on a dark screen, which reads as a manual however short the sentences are. They are laid out the way a store page is now: the headline stands on a lit banner in the page's own colour, a supermarket price flash is stamped across the corner of the picture, and the picture itself comes at the reader and goes back again on a three-and-a-half second trip, with the tag half a turn behind it so the corner reads as a second plane. Six pages, six colours, none of them one of the four greens the palette reserves.
+## 2026-09-05 · 4337bac5 — Queue: bun run frames cannot magnify what it photographed
+
+A creature is forty pixels on a phone, so a before-and-after of a change to its shape is two pictures the change is invisible in. This lane had to hand-roll a crop-and-scale throwaway to judge its own work and to send the owner something he could see.
+
+## 2026-09-05 · 86bed29a — An eye's lids meet at a point
+
+The eyelid was rounded: both lids left their corners steeply and had to round over to reach the crown, so the aperture read as a bulb with two nicks in it rather than as an eye. The four control points of the two cubics now sit well inboard, which leaves each corner shallow and closes the pair on a taper of about seventy degrees instead of a hundred.
 
 ## 2026-09-05 · 53b004bb — Queue: bun run frames cannot photograph a spark burst
 
