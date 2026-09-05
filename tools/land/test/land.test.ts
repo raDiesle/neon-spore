@@ -1,13 +1,7 @@
 import { expect, describe as group, test } from "bun:test";
-import {
-  type Cleanup,
-  type LandState,
-  plan,
-  pushNow,
-  SWEPT_NOTHING,
-  uncommittedOf,
-} from "../land.js";
+import { type Cleanup, type LandState, plan, pushNow, SWEPT_NOTHING } from "../land.js";
 import { badge, describe } from "../say.js";
+import { uncommittedOf } from "../state.js";
 
 function state(over: Partial<LandState> = {}): LandState {
   return {
@@ -20,6 +14,7 @@ function state(over: Partial<LandState> = {}): LandState {
     trunkDirty: [],
     trunkStaged: [],
     hasOrigin: true,
+    trunkStale: 0,
     noPush: false,
     forcePush: false,
     keep: false,
@@ -85,6 +80,22 @@ group("plan", () => {
     const decided = plan(state({ trunkDirty: ["docs/INDEX.md"] }));
     expect(decided.go).toBe(true);
     if (decided.go) expect(decided.warn.join(" ")).toContain("uncommitted");
+  });
+
+  test("refuses while the trunk is behind origin", () => {
+    // The expensive one, and the reason it is a refusal rather than a warning:
+    // a lane replayed onto a stale trunk is checked against a history that is
+    // about to be thrown away, and the reconciliation then happens on the trunk
+    // with the check already spent and no branch left to fix a conflict on.
+    const decided = plan(state({ trunkStale: 11, ahead: 3 }));
+    expect(decided.go).toBe(false);
+    if (!decided.go) expect(decided.why).toContain("11 commits");
+  });
+
+  test("says commit in the singular when the trunk is one behind", () => {
+    const decided = plan(state({ trunkStale: 1 }));
+    expect(decided.go).toBe(false);
+    if (!decided.go) expect(decided.why).toContain("1 commit main has not");
   });
 
   test("refuses when the trunk has the release note itself staged", () => {

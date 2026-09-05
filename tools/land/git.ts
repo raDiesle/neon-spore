@@ -35,3 +35,30 @@ export async function gitOrDie(args: string[], cwd: string): Promise<string> {
   if (code !== 0) throw new Error(`${err.trim() || out.trim()}`);
   return out.trim();
 }
+
+/**
+ * Where `origin` has the trunk, asked before anything else is measured.
+ *
+ * Returns how many commits `origin/<trunk>` has that the local one has not, and
+ * whether the fetch that answered it actually reached the remote. **Both halves
+ * are needed and neither is an error.** A landing has to work with no network,
+ * so an unreachable `origin` measures against the ref already here and the
+ * caller says so; a trunk that is genuinely behind is the refusal
+ * (`LandState.trunkStale`, and `docs/git-and-landing.md` on the afternoon that
+ * bought it).
+ */
+export async function trunkAgainstOrigin(
+  root: string,
+  trunk: string,
+  hasOrigin: boolean,
+): Promise<{ stale: number; fetched: boolean }> {
+  if (!hasOrigin) return { stale: 0, fetched: false };
+  const proc = Bun.spawn(["git", "fetch", "origin", trunk], {
+    cwd: root,
+    stdout: "ignore",
+    stderr: "ignore",
+  });
+  const fetched = (await proc.exited) === 0;
+  const stale = Number(await git(["rev-list", "--count", `${trunk}..origin/${trunk}`], root)) || 0;
+  return { stale, fetched };
+}

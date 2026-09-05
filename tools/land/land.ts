@@ -31,6 +31,15 @@ export interface LandState {
   trunkStaged: readonly string[];
   /** Whether `git remote get-url origin` resolves — nothing to push to otherwise. */
   hasOrigin: boolean;
+  /**
+   * Commits `origin/<trunk>` has that the local trunk has not — **not**
+   * `behind`, which is about the lane. This is about the thing the lane is
+   * replayed *onto*: a stale trunk makes the replay, the check and the
+   * fast-forward facts about a history nobody else will have, and the
+   * reconciliation then arrives with no branch left to fix a conflict on.
+   * `docs/git-and-landing.md` has the afternoon that bought this.
+   */
+  trunkStale: number;
   /** `--no-push` was given: land, but leave `origin` alone. */
   noPush: boolean;
   /** `--push` was given: push this landing whether or not it swept anything. */
@@ -83,32 +92,6 @@ export interface Landing {
 }
 
 export type Plan = { go: false; why: string } | Landing;
-
-/**
- * Uncommitted work in a worktree: paths whose **content** differs from `HEAD`,
- * plus files git is not tracking yet.
- *
- * Deliberately not `git status --porcelain`. Git keeps a cached stat for every
- * index entry, and a file rewritten with identical bytes invalidates that cache
- * without changing anything — on this machine the harness does exactly that to
- * `.claude/launch.json`. `status` then reports ` M` for a file whose blob
- * matches `HEAD`, `git update-index --refresh` does not clear it, and a landing
- * stops on a file the lane never touched, saying the lane has uncommitted work
- * when it has none. Content cannot lie that way: `git diff --name-only HEAD`
- * sees a stat-only difference as no difference at all.
- *
- * The untracked half has to come from `git ls-files --others`, because a diff
- * against `HEAD` is blind to a file git has never heard of — and a new file
- * the lane forgot to add is exactly the uncommitted work worth refusing for.
- */
-export function uncommittedOf(changedVsHead: string, untracked: string): string[] {
-  const paths = (out: string) =>
-    out
-      .split("\n")
-      .map((line) => line.trim())
-      .filter(Boolean);
-  return [...new Set([...paths(changedVsHead), ...paths(untracked)])].sort();
-}
 
 function these(paths: readonly string[]): string {
   const shown = paths.slice(0, 3).join(", ");
@@ -167,6 +150,13 @@ export function plan(state: LandState): Plan {
     return {
       go: false,
       why: `${state.branch} carries nothing ${state.trunk} has not got already — bun run land --sweep clears it away`,
+    };
+  }
+  if (state.trunkStale > 0) {
+    const many = state.trunkStale === 1 ? "commit" : "commits";
+    return {
+      go: false,
+      why: `origin/${state.trunk} has ${state.trunkStale} ${many} ${state.trunk} has not — bring the trunk up first, or the check is a result about a history nobody else will have`,
     };
   }
   if (state.trunkStaged.includes("docs/release-notes.md")) {

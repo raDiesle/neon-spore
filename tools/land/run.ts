@@ -49,17 +49,11 @@
  */
 
 import { git, gitOrDie } from "./git.js";
-import {
-  type Landing,
-  type LandState,
-  plan,
-  pushNow,
-  SWEPT_NOTHING,
-  uncommittedOf,
-} from "./land.js";
+import { type Landing, plan, pushNow, SWEPT_NOTHING } from "./land.js";
 import { type Landed, LOG_FORMAT, parseLanded } from "./notes.js";
 import { queueSnapshots, refusal, resurrectedAfter } from "./queue-guard.js";
 import { badge, describe } from "./say.js";
+import { readState } from "./state.js";
 import { sweep, writeNotes } from "./sweep.js";
 
 const root = Bun.fileURLToPath(new URL("../../", import.meta.url));
@@ -71,45 +65,14 @@ const keep = argv.includes("--keep");
 const sweepOnly = argv.includes("--sweep");
 const TRUNK = "main";
 
-/** What `uncommittedOf` needs, asked of one worktree. */
-async function uncommitted(cwd: string): Promise<string[]> {
-  const [changed, untracked] = await Promise.all([
-    git(["diff", "--name-only", "HEAD"], cwd),
-    git(["ls-files", "--others", "--exclude-standard"], cwd),
-  ]);
-  return uncommittedOf(changed, untracked);
-}
-
-/** Which worktree has the trunk checked out, if any. */
-async function trunkTree(): Promise<string> {
-  const out = await git(["worktree", "list", "--porcelain"], root);
-  let path = "";
-  for (const line of out.split("\n")) {
-    if (line.startsWith("worktree ")) path = line.slice("worktree ".length);
-    if (line === `branch refs/heads/${TRUNK}`) return path;
-  }
-  return "";
-}
-
-const branch = (await git(["rev-parse", "--abbrev-ref", "HEAD"], root)) || "HEAD";
-const tree = await trunkTree();
-const state: LandState = {
-  branch,
-  trunk: TRUNK,
-  dirty: await uncommitted(root),
-  ahead: Number(await git(["rev-list", "--count", `${TRUNK}..HEAD`], root)) || 0,
-  behind: Number(await git(["rev-list", "--count", `HEAD..${TRUNK}`], root)) || 0,
-  trunkTree: tree,
-  trunkDirty: tree ? await uncommitted(tree) : [],
-  trunkStaged: tree
-    ? (await git(["diff", "--cached", "--name-only"], tree)).split("\n").filter(Boolean)
-    : [],
-  hasOrigin: (await git(["remote", "get-url", "origin"], root)) !== "",
+const { state, unreached } = await readState(root, TRUNK, {
   noPush,
   forcePush,
   keep,
   sweepOnly,
-};
+});
+if (unreached) console.log(unreached);
+const branch = state.branch;
 
 const decided = plan(state);
 if (!decided.go) {

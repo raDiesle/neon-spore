@@ -1033,5 +1033,6 @@ place — the generator keeps whatever is there.
 | `tools/land/queue-guard.ts` | A landing must not put back a queue entry another lane took out |
 | `tools/hooks/session-start.ts` | Pin bun to a version new enough for this repo, in Claude Code on the web |
 | `tools/director/src/brush-poses-echo.ts` | THE ECHO's specimen, split out of `brush-poses.ts` when THE CAROM took that file over its 250-line limit |
+| `tools/land/state.ts` | the facts a landing is decided from, read off git — `run.ts` moves refs, `land.ts` decides |
 
 <!-- index:code:end -->

@@ -162,6 +162,29 @@ Landing is one command: `bun run land`, run from inside the lane's worktree.
 It rebases onto `main`, runs `bun run check` on the result, fast-forwards, and
 cleans up after itself. `CLAUDE.md` has the full mechanics.
 
+## What a session pays for, and it is not the running
+
+A command's *runtime* costs nothing but wall clock. What costs is the output
+coming back into the conversation, because everything already there is re-sent
+on every turn after — a two-thousand-token failure dump read early in a long
+session is paid dozens of times, not once.
+
+So:
+
+- **Filter at the shell, not by reading.** `bun run check 2>&1 | tail -20`,
+  `bun test 2>&1 | grep -E "\(fail\)"`. A passing run is five lines; a failing
+  one prints an assertion, a diff, a source excerpt and a stack per failure, and
+  hunting through that unfiltered is where test tokens actually go.
+- **A long run goes to a file and only its failing part is read.** Backgrounding
+  it and reading the tail is half the trick; the other half is grepping the file
+  for the test *names* rather than re-running to find them.
+- **Pictures are the expensive read.** An image costs roughly `width × height /
+  750` tokens — six hundred to sixteen hundred for a crop worth looking at — and
+  it stays in context afterwards. One picture at the end beats ten during
+  iteration, and `bun run frames --at x,y,w,h` crops before it costs anything.
+  `bun run shapes:report` answers most shape questions in numbers instead
+  (`CLAUDE.md` says to reach for it first, and this is the second reason).
+
 ## House style for changes
 
 - Touch only what changed. Do not regenerate whole files.

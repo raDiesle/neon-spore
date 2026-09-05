@@ -68,6 +68,16 @@ Style and formatting are Biome's job: `bun run lint`, `bun run format`.
 - **The rebase happens before the check, not after.** `bun run land` already
   orders it that way; a green check taken before the rebase is a result about a
   tree that no longer exists.
+- **Bring the trunk up before you start, not only before you land.**
+  `git fetch origin main && git merge --ff-only origin/main`. `bun run land`
+  fetches and refuses while `main` is behind `origin/main`. A rebase deferred is
+  not the same rebase later — it grows a conflict per file both sides touched —
+  so **land each green piece** rather than holding a branch open for a second.
+- **Resolving a conflict is not finished until `bunx tsc --noEmit` passes**,
+  before `git rebase --continue`. Never concatenate both sides in a file with
+  syntax; resolve a generated file by running its command; and for
+  `docs/queue.md` and `docs/release-notes.md`, which every lane appends to, take
+  `origin`'s copy whole and re-append only your own entry.
 - **A defect found after landing is new work, and gets a new branch from
   `main`.** Never revive the landed branch.
 - **Commit when the work is done, without being asked.** Four conditions, all of

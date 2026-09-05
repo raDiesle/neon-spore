@@ -112,6 +112,59 @@ Say what was committed. Pushing is a separate question, and the section below
 answers it.
 
 
+## When the trunk moved under you
+
+Every rule in this section was paid for on 5 September 2026, in one lane, in one
+afternoon. The lane was green and finished; the landing took four hours.
+
+**Bring the trunk up before you start, and again before you land.** The local
+`main` in a cloud clone is whatever `origin` held when the container was made,
+and this repo lands several times a day. The lane in question rebased onto a
+local trunk sixty-six commits behind, landed cleanly onto it, and then could not
+push — `origin/main` had eleven commits it did not, one of them a whole new
+creature touching the same four tables. `bun run land` now fetches and refuses
+while the trunk is behind (`LandState.trunkStale`), because the alternative is
+what happened next: the reconciliation landed on the *trunk*, with the branch
+already swept, the check already spent, and seven conflicts arriving at the one
+moment there was no lane left to fix them on.
+
+The cost is not linear in how long you wait. A rebase over one commit is nothing;
+over eleven that touch what you touched, it is a conflict per file and a full
+`bun run check` per mistake.
+
+**Land each green piece.** The same lane was finished twice: a rule change, then
+a shape change asked for after the first was already green. Landing the first
+would have made the second a fresh branch off a current trunk, and the collision
+would have hit a small diff instead of an eighty-file one. A branch held open for
+a second feature pays the first one's rebase twice.
+
+**Typecheck between resolving a conflict and `git rebase --continue`.** Two of
+the seven conflicts were resolved wrongly — a dropped `export {` and a field
+deleted in this lane but still written by code that landed while it ran. Both are
+found by `bunx tsc --noEmit` in ten seconds. Both were instead found three
+minutes into `bun run check`, twice, because the cheap gate was skipped for the
+expensive one.
+
+**Never merge a conflict by concatenating both sides in a file with syntax.**
+The dropped `export {` was exactly that: a script took the two halves of an
+export block and joined them, and two valid halves do not make a valid whole. A
+scripted union is right for append-only prose and wrong for everything else.
+
+**A file a command owns is resolved by running the command.** `docs/INDEX.md`
+was merged by hand and then had to be regenerated anyway; `bun run index` writes
+it from the tree, and `bun run index --check` says whether it drifted. The shape
+sheets are the same: `bun run shapes`.
+
+**`docs/queue.md` and `docs/release-notes.md` conflict on every concurrent
+landing.** They are append-only and every lane appends, so the conflict is
+structural rather than a mistake anybody made. The recipe is fixed: take
+`origin`'s copy whole, then re-append your own entry. Reconciling them line by
+line resurrects entries another lane removed with `bun run queue done` — which
+is a known enough failure that `tools/land/queue-guard.ts` fails the landing
+when it happens, and it will not save you on the release notes, where the only
+symptom is somebody else's entry quietly coming back.
+
+
 ## Pushing the trunk, and how often
 
 `main` has to reach `origin`, and the argument is only about when. Not pushing
