@@ -1,6 +1,6 @@
 import { mkdir } from "node:fs/promises";
 import { dirname } from "node:path";
-import { chromium } from "playwright-core";
+import { type Browser, chromium, type Page } from "playwright-core";
 import { findChrome } from "./chrome.js";
 import { openStage } from "./page.js";
 import type { FrameSpec, PressSpec } from "./spec.js";
@@ -54,14 +54,22 @@ export async function captureFrames(
   baseUrl: string,
   spec: FrameSpec,
   outPrefix: string,
+  shared?: Browser,
 ): Promise<CaptureResult> {
   const frames = spec.frames ?? 1;
   const strideTicks = spec.strideTicks ?? 6;
   if (frames < 1) throw new Error("frames must be at least 1");
 
-  const browser = await chromium.launch({ executablePath: findChrome(), headless: true });
+  // A browser of its own unless the caller lent one. `bun run frames` takes
+  // one capture per worktree and wants the launch; a *test file* taking six
+  // wants one browser, because the launch is the only cost here that is
+  // neither measured nor bounded — see `tools/frames/test/opening.test.ts`.
+  const browser =
+    shared ?? (await chromium.launch({ executablePath: findChrome(), headless: true }));
+  let opened: Page | null = null;
   try {
     const { page, errors: pageErrors } = await openStage(browser, baseUrl, spec);
+    opened = page;
 
     /**
      * What `ticks` and `strideTicks` actually move.
@@ -175,6 +183,11 @@ export async function captureFrames(
     }
     return { paths };
   } finally {
-    await browser.close();
+    // A lent browser is the caller's to close; the tab this capture opened in
+    // it is not, and a file that leaked one per capture would be back where it
+    // started. `newPage` makes a context of its own, so closing that is the
+    // whole of the tear-down.
+    if (shared) await opened?.context().close();
+    else await browser.close();
   }
 }

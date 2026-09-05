@@ -2,7 +2,7 @@ import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { chromium } from "playwright-core";
+import { type Browser, chromium } from "playwright-core";
 import { captureFrames, findChrome } from "../capture.js";
 import { clearOpening } from "../opening.js";
 
@@ -20,11 +20,41 @@ import { clearOpening } from "../opening.js";
  * per test run would be the slow, indirect way to ask a much smaller
  * question: does the handle `capture.ts` drives still exist and still let a
  * wave's opening go?
+ *
+ * ## One browser, and a budget that says why
+ *
+ * These are the only tests in the repository that start a real server and
+ * drive a real browser, and `bun test` runs 280-odd files at once. Under that
+ * they used to launch **a headless Chrome each** — six of them by the time
+ * `--settle` landed — which is the one cost here that is neither measured nor
+ * bounded, and twice in five full runs one of them lost the race: a case took
+ * longer than bun's default, bun killed the file's subprocesses along with it,
+ * and every test after that failed against a dead preview with
+ * `ERR_CONNECTION_REFUSED`. One slow test poisoned the whole file.
+ *
+ * So there is one browser for the file, lent to `captureFrames`, and every
+ * case carries `STARVED_MS` — a budget written for a machine with three other
+ * copies of the suite on it rather than for an idle one. Four copies of this
+ * file running at once is the reproduction: it failed two of four before, and
+ * passes now.
  */
+
+/**
+ * What one of these is allowed to take on a machine that is being fought over.
+ *
+ * On an idle machine a capture costs about two seconds. The number is not a
+ * deadline anybody is trying to meet — a browser that genuinely hangs still
+ * fails here, and one that is merely starved still passes — and it is written
+ * down once, at the top, because the failure it prevents is not one case
+ * timing out. It is bun tearing the file's preview server down underneath
+ * every case that had not run yet.
+ */
+const STARVED_MS = 120_000;
 describe("captureFrames past a wave's opening", () => {
   let baseUrl: string;
   let stop: () => void;
   let scratchOut: string;
+  let browser: Browser;
 
   beforeAll(async () => {
     const proc = Bun.spawn(["bun", "run", "--cwd", "apps/game", "preview:once"], {
@@ -50,22 +80,29 @@ describe("captureFrames past a wave's opening", () => {
     baseUrl = url;
     stop = () => proc.kill();
     scratchOut = await mkdtemp(join(tmpdir(), "neon-spore-frames-opening-test-"));
-  }, 40_000);
+    browser = await chromium.launch({ executablePath: findChrome(), headless: true });
+  }, STARVED_MS);
 
   afterAll(async () => {
+    await browser?.close().catch(() => {});
     stop?.();
     if (scratchOut) await rm(scratchOut, { recursive: true, force: true }).catch(() => {});
   });
 
-  it("gets past the wave's own opening and writes a picture of the field", async () => {
-    const { paths } = await captureFrames(
-      baseUrl,
-      { wave: 0, ticks: 60 },
-      join(scratchOut, "still"),
-    );
-    expect(paths).toHaveLength(1);
-    expect(await Bun.file(paths[0] as string).exists()).toBe(true);
-  }, 30_000);
+  it(
+    "gets past the wave's own opening and writes a picture of the field",
+    async () => {
+      const { paths } = await captureFrames(
+        baseUrl,
+        { wave: 0, ticks: 60 },
+        join(scratchOut, "still"),
+        browser,
+      );
+      expect(paths).toHaveLength(1);
+      expect(await Bun.file(paths[0] as string).exists()).toBe(true);
+    },
+    STARVED_MS,
+  );
 
   /**
    * And the other direction, which is what `--opening` added: the two screens
@@ -77,34 +114,44 @@ describe("captureFrames past a wave's opening", () => {
    * that the stop happened at all — a capture that quietly ran on would come
    * back with a picture, and it would be a picture of the field.
    */
-  it("stands on the introduction instead of running past it", async () => {
-    // ALTERNATING, which carries no guide: its introduction is the only thing
-    // in front of the field. FIRST STEP cannot answer this any more — its guide
-    // is stepped, so the introduction is that guide's last page rather than a
-    // phase behind it (`sim/guide-steps.ts`). It is index 3 since CYAN was
-    // written into act one; both of these are the *wave the field is behind*
-    // rather than any particular number, so they move when act one does.
-    const { paths } = await captureFrames(
-      baseUrl,
-      { wave: 3, ticks: 30, opening: "intro" },
-      join(scratchOut, "intro"),
-    );
-    expect(paths).toHaveLength(1);
-    expect(await Bun.file(paths[0] as string).exists()).toBe(true);
-  }, 30_000);
+  it(
+    "stands on the introduction instead of running past it",
+    async () => {
+      // ALTERNATING, which carries no guide: its introduction is the only thing
+      // in front of the field. FIRST STEP cannot answer this any more — its guide
+      // is stepped, so the introduction is that guide's last page rather than a
+      // phase behind it (`sim/guide-steps.ts`). It is index 3 since CYAN was
+      // written into act one; both of these are the *wave the field is behind*
+      // rather than any particular number, so they move when act one does.
+      const { paths } = await captureFrames(
+        baseUrl,
+        { wave: 3, ticks: 30, opening: "intro" },
+        join(scratchOut, "intro"),
+        browser,
+      );
+      expect(paths).toHaveLength(1);
+      expect(await Bun.file(paths[0] as string).exists()).toBe(true);
+    },
+    STARVED_MS,
+  );
 
-  it("stands on the guide, and a strip of it counts painted frames", async () => {
-    // Wave 1 carries a guide (`packages/content/src/waves/act-1.ts`), and its
-    // rehearsal is drawn rather than stepped — so the strip below is four
-    // paints apart on the frame clock, not four ticks apart on the world's.
-    const { paths } = await captureFrames(
-      baseUrl,
-      { wave: 0, ticks: 6, frames: 3, strideTicks: 4, opening: "guide" },
-      join(scratchOut, "guide"),
-    );
-    expect(paths).toHaveLength(3);
-    for (const path of paths) expect(await Bun.file(path).exists()).toBe(true);
-  }, 30_000);
+  it(
+    "stands on the guide, and a strip of it counts painted frames",
+    async () => {
+      // Wave 1 carries a guide (`packages/content/src/waves/act-1.ts`), and its
+      // rehearsal is drawn rather than stepped — so the strip below is four
+      // paints apart on the frame clock, not four ticks apart on the world's.
+      const { paths } = await captureFrames(
+        baseUrl,
+        { wave: 0, ticks: 6, frames: 3, strideTicks: 4, opening: "guide" },
+        join(scratchOut, "guide"),
+        browser,
+      );
+      expect(paths).toHaveLength(3);
+      for (const path of paths) expect(await Bun.file(path).exists()).toBe(true);
+    },
+    STARVED_MS,
+  );
 
   /**
    * `--settle`, and the clock it exists to reach.
@@ -120,51 +167,60 @@ describe("captureFrames past a wave's opening", () => {
    * wired to `advance` by mistake: it moves the picture, and it does not move
    * the world.
    */
-  it("settles the picture into a different frame", async () => {
-    const bare = await captureFrames(
-      baseUrl,
-      { wave: 0, ticks: 60 },
-      join(scratchOut, "unsettled"),
-    );
-    const settled = await captureFrames(
-      baseUrl,
-      { wave: 0, ticks: 60, settle: 30 },
-      join(scratchOut, "settled"),
-    );
-    const before = await Bun.file(bare.paths[0] as string).bytes();
-    const after = await Bun.file(settled.paths[0] as string).bytes();
-    expect(Buffer.from(after).equals(Buffer.from(before))).toBe(false);
-  }, 60_000);
+  it(
+    "settles the picture into a different frame",
+    async () => {
+      const bare = await captureFrames(
+        baseUrl,
+        { wave: 0, ticks: 60 },
+        join(scratchOut, "unsettled"),
+        browser,
+      );
+      const settled = await captureFrames(
+        baseUrl,
+        { wave: 0, ticks: 60, settle: 30 },
+        join(scratchOut, "settled"),
+        browser,
+      );
+      const before = await Bun.file(bare.paths[0] as string).bytes();
+      const after = await Bun.file(settled.paths[0] as string).bytes();
+      expect(Buffer.from(after).equals(Buffer.from(before))).toBe(false);
+    },
+    STARVED_MS,
+  );
 
-  it("settles without stepping the simulation", async () => {
-    const browser = await chromium.launch({ executablePath: findChrome(), headless: true });
-    try {
+  it(
+    "settles without stepping the simulation",
+    async () => {
       const page = await browser.newPage();
-      await page.goto(`${baseUrl}?play=1`, { waitUntil: "load" });
-      await page.waitForFunction(() => Boolean(window.neonSpore));
-      await page.evaluate(() => window.neonSpore?.jumpToWave(0));
-      await clearOpening(page);
-      // The same line `captureFrames` runs before its own frame loop: until
-      // rAF stops, the game is still ticking itself between two `evaluate`
-      // round trips, and the question below would be answered by the loop
-      // rather than by `paint`.
-      await page.evaluate(() => {
-        window.requestAnimationFrame = () => 0;
-      });
+      try {
+        await page.goto(`${baseUrl}?play=1`, { waitUntil: "load" });
+        await page.waitForFunction(() => Boolean(window.neonSpore));
+        await page.evaluate(() => window.neonSpore?.jumpToWave(0));
+        await clearOpening(page);
+        // The same line `captureFrames` runs before its own frame loop: until
+        // rAF stops, the game is still ticking itself between two `evaluate`
+        // round trips, and the question below would be answered by the loop
+        // rather than by `paint`.
+        await page.evaluate(() => {
+          window.requestAnimationFrame = () => 0;
+        });
 
-      await page.evaluate(() => window.neonSpore?.advance(60));
-      const tick = () => page.evaluate(() => window.neonSpore?.world.tick ?? -1);
-      const before = await tick();
-      expect(before, "the wave never started").toBeGreaterThan(0);
+        await page.evaluate(() => window.neonSpore?.advance(60));
+        const tick = () => page.evaluate(() => window.neonSpore?.world.tick ?? -1);
+        const before = await tick();
+        expect(before, "the wave never started").toBeGreaterThan(0);
 
-      await page.evaluate(() => {
-        for (let i = 0; i < 30; i++) window.neonSpore?.paint();
-      });
-      expect(await tick(), "painting moved the simulation").toBe(before);
-    } finally {
-      await browser.close();
-    }
-  }, 30_000);
+        await page.evaluate(() => {
+          for (let i = 0; i < 30; i++) window.neonSpore?.paint();
+        });
+        expect(await tick(), "painting moved the simulation").toBe(before);
+      } finally {
+        await page.context().close();
+      }
+    },
+    STARVED_MS,
+  );
 
   /**
    * The rings, and the reason they were in every picture this tool ever took.
@@ -175,37 +231,44 @@ describe("captureFrames past a wave's opening", () => {
    * picture and never got past it. `clearOpening` paints them out now, and the
    * page is the only thing that can say whether it worked.
    */
-  it("leaves the field with nothing arriving over it", async () => {
-    const browser = await chromium.launch({ executablePath: findChrome(), headless: true });
-    try {
+  it(
+    "leaves the field with nothing arriving over it",
+    async () => {
       const page = await browser.newPage();
-      await page.goto(`${baseUrl}?play=1`, { waitUntil: "load" });
-      await page.waitForFunction(() => Boolean(window.neonSpore));
-      await page.evaluate(() => window.neonSpore?.jumpToWave(0));
+      try {
+        await page.goto(`${baseUrl}?play=1`, { waitUntil: "load" });
+        await page.waitForFunction(() => Boolean(window.neonSpore));
+        await page.evaluate(() => window.neonSpore?.jumpToWave(0));
 
-      const asks = await page.evaluate(() => typeof window.neonSpore?.launching);
-      expect(asks, "the handle no longer reports the arrival").toBe("function");
+        const asks = await page.evaluate(() => typeof window.neonSpore?.launching);
+        expect(asks, "the handle no longer reports the arrival").toBe("function");
 
-      await clearOpening(page);
-      const launching = () => page.evaluate(() => window.neonSpore?.launching?.() ?? null);
-      expect(await launching(), "the field is still behind two rings").toBe(false);
+        await clearOpening(page);
+        const launching = () => page.evaluate(() => window.neonSpore?.launching?.() ?? null);
+        expect(await launching(), "the field is still behind two rings").toBe(false);
 
-      // And ticks are the wrong clock, which is why `clearOpening`'s own loop
-      // never cleared them: ten more seconds of simulation move nothing that
-      // is painted.
-      await page.evaluate(() => window.neonSpore?.advance(600));
-      expect(await launching()).toBe(false);
-    } finally {
-      await browser.close();
-    }
-  }, 30_000);
+        // And ticks are the wrong clock, which is why `clearOpening`'s own loop
+        // never cleared them: ten more seconds of simulation move nothing that
+        // is painted.
+        await page.evaluate(() => window.neonSpore?.advance(600));
+        expect(await launching()).toBe(false);
+      } finally {
+        await page.context().close();
+      }
+    },
+    STARVED_MS,
+  );
 
-  it("refuses a guide the wave has not got, rather than photographing the field", async () => {
-    // ALTERNATING teaches nothing new, so it carries no guide: its
-    // introduction passes straight onto the field and there is no second
-    // screen to stand on.
-    await expect(
-      captureFrames(baseUrl, { wave: 3, ticks: 6, opening: "guide" }, join(scratchOut, "none")),
-    ).rejects.toThrow("carries no guide");
-  }, 30_000);
+  it(
+    "refuses a guide the wave has not got, rather than photographing the field",
+    async () => {
+      // ALTERNATING teaches nothing new, so it carries no guide: its
+      // introduction passes straight onto the field and there is no second
+      // screen to stand on.
+      await expect(
+        captureFrames(baseUrl, { wave: 3, ticks: 6, opening: "guide" }, join(scratchOut, "none")),
+      ).rejects.toThrow("carries no guide");
+    },
+    STARVED_MS,
+  );
 });
