@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 61c8240 — A landing refuses to put back work the trunk has finished
+
+Twice on 5 September 2026 one did. `tools/land/refusal.ts`, `--settle` and the frames tests' shared browser were all on the trunk with their entries removed in the commits that closed them, and `docs/queue.md` went on listing every one of them as waiting. A session that believed the file, which is the whole point of the file, would have done them a second time — the failure the queue's own preamble records happening on 3 September, arriving by a different road.
+
 ## 2026-09-05 · 0741b1f — The same build photographed twice is the same picture
 
 `run.ts` refuses to write a before-and-after pair whose frames match, on the argument that a picture of an unchanged field teaches nothing. It could never fire: two captures of one build at the same wave, tick and zoom came back with different digests, so the guard was a comment.
