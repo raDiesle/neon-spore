@@ -84,7 +84,10 @@ export function ingestDeflect(
 ): void {
   const x = tileCX(l, e.col);
   parts.rockImpactFx.spawn(x, l, time, beatSeconds, e.kind, e.span, e.fromRow, false, (ax, ay) => {
-    parts.deflectFx.spawn(ax, ay, l.tile, e.span);
+    // The kind as well as the span: both halves of "it is still the same
+    // rock" — the width it was drawn at all the way down, and the torch's
+    // ember ring (`deflect.ts`).
+    parts.deflectFx.spawn(ax, ay, l.tile, e.span, e.kind);
     parts.burst(ax, ay, 26 * e.span, PALETTE.shieldRim);
     parts.onDeflect();
   });

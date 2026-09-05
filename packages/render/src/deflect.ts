@@ -1,8 +1,10 @@
 import { crystalPath, METEOR } from "@neon-spore/content";
+import type { CreatureKind } from "@neon-spore/sim";
 import { hash01 } from "./backdrop.js";
 import { DEFLECT_LOOK } from "./deflect-look.js";
 import { halo } from "./glow.js";
 import { PALETTE } from "./palette.js";
+import { drawEmberRing, rockTileRadius } from "./torch.js";
 
 interface Particle {
   x: number;
@@ -21,6 +23,11 @@ interface Particle {
   /** How far in, in px, this particle presses — fixed at spawn from the
    * `tile` that frame had, so `draw` never needs one. */
   pressDepth: number;
+  /** Whether this rock carries the torch's flame ring. The one mark that
+   * survives a bounce: the tail is a picture of falling and there is no
+   * falling left to do (`rock-impact.ts`), so without the ring a turned torch
+   * is a grey stone nobody can name. */
+  ember: boolean;
 }
 interface Shock {
   x: number;
@@ -77,9 +84,17 @@ export class DeflectFx {
    * first case and a visible jump in the second; the correction belongs
    * where the rock's position is known, not where the bounce is drawn.
    *
-   * `span` is the deflected creature's `colSpan` — 3 for a torch, 1 for a
-   * plain rock — so the shockwave draws as wide as the thing it came off,
-   * rather than a single-tile ring for a three-tile impact.
+   * `span` is the deflected creature's own width — two for a torch or a big
+   * meteor, one for a plain rock — and it sizes **both** the shockwave and the
+   * rock itself. The rock used to be drawn at a flat `tile * 0.4` whatever it
+   * came off, so a two-tile body the pair had been watching all the way down
+   * halved the instant the shield turned it; it is `rockTileRadius` now, the
+   * same rule the falling rock and its crater are drawn by, so the bounced
+   * body is the same size and keeps its whole footprint inside the columns it
+   * occupied.
+   *
+   * `kind` is that creature's kind, and the only thing it decides is the
+   * torch's ember ring — see `Particle.ember`.
    *
    * Both the crystal and the ring open with a short press-and-release before
    * the crystal's ordinary flight and the ring's ordinary growth begin — see
@@ -87,13 +102,13 @@ export class DeflectFx {
    * the shield and the shield giving like rubber, not as a reversal on one
    * tick.
    */
-  spawn(x: number, y: number, tile: number, span = 1): void {
+  spawn(x: number, y: number, tile: number, span = 1, kind?: CreatureKind): void {
     const sy = y;
     const shockR = tile * DEFLECT_LOOK.ringSpanFrac * span;
     this.particles.push({
       x,
       y: sy,
-      r: tile * 0.4,
+      r: rockTileRadius(tile, span),
       vx: (hash01(this.seed++) - 0.5) * 90,
       vy: -260 - hash01(this.seed++) * 80,
       spin: hash01(this.seed++) * 6.28,
@@ -101,6 +116,7 @@ export class DeflectFx {
       life: DEFLECT_LOOK.life,
       pressT: 0,
       pressDepth: tile * DEFLECT_LOOK.pressDepthFrac,
+      ember: kind === "torch",
     });
     this.shocks.push({
       x,
@@ -163,6 +179,10 @@ export class DeflectFx {
       if (pt > 0) ctx.scale(1 + pt * squash, 1 - pt * squash);
       ctx.globalAlpha = Math.min(1, d.life / 0.5);
       ctx.rotate(d.spin);
+      // The flame first, under the stone, exactly as `drawTorchRock` lays it:
+      // a ring just outside the outline rather than a glow over it, so the
+      // rock's own contour is still the edge the eye reads.
+      if (d.ember) drawEmberRing(ctx, d.r, 0);
       const path = new Path2D(
         crystalPath(0, 0, d.r, d.r, METEOR.sides, METEOR.depth, METEOR.wobble, 0, METEOR.seed),
       );

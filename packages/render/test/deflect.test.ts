@@ -1,6 +1,7 @@
 import { beforeAll, describe, expect, it } from "bun:test";
 import { DeflectFx } from "../src/deflect.js";
 import { DEFLECT_LOOK } from "../src/deflect-look.js";
+import { PALETTE } from "../src/palette.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 /**
@@ -135,5 +136,64 @@ describe("DeflectFx press-and-release", () => {
     for (let i = 0; i < 10; i++) fx.update(0.02, TILE);
     fx.draw(ctx as unknown as CanvasRenderingContext2D);
     expect(arcRs[ringsPerDraw]).toBeGreaterThan(baseR);
+  });
+});
+
+/**
+ * The owner's report: *when deflecting 2 tile meteor like things, they should
+ * stay in same form — right now it changes to a regular 1 tile meteor.*
+ *
+ * The bounce used to be drawn at a flat `tile * 0.4` however wide the thing
+ * that came off the shield was, so a torch or an authored two-tile rock —
+ * both of which the pair have been watching fill two columns the whole way
+ * down — halved on the frame the shield turned it. The radius is
+ * `rockTileRadius` now, the same rule the falling rock and its crater are
+ * sized by, so the rock that leaves is the rock that arrived and its contour
+ * still sits inside the columns it occupied.
+ */
+describe("a bounced rock keeps its own size", () => {
+  /** The half-width of the rock's own body gradient, which `draw` builds
+   * across `(-r, -r) → (r, r)` — the one number in the log that *is* the
+   * radius, rather than a shape derived from it. */
+  function rockRadiusDrawn(fx: DeflectFx): number {
+    const { ctx } = stubCanvas();
+    ctx.log = [];
+    fx.draw(ctx as unknown as CanvasRenderingContext2D);
+    const line = ctx.log.find((entry) => entry.startsWith("createLinearGradient("));
+    expect(line, "the rock drew no body gradient").toBeDefined();
+    const args = (line as string).slice("createLinearGradient(".length, -1).split(", ").map(Number);
+    return args[2] as number;
+  }
+
+  it("draws a one-tile rock at a one-tile radius", () => {
+    const fx = new DeflectFx();
+    fx.spawn(200, 1130, TILE, 1);
+    expect(rockRadiusDrawn(fx)).toBeCloseTo(TILE * 0.4, 5);
+  });
+
+  it("draws a two-tile rock twice as wide, not shrunk to a plain meteor", () => {
+    const fx = new DeflectFx();
+    fx.spawn(200, 1130, TILE, 2, "meteor");
+    expect(rockRadiusDrawn(fx)).toBeCloseTo(TILE * 0.8, 5);
+  });
+
+  it("keeps the torch two tiles wide and still wearing its ember ring", () => {
+    const fx = new DeflectFx();
+    fx.spawn(200, 1130, TILE, 2, "torch");
+    expect(rockRadiusDrawn(fx)).toBeCloseTo(TILE * 0.8, 5);
+
+    const { ctx } = stubCanvas();
+    ctx.log = [];
+    fx.draw(ctx as unknown as CanvasRenderingContext2D);
+    expect(ctx.log.some((entry) => entry === `set strokeStyle=${PALETTE.ember}`)).toBe(true);
+  });
+
+  it("leaves a plain rock without one — the flame belongs to the torch alone", () => {
+    const fx = new DeflectFx();
+    fx.spawn(200, 1130, TILE, 2, "meteor");
+    const { ctx } = stubCanvas();
+    ctx.log = [];
+    fx.draw(ctx as unknown as CanvasRenderingContext2D);
+    expect(ctx.log.some((entry) => entry === `set strokeStyle=${PALETTE.ember}`)).toBe(false);
   });
 });

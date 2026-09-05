@@ -22,7 +22,18 @@ export function torchRadius(l: Layout): number {
  * authors them that way (`RockSize`, sim/kinds.ts).
  */
 export function rockRadius(l: Layout, span = 1): number {
-  return l.tile * 0.4 * span;
+  return rockTileRadius(l.tile, span);
+}
+
+/**
+ * The same rule, asked with a **tile width** rather than a whole layout —
+ * for `DeflectFx`, which is handed one number and no layout at all. It is the
+ * one place the arithmetic lives: a bounced rock sized by a second copy of
+ * `0.4` is how a two-tile rock came to shrink to one the moment the shield
+ * turned it, which is exactly the defect this seam repairs.
+ */
+export function rockTileRadius(tile: number, span = 1): number {
+  return tile * 0.4 * span;
 }
 
 /**
@@ -68,8 +79,10 @@ export function drawTorchTail(
 }
 
 /** The torch's flame, kept only as a faint ring just outside the rock's own
- * outline — a trace of it, not the flame itself. */
-function drawEmberRing(ctx: CanvasRenderingContext2D, r: number, time: number): void {
+ * outline — a trace of it, not the flame itself. Exported for the bounce
+ * (`deflect.ts`): a torch the shield turns away is still a torch, and the ring
+ * is the one mark that says so once the tail is gone. */
+export function drawEmberRing(ctx: CanvasRenderingContext2D, r: number, time: number): void {
   const ringD = crystalPath(
     0,
     0,
@@ -81,11 +94,16 @@ function drawEmberRing(ctx: CanvasRenderingContext2D, r: number, time: number): 
     time * 0.15,
     METEOR.seed,
   );
-  ctx.globalAlpha = 0.4;
+  // Multiplied into whatever alpha the caller already had, and restored
+  // rather than set back to 1: a bounced rock is drawn fading out
+  // (`deflect.ts`), and a ring that reset the alpha would take the fade with
+  // it and leave the stone at full strength for the whole of its flight.
+  ctx.save();
+  ctx.globalAlpha *= 0.4;
   ctx.strokeStyle = PALETTE.ember;
   ctx.lineWidth = STROKE.outline;
   ctx.stroke(new Path2D(ringD));
-  ctx.globalAlpha = 1;
+  ctx.restore();
 }
 
 /**
