@@ -99,6 +99,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## `bun run push` hides why the push was refused
 
 - **Found:** 2026-09-05, claude/eye-eyelid-shape-194988
+- **Taken:** 2026-09-05, claude/queue-bun-run-push-hides-why-the-push-was-refused
 - **Files:** `tools/land/push.ts`, `tools/land/test/`
 
 The catch prints `error.message.split("
