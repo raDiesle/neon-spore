@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 990e241 — `frame-passes.ts` is a barrel, and the four passes are two files
+
+It sat at exactly 250 lines. THE LOCK's dotted line wanted one parameter and four lines of comment on `drawBodies`, and paying for them cost two rounds of shaving sentences out of that comment — which is the warning the limit exists to give, and the same one `act-3b.ts` records having ignored once. The next pass added to a frame would have broken the build before it drew anything.
+
 ## 2026-09-05 · 61c8240 — A landing refuses to put back work the trunk has finished
 
 Twice on 5 September 2026 one did. `tools/land/refusal.ts`, `--settle` and the frames tests' shared browser were all on the trunk with their entries removed in the commits that closed them, and `docs/queue.md` went on listing every one of them as waiting. A session that believed the file, which is the whole point of the file, would have done them a second time — the failure the queue's own preamble records happening on 3 September, arriving by a different road.
