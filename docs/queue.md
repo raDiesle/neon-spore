@@ -283,6 +283,7 @@ without anybody rewriting a sentence about THE GHOST.
 ## `bun run index` never removes a row for a deleted file
 
 - **Found:** 2026-09-05, claude/shield-then-cannon-tutorial-74988b
+- **Taken:** 2026-09-05, claude/queue-bun-run-index-never-removes-a-row-for-a-deleted
 - **Files:** `tools/index/run.ts`, `tools/index/index.ts`, `tools/index/test/index.test.ts`
 
 `generateIndex` completes the "## Code" table — every in-scope file that has no
