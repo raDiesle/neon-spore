@@ -1,14 +1,6 @@
 import { beforeAll, describe, expect, it } from "bun:test";
 import { controlSet } from "@neon-spore/content";
-import {
-  crawlerLinks,
-  crawlerOf,
-  createWorld,
-  type SpawnEntry,
-  step,
-  ticksPerBeat,
-  type World,
-} from "@neon-spore/sim";
+import { createWorld, type SpawnEntry, step, ticksPerBeat, type World } from "@neon-spore/sim";
 import { linkOnField } from "../src/crawler.js";
 import type { ViewRole } from "../src/layout.js";
 import { CFG, installCanvasGlobals, ROLES, runFrames } from "./frame-harness.js";
@@ -82,7 +74,7 @@ describe("the crawler", () => {
     // frame that reached only the mound would leave half of it unproved.
     const world: World = createWorld(CFG, 1, [crawler(3)]);
     for (let t = 0; t < ticksPerBeat(CFG) + 1; t++) step(world, []);
-    const links = crawlerLinks(world, crawlerOf(world.creatures[0]!));
+    const links = world.creatures.filter((c) => c.kind === "crawler");
     const ends = new Set([links[0]!.id, links[links.length - 1]!.id]);
     world.creatures = world.creatures.filter((c) => ends.has(c.id));
     const { ctx } = runFrames(world, "test", ticksPerBeat(CFG) * 3, {
@@ -95,7 +87,7 @@ describe("the crawler", () => {
   it("keeps a link off the side of the field out of the picture", () => {
     const world = createWorld(CFG, 1, [crawler(7)]);
     for (let t = 0; t < ticksPerBeat(CFG) + 1; t++) step(world, []);
-    const links = crawlerLinks(world, crawlerOf(world.creatures[0]!));
+    const links = world.creatures.filter((c) => c.kind === "crawler");
     // Only the head has walked on; every link behind it is in a column no
     // phone has, and a body drawn there would be one the pilot can see and can
     // never put the cannon under.

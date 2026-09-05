@@ -55,8 +55,7 @@ export {
   type SimConfig,
   ticksPerBeat,
 } from "./config.js";
-// THE CRAWLER, narrowed to what is asked from outside the simulation; the rest
-// of `crawler.ts` is the sim's own and is imported from that file.
+// THE CRAWLER, narrowed to what is asked from outside the sim.
 export {
   CRAWLER_MAX,
   CRAWLER_MIN,
