@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 67b6253 — THE VOLLEY's wave is watched rather than read
+
+It shipped with three lines of prose and no `scene`, exactly as THE CAROM did two entries before it and for the same reason: what the pair has to learn is a shape, and a shape does not read off a line of text. It is the worse of the two to describe, because the thing being taught is that a control they already know does something it has never done before — every warded body in this game so far has been a rock, and a rock answered is a rock gone.
+
 ## 2026-09-05 · 5cb01ae — A scene can put the strip where the body actually is
 
 Every column in a film was an authored one: `actCol` puts a `SceneAct`'s `col` through `mapCol`, which maps 0..6 onto the real field and, on the eleven columns the game ships, reaches 0, 2, 3, 5, 7, 8 and 10 and nothing else. For a strip that is a hole rather than a rounding — a shield authored into column 4 lands in 3 or 5, and a body standing in 4 goes straight past it.
