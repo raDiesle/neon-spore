@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 7885ccf — A walk of the repository is held to skipping `.claude`
+
+The build-stamp test's `.claude` skip landed with the other half of its entry undone: **check the other tree-walking tests for the same hole.** They are checked now, and the rule is a test rather than a memory.
+
 ## 2026-09-05 · da30c59 — `--boss-round`: a fight played in rounds can be photographed past its first
 
 `jumpToWave` puts a boss on the field at its opening round and the only thing that moves it on is *winning*, which nothing headless can do. So `bun run frames` could photograph the first of THE MAZE's five sheets and no other — and the first sheet is the one with a single way in, so the rim with five gaps and the drum coming apart on a shot lost in a dead end were held by a unit test and by nothing an eye had seen. THE MIRROR, SNAKE and PINBALL had the same hole.
