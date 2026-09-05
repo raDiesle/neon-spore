@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 536500f — CLAUDE.md gets its headroom back, and the two missing commands
+
+It stood at 21,991 characters against a 22,000 ceiling, which is not headroom: it is a wall the next rule to be written down walks into. `bun run sweep` landed with no line in the commands table for exactly that reason, and `bun run maze` after it. Both are in the table now.
+
 ## 2026-09-05 · afbb8e2 — The events that are not a burst move into a file of their own
 
 `burstFor` was one exhaustive switch over the whole of `SimEvent` and the file sat at 250 lines to the line. Adding THE CHUTE's cut — one `case` and one clause of comment — pushed it over, and the only way to land that was to reword two comments belonging to other creatures until five lines came back. Every future event would have paid the same cost, by editing prose nobody meant to touch, which is how an argument written down carefully gets shortened by somebody with a different aim.
