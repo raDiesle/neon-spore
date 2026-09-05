@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 53b004bb — Queue: bun run frames cannot photograph a spark burst
+
+## 2026-09-05 · 793c66e3 — A body bursts in its own colour, and a rock lands like a rock
+
+Everything that reached the hull threw red sparks, whatever it was: a cyan bulb came apart in the colour of the shot that would never have killed it. The breach event carries the body's own colour now, and the burst is thrown in it — cyan for a cyan body, red for a red one, red still for the colourless.
+
 ## 2026-09-05 · 9464ffaa — THE RECOIL's cage burns in the colour of the body it holds
 
 The frame was rock-grey line work around a body whose whole point is its colour. It is now lit the way the ship's own ward is (`shield.ts`): every rib and every hoop arc goes through `strokeGlow`, over an aura the width of the hoop, and the light is the creature's own red or cyan mixed into the metal rather than a colour of its own — a frame in the body's colour is one more thing saying the word the pair has to trade, instead of one more thing over the top of it. Both the glow and the aura rise with `strain`, so a cage down to its last rib visibly works harder: the count the ribs carry, said a second way for a seat reading light across a phone screen.
