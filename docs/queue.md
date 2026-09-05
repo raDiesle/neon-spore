@@ -149,6 +149,20 @@ alone repeatedly is the reproduction to beat: it has to fail there before a fix
 means anything, so drive the load up rather than lowering the timeout and
 calling it fixed.
 
+**What has already been tried, on 5 September 2026, without reproducing it.**
+Seven full runs of the suite: four on their own, and three with two more copies
+of `bun test` running beside them, which is about as starved as this machine
+gets. Every one of the four browser tests passed. Timed on an idle machine each
+capture costs about two seconds against a thirty-second budget, so whatever
+goes wrong is not the happy path being slow — it is fifteen times over. Two
+things came out of the attempt and are worth having before the next one starts.
+`bun run check` runs its three parts in sequence, so it is exactly `bun test`
+for contention and there is nothing to be gained by driving the whole command.
+And the file launches **four separate headless Chrome instances**, one per
+`captureFrames`, inside a 272-file parallel run — that is the part of the cost
+which is neither measured nor bounded, and sharing one browser across the file
+is the change to reach for once the failure can be produced on demand.
+
 ## A scene cannot put the shield where a body actually is
 
 - **Found:** 2026-09-05, claude/queued-items-d3ce8d
@@ -178,3 +192,28 @@ film is written. A strip wants the third reading of that — an act that says
 the world rather than by an author out of a grid. Add it to `SceneAct`, resolve
 it in `aimed`, and hold it in `scenes.test.ts` the way the other two are held.
 Then write THE VOLLEY's film, which is a queue entry of its own and stays there.
+
+## `apps/server`'s room test loses a race under a loaded machine
+
+- **Found:** 2026-09-05, claude/queued-items-d3ce8d
+- **Files:** `apps/server/test/room.test.ts`
+
+"ends a run nobody came back to, so the next arrival starts a fresh one" failed
+on bun's own five-second default, at 5000.30ms, during three copies of the
+suite running at once. It passed in every other run of the seven, so it is the
+same shape of defect the entry above it describes and was found while trying to
+reproduce that one.
+
+It is the only test in the file that stands up a **second** miniflare of its
+own (`relay({ SEAT_SILENT_MS, RUN_OVER_MS })`) on top of the shared one, opens
+three sockets against it, and then waits out two real wall-clock windows —
+`quiet(400)` plus the handshakes. On an idle machine that is comfortably inside
+five seconds; a workerd starting under load is not, and the budget was never
+written down for it. Three tests below it stand up their own relay the same way
+and are the same race waiting to be lost.
+
+The fix is not a longer number in one place: give the tests that raise their own
+relay a budget that says why, next to the windows they are waiting out, so the
+next one written inherits it. `RUN_OVER_MS` and `SEAT_SILENT_MS` are already
+shortened deliberately so the test does not sit still for the real windows, and
+that comment is where the argument belongs.
