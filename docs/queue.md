@@ -96,6 +96,28 @@ entry that already has one is refused rather than overwritten.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
+## `bun run frames` cannot magnify the thing it photographed
+
+- **Found:** 2026-09-05, claude/eye-eyelid-shape-194988
+- **Files:** `tools/frames/run.ts`, `tools/frames/capture.ts`, `tools/frames/test/`
+
+A creature is drawn at `l.tile * 0.4`, which on a 390 px phone is about forty
+pixels, and a before-and-after of a change to its *shape* is two pictures in
+which the change is a handful of pixels. The eyelid lane could not judge its own
+work from the frames the tool produced and could not show the owner what had
+changed: `CLAUDE.md` says send the picture, and a picture nobody can see the
+change in is the same as sending none. It hand-rolled a throwaway that loaded
+both PNGs into a page, cropped to a rectangle and scaled it, then deleted it —
+which is the friction `shot.ts` was written to stop being paid again.
+
+Add a crop to the capture: `--zoom <n>` and `--at <x,y,w,h>` in the frame's own
+CSS pixels, applied to the screenshot of `#stage` rather than to the field, so
+the output is the same real frame at a size an eye can judge. Centring it on
+the subject the way `brush-trim.ts` measures a body would be better still and is
+optional — a declared rectangle is enough to close this. The pair of pictures
+must stay comparable, so the crop is the same rectangle on both, and the
+`identical:` guard in `run.ts` compares before the crop is applied.
+
 ## Move apps/server off the miniflare alpha when a stable 5 ships
 
 - **Found:** 2026-09-03, claude/bun-queue-list-command-5a8695
