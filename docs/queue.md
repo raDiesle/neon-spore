@@ -119,6 +119,7 @@ shim that shows what the new shape wants if it changed again.
 ## The stub canvas's ordered log leaves out every `Path2D` call
 
 - **Found:** 2026-09-05, claude/queue-items-bj85ja
+- **Taken:** 2026-09-05, claude/queue-the-stub-canvass-ordered-log-leaves-out-every-pa
 - **Files:** `packages/render/test/canvas-stub.ts`, `packages/render/test/ghost-frame.test.ts`
 
 `StubContext.log` is documented as "the ordered log of every counted call,
