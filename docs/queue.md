@@ -225,6 +225,7 @@ starts. Until that holds, the `identical:` line in `run.ts` is a comment.
 ## There is no way to photograph the working tree on its own
 
 - **Found:** 2026-09-05, claude/queue-items-bj85ja
+- **Taken:** 2026-09-05, claude/queue-there-is-no-way-to-photograph-the-working-tree-o
 - **Files:** `tools/frames/run.ts`, `tools/frames/serve.ts`, `tools/frames/test/`
 
 `bun run frames <sha>` always takes a **pair**: it checks out the commit and
