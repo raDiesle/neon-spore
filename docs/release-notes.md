@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 0c80718 — A warded volley leaves the dome on the tick it is answered
+
+The owner's report was that it still reflects too late — that it moves inside the ship first and only then turns — and there were two ways it could.
+
 ## 2026-09-05 · 4ff739f — A body is seen to land on the ship before it breaks it
 
 Everything the shield had nothing to say to — a slick, a bulb, a carom, a mount — was taken off the field the beat it entered the ship's row, so its last drawn frame was a whole tile clear of the hull and the pair watched it burst in mid-air. The rocks already had the beat: `resolveHull` granted it to them alone, and the fall was clamped onto the hull row for them alone. Both rules belong to the body rather than to the shield now, so every kind spends the beat render/ draws it come down the last tile standing on the ship, and breaks the hull on the beat after.
