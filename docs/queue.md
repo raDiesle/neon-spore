@@ -233,32 +233,6 @@ the world rather than by an author out of a grid. Add it to `SceneAct`, resolve
 it in `aimed`, and hold it in `scenes.test.ts` the way the other two are held.
 Then write THE VOLLEY's film, which is a queue entry of its own and stays there.
 
-## `apps/server`'s room test loses a race under a loaded machine
-
-- **Found:** 2026-09-05, claude/queued-items-d3ce8d
-- **Taken:** 2026-09-05, claude/queue-apps-server-s-room-test-loses-a-race-under-a-loa
-- **Files:** `apps/server/test/room.test.ts`
-
-"ends a run nobody came back to, so the next arrival starts a fresh one" failed
-on bun's own five-second default, at 5000.30ms, during three copies of the
-suite running at once. It passed in every other run of the seven, so it is the
-same shape of defect the entry above it describes and was found while trying to
-reproduce that one.
-
-It is the only test in the file that stands up a **second** miniflare of its
-own (`relay({ SEAT_SILENT_MS, RUN_OVER_MS })`) on top of the shared one, opens
-three sockets against it, and then waits out two real wall-clock windows —
-`quiet(400)` plus the handshakes. On an idle machine that is comfortably inside
-five seconds; a workerd starting under load is not, and the budget was never
-written down for it. Three tests below it stand up their own relay the same way
-and are the same race waiting to be lost.
-
-The fix is not a longer number in one place: give the tests that raise their own
-relay a budget that says why, next to the windows they are waiting out, so the
-next one written inherits it. `RUN_OVER_MS` and `SEAT_SILENT_MS` are already
-shortened deliberately so the test does not sit still for the real windows, and
-that comment is where the argument belongs.
-
 ## Split `effects-spark.ts`: it is on the 250-line limit and blocks every new event
 
 - **Found:** 2026-09-05, claude/carom-enemy-deflection-d1bb2e

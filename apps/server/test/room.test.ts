@@ -39,6 +39,28 @@ if (!built.success) throw new AggregateError(built.logs, "could not build the wo
 
 const SCRIPT = await built.outputs[0]?.text();
 
+/**
+ * **What a test that raises its own relay is allowed to take.**
+ *
+ * Most cases here share the one `mf` below and cost milliseconds. A handful
+ * stand up a *second* workerd of their own, so that `SEAT_SILENT_MS` and
+ * `RUN_OVER_MS` can be shortened and the test does not have to sit still for
+ * the real windows — and those pay for a worker boot, three socket handshakes
+ * and several hundred milliseconds of wall clock it then waits out on purpose.
+ * On an idle machine that is comfortably inside bun's five-second default; a
+ * workerd starting under load is not. "ends a run nobody came back to" lost
+ * that race at 5000.30 ms with three copies of the suite running at once, and
+ * the three tests beside it were the same race waiting to be lost.
+ *
+ * So the budget is written down once, here, next to the windows it is a budget
+ * for, rather than as a longer number in whichever test failed first. It is
+ * generous because it is not a deadline anybody is trying to meet: a case that
+ * genuinely hangs still fails, and one that is merely starved still passes.
+ * Pass it to `test` as the third argument whenever `relay(...)` is called for
+ * a relay of the test's own.
+ */
+const OWN_RELAY_MS = 20_000;
+
 /** The shipped worker, with whatever `vars` the case under test wants on it. */
 function relay(vars: Record<string, string> = {}): Miniflare {
   return new Miniflare({
@@ -320,57 +342,65 @@ describe("a room refuses what it cannot play with", () => {
 });
 
 describe("a seat that went silent is not held against its owner", () => {
-  test("a phone whose socket vanished gets its own seat back", async () => {
-    // The window, shortened so the test does not have to sit still for the real
-    // one. Everything else is the shipped worker.
-    const brief = relay({ SEAT_SILENT_MS: "150" });
-    try {
-      const one = await phone("CDEF", PROTOCOL_VERSION, brief);
-      const two = await phone("CDEF", PROTOCOL_VERSION, brief);
-      await two.settle();
-      expect(of(two.said, "welcome")[0]?.player).toBe(2);
+  test(
+    "a phone whose socket vanished gets its own seat back",
+    async () => {
+      // The window, shortened so the test does not have to sit still for the real
+      // one. Everything else is the shipped worker.
+      const brief = relay({ SEAT_SILENT_MS: "150" });
+      try {
+        const one = await phone("CDEF", PROTOCOL_VERSION, brief);
+        const two = await phone("CDEF", PROTOCOL_VERSION, brief);
+        await two.settle();
+        expect(of(two.said, "welcome")[0]?.player).toBe(2);
 
-      // Nobody says anything for longer than the window: the shape of a screen
-      // locking in a pocket, where the socket is not closed, it simply stops.
-      await quiet(300);
+        // Nobody says anything for longer than the window: the shape of a screen
+        // locking in a pocket, where the socket is not closed, it simply stops.
+        await quiet(300);
 
-      // The phone comes back. Before the eviction it was told the room it had
-      // a seat in was full — by the room holding that very seat for a socket
-      // that had stopped answering.
-      const back = await phone("CDEF", PROTOCOL_VERSION, brief);
-      await back.settle();
-      expect(of(back.said, "error")).toEqual([]);
-      expect(of(back.said, "welcome")).toHaveLength(1);
-      expect(of(back.said, "welcome")[0]?.room).toBe("CDEF");
-      one.close();
-      two.close();
-      back.close();
-    } finally {
-      await brief.dispose();
-    }
-  });
-
-  test("a seat that keeps pinging is never evicted", async () => {
-    const brief = relay({ SEAT_SILENT_MS: "150" });
-    try {
-      const one = await phone("CFGH", PROTOCOL_VERSION, brief);
-      const two = await phone("CFGH", PROTOCOL_VERSION, brief);
-      await two.settle();
-      // Every 700 ms in the game; faster here, because the window is.
-      for (let i = 0; i < 6; i++) {
-        one.send({ t: "ping", c1: i });
-        two.send({ t: "ping", c1: i });
-        await quiet(50);
+        // The phone comes back. Before the eviction it was told the room it had
+        // a seat in was full — by the room holding that very seat for a socket
+        // that had stopped answering.
+        const back = await phone("CDEF", PROTOCOL_VERSION, brief);
+        await back.settle();
+        expect(of(back.said, "error")).toEqual([]);
+        expect(of(back.said, "welcome")).toHaveLength(1);
+        expect(of(back.said, "welcome")[0]?.room).toBe("CDEF");
+        one.close();
+        two.close();
+        back.close();
+      } finally {
+        await brief.dispose();
       }
-      const three = await phone("CFGH", PROTOCOL_VERSION, brief);
-      await three.settle();
-      expect(of(three.said, "error")[0]?.code).toBe("full");
-      one.close();
-      two.close();
-    } finally {
-      await brief.dispose();
-    }
-  });
+    },
+    OWN_RELAY_MS,
+  );
+
+  test(
+    "a seat that keeps pinging is never evicted",
+    async () => {
+      const brief = relay({ SEAT_SILENT_MS: "150" });
+      try {
+        const one = await phone("CFGH", PROTOCOL_VERSION, brief);
+        const two = await phone("CFGH", PROTOCOL_VERSION, brief);
+        await two.settle();
+        // Every 700 ms in the game; faster here, because the window is.
+        for (let i = 0; i < 6; i++) {
+          one.send({ t: "ping", c1: i });
+          two.send({ t: "ping", c1: i });
+          await quiet(50);
+        }
+        const three = await phone("CFGH", PROTOCOL_VERSION, brief);
+        await three.settle();
+        expect(of(three.said, "error")[0]?.code).toBe("full");
+        one.close();
+        two.close();
+      } finally {
+        await brief.dispose();
+      }
+    },
+    OWN_RELAY_MS,
+  );
 });
 
 describe("the names two people are called", () => {
@@ -464,56 +494,64 @@ describe("what the pair got to, and the run that nobody came back to", () => {
     one.close();
   });
 
-  test("ends a run nobody came back to, so the next arrival starts a fresh one", async () => {
-    // Both windows shortened so the test does not sit still for the real ones.
-    const brief = relay({ SEAT_SILENT_MS: "100", RUN_OVER_MS: "200" });
-    try {
-      const one = await phone("AKAL", PROTOCOL_VERSION, brief);
-      const two = await phone("AKAL", PROTOCOL_VERSION, brief);
-      await two.settle();
-      one.send({ t: "ready" });
-      two.send({ t: "ready" });
-      await two.settle();
-      expect(of(two.said, "welcome").at(-1)?.startMs).toBeGreaterThan(0);
+  test(
+    "ends a run nobody came back to, so the next arrival starts a fresh one",
+    async () => {
+      // Both windows shortened so the test does not sit still for the real ones.
+      const brief = relay({ SEAT_SILENT_MS: "100", RUN_OVER_MS: "200" });
+      try {
+        const one = await phone("AKAL", PROTOCOL_VERSION, brief);
+        const two = await phone("AKAL", PROTOCOL_VERSION, brief);
+        await two.settle();
+        one.send({ t: "ready" });
+        two.send({ t: "ready" });
+        await two.settle();
+        expect(of(two.said, "welcome").at(-1)?.startMs).toBeGreaterThan(0);
 
-      // Both phones stop answering — two pockets rather than one. Without this
-      // the room keeps the stamp, and the next arrival is handed a beat zero
-      // from a game that ended.
-      await quiet(400);
+        // Both phones stop answering — two pockets rather than one. Without this
+        // the room keeps the stamp, and the next arrival is handed a beat zero
+        // from a game that ended.
+        await quiet(400);
 
-      const back = await phone("AKAL", PROTOCOL_VERSION, brief);
-      await back.settle();
-      expect(of(back.said, "welcome").at(-1)?.startMs).toBe(0);
-      back.close();
-    } finally {
-      await brief.dispose();
-    }
-  });
+        const back = await phone("AKAL", PROTOCOL_VERSION, brief);
+        await back.settle();
+        expect(of(back.said, "welcome").at(-1)?.startMs).toBe(0);
+        back.close();
+      } finally {
+        await brief.dispose();
+      }
+    },
+    OWN_RELAY_MS,
+  );
 
-  test("leaves a run alone while somebody is still in the room", async () => {
-    const brief = relay({ SEAT_SILENT_MS: "10000", RUN_OVER_MS: "100" });
-    try {
-      const one = await phone("ALAM", PROTOCOL_VERSION, brief);
-      const two = await phone("ALAM", PROTOCOL_VERSION, brief);
-      await two.settle();
-      one.send({ t: "ready" });
-      two.send({ t: "ready" });
-      await two.settle();
-      const stamped = of(two.said, "welcome").at(-1)?.startMs ?? 0;
-      expect(stamped).toBeGreaterThan(0);
+  test(
+    "leaves a run alone while somebody is still in the room",
+    async () => {
+      const brief = relay({ SEAT_SILENT_MS: "10000", RUN_OVER_MS: "100" });
+      try {
+        const one = await phone("ALAM", PROTOCOL_VERSION, brief);
+        const two = await phone("ALAM", PROTOCOL_VERSION, brief);
+        await two.settle();
+        one.send({ t: "ready" });
+        two.send({ t: "ready" });
+        await two.settle();
+        const stamped = of(two.said, "welcome").at(-1)?.startMs ?? 0;
+        expect(stamped).toBeGreaterThan(0);
 
-      // Quiet for longer than the window, but the seats are still seated: one
-      // seat left alone is a wait, not an ending, and its partner may be back.
-      await quiet(300);
-      const third = await phone("ALAM", PROTOCOL_VERSION, brief);
-      await third.settle();
-      // The room is still busy, and still holding the run it stamped.
-      expect(of(third.said, "error")[0]?.code).toBe("full");
-      one.close();
-      two.close();
-      third.close();
-    } finally {
-      await brief.dispose();
-    }
-  });
+        // Quiet for longer than the window, but the seats are still seated: one
+        // seat left alone is a wait, not an ending, and its partner may be back.
+        await quiet(300);
+        const third = await phone("ALAM", PROTOCOL_VERSION, brief);
+        await third.settle();
+        // The room is still busy, and still holding the run it stamped.
+        expect(of(third.said, "error")[0]?.code).toBe("full");
+        one.close();
+        two.close();
+        third.close();
+      } finally {
+        await brief.dispose();
+      }
+    },
+    OWN_RELAY_MS,
+  );
 });
