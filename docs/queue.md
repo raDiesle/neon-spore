@@ -348,6 +348,7 @@ with the lane.
 ## CLAUDE.md's size test counts CRLF, so a worktree can fail it for nothing
 
 - **Found:** 2026-09-05, claude/bulb-queen-ui-fixes
+- **Taken:** 2026-09-05, claude/queue-claude-mds-size-test-counts-crlf-so-a-worktree-c
 - **Files:** `tools/test/claude-md.test.ts`
 
 `CLAUDE.md` is 21,991 characters in the repository, which fits under the 22,000
