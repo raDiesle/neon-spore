@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 4b2ef3d2 — Three refused perf runs say the baseline needs an idle machine, not a quiet hour
+
+`bun run perf --save` was tried three times this afternoon and refused three times, by a different wave each time and with the medians moving 30% between runs an hour apart. That is the load being measured rather than the frame, so the parked entry now says what a session must have before it starts, and what to conclude if an idle machine still trips the rule.
+
 ## 2026-09-05 · b3ffc52 — Refuse a landing onto a trunk `origin` has already moved past
 
 `bun run land` rebases the lane onto the **local** trunk and never asked `origin` where that trunk actually was. In a cloud clone the local `main` is whatever `origin` held when the container was built, and this repo lands several times a day: on 5 September 2026 a lane replayed onto a `main` sixty-six commits behind, landed cleanly onto it, and only then found that `origin/main` had eleven commits it did not — one of them a whole new creature touching the same four tables. By that point the branch was swept and the check was spent, so seven conflicts arrived on the trunk itself, at the one moment there was no lane left to fix them on. Two were resolved wrongly and each cost another three-minute `bun run check`.
