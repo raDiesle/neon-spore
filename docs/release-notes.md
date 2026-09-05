@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · b16dcd0 — A chute shot under its canopy comes apart into two pieces
+
+The owner's ask: the paraglider is released from the enemy and vanishes upward, and the enemy falls a little and then goes as well. THE CAROM's whole argument is that one arrival becomes two problems, and the body under the canopy is the second of them — so its end is two things rather than the single burst at a tile every other kill in this game is.
+
+## 2026-09-05 · de6dea1 — A deflected rock leaves at the size it arrived at
+
+The bounce was drawn at a flat `tile * 0.4` however wide the body that came off the shield was, so a torch or an authored two-tile meteor — both of which the pair have watched fill two columns the whole way down — halved on the frame the shield turned it. `DeflectFx.spawn` takes the creature's kind alongside the span it already had, sizes the rock by `rockTileRadius` (the same rule the falling rock and its crater are drawn by, lifted out of `rockRadius` so a caller holding a tile width rather than a layout can call it instead of copying the number), and gives the torch back its ember ring — the one mark of the flame that survives a bounce, the tail being a picture of falling and there being no falling left to do.
+
 ## 2026-09-05 · 23814f2 — Queue: two flakes measured, and the hole a film cannot author around
 
 Three findings from a session draining the queue, none of which belongs in the work that found them.
