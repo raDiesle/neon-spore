@@ -93,3 +93,24 @@ export async function captureAt(
     await rm(scratch, { recursive: true, force: true }).catch(() => {});
   }
 }
+
+/**
+ * **This tree, built and served, screenshotted once.** No worktree, no parent,
+ * nothing to compare it to.
+ *
+ * `captureAt` above is the pair: a commit and its parent, each in a scratch
+ * checkout, refused if the two frames match. That is right for a change to a
+ * look and it is the wrong shape for every change whose parent *cannot*
+ * produce the picture — `--boss-round` calls a handle the parent has not got,
+ * so the "before" side throws by design, and the only way to see THE MAZE's
+ * fourth sheet was a throwaway script that did exactly what is written here.
+ * That is the friction `shot.ts` exists to stop being paid again.
+ */
+export async function captureHere(spec: FrameSpec, outPrefix: string): Promise<CaptureResult> {
+  const preview = await startPreview(root);
+  try {
+    return await captureFrames(preview.url, spec, outPrefix);
+  } finally {
+    await preview.stop();
+  }
+}

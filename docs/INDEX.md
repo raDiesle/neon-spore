@@ -1007,5 +1007,6 @@ place — the generator keeps whatever is there.
 | `tools/land/refusal.ts` | Why a push was refused, said in full — git's own words and where the trunk stands |
 | `tools/frames/press.ts` | `--press`: the verbs a held thumb cannot reach |
 | `tools/frames/crop.ts` | Cropping and magnifying a captured frame, so a change the size of a creature can be seen |
+| `tools/frames/wave.ts` | Which wave `--wave` names, answered against the right commit's own list |
 
 <!-- index:code:end -->

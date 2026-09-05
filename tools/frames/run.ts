@@ -19,6 +19,7 @@
  * from a commit message would be the same trap in a new place — a frame of the
  * wrong wave proves nothing, and proves it convincingly.
  *
+ *   bun run frames . --wave 19 --boss-round 3    this tree, once, with no pair
  *   bun run frames <sha> --wave 21               wave 21, matching the HUD's W21
  *   bun run frames <sha> --wave "THE THIRD SHOT" a wave by name — what a person has in hand
  *   bun run frames <sha> --wave 21 --ticks 240   a different point in the wave
@@ -50,6 +51,13 @@
  * eye can judge. The `identical:` guard below reads the *whole* frame either
  * way, so a crop can neither hide the only difference nor invent one.
  *
+ * **`.` in place of a sha photographs the working tree**, once, with no
+ * worktree, no parent and no `identical:` guard. The pair stays the default
+ * because a picture with nothing to compare it to is the weaker report — but a
+ * change whose parent cannot produce the picture at all, a new handle or a new
+ * flag, has no pair to take, and hand-rolling a preview and a browser for it is
+ * the friction this tool exists to end.
+ *
  * `--wave` takes the number a person reads off the HUD (`W21` is `--wave 21`,
  * not `--wave 20`) or a wave's own name. Both convert to the 0-based index
  * `jumpToWave` and `world.wave` actually use.
@@ -57,77 +65,20 @@
 import { mkdir, mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
-import { pathToFileURL } from "node:url";
 import type { FrameSpec } from "./capture.js";
 import { parseAt, sameFrames } from "./crop.js";
 import { parseHold } from "./hold.js";
 import { parseOpening } from "./opening.js";
 import { parsePress } from "./press.js";
-import { captureAt, git, root, run } from "./serve.js";
-
-/**
- * One entry of `WAVES`, reduced to the two things a `where` field can name a
- * wave by. Kept narrow so `resolveWaveText` and its tests do not need the
- * whole `Wave` shape from `@neon-spore/content`.
- */
-export interface WaveName {
-  name: string;
-}
-
-/**
- * The wave list as it stood at `rev`, read out of *that* commit's own
- * `packages/content/src/waves.ts` — not the working tree's copy.
- *
- * The ask this answers — "FRAMES PUTS THE WRONG WAVE IN THE PICTURE, AND SAYS
- * THE RIGHT NAME WHILE IT DOES": a name only lived at the index it held in the
- * tree that named it. `captureAt` already makes a scratch worktree and runs
- * `bun install` in it to build the game at a historical commit; this makes
- * the same kind of checkout to answer the name → index question inside it,
- * so the answer and the build it feeds are never talking about two different
- * lists. `bun install` is needed because `waves.ts` reaches `@neon-spore/sim`
- * through `maze-rounds.ts`, and that import only resolves once the workspace
- * link exists in this checkout's own `node_modules`.
- */
-export async function waveNamesAt(rev: string): Promise<WaveName[]> {
-  const scratch = await mkdtemp(join(tmpdir(), "neon-spore-frames-waves-"));
-  await rm(scratch, { recursive: true, force: true }); // `worktree add` wants the path free
-  await git(["worktree", "add", "--detach", scratch, rev]);
-  try {
-    await run(["bun", "install"], scratch);
-    const url = pathToFileURL(join(scratch, "packages/content/src/waves.ts")).href;
-    const mod = (await import(url)) as { WAVES: readonly WaveName[] };
-    return mod.WAVES.map((w) => ({ name: w.name }));
-  } finally {
-    await git(["worktree", "remove", "--force", scratch]).catch(() => {});
-    await rm(scratch, { recursive: true, force: true }).catch(() => {});
-  }
-}
-
-/** `--wave` on the command line: the HUD's own number (`21` is `W21`) or a
- * wave's own name, either converted to the 0-based index `jumpToWave` takes. */
-export function resolveWaveFlag(value: string, waves: readonly WaveName[]): number {
-  const asNumber = Number(value);
-  if (Number.isInteger(asNumber)) {
-    if (asNumber < 1) {
-      throw new Error(`--wave ${value}: wave numbers start at 1, matching the HUD's W1`);
-    }
-    return asNumber - 1;
-  }
-  const index = waves.findIndex((w) => w.name.toLowerCase() === value.toLowerCase());
-  if (index === -1) {
-    throw new Error(
-      `--wave "${value}": no wave with that name. Known names: ${waves.map((w) => w.name).join(", ")}`,
-    );
-  }
-  return index;
-}
+import { captureAt, captureHere, git, root } from "./serve.js";
+import { resolveWaveFlag, waveNamesAt, waveNamesHere } from "./wave.js";
 
 async function main(): Promise<void> {
   const argv = process.argv.slice(2);
   const sha = argv[0];
   if (!sha || sha.startsWith("--")) {
     throw new Error(
-      'usage: bun run frames <sha> --wave N|"NAME" [--ticks N] [--seat p1|p2|test] ' +
+      'usage: bun run frames <sha>|. --wave N|"NAME" [--ticks N] [--seat p1|p2|test] ' +
         "[--hold prime|mazeString=N|wardenTether=N[,y=N]|lidString=N,id=N] [--hold-ticks N] " +
         "[--settle N] [--at x,y,w,h] [--zoom N] [--boss-round N] " +
         "[--press TICK:SEAT:control=value,…] [--opening intro|guide] [--out DIR]",
@@ -151,16 +102,26 @@ async function main(): Promise<void> {
   const openingFlag = argv.indexOf("--opening");
   const opening = openingFlag === -1 ? undefined : parseOpening(argv[openingFlag + 1] ?? "");
 
+  // `.` is the working tree: one picture of what is on disk, with no commit to
+  // check out and no parent to compare it to. Every change to a *look* wants
+  // the pair, so that stays the default and this is asked for by name — but a
+  // change whose parent cannot produce the picture at all (a new handle, a new
+  // flag) has no pair to take, and hand-rolling a preview and a browser is
+  // exactly the friction this tool exists to end.
+  const here = sha === ".";
   const outFlag = argv.indexOf("--out");
-  const out = outFlag === -1 ? join(root, "docs/frames", sha) : (argv[outFlag + 1] ?? "");
+  const named =
+    outFlag === -1 ? join(root, "docs/frames", here ? "working" : sha) : (argv[outFlag + 1] ?? "");
+  const out = named;
   if (!out) throw new Error("--out needs a directory");
 
-  const parent = await git(["rev-parse", `${sha}^`]);
-  const full = await git(["rev-parse", sha]);
+  const parent = here ? "" : await git(["rev-parse", `${sha}^`]);
+  const full = here ? "" : await git(["rev-parse", sha]);
 
   // The name → index answer belongs to `full`'s own tree, not the working
-  // tree's — a wave inserted since `full` shifts everything after it.
-  const historicalWaves = await waveNamesAt(full);
+  // tree's — a wave inserted since `full` shifts everything after it. For `.`
+  // the working tree *is* the tree in question.
+  const historicalWaves = here ? await waveNamesHere() : await waveNamesAt(full);
 
   const waveFlagIndex = argv.indexOf("--wave");
   const waveValue = waveFlagIndex === -1 ? "" : (argv[waveFlagIndex + 1] ?? "");
@@ -210,8 +171,17 @@ async function main(): Promise<void> {
     );
   }
 
-  const scratchOut = await mkdtemp(join(tmpdir(), "neon-spore-frames-out-"));
   const start = Date.now();
+  if (here) {
+    await mkdir(out, { recursive: true });
+    const { paths } = await captureHere(spec, join(out, "frame"));
+    const seconds = Math.round((Date.now() - start) / 1000);
+    console.log(`wrote ${paths.length} frame(s) to ${out} in ${seconds}s`);
+    for (const p of paths) console.log(`  ${p}`);
+    return;
+  }
+
+  const scratchOut = await mkdtemp(join(tmpdir(), "neon-spore-frames-out-"));
   try {
     console.log(`before: ${parent.slice(0, 7)}`);
     const before = await captureAt(parent, spec, join(scratchOut, "before"));

@@ -221,26 +221,3 @@ only by the sixtieths `paint` spends — and then hold it: two `captureFrames`
 of one build at one spec must come back byte-identical, which is a test
 `tools/frames/test/opening.test.ts` can run against the preview it already
 starts. Until that holds, the `identical:` line in `run.ts` is a comment.
-
-## There is no way to photograph the working tree on its own
-
-- **Found:** 2026-09-05, claude/queue-items-bj85ja
-- **Taken:** 2026-09-05, claude/queue-there-is-no-way-to-photograph-the-working-tree-o
-- **Files:** `tools/frames/run.ts`, `tools/frames/serve.ts`, `tools/frames/test/`
-
-`bun run frames <sha>` always takes a **pair**: it checks out the commit and
-its parent, builds both, and refuses to write anything if the two frames are
-the same. That is right for a change to a look, and it is the wrong shape for
-every change whose parent cannot produce the picture at all. `--boss-round`
-was the case that found it — the flag calls a handle the parent has not got,
-so the "before" side throws by design, and the only way to see THE MAZE's
-fourth sheet was a throwaway script that started `preview:once` and called
-`captureFrames` itself. That is the friction `shot.ts` exists to stop being
-paid again, and this lane paid it.
-
-`--only` (or `bun run frames . --wave N`) should capture **this tree** once,
-with no worktree, no parent and no `identical:` guard, straight against the
-preview `captureAt` already knows how to start: everything below the worktree
-is there, and `tools/frames/test/opening.test.ts` drives exactly this path
-already. The pair stays the default, because a picture with nothing to compare
-it to is the weaker report and should be the thing somebody asks for by name.

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { join } from "node:path";
 import { WAVES } from "@neon-spore/content";
-import { resolveWaveFlag, waveNamesAt } from "../run.js";
+import { resolveWaveFlag, waveNamesAt, waveNamesHere } from "../wave.js";
 
 /**
  * "A frame of the wrong wave proves nothing" — the two faults that survive now
@@ -42,5 +42,16 @@ describe("waveNamesAt", () => {
       .text();
     const names = await waveNamesAt(head.trim());
     expect(names.map((w) => w.name)).toEqual(WAVES.map((w) => w.name));
+  });
+});
+
+/**
+ * And the same question asked of the working tree, which is what `.` needs:
+ * there is no commit to stand in, and a scratch worktree would be answering
+ * about a list that is sitting right here.
+ */
+describe("waveNamesHere", () => {
+  it("reads the working tree's own WAVES", async () => {
+    expect((await waveNamesHere()).map((w) => w.name)).toEqual(WAVES.map((w) => w.name));
   });
 });
