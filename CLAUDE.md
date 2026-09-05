@@ -333,12 +333,10 @@ bun run perf           # every wave, at its busiest tick, CPU throttled to a pho
 bun run perf --save    # keep it as the baseline, once the change is one you meant
 ```
 
-It drives the built bundle in Chrome at 390x844 dpr2 with
-`Emulation.setCPUThrottlingRate` — DevTools' own mid-tier-mobile slowdown — and
-prints what changed against `tools/perf/baseline.json`, worst first. It is not a
-substitute for `packages/render/test/frame-budget.test.ts`, which counts canvas
-*operations*: an op is not a millisecond, and neither answers the other's
-question.
+It drives the built bundle in Chrome, throttled to a mid-tier phone, and prints
+what changed against `tools/perf/baseline.json`, worst first. It does not
+replace `packages/render/test/frame-budget.test.ts`, which counts canvas
+*operations*: an op is not a millisecond.
 
 Never `--save` to make a regression stop being reported.
 
