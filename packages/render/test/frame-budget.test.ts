@@ -276,11 +276,10 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // One more than the plates and the skin between them account for: the
       // two lids over the hole carry a fold each, and both folds are one path
       // stroked once rather than a stroke apiece (`warden-eye.ts`).
-      // **Five of these are the iris**: the aperture ring and every spoke go
-      // into one path, stroked dark once and lit once, so this row does not move
-      // when the spoke
+      // **Four of these are the iris**: the aperture ring and every spoke go
+      // into one path stroked once, so this row does not move when the spoke
       // count does (`eye-iris.ts`).
-      stroke: 95,
+      stroke: 94,
       // Four more: the two patches of the wet film, the eyelids and their
       // pupils. Flat, whatever the openness.
       fill: 32,
@@ -288,7 +287,7 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // clip to it, and the lens opens one of its own so the lids can cut the
       // pupil instead of the pupil being sized to miss them (`eye-lens.ts`).
       clip: 7,
-      save: 30,
+      save: 29,
       drawImage: 15,
       createLinearGradient: 14,
       createRadialGradient: 3,
@@ -300,10 +299,10 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
     },
     {
       fillRect: 66,
-      stroke: 97,
+      stroke: 96,
       fill: 32,
       clip: 7,
-      save: 30,
+      save: 29,
       drawImage: 15,
       createLinearGradient: 5,
       createRadialGradient: 1,
@@ -318,16 +317,15 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // this change: they were slack left behind by a saving that landed
       // without lowering the row, which a ceiling test never notices. Measured
       // again, and put where the frame actually is.
-      // **Five of these are the iris**: the aperture ring and every spoke go
-      // into one path, stroked dark once and lit once, so this row does not move
-      // when the spoke
+      // **Four of these are the iris**: the aperture ring and every spoke go
+      // into one path stroked once, so this row does not move when the spoke
       // count does (`eye-iris.ts`).
-      stroke: 72,
+      stroke: 71,
       fill: 24,
       // The one op this body's share of the new lens costs: the clip the lids
       // cut the pupil through (`eye-lens.ts`).
       clip: 7,
-      save: 28,
+      save: 27,
       drawImage: 15,
       createLinearGradient: 14,
       createRadialGradient: 3,
@@ -336,10 +334,10 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
     },
     {
       fillRect: 68,
-      stroke: 74,
+      stroke: 73,
       fill: 24,
       clip: 7,
-      save: 28,
+      save: 27,
       drawImage: 15,
       createLinearGradient: 5,
       // The eye builds none of its own: the wash around it is a `halo` sprite

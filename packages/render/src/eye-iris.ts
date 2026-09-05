@@ -1,7 +1,7 @@
 import { circleSubpath } from "@neon-spore/content";
 import type { EyeInk } from "./eye-lens.js";
 import { strokeGlow } from "./glow.js";
-import { PALETTE, STROKE } from "./palette.js";
+import { STROKE } from "./palette.js";
 
 /**
  * **The machinery inside an eye**: an aperture ring around the pupil and a ring
@@ -26,14 +26,23 @@ import { PALETTE, STROKE } from "./palette.js";
  * thing is, on top of the gap the other seat is already reading.
  */
 
-/** Spokes round the iris. Eight: enough to read as a mechanism, few enough that
+/** Spokes round the iris. Six: enough to read as a mechanism, few enough that
  * they are still separate at the couple of dozen pixels a body draws at. */
-const SPOKES = 8;
+const SPOKES = 6;
 
-/** Where a spoke begins and ends, as multiples of the pupil's own radius. Well
- * outside the aperture ring, so the two never touch and read as one smear. */
-const SPOKE_IN = 2.1;
-const SPOKE_OUT = 2.9;
+/**
+ * Where a spoke begins and ends, as multiples of the pupil's own radius.
+ *
+ * **Long, out past the lens's own edge.** They were short bars floating between
+ * the ring and the rim, and a short bright bar on a bright wash of the same
+ * colour is nothing anybody can see — the first pass of this drew spokes
+ * invisible at every size, and darkening them turned the ring into a black
+ * outline round the pupil, which was worse. An arm that runs from just outside
+ * the ring all the way to the margin is cut by the lids at both ends, and a
+ * line the eyelid crosses is a line an eye finds.
+ */
+const SPOKE_IN = 1.35;
+const SPOKE_OUT = 3.8;
 
 /** The aperture ring's radius, as a multiple of the pupil's. */
 const RING_MUL = 1.55;
@@ -69,17 +78,5 @@ export function drawEyeIris(
     iris.moveTo(cx + Math.cos(a) * pr * SPOKE_IN, cy + Math.sin(a) * pr * SPOKE_IN);
     iris.lineTo(cx + Math.cos(a) * pr * SPOKE_OUT, cy + Math.sin(a) * pr * SPOKE_OUT);
   }
-  // **Cut into the iris before it is lit.** The iris is a wash of the body's own
-  // colour and a bright line on top of it is a bright line on a bright field —
-  // the first pass of this drew spokes nobody could see at any size. A thick
-  // dark stroke under the same path makes each one a *slot* through the colour,
-  // and the thin lit one over it is then a line on a dark ground. One plain
-  // stroke, not a glow: the glow is the layer above it.
-  ctx.save();
-  ctx.globalAlpha = 0.55 + openness * 0.35;
-  ctx.strokeStyle = PALETTE.background;
-  ctx.lineWidth = STROKE.inner * 3;
-  ctx.stroke(iris);
-  ctx.restore();
   strokeGlow(ctx, iris, ink.rim, STROKE.inner, 0.4 + openness * 0.5);
 }
