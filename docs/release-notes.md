@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 87d5b2d — The frames tests take one browser between them, and say what they may spend
+
+Twice in five full runs a case in `tools/frames/test/` failed and passed immediately in isolation. The reproduction it took to see it is four copies of that file at once on a four-core machine: two of the four failed, and the shape of the failure is worse than one slow test. A case ran past bun's five-second-plus default, bun killed the file's subprocesses along with it, and every case after that came back `ERR_CONNECTION_REFUSED` against a preview server that was no longer there. One starved test poisoned the whole file.
+
 ## 2026-09-05 · d79c43c — Every row of the briefings table names its waves, and the test insists
 
 Row 8, "the rest of the bestiary", was the one cell the wave-number test skipped, because it named a range — `22–27` — and a range is a cell nothing can check. It had drifted inside it, further than a number: the first subject was the runt, which was retired for THE LURE, and the pods and the rock speed tiers are taught on THE PURGE and THE WARD at 30 and 31, outside the range entirely. The merge note four paragraphs below the table already said so.
