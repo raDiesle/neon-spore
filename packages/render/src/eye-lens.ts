@@ -1,4 +1,5 @@
 import { circleSubpath } from "@neon-spore/content";
+import { eyeBox } from "./eye-rim.js";
 import { strokeGlow } from "./glow.js";
 import { PALETTE, STROKE } from "./palette.js";
 
@@ -16,33 +17,6 @@ export interface EyeInk {
   hex: string;
   rim: string;
 }
-
-/** The lens's half-width, as a share of the socket's own. */
-const LENS_W = 0.95;
-
-/**
- * How far the upper lid stands above the corners when the eye is wide — the
- * socket's own half-height, **capped against the width**, and the cap is the
- * whole of what makes this an eye rather than a bulb.
- *
- * THE LID's socket is already an almond and the first number binds there. THE
- * WARDEN's is a circle, and a lens taking nine tenths of a circle in both
- * directions is a disc with two corners stuck on it — which is what the owner
- * was looking at when he said it was too round. Capped at seven tenths of the
- * half-width, the same call inside a round hole comes out about half as tall as
- * it is wide, which is roughly what an eye is. Neither body carries a figure of
- * its own: one eye, one shape, and the socket decides which way the cap falls.
- */
-const RISE_MUL = 0.9;
-const RISE_CAP = 0.7;
-
-/**
- * The lower lid's dip below the corners, as a share of the upper lid's rise.
- * Under a half, because that is the proportion on a real eye and it is what
- * says which way up the thing is before a single line is drawn inside it —
- * `lid-shape.ts` spends its own `droop` on exactly the same argument.
- */
-const DIP_SHARE = 0.46;
 
 /**
  * How far the gap's own middle rides down as the eye shuts, as a share of the
@@ -112,7 +86,8 @@ const PUPIL_MUL = 0.3;
  * WARDEN's hole is round and passes the same number twice, and THE LID's is an
  * almond half as tall as it is wide. One radius would have made the lid's lens
  * taller than the body it sits in — and the *round* one is why the rise is
- * capped against the width (`RISE_CAP`).
+ * capped against the width (`eye-rim.ts`, which holds the box and the two
+ * numbers that shape it).
  *
  * `t` is the **beat clock**, not the wall clock, so the breath below is the
  * same on both phones (`content/own-motion.ts` on why a pose is sampled on
@@ -128,9 +103,7 @@ export function drawEyeLens(
   openness: number,
   t: number,
 ): void {
-  const w = rx * LENS_W;
-  const rise = Math.min(ry * RISE_MUL, w * RISE_CAP);
-  const dip = rise * DIP_SHARE;
+  const { w, rise, dip } = eyeBox(rx, ry);
   // Where the gap's middle stands this instant, how far the two lids are off
   // the corners, and where those corners are. `up + low` is exactly
   // `(rise + dip) * openness` however far the middle has dropped, so the height

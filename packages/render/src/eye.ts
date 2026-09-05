@@ -1,4 +1,5 @@
 import type { EyeInk } from "./eye-lens.js";
+import { rimBox, rimPoint } from "./eye-rim.js";
 import { halo, strokeGlow } from "./glow.js";
 import { PALETTE, STROKE } from "./palette.js";
 
@@ -42,13 +43,19 @@ import { PALETTE, STROKE } from "./palette.js";
  * one import, one eye (`eye-lens.ts`). */
 export { drawEyeLens, type EyeInk } from "./eye-lens.js";
 
-/** Points around the fluid's contour. Sixteen is where a wobbling ring stops
- * reading as a polygon at the couple of dozen pixels a body draws at, and
- * every one of them is a `lineTo` on a path built once a frame. */
+/**
+ * Points around the fluid's contour. Sixteen is where a wobbling rim stops
+ * reading as a polygon at the couple of dozen pixels a body draws at, and every
+ * one of them is a `lineTo` on a path built once a frame.
+ *
+ * **Even, so that two of them land on the corners.** The contour is an almond
+ * and `s = 0` and `s = 0.5` are its two points; an odd count would walk past
+ * both and round the shape off, which is exactly the thing this stopped being.
+ */
 const FLUID_POINTS = 16;
 
 /**
- * How far outside the socket the fluid stands, as a multiple of its radius.
+ * How far outside the socket the fluid stands, as a multiple of it.
  * **1.45, and it was 1.18**: at 1.18 it read as a rim on the socket rather than
  * as something the eye sits in. The fringe is rooted just outside it
  * (`ROOT_MUL`) and moves out with it, so the lashes still begin where it ends.
@@ -88,10 +95,14 @@ const CILIA = 13;
  * disagree by a frame is worse than one. What `openness` does buy it is
  * brightness, which nobody reads a number off.
  *
- * `rx`/`ry` are the socket's own half-extents, so a round socket (THE WARDEN's
- * hole) gets a ring and a lens-shaped one (THE LID) gets a film that hugs the
- * two corners. It takes no `EyeInk`, and that absence is the decision: this is
- * the one part of an eye that is not the eye's colour.
+ * **It is an almond and not a ring**, and that is the second thing the owner
+ * asked for. `rx`/`ry` are the socket's own half-extents and this used to sample
+ * one radius round them, so THE WARDEN — whose hole is a circle — was a green
+ * disc with an eye painted on it however pointed the lens inside had become.
+ * `rimBox` puts the film on the same shape as the lens, capped against the
+ * width the same way, so a round hole now pools an eye and THE LID's film still
+ * hugs its two corners. It takes no `EyeInk`, and that absence is the decision:
+ * this is the one part of an eye that is not the eye's colour.
  */
 export function drawEyeFluid(
   ctx: CanvasRenderingContext2D,
@@ -102,16 +113,19 @@ export function drawEyeFluid(
   openness: number,
   t: number,
 ): void {
+  const box = rimBox(rx, ry, FLUID_MUL);
   const film = new Path2D();
   for (let i = 0; i <= FLUID_POINTS; i++) {
-    const a = (i / FLUID_POINTS) * Math.PI * 2;
+    const s = i / FLUID_POINTS;
+    const a = s * Math.PI * 2;
     // Two frequencies that do not share a period, so the film never settles
     // into a shape somebody could learn — the same argument `TREMBLE` makes
-    // about a body that must not read as mechanical.
-    const m =
-      FLUID_MUL * (1 + 0.045 * Math.sin(a * 3 + t * 1.7) + 0.03 * Math.sin(a * 5 - t * 1.1));
-    const x = cx + Math.cos(a) * rx * m;
-    const y = cy + Math.sin(a) * ry * m;
+    // about a body that must not read as mechanical. Whole multiples of the
+    // way round, or the wobble would not close where it started.
+    const m = 1 + 0.045 * Math.sin(a * 3 + t * 1.7) + 0.03 * Math.sin(a * 5 - t * 1.1);
+    const p = rimPoint(box, s % 1);
+    const x = cx + p.x * m;
+    const y = cy + p.y * m;
     if (i === 0) film.moveTo(x, y);
     else film.lineTo(x, y);
   }
@@ -160,36 +174,32 @@ export function drawEyeFringe(
   openness: number,
   t: number,
 ): void {
+  const box = rimBox(rx, ry, ROOT_MUL);
   const lashes = new Path2D();
   for (let i = 0; i < LASHES; i++) {
-    const s = (i + 0.5) / LASHES;
-    // Along the upper rim, from one corner to the other, and out along the
-    // normal of the ellipse at that point — so a lash always leaves the body
-    // rather than crossing it, whatever the socket's proportions.
-    const a = Math.PI + s * Math.PI;
-    const x = cx + Math.cos(a) * rx * ROOT_MUL;
-    const y = cy + Math.sin(a) * ry * ROOT_MUL;
+    // Along the **upper** half of the rim, corner to corner, and out along its
+    // normal — so a lash always leaves the body rather than crossing it, and
+    // the fringe follows the same almond the film pools in rather than a ring
+    // that would put hairs where an eye has none.
+    const p = rimPoint(box, ((i + 0.5) / LASHES) * 0.5);
     // Long, short, long: an even fringe reads as a gear, and this one has to
     // read as hair.
     const len = ry * (i % 2 === 0 ? 0.62 : 0.42) * (1 + openness * 0.25);
     const flick = Math.sin(t * 1.6 + i * 2.1) * 0.22;
-    lashes.moveTo(x, y);
-    lashes.lineTo(x + Math.cos(a) * len + flick * len, y + Math.sin(a) * len);
+    lashes.moveTo(cx + p.x, cy + p.y);
+    lashes.lineTo(cx + p.x + p.nx * len + flick * len, cy + p.y + p.ny * len);
   }
   strokeGlow(ctx, lashes, ink.rim, STROKE.inner * 1.2, 0.5 + openness * 0.7);
 
   const cilia = new Path2D();
   for (let i = 0; i < CILIA; i++) {
-    const s = (i + 0.5) / CILIA;
-    const a = s * Math.PI;
-    const x = cx + Math.cos(a) * rx * ROOT_MUL;
-    const y = cy + Math.sin(a) * ry * ROOT_MUL;
+    const p = rimPoint(box, 0.5 + ((i + 0.5) / CILIA) * 0.5);
     // A third of a lash, and every one the same length: a comb rather than a
     // fringe, which is what the lower lid of a real eye actually looks like.
     const len = ry * 0.2 * (1 + openness * 0.15);
     const flick = Math.sin(t * 2.3 + i * 1.3) * 0.12;
-    cilia.moveTo(x, y);
-    cilia.lineTo(x + Math.cos(a) * len + flick * len, y + Math.sin(a) * len);
+    cilia.moveTo(cx + p.x, cy + p.y);
+    cilia.lineTo(cx + p.x + p.nx * len + flick * len, cy + p.y + p.ny * len);
   }
   strokeGlow(ctx, cilia, ink.hex, STROKE.inner * 0.6, 0.35 + openness * 0.4);
 }

@@ -545,6 +545,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/maze-fall.ts` | THE MAZE coming apart, which is what a dead end looks like |
 | `packages/render/src/maze-stage.ts` | How far through THE MAZE the pair is: one cell per stage, under the ship's own hull bar |
 | `packages/render/src/lure-blast.ts` | A LURE GOING UP, AND THE WHOLE SCREEN WITH IT |
+| `packages/render/src/eye-rim.ts` | **The eye's box, and the rim hung on it.** The third piece of one eye — `eye.ts` holds the wet parts |
 
 ### packages/net
 
