@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · f4dd355 — `bun run sweep` finishes a lane that landed and stayed
+
+`--keep` is the landing that is not the end of anything: the trunk takes the work and the branch, the worktree and every other spent lane stay standing. The problem is what happens next. From that moment every landing refuses the lane — it carries nothing `main` has not got — so "land and clean up" had no command at all behind it, and the only way to finish one was the `git worktree remove` this tool exists to keep nobody typing.
+
 ## 2026-09-05 · ec67df8 — A wrong colour now costs the next shot as well as the one that was fired
 
 A shot in the wrong colour used to cost nothing: the body flashed grey for a third of a second while the reload gap was half of that, so the second bolt was already loaded and the arrival died on the beat it would have died on anyway. It refuses everything for `colourArmourMs` now — the right colour included — which is the invulnerability docs/spec/structure.md has carried unbuilt since the spec was written, and the owner's reading of the old flash was the plain one: it is not long enough to hurt. Seven hundred milliseconds is twice that flash and a little over one beat, so the mistake costs the shot and the next chance to fire, and the grey body render/ draws is read off the rule rather than timed beside it.
