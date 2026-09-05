@@ -3,7 +3,8 @@ import { hashWorld } from "../src/hash.js";
 import { step } from "../src/index.js";
 import { mazeEntranceCol, mazeEntranceX, mazeWrap } from "../src/maze.js";
 import { mazeCurrent } from "../src/maze-round.js";
-import { mazeFault } from "../src/maze-wheel.js";
+import { mazeWheel } from "../src/maze-solve.js";
+import { mazeArc, mazeFault, mazeSweep } from "../src/maze-wheel.js";
 import {
   CFG,
   drag,
@@ -26,29 +27,84 @@ import {
  * cannot give it (`Command` in `types.ts`).
  */
 
+/**
+ * A drum with real walls in it, small enough to reason about by hand: two
+ * rings, a wall down the middle of each, two gaps in the rim and two ways into
+ * the middle. Both ways in reach it, one on each side of the wall.
+ */
+const WALLED = mazeWheel(
+  {
+    rings: 2,
+    coreMilli: 300,
+    openMilli: 60,
+    walls: [[], [0, 180_000], [0, 180_000]],
+    openings: [
+      [90_000, 270_000],
+      [45_000, 225_000],
+      [45_000, 225_000],
+    ],
+  },
+  0,
+);
+
 test("a broken wheel is refused rather than played", () => {
   const good = PAIR;
+  expect(mazeFault(good)).toBeNull();
+  expect(mazeFault(WALLED)).toBeNull();
   expect(mazeFault({ ...good, rings: 1 })).not.toBeNull();
-  expect(mazeFault({ ...good, entrances: [good.entrances[0]!] })).not.toBeNull();
+  expect(mazeFault({ ...good, entrances: [] })).not.toBeNull();
   expect(mazeFault({ ...good, startMilli: -1 })).not.toBeNull();
-  // Two ways to the middle is a round with nothing to choose.
-  const twice = { ...good, entrances: [good.entrances[0]!, { ...good.entrances[0]!, sector: 3 }] };
-  expect(mazeFault(twice)).not.toBeNull();
-  // And a route that steps sideways and inward at once is through a wall.
-  const through = {
-    ...good,
-    entrances: [
-      {
-        sector: 0,
-        route: [
-          { ring: good.rings - 1, sector: 0 },
-          { ring: good.rings - 2, sector: 1 },
-        ],
-      },
-      good.entrances[1]!,
-    ],
+  expect(mazeFault({ ...good, coreMilli: 0 })).not.toBeNull();
+  // A wall list with nothing for the outermost ring is a drum half written.
+  expect(mazeFault({ ...good, walls: good.walls.slice(1) })).not.toBeNull();
+  // Angles out of order would make the search visit them in a different order
+  // on a device that sorted them, which is a desync waiting for a long round.
+  expect(mazeFault({ ...good, openings: [...good.openings.slice(0, -1), [9, 8]] })).not.toBeNull();
+});
+
+test("a route that leaves the corridors is refused, and says where", () => {
+  const [first, second] = WALLED.entrances;
+  if (first === undefined || second === undefined) throw new Error("no ways in");
+  // Round the ring is fine; across the wall in the middle of it is not.
+  const wall = {
+    ...WALLED,
+    entrances: [{ ...first, route: [first.route[0]!, { ring: 1, angleMilli: 225_000 }] }, second],
   };
-  expect(mazeFault(through)).toBe("way 0 steps through a wall at 1");
+  expect(mazeFault(wall)).toBe("way 0 steps through a wall at 1");
+  // And a step across a circle where the sheet leaves it closed.
+  const shut = {
+    ...WALLED,
+    entrances: [{ ...first, route: [first.route[0]!, { ring: 1, angleMilli: 90_000 }] }, second],
+  };
+  expect(mazeFault(shut)).toBe("way 0 crosses circle 1 where it is closed, at 1");
+});
+
+test("the solved route walks the corridors and arrives in the middle", () => {
+  for (const [i, entrance] of WALLED.entrances.entries()) {
+    const route = entrance.route;
+    expect(route[0], `way ${i}`).toEqual({ ring: 2, angleMilli: entrance.angleMilli });
+    expect(route.at(-1)?.ring, `way ${i}`).toBe(0);
+    // Every step is one ring, and every turn stays inside one arc — which is
+    // what `mazeFault` has just re-checked, from the walls rather than this.
+    for (const [step, cell] of route.entries()) {
+      const prev = route[step - 1];
+      if (prev === undefined) continue;
+      expect(Math.abs(prev.ring - cell.ring), `way ${i} step ${step}`).toBe(1);
+      expect(mazeArc(WALLED, prev.ring, prev.angleMilli)).toBe(
+        mazeArc(WALLED, prev.ring, cell.angleMilli),
+      );
+    }
+  }
+});
+
+test("a turn along a ring goes the way the walls leave open", () => {
+  // Ring 1 is cut at 0 and at half a turn, so 45 and 135 are the same room and
+  // the way between them is forward; 45 and 225 are not, and nothing here is
+  // asked to cross. A ring with no walls at all takes the short way round.
+  expect(mazeSweep(WALLED, 1, 45_000, 135_000)).toBe(90_000);
+  expect(mazeSweep(WALLED, 1, 135_000, 45_000)).toBe(-90_000);
+  expect(mazeSweep(WALLED, 0, 350_000, 10_000)).toBe(20_000);
+  expect(mazeSweep(WALLED, 0, 10_000, 350_000)).toBe(-20_000);
 });
 
 test("the string is the pilot's, and player 2 cannot turn the wheel", () => {

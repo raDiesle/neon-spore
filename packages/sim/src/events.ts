@@ -87,7 +87,7 @@ export type SimEvent =
    * from the mouths and `sector` is around, both in the wheel's own
    * coordinates and never the field's: the wheel is not on the grid.
    */
-  | { type: "mazeProbe"; ring: number; sector: number; of: number }
+  | { type: "mazeProbe"; ring: number; angleMilli: number; of: number }
   /** A round is settled — right or wrong, why, and the mouth it landed in. */
   | { type: "mazeVerdict"; right: boolean; col: number; reason: MazeVerdictReason }
   | { type: "mazeDown"; col: number }

@@ -1,5 +1,6 @@
 import { DEFAULT_CONFIG } from "../src/config.js";
 import { BOSS_KINDS, type BossEntry } from "../src/entries.js";
+import { mazeWheel } from "../src/maze-solve.js";
 import type { MazeWheel } from "../src/maze-wheel.js";
 import type { ShotCharge } from "../src/shot-charge.js";
 import type { Bullet, Creature, Pod, Scar } from "../src/types.js";
@@ -86,25 +87,22 @@ const scar = (): Required<Scar> => ({ col: 4, beat: 9, kind: "meteor", span: 2 }
 const charge = (): Required<ShotCharge> => ({ left: 5, color: "red", lance: true });
 
 /**
- * A wheel of the shape `installMaze` copies. Two ways in, one of them reaching
- * the middle — what `mazeFault` asks of an authored one, so the fixture is a
- * wheel the game would actually deal rather than a shape that happens to walk.
+ * A wheel of the shape `installMaze` copies: two rings, two gaps in the rim,
+ * a radial wall between them and one of them walled off from the middle —
+ * what `mazeFault` asks of an authored one, so the fixture is a wheel the game
+ * would actually deal rather than a shape that happens to walk. The routes are
+ * solved from the walls, the same way content's are.
  */
-const WHEEL: MazeWheel = {
-  rings: 2,
-  sectors: 4,
-  startMilli: 0,
-  entrances: [
-    {
-      sector: 0,
-      route: [
-        { ring: 1, sector: 0 },
-        { ring: 0, sector: 0 },
-      ],
-    },
-    { sector: 2, route: [{ ring: 1, sector: 2 }] },
-  ],
-};
+const WHEEL: MazeWheel = mazeWheel(
+  {
+    rings: 2,
+    coreMilli: 300,
+    openMilli: 60,
+    walls: [[], [0, 180_000], [0, 180_000]],
+    openings: [[90_000], [45_000, 225_000], [45_000, 225_000]],
+  },
+  0,
+);
 
 /** What each boss is authored with, so `startWave` installs a real one. */
 export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {

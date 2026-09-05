@@ -7,13 +7,13 @@ import type { MazeWheel } from "./maze-wheel.js";
  * pair plays against it is `maze-round.ts` next door, the same split
  * `shell.ts` and `shell-round.ts` make.
  *
- * **A drum of rings the pilot turns and the shot explores.** A wheel of
- * concentric rings hangs over the ship with ways in round its rim. The pilot
- * pulls a string and the wheel turns; when a way in comes near a column it
+ * **A drum of rings the pilot turns and the shot explores.** A real maze of
+ * concentric rings hangs over the ship, with one gap cut in its rim. The pilot
+ * pulls a string and the wheel turns; when the gap comes near a column it
  * **clicks onto it** and stops, and both screens light it. The cannon slides
- * under that column and player 2 fires. The shot walks the corridor cell by
- * cell where both of them watch it, and arrives at the middle or at a dead end
- * that costs the hull.
+ * under that column and player 2 fires. The shot goes in through the gap and
+ * crawls the corridors where both of them watch it, turning where the walls
+ * turn, and arrives in the middle. Firing at nothing is what costs the hull.
  *
  * **What this replaces.** The lattice that stood here split the two screens by
  * *layer* — the pilot saw a node's arms, the navigator saw its wall, and the
@@ -107,8 +107,7 @@ export function mazeCenterMilli(cfg: SimConfig): number {
 
 /** The angle a way in stands at, 0 being straight down at the ship. */
 export function mazeEntranceAngle(wheel: MazeWheel, angleMilli: number, index: number): number {
-  const sector = wheel.entrances[index]?.sector ?? 0;
-  return mazeWrap(angleMilli + Math.round((sector * MAZE_TURN) / wheel.sectors));
+  return mazeWrap(angleMilli + (wheel.entrances[index]?.angleMilli ?? 0));
 }
 
 /** Where a way in stands across the field, in thousandths of a column. */
@@ -218,10 +217,18 @@ export function mazeHashParts(m: MazeState): number[] {
   // one that is safe.
   parts.push(m.rounds.length);
   for (const wheel of m.rounds) {
-    parts.push(wheel.rings, wheel.sectors, wheel.startMilli, wheel.entrances.length);
+    parts.push(wheel.rings, wheel.coreMilli, wheel.openMilli, wheel.startMilli);
+    // The walls themselves, and not only the way through them: a drum whose
+    // circles were dealt differently draws a different maze round the same
+    // route, and the two screens would be arguing about which gap is which.
+    for (const list of [...wheel.walls, ...wheel.openings]) {
+      parts.push(list.length);
+      for (const angle of list) parts.push(angle);
+    }
+    parts.push(wheel.entrances.length);
     for (const entrance of wheel.entrances) {
-      parts.push(entrance.sector, entrance.route.length);
-      for (const cell of entrance.route) parts.push(cell.ring, cell.sector);
+      parts.push(entrance.angleMilli, entrance.route.length);
+      for (const cell of entrance.route) parts.push(cell.ring, cell.angleMilli);
     }
   }
   parts.push(m.tried.length);

@@ -192,7 +192,7 @@ export function mazeHeard(world: World): void {
   world.events.push({
     type: "mazeProbe",
     ring: mouth.ring,
-    sector: mouth.sector,
+    angleMilli: mouth.angleMilli,
     of: route.length,
   });
 }

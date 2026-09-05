@@ -7,7 +7,7 @@ import {
   mazeEntranceCol,
   mazeFault,
   mazeRadiusMilli,
-  mazeRoute,
+  mazeWheel,
 } from "@neon-spore/sim";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { drawMaze } from "../src/maze-draw.js";
@@ -16,9 +16,10 @@ import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 /**
  * THE MAZE's picture, held to the three things a player would notice.
  *
- * The drum is **closed**: whatever is drawn of a route is drawn only where a
- * shot has already been, because neither player is told which way in reaches
- * the middle and a picture that gave it away would be the whole round gone.
+ * The drum is a **maze**, and its walls are drawn: the circles broken where
+ * the sheet breaks them and the radial walls between them. What is drawn only
+ * where a shot has already been is the *trail*, which is what the pair reasons
+ * from and the one thing that has been paid for.
  *
  * The lit mouth is an **invitation to a column**, so a frame with a click in
  * it puts something down the column the shot will take, and a frame without
@@ -37,18 +38,27 @@ function layoutFor(role: ViewRole) {
   return computeLayout({ width: 900, height: 1600, dpr: 2 }, CFG, role);
 }
 
-/** One small wheel — two ways in and three rings is the round-one shape. */
+/**
+ * One small drum: three rings, each cut in half by a radial wall, two gaps in
+ * the rim and two ways into the middle. Small enough to check by hand, and
+ * walled enough that a picture which ignored the walls would show it.
+ */
 function wheel(): MazeWheel {
-  const shape = { rings: 3, sectors: 12 };
-  const draft: MazeWheel = {
-    ...shape,
-    startMilli: 15_000,
-    entrances: [
-      { sector: 0, route: mazeRoute(shape, 0, ["cw", "in", "cw", "in"]) },
-      { sector: 5, route: mazeRoute(shape, 5, ["ccw", "in", "ccw", "ccw"]) },
-    ],
-  };
-  return draft;
+  return mazeWheel(
+    {
+      rings: 3,
+      coreMilli: 250,
+      openMilli: 60,
+      walls: [[], [0, 180_000], [0, 180_000], [0, 180_000]],
+      openings: [
+        [90_000, 270_000],
+        [45_000, 225_000],
+        [45_000, 225_000],
+        [45_000, 225_000],
+      ],
+    },
+    15_000,
+  );
 }
 
 function bossState(overrides: Partial<MazeState> = {}): MazeState {
@@ -93,12 +103,17 @@ function watch(role: ViewRole, m: MazeState, beat: number, beatPhase = 0) {
   const { ctx } = stubCanvas();
   let lines = 0;
   let arcs = 0;
+  let segments = 0;
   const colours: string[] = [];
   const points: { x: number; y: number }[] = [];
   const spy = new Proxy(ctx, {
     get(target, prop, receiver) {
       if (prop === "moveTo") {
         lines++;
+        return Reflect.get(target, prop, receiver);
+      }
+      if (prop === "lineTo") {
+        segments++;
         return Reflect.get(target, prop, receiver);
       }
       if (prop === "arc") {
@@ -118,7 +133,7 @@ function watch(role: ViewRole, m: MazeState, beat: number, beatPhase = 0) {
     },
   }) as unknown as CanvasRenderingContext2D;
   drawMaze(spy, l, CFG, m, role, beat, beatPhase);
-  return { lines, arcs, colours, points, l };
+  return { lines, arcs, segments, colours, points, l };
 }
 
 describe("THE MAZE's wheel", () => {
@@ -144,11 +159,18 @@ describe("THE MAZE's wheel", () => {
     expect(apart.length).toBe(1);
   });
 
-  it("keeps the drum shut until a shot has been down it", () => {
+  it("draws the maze's own walls, and a trail only where a shot has been", () => {
+    const w = wheel();
     const shut = watch("p1", bossState({ phase: "read" }), 3);
+    // Every circle is broken into as many pieces as it has gaps, and every
+    // radial wall is a line — so the picture is the sheet and not a target.
+    const pieces = w.openings.reduce((n, o) => n + Math.max(1, o.length), 0);
+    const bars = w.walls.reduce((n, list) => n + list.length, 0);
+    expect(shut.arcs).toBeGreaterThanOrEqual(pieces);
+    expect(shut.lines).toBeGreaterThanOrEqual(bars);
+    // The trail, though, only appears once it has been paid for.
     const spent = watch("p1", bossState({ phase: "read", tried: [1], way: -1 }), 3);
-    // A route only appears once it has been paid for.
-    expect(spent.arcs).toBeGreaterThan(shut.arcs);
+    expect(spent.segments).toBeGreaterThan(shut.segments);
   });
 
   it("puts a line down the column a lit mouth is standing on", () => {
@@ -175,7 +197,7 @@ describe("THE MAZE's wheel", () => {
   it("lights the corridor up behind the shot, and keeps it inside the drum", () => {
     const early = watch("p1", bossState({ phase: "travel", tried: [0], way: 0, step: 0 }), 3);
     const going = watch("p1", bossState({ phase: "travel", tried: [0], way: 0, step: 3 }), 3);
-    expect(going.arcs).toBeGreaterThan(early.arcs);
+    expect(going.segments).toBeGreaterThan(early.segments);
     const l = layoutFor("p1");
     const r = (mazeRadiusMilli(CFG) * l.tile) / 1000;
     const cx = l.gridLeft + l.gridWidth / 2;

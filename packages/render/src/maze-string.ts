@@ -3,7 +3,7 @@ import type { MazeState, SimConfig } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { drawHandleHint, HINT_LOUD, handleRadius } from "./handle-draw.js";
 import type { Circle, Layout, ViewRole } from "./layout.js";
-import { mazeDrum } from "./maze-draw.js";
+import { mazeDrum } from "./maze-walls.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /**

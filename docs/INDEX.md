@@ -130,7 +130,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/maze-clock.ts` | THE MAZE's clock: how long each part of a round stands, in beats |
 | `packages/sim/src/maze-controls.ts` | THE MAZE's two verbs, and they are the whole of what the pair can do |
 | `packages/sim/src/maze-round.ts` | the round the pair plays against THE MAZE, and what it costs them |
-| `packages/sim/src/maze-wheel.ts` | THE MAZE's wheel as a *written-down thing*: what a round author types, and what is wrong if they typed it wrong |
+| `packages/sim/src/maze-wheel.ts` | THE MAZE's drum as a *written-down thing*: its circles, walls and openings, and what is wrong with them if they were typed wrong |
 | `packages/sim/src/maze.ts` | THE MAZE's wheel, as arithmetic |
 | `packages/sim/src/queen-mark.ts` | the mark itself: the two vulnerable spots cradled under her middle, only one ever real |
 | `packages/sim/src/run.ts` | the run, as opposed to the beat |
@@ -204,6 +204,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/volley.ts` | THE VOLLEY: a rock coming in on a diagonal with a body sealed inside it |
 | `packages/sim/src/ward.ts` | **What the shield does with a body it turns**, which used to be one answer and is now two |
 | `packages/sim/src/colour-armour.ts` | What a shot of the wrong colour leaves behind on an ordinary body: a window in which nothing at all reaches it |
+| `packages/sim/src/maze-solve.ts` | The way through THE MAZE's drum, worked out from the walls rather than typed beside them |
 
 ### packages/content
 
@@ -221,7 +222,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/creatures-table.ts` | adding a creature means adding one entry here |
 | `packages/content/src/hull-shape.ts` | the hull's own geometry, split out of `shapes.ts` when that file hit its size cap |
 | `packages/content/src/light.ts` | where the light is — the one named direction every sheen, crater and glow reads against |
-| `packages/content/src/maze-rounds.ts` | THE MAZE's wheels, one per round |
+| `packages/content/src/maze-rounds.ts` | THE MAZE's drum, copied wall for wall off the sheet the owner sent, and the three rounds played against it |
 | `packages/content/src/mechanics-table.ts` | the rows themselves, lifted out of `mechanics.ts` when that file crossed the 250-line limit |
 | `packages/content/src/mechanics.ts` | every mechanic the game has, so that something can be said about all of them at once |
 | `packages/content/src/motions.ts` | the motions themselves: one record per body that has one, and the pairing of a kind to its own |
@@ -356,7 +357,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/lobe.ts` | One lobe of the membrane, as a bump on the contour |
 | `packages/render/src/lure-alarm.ts` | The alarm player 2 sees over a lure, and player 1 never does |
 | `packages/render/src/lure-vanish.ts` | A lure going, and the one moment of this creature both screens show identically |
-| `packages/render/src/maze-draw.ts` | THE MAZE's picture: a closed drum of rings turning over the ship, with the mouth that has clicked onto a |
+| `packages/render/src/maze-draw.ts` | THE MAZE's picture: a real maze of rings turning over the ship, with the one gap in its rim lit when it has clicked onto a column |
 | `packages/render/src/maze-string.ts` | THE MAZE's string, and the handle on it: the one thing in this round either player can put a hand on |
 | `packages/render/src/meteor.ts` | The rock |
 | `packages/render/src/muzzle.ts` | The fire opening — the one place on the hull that two different things now draw into |
@@ -512,6 +513,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/warden-veins.ts` | What lies **under** THE WARDEN's surface: the veins running in from its rim, and the wet film over them |
 | `packages/render/src/queen-drop.ts` | NEXT TO FALL: the flank the queen's next torch comes off, said on player 2's screen and nowhere else |
 | `packages/render/src/queen-figure.ts` | Where the parts of the queen sit on her, and where the screen puts them |
+| `packages/render/src/maze-walls.ts` | THE MAZE's walls: the circles, the gaps cut in them, and the radial walls that make the corridors turn |
+| `packages/render/src/maze-shot.ts` | The shot inside THE MAZE: where it stands, the corridors behind it, and what it found when it stopped |
 
 ### packages/net
 

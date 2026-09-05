@@ -1,82 +1,46 @@
 import {
   MAZE_TURN,
-  type MazeCell,
   type MazeState,
   type MazeWheel,
-  mazeCenterMilli,
   mazeCurrent,
   mazeEntranceAngle,
   mazeEntranceCol,
-  mazeRadiusMilli,
   type SimConfig,
 } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import type { Layout, ViewRole } from "./layout.js";
+import { drawMazeShot, drawMazeSpent } from "./maze-shot.js";
 import { drawMazeString } from "./maze-string.js";
+import { drawMazeWalls, mazeDrum } from "./maze-walls.js";
 import { PALETTE } from "./palette.js";
 
 /**
- * THE MAZE's picture: a closed drum of rings turning over the ship, with the
- * mouth that has clicked onto a column lit up.
+ * THE MAZE's picture: a real maze of rings turning over the ship, with the one
+ * gap in its rim lit when it has clicked onto a column.
  *
- * **The interior is drawn shut, and that is the round.** Rings and mouths, no
- * corridors — neither player is told which way in reaches the middle, so there
- * is nothing on the rim to trace and the shot is the only thing that finds
- * out. What the drum gives back is the *route it has already spent*: the cells
- * a shot walked stay lit behind it, and the ones from failed attempts stay on
- * dim. That is what the pair is looking at when they decide where to go next,
- * and it is why a dead end teaches something instead of only costing.
+ * **The maze is drawn, walls and all.** It used to be drawn shut — plain
+ * circles and a dot or two on the rim, with the corridors left out on purpose
+ * so that neither player could trace a way in. What that produced on the
+ * screen was a set of concentric rings nobody would call a maze, and the shot
+ * hopped through them along a route typed in beside them rather than one the
+ * picture could be checked against. The drum now carries its own walls
+ * (`packages/sim/src/maze-wheel.ts`); `maze-walls.ts` draws exactly those and
+ * `maze-shot.ts` draws what gets through them, so what the pair looks at is
+ * the thing the shot has to cross.
  *
  * **Both screens draw the same frame, and `role` decides one word in it.**
- * With the light, the shot and the middle all on both of them there is no seat
+ * With the maze, the shot and the middle all on both of them there is no seat
  * to draw the *round* for — `packages/sim/src/maze.ts` has why, and it is a
  * decision the owner made three times rather than an omission. The string is
  * the exception and not a breach of it: only the pilot may turn the wheel, so
  * the handle has to say whose it is, the same way the tether's does.
  *
- * Where the wheel stands, which column a mouth has taken and how wide the drum
- * is are all read out of `sim` rather than worked out again — a picture that
- * lit a column the shot does not go up would be the one defect nobody could
- * see. Only `MazeState` is read, so nothing outlives a frame and
- * `Effects.reset()` has nothing of this to clear.
+ * Where the wheel stands, which column the gap has taken, how wide the drum is
+ * and which way the shot turns are all read out of `sim` rather than worked
+ * out again — a picture that lit a column the shot does not go up would be the
+ * one defect nobody could see. Only `MazeState` is read, so nothing outlives a
+ * frame and `Effects.reset()` has nothing of this to clear.
  */
-
-/** How far the rim sits below the top of the field, in tiles. */
-const CLEAR_TILES = 0.6;
-
-/**
- * The wheel's centre and rim, in pixels, from the numbers the simulation uses.
- * Exported because `maze-string.ts` hangs the handle off the bottom of it and
- * `touch.ts` answers a press there — three files, one circle.
- */
-export function mazeDrum(l: Layout, cfg: SimConfig): { cx: number; cy: number; r: number } {
-  const r = (mazeRadiusMilli(cfg) * l.tile) / 1000;
-  return {
-    cx: l.gridLeft + (mazeCenterMilli(cfg) * l.tile) / 1000,
-    cy: l.gridTop + r + l.tile * CLEAR_TILES,
-    r,
-  };
-}
-
-/** The radius of a ring, ring 0 being the middle. */
-function ringR(r: number, wheel: MazeWheel, ring: number): number {
-  return (r * (ring + 1)) / wheel.rings;
-}
-
-/** Where a cell sits, in pixels, with the wheel where it currently stands. */
-function cellXY(
-  l: Layout,
-  cfg: SimConfig,
-  wheel: MazeWheel,
-  angleMilli: number,
-  cell: MazeCell,
-): { x: number; y: number } {
-  const d = mazeDrum(l, cfg);
-  const rad = ringR(d.r, wheel, cell.ring) - d.r / (2 * wheel.rings);
-  const theta =
-    ((angleMilli + (cell.sector * MAZE_TURN) / wheel.sectors) / MAZE_TURN) * Math.PI * 2;
-  return { x: d.cx + rad * Math.sin(theta), y: d.cy + rad * Math.cos(theta) };
-}
 
 export function drawMaze(
   ctx: CanvasRenderingContext2D,
@@ -89,75 +53,11 @@ export function drawMaze(
 ): void {
   const wheel = mazeCurrent(m);
   if (wheel === null) return;
-  drawDrum(ctx, l, cfg, wheel);
-  drawSpent(ctx, l, cfg, m, wheel);
+  drawMazeWalls(ctx, mazeDrum(l, cfg), wheel, m.angleMilli);
+  drawMazeSpent(ctx, l, cfg, m, wheel);
   drawMazeString(ctx, l, cfg, m, role);
   drawMouths(ctx, l, cfg, m, wheel, beat, beatPhase);
-  drawShot(ctx, l, cfg, m, wheel, beat, beatPhase);
-}
-
-/** The rings themselves, closed, with the middle a disc nobody can see into. */
-function drawDrum(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  cfg: SimConfig,
-  wheel: MazeWheel,
-): void {
-  const d = mazeDrum(l, cfg);
-  for (let ring = wheel.rings - 1; ring >= 0; ring--) {
-    ctx.beginPath();
-    ctx.arc(d.cx, d.cy, ringR(d.r, wheel, ring), 0, Math.PI * 2);
-    ctx.strokeStyle = ring === wheel.rings - 1 ? PALETTE.hullRim : PALETTE.dim;
-    ctx.lineWidth = ring === wheel.rings - 1 ? 2.2 : 1.2;
-    ctx.stroke();
-  }
-  ctx.beginPath();
-  ctx.arc(d.cx, d.cy, ringR(d.r, wheel, 0) * 0.55, 0, Math.PI * 2);
-  ctx.fillStyle = PALETTE.grid;
-  ctx.fill();
-  ctx.strokeStyle = PALETTE.dim;
-  ctx.lineWidth = 1;
-  ctx.stroke();
-}
-
-/**
- * Every cell a shot has already stood in, this attempt bright and the failed
- * ones dim. The drum remembers what it cost to learn, which is the only thing
- * either player can reason from.
- */
-function drawSpent(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  cfg: SimConfig,
-  m: MazeState,
-  wheel: MazeWheel,
-): void {
-  const r = mazeDrum(l, cfg).r / (wheel.rings * 3);
-  for (const way of m.tried) {
-    const route = wheel.entrances[way]?.route ?? [];
-    const live = way === m.way;
-    const last = live ? m.step : route.length - 1;
-    for (const [i, cell] of route.entries()) {
-      if (i > last) break;
-      const { x, y } = cellXY(l, cfg, wheel, m.angleMilli, cell);
-      ctx.beginPath();
-      ctx.arc(x, y, r, 0, Math.PI * 2);
-      ctx.fillStyle = live ? PALETTE.pod : PALETTE.sparkDim;
-      ctx.globalAlpha = live ? 0.55 : 0.3;
-      ctx.fill();
-      ctx.globalAlpha = 1;
-    }
-    // The cell a failed attempt stopped in gets a cap, so a dead end reads as
-    // a wall rather than as a route that merely stopped being drawn.
-    const end = route.at(-1);
-    if (live || end === undefined || end.ring === 0) continue;
-    const { x, y } = cellXY(l, cfg, wheel, m.angleMilli, end);
-    ctx.beginPath();
-    ctx.arc(x, y, r * 1.4, 0, Math.PI * 2);
-    ctx.strokeStyle = PALETTE.red;
-    ctx.lineWidth = 1.6;
-    ctx.stroke();
-  }
+  drawMazeShot(ctx, l, cfg, m, wheel, beat, beatPhase);
 }
 
 /**
@@ -204,44 +104,4 @@ function drawMouths(
     ctx.stroke();
     ctx.globalAlpha = 1;
   }
-}
-
-/**
- * The shot itself, at the cell it stands in, and what it found once it has
- * stopped. `way` is -1 whenever nothing is travelling, which is also true
- * through `lead` and `read`, so this quietly draws nothing until the pair has
- * actually fired.
- */
-function drawShot(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  cfg: SimConfig,
-  m: MazeState,
-  wheel: MazeWheel,
-  beat: number,
-  beatPhase: number,
-): void {
-  if (m.way < 0 || (m.phase !== "travel" && m.phase !== "verdict")) return;
-  const cell = wheel.entrances[m.way]?.route[m.step];
-  if (cell === undefined) return;
-  const { x, y } = cellXY(l, cfg, wheel, m.angleMilli, cell);
-  const r = mazeDrum(l, cfg).r / (wheel.rings * 2.2);
-
-  // Right in the one colour this game ever calls a success, wrong in the one
-  // it already spends on "not what you wanted" (`effects-spark.ts`).
-  let hex: string = PALETTE.pod;
-  let alpha = 0.85;
-  if (m.phase === "verdict") {
-    const age = beat - m.phaseBeat + beatPhase;
-    alpha = Math.max(0, 1 - age / 3);
-    if (alpha <= 0) return;
-    hex = m.verdict === 1 ? PALETTE.good : PALETTE.sparkDim;
-  }
-  halo(ctx, x, y, r * 3, hex, alpha);
-  ctx.beginPath();
-  ctx.arc(x, y, r, 0, Math.PI * 2);
-  ctx.fillStyle = hex;
-  ctx.globalAlpha = alpha;
-  ctx.fill();
-  ctx.globalAlpha = 1;
 }

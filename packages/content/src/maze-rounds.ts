@@ -1,82 +1,91 @@
-import { type MazeMove, type MazeWheel, mazeRoute } from "@neon-spore/sim";
+import { type MazeGeometry, type MazeWheel, mazeWheel } from "@neon-spore/sim";
 
 /**
- * THE MAZE's wheels, one per round. The pilot pulls the string, a way in
- * clicks onto a column, the cannon slides under it and player 2 fires; the
- * shot walks the corridor and finds the middle or a dead end.
+ * THE MAZE's drum: a real maze, copied wall for wall off the sheet the owner
+ * handed the lane, and the three rounds played against it.
+ *
+ * **This is the drum and not a drum like it.** What stood here before was
+ * three sets of plain circles with mouths on the rim and a route typed beside
+ * each — no walls anywhere, so the screen showed concentric rings and nothing
+ * a player would call a maze. The owner sent the maze he wanted and asked for
+ * exactly it. Every number below is measured off that sheet: seven corridors
+ * round a middle, radial walls on the eighths, one gap in the rim, and the
+ * gaps in each circle where the sheet has them and nowhere else.
+ *
+ * **How to read it.** `rings` is how many corridors lie between the middle and
+ * the rim, and ring 0 is the middle. `walls[k]` is ring `k`'s radial walls;
+ * `openings[k]` is the gaps in the circle that closes ring `k` on the outside,
+ * so `openings[7]` is the one gap in the rim and `openings[0]` is the three
+ * ways into the middle. Every angle is thousandths of a degree. Nothing here
+ * says where the shot goes: `mazeWheel` solves that from the walls
+ * (`packages/sim/src/maze-solve.ts`), and `mazeFault` checks the answer back
+ * against them, which is what makes "it never crosses a wall" a fact rather
+ * than a promise. `content/test/maze-rounds.test.ts` runs both.
+ *
+ * **The sheet is mirrored on the way in, once, here.** A printed maze is read
+ * with zero at the top and angles rising clockwise; the drum's zero is the
+ * angle pointing *down* at the ship and its angles rise the other way
+ * (`maze.ts`). Turning the page over is one subtraction, and doing it at the
+ * only place the printed sheet is ever mentioned is what stops a second copy
+ * of the convention appearing somewhere downstream.
  *
  * **Authored, never generated.** Two devices have to be looking at the same
  * drum, and the cheapest way to guarantee that is for there to be only one —
  * the argument `mirror.ts` makes about its sequences. There is no rng in this
  * file and nothing in the boss draws from one, the opening angle included.
- *
- * **How to read a wheel.** `sectors` is how many slices the rim is cut into,
- * `rings` how many corridors lie between the rim and the middle, ring 0 being
- * the middle itself. A way in names its sector and then the moves the shot
- * makes from it: `in` one ring toward the middle, `cw` and `ccw` one sector
- * round. `mazeRoute` turns those into the cells the shot stands on, so the
- * picture and the shot read the same list; `mazeFault` refuses anything that
- * steps through a wall, and `content/test/maze-rounds.test.ts` runs it over
- * all three.
- *
- * **Neither player knows which one goes anywhere.** The drum is drawn closed —
- * rings and mouths, no corridors — so the shot is what finds out, and it costs
- * the hull to be wrong. That is the whole conversation this round has, and it
- * is why the wrong route is worth *drawing* once it has failed.
- *
- * **The three wheels get harder by widening the search.** Two ways in, then
- * three, then four, with the corridors growing longer under them: a wrong
- * guess on the first costs one probe, and on the last it can cost three.
  */
 
-const wheel = (
-  rings: number,
-  sectors: number,
-  startMilli: number,
-  ways: readonly (readonly [number, readonly MazeMove[]])[],
-): MazeWheel => {
-  const shape = { rings, sectors };
-  return {
-    rings,
-    sectors,
-    startMilli,
-    entrances: ways.map(([sector, moves]) => ({ sector, route: mazeRoute(shape, sector, moves) })),
-  };
+/** The corridors between the middle and the rim, the middle not counted. */
+const RINGS = 7;
+
+/**
+ * The sheet itself. Ring 0 has no walls because the middle is one room, and
+ * the rim has one gap because the sheet has one way in.
+ */
+const SHEET: MazeGeometry = {
+  rings: RINGS,
+  // The middle is half again as wide as a corridor, which is what leaves room
+  // for the shot to arrive somewhere rather than merely stop.
+  coreMilli: 177,
+  // Every gap on the sheet is the same width, and it is about half a corridor.
+  openMilli: 55,
+  walls: [
+    [],
+    [45_000, 180_000, 270_000, 315_000],
+    [0, 90_000, 135_000, 225_000],
+    [45_000, 225_000, 270_000, 315_000],
+    [0, 90_000, 180_000],
+    [0, 45_000, 90_000, 135_000, 225_000, 270_000],
+    [0, 45_000, 225_000, 270_000],
+    [0, 90_000, 135_000, 180_000, 270_000, 315_000],
+  ],
+  openings: [
+    [60, 134_610, 296_940],
+    [62_490, 104_450, 165_330, 248_500, 296_290],
+    [8_200, 179_960],
+    [26_530, 246_580, 329_650],
+    [60_560, 109_550, 154_440, 191_610, 258_760, 299_110],
+    [30_100, 99_340, 345_600],
+    [14_830, 56_090, 108_190, 154_250, 213_770, 235_400, 290_950, 326_200],
+    [3_350],
+  ],
 };
 
 /**
- * Two ways in and three rings. The owner asked for the simple case first and
- * it is the right one: the smallest drum that still needs both verbs, both
- * screens and a probe. The mouths are five sectors apart rather than opposite,
- * so a pilot who has clicked one onto a column is not automatically one pull
- * from the other.
+ * Half a turn, which is where the drum stands when a round opens: the sheet
+ * the right way up, with its one gap at the top and as far from the ship as it
+ * goes. Bringing that gap all the way down onto a column is the round.
  */
-const PAIR: MazeWheel = wheel(3, 12, 15_000, [
-  [0, ["cw", "in", "cw", "in"]],
-  [5, ["ccw", "in", "ccw", "ccw"]],
-]);
-
-/** Three ways in, four rings, and one of the dead ends runs almost all the
- * way to the middle before it stops — so a shot that nearly arrives is not the
- * same thing as one that did. */
-const THREE: MazeWheel = wheel(4, 12, 200_000, [
-  [1, ["cw", "in", "in", "cw", "in"]],
-  [5, ["ccw", "in", "in", "ccw", "ccw"]],
-  [9, ["in", "cw", "cw", "in", "cw"]],
-]);
-
-/** Four ways in and four rings: the wheel where a pair who will not talk can
- * spend three quarters of the hull finding the one that goes anywhere. */
-const FOUR: MazeWheel = wheel(4, 16, 330_000, [
-  [0, ["cw", "in", "cw", "in", "in"]],
-  [4, ["in", "ccw", "ccw", "in", "ccw"]],
-  [8, ["ccw", "in", "in", "ccw", "ccw"]],
-  [12, ["cw", "cw", "in", "cw", "in"]],
-]);
+const UPRIGHT = 180_000;
 
 /**
- * The fight, in order. Three wheels, so each one finished takes a third of the
- * boss's hull and the last is the one that brings it down — the author sets
- * the length of the fight by writing wheels, never by tuning a number.
+ * The fight, in order. The same maze three times, standing at three different
+ * angles, so each round is the same walk found again from somewhere else — and
+ * each one finished takes a third of the boss's hull, the author setting the
+ * length of the fight by writing rounds and never by tuning a number.
  */
-export const MAZE_ROUNDS: MazeWheel[] = [PAIR, THREE, FOUR];
+export const MAZE_ROUNDS: MazeWheel[] = [
+  mazeWheel(SHEET, UPRIGHT),
+  mazeWheel(SHEET, 65_000),
+  mazeWheel(SHEET, 295_000),
+];

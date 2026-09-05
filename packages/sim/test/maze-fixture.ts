@@ -7,54 +7,51 @@
  * is the same edge in a place nobody looks. What the *authored* drums have to
  * satisfy is checked where they live, in `packages/content/test`.
  *
- * These three are shaped like the real ones — two ways in, then three, then
- * four, on rings that grow — because several cases here are about a wheel
- * getting harder round by round. Nothing else about them is load-bearing.
+ * These three are deliberately *not* the authored maze. They are the smallest
+ * drums that still have the two properties several cases here need: more than
+ * one gap in the rim, and only the first of them reaching the middle, so a
+ * dead end is something a test can actually fire into. The authored drum has
+ * one way in and no dead end at all, and what it has to satisfy is checked
+ * where it lives, in `packages/content/test`.
  */
 
 import { startWave } from "../src/beat.js";
 import { DEFAULT_CONFIG } from "../src/config.js";
 import { step, ticksPerBeat } from "../src/index.js";
+import { mazeWrap } from "../src/maze.js";
 import type { MazeState } from "../src/maze-round.js";
-import { type MazeMove, type MazeWheel, mazeRoute } from "../src/maze-wheel.js";
+import { mazeWheel } from "../src/maze-solve.js";
+import type { MazeWheel } from "../src/maze-wheel.js";
 import type { Command, TimedCommand } from "../src/types.js";
 import { createWorld, type SimEvent, type World } from "../src/world.js";
 
-const wheel = (
-  rings: number,
-  sectors: number,
-  startMilli: number,
-  ways: readonly (readonly [number, readonly MazeMove[]])[],
-): MazeWheel => {
-  const shape = { rings, sectors };
-  return {
-    rings,
-    sectors,
-    startMilli,
-    entrances: ways.map(([sector, moves]) => ({ sector, route: mazeRoute(shape, sector, moves) })),
-  };
+/**
+ * A drum with one gap in the rim per angle in `ways`, of which only the first
+ * goes anywhere. Every ring but the outermost carries a single radial wall, so
+ * it is one arc all the way round and nothing inside can dead-end by accident;
+ * the outermost carries one wall just before each way in, which is what puts
+ * every way in a room of its own and leaves all but the first walled off.
+ */
+const drum = (rings: number, ways: readonly number[], startMilli: number): MazeWheel => {
+  const answer = ways[0] ?? 0;
+  const walls: number[][] = [[]];
+  for (let k = 1; k < rings; k++) walls.push([mazeWrap(k * 47_000)]);
+  walls.push([...ways.map((w) => mazeWrap(w - 30_000))].sort((a, b) => a - b));
+  const openings: number[][] = [];
+  for (let k = 0; k < rings - 1; k++) openings.push([mazeWrap(answer + (k + 1) * 40_000)]);
+  openings.push([answer]);
+  openings.push([...ways].sort((a, b) => a - b));
+  return mazeWheel({ rings, coreMilli: 200, openMilli: 60, walls, openings }, startMilli);
 };
 
 /** Two ways in, three rings — the smallest drum that still needs both verbs. */
-export const PAIR: MazeWheel = wheel(3, 12, 15_000, [
-  [0, ["cw", "in", "cw", "in"]],
-  [5, ["ccw", "in", "ccw", "ccw"]],
-]);
+export const PAIR: MazeWheel = drum(3, [0, 150_000], 15_000);
 
 /** Three ways in, four rings. */
-export const THREE: MazeWheel = wheel(4, 12, 200_000, [
-  [1, ["cw", "in", "in", "cw", "in"]],
-  [5, ["ccw", "in", "in", "ccw", "ccw"]],
-  [9, ["in", "cw", "cw", "in", "cw"]],
-]);
+export const THREE: MazeWheel = drum(4, [10_000, 130_000, 250_000], 200_000);
 
 /** Four ways in, four rings, on a rim cut finer. */
-export const FOUR: MazeWheel = wheel(4, 16, 330_000, [
-  [0, ["cw", "in", "cw", "in", "in"]],
-  [4, ["in", "ccw", "ccw", "in", "ccw"]],
-  [8, ["ccw", "in", "in", "ccw", "ccw"]],
-  [12, ["cw", "cw", "in", "cw", "in"]],
-]);
+export const FOUR: MazeWheel = drum(4, [0, 90_000, 180_000, 270_000], 330_000);
 
 /** The fight, in order: three wheels, each one finished taking a third. */
 export const WHEELS: MazeWheel[] = [PAIR, THREE, FOUR];

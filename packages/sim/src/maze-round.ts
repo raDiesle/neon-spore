@@ -6,7 +6,7 @@ import {
   MAZE_VERDICT_BEATS,
   mazeReadBeats,
 } from "./maze-clock.js";
-import { type MazeWheel, mazeReachesCore } from "./maze-wheel.js";
+import { type MazeWheel, mazeCopyWheel, mazeReachesCore } from "./maze-wheel.js";
 import type { Scar } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
@@ -116,15 +116,7 @@ export function enterMazePhase(m: MazeState, phase: MazePhase, beat: number): vo
 
 /** A fresh maze, at full hull, on the round it is authored to open with. */
 export function installMaze(world: World, rounds: MazeWheel[]): MazeState {
-  const copies = rounds.map((w) => ({
-    rings: w.rings,
-    sectors: w.sectors,
-    startMilli: w.startMilli,
-    entrances: w.entrances.map((e) => ({
-      sector: e.sector,
-      route: e.route.map((c) => ({ ...c })),
-    })),
-  }));
+  const copies = rounds.map(mazeCopyWheel);
   return {
     kind: "maze",
     rounds: copies,
@@ -173,7 +165,7 @@ export function stepMaze(world: World, m: MazeState): void {
       const route = wheel.entrances[m.way]?.route ?? [];
       const step = Math.floor(since / MAZE_TRAVEL_BEATS);
       if (step >= route.length) {
-        // The end of the corridor: the middle, or whatever else was down there.
+        // The end of the walk: the middle, or whatever else was down there.
         if (mazeReachesCore(wheel.entrances[m.way]!)) right(world, m);
         else wrong(world, m, "mouth");
         continue;
@@ -189,13 +181,18 @@ export function stepMaze(world: World, m: MazeState): void {
   }
 }
 
-/** The shot, one cell further in. Where it stands is what both of them see. */
+/** The shot, one corridor further along. Where it stands is what both see. */
 function advance(world: World, m: MazeState, wheel: MazeWheel, step: number): void {
   const route = wheel.entrances[m.way]?.route ?? [];
   const cell = route[step];
   if (cell === undefined) return;
   m.step = step;
-  world.events.push({ type: "mazeProbe", ring: cell.ring, sector: cell.sector, of: route.length });
+  world.events.push({
+    type: "mazeProbe",
+    ring: cell.ring,
+    angleMilli: cell.angleMilli,
+    of: route.length,
+  });
 }
 
 /** A dead end, or nothing at all. Out of the column it went up. */

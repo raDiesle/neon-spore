@@ -98,15 +98,20 @@ export {
   type MazeVerdictReason,
   mazeCurrent,
 } from "./maze-round.js";
+export { mazeEntrances, mazeSolveRoute, mazeWheel } from "./maze-solve.js";
 export {
-  type MazeCell,
   type MazeEntrance,
-  type MazeMove,
+  type MazeGeometry,
+  type MazeStep,
   type MazeWheel,
+  mazeArc,
+  mazeCircleMilli,
+  mazeCopyWheel,
   mazeCoreEntrance,
   mazeFault,
   mazeReachesCore,
-  mazeRoute,
+  mazeRingMilli,
+  mazeSweep,
 } from "./maze-wheel.js";
 export { mirrorHoldsControls } from "./mirror.js";
 export {
