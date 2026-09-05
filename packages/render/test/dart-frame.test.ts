@@ -1,4 +1,5 @@
 import { beforeAll, describe, expect, it } from "bun:test";
+import { controlSet } from "@neon-spore/content";
 import { createWorld, type SpawnEntry, ticksPerBeat } from "@neon-spore/sim";
 import { drawRadar } from "../src/field.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
@@ -24,7 +25,17 @@ function dartFrames(role: ViewRole, col: number, ticks: number) {
   // happens *between* beats — the jet is hottest in the first fraction of a
   // run and gone by the end of it — so a sampling that only caught beat
   // boundaries would never draw a plume at all.
-  return runFrames(createWorld(CFG, 1, queue), role, ticks, { every: 2 });
+  // The panel is named rather than inferred, because this test is a
+  // comparison between two seats and the band is not its subject. A world
+  // built here stands on wave 0, and wave 0 is played on the first rung of
+  // the standard ladder — where player 2 has one colour and no strip at all
+  // (`control-sets-table.ts`). That is a real difference between the two
+  // seats' pictures and it has nothing to do with the dart, so the same
+  // panel is drawn for both and what is left over is the creature.
+  return runFrames(createWorld(CFG, 1, queue), role, ticks, {
+    every: 2,
+    controls: controlSet("default"),
+  });
 }
 
 describe("the dart", () => {

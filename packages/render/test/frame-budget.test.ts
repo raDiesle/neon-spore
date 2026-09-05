@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { buildBoss, buildQueue, WAVES } from "@neon-spore/content";
+import { buildBoss, buildQueue, controlSet, WAVES } from "@neon-spore/content";
 import {
   createWorld,
   startWave,
@@ -145,13 +145,29 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
     },
   ],
 };
-/** The scene every row above was measured on: wave 2, stepped to the first
- * tick with three creatures on the field. */
+/**
+ * The scene every row above was measured on: ALTERNATING, stepped to the first
+ * tick with three creatures on the field.
+ *
+ * **The wave is found by id, not by index.** It used to be `2`, and a wave
+ * inserted earlier in act one moved a two-entry wave into that slot — where
+ * the loop below, waiting for a third creature that was never coming, simply
+ * ran for ever. A number here was a hidden claim about the order of the whole
+ * campaign; the id is the handle nothing renames (`Wave.id`).
+ *
+ * The `while` is bounded for the same reason. A budget test that hangs is
+ * worse than one that fails: it takes the whole suite with it and says
+ * nothing about which line was wrong.
+ */
 function busyWorld(): World {
   const world = createWorld(CFG, 3, []);
-  const index = 2;
+  const index = WAVES.findIndex((w) => w.id === "alternating");
   startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
-  while (world.creatures.length < 3) step(world, []);
+  for (let t = 0; world.creatures.length < 3; t++) {
+    if (t > ticksPerBeat(CFG) * 32)
+      throw new Error("wave alternating never put three on the field");
+    step(world, []);
+  }
   return world;
 }
 
@@ -165,6 +181,12 @@ describe("a busy frame's op count", () => {
       let measured = 0;
       runFrames(world, role as ViewRole, rows.length * 4, {
         viewport: { width: 390, height: 844, dpr: 3 },
+        // The panel is named rather than inferred. Every row above is a
+        // ceiling on the renderer's work, so it has to be weighed against the
+        // *fullest* band — and the wave this scene comes from is played on a
+        // rung of the standard ladder, which is fewer buttons than the game
+        // draws from wave nine on (`control-sets-table.ts`).
+        controls: controlSet("default"),
         onDrawn: (ctx, frame) => {
           const budget = rows[frame] as Budget;
           for (const [key, max] of Object.entries(budget)) {

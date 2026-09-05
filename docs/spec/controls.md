@@ -35,6 +35,27 @@ sits in, and one line saying what it does. The director's CONTROLS tab
 it drives — a hand does not retype a set here, it draws the real band and
 lists the real controls.
 
+**The standard panel arrives a button at a time.** Handing a pair all six on
+the first wave is what the game used to do, and it taught nothing: STANDARD 1
+through 4 are the same panel with buttons held back — red alone, then cyan,
+then the trigger, then the plate that trigger fires — and the fifth rung is
+STANDARD itself, with the maw. They are whole named sets like any other and a
+wave still names exactly one; what a rung adds is `ControlSet.reduces`, which
+says which panel it is a *picture of*. That is not composition and it is not
+an addition to `Wave`: it is what makes the buttons a rung does carry stand on
+the pixel they will keep for the rest of the game, because `bandLobes` lays
+the slots out against the reduced panel and simply leaves the held-back ones
+empty. A pair must never learn an arrangement that moves under them when a
+button arrives.
+
+**The first wave played on a panel has to introduce it.** A guide teaches the
+first wave to carry a creature, a pod, a boss or a mechanic; a panel is as new
+as any of them the first time it is held, and on the ladder what arrives is a
+button nothing on the field announces. `firstOnPanel` is the question,
+`packages/content/test/waves.test.ts` is what makes it a failure rather than
+an intention, and the director's rail marks such a wave with `⎈` beside the
+`✎` its guide earns it.
+
 **In-screen controls** are everything touched *on the field itself*: grabbed,
 held or pressed directly against a creature, a rope, or the whole screen.
 None of them is a `ControlDef` — a wave does not pick a grip or a tether the

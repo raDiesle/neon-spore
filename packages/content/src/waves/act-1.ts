@@ -82,10 +82,6 @@ export const WAVES_ACT_1: Wave[] = [
       p2: "The plate is already standing in that column, and nothing on your panel moves it yet. Call the moment it arrives.",
       scene: "theRock",
     },
-    // Column 3 of seven is the middle of the field, and the plate rests in the
-    // middle until somebody carries it — which nothing on STANDARD 3 can. The
-    // rock is authored into that column on purpose: this wave is about the
-    // window, and the wave after it is about the column.
     entries: [{ beat: 0, col: 3, kind: "meteor", color: null }],
     controls: "standard3",
   },
@@ -144,8 +140,8 @@ export const WAVES_ACT_1: Wave[] = [
     name: "SHIELD, THEN CANNON",
     sentence: "The one where you switch jobs mid-wave.",
     guide: {
-      both: "Every control has a second way in: the ship itself. Nothing on the band goes away, and every wave is still playable with the strips alone — this is for a thumb that is already up on the field.",
-      p1: "Take hold of the cannon and carry it. Let go without carrying it anywhere and the maw opens instead. A press on the plate fires it where it stands.",
+      both: "The panel is complete: the maw is the last button, and it is yours from here on. Every control also has a second way in — the ship itself. Nothing on the band goes away, and every wave is still playable with the strips alone.",
+      p1: "SUCK is new, beside your trigger. Take hold of the cannon and carry it, or let go without carrying it anywhere and the maw opens instead. A press on the plate fires it where it stands.",
       p2: "Drag the plate itself the way you drag the strip. And carry the muzzle left for red or right for cyan — the order the two colours stand in on your band.",
       scene: "shieldThenCannon",
     },

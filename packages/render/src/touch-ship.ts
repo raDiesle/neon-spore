@@ -41,8 +41,7 @@ const CANNON_R = 0.7;
 const SHIELD_R = 0.8;
 /**
  * How far the muzzle has to be carried before a colour locks in, in tiles.
- * Wide enough that a thumb that only meant to rest there fires nothing, short
- * enough to be inside one hand's travel.
+ * Wide enough that a resting thumb fires nothing, short enough for one hand.
  */
 const SWIPE_TILES = 0.6;
 /**
@@ -100,9 +99,9 @@ export function shipCircle(
  * is listed first). A player who has learnt the panel already knows this one.
  *
  * `only` is a panel with one colour on it — the ladder's first two rungs — and
- * then the direction says nothing, because there is no order to read off a
- * single lobe. The swipe still has to clear the threshold: a thumb resting on
- * the muzzle fires nothing on any panel.
+ * then the direction says nothing, because a single lobe has no order to read.
+ * The swipe still has to clear the threshold: a thumb resting on the muzzle
+ * fires nothing on any panel.
  */
 export function swipeColor(l: Layout, originX: number, x: number, only?: Color): Color | null {
   const d = x - originX;
@@ -240,9 +239,9 @@ function navigator(l: Layout, on: "cannon" | "shield", x: number, field: Field):
   const red = setHas(field.controls, "fireRed");
   const cyan = setHas(field.controls, "fireCyan");
   if (!red && !cyan) return null;
-  // Which colours the muzzle may send is the panel's, decided here and carried
-  // on the hold — the lift is answered a long way from anything that knows the
-  // wave, which is the same bargain `suck` makes one seat over.
+  // Which colours it may send is the panel's, carried on the hold: the lift is
+  // answered far from anything that knows the wave — `suck`'s bargain one seat
+  // over. A panel with one of them has no left and right to read.
   return {
     player: 2,
     command: null,

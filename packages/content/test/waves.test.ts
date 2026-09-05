@@ -5,6 +5,7 @@ import {
   buildPods,
   buildQueue,
   controlSetForWave,
+  firstOnPanel,
   groupsCoveredBy,
   mechanic,
   mechanicsInWave,
@@ -223,6 +224,29 @@ describe("wave content", () => {
   });
 
   /**
+   * The same guarantee for the thing the pair holds rather than the thing
+   * falling at them. A panel is as new as a creature the first time it is
+   * played — more so on the standard ladder, where what arrives is a button
+   * that was not there on the wave before and is not announced by anything on
+   * the field. The owner asked for it in those words: a first-time
+   * introduction not only for new enemies, but for control panels and for the
+   * modifications of one.
+   *
+   * `firstOnPanel` is *called* rather than re-derived here, because the
+   * director's rail asks the same question about a wave that is not on disk
+   * yet and two spellings of "is this the first time" would drift.
+   */
+  it("gives the first wave played on a panel a guide that introduces it", () => {
+    for (const [i, wave] of WAVES.entries()) {
+      if (!firstOnPanel(WAVES, i)) continue;
+      expect(
+        wave.guide,
+        `wave ${i + 1} · ${wave.name} is the first played on ${controlSetForWave(i).name} and says nothing about it`,
+      ).toBeDefined();
+    }
+  });
+
+  /**
    * The other half, and the reason the first half is not enough: a guide on a
    * wave that introduces nothing is padding, and padding a wave with a guide
    * is the same failure as padding it with entries. Both halves are also
@@ -253,7 +277,10 @@ describe("wave content", () => {
       // "this wave carries a scene" is a decision somebody made about where a
       // thing is taught, which is exactly what this test cannot see for
       // itself.
-      if (wave.guide?.scene !== undefined || introduces) continue;
+      // And a panel arriving is something introduced, by the test above. A
+      // wave that hands the pair a button they have never had is a wave with
+      // something to say whether or not anything new is falling at them.
+      if (wave.guide?.scene !== undefined || introduces || firstOnPanel(WAVES, i)) continue;
       expect(
         wave.guide,
         `wave ${i + 1} · ${wave.name} carries a guide and introduces nothing`,

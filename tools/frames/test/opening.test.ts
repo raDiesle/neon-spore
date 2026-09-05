@@ -81,10 +81,12 @@ describe("captureFrames past a wave's opening", () => {
     // ALTERNATING, which carries no guide: its introduction is the only thing
     // in front of the field. FIRST STEP cannot answer this any more — its guide
     // is stepped, so the introduction is that guide's last page rather than a
-    // phase behind it (`sim/guide-steps.ts`).
+    // phase behind it (`sim/guide-steps.ts`). It is index 3 since CYAN was
+    // written into act one; both of these are the *wave the field is behind*
+    // rather than any particular number, so they move when act one does.
     const { paths } = await captureFrames(
       baseUrl,
-      { wave: 2, ticks: 30, opening: "intro" },
+      { wave: 3, ticks: 30, opening: "intro" },
       join(scratchOut, "intro"),
     );
     expect(paths).toHaveLength(1);
@@ -143,7 +145,7 @@ describe("captureFrames past a wave's opening", () => {
     // introduction passes straight onto the field and there is no second
     // screen to stand on.
     await expect(
-      captureFrames(baseUrl, { wave: 2, ticks: 6, opening: "guide" }, join(scratchOut, "none")),
+      captureFrames(baseUrl, { wave: 3, ticks: 6, opening: "guide" }, join(scratchOut, "none")),
     ).rejects.toThrow("carries no guide");
   }, 30_000);
 });

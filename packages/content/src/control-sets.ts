@@ -20,6 +20,12 @@ export { CONTROL_SETS } from "./control-sets-table.js";
  * two additions are four panels nobody ever drew or played. A named set is a
  * thing a person can be shown, argued with, and told to remove a button from.
  *
+ * **The standard ladder is not a counter-example to that**, and `reduces` is
+ * why. STANDARD 1 through 4 are whole named panels a wave names one of, like
+ * every other set here; what a rung says in addition is which panel it is a
+ * *picture of*, so that the buttons it carries can be drawn in the places they
+ * will keep. See `control-sets-table.ts`, which is where the rungs live.
+ *
  * **A set is not always a band, and `gauge` is the proof.** THE GAUGE's panel
  * used to be built by hand in render/, outside this file, on the ground that
  * the thing reaching for it was a *round* and not a wave. It is a wave now, so
@@ -198,6 +204,38 @@ export function groupsCoveredBy(set: ControlSet): ControlGroup[] {
  */
 export function controlSetForWave(waveIndex: number): ControlSet {
   return controlSet(WAVES[waveIndex]?.controls);
+}
+
+/**
+ * Whether this wave is the **first in the game played on its panel** — the one
+ * that has to introduce it.
+ *
+ * A guide teaches the first wave to carry a creature, a pod, a boss or a
+ * mechanic (`test/waves.test.ts`), and a panel was the one new thing that
+ * arrived unannounced: a pair reaching STANDARD 3 is handed a button they have
+ * never seen, and the wave said nothing about it. The owner named the gap in
+ * those terms — a first-time introduction not only for new enemies but for
+ * control panels and for the modifications of one — so this is the question a
+ * test asks over the whole list and the director asks about one row.
+ *
+ * **Returning to a panel is not an introduction.** The wave after THE GAUGE is
+ * the ordinary field again, and a pair who has played fifteen waves on it does
+ * not need to be told what a strip is. So it is the first *sight* of a set that
+ * matters, not every change of one.
+ *
+ * It takes the list rather than reading `WAVES` because the director edits a
+ * list that is not on disk yet, and an answer read out of `WAVES` there would
+ * be about whatever was last saved.
+ */
+export function firstOnPanel(
+  waves: readonly { controls?: ControlSetId }[],
+  index: number,
+): boolean {
+  const here = controlSet(waves[index]?.controls).id;
+  for (let i = 0; i < index; i++) {
+    if (controlSet(waves[i]?.controls).id === here) return false;
+  }
+  return true;
 }
 
 /**

@@ -6,7 +6,7 @@ import {
 } from "@neon-spore/content";
 import { renderControlSetNote } from "./control-set-note.js";
 import { autoGrowTextarea, bindGuideFields, setGrownValue } from "./guide-fields.js";
-import { wavesWithGuides } from "./guide-waves.js";
+import { waveMarks } from "./rail-marks.js";
 import { copyWave, currentWave, emptyWave, type Store } from "./state.js";
 
 /**
@@ -56,7 +56,6 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
     }
   }
 
-  const guideWaves = new Set(wavesWithGuides());
   const renderList = (): void => {
     if (!list) return;
     list.replaceChildren();
@@ -68,50 +67,8 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
       n.className = "n";
       n.textContent = String(i + 1).padStart(2, "0");
       button.append(n);
-      // A boss wave is not one entry among several; a small mark says so at a
-      // glance without spending a whole tab on the one wave that needs it.
-      if (wave.boss) {
-        const mark = document.createElement("span");
-        mark.className = "boss-mark";
-        mark.textContent = wave.boss.kind === "mirror" ? "◑ " : "♛ ";
-        button.append(mark);
-      }
-      // A second mark, not folded into the one above: the boss and the panel
-      // are independent choices, and the card-assignment lane is due a third
-      // of these — each stays its own span and its own glyph so a fourth mark
-      // is one more `if`, not a rewrite of what is already here.
-      const set = controlSet(wave.controls);
-      if (set.id !== DEFAULT_CONTROL_SET_ID) {
-        const mark = document.createElement("span");
-        mark.className = "control-mark";
-        mark.textContent = "⎈ ";
-        mark.title = set.name;
-        button.append(mark);
-      }
-      // A third mark: this wave carries a guide, read off the wave itself
-      // rather than derived from the campaign. No `title` — a tooltip here
-      // is what the owner rejected — and no second copy of the guide's own
-      // text, which already sits under SENTENCE (`guideFields.render`,
-      // below); this is only a glance-level flag and a shortcut into GAME
-      // MECHANICS' GUIDES tab.
-      //
-      // A span, not a nested button — a button inside a button is invalid
-      // markup, and the click needs its own stop or it would also re-select
-      // the row. Two clicks: the sheet must open before its own bar has a
-      // GUIDES button.
-      if (guideWaves.has(i)) {
-        const mark = document.createElement("span");
-        mark.className = "card-mark";
-        mark.textContent = "✎ ";
-        mark.addEventListener("click", (e) => {
-          e.stopPropagation();
-          document.getElementById("statesOpen")?.dispatchEvent(new MouseEvent("click"));
-          document
-            .querySelector('#statesTabs button[data-tab="guides"]')
-            ?.dispatchEvent(new MouseEvent("click"));
-        });
-        button.append(mark);
-      }
+      // A boss, a panel the pair has not held before, a guide (`rail-marks.ts`).
+      button.append(...waveMarks(store.waves, i));
       button.append(document.createTextNode(wave.name || "— unnamed —"));
       button.addEventListener("click", () => {
         store.index = i;
