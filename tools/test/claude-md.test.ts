@@ -27,13 +27,34 @@ async function read(name: string): Promise<string> {
   return await Bun.file(join(ROOT, name)).text();
 }
 
+/**
+ * The length the ceiling is about: the text with its carriage returns stripped
+ * out.
+ *
+ * `.gitattributes` says `* text=auto eol=lf` and a worktree still checked
+ * `CLAUDE.md` out with CRLF once. The 283 extra carriage returns put a file
+ * that is 21,991 characters in the repository at 22,274, the check went red on
+ * the first command of a lane, and the message said the file had grown when
+ * nothing had changed — so a session went hunting for a paragraph to move into
+ * `docs/` that did not need moving. A line ending is `.gitattributes`'
+ * business. What this ceiling holds down is the tokens a session pays to read
+ * the file, and the blob it reads is LF either way.
+ */
+function measured(text: string): number {
+  return text.replaceAll("\r", "").length;
+}
+
 describe("CLAUDE.md", () => {
   it("stays small enough to load into every session", async () => {
-    const text = await read("CLAUDE.md");
+    const size = measured(await read("CLAUDE.md"));
     expect(
-      text.length,
-      `CLAUDE.md is ${text.length} bytes, ceiling is ${SIZE_LIMIT}. Move the reasoning into docs/ and leave a pointer — see docs/git-and-landing.md for the shape.`,
+      size,
+      `CLAUDE.md is ${size} characters, ceiling is ${SIZE_LIMIT}. Move the reasoning into docs/ and leave a pointer — see docs/git-and-landing.md for the shape.`,
     ).toBeLessThanOrEqual(SIZE_LIMIT);
+  });
+
+  it("measures a CRLF checkout as the LF file it is", () => {
+    expect(measured("one\r\ntwo\r\n")).toBe("one\ntwo\n".length);
   });
 
   /**
