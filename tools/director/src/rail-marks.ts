@@ -25,8 +25,8 @@ export function waveMarks(waves: readonly Wave[], index: number): HTMLElement[] 
   /**
    * The panel, and it marks two things that are not the same set of waves: a
    * panel that is not the ordinary one, and the **first wave played on any
-   * panel at all**. SHIELD, THEN CANNON is where the standard panel's last
-   * button arrives and it is the ordinary panel from then on — so a list that
+   * panel at all**. SALVAGE is where the standard panel's last button
+   * arrives and it is the ordinary panel from then on — so a list that
    * only marked the unusual ones would say nothing about the wave that hands
    * the pair something they have never held. `firstOnPanel` is called rather
    * than worked out again here; the same question decides whether that wave is

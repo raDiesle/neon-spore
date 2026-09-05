@@ -217,6 +217,7 @@ relay a budget that says why, next to the windows they are waiting out, so the
 next one written inherits it. `RUN_OVER_MS` and `SEAT_SILENT_MS` are already
 shortened deliberately so the test does not sit still for the real windows, and
 that comment is where the argument belongs.
+
 ## Split `effects-spark.ts`: it is on the 250-line limit and blocks every new event
 
 - **Found:** 2026-09-05, claude/carom-enemy-deflection-d1bb2e
@@ -238,3 +239,21 @@ second exhaustive switch that `burstFor` consults first, keeping the property
 that matters — a new event that nobody accounts for is a compile error rather
 than a silence. Both files then have room, and `limits.test.ts` goes green
 without anybody rewriting a sentence about THE GHOST.
+
+## `bun run index` never removes a row for a deleted file
+
+- **Found:** 2026-09-05, claude/shield-then-cannon-tutorial-74988b
+- **Files:** `tools/index/run.ts`, `tools/index/index.ts`, `tools/index/test/index.test.ts`
+
+`generateIndex` completes the "## Code" table — every in-scope file that has no
+row gets one — and deliberately keeps whatever text is already there, which is
+right for a row somebody wrote by hand. But a file that has been *deleted*
+leaves its row behind, and the generator has no opinion about it: `bun run
+index` reports "865 in-scope files checked" and writes nothing, while
+`tools/index/test/index.test.ts`'s "every row's path exists" fails. So the tool
+that exists to fix the table cannot fix the half of it the test was failing on,
+and the fix is a hand edit found by reading the test output.
+
+Drop rows whose path is no longer in scope, in the same pass that adds the
+missing ones, and add a test that a row for a path not in the tree is removed.
+Keeping the hand-written *text* of surviving rows is the invariant to preserve.

@@ -4,7 +4,6 @@ import { CYAN } from "./scenes/cyan.js";
 import { FIRST_STEP } from "./scenes/first-step.js";
 import { PINBALL } from "./scenes/pinball.js";
 import { SALVAGE } from "./scenes/salvage.js";
-import { SHIELD_THEN_CANNON } from "./scenes/shield-then-cannon.js";
 import { SNAKE } from "./scenes/snake.js";
 import { THE_CAROM } from "./scenes/the-carom.js";
 import { THE_CLASP } from "./scenes/the-clasp.js";
@@ -82,7 +81,6 @@ export type SceneId =
   | "theMirror"
   | "theFleet"
   | "snake"
-  | "shieldThenCannon"
   | "theLance"
   | "theGauge"
   | "pinball"
@@ -118,7 +116,6 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theMirror: THE_MIRROR,
   theFleet: THE_FLEET,
   snake: SNAKE,
-  shieldThenCannon: SHIELD_THEN_CANNON,
   theLance: THE_LANCE,
   theGauge: THE_GAUGE,
   pinball: PINBALL,

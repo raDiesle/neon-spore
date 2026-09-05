@@ -21,9 +21,9 @@ import type { Wave } from "../wave-types.js";
  * standard panel — STANDARD 1 through 4, each one button more than the one
  * before it (`control-sets-table.ts`) — so a pair meeting the game is handed
  * exactly the controls the wave they are on asks for, in the places those
- * controls will keep for the rest of the game. SHIELD, THEN CANNON is where
- * the full panel arrives, because the maw is one of the five gestures that
- * film is about and the maw is the last thing the ladder holds back.
+ * controls will keep for the rest of the game. SALVAGE is where the full
+ * panel arrives, because the maw is the last thing the ladder holds back and
+ * the pod is the one thing in the game that asks for it.
  */
 export const WAVES_ACT_1: Wave[] = [
   {
@@ -143,16 +143,11 @@ export const WAVES_ACT_1: Wave[] = [
     id: "shieldThenCannon",
     name: "SHIELD, THEN CANNON",
     sentence: "The one where you switch jobs mid-wave.",
-    guide: {
-      both: "The panel is complete: the maw is the last button, and it is yours from here on. Every control also has a second way in — the ship itself. Nothing on the band goes away, and every wave is still playable with the strips alone.",
-      p1: "SUCK is new, beside your trigger. Take hold of the cannon and carry it, or let go without carrying it anywhere and the maw opens instead. A press on the plate fires it where it stands.",
-      p2: "Drag the plate itself the way you drag the strip. And carry the muzzle left for red or right for cyan — the order the two colours stand in on your band.",
-      scene: "shieldThenCannon",
-    },
     entries: [
       { beat: 0, col: 3, kind: "meteor", color: null },
       { beat: 5, col: 3, color: "cyan" },
     ],
+    controls: "standard4",
   },
   {
     id: "theWall",
@@ -164,6 +159,7 @@ export const WAVES_ACT_1: Wave[] = [
       { beat: 2, col: 4, color: "cyan" },
       { beat: 3, col: 6, color: "red" },
     ],
+    controls: "standard4",
   },
   {
     id: "shootAndShield",
@@ -175,6 +171,7 @@ export const WAVES_ACT_1: Wave[] = [
       { beat: 6, col: 5, color: "red" },
       { beat: 9, col: 2, kind: "meteor", color: null },
     ],
+    controls: "standard4",
   },
   {
     id: "inItsShadow",
@@ -186,6 +183,7 @@ export const WAVES_ACT_1: Wave[] = [
       { beat: 8, col: 5, kind: "meteor", color: null },
       { beat: 9, col: 5, color: "cyan" },
     ],
+    controls: "standard4",
   },
   {
     id: "crowded",
@@ -198,14 +196,15 @@ export const WAVES_ACT_1: Wave[] = [
       { beat: 5, col: 0, color: "red" },
       { beat: 6, col: 6, color: "cyan" },
     ],
+    controls: "standard4",
   },
   {
     id: "salvage",
     name: "SALVAGE",
     sentence: "The one where shooting something is only half of getting it.",
     guide: {
-      both: "It hangs where it was left. Shooting it loose is only half of getting it — after that it sinks and drifts.",
-      p1: "Chase it with the cannon and open the maw as it reaches the hull. It mends the ship.",
+      both: "The panel is complete: the maw is the last button, and it is yours from here on. This is the wave it is for. The pod hangs where it was left, and shooting it loose is only half of getting it — after that it sinks and drifts.",
+      p1: "SUCK is new, beside your trigger. Chase the pod with the cannon and open the maw as it reaches the hull. It mends the ship.",
       p2: "Free it with a shot of either colour, then say which way it is drifting.",
       scene: "salvage",
     },
