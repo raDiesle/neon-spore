@@ -12,9 +12,14 @@
  * whatever the last fetch left behind, and a count taken against a stale one
  * reports work as unpushed that somebody else already pushed — a number that
  * is wrong in the reassuring direction is worse than no number.
+ *
+ * **A refusal is printed in full**, along with how the trunk stands, because
+ * the alternative is running the push again by hand to find out — and the
+ * repository's own guard hook refuses that. `refusal.ts` has the wording.
  */
 
 import { git, gitOrDie } from "./git.js";
+import { refusalLines } from "./refusal.js";
 
 const root = Bun.fileURLToPath(new URL("../../", import.meta.url));
 const TRUNK = "main";
@@ -32,6 +37,10 @@ if (local === "") {
 
 await git(["fetch", "--quiet", "origin", TRUNK], root);
 const ahead = Number(await git(["rev-list", "--count", `origin/${TRUNK}..${TRUNK}`], root)) || 0;
+// Counted beside `ahead` and only read when the push is refused: it is one
+// more `rev-list` and it is the difference between "origin was not updated"
+// and "origin has work yours has not". See `refusal.ts`.
+const behind = Number(await git(["rev-list", "--count", `${TRUNK}..origin/${TRUNK}`], root)) || 0;
 const short = await git(["rev-parse", "--short", TRUNK], root);
 
 if (ahead === 0) {
@@ -42,7 +51,11 @@ if (ahead === 0) {
 try {
   await gitOrDie(["push", "origin", `${TRUNK}:${TRUNK}`], root);
 } catch (error) {
-  console.log(`✗ origin was not updated: ${(error as Error).message.split("\n")[0]}`);
+  // The whole of git's complaint, not its first line — that line is the
+  // remote's URL, and it was the only thing this ever printed.
+  for (const line of refusalLines((error as Error).message, { ahead, behind, trunk: TRUNK })) {
+    console.log(line);
+  }
   process.exit(1);
 }
 
