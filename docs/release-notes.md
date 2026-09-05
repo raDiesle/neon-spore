@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 4ff739f — A body is seen to land on the ship before it breaks it
+
+Everything the shield had nothing to say to — a slick, a bulb, a carom, a mount — was taken off the field the beat it entered the ship's row, so its last drawn frame was a whole tile clear of the hull and the pair watched it burst in mid-air. The rocks already had the beat: `resolveHull` granted it to them alone, and the fall was clamped onto the hull row for them alone. Both rules belong to the body rather than to the shield now, so every kind spends the beat render/ draws it come down the last tile standing on the ship, and breaks the hull on the beat after.
+
 ## 2026-09-05 · a38bbac — THE MAZE is a maze now, and the shot walks it without touching a wall
 
 The boss drew three plain circles with a dot on the rim. It carries the sheet the owner sent instead: seven corridors round a middle, radial walls on the eighths, one gap in the rim, and the gaps in every circle where that sheet has them. The drum is drawn wall for wall, and the shot goes in at the gap and crawls the corridors to the middle — turning where the corridor turns, never across a wall, because the route is solved from the same walls the picture is drawn from rather than typed in beside them.
