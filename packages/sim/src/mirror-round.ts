@@ -61,8 +61,21 @@ export function settle(world: World, m: MirrorState): void {
       world.events.push({ type: "mirrorDown", col: m.verdictCol });
       return;
     }
-    m.round += 1;
+    mirrorOpenRound(world, m, m.round + 1);
+    return;
   }
+  enterPhase(m, "lead", world.beat, world.cannonCol);
+}
+
+/**
+ * Open a numbered round of the sequence, from the top.
+ *
+ * The one way in, so the fight's own settle and a caller jumping to a round
+ * cannot disagree: `enterPhase`'s `lead` branch is what puts the ship back
+ * where the ghost performs from and clears what was answered.
+ */
+export function mirrorOpenRound(world: World, m: MirrorState, round: number): void {
+  m.round = Math.max(0, Math.min(m.rounds.length - 1, round));
   enterPhase(m, "lead", world.beat, world.cannonCol);
 }
 

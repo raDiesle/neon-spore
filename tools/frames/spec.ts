@@ -95,6 +95,17 @@ export interface FrameSpec {
    */
   settle?: number;
   /**
+   * Which round of the installed boss to stand on, counted from 0.
+   *
+   * `jumpToWave` puts a boss on the field at its opening round and the only
+   * thing that moves it on is winning, which nothing headless can do — so only
+   * the first of THE MAZE's five sheets could ever be photographed, and it is
+   * the one with a single way in. Applied straight after the jump and before
+   * the wave's own ticks, through the fight's own way into a round, so what is
+   * photographed is the round the pair would have reached by playing.
+   */
+  bossRound?: number;
+  /**
    * A rectangle of the frame to keep, in its own CSS pixels from `#stage`'s top
    * left, instead of the whole of it.
    *
@@ -168,6 +179,13 @@ declare global {
       dismissBriefing(): void;
       /** Missing on a build from before the introduction existed. */
       advanceOpening?(seconds: number): void;
+      /**
+       * Stand the installed boss on a numbered round. Missing on a build from
+       * before it existed — which is every parent of the commit that added it,
+       * so `--boss-round` says so by name rather than failing as an undefined
+       * call somewhere in the page.
+       */
+      bossRound?(round: number): boolean;
       /** Missing on a build from before `--hold` existed — which is every
        * parent of the commit that added it, so `--hold` says so by name rather
        * than failing as an undefined call somewhere in the page. */

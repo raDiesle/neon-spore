@@ -1,4 +1,4 @@
-import { type Command, type SimEvent, step, type World } from "@neon-spore/sim";
+import { type Command, type SimEvent, setBossRound, step, type World } from "@neon-spore/sim";
 import type { InputBuffer } from "./input.js";
 
 /**
@@ -69,6 +69,24 @@ export function installTestingHandle(parts: HandleParts): void {
      */
     send(player: 1 | 2, command: Command) {
       buffer.push(player, command);
+    },
+    /**
+     * Stand the installed boss on a numbered round.
+     *
+     * `jumpToWave` puts one on the field at its opening round and the only
+     * thing that moves it on is *winning*, which nothing headless can do — so
+     * only the first of THE MAZE's five sheets could ever be photographed, and
+     * the first sheet is the one with a single way in. SNAKE, PINBALL and THE
+     * MIRROR had the same hole.
+     *
+     * It goes through the fight's own way into a round (`setBossRound`), so
+     * what is reached here is the round the pair would have reached by winning
+     * rather than a field with a number written into it. False for a boss with
+     * no rounds, and for no boss at all, so a caller is told rather than shown
+     * an unchanged picture.
+     */
+    bossRound(round: number) {
+      return setBossRound(world, round);
     },
     advance(ticks: number) {
       for (let i = 0; i < ticks; i++) {

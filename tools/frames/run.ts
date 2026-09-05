@@ -24,11 +24,11 @@
  *   bun run frames <sha> --wave 21 --ticks 240   a different point in the wave
  *   bun run frames <sha> --wave 21 --frames 6 --stride 4   a short strip, for motion
  *   bun run frames <sha> --wave 21 --seat p1    one player's screen, not the rig's
- *   bun run frames <sha> --wave 21 --hold lidString=800,id=3   a thumb on a cord
- *   bun run frames <sha> --wave 20 --hold wardenTether=0,y=7000  the rope pulled taut
+ *   bun run frames <sha> --wave 20 --hold wardenTether=0,y=7000  a thumb on a cord
  *   bun run frames <sha> --wave 21 --press 60:1:cannonCol=3,64:2:fire=red   a shot, or 90:1:salvo
  *   bun run frames <sha> --wave 21 --settle 8 --frames 6 --stride 0   a burst, as a strip
  *   bun run frames <sha> --wave 21 --at 120,400,150,150 --zoom 3   one body, close up
+ *   bun run frames <sha> --wave 19 --boss-round 3   a later sheet of THE MAZE
  *   bun run frames <sha> --wave 2 --opening guide|intro --frames 8 --stride 6   its opening
  *   bun run frames <sha> --wave 21 --out docs/frames/<sha>
  *
@@ -129,7 +129,7 @@ async function main(): Promise<void> {
     throw new Error(
       'usage: bun run frames <sha> --wave N|"NAME" [--ticks N] [--seat p1|p2|test] ' +
         "[--hold prime|mazeString=N|wardenTether=N[,y=N]|lidString=N,id=N] [--hold-ticks N] " +
-        "[--settle N] [--at x,y,w,h] [--zoom N] " +
+        "[--settle N] [--at x,y,w,h] [--zoom N] [--boss-round N] " +
         "[--press TICK:SEAT:control=value,…] [--opening intro|guide] [--out DIR]",
     );
   }
@@ -193,6 +193,9 @@ async function main(): Promise<void> {
     settle: flag("settle", 0),
     at,
     zoom: flag("zoom", 1),
+    // Undefined rather than 0, so a wave whose boss has no rounds is only
+    // refused when somebody actually asked for one.
+    ...(argv.includes("--boss-round") ? { bossRound: flag("boss-round", 0) } : {}),
     press,
     opening,
   };

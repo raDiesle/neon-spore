@@ -11,7 +11,7 @@ import {
   snakeRockAt,
   snakeStunned,
 } from "./snake-arena.js";
-import { resetBody } from "./snake-open.js";
+import { resetBody, snakeOpenRound } from "./snake-open.js";
 import type { World } from "./world.js";
 
 /**
@@ -67,11 +67,7 @@ export function stepSnake(world: World, snake: SnakeState): boolean | null {
  */
 function openNextRound(world: World, snake: SnakeState): boolean | null {
   if (snake.round >= snake.rounds.length - 1) return true;
-  snake.round += 1;
-  snake.roundBeat = world.beat;
-  snake.struck = [];
-  snake.taken = [];
-  resetBody(world, snake);
+  snakeOpenRound(world, snake, snake.round + 1);
   return null;
 }
 

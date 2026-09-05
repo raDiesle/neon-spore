@@ -91,6 +91,19 @@ export function mazeSettle(world: World, m: MazeState): void {
     world.events.push({ type: "mazeDown", col: m.verdictCol });
     return;
   }
-  m.round += 1;
+  mazeOpenRound(world, m, m.round + 1);
+}
+
+/**
+ * Stand the wheel up on a numbered round, from the top.
+ *
+ * The one way in to a round of this fight, so the fight's own settle and a
+ * caller jumping to a sheet cannot disagree about what a round *is*: the angle
+ * comes off the new wheel's `startMilli` and the lock, the way and the step go
+ * (`enterMazePhase`'s `lead` branch). Writing `round` and leaving the rest is
+ * how the drum comes up at the last round's angle with its lock still on.
+ */
+export function mazeOpenRound(world: World, m: MazeState, round: number): void {
+  m.round = Math.max(0, Math.min(m.rounds.length - 1, round));
   enterMazePhase(m, "lead", world.beat);
 }

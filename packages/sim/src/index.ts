@@ -5,6 +5,7 @@ export {
   type Tally,
 } from "./balance.js";
 export { startWave } from "./beat.js";
+export { setBossRound } from "./boss-round.js";
 export * from "./boss-surface.js";
 export {
   ackBriefing,

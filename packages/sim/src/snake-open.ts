@@ -84,3 +84,18 @@ export function resetBody(world: World, snake: SnakeState): void {
   // than whatever was left of the step the last one ended on.
   snake.stepTick = world.tick;
 }
+
+/**
+ * Open a numbered round, arena and body together.
+ *
+ * The one way in, so the fight's own `openNextRound` and a caller jumping to
+ * an arena cannot disagree about what a round is: the body starts over because
+ * the map does, and what was struck or taken belongs to the round that is over.
+ */
+export function snakeOpenRound(world: World, snake: SnakeState, round: number): void {
+  snake.round = Math.max(0, Math.min(snake.rounds.length - 1, round));
+  snake.roundBeat = world.beat;
+  snake.struck = [];
+  snake.taken = [];
+  resetBody(world, snake);
+}

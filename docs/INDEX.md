@@ -214,6 +214,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/lock.ts` | THE LOCK: the hand player 1 already has on the field, read a second way |
 | `packages/sim/src/mid-beat.ts` | **Where a thing stands between two beats**, in thousandths of a tile |
 | `packages/sim/src/scene-aim.ts` | The three acts a film aims rather than writes down, resolved against a world |
+| `packages/sim/src/boss-round.ts` | Stand the boss on a numbered round, through that fight's own way into one |
 
 ### packages/content
 

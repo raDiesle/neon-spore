@@ -181,30 +181,6 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 `{ modules, script, durableObjects }`, and `convertV4MiniflareOptions` is the
 shim that shows what the new shape wants if it changed again.
 
-## `bun run frames` cannot stand a multi-round boss at any round but its first
-
-- **Found:** 2026-09-05, claude/maze-boss-entrance-fix-76efbf
-- **Taken:** 2026-09-05, claude/queue-bun-run-frames-cannot-stand-a-multi-round-boss-a
-- **Files:** `apps/game/src/handle.ts`, `tools/frames/run.ts`, `tools/frames/capture.ts`
-
-`jumpToWave` puts a boss on the field at its opening round, and there is no
-handle that moves it on. For THE MAZE that means only the first of five sheets
-can ever be photographed, and the first sheet is the one with a single way in —
-so the two things the boss now does that are worth a picture, a rim with five
-gaps and the drum coming apart when a shot is lost in one of the four dead
-ends, cannot be captured at all. The collapse is held by a unit test
-(`packages/render/test/maze-draw.test.ts`) and by nothing an eye has seen.
-SNAKE, PINBALL and THE MIRROR all have rounds and all have the same hole.
-
-Add a testing handle that sets the round on whichever boss is installed —
-`window.neonSpore.bossRound(n)`, beside `jumpToWave` and `dismissBriefing` —
-and a `--boss-round N` flag on `tools/frames/run.ts` that calls it after the
-jump and before the ticks. It has to go through the boss's own phase entry
-(`enterMazePhase` and its siblings) rather than writing the field, or the drum
-comes up at the wrong angle with the last round's lock still on it. `handle.ts`
-is where `window.neonSpore` is assembled and is already at the seam this
-belongs on: everything in it is about being driven from outside.
-
 ## A landing can put back a queue entry another lane took out
 
 - **Found:** 2026-09-05, claude/queue-items-bj85ja
@@ -265,3 +241,25 @@ only by the sixtieths `paint` spends — and then hold it: two `captureFrames`
 of one build at one spec must come back byte-identical, which is a test
 `tools/frames/test/opening.test.ts` can run against the preview it already
 starts. Until that holds, the `identical:` line in `run.ts` is a comment.
+
+## There is no way to photograph the working tree on its own
+
+- **Found:** 2026-09-05, claude/queue-items-bj85ja
+- **Files:** `tools/frames/run.ts`, `tools/frames/serve.ts`, `tools/frames/test/`
+
+`bun run frames <sha>` always takes a **pair**: it checks out the commit and
+its parent, builds both, and refuses to write anything if the two frames are
+the same. That is right for a change to a look, and it is the wrong shape for
+every change whose parent cannot produce the picture at all. `--boss-round`
+was the case that found it — the flag calls a handle the parent has not got,
+so the "before" side throws by design, and the only way to see THE MAZE's
+fourth sheet was a throwaway script that started `preview:once` and called
+`captureFrames` itself. That is the friction `shot.ts` exists to stop being
+paid again, and this lane paid it.
+
+`--only` (or `bun run frames . --wave N`) should capture **this tree** once,
+with no worktree, no parent and no `identical:` guard, straight against the
+preview `captureAt` already knows how to start: everything below the worktree
+is there, and `tools/frames/test/opening.test.ts` drives exactly this path
+already. The pair stays the default, because a picture with nothing to compare
+it to is the weaker report and should be the thing somebody asks for by name.

@@ -157,7 +157,18 @@ function nextRound(world: World, state: PinballState): void {
     enterPhase(state, "verdict", world.beat);
     return;
   }
-  state.round += 1;
+  pinballOpenRound(world, state, state.round + 1);
+}
+
+/**
+ * Open a numbered round, board and ball together.
+ *
+ * The one way in, so the fight's own `nextRound` and a caller jumping to a
+ * board cannot disagree about what a round is: the board is copied out of
+ * `rounds` and the ball is put back on the latch.
+ */
+export function pinballOpenRound(world: World, state: PinballState, round: number): void {
+  state.round = Math.max(0, Math.min(state.rounds.length - 1, round));
   state.roundBeat = world.beat;
   loadBoard(state);
   resetShot(state);

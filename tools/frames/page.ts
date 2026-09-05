@@ -86,6 +86,27 @@ export async function openStage(
     ns.jumpToWave(wave);
   }, spec.wave);
 
+  // Straight after the jump and before the opening lets go: the round is the
+  // *fight's* state rather than the wave's, so standing it up early means the
+  // rehearsal and the introduction are already showing the sheet that will be
+  // photographed (`FrameSpec.bossRound`).
+  if (spec.bossRound !== undefined) {
+    const stood = await page.evaluate((round) => {
+      const ns = window.neonSpore;
+      if (!ns) throw new Error("window.neonSpore missing before a boss round");
+      if (!ns.bossRound) {
+        throw new Error(
+          "this build has no window.neonSpore.bossRound — --boss-round needs a commit at or " +
+            "after the one that added it, and a before/after pair cannot set it on its parent",
+        );
+      }
+      return ns.bossRound(round);
+    }, spec.bossRound);
+    if (!stood) {
+      throw new Error(`--boss-round ${spec.bossRound}: this wave's boss is not played in rounds`);
+    }
+  }
+
   await clearOpening(page, spec.opening);
 
   // The PC key toast (`apps/game/src/key-hint.ts`) sits over the top of the
