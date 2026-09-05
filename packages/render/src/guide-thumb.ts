@@ -5,6 +5,7 @@ import {
   type GuideScene,
   type SceneAct,
 } from "@neon-spore/content";
+import { arrivingFirst, type World } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import { bandLobes, type Layout, tileCX, type ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -61,7 +62,12 @@ const TRAIL_TICKS = 60;
  * does not carry is dropped rather than guessed at — `test/scenes.test.ts` in
  * `content` is what keeps a scene from authoring one at all.
  */
-export function thumbAnchors(scene: GuideScene, set: ControlSet, l: Layout): Anchor[] {
+export function thumbAnchors(
+  scene: GuideScene,
+  set: ControlSet,
+  l: Layout,
+  world: World | null = null,
+): Anchor[] {
   const out: Anchor[] = [];
   for (const act of scene.acts) {
     // A grip is not on the panel at all — it is a hand on the field, and where
@@ -69,7 +75,7 @@ export function thumbAnchors(scene: GuideScene, set: ControlSet, l: Layout): Anc
     // Nor is a press on the ship itself, for the same reason (`fieldThumb`).
     if (!act.control || act.onField) continue;
     const def = control(act.control);
-    const point = pointOn(l, set, act);
+    const point = pointOn(l, set, act, world);
     if (!point) continue;
     out.push({
       tick: act.tick,
@@ -82,7 +88,12 @@ export function thumbAnchors(scene: GuideScene, set: ControlSet, l: Layout): Anc
   return out;
 }
 
-function pointOn(l: Layout, set: ControlSet, act: SceneAct): { x: number; y: number } | null {
+function pointOn(
+  l: Layout,
+  set: ControlSet,
+  act: SceneAct,
+  world: World | null,
+): { x: number; y: number } | null {
   if (!act.control) return null;
   const def = control(act.control);
   if (def.form === "slab") {
@@ -102,8 +113,18 @@ function pointOn(l: Layout, set: ControlSet, act: SceneAct): { x: number; y: num
   // be a hand outside the region it is supposedly inside.
   const strip = act.control === "shield" ? l.shieldStrip : l.cannonStrip;
   // `actCol` is the one place an act's column becomes a real one, authored
-  // grid or not (`content/src/scene-script.ts`).
-  return { x: tileCX(l, actCol(act, l.cols)), y: strip.y };
+  // grid or not (`content/src/scene-script.ts`) — except on a strip that
+  // answers a body, where the world holds the answer and `arrivingFirst` is
+  // the one copy of which body it is. Both halves ask it, so the finger and
+  // the shield cannot be in two different columns.
+  return { x: tileCX(l, stripCol(act, l.cols, world)), y: strip.y };
+}
+
+/** Where a strip act lands: the authored column, or the body's when the act
+ * says so and there is one on the field to answer. */
+function stripCol(act: SceneAct, cols: number, world: World | null): number {
+  const body = act.atBody && world ? arrivingFirst(world) : null;
+  return body ? body.col : actCol(act, cols);
 }
 
 /**

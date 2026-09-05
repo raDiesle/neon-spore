@@ -114,11 +114,8 @@ export { type Replay, record, runReplay } from "./replay.js";
 export { rindLayersLeft } from "./rind.js";
 export { createRng, next, nextInt, type Rng } from "./rng.js";
 export { endRun, resetClock, resetRun } from "./run.js";
-export {
-  type SceneCommand,
-  SceneRun,
-  type SceneScript,
-} from "./scene.js";
+export { SceneRun, type SceneScript } from "./scene.js";
+export { arrivingFirst, type SceneCommand } from "./scene-aim.js";
 export {
   NO_SHELL,
   SHELL_COLS,

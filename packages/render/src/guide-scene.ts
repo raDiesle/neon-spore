@@ -148,7 +148,7 @@ export class GuideStage {
     const cfg = run.world.cfg;
     const phase = (run.world.tick % ((cfg.tickHz * 60) / cfg.bpm)) / ((cfg.tickHz * 60) / cfg.bpm);
     drawCaption(ctx, l, run.world, set, step, run.tick, phase);
-    drawGhostThumb(ctx, thumbAnchors(scene, set, l), run.tick, l.lobeR, step.seat);
+    drawGhostThumb(ctx, thumbAnchors(scene, set, l, run.world), run.tick, l.lobeR, step.seat);
     // And the other hand, if this seat has one on the field. It is drawn from
     // the world rather than from the script, so it rides the body it is
     // slowing (`guide-thumb.ts`).

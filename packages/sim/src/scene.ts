@@ -1,10 +1,8 @@
 import { type SimConfig, ticksPerBeat } from "./config.js";
 import type { BossEntry, PodEntry, SpawnEntry } from "./entries.js";
 import type { SimEvent } from "./events.js";
-import { NO_GRIP } from "./grip.js";
-import { occupiesCol } from "./span.js";
+import { aimed, type SceneCommand } from "./scene-aim.js";
 import { step } from "./step.js";
-import type { Command, Creature } from "./types.js";
 import { startWave } from "./wave-start.js";
 import { createWorld, type World } from "./world.js";
 
@@ -49,33 +47,6 @@ import { createWorld, type World } from "./world.js";
  * is told, and `packages/render/src/guide-scene.ts` clears both mini-views'
  * `Effects` on it.
  */
-
-export interface SceneCommand {
-  /** Tick within the loop, 0..`ticks`-1. */
-  tick: number;
-  player: 1 | 2;
-  command: Command;
-  /**
-   * A grip whose target is found at the moment the hand goes down: the body
-   * standing in this column, lowest first.
-   *
-   * **A grip cannot be authored as an id.** Ids are dealt out by the
-   * simulation, and a scene is written years before any world exists — so a
-   * rehearsal that wanted to show a hand on a falling rock had nothing to name
-   * it by. The column is the thing an author *can* know, because it is the
-   * thing they wrote the arrival in. `command` still carries a real
-   * `{kind:"grip"}` for the shape of it; this is what fills the id in.
-   */
-  gripCol?: number;
-  /**
-   * A drag whose target is a *cord on a body*, found the same way and for the
-   * same reason: THE LID is an ordinary arrival, a wave may send three down at
-   * once, and the grab has to say which one — by an id no author can know.
-   * The column is what they can know. A maze's string and a warden's rope are
-   * one of a kind and carry no id at all, so neither sets this.
-   */
-  dragCol?: number;
-}
 
 export interface SceneScript {
   /**
@@ -169,38 +140,6 @@ export class SceneRun {
     this.turn += 1;
     return true;
   }
-}
-
-/**
- * The command as it is actually sent. Everything but a grip is already whole;
- * a grip is handed the column its author wrote and finds the body standing in
- * it — the lowest one, because a hand goes on the thing that is arriving
- * first. Nothing there is a hand on nothing, which `setGrip` already treats as
- * a hand let go.
- */
-function aimed(world: World, c: SceneCommand): Command {
-  if (c.dragCol !== undefined && c.command.kind === "drag") {
-    // The lowest body in the column, as a grip takes: a hand goes on the thing
-    // that is arriving first. A cord with no body under it is left as it was
-    // written — `lidHeard` treats a target it cannot find as a hand let go,
-    // which is exactly what a film that mistimed its grab should look like.
-    const on = lowestIn(world, c.dragCol);
-    return on === null ? c.command : { ...c.command, id: on.id };
-  }
-  if (c.gripCol === undefined) return c.command;
-  const held = lowestIn(world, c.gripCol);
-  return { kind: "grip", id: held?.id ?? NO_GRIP };
-}
-
-/** The body furthest down this column, or none. Both gestures that are aimed
- * by column want the same one, for the same reason. */
-function lowestIn(world: World, col: number): Creature | null {
-  let held: Creature | null = null;
-  for (const body of world.creatures) {
-    if (!occupiesCol(body, col)) continue;
-    if (!held || body.row > held.row) held = body;
-  }
-  return held;
 }
 
 function build(script: SceneScript): World {

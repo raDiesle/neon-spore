@@ -38,6 +38,18 @@ export interface SceneAct {
   control?: ControlId;
   /** Where a strip is dragged to, in authored columns. Absent on a lobe. */
   col?: number;
+  /**
+   * **Put the strip where the body is**, instead of in an authored column.
+   *
+   * `col` goes through `mapCol`, which on the eleven columns the game ships
+   * reaches seven of them and no others — for a strip that is a hole rather
+   * than a rounding, and it is what stopped THE VOLLEY's film being written.
+   * `SceneRun` resolves this against the world instead, taking the body
+   * arriving first, the way it resolves a grip's id; `col` is what an empty
+   * field falls back to. Why, at length: `sim/scene-aim.ts`. Only the two
+   * strips take it, which `test/scenes.test.ts` holds.
+   */
+  atBody?: true;
   /** A hand on the field instead of on the panel: which seat's. The column is
    * `col`, which a grip always carries. */
   grip?: 1 | 2;

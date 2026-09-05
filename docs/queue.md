@@ -170,37 +170,6 @@ And the file launches **four separate headless Chrome instances**, one per
 which is neither measured nor bounded, and sharing one browser across the file
 is the change to reach for once the failure can be produced on demand.
 
-## A scene cannot put the shield where a body actually is
-
-- **Found:** 2026-09-05, claude/queued-items-d3ce8d
-- **Taken:** 2026-09-05, claude/queue-a-scene-cannot-put-the-shield-where-a-body-actua
-- **Files:** `packages/content/src/scene-types.ts`, `packages/content/src/scene-script.ts`,
-  `packages/sim/src/scene.ts`, `packages/content/test/scenes.test.ts`
-
-Every column in a film is an *authored* column: `actCol` puts a `SceneAct`'s
-`col` through `mapCol`, which maps 0..6 onto the real field. On the eleven
-columns the game ships, that reaches 0, 2, 3, 5, 7, 8 and 10 — and nothing
-else. For a strip act that is a hole rather than a rounding: a shield authored
-into column 4 lands in 3 or 5, and a body standing in 4 goes past it.
-
-It is what blocks THE VOLLEY's rehearsal, which is the other half of this
-entry's reason for existing. A volley's three wards land eight columns apart
-with a reflection at each wall, and every one of the eleven possible start
-columns was tried: none puts all three ward columns *and* the column the shell
-bursts over inside the seven a film can name. So a three-ward film cannot be
-written without letting one arrival through, and the one it lets through is the
-lesson.
-
-The vocabulary already has the answer twice and it is not a wider grid. A grip
-is authored as a column and the *body standing there* is found at the moment
-the hand goes down (`gripCol` in `sim/scene.ts`), and THE LID's cord is
-authored the same way (`dragCol`) for the same reason: ids do not exist when a
-film is written. A strip wants the third reading of that — an act that says
-*the shield goes where this body is going to be*, resolved by `SceneRun` out of
-the world rather than by an author out of a grid. Add it to `SceneAct`, resolve
-it in `aimed`, and hold it in `scenes.test.ts` the way the other two are held.
-Then write THE VOLLEY's film, which is a queue entry of its own and stays there.
-
 ## `bun run frames` cannot photograph a burst: sparks move only when it paints
 
 - **Found:** 2026-09-05, claude/explosion-color-matching-464ec1

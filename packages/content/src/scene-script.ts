@@ -34,6 +34,11 @@ export function sceneCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
     tick: act.tick,
     player: def.player,
     command: commandFor(act, cfg.cols),
+    // A strip answering a body rather than a column. The command still carries
+    // the authored column, which is what it falls back to on an empty field;
+    // `SceneRun` replaces it with the body's at the moment the thumb goes down
+    // (`aimed` in `sim/scene.ts`), for the reason `gripCol` exists.
+    ...(act.atBody ? { atBody: true as const } : {}),
   };
   if (act.until === undefined) return [down];
   // A thumb that stays on a *control* rather than on a handle: the lance, the

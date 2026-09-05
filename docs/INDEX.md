@@ -213,6 +213,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/veer.ts` | THE VEER: the first rock that does not hold its lane |
 | `packages/sim/src/lock.ts` | THE LOCK: the hand player 1 already has on the field, read a second way |
 | `packages/sim/src/mid-beat.ts` | **Where a thing stands between two beats**, in thousandths of a tile |
+| `packages/sim/src/scene-aim.ts` | The three acts a film aims rather than writes down, resolved against a world |
 
 ### packages/content
 
