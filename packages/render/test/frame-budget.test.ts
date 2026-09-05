@@ -276,7 +276,10 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // One more than the plates and the skin between them account for: the
       // two lids over the hole carry a fold each, and both folds are one path
       // stroked once rather than a stroke apiece (`warden-eye.ts`).
-      stroke: 90,
+      // **Four of these are the iris**: the aperture ring and every spoke go
+      // into one path stroked once, so this row does not move when the spoke
+      // count does (`eye-iris.ts`).
+      stroke: 94,
       // Four more: the two patches of the wet film, the eyelids and their
       // pupils. Flat, whatever the openness.
       fill: 32,
@@ -291,19 +294,19 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // Fourteen of them the panel's sheet, as on every frame 0 here. Four are
       // the skin's, and there are four of them however much of it is showing.
       // One is the lids' folds, and it is one however far apart they stand.
-      "new Path2D": 41,
+      "new Path2D": 42,
       fillText: 4,
     },
     {
       fillRect: 66,
-      stroke: 92,
+      stroke: 96,
       fill: 32,
       clip: 7,
       save: 29,
       drawImage: 15,
       createLinearGradient: 5,
       createRadialGradient: 1,
-      "new Path2D": 27,
+      "new Path2D": 28,
       fillText: 4,
     },
   ],
@@ -314,7 +317,10 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // this change: they were slack left behind by a saving that landed
       // without lowering the row, which a ceiling test never notices. Measured
       // again, and put where the frame actually is.
-      stroke: 67,
+      // **Four of these are the iris**: the aperture ring and every spoke go
+      // into one path stroked once, so this row does not move when the spoke
+      // count does (`eye-iris.ts`).
+      stroke: 71,
       fill: 24,
       // The one op this body's share of the new lens costs: the clip the lids
       // cut the pupil through (`eye-lens.ts`).
@@ -323,12 +329,12 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       drawImage: 15,
       createLinearGradient: 14,
       createRadialGradient: 3,
-      "new Path2D": 33,
+      "new Path2D": 34,
       fillText: 4,
     },
     {
       fillRect: 68,
-      stroke: 69,
+      stroke: 73,
       fill: 24,
       clip: 7,
       save: 27,
@@ -338,7 +344,7 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // cached by colour and radius, and the one left is `key-light.ts`'s
       // layout-only slot (`render/eye.ts`).
       createRadialGradient: 1,
-      "new Path2D": 19,
+      "new Path2D": 20,
       fillText: 4,
     },
   ],

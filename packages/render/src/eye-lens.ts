@@ -1,4 +1,5 @@
 import { circleSubpath } from "@neon-spore/content";
+import { drawEyeIris } from "./eye-iris.js";
 import { eyeBox } from "./eye-rim.js";
 import { strokeGlow } from "./glow.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -146,6 +147,9 @@ export function drawEyeLens(
     const pupil = new Path2D(circleSubpath(cx, mid, pr));
     ctx.save();
     ctx.clip(lens);
+    // The machinery first and the hole over it, so a spoke never crosses the
+    // pupil it is meant to be turning outside of (`eye-iris.ts`).
+    drawEyeIris(ctx, cx, mid, pr, ink, openness, t);
     ctx.globalAlpha = openness;
     ctx.fillStyle = PALETTE.background;
     ctx.fill(pupil);
