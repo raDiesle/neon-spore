@@ -139,11 +139,16 @@ export function drawBeadArmour(
   time: number,
 ): void {
   const beats = world.beat + beatPhase;
-  const reel = showsBeadColor(l) ? null : reelFrame(l, c, beatPhase, time);
+  const reel = showsBeadColor(l) ? null : reelFrame(l, world.cfg, c, beatPhase, time);
   const f = reel ?? livingFrame(l, c, beatPhase, time);
   ctx.save();
   if (reel) {
+    // The perspective `drawCreatures` wraps every body in, applied here
+    // because this pass runs outside it — then the swap's vertical slip, then
+    // the roll's own squash.
     ctx.translate(reel.x, reel.y);
+    ctx.scale(reel.k, reel.k);
+    ctx.translate(0, reel.jump);
     ctx.scale(reel.scale * reel.squash.sx, reel.scale * reel.squash.sy);
   } else {
     applyLivingFrame(ctx, l, world.cfg, c, f, beats, beatPhase);
