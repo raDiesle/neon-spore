@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · afbb8e2 — The events that are not a burst move into a file of their own
+
+`burstFor` was one exhaustive switch over the whole of `SimEvent` and the file sat at 250 lines to the line. Adding THE CHUTE's cut — one `case` and one clause of comment — pushed it over, and the only way to land that was to reword two comments belonging to other creatures until five lines came back. Every future event would have paid the same cost, by editing prose nobody meant to touch, which is how an argument written down carefully gets shortened by somebody with a different aim.
+
 ## 2026-09-05 · 59ea92c — The briefings spec's wave numbers are held against WAVES
 
 The right-hand column of §1's table names each teaching block's wave as a number and a name — `5 · THE ROCK`, `16 · BULB QUEEN` — and nothing checked it, so every wave inserted before one of those rows moved all of them by one in silence. It was already wrong before anybody looked: the bosses row read `16–19, 23` while THE VANE had been at 27 for some time.
