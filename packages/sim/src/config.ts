@@ -11,6 +11,7 @@ import { POD_DEFAULTS, type PodConfig } from "./config-pod.js";
 import { RECOIL_DEFAULTS, type RecoilConfig } from "./config-recoil.js";
 import { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
 import { SNAKE_DEFAULTS, type SnakeConfig } from "./config-snake.js";
+import { VEER_DEFAULTS, type VeerConfig } from "./config-veer.js";
 import { VOLLEY_DEFAULTS, type VolleyConfig } from "./config-volley.js";
 
 export { BOSS_DEFAULTS, type BossConfig } from "./config-boss.js";
@@ -26,6 +27,7 @@ export { POD_DEFAULTS, type PodConfig } from "./config-pod.js";
 export { RECOIL_DEFAULTS, type RecoilConfig } from "./config-recoil.js";
 export { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
 export { SNAKE_DEFAULTS, type SnakeConfig } from "./config-snake.js";
+export { VEER_DEFAULTS, type VeerConfig } from "./config-veer.js";
 export { VOLLEY_DEFAULTS, type VolleyConfig } from "./config-volley.js";
 
 /**
@@ -46,6 +48,7 @@ export interface SimConfig
     RecoilConfig,
     ShotConfig,
     SnakeConfig,
+    VeerConfig,
     VolleyConfig {
   /** Grid width in columns. Waves are authored for 7 and remapped. */
   cols: number;
@@ -179,6 +182,7 @@ export interface SimConfig
 export const DEFAULT_CONFIG: SimConfig = {
   ...BOSS_DEFAULTS,
   ...CAROM_DEFAULTS,
+  ...VEER_DEFAULTS,
   ...VOLLEY_DEFAULTS,
   ...CREATURE_DEFAULTS,
   ...FLEET_DEFAULTS,

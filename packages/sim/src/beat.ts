@@ -14,6 +14,7 @@ import { resolveHull } from "./hull.js";
 import { spawnPods } from "./pods.js";
 import { spawnArrivals } from "./spawn.js";
 import { isBossBody } from "./types.js";
+import { stepVeer } from "./veer.js";
 import { veilMorph } from "./veil.js";
 import { stepVolley, volleyIsClimbing } from "./volley.js";
 import { noteWaveCleared } from "./wave-end.js";
@@ -212,6 +213,13 @@ export function onBeat(world: World): void {
     // `veilMorphs` names, decided here and nowhere else, so player 1's timer
     // and the colour a shot has to match are two readings of one number.
     if (c.kind === "veil") veilMorph(world, c);
+    // And THE VEER, the one body that steps sideways **beside** the fall
+    // rather than instead of it: it has dropped its row above, and on the
+    // three rows `veerRowIsChange` names it takes a lane with it. Every other
+    // sideways body is a branch further up that replaces the fall, because one
+    // that both stepped and fell would cover twice the ground it is drawn
+    // covering; here the diagonal is the fall it already had (`veer.ts`).
+    if (c.kind === "veer") stepVeer(world, c);
   }
 
   // Everything that was already standing when this beat began and still has a

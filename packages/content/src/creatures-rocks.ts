@@ -2,7 +2,7 @@ import type { RockKind } from "@neon-spore/sim";
 import type { CreatureDef } from "./creatures.js";
 
 /**
- * The rocks: the five speed tiers and the torch.
+ * The rocks: the five speed tiers, THE VEER and the torch.
  *
  * Split out of `creatures-table.ts` when THE WISP took that file past its
  * 250-line limit, along the seam the file itself already reads on. Six of its
@@ -57,6 +57,18 @@ export const ROCK_CREATURES: Record<RockKind, CreatureDef> = {
     radar: "p1",
     blurb:
       "Dead rock, falling five times as fast. Cannot be shot. Shield in the right column, triggered at the right moment.",
+  },
+  veer: {
+    kind: "veer",
+    controls: ["guard"],
+    color: null,
+    // Player 1's strip, like every other rock — and here that ordinary answer
+    // does the most work it has ever done. The pilot is shown one coming *and*
+    // shown which way its next step goes; the navigator, who is the only one
+    // who can move the shield under it, is shown the rock and nothing else.
+    radar: "p1",
+    blurb:
+      "Dead rock with a rider on it, coming down a row a beat. Cannot be shot. Three times on the way down it steps a lane to one side — at the same three rows every time, and only the pilot is shown which side the next one takes.",
   },
   torch: {
     kind: "torch",

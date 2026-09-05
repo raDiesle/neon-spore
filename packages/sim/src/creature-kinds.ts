@@ -172,7 +172,17 @@ export type CreatureKind =
    * ordinary slick or bulb for the cannon. `volley.ts` holds the whole of it,
    * and `Creature.volleyPlates` and `volleyRise` are the whole of its state.
    */
-  | "volley";
+  | "volley"
+  /**
+   * A rock with a rider on it, falling a row a beat like the plain tier and
+   * **stepping a lane to one side three times on the way down**, at three
+   * fixed rows. The first rock that does not hold its column, so the number
+   * player 1 reads off the strip expires three times before the ship. Only
+   * player 1 is shown which side the next change takes, and only player 2 can
+   * move the shield. `veer.ts` holds the whole of it and `Creature.veerDir` is
+   * the whole of its state — how many changes are left is the row it is on.
+   */
+  | "veer";
 
 /**
  * Every `CreatureKind`, in one fixed order, so a kind can be written into the
@@ -214,6 +224,7 @@ export const CREATURE_KINDS = [
   "carom",
   "chute",
   "volley",
+  "veer",
 ] as const satisfies readonly CreatureKind[];
 
 /** Compile-time proof that the list above names every kind. */

@@ -168,6 +168,14 @@ export {
   WARDEN_COLS,
 } from "./types.js";
 export {
+  VEER_COLS,
+  type VeerDir,
+  veerChangesLeft,
+  veerHeading,
+  veerRowIsChange,
+  veerRowsToChange,
+} from "./veer.js";
+export {
   veilArmourPhase,
   veilArmourTicks,
   veilBeatsToMorph,

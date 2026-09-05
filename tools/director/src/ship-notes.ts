@@ -154,6 +154,12 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "crossing on a diagonal and turning at the walls twice before it lands. " +
     "The shield cannot touch it whole; the cannon cracks it, and what drops " +
     "out is a meteor that has to be warded. See carom.ts.",
+  "THE VEER — a rock that changes lane on the way down":
+    "The first rock that does not hold its column. It falls a row a beat like " +
+    "the plain tier and steps one lane to the side three times on the way, at " +
+    "three fixed rows — so the column the pilot read off the strip expires " +
+    "three times before the ship, and only the pilot is shown which side the " +
+    "next step takes. See veer.ts.",
   "THE VOLLEY — a rock you have to hit back three times":
     "The one arrival the shield does not finish. A ward hits it straight back " +
     "up the field instead of off it and takes a plate of shell with it, and it " +

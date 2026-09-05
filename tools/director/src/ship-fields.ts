@@ -88,6 +88,8 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   caromRows: "THE CAROM — a rock with something alive in it",
   damageCarom: "THE CAROM — a rock with something alive in it",
   scoreCaromCrack: "SCORE",
+  veerChanges: "THE VEER — a rock that changes lane on the way down",
+  veerRowsApart: "THE VEER — a rock that changes lane on the way down",
   volleyPlates: "THE VOLLEY — a rock you have to hit back three times",
   volleyRiseRows: "THE VOLLEY — a rock you have to hit back three times",
   volleyRiseBeats: "THE VOLLEY — a rock you have to hit back three times",

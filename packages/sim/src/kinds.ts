@@ -61,8 +61,13 @@ export const METEOR_TIER_KINDS: readonly RockKind[] = [
   "meteorFastest",
 ];
 
-/** Every rock: the five tiers plus the torch. */
-const METEOR_KINDS: readonly CreatureKind[] = [...METEOR_TIER_KINDS, "torch"];
+/**
+ * Every rock: the five tiers, the torch and THE VEER. Neither of the last two
+ * is a tier — the torch has a speed of its own and a veer comes down at the
+ * slowest tier's — so appending either to `METEOR_TIER_KINDS` would silently
+ * make it tier six and hand it a speed nobody chose.
+ */
+const METEOR_KINDS: readonly CreatureKind[] = [...METEOR_TIER_KINDS, "torch", "veer"];
 
 /**
  * The `CreatureKind` values `isMeteorKind` accepts, spelled out once so a
@@ -76,7 +81,8 @@ export type RockKind =
   | "meteorFast"
   | "meteorFaster"
   | "meteorFastest"
-  | "torch";
+  | "torch"
+  | "veer";
 
 /**
  * True for any rock — dead, indestructible, warded rather than shot. Call

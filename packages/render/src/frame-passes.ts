@@ -32,6 +32,7 @@ import { drawShipAir } from "./ship-air.js";
 import { drawShipHand } from "./ship-hand.js";
 import { drawCommsSiren } from "./siren.js";
 import { drawTorchAlarm } from "./torch-alarm.js";
+import { drawVeerMarks } from "./veer-marks.js";
 import { drawVeilMarks } from "./veil-marks.js";
 
 /**
@@ -110,6 +111,11 @@ export function drawBodies(
   // a target lock around the body, which is the pilot being told that this
   // column is not one they can read — only one they can be told.
   drawDartQueries(ctx, l, world, view.beatPhase, view.time);
+  // THE VEER's, which is the same pair of half-pictures with the seats the
+  // other way round: the arrow on the pilot's screen, the two dim ones and the
+  // lock on the navigator's. One call rather than two, because a rock has one
+  // fact to hide and it is a side (`veer-marks.ts`).
+  drawVeerMarks(ctx, l, world, view.beatPhase, view.time);
   // The third half-picture, and the first that is *both* screens carrying one
   // each rather than one screen carrying something the other has not got: a
   // draining clock over every cloud on player 1's, a target lock on player

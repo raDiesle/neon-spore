@@ -128,5 +128,6 @@ export const SHORT_NOTE: Partial<Record<CreatureKind, string>> = {
   volley: "ward it three times, then shoot what hatches",
   gyre: "a wheel of six bodies; the maw slows it",
   lid: "p1 holds its cord open, p2 shoots the lens",
+  veer: "a rock that steps a lane 3x; only p1 sees which way",
   torch: "p1 calls the column, p2 wards — the fastest rock",
 };

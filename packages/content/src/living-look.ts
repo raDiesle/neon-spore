@@ -116,6 +116,9 @@ const LIVING_LOOK = {
   meteorFaster: null,
   meteorFastest: null,
   torch: null,
+  // A rock too, and drawn as one — the rider on top of it is `render/veer-clown.ts`
+  // laid over the stone, not a contour of its own.
+  veer: null,
   queen: null,
   warden: null,
   tether: null,

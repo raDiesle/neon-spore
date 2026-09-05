@@ -34,11 +34,22 @@ export type MeteorSpeed = 1 | 2 | 3 | 4 | 5;
 export const METEOR_SPEEDS: readonly MeteorSpeed[] = [1, 2, 3, 4, 5];
 export const METEOR_SIZES: readonly RockSize[] = [1, 2];
 
-/** Whether this entry is a plain meteor — a rock whose speed and size are the
+/**
+ * Whether this entry is a plain meteor — a rock whose speed and size are the
  * author's to set. The torch is a rock and is deliberately not one of these:
- * it is not a tier (`fallTilesPerBeat`) and its width is what it is. */
+ * it is not a tier (`fallTilesPerBeat`) and its width is what it is. Nor is
+ * THE VEER, for the sharper version of the same reason — it *is* one of the
+ * tiers' speeds, but its kind is what makes it step sideways, so a speed dial
+ * that writes `METEOR_TIER_KINDS[n]` back over it would quietly turn the
+ * author's creature into a plain rock.
+ *
+ * Asked of `METEOR_TIER_KINDS` rather than by excluding two names, so a rock
+ * added beside those two is out of here by default rather than by being
+ * remembered.
+ */
 export function isTieredRock(entry: WaveEntry): boolean {
-  return entry.kind !== undefined && isMeteorKind(entry.kind) && entry.kind !== "torch";
+  if (entry.kind === undefined || !isMeteorKind(entry.kind)) return false;
+  return (METEOR_TIER_KINDS as readonly string[]).includes(entry.kind);
 }
 
 /** The tier this rock falls at, counted from 1. */

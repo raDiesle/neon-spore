@@ -6,6 +6,7 @@ import { WAVES_ACT_3 } from "./waves/act-3.js";
 import { WAVES_ACT_3B } from "./waves/act-3b.js";
 import { WAVES_ACT_4 } from "./waves/act-4.js";
 import { WAVES_ACT_5 } from "./waves/act-5.js";
+import { WAVES_ACT_6 } from "./waves/act-6.js";
 
 export type { Wave, WaveEntry, WaveGuide } from "./wave-types.js";
 
@@ -35,6 +36,7 @@ export const WAVES: Wave[] = [
   ...WAVES_ACT_3B,
   ...WAVES_ACT_4,
   ...WAVES_ACT_5,
+  ...WAVES_ACT_6,
 ];
 
 /**

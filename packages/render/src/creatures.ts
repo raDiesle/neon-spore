@@ -22,6 +22,7 @@ import { drawLiving } from "./living-draw.js";
 import { drawMeteor } from "./meteor.js";
 import { drawRecoilCage } from "./recoil.js";
 import { drawTorch } from "./torch.js";
+import { drawVeerClown } from "./veer-clown.js";
 import { drawVeilCloud, showsVeilCore } from "./veil.js";
 import { drawVolleyShell, showsVolleyCore } from "./volley.js";
 import { drawWisp, showsWisp, wispJump } from "./wisp.js";
@@ -194,6 +195,14 @@ export function drawCreatures(
     // get the whole of it — nothing about a carom is split — so there is no
     // gate, only a draw of its own. Nothing is drawn for the rock it becomes:
     // by then `c.kind` is `meteor` and `drawMeteor` far above has it.
+    // THE VEER's rider, over the stone `drawMeteor` put down and outside the
+    // frame that stone spins in: a face that rolled with the rock would be a
+    // face carved into it (`veer-clown.ts`). Down here with the other things
+    // laid *over* a body rather than beside the rock draw itself, because the
+    // chain above is one `else if` per body and a statement in the middle of
+    // it severs the chain — which is exactly what it did once, and every kind
+    // after the cut was drawn as a slick.
+    if (c.kind === "veer") drawVeerClown(ctx, l, world.cfg, c, x, y, time, beatPhase);
     if (c.kind === "carom") drawCaromCrust(ctx, l, world.cfg, c, x, y, time, beatPhase, near);
     // And the body that came out of one: the same living draw above, with a
     // column of fire under it while it is still climbing and a canopy over it

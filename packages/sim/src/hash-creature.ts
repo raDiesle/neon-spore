@@ -189,5 +189,14 @@ export function creatureHashParts(c: Creature): number[] {
   // `c.color` beside it.
   out.push(c.volleyPlates ?? -1);
   out.push(c.volleyRise ?? -1);
+  // Which side THE VEER's next change of lane takes. It decides the column the
+  // rock will be standing in three rows from now, and therefore the column the
+  // shield has to be in when it lands — so two devices that disagree about it
+  // are two devices holding one rock over two lanes, and one of them wards an
+  // empty column. `0` for a kind that never changes lane, a value no direction
+  // can take, so "not a veer" and "going left" are never the same number in
+  // the fingerprint. How many changes are left needs no field of its own: it
+  // is `c.row` far above, which `veerChangesLeft` divides.
+  out.push(c.veerDir ?? 0);
   return out;
 }

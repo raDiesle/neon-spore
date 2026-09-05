@@ -7,7 +7,8 @@ import type { Wave } from "../wave-types.js";
  * because a list that grows a dozen lines a wave has to be cut somewhere, and
  * a chapter of the game is the least arbitrary place to cut it. `act-4.ts`
  * reached the 250-line limit the day THE GYRE was written, exactly as
- * `act-3.ts` and `act-2.ts` did before it, so this is where new waves land now.
+ * `act-3.ts` and `act-2.ts` did before it. It filled up in its own turn the
+ * day THE VEER was written; `act-6.ts` is where new waves land now.
  */
 /**
  * **THE GYRE, in three figures.** Here for the reason every block above its

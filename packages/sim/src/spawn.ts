@@ -8,6 +8,7 @@ import { recoilOnSpawn } from "./recoil.js";
 import { rindOnSpawn } from "./rind.js";
 import { shellOnSpawn } from "./shell.js";
 import { clampSpanCol, colSpan, fallTilesPerBeat, spanOf } from "./types.js";
+import { veerOnSpawn } from "./veer.js";
 import { veilOnSpawn } from "./veil.js";
 import { volleyOnSpawn } from "./volley.js";
 import { wispOnSpawn } from "./wisp.js";
@@ -142,6 +143,13 @@ export function spawnArrivals(world: World): void {
       // whole of what a volley arrives with: it falls like a rock from here,
       // and a rock needs no state to do that (`volleyOnSpawn`).
       ...(entry.kind === "volley" ? volleyOnSpawn(world.cfg) : {}),
+      // Which side THE VEER's first change of lane takes, rolled here for the
+      // dart's reason far above: the arrow has to be over the rider from the
+      // frame the rock is on the field, or the three rows before the first
+      // change are three rows with nothing for the pilot to say. Absent on
+      // every other kind, so a rock that holds its lane carries no field at
+      // all and every wave written before this creature is the same world.
+      ...(entry.kind === "veer" ? veerOnSpawn(world, col) : {}),
     });
     // A gyre is the one arrival that brings bodies with it: six on its rim,
     // alternating, built from the hub that was just pushed so that they are

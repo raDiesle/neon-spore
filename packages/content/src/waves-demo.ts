@@ -82,6 +82,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   meteorFaster: { wave: "theWard" },
   meteorFastest: { wave: "theWard" },
   torch: { wave: "torch" },
+  veer: { wave: "theVeer" },
   queen: { wave: "bulbQueen" },
   warden: { wave: "theWarden" },
   tether: { wave: "theWarden" },

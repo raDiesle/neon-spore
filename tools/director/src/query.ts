@@ -48,7 +48,11 @@ export function podAt(wave: Wave, beat: number, col: number): PodEntry | undefin
  * the tool knows anything about.
  */
 export function brushOf(entry: WaveEntry): Brush {
-  if (entry.kind && isMeteorKind(entry.kind)) return entry.kind === "torch" ? "torch" : "rock";
+  // The two rocks with brushes of their own read back as themselves; the five
+  // tiers all read back as one METEOR, because a tier is a number on the entry
+  // rather than a tool (`entry-fields.ts`).
+  if (entry.kind === "torch" || entry.kind === "veer") return entry.kind;
+  if (entry.kind && isMeteorKind(entry.kind)) return "rock";
   if (entry.kind) return entry.kind;
   return kindForColor(entry.color as Color);
 }

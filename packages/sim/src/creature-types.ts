@@ -98,7 +98,9 @@ export interface Creature extends CreatureState {
 }
 
 // The fields one kind carries and no other does — `dartDir` through
-// `caromDir` — are `creature-state.ts` next door, cut out when THE CAROM took
-// this file over its limit. `Creature` extends it, so every call site still
-// reads `c.ghostLaps` and nothing had to move.
+// `veerDir` — are `creature-state.ts` next door, cut out when THE CAROM took
+// this file over its limit, with the four a *hand* writes cut out of that one
+// in turn (`creature-state-held.ts`). `Creature` extends the lot, so every
+// call site still reads `c.ghostLaps` and nothing had to move.
 export type { CreatureState } from "./creature-state.js";
+export type { HeldState } from "./creature-state-held.js";

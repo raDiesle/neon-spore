@@ -207,6 +207,9 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/maze-solve.ts` | The way through THE MAZE's drum, worked out from the walls rather than typed beside them |
 | `packages/sim/src/maze-hash.ts` | What THE MAZE puts into `hashWorld`, and nothing else |
 | `packages/sim/src/maze-verdict.ts` | How an attempt on THE MAZE ends, and what it costs |
+| `packages/sim/src/config-veer.ts` | THE VEER's two numbers: how many times it changes lane on the way down |
+| `packages/sim/src/creature-state-held.ts` | **The state a hand writes**, as opposed to the state the beat writes |
+| `packages/sim/src/veer.ts` | THE VEER: the first rock that does not hold its lane |
 
 ### packages/content
 
@@ -287,6 +290,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/control-sets-table.ts` | Every panel in the game, as a table |
 | `packages/content/src/scenes/cyan.ts` | CYAN's rehearsal: the second button, and the cost of the first one |
 | `packages/content/src/scenes/two-rocks.ts` | TWO ROCKS' rehearsal: the plate becomes something player 2 can carry |
+| `packages/content/src/waves/act-6.ts` | Act six, and it opens with a rock that will not hold its lane |
 
 ### packages/render
 
@@ -522,6 +526,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/maze-door.ts` | THE MAZE's way in, and the light that comes out of it when it is standing on the ship's column |
 | `packages/render/src/maze-blood.ts` | What THE MAZE's heart leaves on the floor of its room when it is hit, and why it is still there next round |
 | `packages/render/src/eye-lens.ts` | you are changing the shape of an open eye — the two lid curves, the corners, and the pupil they cut |
+| `packages/render/src/veer-clown.ts` | THE VEER's rider: a clown sitting on the rock, and the reason the rock does not fall straight |
+| `packages/render/src/veer-marks.ts` | THE VEER's two half-pictures: the arrow over the rider on player 1's screen, and the *ask* on player 2's |
 
 ### packages/net
 

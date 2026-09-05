@@ -45,6 +45,7 @@ export type Brush = CreatureKind | "rock" | "mend" | "purge" | "ward" | "erase";
 export const ROCK_BRUSHES: readonly [Brush, RockKind][] = [
   ["rock", "meteor"],
   ["torch", "torch"],
+  ["veer", "veer"],
 ];
 
 /**
@@ -108,6 +109,17 @@ export const BRUSHES: {
     stroke: PALETTE.rock,
     note: SHORT_NOTE.torch ?? CREATURES.torch.blurb,
     detail: CREATURES.torch.blurb,
+  },
+  {
+    brush: "veer",
+    label: "VEER",
+    // The stone is what the sheet has; the rider on it is drawn by the game
+    // and by nothing else (`render/veer-clown.ts`), so the card says METEOR
+    // and the note is what tells the two apart in the palette.
+    subjects: ["METEOR"],
+    stroke: PALETTE.rock,
+    note: SHORT_NOTE.veer ?? CREATURES.veer.blurb,
+    detail: CREATURES.veer.blurb,
   },
   {
     brush: "mend",

@@ -24,12 +24,15 @@ import { torchWarning } from "./torch-alarm.js";
  * | `torch`| the pilot's strip is the only one that carries rocks | P1 |
  * | `wisp` | the navigator is the only one it is drawn on at all | P2 |
  * | `ghost`| the navigator is the only one the body is drawn on | P2 |
+ * | `veer` | the pilot sees which lane its next step takes | P1 |
  *
  * The rocks are **not** in it, and that is a decision rather than an
  * oversight: a meteor is on the pilot's strip like a torch, but there is one
  * in nearly every wave, and a siren lit through a whole wave is a lamp rather
  * than a warning. The torch earns its row by being the one rock the pair
- * cannot answer late.
+ * cannot answer late, and THE VEER by being the one whose *column* is a thing
+ * only the pilot can see coming — the plain tiers hide nothing at all once
+ * they are on the field, and this one hides the only fact that matters.
  *
  * The seat named is the seat that has to **speak**; the other one listens.
  * Both can be speaking at once — a veil and a lure on one field is exactly
@@ -137,6 +140,11 @@ const TALKER = {
   // The rocks, for the reason written above: one is in nearly every wave, and
   // a siren lit through a whole wave stops being a warning. The torch has its
   // own row up there because it is the one rock that cannot be answered late.
+  // The one rock in the table, and it is there for the reason the plain tiers
+  // are not: a meteor on the field is a column both screens can read, and this
+  // one's column expires three times on the way down. The pilot is drawn the
+  // arrow and the navigator holds the shield, so the pilot speaks.
+  veer: "p1",
   meteor: null,
   meteorMedium: null,
   meteorFast: null,

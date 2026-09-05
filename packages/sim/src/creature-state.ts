@@ -1,6 +1,8 @@
 import type { CaromDir } from "./carom.js";
+import type { HeldState } from "./creature-state-held.js";
 import type { DartDir } from "./dart.js";
 import type { GhostDir } from "./ghost.js";
+import type { VeerDir } from "./veer.js";
 
 /**
  * **The state one kind carries and no other does.** Every field here is
@@ -14,6 +16,12 @@ import type { GhostDir } from "./ghost.js";
  * This is the list that grows, and it has grown by a field for nearly every
  * creature added since THE DART.
  *
+ * **The four fields a hand writes live next door**, in `creature-state-held.ts`.
+ * Everything here is written by the beat; those are written by player 1's
+ * thumb, and that is the one seam this file has — see that file's own doc, and
+ * `config-veer.ts`, which was cut out of `config-creatures.ts` on the same day
+ * for the same reason.
+ *
  * `Creature extends CreatureState` rather than nesting it under a key, so
  * every call site still reads `c.ghostLaps` and nothing moved. It is the same
  * arrangement `SimConfig` has with `GhostConfig` and `RecoilConfig` next door,
@@ -26,7 +34,7 @@ import type { GhostDir } from "./ghost.js";
  * siblings are the rules, and a second spelling of a fallback is how the
  * picture and the shot come to disagree about the same body.
  */
-export interface CreatureState {
+export interface CreatureState extends HeldState {
   /**
    * The dart's three fields, and `dart.ts` is the whole of what they mean.
    * `dartDir` is the side it is concerned with now (`-1` left, `1` right),
@@ -165,22 +173,6 @@ export interface CreatureState {
   gyreId?: number;
   gyreSlot?: number;
   /**
-   * How far player 1's hand has carried THE LID's cord from where it grabbed,
-   * across and down, in thousandths of a tile — and **absent on a lid nobody
-   * has hold of**, which is what makes the absence itself the answer to "is a
-   * hand on this": a grab reports zero, so nought and nothing are two states.
-   * The two together are the pull and its **length** is the tension. Read them
-   * through `lidPull`, `lidOpenMilli`, `lidIsOpen` and `lidIsHeld`, never
-   * directly; `handle-pull.ts` is what bounds them.
-   */
-  lidPullMilli?: number;
-  lidPullYMilli?: number;
-  /** Where the handle was when the hand took it, held there until the hand lets
-   * go: the handle is this plus the pull, which is what keeps it under the
-   * finger while the body falls away (`lidHandleMilli`). Absent unheld. */
-  lidAnchorMilli?: number;
-  lidAnchorYMilli?: number;
-  /**
    * How many times THE RECOIL still survives a shot, and absent on every other
    * kind. It is the only state this creature carries, and it answers three
    * questions at once: whether the next matching shot throws the body back or
@@ -239,4 +231,19 @@ export interface CreatureState {
    */
   volleyPlates?: number;
   volleyRise?: number;
+  /**
+   * Which side THE VEER's next change of lane takes (`-1` left, `1` right),
+   * and absent on every other kind — so a rock that holds its lane carries no
+   * field at all and every wave written before this creature is byte-for-byte
+   * the same world.
+   *
+   * It is the whole of its state, because *when* it changes lane is not stored
+   * at all: the three changes happen on three fixed rows, so how many are left
+   * is read off `row` (`veerChangesLeft`) rather than counted down. Read the
+   * side through `veerHeading` and never directly — the arrow on player 1's
+   * screen, the rider's lean on both, and the column the body actually steps
+   * into are three readings of one number, and a second copy of the fallback
+   * is how the pair comes to be told a side the rock does not take.
+   */
+  veerDir?: VeerDir;
 }

@@ -31,14 +31,18 @@ const at = (wave: ReturnType<typeof emptyWave>): WaveEntry => {
 };
 
 describe("the palette carries one meteor", () => {
-  test("METEOR and TORCH, and no tier buttons beside them", () => {
+  test("METEOR, TORCH and VEER, and no tier buttons beside them", () => {
+    // The two rocks with brushes of their own are the two that are not tiers:
+    // a torch has a speed nothing else has, and a veer changes lane. The five
+    // tiers are one METEOR with a number under the map.
     const rocks = BRUSHES.filter((b) => {
       const kind = b.brush as CreatureKind;
       return kind in CREATURES && isMeteorKind(kind as CreatureKind);
     });
     expect(BRUSHES.filter((b) => b.brush === "rock")).toHaveLength(1);
     expect(BRUSHES.filter((b) => b.brush === "torch")).toHaveLength(1);
-    expect(rocks.map((b) => b.brush)).toEqual(["torch"]);
+    expect(BRUSHES.filter((b) => b.brush === "veer")).toHaveLength(1);
+    expect(rocks.map((b) => b.brush).sort()).toEqual(["torch", "veer"]);
   });
 
   test("every speed tier reads back as that one brush", () => {
@@ -54,6 +58,13 @@ describe("the palette carries one meteor", () => {
     const wave = emptyWave();
     paint(wave, 0, 3, "torch");
     expect(brushOf(at(wave))).toBe("torch");
+    expect(isTieredRock(at(wave))).toBe(false);
+  });
+
+  test("THE VEER is not a tier either, so the speed dial cannot overwrite it", () => {
+    const wave = emptyWave();
+    paint(wave, 0, 3, "veer");
+    expect(brushOf(at(wave))).toBe("veer");
     expect(isTieredRock(at(wave))).toBe(false);
   });
 });
