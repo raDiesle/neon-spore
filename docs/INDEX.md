@@ -571,8 +571,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/strand.ts` | THE STRAND's thread, and the mark on the bead that has to be shot next |
 | `packages/render/src/strand-reel.ts` | THE STRAND's reel: the clock it rolls on, and the bad monitor over it |
 | `packages/render/src/strand-armour.ts` | THE STRAND's armour: the cage around every bead a shot **cannot** answer this instant |
-| `packages/render/src/strand-duty.ts` | The one word a seat owes the other while THE STRAND is on the field |
 | `packages/render/src/strand-mark.ts` | THE STRAND's two marks: the bead that has to be shot next on the navigator's screen |
+| `packages/render/src/duty.ts` | The one word (or two) a seat owes the other while a split body is on the field |
 | `packages/render/src/throb.ts` | the plating over a throb's armoured half — the green that means a shot does nothing |
 
 ### packages/net

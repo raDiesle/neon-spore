@@ -1,11 +1,11 @@
 import type { World } from "@neon-spore/sim";
 import { commsCall } from "./comms.js";
+import { dutyWord } from "./duty.js";
 import { halo } from "./glow.js";
 import { mixHex } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawSeat, PILL_W, SIREN_PAD } from "./siren-seats.js";
-import { dutyWord } from "./strand-duty.js";
 
 /**
  * The warning siren, top right of the field beside the strip, and the two
@@ -76,8 +76,9 @@ export function drawCommsSiren(
   drawDial(ctx, cx, cy, time);
   drawSeat(ctx, l, "p1", call.p1, cx - reach, cy, time);
   drawSeat(ctx, l, "p2", call.p2, cx + reach, cy, time);
-  // And, under it, the one word this seat owes the other while a thread is on
-  // the field. Nothing else in the game writes a word here (`strand-duty.ts`).
+  // And, under it, the word or words this seat owes the other about whatever
+  // split body is on the field. Nothing else in the game writes a word here
+  // (`duty.ts`).
   drawDuty(ctx, l, world, cx, cy + R + DUTY_DROP);
   ctx.restore();
 }
