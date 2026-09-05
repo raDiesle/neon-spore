@@ -131,6 +131,7 @@ walk in `packages/content/test/` will pick it up on its own once it is named.
 ## THE VOLLEY breaches the hull as a living body rather than as a rock
 
 - **Found:** 2026-09-04, claude/meteor-enemy-shield-reflect-0d82f2
+- **Taken:** 2026-09-05, claude/queue-the-volley-breaches-the-hull-as-a-living-body-ra
 - **Files:** `packages/render/src/effects-breach.ts`,
   `packages/render/src/craters.ts`, `packages/render/src/scars.ts`
 
