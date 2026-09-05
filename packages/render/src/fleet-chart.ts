@@ -87,6 +87,20 @@ function gutter(c: Chart): number {
  * across a voice delay, so a pair counting squares to each other is counting
  * them in time.
  */
+/**
+ * How wide the mark on a crossing is, at this much pulse.
+ *
+ * Exported because it is the condition the single fill rests on rather than a
+ * number inside a loop: one `fill` of every mark is the picture 132 `fillRect`
+ * calls made **only while no two marks touch**, since overlapping rects blend
+ * twice under separate fills and once under one, and the mark carries alpha.
+ * `test/fleet-frame.test.ts` holds the widest of them against the gap between
+ * two crossings.
+ */
+export function crossingSize(flash: number): number {
+  return 1.2 + 1.4 * flash;
+}
+
 export function drawFleetChart(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -131,13 +145,27 @@ export function drawFleetChart(
 
   // The crossings carry the pulse more strongly than the lines, the same way
   // the field's lattice was written to.
+  //
+  // **One path, not one call each.** Twelve by eleven of them is 132
+  // `fillRect` every frame for the whole length of the fight, which was
+  // seventy per cent of every rectangle the game drew during it. They are
+  // never anywhere near each other — a crossing is `tile` apart and the square
+  // is at most 2.6 px — so a single `fill` of all of them is the same picture
+  // to the pixel, with no overlap for the alpha to double.
+  //
+  // Rebuilt every frame rather than cached, and that is the honest answer
+  // rather than a missed saving: the square's size is the pulse, and a path
+  // kept across frames would have to quantise `s` — which is a change to what
+  // the pair sees, and this is a speed fix.
   ctx.fillStyle = `rgba(47,224,240,${0.16 + 0.44 * flash})`;
-  const s = 1.2 + 1.4 * flash;
+  const s = crossingSize(flash);
+  const marks = new Path2D();
   for (let col = 0; col <= c.cols; col++) {
     for (let row = 0; row <= c.rows; row++) {
-      ctx.fillRect(c.left + col * c.tile - s / 2, c.top + row * c.tile - s / 2, s, s);
+      marks.rect(c.left + col * c.tile - s / 2, c.top + row * c.tile - s / 2, s, s);
     }
   }
+  ctx.fill(marks);
 
   ctx.strokeStyle = PALETTE.shield;
   ctx.globalAlpha = 0.55;

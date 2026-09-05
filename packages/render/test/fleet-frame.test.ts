@@ -1,8 +1,17 @@
 import { beforeAll, describe, expect, it } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
 import { createWorld, fleetRows, startWave, step, ticksPerBeat, type World } from "@neon-spore/sim";
+import { chartOf, crossingSize } from "../src/fleet-chart.js";
 import type { ViewRole } from "../src/layout.js";
-import { CFG, installCanvasGlobals, ROLES, runFrames, waveWith } from "./frame-harness.js";
+import { computeLayout } from "../src/layout.js";
+import {
+  CFG,
+  installCanvasGlobals,
+  ROLES,
+  runFrames,
+  VIEWPORT,
+  waveWith,
+} from "./frame-harness.js";
 
 /**
  * THE FLEET, played rather than posed: the chart with its water under it, the
@@ -89,6 +98,24 @@ describe("the fleet", () => {
     // And found the hull the sights were walked onto — the splash is the other
     // burst and this test would pass on it without proving the red one.
     expect(events.some((e) => e.type === "fleetHit")).toBe(true);
+  });
+
+  /**
+   * **The crossings are one fill, and it is the same picture as 132.**
+   *
+   * They used to be a `fillRect` each — twelve by eleven every frame, seventy
+   * per cent of every rectangle this fight drew. One `fill` of one path is
+   * identical to that only while no two of the marks touch: overlapping rects
+   * blend twice under separate fills and once under one, and the mark carries
+   * alpha. So that is the condition, and it is what is held here — the count
+   * is `fleet-budget.test.ts`'s.
+   */
+  it("keeps a crossing's mark smaller than the gap to the next one", () => {
+    const world = createWorld(CFG, 3);
+    const chart = chartOf(computeLayout(VIEWPORT, CFG, "test"), world);
+    // `flash` is 1 at the beat and falls to 0, so this is the widest it goes.
+    expect(crossingSize(1)).toBeLessThan(chart.tile);
+    expect(crossingSize(0)).toBeGreaterThan(0);
   });
 
   it("draws a chart with nothing on it, which is the first frame of every run", () => {

@@ -67,31 +67,33 @@ type Budget = Partial<
  * render's caches and the first frame of a run pays for its own bakes — so
  * both are the steady-state cost of the fight.
  *
- * **`fillRect` is nearly two hundred, and almost none of it is new.** The
- * chart draws a square at every crossing of its own lattice, which is twelve
- * by eleven of them every frame (`fleet-chart.ts`). It is pinned here because
- * a budget that left out the biggest number would be measuring the wrong
- * thing; the saving is written up in `docs/queue.md`.
+ * **`fillRect` was nearly two hundred, and almost none of it was new.** The
+ * chart marks every crossing of its own lattice, twelve by eleven of them
+ * every frame, and each one was a `fillRect` — roughly seventy per cent of
+ * every rectangle the game drew during this fight. They are one `fill` of one
+ * path now (`fleet-chart.ts`), which is the same picture while no two marks
+ * touch, and the rows below are the measurement that bought: 192 down to 60
+ * on both seats, for one more `fill` and one more `Path2D`.
  */
 const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budget>>>> = {
   p1: {
     mid: {
-      fillRect: 192,
+      fillRect: 60,
       stroke: 44,
-      fill: 34,
+      fill: 35,
       clip: 6,
       save: 36,
-      drawImage: 19,
+      drawImage: 18,
       createLinearGradient: 7,
       createRadialGradient: 0,
-      "new Path2D": 8,
+      "new Path2D": 9,
       fillText: 25,
     },
     hit: {
-      fillRect: 215,
+      fillRect: 83,
       // Two more than mid: the shockwave ring and the fireball's own contour.
       stroke: 46,
-      fill: 32,
+      fill: 33,
       clip: 6,
       // Eight more: the burst opens one per shard it turns, and the shards are
       // the only thing in this picture drawn in a frame of its own.
@@ -103,35 +105,35 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       createLinearGradient: 6,
       // The fireball, and the one radial gradient this fight ever builds.
       createRadialGradient: 1,
-      "new Path2D": 8,
+      "new Path2D": 9,
       fillText: 25,
     },
   },
   p2: {
     mid: {
-      fillRect: 192,
+      fillRect: 60,
       // Nine fewer than the pilot's: five hulls, their spines and their scars
       // are the whole of what this seat is not shown (`fleet-hulls.ts`).
       stroke: 35,
-      fill: 31,
+      fill: 32,
       clip: 6,
       save: 31,
       drawImage: 19,
       createLinearGradient: 7,
       createRadialGradient: 0,
-      "new Path2D": 8,
+      "new Path2D": 9,
       fillText: 24,
     },
     hit: {
-      fillRect: 215,
+      fillRect: 83,
       stroke: 36,
-      fill: 29,
+      fill: 30,
       clip: 6,
       save: 39,
       drawImage: 22,
       createLinearGradient: 6,
       createRadialGradient: 1,
-      "new Path2D": 8,
+      "new Path2D": 9,
       // One fewer than the pilot's, every frame: the square's own name is on
       // both screens and the wave's own readouts are not all of them.
       fillText: 24,

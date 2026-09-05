@@ -98,33 +98,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
 
 
-## THE FLEET's lattice costs 132 `fillRect` a frame for its crossings
-
-- **Found:** 2026-09-05, claude/fleet-boss-animations-ui-d7adb9
-- **Taken:** 2026-09-05, claude/queue-the-fleets-lattice-costs-132-fillrect-a-frame-fo
-- **Files:** `packages/render/src/fleet-chart.ts`, `packages/render/test/fleet-budget.test.ts`
-
-`drawFleetChart` marks every crossing of the chart with a small square, in a
-nested loop over `cols + 1` by `rows + 1` — twelve by eleven on the shipped
-field, so 132 `fillRect` calls every frame, for the whole length of the fight.
-The new budget beside it measures 192 in total on a frame of this boss, which
-makes the crossings roughly seventy per cent of every rectangle the game draws
-during it. Nothing else in the game draws a lattice this way; `field.ts` holds
-its own behind `SHOW_TILE_GRID` and has never been switched on.
-
-Draw them in one call instead. The crossings differ only in position, and the
-two things that change between frames are the shared alpha and the shared size
-— so one `Path2D` of rects, rebuilt only when the tile size or the pulse step
-changes, or a single baked sprite blitted once and stretched, both give the
-identical picture for one call. `packages/render/src/baked.ts` already has the
-cache a bake would live in, and `gradient-slot.ts` is the pattern for keying it
-to the layout.
-
-**The picture may not change.** This is a speed fix, not a look: the same
-squares, the same colour, the same pulse. `fleet-budget.test.ts` is the proof —
-lower its `fillRect` rows to whatever the change actually measures, in the same
-commit, and `packages/render/test/fleet-frame.test.ts` still has to pass.
-
 ## Move apps/server off the miniflare alpha when a stable 5 ships
 
 - **Found:** 2026-09-03, claude/bun-queue-list-command-5a8695
@@ -142,3 +115,29 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 `exports.Room.storage`) still holds — miniflare 5 changed it from 4's flat
 `{ modules, script, durableObjects }`, and `convertV4MiniflareOptions` is the
 shim that shows what the new shape wants if it changed again.
+
+## The stub canvas's ordered log leaves out every `Path2D` call
+
+- **Found:** 2026-09-05, claude/queue-items-bj85ja
+- **Files:** `packages/render/test/canvas-stub.ts`, `packages/render/test/ghost-frame.test.ts`
+
+`StubContext.log` is documented as "the ordered log of every counted call,
+compact enough to diff two seats" and `frame-harness.ts` calls it "the ordered
+log of every call". It is not: `StubPath`'s builders — `rect`, `moveTo`,
+`lineTo`, `arc`, `ellipse` and the rest — go through `nums()` for validation
+and never through `mark()`, so nothing a path is *made of* reaches the log.
+Only `new Path2D` is tallied, and that is a count rather than a shape.
+
+It matters because the log is what `.claude/skills/render-perf` names as the
+proof that a speed change draws the same thing: an ordered diff of every call.
+A change that moves work from `fillRect` into a path — which is the shape of
+most of the savings left in this renderer, and is what THE FLEET's crossings
+just became — is invisible to that diff on the side that matters. The lane
+that made it had to hold the geometry with an arithmetic invariant instead,
+because the coordinates it wanted to compare were not in the log at all.
+
+Give `StubPath` the active log, the way `hit()` already reaches the active
+tally, and record each builder with its arguments. Two seats' logs are
+compared in `ghost-frame.test.ts` and gain the same lines on both sides, so
+that comparison is unaffected; check it, and any other log-diffing test, in
+the same commit.
