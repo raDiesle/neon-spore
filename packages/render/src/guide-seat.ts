@@ -57,7 +57,7 @@ export class SeatView {
 
     const flash = Math.max(0, 1 - view.beatPhase * (ticksPerBeat(world.cfg) / 26));
     drawFieldBack(ctx, l, world, view, flash, this.effects.coordGrid.shown);
-    drawBodies(ctx, l, world, view, this.effects);
+    drawBodies(ctx, l, world, view, this.effects, this.pose.at.cannon);
     drawShip(ctx, l, world, view, this.effects, this.pose.mood(world, this.effects), this.pose.at);
     // No scene of its own, and that is the whole of the recursion guard: a
     // rehearsal's config has `briefings` off, so the opening pass finds

@@ -173,13 +173,13 @@ export class Canvas2DRenderer implements Renderer {
     // thumbnail contains is one branch a reader can hold, and the hull, the
     // band and the HUD cannot creep back into it a pass at a time.
     if (view.bare) {
-      drawBodies(ctx, l, world, view, this.held.effects);
+      drawBodies(ctx, l, world, view, this.held.effects, at.cannon);
       ctx.restore();
       return;
     }
 
     drawFieldBack(ctx, l, world, view, flash, this.held.effects.coordGrid.shown);
-    drawBodies(ctx, l, world, view, this.held.effects);
+    drawBodies(ctx, l, world, view, this.held.effects, at.cannon);
 
     drawShip(
       ctx,

@@ -117,6 +117,24 @@ the subject the way `brush-trim.ts` measures a body would be better still and is
 optional — a declared rectangle is enough to close this. The pair of pictures
 must stay comparable, so the crop is the same rectangle on both, and the
 `identical:` guard in `run.ts` compares before the crop is applied.
+## Split `frame-passes.ts`: it sits exactly on the 250-line limit
+
+- **Found:** 2026-09-05, claude/lock-wave-and-guide
+- **Files:** `packages/render/src/frame-passes.ts`
+
+THE LOCK's dotted line needed one parameter and four lines of comment on
+`drawBodies`, and paying for them cost two rounds of shaving sentences out of
+that comment — which is the warning `packages/sim/test/limits.test.ts` exists
+to give, and the same one `act-3b.ts` records having ignored once. The file is
+now at exactly 250, so the next pass added to a frame breaks the build before
+it draws anything.
+
+Cut it where it already reads as separate: `drawFieldBack`, `drawBodies`,
+`drawShip` and `drawOverlays` are four passes with nothing shared but their
+arguments, and the seam `effects-*.ts` uses is the obvious one — take the two
+that are about the field away from the two that are about the ship. Keep
+`frame-passes.ts` as the barrel the way `waves.ts` and `types.ts` are, so
+nothing reaching for a pass through it has to move.
 
 ## Move apps/server off the miniflare alpha when a stable 5 ships
 

@@ -78,6 +78,11 @@ export function drawBodies(
   world: World,
   view: ViewState,
   effects: Effects,
+  /** Where the cannon lobe is *drawn*, in fractional columns — the eased one.
+   * Only THE LOCK's line back to the muzzle wants it, and `lockLink` says why
+   * it may not be `world.cannonCol`, which is the default here for a caller
+   * with no pose to ease (`lock-mark.ts`). */
+  cannonCol = world.cannonCol,
 ): void {
   // Under the creatures: the mark is on the column, not on anything in it.
   drawLanceMark(ctx, l, world);
@@ -136,7 +141,7 @@ export function drawBodies(
   // a rock is, and that is what the grip was built for — so the ring and the
   // frame are two statements and only one of them is about a shot
   // (`lock-mark.ts`).
-  drawLockMarks(ctx, l, world, view.beatPhase, view.time);
+  drawLockMarks(ctx, l, world, cannonCol, view.beatPhase, view.time);
   drawBoss(ctx, l, view, effects);
   drawPods(ctx, l, world.pods, view.time);
   drawBullets(ctx, l, world.bullets);
