@@ -210,6 +210,7 @@ export const WAVES_ACT_5: Wave[] = [
       both: "A rock with a body sealed inside it, falling down one lane like any other. The shield does not destroy it — a ward hits it straight back up the field and knocks a plate of shell off on the way, and it comes down the same lane again. Three wards, and the shell bursts open in mid-air over a plain slick or bulb the cannon has to finish.",
       p1: "Do not lift your thumb off GUARD when it works. That was one of three and it is already on its way back down the same column — and the third one hands it to you, so be under it before the shell opens.",
       p2: "Hold the lane. It comes back to the same column every time, so leave the shield there and answer everything else around it — and read the colour off the seams while you wait. That is what kills it at the end.",
+      scene: "theVolley",
     },
     entries: [
       { beat: 0, col: 1, kind: "volley", color: "red" },

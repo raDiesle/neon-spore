@@ -28,6 +28,7 @@ import { THE_THROB } from "./scenes/the-throb.js";
 import { THE_TORCH } from "./scenes/the-torch.js";
 import { THE_VANE } from "./scenes/the-vane.js";
 import { THE_VEIL } from "./scenes/the-veil.js";
+import { THE_VOLLEY } from "./scenes/the-volley.js";
 import { THE_WARD } from "./scenes/the-ward.js";
 import { THE_WARDEN } from "./scenes/the-warden.js";
 import { THE_WISP } from "./scenes/the-wisp.js";
@@ -87,7 +88,8 @@ export type SceneId =
   | "theLid"
   | "theMaze"
   | "theWarden"
-  | "theCarom";
+  | "theCarom"
+  | "theVolley";
 
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
@@ -123,6 +125,7 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theMaze: THE_MAZE,
   theWarden: THE_WARDEN,
   theCarom: THE_CAROM,
+  theVolley: THE_VOLLEY,
 };
 
 export type { GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";

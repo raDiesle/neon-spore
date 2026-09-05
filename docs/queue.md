@@ -114,27 +114,6 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 `{ modules, script, durableObjects }`, and `convertV4MiniflareOptions` is the
 shim that shows what the new shape wants if it changed again.
 
-## THE VOLLEY's guide has no rehearsal, so its wave is read rather than watched
-
-- **Found:** 2026-09-04, claude/meteor-enemy-shield-reflect-0d82f2
-- **Taken:** 2026-09-05, claude/queue-the-volleys-guide-has-no-rehearsal-so-its-wave-i
-- **Files:** `packages/content/src/scenes.ts`, `packages/content/src/scenes/`,
-  `packages/content/src/waves/act-5.ts`
-
-THE VOLLEY shipped with a three-line prose guide and no `scene`, exactly as THE
-CAROM did two entries up and for the same reason: what the pair has to learn is
-a *shape* — a ward that sends the body back up the field rather than off it —
-and a shape does not read off a line of text. It is the worse of the two to
-describe, because the thing being taught is that a control they already know
-does something it has never done before.
-
-Write one under `packages/content/src/scenes/the-volley.ts` on the pattern
-`the-recoil.ts` sets, register it in `scenes.ts`, and put `scene: "theVolley"`
-on the `theVolley` wave's guide. Three steps: the diagonal coming down and the
-shield answering it, the body climbing away with one plate fewer, and the shell
-bursting in mid-air over a body the cannon then takes. The rehearsal walk in
-`packages/content/test/` picks it up on its own once it is named.
-
 ## `tools/frames`' browser tests fail intermittently under a full `bun run check`
 
 - **Found:** 2026-09-04, claude/air-above-the-ship-seat-tint

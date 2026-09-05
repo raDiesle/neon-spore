@@ -295,6 +295,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/cyan.ts` | CYAN's rehearsal: the second button, and the cost of the first one |
 | `packages/content/src/scenes/two-rocks.ts` | TWO ROCKS' rehearsal: the plate becomes something player 2 can carry |
 | `packages/content/src/waves/act-6.ts` | Act six, and it opens with a rock that will not hold its lane |
+| `packages/content/src/scenes/the-volley.ts` | THE VOLLEY's rehearsal: a ward that works is not a body that is gone |
 
 ### packages/render
 
