@@ -6,11 +6,11 @@ import {
   GHOST,
   type GhostSilhouette,
   ghostOutline,
-  hullRadiusMul,
   LID,
   type LidSilhouette,
   lidOutline,
   livingBodyKinds,
+  livingPoints,
   livingSilhouette,
   METEOR,
   POD,
@@ -30,7 +30,7 @@ export { hullArc } from "./hull-subjects.js";
  *
  * The shape sheet, the motion sheet and the metrics report all read this list,
  * so a shape is described once. Each subject samples its contour through the
- * *same* radius functions the canvas calls — `hullRadiusMul` for anything that
+ * *same* contour builders the canvas calls — `livingPoints` for anything that
  * lives, `crystalRadiusMul` for the rock — which is the no-drift property the
  * sheet was built for, extended to the tools that measure rather than draw.
  *
@@ -40,9 +40,13 @@ export { hullArc } from "./hull-subjects.js";
  */
 
 /**
- * A lobed body. The note defaults to the figures, which is what a shape being
- * measured wants; a draft passes its own, because "3 lobes · depth 0.24" says
- * nothing about why the shape was drawn that way.
+ * A lobed body — or, where the silhouette wears one, a lobed body with a rim of
+ * clubs on it. Both come out of `livingPoints`, which is the same walk the
+ * canvas draws, so the sheet cannot judge a body the game does not have.
+ *
+ * The note defaults to the figures, which is what a shape being measured wants;
+ * a draft passes its own, because "3 lobes · depth 0.24" says nothing about why
+ * the shape was drawn that way.
  */
 export function blob(name: string, s: CreatureSilhouette, note?: string): Subject {
   // `sizeMul` is the Runt's whole "tiny" — render/creatures.ts folds it into
@@ -52,21 +56,16 @@ export function blob(name: string, s: CreatureSilhouette, note?: string): Subjec
   const sizeMul = s.sizeMul ?? 1;
   return {
     name,
+    // A clubbed body's core lobes are under its rim and nobody counts them, so
+    // the card says the number an eye finds (`rimCount`) and drops the other.
     note:
       note ??
-      `${s.lobes} lobes · depth ${s.depth} · wobble ${s.wobble}${
-        s.sizeMul ? ` · ${s.sizeMul}× size` : ""
-      }`,
+      `${s.clubs ? `${s.clubs.clubs} clubs` : `${s.lobes} lobes`} · depth ${s.depth}${
+        s.clubs ? "" : ` · wobble ${s.wobble}`
+      }${s.sizeMul ? ` · ${s.sizeMul}× size` : ""}`,
     open: false,
     pointsAt(t) {
-      const pts: Point[] = [];
-      const N = 40;
-      for (let i = 0; i < N; i++) {
-        const a = (i / N) * Math.PI * 2;
-        const m = hullRadiusMul(a, s.lobes, s.depth, s.wobble, t, s.seed) * sizeMul;
-        pts.push({ x: Math.cos(a) * s.rx * m, y: Math.sin(a) * s.ry * m });
-      }
-      return pts;
+      return livingPoints(s, t).map((p) => ({ x: p.x * sizeMul, y: p.y * sizeMul }));
     },
     path: catmullRomToBezierPath,
   };

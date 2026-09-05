@@ -106,12 +106,13 @@ describe("the grid a shot leaves on", () => {
   });
 
   it("puts two departures inside every beat, which is what a Throb needs", () => {
-    // `throbOpenBeats` is one beat in four. Two grid points inside it means a
-    // Throb stays answerable; a whole-beat grid would leave exactly one.
+    // A Throb's coloured half is square to the cannon for half of every turn,
+    // `throbSpinBeats` long. Two grid points inside every beat means a shot can
+    // always leave inside that window; a whole-beat grid would leave one.
     const inFirstBeat = new Set<number>();
     for (let t = 0; t < TPB; t++) inFirstBeat.add(chargeDueTick(LAID, t));
     expect(inFirstBeat.size).toBe(2);
-    expect(CFG.throbOpenBeats).toBe(1);
+    expect(CFG.throbSpinBeats).toBeGreaterThanOrEqual(2);
   });
 
   it("never lets a press fire with no wind-up at all, even on the beat", () => {

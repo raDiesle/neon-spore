@@ -1,4 +1,4 @@
-import { blobPath, livingSilhouette } from "@neon-spore/content";
+import { livingPath, livingSilhouette } from "@neon-spore/content";
 import type { Color, CreatureKind, SimEvent } from "@neon-spore/sim";
 import { CANOPY_HALF, CANOPY_LIFT, canopyPath } from "./chute.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
@@ -219,17 +219,7 @@ function drawBodyFalling(ctx: CanvasRenderingContext2D, c: Cut, u: number): void
     ctx.scale(scale * swell, scale * swell);
     ctx.globalAlpha = body;
     ctx.fillStyle = c.hex;
-    const d = blobPath(
-      0,
-      0,
-      shape.rx,
-      shape.ry,
-      shape.lobes,
-      shape.depth,
-      shape.wobble,
-      c.seed,
-      shape.seed,
-    );
+    const d = livingPath(shape, c.seed);
     ctx.fill(new Path2D(d));
   }
   ctx.restore();

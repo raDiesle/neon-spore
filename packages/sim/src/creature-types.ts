@@ -78,13 +78,6 @@ export interface Creature extends CreatureState {
    */
   dragMilli: number;
   /**
-   * Whether a `throb` can be hit this beat. False on every other kind. Set
-   * once a beat, in `onBeat`, from `throbIsOpen` — never computed a second
-   * time from `world.beat` at hit time, so render/ and bullet-hit.ts agree
-   * about the same instant without either owning the cycle.
-   */
-  throbOpen: boolean;
-  /**
    * Pieces of shell still on, one bit each, bit `k` for the piece in front of
    * column `col + k`. `NO_SHELL` on every other kind, and on a shell whose
    * last piece is off — which is exactly when `color` stops being null.

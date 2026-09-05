@@ -30,9 +30,10 @@ import { MILLI, type World } from "./world.js";
  *    coincide exactly and the rate of fire does not change at all. A whole-beat
  *    grid would halve it — the grid is a floor on the rate, because a second
  *    shot cannot leave on a point the first one already left on.
- *  - `throbOpenBeats` is one beat out of four. A half-beat grid puts *two*
- *    departures inside every open window, so a Throb stays answerable; a
- *    whole-beat grid would leave exactly one, and a wave would hang on it.
+ *  - A Throb's coloured half is square to the cannon for half of every turn,
+ *    two beats at `throbSpinBeats`. A half-beat grid puts four departures
+ *    inside that window, so a Throb stays answerable; a whole-beat grid halves
+ *    them, and a body turning past its window is not a body to hang a wave on.
  *  - At 96 BPM a beat is 625 ms. Half of that is 312 ms at worst and 156 ms on
  *    average, which is anticipation. A whole beat is over half a second of
  *    nothing after a press, which is a dead trigger.

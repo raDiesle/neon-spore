@@ -39,8 +39,8 @@ import type { Wave } from "../wave-types.js";
  *    of it.
  *
  * A wisp entry names its kind and no colour, and that is not the veil's
- * arrangement with a field left out: a wisp carries no colour at all, the way
- * a throb does, and either shot kills one. The authored column is only where
+ * arrangement with a field left out: a wisp carries no colour at all — the
+ * last body on the field that does — and either shot kills one. The authored column is only where
  * it materialises — the first hop is two beats later and owes it nothing.
  */
 /**

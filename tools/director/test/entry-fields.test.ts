@@ -123,13 +123,13 @@ describe("a rock's width", () => {
 describe("the kinds whose colour a wave authors", () => {
   const bodied = (Object.keys(CREATURES) as CreatureKind[]).filter(authorsBodyColor);
 
-  test("is exactly the twelve", () => {
-    // The lure's disguise, the shell's core, the clasp's prisoner, the dart's
-    // colour, the ghost's, the echo's, the rind's, the lid's lens, the
-    // recoil's first body, the carom's prisoner, the volley's and the head of
-    // the strand — twelve
-    // bodies whose colour is a fact about one arrival rather than about the
-    // kind. The recoil's is the shortest-lived of them: an author writes which
+  test("is exactly the thirteen", () => {
+    // The lure's disguise, the throb's coloured half, the shell's core, the
+    // clasp's prisoner, the dart's colour, the ghost's, the echo's, the
+    // rind's, the lid's lens, the recoil's first body, the carom's prisoner,
+    // the volley's and the head of the strand — thirteen bodies whose colour
+    // is a fact about one arrival rather than about the kind. The recoil's is
+    // the shortest-lived of them: an author writes which
     // trigger answers it *first*, and every bounce turns it over from there
     // (`recoilStruck`). The carom's is the opposite — it never changes and
     // then stops existing, because what the shot leaves behind is a rock with
@@ -142,6 +142,7 @@ describe("the kinds whose colour a wave authors", () => {
     expect(new Set(bodied)).toEqual(
       new Set([
         "lure",
+        "throb",
         "shell",
         "clasp",
         "dart",
@@ -157,9 +158,9 @@ describe("the kinds whose colour a wave authors", () => {
     );
   });
 
-  test("is never offered on the throb, which is answered by the beat and not a colour", () => {
+  test("is never offered on the wisp, which is answered by the tile and not a colour", () => {
     const wave = emptyWave();
-    paint(wave, 0, 3, "throb");
+    paint(wave, 0, 3, "wisp");
     expect(authorsBody(at(wave))).toBe(false);
     expect(at(wave).color).toBeNull();
   });

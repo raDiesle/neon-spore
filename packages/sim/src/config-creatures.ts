@@ -38,16 +38,17 @@ export interface CreatureConfig {
   /** Places along the hull the blast breaks it in (`lureBlastCols`).
    * `damageLure` is split between them: priced once, paid in several holes. */
   lureBlastPlaces: number;
-  /** Score for hitting a Throb while it is open. */
+  /** Score for hitting a Throb on its coloured half. */
   scoreThrobHit: number;
   /** What one piece of THE SHELL is worth. Smaller than a kill: chipping the
    * armour is work either colour can do, and the kill is still to come. */
   scoreShellPiece: number;
-  /** Beats in one Throb swell-shrink cycle — `throbIsOpen`'s whole state
-   * machine is `beat % throbPeriodBeats` against `throbOpenBeats`. */
-  throbPeriodBeats: number;
-  /** Beats out of every cycle a Throb can be hit at all. */
-  throbOpenBeats: number;
+  /** Beats a Throb takes to turn once, clockwise — the whole of its clock
+   * (`throbTurnMilli`, throb.ts), read off the beat both players share. */
+  throbSpinBeats: number;
+  /** Thousandths of every turn the coloured half is square to the cannon and
+   * can be shot at all. The rest of the turn is plating. */
+  throbFaceMilli: number;
   /**
    * Opening a clasp with the ward. Between `scoreDestroy` and `scoreDeflect`:
    * the same joint shape as a deflection, but it only sets the kill up.
@@ -228,8 +229,8 @@ export const CREATURE_DEFAULTS: CreatureConfig = {
   lureBlastPlaces: 3,
   scoreThrobHit: 200,
   scoreShellPiece: 120,
-  throbPeriodBeats: 4,
-  throbOpenBeats: 1,
+  throbSpinBeats: 4,
+  throbFaceMilli: 500,
   scoreClaspBreak: 120,
   claspBreakBeats: 2,
   veilMorphBeats: 5,

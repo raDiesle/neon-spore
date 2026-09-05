@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { type Beats, livingSilhouette, type Pose, SWAY_PUMP } from "@neon-spore/content";
+import { type Beats, livingSilhouette, type Pose, rimCount, SWAY_PUMP } from "@neon-spore/content";
 import { confusable, nameability } from "../src/nameability.js";
 import { livingKinds } from "../src/subjects.js";
 
@@ -16,12 +16,18 @@ import { livingKinds } from "../src/subjects.js";
  * `nameability.ts` carries why one axis could not do it.
  *
  * Where it binds today, and it is worth knowing before raising anything:
- * BULB and THROB are held apart by the lobe axis alone — the same structural
- * crowding `docs/alive.md` closes on, three of four living kinds at aspect
- * ~1.0 — and the bulb's volume-preserving pump sits exactly on its ceiling.
- * At 0.10 the nine lobes still out-weigh the ellipse the squash adds; at 0.11
- * they do not, and the bulb's read flips between "nine bumps" and "an oval"
- * from frame to frame. D3's landing squash of 18–22% is red here on arrival.
+ * **BULB and WISP** are held apart by the lobe axis alone, and the bulb's
+ * volume-preserving pump sits exactly on its ceiling. At 0.10 the nine lobes
+ * still out-weigh the ellipse the squash adds; at 0.11 they do not, and the
+ * bulb's read flips between "nine bumps" and "an oval" from frame to frame.
+ * D3's landing squash of 18–22% is red here on arrival.
+ *
+ * It used to be BULB and THROB, which is the structural crowding
+ * `docs/alive.md` closes on — three of four living kinds at aspect ~1.0. That
+ * pair is not the tight one any more: the throb wears six clubs on a small
+ * core now, so it is separated on lobe *and* size and the bulb cannot be
+ * squashed into it at any amplitude. The ceiling did not move; what it binds
+ * against did.
  */
 
 const KINDS = livingKinds();
@@ -36,7 +42,10 @@ describe("nameability", () => {
   for (const kind of KINDS) {
     it(`${kind} draws the lobe count it was authored with`, () => {
       const n = axes.get(kind)!;
-      const authored = livingSilhouette(kind).lobes;
+      // `rimCount`, not `lobes`: a clubbed body's lobes are the core under the
+      // rim and nobody counts those. The throb is authored with three and
+      // wears six clubs, and six is what an eye and this axis both find.
+      const authored = rimCount(livingSilhouette(kind));
       // A span, not a number, and the span must be a point. The lobe axis is
       // the one holding this roster apart; the moment a pose squashes a body
       // far enough that the ellipse out-weighs its own lobes, the span opens
@@ -69,7 +78,7 @@ describe("nameability", () => {
    *
    * A check that is green and could not go red is a check nobody has tested.
    * This opens exactly one amplitude — SWAY_PUMP's pump, the bulb's whole
-   * squash — by a tenth, and the bulb walks into the throb.
+   * squash — by a tenth, and the bulb walks into the wisp.
    *
    * The widening is a *factor on the real motion*, never a retyped copy of it:
    * `purity.test.ts` already has a row for `livingMotion` precisely because a
@@ -83,9 +92,9 @@ describe("nameability", () => {
         const p = SWAY_PUMP.poseAt(t);
         return { ...p, sx: 1 + (p.sx - 1) * factor, sy: 1 + (p.sy - 1) * factor };
       };
-    const throb = axes.get("throb")!;
-    expect(confusable(nameability("bulb", wider(1)), throb)).toBe(false);
-    expect(confusable(nameability("bulb", wider(1.1)), throb)).toBe(true);
+    const wisp = axes.get("wisp")!;
+    expect(confusable(nameability("bulb", wider(1)), wisp)).toBe(false);
+    expect(confusable(nameability("bulb", wider(1.1)), wisp)).toBe(true);
   });
 });
 

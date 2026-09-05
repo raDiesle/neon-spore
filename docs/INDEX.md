@@ -224,6 +224,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/slow-fall.ts` | The bodies that come down **slower than a tile a beat** |
 | `packages/sim/src/strand-shape.ts` | THE STRAND's shape, as arithmetic |
 | `packages/sim/src/strand-spawn.ts` | How a thread comes onto the field: one queue entry in, two to five bodies out |
+| `packages/sim/src/throb.ts` | the throb's clockwise turn, which half a shot met, and what it costs |
 
 ### packages/content
 
@@ -309,6 +310,8 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/catch-and-aim.ts` | CATCH AND AIM's rehearsal: the hand aims, so the cannon does not have to |
 | `packages/content/src/waves/act-1b.ts` | The last of act one, cut off `act-1.ts` when that file reached the 250-line ceiling on `CATCH AND AIM` |
 | `packages/content/src/maze-drawn.ts` | The four sheets THE MAZE plays after the owner's own, drawn by `bun run maze` and printed here |
+| `packages/content/src/body-path.ts` | one living body's contour — a blob, or the walk that puts clubs on its rim |
+| `packages/content/src/crystals.ts` | the angular family — the rock, the torch and the queen's shell, which do not live |
 
 ### packages/render
 
@@ -570,6 +573,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/strand-armour.ts` | THE STRAND's armour: the cage around every bead a shot **cannot** answer this instant |
 | `packages/render/src/strand-duty.ts` | The one word a seat owes the other while THE STRAND is on the field |
 | `packages/render/src/strand-mark.ts` | THE STRAND's two marks: the bead that has to be shot next on the navigator's screen |
+| `packages/render/src/throb.ts` | the plating over a throb's armoured half — the green that means a shot does nothing |
 
 ### packages/net
 

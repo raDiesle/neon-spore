@@ -1,5 +1,4 @@
 import { caromOnSpawn } from "./carom.js";
-import { throbIsOpen } from "./creature-rules.js";
 import { dartOnSpawn } from "./dart.js";
 import { echoOnSpawn } from "./echo.js";
 import { ghostOnSpawn } from "./ghost.js";
@@ -84,7 +83,6 @@ export function spawnArrivals(world: World): void {
       holes: 0,
       petals: 0,
       dragMilli: 0,
-      throbOpen: entry.kind === "throb" && throbIsOpen(world.cfg, world.beat),
       // Every piece on, for the one kind that wears any. The colour under
       // them is deliberately *not* settled here: a shelled body arrives with
       // `color` null and gets one only when the last piece comes off, so

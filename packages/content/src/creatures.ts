@@ -34,11 +34,13 @@ export interface CreatureDef {
    * are each authored one — the body behind the disguise, under the plating,
    * inside the shield, or on the end of the dart's diagonal.
    *
-   * Data rather than a rule derived from `color === null`, because the throb
+   * Data rather than a rule derived from `color === null`, because the wisp
    * is the counter-example and always will be: it carries no colour and none
-   * is ever authored for it, since a throb is answered by the beat rather
-   * than by a colour at all. A tool that guessed from the blank would offer a
-   * colour picker on the one creature that must not have one.
+   * is ever authored for it, since a wisp is answered by the tile rather than
+   * by a colour at all. A tool that guessed from the blank would offer a
+   * colour picker on the one creature that must not have one. THE THROB used
+   * to be the second such body and is not any more — half of it is a real
+   * colour now, and a wave says which.
    *
    * The director reads this to decide which cells get a SLICK/BULB choice
    * under the map, and `queueFromWave` is what turns that colour back into a
@@ -75,7 +77,7 @@ export function kindForColor(color: Color): CreatureKind {
 /**
  * Whether a wave authors this kind's colour on the arrival rather than reading
  * it off the kind. Call this instead of testing `color === null`: a rock and a
- * throb are blank too, and neither takes a colour (`CreatureDef.authorsColor`).
+ * wisp are blank too, and neither takes a colour (`CreatureDef.authorsColor`).
  */
 export function authorsBodyColor(kind: CreatureKind): boolean {
   return CREATURES[kind].authorsColor === true;

@@ -1,3 +1,5 @@
+import type { ClubbedRim } from "./body-path.js";
+
 /**
  * Creature and hull parameters for the raster game. These are tuned in
  * legacy/style-guide.html and transcribed here as data.
@@ -16,6 +18,13 @@ export interface CreatureSilhouette {
   seed: number;
   /** Extra scale below `drawLiving`'s usual fixed footprint. Unset but on the Runt. */
   sizeMul?: number;
+  /**
+   * A rim of balls on stalks worn over the body, for the one kind that has one.
+   * Present and the contour is *walked* rather than sampled by angle —
+   * `livingPath` in `body-path.ts` is where that decision is taken, and it is
+   * the only place it may be.
+   */
+  clubs?: ClubbedRim;
 }
 
 /** Slick: two broad lobes, wide and flat. Tilts and ripples as it travels. */
@@ -38,14 +47,39 @@ export const BULB: CreatureSilhouette = {
   seed: 1.0,
 };
 
-/** Throb: round, soft-lobed. render/ swells and shrinks it with `Creature.throbOpen`. */
+/**
+ * Throb: a small round core wearing six balls on stalks, turning clockwise
+ * with half of it plated (`throbTurnMilli` in sim, `living-draw.ts` in render).
+ *
+ * **The clubs are the turn.** It was six soft lobes on a ball, and a ball is
+ * the one shape whose rotation cannot be seen: the whole creature is *which
+ * half is pointing at the cannon*, and a body that turns invisibly is a rule
+ * with no picture. Six knobs on stalks read their own bearing at forty pixels
+ * — and they read a count as well, so the pair can say *three green ones left*
+ * rather than reaching for a clock angle neither of them can see.
+ *
+ * The core is nearly smooth on purpose — lobes under the clubs would be a
+ * second rim arguing with the first — and `sizeMul` is here for the reason it
+ * is on the Runt and for the opposite result. `drawLiving` scales
+ * `max(rx, ry)` onto the fixed body radius every living kind draws at, and a
+ * club reaches most of another radius past that, so a throb left at 1 would
+ * arrive on the field a third wider than a bulb. 0.67 is the widest club this
+ * rim can throw — `reach` and `cap` both at the top of their `vary`, on the
+ * crest of a breath — brought back inside the bulb's own footprint, which
+ * `packages/content/test/body-path.test.ts` is what holds it to.
+ *
+ * Walked out of `tools/shape-sheet/src/forms/clubbed.ts`, which drew THE
+ * POMMEL with it — `docs/asset-catalogue.md` on what claiming a shape means.
+ */
 export const THROB: CreatureSilhouette = {
-  lobes: 6,
-  depth: 0.2,
-  wobble: 0.09,
+  lobes: 3,
+  depth: 0.06,
+  wobble: 0.05,
   rx: 44,
   ry: 44,
   seed: 7.0,
+  sizeMul: 0.67,
+  clubs: { clubs: 6, reach: 0.26, cap: 0.36, neck: 0.46, vary: 0.16 },
 };
 
 /**
@@ -183,53 +217,16 @@ export const POD: CreatureSilhouette = {
   seed: 3.0,
 };
 
-export interface CrystalSilhouette {
-  sides: number;
-  depth: number;
-  wobble: number;
-  seed: number;
-}
-
-/**
- * Meteor: angular facets, not a contour. It gets `crystalPath` rather than
- * `blobPath` precisely because it does not live — docs/spec/graphics.md hangs the whole
- * indestructibility rule on that fiction, so the rock must not read as an
- * organism. Almost no wobble, for the same reason.
- */
-export const METEOR: CrystalSilhouette = {
-  sides: 7,
-  depth: 0.15,
-  wobble: 0.01,
-  seed: 5.0,
-};
-
-/**
- * The torch's original shape — more sides and deeper facets than `METEOR`,
- * the same non-living crystal material. The live torch now draws as a plain
- * `METEOR` instead (`packages/render/src/torch.ts`); this silhouette lives on
- * as a spare shape nothing draws, a starting point for a future creature.
- * Judge changes with `bun run shapes:report` before
- * eyeballing the sheet.
- */
-export const TORCH: CrystalSilhouette = {
-  sides: 9,
-  depth: 0.22,
-  wobble: 0.02,
-  seed: 8.0,
-};
-
-/**
- * The Bulb Queen's shell: the same angular, non-living material as the rock
- * she spits, not a scaled-up `BULB`. Many facets for a big, cracked-plate
- * read, and just enough wobble that the shell visibly shifts and the "faster
- * as she weakens" tell still has something to speed up.
- */
-export const QUEEN_SHELL: CrystalSilhouette = {
-  sides: 16,
-  depth: 0.22,
-  wobble: 0.03,
-  seed: 9.0,
-};
+// The angular family — the rock, the torch and the queen's shell — is
+// `crystals.ts` next door, cut out when THE THROB's clubbed rim took this file
+// over its limit. Re-exported here so nothing that already reaches for one
+// through this file has to move.
+export {
+  type CrystalSilhouette,
+  METEOR,
+  QUEEN_SHELL,
+  TORCH,
+} from "./crystals.js";
 
 // The ship's own shapes live next door — see `ship-silhouettes.ts` for the
 // seam. Re-exported here so nothing that already reaches for them through this

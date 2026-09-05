@@ -380,15 +380,48 @@ export const COPIES: Copy[] = [
     also: ["packages/sim/src/gyre.ts"],
   },
   {
-    // The Throb's swell — the two sizes that say whether a shot lands. It stood
-    // in `creatures.ts` as a ternary and again in the shape sheet's nameability
-    // axes as `[0.7, 1.3]`, under a comment admitting where it had been copied
-    // from. A sheet judging a body at the wrong two sizes answers the one
-    // question that tool exists for, wrongly.
-    call: "THROB_SWELL",
-    owner: "packages/render/src/living-draw.ts",
-    pattern: /throbOpen\s*\?\s*1\.3\s*:\s*0\.7|\[\s*0\.7\s*,\s*1\.3\s*\]/,
-    strip: false,
+    // What a living body's contour *is*. It was one shape family and one call
+    // — `blobPath` with a silhouette's own five numbers — written out at each
+    // of the seven places that draw a creature, and the repetition cost
+    // nothing while every body was a blob. THE THROB's clubbed rim ended that:
+    // seven copies of "a body is a blob" is six small pictures drawing a throb
+    // as a plain ball, and those pictures — the control glyph, the dart's
+    // preview, a rind shedding, a veil tearing — are exactly where a player
+    // checks a body's name.
+    //
+    // Three files keep the arithmetic, and each is an `also` rather than an
+    // exemption: each owns a rule made of the same pieces. `wisp-body.ts`'s
+    // bell is a *reshaped* contour — 1.06 wide, 0.76 tall and lifted off its
+    // hem — and that proportion is a fact about a body with a hem, which
+    // `livingPath` has nowhere to put and must not learn. `strand-bead.ts`
+    // squashes the same way about the axis a bead rolls on and draws it at a
+    // point on a thread rather than at the origin, which is the same case
+    // twice over. And the VERSUS candidate is a *frozen* copy of a shipped
+    // look, kept whole on purpose (`docs/versus.md`): a candidate refactored
+    // to call the thing it is being judged against is no longer an
+    // alternative to it.
+    call: "livingPath",
+    owner: "packages/content/src/body-path.ts",
+    pattern: /shape\.lobes,\s*shape\.depth/,
+    strip: true,
+    also: [
+      "packages/render/src/wisp-body.ts",
+      "packages/render/src/strand-bead.ts",
+      "tools/versus/candidates/creature-strand/mute/paint.ts",
+    ],
+  },
+  {
+    // How far round a Throb has turned — which is the same question as whether
+    // a shot lands on it, since the half pointing at the cannon is the half
+    // that answers. The swell this replaced had already been copied out of
+    // render/ into the shape sheet once. A picture drawing the seam a
+    // thousandth ahead of where the rule finds it promises the pair a shot the
+    // simulation refuses, and there is no frame in which that reads as
+    // anything but a broken trigger.
+    call: "throbTurnMilli",
+    owner: "packages/sim/src/throb.ts",
+    pattern: /%\s*[\w.]*\bthrobSpinBeats\b|\bthrobFaceMilli\b\s*\/\s*2/,
+    strip: true,
   },
   {
     // The one repeatable 0..1 in render/. Seven files carried this arithmetic

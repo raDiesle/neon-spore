@@ -91,19 +91,20 @@ export const TREMBLE: OwnMotion = {
 };
 
 /**
- * The throb: the smallest motion here, on purpose. `Creature.throbOpen`
- * already swells and shrinks it on the shared beat (`render/creatures.ts`),
- * and that pulse is nearly load-bearing — it is what tells the pair when to
- * fire. A tilt or a pump layered on top would read as a second signal
- * fighting the first: a body saying "now" cannot also be saying "and also
- * this." So no rotation and no scale — either would move the silhouette the
- * beat is already moving, and a player would have to separate the two to find
- * the one that matters. What is left is a drift too small and too slow to
- * compete, there only so the throb is not a dead thing between beats.
+ * The throb: the smallest motion here, on purpose. The body already turns
+ * clockwise the whole way down (`throbTurnMilli` in sim, `living-draw.ts` in
+ * render), and that turn is load-bearing — it is what says which half is
+ * pointing at the cannon. A tilt or a pump layered on top would read as a
+ * second signal fighting the first: a body saying "the colour is out now"
+ * cannot also be saying "and also this." **No rotation above all**, since a
+ * second rotation is not a different signal from the first, it is the same
+ * one made unreadable — and no scale either, which would move a silhouette
+ * whose seam the pair is reading. What is left is a drift too small and too
+ * slow to compete, there only so the throb is not a dead thing between beats.
  */
 export const HOLD: OwnMotion = {
   name: "HOLD",
-  note: "a small, slow drift and nothing else — the beat's own swell is the whole of what it says",
+  note: "a small, slow drift and nothing else — the clockwise turn is the whole of what it says",
   poseAt(t) {
     return { dx: Math.sin(t * 0.375) * 0.04, dy: 0, rot: 0, sx: 1, sy: 1 };
   },

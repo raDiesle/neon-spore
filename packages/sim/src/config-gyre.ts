@@ -19,7 +19,7 @@
  *
  * **The turn is in thousandths of a rim position per beat, not in beats per
  * position.** Everything else about a creature's clock in this game is a count
- * of beats — `throbPeriodBeats`, `veilMorphBeats`, `wispDwellBeats` — because
+ * of beats — `throbSpinBeats`, `veilMorphBeats`, `wispDwellBeats` — because
  * those are cycles the pair counts out loud. This one is not counted, it is
  * *felt getting worse*: it accelerates, and a period in beats can only ever be
  * halved. What the creature needs is a rim that gets quicker by an amount too

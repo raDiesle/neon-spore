@@ -27,10 +27,10 @@ export type CreatureKind =
    * goes. One truth here; the disguise belongs to render/ alone. */
   | "lure"
   /**
-   * Swells and shrinks on the shared beat instead of carrying a colour.
-   * `throbOpen` on the `Creature` says whether this beat is one it can be hit
-   * on — see `throbIsOpen` in `creature-rules.ts`, which is the only place
-   * that cycle is decided.
+   * Half a coloured body and half shield plating, turning clockwise the whole
+   * way down. Only the coloured half answers a shot, and only while it is the
+   * half pointing at the cannon — `throbFacing` in `throb.ts`, which is the
+   * only place that turn is decided.
    */
   | "throb"
   /**

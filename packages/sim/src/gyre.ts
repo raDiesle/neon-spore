@@ -137,7 +137,6 @@ export function mountsFor(world: World, hub: Creature): Creature[] {
       holes: 0,
       petals: 0,
       dragMilli: 0,
-      throbOpen: false,
       shell: 0,
       gyreId: hub.id,
       gyreSlot: slot,

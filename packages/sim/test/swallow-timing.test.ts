@@ -123,7 +123,6 @@ describe("a pod's effect lands the instant it is swallowed", () => {
       holes: 0,
       petals: 0,
       dragMilli: 0,
-      throbOpen: false,
       shell: NO_SHELL,
     });
     const byTick = new Map<number, TimedCommand[]>();

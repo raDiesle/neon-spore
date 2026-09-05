@@ -33,7 +33,6 @@ function meteor(id: number, holes: number): Creature {
     holes,
     petals: 0,
     dragMilli: 0,
-    throbOpen: false,
     shell: 0,
   };
 }

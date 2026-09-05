@@ -105,7 +105,7 @@ describe("own-motion", () => {
     expect(throbReach).toBeLessThan(reach(TREMBLE));
   });
 
-  it("the throb never rotates or scales — either would shadow throbOpen's own pulse", () => {
+  it("the throb never rotates or scales — either would shadow its own clockwise turn", () => {
     for (const p of samples(HOLD)) {
       expect(p.rot).toBe(0);
       expect(p.sx).toBe(1);

@@ -76,7 +76,6 @@ export function stringStrand(world: World, first: Creature, asked: number | unde
       holes: 0,
       petals: 0,
       dragMilli: 0,
-      throbOpen: false,
       shell: 0,
       strandId: first.id,
       strandOrder: place,

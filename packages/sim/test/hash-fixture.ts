@@ -35,7 +35,6 @@ const creature = (): Required<Creature> => ({
   holes: 1,
   petals: 3,
   dragMilli: 250,
-  throbOpen: true,
   shell: 3,
   dartDir: 1,
   dartFloat: true,

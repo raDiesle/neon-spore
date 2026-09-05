@@ -65,10 +65,13 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
   throb: {
     kind: "throb",
     controls: ["aim"],
+    // The dart's arrangement: none of its own, one authored per arrival. Half
+    // the body is that colour and half is plating, and neither says the other.
     color: null,
+    authorsColor: true,
     radar: "p2",
     blurb:
-      "Swells and shrinks on the shared beat and carries no colour. Only a shot while it is swollen lands — a miss on the beat it is shut is just a miss.",
+      "Half a coloured body and half shield plating, turning clockwise the whole way down. The matching colour kills it while the coloured half is pointing at the cannon; a shot into the plating does nothing at all.",
   },
   shell: WORN_CREATURES.shell,
   clasp: WORN_CREATURES.clasp,

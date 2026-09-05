@@ -1,4 +1,4 @@
-import { blobPath, livingSilhouette } from "@neon-spore/content";
+import { livingPath, livingSilhouette } from "@neon-spore/content";
 import {
   type Creature,
   DART_ROWS,
@@ -210,9 +210,7 @@ function drawPlaceholder(
   // The wobble the body itself will be wearing when it lands, so the outline
   // is that body's shape rather than a smoothed idea of one.
   const t = contourClock(c.id, time);
-  const path = new Path2D(
-    blobPath(0, 0, shape.rx, shape.ry, shape.lobes, shape.depth, shape.wobble, t, shape.seed, 28),
-  );
+  const path = new Path2D(livingPath(shape, t, 28));
   // Whichever beat it is on, the body will be *hanging* when it reaches this
   // tile, aiming the move `dartNext` names — so one call answers both cases,
   // and the outline leans the way the body will lean inside it.

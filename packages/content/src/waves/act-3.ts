@@ -93,12 +93,12 @@ export const WAVES_ACT_3: Wave[] = [
     name: "THE THROB",
     sentence: "The one where firing on sight is the miss.",
     guide: {
-      both: "Swells and shrinks on the beat, and carries no colour either. Only a shot on the beat it is open lands at all.",
-      p1: "Call the beat it swells on, out loud, the way you call a column.",
-      p2: "Fire on the count, not on sight — a shot on the wrong beat does nothing.",
+      both: "Half of it is a colour and half of it is shield plating, and it turns clockwise the whole way down. The matching colour kills it — but only while the coloured half is the half pointing at the cannon.",
+      p1: "Say the colour, then call the turn: it is coming round, it is out now.",
+      p2: "Load the colour early and hold the trigger for the call — into the plating is nothing at all.",
       scene: "theThrob",
     },
-    entries: [{ beat: 0, col: 3, kind: "throb", color: null }],
+    entries: [{ beat: 0, col: 3, kind: "throb", color: "red" }],
   },
   {
     id: "theThirdShot",

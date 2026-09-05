@@ -11,8 +11,10 @@ import {
   type SimEvent,
   type SpawnEntry,
   step,
+  THROB_TURN_MILLI,
   type TimedCommand,
-  throbIsOpen,
+  throbFacing,
+  throbTurnMilli,
   ticksPerBeat,
 } from "../src/index.js";
 
@@ -43,7 +45,7 @@ function run(queue: SpawnEntry[], ticks: number, inputs: TimedCommand[] = []): R
   return { world, events };
 }
 
-const throb = (col: number): SpawnEntry => ({ beat: 0, col, kind: "throb", color: null });
+const throb = (col: number): SpawnEntry => ({ beat: 0, col, kind: "throb", color: "red" });
 const aim = (tick: number, col: number): TimedCommand => ({
   tick,
   player: 1,
@@ -55,37 +57,70 @@ const fire = (tick: number, color: "red" | "cyan"): TimedCommand => ({
   command: { kind: "fire", color },
 });
 
-describe("throbIsOpen", () => {
-  it("is open only on the first beat of every default cycle", () => {
-    expect(throbIsOpen(CFG, 0)).toBe(true);
-    expect(throbIsOpen(CFG, 1)).toBe(false);
-    expect(throbIsOpen(CFG, 3)).toBe(false);
-    expect(throbIsOpen(CFG, 4)).toBe(true);
-    expect(throbIsOpen(CFG, 8)).toBe(true);
+describe("the turn", () => {
+  it("goes round once every throbSpinBeats and wraps rather than growing", () => {
+    expect(throbTurnMilli(CFG, 0)).toBe(0);
+    expect(throbTurnMilli(CFG, CFG.throbSpinBeats / 2)).toBe(THROB_TURN_MILLI / 2);
+    expect(throbTurnMilli(CFG, CFG.throbSpinBeats)).toBe(0);
+    expect(throbTurnMilli(CFG, CFG.throbSpinBeats * 3)).toBe(0);
+  });
+
+  it("clocks forward, never back — clockwise is the whole tell", () => {
+    let last = -1;
+    for (let b = 0; b < CFG.throbSpinBeats; b += CFG.throbSpinBeats / 16) {
+      const turn = throbTurnMilli(CFG, b);
+      expect(turn).toBeGreaterThan(last);
+      last = turn;
+    }
+  });
+
+  it("presents the colour for throbFaceMilli of every turn, centred on straight down", () => {
+    let facing = 0;
+    const steps = 1000;
+    for (let i = 0; i < steps; i++) {
+      if (throbFacing(CFG, (i * CFG.throbSpinBeats) / steps)) facing += 1;
+    }
+    expect(facing).toBe(CFG.throbFaceMilli);
+    // The middle of the window is the turn's own zero, and the far side of it
+    // is plating.
+    expect(throbFacing(CFG, 0)).toBe(true);
+    expect(throbFacing(CFG, CFG.throbSpinBeats / 2)).toBe(false);
   });
 });
 
 describe("the throb", () => {
   const COL = 3;
-  // Beat 2 (2 % 4 = 2) is shut; beat 4 (4 % 4 = 0) is open, both well inside
-  // the fall — see IMPACT_TICK, which is beat HULL + 1.
-  const SHUT_TICK = TPB * 2;
-  const OPEN_TICK = TPB * 4;
+  // `throbSpinBeats` is 4 and the colour is out for half of it, so beats 3, 0
+  // and 1 of every turn have the colour square to the cannon and beats 1 and 2
+  // have the plating. Both of these are well inside the fall — see
+  // IMPACT_TICK, which is beat HULL + 1.
+  const PLATE_TICK = TPB * 5; // beat 5, `5 % 4` is 1 — plating
+  const COLOUR_TICK = TPB * 8; // beat 8, `8 % 4` is 0 — the middle of the window
 
-  it("shrugs off a shot on a shut beat: no score, no destroy, it keeps falling", () => {
-    const { world, events } = run([throb(COL)], SHUT_TICK + TPB, [
-      aim(SHUT_TICK, COL),
-      fire(SHUT_TICK, "red"),
+  it("swallows a shot into the plating, even in its own colour", () => {
+    const { world, events } = run([throb(COL)], PLATE_TICK + TPB, [
+      aim(PLATE_TICK, COL),
+      fire(PLATE_TICK, "red"),
     ]);
     expect(world.creatures).toHaveLength(1);
     expect(events.some((e) => e.type === "destroy")).toBe(false);
     expect(events.some((e) => e.type === "reject")).toBe(true);
   });
 
-  it("lands on the open beat, either colour, and pays scoreThrobHit", () => {
-    const { world, events } = run([throb(COL)], OPEN_TICK + TPB, [
-      aim(OPEN_TICK, COL),
-      fire(OPEN_TICK, "cyan"),
+  it("refuses the wrong colour on the coloured half, and books it as a colour miss", () => {
+    const { world, events } = run([throb(COL)], COLOUR_TICK + TPB, [
+      aim(COLOUR_TICK, COL),
+      fire(COLOUR_TICK, "cyan"),
+    ]);
+    expect(world.creatures).toHaveLength(1);
+    expect(events.some((e) => e.type === "destroy")).toBe(false);
+    expect(events.some((e) => e.type === "reject")).toBe(true);
+  });
+
+  it("lands the matching colour on the coloured half, and pays scoreThrobHit", () => {
+    const { world, events } = run([throb(COL)], COLOUR_TICK + TPB, [
+      aim(COLOUR_TICK, COL),
+      fire(COLOUR_TICK, "red"),
     ]);
     expect(world.creatures).toHaveLength(0);
     expect(events.some((e) => e.type === "destroy")).toBe(true);
@@ -99,13 +134,13 @@ describe("the throb", () => {
     expect(hullPercent(world)).toBe(100 - CFG.damageCreature);
   });
 
-  it("replays deterministically: hit on the open beat, and the fingerprint pins that", () => {
+  it("replays deterministically: hit on the turn, and the fingerprint pins that", () => {
     const replay = record({
-      name: "throb hit on the beat",
+      name: "throb hit on the turn",
       seed: 0,
       queue: [throb(COL)],
-      ticks: OPEN_TICK + TPB,
-      inputs: [aim(OPEN_TICK, COL), fire(OPEN_TICK, "red")],
+      ticks: COLOUR_TICK + TPB,
+      inputs: [aim(COLOUR_TICK, COL), fire(COLOUR_TICK, "red")],
     });
     const world = runReplay(replay);
     expect(world.creatures).toHaveLength(0);

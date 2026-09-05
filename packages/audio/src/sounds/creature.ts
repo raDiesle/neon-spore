@@ -101,7 +101,7 @@ export const CREATURE_SOUNDS: SoundDef[] = [
     family: "creature",
     blurb: "A body growing over two beats and shrinking over one. Timing you can hear.",
     status: "spare",
-    use: "The throb — timing instead of a snap call.",
+    use: "Spare. It was written for the throb's swell, which the creature no longer has — a body growing and shrinking is still a sound the catalogue wants.",
     level: 0.24,
     layers: [
       {

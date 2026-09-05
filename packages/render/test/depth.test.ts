@@ -32,7 +32,6 @@ function creature(row: number, kind: Creature["kind"] = "bulb"): Creature {
     holes: 0,
     petals: 0,
     dragMilli: 0,
-    throbOpen: false,
     shell: NO_SHELL,
   } as Creature;
 }

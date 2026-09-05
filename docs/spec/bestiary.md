@@ -103,7 +103,7 @@ directly, `"suck"`, after what taking one in is called throughout the sim
 | **Strand** | chain of segments on one thread, alternating red and cyan | eaten from its ends inward — and only one of you is shown which end is next |
 | **Crystal** | facets, breaks into two halves | fast switching |
 | **Gum** | sticky; grabs and holds on | three evasive manoeuvres in a row |
-| **Throb** | swells and shrinks on a fixed beat | timing instead of a snap call |
+| **Throb** | six clubs on a small core, half of them plated, turning clockwise | colour *and* timing in one call |
 | **Lure** | a slick or a bulb that only the navigator can see through | do *not* hit it (costs the hull) |
 | **Choke** | docks on, shuts one control | inverted instruction |
 | **Glyph** | pattern across its skin | look it up in a table |
@@ -173,11 +173,12 @@ every proposal for the runt's interior: at `sizeMul` 0.55 it draws at about
 That question is not open any more. It dissolved with the creature.
 
 The throb's own-motion is `HOLD`, deliberately the smallest motion in
-`packages/content/src/own-motion.ts`: its swell on
-the shared beat (`Creature.throbOpen`, `render/creatures.ts`) is what tells the
-pair when to fire, and a body that also tilted or pumped on its own would be
-saying two things at once. `HOLD` never rotates and never scales, so nothing
-in the own-motion layer competes with that beat.
+`packages/content/src/own-motion.ts`: its clockwise turn (`throbTurnMilli`,
+`sim/throb.ts`, drawn in `render/living-draw.ts`) is what tells the pair when
+to fire, and a body that also tilted or pumped on its own would be saying two
+things at once. `HOLD` never rotates and never scales — a second rotation
+above all, since that is not a competing signal but the same one made
+unreadable.
 
 **The pod is built, and it is not a creature.** It carries no colour, is never
 cleared and never blocks a wave, so it lives outside `CREATURES` entirely — its
@@ -298,8 +299,8 @@ This one is simply not on player 1's field — not dimmed, not ringed, not a
 smear where it stands. It does not fall and it does not leave: every
 `wispDwellBeats` it is somewhere else on the field, drawn from the seeded rng
 one tile at a time, and the wave stays open until it is shot. Either colour
-shoots it, for the throb's reason — the ammunition is not the question this
-creature asks.
+shoots it, and it is the last body on the field that takes either — the
+ammunition is not the question this creature asks.
 
 **It jumps, and the square it is jumping to is on the navigator's screen the
 whole time.** `wispNext` is rolled on the beat the body *lands* — THE DART's

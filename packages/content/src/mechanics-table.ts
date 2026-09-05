@@ -30,7 +30,7 @@ export const MECHANICS = {
     waveNames: true,
   },
   throb: {
-    what: "Swells and shrinks on the beat, and carries no colour either. Only a shot on the beat it is open lands at all.",
+    what: "Cut down the middle: one half a slick's red or a bulb's cyan, the other shield plating. It turns clockwise the whole way down, and only the coloured half answers a shot — the matching colour, while that half is the one pointing at the cannon. Anything into the plating is swallowed.",
     reach: "spawn",
     waveNames: true,
   },

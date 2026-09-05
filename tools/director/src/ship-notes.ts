@@ -99,7 +99,8 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "holds the only trigger; player 2 walks the sights a square at a time and is " +
     "shown nothing but water. The clock is the whole of the danger — running out " +
     "of it breaks the hull. See fleet.ts, config-fleet.ts.",
-  "THROB — open for one beat in every few": "A Throb can only be hit while it is open.",
+  "THROB — half a colour, half plating, turning":
+    "A Throb answers the matching colour on its coloured half, and nothing at all on its plating.",
   "THE LURE — a body only one of you can see through":
     "Player 1 sees a slick or a bulb; player 2 sees the same body inside a " +
     "white ring. A shot that lands costs the hull. Left alone it goes on its " +

@@ -198,7 +198,6 @@ export function caromStruck(world: World, b: Bullet, hit: Creature): boolean {
     holes: 0,
     petals: 0,
     dragMilli: 0,
-    throbOpen: false,
     shell: 0,
     chuteOpen: false,
   };

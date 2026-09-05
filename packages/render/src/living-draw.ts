@@ -1,5 +1,11 @@
-import { blobPath, livingMotion, livingSilhouette, poseClock } from "@neon-spore/content";
-import { type Creature, type SimConfig, wornKind } from "@neon-spore/sim";
+import { livingMotion, livingPath, livingSilhouette, poseClock } from "@neon-spore/content";
+import {
+  type Creature,
+  type SimConfig,
+  THROB_TURN_MILLI,
+  throbTurnMilli,
+  wornKind,
+} from "@neon-spore/sim";
 import { drawDetails, drawMotionTrail } from "./creature-detail.js";
 import { contourClock, livingBodyMul } from "./creature-place.js";
 import { turnedTrio } from "./creature-tint.js";
@@ -10,14 +16,7 @@ import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { drawLureVent, lureHolePath, lureVented } from "./lure-hole.js";
 import { PALETTE } from "./palette.js";
-
-/**
- * The Throb's "swells and shrinks" tell, at rest (`shut`) and mid-pulse
- * (`open`) — read by the one draw site there is, below. `tools/shape-sheet` reads this to show
- * the same two sizes rather than a hand-typed `[0.7, 1.3]` that could drift
- * from what the game actually draws.
- */
-export const THROB_SWELL = { open: 1.3, shut: 0.7 } as const;
+import { drawThrobPlating, THROB_PLATE } from "./throb.js";
 
 /**
  * One lobed body, filled and lit. Split out of `creatures.ts` when THE ECHO
@@ -86,12 +85,7 @@ export function drawLiving(
   // one copy of that, shared with `creatureRadius`, so the ring a thumb grips
   // and the body it is drawn around are one size.
   const r = l.tile * 0.4 * livingBodyMul(c);
-  // The Throb's whole "swells and shrinks" tell: bigger while `throbOpen` is
-  // true (a shot lands), smaller while it is shut (a shot does nothing) — the
-  // same flag bullet-hit.ts reads, so the picture never disagrees with what a
-  // shot actually does.
-  const throbMul = look === "throb" ? (c.throbOpen ? THROB_SWELL.open : THROB_SWELL.shut) : 1;
-  const scale = (r / Math.max(shape.rx, shape.ry)) * (shape.sizeMul ?? 1) * throbMul;
+  const scale = (r / Math.max(shape.rx, shape.ry)) * (shape.sizeMul ?? 1);
 
   // The sway itself is data, in `content/own-motion.ts`, so the shape tools
   // can animate a creature the way the game does instead of re-typing it.
@@ -105,24 +99,22 @@ export function drawLiving(
   // a pure function of the beat like every other motion and cannot know which
   // way this body is pointing, and the direction is the whole creature. Zero
   // for everything else, so nothing but a dart is turned by a line of this.
-  const rot = pose.rot + (look === "dart" ? dartLean(c, beatPhase) : 0);
+  // The Throb's whole tell, and the one rotation in the game that is a rule
+  // rather than a lean: the body turns clockwise the whole way down, and which
+  // half is pointing at the cannon is what a shot meets. `throbTurnMilli` is
+  // the same expression `throbStruck` resolves against, handed the same
+  // continuous beat, so the seam the pair is watching and the seam the bullet
+  // finds are one number (`sim/throb.ts`).
+  const spin = look === "throb" ? (throbTurnMilli(cfg, beats) / THROB_TURN_MILLI) * Math.PI * 2 : 0;
+  const rot = pose.rot + spin + (look === "dart" ? dartLean(c, beatPhase) : 0);
   // And which way round it is drawn. 1 for every other body — a contour with
   // no point on it does not care — and the whole of how a dart's nose leads in
   // both directions (`dartFlip`).
   const flip = look === "dart" ? dartFlip(c) : 1;
 
-  const d = blobPath(
-    0,
-    0,
-    shape.rx,
-    shape.ry,
-    shape.lobes,
-    shape.depth,
-    shape.wobble,
-    t,
-    shape.seed,
-    28,
-  );
+  // Not `blobPath`: a throb's rim wears clubs and the walk that draws them is
+  // the silhouette's business, not this file's (`livingPath`, content).
+  const d = livingPath(shape, t, 28);
   // THE LURE's hole, and the one thing drawn here that is *not* the disguise.
   // Two contours in one path filled even-odd is a hole the field shows through
   // (`lure-hole.ts`), and it is cut on the seat that is being told and nowhere
@@ -163,6 +155,19 @@ export function drawLiving(
     // on the contour and takes the contour's own aspect and strain with it.
     drawEchoSeam(ctx, cfg, c, beats, shape.rx, shape.ry, dark);
     if (vent) ctx.restore();
+    // Over the interior rather than under it: the armoured half of a throb
+    // covers the body, it does not shine through it (`throb.ts`).
+    if (look === "throb") {
+      drawThrobPlating(
+        ctx,
+        path,
+        shape.rx,
+        shape.ry,
+        haze(THROB_PLATE.fill),
+        haze(THROB_PLATE.rim),
+        Math.max(1, r * 0.1) / scale,
+      );
+    }
   }
   ctx.restore();
 

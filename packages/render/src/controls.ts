@@ -1,4 +1,4 @@
-import { blobPath, livingSilhouette } from "@neon-spore/content";
+import { livingPath, livingSilhouette } from "@neon-spore/content";
 import { type Color, livingKindForColor } from "@neon-spore/sim";
 import { bakedCache } from "./baked.js";
 import { drawDetails } from "./creature-detail.js";
@@ -44,9 +44,7 @@ const FIRE_BLOBS = bakedCache<Color, Path2D>();
 function fireBlob(color: Color, shape: ReturnType<typeof livingSilhouette>): Path2D {
   const held = FIRE_BLOBS.get(color);
   if (held !== undefined) return held;
-  const made = new Path2D(
-    blobPath(0, 0, shape.rx, shape.ry, shape.lobes, shape.depth, shape.wobble, 0, shape.seed),
-  );
+  const made = new Path2D(livingPath(shape, 0));
   FIRE_BLOBS.set(color, made);
   return made;
 }

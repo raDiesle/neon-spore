@@ -31,7 +31,6 @@ export {
   tileCY,
   type ViewRole,
 } from "./layout.js";
-export { THROB_SWELL } from "./living-draw.js";
 export { drawMazeWalls, mazeCanvasAngle, mazeRimHalfGapMilli } from "./maze-walls.js";
 export { LAUNCH_LIFE, SETTLED_AGE } from "./opening-fx.js";
 export { PALETTE, STROKE } from "./palette.js";

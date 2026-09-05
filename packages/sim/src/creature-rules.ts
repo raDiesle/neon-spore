@@ -19,29 +19,15 @@ import { volleyBecomes } from "./volley.js";
  * speed of its own — `fallTilesPerBeat` already answers one tile a beat for
  * anything it does not name — so this file holds only the part that is new.
  *
- * The Throb swells and shrinks on the shared beat, and `throbIsOpen` is the
- * whole of it.
+ * THE THROB used to be the other one here: a swell on the shared beat, one
+ * function long. It turns now, and what a shot meets depends on the half it
+ * arrives at, so the rule and the kill went to `throb.ts` together.
  *
  * THE LURE has no cycle either, and two rules instead: which body it is
  * *drawn* as, and when it goes. Both live here rather than at the sites that
  * ask, because both are exactly the shape of thing a second reader writes out
  * again — and a second copy of the first one is a tell on player 1's screen.
  */
-
-/**
- * Whether a Throb can be hit on this beat. A fixed cycle read straight off
- * `world.beat` — the same shared clock both players already read off the HUD
- * and the accent tone (docs/spec/systems.md 5.3) — rather than a phase of its
- * own, so two Throbs never drift apart and neither device has to store one.
- *
- * `beat.ts` calls this once a beat and stores the answer on the creature
- * (`Creature.throbOpen`); nothing else may ask `world.beat` this question a
- * second time, or a bullet resolved between two calls could read a different
- * answer than the one render/ drew.
- */
-export function throbIsOpen(cfg: SimConfig, beat: number): boolean {
-  return beat % cfg.throbPeriodBeats < cfg.throbOpenBeats;
-}
 
 /**
  * The kind a creature is *drawn* as, which is its own kind for everything but

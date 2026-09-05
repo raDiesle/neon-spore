@@ -220,7 +220,6 @@ describe("the bearing", () => {
       holes: 0,
       petals: 0,
       dragMilli: 0,
-      throbOpen: false,
       shell: NO_SHELL,
     });
     shoot(world, col, vaneColor(vaneOpening(world.waveBeat)));

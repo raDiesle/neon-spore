@@ -35,7 +35,6 @@ function echo(splits = CFG.echoSplits): Creature {
     holes: 0,
     petals: 0,
     dragMilli: 0,
-    throbOpen: false,
     shell: 0,
     echoSplits: splits,
     echoBeat: 0,

@@ -1,4 +1,4 @@
-import { blobPath, livingSilhouette, POD } from "@neon-spore/content";
+import { blobPath, livingPath, livingSilhouette, POD } from "@neon-spore/content";
 import { halo, strokeGlow } from "./glow.js";
 import { PALETTE } from "./palette.js";
 import { type Arena, arenaX, arenaY } from "./snake-draw.js";
@@ -54,9 +54,7 @@ export function drawSnakeEnemy(
   // and the tile the body stands on: no wall clock, no rng, and two bodies on
   // two tiles that are never caught at the same moment of the same breath.
   const t = pulse + (col * 3 + row) * 0.37;
-  const path = new Path2D(
-    blobPath(0, 0, shape.rx, shape.ry, shape.lobes, shape.depth, shape.wobble, t, shape.seed),
-  );
+  const path = new Path2D(livingPath(shape, t));
 
   ctx.save();
   ctx.translate(x, y);

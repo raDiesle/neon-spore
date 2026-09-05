@@ -41,7 +41,6 @@ function recoil(bounces: number, id = 1): Creature {
     holes: 0,
     petals: 0,
     dragMilli: 0,
-    throbOpen: false,
     shell: NO_SHELL,
     recoilBounces: bounces,
   } as Creature;

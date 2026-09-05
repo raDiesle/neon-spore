@@ -98,7 +98,8 @@ never absent — otherwise a hit is arbitrary for the person who took it.
 - ~100 beats/min, every fourth accented, keeps running through pauses
 - Sync window = the same beat, instead of an invisible 250 ms
 - Teleport jumps, the throb and countdown creatures hang off the beat — all
-  three built, the first as THE WISP (`wispDwellBeats`)
+  three built, the first as THE WISP (`wispDwellBeats`), the throb as a turn
+  counted in beats rather than a swell on them (`throbSpinBeats`)
 - **No soundtrack** — only a sparse click track below the speech range, so it
   does not compete with the voice
 - Separate tones for: colour loaded, locked on, manoeuvre succeeded, missed
@@ -308,10 +309,11 @@ two bars and taken the whole argument with it.
 
 Half a beat rather than a whole one, for three reasons that are numbers:
 `fireEveryBeats` is also half a beat, so the grid and the reload gap coincide
-and the rate of fire is unchanged; `throbOpenBeats` is one beat in four, so a
-half-beat grid puts two departures inside every open window where a whole-beat
-grid would leave exactly one; and 625 ms of nothing after a press is a dead
-trigger where 312 ms is anticipation.
+and the rate of fire is unchanged; a throb's coloured half is square to the
+cannon for half of every `throbSpinBeats` turn, so a half-beat grid puts four
+departures inside that window where a whole-beat grid would halve them; and
+625 ms of nothing after a press is a dead trigger where 312 ms is
+anticipation.
 
 What the shot carries is settled at the **press** — its colour, and whether
 it is a lance — so a wind-up cannot show one thing and deliver another. Where

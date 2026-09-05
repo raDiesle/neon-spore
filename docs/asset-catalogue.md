@@ -5,6 +5,15 @@
 > game until it is claimed — its parameters moving into `packages/content` —
 > or cut.
 
+**A construction can be claimed without the body it drew.** THE THROB needed a
+rim whose bearing is legible at forty pixels — the creature turns, and a ball
+cannot show that it is turning — and `clubbed` was the only thing in this
+catalogue that says *ball on a stalk*. So the walk moved to
+`packages/content/src/body-path.ts` and `forms/clubbed.ts` is a card over it,
+while THE POMMEL, the boss-sized body it was written for, stays free. That is
+the same transaction with the units taken apart: what a creature spent was the
+construction, and the tuning it was drawn at is still on the shelf.
+
 THE WARDEN's ring is the first that went that way, and it is worth saying how,
 because until it happened "claimed" was a word on this page rather than a
 thing anybody had done. Its three cards were drafts offered to a boss with a

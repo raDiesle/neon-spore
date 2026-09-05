@@ -1,4 +1,4 @@
-import { blobPath, livingSilhouette } from "@neon-spore/content";
+import { livingPath, livingSilhouette } from "@neon-spore/content";
 import { type Color, type SimEvent, type World, wornKind } from "@neon-spore/sim";
 import {
   contourClock,
@@ -119,20 +119,7 @@ export class RindShedFx {
       const rWas = (rNow * rindPrevBodyMul(c)) / livingBodyMul(c);
       const shape = livingSilhouette(wornKind(c));
       const unit = Math.max(shape.rx, shape.ry) / (shape.sizeMul ?? 1);
-      const path = new Path2D(
-        blobPath(
-          0,
-          0,
-          shape.rx,
-          shape.ry,
-          shape.lobes,
-          shape.depth,
-          shape.wobble,
-          fx.wobble,
-          shape.seed,
-          28,
-        ),
-      );
+      const path = new Path2D(livingPath(shape, fx.wobble, 28));
       const t = fx.age / LIFE;
       drawCrush(ctx, { x, y, path, unit, hex: fx.rim, t }, rWas, rNow);
       drawHusk(ctx, { x, y, path, unit, hex: fx.hex, t }, rWas);

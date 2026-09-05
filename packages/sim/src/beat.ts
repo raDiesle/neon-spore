@@ -2,7 +2,7 @@ import { stepBoss } from "./boss.js";
 import { stepCarom } from "./carom.js";
 import { stepChute } from "./chute.js";
 import { hullRow } from "./config.js";
-import { lureIsSpent, throbIsOpen } from "./creature-rules.js";
+import { lureIsSpent } from "./creature-rules.js";
 import { stepDart } from "./dart.js";
 import { splitEchoes } from "./echo-split.js";
 import { removeCreatures } from "./field.js";
@@ -205,11 +205,11 @@ export function onBeat(world: World): void {
     // the ship's row, a whole tile clear of the hull it was supposed to have
     // hit, so a body was seen to burst in mid-air. Every kind lands now.
     c.row = Math.min(c.row + fall, hullRow(world.cfg));
-    // Decided once a beat, from the beat this creature now stands on, and
-    // stored — bullet-hit.ts and render/ both read it off the creature rather
-    // than asking `throbIsOpen` a second time at a possibly different tick.
-    if (c.kind === "throb") c.throbOpen = throbIsOpen(world.cfg, world.beat);
-    // And the other body whose state is a fixed cycle read off the shared
+    // THE THROB used to be latched here, one boolean a beat. Its clock turns
+    // every tick now and is a pure function of the tick counter, so there is
+    // nothing to store and nothing to keep in step (`throb.ts`).
+    //
+    // The other body whose state is a fixed cycle read off the shared
     // clock: a veil turns over from a slick to a bulb and back on the beats
     // `veilMorphs` names, decided here and nowhere else, so player 1's timer
     // and the colour a shot has to match are two readings of one number.

@@ -1,4 +1,4 @@
-import { blobPath, type CreatureSilhouette } from "@neon-spore/content";
+import { type CreatureSilhouette, livingPath } from "@neon-spore/content";
 import type { Creature } from "@neon-spore/sim";
 import { sinHash } from "./hash.js";
 import type { Layout } from "./layout.js";
@@ -68,18 +68,10 @@ export function lureVented(l: Layout, c: Creature): boolean {
  * contour was drawn with is what keeps the two wobbling as one piece.
  */
 export function lureHolePath(shape: CreatureSilhouette, t: number): string {
-  return blobPath(
-    0,
-    0,
-    shape.rx * HOLE_MUL,
-    shape.ry * HOLE_MUL,
-    shape.lobes,
-    shape.depth,
-    shape.wobble,
-    t,
-    shape.seed,
-    28,
-  );
+  // The body's own contour builder at a smaller radius, not `blobPath` spelled
+  // out: whatever a body is made of, its hole is the same thing scaled — and
+  // the day a lure wears a rim of clubs, this is already right (`livingPath`).
+  return livingPath({ ...shape, rx: shape.rx * HOLE_MUL, ry: shape.ry * HOLE_MUL }, t, 28);
 }
 
 /**

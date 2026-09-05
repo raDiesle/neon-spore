@@ -29,7 +29,7 @@ export type GroupName =
   | "THE GAUGE — a round with no field in it"
   | "SNAKE — a round the ship is the body of"
   | "PINBALL — a table the ship is the bucket of"
-  | "THROB — open for one beat in every few"
+  | "THROB — half a colour, half plating, turning"
   | "THE LURE — a body only one of you can see through"
   | "THE VEIL — a cloud only one of you can see into"
   | "THE WISP — a body only one of you can see at all"
@@ -67,7 +67,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE GAUGE — a round with no field in it",
   "SNAKE — a round the ship is the body of",
   "PINBALL — a table the ship is the bucket of",
-  "THROB — open for one beat in every few",
+  "THROB — half a colour, half plating, turning",
   "THE LURE — a body only one of you can see through",
   "THE VEIL — a cloud only one of you can see into",
   "THE WISP — a body only one of you can see at all",

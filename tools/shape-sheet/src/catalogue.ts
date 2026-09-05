@@ -68,7 +68,7 @@ export interface CatalogueEntry {
 const OWNERS: Record<string, string> = {
   SLICK: "the slick — the flat red one",
   BULB: "the bulb — round and cyan",
-  THROB: "the throb — colourless, swells and shrinks on the shared beat",
+  THROB: "the throb — six clubs on a small core, half of them plated, turning clockwise",
   GHOST: "the ghost — the body only the navigator can see",
   POD: "the pod, which is not a creature",
   METEOR: "every rock tier, and the torch that spans three columns",

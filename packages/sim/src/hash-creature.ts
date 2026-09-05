@@ -48,7 +48,6 @@ export function creatureHashParts(c: Creature): number[] {
   out.push(c.holes);
   out.push(c.petals);
   out.push(c.dragMilli);
-  out.push(c.throbOpen ? 1 : 0);
   // Which pieces of THE SHELL are still on. In for the plainest possible
   // version of the rule above: two devices that disagree about a piece
   // disagree about whether the next shot chips armour or has to carry a

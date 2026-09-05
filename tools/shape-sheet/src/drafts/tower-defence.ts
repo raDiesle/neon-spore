@@ -194,6 +194,6 @@ export const TOWER_DEFENCE_DRAFTS: CatalogueEntry[] = [
     status: "free",
     slot: "boss",
     owner:
-      "nothing carries it: the same Galaxy Defense stage boss THE BURR was converted from, converted a second time because the first one got the rim wrong. THE BURR reads as a sea urchin — `studded` samples one radius per angle, and a club is wider at its tip than at its waist, so the neck is the one part a radius function cannot keep. This is the same body walked instead of sampled, which is the only way this catalogue can draw a ball on a stalk. The two were judged side by side and this is the one that stands; THE BURR is in `retired.ts` with the reason it lost",
+      "nothing carries it: the same Galaxy Defense stage boss THE BURR was converted from, converted a second time because the first one got the rim wrong. THE BURR reads as a sea urchin — `studded` samples one radius per angle, and a club is wider at its tip than at its waist, so the neck is the one part a radius function cannot keep. This is the same body walked instead of sampled, which is the only way this catalogue can draw a ball on a stalk. The two were judged side by side and this is the one that stands; THE BURR is in `retired.ts` with the reason it lost. The **walk** it is drawn with has since been claimed — THE THROB wears six clubs on a small core, so `clubbedPoints` is `packages/content/src/body-path.ts` now and this card reads the same copy. The body is still free: what a creature took was the construction, not this tuning of it",
   },
 ];

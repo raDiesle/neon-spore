@@ -172,3 +172,21 @@ drawn at each of the three `ViewRole`s, with at least one bead shrivelled so
 `drawRaisin` is reached, and once with the thread's last bead spent so the
 sweep has run. `gyre-frame.test.ts` and `veer-frame.test.ts` are the shape to
 copy.
+
+## `packages/content/test/scenes.test.ts` is 435 lines
+
+- **Found:** 2026-09-05, claude/throb-enemy-redesign-nyf0uo
+- **Files:** `packages/content/test/scenes.test.ts`
+
+Past the ~250-line limit by most of a file again, and it has the seam already:
+the first two thirds are **invariants over every scene** — the panel a film may
+press, page ordering, page length, caption length, shared pages, tempo, the
+hull — walked with `for (const id of SCENE_IDS)`, and the last third is
+**named films** checked one at a time, each with its own world and its own
+question (the strip act's held press, and THE THROB's two shots).
+
+Split on that: the sweep stays in `scenes.test.ts`, and the per-film checks go
+to `scene-films.test.ts` beside it. The two halves fail for different reasons —
+one when the scene format changes, the other when a creature's rule does — and
+they will keep being added to at different rates, which is the whole argument
+for the cut.

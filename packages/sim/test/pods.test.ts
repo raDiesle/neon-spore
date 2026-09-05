@@ -232,7 +232,6 @@ describe("what a pod gives", () => {
         holes: 0,
         petals: 0,
         dragMilli: 0,
-        throbOpen: false,
         shell: NO_SHELL,
       },
       {
@@ -245,7 +244,6 @@ describe("what a pod gives", () => {
         holes: 0,
         petals: 0,
         dragMilli: 0,
-        throbOpen: false,
         shell: NO_SHELL,
       },
     );
@@ -288,7 +286,6 @@ describe("what a pod gives", () => {
       holes: 0,
       petals: 0,
       dragMilli: 0,
-      throbOpen: false,
       shell: NO_SHELL,
     });
     const events2: SimEvent[] = [];
@@ -317,7 +314,6 @@ describe("what a pod gives", () => {
       holes: 0,
       petals: 0,
       dragMilli: 0,
-      throbOpen: false,
       shell: NO_SHELL,
     });
     // Two beats, not one: the rock lands on the ship's row and stands there

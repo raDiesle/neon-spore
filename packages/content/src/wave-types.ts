@@ -25,7 +25,7 @@ export interface WaveEntry {
   col: number;
   /**
    * Named here for a kind the colour cannot name on its own. That used to be
-   * one case — a rock, or a kind that carries no colour at all (`throb`) —
+   * one case — a rock, or a kind that carries no colour at all (`wisp`) —
    * and this comment used to say that a kind and a colour never appear
    * together, because naming both would be naming the same thing twice and
    * inviting them to disagree.

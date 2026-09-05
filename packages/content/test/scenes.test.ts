@@ -405,3 +405,34 @@ describe("a strip act aimed at a body", () => {
     expect(scene.world.shieldCol).toBe(2);
   });
 });
+
+/**
+ * THE THROB's film says its rule twice — a shot swallowed and a shot landing —
+ * and neither half is staged: both bolts are the body's own colour, and what
+ * separates them is which half of a turning body they arrive at.
+ *
+ * The scene's two act ticks are chosen against `throbSpinBeats`, and that
+ * choice is written in the file as a comment doing arithmetic (`9 % 4`).
+ * A comment is not a mechanism. Change the turn or the window and one of these
+ * two shots stops meaning what the page over it says, silently, in a film
+ * nobody re-watches once it is written.
+ */
+describe("the rehearsal for THE THROB", () => {
+  it("loses one shot to the plating and lands the next on the colour", () => {
+    const wave = WAVES.findIndex((w) => w.guide?.scene === "theThrob");
+    const run = new SceneRun(sceneScript("theThrob", wave, DEFAULT_CONFIG));
+    const seen: SimEvent[] = [];
+    const spent: SimEvent[] = [];
+    for (let t = 0; t < SCENES.theThrob.ticks - 1; t++) {
+      spent.length = 0;
+      run.advance(spent);
+      seen.push(...spent);
+    }
+    const rejected = seen.findIndex((e) => e.type === "reject");
+    const destroyed = seen.findIndex((e) => e.type === "destroy");
+    expect(rejected, "the first bolt is not refused — the plating is not out").toBeGreaterThan(-1);
+    expect(destroyed, "the second bolt does not land — the colour is not out").toBeGreaterThan(-1);
+    expect(rejected, "the film lands its shot before it loses one").toBeLessThan(destroyed);
+    expect(run.world.creatures).toHaveLength(0);
+  });
+});

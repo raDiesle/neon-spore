@@ -1,5 +1,4 @@
 import { type Beats, beats, livingMotion, livingSilhouette, type Pose } from "@neon-spore/content";
-import { THROB_SWELL } from "@neon-spore/render";
 import { type CreatureKind, DEFAULT_CONFIG } from "@neon-spore/sim";
 import { blob } from "./subjects.js";
 
@@ -149,7 +148,6 @@ export function nameability(kind: CreatureKind, poseAt?: (t: Beats) => Pose): Na
   const shape = livingSilhouette(kind);
   const subject = blob(kind.toUpperCase(), shape);
   const pose = poseAt ?? livingMotion(kind).poseAt;
-  const swells = kind === "throb" ? [THROB_SWELL.shut, THROB_SWELL.open] : [1];
   // The fixed footprint every living body is drawn at, times the one static
   // multiplier content owns: the Runt's `sizeMul`, its whole "tiny".
   const footprint = (REFERENCE_BODY_PX / Math.max(shape.rx, shape.ry)) * (shape.sizeMul ?? 1);
@@ -186,7 +184,7 @@ export function nameability(kind: CreatureKind, poseAt?: (t: Beats) => Pose): Na
       const h = y1 - y0;
       aspects.push(w / h);
       lobes.push(dominantHarmonic(radii));
-      for (const swell of swells) sizes.push(Math.sqrt(w * h) * footprint * swell);
+      sizes.push(Math.sqrt(w * h) * footprint);
     }
   }
 

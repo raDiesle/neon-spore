@@ -112,7 +112,6 @@ export function startWave(
       holes: 0,
       petals: boss.petals,
       dragMilli: 0,
-      throbOpen: false,
       shell: NO_SHELL,
     });
     world.boss = {
@@ -169,7 +168,6 @@ function installWarden(world: World, entry: WardenEntry): void {
     holes: 0,
     petals: 0,
     dragMilli: 0,
-    throbOpen: false,
     shell: NO_SHELL,
   });
   world.boss = {

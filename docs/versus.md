@@ -224,15 +224,19 @@ and so that nothing is recovered from a transcript.
 
 **A — HOLD.** Committed, and what the game draws today. A slow single-axis
 drift and nothing else: `dx: sin(t * 0.6) * 0.04, dy: 0, rot: 0, sx: 1, sy: 1`.
-Deliberately the smallest motion in `own-motion.ts`, so that `throbOpen`'s
-beat-driven swell is the only thing the body is saying.
+Deliberately the smallest motion in `own-motion.ts`, so that the body's own
+gameplay tell is the only thing it is saying.
 
-**B — REST.** Zero own-motion at all. The beat's scale pulse carries the whole
-tell alone.
+**B — REST.** Zero own-motion at all. The tell carries the body alone.
 
-The question between them is whether a body that is *completely* still until
-the beat reads as waiting or as broken. That is an eye's question, and it is
-the one the outstanding check about the Throb's swell is really asking.
+The question between them is whether a body that is *completely* still apart
+from its tell reads as waiting or as broken. That is an eye's question.
+
+**The tell in question has since changed.** The swell both sides were written
+against is gone: a throb is half a colour and half plating now, turning
+clockwise the whole way down (`sim/throb.ts`). The slot is still a live
+question — a drift laid over a turn is a different judgement from a drift laid
+over a pulse — but neither side above has been looked at since.
 
 ### `creature:runt`
 

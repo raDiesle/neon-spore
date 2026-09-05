@@ -17,6 +17,7 @@ import { rindStruck } from "./rind.js";
 import { shellIsBare } from "./shell.js";
 import { shellStruck } from "./shell-round.js";
 import { beadStruck } from "./strand-round.js";
+import { throbStruck } from "./throb.js";
 import { type Bullet, type Creature, isWardable } from "./types.js";
 import { veilStruck } from "./veil.js";
 import { wispStruck } from "./wisp.js";
@@ -117,13 +118,17 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
     return false;
   }
   if (hit.kind === "throb") {
-    resolveThrob(world, b, hit);
+    // Half a coloured body, half plating, turning the whole way down: which
+    // half the shot arrives at is the creature, and it is one rule with the
+    // turn it is read off (`throb.ts`, for `veilStruck`'s reason).
+    throbStruck(world, b, hit);
     return false;
   }
   if (hit.kind === "wisp") {
-    // Either colour, like an open throb: the ammunition was never the
-    // question a wisp asks. Getting a shot to the tile at all is the whole of
-    // it, and the tile came out of somebody's mouth (`wisp.ts`).
+    // Either colour, which nothing else on the field takes any more: the
+    // ammunition was never the question a wisp asks. Getting a shot to the
+    // tile at all is the whole of it, and the tile came out of somebody's
+    // mouth (`wisp.ts`).
     wispStruck(world, b, hit);
     return false;
   }
@@ -140,7 +145,8 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
   // Still shut from the last wrong colour, and shut to *both* — which is the
   // whole of what makes a colour mistake cost something (`colour-armour.ts`).
   // Deliberately not a colour miss: the ammunition was right, the moment was
-  // not, and `resolveThrob` below books the same distinction the same way.
+  // not, and `throbStruck` books the same distinction the same way about the
+  // half of a turning body a shot arrived at.
   if (colourIsArmoured(world, hit)) {
     world.events.push({ type: "reject", col: hit.col, row: hit.row });
     return false;
@@ -212,22 +218,5 @@ function resolveLure(world: World, _b: Bullet, hit: Creature): void {
   const cols = lureBlastCols(world.cfg, hit.col);
   const share = world.cfg.damageLure / cols.length;
   for (const col of cols) breachHull(world, col, hit.kind, hit.row, share, color);
-  removeCreature(world, hit.id);
-}
-
-/**
- * The Throb: swells and shrinks on the shared beat (`throbIsOpen`,
- * creature-rules.ts) rather than carrying a colour. A shot while it is shut
- * is a shot at the wrong *moment* rather than the wrong body — the timing
- * equivalent of a colour miss, and deliberately not scored as one, since the
- * ammunition was never the question. Either colour lands it while it is open.
- */
-function resolveThrob(world: World, b: Bullet, hit: Creature): void {
-  if (!hit.throbOpen) {
-    world.events.push({ type: "reject", col: hit.col, row: hit.row });
-    return;
-  }
-  world.score += world.cfg.scoreThrobHit;
-  world.events.push({ type: "destroy", col: hit.col, row: hit.row, color: b.color });
   removeCreature(world, hit.id);
 }

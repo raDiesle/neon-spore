@@ -1,4 +1,11 @@
 export {
+  type ClubbedRim,
+  clubbedPoints,
+  livingPath,
+  livingPoints,
+  rimCount,
+} from "./body-path.js";
+export {
   type ControlPress,
   controlHeld,
   controlHold,

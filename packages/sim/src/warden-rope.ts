@@ -185,7 +185,6 @@ export function attach(world: World, b: WardenState, body: Creature): void {
     holes: 0,
     petals: 0,
     dragMilli: 0,
-    throbOpen: false,
     shell: NO_SHELL,
   });
   b.tetherId = id;

@@ -1,4 +1,4 @@
-import { blobPath, livingSilhouette } from "@neon-spore/content";
+import { livingPath, livingSilhouette } from "@neon-spore/content";
 import type { Color, CreatureKind, SimEvent } from "@neon-spore/sim";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -138,20 +138,6 @@ function drawCore(ctx: CanvasRenderingContext2D, t: Tear, k: number): void {
   ctx.scale(scale * (1 + k * 0.25), scale * (1 + k * 0.25));
   ctx.globalAlpha = a;
   ctx.fillStyle = t.hex;
-  ctx.fill(
-    new Path2D(
-      blobPath(
-        0,
-        0,
-        shape.rx,
-        shape.ry,
-        shape.lobes,
-        shape.depth,
-        shape.wobble,
-        t.seed,
-        shape.seed,
-      ),
-    ),
-  );
+  ctx.fill(new Path2D(livingPath(shape, t.seed)));
   ctx.restore();
 }

@@ -55,7 +55,7 @@ export {
   type SimConfig,
   ticksPerBeat,
 } from "./config.js";
-export { lureVanishRow, throbIsOpen, wornKind } from "./creature-rules.js";
+export { lureVanishRow, wornKind } from "./creature-rules.js";
 export {
   DART_COLS,
   DART_ROWS,
@@ -157,6 +157,13 @@ export {
   strandFalls,
   strandSpan,
 } from "./strand-shape.js";
+export {
+  THROB_TURN_MILLI,
+  throbBeats,
+  throbFaces,
+  throbFacing,
+  throbTurnMilli,
+} from "./throb.js";
 export type {
   Bullet,
   Color,

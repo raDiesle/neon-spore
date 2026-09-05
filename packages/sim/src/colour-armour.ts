@@ -22,9 +22,10 @@ import type { World } from "./world.js";
  * moment where the pair has to say the colour again rather than louder.
  *
  * **A shot into the window is not a colour mistake and is not booked as one.**
- * `resolveThrob` makes the same argument next door about the same distinction:
+ * `throbStruck` makes the same argument next door about the same distinction:
  * getting the ammunition wrong is the navigator's, and firing at the wrong
- * *moment* is nobody's in particular. Charging the second one to the colour
+ * *moment* — the half-turn where a throb has its plating out — is nobody's in
+ * particular. Charging the second one to the colour
  * balance would read one mistake to the wrong player twice.
  *
  * Its own file, and three functions rather than a comparison written wherever

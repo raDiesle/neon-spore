@@ -44,6 +44,14 @@ export const PALETTE = {
    */
   claspShield: "#43C455",
   claspShieldRim: "#B6F5C0",
+  /**
+   * The same green with the light off it: THE THROB's armoured half, filled
+   * the way `redDark` and `cyanDark` fill a body of their own colour. A deep
+   * swatch rather than an alpha over the background, for the reason
+   * `docs/alive.md` gives about gradients — a fill that reaches the background
+   * opens a hole in a silhouette, and half a silhouette is a different word.
+   */
+  claspShieldDeep: "#16401F",
   goodRim: "#C7FFE4",
   /**
    * The wet film around an eye — THE LID's and THE WARDEN's — and the **third**

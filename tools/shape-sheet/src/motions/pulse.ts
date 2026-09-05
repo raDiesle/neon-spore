@@ -16,13 +16,13 @@ import { pose } from "./pose.js";
  * `stroke` below is that argument written once.
  *
  * **This is a card and it is not a promise about creatures.** Every motion
- * here is beat-synchronous scale change, and `docs/alive.md` gives the throb a
- * monopoly on exactly that: `throbOpen` is a gameplay signal telling the pair
- * when to fire, so no other body may express the beat in size. That rule is
- * about the field and this is a catalogue page — nothing votes a spare motion
- * into a wave, and nothing here weakens it. What a shipped version would clear
- * first is that monopoly: on a body carrying ammunition colour at 26 px, a
- * swell on the beat is a fire cue whether or not it was meant as one.
+ * here is beat-synchronous scale change, and `docs/alive.md` gave the throb a
+ * monopoly on exactly that while its swell was the signal telling the pair
+ * when to fire. The throb turns now instead (`sim/throb.ts`), so nothing on
+ * the field expresses the beat in size and the monopoly is vacant rather than
+ * lifted. What a shipped version would still have to answer is the reason
+ * behind it: on a body carrying ammunition colour at 26 px, a swell on the
+ * beat is a fire cue whether or not it was meant as one.
  *
  * Time is beats, like everywhere `poseAt` is called, so the whole page pulses
  * on one clock and the three can be told apart by rhythm alone.
