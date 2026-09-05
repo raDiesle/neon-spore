@@ -1,6 +1,7 @@
 import type { MirrorStep } from "@neon-spore/sim";
 import { drawActionButton, drawFireButton, drawStripMark } from "./controls.js";
 import { PALETTE } from "./palette.js";
+import type { SeatSkin } from "./seat-skin.js";
 
 /**
  * One control, drawn small enough to sit in a row of six.
@@ -10,6 +11,13 @@ import { PALETTE } from "./palette.js";
  * control: the pair has to see a step and press the thing it shows without
  * translating, and a sequence drawn in its own private vocabulary is a second
  * thing to learn on top of the sequence.
+ *
+ * **Which is why the seat comes down here too.** Every body a control is made
+ * of is the seat's own flesh — violet on player one's screen, amber on player
+ * two's (`seat-skin.ts`) — so a glyph drawn in player one's tissue on player
+ * two's panel stops looking like the button it is about. The signal colours do
+ * not move: red is red, the shield's is the shield's and the cannon's rail is
+ * the cannon's, because those say *which control* on both screens.
  */
 
 /** The colour a step reads in — the same one its control has in the band. */
@@ -76,6 +84,7 @@ export function drawStepGlyph(
   r: number,
   step: MirrorStep,
   alpha: number,
+  skin: SeatSkin,
 ): void {
   if (alpha <= 0) return;
   ctx.save();
@@ -83,22 +92,22 @@ export function drawStepGlyph(
 
   switch (step) {
     case "fireRed":
-      drawFireButton(ctx, x, y, r, "red");
+      drawFireButton(ctx, x, y, r, "red", skin);
       break;
     case "fireCyan":
-      drawFireButton(ctx, x, y, r, "cyan");
+      drawFireButton(ctx, x, y, r, "cyan", skin);
       break;
     case "guard":
       // Lit, because a sequence shows the control being *used*, not resting.
-      drawActionButton(ctx, x, y, r, true, PALETTE.shield, "#08131A", null);
+      drawActionButton(ctx, x, y, r, true, PALETTE.shield, "#08131A", null, skin.dead[0]);
       break;
     case "intake":
-      drawActionButton(ctx, x, y, r, true, PALETTE.pod, "#2C1C05", null);
+      drawActionButton(ctx, x, y, r, true, PALETTE.pod, "#2C1C05", null, skin.dead[0]);
       break;
     default: {
       const dir = step === "cannonLeft" ? -1 : 1;
       // The cannon's own strip, with its block shifted the way it travelled.
-      drawStripMark(ctx, x + dir * r * 0.2, y, r * 0.62, r * 0.7, PALETTE.hull);
+      drawStripMark(ctx, x + dir * r * 0.2, y, r * 0.62, r * 0.7, PALETTE.hull, skin.dead[0]);
       cannonArrow(ctx, x, y, r, dir);
       break;
     }

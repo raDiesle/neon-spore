@@ -149,28 +149,6 @@ shield answering it, the body climbing away with one plate fewer, and the shell
 bursting in mid-air over a body the cannon then takes. The rehearsal walk in
 `packages/content/test/` picks it up on its own once it is named.
 
-## THE MIRROR's glyphs draw player one's tissue on player two's screen
-
-- **Found:** 2026-09-04, claude/ship-graphics-p2-colors-616a16
-- **Taken:** 2026-09-05, claude/queue-the-mirrors-glyphs-draw-player-ones-tissue-on-pl
-- **Files:** `packages/render/src/simon-glyph.ts`, `packages/render/src/simon-row.ts`, `packages/render/src/simon-verdict.ts`, `packages/render/src/controls.ts`
-
-Every body a control is made of is the seat's colour now — violet on player
-one's screen and gold on player two's — and `drawFireButton`, `drawActionButton`
-and `drawStripMark` all take that colour as an argument with `P1_SKIN`'s as the
-default. `band-control.ts` passes the seat's; THE MIRROR's sequence does not, so
-the glyphs the boss plays back are drawn in player one's flesh on both devices
-while the panel underneath them is gold. The pair is supposed to recognise a
-glyph as the button it is about, and on player two's seat it no longer looks
-like one.
-
-Thread the seat down to them. `drawStepGlyph` needs a `SeatSkin`; `simon-row.ts`
-already carries a `Layout` at every call site above `known`, and
-`SimonVerdict.drawFlights` does not — give it one, the same way `drawWord` next
-to it already takes one. Then `seatSkin(l.role)` at the top of each and pass it
-through. Nothing about which glyph is drawn moves; `packages/render/test/mirror-frame.test.ts`
-covers the sequence and should stay green.
-
 ## `tools/frames`' browser tests fail intermittently under a full `bun run check`
 
 - **Found:** 2026-09-04, claude/air-above-the-ship-seat-tint

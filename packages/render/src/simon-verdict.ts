@@ -3,6 +3,7 @@ import { smoothstep } from "./ease.js";
 import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { seatSkin } from "./seat-skin.js";
 import { drawStepGlyph } from "./simon-glyph.js";
 
 /**
@@ -134,9 +135,16 @@ export class VerdictFx {
     ctx.restore();
   }
 
-  /** The glyphs on their way in, and the mark each one leaves when it lands. */
-  drawFlights(ctx: CanvasRenderingContext2D): void {
+  /**
+   * The glyphs on their way in, and the mark each one leaves when it lands.
+   *
+   * It takes a `Layout` for the seat alone — a glyph is drawn in the flesh of
+   * the panel it belongs to, and this was the one caller with no `Layout` to
+   * read that off. `drawEdges` and `drawWord` beside it already had one.
+   */
+  drawFlights(ctx: CanvasRenderingContext2D, l: Layout): void {
     if (this.left <= 0) return;
+    const skin = seatSkin(l.role);
     for (const [i, f] of this.flights.entries()) {
       const t = this.elapsed - i * STAGGER;
       if (t <= 0) continue;
@@ -145,7 +153,7 @@ export class VerdictFx {
 
       if (p < 1) {
         // Still travelling: it grows a little as it gathers speed.
-        drawStepGlyph(ctx, f.x, y, f.r * (1 + p * 0.25), f.step, 1);
+        drawStepGlyph(ctx, f.x, y, f.r * (1 + p * 0.25), f.step, 1, skin);
         continue;
       }
       // Landed. A flash in the verdict's own colour, fading where it hit.
@@ -156,7 +164,7 @@ export class VerdictFx {
       ctx.globalAlpha = a;
       halo(ctx, f.x, this.toY, f.r * (1.6 + after * 2.4), this.hex, 0.8);
       ctx.restore();
-      drawStepGlyph(ctx, f.x, this.toY, f.r * (1.25 - after * 0.5), f.step, a);
+      drawStepGlyph(ctx, f.x, this.toY, f.r * (1.25 - after * 0.5), f.step, a, skin);
     }
   }
 

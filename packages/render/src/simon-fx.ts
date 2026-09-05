@@ -175,7 +175,7 @@ export class MirrorFx {
     }
 
     this.verdict.drawEdges(ctx, l);
-    this.verdict.drawFlights(ctx);
+    this.verdict.drawFlights(ctx, l);
     this.verdict.drawWord(ctx, l);
   }
 

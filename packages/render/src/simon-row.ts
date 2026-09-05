@@ -2,6 +2,7 @@ import { type MirrorStep, mirrorListenBeats } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { type SeatSkin, seatSkin } from "./seat-skin.js";
 import { drawStepGlyph, stepHex, stepShort } from "./simon-glyph.js";
 
 /**
@@ -95,9 +96,10 @@ function known(
   alpha: number,
   ring: string,
   weight: number,
+  skin: SeatSkin,
 ): void {
   plate(ctx, x, y, r, ring, weight, alpha * 0.6);
-  drawStepGlyph(ctx, x, y, r, step, alpha);
+  drawStepGlyph(ctx, x, y, r, step, alpha, skin);
   ctx.save();
   ctx.globalAlpha = alpha;
   ctx.textAlign = "center";
@@ -120,6 +122,7 @@ export function drawShowRow(
   shown: number,
 ): void {
   const { x0, gap, r } = rowSlots(l, steps.length);
+  const skin = seatSkin(l.role);
   for (const [i, step] of steps.entries()) {
     const x = x0 + i * gap;
     if (i >= shown) {
@@ -127,7 +130,7 @@ export function drawShowRow(
       continue;
     }
     const fresh = i === shown - 1;
-    known(ctx, x, y, r, step, fresh ? 1 : 0.45, stepHex(step), fresh ? 2 : 1);
+    known(ctx, x, y, r, step, fresh ? 1 : 0.45, stepHex(step), fresh ? 2 : 1, skin);
   }
 }
 
@@ -147,6 +150,7 @@ export function drawListenRow(
   flash: number,
 ): void {
   const { x0, gap, r } = rowSlots(l, steps.length);
+  const skin = seatSkin(l.role);
   for (const [i, step] of steps.entries()) {
     const x = x0 + i * gap;
     if (i >= matched) {
@@ -156,7 +160,7 @@ export function drawListenRow(
     const newest = i === matched - 1 && flash > 0;
     const pop = newest ? flash / ANSWER_FLASH : 0;
     if (pop > 0) halo(ctx, x, y, r * (1.6 + pop * 1.8), PALETTE.good, 0.8 * pop);
-    known(ctx, x, y, r * (1 + pop * 0.18), step, 1, PALETTE.good, 2 + pop * 2);
+    known(ctx, x, y, r * (1 + pop * 0.18), step, 1, PALETTE.good, 2 + pop * 2, skin);
   }
 }
 

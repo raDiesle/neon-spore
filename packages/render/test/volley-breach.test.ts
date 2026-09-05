@@ -31,7 +31,7 @@ function scarOf(kind: Scar["kind"], col = 4): Scar {
 }
 
 function breachOf(kind: Scar["kind"]): Extract<SimEvent, { type: "breach" }> {
-  return { type: "breach", col: 4, kind, span: 1, beat: 3, fromRow: CFG.rows - 3 };
+  return { type: "breach", col: 4, kind, span: 1, beat: 3, fromRow: CFG.rows - 3, damage: 1 };
 }
 
 describe("a volley's breach", () => {
@@ -43,7 +43,7 @@ describe("a volley's breach", () => {
 
   it("holds its crack back until the rock has visibly arrived", () => {
     const { ctx } = stubCanvas();
-    const surfaceAt = () => ({ x: 0, y: L.hullY });
+    const surfaceAt = (_x: number) => ({ x: 0, y: L.hullY });
     let drawn = 0;
     const counted = (x: number) => {
       drawn += 1;

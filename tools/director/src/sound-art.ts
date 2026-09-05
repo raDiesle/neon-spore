@@ -8,7 +8,7 @@
  * picture for something the game already knows how to draw.
  */
 
-import { drawStepGlyph, stepHex } from "@neon-spore/render";
+import { drawStepGlyph, P1_SKIN, stepHex } from "@neon-spore/render";
 import { hasSilhouette, silhouette } from "./silhouette.js";
 import type { Subject } from "./sound-link.js";
 
@@ -25,7 +25,10 @@ function glyph(subject: Extract<Subject, { kind: "control" }>): HTMLCanvasElemen
   const ctx = canvas.getContext("2d");
   if (ctx) {
     ctx.scale(dpr, dpr);
-    drawStepGlyph(ctx, BOX / 2, BOX / 2, BOX * 0.4, subject.step, 1);
+    // No seat here — a sound-art thumbnail belongs to neither screen — so
+    // player one's flesh, named rather than left to a default that would let
+    // the panel and its glyphs disagree again.
+    drawStepGlyph(ctx, BOX / 2, BOX / 2, BOX * 0.4, subject.step, 1, P1_SKIN);
   }
   return canvas;
 }
