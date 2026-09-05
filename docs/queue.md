@@ -96,6 +96,27 @@ entry that already has one is refused rather than overwritten.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
+## `bun run push` hides why the push was refused
+
+- **Found:** 2026-09-05, claude/eye-eyelid-shape-194988
+- **Files:** `tools/land/push.ts`, `tools/land/test/`
+
+The catch prints `error.message.split("
+")[0]`, and git's first line on a
+refused push is the remote URL — so a session that has just landed is told
+`✗ origin was not updated: To https://github.com/…` and nothing else. The
+reason lives on the following lines (`! [rejected] main -> main
+(non-fast-forward)`, plus the hint), and a session with no reason in hand has
+to re-run the push by hand to find out, which the repository's own guard hook
+refuses. This happened on the eyelid landing: local `main` was 19 ahead and 36
+behind `origin/main`, and the output said none of that.
+
+Print the whole of git's stderr, or at minimum the first line that is not the
+`To <url>` banner, and say how the trunk stands — `origin/main` is ahead by N,
+so the trunk has to be reconciled before it can be sent. `push.ts` already
+fetches and counts `ahead`; counting `behind` beside it is one more
+`rev-list --count` and turns a dead end into an instruction.
+
 ## `bun run frames` cannot magnify the thing it photographed
 
 - **Found:** 2026-09-05, claude/eye-eyelid-shape-194988
