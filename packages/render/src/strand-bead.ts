@@ -1,10 +1,11 @@
 import { blobPath } from "@neon-spore/content";
 import type { Creature, SimConfig } from "@neon-spore/sim";
-import { contourClock } from "./creature-place.js";
+import { contourClock, creatureCenter } from "./creature-place.js";
 import { colorTrio } from "./creature-tint.js";
-import { hazed } from "./depth.js";
+import { drawnRow, hazed, nearness } from "./depth.js";
 import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
+import type { LivingFrame } from "./living-frame.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawReelStatic, REEL_JUMP, reelAt } from "./strand-reel.js";
 
@@ -103,6 +104,8 @@ export interface Bead {
   x: number;
   y: number;
   time: number;
+  /** Where the beat stands this frame, for the placement `reelFrame` reads. */
+  beatPhase: number;
   near: number;
 }
 
@@ -123,33 +126,67 @@ export interface StrandLook {
  * bodies it could be, in a colour that is neither.
  */
 export function drawReelBead(b: Bead): void {
-  const { ctx, l, cfg, c, x, time, near } = b;
+  const { ctx, l, cfg, c, time, near } = b;
   const haze = (h: string): string => hazed(cfg, h, near);
-  const r = l.tile * 0.4 * REEL_MUL;
-  const { shape, color, flat, face } = reelAt(c.id, time);
+  const f = reelFrame(l, c, b.beatPhase, time);
+  const { color, flat } = reelAt(c.id, time);
   // The face's own colour, not the bead's: a red slick, then a cyan bulb, and
   // never a hint of which of the two this body really is (`strand-reel.ts`).
   const tint = colorTrio(color);
-  // The vertical hold letting go: the picture sits a little high, a little
-  // low, or where it should, and which of the three changes at every swap.
-  const y = b.y + ((face % 3) - 1) * REEL_JUMP * l.tile;
-  const t = contourClock(c.id, time);
-  // The contour's own proportions, squashed toward the axis it rolls about.
-  // A floor under the flatness so the body never disappears entirely: a bead
-  // that vanishes for a frame is a bead the pair loses count of.
-  const ky = 0.12 + 0.88 * flat;
-  const rx = (r * shape.rx) / Math.max(shape.rx, shape.ry);
-  const ry = (r * shape.ry * ky) / Math.max(shape.rx, shape.ry);
+  const rx = f.scale * f.shape.rx;
+  const ry = f.scale * f.shape.ry * f.squash.sy;
   const body = new Path2D(
-    blobPath(x, y, rx, ry, shape.lobes, shape.depth, shape.wobble, t, shape.seed),
+    blobPath(f.x, f.y, rx, ry, f.shape.lobes, f.shape.depth, f.shape.wobble, f.t, f.shape.seed),
   );
   ctx.fillStyle = haze(tint.dark);
   ctx.fill(body);
   strokeGlow(ctx, body, haze(tint.hex), STROKE.outline);
-  drawReelStatic(ctx, body, c.id, time, rx, ry, x, y, haze(tint.rim));
+  drawReelStatic(ctx, body, c.id, time, rx, ry, f.x, f.y, haze(tint.rim));
   // A rim of light that swells as the reel comes flat, so the swap reads as
   // the body catching the light on its edge rather than as a shape blinking.
-  halo(ctx, x, y, r * 1.8, haze(tint.rim), 0.1 + 0.18 * (1 - flat));
+  halo(ctx, f.x, f.y, f.r * 1.8, haze(tint.rim), 0.1 + 0.18 * (1 - flat));
+}
+
+/**
+ * Where the reel is standing this frame, in the same shape `living-frame.ts`
+ * hands out for an ordinary body: a silhouette, a centre, a scale into its
+ * local units and the squash the roll is at.
+ *
+ * It exists because the **plating** has to fit whatever body this screen is
+ * actually drawing (`strand-armour.ts`), and on the navigator's screen that is
+ * this — a shape rolling between a slick and a bulb, flattening through zero
+ * and jumping a little at each swap. A cage that read the real body's
+ * silhouette here would be a cage that named the colour, which is the one
+ * thing this screen may never do.
+ */
+export function reelFrame(l: Layout, c: Creature, beatPhase: number, time: number): ReelFrame {
+  const { shape, flat, face } = reelAt(c.id, time);
+  const { x, y } = creatureCenter(l, c, beatPhase);
+  const row = drawnRow(c, beatPhase);
+  const r = l.tile * 0.4 * REEL_MUL;
+  // The contour's own proportions, squashed toward the axis it rolls about.
+  // A floor under the flatness so the body never disappears entirely: a bead
+  // that vanishes for a frame is a bead the pair loses count of.
+  const sy = 0.12 + 0.88 * flat;
+  return {
+    shape,
+    x,
+    // The vertical hold letting go: the picture sits a little high, a little
+    // low, or where it should, and which of the three changes at every swap.
+    y: y + ((face % 3) - 1) * REEL_JUMP * l.tile,
+    near: nearness(l, row),
+    r,
+    scale: r / Math.max(shape.rx, shape.ry),
+    squash: { sx: 1, sy },
+    t: contourClock(c.id, time),
+  };
+}
+
+/** The reel's placement, in `living-frame.ts`'s own shape plus the squash the
+ * roll is at — an ordinary body has that in its own-motion and this one has it
+ * in the reel. */
+export interface ReelFrame extends LivingFrame {
+  squash: { sx: number; sy: number };
 }
 
 /** The shipped answer. `creature-body.ts` reads this record on every frame, so

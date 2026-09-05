@@ -1,11 +1,16 @@
 import { beadIsActive, beadIsSpent, type Creature, type World } from "@neon-spore/sim";
-import { creatureCenter } from "./creature-place.js";
-import { depthScale, drawnRow, hazed, nearness } from "./depth.js";
+import { hazed } from "./depth.js";
 import type { Layout } from "./layout.js";
-import { PALETTE } from "./palette.js";
+import { applyLivingFrame, livingFrame } from "./living-frame.js";
+import { PLATE, PLATE_RIM } from "./shell-plate.js";
+import { showsBeadColor, showsBeadMark } from "./strand.js";
+import { reelFrame } from "./strand-bead.js";
+import { hoppedEnd } from "./strand-mark.js";
+import { edgePath, platesPath } from "./strand-plate.js";
+import { strandThreads } from "./strand-thread.js";
 
 /**
- * THE STRAND's armour: the cage around every bead a shot **cannot** answer
+ * THE STRAND's armour: the plating around every bead a shot **cannot** answer
  * this instant.
  *
  * **The defect it repairs.** A thread of five live bodies is five bodies that
@@ -16,12 +21,27 @@ import { PALETTE } from "./palette.js";
  * *this one* was never going to be enough on its own; what the field needed
  * was a mark saying *not these*.
  *
- * **Grey, and grey is a word the pair already has.** `PALETTE.rock` is the
- * meteor's colour, and a meteor is the one thing on this field the cannon has
- * nothing to say to. So plating in the rock's own grey says "shots do nothing
- * here" in the vocabulary the pair learned in the first act, without borrowing
- * THE CLASP's membrane — which would say *ward it*, and warding does nothing
- * to a bead.
+ * **It is a second border around the body's own, and that is the owner's
+ * instruction.** The first two versions of this were a circle around the bead
+ * — six arcs on a ring, then six plates on a band — and a ring around a slick
+ * is a ring around a *tile*, not armour on an animal: it sat at the same
+ * radius whether the body under it was a wide flat slick or a round bulb, and
+ * it read as a helper drawn on the field rather than as something the creature
+ * is wearing. So the plating is cut from the **body's own contour**, the way
+ * THE SHELL's is (`shell-plate.ts`): the slick keeps its outline and gains a
+ * second, harder one a little outside it, and the bulb gains its own. Two
+ * borders on one shape, the second one plainly not alive.
+ *
+ * It is drawn **after** the bodies rather than before them, for the same
+ * reason THE SHELL's plating is: an outline laid over the body's own is a
+ * statement about the body, and one drawn underneath comes back out through
+ * the glow passes as a smudge.
+ *
+ * **Grey, and grey is a word the pair already has.** `PLATE` and `PLATE_RIM`
+ * are THE SHELL's own two greys, borrowed rather than re-picked: hard armour
+ * in this game is already that dark face with that bright rock edge, and a
+ * pair who have met a shell read this as armour before they have read it as
+ * anything else.
  *
  * **What is locked is not the same on the two screens, and that is the whole
  * split drawn instead of said.** On the navigator's, exactly one bead is bare
@@ -38,38 +58,12 @@ import { PALETTE } from "./palette.js";
  * rolled again after every shot (`lightStrandEnd`).
  */
 
-/** Plates in the ring, and the share of each one's slot left as a gap. Six is
- * enough to read as segmented at the size a phone draws a body and few enough
- * that each plate is a plate rather than a tick. */
-const PLATES = 6;
-const GAP = 0.24;
-
-/** How far the ring stands off the body's own drawn radius, inner edge and
- * outer. Both are outside the contour at every size, so a cage never hides the
- * shape it is holding — the pilot still has to read a slick from a bulb through
- * it — and the band between them is what makes a plate a plate.
- *
- * **The first version of this was a line and it did not read as armour.** Six
- * thin arcs at one radius are a dashed circle, which on a field of glowing
- * bodies is a halo somebody drew badly. A plate has a thickness, a dark face
- * and a lit edge, and it is those three that say *this is plating* from across
- * a phone held at arm's length.
- */
-const RING_IN = 1.34;
-const RING_OUT = 1.62;
-
-/** The rivet on each plate: where it sits across the band and how big it is,
- * as a share of the plate's own thickness. Small, and there is one per plate —
- * a plate with a fixing on it is a made thing rather than a shape. */
-const RIVET_AT = 0.5;
-const RIVET_R = 0.16;
-
 /** How heavily a plate is outlined and how brightly its outer edge is lit,
- * both as shares of the band's thickness with a pixel floor under them — a
- * rim thinner than a line is a line. */
-const RIM_WIDTH = 0.16;
-const EDGE_WIDTH = 0.3;
-const EDGE_ALPHA = 0.55;
+ * both as shares of the body's own drawn radius — a rim thinner than a line is
+ * a line, so a pixel floor sits under each. */
+const RIM_WIDTH = 0.05;
+const EDGE_WIDTH = 0.09;
+const EDGE_ALPHA = 0.6;
 
 /**
  * The beads this screen must show as unanswerable: every live one that a shot
@@ -94,14 +88,47 @@ export function lockedBeads(
 }
 
 /**
- * The cage around one bead: six curved plates in the rock's grey, standing off
- * the body far enough that the shape inside is still the shape the pair names.
+ * Every caged bead on the field, plated.
  *
- * Each plate is a band rather than an arc — a dark face in `rockDark`, a rim
- * in `rock` around the whole of it, a brighter arc along its outer edge where
- * the light would catch, and one rivet in the middle of it. Four strokes on a
- * closed path rather than one stroke on an open one, and the difference is
- * that this one is plating and the other one was a dotted circle.
+ * Called from `frame-field.ts` after `drawCreatures`, beside THE SHELL's own
+ * plating pass and for its reasons. Which beads are caged is worked out here
+ * rather than handed over from the thread pass, and the hop it depends on is
+ * `hoppedEnd` — one exported function of the wall clock, called twice with the
+ * same `time` — so the bead this leaves open and the bead the pilot's frame is
+ * over are the same bead by construction rather than by agreement.
+ */
+export function drawStrandArmour(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  world: World,
+  beatPhase: number,
+  time: number,
+): void {
+  const showsMark = showsBeadMark(l);
+  for (const on of strandThreads(world)) {
+    const guess = showsMark
+      ? null
+      : hoppedEnd(
+          on.filter((c) => !beadIsSpent(c)),
+          time,
+        );
+    for (const c of lockedBeads(showsMark, world, on, guess)) {
+      drawBeadArmour(ctx, l, world, c, beatPhase, time);
+    }
+  }
+}
+
+/**
+ * The cage on one bead: six curved plates cut from the body's own contour and
+ * standing just outside it.
+ *
+ * The two screens draw two different bodies under this — the pilot's real
+ * slick or bulb, the navigator's reel rolling between the pair of them — so
+ * the plating is cut to whichever of those this screen has, and on the
+ * navigator's it flattens and jumps with the reel. Same armour, same grey,
+ * fitted to what is actually there: a cage that ignored the reel would be the
+ * one thing on that screen holding still, which is a tell about a body that is
+ * supposed to be unreadable.
  */
 export function drawBeadArmour(
   ctx: CanvasRenderingContext2D,
@@ -109,48 +136,32 @@ export function drawBeadArmour(
   world: World,
   c: Creature,
   beatPhase: number,
+  time: number,
 ): void {
-  const { x, y } = creatureCenter(l, c, beatPhase);
-  const row = drawnRow(c, beatPhase);
-  const k = depthScale(world.cfg, l, row);
-  const near = nearness(l, row);
-  const rIn = l.tile * 0.4 * RING_IN * k;
-  const rOut = l.tile * 0.4 * RING_OUT * k;
-  const band = rOut - rIn;
-  const step = (Math.PI * 2) / PLATES;
-  const span = step * (1 - GAP);
-
-  const face = new Path2D();
-  const edge = new Path2D();
-  const rivets = new Path2D();
-  for (let i = 0; i < PLATES; i++) {
-    // One plate centred at the foot of the body, so a cage never reads as
-    // hanging off the thread by a corner.
-    const from = Math.PI / 2 + i * step - span / 2;
-    const to = from + span;
-    face.moveTo(x + Math.cos(from) * rIn, y + Math.sin(from) * rIn);
-    face.arc(x, y, rIn, from, to);
-    face.arc(x, y, rOut, to, from, true);
-    face.closePath();
-    edge.moveTo(x + Math.cos(from) * rOut, y + Math.sin(from) * rOut);
-    edge.arc(x, y, rOut, from, to);
-    const mid = (from + to) / 2;
-    const rMid = rIn + band * RIVET_AT;
-    const rivet = band * RIVET_R;
-    rivets.moveTo(x + Math.cos(mid) * rMid + rivet, y + Math.sin(mid) * rMid);
-    rivets.arc(x + Math.cos(mid) * rMid, y + Math.sin(mid) * rMid, rivet, 0, Math.PI * 2);
+  const beats = world.beat + beatPhase;
+  const reel = showsBeadColor(l) ? null : reelFrame(l, c, beatPhase, time);
+  const f = reel ?? livingFrame(l, c, beatPhase, time);
+  ctx.save();
+  if (reel) {
+    ctx.translate(reel.x, reel.y);
+    ctx.scale(reel.scale * reel.squash.sx, reel.scale * reel.squash.sy);
+  } else {
+    applyLivingFrame(ctx, l, world.cfg, c, f, beats, beatPhase);
   }
-
-  ctx.fillStyle = hazed(world.cfg, PALETTE.rockDark, near);
-  ctx.fill(face);
-  const rim = hazed(world.cfg, PALETTE.rock, near);
+  const lw = (h: number): number => Math.max(1, f.r * h) / f.scale;
+  const plates = platesPath(f.shape, f.t);
+  ctx.fillStyle = hazed(world.cfg, PLATE, f.near);
+  ctx.fill(plates);
+  const rim = hazed(world.cfg, PLATE_RIM, f.near);
   ctx.strokeStyle = rim;
-  ctx.lineWidth = Math.max(1, band * RIM_WIDTH);
-  ctx.stroke(face);
-  ctx.fillStyle = rim;
-  ctx.fill(rivets);
+  ctx.lineWidth = lw(RIM_WIDTH);
+  ctx.stroke(plates);
+  // And the light along the outer edge only, which is where it would catch on
+  // a hard thing. Its own pass rather than a heavier rim, so the plating reads
+  // as facing the sky rather than as being outlined twice.
   ctx.globalAlpha = EDGE_ALPHA;
-  ctx.lineWidth = Math.max(1, band * EDGE_WIDTH);
-  ctx.stroke(edge);
+  ctx.lineWidth = lw(EDGE_WIDTH);
+  ctx.stroke(edgePath(f.shape, f.t));
   ctx.globalAlpha = 1;
+  ctx.restore();
 }

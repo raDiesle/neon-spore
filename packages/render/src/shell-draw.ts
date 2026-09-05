@@ -1,4 +1,3 @@
-import { livingMotion, livingSilhouette, poseClock } from "@neon-spore/content";
 import {
   type Creature,
   SHELL_COLS,
@@ -6,11 +5,10 @@ import {
   shellHasPiece,
   shellIsBare,
   type World,
-  wornKind,
 } from "@neon-spore/sim";
-import { contourClock, creatureCenter } from "./creature-place.js";
-import { depthScale, drawnRow, hazed, nearness } from "./depth.js";
+import { hazed } from "./depth.js";
 import type { Layout } from "./layout.js";
+import { applyLivingFrame, livingFrame } from "./living-frame.js";
 import { PALETTE } from "./palette.js";
 import { crackSeed, drawBareRim, drawPlate, PLATE, PLATE_RIM } from "./shell-plate.js";
 
@@ -80,25 +78,12 @@ function drawOne(
   // The body inside the plating, and therefore the contour the plating hugs.
   // `wornKind`, never `c.kind`: a Shell-Slick and a Shell-Bulb wear the same
   // armour over two different shapes, and a plate cut to a shape the body is
-  // not would sit off it on one of the two.
-  const look = wornKind(c);
-  const shape = livingSilhouette(look);
-
-  // Exactly the transform `drawLiving` (creatures.ts) applies to this same
-  // creature: the depth envelope about the body's own centre, then the
-  // own-motion translate/rotate/scale. Built from the same exported
-  // primitives it calls, not re-derived, so the plating cannot drift from the
+  // not would sit off it on one of the two. The placement is `living-frame.ts`
+  // — the one copy of what `drawLiving` does to this same creature on this
+  // same frame, shared with THE STRAND's plating so neither can drift off the
   // body it is supposed to sit on.
-  const { x, y } = creatureCenter(l, c, beatPhase);
-  const row = drawnRow(c, beatPhase);
-  const k = depthScale(cfg, l, row);
-  const near = nearness(l, row);
-  const t = contourClock(c.id, time);
-  const pose = livingMotion(look).poseAt(poseClock(c.id, beats));
-  const ox = pose.dx * l.tile;
-  const oy = pose.dy * l.tile;
-  const r = l.tile * 0.4;
-  const scale = (r / Math.max(shape.rx, shape.ry)) * (shape.sizeMul ?? 1);
+  const f = livingFrame(l, c, beatPhase, time);
+  const { shape, near, r, scale, t } = f;
 
   // The colour coming out of the cracks is the body's own, hazed by distance
   // exactly as `drawLiving` hazes the body it belongs to — so the light in the
@@ -118,12 +103,7 @@ function drawOne(
   };
 
   ctx.save();
-  ctx.translate(x, y);
-  ctx.scale(k, k);
-  ctx.translate(-x, -y);
-  ctx.translate(x + ox, y + oy);
-  ctx.rotate(pose.rot);
-  ctx.scale(scale * pose.sx, scale * pose.sy);
+  applyLivingFrame(ctx, l, cfg, c, f, beats, beatPhase);
 
   for (let piece = 0; piece < SHELL_COLS; piece++) {
     // A piece that is gone is not nothing: while any plate is still on, the

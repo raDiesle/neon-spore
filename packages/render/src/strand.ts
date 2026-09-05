@@ -1,11 +1,11 @@
-import { beadIsSpent, beadStrand, type Creature, type World } from "@neon-spore/sim";
+import { beadIsSpent, type Creature, type World } from "@neon-spore/sim";
 import { creatureCenter } from "./creature-place.js";
 import { drawnRow, hazed, nearness } from "./depth.js";
 import { strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { drawBeadArmour, lockedBeads } from "./strand-armour.js";
 import { drawGuess, drawLit, hoppedEnd } from "./strand-mark.js";
+import { strandThreads } from "./strand-thread.js";
 
 /**
  * THE STRAND's thread, and the mark on the bead that has to be shot next.
@@ -21,8 +21,9 @@ import { drawGuess, drawLit, hoppedEnd } from "./strand-mark.js";
  * **Two marks, one for each seat, and neither is the other's.** The navigator
  * gets the bead that is lit — a blink, the shared target lock and an arrow —
  * and the pilot gets the same frame *hopping* between the two ends of what is
- * still alive under a question mark, unable to choose. `strand-mark.ts` draws both and argues for
- * each; the cage over every bead a shot cannot answer is `strand-armour.ts`.
+ * still alive under a question mark, unable to choose. `strand-mark.ts` draws
+ * both and argues for each; the plating over every bead a shot cannot answer
+ * is `strand-armour.ts`, drawn after the bodies rather than here.
  *
  * The pilot's pair is not a leak and it is worth saying why. The ends of a run
  * are already on their screen — they can see which beads are raisins — so what
@@ -62,27 +63,6 @@ export function showsBeadMark(l: Layout): boolean {
   return l.role !== "p1";
 }
 
-/** Every bead on the field, in no particular order. */
-function beads(world: World): Creature[] {
-  return world.creatures.filter((c) => c.kind === "strand");
-}
-
-/** The threads on the field, each as its own beads sorted along the line — by
- * column, which is the order an eye reads them in and the order the pair
- * counts in. `beadOrder` would give the same answer today and is the rule's
- * own field rather than the picture's; a line is drawn between the things on
- * the screen, so it is sorted by where they are. */
-function threads(world: World): Creature[][] {
-  const byId = new Map<number, Creature[]>();
-  for (const c of beads(world)) {
-    const id = beadStrand(c);
-    const on = byId.get(id);
-    if (on) on.push(c);
-    else byId.set(id, [c]);
-  }
-  return [...byId.values()].map((on) => on.sort((a, b) => a.col - b.col));
-}
-
 /**
  * How far the thread sags between two neighbours: the control point of the
  * curve, in tiles, so the line actually dips half of it at the midpoint.
@@ -120,26 +100,27 @@ export function drawStrands(
   beatPhase: number,
   time: number,
 ): void {
-  for (const on of threads(world)) {
+  for (const on of strandThreads(world)) {
     if (on.length === 0) continue;
     drawThread(ctx, l, world, on, beatPhase);
-    // Read once and handed to both pictures: the bead the pilot's frame is
-    // hopping over is also the one bead their screen leaves uncaged, and a
-    // second copy of that clock would put the two on different beads.
+    // The same hop the plating reads, through the same exported function on
+    // the same `time`: the bead this frame is over is the one bead that pass
+    // leaves uncaged, and a second copy of the clock would put the two on
+    // different beads (`strand-armour.ts`).
     const knows = showsBeadMark(l);
-    const guess = knows
-      ? null
-      : hoppedEnd(
+    if (knows) drawLit(ctx, l, world, on, beatPhase, time);
+    else
+      drawGuess(
+        ctx,
+        l,
+        world,
+        hoppedEnd(
           on.filter((c) => !beadIsSpent(c)),
           time,
-        );
-    // The cage first, so a mark is over it rather than tangled in it: what a
-    // bead may be shot for is one statement and what it may not is another.
-    for (const c of lockedBeads(knows, world, on, guess)) {
-      drawBeadArmour(ctx, l, world, c, beatPhase);
-    }
-    if (knows) drawLit(ctx, l, world, on, beatPhase, time);
-    else drawGuess(ctx, l, world, guess, beatPhase, time);
+        ),
+        beatPhase,
+        time,
+      );
   }
 }
 

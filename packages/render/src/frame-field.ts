@@ -21,6 +21,7 @@ import { seatSkin } from "./seat-skin.js";
 import { drawShellArmour } from "./shell-draw.js";
 import { drawShipAir } from "./ship-air.js";
 import { drawStrands } from "./strand.js";
+import { drawStrandArmour } from "./strand-armour.js";
 import { drawVeerMarks } from "./veer-marks.js";
 import { drawVeilMarks } from "./veil-marks.js";
 
@@ -101,6 +102,12 @@ export function drawBodies(
   // shell-draw.ts), so it belongs beside the pass that owns bodies, not
   // inside Effects with the transients.
   drawShellArmour(ctx, l, world, view.beatPhase, view.time);
+  // And THE STRAND's, on the same terms and in the same place in the pass: a
+  // second, harder border just outside the contour of every bead a shot cannot
+  // answer this instant. Over the bodies rather than under them, because it is
+  // an outline laid on the body's own and one drawn underneath comes back out
+  // through the glow passes as a smudge (`strand-armour.ts`).
+  drawStrandArmour(ctx, l, world, view.beatPhase, view.time);
   // Player 2's alarm, over the body it is about and on that device only. It is
   // the single difference between the two screens in this whole pass, and it
   // is drawn after the bodies rather than as part of them so that nothing in

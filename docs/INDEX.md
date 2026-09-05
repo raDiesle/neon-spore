@@ -584,13 +584,16 @@ place — the generator keeps whatever is there.
 | `packages/render/src/strand-bead.ts` | The two bodies THE STRAND draws that are **not** a slick or a bulb |
 | `packages/render/src/strand.ts` | THE STRAND's thread, and the mark on the bead that has to be shot next |
 | `packages/render/src/strand-reel.ts` | THE STRAND's reel: the clock it rolls on, and the bad monitor over it |
-| `packages/render/src/strand-armour.ts` | THE STRAND's armour: the cage around every bead a shot **cannot** answer this instant |
+| `packages/render/src/strand-armour.ts` | THE STRAND's armour: the plating around every bead a shot **cannot** answer this instant |
 | `packages/render/src/strand-mark.ts` | THE STRAND's two marks: the bead that has to be shot next on the navigator's screen |
 | `packages/render/src/duty.ts` | The one word (or two) a seat owes the other while a split body is on the field |
 | `packages/render/src/throb.ts` | the plating over a throb's armoured half — the green that means a shot does nothing |
 | `packages/render/src/crawler-fx.ts` | THE CRAWLER's two endings, as pictures that outlive the body they are about |
 | `packages/render/src/crawler.ts` | THE CRAWLER, drawn one link at a time — a maggot lying along the ship's surface |
 | `packages/render/src/crawler-skin.ts` | **The wet on a maggot, and the little on its face** |
+| `packages/render/src/living-frame.ts` | Where a living body is standing this frame, and the transform that puts a pen in its own local units |
+| `packages/render/src/strand-thread.ts` | Which beads of THE STRAND are on one thread, and in what order along it |
+| `packages/render/src/strand-plate.ts` | One bead's plating, as geometry |
 
 ### packages/net
 

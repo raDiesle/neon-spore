@@ -159,7 +159,7 @@ function drawLivingBody(b: Body): void {
  */
 function drawStrandBody(b: Body): void {
   const { ctx, l, world, c, x, y, time, near } = b;
-  const bead = { ctx, l, cfg: world.cfg, c, x, y, time, near };
+  const bead = { ctx, l, cfg: world.cfg, c, x, y, time, beatPhase: b.beatPhase, near };
   if (beadIsSpent(c)) {
     drawRaisin(bead);
     return;
