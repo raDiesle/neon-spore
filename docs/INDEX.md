@@ -220,6 +220,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-strand.ts` | THE STRAND's three: a bead shrivelling, a raisin swelling back, and the thread itself parting |
 | `packages/sim/src/strand-round.ts` | What **happens** to a thread: the shot that meets a bead, and the thread parting once nothing on it is alive |
 | `packages/sim/src/strand.ts` | THE STRAND: what a thread of beads is — where they stand, what colour each carries, and which one may be shot |
+| `packages/sim/src/creature-state-veer.ts` | **THE VEER's two fields**, a side and a width |
 | `packages/sim/src/slow-fall.ts` | The bodies that come down **slower than a tile a beat** |
 | `packages/sim/src/strand-shape.ts` | THE STRAND's shape, as arithmetic |
 | `packages/sim/src/strand-spawn.ts` | How a thread comes onto the field: one queue entry in, two to five bodies out |

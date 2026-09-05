@@ -60,6 +60,7 @@ const creature = (): Required<Creature> => ({
   caromDir: -1,
   chuteOpen: true,
   veerDir: -1,
+  veerDist: 3,
   volleyPlates: 2,
   volleyRise: 3,
   strandId: 4,

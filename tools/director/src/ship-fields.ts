@@ -95,6 +95,7 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   scoreStrandBreak: "SCORE",
   veerChanges: "THE VEER — a rock that changes lane on the way down",
   veerRowsApart: "THE VEER — a rock that changes lane on the way down",
+  veerMaxDist: "THE VEER — a rock that changes lane on the way down",
   volleyPlates: "THE VOLLEY — a rock you have to hit back three times",
   volleyRiseRows: "THE VOLLEY — a rock you have to hit back three times",
   volleyRiseBeats: "THE VOLLEY — a rock you have to hit back three times",

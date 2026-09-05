@@ -1,9 +1,9 @@
 import type { CaromDir } from "./carom.js";
 import type { HeldState } from "./creature-state-held.js";
 import type { StrandState } from "./creature-state-strand.js";
+import type { VeerState } from "./creature-state-veer.js";
 import type { DartDir } from "./dart.js";
 import type { GhostDir } from "./ghost.js";
-import type { VeerDir } from "./veer.js";
 
 /**
  * **The state one kind carries and no other does.** Every field here is
@@ -35,7 +35,7 @@ import type { VeerDir } from "./veer.js";
  * siblings are the rules, and a second spelling of a fallback is how the
  * picture and the shot come to disagree about the same body.
  */
-export interface CreatureState extends HeldState, StrandState {
+export interface CreatureState extends HeldState, StrandState, VeerState {
   /**
    * The dart's three fields, and `dart.ts` is the whole of what they mean.
    * `dartDir` is the side it is concerned with now (`-1` left, `1` right),
@@ -232,19 +232,4 @@ export interface CreatureState extends HeldState, StrandState {
    */
   volleyPlates?: number;
   volleyRise?: number;
-  /**
-   * Which side THE VEER's next change of lane takes (`-1` left, `1` right),
-   * and absent on every other kind — so a rock that holds its lane carries no
-   * field at all and every wave written before this creature is byte-for-byte
-   * the same world.
-   *
-   * It is the whole of its state, because *when* it changes lane is not stored
-   * at all: the three changes happen on three fixed rows, so how many are left
-   * is read off `row` (`veerChangesLeft`) rather than counted down. Read the
-   * side through `veerHeading` and never directly — the arrow on player 1's
-   * screen, the rider's lean on both, and the column the body actually steps
-   * into are three readings of one number, and a second copy of the fallback
-   * is how the pair comes to be told a side the rock does not take.
-   */
-  veerDir?: VeerDir;
 }

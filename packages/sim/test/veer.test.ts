@@ -3,8 +3,17 @@ import { DEFAULT_CONFIG, hullRow, ticksPerBeat } from "../src/config.js";
 import { hashWorld } from "../src/hash.js";
 import { hullPercent } from "../src/hull.js";
 import { isMeteorKind, isWardable } from "../src/kinds.js";
+import { createRng } from "../src/rng.js";
 import type { Creature, TimedCommand } from "../src/types.js";
-import { veerChangesLeft, veerHeading, veerRowIsChange, veerRowsToChange } from "../src/veer.js";
+import {
+  veerChangesLeft,
+  veerDist,
+  veerHeading,
+  veerPickChange,
+  veerRowIsChange,
+  veerRowsToChange,
+  veerStepCol,
+} from "../src/veer.js";
 import { createWorld, type SimEvent, type SpawnEntry, step, type World } from "../src/world.js";
 
 /**
@@ -13,10 +22,10 @@ import { createWorld, type SimEvent, type SpawnEntry, step, type World } from ".
  * What is worth pinning here is the half a reader of `veer.ts` cannot check by
  * eye — that it really does fall like every other rock, that it changes lane
  * exactly `veerChanges` times and on the rows it says it does, that a change is
- * one column and never two, that it never steps off the field, that `veerDir`
- * is the side of the change that is still to come rather than the one just
- * taken, that the shield still answers it, and that a second device walking
- * the same beats arrives at the same fingerprint.
+ * never wider than `veerMaxDist`, that it never steps off the field, that
+ * `veerDir` and `veerDist` are the side and width of the change still to come
+ * rather than the one just taken, that the shield still answers it, and that a
+ * second device walking the same beats arrives at the same fingerprint.
  */
 
 const CFG = DEFAULT_CONFIG;
@@ -43,6 +52,8 @@ interface Step {
   col: number;
   /** The side it was aiming at *before* this beat's move. */
   aim: number;
+  /** The width it was aiming at *before* this beat's move. */
+  dist: number;
 }
 
 interface Run {
@@ -60,14 +71,18 @@ function run(queue: SpawnEntry[], ticks: number, inputs: TimedCommand[] = [], se
   const events: SimEvent[] = [];
   const walk: Step[] = [];
   let aim = 0;
+  let dist = 0;
   for (let t = 0; t < ticks; t++) {
     const before: Creature | undefined = world.creatures.find((c) => c.kind === "veer");
-    if (before) aim = veerHeading(before);
+    if (before) {
+      aim = veerHeading(before);
+      dist = veerDist(before);
+    }
     step(world, byTick.get(t) ?? []);
     events.push(...world.events);
     const body = world.creatures.find((c) => c.kind === "veer");
     if (body && (t + 1) % TPB === 0) {
-      walk.push({ beat: world.beat, row: body.row, col: body.col, aim });
+      walk.push({ beat: world.beat, row: body.row, col: body.col, aim, dist });
     }
   }
   return { world, events, walk };
@@ -84,14 +99,14 @@ describe("THE VEER", () => {
     for (const [i, s] of walk.entries()) expect(s.row).toBe(Math.min(i, HULL));
   });
 
-  it("changes lane exactly three times, one column each, on rows 3, 6 and 9", () => {
+  it("changes lane exactly three times, up to veerMaxDist columns each, on rows 3, 6 and 9", () => {
     const { walk } = run([veer(3)], tickOfRow(HULL) + TPB);
     const moved = walk.filter((s, i) => i > 0 && s.col !== walk[i - 1]!.col);
     expect(moved.length).toBe(CFG.veerChanges);
     expect(moved.map((s) => s.row)).toEqual([3, 6, 9]);
     for (const [i, s] of walk.entries()) {
       if (i === 0) continue;
-      expect(Math.abs(s.col - walk[i - 1]!.col)).toBeLessThanOrEqual(1);
+      expect(Math.abs(s.col - walk[i - 1]!.col)).toBeLessThanOrEqual(CFG.veerMaxDist);
     }
   });
 
@@ -103,16 +118,60 @@ describe("THE VEER", () => {
     expect(cols.size).toBe(1);
   });
 
-  it("takes the side it was aiming at, not the one it re-aims to", () => {
-    // The whole of what player 1 is told: `veerDir` before a beat is the side
-    // the *next* change takes, so the column it lands in is readable a whole
-    // three rows ahead. A roll taken after the move would make the arrow a
-    // report rather than a warning.
+  it("takes the side and width it was aiming at, not the ones it re-aims to", () => {
+    // The whole of what player 1 is told: `veerDir` and `veerDist` before a
+    // beat are the side and width the *next* change takes, so the column it
+    // lands in is readable a whole three rows ahead. A roll taken after the
+    // move would make the arrow a report rather than a warning.
     const { walk } = run([veer(3)], tickOfRow(HULL) + TPB);
     for (const [i, s] of walk.entries()) {
       if (i === 0 || !veerRowIsChange(CFG, s.row)) continue;
-      expect(s.col).toBe(walk[i - 1]!.col + s.aim);
+      expect(s.col).toBe(walk[i - 1]!.col + s.aim * s.dist);
     }
+  });
+
+  it("rolls a width other than one, across enough rocks", () => {
+    // If every roll came out one tile the number above the arrow would never
+    // say anything but "1", and the whole point of showing it is that it
+    // varies. `veerMaxDist` is 4 by default, so the widths seen across enough
+    // seeds and columns must include something wider than the old fixed step.
+    const cols = CFG.cols;
+    const widths = new Set<number>();
+    for (let seed = 0; seed < 64; seed++) {
+      const rng = createRng(seed);
+      for (let col = 0; col < cols; col++) {
+        widths.add(veerPickChange(rng, col, cols, CFG.veerMaxDist).dist);
+      }
+    }
+    expect(Math.max(...widths)).toBeGreaterThan(1);
+    for (const w of widths) {
+      expect(w).toBeGreaterThanOrEqual(1);
+      expect(w).toBeLessThanOrEqual(CFG.veerMaxDist);
+    }
+  });
+
+  it("never picks a change that would take it off the field, however the roll goes", () => {
+    const cols = CFG.cols;
+    for (let seed = 0; seed < 64; seed++) {
+      const rng = createRng(seed);
+      for (let col = 0; col < cols; col++) {
+        const { dir, dist } = veerPickChange(rng, col, cols, CFG.veerMaxDist);
+        const to = veerStepCol(col, cols, dir, dist);
+        expect(to).toBeGreaterThanOrEqual(0);
+        expect(to).toBeLessThan(cols);
+      }
+    }
+  });
+
+  it("draws from the stream exactly twice a pick, wall or no wall", () => {
+    // Two devices consume the same rng whatever column the rock is standing
+    // in. Folding a fitting test into either draw would spend a number in
+    // the middle of the field and none against a wall.
+    const middle = createRng(7);
+    const edge = createRng(7);
+    veerPickChange(middle, 5, CFG.cols, CFG.veerMaxDist);
+    veerPickChange(edge, 0, CFG.cols, CFG.veerMaxDist);
+    expect(middle.state).toBe(edge.state);
   });
 
   it("never steps off the field, from either wall", () => {

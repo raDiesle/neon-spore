@@ -1,6 +1,7 @@
 /**
- * THE VEER's two numbers: how many times it changes lane on the way down, and
- * how far apart the rows it does it on are (`veer.ts`).
+ * THE VEER's three numbers: how many times it changes lane on the way down,
+ * how far apart the rows it does it on are, and the widest a single change
+ * can reach (`veer.ts`).
  *
  * Its own file rather than two more rows in `config-creatures.ts`, which was
  * one line under the 250-line limit the day this creature was written — the
@@ -48,10 +49,25 @@ export interface VeerConfig {
    * rather than the answer to the last thing they said.
    */
   veerRowsApart: number;
+  /**
+   * The widest a single change of lane can reach, in columns. Each change
+   * rolls a fresh distance from one to this many (`veerPickChange`), so the
+   * pilot's arrow is never the same-sized sentence twice in a row — a rock
+   * that always stepped one tile would be answerable by a shield that just
+   * shadows it, and this is what keeps the number worth saying out loud.
+   *
+   * Four, because it is most of the field's width in one step and the pair
+   * still has three rows to act on it: wider and the rock would sometimes
+   * cross more of the field than the shield can close in the time a change
+   * gives them, which turns a call into a coin flip rather than an order to
+   * follow.
+   */
+  veerMaxDist: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
 export const VEER_DEFAULTS: VeerConfig = {
   veerChanges: 3,
   veerRowsApart: 3,
+  veerMaxDist: 4,
 };

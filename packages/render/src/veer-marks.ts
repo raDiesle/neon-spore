@@ -1,4 +1,4 @@
-import { spanOf, veerChangesLeft, veerHeading, type World } from "@neon-spore/sim";
+import { spanOf, veerChangesLeft, veerDist, veerHeading, type World } from "@neon-spore/sim";
 import { creatureCenter } from "./creature-place.js";
 import { drawDartArrow } from "./dart.js";
 import type { Layout } from "./layout.js";
@@ -33,6 +33,15 @@ import { rockRadius } from "./torch.js";
  * plain tier falling down a settled column, and a mark still standing over it
  * would be saying there is something left to call. `veerChangesLeft` is the
  * gate, and it is the simulation's rule rather than a count kept here.
+ *
+ * **The width is a third mark, and it sits above the arrow on both screens.**
+ * How many tiles the change covers decides nothing about which lane the
+ * shield stands in without the side too, so showing it costs the pair
+ * nothing — a body that always moved one tile would be answerable by a
+ * shield that just shadows it, and the width is what makes the side worth
+ * calling out at all. It is drawn in the same grey as the pilot's arrow,
+ * because it is the same kind of fact: a number the rock carries, not a
+ * signal about who knows what.
  */
 
 /** How faint the navigator's two arrows are beside the pilot's one — the same
@@ -46,6 +55,10 @@ const BOX_MUL = 1.55;
  * pompom, which is the tallest thing on the body (`veer-clown.ts`) — an arrow
  * crossing the hat would read as part of it. */
 const LIFT = 1.5;
+/** How far above the rider the width sits, in rock radii — clear of the
+ * arrow's own head and wings, which reach almost this far up on their own, so
+ * the width reads as sitting over the arrow rather than beside it. */
+const NUMBER_LIFT = 4.3;
 
 /**
  * Whether this screen carries the side. Player 2 never does — that is the whole
@@ -55,6 +68,30 @@ const LIFT = 1.5;
  */
 export function showsVeerArrow(l: Layout): boolean {
   return l.role !== "p2";
+}
+
+/**
+ * The width above the arrow, in the rock's own grey and the same on both
+ * seats — see the header's own paragraph for why it costs nothing to show.
+ * Sized off the rock's own radius, in the small monospace `coord-grid.ts`
+ * uses for its own on-field labels, since both are a short number read at a
+ * glance rather than a headline.
+ */
+function drawVeerNumber(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  r: number,
+  dist: number,
+): void {
+  const size = Math.max(9, Math.min(13, r * 0.85));
+  ctx.save();
+  ctx.font = `bold ${Math.round(size)}px "Courier New",monospace`;
+  ctx.fillStyle = PALETTE.rock;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText(String(dist), x, y - r * NUMBER_LIFT);
+  ctx.restore();
 }
 
 export function drawVeerMarks(
@@ -72,6 +109,7 @@ export function drawVeerMarks(
     const { x, y } = creatureCenter(l, c, beatPhase);
     const r = rockRadius(l, spanOf(c));
     const above = y - r * LIFT;
+    drawVeerNumber(ctx, x, y, r, veerDist(c));
     if (tell) {
       // In the rock's own grey rather than a signal colour, for the reason the
       // dart's arrow is in its body's colour: it is a fact about that body, and

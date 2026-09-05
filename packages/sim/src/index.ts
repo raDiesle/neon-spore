@@ -190,9 +190,9 @@ export {
   WARDEN_COLS,
 } from "./types.js";
 export {
-  VEER_COLS,
   type VeerDir,
   veerChangesLeft,
+  veerDist,
   veerHeading,
   veerRowIsChange,
   veerRowsToChange,
