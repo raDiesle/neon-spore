@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 0f4bcea — The band no longer says which panel it is
+
+A named plate hung on the seam whenever a wave was played on anything but the ordinary panel, on the argument that a set is a whole panel and the surest way for that to read wrong is for it to read as the usual band with something swapped in. The owner saw it over player 2's plate and said plainly: do not show the panel name or variant in the game.
+
+## 2026-09-05 · 4342214 — TWO COLOURS was teaching what CYAN had taught the wave before
+
+CYAN was written in to introduce the second colour on its own, and TWO COLOURS kept the guide and the rehearsal it had when it was the wave that introduced it — so the pair was taught the same thing twice, in consecutive waves. The owner's words: the tutorial of TWO COLOURS was already done in wave CYAN before, so it is not a special wave any longer with new introduction.
+
 ## 2026-09-05 · b16dcd0 — A chute shot under its canopy comes apart into two pieces
 
 The owner's ask: the paraglider is released from the enemy and vanishes upward, and the enemy falls a little and then goes as well. THE CAROM's whole argument is that one arrival becomes two problems, and the body under the canopy is the second of them — so its end is two things rather than the single burst at a tile every other kill in this game is.
