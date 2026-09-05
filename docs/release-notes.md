@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 1d6c8d4 — `bun run index` drops a row with nothing behind it
+
+The generator completed the "## Code" table — every in-scope file with no row got one — and deliberately kept whatever text was already there, which is right for a row somebody wrote by hand. A row whose file had been *deleted* stayed too: `bun run index` reported "865 in-scope files checked" and wrote nothing while `tools/index/test/index.test.ts` failed on "every row's path exists". The tool that exists to fix the table could not fix the half the test was failing on, and the repair was a hand edit found by reading test output.
+
 ## 2026-09-05 · 1c0ba55 — A body's draw path is a table, not a chain a new line can sever
 
 `drawCreatures` picked between torch, rock, ghost, wisp, lid and the ordinary living draw with one long `if / else if`. Adding THE VEER put a plain `if` between two of its rungs and severed it: every kind after the cut fell through to `drawLiving`, and a torch was asked for a silhouette it has not got. Four frame tests caught that one, but only because those kinds happen to throw — a kind that merely looked wrong would have shipped.
