@@ -107,28 +107,6 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 `{ modules, script, durableObjects }`, and `convertV4MiniflareOptions` is the
 shim that shows what the new shape wants if it changed again.
 
-## THE CAROM's guide has no rehearsal, so its wave is read rather than watched
-
-- **Found:** 2026-09-04, worktree-bridge-cse
-- **Taken:** 2026-09-05, claude/queue-the-caroms-guide-has-no-rehearsal-so-its-wave-is
-- **Files:** `packages/content/src/scenes.ts`, `packages/content/src/scenes/`,
-  `packages/content/src/waves/act-5.ts`
-
-THE CAROM shipped with a three-line prose guide and no `scene`, so its pages are
-words on the game's own screen and nothing moves. Every wave landed in the two
-days before it carries a film — THE GYRE and THE RECOIL both do, and THE LID's
-was queued and built for exactly this reason — and this creature is the worst of
-the three to describe in a sentence: what the pair has to learn is a *shape*
-(a diagonal that turns at the wall) and an *order* (crack it, then ward what
-falls out), and neither reads off a line of text.
-
-Write one under `packages/content/src/scenes/the-carom.ts` on the pattern
-`the-recoil.ts` already sets, register it in `scenes.ts`, and put `scene:
-"theCarom"` on the `theCarom` wave's guide. Three steps is the shape the others
-use: the diagonal turning at a wall with nothing else on the field, the shot
-landing and the crust coming off, and the shield taking the rock. The rehearsal
-walk in `packages/content/test/` will pick it up on its own once it is named.
-
 ## THE VOLLEY's guide has no rehearsal, so its wave is read rather than watched
 
 - **Found:** 2026-09-04, claude/meteor-enemy-shield-reflect-0d82f2
@@ -170,3 +148,33 @@ file's server has just taken — and make it deterministic. Running the file
 alone repeatedly is the reproduction to beat: it has to fail there before a fix
 means anything, so drive the load up rather than lowering the timeout and
 calling it fixed.
+
+## A scene cannot put the shield where a body actually is
+
+- **Found:** 2026-09-05, claude/queued-items-d3ce8d
+- **Files:** `packages/content/src/scene-types.ts`, `packages/content/src/scene-script.ts`,
+  `packages/sim/src/scene.ts`, `packages/content/test/scenes.test.ts`
+
+Every column in a film is an *authored* column: `actCol` puts a `SceneAct`'s
+`col` through `mapCol`, which maps 0..6 onto the real field. On the eleven
+columns the game ships, that reaches 0, 2, 3, 5, 7, 8 and 10 — and nothing
+else. For a strip act that is a hole rather than a rounding: a shield authored
+into column 4 lands in 3 or 5, and a body standing in 4 goes past it.
+
+It is what blocks THE VOLLEY's rehearsal, which is the other half of this
+entry's reason for existing. A volley's three wards land eight columns apart
+with a reflection at each wall, and every one of the eleven possible start
+columns was tried: none puts all three ward columns *and* the column the shell
+bursts over inside the seven a film can name. So a three-ward film cannot be
+written without letting one arrival through, and the one it lets through is the
+lesson.
+
+The vocabulary already has the answer twice and it is not a wider grid. A grip
+is authored as a column and the *body standing there* is found at the moment
+the hand goes down (`gripCol` in `sim/scene.ts`), and THE LID's cord is
+authored the same way (`dragCol`) for the same reason: ids do not exist when a
+film is written. A strip wants the third reading of that — an act that says
+*the shield goes where this body is going to be*, resolved by `SceneRun` out of
+the world rather than by an author out of a grid. Add it to `SceneAct`, resolve
+it in `aimed`, and hold it in `scenes.test.ts` the way the other two are held.
+Then write THE VOLLEY's film, which is a queue entry of its own and stays there.

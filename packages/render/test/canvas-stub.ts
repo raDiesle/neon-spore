@@ -116,6 +116,13 @@ class StubPath {
     nums("Path2D.ellipse", [x, y, rx, ry, rotation, from, to]);
     if (rx < 0 || ry < 0) fail("Path2D.ellipse", `radius ${rx < 0 ? rx : ry} is negative`);
   }
+  /** One path folded into another, which is how a hole is cut: a crust drawn
+   * as a shell with a disc added to it and filled `evenodd` (`carom.ts`). A
+   * real one takes a `Path2D`; anything else is a `TypeError` there and has to
+   * be one here, or the mistake is a silent no-op and the hole never appears. */
+  addPath(path: StubPath): void {
+    if (!(path instanceof StubPath)) fail("Path2D.addPath", `${String(path)} is not a Path2D`);
+  }
 }
 
 class StubImageData {

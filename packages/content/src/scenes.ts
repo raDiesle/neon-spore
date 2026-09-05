@@ -6,6 +6,7 @@ import { PINBALL } from "./scenes/pinball.js";
 import { SALVAGE } from "./scenes/salvage.js";
 import { SHIELD_THEN_CANNON } from "./scenes/shield-then-cannon.js";
 import { SNAKE } from "./scenes/snake.js";
+import { THE_CAROM } from "./scenes/the-carom.js";
 import { THE_CLASP } from "./scenes/the-clasp.js";
 import { THE_DART } from "./scenes/the-dart.js";
 import { THE_ECHO } from "./scenes/the-echo.js";
@@ -89,7 +90,8 @@ export type SceneId =
   | "pinball"
   | "theLid"
   | "theMaze"
-  | "theWarden";
+  | "theWarden"
+  | "theCarom";
 
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
@@ -126,6 +128,7 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theLid: THE_LID,
   theMaze: THE_MAZE,
   theWarden: THE_WARDEN,
+  theCarom: THE_CAROM,
 };
 
 export type { GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";

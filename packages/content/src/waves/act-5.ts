@@ -191,6 +191,7 @@ export const WAVES_ACT_5: Wave[] = [
       both: "A slick or a bulb sealed in a rock crust, thrown in on a diagonal and bouncing off the side walls. The shield cannot touch it while the crust is on. The matching cannon cracks it open — and what drops out is a plain meteor, coming down at a row a beat, that now has to be warded.",
       p1: "Do not chase it. It crosses four lanes a beat and turns at the wall, so stand where it is going and wait — and keep a thumb on GUARD, because your own shot is what makes the rock.",
       p2: "Call the wall, not the body: say which side it turns at and on what beat. Then load the colour burning through the shell, and be on the column the moment it cracks.",
+      scene: "theCarom",
     },
     entries: [
       { beat: 0, col: 0, kind: "carom", color: "red" },
