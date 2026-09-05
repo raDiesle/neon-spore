@@ -17,6 +17,22 @@ commit message that read wrong, and the history is where that lives.
 
 Twice in five full runs a case in `tools/frames/test/` failed and passed immediately in isolation. The reproduction it took to see it is four copies of that file at once on a four-core machine: two of the four failed, and the shape of the failure is worse than one slow test. A case ran past bun's five-second-plus default, bun killed the file's subprocesses along with it, and every case after that came back `ERR_CONNECTION_REFUSED` against a preview server that was no longer there. One starved test poisoned the whole file.
 
+## 2026-09-05 · 2bb7d551 — The settle check waits for the loop to have stopped, not to be asked to
+
+"settles without stepping the simulation" failed two runs in three on `main` with nothing else in the tree, which threw every lane out of `bun run land` at random and left the trunk unlandable until somebody drew a green run. Measured three times on one commit before the fix: fail, pass, fail.
+
+## 2026-09-05 · 76655736 — A salvo rests exactly as long as its shell is in the air
+
+`fleetSalvoRestBeats` was one beat and the flight is two, so a pair hammering the trigger could have two shells over the chart at once and the button came back while the last one was still climbing. It is `FLEET_SHELL_BEATS` now, at the owner's word: the trigger returns at the moment the shell lands, which makes the rest a thing the pair *watch* rather than a press that quietly did nothing.
+
+## 2026-09-05 · f330b718 — `bun run frames` can press THE FLEET's trigger and its sights
+
+`--press` knew every control on the field except the two this boss invented, so the one thing it exists for — a picture of the change, sent to the owner — could not be taken of a shell in the air, a burst on a square or a ship going under. It has `salvo` and `aim=left|right|up|down` now, with the seat check the round itself makes: the trigger is refused from the navigator's chair and the sights from the pilot's, here rather than in a frame that comes back empty with nothing said.
+
+## 2026-09-05 · 6240162b — THE FLEET lobs its salvo, and the water closes over what it sinks
+
+A shell now leaves the cannon and arcs over the chart with its shadow walking the squares underneath it, coming down into the square two beats later; the cross or the ripple appears when it lands, not when the thumb does. A hit opens as a rocket — flash, shockwave, fireball, shards; a miss stands a column of water up and lets it fall back into rings. A ship that has taken its last square rolls under a wash of rings, foam and bubbles instead of fading out, on a chart that is now moving water rather than a dark rectangle. And the round's clock says how long is left in seconds, under the bar that was the only answer before.
+
 ## 2026-09-05 · d79c43c — Every row of the briefings table names its waves, and the test insists
 
 Row 8, "the rest of the bestiary", was the one cell the wave-number test skipped, because it named a range — `22–27` — and a range is a cell nothing can check. It had drifted inside it, further than a number: the first subject was the runt, which was retired for THE LURE, and the pods and the rock speed tiers are taught on THE PURGE and THE WARD at 30 and 31, outside the range entirely. The merge note four paragraphs below the table already said so.
