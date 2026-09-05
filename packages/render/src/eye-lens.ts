@@ -92,10 +92,21 @@ const PUPIL_MUL = 0.3;
  * the eye closes**, because an eye closes downwards. None of them costs a
  * canvas call — they are all in the four control points of two cubics.
  *
+ * **The corners are points, and that is the shape.** Where a control point
+ * sits along `x` decides nothing about how tall the lens is and everything
+ * about the angle the two lids meet at: a control near its own corner leaves
+ * that corner steeply and the lid then has to round over to reach the crown,
+ * which is a bulb with two nicks in it. Pulled inboard, each lid leaves its
+ * corner shallow and climbs, and the pair close on a taper of about seventy
+ * degrees instead of a hundred — a point at each end rather than a shoulder.
+ * The owner asked for this by name against a reference: the eyelid is not to be
+ * rounded. It costs nothing, because the four numbers were already there.
+ *
  * **The readout is untouched.** The height of the gap is `(rise + dip) *
  * openness` exactly, at every openness and whatever the corner line is doing,
  * so the seat that is not holding the cord reads the same number off it as
- * before. That is the constraint everything above had to be built inside.
+ * before — the `y` offsets still sum to eight thirds either way, and only the
+ * `x` moved. That is the constraint everything above had to be built inside.
  *
  * `rx` and `ry` are the socket's own half-extents rather than one radius: THE
  * WARDEN's hole is round and passes the same number twice, and THE LID's is an
@@ -134,14 +145,14 @@ export function drawEyeLens(
     // The upper lid, corner to corner, with its controls weighted toward the
     // left one so the crown of the arc stands inboard of the middle. Their `y`
     // offsets sum to eight thirds of the rise, which is what puts a cubic's
-    // own midpoint exactly there; their `x` sit well out toward the corners,
-    // which is what keeps each corner a short taper rather than a spike.
+    // own midpoint exactly there; their `x` sit **well inboard**, which is what
+    // sharpens the corners — the paragraph above on why they are points.
     `M ${cx - w} ${my + tilt}` +
-      ` C ${cx - w * 0.62} ${my - up * 1.55} ${cx + w * 0.48} ${my - up * 1.117} ${cx + w} ${my - tilt}` +
+      ` C ${cx - w * 0.2} ${my - up * 1.5} ${cx + w * 0.08} ${my - up * 1.167} ${cx + w} ${my - tilt}` +
       // And the lower lid back, weighted the other way, so its trough sits
       // outboard. The two offsets are opposite and unequal, and that pair of
       // facts is the whole of what stops this reading as a leaf on its side.
-      ` C ${cx + w * 0.64} ${my + low * 1.45} ${cx - w * 0.5} ${my + low * 1.217} ${cx - w} ${my + tilt} Z`,
+      ` C ${cx + w * 0.22} ${my + low * 1.4} ${cx - w * 0.1} ${my + low * 1.267} ${cx - w} ${my + tilt} Z`,
   );
   ctx.save();
   ctx.fillStyle = ink.hex;
