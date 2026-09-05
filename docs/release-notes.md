@@ -13,6 +13,10 @@ commit message that read wrong, and the history is where that lives.
 
 `StubContext.log` claimed to be the ordered log of every call and left out the one part a path is: `StubPath`'s builders went through `nums` for validation and never through the log, so `new Path2D` appeared as a count and `rect`, `moveTo`, `arc` and the rest appeared not at all.
 
+## 2026-09-05 · 1465cfc8 — Land THE CAROM a tick early, so its brush card shows the whole rock
+
+Every other living specimen settles exactly on a beat boundary, where a body is still drawn from the tile it left rather than the one the crop is centred on — invisible for an ordinary faller, whose from and to are a row apart. A carom crosses up to three columns a beat, so the same instant put the crop three lanes from the crust, and the palette and hover card showed a sliver of rock instead of the whole enemy. Stopping a tick early, the way THE DART and THE TORCH already do, lands it on the tile it actually occupies.
+
 ## 2026-09-05 · 4b530728 — Hang THE STRAND in a zigzag, and roll its unknown beads like a slot machine
 
 Five changes the owner asked for, all of them about what the pair actually sees.
