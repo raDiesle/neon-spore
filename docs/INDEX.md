@@ -1012,5 +1012,6 @@ place — the generator keeps whatever is there.
 | `tools/frames/wave.ts` | Which wave `--wave` names, answered against the right commit's own list |
 | `tools/frames/opening-hold.ts` | Standing *in* a wave's opening, rather than getting past it |
 | `tools/land/queue-guard.ts` | A landing must not put back a queue entry another lane took out |
+| `tools/hooks/session-start.ts` | Pin bun to a version new enough for this repo, in Claude Code on the web |
 
 <!-- index:code:end -->
