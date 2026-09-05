@@ -180,6 +180,7 @@ belongs on: everything in it is about being driven from outside.
 ## `hull.breachHeavy` has never played: the threshold is in the wrong unit
 
 - **Found:** 2026-09-05, claude/lure-shot-explosion-damage-e398f9
+- **Taken:** 2026-09-05, claude/queue-hull-breachheavy-has-never-played-the-threshold
 - **Files:** `packages/audio/src/bind.ts`, `packages/audio/test/bind.test.ts`
 
 `bind.ts` splits a hull breach by what it cost — `e.damage >= 8000 ?
