@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 5cb01ae — A scene can put the strip where the body actually is
+
+Every column in a film was an authored one: `actCol` puts a `SceneAct`'s `col` through `mapCol`, which maps 0..6 onto the real field and, on the eleven columns the game ships, reaches 0, 2, 3, 5, 7, 8 and 10 and nothing else. For a strip that is a hole rather than a rounding — a shield authored into column 4 lands in 3 or 5, and a body standing in 4 goes straight past it.
+
 ## 2026-09-05 · 536500f — CLAUDE.md gets its headroom back, and the two missing commands
 
 It stood at 21,991 characters against a 22,000 ceiling, which is not headroom: it is a wall the next rule to be written down walks into. `bun run sweep` landed with no line in the commands table for exactly that reason, and `bun run maze` after it. Both are in the table now.
