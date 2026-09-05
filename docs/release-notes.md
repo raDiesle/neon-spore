@@ -64,6 +64,18 @@ The file is 21,991 characters in the repository and fits under the 22,000 ceilin
 ## 2026-09-05 · ea3cf39 — The intro is advertised rather than explained
 
 The six pages that say what this game is were even type on a dark screen, which reads as a manual however short the sentences are. They are laid out the way a store page is now: the headline stands on a lit banner in the page's own colour, a supermarket price flash is stamped across the corner of the picture, and the picture itself comes at the reader and goes back again on a three-and-a-half second trip, with the tag half a turn behind it so the corner reads as a second plane. Six pages, six colours, none of them one of the four greens the palette reserves.
+## 2026-09-05 · 617ad178 — A picture of a boss past its first round cannot be taken
+
+Queued while photographing THE MAZE: only the first of five sheets can be photographed, so the widened rim and the collapse have no captured frame.
+
+## 2026-09-05 · 8aa23856 — The director walks THE MAZE's five stages instead of describing them
+
+The boss panel used to say the wheel was authored elsewhere and not editable here, which left the only way to see the fifth stage being to play four. It now carries a tab per stage and draws the sheet with the game's own wall code, with every way in marked — green where it reaches the heart, red where it dead-ends — and the length of each walk written underneath.
+
+## 2026-09-05 · c25f8ec7 — Only one way through THE MAZE, and a wrong one brings the drum down
+
+Five stages now, and each rim has one gap more than the last — but only one gap in any of them reaches the middle. The rest open onto regions of the maze that are walled off from it, so a shot sent down one crawls a few corridors, runs out of maze and is lost. When it is, the whole wheel drifts apart over the ship and the same stage is built again from the top.
+
 ## 2026-09-05 · e8adcc18 — A dotted line runs from the cannon to the body it is locked on
 
 The target frame says *this one is picked out* and says nothing about what picked it out — and the whole of the rule is that a bolt leaving a muzzle somewhere else entirely is going to arrive here. So the link is drawn: cannon at one end, body at the other, straight, in the grip's own amber.
