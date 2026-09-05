@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 8225aa09 — THE MAZE's heart takes its own colour, and refuses the other at the hull's cost
+
+The owner asked for the round to turn on the colour the heart is beating in, and for the wrong one to hurt. A slick's red on the first round, a bulb's cyan on the second, red again on the third — the two colours the field already carries, so player 2 is choosing between the two she has rather than learning a third, and neither player has anything to remember: the answer is in the middle of the drum, beating, on both screens.
+
 ## 2026-09-05 · b6bd9614 — A hand held on a body aims the cannon at it
 
 THE LOCK: while player 1's hand is on a creature, every shot the cannon puts out steers into it and lands, from whatever column it left the muzzle in. Take the hand off and a bolt already in the air stops steering and finishes its climb straight up from wherever it had got to. It is not a new gesture — it is THE GRIP, held by the seat that owns the cannon — so the price is already built in: a thumb on the field is a thumb off the strip below it, and the shot goes where the hand is instead of where the muzzle is.
