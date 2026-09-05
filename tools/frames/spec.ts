@@ -9,6 +9,7 @@
  * caller that already reached for a `FrameSpec` through it did not move.
  */
 
+import type { Crop } from "./crop.js";
 import type { OpeningStop } from "./opening.js";
 
 export interface FrameSpec {
@@ -93,6 +94,26 @@ export interface FrameSpec {
    * on the only clock the burst runs on.
    */
   settle?: number;
+  /**
+   * A rectangle of the frame to keep, in its own CSS pixels from `#stage`'s top
+   * left, instead of the whole of it.
+   *
+   * A body is about forty pixels across on a 390 px phone, so a before-and-after
+   * of a change to its *shape* is two pictures nobody can see the change in —
+   * which by `CLAUDE.md`'s rule is the same as sending none. The rectangle is
+   * clipped out of the screenshot rather than out of the field, so what comes
+   * back is still the real frame. `crop.ts` has the parsing.
+   */
+  at?: Crop;
+  /**
+   * How much of the browser's own resolution to spend on it: the device scale
+   * factor the page is opened at.
+   *
+   * A *magnification*, not a resize. At 3 the game is drawn at three times the
+   * pixel density and the layout is untouched, so a cropped rectangle comes
+   * back sharp instead of as forty pixels stretched over a hundred and twenty.
+   */
+  zoom?: number;
   /**
    * Stand in the wave's own opening instead of running past it.
    *

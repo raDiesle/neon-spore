@@ -236,6 +236,93 @@ describe("captureFrames past a wave's opening", () => {
   );
 
   /**
+   * `--at` and `--zoom`, which is what a change the size of a creature needs.
+   *
+   * The picture written is the crop; the digest is of the whole frame, so the
+   * `identical:` guard cannot be fooled by a rectangle that framed one
+   * difference or cut the only one away.
+   */
+  it(
+    "writes the rectangle it was asked for, and digests the whole frame anyway",
+    async () => {
+      const sha = (bytes: Uint8Array) => new Bun.CryptoHasher("sha256").update(bytes).digest("hex");
+      const whole = await captureFrames(
+        baseUrl,
+        { wave: 0, ticks: 60 },
+        join(scratchOut, "whole"),
+        browser,
+      );
+      const cropped = await captureFrames(
+        baseUrl,
+        { wave: 0, ticks: 60, at: { x: 40, y: 200, width: 120, height: 120 } },
+        join(scratchOut, "cropped"),
+        browser,
+      );
+      // Uncropped, what was written *is* the whole frame, so the digest is the
+      // file's. Cropped, it is not — which is the whole point: the guard in
+      // `run.ts` has to be asking about the game rather than about the
+      // rectangle somebody asked to look at.
+      expect(whole.whole[0]).toBe(sha(await Bun.file(whole.paths[0] as string).bytes()));
+      expect(cropped.whole[0]).not.toBe(sha(await Bun.file(cropped.paths[0] as string).bytes()));
+      const small = await Bun.file(cropped.paths[0] as string).bytes();
+      const full = await Bun.file(whole.paths[0] as string).bytes();
+      expect(small.byteLength).toBeGreaterThan(0);
+      expect(small.byteLength).toBeLessThan(full.byteLength);
+    },
+    STARVED_MS,
+  );
+
+  it(
+    "spends the zoom on real pixels rather than on a bigger file of the same ones",
+    async () => {
+      const at = { x: 40, y: 200, width: 120, height: 120 };
+      const flat = await captureFrames(
+        baseUrl,
+        { wave: 0, ticks: 60, at },
+        join(scratchOut, "flat"),
+        browser,
+      );
+      const magnified = await captureFrames(
+        baseUrl,
+        { wave: 0, ticks: 60, at, zoom: 3 },
+        join(scratchOut, "magnified"),
+        browser,
+      );
+      // The same rectangle of the same frame at three times the density. The
+      // layout is computed from the CSS viewport, so what grows is resolution.
+      const small = await Bun.file(flat.paths[0] as string).bytes();
+      const large = await Bun.file(magnified.paths[0] as string).bytes();
+      expect(large.byteLength).toBeGreaterThan(small.byteLength);
+    },
+    STARVED_MS,
+  );
+
+  it(
+    "spends the zoom on real pixels rather than on a bigger file of the same ones",
+    async () => {
+      const at = { x: 40, y: 200, width: 120, height: 120 };
+      const flat = await captureFrames(
+        baseUrl,
+        { wave: 0, ticks: 60, at },
+        join(scratchOut, "flat"),
+        browser,
+      );
+      const magnified = await captureFrames(
+        baseUrl,
+        { wave: 0, ticks: 60, at, zoom: 3 },
+        join(scratchOut, "magnified"),
+        browser,
+      );
+      // The same rectangle of the same frame at three times the density. The
+      // layout is computed from the CSS viewport, so what grows is resolution.
+      const small = await Bun.file(flat.paths[0] as string).bytes();
+      const large = await Bun.file(magnified.paths[0] as string).bytes();
+      expect(large.byteLength).toBeGreaterThan(small.byteLength);
+    },
+    STARVED_MS,
+  );
+
+  /**
    * The rings, and the reason they were in every picture this tool ever took.
    *
    * Crossing the ready gate throws two of them over the top two thirds of the

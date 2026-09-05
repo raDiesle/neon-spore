@@ -1,7 +1,7 @@
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { captureFrames, type FrameSpec } from "./capture.js";
+import { type CaptureResult, captureFrames, type FrameSpec } from "./capture.js";
 
 /**
  * Getting one *revision* of this game running, so a frame can be taken off it:
@@ -76,7 +76,7 @@ export async function captureAt(
   rev: string,
   spec: FrameSpec,
   outPrefix: string,
-): Promise<string[]> {
+): Promise<CaptureResult> {
   const scratch = await mkdtemp(join(tmpdir(), "neon-spore-frames-"));
   await rm(scratch, { recursive: true, force: true }); // `worktree add` wants the path free
   await git(["worktree", "add", "--detach", scratch, rev]);
@@ -84,7 +84,7 @@ export async function captureAt(
     await run(["bun", "install"], scratch);
     const preview = await startPreview(scratch);
     try {
-      return (await captureFrames(preview.url, spec, outPrefix)).paths;
+      return await captureFrames(preview.url, spec, outPrefix);
     } finally {
       await preview.stop();
     }

@@ -144,28 +144,6 @@ squares, the same colour, the same pulse. `fleet-budget.test.ts` is the proof �
 lower its `fillRect` rows to whatever the change actually measures, in the same
 commit, and `packages/render/test/fleet-frame.test.ts` still has to pass.
 
-## `bun run frames` cannot magnify the thing it photographed
-
-- **Found:** 2026-09-05, claude/eye-eyelid-shape-194988
-- **Taken:** 2026-09-05, claude/queue-bun-run-frames-cannot-magnify-the-thing-it-photo
-- **Files:** `tools/frames/run.ts`, `tools/frames/capture.ts`, `tools/frames/test/`
-
-A creature is drawn at `l.tile * 0.4`, which on a 390 px phone is about forty
-pixels, and a before-and-after of a change to its *shape* is two pictures in
-which the change is a handful of pixels. The eyelid lane could not judge its own
-work from the frames the tool produced and could not show the owner what had
-changed: `CLAUDE.md` says send the picture, and a picture nobody can see the
-change in is the same as sending none. It hand-rolled a throwaway that loaded
-both PNGs into a page, cropped to a rectangle and scaled it, then deleted it —
-which is the friction `shot.ts` was written to stop being paid again.
-
-Add a crop to the capture: `--zoom <n>` and `--at <x,y,w,h>` in the frame's own
-CSS pixels, applied to the screenshot of `#stage` rather than to the field, so
-the output is the same real frame at a size an eye can judge. Centring it on
-the subject the way `brush-trim.ts` measures a body would be better still and is
-optional — a declared rectangle is enough to close this. The pair of pictures
-must stay comparable, so the crop is the same rectangle on both, and the
-`identical:` guard in `run.ts` compares before the crop is applied.
 ## Split `frame-passes.ts`: it sits exactly on the 250-line limit
 
 - **Found:** 2026-09-05, claude/lock-wave-and-guide
@@ -256,3 +234,33 @@ entry is ordinary and adding a new one is ordinary; only *re-adding* one is the
 mistake, and the merge base is what tells the three apart. The comparison is a
 pure function over two strings and a base, so `tools/land/test/` can hold every
 case without a repository.
+
+## Two captures of one commit are not the same picture
+
+- **Found:** 2026-09-05, claude/queue-items-bj85ja
+- **Files:** `tools/frames/capture.ts`, `tools/frames/page.ts`, `tools/frames/test/opening.test.ts`
+
+`run.ts` refuses to write a before-and-after pair whose frames are the same,
+on the argument that a picture of an unchanged field teaches nothing. The
+comparison is now a digest of the whole frame (`sameFrames`), and while
+writing the test for it, **two captures of the same build at the same wave,
+tick and zoom came back with different digests** — measured, not suspected:
+`d821342…` against `749b881…` for `{ wave: 0, ticks: 60, zoom: 2 }` twice in a
+row against one preview server. So the guard cannot fire, and a lane that
+photographed a wave its change does not touch is handed two useless pictures
+and no warning.
+
+The clock is the likely cause and it is the one thing a capture does not
+already control. `advance` and `paint` are frozen and so is rAF, but
+`clearOpening` *polls* — it paints until the opening lets go, and how many
+frames that takes depends on the machine. Every one of those paints advances
+the render clock, and everything drawn on `time` (the wobble, the sway, every
+own-motion in `content/own-motion.ts`) is at a different phase on the second
+run.
+
+Freeze the page's clock the way rAF is already frozen — a monotonic stub for
+`performance.now` and `Date.now` installed before the bundle runs, advancing
+only by the sixtieths `paint` spends — and then hold it: two `captureFrames`
+of one build at one spec must come back byte-identical, which is a test
+`tools/frames/test/opening.test.ts` can run against the preview it already
+starts. Until that holds, the `identical:` line in `run.ts` is a comment.

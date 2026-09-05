@@ -28,6 +28,7 @@
  *   bun run frames <sha> --wave 20 --hold wardenTether=0,y=7000  the rope pulled taut
  *   bun run frames <sha> --wave 21 --press 60:1:cannonCol=3,64:2:fire=red   a shot, or 90:1:salvo
  *   bun run frames <sha> --wave 21 --settle 8 --frames 6 --stride 0   a burst, as a strip
+ *   bun run frames <sha> --wave 21 --at 120,400,150,150 --zoom 3   one body, close up
  *   bun run frames <sha> --wave 2 --opening guide|intro --frames 8 --stride 6   its opening
  *   bun run frames <sha> --wave 21 --out docs/frames/<sha>
  *
@@ -42,6 +43,13 @@
  * picture: the two clocks are separate, so anything living in painted seconds
  * had one frame per photograph however long a capture ran (`FrameSpec.settle`).
  *
+ * `--at x,y,w,h` keeps a rectangle of the frame, in its own CSS pixels from the
+ * top left of `#stage`, and `--zoom N` opens the page at N times the pixel
+ * density. A body is forty pixels across on a phone, so a change to its shape
+ * is a handful of them; together these are the same real frame at a size an
+ * eye can judge. The `identical:` guard below reads the *whole* frame either
+ * way, so a crop can neither hide the only difference nor invent one.
+ *
  * `--wave` takes the number a person reads off the HUD (`W21` is `--wave 21`,
  * not `--wave 20`) or a wave's own name. Both convert to the 0-based index
  * `jumpToWave` and `world.wave` actually use.
@@ -51,6 +59,7 @@ import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
 import type { FrameSpec } from "./capture.js";
+import { parseAt, sameFrames } from "./crop.js";
 import { parseHold } from "./hold.js";
 import { parseOpening } from "./opening.js";
 import { parsePress } from "./press.js";
@@ -113,22 +122,6 @@ export function resolveWaveFlag(value: string, waves: readonly WaveName[]): numb
   return index;
 }
 
-/** Byte-identical, frame for frame, in order — the guard against writing an
- * honest, comparable, completely useless pair. */
-export async function framesIdentical(before: string[], after: string[]): Promise<boolean> {
-  if (before.length !== after.length) return false;
-  for (let i = 0; i < before.length; i++) {
-    const beforePath = before[i] as string;
-    const afterPath = after[i] as string;
-    const [a, b] = await Promise.all([
-      Bun.file(beforePath).arrayBuffer(),
-      Bun.file(afterPath).arrayBuffer(),
-    ]);
-    if (Buffer.compare(Buffer.from(a), Buffer.from(b)) !== 0) return false;
-  }
-  return true;
-}
-
 async function main(): Promise<void> {
   const argv = process.argv.slice(2);
   const sha = argv[0];
@@ -136,7 +129,7 @@ async function main(): Promise<void> {
     throw new Error(
       'usage: bun run frames <sha> --wave N|"NAME" [--ticks N] [--seat p1|p2|test] ' +
         "[--hold prime|mazeString=N|wardenTether=N[,y=N]|lidString=N,id=N] [--hold-ticks N] " +
-        "[--settle N] " +
+        "[--settle N] [--at x,y,w,h] [--zoom N] " +
         "[--press TICK:SEAT:control=value,…] [--opening intro|guide] [--out DIR]",
     );
   }
@@ -153,6 +146,8 @@ async function main(): Promise<void> {
   const hold = holdFlag === -1 ? undefined : parseHold(argv[holdFlag + 1] ?? "");
   const pressFlag = argv.indexOf("--press");
   const press = pressFlag === -1 ? undefined : parsePress(argv[pressFlag + 1] ?? "");
+  const atFlag = argv.indexOf("--at");
+  const at = atFlag === -1 ? undefined : parseAt(argv[atFlag + 1] ?? "");
   const openingFlag = argv.indexOf("--opening");
   const opening = openingFlag === -1 ? undefined : parseOpening(argv[openingFlag + 1] ?? "");
 
@@ -196,6 +191,8 @@ async function main(): Promise<void> {
     // did: one painted frame per photograph, and nothing that lives in painted
     // seconds ever moving.
     settle: flag("settle", 0),
+    at,
+    zoom: flag("zoom", 1),
     press,
     opening,
   };
@@ -219,7 +216,7 @@ async function main(): Promise<void> {
     const after = await captureAt(full, spec, join(scratchOut, "after"));
     const seconds = Math.round((Date.now() - start) / 1000);
 
-    if (await framesIdentical(before, after)) {
+    if (sameFrames(before.whole, after.whole)) {
       console.log(
         `identical: before and after look the same at this wave and tick (${seconds}s) — nothing written to ${out}. A picture of an unchanged field teaches nothing; try a different --wave or --ticks.`,
       );
@@ -228,7 +225,7 @@ async function main(): Promise<void> {
 
     await mkdir(out, { recursive: true });
     const written: string[] = [];
-    for (const p of [...before, ...after]) {
+    for (const p of [...before.paths, ...after.paths]) {
       const rel = p.slice(scratchOut.length + 1);
       const dest = join(out, rel);
       await mkdir(dirname(dest), { recursive: true });

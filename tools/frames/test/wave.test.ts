@@ -1,9 +1,7 @@
 import { describe, expect, it } from "bun:test";
-import { mkdtemp } from "node:fs/promises";
-import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { WAVES } from "@neon-spore/content";
-import { framesIdentical, resolveWaveFlag, waveNamesAt } from "../run.js";
+import { resolveWaveFlag, waveNamesAt } from "../run.js";
 
 /**
  * "A frame of the wrong wave proves nothing" — the two faults that survive now
@@ -44,32 +42,5 @@ describe("waveNamesAt", () => {
       .text();
     const names = await waveNamesAt(head.trim());
     expect(names.map((w) => w.name)).toEqual(WAVES.map((w) => w.name));
-  });
-});
-
-describe("framesIdentical", () => {
-  it("is true for byte-identical files", async () => {
-    const dir = await mkdtemp(join(tmpdir(), "neon-spore-frames-test-"));
-    const a = join(dir, "a.png");
-    const b = join(dir, "b.png");
-    await Bun.write(a, new Uint8Array([1, 2, 3, 4]));
-    await Bun.write(b, new Uint8Array([1, 2, 3, 4]));
-    expect(await framesIdentical([a], [b])).toBe(true);
-  });
-
-  it("is false when a single byte differs", async () => {
-    const dir = await mkdtemp(join(tmpdir(), "neon-spore-frames-test-"));
-    const a = join(dir, "a.png");
-    const b = join(dir, "c.png");
-    await Bun.write(a, new Uint8Array([1, 2, 3, 4]));
-    await Bun.write(b, new Uint8Array([1, 2, 3, 5]));
-    expect(await framesIdentical([a], [b])).toBe(false);
-  });
-
-  it("is false when the frame counts differ", async () => {
-    const dir = await mkdtemp(join(tmpdir(), "neon-spore-frames-test-"));
-    const a = join(dir, "a.png");
-    await Bun.write(a, new Uint8Array([1, 2, 3, 4]));
-    expect(await framesIdentical([a], [a, a])).toBe(false);
   });
 });

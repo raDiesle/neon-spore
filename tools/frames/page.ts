@@ -46,7 +46,13 @@ export async function openStage(
   baseUrl: string,
   spec: FrameSpec,
 ): Promise<Stage> {
-  const page = await browser.newPage({ viewport: spec.viewport ?? DEFAULT_VIEWPORT });
+  // `deviceScaleFactor` and not a resize afterwards: the layout is computed
+  // from the CSS viewport either way, so this buys real pixels for the same
+  // picture rather than stretching the ones a phone would have had.
+  const page = await browser.newPage({
+    viewport: spec.viewport ?? DEFAULT_VIEWPORT,
+    deviceScaleFactor: spec.zoom ?? 1,
+  });
   const pageErrors: string[] = [];
   page.on("pageerror", (err) => pageErrors.push(String(err)));
 

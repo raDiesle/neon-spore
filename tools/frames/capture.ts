@@ -2,6 +2,7 @@ import { mkdir } from "node:fs/promises";
 import { dirname } from "node:path";
 import { type Browser, chromium, type Page } from "playwright-core";
 import { findChrome } from "./chrome.js";
+import { clipFor } from "./crop.js";
 import { openStage } from "./page.js";
 import type { FrameSpec, PressSpec } from "./spec.js";
 
@@ -18,6 +19,8 @@ import type { FrameSpec, PressSpec } from "./spec.js";
  * for it, so it is re-exported rather than moved — the subject itself lives in
  * `chrome.ts`, out of the way of driving a frame. */
 export { findChrome, pickChrome } from "./chrome.js";
+/** The rectangle a capture may be cropped to, and how a pair is compared. */
+export { type Crop, clipFor, parseAt, sameFrames } from "./crop.js";
 /** Which half of a wave's opening a capture stands in, and the flag that says
  * so — the subject is `opening.ts`'s, and a caller wants the name without it. */
 export { type OpeningStop, parseOpening } from "./opening.js";
@@ -29,6 +32,15 @@ export type { FrameSpec, HoldSpec, PressSpec } from "./spec.js";
 export interface CaptureResult {
   /** One path per frame, in capture order. */
   paths: string[];
+  /**
+   * A digest of the **whole** frame, one per path, whatever was written.
+   *
+   * `run.ts` refuses to write a before-and-after pair that is the same on both
+   * sides, and that refusal has to be about the game rather than about the
+   * rectangle somebody asked to look at: a crop could otherwise hide the only
+   * difference there was, or frame one that a reader would have found anyway.
+   */
+  whole: string[];
 }
 
 /** Painted frames spent settling a wave's opening before the frame that is
@@ -122,6 +134,7 @@ export async function captureFrames(
     }
 
     const paths: string[] = [];
+    const whole: string[] = [];
     for (let i = 0; i < frames; i++) {
       const advanceBy = i === 0 ? spec.ticks : strideTicks;
       if (i === 0 && spec.press) {
@@ -178,10 +191,22 @@ export async function captureFrames(
       const path =
         frames === 1 ? `${outPrefix}.png` : `${outPrefix}-${String(i).padStart(2, "0")}.png`;
       await mkdir(dirname(path), { recursive: true });
-      await page.locator("#stage").screenshot({ path });
+      // The whole frame first and always, because the digest is what says
+      // whether the pair is worth writing. What lands on disk is the crop when
+      // one was asked for, clipped out of the same instant rather than out of a
+      // second capture (`crop.ts`).
+      const shot = await page.locator("#stage").screenshot();
+      whole.push(new Bun.CryptoHasher("sha256").update(shot).digest("hex"));
+      if (spec.at) {
+        const box = await page.locator("#stage").boundingBox();
+        if (!box) throw new Error("#stage has no box to crop out of");
+        await page.screenshot({ path, clip: clipFor(box, spec.at) });
+      } else {
+        await Bun.write(path, shot);
+      }
       paths.push(path);
     }
-    return { paths };
+    return { paths, whole };
   } finally {
     // A lent browser is the caller's to close; the tab this capture opened in
     // it is not, and a file that leaked one per capture would be back where it
