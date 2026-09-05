@@ -195,7 +195,6 @@ covers the sequence and should stay green.
 ## `tools/frames`' browser tests fail intermittently under a full `bun run check`
 
 - **Found:** 2026-09-04, claude/air-above-the-ship-seat-tint
-- **Taken:** 2026-09-05, claude/queue-tools-frames-browser-tests-fail-intermittently-u
 - **Files:** `tools/frames/test/opening.test.ts`, `tools/frames/capture.ts`, `tools/frames/serve.ts`
 
 Twice in five runs of `bun run check` a single test in `tools/frames/test/`
