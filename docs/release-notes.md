@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 397ae4f — `bun run frames .` photographs the working tree, once
+
+The tool always took a **pair**: a commit and its parent, each in a scratch worktree, refused if the two frames match. That is right for a change to a look and it is the wrong shape for every change whose parent cannot produce the picture at all. `--boss-round` was the case that found it — the flag calls a handle the parent has not got, so the "before" side throws by design, and the only way to see THE MAZE's fourth sheet was a throwaway script that started `preview:once` and drove `captureFrames` by hand. That is the friction `shot.ts` exists to stop being paid again, and it was paid again.
+
 ## 2026-09-05 · 7885ccf — A walk of the repository is held to skipping `.claude`
 
 The build-stamp test's `.claude` skip landed with the other half of its entry undone: **check the other tree-walking tests for the same hole.** They are checked now, and the rule is a test rather than a memory.
