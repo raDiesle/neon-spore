@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · a38bbac — THE MAZE is a maze now, and the shot walks it without touching a wall
+
+The boss drew three plain circles with a dot on the rim. It carries the sheet the owner sent instead: seven corridors round a middle, radial walls on the eighths, one gap in the rim, and the gaps in every circle where that sheet has them. The drum is drawn wall for wall, and the shot goes in at the gap and crawls the corridors to the middle — turning where the corridor turns, never across a wall, because the route is solved from the same walls the picture is drawn from rather than typed in beside them.
+
 ## 2026-09-05 · 08b2ce6 — The queen's next torch says when, not just which side
 
 ONE MARK IS REAL was drawn around her body, which put the ring on her shell between the two marks and touched neither — a page about one of a pair, circling the pair's gap. A caption may now point at `marks`, and `render/queen-figure.ts` places them for both the drawing and the ring so they cannot come apart. The flank the next torch drops off wears NEXT TO FALL instead of the pulsing ring the real mark wears: the target lock every picked-out body in the game wears, the words under it, and a bar that fills as the eight beats run out. A mark is a column to call and a drop is a clock to watch, and one picture was doing both. THE QUEEN · SHE OPENS is gone; the film is three pages that each name a job.
