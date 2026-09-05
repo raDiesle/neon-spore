@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 0f0354b — A second answer to what a rock is made of, offered beside the grey one
+
+The meteor's material was inline in `drawMeteor`, so there was nowhere for a second answer to it to sit — `docs/versus.md` names the rock as the case the mechanism should be tested against and this is the seam that makes it possible. `METEOR_LOOK` (`meteor-look.ts`) carries the layers a rock is painted in — body, pit, an optional shell around it, and the halo — with the shipped stone filled in unchanged. `drawMeteor` keeps the placing, the spin and the wobble and calls into the record. Not a pixel moves.
+
 ## 2026-09-05 · 67e0b83 — A panel the pair has not held before is introduced like a new creature
 
 A guide teaches the first wave to carry a creature, a pod, a boss or a mechanic, and a panel was the one new thing that arrived unannounced: a pair reaching STANDARD 3 is handed a button they have never seen and the wave said nothing about it. `firstOnPanel` is the question — the first *sight* of a set, not every change of one, because returning to the ordinary field after a boss round teaches nobody anything — and `content/test/waves.test.ts` fails on a wave that opens a panel in silence. All five that do carry one.
