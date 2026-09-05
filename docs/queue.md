@@ -92,6 +92,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## Hold `docs/spec/briefings.md`'s wave numbers against `WAVES` with a test
 
 - **Found:** 2026-09-05, claude/tutorial-reset-wave-fixes-ea7302
+- **Taken:** 2026-09-05, claude/queue-hold-docs-spec-briefings-md-s-wave-numbers-again
 - **Files:** `docs/spec/briefings.md`, `packages/content/test/waves.test.ts`
 
 The right-hand column of the table in §1 names each teaching block's wave as a
