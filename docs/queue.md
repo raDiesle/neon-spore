@@ -92,6 +92,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## A grip on a ghost draws its ring on the screen the column is hidden from
 
 - **Found:** 2026-09-05, claude/enemy-lock-on-cannon-eab174
+- **Taken:** 2026-09-05, claude/queue-a-grip-on-a-ghost-draws-its-ring-on-the-screen-t
 - **Files:** `packages/render/src/grip.ts`, `packages/render/test/grip-frame.test.ts`
 
 `drawGrips` walks `world.creatures` and draws a beam, a ring and a label at
