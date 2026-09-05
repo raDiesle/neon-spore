@@ -11,6 +11,13 @@ test is one question: **could a fresh session finish this alone and prove it
 with `bun run check`?** Yes — it goes here, in the same commit as the work that
 found it, without asking first.
 
+**And nowhere else.** Not the report, which scrolls away — the next session
+clones `origin` and sees only files. Not a suggested background task either:
+this file *is* the mechanism, and a chip is a popup the owner has to dismiss
+that says nothing `bun run queue` does not already say to whoever asks it. A
+finding written here is read by every session that comes after; a finding
+offered as a chip is read once, by the one person the queue exists to spare.
+
 **What does not.** A thing the game could be — a creature, a mechanic, a
 control, a weapon, a boss, a round — is a decision, and a decision drains only
 through the owner. It goes in `docs/spec/`, where the director's
@@ -192,29 +199,6 @@ film is written. A strip wants the third reading of that — an act that says
 the world rather than by an author out of a grid. Add it to `SceneAct`, resolve
 it in `aimed`, and hold it in `scenes.test.ts` the way the other two are held.
 Then write THE VOLLEY's film, which is a queue entry of its own and stays there.
-
-## CLAUDE.md is nine characters under its own ceiling
-
-- **Found:** 2026-09-05, claude/queued-items-d3ce8d
-- **Taken:** 2026-09-05, claude/queue-claude-md-is-nine-characters-under-its-own-ceili
-- **Files:** `CLAUDE.md`, `tools/test/claude-md.test.ts`
-
-`tools/test/claude-md.test.ts` caps the file at 22,000 characters because it is
-loaded into every session and re-read whenever it changes. It stands at 21,991,
-which is not headroom — it is a wall the next rule to be written down walks
-into. `bun run sweep` landed with no line in the commands table for exactly
-that reason, and it was not the last: `bun run maze`, which draws the sheets THE MAZE is
-played on, is missing from the table for the same reason. Both lines go in
-once there is room for them.
-
-The test's own comment says what to do and the file has been through it once
-before, at 537 lines: the argument for a rule moves to `docs/`, one hop from a
-pointer, and the rule stays. Read the sections that are narrative rather than
-imperative — "A look is offered, never replaced" and "A technical finding is
-queued; an idea is not" both run to a page and both already have a document
-behind them (`docs/looks.md`, `docs/queue.md`'s own preamble) — and move the
-prose there, leaving what a session has to *do*. Then put the missing
-`bun run sweep` line in the commands table with the room that buys.
 
 ## `bun run frames` cannot photograph a burst: sparks move only when it paints
 

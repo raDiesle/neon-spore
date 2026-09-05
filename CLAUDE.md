@@ -107,70 +107,52 @@ The reasoning, and what a cloud session needs once it is running:
 
 ## A technical finding is queued; an idea is not
 
-Three destinations, and a session decides between them without asking.
+Three destinations, and a session decides between them without asking. Why
+each is where it is: `docs/queue.md`'s own preamble.
 
 **A technical finding is always written down, in the same turn it is found.**
 A refactor stepped around, a rule re-derived instead of called, a file grown
 past ~250 lines, dead code, a slow path, a missing test, a document that no
 longer describes the code, a tool that would have helped. It goes in
-`docs/queue.md` as one `##` item — with the date, the branch, the files, and
-what to do — and it is committed with the work that found it. Do not ask
-first, do not weigh whether it is worth the owner's attention, and do not
-settle for saying it in the report: the report scrolls away, and the next
-session clones `origin` and sees only files. The file is the whole mechanism —
-do **not** also offer it as a suggested background task. A chip is a popup the
-owner has to dismiss, and it says nothing `docs/queue.md` does not already say
-to `bun run queue`.
-
-The test for an entry is one question: **could a fresh session finish this
-alone and prove it with `bun run check`?** That is what makes a queue safe to
-keep — every item in it drains without the owner deciding anything.
+`docs/queue.md` as one `##` item — the date, the branch, the files, and what to
+do — committed with the work that found it. Do not ask first, do not weigh
+whether it is worth the owner's attention, do not settle for saying it in the
+report, and do **not** also offer it as a suggested background task. The test
+for an entry is one question: **could a fresh session finish this alone and
+prove it with `bun run check`?**
 
 **A queue item is worked by a session that has nothing else in it, and it is
-claimed before any of the work starts.** `bun run queue` lists what is waiting
-and who is on what; `bun run queue next` hands out the first free item — it
-creates that item's branch, writes a `Taken:` line into the entry **on `main`**
-and pushes it, then prints a prompt naming the branch. Both halves are the
-claim: the branch is instant but local, and the line is what a session in its
-own clone can see. Never start a queue item without going through `next` or
-`take`, and never work one the list already shows as taken — two sessions did
-the same six items on 3 September 2026 by skipping exactly that. The session
-checks the branch out in its own worktree, does the item, removes the entry
-(`bun run queue done <n|title>`) and lands, which releases it.
-`bun run queue release <n|title>` gives back one that was handed out and never
-started. A session draining several items in one sitting claims each with
-`bun run queue take <n|title>` instead, which makes the same claim — branch and
-line both — and stops there, with no prompt and no worktree.
-`bun run queue status` answers "is anything still being worked on" in one word —
-DONE, IDLE or BUSY — which is the question to ask before turning the machine
-off.
+claimed before any of the work starts.** `bun run queue next` hands out the
+first free item: it makes that item's branch and writes a `Taken:` line into
+the entry **on `main`**, and both halves together are the claim. Never start an
+item without going through `next` or `take`, and never work one the list
+already shows as taken. The session checks the branch out in its own worktree,
+does the item, removes the entry (`bun run queue done <n|title>`) and lands,
+which releases it. A session draining several in one sitting claims each with
+`bun run queue take <n|title>` instead: the same claim, no prompt and no
+worktree.
 
-**An idea for the game is still not collected.** What the game could have and
-does not — a creature, a mechanic, a control, a weapon, a boss, a round — is a
+**An idea for the game is not collected.** What the game could have and does
+not — a creature, a mechanic, a control, a weapon, a boss, a round — is a
 decision, and a decision drains only through the owner. Unasked, it goes in
 `docs/spec/`, which is what the director's `◇ NOT BUILT YET` sheet reads, next
 to the built things it would sit beside. A *look* is offered in `tools/versus/`
-instead, because the only way to choose one is to see it. Neither is ever
-filed into the queue by the session that thought of it: mixing decisions into a
-list is what buried the last one under sixty-two entries only the owner could
-drain.
+instead, because the only way to choose one is to see it. Neither is ever filed
+into the queue by the session that thought of it.
 
 **But it may be put to the owner, at the end of the turn that found it.** A
 session working on something else that sees a feature the game wants — a
 control, a screen, a way in, anything a player would notice — says so in the
 report: one line each, and the question of where it should go. The owner
 answers, item by item: onto `docs/queue.md`, into `docs/spec/`, or nowhere.
-That is the *only* way a user-visible feature reaches the queue, and the answer
-is his rather than a session's guess at it. Ask once, at the end, in a batch —
-never mid-task, and never as a background-task chip.
+That is the *only* way a user-visible feature reaches the queue. Ask once, at
+the end, in a batch — never mid-task, and never as a background-task chip.
 
-**Half-done work goes in `docs/parked.md`** — work already started and not
-finished: a refactor abandoned when it grew, a test skipped with a reason, a
-migration done in three files out of five. The next session is told only what
-the commit messages say, and none of them say "the other half of this is still
-undone". Write it in the same commit, in the same format the queue uses;
-`bun run queue` lists parked work first, because it is the only kind that gets
-harder while it waits. `tools/queue/test/queue.test.ts` holds both formats.
+**Half-done work goes in `docs/parked.md`** — a refactor abandoned when it
+grew, a test skipped with a reason, a migration done in three files out of
+five. Write it in the same commit, in the format the queue uses;
+`bun run queue` lists parked work first. `tools/queue/test/queue.test.ts` holds
+both formats.
 
 ## A look is offered, never replaced
 
@@ -190,8 +172,8 @@ Three exemptions, and say in the commit which one you used:
 - **A look the owner asked for by name.** That decision is already made.
 - **A look with no shipped alternative.** Nothing is being replaced.
 - **A fix to something wrong rather than unlovely.** A highlight glued to a
-  spinning rock, a fringe off its body, a shape clipping its frame, a control
-  under the status bar: these are defects, repaired rather than offered.
+  spinning rock, a shape clipping its frame, a control under the status bar:
+  these are defects, repaired rather than offered.
 
 **A lane about to improve a look mid-task stops** and puts it in the report.
 Why, in the owner's own words: `docs/looks.md`; the mechanism: `docs/versus.md`.
@@ -235,8 +217,10 @@ bun run queue release <n>  # give back an item that was handed out, not started
 bun run queue done <n> # take an entry out once it has landed
 bun run check          # typecheck + lint + test, run this before saying "done"
 bun run land           # rebase, check, fast-forward, note it, sweep
+bun run sweep          # the cleanup a --keep landing deferred, on its own
 bun run push           # send main to origin, on purpose rather than on landing
 bun run index          # regenerate the file map in docs/INDEX.md
+bun run maze           # the sheets THE MAZE is played on, drawn
 bun run shapes:parts   # every secondary form on one sheet — docs/parts.md
 bun run shapes:swim    # one pulse cycle of every body that swims, as a strip
 bun run icons          # regenerate the home-screen PNGs from apps/game/icon.svg
