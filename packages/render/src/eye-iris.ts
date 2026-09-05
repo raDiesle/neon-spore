@@ -1,7 +1,7 @@
 import { circleSubpath } from "@neon-spore/content";
 import type { EyeInk } from "./eye-lens.js";
 import { strokeGlow } from "./glow.js";
-import { STROKE } from "./palette.js";
+import { PALETTE, STROKE } from "./palette.js";
 
 /**
  * **The machinery inside an eye**: an aperture ring around the pupil and a ring
@@ -69,5 +69,17 @@ export function drawEyeIris(
     iris.moveTo(cx + Math.cos(a) * pr * SPOKE_IN, cy + Math.sin(a) * pr * SPOKE_IN);
     iris.lineTo(cx + Math.cos(a) * pr * SPOKE_OUT, cy + Math.sin(a) * pr * SPOKE_OUT);
   }
-  strokeGlow(ctx, iris, ink.rim, STROKE.inner, 0.32 + openness * 0.42);
+  // **Cut into the iris before it is lit.** The iris is a wash of the body's own
+  // colour and a bright line on top of it is a bright line on a bright field —
+  // the first pass of this drew spokes nobody could see at any size. A thick
+  // dark stroke under the same path makes each one a *slot* through the colour,
+  // and the thin lit one over it is then a line on a dark ground. One plain
+  // stroke, not a glow: the glow is the layer above it.
+  ctx.save();
+  ctx.globalAlpha = 0.55 + openness * 0.35;
+  ctx.strokeStyle = PALETTE.background;
+  ctx.lineWidth = STROKE.inner * 3;
+  ctx.stroke(iris);
+  ctx.restore();
+  strokeGlow(ctx, iris, ink.rim, STROKE.inner, 0.4 + openness * 0.5);
 }
