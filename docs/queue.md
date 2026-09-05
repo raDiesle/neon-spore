@@ -184,6 +184,7 @@ shim that shows what the new shape wants if it changed again.
 ## `bun run frames` cannot stand a multi-round boss at any round but its first
 
 - **Found:** 2026-09-05, claude/maze-boss-entrance-fix-76efbf
+- **Taken:** 2026-09-05, claude/queue-bun-run-frames-cannot-stand-a-multi-round-boss-a
 - **Files:** `apps/game/src/handle.ts`, `tools/frames/run.ts`, `tools/frames/capture.ts`
 
 `jumpToWave` puts a boss on the field at its opening round, and there is no
