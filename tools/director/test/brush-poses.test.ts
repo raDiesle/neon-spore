@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { wornKind } from "@neon-spore/sim";
-import { echoes, echoPairWorld } from "../src/brush-poses.js";
+import { echoes, echoPairWorld } from "../src/brush-poses-echo.js";
 
 /**
  * THE ECHO's brush picture is the one pose that is *about* a division rather
