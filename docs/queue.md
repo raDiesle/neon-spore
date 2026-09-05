@@ -173,6 +173,7 @@ is the change to reach for once the failure can be produced on demand.
 ## A scene cannot put the shield where a body actually is
 
 - **Found:** 2026-09-05, claude/queued-items-d3ce8d
+- **Taken:** 2026-09-05, claude/queue-a-scene-cannot-put-the-shield-where-a-body-actua
 - **Files:** `packages/content/src/scene-types.ts`, `packages/content/src/scene-script.ts`,
   `packages/sim/src/scene.ts`, `packages/content/test/scenes.test.ts`
 
