@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 809f594 — The queue stops listing work that is already on the trunk
+
+Three entries were back in `docs/queue.md` after being removed with the work that closed them — `bun run push` explaining a refusal, `--settle`, and the frames tests' shared browser are all on `main`, and the queue went on listing them as waiting. A session that believed the file, which is the whole point of the file, would have done them again.
+
 ## 2026-09-05 · bb36a4a — The heavy breach is heard for the first time
 
 `bind.ts` split a hull breach on `e.damage >= 8000`, which is a number in thousandths, and the event carries whole hull points. `breachHull` is called with `damageMeteor` (20), `damageCarom` (20), `damageGhostDive` (18), `damageCreature` (12) and a lure's blast share (5) — so the comparison was always false and the heavy cue, *the plate going, a long low tear with the room shaking after it*, has never played in the running game. A rock reaching the hull sounded exactly like a slick brushing it.
