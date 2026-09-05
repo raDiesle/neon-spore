@@ -98,27 +98,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
 
 
-## The build-stamp test walks `.claude/worktrees` and fails in the main checkout
-
-- **Found:** 2026-09-05, claude/eye-eyelid-shape-194988
-- **Taken:** 2026-09-05, claude/queue-the-build-stamp-test-walks-claude-worktrees-and
-- **Files:** `tools/test/build-stamp.test.ts`
-
-Its `sources()` walks the tree from the repository root with
-`SKIP = node_modules, dist, .git, legacy, assets`, and `.claude` is not in that
-list. The owner's main checkout keeps every open lane's worktree under
-`.claude/worktrees/`, so the scan descends into each of them and reports their
-`apps/game/build.ts`, `tools/build-stamp.ts` and `tools/director/build.ts` as
-offenders — the same four allowed files over and over, from a path the `ALLOWED`
-set cannot match because it is relative to the outer root. On this machine the
-test fails with about a hundred entries; in a fresh clone with no worktrees it
-passes, which is why it landed green.
-
-Add `.claude` to `SKIP`. Then check the other tree-walking tests for the same
-hole — anything that starts at the repository root and filters by directory
-name rather than by a package glob has it, and a worktree is a full copy of the
-repository sitting inside the repository.
-
 ## THE FLEET's lattice costs 132 `fillRect` a frame for its crossings
 
 - **Found:** 2026-09-05, claude/fleet-boss-animations-ui-d7adb9

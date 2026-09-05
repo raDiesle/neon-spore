@@ -5,8 +5,11 @@ import { countsIn, driftInRow, headerCommentText } from "../drift.js";
 import { parseRows } from "../index.js";
 
 const ROOT = join(import.meta.dirname, "..", "..", "..");
-// `worktrees` is `.claude/worktrees`: other lanes' checkouts of this same repo.
-const SKIP_DIRS = new Set(["node_modules", "dist", ".git", "worktrees"]);
+// `.claude` holds `worktrees/`, and a worktree is a full copy of the repository
+// sitting inside the repository. Named rather than `worktrees` on its own,
+// which would also skip a directory that merely shares the word.
+// `tools/test/tree-walk.test.ts` holds every walker to this.
+const SKIP_DIRS = new Set([".claude", "node_modules", "dist", ".git"]);
 
 function walkAll(dir: string, out: string[]): void {
   for (const entry of readdirSync(dir)) {

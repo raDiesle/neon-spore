@@ -20,7 +20,11 @@ import { join, relative } from "node:path";
 import { filterScopeFiles, generateIndex, parseRows } from "./index.js";
 
 const ROOT = join(import.meta.dirname, "..", "..");
-const SKIP_DIRS = new Set(["node_modules", "dist", ".git"]);
+// `.claude` for the reason `tools/test/tree-walk.test.ts` gives: a worktree is
+// a full copy of the repository sitting inside the repository. This walk starts
+// at `packages`, `apps` and `tools` and so cannot reach one today; it is here so
+// that changing where it starts is not also a silent change to what it scans.
+const SKIP_DIRS = new Set([".claude", "node_modules", "dist", ".git"]);
 
 function walk(dir: string, out: string[]): void {
   for (const entry of readdirSync(dir)) {
