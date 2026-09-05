@@ -101,6 +101,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## The build-stamp test walks `.claude/worktrees` and fails in the main checkout
 
 - **Found:** 2026-09-05, claude/eye-eyelid-shape-194988
+- **Taken:** 2026-09-05, claude/queue-the-build-stamp-test-walks-claude-worktrees-and
 - **Files:** `tools/test/build-stamp.test.ts`
 
 Its `sources()` walks the tree from the repository root with
