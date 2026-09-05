@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · da30c59 — `--boss-round`: a fight played in rounds can be photographed past its first
+
+`jumpToWave` puts a boss on the field at its opening round and the only thing that moves it on is *winning*, which nothing headless can do. So `bun run frames` could photograph the first of THE MAZE's five sheets and no other — and the first sheet is the one with a single way in, so the rim with five gaps and the drum coming apart on a shot lost in a dead end were held by a unit test and by nothing an eye had seen. THE MIRROR, SNAKE and PINBALL had the same hole.
+
 ## 2026-09-05 · cdbf252 — `bun run frames --at` and `--zoom`: a change the size of a creature
 
 A body is drawn at `l.tile * 0.4`, about forty pixels on a 390 px phone, so a before-and-after of a change to its *shape* is two pictures nobody can see the change in — which by CLAUDE.md's rule is the same as sending none. The eyelid lane could not judge its own work from the frames this tool produced, and hand-rolled a throwaway that loaded both PNGs into a page, cropped a rectangle and scaled it, then deleted it. That is the friction `shot.ts` exists to stop being paid twice.
