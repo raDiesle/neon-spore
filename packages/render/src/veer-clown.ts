@@ -87,7 +87,7 @@ export function drawVeerClown(
   // The head's own size, and the unit the rest of the figure is written in —
   // so a rock authored two tiles wide carries a rider twice the size rather
   // than the same small one perched on a boulder.
-  const hr = r * 0.44;
+  const hr = r * 0.46;
   // Where the shoulders are: on the rock's crown, sunk by the brace. The idle
   // sway is the stone's own wobble borrowed at a different speed, so the rider
   // is never perfectly still on a body that never is.
@@ -138,19 +138,23 @@ export function drawVeerClown(
   // all they are asked to be.
   ctx.fillStyle = PALETTE.background;
   ctx.beginPath();
-  ctx.arc(headX - hr * 0.38, headY - hr * 0.22, hr * 0.14, 0, Math.PI * 2);
-  ctx.arc(headX + hr * 0.38, headY - hr * 0.22, hr * 0.14, 0, Math.PI * 2);
+  ctx.arc(headX - hr * 0.4, headY - hr * 0.26, hr * 0.15, 0, Math.PI * 2);
+  ctx.arc(headX + hr * 0.4, headY - hr * 0.26, hr * 0.15, 0, Math.PI * 2);
   ctx.fill();
+  // The grin is struck wide and low, clear of the nose that goes over it —
+  // drawn tight to the nose it read as a shadow under one rather than as a
+  // mouth, which loses the only mark on this face that is doing any work
+  // besides "somebody is up there".
   ctx.beginPath();
-  ctx.arc(headX, headY + hr * 0.12, hr * 0.55, 0.24 * Math.PI, 0.76 * Math.PI);
+  ctx.arc(headX, headY + hr * 0.08, hr * 0.64, 0.28 * Math.PI, 0.72 * Math.PI);
   ctx.strokeStyle = PALETTE.background;
-  ctx.lineWidth = Math.max(1, hr * 0.16);
+  ctx.lineWidth = Math.max(1, hr * 0.15);
   ctx.lineCap = "round";
   ctx.stroke();
 
   // The nose last and brightest: the one near-white thing on a grey figure, so
   // the eye lands on the face before it lands on anything else.
-  ball(ctx, headX, headY + hr * 0.16, hr * 0.28, PALETTE.text, PALETTE.rockDark);
+  ball(ctx, headX, headY + hr * 0.1, hr * 0.24, PALETTE.text, PALETTE.rockDark);
   ctx.restore();
 
   // A breath of light around the rider while it braces, and none at all
