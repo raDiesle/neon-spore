@@ -174,6 +174,7 @@ export {
   type VolleyDir,
   volleyBecomes,
   volleyClimbLeft,
+  volleyDrifts,
   volleyHeading,
   volleyIsClimbing,
   volleyPlatesLeft,

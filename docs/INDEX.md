@@ -499,6 +499,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/controls-fleet.ts` | THE FLEET's own two controls, and the crosshair only they still wear |
 | `packages/render/src/ship-air.ts` | THE AIR THE SHIP IS SITTING IN |
 | `packages/render/src/volley.ts` | THE VOLLEY's shell: the rock plating a slick or a bulb is sealed inside |
+| `packages/render/src/volley-seams.ts` | **The pattern painted on THE VOLLEY's shell**: the four seams a basketball has |
 
 ### packages/net
 

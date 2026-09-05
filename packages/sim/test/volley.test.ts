@@ -113,12 +113,34 @@ function tickAtRow(row: number): number {
 }
 
 describe("the diagonal", () => {
-  it("drops volleyRows and crosses volleyCols on every beat", () => {
-    const { world } = run([volley(0)], tickAtRow(CFG.volleyRows * 3) + 1);
+  it("drops volleyRows a beat and crosses only every volleyCrossBeats", () => {
+    const beats = CFG.volleyCrossBeats * 3;
+    const { world } = run([volley(0)], tickAtRow(CFG.volleyRows * beats) + 1);
     const body = only(world)!;
-    expect(body.row).toBe(CFG.volleyRows * 3);
+    expect(body.row).toBe(CFG.volleyRows * beats);
+    // Three drifts in `beats` beats rather than one a beat, which is what
+    // makes the diagonal a lean rather than a dive.
     expect(body.col).toBe(CFG.volleyCols * 3);
     expect(volleyHeading(body)).toBe(1);
+  });
+
+  /**
+   * The owner's report, as a number: *when I reflect it with the shield,
+   * nothing happens.* A rock clamped onto the ship's row stands there for the
+   * beat render spends drawing it arrive, and that beat is the pair's second
+   * and last chance to ward it — so the lane has to be the lane they put the
+   * shield in. It used to go on crossing, and the trigger answered a column
+   * the body had already left.
+   */
+  it("holds its lane once it is standing on the ship", () => {
+    const at = tickAtRow(HULL);
+    const landed = only(run([volley(0)], at + 1).world)!;
+    expect(landed.row).toBe(HULL);
+    // The grace beat, and then the hull: it breaks the ship in the column it
+    // landed in, which is the column the pair had a beat to put the shield in.
+    const { events } = run([volley(0)], at + TPB + 1);
+    const breach = events.find((e) => e.type === "breach");
+    expect(breach && breach.type === "breach" && breach.col).toBe(landed.col);
   });
 
   it("sets off away from the nearer wall, so the first crossing is the long one", () => {

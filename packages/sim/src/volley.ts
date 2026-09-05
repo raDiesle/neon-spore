@@ -128,6 +128,16 @@ export function volleyBecomes(c: Creature): CreatureKind {
 }
 
 /**
+ * Whether this beat is one the body drifts a column on. Read off the shared
+ * clock rather than counted on the creature, for `echoFalls`' reason: both
+ * devices derive it from one number and neither has to store a phase, so two
+ * volleys on one field can never drift apart from each other.
+ */
+export function volleyDrifts(cfg: SimConfig, beat: number): boolean {
+  return beat % Math.max(1, cfg.volleyCrossBeats) === 0;
+}
+
+/**
  * One beat of a volley, in place of the fall every other body takes.
  *
  * Deliberately not through `grippedFallTiles` — a volley refuses a hand
@@ -147,7 +157,7 @@ export function stepVolley(world: World, c: Creature): void {
   if (climb > 0) {
     c.row = Math.max(0, c.row - cfg.volleyRiseRows);
     c.volleyRise = climb - 1;
-    crossVolley(world, c);
+    if (volleyDrifts(cfg, world.beat)) crossVolley(world, c);
     // The top of the climb. A shell with nothing left holding it comes apart
     // here — in mid-air, on both screens, where the pair can see what falls
     // out and still has half a field to answer it in.
@@ -157,8 +167,16 @@ export function stepVolley(world: World, c: Creature): void {
     }
     return;
   }
+  // **Already standing on the ship: it holds still.** That beat is the one
+  // `resolveHull` spends drawing the body arrive at the plating, and it is the
+  // pair's second and last chance to ward it — so the lane it is in has to be
+  // the lane it was in when they put the shield there. It used to go on
+  // crossing, which meant a rock the pair had lined up slid a column sideways
+  // along the hull on the beat they pressed, and the trigger answered nothing.
+  // That is the owner's report, and this line is the whole of it.
+  if (c.row >= hullRow(cfg)) return;
   c.row = Math.min(c.row + cfg.volleyRows, hullRow(cfg));
-  crossVolley(world, c);
+  if (volleyDrifts(cfg, world.beat)) crossVolley(world, c);
 }
 
 /**

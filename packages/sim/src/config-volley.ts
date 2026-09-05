@@ -42,13 +42,28 @@ export interface VolleyConfig {
    */
   volleyRows: number;
   /**
-   * Columns it crosses each beat, turning at the side walls the way THE CAROM
-   * does. One, and deliberately far short of `caromCols`: a carom is a ball
-   * nobody can be under in time, and this one has to be *reachable* — the
-   * whole cost of a volley is that the lane the pair agreed on has moved by
-   * the time it comes back, not that it was never reachable at all.
+   * Columns it crosses when it crosses at all, turning at the side walls the
+   * way THE CAROM does. One, and deliberately far short of `caromCols`: a
+   * carom is a ball nobody can be under in time, and this one has to be
+   * *reachable* — the whole cost of a volley is that the lane the pair agreed
+   * on has moved by the time it comes back, not that it was never reachable.
    */
   volleyCols: number;
+  /**
+   * Beats between one column of drift, read off the shared clock the way
+   * `echoFalls` and `wispHops` read theirs. Two, so the body crosses one
+   * column for every two it drops and the diagonal is a lean rather than a
+   * dive.
+   *
+   * It was one — a column every beat against two rows — and the owner's
+   * report was that it fell far too sideways, which it did: at that rate the
+   * lane under it changed on the same beat it reached the ship, so the column
+   * the pair had put the shield in was never the column it landed in. Halving
+   * the drift is the half of that fix that is about the *picture*;
+   * `stepVolley` holding the body still on the ship's own row is the half that
+   * is about the ward.
+   */
+  volleyCrossBeats: number;
   /**
    * Rows a ward throws it back up the field each beat of the climb. The same
    * two it came down at, so the return reads as a bounce rather than as a
@@ -80,6 +95,7 @@ export const VOLLEY_DEFAULTS: VolleyConfig = {
   volleyPlates: 3,
   volleyRows: 2,
   volleyCols: 1,
+  volleyCrossBeats: 2,
   volleyRiseRows: 2,
   volleyRiseBeats: 4,
   scoreVolleyReturn: 120,

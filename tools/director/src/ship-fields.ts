@@ -91,6 +91,7 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   volleyPlates: "THE VOLLEY — a rock you have to hit back three times",
   volleyRows: "THE VOLLEY — a rock you have to hit back three times",
   volleyCols: "THE VOLLEY — a rock you have to hit back three times",
+  volleyCrossBeats: "THE VOLLEY — a rock you have to hit back three times",
   volleyRiseRows: "THE VOLLEY — a rock you have to hit back three times",
   volleyRiseBeats: "THE VOLLEY — a rock you have to hit back three times",
   scoreVolleyReturn: "SCORE",
