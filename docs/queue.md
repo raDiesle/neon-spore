@@ -153,6 +153,7 @@ is the change to reach for once the failure can be produced on demand.
 ## Row 8 of `docs/spec/briefings.md` §1 names a range, and the range is wrong
 
 - **Found:** 2026-09-05, claude/queue-items-bj85ja
+- **Taken:** 2026-09-05, claude/queue-row-8-of-docs-spec-briefings-md-1-names-a-range
 - **Files:** `docs/spec/briefings.md`, `packages/content/test/waves.test.ts`
 
 The right-hand column of that table now names its waves as `N · NAME` cells
