@@ -1,11 +1,12 @@
-import { breachHull } from "./hull.js";
 import { type MazePhase, mazeWrap } from "./maze.js";
 import {
+  MAZE_APPROACH_BEATS,
   MAZE_LEAD_BEATS,
   MAZE_TRAVEL_BEATS,
   MAZE_VERDICT_BEATS,
   mazeReadBeats,
 } from "./maze-clock.js";
+import { mazeRight, mazeSettle, mazeWrong } from "./maze-verdict.js";
 import { type MazeWheel, mazeCopyWheel, mazeReachesCore } from "./maze-wheel.js";
 import type { Scar } from "./types.js";
 import { MILLI, type World } from "./world.js";
@@ -80,6 +81,16 @@ export interface MazeState {
   lockedWay: number;
   /** The way in the shot went down, -1 while nothing is travelling. */
   way: number;
+  /**
+   * The colour of the shot the drum took: 0 red, 1 cyan, -1 for none.
+   *
+   * The drum swallows the shot rather than letting an ordinary one go up an
+   * empty column past it (`mazeHeard`), so what climbs the field and crawls
+   * the corridors is the maze's own picture of that shot — and a picture in
+   * the wrong colour would be a different shot arriving than the one player 2
+   * loaded. Hashed for that reason: it is what the pair is watching.
+   */
+  shotColor: number;
   /** How many cells it has walked, 0 while nothing is travelling. */
   step: number;
   /** Ways in already probed this wheel, in the order they were tried. */
@@ -110,6 +121,7 @@ export function enterMazePhase(m: MazeState, phase: MazePhase, beat: number): vo
   m.lockedCol = -1;
   m.lockedWay = -1;
   m.way = -1;
+  m.shotColor = -1;
   m.step = 0;
   m.tried = [];
 }
@@ -131,6 +143,7 @@ export function installMaze(world: World, rounds: MazeWheel[]): MazeState {
     lockedCol: -1,
     lockedWay: -1,
     way: -1,
+    shotColor: -1,
     step: 0,
     tried: [],
     hullMilli: 100 * MILLI,
@@ -158,25 +171,27 @@ export function stepMaze(world: World, m: MazeState): void {
     }
     if (m.phase === "read") {
       // Silence is an answer too, and it is the wrong one.
-      if (since >= mazeReadBeats(wheel.entrances.length)) wrong(world, m, "silence");
+      if (since >= mazeReadBeats(wheel.entrances.length)) mazeWrong(world, m, "silence");
       return;
     }
     if (m.phase === "travel") {
+      // The climb up the column. The shot is not in the drum yet and there is
+      // nothing to report about where it stands inside one.
+      if (since < MAZE_APPROACH_BEATS) return;
+      const inside = since - MAZE_APPROACH_BEATS;
       const route = wheel.entrances[m.way]?.route ?? [];
-      const step = Math.floor(since / MAZE_TRAVEL_BEATS);
+      const step = Math.floor(inside / MAZE_TRAVEL_BEATS);
       if (step >= route.length) {
         // The end of the walk: the middle, or whatever else was down there.
-        if (mazeReachesCore(wheel.entrances[m.way]!)) right(world, m);
-        else wrong(world, m, "mouth");
+        if (mazeReachesCore(wheel.entrances[m.way]!)) mazeRight(world, m);
+        else mazeWrong(world, m, "mouth");
         continue;
       }
-      // Cell 0 is the mouth, and the shot took it on the beat it was fired
-      // (`mazeHeard`); this clock picks it up from the one after.
-      if (step > 0 && since % MAZE_TRAVEL_BEATS === 0) advance(world, m, wheel, step);
+      if (inside % MAZE_TRAVEL_BEATS === 0) advance(world, m, wheel, step);
       return;
     }
     if (since < MAZE_VERDICT_BEATS) return;
-    settle(world, m);
+    mazeSettle(world, m);
     return;
   }
 }
@@ -193,55 +208,4 @@ function advance(world: World, m: MazeState, wheel: MazeWheel, step: number): vo
     angleMilli: cell.angleMilli,
     of: route.length,
   });
-}
-
-/** A dead end, or nothing at all. Out of the column it went up. */
-function wrong(world: World, m: MazeState, reason: MazeVerdictReason): void {
-  const col = m.lockedCol < 0 ? world.cannonCol : m.lockedCol;
-  m.verdict = -1;
-  m.verdictCol = col;
-  enterMazePhase(m, "verdict", world.beat);
-  breachHull(world, col, "meteorFastest", world.cfg.mazeRow, world.cfg.damageMaze);
-  world.events.push({ type: "mazeVerdict", right: false, col, reason });
-}
-
-/** The shot reached the middle. It takes its share of the maze's hull — one per
- * authored wheel, so the last one brings it down however many there are. */
-function right(world: World, m: MazeState): void {
-  const col = m.lockedCol;
-  m.verdict = 1;
-  m.verdictCol = col;
-  enterMazePhase(m, "verdict", world.beat);
-
-  const done = m.round + 1;
-  const total = Math.max(1, m.rounds.length);
-  m.hullMilli = Math.max(0, 100 * MILLI - Math.round((done * 100 * MILLI) / total));
-  m.scars.push({ col, beat: world.beat, kind: "meteorFastest" });
-  if (m.scars.length > world.cfg.maxScars) m.scars.shift();
-  world.score += world.cfg.scoreMazeRound;
-  world.events.push({ type: "mazeVerdict", right: true, col, reason: "mouth" });
-}
-
-/**
- * The verdict is over. The middle moves the fight to the next wheel; a dead
- * end goes back to the same one, which is standing exactly where it was left
- * with the route that failed still on it. That is the whole difference between
- * this boss and one the pair only waits out.
- */
-function settle(world: World, m: MazeState): void {
-  if (m.verdict !== 1) {
-    m.way = -1;
-    m.step = 0;
-    m.phase = "read";
-    m.phaseBeat = world.beat;
-    return;
-  }
-  if (m.hullMilli <= 0) {
-    world.score += world.cfg.scoreMazeDown;
-    world.boss = null;
-    world.events.push({ type: "mazeDown", col: m.verdictCol });
-    return;
-  }
-  m.round += 1;
-  enterMazePhase(m, "lead", world.beat);
 }

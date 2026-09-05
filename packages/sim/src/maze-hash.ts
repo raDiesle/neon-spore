@@ -37,6 +37,7 @@ export function mazeHashParts(m: MazeState): number[] {
     m.lockedCol,
     m.lockedWay,
     m.way,
+    m.shotColor,
     m.step,
     m.hullMilli,
     m.verdict,

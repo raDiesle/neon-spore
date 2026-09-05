@@ -1,7 +1,7 @@
 import { mazeClickAngle, mazeEntranceCol, mazeWrap } from "./maze.js";
 import { enterMazePhase, type MazeState, mazeCurrent } from "./maze-round.js";
 import type { MazeWheel } from "./maze-wheel.js";
-import type { Command } from "./types.js";
+import type { Color, Command } from "./types.js";
 import type { World } from "./world.js";
 
 /**
@@ -174,25 +174,27 @@ export function stepMazeTurn(world: World): void {
  * standing in it**. Anywhere else there is nothing above the cannon to go into,
  * so the shot is an ordinary one up an empty field and the only pressure is the
  * clock — the same answer the old maze gave a column between its mouths.
+ *
+ * **When it does count, the drum swallows the shot**, and that is what the
+ * `true` is for. An ordinary bullet went up the column as well, past the gap
+ * and off the top of the field, while a second object of another colour walked
+ * the corridors — two shots for one trigger, which is what the owner saw. The
+ * caller drops the bullet this press produced; from the gap down to the hull
+ * the shot is the maze's to draw, and it is drawn in the colour recorded here.
  */
-export function mazeHeard(world: World): void {
+export function mazeHeard(world: World, color: Color): boolean {
   const m = mazeRound(world);
-  if (m === null || m.phase !== "read") return;
-  if (m.lockedWay < 0 || m.lockedCol !== world.cannonCol) return;
+  if (m === null || m.phase !== "read") return false;
+  if (m.lockedWay < 0 || m.lockedCol !== world.cannonCol) return false;
   const wheel = mazeCurrent(m);
   const route = wheel?.entrances[m.lockedWay]?.route ?? [];
-  const mouth = route[0];
-  if (mouth === undefined) return;
+  if (route.length === 0) return false;
   m.way = m.lockedWay;
+  m.shotColor = color === "red" ? 0 : 1;
   m.step = 0;
   if (!m.tried.includes(m.way)) m.tried.push(m.way);
   enterMazePhase(m, "travel", world.beat);
-  // The shot is in the mouth on the beat it was fired. The beats after it are
-  // the round's clock (`stepMaze`); this one belongs to the trigger.
-  world.events.push({
-    type: "mazeProbe",
-    ring: mouth.ring,
-    angleMilli: mouth.angleMilli,
-    of: route.length,
-  });
+  // Nothing is reported about where the shot stands yet: it is still climbing
+  // the column. `stepMaze` says so on the beat it is actually through the gap.
+  return true;
 }

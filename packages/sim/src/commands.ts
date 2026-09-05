@@ -95,14 +95,23 @@ export function applyCommand(world: World, timed: TimedCommand): void {
       if (c.on) startPrime(world);
       else endPrime(world);
       break;
-    case "fire":
+    case "fire": {
+      // The ids this press is about to hand out, so a shot the drum swallows
+      // can be told from one that was already in the air up the same column.
+      const before = world.nextId;
       fire(world, c.color);
       mirrorHeard(world, fireStep(c.color));
-      // And THE MAZE hears it too. The shot itself is an ordinary one and goes
-      // up an empty field; what the boss takes from it is the column, which is
-      // which of its three mouths the pair just chose (`maze-round.ts`).
-      mazeHeard(world);
+      // And THE MAZE hears it too. When a gap is standing on the cannon's
+      // column the drum *takes* the shot: the bullet this press produced is
+      // dropped, and from there the whole journey — up the field, in through
+      // the gap and round the corridors — is the maze's own picture of it
+      // (`maze-controls.ts`). Everything else about the press already
+      // happened, so the cooldown and the lobe are spent either way.
+      if (mazeHeard(world, c.color)) {
+        world.bullets = world.bullets.filter((b) => b.id < before);
+      }
       break;
+    }
     case "grip": {
       // Either seat may send this one, so it is the player on the command
       // that decides whose hand it is — not the control it arrived beside.

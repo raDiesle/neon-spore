@@ -1,4 +1,5 @@
 import {
+  MAZE_APPROACH_BEATS,
   MAZE_TURN,
   type MazeState,
   type MazeStep,
@@ -10,12 +11,11 @@ import {
 } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
-import { mazeCanvasAngle, mazeDrum } from "./maze-walls.js";
+import { mazeDrum } from "./maze-walls.js";
 import { PALETTE } from "./palette.js";
 
 /**
- * The shot inside THE MAZE: where it stands, the corridors behind it, and what
- * it found when it stopped.
+ * The shot inside THE MAZE: where it stands, from the muzzle to the middle.
  *
  * Its own file for the reason `maze-walls.ts` is: `maze-draw.ts` was past the
  * ceiling `CLAUDE.md` sets, and the seam was already there — the walls stand
@@ -71,72 +71,19 @@ function shotXY(
 }
 
 /**
- * The path itself, as the corridors run it: round each ring on the ring's own
- * circle, then straight across into the next. Drawn in arcs rather than in
- * lines from one step to the next, because a chord between two steps of the
- * same corridor cuts clean through the walls between them — which is what the
- * first frame of this drum showed, and exactly the complaint it was rebuilt to
- * answer.
- */
-function trail(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  cfg: SimConfig,
-  wheel: MazeWheel,
-  angleMilli: number,
-  route: MazeStep[],
-): void {
-  const d = mazeDrum(l, cfg);
-  const first = route[0];
-  if (first === undefined) return;
-  const at = stepXY(l, cfg, wheel, angleMilli, first.ring, first.angleMilli);
-  ctx.beginPath();
-  ctx.moveTo(at.x, at.y);
-  for (const [i, cell] of route.entries()) {
-    const next = route[i + 1];
-    if (next === undefined) break;
-    const radius = (d.r * mazeRingMilli(wheel, cell.ring)) / 1000;
-    const turned = cell.angleMilli + mazeSweep(wheel, cell.ring, cell.angleMilli, next.angleMilli);
-    if (radius > 0.5) {
-      const from = mazeCanvasAngle(angleMilli + cell.angleMilli);
-      ctx.arc(d.cx, d.cy, radius, from, mazeCanvasAngle(angleMilli + turned), true);
-    }
-    const across = stepXY(l, cfg, wheel, angleMilli, next.ring, turned);
-    ctx.lineTo(across.x, across.y);
-  }
-}
-
-/**
- * The corridors a shot has already been down, this attempt bright and any
- * failed one dim. The drum remembers what it cost to learn, which is the only
- * thing either player can reason from — and on a drum with one way in it is
- * simply the trail behind the shot, which is what makes the walk readable.
- */
-export function drawMazeSpent(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  cfg: SimConfig,
-  m: MazeState,
-  wheel: MazeWheel,
-): void {
-  for (const way of m.tried) {
-    const route = wheel.entrances[way]?.route ?? [];
-    const live = way === m.way;
-    const last = live ? m.step : route.length - 1;
-    trail(ctx, l, cfg, wheel, m.angleMilli, route.slice(0, last + 1));
-    ctx.strokeStyle = live ? PALETTE.pod : PALETTE.sparkDim;
-    ctx.lineWidth = live ? 2.4 : 1.6;
-    ctx.globalAlpha = live ? 0.5 : 0.28;
-    ctx.stroke();
-    ctx.globalAlpha = 1;
-  }
-}
-
-/**
- * The shot itself, crawling the corridor it is in, and what it found once it
- * has stopped. `way` is -1 whenever nothing is travelling, which is also true
- * through `lead` and `read`, so this quietly draws nothing until the pair has
- * actually fired.
+ * The shot, from the muzzle to the middle: one object the whole way.
+ *
+ * **It is the shot, not a stand-in for it.** The drum swallows the bullet the
+ * trigger produced (`maze-controls.ts`), and what is drawn here climbs the
+ * column, goes in through the gap and crawls the corridors in the colour
+ * player 2 loaded, with the halo and the head an ordinary shot has. Before
+ * this there were two objects: a red or cyan bullet going straight up past the
+ * gap and off the top of the field, and a gold circle doing the walk. The
+ * owner saw both and said so.
+ *
+ * **Nothing is drawn ahead of it, and nothing behind it.** A trail down the
+ * corridors it had already walked read as the route being shown, which gives
+ * away the one thing the shot is there to find out.
  */
 export function drawMazeShot(
   ctx: CanvasRenderingContext2D,
@@ -149,25 +96,47 @@ export function drawMazeShot(
 ): void {
   if (m.way < 0 || (m.phase !== "travel" && m.phase !== "verdict")) return;
   const route = wheel.entrances[m.way]?.route ?? [];
-  if (route[m.step] === undefined) return;
-  const moving = m.phase === "travel";
-  const { x, y } = shotXY(l, cfg, wheel, m.angleMilli, route, m.step, moving ? beatPhase : 1);
-  const wide = (mazeCircleMilli(wheel, 1) - mazeCircleMilli(wheel, 0)) / 1000;
-  const r = Math.max(2, (mazeDrum(l, cfg).r * wide) / 3);
+  const first = route[0];
+  if (first === undefined) return;
+  const since = beat - m.phaseBeat + beatPhase;
+  const hex = m.shotColor === 1 ? PALETTE.cyan : PALETTE.red;
 
-  // Right in the one colour this game ever calls a success, wrong in the one
-  // it already spends on "not what you wanted" (`effects-spark.ts`).
-  let hex: string = PALETTE.pod;
-  let alpha = 0.85;
-  if (m.phase === "verdict") {
-    const age = beat - m.phaseBeat + beatPhase;
-    alpha = Math.max(0, 1 - age / 3);
-    if (alpha <= 0) return;
-    hex = m.verdict === 1 ? PALETTE.good : PALETTE.sparkDim;
+  const wide = (mazeCircleMilli(wheel, 1) - mazeCircleMilli(wheel, 0)) / 1000;
+  const r = Math.max(2, (mazeDrum(l, cfg).r * wide) / 3.2);
+
+  let at: { x: number; y: number };
+  let alpha = 0.95;
+  if (m.phase === "travel" && since < MAZE_APPROACH_BEATS) {
+    // The climb. It comes off the hull in its own column and rises to the gap,
+    // which is where the route's first step already stands.
+    const gap = stepXY(l, cfg, wheel, m.angleMilli, first.ring, first.angleMilli);
+    const t = Math.max(0, Math.min(1, since / MAZE_APPROACH_BEATS));
+    at = { x: gap.x, y: l.hullY + (gap.y - l.hullY) * t };
+    // The tail an ordinary shot wears, so the climb reads as a shot travelling
+    // rather than as a dot sliding.
+    ctx.globalAlpha = 0.35;
+    ctx.strokeStyle = hex;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(at.x, Math.min(l.hullY, at.y + l.tile));
+    ctx.lineTo(at.x, at.y);
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+  } else {
+    const inside = Math.max(0, since - MAZE_APPROACH_BEATS);
+    if (route[m.step] === undefined) return;
+    const moving = m.phase === "travel";
+    at = shotXY(l, cfg, wheel, m.angleMilli, route, m.step, moving ? inside - m.step : 1);
+    if (m.phase === "verdict") {
+      const age = beat - m.phaseBeat + beatPhase;
+      alpha = Math.max(0, 1 - age / 3);
+      if (alpha <= 0) return;
+    }
   }
-  halo(ctx, x, y, r * 3, hex, alpha);
+
+  halo(ctx, at.x, at.y, r * 3, hex, alpha);
   ctx.beginPath();
-  ctx.arc(x, y, r, 0, Math.PI * 2);
+  ctx.arc(at.x, at.y, r, 0, Math.PI * 2);
   ctx.fillStyle = hex;
   ctx.globalAlpha = alpha;
   ctx.fill();

@@ -34,6 +34,7 @@ export {
   gaugeRound,
   gaugeSeated,
   installMaze,
+  MAZE_APPROACH_BEATS,
   MAZE_TURN,
   type MazeEntrance,
   type MazeGeometry,

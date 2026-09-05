@@ -11,6 +11,7 @@ import {
 } from "@neon-spore/sim";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { drawMaze } from "../src/maze-draw.js";
+import { PALETTE } from "../src/palette.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 /**
@@ -76,6 +77,7 @@ function bossState(overrides: Partial<MazeState> = {}): MazeState {
     lockedCol: -1,
     lockedWay: -1,
     way: -1,
+    shotColor: -1,
     step: 0,
     tried: [],
     hullMilli: 100000,
@@ -159,7 +161,7 @@ describe("THE MAZE's wheel", () => {
     expect(apart.length).toBe(1);
   });
 
-  it("draws the maze's own walls, and a trail only where a shot has been", () => {
+  it("draws the maze's own walls, and nothing plugging the way in", () => {
     const w = wheel();
     const shut = watch("p1", bossState({ phase: "read" }), 3);
     // Every circle is broken into as many pieces as it has gaps, and every
@@ -168,9 +170,12 @@ describe("THE MAZE's wheel", () => {
     const bars = w.walls.reduce((n, list) => n + list.length, 0);
     expect(shut.arcs).toBeGreaterThanOrEqual(pieces);
     expect(shut.lines).toBeGreaterThanOrEqual(bars);
-    // The trail, though, only appears once it has been paid for.
-    const spent = watch("p1", bossState({ phase: "read", tried: [1], way: -1 }), 3);
-    expect(spent.segments).toBeGreaterThan(shut.segments);
+    // An unlit way in is the break in the line and two pips on its cut ends,
+    // never a disc filling the hole: the owner read a circle there as
+    // something blocking the entrance, which is exactly what it looked like.
+    const ways = w.entrances.length;
+    const noDoors = shut.arcs - ways * 2;
+    expect(noDoors).toBeGreaterThanOrEqual(pieces);
   });
 
   it("puts a line down the column a lit mouth is standing on", () => {
@@ -194,15 +199,23 @@ describe("THE MAZE's wheel", () => {
     expect(l.hullY - bottom).toBeGreaterThan(l.tile * 2);
   });
 
-  it("lights the corridor up behind the shot, and keeps it inside the drum", () => {
-    const early = watch("p1", bossState({ phase: "travel", tried: [0], way: 0, step: 0 }), 3);
-    const going = watch("p1", bossState({ phase: "travel", tried: [0], way: 0, step: 3 }), 3);
-    expect(going.segments).toBeGreaterThan(early.segments);
+  it("draws one shot, in the colour it was fired in, and keeps it in the drum", () => {
+    const red = watch("p1", bossState({ phase: "travel", way: 0, step: 2, shotColor: 0 }), 3, 0.9);
+    const cyan = watch("p1", bossState({ phase: "travel", way: 0, step: 2, shotColor: 1 }), 3, 0.9);
+    // The shot is the shot player 2 loaded — the drum swallowed the bullet, so
+    // a gold stand-in beside a red one is two shots for one trigger.
+    expect(red.colours).toContain(PALETTE.red);
+    expect(red.colours).not.toContain(PALETTE.cyan);
+    expect(cyan.colours).toContain(PALETTE.cyan);
+    // And nothing is drawn along the corridors it has already walked: a trail
+    // is the route, and the route is the one thing the shot is there to find.
+    expect(red.segments).toBe(watch("p1", bossState({ phase: "read" }), 3).segments);
+
     const l = layoutFor("p1");
     const r = (mazeRadiusMilli(CFG) * l.tile) / 1000;
     const cx = l.gridLeft + l.gridWidth / 2;
     const cy = l.gridTop + r + l.tile * 0.6;
-    for (const p of going.points) {
+    for (const p of red.points) {
       expect(Math.hypot(p.x - cx, p.y - cy)).toBeLessThan(r * 4.1);
     }
   });

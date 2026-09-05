@@ -23,7 +23,17 @@ export function mazeReadBeats(ways: number): number {
   return ways * MAZE_READ_PER_WAY + MAZE_READ_SLACK;
 }
 
-/** Beats the shot spends on each cell. One, so the walk reads at tempo. */
+/**
+ * Beats the shot spends climbing the field before it is through the gap.
+ *
+ * The drum swallows the shot instead of letting an ordinary one go up past it,
+ * so the climb is the maze's to draw and therefore the maze's to time. One
+ * beat: long enough to read as the shot going *in* somewhere rather than
+ * appearing there, and short enough that the pair is not waiting for it.
+ */
+export const MAZE_APPROACH_BEATS = 1;
+
+/** Beats the shot spends on each crossing. One, so the walk reads at tempo. */
 export const MAZE_TRAVEL_BEATS = 1;
 
 /** Beats the verdict stands before the pair may go again. */

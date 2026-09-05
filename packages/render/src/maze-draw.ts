@@ -1,20 +1,10 @@
-import {
-  MAZE_TURN,
-  type MazeState,
-  type MazeWheel,
-  mazeCircleMilli,
-  mazeCurrent,
-  mazeEntranceAngle,
-  mazeEntranceCol,
-  type SimConfig,
-} from "@neon-spore/sim";
-import { halo } from "./glow.js";
+import { type MazeState, mazeCircleMilli, mazeCurrent, type SimConfig } from "@neon-spore/sim";
 import type { Layout, ViewRole } from "./layout.js";
+import { drawMazeDoors } from "./maze-door.js";
 import { drawMazeHeart } from "./maze-heart.js";
-import { drawMazeShot, drawMazeSpent } from "./maze-shot.js";
+import { drawMazeShot } from "./maze-shot.js";
 import { drawMazeString } from "./maze-string.js";
 import { drawMazeWalls, mazeDrum } from "./maze-walls.js";
-import { PALETTE } from "./palette.js";
 
 /**
  * THE MAZE's picture: a real maze of rings turning over the ship, with the one
@@ -68,54 +58,7 @@ export function drawMaze(
     beat,
     beatPhase,
   );
-  drawMazeSpent(ctx, l, cfg, m, wheel);
   drawMazeString(ctx, l, cfg, m, role);
-  drawMouths(ctx, l, cfg, m, wheel, beat, beatPhase);
+  drawMazeDoors(ctx, l, cfg, m, wheel, beat, beatPhase);
   drawMazeShot(ctx, l, cfg, m, wheel, beat, beatPhase);
-}
-
-/**
- * The ways in, on the rim, and the one that has clicked onto a column lit.
- *
- * The light is the invitation to fire and it is on both screens. It breathes
- * on the beat rather than on a stored clock, so there is nothing here for a
- * restart to leave behind.
- */
-function drawMouths(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  cfg: SimConfig,
-  m: MazeState,
-  wheel: MazeWheel,
-  beat: number,
-  beatPhase: number,
-): void {
-  const d = mazeDrum(l, cfg);
-  const pulse = 0.6 + 0.4 * Math.sin((beat + beatPhase) * Math.PI);
-  for (const [way] of wheel.entrances.entries()) {
-    const theta = (mazeEntranceAngle(wheel, m.angleMilli, way) / MAZE_TURN) * Math.PI * 2;
-    const x = d.cx + d.r * Math.sin(theta);
-    const y = d.cy + d.r * Math.cos(theta);
-    const lit = m.lockedWay === way && mazeEntranceCol(cfg, wheel, m.angleMilli, way) >= 0;
-    const r = l.tile * (lit ? 0.3 : 0.22);
-    if (lit) halo(ctx, x, y, r * 4, PALETTE.good, 0.5 * pulse);
-    ctx.beginPath();
-    ctx.arc(x, y, r, 0, Math.PI * 2);
-    ctx.fillStyle = lit ? PALETTE.good : PALETTE.grid;
-    ctx.fill();
-    ctx.strokeStyle = lit ? PALETTE.good : PALETTE.hullRim;
-    ctx.lineWidth = lit ? 2.4 : 1.4;
-    ctx.stroke();
-    // A lit mouth draws the line the shot will take, straight down its column,
-    // so the invitation is to a *column* and not merely to a bright spot.
-    if (!lit) continue;
-    ctx.beginPath();
-    ctx.moveTo(x, y);
-    ctx.lineTo(x, l.hullY);
-    ctx.strokeStyle = PALETTE.good;
-    ctx.lineWidth = 1;
-    ctx.globalAlpha = 0.25 * pulse;
-    ctx.stroke();
-    ctx.globalAlpha = 1;
-  }
 }

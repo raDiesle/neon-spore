@@ -85,6 +85,7 @@ export {
   mazeWrap,
 } from "./maze.js";
 export {
+  MAZE_APPROACH_BEATS,
   MAZE_LEAD_BEATS,
   MAZE_READ_PER_WAY,
   MAZE_READ_SLACK,
