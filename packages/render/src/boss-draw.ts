@@ -39,6 +39,7 @@ export function drawBoss(
       queen,
       boss,
       world.beat,
+      world.waveBeat,
       view.time,
       view.beatPhase,
       effects.queenShake,

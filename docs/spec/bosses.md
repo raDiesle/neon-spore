@@ -100,6 +100,15 @@ to slide clear of first. Nothing about the cadence reads *how well* the pair
 is playing — it is fixed and learnable from the very start, exactly as 11.1
 demands of The Mother.
 
+**Which wing is player 2's to call, and it is a clock rather than a ring.**
+The flank the next torch comes off wears NEXT TO FALL on player 2's screen and
+on nobody else's: the same target lock every picked-out body in the game wears,
+the words under it, and a bar that fills as the eight beats run out. It used to
+be the pulsing ring the real mark wears, and the two were one picture doing two
+jobs — a mark is a *column* to name and a drop is a *clock* to watch, and a ring
+pulsing on its own tempo could never say how much of the warning was left.
+`packages/render/src/queen-drop.ts`.
+
 **Where she lives.** Her choreography is `packages/sim/src/boss.ts` and
 `packages/sim/src/queen-mark.ts`, carried by the wave `BULB QUEEN`. Everything
 else about her is shared with the rest of the sim: the creature, the petals,

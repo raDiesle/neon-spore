@@ -137,6 +137,15 @@ export type SceneAnchor =
    * WARD, and the one thing on the field that is neither a body nor a shot. */
   | { at: "pod" }
   /**
+   * Both of the queen's marks at once, in one ring around the pair.
+   *
+   * The one anchor that is deliberately about *two* things. `one mark is real`
+   * is a sentence about a pair, and it was pointed at `body` — which is her,
+   * so the ring sat on her shell between the two marks and touched neither.
+   * `render/queen-figure.ts` places them, and this asks it.
+   */
+  | { at: "marks" }
+  /**
    * The swelling on the hull a control is reached through, rather than the
    * button for it on the panel — the cannon, or the plate. Which of the two
    * answers a given control is `shipCircle`'s, so a caption cannot point at

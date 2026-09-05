@@ -322,3 +322,23 @@ once; check first whether any other tracked file is in the same state
 (`git ls-files --eol | grep 'w/crlf'`). Whatever the cause, the check that a
 lane runs first should not be able to fail for a reason that has nothing to do
 with the lane.
+## CLAUDE.md's size test counts CRLF, so a worktree can fail it for nothing
+
+- **Found:** 2026-09-05, claude/bulb-queen-ui-fixes
+- **Files:** `tools/test/claude-md.test.ts`
+
+`CLAUDE.md` is 21,991 characters in the repository, which fits under the 22,000
+ceiling — but this worktree's copy arrived with CRLF line endings, and the 283
+extra carriage returns put `text.length` at 22,274. The test failed, said the
+file was over its ceiling, and sent a session hunting for a paragraph to move
+into `docs/` that did not need moving. The same trap is waiting for every lane
+whose checkout lands that way, and it reads exactly like a real overrun.
+
+Normalise before measuring: take the length of the text with its carriage
+returns stripped out. A line ending is `.gitattributes`' business and is not what
+the ceiling is about — the tax the test exists to hold down is the tokens a session
+pays to read the file, and the blob it reads is LF either way. Say so in the
+file's comment, and keep the message naming the measured length so a genuine
+overrun still reads plainly. It does not replace the entry above: nine
+characters of headroom is a real problem, and this only stops a worktree
+reporting a fake one on top of it.

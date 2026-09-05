@@ -8,11 +8,17 @@ import type { GuideScene } from "../scene-types.js";
  * colour, she is shown which of the two marks under her middle is the real one
  * and which wing the next torch drops out of. Neither half is a new control —
  * once the pair has agreed on a column and a colour, killing her is the
- * ordinary thing they have been doing since wave one. So the film is her
- * opening, the two marks, and the torch that arrives on a clock of its own
- * while they are still talking about the first two.
+ * ordinary thing they have been doing since wave one. So the film is the two
+ * marks, and the torch that arrives on a clock of its own while they are still
+ * talking about them.
  *
- * **The fourth page is a real petal coming off her.** It is aimed at her weak
+ * **It opened on a fourth page and no longer does.** *THE QUEEN · SHE OPENS*
+ * stood in front of all of this, and the owner's answer to reading it was that
+ * it does not mean anything: her opening is not a thing the pair does, it has
+ * no page's worth of instruction in it, and the film says more in three pages
+ * that each name a job than in four where the first one is scenery.
+ *
+ * **The last page is a real petal coming off her.** It is aimed at her weak
  * side rather than at the mark her middle is showing — those are two different
  * columns, and telling them apart is exactly what the pair has to do — and it
  * is fired on the second of her two open beats, because the third is already
@@ -40,8 +46,9 @@ export const BULB_QUEEN: GuideScene = {
     { tick: 770, control: "fireRed" },
   ],
   steps: [
-    { tick: 0, seat: 1, text: "THE QUEEN · SHE OPENS", anchor: { at: "body" } },
-    { tick: 220, seat: 2, text: "ONE MARK IS REAL", anchor: { at: "body" } },
+    // `marks` and not `body`: the ring has to hold *both* of them, or a page
+    // about one of two being real is drawn around neither.
+    { tick: 0, seat: 2, text: "ONE MARK IS REAL", anchor: { at: "marks" } },
     { tick: 440, seat: 1, text: "A TORCH EVERY EIGHT BEATS", anchor: { at: "health" } },
     {
       tick: 700,

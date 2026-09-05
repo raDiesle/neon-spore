@@ -5,6 +5,7 @@ import { handleCircle } from "./handles.js";
 import { hullBarBox } from "./hud.js";
 import { bandLobes, type Layout, tileCX } from "./layout.js";
 import { podCenter } from "./pods.js";
+import { queenMarksBox } from "./queen-figure.js";
 import { radarBlips } from "./radar-blip.js";
 import { slabFor, slabPanel } from "./slabs.js";
 import { shipCircle } from "./touch-ship.js";
@@ -105,6 +106,18 @@ export function anchorPoint(
     const at = handleCircle(l, world, anchor.target, beatPhase);
     if (!at) return null;
     return { x: at.x, y: at.y, r: at.r + 6, clear: CLEAR };
+  }
+  if (anchor.at === "marks") {
+    // Both of the queen's marks, in one ring. `queen-figure.ts` places them
+    // and `drawQueen` draws them from the same call, so the ring cannot land
+    // between the two the way a ring around her body did — which is what it
+    // was, and what the page over it was not about.
+    const boss = world.boss;
+    if (boss === null || boss.kind !== "queen") return null;
+    const queen = world.creatures.find((c) => c.id === boss.creatureId);
+    if (!queen) return null;
+    const box = queenMarksBox(l, queen);
+    return { x: box.x, y: box.y, r: box.ry + 6, rx: box.rx + 6, clear: CLEAR };
   }
   if (anchor.at === "pod") {
     // The first one hanging, which is the only one any wave has ever had at

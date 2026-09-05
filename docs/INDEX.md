@@ -510,6 +510,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/warden-plates.ts` | THE WARDEN's armour, and the only place on the field that says how far in the pair is |
 | `packages/render/src/warden-skin.ts` | THE WARDEN's skin: the veins under it, the wet film over it |
 | `packages/render/src/warden-veins.ts` | What lies **under** THE WARDEN's surface: the veins running in from its rim, and the wet film over them |
+| `packages/render/src/queen-drop.ts` | NEXT TO FALL: the flank the queen's next torch comes off, said on player 2's screen and nowhere else |
+| `packages/render/src/queen-figure.ts` | Where the parts of the queen sit on her, and where the screen puts them |
 
 ### packages/net
 

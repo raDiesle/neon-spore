@@ -2,6 +2,7 @@ import { type Creature, type QueenState, queenTorchCol, spanCenterCol } from "@n
 import { halo } from "./glow.js";
 import { type Layout, showsQueenHint, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { drawDropHint } from "./queen-drop.js";
 import { drawTorchRock, torchRadius, torchRotation } from "./torch.js";
 
 /** Never quite zero — a degenerate radius is what `frame.test.ts` exists to catch. */
@@ -9,11 +10,14 @@ const EGG_FLOOR = 0.02;
 
 /**
  * The pulsing ring that tells player 2, and only player 2
- * (`showsQueenHint`), which of two things is the one that matters right
- * now: `queen.ts` reuses this for which mark is real, this file for which
- * side the next torch comes from. Same shape, same colour, same clock,
- * because it is the same kind of thing to know either time — a call this
- * player has to make to the other, not a hazard either player can dodge.
+ * (`showsQueenHint`), which of her two marks is real.
+ *
+ * It used to say which flank the next torch came off as well, on the argument
+ * that the two are the same kind of thing to know — a call this player has to
+ * make to the other rather than a hazard either can dodge. The owner asked for
+ * them to be pulled apart, and `queen-drop.ts` carries why: a mark is a column
+ * to name, a drop is a clock to watch, and a ring pulsing on its own tempo
+ * could never say how long was left of one.
  */
 export function drawSideHint(
   ctx: CanvasRenderingContext2D,
@@ -62,9 +66,9 @@ function eggScale(
  * One flanking torch, drawn by the torch's own hand (`drawTorchRock`) at the
  * torch's own radius and facing, in the tile column the rock will be pushed
  * into — so the beat it breaks off, the creature takes over the picture
- * without anything moving, changing size or turning. It carries a bright
- * ring, for player 2 only, while it is the side the next one comes from. No
- * tail: a torch only drags one once it is falling (`drawTorch`).
+ * without anything moving, changing size or turning. It wears NEXT TO FALL,
+ * for player 2 only, while it is the side the next one comes from. No tail: a
+ * torch only drags one once it is falling (`drawTorch`).
  */
 export function drawEgg(
   ctx: CanvasRenderingContext2D,
@@ -75,6 +79,7 @@ export function drawEgg(
   ox: number,
   oy: number,
   beat: number,
+  waveBeat: number,
   beatPhase: number,
   time: number,
   growShare: number,
@@ -92,5 +97,5 @@ export function drawEgg(
   drawTorchRock(ctx, r, time);
   ctx.restore();
 
-  if (boss.dropSide === side) drawSideHint(ctx, l, cx, cy, r, time);
+  if (boss.dropSide === side) drawDropHint(ctx, l, cx, cy, r, side, waveBeat, beatPhase, time);
 }

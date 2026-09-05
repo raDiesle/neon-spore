@@ -4,7 +4,13 @@ import { halo } from "./glow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawEgg, drawSideHint } from "./queen-egg.js";
+import { QUEEN_FIGURE, queenMarkCenter } from "./queen-figure.js";
 import { drawMark, markGlow } from "./queen-weakpoint.js";
+
+// The figure itself is next door, with the rest of the measurements a caption
+// pointing at her marks has to share. Re-exported so nothing that already
+// reached for it through this file had to move.
+export { QUEEN_FIGURE } from "./queen-figure.js";
 
 /** How much faster the outer body's wobble gets by her last petal. */
 const OUTER_WOBBLE_BONUS = 1.5;
@@ -20,34 +26,6 @@ export const QUEEN_SHUDDER_HZ: readonly [number, number] = [13, 17]; // was [40,
 const TORCH_TREMOR_TILES = 0.045;
 // Was [47, 61] — fast enough to blur into a disc, the "rotating meteors" complaint. Slowed by four, kept mismatched so it stays a shudder, not an orbit.
 export const TORCH_TREMOR_HZ: readonly [number, number] = [11, 14];
-
-/**
- * Her whole figure, in tiles from the centre of the tile she stands on. A
- * wide, low hull, and that is the shape the rest of this follows from:
- *
- * - the two marks hang out of the middle of her underside, one tile either
- *   side of her own column, with a one-tile gap between them where the hull
- *   simply carries on. The hull closes over the top and both sides of each
- *   so only its lower half is ever exposed;
- * - the two torches ride the tips of the hull, `QUEEN_FLANK_TILES` out. Her
- *   lowest edge sits well above a torch's own lower edge at that offset, so
- *   there is nothing of her under either egg and a released one falls
- *   straight down out of its socket.
- *
- * Both of those readings are measurements, not intentions, and
- * `test/queen-figure.test.ts` takes them — off `crystalRadiusMul`, the same
- * facet reach the shapes are actually drawn with — every time these numbers
- * are touched.
- */
-export const QUEEN_FIGURE = {
-  bodyCy: -0.5,
-  bodyRx: 2.2,
-  bodyRy: 0.72,
-  weakCy: 0.42,
-  weakR: 0.4,
-  /** Above the body, clear of both marks either side of it below. */
-  petalCy: -1.0,
-} as const;
 
 /**
  * The queen: an armoured shell of the same rock her torches are made of, two
@@ -66,6 +44,7 @@ export function drawQueen(
   queen: Creature,
   boss: QueenState,
   beat: number,
+  waveBeat: number,
   time: number,
   beatPhase: number,
   shake: number,
@@ -86,21 +65,23 @@ export function drawQueen(
   const x = baseX + ox;
   const y = baseY + oy;
 
-  // The marks first, so the shell closes over both of them.
-  const weakY = y + f.weakCy * tile;
-  const markR = f.weakR * tile;
+  // The marks first, so the shell closes over both of them. Where each one
+  // goes is `queen-figure.ts`'s answer rather than this file's, because a
+  // caption pointing at the pair of them asks the same question.
   for (const side of [-1, 1] as const) {
-    const mx = tileCX(l, queen.col + side) + ox;
-    drawMark(ctx, l, mx, weakY, markR, side, queen, boss, beat, beatPhase, time, healthShare);
+    const at = queenMarkCenter(l, queen, side);
+    const mx = at.x + ox;
+    const my = at.y + oy;
+    drawMark(ctx, l, mx, my, at.r, side, queen, boss, beat, beatPhase, time, healthShare);
     // The glow goes on last, over the shell that half-buries the mark, or
     // the colour it is asking for would be buried with it. Never on player
     // 2's screen while she is still armoured — see `markGlow`.
     const glow = markGlow(l, side, queen, boss, beat, beatPhase);
-    if (glow) halo(ctx, mx, weakY, markR * 1.9, glow.hex, glow.alpha);
+    if (glow) halo(ctx, mx, my, at.r * 1.9, glow.hex, glow.alpha);
     // Which mark is real is player 2's half, and it is up from the moment
     // the bloom is chosen rather than only once it is announced: it is a
     // thing to say out loud, and saying it takes longer than a beat.
-    if (boss.weakSide === side) drawSideHint(ctx, l, mx, weakY, markR, time);
+    if (boss.weakSide === side) drawSideHint(ctx, l, mx, my, at.r, time);
   }
   drawShell(
     ctx,
@@ -118,32 +99,22 @@ export function drawQueen(
   // moves differently as the answer to "which side", which is the one thing
   // this is not allowed to say. See `torchTremor`.
   const tremor = torchTremor(tile, boss, beat, time);
-  drawEgg(
-    ctx,
-    l,
-    queen,
-    boss,
-    -1,
-    ox + tremor.x,
-    oy + tremor.y,
-    beat,
-    beatPhase,
-    time,
-    eggGrowShare,
-  );
-  drawEgg(
-    ctx,
-    l,
-    queen,
-    boss,
-    1,
-    ox + tremor.x,
-    oy + tremor.y,
-    beat,
-    beatPhase,
-    time,
-    eggGrowShare,
-  );
+  for (const side of [-1, 1] as const) {
+    drawEgg(
+      ctx,
+      l,
+      queen,
+      boss,
+      side,
+      ox + tremor.x,
+      oy + tremor.y,
+      beat,
+      waveBeat,
+      beatPhase,
+      time,
+      eggGrowShare,
+    );
+  }
 
   drawPetals(ctx, x, y + f.petalCy * tile, f.bodyRx * tile, queen.petals, boss.startPetals);
 }
