@@ -41,6 +41,29 @@ function hit(name: string, args?: unknown[]): void {
   }
 }
 
+/**
+ * A path builder: every coordinate checked, and the call written into the
+ * ordered log.
+ *
+ * **The shape a path is made of is part of the picture**, and it used to be
+ * the one part the log left out — `StubPath`'s builders went through `nums`
+ * for validation and never through `hit`, so only `new Path2D` appeared and
+ * that is a count rather than a shape. `.claude/skills/render-perf` names an
+ * ordered diff of the log as the proof that a speed change draws the same
+ * thing, and the savings left in this renderer are mostly of the shape *move
+ * work out of `fillRect` and into a path* — invisible to that diff on the
+ * side that matters. THE FLEET's crossings became exactly that and had to be
+ * held with an arithmetic invariant instead.
+ *
+ * Logged and not tallied: `new Path2D` is the count that a budget is written
+ * against, and a row per builder would be a hundred and thirty of them for
+ * one lattice.
+ */
+function drew(where: string, values: number[]): void {
+  nums(where, values);
+  if (activeLog) activeLog.push(`${where}(${values.map(round).join(", ")})`);
+}
+
 /** Every coordinate that reaches the canvas has to be a real number. */
 function nums(where: string, values: number[]): void {
   for (const v of values) {
@@ -79,29 +102,31 @@ class StubPath {
    * `TypeError` at the first frame that reaches it, which is how the veil's
    * cloud went a whole lane without a single frame drawn over it. */
   rect(x: number, y: number, w: number, h: number): void {
-    nums("Path2D.rect", [x, y, w, h]);
+    drew("Path2D.rect", [x, y, w, h]);
   }
   moveTo(x: number, y: number): void {
-    nums("Path2D.moveTo", [x, y]);
+    drew("Path2D.moveTo", [x, y]);
   }
   lineTo(x: number, y: number): void {
-    nums("Path2D.lineTo", [x, y]);
+    drew("Path2D.lineTo", [x, y]);
   }
   quadraticCurveTo(...a: number[]): void {
-    nums("Path2D.quadraticCurveTo", a);
+    drew("Path2D.quadraticCurveTo", a);
   }
   bezierCurveTo(...a: number[]): void {
-    nums("Path2D.bezierCurveTo", a);
+    drew("Path2D.bezierCurveTo", a);
   }
-  closePath(): void {}
+  closePath(): void {
+    if (activeLog) activeLog.push("Path2D.closePath");
+  }
   arc(x: number, y: number, r: number, from: number, to: number): void {
-    nums("Path2D.arc", [x, y, r, from, to]);
+    drew("Path2D.arc", [x, y, r, from, to]);
     if (r < 0) fail("Path2D.arc", `radius ${r} is negative`);
   }
   /** The rounded corner every plate in the intro is cut with. A real one
    * refuses a negative radius the same way `arc` does. */
   arcTo(x1: number, y1: number, x2: number, y2: number, r: number): void {
-    nums("Path2D.arcTo", [x1, y1, x2, y2, r]);
+    drew("Path2D.arcTo", [x1, y1, x2, y2, r]);
     if (r < 0) fail("Path2D.arcTo", `radius ${r} is negative`);
   }
   ellipse(
@@ -113,7 +138,7 @@ class StubPath {
     from: number,
     to: number,
   ): void {
-    nums("Path2D.ellipse", [x, y, rx, ry, rotation, from, to]);
+    drew("Path2D.ellipse", [x, y, rx, ry, rotation, from, to]);
     if (rx < 0 || ry < 0) fail("Path2D.ellipse", `radius ${rx < 0 ? rx : ry} is negative`);
   }
   /** One path folded into another, which is how a hole is cut: a crust drawn
@@ -122,6 +147,7 @@ class StubPath {
    * be one here, or the mistake is a silent no-op and the hole never appears. */
   addPath(path: StubPath): void {
     if (!(path instanceof StubPath)) fail("Path2D.addPath", `${String(path)} is not a Path2D`);
+    if (activeLog) activeLog.push("Path2D.addPath");
   }
 }
 
@@ -152,8 +178,9 @@ export class StubContext {
   /** Per-method call counts, for a test that budgets op counts rather than
    * merely detecting a frame. Reset it (`ctx.tally.clear()`) between frames. */
   readonly tally = new Map<string, number>();
-  /** Optional ordered log of every counted call, compact enough to diff two
-   * frames by eye. Unset by default; assign an array to start recording. */
+  /** Optional ordered log of every call the picture is made of — the counted
+   * ones and the path builders that are not counted — compact enough to diff
+   * two frames by eye. Unset by default; assign an array to start recording. */
   private _log?: string[];
   private _globalCompositeOperation = "source-over";
 

@@ -118,6 +118,31 @@ describe("the fleet", () => {
     expect(crossingSize(0)).toBeGreaterThan(0);
   });
 
+  /** And the marks themselves, read out of the frame: one per crossing, all
+   * the same size, and no two of them closer together than they are wide. */
+  it("puts one mark on every crossing of the lattice it drew", () => {
+    const log: string[] = [];
+    const world = createWorld(CFG, 3);
+    const index = waveWith("fleet");
+    startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
+    runFrames(world, "test", 2, {
+      onCanvas: (c) => {
+        c.log = log;
+      },
+    });
+    const marks = log
+      .filter((line) => line.startsWith("Path2D.rect("))
+      .map((line) => line.slice("Path2D.rect(".length, -1).split(", ").map(Number))
+      .filter((r) => r[2] === r[3] && (r[2] ?? 0) <= crossingSize(1));
+    const chart = chartOf(computeLayout(VIEWPORT, CFG, "test"), world);
+    expect(marks.length).toBe((chart.cols + 1) * (chart.rows + 1));
+    const size = marks[0]?.[2] ?? 0;
+    expect(marks.every((r) => r[2] === size)).toBe(true);
+    const xs = [...new Set(marks.map((r) => r[0] ?? 0))].sort((a, b) => a - b);
+    expect(xs.length).toBe(chart.cols + 1);
+    expect((xs[1] ?? 0) - (xs[0] ?? 0)).toBeGreaterThan(size);
+  });
+
   it("draws a chart with nothing on it, which is the first frame of every run", () => {
     const world = createWorld(CFG, 3);
     const index = waveWith("fleet");

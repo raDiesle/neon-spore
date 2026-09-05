@@ -115,30 +115,3 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 `exports.Room.storage`) still holds — miniflare 5 changed it from 4's flat
 `{ modules, script, durableObjects }`, and `convertV4MiniflareOptions` is the
 shim that shows what the new shape wants if it changed again.
-
-## The stub canvas's ordered log leaves out every `Path2D` call
-
-- **Found:** 2026-09-05, claude/queue-items-bj85ja
-- **Taken:** 2026-09-05, claude/queue-the-stub-canvass-ordered-log-leaves-out-every-pa
-- **Files:** `packages/render/test/canvas-stub.ts`, `packages/render/test/ghost-frame.test.ts`
-
-`StubContext.log` is documented as "the ordered log of every counted call,
-compact enough to diff two seats" and `frame-harness.ts` calls it "the ordered
-log of every call". It is not: `StubPath`'s builders — `rect`, `moveTo`,
-`lineTo`, `arc`, `ellipse` and the rest — go through `nums()` for validation
-and never through `mark()`, so nothing a path is *made of* reaches the log.
-Only `new Path2D` is tallied, and that is a count rather than a shape.
-
-It matters because the log is what `.claude/skills/render-perf` names as the
-proof that a speed change draws the same thing: an ordered diff of every call.
-A change that moves work from `fillRect` into a path — which is the shape of
-most of the savings left in this renderer, and is what THE FLEET's crossings
-just became — is invisible to that diff on the side that matters. The lane
-that made it had to hold the geometry with an arithmetic invariant instead,
-because the coordinates it wanted to compare were not in the log at all.
-
-Give `StubPath` the active log, the way `hit()` already reaches the active
-tally, and record each builder with its arguments. Two seats' logs are
-compared in `ghost-frame.test.ts` and gain the same lines on both sides, so
-that comparison is unaffected; check it, and any other log-diffing test, in
-the same commit.
