@@ -6,10 +6,11 @@ import { caromStruck } from "./carom.js";
 import { chuteIsOpen, chuteStruck } from "./chute.js";
 import { claspIsShielded, claspStruck } from "./clasp.js";
 import { colourIsArmoured } from "./colour-armour.js";
+import { lureBlastCols } from "./creature-rules.js";
 import { echoStruck } from "./echo.js";
 import { removeCreature } from "./field.js";
 import { ghostStruck } from "./ghost.js";
-import { costHull } from "./hull.js";
+import { breachHull } from "./hull.js";
 import { lidStruck } from "./lid.js";
 import { recoilStruck } from "./recoil.js";
 import { rindStruck } from "./rind.js";
@@ -179,10 +180,32 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
  * So the only way this creature can cost the pair anything is a shot, and the
  * hull is what it costs. Not the score: two currencies for one mistake reads
  * as bookkeeping, and the hull is the one the pair actually feels.
+ *
+ * **And it costs it in several places at once.** The bolt sets the body off
+ * where it stands, two rows up, and the ship takes the blast in
+ * `lureBlastPlaces` columns rather than one (`lureBlastCols`,
+ * creature-rules.ts). The price is unchanged and is still one number — the
+ * share below divides `damageLure` between the holes rather than charging it
+ * per hole — but a mistake that used to leave nothing on the ship to look at
+ * now leaves the hull broken in three places, which is the reading the pair
+ * gets before they get as far as the bar.
+ *
+ * Each place goes through `breachHull`, so the scars, the `breach` events and
+ * the picture at the hull are the same ones an arrival makes. Nothing about a
+ * hole in the ship should depend on what tore it.
  */
 function resolveLure(world: World, _b: Bullet, hit: Creature): void {
-  costHull(world, world.cfg.damageLure);
-  world.events.push({ type: "lureHit", col: hit.col, row: hit.row });
+  // Not null, and read once for both halves: `resolveLure` is the only branch
+  // a lure can take with a shot in it, so it always carries the disguise's own
+  // colour — and the blast and the holes it tears have to be the same colour,
+  // or the pair is shown two different bodies coming apart.
+  const color = hit.color ?? "cyan";
+  // Before the breaches, because this is what happened and they are what it
+  // cost: the ear and the eye both open on the body going up.
+  world.events.push({ type: "lureHit", col: hit.col, row: hit.row, color });
+  const cols = lureBlastCols(world.cfg, hit.col);
+  const share = world.cfg.damageLure / cols.length;
+  for (const col of cols) breachHull(world, col, hit.kind, hit.row, share, color);
   removeCreature(world, hit.id);
 }
 

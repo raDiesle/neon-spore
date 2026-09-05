@@ -16,10 +16,11 @@ import type { GuideScene } from "../scene-types.js";
  * colour its shape never comes in would be a trap with the answer written on
  * it.
  *
- * Then the shot that goes nowhere — and it does not merely go nowhere, it
- * costs the hull where it stands — and then the body that was really worth the
- * column. Both are played: `bullet-hit.ts` charges a shot at a lure to the
- * ship, and the real arrival is an ordinary cyan bulb eight beats behind it.
+ * Then the shot that goes nowhere — and it does not merely go nowhere, it goes
+ * up, and the ship pays for it in three places — and then the body that was
+ * really worth the column. Both are played: `bullet-hit.ts` charges a shot at
+ * a lure to the ship, and the real arrival is an ordinary cyan bulb eight
+ * beats behind it.
  */
 export const THE_LURE: GuideScene = {
   ticks: 1140,
@@ -42,11 +43,12 @@ export const THE_LURE: GuideScene = {
     { tick: 0, seat: 1, text: "PLAYER 1 SEES A TARGET", anchor: { at: "body" } },
     { tick: 200, seat: 2, text: "PLAYER 2 SEES A LURE", anchor: { at: "body" } },
     // The film's one shared page, spent on the thing neither screen owns: a
-    // bolt fired at a lure does not merely miss, it takes the hull for it
-    // (`costHull`, `bullet-hit.ts`), two rows up and with no mark left on the
-    // ship. That is the whole reason the corner frame is worth reading out
-    // loud, and pointing at the bar is the only way to show a cost that leaves
-    // nothing behind.
+    // bolt fired at a lure does not merely miss, it sets the body off two rows
+    // up and breaks the hull in three places for it (`resolveLure`,
+    // `bullet-hit.ts`). That is the whole reason the corner frame is worth
+    // reading out loud. The words still point at the bar rather than at the
+    // holes: the blast is the loudest thing on the screen by then, and the one
+    // thing it does not say is how much of the run it just spent.
     { tick: 420, seat: 2, text: "FIRING AT IT COSTS HULL", anchor: { at: "health" } },
     {
       tick: 680,

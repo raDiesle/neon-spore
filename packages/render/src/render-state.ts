@@ -1,7 +1,9 @@
-import type { World } from "@neon-spore/sim";
+import type { SimEvent, World } from "@neon-spore/sim";
 import { Effects } from "./effects.js";
 import { FieldPose } from "./field-pose.js";
 import { GuideStage } from "./guide-scene.js";
+import type { Layout } from "./layout.js";
+import { LureBlastFx } from "./lure-blast.js";
 import type { SpriteBursts } from "./sprite-burst.js";
 
 /**
@@ -32,6 +34,17 @@ export class RenderState {
    * clear it; `guide-scene.ts` owns everything about what it shows.
    */
   readonly guide = new GuideStage();
+  /**
+   * A lure going up, over the whole stage (`lure-blast.ts`).
+   *
+   * Held here rather than inside `Effects` for the reason this file exists at
+   * all: `effects.ts` is at its 250-line limit with nothing left to give, and
+   * the fix goes the long way round rather than shaving a comment to make
+   * room. The seam holds either way — every transient `Effects` owns is drawn
+   * inside the field pass and painted over by the hull, and this one is drawn
+   * last of the frame, on top of the ship it is about.
+   */
+  readonly lureBlast = new LureBlastFx();
   /** Enough of last frame's world to notice a wave starting over — see `restarted`. */
   private seen: { world: World; wave: number; waveBeat: number } | null = null;
 
@@ -74,6 +87,14 @@ export class RenderState {
    * It clears as it answers. A caller that asked and then forgot to forget is
    * the bug this used to be two calls away from.
    */
+  /** One frame's events and one frame's worth of time, for the transient this
+   * file holds itself. `Effects` is fed the same events next door — this is
+   * the one that is not its to draw. */
+  frame(events: readonly SimEvent[], l: Layout, dt: number): void {
+    this.lureBlast.ingest(events, l);
+    this.lureBlast.update(dt);
+  }
+
   restarted(world: World): boolean {
     const last = this.seen;
     this.seen = { world, wave: world.wave, waveBeat: world.waveBeat };
@@ -93,5 +114,6 @@ export class RenderState {
   forget(): void {
     this.effects.reset();
     this.pose.reset();
+    this.lureBlast.clear();
   }
 }

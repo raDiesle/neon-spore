@@ -24,9 +24,14 @@ export type CreatureEvent =
    * Its own event because the ear has to tell this apart from an ordinary
    * `destroy`: the same reflex that pays off everywhere else on the field is
    * wrong here, and a sound identical to a kill is the one that would hide
-   * that from the pair.
+   * that from the pair. The hull it costs arrives separately, as one `breach`
+   * per place the blast broke it in.
+   *
+   * `color` is the disguise's, for the reason `lureVanished` carries one: the
+   * blast is thrown in the colour both players were looking at, and nothing is
+   * revealed at the last instant that was hidden a moment before it.
    */
-  | { type: "lureHit"; col: number; row: number }
+  | { type: "lureHit"; col: number; row: number; color: Color }
   /**
    * A lure came onto the field. Player 2's alarm cue hangs off this and player
    * 1's device plays nothing for it: a chime both phones make would carry the

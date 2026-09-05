@@ -161,3 +161,33 @@ export function lureVanishRow(cfg: SimConfig): number {
 export function lureIsSpent(cfg: SimConfig, c: Creature): boolean {
   return c.kind === "lure" && c.row >= lureVanishRow(cfg);
 }
+
+/**
+ * The columns a shot into a lure breaks the hull in, low to high.
+ *
+ * A lure does not merely waste the shot any more: it goes up, and the ship
+ * takes it in `lureBlastPlaces` places rather than one. Several holes is the
+ * whole picture — one hole is an arrival, and an arrival is the thing this
+ * creature never was.
+ *
+ * The places are spaced evenly and the block is **shifted** into the field
+ * rather than clamped column by column, so a lure at either edge still breaks
+ * the hull in as many places as one in the middle; clamping folded two of them
+ * onto the same column there and quietly made the edges cheaper. The spacing
+ * is derived from the field's own width rather than authored, so it cannot be
+ * set wider than the hull it has to fit inside.
+ *
+ * The column the lure stood in is the middle of the block wherever there is
+ * room for it to be — which is what makes the blast read as coming from the
+ * body — and near either edge the block slides sideways off it instead.
+ */
+export function lureBlastCols(cfg: SimConfig, col: number): number[] {
+  const places = Math.max(1, Math.min(cfg.lureBlastPlaces, cfg.cols));
+  if (places === 1) return [Math.max(0, Math.min(cfg.cols - 1, col))];
+  const step = Math.max(1, Math.floor((cfg.cols - 1) / places));
+  const span = (places - 1) * step;
+  const lo = Math.max(0, Math.min(cfg.cols - 1 - span, col - Math.floor(span / 2)));
+  const cols: number[] = [];
+  for (let i = 0; i < places; i++) cols.push(lo + i * step);
+  return cols;
+}

@@ -159,6 +159,10 @@ export class Canvas2DRenderer implements Renderer {
       world.cfg,
     );
     this.held.effects.update(view.dt, l);
+    // The one transient this renderer holds outside `Effects`: it is drawn
+    // over the ship rather than under it, so it is fed and drawn here
+    // (`render-state.ts` says why it is not next door).
+    this.held.frame(view.events, l, view.dt);
     // The lettered grid, eased toward whether anything on the field has to be
     // named by tile. Read straight off the world every frame rather than fed
     // by an event: a wisp arriving, being shot, or a wave being restarted
@@ -195,6 +199,11 @@ export class Canvas2DRenderer implements Renderer {
       open: isOpen,
       fx: this.held.effects.opening,
     });
+    // Over the field and over the ship both, because it is about the second
+    // one: a lure shot by mistake, and the hull broken in three places for it
+    // (`lure-blast.ts`). Everything else this renderer throws goes down in the
+    // field pass and is painted over by the hull.
+    this.held.lureBlast.draw(ctx, l);
     // Last, over everything: the wave arriving, once the pair has crossed the
     // gate. There is no opening left to draw it inside by then (`opening-fx.ts`).
     if (this.held.effects.opening.launching) {

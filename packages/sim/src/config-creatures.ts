@@ -35,6 +35,9 @@ export interface CreatureConfig {
    * Two: close enough that player 1's eye is already on it, far enough that it
    * plainly never threatened the ship. */
   lureVanishRows: number;
+  /** Places along the hull the blast breaks it in (`lureBlastCols`).
+   * `damageLure` is split between them: priced once, paid in several holes. */
+  lureBlastPlaces: number;
   /** Score for hitting a Throb while it is open. */
   scoreThrobHit: number;
   /** What one piece of THE SHELL is worth. Smaller than a kill: chipping the
@@ -222,6 +225,7 @@ export interface CreatureConfig {
 export const CREATURE_DEFAULTS: CreatureConfig = {
   damageLure: 15,
   lureVanishRows: 2,
+  lureBlastPlaces: 3,
   scoreThrobHit: 200,
   scoreShellPiece: 120,
   throbPeriodBeats: 4,

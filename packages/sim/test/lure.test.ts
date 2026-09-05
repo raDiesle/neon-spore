@@ -67,6 +67,64 @@ describe("the lure", () => {
     }
   });
 
+  it("breaks the hull in `lureBlastPlaces` separate columns, and charges once for all of them", () => {
+    const world = createWorld({ ...noRegen }, 0, [lure(COL)]);
+    const byTick = new Map<number, TimedCommand[]>([
+      [SHOT_TICK, [aim(SHOT_TICK, COL), fire(SHOT_TICK, "cyan")]],
+    ]);
+    const events: SimEvent[] = [];
+    for (let t = 0; t < BEFORE_NEXT_BEAT; t++) {
+      step(world, byTick.get(t) ?? []);
+      events.push(...world.events);
+    }
+    const breaches = events.filter((e) => e.type === "breach");
+    expect(breaches).toHaveLength(CFG.lureBlastPlaces);
+    // Several holes, one price. The mistake is not made three times worse by
+    // being made visible in three places.
+    expect(hullPercent(world)).toBe(100 - CFG.damageLure);
+    // Three different columns, and the middle one is where the body stood.
+    const cols = breaches.map((e) => (e.type === "breach" ? e.col : -1));
+    expect(new Set(cols).size).toBe(CFG.lureBlastPlaces);
+    expect(cols).toContain(COL);
+    // And every one of them leaves a mark on the ship, which is the whole of
+    // what changed: this used to cost the hull and draw nothing.
+    expect(world.scars.map((s) => s.col).sort()).toEqual([...cols].sort());
+    for (const s of world.scars) expect(s.kind).toBe("lure");
+  });
+
+  it("breaks it in as many places at either edge of the field as in the middle", () => {
+    for (const col of [0, CFG.cols - 1]) {
+      const world = createWorld({ ...noRegen }, 0, [lure(col)]);
+      const byTick = new Map<number, TimedCommand[]>([
+        [SHOT_TICK, [aim(SHOT_TICK, col), fire(SHOT_TICK, "cyan")]],
+      ]);
+      for (let t = 0; t < BEFORE_NEXT_BEAT; t++) step(world, byTick.get(t) ?? []);
+      // Shifted into the field rather than clamped column by column: clamping
+      // folded two places onto one column at the edges and made them cheaper
+      // to look at than the middle.
+      expect(new Set(world.scars.map((s) => s.col)).size).toBe(CFG.lureBlastPlaces);
+      expect(hullPercent(world)).toBe(100 - CFG.damageLure);
+      for (const s of world.scars) {
+        expect(s.col).toBeGreaterThanOrEqual(0);
+        expect(s.col).toBeLessThan(CFG.cols);
+      }
+    }
+  });
+
+  it("leaves the hull on a whole thousandth however the price divides", () => {
+    // The share is `damageLure` over the places it broke in, which is not an
+    // integer for every configuration a director can dial up. What is stored
+    // has to be (CLAUDE.md rule 3), or two devices are one rounding step
+    // apart a minute later.
+    const odd: SimConfig = { ...noRegen, lureBlastPlaces: 7 };
+    const world = createWorld(odd, 0, [lure(COL)]);
+    const byTick = new Map<number, TimedCommand[]>([
+      [SHOT_TICK, [aim(SHOT_TICK, COL), fire(SHOT_TICK, "cyan")]],
+    ]);
+    for (let t = 0; t < BEFORE_NEXT_BEAT; t++) step(world, byTick.get(t) ?? []);
+    expect(Number.isInteger(world.hullMilli)).toBe(true);
+  });
+
   it("costs the hull even in the colour it is wearing", () => {
     // The point of the branch: a lure carries a colour, so without its own
     // case in `resolve` a matching shot would have been a kill and a wrong

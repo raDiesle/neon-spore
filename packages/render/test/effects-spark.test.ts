@@ -6,7 +6,7 @@ import { computeLayout, tileCX, tileCY } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 
 /**
- * The Runt's one visible answer: a burst that must not read as a kill.
+ * THE LURE's one burst on the field, and what it is now for.
  *
  * `effects-spark.ts`'s own switch is exhaustive over every `SimEvent` on
  * purpose, because this is exactly the burst that went missing once already:
@@ -17,36 +17,36 @@ import { PALETTE } from "../src/palette.js";
  * real canvas; this file is the one place that checks what this particular
  * burst actually looks like, and that "handled elsewhere" really does mean a
  * deliberate `null` rather than a forgotten one.
+ *
+ * What it checks changed with the creature. This used to be a burst that must
+ * *not* read as a kill: eight grey particles, fewer than a destroy, so a shot
+ * that felt satisfying to fire read as smaller than it felt. A lure now goes
+ * up and takes the hull with it in three places, so the burst is the ignition
+ * of that and is the other way round on both counts — bigger than a kill, and
+ * in the body's own colour.
  */
 const CFG = DEFAULT_CONFIG;
 const L = computeLayout({ width: 900, height: 1600, dpr: 2 }, CFG, "test");
 
 describe("the lure hit's burst", () => {
   it("lands where the lure was", () => {
-    const b = burstFor({ type: "lureHit", col: 3, row: 5 }, L);
+    const b = burstFor({ type: "lureHit", col: 3, row: 5, color: "cyan" }, L);
     expect(b).not.toBeNull();
     expect(b?.x).toBeCloseTo(tileCX(L, 3), 6);
     expect(b?.y).toBeCloseTo(tileCY(L, 5), 6);
   });
 
-  it("is never red or cyan — the two colours a real kill spends", () => {
-    const b = burstFor({ type: "lureHit", col: 0, row: 0 }, L);
-    expect(b?.hex).not.toBe(PALETTE.red);
-    expect(b?.hex).not.toBe(PALETTE.cyan);
+  it("carries the disguise's own colour, which is the one both players saw", () => {
+    // The same colour the blast over the stage and the breaches at the hull
+    // are drawn in, so the three read as one event rather than as three.
+    expect(burstFor({ type: "lureHit", col: 0, row: 0, color: "red" }, L)?.hex).toBe(PALETTE.red);
+    expect(burstFor({ type: "lureHit", col: 0, row: 0, color: "cyan" }, L)?.hex).toBe(PALETTE.cyan);
   });
 
-  it("spends the same colour the game already uses for 'not what you wanted'", () => {
-    // The same choice `reject` and `podLost` make, not a new one invented for
-    // this — the palette already has a word for it, and it is grey.
-    const b = burstFor({ type: "lureHit", col: 0, row: 0 }, L);
-    expect(b?.hex).toBe(PALETTE.sparkDim);
-  });
-
-  it("is a smaller burst than an ordinary kill, not a bigger one", () => {
-    const lure = burstFor({ type: "lureHit", col: 2, row: 2 }, L);
+  it("is a bigger burst than an ordinary kill, not a smaller one", () => {
+    const lure = burstFor({ type: "lureHit", col: 2, row: 2, color: "red" }, L);
     const destroyed = burstFor({ type: "destroy", col: 2, row: 2, color: "red" }, L);
-    expect(lure?.n ?? 0).toBeGreaterThan(0);
-    expect(lure?.n ?? Infinity).toBeLessThan(destroyed?.n ?? 0);
+    expect(lure?.n ?? 0).toBeGreaterThan(destroyed?.n ?? Infinity);
   });
 });
 

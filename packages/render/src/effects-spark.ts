@@ -81,13 +81,13 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
       return at(l, e.col, e.row, 10, PALETTE.ember);
     case "podLost":
       return { x: tileCX(l, e.col), y: l.hullY, n: 12, hex: PALETTE.sparkDim };
-    // Not `destroy`'s red or cyan — the whole point is that it must not look
-    // like a kill. `sparkDim` is already the colour this game spends on "not
-    // what you wanted" (`reject`, `podLost`), and fewer particles than a real
-    // destroy, so a shot that felt satisfying to fire reads as smaller than it
-    // felt (`docs/spec/audio.md` makes the same call for the ear).
+    // The ignition, at the tile the body stood in. It used to be eight grey
+    // particles, smaller than a kill so a shot that felt satisfying to fire
+    // read as smaller than it felt; a lure now goes up and takes the hull with
+    // it in three places (`resolveLure`), so it is the other way round on both
+    // counts. The rest of it is `lure-blast.ts`, over the whole stage.
     case "lureHit":
-      return at(l, e.col, e.row, 8, PALETTE.sparkDim);
+      return at(l, e.col, e.row, 26, e.color === "red" ? PALETTE.red : PALETTE.cyan);
     // A piece coming off THE SHELL: an ordinary burst in the armour's own
     // material colour. The raw edge it leaves behind is not drawn here —
     // that outlives the burst and is redrawn fresh every frame straight off

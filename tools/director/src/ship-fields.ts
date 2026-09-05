@@ -55,6 +55,7 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   scorePod: "SCORE",
   damageLure: "HULL — damage and repair",
   lureVanishRows: "THE LURE — a body only one of you can see through",
+  lureBlastPlaces: "THE LURE — a body only one of you can see through",
   scoreThrobHit: "SCORE",
   scoreClaspBreak: "SCORE",
   // Beats, not milliseconds, and it changes nothing the simulation decides —

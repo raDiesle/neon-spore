@@ -100,19 +100,17 @@ export function resolveHull(world: World): void {
 }
 
 /**
- * Hull damage and nothing else: no scar, no `breach`, no column. Exported as
- * `costHull` for the one thing that takes the hull without anything having
- * arrived at it — a shot at a lure (`resolveLure`, bullet-hit.ts), which is
- * paid for two rows up and leaves no mark on the ship to draw.
+ * Hull damage, shared by a single-column hit and a spanning one.
+ *
+ * `amount` is in whole hull points and is rounded into thousandths here, not
+ * assumed to be an integer: a blast that splits one price between the places
+ * it broke the hull in (`resolveLure`, bullet-hit.ts) hands this a third of a
+ * number, and a stored `Milli` field that is not an integer is two devices
+ * one rounding step apart (CLAUDE.md rule 3).
  */
-export function costHull(world: World, amount: number): void {
-  applyHullDamage(world, amount);
-}
-
-/** Hull damage, shared by a single-column hit and a spanning one. */
 function applyHullDamage(world: World, amount: number): void {
   if (world.cfg.hullInvulnerable) return;
-  world.hullMilli = Math.max(0, world.hullMilli - amount * MILLI);
+  world.hullMilli = Math.max(0, world.hullMilli - Math.round(amount * MILLI));
   if (world.hullMilli <= 0) world.over = true;
 }
 
@@ -123,8 +121,10 @@ function applyHullDamage(world: World, amount: number): void {
  *
  * Exported because a creature reaching the hull is no longer the only way this
  * happens — THE MIRROR answers a wrong step by breaking the hull directly
- * (`mirror.ts`), and it must break it the same way, with the same event, or
- * the picture and the record of the damage would quietly diverge.
+ * (`mirror.ts`), and a lure shot two rows up breaks it in three places at once
+ * (`resolveLure`, bullet-hit.ts). Both must break it the same way, with the
+ * same event, or the picture and the record of the damage would quietly
+ * diverge.
  */
 export function breachHull(
   world: World,
