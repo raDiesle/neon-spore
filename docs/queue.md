@@ -365,6 +365,7 @@ file's comment, and keep the message naming the measured length so a genuine
 overrun still reads plainly. It does not replace the entry above: nine
 characters of headroom is a real problem, and this only stops a worktree
 reporting a fake one on top of it.
+
 ## `drawCreatures`' body chain is an `else if` run a new line can sever
 
 - **Found:** 2026-09-05, claude/veer-meteor-type-01a303
@@ -385,3 +386,28 @@ the volley's shell, the recoil's cage, the veer's rider — stay as the separate
 `if`s they already are below it; what moves is only the exclusive half. The
 existing `*-frame.test.ts` files are the proof, and `bun run check` is the whole
 of it.
+
+## `bun run frames` cannot photograph a burst: sparks move only when it paints
+
+- **Found:** 2026-09-05, claude/explosion-color-matching-464ec1
+- **Files:** `tools/frames/run.ts`, `tools/frames/launch.ts`, `apps/game/src/handle.ts`
+
+`handle.ts`'s `advance(ticks)` steps the simulation without painting, and
+`paint()` advances every render effect by exactly one sixtieth of a second. So
+the two clocks come apart: a strip that walks a wave at `--stride 3` moves the
+world three ticks and the sparks one frame, and anything that lives in *painted*
+seconds — a spark's 0.4 s, the last-step fall replay in `rock-impact.ts` — is
+still on screen thousands of ticks later, or has not started yet.
+
+The practical consequence is that a burst at the hull is uncapturable. Four
+captures were spent on the colour change that found this — a bulb's cyan burst
+and a rock's impact — and none of the frames contained a single spark: the rock
+hung a few pixels above the skin for sixty painted frames because its replay had
+only advanced one second's worth of sixtieths.
+
+What to add is a paint-only mode: something like `--settle <n>`, which paints
+`n` frames without stepping the world at all, so a caller can advance to the
+tick the event fires on and then let the picture catch up. The tool's own tests
+in `tools/frames/test/` are where it is proved; `opening.ts` already counts
+painted frames rather than ticks for a rehearsal and is the shape to copy.
+f91f97a5 (Queue: bun run frames cannot photograph a spark burst)
