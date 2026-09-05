@@ -7,7 +7,6 @@ import {
   recoilTurn,
   type World,
 } from "@neon-spore/sim";
-import { drawCrawlerLink } from "./crawler.js";
 import { drawGhost, showsGhostBody } from "./ghost.js";
 import type { Layout } from "./layout.js";
 import { drawLid } from "./lid.js";
@@ -175,18 +174,6 @@ function drawStrandBody(b: Body): void {
   drawLivingBody(b);
 }
 
-/**
- * One link of THE CRAWLER, and the third body with a contour of its own that is
- * not a blob — THE LID's case said about a chain instead of an eye. A segment
- * of a worm is a ring fatter across the body than along it, joined to the next
- * one by a visible neck, and no radial contour describes either (`crawler.ts`).
- * Both screens draw the whole of it, so unlike the ghost and the wisp it has no
- * gate, only a draw path of its own.
- */
-function drawCrawlerBody({ ctx, l, world, c, x, y, beats, near }: Body): void {
-  drawCrawlerLink(ctx, l, world, c, x, y, beats, near);
-}
-
 /** The kinds whose body is not the ordinary blob and not a rock. */
 const EXCLUSIVE: ReadonlyMap<CreatureKind, BodyDraw> = new Map<CreatureKind, BodyDraw>([
   ["torch", drawTorchBody],
@@ -194,7 +181,6 @@ const EXCLUSIVE: ReadonlyMap<CreatureKind, BodyDraw> = new Map<CreatureKind, Bod
   ["wisp", drawWispBody],
   ["lid", drawLidBody],
   ["strand", drawStrandBody],
-  ["crawler", drawCrawlerBody],
 ]);
 
 /**

@@ -2,7 +2,7 @@ import { isBossBody, recoilTurn, veilArmourPhase, type World, wispOnField } from
 import { drawCaromCrust } from "./carom.js";
 import { drawChute } from "./chute.js";
 import { claspResonance, drawClaspShield } from "./clasp.js";
-import { linkOnField } from "./crawler.js";
+import { drawCrawlers } from "./crawler.js";
 import { bodyDraw } from "./creature-body.js";
 import { creatureCenter } from "./creature-place.js";
 import { drawDartJet } from "./dart.js";
@@ -56,6 +56,11 @@ export function drawCreatures(
     if (showsWisp(l)) drawWispGround(ctx, l, world, beatPhase);
     if (showsWispSearch(l)) drawWispSearch(ctx, l, world.cfg, time);
   }
+  // Every worm, whole, before the pass below skips its links. A crawler's
+  // rings overlap and have to be painted back to front, which is an order
+  // `byDepth` cannot give: every link of one stands on the same row
+  // (`crawler.ts`).
+  drawCrawlers(ctx, l, world, beats, beatPhase);
   // Farthest first: which of two overlapping bodies is in front used to be
   // decided by spawn order, which is not a fact about the picture. See
   // `byDepth` — it copies rather than sorting the simulation's own array.
@@ -71,11 +76,12 @@ export function drawCreatures(
     // under the ones below. The six on its rim are `mount`s and go through
     // the ordinary living draw below, which is the whole creature.
     if (c.kind === "gyre") continue;
-    // And a link of a worm that is still off the side of the field. A crawler
-    // feeds itself on a link at a time, so most of its body spends the first
-    // few beats in a column no phone has (`crawler.ts`) — and one drawn there
-    // would be a body the pilot can see and can never reach.
-    if (c.kind === "crawler" && !linkOnField(world.cfg, c, beatPhase)) continue;
+    // And every link of a worm, for the hub's reason with a sharper edge: the
+    // rings of a crawler *overlap*, each leading dome over the tucked tail of
+    // the one behind it, so the run has to be painted back to front — and
+    // `byDepth` sorts on the row, which every link of a worm shares.
+    // `drawCrawlers` above has already drawn the whole of it (`crawler.ts`).
+    if (c.kind === "crawler") continue;
     // A body on a rim is placed by the wheel that carries it, not by the walk
     // every falling body takes: it turns rather than crosses, and the arc is
     // written down once in `gyre-place.ts` so the rim, the spokes and the six

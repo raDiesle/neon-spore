@@ -590,6 +590,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/throb.ts` | the plating over a throb's armoured half — the green that means a shot does nothing |
 | `packages/render/src/crawler-fx.ts` | THE CRAWLER's two endings, as pictures that outlive the body they are about |
 | `packages/render/src/crawler.ts` | THE CRAWLER, drawn one link at a time — a maggot lying along the ship's surface |
+| `packages/render/src/crawler-skin.ts` | **The wet on a maggot, and the little on its face** |
 
 ### packages/net
 

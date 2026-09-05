@@ -148,7 +148,7 @@ export function crawler(name: string, s: CrawlerSilhouette, note: string): Subje
     name,
     note,
     open: false,
-    pointsAt: (t) => crawlerOutline(s.rx, s.ry, s.pulse, crawlerSqueeze(t, 0)),
+    pointsAt: (t) => crawlerOutline(s.rx, s.ry, s.taper, s.pulse, crawlerSqueeze(t, 0)),
     path: catmullRomToBezierPath,
   };
 }
@@ -209,7 +209,7 @@ export const SUBJECTS: Subject[] = [
   // `living-look.ts` gives it no row. Drawn at the top of its contraction, so
   // the card shows the widest a link ever is — which is the one measurement
   // that decides whether a run of them reads as an animal or as a stack.
-  crawler("CRAWLER", CRAWLER, `fatter across than long · ${CRAWLER.pulse} squeeze`),
+  crawler("CRAWLER", CRAWLER, `an egg on its side · ${CRAWLER.taper} taper · overlapping rings`),
   blob("POD", POD),
   meteor,
   torch,

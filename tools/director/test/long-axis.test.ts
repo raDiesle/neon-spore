@@ -67,16 +67,16 @@ describe("the catalogue's long axes", () => {
   it("splits a hundred and two bodies into wide, round and tall", () => {
     const count = (a: "x" | "y" | null) => axes.filter((e) => e.long === a).length;
     expect(axes.length).toBe(102);
-    expect(count("x")).toBe(39);
+    // One ring of THE CRAWLER is the fortieth wide card, and it is wide by
+    // more than any other: a ring reaches nearly a full tile past its own
+    // column at each end, which is what makes a run of them one animal with no
+    // gap in it rather than beads on a string (`content/crawler-shape.ts`).
+    expect(count("x")).toBe(40);
     expect(count(null)).toBe(50);
-    expect(count("y")).toBe(13);
+    expect(count("y")).toBe(12);
   });
 
-  // THE CRAWLER is tall for the one reason that matters about this creature:
-  // the worm travels *sideways*, so a link's long axis is across the direction
-  // of travel and therefore up the screen. A round card would be a link that
-  // had stopped being a segment.
-  it("names the thirteen tall ones", () => {
+  it("names the twelve tall ones", () => {
     expect(
       axes
         .filter((e) => e.long === "y")
@@ -84,7 +84,6 @@ describe("the catalogue's long axes", () => {
         .sort(),
     ).toEqual([
       "COMB",
-      "CRAWLER",
       "GHOST",
       "HUSK 1",
       "HUSK 2",

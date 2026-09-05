@@ -17,13 +17,16 @@ import { CFG, installCanvasGlobals, runFrames } from "./frame-harness.js";
  * run can be diffed against it rather than compared to a memory.
  *
  * **What it says today.** Against the same phone-sized frame the busy field is
- * weighed on, a whole worm costs about fourteen more `new Path2D` and about a
- * dozen more `stroke` — and unlike the panel's sheet, the Path2D count does
- * **not** come down on the second frame: every link builds its contour afresh
- * every frame, because `crawlerPath` returns a string that a `Path2D` then
- * parses (`content/crawler-shape.ts`). That is THE LID's arrangement and it is
- * cheap at one body; at seven links it is seven of them, and the row below is
- * what will notice if a longer worm ever makes it matter.
+ * weighed on, a whole worm costs about twenty more `new Path2D`, fifteen more
+ * `fill` and five more `clip` — the slime is three fills inside a clip on every
+ * ring (`crawler-skin.ts`), which is where the *alive* comes from and is the
+ * dearest thing on this body.
+ *
+ * The Path2D count is the row worth watching: unlike the panel's sheet beside
+ * it, it does **not** come down on the second frame, because every ring builds
+ * its contour afresh every frame — `crawlerPath` returns a string that a
+ * `Path2D` then parses (`content/crawler-shape.ts`). That is THE LID's
+ * arrangement and it is cheap at one body; at nine rings it is nine of them.
  *
  * Every number is exact, measured after the change that earned it. If a
  * legitimate change raises one, remeasure and move that row — do not pad it.
@@ -38,12 +41,12 @@ type Budget = Partial<
 
 const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
   p1: [
-    { fillRect: 66, stroke: 51, fill: 25, clip: 5, save: 22, "new Path2D": 39, fillText: 4 },
-    { fillRect: 66, stroke: 53, fill: 25, clip: 5, save: 22, "new Path2D": 25, fillText: 4 },
+    { fillRect: 66, stroke: 40, fill: 41, clip: 10, save: 23, "new Path2D": 45, fillText: 4 },
+    { fillRect: 66, stroke: 42, fill: 41, clip: 10, save: 23, "new Path2D": 31, fillText: 4 },
   ],
   p2: [
-    { fillRect: 66, stroke: 59, fill: 31, clip: 5, save: 24, "new Path2D": 41, fillText: 2 },
-    { fillRect: 66, stroke: 61, fill: 31, clip: 5, save: 24, "new Path2D": 25, fillText: 2 },
+    { fillRect: 66, stroke: 48, fill: 47, clip: 10, save: 25, "new Path2D": 47, fillText: 2 },
+    { fillRect: 66, stroke: 50, fill: 47, clip: 10, save: 25, "new Path2D": 31, fillText: 2 },
   ],
 };
 
