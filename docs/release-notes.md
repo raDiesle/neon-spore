@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 7b4e2bc — The stub canvas logs the shape a path is made of
+
+`StubContext.log` claimed to be the ordered log of every call and left out the one part a path is: `StubPath`'s builders went through `nums` for validation and never through the log, so `new Path2D` appeared as a count and `rect`, `moveTo`, `arc` and the rest appeared not at all.
+
 ## 2026-09-05 · fd85cb7 — THE FLEET's crossings are one fill: 192 rectangles a frame down to 60
 
 `drawFleetChart` marked every crossing of its own lattice with a small square, in a nested loop over twelve by eleven — 132 `fillRect` every frame for the whole length of the fight, which the budget beside it measured as roughly seventy per cent of every rectangle the game drew during it.
