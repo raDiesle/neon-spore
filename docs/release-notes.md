@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · c691147 — The seams are the basketball the owner drew, not four lines through the middle
+
+He sent the SVG. What was there was an equator, a meridian and two arcs bowing off the meridian — which is what a basketball looks like when it faces you exactly, and is a cross the rest of the time. `SEAMS` in `volley-seams.ts` is his drawing instead, measured against its own rim and written down in unit coordinates: four curves, every endpoint on the circle to within a thousandth, multiplied by whatever radius the row gives the ball and by nothing else.
+
+## 2026-09-05 · c56017a — A volley on the ship's row slid out from under the shield
+
+The owner's report was that warding one does nothing, and it was two faults under one symptom.
+
 ## 2026-09-04 · 28db5f3 — The seams are painted on the ball rather than over it
 
 Three faults in the first basketball, all of them the same fault: the four seams were drawn to the full radius while the rock's contour is faceted and is inside that radius almost everywhere, so they overhung the stone; the ellipse that draws the two side arcs continues whatever subpath it is called on, so the meridian ended in a tail running out to where the arc starts; and at a tenth of the radius they were thick enough to be the thing you saw instead of the rock.
