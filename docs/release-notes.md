@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 3569770 — A CRLF blob in the index is now a failing test, not a lane's morning
+
+`.gitattributes` says `* text=auto eol=lf` and that governs what a checkout writes. It does not govern what is already stored: a blob committed with carriage returns before the attribute landed stays CRLF, and every clone since writes that file out exactly as stored. One worktree got `CLAUDE.md` and `.claude/settings.json` that way while every other file in the same checkout arrived LF, and `bun run check` went red on the first command of the lane — on the size ceiling, which the 387 extra carriage returns pushed over, so the failure named the wrong cause entirely.
+
 ## 2026-09-05 · 2a079c2 — CLAUDE.md's ceiling stops counting carriage returns
 
 The file is 21,991 characters in the repository and fits under the 22,000 ceiling, but a worktree that checks it out with CRLF measures 22,274 — and the test then says the file has grown when nothing has changed, on the first command of a lane, before a line of work has been done. One session went hunting for a paragraph to move into docs/ that did not need moving.
