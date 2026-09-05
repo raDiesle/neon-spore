@@ -89,6 +89,25 @@ entry that already has one is refused rather than overwritten.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
+## Hold `docs/spec/briefings.md`'s wave numbers against `WAVES` with a test
+
+- **Found:** 2026-09-05, claude/tutorial-reset-wave-fixes-ea7302
+- **Files:** `docs/spec/briefings.md`, `packages/content/test/waves.test.ts`
+
+The right-hand column of the table in §1 names each teaching block's wave as a
+number and a name — `5 · THE ROCK`, `16 · BULB QUEEN`. Nothing checks it, and
+every wave inserted before one of those rows moves all of them by one. It was
+already wrong before this lane touched it: the bosses row read `16–19, 23` when
+THE VANE had been at 27 for some time, and the bestiary row read `20–26` over
+a range that had grown.
+
+Parse the `N · NAME` cells out of the table and assert that `WAVES[N - 1].name`
+is that name, with a message naming the row. The names in the table are the
+handles a person reads, so the test should key on them and let the numbers be
+what it checks. Rows that name a *range* rather than a wave (`17–21, 28`)
+cannot be checked that way — either give those rows their waves by name too, or
+skip anything that is not a single `N · NAME` and say so in the test.
+
 ## Move apps/server off the miniflare alpha when a stable 5 ships
 
 - **Found:** 2026-09-03, claude/bun-queue-list-command-5a8695

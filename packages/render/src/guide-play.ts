@@ -70,6 +70,21 @@ export class ScenePlay {
   private span = { from: 0, to: 0 };
   /** Whether the page has reached its last tick and is standing on it. */
   private held = false;
+  /**
+   * Whether this page has been asked for again since it opened.
+   *
+   * It is here so that a page played a second time does not *arrive* a second
+   * time. The slide from one screen to the other, the lit seam and the corner
+   * plate's flare are all the film saying "the other phone now", and the owner
+   * asked for them to be skipped on a repeat: pressing the middle button is a
+   * seat re-reading the page it is already on, and being carried across to a
+   * screen it never left is a switch that did not happen (`guide-scene.ts`).
+   *
+   * Not `plays > 0`, which is the other candidate and is subtly the wrong
+   * question: it counts pages that have *finished*, so a thumb that presses
+   * REPLAY halfway through the first run would slide again.
+   */
+  private again = false;
   private acc = 0;
 
   /** Whether there is a rehearsal up — the field behind it is not drawn. */
@@ -107,6 +122,7 @@ export class ScenePlay {
       this.plays = 0;
       this.shown = 0;
       this.held = false;
+      this.again = false;
       this.replay();
       return true;
     }
@@ -144,8 +160,14 @@ export class ScenePlay {
   replayPage(): boolean {
     if (!this.run) return false;
     this.held = false;
+    this.again = true;
     this.replay();
     return true;
+  }
+
+  /** Whether the page showing was asked for again rather than arrived at. */
+  get repeated(): boolean {
+    return this.again;
   }
 
   /** Whether the page has played out and is standing on its last frame. */
@@ -172,6 +194,7 @@ export class ScenePlay {
     this.plays = 0;
     this.shown = 0;
     this.held = false;
+    this.again = false;
     this.acc = 0;
     this.events.length = 0;
     return true;

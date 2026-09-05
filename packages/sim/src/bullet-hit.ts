@@ -5,6 +5,7 @@ import { resolveQueen, resolveWarden } from "./bullet-hit-boss.js";
 import { caromStruck } from "./carom.js";
 import { chuteIsOpen, chuteStruck } from "./chute.js";
 import { claspIsShielded, claspStruck } from "./clasp.js";
+import { colourIsArmoured } from "./colour-armour.js";
 import { echoStruck } from "./echo.js";
 import { removeCreature } from "./field.js";
 import { ghostStruck } from "./ghost.js";
@@ -129,8 +130,18 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
     shellStruck(world, b, hit);
     return false;
   }
+  // Still shut from the last wrong colour, and shut to *both* — which is the
+  // whole of what makes a colour mistake cost something (`colour-armour.ts`).
+  // Deliberately not a colour miss: the ammunition was right, the moment was
+  // not, and `resolveThrob` below books the same distinction the same way.
+  if (colourIsArmoured(world, hit)) {
+    world.events.push({ type: "reject", col: hit.col, row: hit.row });
+    return false;
+  }
   if (hit.color !== b.color) {
     missedColor(world);
+    // And the window opens here, on the one branch a wrong colour reaches.
+    hit.colourStruckTick = world.tick;
     world.events.push({ type: "reject", col: hit.col, row: hit.row });
     return false;
   }

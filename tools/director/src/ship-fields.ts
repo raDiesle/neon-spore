@@ -187,6 +187,7 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   lanceTilesPerBeat: "LANCE — a column marked, then spent",
   fireEveryBeats: "AIM — colour and column",
   shotChargeBeats: "AIM — colour and column",
+  colourArmourMs: "AIM — colour and column",
   hitHeightMilli: "PLUMBING — not a dial a person turns",
   fleetRows: "THE FLEET — a chart only one of you can read",
   fleetRoundBeats: "THE FLEET — a chart only one of you can read",

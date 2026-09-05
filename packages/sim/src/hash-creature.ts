@@ -74,6 +74,11 @@ export function creatureHashParts(c: Creature): number[] {
   // body inside needs no field of its own, being `c.color` a few lines up,
   // which is what the morph turns over.
   out.push(c.veilStruckTick ?? 0);
+  // And when an ordinary body was last struck in the wrong colour, for the
+  // same reason one line up: inside `colourArmourMs` no shot reaches it at
+  // all, so two devices that disagree about the tick disagree about whether
+  // the bolt player 2 just fired was a kill or a spark off a shut body.
+  out.push(c.colourStruckTick ?? 0);
   // Which way a crossing ghost is walking, and how many walls it has turned
   // at. Both decide where the body will be on the next beat — and the lap
   // count decides more than that: at `ghostChargeLaps` it stops walking and

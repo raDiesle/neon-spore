@@ -38,6 +38,13 @@ export {
 export { chuteBecomes, chuteFalls, chuteIsOpen } from "./chute.js";
 export { claspBecomes, claspIsShielded, claspStruck } from "./clasp.js";
 export {
+  COLOUR_UNSTRUCK,
+  colourArmourLeft,
+  colourArmourPhase,
+  colourArmourTicks,
+  colourIsArmoured,
+} from "./colour-armour.js";
+export {
   DEFAULT_CONFIG,
   hullRow,
   midCol,

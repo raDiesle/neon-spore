@@ -120,13 +120,13 @@ the two can be compared by opening the wave.
 | # | Block | What is new | Who holds what | Wave |
 |---|---|---|---|---|
 | 1 | **The opening** | two devices, one ship; the cannon; the colour | see §2 | 1 · FIRST STEP |
-| 2 | **The two colours** | red answers red, cyan answers cyan; a wrong colour is *spent*, not missed | p1 the column, p2 the colour | 2 · TWO COLOURS |
-| 3 | **The rock** | cannot be shot; shield in the column **and** triggered at contact | p2 slides, p1 triggers | 4 · THE ROCK |
-| 4 | **The torch** | two columns wide, the fastest thing in the field, and only on p1's strip | p1 sees it coming, p2 must cover both columns | 7 · TORCH |
-| 5 | **The pod** | shooting it loose is half of getting it; then it sinks and drifts | p2 frees it, p1 chases and opens the maw | 13 · SALVAGE |
-| 6 | **The queen** | two marks, one real; she opens for two beats; a torch drops every eight | p1 sees *what*, p2 sees *where* | 15 · BULB QUEEN |
-| 7 | **The bosses** | the mirror, the maze, the gauge, the warden and its line, the vane | one guide each, on their own wave | 16–19, 23 |
-| 8 | **The rest of the bestiary** | the runt, the throb, the shell, the pods, the rock speed tiers | one guide each | 20–26 |
+| 2 | **The two colours** | red answers red, cyan answers cyan; a wrong colour is *spent*, not missed, and the body it was spent on refuses everything for `colourArmourMs` | p1 the column, p2 the colour | 2 · CYAN |
+| 3 | **The rock** | cannot be shot; shield in the column **and** triggered at contact | p2 slides, p1 triggers | 5 · THE ROCK |
+| 4 | **The torch** | two columns wide, the fastest thing in the field, and only on p1's strip | p1 sees it coming, p2 must cover both columns | 8 · TORCH |
+| 5 | **The pod** | shooting it loose is half of getting it; then it sinks and drifts | p2 frees it, p1 chases and opens the maw | 14 · SALVAGE |
+| 6 | **The queen** | two marks, one real; she opens for two beats; a torch drops every eight | p1 sees *what*, p2 sees *where* | 16 · BULB QUEEN |
+| 7 | **The bosses** | the mirror, the maze, the gauge, the warden and its line, the vane | one guide each, on their own wave | 17–21, 28 |
+| 8 | **The rest of the bestiary** | the runt, the throb, the shell, the pods, the rock speed tiers | one guide each | 22–27 |
 
 **The grip and the lance are still the odd ones out**, and neither has a guide.
 They are controls no wave *contains*, so no wave is the first to carry them and

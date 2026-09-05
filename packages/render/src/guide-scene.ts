@@ -117,7 +117,13 @@ export class GuideStage {
     // The page, not the tick: a page is what is being watched, and it holds its
     // own words through the pause on the end of it.
     const step = scene.steps[Math.max(0, Math.min(scene.steps.length - 1, page))]!;
-    const from = previousSeat(scene, step);
+    // A page asked for again is not a page arrived at: REPLAY re-runs the film
+    // on the screen the seat is already looking at, so there is nothing to
+    // slide from, no seam to travel and no arrival for the corner to flare at.
+    // The owner asked for exactly that — *when I press reset, skip the switch
+    // player animation* — and it is read off the play rather than remembered
+    // here, so the drawing still holds no state a rebuild would have to clear.
+    const from = this.play.repeated ? null : previousSeat(scene, step);
     const k = from === null ? 1 : smoothstep(Math.min(1, (run.tick - step.tick) / SWITCH_TICKS));
     // The stage minus the nav bar: the film is a whole phone screen, and BACK,
     // the page number and NEXT get their own band under it rather than sitting

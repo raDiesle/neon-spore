@@ -39,6 +39,25 @@ export interface ShotConfig {
   /** Minimum gap between shots, in beats. */
   fireEveryBeats: number;
   /**
+   * How long an ordinary body refuses *everything* after a shot of the wrong
+   * colour, in milliseconds.
+   *
+   * The rule is docs/spec/structure.md's own — *a missed shot in the wrong
+   * colour: brief invulnerability* — and until now the only thing built for it
+   * was a grey outline render/ held for a third of a second, which cost the
+   * pair nothing at all: a second bolt was already loaded and the body died on
+   * the beat it would have died on anyway. The owner's reading of that was
+   * that it *is not long enough to hurt*.
+   *
+   * Seven hundred is twice the old flash and a little over one beat at the
+   * game's own tempo, so a wrong colour now costs the shot **and** the next
+   * chance to fire — which is exactly the sentence the pair says to each other
+   * about it. Deliberately far short of `veilArmourMs`: a veil's armour is the
+   * creature, and this is a penalty on top of a mistake that already spent a
+   * bolt.
+   */
+  colourArmourMs: number;
+  /**
    * The grid a shot may leave the muzzle on, in beats — how a press becomes a
    * shot that is *laid* rather than fired (`shot-charge.ts`). A press waits for
    * the next point on this grid, so the wait is between one tick and one part
@@ -79,6 +98,7 @@ export const SHOT_DEFAULTS: ShotConfig = {
   lancePierce: 3,
   lanceTilesPerBeat: 6,
   fireEveryBeats: 0.5,
+  colourArmourMs: 700,
   shotChargeBeats: 0,
   hitHeightMilli: 1000,
 };

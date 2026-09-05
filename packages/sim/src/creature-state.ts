@@ -66,6 +66,20 @@ export interface CreatureState {
    */
   veilStruckTick?: number;
   /**
+   * The tick a shot of the wrong colour last landed on an *ordinary* body — a
+   * slick, a bulb, or anything else that is answered by matching its colour —
+   * and absent on one nobody has missed. While it is inside `colourArmourMs`
+   * the body refuses every shot, including the right one.
+   *
+   * Its own field beside `veilStruckTick` rather than a share of it: the two
+   * windows are different lengths and are argued about separately, and a
+   * single field would make THE VEIL's armour and this penalty one number that
+   * could only ever be tuned together. Read it through `colourIsArmoured` and
+   * `colourArmourPhase` (colour-armour.ts) and never by hand — the grey body
+   * render/ draws and the shot the simulation refuses are one fact.
+   */
+  colourStruckTick?: number;
+  /**
    * THE GHOST's two fields, and `ghost.ts` is the whole of what they mean.
    * `ghostDir` is which way along its row a *crossing* ghost is going (`-1`
    * left, `1` right) and its presence is the path itself — absent means this

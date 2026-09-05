@@ -203,6 +203,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-volley.ts` | **What THE VOLLEY does**, as events: a ward that sends it back |
 | `packages/sim/src/volley.ts` | THE VOLLEY: a rock coming in on a diagonal with a body sealed inside it |
 | `packages/sim/src/ward.ts` | **What the shield does with a body it turns**, which used to be one answer and is now two |
+| `packages/sim/src/colour-armour.ts` | What a shot of the wrong colour leaves behind on an ordinary body: a window in which nothing at all reaches it |
 
 ### packages/content
 
@@ -281,7 +282,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/mechanics-rocks.ts` | The six rocks' rows, lifted out of `mechanics-table.ts` when THE VOLLEY took that file past its 250-line… |
 | `packages/content/src/scenes/the-carom.ts` | THE CAROM's rehearsal: a shape, then an order |
 | `packages/content/src/control-sets-table.ts` | Every panel in the game, as a table |
-| `packages/content/src/scenes/cyan.ts` | CYAN's rehearsal: the second button, on its own |
+| `packages/content/src/scenes/cyan.ts` | CYAN's rehearsal: the second button, and the cost of the first one |
 | `packages/content/src/scenes/two-rocks.ts` | TWO ROCKS' rehearsal: the plate becomes something player 2 can carry |
 
 ### packages/render

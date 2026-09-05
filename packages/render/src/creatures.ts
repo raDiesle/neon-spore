@@ -1,4 +1,5 @@
 import {
+  colourArmourLeft,
   isBossBody,
   isMeteorKind,
   recoilTurn,
@@ -169,7 +170,13 @@ export function drawCreatures(
         beats,
         beatPhase,
         time,
-        blocked.get(c.id) ?? 0,
+        // The longer of the two: the spark render/ holds for a third of a
+        // second off any `reject`, and the window the simulation is really
+        // refusing shots in when the reject was a wrong colour. Read off the
+        // world rather than timed here, so the grey body and the shot that
+        // bounces off it can never be two different lengths
+        // (`sim/colour-armour.ts`).
+        Math.max(blocked.get(c.id) ?? 0, colourArmourLeft(world, c)),
         world.cfg,
         near,
         recoilTurn(c, beatPhase),

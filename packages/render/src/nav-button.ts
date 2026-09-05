@@ -158,18 +158,49 @@ function arrowSign(
   ctx.fill();
 }
 
-/** A circle with a gap and a bulb on its point: play this again. */
+/** Where the loop's line begins and ends. The gap between them is the top. */
+const LOOP_FROM = -Math.PI * 0.42;
+const LOOP_TO = Math.PI * 1.16;
+
+/**
+ * A ring with a gap in the top of it and a head on one end: play this again.
+ *
+ * **The head is tangent to the line, and it was not.** It used to be an
+ * upright blob dropped at the end of the arc wherever that end happened to
+ * be, so the one shape on this bar whose job is to say *which way round*
+ * pointed nowhere: *the arrow on the line is incorrect, not an arrow
+ * positioned correct*. Now the end point and the direction come from one
+ * angle — move the gap and the head follows it round without being told.
+ */
 function loopSign(ctx: CanvasRenderingContext2D, x: number, y: number, r: number): void {
+  const rr = r * 0.74;
   ctx.lineWidth = Math.max(1.6, r * 0.22);
+  ctx.lineCap = "round";
   ctx.beginPath();
-  ctx.arc(x, y, r * 0.74, -Math.PI * 0.42, Math.PI * 1.16);
+  ctx.arc(x, y, rr, LOOP_FROM, LOOP_TO);
   ctx.stroke();
-  const hx = x + r * 0.74 * Math.cos(-Math.PI * 0.42);
-  const hy = y + r * 0.74 * Math.sin(-Math.PI * 0.42);
+  ctx.lineCap = "butt";
+  // Counter-clockwise, so the travel at `LOOP_FROM` is the angle decreasing:
+  // the tangent there is (sin a, -cos a), and the head points along it into
+  // the gap rather than back down its own line.
+  ctx.save();
+  ctx.translate(x + rr * Math.cos(LOOP_FROM), y + rr * Math.sin(LOOP_FROM));
+  ctx.rotate(Math.atan2(-Math.cos(LOOP_FROM), Math.sin(LOOP_FROM)));
+  loopHead(ctx, r * 0.5);
+  ctx.restore();
+}
+
+/**
+ * The head itself, pointing along its own +x and sitting astride the origin so
+ * the line runs into the notch rather than stopping short of it. The arrow's
+ * own grammar one function up: a blunt point, a concave back, no straight edge.
+ */
+function loopHead(ctx: CanvasRenderingContext2D, s: number): void {
   ctx.beginPath();
-  ctx.moveTo(hx - r * 0.1, hy - r * 0.52);
-  ctx.quadraticCurveTo(hx + r * 0.5, hy - r * 0.1, hx - r * 0.2, hy + r * 0.3);
-  ctx.quadraticCurveTo(hx - r * 0.36, hy - r * 0.1, hx - r * 0.1, hy - r * 0.52);
+  ctx.moveTo(-s * 0.5, -s * 0.78);
+  ctx.quadraticCurveTo(s * 0.3, -s * 0.32, s * 0.9, 0);
+  ctx.quadraticCurveTo(s * 0.3, s * 0.32, -s * 0.5, s * 0.78);
+  ctx.quadraticCurveTo(-s * 0.12, 0, -s * 0.5, -s * 0.78);
   ctx.closePath();
   ctx.fill();
 }
