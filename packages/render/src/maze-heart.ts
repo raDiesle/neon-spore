@@ -1,5 +1,5 @@
 import { blobPath } from "@neon-spore/content";
-import type { MazeState } from "@neon-spore/sim";
+import { type MazeState, mazeHeartColor } from "@neon-spore/sim";
 import { halo, strokeGlow } from "./glow.js";
 import { drawMazeBlood } from "./maze-blood.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -36,7 +36,9 @@ import { PALETTE, STROKE } from "./palette.js";
  * replaced and the heart is not (`maze-blood.ts`).
  *
  * **The colour switches every round**, between the two the field already
- * carries: a slick's red and a bulb's cyan. It is the one thing on this boss
+ * carries: a slick's red and a bulb's cyan. It is not decoration — it is the
+ * colour player 2 has to fire, and the only place the answer is written down
+ * is the body itself (`mazeHeartColor`). It is also the one thing on this boss
  * that says which round the pair is on without a word of text.
  */
 
@@ -66,15 +68,19 @@ const SWELL = 0.3;
  * bulb's cyan. Named against the creatures rather than against the palette
  * keys, because that is what the owner asked for and what a player would say.
  */
-const BLOODS: readonly { tint: string; rim: string }[] = [
+const BLOODS: readonly [{ tint: string; rim: string }, { tint: string; rim: string }] = [
   { tint: PALETTE.red, rim: PALETTE.redRim },
   { tint: PALETTE.cyan, rim: PALETTE.cyanRim },
 ];
 
-/** Which blood this round runs on. */
+/**
+ * Which blood this round runs on. Which colour that *is* is `sim`'s rule, not
+ * this file's: it decides whether a shot arriving in the middle counts, and a
+ * second copy of it here is how a heart comes to be drawn one colour and to
+ * accept the other.
+ */
 export function mazeHeartBlood(round: number): { tint: string; rim: string } {
-  const at = ((round % BLOODS.length) + BLOODS.length) % BLOODS.length;
-  return BLOODS[at] ?? { tint: PALETTE.red, rim: PALETTE.redRim };
+  return mazeHeartColor(round) === "red" ? BLOODS[0]! : BLOODS[1]!;
 }
 
 /**

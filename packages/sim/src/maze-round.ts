@@ -8,7 +8,7 @@ import {
 } from "./maze-clock.js";
 import { mazeRight, mazeSettle, mazeWrong } from "./maze-verdict.js";
 import { type MazeWheel, mazeCopyWheel, mazeReachesCore } from "./maze-wheel.js";
-import type { Scar } from "./types.js";
+import type { Color, Scar } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
 /**
@@ -40,8 +40,13 @@ import { MILLI, type World } from "./world.js";
  * middle finishes a wheel, and the next comes up harder.
  */
 
-/** Why an attempt was lost: a dead end, or nothing fired at all. */
-export type MazeVerdictReason = "mouth" | "silence";
+/**
+ * Why an attempt was lost: a dead end, the wrong colour at the heart, or
+ * nothing fired at all. All three cost the hull the same; what they are for is
+ * the sentence the pair says before the next attempt, which is different in
+ * each case.
+ */
+export type MazeVerdictReason = "mouth" | "color" | "silence";
 
 /**
  * Everything THE MAZE remembers between ticks. It carries a hull and scars for
@@ -102,6 +107,30 @@ export interface MazeState {
   verdict: -1 | 0 | 1;
   /** The column that verdict landed in — the one the shot went up. */
   verdictCol: number;
+}
+
+/**
+ * The colour the heart is running this round, and therefore the only colour a
+ * shot that reaches it counts in.
+ *
+ * **It alternates, and that is the round's second half.** A slick's red, then
+ * a bulb's cyan, then red again — the two colours the field already carries,
+ * so player 2 is choosing between the two she has rather than learning a third.
+ * The heart is drawn in it (`render/maze-heart.ts`), so neither player is
+ * being asked to remember anything: the answer is in the middle of the drum,
+ * beating, on both screens.
+ *
+ * A rule rather than a look, which is why it is here. The picture calls this;
+ * a second copy of it in `render/` is how a heart comes to be drawn one colour
+ * and to accept the other.
+ */
+export function mazeHeartColor(round: number): Color {
+  return round % 2 === 0 ? "red" : "cyan";
+}
+
+/** That colour as `MazeState.shotColor` records one: 0 red, 1 cyan. */
+export function mazeHeartShot(round: number): number {
+  return mazeHeartColor(round) === "red" ? 0 : 1;
 }
 
 /** The wheel of the round being played, or nothing past the last one. */
@@ -182,9 +211,13 @@ export function stepMaze(world: World, m: MazeState): void {
       const route = wheel.entrances[m.way]?.route ?? [];
       const step = Math.floor(inside / MAZE_TRAVEL_BEATS);
       if (step >= route.length) {
-        // The end of the walk: the middle, or whatever else was down there.
-        if (mazeReachesCore(wheel.entrances[m.way]!)) mazeRight(world, m);
-        else mazeWrong(world, m, "mouth");
+        // The end of the walk, and two ways to have got it wrong: a corridor
+        // that went nowhere, or the wrong colour arriving at a heart that only
+        // takes its own. Both cost the hull; only the right colour in the
+        // middle takes a share of the boss.
+        const home = mazeReachesCore(wheel.entrances[m.way]!);
+        if (home && m.shotColor === mazeHeartShot(m.round)) mazeRight(world, m);
+        else mazeWrong(world, m, home ? "color" : "mouth");
         continue;
       }
       if (inside % MAZE_TRAVEL_BEATS === 0) advance(world, m, wheel, step);

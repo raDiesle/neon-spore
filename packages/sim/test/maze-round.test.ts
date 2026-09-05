@@ -1,6 +1,7 @@
 import { expect, test } from "bun:test";
 import { step } from "../src/index.js";
 import { MAZE_LEAD_BEATS, MAZE_TRAVEL_BEATS, mazeReadBeats } from "../src/maze-clock.js";
+import { mazeHeartColor } from "../src/maze-round.js";
 import { mazeCoreEntrance } from "../src/maze-wheel.js";
 import {
   CFG,
@@ -99,6 +100,32 @@ test("saying nothing at all costs the same as a dead end", () => {
   expect(verdict).toHaveLength(1);
   expect(verdict[0]).toMatchObject({ right: false, reason: "silence" });
   expect(before - world.hullMilli).toBe(CFG.damageMaze * 1000);
+});
+
+/**
+ * The round's other half, and the reason the heart is drawn in a colour at all:
+ * it takes its own and refuses the other, and refusing costs the hull exactly
+ * as a dead end does. Without this the walk could not be got wrong once the
+ * sheet became a real maze — every gap in a perfect maze's rim reaches the
+ * middle, so the only way left to lose was the clock.
+ */
+test("the heart takes its own colour, and the other one costs the hull", () => {
+  const world = install();
+  untilReading(world);
+  const before = world.hullMilli;
+  const wrong = mazeHeartColor(0) === "red" ? "cyan" : "red";
+  const col = clickOnto(world, mazeCoreEntrance(WHEELS[0]!));
+  send(world, 1, { kind: "cannonCol", col });
+  send(world, 2, { kind: "fire", color: wrong });
+  // It still goes in and still walks the whole way: what is refused is the
+  // arrival, not the entry.
+  expect(mazeOf(world).phase).toBe("travel");
+  const seen = past(world, "travel", TPB * 400);
+  const verdict = seen.filter((e) => e.type === "mazeVerdict");
+  expect(verdict).toHaveLength(1);
+  expect(verdict[0]).toMatchObject({ right: false, reason: "color" });
+  expect(before - world.hullMilli).toBe(CFG.damageMaze * 1000);
+  expect(mazeOf(world).hullMilli).toBe(100_000);
 });
 
 test("three wheels finished bring it down", () => {

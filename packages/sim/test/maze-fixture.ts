@@ -19,7 +19,7 @@ import { startWave } from "../src/beat.js";
 import { DEFAULT_CONFIG } from "../src/config.js";
 import { step, ticksPerBeat } from "../src/index.js";
 import { mazeWrap } from "../src/maze.js";
-import type { MazeState } from "../src/maze-round.js";
+import { type MazeState, mazeHeartColor } from "../src/maze-round.js";
 import { mazeWheel } from "../src/maze-solve.js";
 import type { MazeWheel } from "../src/maze-wheel.js";
 import type { Command, TimedCommand } from "../src/types.js";
@@ -104,11 +104,19 @@ export function clickOnto(world: World, way: number, dir: -1 | 1 = 1): number {
   throw new Error(`way ${way} never clicked onto a column`);
 }
 
-/** Slide the cannon under the lit column and fire, which is the whole answer. */
-export function fireInto(world: World, way: number): SimEvent[] {
+/**
+ * Slide the cannon under the lit column and fire, which is the whole answer.
+ *
+ * The colour is the heart's own unless one is named: a shot of the other
+ * colour reaches the middle and is refused there (`mazeHeartColor`), so a test
+ * about anything else would be a test about the colour without meaning to be.
+ */
+export function fireInto(world: World, way: number, color?: "red" | "cyan"): SimEvent[] {
   const col = clickOnto(world, way);
   const seen = send(world, 1, { kind: "cannonCol", col });
-  seen.push(...send(world, 2, { kind: "fire", color: "red" }));
+  seen.push(
+    ...send(world, 2, { kind: "fire", color: color ?? mazeHeartColor(mazeOf(world).round) }),
+  );
   return seen;
 }
 

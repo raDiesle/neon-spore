@@ -99,6 +99,8 @@ export {
   type MazeState,
   type MazeVerdictReason,
   mazeCurrent,
+  mazeHeartColor,
+  mazeHeartShot,
 } from "./maze-round.js";
 export { mazeEntrances, mazeSolveRoute, mazeWheel } from "./maze-solve.js";
 export {

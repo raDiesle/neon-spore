@@ -171,7 +171,7 @@ export const MECHANICS = {
     reach: "spawn",
   },
   maze: {
-    what: "A real maze of rings turns above the ship, with one gap cut in its rim. Turn the gap round onto a column, fire up it, and the shot crawls the corridors to the middle.",
+    what: "A real maze of rings turns above the ship, with a heart in the middle. Turn a gap round onto the ship's own column, fire the colour the heart is beating in, and the shot crawls the corridors to it.",
     reach: "spawn",
   },
   vane: {

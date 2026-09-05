@@ -58,6 +58,8 @@ export {
   mazeEntranceCol,
   mazeEntrances,
   mazeFault,
+  mazeHeartColor,
+  mazeHeartShot,
   mazeRadiusMilli,
   mazeRingMilli,
   mazeRound,
