@@ -12,6 +12,25 @@ commit message that read wrong, and the history is where that lives.
 ## 2026-09-05 · b3ffc52 — Refuse a landing onto a trunk `origin` has already moved past
 
 `bun run land` rebases the lane onto the **local** trunk and never asked `origin` where that trunk actually was. In a cloud clone the local `main` is whatever `origin` held when the container was built, and this repo lands several times a day: on 5 September 2026 a lane replayed onto a `main` sixty-six commits behind, landed cleanly onto it, and only then found that `origin/main` had eleven commits it did not — one of them a whole new creature touching the same four tables. By that point the branch was swept and the check was spent, so seven conflicts arrived on the trunk itself, at the one moment there was no lane left to fix them on. Two were resolved wrongly and each cost another three-minute `bun run check`.
+## 2026-09-05 · 6115dbb4 — Make THE CRAWLER one animal: overlapping rings, a rounded head, and wet light on it
+
+The owner sent a picture of a real maggot with the note that the segments are attached as they belong together, with no space in between — and that is a different thing from a coupling drawn as a link. A coupling gets a connector; a single body does not. So the neck bars are gone and every ring is now nearly two tiles wide, its leading dome lying over the tucked tail of the one behind it, which needs the run painted back to front — an order `byDepth` cannot give, since every link of a worm stands on the same row. `drawCreatures` routes a crawler away the way it routes THE GYRE's hub and `drawCrawlers` paints each worm tail first.
+
+## 2026-09-05 · aa103c42 — Keep the crawler's barrel to what asks for it from outside the sim
+
+The rebase onto a main that had moved took `packages/sim/src/index.ts` over its limit, and the twenty-name export was the wrong thing to have written: only nine of them are asked for outside `packages/sim` — the director's two per-arrival fields, and what render needs to draw a link. The rest of `crawler.ts` is the simulation's own, and its tests reach for it there, which is what every other creature's rule file already does.
+
+## 2026-09-05 · 81f3bd3c — Weigh a whole worm, draw one through the stub, and queue what that turned up
+
+A new shape gets a measurement, so THE CRAWLER's wave has one: five links standing on the ship, at the phone-sized frame the busy field is weighed on, with the counts stored so a later run is a diff rather than a memory (`crawler-budget.test.ts`, beside `fleet-budget.test.ts` for that file's reason). And every link, both endings and a body half off the side of the field now go through the stub canvas that refuses what a real one refuses (`crawler-frame.test.ts`).
+
+## 2026-09-05 · 2a791868 — Cut THE CRAWLER's mouth into its head, and stand its two endings where they happen
+
+Four fixes to a look with no shipped alternative, all of them found by looking at a captured frame rather than at the code. The mouth was centred on the leading edge with two mandibles hooked off the front, which put half of it in open field and read as a fault rather than as a face; it is a dark hole inside the head now, which is the whole of what a mouth can be at forty pixels. The two ends wore the same grey as a plate, so a pair could not tell the one link the shield is owed from the one it can never touch — an end is darker and edged in the field's own dim now, and every plate stands out of it. The necks were half a link wide and the run read as beads on a string, which is THE STRAND's picture. And the burrow's two banks were anchored to the row the worm stood on, so they floated a tile over a hull that was visibly breaking somewhere else; they sit on `hullY` now, where the material came from.
+
+## 2026-09-05 · 19ccd103 — THE CRAWLER: a worm that walks the ship, and the first body both controls take apart together
+
+Every arrival since the first slick has fallen out of the top of the screen at the ship, and everything the pair has learned is a way of meeting one. THE CRAWLER is already landed. It comes over a side wall onto the row the shield covers and walks the ship lengthways, a column every other beat, and while it walks it costs the hull nothing at all — so doing nothing about it is the only way to lose to it, which inverts every wave before this one. Its head and tail are armour nothing takes off; the segments between them cycle red, cyan, plate along the body, so a colour wants the matching cannon under it and a plate wants the shield, and every third link turns the two seats round. A link taken off closes the body up behind it — where a link stands is its rank among the living, so the magnet is arithmetic rather than animation, and stripping the front of a worm feeds its tail onto the field sooner. Strip it and the ship opens a lane and the two ends go up it; let its head reach the far wall and it eats in, for as much as the pair left on it, in every column it still covers.
 
 ## 2026-09-03 · bdb4bd6a — The scan box blinks for a wisp and sweeps a row for a ghost
 
