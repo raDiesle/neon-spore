@@ -129,27 +129,6 @@ use: the diagonal turning at a wall with nothing else on the field, the shot
 landing and the crust coming off, and the shield taking the rock. The rehearsal
 walk in `packages/content/test/` will pick it up on its own once it is named.
 
-## THE VOLLEY breaches the hull as a living body rather than as a rock
-
-- **Found:** 2026-09-04, claude/meteor-enemy-shield-reflect-0d82f2
-- **Taken:** 2026-09-05, claude/queue-the-volley-breaches-the-hull-as-a-living-body-ra
-- **Files:** `packages/render/src/effects-breach.ts`,
-  `packages/render/src/craters.ts`, `packages/render/src/scars.ts`
-
-A volley the pair never warded arrives as the rock it looks like: `hull.ts`
-charges it `damageMeteor` through the same `damageSpan` every warded body goes
-through, and the scar it leaves names `kind: "volley"`. Render still asks
-`isMeteorKind` at three places downstream of that — the breach picture, the
-crater on the hull and the delay that holds a scar back until the rock has
-visibly landed — so the one thing on the field that is unmistakably a rock is
-drawn hitting the ship as a red burst with no crater and no arrival.
-
-`isWardable` in `packages/sim/src/kinds.ts` is the rule those three want and it
-is already exported; it is the one `hull.ts` and `bullet-hit.ts` were both moved
-onto when this creature landed. Swap the three call sites, and check
-`packages/render/test/rock-impact.test.ts` and `craters`' own frame tests still
-pass — a volley's span is one, so nothing about the two-wide torch path changes.
-
 ## THE VOLLEY's guide has no rehearsal, so its wave is read rather than watched
 
 - **Found:** 2026-09-04, claude/meteor-enemy-shield-reflect-0d82f2

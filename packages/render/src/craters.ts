@@ -1,5 +1,5 @@
 import { crystalPath, crystalRadiusMul, METEOR, type Point } from "@neon-spore/content";
-import { isMeteorKind, type Scar, spanOf } from "@neon-spore/sim";
+import { isWardable, type Scar, spanOf } from "@neon-spore/sim";
 import { type Layout, tileCX } from "./layout.js";
 import { rockRadius, torchRotation } from "./torch.js";
 
@@ -114,10 +114,11 @@ export function craters(l: Layout, scars: readonly Scar[], skinAt: (x: number) =
   }
 
   // Every other rock kind scars a single column and gets its own, smaller
-  // crater there. A living creature's breach also leaves a scar but is not a
-  // rock (`isMeteorKind`), so it never gets one.
+  // crater there. A living creature's breach also leaves a scar but is not
+  // warded (`isWardable`), so it never gets one — THE VOLLEY is, and its shell
+  // tears the hull the way the tier it is drawn as does.
   for (const s of scars) {
-    if (used.has(s) || !isMeteorKind(s.kind)) continue;
+    if (used.has(s) || !isWardable(s.kind)) continue;
     used.add(s);
     const x = tileCX(l, s.col);
     out.push(

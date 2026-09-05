@@ -1,5 +1,5 @@
 import type { Point } from "@neon-spore/content";
-import { isMeteorKind, type Scar } from "@neon-spore/sim";
+import { isWardable, type Scar } from "@neon-spore/sim";
 import type { Crater } from "./craters.js";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -116,7 +116,7 @@ export function drawScars(
 ): void {
   ctx.save();
   for (const s of scars) {
-    if (isMeteorKind(s.kind) && !arrived(s.col, s.beat)) continue;
+    if (isWardable(s.kind) && !arrived(s.col, s.beat)) continue;
     const seed = Math.imul(s.col + 1, 73856093) ^ Math.imul(s.beat + 1, 19349663);
     const rnd = stream(seed);
     const { x, side: lean } = crackOrigin(l, s, rnd, rnd() < 0.5 ? -1 : 1, craters);

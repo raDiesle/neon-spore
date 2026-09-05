@@ -1,4 +1,4 @@
-import { isMeteorKind, type SimEvent } from "@neon-spore/sim";
+import { isWardable, type SimEvent } from "@neon-spore/sim";
 import type { Arrivals } from "./arrivals.js";
 import type { DeflectFx } from "./deflect.js";
 import { type Layout, tileCX } from "./layout.js";
@@ -37,7 +37,10 @@ export function ingestBreach(
   beatSeconds: number,
   parts: BreachParts,
 ): void {
-  if (!isMeteorKind(e.kind)) {
+  // `isWardable` rather than `isMeteorKind`: THE VOLLEY is a rock the shield
+  // answers, and a shell nobody warded arrives as the rock it looks like — the
+  // fall replay and the crack that waits for it, not a red burst at the hull.
+  if (!isWardable(e.kind)) {
     parts.burst(tileCX(l, e.col), l.hullY, 16 * e.span, PALETTE.red);
     return;
   }
