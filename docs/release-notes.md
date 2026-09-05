@@ -64,6 +64,18 @@ The file is 21,991 characters in the repository and fits under the 22,000 ceilin
 ## 2026-09-05 · ea3cf39 — The intro is advertised rather than explained
 
 The six pages that say what this game is were even type on a dark screen, which reads as a manual however short the sentences are. They are laid out the way a store page is now: the headline stands on a lit banner in the page's own colour, a supermarket price flash is stamped across the corner of the picture, and the picture itself comes at the reader and goes back again on a three-and-a-half second trip, with the tag half a turn behind it so the corner reads as a second plane. Six pages, six colours, none of them one of the four greens the palette reserves.
+## 2026-09-05 · d44356e9 — Each streak is a gradient along its own length, not a solid bar
+
+Twenty-six flat strokes read as a firework: every one was the same brightness from end to end, so the eye found a spirograph rather than debris. Each is now a linear gradient from nothing at the tail to white at the tip, at a third of the width, and the length spread is wide enough that some pass the front while others fall well short of it.
+
+## 2026-09-05 · 1ae2e3f4 — The blast reads as light rather than as a clock face
+
+Fourteen evenly spaced bars around a hard white hoop drew a dial: the eye found the spacing before it found the fire. The streaks are now twenty-six, each with its own length, width and brightness off one integer hash, half reaching past the front and half falling short of it; the ring is a shell of light that is transparent on both sides of the front instead of a stroked circle; and the fireball spends its colour in the middle third rather than holding it halfway out, which was drawing a pale bubble with an edge.
+
+## 2026-09-05 · c9965ba2 — A lure shot by mistake goes up, and takes the hull in three places
+
+Firing at a lure used to cost fifteen hull two rows above the ship and leave nothing behind to look at: no scar, no breach, no picture. The only record of the worst mistake in the game was a bar moving. It now detonates where it stands — a blast over the whole stage, in the disguise's own colour, drawn last of the frame and over the ship rather than under it — and the hull breaks in `lureBlastPlaces` separate columns for it, each one an ordinary `breachHull` with its own scar, its own crack and its own burst.
+
 ## 2026-09-05 · 617ad178 — A picture of a boss past its first round cannot be taken
 
 Queued while photographing THE MAZE: only the first of five sheets can be photographed, so the widened rim and the collapse have no captured frame.
