@@ -78,6 +78,19 @@ dev server hands back `index.html` for every unknown path, so a 200 is not
 evidence of anything. `bun run preview:once` binds an OS-assigned free port for a
 throwaway check or a second worktree; several can run side by side.
 
+*Amended 2026-09-05:* the other half of the same trap is the **index**, and
+`.gitattributes` cannot reach it. `eol=lf` governs what a checkout writes; a
+blob committed with carriage returns before the attribute landed stays CRLF,
+and every clone from then on writes that file out exactly as stored. One
+worktree got `CLAUDE.md` and `.claude/settings.json` that way while every other
+file in the same checkout arrived LF, and `bun run check` went red on the first
+command of the lane — on `CLAUDE.md`'s size ceiling, which the 387 extra
+carriage returns pushed over, so the failure named the wrong cause entirely.
+The index is clean now and `tools/test/line-endings.test.ts` keeps it that way,
+naming `git add --renormalize .` as the fix rather than leaving it to be
+rediscovered. It reads the index only: the working tree's endings are the
+harness's business, per the note above.
+
 *Amended 2026-09-04:* `.claude/launch.json` is not the repository's file to
 format, and biome no longer looks at it. The desktop harness rewrites it
 whenever it opens a worktree, and writes CRLF; `.gitattributes` already pins

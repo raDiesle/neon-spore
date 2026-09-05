@@ -29,6 +29,16 @@ workspace links inside it point at the main tree's `packages/*` by absolute
 path, so a test would run against another tree's code and report a result about
 it.
 
+**A file that arrives with CRLF is a blob, not a setting.** `.gitattributes`
+pins every path to LF and that governs what a checkout writes, but a file
+committed with carriage returns before the attribute landed stays that way in
+the index and every clone since writes it out wrong — which is how one lane's
+`bun run check` went red on `CLAUDE.md`'s size before a line of work was done.
+`tools/test/line-endings.test.ts` now fails on such a blob and names
+`git add --renormalize .` as the fix. `.claude/launch.json` is the exception
+and is nobody's to format: the desktop harness rewrites it with CRLF whenever
+it opens a worktree.
+
 `bun install` there does **not** put `@neon-spore/*` in a root `node_modules` —
 the links land under each package's own. A throwaway script written at the
 repository root therefore cannot `import "@neon-spore/shape-sheet"` and has to

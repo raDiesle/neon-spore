@@ -320,32 +320,6 @@ behind them (`docs/looks.md`, `docs/queue.md`'s own preamble) — and move the
 prose there, leaving what a session has to *do*. Then put the missing
 `bun run sweep` line in the commands table with the room that buys.
 
-## A fresh worktree checks `CLAUDE.md` out with CRLF, and `bun run check` goes red
-
-- **Found:** 2026-09-05, claude/warden-pull-control-visuals-9dd545
-- **Taken:** 2026-09-05, claude/queue-a-fresh-worktree-checks-claude-md-out-with-crlf
-- **Files:** `.gitattributes`, `tools/test/claude-md.test.ts`, `.claude/skills/lane/SKILL.md`
-
-`.gitattributes` says `* text=auto eol=lf` and `git ls-files --eol` agrees that
-`CLAUDE.md` carries that attribute — and the file still arrived in this
-worktree with CRLF endings, while every other file in the same checkout arrived
-with LF. `.claude/settings.json` had it too. The size test in
-`tools/test/claude-md.test.ts` measures `text.length`, so 387 extra carriage
-returns put a file that is 21991 characters on `main` at 22378 against a
-ceiling of 22000: `bun run check` fails on the first command of a lane, before
-a line of work has been done, and the failure names the wrong cause — it says
-the file has grown when nothing has changed. Converting the two files in place
-fixed it and left no diff, which is the tell that nothing was wrong with the
-content.
-
-Find out why the attribute did not apply — `core.autocrlf` is `true` in this
-repository's local config, and the likely answer is that these two paths were
-already in the index with CRLF when `.gitattributes` landed, so nothing has
-renormalised them since. `git add --renormalize .` on `main` would settle it
-once; check first whether any other tracked file is in the same state
-(`git ls-files --eol | grep 'w/crlf'`). Whatever the cause, the check that a
-lane runs first should not be able to fail for a reason that has nothing to do
-with the lane.
 ## `drawCreatures`' body chain is an `else if` run a new line can sever
 
 - **Found:** 2026-09-05, claude/veer-meteor-type-01a303
