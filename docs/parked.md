@@ -62,13 +62,27 @@ Seven have landed since — THE GYRE through THE STRAND — so
 onto `main` and green apart from this; `CLAUDE.md`'s new section is already
 trimmed under its ceiling.
 
-Re-measuring is one command, `bun run perf --save`, and the catch is that it
-must be run on a quiet machine. Taken on 5 September 2026 with four sessions and
-a full test run in flight, the numbers came back with THE GHOST at 12.33 ms and
-two other waves over budget, and the baseline's own test — no wave over budget
-when it was taken — failed on the result. That refusal is right: a baseline is a
-claim about the game, not about the afternoon. Run it with nothing else running,
-`--save`, and land the branch.
+Re-measuring is one command, `bun run perf --save`, and it was tried three times
+on 5 September 2026 with other sessions on the machine. Every run was refused by
+the baseline's own test — no wave at or over three quarters of a frame when it
+was taken — and **a different wave failed each time**: THE GHOST at 12.33 ms,
+then THE MIRROR at 13.85, then THE GHOST again at 14.50. Nothing about the game
+changed between them. The medians moved with the load too (THE GHOST 12.33 →
+8.58 ms an hour apart), so on a loaded machine the 90th percentile is measuring
+the other sessions rather than the frame.
+
+The refusal is right — a baseline is a claim about the game, not about the
+afternoon — but it means this cannot be finished opportunistically. Run
+`bun run perf --save` with nothing else running at all, confirm
+`tools/perf/test/compare.test.ts` is green on the result, and land the branch.
+If a genuinely idle machine still trips it, the finding is about the rule rather
+than the game: a p90 taken over a handful of frames may be too noisy a statistic
+to gate a checked-in baseline on, and the test should say so in terms of the
+median it also measures.
+
+The branch is rebased onto `main` at `7ee0e68f` and clean; everything but this
+one test is green, and `CLAUDE.md`'s new section is already trimmed under its
+ceiling.
 
 ## Three lanes from 3–4 September no longer replay onto main
 
