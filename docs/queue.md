@@ -245,3 +245,72 @@ Write the entry the way the neighbouring ones are written: the figures off
 `CRAWLER`, the three inks off `crawler.ts`, and the two lives off
 `crawler-fx.ts`. Nothing about the game changes and `bun run check` still
 passes, which is the whole of the acceptance.
+
+## The sweep's idle clock is reset by every git command, so nothing is ever swept
+
+- **Found:** 2026-09-05, claude/git-flow-parallel-sessions-6f1b43
+- **Files:** `tools/land/idle.ts`, `tools/land/test/idle.test.ts`
+
+`idleDays` takes the newest mtime of everything under `.git/worktrees/<name>/`
+and calls that "when somebody last worked here". Git rewrites files in that
+directory on essentially any command aimed at the tree, including the sweep's
+own `rev-parse` probe and any `git status` a passing session runs, so the clock
+is reset by looking at it. Measured on 5 September 2026 across forty worktrees:
+every one read 0.0 idle days, several of them last actually worked in two days
+earlier, and `KEEP_DAYS = 5` was therefore unreachable. Forty checkouts had
+accumulated, each with its own `node_modules`.
+
+Measure something only real work writes. `logs/HEAD` is the candidate — it is
+written when a ref moves in that tree (checkout, commit, rebase, reset) and by
+nothing else. On the same forty trees at the same moment it spread them from
+0.1 to 12.3 hours and separated the live sessions from the litter cleanly. The
+safety against sweeping a tree somebody is using stays where it already is,
+in `isDirty`; the clock only decides how long a spent tree keeps its
+`node_modules`.
+
+## `git worktree remove` deregisters and then fails, leaving an orphan every time
+
+- **Found:** 2026-09-05, claude/git-flow-parallel-sessions-6f1b43
+- **Files:** `tools/land/worktree.ts`, `tools/land/orphans.ts`
+
+On Windows, `git worktree remove` drops the registry entry and then fails to
+delete the directory — `Directory not empty`, a lagging handle inside
+`node_modules`. Twenty-four removals on 5 September 2026 produced twenty-four
+of these; every one had to be finished with `rm -rf`. `removeWorktree` already
+has that fallback, so a landing survives it, but the window between the two is
+exactly the orphan `orphans.ts` exists to report, and a sweep interrupted in it
+leaves a directory nothing can find again.
+
+Ask git to remove the directory only after the directory is gone: delete the
+tree first, then `git worktree prune`, rather than the other way round. The
+retry loop stays for the handle.
+
+## Two lanes landing at once in a clone can silently discard one
+
+- **Found:** 2026-09-05, claude/git-flow-parallel-sessions-6f1b43
+- **Files:** `tools/land/run.ts`, `tools/land/land.ts`
+
+A landing is rebase, then `bun run check`, then fast-forward, and the check is
+minutes long. Nothing holds the trunk across that gap. In a tree that has `main`
+checked out the fast-forward is `merge --ff-only`, which refuses if `main` moved
+— the check is wasted and nothing is lost. In a clone where nothing holds the
+trunk (`moveRef`, which is every cloud session) it is `git branch --force main
+<head>`, and that moves `main` to a commit built on the trunk as it was before
+the check started: whatever landed in between is dropped without a word.
+
+Read `main`'s sha at the start of the landing and again before the ref move, and
+refuse when the two differ, naming the sha that arrived. `plan()` cannot decide
+this — it is a fact about the world at two different moments — so it belongs in
+`run.ts` beside the `moveRef` branch, with a test that hands it two shas.
+
+## `tools/frames` leaves its scratch worktrees in the temp directory
+
+- **Found:** 2026-09-05, claude/git-flow-parallel-sessions-6f1b43
+- **Files:** `tools/frames/run.ts`, `tools/frames/test/`
+
+`%TEMP%` on this machine holds thousands of `neon-spore-frames-test-*`,
+`neon-spore-frames-out-*` and `neon-spore-frames-opening-test-*` directories,
+each a checkout of the repository. They are made by `bun run frames` and by the
+frames tests, and nothing removes them; three of them were still registered
+worktrees. Remove the scratch tree when the capture is done, in a `finally`, and
+have the tests clean up after themselves.

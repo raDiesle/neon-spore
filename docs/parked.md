@@ -50,3 +50,45 @@ keeps it either way. Nothing here is ticked, and nothing here is counted — a
 count is a way of saying something is owed, and nothing here is.
 `tools/queue/test/queue.test.ts` fails on an entry a cold session could not act
 on.
+
+## The perf baseline covers 38 of the 45 waves the game ships
+
+- **Found:** 2026-09-05, claude/game-performance-mobile-analysis-cd4207
+- **Files:** `tools/perf/baseline.json`, `tools/perf/test/compare.test.ts`
+
+The lane that built `bun run perf` was written when the game shipped 38 waves.
+Seven have landed since — THE GYRE through THE STRAND — so
+`compare.test.ts` fails on the count and the branch cannot land. It is rebased
+onto `main` and green apart from this; `CLAUDE.md`'s new section is already
+trimmed under its ceiling.
+
+Re-measuring is one command, `bun run perf --save`, and the catch is that it
+must be run on a quiet machine. Taken on 5 September 2026 with four sessions and
+a full test run in flight, the numbers came back with THE GHOST at 12.33 ms and
+two other waves over budget, and the baseline's own test — no wave over budget
+when it was taken — failed on the result. That refusal is right: a baseline is a
+claim about the game, not about the afternoon. Run it with nothing else running,
+`--save`, and land the branch.
+
+## Three lanes from 3–4 September no longer replay onto main
+
+- **Found:** 2026-09-05, claude/git-flow-parallel-sessions-6f1b43
+- **Files:** the three branches named below
+
+Each carries one piece of finished work and six hundred commits of drift, and
+each conflicts deeply enough that a rebase is a rewrite rather than a
+resolution. The branches are kept; their worktrees are gone.
+
+- `claude/awaiting-task-b79c6f` — sub-tick interpolation behind `?interpolate=1`.
+  Conflicts in `apps/game/src/loop.ts`, `main.ts` and `test/loop.test.ts`.
+- `claude/wisp-jump-preview` — the wisp says where it is going and jumps there.
+  Conflicts across thirteen files in `sim` and `render`, THE WISP having been
+  rewritten under it.
+- `claude/control-button-visuals-suck-120e5e` — the panel says what it is for in
+  pictures. Conflicts in six `render` files, the control panel having been
+  redrawn since.
+
+The two visual ones are looks, so what they carry is a decision the owner makes
+by seeing it — the work is to rebuild each against current `main` and offer it
+in `tools/versus/`, not to force the old diff through. The interpolation one is
+ordinary work and can simply be redone.
