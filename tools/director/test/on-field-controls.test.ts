@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test";
+import { readFileSync } from "node:fs";
 import { controlSetForWave } from "@neon-spore/content";
 import { computeLayout, type Field, type Hold, touchMove, touchUp } from "@neon-spore/render";
 import { DEFAULT_CONFIG, type DragTarget } from "@neon-spore/sim";
@@ -105,6 +106,31 @@ describe("FIELD_CONTROLS against touch.ts's own types", () => {
     const guide = FIELD_CONTROLS.find((c) => c.holdKind === null);
     expect(guide?.name).toBe("THE GUIDE'S HOLD");
     expect(guide?.source).toContain("briefing.ts");
+  });
+});
+
+/**
+ * The prose half. `docs/spec/controls.md` carries the same list in sentences,
+ * and it said so itself — "kept beside it rather than typed from memory a
+ * second time" — while being two rows short of it: THE MAW TAP and THE LID'S
+ * CORD were in the array and in the game and in neither the table nor the
+ * paragraphs. Nothing noticed, because nothing was looking.
+ *
+ * Only the names are checked. What each row *says* is prose written for a
+ * reader and is not the array's `does` string, so a test that compared them
+ * would either fail on every rewording or force the document to become the
+ * array again — and the point of the document is that it is not.
+ */
+describe("docs/spec/controls.md lists what FIELD_CONTROLS does", () => {
+  const spec = readFileSync(new URL("../../../docs/spec/controls.md", import.meta.url), "utf8");
+
+  test("gives every field control a row of its own", () => {
+    for (const c of FIELD_CONTROLS) {
+      expect(
+        spec.includes(`| ${c.name} |`),
+        `${c.name} is in FIELD_CONTROLS and not in the spec's table`,
+      ).toBe(true);
+    }
   });
 });
 

@@ -102,11 +102,13 @@ to notice by hand.
 |---|---|---|---|---|
 | GRIP | on the field, over anything currently falling | either seat | hold | Slows the fall for as long as the finger stays down; letting it through costs the hull (`sim/grip.ts`). |
 | THE CANNON | on the cannon swelling itself, wherever it is standing | player 1 only | grab and drag | Slides the cannon along the hull, the same absolute column the strip sends. |
+| THE MAW TAP | on the same cannon swelling, on player 1's screen | player 1 only | press | Let go without having carried the cannon anywhere and the maw opens, the same window the SUCK lobe opens; carry it a column and the lift says nothing. Only on a panel that has a maw. |
 | THE SHIELD PLATE | on the shield swelling itself, wherever it is standing | player 2 only | grab and drag | Slides the shield along the hull, the same absolute column the strip sends. |
 | THE SHIELD TRIGGER | on the same shield swelling, on player 1's screen | player 1 only | press | Opens the guard window where the plate is standing, and does not move it. |
 | THE MUZZLE SWIPE | on the cannon swelling, on player 2's screen | player 2 only | grab and drag | Carry the muzzle left for red or right for cyan and let go; a hand that comes back to the middle fires nothing. |
 | THE MAZE'S STRING | the drum's resting circle, only while the wheel is being read | player 1 only | grab and drag | Turns the wheel by how far the hand has come from where it grabbed. |
 | THE WARDEN'S TETHER | the tether's resting circle, while one hangs from the rim | player 1 only | grab and drag | Pulls the line taut; held taut long enough it opens a hatch. |
+| THE LID'S CORD | the cord's resting circle, under every armoured eye on the field | player 1 only | grab and drag | Parts the plates over the lens in proportion to the pull, and only while they stand fully apart does a shot land; letting go shuts them. The one drag target that is a creature, so the command names which body by id. |
 | THE GUIDE'S HOLD | anywhere on screen, while a guide or the ready gate is up | both, independently | hold | Fills this seat's ready circle; the wave starts once both are full. Letting go before it is full empties it. |
 
 The director's `▣ GAME MECHANICS → CONTROLS → ON THE FIELD` tab draws the same
@@ -116,7 +118,7 @@ from memory a second time.
 
 ## The ship as a control
 
-The four ship rows above are the newest of these and the only ones that reach
+The five ship rows above are the newest of these and the only ones that reach
 a control the band *already has*, so they are worth being explicit about.
 
 **Nothing was replaced.** Both strips and every lobe stay exactly where they
@@ -137,6 +139,25 @@ on. Left is red and right is cyan because that is the order the two lobes
 stand in on their own band. The press says nothing; the **lift** fires, and
 only past a threshold of six tenths of a tile — which is what lets a hand
 change its mind on the way back to the middle.
+
+**The cannon is two gestures on one swelling**, and the lift is what tells
+them apart: carry it and it slides, let go without having carried it anywhere
+and the maw opens. That is the owner's own answer to the maw having no way onto
+the field — the press sends the same `cannonCol` either way, so the gesture
+costs the slide nothing. It is offered only on a panel that carries a maw at
+all: a wave on the lance panel hands back a hold with no origin on it, so no
+lift of it can open an opening the lance is already using.
+
+**Nothing in the game teaches any of this**, and that is a decision rather than
+a gap. SHIELD, THEN CANNON carried a five-page rehearsal of these gestures
+until 5 September 2026, on a wave that introduced nothing of its own and only
+held the film because the standard ladder happened to end there. The owner's
+call was that a pair finds a thumb already up on the field without being told,
+and that teaching a discoverable thing is padding — so the film went, the maw
+moved to SALVAGE where the pod asks for it, and this section is now the only
+place the five gestures are written down. Anything added to `touch-ship.ts`
+belongs in the table above, because there is no longer a screen in the game
+that would show it.
 
 **Only the ship's own controls get the ring.** A hand on either swelling grows
 a bracket round it — brighter once the finger is down, and on the muzzle a red
