@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 67e0b83 — A panel the pair has not held before is introduced like a new creature
+
+A guide teaches the first wave to carry a creature, a pod, a boss or a mechanic, and a panel was the one new thing that arrived unannounced: a pair reaching STANDARD 3 is handed a button they have never seen and the wave said nothing about it. `firstOnPanel` is the question — the first *sight* of a set, not every change of one, because returning to the ordinary field after a boss round teaches nobody anything — and `content/test/waves.test.ts` fails on a wave that opens a panel in silence. All five that do carry one.
+
+## 2026-09-04 · 2defeb3 — The panel grows a button at a time through the first eight waves
+
+The standard panel is six buttons, and the game used to hand a pair all six on the first wave. STANDARD 1 through 4 are the same panel with buttons held back — red alone, then cyan, then the trigger, then the plate that trigger fires — and the fifth rung is the standard panel itself, which is why there are four entries rather than five.
+
 ## 2026-09-05 · c691147 — The seams are the basketball the owner drew, not four lines through the middle
 
 He sent the SVG. What was there was an equator, a meridian and two arcs bowing off the meridian — which is what a basketball looks like when it faces you exactly, and is a cross the rest of the time. `SEAMS` in `volley-seams.ts` is his drawing instead, measured against its own rim and written down in unit coordinates: four curves, every endpoint on the circle to within a thousandth, multiplied by whatever radius the row gives the ball and by nothing else.
