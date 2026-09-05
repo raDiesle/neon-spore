@@ -231,7 +231,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/creatures-table.ts` | adding a creature means adding one entry here |
 | `packages/content/src/hull-shape.ts` | the hull's own geometry, split out of `shapes.ts` when that file hit its size cap |
 | `packages/content/src/light.ts` | where the light is — the one named direction every sheen, crater and glow reads against |
-| `packages/content/src/maze-rounds.ts` | THE MAZE's drum, copied wall for wall off the sheet the owner sent, and the three rounds played against it |
+| `packages/content/src/maze-rounds.ts` | THE MAZE's drum, copied wall for wall off the sheet the owner sent, and the five rounds played against it |
 | `packages/content/src/mechanics-table.ts` | the rows themselves, lifted out of `mechanics.ts` when that file crossed the 250-line limit |
 | `packages/content/src/mechanics.ts` | every mechanic the game has, so that something can be said about all of them at once |
 | `packages/content/src/motions.ts` | the motions themselves: one record per body that has one, and the pairing of a kind to its own |
