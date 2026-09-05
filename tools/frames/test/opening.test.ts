@@ -208,6 +208,19 @@ describe("captureFrames past a wave's opening", () => {
 
         await page.evaluate(() => window.neonSpore?.advance(60));
         const tick = () => page.evaluate(() => window.neonSpore?.world.tick ?? -1);
+        // **Wait for the loop to have stopped, rather than for it to be asked
+        // to.** Stubbing rAF does not cancel the callback the browser had
+        // already scheduled, so one more turn of the loop ran *after* the stub
+        // went in and before the tick below was read — and the world then
+        // moved a few more ticks on its own, against an exact `toBe`. This
+        // failed two runs in three until the number it starts from was taken
+        // once the clock was genuinely still.
+        await page.waitForFunction(() => {
+          const now = window.neonSpore?.world.tick ?? -1;
+          const seen = (window as unknown as { __lastTick?: number }).__lastTick;
+          (window as unknown as { __lastTick?: number }).__lastTick = now;
+          return seen === now;
+        });
         const before = await tick();
         expect(before, "the wave never started").toBeGreaterThan(0);
 
