@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · e84555a6 — The ship's five gestures are written down where nothing teaches them
+
+docs/spec/controls.md said it was FIELD_CONTROLS in prose, "kept beside it rather than typed from memory a second time", while being two rows short of it: THE MAW TAP and THE LID'S CORD were in the array, in the director's page and in the game, and in neither the table nor the paragraphs. Nothing noticed, because nothing was looking.
+
 ## 2026-09-05 · 8951036 — The middle of THE MAZE has a heart in it, and it beats
 
 The owner's sheet has START printed in the middle. The field does not take printed words, and a plain disc said nothing about why a shot should want to get there — so what is at the end of the walk is a body, which is what he asked for: a beating heart with veins, in a slick's red or a bulb's cyan, switching every round.
