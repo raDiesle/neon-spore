@@ -68,12 +68,24 @@ function threads(world: World): Creature[][] {
   return [...byId.values()].map((on) => on.sort((a, b) => a.col - b.col));
 }
 
-/** How far the thread sags between two neighbours, as a share of a tile. Small
- * on purpose: a real catenary over five beads is a whole tile of droop, and a
- * body drawn a tile below the tile it is standing in is a body the pair would
- * name the wrong row for. This is enough to read as a line with weight on it
- * and not enough to lie about where anything is. */
-const SAG = 0.16;
+/**
+ * How far the thread sags between two neighbours: the control point of the
+ * curve, in tiles, so the line actually dips half of it at the midpoint.
+ *
+ * **It has to clear the bodies, and that is what sets the number.** Two beads
+ * stand in neighbouring columns and each is drawn about eight tenths of a tile
+ * across, so a line straight between their centres is a line behind them: the
+ * first frame of this creature had a thread nobody could see, on both screens.
+ * At 0.62 the dip is a little under a third of a tile, which is below the
+ * lowest point of a bulb and plainly a *line* rather than a gap between two
+ * bodies.
+ *
+ * And no further. A real catenary over five beads is a whole tile of droop,
+ * and a thread hanging a tile below the row its beads stand in is a thread the
+ * pair would count in the wrong row — the bodies are on tiles and the line is
+ * the only thing here that is allowed not to be.
+ */
+const SAG = 0.62;
 
 /** The thread's own colour, and the palette's "no colour": violet, chosen for
  * a body either shot kills and right again here — a line that was red or cyan
@@ -128,7 +140,7 @@ function drawThread(
     );
   }
   const near = nearness(l, drawnRow(first, beatPhase));
-  strokeGlow(ctx, line, hazed(world.cfg, LINE, near), STROKE.inner);
+  strokeGlow(ctx, line, hazed(world.cfg, LINE, near), STROKE.outline);
 }
 
 /**
