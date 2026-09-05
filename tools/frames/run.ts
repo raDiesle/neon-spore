@@ -27,6 +27,7 @@
  *   bun run frames <sha> --wave 21 --hold lidString=800,id=3   a thumb held on a cord
  *   bun run frames <sha> --wave 20 --hold wardenTether=0,y=7000  the rope pulled taut
  *   bun run frames <sha> --wave 21 --press 60:1:cannonCol=3,64:2:fire=red   a shot, mid-wave
+ *   bun run frames <sha> --wave 21 --settle 8 --frames 6 --stride 0   a burst, as a strip
  *   bun run frames <sha> --wave 2 --opening guide --frames 8 --stride 6   its rehearsal, looping
  *   bun run frames <sha> --wave 2 --opening intro   the wave's name, after the guide
  *   bun run frames <sha> --wave 21 --out docs/frames/<sha>
@@ -37,6 +38,10 @@
  * the ready gate on the way (`opening.ts`). On `guide`, `--frames` and
  * `--stride` count **painted frames**: a rehearsal is drawn rather than
  * stepped, so a strip counted in ticks would be one picture over and over.
+ *
+ * `--settle N` paints N frames **without stepping the world**, before each
+ * picture: the two clocks are separate, so anything living in painted seconds
+ * had one frame per photograph however long a capture ran. `FrameSpec.settle`.
  *
  * `--wave` takes the number a person reads off the HUD (`W21` is `--wave 21`,
  * not `--wave 20`) or a wave's own name, case-insensitive. Both convert to the
@@ -131,6 +136,7 @@ async function main(): Promise<void> {
     throw new Error(
       'usage: bun run frames <sha> --wave N|"NAME" [--ticks N] [--seat p1|p2|test] ' +
         "[--hold prime|mazeString=N|wardenTether=N[,y=N]|lidString=N,id=N] [--hold-ticks N] " +
+        "[--settle N] " +
         "[--press TICK:SEAT:control=value,…] [--opening intro|guide] [--out DIR]",
     );
   }
@@ -186,6 +192,10 @@ async function main(): Promise<void> {
     seat,
     hold: hold as FrameSpec["hold"],
     holdTicks: flag("hold-ticks", 30),
+    // Zero by default, which is what every capture before this flag existed
+    // did: one painted frame per photograph, and nothing that lives in painted
+    // seconds ever moving.
+    settle: flag("settle", 0),
     press,
     opening,
   };

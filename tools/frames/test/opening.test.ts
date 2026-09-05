@@ -107,6 +107,66 @@ describe("captureFrames past a wave's opening", () => {
   }, 30_000);
 
   /**
+   * `--settle`, and the clock it exists to reach.
+   *
+   * `advance` steps the simulation and never paints; `paint` moves every render
+   * effect by a sixtieth of a second and never steps. So a capture had one
+   * painted frame per photograph however many ticks it ran, and anything living
+   * in painted seconds — a spark's 0.4 s, a rock's last-step fall replay — was
+   * uncapturable: four captures were once spent on a burst at the hull and not
+   * one frame of them held a spark.
+   *
+   * Two halves, and the second is the one that would have caught a `settle`
+   * wired to `advance` by mistake: it moves the picture, and it does not move
+   * the world.
+   */
+  it("settles the picture into a different frame", async () => {
+    const bare = await captureFrames(
+      baseUrl,
+      { wave: 0, ticks: 60 },
+      join(scratchOut, "unsettled"),
+    );
+    const settled = await captureFrames(
+      baseUrl,
+      { wave: 0, ticks: 60, settle: 30 },
+      join(scratchOut, "settled"),
+    );
+    const before = await Bun.file(bare.paths[0] as string).bytes();
+    const after = await Bun.file(settled.paths[0] as string).bytes();
+    expect(Buffer.from(after).equals(Buffer.from(before))).toBe(false);
+  }, 60_000);
+
+  it("settles without stepping the simulation", async () => {
+    const browser = await chromium.launch({ executablePath: findChrome(), headless: true });
+    try {
+      const page = await browser.newPage();
+      await page.goto(`${baseUrl}?play=1`, { waitUntil: "load" });
+      await page.waitForFunction(() => Boolean(window.neonSpore));
+      await page.evaluate(() => window.neonSpore?.jumpToWave(0));
+      await clearOpening(page);
+      // The same line `captureFrames` runs before its own frame loop: until
+      // rAF stops, the game is still ticking itself between two `evaluate`
+      // round trips, and the question below would be answered by the loop
+      // rather than by `paint`.
+      await page.evaluate(() => {
+        window.requestAnimationFrame = () => 0;
+      });
+
+      await page.evaluate(() => window.neonSpore?.advance(60));
+      const tick = () => page.evaluate(() => window.neonSpore?.world.tick ?? -1);
+      const before = await tick();
+      expect(before, "the wave never started").toBeGreaterThan(0);
+
+      await page.evaluate(() => {
+        for (let i = 0; i < 30; i++) window.neonSpore?.paint();
+      });
+      expect(await tick(), "painting moved the simulation").toBe(before);
+    } finally {
+      await browser.close();
+    }
+  }, 30_000);
+
+  /**
    * The rings, and the reason they were in every picture this tool ever took.
    *
    * Crossing the ready gate throws two of them over the top two thirds of the

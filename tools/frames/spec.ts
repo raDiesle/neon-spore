@@ -73,6 +73,27 @@ export interface FrameSpec {
    */
   press?: PressSpec[];
   /**
+   * Painted frames run before each capture, with the world held still.
+   *
+   * **The two clocks come apart, and this is the one that was unreachable.**
+   * `advance(ticks)` steps the simulation without painting and `paint()`
+   * advances every render effect by exactly a sixtieth of a second, so a
+   * capture at `--stride 3` moves the world three ticks and the sparks one
+   * frame. Anything that lives in *painted* seconds — a spark's 0.4 s, the
+   * last-step fall replay in `render/rock-impact.ts` — is therefore still on
+   * screen thousands of ticks later, or has not started yet, and a burst at
+   * the hull could not be photographed at all: four captures were spent on a
+   * colour change and not one frame of them held a single spark, because the
+   * rock hung a few pixels off the skin for sixty painted frames with one
+   * second's worth of sixtieths behind it.
+   *
+   * So this is the paint-only verb: advance to the tick the event fires on
+   * with `ticks` and `press`, then let the picture catch up. With
+   * `strideTicks: 0` and a `frames` count it is a strip of the burst itself,
+   * on the only clock the burst runs on.
+   */
+  settle?: number;
+  /**
    * Stand in the wave's own opening instead of running past it.
    *
    * Every capture this tool has ever taken went through `clearOpening`
@@ -117,7 +138,11 @@ declare global {
       // one the current tree happens to have.
       // `steps` is optional for its own reason: a build from before the guide
       // had pages has no such field, and 0 is exactly what it means there.
-      world: { brief: { phase?: number; steps?: number; due?: readonly unknown[] } };
+      world: {
+        brief: { phase?: number; steps?: number; due?: readonly unknown[] };
+        /** The simulation's own clock, which `--settle` must not move. */
+        tick: number;
+      };
       jumpToWave(wave: number): void;
       dismissBriefing(): void;
       /** Missing on a build from before the introduction existed. */

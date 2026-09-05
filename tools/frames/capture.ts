@@ -2,7 +2,7 @@ import { mkdir } from "node:fs/promises";
 import { dirname } from "node:path";
 import { chromium } from "playwright-core";
 import { findChrome } from "./chrome.js";
-import { clearOpening } from "./opening.js";
+import { openStage } from "./page.js";
 import type { FrameSpec, PressSpec } from "./spec.js";
 
 /**
@@ -31,27 +31,16 @@ export interface CaptureResult {
   paths: string[];
 }
 
-const DEFAULT_VIEWPORT = { width: 390, height: 844 } as const;
-
 /** Painted frames spent settling a wave's opening before the frame that is
- * kept — a second, longer than its longest entrance (`render/text-drop.ts`). */
+ * kept — a second, longer than its longest entrance (`render/text-drop.ts`).
+ * `FrameSpec.settle` is the same idea handed to the caller, for the effects the
+ * tool cannot know the length of. */
 const SETTLE_FRAMES = 60;
 
 /** Half a second at 60Hz: THE LID's plates are fully parted by then and THE
  * LANCE's lobe is well into filling, so the picture shows the hold rather than
  * the instant it began. */
 const DEFAULT_HOLD_TICKS = 30;
-
-/**
- * `STORAGE_KEY` from `apps/game/src/view.ts`, copied for `OPENING_PLAY`'s
- * reason: the line that reads it runs in the browser, before the bundle loads,
- * where nothing this file imports exists. The view switch restores the seat
- * from this key on startup, so writing it is the same as having pressed the
- * button — and a key that went stale would leave every seated capture silently
- * back on the test rig, which is why the string is named here rather than
- * inlined at the call.
- */
-const SEAT_KEY = "neon-spore.view";
 
 /**
  * Drive one preview to an agreed frame (or a strip of them) and screenshot
@@ -72,41 +61,7 @@ export async function captureFrames(
 
   const browser = await chromium.launch({ executablePath: findChrome(), headless: true });
   try {
-    const page = await browser.newPage({ viewport: spec.viewport ?? DEFAULT_VIEWPORT });
-    const pageErrors: string[] = [];
-    page.on("pageerror", (err) => pageErrors.push(String(err)));
-
-    // Before the bundle runs, not after: the view switch reads its seat once
-    // on startup and the layout is computed from it, so a seat set afterwards
-    // would be a second frame's worth of work and a first frame of the wrong
-    // screen.
-    if (spec.seat) {
-      // A refusal to store leaves the capture on whatever the build defaults
-      // to, which is the same shape `view.ts` takes when storage says no.
-      await page.addInitScript(
-        ([key, seat]: string[]) => {
-          try {
-            localStorage.setItem(key as string, seat as string);
-          } catch {}
-        },
-        [SEAT_KEY, spec.seat],
-      );
-    }
-
-    // `?play` is the way past the menu, which is the game's front door now
-    // (`apps/game/src/menu.ts`). Without it every frame would be photographed
-    // through a title screen. A build from before the flag existed ignores it,
-    // which is what `bun run frames <sha>` needs it to do.
-    await page.goto(`${baseUrl}${baseUrl.includes("?") ? "&" : "?"}play=1`, { waitUntil: "load" });
-    await page.waitForFunction(() => Boolean(window.neonSpore));
-
-    await page.evaluate((wave) => {
-      const ns = window.neonSpore;
-      if (!ns) throw new Error("window.neonSpore missing after load");
-      ns.jumpToWave(wave);
-    }, spec.wave);
-
-    await clearOpening(page, spec.opening);
+    const { page, errors: pageErrors } = await openStage(browser, baseUrl, spec);
 
     /**
      * What `ticks` and `strideTicks` actually move.
@@ -131,43 +86,6 @@ export async function captureFrames(
         [n, paintDriven] as [number, boolean],
       );
     };
-
-    // The PC key toast (`apps/game/src/key-hint.ts`) sits over the top of the
-    // field for its first six seconds, and headless Chrome reports `pointer:
-    // fine` — so every frame this tool has ever taken had the hull bar and
-    // the siren's corner behind a black box. It runs on a real clock, which
-    // `advance` is not, so it cannot be waited out once rAF is frozen: it is
-    // removed outright, here, while the page is still its own.
-    //
-    // Matched on its own text rather than an id, because a commit and its
-    // parent both come through here — an id added today is missing from the
-    // parent, and a toast cleared on one side of a before/after pair is worse
-    // than one left on both.
-    await page.evaluate(() => {
-      for (const el of document.querySelectorAll("div")) {
-        if (el.textContent?.startsWith("Keyboard")) el.remove();
-      }
-    });
-
-    // **The loop stops here, and not one line earlier.** Everything this tool
-    // promises rests on the two pictures being the same instant of the same
-    // wave — and until this line the page has gone on ticking between
-    // `paint()` and the screenshot, a couple of hundred milliseconds of round
-    // trip being a few dozen ticks, so the frame that landed was at whatever
-    // beat phase the loop happened to reach and the parent and the commit
-    // reached different ones. Anything that only shows for part of a beat was
-    // caught or missed at random. THE VEIL's lightning is what found it: three
-    // captures in a row of a creature whose whole picture is a strike on the
-    // beat came back with no strike in them.
-    //
-    // Not in an init script, because the loop above *needs* the loop: a build
-    // from before `advanceOpening` existed clears its own opening on nothing
-    // but rAF and wall-clock time, which is the whole of what
-    // `OPENING_POLL_MS` is waiting for. So it runs until the opening lets go
-    // and then stops, and from here the only clock is `advance`.
-    await page.evaluate(() => {
-      window.requestAnimationFrame = () => 0;
-    });
 
     /** Send one press into the page, refusing a build too old to take it. */
     const press = async (one: PressSpec): Promise<void> => {
@@ -227,6 +145,18 @@ export async function captureFrames(
       if (i === 0 && spec.hold) {
         for (const one of spec.hold) await press({ ...one, tick: spec.ticks });
         await advance(spec.holdTicks ?? DEFAULT_HOLD_TICKS);
+      }
+
+      // **Painting with the world held still**, which is the only way an
+      // effect that lives in painted seconds can be photographed at all: the
+      // simulation has already been driven to the tick the burst fires on, and
+      // from here the picture catches up on its own clock (`FrameSpec.settle`).
+      // Before every frame of a strip rather than once, so `--stride 0` is a
+      // strip of the burst rather than the same instant repeated.
+      if (spec.settle) {
+        await page.evaluate((n) => {
+          for (let k = 0; k < n; k++) window.neonSpore?.paint();
+        }, spec.settle);
       }
 
       await page.evaluate(() => {

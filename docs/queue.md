@@ -150,32 +150,6 @@ And the file launches **four separate headless Chrome instances**, one per
 which is neither measured nor bounded, and sharing one browser across the file
 is the change to reach for once the failure can be produced on demand.
 
-## `bun run frames` cannot photograph a burst: sparks move only when it paints
-
-- **Found:** 2026-09-05, claude/explosion-color-matching-464ec1
-- **Taken:** 2026-09-05, claude/queue-bun-run-frames-cannot-photograph-a-burst-sparks
-- **Files:** `tools/frames/run.ts`, `tools/frames/launch.ts`, `apps/game/src/handle.ts`
-
-`handle.ts`'s `advance(ticks)` steps the simulation without painting, and
-`paint()` advances every render effect by exactly one sixtieth of a second. So
-the two clocks come apart: a strip that walks a wave at `--stride 3` moves the
-world three ticks and the sparks one frame, and anything that lives in *painted*
-seconds — a spark's 0.4 s, the last-step fall replay in `rock-impact.ts` — is
-still on screen thousands of ticks later, or has not started yet.
-
-The practical consequence is that a burst at the hull is uncapturable. Four
-captures were spent on the colour change that found this — a bulb's cyan burst
-and a rock's impact — and none of the frames contained a single spark: the rock
-hung a few pixels above the skin for sixty painted frames because its replay had
-only advanced one second's worth of sixtieths.
-
-What to add is a paint-only mode: something like `--settle <n>`, which paints
-`n` frames without stepping the world at all, so a caller can advance to the
-tick the event fires on and then let the picture catch up. The tool's own tests
-in `tools/frames/test/` are where it is proved; `opening.ts` already counts
-painted frames rather than ticks for a rehearsal and is the shape to copy.
-f91f97a5 (Queue: bun run frames cannot photograph a spark burst)
-
 ## Row 8 of `docs/spec/briefings.md` §1 names a range, and the range is wrong
 
 - **Found:** 2026-09-05, claude/queue-items-bj85ja
