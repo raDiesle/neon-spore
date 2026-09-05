@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · e52ae0af — Take THE CRAWLER apart ring by ring, and say on each ring which control it wants
+
+Every part of a worm comes off now. The head and the tail carried no colour and nothing took either of them away, so a stripped worm had to be rescued by a beam; both are plates like every third segment, the dome answers them, and what ends a worm is the ring that empties it. Each ring wears a crosshair, and every ring the shield is owed wears the dome's own mark above it — the order the pair has to agree out loud is now read off the body rather than learned from its materials.
+
 ## 2026-09-05 · 49c1c683 — Give the reel's plating the perspective the bodies are drawn under
 
 `drawCreatures` wraps every body in one depth transform about its own centre, so `drawReelBead` neither knows nor applies it. The plating pass runs after the bodies and outside that transform, so a cage on a navigator's bead far up the field was drawn at the size of a near one — visible as a shell standing off a body it is meant to be sitting on. `reelFrame` hands out the envelope and the swap's vertical slip separately now, and the plating applies both in the order the body pass does.
