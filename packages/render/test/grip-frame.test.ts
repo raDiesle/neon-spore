@@ -1,9 +1,17 @@
 import { beforeAll, describe, expect, it } from "bun:test";
 import { buildBoss } from "@neon-spore/content";
-import { createWorld, type SpawnEntry, startWave, step, ticksPerBeat } from "@neon-spore/sim";
+import {
+  createWorld,
+  type SpawnEntry,
+  startWave,
+  step,
+  ticksPerBeat,
+  type World,
+} from "@neon-spore/sim";
 import { creatureAt, creatureCenter } from "../src/creature-place.js";
-import { gripLabel } from "../src/grip.js";
+import { drawGrips, gripLabel } from "../src/grip.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
+import { stubCanvas } from "./canvas-stub.js";
 import {
   CFG,
   installCanvasGlobals,
@@ -63,6 +71,65 @@ describe("a grip", () => {
     expect(gripLabel("p2", false, true)).toBe("YOU PULL");
     expect(gripLabel("test", false, true)).toBe("P2 PULLS");
     expect(gripLabel("p1", true, true)).toBe("BOTH PULL");
+  });
+});
+
+/**
+ * **A hand on a ghost is not drawn on the screen the ghost is not.**
+ *
+ * A falling ghost is grippable, and player 1 is not shown its body at all —
+ * that seat gets a band across the row and nothing about the column, because
+ * anything varying across the width of the field *is* the column, given away.
+ * A beam from the hull, a ring and a label are three such things, so a pilot
+ * who swept a thumb along the row and found the body used to be handed a
+ * marker sitting exactly in the lane the creature exists to keep from them.
+ *
+ * Two runs per seat rather than one seat against the other: the two screens
+ * draw different pictures of a ghost anyway, so only *the same seat with and
+ * without the hand* says whether the marker was added. Player 2 is the control
+ * — a gate that hid the picture from both would be the mechanic thrown away
+ * rather than fixed, and this is what notices.
+ */
+describe("a grip on a ghost", () => {
+  const TPB = ticksPerBeat(CFG);
+
+  /** One world, a ghost in it, held by player 2 from the first beat. */
+  function gripped(): World {
+    const world = createWorld(CFG, 5, [{ beat: 0, col: 5, kind: "ghost", color: "cyan" }]);
+    for (let tick = 0; tick <= TPB * 2; tick++) {
+      step(world, tick === TPB ? [{ tick, player: 2, command: { kind: "grip", id: 1 } }] : []);
+    }
+    return world;
+  }
+
+  /** What `drawGrips` alone puts on one screen, out of that same world. */
+  function marks(world: World, role: ViewRole): number {
+    const { ctx } = stubCanvas();
+    drawGrips(
+      ctx as unknown as CanvasRenderingContext2D,
+      computeLayout(VIEWPORT, CFG, role),
+      world,
+      0.5,
+      1,
+    );
+    return ctx.calls;
+  }
+
+  it("really is held, or neither reading proves anything", () => {
+    expect(gripped().gripP2).toBeGreaterThan(0);
+  });
+
+  it("puts nothing on player 1's screen", () => {
+    expect(marks(gripped(), "p1")).toBe(0);
+  });
+
+  it("is still drawn for player 2, who can see the body", () => {
+    expect(marks(gripped(), "p2")).toBeGreaterThan(0);
+  });
+
+  /** The rig is both halves at once on one screen, so it sees everything. */
+  it("is drawn on the rig", () => {
+    expect(marks(gripped(), "test")).toBeGreaterThan(0);
   });
 });
 

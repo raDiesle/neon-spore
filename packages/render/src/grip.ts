@@ -1,5 +1,6 @@
 import { gripsCreature, type World } from "@neon-spore/sim";
 import { creatureCenter, creatureRadius } from "./creature-place.js";
+import { showsGhostBody } from "./ghost.js";
 import { halo } from "./glow.js";
 import type { Layout, ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -43,6 +44,18 @@ export function drawGrips(
     const p1 = gripsCreature(world, 1, c.id);
     const p2 = gripsCreature(world, 2, c.id);
     if (!p1 && !p2) continue;
+    // **Never on a screen the body is hidden from.** A falling ghost is
+    // grippable, and player 1 is not drawn its body at all: that seat gets a
+    // band across the row and nothing whatever about the column, because
+    // anything varying across the width of the field *is* the column, given
+    // away (`ghost-row.ts`). A beam, a ring and a label at `creatureCenter`
+    // are three such things, so a pilot who swept a thumb along the row and
+    // found the body was then shown a marker sitting exactly in the lane the
+    // creature exists to keep from them — the whole of THE GHOST undone by an
+    // assist. `showsGhostBody` is the same gate the body draw uses, asked of
+    // the kind that has one; the hand itself is untouched, so the fall still
+    // slows and the other seat still sees who is holding what.
+    if (c.kind === "ghost" && !showsGhostBody(l, world.cfg, c)) continue;
 
     const { x, y } = creatureCenter(l, c, beatPhase);
     const r = Math.max(1, creatureRadius(l, c) * RING_MUL);
