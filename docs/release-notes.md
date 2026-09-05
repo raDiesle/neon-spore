@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · fd85cb7 — THE FLEET's crossings are one fill: 192 rectangles a frame down to 60
+
+`drawFleetChart` marked every crossing of its own lattice with a small square, in a nested loop over twelve by eleven — 132 `fillRect` every frame for the whole length of the fight, which the budget beside it measured as roughly seventy per cent of every rectangle the game drew during it.
+
 ## 2026-09-05 · 990e241 — `frame-passes.ts` is a barrel, and the four passes are two files
 
 It sat at exactly 250 lines. THE LOCK's dotted line wanted one parameter and four lines of comment on `drawBodies`, and paying for them cost two rounds of shaving sentences out of that comment — which is the warning the limit exists to give, and the same one `act-3b.ts` records having ignored once. The next pass added to a frame would have broken the build before it drew anything.
