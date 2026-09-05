@@ -153,6 +153,7 @@ is the change to reach for once the failure can be produced on demand.
 ## `bun run frames` cannot photograph a burst: sparks move only when it paints
 
 - **Found:** 2026-09-05, claude/explosion-color-matching-464ec1
+- **Taken:** 2026-09-05, claude/queue-bun-run-frames-cannot-photograph-a-burst-sparks
 - **Files:** `tools/frames/run.ts`, `tools/frames/launch.ts`, `apps/game/src/handle.ts`
 
 `handle.ts`'s `advance(ticks)` steps the simulation without painting, and
