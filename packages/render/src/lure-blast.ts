@@ -26,24 +26,20 @@ import { PALETTE } from "./palette.js";
  *
  * Five gestures, in the order the eye takes them: a white wash, a fireball out
  * of the tile, a front running off the edges of the screen, streaks thrown
- * along it, and a colour left hanging over everything while the hull is being
- * read. Nothing here is random — every one of them is placed by index, so both
- * phones show the same explosion without the simulation carrying a number
- * about it.
+ * along it, and a colour left hanging over everything while the hull is read.
+ * Nothing here is random — every one is placed by index, so both phones show
+ * the same explosion with no number about it in the world.
  */
 
-/**
- * How long the whole picture lasts. Longer than anything else the field
- * throws — a fold is 0.45 s — because this one has to be over before the pair
- * looks at the hull bar, and not a frame before that.
- */
+/** How long the whole picture lasts. Longer than anything else the field
+ * throws — a fold is 0.45 s — because this has to be over before the pair
+ * looks at the hull bar, and not a frame before that. */
 const LIFE = 0.9;
 
-/** How much of that is the white wash, which is over almost before it is seen. */
+/** How much of that is the white wash, over almost before it is seen. */
 const WASH = 0.13;
 
-/** Streaks thrown out along the front. Fourteen evenly spaced ones drew a
- * clock face; the count is up and every one of them is a different length. */
+/** Streaks along the front. Fourteen evenly spaced ones drew a clock face. */
 const SPOKES = 26;
 
 interface Blast {
@@ -102,10 +98,9 @@ export class LureBlastFx {
 
   draw(ctx: CanvasRenderingContext2D, l: Layout): void {
     if (this.blasts.length === 0) return;
-    // Far enough that the fireball and the ring both leave the stage rather
-    // than stopping inside it: the corner furthest from the blast, and a
-    // little past it. A picture that ends on screen is an object; one that
-    // runs off every edge is what the screen is inside of.
+    // The corner furthest from the blast, and a little past it: a picture
+    // that ends on screen is an object, one that runs off every edge is what
+    // the screen is inside of.
     for (const b of this.blasts) {
       const reach = Math.hypot(Math.max(b.x, l.width - b.x), Math.max(b.y, l.height - b.y)) * 1.05;
       this.drawBlast(ctx, l, b, unit(1 - b.left / LIFE), reach);
@@ -203,30 +198,40 @@ export class LureBlastFx {
    * Streaks thrown along the front, **every one a different length**. Fourteen
    * even bars of one size drew a clock face — the eye read the spacing before
    * it read the light — so the lengths, widths and brightnesses all come off
-   * one integer hash, and half of them reach past the front while half fall
+   * one integer hash, and some reach past the front while others fall well
    * short, which is what makes the edge ragged instead of drawn.
+   *
+   * **Each is a gradient along its own length**, nothing at the tail and white
+   * at the tip. Drawn flat they were solid bars, and twenty-six solid bars is
+   * a firework rather than a thing thrown.
    */
   private drawSpokes(ctx: CanvasRenderingContext2D, b: Blast, u: number, reach: number): void {
     const front = reach * u ** 0.62;
     const fade = (1 - u) ** 1.5;
+    ctx.globalAlpha = 1;
     for (let i = 0; i < SPOKES; i++) {
-      // Three streams off one integer, none of them in step with the angle:
-      // an irrational turn per spoke is what keeps the ring from reading as
-      // a wheel with a fixed number of spokes.
+      // An irrational turn per streak, so the count is never the pattern.
       const a = i * 2.399963 + 0.7;
       const k = wobble(i);
-      const far = front * (0.5 + 0.8 * k);
-      const near = far * (0.18 + 0.3 * wobble(i + 31));
-      if (far - near < 1) continue;
-      ctx.globalAlpha = unit(fade * (0.25 + 0.55 * wobble(i + 71)));
-      // Most of them carry the ember a lure already burns through its own
-      // hole with; a few are the body's colour, so the debris belongs to the
-      // thing that threw it rather than to the fire alone.
-      ctx.strokeStyle = i % 3 === 0 ? b.hex : PALETTE.ember;
-      ctx.lineWidth = Math.max(0.6, reach * (0.004 + 0.012 * k) * (1 - u * 0.7));
+      const far = front * (0.34 + 1.02 * k);
+      const near = far * (0.2 + 0.34 * wobble(i + 31));
+      if (far - near < 2) continue;
+      const [x0, y0] = [b.x + Math.cos(a) * near, b.y + Math.sin(a) * near];
+      const [x1, y1] = [b.x + Math.cos(a) * far, b.y + Math.sin(a) * far];
+      // Most carry the ember a lure already burns through its own hole with;
+      // a third are the body's colour, so the debris belongs to the thing
+      // that threw it rather than to the fire alone.
+      const hex = i % 3 === 0 ? b.hex : PALETTE.ember;
+      const lit = unit(fade * (0.3 + 0.6 * wobble(i + 71)));
+      const g = ctx.createLinearGradient(x0, y0, x1, y1);
+      g.addColorStop(0, rgba(hex, 0));
+      g.addColorStop(0.72, rgba(hex, lit));
+      g.addColorStop(1, rgba("#FFFFFF", lit * 0.55));
+      ctx.strokeStyle = g;
+      ctx.lineWidth = Math.max(0.6, reach * (0.0018 + 0.0055 * k) * (1 - u * 0.6));
       ctx.beginPath();
-      ctx.moveTo(b.x + Math.cos(a) * near, b.y + Math.sin(a) * near);
-      ctx.lineTo(b.x + Math.cos(a) * far, b.y + Math.sin(a) * far);
+      ctx.moveTo(x0, y0);
+      ctx.lineTo(x1, y1);
       ctx.stroke();
     }
   }
