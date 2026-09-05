@@ -17,8 +17,26 @@ import { PALETTE, STROKE } from "./palette.js";
  * and the only thing here `touch.ts` has to agree with.
  */
 
-/** How far below the rim the handle hangs, in tiles. */
+/** How far out from the rim the handle hangs, in tiles. */
 const STRING_TILES = 1.1;
+
+/**
+ * Where round the drum the cord is tied on, as an angle off straight down.
+ *
+ * **It is off the bottom on purpose, and that is the whole of this constant.**
+ * The cord used to be tied to the very lowest point of the rim, which was
+ * unoccupied when a gap could click onto any column under the near half. Now
+ * only the bottom column counts (`mazeEntranceCol`), so the lowest point of
+ * the rim is the one place a gap ever comes to rest — and the cord's root sat
+ * exactly on it, with the handle under that, hiding the arrival the pilot is
+ * pulling *for*. So the cord is tied round to the side, far enough that the
+ * lit gap, the line it draws down its column and the handle are three separate
+ * things on the screen.
+ *
+ * To the pilot's left rather than the right for no reason but that something
+ * had to be chosen, and the left is the side the hull bar is not on.
+ */
+const STRING_ANGLE = (40 / 360) * Math.PI * 2;
 
 /**
  * How far sideways the handle is drawn from where it rests, at most, in tiles.
@@ -61,9 +79,22 @@ export function mazeStringHandle(
   return { x: rest.x + off, off };
 }
 
+/** Where the cord is tied to the rim: round to the pilot's left of the bottom. */
+export function mazeStringAnchor(l: Layout, cfg: SimConfig): Point {
+  const d = mazeDrum(l, cfg);
+  return { x: d.cx - d.r * Math.sin(STRING_ANGLE), y: d.cy + d.r * Math.cos(STRING_ANGLE) };
+}
+
 export function mazeStringCircle(l: Layout, cfg: SimConfig): Circle {
   const d = mazeDrum(l, cfg);
-  return { x: d.cx, y: d.cy + d.r + l.tile * STRING_TILES, r: handleRadius(l, cfg) };
+  // Straight out from the middle along the same spoke the cord is tied on, so
+  // the cord hangs off the drum rather than across it.
+  const out = d.r + l.tile * STRING_TILES;
+  return {
+    x: d.cx - out * Math.sin(STRING_ANGLE),
+    y: d.cy + out * Math.cos(STRING_ANGLE),
+    r: handleRadius(l, cfg),
+  };
 }
 
 /**
@@ -86,18 +117,20 @@ export function drawMazeString(
 ): void {
   if (m.phase !== "read") return;
   const rest = mazeStringCircle(l, cfg);
-  const d = mazeDrum(l, cfg);
   const { x, off } = mazeStringHandle(l, cfg, m);
   const live = m.dragging ? PALETTE.pod : PALETTE.hullRim;
 
   // Slack, so a pull bows the cord instead of swinging a lever. Built as a
   // path *string* like every other open contour here (`tether.ts`): the frame
   // test draws through a canvas that takes one and refuses the rest.
-  const top = d.cy + d.r;
+  const root = mazeStringAnchor(l, cfg);
   const pts: Point[] = [];
   for (let i = 0; i <= 6; i++) {
     const t = i / 6;
-    pts.push({ x: d.cx + off * t * (0.35 + 0.65 * t), y: top + (rest.y - top) * t });
+    pts.push({
+      x: root.x + (rest.x - root.x) * t + off * t * (0.35 + 0.65 * t),
+      y: root.y + (rest.y - root.y) * t,
+    });
   }
   strokeGlow(ctx, new Path2D(openSmoothPath(pts)), live, STROKE.inner, 0.8);
 
