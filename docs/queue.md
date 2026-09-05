@@ -323,6 +323,7 @@ prose there, leaving what a session has to *do*. Then put the missing
 ## A fresh worktree checks `CLAUDE.md` out with CRLF, and `bun run check` goes red
 
 - **Found:** 2026-09-05, claude/warden-pull-control-visuals-9dd545
+- **Taken:** 2026-09-05, claude/queue-a-fresh-worktree-checks-claude-md-out-with-crlf
 - **Files:** `.gitattributes`, `tools/test/claude-md.test.ts`, `.claude/skills/lane/SKILL.md`
 
 `.gitattributes` says `* text=auto eol=lf` and `git ls-files --eol` agrees that
