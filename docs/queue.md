@@ -153,7 +153,6 @@ pass — a volley's span is one, so nothing about the two-wide torch path change
 ## THE VOLLEY's guide has no rehearsal, so its wave is read rather than watched
 
 - **Found:** 2026-09-04, claude/meteor-enemy-shield-reflect-0d82f2
-- **Taken:** 2026-09-05, claude/queue-the-volleys-guide-has-no-rehearsal-so-its-wave-i
 - **Files:** `packages/content/src/scenes.ts`, `packages/content/src/scenes/`,
   `packages/content/src/waves/act-5.ts`
 
