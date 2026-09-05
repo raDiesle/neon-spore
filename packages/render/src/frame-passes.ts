@@ -192,9 +192,7 @@ export function drawShip(
   );
   // A hand on the lance, read straight off the world both devices share (other-hand.ts).
   drawOtherHand(ctx, l, world, view.time, mood, at, f);
-  // In front of the hull, unlike the rest of Effects.draw() — see
-  // `Effects.rockImpact`. `skinAt` is the hull's real, breathing membrane, so
-  // a stuck rock rides the motion its crater does rather than an approximation.
+  // In front of the hull, unlike the rest of Effects.draw() — `Effects.rockImpact`.
   effects.rockImpact.draw(ctx, l, view.time, (x) => hullSkinY(l, view.time, mood, at, x, f));
   effects.drawBanner(ctx, l);
   if (world.boss?.kind === "mirror") {

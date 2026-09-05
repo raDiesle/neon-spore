@@ -621,7 +621,11 @@ to say another one.
 **A salvo has a rest on it**, `fleetSalvoRestBeats`, so a thumb held on the
 button is slower than a pair who talk. That is THE GAUGE's call rule, and both
 exist for the same reason: a round whose fastest strategy is hammering one
-control is a round with nothing said in it.
+control is a round with nothing said in it. It is **the shell's own flight**,
+so the trigger comes back at the moment the shell lands: the rest is something
+the pair watch rather than a press that quietly did nothing, and a mortar that
+could be reloaded while its last shell was still in the air was never a picture
+of anything.
 
 **A square already fired at answers nothing at all** — a `reject`, no rest
 spent and no mark changed. It is not a miss, it is a press that meant nothing,

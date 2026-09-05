@@ -24,12 +24,11 @@
  *   bun run frames <sha> --wave 21 --ticks 240   a different point in the wave
  *   bun run frames <sha> --wave 21 --frames 6 --stride 4   a short strip, for motion
  *   bun run frames <sha> --wave 21 --seat p1    one player's screen, not the rig's
- *   bun run frames <sha> --wave 21 --hold lidString=800,id=3   a thumb held on a cord
+ *   bun run frames <sha> --wave 21 --hold lidString=800,id=3   a thumb on a cord
  *   bun run frames <sha> --wave 20 --hold wardenTether=0,y=7000  the rope pulled taut
- *   bun run frames <sha> --wave 21 --press 60:1:cannonCol=3,64:2:fire=red   a shot, mid-wave
+ *   bun run frames <sha> --wave 21 --press 60:1:cannonCol=3,64:2:fire=red   a shot, or 90:1:salvo
  *   bun run frames <sha> --wave 21 --settle 8 --frames 6 --stride 0   a burst, as a strip
- *   bun run frames <sha> --wave 2 --opening guide --frames 8 --stride 6   its rehearsal, looping
- *   bun run frames <sha> --wave 2 --opening intro   the wave's name, after the guide
+ *   bun run frames <sha> --wave 2 --opening guide|intro --frames 8 --stride 6   its opening
  *   bun run frames <sha> --wave 21 --out docs/frames/<sha>
  *
  * `--opening` stands in the wave's opening instead of running past it, which
@@ -41,11 +40,11 @@
  *
  * `--settle N` paints N frames **without stepping the world**, before each
  * picture: the two clocks are separate, so anything living in painted seconds
- * had one frame per photograph however long a capture ran. `FrameSpec.settle`.
+ * had one frame per photograph however long a capture ran (`FrameSpec.settle`).
  *
  * `--wave` takes the number a person reads off the HUD (`W21` is `--wave 21`,
- * not `--wave 20`) or a wave's own name, case-insensitive. Both convert to the
- * 0-based index `jumpToWave` and `world.wave` actually use.
+ * not `--wave 20`) or a wave's own name. Both convert to the 0-based index
+ * `jumpToWave` and `world.wave` actually use.
  */
 import { mkdir, mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";

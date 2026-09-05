@@ -32,6 +32,12 @@ export interface FleetConfig {
    * slower than a pair who talk — the same rule THE GAUGE's call plays by, and
    * for the same reason: a round whose fastest strategy is hammering one
    * control is a round with nothing to say in it.
+   *
+   * **It is `FLEET_SHELL_BEATS`, and that is the whole of why it is what it
+   * is.** The trigger comes back at the moment the shell lands, so the rest is
+   * something the pair *watch* rather than a press that quietly did nothing —
+   * and a mortar that could be reloaded while its last shell was still in the
+   * air was never a picture of anything.
    */
   fleetSalvoRestBeats: number;
   /**
@@ -51,18 +57,6 @@ export interface FleetConfig {
 }
 
 /**
- * The defaults, spread into `DEFAULT_CONFIG`.
- *
- * `fleetRows` at 10 against the field's eleven columns is a chart of 110
- * squares — the classic hundred, near enough, on a grid this game already has.
- * The five rows left under it are the water the ship sits in.
- *
- * `fleetRoundBeats` at 160 is a hundred seconds at 96 BPM. A five-ship fleet
- * is seventeen squares to hit, and the sights step one square a press, so the
- * clock is generous to a pair who name a square and mean, and short for a pair
- * who walk the sights about looking for one.
- */
-/**
  * Beats a salvo's shell spends in the air, from the muzzle to the square.
  *
  * A number the *pictures* need and the rules do not: nothing in `fleet.ts`
@@ -76,16 +70,34 @@ export interface FleetConfig {
  * sound that lands a second before its own picture.
  *
  * Two beats is 1.25 seconds at 96 BPM — long enough that the arc is watched
- * rather than glimpsed, and longer than `fleetSalvoRestBeats`, so a pair
- * firing as fast as the rule allows have two shells in the air at once. The
- * picture carries that (`fleet-fx.ts`); the simulation never sees it.
+ * rather than glimpsed. `fleetSalvoRestBeats` is set to the same number, so
+ * the trigger comes back at the moment the shell lands and there is never more
+ * than one in the air; `fleet-fx.ts` carries several anyway, because tying the
+ * picture to a tuning number is how a turned dial becomes a shell that
+ * disappears mid-flight.
  */
 export const FLEET_SHELL_BEATS = 2;
 
+/**
+ * The defaults, spread into `DEFAULT_CONFIG`.
+ *
+ * `fleetRows` at 10 against the field's eleven columns is a chart of 110
+ * squares — the classic hundred, near enough, on a grid this game already has.
+ * The five rows left under it are the water the ship sits in.
+ *
+ * `fleetRoundBeats` at 160 is a hundred seconds at 96 BPM. A five-ship fleet
+ * is seventeen squares to hit, and the sights step one square a press, so the
+ * clock is generous to a pair who name a square and mean, and short for a pair
+ * who walk the sights about looking for one. The rest between two salvoes
+ * halves how many they may spend on it, which is the point of the rest.
+ */
 export const FLEET_DEFAULTS: FleetConfig = {
   fleetRows: 10,
   fleetRoundBeats: 160,
-  fleetSalvoRestBeats: 1,
+  // The shell's own flight, and named rather than written as 2: the two are
+  // one decision (`FLEET_SHELL_BEATS`), and a pair of 2s here is how they come
+  // apart the first time either is turned.
+  fleetSalvoRestBeats: FLEET_SHELL_BEATS,
   // Two rocks' worth, the same figure THE GAUGE's failure costs, and for the
   // same reason: it has to hurt enough that the pair play the round, and the
   // number itself is the owner's to turn once they have lost one.
