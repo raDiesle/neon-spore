@@ -64,6 +64,22 @@ The file is 21,991 characters in the repository and fits under the 22,000 ceilin
 ## 2026-09-05 · ea3cf39 — The intro is advertised rather than explained
 
 The six pages that say what this game is were even type on a dark screen, which reads as a manual however short the sentences are. They are laid out the way a store page is now: the headline stands on a lit banner in the page's own colour, a supermarket price flash is stamped across the corner of the picture, and the picture itself comes at the reader and goes back again on a three-and-a-half second trip, with the tag half a turn behind it so the corner reads as a second plane. Six pages, six colours, none of them one of the four greens the palette reserves.
+## 2026-09-05 · d2e6567d — The iris's spokes run to the margin instead of being cut dark
+
+The dark under-stroke made the ring a black outline round the pupil and left the spokes as ticks, which was worse than the invisible bright ones it was meant to fix. Both attempts were spending the same mistake: a bar floating in the middle of a wash of its own colour has nothing to read against. Six arms running from just outside the aperture ring out past the lens's own edge do — the lids cut both of their ends, and a line the eyelid crosses is a line an eye finds. The budget rows go back to where they were before the dark pass.
+
+## 2026-09-05 · c12f1c14 — The iris is cut into the colour, not laid on it
+
+The spokes were a bright line on a bright field and nobody could see them at any size. A thick dark stroke under the same path makes each one a slot through the wash of the body's own colour, and the lit line over it is then a line on a dark ground — which is what the reference does with its own aperture ring. One plain stroke and one save; the budget rows moved by exactly that.
+
+## 2026-09-05 · 5c6fc47d — An eye has an iris that turns
+
+Offered, not shipped: this commit stays on its branch until the owner has looked at it, because it changes what the game draws and he has not chosen it yet. It is here rather than in `tools/versus/` because VERSUS patches fields on records the game already exports, and a turning iris is new geometry — the README's own line is that no shipped file grows a flag or a branch to make a candidate possible.
+
+## 2026-09-05 · 7f830c80 — The fluid around an eye is an almond, not a ring
+
+THE WARDEN's hole is a circle, and the pool of fluid standing outside it was sampled as one radius round a centre — so however pointed the lens inside it became, the boss was a green disc with an eye painted on it. The lens had corners and the socket THE LID wears had corners; the film between them did not.
+
 ## 2026-09-05 · d44356e9 — Each streak is a gradient along its own length, not a solid bar
 
 Twenty-six flat strokes read as a firework: every one was the same brightness from end to end, so the eye found a spirograph rather than debris. Each is now a linear gradient from nothing at the tail to white at the tip, at a third of the width, and the length spread is wide enough that some pass the front while others fall well short of it.
