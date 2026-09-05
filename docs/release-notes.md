@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · d79c43c — Every row of the briefings table names its waves, and the test insists
+
+Row 8, "the rest of the bestiary", was the one cell the wave-number test skipped, because it named a range — `22–27` — and a range is a cell nothing can check. It had drifted inside it, further than a number: the first subject was the runt, which was retired for THE LURE, and the pods and the rock speed tiers are taught on THE PURGE and THE WARD at 30 and 31, outside the range entirely. The merge note four paragraphs below the table already said so.
+
 ## 2026-09-05 · b9a7f0f — `bun run frames --settle N` photographs what only painting moves
 
 `advance(ticks)` steps the simulation and never paints; `paint()` moves every render effect by exactly a sixtieth of a second and never steps. So the two clocks come apart, and a capture had **one painted frame per photograph** however many ticks it ran: a strip at `--stride 3` moved the world three ticks and the sparks one frame. Anything living in painted seconds — a spark's 0.4 s, the last-step fall replay in `rock-impact.ts` — was therefore still on screen thousands of ticks later or had not started yet, and a burst at the hull was uncapturable. Four captures were spent on a colour change and not one frame of them held a single spark: the rock hung a few pixels off the skin for sixty painted frames with one second's worth of sixtieths behind it.
