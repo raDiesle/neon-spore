@@ -164,6 +164,7 @@ shim that shows what the new shape wants if it changed again.
 ## A landing can put back a queue entry another lane took out
 
 - **Found:** 2026-09-05, claude/queue-items-bj85ja
+- **Taken:** 2026-09-05, claude/queue-a-landing-can-put-back-a-queue-entry-another-lan
 - **Files:** `tools/land/land.ts`, `tools/land/run.ts`, `tools/land/test/`
 
 Twice on 5 September 2026 a landing re-added `##` entries to `docs/queue.md`
