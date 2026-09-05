@@ -193,29 +193,6 @@ the world rather than by an author out of a grid. Add it to `SceneAct`, resolve
 it in `aimed`, and hold it in `scenes.test.ts` the way the other two are held.
 Then write THE VOLLEY's film, which is a queue entry of its own and stays there.
 
-## Split `effects-spark.ts`: it is on the 250-line limit and blocks every new event
-
-- **Found:** 2026-09-05, claude/carom-enemy-deflection-d1bb2e
-- **Taken:** 2026-09-05, claude/queue-split-effects-spark-ts-it-is-on-the-250-line-lim
-- **Files:** `packages/render/src/effects-spark.ts`, `packages/sim/test/limits.test.ts`
-
-`burstFor` is one exhaustive switch over the whole of `SimEvent`, and the file
-is at 250 lines to the line. Adding `chuteCut` — one `case` and one clause of
-comment — pushed it over, and the only way to land it was to reword two
-comments belonging to other creatures until five lines came back. That is a
-cost every future event pays, and it is paid by editing prose nobody meant to
-touch, which is exactly how an argument written down carefully gets shortened
-by somebody with a different aim.
-
-Split it the way `effects-ingest.ts` was split out of `effects.ts`: the table
-is already in two halves that never mix — the cases that *return a burst* and
-the long tail that returns `null` because the event is drawn some other way.
-Move the tail into `effects-spark-silent.ts` as a `Set<SimEvent["type"]>` or a
-second exhaustive switch that `burstFor` consults first, keeping the property
-that matters — a new event that nobody accounts for is a compile error rather
-than a silence. Both files then have room, and `limits.test.ts` goes green
-without anybody rewriting a sentence about THE GHOST.
-
 ## CLAUDE.md is nine characters under its own ceiling
 
 - **Found:** 2026-09-05, claude/queued-items-d3ce8d

@@ -1,4 +1,5 @@
 import type { SimEvent } from "@neon-spore/sim";
+import { isSilent } from "./effects-spark-silent.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { assertNever } from "./never.js";
 import { PALETTE } from "./palette.js";
@@ -14,17 +15,25 @@ import { PALETTE } from "./palette.js";
  *
  * A burst here is a request, not a draw. `Effects` owns the particles.
  *
- * The switch is exhaustive **on purpose**, over every case `SimEvent` has —
- * `runtHit` used to fall through a `default: return null` because it reused
- * `destroy`, and the day it stopped reusing `destroy` the burst it drew
- * silently stopped existing. Nothing failed: the type checker was satisfied
- * by a branch that also covered every event nobody had thought about yet. The
- * fix is the same one `content/briefings.ts` already leans on for `BriefingId`
- * — a form that cannot compile while something is unaccounted for. A `switch`
- * cannot be a `Record`, so here it is a `default` that only compiles if `e` has
- * narrowed to `never`, meaning every other case matched: add a case to
- * `SimEvent` and forget a line here, and `assertNever` stops type-checking
- * instead of quietly drawing nothing.
+ * The switch is exhaustive **on purpose**, over every case `SimEvent` has that
+ * is not accounted for in `effects-spark-silent.ts` — `runtHit` used to fall
+ * through a `default: return null` because it reused `destroy`, and the day it
+ * stopped reusing `destroy` the burst it drew silently stopped existing.
+ * Nothing failed: the type checker was satisfied by a branch that also covered
+ * every event nobody had thought about yet. The fix is the same one
+ * `content/briefings.ts` already leans on for `BriefingId` — a form that
+ * cannot compile while something is unaccounted for. A `switch` cannot be a
+ * `Record`, so here it is a `default` that only compiles if `e` has narrowed to
+ * `never`, meaning every other case matched: add a case to `SimEvent`, account
+ * for it in neither file, and `assertNever` stops type-checking instead of
+ * quietly drawing nothing.
+ *
+ * **The events that are silent live next door**, with the paragraph each one
+ * needs to say what draws it instead. They were here, and adding one `case`
+ * and one clause of comment for THE CHUTE's cut put this file over its
+ * 250-line limit — landable only by rewording two comments belonging to other
+ * creatures until five lines came back. `isSilent` is a type guard, so moving
+ * them out cost the exhaustiveness nothing.
  */
 export interface Burst {
   x: number;
@@ -35,6 +44,11 @@ export interface Burst {
 }
 
 export function burstFor(e: SimEvent, l: Layout): Burst | null {
+  // The long tail first, and it is a *guard*: an event drawn some other way is
+  // taken out of the union before the switch sees it, so what is left below is
+  // the bursting half alone and `assertNever` still catches an event that is
+  // in neither file (`effects-spark-silent.ts`).
+  if (isSilent(e)) return null;
   switch (e.type) {
     case "destroy":
       return at(l, e.col, e.row, 12, e.color === "red" ? PALETTE.red : PALETTE.cyan);
@@ -169,77 +183,6 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "fleetSunk":
       return at(l, e.col, e.row, 26, PALETTE.ember);
 
-    // Everything below is drawn some other way, or not drawn as a burst at
-    // all, and says so rather than falling through a default that could not
-    // tell the difference between "decided" and "forgotten".
-    // A cloud coming apart and the body inside it showing: `veil-tear.ts`
-    // draws the whole of it, and the ordinary `destroy` that rides beside it
-    // on the same tick is what throws the particles.
-    case "veilTorn":
-    // The body inside a cloud turning over. Nothing left the field and
-    // nothing arrived — the cloud goes on falling and its lightning goes on
-    // striking. A burst here would say something broke.
-    case "veilMorph":
-    // A lure going is drawn *inward*, by `lure-vanish.ts`, and particles are
-    // the whole of what it must not have: every burst in this table throws
-    // material away from a body, which is the picture of something being
-    // broken. Nothing broke — it left.
-    // A ghost letting go, on the same terms as a torn cloud: `ghost-release.ts`
-    // draws the escape and the ordinary `destroy` beside it on the same tick
-    // is what throws the particles.
-    case "ghostRelease":
-    // And its other two. A burst at a wall would be the one thing this
-    // creature must never produce: player 1 is not told which column it is
-    // in, and a shower of sparks at the left edge of their own screen is that
-    // column, said in light. The anger is drawn on the body instead, where
-    // only player 2 can see it.
-    case "ghostTurn":
-    case "ghostCharge":
-    // A carom turning at a wall, and it is `ghostTurn`'s reason inverted:
-    // nothing broke. The body bounced off the edge of the field intact, and a
-    // shower of sparks there would read as damage to something the pair can
-    // still do nothing about. The turn is drawn on the body — the streak
-    // swings the other way next frame (`carom.ts`) — and heard, not seen.
-    // The hatch blowing, the canopy opening, and the canopy cut off the body
-    // it carried. None is a burst: each is a body *travelling*, drawn as one
-    // every frame after this (`chute.ts`, `chute-cut.ts`) rather than as
-    // particles thrown once — and the crack or the destroy beside it on the
-    // same tick has already thrown for that tile.
-    case "caromEject":
-    case "chuteOpen":
-    case "chuteCut":
-    case "caromBounce":
-    case "lureVanished":
-    case "lureSeen": // Player 2's ear and player 2's strip; nothing on the field.
-    case "beat": // The click track and the HUD dots; no tile, nothing to burst.
-    case "waveStart": // The banner, not a burst — `banner.ts`, driven by the host.
-    case "needWave": // Bookkeeping between the host and the sim; nothing on the field.
-    case "fire": // The bolt leaving is drawn as a bolt, over the beats it travels.
-    case "lanceFull": // The lobe's own fill reads the mark; nothing else to add.
-    case "lanceSpilled": // Likewise — the fill emptying is the whole picture.
-    case "deflect": // `effects.ts` builds its own bursts once the rock arrives.
-    case "podTaken": // `effects.ts` throws sparks inward directly — see `swallow.ts`.
-    case "breach": // `effects.ts` waits for a falling rock before it bursts anything.
-    case "tether": // The rim's own colour is read off the world every frame.
-    case "eyeOpen": // The hatch's openness is the rope's tension, not an event.
-    case "mirrorShow": // THE MIRROR's ghost shot — `simon-fx.ts` owns the whole sequence.
-    case "mirrorEcho":
-    case "mirrorVerdict":
-    case "mirrorDown":
-    // THE MAZE, all four of them: the shot going down the tangle is the whole
-    // picture and it is not a spark on the field. Silent until the lane that
-    // draws the lattice says otherwise.
-    case "mazeCommit":
-    case "mazeProbe":
-    case "mazeVerdict":
-    case "mazeDown":
-    // And the one event in the union that carries no position at all, so a
-    // spark could not be put anywhere even if this creature wanted one.
-    case "wispHop":
-    // The last ship of a fleet. The sinking that rides beside it on the same
-    // tick is the picture, and `fleetSunk` has already thrown for it.
-    case "fleetDown":
-      return null;
     default:
       return assertNever(e);
   }

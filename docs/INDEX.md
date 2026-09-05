@@ -536,6 +536,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/recoil-ribs.ts` | One rib of THE RECOIL's cage, and the piece of hoop it carries |
 | `packages/render/src/intro-flash.ts` | THE LOUD HALF OF THE INTRO: a headline on a lit slab, a price-tag flash |
 | `packages/render/src/creature-body.ts` | Which body draw a kind gets, as a lookup a stray statement cannot sever |
+| `packages/render/src/effects-spark-silent.ts` | The events that are deliberately not a burst, and why each one is not |
 
 ### packages/net
 

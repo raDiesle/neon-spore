@@ -1,6 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
 import { burstFor } from "../src/effects-spark.js";
+import { isSilent, SILENT } from "../src/effects-spark-silent.js";
 import { computeLayout, tileCX, tileCY } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 
@@ -71,5 +72,24 @@ describe("events with nothing to burst", () => {
       { type: "mirrorDown", col: 0 },
     ] as const;
     for (const e of noBurst) expect(burstFor(e, L)).toBeNull();
+  });
+});
+
+/**
+ * The seam between the two files. The compile-time half — an event accounted
+ * for in neither of them stops `assertNever` from type-checking — cannot be
+ * written as a test, because a test that failed to compile would not run. This
+ * is the runtime half: the list and the guard say the same thing, and nothing
+ * that bursts is on it.
+ */
+describe("the list of events that are not a burst", () => {
+  it("is what the guard answers", () => {
+    for (const type of SILENT) expect(isSilent({ type } as never), type).toBe(true);
+  });
+
+  it("holds nothing that the burst table draws", () => {
+    for (const type of ["destroy", "reject", "grip", "lureHit", "fleetSunk"] as const) {
+      expect(isSilent({ type } as never), type).toBe(false);
+    }
   });
 });
