@@ -266,27 +266,38 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // Two more than the plates alone would take: the opening below the eye
       // splits the plate it stands under into the two pieces either side of
       // it, and a plate is a stroke (`render/warden.ts`).
-      stroke: 85,
-      fill: 28,
-      clip: 5,
-      save: 27,
+      //
+      // **Nine of these are the skin**, and it is the whole of what it costs:
+      // two `strokeGlow`s at four passes each — the cilia off the rim and the
+      // veins under it — and one plain stroke round however many eyelets are
+      // open, which is deliberately not a glow (`warden-skin.ts`). Sixteen
+      // eyelets, forty hairs and five veins are three paths between them, so
+      // none of these rows moves when one of those counts does.
+      stroke: 89,
+      // Four more: the two patches of the wet film, the eyelids and their
+      // pupils. Flat, whatever the openness.
+      fill: 32,
+      // One more: the film and the veins share a single clip to the body.
+      clip: 6,
+      save: 29,
       drawImage: 15,
       createLinearGradient: 14,
       createRadialGradient: 3,
-      // Fourteen of them the panel's sheet, as on every frame 0 here.
-      "new Path2D": 37,
+      // Fourteen of them the panel's sheet, as on every frame 0 here. Four are
+      // the skin's, and there are four of them however much of it is showing.
+      "new Path2D": 40,
       fillText: 4,
     },
     {
       fillRect: 66,
-      stroke: 87,
-      fill: 28,
-      clip: 5,
-      save: 27,
+      stroke: 91,
+      fill: 32,
+      clip: 6,
+      save: 29,
       drawImage: 15,
       createLinearGradient: 5,
       createRadialGradient: 1,
-      "new Path2D": 23,
+      "new Path2D": 26,
       fillText: 4,
     },
   ],

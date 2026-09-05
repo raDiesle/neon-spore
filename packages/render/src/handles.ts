@@ -11,7 +11,7 @@ import { fieldPoint, handleRadius } from "./handle-draw.js";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
 import { lidCordCircle } from "./lid-string.js";
 import { mazeStringCircle, mazeStringHandle } from "./maze-string.js";
-import { tetherHandleCircle } from "./tether.js";
+import { tetherGrabCircle } from "./tether.js";
 import type { Field, Touch } from "./touch.js";
 
 /**
@@ -73,9 +73,14 @@ function mazeStringUnder(l: Layout, x: number, y: number, field: Field): Touch |
 function wardenRopeUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
   const b = field.warden;
   if (b === null || b.tetherId === NO_TETHER || field.seat !== 1) return null;
-  const rope = field.creatures.find((c) => c.id === b.tetherId);
-  if (rope === undefined) return null;
-  if (!hitCircle(tetherHandleCircle(l, field.cfg, rope.col), x, y)) return null;
+  if (field.creatures.every((c) => c.id !== b.tetherId)) return null;
+  // The **pupil's** column, not the tether creature's: the line is authored in
+  // the middle of the ring and never moves, but the handle on the end of it
+  // hangs under the eye, which walks a column or two a beat. Answering at the
+  // creature's column meant the ball was outside its own button for most of
+  // every cycle, and the control read as intermittent rather than as missing
+  // (`tetherHandleCircle`, and `GRAB` beside it for the size).
+  if (!hitCircle(tetherGrabCircle(l, field.cfg, b.pupilCol), x, y)) return null;
   return {
     player: 1,
     command: { kind: "drag", target: "wardenTether", on: true, fromMilli: 0, fromYMilli: 0 },

@@ -1,9 +1,8 @@
 import { openSmoothPath, type Point } from "@neon-spore/content";
 import type { SimConfig, SimEvent } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
-import { type Layout, tileCX, tileCY } from "./layout.js";
+import { type Layout, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { wardenRimY } from "./warden.js";
 
 /**
  * The one thing about THE WARDEN that outlives a frame.
@@ -52,14 +51,20 @@ export class WardenFx {
    * goes — slack first and then gone, which is what reads as *released* rather
    * than as cut.
    *
-   * `col` is the column the rope hung in, which is the ring's middle and which
-   * only the caller knows: this class remembers a moment, not a place.
+   * `anchor` is where the rope was tied — the underside of the eye, which the
+   * caller works out because it walks with the pupil (`wardenRopeAnchor`). This
+   * class remembers a moment, not a place.
    */
-  draw(ctx: CanvasRenderingContext2D, l: Layout, cfg: SimConfig, col: number): void {
+  draw(
+    ctx: CanvasRenderingContext2D,
+    l: Layout,
+    cfg: SimConfig,
+    anchor: { x: number; y: number },
+  ): void {
     for (const s of this.snaps) {
       const t = 1 - s.left / SNAP_LIFE;
-      const x = tileCX(l, col);
-      const topY = wardenRimY(l, cfg.wardenRow);
+      const x = anchor.x;
+      const topY = anchor.y;
       const restY = tileCY(l, cfg.wardenRow + cfg.wardenHangRows);
       // The free end runs up the line, so what is left of the rope is the
       // stretch above it. Eased so it leaves fastest at the start.

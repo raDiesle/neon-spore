@@ -3,7 +3,6 @@ import {
   hullRadiusMul,
   openSmoothPath,
   type Point,
-  type WardenOpening,
   wardenOpening,
 } from "@neon-spore/content";
 import {
@@ -15,9 +14,13 @@ import {
   wardenCycle,
 } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
-import { type Layout, tileCX, tileCY } from "./layout.js";
+import { type Circle, type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { drawWardenCilia } from "./warden-cilia.js";
 import { drawEye, drawHatch, HATCH } from "./warden-eye.js";
+import { drawPlates } from "./warden-plates.js";
+import { drawWardenEyelets } from "./warden-skin.js";
+import { drawWardenUnderskin } from "./warden-veins.js";
 
 /**
  * THE WARDEN, drawn: a horseshoe standing over a hole you can see the field
@@ -77,12 +80,60 @@ function wardenRadius(l: Layout): number {
 }
 
 /**
- * The y a tether leaves from: the underside of the rim, not the ring's centre.
- * A line that starts at the centre is a line drawn *through* the boss, and the
- * one thing this body has to say about itself is that its middle is a hole.
+ * Where the hole is standing this instant, in pixels: its centre and how wide
+ * it has come open.
+ *
+ * Exported because the rope hangs off it. It used to hang off the *rim* — one
+ * fixed point under the middle of the body — and that was a line tied to the
+ * armour beside an eye that had walked two columns away from it. The owner
+ * asked for the string to be connected directly to the eye, and this is the
+ * one place the eye's position is worked out, so both the picture and the
+ * anchor read it from here rather than each keeping a copy.
  */
-export function wardenRimY(l: Layout, row: number): number {
-  return tileCY(l, row) + wardenRadius(l) * 0.86;
+export function wardenEyeCircle(
+  l: Layout,
+  body: Creature,
+  b: WardenState,
+  openness: number,
+): Circle {
+  const r = wardenRadius(l);
+  const centreCol = body.col + (WARDEN_COLS - 1) / 2;
+  // Where the hole is, in the body's own units: its column against the body's,
+  // clamped to the travel the shape can take without breaching the rim.
+  const away = (b.pupilCol - centreCol) / ((WARDEN_COLS - 1) / 2);
+  return {
+    x: tileCX(l, centreCol) + away * PUPIL_TRAVEL * r,
+    y: tileCY(l, body.row),
+    r: r * (PUPIL_REST + (PUPIL_OPEN - PUPIL_REST) * openness),
+  };
+}
+
+/**
+ * How far down the eye's own radius the rope is rooted — just past the wet
+ * film, which stands at `FLUID_MUL` of the socket (`eye.ts`), so the line
+ * leaves the eye where the eye ends rather than crossing it.
+ */
+const ROPE_ROOT = 0.98;
+
+/**
+ * The point a tether leaves from: the underside of the eye, and it travels
+ * with the eye.
+ *
+ * A line off the rim said the rope was tied to the armour; a line off the
+ * middle would be a line drawn *through* the boss, and the one thing this body
+ * has to say about itself is that its middle is a hole. Off the eye's lower
+ * edge it runs straight down the throat that is cut there for it — the same
+ * slot the shot comes up — so the picture is one sentence: the thing the rope
+ * holds open is the thing the rope is tied to.
+ */
+export function wardenRopeAnchor(
+  l: Layout,
+  body: Creature,
+  b: WardenState,
+  openness: number,
+): { x: number; y: number } {
+  const eye = wardenEyeCircle(l, body, b, openness);
+  return { x: eye.x, y: eye.y + eye.r * ROPE_ROOT };
 }
 
 export function drawWarden(
@@ -103,12 +154,9 @@ export function drawWarden(
   const hex = wardenColor(wardenCycle(cfg, waveBeat)) === "red" ? PALETTE.red : PALETTE.cyan;
   const rim = hex === PALETTE.red ? PALETTE.redRim : PALETTE.cyanRim;
 
-  // Where the hole is, in the body's own units: its column against the body's,
-  // clamped to the travel the shape can take without breaching the rim.
-  const centreCol = body.col + (WARDEN_COLS - 1) / 2;
-  const away = (b.pupilCol - centreCol) / ((WARDEN_COLS - 1) / 2);
-  const dx = away * PUPIL_TRAVEL * r;
-  const pupilR = r * (PUPIL_REST + (PUPIL_OPEN - PUPIL_REST) * openness);
+  const eye = wardenEyeCircle(l, body, b, openness);
+  const dx = eye.x - cx;
+  const pupilR = eye.r;
 
   const outerPts = loop(OUTER, cx, cy, r, time);
   const pupilPts = loop(PUPIL, cx + dx, cy, pupilR, time);
@@ -122,10 +170,19 @@ export function drawWarden(
 
   // Even-odd still, for the fallback's sake: it cuts that hole whichever way
   // either loop happens to wind, and on one contour it decides nothing.
+  const body2d = new Path2D(shape);
   ctx.save();
   ctx.fillStyle = PALETTE.rockDark;
-  ctx.fill(new Path2D(shape), "evenodd");
+  ctx.fill(body2d, "evenodd");
   ctx.restore();
+
+  // The surface, under everything on this body that has a job to do: the veins
+  // and the wet film inside the material, the eyelets standing in it, and the
+  // fringe outside the edge that is drawn over them next. CILIATE off the
+  // shapes page (`warden-veins.ts`, `warden-skin.ts`, `warden-cilia.ts`).
+  drawWardenUnderskin(ctx, body2d, cx, cy, r, time, openness, cut);
+  drawWardenEyelets(ctx, cx, cy, r, cx + dx, pupilR, time, openness, cut);
+  drawWardenCilia(ctx, outerPts, cx, cy, r, time, openness, cut);
 
   strokeGlow(
     ctx,
@@ -155,59 +212,4 @@ export function drawWarden(
   // sometimes lights up; only the lens is gated, and it gates itself on
   // `openness` (`warden-eye.ts`).
   drawEye(ctx, cx + dx, cy, pupilR * HATCH, hex, rim, openness, beat + beatPhase, time);
-}
-
-/**
- * The plates, as gaps rather than as a bar. One comes off per opened eye and
- * the gap never fills, so the silhouette says how far in the pair is without
- * a number anywhere on the screen.
- *
- * Which plate is missing follows from the index, so a plate that has gone
- * stays gone in the same place on both screens and across a restart.
- */
-function drawPlates(
-  ctx: CanvasRenderingContext2D,
-  cx: number,
-  cy: number,
-  r: number,
-  b: WardenState,
-  cfg: SimConfig,
-  time: number,
-  cut: WardenOpening | null,
-): void {
-  const total = Math.max(1, cfg.wardenPlates);
-  const arc = (Math.PI * 2) / total;
-  ctx.save();
-  ctx.strokeStyle = PALETTE.rock;
-  ctx.lineWidth = STROKE.outline * 2.2;
-  ctx.lineCap = "butt";
-  for (let k = 0; k < b.plates; k++) {
-    const a0 = k * arc + arc * 0.12 + Math.sin(time * 0.2) * 0.01;
-    for (const [s, e] of clear(a0, a0 + arc * 0.76, cut)) {
-      ctx.beginPath();
-      ctx.arc(cx, cy, r * 0.94, s, e);
-      ctx.stroke();
-    }
-  }
-  ctx.restore();
-}
-
-/**
- * A plate's span with the opening taken out of it, as the pieces that are
- * left. A band of armour drawn across the way in would close the shot lane
- * again with a line two pixels wide, which is all it takes: the player reads
- * the silhouette, not the fill rule.
- */
-function clear(a0: number, a1: number, cut: WardenOpening | null): Array<[number, number]> {
-  if (cut === null) return [[a0, a1]];
-  const out: Array<[number, number]> = [];
-  for (const turn of [-Math.PI * 2, 0, Math.PI * 2]) {
-    const m0 = cut.from + turn;
-    const m1 = cut.to + turn;
-    if (m1 <= a0 || m0 >= a1) continue;
-    if (m0 > a0) out.push([a0, m0]);
-    a0 = Math.max(a0, m1);
-  }
-  if (a0 < a1) out.push([a0, a1]);
-  return out;
 }

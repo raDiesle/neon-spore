@@ -1,4 +1,4 @@
-import { WARDEN_COLS, wardenPullMilli, wardenTether } from "@neon-spore/sim";
+import { wardenPullMilli, wardenTether } from "@neon-spore/sim";
 import type { Effects } from "./effects.js";
 import { drawFleetChart } from "./fleet-chart.js";
 import { drawFleetHulls } from "./fleet-hulls.js";
@@ -10,7 +10,7 @@ import { drawQueen } from "./queen.js";
 import type { ViewState } from "./renderer.js";
 import { drawTether } from "./tether.js";
 import { drawVane } from "./vane-draw.js";
-import { drawWarden } from "./warden.js";
+import { drawWarden, wardenRopeAnchor } from "./warden.js";
 
 /**
  * Whichever boss the wave installed, drawn among the creatures.
@@ -50,6 +50,11 @@ export function drawBoss(
   if (boss.kind === "warden") {
     const body = world.creatures.find((c) => c.id === boss.creatureId);
     if (!body) return;
+    // The hatch and the eyelids are the rope's tension, with nothing eased in
+    // between: how far they stand open is player 2's only readout of a hand
+    // they cannot see (`sim/warden.ts`). The eye's own radius follows it, and
+    // the rope is tied to the eye, so all three read this one number.
+    const openness = wardenPullMilli(world, boss) / 1000;
     drawWarden(
       ctx,
       l,
@@ -60,19 +65,16 @@ export function drawBoss(
       world.beat,
       view.beatPhase,
       view.time,
-      // The hatch and the eyelids are the rope's tension, with nothing eased
-      // in between: how far they stand open is player 2's only readout of a
-      // hand they cannot see (`sim/warden.ts`).
-      wardenPullMilli(world, boss) / 1000,
+      openness,
     );
     // The rope is drawn after the ring it comes out of, and before the snap-back
     // a cut one leaves behind — which `effects` draws with everything else that
-    // is transient. Both hang from the middle of the rim.
-    const middle = body.col + Math.floor(WARDEN_COLS / 2);
-    if (wardenTether(world)) drawTether(ctx, l, world, boss, middle, view.time);
+    // is transient. Both leave from the eye, and the eye walks.
+    const anchor = wardenRopeAnchor(l, body, boss, openness);
+    if (wardenTether(world)) drawTether(ctx, l, world, boss, body, openness, view.time);
     // A rope that snapped back no longer exists in the world, so its leaving is
     // the one part of this boss the picture has to remember for itself.
-    effects.warden.draw(ctx, l, world.cfg, middle);
+    effects.warden.draw(ctx, l, world.cfg, anchor);
     return;
   }
 
