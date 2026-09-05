@@ -12,6 +12,10 @@ commit message that read wrong, and the history is where that lives.
 ## 2026-09-05 · b3ffc52 — Refuse a landing onto a trunk `origin` has already moved past
 
 `bun run land` rebases the lane onto the **local** trunk and never asked `origin` where that trunk actually was. In a cloud clone the local `main` is whatever `origin` held when the container was built, and this repo lands several times a day: on 5 September 2026 a lane replayed onto a `main` sixty-six commits behind, landed cleanly onto it, and only then found that `origin/main` had eleven commits it did not — one of them a whole new creature touching the same four tables. By that point the branch was swept and the check was spent, so seven conflicts arrived on the trunk itself, at the one moment there was no lane left to fix them on. Two were resolved wrongly and each cost another three-minute `bun run check`.
+## 2026-09-05 · 65981aaf — Queue what the worktree cleanup turned up, and park what would not land
+
+Forty worktrees had accumulated because the sweep's idle clock is reset by any git command aimed at the tree, including its own probe; twenty-four of them were spent and are gone. Four findings from clearing them, and the state of the four lanes that carried work `main` did not have.
+
 ## 2026-09-05 · 6115dbb4 — Make THE CRAWLER one animal: overlapping rings, a rounded head, and wet light on it
 
 The owner sent a picture of a real maggot with the note that the segments are attached as they belong together, with no space in between — and that is a different thing from a coupling drawn as a link. A coupling gets a connector; a single body does not. So the neck bars are gone and every ring is now nearly two tiles wide, its leading dome lying over the tucked tail of the one behind it, which needs the run painted back to front — an order `byDepth` cannot give, since every link of a worm stands on the same row. `drawCreatures` routes a crawler away the way it routes THE GYRE's hub and `drawCrawlers` paints each worm tail first.
