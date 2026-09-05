@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 49c1c683 — Give the reel's plating the perspective the bodies are drawn under
+
+`drawCreatures` wraps every body in one depth transform about its own centre, so `drawReelBead` neither knows nor applies it. The plating pass runs after the bodies and outside that transform, so a cage on a navigator's bead far up the field was drawn at the size of a near one — visible as a shell standing off a body it is meant to be sitting on. `reelFrame` hands out the envelope and the swap's vertical slip separately now, and the plating applies both in the order the body pass does.
+
+## 2026-09-05 · 93c38765 — Cut THE STRAND's armour from the bead's own contour instead of a ring round it
+
+The cage over a bead a shot cannot answer was a circle: six plates on a ring at a fixed radius, the same shape whether a wide flat slick or a round bulb was underneath it. That reads as a helper drawn on the tile rather than as something the creature is wearing, which is what the owner said. It is now a second border cut from the body's own outline, the way THE SHELL's plating is — the slick keeps its coloured contour and gains a harder grey one just outside it, and so does the bulb. It keeps about a quarter of the body's own lobing rather than all of it: armour is rigid, and a hard line that wobbles exactly as much as the soft one under it reads as a second aura.
+
 ## 2026-09-05 · 1bf073bf — THE THROB's green half is the other trigger now, and it turns faster
 
 Half of a throb was shield plating: green, and nothing at all reached it, so half of every turn was a body the pair could only wait out. Both halves are live now and each carries one of the two ammunition colours — the authored one starts pointing at the cannon, the other is over the seam — so the turn never shuts the creature, it swaps which trigger is the right one. A shot in the colour that turned away is an ordinary colour miss. `throbSpinBeats` comes down from four to three at the same time: nothing about the turn closes the body any more, so a slow one only buys the pair time standing still with the answer already said out loud.
