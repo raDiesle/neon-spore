@@ -25,11 +25,15 @@ import { rockRadius } from "./torch.js";
  * the rock would be a face carved into it, and what has to read here is a
  * passenger.
  *
- * **The whole figure is grey.** Red and cyan are ammunition — they are the two
- * words the pair say to each other about what to load — and the one thing this
- * body must never suggest is that it can be shot at all. So the clown is stone
- * and off-white, and everything that makes it a clown is *shape*: a cone hat
- * with a pompom, a ruff where it meets the rock, a round nose, a grin.
+ * **The figure is stone except for the nose.** Red and cyan are ammunition —
+ * they are the two words the pair say to each other about what to load — so
+ * this body must never suggest it can be shot at all, and the whole clown was
+ * built grey on that argument. The owner overruled it for one mark: a clown
+ * whose nose is stone is not a clown anybody sees. So the nose is a fuchsia
+ * that is deliberately not a red (`PALETTE.clownNose` carries the reasoning),
+ * it is the only coloured thing on the figure, and everything else that makes
+ * this a clown is *shape* — a cone hat with a pompom, a ruff where it meets
+ * the rock, a grin.
  *
  * **The crouch is a tell and not a word.** On the beat the rock steps, the
  * rider sinks and leans into the pull — on both screens, from the moment the
@@ -152,9 +156,13 @@ export function drawVeerClown(
   ctx.lineCap = "round";
   ctx.stroke();
 
-  // The nose last and brightest: the one near-white thing on a grey figure, so
-  // the eye lands on the face before it lands on anything else.
-  ball(ctx, headX, headY + hr * 0.1, hr * 0.24, PALETTE.text, PALETTE.rockDark);
+  // The nose last, and the one coloured thing on the whole rock: the eye lands
+  // on the face before it lands on anything else, which is the entire reason
+  // the hue was spent. A breath of its own light under it, so it reads as lit
+  // rather than as a sticker — small enough that it never grows into the ring
+  // of colour a shot could be aimed at.
+  halo(ctx, headX, headY + hr * 0.1, hr * 0.6, PALETTE.clownNose, 0.35);
+  ball(ctx, headX, headY + hr * 0.1, hr * 0.24, PALETTE.clownNose, PALETTE.clownNoseRim);
   ctx.restore();
 
   // A breath of light around the rider while it braces, and none at all

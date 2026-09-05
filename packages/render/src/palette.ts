@@ -80,6 +80,24 @@ export const PALETTE = {
   venom: "#9BE81E",
   venomRim: "#EDFFB4",
   venomDeep: "#3F7A08",
+  /**
+   * THE VEER's rider's nose, and the newest hue in this palette — asked for by
+   * name. The clown was built grey on the argument that every colour here is
+   * already spent and a red nose on a rock reads as *shoot me*; the owner's
+   * answer was to spend one anyway, because a clown whose nose is stone is not
+   * a clown anybody sees.
+   *
+   * The distance is carried by the hue and by where it appears, the way
+   * `claspShield`, `eyeFluid` and `venom` each carry theirs. It is a fuchsia
+   * and deliberately **not** a red: `red` is the ammunition at 345°, `ember`
+   * the fire at 22° and `pod` the amber at 40°, so a nose in any of the three
+   * would be a mark saying "load this" on the one body in the game nothing can
+   * be fired at. This sits at 315°, between the hull's violet and that red and
+   * touching neither — and it appears nowhere but on a face, at the size of a
+   * few pixels, on a creature that arrives one wave in forty.
+   */
+  clownNose: "#FF4FD8",
+  clownNoseRim: "#FFC2F2",
   sparkDim: "#8B85AB",
   /**
    * THE WISP's middle band, and the one hue in this palette that is not a

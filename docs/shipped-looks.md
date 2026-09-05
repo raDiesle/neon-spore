@@ -104,6 +104,28 @@ and a faint grey halo. The rock's light comes from the key light and `turn` is
 handed back to it, so the bright side stays put while the stone rolls under it
 — a highlight glued to a spinning rock is the defect that fix exists for.
 
+## The veer's rider
+
+`packages/render/src/veer-clown.ts`. Every rock above is drawn by
+`drawMeteor`; THE VEER is that rock with a figure laid over the top of it,
+outside the frame the stone spins in.
+
+| Pass | What | Numbers |
+|---|---|---|
+| ruff | five discs along the rock's shoulder | `0.36` head radii, `PALETTE.rock` on `rockDark` |
+| head | one disc | `0.46r`, `PALETTE.rock` on `rockDark` |
+| hat | a cone with a pompom on the tip, leaning into the pull | `2.1` head radii tall, `rockDark` filled, `STROKE.outline` |
+| face | two eyes and a grin, in the background's own dark | `0.15` and `0.64` head radii |
+| **nose** | one disc and a halo under it | `0.24` head radii in `PALETTE.clownNose`, halo `0.6` at `0.35` |
+| brace | the whole figure sinks and the hat whips over, for the beat it steps | `0.3r` down, `0.5` rad, plus a `0.28` halo |
+
+Two things here are decisions rather than drawing. The figure **does not turn
+with the stone**, for the reason stated above about highlights: a face that
+rolled with the rock would be a face carved into it. And the nose is the one
+coloured thing on any rock in the game — the whole clown was built grey on the
+argument that a red nose reads as *shoot me*, and the owner spent a hue on it
+anyway, which is why `PALETTE.clownNose` is a fuchsia and not a red.
+
 ## Bullets
 
 `packages/render/src/bullets.ts`. Two looks, one shape.
