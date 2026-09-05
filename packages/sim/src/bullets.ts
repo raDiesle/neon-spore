@@ -1,6 +1,8 @@
 import { resolve } from "./bullet-hit.js";
 import { hullRow, type SimConfig, ticksPerBeat } from "./config.js";
 import { endPrime, lanceReady, priming } from "./lance.js";
+import { steerShot } from "./lock.js";
+import { bulletMilli, creatureLane, creatureMilli } from "./mid-beat.js";
 import { firstPodAlong, freePod } from "./pods.js";
 import { queenOccupiesCol } from "./queen-mark.js";
 import { chargeDue, chargePartTicks, endCharge, laying, layShot } from "./shot-charge.js";
@@ -60,6 +62,11 @@ function launch(world: World, color: Color, lance: boolean): void {
     color,
     lance,
     pierced: 0,
+    // Straight up and dead centre of the column, always. A shot is not aimed
+    // when it is fired — it is aimed every tick it is in the air, by whatever
+    // player 1's hand is on at the time (`lock.ts`).
+    driftMilli: 0,
+    aimMilli: 0,
   });
   world.events.push({ type: "fire", col: world.cannonCol, color, lance });
 }
@@ -85,58 +92,6 @@ function tilesPerBeat(cfg: SimConfig, b: Bullet): number {
   return b.lance ? cfg.lanceTilesPerBeat : cfg.bulletTilesPerBeat;
 }
 
-/**
- * Where a bullet stands, in thousandths of a tile counted downwards from row 0.
- * Exactly what render/ draws — `row - subMilli / 1000`.
- */
-function bulletMilli(b: Bullet): number {
-  return b.row * MILLI - b.subMilli;
-}
-
-/**
- * Where a creature stands, in the same units. A creature glides one tile per
- * beat, so between two beats it is genuinely between two rows, and that is the
- * position the eye judges a hit by — `fromRow + (row - fromRow) * beatPhase`,
- * the line render/ draws it on (packages/render/src/creatures.ts).
- *
- * Collision used to compare whole rows instead, and two shots in a hundred
- * went straight through: a creature that dropped a row in the same tick the
- * bullet left it swapped places with the shot without either ever noticing.
- */
-function creatureMilli(world: World, c: Creature): number {
-  const tpb = ticksPerBeat(world.cfg);
-  const phase = world.tick % tpb;
-  return c.fromRow * MILLI + Math.round(((c.row - c.fromRow) * phase * MILLI) / tpb);
-}
-
-/**
- * The **lane** a creature is in, on this tick, rounded to the nearest column.
- *
- * `creatureMilli` above makes this correction to the row and states the
- * reason: a body glides between two beats, and that glide is the position the
- * eye judges a hit by. Sideways it was never made, because for a long time
- * nothing changed lanes — and then the dart did, two columns at a time, and
- * THE CAROM did, three. For most of every beat those bodies are drawn between
- * two lanes (`drawnCol`) while the simulation has already written down the one
- * they are going to, so a shot fired at what is on the screen went through
- * empty column and a shot that connected did so a beat before it looked like
- * it should.
- *
- * Rounded rather than covering both lanes: a bolt goes up the middle of a
- * column, and a body part-way across is in whichever lane it is nearest. The
- * generous version would make a body crossing three lanes a beat hittable in
- * all of them, which is not a hitbox, it is an apology.
- *
- * All integer arithmetic off `world.tick`, so two devices round the same way.
- */
-function creatureLane(world: World, c: Creature): number {
-  const from = c.fromCol ?? c.col;
-  if (from === c.col) return c.col;
-  const tpb = ticksPerBeat(world.cfg);
-  const phase = world.tick % tpb;
-  return from + Math.round(((c.col - from) * phase) / tpb);
-}
-
 export function advanceBullets(world: World): void {
   const alive: Bullet[] = [];
   for (const b of world.bullets) if (sweep(world, b)) alive.push(b);
@@ -156,6 +111,11 @@ export function advanceBullets(world: World): void {
  */
 function sweep(world: World, b: Bullet): boolean {
   const stepMilli = Math.round((tilesPerBeat(world.cfg, b) * MILLI) / ticksPerBeat(world.cfg));
+  // Sideways first, then up the column it has arrived in. The order is the
+  // whole of why a locked shot connects: `firstAlong` below tests one column,
+  // and on the tick the bolt reaches the body it has to already be in the lane
+  // that body is standing in rather than in the one it left (`lock.ts`).
+  steerShot(world, b, stepMilli);
   let from = bulletMilli(b);
   const to = from - stepMilli;
 

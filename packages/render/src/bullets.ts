@@ -7,6 +7,14 @@ import { PALETTE } from "./palette.js";
  * Shots sit on tile centres — the simulation only ever knows which tile a
  * bullet occupies and how far it has come towards the next one (`subMilli`).
  * The glide between the two is drawn here and nowhere else.
+ *
+ * **Sideways too, since THE LOCK.** A bolt steering into the body player 1 has
+ * a hand on is genuinely between two columns, and it carries both halves of
+ * that: `driftMilli` is how far across its column it stands and `aimMilli` is
+ * which way it is going (`sim/lock.ts`). Neither is worked out again here —
+ * the second exists precisely so that the tail can be laid down along the path
+ * the shot took rather than straight beneath it, which is a lie the moment a
+ * shot crosses the field as fast sideways as it climbs.
  */
 
 /**
@@ -93,9 +101,16 @@ export function drawBullets(
     const hex = b.color === "red" ? PALETTE.red : PALETTE.cyan;
     const frac = b.subMilli / 1000;
     const row = b.row - frac;
-    const x = tileCX(l, b.col);
+    const col = b.col + b.driftMilli / 1000;
+    const x = tileCX(l, col);
     const y = tileCY(l, row);
-    const fromY = tileCY(l, row + Math.max(0, look.tailBack(frac)));
+    // How far back down the shot's own path the tail begins. The head has
+    // climbed `back` tiles since then, and crossed `aimMilli` thousandths of a
+    // column for each of them — so the tail's far end is that much *behind* in
+    // both axes, and a shot going straight up is drawn exactly as it was.
+    const back = Math.max(0, look.tailBack(frac));
+    const fromY = tileCY(l, row + back);
+    const fromX = tileCX(l, col - (b.aimMilli / 1000) * back);
 
     // A tail behind the head, so the direction is legible even at twelve tiles
     // a beat.
@@ -103,7 +118,7 @@ export function drawBullets(
     ctx.strokeStyle = hex;
     ctx.lineWidth = look.tailWidth;
     ctx.beginPath();
-    ctx.moveTo(x, fromY);
+    ctx.moveTo(fromX, fromY);
     ctx.lineTo(x, y);
     ctx.stroke();
     ctx.globalAlpha = 1;

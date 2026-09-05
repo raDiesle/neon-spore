@@ -118,3 +118,54 @@ to destroy.
 **Not yet, deliberately:** the unlock schedule in 6.2. The grip is live in
 every wave from the first, because what it needs first is play, and gating it
 behind wave 8 would mean nobody had held anything for an hour.
+
+## 6.5 THE LOCK — the same hand, read a second way, built
+
+While **player 1** has a hand on a body, every shot the cannon puts out steers
+into it and lands, from whatever column it left the muzzle in. Take the hand
+off and a bolt already in the air stops steering and finishes its climb
+straight up from wherever it had got to. `sim/lock.ts` is the whole rule and
+`render/lock-mark.ts` the whole picture.
+
+**It is not a new gesture.** It is 6.4's, held by the seat that owns the
+cannon. That matters because the price is already built in: a thumb on the
+field is a thumb off the strip below it, so a pilot who has locked a body
+cannot move the cannon while they hold it. The shot goes where the hand is
+*instead of* where the muzzle is — a trade rather than an addition. Player 2's
+hand stays a brake and locks nothing.
+
+**It takes the column out of the conversation and leaves the colour in.** The
+lock says nothing about what a shot is loaded with, and player 2 holds both
+lobes, so a locked bolt of the wrong colour arrives and bounces exactly as it
+always did. The sentence the pair says shortens from *"third from the left,
+cyan"* to *"cyan"*, and that is the whole of what this is for: the naming of a
+column is the thing a pilot can now do with a finger, and the naming of a
+colour is the thing they still cannot.
+
+**Two bodies are held and not locked**, and both refusals are one sentence — a
+mark that promises a hit must not be drawn over something a shot cannot answer.
+
+- **A rock**, which cannot be shot at all. Rocks are the point of 6.4, and a
+  lock on one would turn the pilot's own assist into a wall eating every bolt
+  the pair fires for as long as the hand stays.
+- **A ghost**, whose column is the secret and whose secret is kept from player
+  1 exactly. A shot that found one without the pilot being told which lane it
+  was in would be that creature undone.
+
+**There is no cap on how fast the bolt slides sideways**, and that is a
+decision rather than an omission. The rule is a pure proportion — the shot
+crosses the same share of what is left sideways as this tick's climb is of what
+is left upwards — so it arrives exactly, whatever the two distances were. A
+speed limit would be a number that decides, for some pairs of distances, that
+the frame drawn round the body was lying. A body nearly level with the muzzle
+and far to one side is therefore answered by a bolt that whips almost sideways,
+which is what reaching it means.
+
+**A locked shot passes through nothing.** It sweeps its column like any other
+bolt, so a body that wanders into the diagonal is met first and stops it. The
+lock aims the shot; it does not excuse it from the field.
+
+**Where it is live.** Everywhere there is a field to put a finger on, which is
+every ordinary wave and no round: THE GAUGE, SNAKE, PINBALL and THE FLEET take
+the picture away and have no creatures for a hand to land on. It needs no
+switch on the panel and has none — the grip is the gate.

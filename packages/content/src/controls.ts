@@ -97,7 +97,7 @@ export const CONTROLS: readonly ControlDef[] = [
     player: 1,
     form: "strip",
     label: "PLAYER 1 · CANNON",
-    does: "Slides the cannon along the hull. It only ever fires straight up.",
+    does: "Slides the cannon along the hull. A shot goes straight up it, unless player 1's other hand is holding a body — then it steers into that one (`sim/lock.ts`).",
     ship: "cannon",
   },
   {

@@ -101,6 +101,7 @@ to notice by hand.
 | Control | Where | Seat | Gesture | Does |
 |---|---|---|---|---|
 | GRIP | on the field, over anything currently falling | either seat | hold | Slows the fall for as long as the finger stays down; letting it through costs the hull (`sim/grip.ts`). |
+| THE LOCK | the same hold, on player 1's screen | player 1 only | hold | The same gesture read a second way: while the hand is on a body every shot steers into it, from whatever column the cannon is in. Not over a rock or a ghost, and it says nothing about the colour ([assists](assists.md#65-the-lock--the-same-hand-read-a-second-way-built)). |
 | THE CANNON | on the cannon swelling itself, wherever it is standing | player 1 only | grab and drag | Slides the cannon along the hull, the same absolute column the strip sends. |
 | THE MAW TAP | on the same cannon swelling, on player 1's screen | player 1 only | press | Let go without having carried the cannon anywhere and the maw opens, the same window the SUCK lobe opens; carry it a column and the lift says nothing. Only on a panel that has a maw. |
 | THE SHIELD PLATE | on the shield swelling itself, wherever it is standing | player 2 only | grab and drag | Slides the shield along the hull, the same absolute column the strip sends. |

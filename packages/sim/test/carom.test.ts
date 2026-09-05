@@ -161,7 +161,17 @@ describe("the crossing", () => {
  * does. `recoilStruck` is tested the same way and for the same reason.
  */
 function bolt(body: Creature, color: "red" | "cyan"): Bullet {
-  return { id: 1, col: body.col, row: body.row, subMilli: 0, color, lance: false, pierced: 0 };
+  return {
+    id: 1,
+    col: body.col,
+    row: body.row,
+    subMilli: 0,
+    color,
+    lance: false,
+    pierced: 0,
+    driftMilli: 0,
+    aimMilli: 0,
+  };
 }
 
 /** A carom standing on a row, and the world it is standing in. */
@@ -352,6 +362,8 @@ describe("the body it throws out", () => {
       color: "red",
       lance: false,
       pierced: 0,
+      driftMilli: 0,
+      aimMilli: 0,
     };
     expect(resolve(world, b, chute)).toBe(false);
     expect(world.creatures.some((c) => c.kind === "chute")).toBe(false);

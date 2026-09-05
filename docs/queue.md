@@ -89,6 +89,27 @@ entry that already has one is refused rather than overwritten.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
+## A grip on a ghost draws its ring on the screen the column is hidden from
+
+- **Found:** 2026-09-05, claude/enemy-lock-on-cannon-eab174
+- **Files:** `packages/render/src/grip.ts`, `packages/render/test/grip-frame.test.ts`
+
+`drawGrips` walks `world.creatures` and draws a beam, a ring and a label at
+`creatureCenter` for every held body, with no idea which seat the screen
+belongs to. A falling ghost is grippable, and player 1 is not drawn its body at
+all — `showsGhostBody` in `ghost.ts` gives that seat a band across the row and
+nothing whatever about the column (`ghost-row.ts` argues at length that
+anything varying across the width of the field *is* the column, given away). So
+a pilot who sweeps a thumb along the row and finds the body is shown a ring
+sitting exactly in the lane the creature exists to keep from them, which is the
+whole of THE GHOST undone by an assist.
+
+Skip a body this screen is not shown: `showsGhostBody(l.role, cfg, c)` is
+already the rule and already exported. The hand still works — the fall still
+slows, and the other seat still sees who is holding what — it is only the
+marking that has to go. A frame test that grips a ghost as `p1` and asserts the
+canvas took fewer calls than the same run as `p2` holds it.
+
 ## Hold `docs/spec/briefings.md`'s wave numbers against `WAVES` with a test
 
 - **Found:** 2026-09-05, claude/tutorial-reset-wave-fixes-ea7302

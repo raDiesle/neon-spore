@@ -176,6 +176,8 @@ describe("what a shot does", () => {
       color: "red",
       lance: true,
       pierced: 0,
+      driftMilli: 0,
+      aimMilli: 0,
     });
     for (let i = 0; i < CFG.rindLayers; i++) {
       expect(rindStruck(world, lance(), body)).toBe(false);

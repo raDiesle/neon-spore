@@ -72,6 +72,8 @@ const bullet = (): Required<Bullet> => ({
   color: "cyan",
   lance: true,
   pierced: 2,
+  driftMilli: -180,
+  aimMilli: 420,
 });
 
 const pod = (): Required<Pod> => ({

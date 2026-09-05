@@ -20,6 +20,7 @@ import { drawHull, type HullMood, hullSkinY, type LobePositions } from "./hull.j
 import { frame } from "./hull-frame.js";
 import { drawLanceMark } from "./lance.js";
 import type { Layout } from "./layout.js";
+import { drawLockMarks } from "./lock-mark.js";
 import { drawLureAlarms } from "./lure-alarm.js";
 import type { OpeningFx } from "./opening-fx.js";
 import { drawOtherHand } from "./other-hand.js";
@@ -130,6 +131,12 @@ export function drawBodies(
   // Over the creatures, under everything the ship does: a hand on something
   // is not an effect this file owns — it is world state, read fresh.
   drawGrips(ctx, l, world, view.beatPhase, view.time);
+  // And, over the hand, the frame that says the cannon has this one. After the
+  // grips rather than inside them: a body can be held without being locked —
+  // a rock is, and that is what the grip was built for — so the ring and the
+  // frame are two statements and only one of them is about a shot
+  // (`lock-mark.ts`).
+  drawLockMarks(ctx, l, world, view.beatPhase, view.time);
   drawBoss(ctx, l, view, effects);
   drawPods(ctx, l, world.pods, view.time);
   drawBullets(ctx, l, world.bullets);

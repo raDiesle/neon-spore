@@ -133,6 +133,12 @@ export function hashWorld(world: World): number {
     push(b.color === "red" ? 1 : 2);
     push(b.lance ? 1 : 0);
     push(b.pierced);
+    // Where it is across its column and which way it is going. Both are the
+    // steering THE LOCK does (`lock.ts`), and neither is decoration: the drift
+    // decides which lane the next tick's sweep tests, so two devices that
+    // disagree about it kill different bodies.
+    push(b.driftMilli);
+    push(b.aimMilli);
   }
 
   push(world.pods.length);

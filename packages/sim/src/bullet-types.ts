@@ -33,4 +33,27 @@ export interface Bullet {
   lance: boolean;
   /** Bodies this shot has already gone through. 0 for everything but a lance. */
   pierced: number;
+  /**
+   * How far across its own column the shot has been carried, in thousandths of
+   * a tile, signed and never past half a tile either way — a shot that reaches
+   * the edge changes column instead (`steerShot` in `lock.ts`).
+   *
+   * Zero for the whole of an ordinary shot's flight. It is only ever anything
+   * else because player 1 has a hand on a body and the bolt is steering into
+   * it, and it **stays** where it got to when that hand lifts: a shot that
+   * snapped back to a column centre the instant the lock ended would be the one
+   * moment in this game where something on the field teleports.
+   */
+  driftMilli: number;
+  /**
+   * Which way it is going: thousandths of a column crossed per tile climbed,
+   * signed. Zero for a shot travelling straight up, which is every shot that
+   * is not steering.
+   *
+   * It is on the shot rather than worked out again by whoever needs it because
+   * the one thing that needs it is the tail behind the head, and render/ has no
+   * business re-deriving where a bolt was a tile ago from a lock it would have
+   * to read the simulation's rules to understand.
+   */
+  aimMilli: number;
 }

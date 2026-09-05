@@ -210,6 +210,8 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-veer.ts` | THE VEER's two numbers: how many times it changes lane on the way down |
 | `packages/sim/src/creature-state-held.ts` | **The state a hand writes**, as opposed to the state the beat writes |
 | `packages/sim/src/veer.ts` | THE VEER: the first rock that does not hold its lane |
+| `packages/sim/src/lock.ts` | THE LOCK: the hand player 1 already has on the field, read a second way |
+| `packages/sim/src/mid-beat.ts` | **Where a thing stands between two beats**, in thousandths of a tile |
 
 ### packages/content
 
@@ -528,6 +530,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/eye-lens.ts` | you are changing the shape of an open eye — the two lid curves, the corners, and the pupil they cut |
 | `packages/render/src/veer-clown.ts` | THE VEER's rider: a clown sitting on the rock, and the reason the rock does not fall straight |
 | `packages/render/src/veer-marks.ts` | THE VEER's two half-pictures: the arrow over the rider on player 1's screen, and the *ask* on player 2's |
+| `packages/render/src/lock-mark.ts` | THE LOCK, drawn: the frame that says *the cannon has this one* |
 
 ### packages/net
 

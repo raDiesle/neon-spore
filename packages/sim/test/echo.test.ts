@@ -236,6 +236,8 @@ describe("what a shot is worth", () => {
     color,
     lance: false,
     pierced: 0,
+    driftMilli: 0,
+    aimMilli: 0,
   });
 
   it("pays for every body the one it killed would have become", () => {

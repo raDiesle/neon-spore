@@ -228,6 +228,8 @@ describe("what a shot does", () => {
       color,
       lance: true,
       pierced: 0,
+      driftMilli: 0,
+      aimMilli: 0,
     });
     for (let i = 0; i < CFG.recoilBounces; i++) {
       // The colour it is *now*: a lance loaded with the one it had a bounce
@@ -312,7 +314,17 @@ describe("the colour turning over", () => {
     const body = only(world);
     recoilStruck(
       world,
-      { id: 1, col: body.col, row: body.row, subMilli: 0, color: "red", lance: false, pierced: 0 },
+      {
+        id: 1,
+        col: body.col,
+        row: body.row,
+        subMilli: 0,
+        color: "red",
+        lance: false,
+        pierced: 0,
+        driftMilli: 0,
+        aimMilli: 0,
+      },
       body,
     );
     // Mid-glide out of the lane it was struck in — the same two fields the
