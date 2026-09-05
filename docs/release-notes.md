@@ -13,6 +13,10 @@ commit message that read wrong, and the history is where that lives.
 
 It swelled and shrank on the shared beat, open one beat in four and answerable by **either** colour while it was. That asked the pair for a count and nothing else: the ammunition was never the question, so the navigator's half of the exchange was the word "now". The colour is back in it. A throb is one body cut down the middle — a slick's red or a bulb's cyan on one side, shield plating on the other — turning clockwise the whole way down, and the matching colour kills it only on the half that is pointing at the cannon. Anything into the plating is swallowed, in either colour, and is not booked as a colour mistake: the ammunition was right and the moment was not, which is the distinction `colour-armour.ts` already makes next door.
 
+## 2026-09-05 · afaa6249 — Every split creature owes its own word under the siren, not just THE STRAND
+
+comms.ts already knows which seat has to speak about veil, torch, veer, lure, dart, queen, wisp and ghost — this names what: COLOUR, ROCK, LANE, FAKE, SIDE, MARK, SPOT, COLUMN. strand-duty.ts becomes duty.ts, general over every flagged kind instead of one, and a seat owing more than one word at once gets all of them joined the way strand already joins its own pair.
+
 ## 2026-09-05 · 0edaf206 — THE VEER rolls one to four tiles a change, and shows the width to both seats
 
 Every change of lane used to step exactly one column. It now rolls a fresh width from one to veerMaxDist (4) each time, so a rock that always moved a tile the shield could shadow without a word said becomes one whose call is worth making. The width costs nothing to show — it says nothing about which lane the shield stands in without the side too — so it is drawn above the arrow in the rock's own grey, on both screens, while the side stays the pilot's alone.
