@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 6830d7e8 — The ball is big enough to hold the body, and a ward cracks what is left
+
+Two things the owner asked for by name.
+
 ## 2026-09-05 · 850a3f80 — THE MAZE's string is tied round to the side, off the gap's landing spot
 
 The cord was tied to the very lowest point of the rim with the handle hanging under it. That was free space while a gap could click onto any column beneath the near half of the drum; it stopped being free the moment only the bottom column counted, because the lowest point of the rim is now the one place a gap ever comes to rest. The pilot was pulling toward a spot covered by the thing he was pulling with, and the arrival he was pulling *for* was behind it.
