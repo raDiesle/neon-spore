@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 850a3f80 — THE MAZE's string is tied round to the side, off the gap's landing spot
+
+The cord was tied to the very lowest point of the rim with the handle hanging under it. That was free space while a gap could click onto any column beneath the near half of the drum; it stopped being free the moment only the bottom column counted, because the lowest point of the rim is now the one place a gap ever comes to rest. The pilot was pulling toward a spot covered by the thing he was pulling with, and the arrival he was pulling *for* was behind it.
+
 ## 2026-09-05 · e84555a6 — The ship's five gestures are written down where nothing teaches them
 
 docs/spec/controls.md said it was FIELD_CONTROLS in prose, "kept beside it rather than typed from memory a second time", while being two rows short of it: THE MAW TAP and THE LID'S CORD were in the array, in the director's page and in the game, and in neither the table nor the paragraphs. Nothing noticed, because nothing was looking.
