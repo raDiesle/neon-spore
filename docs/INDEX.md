@@ -516,6 +516,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/queen-figure.ts` | Where the parts of the queen sit on her, and where the screen puts them |
 | `packages/render/src/maze-walls.ts` | THE MAZE's walls: the circles, the gaps cut in them, and the radial walls that make the corridors turn |
 | `packages/render/src/maze-shot.ts` | The shot inside THE MAZE: where it stands, the corridors behind it, and what it found when it stopped |
+| `packages/render/src/maze-heart.ts` | What is in the middle of THE MAZE: a heart, beating |
 
 ### packages/net
 

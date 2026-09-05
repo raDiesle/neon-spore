@@ -2,6 +2,7 @@ import {
   MAZE_TURN,
   type MazeState,
   type MazeWheel,
+  mazeCircleMilli,
   mazeCurrent,
   mazeEntranceAngle,
   mazeEntranceCol,
@@ -9,6 +10,7 @@ import {
 } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import type { Layout, ViewRole } from "./layout.js";
+import { drawMazeHeart } from "./maze-heart.js";
 import { drawMazeShot, drawMazeSpent } from "./maze-shot.js";
 import { drawMazeString } from "./maze-string.js";
 import { drawMazeWalls, mazeDrum } from "./maze-walls.js";
@@ -53,7 +55,19 @@ export function drawMaze(
 ): void {
   const wheel = mazeCurrent(m);
   if (wheel === null) return;
-  drawMazeWalls(ctx, mazeDrum(l, cfg), wheel, m.angleMilli);
+  const drum = mazeDrum(l, cfg);
+  drawMazeWalls(ctx, drum, wheel, m.angleMilli);
+  // What is at the end of the walk, drawn before the trail and the shot so
+  // both of them arrive *on* it rather than behind it.
+  drawMazeHeart(
+    ctx,
+    drum.cx,
+    drum.cy,
+    (drum.r * mazeCircleMilli(wheel, 0)) / 1000,
+    m.round,
+    beat,
+    beatPhase,
+  );
   drawMazeSpent(ctx, l, cfg, m, wheel);
   drawMazeString(ctx, l, cfg, m, role);
   drawMouths(ctx, l, cfg, m, wheel, beat, beatPhase);
