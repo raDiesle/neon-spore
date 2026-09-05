@@ -9,6 +9,18 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 4af59d7c — THE VEER's clown gets a nose, and the palette gets a hue for it
+
+The figure was built entirely grey on the argument that every colour here is already spent and that a red nose on a rock reads as "shoot me" — the one thing a body nobody can fire at must never say. The owner overruled it for one mark, because a clown whose nose is stone is not a clown anybody sees.
+
+## 2026-09-05 · 089399a4 — THE VEER: the grin reads clear of the nose
+
+Drawn tight under it the mouth read as a shadow rather than a mouth, which loses the only mark on the face doing work beyond "somebody is up there". The grin is struck wider and lower, the nose smaller, and the head a fraction bigger against the stone.
+
+## 2026-09-05 · b59c52f4 — THE VEER: a rock with a clown on it that will not hold its lane
+
+Every rock so far has been a column said once. Player 1 reads one off the strip, player 2 puts the shield there, and the number stays true until the thing lands — which is why a pair who have learned the ward park the shield and stop looking. THE VEER expires three times: it falls a row a beat like the plain tier and steps one lane to the side as it lands on rows 3, 6 and 9. The rows are fixed and both players can count them; only the side is hidden, and it is hidden from the seat that holds the shield. Player 1 gets an arrow over the rider three rows before every step, player 2 gets two dim arrows and a target lock, and the sentence that has to cross the room is a side and then a column.
+
 ## 2026-09-05 · 35615317 — capture.ts keeps to the line limit
 
 The hold loop's own comment folded into the paragraph above it: the file was at 251 lines and `limits.test.ts` counts.
