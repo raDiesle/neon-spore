@@ -1,9 +1,4 @@
-import {
-  type ControlSet,
-  controlSetForWave,
-  DEFAULT_CONTROL_SET_ID,
-  setControls,
-} from "@neon-spore/content";
+import { type ControlSet, controlSetForWave, setControls } from "@neon-spore/content";
 import { mirrorHoldsControls, type World } from "@neon-spore/sim";
 import { drawStripFor } from "./band-channel.js";
 import { drawLobe } from "./band-control.js";
@@ -101,7 +96,6 @@ export function drawBand(
 
   if (showsCannon(l.role)) drawHalf(ctx, l, world, set, 1, armed, open);
   if (showsShield(l.role)) drawHalf(ctx, l, world, set, 2, armed, open);
-  if (set.id !== DEFAULT_CONTROL_SET_ID) drawSetName(ctx, l, set, time);
 
   ctx.restore();
   if (locked) drawLock(ctx, l);
@@ -149,44 +143,23 @@ function drawHalf(
   }
 }
 
-/**
- * The panel says its own name, but only when it is not the ordinary one.
+/*
+ * **The panel does not say its own name, and it used to.** A named plate hung
+ * on the seam whenever the wave was played on anything but the ordinary panel,
+ * on the argument that a set is a whole panel and the surest way for that to
+ * read wrong is for it to read as the usual band with something swapped in.
  *
- * A set is a whole panel and not a button that got added, and the surest way
- * for that to read wrong is for it to read as the usual band with something
- * swapped in while nobody was looking. A named plate on the seam answers that
- * before the first beat. The default stays anonymous on purpose: a label that
- * is always there is furniture, and furniture is not read.
- *
- * Left-aligned against the edge, so it never collides with the strip captions,
- * which are centred.
+ * The owner watched it over player 2's plate and said plainly: *do not show the
+ * panel name or variant in the game.* He is right, and the standard ladder is
+ * why. A rung is not a variant the pair is meant to notice — it is the panel
+ * they have, and the whole of what the ladder is for is that the buttons they
+ * hold are the ones the wave asks for and nothing announces the ones that are
+ * missing. A label naming STANDARD 2 tells a player there is a STANDARD 3, which
+ * is a fact about the game's construction and not about the wave in front of
+ * them. Which panel a wave is played on is answered where that question is
+ * actually asked: the CONTROLS page in the menu, and the director's own PANELS
+ * tab (`tools/director/src/controlsets-page.ts`).
  */
-function drawSetName(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  set: ControlSet,
-  time: number,
-): void {
-  const y = l.bandTop + l.bandHeight * 0.06;
-  ctx.font = '700 8px "Courier New",monospace';
-  ctx.textAlign = "left";
-  const w = ctx.measureText(set.name).width + 14;
-  // A lozenge rather than a rectangle: the plate hangs off a membrane now, and
-  // a square corner on it would be the only one on the panel.
-  ctx.beginPath();
-  ctx.roundRect(5, y - 6, w, 13, 6.5);
-  ctx.fillStyle = "rgba(12,7,28,.86)";
-  ctx.fill();
-  ctx.strokeStyle = PALETTE.pod;
-  ctx.lineWidth = 1;
-  ctx.globalAlpha = 0.65 + 0.15 * Math.sin(time * 1.4);
-  ctx.stroke();
-  ctx.globalAlpha = 1;
-  ctx.fillStyle = PALETTE.pod;
-  ctx.fillText(set.name, 12, y + 3);
-  ctx.font = '9px "Courier New",monospace';
-  ctx.textAlign = "center";
-}
 
 /**
  * The band, put out.

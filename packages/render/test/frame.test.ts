@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it } from "bun:test";
-import { buildQueue, CONTROL_SETS, controlSetForWave } from "@neon-spore/content";
+import { buildQueue, CONTROL_SETS, control, controlSetForWave } from "@neon-spore/content";
 import { createWorld, step, ticksPerBeat } from "@neon-spore/sim";
 import { Canvas2DRenderer } from "../src/canvas2d.js";
 import type { ViewRole } from "../src/layout.js";
@@ -86,6 +86,14 @@ describe("the guard lapsing", () => {
  * whose shipped wave is not on the lance panel, is drawn with the lance panel
  * the moment `controls` says so, and drawn without it the moment `controls`
  * is left unset — the same object, the same `world.wave`, two different frames.
+ *
+ * **What is read off the frame is the buttons, not a plate naming the panel.**
+ * It used to be the latter, and the band drew no such plate any more: the owner
+ * asked for the panel's name to come off the playing screen entirely, because a
+ * label reading STANDARD 2 tells a player there is a STANDARD 3 (`band.ts`).
+ * The lobes are the better witness anyway — the lance panel trades the maw for
+ * the lance, so the two frames differ by which of those two buttons is on the
+ * band, which is the difference the override actually makes.
  */
 describe("the band draws the panel it is handed", () => {
   const lance = CONTROL_SETS.find((s) => s.id === "lance");
@@ -119,8 +127,15 @@ describe("the band draws the panel it is handed", () => {
     // world.wave is 0, and the shipped wave there is not the lance panel —
     // proof that a match below cannot be `controlSetForWave` agreeing by luck.
     expect(controlSetForWave(world.wave).id).not.toBe(lance.id);
+    const lanceLobe = control("lance").label;
+    const mawLobe = control("intake").label;
 
-    expect(drawnNames(world)).not.toContain(lance.name);
-    expect(drawnNames(world, lance)).toContain(lance.name);
+    const shipped = drawnNames(world);
+    expect(shipped).not.toContain(lanceLobe);
+    const overridden = drawnNames(world, lance);
+    expect(overridden).toContain(lanceLobe);
+    // And the trade in the other direction, so the override is a whole panel
+    // rather than a button added to the one the wave already had.
+    expect(overridden).not.toContain(mawLobe);
   });
 });
