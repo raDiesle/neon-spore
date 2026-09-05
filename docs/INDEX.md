@@ -594,6 +594,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-carom.ts` | **What THE CAROM and the body it throws out sound like**: a wall, a crack, an ejection and a canopy |
 | `packages/audio/src/bind-volley.ts` | **What THE VOLLEY sounds like**: a ward that sends it back |
 | `packages/audio/src/bind-fleet.ts` | **What THE FLEET sounds like**: a salvo leaving the cannon, and the water |
+| `packages/audio/src/bind-breach.ts` | What a hull breach sounds like, split by what it cost rather than by what hit |
 
 ### apps/game
 

@@ -247,27 +247,3 @@ jump and before the ticks. It has to go through the boss's own phase entry
 comes up at the wrong angle with the last round's lock still on it. `handle.ts`
 is where `window.neonSpore` is assembled and is already at the seam this
 belongs on: everything in it is about being driven from outside.
-
-## `hull.breachHeavy` has never played: the threshold is in the wrong unit
-
-- **Found:** 2026-09-05, claude/lure-shot-explosion-damage-e398f9
-- **Taken:** 2026-09-05, claude/queue-hull-breachheavy-has-never-played-the-threshold
-- **Files:** `packages/audio/src/bind.ts`, `packages/audio/test/bind.test.ts`
-
-`bind.ts` splits a hull breach by what it cost — `e.damage >= 8000 ?
-"hull.breachHeavy" : "hull.breachLight"` — and its own test proves the split
-with `damage: 20_000` and `damage: 3_000`, which are thousandths. The
-simulation emits whole hull points: `breachHull` is called with
-`damageMeteor` (20), `damageCarom` (20), `damageGhostDive` (18),
-`damageCreature` (12), and now a lure's blast share (5). Every one of them is
-under 8000, so the comparison is always false and the heavy cue — "the plate
-going. A long low tear with the room shaking after it." — has never been heard
-in the running game. A rock reaching the hull sounds exactly like a slick
-brushing it.
-
-Decide the unit and hold it in one place. The event's `damage` is in whole
-points (`events.ts` should say so), so the threshold belongs there in points
-too — somewhere between `damageCreature` and `damageMeteor`, so a rock is heavy
-and an ordinary arrival is not. Fix the test fixtures along with it: they are
-the reason this survived, since both of them pass whichever unit the code
-means.

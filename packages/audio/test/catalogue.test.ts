@@ -101,7 +101,9 @@ describe("the catalogue", () => {
  * a list of two files quietly reported eight sounds as played by nothing.
  * `mixer-boss.ts` came off `mixer.ts` the same way, with the queen's and THE
  * MIRROR's cues in it. `bind-carom.ts` came off `bind-creatures.ts` in its own
- * turn, with THE CAROM's four. `docs/spec/audio.md` names this list as well,
+ * turn, with THE CAROM's four. `bind-breach.ts` came off `bind.ts` when the
+ * argument for what makes a breach heavy grew past what that file had room
+ * for. `docs/spec/audio.md` names this list as well,
  * and "the document" below holds the two together so a sixth file cannot be
  * added to one alone.
  */
@@ -111,6 +113,7 @@ const WIRING = [
   "packages/audio/src/bind-carom.ts",
   "packages/audio/src/bind-volley.ts",
   "packages/audio/src/bind-fleet.ts",
+  "packages/audio/src/bind-breach.ts",
   "packages/audio/src/mixer.ts",
   "packages/audio/src/mixer-boss.ts",
 ];

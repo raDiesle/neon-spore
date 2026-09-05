@@ -1,8 +1,9 @@
 import { describe, expect, it } from "bun:test";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import type { SimEvent } from "@neon-spore/sim";
+import { DEFAULT_CONFIG, type SimEvent } from "@neon-spore/sim";
 import { cueFor, panForCol, pitchForRow } from "../src/bind.js";
+import { HEAVY_BREACH_DAMAGE } from "../src/bind-breach.js";
 import { hasSound } from "../src/catalogue.js";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "..");
@@ -62,7 +63,7 @@ const SAMPLES: Record<string, SimEvent> = {
   breach: {
     type: "breach",
     col: 5,
-    damage: 12_000,
+    damage: 12,
     span: 1,
     kind: "slick",
     fromRow: 10,
@@ -175,20 +176,43 @@ describe("bindings", () => {
     expect(ids).toEqual(["beat.accent", "beat.tick", "beat.tick", "beat.tick", "beat.accent"]);
   });
 
+  /**
+   * **In whole hull points, which is the unit the event carries.** The
+   * threshold was `8000` — thousandths — and every damage the simulation emits
+   * is under 20, so the comparison was always false and the heavy cue had
+   * never played: a rock reaching the hull sounded exactly like a slick
+   * brushing it. This test is the reason it survived, because `20_000` and
+   * `3_000` fall on the right side of the line whichever unit is meant. The
+   * fixtures are the simulation's own numbers now, so they cannot.
+   */
   it("splits a breach by what it cost, not by what hit", () => {
-    const heavy = {
+    const rock = {
       type: "breach",
       col: 0,
-      damage: 20_000,
+      damage: DEFAULT_CONFIG.damageMeteor,
       span: 1,
       kind: "meteor",
       fromRow: 9,
       color: null,
       beat: 1,
     } as const;
-    const light = { ...heavy, damage: 3_000 };
-    expect(cueFor(heavy, 7, 12)?.id).toBe("hull.breachHeavy");
-    expect(cueFor(light, 7, 12)?.id).toBe("hull.breachLight");
+    const body = { ...rock, damage: DEFAULT_CONFIG.damageCreature, kind: "slick" as const };
+    expect(cueFor(rock, 7, 12)?.id).toBe("hull.breachHeavy");
+    expect(cueFor(body, 7, 12)?.id).toBe("hull.breachLight");
+  });
+
+  /**
+   * And the line itself, held against the numbers either side of it rather
+   * than against a repeat of `15`. A body that merely arrived is light; a rock
+   * and the one arrival that *aimed* at the ship are heavy. Move either
+   * config value across the line and this fails, which is the whole of what
+   * kept the old threshold from being noticed.
+   */
+  it("draws the line between an arrival and a rock", () => {
+    expect(DEFAULT_CONFIG.damageCreature).toBeLessThan(HEAVY_BREACH_DAMAGE);
+    expect(DEFAULT_CONFIG.damageGhostDive).toBeGreaterThanOrEqual(HEAVY_BREACH_DAMAGE);
+    expect(DEFAULT_CONFIG.damageMeteor).toBeGreaterThanOrEqual(HEAVY_BREACH_DAMAGE);
+    expect(DEFAULT_CONFIG.damageCarom).toBeGreaterThanOrEqual(HEAVY_BREACH_DAMAGE);
   });
 
   it("gives each of THE MIRROR's steps its own sound", () => {

@@ -37,6 +37,10 @@ export type SimEvent =
   | {
       type: "breach";
       col: number;
+      /** What it cost the hull, in **whole points** — `damageMeteor` and its
+       * neighbours in `SimConfig`, never thousandths. `packages/audio` splits
+       * the cue on it and read it as thousandths for a while, which meant the
+       * heavy one never played. */
       damage: number;
       span: number;
       kind: Creature["kind"];

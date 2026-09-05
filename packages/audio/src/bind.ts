@@ -12,6 +12,7 @@
  */
 
 import type { SimEvent } from "@neon-spore/sim";
+import { breachCue } from "./bind-breach.js";
 import { caromCue } from "./bind-carom.js";
 import { creatureCue } from "./bind-creatures.js";
 import { fleetCue } from "./bind-fleet.js";
@@ -128,12 +129,7 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "podLost":
       return { id: "pod.lost", pan: panForCol(e.col, cols) };
     case "breach":
-      // The split is by what it cost, not by what hit: the pair needs to know
-      // how bad it was before it needs to know what did it.
-      return {
-        id: e.damage >= 8000 ? "hull.breachHeavy" : "hull.breachLight",
-        pan: panForCol(e.col, cols),
-      };
+      return breachCue(e, cols);
     case "tether":
       // A rope coming down out of the rim. Both screens hear it, and only one
       // of them has a hand free to answer it.
