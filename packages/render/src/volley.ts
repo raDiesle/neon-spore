@@ -13,6 +13,7 @@ import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { rockRadius } from "./torch.js";
+import { drawCracks } from "./volley-cracks.js";
 import { drawSeams } from "./volley-seams.js";
 
 /**
@@ -58,16 +59,25 @@ import { drawSeams } from "./volley-seams.js";
  */
 
 /**
- * How far the ball stands off the body's own tile radius. `rockRadius` at the
- * body's span, the number `drawMeteor` reads, so a volley and the rocks it
- * shares a field with are the same size and the pair reads "rock" before they
- * read anything else.
+ * How far the ball stands off the body's own tile radius.
+ *
+ * It was one — `rockRadius` exactly, so a volley and the rocks it shares a
+ * field with were the same size — and the owner's report was that the thing
+ * inside was not *inside* it. He is right, and the arithmetic says why: a
+ * living body is drawn at `l.tile * 0.4` on its longest axis and its contour
+ * is a blob, so a slick's lobes reach `1 + SLICK.depth` past that before the
+ * outline stroke and the glow have been added. A shell at the same radius is a
+ * shell the body pokes out of on both flanks.
+ *
+ * Half again over, which clears a slick's widest lobe with room for the light
+ * to escape between the two. It does make a volley visibly bigger than a plain
+ * meteor, and that is the right trade: a rock is a rock whatever size it is,
+ * and a ball with something sealed in it has to look like it could hold one.
  */
-const BALL_MUL = 1.0;
+const BALL_MUL = 1.55;
 /** How much the ball shudders while a ward is carrying it up, as a share of
  * its radius. Only while climbing: a shell under load looks like one. */
 const SHUDDER = 0.05;
-
 /**
  * Whether the body sealed inside is drawn at all — false while every plate is
  * still on, which is the whole of the first state the owner asked for.
@@ -144,6 +154,11 @@ export function drawVolleyShell(
   ctx.save();
   if (plates < total) ctx.clip(remaining(lead, total, plates, r));
   fillRock(ctx, ball, r, turn);
+  // And the damage on what is left of it. Inside the same clip as the stone,
+  // because a crack is a fault in material and there is none where the
+  // material has gone — a fracture drawn across the empty sector would be a
+  // line hanging in front of the body.
+  if (plates < total) drawCracks(ctx, ball, r, turn, total - plates, c.id, metal);
   ctx.restore();
   drawFrame(ctx, ball, turn, metal);
   drawSeams(ctx, ball, r, turn, glow);
