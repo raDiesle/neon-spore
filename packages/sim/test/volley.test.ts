@@ -155,9 +155,28 @@ describe("what a ward does", () => {
     const { world, events } = run([volley(3)], tickAtRow(SHIELD) + 1, warding(3, HULL), LANE);
     expect(returns(events)).toHaveLength(1);
     expect(returns(events)[0]!.row).toBe(SHIELD);
-    // And it is already going the other way on the same beat — the ward is a
-    // hit back rather than a body held against the dome.
-    expect(volleyIsClimbing(only(world)!)).toBe(true);
+    // And it has **already left** on the same tick, from the row the shield
+    // answered on. This is the owner's third report as a number: the body used
+    // to finish the descent it was being drawn along and only reverse on the
+    // next beat, which reads as the dome swallowing it.
+    const body = only(world)!;
+    expect(body.fromRow).toBe(SHIELD);
+    expect(body.row).toBe(SHIELD - LANE.volleyRiseRows);
+    expect(volleyIsClimbing(body)).toBe(true);
+  });
+
+  /**
+   * A press a shade late is answered on the ship's own row — a rock gets three
+   * beats and so does this — and it still turns **at the dome**. Otherwise the
+   * pair sees the ball go into the hull and come back out of it.
+   */
+  it("turns from the dome even when the ward lands a beat late", () => {
+    const late = tickAtRow(HULL);
+    const inputs = [shield(0, 3), guard(late - 1)];
+    const { world, events } = run([volley(3)], late + 1, inputs, LANE);
+    expect(returns(events)[0]!.row).toBe(SHIELD);
+    expect(only(world)!.fromRow).toBe(SHIELD);
+    expect(only(world)!.row).toBe(SHIELD - LANE.volleyRiseRows);
   });
 
   it("leaves it on the field, takes a plate and sends it back up", () => {
@@ -188,7 +207,9 @@ describe("what a ward does", () => {
   it("climbs volleyRiseBeats and then falls again, down the same column", () => {
     const at = tickAtRow(SHIELD);
     const inputs = warding(3, HULL);
-    const top = run([volley(3)], at + TPB * LANE.volleyRiseBeats + 1, inputs, LANE);
+    // `volleyRiseBeats - 1`, because the first of them is spent on the tick of
+    // the ward itself rather than on the beat after it.
+    const top = run([volley(3)], at + TPB * (LANE.volleyRiseBeats - 1) + 1, inputs, LANE);
     const climbed = only(top.world)!;
     expect(climbed.row).toBe(SHIELD - LANE.volleyRiseRows * LANE.volleyRiseBeats);
     expect(volleyIsClimbing(climbed)).toBe(false);
@@ -196,18 +217,22 @@ describe("what a ward does", () => {
     // hit back rather than as a nudge.
     expect(LANE.volleyRiseRows).toBeGreaterThan(1);
     // And one beat later it is coming down again, a tile a beat, in its lane.
-    const after = only(
-      run([volley(3)], at + TPB * (LANE.volleyRiseBeats + 1) + 1, inputs, LANE).world,
-    )!;
+    const after = only(run([volley(3)], at + TPB * LANE.volleyRiseBeats + 1, inputs, LANE).world)!;
     expect(after.row).toBe(climbed.row + 1);
     expect(after.col).toBe(3);
   });
 });
 
 describe("the count, and what is left at the end of it", () => {
-  /** One rally: the climb, and then the same rows back down at a tile a beat. */
-  const RALLY = LANE.volleyRiseBeats + LANE.volleyRiseRows * LANE.volleyRiseBeats;
-  const HATCH_BEAT = SHIELD + 1 + RALLY * (LANE.volleyPlates - 1) + LANE.volleyRiseBeats;
+  /**
+   * One rally: the rows the climb buys, back down again at a tile a beat, plus
+   * the beats of climb that are *not* the ward's own tick — the first step is
+   * taken the instant the shield answers, so a rally is one beat shorter than
+   * the arithmetic looks.
+   */
+  const CLIMB_AFTER = LANE.volleyRiseBeats - 1;
+  const RALLY = CLIMB_AFTER + LANE.volleyRiseRows * LANE.volleyRiseBeats;
+  const HATCH_BEAT = SHIELD + 1 + RALLY * (LANE.volleyPlates - 1) + CLIMB_AFTER;
 
   it("takes exactly volleyPlates wards, and the last one opens it", () => {
     const { world, events } = run(

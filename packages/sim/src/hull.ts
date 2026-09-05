@@ -104,7 +104,7 @@ export function resolveHull(world: World): void {
       // Turned. Most bodies leave the field here; a volley is hit back *up*
       // it and comes down again, which is the one thing about a ward that is
       // a fact about the creature rather than about the shield (`ward.ts`).
-      if (wardTurns(world, c)) survivors.push(c);
+      if (wardTurns(world, c, guardRow)) survivors.push(c);
       continue;
     }
 

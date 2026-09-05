@@ -118,16 +118,15 @@ export function volleyFloor(cfg: SimConfig): number {
 }
 
 /**
- * One beat of a volley that is **climbing**, in place of the fall it would
- * otherwise take. A falling one is never brought here: `beat.ts` lets it
- * through to the ordinary fall, which is the whole of "it is a rock until the
- * shield says otherwise".
+ * One beat of the climb, and the check at the top of it.
  *
- * The climb has no clamp of its own beyond the top of the field: a ward taken
- * in the first rows leaves it on row zero and it comes down again, which is
- * the honest picture of a hit that had nowhere left to push it.
+ * Shared by the beat that *starts* the climb and every beat after it, which is
+ * the whole of why it is a function: the first step is taken inside
+ * `volleyReturn`, on the tick the trigger landed, and a second copy of "go up
+ * and see whether that was the top" is how a shell that ran out of plates on
+ * the first step would fail to open at all.
  */
-export function stepVolley(world: World, c: Creature): void {
+function climb(world: World, c: Creature): void {
   c.row = Math.max(0, c.row - world.cfg.volleyRiseRows);
   c.volleyRise = volleyClimbLeft(c) - 1;
   // The top of the climb. A shell with nothing left holding it comes apart
@@ -140,21 +139,56 @@ export function stepVolley(world: World, c: Creature): void {
 }
 
 /**
+ * One beat of a volley that is **climbing**, in place of the fall it would
+ * otherwise take. A falling one is never brought here: `beat.ts` lets it
+ * through to the ordinary fall, which is the whole of "it is a rock until the
+ * shield says otherwise".
+ *
+ * The climb has no clamp of its own beyond the top of the field: a ward taken
+ * in the first rows leaves it on row zero and it comes down again, which is
+ * the honest picture of a hit that had nowhere left to push it.
+ */
+export function stepVolley(world: World, c: Creature): void {
+  climb(world, c);
+}
+
+/**
  * A ward met a whole volley. Returns true when the body **stays on the field**,
  * which it always does — a plate comes off, the shell throws it back up the
  * way it came, and only the plate count says whether this was the last one.
+ *
+ * **It turns at `guardRow`, on the tick the trigger landed, and both halves of
+ * that are the owner's third report about this creature.** It used to set a
+ * count and leave: the body finished the descent it was already being drawn
+ * along, spent the rest of that beat going *down*, and only reversed on the
+ * next one — and a press made a shade late turned it from the ship's own row
+ * instead, a row inside the dome. Watched at tempo that is not a bounce, it is
+ * the shield swallowing something and coughing it up.
+ *
+ * So the row the shield answered on is written into `fromRow` and the first
+ * step of the climb is taken here, in the same tick. `recoilStruck` makes
+ * exactly this move for exactly this reason and its own comment says so: a
+ * body that moves mid-tick has to carry where it came from, or render draws it
+ * sliding out of a tile it has already left. What the pair sees is the ball
+ * touch the dome and leave.
  *
  * Called from `ward.ts` rather than from `hull.ts`, so that what the shield
  * does to a body is one question with one answer and the exception is owned by
  * the creature that has it (`impactDamage` is the same arrangement pointed at
  * the hull).
  */
-export function volleyReturn(world: World, c: Creature): boolean {
+export function volleyReturn(world: World, c: Creature, guardRow: number): boolean {
   const left = Math.max(0, volleyPlatesLeft(c) - 1);
   c.volleyPlates = left;
   c.volleyRise = world.cfg.volleyRiseBeats;
+  // Off the dome, whichever row the fall had actually reached. A rock gets
+  // three beats to be answered on and so does this — but all three of them
+  // turn it in the same place, because the place is where the shield is.
+  c.fromRow = guardRow;
+  c.row = guardRow;
+  climb(world, c);
   world.score += world.cfg.scoreVolleyReturn;
-  world.events.push({ type: "volleyReturn", id: c.id, col: c.col, row: c.row, left });
+  world.events.push({ type: "volleyReturn", id: c.id, col: c.col, row: guardRow, left });
   return true;
 }
 

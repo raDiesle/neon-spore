@@ -30,7 +30,7 @@ import type { World } from "./world.js";
  * half, and whether the thing they turned is gone or merely going the other
  * way is a fact about the creature and not about the ward.
  */
-export function wardTurns(world: World, c: Creature): boolean {
+export function wardTurns(world: World, c: Creature, guardRow: number): boolean {
   world.guard.tries += 1;
   world.guard.deflected += 1;
   markMoment(world, true);
@@ -41,8 +41,14 @@ export function wardTurns(world: World, c: Creature): boolean {
   world.score += world.cfg.scoreDeflect;
 
   // A volley is hit back up the field rather than off it — a plate of shell
-  // comes off and it falls again from higher up, into a column nobody agreed
-  // on (`volley.ts`).
+  // comes off and it falls again from higher up (`volley.ts`).
+  //
+  // `guardRow` is handed on rather than looked up, and it is the whole of the
+  // owner's third report about this creature: the row the shield **answered
+  // on** is where the body has to be seen to turn, and that is a fact this
+  // caller already has. A rock never needed it — it leaves the field, and
+  // `rockImpactFx` draws the bounce with its own timing — but a body that
+  // stays has to bounce off the dome rather than off wherever it had got to.
   //
   // It gets **no `deflect` event**, and that is a decision rather than an
   // omission: `ingestDeflect` throws a tumbling rock away from the dome
@@ -50,7 +56,7 @@ export function wardTurns(world: World, c: Creature): boolean {
   // the pair would be shown two of it. `volleyReturn` is the event, and it
   // says the one thing this moment means — that was a ward, and it is coming
   // back.
-  if (c.kind === "volley") return volleyReturn(world, c);
+  if (c.kind === "volley") return volleyReturn(world, c, guardRow);
 
   world.events.push({
     type: "deflect",
