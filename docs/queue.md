@@ -320,28 +320,6 @@ behind them (`docs/looks.md`, `docs/queue.md`'s own preamble) — and move the
 prose there, leaving what a session has to *do*. Then put the missing
 `bun run sweep` line in the commands table with the room that buys.
 
-## `drawCreatures`' body chain is an `else if` run a new line can sever
-
-- **Found:** 2026-09-05, claude/veer-meteor-type-01a303
-- **Taken:** 2026-09-05, claude/queue-drawcreatures-body-chain-is-an-else-if-run-a-new
-- **Files:** `packages/render/src/creatures.ts`, `packages/render/test/frame.test.ts`
-
-The loop in `drawCreatures` picks a body's draw path with one long
-`if / else if` chain — torch, rock, ghost, wisp, lid, then a fall-through to
-`drawLiving`. Adding THE VEER put a plain `if` between two rungs of it, which
-severed the chain silently: every kind after the cut fell through to
-`drawLiving`, and a torch was asked for a silhouette it has not got. Four frame
-tests caught it, but only because those kinds happen to throw — a kind that
-merely looked wrong would have shipped.
-
-Replace the chain with a lookup or a `switch` on `c.kind` whose default is
-`drawLiving`, so the choice of draw path is a table rather than a shape a new
-statement can break. The bodies laid *over* another one — the carom's crust,
-the volley's shell, the recoil's cage, the veer's rider — stay as the separate
-`if`s they already are below it; what moves is only the exclusive half. The
-existing `*-frame.test.ts` files are the proof, and `bun run check` is the whole
-of it.
-
 ## `bun run frames` cannot photograph a burst: sparks move only when it paints
 
 - **Found:** 2026-09-05, claude/explosion-color-matching-464ec1
