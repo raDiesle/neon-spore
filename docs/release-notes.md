@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · bb36a4a — The heavy breach is heard for the first time
+
+`bind.ts` split a hull breach on `e.damage >= 8000`, which is a number in thousandths, and the event carries whole hull points. `breachHull` is called with `damageMeteor` (20), `damageCarom` (20), `damageGhostDive` (18), `damageCreature` (12) and a lure's blast share (5) — so the comparison was always false and the heavy cue, *the plate going, a long low tear with the room shaking after it*, has never played in the running game. A rock reaching the hull sounded exactly like a slick brushing it.
+
 ## 2026-09-05 · bf390f8 — A refused push says why, and where the trunk stands
 
 `bun run push` printed `error.message.split("\n")[0]`, and git's first line on a refused push is the remote's URL — so a session that had just landed was told `✗ origin was not updated: To https://github.com/…` and nothing else. The reason is on the lines under it, along with the hint that is usually the whole answer. With none of it in hand the only way to find out is to run the push again by hand, which the repository's own guard hook refuses.
