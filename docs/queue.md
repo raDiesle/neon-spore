@@ -89,26 +89,6 @@ entry that already has one is refused rather than overwritten.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
-## Hold `docs/spec/briefings.md`'s wave numbers against `WAVES` with a test
-
-- **Found:** 2026-09-05, claude/tutorial-reset-wave-fixes-ea7302
-- **Taken:** 2026-09-05, claude/queue-hold-docs-spec-briefings-md-s-wave-numbers-again
-- **Files:** `docs/spec/briefings.md`, `packages/content/test/waves.test.ts`
-
-The right-hand column of the table in §1 names each teaching block's wave as a
-number and a name — `5 · THE ROCK`, `16 · BULB QUEEN`. Nothing checks it, and
-every wave inserted before one of those rows moves all of them by one. It was
-already wrong before this lane touched it: the bosses row read `16–19, 23` when
-THE VANE had been at 27 for some time, and the bestiary row read `20–26` over
-a range that had grown.
-
-Parse the `N · NAME` cells out of the table and assert that `WAVES[N - 1].name`
-is that name, with a message naming the row. The names in the table are the
-handles a person reads, so the test should key on them and let the numbers be
-what it checks. Rows that name a *range* rather than a wave (`17–21, 28`)
-cannot be checked that way — either give those rows their waves by name too, or
-skip anything that is not a single `N · NAME` and say so in the test.
-
 ## Move apps/server off the miniflare alpha when a stable 5 ships
 
 - **Found:** 2026-09-03, claude/bun-queue-list-command-5a8695
@@ -281,3 +261,30 @@ tick the event fires on and then let the picture catch up. The tool's own tests
 in `tools/frames/test/` are where it is proved; `opening.ts` already counts
 painted frames rather than ticks for a rehearsal and is the shape to copy.
 f91f97a5 (Queue: bun run frames cannot photograph a spark burst)
+
+## Row 8 of `docs/spec/briefings.md` §1 names a range, and the range is wrong
+
+- **Found:** 2026-09-05, claude/queue-items-bj85ja
+- **Files:** `docs/spec/briefings.md`, `packages/content/test/waves.test.ts`
+
+The right-hand column of that table now names its waves as `N · NAME` cells
+and `packages/content/test/waves.test.ts` holds every one of them against
+`WAVES`. Row 8, "the rest of the bestiary", is the one cell it skips, because
+it still reads `22–27` — a range, which the test says out loud that it cannot
+check.
+
+The range is not merely uncheckable, it is untrue, and the subject list beside
+it has drifted further than the numbers. **The runt was retired for THE LURE**
+(`packages/content/src/index.ts` says so where the spare contour is kept), so
+the first subject names a creature the game has not got. **The pods and the
+rock speed tiers are taught on THE PURGE (30) and THE WARD (31)**, both
+outside `22–27` — the merge note four paragraphs below the table already says
+"THE WARD carries the pod and all three rock speed tiers".
+
+Read the guides on waves 22 to 31 and give the row its waves by name, the way
+row 7 now has them. That is a reading rather than an arithmetic fix, which is
+why it was not done by the lane that wrote the test: the question is which
+wave teaches which subject, and the guides are the only place that answers it.
+The test needs no change — a cell that names waves is checked the moment it
+names them — but its paragraph about the skipped row should go once nothing is
+skipped.

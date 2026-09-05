@@ -125,7 +125,7 @@ the two can be compared by opening the wave.
 | 4 | **The torch** | two columns wide, the fastest thing in the field, and only on p1's strip | p1 sees it coming, p2 must cover both columns | 8 · TORCH |
 | 5 | **The pod** | shooting it loose is half of getting it; then it sinks and drifts | p2 frees it, p1 chases and opens the maw | 14 · SALVAGE |
 | 6 | **The queen** | two marks, one real; she opens for two beats; a torch drops every eight | p1 sees *what*, p2 sees *where* | 16 · BULB QUEEN |
-| 7 | **The bosses** | the mirror, the maze, the gauge, the warden and its line, the vane | one guide each, on their own wave | 17–21, 28 |
+| 7 | **The bosses** | the mirror, the maze, the gauge, the warden and its line, the vane | one guide each, on their own wave | 17 · THE MIRROR, 18 · THE MAZE, 19 · THE GAUGE, 20 · THE WARDEN, 28 · THE VANE |
 | 8 | **The rest of the bestiary** | the runt, the throb, the shell, the pods, the rock speed tiers | one guide each | 22–27 |
 
 **The grip and the lance are still the odd ones out**, and neither has a guide.

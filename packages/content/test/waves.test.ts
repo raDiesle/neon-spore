@@ -350,3 +350,53 @@ describe("wave content", () => {
     }
   });
 });
+
+/**
+ * **§1 of `docs/spec/briefings.md` names a wave by number, and nothing checked
+ * it.** The right-hand column of that table is a record of where each teaching
+ * block landed — `5 · THE ROCK`, `16 · BULB QUEEN` — and every wave inserted
+ * before one of those rows moves all of them by one. It was already wrong
+ * before anybody looked: the bosses row read `16–19, 23` while THE VANE had
+ * been at 27 for some time.
+ *
+ * The names are the handles a person reads, so the test keys on them and lets
+ * the numbers be what it checks. **A cell that names a range rather than a
+ * wave is skipped**, and there is one — row 8, whose subject list has drifted
+ * further than a number: the runt was retired for THE LURE, and the pods and
+ * the rock speed tiers are taught on THE PURGE and THE WARD, outside the
+ * `22–27` it claims. Naming its waves is a reading of the guides rather than
+ * an arithmetic fix, so it is queued rather than guessed at here.
+ */
+describe("the briefings spec's wave numbers", () => {
+  const BRIEFINGS = new URL("../../../docs/spec/briefings.md", import.meta.url);
+
+  /** Every `N · NAME` a row of §1's table points at, with the row it is in. */
+  function named(md: string): { row: string; wave: number; name: string }[] {
+    const from = md.indexOf("## 1 · What has to be taught");
+    if (from === -1) throw new Error("briefings.md has no '## 1' section to read");
+    const to = md.indexOf("\n## ", from + 1);
+    const section = md.slice(from, to === -1 ? undefined : to);
+    const out: { row: string; wave: number; name: string }[] = [];
+    for (const line of section.split("\n")) {
+      const cells = line.split("|").map((c) => c.trim());
+      // A table row of this table: leading empty cell, a block number, and the
+      // wave column last. The header and the `|---|` separator have neither.
+      if (cells.length < 3 || !/^\d+$/.test(cells[1] ?? "")) continue;
+      const waves = cells.at(-2) ?? "";
+      for (const [, n, name] of waves.matchAll(/(\d+)\s*·\s*([^,|]+)/g)) {
+        out.push({ row: cells[2] ?? line, wave: Number(n), name: (name ?? "").trim() });
+      }
+    }
+    return out;
+  }
+
+  it("reads the table, so a reformatted one cannot pass vacuously", async () => {
+    expect(named(await Bun.file(BRIEFINGS).text()).length).toBeGreaterThanOrEqual(6);
+  });
+
+  it("points every named wave at the wave that carries that name", async () => {
+    for (const { row, wave, name } of named(await Bun.file(BRIEFINGS).text())) {
+      expect(WAVES[wave - 1]?.name, `briefings.md §1 ${row} says ${wave} · ${name}`).toBe(name);
+    }
+  });
+});
