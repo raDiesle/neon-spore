@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · a7c62570 — Plate THE STRAND's caged beads and put a question mark over the pilot's frame
+
+The pilot's screen already said which beads a shot could not answer, and it said it in six thin arcs at one radius — which on a field of glowing bodies reads as a halo somebody drew badly rather than as armour. Each plate is now a band with a dark face, a rim, a lit outer edge and a rivet, so a caged bead is plainly a plated one from across a phone held at arm's length. The ring still stands outside the contour at every size, so the shape inside is still the shape the pair names.
+
 ## 2026-09-05 · 4b2ef3d2 — Three refused perf runs say the baseline needs an idle machine, not a quiet hour
 
 `bun run perf --save` was tried three times this afternoon and refused three times, by a different wave each time and with the medians moving 30% between runs an hour apart. That is the load being measured rather than the frame, so the parked entry now says what a session must have before it starts, and what to conclude if an idle machine still trips the rule.
