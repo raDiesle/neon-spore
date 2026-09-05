@@ -136,14 +136,12 @@ export function spawnArrivals(world: World): void {
       // heading from the first frame, and what the pair cannot do is be there
       // (`caromOnSpawn`).
       ...(entry.kind === "carom" ? caromOnSpawn(world.cfg, col, span) : {}),
-      // Every plate of shell on, and a heading away from the nearer wall, and
-      // absent on every other kind — so a body the shield simply removes
-      // carries no field at all and every wave written before THE VOLLEY is
-      // byte-for-byte the same world. Derived rather than rolled, for THE
-      // CAROM's reason one line up: both screens see where it is going from
-      // the first frame, and what they cannot agree on is where it will be
-      // after the ward they are about to make (`volleyOnSpawn`).
-      ...(entry.kind === "volley" ? volleyOnSpawn(world.cfg, col, span) : {}),
+      // Every plate of shell on, and absent on every other kind — so a body
+      // the shield simply removes carries no field at all and every wave
+      // written before THE VOLLEY is byte-for-byte the same world. It is the
+      // whole of what a volley arrives with: it falls like a rock from here,
+      // and a rock needs no state to do that (`volleyOnSpawn`).
+      ...(entry.kind === "volley" ? volleyOnSpawn(world.cfg) : {}),
     });
     // A gyre is the one arrival that brings bodies with it: six on its rim,
     // alternating, built from the hub that was just pushed so that they are

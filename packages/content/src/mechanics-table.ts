@@ -114,7 +114,7 @@ export const MECHANICS = {
     carriedBy: "carom",
   },
   volley: {
-    what: "A rock on a diagonal with a slick or a bulb sealed in it. The shield does not destroy it: a ward hits it back up the field, eight rows, taking one plate of shell with it — and it comes down again in a column nobody agreed on. Three wards, and at the top of the last climb the shell bursts in mid-air and what falls out is a plain body the cannon has to finish.",
+    what: "A rock with a slick or a bulb sealed in it, falling a tile a beat like any other. The shield does not destroy it: a ward hits it straight back up the field, six rows, taking one plate of shell with it — and it comes down the same lane again. Three wards, and at the top of the last climb the shell bursts in mid-air and what falls out is a plain body the cannon has to finish. Holding the lane for all three is the whole cost of one.",
     reach: "spawn",
     // A wave names this kind and gives it a colour, the way it does for a
     // carom: the silhouette is the shell's and the colour is the body sealed

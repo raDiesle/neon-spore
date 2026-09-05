@@ -108,20 +108,20 @@ import type { Wave } from "../wave-types.js";
  * has taught so far — *ward it and stop looking at it*. A pair who lift the
  * thumb after a ward that worked lose the ship to the same body.
  *
- * 1. Beat 0, one alone, entered against the left wall so its first diagonal is
- *    the long one. Nothing else on the field for twenty beats, so the pair can
- *    spend the whole rally discovering that a ward sends it back rather than
- *    away, that a plate comes off each time, and that the column they agreed on
- *    is worthless by the time it comes down. It reaches the ship if they give
- *    up on it, and it costs what a rock costs.
- * 2. Beats 20–24, an ordinary bulb under a second volley. This is the wave:
- *    the cannon is wanted in one lane by a body that dies to one shot while
- *    the shield is wanted in another by a body that does not die at all, and
- *    the first volley is bursting open somewhere above both of them.
- * 3. Beats 40–42, a rock and a third volley. The rock takes exactly one ward
- *    and the volley takes three, so the pair has to say which of the two the
- *    shield is going to be under on each beat — and being wrong once about
- *    that is the only mistake in this wave that cannot be taken back.
+ * 1. Beat 0, one alone. Nothing else on the field for twenty beats, so the
+ *    pair can spend the whole rally discovering that a ward sends it back
+ *    rather than away, that a plate comes off each time, and that it comes
+ *    down the same lane — which is what makes the shield a thing they now have
+ *    to *leave* somewhere. It reaches the ship if they give up on it, and it
+ *    costs what a rock costs.
+ * 2. Beats 22–26, an ordinary bulb and then a second volley in the same lane.
+ *    This is the wave: the shield is parked in one column for thirty beats
+ *    while the cannon is wanted in another, and the first volley is bursting
+ *    open somewhere above both of them.
+ * 3. Beats 40–46, a rock in the first volley's old lane and a slick beside it.
+ *    The rock takes exactly one ward and the volley takes three, so the pair
+ *    has to say which of the two the shield is under on each beat — and being
+ *    wrong once about that is the only mistake here that cannot be taken back.
  *
  * A volley entry names its kind and its colour, the way a carom does: the
  * silhouette is the shell's and the colour is the body sealed inside it, which
@@ -205,16 +205,16 @@ export const WAVES_ACT_5: Wave[] = [
     name: "THE VOLLEY",
     sentence: "The one where a ward that works is not a body that is gone.",
     guide: {
-      both: "A rock on a diagonal with a body sealed inside it. The shield does not destroy it — a ward hits it back up the field and knocks one plate of shell off on the way, and it comes down again from higher up. Three wards, and the shell bursts open in mid-air over a plain slick or bulb the cannon has to finish.",
-      p1: "Do not lift your thumb off GUARD when it works. That was one of three, and it is already on its way back — then the third one hands it to you, so get under it while it is still falling.",
-      p2: "The lane you called dies the moment the ward lands. Say where it will come down, not where it is, and slide the shield there again — and load the colour you can see through the seams before the last plate goes.",
+      both: "A rock with a body sealed inside it, falling down one lane like any other. The shield does not destroy it — a ward hits it straight back up the field and knocks a plate of shell off on the way, and it comes down the same lane again. Three wards, and the shell bursts open in mid-air over a plain slick or bulb the cannon has to finish.",
+      p1: "Do not lift your thumb off GUARD when it works. That was one of three and it is already on its way back down the same column — and the third one hands it to you, so be under it before the shell opens.",
+      p2: "Hold the lane. It comes back to the same column every time, so leave the shield there and answer everything else around it — and read the colour off the seams while you wait. That is what kills it at the end.",
     },
     entries: [
-      { beat: 0, col: 0, kind: "volley", color: "red" },
-      { beat: 20, col: 4, color: "cyan" },
-      { beat: 24, col: 6, kind: "volley", color: "cyan" },
-      { beat: 40, col: 2, kind: "meteor", color: null },
-      { beat: 42, col: 5, kind: "volley", color: "red" },
+      { beat: 0, col: 1, kind: "volley", color: "red" },
+      { beat: 22, col: 5, color: "cyan" },
+      { beat: 26, col: 5, kind: "volley", color: "cyan" },
+      { beat: 40, col: 1, kind: "meteor", color: null },
+      { beat: 46, col: 3, color: "red" },
     ],
   },
 ];

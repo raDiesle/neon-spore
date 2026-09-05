@@ -1,20 +1,22 @@
 /**
- * THE VOLLEY's numbers: how steeply it comes in, how far a ward throws it back
- * up the field, how many wards it takes and what one is worth (`volley.ts`).
+ * THE VOLLEY's numbers: how many wards it takes, how far each one throws it
+ * back up the field and what one is worth (`volley.ts`).
  *
  * `SimConfig` extends this rather than nesting it, for the reason
  * `config-carom.ts` and `config-recoil.ts` already give: every call site still
- * reads `cfg.volleyRows`, and the split is only about how much of one file a
+ * reads `cfg.volleyPlates`, and the split is only about how much of one file a
  * reader has to hold at once.
  *
- * **Its own file rather than six more rows in `config-creatures.ts`**, which
- * has been over its limit since THE LID. THE CAROM's row next door draws the
- * line at numbers argued *together*, and these are the same case one creature
- * along: the two strides, the climb and the count of plates are a single
- * decision about how long one arrival keeps the pair talking, and a reader who
- * moves one has to check the rest against that length.
+ * **There is no fall in here, and that is the point.** A volley falls a tile a
+ * beat because `fallTilesPerBeat` says so for anything it does not name, drops
+ * through the same `grippedFallTiles` line in `beat.ts` every other body does,
+ * and is clamped onto the ship's row by the same rule that keeps a rock
+ * answerable at the plating. It is turned at `shieldRow` by the same branch of
+ * `resolveHull` a meteor is turned by. Three numbers here and not six: what is
+ * left is only the part a meteor has no answer for, which is what happens
+ * *after* the shield says yes.
  *
- * There is deliberately **no damage figure here**. A volley nobody turned
+ * There is deliberately **no damage figure** either. A volley nobody turned
  * arrives as the rock it looks like and costs `damageMeteor`, through the same
  * `damageSpan` every other warded body goes through — a number of its own
  * would be the pair learning that leaving one alone is cheaper than the rock
@@ -27,57 +29,26 @@ export interface VolleyConfig {
    * one would be a rock, two is a rock said twice, and four is the pair saying
    * the same sentence past the point where saying it again teaches anything.
    *
-   * It is also the readout. There is no health bar — render draws one plate
-   * per one of these still on (`render/volley.ts`), so how many are left is a
-   * thing both seats read off the body from where they are sitting.
+   * It is also the readout. There is no health bar — render fills one sector
+   * of the ball per one of these still on and leaves the rest as bare skeleton
+   * (`render/volley.ts`), so how many are left is a thing both seats read off
+   * the body from where they are sitting.
    */
   volleyPlates: number;
   /**
-   * Rows it drops each beat. Two, which is `meteorMedium`'s speed and
-   * `caromRows` exactly, and it is chosen for the length of the whole arrival
-   * rather than for how fast the body should look: seven beats to the ship and
-   * eight more for every rally after that, which is about twenty seconds of
-   * one body. At one it is thirteen beats a leg and the pair is bored by the
-   * second ward; at three there is no time to say a column before it lands.
-   */
-  volleyRows: number;
-  /**
-   * Columns it crosses when it crosses at all, turning at the side walls the
-   * way THE CAROM does. One, and deliberately far short of `caromCols`: a
-   * carom is a ball nobody can be under in time, and this one has to be
-   * *reachable* — the whole cost of a volley is that the lane the pair agreed
-   * on has moved by the time it comes back, not that it was never reachable.
-   */
-  volleyCols: number;
-  /**
-   * Beats between one column of drift, read off the shared clock the way
-   * `echoFalls` and `wispHops` read theirs. Two, so the body crosses one
-   * column for every two it drops and the diagonal is a lean rather than a
-   * dive.
-   *
-   * It was one — a column every beat against two rows — and the owner's
-   * report was that it fell far too sideways, which it did: at that rate the
-   * lane under it changed on the same beat it reached the ship, so the column
-   * the pair had put the shield in was never the column it landed in. Halving
-   * the drift is the half of that fix that is about the *picture*;
-   * `stepVolley` holding the body still on the ship's own row is the half that
-   * is about the ward.
-   */
-  volleyCrossBeats: number;
-  /**
-   * Rows a ward throws it back up the field each beat of the climb. The same
-   * two it came down at, so the return reads as a bounce rather than as a
-   * second creature: what the shield does to this body is turn it, and a thing
-   * turned goes back the way it came at the speed it arrived.
+   * Rows a ward throws it back up the field each beat of the climb. Three,
+   * which is three times the speed it came down at — a ball hit back leaves
+   * faster than it arrived, and the pair has to be able to see that the thing
+   * they just answered is *going away* rather than hanging over the dome.
    */
   volleyRiseRows: number;
   /**
-   * Beats the climb lasts. Four, so a ward carries it eight rows — more than
-   * half the height of the field, and the shell comes off at row six of
-   * fifteen, which is the middle. Both halves of that matter: less and a pair
-   * would ward it three times without the body ever leaving the bottom of the
-   * screen, more and the third ward would put the hatch off the top where
-   * nobody sees the one moment this creature exists for.
+   * Beats the climb lasts. Two, so a ward carries it six rows — from the
+   * shield's own row to the middle of the field, which is where the shell
+   * bursts after the last one. Both halves matter: fewer and a pair would ward
+   * it three times without the body ever leaving the bottom of the screen,
+   * more and the third ward would put the hatch off the top where nobody sees
+   * the one moment this creature exists for.
    */
   volleyRiseBeats: number;
   /**
@@ -93,10 +64,7 @@ export interface VolleyConfig {
 /** The defaults, spread into `DEFAULT_CONFIG`. */
 export const VOLLEY_DEFAULTS: VolleyConfig = {
   volleyPlates: 3,
-  volleyRows: 2,
-  volleyCols: 1,
-  volleyCrossBeats: 2,
-  volleyRiseRows: 2,
-  volleyRiseBeats: 4,
+  volleyRiseRows: 3,
+  volleyRiseBeats: 2,
   scoreVolleyReturn: 120,
 };

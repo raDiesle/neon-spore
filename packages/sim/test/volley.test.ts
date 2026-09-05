@@ -15,7 +15,7 @@ import {
   step,
   type TimedCommand,
   ticksPerBeat,
-  volleyHeading,
+  volleyFloor,
   volleyIsClimbing,
   volleyPlatesLeft,
   wornKind,
@@ -23,30 +23,32 @@ import {
 import type { Creature } from "../src/types.js";
 
 /**
- * THE VOLLEY: a rock on a diagonal that the shield hits **back up the field**
- * three times before the body inside it is loose.
+ * THE VOLLEY: a rock the shield hits **back up the field** three times before
+ * the body inside it is loose.
  *
  * What is worth pinning here is the half a reader of `volley.ts` cannot check
- * by eye — that a ward really does leave the body on the field, that it takes
- * exactly `volleyPlates` of them and not one more, that the shell bursts in
- * mid-air rather than on the ship, that the cannon is worth nothing until it
- * has, and that a second device walking the same beats arrives at the same
- * fingerprint.
+ * by eye — that it really does fall like every other rock, that it is turned
+ * at the shield's own row rather than a row inside the ship, that a ward
+ * leaves the body on the field, that it takes exactly `volleyPlates` of them
+ * and not one more, that the shell bursts in mid-air, that the cannon is worth
+ * nothing until it has, and that a second device walking the same beats
+ * arrives at the same fingerprint.
  */
 
 const CFG: SimConfig = DEFAULT_CONFIG;
 const TPB = ticksPerBeat(CFG);
 const HULL = hullRow(CFG);
 /**
- * The same creature with the crossing switched off, so a ward can be aimed at
- * a column that stands still.
- *
- * The diagonal is tested on its own below, against the shipped config. Here it
- * would only mean the test had to re-derive where the body was going in order
- * to put the shield there — which is the rule written out a second time, in the
- * one place that must not have a second copy of it.
+ * Where the shield answers it: one row above the ship, written out by hand and
+ * on purpose. Everything below measures against *this* rather than against
+ * `shieldRow` — `guard.test.ts` makes the same move for the same reason, that
+ * a test which asks the rule where the rule is cannot fail when the rule is
+ * wrong, and the owner's report was that it was.
  */
-const LANE: SimConfig = { ...CFG, volleyCols: 0, hullRegenPerSecond: 0 };
+const SHIELD = HULL - 1;
+/** The same run with the hull's mending switched off, so a damage figure is
+ * the damage rather than the damage less a second of regrowth. */
+const LANE: SimConfig = { ...CFG, hullRegenPerSecond: 0 };
 
 const volley = (col: number, color: "red" | "cyan" = "red"): SpawnEntry => ({
   beat: 0,
@@ -106,59 +108,42 @@ function warding(col: number, beats: number): TimedCommand[] {
   return inputs;
 }
 
-/** The tick a volley entered at beat 0 is standing on a given row, coming
- * down: it drops `volleyRows` a beat and lands one beat behind the arrival. */
+/**
+ * The tick a body entered at beat 0 is standing on a given row: a tile a beat,
+ * landing one beat behind the arrival. `guard.test.ts` writes the same line
+ * for the same rocks, and a volley falls at exactly the rate it assumes.
+ */
 function tickAtRow(row: number): number {
-  return TPB * (row / CFG.volleyRows + 1);
+  return TPB * (row + 1);
 }
 
-describe("the diagonal", () => {
-  it("drops volleyRows a beat and crosses only every volleyCrossBeats", () => {
-    const beats = CFG.volleyCrossBeats * 3;
-    const { world } = run([volley(0)], tickAtRow(CFG.volleyRows * beats) + 1);
-    const body = only(world)!;
-    expect(body.row).toBe(CFG.volleyRows * beats);
-    // Three drifts in `beats` beats rather than one a beat, which is what
-    // makes the diagonal a lean rather than a dive.
-    expect(body.col).toBe(CFG.volleyCols * 3);
-    expect(volleyHeading(body)).toBe(1);
-  });
-
-  /**
-   * The owner's report, as a number: *when I reflect it with the shield,
-   * nothing happens.* A rock clamped onto the ship's row stands there for the
-   * beat render spends drawing it arrive, and that beat is the pair's second
-   * and last chance to ward it — so the lane has to be the lane they put the
-   * shield in. It used to go on crossing, and the trigger answered a column
-   * the body had already left.
-   */
-  it("holds its lane once it is standing on the ship", () => {
-    const at = tickAtRow(HULL);
-    const landed = only(run([volley(0)], at + 1).world)!;
-    expect(landed.row).toBe(HULL);
-    // The grace beat, and then the hull: it breaks the ship in the column it
-    // landed in, which is the column the pair had a beat to put the shield in.
-    const { events } = run([volley(0)], at + TPB + 1);
-    const breach = events.find((e) => e.type === "breach");
-    expect(breach && breach.type === "breach" && breach.col).toBe(landed.col);
-  });
-
-  it("sets off away from the nearer wall, so the first crossing is the long one", () => {
-    expect(volleyHeading(only(run([volley(0)], TPB + 1).world)!)).toBe(1);
-    expect(volleyHeading(only(run([volley(CFG.cols - 1)], TPB + 1).world)!)).toBe(-1);
-  });
-
-  it("never leaves the field, and turns on the wall rather than short of it", () => {
-    for (let col = 0; col < CFG.cols; col++) {
-      const { world } = run([volley(col)], tickAtRow(HULL) - 1);
-      const body = only(world)!;
-      expect(body.col, `column ${col}`).toBeGreaterThanOrEqual(0);
-      expect(body.col, `column ${col}`).toBeLessThan(CFG.cols);
+/**
+ * It falls **like a rock**, and the owner's second report is the whole of this
+ * block: it used to come in on a diagonal of its own and be answered a row
+ * below the dome, so it neither looked like a ball nor read as a thing the
+ * shield had hit back.
+ */
+describe("the fall", () => {
+  it("holds its lane the whole way down, a tile a beat", () => {
+    for (const beats of [3, 7, 11]) {
+      const body = only(run([volley(4)], tickAtRow(beats) + 1).world)!;
+      expect(body.row, `after ${beats} beats`).toBe(beats);
+      expect(body.col, `after ${beats} beats`).toBe(4);
     }
   });
 
-  /** A hand is worth nothing against a body with no rate to scale — THE
-   * CAROM's refusal, and the body that comes out of the shell takes one. */
+  it("stands on the shield's own row rather than stepping over it", () => {
+    expect(only(run([volley(4)], tickAtRow(SHIELD) + 1).world)!.row).toBe(SHIELD);
+  });
+
+  it("is clamped onto the ship's row exactly as a rock is", () => {
+    expect(only(run([volley(4)], tickAtRow(HULL) + 1).world)!.row).toBe(HULL);
+    expect(volleyFloor(CFG)).toBe(HULL);
+  });
+
+  /** A hand is worth nothing against a body that spends half its life going
+   * the wrong way for a brake, and the body that comes out of the shell — an
+   * ordinary slick or bulb — takes one again. */
   it("refuses a hand while the shell is on and the body inside takes one", () => {
     expect(isGrippable("volley")).toBe(false);
     expect(isGrippable("slick")).toBe(true);
@@ -166,13 +151,20 @@ describe("the diagonal", () => {
 });
 
 describe("what a ward does", () => {
-  it("leaves it on the field, takes a plate and sends it back up", () => {
-    const { world, events } = run([volley(3)], tickAtRow(HULL) + 1, warding(3, HULL), LANE);
-    const body = only(world)!;
+  it("turns it at the shield's own row, not a row inside the ship", () => {
+    const { world, events } = run([volley(3)], tickAtRow(SHIELD) + 1, warding(3, HULL), LANE);
     expect(returns(events)).toHaveLength(1);
+    expect(returns(events)[0]!.row).toBe(SHIELD);
+    // And it is already going the other way on the same beat — the ward is a
+    // hit back rather than a body held against the dome.
+    expect(volleyIsClimbing(only(world)!)).toBe(true);
+  });
+
+  it("leaves it on the field, takes a plate and sends it back up", () => {
+    const { world, events } = run([volley(3)], tickAtRow(SHIELD) + 1, warding(3, HULL), LANE);
+    const body = only(world)!;
     expect(returns(events)[0]!.left).toBe(LANE.volleyPlates - 1);
     expect(volleyPlatesLeft(body)).toBe(LANE.volleyPlates - 1);
-    expect(volleyIsClimbing(body)).toBe(true);
     // Still a rock with something in it, and the hull is untouched.
     expect(body.kind).toBe("volley");
     expect(hullPercent(world)).toBe(100);
@@ -188,32 +180,34 @@ describe("what a ward does", () => {
    * pair would be shown two of it (`sim/ward.ts`).
    */
   it("says volleyReturn and never deflect, because the body is still there", () => {
-    const { events } = run([volley(3)], tickAtRow(HULL) + 1, warding(3, HULL), LANE);
+    const { events } = run([volley(3)], tickAtRow(SHIELD) + 1, warding(3, HULL), LANE);
     expect(events.filter((e) => e.type === "deflect")).toHaveLength(0);
     expect(events.filter((e) => e.type === "destroy")).toHaveLength(0);
   });
 
-  it("climbs volleyRiseBeats and then falls again, so the same column comes back", () => {
-    const at = tickAtRow(HULL);
+  it("climbs volleyRiseBeats and then falls again, down the same column", () => {
+    const at = tickAtRow(SHIELD);
     const inputs = warding(3, HULL);
     const top = run([volley(3)], at + TPB * LANE.volleyRiseBeats + 1, inputs, LANE);
     const climbed = only(top.world)!;
-    expect(climbed.row).toBe(HULL - LANE.volleyRiseRows * LANE.volleyRiseBeats);
+    expect(climbed.row).toBe(SHIELD - LANE.volleyRiseRows * LANE.volleyRiseBeats);
     expect(volleyIsClimbing(climbed)).toBe(false);
-    // More than half the height of the field, which is what makes the ward
-    // read as a hit back rather than as a nudge.
-    expect(HULL - climbed.row).toBeGreaterThan(CFG.rows / 2);
-    // And one beat later it is coming down again.
-    const after = run([volley(3)], at + TPB * (LANE.volleyRiseBeats + 1) + 1, inputs, LANE);
-    expect(only(after.world)!.row).toBe(climbed.row + LANE.volleyRows);
+    // It leaves faster than it arrived, which is what makes a ward read as a
+    // hit back rather than as a nudge.
+    expect(LANE.volleyRiseRows).toBeGreaterThan(1);
+    // And one beat later it is coming down again, a tile a beat, in its lane.
+    const after = only(
+      run([volley(3)], at + TPB * (LANE.volleyRiseBeats + 1) + 1, inputs, LANE).world,
+    )!;
+    expect(after.row).toBe(climbed.row + 1);
+    expect(after.col).toBe(3);
   });
 });
 
 describe("the count, and what is left at the end of it", () => {
-  /** One rally is `volleyRiseBeats` up and the same distance down again. */
-  const RALLY = LANE.volleyRiseBeats * 2;
-  const HATCH_BEAT =
-    HULL / LANE.volleyRows + RALLY * (LANE.volleyPlates - 1) + LANE.volleyRiseBeats;
+  /** One rally: the climb, and then the same rows back down at a tile a beat. */
+  const RALLY = LANE.volleyRiseBeats + LANE.volleyRiseRows * LANE.volleyRiseBeats;
+  const HATCH_BEAT = SHIELD + 1 + RALLY * (LANE.volleyPlates - 1) + LANE.volleyRiseBeats;
 
   it("takes exactly volleyPlates wards, and the last one opens it", () => {
     const { world, events } = run(
@@ -238,7 +232,7 @@ describe("the count, and what is left at the end of it", () => {
       LANE,
     );
     const hatch = hatches(events)[0]!;
-    expect(hatch.row).toBe(HULL - LANE.volleyRiseRows * LANE.volleyRiseBeats);
+    expect(hatch.row).toBe(SHIELD - LANE.volleyRiseRows * LANE.volleyRiseBeats);
     expect(hatch.row).toBeGreaterThan(0);
     expect(hatch.row).toBeLessThan(HULL);
     expect(hatch.kind).toBe("bulb");
@@ -301,19 +295,19 @@ describe("the two controls, in order", () => {
 });
 
 describe("two devices", () => {
-  it("replays deterministically: crossed, warded, opened and shot", () => {
+  it("replays deterministically: warded, opened and shot", () => {
     const replay = record({
       name: "volley warded three times",
       seed: 6,
       queue: [volley(0, "red"), volley(10, "cyan")],
-      ticks: TPB * 34,
+      ticks: TPB * 40,
       inputs: [
         // The shield walked across the bottom with the trigger down, then the
         // cannon swept the lanes: everything either seat can do to one.
-        ...Array.from({ length: 30 }, (_, beat) => shield(TPB * beat, beat % CFG.cols)),
-        ...Array.from({ length: 30 }, (_, beat) => guard(TPB * beat)),
-        ...Array.from({ length: 30 }, (_, beat) => aim(TPB * beat + 1, (beat * 3) % CFG.cols)),
-        ...Array.from({ length: 30 }, (_, beat) => fire(TPB * beat + 2, beat % 2 ? "cyan" : "red")),
+        ...Array.from({ length: 36 }, (_, beat) => shield(TPB * beat, beat % CFG.cols)),
+        ...Array.from({ length: 36 }, (_, beat) => guard(TPB * beat)),
+        ...Array.from({ length: 36 }, (_, beat) => aim(TPB * beat + 1, (beat * 3) % CFG.cols)),
+        ...Array.from({ length: 36 }, (_, beat) => fire(TPB * beat + 2, beat % 2 ? "cyan" : "red")),
       ],
     });
     const world = runReplay(replay);
@@ -324,7 +318,7 @@ describe("two devices", () => {
   });
 
   it("puts the plates and the climb into the fingerprint, so two devices cannot differ", () => {
-    const at = tickAtRow(HULL) + 1;
+    const at = tickAtRow(SHIELD) + 1;
     const warded = run([volley(3)], at, warding(3, HULL), LANE).world;
     const missed = run([volley(3)], at, [shield(0, 0)], LANE).world;
     expect(hashWorld(warded)).not.toBe(hashWorld(missed));

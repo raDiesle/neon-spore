@@ -57,7 +57,6 @@ const creature = (): Required<Creature> => ({
   recoilBounces: 2,
   caromDir: -1,
   chuteOpen: true,
-  volleyDir: 1,
   volleyPlates: 2,
   volleyRise: 3,
 });

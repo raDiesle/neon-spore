@@ -1,7 +1,6 @@
 import type { CaromDir } from "./carom.js";
 import type { DartDir } from "./dart.js";
 import type { GhostDir } from "./ghost.js";
-import type { VolleyDir } from "./volley.js";
 
 /**
  * **The state one kind carries and no other does.** Every field here is
@@ -209,22 +208,21 @@ export interface CreatureState {
    */
   chuteOpen?: boolean;
   /**
-   * THE VOLLEY's three, and `volley.ts` is the whole of what they mean.
-   * `volleyDir` is which way across the field it is going (`-1` left, `1`
-   * right); `volleyPlates` is how many plates of shell are still on, which is
-   * how many wards it still takes and also how the shell is drawn; and
+   * THE VOLLEY's two, and `volley.ts` is the whole of what they mean.
+   * `volleyPlates` is how many plates of shell are still on, which is how many
+   * wards it still takes and also how much of the ball is drawn filled in; and
    * `volleyRise` is how many beats of the climb a ward has just bought it —
    * absent while it is falling, which is what makes the field's absence the
-   * answer to "which way is this body going".
+   * answer to "which way is this body going" and is what `beat.ts` reads to
+   * decide whether to let it drop like the rock it otherwise is.
    *
-   * Read them through `volleyHeading`, `volleyPlatesLeft` and
-   * `volleyClimbLeft`, never directly. A body that has hatched carries none of
-   * them at all — `hatchVolley` clears the first two and the climb has already
-   * run out — so absent and "not a volley" mean the same thing, and a site
-   * that spelled a fallback again is a site where the shell drawn and the ward
-   * the simulation is holding can disagree about whether this is the last one.
+   * Read them through `volleyPlatesLeft` and `volleyClimbLeft`, never
+   * directly. A body that has hatched carries neither — `hatchVolley` clears
+   * the count and the climb has already run out — so absent and "not a volley"
+   * mean the same thing, and a site that spelled a fallback again is a site
+   * where the shell drawn and the ward the simulation is holding can disagree
+   * about whether this is the last one.
    */
-  volleyDir?: VolleyDir;
   volleyPlates?: number;
   volleyRise?: number;
 }

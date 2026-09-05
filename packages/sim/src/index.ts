@@ -171,11 +171,9 @@ export {
   veilOnSpawn,
 } from "./veil.js";
 export {
-  type VolleyDir,
   volleyBecomes,
   volleyClimbLeft,
-  volleyDrifts,
-  volleyHeading,
+  volleyFloor,
   volleyIsClimbing,
   volleyPlatesLeft,
   volleyReturn,

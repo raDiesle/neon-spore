@@ -172,18 +172,16 @@ export function creatureHashParts(c: Creature): number[] {
   // desync a single boolean can buy. Absent and false are one state here
   // (`chuteIsOpen`), so they fold to the same number on purpose.
   out.push(c.chuteOpen ? 1 : 0);
-  // THE VOLLEY's three. The heading decides which column it reaches next; the
-  // plate count decides whether the next ward is the one that opens it, and
-  // therefore whether the pair is holding a shield or a trigger a beat later;
-  // and the climb decides whether the body is going up or down, which is the
-  // loudest thing two devices could disagree about — one screen with a rock
-  // arriving and one with a rock leaving. `0` for a body that never crosses
-  // and `-1` for the two counts, values none of them can take, so "not a
-  // volley" and "out of plates, falling" are never the same numbers in the
-  // fingerprint. What it *becomes* needs no field of its own: the shell coming
-  // off is `c.kind` at the top of this list, and the colour it comes off to
-  // reveal is `c.color` beside it.
-  out.push(c.volleyDir ?? 0);
+  // THE VOLLEY's two. The plate count decides whether the next ward is the one
+  // that opens it, and therefore whether the pair is holding a shield or a
+  // trigger a beat later; and the climb decides whether the body is going up
+  // or down, which is the loudest thing two devices could disagree about — one
+  // screen with a rock arriving and one with a rock leaving. `-1` for a kind
+  // that carries neither, a value no count can take, so "not a volley" and
+  // "out of plates, falling" are never the same numbers in the fingerprint.
+  // What it *becomes* needs no field of its own: the shell coming off is
+  // `c.kind` at the top of this list, and the colour it comes off to reveal is
+  // `c.color` beside it.
   out.push(c.volleyPlates ?? -1);
   out.push(c.volleyRise ?? -1);
   return out;

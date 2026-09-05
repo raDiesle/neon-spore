@@ -164,14 +164,13 @@ export type CreatureKind =
    */
   | "chute"
   /**
-   * A rock on a diagonal with a slick or a bulb sealed in it, and the first
-   * arrival the shield does **not** finish. A ward hits it back up the field
-   * instead of off it, taking one plate of shell with it; it falls again from
-   * higher up in a column nobody agreed on, and at the top of the climb after
-   * the last plate the shell bursts in mid-air and the body inside comes out
-   * as an ordinary slick or bulb for the cannon. `volley.ts` holds the whole
-   * of it, and `Creature.volleyDir`, `volleyPlates` and `volleyRise` are the
-   * whole of its state.
+   * A rock with a slick or a bulb sealed in it, falling a tile a beat like any
+   * other, and the first arrival the shield does **not** finish. A ward hits
+   * it back up the field instead of off it, taking one plate of shell with it;
+   * it falls again from higher up, and at the top of the climb after the last
+   * plate the shell bursts in mid-air and the body inside comes out as an
+   * ordinary slick or bulb for the cannon. `volley.ts` holds the whole of it,
+   * and `Creature.volleyPlates` and `volleyRise` are the whole of its state.
    */
   | "volley";
 

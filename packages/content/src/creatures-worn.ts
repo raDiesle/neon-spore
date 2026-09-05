@@ -87,7 +87,7 @@ export const WORN_CREATURES: Record<WornKind | BareKind, CreatureDef> = {
     radar: "p1",
     authorsColor: true,
     blurb:
-      "A rock on a diagonal with a slick or a bulb sealed in it. The shield does not destroy it — a ward hits it back up the field, takes one plate of shell with it, and it comes down again from higher up in a column nobody agreed on. Three wards, and the shell bursts in mid-air over a plain body the cannon has to finish.",
+      "A rock with a slick or a bulb sealed in it, falling a tile a beat down one lane like any other. The shield does not destroy it — a ward hits it straight back up the field, takes one plate of shell with it, and it comes down the same lane again from higher up. Three wards, and the shell bursts in mid-air over a plain body the cannon has to finish.",
   },
   carom: {
     kind: "carom",
