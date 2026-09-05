@@ -190,3 +190,78 @@ And the file launches **four separate headless Chrome instances**, one per
 `captureFrames`, inside a 272-file parallel run — that is the part of the cost
 which is neither measured nor bounded, and sharing one browser across the file
 is the change to reach for once the failure can be produced on demand.
+
+## `bun run frames` cannot photograph a burst: sparks move only when it paints
+
+- **Found:** 2026-09-05, claude/explosion-color-matching-464ec1
+- **Taken:** 2026-09-05, claude/queue-bun-run-frames-cannot-photograph-a-burst-sparks
+- **Files:** `tools/frames/run.ts`, `tools/frames/launch.ts`, `apps/game/src/handle.ts`
+
+`handle.ts`'s `advance(ticks)` steps the simulation without painting, and
+`paint()` advances every render effect by exactly one sixtieth of a second. So
+the two clocks come apart: a strip that walks a wave at `--stride 3` moves the
+world three ticks and the sparks one frame, and anything that lives in *painted*
+seconds — a spark's 0.4 s, the last-step fall replay in `rock-impact.ts` — is
+still on screen thousands of ticks later, or has not started yet.
+
+The practical consequence is that a burst at the hull is uncapturable. Four
+captures were spent on the colour change that found this — a bulb's cyan burst
+and a rock's impact — and none of the frames contained a single spark: the rock
+hung a few pixels above the skin for sixty painted frames because its replay had
+only advanced one second's worth of sixtieths.
+
+What to add is a paint-only mode: something like `--settle <n>`, which paints
+`n` frames without stepping the world at all, so a caller can advance to the
+tick the event fires on and then let the picture catch up. The tool's own tests
+in `tools/frames/test/` are where it is proved; `opening.ts` already counts
+painted frames rather than ticks for a rehearsal and is the shape to copy.
+## Row 8 of `docs/spec/briefings.md` §1 names a range, and the range is wrong
+
+- **Found:** 2026-09-05, claude/queue-items-bj85ja
+- **Files:** `docs/spec/briefings.md`, `packages/content/test/waves.test.ts`
+
+The right-hand column of that table now names its waves as `N · NAME` cells
+and `packages/content/test/waves.test.ts` holds every one of them against
+`WAVES`. Row 8, "the rest of the bestiary", is the one cell it skips, because
+it still reads `22–27` — a range, which the test says out loud that it cannot
+check.
+
+The range is not merely uncheckable, it is untrue, and the subject list beside
+it has drifted further than the numbers. **The runt was retired for THE LURE**
+(`packages/content/src/index.ts` says so where the spare contour is kept), so
+the first subject names a creature the game has not got. **The pods and the
+rock speed tiers are taught on THE PURGE (30) and THE WARD (31)**, both
+outside `22–27` — the merge note four paragraphs below the table already says
+"THE WARD carries the pod and all three rock speed tiers".
+
+Read the guides on waves 22 to 31 and give the row its waves by name, the way
+row 7 now has them. That is a reading rather than an arithmetic fix, which is
+why it was not done by the lane that wrote the test: the question is which
+wave teaches which subject, and the guides are the only place that answers it.
+The test needs no change — a cell that names waves is checked the moment it
+names them — but its paragraph about the skipped row should go once nothing is
+skipped.
+
+## `bun run frames` cannot stand a multi-round boss at any round but its first
+
+- **Found:** 2026-09-05, claude/maze-boss-entrance-fix-76efbf
+- **Files:** `apps/game/src/handle.ts`, `tools/frames/run.ts`, `tools/frames/capture.ts`
+
+`jumpToWave` puts a boss on the field at its opening round, and there is no
+handle that moves it on. For THE MAZE that means only the first of five sheets
+can ever be photographed, and the first sheet is the one with a single way in —
+so the two things the boss now does that are worth a picture, a rim with five
+gaps and the drum coming apart when a shot is lost in one of the four dead
+ends, cannot be captured at all. The collapse is held by a unit test
+(`packages/render/test/maze-draw.test.ts`) and by nothing an eye has seen.
+SNAKE, PINBALL and THE MIRROR all have rounds and all have the same hole.
+
+Add a testing handle that sets the round on whichever boss is installed —
+`window.neonSpore.bossRound(n)`, beside `jumpToWave` and `dismissBriefing` —
+and a `--boss-round N` flag on `tools/frames/run.ts` that calls it after the
+jump and before the ticks. It has to go through the boss's own phase entry
+(`enterMazePhase` and its siblings) rather than writing the field, or the drum
+comes up at the wrong angle with the last round's lock still on it. `handle.ts`
+is where `window.neonSpore` is assembled and is already at the seam this
+belongs on: everything in it is about being driven from outside.
+
