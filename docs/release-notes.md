@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 1c0ba55 — A body's draw path is a table, not a chain a new line can sever
+
+`drawCreatures` picked between torch, rock, ghost, wisp, lid and the ordinary living draw with one long `if / else if`. Adding THE VEER put a plain `if` between two of its rungs and severed it: every kind after the cut fell through to `drawLiving`, and a torch was asked for a silhouette it has not got. Four frame tests caught that one, but only because those kinds happen to throw — a kind that merely looked wrong would have shipped.
+
 ## 2026-09-05 · 3569770 — A CRLF blob in the index is now a failing test, not a lane's morning
 
 `.gitattributes` says `* text=auto eol=lf` and that governs what a checkout writes. It does not govern what is already stored: a blob committed with carriage returns before the attribute landed stays CRLF, and every clone since writes that file out exactly as stored. One worktree got `CLAUDE.md` and `.claude/settings.json` that way while every other file in the same checkout arrived LF, and `bun run check` went red on the first command of the lane — on the size ceiling, which the 387 extra carriage returns pushed over, so the failure named the wrong cause entirely.
