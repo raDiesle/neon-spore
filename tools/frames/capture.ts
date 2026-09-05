@@ -223,9 +223,8 @@ export async function captureFrames(
       // the frame comes back released while every number in the capture says
       // the hold was sent. That is the exact failure this flag exists to end,
       // so the press goes in here and gets its own short run of ticks to show
-      // in.
+      // in. In order and on one tick: a handle's grab first, then the pull.
       if (i === 0 && spec.hold) {
-        // In order and on the same tick: the grab first, then the pull off it.
         for (const one of spec.hold) await press({ ...one, tick: spec.ticks });
         await advance(spec.holdTicks ?? DEFAULT_HOLD_TICKS);
       }
