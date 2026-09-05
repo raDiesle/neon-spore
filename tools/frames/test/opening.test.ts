@@ -323,6 +323,42 @@ describe("captureFrames past a wave's opening", () => {
   );
 
   /**
+   * **The same build twice is the same picture.**
+   *
+   * It was not, and that made `run.ts`'s `identical:` guard a comment: two
+   * runs at the same wave, tick and zoom came back with different digests, so
+   * a pair that showed nothing could never be refused. The opening is cleared
+   * by polling, the real rAF loop painted an unpredictable number of frames in
+   * each 150 ms window, and everything drawn on `time` was at a different
+   * phase the second time round. `freezeClocks` is the answer and this is what
+   * holds it.
+   */
+  it(
+    "takes the same picture of the same build twice",
+    async () => {
+      const spec = { wave: 0, ticks: 90 } as const;
+      const once = await captureFrames(baseUrl, spec, join(scratchOut, "once"), browser);
+      const twice = await captureFrames(baseUrl, spec, join(scratchOut, "twice"), browser);
+      expect(twice.whole).toEqual(once.whole);
+    },
+    STARVED_MS,
+  );
+
+  /** And a strip of them, where every frame after the first is a settle and a
+   * stride on top of a clock that has to have stayed where it was left. */
+  it(
+    "takes the same strip twice, settles and all",
+    async () => {
+      const spec = { wave: 0, ticks: 60, frames: 3, strideTicks: 4, settle: 5 } as const;
+      const once = await captureFrames(baseUrl, spec, join(scratchOut, "strip-a"), browser);
+      const twice = await captureFrames(baseUrl, spec, join(scratchOut, "strip-b"), browser);
+      expect(twice.whole).toEqual(once.whole);
+      expect(once.whole).toHaveLength(3);
+    },
+    STARVED_MS,
+  );
+
+  /**
    * The rings, and the reason they were in every picture this tool ever took.
    *
    * Crossing the ready gate throws two of them over the top two thirds of the
