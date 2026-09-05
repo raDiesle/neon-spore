@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 1bf073bf — THE THROB's green half is the other trigger now, and it turns faster
+
+Half of a throb was shield plating: green, and nothing at all reached it, so half of every turn was a body the pair could only wait out. Both halves are live now and each carries one of the two ammunition colours — the authored one starts pointing at the cannon, the other is over the seam — so the turn never shuts the creature, it swaps which trigger is the right one. A shot in the colour that turned away is an ordinary colour miss. `throbSpinBeats` comes down from four to three at the same time: nothing about the turn closes the body any more, so a slow one only buys the pair time standing still with the answer already said out loud.
+
 ## 2026-09-05 · a7c62570 — Plate THE STRAND's caged beads and put a question mark over the pilot's frame
 
 The pilot's screen already said which beads a shot could not answer, and it said it in six thin arcs at one radius — which on a field of glowing bodies reads as a halo somebody drew badly rather than as armour. Each plate is now a band with a dark face, a rim, a lit outer edge and a rivet, so a caged bead is plainly a plated one from across a phone held at arm's length. The ring still stands outside the contour at every size, so the shape inside is still the shape the pair names.
