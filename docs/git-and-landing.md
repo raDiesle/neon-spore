@@ -194,6 +194,17 @@ one question to put to the owner, in four answers:
 - **d) Land and send** — `bun run land --keep --push`. The same, and `origin`
   gets `main` too.
 
+**And when a lane that stayed is finally over, `bun run land --sweep` is the
+cleanup (c) deferred.** The lane's work is on the trunk by then, so every
+ordinary landing refuses it — it carries nothing `main` has not got — and for a
+while that left "land and clean up" with no command at all behind it and a
+`git worktree remove` typed by hand as the only way out, which is the one thing
+this tool exists to stop. `--sweep` skips the replay, the check and the
+fast-forward, because the trunk already has all three, and runs everything that
+comes after them: the branch goes, spent worktrees past their idle window go,
+this one is left on `main`'s tip detached, and the push rides on the sweep the
+way it always does.
+
 Two axes cross in those four: is the lane over, and does the remote get the
 trunk. (c) and (d) differ in nothing but the second, and that is the point —
 reaching `origin` is a decision of its own rather than a consequence of the

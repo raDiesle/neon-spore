@@ -1,14 +1,13 @@
 import { expect, describe as group, test } from "bun:test";
 import {
-  badge,
   type Cleanup,
-  describe,
   type LandState,
   plan,
   pushNow,
   SWEPT_NOTHING,
   uncommittedOf,
 } from "../land.js";
+import { badge, describe } from "../say.js";
 
 function state(over: Partial<LandState> = {}): LandState {
   return {
@@ -24,6 +23,7 @@ function state(over: Partial<LandState> = {}): LandState {
     noPush: false,
     forcePush: false,
     keep: false,
+    sweepOnly: false,
     ...over,
   };
 }
@@ -208,11 +208,66 @@ group("describe", () => {
     expect(describe(forced, sure).join("\n")).not.toContain("only if the sweep");
   });
 
+  test("says a sweep-only run is the cleanup and not a landing", () => {
+    const done = state({ ahead: 0, sweepOnly: true });
+    const decided = plan(done);
+    if (!decided.go) throw new Error("expected a cleanup");
+    const said = describe(done, decided).join("\n");
+    expect(said).toContain("already landed");
+    expect(said).not.toContain("bun run check");
+    expect(said).toContain("sweep    claude/lane-1");
+  });
+
   test("says when the sweep is not going to run", () => {
     const kept = state({ keep: true });
     const decided = plan(kept);
     if (!decided.go) throw new Error("expected a landing");
     expect(describe(kept, decided).join("\n")).toContain("stay standing");
+  });
+});
+
+group("the cleanup a --keep landing deferred", () => {
+  // `--keep` is the landing that is not the end of anything: the trunk takes
+  // the work and the branch, the worktree and every other spent lane stay
+  // standing. Every landing after that refuses the lane — it carries nothing
+  // the trunk has not got — so until `--sweep` there was no command at all for
+  // finishing it, and the only way out was a `git worktree remove` by hand.
+  test("sweeps a lane whose work is already on the trunk", () => {
+    const decided = plan(state({ ahead: 0, sweepOnly: true }));
+    expect(decided.go).toBe(true);
+    if (!decided.go) return;
+    expect(decided.sweepOnly).toBe(true);
+    expect(decided.sweeps).toBe(true);
+    expect(decided.rebase).toBe(false);
+  });
+
+  test("still refuses a landed lane when the cleanup was not asked for", () => {
+    const decided = plan(state({ ahead: 0 }));
+    expect(decided.go).toBe(false);
+    if (decided.go) return;
+    // And says which command does clear it, because "carries nothing" on its
+    // own sent people looking for work they had already landed.
+    expect(decided.why).toContain("--sweep");
+  });
+
+  test("refuses --sweep and --keep together, which ask for opposite things", () => {
+    const decided = plan(state({ ahead: 0, sweepOnly: true, keep: true }));
+    expect(decided.go).toBe(false);
+  });
+
+  test("is ignored on a lane that still has something to land", () => {
+    // Sweeping is what an ordinary landing already does, so the flag is not a
+    // second way to ask for the default — it would only be a way to disagree.
+    const decided = plan(state({ ahead: 2, sweepOnly: true }));
+    expect(decided.go && decided.sweepOnly).toBe(false);
+    expect(decided.go && decided.sweeps).toBe(true);
+  });
+
+  test("pushes when the cleanup actually cleared a lane away", () => {
+    const decided = plan(state({ ahead: 0, sweepOnly: true }));
+    if (!decided.go) throw new Error("expected a cleanup");
+    expect(pushNow(decided, SWEPT_NOTHING)).toBe(false);
+    expect(pushNow(decided, { trees: 1, branches: 0 })).toBe(true);
   });
 });
 

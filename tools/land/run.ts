@@ -11,6 +11,7 @@
  *   bun run land                 rebase, check, fast-forward main, note, sweep
  *   bun run land --dry-run       say what it would do and stop
  *   bun run land --keep          move the trunk and sweep nothing; carry on here
+ *   bun run land --sweep         the cleanup a --keep landing deferred
  *   bun run land --push          send origin/main too, whatever the sweep did
  *   bun run land --no-push       land, and leave origin/main alone regardless
  *
@@ -36,19 +37,28 @@
  * cleared a lane away, not on every landing — see `pushNow`, and note that
  * `--keep` therefore never pushes on its own. `bun run push` sends it in
  * between.
+ *
+ * **`--sweep` is the other half of `--keep`, asked for later.** A lane that
+ * landed with `--keep` is on the trunk with its branch and its worktree still
+ * standing, and every ordinary landing refuses it from then on — it carries
+ * nothing the trunk has not got. So the cleanup had no command at all, and the
+ * only way to finish the lane was the `git worktree remove` this file exists to
+ * keep nobody typing. `--sweep` skips the replay, the check and the
+ * fast-forward, because the trunk already has all three, and runs everything
+ * that comes after them.
  */
 
 import { git, gitOrDie } from "./git.js";
 import {
-  badge,
-  describe,
+  type Landing,
   type LandState,
   plan,
   pushNow,
   SWEPT_NOTHING,
   uncommittedOf,
 } from "./land.js";
-import { LOG_FORMAT, parseLanded } from "./notes.js";
+import { type Landed, LOG_FORMAT, parseLanded } from "./notes.js";
+import { badge, describe } from "./say.js";
 import { sweep, writeNotes } from "./sweep.js";
 
 const root = Bun.fileURLToPath(new URL("../../", import.meta.url));
@@ -57,6 +67,7 @@ const dryRun = argv.includes("--dry-run");
 const noPush = argv.includes("--no-push");
 const forcePush = argv.includes("--push");
 const keep = argv.includes("--keep");
+const sweepOnly = argv.includes("--sweep");
 const TRUNK = "main";
 
 /** What `uncommittedOf` needs, asked of one worktree. */
@@ -96,6 +107,7 @@ const state: LandState = {
   noPush,
   forcePush,
   keep,
+  sweepOnly,
 };
 
 const decided = plan(state);
@@ -103,83 +115,100 @@ if (!decided.go) {
   console.log(`✗ ${decided.why}`);
   process.exit(1);
 }
-for (const line of describe(state, decided)) console.log(line);
+// The same object, under a name whose type says it is going. `decided` is
+// narrowed by the guard above, and that narrowing does not reach inside a
+// function declared beside it.
+const going: Landing = decided;
+for (const line of describe(state, going)) console.log(line);
 if (dryRun) process.exit(0);
 
-if (decided.rebase) {
-  const proc = Bun.spawn(["git", "rebase", TRUNK], { cwd: root, stdout: "pipe", stderr: "pipe" });
-  const [err, code] = await Promise.all([new Response(proc.stderr).text(), proc.exited]);
-  if (code !== 0) {
-    const conflicted = await git(["diff", "--name-only", "--diff-filter=U"], root);
-    await git(["rebase", "--abort"], root);
-    console.log(`✗ ${branch} does not replay onto ${TRUNK}; nothing was moved`);
-    if (conflicted) console.log(`  conflicts in ${conflicted.split("\n").join(", ")}`);
-    else console.log(`  ${err.trim().split("\n")[0] ?? ""}`);
+/**
+ * The landing proper: replay, install, check, fast-forward, and say what moved.
+ *
+ * A function rather than the straight line it used to be, because there is now
+ * one run that skips all of it — `--sweep`, which is a lane whose work reached
+ * the trunk under an earlier `--keep` and has only its cleanup left. Everything
+ * after this is the same either way.
+ */
+async function moveTrunk(): Promise<Landed[]> {
+  if (going.rebase) {
+    const proc = Bun.spawn(["git", "rebase", TRUNK], { cwd: root, stdout: "pipe", stderr: "pipe" });
+    const [err, code] = await Promise.all([new Response(proc.stderr).text(), proc.exited]);
+    if (code !== 0) {
+      const conflicted = await git(["diff", "--name-only", "--diff-filter=U"], root);
+      await git(["rebase", "--abort"], root);
+      console.log(`✗ ${branch} does not replay onto ${TRUNK}; nothing was moved`);
+      if (conflicted) console.log(`  conflicts in ${conflicted.split("\n").join(", ")}`);
+      else console.log(`  ${err.trim().split("\n")[0] ?? ""}`);
+      process.exit(1);
+    }
+    console.log(`  rebased  onto ${await git(["rev-parse", "--short", TRUNK], root)}`);
+  }
+
+  // A replay can bring a workspace package the lane never had — `tools/orphans`
+  // arrived that way — and `node_modules` is then stale between the rebase and
+  // the check. What the check reports is `Cannot find module '@neon-spore/…'` in
+  // a file the lane never opened, which reads as a rebase disaster and is
+  // thirteen milliseconds of work. Cheap, idempotent, and it runs after the
+  // replay rather than before it, which is the whole point.
+  //
+  // `--frozen-lockfile` because a silent lockfile drift here is a landing
+  // problem, not a `bun run check` problem — the check would report it as a
+  // mysterious dependency failure with no mention of the lockfile at all.
+  const install = Bun.spawn(["bun", "install", "--frozen-lockfile"], {
+    cwd: root,
+    stdout: "ignore",
+    stderr: "pipe",
+  });
+  const [installErr, installCode] = await Promise.all([
+    new Response(install.stderr).text(),
+    install.exited,
+  ]);
+  if (installCode !== 0) {
+    console.log(`✗ bun install --frozen-lockfile failed after the rebase; ${TRUNK} was not moved`);
+    console.log(installErr.trim());
     process.exit(1);
   }
-  console.log(`  rebased  onto ${await git(["rev-parse", "--short", TRUNK], root)}`);
+
+  const check = Bun.spawn(["bun", "run", "check"], { cwd: root, stdout: "pipe", stderr: "pipe" });
+  const [checkOut, checkErr, checkCode] = await Promise.all([
+    new Response(check.stdout).text(),
+    new Response(check.stderr).text(),
+    check.exited,
+  ]);
+  if (checkCode !== 0) {
+    console.log(`✗ bun run check is red on the replayed lane; ${TRUNK} was not moved`);
+    console.log(`${checkOut}${checkErr}`.trim().split("\n").slice(-25).join("\n"));
+    process.exit(1);
+  }
+  console.log("  checked  green");
+
+  const head = await git(["rev-parse", "HEAD"], root);
+  const landingLog = await git(
+    ["log", "--reverse", "--date=short", `--format=${LOG_FORMAT}`, `${TRUNK}..HEAD`],
+    root,
+  );
+  const landed = parseLanded(landingLog);
+  try {
+    if (going.moveRef) await gitOrDie(["branch", "--force", TRUNK, head], root);
+    else await gitOrDie(["merge", "--ff-only", branch], state.trunkTree);
+  } catch (error) {
+    console.log(`✗ ${TRUNK} would not fast-forward: ${(error as Error).message.split("\n")[0]}`);
+    process.exit(1);
+  }
+
+  console.log(`✓ ${TRUNK} is at ${await git(["rev-parse", "--short", TRUNK], root)}`);
+  for (const commit of landed) console.log(`  ${commit.sha} ${commit.subject}`);
+  return landed;
 }
 
-// A replay can bring a workspace package the lane never had — `tools/orphans`
-// arrived that way — and `node_modules` is then stale between the rebase and
-// the check. What the check reports is `Cannot find module '@neon-spore/…'` in
-// a file the lane never opened, which reads as a rebase disaster and is
-// thirteen milliseconds of work. Cheap, idempotent, and it runs after the
-// replay rather than before it, which is the whole point.
-//
-// `--frozen-lockfile` because a silent lockfile drift here is a landing
-// problem, not a `bun run check` problem — the check would report it as a
-// mysterious dependency failure with no mention of the lockfile at all.
-const install = Bun.spawn(["bun", "install", "--frozen-lockfile"], {
-  cwd: root,
-  stdout: "ignore",
-  stderr: "pipe",
-});
-const [installErr, installCode] = await Promise.all([
-  new Response(install.stderr).text(),
-  install.exited,
-]);
-if (installCode !== 0) {
-  console.log(`✗ bun install --frozen-lockfile failed after the rebase; ${TRUNK} was not moved`);
-  console.log(installErr.trim());
-  process.exit(1);
-}
-
-const check = Bun.spawn(["bun", "run", "check"], { cwd: root, stdout: "pipe", stderr: "pipe" });
-const [checkOut, checkErr, checkCode] = await Promise.all([
-  new Response(check.stdout).text(),
-  new Response(check.stderr).text(),
-  check.exited,
-]);
-if (checkCode !== 0) {
-  console.log(`✗ bun run check is red on the replayed lane; ${TRUNK} was not moved`);
-  console.log(`${checkOut}${checkErr}`.trim().split("\n").slice(-25).join("\n"));
-  process.exit(1);
-}
-console.log("  checked  green");
-
-const head = await git(["rev-parse", "HEAD"], root);
-const landingLog = await git(
-  ["log", "--reverse", "--date=short", `--format=${LOG_FORMAT}`, `${TRUNK}..HEAD`],
-  root,
-);
-const landed = parseLanded(landingLog);
-try {
-  if (decided.moveRef) await gitOrDie(["branch", "--force", TRUNK, head], root);
-  else await gitOrDie(["merge", "--ff-only", branch], state.trunkTree);
-} catch (error) {
-  console.log(`✗ ${TRUNK} would not fast-forward: ${(error as Error).message.split("\n")[0]}`);
-  process.exit(1);
-}
-
-console.log(`✓ ${TRUNK} is at ${await git(["rev-parse", "--short", TRUNK], root)}`);
-for (const commit of landed) console.log(`  ${commit.sha} ${commit.subject}`);
+const landed = going.sweepOnly ? [] : await moveTrunk();
 
 await writeNotes(state, landed, TRUNK);
-const cleanup = decided.sweeps ? await sweep(state, root, TRUNK) : SWEPT_NOTHING;
-if (!decided.sweeps) console.log(`  kept     ${branch} and every worktree — --keep swept nothing`);
+const cleanup = going.sweeps ? await sweep(state, root, TRUNK) : SWEPT_NOTHING;
+if (!going.sweeps) console.log(`  kept     ${branch} and every worktree — --keep swept nothing`);
 
-if (pushNow(decided, cleanup)) {
+if (pushNow(going, cleanup)) {
   try {
     await gitOrDie(["push", "origin", `${TRUNK}:${TRUNK}`], state.trunkTree || root);
     console.log(`  pushed   origin/${TRUNK}`);
@@ -188,7 +217,7 @@ if (pushNow(decided, cleanup)) {
     console.log(`✗ ${TRUNK} is at ${sha} locally; origin was not updated — run: bun run push`);
     process.exit(2);
   }
-} else if (decided.mayPush) {
+} else if (going.mayPush) {
   const unpushed = await git(
     ["rev-list", "--count", `origin/${TRUNK}..${TRUNK}`],
     state.trunkTree || root,

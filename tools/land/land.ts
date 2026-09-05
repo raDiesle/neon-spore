@@ -37,6 +37,14 @@ export interface LandState {
   forcePush: boolean;
   /** `--keep` was given: move the trunk and sweep nothing, so work carries on here. */
   keep: boolean;
+  /**
+   * `--sweep` was given: run the cleanup a `--keep` landing deferred.
+   *
+   * It only means anything when the lane is already on the trunk. A lane with
+   * commits still to land sweeps as part of landing them, so the flag is
+   * ignored there rather than being a second way to ask for the default.
+   */
+  sweepOnly: boolean;
 }
 
 export interface Landing {
@@ -64,6 +72,12 @@ export interface Landing {
    * also means nothing to push — see `pushNow`.
    */
   sweeps: boolean;
+  /**
+   * There is nothing left to land and this run is only the cleanup: no replay,
+   * no check, no fast-forward, no release note — the trunk already carries all
+   * of it. Everything after the fast-forward still happens.
+   */
+  sweepOnly: boolean;
   /** Things that are not refusals and are worth saying before the work starts. */
   warn: string[];
 }
@@ -125,7 +139,35 @@ export function plan(state: LandState): Plan {
     };
   }
   if (state.ahead === 0) {
-    return { go: false, why: `${state.branch} carries nothing ${state.trunk} has not got already` };
+    // **The door a `--keep` landing leaves shut behind it.** `--keep` moves the
+    // trunk and sweeps nothing, so the lane's branch and every spent worktree
+    // are still standing when the work is over — and the only thing that knows
+    // how to clear them is a landing, which now refuses because the trunk has
+    // it all. So "land and clean up" had no command, and the alternative was a
+    // `git worktree remove` typed by hand, which is exactly what this tool
+    // exists to keep nobody doing.
+    if (state.sweepOnly) {
+      if (state.keep) {
+        return {
+          go: false,
+          why: "--sweep and --keep ask for opposite things: one clears this lane away, the other leaves it standing",
+        };
+      }
+      return {
+        go: true,
+        rebase: false,
+        moveRef: state.trunkTree === "",
+        mayPush: state.hasOrigin && !state.noPush,
+        forced: state.forcePush,
+        sweeps: true,
+        sweepOnly: true,
+        warn: [],
+      };
+    }
+    return {
+      go: false,
+      why: `${state.branch} carries nothing ${state.trunk} has not got already — bun run land --sweep clears it away`,
+    };
   }
   if (state.trunkStaged.includes("docs/release-notes.md")) {
     return {
@@ -152,6 +194,7 @@ export function plan(state: LandState): Plan {
     mayPush: state.hasOrigin && !state.noPush,
     forced: state.forcePush,
     sweeps: !state.keep,
+    sweepOnly: false,
     warn,
   };
 }
@@ -202,41 +245,4 @@ export function pushNow(landing: Landing, cleanup: Cleanup): boolean {
   if (!landing.mayPush) return false;
   if (landing.forced || landing.moveRef) return true;
   return swept(cleanup);
-}
-
-/** The pre-flight, in the order the steps will happen. */
-export function describe(state: LandState, landing: Landing): string[] {
-  const lines = [
-    `${state.branch} → ${state.trunk}: ${state.ahead} to land, ${state.behind} to replay over`,
-  ];
-  if (landing.rebase) lines.push(`  rebase   onto ${state.trunk}`);
-  lines.push("  check    bun run check");
-  lines.push(
-    landing.moveRef
-      ? `  land     move ${state.trunk} — no worktree holds it`
-      : `  land     fast-forward ${state.trunk} in ${state.trunkTree}`,
-  );
-  if (!landing.sweeps) lines.push("  keep     the branch and every worktree stay standing");
-  if (landing.mayPush) {
-    lines.push(
-      landing.forced || landing.moveRef
-        ? `  push     origin/${state.trunk}`
-        : `  push     origin/${state.trunk} — only if the sweep clears a lane away`,
-    );
-  }
-  return [...lines, ...landing.warn.map((w) => `  ⚠ ${w}`)];
-}
-
-/**
- * The closing line of a landing, at a glance.
- *
- * It used to live in the `Stop` hook, which landed lanes itself and had
- * `systemMessage` as its one channel to the chat. The hook asks now instead of
- * landing, so the badge moved to the landing — where it reads the same however
- * the landing started, and where somebody watching from a phone sees it for a
- * landing they asked for by hand.
- */
-export function badge(branch: string, trunk: string, sha: string, ahead: number): string {
-  const count = ahead === 1 ? "1 commit" : `${ahead} commits`;
-  return `🟢 ╺━╸ L A N D E D ! ╺━╸ ${branch} → ${trunk} @ ${sha} (${count})`;
 }

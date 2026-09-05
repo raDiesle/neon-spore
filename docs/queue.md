@@ -276,3 +276,23 @@ and the fix is a hand edit found by reading the test output.
 Drop rows whose path is no longer in scope, in the same pass that adds the
 missing ones, and add a test that a row for a path not in the tree is removed.
 Keeping the hand-written *text* of surviving rows is the invariant to preserve.
+
+## CLAUDE.md is nine characters under its own ceiling
+
+- **Found:** 2026-09-05, claude/queued-items-d3ce8d
+- **Files:** `CLAUDE.md`, `tools/test/claude-md.test.ts`
+
+`tools/test/claude-md.test.ts` caps the file at 22,000 characters because it is
+loaded into every session and re-read whenever it changes. It stands at 21,991,
+which is not headroom — it is a wall the next rule to be written down walks
+into. `bun run sweep` landed with no line in the commands table for exactly
+that reason, and it will not be the last one.
+
+The test's own comment says what to do and the file has been through it once
+before, at 537 lines: the argument for a rule moves to `docs/`, one hop from a
+pointer, and the rule stays. Read the sections that are narrative rather than
+imperative — "A look is offered, never replaced" and "A technical finding is
+queued; an idea is not" both run to a page and both already have a document
+behind them (`docs/looks.md`, `docs/queue.md`'s own preamble) — and move the
+prose there, leaving what a session has to *do*. Then put the missing
+`bun run sweep` line in the commands table with the room that buys.

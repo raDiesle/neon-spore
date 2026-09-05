@@ -949,5 +949,6 @@ place — the generator keeps whatever is there.
 | `tools/hooks/lane-finished.ts` | The turn is over and the lane is finished: put the choice to the owner rather than taking it |
 | `tools/director/src/control-set-note.ts` | The roster under the wave editor's control-set picker: every button on the panel, seat by seat |
 | `tools/director/src/rail-marks.ts` | The small glyphs in front of a wave's name in the rail: a boss, a panel, a guide |
+| `tools/land/say.ts` | What a landing says about itself before and after it happens |
 
 <!-- index:code:end -->
