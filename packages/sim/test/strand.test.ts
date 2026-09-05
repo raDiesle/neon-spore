@@ -1,10 +1,10 @@
 import { describe, expect, it } from "bun:test";
 import {
+  beadDrop,
   beadIsActive,
   beadIsLit,
   beadIsSpent,
   beadOrder,
-  beadRowOffset,
   beadStrand,
   createWorld,
   DEFAULT_CONFIG,
@@ -52,9 +52,11 @@ import type { Bullet, Color, Creature } from "../src/types.js";
 const CFG: SimConfig = DEFAULT_CONFIG;
 const TPB = ticksPerBeat(CFG);
 const HULL = hullRow(CFG);
-// A creature entered at beat 0 stands on row (beat - 1) — see rules.test.ts —
-// and is through the hull one beat after it lands on it.
-const BREACH_TICK = TPB * (HULL + 2);
+// A thread steps down every `strandFallBeats` beats rather than every one, so
+// it is through the hull well after an ordinary body would be: the fall itself,
+// doubled, plus the beat it spends standing on the ship's row and a couple for
+// the wave to have carried every bead down to it.
+const BREACH_TICK = TPB * ((HULL + 2) * CFG.strandFallBeats + 2);
 const COL = 3;
 
 const strand = (beads: number, color: Color = "red", col = COL): SpawnEntry => ({
@@ -111,7 +113,8 @@ describe("the thread a wave authors", () => {
       // between every pair for the thread to be seen along.
       expect(on.map((c) => c.col)).toEqual(on.map((_, i) => on[0]!.col + i * STRAND_STEP));
       // And every other one hangs a row lower — a real row, not a drawn one.
-      expect(on.map((c) => c.row - on[0]!.row)).toEqual(on.map((_, i) => beadRowOffset(i)));
+      const drop = (i: number) => beadDrop(i, world.beat) - beadDrop(0, world.beat);
+      expect(on.map((c) => c.row - on[0]!.row)).toEqual(on.map((_, i) => drop(i)));
       // One thread, so one name — and it is the first bead's own id.
       expect(new Set(on.map(beadStrand)).size).toBe(1);
     }
@@ -312,12 +315,17 @@ describe("the thread as an arrival", () => {
     expect(hullPercent(world)).toBe(100 - CFG.damageCreature);
   });
 
-  it("falls a tile a beat, every bead of it, and holds its lane", () => {
+  it("comes down half as fast as anything else, and holds its lane", () => {
     const world = onField(3, "red", TPB * 5);
     const on = threadOf(world);
-    // Four rows down from where each one entered, which is not the same row
-    // for all of them: the zigzag is carried the whole way down.
-    for (const [i, bead] of on.entries()) expect(bead.row).toBe(4 + beadRowOffset(i));
+    // Five beats in, a body that fell every beat would be on row 4. A thread
+    // takes half the beats, so its highest bead is somewhere around row 2 —
+    // and the zigzag is still a zigzag, inverting every beat.
+    const top = Math.min(...on.map((c) => c.row));
+    expect(top).toBeLessThan(4);
+    for (const [i, bead] of on.entries()) {
+      expect(bead.row - on[0]!.row).toBe(beadDrop(i, world.beat) - beadDrop(0, world.beat));
+    }
     expect(new Set(on.map((c) => c.col)).size).toBe(3);
   });
 });

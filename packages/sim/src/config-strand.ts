@@ -37,6 +37,22 @@ export interface StrandConfig {
    */
   strandBeads: number;
   /**
+   * Beats between one step down and the next.
+   *
+   * **Two, and it is the hardest creature on the field asking for room.** Every
+   * other living body comes down a tile a beat, which is what
+   * `fallTilesPerBeat` answers for anything it does not name; a thread asks the
+   * pair for two calls in two directions *per bead*, up to five times, and at a
+   * tile a beat a thread of five reaches the ship before the third exchange is
+   * finished. Half speed is what makes the sentence sayable.
+   *
+   * Beats and not tiles, `echoFallBeats`' unit and for its reason: the five
+   * rock tiers go *faster* than a tile a beat and a tile count says so, while
+   * anything slower can only be said as beats between steps. The simulation
+   * stores integers, so half a tile is not a thing a body can move.
+   */
+  strandFallBeats: number;
+  /**
    * What shrivelling one bead is worth. Half of `scoreDestroy`, on
    * `scoreRindShed`'s terms and for its reason: a bead is one shot out of
    * several against one arrival, and a mechanic that paid only when the thread
@@ -55,6 +71,7 @@ export interface StrandConfig {
 /** The defaults, spread into `DEFAULT_CONFIG`. */
 export const STRAND_DEFAULTS: StrandConfig = {
   strandBeads: 3,
+  strandFallBeats: 2,
   scoreStrandBead: 50,
   scoreStrandBreak: 100,
 };

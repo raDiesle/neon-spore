@@ -90,6 +90,7 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   damageCarom: "THE CAROM — a rock with something alive in it",
   scoreCaromCrack: "SCORE",
   strandBeads: "THE STRAND — beads on a thread, shot in order",
+  strandFallBeats: "THE STRAND — beads on a thread, shot in order",
   scoreStrandBead: "SCORE",
   scoreStrandBreak: "SCORE",
   veerChanges: "THE VEER — a rock that changes lane on the way down",

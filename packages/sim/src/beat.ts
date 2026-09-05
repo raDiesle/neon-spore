@@ -4,7 +4,6 @@ import { stepChute } from "./chute.js";
 import { hullRow } from "./config.js";
 import { lureIsSpent, throbIsOpen } from "./creature-rules.js";
 import { stepDart } from "./dart.js";
-import { echoFalls } from "./echo.js";
 import { splitEchoes } from "./echo-split.js";
 import { removeCreatures } from "./field.js";
 import { ghostCrosses, stepGhostAcross } from "./ghost.js";
@@ -12,6 +11,7 @@ import { grippedFallTiles } from "./grip.js";
 import { breakSpentGyres, stepGyre } from "./gyre.js";
 import { resolveHull } from "./hull.js";
 import { spawnPods } from "./pods.js";
+import { slowStep } from "./slow-fall.js";
 import { spawnArrivals } from "./spawn.js";
 import { breakSpentStrands } from "./strand-round.js";
 import { isBossBody } from "./types.js";
@@ -174,13 +174,13 @@ export function onBeat(world: World): void {
       stepGhostAcross(world, c);
       continue;
     }
-    // THE ECHO comes down half as fast as anything else, and the beats in
-    // between are beats it simply does not take: the simulation stores
-    // integers, so there is no half a tile for it to move. In place of the
-    // fall rather than beside it, for `stepDart`'s reason — and it still
-    // *falls*, on the beats it takes, so a hand may be put on one and slows
-    // it further through the same `grippedFallTiles` every other body uses.
-    if (c.kind === "echo" && !echoFalls(world.cfg, world.beat)) continue;
+    // The two bodies that come down slower than a tile a beat, and what each
+    // does with the beats it does not spend falling: THE ECHO nothing at all,
+    // THE STRAND its wave. In place of the fall rather than beside it, for
+    // `stepDart`'s reason — and an echo still *falls* on the beats it takes,
+    // so a hand may be put on one and slows it further through the same
+    // `grippedFallTiles` every other body uses (`slow-fall.ts`).
+    if (slowStep(world, c)) continue;
     // THE GYRE's hub walks a diamond and turns its rim, and carries its six
     // bodies with it. In place of the fall for `stepDart`'s reason — a wheel
     // that both walked and fell would be moving in two directions on one beat.

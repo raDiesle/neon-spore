@@ -1,25 +1,25 @@
 import { metColor, missedColor } from "./balance.js";
+import { hullRow } from "./config.js";
 import { removeCreatures } from "./field.js";
-import { nextInt } from "./rng.js";
 import {
-  beadColor,
   beadIsActive,
   beadIsSpent,
   beadOrder,
-  beadRowOffset,
   beadStrand,
   lightStrandEnd,
-  STRAND_STEP,
-  strandBeadCount,
   strandLeft,
-  strandSpan,
 } from "./strand.js";
+import { beadDrop, strandFalls } from "./strand-shape.js";
 import type { Bullet, Creature } from "./types.js";
 import type { World } from "./world.js";
 
 /**
- * What **happens** to a thread: how one comes onto the field, what a shot that
- * meets a bead does, and the thread parting once nothing on it is alive.
+ * What **happens** to a thread: one beat of a bead, what a shot that meets one
+ * does, and the thread parting once nothing on it is alive.
+ *
+ * How a thread comes onto the field at all is `strand-spawn.ts`, cut out when
+ * the wave took this file over its limit — one arrival being assembled, against
+ * everything that happens to it afterwards.
  *
  * Its own file beside `strand.ts`, the split `shell.ts` and `shell-round.ts`
  * already make and for their reason: next door is what a strand *is* — where
@@ -29,66 +29,23 @@ import type { World } from "./world.js";
  */
 
 /**
- * Thread the rest of a strand onto the bead that has just arrived, and settle
- * that bead's own place on it.
+ * One beat of a bead: the wave, and the step down on the beats it takes one.
  *
- * The queue entry becomes the **leftmost** bead — `spawnArrivals` has already
- * pushed it — and this hangs the others out to its right, `STRAND_STEP`
- * columns apart and every other one a row lower (`beadRowOffset`), shifting
- * the whole run inside the field when there is not room for it. The leftmost
- * bead carries the authored colour and every other alternates from it, so a
- * wave composes a thread by naming one end of a pattern.
+ * Called from `onBeat` in place of the fall every other body takes, for
+ * `stepDart`'s reason — a bead that both waved and fell through the ordinary
+ * line would move two rows on the beats it does both.
  *
- * It mutates that first bead rather than returning a replacement for it,
- * because `world.nextId` is spent inside the object literal next door and a
- * strand's name *is* its first bead's id. The first lit end is rolled here
- * rather than through `lightStrandEnd`, for the same reason: the other beads
- * are not on the field yet, so there is no run for that function to read — and
- * it spends exactly the one draw that function would.
+ * The wave is the difference between where `beadDrop` says this bead hangs now
+ * and where it said a beat ago, which is always one row up or one row down.
+ * Nothing is stored: both devices read it off the shared beat, so a thread
+ * eleven beats old is in the shape its rule says and not in the shape a
+ * remembered phase drifted into.
  */
-export function stringStrand(world: World, first: Creature, asked: number | undefined): Creature[] {
-  const count = strandBeadCount(world.cfg, asked);
-  const fromLeft = nextInt(world.rng, 2) === 0;
-  const lo = Math.max(0, Math.min(first.col, world.cfg.cols - strandSpan(count)));
-  // The leftmost bead's colour, which is what the wave authored. Not null: a
-  // strand names a colour (`authorsColor`).
-  const left = first.color ?? "red";
-  const born: Creature[] = [];
-  for (let place = 0; place < count; place++) {
-    const col = lo + place * STRAND_STEP;
-    const drop = beadRowOffset(place);
-    const color = beadColor(left, place);
-    if (place === 0) {
-      first.col = col;
-      first.fromCol = col;
-      first.color = color;
-      first.strandId = first.id;
-      first.strandOrder = place;
-      first.strandLit = fromLeft;
-      continue;
-    }
-    born.push({
-      id: world.nextId++,
-      kind: "strand",
-      col,
-      row: first.row + drop,
-      // Out of the bead that arrived, so the first frame draws the thread
-      // paying itself out rather than five bodies appearing in a row — the
-      // same glide THE GYRE's rim comes out of its hub on.
-      fromRow: first.fromRow + drop,
-      fromCol: first.col,
-      color,
-      holes: 0,
-      petals: 0,
-      dragMilli: 0,
-      throbOpen: false,
-      shell: 0,
-      strandId: first.id,
-      strandOrder: place,
-      strandLit: !fromLeft && place === count - 1,
-    });
-  }
-  return born;
+export function stepStrand(world: World, c: Creature): void {
+  const place = beadOrder(c);
+  const wave = beadDrop(place, world.beat) - beadDrop(place, world.beat - 1);
+  const fall = strandFalls(world.cfg, world.beat) ? 1 : 0;
+  c.row = Math.min(c.row + wave + fall, hullRow(world.cfg));
 }
 
 /**

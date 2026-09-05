@@ -1,7 +1,6 @@
-import type { SimConfig } from "./config.js";
-import { livingKindForColor, otherColor } from "./kinds.js";
+import { livingKindForColor } from "./kinds.js";
 import { nextInt } from "./rng.js";
-import type { Color, Creature, CreatureKind } from "./types.js";
+import type { Creature, CreatureKind } from "./types.js";
 import type { World } from "./world.js";
 
 /**
@@ -51,6 +50,11 @@ import type { World } from "./world.js";
  * the navigator sees which is lit and has never seen a colour. Both calls stay
  * worth making until the last bead, which is what this creature is for.
  *
+ * The **shape** of a thread — how many beads, how far apart, which row each
+ * hangs in and which beats it falls on — is `strand-shape.ts` next door, cut
+ * out when the wave took this file over its limit. That file needs no world;
+ * everything here reads one.
+ *
  * The live beads are always a **contiguous run**, and every rule here leans on
  * it: a kill only ever takes an end, and a wrong shot only ever gives back the
  * raisin next to one (`strand-round.ts`). So "the two ends" is the first and
@@ -66,72 +70,6 @@ import type { World } from "./world.js";
  * raisin on the string is the only readout either seat has of how far along
  * they are.
  */
-
-/**
- * Beads a thread may be authored with. Two is the shortest run that has an end
- * to choose between at all; five is as many as a field this wide holds once
- * they are spread (`STRAND_STEP`).
- */
-export const STRAND_MIN = 2;
-export const STRAND_MAX = 5;
-
-/**
- * Columns between one bead and the next.
- *
- * **Two, and the empty lane between them is the point.** At one the beads
- * touched: the thread joining them was hidden behind their own contours on
- * both screens, and a pair counting "third from the left" was counting a run
- * of bodies rather than reading a chain. At two there is a lane of field
- * between every pair, so the line is visible along its whole length and the
- * cannon has somewhere to be that is not already under a bead.
- *
- * It is also what makes the pilot travel. A thread of five now spans nine
- * columns of eleven, so the column the navigator calls is a real journey
- * rather than a nudge — which is the sentence this creature exists to make
- * them say.
- */
-export const STRAND_STEP = 2;
-
-/**
- * The **rows** a bead hangs below the thread's own row: none, then one, then
- * none again.
- *
- * A straight horizontal line of bodies reads as a row of arrivals that happen
- * to be level, which is what the pair already sees every wave. Hanging every
- * other one a row lower makes the thread a chain — the eye follows the zigzag
- * from end to end without being told to — and it costs nothing that has to be
- * believed, because the offset is a real row: a bead hanging low reaches the
- * ship a beat before its neighbours, is shot in the lane it is drawn in, and
- * breaks the hull where it lands.
- */
-export function beadRowOffset(place: number): number {
-  return place % 2;
-}
-
-/** How many columns a thread of this many beads covers, end to end. */
-export function strandSpan(count: number): number {
-  return 1 + STRAND_STEP * (count - 1);
-}
-
-/**
- * How many beads this arrival actually gets: what the wave asked for, or
- * `strandBeads` when it asked for nothing, held inside the two bounds above
- * and inside the field's own width.
- *
- * Call this rather than reading `entry.beads` at a spawn site: the director
- * offers the range, the wave stores a number and the field decides what fits,
- * and a second spelling of the clamp is a thread hanging off the edge of a
- * screen it was never on.
- */
-export function strandBeadCount(cfg: SimConfig, asked: number | undefined): number {
-  // What fits once the beads are spread, which is the number the field really
-  // has a say in — `strandSpan` and not `cols` alone, or a thread of five on a
-  // narrow field would be clamped into a heap in the last column.
-  const fits = Math.floor((cfg.cols - 1) / STRAND_STEP) + 1;
-  const most = Math.max(1, Math.min(STRAND_MAX, fits));
-  const wanted = Math.max(STRAND_MIN, Math.floor(asked ?? cfg.strandBeads));
-  return Math.min(most, wanted);
-}
 
 /** Which thread this bead hangs on, or `-1` for a body that is not one. */
 export function beadStrand(c: Creature): number {
@@ -156,17 +94,6 @@ export function beadIsSpent(c: Creature): boolean {
  * prevent, and that function is the one that clears it. */
 export function beadIsLit(c: Creature): boolean {
   return c.strandLit === true;
-}
-
-/**
- * The colour of the bead at this place along the thread. Alternating, and
- * **not authored per bead**: what a wave writes is the colour of the leftmost
- * one, and the whole creature is that every neighbour is the other one.
- * `otherColor` rather than a ternary written here, because turning a colour
- * over is a rule the simulation owns (`kinds.ts`).
- */
-export function beadColor(left: Color, place: number): Color {
-  return place % 2 === 0 ? left : otherColor(left);
 }
 
 /**

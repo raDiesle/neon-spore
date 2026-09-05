@@ -220,6 +220,9 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-strand.ts` | THE STRAND's three: a bead shrivelling, a raisin swelling back, and the thread itself parting |
 | `packages/sim/src/strand-round.ts` | What **happens** to a thread: the shot that meets a bead, and the thread parting once nothing on it is alive |
 | `packages/sim/src/strand.ts` | THE STRAND: what a thread of beads is — where they stand, what colour each carries, and which one may be shot |
+| `packages/sim/src/slow-fall.ts` | The bodies that come down **slower than a tile a beat** |
+| `packages/sim/src/strand-shape.ts` | THE STRAND's shape, as arithmetic |
+| `packages/sim/src/strand-spawn.ts` | How a thread comes onto the field: one queue entry in, two to five bodies out |
 
 ### packages/content
 
@@ -563,6 +566,9 @@ place — the generator keeps whatever is there.
 | `packages/render/src/strand-bead.ts` | The two bodies THE STRAND draws that are **not** a slick or a bulb |
 | `packages/render/src/strand.ts` | THE STRAND's thread, and the mark on the bead that has to be shot next |
 | `packages/render/src/strand-reel.ts` | THE STRAND's reel: the clock it rolls on, and the bad monitor over it |
+| `packages/render/src/strand-armour.ts` | THE STRAND's armour: the cage around every bead a shot **cannot** answer this instant |
+| `packages/render/src/strand-duty.ts` | The one word a seat owes the other while THE STRAND is on the field |
+| `packages/render/src/strand-mark.ts` | THE STRAND's two marks: the bead that has to be shot next on the navigator's screen |
 
 ### packages/net
 

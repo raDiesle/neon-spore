@@ -136,24 +136,27 @@ export {
   type ShotCharge,
 } from "./shot-charge.js";
 export {
-  beadColor,
   beadIsActive,
   beadIsLit,
   beadIsSpent,
   beadOrder,
-  beadRowOffset,
   beadStrand,
-  STRAND_MAX,
-  STRAND_MIN,
-  STRAND_STEP,
-  strandBeadCount,
   strandBeads,
   strandBecomes,
   strandHead,
   strandLeft,
   strandLive,
-  strandSpan,
 } from "./strand.js";
+export {
+  beadColor,
+  beadDrop,
+  STRAND_MAX,
+  STRAND_MIN,
+  STRAND_STEP,
+  strandBeadCount,
+  strandFalls,
+  strandSpan,
+} from "./strand-shape.js";
 export type {
   Bullet,
   Color,

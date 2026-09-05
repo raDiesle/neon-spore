@@ -1,4 +1,5 @@
-import { BULB, type CreatureSilhouette, SLICK } from "@neon-spore/content";
+import { type CreatureSilhouette, livingSilhouette } from "@neon-spore/content";
+import { type Color, livingKindForColor } from "@neon-spore/sim";
 import { slabs } from "./ghost-glitch.js";
 
 /**
@@ -13,10 +14,24 @@ import { slabs } from "./ghost-glitch.js";
  * here belongs in the record that gets patched.
  */
 
-/** Swaps a second the reel makes. Fast enough to read as *spinning* rather
- * than as a body that changes its mind, slow enough that the flattened frame
- * in the middle of each swap is actually drawn at sixty frames a second. */
-const REEL_HZ = 6;
+/**
+ * Swaps a second the reel makes.
+ *
+ * **It was six, and six was too fast to be read.** At that rate a face is up
+ * for a twelfth of a second — long enough to see *that* the bead is changing
+ * and not long enough to see *what into*, so a thread of five read as a strip
+ * of noise rather than as five things each of which is one of two. The owner
+ * asked for slower, and slower is what makes the picture an argument: at 2.2 a
+ * face stands for most of half a second, which is time to recognise a red
+ * slick, and then a cyan bulb, and to understand that the bead is offering
+ * both rather than hiding.
+ *
+ * It cannot go much below this. The navigator has to be able to say a bead's
+ * *place* under a beat, and a body that holds one face for a second starts to
+ * look like a body that has settled — which is the one thing this picture must
+ * never say.
+ */
+const REEL_HZ = 2.2;
 
 /** How far the picture jumps at a swap, as a share of a tile. Small: a jump an
  * eye can see and a hand cannot mistake for the body having moved lane. */
@@ -32,16 +47,34 @@ const BAR_HEIGHT = 0.22;
 const BAR_SECONDS = 1.7;
 const TEAR = 0.5;
 
+/** One face of the reel: a whole body, colour and all. */
+export interface Face {
+  color: Color;
+  shape: CreatureSilhouette;
+}
+
 /**
- * The two faces of the reel, as a list rather than a ternary.
+ * The two faces, **derived from the two colours** rather than typed out.
  *
- * A list because it is one: the reel shows the two bodies a bead can be, in
- * turn, and there is no *rule* here pairing a colour to a shape — which is the
- * thing `livingSilhouette` owns and `copies-table.ts` forbids anyone else from
- * spelling out. Written as `SLICK : BULB` this would read as that pairing and
- * be caught, correctly: a reader would have to check which of the two it was.
+ * The reel shows the two bodies a bead can be, in turn, and a body is a colour
+ * *and* a shape — so a face has to carry both, and the pairing between them is
+ * a rule this file may not spell. `livingKindForColor` owns it, and
+ * `copies-table.ts` fails on anyone choosing between the two contours by hand
+ * in a ternary; reading it out through `livingSilhouette` is the same move
+ * `entry-fields.ts` makes in the director, and it means a roster that ever
+ * gained a third colour would gain a third face here for nothing.
+ *
+ * **The colour is the half the owner asked for, and it is not a leak.** A reel
+ * that rolled through the shapes in one neutral violet said *this is a body of
+ * unknown kind*; one that rolls through a red slick and a cyan bulb says the
+ * true and much sharper thing — *it is one of these two, and which is not
+ * yours to know*. Nothing about the face depends on the bead's real colour:
+ * the clock below is the wall clock and the body's own id, and that is all.
  */
-const FACES: readonly CreatureSilhouette[] = [SLICK, BULB];
+const FACES: readonly Face[] = (["red", "cyan"] as const).map((color) => ({
+  color,
+  shape: livingSilhouette(livingKindForColor(color)),
+}));
 
 /** Where the reel is in its roll this frame: which of the two bodies it is
  * showing, and how flat it is. Exported so the shape sheet and a candidate can
@@ -49,13 +82,19 @@ const FACES: readonly CreatureSilhouette[] = [SLICK, BULB];
 export function reelAt(
   id: number,
   time: number,
-): { shape: CreatureSilhouette; flat: number; face: number } {
+): { shape: CreatureSilhouette; color: Color; flat: number; face: number } {
   const t = time * REEL_HZ + id * 0.37;
   const face = Math.floor(t);
+  const showing = FACES[face % FACES.length]!;
   // 1 at the middle of a face, 0 at the instant of a swap: the body is a line
   // there and the shape changes underneath it, which is what makes the roll
   // read as one object turning rather than two flickering.
-  return { shape: FACES[face % FACES.length]!, flat: Math.abs(Math.cos(Math.PI * t)), face };
+  return {
+    shape: showing.shape,
+    color: showing.color,
+    flat: Math.abs(Math.cos(Math.PI * t)),
+    face,
+  };
 }
 
 /**

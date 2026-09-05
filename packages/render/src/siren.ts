@@ -5,6 +5,7 @@ import { mixHex } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawSeat, PILL_W, SIREN_PAD } from "./siren-seats.js";
+import { dutyWord } from "./strand-duty.js";
 
 /**
  * The warning siren, top right of the field beside the strip, and the two
@@ -49,6 +50,11 @@ const TOP = 24;
 /** Between a chip and the dial. */
 const GAP = 3;
 
+/** How far under the dial the duty word sits, and how it is drawn. Clear of
+ * the two seat chips, which are level with the dial's own middle. */
+const DUTY_DROP = 12;
+const DUTY_FONT = '700 8px "Courier New",monospace';
+
 export function drawCommsSiren(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -70,7 +76,27 @@ export function drawCommsSiren(
   drawDial(ctx, cx, cy, time);
   drawSeat(ctx, l, "p1", call.p1, cx - reach, cy, time);
   drawSeat(ctx, l, "p2", call.p2, cx + reach, cy, time);
+  // And, under it, the one word this seat owes the other while a thread is on
+  // the field. Nothing else in the game writes a word here (`strand-duty.ts`).
+  drawDuty(ctx, l, world, cx, cy + R + DUTY_DROP);
   ctx.restore();
+}
+
+/** The word this seat owes, centred under the dial, or nothing. */
+function drawDuty(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  world: World,
+  cx: number,
+  y: number,
+): void {
+  const word = dutyWord(l.role, world);
+  if (word === null) return;
+  ctx.font = DUTY_FONT;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillStyle = TICK;
+  ctx.fillText(word, cx, y);
 }
 
 /**

@@ -1,6 +1,7 @@
 import { blobPath } from "@neon-spore/content";
 import type { Creature, SimConfig } from "@neon-spore/sim";
 import { contourClock } from "./creature-place.js";
+import { colorTrio } from "./creature-tint.js";
 import { hazed } from "./depth.js";
 import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
@@ -27,11 +28,14 @@ import { drawReelStatic, REEL_JUMP, reelAt } from "./strand-reel.js";
  * The first answer was a sealed bead: a smooth ovoid with a socket in it,
  * belonging to neither body. It works, and it teaches the pair a third shape
  * to hold. **This one is the owner's, and it is better because it teaches
- * none**: the bead *rolls between the slick and the bulb*, a slot machine
- * reel that never stops, so what the navigator is looking at says the true
- * thing — it is one of these two and you do not know which. The sealed bead is
- * parked beside it as an alternative
- * (`tools/versus/candidates/creature-strand/sealed`).
+ * none**: the bead *rolls between the two bodies it could be* — a red slick,
+ * then a cyan bulb, colour and all — a slot machine reel that never stops, so
+ * what the navigator is looking at says the true thing: it is one of these two
+ * and you do not know which.
+ *
+ * Both looks it replaced are parked beside it rather than deleted — the sealed
+ * ovoid, and the first reel, which rolled three times as fast and in one
+ * neutral violet (`tools/versus/candidates/creature-strand/`).
  *
  * The roll flattens to a line at each swap rather than cutting between the two
  * shapes. A cut at this rate is a strobe; a reel that squashes through zero
@@ -75,12 +79,6 @@ import { drawReelStatic, REEL_JUMP, reelAt } from "./strand-reel.js";
  * a size that eases is a body breathing, and a size that jumps is an event. */
 const REEL_MUL = 0.86;
 const RAISIN_MUL = 0.42;
-
-/** The reel's colours: violet, which is the palette's own "no colour". `wisp`
- * was chosen for a body either shot kills, and this is a body neither seat may
- * name a shot for yet. */
-const REEL = PALETTE.wisp;
-const REEL_RIM = PALETTE.wispRim;
 
 /** A spent bead: the rock's dark, which is the one neutral in the palette that
  * is plainly not alive. */
@@ -128,7 +126,10 @@ export function drawReelBead(b: Bead): void {
   const { ctx, l, cfg, c, x, time, near } = b;
   const haze = (h: string): string => hazed(cfg, h, near);
   const r = l.tile * 0.4 * REEL_MUL;
-  const { shape, flat, face } = reelAt(c.id, time);
+  const { shape, color, flat, face } = reelAt(c.id, time);
+  // The face's own colour, not the bead's: a red slick, then a cyan bulb, and
+  // never a hint of which of the two this body really is (`strand-reel.ts`).
+  const tint = colorTrio(color);
   // The vertical hold letting go: the picture sits a little high, a little
   // low, or where it should, and which of the three changes at every swap.
   const y = b.y + ((face % 3) - 1) * REEL_JUMP * l.tile;
@@ -142,13 +143,13 @@ export function drawReelBead(b: Bead): void {
   const body = new Path2D(
     blobPath(x, y, rx, ry, shape.lobes, shape.depth, shape.wobble, t, shape.seed),
   );
-  ctx.fillStyle = haze(PALETTE.background);
+  ctx.fillStyle = haze(tint.dark);
   ctx.fill(body);
-  strokeGlow(ctx, body, haze(REEL), STROKE.outline);
-  drawReelStatic(ctx, body, c.id, time, rx, ry, x, y, haze(REEL_RIM));
+  strokeGlow(ctx, body, haze(tint.hex), STROKE.outline);
+  drawReelStatic(ctx, body, c.id, time, rx, ry, x, y, haze(tint.rim));
   // A rim of light that swells as the reel comes flat, so the swap reads as
   // the body catching the light on its edge rather than as a shape blinking.
-  halo(ctx, x, y, r * 1.8, haze(REEL_RIM), 0.1 + 0.18 * (1 - flat));
+  halo(ctx, x, y, r * 1.8, haze(tint.rim), 0.1 + 0.18 * (1 - flat));
 }
 
 /** The shipped answer. `creature-body.ts` reads this record on every frame, so
