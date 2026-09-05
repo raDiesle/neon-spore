@@ -221,6 +221,46 @@ describe("THE MAZE's wheel", () => {
     }
   });
 
+  /**
+   * The one verdict that is drawn loudly. A shot lost in a dead end brings the
+   * whole drum down over the ship — the rings drift out, turn and fade — and a
+   * shot the heart merely refused for its colour leaves the walls standing,
+   * because it never touched them. Both cost the hull the same, so the picture
+   * is the only place the difference is visible at all.
+   */
+  it("takes the drum apart when the shot was lost, and not when it was refused", () => {
+    const { angleMilli, col } = clicked();
+    const base = {
+      phase: "verdict",
+      phaseBeat: 0,
+      angleMilli,
+      lockedWay: 0,
+      lockedCol: col,
+      way: 0,
+      step: 2,
+      verdict: -1,
+    } as const;
+    const stood = watch("p1", bossState({ ...base, lost: "color" }), 2);
+    const fell = watch("p1", bossState({ ...base, lost: "mouth" }), 2);
+
+    // Every circle of a standing drum is struck about the drum's own centre;
+    // a falling one has let go of it, so none of them are any more. Counting
+    // the arcs still centred there is the cheapest way to say that without
+    // knowing which ring went where.
+    const l = layoutFor("p1");
+    const r = (mazeRadiusMilli(CFG) * l.tile) / 1000;
+    const cx = l.gridLeft + l.gridWidth / 2;
+    const cy = l.gridTop + r + l.tile * 0.6;
+    const onCentre = (points: { x: number; y: number }[]) =>
+      points.filter((p) => Math.abs(p.x - cx) < 0.5 && Math.abs(p.y - cy) < 0.5).length;
+    const pieces = wheel().openings.reduce((n, o) => n + Math.max(1, o.length), 0);
+    expect(onCentre(stood.points) - onCentre(fell.points)).toBeGreaterThanOrEqual(pieces);
+
+    // And there are no doors in a wall that is coming down.
+    expect(stood.colours).toContain(PALETTE.good);
+    expect(fell.colours).not.toContain(PALETTE.good);
+  });
+
   it("survives every phase and a field of any width without throwing", () => {
     for (const phase of ["lead", "read", "travel", "verdict"] as const) {
       for (const cols of [7, 9, 11, 13]) {

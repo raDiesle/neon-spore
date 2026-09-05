@@ -1,6 +1,7 @@
 import { AUTHORED_COL_MAX, CREATURES } from "@neon-spore/content";
 import { numberField, placementNote, renderVane, renderWarden } from "./boss-cycles.js";
 import { renderFleetEditor } from "./fleet-editor.js";
+import { renderMazeEditor } from "./maze-editor.js";
 import { renderPinballEditor } from "./pinball-editor.js";
 import { renderSimonEditor } from "./simon-editor.js";
 import { renderSnakeEditor } from "./snake-editor.js";
@@ -64,14 +65,12 @@ export function bindBossPanel(store: Store, onEdit: () => void): BossPanel {
       if (isCreaturePlacementBlocked(wave)) panel.appendChild(placementNote());
       return;
     }
+    // THE MAZE's sheets are authored data and stay that way, so this panel
+    // walks them rather than editing them — which is the thing an author
+    // actually needs, the fifth stage being four stages of play away
+    // (`maze-editor.ts`).
     if (wave.boss.kind === "maze") {
-      const blurbZ = document.createElement("p");
-      blurbZ.className = "note";
-      blurbZ.textContent =
-        "A wheel of rings turns behind the ship, with ways in round its rim. " +
-        "Both screens see the same light. The wheel is authored in " +
-        "packages/content/src/maze-rounds.ts and is not editable here yet.";
-      panel.appendChild(blurbZ);
+      renderMazeEditor(panel, onEdit);
       if (isCreaturePlacementBlocked(wave)) panel.appendChild(placementNote());
       return;
     }

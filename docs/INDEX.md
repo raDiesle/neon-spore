@@ -992,5 +992,6 @@ place — the generator keeps whatever is there.
 | `tools/maze/run.ts` | `bun run maze` — draw a sheet for THE MAZE, ready to paste into `packages/content/src/maze-rounds.ts` |
 | `tools/frames/page.ts` | Getting a tab to the moment the world is the capture's, before the first tick |
 | `tools/maze/carve.ts` | The walls of THE MAZE's grid: which of them are opened |
+| `tools/director/src/maze-editor.ts` | THE MAZE's five stages, walked through one at a time |
 
 <!-- index:code:end -->

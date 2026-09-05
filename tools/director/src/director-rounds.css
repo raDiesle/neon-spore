@@ -110,3 +110,14 @@ button.snake-cell.rock {
 .simon-add:hover {
   opacity: 1;
 }
+
+/* THE MAZE's sheets, walked through one stage at a time. The canvas is drawn
+   by the game's own wall code, so nothing here says anything about a maze —
+   only how big the picture is and where it sits. */
+canvas.maze-sheet {
+  display: block;
+  margin: 10px auto;
+  max-width: 100%;
+  border-radius: 6px;
+  background: #07040f;
+}
