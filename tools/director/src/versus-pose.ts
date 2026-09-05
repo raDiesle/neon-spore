@@ -50,6 +50,12 @@ const SLOT_POSE: Record<string, string> = {
   "cannon:shot": "SHOT · BEING LAID",
   "cannon:mouth": "SHOT · BEING LAID",
   "shield:ward": "WARD · DEFLECTED",
+  // Continuous, and yet not the default pose: a meteor look has to be judged
+  // with its holes in it, because a hole is the one part of the rock the
+  // player put there. `METEOR · CRATERED` runs four shots into one before it
+  // hands the world over, so the pair opens on a rock that has already been
+  // argued with rather than on a fresh one it would have to wait for.
+  "creature:meteor": "METEOR · CRATERED",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */
