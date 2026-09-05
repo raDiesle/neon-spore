@@ -9,6 +9,22 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 35615317 — capture.ts keeps to the line limit
+
+The hold loop's own comment folded into the paragraph above it: the file was at 251 lines and `limits.test.ts` counts.
+
+## 2026-09-05 · 296bf270 — The open eye sits square in the socket, and its corners are tapers not spikes
+
+Two adjustments to the shape the previous commit built, both from looking at the frame. The descent moves the gap's own middle rather than the corner line, so a wide eye is centred in the hole where it used to hang in the top of it and leave the floor blank; and the lids' control points sit further out toward the corners, which shortens the taper each corner comes to. The height of the gap is still exactly linear in the tension.
+
+## 2026-09-05 · 9e54fe15 — `--hold` sends the grab a handle is waiting for
+
+A handle's first `drag` is the grab: it takes the origin the distance will be measured from and moves nothing (`sim/warden-rope.ts`). `--hold` sent one command carrying a distance, so it grabbed the rope at that distance and pulled it nowhere — every warden capture ever taken with this flag was a picture of a shut eye with a number beside it saying otherwise, which is the exact failure the flag's own comment says it exists to end. It is two commands now, the grab at zero and then the pull, and `FrameSpec.hold` is the list.
+
+## 2026-09-05 · ee234422 — THE WARDEN opens an eye rather than a shutter
+
+The owner asked for this look by name: the eye read too round, and the two halves that come apart under the pull read as boring and machined.
+
 ## 2026-09-05 · ac40e91f — THE MAZE's heart starts slow, races as it is hurt, and bleeds where it is hit
 
 Four things the owner asked of the body in the middle, and they are one mechanism: what state it is in, and how it shows it.
