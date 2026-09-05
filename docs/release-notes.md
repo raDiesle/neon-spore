@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · c6ddcbab — Slow THE STRAND down, give it a wave, and show each seat what it may not shoot
+
+Six changes the owner asked for across one sitting, and together they make a creature a pair can actually play.
+
 ## 2026-09-05 · 7b4e2bc — The stub canvas logs the shape a path is made of
 
 `StubContext.log` claimed to be the ordered log of every call and left out the one part a path is: `StubPath`'s builders went through `nums` for validation and never through the log, so `new Path2D` appeared as a count and `rect`, `moveTo`, `arc` and the rest appeared not at all.
