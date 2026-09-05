@@ -196,6 +196,7 @@ Then write THE VOLLEY's film, which is a queue entry of its own and stays there.
 ## Split `effects-spark.ts`: it is on the 250-line limit and blocks every new event
 
 - **Found:** 2026-09-05, claude/carom-enemy-deflection-d1bb2e
+- **Taken:** 2026-09-05, claude/queue-split-effects-spark-ts-it-is-on-the-250-line-lim
 - **Files:** `packages/render/src/effects-spark.ts`, `packages/sim/test/limits.test.ts`
 
 `burstFor` is one exhaustive switch over the whole of `SimEvent`, and the file
