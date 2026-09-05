@@ -65,6 +65,7 @@ const creature = (): Required<Creature> => ({
   strandId: 4,
   strandOrder: 2,
   strandSpent: true,
+  strandLit: true,
 });
 
 const bullet = (): Required<Bullet> => ({

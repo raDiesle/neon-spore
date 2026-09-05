@@ -123,12 +123,12 @@ export const MECHANICS = {
     waveNames: true,
   },
   strand: {
-    what: "Two to five slicks and bulbs threaded on one line, alternating red and cyan, and only one of them can be shot at a time — the next along the thread. One of you is shown which that is and no colours; the other is shown the colours and no mark. A shot at the wrong one swells the last dead bead back to life.",
+    what: "Two to five slicks and bulbs threaded on one line, alternating red and cyan. It is eaten from its ends inward and only one bead can be shot at a time — one of the two ends, decided again after every shot. One of you is shown which that is and no colours; the other is shown the colours and no mark. A shot at the wrong one swells a dead bead back to life.",
     reach: "spawn",
     // A wave names this kind and gives it a colour, the way it does for an
-    // echo: the colour is the bead that has to be shot *first*, and every
-    // other one on the thread follows from it by alternating — so what is
-    // authored is one end of a pattern rather than one body.
+    // echo: the colour is the **leftmost** bead's, and every other one on the
+    // thread follows from it by alternating — so what is authored is one end
+    // of a pattern rather than one body.
     waveNames: true,
   },
   gyre: {

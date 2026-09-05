@@ -138,6 +138,7 @@ export {
 export {
   beadColor,
   beadIsActive,
+  beadIsLit,
   beadIsSpent,
   beadOrder,
   beadStrand,
@@ -148,6 +149,7 @@ export {
   strandBecomes,
   strandHead,
   strandLeft,
+  strandLive,
 } from "./strand.js";
 export type {
   Bullet,

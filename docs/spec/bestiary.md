@@ -100,7 +100,7 @@ directly, `"suck"`, after what taking one in is called throughout the sim
 | **Meteor** | matt, angular, no glow | ward only (the mirror image of the strand) |
 | **Veil** | a thundercloud; the pilot sees into it, the navigator does not, and the body inside turns over every few beats | announce the body *and* how long it is good for |
 | **Bulb** | round, many fine lobes, rotating ring of light; pumps — always cyan | mark + colour |
-| **Strand** | chain of segments on one thread, alternating red and cyan | shoot them in order — and only one of you is shown which is next |
+| **Strand** | chain of segments on one thread, alternating red and cyan | eaten from its ends inward — and only one of you is shown which end is next |
 | **Crystal** | facets, breaks into two halves | fast switching |
 | **Gum** | sticky; grabs and holds on | three evasive manoeuvres in a row |
 | **Throb** | swells and shrinks on a fixed beat | timing instead of a snap call |
@@ -207,10 +207,19 @@ through is shooting its 5–7 segments in alternating colours.
 
 **And as it is built**, which is the last sentence of that paragraph and
 nothing else: two to five segments on one thread, alternating red and cyan, and
-only the next one along the thread can be shot. The marking shot, the turn
-lengthways and the greyed-out control group are all gone with the evasion they
-were written against — what is left is the *order*, and the order is what makes
-the pair talk.
+only one of them can be shot at a time. The marking shot, the turn lengthways
+and the greyed-out control group are all gone with the evasion they were
+written against — what is left is the *order*, and the order is what makes the
+pair talk.
+
+**The thread is eaten from its ends inward, and which end is rolled again after
+every bead.** It was a fixed march from one rolled end first, which is the
+plainest reading of the row above and gives the creature away on the second
+bead: the first raisin shows the pilot which end the order started at, and the
+navigator — who has heard one colour and can see that the beads alternate —
+works out all the rest from there. One exchange, and the thread answers itself.
+Rolled, neither of them can derive the other's half at any point, and both
+calls are worth making until the last bead.
 
 The split is the part the original did not have, and it is the first one in
 this game that runs **both ways**. The navigator is shown which segment is lit

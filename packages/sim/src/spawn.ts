@@ -7,7 +7,7 @@ import { gyreOnSpawn, mountsFor } from "./gyre.js";
 import { recoilOnSpawn } from "./recoil.js";
 import { rindOnSpawn } from "./rind.js";
 import { shellOnSpawn } from "./shell.js";
-import { stringStrand } from "./strand.js";
+import { stringStrand } from "./strand-round.js";
 import { clampSpanCol, colSpan, fallTilesPerBeat, spanOf } from "./types.js";
 import { veerOnSpawn } from "./veer.js";
 import { veilOnSpawn } from "./veil.js";

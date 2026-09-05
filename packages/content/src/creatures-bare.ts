@@ -30,8 +30,8 @@ export const BARE_CREATURES: Record<BareKind, CreatureDef> = {
     // saying something, and control visibility has nothing to say about that.
     controls: ["aim"],
     // No colour of its own, the way an echo and a rind have none: a strand
-    // arrives red or cyan and that is the colour of the bead which has to be
-    // shot **first**, from which every other one follows by alternating
+    // arrives red or cyan and that is the colour of its **leftmost** bead,
+    // from which every other one follows by alternating along the thread
     // (`beadColor`). So the authored colour is a fact about one arrival, and
     // the fourth blank in this table for the plainest of reasons — a bead
     // simply *is* a slick or a bulb, and a colour here would be the kind
@@ -45,7 +45,7 @@ export const BARE_CREATURES: Record<BareKind, CreatureDef> = {
     // do anything else with the warning.
     radar: "p1",
     blurb:
-      "Two to five slicks and bulbs threaded on one line, alternating, and only one of them can be shot at a time. The navigator is shown which — and no colours at all; the pilot is shown the colours and no mark. A shot at the wrong bead swells the last dead one back to life.",
+      "Two to five slicks and bulbs threaded on one line, alternating, and only one of them can be shot at a time — always an end of what is left, and which end is decided again after every shot. The navigator is shown which, and no colours at all; the pilot is shown the colours and no mark. A shot at the wrong bead swells a dead one back to life.",
   },
   echo: {
     kind: "echo",

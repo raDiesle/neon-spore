@@ -1,27 +1,105 @@
 import { metColor, missedColor } from "./balance.js";
 import { removeCreatures } from "./field.js";
-import { beadIsActive, beadIsSpent, beadOrder, beadStrand, strandLeft } from "./strand.js";
+import { nextInt } from "./rng.js";
+import {
+  beadColor,
+  beadIsActive,
+  beadIsSpent,
+  beadOrder,
+  beadStrand,
+  lightStrandEnd,
+  strandBeadCount,
+  strandLeft,
+} from "./strand.js";
 import type { Bullet, Creature } from "./types.js";
 import type { World } from "./world.js";
 
 /**
- * What **happens** to a thread: the shot that meets a bead, and the thread
- * parting once nothing on it is alive.
+ * What **happens** to a thread: how one comes onto the field, what a shot that
+ * meets a bead does, and the thread parting once nothing on it is alive.
  *
  * Its own file beside `strand.ts`, the split `shell.ts` and `shell-round.ts`
  * already make and for their reason: next door is what a strand *is* — where
- * its beads stand, what colour each carries, which one is lit — and none of it
+ * its beads hang, what colour each carries, which one is lit — and none of it
  * touches a world. This is the half that mutates one, and it is the half a
  * reviewer opens when they want to know what a press costs.
  */
 
-/** The raisin nearest the head — the bead most recently shrivelled, and the
- * one a shot at the wrong bead brings back. */
-function lastSpent(world: World, strandId: number): Creature | null {
+/**
+ * Thread the rest of a strand onto the bead that has just arrived, and settle
+ * that bead's own place on it.
+ *
+ * The queue entry becomes the **leftmost** bead — `spawnArrivals` has already
+ * pushed it — and this puts the others in the columns to its right, shifting
+ * the whole run inside the field when there is not room for it. The leftmost
+ * bead carries the authored colour and every other alternates from it, so a
+ * wave composes a thread by naming one end of a pattern.
+ *
+ * It mutates that first bead rather than returning a replacement for it,
+ * because `world.nextId` is spent inside the object literal next door and a
+ * strand's name *is* its first bead's id. The first lit end is rolled here
+ * rather than through `lightStrandEnd`, for the same reason: the other beads
+ * are not on the field yet, so there is no run for that function to read — and
+ * it spends exactly the one draw that function would.
+ */
+export function stringStrand(world: World, first: Creature, asked: number | undefined): Creature[] {
+  const count = strandBeadCount(world.cfg, asked);
+  const fromLeft = nextInt(world.rng, 2) === 0;
+  const lo = Math.max(0, Math.min(first.col, world.cfg.cols - count));
+  // The leftmost bead's colour, which is what the wave authored. Not null: a
+  // strand names a colour (`authorsColor`).
+  const left = first.color ?? "red";
+  const born: Creature[] = [];
+  for (let place = 0; place < count; place++) {
+    const col = lo + place;
+    const color = beadColor(left, place);
+    if (place === 0) {
+      first.col = col;
+      first.fromCol = col;
+      first.color = color;
+      first.strandId = first.id;
+      first.strandOrder = place;
+      first.strandLit = fromLeft;
+      continue;
+    }
+    born.push({
+      id: world.nextId++,
+      kind: "strand",
+      col,
+      row: first.row,
+      // Out of the bead that arrived, so the first frame draws the thread
+      // paying itself out rather than five bodies appearing in a row — the
+      // same glide THE GYRE's rim comes out of its hub on.
+      fromRow: first.fromRow,
+      fromCol: first.col,
+      color,
+      holes: 0,
+      petals: 0,
+      dragMilli: 0,
+      throbOpen: false,
+      shell: 0,
+      strandId: first.id,
+      strandOrder: place,
+      strandLit: !fromLeft && place === count - 1,
+    });
+  }
+  return born;
+}
+
+/**
+ * The raisin nearest a bead, and the one a wrong shot at that bead brings back.
+ *
+ * Nearest **along the thread**, which — with the contiguous run `strand.ts`
+ * argues for — means one of the two hanging off its ends. So the thread grows
+ * back at the end the pair was closest to working on rather than somewhere
+ * they had stopped looking, and the mistake is undone where they are looking.
+ * Ties go to the left, and a tie is a coin either way.
+ */
+function nearestSpent(world: World, strandId: number, from: number): Creature | null {
   let back: Creature | null = null;
   for (const c of world.creatures) {
     if (beadStrand(c) !== strandId || !beadIsSpent(c)) continue;
-    if (back === null || beadOrder(c) > beadOrder(back)) back = c;
+    if (back === null || Math.abs(beadOrder(c) - from) < Math.abs(beadOrder(back) - from)) back = c;
   }
   return back;
 }
@@ -39,19 +117,23 @@ function lastSpent(world: World, strandId: number): Creature | null {
  * on a string is a mass in a lane and a shot fired up that lane has plainly
  * met something.
  *
- * A live bead that is **not** the head is the mistake, and the colour is
+ * A live bead that is **not** the lit one is the mistake, and the colour is
  * deliberately not consulted — there is no right colour for the wrong bead,
- * exactly as there is no right shot at a lure. What it costs is the last
+ * exactly as there is no right shot at a lure. What it costs is the nearest
  * raisin swelling back into a bead, so the thread is longer than it was and
  * the pair has to say the whole sentence again. With nothing yet shrivelled
  * there is nothing to give back and it is an ordinary miss, which is right:
- * the first bead of a thread is the one guess this creature is willing to
- * forgive.
+ * the first bead of a thread is the one guess this creature forgives.
  *
- * Only the head is answered by the ordinary rule, which is the matching colour
- * and nothing else. It does not leave the field — that is what makes the
- * raisin a readout — so there is no `destroy` here and no `removeCreature`:
+ * Only the lit bead is answered by the ordinary rule, which is the matching
+ * colour and nothing else. It does not leave the field — that is what makes
+ * the raisin a readout — so there is no `destroy` here and no `removeCreature`:
  * the whole thread goes at once, a beat later, in `breakSpentStrands`.
+ *
+ * **Both branches that change the run re-light an end**, and that is the
+ * creature rather than tidiness: which bead is next is rolled afresh every
+ * time, so neither seat can work out the other's half from what has already
+ * happened (`lightStrandEnd`).
  */
 export function beadStruck(world: World, b: Bullet, hit: Creature): boolean {
   const strandId = beadStrand(hit);
@@ -61,12 +143,13 @@ export function beadStruck(world: World, b: Bullet, hit: Creature): boolean {
   }
   if (!beadIsActive(world, hit)) {
     missedColor(world);
-    const back = lastSpent(world, strandId);
+    const back = nearestSpent(world, strandId, beadOrder(hit));
     if (back === null) {
       world.events.push({ type: "reject", col: hit.col, row: hit.row });
       return false;
     }
     back.strandSpent = false;
+    lightStrandEnd(world, strandId);
     world.events.push({
       type: "strandSwell",
       id: back.id,
@@ -85,6 +168,7 @@ export function beadStruck(world: World, b: Bullet, hit: Creature): boolean {
 
   metColor(world);
   hit.strandSpent = true;
+  lightStrandEnd(world, strandId);
   world.score += world.cfg.scoreStrandBead;
   world.events.push({
     type: "strandBead",

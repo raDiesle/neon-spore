@@ -114,7 +114,7 @@ export const SHORT_NOTE: Partial<Record<CreatureKind, string>> = {
   slick: "shot with the red cannon",
   bulb: "shot with the cyan cannon",
   lure: "do not shoot it",
-  strand: "beads on a thread; only p2 sees which is next",
+  strand: "beads on a thread; only p2 sees which end is next",
   throb: "only a shot while it is swollen lands",
   shell: "shoot the armour away first",
   clasp: "ward it, then shoot",

@@ -53,10 +53,11 @@ function beads(world: World): Creature[] {
   return world.creatures.filter((c) => c.kind === "strand");
 }
 
-/** The threads on the field, each as its own beads sorted along the line —
- * by column, which is the order an eye reads them in and the order the pair
- * counts in. Deliberately not `beadOrder`: that is the shooting order, and
- * which end it starts at is exactly what player 1 must not be able to see. */
+/** The threads on the field, each as its own beads sorted along the line — by
+ * column, which is the order an eye reads them in and the order the pair
+ * counts in. `beadOrder` would give the same answer today and is the rule's
+ * own field rather than the picture's; a line is drawn between the things on
+ * the screen, so it is sorted by where they are. */
 function threads(world: World): Creature[][] {
   const byId = new Map<number, Creature[]>();
   for (const c of beads(world)) {

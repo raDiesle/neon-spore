@@ -184,9 +184,9 @@ export type CreatureKind =
    */
   | "veer"
   /**
-   * One bead of a thread of two to five, alternating red and cyan along the
-   * order they must be shot in: player 2 is shown which is lit and no colour,
-   * player 1 the colours and no mark. `strand.ts` is the whole of it.
+   * One bead of a thread of two to five, alternating red and cyan and eaten
+   * from its ends inward at an end rolled again after every shot: player 2 is
+   * shown which is lit and no colour, player 1 the colours and no mark.
    */
   | "strand";
 

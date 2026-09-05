@@ -14,13 +14,14 @@ import type { World } from "./world.js";
  * nothing like THE GYRE's — because there would be nothing for one to do: a
  * wheel carries its mounts around a rim no mount could compute, and a thread
  * carries nothing at all. Every bead falls a row a beat exactly like a slick,
- * and what binds them is an identity and an order, which are two integers on
+ * and what binds them is an identity and a place, which are two integers on
  * the bodies themselves.
  *
  * ## The split, and it runs both ways
  *
- * The beads alternate red and cyan along the shooting order, and only one of
- * them may be shot at a time — the head, then its neighbour, then the next.
+ * The beads alternate red and cyan along the thread, and only one of them may
+ * be shot at a time — the lit one, which is always at one end of what is still
+ * alive.
  *
  * - **Player 2 is shown which bead is lit** and no colour at all: on the
  *   navigator's screen a thread is a row of sealed beads (`render/strand.ts`).
@@ -34,25 +35,42 @@ import type { World } from "./world.js";
  * names one seat that has to speak; this one names both, which is why it is
  * the first `"both"` in `TALKER` (`render/comms.ts`).
  *
- * **Which end the order starts at is rolled** on the beat the strand arrives,
- * and it is the one thing about this creature nobody may compose against
- * (`docs/spec/structure.md` 7.3 keeps randomness for exactly what one player
- * knows and the other does not). An authored end would be a pattern the pair
- * reads off the leftmost bead after three arrivals.
+ * ## The end is rolled again after every change, and that is the creature
+ *
+ * A thread is eaten from its ends inward, and **which end is lit is rolled
+ * afresh every time the run of live beads changes** (`lightStrandEnd`). It was
+ * a fixed march from one rolled end for a day, and a fixed march gives the
+ * creature away on the second bead: the first raisin shows the pilot which end
+ * the order started at, so from then on they know which bead is next without
+ * being told — and the navigator, who has heard one colour and knows the beads
+ * alternate, can work out all the rest the same way. One exchange, and the
+ * thread answers itself.
+ *
+ * Rolled, neither seat can derive the other's half at any point. The pilot
+ * sees two live ends in two different colours and cannot know which is lit;
+ * the navigator sees which is lit and has never seen a colour. Both calls stay
+ * worth making until the last bead, which is what this creature is for.
+ *
+ * The live beads are always a **contiguous run**, and every rule here leans on
+ * it: a kill only ever takes an end, and a wrong shot only ever gives back the
+ * raisin next to one (`strand-round.ts`). So "the two ends" is the first and
+ * last of `strandLive`, and there is never a hole in the middle to reason
+ * about.
  *
  * ## A wrong bead costs the thread going backwards
  *
- * A shot that lands on a live bead which is not the head does not miss
- * quietly: it swells the last raisin back into a bead, so the thread the pair
- * had shortened is longer than it was. That is the whole reason a shrivelled
- * bead stays hanging — a mistake needs something to undo, and a raisin on the
- * string is the only readout either seat has of how far along they are.
+ * A shot that lands on a live bead which is not the lit one does not miss
+ * quietly: it swells the nearest raisin back into a bead, so the thread the
+ * pair had shortened is longer than it was. That is the whole reason a
+ * shrivelled bead stays hanging — a mistake needs something to undo, and a
+ * raisin on the string is the only readout either seat has of how far along
+ * they are.
  */
 
 /**
- * Beads a thread may be authored with. Two is the shortest run that has an
- * order at all; five is most of a seven-column field, and a wider thread would
- * leave the pilot nowhere to stand that is not already under one.
+ * Beads a thread may be authored with. Two is the shortest run that has an end
+ * to choose between at all; five is most of a seven-column field, and a wider
+ * thread would leave the pilot nowhere to stand that is not already under one.
  */
 export const STRAND_MIN = 2;
 export const STRAND_MAX = 5;
@@ -78,8 +96,8 @@ export function beadStrand(c: Creature): number {
   return c.strandId ?? -1;
 }
 
-/** Where it stands in the shooting order. Zero for a body that is not a bead,
- * which nothing asks — `beadStrand` is the test for that. */
+/** Where it hangs along the thread, counting from the leftmost. Zero for a
+ * body that is not a bead, which nothing asks — `beadStrand` is that test. */
 export function beadOrder(c: Creature): number {
   return c.strandOrder ?? 0;
 }
@@ -90,15 +108,23 @@ export function beadIsSpent(c: Creature): boolean {
   return c.strandSpent === true;
 }
 
+/** Whether this is the bead a shot may land on, as the flag alone. Ask
+ * `beadIsActive` instead unless you are `lightStrandEnd`: a lit flag left on a
+ * body that has since been shrivelled is the state this file exists to
+ * prevent, and that function is the one that clears it. */
+export function beadIsLit(c: Creature): boolean {
+  return c.strandLit === true;
+}
+
 /**
- * The colour of the bead at this place in the order. Alternating, and **not
- * authored per bead**: what a wave writes is the colour of the one that has to
- * be shot first, and the whole creature is that every neighbour is the other
- * one. `otherColor` rather than a ternary written here, because turning a
- * colour over is a rule the simulation owns (`kinds.ts`).
+ * The colour of the bead at this place along the thread. Alternating, and
+ * **not authored per bead**: what a wave writes is the colour of the leftmost
+ * one, and the whole creature is that every neighbour is the other one.
+ * `otherColor` rather than a ternary written here, because turning a colour
+ * over is a rule the simulation owns (`kinds.ts`).
  */
-export function beadColor(head: Color, order: number): Color {
-  return order % 2 === 0 ? head : otherColor(head);
+export function beadColor(left: Color, place: number): Color {
+  return place % 2 === 0 ? left : otherColor(left);
 }
 
 /**
@@ -119,22 +145,31 @@ export function strandBeads(world: World, strandId: number): Creature[] {
 }
 
 /**
- * The bead that has to be shot next: the live one lowest in the order, or null
- * when the thread has nothing left on it.
+ * The beads of this thread still alive, leftmost first — which is also the run
+ * whose two ends are the only places a shot may land.
  *
- * Derived rather than stored, and that is what keeps the mark on player 2's
- * screen and the shot the simulation allows one fact. A stored "which one is
- * lit" would be a second copy of a question the field already answers, and it
- * would have to be rewritten on every kill — including the ones a wrong shot
- * takes back.
+ * Sorted on the place along the thread rather than on the column, and the two
+ * are the same thing today because nothing moves a bead sideways. The sort is
+ * on the field the rule owns, so a thread that ever does move keeps its ends
+ * where the pair counted them.
+ */
+export function strandLive(world: World, strandId: number): Creature[] {
+  return world.creatures
+    .filter((c) => beadStrand(c) === strandId && !beadIsSpent(c))
+    .sort((a, b) => beadOrder(a) - beadOrder(b));
+}
+
+/**
+ * The bead that has to be shot next: the lit one.
+ *
+ * The fallback to the leftmost is a floor and not a case the game reaches —
+ * every path that changes the run calls `lightStrandEnd` — but a thread with
+ * nothing lit would be a thread no shot could ever answer, which is a worse
+ * failure than one lit at the wrong end.
  */
 export function strandHead(world: World, strandId: number): Creature | null {
-  let head: Creature | null = null;
-  for (const c of world.creatures) {
-    if (beadStrand(c) !== strandId || beadIsSpent(c)) continue;
-    if (head === null || beadOrder(c) < beadOrder(head)) head = c;
-  }
-  return head;
+  const live = strandLive(world, strandId);
+  return live.find(beadIsLit) ?? live[0] ?? null;
 }
 
 /** Whether this bead is the one a shot may land on. The one rule render's mark
@@ -146,69 +181,26 @@ export function beadIsActive(world: World, c: Creature): boolean {
 
 /** How many beads of this thread are still alive. */
 export function strandLeft(world: World, strandId: number): number {
-  let left = 0;
-  for (const c of world.creatures) {
-    if (beadStrand(c) === strandId && !beadIsSpent(c)) left += 1;
-  }
-  return left;
+  return strandLive(world, strandId).length;
 }
 
 /**
- * Thread the rest of a strand onto the bead that has just arrived, and settle
- * that bead's own place on it.
+ * Light one end of what is left of a thread, rolled — and put out whatever was
+ * lit before.
  *
- * The queue entry becomes the **leftmost** bead — `spawnArrivals` has already
- * pushed it — and this puts the others in the columns to its right, shifting
- * the whole run inside the field when there is not room for it. It is the one
- * place the end the order starts at is rolled, so a bead's colour and its
- * order are decided together and cannot come apart.
+ * **Called after every change to the run and nowhere else**: the shot that
+ * shrivels a bead, and the shot that swells one back. That is what stops
+ * either seat deriving the other's half — the argument is at the top of this
+ * file — and it is why the flag is stored rather than read off an order.
  *
- * It mutates that first bead rather than returning a replacement for it,
- * because `world.nextId` is spent inside the object literal next door and a
- * strand's name *is* its first bead's id.
+ * One draw whichever end comes up, so the stream is spent identically on both
+ * devices and `rng.state` in `hash.ts` is what makes them agree; and no draw at
+ * all when one bead is left, because there is nothing left to choose between.
  */
-export function stringStrand(world: World, first: Creature, asked: number | undefined): Creature[] {
-  const count = strandBeadCount(world.cfg, asked);
-  // Which end of the thread the order starts at. One draw whichever way it
-  // comes up, so the stream is spent identically and `rng.state` in `hash.ts`
-  // is what makes both devices agree about it.
-  const fromLeft = nextInt(world.rng, 2) === 0;
-  const lo = Math.max(0, Math.min(first.col, world.cfg.cols - count));
-  // The colour of the bead that has to be shot first, which is what the wave
-  // authored. Not null: a strand names a colour (`authorsColor`).
-  const head = first.color ?? "red";
-  const born: Creature[] = [];
-  for (let place = 0; place < count; place++) {
-    const order = fromLeft ? place : count - 1 - place;
-    const col = lo + place;
-    const color = beadColor(head, order);
-    if (place === 0) {
-      first.col = col;
-      first.fromCol = col;
-      first.color = color;
-      first.strandId = first.id;
-      first.strandOrder = order;
-      continue;
-    }
-    born.push({
-      id: world.nextId++,
-      kind: "strand",
-      col,
-      row: first.row,
-      // Out of the bead that arrived, so the first frame draws the thread
-      // paying itself out rather than five bodies appearing in a row — the
-      // same glide THE GYRE's rim comes out of its hub on.
-      fromRow: first.fromRow,
-      fromCol: first.col,
-      color,
-      holes: 0,
-      petals: 0,
-      dragMilli: 0,
-      throbOpen: false,
-      shell: 0,
-      strandId: first.id,
-      strandOrder: order,
-    });
-  }
-  return born;
+export function lightStrandEnd(world: World, strandId: number): void {
+  const live = strandLive(world, strandId);
+  for (const c of live) c.strandLit = false;
+  if (live.length === 0) return;
+  const end = live.length === 1 || nextInt(world.rng, 2) === 0 ? live[0]! : live[live.length - 1]!;
+  end.strandLit = true;
 }

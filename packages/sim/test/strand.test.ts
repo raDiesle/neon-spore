@@ -1,6 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import {
   beadIsActive,
+  beadIsLit,
   beadIsSpent,
   beadOrder,
   beadStrand,
@@ -20,6 +21,7 @@ import {
   strandBeadCount,
   strandHead,
   strandLeft,
+  strandLive,
   type TimedCommand,
   ticksPerBeat,
   wornKind,
@@ -89,6 +91,13 @@ function shootHead(world: ReturnType<typeof createWorld>): boolean {
   return beadStruck(world, bolt(head!.col, head!.color ?? "red"), head!);
 }
 
+/** A live bead of this thread that is not the lit one, or null when only one
+ * is left. The tests never name an end: which is lit is rolled. */
+function notLit(world: ReturnType<typeof createWorld>): Creature | null {
+  const id = beadStrand(threadOf(world)[0]!);
+  return strandLive(world, id).find((c) => !beadIsActive(world, c)) ?? null;
+}
+
 describe("the thread a wave authors", () => {
   it("is one entry and several bodies, in consecutive columns", () => {
     for (const beads of [STRAND_MIN, 3, STRAND_MAX]) {
@@ -110,7 +119,7 @@ describe("the thread a wave authors", () => {
     expect(strandBeadCount({ ...CFG, cols: 3 }, STRAND_MAX)).toBe(3);
   });
 
-  it("alternates the two colours along the order, from the authored one", () => {
+  it("alternates the two colours along the thread, from the authored one", () => {
     for (const color of ["red", "cyan"] as const) {
       const on = threadOf(onField(STRAND_MAX, color));
       expect(on[0]!.color).toBe(color);
@@ -133,27 +142,57 @@ describe("the thread a wave authors", () => {
     expect(Math.max(...cols)).toBeLessThanOrEqual(CFG.cols - 1);
   });
 
-  it("lights exactly one bead, and it is the lowest live order", () => {
+  /** Which end is lit is rolled, so the test may only say *an* end. */
+  it("lights exactly one bead, and it is an end of the thread", () => {
     const world = onField(4);
     const on = threadOf(world);
-    expect(on.filter((c) => beadIsActive(world, c))).toHaveLength(1);
-    expect(beadIsActive(world, on[0]!)).toBe(true);
+    const lit = on.filter((c) => beadIsActive(world, c));
+    expect(lit).toHaveLength(1);
+    expect([on[0]!.id, on[on.length - 1]!.id]).toContain(lit[0]!.id);
   });
 });
 
 describe("what a shot does", () => {
-  it("shrivels the next bead, leaves it hanging, and lights the one after", () => {
+  it("shrivels the lit bead, leaves it hanging, and lights an end of the rest", () => {
     const world = onField(3);
-    const before = threadOf(world);
+    const id = beadStrand(threadOf(world)[0]!);
+    const was = strandHead(world, id)!;
     expect(shootHead(world)).toBe(false);
     // Still three bodies: a raisin is the readout, so nothing leaves the field.
     expect(threadOf(world)).toHaveLength(3);
-    expect(beadIsSpent(before[0]!)).toBe(true);
-    expect(strandLeft(world, beadStrand(before[0]!))).toBe(2);
-    expect(beadIsActive(world, before[1]!)).toBe(true);
+    expect(beadIsSpent(was)).toBe(true);
+    expect(strandLeft(world, id)).toBe(2);
+    // And exactly one of the two still alive is lit — an end of the run, which
+    // is both of them when two are left.
+    const live = strandLive(world, id);
+    expect(live.filter((c) => beadIsActive(world, c))).toHaveLength(1);
     expect(world.score).toBe(CFG.scoreStrandBead);
-    const bead = world.events.filter((e) => e.type === "strandBead");
-    expect(bead).toHaveLength(1);
+    expect(world.events.filter((e) => e.type === "strandBead")).toHaveLength(1);
+  });
+
+  /**
+   * The change the owner asked for, and the whole reason the lit end is stored
+   * rather than derived: over many threads the end that comes up second is
+   * sometimes the far one, so neither seat can read the next bead off the
+   * raisin the last shot left. A fixed march would answer "always the same
+   * side" here, every time.
+   */
+  it("rolls which end is lit again after every kill, rather than marching", () => {
+    // Seeds whose thread opens lit at the **left** end, so every run in the
+    // sample starts from the same place. A fixed march would then always light
+    // the bead next to the raisin — place 1 — and this set would have one
+    // member. It has two, which is the whole of the change: the far end comes
+    // up as often as the near one, so a raisin says nothing about what is next.
+    const second = new Set<number>();
+    for (let seed = 0; seed < 40; seed++) {
+      const world = createWorld({ ...CFG }, seed, [strand(4)]);
+      for (let t = 0; t < TPB + 1; t++) step(world, []);
+      const id = beadStrand(threadOf(world)[0]!);
+      if (beadOrder(strandHead(world, id)!) !== 0) continue;
+      shootHead(world);
+      second.add(beadOrder(strandHead(world, id)!));
+    }
+    expect([...second].sort()).toEqual([1, 3]);
   });
 
   it("refuses the wrong colour on the right bead, as an ordinary colour miss", () => {
@@ -168,25 +207,26 @@ describe("what a shot does", () => {
 
   /** The creature, as a number: a landed shot at the wrong bead moves the pair
    * backwards rather than nowhere. */
-  it("swells the last raisin back when the wrong bead is hit", () => {
-    const world = onField(3);
-    const on = threadOf(world);
+  it("swells a raisin back when the wrong bead is hit", () => {
+    const world = onField(4);
+    const id = beadStrand(threadOf(world)[0]!);
     shootHead(world);
-    expect(strandLeft(world, beadStrand(on[0]!))).toBe(2);
+    expect(strandLeft(world, id)).toBe(3);
 
-    // Now the third along the order, which is live and is not the head.
-    const wrong = on[2]!;
+    const wrong = notLit(world)!;
     expect(beadIsActive(world, wrong)).toBe(false);
     expect(beadStruck(world, bolt(wrong.col, wrong.color ?? "red"), wrong)).toBe(false);
-    expect(beadIsSpent(on[0]!)).toBe(false);
-    expect(strandLeft(world, beadStrand(on[0]!))).toBe(3);
+    expect(strandLeft(world, id)).toBe(4);
+    expect(threadOf(world).filter(beadIsSpent)).toHaveLength(0);
     expect(world.balance.colorMisses).toBe(1);
     expect(world.events.filter((e) => e.type === "strandSwell")).toHaveLength(1);
+    // And the thread is lit again, at an end of what is now a whole run.
+    expect(threadOf(world).filter((c) => beadIsActive(world, c))).toHaveLength(1);
   });
 
   it("has nothing to give back on the first bead, so that guess is an ordinary miss", () => {
     const world = onField(3);
-    const wrong = threadOf(world)[1]!;
+    const wrong = notLit(world)!;
     expect(beadStruck(world, bolt(wrong.col, wrong.color ?? "red"), wrong)).toBe(false);
     expect(threadOf(world).filter(beadIsSpent)).toHaveLength(0);
     expect(world.balance.colorMisses).toBe(1);
@@ -294,13 +334,13 @@ describe("two devices", () => {
     expect(hashWorld(shot)).not.toBe(hashWorld(whole));
   });
 
-  it("puts the order into it too, so a rolled end cannot go unnoticed", () => {
+  it("puts the lit end into it too, so a rolled end cannot go unnoticed", () => {
     const world = onField(3);
     const before = hashWorld(world);
     const on = threadOf(world);
-    // The same field with the order read from the other end: nothing about
-    // where the bodies are has changed, and the fingerprint must still move.
-    for (const bead of on) bead.strandOrder = on.length - 1 - beadOrder(bead);
+    // The same field with the other end lit: nothing about where the bodies
+    // are has changed, and the fingerprint must still move.
+    for (const bead of on) bead.strandLit = !beadIsLit(bead);
     expect(hashWorld(world)).not.toBe(before);
   });
 });
