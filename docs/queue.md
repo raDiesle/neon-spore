@@ -101,6 +101,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## THE FLEET's lattice costs 132 `fillRect` a frame for its crossings
 
 - **Found:** 2026-09-05, claude/fleet-boss-animations-ui-d7adb9
+- **Taken:** 2026-09-05, claude/queue-the-fleets-lattice-costs-132-fillrect-a-frame-fo
 - **Files:** `packages/render/src/fleet-chart.ts`, `packages/render/test/fleet-budget.test.ts`
 
 `drawFleetChart` marks every crossing of the chart with a small square, in a
