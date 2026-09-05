@@ -117,42 +117,6 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 shim that shows what the new shape wants if it changed again.
 
 
-## Five files stand exactly on the 250-line limit, so the next creature cannot land
-
-- **Found:** 2026-09-05, claude/string-connected-enemy-0dae70
-- **Files:** `packages/sim/src/creature-kinds.ts`, `packages/sim/src/creature-state.ts`,
-  `packages/sim/src/beat.ts`, `packages/sim/src/events-creature.ts`,
-  `packages/render/src/effects-spark.ts`
-
-Adding THE STRAND ended with all five of these at exactly 250 lines. Each was
-already at 247–249 and each takes one or two lines per creature — a kind in the
-union, a field, a sweep on the beat, an event arm, a burst — so the next body
-added to the bestiary cannot land in any of them without first paying for the
-room. That lane paid it by folding new cases into existing ones and by
-shortening a comment that belonged to another creature, which is the exact
-move `packages/render/src/effects-spark-silent.ts` was created to stop anybody
-having to make.
-
-Cut each along a seam that already exists, the way `creature-state-held.ts`,
-`events-carom.ts` and `effects-spark-silent.ts` were cut:
-
-- `creature-kinds.ts` — the per-kind paragraphs are the bulk. The union and
-  `CREATURE_KINDS` are the file; the prose could be one line each pointing at
-  the rule file that owns the creature, which every paragraph already names.
-- `creature-state.ts` — one more `…-state-<creature>.ts` beside the strand's,
-  for whichever group is next largest (THE GYRE's four, THE LID's five).
-- `beat.ts` — the branch chain in the fall loop is the half that grows; a
-  `step-body.ts` holding "what this kind does instead of falling" is the seam
-  the comments in it already describe.
-- `events-creature.ts` — the same cut `events-carom.ts` and `events-volley.ts`
-  made twice already, for whichever creature's arm is longest.
-- `effects-spark.ts` — the bursts that are a body's own colour are one group
-  and the structural ones another; either is a file.
-
-Nothing about the game changes. `bun run check` proves it: `limits.test.ts` is
-the whole of the acceptance.
-
-
 ## THE STRAND is drawn by nothing in `packages/render/test/frame.test.ts`
 
 - **Found:** 2026-09-05, claude/string-connected-enemy-0dae70
@@ -214,3 +178,70 @@ will name a formatter rather than a line ending.
 Have the landing say it. Before `bun run check` runs, look for `\r\n` in the
 tracked text files biome checks and stop with the list and the one command that
 fixes it (`bun run format`), rather than letting a whole-file formatter diff
+## A worm builds a path string per link per frame, and never caches one
+
+- **Found:** 2026-09-05, claude/crawler-enemy-design-ba0a00
+- **Files:** `packages/content/src/crawler-shape.ts`, `packages/render/src/crawler.ts`,
+  `packages/render/test/crawler-budget.test.ts`
+
+`drawCrawlerLink` builds its contour by calling `crawlerPath`, which formats a
+28-point Catmull-Rom curve into an SVG path **string** and hands it to
+`new Path2D(...)` to be parsed again. That is THE LID's arrangement and it is
+cheap at one body; a worm is up to nine of them at once, every frame, and
+`crawler-budget.test.ts` is the receipt — the `new Path2D` count is the one
+number in that file that does *not* come down on the second frame, unlike the
+panel's sheet beside it.
+
+The shape only depends on the squeeze, which is one of a small number of
+positions on a cycle the whole body shares. So the fix is `baked.ts`'s: a cache
+keyed on the quantised squeeze and the tile size, the way `haloSprite` is keyed
+on a colour and a radius. Quantising a time is a **visible** change by
+`.claude/skills/render-perf`'s own rule, so this has to be proved with the
+ordered log rather than the tally: if the diff is not empty, it is an
+alternative for `tools/versus/` and not a landing.
+
+`bun run check` proves the half that matters here — the budget rows in
+`crawler-budget.test.ts` come down and `packages/render/test/crawler-frame.test.ts`
+still draws.
+
+
+## `bun install` run from a POSIX shell on Windows writes links `tsc` cannot follow
+
+- **Found:** 2026-09-05, claude/crawler-enemy-design-ba0a00
+- **Files:** `docs/working-with-claude.md`, `CLAUDE.md`
+
+A fresh worktree on Windows had no `tools/maze/node_modules` at all, so
+`bun run typecheck` failed with *Cannot find module `@neon-spore/sim`* from
+`tools/maze/run.ts` — an error about the crawler's lane that had nothing to do
+with it. Running `bun install` from the agent's Bash tool did not fix it: MSYS
+writes the workspace symlink with a POSIX target (`/c/Users/…`), which Bun is
+happy with and the Windows `tsc` cannot follow, so the same error came back
+looking like a code fault. `bun install --force` from PowerShell wrote a real
+junction and the typecheck went green.
+
+Nothing in the repository says so. `CLAUDE.md` already tells a session that a
+fresh worktree needs its own `bun install`; it should say *from a native shell
+on Windows*, and `docs/working-with-claude.md` should carry the failure mode
+under its "ask who answered" heading, because this is the same class of thing —
+a number that came off the wrong tool and read as a fault in the code.
+
+A fresh session can finish it: the change is two paragraphs, and
+`bun run check` is what proves the tree is still green afterwards.
+
+
+## `docs/shipped-looks.md` does not know THE CRAWLER exists
+
+- **Found:** 2026-09-05, claude/crawler-enemy-design-ba0a00
+- **Files:** `docs/shipped-looks.md`, `packages/render/src/crawler.ts`,
+  `packages/render/src/crawler-fx.ts`, `packages/content/src/crawler-shape.ts`
+
+That document is the answer to *what does the game actually draw today*, creature
+by creature, with the numbers. THE CRAWLER has a contour family of its own
+(`crawler-shape.ts`, the fifth in `packages/content`), three materials along one
+body, a drawn neck, a contraction that runs from the head backwards, and two
+pictures that outlive the body — none of which is in it.
+
+Write the entry the way the neighbouring ones are written: the figures off
+`CRAWLER`, the three inks off `crawler.ts`, and the two lives off
+`crawler-fx.ts`. Nothing about the game changes and `bun run check` still
+passes, which is the whole of the acceptance.
