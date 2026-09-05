@@ -49,13 +49,14 @@ export const BULB: CreatureSilhouette = {
 
 /**
  * Throb: a small round core wearing six balls on stalks, turning clockwise
- * with half of it plated (`throbTurnMilli` in sim, `living-draw.ts` in render).
+ * with each half in one of the two ammunition colours (`throbTurnMilli` in
+ * sim, `living-draw.ts` in render).
  *
  * **The clubs are the turn.** It was six soft lobes on a ball, and a ball is
  * the one shape whose rotation cannot be seen: the whole creature is *which
  * half is pointing at the cannon*, and a body that turns invisibly is a rule
  * with no picture. Six knobs on stalks read their own bearing at forty pixels
- * — and they read a count as well, so the pair can say *three green ones left*
+ * — and they read a count as well, so the pair can say *three cyan ones left*
  * rather than reaching for a clock angle neither of them can see.
  *
  * The core is nearly smooth on purpose — lobes under the clubs would be a

@@ -70,13 +70,13 @@ pass of *Slick and bulb* above, plus two things nothing else on the field has.
 |---|---|---|
 | **turn** | the whole body is rotated before it is drawn | `throbTurnMilli(cfg, beats) / 1000 · 2π`, clockwise, one turn every `throbSpinBeats` — the same expression `throbStruck` resolves a shot against |
 | contour | six clubs on a small core, walked rather than sampled by angle | `THROB.clubs` — 6 clubs, reach `0.26`, cap `0.36`, neck `0.46`, vary `0.16`, over a 3-lobe core at depth `0.06`, the whole thing at `0.7×` so the widest club lands inside a bulb's footprint |
-| **plating** | the half above the seam filled and rimmed in the clasp's green, over the interior rather than under it | `PALETTE.claspShieldDeep` filled, `PALETTE.claspShield` for the ribs, the contour and the seam; three ribs at `0.42`, `0.68` and `0.94` of the body radius; the seam at `1.4×` the outline weight |
+| **far half** | the half above the seam filled, rimmed and detailed in the *other* ammunition colour, over the interior rather than under it | that colour's `colorTrio` — `dark` filled, `hex` through `strokeGlow` on the contour, `rim` on `drawDetails` mirrored across the seam; the seam itself in the two rims mixed half and half, at `1.4×` the outline weight |
 
-The green is `claspShield`'s and is meant to be: that colour already means one
-thing in this game and it is exactly this one — a body up the field a shot does
-nothing to. The ammunition colours were never available for it. Half a body in
-red or cyan says *load this trigger*, and on this creature the other half is
-already saying it about the other side.
+The far half used to be green plating, and green means one thing in this game
+— a body up the field a shot does nothing to — which is exactly what that half
+stopped being when both sides went live. It is drawn as an ordinary body now,
+in the colour that kills it, because half a body in red or cyan says *load this
+trigger* and this creature is asking that question twice a turn.
 
 The clubs are the turn. A round contour cannot show that it is rotating, and
 the whole creature is which half is pointing at the cannon — see

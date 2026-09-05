@@ -1,15 +1,15 @@
 import { metColor, missedColor } from "./balance.js";
 import { type SimConfig, ticksPerBeat } from "./config.js";
 import { removeCreature } from "./field.js";
-import type { Bullet, Creature } from "./types.js";
+import { otherColor } from "./kinds.js";
+import type { Bullet, Color, Creature } from "./types.js";
 import type { World } from "./world.js";
 
 /**
- * THE THROB: a body cut in half down the middle. One half is a slick's red or
- * a bulb's cyan; the other is shield plating, and nothing goes through it. It
- * turns clockwise the whole way down, so which half is pointing at the cannon
- * is a fact about *when* rather than about where — and the pair has to say the
- * colour and the moment in one sentence.
+ * THE THROB: a body cut in half down the middle, red on one side and cyan on
+ * the other. It turns clockwise the whole way down, so *which trigger* answers
+ * it is a fact about **when** rather than about where — and the pair has to
+ * say the colour and the moment in one sentence.
  *
  * **It used to swell and shrink on the beat**, open one beat in four and
  * answerable by either colour while it was. That version asked for a count and
@@ -17,6 +17,17 @@ import type { World } from "./world.js";
  * of the exchange was "now". The turn puts the colour back into it: the pilot
  * is the one who can see which way round the body is, the navigator is the one
  * holding two triggers, and neither half of that is worth anything alone.
+ *
+ * **The far half used to be shield plating and is not any more.** Green armour
+ * made the turn a window: half of every turn was a body nothing reached, and a
+ * pair with the wrong moment had nothing to do but wait. Both halves are live
+ * now and each takes its own colour, so the turn never closes the creature —
+ * it swaps which of the two triggers is the right one. The exchange is the
+ * same shape and there is no dead half of it: player 1 says which colour is
+ * round, player 2 presses that one. `throbSpinBeats` came down from four to
+ * three at the same time, for the same reason: nothing about the turn shuts
+ * the body any more, so a slow one only buys the pair time standing still
+ * with the answer already said out loud.
  *
  * **Nothing is stored on the creature.** The spin is a pure function of the
  * shared clock — `world.tick / ticksPerBeat`, which is exactly the
@@ -42,7 +53,7 @@ export function throbBeats(world: World): number {
 
 /**
  * How far round the body has turned, in thousandths of a clockwise turn.
- * Zero is the coloured half pointing straight down the column at the cannon.
+ * Zero is the authored half pointing straight down the column at the cannon.
  *
  * Integer arithmetic on an integer tick, so two devices land on the same
  * thousandth; render passes a fraction of a beat in and gets a smooth angle
@@ -56,13 +67,13 @@ export function throbTurnMilli(cfg: SimConfig, beats: number): number {
 }
 
 /**
- * Whether the coloured half is the half the cannon is looking at. True over
- * `throbFaceMilli` thousandths of every turn, centred on straight down — the
- * shot has to arrive square into the colour, not glance the seam.
+ * Whether the half the creature was authored in is the half the cannon is
+ * looking at. True over `throbFaceMilli` thousandths of every turn, centred on
+ * straight down; the rest of the turn is the other colour's half.
  *
  * The one place this question is answered. A site that wrote the modulo out
- * again would be a second copy of when a body can be killed, and the two would
- * part on the frame it matters (`packages/sim/test/purity.test.ts`).
+ * again would be a second copy of which trigger kills a body, and the two
+ * would part on the frame it matters (`packages/sim/test/purity.test.ts`).
  */
 export function throbFacing(cfg: SimConfig, beats: number): boolean {
   const half = Math.floor(cfg.throbFaceMilli / 2);
@@ -70,34 +81,37 @@ export function throbFacing(cfg: SimConfig, beats: number): boolean {
   return turn < half || turn >= THROB_TURN_MILLI - half;
 }
 
-/** The same question at the world's own instant — what a shot and a frame ask. */
-export function throbFaces(world: World): boolean {
-  return throbFacing(world.cfg, throbBeats(world));
+/**
+ * The colour that kills this body right now: the authored one while its own
+ * half is square to the cannon, and the other one for the rest of the turn.
+ *
+ * The one copy of "which trigger, at this instant", called by the shot and by
+ * the picture (`render/living-draw.ts`) so the half the pair can see and the
+ * half the bullet meets are one fact. A body with no colour authored on it at
+ * all answers neither trigger, which is what it did before both halves were
+ * live and is a mis-authored wave rather than a rule.
+ */
+export function throbColorAt(cfg: SimConfig, beats: number, c: Creature): Color | null {
+  if (c.color === null) return null;
+  return throbFacing(cfg, beats) ? c.color : otherColor(c.color);
 }
 
 /**
- * A shot met a throb. Three answers, and the pair can tell them apart by
- * looking at the body rather than at the score.
+ * A shot met a throb. Two answers, and the pair can tell them apart by looking
+ * at the body rather than at the score.
  *
- * **The plating refuses everything.** Not a colour mistake and not booked as
- * one: the ammunition was never the question on that half, the moment was, and
- * charging it to the colour balance would read one mistake to the wrong player
- * twice — the argument `colour-armour.ts` makes next door about a window.
+ * **Every half is an ordinary body now, in whichever of the two colours is
+ * round.** The matching colour kills it and the wrong one is a colour miss,
+ * exactly as a slick's is, because by then it *is* a slick's problem — the
+ * only thing the turn decides is which of the two that colour is.
  *
- * **The coloured half is an ordinary body.** The matching colour kills it and
- * the wrong one is a colour miss, exactly as a slick's is, because by then it
- * *is* a slick's problem. It deliberately does not open the wrong-colour
- * window `colourIsArmoured` gives every other body: this creature already
- * carries a window of its own that the pair is reading off the picture, and a
- * second one laid over it would leave them with no way to know which of the
- * two was refusing the shot.
+ * It deliberately does not open the wrong-colour window `colourIsArmoured`
+ * gives every other body: this creature already carries a clock of its own
+ * that the pair is reading off the picture, and a second one laid over it
+ * would leave them with no way to know which of the two was refusing the shot.
  */
 export function throbStruck(world: World, b: Bullet, hit: Creature): void {
-  if (!throbFaces(world)) {
-    world.events.push({ type: "reject", col: hit.col, row: hit.row });
-    return;
-  }
-  if (hit.color !== b.color) {
+  if (throbColorAt(world.cfg, throbBeats(world), hit) !== b.color) {
     missedColor(world);
     world.events.push({ type: "reject", col: hit.col, row: hit.row });
     return;

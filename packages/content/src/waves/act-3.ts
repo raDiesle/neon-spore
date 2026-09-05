@@ -91,11 +91,11 @@ export const WAVES_ACT_3: Wave[] = [
   {
     id: "theThrob",
     name: "THE THROB",
-    sentence: "The one where firing on sight is the miss.",
+    sentence: "The one where which trigger is right changes as it turns.",
     guide: {
-      both: "Half of it is a colour and half of it is shield plating, and it turns clockwise the whole way down. The matching colour kills it — but only while the coloured half is the half pointing at the cannon.",
-      p1: "Say the colour, then call the turn: it is coming round, it is out now.",
-      p2: "Load the colour early and hold the trigger for the call — into the plating is nothing at all.",
+      both: "Red down one side and cyan down the other, turning clockwise the whole way down. Whichever half is pointing at the cannon is the colour that kills it, and the other one is a wasted shot.",
+      p1: "Say which colour is facing you, and say it again the moment it turns over.",
+      p2: "Fire the colour that was just called — not the one you loaded a turn ago.",
       scene: "theThrob",
     },
     entries: [{ beat: 0, col: 3, kind: "throb", color: "red" }],

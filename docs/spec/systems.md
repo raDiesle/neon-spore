@@ -309,9 +309,9 @@ two bars and taken the whole argument with it.
 
 Half a beat rather than a whole one, for three reasons that are numbers:
 `fireEveryBeats` is also half a beat, so the grid and the reload gap coincide
-and the rate of fire is unchanged; a throb's coloured half is square to the
-cannon for half of every `throbSpinBeats` turn, so a half-beat grid puts four
-departures inside that window where a whole-beat grid would halve them; and
+and the rate of fire is unchanged; each of a throb's two halves is square to
+the cannon for half of every `throbSpinBeats` turn, so a half-beat grid puts
+three departures inside that window where a whole-beat grid would leave one; and
 625 ms of nothing after a press is a dead trigger where 312 ms is
 anticipation.
 

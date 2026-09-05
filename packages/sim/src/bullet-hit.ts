@@ -124,9 +124,10 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
     return false;
   }
   if (hit.kind === "throb") {
-    // Half a coloured body, half plating, turning the whole way down: which
-    // half the shot arrives at is the creature, and it is one rule with the
-    // turn it is read off (`throb.ts`, for `veilStruck`'s reason).
+    // Red down one side and cyan down the other, turning the whole way
+    // down: which half the shot arrives at is which trigger answers it, and
+    // it is one rule with the turn it is read off (`throb.ts`, for
+    // `veilStruck`'s reason).
     throbStruck(world, b, hit);
     return false;
   }
@@ -151,8 +152,8 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
   // Still shut from the last wrong colour, and shut to *both* — which is the
   // whole of what makes a colour mistake cost something (`colour-armour.ts`).
   // Deliberately not a colour miss: the ammunition was right, the moment was
-  // not, and `throbStruck` books the same distinction the same way about the
-  // half of a turning body a shot arrived at.
+  // not — where a throb books the opposite way round, because the half a shot
+  // arrived at is a question about the ammunition (`throb.ts`).
   if (colourIsArmoured(world, hit)) {
     world.events.push({ type: "reject", col: hit.col, row: hit.row });
     return false;

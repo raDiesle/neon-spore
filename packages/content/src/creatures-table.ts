@@ -62,7 +62,7 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     authorsColor: true,
     radar: "p2",
     blurb:
-      "Half a coloured body and half shield plating, turning clockwise the whole way down. The matching colour kills it while the coloured half is pointing at the cannon; a shot into the plating does nothing at all.",
+      "Cut down the middle: red down one side and cyan down the other, turning clockwise the whole way down. Whichever half is pointing at the cannon is the colour that kills it — so the turn never shuts it, it swaps which trigger is right.",
   },
   shell: WORN_CREATURES.shell,
   clasp: WORN_CREATURES.clasp,

@@ -314,3 +314,20 @@ each a checkout of the repository. They are made by `bun run frames` and by the
 frames tests, and nothing removes them; three of them were still registered
 worktrees. Remove the scratch tree when the capture is done, in a `finally`, and
 have the tests clean up after themselves.
+
+## `packages/sim/src/config-creatures.ts` sits exactly on the 250-line limit
+
+- **Found:** 2026-09-05, claude/throb-color-rotation-5dd05f
+- **Files:** `packages/sim/src/config-creatures.ts`, `packages/sim/src/config.ts`
+
+The file is 250 lines and `packages/sim/test/limits.test.ts` refuses 251, so a
+field cannot be added and an existing comment cannot gain a line. This lane
+wanted three sentences on why `throbSpinBeats` came down from four to three and
+had to put them in `packages/sim/src/throb.ts` instead, which is the right file
+for the argument but leaves the number documented somewhere the config does not
+point at. Split it the way `config-gyre.ts` and `config-fleet.ts` were split —
+the creature-by-creature clocks (`throbSpinBeats`, `throbFaceMilli`,
+`veilMorphBeats`, `wispDwellBeats`, `claspBreakBeats`) are one group and the
+score and damage numbers are another — and re-export both from `config.ts` so
+no call site moves. `bun run check` proves it: nothing outside the file should
+need an edit.

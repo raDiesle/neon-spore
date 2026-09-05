@@ -19,11 +19,25 @@ function bodyFrames(queue: SpawnEntry[], role: ViewRole, ticks: number) {
 
 describe("the throb", () => {
   const TICKS = ticksPerBeat(CFG) * 14;
-  const queue: SpawnEntry[] = [{ beat: 0, col: 3, kind: "throb", color: null }];
+  // Both colours authored, because a throb is drawn in both of them: the half
+  // it arrives in and the other one over the far side of the seam. A body with
+  // no colour on it is the mis-authored case and draws neither half.
+  const queue: SpawnEntry[] = [
+    { beat: 0, col: 3, kind: "throb", color: "red" },
+    { beat: 2, col: 6, kind: "throb", color: "cyan" },
+  ];
 
   for (const role of ROLES) {
-    it(`draws the swell and the beat it is answered on for ${role}`, () => {
+    it(`draws the turn and both halves of it for ${role}`, () => {
       const { ctx } = bodyFrames(queue, role, TICKS);
+      expect(ctx.calls).toBeGreaterThan(1000);
+    });
+  }
+
+  for (const role of ROLES) {
+    it(`draws a colourless throb without reaching for a second colour for ${role}`, () => {
+      const bare: SpawnEntry[] = [{ beat: 0, col: 3, kind: "throb", color: null }];
+      const { ctx } = bodyFrames(bare, role, TICKS);
       expect(ctx.calls).toBeGreaterThan(1000);
     });
   }

@@ -31,7 +31,7 @@ export const MECHANICS = {
     waveNames: true,
   },
   throb: {
-    what: "Cut down the middle: one half a slick's red or a bulb's cyan, the other shield plating. It turns clockwise the whole way down, and only the coloured half answers a shot — the matching colour, while that half is the one pointing at the cannon. Anything into the plating is swallowed.",
+    what: "Cut down the middle: red down one side and cyan down the other. It turns clockwise the whole way down, and the half pointing at the cannon is the colour that answers a shot. The other colour is a colour miss, so the turn never shuts it — it swaps which trigger is the right one.",
     reach: "spawn",
     waveNames: true,
   },

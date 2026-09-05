@@ -74,7 +74,7 @@ describe("the turn", () => {
     }
   });
 
-  it("presents the colour for throbFaceMilli of every turn, centred on straight down", () => {
+  it("presents the authored colour for throbFaceMilli of every turn, centred on straight down", () => {
     let facing = 0;
     const steps = 1000;
     for (let i = 0; i < steps; i++) {
@@ -82,7 +82,7 @@ describe("the turn", () => {
     }
     expect(facing).toBe(CFG.throbFaceMilli);
     // The middle of the window is the turn's own zero, and the far side of it
-    // is plating.
+    // is the other colour's half.
     expect(throbFacing(CFG, 0)).toBe(true);
     expect(throbFacing(CFG, CFG.throbSpinBeats / 2)).toBe(false);
   });
@@ -90,24 +90,33 @@ describe("the turn", () => {
 
 describe("the throb", () => {
   const COL = 3;
-  // `throbSpinBeats` is 4 and the colour is out for half of it, so beats 3, 0
-  // and 1 of every turn have the colour square to the cannon and beats 1 and 2
-  // have the plating. Both of these are well inside the fall — see
-  // IMPACT_TICK, which is beat HULL + 1.
-  const PLATE_TICK = TPB * 5; // beat 5, `5 % 4` is 1 — plating
-  const COLOUR_TICK = TPB * 8; // beat 8, `8 % 4` is 0 — the middle of the window
+  // `throbSpinBeats` is 3 and each half is out for half of it, so a whole beat
+  // that divides by three has the authored colour square to the cannon and the
+  // other two beats of every turn have the other colour. Both of the beats
+  // below are well inside the fall — see IMPACT_TICK, which is beat HULL + 1.
+  const OTHER_TICK = TPB * 7; // beat 7, `7 % 3` is 1 — the cyan half
+  const COLOUR_TICK = TPB * 9; // beat 9, `9 % 3` is 0 — the middle of the red window
 
-  it("swallows a shot into the plating, even in its own colour", () => {
-    const { world, events } = run([throb(COL)], PLATE_TICK + TPB, [
-      aim(PLATE_TICK, COL),
-      fire(PLATE_TICK, "red"),
+  it("takes the other colour on the far half — the turn swaps triggers, it does not shut", () => {
+    const { world, events } = run([throb(COL)], OTHER_TICK + TPB, [
+      aim(OTHER_TICK, COL),
+      fire(OTHER_TICK, "cyan"),
+    ]);
+    expect(world.creatures).toHaveLength(0);
+    expect(events.some((e) => e.type === "destroy")).toBe(true);
+  });
+
+  it("refuses its own colour into the far half, and books it as a colour miss", () => {
+    const { world, events } = run([throb(COL)], OTHER_TICK + TPB, [
+      aim(OTHER_TICK, COL),
+      fire(OTHER_TICK, "red"),
     ]);
     expect(world.creatures).toHaveLength(1);
     expect(events.some((e) => e.type === "destroy")).toBe(false);
     expect(events.some((e) => e.type === "reject")).toBe(true);
   });
 
-  it("refuses the wrong colour on the coloured half, and books it as a colour miss", () => {
+  it("refuses the wrong colour on the authored half, and books it as a colour miss", () => {
     const { world, events } = run([throb(COL)], COLOUR_TICK + TPB, [
       aim(COLOUR_TICK, COL),
       fire(COLOUR_TICK, "cyan"),
@@ -117,7 +126,7 @@ describe("the throb", () => {
     expect(events.some((e) => e.type === "reject")).toBe(true);
   });
 
-  it("lands the matching colour on the coloured half, and pays scoreThrobHit", () => {
+  it("lands the matching colour on the authored half, and pays scoreThrobHit", () => {
     const { world, events } = run([throb(COL)], COLOUR_TICK + TPB, [
       aim(COLOUR_TICK, COL),
       fire(COLOUR_TICK, "red"),

@@ -22,11 +22,11 @@ import type { World } from "./world.js";
  * moment where the pair has to say the colour again rather than louder.
  *
  * **A shot into the window is not a colour mistake and is not booked as one.**
- * `throbStruck` makes the same argument next door about the same distinction:
- * getting the ammunition wrong is the navigator's, and firing at the wrong
- * *moment* — the half-turn where a throb has its plating out — is nobody's in
- * particular. Charging the second one to the colour
- * balance would read one mistake to the wrong player twice.
+ * The ammunition was right and the *moment* was not, and charging that to the
+ * colour balance would read one mistake to the wrong player twice. A throb is
+ * the one body where the moment and the ammunition are the same question — it
+ * turns a second colour round rather than closing — so `throbStruck` books
+ * every refusal as a colour miss and this books none.
  *
  * Its own file, and three functions rather than a comparison written wherever
  * it is wanted: the shot the simulation refuses and the grey body render/

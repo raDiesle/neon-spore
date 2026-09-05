@@ -103,7 +103,7 @@ directly, `"suck"`, after what taking one in is called throughout the sim
 | **Strand** | chain of segments on one thread, alternating red and cyan | eaten from its ends inward — and only one of you is shown which end is next |
 | **Crystal** | facets, breaks into two halves | fast switching |
 | **Gum** | sticky; grabs and holds on | three evasive manoeuvres in a row |
-| **Throb** | six clubs on a small core, half of them plated, turning clockwise | colour *and* timing in one call |
+| **Throb** | six clubs on a small core, red down one side and cyan down the other, turning clockwise | colour *and* timing in one call |
 | **Lure** | a slick or a bulb that only the navigator can see through | do *not* hit it (costs the hull) |
 | **Choke** | docks on, shuts one control | inverted instruction |
 | **Glyph** | pattern across its skin | look it up in a table |

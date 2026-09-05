@@ -407,18 +407,18 @@ describe("a strip act aimed at a body", () => {
 });
 
 /**
- * THE THROB's film says its rule twice — a shot swallowed and a shot landing —
- * and neither half is staged: both bolts are the body's own colour, and what
- * separates them is which half of a turning body they arrive at.
+ * THE THROB's film says its rule twice — a shot wasted and a shot landing —
+ * and neither half is staged: both bolts arrive at the same half of a turning
+ * body, and what separates them is which trigger was pressed.
  *
  * The scene's two act ticks are chosen against `throbSpinBeats`, and that
- * choice is written in the file as a comment doing arithmetic (`9 % 4`).
- * A comment is not a mechanism. Change the turn or the window and one of these
- * two shots stops meaning what the page over it says, silently, in a film
- * nobody re-watches once it is written.
+ * choice is written in the file as a comment doing arithmetic (beats 9.75 to
+ * 11.25). A comment is not a mechanism. Change the turn or the window and one
+ * of these two shots stops meaning what the page over it says, silently, in a
+ * film nobody re-watches once it is written.
  */
 describe("the rehearsal for THE THROB", () => {
-  it("loses one shot to the plating and lands the next on the colour", () => {
+  it("wastes one shot on the trigger that turned away and lands the next", () => {
     const wave = WAVES.findIndex((w) => w.guide?.scene === "theThrob");
     const run = new SceneRun(sceneScript("theThrob", wave, DEFAULT_CONFIG));
     const seen: SimEvent[] = [];
@@ -430,8 +430,13 @@ describe("the rehearsal for THE THROB", () => {
     }
     const rejected = seen.findIndex((e) => e.type === "reject");
     const destroyed = seen.findIndex((e) => e.type === "destroy");
-    expect(rejected, "the first bolt is not refused — the plating is not out").toBeGreaterThan(-1);
-    expect(destroyed, "the second bolt does not land — the colour is not out").toBeGreaterThan(-1);
+    expect(
+      rejected,
+      "the first bolt is not refused — the half it arrives at still takes red",
+    ).toBeGreaterThan(-1);
+    expect(destroyed, "the second bolt does not land — cyan is not the half round").toBeGreaterThan(
+      -1,
+    );
     expect(rejected, "the film lands its shot before it loses one").toBeLessThan(destroyed);
     expect(run.world.creatures).toHaveLength(0);
   });

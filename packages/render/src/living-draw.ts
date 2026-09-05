@@ -1,6 +1,7 @@
 import { livingMotion, livingPath, livingSilhouette, poseClock } from "@neon-spore/content";
 import {
   type Creature,
+  otherColor,
   type SimConfig,
   THROB_TURN_MILLI,
   throbTurnMilli,
@@ -8,15 +9,16 @@ import {
 } from "@neon-spore/sim";
 import { drawDetails, drawMotionTrail } from "./creature-detail.js";
 import { contourClock, livingBodyMul } from "./creature-place.js";
-import { turnedTrio } from "./creature-tint.js";
+import { colorTrio, turnedTrio } from "./creature-tint.js";
 import { dartFlip, dartLean } from "./dart.js";
 import { hazed } from "./depth.js";
 import { drawEchoSeam, echoStrain } from "./echo.js";
 import { halo, strokeGlow } from "./glow.js";
+import { mixHex } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { drawLureVent, lureHolePath, lureVented } from "./lure-hole.js";
 import { PALETTE } from "./palette.js";
-import { drawThrobPlating, THROB_PLATE } from "./throb.js";
+import { drawThrobHalf } from "./throb.js";
 
 /**
  * One lobed body, filled and lit. Split out of `creatures.ts` when THE ECHO
@@ -49,9 +51,9 @@ export function drawLiving(
   const look = wornKind(c);
   const isBulb = look === "bulb";
   const shape = livingSilhouette(look);
-  // The Throb carries no colour at all (bullet-hit.ts's own branch, not a
-  // colour match) — the red/cyan ternary below would otherwise read a null
-  // colour as cyan, painting a decoy in one of the two ammunition colours.
+  // A body may carry no colour at all — the red/cyan ternary below would
+  // otherwise read a null colour as cyan, painting a decoy in one of the two
+  // ammunition colours.
   const neutral = c.color === null;
   // Every colour goes through `hazed`: distance is spent on the palette here
   // and nowhere else, so the far rows come out dimmer, cooler and at lower
@@ -155,16 +157,22 @@ export function drawLiving(
     // on the contour and takes the contour's own aspect and strain with it.
     drawEchoSeam(ctx, cfg, c, beats, shape.rx, shape.ry, dark);
     if (vent) ctx.restore();
-    // Over the interior rather than under it: the armoured half of a throb
-    // covers the body, it does not shine through it (`throb.ts`).
-    if (look === "throb") {
-      drawThrobPlating(
+    // Over the interior rather than under it: the far half of a throb covers
+    // the body in the other ammunition colour, it does not shine through it
+    // (`throb.ts`). The half is drawn for the colour the body was *not*
+    // authored in, and `throbTurnMilli` above has already turned it to
+    // whichever side the cannon is looking at — so the trigger `throbColorAt`
+    // will accept is the colour the pair can see pointing at them.
+    if (look === "throb" && c.color !== null) {
+      const far = colorTrio(otherColor(c.color));
+      drawThrobHalf(
         ctx,
         path,
         shape.rx,
         shape.ry,
-        haze(THROB_PLATE.fill),
-        haze(THROB_PLATE.rim),
+        isBulb,
+        { rim: haze(far.rim), hex: haze(far.hex), dark: haze(far.dark) },
+        haze(mixHex(tint.rim, far.rim, 0.5)),
         Math.max(1, r * 0.1) / scale,
       );
     }
