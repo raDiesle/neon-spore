@@ -1,7 +1,14 @@
 import { describe, expect, test } from "bun:test";
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
-import { deriveHeaderSentence, filterScopeFiles, generateIndex, parseRows } from "../index.js";
+import {
+  deriveHeaderSentence,
+  filterScopeFiles,
+  generateIndex,
+  parseRows,
+  rowLives,
+  type Tree,
+} from "../index.js";
 
 const ROOT = join(import.meta.dirname, "..", "..", "..");
 const SKIP_DIRS = new Set(["node_modules", "dist", ".git"]);
@@ -29,9 +36,11 @@ describe("docs/INDEX.md completeness", () => {
   const scope = currentScope();
 
   test("generating from the committed file and the tree changes nothing", () => {
-    const generated = generateIndex(committed, scope, (relPath) =>
-      readFileSync(join(ROOT, relPath), "utf8"),
-    );
+    const generated = generateIndex(committed, {
+      scope,
+      read: (relPath) => readFileSync(join(ROOT, relPath), "utf8"),
+      has: (relPath) => existsSync(join(ROOT, relPath)),
+    });
     if (generated !== committed) {
       const before = new Set(parseRows(committed).map((r) => r.path));
       const after = parseRows(generated);
@@ -46,7 +55,7 @@ describe("docs/INDEX.md completeness", () => {
             ? `row points at a deleted file: ${stale.join(", ")}`
             : "row text does not match — see the diff";
       throw new Error(
-        `docs/INDEX.md is out of date (${hint}). Run \`bun run index\` and edit the new row's text.`,
+        `docs/INDEX.md is out of date (${hint}). Run \`bun run index\` — it adds and drops rows — and write the text of any it adds.`,
       );
     }
     expect(generated).toBe(committed);
@@ -56,6 +65,83 @@ describe("docs/INDEX.md completeness", () => {
     const rows = parseRows(committed);
     const missing = rows.filter((r) => !existsSync(join(ROOT, r.path)));
     expect(missing.map((r) => r.path)).toEqual([]);
+  });
+});
+
+/**
+ * The generator's other half. It completes the table — every in-scope file gets
+ * a row — and for a long time that was all it did, so a deleted file's row
+ * stayed put: `bun run index` wrote nothing while the test above failed on
+ * "every row's path exists", and the fix was a hand edit found by reading test
+ * output. Dropping is now the same pass, and the invariant that has to survive
+ * it is the one the keeping was for — a row somebody wrote by hand keeps its
+ * text word for word as long as its file is still there.
+ */
+describe("a row whose file is gone", () => {
+  const doc = [
+    "## Code\n",
+    "<!-- index:code:start -->",
+    "",
+    "### packages/sim",
+    "",
+    "| Path | One line |",
+    "|---|---|",
+    "| `packages/sim/src/step.ts` | The beat, in the words a human chose |",
+    "| `packages/sim/src/gone.ts` | A file nobody has any more |",
+    "",
+    "<!-- index:code:end -->",
+    "",
+  ].join("\n");
+  const read = (path: string) => `/** Derived from ${path}. */\nexport const x = 1;`;
+  const tree = (present: string[], scope = present): Tree => ({
+    scope,
+    read,
+    has: (path) => present.includes(path),
+  });
+
+  test("is dropped, and the row beside it keeps its hand-written text", () => {
+    const out = generateIndex(doc, tree(["packages/sim/src/step.ts"]));
+    expect(parseRows(out).map((r) => r.path)).toEqual(["packages/sim/src/step.ts"]);
+    expect(out).toContain("| `packages/sim/src/step.ts` | The beat, in the words a human chose |");
+  });
+
+  test("goes in the same pass that adds a row for a new file", () => {
+    const out = generateIndex(doc, tree(["packages/sim/src/here.ts", "packages/sim/src/step.ts"]));
+    expect(parseRows(out).map((r) => r.path)).toEqual([
+      "packages/sim/src/step.ts",
+      "packages/sim/src/here.ts",
+    ]);
+  });
+
+  /**
+   * `apps/server/src/index.ts` is the live example: it exists, and the scope
+   * filter drops every `index.ts` as a barrel. Its row is one a person wrote.
+   */
+  test("stays when the file is there but out of scope", () => {
+    const out = generateIndex(
+      doc,
+      tree(["packages/sim/src/step.ts", "packages/sim/src/gone.ts"], []),
+    );
+    expect(parseRows(out).map((r) => r.path)).toEqual([
+      "packages/sim/src/step.ts",
+      "packages/sim/src/gone.ts",
+    ]);
+  });
+});
+
+describe("rowLives", () => {
+  const has = (path: string) =>
+    path === "packages/sim/src/step.ts" || path === "packages/audio/src/sounds";
+
+  test("keeps a file row while the file is there", () => {
+    expect(rowLives("packages/sim/src/step.ts", has)).toBe(true);
+    expect(rowLives("packages/sim/src/gone.ts", has)).toBe(false);
+  });
+
+  /** A path ending in `/` stands for a directory, so that is what is asked. */
+  test("asks a directory row about its directory", () => {
+    expect(rowLives("packages/audio/src/sounds/", has)).toBe(true);
+    expect(rowLives("packages/audio/src/drafts/", has)).toBe(false);
   });
 });
 

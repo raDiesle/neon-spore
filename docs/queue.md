@@ -280,25 +280,6 @@ that matters — a new event that nobody accounts for is a compile error rather
 than a silence. Both files then have room, and `limits.test.ts` goes green
 without anybody rewriting a sentence about THE GHOST.
 
-## `bun run index` never removes a row for a deleted file
-
-- **Found:** 2026-09-05, claude/shield-then-cannon-tutorial-74988b
-- **Taken:** 2026-09-05, claude/queue-bun-run-index-never-removes-a-row-for-a-deleted
-- **Files:** `tools/index/run.ts`, `tools/index/index.ts`, `tools/index/test/index.test.ts`
-
-`generateIndex` completes the "## Code" table — every in-scope file that has no
-row gets one — and deliberately keeps whatever text is already there, which is
-right for a row somebody wrote by hand. But a file that has been *deleted*
-leaves its row behind, and the generator has no opinion about it: `bun run
-index` reports "865 in-scope files checked" and writes nothing, while
-`tools/index/test/index.test.ts`'s "every row's path exists" fails. So the tool
-that exists to fix the table cannot fix the half of it the test was failing on,
-and the fix is a hand edit found by reading the test output.
-
-Drop rows whose path is no longer in scope, in the same pass that adds the
-missing ones, and add a test that a row for a path not in the tree is removed.
-Keeping the hand-written *text* of surviving rows is the invariant to preserve.
-
 ## CLAUDE.md is nine characters under its own ceiling
 
 - **Found:** 2026-09-05, claude/queued-items-d3ce8d
