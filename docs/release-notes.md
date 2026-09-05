@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 08b2ce6 — The queen's next torch says when, not just which side
+
+ONE MARK IS REAL was drawn around her body, which put the ring on her shell between the two marks and touched neither — a page about one of a pair, circling the pair's gap. A caption may now point at `marks`, and `render/queen-figure.ts` places them for both the drawing and the ring so they cannot come apart. The flank the next torch drops off wears NEXT TO FALL instead of the pulsing ring the real mark wears: the target lock every picked-out body in the game wears, the words under it, and a bar that fills as the eight beats run out. A mark is a column to call and a drop is a clock to watch, and one picture was doing both. THE QUEEN · SHE OPENS is gone; the film is three pages that each name a job.
+
 ## 2026-09-05 · 9dce52c — THE WARDEN grew a skin, and its rope became possible to pick up
 
 The rope hangs under the pupil, which walks a column or two a beat, and the press was answered under the middle of the ring, which does not — so the red ball was outside its own button for most of every cycle, and the control read as intermittent rather than as missing. Both sides now ask for the pupil's own column, and the circle a finger is answered in is 1.8 times the one that is drawn: `handleRadiusMilli` widened by `hitCircle`'s own 30% came to under thirty pixels across, which is smaller than the thumb reaching for it. The line is tied to the underside of the eye rather than to the rim, and travels with it, so the thing the rope holds open is the thing the rope comes out of.
