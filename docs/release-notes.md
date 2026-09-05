@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 9464ffaa — THE RECOIL's cage burns in the colour of the body it holds
+
+The frame was rock-grey line work around a body whose whole point is its colour. It is now lit the way the ship's own ward is (`shield.ts`): every rib and every hoop arc goes through `strokeGlow`, over an aura the width of the hoop, and the light is the creature's own red or cyan mixed into the metal rather than a colour of its own — a frame in the body's colour is one more thing saying the word the pair has to trade, instead of one more thing over the top of it. Both the glow and the aura rise with `strain`, so a cage down to its last rib visibly works harder: the count the ribs carry, said a second way for a seat reading light across a phone screen.
+
 ## 2026-09-05 · 8225aa09 — THE MAZE's heart takes its own colour, and refuses the other at the hull's cost
 
 The owner asked for the round to turn on the colour the heart is beating in, and for the wrong one to hurt. A slick's red on the first round, a bulb's cyan on the second, red again on the third — the two colours the field already carries, so player 2 is choosing between the two she has rather than learning a third, and neither player has anything to remember: the answer is in the middle of the drum, beating, on both screens.
