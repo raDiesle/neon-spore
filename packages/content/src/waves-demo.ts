@@ -125,6 +125,12 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   // Three rocks on one beat and one shield: the only way through is a hand on
   // two of them, which is THE GRIP with nothing else in the way.
   grip: { wave: "theHand" },
+  // A wreck on one side and a body on the other, with one cannon between them:
+  // the pod is the only thing in the game that makes where the cannon *stands*
+  // matter for something other than a shot, so it is the only wave where the
+  // hand reaching further than the strip is a thing that can be watched rather
+  // than merely described.
+  lock: { wave: "catchAndAim" },
 };
 
 /** Where the demonstration wave sits in `WAVES`, or -1 if it has gone. */

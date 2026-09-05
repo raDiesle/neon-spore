@@ -296,6 +296,8 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/two-rocks.ts` | TWO ROCKS' rehearsal: the plate becomes something player 2 can carry |
 | `packages/content/src/waves/act-6.ts` | Act six, and it opens with a rock that will not hold its lane |
 | `packages/content/src/scenes/the-volley.ts` | THE VOLLEY's rehearsal: a ward that works is not a body that is gone |
+| `packages/content/src/scenes/catch-and-aim.ts` | CATCH AND AIM's rehearsal: the hand aims, so the cannon does not have to |
+| `packages/content/src/waves/act-1b.ts` | The last of act one, cut off `act-1.ts` when that file reached the 250-line ceiling on `CATCH AND AIM` |
 
 ### packages/render
 

@@ -1,6 +1,7 @@
 import { sceneSteps } from "./scenes.js";
 import type { Wave, WaveGuide } from "./wave-types.js";
 import { WAVES_ACT_1 } from "./waves/act-1.js";
+import { WAVES_ACT_1B } from "./waves/act-1b.js";
 import { WAVES_ACT_2 } from "./waves/act-2.js";
 import { WAVES_ACT_3 } from "./waves/act-3.js";
 import { WAVES_ACT_3B } from "./waves/act-3b.js";
@@ -31,6 +32,7 @@ export type { Wave, WaveEntry, WaveGuide } from "./wave-types.js";
  */
 export const WAVES: Wave[] = [
   ...WAVES_ACT_1,
+  ...WAVES_ACT_1B,
   ...WAVES_ACT_2,
   ...WAVES_ACT_3,
   ...WAVES_ACT_3B,

@@ -1,5 +1,6 @@
 import type { GuideScene, SceneStep } from "./scene-types.js";
 import { BULB_QUEEN } from "./scenes/bulb-queen.js";
+import { CATCH_AND_AIM } from "./scenes/catch-and-aim.js";
 import { CYAN } from "./scenes/cyan.js";
 import { FIRST_STEP } from "./scenes/first-step.js";
 import { PINBALL } from "./scenes/pinball.js";
@@ -67,6 +68,7 @@ export type SceneId =
   | "theDart"
   | "theVeil"
   | "salvage"
+  | "catchAndAim"
   | "theThirdShot"
   | "theClasp"
   | "theRind"
@@ -103,6 +105,7 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theDart: THE_DART,
   theVeil: THE_VEIL,
   salvage: SALVAGE,
+  catchAndAim: CATCH_AND_AIM,
   theThirdShot: THE_THIRD_SHOT,
   theClasp: THE_CLASP,
   theRind: THE_RIND,

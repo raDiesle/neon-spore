@@ -52,7 +52,7 @@ import { WAVES } from "./waves.js";
  * named; everything else on the list comes from a union the simulation already
  * publishes.
  */
-export type RunMechanicId = "briefing" | "windup" | "lance" | "grip";
+export type RunMechanicId = "briefing" | "windup" | "lance" | "grip" | "lock";
 
 /**
  * The closed list. `queen` and `warden` are a `CreatureKind` and a boss kind at

@@ -11,9 +11,9 @@ import { BRUSHES } from "../src/brushes.js";
  */
 describe("jumpWaveIndex", () => {
   test("lands on the wave the hover card names, as an index", () => {
-    // The two the tooltip test pins, one number lower: WAVE 23 is index 22.
-    expect(jumpWaveIndex(WAVES, "throb")).toBe(22);
-    expect(jumpWaveIndex(WAVES, "shell")).toBe(23);
+    // The two the tooltip test pins, one number lower: WAVE 24 is index 23.
+    expect(jumpWaveIndex(WAVES, "throb")).toBe(23);
+    expect(jumpWaveIndex(WAVES, "shell")).toBe(24);
     for (const brush of ["throb", "shell"] as const) {
       const index = jumpWaveIndex(WAVES, brush);
       expect(WAVES[index ?? -1]?.name).toBe(firstWaveFor(brush)?.name ?? "");
