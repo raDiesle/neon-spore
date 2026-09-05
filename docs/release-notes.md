@@ -13,6 +13,10 @@ commit message that read wrong, and the history is where that lives.
 
 `bun run land` rebases the lane onto the **local** trunk and never asked `origin` where that trunk actually was. In a cloud clone the local `main` is whatever `origin` held when the container was built, and this repo lands several times a day: on 5 September 2026 a lane replayed onto a `main` sixty-six commits behind, landed cleanly onto it, and only then found that `origin/main` had eleven commits it did not — one of them a whole new creature touching the same four tables. By that point the branch was swept and the check was spent, so seven conflicts arrived on the trunk itself, at the one moment there was no lane left to fix them on. Two were resolved wrongly and each cost another three-minute `bun run check`.
 
+## 2026-09-03 · bdb4bd6a — The scan box blinks for a wisp and sweeps a row for a ghost
+
+Both marks are the pilot's own scanner and both were asked for by name, which is the first of the look exemptions.
+
 ## 2026-09-05 · e9d4815 — THE THROB turns, and half of it is armour
 
 It swelled and shrank on the shared beat, open one beat in four and answerable by **either** colour while it was. That asked the pair for a count and nothing else: the ammunition was never the question, so the navigator's half of the exchange was the word "now". The colour is back in it. A throb is one body cut down the middle — a slick's red or a bulb's cyan on one side, shield plating on the other — turning clockwise the whole way down, and the matching colour kills it only on the half that is pointing at the cannon. Anything into the plating is swallowed, in either colour, and is not booked as a colour mistake: the ammunition was right and the moment was not, which is the distinction `colour-armour.ts` already makes next door.
