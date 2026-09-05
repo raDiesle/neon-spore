@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 9dce52c — THE WARDEN grew a skin, and its rope became possible to pick up
+
+The rope hangs under the pupil, which walks a column or two a beat, and the press was answered under the middle of the ring, which does not — so the red ball was outside its own button for most of every cycle, and the control read as intermittent rather than as missing. Both sides now ask for the pupil's own column, and the circle a finger is answered in is 1.8 times the one that is drawn: `handleRadiusMilli` widened by `hitCircle`'s own 30% came to under thirty pixels across, which is smaller than the thumb reaching for it. The line is tied to the underside of the eye rather than to the rim, and travels with it, so the thing the rope holds open is the thing the rope comes out of.
+
 ## 2026-09-05 · f4dd355 — `bun run sweep` finishes a lane that landed and stayed
 
 `--keep` is the landing that is not the end of anything: the trunk takes the work and the branch, the worktree and every other spent lane stay standing. The problem is what happens next. From that moment every landing refuses the lane — it carries nothing `main` has not got — so "land and clean up" had no command at all behind it, and the only way to finish one was the `git worktree remove` this tool exists to keep nobody typing.
