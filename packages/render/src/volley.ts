@@ -13,6 +13,7 @@ import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { rockRadius } from "./torch.js";
+import { drawSeams } from "./volley-seams.js";
 
 /**
  * THE VOLLEY's shell: **a basketball made of meteor**, and the count of wards
@@ -23,10 +24,10 @@ import { rockRadius } from "./torch.js";
  * and *nothing else of that body showing while the shell is whole*. So the
  * shell is the same `METEOR` contour `meteor.ts` strokes, filled with the same
  * unlit mid-tone and lit by the same key light, and the only colour on it is
- * four lines: the equator, the meridian and the two arcs that bow away from
- * the meridian either side. Those lines *are* the sentence player 2 has to
- * have ready — a red ball and a cyan ball are the same rock with a different
- * pattern painted on it, which is exactly what a basketball is.
+ * the four seams a basketball has, which are `volley-seams.ts` next door.
+ * Those seams *are* the sentence player 2 has to have ready — a red ball and a
+ * cyan ball are the same rock with a different pattern painted on it, which is
+ * exactly what a basketball is.
  *
  * **A whole shell is opaque, and the body inside is not drawn at all.**
  * `showsVolleyCore` is the gate `creatures.ts` reads, and it is THE VEIL's
@@ -60,20 +61,6 @@ import { rockRadius } from "./torch.js";
  * read anything else.
  */
 const BALL_MUL = 1.0;
-/**
- * How far the two side seams bow away from the meridian, as a share of the
- * ball's radius. Just over half: the classic pattern, and the value where the
- * four panels either side read as panels rather than as a lens.
- */
-const BOW_MUL = 0.54;
-/** How wide a seam is drawn, as a share of the radius. Thick enough to carry a
- * colour at 26 px, thin enough that the rock is still the thing you see: at a
- * tenth the four of them read as a cage over a stone rather than as paint on
- * a ball. */
-const SEAM_MUL = 0.07;
-/** How far a seam's glow reaches past it, in the same share. The colour has to
- * survive a phone in a bright room, and a bare stroke this thin does not. */
-const SEAM_GLOW = 2.4;
 /** How much the ball shudders while a ward is carrying it up, as a share of
  * its radius. Only while climbing: a shell under load looks like one. */
 const SHUDDER = 0.05;
@@ -201,47 +188,5 @@ function drawRock(
   ctx.strokeStyle = metal;
   ctx.lineWidth = STROKE.outline;
   ctx.stroke(ball);
-  ctx.restore();
-}
-
-/**
- * The four seams, in the colour of the body inside: the equator, the meridian
- * and the two arcs that bow away from the meridian either side.
- *
- * The two arcs are one ellipse — `rx` at `BOW_MUL` and `ry` at the full
- * radius — which is the same two curves drawn as one path and cannot come
- * apart. Each seam is stroked twice: once wide and faint for the glow that
- * carries the colour at the size a phone draws a body, once narrow and full
- * for the line itself.
- */
-function drawSeams(
-  ctx: CanvasRenderingContext2D,
-  ball: Path2D,
-  r: number,
-  turn: number,
-  glow: string,
-): void {
-  const path = new Path2D();
-  path.moveTo(-r, 0);
-  path.lineTo(r, 0);
-  path.moveTo(0, -r);
-  path.lineTo(0, r);
-  // Moved to before it is drawn from: `ellipse` continues the subpath it is
-  // called on, so without this the meridian ends in a tail running out to
-  // where the arc begins — which is a fifth seam nobody asked for.
-  path.moveTo(r * BOW_MUL, 0);
-  path.ellipse(0, 0, r * BOW_MUL, r, 0, 0, Math.PI * 2);
-
-  ctx.save();
-  ctx.rotate(turn);
-  ctx.clip(ball);
-  ctx.lineCap = "round";
-  ctx.strokeStyle = glow;
-  ctx.globalAlpha = 0.3;
-  ctx.lineWidth = Math.max(1, r * SEAM_MUL * SEAM_GLOW);
-  ctx.stroke(path);
-  ctx.globalAlpha = 1;
-  ctx.lineWidth = Math.max(0.8, r * SEAM_MUL);
-  ctx.stroke(path);
   ctx.restore();
 }
