@@ -195,6 +195,7 @@ case without a repository.
 ## Two captures of one commit are not the same picture
 
 - **Found:** 2026-09-05, claude/queue-items-bj85ja
+- **Taken:** 2026-09-05, claude/queue-two-captures-of-one-commit-are-not-the-same-pict
 - **Files:** `tools/frames/capture.ts`, `tools/frames/page.ts`, `tools/frames/test/opening.test.ts`
 
 `run.ts` refuses to write a before-and-after pair whose frames are the same,
