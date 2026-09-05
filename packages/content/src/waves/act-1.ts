@@ -6,6 +6,16 @@ import type { Wave } from "../wave-types.js";
  * at once. `waves.ts` is the barrel that concatenates this with the other
  * acts — see it for why the list was split by act in the first place.
  *
+ * **TWO COLOURS carries no guide, and it used to.** CYAN introduces the second
+ * colour a wave earlier now and shows what the wrong one costs, so a guide here
+ * would be the same lesson twice in consecutive waves — padding, whichever of
+ * the two was written first. What is left for that wave to be is the first time
+ * both colours arrive inside one wave: nothing new to learn, one thing to keep
+ * straight. The note is up here rather than beside the wave because the
+ * director rebuilds the array on every save and keeps only what stands above it
+ * (`tools/director/src/serialize.ts`) — a comment inside an entry is a comment
+ * with one save left to live.
+ *
  * **The panel grows with the arc**, which is the other half of the same rule.
  * The first eight waves name a rung of the standard ladder rather than the
  * standard panel — STANDARD 1 through 4, each one button more than the one
@@ -48,13 +58,7 @@ export const WAVES_ACT_1: Wave[] = [
   {
     id: "twoColours",
     name: "TWO COLOURS",
-    sentence: "The one where colour starts to matter.",
-    guide: {
-      both: "Round, swollen, and always cyan. Same fall, same lane — the colour is the whole of the difference.",
-      p1: "The column is still yours to stand in. Say the colour you can see.",
-      p2: "Cyan for this one. A wrong colour is spent, not missed.",
-      scene: "twoColours",
-    },
+    sentence: "The one where both colours arrive in the same wave.",
     entries: [
       { beat: 0, col: 2, color: "red" },
       { beat: 3, col: 4, color: "cyan" },

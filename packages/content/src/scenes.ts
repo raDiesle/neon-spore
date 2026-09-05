@@ -32,7 +32,6 @@ import { THE_VEIL } from "./scenes/the-veil.js";
 import { THE_WARD } from "./scenes/the-ward.js";
 import { THE_WARDEN } from "./scenes/the-warden.js";
 import { THE_WISP } from "./scenes/the-wisp.js";
-import { TWO_COLOURS } from "./scenes/two-colours.js";
 import { TWO_ROCKS } from "./scenes/two-rocks.js";
 
 /**
@@ -59,7 +58,6 @@ import { TWO_ROCKS } from "./scenes/two-rocks.js";
 export type SceneId =
   | "firstStep"
   | "cyan"
-  | "twoColours"
   | "theRock"
   | "twoRocks"
   | "theHand"
@@ -96,7 +94,6 @@ export type SceneId =
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
   cyan: CYAN,
-  twoColours: TWO_COLOURS,
   theRock: THE_ROCK,
   twoRocks: TWO_ROCKS,
   theHand: THE_HAND,
