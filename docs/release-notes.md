@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · cdbf252 — `bun run frames --at` and `--zoom`: a change the size of a creature
+
+A body is drawn at `l.tile * 0.4`, about forty pixels on a 390 px phone, so a before-and-after of a change to its *shape* is two pictures nobody can see the change in — which by CLAUDE.md's rule is the same as sending none. The eyelid lane could not judge its own work from the frames this tool produced, and hand-rolled a throwaway that loaded both PNGs into a page, cropped a rectangle and scaled it, then deleted it. That is the friction `shot.ts` exists to stop being paid twice.
+
 ## 2026-09-05 · 809f594 — The queue stops listing work that is already on the trunk
 
 Three entries were back in `docs/queue.md` after being removed with the work that closed them — `bun run push` explaining a refusal, `--settle`, and the frames tests' shared browser are all on `main`, and the queue went on listing them as waiting. A session that believed the file, which is the whole point of the file, would have done them again.
