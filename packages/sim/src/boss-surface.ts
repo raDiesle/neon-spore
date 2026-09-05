@@ -47,6 +47,7 @@ export {
   type MirrorStep,
   type MirrorVerdictReason,
   mazeArc,
+  mazeBottomCol,
   mazeCenterMilli,
   mazeCircleMilli,
   mazeCopyWheel,

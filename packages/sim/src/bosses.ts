@@ -73,6 +73,7 @@ export {
   MAZE_PHASES,
   MAZE_TURN,
   type MazePhase,
+  mazeBottomCol,
   mazeCenterMilli,
   mazeClickAngle,
   mazeCosMilli,

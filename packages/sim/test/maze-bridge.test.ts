@@ -1,6 +1,8 @@
 import { expect, test } from "bun:test";
 import {
   MAZE_TURN,
+  mazeBottomCol,
+  mazeCenterMilli,
   mazeCosMilli,
   mazeEntranceCol,
   mazeEntranceX,
@@ -42,7 +44,14 @@ test("the wheel is about six sevenths of the field, and clears the hull", () => 
   expect(radius).toBeLessThan(CFG.cols * 500);
 });
 
-test("every column the wheel can reach is one the pilot can actually click", () => {
+/**
+ * The owner asked for the gap to count at "the most bottom position of the
+ * maze, nearest to ship" and nowhere else, so the bridge between an angle and
+ * a column now has exactly one column on the far side of it. That is what
+ * these two hold: the wheel reaches that column and no other, and it is the
+ * column the drum actually stands over rather than a number picked out.
+ */
+test("the only column a way in can click onto is the one under the drum", () => {
   const found = new Set<number>();
   let angle = 0;
   for (let i = 0; i < 4000; i++) {
@@ -50,11 +59,18 @@ test("every column the wheel can reach is one the pilot can actually click", () 
     const col = mazeEntranceCol(CFG, PAIR, angle, 0);
     if (col >= 0) found.add(col);
   }
-  // Every column under the near half of the rim, and nothing outside it.
-  expect(found.size).toBeGreaterThanOrEqual(CFG.cols - 4);
-  for (const col of found) {
+  expect([...found]).toEqual([mazeBottomCol(CFG)]);
+});
+
+test("the column under the drum is the middle of the field, and on the field", () => {
+  for (const cols of [7, 9, 11, 13]) {
+    const cfg = { ...CFG, cols };
+    const col = mazeBottomCol(cfg);
     expect(col).toBeGreaterThanOrEqual(0);
-    expect(col).toBeLessThan(CFG.cols);
+    expect(col).toBeLessThan(cols);
+    // Within half a column of the drum's own centre, which is what makes it
+    // the bottom of the rim rather than merely a column near it.
+    expect(Math.abs(col * 1000 + 500 - mazeCenterMilli(cfg))).toBeLessThanOrEqual(500);
   }
 });
 

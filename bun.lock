@@ -108,6 +108,13 @@
       "name": "@neon-spore/index",
       "version": "0.0.0",
     },
+    "tools/maze": {
+      "name": "@neon-spore/maze",
+      "version": "0.0.0",
+      "dependencies": {
+        "@neon-spore/sim": "workspace:*",
+      },
+    },
     "tools/orphans": {
       "name": "@neon-spore/orphans",
       "version": "0.0.0",
@@ -261,6 +268,8 @@
     "@neon-spore/icons": ["@neon-spore/icons@workspace:tools/icons"],
 
     "@neon-spore/index": ["@neon-spore/index@workspace:tools/index"],
+
+    "@neon-spore/maze": ["@neon-spore/maze@workspace:tools/maze"],
 
     "@neon-spore/net": ["@neon-spore/net@workspace:packages/net"],
 

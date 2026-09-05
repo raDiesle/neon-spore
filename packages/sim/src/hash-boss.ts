@@ -2,7 +2,7 @@ import type { BossState } from "./boss-state.js";
 import { BOSS_KINDS } from "./entries.js";
 import { FLEET_DIRS } from "./fleet-board.js";
 import { GAUGE_PHASES } from "./gauge.js";
-import { mazeHashParts } from "./maze.js";
+import { mazeHashParts } from "./maze-hash.js";
 import { pinballHashParts } from "./pinball-board.js";
 import { MIRROR_PHASES, MIRROR_STEPS } from "./simon.js";
 import { SNAKE_PHASES } from "./snake.js";

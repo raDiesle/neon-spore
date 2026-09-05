@@ -1,5 +1,4 @@
 import type { SimConfig } from "./config.js";
-import type { MazeState } from "./maze-round.js";
 import type { MazeWheel } from "./maze-wheel.js";
 
 /**
@@ -122,14 +121,31 @@ export function mazeEntranceX(
 }
 
 /**
+ * The one column a way in can ever click onto: the column the drum stands over.
+ *
+ * The owner asked for exactly this — a gap counts only at "the most bottom
+ * position of the maze, nearest to ship". A gap anywhere else on the near half
+ * is over a column, but the shot would meet the rim at an angle rather than
+ * head on, and the picture of it going in was the thing that read as wrong.
+ */
+export function mazeBottomCol(cfg: SimConfig): number {
+  const col = Math.floor(mazeCenterMilli(cfg) / 1000);
+  return Math.max(0, Math.min(cfg.cols - 1, col));
+}
+
+/**
  * The column a way in has clicked onto, or -1.
  *
  * The bridge between an angle and the only word the pair has for a place. It
- * counts when the mouth is on the half of the rim facing the ship and within
- * `mazeSnapMilli` of a column's centre — narrow enough that a lit mouth reads
- * as standing *on* the column, wide enough that the wheel can never turn past
- * one between two ticks. Call this; a second copy of it is how a picture comes
- * to light a column the shot does not go up.
+ * counts when the mouth is at the bottom of the rim — facing the ship, and
+ * within `mazeSnapMilli` of that column's centre — a window narrow enough that
+ * a lit mouth reads as standing *on* the column, and wide enough that the
+ * wheel can never turn past it between two ticks. Call this; a second copy of
+ * it is how a picture comes to light a column the shot does not go up.
+ *
+ * The near-half check is still the first line and is not redundant with the
+ * bottom column: a gap at the *top* of the drum stands over the same column,
+ * and the cosine is the only thing that tells the two apart.
  */
 export function mazeEntranceCol(
   cfg: SimConfig,
@@ -138,9 +154,8 @@ export function mazeEntranceCol(
   index: number,
 ): number {
   if (mazeCosMilli(mazeEntranceAngle(wheel, angleMilli, index)) <= 0) return -1;
+  const col = mazeBottomCol(cfg);
   const x = mazeEntranceX(cfg, wheel, angleMilli, index);
-  const col = Math.floor(x / 1000);
-  if (col < 0 || col >= cfg.cols) return -1;
   return Math.abs(x - (col * 1000 + 500)) <= cfg.mazeSnapMilli ? col : -1;
 }
 
@@ -178,62 +193,3 @@ export function mazeClickAngle(
  */
 export const MAZE_PHASES = ["lead", "read", "travel", "verdict"] as const;
 export type MazePhase = (typeof MAZE_PHASES)[number];
-
-/**
- * Everything about THE MAZE that goes into `hashWorld`, in a fixed order.
- *
- * The angle is the first of them and the most important: two devices that
- * disagree about where the wheel stands are lighting different columns, and
- * everything after it is downstream of that. The wheel itself is in there
- * although it is authored, because that is precisely the assumption worth
- * checking — a wave list that drifted by one entry would deal the pair
- * different drums and nothing else would say a word about it.
- */
-export function mazeHashParts(m: MazeState): number[] {
-  const parts = [
-    m.round,
-    MAZE_PHASES.indexOf(m.phase),
-    m.phaseBeat,
-    m.angleMilli,
-    m.turn,
-    m.armed ? 1 : 0,
-    // The hand on the string, and where it grabbed. The wheel turns by the
-    // change in this between two messages, so two devices that disagree about
-    // the origin turn it by different amounts on the very next drag — THE
-    // WARDEN's rope is hashed for this reason, field for field.
-    m.dragging ? 1 : 0,
-    m.dragFromMilli,
-    m.lockedCol,
-    m.lockedWay,
-    m.way,
-    m.step,
-    m.hullMilli,
-    m.verdict,
-    m.verdictCol,
-  ];
-  // Every wheel, not only the one in front of the pair. `m.round` above says
-  // which is current; what these cover is the assumption that both devices
-  // were dealt the same drums, which is the one worth checking rather than the
-  // one that is safe.
-  parts.push(m.rounds.length);
-  for (const wheel of m.rounds) {
-    parts.push(wheel.rings, wheel.coreMilli, wheel.openMilli, wheel.startMilli);
-    // The walls themselves, and not only the way through them: a drum whose
-    // circles were dealt differently draws a different maze round the same
-    // route, and the two screens would be arguing about which gap is which.
-    for (const list of [...wheel.walls, ...wheel.openings]) {
-      parts.push(list.length);
-      for (const angle of list) parts.push(angle);
-    }
-    parts.push(wheel.entrances.length);
-    for (const entrance of wheel.entrances) {
-      parts.push(entrance.angleMilli, entrance.route.length);
-      for (const cell of entrance.route) parts.push(cell.ring, cell.angleMilli);
-    }
-  }
-  parts.push(m.tried.length);
-  for (const way of m.tried) parts.push(way);
-  parts.push(m.scars.length);
-  for (const scar of m.scars) parts.push(scar.col, scar.beat);
-  return parts;
-}

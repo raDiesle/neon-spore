@@ -30,22 +30,36 @@ test("every authored wheel is a wheel, with a way in that reaches the middle", (
 });
 
 /**
- * The sheet the owner sent has one gap in its rim, so the round is bringing
- * that gap down onto a column rather than choosing between several. If a drum
- * with more ways in is ever authored, this is the line that will say so.
+ * The shape of the fight the owner asked for: one more way in each round. Every
+ * one of them reaches the middle — the walls of each sheet are a tree, so any
+ * gap in the rim is joined to it — so what widens is the choice of which gap to
+ * turn down onto the ship, never a gamble on whether it goes anywhere.
  */
-test("the sheet has one way in, and every round is the same sheet", () => {
-  const [first] = MAZE_ROUNDS;
-  if (first === undefined) throw new Error("no rounds");
+test("each round has one more way in than the last, and all of them arrive", () => {
+  expect(MAZE_ROUNDS.length).toBeGreaterThan(1);
   for (const [i, wheel] of MAZE_ROUNDS.entries()) {
-    expect(wheel.entrances.length, `round ${i}`).toBe(1);
-    expect(wheel.walls, `round ${i}`).toEqual(first.walls);
-    expect(wheel.openings, `round ${i}`).toEqual(first.openings);
+    expect(wheel.entrances.length, `round ${i}`).toBe(i + 1);
+    for (const [w, way] of wheel.entrances.entries()) {
+      expect(way.route.at(-1)?.ring, `round ${i} way ${w}`).toBe(0);
+    }
   }
-  // And they stand at three different angles, or the pair would be doing the
-  // same pull three times over rather than finding the gap again.
-  const angles = new Set(MAZE_ROUNDS.map((w) => w.startMilli));
-  expect(angles.size).toBe(MAZE_ROUNDS.length);
+});
+
+/**
+ * Two ways in on one rim are only a choice if they are far enough apart that
+ * the pilot cannot fall into the wrong one on the way to the right one. An
+ * eighth of a turn is the grid the walls stand on, so it is the floor here too.
+ */
+test("no two ways in on a rim are within an eighth of a turn of each other", () => {
+  for (const [i, wheel] of MAZE_ROUNDS.entries()) {
+    const angles = wheel.entrances.map((e) => e.angleMilli).sort((a, b) => a - b);
+    for (const [w, angle] of angles.entries()) {
+      const after = angles[(w + 1) % angles.length] ?? angle;
+      if (angles.length < 2) continue;
+      const apart = (after - angle + 360_000) % 360_000;
+      expect(apart, `round ${i} way ${w}`).toBeGreaterThanOrEqual(45_000);
+    }
+  }
 });
 
 /**

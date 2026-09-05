@@ -286,7 +286,9 @@ Keeping the hand-written *text* of surviving rows is the invariant to preserve.
 loaded into every session and re-read whenever it changes. It stands at 21,991,
 which is not headroom — it is a wall the next rule to be written down walks
 into. `bun run sweep` landed with no line in the commands table for exactly
-that reason, and it will not be the last one.
+that reason, and it was not the last: `bun run maze`, which draws the sheets THE MAZE is
+played on, is missing from the table for the same reason. Both lines go in
+once there is room for them.
 
 The test's own comment says what to do and the file has been through it once
 before, at 537 lines: the argument for a rule moves to `docs/`, one hop from a

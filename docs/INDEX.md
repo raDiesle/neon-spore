@@ -205,6 +205,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/ward.ts` | **What the shield does with a body it turns**, which used to be one answer and is now two |
 | `packages/sim/src/colour-armour.ts` | What a shot of the wrong colour leaves behind on an ordinary body: a window in which nothing at all reaches it |
 | `packages/sim/src/maze-solve.ts` | The way through THE MAZE's drum, worked out from the walls rather than typed beside them |
+| `packages/sim/src/maze-hash.ts` | What THE MAZE puts into `hashWorld`, and nothing else |
 
 ### packages/content
 
@@ -959,5 +960,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/control-set-note.ts` | The roster under the wave editor's control-set picker: every button on the panel, seat by seat |
 | `tools/director/src/rail-marks.ts` | The small glyphs in front of a wave's name in the rail: a boss, a panel, a guide |
 | `tools/land/say.ts` | What a landing says about itself before and after it happens |
+| `tools/maze/draw.ts` | Draw a sheet for THE MAZE: the walls of one circular maze |
+| `tools/maze/run.ts` | `bun run maze` — draw a sheet for THE MAZE, ready to paste into `packages/content/src/maze-rounds.ts` |
 
 <!-- index:code:end -->

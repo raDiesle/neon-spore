@@ -33,16 +33,27 @@ import { type MazeGeometry, type MazeWheel, mazeWheel } from "@neon-spore/sim";
  * drum, and the cheapest way to guarantee that is for there to be only one —
  * the argument `mirror.ts` makes about its sequences. There is no rng in this
  * file and nothing in the boss draws from one, the opening angle included.
+ * The second and third sheets were *drawn* by `bun run maze`, which shuffles
+ * the walls of a grid and opens them where they would not close a loop; that
+ * randomness ran once, out of the game, and what is below is its printed
+ * result. A drum reaches the field by being read and committed, never by being
+ * generated at load.
+ *
+ * **One more way in each round**, which is the owner's own shape for the
+ * fight: the first sheet has one gap in its rim, the second two and the third
+ * three. All of them reach the middle — the walls are a tree, so any gap in
+ * the rim is joined to it — so the widening is a choice of *which* gap to turn
+ * down onto the ship rather than a gamble on whether it goes anywhere.
  */
 
 /** The corridors between the middle and the rim, the middle not counted. */
 const RINGS = 7;
 
 /**
- * The sheet itself. Ring 0 has no walls because the middle is one room, and
- * the rim has one gap because the sheet has one way in.
+ * The owner's own sheet, and the first round. Ring 0 has no walls because the
+ * middle is one room, and the rim has one gap because the sheet has one.
  */
-const SHEET: MazeGeometry = {
+const SENT: MazeGeometry = {
   rings: RINGS,
   // The middle is half again as wide as a corridor, which is what leaves room
   // for the shot to arrive somewhere rather than merely stop.
@@ -72,20 +83,83 @@ const SHEET: MazeGeometry = {
 };
 
 /**
- * Half a turn, which is where the drum stands when a round opens: the sheet
- * the right way up, with its one gap at the top and as far from the ship as it
- * goes. Bringing that gap all the way down onto a column is the round.
+ * The second round: the same seven corridors with two gaps in the rim, so the
+ * pilot has a gap to choose as well as a gap to reach. Drawn by
+ * `bun run maze 7 2 179`.
+ */
+const TWO_WAYS: MazeGeometry = {
+  rings: RINGS,
+  coreMilli: 177,
+  openMilli: 55,
+  walls: [
+    [],
+    [0, 45_000, 90_000, 270_000],
+    [45_000, 135_000, 270_000],
+    [45_000, 135_000, 225_000, 315_000],
+    [135_000, 180_000, 270_000, 315_000],
+    [0, 45_000, 225_000, 270_000],
+    [0, 90_000, 180_000, 225_000],
+    [135_000, 180_000, 270_000, 315_000],
+  ],
+  openings: [
+    [64_122, 165_003, 294_872],
+    [15_113, 147_559, 282_625],
+    [74_468, 211_694, 337_275],
+    [111_903, 236_470, 294_971, 344_810],
+    [17_732, 66_477, 168_668, 213_240, 236_995, 283_721],
+    [23_404, 151_748, 348_393],
+    [155_056, 201_634, 240_939, 292_323, 332_333],
+    [31_377, 210_512],
+  ],
+};
+
+/**
+ * The third: three gaps in the rim, on a sheet whose three walks are ten
+ * crossings each, so no way in is the cheap one. Drawn by
+ * `bun run maze 7 3 161`.
+ */
+const THREE_WAYS: MazeGeometry = {
+  rings: RINGS,
+  coreMilli: 177,
+  openMilli: 55,
+  walls: [
+    [],
+    [45_000, 135_000, 180_000, 225_000],
+    [45_000, 135_000, 180_000, 225_000, 270_000, 315_000],
+    [0, 45_000, 90_000, 225_000, 315_000],
+    [135_000, 180_000, 225_000],
+    [45_000, 225_000, 270_000],
+    [135_000, 180_000, 225_000, 270_000],
+    [0, 90_000, 180_000],
+  ],
+  openings: [
+    [58_579, 146_542, 192_909, 246_920],
+    [11_728, 64_310, 159_866, 253_960, 297_775],
+    [119_977, 194_364, 237_083, 328_324],
+    [12_178, 74_933, 162_267, 199_154],
+    [108_300, 207_419, 256_100, 281_862],
+    [26_877, 198_562, 247_507],
+    [70_929, 112_558, 163_813, 238_418],
+    [24_615, 152_009, 257_564],
+  ],
+};
+
+/**
+ * Half a turn, which is where every drum stands when its round opens: the
+ * sheet the right way up, with its gaps as far from the ship as they go.
+ * Bringing one of them all the way down onto the ship's own column is the
+ * round, and only that column counts (`mazeEntranceCol`).
  */
 const UPRIGHT = 180_000;
 
 /**
- * The fight, in order. The same maze three times, standing at three different
- * angles, so each round is the same walk found again from somewhere else — and
- * each one finished takes a third of the boss's hull, the author setting the
- * length of the fight by writing rounds and never by tuning a number.
+ * The fight, in order: the owner's sheet, then one with two ways in, then one
+ * with three. Each one finished takes a third of the boss's hull, the author
+ * setting the length of the fight by writing rounds and never by tuning a
+ * number.
  */
 export const MAZE_ROUNDS: MazeWheel[] = [
-  mazeWheel(SHEET, UPRIGHT),
-  mazeWheel(SHEET, 65_000),
-  mazeWheel(SHEET, 295_000),
+  mazeWheel(SENT, UPRIGHT),
+  mazeWheel(TWO_WAYS, UPRIGHT),
+  mazeWheel(THREE_WAYS, UPRIGHT),
 ];

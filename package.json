@@ -27,6 +27,7 @@
     "deploy:game:dry": "bun run build:game && npx wrangler deploy --config wrangler.jsonc --dry-run",
     "delegate": "bun run tools/delegate/run.ts",
     "orphans": "bun run tools/orphans/run.ts",
+    "maze": "bun run tools/maze/run.ts",
     "queue": "bun run tools/queue/run.ts",
     "index": "bun run tools/index/run.ts",
     "land": "bun run tools/land/run.ts",
