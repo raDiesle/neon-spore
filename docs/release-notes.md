@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-05 · 601e50f — A hand on a ghost is not drawn on the screen the ghost is not
+
+`drawGrips` walked `world.creatures` and put a beam, a ring and a label at `creatureCenter` for every held body, with no idea which seat the screen belonged to. A falling ghost is grippable, and player 1 is not drawn its body at all — that seat gets a band across the row and nothing whatever about the column, because anything varying across the width of the field *is* the column, given away. So a pilot who swept a thumb along the row and found the body was then handed a marker sitting exactly in the lane the creature exists to keep from them: the whole of THE GHOST undone by an assist.
+
 ## 2026-09-05 · cf150cf — A test that raises its own relay gets a budget that says why
 
 "ends a run nobody came back to, so the next arrival starts a fresh one" failed on bun's five-second default at 5000.30 ms, with three copies of the suite running at once. It is one of four cases that stand up a second workerd of their own so `SEAT_SILENT_MS` and `RUN_OVER_MS` can be shortened, and each of them pays for a worker boot, three socket handshakes and several hundred milliseconds it then waits out on purpose. On an idle machine that is comfortably inside five seconds; a workerd starting under load is not, and the budget was never written down for it.
