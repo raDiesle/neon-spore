@@ -62,6 +62,12 @@ export class FakeEl {
     this.children.push(...nodes);
   }
 
+  /** One node, which is what a list built row by row calls. */
+  appendChild(node: FakeEl): FakeEl {
+    this.children.push(node);
+    return node;
+  }
+
   replaceChildren(...nodes: FakeEl[]): void {
     this.children.length = 0;
     this.children.push(...nodes);
@@ -140,6 +146,15 @@ export function installDom(spec: DomSpec = {}): FakeDom {
     createElement: (tag: string) => {
       const node = new FakeEl();
       node.tagName = tag.toUpperCase();
+      return node;
+    },
+    /** A text node, which this file has no separate class for: a `FakeEl`
+     * whose whole content is its text reads the same way to an assertion
+     * about what a rendered row says (`rail-list.test.ts`). */
+    createTextNode: (text: string) => {
+      const node = new FakeEl();
+      node.tagName = "#text";
+      node.textContent = text;
       return node;
     },
     addEventListener: () => {},

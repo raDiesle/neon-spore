@@ -75,6 +75,18 @@
         <!-- No <h2>WAVES</h2> here — the column-head columns.ts inserts
              already carries the title; a second one under it would repeat
              itself on every load. -->
+        <!-- The list's filter. A full-width field above the list, never
+             anything beside it: WAVES is the director's narrowest column
+             (210px in columns.ts) and the width it has is for wave names.
+             What a term matches, and why the whole vocabulary is typed
+             rather than clicked, is `rail-filter.ts`. -->
+        <input
+          type="search"
+          id="waveFilter"
+          placeholder="FILTER"
+          title="Filter the list: name, sentence, guide, panel, boss, fault, and every creature or power-up the wave sends. Several terms all have to match. Escape clears it."
+        />
+        <div id="waveFilterNote" class="note" hidden></div>
         <div id="waveList"></div>
         <div class="rail-actions">
           <button type="button" id="waveAdd">+ NEW</button>

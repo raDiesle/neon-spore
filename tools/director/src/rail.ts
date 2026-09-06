@@ -7,6 +7,7 @@ import {
 import { renderControlSetNote } from "./control-set-note.js";
 import { bindFaultFields } from "./fault-fields.js";
 import { autoGrowTextarea, bindGuideFields, setGrownValue } from "./guide-fields.js";
+import { bindRailFilter } from "./rail-filter.js";
 import { waveMarks } from "./rail-marks.js";
 import { copyWave, currentWave, emptyWave, type Store } from "./state.js";
 
@@ -37,6 +38,9 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
   const controlsRoster = document.getElementById("fControlSetRoster");
   const waveCopyBtn = document.getElementById("waveCopy") as HTMLButtonElement | null;
   const waveDelBtn = document.getElementById("waveDel") as HTMLButtonElement | null;
+  // The field above the list. It redraws the list and touches nothing else —
+  // see `rail-filter.ts` for why it is a typed field and not a row of chips.
+  const filter = bindRailFilter(() => renderList());
 
   // One of the four textareas that grow with their content; the other three are the guide's.
   if (sentence) autoGrowTextarea(sentence);
@@ -63,10 +67,20 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
   const renderList = (): void => {
     if (!list) return;
     list.replaceChildren();
+    let matched = 0;
     for (const [i, wave] of store.waves.entries()) {
+      const hit = filter.passes(store.waves, i);
+      if (hit) matched++;
+      // The wave being edited stays in the list whatever the filter says: the
+      // whole column beside it is that wave's own fields, and a list that hid
+      // the row they belong to would leave the editor pointing at nothing a
+      // person can see. Dimmed, so it is plain it is there for that reason and
+      // not because it answered.
+      if (!hit && i !== store.index) continue;
       const button = document.createElement("button");
       button.type = "button";
-      button.className = i === store.index ? "on" : "";
+      const marks = [i === store.index ? "on" : "", hit ? "" : "off-filter"].filter(Boolean);
+      button.className = marks.join(" ");
       const n = document.createElement("span");
       n.className = "n";
       n.textContent = String(i + 1).padStart(2, "0");
@@ -80,6 +94,7 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
       });
       list.appendChild(button);
     }
+    filter.report(matched, store.waves.length);
   };
 
   const renderFields = (): void => {

@@ -142,6 +142,22 @@ section.collapsed .column-body {
   display: none;
 }
 
+/* The filter above the list (`rail-filter.ts`). Full width, so it costs the
+   column no horizontal room at all — WAVES is the narrowest track in the
+   director and every pixel of it is a wave's name. */
+#waveFilter {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 5px;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+/* Only there while it is filtering, so an unfiltered list is exactly the list
+   it was before this existed. */
+#waveFilterNote {
+  margin: 0 0 6px;
+  font-size: 9px;
+}
 #waveList {
   display: flex;
   flex-direction: column;
@@ -157,6 +173,12 @@ section.collapsed .column-body {
 }
 #waveList button.on {
   border-color: var(--gold);
+}
+/* The selected wave, kept in a filtered list because the column beside it is
+   showing that wave's fields (`rail.ts`). Dimmed, so it reads as "and this is
+   what you are editing" rather than as a match. */
+#waveList button.off-filter {
+  opacity: 0.45;
 }
 #waveList .n {
   color: #4b4177;
