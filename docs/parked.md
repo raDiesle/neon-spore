@@ -87,6 +87,7 @@ ceiling.
 ## Three lanes from 3–4 September no longer replay onto main
 
 - **Found:** 2026-09-05, claude/git-flow-parallel-sessions-6f1b43
+- **Taken:** 2026-09-06, claude/queue-three-lanes-from-3-4-september-no-longer-replay
 - **Files:** the three branches named below
 
 Each carries one piece of finished work and six hundred commits of drift, and
