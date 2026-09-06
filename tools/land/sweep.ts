@@ -9,7 +9,7 @@
  */
 
 import { join } from "node:path";
-import { partitionMerged } from "./claims.js";
+import { liveClaims, partitionMerged } from "./claims.js";
 import { git, gitOrDie } from "./git.js";
 import { idleDays, KEEP_DAYS } from "./idle.js";
 import { type Cleanup, type LandState, SWEPT_NOTHING } from "./land.js";
@@ -119,8 +119,9 @@ export async function writeNotes(
  * the repository at an earlier state of the trunk, down a path that looks
  * exactly like a path into the repository.
  *
- * **A claim on a queue item is not a spent branch**, however merged it looks.
- * `partitionMerged` above holds that rule and says why it cost a session's work.
+ * **A claim on a queue item is not a spent branch**, however merged it looks —
+ * as long as the entry behind it is still in `docs/queue.md`. `partitionMerged`
+ * holds both halves of that rule and says why each cost a session's work.
  *
  * **A kept tree keeps its branch.** The two are one thing to a person, and
  * deleting the branch out from under a worktree somebody may still be sitting
@@ -160,7 +161,11 @@ export async function sweep(state: LandState, root: string, TRUNK: string): Prom
     .map((line) => line.trim())
     .filter((name) => name && name !== TRUNK);
 
-  const { spent, claims } = partitionMerged(merged, state.branch);
+  const { spent, claims } = partitionMerged(
+    merged,
+    state.branch,
+    await liveClaims(state.trunkTree),
+  );
   for (const name of claims) {
     console.log(`  kept     ${name} — a queue claim; its own landing releases it`);
   }

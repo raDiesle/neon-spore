@@ -1,5 +1,8 @@
 import { describe, expect, test } from "bun:test";
-import { partitionMerged } from "../claims.js";
+import { mkdir, rm } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { liveClaims, partitionMerged } from "../claims.js";
 
 /**
  * The failure this guards is silent and expensive: a claim branch carries no
@@ -38,5 +41,70 @@ describe("partitionMerged", () => {
 
   test("nothing merged is nothing swept", () => {
     expect(partitionMerged([], "claude/x")).toEqual({ spent: [], claims: [] });
+  });
+});
+
+/**
+ * The second half of a claim. A branch whose entry `bun run queue done` has
+ * already removed is a husk — nobody is on it, and `bun run queue release`
+ * cannot give it back, so only a landing can take it away.
+ */
+describe("partitionMerged, told which entries the queue still holds", () => {
+  test("a claim with no entry behind it is spent", () => {
+    const merged = ["claude/queue-drained", "claude/queue-held"];
+    const live = new Set(["claude/queue-held"]);
+    expect(partitionMerged(merged, "claude/some-lane", live)).toEqual({
+      spent: ["claude/queue-drained"],
+      claims: ["claude/queue-held"],
+    });
+  });
+
+  test("an empty queue holds nothing, so every claim branch is spent", () => {
+    const merged = ["claude/queue-a", "claude/queue-b"];
+    expect(partitionMerged(merged, "claude/x", new Set()).claims).toEqual([]);
+  });
+
+  test("a queue that could not be read protects every claim", () => {
+    const merged = ["claude/queue-a", "claude/queue-b"];
+    expect(partitionMerged(merged, "claude/x", undefined).claims).toEqual([
+      "claude/queue-a",
+      "claude/queue-b",
+    ]);
+  });
+
+  test("the claim being landed is still swept, entry or no entry", () => {
+    const live = new Set(["claude/queue-a", "claude/queue-b"]);
+    expect(partitionMerged(["claude/queue-a", "claude/queue-b"], "claude/queue-a", live)).toEqual({
+      spent: ["claude/queue-a"],
+      claims: ["claude/queue-b"],
+    });
+  });
+});
+
+/**
+ * The set is read off the two files themselves, so an entry renamed or removed
+ * changes what the sweep protects without anybody editing the sweep.
+ */
+describe("liveClaims", () => {
+  test("names the branch each entry would be claimed under", async () => {
+    const dir = join(tmpdir(), `claims-live-${Date.now()}-${Math.random().toString(36).slice(2)}`);
+    await mkdir(join(dir, "docs"), { recursive: true });
+    await Bun.write(
+      join(dir, "docs", "queue.md"),
+      "## Split stage test\n\n- **Found:** 2026-09-03, claude/x\n- **Files:** `a.ts`\n\nDo the thing.\n",
+    );
+    await Bun.write(
+      join(dir, "docs", "parked.md"),
+      "## Half a migration\n\n- **Found:** 2026-09-04, claude/y\n- **Files:** `b.ts`\n\nThree files of five.\n",
+    );
+    const live = await liveClaims(dir);
+    expect(live).toEqual(
+      new Set(["claude/queue-split-stage-test", "claude/queue-half-a-migration"]),
+    );
+    await rm(dir, { recursive: true, force: true });
+  });
+
+  test("a missing file is undefined, which protects every claim", async () => {
+    expect(await liveClaims(join(tmpdir(), "claims-live-nothing-here"))).toBeUndefined();
   });
 });
