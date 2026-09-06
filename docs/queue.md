@@ -392,6 +392,7 @@ touches THE LOCK, THE GRIP or this creature pays the same price.
 ## The vote box says `tools/versus/prompt.ts` is not built yet, and it is
 
 - **Found:** 2026-09-06, claude/versus-page-refactor
+- **Taken:** 2026-09-06, claude/queue-the-vote-box-says-tools-versus-prompt-ts-is-not
 - **Files:** `tools/director/src/versus-vote.ts`, `tools/versus/prompt.ts`,
   `tools/versus/prompt-changes.ts`, `tools/versus/prompt-close.ts`,
   `tools/versus/prompt-steps.ts`, `tools/versus/prompt-text.ts`,
