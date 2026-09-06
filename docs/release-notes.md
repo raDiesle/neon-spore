@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · 0693a7f8 — A locked shot turns a corner, and the plate reflects what it refuses
+
+The bolt climbs its own column until it is level with the body, turns, and runs straight across into it. That is about the picture rather than the arithmetic: a diagonal arrives at a body from underneath, which is exactly where THE MAGNET's plate hangs, so a shot the pair had aimed round the side of one still looked as though it had come up through the armour. A horizontal leg cannot be misread. From the turn on the shot holds the body's own level, so a body still falling is followed rather than watched past — and the dotted link `lock-mark.ts` draws turns the same corner, because a straight line between the two ends would promise a route nothing takes.
+
 ## 2026-09-06 · 5581c726 — The faceted four move out of subjects.ts, which had run out of room
 
 THE VEER's card took `tools/shape-sheet/src/subjects.ts` past its 250-line limit, and the seam it went along was already there. That file is one paragraph per family of contour — a lobed body, a dome over a hem, an eye, a link of a worm — and each is a builder with no instances beside it, because the bodies that use them are generated from `living-look.ts`. The rocks are the other shape of thing: one builder and four hand-written instances, named by hand because nothing in `packages/content` lists them. `crystal` and the four go to `rock-subjects.ts`; `subjects.ts` re-exports the builder, so the drafts and the free contours import it from where they always did.
