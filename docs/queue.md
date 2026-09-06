@@ -230,6 +230,7 @@ passes, which is the whole of the acceptance.
 ## `packages/sim/src/config-creatures.ts` sits exactly on the 250-line limit
 
 - **Found:** 2026-09-05, claude/throb-color-rotation-5dd05f
+- **Taken:** 2026-09-06, claude/queue-packages-sim-src-config-creatures-ts-sits-exactl
 - **Files:** `packages/sim/src/config-creatures.ts`, `packages/sim/src/config.ts`
 
 The file is 250 lines and `packages/sim/test/limits.test.ts` refuses 251, so a
