@@ -248,6 +248,7 @@ the column.
 ## `bun run frames --press grip=<id>` puts no hand on any body
 
 - **Found:** 2026-09-06, claude/hoof-magnet-enemy-70fd5a
+- **Taken:** 2026-09-06, claude/queue-bun-run-frames-press-grip-id-puts-no-hand-on-any
 - **Files:** `tools/frames/press.ts`, `tools/frames/capture.ts`, `tools/frames/hold.ts`
 
 The flag parses, `SEAT_OF` calls a grip the one press either seat may send, and
