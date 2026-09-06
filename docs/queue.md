@@ -221,3 +221,30 @@ This one **is** a look and the owner decides it. Do not pick one and land it.
 Whichever it is, `ControlDef.label` is the one copy of the word — the band, the
 CONTROLS page and the director's panel roster all read it, so nothing needs a
 second string.
+
+## packages/render/src/effects.ts is at its 250-line ceiling and turning work away
+
+- **Found:** 2026-09-06, claude/fence-shield-mechanics
+- **Files:** `packages/render/src/effects.ts`, `packages/render/src/effects-body.ts`
+
+`Effects` is the one place in `packages/render` a transient that outlives its
+frame is allowed to live — `restart.test.ts` holds that — and the file is at
+exactly 250 lines. Adding one costs six: an import, a field with a comment, an
+`ingest` line, an `update` line and a `clear` line. There is no room for any of
+them.
+
+THE FENCE's leaving animation (`fence-exit.ts`) went into `BodyTransients`
+instead, and it half fits there: it *is* one creature's last moment fed by one
+event, but it is the width of the field and needs the layout and the ship's
+surface at draw time, which is why `BodyTransients.draw` grew two arguments.
+That was the cheapest thing this lane could do, not the right seam.
+
+Split `Effects` on a seam somebody chooses on purpose. The header already
+names three candidates: the fields nothing feeds by event (`coordGrid`,
+`ghostTrail`, `opening`, all driven from a draw pass), the ship's own moods
+(`swallow`, `layEcho`, `guardHit`, `queenShake` and the banner they write), and
+the boss objects that are only kept here (`mirror`, `warden`, `fleet`). Take
+one group out, keep the public names reachable so no call site moves, and leave
+real room. `bun run check` is the proof — `restart.test.ts` compares a used
+`Effects` against a fresh one structurally, so a field that moves and is not
+cleared fails loudly.

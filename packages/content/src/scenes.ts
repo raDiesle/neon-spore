@@ -9,9 +9,12 @@ import { SNAKE } from "./scenes/snake.js";
 import { THE_CAROM } from "./scenes/the-carom.js";
 import { THE_CLASP } from "./scenes/the-clasp.js";
 import { THE_CLAW } from "./scenes/the-claw.js";
+import { THE_CUT } from "./scenes/the-cut.js";
 import { THE_DART } from "./scenes/the-dart.js";
 import { THE_ECHO } from "./scenes/the-echo.js";
+import { THE_FENCE } from "./scenes/the-fence.js";
 import { THE_FLEET } from "./scenes/the-fleet.js";
+import { THE_GAP } from "./scenes/the-gap.js";
 import { THE_GAUGE } from "./scenes/the-gauge.js";
 import { THE_GHOST } from "./scenes/the-ghost.js";
 import { THE_GYRE } from "./scenes/the-gyre.js";
@@ -93,7 +96,10 @@ export type SceneId =
   | "theWarden"
   | "theCarom"
   | "theClaw"
-  | "theVolley";
+  | "theVolley"
+  | "theFence"
+  | "theGap"
+  | "theCut";
 
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
@@ -132,6 +138,9 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theCarom: THE_CAROM,
   theClaw: THE_CLAW,
   theVolley: THE_VOLLEY,
+  theFence: THE_FENCE,
+  theGap: THE_GAP,
+  theCut: THE_CUT,
 };
 
 export type { GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";
