@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · d3760542 — A merged baseline is written back on today's wave numbers
+
+`mergeInto` matches a row on its id, which is what stops a wave that moved from being written twice — but it renumbers nothing. A merged row carried today's `wave` because it had just been measured, and every row beside it kept whatever number the baseline was written with.
+
 ## 2026-09-06 · 303a830a — A grip press names a body rather than an id, and gets a tick to be heard on
 
 `--press grip=<id>` put no hand on anything, on any wave, for either seat. Two faults, and neither of them said a word.
