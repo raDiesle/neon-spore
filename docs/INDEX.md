@@ -1182,5 +1182,6 @@ place — the generator keeps whatever is there.
 | `tools/frames/press-plan.ts` | when each `--press` is sent, and the tick that must run after it |
 | `tools/perf/renumber.ts` | a merged baseline put back on today's wave numbers |
 | `tools/director/src/cell-config-rows.ts` |  |
+| `tools/director/src/grid-cell-art.ts` | What one cell of the map draws: the creature that arrives on that beat, and the pod that hangs in that column |
 
 <!-- index:code:end -->

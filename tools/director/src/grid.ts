@@ -1,20 +1,9 @@
 import { AUTHORED_COLS, mapCol, type Wave } from "@neon-spore/content";
 import type { SimConfig } from "@neon-spore/sim";
-import { brushArtImage } from "./brush-art.js";
-import { bindGridPods, podGlyph } from "./grid-pods.js";
+import { fillCell } from "./grid-cell-art.js";
+import { bindGridPods } from "./grid-pods.js";
 import type { Selection } from "./selection.js";
-import { silhouette } from "./silhouette.js";
-import {
-  BRUSHES,
-  beatCount,
-  brushOf,
-  currentWave,
-  entryAt,
-  eraseAt,
-  podAt,
-  podBrushOf,
-  type Store,
-} from "./state.js";
+import { beatCount, currentWave, eraseAt, type Store } from "./state.js";
 
 /**
  * How long a press has to be held before it empties the cell under it. The
@@ -34,6 +23,9 @@ const HOLD_TO_ERASE_MS = 500;
  * remaps it onto whatever field it is played on. Editing against the real
  * eleven would let you place a creature in a column that no authored wave can
  * express, and the remap would silently move it.
+ *
+ * What a cell *draws* is `grid-cell-art.ts`, and what sits under the map is
+ * `grid-pods.ts`; this file is the cells themselves and the gestures on them.
  */
 export interface GridPanel {
   render(): void;
@@ -126,32 +118,7 @@ export function bindGrid(
     button.dataset.beat = String(b);
     button.dataset.col = String(c);
 
-    const entry = entryAt(wave, b, c);
-    if (entry) {
-      const brush = brushOf(entry);
-      // The same picture the palette's chip carries (`brush-art.ts`), so what
-      // a cell holds and what was clicked to put it there are one drawing and
-      // not two. The plain contour is still the fallback, for the one brush
-      // that has no picture.
-      const art = brushArtImage(brush, 26);
-      if (art) {
-        button.appendChild(art);
-      } else {
-        const spec = BRUSHES.find((x) => x.brush === brush);
-        if (spec && spec.subjects.length > 0) {
-          button.appendChild(silhouette(spec.subjects[0]!, spec.stroke, 26));
-        }
-      }
-    }
-    const pod = podAt(wave, b, c);
-    if (pod) {
-      const mark = document.createElement("span");
-      mark.className = "pod";
-      mark.textContent = `${podGlyph(podBrushOf(pod))}${pod.row}`;
-      const spec = BRUSHES.find((x) => x.brush === podBrushOf(pod));
-      if (spec) mark.style.color = spec.stroke;
-      button.appendChild(mark);
-    }
+    fillCell(button, wave, b, c);
 
     // A press held down empties the cell, and cancels the click that would
     // otherwise have painted over it on release. `held` is what carries that

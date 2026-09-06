@@ -1,4 +1,5 @@
 import type { PodEntry, SimConfig } from "@neon-spore/sim";
+import { brushArtImage } from "./brush-art.js";
 import { type Brush, beatCount, currentWave, podBrushOf, type Store } from "./state.js";
 
 /**
@@ -15,6 +16,10 @@ export interface GridPods {
   render(): void;
 }
 
+/** How big a pod is drawn in its own row — the height of the line it sits on,
+ * so a row of fields does not grow around it. */
+const POD_ROW_PX = 18;
+
 export function bindGridPods(store: Store, cfg: () => SimConfig, onEdit: () => void): GridPods {
   const podList = document.getElementById("podList");
   const note = document.getElementById("gridNote");
@@ -23,7 +28,18 @@ export function bindGridPods(store: Store, cfg: () => SimConfig, onEdit: () => v
     const row = document.createElement("div");
     row.className = "pod-row";
     const where = document.createElement("span");
-    where.textContent = `${podGlyph(podBrushOf(pod))} beat ${pod.beat} · col ${pod.col} · row`;
+    // The picture rather than a glyph, for `grid.ts`'s reason: three pods that
+    // read as ◇ ✦ ◎ are three marks a wave author has to have learnt, and the
+    // palette they were placed from already draws all three. The glyph stays
+    // as the fallback for a page whose canvas refused the frame.
+    const art = brushArtImage(podBrushOf(pod), POD_ROW_PX);
+    if (art) {
+      art.classList.add("pod-art");
+      row.appendChild(art);
+      where.textContent = `beat ${pod.beat} · col ${pod.col} · row`;
+    } else {
+      where.textContent = `${podGlyph(podBrushOf(pod))} beat ${pod.beat} · col ${pod.col} · row`;
+    }
 
     // The row is the one pod coordinate the grid cannot show: the grid's
     // vertical axis is time, and a pod's row is where in the field it hangs.
@@ -136,8 +152,10 @@ export function bindGridPods(store: Store, cfg: () => SimConfig, onEdit: () => v
   };
 }
 
-/** The mark a pod is drawn with — in its row under the map, and in the cell
- * itself (`grid.ts`). One glyph table, so the two cannot disagree. */
+/** The mark a pod falls back to when its picture could not be built — in its
+ * row under the map, and in the cell itself (`grid.ts`). Both draw the brush's
+ * own frame now; this is the one table both of them fall back to, so the two
+ * cannot disagree about the mark either. */
 export function podGlyph(brush: Brush): string {
   switch (brush) {
     case "purge":

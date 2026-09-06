@@ -1,4 +1,5 @@
 import type { Wave } from "@neon-spore/content";
+import { brushArtImage } from "./brush-art.js";
 import { cellConfig } from "./cell-config.js";
 import type { Selection } from "./selection.js";
 import { silhouette } from "./silhouette.js";
@@ -52,6 +53,11 @@ export interface CellPanelOptions {
   onEdit(): void;
 }
 
+/** How big the picture in WHAT IS HERE is drawn — the same 26px the map's
+ * cells and the palette's chips use, so one brush is one size everywhere it is
+ * shown at a glance. */
+const HOLDS_PX = 26;
+
 export function bindCellPanel({ store, selection, onEdit }: CellPanelOptions): CellPanel {
   const root = document.getElementById("cellPanel");
 
@@ -88,21 +94,35 @@ export function bindCellPanel({ store, selection, onEdit }: CellPanelOptions): C
   };
 
   /** What is in the cell, drawn the way the grid draws it so the two cannot
-   * come to disagree about what a cell holds. */
+   * come to disagree about what a cell holds — the brush's own picture where
+   * there is one (`brush-art.ts`), the plain contour where there is not.
+   *
+   * The pod half used to be a bare label beside a creature that had a picture,
+   * which is the same complaint `grid.ts` answers: a power-up is placed from a
+   * palette that draws it, and every place it lands afterwards should be the
+   * one drawing. */
   const contents = (wave: Wave, beat: number, col: number): HTMLElement => {
     const row = document.createElement("div");
     row.className = "cell-holds";
 
     const entry = entryAt(wave, beat, col);
     if (entry) {
-      const spec = BRUSHES.find((x) => x.brush === brushOf(entry));
-      if (spec?.subjects.length) row.appendChild(silhouette(spec.subjects[0]!, spec.stroke, 26));
-      row.appendChild(labelSpan(spec?.label ?? brushOf(entry)));
+      const brush = brushOf(entry);
+      const spec = BRUSHES.find((x) => x.brush === brush);
+      const art = brushArtImage(brush, HOLDS_PX);
+      if (art) row.appendChild(art);
+      else if (spec?.subjects.length) {
+        row.appendChild(silhouette(spec.subjects[0]!, spec.stroke, HOLDS_PX));
+      }
+      row.appendChild(labelSpan(spec?.label ?? brush));
     }
 
     const pod = podAt(wave, beat, col);
     if (pod) {
-      const spec = BRUSHES.find((x) => x.brush === podBrushOf(pod));
+      const brush = podBrushOf(pod);
+      const spec = BRUSHES.find((x) => x.brush === brush);
+      const art = brushArtImage(brush, HOLDS_PX);
+      if (art) row.appendChild(art);
       row.appendChild(labelSpan(`${spec?.label ?? "POD"} · row ${pod.row}`));
     }
 

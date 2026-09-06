@@ -73,6 +73,18 @@
   font-size: 9px;
   color: var(--gold);
 }
+/* A pod's picture in the cell (`grid.ts`). Centred like a creature's when the
+   cell holds nothing else, and tucked into the near corner when it does —
+   over the creature rather than beside it, because a 32px cell has no beside
+   to give and what is being said is "and a pod hangs here". */
+#grid .cell img.pod-art {
+  margin: auto;
+}
+#grid .cell img.pod-art.beside {
+  position: absolute;
+  left: 1px;
+  bottom: 1px;
+}
 #grid .cell svg {
   display: block;
   margin: auto;
@@ -157,7 +169,8 @@
   color: var(--dim);
   letter-spacing: 1px;
 }
-.cell-holds svg {
+.cell-holds svg,
+.cell-holds img.brush-art {
   flex: 0 0 26px;
   background: #0a0719;
   border-radius: 5px;
@@ -231,6 +244,11 @@
   gap: 6px;
   font-size: 10px;
   color: var(--dim);
+}
+.pod-row img.pod-art {
+  /* Never shrunk: a narrow map column squeezes the fields beside it rather
+     than the drawing that says which power-up the row is about. */
+  flex: none;
 }
 .pod-row input {
   width: 46px;
