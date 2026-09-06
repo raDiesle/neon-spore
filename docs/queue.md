@@ -127,6 +127,7 @@ reason, and a lane that splits one learns the argument for the other for free.
 ## The perf baseline goes stale silently when a wave's entries change
 
 - **Found:** 2026-09-06, claude/electric-barrier-enemy-e6fi1d
+- **Taken:** 2026-09-06, claude/queue-the-perf-baseline-goes-stale-silently-when-a-wav
 - **Files:** `tools/perf/baseline.json`, `tools/perf/test/compare.test.ts`, `tools/perf/measure.ts`
 
 `compare.test.ts` checks that every row of `baseline.json` is in play order and
