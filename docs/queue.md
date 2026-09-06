@@ -142,6 +142,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## A sheet restored from its URL always opens on its first inner tab
 
 - **Found:** 2026-09-06, claude/not-build-yet-cleanup-553bf1
+- **Taken:** 2026-09-06, claude/queue-a-sheet-restored-from-its-url-always-opens-on-it
 - **Files:** `tools/director/src/session.ts`, `tools/director/test/session.test.ts`
 
 `mountSheet`'s restore block reads the wanted inner tab *after* it has already
