@@ -9,6 +9,22 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · 3bcd173b — Three lanes from 3–4 September are resolved, and none of them by replaying
+
+The interpolation one is rebuilt against current `main` — ordinary work, redone rather than replayed, because the loop it patches has moved into `frame.ts` since. The panel one is rebuilt in two halves: the cut-off hull is a defect and lands, and the two buttons that carried words are a look and go to VERSUS. Its third half, the fire buttons wearing their creatures, had already reached `main` by another route.
+
+## 2026-09-06 · 2d2c4db4 — Offer player 1's two buttons showing the thing instead of naming it
+
+SHIELD and SUCK are the only controls on either panel that carry a word, and text is the one thing here that has to be read rather than seen — the ammunition buttons already wear the creature their colour answers, drawn exactly as the field draws it. The obvious second answer is the ship doing it: the same membrane the hull is made of, once swelling into the lit ward and once opening into a throat with motes falling down it. One skin, two directions, which is what the simulation does with the pair.
+
+## 2026-09-06 · 2a1de9b2 — The ship ends where its skin does, not on a ruled line above the panel
+
+`hull.ts` filled its contour down to `bandTop` and stopped, so the ship's fill, its ramp and its key light all ended in mid-air along a horizontal, with the seam's lit rim a few pixels under it — two straight lines under a body that has no other straight line anywhere on it, read exactly as drawn: the ship, and then another line separating the controls.
+
+## 2026-09-06 · be7ba5ac — Offer sub-tick interpolation behind ?interpolate=1
+
+The fixed-timestep loop carried its leftover accumulator across frames and never handed it to one, so a frame landing between two ticks drew the last tick's picture again, verbatim, until the next tick caught up. At a display faster than the tick rate that is judder the loop had the cure for the whole time.
+
 ## 2026-09-06 · a458d7f0 — The thread, the reel and the raisin go through the canvas that refuses things
 
 Every other creature is drawn again through the stub canvas that refuses what a real one refuses, which is what catches a value that is a perfectly good `string` and not a colour. THE STRAND's three pictures were not: `drawStrands`, the sealed reel player 2 sees in place of a body, and the raisin a shrivelled one leaves behind each take a colour out of `PALETTE` and put it through `hazed`, and none is reached without a `strand` on the field.
