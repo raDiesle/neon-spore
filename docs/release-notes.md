@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · 928f33c9 — A carried body says which column it went to, so the other seat hears it
+
+THE PUSH moved a held body one column on the beat and pushed no event, so the mixer had nothing to play and the seat without a thumb on the rock heard the lane change only if they happened to be watching — on the mechanic whose whole point is that the two of them are looking at different things.
+
 ## 2026-09-06 · 564a60f8 — Two keys beside G carry a body, so THE PUSH is reachable from a keyboard
 
 The grip's second gesture had no key at all: G took hold of the nearest body and nothing moved it, so the whole of THE PUSH could only be reached with a pointer — the director's stage and a mouse, and nothing from a headless check.
