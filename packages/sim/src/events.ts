@@ -34,6 +34,17 @@ export type SimEvent =
   /** A hand took hold. Only the moment it lands — the hold itself is state,
    * not an event, and render/ reads it off the world every frame. */
   | { type: "grip"; player: 1 | 2; col: number; row: number }
+  /**
+   * THE PUSH: a held body spent a column and stepped it, on the beat. `player`
+   * is the hand that spent it, and both are pushed when both hands pulled the
+   * same way — two thumbs on one rock is a thing the pair may do, and each of
+   * them has earned the sound. `dir` is which way it went.
+   *
+   * The hold is state and the carry is not, which is the same split `grip`
+   * makes: what render/ reads off the world every frame is a hand on a body,
+   * and this is the one moment it moved.
+   */
+  | { type: "carry"; player: 1 | 2; col: number; row: number; dir: -1 | 1 }
   | { type: "podLoose"; col: number; row: number }
   | { type: "podTaken"; col: number; kind: PodKind }
   | { type: "podLost"; col: number }

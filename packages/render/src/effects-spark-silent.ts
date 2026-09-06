@@ -28,6 +28,12 @@ import type { SimEvent } from "@neon-spore/sim";
  * type is still refused here rather than silently never matching.
  */
 export const SILENT = [
+  // THE PUSH's lane change. The body is drawn gliding into its new column by
+  // `fromCol` the way any stepped body is, so the picture already carries the
+  // move; the *cue* is the new thing and it is in `packages/audio`. Whether a
+  // carry should also throw something is a look and the owner's to choose
+  // (`docs/looks.md`), so nothing is invented here.
+  "carry",
   // A seat holding its own broken control off. Nothing happened on the field
   // — the relief buys a *silence*, and the whole of what it shows is on the
   // panel: the fault's own glitch stops for two beats and the button starts

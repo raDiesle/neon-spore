@@ -222,30 +222,6 @@ Whichever it is, `ControlDef.label` is the one copy of the word — the band, th
 CONTROLS page and the director's panel roster all read it, so nothing needs a
 second string.
 
-## A body carried a column makes no sound
-
-- **Found:** 2026-09-06, claude/meteor-pull-drag-mechanics-42170b
-- **Taken:** 2026-09-06, claude/queue-a-body-carried-a-column-makes-no-sound
-- **Files:** `packages/sim/src/grip-push.ts`, `packages/sim/src/events.ts`, `packages/audio/src/sounds/creature.ts`, `packages/render/src/effects-ingest-silent.ts`, `packages/render/src/effects-spark-silent.ts`
-
-THE PUSH moves a held body one column on the beat and pushes no event, so the
-mixer has nothing to play and the seat that is not holding it hears the lane
-change only if they happen to be looking. `ship.gripSlip` already exists for a
-hand coming off, which is the same class of thing said out loud.
-
-`carryGrips` is where it lands. Push a `{ type: "carry"; player: 1 | 2; col:
-number; row: number; dir: -1 | 1 }` from there — `player` is whichever hand
-spent the column, and both when both did. `col` is `bodyCenterCol(c, c.col)`,
-the way the `grip` event next door reads it, so the pan is right for a wide
-rock. A new `SimEvent` has to be named in the two silent lists in render/ or
-`effects-spark.ts`'s `assertNever` stops compiling; whether it also throws a
-spark is a look and belongs to the owner, so name it silent and leave the
-picture alone.
-
-The cue itself is amber's family — the pod's colour is what the grip is drawn
-in — and short: a beat is 625 ms at 96 BPM and a body can be carried every
-other one, so anything with a tail on it will overlap itself.
-
 ## Nothing teaches THE PUSH, and THE HAND is where it belongs
 
 - **Found:** 2026-09-06, claude/meteor-pull-drag-mechanics-42170b

@@ -72,6 +72,7 @@ const SAMPLES: Record<string, SimEvent> = {
   relief: { type: "relief", player: 2, beats: 2 },
   deflect: { type: "deflect", col: 2, span: 1, kind: "meteor", fromRow: 9 },
   grip: { type: "grip", player: 1, col: 1, row: 3 },
+  carry: { type: "carry", player: 2, col: 1, row: 3, dir: 1 },
   podLoose: { type: "podLoose", col: 4, row: 2 },
   podTaken: { type: "podTaken", col: 4, kind: "ward" },
   podLost: { type: "podLost", col: 4 },

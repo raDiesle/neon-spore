@@ -1,5 +1,5 @@
 /**
- * THE GRIP, and the two shot ideas that are not built.
+ * THE GRIP and THE PUSH, and the two shot ideas that are not built.
  *
  * A hand held on something falling is the one thing in the game that costs the
  * player who does it (`docs/spec/assists.md` 6.4), and the sound says so: the
@@ -43,6 +43,21 @@ export const GRIP_SOUNDS: SoundDef[] = [
         filter: { type: "lowpass", freq: 200, toFreq: 120, q: 3.4 },
         wobble: { rate: 9, cents: 22 },
       },
+    ],
+  },
+  {
+    id: "ship.gripCarry",
+    family: "ship",
+    blurb: "A held body dragged one tile: a short scrape, and the tile arriving under it.",
+    status: "bound",
+    use: "THE PUSH: the beat a carried body spends a column.",
+    // Quieter than the grab and shorter than the creak. A body may be carried
+    // every other beat and a beat is 625 ms at 96 BPM, so anything with a tail
+    // on it would overlap itself before the pair had heard the first one.
+    level: 0.26,
+    layers: [
+      noise(900, { type: "bandpass", freq: 1100, toFreq: 700, q: 2.2 }, 0.004, 0.07, 0.4),
+      after(0.03, tick(0.22, 0, 2600)),
     ],
   },
   {

@@ -90,6 +90,21 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
       return { id: "impact.deflect", pan: panForCol(e.col, cols) };
     case "grip":
       return { id: "ship.gripTake", pan: panForCol(e.col, cols), pitch: pitchForRow(e.row, rows) };
+    // THE PUSH, the same hand's second gesture. Deliberately not another
+    // `ship.gripTake`: the pair has already heard the grab, and a carry that
+    // sounded like one would say a hand had landed on something new. What the
+    // seat without the thumb on it needs is the *column*, which the pan says.
+    //
+    // The direction lifts or drops it about a semitone, on top of the row's
+    // own pitch. It is the one thing an ear can be told here that an eye
+    // looking at the other half of the screen cannot see for itself, and the
+    // rock's next column is the whole of what the pair is about to say aloud.
+    case "carry":
+      return {
+        id: "ship.gripCarry",
+        pan: panForCol(e.col, cols),
+        pitch: pitchForRow(e.row, rows) * (e.dir === 1 ? 1.06 : 0.94),
+      };
     case "podLoose":
       return { id: "pod.loose", pan: panForCol(e.col, cols) };
     case "podTaken":

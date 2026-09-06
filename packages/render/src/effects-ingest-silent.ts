@@ -83,6 +83,10 @@ export const INGEST_SILENT = [
   "lanceSpilled",
   "hole",
   "grip",
+  // THE PUSH's lane change. Heard rather than seen: the carry is bound to a
+  // cue in `packages/audio` and whether it also throws something on the field
+  // is a look, which is the owner's to choose (`docs/looks.md`).
+  "carry",
   "podLoose",
   "podLost",
   "queenDown",

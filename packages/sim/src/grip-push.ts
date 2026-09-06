@@ -1,7 +1,7 @@
 import { hullRow } from "./config.js";
 import { gripsCreature } from "./grip.js";
 import { clampSpanCol, spanOf } from "./span.js";
-import type { Command, Creature } from "./types.js";
+import { bodyCenterCol, type Command, type Creature } from "./types.js";
 import type { World } from "./world.js";
 
 /**
@@ -118,7 +118,7 @@ export function carryGrips(world: World): void {
     if (to === c.col) continue;
     c.col = to;
     c.pushBeat = world.beat;
-    spend(world, c, dir);
+    say(world, c, dir, spend(world, c, dir));
   }
 }
 
@@ -147,11 +147,38 @@ function handDir(world: World, player: 1 | 2, c: Creature): -1 | 0 | 1 {
 
 /** The column is spent by every hand that asked for it, and by no hand that
  * asked for the other one or for nothing. */
-function spend(world: World, c: Creature, dir: -1 | 1): void {
+function spend(world: World, c: Creature, dir: -1 | 1): (1 | 2)[] {
+  const paid: (1 | 2)[] = [];
   for (const player of [1, 2] as const) {
     if (handDir(world, player, c) !== dir) continue;
     const push = gripPushOf(world, player);
-    if (push !== null) push.cols += dir;
+    if (push === null) continue;
+    push.cols += dir;
+    paid.push(player);
+  }
+  return paid;
+}
+
+/**
+ * The lane change, said out loud.
+ *
+ * A carry moved a rock out of the shield's way and pushed nothing, so the seat
+ * that is not holding it heard the column change only if they happened to be
+ * watching — on the one mechanic whose entire point is that the two of them are
+ * looking at different things. `ship.gripSlip` already says a hand coming off,
+ * which is the same class of thing.
+ *
+ * **`spend` says who paid, and this only reads its answer.** A hand gripping
+ * the body is not necessarily a hand that asked for this column — the other
+ * seat may have been pulling the other way and lost, and it is charged nothing
+ * and has said nothing. Asking `handDir` a second time here would be that rule
+ * written out twice, and `spend` has already moved the numbers it reads.
+ * `bodyCenterCol` for the column, so a wide rock is panned where the pair sees
+ * it rather than at its left edge.
+ */
+function say(world: World, c: Creature, dir: -1 | 1, paid: readonly (1 | 2)[]): void {
+  for (const player of paid) {
+    world.events.push({ type: "carry", player, col: bodyCenterCol(c, c.col), row: c.row, dir });
   }
 }
 
