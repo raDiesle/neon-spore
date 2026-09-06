@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · eb3515ce — A frame can be measured on the phone it is for, at ?perf=1
+
+`bun run perf` measures every wave in a headless Chrome with the CPU throttled to DevTools' mid-tier-mobile setting, and `docs/performance.md` already said what that is worth: a good proxy, and not a phone. This is the half that needs no proxy. Open the game on the device with `?perf=1` and it runs the same sweep in the page — every wave, each stepped to its busiest tick, warmed and then timed in paced batches — and draws the table over the screen, with the median and the worst wave large enough to photograph. The rows also go to the console as JSON for the case where a cable is attached.
+
 ## 2026-09-06 · 6f545b46 — The five dearest frames in the game have budgets of their own
 
 `frame-budget.test.ts` weighs ALTERNATING, which is one of the cheapest pictures there is: three bodies falling down an ordinary field. Measured over every wave at its busiest tick, throttled four times in Chrome at phone size, the five dearest were THE GHOST, THE WISP, BULB QUEEN, THE ECHO and THE GYRE, between 6.4 and 7.1 ms a paint against a floor of 3.5. None of them had a row, so any of them could get slower without a test noticing.
