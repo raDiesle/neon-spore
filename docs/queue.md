@@ -117,26 +117,3 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 `exports.Room.storage`) still holds — miniflare 5 changed it from 4's flat
 `{ modules, script, durableObjects }`, and `convertV4MiniflareOptions` is the
 shim that shows what the new shape wants if it changed again.
-
-
-## The game paints a full field frame behind the main menu, under a blur
-
-- **Found:** 2026-09-03, claude/game-performance-mobile-analysis-cd4207
-- **Files:** `apps/game/src/main.ts`, `apps/game/src/loop.ts`, `apps/game/src/menu.css`, `apps/game/src/run-state.ts`
-
-`startLoop`'s `onFrame` calls `paint()` unconditionally. The `menu` hold stops
-the *world* from ticking but nothing stops the *drawing*, so while the main menu
-is up the device draws a complete field frame — hull, bodies, band, HUD — sixty
-times a second. `#menu` is `position: fixed; inset: 0` over it, and
-`#menu .sky` carries `backdrop-filter: blur(5px) saturate(1.35)` with a scrim
-that runs from `rgba(7, 6, 15, 0.93)` at the top to fully opaque at the bottom.
-So the phone pays for a frame, and then pays again to blur that frame, to show
-at most 7% of it through the scrim at the very top.
-
-This is the first screen a player sees and the one a phone sits on longest.
-
-Measure it first — how much of a menu-idle frame is the paint and how much is
-the blur — then choose. If the visible 7% carries no motion the world is not
-running anyway, a lower repaint rate behind the menu is a straight win; if it
-does, the reduced rate is a look and goes to `tools/versus/candidates/` for the
-owner to judge. Say which in the commit.

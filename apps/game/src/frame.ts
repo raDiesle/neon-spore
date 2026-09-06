@@ -5,6 +5,7 @@ import type { InputBuffer } from "./input.js";
 import { interpolatedBeatPhase } from "./interpolate.js";
 import type { Intro } from "./intro.js";
 import { startLoop } from "./loop.js";
+import { createMenuIdle } from "./menu-idle.js";
 import type { RunState } from "./run-state.js";
 import { throttledTally } from "./tally.js";
 
@@ -47,6 +48,12 @@ export interface FrameParts {
    * read in `main.ts` where the rest of the URL is.
    */
   interpolate?: boolean;
+  /**
+   * `?menuidle=<hz>`: how often the field is repainted while the main menu is
+   * up. An alternative offered rather than the shipped default, which is
+   * `null` — paint every frame (`menu-idle.ts`).
+   */
+  menuIdle?: number | null;
   /** The ring round whatever this device's finger has hold of. */
   hand: { current: Parameters<Canvas2DRenderer["draw"]>[0]["hand"] };
   pointer: () => { x: number; y: number } | undefined;
@@ -84,6 +91,8 @@ export function startFrames(p: FrameParts): Frames {
   // when the flag is on — the shipped picture never depends on it.
   let frameAlpha = 0;
   const tpb = ticksPerBeat(p.world.cfg);
+  // Off unless the URL asked for it: unset, every frame is due.
+  const idle = createMenuIdle(p.menuIdle ?? null);
 
   const paint = (dt: number): void => {
     p.audio.frame(p.world, frameEvents);
@@ -142,7 +151,13 @@ export function startFrames(p: FrameParts): Frames {
       // The wave's name and sentence stand for a few seconds and pass on their
       // own — counted here, because nothing in `sim` may read a clock.
       p.progression.tickOpening(dt);
-      paint(dt);
+      // The link, the tally and the opening clock are the device's own and run
+      // whatever is on the screen; only the *painting* is gated. The intro is
+      // opened from the menu and animates over the same canvas, so a frame with
+      // it up is never skipped — the hold is down and the picture is still
+      // moving (`menu-idle.ts`).
+      const paintDt = idle.due(now, p.run.held("menu") && !p.intro.isOpen());
+      if (paintDt !== null) paint(paintDt);
     },
   );
 

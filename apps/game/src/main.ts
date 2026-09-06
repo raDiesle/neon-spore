@@ -22,6 +22,7 @@ import { bindHaptics } from "./haptics.js";
 import { bindControls, InputBuffer } from "./input.js";
 import { interpolationRequested } from "./interpolate.js";
 import { bindIntro } from "./intro.js";
+import { menuIdleHz } from "./menu-idle.js";
 import { runPerfPage } from "./perf-page.js";
 import { bindPinball } from "./pinball.js";
 import { bindRasterBurst } from "./raster.js";
@@ -219,6 +220,8 @@ const frames = startFrames({
   // `?interpolate=1` — offered rather than the shipped default
   // (`interpolate.ts`).
   interpolate: interpolationRequested(location.href),
+  // `?menuidle=<hz>` — offered beside painting every frame (`menu-idle.ts`).
+  menuIdle: menuIdleHz(location.href),
   hand,
   pointer,
   tickKeys,

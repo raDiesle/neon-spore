@@ -127,6 +127,27 @@ the median large enough to photograph. The sampling numbers and the arithmetic
 are one module both callers import (`tools/perf/sweep-timing.ts`), so a phone
 row and a desktop row are the same measurement taken on different machines.
 
+### The menu's own frame, at `?menuidle=<hz>`
+
+The main menu draws *over* the running field rather than replacing it, and the
+`menu` hold stops the world ticking without stopping the drawing — so while the
+menu is up the device paints a complete field frame sixty times a second and
+then blurs it, to show at most 7% of it in the top third. A menu-idle paint
+costs what wave one's does, which is 0.78 ms unthrottled in headless Chrome on
+this desk and about 3.5 ms at the four-times throttle; the `backdrop-filter` on
+top of it is a compositor cost this harness cannot separate at all, and what
+would measure it is a Chrome trace taken on the phone.
+
+`?menuidle=10` repaints ten times a second behind the menu instead of sixty,
+and `?menuidle=0` stops after the first frame. **Both are offered, not
+shipped:** unset, the game paints every frame exactly as it always has. The
+world is held but the picture is not still — the water's shimmer and the hull's
+breathing run off the wall clock — so thinning the repaint changes what a player
+sees, however faintly, and that is the owner's to judge by opening the game
+twice on the phone. It is not a `tools/versus` slot because the pair there
+draws one world twice inside a single frame, and the question here is how often
+a frame happens at all (`apps/game/src/menu-idle.ts`).
+
 **A phone run is compared against other phone runs, never against a throttled
 desktop one.** There is no throttle on a phone to be comparable to, so the page
 records none and says so at the top of the readout; `tools/perf/baseline.json`
