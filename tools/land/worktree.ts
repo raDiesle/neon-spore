@@ -36,24 +36,30 @@ export async function isDirty(root: string, worktree: string): Promise<boolean> 
 }
 
 /**
- * `git worktree remove`, verified rather than trusted, and the one refusal
- * worth talking it out of.
+ * Take a spent worktree off disk, verified rather than trusted, and only then
+ * tell git it is gone.
  *
  * The refusal exists to avoid losing work, so that is what gets checked first —
- * before any attempt, not inferred afterward from *why* `git worktree remove`
- * failed. An empty `git status --porcelain` means there is no work in there to
- * lose; a dirty or unreadable tree (`isDirty` fails safe on both) is never
- * touched, and this throws naming the path before trying anything.
+ * before any attempt, not inferred afterward from why a removal failed. An
+ * empty `git status --porcelain` means there is no work in there to lose; a
+ * dirty or unreadable tree (`isDirty` fails safe on both) is never touched, and
+ * this throws naming the path before trying anything.
  *
- * Once that is settled, the thing usually left in the way is `node_modules`
- * holding a lagging handle, not an actually-occupied directory — every worktree
- * needs its own (`CLAUDE.md`: the main tree's must never be linked in). The
- * handle is transient, so `git worktree remove` itself gets a few plain retries
- * first. Only when that never gets through does a manual `rm` get tried, once,
- * and `git worktree prune` runs *after* the directory is confirmed gone, never
- * before: pruning on a hope is exactly how a stuck lane turns into litter
- * nothing can find again — the failure `orphanPaths` exists to report once it
- * has already happened elsewhere.
+ * **The directory goes first and the registry entry second**, which is the
+ * opposite of what this used to do. `git worktree remove` deregisters and
+ * *then* deletes, and on Windows the delete is the half that fails —
+ * `Directory not empty`, a lagging handle inside the `node_modules` every
+ * worktree has to have of its own (`CLAUDE.md`: the main tree's must never be
+ * linked in). Twenty-four removals on 5 September 2026 produced twenty-four of
+ * those, each one finished by hand with `rm -rf`. The landing survived it
+ * because of the fallback below, but the window between the two halves is
+ * exactly the orphan `orphans.ts` exists to report: a sweep interrupted in
+ * there leaves a directory git has already forgotten.
+ *
+ * So there is no window. `rm` takes the tree, with the same plain retries the
+ * lagging handle wants — it is transient, not adversarial (`retry.ts`) — and
+ * `git worktree prune` runs only once the path is confirmed gone, which makes
+ * deregistering a bookkeeping step that cannot be interrupted into litter.
  *
  * If the directory still stands after all of that, this throws naming the path —
  * never a bare git error pointing at the wrong thing, and never a silent
@@ -64,26 +70,19 @@ export async function removeWorktree(root: string, path: string): Promise<void> 
     throw new Error(`${path}: uncommitted work — left in place`);
   }
 
-  const gitFailed = await removeUntilGone(
-    path,
-    () => gitOrDie(["worktree", "remove", path], root).then(() => undefined),
-    retryOpts(REMOVE_ATTEMPTS),
-  );
-  if (gitFailed === undefined) return;
-
-  const rmFailed = await removeUntilGone(
+  const failed = await removeUntilGone(
     path,
     () => rm(path, { recursive: true, force: true }),
-    retryOpts(1),
+    retryOpts(REMOVE_ATTEMPTS),
   );
-  if (rmFailed !== undefined) {
+  if (failed !== undefined) {
     throw new Error(
-      `${path}: still on disk after ${REMOVE_ATTEMPTS + 1} attempts — a file inside it is ` +
-        `still held open (${rmFailed})`,
+      `${path}: still on disk after ${REMOVE_ATTEMPTS} attempts — a file inside it is ` +
+        `still held open (${failed})`,
     );
   }
-  // Confirmed gone at this point, so the registry entry still naming it is
-  // stale, not load-bearing — clearing it is cleanup, not what made the
-  // removal succeed.
+  // Confirmed gone, so this is the deregistration rather than the removal. It
+  // is also the only step git does here, which is why a failure in it cannot
+  // leave a half-removed lane behind.
   await gitOrDie(["worktree", "prune"], root).catch(() => {});
 }

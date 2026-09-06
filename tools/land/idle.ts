@@ -10,7 +10,6 @@
 import { stat } from "node:fs/promises";
 import { join } from "node:path";
 import { gitOrDie } from "./git.js";
-import { readdirSafe } from "./retry.js";
 
 /**
  * How many **idle** days a merged worktree is left standing before the sweep
@@ -47,14 +46,28 @@ export function keepDays(raw: string | undefined, fallback = 5): number {
  *
  * Age is the wrong measure: it would take a tree that was worked in yesterday
  * simply because it was created last week, and spare one nobody has opened
- * since it was made. Git keeps per-worktree administrative files under
- * `.git/worktrees/<name>/` and writes them on essentially every command that
- * touches the tree — `status` refreshes the index, `add` and `commit` rewrite
- * it, `checkout` rewrites HEAD — so the newest mtime in that directory is a
- * good answer to "when did somebody last work in here".
+ * since it was made. So the question is which file on disk moves when work
+ * happens and stays still while nobody is working.
+ *
+ * It is not the administrative directory. `.git/worktrees/<name>/` was the
+ * first answer here, on the reasoning that git writes something in there on
+ * essentially every command that touches the tree — which is exactly what makes
+ * it useless: `status`, `rev-parse` and the sweep's own probe all rewrite it, so
+ * the clock is reset by looking at it. Measured across forty worktrees on
+ * 5 September 2026, every one read 0.0 idle days, several of them last actually
+ * worked in two days earlier, and `KEEP_DAYS` was therefore unreachable. Forty
+ * checkouts had accumulated, each with its own `node_modules`.
+ *
+ * `logs/HEAD` inside that directory is the answer instead: the reflog of the one
+ * ref this worktree owns, appended to when that ref *moves* — a checkout, a
+ * commit, a rebase, a reset — and by nothing that merely reads. On the same
+ * forty trees at the same moment it spread them from 0.1 to 12.3 hours and
+ * separated the live sessions from the litter cleanly.
  *
  * Returns 0 when it cannot be told, which keeps the tree: an unanswerable
- * question is never grounds for deleting a directory.
+ * question is never grounds for deleting a directory. A worktree whose reflog
+ * was expired or never written therefore reads as worked-in a moment ago, which
+ * is the safe way round.
  */
 export async function idleDays(worktree: string, now = Date.now()): Promise<number> {
   let admin: string;
@@ -64,15 +77,26 @@ export async function idleDays(worktree: string, now = Date.now()): Promise<numb
     return 0;
   }
   if (!admin) return 0;
+  return idleFrom(admin, now);
+}
 
-  let newest = 0;
-  for (const name of await readdirSafe(admin)) {
-    const info = await stat(join(admin, name)).catch(() => null);
-    if (info) newest = Math.max(newest, info.mtimeMs);
-  }
-  const self = await stat(admin).catch(() => null);
-  if (self) newest = Math.max(newest, self.mtimeMs);
-  if (newest === 0) return 0;
+/** When a path was last written, or `null` — the only disk this file touches. */
+export type MtimeOf = (path: string) => Promise<number | null>;
 
-  return Math.max(0, (now - newest) / 86_400_000);
+const statMtime: MtimeOf = async (path) => (await stat(path).catch(() => null))?.mtimeMs ?? null;
+
+/**
+ * The policy half, over an administrative directory somebody else has already
+ * found — split out so a test can hand it a clock and a fake disk and say which
+ * file it was allowed to look at. Reading a second file here would be the whole
+ * defect coming back.
+ */
+export async function idleFrom(
+  admin: string,
+  now: number,
+  mtimeOf: MtimeOf = statMtime,
+): Promise<number> {
+  const written = await mtimeOf(join(admin, "logs", "HEAD"));
+  if (written === null) return 0;
+  return Math.max(0, (now - written) / 86_400_000);
 }

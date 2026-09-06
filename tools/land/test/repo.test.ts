@@ -1,5 +1,5 @@
 import { afterAll, beforeAll, describe, expect, test } from "bun:test";
-import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, rm, utimes, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { idleDays } from "../idle.js";
@@ -29,6 +29,13 @@ async function run(args: string[], cwd: string): Promise<void> {
   const proc = Bun.spawn(["git", ...args], { cwd, stdout: "pipe", stderr: "pipe" });
   const [err, code] = await Promise.all([new Response(proc.stderr).text(), proc.exited]);
   if (code !== 0) throw new Error(`git ${args.join(" ")}: ${err.trim()}`);
+}
+
+async function capture(args: string[]): Promise<string> {
+  const proc = Bun.spawn(["git", ...args], { cwd: root, stdout: "pipe", stderr: "pipe" });
+  const [out, code] = await Promise.all([new Response(proc.stdout).text(), proc.exited]);
+  if (code !== 0) throw new Error(`git ${args.join(" ")} failed`);
+  return out.trim();
 }
 
 beforeAll(async () => {
@@ -80,6 +87,32 @@ describe("against a repository git actually made", () => {
     expect(await idleDays(join(root, "nowhere"))).toBe(0);
   });
 
+  /**
+   * The defect this measure replaced. `.git/worktrees/<name>/` is rewritten by
+   * essentially any git command aimed at the tree, including the sweep's own
+   * probe and any `git status` a passing session runs, so a clock taken off it
+   * was reset by being read — forty worktrees all reported 0.0 idle days and
+   * `KEEP_DAYS` was unreachable. `logs/HEAD` moves when the ref moves and at no
+   * other time, which is what these two ask git to demonstrate.
+   */
+  test("a command that only reads does not reset the clock", async () => {
+    const admin = await capture(["-C", lane, "rev-parse", "--path-format=absolute", "--git-dir"]);
+    const threeDaysAgo = new Date(Date.now() - 3 * 86_400_000);
+    await utimes(join(admin, "logs", "HEAD"), threeDaysAgo, threeDaysAgo);
+
+    await capture(["-C", lane, "status", "--porcelain"]);
+    await capture(["-C", lane, "rev-parse", "HEAD"]);
+
+    expect(await idleDays(lane)).toBeGreaterThan(2.9);
+  });
+
+  test("and a commit does reset it", async () => {
+    await writeFile(join(lane, "moved.txt"), "work\n");
+    await run(["-C", lane, "add", "moved.txt"], root);
+    await run(["-C", lane, "commit", "-q", "-m", "work"], root);
+    expect(await idleDays(lane)).toBeLessThan(1);
+  });
+
   test("uncommitted work stops a removal, and the tree is still there after", async () => {
     const wip = join(lane, "wip.txt");
     await writeFile(wip, "half a thought\n");
@@ -100,5 +133,9 @@ describe("against a repository git actually made", () => {
     const listing = await new Response(proc.stdout).text();
     await proc.exited;
     expect(listing.toLowerCase()).not.toContain("lane");
+    // The directory goes before the registry entry does, so the two can never
+    // be out of step in the direction that leaves an orphan behind: nothing is
+    // deregistered until there is nothing left on disk to deregister.
+    expect(await orphanWorktrees(root)).toEqual([]);
   });
 });
