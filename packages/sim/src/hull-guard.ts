@@ -1,4 +1,3 @@
-import { barbCatchesDome, domeScarred } from "./barb.js";
 import { breakClaspsInColumn } from "./clasp.js";
 import { hullRow, msToTicks, type SimConfig } from "./config.js";
 import type { World } from "./world.js";
@@ -49,12 +48,6 @@ export function guardWindowTicks(cfg: SimConfig): number {
  */
 export function guardArmed(world: World): boolean {
   const windowTicks = guardWindowTicks(world.cfg);
-  // A dome a barb has torn open answers nothing at all, however it was armed
-  // and whichever of the two ways it would otherwise be live. It stands ahead
-  // of both terms rather than beside them for exactly that reason: a ward pod
-  // holds the shield open with no trigger at all, and a scar that only shut
-  // the trigger down would leave the pod quietly repairing it (`barb.ts`).
-  if (domeScarred(world)) return false;
   // A ward frees player 1 from the *timing* only, not from the aiming — the
   // shield still has to be in the meteor's column, so player 2's job is
   // untouched.
@@ -81,13 +74,10 @@ export function guardArmed(world: World): boolean {
  */
 export function armShield(world: World): void {
   world.guardTick = world.tick;
-  // The same arming, reaching up its own column instead of down at the hull,
-  // and the two creatures that answer it are opposites: a clasp is opened by
-  // it and a barb catches on it. Both are asked here, in that order, so a
-  // column holding one of each resolves the way the pair would expect — the
-  // clasp comes open, and the dome is torn a moment later.
+  // The same arming, reaching up its own column instead of down at the hull:
+  // a clasp is opened by the dome wherever it stands, on the beat the trigger
+  // arrives, because the shield is a column and not a plate on one row.
   breakClaspsInColumn(world);
-  barbCatchesDome(world);
 }
 
 /**

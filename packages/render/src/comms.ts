@@ -26,6 +26,7 @@ import { torchWarning } from "./torch-alarm.js";
  * | `ghost`| the navigator is the only one the body is drawn on | P2 |
  * | `veer` | the pilot sees which lane its next step takes | P1 |
  * | `fence`| the pilot sees where the wall is open | P1 |
+ * | `magnet`| the pilot picks the side the shot comes in from | P1 |
  *
  * The rocks are **not** in it, and that is a decision rather than an
  * oversight: a meteor is on the pilot's strip like a torch, but there is one
@@ -186,13 +187,13 @@ const TALKER = {
   // row pushed as far as it goes — there the pilot knows which lane the rock
   // takes next, here the pilot knows the only lane there is.
   fence: "p1",
-  // THE BARB, and the plainest `null` in the table: both screens draw the
-  // hooks, both draw the colour, and there is nothing about the body either
-  // seat is missing. What the pair has to keep saying to each other is where
-  // the *dome* is, which is a fact about their own ship — a siren pointing at
-  // the arrival would point at the half of this creature that is not the
-  // problem.
-  barb: null,
+  // THE MAGNET, and the one row here that is not about a fact one screen is
+  // missing. Both seats see the horseshoe, the plate and both poles; what only
+  // the pilot knows is which side they are about to come in from, because they
+  // are the one deciding it. That makes it a **decision** withheld rather than
+  // a picture withheld, and it is withheld the same way for the same reason:
+  // player 2 is holding both triggers and cannot pick one until it is said.
+  magnet: "p1",
 } as const satisfies Record<CreatureKind, Talker | null>;
 
 /** The seat that has to say something about this kind, or null if the two of

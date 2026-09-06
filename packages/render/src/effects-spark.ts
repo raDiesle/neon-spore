@@ -193,12 +193,13 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "fenceBurn":
       return at(l, e.col, e.row, 12, PALETTE.arc);
 
-    // The dome running onto a barb. In the shield's own rim colour rather than
-    // the body's, and at the fence's count rather than a pass's: what came
-    // apart is the ship's defence, so the burst has to read as *our* thing
-    // breaking and not as a kill.
-    case "barbTear":
-      return at(l, e.col, e.row, 16, PALETTE.shieldRim);
+    // A bolt turned away by the plate under a magnet. Rock grey and few, so
+    // nothing about it reads as a hit: a kill is the body's colour and a wrong
+    // colour is a `reject`, and this is neither — it is a shot that arrived on
+    // the wrong bearing and struck armour. The plate itself goes white under
+    // it, which is where the eye is sent (`magnet.ts`).
+    case "magnetPlate":
+      return at(l, e.col, e.row, 7, PALETTE.rock);
 
     default:
       return assertNever(e);

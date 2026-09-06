@@ -53,11 +53,6 @@ export function hashWorld(world: World): number {
   push(world.guardTick);
   push(world.intakeTick);
   push(world.wardUntilTick);
-  // The dome's own wound, for exactly the reason `wardUntilTick` is here: it
-  // decides whether the shield answers at all, with no command anywhere near
-  // it, so two devices that disagree about it disagree about whether the next
-  // rock was turned away (`barb.ts`).
-  push(world.domeScarTick);
   push(world.lastFireTick);
   // The wave's fault, and the brake against it. The fault is script — handed
   // in by `startWave` the way the queue is — but it is *hashed* where the

@@ -72,6 +72,15 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
       if (id) ctx.blockedUntil.set(id, REJECT_FLASH);
       break;
     }
+    // A bolt that met the plate under a magnet. The same clock a `reject`
+    // opens, on the same map, and read by the same body draw — but it lights
+    // the plate rather than greying the body, because what refused the shot
+    // was one edge of this creature and not the whole of it (`magnet.ts`).
+    case "magnetPlate": {
+      const id = ctx.creatureIdAt(e.col, e.row);
+      if (id) ctx.blockedUntil.set(id, REJECT_FLASH);
+      break;
+    }
     // THE CRAWLER's three, and every one of them outlives what it is about:
     // by the frame after the event there is nothing standing there to hang a
     // picture on, which is `rockImpactFx`'s reason for existing said about a

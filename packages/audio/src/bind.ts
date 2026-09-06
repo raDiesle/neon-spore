@@ -20,7 +20,6 @@ import { fenceCue } from "./bind-fence.js";
 import { fleetCue } from "./bind-fleet.js";
 import { MIRROR_STEP_SOUNDS, POD_TAKEN_SOUNDS } from "./bind-lookups.js";
 import { panForCol, pitchForRow } from "./bind-place.js";
-import { shipCue } from "./bind-ship.js";
 import { volleyCue } from "./bind-volley.js";
 
 export interface Cue {
@@ -223,6 +222,8 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "ghostCharge":
     case "strandBead":
     case "strandSwell":
+    case "magnetPlate":
+    case "magnetBreak":
       return creatureCue(e, cols, rows);
     // THE CAROM's four, in `bind-carom.ts` — one arrival taken apart, cut out
     // of `bind-creatures.ts` the way `events-carom.ts` is cut out of
@@ -235,14 +236,13 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "chuteOpen":
     case "chuteCut":
       return caromCue(e, cols, rows);
-    // THE FENCE's two and THE VOLLEY's two, on exactly the same terms, in
-    // `bind-fence.ts` and `bind-volley.ts`.
     case "fencePass":
     case "fenceBurn":
       return fenceCue(e, cols, rows);
-    case "barbTear":
+    // A seat holding a broken control off. No pan: it is a thumb rather than a
+    // place on the field, and one constant is not a file (`bind-ship.ts` was).
     case "relief":
-      return shipCue(e, cols);
+      return { id: "ship.reliefHold" };
     case "volleyReturn":
     case "volleyHatch":
       return volleyCue(e, cols, rows);

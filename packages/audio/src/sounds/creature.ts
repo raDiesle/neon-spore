@@ -187,4 +187,40 @@ export const CREATURE_SOUNDS: SoundDef[] = [
       after(0.27, glint(6600, 0.07, 0.4)),
     ],
   },
+  {
+    id: "creature.magnetPlate",
+    family: "creature",
+    // Dead on purpose, and that is the whole design of it. Every other thing a
+    // shot can do in this game rings, bursts or tears; this one has to say
+    // *nothing happened*, and the only way an ear hears that is a strike with
+    // the resonance cut off it. Short, bright and over — a bolt hitting a slab
+    // that does not care.
+    blurb: "A strike on a flat slab. Bright at the front and nothing behind it.",
+    status: "bound",
+    use: "A shot climbing too straight met the plate under a magnet.",
+    level: 0.32,
+    layers: [
+      tick(0.45, 0, 5200),
+      metal(240, 0.09, 0.28, 520),
+      noise(600, { type: "bandpass", freq: 3200, toFreq: 1800, q: 1.6 }, 0.002, 0.07, 0.18),
+    ],
+  },
+  {
+    id: "creature.magnetBreak",
+    family: "creature",
+    // It rides over the ordinary kill's burst rather than replacing it, so
+    // this is only the half the burst cannot say: the arch letting go, and the
+    // plate arriving somewhere a moment later with nothing holding it. The
+    // second strike is the whole point — a defence that was never beaten,
+    // falling.
+    blurb: "A ring breaking under tension, and something heavy landing after it.",
+    status: "bound",
+    use: "A magnet came apart on a shot that reached a pole.",
+    level: 0.4,
+    layers: [
+      { source: "sine", freq: 190, toFreq: 70, gain: 0.5, attack: 0.003, release: 0.2 },
+      metal(120, 0.34, 0.5, 132),
+      after(0.16, metal(84, 0.3, 0.26, 118)),
+    ],
+  },
 ];

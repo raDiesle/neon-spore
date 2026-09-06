@@ -5,6 +5,7 @@ import { ClaspStrikeFx } from "./clasp-strike.js";
 import { GhostReleaseFx } from "./ghost-release.js";
 import type { Layout } from "./layout.js";
 import { LureVanishFx } from "./lure-vanish.js";
+import { MagnetBreakFx } from "./magnet-break.js";
 import { RecoilCageBreakFx } from "./recoil-cage-break.js";
 import { RecoilVentFx } from "./recoil-vent.js";
 import { RindShedFx } from "./rind-shed.js";
@@ -52,6 +53,7 @@ export class BodyTransients {
   private recoilVent = new RecoilVentFx();
   private recoilCageBreak = new RecoilCageBreakFx();
   private chuteCut = new ChuteCutFx();
+  private magnetBreak = new MagnetBreakFx();
 
   /** `time` is the wall clock the contour wobble is sampled at — the husk
    * freezes the outline the body had on the frame the layer came off. */
@@ -76,6 +78,9 @@ export class BodyTransients {
     // A canopy cut off the body it was carrying — the one transient here that
     // is two gestures rather than one (`chute-cut.ts`).
     this.chuteCut.ingest(events, l);
+    // A horseshoe coming apart the way the bolt was going — the one transient
+    // here whose picture depends on a direction (`magnet-break.ts`).
+    this.magnetBreak.ingest(events, l);
   }
 
   update(dt: number): void {
@@ -88,6 +93,7 @@ export class BodyTransients {
     this.recoilVent.update(dt);
     this.recoilCageBreak.update(dt);
     this.chuteCut.update(dt);
+    this.magnetBreak.update(dt);
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
@@ -108,6 +114,9 @@ export class BodyTransients {
     // reason: the body is gone from the world before this draws, and where its
     // two halves go is the picture rather than the world.
     this.chuteCut.draw(ctx);
+    // And a magnet's two arms and its plate, frozen on the tile it went in for
+    // the same reason: the body is gone from the world before this draws.
+    this.magnetBreak.draw(ctx);
   }
 
   /** The four that are drawn around a body the world still has. */
@@ -140,5 +149,6 @@ export class BodyTransients {
     this.recoilVent.clear();
     this.recoilCageBreak.clear();
     this.chuteCut.clear();
+    this.magnetBreak.clear();
   }
 }

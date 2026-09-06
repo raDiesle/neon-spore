@@ -157,6 +157,38 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 `{ modules, script, durableObjects }`, and `convertV4MiniflareOptions` is the
 shim that shows what the new shape wants if it changed again.
 
+## The relief says HOLD FIRE, not the sentence asked for
+
+- **Found:** 2026-09-06, claude/some-lane
+- **Files:** `packages/content/src/controls.ts`
+- **Asks:** Leave the two words, hang a caption over the band, or widen the lobe?
+
+Why the short label is what fits today, and what each of the three costs.
+```
+
+`tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
+session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
+
+
+
+## Move apps/server off the miniflare alpha when a stable 5 ships
+
+- **Found:** 2026-09-03, claude/bun-queue-list-command-5a8695
+- **Files:** `apps/server/package.json`, `apps/server/test/room.test.ts`, `bun.lock`
+
+`apps/server/test/room.test.ts` pins `miniflare` at `5.20260831.0-alpha`, exactly
+and on purpose. The last stable 4.x is `4.20260730.0`, whose workerd binary
+refuses the `compatibility_date` in `wrangler.jsonc` ("newest date supported by
+this server binary is 2026-08-06"), and the test reads that date from the
+deploy's own config rather than carrying a second copy of it — so a stable 4
+would mean testing on a date the deploy does not use.
+
+When a non-alpha 5 is published, move to it and check the config shape the test
+builds by hand (`workers[0].config` with `manifest.modules` and
+`exports.Room.storage`) still holds — miniflare 5 changed it from 4's flat
+`{ modules, script, durableObjects }`, and `convertV4MiniflareOptions` is the
+shim that shows what the new shape wants if it changed again.
+
 ## Nothing on the field says the dome is torn
 
 - **Found:** 2026-09-06, claude/control-set-malfunction-mods-vv9icb
@@ -221,3 +253,28 @@ This one **is** a look and the owner decides it. Do not pick one and land it.
 Whichever it is, `ControlDef.label` is the one copy of the word — the band, the
 CONTROLS page and the director's panel roster all read it, so nothing needs a
 second string.
+
+## `bun run perf` restarts its own clock at zero for every wave
+
+- **Found:** 2026-09-06, claude/hoof-magnet-enemy-70fd5a
+- **Files:** `tools/perf/measure.ts`, `packages/render/src/effects.ts`
+
+`timePaints` freezes `performance.now` and steps a `posed` counter that starts
+at **0** for each wave it measures. The renderer reads that clock as the wall
+clock, so the first paint of every wave after the first is handed a step of
+minus however long the sweep has been running — and every transient in
+`Effects` is a `+= dt` read back as a phase.
+
+It crashed a run: a clasp coming apart on a negative age put a ring at a
+negative radius and Chrome refused the frame with `IndexSizeError`, which
+reads as a game bug and is not one. `Effects.update` now refuses a
+non-positive step, so nothing crashes and the numbers are sound — but the
+harness is still lying about time, and the frame it lies on is a real frame in
+a real measurement.
+
+The fix is in the harness rather than in the guard: carry `posed` on from
+where the previous wave left it, or reset the page's own effects between
+waves. Either way the comment in `timePaints` about a fake clock making the
+sequence of pictures identical run to run has to stay true, which is the whole
+reason the counter starts where it does — so the answer is probably a running
+offset kept across waves rather than the real clock.

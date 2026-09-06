@@ -81,6 +81,7 @@ export { KEY, LIGHT_HALF, type LightHalf } from "./light.js";
 // own-motion out of one row per kind, so the two cannot drift apart.
 export { livingBodyKinds, livingSilhouette } from "./living-look.js";
 export { type LongAxis, longAxis, poseOn } from "./long-axis.js";
+export { MAGNET_SHAPE, type MagnetShape, magnetOutline } from "./magnet-shape.js";
 export { MAZE_ROUNDS } from "./maze-rounds.js";
 export {
   MECHANIC_IDS,

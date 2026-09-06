@@ -66,7 +66,6 @@ export function startWave(
   world.guardTick = -1_000_000;
   world.intakeTick = -1_000_000;
   world.wardUntilTick = -1_000_000;
-  world.domeScarTick = -1_000_000;
   world.lastFireTick = -1_000_000;
   // The fault, and the brake the seat holding it starts with unspent. Both are
   // wave-local: a scar, a pause and a rest are all measured from a tick, and a

@@ -39,7 +39,7 @@ function faulted(fault: Malfunction) {
     world,
     0,
     [
-      { beat: 0, col: 3, kind: "barb", color: "red" },
+      { beat: 0, col: 3, kind: "magnet", color: "red" },
       { beat: 2, col: 1, kind: "meteor", color: null },
       { beat: 4, col: 5, kind: "lure", color: "cyan" },
     ],

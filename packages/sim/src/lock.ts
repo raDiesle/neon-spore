@@ -122,11 +122,19 @@ export function steerShot(world: World, b: Bullet, stepMilli: number): void {
   // test may go on asking about with no idea any of this happened.
   b.col = Math.floor((to + MILLI / 2) / MILLI);
   b.driftMilli = to - b.col * MILLI;
-  // Which way it is going, in thousandths of a column per tile climbed. It is
-  // stored rather than recomputed because the only thing that reads it is the
-  // tail render/ draws behind the head, and a tail drawn straight down under a
-  // shot crossing the field at its own speed points at nowhere the shot has
-  // been. A shot that is not steering carries a zero and is drawn as it always
-  // was.
-  b.aimMilli = stepMilli === 0 ? 0 : Math.round((move * MILLI) / stepMilli);
+  // Which way it is going, in thousandths of a column per tile climbed: what
+  // is left sideways over what is left upwards, which is the same number on
+  // every tick of a steer because the steer is a straight line. It is stored
+  // rather than recomputed by the two things that read it — the tail render/
+  // draws behind the head, which points at nowhere if it is drawn straight
+  // down under a bolt crossing the field, and the plate under a magnet, which
+  // is a question about exactly this bearing (`magnet.ts`). A shot that is not
+  // steering carries a zero and is drawn as it always was.
+  //
+  // Deliberately *not* `move / stepMilli`, which is what it used to be. Those
+  // two agree on every tick but the last one, where `move` is clamped to what
+  // is left and the quotient collapses towards zero — so a bolt visibly
+  // crossing the field arrived, on the one tick anything asks, reading as
+  // though it had come straight up.
+  b.aimMilli = Math.round((left * MILLI) / gap);
 }

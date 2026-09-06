@@ -4,10 +4,10 @@ import type { CreatureSilhouette } from "./silhouettes.js";
  * **The two contours next door that are not a body on the roster**: one
  * retired, one a capsule.
  *
- * Cut out of `silhouettes.ts` when THE BARB took that file over its 250-line
+ * Cut out of `silhouettes.ts` when it went over its 250-line
  * limit, along the seam `living-look.ts` already draws. Everything left there
  * is a shape some `CreatureKind` is *drawn as* — a slick, a bulb, a throb, a
- * barb, a dart, a wisp — and these two are neither: `SHELL` is a contour
+ * a dart, a wisp — and these two are neither: `SHELL` is a contour
  * nothing in the game reads any more, and `POD` is a capsule, which is a thing
  * the ship eats rather than a thing that falls at it.
  *

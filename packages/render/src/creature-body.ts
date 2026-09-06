@@ -11,6 +11,7 @@ import { drawGhost, showsGhostBody } from "./ghost.js";
 import type { Layout } from "./layout.js";
 import { drawLid } from "./lid.js";
 import { drawLiving } from "./living-draw.js";
+import { MAGNET_LOOK } from "./magnet.js";
 import { drawMeteor } from "./meteor.js";
 import { showsBeadColor } from "./strand.js";
 import { drawRaisin, STRAND_LOOK } from "./strand-bead.js";
@@ -108,6 +109,33 @@ function drawLidBody({ ctx, l, world, c, x, y, time, beats, near }: Body): void 
 }
 
 /**
+ * A horseshoe on two coloured poles with an armoured plate under it, and the
+ * third body with a contour of its own that is no blob: a band with a hole
+ * through it and an opening at the bottom, which no radial contour describes
+ * (`content/magnet-shape.ts`). Both screens draw the whole of it — nothing
+ * about a magnet is hidden — so it has no gate, only a draw path of its own.
+ *
+ * Through the record rather than by calling the draw directly, for
+ * `drawStrandBody`'s reason: a candidate look is a field patched onto
+ * `MAGNET_LOOK` for the length of one frame (`docs/versus.md`).
+ */
+function drawMagnetBody(b: Body): void {
+  MAGNET_LOOK.body({
+    ctx: b.ctx,
+    l: b.l,
+    cfg: b.world.cfg,
+    c: b.c,
+    x: b.x,
+    y: b.y,
+    beats: b.beats,
+    // The same map a wrong colour writes to, read here as the seconds of white
+    // left on the plate after it turned a bolt away (`effects-ingest.ts`).
+    struck: b.blocked.get(b.c.id) ?? 0,
+    near: b.near,
+  });
+}
+
+/**
  * The ordinary blob, and what a kind nobody has listed here gets.
  *
  * A veil is drawn as the body inside the cloud — `wornKind` again — but on
@@ -181,6 +209,7 @@ const EXCLUSIVE: ReadonlyMap<CreatureKind, BodyDraw> = new Map<CreatureKind, Bod
   ["wisp", drawWispBody],
   ["lid", drawLidBody],
   ["strand", drawStrandBody],
+  ["magnet", drawMagnetBody],
 ]);
 
 /**

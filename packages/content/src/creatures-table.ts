@@ -164,27 +164,30 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
   // rind and the mount for their reason — what makes a bead a bead is where it
   // is on the line and which one is lit, and neither is a costume.
   strand: BARE_CREATURES.strand,
-  barb: {
-    kind: "barb",
+  magnet: {
+    kind: "magnet",
     // **Aim only, and that is the whole creature stated as a control group.**
-    // A barb is ended by the matching cannon and by nothing else: the shield
-    // does not turn it, does not chip it and does not slow it, so a panel that
-    // could ward and not fire is a panel this body cannot be answered on. It
-    // is deliberately *not* `["aim", "guard"]` — the trigger is not half of the
-    // answer here, it is the mistake, and a wave named for it must not be told
-    // it needs one (`test/waves.test.ts` reads this against the panel).
+    // A magnet is ended by the cannon and by nothing else — the shield does not
+    // turn it, chip it or slow it — so a panel that could ward and not fire is a
+    // panel this body cannot be answered on. It is deliberately *not*
+    // `["aim", "guard"]`: the second half of the answer is a **hand**, and a
+    // hand is not a control group (`test/waves.test.ts` reads this against the
+    // panel).
     controls: ["aim"],
-    // Authored, the way a clasp's and a dart's are: the hooks are the barb's
-    // silhouette and the colour is which cannon ends it, so neither can be
-    // worked out from the other.
+    // Authored, the way a clasp's and a dart's are — and it says more here
+    // than anywhere else, because one authored colour is *both* poles: the
+    // left one is what a wave writes and the right one is its opposite
+    // (`magnetPoleColor`). So an author picks which way round the body stands,
+    // and the pair reads the answer off the picture.
     color: null,
-    // Player 2's strip, like every other body whose colour the navigator can
-    // read off the field. Nothing about a barb is hidden from either seat —
-    // what the pair has to keep saying is where the dome is standing, and that
-    // is a fact about their own ship rather than about the arrival.
-    radar: "p2",
+    // **The pilot's strip**, and the first arrival on it that is not a rock.
+    // The rule is the split itself: the seat that is warned is the seat that
+    // has to leave a column and put a thumb on the body, and the seat that
+    // holds both triggers is told nothing — so the pilot has to say which side
+    // they are coming in on before the colour means anything at all.
+    radar: "p1",
     blurb:
-      "Seven lobes swept back into hooks, in its own colour, falling a row a beat like a slick. The matching cannon ends it. The shield must not: a dome that comes up anywhere in its column catches on the hooks, tears the ship open, and then wards nothing at all for the next three beats — so the rock behind it goes through too. Nothing turns it away; the only answer is to get the plate out of its column and shoot it.",
+      "A horseshoe on two poles, one red and one cyan, with an armoured plate slung under it on a staff. A shot up its own column meets the plate and does nothing. The only bolt that reaches a pole is one coming in at a slant — so player 1 stands the cannon *off* the column and holds the body, and the shot bends across the field into it. The side it arrives from is the pole it meets, and the pole it meets is the trigger that kills it.",
   },
   crawler: {
     kind: "crawler",

@@ -240,7 +240,6 @@ describe("the fingerprint covers the world", () => {
         "cfg",
         "charge",
         "creatures",
-        "domeScarTick",
         "events",
         "guard",
         "guardTick",

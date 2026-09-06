@@ -172,8 +172,8 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "body snaps together behind every one taken off. Strip it and a beam " +
     "takes what is left; let it reach the far wall and it eats in, for as " +
     "much as the pair left on it. See crawler.ts.",
-  "THE BARB — a body the shield must not touch":
-    "The mirror of THE LURE, one control across. A barb falls like a slick and is shot like one — but a dome that comes up anywhere in its column catches on the hooks, tears the ship open for `barbTearDamage`, and then answers nothing at all for `barbScarBeats`. The tail is the creature: the rock already on its way down is a rock nobody can ward. A torn dome cannot be torn again while it is torn, so the pair pays once per scar and has that long to slide clear.",
+  "THE MAGNET — a body no shot can reach from under it":
+    "A horseshoe on two poles with an armoured plate slung under it. A bolt climbing the magnet's own column meets the plate and does nothing at all: `magnetSlantMilli` is how steeply a shot must be crossing — thousandths of a column for every tile it climbs — before the plate lets it past. The only thing that bends a shot is player 1's hand held on a body (THE LOCK), so the pilot has to stand the cannon off the column and hold the magnet. Raise the number and they must stand further out or wait for it to come lower; drop it to nothing and the creature is an ordinary slick.",
   "THE MALFUNCTION — a control that acts by itself":
     "A wave in which one seat does not have its control any more — the control has it. A cannon fault fires up player 1's column every `malfunctionEveryBeats` beats and takes the two colours off player 2; a shield fault brings the dome up over player 2's column on the same clock and takes the trigger off player 1. The seat whose control broke gets one lobe back in its place: a tap buys `reliefPauseBeats` of quiet, and the next press is only answered `reliefRestBeats` after the last one. Which fault a wave carries is authored on the wave, beside its panel.",
   "THE FENCE — a live line with a way through it":

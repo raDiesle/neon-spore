@@ -141,8 +141,11 @@ export const INGEST_SILENT = [
   // breach of its own, the other is a window the panel reads off the world.
   "fencePass",
   "fenceBurn",
-  "barbTear",
   "relief",
+  // A magnet coming apart, for THE CHUTE's reason exactly: what it leaves is a
+  // transient of its own in `effects-body.ts`, spawned there rather than here
+  // (`magnet-break.ts`).
+  "magnetBreak",
 ] as const satisfies readonly SimEvent["type"][];
 
 /** One of the above, as a type — what the guard narrows the union by. */

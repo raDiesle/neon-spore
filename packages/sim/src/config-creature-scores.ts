@@ -75,6 +75,13 @@ export interface CreatureScoreConfig {
    * teach that one kind of agreement is worth more than another.
    */
   scoreLidKill: number;
+  /**
+   * What a magnet is worth. `scoreVeilKill`'s figure, and for its reason with
+   * one more turn on it: it is another body the pair can only reach by doing
+   * one thing together at one moment, and this one costs the pilot the habit
+   * of standing under what they are shooting as well.
+   */
+  scoreMagnetKill: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
@@ -88,4 +95,5 @@ export const CREATURE_SCORE_DEFAULTS: CreatureScoreConfig = {
   scoreEchoKill: 25,
   scoreRindShed: 50,
   scoreLidKill: 250,
+  scoreMagnetKill: 250,
 };

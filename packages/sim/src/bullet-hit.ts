@@ -14,6 +14,7 @@ import { removeCreature } from "./field.js";
 import { ghostStruck } from "./ghost.js";
 import { breachHull } from "./hull.js";
 import { lidStruck } from "./lid.js";
+import { magnetStruck } from "./magnet.js";
 import { recoilStruck } from "./recoil.js";
 import { rindStruck } from "./rind.js";
 import { shellIsBare } from "./shell.js";
@@ -134,6 +135,13 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
     // them. All three answers a shot can get are one rule, in `lid.ts` for
     // `claspStruck`'s reason.
     lidStruck(world, b, hit);
+    return false;
+  }
+  // A plate that turns away anything climbing straight, and two poles that
+  // each take their own trigger. One rule, in `magnet.ts` for `claspStruck`'s
+  // reason: the bearing that gets a bolt past the plate says which pole it met.
+  if (hit.kind === "magnet") {
+    magnetStruck(world, b, hit);
     return false;
   }
   if (hit.kind === "throb") {

@@ -1,4 +1,3 @@
-import { BARB_DEFAULTS, type BarbConfig } from "./config-barb.js";
 import { BOSS_DEFAULTS, type BossConfig } from "./config-boss.js";
 import { CAROM_DEFAULTS, type CaromConfig } from "./config-carom.js";
 import { CRAWLER_DEFAULTS, type CrawlerConfig } from "./config-crawler.js";
@@ -9,6 +8,7 @@ import { FLEET_DEFAULTS, type FleetConfig } from "./config-fleet.js";
 import { GAUGE_DEFAULTS, type GaugeConfig } from "./config-gauge.js";
 import { GHOST_DEFAULTS, type GhostConfig } from "./config-ghost.js";
 import { GYRE_DEFAULTS, type GyreConfig } from "./config-gyre.js";
+import { MAGNET_DEFAULTS, type MagnetConfig } from "./config-magnet.js";
 import { MALFUNCTION_DEFAULTS, type MalfunctionConfig } from "./config-malfunction.js";
 import type { PairConfig } from "./config-pair.js";
 import { PINBALL_DEFAULTS, type PinballConfig } from "./config-pinball.js";
@@ -21,7 +21,6 @@ import { VEER_DEFAULTS, type VeerConfig } from "./config-veer.js";
 import { VIEW_DEFAULTS, type ViewConfig } from "./config-view.js";
 import { VOLLEY_DEFAULTS, type VolleyConfig } from "./config-volley.js";
 
-export { BARB_DEFAULTS, type BarbConfig } from "./config-barb.js";
 export { BOSS_DEFAULTS, type BossConfig } from "./config-boss.js";
 export { CAROM_DEFAULTS, type CaromConfig } from "./config-carom.js";
 export { CRAWLER_DEFAULTS, type CrawlerConfig } from "./config-crawler.js";
@@ -32,6 +31,7 @@ export { FLEET_DEFAULTS, FLEET_SHELL_BEATS, type FleetConfig } from "./config-fl
 export { GAUGE_DEFAULTS, type GaugeConfig } from "./config-gauge.js";
 export { GHOST_DEFAULTS, type GhostConfig } from "./config-ghost.js";
 export { GYRE_DEFAULTS, type GyreConfig } from "./config-gyre.js";
+export { MAGNET_DEFAULTS, type MagnetConfig } from "./config-magnet.js";
 export { MALFUNCTION_DEFAULTS, type MalfunctionConfig } from "./config-malfunction.js";
 export { PAIR_ON, type PairConfig } from "./config-pair.js";
 export { PINBALL_DEFAULTS, type PinballConfig } from "./config-pinball.js";
@@ -49,8 +49,7 @@ export { VOLLEY_DEFAULTS, type VolleyConfig } from "./config-volley.js";
  * this object is what a comparison screen varies and what a replay pins down.
  */
 export interface SimConfig
-  extends BarbConfig,
-    BossConfig,
+  extends BossConfig,
     CaromConfig,
     CrawlerConfig,
     CreatureConfig,
@@ -60,6 +59,7 @@ export interface SimConfig
     GhostConfig,
     FenceConfig,
     GyreConfig,
+    MagnetConfig,
     MalfunctionConfig,
     PairConfig,
     PinballConfig,
@@ -153,7 +153,7 @@ export interface SimConfig
 }
 
 export const DEFAULT_CONFIG: SimConfig = {
-  ...BARB_DEFAULTS,
+  ...MAGNET_DEFAULTS,
   ...MALFUNCTION_DEFAULTS,
   ...VIEW_DEFAULTS,
   ...BOSS_DEFAULTS,

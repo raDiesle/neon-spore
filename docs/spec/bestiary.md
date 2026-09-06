@@ -63,7 +63,7 @@ table in a document cannot be wrong in a way a compiler notices.
 
 | Category | Answered by | Members today |
 |---|---|---|
-| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand`, `barb` |
+| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand`, `magnet` |
 | `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch`, `veer` |
 | `mixed` | `aim` and `guard` | `queen`, `warden`, `clasp`, `carom`, `volley`, `crawler`, `fence` |
 | `special` | neither | `tether`, `mount`, `chute` |
@@ -376,46 +376,52 @@ travel with it, or it is decoration. And it must be distinguishable from a
 real connection problem — otherwise a pair will think the game is broken the
 first time they see it.
 
-## THE BARB
+## THE MAGNET
 
-**The mirror of THE LURE, one control across, and the first body in this game
-that punishes the shield.** A lure is a body a *shot* must never be spent on:
-it looks like an ordinary target, the cannon is the wrong answer, and left
-alone it goes on its own. A barb is that argument pointed at the other seat —
-except that it does not leave, and it cannot be waited out.
+**The first body in this game that cannot be answered from the column it is
+standing in.** Every arrival since THE SLICK has rewarded one motion — put the
+muzzle under it and pull — and this creature exists to take that motion away
+without taking anything else with it. Nothing about it is hidden, nothing about
+it is fast, and standing in its column is the losing move.
 
-**What it is.** Seven lobes swept back into hooks around a body a little taller
-than it is wide, in its own authored colour, falling a row a beat like a slick.
-Nothing about it is hidden from either screen: both seats see the hooks and
-both see the colour, which is deliberate. THE LURE's whole content is that one
-seat cannot tell it from what it is pretending to be; this creature's content
-is that the pair can see exactly what it is and still pay for it, because what
-they have to keep track of is where their own *dome* is standing.
+**What it is.** A horseshoe hanging on its two poles, one red and one cyan,
+with a flat armoured plate slung under it on a staff — wider than the poles
+stand and hanging clear below their tips. It falls a row a beat like a slick.
+Both screens draw the whole of it: the opening at the bottom says there is a
+way in, the plate says the way in is not from underneath, and the two colours
+say the way in has a colour.
 
-**What it does.** It is answered by the matching cannon and by nothing else. It
-is not `isWardable`, so the shield never turns it, never chips it and never
-slows it — it falls past the dome and breaks the hull like any other arrival
-that got through. What the shield *can* do is run onto it: a trigger that comes
-up anywhere in a barb's column catches on the hooks, holes the ship for
-`barbTearDamage`, and then leaves the dome answering **nothing at all** for
-`barbScarBeats`.
+**What it does.** A shot climbing its own column arrives square under the plate
+and does nothing at all — no crater, no colour miss, no window. `magnetSlantMilli`
+is the whole of the rule: the bolt has to be crossing at least that many
+thousandths of a column for every tile it climbs before the plate lets it past.
+A shot fired straight up is crossing none, so it never gets in.
 
-**The tail is the creature.** A cost paid once, on the beat of the mistake,
-would be a bad trade and nothing more — the pair would learn to eat it. A
-shield that is *gone* for the next three beats is also the next rock, and the
-one after it, which is a thing they have to say something to each other about.
-A torn dome cannot be torn again while it is torn, so the bill is one scar per
-three beats however many barbs are standing in that column; without that rule a
-shield malfunction would charge the pair once a beat until the body landed,
-which is a punishment nobody can be inside of long enough to answer.
+**So the answer is THE LOCK, used as an aim.** The one thing in this game that
+bends a shot is player 1's hand held on a body (`sim/lock.ts`). The pilot has
+to stand the cannon *off* the column — two lanes at mid-field, three near the
+top — hold the magnet, and let the bolt cross the field into it under the
+plate's edge. The gesture already cost the pilot their strip; here it also
+costs them the habit.
 
-**Reach.** It is caught wherever it stands, not at the shield's row. That is
-THE CLASP's rule with the sign turned round, and for the same reason: the
-shield is a column and not a plate on one row (`sim/barb.ts`, `sim/clasp.ts`).
+**And the side is the colour.** The left pole carries the authored colour and
+the right one carries its opposite (`magnetPoleColor`), so which side the bolt
+comes in on decides which trigger kills it. Player 1 chooses the side by
+choosing where to stand; player 2 holds both lobes and cannot pick one until
+the side has been said out loud. That is the exchange, and it is short enough
+to survive the voice delay: *coming from your left*.
 
-**Where it is played.** THE BARB introduces it on the ordinary panel, with
-rocks beside it so the trigger is still worth having. THE TWITCH plays it under
-a shield malfunction, which is the wave the creature was designed for.
+**It is the pilot's hand and only the pilot's.** A navigator's press on a
+magnet does nothing at all (`canBeHeld` in `sim/grip.ts`), which is the one
+place in the game a grip is refused by seat rather than by kind. A hand on a
+falling body is a brake everywhere else; on this one it is also an aim, and a
+navigator who could hold a magnet would be slowing the body whose entire cost
+is that the pilot has to leave its column — with the hand that should be on a
+trigger.
+
+**Where it is played.** THE MAGNET introduces it on the ordinary panel with one
+rock beside it, so the shield is still worth having and the two controls are
+plainly asking for different places at once.
 
 ## THE MALFUNCTION
 
@@ -433,14 +439,15 @@ played one has learnt nothing about the other:
   somebody has to call.
 - **A shield fault** brings the dome up over player 2's column on every beat.
   SHIELD goes dead on player 1's panel. Every rock the plate is standing under
-  is warded for free; every column the plate must *not* be in is now a column it
-  is in on the next beat.
+  is warded for free — and every clasp it passes is opened for free too, on a
+  beat nobody chose, which turns the navigator's route into a schedule of work
+  for the pilot.
 
 **The broken half is never the half that moves**, and that is the whole design.
 The seat that still has a strip has to *aim the fault somewhere harmless* — off
-a lure's column, off a barb's — which is why these two creatures are what the
-faults were built for. A fault that took the strip instead would leave the pair
-with nothing to do about it.
+a lure's column, past a clasp the cannon is not ready for — which is why those
+creatures are what the faults were built for. A fault that took the strip
+instead would leave the pair with nothing to do about it.
 
 **The relief is the coupling.** The seat whose control broke gets one lobe back
 where its buttons were: a tap holds the fault off for `reliefPauseBeats`, and

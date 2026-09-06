@@ -46,13 +46,33 @@ export function creatureCue(
         | "ghostTurn"
         | "ghostCharge"
         | "strandBead"
-        | "strandSwell";
+        | "strandSwell"
+        | "magnetPlate"
+        | "magnetBreak";
     }
   >,
   cols: number,
   rows: number,
 ): Cue | null {
   switch (e.type) {
+    // A bolt that arrived on the wrong bearing. Panned and pitched like any
+    // other body's moment, and deliberately *not* the wrong-colour sound: the
+    // ammunition was right and the angle was not, and a pair that cannot hear
+    // the difference will reload when what they had to do was move
+    // (`sim/magnet.ts`).
+    case "magnetPlate":
+      return {
+        id: "creature.magnetPlate",
+        pan: panForCol(e.col, cols),
+        pitch: pitchForRow(e.row, rows),
+      };
+    // And the body coming apart, over the ordinary kill on the same tick.
+    case "magnetBreak":
+      return {
+        id: "creature.magnetBreak",
+        pan: panForCol(e.col, cols),
+        pitch: pitchForRow(e.row, rows),
+      };
     case "shellBreak":
       // A crack and two halves ringing — the sound was written for a crystal
       // coming apart and this is the same event, a piece leaving a body that

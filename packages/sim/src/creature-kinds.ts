@@ -208,16 +208,17 @@ export type CreatureKind =
    */
   | "fence"
   /**
-   * The mirror of THE LURE, one control across. A slick or a bulb by every
-   * outward sign — its own colour, its own fall — with its lobes swept back
-   * into hooks, and the trigger is the mistake: a dome that comes up anywhere
-   * in its column catches on it, tears, and answers nothing at all for
-   * `barbScarBeats` afterwards. Nothing turns it away and nothing about it is
-   * warded; the ordinary matching cannon is the only thing that ends it.
-   * `barb.ts` holds the whole of it, and it carries no state of its own —
-   * where it is *is* `col`, and what it costs is a fact about the shield.
+   * A horseshoe standing on its two poles, one red and one cyan, with an
+   * armoured plate slung under it on a staff. The plate is the creature: a
+   * shot climbing its column arrives square underneath and is turned away, so
+   * the only bolt that reaches a pole is one coming in at a slant — which
+   * means player 1 has to stand the cannon *off* the column and hold the body
+   * (`lock.ts`) to bend the shot into it. Which side it comes from is which
+   * pole it meets, and which pole it meets is which trigger kills it.
+   * `magnet.ts` holds the whole of it, and it carries no state of its own —
+   * the two pole colours are `color` and its opposite, left and right.
    */
-  | "barb";
+  | "magnet";
 
 // **The list those names are written in, and the order they hash in**, is
 // `creature-roster.ts` next door — cut out when THE FENCE took this file over

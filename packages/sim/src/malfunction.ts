@@ -20,7 +20,7 @@ import type { World } from "./world.js";
  * sliding the plate. So the seat that still has a strip has to *aim the fault
  * somewhere harmless* — which is the whole reason the mechanic exists, and why
  * it is written for the two creatures whose answer is "not here": THE LURE, on
- * which a shot is the mistake, and THE BARB, on which the trigger is.
+ * which a shot is the mistake.
  *
  * **The other seat is not a spectator, it is the brake.** The seat whose
  * control broke gets one lobe back in its place — the relief — and a tap on it

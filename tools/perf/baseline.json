@@ -481,17 +481,17 @@
     },
     {
       "wave": 48,
-      "name": "THE BARB",
+      "name": "THE MAGNET",
       "bodies": 3,
-      "arrivals": "8:5d3f1fe5",
-      "typical": 3.87,
-      "mean": 3.74,
-      "p90": 4.26,
-      "jitter": 0.158,
+      "arrivals": "7:2ee2243d",
+      "typical": 3.97,
+      "mean": 4.14,
+      "p90": 5.38,
+      "jitter": 0.203,
       "mergedFrom": {
         "measuredAt": "2026-09-06",
-        "commit": "ecf7124380ee4b2e1314a235990727e55f16e88d",
-        "scale": 0.58
+        "commit": "69c8de82f9ff19a7127d611e5f438ad31e7b935d",
+        "scale": 1.32
       }
     },
     {
@@ -513,15 +513,15 @@
       "wave": 50,
       "name": "THE TWITCH",
       "bodies": 3,
-      "arrivals": "8:17066cee",
-      "typical": 3.82,
-      "mean": 3.83,
-      "p90": 4.56,
-      "jitter": 0.139,
+      "arrivals": "8:7962b3ea",
+      "typical": 3.85,
+      "mean": 4.19,
+      "p90": 6.04,
+      "jitter": 0.092,
       "mergedFrom": {
         "measuredAt": "2026-09-06",
-        "commit": "ecf7124380ee4b2e1314a235990727e55f16e88d",
-        "scale": 0.58
+        "commit": "69c8de82f9ff19a7127d611e5f438ad31e7b935d",
+        "scale": 1.35
       }
     }
   ]

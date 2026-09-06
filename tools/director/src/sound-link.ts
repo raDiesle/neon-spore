@@ -68,6 +68,13 @@ const BY_ID: Record<string, Subject> = {
   "signal.markHit": HULL,
   "signal.markMissed": HULL,
 
+  // THE MAGNET's two, and both are pictures of the same body: the plate
+  // turning a bolt away is one edge of it, and the break is the whole of it
+  // coming apart. The card the sheet has is the whole body, which is the
+  // honest answer to both.
+  "creature.magnetPlate": shape("MAGNET"),
+  "creature.magnetBreak": shape("MAGNET"),
+
   "impact.destroyRed": shape("SLICK"),
   "impact.destroyCyan": shape("BULB"),
   "impact.reject": shape("METEOR"),

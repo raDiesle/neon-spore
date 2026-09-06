@@ -187,7 +187,6 @@ export function populatedWorld(bossKind: BossEntry["kind"]): World {
   world.gripP2 = 3;
   world.primeTick = 19;
   world.charge = charge();
-  world.domeScarTick = 31;
   // A cannon fault rather than a shield one, because it is the arm that
   // carries a second field: the walk can only mutate what is there, so the
   // union's larger member is the one that covers both.

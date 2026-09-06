@@ -120,6 +120,7 @@ export {
 } from "./lance.js";
 export { lidHandleMilli, lidIsHeld, lidIsOpen, lidOpenMilli, lidPull } from "./lid.js";
 export { isLockedOn, lockedBody } from "./lock.js";
+export { magnetPoleColor } from "./magnet.js";
 export { mawOpen, podKindOf } from "./pods.js";
 export { recoilBouncesLeft, recoilRow, recoilTurn } from "./recoil.js";
 export { type Replay, record, runReplay } from "./replay.js";

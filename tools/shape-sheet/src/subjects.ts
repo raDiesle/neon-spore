@@ -16,7 +16,9 @@ import {
   livingBodyKinds,
   livingPoints,
   livingSilhouette,
+  MAGNET_SHAPE,
   METEOR,
+  magnetOutline,
   POD,
   type Point,
   QUEEN_SHELL,
@@ -143,6 +145,27 @@ export function lid(name: string, s: LidSilhouette, note: string): Subject {
  * contraction is on the shared clock (`CRAWLER_PULSE`), because a wave the
  * pair counts links along has to run at the same rate on both phones.
  */
+/**
+ * THE MAGNET, and the one contour here with a straight edge in it. Walked from
+ * `magnetOutline` for THE LID's reason — the same geometry the canvas strokes
+ * — and joined with straight lines rather than through the spline, because a
+ * slab's corner rounded on the way to a sheet is a corner nobody gets to judge.
+ */
+export function magnet(name: string, note: string): Subject {
+  const at = (p: Point): string => `${p.x.toFixed(2)} ${p.y.toFixed(2)}`;
+  return {
+    name,
+    note,
+    open: false,
+    pointsAt: () => magnetOutline(46),
+    path: (pts) =>
+      `M ${at(pts[0] ?? { x: 0, y: 0 })} ${pts
+        .slice(1)
+        .map((p) => `L ${at(p)} `)
+        .join("")}Z`,
+  };
+}
+
 export function crawler(name: string, s: CrawlerSilhouette, note: string): Subject {
   return {
     name,
@@ -204,6 +227,9 @@ export const SUBJECTS: Subject[] = [
   // `render/lid.ts` rather than by `drawLiving`, so `living-look.ts` gives it
   // no row and nothing here is generated for it.
   lid("LID", LID, `${LID.lashes} lashes · two arcs meeting at a corner`),
+  // Off `LIVING_SUBJECTS` once more: a horseshoe with a hole through it is no
+  // radius sampled round a centre, so `living-look.ts` gives it no row.
+  magnet("MAGNET", `an arch on two poles · a plate slung ${MAGNET_SHAPE.plateDrop} radii under it`),
   // Off `LIVING_SUBJECTS` for THE LID's reason again: one link of a worm is
   // drawn by `render/crawler.ts` rather than by `drawLiving`, so
   // `living-look.ts` gives it no row. Drawn at the top of its contraction, so

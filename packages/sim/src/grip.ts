@@ -35,7 +35,7 @@ export const NO_GRIP = 0;
  * of those is a fall rate for a brake to scale (`stepGhostAcross`).
  */
 export function setGrip(world: World, player: 1 | 2, id: number): void {
-  const target = world.creatures.some((c) => c.id === id && canBeHeld(c)) ? id : NO_GRIP;
+  const target = world.creatures.some((c) => c.id === id && canBeHeld(c, player)) ? id : NO_GRIP;
   if (player === 1) world.gripP1 = target;
   else world.gripP2 = target;
 }
@@ -110,6 +110,16 @@ export function grippedFallTiles(world: World, c: Creature): number {
  * asks before it offers a body to a thumb, and a crossing ghost is a `ghost`
  * that happens to be walking — a fact about one body that no kind can carry.
  */
-function canBeHeld(c: Creature): boolean {
+function canBeHeld(c: Creature, player: 1 | 2): boolean {
+  // THE MAGNET is the one body a hand is refused on by *seat* rather than by
+  // kind, and it is refused on the navigator's. A hand on a falling body is a
+  // brake for either player everywhere else in the game; on this one it is
+  // also an aim, because `lockedBody` reads player 1's hand and bends every
+  // shot into whatever it is on (`lock.ts`). A navigator who could hold a
+  // magnet would be slowing the one body whose whole cost is that the pilot
+  // has to leave its column — and doing it with the hand that is supposed to
+  // be on a trigger. So the press does nothing, and the pilot's does the
+  // aiming (`magnet.ts`).
+  if (c.kind === "magnet") return player === 1;
   return isGrippable(c.kind) && c.kind !== "queen" && !ghostCrosses(c);
 }

@@ -3,6 +3,7 @@ import type { Variant } from "../variant.js";
 import { SHOT_STREAK } from "./cannon-shot/streak/index.js";
 import { CRAWLER_FINE } from "./crawler-pulse/fine/index.js";
 import { CRAWLER_STEPPED } from "./crawler-pulse/stepped/index.js";
+import { MAGNET_HOOKED } from "./creature-magnet/hooked/index.js";
 import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
 import { STRAND_MUTE } from "./creature-strand/mute/index.js";
 import { STRAND_SEALED } from "./creature-strand/sealed/index.js";
@@ -37,6 +38,7 @@ export const VARIANTS: Variant[] = [
   CRAWLER_STEPPED,
   CRAWLER_FINE,
   METEOR_FORGE,
+  MAGNET_HOOKED,
   STRAND_SEALED,
   STRAND_MUTE,
   PANEL_EMBLEM,

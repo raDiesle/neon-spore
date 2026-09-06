@@ -3,7 +3,7 @@
  * `SimConfig` by `packages/render` — a glide, a band height, a strip, a
  * perspective — and by the simulation almost never.
  *
- * Cut out of `config.ts` when THE BARB and THE MALFUNCTION took that file past
+ * Cut out of `config.ts` when THE MALFUNCTION took that file past
  * its 250-line limit, and the seam is one the comments were already drawing by
  * hand: five of the seven say *Read by render/* in their own first line. What
  * is left next door is the ship and the run — the grid, the beat, the hull, the

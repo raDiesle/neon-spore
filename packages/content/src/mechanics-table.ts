@@ -217,12 +217,13 @@ export const MECHANICS = {
     // composes anything else against.
     waveNames: true,
   },
-  barb: {
-    what: "Hooks swept back around a body in its own colour, falling a row a beat. The matching cannon ends it and nothing else does — and the shield is the mistake: a dome that comes up anywhere in its column catches on it, tears the hull, and then wards nothing at all for three beats, so whatever was behind it lands too. THE LURE's rule, moved onto the other control.",
+  magnet: {
+    what: "A horseshoe standing on two poles, one red and one cyan, with an armoured plate slung under it. A shot climbing its own column hits the plate and does nothing at all. The only bolt that reaches it is one arriving at a slant, which means the cannon has to be somewhere else and the pilot's thumb has to be on the body bending the shot across (THE LOCK). Whichever side it comes in on is the pole it meets, and that pole's colour is the only one that kills it.",
     reach: "spawn",
     // A wave names this kind and gives it a colour, the way it does for a
-    // clasp and a dart: the hooks are the barb's silhouette and the colour is
-    // which cannon answers it, so neither follows from the other.
+    // clasp and a dart — and here the colour is doing double work: it is the
+    // *left* pole, and the right one is its opposite, so one authored word
+    // says which way round the body stands.
     waveNames: true,
   },
   // The five that are not a thing the field sends — a wave's own opening, the

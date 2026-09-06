@@ -8,6 +8,7 @@ import { drawHud, drawOverlay } from "./hud.js";
 import { drawHull, type HullMood, hullSkinY, type LobePositions } from "./hull.js";
 import { frame, type HullFrame } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
+import { drawMagnetAlarm } from "./magnet-alarm.js";
 import type { OpeningFx } from "./opening-fx.js";
 import { drawOtherHand } from "./other-hand.js";
 import { hullShake, torchTremor } from "./queen.js";
@@ -106,6 +107,8 @@ export function drawOverlays(
   const { armed: isArmed, open: isOpen, scene, fx } = state;
   drawHud(ctx, l, view);
   drawTorchAlarm(ctx, l, world, view.time);
+  // And the pilot's own call, on the pilot's screen alone (`magnet-alarm.ts`).
+  drawMagnetAlarm(ctx, l, world, view.time);
   // Over the HUD and under the band: the one instrument that says *talk*, for
   // every creature that needs it. It is an overlay rather than part of the
   // field because it is about the pair rather than about anything standing in

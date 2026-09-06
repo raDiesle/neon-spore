@@ -244,12 +244,13 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/creature-state-fence.ts` | **THE FENCE's two fields**, and both of them are sets of columns: the ways through the wave authored |
 | `packages/sim/src/events-fence.ts` | **What THE FENCE does**, as events: the wire going over the ship, and a bolt cutting a way through it |
 | `packages/sim/src/fence.ts` | THE FENCE: a live line the width of the field, with gaps burnt through it |
-| `packages/sim/src/barb.ts` | THE BARB: the first body in this game that punishes the **shield** |
-| `packages/sim/src/config-barb.ts` | THE BARB's two numbers: what a ward caught on one costs, and how long the dome is torn open afterwards |
 | `packages/sim/src/config-malfunction.ts` | THE MALFUNCTION's four numbers: how often a broken control acts by itself |
 | `packages/sim/src/config-view.ts` | **The numbers only the picture reads.** Every field here is taken off `SimConfig` by `packages/render` |
-| `packages/sim/src/fault-surface.ts` | Every name THE MALFUNCTION and THE BARB put on `@neon-spore/sim`'s surface, written out |
+| `packages/sim/src/fault-surface.ts` | Every name THE MALFUNCTION puts on `@neon-spore/sim`'s surface, written out |
 | `packages/sim/src/malfunction.ts` | THE MALFUNCTION: a wave in which one of the two seats does not have its control any more — the control has it |
+| `packages/sim/src/config-magnet.ts` | THE MAGNET's one number: how steeply a shot has to be climbing before it clears the plate slung under the body |
+| `packages/sim/src/magnet.ts` | THE MAGNET: the first body in this game that cannot be answered from the column it is standing in |
+| `packages/sim/src/events-magnet.ts` | **What THE MAGNET does**, as events: a bolt turned away by the plate slung under the body |
 
 ### packages/content
 
@@ -346,7 +347,8 @@ place — the generator keeps whatever is there.
 | `packages/content/src/control-fault.ts` | **What a wave's fault does to the panel it is played on**, and the one place either half of it is decided |
 | `packages/content/src/mechanics-wave.ts` | **The two mechanics a wave turns on without putting a body on the field**, and the whole of `reach: "wave"` |
 | `packages/content/src/silhouettes-spare.ts` | **The two contours next door that are not a body on the roster**: one retired, one a capsule |
-| `packages/content/src/waves/act-7.ts` | Act seven, and it opens on the first body in this game the **shield** must not be pointed at |
+| `packages/content/src/waves/act-7.ts` | Act seven, and it opens on the first body in this game that cannot be answered from the column it is standing in |
+| `packages/content/src/magnet-shape.ts` | THE MAGNET's contour, as numbers rather than as drawing |
 
 ### packages/render
 
@@ -622,6 +624,9 @@ place — the generator keeps whatever is there.
 | `packages/render/src/spline.ts` | A contour, written into a `Path2D` as numbers |
 | `packages/render/src/effects-ingest-silent.ts` | **The events that leave nothing behind in `Effects`**, and why each one does not |
 | `packages/render/src/malfunction-look.ts` | **What a broken control looks like**, and what the button that holds it off looks like beside it |
+| `packages/render/src/magnet-break.ts` | A magnet coming apart: the two arms thrown the way the bolt was going, and the plate falling loose |
+| `packages/render/src/magnet.ts` | THE MAGNET, drawn: a horseshoe on two coloured poles with an armoured plate slung under it |
+| `packages/render/src/magnet-alarm.ts` | THE MAGNET's call, and the second alarm in this game that reads differently depending on who is looking |
 
 ### packages/net
 
@@ -669,7 +674,6 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-lookups.ts` | The two id-to-id tables `bind.ts` reads, and the only *data* in a file that is otherwise a switch |
 | `packages/audio/src/bind-fence.ts` | **What THE FENCE sounds like**: the wire going over the ship, and a bolt cutting a way through it |
 | `packages/audio/src/bind-place.ts` | **Where a sound is**: a column as a stereo position, and a row as a pitch |
-| `packages/audio/src/bind-ship.ts` | **The two moments that are the ship's own** rather than a body's: the dome running onto a barb |
 
 ### apps/game
 

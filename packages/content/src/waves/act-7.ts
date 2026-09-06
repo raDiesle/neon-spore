@@ -1,8 +1,8 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Act seven, and it opens on the first body in this game the **shield** must
- * not be pointed at.
+ * Act seven, and it opens on the first body in this game that cannot be
+ * answered from the column it is standing in.
  *
  * The acts are not a design unit — `waves.ts` says so at length: they exist
  * because a list that grows a dozen lines a wave has to be cut somewhere, and
@@ -13,37 +13,39 @@ import type { Wave } from "../wave-types.js";
  * The three of them are one argument taken in three steps, and the order is
  * the whole of it.
  *
- * 1. **THE BARB** teaches the body while both seats still have every control
- *    they are used to. The mistake is available and it is nobody's fault but
- *    theirs: the trigger is under player 1's thumb, and pressing it in the
- *    wrong column is a thing they chose.
+ * 1. **THE MAGNET** takes the oldest habit in the game away — put the muzzle
+ *    under it and fire — while both seats still have every control they are
+ *    used to. Nothing is hidden and nothing has broken; the pair simply has to
+ *    stand somewhere else and say so.
  * 2. **THE JAM** takes a control away from the pair and hands it to the wave,
  *    on the creature the game has already taught them not to shoot. Nothing
  *    new is on the field — every body here is one they know — and the only new
  *    thing is that firing is no longer something either of them decides.
- * 3. **THE TWITCH** puts the two together, and it is the only wave here that
- *    could not have been written before either.
+ * 3. **THE TWITCH** is the other fault, and the only wave here that could not
+ *    have been written before the other two.
  */
 
 /**
- * **THE BARB, in four figures**, and the habit that has to break is the oldest
- * one the game has: *a thing is coming, so put the plate under it*. Every rock
- * since THE ROCK has rewarded that, and this is the first body where it is the
- * losing move.
+ * **THE MAGNET, in four figures**, and the habit that has to break is the
+ * oldest one the game has: *a thing is standing in a column, so put the muzzle
+ * in that column*. Every arrival since THE SLICK has rewarded that, and this
+ * is the first body where it is the losing move.
  *
  * 1. Beat 0, one alone, dead centre, with nothing else on the field for
- *    fourteen beats. The pair has the whole fall to find out that a shot ends
- *    it and a ward does not, and the wave costs them nothing if they simply
- *    leave the trigger alone while they look.
- * 2. Beats 14–16, a rock and a barb one column apart. This is the wave: the
- *    plate has to be *in* one column and *out of* the next, and there are eight
- *    beats to say which is which.
- * 3. Beats 28–30, the same shape mirrored, so the answer cannot become a habit
- *    about which way to slide.
- * 4. Beats 42–44, a fast rock at one wall and a barb four columns away. The
- *    trigger is not the answer here and the cannon is already busy, which is
- *    the sentence stated as arithmetic. A slick at 52 is what the cannon is
- *    still for.
+ *    fourteen beats. The pair has the whole fall to find out that a shot
+ *    straight up its column glances off the plate, and that a thumb on the
+ *    body with the muzzle two lanes over does not.
+ * 2. Beats 14–16, a magnet at one wall and an ordinary body away from it. The
+ *    cannon wants to be where the slick is, and that is also a side the magnet
+ *    can be taken from — so the first time the pair gets this right it is
+ *    because standing in the *other* body's column happened to be the answer,
+ *    which is the sentence stated as geography.
+ * 3. Beats 28–30, a magnet and a rock two columns apart. The plate has to be
+ *    under one, the muzzle has to be beside the other, and neither of them can
+ *    be where it wants to be — this is the wave.
+ * 4. Beats 44–46, two magnets at opposite walls, authored the opposite way
+ *    round. Crossing from one to the other flips the side and the colour at
+ *    once, which no habit about either can answer.
  */
 /**
  * **THE JAM, and the first wave where firing is not a decision either of them
@@ -71,49 +73,47 @@ import type { Wave } from "../wave-types.js";
  * 5. Beats 48–50, a last lure at one wall and a slick at the other.
  */
 /**
- * **THE TWITCH**, and the only wave in this act that could not have been
- * written before the other two. The trigger has stuck down: the dome comes up
- * over player 2's column on every beat, with nobody asking and nobody able to
- * stop it.
+ * **THE TWITCH**, and the fault that gives with one hand and bills with the
+ * other. The trigger has stuck down: the dome comes up over player 2's column
+ * on every beat, with nobody asking and nobody able to stop it.
  *
- * That makes the fault a gift and a bill at once, which is the reason these
- * two mechanics were built for each other. A rock the plate is standing under
- * is warded for free — player 2's job stops being timing and becomes pure
- * position. A barb in that same column tears the ship and takes the ward away
- * for three beats, so the next rock lands as well. Every column on the field is
- * now one of those two things, and the seat that can move the plate is the
- * seat that cannot stop it coming up.
+ * That is why the wave is written on clasps. A rock the plate is standing
+ * under is warded for free — player 2's job stops being timing and becomes
+ * pure position. A clasp the plate passes is *opened* for free as well, on a
+ * beat nobody chose, and what comes out of one is a body the cannon has to
+ * answer straight away. So the navigator's route across the field is also a
+ * schedule of work for the pilot, and the only thing that can hold it back is
+ * player 1's own hand.
  *
  * 1. Beat 0, a rock alone, so the first thing the pair meets is the fault
  *    being *useful*.
- * 2. Beat 12, one barb, well away from anything, so the plate has somewhere to
- *    be while they work out what it has become.
- * 3. Beats 24–26, a rock and a barb two columns apart: the plate has to be
+ * 2. Beat 12, one clasp, well away from anything, so they can watch it come
+ *    open by itself and see what that costs.
+ * 3. Beats 24–26, a rock and a clasp two columns apart: the plate has to be
  *    under one and past the other, which is a crossing worth asking for.
- * 4. Beats 40–44, a rock at the wall with two barbs between it and the plate.
- *    There is no route that does not go through one, so HOLD DOME is the only
- *    way the rock gets warded — and the wave ends on a rock at the far wall to
- *    say whether they spent it too early.
+ * 4. Beats 40–44, a rock at the wall with two clasps between it and the plate.
+ *    There is no route to the rock that does not open both, so HOLD DOME is
+ *    the only way to take them one at a time — and the wave ends on a rock at
+ *    the far wall to say whether they spent it too early.
  */
 export const WAVES_ACT_7: Wave[] = [
   {
-    id: "theBarb",
-    name: "THE BARB",
-    sentence: "The one where reaching for the trigger is what breaks the ship.",
+    id: "theMagnet",
+    name: "THE MAGNET",
+    sentence: "The one where standing under it is how you miss.",
     guide: {
-      both: "Hooks swept back around a body in its own colour. Only the matching cannon ends one. The shield must never come up in a barb's column — the dome catches on the hooks, tears, and then wards nothing at all for three beats, so the rock behind it lands too. Rocks are still rocks: they still need the plate.",
-      p1: "Two things in the same column now, and only one of them wants GUARD. Before you press, say which column the plate is in and hear the answer — a barb standing over it costs you the ship and the next ward as well.",
-      p2: "You can see the hooks, so you are the one who has to say them: name the barb's column before it is anywhere near the ship, and keep the plate out of it. When you are clear, say so — that is when the trigger is safe.",
+      both: "A horseshoe on two poles, one red and one cyan, with an armoured plate slung underneath. A shot straight up its column meets the plate and does nothing at all. Player 1 holds a thumb on the body instead and the shot bends across the field into it: whichever side the bolt comes in on is the pole it meets, and that pole's colour is the only one that kills it.",
+      p1: "Never stand under it. Take the cannon two or three columns to one side, hold your thumb on the body, and say which side you are coming in from. That is your whole half; the colour is not yours to pick.",
+      p2: "You cannot put a hand on this one, so wait to be told the side and read the pole on it. Load that colour and fire. A bolt that turns away flat underneath means they were still in its column.",
     },
     entries: [
-      { beat: 0, col: 3, kind: "barb", color: "red" },
-      { beat: 14, col: 1, kind: "meteor", color: null },
-      { beat: 16, col: 2, kind: "barb", color: "cyan" },
-      { beat: 28, col: 5, kind: "barb", color: "red" },
-      { beat: 30, col: 6, kind: "meteor", color: null },
-      { beat: 42, col: 0, kind: "meteorMedium", color: null },
-      { beat: 44, col: 4, kind: "barb", color: "cyan" },
-      { beat: 52, col: 2, color: "red" },
+      { beat: 0, col: 3, kind: "magnet", color: "red" },
+      { beat: 14, col: 1, kind: "magnet", color: "cyan" },
+      { beat: 16, col: 5, color: "red" },
+      { beat: 28, col: 4, kind: "magnet", color: "red" },
+      { beat: 30, col: 2, kind: "meteor", color: null },
+      { beat: 44, col: 0, kind: "magnet", color: "cyan" },
+      { beat: 46, col: 6, kind: "magnet", color: "red" },
     ],
   },
   {
@@ -142,21 +142,20 @@ export const WAVES_ACT_7: Wave[] = [
   {
     id: "theTwitch",
     name: "THE TWITCH",
-    sentence:
-      "The one where the shield keeps coming up and every column is either a rock or a barb.",
+    sentence: "The one where the plate opens every clasp it walks past, ready or not.",
     guide: {
-      both: "The trigger has stuck down. The dome comes up by itself over player 2's column on every beat — nobody has to ask for it and nobody can stop it. A rock the plate is under is warded for free. A barb the plate is under tears the ship and takes the ward away for three beats. SHIELD is dead on player 1's panel; HOLD DOME is in its place, two beats of quiet and then a rest.",
-      p1: "Your trigger is gone and your cannon is not. Shoot the barbs — that is the only thing that ends one — and keep a thumb on HOLD DOME for when they have to cross a column with a barb standing in it.",
-      p2: "The plate is doing your old job by itself, so your job now is where it is *not*. Name every barb column out loud and stay out of it; when you have to pass through one, say so first and wait for the quiet.",
+      both: "The trigger has stuck down. The dome comes up by itself over player 2's column on every beat — nobody has to ask for it and nobody can stop it. A rock the plate is under is warded for free. A clasp the plate passes is cracked open for free as well, and what falls out of one is a body the cannon has to answer. SHIELD is dead on player 1's panel; HOLD DOME is in its place, two beats of quiet and then a rest.",
+      p1: "Your trigger is gone and your cannon is not, and everything the plate opens lands on you. Say when you are behind — HOLD DOME is the only way they can cross a clasp column without cracking it, and it is yours to spend.",
+      p2: "The plate is doing your old job by itself, so what matters is where it goes rather than when. Name the clasp columns before you reach them: every one you pass comes open, and that is a body to shoot.",
     },
     entries: [
       { beat: 0, col: 3, kind: "meteor", color: null },
-      { beat: 12, col: 1, kind: "barb", color: "red" },
+      { beat: 12, col: 1, kind: "clasp", color: "red" },
       { beat: 24, col: 5, kind: "meteor", color: null },
-      { beat: 26, col: 3, kind: "barb", color: "cyan" },
+      { beat: 26, col: 3, kind: "clasp", color: "cyan" },
       { beat: 40, col: 0, kind: "meteorMedium", color: null },
-      { beat: 42, col: 2, kind: "barb", color: "red" },
-      { beat: 44, col: 4, kind: "barb", color: "cyan" },
+      { beat: 42, col: 2, kind: "clasp", color: "red" },
+      { beat: 44, col: 4, kind: "clasp", color: "cyan" },
       { beat: 56, col: 6, kind: "meteor", color: null },
     ],
     malfunction: { kind: "shield" },

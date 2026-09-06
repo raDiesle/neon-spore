@@ -172,6 +172,10 @@ export class Effects {
   }
 
   update(dt: number, l: Layout): void {
+    // Time does not run backwards and nor does a transient's age: every clock
+    // below is a `+= dt` read back as a phase, and a negative one puts a ring at
+    // a negative radius, which a real canvas refuses outright.
+    if (!(dt > 0)) return;
     this.sparks.update(dt);
     this.deflectFx.update(dt, l.tile);
     this.rockImpact.update(dt, l);
@@ -196,10 +200,9 @@ export class Effects {
     this.fleet.update(dt, l, (x, y, n, hex) => this.sparks.burst(x, y, n, hex));
   }
 
-  /** Drawn under the hull, so a deflected rock passes behind nothing. The
-   * world is here for the clasp transients alone — `drawOnBodies` says why —
-   * and `surfaceY` for THE CRAWLER's, which are about a body that was standing
-   * on the ship's own skin (`crawler-place.ts`). */
+  /** Drawn under the hull, so a deflected rock passes behind nothing. The world
+   * is here for the clasp transients alone — `drawOnBodies` says why — and
+   * `surfaceY` for THE CRAWLER's, about a body on the ship's own skin. */
   draw(
     ctx: CanvasRenderingContext2D,
     l: Layout,

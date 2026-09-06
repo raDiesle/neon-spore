@@ -61,6 +61,10 @@ export const SILENT = [
   "caromEject",
   "chuteOpen",
   "chuteCut",
+  // A magnet coming apart. The `destroy` on the same tick is already throwing
+  // the pole's colour off the tile; this one is the arch and the plate going,
+  // and `magnet-break.ts` draws all of it.
+  "magnetBreak",
   // A carom turning at a wall, and it is `ghostTurn`'s reason inverted:
   // nothing broke. The body bounced off the edge of the field intact, and a
   // shower of sparks there would read as damage to something the pair can

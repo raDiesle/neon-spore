@@ -1,7 +1,7 @@
 import type { CreatureKind } from "@neon-spore/sim";
 import { FLICKER, HOLD, POISE, SWAY_PUMP, TILT_RIPPLE } from "./motions.js";
 import type { OwnMotion } from "./own-motion.js";
-import { BARB, BULB, type CreatureSilhouette, DART, SLICK, THROB, WISP } from "./silhouettes.js";
+import { BULB, type CreatureSilhouette, DART, SLICK, THROB, WISP } from "./silhouettes.js";
 
 /**
  * Which kinds are drawn as a body of their own, and what that body looks like
@@ -40,12 +40,6 @@ const LIVING_LOOK = {
   slick: { shape: SLICK, motion: TILT_RIPPLE },
   bulb: { shape: BULB, motion: SWAY_PUMP },
   throb: { shape: THROB, motion: HOLD },
-  // THE BARB hangs rather than sways, and `POISE` is the dart's word for
-  // exactly that: a body drawn as though it is *about to* do something. On a
-  // dart the promise is kept every other beat; on a barb it never is, which is
-  // the joke the picture is making — the thing that finally catches is the
-  // shield, walking onto it.
-  barb: { shape: BARB, motion: POISE },
   dart: { shape: DART, motion: POISE },
   wisp: { shape: WISP, motion: FLICKER },
   // Drawn as the body underneath — resolve with `wornKind` before asking.
@@ -151,6 +145,14 @@ const LIVING_LOOK = {
   // so there is no contour to give it and nothing for an own-motion to move.
   // A silhouette here would put a blob on a tile the wall merely passes over.
   fence: null,
+  // THE MAGNET, and the third `null` here that is a contour rather than a
+  // costume. A horseshoe has a hole through the middle and two arms hanging
+  // off the bottom, and `blobRadiusMul` samples one radius all the way round —
+  // so every millimetre of opening it gained at the bottom it would gain at
+  // the top as well, and the body would come out as a ring. Its numbers are
+  // `magnet-shape.ts` and `render/magnet.ts` strokes them, routed away in
+  // `drawCreatures` before the living pass ever sees one.
+  magnet: null,
 } as const satisfies Record<CreatureKind, { shape: CreatureSilhouette; motion: OwnMotion } | null>;
 
 /**

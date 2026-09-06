@@ -42,6 +42,8 @@ async function eventTypes(): Promise<string[]> {
     ["packages/sim/src/events-crawler.ts", "export type CrawlerEvent ="],
     // And THE FENCE's two, cut out the day the second one was added.
     ["packages/sim/src/events-fence.ts", "export type FenceEvent ="],
+    // And THE MAGNET's two, on the same terms again.
+    ["packages/sim/src/events-magnet.ts", "export type MagnetEvent ="],
   ] as const) {
     const src = await Bun.file(join(ROOT, file)).text();
     const start = src.indexOf(decl);
@@ -63,7 +65,8 @@ const SAMPLES: Record<string, SimEvent> = {
   destroy: { type: "destroy", col: 3, row: 4, color: "cyan" },
   hole: { type: "hole", col: 2, row: 5 },
   reject: { type: "reject", col: 2, row: 5 },
-  barbTear: { type: "barbTear", col: 2, row: 5 },
+  magnetPlate: { type: "magnetPlate", col: 2, row: 5 },
+  magnetBreak: { type: "magnetBreak", col: 2, row: 5, color: "red", fromLeft: true },
   relief: { type: "relief", player: 2, beats: 2 },
   deflect: { type: "deflect", col: 2, span: 1, kind: "meteor", fromRow: 9 },
   grip: { type: "grip", player: 1, col: 1, row: 3 },
@@ -286,6 +289,8 @@ const CREATURE_IDS: Record<string, string> = {
   ghostCharge: "creature.ghostCharge",
   strandBead: "impact.split",
   strandSwell: "impact.wrongTarget",
+  magnetPlate: "creature.magnetPlate",
+  magnetBreak: "creature.magnetBreak",
 };
 
 /**

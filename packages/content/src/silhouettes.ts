@@ -37,40 +37,6 @@ export const SLICK: CreatureSilhouette = {
   seed: 2.0,
 };
 
-/**
- * Barb: five lobes swept back into hooks around a body a little taller than
- * it is wide — a fish hook's barb, and a shape that says *this will catch on
- * whatever stops it* before anybody has read a word about it.
- *
- * **It is not a disguise, and that is the difference between this creature and
- * THE LURE.** A lure has no silhouette of its own on purpose: its whole point
- * is that one seat cannot tell it from the body it is pretending to be. A barb
- * is the opposite mistake to make — the pair can see exactly what it is, and
- * the cost of the wrong control is paid anyway, by whoever forgot which column
- * the dome was standing in. So it gets a shape and a word.
- *
- * `depth` is the deepest in the table by half again. That is what makes the
- * lobes read as hooks rather than as a bulb's soft rim: the contour has to come
- * a long way back in between them or the points do not exist at forty pixels.
- *
- * **Seven, and the count is what holds it apart from THE WISP.** Five was the
- * first drawing and `tools/shape-sheet/test/nameability.test.ts` refused it:
- * a wisp is five lobes on a round body at very nearly this size, so the two
- * overlapped on aspect, on lobe count and on drawn size at once — which is the
- * test's definition of *the same word*, and the one thing a body in this game
- * may never be. Seven is unique on the roster (a slick has two, a throb's rim
- * six, a wisp five, a bulb nine), and it stops short of the bulb's nine, which
- * at this depth would read as a star rather than as a thing with hooks on it.
- */
-export const BARB: CreatureSilhouette = {
-  lobes: 7,
-  depth: 0.42,
-  wobble: 0.03,
-  rx: 48,
-  ry: 54,
-  seed: 3.7,
-};
-
 /** Bulb: many fine lobes around a round body. Pumps and sways. */
 export const BULB: CreatureSilhouette = {
   lobes: 9,

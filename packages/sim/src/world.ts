@@ -49,13 +49,6 @@ export interface World {
   intakeTick: number;
   /** Last tick the shield still counts as armed without a trigger, set by a `ward` pod. */
   wardUntilTick: number;
-  /**
-   * The tick a barb last caught the dome, or far enough back that nothing is
-   * torn. For `barbScarBeats` after it the shield answers nothing at all —
-   * read it through `domeScarred` (`barb.ts`) rather than by name, the way
-   * `guardTick` is read through `guardArmed`.
-   */
-  domeScarTick: number;
   lastFireTick: number;
   /**
    * The creature each player has a hand on, or `NO_GRIP`. Read them through
@@ -149,7 +142,6 @@ export function createWorld(
     guardTick: -1_000_000,
     intakeTick: -1_000_000,
     wardUntilTick: -1_000_000,
-    domeScarTick: -1_000_000,
     lastFireTick: -1_000_000,
     gripP1: NO_GRIP,
     gripP2: NO_GRIP,
