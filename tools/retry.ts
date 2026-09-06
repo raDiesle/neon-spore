@@ -3,8 +3,14 @@
  * with the filesystem behind it kept swappable so a test can run it against a
  * fake disk in no time at all.
  *
- * Split out of `worktree.ts`, which had grown to hold four subjects. This is
- * the one with no git in it: everything here is a question about a path.
+ * Split out of `land/worktree.ts`, which had grown to hold four subjects. This
+ * is the one with no git in it: everything here is a question about a path.
+ *
+ * Beside `ports.ts` rather than inside `land/` because the landing is no longer
+ * the only tool that removes a worktree — `frames/scratch.ts` makes one per
+ * revision it photographs, and left five and a half thousand of them in the
+ * temp directory by trusting a removal instead of asking. One copy of the
+ * policy, called by both.
  */
 
 import { readdir, stat } from "node:fs/promises";

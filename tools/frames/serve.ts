@@ -1,7 +1,6 @@
-import { mkdtemp, rm } from "node:fs/promises";
-import { tmpdir } from "node:os";
-import { join } from "node:path";
 import { type CaptureResult, captureFrames, type FrameSpec } from "./capture.js";
+import { root, run } from "./exec.js";
+import { sweepScratch, withScratchTree } from "./scratch.js";
 
 /**
  * Getting one *revision* of this game running, so a frame can be taken off it:
@@ -14,26 +13,11 @@ import { type CaptureResult, captureFrames, type FrameSpec } from "./capture.js"
  * both are exported rather than hidden.
  */
 
-/** The checkout this tool is running out of — where a scratch worktree is
- * cut from, and where `docs/frames/` lives. */
-export const root = Bun.fileURLToPath(new URL("../../", import.meta.url));
-
-export async function git(args: string[], cwd = root): Promise<string> {
-  const proc = Bun.spawn(["git", ...args], { cwd, stdout: "pipe", stderr: "pipe" });
-  const [out, code, err] = await Promise.all([
-    new Response(proc.stdout).text(),
-    proc.exited,
-    new Response(proc.stderr).text(),
-  ]);
-  if (code !== 0) throw new Error(`git ${args.join(" ")} failed: ${err.trim() || out.trim()}`);
-  return out.trim();
-}
-
-export async function run(cmd: string[], cwd: string): Promise<void> {
-  const proc = Bun.spawn(cmd, { cwd, stdout: "inherit", stderr: "inherit" });
-  const code = await proc.exited;
-  if (code !== 0) throw new Error(`${cmd.join(" ")} exited ${code} in ${cwd}`);
-}
+// Where the checkout is and how to run something in it. They live in
+// `exec.ts` so `scratch.ts` can call git without importing the capture it is a
+// part of, and are re-exported here because everything that needs them already
+// asks this file.
+export { git, root, run } from "./exec.js";
 
 /** Reads `preview (built) on http://localhost:PORT` off the server's own stdout, rather
  * than guessing a port — the same rule `CLAUDE.md`'s verification section gives a human. */
@@ -77,10 +61,12 @@ export async function captureAt(
   spec: FrameSpec,
   outPrefix: string,
 ): Promise<CaptureResult> {
-  const scratch = await mkdtemp(join(tmpdir(), "neon-spore-frames-"));
-  await rm(scratch, { recursive: true, force: true }); // `worktree add` wants the path free
-  await git(["worktree", "add", "--detach", scratch, rev]);
-  try {
+  // Before making one more of them: whatever earlier runs left behind, from a
+  // process killed between the capture and its own cleanup. `scratch.ts` has
+  // the age that keeps this off a checkout somebody is building in.
+  await sweepScratch();
+
+  return withScratchTree(rev, async (scratch) => {
     await run(["bun", "install"], scratch);
     const preview = await startPreview(scratch);
     try {
@@ -88,10 +74,7 @@ export async function captureAt(
     } finally {
       await preview.stop();
     }
-  } finally {
-    await git(["worktree", "remove", "--force", scratch]).catch(() => {});
-    await rm(scratch, { recursive: true, force: true }).catch(() => {});
-  }
+  });
 }
 
 /**

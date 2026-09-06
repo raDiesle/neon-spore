@@ -12,8 +12,8 @@
 import { rm, stat } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { treeKey } from "../ports.js";
+import { REMOVE_ATTEMPTS, readdirSafe, removeUntilGone, retryOpts } from "../retry.js";
 import { gitOrDie } from "./git.js";
-import { REMOVE_ATTEMPTS, readdirSafe, removeUntilGone, retryOpts } from "./retry.js";
 import { isDirty } from "./worktree.js";
 
 /**

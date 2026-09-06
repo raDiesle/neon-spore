@@ -1,8 +1,7 @@
-import { mkdtemp, rm } from "node:fs/promises";
-import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
-import { git, root, run } from "./serve.js";
+import { root, run } from "./exec.js";
+import { withScratchTree } from "./scratch.js";
 
 /**
  * **Which wave `--wave` names**, answered against the right list.
@@ -38,18 +37,12 @@ export interface WaveName {
  * link exists in this checkout's own `node_modules`.
  */
 export async function waveNamesAt(rev: string): Promise<WaveName[]> {
-  const scratch = await mkdtemp(join(tmpdir(), "neon-spore-frames-waves-"));
-  await rm(scratch, { recursive: true, force: true }); // `worktree add` wants the path free
-  await git(["worktree", "add", "--detach", scratch, rev]);
-  try {
+  return withScratchTree(rev, async (scratch) => {
     await run(["bun", "install"], scratch);
     const url = pathToFileURL(join(scratch, "packages/content/src/waves.ts")).href;
     const mod = (await import(url)) as { WAVES: readonly WaveName[] };
     return mod.WAVES.map((w) => ({ name: w.name }));
-  } finally {
-    await git(["worktree", "remove", "--force", scratch]).catch(() => {});
-    await rm(scratch, { recursive: true, force: true }).catch(() => {});
-  }
+  });
 }
 
 /**

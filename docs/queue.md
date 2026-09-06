@@ -247,19 +247,6 @@ Write the entry the way the neighbouring ones are written: the figures off
 `crawler-fx.ts`. Nothing about the game changes and `bun run check` still
 passes, which is the whole of the acceptance.
 
-## `tools/frames` leaves its scratch worktrees in the temp directory
-
-- **Found:** 2026-09-05, claude/git-flow-parallel-sessions-6f1b43
-- **Taken:** 2026-09-06, claude/queue-tools-frames-leaves-its-scratch-worktrees-in-the
-- **Files:** `tools/frames/run.ts`, `tools/frames/test/`
-
-`%TEMP%` on this machine holds thousands of `neon-spore-frames-test-*`,
-`neon-spore-frames-out-*` and `neon-spore-frames-opening-test-*` directories,
-each a checkout of the repository. They are made by `bun run frames` and by the
-frames tests, and nothing removes them; three of them were still registered
-worktrees. Remove the scratch tree when the capture is done, in a `finally`, and
-have the tests clean up after themselves.
-
 ## `packages/sim/src/config-creatures.ts` sits exactly on the 250-line limit
 
 - **Found:** 2026-09-05, claude/throb-color-rotation-5dd05f

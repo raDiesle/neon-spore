@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { type RetryOpts, removeUntilGone } from "../retry.js";
+import { type RetryOpts, removeUntilGone } from "../../retry.js";
 
 /** A fake disk: `gone` is how many attempts it takes before the path leaves. */
 function disk(gone: number): { opts: RetryOpts; attempts: () => number; waits: () => number } {

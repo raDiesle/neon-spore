@@ -1,10 +1,10 @@
 import { afterAll, beforeAll, describe, expect, it } from "bun:test";
-import { mkdtemp, rm } from "node:fs/promises";
-import { tmpdir } from "node:os";
+import { rm } from "node:fs/promises";
 import { join } from "node:path";
 import { type Browser, chromium } from "playwright-core";
 import { captureFrames, findChrome } from "../capture.js";
 import { clearOpening } from "../opening.js";
+import { scratchDir, sweepScratch } from "../scratch.js";
 
 /**
  * The gap this landing closes: `bun run check` stayed green the whole time
@@ -79,7 +79,7 @@ describe("captureFrames past a wave's opening", () => {
     reader.releaseLock();
     baseUrl = url;
     stop = () => proc.kill();
-    scratchOut = await mkdtemp(join(tmpdir(), "neon-spore-frames-opening-test-"));
+    scratchOut = await scratchDir("opening-test-");
     browser = await chromium.launch({ executablePath: findChrome(), headless: true });
   }, STARVED_MS);
 
@@ -87,6 +87,10 @@ describe("captureFrames past a wave's opening", () => {
     await browser?.close().catch(() => {});
     stop?.();
     if (scratchOut) await rm(scratchOut, { recursive: true, force: true }).catch(() => {});
+    // And whatever an earlier run of this file left when it was killed before
+    // reaching here — the pictures are throwaway, but the directories are not
+    // throwing themselves away.
+    await sweepScratch();
   });
 
   it(

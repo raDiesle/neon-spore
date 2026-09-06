@@ -14,8 +14,8 @@
  */
 
 import { rm } from "node:fs/promises";
+import { REMOVE_ATTEMPTS, removeUntilGone, retryOpts } from "../retry.js";
 import { gitOrDie } from "./git.js";
-import { REMOVE_ATTEMPTS, removeUntilGone, retryOpts } from "./retry.js";
 
 /**
  * Whether a worktree has uncommitted files — and **true** when it cannot be

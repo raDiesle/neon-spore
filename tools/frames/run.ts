@@ -62,14 +62,14 @@
  * not `--wave 20`) or a wave's own name. Both convert to the 0-based index
  * `jumpToWave` and `world.wave` actually use.
  */
-import { mkdir, mkdtemp, rm } from "node:fs/promises";
-import { tmpdir } from "node:os";
+import { mkdir, rm } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import type { FrameSpec } from "./capture.js";
 import { parseAt, sameFrames } from "./crop.js";
 import { parseHold } from "./hold.js";
 import { parseOpening } from "./opening.js";
 import { parsePress } from "./press.js";
+import { scratchDir } from "./scratch.js";
 import { captureAt, captureHere, git, root } from "./serve.js";
 import { resolveWaveFlag, waveNamesAt, waveNamesHere } from "./wave.js";
 
@@ -181,7 +181,7 @@ async function main(): Promise<void> {
     return;
   }
 
-  const scratchOut = await mkdtemp(join(tmpdir(), "neon-spore-frames-out-"));
+  const scratchOut = await scratchDir("out-");
   try {
     console.log(`before: ${parent.slice(0, 7)}`);
     const before = await captureAt(parent, spec, join(scratchOut, "before"));
