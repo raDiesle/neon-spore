@@ -541,6 +541,7 @@ file to `KNOWN_LONG`.
 ## The director's DOM wiring has no fake `document` to test against
 
 - **Found:** 2026-09-06, claude/queue-a-sheet-restored-from-its-url-always-opens-on-it
+- **Taken:** 2026-09-06, claude/queue-the-directors-dom-wiring-has-no-fake-document-to
 - **Files:** `tools/director/test/session.test.ts`, `tools/director/test/demo-panel.test.ts`
 
 This repo carries no jsdom and no happy-dom, so every test of a director page's
