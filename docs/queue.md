@@ -141,6 +141,7 @@ copy.
 ## `packages/content/test/scenes.test.ts` is 435 lines
 
 - **Found:** 2026-09-05, claude/throb-enemy-redesign-nyf0uo
+- **Taken:** 2026-09-06, claude/queue-packages-content-test-scenes-test-ts-is-435-line
 - **Files:** `packages/content/test/scenes.test.ts`
 
 Past the ~250-line limit by most of a file again, and it has the seam already:
