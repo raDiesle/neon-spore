@@ -627,6 +627,10 @@ place — the generator keeps whatever is there.
 | `packages/render/src/magnet-break.ts` | A magnet coming apart: the two arms thrown the way the bolt was going, and the plate falling loose |
 | `packages/render/src/magnet.ts` | THE MAGNET, drawn: a horseshoe on two coloured poles with an armoured plate slung under it |
 | `packages/render/src/magnet-alarm.ts` | THE MAGNET's call, and the second alarm in this game that reads differently depending on who is looking |
+| `packages/render/src/fence-arc.ts` | The current jumping both ways between a wall coming down and the dome under it |
+| `packages/render/src/fence-sweep.ts` | What the navigator gets instead of the doorways: a reading head crossing the wire |
+| `packages/render/src/fence-wire.ts` | What a stretch of live wire looks like, and how far above the ship it hangs |
+| `packages/render/src/shield-outage.ts` | The shield's line burnt out in places, which is what a wall costs instead of a scar |
 
 ### packages/net
 

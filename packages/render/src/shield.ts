@@ -176,6 +176,34 @@ export const WARD_LOOK: WardLook = {
  * the whole body, head to tail, so a shield in motion lights up as a long
  * moving band rather than a dot with a tail behind it.
  */
+/**
+ * **Where the shield's line runs, left to right, in screen x.** The bright
+ * stretch the rim is drawn along, from the outermost segment on one side to
+ * the outermost on the other with `halfMul` of overhang at each end.
+ *
+ * Exported because a second thing is drawn along it now: the outage a fence
+ * leaves when its current earths through the dome (`shield-outage.ts`). Two
+ * spellings of *where the shield line is* would drift apart the first time
+ * either the chain or the overhang changed, and the outage would be a row of
+ * dead notches floating beside the line they are supposed to be in.
+ *
+ * `null` while the chain has not been updated yet — there is no shield drawn,
+ * so there is no line to be on.
+ */
+export function rimSpan(l: Layout, at: LobePositions): { from: number; to: number } | null {
+  if (at.shield.length === 0) return null;
+  const half = l.tile * WARD_LOOK.halfMul;
+  // A loop rather than `Math.min(...cols)`: the spread built a fresh argument
+  // list twice a frame, and a segmented shield is not a two-element array.
+  let loCol = at.shield[0]!.col;
+  let hiCol = loCol;
+  for (const seg of at.shield) {
+    if (seg.col < loCol) loCol = seg.col;
+    if (seg.col > hiCol) hiCol = seg.col;
+  }
+  return { from: tileCX(l, loCol) - half, to: tileCX(l, hiCol) + half };
+}
+
 export function drawShieldRim(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -185,7 +213,8 @@ export function drawShieldRim(
   surface: (x: number) => Point,
   resonance = 0,
 ): void {
-  if (at.shield.length === 0) return;
+  const span = rimSpan(l, at);
+  if (!span) return;
   const w = WARD_LOOK;
   const shimmer =
     w.shimmerBase +
@@ -193,17 +222,7 @@ export function drawShieldRim(
     w.shimmerB * Math.sin(time * w.shimmerHzB + 1.7);
   const glow = Math.max(w.glowFloor, armed * shimmer);
   const cols = at.shield.map((s) => s.col);
-  const half = l.tile * w.halfMul;
-  // A loop rather than `Math.min(...cols)`: the spread built a fresh argument
-  // list twice a frame, and a segmented shield is not a two-element array.
-  let loCol = cols[0] ?? 0;
-  let hiCol = loCol;
-  for (const col of cols) {
-    if (col < loCol) loCol = col;
-    if (col > hiCol) hiCol = col;
-  }
-  const from = tileCX(l, loCol) - half;
-  const to = tileCX(l, hiCol) + half;
+  const { from, to } = span;
   const pts: Point[] = [];
   const steps = 26;
   for (let i = 0; i <= steps; i++) pts.push(surface(from + (to - from) * (i / steps)));

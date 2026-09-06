@@ -278,3 +278,30 @@ waves. Either way the comment in `timePaints` about a fake clock making the
 sequence of pictures identical run to run has to stay true, which is the whole
 reason the counter starts where it does — so the answer is probably a running
 offset kept across waves rather than the real clock.
+
+## Three private copies of one LCG, beside the shared hash render/ already has
+
+- **Found:** 2026-09-06, claude/fence-enemy-visuals
+- **Files:** `packages/render/src/scars.ts`, `packages/render/src/snake-shot.ts`, `packages/render/src/lure-blast.ts`, `packages/render/src/hash.ts`
+
+`packages/render/src/hash.ts` exists to be *the* repeatable 0..1 in render/, and
+its own header says seven files carried a private copy before it was written.
+Three still do, and all three are the same linear congruential generator with
+the same two constants: `scars.ts` and `snake-shot.ts` each declare a local
+`stream(seed)` around `Math.imul(n, 1664525) + 1013904223`, and `lure-blast.ts`
+spells one step of it inline. `packages/sim/test/purity.test.ts` catches a
+fourth copy — it stopped this lane writing one — but it matches on the *sine*
+hash and says nothing about these.
+
+Two halves, and the second is the point of the entry:
+
+- **Give `hash.ts` a stream.** `sinHash` answers one number from its arguments
+  and these three want a *sequence* from one seed, which is a real difference
+  and why the copies exist. `export function stream(seed: number): () => number`
+  next to `sinHash`, with the header's own reasons, and the three call sites
+  reduced to importing it. Nothing drawn may change: `scars.ts` and
+  `snake-shot.ts` must keep the exact constants and the exact `(n >>> 8) % 10000`
+  reduction, so the same seed gives the same crack.
+- **Add the row to `purity.test.ts`.** The table there is what stops the next
+  copy, and a rule that is only half in it is a rule that gets re-derived. The
+  new row matches the constant `1664525`.

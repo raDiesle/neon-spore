@@ -160,8 +160,28 @@ describe("a fence reaching the ship", () => {
   });
 
   it("breaks the hull in the shield's own column and nowhere else", () => {
+    const { events } = run([fence([4])], ticksPast, [shieldTo(TPB, 2)]);
+    const breaches = events.filter((e) => e.type === "breach");
+    expect(breaches.map((e) => e.type === "breach" && e.col)).toEqual([2]);
+  });
+
+  it("leaves no scar in the plating: a wire earths, it does not strike", () => {
+    // What a wall costs is `fenceDamage` and the shield's own line put out in
+    // places (`render/shield-outage.ts`), and the owner asked for exactly that
+    // — no cracks on the ship. `breachUnscarred` is where the two halves meet:
+    // the points and the event, and nothing for `scars.ts` to tear open.
     const { world } = run([fence([4])], ticksPast, [shieldTo(TPB, 2)]);
-    expect(world.scars.map((s) => s.col)).toEqual([2]);
+    expect(hullPercent(world)).toBeLessThan(100);
+    expect(world.scars).toEqual([]);
+  });
+
+  it("stays on the field until it is drawn resting on the ship", () => {
+    // It used to be taken off a whole tile short of the hull the moment the
+    // dome was standing in a gap, so the last frame of a wall was in mid-air.
+    // Both answers are given on the same beat now — the one the pair watches
+    // the wire come down on them.
+    const { rows } = run([fence([4])], ticksPast, [shieldTo(TPB, 4)]);
+    expect(rows.at(-1)).toBe(HULL);
   });
 
   it("is still answerable on the beat it lands: a late call saves the ship", () => {

@@ -2,10 +2,11 @@ import { hullPercent, type World } from "@neon-spore/sim";
 import { drawBand } from "./band.js";
 import { drawWaveOpening } from "./briefing.js";
 import type { Effects } from "./effects.js";
+import { drawFenceArcs } from "./fence-arc.js";
 import type { GuideStage } from "./guide-scene.js";
 import { drawControlHover } from "./hover.js";
 import { drawHud, drawOverlay } from "./hud.js";
-import { drawHull, type HullMood, hullSkinY, type LobePositions } from "./hull.js";
+import { drawHull, type HullMood, hullSkinY, type LobePositions, surfaceSampler } from "./hull.js";
 import { frame, type HullFrame } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import { drawMagnetAlarm } from "./magnet-alarm.js";
@@ -70,6 +71,12 @@ export function drawShip(
     shake,
     f,
   );
+  // **THE FENCE's current, jumping between a wall on its way down and the dome
+  // under it** — here rather than in the field pass, because that pass runs
+  // under the hull and a bolt drawn there would be painted over at exactly the
+  // end that matters (`fence-arc.ts`). Off the same membrane the hull was drawn
+  // from, so it lands on the skin the eye is looking at.
+  drawFenceArcs(ctx, l, world, at, surfaceSampler(f), view.beatPhase, view.time);
   // A hand on the lance, read straight off the world both devices share (other-hand.ts).
   drawOtherHand(ctx, l, world, view.time, mood, at, f);
   // In front of the hull, unlike the rest of Effects.draw() — `Effects.rockImpact`.

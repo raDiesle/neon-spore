@@ -74,14 +74,17 @@ const DUTY_WORD = {
   // walking, not a fact one of them is missing — so there is no word for a
   // siren to carry (`comms.ts`).
   crawler: null,
-  // THE FENCE, and the only word in this table that names the **job** rather
-  // than the thing withheld. Every other row here is a noun — a colour, a
-  // side, a column — because what the seat is holding is a fact the other one
-  // has not got. The pilot is holding one of those too, where the fence is
-  // open, and the owner asked for this word by name anyway: what the pair has
-  // to do about a wall coming down at two rows a beat is get the ship out of
-  // its way, and a siren saying GAP is a siren describing the scenery.
-  fence: { p1: "EVADE" },
+  // THE FENCE, and the only row where **both seats are given the same word**.
+  // It said EVADE under the pilot alone and nothing under the navigator, on
+  // the argument that a siren should name the job rather than the scenery. The
+  // owner reversed it: GAP, on both screens. It is the better answer and for a
+  // reason the old one missed — the two seats hold opposite halves of that one
+  // word, and neither half is any use in the seat that has it. The pilot can
+  // see where the wall is open and cannot move the dome; the navigator moves
+  // the dome and is shown an unbroken wire (`fence.ts`). One word under both
+  // dials is the pair being handed the subject of the sentence and left to
+  // work out which of them says it, which is the whole creature.
+  fence: { p1: "GAP", p2: "GAP" },
   // THE MAGNET, and the only word in this table naming something the seat has
   // to *choose* rather than something it can see. The pilot picks which side
   // to bring the shot in from, and until they say so the navigator is holding
@@ -128,6 +131,8 @@ export function dutyWord(role: ViewRole, world: World): string | null {
   const p2 = wordsFor("p2", world);
   if (role === "p1") return p1.length ? p1.join(" · ") : null;
   if (role === "p2") return p2.length ? p2.join(" · ") : null;
-  const parts = [...p1, ...p2];
+  // The rig is both seats at once, so a word owed by each of them — THE
+  // FENCE's GAP is one word under two dials — must not be printed twice.
+  const parts = [...p1, ...p2.filter((w) => !p1.includes(w))];
   return parts.length ? parts.join(" · ") : null;
 }

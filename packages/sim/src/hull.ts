@@ -1,7 +1,7 @@
 import { markMoment } from "./balance.js";
 import { hullRow } from "./config.js";
 import { fenceIsOpen } from "./fence.js";
-import { breachHull, damageSpan } from "./hull-damage.js";
+import { breachHull, breachUnscarred, damageSpan } from "./hull-damage.js";
 import { guardArmed, shieldRow } from "./hull-guard.js";
 import { impactDamage } from "./impact.js";
 import { beadIsSpent } from "./strand.js";
@@ -37,13 +37,21 @@ export function resolveHull(world: World): void {
   for (const c of world.creatures) {
     // **THE FENCE, and the only body on this field the trigger cannot answer.**
     // It is the width of the field, so there is no column to be in and no
-    // moment to be on: the wall reaches the shield's row and either the dome
+    // moment to be on: the wall comes down onto the ship and either the dome
     // is standing in one of the gaps or it is not. Armed or idle makes no
     // difference — see `fence.ts` for why that is the creature rather than an
     // omission — so this branch stands ahead of the ward's and never reaches
     // it. `resolveFence` is the whole of what happens either way.
+    //
+    // `shipRow` and not the shield's row a tile above it, which is where this
+    // used to end. A wall is not a rock the dome turns at its own surface: it
+    // goes *over* the ship, and the owner reported the picture that came of
+    // resolving it early — the wire vanishing two tiles clear of the hull,
+    // before it had touched anything. It falls all the way down now and is
+    // answered on the beat it is drawn resting on the ship, which is the rule
+    // every other body on this field already follows.
     if (c.kind === "fence") {
-      if (c.row < guardRow) {
+      if (c.row < shipRow) {
         survivors.push(c);
         continue;
       }
@@ -119,22 +127,35 @@ export function resolveHull(world: World): void {
 }
 
 /**
- * A wall that has reached the shield's row. Returns whether it **stays on the
+ * A wall that has reached the ship's row. Returns whether it **stays on the
  * field**, which is the ordinary one more beat every arrival gets.
  *
- * Three answers, in the order the pair experiences them. The dome is standing
- * in a gap, and the wall goes over the ship: the guard record takes it as a
- * try and a deflection, because putting the shield in the right column is
- * exactly the half of the ward this creature keeps and the whole of the half
- * it asks for. Or the dome is in the way and the wall is still *arriving* —
- * `fromRow` above the ship — in which case it hangs there for one more beat
- * and the shield can still be moved under it, which is the same grace a rock
- * gets and the reason a call that lands late is still worth making. Or it is
- * neither, and the current earths itself through the dome: one breach, in the
- * shield's own column, because the ship is broken where the wall found it and
- * not along its whole width.
+ * **The grace comes first, and it comes before either answer.** While
+ * `fromRow` is above the ship the wall is still *arriving*: the picture is
+ * gliding it down onto the hull, the shield can still be slid under it, and
+ * neither the pass nor the breach has happened yet. That gate used to stand
+ * between the two answers rather than in front of them, so a dome already in a
+ * gap took the wall off the field a whole tile short of the ship — the wire
+ * simply stopped existing in mid-air, which is what the owner reported. Both
+ * answers are given on the same beat now: the one the pair watches the wall
+ * come to rest on them.
+ *
+ * Then two answers. The dome is standing in a gap, and the wall goes over the
+ * ship: the guard record takes it as a try and a deflection, because putting
+ * the shield in the right column is exactly the half of the ward this creature
+ * keeps and the whole of the half it asks for. Or the dome is in the way and
+ * the current earths itself through it: one breach, in the shield's own
+ * column, because the ship is broken where the wall found it and not along its
+ * whole width.
+ *
+ * **`breachUnscarred`, so nothing cracks in the plating.** A wire does not
+ * strike a hull, it discharges into the thing standing in it, and the owner
+ * asked for the damage to read that way — the shield's own line put out in
+ * places rather than a tear in the skin (`shield-outage.ts` in render/). The
+ * cost is `fenceDamage` either way; only the picture of it moved.
  */
 function resolveFence(world: World, c: Creature, shipRow: number): boolean {
+  if (c.fromRow < shipRow) return true;
   if (fenceIsOpen(c, world.shieldCol)) {
     world.guard.tries += 1;
     world.guard.deflected += 1;
@@ -143,14 +164,13 @@ function resolveFence(world: World, c: Creature, shipRow: number): boolean {
     world.events.push({ type: "fencePass", col: world.shieldCol, row: c.row });
     return false;
   }
-  if (c.fromRow < shipRow) return true;
   world.guard.tries += 1;
   // Right column, wrong moment is the failure class `mistimed` counts, and
   // there is no moment here to get wrong — so a wall that lands on the dome is
   // a try nobody met and nothing else. Counting it as mistimed would put a
   // timing lesson in the pair's balance sheet for a creature that has none.
   markMoment(world, false);
-  breachHull(world, world.shieldCol, c.kind, c.fromRow, world.cfg.fenceDamage);
+  breachUnscarred(world, world.shieldCol, c.kind, c.fromRow, world.cfg.fenceDamage);
   return false;
 }
 
@@ -160,5 +180,5 @@ function resolveFence(world: World, c: Creature, shipRow: number): boolean {
 // question this file was named for: what happens to a body that reached the
 // ship. All four are re-exported below, so nothing that reached for one
 // through this file had to move.
-export { breachHull, hullPercent, regenerateHull } from "./hull-damage.js";
+export { breachHull, breachUnscarred, hullPercent, regenerateHull } from "./hull-damage.js";
 export { guardArmed, guardWindowTicks, shieldRow, ticksSinceGuard } from "./hull-guard.js";

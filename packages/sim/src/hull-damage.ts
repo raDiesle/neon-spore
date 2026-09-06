@@ -54,9 +54,36 @@ export function breachHull(
    * a rock, and the rounds that cost the hull from off the field. */
   color: Color | null = null,
 ): void {
-  applyHullDamage(world, amount);
   world.scars.push({ col, beat: world.beat, kind });
   if (world.scars.length > world.cfg.maxScars) world.scars.shift();
+  breachUnscarred(world, col, kind, fromRow, amount, color);
+}
+
+/**
+ * **The same cost with nothing torn in the plating**: the hull points and the
+ * `breach` event, and no scar.
+ *
+ * One caller, and it is the creature the distinction was written for. THE
+ * FENCE is a live wire, not a body: it does not strike the ship, it *earths
+ * through the dome standing in its way* (`resolveFence`, hull.ts). The owner
+ * asked for that to look like what it is — no cracks in the skin, and the
+ * shield's own line put out in several places instead (`shield-outage.ts`) —
+ * and a crack is what a `Scar` draws, so there is nothing here for one to hang
+ * from. The damage is unchanged: what a fence costs is `fenceDamage` either
+ * way, and only the picture of it moved.
+ *
+ * `breachHull` is this function with a scar in front of it, so the two can
+ * never disagree about what a breach *is*: one event, one amount, one place.
+ */
+export function breachUnscarred(
+  world: World,
+  col: number,
+  kind: Creature["kind"],
+  fromRow: number,
+  amount: number,
+  color: Color | null = null,
+): void {
+  applyHullDamage(world, amount);
   world.events.push({
     type: "breach",
     col,

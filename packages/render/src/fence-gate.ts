@@ -1,3 +1,5 @@
+import { fenceLineY } from "./fence-wire.js";
+import type { SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 
@@ -20,21 +22,25 @@ import { PALETTE, STROKE } from "./palette.js";
  * Its own file rather than the foot of `fence.ts` because the two answer
  * different questions: that one is the fence, and this is the half of it that
  * may be split. A reader asking *what is player 2 not being shown* opens one
- * short file and has the whole answer.
+ * short file and has the whole answer — and `fence-sweep.ts` beside it is what
+ * that seat is given instead.
  */
 
 /** How far the posts stand off the fence's own line, as a share of a tile —
- * the wire gauge in `fence.ts` plus a little, so the opening is visibly taller
- * than the barrier it interrupts rather than flush with it. */
+ * the wire gauge in `fence-wire.ts` plus a little, so the opening is visibly
+ * taller than the barrier it interrupts rather than flush with it. */
 const LIP = 0.26;
 
-/** One gap in a fence, at the left edge of column `col`. */
+/** One gap in a fence, at the left edge of column `col`. The row rather than a
+ * screen y, because the wall is draped over the ship on its last beat and a
+ * doorway has to be cut out of the line where the line actually is. */
 export function drawFenceGate(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   col: number,
-  y: number,
+  row: number,
   time: number,
+  surfaceY?: SurfaceY,
 ): void {
   const left = tileCX(l, col) - l.tile / 2;
   const right = left + l.tile;
@@ -50,6 +56,7 @@ export function drawFenceGate(
   ctx.lineWidth = Math.max(STROKE.inner, l.tile * 0.035);
   const path = new Path2D();
   for (const x of [left, right]) {
+    const y = fenceLineY(l, row, x, surfaceY);
     path.moveTo(x, y - lip);
     path.lineTo(x, y + lip);
   }

@@ -4,6 +4,7 @@ import { FieldPose } from "./field-pose.js";
 import { GuideStage } from "./guide-scene.js";
 import type { Layout } from "./layout.js";
 import { LureBlastFx } from "./lure-blast.js";
+import { ShieldOutage } from "./shield-outage.js";
 import type { SpriteBursts } from "./sprite-burst.js";
 
 /**
@@ -45,6 +46,17 @@ export class RenderState {
    * last of the frame, on top of the ship it is about.
    */
   readonly lureBlast = new LureBlastFx();
+  /**
+   * The shield's line burnt out where a wall earthed through the dome
+   * (`shield-outage.ts`).
+   *
+   * Here for the blast's reason above, arrived at from the other side: it is
+   * drawn *over* the hull — on the lit rim `drawHull` has just put down — and
+   * everything `Effects` owns goes under it. THE FENCE is the only thing that
+   * makes one, and the `breach` event it rides in on is the same one `Effects`
+   * is fed next door; this is the half of it that is not theirs to draw.
+   */
+  readonly shieldOutage = new ShieldOutage();
   /** Enough of last frame's world to notice a wave starting over — see `restarted`. */
   private seen: { world: World; wave: number; waveBeat: number } | null = null;
 
@@ -93,6 +105,8 @@ export class RenderState {
   frame(events: readonly SimEvent[], l: Layout, dt: number): void {
     this.lureBlast.ingest(events, l);
     this.lureBlast.update(dt);
+    this.shieldOutage.ingest(events);
+    this.shieldOutage.update(dt);
   }
 
   restarted(world: World): boolean {
@@ -115,5 +129,6 @@ export class RenderState {
     this.effects.reset();
     this.pose.reset();
     this.lureBlast.clear();
+    this.shieldOutage.clear();
   }
 }

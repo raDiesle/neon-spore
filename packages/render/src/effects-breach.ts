@@ -49,6 +49,19 @@ export function ingestBreach(
   beatSeconds: number,
   parts: BreachParts,
 ): void {
+  // **THE FENCE, and the one breach in the game that does not break the skin.**
+  // A wall does not strike the ship: it is a live wire, and one that finds the
+  // dome in its way earths through it. So the burst is thrown in the wall's own
+  // blue rather than the red everything else reaching the hull gets — an impact
+  // is drawn in the colour of the thing that made it — and there is no scar
+  // behind this event for a crack to hang from either (`breachUnscarred`,
+  // sim/hull-damage.ts). What it costs instead is the shield's line, put out in
+  // places: `shield-outage.ts`, fed from `RenderState` because it is drawn over
+  // the hull and everything this file feeds goes under it.
+  if (e.kind === "fence") {
+    parts.burst(tileCX(l, e.col), l.hullY, 22, PALETTE.arc);
+    return;
+  }
   // `isWardable` rather than `isMeteorKind`: THE VOLLEY is a rock the shield
   // answers, and a shell nobody warded arrives as the rock it looks like — the
   // fall replay and the crack that waits for it, not a burst at the hull.

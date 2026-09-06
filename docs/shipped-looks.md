@@ -207,9 +207,12 @@ is the only moment the ship says so.
 
 ## The fence
 
-`packages/render/src/fence.ts` and `fence-gate.ts`. The only body in the game
-drawn as a **line** rather than as a thing standing on a tile, and the only one
-whose two screens differ in where it *stops*.
+`packages/render/src/fence.ts`, and five files around it: `fence-wire.ts` (the
+material), `fence-gate.ts` (a way through), `fence-sweep.ts` (what the other
+seat gets instead), `fence-arc.ts` (the meeting with the dome) and
+`shield-outage.ts` (what it costs). The only body in the game drawn as a
+**line** rather than as a thing standing on a tile, and the only one whose two
+screens differ in where it *stops*.
 
 | Pass | What | Numbers |
 |---|---|---|
@@ -218,6 +221,43 @@ whose two screens differ in where it *stops*.
 | cores | each wire again, thinner, over its own glow | `45%` of the wire's width, `PALETTE.arcRim` |
 | terminals | a bead at each end of each wire | `0.085` tiles, pulsed `0.75`–`1.0` on the crackle clock |
 | **gate** | two posts framing an open column | `±0.26` tiles, `PALETTE.arc` at `0.5`–`0.62` alpha, `max(STROKE.inner, 0.035` tiles`)` |
+| **drape** | the line clamped onto the ship's own surface | never below `surface(x) − 0.37` tiles (`GAUGE/2 + 0.2`) |
+| **sweep** | a reading head crossing the wire, p2 only | `2.4` s a crossing, `2.2` tiles of trail, two ticks at `±0.34` tiles, gone over the last `1.4` rows |
+| **arcs** | bolts both ways between the wire and the dome | from `2.9` tiles apart, `4`–`12` bolts, `5` kinks, struck at `22` Hz, fan `2.2` tiles at the wire and `0.7` at the dome |
+| **outage** | the shield's line, dead in places | `5` stretches of `0.1`–`0.24` tiles, `#150632` at `0.15` tiles wide, `PALETTE.arc` at the raw ends, `2.2` s |
+
+**The wall comes to rest on the ship.** It used to be drawn at its row's own
+centre and taken off the field the moment the dome was standing in one of its
+gaps — a whole tile short of the hull — so the last picture of a wall was of
+one vanishing in mid-air. The owner reported exactly that. `fenceLineY` refuses
+to take the wire below the membrane, so the last beat of a fence is a line
+draped along the ship's outline with the dome and the cannon holding it up; the
+simulation's half of the same repair is `resolveFence`, which now gives both
+answers on the beat the wall is drawn resting on the ship.
+
+**The arcs are the moment, and they are the same on both screens.** As the two
+close, bolts jump the last of the gap in both directions at once — the wall's
+`arc` blue going down, the shield's `shieldRim` coming up, each with a white
+head walking the way its own current runs — with the wire over the dome burning
+brighter and the membrane lit where it is earthing. Nothing in `fence-arc.ts`
+asks whether the wall is open over the dome, and that is a rule rather than a
+convenience: a fan that fizzled out over a gap would hand the navigator the
+answer a beat early, with the shield still in their hand.
+
+**What it costs is drawn on the shield, not in the skin.** A wall that finds the
+dome in its way earths through it, so there is no crack: `breachUnscarred`
+leaves no `Scar` behind the event, and `shield-outage.ts` bites five dead
+stretches out of the lit rim instead, each with the wall's own blue still
+fizzing at the two raw ends. They ride `rimSpan`, so sliding the dome afterwards
+takes the outage with it — what was put out is the shield, and the shield
+travels.
+
+**And the navigator gets a sweep where the pilot gets the doorways.** A screen
+shown an unbroken wire had nothing on it and no reason written into the picture
+to open its mouth, so a reading head runs the width of the field, over and over,
+one way only. Every term in it is the clock and the field: it does not know
+where a gap is, whether there is one, or how many, and it is the same sweep over
+a solid wall as over one open in four places.
 
 **Two wires and not one, and the owner asked for it by name.** At a single
 hairline the thing coming down read as a scratch on the grid; what it has to

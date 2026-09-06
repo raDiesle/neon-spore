@@ -115,7 +115,10 @@ export function drawBodies(
   // the field rather than a body standing on a tile, so it has no centre for
   // the per-body perspective transform to scale about; and its two screens
   // differ in where it is *broken*, which is the whole creature (`fence.ts`).
-  drawFences(ctx, l, world, view.beatPhase, view.time);
+  // `surfaceY` so the wall comes to rest **on** the ship rather than sinking
+  // through it on its last beat: the membrane holds it up, and the dome the
+  // pair is arguing about is one of the things holding it (`fence-wire.ts`).
+  drawFences(ctx, l, world, view.beatPhase, view.time, surfaceY);
   drawCreatures(ctx, l, world, view.beatPhase, view.time, effects.blocked);
   // Over the same bodies drawCreatures just drew, and nowhere else: the
   // plating recomputes fresh from world.creatures every frame (see

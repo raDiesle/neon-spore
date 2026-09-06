@@ -203,6 +203,10 @@ export class Canvas2DRenderer implements Renderer {
     drawBodies(ctx, l, world, view, this.held.effects, at.cannon, surfaceY);
 
     drawShip(ctx, l, world, view, this.held.effects, mood, at, hull);
+    // Over the finished ship: the shield's line burnt out in places where a
+    // wall earthed through the dome. It sits *on* the rim `drawHull` has just
+    // lit, so it cannot go down with the field pass (`shield-outage.ts`).
+    this.held.shieldOutage.draw(ctx, l, at, surfaceY, view.time);
     drawOverlays(ctx, l, world, view, {
       armed: isArmed,
       open: isOpen,
