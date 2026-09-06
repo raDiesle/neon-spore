@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · 1513d988 — A performance run measures the waves the new thing is in, not the whole game
+
+The owner's instruction, and the tool could not do it: `sweep` walked every wave there was, so landing a change to one creature meant minutes of a machine that had to be otherwise idle, twice over if anything went wrong. `--wave` takes the number the HUD prints or the name beside it, repeated or comma-separated, and the full sweep is now what a baseline is taken from rather than what every run does.
+
 ## 2026-09-06 · 9061a559 — THE GRATE landed under this lane, so the baseline is taken again with it
 
 A wave arrived on `main` while this was rebasing, and `compare.test.ts` refuses a baseline that does not cover every wave the game ships — correctly, since a wave with no row is a wave nothing can notice getting slower. All 47 measured again on the idle machine: the median is 3.61 ms of a 16.7 ms frame, THE GRATE is cheap at 3.26, and the dearest picture is still THE GHOST at 8.8 ms on the 90th percentile.
