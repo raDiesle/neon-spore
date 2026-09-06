@@ -9,6 +9,22 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · 3e9005b8 — The word is SHOOT THE CRACK, and the skull is half again as big
+
+Two corrections the owner made off a real frame.
+
+## 2026-09-06 · 67d250da — THE FENCE is three waves now, and every one of them is a rehearsal
+
+THE FENCE used to be the whole creature at once — four walls, gaps in four columns, two rocks among them — behind three paragraphs of prose the pair read before they had seen one. The owner asked for the first one to be very simple, with the gap in the middle and the words saying not to move, and for the calling to be a wave of its own.
+
+## 2026-09-06 · 29ce3658 — A wall leaves the ship it missed, and draws a skull over the one it did not
+
+Four things the owner asked for by name, all of them about the last beat of THE FENCE — the beat where the pair finds out whether the number that crossed the room was the right one.
+
+## 2026-09-06 · 070b0835 — A wall is cut at a crack, and a crack is a column and a colour
+
+THE FENCE used to come apart wherever the cannon happened to be standing, and only if the wave had given it no gaps at all — which made the wall with no way through the easy one: point at the dome, fire, done. It carries breaking points now. A crack is a column *and* an ammunition colour, drawn on the pilot's screen beside the gaps, and a bolt arriving on one in that colour is the only shot in the game that opens a wire. Anywhere else, or in the other colour, the wall refuses and says so.
+
 ## 2026-09-06 · c8eeca01 — THE HAND's rehearsal teaches the carry, as a second page of the same hold
 
 THE PUSH shipped with no guide at all: a pair met it only if somebody happened to move a thumb that was already holding a rock. It goes on THE HAND, which is the wave whose arithmetic does not work without a hand — and as a *second page* of that film rather than a wave of its own, because THE HAND already introduces the grip and a second wave about the same hand would be two waves teaching one thing.
