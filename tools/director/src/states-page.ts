@@ -5,7 +5,7 @@ import { mountSheet } from "./session.js";
 import { bindTabs } from "./tabs.js";
 
 /**
- * GAME MECHANICS: the topbar's four reference doors — STATES, CONTROL SETS,
+ * DOCUMENTATION: the topbar's four reference doors — STATES, CONTROL SETS,
  * SHIP and DEMOS — folded into one full-screen sheet, plus TUNING out of the
  * wave panel and GUIDES out of its own former sheet, one tab per room. This
  * file owns the sheet itself (the tab bar, the open/close/Escape wiring, and
@@ -130,7 +130,7 @@ export function bindStates(): void {
 }
 
 /**
- * Closes GAME MECHANICS the same way its own CLOSE button would — a real
+ * Closes DOCUMENTATION the same way its own CLOSE button would — a real
  * click, so the URL place clears the same way it does for any other close.
  * DEMOS calls this once a demo is picked: there is no sheet of its own left
  * for it to close, only this one's DEMOS tab.

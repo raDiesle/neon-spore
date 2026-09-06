@@ -139,6 +139,40 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
 
 
+## A sheet restored from its URL always opens on its first inner tab
+
+- **Found:** 2026-09-06, claude/not-build-yet-cleanup-553bf1
+- **Files:** `tools/director/src/session.ts`, `tools/director/test/session.test.ts`
+
+`mountSheet`'s restore block reads the wanted inner tab *after* it has already
+clicked the sheet open:
+
+```ts
+if (initialSheet(name)) {
+  open.click();
+  const wantInner = innerBar ? initialInner(name) : null;
+```
+
+`open.click()` runs the open handler, which calls
+`openSheet(name, currentInnerTab(innerBar))` — and at that moment the sheet's
+current inner tab is still whichever button carries `.on` in the markup, the
+first one. That overwrites `current.inner`, so `initialInner(name)` on the very
+next line returns the default rather than the name the URL carried, the
+`?inner=` click never fires, and the URL is rewritten to the default too.
+
+So `?sheet=states&inner=spec` opens DOCUMENTATION on STATES and rewrites itself
+to `inner=states`; `?sheet=backlog&inner=shapes` does the same on NOT BUILT YET.
+Every doc comment that promises this works — `spec.ts`'s `bindSpecTab`,
+`controlsets-page.ts`'s `bindControlSetsTab`, `guide-sheet.ts`'s
+`bindGuidesTab` — is describing behaviour the code does not have, and each of
+those lazy renders is therefore never reached by a restore.
+
+Hoist the read above the click (`const wantInner = innerBar ? initialInner(name)
+: null;` before `open.click()`) and add a case to
+`tools/director/test/session.test.ts` that mounts a sheet with a two-button
+inner bar, seeds the place with the *second* button's name, and asserts that
+button ends up `.on`. The existing tests pass today, which is why this survived.
+
 ## Move apps/server off the miniflare alpha when a stable 5 ships
 
 - **Found:** 2026-09-03, claude/bun-queue-list-command-5a8695

@@ -154,9 +154,15 @@ somebody wrote it down.
 | `SHAPES` | the contour catalogue — see below |
 | `MECHANICS` | couplings, assist forms, systems, and the mechanic, control and weapon ideas |
 | `BORROWED` | It Takes Two and Split Fiction, mapped row by row onto whether each mechanic can reach this one |
-| `TOWER DEFENCE` | the same for 2D tower defence — what else a slick, a bulb or a meteor could be, with the reference pictures linked from those games' own wikis |
 | `PARKED` | deferred on purpose, or examined and turned down with the reason |
-| `SPEC` | every file in `docs/spec/`, verbatim |
+| `GUIDES` | not unbuilt — the two review pictures a shipping guide is put to, here for the full-screen frame and nothing else; the tab says so in its own first paragraph |
+
+`SPEC` was a tab here and is one of `▣ DOCUMENTATION`'s now: `docs/spec/` read
+verbatim describes the shield, the beat and the cannon as much as it describes
+what is still an argument, and reference does not belong under a heading
+reading NOT BUILT YET. `TOWER DEFENCE` and `CLAUDE VS CHATGPT` were tabs here
+until the owner took them off the sheet; `docs/tower-defence.md` stays in the
+repository and is cited across `tools/shape-sheet`.
 
 **BOSSES, BESTIARY and MECHANICS read in one column.** Each is a page somebody
 goes down heading by heading to decide what is worth building, and a grid of
@@ -213,7 +219,7 @@ happens*: a phone-shaped frame at 380 × 820, the tile a device actually gets,
 with the unbuilt body standing in a lane at the size the game would draw it.
 
 The frame is the game. It is `frameWorld` — `Canvas2DRenderer` against a real
-`World`, the same arrangement GAME MECHANICS makes — so the hull, the band, the radar
+`World`, the same arrangement DOCUMENTATION makes — so the hull, the band, the radar
 strip and every creature the scene *spawns* are the shipping renderer's, not an
 impression of one. Only the unbuilt bodies are drawn on top, in bone rather
 than in any of the field's own colours, because cyan is a bulb and red is a
@@ -255,11 +261,12 @@ from the original draft" stays attached to The Blind One.
 One caution, in the spec's own words: a name here is a label on an unbuilt
 design and costs one edit to change. Nothing in the simulation depends on it.
 
-## GAME MECHANICS
+## DOCUMENTATION
 
-`▣ GAME MECHANICS` is the third full-screen sheet, and the only one whose own
+`▣ DOCUMENTATION` is the third full-screen sheet, and the only one whose own
 tab is pictures rather than prose. It also holds the things that used to have
-topbar buttons of their own — CONTROL SETS, SHIP, DEMOS, GUIDES — and TUNING,
+topbar buttons of their own — CONTROL SETS, SHIP, DEMOS, GUIDES — SPEC, off
+NOT BUILT YET, and TUNING,
 which used to sit in the wave panel while its own note said it was the run and
 not the wave.
 
@@ -382,7 +389,7 @@ already visible.
 
 ## The game, and its main menu
 
-`▶ MAIN MENU`, in GAME MECHANICS' own header rather than the topbar, opens the
+`▶ MAIN MENU`, in DOCUMENTATION's own header rather than the topbar, opens the
 game — this tree's source, bundled by
 this same server on `/game`, so it needs no preview running beside it — with
 `?menu` set, which the game has read as its default since the menu became the
@@ -418,8 +425,7 @@ there is no repository behind a static bundle. `tools/director/build.ts` is
 that build: it bundles the client exactly like the game's own build, then
 bakes every *read* route the client already calls (`/api/waves`, from
 `@neon-spore/content`, the same compiled source the game itself reads;
-`/api/backlog`, `/api/borrowed`, `/api/tower-defence`, `/api/spec`,
-`/api/notes`) into a plain
+`/api/backlog`, `/api/borrowed`, `/api/spec`, `/api/notes`) into a plain
 file at the same path under `dist/api/`. A static host answering
 `GET /api/backlog` with a file looks identical to `server.ts` answering it
 with a handler, so none of `backlog-page.ts`, `spec.ts`, `whole-doc.ts` or
@@ -435,10 +441,10 @@ says `false` — one flag, one route, read the same way regardless of which of
 the two is running underneath it. The header says once, next to the status
 line, that a shipped build shows what was built rather than what is on disk.
 
-Everything else that only ever reads — the wave list, GAME MECHANICS,
+Everything else that only ever reads — the wave list, DOCUMENTATION,
 CONTROLS, SOUND, the shape catalogue, the whole of NOT BUILT YET including
 VERSUS — is either baked the way waves are or was never networked in the
-first place (`ORPHANS`, `GAME MECHANICS` and the rest compute straight from
+first place (`ORPHANS`, `DOCUMENTATION` and the rest compute straight from
 `@neon-spore/content` and `@neon-spore/sim`), and keeps working, including
 editing and painting in memory: nothing but the actual write survives a
 reload, but nothing stops you exploring one before it does.
@@ -488,7 +494,7 @@ The `WAVE` tab's own `BRIEFING` line answers the other half of the same
 question: what the wave being edited actually puts in front of a pair — its
 introduction, and then the guide written in the `GUIDE` section right below,
 or nothing. `src/wave-opening.ts` reads that off the store's live entry, so an
-edit not yet saved shows there immediately. `▣ GAME MECHANICS → GUIDES` lists
+edit not yet saved shows there immediately. `▣ DOCUMENTATION → GUIDES` lists
 every wave that carries one, and `◇ NOT BUILT YET → GUIDES` holds both screens
 of each side by side — those pages ask the shipped waves, this line asks the
 stage.

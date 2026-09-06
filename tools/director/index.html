@@ -66,7 +66,7 @@
       <button type="button" id="notesOpen" class="menu-item">≡ RELEASE NOTES</button>
       <button type="button" id="orphansOpen" class="menu-item">☠ ORPHANS 0</button>
       <button type="button" id="backlogOpen" class="menu-item">◇ NOT BUILT YET</button>
-      <button type="button" id="statesOpen" class="menu-item">▣ GAME MECHANICS</button>
+      <button type="button" id="statesOpen" class="menu-item">▣ DOCUMENTATION</button>
       <button type="button" id="soundOpen" class="menu-item">♪ SOUND</button>
     </header>
 
@@ -100,7 +100,7 @@
              field below instead.
              TUNING was the second tab here — PAIR, PRESET and the sliders
              together, the numbers a run is judged against rather than
-             anything saved to the wave. It left for GAME MECHANICS' own
+             anything saved to the wave. It left for DOCUMENTATION's own
              TUNING tab, which is why
              only WAVE remains and this bar no longer needs to switch
              anything. -->
@@ -248,7 +248,7 @@
       <div id="orphansBody"></div>
     </div>
 
-    <!-- GAME MECHANICS: the topbar's four reference doors — CONTROL SETS,
+    <!-- DOCUMENTATION: the topbar's four reference doors — CONTROL SETS,
          SHIP, DEMOS and STATES — folded into one full-screen sheet, one tab
          per room, the same shell #backlog already uses (#backlogTabs over
          #backlogBody). TUNING joined them from the wave panel's own TUNING
@@ -257,6 +257,14 @@
          its own top-level sheet for the same reason as every other door
          here: one less button in a topbar that had two, and nothing about
          reading a guide needs a sheet CONTROLS or SHIP does not already have.
+         SPEC joined last, off NOT BUILT YET: docs/spec/ describes the game
+         that exists at least as much as the game that does not, and a sheet
+         headed NOT BUILT YET was the wrong place to read it from.
+
+         It is called GAME MECHANICS no longer, and the ids did not follow.
+         #states, #statesTabs and the mech- page prefix keep their names
+         because ?sheet=states is a URL somebody has bookmarked — renaming
+         them buys a tidier grep and breaks a restore.
 
          MAIN MENU is not a room — it is a link out to the running game, with
          no content of its own to fold in — so it sits in this sheet's own
@@ -264,12 +272,12 @@
          than living behind one of them. -->
     <div id="states">
       <header>
-        <span class="title">GAME MECHANICS</span>
+        <span class="title">DOCUMENTATION</span>
         <span class="sub">
           reference: what a control set contains, what the ship's dials are,
           what a mechanic looks like demonstrated, every state the game can be
-          held in, every guide a wave carries — and TUNING, the one live
-          control kept alongside them
+          held in, every guide a wave carries, and the design spec itself —
+          and TUNING, the one live control kept alongside them
         </span>
         <a id="mainMenuLink" class="linkbtn" href="/game?menu=1" target="_blank" rel="noreferrer"
           >▶ MAIN MENU</a
@@ -283,6 +291,7 @@
         <button type="button" data-tab="demos">DEMOS</button>
         <button type="button" data-tab="tuning">TUNING</button>
         <button type="button" data-tab="guides">GUIDES</button>
+        <button type="button" data-tab="spec">SPEC</button>
       </div>
       <div id="statesBody">
         <div class="sheetpage on" id="mech-states">
@@ -381,6 +390,20 @@
           </p>
           <div id="guidesBody"></div>
         </div>
+        <div class="sheetpage" id="mech-spec">
+          <p class="pagewhat">
+            Every file in docs/spec/, read off disk — the design as written,
+            before anything parsed it. NOT BUILT YET's own tabs group these
+            same files into named entries, and a group is a choice about what
+            to keep: the naming rules, the categories and the ceiling on how
+            many silhouettes stay distinct over a voice channel are none of
+            them an entry. This is the whole of it instead, and it reads here
+            rather than there because the spec describes the game that exists
+            at least as much as the game that does not.
+          </p>
+          <button type="button" class="expand" data-expand="#specFiles">EXPAND ALL</button>
+          <div id="specFiles"></div>
+        </div>
       </div>
     </div>
 
@@ -398,9 +421,6 @@
         <button type="button" data-tab="designs">DESIGNS</button>
         <button type="button" data-tab="queen">BULB QUEEN VARIANTS</button>
         <button type="button" data-tab="borrowed">BORROWED</button>
-        <button type="button" data-tab="towerdefence">TOWER DEFENCE</button>
-        <button type="button" data-tab="assistants">CLAUDE VS CHATGPT</button>
-        <button type="button" data-tab="spec">SPEC</button>
       </div>
       <div id="backlogBody">
         <div class="sheetpage on" id="sheet-bosses">
@@ -575,44 +595,6 @@
             worth as much here as a yes.
           </p>
           <div id="borrowedDoc"></div>
-        </div>
-        <div class="sheetpage" id="sheet-towerdefence">
-          <p class="pagewhat">
-            The same treatment, turned on 2D tower defence — Galaxy Defense:
-            Fortress TD, Bloons, Plants vs Zombies, Kingdom Rush and Asteroids
-            — and asking one question: what else can a slick, a bulb or a
-            meteor be, without becoming a fourth creature. Their geometry is
-            ours, so almost everything transfers and the work is saying which
-            of it we already have under another name. The pictures are linked
-            from those games' own wikis and stores, never copied in: none of
-            that art is ours and this repository is public.
-          </p>
-          <div id="towerDefenceDoc"></div>
-        </div>
-        <div class="sheetpage" id="sheet-assistants">
-          <p class="pagewhat">
-            The same treatment, turned on the tool doing the building: if the
-            subscription paying for the agent on this project changed from
-            Anthropic's to OpenAI's, which of the tasks actually done here get
-            better and which get worse. Task by task, with a verdict column,
-            and honest about what it is not — nothing in it was measured on
-            this repository, the way delegation was, and the last section says
-            what one lane built twice would have to record to settle it. The
-            vendor facts were read in September 2026 and will age; the shapes
-            behind them will not.
-          </p>
-          <div id="assistantsDoc"></div>
-        </div>
-        <div class="sheetpage" id="sheet-spec">
-          <p class="pagewhat">
-            Every file in docs/spec/, read off disk. The tabs beside this one
-            group the design into entries, and a group is a choice about what
-            to keep — the naming rules, the categories and the ceiling on how
-            many silhouettes stay distinct over a voice channel are none of
-            them an entry. This is the rest of it.
-          </p>
-          <button type="button" class="expand" data-expand="#specFiles">EXPAND ALL</button>
-          <div id="specFiles"></div>
         </div>
       </div>
     </div>

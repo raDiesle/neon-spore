@@ -22,7 +22,7 @@ import { renderTriedControls } from "./tried-controls-page.js";
 
 /**
  * CONTROLS: every registered panel, drawn, plus the things the pair touches
- * on the field itself. A tab of GAME MECHANICS (`states-page.ts` owns the
+ * on the field itself. A tab of DOCUMENTATION (`states-page.ts` owns the
  * sheet itself) rather than a sheet of its own, to save a topbar button.
  *
  * Renamed from CONTROL SETS, which only ever covered the strip below the

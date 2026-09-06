@@ -20,6 +20,7 @@ import { bindPlace, type PlaceSession } from "./session.js";
 import { renderShip, renderShipSheet } from "./ship.js";
 import { bindShipped } from "./shipped.js";
 import { bindSoundPage } from "./sound-page.js";
+import { bindSpecTab } from "./spec.js";
 import { bindStage } from "./stage.js";
 import {
   type Brush,
@@ -120,10 +121,12 @@ bindDemoPanel(
   },
   closeMechanicsSheet,
 );
-// GUIDES joined GAME MECHANICS as a tab — see `guide-sheet.ts`. Bound before
-// `bindStates` below, the same ordering `bindDemoPanel` uses, so a restore
-// straight to this tab finds the listener already wired.
+// GUIDES and SPEC joined DOCUMENTATION as tabs — see `guide-sheet.ts` and
+// `spec.ts`. Both bound before `bindStates` below, the same ordering
+// `bindDemoPanel` uses, so a restore straight to either finds its listener
+// already wired.
 bindGuidesTab();
+bindSpecTab();
 
 // `.hint` text defaults to hidden — the name is usually enough, and the full blurb is one click away in CREATURES. Persisted like the tuning presets.
 const BRUSH_HINTS_KEY = "neon-spore-director-brush-hints";

@@ -42,7 +42,7 @@ describe("ship-fields", () => {
 
   // The split the SHIP-column brief asked for: WAVE_ONLY_GROUPS
   // is what stays beside the wave being edited, SHIP_GROUPS is what moved to
-  // the SHIP tab of GAME MECHANICS (`▣`, folded off the topbar). Together
+  // the SHIP tab of DOCUMENTATION (`▣`, folded off the topbar). Together
   // they must be every group there is, with none counted twice — that is the
   // "every field stays reachable" guarantee, checked at runtime rather than
   // only argued in a comment.

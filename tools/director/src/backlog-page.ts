@@ -21,7 +21,6 @@ import { bindOrphans } from "./orphans-panel.js";
 import { onTheField } from "./scene-box.js";
 import { mountSheet } from "./session.js";
 import { isWide } from "./shape-figure.js";
-import { renderSpec } from "./spec.js";
 import { renderWholeDoc } from "./whole-doc.js";
 
 interface BacklogEntry {
@@ -187,10 +186,7 @@ async function load(): Promise<void> {
   fill("backlogMechanics", backlog.mechanics);
   fill("backlogDesigns", backlog.designs);
   void renderWholeDoc("borrowedDoc", "/api/borrowed");
-  void renderWholeDoc("towerDefenceDoc", "/api/tower-defence");
-  void renderWholeDoc("assistantsDoc", "/api/claude-vs-chatgpt");
   renderHolders();
-  void renderSpec();
   loaded = true;
 }
 

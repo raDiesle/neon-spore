@@ -26,7 +26,7 @@ import {
  * belong beside the one wave being edited. `renderShip` paints the WAVE tab's
  * SHIP card with only what the current wave actually contains — its boss, if
  * it has one, THE GAUGE included, since that is a boss now — and
- * `renderShipSheet` paints GAME MECHANICS' SHIP tab with the ship's own
+ * `renderShipSheet` paints DOCUMENTATION's SHIP tab with the ship's own
  * dials, the same on every wave. `renderShipSheet` needs no lazy render or
  * open/close wiring of its own: `main.ts` already calls it every time `cfg`
  * changes (tuning, the pair panel, a demo), so `#shipSheetBody` stays current
@@ -122,7 +122,7 @@ export function renderShip(cfg: SimConfig, wave: Wave | undefined): void {
   for (const group of groups) caps.appendChild(capEl(capability(cfg, group)));
 }
 
-/** GAME MECHANICS' SHIP tab: the ship's own dials, the same on every wave, all of them reachable. */
+/** DOCUMENTATION's SHIP tab: the ship's own dials, the same on every wave, all of them reachable. */
 export function renderShipSheet(cfg: SimConfig): void {
   const body = document.getElementById("shipSheetBody");
   if (!body) return;

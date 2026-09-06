@@ -28,9 +28,15 @@ import { bindOrderPicker } from "./guide-order.js";
  * guide is written inside the wave that plays it now, so a guide with no wave
  * cannot be expressed; what is left are the two review tools, which are
  * working aids for any guide rather than a listing of unbuilt ones. The list
- * of every guide that ships lives in GAME MECHANICS' own GUIDES tab,
+ * of every guide that ships lives in DOCUMENTATION's own GUIDES tab,
  * `guide-sheet.ts`'s `bindGuidesTab` — the same shape STATES and CONTROL
  * SETS already use for "built, and here is the proof".
+ *
+ * That leaves a tab on a sheet headed NOT BUILT YET whose content is entirely
+ * built, which reads as a gap that nobody got round to. It is not one, and the
+ * page now says so in its own first paragraph rather than leaving a reader to
+ * work it out — whether the tab should move to DOCUMENTATION beside the list
+ * is the owner's call and not a defect to be fixed quietly.
  */
 
 const TAB_ID = "cards";
@@ -54,6 +60,23 @@ export function mountCardTab(): void {
   const page = document.createElement("div");
   page.className = "sheetpage";
   page.id = `sheet-${TAB_ID}`;
+
+  // Said first, and in bold, because the heading over this whole sheet is
+  // NOT BUILT YET and every other tab under it is a list of things the game
+  // does not have. This one is not. Anybody reading the tab strip is owed
+  // that sentence before the pictures start.
+  const built = document.createElement("p");
+  built.className = "pagewhat";
+  built.textContent =
+    "Nothing on this tab is unbuilt, and nothing on it is waiting on a " +
+    "decision. Every guide drawn here ships: a guide is written inside the " +
+    "wave that plays it, so a guide with no wave cannot be expressed and " +
+    "there is no such thing as a proposed one. This tab is a review tool — " +
+    "the two questions a finished guide is put to — and it sits on this " +
+    "sheet only because this sheet already had the full-screen frame the " +
+    "pictures need. The plain list of every guide that ships is in " +
+    "DOCUMENTATION's own GUIDES tab.";
+  page.appendChild(built);
 
   const intro = document.createElement("p");
   intro.className = "note";

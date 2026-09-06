@@ -1,12 +1,19 @@
 /**
  * The SPEC tab: every file in `docs/spec/` verbatim, one expander each.
  *
- * The other panels parse the design into entries, and a parse decides what to
- * keep — the naming rules, the categories, the rejected names, the ceiling and
- * the whole of overview, structure, graphics and latency are none of them an
- * entry with a name and a badge. This is the panel that answers "what does the
- * spec actually say" without leaving the editor, so nothing on the page is
- * only reachable by opening the repository beside it.
+ * NOT BUILT YET's panels parse the design into entries, and a parse decides
+ * what to keep — the naming rules, the categories, the rejected names, the
+ * ceiling and the whole of overview, structure, graphics and latency are none
+ * of them an entry with a name and a badge. This is the panel that answers
+ * "what does the spec actually say" without leaving the editor, so nothing on
+ * the page is only reachable by opening the repository beside it.
+ *
+ * **It is a tab of DOCUMENTATION, not of NOT BUILT YET.** It sat under the
+ * unbuilt heading for as long as the parsed panels it was the remainder of,
+ * and that was the wrong reading of it: `docs/spec/` describes the shield, the
+ * beat and the cannon — all of them shipped — as much as it describes what is
+ * still an argument. A file read verbatim is reference, and reference is what
+ * that sheet is for.
  */
 
 import { detailBox } from "./markdown.js";
@@ -40,6 +47,26 @@ function headline(text: string): string {
   if (flat.length <= HEADLINE_MAX) return flat;
   const cut = flat.slice(0, HEADLINE_MAX);
   return `${cut.slice(0, cut.lastIndexOf(" "))}…`;
+}
+
+let drawn = false;
+
+/**
+ * Lazy like every other room of that sheet — `controlsets-page.ts`'s
+ * `bindControlSetsTab`, `guide-sheet.ts`'s `bindGuidesTab`: twenty files read
+ * over a fetch and folded into twenty expanders is not work a session that
+ * opened DOCUMENTATION for the STATES cards should pay for. A restore straight
+ * to this tab (`?sheet=states&inner=spec`) fires the same click `mountSheet`
+ * already drives for every inner tab, so it must be wired before `bindStates`.
+ */
+export function bindSpecTab(): void {
+  document
+    .querySelector<HTMLButtonElement>('#statesTabs button[data-tab="spec"]')
+    ?.addEventListener("click", () => {
+      if (drawn) return;
+      drawn = true;
+      void renderSpec();
+    });
 }
 
 export async function renderSpec(): Promise<void> {

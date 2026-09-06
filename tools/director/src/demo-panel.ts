@@ -11,7 +11,7 @@ import type { Store } from "./state.js";
 
 /**
  * DEMOS — one wave and one set of switches per mechanic, opened in one click.
- * A tab of GAME MECHANICS (`states-page.ts` owns the sheet itself) rather
+ * A tab of DOCUMENTATION (`states-page.ts` owns the sheet itself) rather
  * than a sheet of its own, to save a topbar button. Its own
  * Escape/backdrop/CLOSE routes went with the sheet: the outer
  * one already covers all three, since a tab has nothing of its own to close.
@@ -47,7 +47,7 @@ function el(tag: string, cls = "", text = ""): HTMLElement {
 
 /**
  * `onOpen` lands the demo's wave and config on the stage the same way any
- * other jump to a wave does; `closeMechanics` then dismisses GAME MECHANICS
+ * other jump to a wave does; `closeMechanics` then dismisses DOCUMENTATION
  * entirely — the one thing this tab's own CLOSE button used to do, now that
  * it has none of its own. `states-page.ts`'s `closeMechanicsSheet` is what
  * `main.ts` passes in.

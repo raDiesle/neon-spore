@@ -3,7 +3,7 @@ import { waveLabel, wavesWithGuides } from "./guide-waves.js";
 
 /**
  * GUIDES: every wave that carries a guide, in the order a pair plays them. A
- * tab of GAME MECHANICS (`states-page.ts` owns the sheet itself) rather than
+ * tab of DOCUMENTATION (`states-page.ts` owns the sheet itself) rather than
  * a sheet of its own — one fewer topbar button, the same reasoning DEMOS and
  * TUNING joined that sheet for. Its own file since `guide-page.ts` (the NOT
  * BUILT YET tab, the other half of the same split) crossed the 250-line

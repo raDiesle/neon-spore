@@ -49,7 +49,7 @@ export function waveMarks(waves: readonly Wave[], index: number): HTMLElement[] 
    *
    * No `title` — a tooltip here is what the owner rejected — and no second
    * copy of the guide's own text, which already sits under SENTENCE. This is
-   * a glance-level flag and a shortcut into GAME MECHANICS' GUIDES tab.
+   * a glance-level flag and a shortcut into DOCUMENTATION's GUIDES tab.
    *
    * A span, not a nested button: a button inside a button is invalid markup,
    * and the click needs its own stop or it would also re-select the row. Two

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 
 /**
- * DEMOS is a tab of GAME MECHANICS now, not a sheet of its own, to save a
+ * DEMOS is a tab of DOCUMENTATION now, not a sheet of its own, to save a
  * topbar button. It used to carry its own
  * Escape/backdrop/CLOSE wiring, checked here the same way `sheet.test.ts`
  * checks the backlog's: `bindDemoPanel` is `document.getElementById` end to
@@ -21,7 +21,7 @@ describe("the DEMOS tab", () => {
     expect(source).toMatch(/tab\?\.addEventListener\("click", render\)/);
   });
 
-  it("closes GAME MECHANICS, not a sheet of its own, once a demo is picked", () => {
+  it("closes DOCUMENTATION, not a sheet of its own, once a demo is picked", () => {
     expect(source).toMatch(/onOpen\(\);\s*closeMechanics\(\);/);
   });
 

@@ -44,3 +44,21 @@ describe("the backlog sheet", () => {
     for (const id of ids) expect(html).toContain(`id="${id}"`);
   });
 });
+
+/**
+ * The same disagreement, on the other full-screen sheet. DOCUMENTATION grew a
+ * SPEC tab off this one, and a tab whose page is missing fails exactly as
+ * quietly there: `bindTabs` switches to `mech-<tab>`, finds nothing, and the
+ * sheet goes blank. Derived rather than listed, for the reason above.
+ */
+describe("the documentation sheet", () => {
+  it("gives every tab a page to switch to", () => {
+    const bar = html.indexOf('id="statesTabs"');
+    const tabs = matches(html.slice(bar, html.indexOf("</div>", bar)), /data-tab="([^"]+)"/g);
+
+    expect(tabs).toContain("spec");
+    for (const tab of tabs) {
+      expect(html).toMatch(new RegExp(`class="sheetpage[^"]*" id="mech-${tab}"`));
+    }
+  });
+});
