@@ -905,7 +905,6 @@ place — the generator keeps whatever is there.
 | `tools/director/src/raster-cards.ts` | The card builders for "THE BURST, THREE WAYS" and the caps table for "WHAT THIS BROWSER CAN DO" |
 | `tools/director/src/raster-demos.ts` | The three canvas demos on the RASTER tab — the atlas driven by hand, outside a `World` |
 | `tools/director/src/raster-field.ts` | A real wave, playable, with the baked burst on a switch |
-| `tools/director/src/raster-page.ts` | The OTHER GRAPHICS tab: every look offered beside what the field already draws, never in place of it |
 | `tools/director/src/raster-play.ts` | "PLAY IT" — the section that puts the burst where it would actually live |
 | `tools/director/src/scene-art.ts` | The unbuilt half of a scene, drawn over a real frame of the game |
 | `tools/director/src/scene-box.ts` | `⌖ ON THE FIELD`, beside a backlog entry: the idea drawn where it happens |
@@ -983,7 +982,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/tuning.ts` | The numbers a wave is judged against, movable while it plays |
 | `tools/director/src/versus-controls.ts` | The generic widgets a live ALTERNATIVES screen runs on — a toggle button and a rate picker |
 | `tools/director/src/versus-hash.ts` | FNV-1a over every byte — not a cryptographic claim, only "did two renders match" |
-| `tools/director/src/versus-page.ts` | The ALTERNATIVES section: a contact sheet, not an instrument |
+| `tools/director/src/versus-page.ts` | The ALTERNATIVES list: every open candidate as a door, and nothing drawn |
 | `tools/director/src/versus-pair.ts` | One phone pair, one world, one frame — the engine half of the ALTERNATIVES sheet |
 | `tools/director/src/versus-pose.ts` | Which pose puts a slot's own animation on screen |
 | `tools/director/src/versus-seat.ts` | Whether a candidate needs the other seat drawn beside it — decided once, honestly, rather than guessed |
@@ -1126,5 +1125,11 @@ place — the generator keeps whatever is there.
 | `tools/director/src/field-control-def.ts` | **What one row of the ON THE FIELD tab is**, and nothing that fills one in |
 | `tools/shape-sheet/src/veer-subject.ts` | **THE VEER**: the meteor with its rider on it, the one card made of a shape already on the sheet plus something over the top |
 | `tools/shape-sheet/src/rock-subjects.ts` | Everything on this sheet that is faceted rather than grown: the builder that draws a crystal |
+| `tools/director/src/animations-page.ts` | BAKED ANIMATIONS — every PNG, APNG and animated WebP example, on a page of its own that opens in a new tab |
+| `tools/director/src/poses-versus.ts` | The states a candidate look is judged on — one per slot that had none |
+| `tools/director/src/versus-app.ts` | `versus.html` — the page a VERSUS door opens into, and the whole of its routing |
+| `tools/director/src/versus-one.ts` | One candidate, alone, on a page of its own — the live half of VERSUS |
+| `tools/director/src/versus-open.ts` | Where a look opens, and how a page links to it |
+| `tools/director/src/versus-tab.ts` | The VERSUS tab: every look offered beside what the field already draws, never in place of it |
 
 <!-- index:code:end -->

@@ -1,39 +1,31 @@
 import { detectRasterCaps } from "@neon-spore/render";
-import { button, el } from "./dom.js";
+import { el } from "./dom.js";
 import { drawGallery, gallerySection } from "./gallery-page.js";
 import { apngCard, capsTable, DEMO_W, stripCard, waysCard, webpCard } from "./raster-cards.js";
 import { hitDemo, powerupDemo } from "./raster-demos.js";
 import { drawPlay, playSection } from "./raster-play.js";
-import { drawVersus, mountVersusSection } from "./versus-page.js";
 
 /**
- * The OTHER GRAPHICS tab: every look offered beside what the field already
- * draws, never in place of it. Three kinds live here together — a baked
- * animation (this file), a candidate patch on a shipped record
- * (`versus-page.ts`'s ALTERNATIVES section), and hand-painted frame
- * sequences with no shipped counterpart at all (`gallery-page.ts`'s
- * COLLECTED LOOKS) — because all three answer the same question, "here is a
- * second answer, go look at it", and a second tab for each one was two
- * clicks to see one idea. See CLAUDE.md's *A look is offered, never
- * replaced* and `apps/game/src/raster.ts`'s `?raster=1`, which is the same
- * atlas installed into the same class this page drives by hand.
+ * BAKED ANIMATIONS — every PNG, APNG and animated WebP example, on a page of
+ * its own that opens in a new tab.
  *
- * Mounted the way GUIDES is (`guide-page.ts`): a tab button and an empty page
- * appended to the backlog sheet's own bar before `bindTabs` runs, placed
- * right after SHAPES rather than at the end of the bar — the two are the
- * pages a look gets judged on. `mountRasterTab` only writes the static prose
- * and the empty mounts the sections draw into — nothing here fetches or
- * animates. That is `drawRaster`'s job, run once on first click, which also
- * triggers ALTERNATIVES' and COLLECTED LOOKS' own lazy draw. The card
- * builders and the caps table live in `raster-cards.ts`, split out to keep
- * this file under the line ceiling.
+ * It used to be the top half of the OTHER GRAPHICS tab, above the candidate
+ * looks, and it is here for the reason the candidates moved out too: a
+ * sixteen-frame burst played three ways, a looping aura, a live field and two
+ * decoded probe images are five animations running the whole time the tab is
+ * open, whether the thing being looked at is one of them or not. The owner
+ * asked for the examples off the list and behind a button, and this is the
+ * button's destination — reached from the VERSUS tab (`versus-tab.ts`)
+ * through `versus-open.ts`'s `animationsUrl`.
+ *
+ * Nothing on this page is on the field. The hit a cannon shot lands still
+ * draws the shipped procedural sparks, byte for byte, exactly as it did
+ * before this page existed — CLAUDE.md's *A look is offered, never replaced*.
  */
-
-const TAB_ID = "raster";
 
 /**
  * Copied from `assets/raster/burst.json` by hand rather than imported, so the
- * byte counts on the page are literal numbers and not a fetch this tab would
+ * byte counts on the page are literal numbers and not a fetch this page would
  * otherwise make merely to print a label. `tools/raster/test/assets.test.ts`
  * checks the generator's own manifest against `sprite-burst.ts`'s
  * `BURST_SHEET`; if these three numbers ever drift from `burst.json` it is
@@ -43,42 +35,20 @@ const BYTES = { strip: 80_406, apng: 202_470, webp: 84_270 };
 
 const DEMO_H = 300;
 
-export function mountRasterTab(): void {
-  const tabs = document.getElementById("backlogTabs");
-  const body = document.getElementById("backlogBody");
-  if (!tabs || !body || document.getElementById(`sheet-${TAB_ID}`)) return;
-
-  const tab = button("OTHER GRAPHICS");
-  tab.dataset.tab = TAB_ID;
-  // Next to SHAPES, not appended at the end of the bar — the two are the
-  // pages a look gets judged on, and `insertBefore(x, null)` is `appendChild`
-  // for the case SHAPES's own tab button is somehow not there yet.
-  const shapesTab = tabs.querySelector<HTMLElement>('[data-tab="shapes"]');
-  tabs.insertBefore(tab, shapesTab?.nextSibling ?? null);
-
-  const page = el("div", "sheetpage");
-  page.id = `sheet-${TAB_ID}`;
-
-  page.appendChild(
+/** The static half: prose and empty mounts. `drawAnimations` fills them. */
+export function mountAnimations(host: HTMLElement): void {
+  host.appendChild(el("h1", "", "BAKED ANIMATIONS"));
+  host.appendChild(
     el(
       "p",
       "note",
-      "Nothing on this page is on the field. The hit a cannon shot lands still " +
-        "draws the shipped procedural sparks, byte for byte, exactly as it did " +
-        "before this page existed — see CLAUDE.md's *A look is offered, never " +
-        "replaced*.",
+      "A look, offered for the owner to accept, improve or throw away: a baked " +
+        "animation, drawn a few different ways, standing in for where the " +
+        "field's own spark could one day be replaced. Nothing here is on the " +
+        "field — see CLAUDE.md's *A look is offered, never replaced*.",
     ),
   );
-  page.appendChild(
-    el(
-      "p",
-      "note",
-      "What is below is a look, offered for the owner to accept, improve or " +
-        "throw away: a baked animation, drawn a few different ways, standing in " +
-        "for where the field's own spark could one day be replaced.",
-    ),
-  );
-  page.appendChild(
+  host.appendChild(
     el(
       "p",
       "note",
@@ -87,14 +57,12 @@ export function mountRasterTab(): void {
     ),
   );
 
-  page.appendChild(playSection());
-  page.appendChild(threeWaysSection());
-  page.appendChild(powerupSection());
-  page.appendChild(hitSection());
-  page.appendChild(capsSection());
-  page.appendChild(gallerySection());
-  mountVersusSection(page);
-  body.appendChild(page);
+  host.appendChild(playSection());
+  host.appendChild(threeWaysSection());
+  host.appendChild(powerupSection());
+  host.appendChild(hitSection());
+  host.appendChild(capsSection());
+  host.appendChild(gallerySection());
 }
 
 function threeWaysSection(): HTMLElement {
@@ -186,18 +154,9 @@ function capsSection(): HTMLElement {
   return section;
 }
 
-let drawn = false;
-
-/**
- * Built on first sight of the tab, not on page load — three animated canvases
- * and two decoded images are not work a session that came here to place a
- * creature on the grid should pay for. Matches the lazy draw `guide-page.ts`
- * and `versus-page.ts` already do.
- */
-export function drawRaster(): void {
-  if (drawn) return;
-  drawn = true;
-  drawVersus();
+/** The moving half. Called once, after `mountAnimations` — this page exists
+ * to run these, so there is nothing lazy left to defer them behind. */
+export function drawAnimations(): void {
   drawGallery();
 
   const play = document.getElementById("rasterPlayMount");

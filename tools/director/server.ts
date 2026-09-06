@@ -5,6 +5,7 @@ import { backlogState } from "./src/backlog-api.js";
 import { DOC_ROUTES, readSpecFiles } from "./src/docs-api.js";
 import { notesState } from "./src/notes-api.js";
 import { saveWaves, wavesState } from "./src/waves-api.js";
+import versusHtml from "./versus.html";
 
 /**
  * The director's server. It exists for one reason the game's preview does not
@@ -114,6 +115,10 @@ const server = Bun.serve({
   development: true,
   routes: {
     "/": indexHtml,
+    // One look, on a page of its own, routed by its query string
+    // (`src/versus-app.ts`). Spelled with the extension because that is what
+    // `build.ts` writes into `dist/`, and a link has to work under both.
+    "/versus.html": versusHtml,
 
     /**
      * The game itself, from this tree's source, so the main menu has a door

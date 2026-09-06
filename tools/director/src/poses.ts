@@ -2,6 +2,7 @@ import type { PoseGroup } from "./pose-kit.js";
 import { FIELD_GROUPS } from "./poses-field.js";
 import { MECHANIC_POSES } from "./poses-mechanics.js";
 import { CONTROL_POSES } from "./poses-ship.js";
+import { VERSUS_GROUP } from "./poses-versus.js";
 
 /**
  * Every state the STATES sheet draws, in reading order.
@@ -30,4 +31,5 @@ export const POSE_GROUPS: PoseGroup[] = [
     poses: MECHANIC_POSES,
   },
   ...FIELD_GROUPS,
+  VERSUS_GROUP,
 ];

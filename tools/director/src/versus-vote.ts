@@ -10,11 +10,12 @@ import { button, el } from "./dom.js";
 /**
  * The vote box: the reason field, the two buttons and the swap-guard banner.
  *
- * Split out of `versus-page.ts` because that file sits at the 250-line
- * ceiling and the slot picker `docs/decisions.md` #24 calls for needed room
- * that this did not. `emit` is the only place the clipboard prompt in
- * `docs/versus.md`'s "The prompt a vote emits" is built — see the docstring on
- * it for what it deliberately is not yet.
+ * Split out of what is now `versus-page.ts` because that file sat at the
+ * 250-line ceiling and the slot picker `docs/decisions.md` #24 calls for
+ * needed room that this did not. It is mounted by `versus-one.ts`, one vote
+ * per look, on the look's own page. `emit` is the only place the clipboard
+ * prompt in `docs/versus.md`'s "The prompt a vote emits" is built — see the
+ * docstring on it for what it deliberately is not yet.
  */
 
 /** What a vote was cast against — two fields on the `/api/notes` view. */
@@ -84,7 +85,7 @@ function emit(slot: Slot, won: Variant | null, why: string, head: Head): void {
   void navigator.clipboard?.writeText(lines.join("\n"));
 }
 
-/** Built once per slot; `versus-page.ts` calls `setCandidate` on every switch. */
+/** Built once per candidate; `versus-one.ts` calls `setCandidate` before mounting it. */
 export function buildVoteBox(slot: Slot, head: Head): VoteBox {
   const why = document.createElement("textarea");
   why.placeholder = "why — the sentence that outlives the vote";

@@ -99,6 +99,26 @@ already spent. So:
   which refuses an unparseable colour, a NaN coordinate or a negative radius —
   and any `poseAt` patch is held against spec 5.8's quarter-tile lane limit.
 
+## A new slot needs a pose
+
+The director's VERSUS tab lists every open candidate and draws none of them:
+each one opens in a tab of its own, where it is the only thing the browser is
+animating. What it opens onto is a **pose** — a world run into the state the
+slot is about — and the map from slot to pose is
+`tools/director/src/versus-pose.ts`.
+
+**A slot with no entry in that map falls through to a red slick falling**,
+which for five of the nine open slots meant a candidate was drawn twice beside
+a body it does not touch: two identical pictures, and a vote offered on a
+difference nobody could see. So a new slot writes its pose in
+`tools/director/src/poses-versus.ts` and names it in the map, in the same
+commit as the candidate. `tools/director/test/versus-pose.test.ts` fails on a
+slot that does not, which is the only thing keeping that from happening again.
+
+A pose whose whole difference lives in one instant — a shot arriving, a plate
+turning one away, a hand pushing a body — carries `cadenceSeconds` so the pair
+replays it every two seconds. A pose that is on screen the whole time does not.
+
 ## Deciding one
 
 At the pair, never here. `bun run versus` answers the half a browser cannot: a

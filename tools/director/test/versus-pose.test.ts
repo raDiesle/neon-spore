@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test";
+import { controlSetForWave, setHas } from "@neon-spore/content";
 import { chargeMilli, laying, step } from "@neon-spore/sim";
 import { VARIANTS } from "../../versus/candidates/index.js";
 import { slots } from "../../versus/variant.js";
@@ -28,6 +29,60 @@ describe("poseForSlot", () => {
     expect(poseForSlot("cannon:shot").name).toBe("SHOT · BEING LAID");
     expect(poseForSlot("cannon:mouth").name).toBe("SHOT · BEING LAID");
     expect(poseForSlot("shield:ward").name).toBe("WARD · DEFLECTED");
+  });
+
+  /**
+   * The owner's complaint, as a test: *"is it showing the right enemies? it
+   * always shows slick."* Every slot resolving to a real pose was never the
+   * question — `SLICK · FALLING` is a real pose, and it is what five of the
+   * nine open candidates were being compared on. What has to hold is that the
+   * pose puts the slot's **own subject** on the field, and that is a different
+   * assertion from the one above it.
+   */
+  test("no open slot falls through to the default pose", () => {
+    for (const slot of slots(VARIANTS)) {
+      expect(poseForSlot(slot.slot).name, slot.slot).not.toBe("SLICK · FALLING");
+    }
+  });
+
+  test("each creature slot's pose actually puts that creature on the field", () => {
+    const kinds: Record<string, string> = {
+      "creature:meteor": "meteor",
+      "creature:magnet": "magnet",
+      "creature:strand": "strand",
+      "crawler:pulse": "crawler",
+    };
+    for (const [slot, kind] of Object.entries(kinds)) {
+      const world = poseForSlot(slot).build();
+      expect(
+        world.creatures.some((c) => c.kind === kind),
+        `${slot} · ${poseForSlot(slot).name}`,
+      ).toBe(true);
+    }
+  });
+
+  test("the meteor is handed over with a bolt still in the air", () => {
+    // The defect: `METEOR · CRATERED` spent all four shots inside `build`, so
+    // the pair opened on a rock that was already full of holes and never saw
+    // one open. A candidate for how a crater opens had nothing to show.
+    const world = poseForSlot("creature:meteor").build();
+    const bullet = world.bullets[0];
+    const rock = world.creatures[0];
+    expect(bullet).toBeDefined();
+    expect(rock?.holes ?? 0).toBeGreaterThanOrEqual(3);
+    expect((bullet?.row ?? 0) - (rock?.row ?? 0)).toBeLessThanOrEqual(2);
+  });
+
+  test("the grip pose has actually pushed the body, which is what its ring is about", () => {
+    const world = poseForSlot("grip:ring-pause").build();
+    expect(world.creatures[0]?.pushBeat).toBeDefined();
+  });
+
+  test("the band pose draws a wave whose control set carries both action faces", () => {
+    const world = poseForSlot("panel:action-face").build();
+    const set = controlSetForWave(world.wave);
+    expect(setHas(set, "guard"), set.id).toBe(true);
+    expect(setHas(set, "intake"), set.id).toBe(true);
   });
 
   test("a cannon slot is handed a world with the shot still in the muzzle", () => {

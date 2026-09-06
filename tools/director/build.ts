@@ -42,6 +42,7 @@ const here = new URL("./", import.meta.url);
 const repoRootPath = Bun.fileURLToPath(new URL("../../", import.meta.url));
 const distDir = Bun.fileURLToPath(new URL("./dist/", here));
 const indexHtml = Bun.fileURLToPath(new URL("./index.html", here));
+const versusHtml = Bun.fileURLToPath(new URL("./versus.html", here));
 
 // Emptied rather than deleted, for the reason `apps/game/build.ts` gives at
 // length: on Windows a handle on the directory node makes the directory itself
@@ -53,7 +54,7 @@ for (const name of await readdir(distDir)) {
 }
 
 const result = await Bun.build({
-  entrypoints: [indexHtml],
+  entrypoints: [indexHtml, versusHtml],
   outdir: distDir,
   minify: true,
   sourcemap: "linked",

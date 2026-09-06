@@ -143,15 +143,20 @@ export const rock = (col: number, kind: SpawnEntry["kind"] = "meteor", beat = 0)
  * every pose would quietly re-time the shot in every other picture on the
  * sheet, including the ones a candidate hull skin is being judged in. A pose
  * that needs a rule turned on says so itself.
+ *
+ * `waveIndex` is the same kind of exception, for one pose. The band draws
+ * whatever `WAVES[world.wave].controls` names, and wave 0 is `standard1` — no
+ * GUARD, no INTAKE — so no pose had ever drawn an ACTION face.
  */
 export function fresh(
   queue: SpawnEntry[] = [],
   pods: PodEntry[] = [],
   boss: BossEntry | null = null,
   cfg: Partial<SimConfig> = {},
+  waveIndex = 0,
 ): World {
   const world = createWorld({ ...POSE_CONFIG, ...cfg }, 11);
-  startWave(world, 0, queue, pods, boss);
+  startWave(world, waveIndex, queue, pods, boss);
   return world;
 }
 

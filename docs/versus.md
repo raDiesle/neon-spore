@@ -262,3 +262,56 @@ to them entirely; only the director's `bun run shapes:page` draws it. Anyone
 comparing these candidates on the still sheet will see no difference at all
 and conclude, wrongly, that there is none.
 
+
+## How it is arranged now — 6 September 2026
+
+The design above is unchanged in every part that decides anything: one world,
+one frame, both sides through the shipping renderer at 380 × 820 uncapped, the
+patch held for the length of one `draw()` and put back in a `finally`, one
+seeded random stream per side per frame, and a vote that writes nothing. What
+changed is **how many of those run at once**, and **what a candidate is drawn
+against** — two complaints from the owner, both of them about the same page.
+
+**The tab is called VERSUS.** It was OTHER GRAPHICS, which is the one name
+nothing else in this repository uses: this document, `tools/versus/`, every
+session and the owner himself say VERSUS. `tools/director/src/versus-tab.ts`.
+
+**The tab draws nothing.** Nine open candidates meant eighteen phone-sized
+renderers stepping eighteen worlds, plus five baked animations, from the moment
+the tab was opened — and the owner met that as the page being too slow to use
+rather than as the page being complete. The tab is now a list: one block per
+slot, one card per candidate, its sentence, the records it patches, the pose it
+will be judged on, and a button. The button opens `versus.html?slot=…&name=…`
+in a new tab, where that one comparison is the only thing the browser is
+animating (`versus-page.ts` lists, `versus-one.ts` draws, `versus-app.ts`
+routes). The baked animations — every PNG, APNG and animated WebP example, the
+live field they are judged on, and the hand-painted COLLECTED LOOKS — moved
+behind the same kind of button, to `versus.html?page=animations`
+(`animations-page.ts`).
+
+`server.ts` answers `/versus.html`; `build.ts` carries it as a second HTML
+entrypoint, so the static bundle gets a `dist/versus.html` a host
+serves under that name. Every link is written `versus.html?…`, relative and with the
+extension, because that is the one spelling both of those answer.
+
+**Every open slot is now drawn on its own subject.** `versus-pose.ts` mapped
+three slots to a pose and let everything else fall through to `SLICK ·
+FALLING`, so a candidate for the crawler's pulse, the magnet's plate, the
+strand's bead, the grip's ring or the band's ACTION face was compared against a
+red slick that none of them touches: two identical pictures, and a vote offered
+on a difference nobody could see. The owner named it exactly — *"it always
+shows slick"*, and *"I can't see a difference on CRAWLER:PULSE"*, which was the
+same fact twice. `poses-versus.ts` is six new poses, one per slot that had
+none, and `test/versus-pose.test.ts` now asserts that no open slot resolves to
+the default and that each creature slot's pose actually puts that creature on
+the field.
+
+Two of the six are worth naming because they change what a slot can be judged
+on at all. `METEOR · A SHOT ARRIVING` hands the pair a world with the fourth
+bolt still two tiles under the rock, so the crater opens on screen — the old
+`METEOR · CRATERED` spent all four shots inside `build`, where nobody saw one
+open. And `BAND · THE ACTION FACES` starts wave 13 rather than wave 0, because
+wave 0's control set is `standard1` — a cannon and a red button — so no pose on
+the sheet had ever drawn a GUARD or an INTAKE face, and the `panel:action-face`
+slot had nothing on screen to argue about. `pose-kit.ts`'s `fresh` takes a wave
+index for that one pose and says so.

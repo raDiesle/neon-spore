@@ -208,3 +208,57 @@
   font-size: 11px;
   line-height: 1.65;
 }
+
+/* The VERSUS tab is a list of doors now, not a contact sheet of live
+   renderers: one block per slot, one card per candidate, and a button
+   that opens exactly that comparison in a tab of its own. See
+   `versus-tab.ts` for why, and `versus-one.ts` for what opens. */
+.versus-slot {
+  margin: 22px 0 0;
+}
+.versus-slot h3 {
+  margin: 0 0 2px;
+  color: var(--gold);
+  font-size: 11px;
+  letter-spacing: 3px;
+}
+/* Which picture the comparison is made on. It is the answer to "what am I
+   even looking at" and it belongs beside the thing being looked at rather
+   than in a file, so it is prose in the page's own colour, not a footnote. */
+.versus-showing {
+  margin: 0 0 10px;
+  max-width: 620px;
+  color: var(--dim);
+  font-size: 9px;
+  line-height: 1.6;
+  letter-spacing: 1px;
+}
+.versus-door {
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--line-soft);
+  border-radius: 6px;
+}
+.versus-door .versus-name,
+.versus-door .versus-patch {
+  min-height: 0;
+  max-width: 720px;
+}
+.versus-door .versus-patch {
+  margin-bottom: 8px;
+}
+
+/* `versus.html`: one look, on a page of its own. No columns, no map, no
+   topbar — the page is the picture, so it gets margins and nothing else. */
+body.standalone {
+  margin: 0;
+  padding: 18px 22px 60px;
+}
+body.standalone .sheetpage {
+  display: block;
+}
+body.standalone h1 {
+  margin: 0 0 10px;
+  font-size: 14px;
+  letter-spacing: 4px;
+}

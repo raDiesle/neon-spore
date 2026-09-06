@@ -46,6 +46,20 @@ export function playSection(): HTMLElement {
         "field a player opens is unchanged either way.",
     ),
   );
+  section.appendChild(
+    el(
+      "p",
+      "note",
+      "It opens on CROWDED, which is act one's last wave and the reason is the " +
+        "burst rather than the wave: five bodies in seven beats across the whole " +
+        "width — a red, a cyan, a rock, then a red and a cyan on the outer two " +
+        "columns — so there is something to shoot at every couple of beats and " +
+        "the explosion fires often enough to be judged. Its own subject is the " +
+        'one its sentence names, "the jobs overlap and you have to say what you ' +
+        'are doing": the pair cannot take the bodies one at a time. Every other ' +
+        "wave the game has is in the picker beside it.",
+    ),
+  );
   const mount = el("div");
   mount.id = "rasterPlayMount";
   section.appendChild(mount);
@@ -56,6 +70,8 @@ export function playSection(): HTMLElement {
 export function drawPlay(mount: HTMLElement): void {
   const controls = el("div", "holder-row");
 
+  const label = el("label", "note");
+  label.textContent = `WAVE (${WAVES.length}) `;
   const picker = document.createElement("select");
   WAVES.forEach((wave, i) => {
     const option = document.createElement("option");
@@ -64,7 +80,8 @@ export function drawPlay(mount: HTMLElement): void {
     picker.appendChild(option);
   });
   picker.value = String(DEFAULT_WAVE < 0 ? 0 : DEFAULT_WAVE);
-  controls.appendChild(picker);
+  label.appendChild(picker);
+  controls.appendChild(label);
 
   let baked = true;
   const toggle = button("BAKED BURST — ON");
