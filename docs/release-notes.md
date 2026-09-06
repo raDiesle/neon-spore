@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · b957e42d — A sheet restored from its URL opens on the inner tab the URL named
+
+`mountSheet` read the wanted inner tab after `open.click()`, and that click records the bar's own default over it — so `?sheet=backlog&inner=shapes` opened NOT BUILT YET on its first tab and rewrote the URL to match. The read moves above the click. `session.test.ts` grows a fake `document` covering the handful of DOM calls this module makes, and mounts a sheet with a two-button inner bar seeded on the second one; the test fails on the old code.
+
 ## 2026-09-06 · 3de019d5 — THE CLAW again, as a control set: the gun replaced by a hand
 
 The boss round of the last landing is gone and THE CLAW is a panel on the ordinary field instead — the owner's redesign, and a better game. There is no second picture to draw and no wreck field: the grid, the hull and the rocks coming down it are exactly what they always are, and everything that is different is on the panel and in what one of the two screens is allowed to show.
