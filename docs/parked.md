@@ -50,37 +50,3 @@ keeps it either way. Nothing here is ticked, and nothing here is counted — a
 count is a way of saying something is owed, and nothing here is.
 `tools/queue/test/queue.test.ts` fails on an entry a cold session could not act
 on.
-
-## The perf baseline covers 38 of the 45 waves the game ships
-
-- **Found:** 2026-09-05, claude/game-performance-mobile-analysis-cd4207
-- **Taken:** 2026-09-06, claude/queue-the-perf-baseline-covers-38-of-the-45-waves-the
-- **Files:** `tools/perf/baseline.json`, `tools/perf/test/compare.test.ts`
-
-The lane that built `bun run perf` was written when the game shipped 38 waves.
-Seven have landed since — THE GYRE through THE STRAND — so
-`compare.test.ts` fails on the count and the branch cannot land. It is rebased
-onto `main` and green apart from this; `CLAUDE.md`'s new section is already
-trimmed under its ceiling.
-
-Re-measuring is one command, `bun run perf --save`, and it was tried three times
-on 5 September 2026 with other sessions on the machine. Every run was refused by
-the baseline's own test — no wave at or over three quarters of a frame when it
-was taken — and **a different wave failed each time**: THE GHOST at 12.33 ms,
-then THE MIRROR at 13.85, then THE GHOST again at 14.50. Nothing about the game
-changed between them. The medians moved with the load too (THE GHOST 12.33 →
-8.58 ms an hour apart), so on a loaded machine the 90th percentile is measuring
-the other sessions rather than the frame.
-
-The refusal is right — a baseline is a claim about the game, not about the
-afternoon — but it means this cannot be finished opportunistically. Run
-`bun run perf --save` with nothing else running at all, confirm
-`tools/perf/test/compare.test.ts` is green on the result, and land the branch.
-If a genuinely idle machine still trips it, the finding is about the rule rather
-than the game: a p90 taken over a handful of frames may be too noisy a statistic
-to gate a checked-in baseline on, and the test should say so in terms of the
-median it also measures.
-
-The branch is rebased onto `main` at `7ee0e68f` and clean; everything but this
-one test is green, and `CLAUDE.md`'s new section is already trimmed under its
-ceiling.
