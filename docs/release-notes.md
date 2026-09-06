@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · e23be06e — bun run shot can press something first, so a panel behind a selection can be photographed
+
+`--open`, `--tab` and `--inner` reach a full-screen sheet by the label on its button, and nothing reached a panel that only exists once something on the *map* is selected. The rows under a cell are built from the arrival in it, so THE FENCE's GAPS and CRACKS chips could not be photographed at all — the tool that exists to stop a fifth throwaway Playwright script was about to want one.
+
 ## 2026-09-06 · 4173909f — A hand on a rock is a brake and a lane; on anything else it is an aim
 
 The grip used to mean three things at once and mean them to everything: it slowed whatever it was on, carried that body a column, and — on player 1's screen — steered every shot into it. The owner split that. A finger on a rock pulls it and walks it a lane, either seat; a finger on anything the cannon can answer does one thing, aims, and only the pilot has one. A press that would be neither is refused rather than taken, so the navigator's thumb finds nothing over a slick and a ghost refuses a hand outright — the brake no longer reaches it and the aim was always forbidden on it, which leaves nothing for a hand to do.
