@@ -250,6 +250,7 @@ passes, which is the whole of the acceptance.
 ## The sweep's idle clock is reset by every git command, so nothing is ever swept
 
 - **Found:** 2026-09-05, claude/git-flow-parallel-sessions-6f1b43
+- **Taken:** 2026-09-06, claude/queue-the-sweeps-idle-clock-is-reset-by-every-git-comm
 - **Files:** `tools/land/idle.ts`, `tools/land/test/idle.test.ts`
 
 `idleDays` takes the newest mtime of everything under `.git/worktrees/<name>/`
