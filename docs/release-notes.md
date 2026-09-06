@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · 51acbc4f — The boss page takes the rounds, and three sheets read down one column
+
+BOSSES, BESTIARY and MECHANICS are each a page somebody goes down heading by heading to decide what is worth building, and a grid of side-by-side groups is read in vertical strips with no way to tell which heading a paragraph belongs under. All three are one column at prose width now — the `.columns.reading` rule that was already in the stylesheet and had nothing wearing it.
+
 ## 2026-09-06 · 0693a7f8 — A locked shot turns a corner, and the plate reflects what it refuses
 
 The bolt climbs its own column until it is level with the body, turns, and runs straight across into it. That is about the picture rather than the arithmetic: a diagonal arrives at a body from underneath, which is exactly where THE MAGNET's plate hangs, so a shot the pair had aimed round the side of one still looked as though it had come up through the armour. A horizontal leg cannot be misread. From the turn on the shot holds the body's own level, so a body still falling is followed rather than watched past — and the dotted link `lock-mark.ts` draws turns the same corner, because a straight line between the two ends would promise a route nothing takes.
