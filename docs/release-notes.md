@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · ab51fd7a — Put THE CRAWLER on the ship's own skin, so it walks over the cannon
+
+A worm was drawn on a straight line a fixed distance from `Layout.hullY` while the hull under it is a membrane that swells wherever a player puts something. So it walked *through* the cannon. Its rings are now placed against the surface the ship is actually drawn with, sampled under each ring's own column: sliding the cannon under a worm lifts that stretch of it and lets it down again, and the body lies along the ship's own breathing contour instead of across it.
+
 ## 2026-09-06 · 6efba8a4 — The trunk-race refusal moves out of land.ts, which the limit had no room for
 
 `land.ts` was 273 lines with `trunkRaced` in it and the limit is 250. It is also the one question in that file which is not about the state of the world but about two readings of it at different moments, so it has its own file rather than a seat in the planning. `docs/INDEX.md` picks up the four files this session's landings added.
