@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · 8a5e54ff — HOLD FIRE and HOLD DOME are gone, and a fault runs for the whole wave
+
+The owner asked for the relief out. It was one mechanic wearing two labels — `reliefFire` on player 2 for a cannon fault, `reliefGuard` on player 1 for a shield one — and a tap on it bought two beats in which the runaway control did not act, then a rest before the next tap was answered.
+
 ## 2026-09-06 · e23be06e — bun run shot can press something first, so a panel behind a selection can be photographed
 
 `--open`, `--tab` and `--inner` reach a full-screen sheet by the label on its button, and nothing reached a panel that only exists once something on the *map* is selected. The rows under a cell are built from the arrival in it, so THE FENCE's GAPS and CRACKS chips could not be photographed at all — the tool that exists to stop a fifth throwaway Playwright script was about to want one.
