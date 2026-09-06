@@ -1125,5 +1125,6 @@ place — the generator keeps whatever is there.
 | `tools/director/src/serialize-boss.ts` | **A wave's boss, written back out**, and the nine shapes it can take |
 | `tools/director/src/field-control-def.ts` | **What one row of the ON THE FIELD tab is**, and nothing that fills one in |
 | `tools/shape-sheet/src/veer-subject.ts` | **THE VEER**: the meteor with its rider on it, the one card made of a shape already on the sheet plus something over the top |
+| `tools/shape-sheet/src/rock-subjects.ts` | Everything on this sheet that is faceted rather than grown: the builder that draws a crystal |
 
 <!-- index:code:end -->

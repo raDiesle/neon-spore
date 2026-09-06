@@ -3,10 +3,8 @@ import {
   CRAWLER_PULSE,
   type CrawlerSilhouette,
   type CreatureSilhouette,
-  type CrystalSilhouette,
   catmullRomToBezierPath,
   crawlerOutline,
-  crystalRadiusMul,
   GHOST,
   type GhostSilhouette,
   ghostOutline,
@@ -17,20 +15,21 @@ import {
   livingPoints,
   livingSilhouette,
   MAGNET_SHAPE,
-  METEOR,
   magnetOutline,
   POD,
   type Point,
-  QUEEN_SHELL,
-  TORCH,
 } from "@neon-spore/content";
 import type { CreatureKind } from "@neon-spore/sim";
 import type { Subject } from "./contour.js";
 import { hull } from "./hull-subjects.js";
 import { WARDEN_POSES } from "./ring.js";
-import { veerSubject } from "./veer-subject.js";
+import { ROCK_SUBJECTS } from "./rock-subjects.js";
 
 export { hullArc } from "./hull-subjects.js";
+// The faceted builder lives with the four cards that use it now
+// (`rock-subjects.ts`); the drafts and the free contours import it from
+// here, where it always was.
+export { crystal } from "./rock-subjects.js";
 
 /**
  * Every silhouette in the game, as a function of time.
@@ -177,41 +176,6 @@ export function crawler(name: string, s: CrawlerSilhouette, note: string): Subje
   };
 }
 
-export function crystal(name: string, s: CrystalSilhouette, radius: number, note: string): Subject {
-  return {
-    name,
-    note,
-    open: false,
-    pointsAt(t) {
-      const pts: Point[] = [];
-      for (let i = 0; i < s.sides; i++) {
-        const a = (i / s.sides) * Math.PI * 2;
-        const m = crystalRadiusMul(a, s.sides, s.depth, s.wobble, t, s.seed);
-        pts.push({ x: Math.cos(a) * radius * m, y: Math.sin(a) * radius * m });
-      }
-      return pts;
-    },
-    path(pts) {
-      const head = `M ${pts[0]!.x.toFixed(2)} ${pts[0]!.y.toFixed(2)} `;
-      return `${
-        head +
-        pts
-          .slice(1)
-          .map((p) => `L ${p.x.toFixed(2)} ${p.y.toFixed(2)} `)
-          .join("")
-      }Z`;
-    },
-  };
-}
-
-/** The radius every rock on this sheet is drawn at, named because THE VEER is
- * drawn at the same one — a rider fitted to a different stone would be a
- * figure nobody could compare with the one beside it. */
-const ROCK_R = 46;
-
-const meteor = crystal("METEOR", METEOR, ROCK_R, `${METEOR.sides} facets · dead rock`);
-const torch = crystal("TORCH", TORCH, 70, `${TORCH.sides} facets · three tiles wide, burning`);
-
 /**
  * One subject per living kind, in bestiary order — `slick` and `bulb` first,
  * because that is where `CREATURES` puts them, then whatever is added after.
@@ -243,13 +207,9 @@ export const SUBJECTS: Subject[] = [
   // that decides whether a run of them reads as an animal or as a stack.
   crawler("CRAWLER", CRAWLER, `an egg on its side · ${CRAWLER.taper} taper · overlapping rings`),
   blob("POD", POD),
-  meteor,
-  // The same stone with its rider on it, which is a different word from the
-  // bare one and had no card until now — `veer-subject.ts` argues why it is
-  // one and why it is built out of the meteor rather than beside it.
-  veerSubject(meteor, ROCK_R),
-  torch,
-  crystal("BULB QUEEN", QUEEN_SHELL, 100, `${QUEEN_SHELL.sides} facets · armoured shell`),
+  // The faceted four, in one list of their own: the rock, the same rock with
+  // its rider on it, the torch and the queen's shell (`rock-subjects.ts`).
+  ...ROCK_SUBJECTS,
   hull(false),
   hull(true),
   hull(true, 0.05),
