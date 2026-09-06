@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · fc369cee — Half a gigabyte of dead browser profiles, and nothing was ever going to notice
+
+A cleanup after the perf work found 46 throwaway Chrome profiles in the system temp directory holding 508 MB, one of them with a headless browser still attached to it from a run hours earlier. `chromium.launch()` makes the profile and `browser.close()` removes it, so an ordinary run is tidy — but a run that is killed or interrupted never reaches its `finally`, and the debris lands outside the repository where `git status` is clean and `bun run sweep` does not look.
+
 ## 2026-09-06 · a8e0d9d7 — A narrow run carries five waves nobody touched, and gets its verdict back
 
 Scoping a run to the waves a change touched made it fast and made it mute: a verdict is a wave's share of its own run's median, and a run of one wave has a median that *is* that wave, so dividing by it cancelled exactly what the run was taken to see. The tool printed two numbers and left the judgement to a person.
