@@ -148,6 +148,7 @@ still draws.
 ## Every organic shape is rebuilt as an SVG path *string* on every frame
 
 - **Found:** 2026-09-03, claude/game-performance-mobile-analysis-cd4207
+- **Taken:** 2026-09-06, claude/queue-every-organic-shape-is-rebuilt-as-an-svg-path-st
 - **Files:** `packages/content/src/shapes.ts`, `packages/render/src/hull.ts`, `packages/render/src/creatures.ts`, `packages/render/src/shield.ts`, `packages/render/src/maw.ts`, `packages/render/test/frame-budget.test.ts`
 
 `openSmoothPath` and `blobPath` both return a **string**, built with
