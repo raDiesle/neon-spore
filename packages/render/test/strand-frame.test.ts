@@ -90,14 +90,29 @@ describe("the strand", () => {
     });
   }
 
-  it("keeps the canvas happy off either wall, and at either length", () => {
-    for (const col of [0, CFG.cols - 1]) {
-      for (const beads of [2, 5]) {
-        const { ctx } = strandFrames("p1", TICKS, beads, col);
-        expect(ctx.calls).toBeGreaterThan(1000);
-      }
-    }
-  });
+  /**
+   * The wall and the length are **paired rather than crossed**, and that is a
+   * decision about what this case is for.
+   *
+   * The two axes are independent — `strandShape.ts` reads a column to clamp the
+   * thread inside the field and a count to space the beads along it, and
+   * neither term appears in the other — so a wall with the short thread and the
+   * other wall with the long one puts every value of both through the canvas.
+   * Crossing them was four full thirty-beat plays in one `it`, four times what
+   * any of its neighbours does, and it ran close enough to bun's 5000 ms
+   * default that a busy machine failed it as a timeout rather than reporting it
+   * as slow. A test that only passes on an idle box is a test somebody re-runs
+   * on its own and stops reading.
+   */
+  for (const [col, beads] of [
+    [0, 2],
+    [CFG.cols - 1, 5],
+  ] as const) {
+    it(`keeps the canvas happy at column ${col} with ${beads} beads`, () => {
+      const { ctx } = strandFrames("p1", TICKS, beads, col);
+      expect(ctx.calls).toBeGreaterThan(1000);
+    });
+  }
 
   for (const role of ROLES) {
     it(`draws a shrivelled bead and the sweep after the last one for ${role}`, () => {
