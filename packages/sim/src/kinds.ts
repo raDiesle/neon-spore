@@ -173,7 +173,7 @@ export function isBossBody(kind: CreatureKind): boolean {
   return kind === "queen" || kind === "warden";
 }
 
-// **Whether a hand may be put on a body** — `isGrippable` and the ten kinds
+// **Whether a hand may be put on a body** — `isGrippable` and the kinds
 // that refuse one — is `grippable.ts` next door, cut out when THE FENCE took
 // this file over its limit. It is a question about a gesture rather than about
 // a kind, and it was nine tenths of this file's length. `types.ts` exports it

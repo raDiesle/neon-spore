@@ -166,7 +166,7 @@ export function bindKeys({
       case "KeyG": {
         // And G is player 2's half, for the same reason F is player 1's.
         if (guideKey("KeyG")) break;
-        for (const command of grip.take(creatures())) send(2, command);
+        for (const command of grip.take(creatures(), 2)) send(2, command);
         break;
       }
       // THE PUSH, which on a phone is the same thumb sliding sideways and here

@@ -34,7 +34,12 @@ const LANCE = controlSet("lance");
 const ROLES: ViewRole[] = ["p1", "p2", "test"];
 
 function field(seat: 1 | 2 = 1, controls: ControlSet = STANDARD): Field {
-  const world = createWorld(CFG, 2, [{ beat: 0, col: 4, kind: "slick", color: "red" }]);
+  // A rock, because a rock is the one body **either** seat may take hold of: a
+  // hand on anything living is an aim, and only the pilot has one
+  // (`sim/hand.ts`). Half these presses are signed player 2.
+  const world = createWorld({ ...CFG, rows: 200 }, 2, [
+    { beat: 0, col: 4, kind: "meteor", color: null },
+  ]);
   for (let i = 0; i < 200; i++) step(world, []);
   return {
     creatures: world.creatures,
@@ -238,6 +243,25 @@ describe("a press on the field", () => {
       // carried sideways from here needs (`grip-push.ts`).
       hold: { kind: "grip", id: c.id, player: 2, originX: at.x },
     });
+  });
+
+  /**
+   * And the body only one seat can do anything with. A press the hit test
+   * answers and `setGrip` then refuses is a control that looks live on one
+   * screen and does nothing at all, so the navigator's thumb has to find
+   * nothing over a slick rather than find it and be turned away later.
+   */
+  it("offers a living body to the pilot and to nobody else", () => {
+    const living = createWorld(CFG, 2, [{ beat: 0, col: 4, kind: "slick", color: "red" }]);
+    for (let i = 0; i < 200; i++) step(living, []);
+    const c = living.creatures[0];
+    if (!c) throw new Error("the field is empty");
+    const at = creatureCenter(l, c, 0.5);
+    for (const seat of [1, 2] as const) {
+      const f = { ...field(seat), creatures: living.creatures };
+      const t = touchDown(l, at.x, at.y, f);
+      expect(t?.command).toEqual(seat === 1 ? { kind: "grip", id: c.id } : undefined);
+    }
   });
 
   it("answers nothing in empty sky", () => {

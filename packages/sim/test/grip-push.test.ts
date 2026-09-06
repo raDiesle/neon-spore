@@ -76,6 +76,23 @@ const only = (w: ReturnType<typeof world>) => {
 
 const rock = (col = 5): SpawnEntry[] => [{ beat: 0, col, kind: "meteor", color: null }];
 
+/**
+ * **A carry is a rock's, and only a rock's.** A hand on a living body is an
+ * aim rather than a hold (`sim/hand.ts`), and an aim that dragged its subject
+ * a lane would be the pilot moving the field with the hand that is supposed to
+ * be picking a target out of it. The press is taken — the lock needs it — and
+ * the sweep after it spends nothing.
+ */
+describe("a hand carried sideways across something the cannon can answer", () => {
+  it("takes the press and spends no column", () => {
+    const w = world([{ beat: 0, col: 5, kind: "slick", color: "red" }]);
+    play(w, 3, [grip(TPB, 1, 1), push(TPB * 2, 1, 1, 1)]);
+    expect(w.gripP1).toBe(1);
+    expect(gripPushOf(w, 1)).toBeNull();
+    expect(only(w).col).toBe(5);
+  });
+});
+
 describe("a hand carried sideways", () => {
   it("takes the body one column the way it went", () => {
     const w = world(rock());

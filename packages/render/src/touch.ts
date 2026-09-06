@@ -48,7 +48,10 @@ export function touchDown(l: Layout, x: number, y: number, field: Field): Touch 
     // shield is not a hand on whatever is falling behind it (`touch-ship.ts`).
     const ship = shipUnder(l, x, y, field);
     if (ship) return ship;
-    const held = creatureAt(l, field.creatures, x, y, field.beatPhase);
+    // The seat, because what a hand is worth depends on it: a rock is a brake
+    // for either player and a living body is an aim only the pilot has, so a
+    // navigator's thumb finds nothing over a slick (`sim/hand.ts`).
+    const held = creatureAt(l, field.creatures, x, y, field.beatPhase, field.seat);
     if (!held) return null;
     return {
       player: field.seat,

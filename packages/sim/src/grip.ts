@@ -1,17 +1,23 @@
-import { ghostCrosses } from "./ghost.js";
 import { clearGripPush } from "./grip-push.js";
-import { type Creature, fallTilesPerBeat, isGrippable } from "./types.js";
+import { handMeans } from "./hand.js";
+import { type Creature, fallTilesPerBeat } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
 /**
  * THE GRIP: the one thing either player may do to the field itself.
  *
- * A finger held on something falling drags at it, and it falls slower for as
- * long as the finger stays. Nothing travels, nothing is destroyed and no
- * column changes — the rule is only a fall rate, which is why it can apply to
- * every creature in every wave, rocks included. A rock is the point, in fact:
- * it cannot be shot, so the only thing a second pair of hands could ever do
- * about one is buy the shield another beat to reach its column.
+ * A finger held on **a rock** drags at it, and it falls slower for as long as
+ * the finger stays. Nothing travels, nothing is destroyed and no column
+ * changes — the rule is only a fall rate.
+ *
+ * **A rock, and nothing else.** The brake used to apply to every body that
+ * fell, and the owner narrowed it on 6 September 2026: what a hand is worth
+ * against a living body is that the cannon finds it (`lock.ts`), and a gesture
+ * that both slowed a slick and aimed at it was two assists charged as one. A
+ * rock is where the brake was always pointed anyway — it cannot be shot, so the
+ * only thing a second pair of hands could ever do about one is buy the shield
+ * another beat to reach its column. Which of the two a hand is on a given body
+ * is `hand.ts`, and it is asked rather than repeated here.
  *
  * The cost is the hand. A thumb on the field is a thumb off the strip below
  * it, so a player holding a rock for their partner is a player who is not
@@ -29,14 +35,17 @@ export const NO_GRIP = 0;
  * dropped rather than remembered: the command was delayed by a few ticks
  * (`inputDelayTicks`) and whatever it named may have been shot in the meantime.
  *
- * The queen cannot be gripped. She does not fall — she holds her row until she
- * is made to descend — so a hand on her would drag at nothing while showing
- * every sign of working. A crossing ghost is refused for exactly that reason
- * arrived at from the other side: it walks its row and then dives, and neither
- * of those is a fall rate for a brake to scale (`stepGhostAcross`).
+ * **A press that would do nothing is refused**, and that is the whole of what
+ * is asked here: `handMeans` says whether this seat's hand on this kind is a
+ * brake, an aim or neither, and a hand that is neither is not taken. So the
+ * queen refuses one because she does not fall, a ghost because its column is
+ * the secret, and a slick refuses the *navigator's* because the aim it would
+ * be belongs to the seat holding the cannon. Every one of those used to be a
+ * clause in this file; all of them are one call now (`hand.ts`).
  */
 export function setGrip(world: World, player: 1 | 2, id: number): void {
-  const target = world.creatures.some((c) => c.id === id && canBeHeld(c, player)) ? id : NO_GRIP;
+  const holds = (c: Creature) => c.id === id && handMeans(c.kind, player) !== null;
+  const target = world.creatures.some(holds) ? id : NO_GRIP;
   const was = player === 1 ? world.gripP1 : world.gripP2;
   if (player === 1) world.gripP1 = target;
   else world.gripP2 = target;
@@ -71,9 +80,31 @@ export function gripOf(world: World, player: 1 | 2): number {
   return player === 1 ? world.gripP1 : world.gripP2;
 }
 
-/** How many hands are on it: 0, 1 or 2. */
+/** How many hands are on it: 0, 1 or 2. Whether either of them is doing
+ * anything to the fall is `gripBrakes` below — this counts fingers. */
 export function gripCount(world: World, id: number): number {
   return (gripsCreature(world, 1, id) ? 1 : 0) + (gripsCreature(world, 2, id) ? 1 : 0);
+}
+
+/**
+ * How many of those hands are **braking**: 0, 1 or 2.
+ *
+ * The two counts came apart when the brake was narrowed to rocks. A hand on a
+ * living body is an aim and drags at nothing, so a fall rate or a picture that
+ * went on reading `gripCount` would be slowing a slick that is not slowing —
+ * the one class of mistake this mechanic cannot afford, because the whole of
+ * it is the *other* player planning around a beat they were given.
+ *
+ * It asks `handMeans` per seat rather than testing the kind once: a brake is a
+ * fact about a hand, and the day a body brakes for one seat and aims for the
+ * other this is already right.
+ */
+export function gripBrakes(world: World, c: Creature): number {
+  let hands = 0;
+  for (const player of [1, 2] as const) {
+    if (gripsCreature(world, player, c.id) && handMeans(c.kind, player) === "brake") hands++;
+  }
+  return hands;
 }
 
 /** Both hands off. A wave that starts over starts with nothing held. */
@@ -99,10 +130,13 @@ export function dropLostGrips(world: World): void {
  * How many tiles this creature falls on this beat. The whole of the grip's
  * effect, and the only place `fallTilesPerBeat` is scaled.
  *
- * A held creature keeps `gripSlowPermille` of its speed per hand, and the
+ * A braked creature keeps `gripSlowPermille` of its speed per hand, and the
  * fraction of a tile that leaves over is carried in `dragMilli` rather than
- * rounded away — a slick falls one tile a beat, so without the remainder the
- * only speeds it could have would be one tile and none at all.
+ * rounded away — the slowest rock falls one tile a beat, so without the
+ * remainder the only speeds it could have would be one tile and none at all.
+ *
+ * `gripBrakes` and not `gripCount`: a pilot's hand on a slick is an aim, and
+ * that body falls at its own speed with a finger on it (`hand.ts`).
  */
 export function grippedFallTiles(world: World, c: Creature): number {
   // A body THE CLAW's arm let go of comes down at the torch's speed whatever
@@ -112,7 +146,7 @@ export function grippedFallTiles(world: World, c: Creature): number {
   // of it, which is the one thing the arm's mistake must not be undoable by.
   if (c.dropped === true) return fallTilesPerBeat("torch");
   const base = fallTilesPerBeat(c.kind);
-  const hands = gripCount(world, c.id);
+  const hands = gripBrakes(world, c);
   if (hands === 0) {
     c.dragMilli = 0;
     return base;
@@ -125,29 +159,4 @@ export function grippedFallTiles(world: World, c: Creature): number {
   const tiles = Math.floor(milli / MILLI);
   c.dragMilli = milli - tiles * MILLI;
   return tiles;
-}
-
-/**
- * Whether a hand may be put on this body at all. Every refusal is one
- * sentence — *it is not falling, so there is nothing to drag at* — said about
- * a boss that holds her row, about a ghost that walks its own, and about the
- * five kinds `isGrippable` already names.
- *
- * It calls that rather than repeating it, and the two together are not one
- * list said twice: `isGrippable` answers about a *kind*, which is what render/
- * asks before it offers a body to a thumb, and a crossing ghost is a `ghost`
- * that happens to be walking — a fact about one body that no kind can carry.
- */
-function canBeHeld(c: Creature, player: 1 | 2): boolean {
-  // THE MAGNET is the one body a hand is refused on by *seat* rather than by
-  // kind, and it is refused on the navigator's. A hand on a falling body is a
-  // brake for either player everywhere else in the game; on this one it is
-  // also an aim, because `lockedBody` reads player 1's hand and bends every
-  // shot into whatever it is on (`lock.ts`). A navigator who could hold a
-  // magnet would be slowing the one body whose whole cost is that the pilot
-  // has to leave its column — and doing it with the hand that is supposed to
-  // be on a trigger. So the press does nothing, and the pilot's does the
-  // aiming (`magnet.ts`).
-  if (c.kind === "magnet") return player === 1;
-  return isGrippable(c.kind) && c.kind !== "queen" && !ghostCrosses(c);
 }

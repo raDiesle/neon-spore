@@ -3,8 +3,9 @@ import { onBeat } from "../src/beat.js";
 import { DEFAULT_CONFIG, hullRow, type SimConfig } from "../src/config.js";
 import { echoBodies, echoSplitsLeft, echoStruck } from "../src/echo.js";
 import { ECHO_AXES, echoAxis, echoSplitPhase, echoWaitBeats } from "../src/echo-split.js";
-import { setGrip } from "../src/grip.js";
+import { gripsCreature, setGrip } from "../src/grip.js";
 import { hashWorld } from "../src/hash.js";
+import { lockedBody } from "../src/lock.js";
 import type { Bullet, Creature } from "../src/types.js";
 import { startWave } from "../src/wave-start.js";
 import { createWorld, type World } from "../src/world.js";
@@ -207,23 +208,31 @@ describe("half speed", () => {
   });
 
   /**
-   * A hand still works, which is what separates this creature from the dart,
-   * the wisp and the crossing ghost — all three refuse a grip because they do
-   * not fall at all. An echo does fall, only rarely, so the brake has a rate
-   * to scale.
+   * **A hand takes it and does not slow it**, which is the shape of every hand
+   * on a living body since the brake was narrowed to rocks (`sim/hand.ts`).
+   *
+   * It used to be slowed, and this test used to say so. The interesting half
+   * was never the rate: an echo comes down at half a slick's speed and divides
+   * four times, so what a pair actually wants against one is the cannon
+   * reaching whichever of the four is furthest down — which is what the hand
+   * buys now. Refusing the press outright would have been the third answer and
+   * is wrong for the reason the dart and the wisp are refused and this is not:
+   * a shot can answer an echo, so a lock over one promises a hit it can keep.
    */
-  it("is slowed further by a hand, rather than refusing one", () => {
+  it("is aimed at by a hand rather than slowed by one", () => {
     const held = withEcho();
     const free = withEcho();
-    setGrip(held, 1, held.creatures[0]!.id);
+    const id = held.creatures[0]!.id;
+    setGrip(held, 1, id);
+    expect(gripsCreature(held, 1, id)).toBe(true);
+    expect(lockedBody(held)?.id).toBe(id);
     for (let i = 0; i < 8; i++) {
       onBeat(held);
       onBeat(free);
     }
-    // The held one is behind at least one of the free one's bodies, which is
-    // all a brake on a body that divides can mean.
+    // Level with the free one, body for body: nothing about the fall changed.
     const lowest = (w: World): number => Math.max(...echoes(w).map((c) => c.row));
-    expect(lowest(held)).toBeLessThan(lowest(free));
+    expect(lowest(held)).toBe(lowest(free));
   });
 });
 

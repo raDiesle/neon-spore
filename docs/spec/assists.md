@@ -75,17 +75,35 @@ staggered unlock achieves the same thing without labelling anybody.
 
 ## 6.4 THE GRIP — keep watch, built
 
-A finger held on anything falling drags at it: it keeps
-`gripSlowPermille` of its speed for as long as the finger stays, and two
-hands compound. Nothing else changes — no column, no colour, no state the
-other systems read.
+A finger held on **a rock** drags at it: it keeps `gripSlowPermille` of its
+speed for as long as the finger stays, and two hands compound. Nothing else
+changes — no column, no colour, no state the other systems read.
+
+**A rock, and nothing else, since 6 September 2026.** The brake used to apply
+to anything that fell. What a hand is worth against a *living* body is that the
+cannon finds it (6.6), and a gesture that both slowed a slick and aimed at it
+was two assists charged as one — so the two came apart, and what a hand is now
+depends on what it is on:
+
+| Hand on | What it does | Which seat |
+|---|---|---|
+| a rock | slows it (6.4) and carries it a lane (6.5) | either |
+| anything the cannon can answer | aims every shot into it (6.6) | player 1 |
+| a ghost, a boss, the ten kinds that refuse one | nothing, and the press is refused | neither |
+
+`sim/hand.ts` is the whole of that table and the three files that used to keep
+their own copies of it now ask it. **A press that would do nothing is refused
+rather than taken**, which is why the navigator's thumb finds nothing at all
+over a slick: a hand that drags at nothing while showing every sign of working
+is the one thing this mechanic cannot afford, because the whole of it is the
+*other* player planning around a beat they were given.
 
 **What the objection above got right, and how it is answered.** The beat is
-untouched. A gripped creature still lands on a tile centre on every beat like
+untouched. A gripped rock still lands on a tile centre on every beat like
 everything else; what changes is *how many tiles*, and the fraction that
 leaves over is carried in thousandths (`dragMilli`) rather than rounded away.
-So a slick, which falls one tile a beat, can fall at 55% of that — it stands
-still on some beats and moves a whole tile on others, and the clock both
+So the slowest tier, which falls one tile a beat, can fall at 55% of that — it
+stands still on some beats and moves a whole tile on others, and the clock both
 players are counting never moves.
 
 **It does not need marking.** The spec tied keep watch to the held mark from
@@ -98,12 +116,14 @@ gesture keep watch was written for, and it no longer has to be.
 simulation refuses a command from a player who is gripping — but the thumb
 itself: it is on the field, so it is off the strip below, and a player holding
 a rock is a player who is not moving their own control. Both principles at the
-top of this file hold: either player may grip anything, and both screens are
-told who is holding what, in words.
+top of this file hold: either player may pull a rock, and both screens are told
+who is holding what, in words — PULL or AIM, so the verb says which of the two
+hands it is.
 
-**Rocks are the point.** A rock cannot be shot. Before the grip, a second pair
-of hands could do exactly nothing about one; now it can buy the shield a beat
-to reach the column.
+**Rocks are the point**, and are now the whole of it. A rock cannot be shot.
+Before the grip, a second pair of hands could do exactly nothing about one; now
+it can buy the shield a beat to reach the column, and carry it out of the
+column altogether (6.5).
 
 **Where it is taught.** `THE HAND` (wave 6) is three rocks arriving on the
 same beat in three columns, against one shield — the arithmetic does not work
@@ -111,9 +131,10 @@ without a hand, and holding two of them turns one impossible beat into three
 possible ones. `IN ITS SHADOW` (wave 11) is the one that has to be played to
 be believed: a rock absorbs your own shots as well as everything else, so a
 creature falling right behind one cannot be hit at all until the rock is gone,
-and by then it is on top of the hull. Holding the creature back is the only
-opening, which makes it the one wave where you grip the thing you are trying
-to destroy.
+and by then it is on top of the hull. The opening used to be holding the
+creature back; the brake no longer reaches it, so the answer is now the rock —
+pulled, or carried out of the lane (6.5) — which is the same wave asking the
+same question of the one body a hand still works on.
 
 **Not yet, deliberately:** the unlock schedule in 6.2. The grip is live in
 every wave from the first, because what it needs first is play, and gating it
@@ -121,8 +142,11 @@ behind wave 8 would mean nobody had held anything for an hour.
 
 ## 6.5 THE PUSH — the same hand, carried sideways, built
 
-Carry the finger a tile across while it is holding a body and the body steps
-**one column** the way the hand went. Then it stands still: `gripPushPauseBeats`
+Carry the finger a tile across while it is holding **a rock** and the rock steps
+**one column** the way the hand went. A rock for 6.4's reason and not a second
+rule: a hand on anything else is an aim rather than a hold, and an aim that
+dragged its subject a lane would be the pilot moving the field with the hand
+that is supposed to be picking a target out of it. Then it stands still: `gripPushPauseBeats`
 has to pass before it may be carried again, so a thumb can walk a rock across
 the field at half the speed it falls and never faster. `sim/grip-push.ts` is
 the whole rule; `gripPushMilli` is how far the finger travels for one column
@@ -133,6 +157,14 @@ the body is still under the finger afterwards.
 6.4's reason — the field belongs to both and is not split between them — and
 the price is the one already built in: the thumb is on the field, so it is off
 the strip below.
+
+**And it is now the only thing on the field that says so.** A held rock wears
+two white arrows, one each way, for as long as it may be carried; they go out
+on the beat the column changes and come back when the pause is over, so the
+wait has a length the eye can learn, and a direction with a wall behind it is
+not offered at all (`render/grip-arrows.ts`). White, because amber is the hand
+and red and cyan are ammunition — an arrow here is an instruction to a player
+rather than a force on a body.
 
 **What it buys is a lane, never a beat.** A carried rock is still a falling
 rock: the carry composes with the fall into one diagonal, and how *fast* a body
@@ -165,8 +197,12 @@ has been put rather than where it arrived
 
 ## 6.6 THE LOCK — the same hand, read a second way, built
 
-While **player 1** has a hand on a body, every shot the cannon puts out steers
-into it and lands, from whatever column it left the muzzle in. Take the hand
+While **player 1** has a hand on a body the cannon can answer, every shot it
+puts out steers into that body and lands, from whatever column it left the
+muzzle in. It is no longer a second reading of a hand that was also braking the
+same body: since 6.4 was narrowed to rocks it is the *whole* of what a hand on
+a living body does, and the pair's sentence is the shorter for it — **a hand on
+a rock buys a beat, a hand on a body buys the column**, and neither buys both. Take the hand
 off and a bolt already in the air stops steering and finishes its climb
 straight up from wherever it had got to. `sim/lock.ts` is the whole rule and
 `render/lock-mark.ts` the whole picture.

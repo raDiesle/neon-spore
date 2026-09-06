@@ -1,5 +1,6 @@
 import { hullRow } from "./config.js";
 import { gripsCreature } from "./grip.js";
+import { handMeans } from "./hand.js";
 import { clampSpanCol, spanOf } from "./span.js";
 import { bodyCenterCol, type Command, type Creature } from "./types.js";
 import type { World } from "./world.js";
@@ -7,10 +8,16 @@ import type { World } from "./world.js";
 /**
  * THE PUSH: the same hand read a third way.
  *
- * A finger held on something falling already slows it (`grip.ts`) and, for
- * player 1, already steers every shot into it (`lock.ts`). Carried sideways it
- * now does one thing more: the body it is on steps **one column**, the way the
+ * A finger held on a rock already slows it (`grip.ts`). Carried sideways it
+ * does one thing more: the body it is on steps **one column**, the way the
  * hand went, and then holds still for a beat before it may be carried again.
+ *
+ * **A rock, and nothing else** — the brake's own scope and not a second rule.
+ * A hand on a living body is an aim rather than a hold (`hand.ts`), and an aim
+ * that dragged its subject a lane would be the pilot moving the field with the
+ * hand that is supposed to be picking a target out of it. `handMeans` is asked
+ * the moment the carry is heard, so a finger swept across a slick reports a
+ * displacement nothing spends.
  *
  * **It is the grip's gesture and not a new control.** Nothing new is drawn,
  * nothing new is pressed, and the price is the one the grip already charges —
@@ -71,13 +78,18 @@ export function clearGripPush(world: World, player: 1 | 2): void {
  * **Either seat**, for the reason the grip itself is either seat: the field
  * belongs to both and is not split between them.
  *
- * A carry that names a body this seat is not holding is dropped rather than
- * remembered, `setGrip`'s rule exactly — the command was delayed by a few
- * ticks and whatever it named may have been shot in the meantime.
+ * A carry that names a body this seat is not *braking* is dropped rather than
+ * remembered, `setGrip`'s rule with one word changed — the command was delayed
+ * by a few ticks and whatever it named may have been shot in the meantime, and
+ * a hand that is an aim rather than a hold has no body to carry at all.
  */
 export function gripPushHeard(world: World, player: 1 | 2, command: Command): void {
   if (command.kind !== "drag" || command.target !== "gripBody") return;
-  if (!command.on || command.id === undefined || !gripsCreature(world, player, command.id)) {
+  const held =
+    command.on && command.id !== undefined && gripsCreature(world, player, command.id)
+      ? world.creatures.find((c) => c.id === command.id)
+      : undefined;
+  if (!held || handMeans(held.kind, player) !== "brake") {
     clearGripPush(world, player);
     return;
   }

@@ -1,5 +1,5 @@
 import type { Command, Creature, SimConfig } from "@neon-spore/sim";
-import { isGrippable, NO_GRIP } from "@neon-spore/sim";
+import { handMeans, NO_GRIP } from "@neon-spore/sim";
 
 /**
  * **What the desk rig's grip key takes hold of.**
@@ -12,8 +12,12 @@ import { isGrippable, NO_GRIP } from "@neon-spore/sim";
  * grip is a finger on a body and the body is whichever one is under it.
  */
 /**
- * The creature closest to the hull — the one a pair would actually reach for.
- * Never a boss body, which cannot be gripped (`isGrippable` in sim/types.ts).
+ * The creature closest to the hull that **this seat's hand would do something
+ * to**, which since the brake was narrowed to rocks is a question about the
+ * seat and not only about the kind: the desk rig's `G` is player 2's hand, and
+ * player 2 has no aim (`sim/hand.ts`). Asked rather than answered here — a key
+ * that took hold of a slick for the navigator would send a command the
+ * simulation refuses and leave the rig showing a hand that is not there.
  *
  * THE WARDEN's tether wins outright whatever else is falling, because it is
  * the only thing on the field a hand is the *only* answer to: a rock a hand
@@ -21,13 +25,13 @@ import { isGrippable, NO_GRIP } from "@neon-spore/sim";
  * the hull and the plate both. On one screen this key is the whole of player
  * 2's half of that fight.
  */
-export function nearestHull(creatures: readonly Creature[]): number {
+export function nearestHull(creatures: readonly Creature[], player: 1 | 2): number {
   const tether = creatures.find((c) => c.kind === "tether");
   if (tether) return tether.id;
   let best = NO_GRIP;
   let bestRow = -1;
   for (const c of creatures) {
-    if (!isGrippable(c.kind) || c.row <= bestRow) continue;
+    if (handMeans(c.kind, player) === null || c.row <= bestRow) continue;
     best = c.id;
     bestRow = c.row;
   }
@@ -51,8 +55,9 @@ export function nearestHull(creatures: readonly Creature[]): number {
  * `GripPush.cols`, and nothing here re-derives it.
  */
 export interface DeskGrip {
-  /** `G` down. The nearest body is taken and the carry starts from nought. */
-  take(creatures: readonly Creature[]): Command[];
+  /** `G` down. The nearest body this seat can hold is taken and the carry
+   * starts from nought. */
+  take(creatures: readonly Creature[], player: 1 | 2): Command[];
   /** One press of a carry key, one `gripPushMilli` further from the grab. */
   carry(dir: -1 | 1): Command[];
   /** `G` up. The hold ends and the distance is forgotten with it. */
@@ -63,8 +68,8 @@ export function deskGrip(cfg: SimConfig): DeskGrip {
   let held = NO_GRIP;
   let milli = 0;
   return {
-    take(creatures) {
-      held = nearestHull(creatures);
+    take(creatures, player) {
+      held = nearestHull(creatures, player);
       milli = 0;
       return held === NO_GRIP ? [] : [{ kind: "grip", id: held }];
     },

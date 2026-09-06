@@ -1,17 +1,23 @@
 import { gripsCreature } from "./grip.js";
+import { handMeans } from "./hand.js";
 import { bulletMilli, creatureLane, creatureMilli } from "./mid-beat.js";
-import { type Bullet, type Creature, isMeteorKind, spanOf } from "./types.js";
+import { type Bullet, type Creature, spanOf } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
 /**
- * THE LOCK: the hand player 1 already has on the field, read a second way.
+ * THE LOCK: what player 1's hand on a living body *is*.
  *
- * A finger held on a body slows it — that is THE GRIP and nothing here changes
- * it (`grip.ts`). What this adds is the other half of the same gesture: while
- * **player 1's** hand is on a body, every shot the cannon puts out steers into
- * it, from whatever column it left the muzzle in, and lands. Take the hand off
- * and the shot in the air goes straight up from wherever it had got to, dumb
- * again.
+ * A finger held on a rock slows it — that is THE GRIP, and it is the other
+ * thing a hand can be (`grip.ts`, `hand.ts`). On anything the cannon can
+ * answer, the hand is this instead: while **player 1's** hand is on a body,
+ * every shot the cannon puts out steers into it, from whatever column it left
+ * the muzzle in, and lands. Take the hand off and the shot in the air goes
+ * straight up from wherever it had got to, dumb again.
+ *
+ * It used to be a second reading of a gesture that was also braking the same
+ * body. The owner separated them on 6 September 2026, and what is left is
+ * cleaner to say out loud: **a hand on a rock buys a beat, a hand on a body
+ * buys the column.** Neither buys both.
  *
  * **It is player 1's hand and not either seat's**, because player 1 is the
  * seat holding the cannon. The gesture then costs exactly what it is worth: a
@@ -37,20 +43,23 @@ import { MILLI, type World } from "./world.js";
 /**
  * The body player 1 has locked, or undefined.
  *
- * Two kinds are held and not locked, and both refusals are the same sentence —
- * *a mark that promises a hit must not be drawn over something a shot cannot
- * answer*:
+ * Two kinds are held by that hand and not locked by it, and both refusals are
+ * the same sentence — *a mark that promises a hit must not be drawn over
+ * something a shot cannot answer*. Neither is spelled out here: both are
+ * `handMeans`, which answers `"brake"` for the first and `null` for the
+ * second, and this file asks it rather than keeping a second copy of the list
+ * (`copies-table.ts`).
  *
  * - **A rock.** It cannot be shot, and holding rocks is what the grip was
  *   built for (docs/spec/assists.md 6.4). A lock on one would turn the pilot's
  *   own assist into a wall that eats every bolt the pair fires for as long as
- *   the hand stays, which is the exact opposite of the gesture's point.
+ *   the hand stays, which is the exact opposite of the gesture's point. A hand
+ *   on one is a brake, and it stays a brake.
  * - **A ghost.** Its column is the secret and player 1 is the seat kept from
  *   it (`ghost.ts`), so a shot that found one without being told which lane it
- *   was in would be the whole creature undone. A crossing ghost cannot be
- *   gripped at all; a falling one can, and is drawn to player 1 as a band
- *   across a row with nothing in it about the column — which is exactly the
- *   body a lock must not answer.
+ *   was in would be the whole creature undone. It refuses a hand outright now,
+ *   for that reason and because there is nothing else left for one to do to it
+ *   (`grippable.ts`).
  */
 export function lockedBody(world: World): Creature | undefined {
   // Asked of each body rather than read off `world.gripP1`: which of the two
@@ -58,7 +67,7 @@ export function lockedBody(world: World): Creature | undefined {
   // second reader of that field is exactly the copy `gripsCreature` exists to
   // stop (`copies-table.ts`).
   const c = world.creatures.find((x) => gripsCreature(world, 1, x.id));
-  if (!c || isMeteorKind(c.kind) || c.kind === "ghost") return undefined;
+  if (!c || handMeans(c.kind, 1) !== "aim") return undefined;
   return c;
 }
 

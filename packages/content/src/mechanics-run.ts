@@ -32,11 +32,11 @@ export const RUN_MECHANICS = {
     reach: "run",
   },
   grip: {
-    what: "A finger held on something falling drags at it, and it falls slower for as long as the finger stays.",
+    what: "A finger held on a rock drags at it, and it falls slower for as long as the finger stays. Either seat, and two hands compound. Only a rock: a hand on anything the cannon can answer is an aim instead.",
     reach: "run",
   },
   lock: {
-    what: "The same finger, held by player 1 on a body that can be shot: every shot the cannon puts out steers into it and lands, from whatever column it left the muzzle in. Not over a rock and not over a ghost, and it says nothing at all about the colour.",
+    what: "A finger held by player 1 on a body that can be shot: every shot the cannon puts out steers into it and lands, from whatever column it left the muzzle in. It says nothing at all about the colour, and it is the whole of what a hand does to a living body — nothing is slowed and nothing moves a lane.",
     reach: "run",
   },
 } as const;

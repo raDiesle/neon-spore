@@ -228,6 +228,24 @@ export const COPIES: Copy[] = [
     strip: false,
   },
   {
+    // What a hand on a body *is*: a brake on a rock, an aim on anything living,
+    // nothing where it would be neither. Four files asked it and three of them
+    // used to answer it — `lockedBody` kept its own list of what a lock
+    // refuses, the hit test kept a kind test of its own, and the desk rig kept
+    // a third. What a picture or a hit test buys by keeping one is a control
+    // that looks live and does nothing, or a partner told a body is being
+    // slowed that is falling at its own speed.
+    //
+    // The shape watched for is **asking whether a hand may go on a body and
+    // whether that body is a rock, together**: those two questions next to each
+    // other are this rule being worked out again, whatever the answer is
+    // spelled as afterwards. Either alone is legitimate — plenty of files want
+    // one or the other — which is why the pattern is the pair and not a name.
+    call: "handMeans",
+    owner: "packages/sim/src/hand.ts",
+    pattern: /isGrippable\s*\([^)]*\)[\s\S]{0,120}isMeteorKind\s*\(/,
+  },
+  {
     call: "isGrippable",
     owner: "packages/sim/src/kinds.ts",
     pattern: /kind\s*===\s*"queen"\s*\|\|[\s\S]{0,30}"warden"/,

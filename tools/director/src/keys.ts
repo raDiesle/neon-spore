@@ -1,4 +1,10 @@
-import { type Command, type Creature, NO_GRIP, type TimedCommand } from "@neon-spore/sim";
+import {
+  type Command,
+  type Creature,
+  handMeans,
+  NO_GRIP,
+  type TimedCommand,
+} from "@neon-spore/sim";
 
 /**
  * Both roles on one keyboard, so a wave can be tried the moment it is placed.
@@ -178,12 +184,16 @@ export function bindKeys(cols: () => number, creatures: () => readonly Creature[
   };
 }
 
-/** The creature closest to the hull. Never the queen, who cannot be gripped. */
+/** The creature closest to the hull that player 2's hand would do something
+ * to. `handMeans` rather than a list of refusals: the queen was the only one
+ * this stage knew about, and a hand is a brake on a rock and an aim on
+ * anything else — an aim the seat this key belongs to does not have
+ * (`sim/hand.ts`). */
 function nearestHull(creatures: readonly Creature[]): number {
   let best = NO_GRIP;
   let bestRow = -1;
   for (const c of creatures) {
-    if (c.kind === "queen" || c.row <= bestRow) continue;
+    if (handMeans(c.kind, 2) === null || c.row <= bestRow) continue;
     best = c.id;
     bestRow = c.row;
   }

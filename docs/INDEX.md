@@ -96,7 +96,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/world.ts` | the `World` shape and `createWorld`; `step` itself lives in `step.ts` |
 | `packages/sim/src/beat.ts` | the beat: spawning, gliding, the hull, the guard rule |
 | `packages/sim/src/commands.ts` | what a press does: the cannon, the shield, the trigger, the grip, the lance |
-| `packages/sim/src/grip.ts` | THE GRIP: a hand held on something falling, and how much it slows |
+| `packages/sim/src/grip.ts` | THE GRIP: a hand held on a rock, and how much it slows |
 | `packages/sim/src/boss.ts` | the Bulb Queen, and which boss a beat belongs to |
 | `packages/sim/src/simon.ts` | THE MIRROR's vocabulary: what a step is, what it remembers |
 | `packages/sim/src/mirror.ts` | THE MIRROR's choreography: count in, perform, listen |
@@ -238,7 +238,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/lure-exit.ts` | **THE LURE leaving on its own**, which is the one thing in this game a body does at the end of a beat for no… |
 | `packages/sim/src/config-creature-scores.ts` | what one creature pays and what one costs, priced against each other |
 | `packages/sim/src/creature-roster.ts` | **The fixed order every kind is written into the world fingerprint in.** Cut out of `creature-kinds.ts` when… |
-| `packages/sim/src/grippable.ts` | **Whether a hand may be put on a body at all**, and the ten refusals that answer it |
+| `packages/sim/src/grippable.ts` | **Whether a hand may be put on a body at all**, and the thirteen refusals that answer it |
 | `packages/sim/src/hull-damage.ts` | **What the hull loses, and what it gets back.** Cut out of `hull.ts` when THE GRATE's own answer took that… |
 | `packages/sim/src/config-fence.ts` | THE FENCE's two numbers: how wide each way through it is |
 | `packages/sim/src/creature-state-fence.ts` | **THE FENCE's two fields**, and both of them are sets of columns: the ways through the wave authored |
@@ -250,7 +250,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/malfunction.ts` | THE MALFUNCTION: a wave in which one of the two seats does not have its control any more — the control has it |
 | `packages/sim/src/magnet.ts` | THE MAGNET: the first body in this game that cannot be answered from the column it is standing in |
 | `packages/sim/src/events-magnet.ts` | **What THE MAGNET does**, as events: a bolt turned away by the plate slung under the body |
-| `packages/sim/src/grip-push.ts` | THE PUSH: the same hand read a third way |
+| `packages/sim/src/grip-push.ts` | THE PUSH: the hand on a rock, carried sideways — one column, then a beat of quiet |
 | `packages/sim/src/hash-creature-held.ts` | **The fields a hand writes**, folded into the fingerprint |
 | `packages/sim/src/config-claw.ts` | THE CLAW's numbers — the rail, the clock, and what a bad grab costs |
 | `packages/sim/src/snake-hash.ts` | What SNAKE puts into `hashWorld`, and nothing else |
@@ -271,6 +271,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-veil.ts` | THE VEIL's three events: the turn, the rebuff and the tear |
 | `packages/sim/src/hash-creature-late.ts` | the tail of one body's fingerprint, cut at a position and never a subject |
 | `packages/sim/src/fence-crack.ts` |  |
+| `packages/sim/src/hand.ts` | you are deciding what a finger on the field is worth — a brake on a rock, an aim on anything living, nothing where it would be neither |
 
 ### packages/content
 
@@ -401,7 +402,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/creatures.ts` | silhouettes and their own-motion |
 | `packages/render/src/creature-place.ts` | where a creature is on screen, and what a finger is pointing at |
 | `packages/render/src/touch.ts` | the control scheme: a point on the layout, and what the ship is told |
-| `packages/render/src/grip.ts` | the grip drawn: beam, ring, and whose hand it is |
+| `packages/render/src/grip.ts` | the grip drawn: a ring on every held body, a beam and arrows on a rock, and whose hand it is |
 | `packages/render/src/lance.ts` | the lance drawn: the button filling, and the mark that puts on a column |
 | `packages/render/src/torch.ts` | the torch: three-tile crystal, amber core, its own afterimages |
 | `packages/render/src/torch-alarm.ts` | the role-aware banner and pulsing band a torch in the queue triggers |
@@ -672,6 +673,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/fence-crack.ts` | **The breaking point in a wall, on the screen that is shown it.** A gap is a hole the dome is steered into; a… |
 | `packages/render/src/fence-exit.ts` | **A wall leaving the ship it did not touch.** A fence that finds the dome standing in one of its ways through… |
 | `packages/render/src/fence-skull.ts` | **The skull the current draws over the dome when the wall above it is shut.** A fence is answered by the… |
+| `packages/render/src/grip-arrows.ts` | THE PUSH, said before it happens: the two white arrows beside a held rock, and the beat they go out for |
 
 ### packages/net
 

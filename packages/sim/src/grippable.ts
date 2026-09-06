@@ -2,8 +2,8 @@ import type { CreatureKind } from "./creature-kinds.js";
 import { isBossBody } from "./kinds.js";
 
 /**
- * **Whether a hand may be put on a body at all**, and the ten refusals that
- * answer it.
+ * **Whether a hand may be put on a body at all**, and the thirteen refusals
+ * that answer it.
  *
  * Cut out of `kinds.ts` when THE FENCE took that file over its 250-line limit,
  * and the seam is the one that file's own header draws: everything left there
@@ -100,6 +100,19 @@ const UNGRIPPABLE: readonly CreatureKind[] = [
   // to take away, and it would be bought by the seat that already knows where
   // the gaps are.
   "fence",
+  // And THE GHOST, which is the one name on this list that arrived by
+  // subtraction rather than by argument. A falling ghost *does* fall, so a
+  // brake had a rate to scale and it was gripped for that alone — but a hand
+  // is only a brake on a rock now (`hand.ts`), and the other thing a hand can
+  // be is an aim, which is the one gesture this creature must never allow: its
+  // column is the secret and player 1 is the seat kept from it, so a shot that
+  // found one without being told which lane it was in would be the whole
+  // creature undone (`lock.ts` refused it for exactly that). Brake gone and
+  // aim refused, there is nothing left for a hand to do, and a hand that does
+  // nothing is refused rather than accepted. A crossing ghost was already
+  // refused one body at a time in `grip.ts`; both are refused here now, by
+  // kind, and the special case went with them.
+  "ghost",
   // And THE COIL, for THE CAROM's reason with nothing left over: it crosses the
   // field and sinks only at the walls, so `stepCoil` never goes near
   // `grippedFallTiles` and there is no rate for a brake to scale. The torch it
