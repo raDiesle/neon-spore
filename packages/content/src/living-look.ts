@@ -1,7 +1,7 @@
 import type { CreatureKind } from "@neon-spore/sim";
 import { FLICKER, HOLD, POISE, SWAY_PUMP, TILT_RIPPLE } from "./motions.js";
 import type { OwnMotion } from "./own-motion.js";
-import { BULB, type CreatureSilhouette, DART, SLICK, THROB, WISP } from "./silhouettes.js";
+import { BARB, BULB, type CreatureSilhouette, DART, SLICK, THROB, WISP } from "./silhouettes.js";
 
 /**
  * Which kinds are drawn as a body of their own, and what that body looks like
@@ -40,6 +40,12 @@ const LIVING_LOOK = {
   slick: { shape: SLICK, motion: TILT_RIPPLE },
   bulb: { shape: BULB, motion: SWAY_PUMP },
   throb: { shape: THROB, motion: HOLD },
+  // THE BARB hangs rather than sways, and `POISE` is the dart's word for
+  // exactly that: a body drawn as though it is *about to* do something. On a
+  // dart the promise is kept every other beat; on a barb it never is, which is
+  // the joke the picture is making — the thing that finally catches is the
+  // shield, walking onto it.
+  barb: { shape: BARB, motion: POISE },
   dart: { shape: DART, motion: POISE },
   wisp: { shape: WISP, motion: FLICKER },
   // Drawn as the body underneath — resolve with `wornKind` before asking.

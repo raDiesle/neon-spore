@@ -187,6 +187,12 @@ export function populatedWorld(bossKind: BossEntry["kind"]): World {
   world.gripP2 = 3;
   world.primeTick = 19;
   world.charge = charge();
+  world.domeScarTick = 31;
+  // A cannon fault rather than a shield one, because it is the arm that
+  // carries a second field: the walk can only mutate what is there, so the
+  // union's larger member is the one that covers both.
+  world.malfunction = { kind: "cannon", color: "alternating" };
+  world.reliefTick = 24;
   // First, not last: a boss that stands on the field has already put its own
   // body in this list, and the walk only ever mutates element zero. Behind a
   // queen, the fixture's creature — the one carrying every optional field —

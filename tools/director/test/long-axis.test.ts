@@ -64,15 +64,15 @@ const axes = CATALOGUE.map((e) => ({
 }));
 
 describe("the catalogue's long axes", () => {
-  it("splits a hundred and two bodies into wide, round and tall", () => {
+  it("splits a hundred and three bodies into wide, round and tall", () => {
     const count = (a: "x" | "y" | null) => axes.filter((e) => e.long === a).length;
-    expect(axes.length).toBe(102);
+    expect(axes.length).toBe(103);
     // One ring of THE CRAWLER is the fortieth wide card, and it is wide by
     // more than any other: a ring reaches nearly a full tile past its own
     // column at each end, which is what makes a run of them one animal with no
     // gap in it rather than beads on a string (`content/crawler-shape.ts`).
     expect(count("x")).toBe(40);
-    expect(count(null)).toBe(50);
+    expect(count(null)).toBe(51);
     expect(count("y")).toBe(12);
   });
 

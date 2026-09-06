@@ -46,6 +46,7 @@ function field(seat: 1 | 2, controls: ControlSet): Field {
     maze: null,
     warden: null,
     controls,
+    malfunction: null,
   };
 }
 
@@ -55,13 +56,13 @@ describe("a rung of the standard ladder on the band", () => {
       const l = layout(role);
       const full = new Map(
         [1, 2].flatMap((p) =>
-          bandLobes(l, STANDARD, p as 1 | 2).map((b) => [b.control.id, b.circle] as const),
+          bandLobes(l, STANDARD, p as 1 | 2, null).map((b) => [b.control.id, b.circle] as const),
         ),
       );
       for (const id of LADDER) {
         const set = controlSet(id);
         for (const player of [1, 2] as const) {
-          for (const lobe of bandLobes(l, set, player)) {
+          for (const lobe of bandLobes(l, set, player, null)) {
             expect(lobe.circle, `${id} moved ${lobe.control.id} on ${role}`).toEqual(
               full.get(lobe.control.id) as { x: number; y: number; r: number },
             );
@@ -76,7 +77,9 @@ describe("a rung of the standard ladder on the band", () => {
       const l = layout(role);
       for (const id of LADDER) {
         const set = controlSet(id);
-        const drawn = [1, 2].flatMap((p) => bandLobes(l, set, p as 1 | 2).map((b) => b.control.id));
+        const drawn = [1, 2].flatMap((p) =>
+          bandLobes(l, set, p as 1 | 2, null).map((b) => b.control.id),
+        );
         for (const held of STANDARD.controls) {
           if (setHas(set, held)) continue;
           expect(drawn, `${id} on ${role} still draws ${held}`).not.toContain(held);
@@ -95,7 +98,7 @@ describe("a rung of the standard ladder on the band", () => {
     const set = controlSet("standard2");
     const f = field(1, set);
     for (const player of [1, 2] as const) {
-      for (const lobe of bandLobes(l, STANDARD, player)) {
+      for (const lobe of bandLobes(l, STANDARD, player, null)) {
         const answer = touchDown(l, lobe.circle.x, lobe.circle.y, { ...f, seat: player });
         if (setHas(set, lobe.control.id)) {
           expect(answer, `STANDARD 2 stopped answering ${lobe.control.id}`).not.toBeNull();
@@ -156,7 +159,7 @@ describe("a rung of the standard ladder on the band", () => {
     const l = layout("test");
     for (const id of LADDER) {
       for (const player of [1, 2] as const) {
-        for (const lobe of bandLobes(l, controlSet(id), player)) {
+        for (const lobe of bandLobes(l, controlSet(id), player, null)) {
           expect(hitCircle(lobe.circle, lobe.circle.x, lobe.circle.y)).toBe(true);
         }
       }

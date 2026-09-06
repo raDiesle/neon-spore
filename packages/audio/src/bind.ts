@@ -20,6 +20,7 @@ import { fenceCue } from "./bind-fence.js";
 import { fleetCue } from "./bind-fleet.js";
 import { MIRROR_STEP_SOUNDS, POD_TAKEN_SOUNDS } from "./bind-lookups.js";
 import { panForCol, pitchForRow } from "./bind-place.js";
+import { shipCue } from "./bind-ship.js";
 import { volleyCue } from "./bind-volley.js";
 
 export interface Cue {
@@ -239,6 +240,9 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "fencePass":
     case "fenceBurn":
       return fenceCue(e, cols, rows);
+    case "barbTear":
+    case "relief":
+      return shipCue(e, cols);
     case "volleyReturn":
     case "volleyHatch":
       return volleyCue(e, cols, rows);

@@ -1,10 +1,5 @@
-import {
-  type ControlDef,
-  type ControlSet,
-  layoutSet,
-  setControls,
-  setHas,
-} from "@neon-spore/content";
+import { type ControlDef, type ControlSet, panelSlots } from "@neon-spore/content";
+import type { Malfunction } from "@neon-spore/sim";
 import type { Circle, Layout } from "./layout.js";
 import { showsCannon, showsShield } from "./view-role.js";
 
@@ -64,33 +59,48 @@ export interface Lobe {
  * lobe in the seat's share, and a pair would learn an arrangement in the first
  * waves that moves under them in the fifth — which is the whole of what the
  * owner asked for when he asked for a reduced panel.
+ *
+ * **`fault` is the wave's malfunction**, and the row it produces is
+ * `panelSlots`' answer rather than one worked out here — a seat whose control
+ * has been taken over keeps every button where it was and gains a relief at
+ * the end of the row (`content/src/control-fault.ts`). It is a **required**
+ * argument for the reason `Field.controls` is: a caller that quietly meant
+ * `null` would draw a panel with no brake on it, and the seat holding that
+ * brake is the only thing standing between the pair and a gun that fires on
+ * every beat.
  */
-export function bandLobes(l: Layout, set: ControlSet, player: 1 | 2): Lobe[] {
+export function bandLobes(
+  l: Layout,
+  set: ControlSet,
+  player: 1 | 2,
+  fault: Malfunction | null,
+): Lobe[] {
   // A seat this screen does not carry has no buttons on it at all — not
   // buttons somewhere off to one side. A solo view gives its one seat the
   // whole width, so the absent seat's circles would otherwise land on top of
   // the present one's and both would claim the same thumb.
   if (player === 1 ? !showsCannon(l.role) : !showsShield(l.role)) return [];
-  const controls = setControls(layoutSet(set), player).filter((c) => c.form === "lobe");
-  if (controls.length === 0) return [];
+  const slots = panelSlots(set, player, fault);
+  if (slots.length === 0) return [];
   const solo = l.role !== "test";
   // Each seat's share of the width, and the middle of it. In the test view the
   // two seats stand side by side and neither may reach into the other's half.
   const centre = solo ? 0.5 : player === 1 ? 0.23 : 0.72;
   const maxPitch = solo ? (player === 1 ? 0.28 : 0.32) : player === 1 ? 0.15 : 0.24;
   const share = solo ? 1 : 0.46;
-  const pitch = Math.min(maxPitch, share / controls.length);
-  const first = centre - ((controls.length - 1) / 2) * pitch;
-  return (
-    controls
-      .map((control, i) => ({
-        control,
-        circle: { x: l.width * (first + i * pitch), y: l.lobeY, r: l.lobeR },
-      }))
-      // The slot is kept and the button is not: a control the wave's own set has
-      // not got is drawn nowhere and answered nowhere, exactly as it was before
-      // the ladder existed. Filtered after the placement rather than before it,
-      // which is the whole difference.
-      .filter((lobe) => setHas(set, lobe.control.id))
-  );
+  const pitch = Math.min(maxPitch, share / slots.length);
+  const first = centre - ((slots.length - 1) / 2) * pitch;
+  const out: Lobe[] = [];
+  slots.forEach((control, i) => {
+    // The slot is kept and the button is not: a control the wave's own set has
+    // not got is drawn nowhere and answered nowhere, exactly as it was before
+    // the ladder existed. `panelSlots` decides that, and the placement happens
+    // over the slots either way — which is the whole difference.
+    if (control === null) return;
+    out.push({
+      control,
+      circle: { x: l.width * (first + i * pitch), y: l.lobeY, r: l.lobeR },
+    });
+  });
+  return out;
 }

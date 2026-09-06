@@ -29,6 +29,7 @@ export interface Orphan {
 
 const FIX: Record<OrphanReach, string> = {
   spawn: "place it in a wave — packages/content/src/waves.ts",
+  wave: "name it on a wave — the `malfunction` field in packages/content/src/waves.ts",
 };
 
 /**

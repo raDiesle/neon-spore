@@ -46,6 +46,7 @@ function field(seat: 1 | 2 = 1, controls: ControlSet = STANDARD): Field {
     maze: null,
     warden: null,
     controls,
+    malfunction: null,
   };
 }
 
@@ -66,7 +67,7 @@ const shows = (role: ViewRole, player: 1 | 2): boolean => role === "test" || rol
 /** Where the band draws one control on a panel, or null if it is not on it. */
 function drawnAt(role: ViewRole, set: ControlSet, id: string): { x: number; y: number } | null {
   for (const player of [1, 2] as const) {
-    const found = bandLobes(layout(role), set, player).find((b) => b.control.id === id);
+    const found = bandLobes(layout(role), set, player, null).find((b) => b.control.id === id);
     if (found) return found.circle;
   }
   return null;
@@ -141,7 +142,7 @@ describe("a press on the band", () => {
         const l = layout(role);
         const circles = ([1, 2] as const)
           .filter((p) => shows(role, p))
-          .flatMap((p) => bandLobes(l, set, p).map((b) => b.circle));
+          .flatMap((p) => bandLobes(l, set, p, null).map((b) => b.circle));
         for (const a of circles) {
           expect(circles.filter((c) => hitCircle(c, a.x, a.y))).toHaveLength(1);
         }
@@ -154,7 +155,7 @@ describe("a press on the band", () => {
     // middle, not in the first two of three slots with a hole after them.
     for (const role of ["p1", "test"] as const) {
       const mid = (set: ControlSet): number => {
-        const xs = bandLobes(layout(role), set, 1).map((b) => b.circle.x);
+        const xs = bandLobes(layout(role), set, 1, null).map((b) => b.circle.x);
         return (xs[0]! + xs[xs.length - 1]!) / 2;
       };
       expect(mid(STANDARD)).toBeCloseTo(mid(LANCE), 6);
@@ -184,8 +185,8 @@ describe("what is drawn and what is touchable", () => {
         for (const player of [1, 2] as const) {
           // The other seat's half is not on this screen, so it has no circles
           // at all — not circles standing on top of this seat's.
-          if (!shows(role, player)) expect(bandLobes(l, set, player)).toEqual([]);
-          for (const lobe of bandLobes(l, set, player)) {
+          if (!shows(role, player)) expect(bandLobes(l, set, player, null)).toEqual([]);
+          for (const lobe of bandLobes(l, set, player, null)) {
             const t = touchDown(l, lobe.circle.x, lobe.circle.y, field(1, set));
             expect(t).not.toBeNull();
             expect(t?.player).toBe(player);

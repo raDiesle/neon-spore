@@ -27,6 +27,12 @@ export function lobeMeans(id: ControlId): { command: Command; hold: Hold | null 
     case "intake":
     case "fireRed":
     case "fireCyan":
+    // The two reliefs, and they are a press rather than a hold on purpose: the
+    // quiet is a fixed two beats somebody asked for out loud, and a thumb that
+    // could simply rest on it would make the fault optional
+    // (`sim/malfunction.ts`).
+    case "reliefFire":
+    case "reliefGuard":
       return { command: controlPress(id).down, hold: null };
     case "lance":
       return { command: controlPress(id).down, hold: { kind: "lance" } };

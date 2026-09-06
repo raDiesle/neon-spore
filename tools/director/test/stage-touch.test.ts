@@ -151,6 +151,7 @@ describe("bindStageTouch answers the guide with a hold, and a tap with a step", 
         maze: mazeRound(world),
         warden: world.boss?.kind === "warden" ? world.boss : null,
         controls: controlSetForWave(world.wave),
+        malfunction: null,
       }),
       push: (player, command) => {
         sent.push({ player, command });
@@ -370,6 +371,7 @@ describe("bindStageTouch reports the hand on the ship", () => {
         maze: mazeRound(world),
         warden: world.boss?.kind === "warden" ? world.boss : null,
         controls: controlSet("default"),
+        malfunction: null,
       }),
       push: (player, command) => pending.push({ tick: world.tick, player, command }),
       world: () => world,

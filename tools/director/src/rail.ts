@@ -5,6 +5,7 @@ import {
   DEFAULT_CONTROL_SET_ID,
 } from "@neon-spore/content";
 import { renderControlSetNote } from "./control-set-note.js";
+import { bindFaultFields } from "./fault-fields.js";
 import { autoGrowTextarea, bindGuideFields, setGrownValue } from "./guide-fields.js";
 import { waveMarks } from "./rail-marks.js";
 import { copyWave, currentWave, emptyWave, type Store } from "./state.js";
@@ -45,6 +46,9 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
   // it starts. See `guide-fields.ts` for why the three fields are built rather
   // than declared in `index.html`.
   const guideFields = bindGuideFields(document.getElementById("guideFields"));
+  // Under the control set, for the reason it is under it in the markup: the
+  // panel says what buttons the pair has and this says which of them answer.
+  const faultFields = bindFaultFields(document.getElementById("faultFields"));
 
   if (controlsField) {
     controlsField.replaceChildren();
@@ -89,6 +93,7 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
     renderControlSetNote(controlsRoster, active);
 
     guideFields.render(wave);
+    faultFields.render(wave);
 
     // A boss wave cannot be copied or deleted (see the two guards in
     // `bindAction`, the actual enforcement). `setBossGuard`, below, is the
@@ -130,6 +135,17 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
     if (!wave || !controlsField) return;
     const picked = controlsField.value as ControlSetId;
     wave.controls = picked === DEFAULT_CONTROL_SET_ID ? undefined : picked;
+    store.dirty = true;
+    onSelect();
+  });
+
+  // Through `onSelect`, like the panel and for the same reason: a fault
+  // changes what the band draws and what the beat does, not what the wave says
+  // about itself, so the stage has to be rebuilt around it.
+  faultFields.onChange((fault) => {
+    const wave = currentWave(store);
+    if (!wave) return;
+    wave.malfunction = fault;
     store.dirty = true;
     onSelect();
   });

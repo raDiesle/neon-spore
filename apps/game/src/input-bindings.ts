@@ -1,6 +1,6 @@
 import type { ControlSet } from "@neon-spore/content";
 import type { Layout } from "@neon-spore/render";
-import type { Creature, MazeState, SimConfig, WardenState } from "@neon-spore/sim";
+import type { Creature, Malfunction, MazeState, SimConfig, WardenState } from "@neon-spore/sim";
 import type { InputBuffer } from "./input-buffer.js";
 
 /**
@@ -54,6 +54,12 @@ export interface Bindings {
    * not name has no button and must not answer a thumb (`render/touch.ts`).
    */
   controls: () => ControlSet;
+  /**
+   * The fault the wave in front of the pair is played under, or `null`. Read
+   * every frame rather than once, for `controls`' reason: a wave ends and the
+   * next one may be played straight (`sim/malfunction.ts`).
+   */
+  malfunction: () => Malfunction | null;
   /** The field, for hit-testing a finger against what is falling. */
   creatures: () => readonly Creature[];
   /**

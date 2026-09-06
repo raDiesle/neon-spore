@@ -164,6 +164,28 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
   // rind and the mount for their reason — what makes a bead a bead is where it
   // is on the line and which one is lit, and neither is a costume.
   strand: BARE_CREATURES.strand,
+  barb: {
+    kind: "barb",
+    // **Aim only, and that is the whole creature stated as a control group.**
+    // A barb is ended by the matching cannon and by nothing else: the shield
+    // does not turn it, does not chip it and does not slow it, so a panel that
+    // could ward and not fire is a panel this body cannot be answered on. It
+    // is deliberately *not* `["aim", "guard"]` — the trigger is not half of the
+    // answer here, it is the mistake, and a wave named for it must not be told
+    // it needs one (`test/waves.test.ts` reads this against the panel).
+    controls: ["aim"],
+    // Authored, the way a clasp's and a dart's are: the hooks are the barb's
+    // silhouette and the colour is which cannon ends it, so neither can be
+    // worked out from the other.
+    color: null,
+    // Player 2's strip, like every other body whose colour the navigator can
+    // read off the field. Nothing about a barb is hidden from either seat —
+    // what the pair has to keep saying is where the dome is standing, and that
+    // is a fact about their own ship rather than about the arrival.
+    radar: "p2",
+    blurb:
+      "Seven lobes swept back into hooks, in its own colour, falling a row a beat like a slick. The matching cannon ends it. The shield must not: a dome that comes up anywhere in its column catches on the hooks, tears the ship open, and then wards nothing at all for the next three beats — so the rock behind it goes through too. Nothing turns it away; the only answer is to get the plate out of its column and shoot it.",
+  },
   crawler: {
     kind: "crawler",
     // **Both**, and the only kind where the two are not two halves of one

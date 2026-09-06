@@ -82,6 +82,10 @@ const DUTY_WORD = {
   // to do about a wall coming down at two rows a beat is get the ship out of
   // its way, and a siren saying GAP is a siren describing the scenery.
   fence: { p1: "EVADE" },
+  // THE BARB withholds nothing from either seat, so neither owes the other a
+  // word about the body — see `comms.ts`. The sentence this creature does ask
+  // for is about the shield, and the shield is not a kind.
+  barb: null,
 } as const satisfies Record<CreatureKind, { p1?: string; p2?: string } | null>;
 
 /** Whether a kind counts as active for this word, including the one kind

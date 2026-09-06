@@ -2,6 +2,7 @@ import type { Mechanic, MechanicId } from "./mechanics.js";
 import { ROCK_MECHANICS } from "./mechanics-rocks.js";
 import { RUN_MECHANICS } from "./mechanics-run.js";
 import { SPLIT_MECHANICS } from "./mechanics-split.js";
+import { WAVE_MECHANICS } from "./mechanics-wave.js";
 
 /**
  * The rows themselves, lifted out of `mechanics.ts` when that file crossed the
@@ -216,9 +217,21 @@ export const MECHANICS = {
     // composes anything else against.
     waveNames: true,
   },
+  barb: {
+    what: "Hooks swept back around a body in its own colour, falling a row a beat. The matching cannon ends it and nothing else does — and the shield is the mistake: a dome that comes up anywhere in its column catches on it, tears the hull, and then wards nothing at all for three beats, so whatever was behind it lands too. THE LURE's rule, moved onto the other control.",
+    reach: "spawn",
+    // A wave names this kind and gives it a colour, the way it does for a
+    // clasp and a dart: the hooks are the barb's silhouette and the colour is
+    // which cannon answers it, so neither follows from the other.
+    waveNames: true,
+  },
   // The five that are not a thing the field sends — a wave's own opening, the
   // wind-up, and the three things a held thumb does — are `mechanics-run.ts`
   // next door, cut out when THE CRAWLER took this file past its limit along
   // the seam `reach` already names.
   ...RUN_MECHANICS,
+  // And the two a wave turns on without sending anything at all, next door in
+  // `mechanics-wave.ts` — the third cut of this table, along the seam `reach`
+  // names rather than the one `mechanics-split.ts` cut.
+  ...WAVE_MECHANICS,
 } as const satisfies Record<MechanicId, Mechanic>;

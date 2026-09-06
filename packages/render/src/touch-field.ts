@@ -1,5 +1,5 @@
 import type { ControlSet } from "@neon-spore/content";
-import type { Creature, MazeState, SimConfig, WardenState } from "@neon-spore/sim";
+import type { Creature, Malfunction, MazeState, SimConfig, WardenState } from "@neon-spore/sim";
 
 /**
  * **What a hit test is handed**: the field as the control scheme needs to see
@@ -75,4 +75,14 @@ export interface Field {
    * a required field makes the compiler ask.
    */
   controls: ControlSet;
+  /**
+   * The fault this wave is played under, or `null`.
+   *
+   * **Required and stated rather than defaulted**, for the reason every field
+   * above it is: a caller that quietly meant `null` would leave the seat whose
+   * control has been taken over with no relief drawn and no relief answered —
+   * a wave with a runaway cannon and no way to stop it, which is not a harder
+   * wave, it is an unplayable one.
+   */
+  malfunction: Malfunction | null;
 }

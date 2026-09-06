@@ -27,6 +27,12 @@ export type SimEvent =
   | { type: "destroy"; col: number; row: number; color: Color }
   | { type: "hole"; col: number; row: number }
   | { type: "reject"; col: number; row: number }
+  /** The dome came up on a barb and tore. `col` is the shield's, which is
+   * where the ship is holed — see `barb.ts` for why it is not the body's. */
+  | { type: "barbTear"; col: number; row: number }
+  /** A seat held its own broken control off. `beats` is how long the quiet
+   * lasts, so an ear and an eye can both run for exactly that long. */
+  | { type: "relief"; player: 1 | 2; beats: number }
   | { type: "deflect"; col: number; span: number; kind: Creature["kind"]; fromRow: number }
   /** A hand took hold. Only the moment it lands — the hold itself is state,
    * not an event, and render/ reads it off the world every frame. */

@@ -127,6 +127,7 @@ const {
   warden: () => (world.boss?.kind === "warden" ? world.boss : null),
   // Which panel is up follows from the wave (`content/control-sets.ts`).
   controls: () => controlSetForWave(world.wave),
+  malfunction: () => world.malfunction,
   creatures: () => world.creatures,
   // The ship answers a finger where it is drawn, not only on the strips below.
   cannonCol: () => world.cannonCol,

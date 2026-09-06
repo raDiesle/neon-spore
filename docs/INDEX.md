@@ -244,6 +244,12 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/creature-state-fence.ts` | **THE FENCE's two fields**, and both of them are sets of columns: the ways through the wave authored |
 | `packages/sim/src/events-fence.ts` | **What THE FENCE does**, as events: the wire going over the ship, and a bolt cutting a way through it |
 | `packages/sim/src/fence.ts` | THE FENCE: a live line the width of the field, with gaps burnt through it |
+| `packages/sim/src/barb.ts` | THE BARB: the first body in this game that punishes the **shield** |
+| `packages/sim/src/config-barb.ts` | THE BARB's two numbers: what a ward caught on one costs, and how long the dome is torn open afterwards |
+| `packages/sim/src/config-malfunction.ts` | THE MALFUNCTION's four numbers: how often a broken control acts by itself |
+| `packages/sim/src/config-view.ts` | **The numbers only the picture reads.** Every field here is taken off `SimConfig` by `packages/render` |
+| `packages/sim/src/fault-surface.ts` | Every name THE MALFUNCTION and THE BARB put on `@neon-spore/sim`'s surface, written out |
+| `packages/sim/src/malfunction.ts` | THE MALFUNCTION: a wave in which one of the two seats does not have its control any more — the control has it |
 
 ### packages/content
 
@@ -337,6 +343,10 @@ place — the generator keeps whatever is there.
 | `packages/content/src/creatures-hazards.ts` | **The arrivals with nothing alive in them**: the five speed tiers, THE VEER, the torch — and THE FENCE |
 | `packages/content/src/creatures-split.ts` | The three bodies **one seat cannot see whole** that wear nothing to do it — the dart, the wisp and the ghost |
 | `packages/content/src/mechanics-split.ts` | The five bestiary rows for bodies one seat cannot see whole — the lure, the dart, the veil, the wisp and the ghost |
+| `packages/content/src/control-fault.ts` | **What a wave's fault does to the panel it is played on**, and the one place either half of it is decided |
+| `packages/content/src/mechanics-wave.ts` | **The two mechanics a wave turns on without putting a body on the field**, and the whole of `reach: "wave"` |
+| `packages/content/src/silhouettes-spare.ts` | **The two contours next door that are not a body on the roster**: one retired, one a capsule |
+| `packages/content/src/waves/act-7.ts` | Act seven, and it opens on the first body in this game the **shield** must not be pointed at |
 
 ### packages/render
 
@@ -610,6 +620,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/fence-gate.ts` | The way through a fence, on the screen that is shown it |
 | `packages/render/src/fence.ts` | THE FENCE: a live line the width of the field, and the two different pictures of it the two screens carry |
 | `packages/render/src/spline.ts` | A contour, written into a `Path2D` as numbers |
+| `packages/render/src/effects-ingest-silent.ts` | **The events that leave nothing behind in `Effects`**, and why each one does not |
+| `packages/render/src/malfunction-look.ts` | **What a broken control looks like**, and what the button that holds it off looks like beside it |
 
 ### packages/net
 
@@ -657,6 +669,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-lookups.ts` | The two id-to-id tables `bind.ts` reads, and the only *data* in a file that is otherwise a switch |
 | `packages/audio/src/bind-fence.ts` | **What THE FENCE sounds like**: the wire going over the ship, and a bolt cutting a way through it |
 | `packages/audio/src/bind-place.ts` | **Where a sound is**: a column as a stereo position, and a row as a pitch |
+| `packages/audio/src/bind-ship.ts` | **The two moments that are the ship's own** rather than a body's: the dome running onto a barb |
 
 ### apps/game
 
@@ -724,6 +737,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/perf-page.ts` | The readout `?perf=1` puts on the screen |
 | `apps/game/src/perf-sweep.ts` | The performance sweep, run **inside the page**, on the device the game is for |
 | `apps/game/src/menu-idle.ts` | `?menuidle=<hz>` — how often the field is repainted while the main menu is up |
+| `apps/game/src/keys-grip.ts` | **What the desk rig's grip key takes hold of.** Cut out of `keys.ts` when the relief's key took that file… |
 
 ### apps/server
 
@@ -1096,5 +1110,7 @@ place — the generator keeps whatever is there.
 | `tools/tmp-litter.ts` | The directories a browser run leaves under `.claude/tmp`, and when one of them is spent |
 | `tools/perf/shape.ts` | PUTTING TWO RUNS ON THE SAME FOOTING, and one row from one of them into the other |
 | `tools/perf/sweep-timing.ts` | The numbers a paint is sampled with, and the statistics taken off the sample |
+| `tools/director/src/fault-fields.ts` | The MALFUNCTION section `rail.ts` shows under the control set |
+| `tools/director/src/serialize-boss.ts` | **A wave's boss, written back out**, and the nine shapes it can take |
 
 <!-- index:code:end -->

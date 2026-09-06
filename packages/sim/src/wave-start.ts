@@ -6,6 +6,8 @@ import { installFleet } from "./fleet.js";
 import { installGauge } from "./gauge-round.js";
 import { clearGrips } from "./grip.js";
 import { endPrime } from "./lance.js";
+import type { Malfunction } from "./malfunction.js";
+import { NO_RELIEF } from "./malfunction.js";
 import { installMaze } from "./maze-round.js";
 import { installMirror } from "./mirror.js";
 import { installPinball } from "./pinball-round.js";
@@ -30,6 +32,11 @@ import type { BossEntry, PodEntry, SpawnEntry, World } from "./world.js";
  * and not the guide itself on purpose: the sim decides *whether* the field is
  * held and for how many states, and it never reads a word of what is on the
  * screen. A caller that leaves it out gets an introduction and then the wave.
+ *
+ * `malfunction` is the wave's fault, and it arrives here beside the boss for
+ * the reason the boss does: it is a whole-wave fact read once, before the
+ * first tick, identically on both devices. A wave that names none is played
+ * straight, which is every wave in the game but three.
  */
 export function startWave(
   world: World,
@@ -39,6 +46,7 @@ export function startWave(
   boss: BossEntry | null = null,
   hasGuide = false,
   guideSteps = 0,
+  malfunction: Malfunction | null = null,
 ): void {
   const mid = midCol(world.cfg);
   world.wave = waveIndex;
@@ -58,7 +66,13 @@ export function startWave(
   world.guardTick = -1_000_000;
   world.intakeTick = -1_000_000;
   world.wardUntilTick = -1_000_000;
+  world.domeScarTick = -1_000_000;
   world.lastFireTick = -1_000_000;
+  // The fault, and the brake the seat holding it starts with unspent. Both are
+  // wave-local: a scar, a pause and a rest are all measured from a tick, and a
+  // wave that inherited one would open with a window already half run.
+  world.malfunction = malfunction;
+  world.reliefTick = NO_RELIEF;
   world.cannonCol = mid;
   world.shieldCol = mid;
   world.boss = null;

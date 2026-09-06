@@ -1,5 +1,5 @@
 import { type ControlSet, type Point, setHas } from "@neon-spore/content";
-import type { Command } from "@neon-spore/sim";
+import type { Command, Malfunction } from "@neon-spore/sim";
 import { NO_GRIP } from "@neon-spore/sim";
 import { creatureAt } from "./creature-place.js";
 import { handleUnder } from "./handles.js";
@@ -70,7 +70,7 @@ export function touchDown(l: Layout, x: number, y: number, field: Field): Touch 
         hold: { kind: "cannon" },
       };
     }
-    const lobe = lobeUnder(l, field.controls, 1, x, y);
+    const lobe = lobeUnder(l, field.controls, field.malfunction, 1, x, y);
     if (lobe) return lobe;
   }
   if (showsShield(l.role)) {
@@ -84,7 +84,7 @@ export function touchDown(l: Layout, x: number, y: number, field: Field): Touch 
         hold: { kind: "shield" },
       };
     }
-    const lobe = lobeUnder(l, field.controls, 2, x, y);
+    const lobe = lobeUnder(l, field.controls, field.malfunction, 2, x, y);
     if (lobe) return lobe;
   }
   return null;
@@ -101,8 +101,15 @@ export function touchDown(l: Layout, x: number, y: number, field: Field): Touch 
  * what is on a panel, and it went on including the lance after the panel
  * stopped.
  */
-function lobeUnder(l: Layout, set: ControlSet, player: 1 | 2, x: number, y: number): Touch | null {
-  for (const lobe of bandLobes(l, set, player)) {
+function lobeUnder(
+  l: Layout,
+  set: ControlSet,
+  fault: Malfunction | null,
+  player: 1 | 2,
+  x: number,
+  y: number,
+): Touch | null {
+  for (const lobe of bandLobes(l, set, player, fault)) {
     if (!hitCircle(lobe.circle, x, y)) continue;
     const said = lobeMeans(lobe.control.id);
     if (said) return { player: lobe.control.player, ...said };

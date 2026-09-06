@@ -1,8 +1,9 @@
 import { fire } from "./bullets.js";
-import { breakClaspsInColumn } from "./clasp.js";
 import { closeGauge } from "./gauge-round.js";
 import { gripsCreature, setGrip } from "./grip.js";
+import { armShield } from "./hull-guard.js";
 import { endPrime, startPrime } from "./lance.js";
+import { faultSwallows, reliefHeard } from "./malfunction.js";
 import { mazeHeard } from "./maze-controls.js";
 import { mirrorHeard, mirrorHoldsControls } from "./mirror.js";
 import { closePinball } from "./pinball-round.js";
@@ -56,6 +57,11 @@ export function applyCommand(world: World, timed: TimedCommand): void {
   }
   // Nothing at all reaches the ship while THE MIRROR is presenting.
   if (mirrorHoldsControls(world)) return;
+  // A control this wave's fault has taken over answers nobody. Checked here,
+  // above the switch, so every way into the command is closed at once — the
+  // lobe, the gesture on the hull, a rehearsal's ghost thumb and the wire
+  // (`malfunction.ts`).
+  if (faultSwallows(world, c)) return;
 
   switch (c.kind) {
     case "cannonCol": {
@@ -74,13 +80,16 @@ export function applyCommand(world: World, timed: TimedCommand): void {
       world.shieldCol = clampCol(world, c.col);
       break;
     case "guard":
-      world.guardTick = world.tick;
       mirrorHeard(world, "guard");
-      // The same press, reaching up its own column instead of down at the
-      // hull. `resolveHull` answers rocks on one row because a rock has to
-      // arrive first; a clasp is opened wherever it stands, which is what
-      // makes the shield a column rather than a plate (`clasp.ts`).
-      breakClaspsInColumn(world);
+      // Everything the dome coming up means is one call, because a shield
+      // malfunction arms it on the beat with nobody pressing anything and the
+      // two paths must not drift (`armShield` in `hull-guard.ts`).
+      armShield(world);
+      break;
+    case "relief":
+      // Whose thumb this is allowed to be is `malfunction.ts`'s rule, not this
+      // file's — the same split every round's own verbs are read with.
+      reliefHeard(world, timed.player);
       break;
     case "intake":
       world.intakeTick = world.tick;

@@ -63,6 +63,8 @@ const SAMPLES: Record<string, SimEvent> = {
   destroy: { type: "destroy", col: 3, row: 4, color: "cyan" },
   hole: { type: "hole", col: 2, row: 5 },
   reject: { type: "reject", col: 2, row: 5 },
+  barbTear: { type: "barbTear", col: 2, row: 5 },
+  relief: { type: "relief", player: 2, beats: 2 },
   deflect: { type: "deflect", col: 2, span: 1, kind: "meteor", fromRow: 9 },
   grip: { type: "grip", player: 1, col: 1, row: 3 },
   podLoose: { type: "podLoose", col: 4, row: 2 },

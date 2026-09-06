@@ -9,6 +9,7 @@ import { dropLostGrips } from "./grip.js";
 import { regenerateHull } from "./hull.js";
 import { noteLanceFull } from "./lance.js";
 import { lidHeard } from "./lid.js";
+import { stepMalfunction } from "./malfunction.js";
 import { mazeStringHeard, stepMazeTurn } from "./maze-controls.js";
 import { pinballHolds, pinballRoundHeard, stepPinballRound } from "./pinball-round.js";
 import { advancePods } from "./pods.js";
@@ -140,7 +141,15 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // so the tick it comes full on is this one, whatever else happens next.
   noteLanceFull(world);
   const tpb = ticksPerBeat(world.cfg);
-  if (world.tick % tpb === 0) onBeat(world);
+  if (world.tick % tpb === 0) {
+    onBeat(world);
+    // A broken control acts on the beat, straight after the field has moved
+    // under it — so the shot goes up the column the cannon is standing in
+    // *now* and the dome comes up over the row a body has just stepped onto.
+    // Nothing here is a command: `applyCommand` has already run and closed
+    // both of these doors to a thumb (`malfunction.ts`).
+    stepMalfunction(world);
+  }
 
   advanceBullets(world);
   // After the shots, before anything else asks who is holding what: a hand

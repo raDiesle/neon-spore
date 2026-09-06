@@ -63,7 +63,7 @@ table in a document cannot be wrong in a way a compiler notices.
 
 | Category | Answered by | Members today |
 |---|---|---|
-| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand` |
+| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand`, `barb` |
 | `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch`, `veer` |
 | `mixed` | `aim` and `guard` | `queen`, `warden`, `clasp`, `carom`, `volley`, `crawler`, `fence` |
 | `special` | neither | `tether`, `mount`, `chute` |
@@ -375,6 +375,86 @@ Two requirements, unchanged from the original draft: the interference must sit
 travel with it, or it is decoration. And it must be distinguishable from a
 real connection problem — otherwise a pair will think the game is broken the
 first time they see it.
+
+## THE BARB
+
+**The mirror of THE LURE, one control across, and the first body in this game
+that punishes the shield.** A lure is a body a *shot* must never be spent on:
+it looks like an ordinary target, the cannon is the wrong answer, and left
+alone it goes on its own. A barb is that argument pointed at the other seat —
+except that it does not leave, and it cannot be waited out.
+
+**What it is.** Seven lobes swept back into hooks around a body a little taller
+than it is wide, in its own authored colour, falling a row a beat like a slick.
+Nothing about it is hidden from either screen: both seats see the hooks and
+both see the colour, which is deliberate. THE LURE's whole content is that one
+seat cannot tell it from what it is pretending to be; this creature's content
+is that the pair can see exactly what it is and still pay for it, because what
+they have to keep track of is where their own *dome* is standing.
+
+**What it does.** It is answered by the matching cannon and by nothing else. It
+is not `isWardable`, so the shield never turns it, never chips it and never
+slows it — it falls past the dome and breaks the hull like any other arrival
+that got through. What the shield *can* do is run onto it: a trigger that comes
+up anywhere in a barb's column catches on the hooks, holes the ship for
+`barbTearDamage`, and then leaves the dome answering **nothing at all** for
+`barbScarBeats`.
+
+**The tail is the creature.** A cost paid once, on the beat of the mistake,
+would be a bad trade and nothing more — the pair would learn to eat it. A
+shield that is *gone* for the next three beats is also the next rock, and the
+one after it, which is a thing they have to say something to each other about.
+A torn dome cannot be torn again while it is torn, so the bill is one scar per
+three beats however many barbs are standing in that column; without that rule a
+shield malfunction would charge the pair once a beat until the body landed,
+which is a punishment nobody can be inside of long enough to answer.
+
+**Reach.** It is caught wherever it stands, not at the shield's row. That is
+THE CLASP's rule with the sign turned round, and for the same reason: the
+shield is a column and not a plate on one row (`sim/barb.ts`, `sim/clasp.ts`).
+
+**Where it is played.** THE BARB introduces it on the ordinary panel, with
+rocks beside it so the trigger is still worth having. THE TWITCH plays it under
+a shield malfunction, which is the wave the creature was designed for.
+
+## THE MALFUNCTION
+
+**A wave in which one of the two seats does not have its control any more — the
+control has it.** Not a creature and not a panel: a fault is a fact about the
+wave, named beside `boss` and `controls` on `Wave`, and it reads the same on
+every set because it changes no button on any of them.
+
+Two of them, and they are two mechanics rather than one because a pair who has
+played one has learnt nothing about the other:
+
+- **A cannon fault** fires up player 1's column on every beat. RED and CYAN go
+  dead on player 2's panel. The ammunition is authored — red, cyan, or
+  **alternating**, which changes on the beat and makes the colour a thing
+  somebody has to call.
+- **A shield fault** brings the dome up over player 2's column on every beat.
+  SHIELD goes dead on player 1's panel. Every rock the plate is standing under
+  is warded for free; every column the plate must *not* be in is now a column it
+  is in on the next beat.
+
+**The broken half is never the half that moves**, and that is the whole design.
+The seat that still has a strip has to *aim the fault somewhere harmless* — off
+a lure's column, off a barb's — which is why these two creatures are what the
+faults were built for. A fault that took the strip instead would leave the pair
+with nothing to do about it.
+
+**The relief is the coupling.** The seat whose control broke gets one lobe back
+where its buttons were: a tap holds the fault off for `reliefPauseBeats`, and
+the next tap is only answered `reliefRestBeats` after the last. It is on the
+*broken* seat deliberately — the seat that can still move has both hands full
+of a column, and a brake either of them could reach would be a brake nobody has
+to ask for. As it stands a crossing is a sentence: *hold it, I am going
+through.*
+
+**The rule is enforced in the simulation, not on the panel.** A lobe is not the
+only way into a `fire` or a `guard` — a swipe on the hull is a second, a
+rehearsal's ghost thumb a third and the wire a fourth — so a broken control is
+swallowed above the switch in `applyCommand`. render/ draws the button dead and
+tearing; it does not decide anything.
 
 ## 10.3 Examined and rejected
 

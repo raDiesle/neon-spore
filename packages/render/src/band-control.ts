@@ -1,5 +1,6 @@
 import type { ControlDef } from "@neon-spore/content";
-import type { World } from "@neon-spore/sim";
+import { controlBroken } from "@neon-spore/content";
+import { reliefHolds, type World } from "@neon-spore/sim";
 import { drawActionButton, drawFireButton } from "./controls.js";
 import { drawAimButton, drawSalvoButton } from "./controls-fleet.js";
 import { halo } from "./glow.js";
@@ -7,6 +8,7 @@ import { guardLapse } from "./guard-lapse.js";
 import { drawLanceButton } from "./lance.js";
 import type { Circle, Layout } from "./layout.js";
 import { drawLobeGloss, drawLobeSocket } from "./lobe-shell.js";
+import { drawFaultOver, drawReliefButton } from "./malfunction-look.js";
 import { PALETTE } from "./palette.js";
 import { type SeatSkin, seatSkin } from "./seat-skin.js";
 
@@ -39,11 +41,20 @@ export function drawLobe(
   world: World,
   armed: boolean,
   open: boolean,
+  time = 0,
 ): void {
   const { x, y, r } = circle;
   const skin = seatSkin(l.role);
   drawLobeSocket(ctx, x, y, r, l.dpr, skin.lip);
   drawFace(ctx, circle, c, world, armed, open, skin);
+  // A control this wave's fault has taken over is drawn and then drawn broken,
+  // over the top of its own face — the panel keeps every button where it was
+  // and the damage is what is new (`malfunction-look.ts`). It stops for as
+  // long as the other lobe is holding the fault off, which is the surest sign
+  // either seat has that the quiet they asked for actually arrived.
+  if (controlBroken(c.id, world.malfunction) && !reliefHolds(world)) {
+    drawFaultOver(ctx, circle, time);
+  }
   drawLobeGloss(ctx, x, y, r, l.dpr);
 }
 
@@ -58,6 +69,13 @@ function drawFace(
   skin: SeatSkin,
 ): void {
   const { x, y, r } = circle;
+  // The relief, which is on the panel only while a fault is. It is asked first
+  // because it is the one control whose whole state is a window somebody
+  // bought rather than a window the wave opened.
+  if (c.id === "reliefFire" || c.id === "reliefGuard") {
+    drawReliefButton(ctx, circle, world, r > 16 ? c.label : "", skin.dead[0]);
+    return;
+  }
   // The first two are lit for exactly as long as their window is open, so
   // player 1 can see what they are spending.
   if (c.id === "guard") {

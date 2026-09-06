@@ -186,6 +186,13 @@ const TALKER = {
   // row pushed as far as it goes — there the pilot knows which lane the rock
   // takes next, here the pilot knows the only lane there is.
   fence: "p1",
+  // THE BARB, and the plainest `null` in the table: both screens draw the
+  // hooks, both draw the colour, and there is nothing about the body either
+  // seat is missing. What the pair has to keep saying to each other is where
+  // the *dome* is, which is a fact about their own ship — a siren pointing at
+  // the arrival would point at the half of this creature that is not the
+  // problem.
+  barb: null,
 } as const satisfies Record<CreatureKind, Talker | null>;
 
 /** The seat that has to say something about this kind, or null if the two of

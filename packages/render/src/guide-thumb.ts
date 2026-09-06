@@ -104,7 +104,9 @@ function pointOn(
     return slab ? { x: slab.x + slab.w / 2, y: slab.y + slab.h / 2 } : null;
   }
   if (def.form === "lobe") {
-    const lobe = bandLobes(l, set, def.player).find((b) => b.control.id === act.control);
+    const lobe = bandLobes(l, set, def.player, world?.malfunction ?? null).find(
+      (b) => b.control.id === act.control,
+    );
     return lobe ? { x: lobe.circle.x, y: lobe.circle.y } : null;
   }
   if (def.form !== "strip") return null;

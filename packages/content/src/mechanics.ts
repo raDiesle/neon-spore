@@ -1,6 +1,7 @@
 import {
   type BossEntry,
   type CreatureKind,
+  type Malfunction,
   type PodKind,
   podKindOf,
   type SimConfig,
@@ -55,6 +56,25 @@ import { WAVES } from "./waves.js";
 export type RunMechanicId = "briefing" | "windup" | "lance" | "grip" | "lock";
 
 /**
+ * A mechanic a wave turns on **without putting a body on the field**, and the
+ * class exists because neither of these could honestly join the other two: a
+ * malfunction is not a creature `mechanicsInWave` can find in the queue, and it
+ * is not a run switch either — a wave carries one or does not, exactly the way
+ * a wave carries a boss.
+ *
+ * **Two ids for one `Malfunction`**, which is a decision and not a leak of the
+ * union's shape. A mechanic is *a rule the pair has to learn*, and these are
+ * two rules: one takes the colours off the navigator and hands the pilot a gun
+ * that will not stop, the other takes the trigger off the pilot and hands the
+ * navigator a plate that comes up whether or not anybody wants it. A pair who
+ * has played one has learnt nothing about the other except the shape of the
+ * relief. Collapsing them into a single row would say the game introduces this
+ * once, and `test/waves.test.ts` would then hold that the second wave to carry
+ * one must *not* explain itself.
+ */
+export type WaveMechanicId = "cannonFault" | "shieldFault";
+
+/**
  * The closed list. `queen` and `warden` are a `CreatureKind` and a boss kind at
  * once, which is right — the body and the fight are one mechanic — so the
  * union deliberately collapses them and only `mirror` and `vane` are added.
@@ -63,13 +83,18 @@ export type MechanicId =
   | CreatureKind
   | PodKind
   | Exclude<BossEntry["kind"], CreatureKind>
-  | RunMechanicId;
+  | RunMechanicId
+  | WaveMechanicId;
 
 /**
  * How to tell whether a wave reaches a mechanic — and, for one class, that the
  * question does not fit.
  *
  * - `spawn`: the wave puts it on the field. `mechanicsInWave` answers.
+ * - `wave`: the wave turns it on and puts no body on the field for it. Asking
+ *   which wave is a fair question and `mechanicsInWave` answers it — off the
+ *   wave's own fields rather than off its queue, which is the whole of what
+ *   separates this from `spawn`.
  * - `run`: one switch decides for the whole run, so every wave reaches it or
  *   none does. Asking which wave is asking the wrong question, and a caller
  *   that wants a warning about unused mechanics must leave these out rather
@@ -81,7 +106,7 @@ export type MechanicId =
  * the class went with the table, and THE GAUGE is a `spawn` like every other
  * boss. `docs/decisions.md` #20 has the argument.
  */
-export type Reach = "spawn" | "run";
+export type Reach = "spawn" | "wave" | "run";
 
 /**
  * The `SimConfig` field that turns a mechanic on, and the value that means off.
@@ -160,12 +185,20 @@ export function mechanicOn(cfg: SimConfig, id: MechanicId): boolean {
  * those rules here would be a second reading that drifts. The column count
  * given to it is the authored one, since nothing here asks *where*.
  */
+export function faultMechanic(m: Malfunction): WaveMechanicId {
+  return m.kind === "cannon" ? "cannonFault" : "shieldFault";
+}
+
 export function mechanicsInWave(wave: Wave): Set<MechanicId> {
   const found = new Set<MechanicId>();
   for (const e of queueFromWave(wave, AUTHORED_COLS)) found.add(e.kind);
   for (const p of podsFromWave(wave, AUTHORED_COLS)) found.add(podKindOf(p));
   const boss = bossFromWave(wave, AUTHORED_COLS);
   if (boss) found.add(boss.kind);
+  // The two a wave reaches by a field of its own rather than by anything it
+  // sends. Read straight off the wave and not through `queueFromWave`, because
+  // there is nothing in the queue to read.
+  if (wave.malfunction) found.add(faultMechanic(wave.malfunction));
   addCarried(found);
   return found;
 }

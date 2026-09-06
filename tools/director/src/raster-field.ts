@@ -116,6 +116,7 @@ export function bindRasterField(canvas: HTMLCanvasElement): RasterField {
       maze: mazeRound(world),
       warden: world.boss?.kind === "warden" ? world.boss : null,
       controls: controls(),
+      malfunction: world.malfunction,
     }),
     push,
     world: () => world,

@@ -50,6 +50,7 @@ export function bindControls({
   cfg,
   maze,
   controls,
+  malfunction,
   warden,
   creatures,
   cannonCol,
@@ -77,6 +78,9 @@ export function bindControls({
     maze: maze(),
     warden: warden(),
     controls: controls(),
+    // The wave's fault, so the relief is answered where it is drawn — the same
+    // argument `controls` makes one line up (`render/src/control-fault.ts`).
+    malfunction: malfunction(),
   });
 
   const down = (id: number, x: number, y: number): void => {

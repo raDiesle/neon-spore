@@ -193,6 +193,13 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "fenceBurn":
       return at(l, e.col, e.row, 12, PALETTE.arc);
 
+    // The dome running onto a barb. In the shield's own rim colour rather than
+    // the body's, and at the fence's count rather than a pass's: what came
+    // apart is the ship's defence, so the burst has to read as *our* thing
+    // breaking and not as a kill.
+    case "barbTear":
+      return at(l, e.col, e.row, 16, PALETTE.shieldRim);
+
     default:
       return assertNever(e);
   }

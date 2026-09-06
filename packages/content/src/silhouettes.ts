@@ -37,6 +37,40 @@ export const SLICK: CreatureSilhouette = {
   seed: 2.0,
 };
 
+/**
+ * Barb: five lobes swept back into hooks around a body a little taller than
+ * it is wide — a fish hook's barb, and a shape that says *this will catch on
+ * whatever stops it* before anybody has read a word about it.
+ *
+ * **It is not a disguise, and that is the difference between this creature and
+ * THE LURE.** A lure has no silhouette of its own on purpose: its whole point
+ * is that one seat cannot tell it from the body it is pretending to be. A barb
+ * is the opposite mistake to make — the pair can see exactly what it is, and
+ * the cost of the wrong control is paid anyway, by whoever forgot which column
+ * the dome was standing in. So it gets a shape and a word.
+ *
+ * `depth` is the deepest in the table by half again. That is what makes the
+ * lobes read as hooks rather than as a bulb's soft rim: the contour has to come
+ * a long way back in between them or the points do not exist at forty pixels.
+ *
+ * **Seven, and the count is what holds it apart from THE WISP.** Five was the
+ * first drawing and `tools/shape-sheet/test/nameability.test.ts` refused it:
+ * a wisp is five lobes on a round body at very nearly this size, so the two
+ * overlapped on aspect, on lobe count and on drawn size at once — which is the
+ * test's definition of *the same word*, and the one thing a body in this game
+ * may never be. Seven is unique on the roster (a slick has two, a throb's rim
+ * six, a wisp five, a bulb nine), and it stops short of the bulb's nine, which
+ * at this depth would read as a star rather than as a thing with hooks on it.
+ */
+export const BARB: CreatureSilhouette = {
+  lobes: 7,
+  depth: 0.42,
+  wobble: 0.03,
+  rx: 48,
+  ry: 54,
+  seed: 3.7,
+};
+
 /** Bulb: many fine lobes around a round body. Pumps and sways. */
 export const BULB: CreatureSilhouette = {
   lobes: 9,
@@ -81,31 +115,6 @@ export const THROB: CreatureSilhouette = {
   seed: 7.0,
   sizeMul: 0.67,
   clubs: { clubs: 6, reach: 0.26, cap: 0.36, neck: 0.46, vary: 0.16 },
-};
-
-/**
- * Shell: **retired as a contour, kept as a shape.**
- *
- * THE SHELL used to be a body of its own — the widest living thing there was,
- * five broad hard-edged lobes, almost no wobble. It is not one any more. A
- * shelled arrival is a slick or a bulb wearing plating over the top
- * (`shellBecomes` in sim, `shell-draw.ts` in render), so the two of them are
- * Shell-Slick and Shell-Bulb and neither has a silhouette that is not already
- * in this file. What the armour adds is a margin outside the body's own
- * contour and the splits in it, which is a picture rather than a shape.
- *
- * The parameters stay because they are the only hard-edged *living* contour
- * anyone has tuned — the starting point for a future creature that really is
- * plated flesh, the way `TORCH` outlived the torch it was drawn for.
- * `livingSilhouette` no longer names it, and nothing in the game reads it.
- */
-export const SHELL: CreatureSilhouette = {
-  lobes: 5,
-  depth: 0.3,
-  wobble: 0.012,
-  rx: 84,
-  ry: 50,
-  seed: 4.0,
 };
 
 /**
@@ -202,22 +211,6 @@ export const WISP: CreatureSilhouette = {
 // package index. This file may not import it back — `living-look.ts` reads
 // SLICK and BULB from here, and the arrow only points one way.
 
-/**
- * Pod: a capsule with a core, upright and softly ribbed. Three shallow lobes,
- * so it reads as a made object that has been *grown* — the ship eats it, and a
- * ship does not eat machinery. It must not be mistaken for either creature at a
- * glance, which is why it stands taller than it is wide and carries neither of
- * the two ammunition colours.
- */
-export const POD: CreatureSilhouette = {
-  lobes: 3,
-  depth: 0.16,
-  wobble: 0.03,
-  rx: 36,
-  ry: 48,
-  seed: 3.0,
-};
-
 // The angular family — the rock, the torch and the queen's shell — is
 // `crystals.ts` next door, cut out when THE THROB's clubbed rim took this file
 // over its limit. Re-exported here so nothing that already reaches for one
@@ -228,7 +221,6 @@ export {
   QUEEN_SHELL,
   TORCH,
 } from "./crystals.js";
-
 // The ship's own shapes live next door — see `ship-silhouettes.ts` for the
 // seam. Re-exported here so nothing that already reaches for them through this
 // file has to move.
@@ -242,3 +234,8 @@ export {
   SHIELD_LOBE,
   xToHullAngle,
 } from "./ship-silhouettes.js";
+// The two contours in this family that are **not a body on the roster** — the
+// retired shell and the pod's capsule — are `silhouettes-spare.ts` next door,
+// cut out when THE BARB took this file over its limit. Re-exported here so
+// nothing that already reaches for one through this file has to move.
+export { POD, SHELL } from "./silhouettes-spare.js";

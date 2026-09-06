@@ -160,6 +160,7 @@ const FIELD: Field = {
   maze: null,
   warden: null,
   controls: controlSetForWave(0),
+  malfunction: null,
 };
 
 /**

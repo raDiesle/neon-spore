@@ -109,6 +109,10 @@ export function createWaveProgression({
       // How many pages this wave's guide has, which is the whole of what the
       // simulation knows about a rehearsal (`sim/guide-steps.ts`).
       waveGuideSteps(wave),
+      // And the fault it is played under, if it names one. Read off the wave
+      // beside its boss, because it is the same kind of fact: whole-wave, read
+      // once, and identical on both devices (`sim/malfunction.ts`).
+      WAVES[wave]?.malfunction ?? null,
     );
     left = INTRO_SECONDS;
     sentAtTick = -1;

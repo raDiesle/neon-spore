@@ -120,4 +120,43 @@ export const SHIP_SOUNDS: SoundDef[] = [
     level: 0.22,
     layers: [noise(900, { type: "bandpass", freq: 1400, toFreq: 300, q: 2.4 }, 0.03, 0.05, 0.4)],
   },
+  {
+    id: "ship.domeTear",
+    family: "ship",
+    // Deliberately `ship.guard` gone wrong rather than a sound of its own:
+    // the pair has to hear that the thing they know coming *up* has caught on
+    // something. So the rising body is here as a falling one, and the sheet of
+    // air that closes over it is a metal tear instead.
+    blurb:
+      "The plate coming up and catching. A rising body that drops, and a long metal tear over it.",
+    status: "bound",
+    use: "The dome ran onto a barb — the ward is gone for the next few beats.",
+    level: 0.5,
+    layers: [
+      { source: "sine", freq: 150, toFreq: 58, gain: 0.6, attack: 0.004, hold: 0.04, release: 0.2 },
+      metal(58, 0.3, 0.42, 130),
+      // The tear itself, swept down out of the speech band rather than across
+      // it: a rip that lingered between 300 and 3000 Hz would cover the one
+      // sentence this moment exists to make somebody say (`band.ts`).
+      noise(700, { type: "bandpass", freq: 620, toFreq: 190, q: 1.8 }, 0.004, 0.16, 0.42),
+    ],
+  },
+  {
+    id: "ship.reliefHold",
+    family: "ship",
+    // Quiet, and a *stop* rather than a start: what this button buys is two
+    // beats in which the fault does not happen, and a sound that announced
+    // itself would be louder than the thing it is silencing.
+    blurb: "A latch dropping onto something already running. Short, dry, and then nothing.",
+    status: "bound",
+    use: "A seat held its own broken control off for a moment.",
+    level: 0.3,
+    layers: [
+      // Low and short. `band.ts` gives every sound a budget inside the speech
+      // band and this one is a latch, not an announcement.
+      metal(180, 0.12, 0.1, 90),
+      { source: "sine", freq: 280, toFreq: 150, gain: 0.4, attack: 0.003, release: 0.08 },
+      soft(0.5, glint(4200, 0.05)),
+    ],
+  },
 ];

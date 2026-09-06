@@ -1,6 +1,7 @@
 import {
   CONTROL_SETS,
   type ControlSet,
+  control,
   heldBack,
   panelForm,
   setControls,
@@ -68,12 +69,27 @@ const PHONE: [string, string][] = [
   ],
 ];
 
+/**
+ * The two reliefs, read off `controls.ts` rather than written out again — the
+ * `does` line is the vocabulary's own sentence about the button, and a second
+ * copy of it here is a copy that goes stale the first time one is retuned.
+ *
+ * They are not on any panel, which is why they are a block of their own rather
+ * than rows inside one: a fault hands a seat its relief, and a fault is a fact
+ * about the wave (`packages/content/src/control-fault.ts`).
+ */
+const RELIEFS: [string, string][] = [
+  [control("reliefFire").label, control("reliefFire").does],
+  [control("reliefGuard").label, control("reliefGuard").does],
+];
+
 /** Read off `bindControls` in `keys.ts`. One row per key a tester presses. */
 const KEYS: [string, string][] = [
   ["A / D", "The cannon, and the shield along with it."],
   ["J / L", "The shield on its own."],
   ["I", "The guard trigger."],
   ["S", "The maw, to take a loose pod in."],
+  ["R", "Hold the wave's malfunction off for two beats. Nothing on a wave with none."],
   ["F", "Hold the lance. Three beats with the cannon still, then one shot goes through three."],
   ["W", "Fire red — and guard in the same press."],
   ["E", "Fire cyan."],
@@ -106,6 +122,16 @@ export function buildControls(show: (page: MenuPage) => void, back: MenuPage): H
     ),
   );
   for (const set of CONTROL_SETS) page.append(panelBlock(set));
+
+  page.append(
+    el("h2", undefined, "WHEN A CONTROL BREAKS"),
+    el(
+      "p",
+      "lead",
+      "A few waves are played under a malfunction: one of the two controls acts on every beat by itself, and the seat it belonged to cannot use it at all. That seat is handed one button in its place, and it is the only thing either of you can do about the fault — a tap holds it off for two beats, then it needs six before it will answer again. The other seat still has a strip, and their job is to point the runaway control somewhere it can do no harm.",
+    ),
+    rows(RELIEFS),
+  );
 
   page.append(el("h2", undefined, "AT A DESK"));
   page.append(

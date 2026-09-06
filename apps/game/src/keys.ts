@@ -1,6 +1,7 @@
 import type { Layout } from "@neon-spore/render";
-import { type Creature, isGrippable, midCol, NO_GRIP, type SimConfig } from "@neon-spore/sim";
+import { type Creature, midCol, NO_GRIP, type SimConfig } from "@neon-spore/sim";
 import type { InputBuffer } from "./input.js";
+import { nearestHull } from "./keys-grip.js";
 import { guideKeyDown } from "./keys-guide.js";
 import { roundKeyDown, roundKeyUp } from "./keys-round.js";
 
@@ -31,29 +32,6 @@ export interface KeyBindings {
   onWaveStep: (delta: number) => void;
   /** R, behind a guide: the desk's REPLAY (`render/guide-nav.ts`). */
   onGuideReplay: () => void;
-}
-
-/**
- * The creature closest to the hull — the one a pair would actually reach for.
- * Never a boss body, which cannot be gripped (`isGrippable` in sim/types.ts).
- *
- * THE WARDEN's tether wins outright whatever else is falling, because it is
- * the only thing on the field a hand is the *only* answer to: a rock a hand
- * misses is still a rock the shield can meet, and a line nobody pulls costs
- * the hull and the plate both. On one screen this key is the whole of player
- * 2's half of that fight.
- */
-function nearestHull(creatures: readonly Creature[]): number {
-  const tether = creatures.find((c) => c.kind === "tether");
-  if (tether) return tether.id;
-  let best = NO_GRIP;
-  let bestRow = -1;
-  for (const c of creatures) {
-    if (!isGrippable(c.kind) || c.row <= bestRow) continue;
-    best = c.id;
-    bestRow = c.row;
-  }
-  return best;
 }
 
 /** Ticks (at `cfg.tickHz`, currently 120) before a held move key starts repeating. */
@@ -149,6 +127,15 @@ export function bindKeys({
         break;
       case "KeyS":
         buffer.push(1, { kind: "intake" });
+        break;
+      // R is the relief, and it is sent **as both seats**. A fault hands the
+      // button to one of them and `reliefHeard` drops it from the other
+      // (`sim/malfunction.ts`), so one key covers either wave without the desk
+      // rig having to know which fault is up — the same reason W sends a shot
+      // and a guard in one press rather than making a tester find both.
+      case "KeyR":
+        buffer.push(1, { kind: "relief" });
+        buffer.push(2, { kind: "relief" });
         break;
       // F holds the lance, as player 1. Held, not tapped: the lobe fills for
       // as long as the key is down and empties on the keyup below, which is

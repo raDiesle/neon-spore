@@ -3,6 +3,7 @@ import { CREATURE_KINDS } from "../src/creature-kinds.js";
 import { FLEET_DIRS } from "../src/fleet-board.js";
 import { GAUGE_PHASES } from "../src/gauge.js";
 import { hashWorld } from "../src/hash.js";
+import { MALFUNCTION_COLORS, MALFUNCTION_KINDS } from "../src/malfunction.js";
 import { MAZE_PHASES } from "../src/maze.js";
 import { MAZE_REASONS } from "../src/maze-verdict.js";
 import { PIN_SHOTS, PINBALL_PHASES } from "../src/pinball.js";
@@ -83,6 +84,8 @@ const FAMILIES: readonly (readonly string[])[] = [
   PINBALL_PHASES,
   PIN_SHOTS,
   PIN_PIECE_KINDS,
+  MALFUNCTION_KINDS,
+  MALFUNCTION_COLORS,
 ];
 
 function otherValue(value: string): string | null {
@@ -237,6 +240,7 @@ describe("the fingerprint covers the world", () => {
         "cfg",
         "charge",
         "creatures",
+        "domeScarTick",
         "events",
         "guard",
         "guardTick",
@@ -245,6 +249,7 @@ describe("the fingerprint covers the world", () => {
         "hullMilli",
         "intakeTick",
         "lastFireTick",
+        "malfunction",
         "nextId",
         "over",
         "podQueue",
@@ -252,6 +257,7 @@ describe("the fingerprint covers the world", () => {
         "pods",
         "primeTick",
         "queue",
+        "reliefTick",
         "restBeat",
         "rng",
         "scars",

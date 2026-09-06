@@ -26,6 +26,8 @@ export type ControlId =
   | "shield"
   | "fireRed"
   | "fireCyan"
+  | "reliefFire"
+  | "reliefGuard"
   | "gaugeLeft"
   | "gaugeRight"
   | "gaugeCall"
@@ -146,6 +148,25 @@ export const CONTROLS: readonly ControlDef[] = [
     label: "CYAN",
     does: "Fires cyan up whichever column player 1 is standing in.",
     ship: "cannon",
+  },
+  // The two reliefs. Neither is ever in a `ControlSet`: they are handed to a
+  // seat by the *wave's* fault rather than by its panel, which is the whole of
+  // `control-fault.ts` and the reason a malfunction does not make a new panel.
+  // Two rows rather than one because `player` is fixed here and the split is
+  // never crossed — which seat gets one at all is `reliefSeat`'s answer.
+  {
+    id: "reliefFire",
+    player: 2,
+    form: "lobe",
+    label: "HOLD FIRE",
+    does: "Player 2's, on a wave where the cannon fires itself. One tap stops the gun for two beats, so player 1 can carry it across a column a shot must not go up. Then a rest before it will answer again.",
+  },
+  {
+    id: "reliefGuard",
+    player: 1,
+    form: "lobe",
+    label: "HOLD DOME",
+    does: "Player 1's, on a wave where the shield arms itself. One tap keeps the plate down for two beats, so player 2 can carry it across a column the trigger must not come up in. Then a rest before it will answer again.",
   },
   ...ROUND_CONTROLS,
 ];

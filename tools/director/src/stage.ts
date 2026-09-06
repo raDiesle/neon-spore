@@ -112,6 +112,7 @@ export function bindStage(
       maze: mazeRound(world),
       warden: world.boss?.kind === "warden" ? world.boss : null,
       controls: currentControlSet(),
+      malfunction: world.malfunction,
     }),
     push: keys.push,
     world: () => world,
@@ -135,12 +136,10 @@ export function bindStage(
       podsFromWave(wave, cfg.cols),
       bossFromWave(wave, cfg.cols),
       wave.guide !== undefined,
-      // And how many pages that guide is read in. Without it the stage opened
-      // every guide with `steps` at 0, which the simulation reads as "this seat
-      // is already at the gate" — so turning BRIEFINGS on put the ready button
-      // up and nothing else. It is read off the wave being *edited* rather than
-      // off `WAVES`, so an unsaved guide is paged the way it will be.
+      // How many pages that guide is read in, and the fault the wave carries.
+      // Both come off the wave being *edited*, so neither waits for a save.
       guideSteps(wave.guide),
+      wave.malfunction ?? null,
     );
     lastBeat = 0;
     onBeat(0);

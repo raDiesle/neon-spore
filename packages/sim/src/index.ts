@@ -64,7 +64,6 @@ export {
   linkOrder,
 } from "./crawler.js";
 export { lureVanishRow, wornKind } from "./creature-rules.js";
-
 export {
   DART_COLS,
   DART_ROWS,
@@ -81,6 +80,7 @@ export {
   echoSplitPhase,
   echoWaitBeats,
 } from "./echo-split.js";
+export * from "./fault-surface.js";
 export { fenceGapCols, fenceGapSeen, fenceIsOpen, fenceMask } from "./fence.js";
 export { type GhostPath, ghostCrosses, ghostIsCharging, ghostLaps, ghostRage } from "./ghost.js";
 export {

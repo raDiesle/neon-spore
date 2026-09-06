@@ -1,4 +1,4 @@
-import type { BossEntry, PodEntry } from "@neon-spore/sim";
+import type { BossEntry, Malfunction, PodEntry } from "@neon-spore/sim";
 import type { ControlSetId } from "./control-sets.js";
 import type { SceneId } from "./scenes.js";
 import type { WaveEntry } from "./wave-entry.js";
@@ -143,6 +143,25 @@ export interface Wave {
    * anything.
    */
   controls?: ControlSetId;
+  /**
+   * The fault this wave is played under, if any — a control that acts by
+   * itself, and the seat it belongs to left holding a relief instead of a
+   * button (`packages/sim/src/malfunction.ts`).
+   *
+   * **Beside `controls` and not part of it.** A set is a whole panel and sets
+   * do not compose, which is the rule that makes a panel a thing a person can
+   * be shown and argued with — and a malfunction does not break it, because it
+   * changes no button on any panel. The lobes a wave's set names are the lobes
+   * it has, in the places that set puts them; what has changed is what pressing
+   * one *does*, and how a control behaves is a fact about the wave. So a
+   * cannon fault can be played on the standard panel, on a rung of the ladder
+   * or on the lance panel without any of those becoming a second panel.
+   *
+   * Beside `boss` for the same reason `controls` is: all three say *this wave
+   * is not the ordinary thing*, all three are read once before the first tick,
+   * identically on both devices, and none of them costs the tick anything.
+   */
+  malfunction?: Malfunction;
 }
 
 /**

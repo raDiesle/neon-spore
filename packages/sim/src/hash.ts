@@ -1,5 +1,6 @@
 import { bossHashParts } from "./hash-boss.js";
 import { creatureHashParts } from "./hash-creature.js";
+import { MALFUNCTION_COLORS, MALFUNCTION_KINDS } from "./malfunction.js";
 import { POD_KINDS } from "./types.js";
 import type { World } from "./world.js";
 
@@ -52,7 +53,24 @@ export function hashWorld(world: World): number {
   push(world.guardTick);
   push(world.intakeTick);
   push(world.wardUntilTick);
+  // The dome's own wound, for exactly the reason `wardUntilTick` is here: it
+  // decides whether the shield answers at all, with no command anywhere near
+  // it, so two devices that disagree about it disagree about whether the next
+  // rock was turned away (`barb.ts`).
+  push(world.domeScarTick);
   push(world.lastFireTick);
+  // The wave's fault, and the brake against it. The fault is script — handed
+  // in by `startWave` the way the queue is — but it is *hashed* where the
+  // queue is not, and cheaply: it is one small object rather than a list read
+  // by index, and it decides on every beat whether a shot goes out that
+  // nobody pressed. `reliefTick` is the window that stops one, and it is
+  // written by a command, so it is state in the plainest sense.
+  const fault = world.malfunction;
+  push(fault === null ? -1 : MALFUNCTION_KINDS.indexOf(fault.kind));
+  if (fault !== null && fault.kind === "cannon") {
+    push(MALFUNCTION_COLORS.indexOf(fault.color) + 1);
+  }
+  push(world.reliefTick);
   // The shot that has been pressed and has not left yet. In for the reason a
   // bullet is: two devices that disagree about whether a shot exists have
   // desynced, and a charge is a shot that exists everywhere except on the

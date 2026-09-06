@@ -1,3 +1,5 @@
+import { barbCatchesDome, domeScarred } from "./barb.js";
+import { breakClaspsInColumn } from "./clasp.js";
 import { hullRow, msToTicks, type SimConfig } from "./config.js";
 import type { World } from "./world.js";
 
@@ -47,6 +49,12 @@ export function guardWindowTicks(cfg: SimConfig): number {
  */
 export function guardArmed(world: World): boolean {
   const windowTicks = guardWindowTicks(world.cfg);
+  // A dome a barb has torn open answers nothing at all, however it was armed
+  // and whichever of the two ways it would otherwise be live. It stands ahead
+  // of both terms rather than beside them for exactly that reason: a ward pod
+  // holds the shield open with no trigger at all, and a scar that only shut
+  // the trigger down would leave the pod quietly repairing it (`barb.ts`).
+  if (domeScarred(world)) return false;
   // A ward frees player 1 from the *timing* only, not from the aiming — the
   // shield still has to be in the meteor's column, so player 2's job is
   // untouched.
@@ -54,6 +62,32 @@ export function guardArmed(world: World): boolean {
     (world.tick - world.guardTick <= windowTicks && world.guardTick <= world.tick) ||
     world.tick <= world.wardUntilTick
   );
+}
+
+/**
+ * **The dome coming up**, and everything that follows from it, in one place.
+ *
+ * It is one call rather than three lines in `applyCommand` because there are
+ * two ways to arm the shield now and there was only ever one: player 1's
+ * thumb, and — on a wave with a shield malfunction — the fault itself, once a
+ * beat, with nobody pressing anything (`malfunction.ts`). Three things happen
+ * either way, and a second copy of the list would be a copy that forgets the
+ * one added last.
+ *
+ * `mirrorHeard` is deliberately **not** here. THE MIRROR is listening for a
+ * *gesture*, and a control that came up by itself is not one — a sequence a
+ * pair could answer by standing still would not be Simon Says. So the press
+ * reports itself in `commands.ts` and the fault says nothing.
+ */
+export function armShield(world: World): void {
+  world.guardTick = world.tick;
+  // The same arming, reaching up its own column instead of down at the hull,
+  // and the two creatures that answer it are opposites: a clasp is opened by
+  // it and a barb catches on it. Both are asked here, in that order, so a
+  // column holding one of each resolves the way the pair would expect — the
+  // clasp comes open, and the dome is torn a moment later.
+  breakClaspsInColumn(world);
+  barbCatchesDome(world);
 }
 
 /**

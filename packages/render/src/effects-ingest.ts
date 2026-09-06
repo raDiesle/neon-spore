@@ -3,6 +3,7 @@ import type { Arrivals } from "./arrivals.js";
 import type { CrawlerFx } from "./crawler-fx.js";
 import type { DeflectFx } from "./deflect.js";
 import { ingestBreach, ingestDeflect } from "./effects-breach.js";
+import { isIngestSilent } from "./effects-ingest-silent.js";
 import type { LayEcho } from "./lay-echo.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { assertNever } from "./never.js";
@@ -59,6 +60,12 @@ export const QUEEN_SHAKE_LIFE = 0.35;
  * called before this, has not already decided.
  */
 export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
+  // The long tail of events that change nothing `Effects` carries into the
+  // next frame, taken out of the union before the switch sees it — the same
+  // cut `effects-spark-silent.ts` makes next door, and for the same reason.
+  // The guard narrows, so the `assertNever` below still catches an event
+  // accounted for in neither place.
+  if (isIngestSilent(e)) return;
   switch (e.type) {
     case "reject": {
       const id = ctx.creatureIdAt(e.col, e.row);
@@ -128,121 +135,6 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
         deflectFx: ctx.deflectFx,
         onDeflect: () => ctx.setGuardHit(BANNER_LIFE),
       });
-      break;
-    // Read above the loop, by an `ingest` of their own, before this switch
-    // ever sees them.
-    case "mirrorShow":
-    case "mirrorEcho":
-    case "mirrorVerdict":
-    case "mirrorDown":
-    case "plate":
-    case "lureVanished":
-    case "claspBreak":
-    case "veilTorn":
-    // A layer off THE RIND: the burst is thrown by `burstFor` above, and the
-    // skin it came off in is `rind-shed.ts`, ingested with the rest of
-    // `effects-body.ts` before this loop starts. The size the body steps down
-    // to is not remembered anywhere — it is redrawn every frame straight off
-    // `rindLayers` (`livingBodyMul`), which is the one thing that cannot go
-    // stale across a restart.
-    case "rindShed":
-    // A recoil bouncing: the burst is thrown by `burstFor` above and the jet
-    // it vented is `recoil-vent.ts`, ingested with the rest of
-    // `effects-body.ts` before this loop starts. How broken the cage is drawn
-    // is not remembered anywhere — it is read every frame straight off
-    // `recoilBounces` (`recoil.ts`), which is the one thing that cannot go
-    // stale across a restart.
-    case "recoilBounce":
-    // A carom turning at a wall, and one cracking open. Neither remembers
-    // anything past this frame: how the crust is drawn is read every frame
-    // straight off `c.kind` and `caromHeading` (`carom.ts`), and once it is a
-    // rock it is drawn by the same `drawMeteor` every other rock is — which is
-    // the one thing that cannot go stale across a restart.
-    case "caromBounce":
-    case "caromCrack":
-    // Nothing about the ejected body is remembered either: which way it is
-    // going and what is drawn over it are read every frame off `chuteOpen`
-    // (`chute.ts`), which is the one thing that cannot go stale across a
-    // restart.
-    case "caromEject":
-    case "chuteOpen":
-    // And the canopy cut off one, which does outlive its frame — but as a
-    // transient belonging to one body, ingested with the rest of
-    // `effects-body.ts` before this loop starts (`chute-cut.ts`).
-    case "chuteCut":
-    // The shell bursting off a volley. `burstFor` above has already thrown the
-    // rock it was made of, and nothing here is remembered past this frame: how
-    // many plates are drawn is read every frame straight off `volleyPlates`
-    // (`volley.ts`), and once the body is loose it is drawn by the same
-    // `drawLiving` every other body is — which is the one thing that cannot go
-    // stale across a restart.
-    case "volleyHatch":
-    // Nothing here remembers anything past this frame: `burstFor`'s table
-    // already said what a burst it is or is not, and none of these change
-    // what `Effects` carries into the next one.
-    case "beat":
-    case "waveStart":
-    case "needWave":
-    case "lanceFull":
-    case "lanceSpilled":
-    case "hole":
-    case "grip":
-    case "podLoose":
-    case "podLost":
-    case "queenDown":
-    case "tether":
-    case "eyeOpen":
-    case "wardenDown":
-    case "mazeCommit":
-    case "mazeProbe":
-    case "mazeVerdict":
-    case "mazeDown":
-    case "lureHit":
-    case "lureSeen":
-    case "shellBreak":
-    case "shellBare":
-    case "veilMorph":
-    case "veilRebuff":
-    // A wisp hopping leaves nothing behind on the field: the ring and the beam
-    // are drawn every frame off the body itself (`wisp.ts`), so there is no
-    // transient here — and an event carrying no column could not place one
-    // anyway, which is deliberate (`events.ts`).
-    // A wheel coming apart. `burstFor` has already said what it throws, and
-    // there is nothing to carry into the next frame: the hub is off the field
-    // on the same beat, so an entry keyed to it would have nothing to look up.
-    case "gyreBroke":
-    // A bead shrivelling or filling again, and the thread parting. None of the
-    // three leaves a transient: a raisin is drawn off `strandSpent` on the
-    // body every frame (`strand.ts`), and the thread is off the field on the
-    // beat it breaks, so an entry keyed to it would have nothing to look up.
-    case "strandBead":
-    case "strandSwell":
-    case "strandBroke":
-    case "wispHop":
-    // THE GHOST's three, and all three for the same reason: none of them is a
-    // particle on the field. The escape is `ghost-release.ts`, a transient
-    // that belongs to one body; the turn at a wall and the charge that ends
-    // the prowling are read off `ghostLaps` every frame, on the body itself,
-    // on the one screen that draws it.
-    case "ghostRelease":
-    case "ghostTurn":
-    case "ghostCharge":
-    // THE FLEET is drawn straight off the world every frame — the marks from
-    // `struck`, the sinking from `sunkBeat` — with one exception, and the
-    // exception is read above this loop by an `ingest` of its own: a salvo is
-    // in the air for `FLEET_SHELL_BEATS` after the tick that resolved it, so
-    // the shell, its shadow and the burst it makes are `FleetFx`'s
-    // (`fleet-fx.ts`).
-    case "fleetSalvo":
-    case "fleetSplash":
-    case "fleetHit":
-    case "fleetSunk":
-    case "fleetDown":
-    // THE FENCE passing the ship, and a bolt cutting it open. Both bursts are
-    // `effects-spark.ts`'; neither leaves anything here, since a fence that
-    // passed is off the field and a burnt column is world state.
-    case "fencePass":
-    case "fenceBurn":
       break;
     default:
       assertNever(e);

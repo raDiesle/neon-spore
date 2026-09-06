@@ -160,7 +160,9 @@ export function anchorPoint(
       };
     }
     if (def.form === "lobe") {
-      const lobe = bandLobes(l, set, def.player).find((b) => b.control.id === anchor.control);
+      const lobe = bandLobes(l, set, def.player, world.malfunction).find(
+        (b) => b.control.id === anchor.control,
+      );
       return lobe ? { x: lobe.circle.x, y: lobe.circle.y, r: lobe.circle.r, clear: CLEAR } : null;
     }
     const strip = anchor.control === "shield" ? l.shieldStrip : l.cannonStrip;
