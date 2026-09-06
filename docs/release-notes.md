@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · 9c3d6bf5 — A held ring that stops turning while the body cannot be carried, offered
+
+THE PUSH's beat of pause is a beat the field says nothing about: the ring turns at the same rate whether or not a hand may take the body a column, so a player who pulls again inside it gets no answer at all. That is a question with two honest sides — the pause is short and a picture changing twice a second on every held rock has a flicker in it — so it is offered rather than adopted.
+
+## 2026-09-06 · c5253380 — A hand on a body can now carry it a column, and then it holds for a beat
+
+THE PUSH: the grip carried sideways. A finger held on something falling already slows it; carried a tile across, the body under it steps one column that way and then stands still for `gripPushPauseBeats` before it may be carried again. Either seat, on the same hold and with no new control drawn — one hold and two gestures, the arrangement the cannon already has. What it buys the pair is a third answer to a rock in the wrong column, and it costs the hand that is not on the strip below.
+
 ## 2026-09-06 · 49efee92 — THE FENCE reaches the ship, and the two of them argue about it
 
 The wall was taken off the field the moment the dome stood in one of its gaps — a whole tile short of the hull — so the last picture of one was of a wire vanishing in mid-air. It falls all the way down now and is answered on the beat it is drawn resting on the ship, which is the rule every other body already follows; the wire is draped onto the ship's own membrane, lifted where the dome and the cannon hold it up.
