@@ -273,6 +273,7 @@ in `isDirty`; the clock only decides how long a spent tree keeps its
 ## `git worktree remove` deregisters and then fails, leaving an orphan every time
 
 - **Found:** 2026-09-05, claude/git-flow-parallel-sessions-6f1b43
+- **Taken:** 2026-09-06, claude/queue-git-worktree-remove-deregisters-and-then-fails-l
 - **Files:** `tools/land/worktree.ts`, `tools/land/orphans.ts`
 
 On Windows, `git worktree remove` drops the registry entry and then fails to
