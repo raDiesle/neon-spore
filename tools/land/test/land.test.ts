@@ -1,5 +1,6 @@
 import { expect, describe as group, test } from "bun:test";
-import { type Cleanup, type LandState, plan, pushNow, SWEPT_NOTHING, trunkRaced } from "../land.js";
+import { type Cleanup, type LandState, plan, pushNow, SWEPT_NOTHING } from "../land.js";
+import { trunkRaced } from "../race.js";
 import { badge, describe } from "../say.js";
 import { uncommittedOf } from "../state.js";
 

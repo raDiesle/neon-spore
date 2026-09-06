@@ -50,9 +50,10 @@
 
 import { crlfOnDisk, crlfRefusal } from "./crlf.js";
 import { git, gitOrDie } from "./git.js";
-import { type Landing, plan, pushNow, SWEPT_NOTHING, trunkRaced } from "./land.js";
+import { type Landing, plan, pushNow, SWEPT_NOTHING } from "./land.js";
 import { type Landed, LOG_FORMAT, parseLanded } from "./notes.js";
 import { queueSnapshots, refusal, resurrectedAfter } from "./queue-guard.js";
+import { trunkRaced } from "./race.js";
 import { badge, describe } from "./say.js";
 import { readState } from "./state.js";
 import { sweep, writeNotes } from "./sweep.js";

@@ -963,7 +963,6 @@ place — the generator keeps whatever is there.
 | `tools/land/git.ts` | The two ways `land` talks to git — one that swallows failure into `""` for questions where "unknown" and… |
 | `tools/land/idle.ts` | How long a merged worktree is left standing, and how long it has been since anybody worked in one |
 | `tools/land/orphans.ts` | The litter left behind when a removal was trusted instead of verified |
-| `tools/land/retry.ts` | Removing something from disk and then *asking* whether it went — the policy |
 | `tools/land/run.ts` | `bun run land` — put this lane on the trunk, linearly, and leave nothing behind |
 | `tools/land/sweep.ts` | Everything that happens after the fast-forward and does not touch a ref: the release note |
 | `tools/orphans/run.ts` | `bun run orphans` — what is built and reached by nothing |
@@ -1059,5 +1058,10 @@ place — the generator keeps whatever is there.
 | `tools/director/src/brush-poses-echo.ts` | THE ECHO's specimen, split out of `brush-poses.ts` when THE CAROM took that file over its 250-line limit |
 | `tools/land/state.ts` | the facts a landing is decided from, read off git — `run.ts` moves refs, `land.ts` decides |
 | `tools/director/src/entry-fields-rock.ts` | **A rock's two numbers**: how fast it falls and how wide it arrives |
+| `tools/frames/exec.ts` | The three things every part of this tool needs before it can do anything: where the checkout is |
+| `tools/frames/scratch.ts` | The throwaway checkouts `bun run frames` works out of: made, used, and — the part that was missing |
+| `tools/land/crlf.ts` | The line endings on disk, asked before `bun run check` is asked anything |
+| `tools/retry.ts` | Removing something from disk and then *asking* whether it went — the policy |
+| `tools/land/race.ts` | Whether some other lane landed while this one was in `bun run check` |
 
 <!-- index:code:end -->
