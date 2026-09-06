@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · 2d3aaa02 — WAVE 25 is THE SHELL, the name its body already had
+
+The wave was called THE THIRD SHOT after the beat it turns on, and the body it sends is a `shell` — the guide, the rehearsal and the brush tooltip all say shell while the wave said shot. The rename was found parked on `park/wave-renames` as two uncommitted lines that would have landed `main` red; this is the same rename finished, with the six places that quote the name by string brought with it.
+
 ## 2026-09-06 · 577ee3f — A narrow --save can add a wave the baseline never had, not only repair one
 
 `mergeInto` mapped over the baseline's own rows, so it could put a stale row right and could not put a new one in — and `--wave --save` refused outright unless the baseline already covered every wave. That is exactly backwards for the lane the flag was written for: a lane that adds a creature is the one whose baseline does not cover the game, and it was sent to the three-minute sweep the flag exists to spare. Writing THE BARB meant measuring forty-nine waves nobody had touched in order to record the fiftieth.
