@@ -327,3 +327,49 @@ sim heals a dropped one on its own, so nothing has to be sent per tick.
 
 `,` and `.` are free and sit under the same hand as `G`. `key-hint.ts` and
 `menu-controls.ts` both carry the list a reader sees and each needs the row.
+
+## A body carried a column makes no sound
+
+- **Found:** 2026-09-06, claude/meteor-pull-drag-mechanics-42170b
+- **Files:** `packages/sim/src/grip-push.ts`, `packages/sim/src/events.ts`, `packages/audio/src/sounds/creature.ts`, `packages/render/src/effects-ingest-silent.ts`, `packages/render/src/effects-spark-silent.ts`
+
+THE PUSH moves a held body one column on the beat and pushes no event, so the
+mixer has nothing to play and the seat that is not holding it hears the lane
+change only if they happen to be looking. `ship.gripSlip` already exists for a
+hand coming off, which is the same class of thing said out loud.
+
+`carryGrips` is where it lands. Push a `{ type: "carry"; player: 1 | 2; col:
+number; row: number; dir: -1 | 1 }` from there — `player` is whichever hand
+spent the column, and both when both did. `col` is `bodyCenterCol(c, c.col)`,
+the way the `grip` event next door reads it, so the pan is right for a wide
+rock. A new `SimEvent` has to be named in the two silent lists in render/ or
+`effects-spark.ts`'s `assertNever` stops compiling; whether it also throws a
+spark is a look and belongs to the owner, so name it silent and leave the
+picture alone.
+
+The cue itself is amber's family — the pod's colour is what the grip is drawn
+in — and short: a beat is 625 ms at 96 BPM and a body can be carried every
+other one, so anything with a tail on it will overlap itself.
+
+## Nothing teaches THE PUSH, and THE HAND is where it belongs
+
+- **Found:** 2026-09-06, claude/meteor-pull-drag-mechanics-42170b
+- **Files:** `packages/content/src/waves/`, `packages/content/src/scenes/`, `docs/spec/assists.md`
+
+THE PUSH ships with no guide page: a pair meets it only if somebody happens to
+move a thumb that is already holding a rock. The owner's answer is that it goes
+on **THE HAND (wave 6)** — three rocks on one beat in three columns against one
+shield, the wave whose arithmetic already does not work without a hand, so a
+second thing a hand can do belongs there and nowhere earlier.
+
+Read `.claude/skills/new-tutorial` before writing it; every rule in there is a
+correction the owner has already made once. Two things this page in particular
+has to respect. THE HAND already introduces the grip, so this is a *second*
+page on one wave rather than a second wave teaching the same thing — the
+rehearsal has to show the hold first and the carry out of it, not two gestures
+side by side. And `SceneAct.drag` can drive it: `gripBody` is a `DragTarget`
+and `tautMilli` already answers `cfg.gripPushMilli` for it, so the film carries
+the hand a tile across the way it carries a cord (`scene-script.ts`).
+
+The sentence to beat: a hand on a rock does two things, and the second one is
+the column.

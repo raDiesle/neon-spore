@@ -1,4 +1,4 @@
-import { gripsCreature, type World } from "@neon-spore/sim";
+import { carryIsReady, gripsCreature, type World } from "@neon-spore/sim";
 import { creatureCenter, creatureRadius } from "./creature-place.js";
 import { showsGhostBody } from "./ghost.js";
 import { halo } from "./glow.js";
@@ -62,7 +62,11 @@ export function drawGrips(
     // Two hands pull harder, and the picture says so before the numbers do.
     const weight = p1 && p2 ? 1 : 0.62;
     drawBeam(ctx, l, x, y, time, weight);
-    drawRing(ctx, x, y, r, time, weight);
+    // Through the record rather than the function, so a candidate ring can be
+    // patched in beside the shipped one (`tools/versus`). `carryIsReady` is
+    // the rule asked rather than re-derived — the beat a body was last carried
+    // on is the simulation's arithmetic and belongs to it (`sim/grip-push.ts`).
+    GRIP_LOOK.ring(ctx, x, y, r, time, weight, carryIsReady(world, c));
     drawLabel(ctx, l.role, x, y + r + 12, p1, p2);
   }
 }
@@ -113,8 +117,37 @@ function drawBeam(
   }
 }
 
+/**
+ * **What a held body wears**, as a record rather than a call.
+ *
+ * One field today, and it is a record for the reason `ACTION_LOOK` next door in
+ * `controls.ts` is: a look the game already draws has nowhere for a second
+ * answer to sit unless the drawing is reachable as a value, and the only way to
+ * choose between two rings is to see both at 26 px and at tempo
+ * (`docs/versus.md`). `drawGrips` reads this on every call, which is what makes
+ * a patch honest.
+ */
+export interface GripLook {
+  ring(
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    r: number,
+    time: number,
+    weight: number,
+    ready: boolean,
+  ): void;
+}
+
+export const GRIP_LOOK: GripLook = { ring: drawRing };
+
 /** Four arcs turning around the silhouette — a hand closed on it, not a target
- * reticle: the creature is being held, not aimed at. */
+ * reticle: the creature is being held, not aimed at.
+ *
+ * `ready` says whether a hand may carry this body a column yet, and the shipped
+ * ring **does not use it**: the pause is a beat long and nothing on the field
+ * has ever said anything about it. That is the left-hand side of the question
+ * `tools/versus/candidates/grip-pause` asks. */
 function drawRing(
   ctx: CanvasRenderingContext2D,
   x: number,
@@ -122,6 +155,7 @@ function drawRing(
   r: number,
   time: number,
   weight: number,
+  _ready: boolean,
 ): void {
   const spin = time * 1.6;
   const gap = 0.42;

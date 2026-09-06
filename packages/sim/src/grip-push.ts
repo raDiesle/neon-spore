@@ -110,7 +110,7 @@ export function carryGrips(world: World): void {
     if (c.row >= hullRow(world.cfg)) continue;
     const dir = carryDir(world, c);
     if (dir === 0) continue;
-    if (!pauseIsOver(world, c)) continue;
+    if (!carryIsReady(world, c)) continue;
     const to = clampSpanCol(c.col + dir, world.cfg.cols, spanOf(c));
     // Against the wall: the hand spends nothing and the pause is not started,
     // so a thumb pressed on into the edge of the field is simply a thumb held
@@ -155,9 +155,17 @@ function spend(world: World, c: Creature, dir: -1 | 1): void {
   }
 }
 
-/** Whether this body has stood still long enough to be carried again. A body
- * that has never been carried has no beat to count from and is always ready. */
-function pauseIsOver(world: World, c: Creature): boolean {
+/**
+ * Whether this body has stood still long enough to be carried again. A body
+ * that has never been carried has no beat to count from and is always ready.
+ *
+ * Exported because the picture asks it too: a ring that looked the same on the
+ * beat a hand can move a rock and on the beat it cannot is a control saying
+ * nothing about the one thing the player is waiting for. Called rather than
+ * re-derived — `world.beat - c.pushBeat` written out a second time in render/
+ * is a second copy of the rule, and it would drift.
+ */
+export function carryIsReady(world: World, c: Creature): boolean {
   if (c.pushBeat === undefined) return true;
   return world.beat - c.pushBeat > world.cfg.gripPushPauseBeats;
 }
