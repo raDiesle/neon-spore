@@ -245,32 +245,6 @@ the hand a tile across the way it carries a cord (`scene-script.ts`).
 The sentence to beat: a hand on a rock does two things, and the second one is
 the column.
 
-## `bun run frames --press grip=<id>` puts no hand on any body
-
-- **Found:** 2026-09-06, claude/hoof-magnet-enemy-70fd5a
-- **Taken:** 2026-09-06, claude/queue-bun-run-frames-press-grip-id-puts-no-hand-on-any
-- **Files:** `tools/frames/press.ts`, `tools/frames/capture.ts`, `tools/frames/hold.ts`
-
-The flag parses, `SEAT_OF` calls a grip the one press either seat may send, and
-`capture.ts` hands it to `window.neonSpore.send` on the tick asked for — and
-nothing takes hold. No ring (`render/grip.ts`), no frame and no dotted link
-(`render/lock-mark.ts`), on any wave, for either seat, and for every creature
-id tried. A `cannonCol` press on the same command line lands, so the pipe
-itself is sound: it is this one command.
-
-Two things it could be, and the entry is worth a lane because they are not the
-same repair. Either the id is not what a caller can guess — `world.nextId` may
-be well past 1 by the time a jumped-to wave's first body arrives, in which case
-the flag needs a way to name *the first body on the field* rather than a number
-nobody can know from outside — or the command is dropped somewhere between
-`send` and `applyCommand` and a grip has never worked here at all.
-
-**It cost this lane a picture.** THE MAGNET can only be killed by a locked
-shot, so the one frame that shows the whole creature — the bolt climbing, the
-corner, the horizontal leg arriving at a pole — cannot be captured, and the
-owner was sent a shot bouncing off the plate instead. Every later lane that
-touches THE LOCK, THE GRIP or this creature pays the same price.
-
 ## Every file a new creature must touch is sitting on the 250-line ceiling
 
 - **Found:** 2026-09-06, claude/shielded-meteor-enemy

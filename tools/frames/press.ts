@@ -85,6 +85,23 @@ const AIM_STEPS: Record<string, { dcol: -1 | 0 | 1; drow: -1 | 0 | 1 }> = {
   down: { dcol: 0, drow: 1 },
 };
 
+/**
+ * **The two words a grip may name instead of a number.**
+ *
+ * An id is dealt by `world.nextId` as bodies arrive, and a caller outside the
+ * page cannot know what it has reached: a jumped-to wave starts counting from
+ * wherever the run before it left off, so `grip=1` was a guess and usually the
+ * wrong one. It cost a lane the one picture that would have shown THE MAGNET
+ * being killed, and the guess is silent — a grip on a body that is not there is
+ * dropped rather than refused (`sim/grip.ts`).
+ *
+ * So the choice is made where the field can be seen. `first` is the body that
+ * arrived earliest and `lowest` is the one nearest the hull, which is the one a
+ * pair would actually reach for and the one a photograph usually wants.
+ * `capture.ts` reads `world.creatures` in the page and fills the id in.
+ */
+export const PICKS: Record<string, "first" | "lowest"> = { first: "first", lowest: "lowest" };
+
 export function parsePress(value: string): PressSpec[] {
   const presses = value
     .split(",")
@@ -123,6 +140,10 @@ function parseOnePress(one: string, whole: string): PressSpec {
         "is one the round refuses, so the frame would come back empty with nothing said",
     );
   }
+  const pick = kind === "grip" && argument !== undefined ? PICKS[argument] : undefined;
+  // The id is filled in by the page, so the command carries a placeholder here
+  // rather than a number anybody could mistake for a choice.
+  if (pick) return { tick, player, command: { kind: "grip", id: 0 }, pick };
   return { tick, player, command: commandFor(kind, argument, one, whole) };
 }
 
@@ -161,7 +182,10 @@ function commandFor(
     case "grip": {
       const id = Number(needs());
       if (!Number.isInteger(id)) {
-        throw new Error(`--press ${whole}: "${one}" — grip takes the creature's id`);
+        throw new Error(
+          `--press ${whole}: "${one}" — grip takes a creature's id, or ` +
+            `${Object.keys(PICKS).join(" or ")} to have the page choose one`,
+        );
       }
       return { kind, id };
     }

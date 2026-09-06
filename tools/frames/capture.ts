@@ -4,6 +4,7 @@ import type { Browser, Page } from "playwright-core";
 import { closeBrowser, launchBrowser } from "./browser.js";
 import { clipFor } from "./crop.js";
 import { openStage } from "./page.js";
+import { pressPlan } from "./press-plan.js";
 import type { FrameSpec, PressSpec } from "./spec.js";
 
 /**
@@ -108,7 +109,15 @@ export async function captureFrames(
       );
     };
 
-    /** Send one press into the page, refusing a build too old to take it. */
+    /**
+     * Send one press into the page, refusing a build too old to take it.
+     *
+     * A `pick`ed press has its id filled in **here**, where the field can be
+     * seen: `world.nextId` is dealt as bodies arrive and a caller outside the
+     * page has no way to know what it has reached, so a grip written as a
+     * number was a guess that is dropped in silence when it is wrong
+     * (`PICKS` in `press.ts`).
+     */
     const press = async (one: PressSpec): Promise<void> => {
       await page.evaluate((sent) => {
         const ns = window.neonSpore;
@@ -119,7 +128,25 @@ export async function captureFrames(
               "one that added it, and a before/after pair cannot press anything on its parent",
           );
         }
-        ns.send(sent.player, sent.command);
+        let command = sent.command;
+        if (sent.pick) {
+          const bodies = ns.world.creatures.filter((c) => typeof c.id === "number");
+          const chosen =
+            sent.pick === "first"
+              ? bodies[0]
+              : bodies.reduce<(typeof bodies)[number] | undefined>(
+                  (best, c) => (best === undefined || (c.row ?? -1) > (best.row ?? -1) ? c : best),
+                  undefined,
+                );
+          if (!chosen) {
+            throw new Error(
+              `--press ${sent.pick}: the field is empty at tick ${ns.world.tick}. A body has to ` +
+                "have arrived before a hand can take hold of it — press later, or --ticks further in",
+            );
+          }
+          command = { ...command, id: chosen.id };
+        }
+        ns.send(sent.player, command);
       }, one);
     };
 
@@ -141,17 +168,12 @@ export async function captureFrames(
       if (i === 0 && spec.press) {
         // The presses walk the same tick line the first advance does, so a
         // shot lands while its target is on the field rather than at whatever
-        // tick the wave happens to have reached. `parsePress` sorted them.
-        let at = 0;
-        for (const one of spec.press) {
-          const step = Math.min(one.tick, advanceBy) - at;
-          if (step > 0) {
-            await advance(step);
-            at += step;
-          }
-          await press(one);
+        // tick the wave happens to have reached. The tick each one is heard
+        // on — and the rule that one has to *run* after it — is `pressPlan`.
+        for (const step of pressPlan(spec.press, advanceBy)) {
+          if (step.advance > 0) await advance(step.advance);
+          if (step.press) await press(step.press);
         }
-        if (advanceBy - at > 0) await advance(advanceBy - at);
       } else {
         await advance(advanceBy);
       }

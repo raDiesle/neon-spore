@@ -152,6 +152,12 @@ export interface FrameSpec {
 export interface HoldSpec {
   player: 1 | 2;
   command: { kind: string } & Record<string, unknown>;
+  /**
+   * Which body on the field this command's `id` names, chosen in the page
+   * rather than guessed from outside it. Absent for every command that already
+   * carries the number it means — `PICKS` in `press.ts` says why a grip cannot.
+   */
+  pick?: "first" | "lowest";
 }
 
 /** A `HoldSpec` with a tick to arrive on. Parsed by `parsePress` in `hold.ts`. */
@@ -177,7 +183,10 @@ declare global {
       world: {
         brief: { phase?: number; steps?: number; due?: readonly unknown[] };
         wave: number;
-        creatures: readonly unknown[];
+        /** `tools/perf` counts these; a `pick`ed press reads the two fields it
+         * chooses by, and both are optional so a build older than either still
+         * types (`tools/frames/press.ts`). */
+        creatures: readonly { id?: number; row?: number }[];
         /** The simulation's own clock, which `--settle` must not move. */
         tick: number;
       };

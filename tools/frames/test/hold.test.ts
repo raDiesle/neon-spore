@@ -1,6 +1,8 @@
 import { describe, expect, it } from "bun:test";
 import { parseHold } from "../hold.js";
 import { parsePress } from "../press.js";
+import { pressPlan } from "../press-plan.js";
+import type { PressSpec } from "../spec.js";
 
 /**
  * `--hold` is the only flag on this tool that builds a `Command` rather than a
@@ -151,5 +153,56 @@ describe("parsePress", () => {
   it("takes the grip from either seat, because it is the one that is not split", () => {
     expect(parsePress("10:1:grip=4")[0]?.command).toEqual({ kind: "grip", id: 4 });
     expect(parsePress("10:2:grip=4")[0]?.player).toBe(2);
+  });
+});
+
+/**
+ * The two things a grip press could not do, each of which cost a lane a
+ * picture and neither of which failed out loud: an id nobody outside the page
+ * can know, and a press written at the tick the capture stops on.
+ */
+describe("a grip that names a body rather than a number", () => {
+  it("takes `first` and `lowest`, and leaves the id for the page to fill in", () => {
+    for (const word of ["first", "lowest"] as const) {
+      const [one] = parsePress(`10:2:grip=${word}`);
+      expect(one?.pick).toBe(word);
+      expect(one?.command).toEqual({ kind: "grip", id: 0 });
+    }
+  });
+
+  it("still takes a number, and says both ways out when it is neither", () => {
+    expect(parsePress("10:1:grip=4")[0]?.pick).toBeUndefined();
+    expect(() => parsePress("10:1:grip=nearest")).toThrow(/first or lowest/);
+  });
+});
+
+describe("the tick line a run of presses walks", () => {
+  const at = (tick: number): PressSpec => ({ tick, player: 1, command: { kind: "guard" } });
+
+  it("leaves a tick after the last press, so the command is heard at all", () => {
+    // The bug: `send` pushes into the buffer and `drain` stamps it on the next
+    // tick `advance` runs, so a press at the very end sat in a buffer nothing
+    // emptied and the frame came back with nothing pressed.
+    const plan = pressPlan([at(200)], 200);
+    expect(plan).toEqual([{ advance: 199, press: at(200) }, { advance: 1 }]);
+  });
+
+  it("still stops on the tick the caller asked for", () => {
+    for (const presses of [[at(0)], [at(60)], [at(200)], [at(10), at(60), at(199)]]) {
+      const total = pressPlan(presses, 200).reduce((sum, s) => sum + s.advance, 0);
+      expect(total).toBe(200);
+    }
+  });
+
+  it("walks the presses in order, each after the ticks that come before it", () => {
+    expect(pressPlan([at(10), at(60)], 240)).toEqual([
+      { advance: 10, press: at(10) },
+      { advance: 50, press: at(60) },
+      { advance: 180 },
+    ]);
+  });
+
+  it("advances nothing at all when the capture does not", () => {
+    expect(pressPlan([at(0)], 0)).toEqual([{ advance: 0, press: at(0) }, { advance: 0 }]);
   });
 });

@@ -27,6 +27,7 @@
  *   bun run frames <sha> --wave 21 --seat p1    one player's screen, not the rig's
  *   bun run frames <sha> --wave 20 --hold wardenTether=0,y=7000  a thumb on a cord
  *   bun run frames <sha> --wave 21 --press 60:1:cannonCol=3,64:2:fire=red   a shot, or 90:1:salvo
+ *   bun run frames <sha> --wave 21 --press 60:1:grip=lowest   a hand on the body nearest the hull
  *   bun run frames <sha> --wave 21 --settle 8 --frames 6 --stride 0   a burst, as a strip
  *   bun run frames <sha> --wave 21 --at 120,400,150,150 --zoom 3   one body, close up
  *   bun run frames <sha> --wave 19 --boss-round 3   a later sheet of THE MAZE
