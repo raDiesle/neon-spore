@@ -102,7 +102,6 @@ export function releaseBait(world: World): void {
     loose: false,
     kind: "mend",
     crossMilli: 0,
-    seen: 0,
   });
 }
 

@@ -64,15 +64,4 @@ export interface Pod {
    * crossing halfway along a row nobody had reached yet.
    */
   crossMilli: number;
-  /**
-   * Which seat is shown it: `0` for both, or the player who alone can see it.
-   *
-   * The first thing in this game that hides a *pod* rather than a body, and it
-   * is authored per pod rather than fixed per wave, so a wave can put one
-   * power-up on one screen and the next on both. THE CLAW's panel is what it
-   * was added for — the seat that cannot reach is the seat that can see — but
-   * nothing about it is particular to that panel, which is why it is a field
-   * here and not a rule in `reach.ts`.
-   */
-  seen: 0 | 1 | 2;
 }

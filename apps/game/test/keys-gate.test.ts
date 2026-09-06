@@ -1,4 +1,5 @@
 import { afterEach, describe, expect, it } from "bun:test";
+import { type ControlSetId, controlSet, DEFAULT_CONTROL_SET_ID } from "@neon-spore/content";
 import type { Layout } from "@neon-spore/render";
 import { type Command, DEFAULT_CONFIG } from "@neon-spore/sim";
 import { bindKeys } from "../src/keys.js";
@@ -23,7 +24,13 @@ afterEach(() => {
   (globalThis as { window?: unknown }).window = real;
 });
 
-function desk(guideUp: boolean) {
+/**
+ * The panel the rig is played on. The default one unless a test says
+ * otherwise, because that is the panel almost every wave carries — and the
+ * keyboard is gated by it now, so a rig that named none would answer nothing
+ * (`content/src/control-sets-keys.ts`).
+ */
+function desk(guideUp: boolean, panel: ControlSetId = DEFAULT_CONTROL_SET_ID) {
   const listeners: Listeners = {};
   (globalThis as { window?: unknown }).window = {
     addEventListener(type: string, fn: (e: unknown) => void) {
@@ -48,6 +55,7 @@ function desk(guideUp: boolean) {
     onPauseToggle: () => {},
     onWaveStep: () => {},
     onGuideReplay: () => {},
+    controls: () => controlSet(panel),
   });
   const fire = (type: string, code: string): void => {
     for (const fn of listeners[type] ?? []) fn({ code, preventDefault() {} });
@@ -103,12 +111,38 @@ describe("holding the ready gate at a desk", () => {
   });
 
   it("leaves F and G alone when no guide is up — they are still the lance and the grip", () => {
-    const d = desk(false);
+    // On the panel that *has* a lance. The keyboard is gated by the wave's own
+    // control set now, so F on the ordinary panel is a key for a button that
+    // is not there — see the case below, which is the other half of the same
+    // rule.
+    const d = desk(false, "lance");
     d.down("KeyF");
     d.down("KeyG");
     expect(d.briefs(1)).toEqual([]);
     expect(d.briefs(2)).toEqual([]);
     expect(d.sent.some((c) => c.command.kind === "prime")).toBe(true);
+  });
+
+  /**
+   * The owner's rule, as the smallest test that can hold it: *if no cannon is
+   * visible, no cannon shot is possible.* THE CLAW's panel trades the gun for
+   * an arm, so a key that still fired one would be the desk rig lying about
+   * the game. That the gate is a gate rather than a wall — that a hand on the
+   * field passes on every panel — is `panelSends`' own contract and is held
+   * next to it, in `content/test/control-sets.test.ts`.
+   */
+  it("answers only what the wave's own panel carries", () => {
+    const claw = desk(false, "claw");
+    claw.down("KeyW");
+    expect(claw.sent.some((c) => c.command.kind === "fire")).toBe(false);
+    expect(claw.sent.some((c) => c.command.kind === "guard")).toBe(false);
+    // And the arm, which is the one thing this panel does answer.
+    claw.down("KeyM");
+    expect(claw.sent.some((c) => c.command.kind === "reach")).toBe(true);
+
+    const standard = desk(false);
+    standard.down("KeyW");
+    expect(standard.sent.some((c) => c.command.kind === "fire")).toBe(true);
   });
 
   it("says nothing at all on Space before the guide is up", () => {

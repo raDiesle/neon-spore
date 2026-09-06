@@ -215,6 +215,9 @@ export function bindControls({
       onPauseToggle,
       onWaveStep,
       onGuideReplay,
+      // The wave's own panel, which is what the desk keyboard is now gated by
+      // (`keys.ts`). The same accessor the band and the hit test already take.
+      controls,
     }),
     hand,
     pointer: () => pointer,

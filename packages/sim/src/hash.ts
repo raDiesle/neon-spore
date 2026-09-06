@@ -184,12 +184,9 @@ export function hashWorld(world: World): number {
     // for a swept field or for an armed shield, so two devices that disagree
     // here disagree about the state of the ship a beat later.
     push(POD_KINDS.indexOf(p.kind) + 1);
-    // How it crosses, and who is shown it. The first is a rule — a device that
-    // disagrees is watching a power-up in a different column — and the second
-    // is only ever a picture, and is in here anyway: rule 4 has no clause for
-    // a field one screen draws and the other does not.
+    // How it crosses. A device that disagrees here is watching a power-up in a
+    // different column from the one the other device has the arm over.
     push(p.crossMilli);
-    push(p.seen);
   }
 
   push(world.scars.length);

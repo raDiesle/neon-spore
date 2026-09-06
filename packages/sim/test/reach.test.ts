@@ -179,18 +179,6 @@ describe("a power-up that crosses the field", () => {
     expect(world.pods[0]?.colMilli).toBe(3000);
     expect(world.pods[0]?.crossMilli).toBe(0);
   });
-
-  it("carries which seat may see it, and both by default", () => {
-    const world = open(
-      [],
-      [
-        { beat: 0, col: 1, row: 4, kind: "mend", seen: 2 },
-        { beat: 0, col: 5, row: 4, kind: "ward" },
-      ],
-    );
-    ticks(world, TPB);
-    expect(world.pods.map((p) => p.seen).sort()).toEqual([0, 2]);
-  });
 });
 
 describe("two devices", () => {
@@ -200,15 +188,6 @@ describe("two devices", () => {
     ticks(world, 10);
     const before = hashWorld(world);
     world.reachMilli += 1;
-    expect(hashWorld(world)).not.toBe(before);
-  });
-
-  it("notices a power-up that only one of them is drawing", () => {
-    const world = open([], [{ beat: 0, col: 3, row: 4, kind: "mend" }]);
-    ticks(world, TPB);
-    const before = hashWorld(world);
-    const pod = world.pods[0];
-    if (pod) pod.seen = 2;
     expect(hashWorld(world)).not.toBe(before);
   });
 });

@@ -1,4 +1,5 @@
 import { afterEach, describe, expect, it } from "bun:test";
+import { controlSet, DEFAULT_CONTROL_SET_ID } from "@neon-spore/content";
 import type { Layout } from "@neon-spore/render";
 import { type Command, type Creature, DEFAULT_CONFIG } from "@neon-spore/sim";
 import { bindKeys } from "../src/keys.js";
@@ -52,6 +53,10 @@ function desk(creatures: readonly Creature[]) {
     onPauseToggle: () => {},
     onWaveStep: () => {},
     onGuideReplay: () => {},
+    // The ordinary panel: the keyboard is gated by the wave's own control set
+    // now (`content/src/control-sets-keys.ts`), and the grip and THE PUSH are
+    // reachable from every one of them.
+    controls: () => controlSet(DEFAULT_CONTROL_SET_ID),
   });
   const fire = (type: string, code: string): void => {
     for (const fn of listeners[type] ?? []) fn({ code, preventDefault() {} });

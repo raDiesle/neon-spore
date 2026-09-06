@@ -38,5 +38,10 @@ export function heldHashParts(c: Creature): number[] {
   // — the shield's own question (`grip-push.ts`). `-1` for a body that has
   // never been carried, which is a value no beat can take.
   out.push(c.pushBeat ?? -1);
+  // Dropped by THE CLAW's arm, which is the other thing a hand can do to a
+  // body it cannot carry: it comes down at the torch's speed from there rather
+  // than at its own, so two devices that disagree here disagree about the beat
+  // it reaches the hull — the beat the shield has to answer on.
+  out.push(c.dropped === true ? 1 : 0);
   return out;
 }

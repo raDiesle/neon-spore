@@ -197,9 +197,9 @@ export const WAVES_ACT_7: Wave[] = [
     name: "THE CLAW",
     sentence: "The one where the gun is a hand, and the hand cannot see what it is reaching for.",
     guide: {
-      both: "The cannon is an arm. It slides the way the cannon did and REACH sends it up its column — it closes on the first thing it meets, comes back, and nothing calls it home early. Power-ups cross the field sideways instead of hanging, and a rock in the way is crushed at a price.",
-      p1: "You hold the arm and your screen has no power-ups on it, only rocks. Slide to the column they give you and REACH before the thing is past — and never reach into a lane with a rock in it unless you mean to pay.",
-      p2: "Every power-up is on your screen and nobody else's, and they cross sideways — say the column early, because by the time the arm is up there the thing has moved. SUCK is yours: what it brings down needs your mouth open.",
+      both: "The cannon is an arm. It slides the way the cannon did and REACH sends it up its column — it closes on the first thing it meets, comes back, and nothing calls it home early, not even the strip. Power-ups cross the field sideways instead of hanging. A rock the arm closes on is not crushed: it is dropped, and it comes down like a torch.",
+      p1: "The arm is all you have: no trigger, no plate. Slide ahead of a power-up, not at it, and REACH — and never into a lane with a rock in it, because a rock you touch comes down at you like a torch.",
+      p2: "SUCK is the only thing you have, and nothing is caught without it: the arm brings a power-up down to the hull and it is yours only if your mouth is open when it lands. Count the arm down and open on it.",
       scene: "theClaw",
     },
     entries: [
@@ -211,10 +211,10 @@ export const WAVES_ACT_7: Wave[] = [
       { beat: 54, col: 6, kind: "meteorMedium", color: null },
     ],
     pods: [
-      { beat: 2, col: 0, row: 4, kind: "mend", cross: 1, seen: 2 },
-      { beat: 18, col: 6, row: 6, kind: "ward", cross: -1, seen: 2 },
-      { beat: 34, col: 0, row: 3, kind: "purge", cross: 1, speed: 3, seen: 2 },
-      { beat: 50, col: 6, row: 5, kind: "mend", cross: -1, seen: 2 },
+      { beat: 2, col: 0, row: 4, kind: "mend", cross: 1 },
+      { beat: 18, col: 6, row: 6, kind: "ward", cross: -1 },
+      { beat: 34, col: 0, row: 3, kind: "purge", cross: 1, speed: 3 },
+      { beat: 50, col: 6, row: 5, kind: "mend", cross: -1 },
     ],
     controls: "claw",
   },

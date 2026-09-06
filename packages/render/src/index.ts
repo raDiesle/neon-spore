@@ -26,7 +26,6 @@ export {
   type Stage,
   type Strip,
   showsCannon,
-  showsPod,
   showsShield,
   tileCX,
   tileCY,

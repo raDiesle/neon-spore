@@ -24,6 +24,7 @@ export {
   heldBack,
   layoutSet,
   panelForm,
+  panelSends,
   setControls,
   setHas,
   wavesUsingSet,

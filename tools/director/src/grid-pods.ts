@@ -43,7 +43,7 @@ export function bindGridPods(store: Store, cfg: () => SimConfig, onEdit: () => v
       onEdit();
     });
 
-    row.append(where, input, crossPicker(pod), speedBox(pod), seenPicker(pod));
+    row.append(where, input, crossPicker(pod), speedBox(pod));
     return row;
   };
 
@@ -101,35 +101,6 @@ export function bindGridPods(store: Store, cfg: () => SimConfig, onEdit: () => v
       onEdit();
     });
     return box;
-  };
-
-  /**
-   * Which seat is shown it, and it is here on **every** pod rather than only
-   * on a crossing one: hiding a power-up from a seat is a split like any
-   * other, and the panel it was added for is not the only one that could want
-   * it. Default is both, which is every pod authored before it existed.
-   */
-  const seenPicker = (pod: PodEntry): HTMLElement => {
-    const pick = document.createElement("select");
-    pick.title = "which player is shown it";
-    for (const [value, label] of [
-      ["", "both see"],
-      ["1", "P1 only"],
-      ["2", "P2 only"],
-    ] as const) {
-      const option = document.createElement("option");
-      option.value = value;
-      option.textContent = label;
-      pick.appendChild(option);
-    }
-    pick.value = pod.seen === undefined ? "" : String(pod.seen);
-    pick.addEventListener("change", () => {
-      if (pick.value === "") delete pod.seen;
-      else pod.seen = pick.value === "1" ? 1 : 2;
-      store.dirty = true;
-      onEdit();
-    });
-    return pick;
   };
 
   const renderPods = (): void => {

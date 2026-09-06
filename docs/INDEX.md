@@ -376,6 +376,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-cut.ts` | THE CUT's rehearsal: a wall with no way through, and the crack that is the only place a shot goes through it |
 | `packages/content/src/scenes/the-fence.ts` | THE FENCE's rehearsal: a wall the width of the field, and the one thing that has to be true when it lands |
 | `packages/content/src/scenes/the-gap.ts` | THE GAP's rehearsal: the wall moves its opening, and only one of them can see where it went |
+| `packages/content/src/control-sets-keys.ts` | Whether a panel answers a command — what the desk keyboard is gated by |
 
 ### packages/render
 
@@ -789,6 +790,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/perf-sweep.ts` | The performance sweep, run **inside the page**, on the device the game is for |
 | `apps/game/src/menu-idle.ts` | `?menuidle=<hz>` — how often the field is repainted while the main menu is up |
 | `apps/game/src/keys-grip.ts` | **What the desk rig's grip key takes hold of.** Cut out of `keys.ts` when the relief's key took that file… |
+| `apps/game/src/keys-slide.ts` | The desk keys that slide a swelling, and keep sliding while held |
 
 ### apps/server
 

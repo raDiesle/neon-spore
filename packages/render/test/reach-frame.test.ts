@@ -9,7 +9,6 @@ import {
   ticksPerBeat,
 } from "@neon-spore/sim";
 import type { ViewRole } from "../src/layout.js";
-import { showsPod } from "../src/layout.js";
 import { CFG, installCanvasGlobals, ROLES, runFrames, waveOnPanel } from "./frame-harness.js";
 
 /**
@@ -89,27 +88,5 @@ describe("THE CLAW's panel draws on all three screens", () => {
     expect(seen.out).toBe(true);
     expect(seen.held).toBe(true);
     expect(seen.home).toBe(true);
-  });
-});
-
-describe("who is shown a power-up", () => {
-  /**
-   * The split itself, as arithmetic rather than as pixels. `drawPods` asks
-   * this of every pod before it draws one, so a pod hidden here is a pod
-   * absent from that screen — and the test rig sees everything, as it does for
-   * every other split in the game.
-   */
-  it("hides a pod from the seat it was not authored for", () => {
-    expect(showsPod("p1", 2)).toBe(false);
-    expect(showsPod("p2", 2)).toBe(true);
-    expect(showsPod("p1", 1)).toBe(true);
-    expect(showsPod("p2", 1)).toBe(false);
-    expect(showsPod("test", 1)).toBe(true);
-    expect(showsPod("test", 2)).toBe(true);
-  });
-
-  it("shows an unmarked pod to both, which is every pod before this", () => {
-    expect(showsPod("p1", 0)).toBe(true);
-    expect(showsPod("p2", 0)).toBe(true);
   });
 });

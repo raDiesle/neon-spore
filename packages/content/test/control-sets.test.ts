@@ -10,6 +10,7 @@ import {
   heldBack,
   layoutSet,
   panelForm,
+  panelSends,
   setControls,
   setHas,
   WAVES,
@@ -262,5 +263,44 @@ describe("the standard ladder", () => {
       "standard4",
       "standard4",
     ]);
+  });
+});
+
+/**
+ * What a panel will *answer*, which is what the desk keyboard is gated by
+ * (`apps/game/src/keys.ts`). The owner's rule in one sentence: if no cannon is
+ * visible, no cannon shot is possible.
+ */
+describe("what a panel answers", () => {
+  it("answers a command only when one of its own controls sends it", () => {
+    expect(panelSends(controlSet("default"), "fire")).toBe(true);
+    expect(panelSends(controlSet("default"), "reach")).toBe(false);
+    // THE CLAW trades the gun for an arm, so firing is not a thing the game
+    // can do on it — which is the whole reason the gate exists.
+    expect(panelSends(controlSet("claw"), "fire")).toBe(false);
+    expect(panelSends(controlSet("claw"), "guard")).toBe(false);
+    expect(panelSends(controlSet("claw"), "reach")).toBe(true);
+    // The mouth is on the other seat there and sends the ship's own `intake`.
+    expect(panelSends(controlSet("claw"), "intake")).toBe(true);
+  });
+
+  it("answers a held control's release as well as its press", () => {
+    // A gate that let the lance down and not up would leave the lobe filling
+    // with nobody's thumb on it, which is the failure `keys-gate.test.ts` was
+    // written for in the first place.
+    expect(panelSends(controlSet("lance"), "prime")).toBe(true);
+    expect(panelSends(controlSet("gauge"), "valve")).toBe(true);
+  });
+
+  it("lets through the five that are nobody's button", () => {
+    // A gate rather than a wall: the host's own verbs and the hand on the
+    // field are on no panel's list and must reach the simulation from every
+    // one of them.
+    for (const set of CONTROL_SETS) {
+      expect(panelSends(set, "restart"), `${set.id} refuses restart`).toBe(true);
+      expect(panelSends(set, "grip"), `${set.id} refuses the grip`).toBe(true);
+      expect(panelSends(set, "brief"), `${set.id} refuses READY`).toBe(true);
+      expect(panelSends(set, "relief"), `${set.id} refuses the relief`).toBe(true);
+    }
   });
 });

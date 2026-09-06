@@ -99,7 +99,6 @@ export function spawnPods(world: World): void {
         entry.cross === undefined
           ? 0
           : entry.cross * crossMilli(world, entry.speed ?? world.cfg.podCrossTilesPerBeat),
-      seen: entry.seen ?? 0,
     });
     world.podSpawned += 1;
   }

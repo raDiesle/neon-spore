@@ -1,7 +1,7 @@
 import { blobPath, POD } from "@neon-spore/content";
 import type { Pod, PodKind } from "@neon-spore/sim";
 import { halo, strokeGlow } from "./glow.js";
-import { type Layout, showsPod, tileCX, tileCY, type ViewRole } from "./layout.js";
+import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /**
@@ -41,22 +41,13 @@ export function podCenter(l: Layout, p: Pod): { x: number; y: number; r: number 
   };
 }
 
-/**
- * `role` is whose screen this is, because a pod may be authored onto one of
- * them alone (`Pod.seen`, `showsPod`). It is filtered here rather than by the
- * caller so that every reader of a pod on screen — the moored lamp, the
- * burning wreck, and anything that comes after them — is hidden by one line
- * instead of each remembering to ask.
- */
 export function drawPods(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   pods: readonly Pod[],
   time: number,
-  role: ViewRole,
 ): void {
   for (const p of pods) {
-    if (!showsPod(role, p.seen)) continue;
     const { x, y } = podCenter(l, p);
     // Deterministic variation: the id is the same on both devices.
     const t = time + (p.id % 7) * 0.83;

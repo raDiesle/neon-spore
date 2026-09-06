@@ -156,12 +156,6 @@ export interface PodEntry {
    * a speed its author does not know.
    */
   speed?: number;
-  /**
-   * Which seat is shown it. Absent means both, which is every pod the game had
-   * before THE CLAW — so an unmarked pod is byte-for-byte the wave it always
-   * was.
-   */
-  seen?: 1 | 2;
 }
 
 // **What a wave authors when it wants a boss** is `boss-entries.ts` next door,

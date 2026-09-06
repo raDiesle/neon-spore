@@ -1,5 +1,4 @@
 import { hullRow, ticksPerBeat } from "./config.js";
-import { breachHull } from "./hull.js";
 import { freePod } from "./pods.js";
 import { MILLI, type World } from "./world.js";
 
@@ -100,6 +99,12 @@ export function stepReach(world: World): void {
   }
 
   world.reachMilli -= step;
+  // **Whatever it is carrying comes down with it, every tick.** The pod used
+  // to be left where it was grabbed and put at the hull in one move when the
+  // arm got home, which drew as a thing teleporting rather than being carried
+  // — the owner reported it in those words. A held pod has no motion of its
+  // own (`advancePods` leaves a moored one alone), so this *is* its motion.
+  carry(world);
   if (world.reachMilli > 0) return;
   // Home, and whatever it is carrying is let go at the hull — from there it is
   // an ordinary falling pod and the mouth is somebody else's to open.
@@ -110,9 +115,26 @@ export function stepReach(world: World): void {
   if (held === 0) return;
   const pod = world.pods.find((p) => p.id === held);
   if (pod === undefined) return;
-  pod.colMilli = world.reachCol * MILLI;
-  pod.rowMilli = (hullRow(world.cfg) - 1) * MILLI;
+  // It is already at the hull — `carry` put it there a tick at a time — so all
+  // that is left is to let go, and from here it is an ordinary falling pod
+  // whose mouth is somebody else's to open.
   freePod(world, pod);
+}
+
+/**
+ * The held pod, moved to wherever the fingers now are.
+ *
+ * Called on the way down and on the way up alike, so a pod is under the hand
+ * from the tick it is closed on to the tick it is let go. It is the arm's
+ * business rather than `advancePods`' for a plain reason: a moored pod does
+ * not move, and this one is not moving *itself* — it is being carried.
+ */
+function carry(world: World): void {
+  if (world.reachHeld === 0) return;
+  const pod = world.pods.find((p) => p.id === world.reachHeld);
+  if (pod === undefined) return;
+  pod.colMilli = world.reachCol * MILLI;
+  pod.rowMilli = Math.min(reachTipMilli(world), (hullRow(world.cfg) - 1) * MILLI);
 }
 
 /**
@@ -142,10 +164,11 @@ function strike(world: World): void {
 
   const body = world.creatures.find((c) => c.col === world.reachCol && c.row === row);
   if (body === undefined) return;
-  // Crushed, and the hull pays for it. The column is the arm's own rather than
-  // the body's, which are the same number — it is written from the arm so that
-  // a body two tiles wide leaves its scar where the hand actually closed.
-  world.creatures = world.creatures.filter((c) => c !== body);
+  // **Dropped, not crushed.** The arm closes on it, cannot hold it, and lets
+  // it go — and from there it comes down at the torch's speed and hits the
+  // ship like one (`grippedFallTiles`). The hull pays nothing here: it pays
+  // when the thing lands, in whatever the body itself costs, which is the
+  // honest price of having put a hand in that lane. The arm comes back empty.
+  body.dropped = true;
   world.reachDir = -1;
-  breachHull(world, world.reachCol, body.kind, row, world.cfg.damageReach, body.color);
 }

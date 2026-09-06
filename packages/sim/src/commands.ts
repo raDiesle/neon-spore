@@ -7,7 +7,7 @@ import { faultSwallows, reliefHeard } from "./malfunction.js";
 import { mazeHeard } from "./maze-controls.js";
 import { mirrorHeard, mirrorHoldsControls } from "./mirror.js";
 import { closePinball } from "./pinball-round.js";
-import { reachHeard } from "./reach.js";
+import { reachHeard, reachOut } from "./reach.js";
 import { resetRun } from "./run.js";
 import { endCharge } from "./shot-charge.js";
 import { fireStep } from "./simon.js";
@@ -66,6 +66,13 @@ export function applyCommand(world: World, timed: TimedCommand): void {
 
   switch (c.kind) {
     case "cannonCol": {
+      // **The strip is dead while THE CLAW's arm is out.** The arm holds its
+      // own column whatever the strip does (`reach.ts`), so a strip that still
+      // slid would draw the ship's swelling away from the hand hanging off it
+      // — the owner reported exactly that. Refusing the command rather than
+      // letting it move something invisible is the honest half: the press does
+      // nothing because there is nothing it could do until the arm is home.
+      if (reachOut(world)) break;
       const from = world.cannonCol;
       world.cannonCol = clampCol(world, c.col);
       if (world.cannonCol !== from) {

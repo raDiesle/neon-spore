@@ -22,6 +22,23 @@
  */
 export interface HeldState {
   /**
+   * **Dropped by THE CLAW's arm**, and absent on every body that was not.
+   *
+   * The arm closes on whatever it meets, and what it meets is not always the
+   * power-up somebody named. A body it catches is not crushed — it is let go,
+   * from wherever it was caught, and from that moment it comes down at the
+   * torch's speed and hits the ship like one (`fallTilesPerBeat`,
+   * `grippedFallTiles`). That is the whole price of reaching into a lane with
+   * a rock in it: the rock is not removed, it is *hurried*, and the pair get
+   * it in the face a great deal sooner than they would have.
+   *
+   * A flag rather than a change of kind, because the thing is still whatever
+   * it was — a slick dropped is a slick, and shooting it on the way down still
+   * works. Absent rather than `false` so a wave of bodies nobody has touched
+   * is byte-for-byte the wave it always was.
+   */
+  dropped?: boolean;
+  /**
    * How far player 1's hand has carried THE LID's cord from where it grabbed,
    * across and down, in thousandths of a tile — and **absent on a lid nobody
    * has hold of**, which is what makes the absence itself the answer to "is a

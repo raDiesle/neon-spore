@@ -171,7 +171,7 @@ export function drawBodies(
   // (`lock-mark.ts`).
   drawLockMarks(ctx, l, world, cannonCol, view.beatPhase, view.time);
   drawBoss(ctx, l, view, effects);
-  drawPods(ctx, l, world.pods, view.time, view.role);
+  drawPods(ctx, l, world.pods, view.time);
   drawBullets(ctx, l, world.bullets);
   // Last of the pass, and over every body in it. The world goes in for the
   // ward's bolts and the shell they take off a clasp: both are drawn around a

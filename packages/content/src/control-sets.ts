@@ -2,6 +2,9 @@ import { CONTROL_SETS } from "./control-sets-table.js";
 import { type ControlDef, type ControlId, control, type PanelForm } from "./controls.js";
 import type { ControlGroup } from "./creatures.js";
 
+// And what a panel will *answer*, which is the desk keyboard's gate
+// (`control-sets-keys.ts`).
+export { panelSends } from "./control-sets-keys.js";
 export { CONTROL_SETS } from "./control-sets-table.js";
 // The three questions a **wave** asks about a panel are next door
 // (`control-sets-waves.ts`), cut out when THE CLAW's set took this file past

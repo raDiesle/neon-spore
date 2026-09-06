@@ -245,15 +245,15 @@ same rock costs by landing. That is why `groupsCoveredBy` counts `reach` as
 covering the `guard` group — the group asks *can this panel answer a rock at
 all*, and this one can, worse than a dome and on purpose.
 
-**The power-ups cross the field, and only one seat sees them.** Two authoring
-fields on a pod rather than anything particular to this panel:
-`PodEntry.cross` sends one along its row instead of leaving it hanging, at
-`speed` tiles a beat, entering at the column it is painted in and leaving at
-the far side; `PodEntry.seen` says which seat is shown it, and absent means
-both, which is every pod the game had before this. So a power-up is a *window*
-rather than a place, it is at a different column by the time the arm gets up
-there, and the person who can see it is the person who cannot reach it.
+**The power-ups cross the field.** `PodEntry.cross` sends one along its row
+instead of leaving it hanging, at `speed` tiles a beat, entering at the column
+it is painted in and leaving at the far side. So a power-up is a *window*
+rather than a place, and it is at a different column by the time the arm gets
+up there — which is why the pair has to talk about where it will be rather
+than where it is.
 
-Both fields are on the director's pod row, on every pod and not only a
-crossing one: hiding a power-up from a seat is a split like any other and this
-is not the only panel that could want it.
+**Both seats see everything here.** A per-pod "which seat is shown this" field
+was built and then cut, on the owner's word: he had asked for it, looked at it,
+and did not want it. The split on this panel is in the *hands* rather than in
+the eyes — he can bring a thing down and cannot take it in, she can take it in
+and cannot reach for anything — and that is enough coupling for one wave.

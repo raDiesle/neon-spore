@@ -105,6 +105,12 @@ export function dropLostGrips(world: World): void {
  * only speeds it could have would be one tile and none at all.
  */
 export function grippedFallTiles(world: World, c: Creature): number {
+  // A body THE CLAW's arm let go of comes down at the torch's speed whatever
+  // it is, and no hand slows it: it is not falling any more, it has been
+  // *dropped* (`creature-state-held.ts`, `dropped`). Asked before the grip
+  // because a hand on a dropped body would otherwise take the hurry back out
+  // of it, which is the one thing the arm's mistake must not be undoable by.
+  if (c.dropped === true) return fallTilesPerBeat("torch");
   const base = fallTilesPerBeat(c.kind);
   const hands = gripCount(world, c.id);
   if (hands === 0) {

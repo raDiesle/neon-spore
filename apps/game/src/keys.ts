@@ -1,9 +1,11 @@
+import { type ControlSet, panelSends } from "@neon-spore/content";
 import type { Layout } from "@neon-spore/render";
-import { type Creature, midCol, type SimConfig } from "@neon-spore/sim";
+import { type Command, type Creature, midCol, type SimConfig } from "@neon-spore/sim";
 import type { InputBuffer } from "./input.js";
 import { deskGrip } from "./keys-grip.js";
 import { guideKeyDown } from "./keys-guide.js";
 import { roundKeyDown, roundKeyUp } from "./keys-round.js";
+import { bindSliding } from "./keys-slide.js";
 
 /**
  * The keyboard, for playing both roles alone at a desk. Its own file rather
@@ -32,12 +34,13 @@ export interface KeyBindings {
   onWaveStep: (delta: number) => void;
   /** R, behind a guide: the desk's REPLAY (`render/guide-nav.ts`). */
   onGuideReplay: () => void;
+  /**
+   * The panel this wave is played on. Read fresh rather than captured: a wave
+   * step changes it under the same listener, and a set captured at bind time
+   * would gate the whole run by wave one's buttons.
+   */
+  controls: () => ControlSet;
 }
-
-/** Ticks (at `cfg.tickHz`, currently 120) before a held move key starts repeating. */
-const KEY_REPEAT_DELAY_TICKS = 24;
-/** Ticks between repeats once a held move key is repeating. */
-const KEY_REPEAT_INTERVAL_TICKS = 8;
 
 /**
  * A/D slide the cannon *and* the shield together, J/L move the shield alone.
@@ -50,13 +53,21 @@ const KEY_REPEAT_INTERVAL_TICKS = 8;
  * are the ready gate's two halves — one seat each — and Space is both at once
  * for the desk player who is both seats.
  *
- * **The keyboard is not gated by the wave's control set**, the same decision
- * the view switch already made. A wave names one panel and the band draws that
- * and nothing else (`packages/content/src/control-sets.ts`), so no thumb can
- * reach a lance on an ordinary wave. This file is the desk rig: one person
- * driving both seats, in every view. Gating it would mean a tester could not
- * open the lance without first finding the wave that carries it, which is the
- * opposite of what the rig is for.
+ * **The keyboard is gated by the wave's control set**, and it used to be the
+ * opposite. The argument for leaving it open was that this file is the desk
+ * rig — one person driving both seats, in every view — and that gating it
+ * would stop a tester reaching the lance without first finding the wave that
+ * carries it. The owner reversed it in one sentence: *the active control set
+ * also must fit the keyboard bindings, so if no cannon is visible, no cannon
+ * shot is possible.* He is right, and THE CLAW is what made it obvious — a
+ * panel that trades the gun for an arm is a panel where firing is not a thing
+ * the game can do, and a key that still did it was the rig lying about the
+ * game rather than standing in for a thumb.
+ *
+ * The gate is `panelSends`, asked once around the buffer rather than at each
+ * of the twenty pushes below, so a key added here cannot forget it. The five
+ * commands that are nobody's button — `restart`, the guide's two, the grip and
+ * the relief — pass regardless, and that list is `control-sets-keys.ts`'s.
  */
 export function bindKeys({
   buffer,
@@ -69,65 +80,49 @@ export function bindKeys({
   onPauseToggle,
   onWaveStep,
   onGuideReplay,
+  controls,
 }: KeyBindings): () => void {
-  let cannon = -1;
-  let shield = -1;
+  /**
+   * Every press this file makes, with the wave's own panel in front of it.
+   *
+   * One gate rather than twenty conditions — see the header — so a key added
+   * below cannot forget it, and a key that means nothing on this panel sends
+   * nothing rather than something invisible. `send` and not `buffer.push`
+   * everywhere in here, deliberately: the only way to reach the buffer
+   * ungated is to type the longer name, which is a thing a reader notices.
+   */
+  const send = (player: 1 | 2, command: Command): void => {
+    if (!panelSends(controls(), command.kind)) return;
+    buffer.push(player, command);
+  };
+
   const grip = deskGrip(cfg);
   const held = new Set<string>();
-  const repeatTicks = new Map<string, number>();
+  /** The four keys that slide a swelling and repeat while held, and nothing
+   * else in this file has to know they have a timer (`keys-slide.ts`). */
+  const sliding = bindSliding(layout, midCol(cfg), send);
 
   /** Whatever this key means to a wave's guide, if one is up. `false` when it
    * meant nothing there and the key is still the ship's (`keys-guide.ts`). */
   const guideKey = (code: string): boolean => {
     if (!guideHolds()) return false;
     const presses = guideKeyDown(code);
-    for (const p of presses) buffer.push(p.player, p.command);
+    for (const p of presses) send(p.player, p.command);
     return presses.length > 0;
-  };
-
-  const moveCannon = (delta: number): void => {
-    const cols = layout().cols;
-    cannon = Math.min(cols - 1, Math.max(0, cannon + delta));
-    buffer.push(1, { kind: "cannonCol", col: cannon });
-  };
-  const moveShield = (delta: number): void => {
-    const cols = layout().cols;
-    shield = Math.min(cols - 1, Math.max(0, shield + delta));
-    buffer.push(2, { kind: "shieldCol", col: shield });
-  };
-  const moveKeys: Record<string, () => void> = {
-    KeyA: () => {
-      moveCannon(-1);
-      moveShield(-1);
-    },
-    KeyD: () => {
-      moveCannon(1);
-      moveShield(1);
-    },
-    KeyJ: () => moveShield(-1),
-    KeyL: () => moveShield(1),
   };
 
   window.addEventListener("keydown", (e) => {
     if (held.has(e.code)) return;
     held.add(e.code);
-    if (cannon < 0) cannon = midCol(cfg);
-    if (shield < 0) shield = midCol(cfg);
-
     // Never the page's scroll: every arrow means something here.
     if (e.code.startsWith("Arrow")) e.preventDefault();
-    const moveKey = moveKeys[e.code];
-    if (moveKey) {
-      moveKey();
-      repeatTicks.set(e.code, KEY_REPEAT_DELAY_TICKS);
-      return;
-    }
+    if (sliding.down(e.code)) return;
     switch (e.code) {
       case "KeyI":
-        buffer.push(1, { kind: "guard" });
+        send(1, { kind: "guard" });
         break;
       case "KeyS":
-        buffer.push(1, { kind: "intake" });
+        send(1, { kind: "intake" });
         break;
       // H holds the wave's malfunction off, and it is sent **as both seats**.
       // A fault hands the relief to one of them and `reliefHeard` drops it
@@ -136,8 +131,8 @@ export function bindKeys({
       // reason W sends a shot and a guard in one press. Not R: that is the
       // film's replay and has been since guides had one.
       case "KeyH":
-        buffer.push(1, { kind: "relief" });
-        buffer.push(2, { kind: "relief" });
+        send(1, { kind: "relief" });
+        send(2, { kind: "relief" });
         break;
       // F holds the lance, as player 1. Held, not tapped: the lobe fills for
       // as long as the key is down and empties on the keyup below, which is
@@ -149,20 +144,20 @@ export function bindKeys({
       case "KeyF":
         // Behind a guide it is player 1's half of the ready gate (`keys-guide.ts`).
         if (guideKey("KeyF")) break;
-        buffer.push(1, { kind: "prime", on: true });
+        send(1, { kind: "prime", on: true });
         break;
       case "KeyW":
-        buffer.push(2, { kind: "fire", color: "red" });
-        buffer.push(1, { kind: "guard" });
+        send(2, { kind: "fire", color: "red" });
+        send(1, { kind: "guard" });
         break;
       // Red on its own. W sends red *and* a guard, which is one press for a
       // whole defence and two gestures for THE MIRROR — a sequence asking for
       // a red shot and nothing else cannot be answered with it.
       case "KeyQ":
-        buffer.push(2, { kind: "fire", color: "red" });
+        send(2, { kind: "fire", color: "red" });
         break;
       case "KeyE":
-        buffer.push(2, { kind: "fire", color: "cyan" });
+        send(2, { kind: "fire", color: "cyan" });
         break;
       // G takes hold of whatever is nearest the hull, **as player 2**. On a
       // phone the grip is a finger on the field and either player may use it;
@@ -171,7 +166,7 @@ export function bindKeys({
       case "KeyG": {
         // And G is player 2's half, for the same reason F is player 1's.
         if (guideKey("KeyG")) break;
-        for (const command of grip.take(creatures())) buffer.push(2, command);
+        for (const command of grip.take(creatures())) send(2, command);
         break;
       }
       // THE PUSH, which on a phone is the same thumb sliding sideways and here
@@ -179,10 +174,10 @@ export function bindKeys({
       // nothing without it: one press carries the held body one column further
       // from where it was grabbed (`keys-grip.ts`).
       case "Comma":
-        for (const command of grip.carry(-1)) buffer.push(2, command);
+        for (const command of grip.carry(-1)) send(2, command);
         break;
       case "Period":
-        for (const command of grip.carry(1)) buffer.push(2, command);
+        for (const command of grip.carry(1)) send(2, command);
         break;
       // Space is both seats at once, for the person at a desk playing both of
       // them — the same answer the director's stage gives in `TEST`.
@@ -203,13 +198,13 @@ export function bindKeys({
         if (guideHolds()) onGuideReplay();
         break;
       case "Enter":
-        if (isOver()) buffer.push(1, { kind: "restart" });
+        if (isOver()) send(1, { kind: "restart" });
         break;
       default: {
         // The arrows are the last word here: SNAKE takes all four while it has
         // the world, and otherwise the sideways two step between waves.
         const round = roundKeyDown(e.code, snakeHolds());
-        if (round) buffer.push(round.player, round.command);
+        if (round) send(round.player, round.command);
         // The sideways two turn a guide's pages while one is up, and step
         // between waves otherwise (`keys-guide.ts`).
         else if (e.code === "ArrowRight" || e.code === "ArrowLeft") {
@@ -221,28 +216,19 @@ export function bindKeys({
   });
   window.addEventListener("keyup", (e) => {
     held.delete(e.code);
-    repeatTicks.delete(e.code);
+    sliding.up(e.code);
     // Unconditionally: a release arriving after the wave started is a no-op in
     // the simulation, while one skipped because the guide had *just* gone
     // would leave a thumb pressed on nobody's screen (`sim/briefing.ts`).
     const off = { kind: "brief", on: false } as const;
-    if (e.code === "Space" || e.code === "KeyF") buffer.push(1, off);
-    if (e.code === "Space" || e.code === "KeyG") buffer.push(2, off);
-    if (e.code === "KeyG") for (const c of grip.release()) buffer.push(2, c);
-    if (e.code === "KeyF") buffer.push(1, { kind: "prime", on: false });
+    if (e.code === "Space" || e.code === "KeyF") send(1, off);
+    if (e.code === "Space" || e.code === "KeyG") send(2, off);
+    if (e.code === "KeyG") for (const c of grip.release()) send(2, c);
+    if (e.code === "KeyF") send(1, { kind: "prime", on: false });
     const round = roundKeyUp(e.code);
-    if (round) buffer.push(round.player, round.command);
+    if (round) send(round.player, round.command);
   });
 
   /** Called once per sim tick to advance held-key repeats. */
-  return function tick(): void {
-    for (const [code, remaining] of repeatTicks) {
-      if (remaining > 1) {
-        repeatTicks.set(code, remaining - 1);
-        continue;
-      }
-      moveKeys[code]?.();
-      repeatTicks.set(code, KEY_REPEAT_INTERVAL_TICKS);
-    }
-  };
+  return sliding.tick;
 }

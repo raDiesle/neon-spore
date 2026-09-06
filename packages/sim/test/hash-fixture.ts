@@ -35,6 +35,7 @@ const creature = (): Required<Creature> => ({
   holes: 1,
   petals: 3,
   dragMilli: 250,
+  dropped: true,
   shell: 3,
   dartDir: 1,
   dartFloat: true,
@@ -98,7 +99,6 @@ const pod = (): Required<Pod> => ({
   loose: true,
   kind: "ward",
   crossMilli: 300,
-  seen: 1,
 });
 
 const scar = (): Required<Scar> => ({ col: 4, beat: 9, kind: "meteor", span: 2 });
