@@ -122,6 +122,30 @@ export interface PodEntry {
   row: number;
   /** What the pod gives when swallowed. A wave that does not say means `mend`. */
   kind?: PodKind;
+  /**
+   * Which way it crosses the field, and absent for a pod that hangs where it
+   * was left — which is every pod authored before THE CLAW.
+   *
+   * A crossing pod enters at the edge it is authored in and travels its row
+   * until it leaves the far side, so it is a *window* rather than a place: the
+   * pair has as long as it takes to cross, and a pod that got away is a missed
+   * gift rather than a punishment, exactly as one that breaks on the skin is.
+   */
+  cross?: -1 | 1;
+  /**
+   * How fast it crosses, in tiles per beat. Absent means
+   * `cfg.podCrossTilesPerBeat`, and it is meaningless on a pod that does not
+   * cross. Authored rather than rolled for `wears`' reason: how long the pair
+   * has is the whole of the difficulty, and a wave cannot be composed against
+   * a speed its author does not know.
+   */
+  speed?: number;
+  /**
+   * Which seat is shown it. Absent means both, which is every pod the game had
+   * before THE CLAW — so an unmarked pod is byte-for-byte the wave it always
+   * was.
+   */
+  seen?: 1 | 2;
 }
 
 // **What a wave authors when it wants a boss** is `boss-entries.ts` next door,
@@ -132,7 +156,6 @@ export {
   BOSS_KINDS,
   type BossEntry,
   bossFillsWave,
-  type ClawEntry,
   type FleetEntry,
   type GaugeEntry,
   type MazeEntry,

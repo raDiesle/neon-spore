@@ -1,4 +1,3 @@
-import type { ClawState } from "./claw.js";
 import type { FleetShip } from "./fleet-board.js";
 import type { GaugeState } from "./gauge.js";
 import type { MazeState } from "./maze-round.js";
@@ -217,5 +216,4 @@ export type BossState =
   | GaugeState
   | FleetState
   | SnakeState
-  | PinballState
-  | ClawState;
+  | PinballState;

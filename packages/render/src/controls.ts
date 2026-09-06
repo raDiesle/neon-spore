@@ -115,7 +115,7 @@ export function drawFireButton(
 }
 
 /** Which of player 1's two actions a button is — the ward, or the throat. */
-export type ActionKind = "guard" | "intake";
+export type ActionKind = "guard" | "intake" | "reach";
 
 /**
  * What is drawn on the face of one of player 1's action buttons, once the body
@@ -160,8 +160,13 @@ const drawActionWord: ActionFace = (ctx, x, y, _r, ink, _kind, label) => {
 export const ACTION_LOOK: ActionLook = { face: drawActionWord };
 
 /**
- * One of player 1's two actions — the trigger or the maw. The same button,
- * different colour and face.
+ * One of the panel's action buttons — the trigger, the maw, or THE CLAW's arm.
+ * The same button, different colour and face.
+ *
+ * The third arrived with a panel that moves the maw to the *other* seat, which
+ * is why this takes a colour rather than deciding one from the kind: whose
+ * thumb a button is under is a fact about the control set, and this function
+ * has never known one.
  *
  * `dead` is what it is made of while it is out: the panel's own flesh, so an
  * unlit button reads as a swelling of the chamber rather than a plate on it.

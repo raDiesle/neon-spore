@@ -116,10 +116,6 @@ export function bindBossPanel(store: Store, onEdit: () => void): BossPanel {
     // whole difficulty is `config-gauge.ts`, which is the SHIP card's, not
     // this panel's.
     if (boss.kind === "gauge") return;
-    // THE CLAW has nothing to author either, and less than THE GAUGE does: the
-    // wreck field is dealt from the seeded rng, so there is not even a shape on
-    // the page for an author to have an opinion about (`claw-field.ts`).
-    if (boss.kind === "claw") return;
 
     const fields = document.createElement("div");
     fields.className = "boss-fields";

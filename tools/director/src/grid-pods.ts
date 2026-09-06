@@ -43,8 +43,93 @@ export function bindGridPods(store: Store, cfg: () => SimConfig, onEdit: () => v
       onEdit();
     });
 
-    row.append(where, input);
+    row.append(where, input, crossPicker(pod), speedBox(pod), seenPicker(pod));
     return row;
+  };
+
+  /**
+   * Which way it crosses the field, or nothing at all.
+   *
+   * Three states rather than a checkbox and a direction, because the middle
+   * one is not "crossing, neither way" — it is a pod that **hangs**, which is
+   * what every pod in the game was before THE CLAW and is still the default.
+   * Absent rather than `0` in the wave file, so a wave nobody has touched is
+   * byte-for-byte the wave it was (`PodEntry.cross`).
+   */
+  const crossPicker = (pod: PodEntry): HTMLElement => {
+    const pick = document.createElement("select");
+    pick.title = "hangs where it is placed, or crosses the field along its row";
+    for (const [value, label] of [
+      ["", "hangs"],
+      ["-1", "◀ crosses"],
+      ["1", "crosses ▶"],
+    ] as const) {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = label;
+      pick.appendChild(option);
+    }
+    pick.value = pod.cross === undefined ? "" : String(pod.cross);
+    pick.addEventListener("change", () => {
+      if (pick.value === "") delete pod.cross;
+      else pod.cross = pick.value === "-1" ? -1 : 1;
+      store.dirty = true;
+      onEdit();
+    });
+    return pick;
+  };
+
+  /** How fast it crosses, in tiles per beat. Empty is `podCrossTilesPerBeat`,
+   * and it says nothing at all about a pod that hangs. */
+  const speedBox = (pod: PodEntry): HTMLElement => {
+    const box = document.createElement("input");
+    box.type = "number";
+    box.step = "0.5";
+    box.min = "0.5";
+    box.max = "12";
+    box.title = `tiles a beat while crossing — empty is ${cfg().podCrossTilesPerBeat}`;
+    box.value = pod.speed === undefined ? "" : String(pod.speed);
+    box.addEventListener("change", () => {
+      const next = Number(box.value);
+      if (box.value === "") delete pod.speed;
+      else if (Number.isFinite(next) && next >= 0.5 && next <= 12) pod.speed = next;
+      else {
+        box.value = pod.speed === undefined ? "" : String(pod.speed);
+        return;
+      }
+      store.dirty = true;
+      onEdit();
+    });
+    return box;
+  };
+
+  /**
+   * Which seat is shown it, and it is here on **every** pod rather than only
+   * on a crossing one: hiding a power-up from a seat is a split like any
+   * other, and the panel it was added for is not the only one that could want
+   * it. Default is both, which is every pod authored before it existed.
+   */
+  const seenPicker = (pod: PodEntry): HTMLElement => {
+    const pick = document.createElement("select");
+    pick.title = "which player is shown it";
+    for (const [value, label] of [
+      ["", "both see"],
+      ["1", "P1 only"],
+      ["2", "P2 only"],
+    ] as const) {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = label;
+      pick.appendChild(option);
+    }
+    pick.value = pod.seen === undefined ? "" : String(pod.seen);
+    pick.addEventListener("change", () => {
+      if (pick.value === "") delete pod.seen;
+      else pod.seen = pick.value === "1" ? 1 : 2;
+      store.dirty = true;
+      onEdit();
+    });
+    return pick;
   };
 
   const renderPods = (): void => {

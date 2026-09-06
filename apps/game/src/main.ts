@@ -14,7 +14,6 @@ import {
 import { mountBuildStamp } from "../../../tools/build-stamp.js";
 import { bindAudio } from "./audio.js";
 import { bindBriefing } from "./briefing.js";
-import { bindClaw } from "./claw.js";
 import { openDemonstration } from "./demo-menu.js";
 import { startFrames } from "./frame.js";
 import { bindGauge } from "./gauge.js";
@@ -164,7 +163,6 @@ bindGauge({ canvas, buffer, world, layout, inStage, role: () => view.role() });
 // simulation only holds one boss at a time and each asks whether it is theirs.
 bindSnake({ canvas, buffer, world, layout, inStage, role: () => view.role() });
 bindPinball({ canvas, buffer, world, layout, inStage, role: () => view.role() });
-bindClaw({ canvas, buffer, world, layout, inStage, role: () => view.role() });
 const testPanel = bindTestControls({ world, jumpToWave, run });
 
 /**

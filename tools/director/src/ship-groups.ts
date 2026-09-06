@@ -30,6 +30,7 @@ export type GroupName =
   | "POD — shot loose, then caught"
   | "LANCE — a column marked, then spent"
   | "GRIP — a hand on the field"
+  | "THE CLAW — the cannon replaced by an arm"
   | "HULL — damage and repair"
   | "RADAR — what is coming"
   | "THE BEAT"
@@ -37,7 +38,6 @@ export type GroupName =
   | "THE GAUGE — a round with no field in it"
   | "SNAKE — a round the ship is the body of"
   | "PINBALL — a table the ship is the bucket of"
-  | "THE CLAW — a rail only one of you can read"
   | "THROB — red one side, cyan the other, turning"
   | "THE LURE — a body only one of you can see through"
   | "THE VEIL — a cloud only one of you can see into"
@@ -72,6 +72,7 @@ export const GROUP_ORDER: GroupName[] = [
   "POD — shot loose, then caught",
   "LANCE — a column marked, then spent",
   "GRIP — a hand on the field",
+  "THE CLAW — the cannon replaced by an arm",
   "HULL — damage and repair",
   "RADAR — what is coming",
   "THE BEAT",
@@ -79,7 +80,6 @@ export const GROUP_ORDER: GroupName[] = [
   "THE GAUGE — a round with no field in it",
   "SNAKE — a round the ship is the body of",
   "PINBALL — a table the ship is the bucket of",
-  "THE CLAW — a rail only one of you can read",
   "THROB — red one side, cyan the other, turning",
   "THE LURE — a body only one of you can see through",
   "THE VEIL — a cloud only one of you can see into",
@@ -129,7 +129,6 @@ export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
   "THE FLEET — a chart only one of you can read",
   "SNAKE — a round the ship is the body of",
   "PINBALL — a table the ship is the bucket of",
-  "THE CLAW — a rail only one of you can read",
 ]);
 
 /** The ship's own dials — the same on every wave, and one click away on the topbar. */
@@ -151,5 +150,4 @@ export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
   gauge: "THE GAUGE — a round with no field in it",
   fleet: "THE FLEET — a chart only one of you can read",
   snake: "SNAKE — a round the ship is the body of",
-  claw: "THE CLAW — a rail only one of you can read",
 };

@@ -1,4 +1,3 @@
-import { drawClawRound } from "./claw-round.js";
 import { drawGaugeRound } from "./gauge-round.js";
 import type { Layout } from "./layout.js";
 import { drawPinballRound } from "./pinball-round.js";
@@ -23,7 +22,6 @@ export const ROUND_DRAWS: Record<
   (ctx: CanvasRenderingContext2D, l: Layout, view: ViewState) => void
 > = {
   gauge: drawGaugeRound,
-  claw: drawClawRound,
   snake: drawSnakeRound,
   pinball: drawPinballRound,
 };

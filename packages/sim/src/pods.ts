@@ -2,8 +2,9 @@ import { markMoment } from "./balance.js";
 import { hullRow, msToTicks, type SimConfig, ticksPerBeat } from "./config.js";
 import type { PodEntry } from "./entries.js";
 import { mirrorBaitTaken } from "./mirror-round.js";
+import { mend, purge, ward } from "./pod-effects.js";
 import { nextInt } from "./rng.js";
-import { type Color, isMeteorKind, type Pod, type PodKind } from "./types.js";
+import type { Pod, PodKind } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
 /**
@@ -71,6 +72,11 @@ function driftMilli(world: World): number {
   return Math.round((world.cfg.podDriftTilesPerBeat * MILLI) / ticksPerBeat(world.cfg));
 }
 
+/** How far a crossing pod travels in a tick, from a speed in tiles per beat. */
+export function crossMilli(world: World, tilesPerBeat: number): number {
+  return Math.round((tilesPerBeat * MILLI) / ticksPerBeat(world.cfg));
+}
+
 function homeMilli(world: World): number {
   return Math.round((world.cfg.podHomeTilesPerBeat * MILLI) / ticksPerBeat(world.cfg));
 }
@@ -87,6 +93,13 @@ export function spawnPods(world: World): void {
       driftMilli: 0,
       loose: false,
       kind: podKindOf(entry),
+      // Which way it crosses, and how fast. Absent is nought, which is a pod
+      // that hangs exactly as every pod did before THE CLAW.
+      crossMilli:
+        entry.cross === undefined
+          ? 0
+          : entry.cross * crossMilli(world, entry.speed ?? world.cfg.podCrossTilesPerBeat),
+      seen: entry.seen ?? 0,
     });
     world.podSpawned += 1;
   }
@@ -143,6 +156,15 @@ export function advancePods(world: World): void {
 
   for (const p of world.pods) {
     if (!p.loose) {
+      // A pod authored to cross travels its row until it leaves the far side.
+      // It is removed rather than held at the wall, which is the opposite of
+      // what a *falling* pod does below: a wreck at the edge is still a thing
+      // the ship could reach, and a power-up that has crossed the field is a
+      // window that has shut.
+      if (p.crossMilli !== 0) {
+        p.colMilli += p.crossMilli;
+        if (p.colMilli < -MILLI || p.colMilli > edge + MILLI) continue;
+      }
       survivors.push(p);
       continue;
     }
@@ -208,32 +230,4 @@ function resolveIntake(world: World, pod: Pod): void {
   world.balance.podsLost += 1;
   markMoment(world, false);
   world.events.push({ type: "podLost", col });
-}
-
-/** The hull repair a plain pod has always given. Clamped, never a debt. */
-function mend(world: World): void {
-  world.hullMilli = Math.min(100 * MILLI, world.hullMilli + world.cfg.podRepair * MILLI);
-}
-
-/**
- * Every creature on the field is gone. A rock is not shot down, it is swept
- * aside — a meteor cannot carry a `destroy` event, since that event names a
- * colour and a meteor has none — so it leaves a `hole` instead and pays
- * nothing. The field must be empty afterwards or the word "purge" is a lie.
- */
-function purge(world: World): void {
-  for (const c of world.creatures) {
-    if (isMeteorKind(c.kind)) {
-      world.events.push({ type: "hole", col: c.col, row: c.row });
-      continue;
-    }
-    world.events.push({ type: "destroy", col: c.col, row: c.row, color: c.color as Color });
-    world.score += world.cfg.scoreDestroy;
-  }
-  world.creatures = [];
-}
-
-/** Hold the shield armed without a trigger for `wardBeats` beats. */
-function ward(world: World): void {
-  world.wardUntilTick = world.tick + world.cfg.wardBeats * ticksPerBeat(world.cfg);
 }

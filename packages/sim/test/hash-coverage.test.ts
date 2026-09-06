@@ -1,5 +1,4 @@
 import { describe, expect, it } from "bun:test";
-import { CLAW_PHASES } from "../src/claw.js";
 import { CREATURE_KINDS } from "../src/creature-kinds.js";
 import { FLEET_DIRS } from "../src/fleet-board.js";
 import { GAUGE_PHASES } from "../src/gauge.js";
@@ -80,7 +79,6 @@ const FAMILIES: readonly (readonly string[])[] = [
   MAZE_REASONS,
   MIRROR_PHASES,
   GAUGE_PHASES,
-  CLAW_PHASES,
   FLEET_DIRS,
   SNAKE_PHASES,
   PINBALL_PHASES,
@@ -260,6 +258,10 @@ describe("the fingerprint covers the world", () => {
         "pushP1",
         "pushP2",
         "queue",
+        "reachCol",
+        "reachDir",
+        "reachHeld",
+        "reachMilli",
         "reliefTick",
         "restBeat",
         "rng",

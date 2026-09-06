@@ -116,6 +116,7 @@ export { lidHandleMilli, lidIsHeld, lidIsOpen, lidOpenMilli, lidPull } from "./l
 export { isLockedOn, lockedBody } from "./lock.js";
 export { magnetPoleColor } from "./magnet.js";
 export { mawOpen, podKindOf } from "./pods.js";
+export { ARM_HOME, reachOut, reachTipMilli } from "./reach.js";
 export { recoilBouncesLeft, recoilRow, recoilTurn } from "./recoil.js";
 export { type Replay, record, runReplay } from "./replay.js";
 export { rindLayersLeft } from "./rind.js";

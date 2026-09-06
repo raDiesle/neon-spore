@@ -32,6 +32,16 @@ export interface PodConfig {
    */
   podDriftTilesPerBeat: number;
   /**
+   * How fast a pod that was authored to *cross* the field travels along its
+   * row, in tiles per beat, when the wave does not say.
+   *
+   * It is the pair's clock on THE CLAW's panel: eleven columns at this speed is
+   * how long they have between seeing a power-up enter and watching it leave,
+   * and the arm's own travel out and back has to fit inside that twice over for
+   * a second try to be worth asking for.
+   */
+  podCrossTilesPerBeat: number;
+  /**
    * How close to the hull, in tiles, a falling pod has to be before it starts
    * steering toward the cannon's column instead of drifting on its own.
    */
@@ -52,6 +62,10 @@ export interface PodConfig {
 export const POD_DEFAULTS: PodConfig = {
   podFallTilesPerBeat: 3,
   podDriftTilesPerBeat: 0.4,
+  // Two tiles a beat: the eleven columns take five and a half beats to cross,
+  // about three and a half seconds at 96 BPM, which is one spoken exchange
+  // (`docs/spec/latency.md`) and one reach out and back with nothing to spare.
+  podCrossTilesPerBeat: 2,
   podHomeTiles: 2,
   podHomeTilesPerBeat: 2,
   podRepair: 18,

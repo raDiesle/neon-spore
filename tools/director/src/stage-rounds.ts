@@ -1,4 +1,3 @@
-import { bindStageClaw, type StageClaw } from "./stage-claw.js";
 import { bindStageGauge, type StageGauge } from "./stage-gauge.js";
 import { bindStagePinball, type StagePinball } from "./stage-pinball.js";
 import { bindStageSnake, type StageSnake } from "./stage-snake.js";
@@ -25,9 +24,8 @@ import { bindStageSnake, type StageSnake } from "./stage-snake.js";
  * is the guard that replaced them — it walks every slab of every control set
  * and fails on one no listener here answers.
  */
-export function bindStageRounds(handle: StageGauge & StagePinball & StageSnake & StageClaw): void {
+export function bindStageRounds(handle: StageGauge & StagePinball & StageSnake): void {
   bindStageGauge(handle);
   bindStageSnake(handle);
   bindStagePinball(handle);
-  bindStageClaw(handle);
 }

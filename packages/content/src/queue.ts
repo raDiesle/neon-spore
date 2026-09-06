@@ -184,10 +184,6 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
       rounds: boss.rounds.map((r) => ({ beats: r.beats, pieces: r.pieces.map((p) => ({ ...p })) })),
     };
   }
-  // THE CLAW has a rail instead of a field, and the rail is deliberately not
-  // the field's width (`config-claw.ts`, `clawCells`) — there is nothing here
-  // to remap, and nothing authored to remap it from.
-  if (boss.kind === "claw") return { ...boss };
   return { ...boss, col: mapCol(boss.col, cols) };
 }
 

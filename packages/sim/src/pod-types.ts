@@ -51,4 +51,28 @@ export interface Pod {
   loose: boolean;
   /** What it gives when it is swallowed. Authored, never random. */
   kind: PodKind;
+  /**
+   * How fast it crosses the field while it is still moored, in thousandths of
+   * a tile per tick, signed — negative leftwards. Nought is a pod that hangs
+   * where the wave left it, which is every pod authored before THE CLAW.
+   *
+   * It is separate from `driftMilli` rather than reusing it because the two
+   * are different facts about different halves of a pod's life: this is how it
+   * *arrives*, authored and constant, and that is how it *falls*, drawn from
+   * the rng at the moment a shot frees it and zeroed again as it homes. One
+   * field carrying both would be cleared by the homing and the pod would stop
+   * crossing halfway along a row nobody had reached yet.
+   */
+  crossMilli: number;
+  /**
+   * Which seat is shown it: `0` for both, or the player who alone can see it.
+   *
+   * The first thing in this game that hides a *pod* rather than a body, and it
+   * is authored per pod rather than fixed per wave, so a wave can put one
+   * power-up on one screen and the next on both. THE CLAW's panel is what it
+   * was added for — the seat that cannot reach is the seat that can see — but
+   * nothing about it is particular to that panel, which is why it is a field
+   * here and not a rule in `reach.ts`.
+   */
+  seen: 0 | 1 | 2;
 }

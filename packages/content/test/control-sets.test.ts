@@ -23,23 +23,6 @@ import {
  * panel and both players are on it, sets never compose, and a set no wave can
  * reach is a panel nobody will ever see.
  */
-
-/**
- * The one panel in the game where a seat has no button, and the reason it is
- * named here rather than allowed everywhere.
- *
- * "Both players are on it" is the rule, and it is there so nobody accidentally
- * ships a round one of them watches — THE GAUGE's navigator was given the call
- * for precisely that reason ("information and no verb: a player watching",
- * `sim/gauge.ts`). THE CLAW is the deliberate case, asked for by name: player 1
- * works the machine and player 2 reads the wreck field, and player 2's half of
- * the round is *speech*, which is this game's actual control scheme rather
- * than a substitute for one (`CLAUDE.md`, first paragraph). Nothing else in
- * here is a round where one seat holds the whole map and the other the whole
- * machine, and a panel that gave player 2 a button would have to give her a
- * piece of the machine — which is the round.
- */
-const SEATLESS: ControlSetId = "claw";
 describe("control sets", () => {
   it("names every control once", () => {
     const ids = CONTROLS.map((c) => c.id);
@@ -56,7 +39,6 @@ describe("control sets", () => {
     for (const set of CONTROL_SETS) {
       expect(new Set(set.controls).size).toBe(set.controls.length);
       expect(setControls(set, 1).length).toBeGreaterThan(0);
-      if (set.id === SEATLESS) continue;
       expect(setControls(set, 2).length).toBeGreaterThan(0);
     }
   });
@@ -151,20 +133,9 @@ describe("a panel that is slabs rather than a band", () => {
   it("gives every slab panel both seats, so neither sits and watches", () => {
     for (const set of CONTROL_SETS) {
       if (panelForm(set) !== "slabs") continue;
-      if (set.id === SEATLESS) continue;
       expect(setControls(set, 1).length).toBeGreaterThan(0);
       expect(setControls(set, 2).length).toBeGreaterThan(0);
     }
-  });
-
-  /**
-   * And the exception is exactly one panel wide. A second set with an empty
-   * seat has to come back here and argue for itself the way this one did,
-   * which is the whole difference between an exception and a hole.
-   */
-  it("keeps the seatless panel down to the one that was argued for", () => {
-    const empty = CONTROL_SETS.filter((s) => setControls(s, 2).length === 0).map((s) => s.id);
-    expect(empty).toEqual([SEATLESS]);
   });
 
   /**

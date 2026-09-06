@@ -58,7 +58,9 @@ export const COPIES: Copy[] = [
     // Two copies of it is how a director page and the band come to disagree
     // about which buttons a wave has.
     call: "controlSetForWave",
-    owner: "packages/content/src/control-sets.ts",
+    // It moved next door with the other two questions a *wave* asks about a
+    // panel, when THE CLAW's set took `control-sets.ts` past its line limit.
+    owner: "packages/content/src/control-sets-waves.ts",
     pattern: /\bcontrols\s*\?\?/,
     strip: false,
   },

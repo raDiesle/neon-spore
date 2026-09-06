@@ -33,6 +33,11 @@ export function lobeMeans(id: ControlId): { command: Command; hold: Hold | null 
     // (`sim/malfunction.ts`).
     case "reliefFire":
     case "reliefGuard":
+    // THE CLAW's two. Both are on a *band* rather than on slabs — the panel is
+    // a control set on the ordinary field, so its lobes are answered here like
+    // every other lobe in the game and no listener of its own exists.
+    case "reach":
+    case "mawTake":
       return { command: controlPress(id).down, hold: null };
     case "lance":
       return { command: controlPress(id).down, hold: { kind: "lance" } };
@@ -62,12 +67,6 @@ export function lobeMeans(id: ControlId): { command: Command; hold: Hold | null 
     case "pinRight":
     case "pinLatch":
     case "pinLaunch":
-    // THE CLAW's three, read by their own listener in `apps/game` beside the
-    // other three rounds' — a slab is not a lobe, and `lobeUnder` never
-    // reaches one.
-    case "clawLeft":
-    case "clawRight":
-    case "clawGrab":
       return null;
     default:
       return assertNever(id);

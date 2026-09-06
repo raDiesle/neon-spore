@@ -1,6 +1,6 @@
 import type { ControlDef } from "@neon-spore/content";
 import { controlBroken } from "@neon-spore/content";
-import { reliefHolds, type World } from "@neon-spore/sim";
+import { reachOut, reliefHolds, type World } from "@neon-spore/sim";
 import { drawActionButton, drawFireButton } from "./controls.js";
 import { drawAimButton, drawSalvoButton } from "./controls-fleet.js";
 import { halo } from "./glow.js";
@@ -102,7 +102,29 @@ function drawFace(
     if (lapse > 0) halo(ctx, x, y, r * 1.8, PALETTE.shield, lapse * 0.55);
     return;
   }
-  if (c.id === "intake") {
+  // THE CLAW's arm, lit for as long as it is out — which is the one thing
+  // player 1 needs off this button, because the press is refused while it is
+  // (`sim/reach.ts`). The ship's own violet: it is the ship reaching.
+  if (c.id === "reach") {
+    drawActionButton(
+      ctx,
+      x,
+      y,
+      r,
+      reachOut(world),
+      PALETTE.hull,
+      "#150A22",
+      "reach",
+      c.label,
+      skin.dead[0],
+    );
+    return;
+  }
+  // The maw, and on THE CLAW's panel it is `mawTake` on the other seat — the
+  // same button, the same amber and the same window, because it is the same
+  // mouth. Two ids and one drawing rather than two drawings, so a change to
+  // the mouth cannot land on one seat and not the other.
+  if (c.id === "intake" || c.id === "mawTake") {
     drawActionButton(
       ctx,
       x,

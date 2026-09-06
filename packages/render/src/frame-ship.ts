@@ -13,6 +13,7 @@ import { drawMagnetAlarm } from "./magnet-alarm.js";
 import type { OpeningFx } from "./opening-fx.js";
 import { drawOtherHand } from "./other-hand.js";
 import { hullShake, torchTremor } from "./queen.js";
+import { drawReachArm } from "./reach-arm.js";
 import type { ViewState } from "./renderer.js";
 import { seatSkin } from "./seat-skin.js";
 import { drawShipHand } from "./ship-hand.js";
@@ -77,6 +78,11 @@ export function drawShip(
   // end that matters (`fence-arc.ts`). Off the same membrane the hull was drawn
   // from, so it lands on the skin the eye is looking at.
   drawFenceArcs(ctx, l, world, at, surfaceSampler(f), view.beatPhase, view.time);
+  // THE CLAW's arm, out of the swelling that was the gun and up its column. In
+  // the ship pass rather than the field one, and after the hull: it *is* the
+  // ship on this panel, and an arm drawn under the membrane would come out
+  // from behind the thing it is part of (`reach-arm.ts`).
+  drawReachArm(ctx, l, world, surfaceSampler(f));
   // A hand on the lance, read straight off the world both devices share (other-hand.ts).
   drawOtherHand(ctx, l, world, view.time, mood, at, f);
   // In front of the hull, unlike the rest of Effects.draw() — `Effects.rockImpact`.

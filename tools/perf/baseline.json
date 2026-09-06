@@ -547,16 +547,16 @@
     {
       "wave": 52,
       "name": "THE CLAW",
-      "bodies": 0,
-      "arrivals": "0:741638a5",
-      "typical": 0.2,
-      "mean": 0.2,
-      "p90": 0.29,
-      "jitter": 0.25,
+      "bodies": 2,
+      "arrivals": "6:5494c513",
+      "typical": 3.63,
+      "mean": 3.69,
+      "p90": 4.33,
+      "jitter": 0.107,
       "mergedFrom": {
         "measuredAt": "2026-09-06",
-        "commit": "d773eb20202c6f4a148c32b754e41384e315cd8c",
-        "scale": 0.98
+        "commit": "4f6d3050d8a037dfbbee7214b98f47fb7fbfc82f",
+        "scale": 1.15
       }
     }
   ]

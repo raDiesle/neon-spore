@@ -117,6 +117,13 @@ function serializeEntry(entry: WaveEntry): string {
 function serializePod(pod: PodEntry): string {
   const parts = [`beat: ${pod.beat}`, `col: ${pod.col}`, `row: ${pod.row}`];
   if (pod.kind !== undefined) parts.push(`kind: "${pod.kind}"`);
+  // Every one of these is written only when the author set it, and that is the
+  // whole of why a pod that hangs where it was left comes back out of the
+  // editor as the same three fields it went in with — a saved `cross: 0` or
+  // `seen: 0` would be a wave file that changed the day somebody opened it.
+  if (pod.cross !== undefined) parts.push(`cross: ${pod.cross}`);
+  if (pod.speed !== undefined) parts.push(`speed: ${pod.speed}`);
+  if (pod.seen !== undefined) parts.push(`seen: ${pod.seen}`);
   return `{ ${parts.join(", ")} }`;
 }
 

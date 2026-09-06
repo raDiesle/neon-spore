@@ -63,6 +63,23 @@ export interface World {
   guardTick: number;
   /** Tick of the most recent maw opening by player 1. */
   intakeTick: number;
+  /**
+   * THE CLAW's arm, which is what player 1's swelling is on the `claw` panel:
+   * `0` at rest on the hull, `1` reaching up its column, `-1` coming back
+   * (`reach.ts`). Four fields rather than one struct because they are ship
+   * state like `cannonCol` beside them — the arm is not a boss and not a
+   * round, it is the gun replaced by a hand.
+   */
+  reachDir: -1 | 0 | 1;
+  /** The column it went up, held while it is out so that sliding the strip
+   * under a travelling arm cannot bend it. */
+  reachCol: number;
+  /** How far up from the hull the tip has got, in thousandths of a tile. */
+  reachMilli: number;
+  /** The id of the pod it closed on, or 0. It is an id rather than the pod
+   * itself for `FleetState.sunkBeat`'s reason: the list is the truth and a
+   * second reference to a member of it is a second truth. */
+  reachHeld: number;
   /** Last tick the shield still counts as armed without a trigger, set by a `ward` pod. */
   wardUntilTick: number;
   lastFireTick: number;
@@ -171,6 +188,10 @@ export function createWorld(
     shieldSinceTick: 0,
     guardTick: -1_000_000,
     intakeTick: -1_000_000,
+    reachDir: 0,
+    reachCol: mid,
+    reachMilli: 0,
+    reachHeld: 0,
     wardUntilTick: -1_000_000,
     lastFireTick: -1_000_000,
     gripP1: NO_GRIP,

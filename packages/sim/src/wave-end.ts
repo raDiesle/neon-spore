@@ -39,8 +39,7 @@ export function progressWave(world: World): void {
 /**
  * Whether the round on screen has finished and is only being looked at.
  *
- * A round that replaces the whole picture (THE GAUGE, SNAKE, PINBALL, THE
- * CLAW) used to
+ * A round that replaces the whole picture (THE GAUGE, SNAKE, PINBALL) used to
  * take itself off the world the moment its verdict had stood — and the field,
  * with its hull and its ship, came straight back for the three beats of rest
  * before the next wave. On a wave that restarts into itself, which is what the
@@ -54,14 +53,7 @@ export function progressWave(world: World): void {
 export function roundSpent(world: World): boolean {
   const boss = world.boss;
   if (boss === null) return false;
-  if (
-    boss.kind !== "gauge" &&
-    boss.kind !== "snake" &&
-    boss.kind !== "pinball" &&
-    boss.kind !== "claw"
-  ) {
-    return false;
-  }
+  if (boss.kind !== "gauge" && boss.kind !== "snake" && boss.kind !== "pinball") return false;
   return boss.phase === "spent";
 }
 

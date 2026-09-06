@@ -8,8 +8,8 @@ export { bandLobes, type Lobe } from "./band-lobes.js";
 
 export {
   showsCannon,
-  showsClawWrecks,
   showsFleetHulls,
+  showsPod,
   showsQueenHint,
   showsQueenShape,
   showsShield,

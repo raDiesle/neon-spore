@@ -1,5 +1,4 @@
 import type { BossState } from "./boss-state.js";
-import { clawHashParts } from "./claw-hash.js";
 import { BOSS_KINDS } from "./entries.js";
 import { FLEET_DIRS } from "./fleet-board.js";
 import { GAUGE_PHASES } from "./gauge.js";
@@ -153,11 +152,6 @@ export function bossHashParts(boss: BossState | null): number[] {
   // loop in here is a field two devices could disagree about silently.
   if (boss !== null && boss.kind === "pinball") {
     for (const n of pinballHashParts(boss)) push(n);
-  }
-  // THE CLAW, gathered beside the boss for the reason THE MAZE's and PINBALL's
-  // are: `clawHashParts` says what is in it and why, the wreck field included.
-  if (boss !== null && boss.kind === "claw") {
-    for (const n of clawHashParts(boss)) push(n);
   }
   if (boss !== null && boss.kind === "mirror") {
     // Every sequence, not only the one being played. They are authored, which

@@ -1,4 +1,11 @@
-import { buildBoss, buildQueue, type ControlSet, WAVES, type Wave } from "@neon-spore/content";
+import {
+  buildBoss,
+  buildQueue,
+  type ControlSet,
+  type ControlSetId,
+  WAVES,
+  type Wave,
+} from "@neon-spore/content";
 import {
   createWorld,
   DEFAULT_CONFIG,
@@ -35,6 +42,18 @@ export { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 export const CFG = DEFAULT_CONFIG;
 export const ROLES: ViewRole[] = ["p1", "p2", "test"];
 export const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
+
+/**
+ * The index of the wave played on this **panel**, for a control set that is
+ * not a boss at all — THE CLAW is the first, and there will be more: a panel
+ * is a thing a wave names exactly as a boss is, and `waveWith` below can only
+ * find one of the two.
+ */
+export function waveOnPanel(id: ControlSetId): number {
+  const index = WAVES.findIndex((w) => (w.controls ?? "default") === id);
+  if (index === -1) throw new Error(`no wave is played on the ${id} panel`);
+  return index;
+}
 
 /** The index of the wave carrying a boss of this kind. */
 export function waveWith(kind: NonNullable<Wave["boss"]>["kind"]): number {

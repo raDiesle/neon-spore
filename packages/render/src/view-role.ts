@@ -43,11 +43,13 @@ export const showsQueenShape = (role: ViewRole): boolean => role !== "p2";
  */
 export const showsFleetHulls = (role: ViewRole): boolean => role !== "p2";
 /**
- * THE CLAW's wreck field. The navigator's, the same half as the shield — and
- * the mirror image of the line above it, which is the point of the round: THE
- * FLEET gives the map to the seat that can act on it and this one gives it to
- * the seat that cannot act at all. Player 1 is shown a row of sockets and the
- * dark inside them, which is everything the machine's operator gets
- * (`claw-rig.ts`).
+ * Whether this screen is shown a given pod at all.
+ *
+ * `Pod.seen` is `0` for both — every pod the game had before THE CLAW — or the
+ * one seat that may see it. It is the first thing in this game to hide a
+ * *power-up* rather than a body, and it is per pod rather than per wave, so a
+ * wave can put one on one screen and the next on both. `test` sees everything,
+ * as it does for every other split.
  */
-export const showsClawWrecks = (role: ViewRole): boolean => role !== "p1";
+export const showsPod = (role: ViewRole, seen: 0 | 1 | 2): boolean =>
+  seen === 0 || role === "test" || (seen === 1 ? role === "p1" : role === "p2");

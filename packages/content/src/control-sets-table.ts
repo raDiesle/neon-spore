@@ -99,7 +99,7 @@ export const CONTROL_SETS: readonly ControlSet[] = [
   {
     id: "claw",
     name: "THE CLAW",
-    why: "Three slabs against none: the seat working the machine has every button in the round, and the seat that can see the wreck field has nothing but its mouth.",
-    controls: ["clawLeft", "clawGrab", "clawRight"],
+    why: "The gun is a hand: player 1 slides it and reaches up a column, and the mouth moves to player 2, so nothing is caught by one person alone.",
+    controls: ["cannon", "reach", "mawTake"],
   },
 ];

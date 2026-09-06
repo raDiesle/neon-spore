@@ -1,14 +1,5 @@
 export { drawWaveOpening } from "./briefing.js";
 export { Canvas2DRenderer } from "./canvas2d.js";
-export {
-  clawCellX,
-  clawRig,
-  drawClaw,
-  drawClawRail,
-  drawClawSockets,
-  type Rig,
-} from "./claw-rig.js";
-export { drawClawRound } from "./claw-round.js";
 export { creatureAt, creatureCenter, creatureRadius } from "./creature-place.js";
 export { smoothstep } from "./ease.js";
 export {
@@ -35,7 +26,7 @@ export {
   type Stage,
   type Strip,
   showsCannon,
-  showsClawWrecks,
+  showsPod,
   showsShield,
   tileCX,
   tileCY,
@@ -50,6 +41,7 @@ export { drawPinballRound, pinMorph01, showsPinPieces } from "./pinball-round.js
 export { drawPinBall, drawPinCase, pinAt, pinTable, type Table } from "./pinball-table.js";
 export { detectRasterCaps, type RasterCaps } from "./raster-caps.js";
 export { loadAtlas } from "./raster-load.js";
+export { drawReachArm } from "./reach-arm.js";
 export { readyCircles } from "./ready-page.js";
 export type { Renderer, Viewport, ViewState } from "./renderer.js";
 export { hasSeatName, type SeatNames, seatName } from "./seat-name.js";

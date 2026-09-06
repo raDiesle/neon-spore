@@ -212,3 +212,48 @@ in this tab, is what satisfies it — a second copy on the sibling STATES tab
 would be the drift this whole entry exists to prevent, not a second reader.
 Renamed CONTROL SETS → CONTROLS, and it now holds three inner tabs: PANELS
 (unchanged), ON THE FIELD, and TRIED AND SET ASIDE.
+
+## THE CLAW — the gun replaced by a hand
+
+> The one where the gun is a hand, and the hand cannot see what it is reaching
+> for.
+
+A **control set**, not a boss and not a round: the field under it is the
+ordinary field, with the same grid, the same hull and the same rocks coming
+down it. Everything that is different is on the panel and in what one of the
+two screens is allowed to draw.
+
+**Player 1's swelling is an arm.** It slides on the same strip and stands in
+the same `world.cannonCol` the cannon always did — that is why the strip needs
+no new control and why "column four" means what it has always meant. `REACH`
+sends it up the column it is standing in, it closes on the first thing it
+meets, and it comes back. Nothing recalls it: the press is committed for the
+length of its own travel, which at `reachTilesPerBeat` is about three seconds
+out and back, so the sentence that sends it has to be finished before it leaves
+(`packages/sim/src/reach.ts`).
+
+**The mouth moves to player 2.** `SUCK` is on her half instead of his, so a
+power-up the arm brings down to the hull is caught only if she is open when it
+lands. That is the same `resolveIntake` every pod in this game has always gone
+through — the catch is two hands here for exactly the reason it is two hands in
+SALVAGE, and none of the machinery is new.
+
+**A rock is answered by reaching into it.** There is no trigger and no dome on
+this panel, so the arm is the only answer to a body, and it is a real one: what
+it closes on is crushed and the hull pays `damageReach`, which is less than the
+same rock costs by landing. That is why `groupsCoveredBy` counts `reach` as
+covering the `guard` group — the group asks *can this panel answer a rock at
+all*, and this one can, worse than a dome and on purpose.
+
+**The power-ups cross the field, and only one seat sees them.** Two authoring
+fields on a pod rather than anything particular to this panel:
+`PodEntry.cross` sends one along its row instead of leaving it hanging, at
+`speed` tiles a beat, entering at the column it is painted in and leaving at
+the far side; `PodEntry.seen` says which seat is shown it, and absent means
+both, which is every pod the game had before this. So a power-up is a *window*
+rather than a place, it is at a different column by the time the arm gets up
+there, and the person who can see it is the person who cannot reach it.
+
+Both fields are on the director's pod row, on every pod and not only a
+crossing one: hiding a power-up from a seat is a split like any other and this
+is not the only panel that could want it.

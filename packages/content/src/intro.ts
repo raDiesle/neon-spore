@@ -91,7 +91,7 @@ export const INTRO_PAGES: readonly IntroPage[] = [
   {
     id: "boss",
     title: "BOSSES ARE LITTLE GAMES",
-    line: "Ten of them, and each one is its own.",
+    line: "Nine of them, and each one is its own.",
     flash: "MINI GAMES!",
     figure: "boss",
   },

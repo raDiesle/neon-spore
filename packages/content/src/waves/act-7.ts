@@ -10,8 +10,8 @@ import type { Wave } from "../wave-types.js";
  * no room left for three waves carrying guides, exactly as `act-5.ts` had none
  * for THE VEER, so this is where new waves land now.
  *
- * The four of them are one argument taken in four steps, and the order is the
- * whole of it.
+ * The four of them are one argument taken in four steps, and the order is
+ * the whole of it.
  *
  * 1. **THE MAGNET** takes the oldest habit in the game away — put the muzzle
  *    under it and fire — while both seats still have every control they are
@@ -26,16 +26,15 @@ import type { Wave } from "../wave-types.js";
  *    the field, and the fault is what makes the pair meet it the right way
  *    round: the timing is taken out of their hands, so what is left to learn
  *    is where the plate goes and which dome the charge jumps to next.
- * 4. **THE CLAW** is the act's boss and the end of the same line. The two
- *    faults take a control away from a seat and hand it to the wave; this
- *    takes *every* control away from player 2 and hands them all to player 1,
- *    and what is left in her hands is the only thing the game has ever really
- *    been played with. Its one-sentence test is the one where the only person
- *    who can see the wrecks is the only person who cannot touch anything, and
- *    everything else about the round follows from it: the rail carries no
- *    letters, because a coordinate would let her say it once and stop, and the
- *    wrecks shift, because a sentence that stays true is a sentence nobody
- *    repeats (`docs/spec/bosses.md` 11.8).
+ * 4. **THE CLAW** is the end of the same line, and the only wave here that is
+ *    a **panel** rather than a rule. The two faults take a control away from a
+ *    seat and hand it to the wave; this takes the gun away from player 1 and
+ *    gives him a hand, moves the mouth to player 2, and shows the power-ups to
+ *    her alone. Its one-sentence test is the one where the gun is a hand and
+ *    the hand cannot see what it is reaching for, and everything else follows:
+ *    the arm is committed once it leaves, so a sentence has to be finished
+ *    before it does, and the power-ups cross sideways, so the column she names
+ *    is not the column it will be in (`docs/spec/controls.md`).
  *
  * The prose about a wave lives **here, above the array**, and not beside the
  * entry it is about: `tools/director/src/serialize.ts` regenerates everything
@@ -196,16 +195,27 @@ export const WAVES_ACT_7: Wave[] = [
   {
     id: "theClaw",
     name: "THE CLAW",
-    sentence:
-      "The one where the only one who can see the wrecks is the only one who cannot touch anything.",
+    sentence: "The one where the gun is a hand, and the hand cannot see what it is reaching for.",
     guide: {
-      both: "The field is gone. A salvage rail over a row of sockets with pods and rocks buried in them, and nothing on the screen has a name. Raise every pod and the round is over; bring up a rock and the hull pays for it. A wreck shifts a socket every few beats, so nothing said stays true for long.",
-      p1: "Every button is yours and you cannot see a thing in the sockets. LEFT and RIGHT are one socket each — count them out loud so they can stop you — and GRAB drops the claw where it stands. Never press it on a guess.",
-      p2: "You have no button at all. Your screen is the only one with the wrecks on it: say which way and how many, keep saying it, and say it again when one of them moves — because they do, and they only move on your screen.",
+      both: "The cannon is an arm. It slides the way the cannon did and REACH sends it up its column — it closes on the first thing it meets, comes back, and nothing calls it home early. Power-ups cross the field sideways instead of hanging, and a rock in the way is crushed at a price.",
+      p1: "You hold the arm and your screen has no power-ups on it, only rocks. Slide to the column they give you and REACH before the thing is past — and never reach into a lane with a rock in it unless you mean to pay.",
+      p2: "Every power-up is on your screen and nobody else's, and they cross sideways — say the column early, because by the time the arm is up there the thing has moved. SUCK is yours: what it brings down needs your mouth open.",
       scene: "theClaw",
     },
-    entries: [],
-    boss: { kind: "claw" },
+    entries: [
+      { beat: 4, col: 3, kind: "meteor", color: null },
+      { beat: 14, col: 1, kind: "meteor", color: null },
+      { beat: 24, col: 5, kind: "meteorMedium", color: null },
+      { beat: 36, col: 2, kind: "meteor", color: null },
+      { beat: 44, col: 4, kind: "meteor", color: null },
+      { beat: 54, col: 6, kind: "meteorMedium", color: null },
+    ],
+    pods: [
+      { beat: 2, col: 0, row: 4, kind: "mend", cross: 1, seen: 2 },
+      { beat: 18, col: 6, row: 6, kind: "ward", cross: -1, seen: 2 },
+      { beat: 34, col: 0, row: 3, kind: "purge", cross: 1, speed: 3, seen: 2 },
+      { beat: 50, col: 6, row: 5, kind: "mend", cross: -1, seen: 2 },
+    ],
     controls: "claw",
   },
 ];

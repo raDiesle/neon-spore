@@ -57,9 +57,18 @@ export function controlPress(id: ControlId, col = 0): ControlPress {
     case "guard":
       return { down: { kind: "guard" } };
     case "intake":
+    // THE CLAW's panel puts the mouth on the *other* seat, and it says exactly
+    // what the ship's own maw says: the difference is whose thumb it is, and
+    // that is a fact about the panel rather than about the command
+    // (`sim/commands.ts` seat-checks neither).
+    case "mawTake":
       return { down: { kind: "intake" } };
     case "lance":
       return { down: { kind: "prime", on: true }, up: { kind: "prime", on: false } };
+    // The arm. One press and it is committed for the length of its own travel,
+    // so there is nothing to hold and nothing to let go of (`sim/reach.ts`).
+    case "reach":
+      return { down: { kind: "reach" } };
     // THE GAUGE. The two valve slabs are held — the needle travels for as long
     // as the thumb stays — and the call is one press by the other seat.
     case "gaugeLeft":
@@ -113,17 +122,6 @@ export function controlPress(id: ControlId, col = 0): ControlPress {
       return { down: { kind: "latch" } };
     case "pinLaunch":
       return { down: { kind: "launch" } };
-    // THE CLAW. Every one of these is over the moment it happens: a step is one
-    // socket and a grab is one drop, and a thumb resting on an arrow that
-    // walked the claw would take the counting out of the round — and the
-    // counting is all the pair has, there being nothing on the rail with a
-    // name (`sim/claw.ts`).
-    case "clawLeft":
-      return { down: { kind: "clawStep", dir: -1 } };
-    case "clawRight":
-      return { down: { kind: "clawStep", dir: 1 } };
-    case "clawGrab":
-      return { down: { kind: "clawGrab" } };
   }
 }
 

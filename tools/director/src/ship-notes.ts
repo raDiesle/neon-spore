@@ -76,6 +76,12 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "Shot loose from a creature, it falls and drifts until the cannon catches it.",
   "LANCE — a column marked, then spent":
     "Player 1 holds the lance with the cannon still; player 2 has to not fire until it is full.",
+  "THE CLAW — the cannon replaced by an arm":
+    "A control set rather than a boss: the field is the ordinary field and only " +
+    "player 1's swelling changes, from a gun to an arm that reaches up its own " +
+    "column. It closes on the first thing it meets — a pod is carried home for " +
+    "the other seat's mouth, a body is crushed and the hull pays damageReach " +
+    "for it. See reach.ts and the `claw` control set.",
   "GRIP — a hand on the field": "Either player holds anything falling and it falls slower.",
   "HULL — damage and repair":
     "What reaches the hull, what it costs, and what the hull earns back on its own.",
@@ -94,12 +100,6 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "above, since a headless caller has no second thumb to answer it with. On, " +
     "the gaps between acts may carry a round that is not the field: a needle " +
     "walked by drift and corrected by a valve. See gauge.ts, gauge-round.ts.",
-  "THE CLAW — a rail only one of you can read":
-    "A salvage rail over a row of sockets, and the one round where a seat has " +
-    "no button. Player 1 walks the claw a socket a press and drops it; player " +
-    "2 sees what is buried in every socket and can do nothing but say so — and " +
-    "a wreck shifts a socket every clawDriftBeats, so the sentence has to be " +
-    "said again. See claw.ts, claw-field.ts, claw-round.ts.",
   "THE FLEET — a chart only one of you can read":
     "A lattice of squares with ships hidden in it. Player 1 sees every hull and " +
     "holds the only trigger; player 2 walks the sights a square at a time and is " +

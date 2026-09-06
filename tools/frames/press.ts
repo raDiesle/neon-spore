@@ -30,7 +30,7 @@ import type { PressSpec } from "./spec.js";
  *   --press 40:1:guard                          the guard trigger, at tick 40
  *   --press 0:1:intake,30:2:fire=cyan           the maw open from the start
  *   --press 20:2:aim=left,40:2:aim=up,90:1:salvo   THE FLEET: walk, then lob
- *   --press 300:1:clawStep=right,360:1:clawStep=right,480:1:clawGrab   THE CLAW
+ *   --press 60:1:cannonCol=5,90:1:reach,240:2:mawTake   THE CLAW: slide, reach, swallow
  *
  * THE FLEET's two are here for the reason the rest are: its shell is now drawn
  * arcing over the chart, its burst and its sinking are pictures nothing else in
@@ -66,18 +66,16 @@ const SEAT_OF: Record<string, 1 | 2 | "either"> = {
   // round refuses either one from the other chair (`sim/fleet.ts`).
   salvo: 1,
   aim: 2,
-  // THE CLAW's two, and both of them player 1's — the one round where the
-  // other seat has no verb to press at all (`sim/claw.ts`).
-  clawStep: 1,
-  clawGrab: 1,
+  // THE CLAW's arm, and the mouth its panel moves to the other seat. The seat
+  // is what makes them worth listing separately from `intake` above: on that
+  // panel the maw is player 2's, and a press written as player 1's would be
+  // one nobody sent (`content/src/control-sets-table.ts`).
+  reach: 1,
+  mawTake: 2,
   shieldCol: 2,
   fire: 2,
   grip: "either",
 };
-
-/** Which way THE CLAW steps, as the two words a person would say. A step and
- * never a place: there is nothing on that rail with a name to aim at. */
-const CLAW_STEPS: Record<string, -1 | 1> = { left: -1, right: 1 };
 
 /** Which way an `aim` steps, as the four words a person would say. */
 const AIM_STEPS: Record<string, { dcol: -1 | 0 | 1; drow: -1 | 0 | 1 }> = {
@@ -169,15 +167,6 @@ function commandFor(
     }
     case "prime":
       return { kind, on: true };
-    case "clawStep": {
-      const dir = CLAW_STEPS[needs()];
-      if (!dir) {
-        throw new Error(
-          `--press ${whole}: "${one}" — the claw steps ${Object.keys(CLAW_STEPS).join(", ")}`,
-        );
-      }
-      return { kind, dir };
-    }
     case "aim": {
       const step = AIM_STEPS[needs()];
       if (!step) {
@@ -187,8 +176,15 @@ function commandFor(
       }
       return { kind, ...step };
     }
+    case "mawTake":
+      // The same command the ship's own maw sends; only the seat differs, and
+      // the seat is on the press already (`content/src/control-command.ts`).
+      if (argument !== undefined) {
+        throw new Error(`--press ${whole}: "${one}" — ${kind} takes no value`);
+      }
+      return { kind: "intake" };
     default: {
-      // `guard`, `intake`, `salvo` and `clawGrab`: a press with nothing to say
+      // `guard`, `intake`, `salvo` and `reach`: a press with nothing to say
       // about itself.
       if (argument !== undefined) {
         throw new Error(`--press ${whole}: "${one}" — ${kind} takes no value`);

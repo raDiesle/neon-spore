@@ -192,10 +192,6 @@ export const MECHANICS = {
     what: "A chart of squares with ships hidden in it. Only one of you is shown where they are, and only the other one can move the sights.",
     reach: "spawn",
   },
-  claw: {
-    what: "A salvage claw on a rail over a field of buried wreckage. One of you works the machine and is shown nothing but sockets; the other is shown what is in every one of them and has no button at all — and the wrecks shift a socket at a time under the sentence being said about them.",
-    reach: "spawn",
-  },
   snake: {
     what: "The ship shrinks into a snake that never stops. One of you turns it a quarter turn at a time and is shown only the body and the meteors; the other has a shot and a mouth and is shown everything else.",
     reach: "spawn",

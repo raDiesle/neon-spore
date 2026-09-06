@@ -24,6 +24,17 @@ export type Command =
   | { kind: "guard" }
   | { kind: "intake" }
   /**
+   * Player 1's arm, on the `claw` panel: one press sends it up the column the
+   * strip is standing in and nothing recalls it (`reach.ts`).
+   *
+   * It carries nothing at all — not even the column. The arm goes up
+   * `world.cannonCol`, which is where the strip already put it, and a command
+   * that named a column would be a second copy of something the world knows
+   * arriving from a device that could be wrong about it. It is a press and
+   * never a hold, because what it costs is the travel rather than the thumb.
+   */
+  | { kind: "reach" }
+  /**
    * A hand on something falling, or `NO_GRIP` for the hand lifted again.
    * Either player may send it — it is the one command that is not half of the
    * split. The id is safe to name across the wire because ids are dealt out
@@ -135,24 +146,6 @@ export type Command =
   | { kind: "slide"; on: boolean; dir: -1 | 1 }
   | { kind: "latch" }
   | { kind: "launch" }
-  /**
-   * THE CLAW's two, and the same argument one round further still: a round
-   * that is not the field has its own verbs.
-   *
-   * **Both are player 1's, which no other round can say.** The seat that can
-   * see the wreck field has no command at all here — every other split in this
-   * game hands each seat half of one action, and this one hands one seat the
-   * whole machine and the other seat nothing but the map.
-   *
-   * `clawStep` is a *step* and not a place, for `aim`'s reason and one more
-   * besides: THE FLEET's chart is lettered and numbered, so a step there could
-   * always have been a coordinate, and here there is no coordinate to be. A
-   * socket can only be counted to, out loud, from wherever the claw already
-   * is. `clawGrab` is the drop, and it is the only thing in the round that can
-   * be wrong. Which seat may send which is checked in `claw.ts`, not here.
-   */
-  | { kind: "clawStep"; dir: -1 | 1 }
-  | { kind: "clawGrab" }
   /**
    * A hand that grabbed something and moved: the second gesture, beside the
    * press-and-hold that only slows a fall (`grip.ts`). `on` is the hold, the

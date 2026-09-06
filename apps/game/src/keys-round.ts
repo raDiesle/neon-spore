@@ -33,8 +33,9 @@ interface Press {
  * rough diamond around J, close enough together to press without looking — and
  * R fires the pilot's salvo into whichever square they are standing on. The
  * sideways arrows are SNAKE's two quarter turns — the navigator's, who does
- * all of its driving — with V for the pilot's shot and B for his mouth. J L and
- * M walk and drop THE CLAW, all three of them the pilot's.
+ * all of its driving — with V for the pilot's shot and B for his mouth. M
+ * sends THE CLAW's arm up its column and O opens the mouth on the *other*
+ * seat, which is the one panel in the game that moves it there.
  *
  * `snakeUp` is the one piece of state any of this asks about, and it is asked
  * for two keys only: at a desk the sideways arrows step between waves, and
@@ -79,16 +80,16 @@ export function roundKeyDown(code: string, snakeUp = false): Press | null {
       return { player: 1, command: { kind: "latch" } };
     case "KeyY":
       return { player: 2, command: { kind: "launch" } };
-    // THE CLAW, and all three are the pilot's — the one round where the other
-    // seat has no button at all. J and L sit either side of the home row's
-    // middle with M under them, so the trio is reachable with one hand without
-    // looking, which is what a round played by counting asks for.
-    case "KeyJ":
-      return { player: 1, command: { kind: "clawStep", dir: -1 } };
-    case "KeyL":
-      return { player: 1, command: { kind: "clawStep", dir: 1 } };
+    // THE CLAW, which is a control set on the ordinary field rather than a
+    // round — so its two are here for the reason the rest are and no other:
+    // they mean nothing on a wave that is not played on its panel, and the
+    // simulation drops a `reach` nobody is listening for. M sends the arm as
+    // the pilot; O opens the mouth as the navigator, which is where that panel
+    // puts it and nowhere else in the game does.
     case "KeyM":
-      return { player: 1, command: { kind: "clawGrab" } };
+      return { player: 1, command: { kind: "reach" } };
+    case "KeyO":
+      return { player: 2, command: { kind: "intake" } };
     default:
       return null;
   }

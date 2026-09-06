@@ -44,9 +44,8 @@ export type ControlId =
   | "pinRight"
   | "pinLatch"
   | "pinLaunch"
-  | "clawLeft"
-  | "clawRight"
-  | "clawGrab";
+  | "reach"
+  | "mawTake";
 
 /**
  * What a whole panel *is*, rather than what is on it.
@@ -120,6 +119,21 @@ export const CONTROLS: readonly ControlDef[] = [
     label: "SUCK",
     does: "Opens the maw, which takes in a pod and whatever is falling with it.",
     ship: "cannon",
+  },
+  {
+    id: "reach",
+    player: 1,
+    form: "lobe",
+    label: "REACH",
+    does: "Sends the arm up the column the strip is standing in. It closes on the first thing it meets and comes back — a pod is carried down for the other seat's mouth, a body is crushed and the hull pays for it.",
+    ship: "cannon",
+  },
+  {
+    id: "mawTake",
+    player: 2,
+    form: "lobe",
+    label: "SUCK",
+    does: "The maw, on the seat that does not hold the arm. A pod the claw brings home is only caught if this is open when it arrives, which is what makes the catch two hands.",
   },
   {
     id: "lance",

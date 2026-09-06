@@ -572,9 +572,15 @@ that.
 name off `BOSS_KINDS` rather than by anybody remembering to, so an entry left
 standing here after the round exists is hidden rather than wrong — THE GAUGE's
 and SNAKE's still are, and are worth reading beside what was actually built.
-THE CLAW's was cut instead, because the owner asked for it the day the round
-landed: what it is now lives in [bosses](bosses.md) 11.8, and two descriptions
-of one round are one description too many.
+
+**THE CLAW's was cut instead, and it is the interesting case**: it was built,
+and built as something else. The idea here was a claw on a rail over its own
+screen with a wreck field under it; what the owner asked for once he had seen
+it was the ship's own cannon replaced by an arm, on the ordinary field, with
+the power-ups crossing it sideways and visible to one seat only. That is a
+**control set** and not a round at all, so it is in [controls](controls.md)
+rather than in [bosses](bosses.md) — and the entry is gone from here because
+the thing it described is not what anybody is going to build.
 
 Each entry says whether it needs the no-travel rule relaxed. Most do not, and
 that is deliberate: a round that survives either answer to

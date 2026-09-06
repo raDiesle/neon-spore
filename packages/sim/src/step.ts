@@ -1,7 +1,6 @@
 import { beatMetronome, onBeat } from "./beat.js";
 import { briefHeard, briefingHolds, guideStepHeard, stepReady } from "./briefing.js";
 import { advanceBullets, releaseShot } from "./bullets.js";
-import { clawHolds, clawRoundHeard, stepClawRound } from "./claw-round.js";
 import { applyCommand } from "./commands.js";
 import { ticksPerBeat } from "./config.js";
 import { fleetHeard } from "./fleet.js";
@@ -15,6 +14,7 @@ import { stepMalfunction } from "./malfunction.js";
 import { mazeStringHeard, stepMazeTurn } from "./maze-controls.js";
 import { pinballHolds, pinballRoundHeard, stepPinballRound } from "./pinball-round.js";
 import { advancePods } from "./pods.js";
+import { stepReach } from "./reach.js";
 import { snakeHolds, snakeRoundHeard, stepSnakeRound } from "./snake-round.js";
 import type { TimedCommand } from "./types.js";
 import { stepWardenTether, wardenTetherHeard } from "./warden-rope.js";
@@ -108,23 +108,6 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
     endSpentRound(world);
     return;
   }
-  // THE CLAW has it fourth, and the branch is the same shape a fourth time.
-  // What the tick buys here is the machine: the claw slides a socket a press
-  // and drops on one, and a rail answered on the beat would put a queue
-  // between the sentence and the hand (`claw-round.ts`).
-  if (clawHolds(world)) {
-    for (const c of commands) {
-      if (c.command.kind === "restart") applyCommand(world, c);
-      else clawRoundHeard(world, c.player, c.command);
-    }
-    world.tick += 1;
-    if (world.tick % ticksPerBeat(world.cfg) === 0) beatMetronome(world);
-    stepClawRound(world);
-    // A round that has run its course ends its wave from here: there is no
-    // field to be empty, and its picture holds until the next wave arrives.
-    endSpentRound(world);
-    return;
-  }
   // Commands are read even when the hull is through — otherwise `restart`
   // could never arrive and the game would be stuck on its own end screen.
   for (const c of commands) applyCommand(world, c);
@@ -183,6 +166,10 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // Straight after the shots, so a line whose eye was just hit snaps back in
   // the same tick the plate came off (`stepWardenTether`).
   stepWardenTether(world);
+  // The arm before the pods, so a pod let go at the hull on this tick falls
+  // through the same `advancePods` every other pod does rather than waiting a
+  // tick for the next one (`reach.ts`).
+  stepReach(world);
   advancePods(world);
   regenerateHull(world);
   progressWave(world);
