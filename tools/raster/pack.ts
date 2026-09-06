@@ -29,8 +29,7 @@
  */
 
 import { readdir, unlink, writeFile } from "node:fs/promises";
-import { findChrome } from "@neon-spore/frames/capture.js";
-import { chromium } from "playwright-core";
+import { closeBrowser, launchBrowser } from "@neon-spore/frames/capture.js";
 
 interface Options {
   dir: string;
@@ -93,7 +92,7 @@ async function main(): Promise<void> {
     }),
   );
 
-  const browser = await chromium.launch({ executablePath: findChrome(), headless: true });
+  const browser = await launchBrowser();
   let out: { strip: string; stills: string[] };
   try {
     const page = await browser.newPage();
@@ -141,7 +140,7 @@ async function main(): Promise<void> {
       { sources, size: opts.size, quality: opts.quality, stills: opts.stills },
     );
   } finally {
-    await browser.close();
+    await closeBrowser(browser);
   }
 
   const id = opts.dir

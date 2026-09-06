@@ -19,6 +19,7 @@ bun run perf --wave 46,47         # by number, or several at once
 bun run perf                      # every wave — what a baseline is taken from
 bun run perf --throttle 6         # at low-end-mobile speed instead of mid-tier
 bun run perf --save               # write a full sweep back as the new baseline
+bun run perf --wave 46 --save     # merge that one wave into the baseline
 ```
 
 **Measure the waves the new thing appears in, not the whole game.** That is the
@@ -61,10 +62,27 @@ it is the measurement moving under itself. The tool says so and tells you to run
 it again idle, which is the check no single-wave run could ever make of itself.
 
 Save a new baseline only when the change is one you meant — a shape that landed,
-a saving that landed. Never to make a regression stop being reported. `--save`
-refuses a narrow run outright: the baseline is what every later run is read
-against, and `tools/perf/test/compare.test.ts` will not have one that is missing
-a wave, because a wave with no row is a wave nothing can notice getting slower.
+a saving that landed. Never to make a regression stop being reported.
+
+**A narrow `--save` merges; it does not replace.** The baseline is what every
+later run is read against, and `tools/perf/test/compare.test.ts` will not have
+one that is missing a wave, because a wave with no row is a wave nothing can
+notice getting slower — so a narrow run may not *become* the baseline. What it
+may do is put its own rows into one, which is how the advice below is taken. The
+rest of the file is left alone, which matters: a full sweep taken to fix a single
+stale row silently re-baselines the other forty-six off whatever the machine was
+doing that afternoon.
+
+**The merged row is converted onto the baseline's footing first**, and that is
+what makes the stitching sound rather than merely convenient. Every verdict is a
+wave's share of its run's median, so a row left in the milliseconds of a
+five-wave afternoon is read against a median of a different population from the
+forty-seven the rest of the file was — and the next full sweep calls that wave a
+regression nobody caused. The reference waves the narrow run carried are the
+answer: no lane touches one, so the median ratio between their old figures and
+today's is the machine and the weather, and the row is multiplied by it before it
+goes in. The row records the factor, the day and the commit in `mergedFrom`, so a
+stitched baseline says so in the file.
 
 ## What it measures, and why that and not something else
 
@@ -112,7 +130,8 @@ commoner thing, a wave whose arrivals changed under a name that still matched.
 THE FENCE gained two figures and kept the timings that went with the old two,
 and every comparison after that was against a wave that no longer existed.
 `tools/perf/test/baseline.test.ts` fails those rows by name and asks for *those*
-waves to be re-measured rather than the whole game.
+waves to be re-measured rather than the whole game — and prints the command that
+does it, `bun run perf --wave "NAME" --save`, which merges the one row back in.
 
 Timing a browser is noisy, and five separate defences are stacked against it —
 each one added because the version without it reported a regression in code

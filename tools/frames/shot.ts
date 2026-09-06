@@ -30,8 +30,7 @@
  * approved that nobody actually saw.
  */
 
-import { chromium } from "playwright-core";
-import { findChrome } from "./capture.js";
+import { closeBrowser, launchBrowser } from "./capture.js";
 
 const args = process.argv.slice(2);
 const flag = (name: string): string | undefined => {
@@ -78,7 +77,7 @@ const [vw, vh] = (flag("size") ?? "1240x900").split("x").map(Number);
 const path = flag("path") ?? "";
 const url = `http://localhost:${port}${path}`;
 
-const browser = await chromium.launch({ executablePath: await findChrome(), headless: true });
+const browser = await launchBrowser();
 try {
   const page = await browser.newPage({
     viewport: { width: vw || 1240, height: vh || 900 },
@@ -117,5 +116,5 @@ try {
   await target.first().screenshot({ path: out });
   console.log(`wrote ${out}`);
 } finally {
-  await browser.close();
+  await closeBrowser(browser);
 }

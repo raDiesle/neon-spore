@@ -1,7 +1,7 @@
 import { mkdir } from "node:fs/promises";
 import { dirname } from "node:path";
-import { type Browser, chromium, type Page } from "playwright-core";
-import { findChrome } from "./chrome.js";
+import type { Browser, Page } from "playwright-core";
+import { closeBrowser, launchBrowser } from "./browser.js";
 import { clipFor } from "./crop.js";
 import { openStage } from "./page.js";
 import type { FrameSpec, PressSpec } from "./spec.js";
@@ -15,6 +15,8 @@ import type { FrameSpec, PressSpec } from "./spec.js";
  * same seat every time.
  */
 
+/** Opening one, and shutting it so its profile goes with it — `browser.ts`. */
+export { closeBrowser, launchBrowser } from "./browser.js";
 /** Which browser a capture opens. Six callers across `tools/` ask this file
  * for it, so it is re-exported rather than moved — the subject itself lives in
  * `chrome.ts`, out of the way of driving a frame. */
@@ -76,8 +78,7 @@ export async function captureFrames(
   // one capture per worktree and wants the launch; a *test file* taking six
   // wants one browser, because the launch is the only cost here that is
   // neither measured nor bounded — see `tools/frames/test/opening.test.ts`.
-  const browser =
-    shared ?? (await chromium.launch({ executablePath: findChrome(), headless: true }));
+  const browser = shared ?? (await launchBrowser());
   let opened: Page | null = null;
   try {
     const { page, errors: pageErrors } = await openStage(browser, baseUrl, spec);
@@ -213,6 +214,6 @@ export async function captureFrames(
     // started. `newPage` makes a context of its own, so closing that is the
     // whole of the tear-down.
     if (shared) await opened?.context().close();
-    else await browser.close();
+    else await closeBrowser(browser);
   }
 }

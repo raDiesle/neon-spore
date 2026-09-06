@@ -17,8 +17,7 @@
  * cropped to the drawing itself with no margin to trim.
  */
 
-import { chromium } from "playwright-core";
-import { findChrome } from "./capture.js";
+import { closeBrowser, launchBrowser } from "./capture.js";
 
 const [src, out] = process.argv.slice(2);
 if (!src || !out) {
@@ -29,7 +28,7 @@ if (!src || !out) {
 const svg = await Bun.file(src).text();
 if (!svg.includes("<svg")) throw new Error(`${src} has no <svg> in it`);
 
-const browser = await chromium.launch({ executablePath: findChrome(), headless: true });
+const browser = await launchBrowser();
 try {
   const page = await browser.newPage({ viewport: { width: 1400, height: 900 } });
   // The field's own black, so a sheet drawn for a dark page is not sent on white.
@@ -41,5 +40,5 @@ try {
   await el.screenshot({ path: out });
   console.log(`wrote ${out}`);
 } finally {
-  await browser.close();
+  await closeBrowser(browser);
 }

@@ -1,8 +1,8 @@
 import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 import { rm } from "node:fs/promises";
 import { join } from "node:path";
-import { type Browser, chromium } from "playwright-core";
-import { captureFrames, findChrome } from "../capture.js";
+import type { Browser } from "playwright-core";
+import { captureFrames, closeBrowser, launchBrowser } from "../capture.js";
 import { clearOpening } from "../opening.js";
 import { scratchDir, sweepScratch } from "../scratch.js";
 
@@ -80,11 +80,11 @@ describe("captureFrames past a wave's opening", () => {
     baseUrl = url;
     stop = () => proc.kill();
     scratchOut = await scratchDir("opening-test-");
-    browser = await chromium.launch({ executablePath: findChrome(), headless: true });
+    browser = await launchBrowser();
   }, STARVED_MS);
 
   afterAll(async () => {
-    await browser?.close().catch(() => {});
+    if (browser) await closeBrowser(browser);
     stop?.();
     if (scratchOut) await rm(scratchOut, { recursive: true, force: true }).catch(() => {});
     // And whatever an earlier run of this file left when it was killed before

@@ -2,7 +2,7 @@ import { WAVES } from "@neon-spore/content";
 import type { Page } from "playwright-core";
 import { clearOpening } from "../frames/opening.js";
 import { arrivalsOf } from "./arrivals.js";
-import type { Run, WaveCost } from "./compare.js";
+import type { WaveCost } from "./compare.js";
 
 /**
  * One performance run, taken off a real browser driving the real bundle.
@@ -236,9 +236,4 @@ export async function sweep(
     onWave?.(cost);
   }
   return out;
-}
-
-/** A finished run, ready to be printed or written down. */
-export function assemble(parts: Omit<Run, "measuredAt">): Run {
-  return { measuredAt: new Date().toISOString().slice(0, 10), ...parts };
 }

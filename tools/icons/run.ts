@@ -16,8 +16,7 @@
  * off. Drawing at 72% of the frame means the cut never reaches the body.
  */
 
-import { findChrome } from "@neon-spore/frames/capture.js";
-import { chromium } from "playwright-core";
+import { closeBrowser, launchBrowser } from "@neon-spore/frames/capture.js";
 
 interface Target {
   file: string;
@@ -44,7 +43,7 @@ const outDir = Bun.fileURLToPath(new URL("../../apps/game/public/", here));
 const svg = await Bun.file(source).text();
 if (!svg.includes("<svg")) throw new Error(`${source} has no <svg> in it`);
 
-const browser = await chromium.launch({ executablePath: findChrome(), headless: true });
+const browser = await launchBrowser();
 try {
   const page = await browser.newPage({ viewport: { width: 1024, height: 1024 } });
   for (const target of TARGETS) {
@@ -67,5 +66,5 @@ try {
     console.log(`icon ${target.size}px${target.fill < 1 ? " maskable" : ""}: ${out}`);
   }
 } finally {
-  await browser.close();
+  await closeBrowser(browser);
 }

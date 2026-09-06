@@ -36,6 +36,11 @@ describe("the checked-in baseline", () => {
    * than the whole baseline. Forty-six good rows are worth keeping, and a check
    * that makes an editor sweep the game over one changed wave is a check
    * somebody deletes.
+   *
+   * The command it prints is one that works. It used to be advice nobody could
+   * take: `--save` refused a narrow run, so the only way to fix one stale row
+   * was the three-minute sweep this test exists to avoid asking for. A narrow
+   * `--save` now merges its rows in instead (`compare.ts`'s `mergeInto`).
    */
   it("measured the arrivals each wave sends today, wave by wave", () => {
     const stale = saved.waves
@@ -47,7 +52,7 @@ describe("the checked-in baseline", () => {
       stale.length === saved.waves.length
         ? "this baseline predates the check — take a full sweep: bun run perf --save"
         : `re-measure them: ${stale
-            .map((s) => `bun run perf --wave ${s.slice(s.indexOf(" ") + 1)}`)
+            .map((s) => `bun run perf --wave "${s.slice(s.indexOf(" ") + 1)}" --save`)
             .join("; ")}`;
     expect(stale, `these waves send something else now — ${how}`).toEqual([]);
   });

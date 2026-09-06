@@ -16,8 +16,7 @@
  * wrong fails here rather than by animating strangely on somebody's phone.
  */
 
-import { findChrome } from "@neon-spore/frames/capture.js";
-import { chromium } from "playwright-core";
+import { closeBrowser, launchBrowser } from "@neon-spore/frames/capture.js";
 import { BURST } from "./src/spec.js";
 
 const assets = new URL("../../assets/raster/", import.meta.url);
@@ -52,7 +51,7 @@ const origin = `http://127.0.0.1:${server.port}`;
 
 const probeModule = await import("../../packages/render/src/raster-probe.js");
 
-const browser = await chromium.launch({ executablePath: findChrome(), headless: true });
+const browser = await launchBrowser();
 const page = await browser.newPage();
 await page.goto(`${origin}/`);
 
@@ -108,7 +107,7 @@ const result = await page.evaluate(
   { origin, apngProbe: probeModule.APNG_PROBE, webpProbe: probeModule.ANIMATED_WEBP_PROBE },
 );
 
-await browser.close();
+await closeBrowser(browser);
 await server.stop(true);
 
 const square: [number, number] = [BURST.size, BURST.size];

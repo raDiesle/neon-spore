@@ -51,8 +51,41 @@ export async function startPreview(
     stop: async () => {
       proc.kill();
       await proc.exited;
+      await waitUntilQuiet(url);
     },
   };
+}
+
+/** How long a stopped preview is given to stop answering before this gives up
+ * on waiting for it and lets the caller carry on regardless. */
+const QUIET_MS = 5_000;
+
+/**
+ * Wait until the port really is nobody's.
+ *
+ * `proc` is the outer `bun run --cwd apps/game preview:once`, and the server is
+ * its *child*: killing the parent and awaiting its exit says nothing about
+ * whether the socket has been released. Two `bun run perf` sweeps one after
+ * another in the same shell hit this — the second died four waves in — and a
+ * `sleep 25` between them was what made it stop, which is the shape of a
+ * teardown that returns before it has let go rather than of a measurement
+ * problem.
+ *
+ * The wait is on the thing itself: the port has stopped answering, or five
+ * seconds have passed and it is worth carrying on rather than hanging. Nothing
+ * throws — a preview that will not die is the next launch's problem to report,
+ * and it now has a line for it (`browser.ts`).
+ */
+async function waitUntilQuiet(url: string): Promise<void> {
+  const deadline = Date.now() + QUIET_MS;
+  while (Date.now() < deadline) {
+    try {
+      await fetch(`${url}/__preview`, { signal: AbortSignal.timeout(500) });
+    } catch {
+      return; // Refused, reset or timed out: nobody is listening any more.
+    }
+    await new Promise((resolve) => setTimeout(resolve, 50));
+  }
 }
 
 /** One tree, built and served, screenshotted, torn down. */

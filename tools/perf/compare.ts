@@ -1,4 +1,5 @@
 import { JITTER_UNUSABLE, NOISE_PCT, noiseFloorFor } from "./noise.js";
+import { shapeOf } from "./shape.js";
 
 /**
  * What a performance run *is*, and what two of them say when held side by side.
@@ -9,6 +10,11 @@ import { JITTER_UNUSABLE, NOISE_PCT, noiseFloorFor } from "./noise.js";
  * writes it down, and this file is the only place that decides what "worse"
  * means.
  */
+
+/** Putting runs on one footing, and one row into another run's baseline. The
+ * subject is `shape.ts`'s; every caller already asks this file, so both names
+ * come through here rather than moving. */
+export { medianMs, mergeInto, shapeOf } from "./shape.js";
 
 /** One 60 Hz frame. Every verdict in this file is a fraction of it. */
 export const FRAME_MS = 16.7;
@@ -59,6 +65,28 @@ export interface WaveCost {
    * middle one". A row written before this existed has none.
    */
   jitter?: number;
+  /**
+   * Present only on a row that was **merged in later** rather than swept with
+   * the rest of the file, and what it was merged from.
+   *
+   * A baseline used to be one afternoon's work, all forty-seven rows or none:
+   * `--save` refused a narrow run, so the only way to fix a single row a wave
+   * had outgrown was a three-minute sweep that silently re-baselined the other
+   * forty-six off whatever the machine was doing. `bun run perf --wave X --save`
+   * now puts one row back instead (`shape.ts`'s `mergeInto`).
+   *
+   * The milliseconds above are the ones the baseline's own run *would* have
+   * recorded, not the ones the narrow run measured: `scale` is the factor they
+   * were multiplied by, read off the reference waves both runs measured and
+   * neither changed. Without that a merged row is read against a median taken
+   * over five waves where the rest of the file was read against one taken over
+   * forty-seven, and the wave comes out a regression nobody caused.
+   *
+   * It is recorded rather than merely applied so that a stitched baseline is
+   * legible in the file — which afternoon a row is really from, on what commit,
+   * and how far the arithmetic moved it.
+   */
+  mergedFrom?: { measuredAt: string; commit: string; scale: number };
 }
 
 export interface Run {
@@ -205,33 +233,4 @@ export function verdictFor(ms: number): "fine" | "tight" | "over" {
   if (pct >= 100) return "over";
   if (pct >= 75) return "tight";
   return "fine";
-}
-
-/** The middle wave of a run, by whichever statistic is asked for. */
-function median(run: Run, of: (w: WaveCost) => number): number {
-  if (run.waves.length === 0) return 0;
-  const sorted = run.waves.map(of).sort((a, b) => a - b);
-  return sorted[Math.floor(sorted.length / 2)] as number;
-}
-
-/** The figure a whole run is summarised by, in what a player actually gets. */
-export function medianMs(run: Run): number {
-  return median(run, (w) => w.mean);
-}
-
-/**
- * Every wave's cost as a multiple of its own run's median.
- *
- * Two defences against the same problem, stacked. `typical` throws away the
- * frames the machine interfered with; dividing by the run's own median throws
- * away a slowdown that reached every frame evenly. What is left is the game's own
- * shape, which is comparable across machines, across days, and across a desk
- * that got busy halfway through.
- */
-export function shapeOf(run: Run): Map<number, number> {
-  const mid = median(run, (w) => w.typical);
-  const out = new Map<number, number>();
-  if (mid === 0) return out;
-  for (const w of run.waves) out.set(w.wave, w.typical / mid);
-  return out;
 }

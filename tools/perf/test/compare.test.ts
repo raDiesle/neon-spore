@@ -4,6 +4,7 @@ import {
   budgetPct,
   compareRuns,
   FRAME_MS,
+  mergeInto,
   type Run,
   shapeOf,
   verdictFor,
@@ -237,5 +238,73 @@ describe("a run of only the waves a change touched", () => {
   it("still calls a wave the baseline never saw new, however narrow the run", () => {
     const [only] = compareRuns(run(full), run([[99, 4]]));
     expect(only?.verdict).toBe("new");
+  });
+});
+
+/**
+ * One re-measured row put back into a baseline of forty-six others.
+ *
+ * `baseline.test.ts` names the waves whose arrivals have changed and asks for
+ * *those* to be re-measured. That advice used to be untakeable — `--save`
+ * refused a narrow run — so the only way to fix one row was a sweep that
+ * re-baselined every other row off whatever the machine was doing that
+ * afternoon.
+ */
+describe("merging one wave back into a baseline", () => {
+  const full = [1, 2, 3, 4, 5, 6, 7].map((w) => [w, w] as [number, number]);
+
+  it("replaces only the waves it was asked for, and keeps the count", () => {
+    const merged = mergeInto(run(full), run(full), [3]);
+    expect(merged?.waves).toHaveLength(7);
+    expect(merged?.waves.find((w) => w.wave === 3)?.mergedFrom).toBeDefined();
+    expect(merged?.waves.find((w) => w.wave === 4)?.mergedFrom).toBeUndefined();
+  });
+
+  it("leaves a wave the fresh run never measured exactly as it was", () => {
+    const merged = mergeInto(run(full), run(full.slice(0, 5)), [3, 7]);
+    expect(merged?.waves.find((w) => w.wave === 7)?.typical).toBe(7);
+    expect(merged?.waves.find((w) => w.wave === 7)?.mergedFrom).toBeUndefined();
+  });
+
+  /**
+   * The whole point, and the thing a first attempt at this got wrong. The
+   * re-measured row comes off a run of five reference waves; the rest of the
+   * file came off a sweep of forty-seven. Left in its own run's milliseconds it
+   * is read against a median of a different population, and the next full sweep
+   * calls the wave a regression nobody caused. The untouched waves say by how
+   * much the machine differed, and the row is converted before it goes in.
+   */
+  it("puts the row on the baseline's footing, so an unchanged wave stays unchanged", () => {
+    const before = run(full);
+    // The same game on a machine three times slower, wave 3 included.
+    const slowDay = run(full.map(([w, ms]) => [w, ms * 3] as [number, number]));
+    const merged = mergeInto(before, slowDay, [3]);
+    const row = merged?.waves.find((w) => w.wave === 3);
+    expect(row?.typical).toBeCloseTo(3, 5);
+    expect(row?.mergedFrom?.scale).toBeCloseTo(1 / 3, 2);
+    // And the stitched file still reads as the game it was.
+    for (const d of compareRuns(merged as Run, run(full))) {
+      expect(d.verdict, `${d.name} moved when nothing about it did`).toBe("same");
+    }
+  });
+
+  it("carries a genuine change through the scaling rather than flattening it", () => {
+    // Same slow machine, but wave 3 really is twice the wave it was.
+    const slowDay = run(
+      full.map(([w, ms]) => [w, (w === 3 ? ms * 2 : ms) * 3] as [number, number]),
+    );
+    const merged = mergeInto(run(full), slowDay, [3]);
+    expect(merged?.waves.find((w) => w.wave === 3)?.typical).toBeCloseTo(6, 5);
+  });
+
+  it("refuses a merge it has no untouched wave to take a scale off", () => {
+    expect(mergeInto(run(full), run([[3, 9]]), [3])).toBeNull();
+  });
+
+  it("says which afternoon and which commit a stitched row is really from", () => {
+    const fresh = run(full, { measuredAt: "2026-09-09", commit: "a".repeat(40) });
+    const from = mergeInto(run(full), fresh, [3])?.waves.find((w) => w.wave === 3)?.mergedFrom;
+    expect(from?.measuredAt).toBe("2026-09-09");
+    expect(from?.commit).toBe("a".repeat(40));
   });
 });

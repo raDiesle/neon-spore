@@ -9,6 +9,7 @@
 
 import { readdir, rm, stat } from "node:fs/promises";
 import { join } from "node:path";
+import { PROFILE_STALE_MS, staleProfiles, tmpRoot } from "../tmp-litter.js";
 import { KEEP_DAYS } from "./idle.js";
 
 /** One file's identity for the purposes of the spent-specs sweep. */
@@ -38,7 +39,7 @@ export function dueForSweep(entries: readonly FileStat[], now: number, keepDays:
  * Prints one line, and only when it actually removed something.
  */
 export async function sweepSpecs(root: string): Promise<void> {
-  const dir = join(root, ".claude", "tmp");
+  const dir = tmpRoot(root);
   let names: string[];
   try {
     names = await readdir(dir);
@@ -64,4 +65,48 @@ export async function sweepSpecs(root: string): Promise<void> {
     }
   }
   if (swept > 0) console.log(`  swept    ${swept} spent specs from .claude/tmp`);
+  await sweepProfiles(root);
+}
+
+/**
+ * The other half of what `.claude/tmp` collects: the browser profiles
+ * `tools/frames/browser.ts` puts there, from a run that was killed before its
+ * own cleanup.
+ *
+ * A landing is the second place these are cleared and not the first — the next
+ * launch sweeps them too, which is what keeps them from accruing between
+ * landings. It is here as well because a lane that ran `bun run perf` once and
+ * then stops running browsers would otherwise leave its last one standing
+ * indefinitely, and 508 MB of exactly that went unnoticed for a month.
+ *
+ * The window is an hour rather than `KEEP_DAYS`: a profile is worth nothing the
+ * moment its browser is gone, where a spent spec is a record of what a lane was
+ * asked to do. `tools/tmp-litter.ts` carries the rule and the reason the age is
+ * the whole safety.
+ */
+async function sweepProfiles(root: string): Promise<void> {
+  const dir = tmpRoot(root);
+  let names: string[];
+  try {
+    names = await readdir(dir);
+  } catch {
+    return;
+  }
+
+  const entries: { name: string; mtimeMs: number }[] = [];
+  for (const name of names) {
+    const info = await stat(join(dir, name)).catch(() => null);
+    if (info?.isDirectory()) entries.push({ name, mtimeMs: info.mtimeMs });
+  }
+
+  let swept = 0;
+  for (const name of staleProfiles(entries, Date.now(), PROFILE_STALE_MS)) {
+    try {
+      await rm(join(dir, name), { recursive: true, force: true });
+      swept++;
+    } catch {
+      // Left in place; the next landing, or the next launch, gets another try.
+    }
+  }
+  if (swept > 0) console.log(`  swept    ${swept} spent browser profiles from .claude/tmp`);
 }

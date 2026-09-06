@@ -1,11 +1,11 @@
 import { WAVES } from "@neon-spore/content";
-import { chromium } from "playwright-core";
-import { findChrome } from "../frames/chrome.js";
+import { closeBrowser, launchBrowser } from "../frames/browser.js";
 import { git, root, startPreview } from "../frames/serve.js";
-import { DEFAULT_THROTTLE, type Run } from "./compare.js";
-import { assemble, calibrate, sweep } from "./measure.js";
+import { DEFAULT_THROTTLE, mergeInto, type Run } from "./compare.js";
+import { calibrate, sweep } from "./measure.js";
 import { DRIFT_MIN_WAVES } from "./noise.js";
 import { printComparison, printRun, printSummary } from "./say.js";
+import { assemble } from "./shape.js";
 import { wavesAsked, withReferences } from "./waves.js";
 
 /**
@@ -25,6 +25,7 @@ import { wavesAsked, withReferences } from "./waves.js";
  *   bun run perf                      every wave — what a baseline is taken from
  *   bun run perf --throttle 6         at low-end-mobile speed instead
  *   bun run perf --save               write a full sweep back as the new baseline
+ *   bun run perf --wave X --save      merge that one wave into the baseline
  *
  * **The narrow run is the ordinary one.** A lane that adds a creature measures
  * the waves that creature appears in; the whole game is swept when a baseline is
@@ -73,18 +74,13 @@ const narrow = only.length < WAVES.length;
 /** The wave numbers the reference set contributed, for marking them in the print. */
 const carried = new Set(references.map((i) => i + 1));
 
-// **A narrow run may not become the baseline.** The baseline is the reference
-// every later run is read against and `tools/perf/test/compare.test.ts` refuses
-// one that does not cover every wave the game ships — a wave with no row is a
-// wave nothing can notice getting slower. Merging a few waves into it would be
-// worse than refusing: the shares `compare.ts` reads are each wave against its
-// own run's median, so a baseline stitched out of two afternoons compares
-// nothing to nothing.
-if (save && narrow) {
-  console.log("✗ --save takes a full sweep; drop --wave, or drop --save");
-  console.log("  a baseline missing a wave is a wave nothing can notice getting slower");
-  process.exit(1);
-}
+// **A narrow `--save` merges rather than replaces.** The baseline is the
+// reference every later run is read against, and `tools/perf/test/compare.test.ts`
+// refuses one that does not cover every wave the game ships — a wave with no row
+// is a wave nothing can notice getting slower. So a narrow run may not *become*
+// the baseline; what it may do is put its own rows into one, which is exactly
+// what `baseline.test.ts` asks for by name when a wave's arrivals have changed.
+// `mergeInto` carries why that is readable now and was not before.
 
 async function readBaseline(): Promise<Run | null> {
   const file = Bun.file(BASELINE);
@@ -92,7 +88,25 @@ async function readBaseline(): Promise<Run | null> {
 }
 
 const preview = await startPreview(root);
-const browser = await chromium.launch({ executablePath: findChrome(), headless: true });
+const browser = await launchBrowser();
+
+/**
+ * A browser that goes away mid-run takes the page with it, and the throw comes
+ * out of whichever helper was holding it — `clearOpening` reporting that the
+ * target had been closed, which is true and names nothing a reader can act on.
+ * Two sweeps in the same shell did exactly that, four waves in, and so did the
+ * third; a session then spent a turn establishing that the measurement was not
+ * at fault. So the run notices the disconnect itself and says the one thing
+ * worth saying about it.
+ */
+let lost = false;
+browser.on("disconnected", () => {
+  lost = true;
+});
+/** Held rather than printed, because `process.exit` inside the `try` would skip
+ * the `finally` and leave the preview server running. */
+let vanished = false;
+
 try {
   const page = await browser.newPage({
     viewport: { width: VIEWPORT.width, height: VIEWPORT.height },
@@ -127,17 +141,56 @@ try {
   const before = await readBaseline();
   if (before) printComparison(before, now, carried);
 
-  if (save) {
+  if (save && !narrow) {
     await Bun.write(BASELINE, `${JSON.stringify(now, null, 2)}\n`);
     console.log(`\nbaseline written: tools/perf/baseline.json`);
+  } else if (save) {
+    // Merging into nothing, or into a baseline already short of the game, would
+    // leave a file no comparison can be taken off.
+    if (!before || before.waves.length !== WAVES.length) {
+      console.log(
+        "✗ --wave --save merges into a baseline, and there is no whole one to merge into",
+      );
+      console.log("  take the sweep first: bun run perf --save");
+      process.exit(1);
+    }
+    const taken = asked.map((i) => i + 1);
+    const merged = mergeInto(before, now, taken);
+    if (!merged) {
+      console.log("✗ this run shares no untouched wave with the baseline — nothing to scale it by");
+      console.log(
+        "  the reference waves are what a merged row is put on the baseline's footing with",
+      );
+      process.exit(1);
+    }
+    await Bun.write(BASELINE, `${JSON.stringify(merged, null, 2)}\n`);
+    const rows = merged.waves.filter((w) => taken.includes(w.wave));
+    const scale = rows[0]?.mergedFrom?.scale ?? 1;
+    console.log(
+      `\nbaseline merged: ${rows.map((w) => `${w.wave} ${w.name}`).join(", ")} — the other ` +
+        `${before.waves.length - rows.length} rows are untouched`,
+    );
+    console.log(
+      `  scaled by ${scale.toFixed(2)}x onto the baseline's footing, read off the reference waves ` +
+        `neither run changed`,
+    );
   } else if (before) {
     console.log(
       narrow
-        ? `\na baseline is taken from a full sweep — drop --wave, then --save.`
+        ? `\na baseline is taken from a full sweep — or --save merges these waves into it.`
         : `\n--save writes this run back as the baseline.`,
     );
   }
+} catch (error) {
+  if (!lost) throw error;
+  vanished = true;
 } finally {
-  await browser.close();
+  await closeBrowser(browser);
   await preview.stop();
+}
+
+if (vanished) {
+  console.log("✗ the browser closed part-way through the run — nothing was measured");
+  console.log("  not the code under test. Run it again; the teardown now waits for the last one.");
+  process.exit(1);
 }

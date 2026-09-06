@@ -1,5 +1,4 @@
-import { findChrome } from "@neon-spore/frames/capture.js";
-import { chromium } from "playwright-core";
+import { closeBrowser, launchBrowser } from "@neon-spore/frames/capture.js";
 import { drawBurstFrame } from "./burst-art.js";
 
 /**
@@ -49,7 +48,7 @@ const dataUrlToBytes = (url: string): Uint8Array =>
 
 /** Opens one headless page, draws everything in it, and closes it again. */
 export async function renderBurst(spec: BurstSpec): Promise<RenderedBurst> {
-  const browser = await chromium.launch({ executablePath: findChrome(), headless: true });
+  const browser = await launchBrowser();
   try {
     const page = await browser.newPage();
     await page.setContent("<!doctype html><meta charset=utf-8><title>burst</title>");
@@ -115,6 +114,6 @@ export async function renderBurst(spec: BurstSpec): Promise<RenderedBurst> {
       probeWebp: shot.probeWebp.map(dataUrlToBytes),
     };
   } finally {
-    await browser.close();
+    await closeBrowser(browser);
   }
 }
