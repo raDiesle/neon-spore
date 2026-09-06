@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · 20e4054e — The magnet's opening reads as a mouth, and its staff stops standing in front
+
+At thirty-six degrees either side of straight down the horseshoe came out as a closed hoop with two chips of colour in it, and the staff — filled bright and drawn last — read as a pillar in front of the body rather than as a limb hanging out of it. The gap is a hundred degrees now, the poles are wider, and the staff and its plate go down first so the arch is drawn over them. Only the plate keeps a hard white edge: one of those two things is a limb and the other is armour, and the line weight is where a glance is told which.
+
+## 2026-09-06 · 39240ea0 — THE MAGNET, a body no shot can reach from under it, and THE BARB leaves
+
+A horseshoe standing on two poles, one red and one cyan, with an armoured plate slung under it on a staff. A shot climbing its own column meets the plate and does nothing at all, so the pilot has to stand the cannon off the column and hold the body with a thumb: the bolt bends across the field under the plate's edge, and whichever side it comes in on is the pole it meets. The navigator holds both triggers and cannot pick one until the side has been said out loud. THE BARB goes with it — the shield-tearing rule, its two numbers and its wave — and its hooked contour is offered on VERSUS against the horseshoe rather than thrown away.
+
 ## 2026-09-06 · 2d3aaa02 — WAVE 25 is THE SHELL, the name its body already had
 
 The wave was called THE THIRD SHOT after the beat it turns on, and the body it sends is a `shell` — the guide, the rehearsal and the brush tooltip all say shell while the wave said shot. The rename was found parked on `park/wave-renames` as two uncommitted lines that would have landed `main` red; this is the same rename finished, with the six places that quote the name by string brought with it.
