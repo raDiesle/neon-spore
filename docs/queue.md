@@ -383,6 +383,7 @@ clearing.
 ## Re-measuring one stale baseline row costs a sweep of all 47 waves
 
 - **Found:** 2026-09-06, claude/queue-the-perf-baseline-goes-stale-silently-when-a-wav
+- **Taken:** 2026-09-06, claude/queue-re-measuring-one-stale-baseline-row-costs-a-swee
 - **Files:** `tools/perf/run.ts`, `tools/perf/test/baseline.test.ts`, `tools/perf/baseline.json`
 
 `baseline.test.ts` now names the waves whose arrivals changed and asks for
