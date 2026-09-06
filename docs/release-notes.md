@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · 081982ff — The sim barrel is four grouped ones, so a rule can be exported by name again
+
+`packages/sim/src/index.ts` was 249 lines against a 250-line limit, and it had started answering API questions with the shortfall: a lane that wanted `fenceIsBurnt` and `fenceSettleTicks` beside the four fence exports could not fit the nine lines an explicit list takes, and shipped `export * from "./fence.js"` instead — a wider surface chosen for the line count rather than for the boundary.
+
 ## 2026-09-06 · d3760542 — A merged baseline is written back on today's wave numbers
 
 `mergeInto` matches a row on its id, which is what stops a wave that moved from being written twice — but it renumbers nothing. A merged row carried today's `wave` because it had just been measured, and every row beside it kept whatever number the baseline was written with.
