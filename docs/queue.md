@@ -142,6 +142,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## Move apps/server off the miniflare alpha when a stable 5 ships
 
 - **Found:** 2026-09-03, claude/bun-queue-list-command-5a8695
+- **Taken:** 2026-09-06, claude/queue-move-apps-server-off-the-miniflare-alpha-when-a
 - **Files:** `apps/server/package.json`, `apps/server/test/room.test.ts`, `bun.lock`
 
 `apps/server/test/room.test.ts` pins `miniflare` at `5.20260831.0-alpha`, exactly
