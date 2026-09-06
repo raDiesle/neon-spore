@@ -9,6 +9,18 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · 5581c726 — The faceted four move out of subjects.ts, which had run out of room
+
+THE VEER's card took `tools/shape-sheet/src/subjects.ts` past its 250-line limit, and the seam it went along was already there. That file is one paragraph per family of contour — a lobed body, a dome over a hem, an eye, a link of a worm — and each is a builder with no instances beside it, because the bodies that use them are generated from `living-look.ts`. The rocks are the other shape of thing: one builder and four hand-written instances, named by hand because nothing in `packages/content` lists them. `crystal` and the four go to `rock-subjects.ts`; `subjects.ts` re-exports the builder, so the drafts and the free contours import it from where they always did.
+
+## 2026-09-06 · d940790b — The VEER brush shows the clown, in the palette and on the sheet
+
+The palette draws a real frame of the shipping renderer for every brush that has a builder in brush-poses.ts and falls back to a plain contour for the rest. THE VEER had neither: no builder, and a card pointing at METEOR — so the one rock whose whole difference from a dead one is the thing sitting on top of it drew the bare stone, twice over, beside a note asking the author to take the difference on trust. It has a specimen now, cropped at 2.2 tiles: wide enough for the hat and the pompom, tight enough to leave the pilot's arrow out, which is THE DART's argument made again — a brush says which body it paints, and where that body is going is a thing to watch on the field.
+
+## 2026-09-06 · 66b4a37a — THE VEER never settles: it changes lane every three rows to the ship
+
+It used to change lane three times and then fall straight for the last five rows, so a pair could watch it arrive in the lane it would land in, park the shield there and stop listening — which is the habit every other rock already rewards and the one this creature exists to break. The cap is gone. It steps every veerRowsApart rows for the whole of its fall, the last of them one row above the row the shield answers at, and the pilot's arrow and the width above it stand over the rider the whole way down instead of going out after the third.
+
 ## 2026-09-06 · 9c3d6bf5 — A held ring that stops turning while the body cannot be carried, offered
 
 THE PUSH's beat of pause is a beat the field says nothing about: the ring turns at the same rate whether or not a hand may take the body a column, so a player who pulls again inside it gets no answer at all. That is a question with two honest sides — the pause is short and a picture changing twice a second on every held rock has a flicker in it — so it is offered rather than adopted.
