@@ -139,21 +139,24 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
 
 
-## Move apps/server off the miniflare alpha when a stable 5 ships
+## The deploy runs whatever wrangler npm has today, the tests run a pinned one
 
-- **Found:** 2026-09-03, claude/bun-queue-list-command-5a8695
-- **Taken:** 2026-09-06, claude/queue-move-apps-server-off-the-miniflare-alpha-when-a
-- **Files:** `apps/server/package.json`, `apps/server/test/room.test.ts`, `bun.lock`
+- **Found:** 2026-09-06, claude/queue-move-apps-server-off-the-miniflare-alpha-when-a
+- **Files:** `package.json`, `apps/server/package.json`, `apps/server/dev.ts`
 
-`apps/server/test/room.test.ts` pins `miniflare` at `5.20260831.0-alpha`, exactly
-and on purpose. The last stable 4.x is `4.20260730.0`, whose workerd binary
-refuses the `compatibility_date` in `wrangler.jsonc` ("newest date supported by
-this server binary is 2026-08-06"), and the test reads that date from the
-deploy's own config rather than carrying a second copy of it — so a stable 4
-would mean testing on a date the deploy does not use.
+`apps/server` now declares `wrangler`, and `apps/server/test/relay.ts` reads
+`wrangler.jsonc` through it, so the suite runs against a known version and
+`versions.test.ts` holds miniflare to the one it pins. The two `deploy` scripts
+in the root `package.json` do not: `npx wrangler deploy --config …` runs from
+the repository root, where wrangler is not installed, so `npx` fetches the
+latest published one and ships with it. `apps/server/dev.ts` spawns
+`npx --yes wrangler dev` and gets the local copy only because it runs from
+`apps/server` — which is true by accident rather than on purpose.
 
-When a non-alpha 5 is published, move to it and check the config shape the test
-builds by hand (`workers[0].config` with `manifest.modules` and
-`exports.Room.storage`) still holds — miniflare 5 changed it from 4's flat
-`{ modules, script, durableObjects }`, and `convertV4MiniflareOptions` is the
-shim that shows what the new shape wants if it changed again.
+Move `wrangler` to the root `devDependencies` (dropping it from
+`apps/server`), so one pinned wrangler serves the deploy, the dev server and
+the tests alike. `versions.test.ts` resolves it with
+`import.meta.resolve("wrangler/package.json")` and does not care where it
+sits. Check that `bun install` puts `wrangler` in the root `node_modules/.bin`
+afterwards — that is what makes `npx wrangler` at the root find it rather than
+download one — and that `bun run deploy:game:dry` still builds.

@@ -6,7 +6,8 @@ import {
   type ServerMessage,
   VERSION_PARAM,
 } from "@neon-spore/net";
-import { Miniflare } from "miniflare";
+import type { Miniflare } from "miniflare";
+import { relay } from "./relay.ts";
 
 /**
  * The Durable Object, run.
@@ -17,27 +18,9 @@ import { Miniflare } from "miniflare";
  * All of that was covered only by `bun run relay:check`, which needs a human to
  * start wrangler and is listed as *unverified* by every session that has none.
  *
- * Miniflare runs the real workerd, so this is the shipped worker answering real
- * upgrades rather than a stand-in for it. The compatibility date is read from
- * `wrangler.jsonc` rather than written here twice, so a test passing on a date
- * the deploy does not use is not a thing that can happen.
+ * `relay.ts` raises the shipped worker in a real workerd, configured out of
+ * `wrangler.jsonc` itself.
  */
-const ROOT = new URL("../../../", import.meta.url);
-
-const wrangler = JSON.parse(
-  // JSONC, and Bun's parser is JSON. Only whole-line comments appear in it and
-  // no string in it contains `//`, so dropping those lines is enough.
-  (await Bun.file(new URL("wrangler.jsonc", ROOT)).text()).replace(/^\s*\/\/.*$/gm, ""),
-) as { compatibility_date: string };
-
-const built = await Bun.build({
-  entrypoints: [Bun.fileURLToPath(new URL("../src/index.ts", import.meta.url))],
-  target: "browser",
-  format: "esm",
-});
-if (!built.success) throw new AggregateError(built.logs, "could not build the worker");
-
-const SCRIPT = await built.outputs[0]?.text();
 
 /**
  * **What a test that raises its own relay is allowed to take.**
@@ -60,39 +43,6 @@ const SCRIPT = await built.outputs[0]?.text();
  * a relay of the test's own.
  */
 const OWN_RELAY_MS = 20_000;
-
-/** The shipped worker, with whatever `vars` the case under test wants on it. */
-function relay(vars: Record<string, string> = {}): Miniflare {
-  return new Miniflare({
-    workers: [
-      {
-        config: {
-          type: "worker",
-          name: "relay",
-          compatibilityDate: wrangler.compatibility_date,
-          manifest: {
-            mainModule: "index.mjs",
-            modulesRoot: Bun.fileURLToPath(ROOT),
-            modules: { "index.mjs": { type: "esm", contents: SCRIPT } },
-          },
-          env: {
-            ROOMS: { type: "durable-object", worker: "relay", exportName: "Room" },
-            NAMES: { type: "durable-object", worker: "relay", exportName: "Names" },
-            ...Object.fromEntries(
-              Object.entries(vars).map(([k, value]) => [k, { type: "text", value }]),
-            ),
-          },
-          // `wrangler.jsonc` migrates `Room` as a `new_sqlite_classes` entry.
-          exports: {
-            Room: { type: "durable-object", storage: "sqlite" },
-            Names: { type: "durable-object", storage: "sqlite" },
-          },
-        },
-      },
-    ],
-    // biome-ignore lint/suspicious/noExplicitAny: miniflare's config type is not exported in a usable shape.
-  } as any);
-}
 
 const mf = relay();
 

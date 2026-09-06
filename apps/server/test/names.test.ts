@@ -1,54 +1,16 @@
 import { afterAll, expect, test } from "bun:test";
 import { TAKEN_MESSAGE } from "@neon-spore/net";
-import { Miniflare } from "miniflare";
+import { relay } from "./relay.ts";
 
 /**
  * The name registry, run.
  *
  * A claim never touches lockstep — it happens once, before a room exists, over
  * a plain HTTP route — so unlike the room, the whole of this is provable
- * without a relay. Miniflare runs the real workerd, so what answers here is
- * the shipped worker.
+ * without a relay. `relay.ts` raises the shipped worker in a real workerd, so
+ * what answers here is the worker that ships.
  */
-const ROOT = new URL("../../../", import.meta.url);
-
-const wrangler = JSON.parse(
-  (await Bun.file(new URL("wrangler.jsonc", ROOT)).text()).replace(/^\s*\/\/.*$/gm, ""),
-) as { compatibility_date: string };
-
-const built = await Bun.build({
-  entrypoints: [Bun.fileURLToPath(new URL("../src/index.ts", import.meta.url))],
-  target: "browser",
-  format: "esm",
-});
-if (!built.success) throw new AggregateError(built.logs, "could not build the worker");
-const SCRIPT = await built.outputs[0]?.text();
-
-const mf = new Miniflare({
-  workers: [
-    {
-      config: {
-        type: "worker",
-        name: "relay",
-        compatibilityDate: wrangler.compatibility_date,
-        manifest: {
-          mainModule: "index.mjs",
-          modulesRoot: Bun.fileURLToPath(ROOT),
-          modules: { "index.mjs": { type: "esm", contents: SCRIPT } },
-        },
-        env: {
-          ROOMS: { type: "durable-object", worker: "relay", exportName: "Room" },
-          NAMES: { type: "durable-object", worker: "relay", exportName: "Names" },
-        },
-        exports: {
-          Room: { type: "durable-object", storage: "sqlite" },
-          Names: { type: "durable-object", storage: "sqlite" },
-        },
-      },
-    },
-  ],
-  // biome-ignore lint/suspicious/noExplicitAny: miniflare's config type is not exported in a usable shape.
-} as any);
+const mf = relay();
 
 // Disposed, because `bun test` runs every file in one process and a workerd
 // this file left running is one the next file's own has to share a machine
