@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · 4f483002 — The desk rig's G pulls THE WARDEN's rope instead of grabbing at it
+
+`nearestHull` returned the tether's id before it asked anything else, and a tether refuses a hand — it is in `UNGRIPPABLE`, and has been since the rope stopped being held and started being dragged by a handle. So `setGrip` threw the command away and G did nothing at all on the one boss it was written for.
+
+## 2026-09-06 · 9a4c70cf — The ship's own clocks move out of Effects, which had run out of room
+
+`packages/render/src/effects.ts` sat at exactly 250 lines, and a new transient costs six of them there — an import, a field, an ingest line, an update line and a clear line — so the last one to arrive went somewhere it half fitted instead. The swallow, the fire opening, the deflection flash and the queen's shudder are one group: every one is a clock about the ship rather than about a body on the field, and the banner is the word two of them put over the hull. They are now `ShipMoods` in `effects-ship.ts`.
+
 ## 2026-09-06 · ffe7f4a — The wave list has a filter, and it costs the column no width
 
 Fifty-two waves in a 210px rail, and no way to ask which ones send a slick or which are played on the ladder. WAVES is the narrowest column the director has, so every shape that would have answered that — a rail of category buttons, a dropdown beside a field, a row of chips — was out on its face: all of them spend width, and the width is what the wave names are for. What is left is vertical. One field above the list, full width, plus a count line that is only there while it is filtering.
