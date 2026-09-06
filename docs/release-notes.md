@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · 1c7044ed — A worm's rings are built as numbers, and its cache is a question for the owner
+
+Every ring of a crawler called `crawlerPath`, which formatted a 28-point Catmull-Rom curve into an SVG path string and handed it to `new Path2D(...)` to be parsed again. That is THE LID's arrangement and it is cheap at one body; a worm is up to nine of them at once, every frame. `crawlerPoints` now returns the placed outline and `spline.ts` writes it into the path as numbers, the same way the hull and every lobed body were changed. The string form stays for the shape sheet, which really does stroke text.
+
 ## 2026-09-06 · c048dec9 — The hull and the bodies reach the canvas as numbers, not as text
 
 `openSmoothPath` and `blobPath` return an SVG path *string*, built with `toFixed(2)` on every coordinate, and every caller in `render/` handed that string straight to `new Path2D(...)`, which parsed the decimal text back into the numbers it was made from. The hull's contour is 141 points: 840 `toFixed` calls and a five-thousand-character string, on every frame of every wave, because the hull is always there.
