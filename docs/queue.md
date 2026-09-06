@@ -494,6 +494,7 @@ baseline stores a name instead. Two halves:
 ## THE GAUGE and SNAKE are still written up as ideas in `docs/spec/ideas.md`
 
 - **Found:** 2026-09-06, claude/rounds-claw-boss-level-272aef
+- **Taken:** 2026-09-06, claude/queue-the-gauge-and-snake-are-still-written-up-as-idea
 - **Files:** `docs/spec/ideas.md`, `docs/spec/bosses.md`, `tools/director/test/backlog.test.ts`
 
 Both rounds are built — `packages/sim/src/gauge.ts` and `snake.ts`, and
