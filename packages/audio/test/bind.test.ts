@@ -94,6 +94,7 @@ const SAMPLES: Record<string, SimEvent> = {
   lureSeen: { type: "lureSeen", col: 3 },
   strandBead: { type: "strandBead", id: 6, col: 2, row: 3, color: "red", left: 2 },
   strandSwell: { type: "strandSwell", id: 6, col: 2, row: 3, color: "cyan", left: 3 },
+  gratePass: { type: "gratePass", col: 4, row: 11 },
   strandBroke: { type: "strandBroke", col: 3, row: 5 },
   lureVanished: { type: "lureVanished", col: 3, row: 4, color: "cyan" },
   shellBreak: { type: "shellBreak", col: 3, row: 4, left: 1 },
@@ -280,6 +281,7 @@ const CREATURE_IDS: Record<string, string> = {
   ghostCharge: "creature.ghostCharge",
   strandBead: "impact.split",
   strandSwell: "impact.wrongTarget",
+  gratePass: "impact.graze",
 };
 
 /**

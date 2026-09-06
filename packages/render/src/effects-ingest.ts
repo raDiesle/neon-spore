@@ -238,6 +238,10 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
     case "fleetHit":
     case "fleetSunk":
     case "fleetDown":
+    // THE GRATE going over the ship: `effects-spark.ts` throws the burst, and
+    // unlike a deflection there is no body left to be drawn tumbling away
+    // from the dome, so nothing here has to remember anything.
+    case "gratePass":
       break;
     default:
       assertNever(e);

@@ -236,6 +236,11 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/kind-code.ts` | **A kind as a number**, and the compile-time proof that every kind has one |
 | `packages/sim/src/lure-exit.ts` | **THE LURE leaving on its own**, which is the one thing in this game a body does at the end of a beat for no… |
 | `packages/sim/src/config-creature-scores.ts` | what one creature pays and what one costs, priced against each other |
+| `packages/sim/src/config-grate.ts` | THE GRATE's three numbers: how many gaps a wall the author left blank has burnt in it |
+| `packages/sim/src/creature-roster.ts` | **The fixed order every kind is written into the world fingerprint in.** Cut out of `creature-kinds.ts` when… |
+| `packages/sim/src/grate.ts` | THE GRATE: a live line the width of the field, with gaps burnt through it |
+| `packages/sim/src/grippable.ts` | **Whether a hand may be put on a body at all**, and the ten refusals that answer it |
+| `packages/sim/src/hull-damage.ts` | **What the hull loses, and what it gets back.** Cut out of `hull.ts` when THE GRATE's own answer took that… |
 
 ### packages/content
 
@@ -265,7 +270,6 @@ place — the generator keeps whatever is there.
 | `packages/content/src/waves/act-2.ts` | act two: the first six bosses, back to back, nothing else |
 | `packages/content/src/waves/act-3.ts` | act three: new mechanics after the first five bosses, one more boss among them (THE VANE) |
 | `packages/content/src/living-look.ts` | which kinds are drawn as a body of their own, and the contour and own-motion of each — one row per kind, so a forgotten one is a build error |
-| `packages/content/src/creatures-rocks.ts` | you are adding a rock tier or changing what one of the six says about itself |
 | `packages/content/src/waves/act-4.ts` | act four, opening on THE WISP; filled the day THE GYRE was written |
 | `packages/content/src/ghost-shape.ts` | THE GHOST's contour, which is the third family of them in this package |
 | `packages/content/src/snake-rounds.ts` | SNAKE's rounds: three maps, and the map is the fight |
@@ -327,6 +331,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/creatures-fixtures.ts` | **The three bodies a wave never sends** |
 | `packages/content/src/mechanics-run.ts` | **The five mechanics that are not a thing the field sends**, and the whole of `reach: "run"` |
 | `packages/content/src/wave-entry.ts` | **What one arrival is**, and the half of a wave that grows |
+| `packages/content/src/creatures-guarded.ts` | **Everything the shield answers and the cannon cannot**: the five speed tiers, THE VEER, the torch |
 
 ### packages/render
 
@@ -597,6 +602,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/strand-plate.ts` | One bead's plating, as geometry |
 | `packages/render/src/crawler-marks.ts` | What each ring of THE CRAWLER is owed — a crosshair on every one, the shield's mark over the dome's |
 | `packages/render/src/crawler-place.ts` | Where a ring of THE CRAWLER actually sits on screen, and how much bigger it draws for being that near |
+| `packages/render/src/grate-gate.ts` | The way through a wall, on the one screen that is shown it |
+| `packages/render/src/grate.ts` | THE GRATE: a live line the width of the field, and the two different pictures of it the two screens carry |
 
 ### packages/net
 
@@ -1065,5 +1072,7 @@ place — the generator keeps whatever is there.
 | `tools/land/crlf.ts` | The line endings on disk, asked before `bun run check` is asked anything |
 | `tools/retry.ts` | Removing something from disk and then *asking* whether it went — the policy |
 | `tools/land/race.ts` | Whether some other lane landed while this one was in `bun run check` |
+| `tools/director/src/cell-config-gaps.ts` | THE GRATE's row under the map: one chip per column, lit where the wall is open |
+| `tools/director/src/entry-fields-grate.ts` | **Where a wall is open**, read and written on one arrival |
 
 <!-- index:code:end -->

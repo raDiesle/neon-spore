@@ -205,6 +205,35 @@ not put it out like a lamp. The beam is deliberately the longest thing here —
 taking a worm apart costs both controls, turn about, for most of a wave, and it
 is the only moment the ship says so.
 
+## The grate
+
+`packages/render/src/grate.ts` and `grate-gate.ts`. The only body in the game
+drawn as a **line** rather than as a thing standing on a tile, and the only one
+whose two screens differ in where it *stops*.
+
+| Pass | What | Numbers |
+|---|---|---|
+| filament | a jagged polyline across the row, glow-stroked | `4` points a tile, `±0.09` tiles of stray, `PALETTE.arc` at `STROKE.outline`, glow intensity `1.4` |
+| core | the same path again, thin, over the glow | `STROKE.inner`, `PALETTE.arcRim` |
+| terminals | a bead at each end of every unbroken run | `0.055` tiles, pulsed `0.75`–`1.0` on the crackle clock |
+| **gate** | two uprights framing an open column — pilot's screen only | `±0.22` tiles, `PALETTE.arc` at `0.5`–`0.62` alpha, `STROKE.inner` |
+
+The crackle runs at `11` Hz and is a function of the column, the row and the
+wall clock — **and of nothing else**. That is the decision in this file rather
+than a drawing choice: no term in the wobble knows where a gap is, so a
+navigator watching the line hard cannot read the answer out of how it shakes.
+It is `ghost-row.ts`'s rule about a column-blind sweep, said about a filament.
+
+The filament is **pinned at both ends of every run**, tapering the stray to
+zero at the wall and at the lip of a gap: a line that jittered where it meets
+something reads as one that has come loose, and this is a thing anchored at
+both ends and humming.
+
+`PALETTE.arc` is a hard electric blue at 225°, chosen to be near neither
+ammunition colour — pale electric cyan is what lightning actually looks like
+and is exactly `cyanRim`, which would put *load cyan* across every column of
+the field on the one arrival nothing can be fired at.
+
 ## Bullets
 
 `packages/render/src/bullets.ts`. Two looks, one shape.

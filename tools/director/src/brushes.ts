@@ -49,11 +49,18 @@ export const ROCK_BRUSHES: readonly [Brush, RockKind][] = [
 ];
 
 /**
- * The living kinds a brush paints one-to-one: everything in `CREATURES` that
- * is neither a rock (`isMeteorKind` — its own tier table below), nor a boss
- * body (`isBossBody` — placed by the boss panel, never by a click), nor the
- * one `"special"` kind, the tether, which a boss installs rather than a wave
- * author (`categoryOf`). `tools/shape-sheet/src/subjects.ts`'s `livingKinds`
+ * The kinds a brush paints one-to-one: everything in `CREATURES` that is
+ * neither a rock (`isMeteorKind` — its own tier table below), nor a boss body
+ * (`isBossBody` — placed by the boss panel, never by a click), nor the one
+ * `"special"` kind, the tether, which a boss installs rather than a wave
+ * author (`categoryOf`).
+ *
+ * **"Living" is one name short since THE GRATE**, which is a wall of current
+ * rather than a body and is still exactly what this list is for: one click,
+ * one kind, no tier to pick. It is kept here rather than given a hand-written
+ * brush beside the rocks because the rocks need one for a reason it does not
+ * share — five kinds read back as a single `"rock"` brush — and a second list
+ * would be a second place a creature can be forgotten. `tools/shape-sheet/src/subjects.ts`'s `livingKinds`
  * draws the same line for the same reason, on the same three calls — this is
  * not a second copy of a rule, it is the rule read twice for two different
  * questions ("what does the sheet draw" there, "what can a click place" here).

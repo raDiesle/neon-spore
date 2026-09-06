@@ -74,6 +74,11 @@ const DUTY_WORD = {
   // walking, not a fact one of them is missing — so there is no word for a
   // siren to carry (`comms.ts`).
   crawler: null,
+  // THE GRATE, and the plainest word in the table: the pilot is the only one
+  // shown where the wall is open, and the navigator is the only one who can
+  // put the dome there. What crosses the room is a column number, so the word
+  // is the thing being named rather than the thing being done.
+  grate: { p1: "GAP" },
 } as const satisfies Record<CreatureKind, { p1?: string; p2?: string } | null>;
 
 /** Whether a kind counts as active for this word, including the one kind

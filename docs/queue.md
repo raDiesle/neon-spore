@@ -98,6 +98,34 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
 
 
+## Three tables the next creature cannot be added to without splitting them first
+
+- **Found:** 2026-09-06, claude/electric-barrier-enemy-e6fi1d
+- **Files:** `packages/sim/src/creature-state.ts`, `packages/content/src/creatures-table.ts`, `packages/content/src/mechanics-table.ts`
+
+All three are total over `CreatureKind` or `MechanicId`, so a new creature costs
+each of them a row — and all three now stand at exactly 250 lines, which is the
+limit `packages/sim/test/limits.test.ts` enforces. THE GRATE fitted only because
+its rows were written short and one comment in `creatures-table.ts` was trimmed
+by two lines to make room; the next one will not fit at all, and the lane that
+hits this will be a lane that came to add a creature, not to choose a seam.
+
+Each has a seam its own header already names. `creature-state.ts` says it: the
+fields that "only mean anything against each other" go next door, the way
+`creature-state-held.ts`, `-strand.ts`, `-crawler.ts` and `-veer.ts` already
+have — THE GYRE's four and THE LID's five are each such a group.
+`creatures-table.ts` and `mechanics-table.ts` are split by family already
+(`creatures-guarded.ts`, `creatures-worn.ts`, `creatures-bare.ts`,
+`mechanics-rocks.ts`, `mechanics-run.ts`), and the families to cut next are the
+same in both: the bodies one seat cannot see whole — `lure`, `veil`, `wisp`,
+`ghost`, `dart` — which is a group the bestiary and `render/comms.ts` both
+already read as one.
+
+Do all three in one lane: they fail the same way, on the same day, for the same
+reason, and a lane that splits one of them learns the argument for the other two
+for free.
+
+
 ## Move apps/server off the miniflare alpha when a stable 5 ships
 
 - **Found:** 2026-09-03, claude/bun-queue-list-command-5a8695

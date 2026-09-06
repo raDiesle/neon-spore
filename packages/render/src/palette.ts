@@ -130,6 +130,25 @@ export const PALETTE = {
    */
   wisp: "#8A4BFF",
   wispRim: "#DCC8FF",
+  /**
+   * THE GRATE's current, and the second hue in this palette that is not a body
+   * — a wall of live line across the whole field, which is a hazard rather
+   * than a thing anybody shoots.
+   *
+   * It could not be either ammunition colour and it could not be near one. A
+   * pale electric cyan is what lightning actually looks like and it is exactly
+   * `cyanRim`, which would put *load cyan* across every column of the field on
+   * the one arrival nothing can be fired at — the mistake `clownNose` argues
+   * about, at forty times the size. It could not be `rock` either: a grey wall
+   * says "nothing to report", and this is the loudest thing on the field.
+   *
+   * So it sits at 225°, a hard electric blue between `wisp`'s violet at 262°
+   * and `cyan` at 186° and touching neither, with a near-white rim for the
+   * filament's core. Nothing else in the game is this colour, and the whole of
+   * what the pair has to say about one is *where it is not*.
+   */
+  arc: "#4C7BFF",
+  arcRim: "#DCE6FF",
 } as const;
 
 /**

@@ -203,6 +203,16 @@ const COLOR_FOR_BODY: Record<"slick" | "bulb", Color> = (() => {
 // `entry-fields-rock.ts` next door, cut out when THE CRAWLER's two took this
 // file over its limit. Re-exported here so nothing that already reached for
 // one had to move.
+// **Where a wall is open** — the first per-arrival fact that is a set rather
+// than a choice — is `entry-fields-grate.ts` next door, cut out for the reason
+// the rock's two numbers were. Re-exported here so nothing that already
+// reached for one had to move.
+export {
+  GAP_COLS,
+  grateGapsOf,
+  hasGrateGaps,
+  toggleGrateGap,
+} from "./entry-fields-grate.js";
 export {
   isTieredRock,
   METEOR_SIZES,

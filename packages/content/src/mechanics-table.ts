@@ -233,6 +233,15 @@ export const MECHANICS = {
     // the body (`segmentColor`) rather than from anything an author writes.
     waveNames: true,
   },
+  grate: {
+    what: "A live line across the whole field with one or more gaps burnt through it, coming down twice as fast as anything else. It cannot be shot and the trigger does nothing — the shield does not stop it, it goes through it. The only thing that saves the ship is the dome standing in a gap when the line arrives, and only the pilot can see where the gaps are.",
+    reach: "spawn",
+    // A wave names this kind and never a colour: a wall carries none at all,
+    // the way a wisp does. What a wave authors instead is where the gaps are
+    // (`WaveEntry.gaps`), which is the one thing about this creature an author
+    // composes anything else against.
+    waveNames: true,
+  },
   // The five that are not a thing the field sends — a wave's own opening, the
   // wind-up, and the three things a held thumb does — are `mechanics-run.ts`
   // next door, cut out when THE CRAWLER took this file past its limit along

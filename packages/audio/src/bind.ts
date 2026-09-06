@@ -229,6 +229,7 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "ghostCharge":
     case "strandBead":
     case "strandSwell":
+    case "gratePass":
       return creatureCue(e, cols, rows);
     // THE CAROM's four, in `bind-carom.ts` — one arrival taken apart, cut out
     // of `bind-creatures.ts` the way `events-carom.ts` is cut out of

@@ -176,6 +176,16 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "veilRebuff":
       return at(l, e.col, e.row, 4, PALETTE.sparkDim);
 
+    // THE GRATE going over the ship. The wall does not touch anything — that
+    // is the whole of a pass — but the current earths itself around the dome
+    // on the way through, so the burst is the shield's own colour and it is
+    // thrown at the shield's own column rather than at the body's. A big one:
+    // it is the beat the pair finds out whether the number that crossed the
+    // room was the right one, and until this instant neither of them can see
+    // that it was.
+    case "gratePass":
+      return at(l, e.col, e.row, 20, PALETTE.shieldRim);
+
     default:
       return assertNever(e);
   }

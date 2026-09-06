@@ -1,6 +1,5 @@
 /**
- * Every body that can stand on the field, as a name — and the fixed order that
- * name is written into the world fingerprint in.
+ * Every body that can stand on the field, as a name, and what each of them is.
  *
  * Split out of `types.ts` when THE CLASP arrived and that file was already at
  * its 250-line limit. The seam is real rather than a place to cut: `types.ts`
@@ -196,54 +195,24 @@ export type CreatureKind =
    * red, cyan, armour, so every third one turns the two seats round.
    * `crawler.ts`, `crawler-round.ts` and `crawler-beat.ts` are the whole of it.
    */
-  | "crawler";
+  | "crawler"
+  /**
+   * A live line the width of the field with gaps burnt through it, coming
+   * down twice as fast as anything else. It is not a body standing in a
+   * column — it *is* every column — so nothing about it is aimed at and the
+   * trigger has nothing to say to it: the only question is whether the
+   * shield's dome is standing in one of the gaps when the line reaches it.
+   * Player 1 is shown where the gaps are and player 2, who is the only one
+   * who can move the shield, is shown an unbroken wall. `grate.ts` holds the
+   * whole of it and `Creature.grateGaps` is the whole of its state.
+   */
+  | "grate";
 
-/**
- * Every `CreatureKind`, in one fixed order, so a kind can be written into the
- * world fingerprint as a number (`hash.ts`).
- *
- * **Append only.** The index *is* the wire value: reordering this list changes
- * what every existing replay hashes to, and two devices on different builds
- * would disagree about a world they are playing identically. The `satisfies`
- * keeps the names honest and `KindsAreExhaustive` keeps the list complete — a
- * kind added to the union and not to the list is a build error rather than a
- * silent collision in the fingerprint.
- */
-export const CREATURE_KINDS = [
-  "slick",
-  "bulb",
-  "meteor",
-  "meteorMedium",
-  "meteorFast",
-  "meteorFaster",
-  "meteorFastest",
-  "torch",
-  "queen",
-  "warden",
-  "tether",
-  "lure",
-  "throb",
-  "shell",
-  "clasp",
-  "dart",
-  "veil",
-  "wisp",
-  "ghost",
-  "echo",
-  "rind",
-  "gyre",
-  "mount",
-  "lid",
-  "recoil",
-  "carom",
-  "chute",
-  "volley",
-  "veer",
-  "strand",
-  "crawler",
-] as const satisfies readonly CreatureKind[];
-
-// What that order is *for* — `kindCode`, and the proof that the list above
-// names every member of the union — is `kind-code.ts` next door, cut out when
-// THE CRAWLER took this file over its limit. See that file for why the roster
-// and the number it hashes as are two questions.
+// **The list those names are written in, and the order they hash in**, is
+// `creature-roster.ts` next door — cut out when THE GRATE took this file over
+// its limit, and re-exported here so nothing that reaches for `CREATURE_KINDS`
+// through this file had to move. What that order is *for* — `kindCode`, and
+// the proof that the list names every member of the union — is `kind-code.ts`
+// beside it. Three files, three questions: what a body is, what order the
+// bodies are in, and what number that order makes each of them.
+export { CREATURE_KINDS } from "./creature-roster.js";

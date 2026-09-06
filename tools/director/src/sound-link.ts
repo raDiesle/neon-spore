@@ -191,6 +191,8 @@ export const NO_SUBJECT: Record<string, string> = {
   "boss.fleetHit":
     "a hull holed. THE FLEET's ships are drawn from a length and a heading rather than from a contour (render/fleet-hulls.ts), so there is no one card for a ship the way there is for a slick — five lengths and two headings are ten pictures of the same thing.",
   "boss.fleetSunk": "the same hull, going under. Same argument.",
+  "impact.graze":
+    "THE GRATE going over the ship. What the picture would have to be is a wall the width of the field passing a dome that is standing in one of its gaps — a line and an absence, neither of which is a body, which is why the shape sheet has no GRATE card either.",
   "boss.fleetDown":
     "the last of them. What this marks is a chart with nothing left on it, which is an absence like ui.waveClear rather than a thing standing anywhere.",
 };

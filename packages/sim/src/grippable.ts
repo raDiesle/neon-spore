@@ -1,0 +1,107 @@
+import type { CreatureKind } from "./creature-kinds.js";
+import { isBossBody } from "./kinds.js";
+
+/**
+ * **Whether a hand may be put on a body at all**, and the ten refusals that
+ * answer it.
+ *
+ * Cut out of `kinds.ts` when THE GRATE took that file over its 250-line limit,
+ * and the seam is the one that file's own header draws: everything left there
+ * answers a question about a *kind* in one or two lines — which colour, how
+ * fast, how many tiles — and this one answers a question about a *gesture*,
+ * in a paragraph per body. Nine tenths of the length was the argument, and the
+ * argument is the thing: every kind here is refused for a reason somebody had
+ * to work out, and the list is where the next creature's author reads them.
+ *
+ * `isBossBody` comes back from `kinds.js`, which is a cycle only in the file
+ * graph: nothing here runs at module load, so by the time either function is
+ * called both modules are whole. `types.ts` re-exports `isGrippable` the way it
+ * always did, so nothing that reaches for it had to move.
+ */
+
+/**
+ * Whether a hand may be put on this kind at all — meaning the grip, which is
+ * only ever a brake on a fall (`grip.ts`).
+ *
+ * The tether is refused for the queen's own reason: it does not fall, so a hand
+ * on it would drag at nothing while showing every sign of working. It is still
+ * the one thing in the game a hand is the only answer to — it is *dragged*
+ * rather than held now, by its handle, and that is a different verb with its
+ * own hit test (`render/src/tether.ts`).
+ *
+ * The dart is refused for the same reason arrived at from the other side. It
+ * *does* come down the field, but not by falling: `stepDart` moves it two rows
+ * on the beats it moves and none on the beats it hangs, and it never goes near
+ * `grippedFallTiles`. A brake scales a rate, and a dart has no rate to scale —
+ * a hand on one would be the tether's defect wearing a body that visibly
+ * travels, which is worse.
+ *
+ * The wisp is refused for all three reasons at once, and for a fourth that is
+ * the whole creature: player 1 cannot see one, so a hand could only ever be
+ * put on it by the seat that already knows where it is — which is a way of
+ * marking the tile for the other player without saying anything, and saying it
+ * out loud is the game.
+ *
+ * THE GYRE is refused on both halves, and it is the dart's refusal twice over:
+ * a hub walks a diamond and a mount is carried around a rim, so neither has a
+ * rate for a brake to scale. The pair's answer to a wheel is the maw, which
+ * slows the *turn* and is the coupling the creature was built around
+ * (`gyreSucked`).
+ *
+ * THE CAROM is refused for the dart's reason exactly: it crosses the field on
+ * a diagonal rather than falling, so there is no rate for a brake to scale.
+ * The rock it becomes is grippable again the instant the crust comes off, and
+ * that is the creature rather than an inconsistency — a hand is worth nothing
+ * against the half of it the cannon answers and buys the shield a beat against
+ * the half it does not.
+ *
+ * THE CHUTE is refused for the third time on the same grounds, and it is the
+ * one that most looks like it wants a hand: a body drifting down under a
+ * canopy is exactly what a thumb reaches for. But it does not *fall* — it
+ * takes a whole row on the beats `chuteFalls` names and none at all on the
+ * others — so there is no rate for a brake to scale, and a hand on one would
+ * drag at nothing while showing every sign of working. That is the tether's
+ * defect wearing the most inviting body in the game, which is worse.
+ *
+ * A list rather than a chain of `!==`, now that there are eight of them: a
+ * chain that long is one somebody extends by pattern rather than by argument.
+ */
+// THE VOLLEY is refused for THE CAROM's reason exactly: it crosses on a
+// diagonal and climbs on a ward rather than falling, so `stepVolley` never
+// goes near `grippedFallTiles` and there is no rate for a brake to scale. The
+// body that comes out of the shell is grippable again the instant it is a
+// slick or a bulb, which is the creature rather than an inconsistency — a hand
+// is worth nothing against the half the shield answers and buys the cannon a
+// beat against the half it does not.
+const UNGRIPPABLE: readonly CreatureKind[] = [
+  "tether",
+  "dart",
+  "wisp",
+  "gyre",
+  "mount",
+  "carom",
+  "chute",
+  "volley",
+  // And a bead, for a reason of its own: a thread is several bodies falling
+  // level with each other, and a hand on one of them would slow that one while
+  // its neighbours went on — a picture of a string stretching, drawn over a
+  // world in which nothing is joined at all.
+  "strand",
+  // And a link of a worm, for the dart's reason with nothing left over: a
+  // crawler does not fall in any degree — it holds one row and walks along it
+  // — so a brake has no rate to scale and a hand on one would drag at nothing
+  // while showing every sign of working.
+  "crawler",
+  // And THE GRATE, which is the tether's refusal wearing the one body a hand
+  // would most obviously reach for. It falls, and fast, so there *is* a rate
+  // for a brake to scale — but it is the width of the field, so a hand on it
+  // has no column to be on, and either player could put one anywhere and slow
+  // the whole wall. That is a way of buying the seconds this creature exists
+  // to take away, and it would be bought by the seat that already knows where
+  // the gaps are.
+  "grate",
+];
+
+export function isGrippable(kind: CreatureKind): boolean {
+  return !isBossBody(kind) && !UNGRIPPABLE.includes(kind);
+}

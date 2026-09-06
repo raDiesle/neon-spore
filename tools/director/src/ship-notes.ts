@@ -172,6 +172,13 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "body snaps together behind every one taken off. Strip it and a beam " +
     "takes what is left; let it reach the far wall and it eats in, for as " +
     "much as the pair left on it. See crawler.ts.",
+  "THE GRATE — a live line with a way through it":
+    "A wall of current the width of the field, with gaps burnt through it, " +
+    "coming down two rows a beat. It is the one arrival the trigger cannot " +
+    "answer at all: there is no column for the dome to be in, only a way " +
+    "through for it to be standing in when the line arrives — armed or idle " +
+    "makes no difference. Only the pilot is shown where the gaps are, and " +
+    "only the navigator can move the shield. See grate.ts.",
   "THE VEER — a rock that changes lane on the way down":
     "The first rock that does not hold its column. It falls a row a beat like " +
     "the plain tier and steps one to four lanes to the side three times on the " +

@@ -69,6 +69,7 @@ const creature = (): Required<Creature> => ({
   crawlerId: 6,
   crawlerOrder: 3,
   crawlerDir: -1,
+  grateGaps: 0b101,
 });
 
 const bullet = (): Required<Bullet> => ({

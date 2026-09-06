@@ -43,6 +43,21 @@ export type CreatureEvent =
    */
   | { type: "lureSeen"; col: number }
   /**
+   * A wall went over the ship: the dome was standing in one of its gaps when
+   * it reached the shield's row (`resolveGrate`, hull.ts). `col` is the
+   * shield's own column, which is the gap the pair found, and `row` the row
+   * the wall was on when it passed.
+   *
+   * Its own event because there is nothing else that could stand for it. A
+   * `deflect` is a body thrown off the dome and render draws one tumbling away
+   * from it, and this body is not turned at all — it goes *through*, over a
+   * ship it did not touch. And the moment has to be audible: it is the one
+   * beat in this creature where the pair finds out whether the number that
+   * crossed the room was the right one, and until the wall is past the ship
+   * neither of them can see that it was.
+   */
+  | { type: "gratePass"; col: number; row: number }
+  /**
    * A lure left the field on its own, `lureVanishRows` short of the hull. The
    * one moment of this creature both screens show identically, and player 1's
    * vindication: the body they were told to leave alone resolved itself.

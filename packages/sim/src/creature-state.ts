@@ -232,4 +232,19 @@ export interface CreatureState extends CrawlerState, HeldState, StrandState, Vee
    */
   volleyPlates?: number;
   volleyRise?: number;
+  /**
+   * THE GRATE's one field: which columns the wall is open in, as a bitmask —
+   * bit `k` set means column `k` lets the dome through. Absent on every other
+   * kind, and never absent on a wall, because a wall with no way through is
+   * not a creature (`grateMask`).
+   *
+   * A mask and not a list of columns, for `Creature.shell`'s reason: it is a
+   * set, two devices have to agree about it exactly, and an integer is the
+   * shape the fingerprint already takes. Read it through `grateIsOpen` and
+   * `grateGapCols` (`grate.ts`) and never by shifting here — the break render
+   * draws and the column the shield is tested against are one fact, and a
+   * second spelling is how the pair comes to be shown a way through the ship
+   * has not got.
+   */
+  grateGaps?: number;
 }

@@ -82,6 +82,7 @@ export {
   echoWaitBeats,
 } from "./echo-split.js";
 export { type GhostPath, ghostCrosses, ghostIsCharging, ghostLaps, ghostRage } from "./ghost.js";
+export { grateGapCols, grateIsOpen, grateMask } from "./grate.js";
 export {
   gripCount,
   gripsCreature,
@@ -203,6 +204,7 @@ export {
   SNAKE_TURNS,
   spanCenterCol,
   spanOf,
+  spawnSpan,
   WARDEN_COLS,
 } from "./types.js";
 export {

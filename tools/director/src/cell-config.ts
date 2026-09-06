@@ -1,6 +1,7 @@
 import type { WaveEntry } from "@neon-spore/content";
 import { PALETTE } from "@neon-spore/render";
 import { CRAWLER_SIDES, type CrawlerSide, type GhostPath, type RockSize } from "@neon-spore/sim";
+import { grateGapsRow } from "./cell-config-gaps.js";
 import {
   authorsBody,
   BODY_KINDS,
@@ -30,6 +31,7 @@ import {
   setMeteorSize,
   setMeteorSpeed,
 } from "./entry-fields.js";
+import { hasGrateGaps } from "./entry-fields-grate.js";
 import { silhouette } from "./silhouette.js";
 
 /**
@@ -128,6 +130,13 @@ export function cellConfig({ entry, onEdit }: CellConfigOptions): HTMLElement | 
         onEdit();
       }),
     );
+  }
+  if (hasGrateGaps(e)) {
+    // THE GRATE's own row, and the sixth per-arrival fact in the game — the
+    // first that is a *set*. Which columns the wall is open in is the whole of
+    // what this creature asks the pair to say out loud, so it is the one thing
+    // about a wall an author composes anything else against (`WaveEntry.gaps`).
+    rows.push(grateGapsRow(e, onEdit, labelled));
   }
   if (!rows.length) return null;
 

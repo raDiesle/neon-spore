@@ -16,13 +16,16 @@ export { CREATURE_KINDS, type CreatureKind } from "./creature-kinds.js";
 // and the one that was actually growing. `creature-types.ts` says why, and it
 // is re-exported here so nothing reaching for a `Creature` had to move.
 export type { Creature } from "./creature-types.js";
+// Whether a hand may be put on a body: `grippable.ts`, cut out of `kinds.ts`
+// when THE GRATE arrived, and re-exported here beside everything still there
+// so nothing reaching for `isGrippable` had to move.
+export { isGrippable } from "./grippable.js";
 export type { GuardStats, Scar } from "./hull-types.js";
 export { kindCode } from "./kind-code.js";
 export type { RockKind } from "./kinds.js";
 export {
   fallTilesPerBeat,
   isBossBody,
-  isGrippable,
   isMeteorKind,
   isWardable,
   livingKindForColor,
@@ -43,5 +46,6 @@ export {
   type RockSize,
   spanCenterCol,
   spanOf,
+  spawnSpan,
   WARDEN_COLS,
 } from "./span.js";

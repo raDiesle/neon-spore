@@ -3,12 +3,13 @@ import { growCrawler } from "./crawler-round.js";
 import { dartOnSpawn } from "./dart.js";
 import { echoOnSpawn } from "./echo.js";
 import { ghostOnSpawn } from "./ghost.js";
+import { grateOnSpawn } from "./grate.js";
 import { gyreOnSpawn, mountsFor } from "./gyre.js";
 import { recoilOnSpawn } from "./recoil.js";
 import { rindOnSpawn } from "./rind.js";
 import { shellOnSpawn } from "./shell.js";
 import { stringStrand } from "./strand-spawn.js";
-import { clampSpanCol, colSpan, fallTilesPerBeat, spanOf } from "./types.js";
+import { clampSpanCol, colSpan, fallTilesPerBeat, spawnSpan } from "./types.js";
 import { veerOnSpawn } from "./veer.js";
 import { veilOnSpawn } from "./veil.js";
 import { volleyOnSpawn } from "./volley.js";
@@ -52,7 +53,12 @@ export function spawnArrivals(world: World): void {
     // rather than fixed by its kind, so the clamp that keeps a body's whole
     // span on the field has to be told the real number — a two-wide meteor
     // authored in the last column would otherwise hang half off the edge.
-    const span = spanOf(entry);
+    // `spawnSpan` and not `spanOf`: THE GRATE is the width of the field, which
+    // is not a fact about its kind and is not a number `colSpan` is handed the
+    // configuration to answer. The width is written onto the body below, so
+    // every later reader — the shield's column test, the shot that passes
+    // through, the fingerprint — asks `spanOf` about it like anything else.
+    const span = spawnSpan(world.cfg.cols, entry);
     const col = clampSpanCol(entry.col, world.cfg.cols, span);
     // Said once, at the top of the field, so player 2's ear has the column
     // before the eye has found the ring. A hit should always be player 2's
@@ -130,6 +136,12 @@ export function spawnArrivals(world: World): void {
       // every wave written before THE RECOIL is byte-for-byte the same world.
       ...(entry.kind === "recoil" ? recoilOnSpawn(world.cfg) : {}),
       ...(entry.kind === "gyre" ? gyreOnSpawn() : {}),
+      // Which columns a wall is open in, as the mask everything downstream
+      // reads, and absent on every other kind. Authored rather than rolled and
+      // remapped onto the real field before it got here (`queueFromWave`), so
+      // both devices are handed the same way through — and the way through is
+      // the one thing in this creature the pair has to say out loud.
+      ...(entry.kind === "grate" ? { grateGaps: grateOnSpawn(world.cfg, entry.gaps) } : {}),
       // Which way THE CAROM sets off, and absent on every other kind — so a
       // body that never crosses carries no field at all and every wave written
       // before this creature is byte-for-byte the same world. Derived from the

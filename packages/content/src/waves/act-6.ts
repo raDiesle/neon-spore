@@ -159,4 +159,25 @@ export const WAVES_ACT_6: Wave[] = [
       { beat: 54, col: 5, kind: "meteor", color: null },
     ],
   },
+  {
+    id: "theGrate",
+    name: "THE GRATE",
+    sentence: "The one where reaching for the trigger is the miss.",
+    guide: {
+      both: "A live wall right across the field, coming down twice as fast as anything else. It cannot be shot and the trigger does nothing to it — the shield does not stop this, it goes through it. There is a way through, and the ship survives by standing in it.",
+      p1: "Only your screen shows where the wall is broken. Count the columns from the left and say the number, early — and take your thumb off GUARD, it is worth nothing here. The rocks in this wave still want it.",
+      p2: "Your wall has no break in it anywhere, so ask. Put the shield in the column you are given and be there before it lands: it comes down two rows a beat. The rocks are still the old job — column and trigger, both.",
+    },
+    entries: [
+      { beat: 0, col: 3, kind: "grate", color: null },
+      { beat: 12, col: 5, color: "red" },
+      { beat: 16, col: 1, kind: "grate", color: null },
+      { beat: 26, col: 1, kind: "meteor", color: null },
+      { beat: 30, col: 6, kind: "grate", color: null },
+      { beat: 40, col: 2, color: "cyan" },
+      { beat: 42, col: 0, kind: "grate", color: null },
+      { beat: 54, col: 4, kind: "meteorMedium", color: null },
+      { beat: 56, col: 2, kind: "grate", color: null },
+    ],
+  },
 ];

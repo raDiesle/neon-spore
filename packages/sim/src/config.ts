@@ -6,6 +6,7 @@ import { CREATURE_DEFAULTS, type CreatureConfig } from "./config-creatures.js";
 import { FLEET_DEFAULTS, type FleetConfig } from "./config-fleet.js";
 import { GAUGE_DEFAULTS, type GaugeConfig } from "./config-gauge.js";
 import { GHOST_DEFAULTS, type GhostConfig } from "./config-ghost.js";
+import { GRATE_DEFAULTS, type GrateConfig } from "./config-grate.js";
 import { GYRE_DEFAULTS, type GyreConfig } from "./config-gyre.js";
 import type { PairConfig } from "./config-pair.js";
 import { PINBALL_DEFAULTS, type PinballConfig } from "./config-pinball.js";
@@ -25,6 +26,7 @@ export { CREATURE_DEFAULTS, type CreatureConfig } from "./config-creatures.js";
 export { FLEET_DEFAULTS, FLEET_SHELL_BEATS, type FleetConfig } from "./config-fleet.js";
 export { GAUGE_DEFAULTS, type GaugeConfig } from "./config-gauge.js";
 export { GHOST_DEFAULTS, type GhostConfig } from "./config-ghost.js";
+export { GRATE_DEFAULTS, type GrateConfig } from "./config-grate.js";
 export { GYRE_DEFAULTS, type GyreConfig } from "./config-gyre.js";
 export { PAIR_ON, type PairConfig } from "./config-pair.js";
 export { PINBALL_DEFAULTS, type PinballConfig } from "./config-pinball.js";
@@ -49,6 +51,7 @@ export interface SimConfig
     FleetConfig,
     GaugeConfig,
     GhostConfig,
+    GrateConfig,
     GyreConfig,
     PairConfig,
     PinballConfig,
@@ -200,6 +203,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   ...FLEET_DEFAULTS,
   ...GAUGE_DEFAULTS,
   ...GHOST_DEFAULTS,
+  ...GRATE_DEFAULTS,
   ...GYRE_DEFAULTS,
   ...RECOIL_DEFAULTS,
   ...PINBALL_DEFAULTS,
