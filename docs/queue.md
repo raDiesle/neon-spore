@@ -117,3 +117,35 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 `exports.Room.storage`) still holds — miniflare 5 changed it from 4's flat
 `{ modules, script, durableObjects }`, and `convertV4MiniflareOptions` is the
 shim that shows what the new shape wants if it changed again.
+
+## A drained queue item leaves its claim branch standing for ever
+
+- **Found:** 2026-09-06, claude/queue-branch-sweep-stale-claims
+- **Files:** `tools/land/claims.ts`, `tools/land/sweep.ts`, `tools/land/test/claims.test.ts`
+
+`partitionMerged` protects every merged branch whose name `isClaimBranch`
+recognises, on the grounds that a claim points at `main`'s tip from the second
+it is made and so reads as merged before any work exists — two sessions lost
+every claim they held that way on 3 September 2026, and the rule is right about
+that.
+
+What it does not ask is whether the claim is still *a* claim. A branch is only
+deleted by its own landing, so a session that drains several items with
+`bun run land --keep` and sweeps once at the end deletes exactly one of them.
+The sweep on 6 September kept eleven `claude/queue-*` branches whose entries had
+already been removed from `docs/queue.md` by `bun run queue done`, and four more
+left by earlier sessions — `claude/queue-item-count-233b4b`,
+`claude/queue-item-count-5bb6bf`, `claude/queue-contents-370a98`,
+`claude/queue-the-fleets-lattice-costs-132-fillrect-a-frame-fo`. None of them
+can be given back either: `bun run queue release` needs an entry, and the entry
+is what went away.
+
+A claim is a branch **and** a `Taken:` line, and the second half is what makes
+it one. So `partitionMerged` should be handed the slugs of the entries
+`docs/queue.md` actually holds and protect only the branches that match one; a
+`claude/queue-*` branch with no entry behind it is spent, and a landing may
+delete it like any other. Sweep the fifteen already standing in the same change.
+
+The same argument says a `--keep` landing could sweep its *own* claim branch
+once the entry is gone, since `queue done` has already released the item — but
+that is a second decision and this entry does not ask for it.
