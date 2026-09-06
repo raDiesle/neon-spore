@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · 2f4150bd — VERSUS is a list of doors, and every slot is drawn on its own subject
+
+OTHER GRAPHICS is called VERSUS, which is the name everything else in this repository already used. It draws nothing: nine open candidates were eighteen phone-sized renderers stepping eighteen worlds, plus five baked animations, from the moment the tab was opened. It is now a list — one block per slot, one card per candidate, its sentence, the records it patches, the pose it will be judged on, and a button that opens exactly that comparison in a new tab where it is the only thing the browser is animating. The baked animations, the live field they are judged on and COLLECTED LOOKS moved behind the same kind of button. `versus.html` is one page routed by its query string; `server.ts` answers it and `build.ts` writes it into `dist/`.
+
 ## 2026-09-06 · 51acbc4f — The boss page takes the rounds, and three sheets read down one column
 
 BOSSES, BESTIARY and MECHANICS are each a page somebody goes down heading by heading to decide what is worth building, and a grid of side-by-side groups is read in vertical strips with no way to tell which heading a paragraph belongs under. All three are one column at prose width now — the `.columns.reading` rule that was already in the stylesheet and had nothing wearing it.
