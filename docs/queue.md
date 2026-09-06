@@ -335,6 +335,7 @@ need an edit.
 ## THE CRAWLER should ride over the cannon lobe instead of the flat surface
 
 - **Found:** 2026-09-05, claude/crawler-destructible-parts-9a6e68
+- **Taken:** 2026-09-06, claude/queue-the-crawler-should-ride-over-the-cannon-lobe-ins
 - **Files:** `packages/render/src/crawler-place.ts`,
   `packages/render/src/crawler.ts`, `packages/render/src/hull-frame.ts`,
   `packages/render/src/frame-field.ts`, `packages/render/test/crawler-budget.test.ts`
