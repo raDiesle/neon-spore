@@ -49,22 +49,38 @@ async function worktreesByBranch(root: string): Promise<Map<string, string>> {
  * Nothing is asked of the reader and nothing is asked of the session — the
  * entry is derived from the commit subject and its first paragraph, which the
  * commit already had to carry.
+ *
+ * **A clone with no worktrees is written the same way.** It used to print
+ * `no release note — nothing has main checked out` and move on, which is the
+ * shape every session started from a phone runs in (`docs/cloud-session.md`) —
+ * so every landing that reached `origin/main` from one was a landing the notes
+ * never heard about, and the commit message turned into a note is the only part
+ * of a landing anybody sees twice. There is no *second* checkout to write into
+ * there, but the session's own is the trunk's content already: `moveTrunk` has
+ * just forced the trunk ref onto this HEAD. So the note is written here,
+ * committed here, and the trunk is brought up to the commit that carries it.
  */
-export async function writeNotes(state: LandState, landed: Landed[], TRUNK: string): Promise<void> {
+export async function writeNotes(
+  state: LandState,
+  landed: Landed[],
+  TRUNK: string,
+  root: string,
+): Promise<void> {
   if (landed.length === 0) return;
-  if (!state.trunkTree) {
-    console.log(`  ⚑ no release note — nothing has ${TRUNK} checked out`);
-    return;
-  }
-  const path = join(state.trunkTree, "docs/release-notes.md");
+  const tree = state.trunkTree || root;
+  const path = join(tree, "docs/release-notes.md");
   const file = Bun.file(path);
   const existing = (await file.exists()) ? await file.text() : "";
   await Bun.write(path, prepend(existing, landed));
   const what = landed.length === 1 ? "one landing" : `${landed.length} landings`;
   await gitOrDie(
     ["commit", "--only", "docs/release-notes.md", "-q", "-m", `Release notes for ${what}`],
-    state.trunkTree,
+    tree,
   );
+  // Only in a clone: the commit just made is on whatever this checkout is
+  // standing on, and the trunk is a ref beside it rather than the branch that
+  // moved. Where a worktree holds the trunk, that commit *was* the trunk's.
+  if (!state.trunkTree) await gitOrDie(["branch", "--force", TRUNK, "HEAD"], root);
   console.log(`  noted    docs/release-notes.md — ${what}`);
 }
 

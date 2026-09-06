@@ -100,28 +100,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
 
 
-## A landing from a clone writes no release note at all
-
-- **Found:** 2026-09-06, claude/electric-barrier-enemy-e6fi1d
-- **Taken:** 2026-09-06, claude/queue-a-landing-from-a-clone-writes-no-release-note-at
-- **Files:** `tools/land/sweep.ts`, `tools/land/state.ts`, `docs/release-notes.md`
-
-`bun run land` in a clone with no worktrees prints
-`⚑ no release note — nothing has main checked out` and moves on. It is the
-shape every session started from a phone runs in (`docs/cloud-session.md`), so
-every landing that reaches `origin/main` from one is a landing the release
-notes never hear about — and the commit message being turned into the note is
-the only part of a landing anybody sees twice (CLAUDE.md's Git section says so
-in as many words).
-
-The guard is presumably there because the note is written into a *checked-out*
-`main` and a clone standing on the lane's own branch has none. In a clone the
-trunk is fast-forwarded under the session's feet anyway, so the same is true of
-the note: write it, commit it onto `main`, and push it with the trunk. Check
-what `--keep` should do — it moves `main` without sweeping, and a note written
-then is a note about a lane that has not finished.
-
-
 ## Move apps/server off the miniflare alpha when a stable 5 ships
 
 - **Found:** 2026-09-03, claude/bun-queue-list-command-5a8695

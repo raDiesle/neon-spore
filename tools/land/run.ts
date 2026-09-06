@@ -206,7 +206,7 @@ async function moveTrunk(): Promise<Landed[]> {
 
 const landed = going.sweepOnly ? [] : await moveTrunk();
 
-await writeNotes(state, landed, TRUNK);
+await writeNotes(state, landed, TRUNK, root);
 const cleanup = going.sweeps ? await sweep(state, root, TRUNK) : SWEPT_NOTHING;
 if (!going.sweeps) console.log(`  kept     ${branch} and every worktree — --keep swept nothing`);
 
