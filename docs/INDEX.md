@@ -1152,5 +1152,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/versus-one.ts` | One candidate, alone, on a page of its own — the live half of VERSUS |
 | `tools/director/src/versus-open.ts` | Where a look opens, and how a page links to it |
 | `tools/director/src/versus-tab.ts` | The VERSUS tab: every look offered beside what the field already draws, never in place of it |
+| `tools/director/src/place.ts` | Where you are in the director, as a value — and the two functions that turn it into a URL and back |
+| `tools/queue/edit.ts` | Editing `docs/queue.md` and `docs/parked.md` in place: the claim written into an entry |
 
 <!-- index:code:end -->

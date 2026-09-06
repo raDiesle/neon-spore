@@ -14,7 +14,8 @@ import { spawnSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { branchFor, takenMark } from "./claim.js";
-import { type Item, markTaken } from "./queue.js";
+import { markTaken } from "./edit.js";
+import type { Item } from "./queue.js";
 
 export const ROOT = join(import.meta.dirname, "..", "..");
 export const PATHS = {

@@ -18,7 +18,8 @@
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { branchFor, claimOn, promptFor, statusLines, statusOf, unclaimed } from "./claim.js";
-import { clearTaken, type Item, order, parseItems, pick, problemsIn, removeItem } from "./queue.js";
+import { clearTaken, removeItem } from "./edit.js";
+import { type Item, order, parseItems, pick, problemsIn } from "./queue.js";
 import { claim, drop, hasBranch, onTrunk, PATHS, refs } from "./repo.js";
 
 function load(): Item[] {

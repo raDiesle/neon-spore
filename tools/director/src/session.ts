@@ -16,6 +16,11 @@
  * place because opening one is a click same as a tab, not because several of
  * them already fit the pattern.
  *
+ * The `Place` value itself, and the two pure functions that turn it into a
+ * query string and back, are `place.ts` next door — this file is the half that
+ * needs a `window` and a `document`, and keeping the halves apart is what lets
+ * the fallback rules be read without either.
+ *
  * `history.replaceState`, never `pushState`: a chain of clicks must not grow
  * a history entry per click, only overwrite the one entry a reload restores.
  * The URL is read exactly once, at startup — `bindPlace` below owns that.
@@ -35,63 +40,7 @@
  * reloaded comes back closed rather than remembering a tab nobody can see.
  */
 
-/** The main editor's own tab bar — `#tabs` in `index.html`, wired by `bindTabs` in `tabs.ts`. */
-const KNOWN_TABS = ["wave", "ship", "tuning", "balance"] as const;
-export type Tab = (typeof KNOWN_TABS)[number];
-const DEFAULT_TAB: Tab = "wave";
-
-function isKnownTab(value: string): value is Tab {
-  return (KNOWN_TABS as readonly string[]).includes(value);
-}
-
-export interface Place {
-  tab: Tab;
-  /** A wave index, or null when the URL named none. */
-  wave: number | null;
-  /** The overlay sheet open over the editor, by its own opaque name, or null for none. */
-  sheet: string | null;
-  /** The open sheet's own inner tab, by name, or null when it has none open. Always null when `sheet` is. */
-  inner: string | null;
-}
-
-/**
- * Parses a `location.search`-shaped string into a `Place`. Pure, so the
- * fallback rule is testable without a `window`: a URL outlives the code that
- * wrote it, so an unknown tab name, a malformed wave number, or an `inner`
- * with no `sheet` beside it falls back silently rather than throwing — a link
- * from three weeks ago should open the page, not a blank screen.
- */
-export function parsePlace(search: string): Place {
-  const params = new URLSearchParams(search);
-
-  const rawTab = params.get("tab");
-  const tab = rawTab && isKnownTab(rawTab) ? rawTab : DEFAULT_TAB;
-
-  const rawWave = params.get("wave");
-  const parsed = rawWave ? Number(rawWave) : Number.NaN;
-  const wave = Number.isInteger(parsed) && parsed >= 0 ? parsed : null;
-
-  const sheet = params.get("sheet") || null;
-  // An `inner` with no `sheet` is a malformed or hand-edited URL, not a
-  // sheet the reader meant to reopen — dropped the same way a wave with no
-  // digits is.
-  const inner = sheet ? params.get("inner") || null : null;
-
-  return { tab, wave, sheet, inner };
-}
-
-/** The query string a `Place` round-trips to, e.g. `"?tab=wave&sheet=backlog&inner=spec"` — never a trailing `?` alone. */
-export function placeToSearch(place: Place): string {
-  const params = new URLSearchParams();
-  params.set("tab", place.tab);
-  if (place.wave !== null) params.set("wave", String(place.wave));
-  if (place.sheet !== null) {
-    params.set("sheet", place.sheet);
-    if (place.inner !== null) params.set("inner", place.inner);
-  }
-  const query = params.toString();
-  return query ? `?${query}` : "";
-}
+import { DEFAULT_TAB, type Place, parsePlace, placeToSearch, type Tab } from "./place.js";
 
 /** Read once, at startup — see the module header. */
 function readPlace(): Place {

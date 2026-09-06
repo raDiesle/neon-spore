@@ -1,6 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { claimOn, takenMark, unclaimed } from "../claim.js";
-import { clearTaken, markTaken, parseItems, removeItem } from "../queue.js";
+import { clearTaken, markTaken, removeItem } from "../edit.js";
+import { parseItems } from "../queue.js";
 
 /**
  * The `Taken:` line — the half of a claim that survives a clone.

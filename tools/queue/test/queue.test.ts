@@ -10,7 +10,8 @@ import {
   statusOf,
   unclaimed,
 } from "../claim.js";
-import { order, parseItems, pick, problemsIn, removeItem } from "../queue.js";
+import { removeItem } from "../edit.js";
+import { order, parseItems, pick, problemsIn } from "../queue.js";
 
 const ROOT = join(import.meta.dirname, "..", "..", "..");
 
@@ -271,5 +272,25 @@ describe("a fenced block is prose about an entry, not an entry", () => {
     const md =
       "# Queue\n\nThe format:\n\n```\n## Example heading\n\n- **Found:** 2026-09-03, x\n```\n";
     expect(parseItems(md, "queue")).toEqual([]);
+  });
+});
+
+describe("a fence nobody closed", () => {
+  // What went wrong on 6 September 2026: a rebase resolution left a second
+  // copy of the preamble's closing fence in the middle of the entries, and
+  // every entry under it vanished from `bun run queue` without a word.
+  const THREE_FENCES = `# Queue\n\nThe format:\n\n\`\`\`\n## Example heading\n\`\`\`\n\n\`\`\`\n\n${ENTRY}`;
+
+  it("is refused rather than obeyed, so the entries under it cannot vanish", () => {
+    expect(() => parseItems(THREE_FENCES, "queue")).toThrow(/never closed/);
+  });
+
+  it("names the line it opened on, and the file it is in", () => {
+    expect(() => parseItems(THREE_FENCES, "queue")).toThrow(/docs\/queue\.md: .*line 9\b/);
+    expect(() => parseItems(THREE_FENCES, "parked")).toThrow(/docs\/parked\.md/);
+  });
+
+  it("still lets a balanced pair hide what is inside it", () => {
+    expect(parseItems(`\`\`\`\n## Example heading\n\`\`\`\n\n${ENTRY}`, "queue")).toHaveLength(1);
   });
 });

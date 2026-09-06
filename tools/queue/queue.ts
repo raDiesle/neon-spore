@@ -52,10 +52,11 @@ export type Item = {
   readonly body: string;
 };
 
-const HEADING = /^##\s+(\S.*?)\s*$/;
-const FOUND = /^-\s+\*\*Found:\*\*\s+(\d{4}-\d{2}-\d{2}\b.*)$/;
-const TAKEN = /^-\s+\*\*Taken:\*\*\s+(\S.*)$/;
-const FILES = /^-\s+\*\*Files:\*\*\s+(\S.*)$/;
+/** The four line shapes both this file and `edit.ts` match — one copy, so a format change is one edit. */
+export const HEADING = /^##\s+(\S.*?)\s*$/;
+export const FOUND = /^-\s+\*\*Found:\*\*\s+(\d{4}-\d{2}-\d{2}\b.*)$/;
+export const TAKEN = /^-\s+\*\*Taken:\*\*\s+(\S.*)$/;
+export const FILES = /^-\s+\*\*Files:\*\*\s+(\S.*)$/;
 const ASKS = /^-\s+\*\*Asks:\*\*\s+(\S.*)$/;
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}/;
 
@@ -63,16 +64,32 @@ const ISO_DATE = /^\d{4}-\d{2}-\d{2}/;
  * Both files carry their own instructions — in an HTML comment, and in a fenced
  * block showing the format. A heading inside either is prose about an entry,
  * not an entry, and the queue must not offer it to somebody as work.
+ *
+ * A fence nobody closed is a corrupt file, not a long example, and it is
+ * refused rather than obeyed: obeying it erases every line from that fence to
+ * the end. That is how a rebase resolution duplicating this file's own `Asks:`
+ * example hid fifteen entries under a listing reading "3 in the queue" — no
+ * problem reported and `bun run check` green. Throwing costs the whole
+ * command, which is the point.
  */
-function stripProse(md: string): string {
-  let fenced = false;
-  return md.replace(/<!--[\s\S]*?-->/g, "").replace(/^.*$/gm, (line) => {
-    if (/^\s*```/.test(line)) {
-      fenced = !fenced;
+function stripProse(md: string, source: Source): string {
+  let openedAt = 0;
+  let line = 0;
+  const stripped = md.replace(/<!--[\s\S]*?-->/g, "").replace(/^.*$/gm, (text) => {
+    line++;
+    if (/^\s*```/.test(text)) {
+      openedAt = openedAt === 0 ? line : 0;
       return "";
     }
-    return fenced ? "" : line;
+    return openedAt === 0 ? text : "";
   });
+  if (openedAt !== 0) {
+    throw new Error(
+      `docs/${source}.md: the code fence opened on line ${openedAt} is never closed, ` +
+        "so every entry under it would be silently dropped — close it or delete it",
+    );
+  }
+  return stripped;
 }
 
 function fieldOf(body: string, re: RegExp): string {
@@ -93,7 +110,7 @@ export function splitFiles(value: string): string[] {
 
 /** Every `##` section of one file, in the order they are written. */
 export function parseItems(md: string, source: Source): Item[] {
-  const lines = stripProse(md).split("\n");
+  const lines = stripProse(md, source).split("\n");
   const items: Item[] = [];
   let title: string | null = null;
   let body: string[] = [];
@@ -167,66 +184,6 @@ export function problemsIn(items: readonly Item[]): string[] {
  */
 export function order(queue: readonly Item[], parked: readonly Item[]): Item[] {
   return [...parked, ...queue];
-}
-
-/**
- * The lines of one `##` section, as a half-open range over `lines`.
- * `[-1, -1]` when no entry carries that title.
- */
-function sectionOf(lines: readonly string[], title: string): [number, number] {
-  let start = -1;
-  for (let i = 0; i < lines.length; i++) {
-    const m = HEADING.exec(lines[i] ?? "");
-    if (!m) continue;
-    if (start === -1 && m[1] === title) start = i;
-    else if (start !== -1) return [start, i];
-  }
-  return start === -1 ? [-1, -1] : [start, lines.length];
-}
-
-/**
- * The markdown with a `Taken:` line written into one entry — the claim, as the
- * file itself says it.
- *
- * It goes directly under `Found:` so the two dates read together: when this was
- * noticed, and when somebody picked it up. An entry that already carries one is
- * an error rather than an overwrite, because the only way to reach that state
- * is two sessions claiming the same item, which is the thing the mark exists to
- * make impossible.
- */
-export function markTaken(md: string, title: string, mark: string): string {
-  const lines = md.split("\n");
-  const [start, end] = sectionOf(lines, title);
-  if (start === -1) throw new Error(`no entry titled ${JSON.stringify(title)}`);
-  let at = -1;
-  for (let i = start; i < end; i++) {
-    const line = (lines[i] ?? "").trim();
-    if (TAKEN.test(line)) throw new Error(`${JSON.stringify(title)} is already taken: ${line}`);
-    if (FOUND.test(line) || (at === -1 && FILES.test(line))) at = i;
-  }
-  if (at === -1) throw new Error(`${JSON.stringify(title)} has no Found: or Files: line to sit by`);
-  return [...lines.slice(0, at + 1), `- **Taken:** ${mark}`, ...lines.slice(at + 1)].join("\n");
-}
-
-/** The markdown with one entry's `Taken:` line removed. Silent when there is none. */
-export function clearTaken(md: string, title: string): string {
-  const lines = md.split("\n");
-  const [start, end] = sectionOf(lines, title);
-  if (start === -1) throw new Error(`no entry titled ${JSON.stringify(title)}`);
-  const kept = lines.filter((line, i) => !(i >= start && i < end && TAKEN.test(line.trim())));
-  return kept.join("\n");
-}
-
-/** The markdown with one `##` section taken out. Throws if the title is not there. */
-export function removeItem(md: string, title: string): string {
-  const lines = md.split("\n");
-  const [start, end] = sectionOf(lines, title);
-  if (start === -1) throw new Error(`no entry titled ${JSON.stringify(title)}`);
-  const kept = [...lines.slice(0, start), ...lines.slice(end)];
-  return `${kept
-    .join("\n")
-    .replace(/\n{3,}$/, "\n\n")
-    .trimEnd()}\n`;
 }
 
 /** Resolves what the CLI was given: a 1-based position, or part of a title. */
