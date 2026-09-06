@@ -276,6 +276,7 @@ outside `packages/sim` need change; `bun run check` is the proof.
 ## packages/sim/src/index.ts is at its 250-line ceiling and shaping other files
 
 - **Found:** 2026-09-06, claude/fence-enemy-visuals
+- **Taken:** 2026-09-06, claude/queue-packages-sim-src-index-ts-is-at-its-250-line-cei
 - **Files:** `packages/sim/src/index.ts`
 
 The barrel is 249 lines and the limit is 250, so a lane that adds two rules to
