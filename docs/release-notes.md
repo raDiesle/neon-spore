@@ -9,6 +9,22 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · ce2e694b — Queue: a merged baseline keeps yesterday's numbers on untouched rows
+
+Found while keying the baseline's rows by `Wave.id`. The duplicate-row failure is closed, but a wave that shifted without its arrivals changing keeps a stale number that only a full sweep repairs.
+
+## 2026-09-06 · 232e94c4 — The vote emits the adoption prompt, and the sweep's clock runs forwards
+
+`tools/versus/prompt.ts` and its four companions have been typechecked, linted and tested for a fortnight while nothing in the director imported one, so the prompt `docs/versus.md` specifies had never reached a clipboard and the vote box said so twice in the record it copied instead. `emit` now calls `votePrompt`, with `readCurrent` read at the moment of the press rather than any sooner — a copy of a shipped value taken earlier is the drift the whole arrangement exists to prevent.
+
+## 2026-09-06 · 4d301eb7 — A baseline row is keyed by the wave's id, and the relay test waits for state
+
+`bun run perf --wave X --save` matched a row by the number it was writing to and by the name it carried, and did something different when the two disagreed — which is how inserting THE CUT at wave 48 and re-measuring THE JAM afterwards left the baseline with fifty-one rows, THE JAM twice and no row at all for THE MAGNET. `WaveCost` now carries `Wave.id`, the one handle a rename or an insertion cannot move, and `keyOf` in `shape.ts` is the single place a row is matched on it: `mergeInto`, `machineScale`, `shapeOf` and `compareRuns` all read it, and a row written before the field existed falls back to its number. `baseline.json`'s fifty-two rows are backfilled from `WAVES` without re-measuring — only the id lines are new. `baseline.test.ts` gains the row-uniqueness assertion that would have named the problem instead of leaving a mismatched name at an index.
+
+## 2026-09-06 · d4a95093 — One stream in render/, and two built rounds off the idea list
+
+`hash.ts` gains `stream(seed)`, the repeatable *sequence* its `sinHash` cannot answer, and `scars.ts` and `lure-blast.ts` drop their private copies of the same linear congruential generator. Nothing drawn moves: the constants and the `(n >>> 8) % 10000` reduction are carried over exactly, so a seed gives the same crack. `copies-table.ts` gets the row that stops the next copy, matching on `1664525`; `tools/raster/src/burst-art.ts` is named as the one exemption, because its reduction differs and every number it answers is already baked into a shipped PNG.
+
 ## 2026-09-06 · 3a875fcf — The queue refuses an unclosed fence, and the director gets a DOM to test against
 
 Three findings from the sheet-restore lane, done together because they are one story: a silent failure, and the reason nothing caught it.
