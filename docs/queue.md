@@ -212,6 +212,7 @@ A fresh session can finish it: the change is two paragraphs, and
 ## `docs/shipped-looks.md` does not know THE CRAWLER exists
 
 - **Found:** 2026-09-05, claude/crawler-enemy-design-ba0a00
+- **Taken:** 2026-09-06, claude/queue-docs-shipped-looks-md-does-not-know-the-crawler
 - **Files:** `docs/shipped-looks.md`, `packages/render/src/crawler.ts`,
   `packages/render/src/crawler-fx.ts`, `packages/content/src/crawler-shape.ts`
 
