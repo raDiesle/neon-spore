@@ -4,6 +4,7 @@ import { git, root, startPreview } from "../frames/serve.js";
 import { DEFAULT_THROTTLE, keyOf, mergeInto, type Run } from "./compare.js";
 import { calibrate, sweep, waveId } from "./measure.js";
 import { DRIFT_MIN_WAVES } from "./noise.js";
+import { renumber } from "./renumber.js";
 import { printComparison, printRun, printSummary } from "./say.js";
 import { assemble } from "./shape.js";
 import { wavesAsked, withReferences } from "./waves.js";
@@ -175,17 +176,21 @@ try {
       );
       process.exit(1);
     }
-    await Bun.write(BASELINE, `${JSON.stringify(merged, null, 2)}\n`);
-    const rows = merged.waves.filter((w) => taken.includes(w.wave));
+    const { run: written, dropped } = renumber(merged);
+    await Bun.write(BASELINE, `${JSON.stringify(written, null, 2)}\n`);
+    const rows = written.waves.filter((w) => taken.includes(w.wave));
     const scale = rows[0]?.mergedFrom?.scale ?? 1;
     console.log(
       `\nbaseline merged: ${rows.map((w) => `${w.wave} ${w.name}`).join(", ")} — the other ` +
-        `${merged.waves.length - rows.length} rows are untouched`,
+        `${written.waves.length - rows.length} rows are untouched`,
     );
     console.log(
       `  scaled by ${scale.toFixed(2)}x onto the baseline's footing, read off the reference waves ` +
         `neither run changed`,
     );
+    if (dropped.length > 0) {
+      console.log(`  dropped, no longer in the game: ${dropped.join(", ")}`);
+    }
   } else if (before) {
     console.log(
       narrow

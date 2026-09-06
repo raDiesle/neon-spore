@@ -1155,5 +1155,6 @@ place — the generator keeps whatever is there.
 | `tools/director/src/place.ts` | Where you are in the director, as a value — and the two functions that turn it into a URL and back |
 | `tools/queue/edit.ts` | Editing `docs/queue.md` and `docs/parked.md` in place: the claim written into an entry |
 | `tools/frames/press-plan.ts` | when each `--press` is sent, and the tick that must run after it |
+| `tools/perf/renumber.ts` | a merged baseline put back on today's wave numbers |
 
 <!-- index:code:end -->

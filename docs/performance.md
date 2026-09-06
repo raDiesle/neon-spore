@@ -84,6 +84,17 @@ today's is the machine and the weather, and the row is multiplied by it before i
 goes in. The row records the factor, the day and the commit in `mergedFrom`, so a
 stitched baseline says so in the file.
 
+**And every row is put back on today's numbers as it is written.** A row is
+matched on its id, which is what stops a wave that moved being written twice —
+but matching renumbers nothing, so a merged row carried today's `wave` and the
+rows beside it kept whatever number the file was written with. That converged by
+itself whenever the waves that moved were the waves being re-measured, and never
+for a wave that merely *shifted*: identical arrivals, nothing asking for it, and
+`baseline.test.ts` failing on play order with no advice but the three-minute
+sweep this whole merge exists to spare. `renumber` in `tools/perf/renumber.ts`
+reads the number and the name off the game rather than off the file, and a row
+whose id the game no longer answers to is dropped and named on the way out.
+
 ## What it measures, and why that and not something else
 
 `packages/render/test/frame-budget.test.ts` counts canvas **operations**. That is

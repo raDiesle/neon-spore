@@ -4,6 +4,7 @@ import { arrivalsOf } from "../arrivals.js";
 import baseline from "../baseline.json" with { type: "json" };
 import { FRAME_MS, medianMs, type Run, verdictFor, type WaveCost } from "../compare.js";
 import { waveId, waveName } from "../measure.js";
+import { renumber } from "../renumber.js";
 
 /**
  * `tools/perf/baseline.json` read as data rather than taken on trust.
@@ -90,5 +91,59 @@ describe("the checked-in baseline", () => {
     const over = saved.waves.filter((w: WaveCost) => verdictFor(w.p90) !== "fine");
     expect(over.map((w: WaveCost) => `${w.name} ${w.p90}ms`)).toEqual([]);
     expect(medianMs(saved)).toBeLessThan(FRAME_MS / 2);
+  });
+});
+
+/**
+ * **A merge leaves the file in play order**, which is the assertion that would
+ * have caught the thing `renumber` was written for.
+ *
+ * `mergeInto` matches a row on its id and renumbers nothing, so a merged row
+ * carried today's `wave` and every row beside it kept whatever number the
+ * baseline was written with. It converged by itself whenever the waves that
+ * moved were the waves being re-measured — and not for a wave that merely
+ * *shifted*: identical arrivals, nothing asking for it, and the first check
+ * above failing on play order with no advice but a three-minute sweep.
+ */
+describe("renumbering a merged baseline", () => {
+  const saved = baseline as Run;
+
+  it("puts every row back on the number and the name the game gives it today", () => {
+    // Yesterday's file: every row one number out and named for its neighbour,
+    // which is exactly the shape an inserted wave leaves behind.
+    const stale = saved.waves.map((w: WaveCost, i: number) => ({
+      ...w,
+      wave: w.wave + 1,
+      name: waveName((i + 1) % saved.waves.length),
+    }));
+    const { run, dropped } = renumber({ ...saved, waves: stale });
+    expect(dropped).toEqual([]);
+    for (const [index, cost] of run.waves.entries()) {
+      expect(cost.wave, `wave ${index + 1} is in play order`).toBe(index + 1);
+      expect(cost.name, `wave ${index + 1}'s name`).toBe(waveName(index));
+      expect(cost.id, `wave ${index + 1}'s id`).toBe(waveId(index));
+    }
+  });
+
+  it("sorts the rows, so one that moved does not sit where it used to", () => {
+    const shuffled = [...saved.waves].reverse();
+    const { run } = renumber({ ...saved, waves: shuffled });
+    expect(run.waves.map((w: WaveCost) => w.wave)).toEqual(
+      saved.waves.map((_: WaveCost, i: number) => i + 1),
+    );
+  });
+
+  it("drops a row for a wave the game no longer has, and says which", () => {
+    const gone = { ...(saved.waves[0] as WaveCost), id: "no-such-wave", name: "THE DELETED" };
+    const { run, dropped } = renumber({ ...saved, waves: [...saved.waves, gone] });
+    expect(dropped).toEqual([`${gone.wave} THE DELETED`]);
+    expect(run.waves).toHaveLength(saved.waves.length);
+  });
+
+  it("leaves a row written before ids existed exactly where it is", () => {
+    const old = { ...(saved.waves[0] as WaveCost), id: undefined, wave: 999 };
+    const { run, dropped } = renumber({ ...saved, waves: [...saved.waves.slice(1), old] });
+    expect(dropped).toEqual([]);
+    expect(run.waves.at(-1)?.wave).toBe(999);
   });
 });
