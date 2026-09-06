@@ -1,4 +1,4 @@
-import { GHOST, ghostPath } from "@neon-spore/content";
+import { GHOST, ghostPoints } from "@neon-spore/content";
 import {
   type Color,
   type Creature,
@@ -7,6 +7,7 @@ import {
   type SimConfig,
   type World,
 } from "@neon-spore/sim";
+
 import { contourClock } from "./creature-place.js";
 import { hazed } from "./depth.js";
 import { drawGhostEyes } from "./ghost-eyes.js";
@@ -14,6 +15,7 @@ import { slabs } from "./ghost-glitch.js";
 import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { splinePath } from "./spline.js";
 
 /**
  * THE GHOST, drawn — a dome with a hem of tails, wearing a camouflage that is
@@ -98,18 +100,10 @@ export function drawGhost(
   const { hex, rim, dark } = ghostPalette(c.color);
   const haze = (h: string): string => hazed(cfg, h, near);
 
-  const d = ghostPath(
-    0,
-    0,
-    GHOST.rx,
-    GHOST.ry,
-    GHOST.tails,
-    GHOST.skirt,
-    GHOST.wobble,
-    t,
-    GHOST.seed,
+  const body = splinePath(
+    ghostPoints(0, 0, GHOST.rx, GHOST.ry, GHOST.tails, GHOST.skirt, GHOST.wobble, t, GHOST.seed),
+    true,
   );
-  const body = new Path2D(d);
 
   ctx.save();
   ctx.translate(x, y);

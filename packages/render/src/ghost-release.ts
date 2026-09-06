@@ -1,7 +1,8 @@
-import { GHOST, ghostPath } from "@neon-spore/content";
+import { GHOST, ghostPoints } from "@neon-spore/content";
 import type { Color, SimEvent } from "@neon-spore/sim";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { splinePath } from "./spline.js";
 
 /**
  * A ghost let go of, and the one moment both screens carry this creature.
@@ -131,7 +132,7 @@ export class GhostReleaseFx {
     ctx.scale(scale * squash, scale * (1 + u * 0.25));
     ctx.globalCompositeOperation = "lighter";
 
-    const d = ghostPath(
+    const pts = ghostPoints(
       0,
       0,
       GHOST.rx,
@@ -142,7 +143,7 @@ export class GhostReleaseFx {
       e.seed + u * 9,
       GHOST.seed,
     );
-    const body = new Path2D(d);
+    const body = splinePath(pts, true);
     ctx.globalAlpha = 0.5 * (1 - u ** 2);
     ctx.fillStyle = e.hex;
     ctx.fill(body);

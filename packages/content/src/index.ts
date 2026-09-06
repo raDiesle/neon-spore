@@ -54,7 +54,13 @@ export {
   radarOwner,
   showsRadar,
 } from "./creatures.js";
-export { GHOST, type GhostSilhouette, ghostOutline, ghostPath } from "./ghost-shape.js";
+export {
+  GHOST,
+  type GhostSilhouette,
+  ghostOutline,
+  ghostPath,
+  ghostPoints,
+} from "./ghost-shape.js";
 export {
   type Bump,
   bumpAdd,

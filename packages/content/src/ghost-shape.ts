@@ -94,8 +94,28 @@ export function ghostOutline(
   return pts;
 }
 
-/** THE GHOST's outline as a path. `ghostOutline` is the geometry; this is the
- * one call the canvas makes, the way `blobPath` is for a lobed body. */
+/** THE GHOST's outline placed on the field. What the canvas draws every frame
+ * — `render/src/spline.ts` writes these points straight into a `Path2D`, and
+ * a ghost's trail is nine of them per body per frame. */
+export function ghostPoints(
+  cx: number,
+  cy: number,
+  rx: number,
+  ry: number,
+  tails: number,
+  skirt: number,
+  wobble: number,
+  t: number,
+  seed: number,
+): Point[] {
+  return ghostOutline(rx, ry, tails, skirt, wobble, t, seed).map((p) => ({
+    x: cx + p.x,
+    y: cy + p.y,
+  }));
+}
+
+/** The same outline as an SVG path string — what a sheet strokes, the way
+ * `blobPath` is for a lobed body. */
 export function ghostPath(
   cx: number,
   cy: number,
@@ -107,11 +127,7 @@ export function ghostPath(
   t: number,
   seed: number,
 ): string {
-  const pts = ghostOutline(rx, ry, tails, skirt, wobble, t, seed).map((p) => ({
-    x: cx + p.x,
-    y: cy + p.y,
-  }));
-  return catmullRomToBezierPath(pts);
+  return catmullRomToBezierPath(ghostPoints(cx, cy, rx, ry, tails, skirt, wobble, t, seed));
 }
 
 /**

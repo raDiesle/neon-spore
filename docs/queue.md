@@ -119,29 +119,6 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 shim that shows what the new shape wants if it changed again.
 
 
-## THE GHOST is the dearest frame in the game, and it is dearer on one seat
-
-- **Found:** 2026-09-03, claude/game-performance-mobile-analysis-cd4207
-- **Taken:** 2026-09-06, claude/queue-the-ghost-is-the-dearest-frame-in-the-game-and-i
-- **Files:** `packages/render/src/ghost-trail.ts`, `packages/render/src/ghost-row.ts`, `packages/render/src/ghost-eyes.ts`, `packages/render/src/ghost.ts`, `packages/render/src/ghost-glitch.ts`, `packages/render/src/ghost-release.ts`
-
-Wave 32 costs 7.06 ms per paint at 4x CPU throttle and 12.45 ms at 6x
-(DevTools' low-end-mobile preset) — 75% of a 60 Hz frame with the hull, the
-field and everything else still to pay for. On a 75 Hz display at 6x it already
-misses 38 frames in 186. It is also the one wave measured where the two seats
-disagree by more than noise: 1.41 ms on player 2 against 1.04 ms on player 1,
-unthrottled, at peak population.
-
-Five of the six files above set `globalCompositeOperation = "lighter"`, and
-`ghost-row.ts` draws a band across a whole row of the field on the seat that is
-*not* shown the ghost — which is player 2, the dearer one. A `lighter` pass over
-a large area is a blend the compositor cannot skip.
-
-Find out which of the six costs what, the way this entry's numbers were found:
-time each draw call separately through a null canvas (see the table in "Every
-organic shape is rebuilt as an SVG path *string*"), then decide. A saving that
-changes a pixel is a VERSUS candidate, not a landing.
-
 ## The game paints a full field frame behind the main menu, under a blur
 
 - **Found:** 2026-09-03, claude/game-performance-mobile-analysis-cd4207

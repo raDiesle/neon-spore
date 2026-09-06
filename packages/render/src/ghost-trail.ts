@@ -1,10 +1,11 @@
-import { GHOST, ghostPath } from "@neon-spore/content";
+import { GHOST, ghostPoints } from "@neon-spore/content";
 import type { World } from "@neon-spore/sim";
 import { contourClock, creatureCenter } from "./creature-place.js";
 import { depthScale, drawnRow, hazed, nearness } from "./depth.js";
 import { ghostPalette, ghostRadius, showsGhostBody } from "./ghost.js";
 import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
+import { splinePath } from "./spline.js";
 
 /**
  * Where THE GHOST has just been: the body stamped again at the places it
@@ -153,8 +154,12 @@ function drawEcho(
   rim: string,
   fade: number,
 ): void {
-  const body = new Path2D(
-    ghostPath(0, 0, GHOST.rx, GHOST.ry, GHOST.tails, GHOST.skirt, GHOST.wobble, e.t, GHOST.seed),
+  // Points, never the string form: this is the dearest call in the dearest
+  // frame in the game — nine stamps a body a frame, each one an outline that
+  // was being formatted as text and parsed straight back (`spline.ts`).
+  const body = splinePath(
+    ghostPoints(0, 0, GHOST.rx, GHOST.ry, GHOST.tails, GHOST.skirt, GHOST.wobble, e.t, GHOST.seed),
+    true,
   );
   ctx.save();
   ctx.translate(e.x, e.y);
