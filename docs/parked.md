@@ -54,6 +54,7 @@ on.
 ## The perf baseline covers 38 of the 45 waves the game ships
 
 - **Found:** 2026-09-05, claude/game-performance-mobile-analysis-cd4207
+- **Taken:** 2026-09-06, claude/queue-the-perf-baseline-covers-38-of-the-45-waves-the
 - **Files:** `tools/perf/baseline.json`, `tools/perf/test/compare.test.ts`
 
 The lane that built `bun run perf` was written when the game shipped 38 waves.
