@@ -44,6 +44,8 @@ if (!selector || !out) {
   console.error(
     'usage: bun run shot <#selector> <out.png> [--open "≡ RELEASE NOTES"] [--tab SHAPES] [--wait 2500]',
   );
+  console.error('       --click is a CSS selector pressed first, e.g. ".cell:has(img)"');
+  console.error("       --nth is which of its matches to press, counting from 1");
   console.error('       --inner is a tab inside the sheet --open just opened, e.g. "SPEC"');
   console.error('       --path is what the port is asked for, e.g. "/?play=1" — the field itself');
   console.error("       --size is a viewport, e.g. 390x844 — a phone, for something a phone shows");
@@ -67,6 +69,26 @@ const inner = flag("inner");
 // the palette says what Ctrl-click would do only while Ctrl is down
 // (`tools/director/src/palette.ts`). One flag rather than a second script.
 const hold = flag("hold");
+/**
+ * A CSS selector pressed before the shot. `--open`, `--tab` and `--inner`
+ * reach a sheet by the label on its button, and nothing reached a panel that
+ * only exists once something on the *map* is selected: the rows under a cell
+ * are built from the arrival in it, so THE FENCE's GAPS and CRACKS chips
+ * could not be photographed at all. That is the friction this file was
+ * written to end, said again about a different panel, so it is a flag rather
+ * than a fifth throwaway script.
+ *
+ * A selector and not a label, because a cell carries a picture rather than a
+ * word — `.cell:nth-of-type(4)` is the only handle a map square has.
+ */
+const click = flag("click");
+/**
+ * Which of the matches `--click` presses, counting from 1. A map is a grid of
+ * identical squares and the only thing that tells two of them apart is their
+ * order, so a selector alone reaches the first fence on a wave and no other.
+ * Default 1, which is what a selector on its own has always meant.
+ */
+const nth = Number(flag("nth") ?? 1);
 const open = flag("open");
 const settle = Number(flag("wait") ?? 2500);
 const port = flag("port") ?? "4174";
@@ -127,6 +149,23 @@ try {
     }, inner);
     if (!pressed) {
       console.error(`no visible button reads ${inner} — is --open the right sheet?`);
+      process.exit(2);
+    }
+    await page.waitForTimeout(600);
+  }
+  if (click) {
+    const pressed = await page.evaluate(
+      ({ sel, at }: { sel: string; at: number }) => {
+        const el = document.querySelectorAll<HTMLElement>(sel)[at - 1];
+        if (!el) return false;
+        el.scrollIntoView({ block: "center", inline: "center" });
+        el.click();
+        return true;
+      },
+      { sel: click, at: nth },
+    );
+    if (!pressed) {
+      console.error(`no element ${nth} matches ${click} — nothing was pressed`);
       process.exit(2);
     }
     await page.waitForTimeout(600);
