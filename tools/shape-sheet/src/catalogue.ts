@@ -72,6 +72,7 @@ const OWNERS: Record<string, string> = {
   GHOST: "the ghost — the body only the navigator can see",
   POD: "the pod, which is not a creature",
   METEOR: "every rock tier, and the torch that spans three columns",
+  VEER: "the veer — the same stone, with the clown that steers it",
   "BULB QUEEN": "the queen's shell, and her armoured marks",
   "HULL · PASSIVE": "the ship, shield down",
   "HULL · ARMED": "the ship, shield held open",

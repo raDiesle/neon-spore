@@ -176,6 +176,17 @@ export {
   TORCH,
 } from "./silhouettes.js";
 export { SNAKE_ROUNDS } from "./snake-rounds.js";
+// THE VEER's rider, as figures and as loops — one description of the clown for
+// the game that draws it in colour and the palette that draws it as a contour.
+export {
+  type ClownArc,
+  type ClownDisc,
+  type ClownFigure,
+  type ClownSilhouette,
+  clownFigure,
+  clownLoops,
+  VEER_CLOWN,
+} from "./veer-clown-shape.js";
 export {
   type RingSilhouette,
   WARDEN_OPENING,

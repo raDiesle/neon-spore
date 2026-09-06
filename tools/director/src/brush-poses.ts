@@ -48,6 +48,33 @@ function meteorArt(): HTMLCanvasElement {
 }
 
 /**
+ * THE VEER, settled, with the clown on it.
+ *
+ * It had no builder for as long as the palette had one, so it fell through to
+ * the plain contour and drew the bare stone — the same picture the METEOR
+ * brush drew, for the one rock whose whole difference from a meteor is the
+ * thing sitting on top of it. That is what the owner saw and asked for.
+ *
+ * **A tick short of the second beat, and a crop of 2.2 tiles.** The tick is
+ * THE CAROM's and THE DART's reason — on a beat boundary a body is still drawn
+ * from the row it left, and a crop this tight around the row `creatureAt`
+ * reports would catch the stone at its own edge. The 2.2 is a window: the hat
+ * reaches 0.95 tiles above the rock's centre and the pilot's arrow starts at
+ * 1.12 (`veer-marks.ts`, `veer-clown-shape.ts`, `rockRadius`), so a half-crop
+ * of 1.1 tiles is the only one that keeps the whole rider and leaves the mark
+ * out. Leaving it out is THE DART's argument, made again: a brush says which
+ * body it paints, and where that body is going is a thing to watch on the
+ * field — in a chip the size of a fingernail the arrow only crowds the clown
+ * down to a speck, and the clown is the entire difference between this brush
+ * and METEOR's.
+ */
+function veerArt(): HTMLCanvasElement {
+  const world = fresh([rock(COL, "veer")]);
+  run(world, TPB * 2 - 1);
+  return tile(world, creatureAt(world, "veer"), 2.2);
+}
+
+/**
  * THE TORCH, on the one beat it can be seen at all.
  *
  * It falls thirteen tiles a beat (`fallTilesPerBeat`), so it enters at row
@@ -180,6 +207,7 @@ function caromArt(): HTMLCanvasElement {
 
 const BUILDERS: Partial<Record<Brush, () => HTMLCanvasElement>> = {
   rock: meteorArt,
+  veer: veerArt,
   torch: torchArt,
   lure: lureArt,
   shell: shellArt,

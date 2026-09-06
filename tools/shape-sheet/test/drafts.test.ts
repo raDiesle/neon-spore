@@ -123,7 +123,11 @@ describe("the shape catalogue", () => {
         if (entry.subject.loopsAt) {
           for (let t = 0; t < 24; t += 0.25) {
             for (const loop of entry.subject.loopsAt(t)) {
-              expect(loop.length).toBeGreaterThan(3);
+              // Three, not four: THE VEER's hat is a triangle and every other
+              // loop on this sheet is sampled far finer than that. Three is
+              // the true floor — fewer points cannot enclose anything at all —
+              // and the area below is what actually catches a degenerate ring.
+              expect(loop.length).toBeGreaterThanOrEqual(3);
               let a = 0;
               for (let i = 0; i < loop.length; i++) {
                 const p = loop[i]!;

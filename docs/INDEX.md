@@ -209,7 +209,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/maze-hash.ts` | What THE MAZE puts into `hashWorld`, and nothing else |
 | `packages/sim/src/maze-verdict.ts` | How an attempt on THE MAZE ends, and what it costs |
 | `packages/sim/src/hull-guard.ts` | **The shield's own arithmetic**: where it stands, how long its window is open |
-| `packages/sim/src/config-veer.ts` | THE VEER's two numbers: how many times it changes lane on the way down |
+| `packages/sim/src/config-veer.ts` | THE VEER's two numbers: how far apart the rows it changes lane on are, and the widest a single change can reach |
 | `packages/sim/src/creature-state-held.ts` | **The state a hand writes**, as opposed to the state the beat writes |
 | `packages/sim/src/veer.ts` | THE VEER: the first rock that does not hold its lane |
 | `packages/sim/src/lock.ts` | THE LOCK: the hand player 1 already has on the field, read a second way |
@@ -351,6 +351,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/silhouettes-spare.ts` | **The two contours next door that are not a body on the roster**: one retired, one a capsule |
 | `packages/content/src/waves/act-7.ts` | Act seven, and it opens on the first body in this game that cannot be answered from the column it is standing in |
 | `packages/content/src/magnet-shape.ts` | THE MAGNET's contour, as numbers rather than as drawing |
+| `packages/content/src/veer-clown-shape.ts` | **THE VEER's rider, as geometry**: where every disc of the clown sits on the rock, and the loops it comes to |
 
 ### packages/render
 
@@ -1123,5 +1124,6 @@ place — the generator keeps whatever is there.
 | `tools/director/src/fault-fields.ts` | The MALFUNCTION section `rail.ts` shows under the control set |
 | `tools/director/src/serialize-boss.ts` | **A wave's boss, written back out**, and the nine shapes it can take |
 | `tools/director/src/field-control-def.ts` | **What one row of the ON THE FIELD tab is**, and nothing that fills one in |
+| `tools/shape-sheet/src/veer-subject.ts` | **THE VEER**: the meteor with its rider on it, the one card made of a shape already on the sheet plus something over the top |
 
 <!-- index:code:end -->

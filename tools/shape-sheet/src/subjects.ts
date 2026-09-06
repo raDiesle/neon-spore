@@ -28,6 +28,7 @@ import type { CreatureKind } from "@neon-spore/sim";
 import type { Subject } from "./contour.js";
 import { hull } from "./hull-subjects.js";
 import { WARDEN_POSES } from "./ring.js";
+import { veerSubject } from "./veer-subject.js";
 
 export { hullArc } from "./hull-subjects.js";
 
@@ -203,7 +204,12 @@ export function crystal(name: string, s: CrystalSilhouette, radius: number, note
   };
 }
 
-const meteor = crystal("METEOR", METEOR, 46, `${METEOR.sides} facets · dead rock`);
+/** The radius every rock on this sheet is drawn at, named because THE VEER is
+ * drawn at the same one — a rider fitted to a different stone would be a
+ * figure nobody could compare with the one beside it. */
+const ROCK_R = 46;
+
+const meteor = crystal("METEOR", METEOR, ROCK_R, `${METEOR.sides} facets · dead rock`);
 const torch = crystal("TORCH", TORCH, 70, `${TORCH.sides} facets · three tiles wide, burning`);
 
 /**
@@ -238,6 +244,10 @@ export const SUBJECTS: Subject[] = [
   crawler("CRAWLER", CRAWLER, `an egg on its side · ${CRAWLER.taper} taper · overlapping rings`),
   blob("POD", POD),
   meteor,
+  // The same stone with its rider on it, which is a different word from the
+  // bare one and had no card until now — `veer-subject.ts` argues why it is
+  // one and why it is built out of the meteor rather than beside it.
+  veerSubject(meteor, ROCK_R),
   torch,
   crystal("BULB QUEEN", QUEEN_SHELL, 100, `${QUEEN_SHELL.sides} facets · armoured shell`),
   hull(false),

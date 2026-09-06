@@ -1,3 +1,4 @@
+import { type ClownDisc, clownFigure, VEER_CLOWN } from "@neon-spore/content";
 import { type Creature, type SimConfig, spanOf, veerRowsToChange } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import { halo } from "./glow.js";
@@ -25,6 +26,13 @@ import { rockRadius } from "./torch.js";
  * the rock would be a face carved into it, and what has to read here is a
  * passenger.
  *
+ * **Every figure on it is `content/veer-clown-shape.ts`, and none is here.**
+ * The director's palette draws the same rider as a contour so the VEER brush
+ * shows a clown rather than the plain stone every other rock brush shows, and
+ * two tables of proportions would be two clowns nobody would ever see diverge.
+ * This file is the colours, the light and the order things are drawn in; where
+ * every disc sits is one call.
+ *
  * **The figure is stone except for the nose.** Red and cyan are ammunition —
  * they are the two words the pair say to each other about what to load — so
  * this body must never suggest it can be shot at all, and the whole clown was
@@ -42,11 +50,6 @@ import { rockRadius } from "./torch.js";
  * is THE DART's jet, argued at a body instead of a flame.
  */
 
-/** How deep the rider sinks into the pull, in body radii, at full crouch. */
-const CROUCH = 0.3;
-/** How far the hat whips over with it, in radians. */
-const HAT_LEAN = 0.5;
-
 /**
  * How hard the rider is bracing, 0 to 1: nothing at all until the beat that
  * ends in a change of lane, then all of it across that beat. `veerRowsToChange`
@@ -59,16 +62,9 @@ export function veerBrace(cfg: SimConfig, c: Creature, beatPhase: number): numbe
 }
 
 /** One filled, outlined disc — the head, the nose and the pompom are all one. */
-function ball(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  r: number,
-  fill: string,
-  line: string,
-): void {
+function ball(ctx: CanvasRenderingContext2D, d: ClownDisc, fill: string, line: string): void {
   ctx.beginPath();
-  ctx.arc(x, y, r, 0, Math.PI * 2);
+  ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
   ctx.fillStyle = fill;
   ctx.fill();
   ctx.strokeStyle = line;
@@ -88,17 +84,12 @@ export function drawVeerClown(
 ): void {
   const r = rockRadius(l, spanOf(c));
   const brace = veerBrace(cfg, c, beatPhase);
-  // The head's own size, and the unit the rest of the figure is written in —
-  // so a rock authored two tiles wide carries a rider twice the size rather
-  // than the same small one perched on a boulder.
-  const hr = r * 0.46;
-  // Where the shoulders are: on the rock's crown, sunk by the brace. The idle
-  // sway is the stone's own wobble borrowed at a different speed, so the rider
-  // is never perfectly still on a body that never is.
-  const sway = Math.sin(time * 1.7 + (c.id % 7)) * hr * 0.07;
-  const seatY = y - r * 0.72 + r * CROUCH * brace;
-  const headY = seatY - hr * 0.95;
-  const headX = x + sway;
+  // The idle sway is the stone's own wobble borrowed at a different speed, so
+  // the rider is never perfectly still on a body that never is. The phase is
+  // the wall clock and belongs here; how far a sway of one carries the head is
+  // a proportion of the figure and belongs with the rest of them.
+  const sway = Math.sin(time * 1.7 + (c.id % 7)) * VEER_CLOWN.swayMul;
+  const f = clownFigure(VEER_CLOWN, x, y, r, brace, sway);
 
   ctx.save();
 
@@ -106,35 +97,24 @@ export function drawVeerClown(
   // shoulder. A collar rather than a straight line, because the one thing that
   // has to be plain at a tile thirty pixels wide is that the figure is *on*
   // the rock and not floating over it.
-  for (let k = -2; k <= 2; k++) {
-    const rx = x + k * hr * 0.52;
-    const ry = seatY + Math.abs(k) * hr * 0.12;
-    ball(ctx, rx, ry, hr * 0.36, PALETTE.rock, PALETTE.rockDark);
-  }
+  for (const bead of f.ruff) ball(ctx, bead, PALETTE.rock, PALETTE.rockDark);
 
   // The head.
-  ball(ctx, headX, headY, hr, PALETTE.rock, PALETTE.rockDark);
+  ball(ctx, f.head, PALETTE.rock, PALETTE.rockDark);
 
   // The hat: a cone off the crown with a pompom on the tip, leaning into the
   // pull. It is the tallest thing on the figure and the one that carries the
   // silhouette — a clown read at arm's length is a triangle over a circle.
-  const lean = HAT_LEAN * brace;
-  ctx.save();
-  ctx.translate(headX, headY - hr * 0.55);
-  ctx.rotate(lean);
-  const tip = -hr * 2.1;
   ctx.beginPath();
-  ctx.moveTo(-hr * 0.9, 0);
-  ctx.lineTo(hr * 0.9, 0);
-  ctx.lineTo(0, tip);
+  ctx.moveTo(f.hat[0]!.x, f.hat[0]!.y);
+  for (const p of f.hat.slice(1)) ctx.lineTo(p.x, p.y);
   ctx.closePath();
   ctx.fillStyle = PALETTE.rockDark;
   ctx.fill();
   ctx.strokeStyle = PALETTE.rock;
   ctx.lineWidth = STROKE.outline;
   ctx.stroke();
-  ball(ctx, 0, tip, hr * 0.3, PALETTE.text, PALETTE.rockDark);
-  ctx.restore();
+  ball(ctx, f.pompom, PALETTE.text, PALETTE.rockDark);
 
   // The face, in the background's own dark so it reads as holes rather than as
   // a second material: two eyes and a grin. Small enough that on a phone they
@@ -142,17 +122,16 @@ export function drawVeerClown(
   // all they are asked to be.
   ctx.fillStyle = PALETTE.background;
   ctx.beginPath();
-  ctx.arc(headX - hr * 0.4, headY - hr * 0.26, hr * 0.15, 0, Math.PI * 2);
-  ctx.arc(headX + hr * 0.4, headY - hr * 0.26, hr * 0.15, 0, Math.PI * 2);
+  for (const eye of f.eyes) ctx.arc(eye.x, eye.y, eye.r, 0, Math.PI * 2);
   ctx.fill();
   // The grin is struck wide and low, clear of the nose that goes over it —
   // drawn tight to the nose it read as a shadow under one rather than as a
   // mouth, which loses the only mark on this face that is doing any work
   // besides "somebody is up there".
   ctx.beginPath();
-  ctx.arc(headX, headY + hr * 0.08, hr * 0.64, 0.28 * Math.PI, 0.72 * Math.PI);
+  ctx.arc(f.grin.x, f.grin.y, f.grin.r, f.grin.from, f.grin.to);
   ctx.strokeStyle = PALETTE.background;
-  ctx.lineWidth = Math.max(1, hr * 0.15);
+  ctx.lineWidth = f.grin.width;
   ctx.lineCap = "round";
   ctx.stroke();
 
@@ -161,11 +140,11 @@ export function drawVeerClown(
   // the hue was spent. A breath of its own light under it, so it reads as lit
   // rather than as a sticker — small enough that it never grows into the ring
   // of colour a shot could be aimed at.
-  halo(ctx, headX, headY + hr * 0.1, hr * 0.6, PALETTE.clownNose, 0.35);
-  ball(ctx, headX, headY + hr * 0.1, hr * 0.24, PALETTE.clownNose, PALETTE.clownNoseRim);
+  halo(ctx, f.nose.x, f.nose.y, f.noseGlow, PALETTE.clownNose, 0.35);
+  ball(ctx, f.nose, PALETTE.clownNose, PALETTE.clownNoseRim);
   ctx.restore();
 
   // A breath of light around the rider while it braces, and none at all
   // otherwise — the same way the dart's pilot flame lights just before a run.
-  if (brace > 0.01) halo(ctx, headX, headY, hr * 1.9, PALETTE.rock, brace * 0.28);
+  if (brace > 0.01) halo(ctx, f.brace.x, f.brace.y, f.brace.r, PALETTE.rock, brace * 0.28);
 }

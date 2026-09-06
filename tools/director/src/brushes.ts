@@ -120,10 +120,12 @@ export const BRUSHES: {
   {
     brush: "veer",
     label: "VEER",
-    // The stone is what the sheet has; the rider on it is drawn by the game
-    // and by nothing else (`render/veer-clown.ts`), so the card says METEOR
-    // and the note is what tells the two apart in the palette.
-    subjects: ["METEOR"],
+    // Its own card, and it used to be METEOR's. The stone is the same one
+    // every rock brush draws, so for a while the palette showed two identical
+    // pictures and left the note to tell them apart; the sheet carries the
+    // rider now (`shape-sheet/veer-subject.ts`), so the button shows the clown
+    // that is the whole difference between this rock and a dead one.
+    subjects: ["VEER"],
     stroke: PALETTE.rock,
     note: SHORT_NOTE.veer ?? CREATURES.veer.blurb,
     detail: CREATURES.veer.blurb,

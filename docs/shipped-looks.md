@@ -128,9 +128,12 @@ handed back to it, so the bright side stays put while the stone rolls under it
 
 ## The veer's rider
 
-`packages/render/src/veer-clown.ts`. Every rock above is drawn by
+`packages/render/src/veer-clown.ts`, from figures in
+`packages/content/src/veer-clown-shape.ts`. Every rock above is drawn by
 `drawMeteor`; THE VEER is that rock with a figure laid over the top of it,
-outside the frame the stone spins in.
+outside the frame the stone spins in. The numbers below moved into content on
+6 September 2026, when the director's palette began drawing the same rider as
+a contour: one description, two things drawing it.
 
 | Pass | What | Numbers |
 |---|---|---|
