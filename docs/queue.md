@@ -189,6 +189,7 @@ cleared fails loudly.
 ## The desk rig's grip key still reaches for a tether it cannot hold
 
 - **Found:** 2026-09-06, claude/meteor-pull-directional-move-7b0e63
+- **Taken:** 2026-09-06, claude/queue-the-desk-rigs-grip-key-still-reaches-for-a-tethe
 - **Files:** `apps/game/src/keys-grip.ts`, `tools/director/src/keys.ts`
 
 `nearestHull` opens with `const tether = creatures.find(c => c.kind === "tether"); if (tether) return tether.id;`
