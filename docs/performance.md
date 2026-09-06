@@ -22,10 +22,43 @@ bun run perf --save               # write a full sweep back as the new baseline
 ```
 
 **Measure the waves the new thing appears in, not the whole game.** That is the
-owner's instruction and it is also the cheaper truth: a sweep of every wave is
-minutes of a machine that has to be otherwise idle, and a change to one creature
+owner's instruction and it is also the cheaper truth: a change to one creature
 cannot make a wave that creature never enters slower. The full sweep exists for
 one purpose, which is taking a baseline.
+
+What each costs, measured on 6 September 2026 on the owner's Windows machine:
+
+| | time |
+|---|---|
+| `bun run perf --wave X` — one wave and the five references | ~25 s |
+| `bun run perf` — all 47 | ~194 s |
+| `bun run check`, for scale | ~107 s |
+
+About three seconds of any run is fixed — building the bundle, launching Chrome,
+calibrating the machine — and each wave after that is roughly four. The number
+that matters is not the clock but the *demand*: three and a quarter minutes of a
+machine that has to be completely idle is a condition a session cannot reliably
+meet, and it is why the baseline sat stale for a day while three separate
+attempts to take one were spoiled by other sessions.
+
+### The reference waves
+
+A verdict is a wave's share of its own run's median, so a run of one wave has no
+median to speak of — it *is* that wave, and dividing by it cancels the change the
+run was taken to see. So a narrow run carries five waves it was not asked about:
+FIRST STEP, THE WALL, THE DART, THE WISP and THE ECHO, spanning the range from
+the cheapest wave with a field to one carrying nineteen bodies. They are named by
+**id** in `tools/perf/waves.ts`, because a wave inserted in act one shifts every
+number after it and a rename is a thing the owner does by eye.
+
+THE GAUGE is deliberately not among them. Its round draws neither hull nor field
+and costs a fifth of any other wave, so a median of five containing it would sit
+where no real frame does.
+
+They earn their seconds twice over. The second time is this: **nothing a lane
+does can reach a reference wave**, so a verdict on one of them is not a finding,
+it is the measurement moving under itself. The tool says so and tells you to run
+it again idle, which is the check no single-wave run could ever make of itself.
 
 Save a new baseline only when the change is one you meant — a shape that landed,
 a saving that landed. Never to make a regression stop being reported. `--save`

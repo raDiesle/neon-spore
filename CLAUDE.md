@@ -306,11 +306,12 @@ bun run perf                      # all of them — what a baseline is taken fro
 bun run perf --save               # keep a full sweep as the new baseline
 ```
 
-**Never `--save` to make a regression stop being reported**, and never run one on
-a busy machine — the 90th percentile then measures the other sessions rather than
-the frame. Under five waves the tool prints milliseconds and no verdict, because
-a median that small cancels the change it was taken to see. It does not replace
-`frame-budget.test.ts`: an op is not a millisecond. `docs/performance.md`.
+A narrow run carries five reference waves so it still has a median of its own,
+and takes about 25 seconds against the sweep's three minutes. **If one of those
+five is flagged, the machine was busy and the run says nothing** — no lane
+touches a reference wave. **Never `--save` to make a regression stop being
+reported.** It does not replace `frame-budget.test.ts`: an op is not a
+millisecond. `docs/performance.md`.
 
 ## Verifying the relay
 

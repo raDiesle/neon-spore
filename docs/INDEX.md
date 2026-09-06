@@ -1083,5 +1083,6 @@ place — the generator keeps whatever is there.
 | `tools/perf/run.ts` | `bun run perf` — what a frame costs, wave by wave, at phone speed |
 | `tools/perf/waves.ts` | which waves a run covers, from `--wave` to a list of indices |
 | `tools/director/src/entry-fields-fence.ts` | **Where a fence is open**, read and written on one arrival |
+| `tools/perf/say.ts` | what a run looks like when it is printed — the table, the summary, the comparison |
 
 <!-- index:code:end -->
