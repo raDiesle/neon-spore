@@ -9,6 +9,22 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · 577ee3f — A narrow --save can add a wave the baseline never had, not only repair one
+
+`mergeInto` mapped over the baseline's own rows, so it could put a stale row right and could not put a new one in — and `--wave --save` refused outright unless the baseline already covered every wave. That is exactly backwards for the lane the flag was written for: a lane that adds a creature is the one whose baseline does not cover the game, and it was sent to the three-minute sweep the flag exists to spare. Writing THE BARB meant measuring forty-nine waves nobody had touched in order to record the fiftieth.
+
+## 2026-09-06 · 5ac4e61 — The desk rig's relief key, and one rehearsal walk split three ways
+
+R was already the film's replay, so the key that holds a wave's malfunction off is H. It is sent as both seats and `reliefHeard` drops it from whichever one the fault did not hand the relief to, so one key covers either wave without the rig having to know which fault is up.
+
+## 2026-09-06 · c40f43e — One frame test crossed two independent axes and timed out on a busy machine
+
+`the strand > keeps the canvas happy off either wall, and at either length` played four full thirty-beat threads inside one `it` — four times what any of its neighbours does — which put it close enough to bun's 5000 ms default that it failed as a timeout under a parallel suite and passed when the file was run on its own. The wall and the bead count are independent in `strand-shape.ts`, so pairing them proves the same property in half the work: the left wall with the short thread, the right wall with the long one.
+
+## 2026-09-06 · 10ffc69 — A wave can break one seat's control, and a body the shield must not touch
+
+Two mechanics that were built for each other. THE MALFUNCTION is a wave in which one of the two seats does not have its control any more — the control has it: a cannon fault fires up player 1's column on every beat and takes both colours off player 2, a shield fault brings the dome up over player 2's column on the same beat and takes the trigger off player 1. THE BARB is the mirror of THE LURE one control across — hooks swept back around a body in its own colour, ended by the matching cannon and by nothing else, and a dome that comes up anywhere in its column catches on it, tears the ship open and then wards nothing at all for three beats.
+
 ## 2026-09-06 · 50cd3ca1 — A spent queue claim is swept like any other merged branch
 
 `partitionMerged` protected every merged branch whose name looked like a queue claim, because a claim points at `main`'s tip from the second it is made and would otherwise be deleted by the next lane to land — which cost two sessions every claim they held on 3 September 2026. What it never asked is whether the claim is still a claim. A claim is a branch *and* an entry, and `bun run queue done` takes the entry out at the moment the work reaches `main`, so a branch with nothing behind it is a husk that only its own landing could remove: the sweep on 6 September kept fifteen of them, and none could be given back because `bun run queue release` needs the entry that went away.
