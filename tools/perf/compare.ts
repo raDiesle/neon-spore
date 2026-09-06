@@ -38,6 +38,22 @@ export const DEFAULT_THROTTLE = 4;
 export const NOISE_PCT = 20;
 
 /**
+ * The fewest waves a run needs before its median carries the machine's drift
+ * rather than the change being looked for. A run of one wave has a median that
+ * *is* that wave, so dividing by it cancels the very thing the run was taken to
+ * see and every verdict comes out `same` — and the ordinary run is a narrow one
+ * now, since a lane that adds a creature measures the waves it appears in.
+ */
+export const DRIFT_MIN_WAVES = 5;
+
+/** Whether a run has enough waves for `compareRuns`' verdicts to mean anything.
+ * Here so the rule is one number in one file that a test can hold; what a
+ * caller does about a `false` is its own business. */
+export function driftIsMeasurable(run: Run): boolean {
+  return run.waves.length >= DRIFT_MIN_WAVES;
+}
+
+/**
  * Two machines whose calibration differs by more than this cannot have their
  * millisecond figures compared at all — only their shapes. The owner alternates
  * between a Windows box and a Mac (`docs/cloud-session.md` adds a third), and a
@@ -132,7 +148,16 @@ export function comparable(before: Run, after: Run): boolean {
  */
 export function compareRuns(before: Run, after: Run): WaveDelta[] {
   const was = new Map(before.waves.map((w) => [w.wave, w]));
-  const wasShape = shapeOf(before);
+  // **Like for like.** A narrow run's median is taken over the waves it
+  // measured, so the baseline's is taken over the same ones or the two shares
+  // are shares of different games — THE GAUGE alone, at a fifth of any other
+  // wave, moves a sweep's median somewhere a three-wave run's cannot reach.
+  const covered = new Set(after.waves.map((w) => w.wave));
+  const wasShape = shapeOf(
+    after.waves.length === before.waves.length
+      ? before
+      : { ...before, waves: before.waves.filter((w) => covered.has(w.wave)) },
+  );
   const nowShape = shapeOf(after);
   const out: WaveDelta[] = [];
   for (const now of after.waves) {

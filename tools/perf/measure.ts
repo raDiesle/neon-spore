@@ -197,10 +197,21 @@ export function waveName(index: number): string {
   return wave?.name ?? `WAVE ${index + 1}`;
 }
 
-/** Every wave, in play order, each at its own busiest tick. */
-export async function sweep(page: Page, onWave?: (cost: WaveCost) => void): Promise<WaveCost[]> {
+/**
+ * The waves asked for, in play order, each at its own busiest tick.
+ *
+ * `only` is a list of indices (`wavesAsked`), and the default is every wave.
+ * A narrow run is the ordinary case — a lane that adds a creature measures the
+ * waves that creature appears in, and nothing else — and a full sweep is what a
+ * baseline is taken from.
+ */
+export async function sweep(
+  page: Page,
+  onWave?: (cost: WaveCost) => void,
+  only: readonly number[] = WAVES.map((_, i) => i),
+): Promise<WaveCost[]> {
   const out: WaveCost[] = [];
-  for (let index = 0; index < WAVES.length; index++) {
+  for (const index of only) {
     const bodies = await toPeak(page, index);
     const { typical, mean, p90 } = await timePaints(page);
     const round = (v: number): number => Math.round(v * 100) / 100;

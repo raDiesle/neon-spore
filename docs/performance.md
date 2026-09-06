@@ -14,13 +14,24 @@ the only kind of change that can arrive on the field without anybody knowing
 what it costs.
 
 ```
-bun run perf                 # measure every wave, and say what changed
-bun run perf --throttle 6    # at low-end-mobile speed instead of mid-tier
-bun run perf --save          # write this run back as the new baseline
+bun run perf --wave "THE GRATE"   # the waves the new thing appears in
+bun run perf --wave 46,47         # by number, or several at once
+bun run perf                      # every wave — what a baseline is taken from
+bun run perf --throttle 6         # at low-end-mobile speed instead of mid-tier
+bun run perf --save               # write a full sweep back as the new baseline
 ```
 
+**Measure the waves the new thing appears in, not the whole game.** That is the
+owner's instruction and it is also the cheaper truth: a sweep of every wave is
+minutes of a machine that has to be otherwise idle, and a change to one creature
+cannot make a wave that creature never enters slower. The full sweep exists for
+one purpose, which is taking a baseline.
+
 Save a new baseline only when the change is one you meant — a shape that landed,
-a saving that landed. Never to make a regression stop being reported.
+a saving that landed. Never to make a regression stop being reported. `--save`
+refuses a narrow run outright: the baseline is what every later run is read
+against, and `tools/perf/test/compare.test.ts` will not have one that is missing
+a wave, because a wave with no row is a wave nothing can notice getting slower.
 
 ## What it measures, and why that and not something else
 
@@ -71,6 +82,18 @@ nobody had touched:
 - **Each wave against its own run's median.** An ambient slowdown moves the
   whole run together and cancels. Without this, one busy afternoon made all 38
   waves read 15% to 41% "better".
+
+  This is also why a **narrow run gets no verdict**. Its median is taken over
+  the handful of waves it measured, so with one wave the median *is* that wave
+  and dividing by it cancels exactly the change the run was taken to see — every
+  verdict would come out `same` however far the wave moved. Under
+  `DRIFT_MIN_WAVES` the tool prints the milliseconds, says why there is no
+  verdict, and stops. Read them against the baseline's own figures with your own
+  eyes; that is what a narrow run is for. Above the floor, a subset is compared
+  against the *same subset* of the baseline rather than against the whole game,
+  or the two shares would be shares of different things — THE GAUGE alone, at a
+  fifth of any other wave, moves a full sweep's median somewhere a three-wave
+  run's can never be.
 - **The game's clock held still.** `paint` is handed `performance.now()`, so
   every wobble and eased pose is a function of the wall clock. During a
   measurement it is replaced by a counter stepped exactly one frame per paint,

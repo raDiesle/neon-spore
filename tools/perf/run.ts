@@ -1,3 +1,4 @@
+import { WAVES } from "@neon-spore/content";
 import { chromium } from "playwright-core";
 import { findChrome } from "../frames/chrome.js";
 import { git, root, startPreview } from "../frames/serve.js";
@@ -6,6 +7,8 @@ import {
   comparable,
   compareRuns,
   DEFAULT_THROTTLE,
+  DRIFT_MIN_WAVES,
+  driftIsMeasurable,
   FRAME_MS,
   medianMs,
   NOISE_PCT,
@@ -14,6 +17,7 @@ import {
   type WaveCost,
 } from "./compare.js";
 import { assemble, calibrate, sweep } from "./measure.js";
+import { wavesAsked } from "./waves.js";
 
 /**
  * `bun run perf` — what a frame costs, wave by wave, at phone speed.
@@ -28,9 +32,16 @@ import { assemble, calibrate, sweep } from "./measure.js";
  * bundle a `bun run preview` serves. `docs/performance.md` carries the
  * mechanism in prose and the numbers this tool last agreed with.
  *
- *   bun run perf                 measure, and compare against the baseline
- *   bun run perf --throttle 6    at low-end-mobile speed instead
- *   bun run perf --save          write the result back as the new baseline
+ *   bun run perf --wave "THE GRATE"   the waves a change touched, and nothing else
+ *   bun run perf                      every wave — what a baseline is taken from
+ *   bun run perf --throttle 6         at low-end-mobile speed instead
+ *   bun run perf --save               write a full sweep back as the new baseline
+ *
+ * **The narrow run is the ordinary one.** A lane that adds a creature measures
+ * the waves that creature appears in; the whole game is swept when a baseline is
+ * being taken, which is not something a change to one shape needs. `--wave`
+ * takes the number the HUD prints or the name it prints beside it, repeated or
+ * comma-separated.
  */
 
 const BASELINE = new URL("./baseline.json", import.meta.url);
@@ -40,8 +51,42 @@ function flag(name: string): string | undefined {
   const at = process.argv.indexOf(`--${name}`);
   return at === -1 ? undefined : process.argv[at + 1];
 }
+
+/** Every `--wave` on the line, split on commas, in the order they were given. */
+function flags(name: string): string[] {
+  const out: string[] = [];
+  for (let i = 0; i < process.argv.length; i++) {
+    if (process.argv[i] !== `--${name}`) continue;
+    const value = process.argv[i + 1];
+    if (value !== undefined) out.push(...value.split(","));
+  }
+  return out;
+}
 const save = process.argv.includes("--save");
 const throttle = Number(flag("throttle") ?? DEFAULT_THROTTLE);
+// A mistyped wave is refused the way every other bad input here is, rather than
+// as a stack trace: the name is something a person typed off the HUD.
+let only: number[];
+try {
+  only = wavesAsked(flags("wave"));
+} catch (error) {
+  console.log(`✗ ${(error as Error).message}`);
+  process.exit(1);
+}
+const narrow = only.length < WAVES.length;
+
+// **A narrow run may not become the baseline.** The baseline is the reference
+// every later run is read against and `tools/perf/test/compare.test.ts` refuses
+// one that does not cover every wave the game ships — a wave with no row is a
+// wave nothing can notice getting slower. Merging a few waves into it would be
+// worse than refusing: the shares `compare.ts` reads are each wave against its
+// own run's median, so a baseline stitched out of two afternoons compares
+// nothing to nothing.
+if (save && narrow) {
+  console.log("✗ --save takes a full sweep; drop --wave, or drop --save");
+  console.log("  a baseline missing a wave is a wave nothing can notice getting slower");
+  process.exit(1);
+}
 
 async function readBaseline(): Promise<Run | null> {
   const file = Bun.file(BASELINE);
@@ -88,7 +133,7 @@ function printComparison(before: Run, after: Run): void {
         `${before.calibration}, this run ${after.throttle}x scoring ${after.calibration}. ` +
         `The milliseconds below are for reading, not for comparing.`,
     );
-  } else if (Math.abs(drift) > NOISE_PCT) {
+  } else if (driftIsMeasurable(after) && Math.abs(drift) > NOISE_PCT) {
     console.log(
       `  the whole run moved ${drift > 0 ? "+" : ""}${drift.toFixed(0)}% ` +
         `(median ${wasMedian.toFixed(2)} -> ${nowMedian.toFixed(2)} ms) — the machine was busier ` +
@@ -97,6 +142,31 @@ function printComparison(before: Run, after: Run): void {
   }
 
   const deltas = compareRuns(before, after);
+
+  // **A narrow run gets its milliseconds and no verdict.** Every verdict below
+  // is a wave's share of its own run's median, which is what lets an afternoon
+  // that slowed the whole machine cancel — and a run of two waves has a median
+  // that is one of those two, so it would cancel the very change the run was
+  // taken to see and report `same` however far the wave moved.
+  if (!driftIsMeasurable(after)) {
+    console.log(
+      `  ${after.waves.length} wave${after.waves.length === 1 ? "" : "s"} is under the ` +
+        `${DRIFT_MIN_WAVES} a verdict needs: a median taken over this few cancels the change ` +
+        `it was measuring. The milliseconds are real, the comparison is for reading.`,
+    );
+    for (const d of deltas) {
+      const change =
+        d.verdict === "new"
+          ? `new — ${d.after.toFixed(2)} ms`
+          : `${d.before.toFixed(2)} -> ${d.after.toFixed(2)} ms typical paint`;
+      console.log(
+        `  ${(d.verdict === "new" ? "NEW" : "READ").padEnd(7)} ${String(d.wave).padStart(2)} ` +
+          `${d.name.padEnd(20)} ${change}`,
+      );
+    }
+    return;
+  }
+
   const worse = deltas.filter((d) => d.verdict === "worse");
   const better = deltas.filter((d) => d.verdict === "better");
   const fresh = deltas.filter((d) => d.verdict === "new");
@@ -133,7 +203,7 @@ try {
     `measuring ${VIEWPORT.width}x${VIEWPORT.height} dpr${VIEWPORT.dpr}, CPU throttled ${throttle}x, ` +
       `machine ${calibration}`,
   );
-  const waves = await sweep(page, (w) => process.stdout.write(`  ${w.wave} ${w.name}\r`));
+  const waves = await sweep(page, (w) => process.stdout.write(`  ${w.wave} ${w.name}\r`), only);
   const commit = await git(["rev-parse", "HEAD"]);
   const now = assemble({ commit, throttle, viewport: VIEWPORT, calibration, waves });
 
@@ -152,7 +222,11 @@ try {
     await Bun.write(BASELINE, `${JSON.stringify(now, null, 2)}\n`);
     console.log(`\nbaseline written: tools/perf/baseline.json`);
   } else if (before) {
-    console.log(`\n--save writes this run back as the baseline.`);
+    console.log(
+      narrow
+        ? `\na baseline is taken from a full sweep — drop --wave, then --save.`
+        : `\n--save writes this run back as the baseline.`,
+    );
   }
 } finally {
   await browser.close();

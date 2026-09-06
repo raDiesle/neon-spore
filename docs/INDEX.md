@@ -1078,5 +1078,6 @@ place — the generator keeps whatever is there.
 | `tools/perf/compare.ts` | What a performance run *is*, and what two of them say when held side by side |
 | `tools/perf/measure.ts` | One performance run, taken off a real browser driving the real bundle |
 | `tools/perf/run.ts` | `bun run perf` — what a frame costs, wave by wave, at phone speed |
+| `tools/perf/waves.ts` | which waves a run covers, from `--wave` to a list of indices |
 
 <!-- index:code:end -->

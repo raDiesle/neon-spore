@@ -5,6 +5,8 @@ import {
   budgetPct,
   comparable,
   compareRuns,
+  DRIFT_MIN_WAVES,
+  driftIsMeasurable,
   FRAME_MS,
   medianMs,
   NOISE_PCT,
@@ -201,5 +203,56 @@ describe("the checked-in baseline", () => {
     const over = saved.waves.filter((w: WaveCost) => verdictFor(w.p90) !== "fine");
     expect(over.map((w: WaveCost) => `${w.name} ${w.p90}ms`)).toEqual([]);
     expect(medianMs(saved)).toBeLessThan(FRAME_MS / 2);
+  });
+});
+
+/**
+ * The ordinary run is a narrow one — a lane that adds a creature measures the
+ * waves that creature appears in and nothing else — and that breaks the one
+ * defence the comparison rests on. Each wave is read as a share of its own run's
+ * median, so a run of one wave divides the change out by itself and reports
+ * `same` however far the wave moved. These are the two halves of not doing that.
+ */
+describe("a run of only the waves a change touched", () => {
+  const full = [1, 2, 3, 4, 5, 6, 7].map((w) => [w, w] as [number, number]);
+
+  it("compares a subset against the same subset of the baseline, not the whole game", () => {
+    // The baseline's median over all seven is 4; over waves 5-7 alone it is 6.
+    // Reading a three-wave run against the wrong one would call every wave in
+    // it half the size it was.
+    const before = run(full);
+    const after = run([
+      [5, 5],
+      [6, 6],
+      [7, 7],
+      [1, 1],
+      [2, 2],
+    ]);
+    for (const d of compareRuns(before, after)) {
+      expect(d.verdict, `${d.name} moved when nothing about it did`).toBe("same");
+    }
+  });
+
+  it("says when a run is too small for its median to carry the machine", () => {
+    // The figures a narrow run takes are real; what it cannot earn is a
+    // verdict, because its median is one of the waves it measured.
+    const enough = Array.from({ length: DRIFT_MIN_WAVES }, (_, i) => [i + 1, i + 1]) as [
+      number,
+      number,
+    ][];
+    expect(driftIsMeasurable(run(enough))).toBe(true);
+    expect(driftIsMeasurable(run(enough.slice(1)))).toBe(false);
+    expect(driftIsMeasurable(run([[3, 9]]))).toBe(false);
+  });
+
+  it("still carries the milliseconds of a run it cannot give a verdict on", () => {
+    const [only] = compareRuns(run(full), run([[3, 9]]));
+    expect(only?.before).toBe(3);
+    expect(only?.after).toBe(9);
+  });
+
+  it("still calls a wave the baseline never saw new, however narrow the run", () => {
+    const [only] = compareRuns(run(full), run([[99, 4]]));
+    expect(only?.verdict).toBe("new");
   });
 });

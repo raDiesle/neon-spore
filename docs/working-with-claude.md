@@ -78,6 +78,28 @@ dev server hands back `index.html` for every unknown path, so a 200 is not
 evidence of anything. `bun run preview:once` binds an OS-assigned free port for a
 throwaway check or a second worktree; several can run side by side.
 
+*Amended 2026-09-06:* three rules moved down here from `CLAUDE.md`, which had
+run out of room, and each of them is the same lesson as everything above.
+
+**In a worktree, `.claude/launch.json` is the wrong tool.** Its entries carry no
+`cwd`, so a preview started from it runs in the *main* checkout and serves
+main's code — and nothing errors, which is the whole problem. The server is
+real, the page loads, and the lane under test is not what answered. Launch by
+absolute path inside your own tree, and ask `/__preview` who replied.
+
+**Nothing on a local address installs a service worker.** A cache that answers
+after the server has idled out serves a build that no longer exists, and the
+stale page reads as a bug in the code that just replaced it — which is exactly
+how it was found. `?pwa=1` turns one on locally for the one case that wants it,
+testing the install itself, and `apps/game/test/solo-is-quiet.test.ts` holds the
+rule.
+
+**Playing alone opens no socket.** The two-device layer is built on every run
+because solo is the default rather than a mode, and it is inert until a room is
+joined — no ping, no fingerprint, not even a status callback. The same test
+holds that, because "inert" is a claim that stays true in the reading and stops
+being true the moment a timer moves above the check for a socket.
+
 *Amended 2026-09-06:* the same question — *who answered?* — decides a failure
 that looks nothing like a server. A fresh worktree on Windows had no
 `tools/maze/node_modules` at all, so `bun run typecheck` stopped with *Cannot

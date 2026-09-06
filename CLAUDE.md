@@ -269,8 +269,8 @@ Fix it in the same turn.
 ## Verifying in a browser
 
 **`bun run preview`, never `bun run dev:game`.** It builds first (ten
-milliseconds) and serves the bundle that ships. The ports are separate on
-purpose: `dev:game` is the human's on 3000, `preview` the agent's on 4173.
+milliseconds) and serves the bundle that ships; `dev:game` is the human's server
+on 3000 and `preview` is the agent's on 4173.
 
 **Ask who answered before trusting a measurement.** A dev server returns
 `index.html` for any path, so a 200 proves nothing:
@@ -281,53 +281,36 @@ curl -s http://localhost:4173/__preview
 
 Only the preview answers `{"app":"neon-spore-preview",...}`, and it names the
 checkout it serves in `tree`. If that tree is not the one under test, the number
-came off the wrong server.
+came off the wrong server. **Read the port out of the server's own startup
+line** rather than deriving it, and in a worktree **launch by absolute path**:
+`.claude/launch.json` carries no `cwd`, so it starts the *main* checkout's
+server and nothing errors.
 
-**Read the port out of the server's own startup line.** A preview takes 4173
-when it is free and steps aside onto a port derived from its tree's path
-(`tools/ports.ts`) only when another tree already holds the base; the director
-does the same from 4174. So the port is one of two numbers, and the log says
-which. Do not read "this is a worktree" as "the port is derived" —
-`docs/working-with-claude.md` has the session that did.
+`?play=1` opens on the field rather than the menu, which is what `tools/frames`
+drives. `bun run preview:once` takes a free port for a throwaway check. Never
+start a server with a backgrounded shell command, and never install a service
+worker on a local address — `?pwa=1` is for testing the install itself.
 
-**In a worktree, `.claude/launch.json` is the wrong tool**: its entries carry no
-`cwd`, so they start the *main* checkout's server, which serves main's code with
-nothing erroring. Launch by absolute path inside your own tree, and confirm who
-answered.
-
-The game opens on the main menu; `?play=1` goes straight onto the field, which
-is what `tools/frames` drives so a captured frame is the game rather than a
-title screen. `bun run preview:once` takes a free port for a throwaway check.
-Never start a server with a backgrounded shell command. The history behind all
-of this: `docs/working-with-claude.md`.
-
-**Nothing on a local address installs a service worker.** A cache that replies
-after the server has idled out serves a build that no longer exists, and the
-stale page reads as a bug in the code that just replaced it. `?pwa=1` turns one
-on locally for the one case that wants it, testing the install.
-
-**Playing alone opens no socket.** The two-device layer is built on every run
-because solo is the default rather than a mode, and it is inert until a room is
-joined — no ping, no fingerprint, not even a status callback.
-`apps/game/test/solo-is-quiet.test.ts` holds that and the rule above: "inert" is
-a claim that stops being true the moment a timer moves above the check for a
-socket.
+Each of those is a trap something walked into, and each costs a turn to
+rediscover: `docs/working-with-claude.md`.
 
 ## Measuring what a frame costs
 
 **A new shape or a new animation gets a performance run; an ordinary change does
-not.** A creature, a boss, a round or a new animated behaviour is the only kind
-of change that can put per-frame cost nobody has weighed onto the field.
+not.** **Measure the waves the new thing appears in and nothing else** — the
+whole game is swept only when a baseline is being taken.
 
 ```
-bun run perf           # every wave, at its busiest tick, CPU throttled to a phone
-bun run perf --save    # keep it as the baseline, once the change is one you meant
+bun run perf --wave "THE GRATE"   # the waves a change touched, at their busiest tick
+bun run perf                      # all of them — what a baseline is taken from
+bun run perf --save               # keep a full sweep as the new baseline
 ```
 
 **Never `--save` to make a regression stop being reported**, and never run one on
 a busy machine — the 90th percentile then measures the other sessions rather than
-the frame. It does not replace `frame-budget.test.ts`: an op is not a
-millisecond. `docs/performance.md` carries the mechanism and the figures.
+the frame. Under five waves the tool prints milliseconds and no verdict, because
+a median that small cancels the change it was taken to see. It does not replace
+`frame-budget.test.ts`: an op is not a millisecond. `docs/performance.md`.
 
 ## Verifying the relay
 

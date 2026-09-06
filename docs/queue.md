@@ -306,36 +306,6 @@ throttle is meaningless on a phone, so the page records `null` for it and
 `docs/performance.md` gains a line saying a phone run is compared against other
 phone runs, never against a throttled desktop one.
 
-## `CLAUDE.md` sits against its ceiling, so every new rule costs a turn of shaving
-
-- **Found:** 2026-09-06, claude/queue-the-perf-baseline-covers-38-of-the-45-waves-the
-- **Taken:** 2026-09-06, claude/queue-claude-md-sits-against-its-ceiling-so-every-new
-- **Files:** `CLAUDE.md`, `docs/working-with-claude.md`, `tools/test/claude-md.test.ts`
-
-The file is 21,963 characters against a 22,000 ceiling — thirty-seven spare,
-which is one sentence. Landing `bun run perf` needed a section of about a
-thousand characters, and paying for it took six separate passes reflowing prose
-in *Verifying in a browser*, *Verifying the relay* and the perf section itself.
-None of that shaving improved the file; it was an hour spent buying room, and
-the next lane that adds a rule will spend it again.
-
-The ceiling is right and is not the thing to raise — it exists because the file
-is re-read on every turn of every session and an edit invalidates the cache that
-would bill the re-read at a tenth. What is wrong is that a whole section is
-still narrative where the Git and cloud sections are pointers.
-
-**Verifying in a browser** is the one to move, and it is about 2,400 characters.
-Most of it is already history that `docs/working-with-claude.md` carries at
-length — the two ports, who answers `/__preview`, the port a worktree actually
-takes, the service worker, why `.claude/launch.json` is the wrong tool in a
-worktree. What has to stay in `CLAUDE.md` is the rule and the command:
-`bun run preview` never `dev:game`, ask who answered with the `curl` line, read
-the port off the startup line, and a pointer. `docs/git-and-landing.md` is the
-shape to copy — the test's own failure message names it.
-
-`bun run check` proves it: the ceiling test goes green with real room behind it,
-and nothing else in the repository reads the prose that moved.
-
 ## `bun run perf`'s 20% noise floor still flags waves nobody touched
 
 - **Found:** 2026-09-06, claude/queue-the-perf-baseline-covers-38-of-the-45-waves-the
@@ -365,4 +335,3 @@ is reported at all.
 Whatever it becomes, say it in `docs/performance.md` in the terms the run prints,
 and hold it in `compare.test.ts` with a fixture built from two runs that differ
 only by noise.
-
