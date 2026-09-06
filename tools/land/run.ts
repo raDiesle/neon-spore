@@ -49,7 +49,7 @@
  */
 
 import { git, gitOrDie } from "./git.js";
-import { type Landing, plan, pushNow, SWEPT_NOTHING } from "./land.js";
+import { type Landing, plan, pushNow, SWEPT_NOTHING, trunkRaced } from "./land.js";
 import { type Landed, LOG_FORMAT, parseLanded } from "./notes.js";
 import { queueSnapshots, refusal, resurrectedAfter } from "./queue-guard.js";
 import { badge, describe } from "./say.js";
@@ -95,6 +95,11 @@ if (dryRun) process.exit(0);
  * after this is the same either way.
  */
 async function moveTrunk(): Promise<Landed[]> {
+  // Where the trunk stands before any of this. Asked again just before the ref
+  // move, because nothing holds it in between and the check is minutes long
+  // (`trunkRaced`).
+  const trunkBefore = await git(["rev-parse", TRUNK], root);
+
   // Read before the replay, asked after it: what the trunk had taken out of
   // the queue, and what the lane branched from. A rebase that resolves
   // `docs/queue.md` in the lane's favour puts every removed entry back in one
@@ -169,6 +174,11 @@ async function moveTrunk(): Promise<Landed[]> {
     root,
   );
   const landed = parseLanded(landingLog);
+  const raced = trunkRaced(TRUNK, trunkBefore, await git(["rev-parse", TRUNK], root));
+  if (raced) {
+    console.log(`✗ ${raced}`);
+    process.exit(1);
+  }
   try {
     if (going.moveRef) await gitOrDie(["branch", "--force", TRUNK, head], root);
     else await gitOrDie(["merge", "--ff-only", branch], state.trunkTree);

@@ -1,5 +1,5 @@
 import { expect, describe as group, test } from "bun:test";
-import { type Cleanup, type LandState, plan, pushNow, SWEPT_NOTHING } from "../land.js";
+import { type Cleanup, type LandState, plan, pushNow, SWEPT_NOTHING, trunkRaced } from "../land.js";
 import { badge, describe } from "../say.js";
 import { uncommittedOf } from "../state.js";
 
@@ -313,5 +313,30 @@ group("uncommittedOf", () => {
   test("names a path once when it is both staged and changed again", () => {
     const twice = ["apps/game/src/loop.ts", "apps/game/src/loop.ts"].join("\n");
     expect(uncommittedOf(twice, "")).toEqual(["apps/game/src/loop.ts"]);
+  });
+});
+
+/**
+ * The gap nothing was holding. A landing rebases, spends minutes in
+ * `bun run check`, and only then moves the trunk — and in a clone the move is
+ * `git branch --force`, which will happily point `main` at a commit built on a
+ * trunk that has since been landed on by somebody else. That is the one shape
+ * where a lane is discarded without a word.
+ */
+group("trunkRaced", () => {
+  test("a trunk that has not moved is not a race", () => {
+    expect(trunkRaced("main", "a".repeat(40), "a".repeat(40))).toBeUndefined();
+  });
+
+  test("a trunk that moved is refused, naming the sha that arrived", () => {
+    const said = trunkRaced("main", "1234567890abcdef", "fedcba0987654321");
+    expect(said).toContain("1234567");
+    expect(said).toContain("fedcba0");
+    expect(said).toContain("Nothing was moved");
+  });
+
+  test("a sha that could not be read is not grounds for a refusal", () => {
+    expect(trunkRaced("main", "", "fedcba0987654321")).toBeUndefined();
+    expect(trunkRaced("main", "1234567890abcdef", "")).toBeUndefined();
   });
 });

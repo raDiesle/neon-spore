@@ -247,25 +247,6 @@ Write the entry the way the neighbouring ones are written: the figures off
 `crawler-fx.ts`. Nothing about the game changes and `bun run check` still
 passes, which is the whole of the acceptance.
 
-## Two lanes landing at once in a clone can silently discard one
-
-- **Found:** 2026-09-05, claude/git-flow-parallel-sessions-6f1b43
-- **Taken:** 2026-09-06, claude/queue-two-lanes-landing-at-once-in-a-clone-can-silentl
-- **Files:** `tools/land/run.ts`, `tools/land/land.ts`
-
-A landing is rebase, then `bun run check`, then fast-forward, and the check is
-minutes long. Nothing holds the trunk across that gap. In a tree that has `main`
-checked out the fast-forward is `merge --ff-only`, which refuses if `main` moved
-— the check is wasted and nothing is lost. In a clone where nothing holds the
-trunk (`moveRef`, which is every cloud session) it is `git branch --force main
-<head>`, and that moves `main` to a commit built on the trunk as it was before
-the check started: whatever landed in between is dropped without a word.
-
-Read `main`'s sha at the start of the landing and again before the ref move, and
-refuse when the two differ, naming the sha that arrived. `plan()` cannot decide
-this — it is a fact about the world at two different moments — so it belongs in
-`run.ts` beside the `moveRef` branch, with a test that hands it two shas.
-
 ## `tools/frames` leaves its scratch worktrees in the temp directory
 
 - **Found:** 2026-09-05, claude/git-flow-parallel-sessions-6f1b43
