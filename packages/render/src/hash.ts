@@ -32,3 +32,22 @@ export function sinHash(a: number, b = 0, c = 0): number {
 export function signedHash(a: number, b = 0, c = 0): number {
   return sinHash(a, b, c) * 2 - 1;
 }
+
+/**
+ * A repeatable *sequence* of 0..1 values from one seed, which is the half
+ * `sinHash` cannot answer: that one is a function of its arguments and these
+ * callers want the next number without carrying a counter for it.
+ *
+ * The constants are the Numerical Recipes linear congruential ones, and the
+ * `(n >>> 8) % 10000` reduction drops the low bits an LCG is weakest in. Both
+ * are part of the answer rather than an implementation detail — a crack drawn
+ * from a seed must be the same crack next frame, so changing either changes
+ * what is on the screen.
+ */
+export function stream(seed: number): () => number {
+  let n = seed | 0;
+  return () => {
+    n = (Math.imul(n, 1664525) + 1013904223) | 0;
+    return ((n >>> 8) % 10000) / 10000;
+  };
+}

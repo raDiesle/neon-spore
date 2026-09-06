@@ -102,22 +102,21 @@ describe("buildBacklog", () => {
     expect(names(backlog.bosses)).toContain("THE LATHE");
     expect(names(backlog.bosses)).toContain("THE VAULT");
 
-    // THE GAUGE and SNAKE are both built — `packages/sim/src/gauge.ts` and
-    // `snake.ts`, and `BOSS_KINDS` carries both — and a built round leaves the
-    // backlog by being built, the same way a creature or a boss does. It used
-    // to need a third table beside those two, because a round was in neither of
-    // them; it does not any more, and the count is the proof that a second one
-    // needed nothing added here to disappear.
+    // THE GAUGE, SNAKE and THE CLAW are all out of the list, and none of them
+    // is counted as hidden: their bullets were cut from `docs/spec/ideas.md`
+    // once they existed, because an entry describing a shipped round in the
+    // future tense is a page that lies to whoever reads it next. THE GAUGE and
+    // SNAKE are written up in `docs/spec/interludes.md` instead; THE CLAW was
+    // built as a control set and is in `docs/spec/controls.md`.
+    //
+    // `dropBuilt` is the belt beside that brace and stays: it hides a round by
+    // name off `BOSS_KINDS` whether or not anybody remembered to cut the
+    // bullet, so the count going to nought is what a tidy page looks like
+    // rather than a guard being removed.
     expect(names(backlog.bosses)).not.toContain("THE GAUGE");
     expect(names(backlog.bosses)).not.toContain("SNAKE");
-    expect(group(backlog.bosses, "ROUND IDEAS").builtHidden).toBe(2);
-
-    // THE CLAW is the other way out of this list and the count is why both
-    // exist: its entry was cut from `docs/spec/ideas.md` when the round landed,
-    // so there is nothing here to hide and `builtHidden` never saw it. A round
-    // that is neither in the list nor counted as hidden is one nobody is being
-    // offered twice, which is the whole job of this section.
     expect(names(backlog.bosses)).not.toContain("THE CLAW");
+    expect(group(backlog.bosses, "ROUND IDEAS").builtHidden).toBe(0);
 
     // A boss idea sits with the act order rather than among the creatures:
     // it is a whole encounter waiting for a slot, not a thing that falls.

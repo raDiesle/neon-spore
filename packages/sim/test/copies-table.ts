@@ -436,6 +436,24 @@ export const COPIES: Copy[] = [
     strip: false,
   },
   {
+    // The other half of the same file: `sinHash` answers one number from its
+    // arguments, and a marking that wants a *sequence* from one seed reaches
+    // for `stream` instead. Three files carried this linear congruential
+    // generator privately before it moved into `hash.ts`, and the row exists
+    // because the `sinHash` row above matched none of them.
+    call: "stream",
+    owner: "packages/render/src/hash.ts",
+    pattern: /1664525|1013904223/,
+    strip: false,
+    // The generator that bakes `assets/raster/`. It shares the two constants
+    // and nothing else: it reduces `state / 4294967296` off an unsigned state
+    // rather than `(n >>> 8) % 10000`, and every number it answers is already
+    // in a shipped PNG. Adopting the render stream would redraw those files,
+    // which is a look rather than a refactor — so it owns its own sequence,
+    // and its header already says why it may not use `Math.random`.
+    also: ["tools/raster/src/burst-art.ts"],
+  },
+  {
     // The one easing curve. Five copies, three of them trusting the caller to
     // have clamped and two clamping themselves — the difference between them
     // being invisible until a value arrives out of range.

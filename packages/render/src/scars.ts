@@ -1,6 +1,7 @@
 import type { Point } from "@neon-spore/content";
 import { isWardable, type Scar } from "@neon-spore/sim";
 import type { Crater } from "./craters.js";
+import { stream } from "./hash.js";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -36,15 +37,6 @@ const KINKS = 5;
  * spike between a raised outline and a crack that stayed behind.
  */
 const FOLLOW = 3;
-
-/** A tiny deterministic stream of 0..1 values from one integer. */
-function stream(seed: number): () => number {
-  let n = seed | 0;
-  return () => {
-    n = (Math.imul(n, 1664525) + 1013904223) | 0;
-    return ((n >>> 8) % 10000) / 10000;
-  };
-}
 
 function crackPoints(tile: number, top: Point, rnd: () => number, lean: number): Point[] {
   const depth = tile * (DEPTH_MIN + rnd() * (DEPTH_MAX - DEPTH_MIN));

@@ -248,34 +248,6 @@ sequence of pictures identical run to run has to stay true, which is the whole
 reason the counter starts where it does — so the answer is probably a running
 offset kept across waves rather than the real clock.
 
-## Three private copies of one LCG, beside the shared hash render/ already has
-
-- **Found:** 2026-09-06, claude/fence-enemy-visuals
-- **Taken:** 2026-09-06, claude/queue-three-private-copies-of-one-lcg-beside-the-share
-- **Files:** `packages/render/src/scars.ts`, `packages/render/src/snake-shot.ts`, `packages/render/src/lure-blast.ts`, `packages/render/src/hash.ts`
-
-`packages/render/src/hash.ts` exists to be *the* repeatable 0..1 in render/, and
-its own header says seven files carried a private copy before it was written.
-Three still do, and all three are the same linear congruential generator with
-the same two constants: `scars.ts` and `snake-shot.ts` each declare a local
-`stream(seed)` around `Math.imul(n, 1664525) + 1013904223`, and `lure-blast.ts`
-spells one step of it inline. `packages/sim/test/purity.test.ts` catches a
-fourth copy — it stopped this lane writing one — but it matches on the *sine*
-hash and says nothing about these.
-
-Two halves, and the second is the point of the entry:
-
-- **Give `hash.ts` a stream.** `sinHash` answers one number from its arguments
-  and these three want a *sequence* from one seed, which is a real difference
-  and why the copies exist. `export function stream(seed: number): () => number`
-  next to `sinHash`, with the header's own reasons, and the three call sites
-  reduced to importing it. Nothing drawn may change: `scars.ts` and
-  `snake-shot.ts` must keep the exact constants and the exact `(n >>> 8) % 10000`
-  reduction, so the same seed gives the same crack.
-- **Add the row to `purity.test.ts`.** The table there is what stops the next
-  copy, and a rule that is only half in it is a rule that gets re-derived. The
-  new row matches the constant `1664525`.
-
 ## The desk rig cannot carry a body sideways
 
 - **Found:** 2026-09-06, claude/meteor-pull-drag-mechanics-42170b
@@ -495,31 +467,3 @@ baseline stores a name instead. Two halves:
   a changed arrival fingerprint; it did not notice that one name appeared
   twice. A row-uniqueness assertion is two lines and would have named the
   problem instead of leaving a mismatched name at an index.
-## THE GAUGE and SNAKE are still written up as ideas in `docs/spec/ideas.md`
-
-- **Found:** 2026-09-06, claude/rounds-claw-boss-level-272aef
-- **Taken:** 2026-09-06, claude/queue-the-gauge-and-snake-are-still-written-up-as-idea
-- **Files:** `docs/spec/ideas.md`, `docs/spec/bosses.md`, `tools/director/test/backlog.test.ts`
-
-Both rounds are built — `packages/sim/src/gauge.ts` and `snake.ts`, and
-`BOSS_KINDS` carries both — and both still have an entry under the **Rounds**
-heading of the idea store describing them as things the game could have. The
-director's backlog hides them by name off `BOSS_KINDS` (`dropBuilt` in
-`tools/director/src/backlog-ideas.ts`), so nobody is offered them twice; what
-is left is a spec page that describes two shipped rounds in the future tense,
-including "unworked out" questions the code answered months ago.
-
-THE CLAW's entry was cut when the round landed and the section that replaced it
-is `docs/spec/bosses.md` 11.8, so there is a worked example of what to do:
-delete the entry, make sure the built round has a section in `bosses.md` saying
-what it actually is, and drop `backlog.rounds[0].builtHidden` in
-`tools/director/test/backlog.test.ts` by one for each entry removed — the count
-is what proves nothing was left behind.
-
-Neither has a `##` section in `bosses.md` yet — THE GAUGE is described at
-length in `docs/spec/interludes.md`, which is the round *category's* page
-rather than the round's, and SNAKE has nothing but its wave and its code. So
-this is not a pure deletion: the part of each idea-store entry that is still
-true has to land in a section of its own first, the way THE CLAW's did, and
-only then does the entry go. PINBALL is the model to copy — it has 11.7 and no
-entry in the idea store.

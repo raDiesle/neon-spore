@@ -1,4 +1,5 @@
 import type { Color, SimEvent } from "@neon-spore/sim";
+import { stream } from "./hash.js";
 import { mixHex, rgba } from "./hex.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -56,12 +57,10 @@ function unit(v: number): number {
   return Math.max(0, Math.min(1, v));
 }
 
-/** A stable 0..1 from one integer — `scars.ts`'s hash, for its reason: one
- * streak looks nothing like the next and no number was stored to say so. */
-function wobble(i: number): number {
-  const n = (Math.imul(i + 1, 1664525) + 1013904223) | 0;
-  return ((n >>> 8) % 10000) / 10000;
-}
+/** A stable 0..1 from one integer — one step of `hash.ts`'s stream, taken for
+ * its reason: one streak looks nothing like the next and no number was stored
+ * to say so. */
+const wobble = (i: number): number => stream(i + 1)();
 
 export class LureBlastFx {
   private blasts: Blast[] = [];

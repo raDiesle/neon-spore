@@ -560,21 +560,26 @@ time, picked up the way the game's other power-ups already are.
 
 ### Rounds
 
-Twelve short rounds that are not the field: their own rules, their own
+Ten short rounds that are not the field: their own rules, their own
 controls, their own picture, over in about ninety seconds, and nothing they
-teach is used again. The category comes from reading Hazelight's two co-op
+teach is used again. Twelve were written; two of them are built and have left
+this list. The category comes from reading Hazelight's two co-op
 games — see [transfers-hazelight](transfers-hazelight.md) — and what a
 round is allowed to be is [interludes](interludes.md). THE MIRROR
 ([bosses](bosses.md) 11.4) is the one the game already had without calling it
 that.
 
-**A built round stops being an idea.** The director's backlog drops one by
-name off `BOSS_KINDS` rather than by anybody remembering to, so an entry left
-standing here after the round exists is hidden rather than wrong — THE GAUGE's
-and SNAKE's still are, and are worth reading beside what was actually built.
+**A built round stops being an idea, and its entry is cut.** The director's
+backlog also drops one by name off `BOSS_KINDS`, so a bullet left standing
+after the round exists is hidden rather than wrong — but hidden is not the same
+as gone, and a paragraph describing a shipped round in the future tense is a
+page that lies to whoever reads it next. THE GAUGE and SNAKE are both built and
+both bullets are gone; what they actually turned out to be is written up in
+[rounds that are not the field](interludes.md), which carries the files, the
+numbers and the questions the code answered.
 
-**THE CLAW's was cut instead, and it is the interesting case**: it was built,
-and built as something else. The idea here was a claw on a rail over its own
+**THE CLAW is the interesting case**, and the reason a cut entry is not always
+a built round: it was built, and built as something else. The idea here was a claw on a rail over its own
 screen with a wreck field under it; what the owner asked for once he had seen
 it was the ship's own cannon replaced by an arm, on the ordinary field, with
 the power-ups crossing it sideways and visible to one seat only. That is a
@@ -619,19 +624,6 @@ is worth more than a better one that is waiting on it.
   faces are glyphs the pair already knows — the six control glyphs
   (`packages/render/src/simon-glyph.ts`) are drawn and legible small — or new
   symbols, which would be a vocabulary lesson inside a minute
-- **THE GAUGE** — the smallest one, and the one to build first if any of them
-  is built. A single needle between two marks. Each player holds a valve that
-  pushes it one way, both valves are always pushing, and the needle sits still
-  only while the two are matched. Only the navigator sees the dial. Only the
-  pilot's valve is strong enough to move it quickly. The target band drifts on
-  the beat, so the pair is never done, only currently right. Ninety seconds of
-  "ease off, ease off, now hold" and nothing else. **No relaxation needed** —
-  a needle is not a thing that travels a field, it is a number in thousandths.
-  Unworked out: whether the drift is authored or drawn from the seeded rng at
-  the start, where authored is repeatable and drawn is fairer to a second
-  playthrough; whether letting the needle hit an end costs the round or only
-  time; whether it is a gauge at all or is the same round drawn as two hands on
-  a rope, which is the picture everybody already understands
 - **THE ACCORD** — eight beats, two dials, no picture in common. Each of you
   has a dial showing a number neither of you chose, and the round ends when
   both dials read the same. Neither can see the other's. There is no correct
@@ -733,28 +725,6 @@ is worth more than a better one that is waiting on it.
   answering before the drawing starts; whether both devices flip or only one,
   where only one is The Flip ([ideas](ideas.md), Mechanics) wearing a different
   hat; whether the radar strip survives a polar field at all
-- **SNAKE** — **built**, and this bullet is what the old one promised would
-  replace it. `packages/sim/src/snake.ts` and its four neighbours, drawn by
-  `packages/render/src/snake-draw.ts`, played on the `snake` control set, one
-  wave in `act-4.ts`, arenas edited in the director. What it settled: a snake
-  is one body that travels, which is the shape the field's central rule
-  forbids — and a round is outside that rule, which
-  [the page that hung on the question](interludes.md#the-question-the-whole-page-hung-on-now-answered)
-  had already answered before this was written. So the answer was not a
-  relaxation; it was that the rule is about the field and this is not the
-  field. What makes it a Neon Spore round rather than a game for one person is
-  the split down the middle of the arcade game: **player 2 drives** — two
-  quarter turns, relative, and nothing standing in the arena is drawn on that
-  screen — and **player 1 works it**, a shot out of the head and a mouth, with
-  every enemy and every point on their screen and no way to reach one. Both
-  sketches the old entry named are in it and they turned out to be the same
-  idea seen twice: what there is to collect is on one device and the body is on
-  the other. Three authored maps; shoot everything and swallow everything to
-  clear one; a wall, your own back, a touched enemy or a point taken with the
-  mouth shut starts it over for a few points of hull; the clock running out
-  costs more and ends it. Meteors are the third thing on a map and the one
-  neither seat can act on — they stop a shot, they cannot be taken, and they
-  are on both screens because the only answer to one is where the body goes.
 
 ## Deliberately deferred
 
