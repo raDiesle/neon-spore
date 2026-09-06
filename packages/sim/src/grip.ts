@@ -1,4 +1,5 @@
 import { ghostCrosses } from "./ghost.js";
+import { clearGripPush } from "./grip-push.js";
 import { type Creature, fallTilesPerBeat, isGrippable } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
@@ -36,8 +37,14 @@ export const NO_GRIP = 0;
  */
 export function setGrip(world: World, player: 1 | 2, id: number): void {
   const target = world.creatures.some((c) => c.id === id && canBeHeld(c, player)) ? id : NO_GRIP;
+  const was = player === 1 ? world.gripP1 : world.gripP2;
   if (player === 1) world.gripP1 = target;
   else world.gripP2 = target;
+  // A hand that has moved to another body, or come off the glass, is carrying
+  // nothing: the columns it had spent were spent on the body it was on, and a
+  // carry kept across the change would earn one on the new body that the
+  // finger never travelled for (`grip-push.ts`).
+  if (target !== was) clearGripPush(world, player);
 }
 
 /**
@@ -60,6 +67,8 @@ export function gripCount(world: World, id: number): number {
 export function clearGrips(world: World): void {
   world.gripP1 = NO_GRIP;
   world.gripP2 = NO_GRIP;
+  clearGripPush(world, 1);
+  clearGripPush(world, 2);
 }
 
 /**

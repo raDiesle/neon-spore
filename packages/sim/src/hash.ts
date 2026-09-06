@@ -39,6 +39,18 @@ export function hashWorld(world: World): number {
   push(world.shieldCol);
   push(world.gripP1);
   push(world.gripP2);
+  // And what each of those hands has carried. Two devices that disagreed about
+  // either number would disagree about which column a rock is about to step
+  // into — and so about whether the shield is standing in front of it, which
+  // is the loudest desync a field can have (`grip-push.ts`). Nought and
+  // nothing are two states: a hand may be holding a body and have carried it
+  // nowhere, which is not the same as a hand carrying nothing at all.
+  push(world.pushP1 === null ? 0 : 1);
+  push(world.pushP1?.milli ?? 0);
+  push(world.pushP1?.cols ?? 0);
+  push(world.pushP2 === null ? 0 : 1);
+  push(world.pushP2?.milli ?? 0);
+  push(world.pushP2?.cols ?? 0);
   push(world.primeTick);
   // The four ticks the hull remembers. Cosmetic while nothing branched on
   // them, and not cosmetic any more: a call whose `need` is `guard` or

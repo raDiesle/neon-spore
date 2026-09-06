@@ -46,6 +46,8 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   podRepair: "POD — shot loose, then caught",
   wardBeats: "POD — shot loose, then caught",
   gripSlowPermille: "GRIP — a hand on the field",
+  gripPushMilli: "GRIP — a hand on the field",
+  gripPushPauseBeats: "GRIP — a hand on the field",
   hullRegenPerSecond: "HULL — damage and repair",
   hullInvulnerable: "PLUMBING — not a dial a person turns",
   damageCreature: "HULL — damage and repair",

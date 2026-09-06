@@ -119,7 +119,39 @@ to destroy.
 every wave from the first, because what it needs first is play, and gating it
 behind wave 8 would mean nobody had held anything for an hour.
 
-## 6.5 THE LOCK — the same hand, read a second way, built
+## 6.5 THE PUSH — the same hand, carried sideways, built
+
+Carry the finger a tile across while it is holding a body and the body steps
+**one column** the way the hand went. Then it stands still: `gripPushPauseBeats`
+has to pass before it may be carried again, so a thumb can walk a rock across
+the field at half the speed it falls and never faster. `sim/grip-push.ts` is
+the whole rule; `gripPushMilli` is how far the finger travels for one column
+and it is a whole tile, so the finger and the body cover the same ground and
+the body is still under the finger afterwards.
+
+**It is not a new gesture either.** It is 6.4's, moved. Both seats have it, for
+6.4's reason — the field belongs to both and is not split between them — and
+the price is the one already built in: the thumb is on the field, so it is off
+the strip below.
+
+**What it buys is a lane, never a beat.** A carried rock is still a falling
+rock: the carry composes with the fall into one diagonal, and how *fast* a body
+comes down is 6.4's job and nothing to do with this one. Before it, a rock in
+the wrong column had exactly two answers — the shield reaching it in time, or
+the hull taking it. It has a third now, and the third one costs a hand.
+
+**The pause is counted on the body, not on the hand.** Two hands on one rock
+taking turns would otherwise walk it twice as fast as one, and what the rule is
+about is how far a body may cross the field in a beat. For the same reason two
+hands pulling opposite ways cancel and the body holds — the one place in the
+game where the seats can work against each other, and it resolves the only way
+it honestly can: whoever lets go first sends it.
+
+**Against the wall it does nothing at all**, and the pause does not start. A
+thumb pressed on into the edge of the field is simply a thumb held on a body,
+which is 6.4 and still slows it.
+
+## 6.6 THE LOCK — the same hand, read a second way, built
 
 While **player 1** has a hand on a body, every shot the cannon puts out steers
 into it and lands, from whatever column it left the muzzle in. Take the hand

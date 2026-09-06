@@ -1,3 +1,4 @@
+import { heldHashParts } from "./hash-creature-held.js";
 import { kindCode } from "./kind-code.js";
 import { spanOf } from "./span.js";
 import type { Creature } from "./types.js";
@@ -132,23 +133,10 @@ export function creatureHashParts(c: Creature): number[] {
   // tiles. `-1` for a body carrying none, a value no tile index can take.
   out.push(c.wispNext ?? -1);
   out.push(c.wears === undefined ? 0 : kindCode(c.wears) + 1);
-  // THE LID's cord, as two numbers rather than one. Whether a hand is on it
-  // decides whether the plates are shut, and how far it has been carried
-  // decides whether a shot lands — so two devices that disagree about either
-  // disagree about whether the body player 2 just fired at was open. They
-  // cannot be folded into one: the pull is signed and a grab reports zero, so
-  // there is no value of it left over to mean "nobody is holding this".
-  out.push(c.lidPullMilli === undefined ? 0 : 1);
-  out.push(c.lidPullMilli ?? 0);
-  // And the other half of it. A hand may carry a cord any way it likes, so two
-  // devices that agreed about the x and not the y would disagree about how far
-  // the plates stand apart — which is to say about whether the shot player 2
-  // just fired counted.
-  out.push(c.lidPullYMilli ?? 0);
-  // And where the hand took the cord, for the reason above one more time: two
-  // devices that disagree about the anchor draw the handle in two places.
-  out.push(c.lidAnchorMilli ?? -1);
-  out.push(c.lidAnchorYMilli ?? -1);
+  // Everything a hand writes — THE LID's cord and the beat this body was
+  // last carried a column on — in the position those fields have always had
+  // (`hash-creature-held.ts`).
+  out.push(...heldHashParts(c));
   // How many bounces THE RECOIL has left. It decides whether the next matching
   // shot throws the body two rows back up and a lane sideways or takes it off
   // the field, so two devices that disagree about it disagree about where the

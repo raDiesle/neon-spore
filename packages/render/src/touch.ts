@@ -50,7 +50,14 @@ export function touchDown(l: Layout, x: number, y: number, field: Field): Touch 
     if (ship) return ship;
     const held = creatureAt(l, field.creatures, x, y, field.beatPhase);
     if (!held) return null;
-    return { player: field.seat, command: { kind: "grip", id: held.id }, hold: { kind: "grip" } };
+    return {
+      player: field.seat,
+      command: { kind: "grip", id: held.id },
+      // Where the finger landed and what it landed on, kept for the move: a
+      // hand carried sideways from here steps the body a column, and by the
+      // time it has moved there is nothing left to ask (`touchMove`).
+      hold: { kind: "grip", id: held.id, player: field.seat, originX: x },
+    };
   }
 
   if (showsCannon(l.role)) {
@@ -125,10 +132,12 @@ function lobeUnder(
  * place a pixel is legal, so it becomes thousandths of a tile before it goes
  * anywhere — the tile being the only length two phones share.
  *
- * A grip still answers nothing, deliberately: a hand on something falling only
- * slows it, and that is all a grip has ever been (`sim/grip.ts`). Nothing that
- * cared only that a hand was there has to learn that some hands now report
- * where they went.
+ * **A grip answers now**, and it answers as a displacement like any other
+ * drag. A hand on something falling used to only slow it; carried sideways it
+ * also steps the body a column, which is one hold and two gestures — the
+ * arrangement the cannon already has (`sim/grip-push.ts`). What it sends is a
+ * `drag` at `gripBody`, so nothing on the wire and nothing in the simulation
+ * had to learn a new shape of message.
  *
  * **There is a `y` now.** A pull was one number across for as long as the only
  * handle in the game hung under a rim and was swung *aside*; the owner asked
@@ -141,6 +150,14 @@ export function touchMove(l: Layout, hold: Hold, x: number, y: number): Touch | 
   }
   if (hold.kind === "shield") {
     return { player: 2, command: { kind: "shieldCol", col: colFromX(l, x) }, hold };
+  }
+  if (hold.kind === "grip") {
+    // Across only. How fast the body comes down is the grip's other half and a
+    // *hold* rather than a distance (`sim/grip.ts`), so the y of this gesture
+    // would be a number nothing reads — and an absent one is exactly nought.
+    const fromMilli = Math.round(((x - hold.originX) * 1000) / l.tile);
+    const drag = { kind: "drag", target: "gripBody", on: true, fromMilli, id: hold.id } as const;
+    return { player: hold.player, command: drag, hold };
   }
   if (hold.kind === "drag") {
     // Both axes now: the owner asked for a handle to be carriable any way at

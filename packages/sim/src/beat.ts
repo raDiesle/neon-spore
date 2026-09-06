@@ -7,6 +7,7 @@ import { stepDart } from "./dart.js";
 import { splitEchoes } from "./echo-split.js";
 import { ghostCrosses, stepGhostAcross } from "./ghost.js";
 import { grippedFallTiles } from "./grip.js";
+import { carryGrips } from "./grip-push.js";
 import { breakSpentGyres, stepGyre } from "./gyre.js";
 import { resolveHull } from "./hull.js";
 import { removeSpentLures } from "./lure-exit.js";
@@ -216,6 +217,11 @@ export function onBeat(world: World): void {
     // covering; here the diagonal is the fall it already had (`veer.ts`).
     if (c.kind === "veer") stepVeer(world, c);
   }
+
+  // Every body a hand has carried far enough, moved one column the way the
+  // hand went. After the loop rather than inside it: that loop has just written
+  // `fromCol`, and a carry is drawn as a glide out of it (`grip-push.ts`).
+  carryGrips(world);
 
   // Everything that was already standing when this beat began and still has a
   // division left in it becomes two. Before the queue below rather than after,

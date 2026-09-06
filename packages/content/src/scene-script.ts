@@ -58,6 +58,9 @@ export function sceneCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
 function tautMilli(target: DragTarget, cfg: SimConfig): number {
   if (target === "lidString") return cfg.lidTautMilli;
   if (target === "wardenTether") return cfg.wardenTautMilli;
+  // A held body has no taut at all — it is carried a tile at a time and may be
+  // carried again — so what a film that does not say means is one column.
+  if (target === "gripBody") return cfg.gripPushMilli;
   return cfg.mazeTurnMilli;
 }
 
@@ -71,12 +74,13 @@ function tautMilli(target: DragTarget, cfg: SimConfig): number {
  * of taut — the plates then never part, which is a film that shows the gesture
  * and not the point of it.
  *
- * **Across**, for the one that is turned: a wheel is turned by how far the
- * hand has come, and that is the x of it and nothing else
- * (`sim/maze-controls.ts`).
+ * **Across**, for the two that are not pulled at all: a wheel is turned by how
+ * far the hand has come, and that is the x of it and nothing else
+ * (`sim/maze-controls.ts`) — and a held body is carried into a *column*, which
+ * has no other axis to be carried along (`sim/grip-push.ts`).
  */
 function pullsDown(target: DragTarget): boolean {
-  return target !== "mazeString";
+  return target !== "mazeString" && target !== "gripBody";
 }
 
 /**

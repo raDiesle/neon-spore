@@ -14,7 +14,7 @@ import { type Color, type Command, type DragTarget, SNAKE_TURNS } from "@neon-sp
  * second copy elsewhere would be caught.
  */
 const COLORS = ["red", "cyan"] as const;
-const DRAG_TARGETS: readonly DragTarget[] = ["mazeString", "wardenTether", "lidString"];
+const DRAG_TARGETS: readonly DragTarget[] = ["mazeString", "wardenTether", "lidString", "gripBody"];
 
 const isColor = (x: unknown): x is Color =>
   typeof x === "string" && (COLORS as readonly string[]).includes(x);

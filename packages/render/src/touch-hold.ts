@@ -60,7 +60,19 @@ export type Hold =
    * the ring stays lit while the thumb is still there.
    */
   | { kind: "guard" }
-  | { kind: "grip" }
+  /**
+   * A finger on something falling. It carries what a `drag` hold carries, and
+   * for the same reason: the press is the one moment anything knows *where* it
+   * landed and *which* body it landed on, and a hand carried sideways from
+   * there steps the body a column (`sim/grip-push.ts`).
+   *
+   * One hold and two gestures, the arrangement `cannon` already has: the press
+   * takes hold and slows the fall, and the move — if it goes anywhere — carries
+   * it. `player` is the seat this screen holds, frozen at the press, because
+   * the field belongs to both players and a move is answered a long way from
+   * anything that knows which phone it is on.
+   */
+  | { kind: "grip"; id: number; player: 1 | 2; originX: number }
   | { kind: "lance" }
   /**
    * Player 2's thumb on the muzzle. The press says nothing at all — it is the

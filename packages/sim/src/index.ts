@@ -89,6 +89,7 @@ export {
   NO_GRIP,
   setGrip,
 } from "./grip.js";
+export { type GripPush, gripPushOf } from "./grip-push.js";
 export {
   gyreMountsLeft,
   gyreSpinPerBeat,

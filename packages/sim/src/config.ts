@@ -116,6 +116,27 @@ export interface SimConfig
    * a beat or two bought and never a creature stopped dead.
    */
   gripSlowPermille: number;
+  /**
+   * How far a hand has to carry a body it is holding before it steps a column,
+   * in thousandths of a tile — the whole of THE PUSH as a distance
+   * (`grip-push.ts`).
+   *
+   * A whole tile, so the finger and the body travel the same ground: carry it
+   * a column's width and the column is what it moves, which leaves the body
+   * still under the finger afterwards and the gesture able to be repeated
+   * without lifting. Anything shorter and a thumb resting on a rock to slow it
+   * would push the rock about while its owner was only trying to hold on.
+   */
+  gripPushMilli: number;
+  /**
+   * Beats a carried body has to stand still before a hand may carry it again.
+   *
+   * One: the body moves, a beat passes with it where it landed, and only then
+   * may it move again — so a thumb can walk a rock across the field at half
+   * the speed it falls, never faster. Counted on the body rather than on the
+   * hand, so two hands on one rock are not twice as quick as one.
+   */
+  gripPushPauseBeats: number;
   /** Hull points regained per second. */
   hullRegenPerSecond: number;
   /**
@@ -182,6 +203,8 @@ export const DEFAULT_CONFIG: SimConfig = {
   guardWindowMs: 900,
   intakeWindowMs: 800,
   gripSlowPermille: 550,
+  gripPushMilli: 1000,
+  gripPushPauseBeats: 1,
   hullRegenPerSecond: 3,
   hullInvulnerable: false,
   damageCreature: 12,

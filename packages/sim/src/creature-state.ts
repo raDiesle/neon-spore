@@ -234,4 +234,16 @@ export interface CreatureState extends CrawlerState, FenceState, HeldState, Stra
    */
   volleyPlates?: number;
   volleyRise?: number;
+  /**
+   * The beat a hand last carried this body a column sideways, absent on one
+   * that has never been carried (`grip-push.ts`).
+   *
+   * It is on the body and not on the hand that did it, which is the whole of
+   * what the pause means: two hands on one rock, taking turns, would otherwise
+   * walk it across the field at twice the speed either could alone. Read it
+   * through `carryGrips`, never directly — absent means "ready", and a site
+   * that spelled that fallback again is a site where the rule and the picture
+   * can disagree about whether a rock may move yet.
+   */
+  pushBeat?: number;
 }

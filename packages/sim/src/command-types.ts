@@ -189,7 +189,17 @@ export type Command =
  * it, and THE WARDEN's rope is one that is. THE LID's cord is the third, and
  * the first that is *many*: the target says what kind of handle this is and
  * `id` above says which body it hangs off. */
-export type DragTarget = "mazeString" | "wardenTether" | "lidString";
+export type DragTarget = "mazeString" | "wardenTether" | "lidString" | "gripBody";
+
+/**
+ * `gripBody` is the fourth and the first that is not a handle at all: it is
+ * **the body the grip is already holding**, carried sideways. The hold that
+ * sends it is a `grip` rather than a `drag` (`render/touch-hold.ts`) — one
+ * hold, two gestures, exactly as a press on the cannon that slides it and a
+ * lift that opens the maw are one hold and two controls. `id` says which body,
+ * for THE LID's reason: a wave may have several on the field and either seat
+ * may have a hand on a different one.
+ */
 
 /**
  * The two ways SNAKE's body can be turned, and they are quarter turns rather

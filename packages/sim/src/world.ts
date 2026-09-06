@@ -3,6 +3,7 @@ import type { BossState } from "./boss-state.js";
 import { type Briefings, newBriefings } from "./briefing.js";
 import { midCol, type SimConfig, ticksPerBeat } from "./config.js";
 import { NO_GRIP } from "./grip.js";
+import type { GripPush } from "./grip-push.js";
 import { NO_PRIME } from "./lance.js";
 import type { Malfunction } from "./malfunction.js";
 import { NO_RELIEF } from "./malfunction.js";
@@ -57,6 +58,19 @@ export interface World {
    */
   gripP1: number;
   gripP2: number;
+  /**
+   * The hand each player is carrying a body sideways with, or null while they
+   * are only holding one still. Read them through `gripPushOf` (grip-push.ts)
+   * rather than by name, for the reason the two above are read through
+   * `gripsCreature`: which field is whose is that file's business.
+   *
+   * They are beside the grips rather than on the body being carried because a
+   * carry belongs to a *hand* — two hands may be on one rock, each of them a
+   * different distance from where it grabbed — while the beat a body was last
+   * carried on belongs to the body and is `Creature.pushBeat`.
+   */
+  pushP1: GripPush | null;
+  pushP2: GripPush | null;
   /**
    * The tick player 1's thumb went down on the lance, or `NO_PRIME`. Read it
    * through `lance.ts` rather than by name — how full the lobe is and whether
@@ -145,6 +159,8 @@ export function createWorld(
     lastFireTick: -1_000_000,
     gripP1: NO_GRIP,
     gripP2: NO_GRIP,
+    pushP1: null,
+    pushP2: null,
     primeTick: NO_PRIME,
     charge: null,
     malfunction: null,

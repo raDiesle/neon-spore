@@ -251,6 +251,8 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-magnet.ts` | THE MAGNET's one number: how steeply a shot has to be climbing before it clears the plate slung under the body |
 | `packages/sim/src/magnet.ts` | THE MAGNET: the first body in this game that cannot be answered from the column it is standing in |
 | `packages/sim/src/events-magnet.ts` | **What THE MAGNET does**, as events: a bolt turned away by the plate slung under the body |
+| `packages/sim/src/grip-push.ts` | THE PUSH: the same hand read a third way |
+| `packages/sim/src/hash-creature-held.ts` | **The fields a hand writes**, folded into the fingerprint |
 
 ### packages/content
 
@@ -1120,5 +1122,6 @@ place — the generator keeps whatever is there.
 | `tools/perf/sweep-timing.ts` | The numbers a paint is sampled with, and the statistics taken off the sample |
 | `tools/director/src/fault-fields.ts` | The MALFUNCTION section `rail.ts` shows under the control set |
 | `tools/director/src/serialize-boss.ts` | **A wave's boss, written back out**, and the nine shapes it can take |
+| `tools/director/src/field-control-def.ts` | **What one row of the ON THE FIELD tab is**, and nothing that fills one in |
 
 <!-- index:code:end -->

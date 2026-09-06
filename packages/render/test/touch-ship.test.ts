@@ -226,7 +226,7 @@ describe("the ring that says a hand is on the ship", () => {
     expect(shipHand(l, { kind: "cannon" }, 0, 0, true)).toBeNull();
     expect(shipHand(l, { kind: "shield" }, 0, 0, true)).toBeNull();
     expect(shipHand(l, { kind: "lance" }, 0, 0, true)).toBeNull();
-    expect(shipHand(l, { kind: "grip" }, 0, 0, true)).toBeNull();
+    expect(shipHand(l, { kind: "grip", id: 1, player: 1, originX: 0 }, 0, 0, true)).toBeNull();
   });
 
   /**

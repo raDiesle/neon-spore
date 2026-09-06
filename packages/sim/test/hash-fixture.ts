@@ -55,6 +55,7 @@ const creature = (): Required<Creature> => ({
   lidPullYMilli: 900,
   lidAnchorMilli: 4200,
   lidAnchorYMilli: 5100,
+  pushBeat: 4,
   recoilBounces: 2,
   caromDir: -1,
   chuteOpen: true,
@@ -185,6 +186,8 @@ export function populatedWorld(bossKind: BossEntry["kind"]): World {
   world.lastFireTick = 26;
   world.gripP1 = 7;
   world.gripP2 = 3;
+  world.pushP1 = { milli: 1400, cols: 1 };
+  world.pushP2 = { milli: -2300, cols: -2 };
   world.primeTick = 19;
   world.charge = charge();
   // A cannon fault rather than a shield one, because it is the arm that

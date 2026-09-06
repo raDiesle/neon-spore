@@ -305,3 +305,25 @@ Two halves, and the second is the point of the entry:
 - **Add the row to `purity.test.ts`.** The table there is what stops the next
   copy, and a rule that is only half in it is a rule that gets re-derived. The
   new row matches the constant `1664525`.
+
+## The desk rig cannot carry a body sideways
+
+- **Found:** 2026-09-06, claude/meteor-pull-drag-mechanics-42170b
+- **Files:** `apps/game/src/keys.ts`, `apps/game/src/key-hint.ts`, `apps/game/src/menu-controls.ts`, `apps/game/test/keys.test.ts`
+
+THE PUSH is the grip carried sideways: a `drag` at `gripBody` whose
+`fromMilli` is how far the finger has come from where it grabbed
+(`packages/sim/src/grip-push.ts`). `G` at a desk takes hold of the nearest body
+and there is no key that moves it, so the whole mechanic can only be reached
+with a pointer — which means the director's stage and a mouse, and nothing at
+all from a keyboard-driven check.
+
+Two keys beside `G`, and they have to send a *cumulative* distance rather than
+a step: keep a running number of thousandths for as long as `G` is held, add or
+subtract `cfg.gripPushMilli` per press, and send `{ kind: "drag", target:
+"gripBody", on: true, fromMilli, id }` with the same id `nearestHull` gave the
+grip. Reset it to nought on the `G` keyup, which already sends `NO_GRIP`. The
+sim heals a dropped one on its own, so nothing has to be sent per tick.
+
+`,` and `.` are free and sit under the same hand as `G`. `key-hint.ts` and
+`menu-controls.ts` both carry the list a reader sees and each needs the row.

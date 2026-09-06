@@ -6,6 +6,7 @@ import { ticksPerBeat } from "./config.js";
 import { fleetHeard } from "./fleet.js";
 import { gaugeHolds, gaugeRoundHeard, stepGaugeRound } from "./gauge-round.js";
 import { dropLostGrips } from "./grip.js";
+import { gripPushHeard } from "./grip-push.js";
 import { regenerateHull } from "./hull.js";
 import { noteLanceFull } from "./lance.js";
 import { lidHeard } from "./lid.js";
@@ -125,6 +126,12 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // so a gate answered on the beat would open after the moment the pair had
   // just counted themselves into (`lid.ts`).
   for (const c of commands) lidHeard(world, c.player, c.command);
+  // And the hand on a body itself, which is the grip carried sideways. Read on
+  // the tick with the rest of them so the distance the finger has come is
+  // never stale — what it *does* with that distance is on the beat, in
+  // `carryGrips`, because a body may only ever stand on a tile centre
+  // (`grip-push.ts`).
+  for (const c of commands) gripPushHeard(world, c.player, c.command);
   // THE FLEET's sights and its salvo, read on the tick for the third time and
   // the same reason: a square the pair just named out loud is answered now,
   // not on the next beat. Its clock is the one thing about it that is on the

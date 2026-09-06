@@ -234,7 +234,9 @@ describe("a press on the field", () => {
     expect(touchDown(l, at.x, at.y, f)).toEqual({
       player: 2,
       command: { kind: "grip", id: c.id },
-      hold: { kind: "grip" },
+      // And where it landed and what it landed on, which is what a hand
+      // carried sideways from here needs (`grip-push.ts`).
+      hold: { kind: "grip", id: c.id, player: 2, originX: at.x },
     });
   });
 
@@ -244,7 +246,7 @@ describe("a press on the field", () => {
   });
 
   it("lets go when the finger lifts, and only then", () => {
-    expect(touchUp(l, { kind: "grip" }, field(2))).toEqual({
+    expect(touchUp(l, { kind: "grip", id: 1, player: 2, originX: 0 }, field(2))).toEqual({
       player: 2,
       command: { kind: "grip", id: NO_GRIP },
       hold: null,
@@ -261,8 +263,15 @@ describe("a finger that moves", () => {
     const mid = l.gridLeft + l.tile / 2;
     expect(touchMove(l, { kind: "cannon" }, mid, 0)).toMatchObject({ player: 1 });
     expect(touchMove(l, { kind: "shield" }, mid, 0)).toMatchObject({ player: 2 });
-    // A grip stays on its creature: the finger is not steering anything.
-    expect(touchMove(l, { kind: "grip" }, l.width * 0.9, 0)).toBeNull();
+    // A grip reports where it went, as a displacement in thousandths of a
+    // tile: the body under it steps a column for every tile the hand carries
+    // it (`sim/grip-push.ts`).
+    const grip = { kind: "grip", id: 4, player: 2, originX: 0 } as const;
+    expect(touchMove(l, grip, l.tile * 2, 0)).toEqual({
+      player: 2,
+      command: { kind: "drag", target: "gripBody", on: true, fromMilli: 2000, id: 4 },
+      hold: grip,
+    });
   });
 });
 

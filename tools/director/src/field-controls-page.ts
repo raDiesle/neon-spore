@@ -1,5 +1,4 @@
-import type { Hold } from "@neon-spore/render";
-import type { Command, DragTarget } from "@neon-spore/sim";
+import type { FieldControlDef } from "./field-control-def.js";
 
 /**
  * The other half of the CONTROLS tab (`controlsets-page.ts`) — split out on
@@ -11,56 +10,12 @@ import type { Command, DragTarget } from "@neon-spore/sim";
  *
  * The list that used to sit under it, of controls tried and set aside, is next
  * door in `tried-controls-page.ts`: this file went over its own limit in turn,
- * and those two lists only ever shared a tab.
+ * and those two lists only ever shared a tab. What one row *is* went the same
+ * way when THE PUSH arrived — `field-control-def.ts`, re-exported below so
+ * nothing that reached for a `FieldControlDef` through here had to move.
  */
 
-/**
- * A control touched **on the field**, never on the panel below it — grabbed,
- * held or pressed directly against the creatures, the hull or a rope hanging
- * from a boss. None of these has a `ControlDef`: they follow from what a wave
- * *contains* (a maze, a warden, something falling), not from a panel it
- * names.
- *
- * `holdKind` and `dragTarget` exist so `on-field-controls.test.ts` can check
- * this array against `touch.ts`'s own types without retyping them: a new
- * `Hold` kind or `DragTarget` that this file does not mention fails that
- * test's exhaustive switch to *compile*, which is the closest a hand-kept
- * list can get to being derived from code that is a decision procedure
- * rather than a data table.
- */
-export interface FieldControlDef {
-  name: string;
-  /** Where on the field it appears, and under what condition. */
-  where: string;
-  /** Which seat may use it — the field belongs to both, so this is the one
-   * fact a strip's position already gives away for free and a field control
-   * has to say out loud. */
-  seat: string;
-  gesture: "press" | "hold" | "grab and drag";
-  does: string;
-  /** The function in `touch.ts` (or, for the guide, in `briefing.ts`) that
-   * answers this control — read the code there, this is only a pointer. */
-  source: string;
-  /** The `Hold["kind"]` this entry documents, or `null` where — like the
-   * guide's hold — the control is deliberately answered outside `touch.ts`
-   * altogether and no `Hold` variant exists for it. */
-  holdKind: Hold["kind"] | null;
-  /** Set only when `holdKind` is `"drag"` — which rope or string this is. */
-  dragTarget?: DragTarget;
-  /**
-   * What this gesture actually sends the ship.
-   *
-   * A hold kind was not enough to keep the list honest. One hold can carry
-   * two gestures — a press on the cannon that slides it and a lift that opens
-   * the maw are both `kind: "cannon"` — so a check that only asked whether
-   * every kind had a row was satisfied by the first of them and would have
-   * said nothing if THE MAW TAP had never been written down. The commands are
-   * the gestures: `on-field-controls.test.ts` drives every shape of `Hold`
-   * through `touchMove` and `touchUp` and fails on one that sends something
-   * no entry here claims.
-   */
-  sends: readonly Command["kind"][];
-}
+export type { FieldControlDef } from "./field-control-def.js";
 
 export const FIELD_CONTROLS: readonly FieldControlDef[] = [
   {
@@ -74,6 +29,22 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
     source: "touch.ts — creatureAt() under touchDown()",
     holdKind: "grip",
     sends: ["grip"],
+  },
+  {
+    name: "THE PUSH",
+    where: "on the same held body, on either screen",
+    seat: "either seat — the same hand the grip is",
+    gesture: "grab and drag",
+    does:
+      "Carry the finger a tile sideways and the body under it steps one " +
+      "column that way, then stands still for a beat. One hold and two " +
+      "gestures, the arrangement the cannon has: the press slows the fall " +
+      "and the move takes a lane. Two hands against each other cancel " +
+      "(sim/grip-push.ts).",
+    source: "touch.ts — the grip branch of touchMove()",
+    holdKind: "grip",
+    dragTarget: "gripBody",
+    sends: ["drag"],
   },
   {
     name: "THE CANNON",

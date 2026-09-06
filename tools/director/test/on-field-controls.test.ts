@@ -71,6 +71,7 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     case "mazeString":
     case "wardenTether":
     case "lidString":
+    case "gripBody":
       return target;
     default:
       return assertNever(target);
@@ -90,13 +91,17 @@ describe("FIELD_CONTROLS against touch.ts's own types", () => {
     }
   });
 
+  // The hold kind is deliberately not part of this: THE PUSH sends a `drag` at
+  // `gripBody` off a `grip` hold, because carrying a body is the grip's own
+  // gesture rather than a second control. What the list has to cover is every
+  // target a `drag` can name, whatever hold names it.
   test("every DragTarget has its own FIELD_CONTROLS entry", () => {
-    const targets: DragTarget[] = (["mazeString", "wardenTether", "lidString"] as const).map(
-      documentedDragTarget,
-    );
+    const targets: DragTarget[] = (
+      ["mazeString", "wardenTether", "lidString", "gripBody"] as const
+    ).map(documentedDragTarget);
     for (const target of targets) {
       expect(
-        FIELD_CONTROLS.some((c) => c.holdKind === "drag" && c.dragTarget === target),
+        FIELD_CONTROLS.some((c) => c.dragTarget === target),
         target,
       ).toBe(true);
     }
@@ -180,7 +185,16 @@ const GESTURES: readonly { why: string; hold: Hold; at?: { x: number; y: number 
   },
   { why: "the shield carried along the hull", hold: { kind: "shield" }, at: { x: 300, y: 700 } },
   { why: "a thumb resting on the plate", hold: { kind: "guard" } },
-  { why: "a finger on something falling", hold: { kind: "grip" } },
+  {
+    why: "a finger on something falling, carried nowhere",
+    hold: { kind: "grip", id: 4, player: 1, originX: 120 },
+    at: { x: 120, y: 300 },
+  },
+  {
+    why: "the same finger carried a tile sideways",
+    hold: { kind: "grip", id: 4, player: 2, originX: 120 },
+    at: { x: 240, y: 300 },
+  },
   { why: "a thumb on the lance lobe", hold: { kind: "lance" } },
   {
     why: "the muzzle carried far enough for a colour",
@@ -225,6 +239,22 @@ describe("FIELD_CONTROLS against what touch.ts actually sends", () => {
         expect(described, `${why} sends ${kind}, which no entry claims`).toBe(true);
       }
     }
+  });
+
+  test("the push is a second gesture on the grip, and is described as one", () => {
+    // The grip's own pair, and the cannon's argument one control over: the
+    // press slows a fall and the move takes a lane, and a check counting hold
+    // kinds would have seen only the first.
+    const hold: Hold = { kind: "grip", id: 4, player: 1, originX: 120 };
+    const carried = touchMove(LAYOUT, hold, 240, 300);
+    expect(carried?.command).toEqual({
+      kind: "drag",
+      target: "gripBody",
+      on: true,
+      fromMilli: Math.round((120 * 1000) / LAYOUT.tile),
+      id: 4,
+    });
+    expect(FIELD_CONTROLS.filter((c) => c.holdKind === "grip").length).toBe(2);
   });
 
   test("the maw tap is a second gesture on the cannon, and is described as one", () => {
