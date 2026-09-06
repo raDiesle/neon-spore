@@ -103,6 +103,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## A landing from a clone writes no release note at all
 
 - **Found:** 2026-09-06, claude/electric-barrier-enemy-e6fi1d
+- **Taken:** 2026-09-06, claude/queue-a-landing-from-a-clone-writes-no-release-note-at
 - **Files:** `tools/land/sweep.ts`, `tools/land/state.ts`, `docs/release-notes.md`
 
 `bun run land` in a clone with no worktrees prints
