@@ -363,3 +363,29 @@ order — the field and its bodies, the controls and commands, the bosses and
 their rounds, the openings and guides. Nothing outside `packages/sim` may need
 to change: `index.ts` stays the one import path, and
 `bunx tsc --noEmit` across the workspace is the proof.
+## A merged baseline keeps yesterday's wave numbers on every row it did not measure
+
+- **Found:** 2026-09-06, claude/queue-drain-lcg-perf-docs
+- **Files:** `tools/perf/run.ts`, `tools/perf/shape.ts`, `tools/perf/test/baseline.test.ts`
+
+`mergeInto` matches a row on `Wave.id` now, so a narrow `--save` can never
+leave a duplicate — the failure the id was added for is closed. What it does
+not do is renumber the rows it did not measure: a merged row carries today's
+`wave`, and every other row keeps whatever number the baseline was written
+with.
+
+That converges whenever the waves that moved are the waves being re-measured,
+which is the common case — `baseline.test.ts` asks for a wave whose *arrivals*
+changed, and an inserted wave usually changes some. It does not converge for a
+wave that merely shifted: its arrivals are identical, nothing asks for it, and
+`baseline.test.ts`'s "wave N is in play order" then fails with no advice but a
+three-minute sweep, which is the cost this whole merge exists to spare.
+
+The fix is a renumber in `run.ts`, which is the file allowed to read
+`@neon-spore/content` — `shape.ts` deliberately is not, because `arrivals.ts`
+says a content import there would make a cycle. Walk the merged rows, look each
+id up in `WAVES`, and write `wave` and `name` from where it stands today; a row
+whose id is not in `WAVES` any more is a wave that was deleted and should be
+dropped with a line saying so. Then `baseline.test.ts` can say in its own words
+that a merge leaves the file in play order, which is the assertion that would
+have caught this.
