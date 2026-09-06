@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · e2982b80 — THE COIL: a rock in a dome that crosses the field, and opens the rest of them
+
+A rock sitting inside a shield of its own, coming in at the right wall and crossing to the left rather than falling — a lane a beat, sinking five rows at each wall it turns at. Nothing touches it while the dome is on. The ward reaching up its column takes the dome off wherever it is standing, exactly as it opens a clasp, and what is left is a torch. But the charge the dome was holding does not go out with it: it jumps to another dome still standing, and three beats later that one opens and throws it on again, until the field is bare. Only player 1 is shown the bolt in flight, and only player 2 can move the plate — so what the pair say to each other is an order, at tempo.
+
 ## 2026-09-06 · 4f6d3050 — THE CLAW: one of you has every button and none of the map
 
 A ninth boss, and it is THE FLEET's split turned round. That fight gives the map to the seat holding the trigger, so the whole of it is one person getting a coordinate out of their mouth; this gives the map to the seat with no controls at all, and takes the coordinates away. A salvage rail over nine sockets with four pods and three rocks buried in them, dealt from the seeded rng. Player 1 walks the claw a socket a press and drops it. Player 2 sees what is in every socket and has no slab on the panel.
