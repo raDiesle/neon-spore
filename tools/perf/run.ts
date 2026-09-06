@@ -145,16 +145,22 @@ try {
     await Bun.write(BASELINE, `${JSON.stringify(now, null, 2)}\n`);
     console.log(`\nbaseline written: tools/perf/baseline.json`);
   } else if (save) {
-    // Merging into nothing, or into a baseline already short of the game, would
-    // leave a file no comparison can be taken off.
-    if (!before || before.waves.length !== WAVES.length) {
+    const taken = asked.map((i) => i + 1);
+    // Merging into nothing, or leaving the file short of the game afterwards,
+    // would leave a baseline no comparison can be taken off. What the check
+    // cannot be is "the baseline already covers every wave": a lane that adds
+    // one is exactly the lane whose baseline does not, and refusing there sent
+    // it to the full sweep this flag exists to spare. So the question is asked
+    // about the file this run is about to *write* — every wave covered, by the
+    // rows that are there plus the ones being merged in (`mergeInto`).
+    const covered = new Set([...(before?.waves ?? []).map((w) => w.wave), ...taken]);
+    if (!before || covered.size !== WAVES.length) {
+      console.log("✗ --wave --save would leave the baseline short of the game");
       console.log(
-        "✗ --wave --save merges into a baseline, and there is no whole one to merge into",
+        `  ${WAVES.length} waves, ${covered.size} covered — take the sweep first: bun run perf --save`,
       );
-      console.log("  take the sweep first: bun run perf --save");
       process.exit(1);
     }
-    const taken = asked.map((i) => i + 1);
     const merged = mergeInto(before, now, taken);
     if (!merged) {
       console.log("✗ this run shares no untouched wave with the baseline — nothing to scale it by");
@@ -168,7 +174,7 @@ try {
     const scale = rows[0]?.mergedFrom?.scale ?? 1;
     console.log(
       `\nbaseline merged: ${rows.map((w) => `${w.wave} ${w.name}`).join(", ")} — the other ` +
-        `${before.waves.length - rows.length} rows are untouched`,
+        `${merged.waves.length - rows.length} rows are untouched`,
     );
     console.log(
       `  scaled by ${scale.toFixed(2)}x onto the baseline's footing, read off the reference waves ` +

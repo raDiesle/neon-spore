@@ -478,6 +478,51 @@
       "mean": 3.5,
       "p90": 3.69,
       "jitter": 0.086
+    },
+    {
+      "wave": 48,
+      "name": "THE BARB",
+      "bodies": 3,
+      "arrivals": "8:5d3f1fe5",
+      "typical": 3.87,
+      "mean": 3.74,
+      "p90": 4.26,
+      "jitter": 0.158,
+      "mergedFrom": {
+        "measuredAt": "2026-09-06",
+        "commit": "ecf7124380ee4b2e1314a235990727e55f16e88d",
+        "scale": 0.58
+      }
+    },
+    {
+      "wave": 49,
+      "name": "THE JAM",
+      "bodies": 3,
+      "arrivals": "9:ad36d5ea",
+      "typical": 4.83,
+      "mean": 4.9,
+      "p90": 6.69,
+      "jitter": 0.312,
+      "mergedFrom": {
+        "measuredAt": "2026-09-06",
+        "commit": "ecf7124380ee4b2e1314a235990727e55f16e88d",
+        "scale": 0.58
+      }
+    },
+    {
+      "wave": 50,
+      "name": "THE TWITCH",
+      "bodies": 3,
+      "arrivals": "8:17066cee",
+      "typical": 3.82,
+      "mean": 3.83,
+      "p90": 4.56,
+      "jitter": 0.139,
+      "mergedFrom": {
+        "measuredAt": "2026-09-06",
+        "commit": "ecf7124380ee4b2e1314a235990727e55f16e88d",
+        "scale": 0.58
+      }
     }
   ]
 }

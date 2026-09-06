@@ -98,6 +98,19 @@ export function machineScale(
  *
  * A wave asked for that this run did not measure is left as it was, rather than
  * dropped: a baseline missing a row is a wave nothing can notice getting slower.
+ *
+ * **A wave the baseline has never heard of is added rather than skipped**, and
+ * that is the whole of what this function needed to be useful to the lane that
+ * adds a creature. Repairing a stale row was the case it was written for; a new
+ * wave is the commoner one, and until now it fell back to the three-minute
+ * sweep it exists to spare — a lane that writes THE BARB has to sweep forty-nine
+ * waves it did not touch to record the fiftieth. The arithmetic is the same
+ * either way: `scale` is a fact about the *run* rather than about a row, so a
+ * row that was never in the baseline lands on its footing exactly as a replaced
+ * one does, and carries the same `mergedFrom` saying where it came from. The
+ * result is sorted by wave number, because `tools/perf/test/baseline.test.ts`
+ * reads the file in play order and an appended row is only in play order while
+ * the new waves are the last ones.
  */
 export function mergeInto(baseline: Run, run: Run, waves: readonly number[]): Run | null {
   const taking = new Set(waves);
@@ -117,7 +130,11 @@ export function mergeInto(baseline: Run, run: Run, waves: readonly number[]): Ru
         } satisfies WaveCost,
       ]),
   );
-  return { ...baseline, waves: baseline.waves.map((w) => fresh.get(w.wave) ?? w) };
+  const known = new Set(baseline.waves.map((w) => w.wave));
+  const added = [...fresh.values()].filter((w) => !known.has(w.wave));
+  const rows = [...baseline.waves.map((w) => fresh.get(w.wave) ?? w), ...added];
+  rows.sort((a, b) => a.wave - b.wave);
+  return { ...baseline, waves: rows };
 }
 
 /** A finished run, ready to be printed or written down. */
