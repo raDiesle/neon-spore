@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · f70daf9c — The worker-model guard reads a commit message as if it were an invocation
+
+`workerModelRefusal` refuses any command line mentioning aider or delegation together with an Anthropic model name. A `git commit -m` carries its whole message on that line, and every commit here is required to end with a `Co-Authored-By` trailer at an anthropic.com address — so a commit whose message happens to use the word "delegate" is blocked, and told it is about to bill a worker on the wrong key. It happened twice in this lane, the second time on the heredoc writing this entry down. Queued rather than fixed here: the rule is the delegation guard's and belongs to a session that has the hook's tests in front of it.
+
+## 2026-09-06 · 60d409d8 — `bun run perf` survives being run twice, and its baseline can be repaired one row at a time
+
+Three queue items, all of them the same tool being unusable in the way a lane actually uses it. A sweep taken straight after a sweep died four waves in with `waitForTimeout: Target page, context or browser has been closed`, and so did the third; the teardown was returning before it had let go, so the next launch came up against the last one still unwinding. `browser.close()` now waits for the profile to be off disk and a stopped preview waits for its port to stop answering — a wait on the thing itself rather than the `sleep 25` that was found to work. A run whose browser goes away mid-measurement says so in one line instead of throwing out of a page helper about a target it never opened.
+
 ## 2026-09-06 · 6394a9d9 — A perf verdict is taken against the wave that was measured, at a floor of its own
 
 Two things `bun run perf` could not do. It could not tell that a baseline row was measuring a wave that no longer exists — the row carries the wave's name, which catches a rename, and THE FENCE gained two figures under a name that still matched, so every comparison after that was against a wave nobody plays. And its noise floor was one flat 20% for all forty-seven waves, which still named two a sweep that nobody had touched; a session that reads one of those learns to stop reading them, which is the failure the whole comparison exists to prevent.
