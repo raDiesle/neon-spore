@@ -165,31 +165,6 @@ alternative for `tools/versus/` and not a landing.
 still draws.
 
 
-## `bun install` run from a POSIX shell on Windows writes links `tsc` cannot follow
-
-- **Found:** 2026-09-05, claude/crawler-enemy-design-ba0a00
-- **Taken:** 2026-09-06, claude/queue-bun-install-run-from-a-posix-shell-on-windows-wr
-- **Files:** `docs/working-with-claude.md`, `CLAUDE.md`
-
-A fresh worktree on Windows had no `tools/maze/node_modules` at all, so
-`bun run typecheck` failed with *Cannot find module `@neon-spore/sim`* from
-`tools/maze/run.ts` — an error about the crawler's lane that had nothing to do
-with it. Running `bun install` from the agent's Bash tool did not fix it: MSYS
-writes the workspace symlink with a POSIX target (`/c/Users/…`), which Bun is
-happy with and the Windows `tsc` cannot follow, so the same error came back
-looking like a code fault. `bun install --force` from PowerShell wrote a real
-junction and the typecheck went green.
-
-Nothing in the repository says so. `CLAUDE.md` already tells a session that a
-fresh worktree needs its own `bun install`; it should say *from a native shell
-on Windows*, and `docs/working-with-claude.md` should carry the failure mode
-under its "ask who answered" heading, because this is the same class of thing —
-a number that came off the wrong tool and read as a fault in the code.
-
-A fresh session can finish it: the change is two paragraphs, and
-`bun run check` is what proves the tree is still green afterwards.
-
-
 ## `docs/shipped-looks.md` does not know THE CRAWLER exists
 
 - **Found:** 2026-09-05, claude/crawler-enemy-design-ba0a00

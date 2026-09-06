@@ -78,6 +78,21 @@ dev server hands back `index.html` for every unknown path, so a 200 is not
 evidence of anything. `bun run preview:once` binds an OS-assigned free port for a
 throwaway check or a second worktree; several can run side by side.
 
+*Amended 2026-09-06:* the same question — *who answered?* — decides a failure
+that looks nothing like a server. A fresh worktree on Windows had no
+`tools/maze/node_modules` at all, so `bun run typecheck` stopped with *Cannot
+find module `@neon-spore/sim`* pointing at `tools/maze/run.ts`, a file the lane
+had not touched and whose package it had never heard of. Running `bun install`
+from the agent's Bash tool did not fix it and did not complain either: MSYS
+writes the workspace symlink with a POSIX target (`/c/Users/…`), which Bun
+resolves happily and the Windows `tsc` cannot follow at all, so the identical
+error came back and read as a fault in the code. `bun install --force` from
+PowerShell wrote a real junction and the typecheck went green. The rule is the
+one this section keeps arriving at from different directions: a red result is
+evidence about whichever tool produced it, and a link written by one shell for
+another is the same class of thing as a port answered by the wrong server.
+`CLAUDE.md` says *from a native shell* beside the install it already asks for.
+
 *Amended 2026-09-05:* the other half of the same trap is the **index**, and
 `.gitattributes` cannot reach it. `eol=lf` governs what a checkout writes; a
 blob committed with carriage returns before the attribute landed stays CRLF,

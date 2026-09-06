@@ -48,7 +48,11 @@ Style and formatting are Biome's job: `bun run lint`, `bun run format`.
   long-lived branches. One person works on this repo.
 - **Worktrees are a working tool**, and the branch that comes with one is
   temporary. A fresh worktree needs its own `bun install` — `node_modules` must
-  **not** be linked or copied from the main tree.
+  **not** be linked or copied from the main tree — and on Windows it must be run
+  **from a native shell**, PowerShell rather than the Bash tool. MSYS writes the
+  workspace link with a POSIX target that `tsc` cannot follow, and the typecheck
+  then fails with *Cannot find module `@neon-spore/sim`* in a file the lane never
+  opened (`docs/working-with-claude.md`).
 - **Landing is one command: `bun run land`, from inside the lane's worktree.**
   It rebases onto `main`, checks the result, fast-forwards, writes the release
   note, deletes the branch and sweeps spent worktrees. Do not do any of it by
