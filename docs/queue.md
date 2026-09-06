@@ -291,6 +291,7 @@ retry loop stays for the handle.
 ## Two lanes landing at once in a clone can silently discard one
 
 - **Found:** 2026-09-05, claude/git-flow-parallel-sessions-6f1b43
+- **Taken:** 2026-09-06, claude/queue-two-lanes-landing-at-once-in-a-clone-can-silentl
 - **Files:** `tools/land/run.ts`, `tools/land/land.ts`
 
 A landing is rebase, then `bun run check`, then fast-forward, and the check is
