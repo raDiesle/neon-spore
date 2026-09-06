@@ -122,6 +122,7 @@ shim that shows what the new shape wants if it changed again.
 ## The op-count budget weighs one quiet wave; the five expensive ones have none
 
 - **Found:** 2026-09-03, claude/game-performance-mobile-analysis-cd4207
+- **Taken:** 2026-09-06, claude/queue-the-op-count-budget-weighs-one-quiet-wave-the-fi
 - **Files:** `packages/render/test/frame-budget.test.ts`, `packages/render/test/frame-harness.ts`
 
 `frame-budget.test.ts` pins wave 3 on both seats and two open eyes. Wave 3 is
