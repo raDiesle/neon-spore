@@ -330,6 +330,7 @@ phone runs, never against a throttled desktop one.
 ## The worker-model guard blocks a commit whose message says "delegate"
 
 - **Found:** 2026-09-06, claude/queue-bun-run-perf-dies-on-the-sweep-after-a-sweep
+- **Taken:** 2026-09-06, claude/queue-the-worker-model-guard-blocks-a-commit-whose-mes
 - **Files:** `tools/hooks/guard.ts`, `tools/hooks/test/guard.test.ts`
 
 `workerModelRefusal` reads the whole command line and refuses it when the line
