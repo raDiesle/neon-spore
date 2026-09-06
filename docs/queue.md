@@ -309,6 +309,7 @@ phone runs, never against a throttled desktop one.
 ## `CLAUDE.md` sits against its ceiling, so every new rule costs a turn of shaving
 
 - **Found:** 2026-09-06, claude/queue-the-perf-baseline-covers-38-of-the-45-waves-the
+- **Taken:** 2026-09-06, claude/queue-claude-md-sits-against-its-ceiling-so-every-new
 - **Files:** `CLAUDE.md`, `docs/working-with-claude.md`, `tools/test/claude-md.test.ts`
 
 The file is 21,963 characters against a 22,000 ceiling — thirty-seven spare,
