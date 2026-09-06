@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · aa492ded — A drained queue item leaves its claim branch standing for ever
+
+`partitionMerged` protects every merged branch that looks like a queue claim, because a claim points at main's tip from the second it is made and would otherwise be swept away by the next lane to land — which is what cost two sessions every claim they held on 3 September. What it does not ask is whether the claim is still a claim: a branch is only ever deleted by its own landing, so a session that drains several items with `--keep` and sweeps once at the end deletes exactly one. Today's sweep kept eleven whose entries `queue done` had already removed, on top of four left by earlier sessions, and none of them can be given back because `queue release` needs the entry that went away. Queued rather than fixed here: the rule belongs to a session with the sweep's tests in front of it, and the fifteen already standing want clearing in the same change.
+
 ## 2026-09-06 · 58d293bc — The repaint behind the main menu, offered at ?menuidle=<hz>
 
 `startLoop`'s `onFrame` calls `paint()` unconditionally. The `menu` hold stops the world ticking and nothing stops the drawing, so while the main menu is up the device paints a complete field frame — hull, bodies, band, HUD — sixty times a second, and `#menu .sky` then blurs it under a scrim that runs from 0.93 alpha at the top to fully opaque by 30% of the height. The phone pays for a frame and pays again to blur it, to show at most 7% of it in the top third, on the first screen a player sees and the one a phone sits on longest.
