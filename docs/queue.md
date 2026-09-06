@@ -248,6 +248,7 @@ the column.
 ## Every file a new creature must touch is sitting on the 250-line ceiling
 
 - **Found:** 2026-09-06, claude/shielded-meteor-enemy
+- **Taken:** 2026-09-06, claude/queue-every-file-a-new-creature-must-touch-is-sitting
 - **Files:** `packages/sim/src/hash-creature.ts`, `packages/sim/src/events-creature.ts`, `packages/sim/src/creature-state.ts`, `packages/sim/src/bullet-hit.ts`, `packages/sim/src/creature-kinds.ts`, `packages/render/src/comms.ts`, `packages/audio/src/bind-creatures.ts`
 
 Adding THE COIL cost five unplanned splits *before* the creature could land,
