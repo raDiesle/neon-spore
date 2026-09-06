@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · 49efee92 — THE FENCE reaches the ship, and the two of them argue about it
+
+The wall was taken off the field the moment the dome stood in one of its gaps — a whole tile short of the hull — so the last picture of one was of a wire vanishing in mid-air. It falls all the way down now and is answered on the beat it is drawn resting on the ship, which is the rule every other body already follows; the wire is draped onto the ship's own membrane, lifted where the dome and the cannon hold it up.
+
 ## 2026-09-06 · 20e4054e — The magnet's opening reads as a mouth, and its staff stops standing in front
 
 At thirty-six degrees either side of straight down the horseshoe came out as a closed hoop with two chips of colour in it, and the staff — filled bright and drawn last — read as a pillar in front of the body rather than as a limb hanging out of it. The gap is a hundred degrees now, the poles are wider, and the staff and its plate go down first so the arch is drawn over them. Only the plate keeps a hard white edge: one of those two things is a limb and the other is armour, and the line weight is where a glance is told which.
