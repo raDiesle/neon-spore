@@ -27,10 +27,12 @@
  * cropped to the thing being judged with no chrome to trim, and at
  * `deviceScaleFactor: 2` so a 92 px card arrives as 184 px of picture. A phone
  * showing a downscaled screenshot of a downscaled card is how a look gets
- * approved that nobody actually saw.
+ * approved that nobody actually saw. `--at` narrows that again, for an element
+ * that is much larger than the change inside it.
  */
 
 import { closeBrowser, launchBrowser } from "./capture.js";
+import { clipFor, parseAt } from "./crop.js";
 
 const args = process.argv.slice(2);
 const flag = (name: string): string | undefined => {
@@ -51,6 +53,8 @@ if (!selector || !out) {
   console.error("       --size is a viewport, e.g. 390x844 — a phone, for something a phone shows");
   console.error("       --open is a header button to press first, for a sheet that starts hidden");
   console.error("       --tab is a NOT BUILT YET tab name; omit it for the main screen");
+  console.error("       --at is a rectangle inside it, x,y,w,h in its own CSS pixels");
+  console.error('       --type fills a field first, e.g. "#waveFilter=boss"');
   console.error("       --wait is milliseconds to settle before the shot, for an animation");
   console.error("       --hold is a modifier key held down for the shot, e.g. Control");
   process.exit(1);
@@ -106,6 +110,27 @@ const [vw, vh] = (flag("size") ?? "1240x900").split("x").map(Number);
  * picture of the main menu.
  */
 const path = flag("path") ?? "";
+/**
+ * `--at x,y,w,h`, a rectangle inside the element, in its own CSS pixels.
+ *
+ * The element is the unit this tool photographs, and some of them are not the
+ * size of the thing being judged: the map's `#grid` is twenty-five beats tall
+ * and a change to what one *cell* draws arrives as a stamp somewhere in four
+ * thousand pixels of empty board. `bun run frames` has had this flag since the
+ * eyelid lane could not see its own work; the same argument applies here, and
+ * the parser is `crop.ts`'s rather than a second copy of it.
+ */
+const at = flag("at") === undefined ? null : parseAt(flag("at") as string);
+/**
+ * `--type "#waveFilter=boss"`, a field to fill before the shot.
+ *
+ * A page that only *has* a state once somebody has typed into it cannot be
+ * photographed by pressing buttons — the wave list under a filter
+ * (`tools/director/src/rail-filter.ts`) is the first, and it is the same
+ * argument `--hold` already makes about a state only a held key reveals.
+ * `fill` rather than `press`, because what the page listens for is `input`.
+ */
+const typed = flag("type");
 const url = `http://localhost:${port}${path}`;
 
 const browser = await launchBrowser();
@@ -170,6 +195,15 @@ try {
     }
     await page.waitForTimeout(600);
   }
+  if (typed) {
+    const split = typed.indexOf("=");
+    if (split < 1) {
+      console.error(`--type wants <selector>=<text>, got ${JSON.stringify(typed)}`);
+      process.exit(1);
+    }
+    await page.locator(typed.slice(0, split)).fill(typed.slice(split + 1));
+    await page.waitForTimeout(300);
+  }
   if (hold) await page.keyboard.down(hold);
   await page.waitForTimeout(settle);
 
@@ -183,7 +217,32 @@ try {
   // so one just scrolled to has had no frames yet and would photograph in its
   // rest pose. `shape-loop.ts`'s observer is what makes that true.
   await page.waitForTimeout(Math.min(settle, 1200));
-  await target.first().screenshot({ path: out });
+  // A crop clips in *page* coordinates, so the rectangle the caller measured
+  // inside the element has to be moved onto where the element sits — the same
+  // step, and the same helper, `capture.ts` uses for `#stage`.
+  if (at) {
+    // The rectangle has to be *on screen* before it can be clipped out of a
+    // screenshot, and `scrollIntoViewIfNeeded` only brings the element's top
+    // into view — a crop 1200 px down a map twenty-five beats tall was outside
+    // the picture and Playwright refused it. So the nearest ancestor that
+    // actually scrolls is moved by the crop's own offset first; the director's
+    // columns scroll inside themselves, so this is rarely the window.
+    await target.first().evaluate((el: Element, dy: number) => {
+      for (let node = el.parentElement; node; node = node.parentElement) {
+        if (node.scrollHeight > node.clientHeight) {
+          node.scrollTop += dy;
+          return;
+        }
+      }
+      window.scrollBy(0, dy);
+    }, at.y);
+    await page.waitForTimeout(200);
+    const box = await target.first().boundingBox();
+    if (!box) throw new Error(`${selector} has no box to crop out of`);
+    await page.screenshot({ path: out, clip: clipFor(box, at) });
+  } else {
+    await target.first().screenshot({ path: out });
+  }
   console.log(`wrote ${out}`);
 } finally {
   await closeBrowser(browser);
