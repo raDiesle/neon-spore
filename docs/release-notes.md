@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · 3a875fcf — The queue refuses an unclosed fence, and the director gets a DOM to test against
+
+Three findings from the sheet-restore lane, done together because they are one story: a silent failure, and the reason nothing caught it.
+
 ## 2026-09-06 · b957e42d — A sheet restored from its URL opens on the inner tab the URL named
 
 `mountSheet` read the wanted inner tab after `open.click()`, and that click records the bar's own default over it — so `?sheet=backlog&inner=shapes` opened NOT BUILT YET on its first tab and rewrote the URL to match. The read moves above the click. `session.test.ts` grows a fake `document` covering the handful of DOM calls this module makes, and mounts a sheet with a two-button inner bar seeded on the second one; the test fails on the old code.
