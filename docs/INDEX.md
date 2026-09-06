@@ -335,6 +335,8 @@ place — the generator keeps whatever is there.
 | `packages/content/src/mechanics-run.ts` | **The five mechanics that are not a thing the field sends**, and the whole of `reach: "run"` |
 | `packages/content/src/wave-entry.ts` | **What one arrival is**, and the half of a wave that grows |
 | `packages/content/src/creatures-hazards.ts` | **The arrivals with nothing alive in them**: the five speed tiers, THE VEER, the torch — and THE FENCE |
+| `packages/content/src/creatures-split.ts` | The three bodies **one seat cannot see whole** that wear nothing to do it — the dart, the wisp and the ghost |
+| `packages/content/src/mechanics-split.ts` | The five bestiary rows for bodies one seat cannot see whole — the lure, the dart, the veil, the wisp and the ghost |
 
 ### packages/render
 

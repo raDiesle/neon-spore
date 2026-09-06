@@ -100,33 +100,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
 
 
-## Two tables the next creature cannot be added to without splitting them first
-
-- **Found:** 2026-09-06, claude/electric-barrier-enemy-e6fi1d
-- **Taken:** 2026-09-06, claude/queue-two-tables-the-next-creature-cannot-be-added-to
-- **Files:** `packages/content/src/creatures-table.ts`, `packages/content/src/mechanics-table.ts`
-
-Both are total over `CreatureKind` or `MechanicId`, so a new creature costs
-each of them a row — and both now stand at exactly 250 lines, which is the
-limit `packages/sim/test/limits.test.ts` enforces. THE FENCE fitted only
-because its rows were written short and one comment in `creatures-table.ts` was
-trimmed by two lines to make room; the next one will not fit at all, and the
-lane that hits this will be a lane that came to add a creature, not to choose a
-seam. (It was three files. `creature-state.ts` was the third and THE FENCE's
-second mask took it over on the spot, so it was split there and then, into
-`creature-state-fence.ts` — which is the same fix these two want, arrived at
-under duress rather than on purpose.)
-
-Both are split by family already (`creatures-hazards.ts`, `creatures-worn.ts`,
-`creatures-bare.ts`, `mechanics-rocks.ts`, `mechanics-run.ts`), and the family
-to cut next is the same in both: the bodies one seat cannot see whole —
-`lure`, `veil`, `wisp`, `ghost`, `dart` — which is a group the bestiary and
-`render/comms.ts` both already read as one.
-
-Do both in one lane: they fail the same way, on the same day, for the same
-reason, and a lane that splits one learns the argument for the other for free.
-
-
 ## A landing from a clone writes no release note at all
 
 - **Found:** 2026-09-06, claude/electric-barrier-enemy-e6fi1d

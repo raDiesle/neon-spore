@@ -1,6 +1,7 @@
 import type { Mechanic, MechanicId } from "./mechanics.js";
 import { ROCK_MECHANICS } from "./mechanics-rocks.js";
 import { RUN_MECHANICS } from "./mechanics-run.js";
+import { SPLIT_MECHANICS } from "./mechanics-split.js";
 
 /**
  * The rows themselves, lifted out of `mechanics.ts` when that file crossed the
@@ -25,11 +26,11 @@ export const MECHANICS = {
     what: "Round, swollen, and always cyan. Same fall, same lane — the colour is the whole of the difference.",
     reach: "spawn",
   },
-  lure: {
-    what: "A slick or a bulb, full size and in its real colour — and only the navigator can see that it is neither. A shot that lands on it is the mistake and costs the hull. Left alone it goes on its own, two rows short of the ship.",
-    reach: "spawn",
-    waveNames: true,
-  },
+  // The five bodies one seat cannot see whole are `mechanics-split.ts` next
+  // door. Named one by one rather than spread, at exactly the positions they
+  // have always held, so key order is untouched — `MECHANIC_IDS` is read off
+  // it and the bestiary walks it.
+  lure: SPLIT_MECHANICS.lure,
   throb: {
     what: "Cut down the middle: red down one side and cyan down the other. It turns clockwise the whole way down, and the half pointing at the cannon is the colour that answers a shot. The other colour is a colour miss, so the turn never shuts it — it swaps which trigger is the right one.",
     reach: "spawn",
@@ -40,37 +41,10 @@ export const MECHANICS = {
     reach: "spawn",
     waveNames: true,
   },
-  dart: {
-    what: "It never falls straight. Every other beat it takes a diagonal two rows down and two columns to one side, and in between it hangs for one beat. Where it is going, and where it goes after that, is on one of your screens and not the other: an arrow, a dotted path and a hole on the tile it is about to stand in.",
-    reach: "spawn",
-    // A wave names this kind and gives it a colour, the way it does for a
-    // clasp: the silhouette is the dart's and the colour is which cannon
-    // answers it, so neither can be worked out from the other.
-    waveNames: true,
-  },
-  veil: {
-    what: "A thundercloud with a slick or a bulb inside it. Only the pilot can see which, and it turns over from one to the other every few beats — so what has to be said out loud is a colour and how long it is good for. A shot in the wrong one shuts the cloud for two seconds.",
-    reach: "spawn",
-    // A wave names this kind and never its colour: what is inside a veil is
-    // rolled at the moment it enters the field, which is the one thing about
-    // this creature nobody may compose against (`veilOnSpawn`).
-    waveNames: true,
-  },
-  wisp: {
-    what: "Only one of you can see it, and it is never in the same tile twice: every two beats it stands somewhere else on the field. It does not fall and it does not leave — the wave stays open until it is shot, and either colour will do it. While one is out, both screens carry the lettered grid.",
-    reach: "spawn",
-    // A wave names this kind and never a colour: a wisp carries none at all,
-    // the way a throb does, so there is nothing on the arrival to author.
-    waveNames: true,
-  },
-  ghost: {
-    what: "A body one of you cannot see at all. The pilot gets a band across the row it is standing in — how long there is, and nothing about which column — and the pilot is the one holding the cannon, so the column has to be said out loud as a number. Shot, it lets go and climbs out of the top of the field, and both of you watch it go.",
-    reach: "spawn",
-    // A wave names this kind and gives it a colour, the way it does for a
-    // dart: the silhouette is the ghost's and the colour is which trigger
-    // answers it, so neither can be worked out from the other.
-    waveNames: true,
-  },
+  dart: SPLIT_MECHANICS.dart,
+  veil: SPLIT_MECHANICS.veil,
+  wisp: SPLIT_MECHANICS.wisp,
+  ghost: SPLIT_MECHANICS.ghost,
   echo: {
     what: "A small slick or bulb that comes down half as fast as anything else, and divides while it falls: three beats, then six, then nine. Every division turns a corner — sideways, then up and down, then both at once — and the seam across it says which way and how soon. The matching cannon kills any of them, and a shot that catches one early is paid for every body it would have become.",
     reach: "spawn",
