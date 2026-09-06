@@ -127,7 +127,7 @@ the two can be compared by opening the wave.
 | 6 | **The lock** | player 1's hand on a body steers every shot into it, from whatever column the cannon is in; it says nothing about the colour | p1 holds and keeps the cannon on the pod, p2 fires the colour | 15 · CATCH AND AIM |
 | 7 | **The queen** | two marks, one real; she opens for two beats; a torch drops every eight | p1 sees *what*, p2 sees *where* | 17 · BULB QUEEN |
 | 8 | **The bosses** | the mirror, the maze, the gauge, the warden and its line, the vane | one guide each, on their own wave | 18 · THE MIRROR, 19 · THE MAZE, 20 · THE GAUGE, 21 · THE WARDEN, 29 · THE VANE |
-| 9 | **The rest of the bestiary** | the lure that took the runt's place, the throb, the shell, the pods, the rock speed tiers | one guide each | 23 · THE LURE, 24 · THE THROB, 25 · THE THIRD SHOT, 31 · THE PURGE, 32 · THE WARD |
+| 9 | **The rest of the bestiary** | the lure that took the runt's place, the throb, the shell, the pods, the rock speed tiers | one guide each | 23 · THE LURE, 24 · THE THROB, 25 · THE SHELL, 31 · THE PURGE, 32 · THE WARD |
 
 **The grip and the lance are still the odd ones out**, and neither has a guide.
 They are controls no wave *contains*, so no wave is the first to carry them and

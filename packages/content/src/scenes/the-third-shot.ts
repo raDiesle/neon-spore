@@ -1,7 +1,7 @@
 import type { GuideScene } from "../scene-types.js";
 
 /**
- * THE THIRD SHOT's rehearsal: the shot that worked twice is the miss.
+ * THE SHELL's rehearsal: the shot that worked twice is the miss.
  *
  * A slick or a bulb in plating a size too big for it, split down the middle —
  * one piece in front of each of its two columns, with the body's own colour

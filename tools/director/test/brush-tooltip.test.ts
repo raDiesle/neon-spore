@@ -18,7 +18,7 @@ describe("brushTooltip", () => {
     // wave 22 stopped being ON THE BEAT. CATCH AND AIM went in ahead of FINALE
     // when THE LOCK arrived and pushed both on by one again.
     expect(brushTooltip("throb")).toBe("First in WAVE 24 · THE THROB");
-    expect(brushTooltip("shell")).toBe("First in WAVE 25 · THE THIRD SHOT");
+    expect(brushTooltip("shell")).toBe("First in WAVE 25 · THE SHELL");
   });
 
   test("says nothing for ERASE, which paints nothing", () => {

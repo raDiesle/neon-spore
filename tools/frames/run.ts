@@ -21,7 +21,7 @@
  *
  *   bun run frames . --wave 19 --boss-round 3    this tree, once, with no pair
  *   bun run frames <sha> --wave 21               wave 21, matching the HUD's W21
- *   bun run frames <sha> --wave "THE THIRD SHOT" a wave by name — what a person has in hand
+ *   bun run frames <sha> --wave "THE SHELL"        a wave by name — what a person has in hand
  *   bun run frames <sha> --wave 21 --ticks 240   a different point in the wave
  *   bun run frames <sha> --wave 21 --frames 6 --stride 4   a short strip, for motion
  *   bun run frames <sha> --wave 21 --seat p1    one player's screen, not the rig's

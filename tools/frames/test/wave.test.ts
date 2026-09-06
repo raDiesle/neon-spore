@@ -21,8 +21,8 @@ describe("resolveWaveFlag", () => {
   });
 
   it("accepts a wave name, case-insensitively", () => {
-    expect(resolveWaveFlag("the third shot", WAVES)).toBe(
-      WAVES.findIndex((w) => w.name === "THE THIRD SHOT"),
+    expect(resolveWaveFlag("the shell", WAVES)).toBe(
+      WAVES.findIndex((w) => w.name === "THE SHELL"),
     );
   });
 

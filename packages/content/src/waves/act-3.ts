@@ -102,7 +102,7 @@ export const WAVES_ACT_3: Wave[] = [
   },
   {
     id: "theThirdShot",
-    name: "THE THIRD SHOT",
+    name: "THE SHELL",
     sentence: "The one where the shot that worked twice is the miss.",
     guide: {
       both: "A slick or a bulb in plating a size too big for it, split down the middle: one piece in front of each of its two columns, and its colour showing through the cracks. Any colour chips a piece. Only when both are off does that colour finish it.",
