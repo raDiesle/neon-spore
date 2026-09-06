@@ -9,6 +9,18 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · a602caa1 — Repair the perf baseline row a narrow --save clobbered, and queue the cause
+
+Merging THE JAM after the wave insertion wrote it into row 50 and left a second copy in row 49, where it sat before — so THE MAGNET had no row and the check failed on a name it could not explain. Re-measured THE MAGNET to repair it; the merge itself is a queue item.
+
+## 2026-09-06 · 380be765 — THE FENCE keeps the walls with gaps; THE CUT is the one you make a hole in
+
+One wave was carrying both halves of this creature and teaching them together. The owner asked for two: a wave of walls with a way through, and a wave of walls with none.
+
+## 2026-09-06 · cd3ae343 — Only a solid wall comes apart, and the current runs the whole way down
+
+Five things the owner asked for by name, so each is a look landed under CLAUDE.md's first exemption rather than offered in VERSUS.
+
 ## 2026-09-06 · 2f4150bd — VERSUS is a list of doors, and every slot is drawn on its own subject
 
 OTHER GRAPHICS is called VERSUS, which is the name everything else in this repository already used. It draws nothing: nine open candidates were eighteen phone-sized renderers stepping eighteen worlds, plus five baked animations, from the moment the tab was opened. It is now a list — one block per slot, one card per candidate, its sentence, the records it patches, the pose it will be judged on, and a button that opens exactly that comparison in a new tab where it is the only thing the browser is animating. The baked animations, the live field they are judged on and COLLECTED LOOKS moved behind the same kind of button. `versus.html` is one page routed by its query string; `server.ts` answers it and `build.ts` writes it into `dist/`.
