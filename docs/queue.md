@@ -348,6 +348,7 @@ phone runs, never against a throttled desktop one.
 ## `bun run perf`'s 20% noise floor still flags waves nobody touched
 
 - **Found:** 2026-09-06, claude/queue-the-perf-baseline-covers-38-of-the-45-waves-the
+- **Taken:** 2026-09-06, claude/queue-bun-run-perf-s-20-noise-floor-still-flags-waves
 - **Files:** `tools/perf/compare.ts`, `tools/perf/test/compare.test.ts`, `docs/performance.md`
 
 `NOISE_PCT` is 20, and two runs taken twenty minutes apart on the same idle
