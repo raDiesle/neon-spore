@@ -103,6 +103,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## Two tables the next creature cannot be added to without splitting them first
 
 - **Found:** 2026-09-06, claude/electric-barrier-enemy-e6fi1d
+- **Taken:** 2026-09-06, claude/queue-two-tables-the-next-creature-cannot-be-added-to
 - **Files:** `packages/content/src/creatures-table.ts`, `packages/content/src/mechanics-table.ts`
 
 Both are total over `CreatureKind` or `MechanicId`, so a new creature costs
