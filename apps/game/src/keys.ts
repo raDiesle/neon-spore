@@ -128,12 +128,13 @@ export function bindKeys({
       case "KeyS":
         buffer.push(1, { kind: "intake" });
         break;
-      // R is the relief, and it is sent **as both seats**. A fault hands the
-      // button to one of them and `reliefHeard` drops it from the other
-      // (`sim/malfunction.ts`), so one key covers either wave without the desk
-      // rig having to know which fault is up — the same reason W sends a shot
-      // and a guard in one press rather than making a tester find both.
-      case "KeyR":
+      // H holds the wave's malfunction off, and it is sent **as both seats**.
+      // A fault hands the relief to one of them and `reliefHeard` drops it
+      // from the other (`sim/malfunction.ts`), so one key covers either wave
+      // without the desk rig having to know which fault is up — the same
+      // reason W sends a shot and a guard in one press. Not R: that is the
+      // film's replay and has been since guides had one.
+      case "KeyH":
         buffer.push(1, { kind: "relief" });
         buffer.push(2, { kind: "relief" });
         break;

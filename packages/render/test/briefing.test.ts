@@ -176,14 +176,35 @@ describe("a wave's opening on the stage", () => {
     }
   };
 
-  it("draws a rehearsal, through every page of it, in every role", () => {
-    // Every page and not a frame of one: a scene is a world being stepped, so
-    // the values reaching the canvas change tick by tick — the muzzle flash,
-    // the spark burst, the rebuild under two sets of `Effects` every time a
-    // page repeats. One frame would prove almost nothing.
+  it("has a scene to draw at all", () => {
     expect(SCENED.length, "no wave carries a scene to draw").toBeGreaterThan(0);
-    const { ctx } = stubCanvas();
-    for (const role of ROLES) {
+  });
+
+  /**
+   * **One case per role, rather than one case walking all three.**
+   *
+   * Every page of every film, drawn frame by frame, is the one check that
+   * catches a value that is a perfectly good number and not a colour — and it
+   * is the most expensive thing in this package. The budget on it has been
+   * raised twice already (five seconds ran out at the ninth film, thirty at
+   * the twenty-sixth) and `FRAMES_PER_PAGE` cut once to avoid a third raise.
+   *
+   * The role is the axis to split on rather than the axis to shorten: the
+   * three walks share nothing — a fresh `GuideStage`, a fresh layout, a fresh
+   * `Effects` per page — so three cases draw exactly what one did and each
+   * gets its own sixty seconds. What was failing is a *timeout* and never an
+   * assertion: on a busy machine the whole run overshot, and a test that only
+   * passes on an idle box is a test somebody re-runs on its own and stops
+   * reading. Nothing here is measuring speed, so the budget is a guard rather
+   * than a claim.
+   */
+  for (const role of ROLES) {
+    it(`draws a rehearsal, through every page of it, for ${role}`, () => {
+      // Every page and not a frame of one: a scene is a world being stepped,
+      // so the values reaching the canvas change tick by tick — the muzzle
+      // flash, the spark burst, the rebuild under two sets of `Effects` every
+      // time a page repeats. One frame would prove almost nothing.
+      const { ctx } = stubCanvas();
       const l = computeLayout({ width: 420, height: 860, dpr: 2 }, CFG, role);
       for (const i of SCENED) {
         const { guide } = opening(i);
@@ -192,13 +213,8 @@ describe("a wave's opening on the stage", () => {
         // The last page is the gate, which is not a rehearsal at all.
         expect(stage.active, `${WAVES[i]?.name} left its scene up on the gate`).toBe(false);
       }
-    }
-    // Every page of every film, on three screens, drawn frame by frame. The
-    // default five seconds ran out at the ninth film and thirty at the
-    // twenty-sixth; the walk is shorter now (`FRAMES_PER_PAGE`) and this is
-    // the headroom for the rest of the arc. What it buys is the one check that
-    // catches a value that is a perfectly good number and not a colour.
-  }, 60_000);
+    }, 60_000);
+  }
 
   it("draws a rehearsal on a screen narrow enough that a word does not fit", () => {
     // A rehearsal is the whole stage, so there is no room left to run out of
@@ -210,8 +226,9 @@ describe("a wave's opening on the stage", () => {
       const { guide } = opening(i);
       walkPages(ctx, l, guide, "p1", new GuideStage(), FRAMES_PER_PAGE);
     }
-    // One screen rather than three, so it costs a third of the walk above.
-  }, 30_000);
+    // One screen, so it costs what one of the three walks above costs — and
+    // it gets the same budget, for the same reason.
+  }, 60_000);
 
   it("puts a rehearsal away the moment the reader reaches the gate", () => {
     const stage = new GuideStage();

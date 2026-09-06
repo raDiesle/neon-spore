@@ -89,7 +89,7 @@ const KEYS: [string, string][] = [
   ["J / L", "The shield on its own."],
   ["I", "The guard trigger."],
   ["S", "The maw, to take a loose pod in."],
-  ["R", "Hold the wave's malfunction off for two beats. Nothing on a wave with none."],
+  ["H", "Hold the wave's malfunction off for two beats. Nothing on a wave with none."],
   ["F", "Hold the lance. Three beats with the cannon still, then one shot goes through three."],
   ["W", "Fire red — and guard in the same press."],
   ["E", "Fire cyan."],
