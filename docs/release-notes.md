@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · 080efdb6 — THE COIL becomes a price: the plate opens a dome by standing under it
+
+Opening a dome is now something a pair spends rather than something they do. The rock a dome leaves behind no longer falls where the dome stood — it runs for the wall furthest from the plate and comes down there, which is by construction the furthest that plate could have to travel, so it is almost never turned. The chain still lights the next dome from there. What is left for the pair to decide is the one thing the shield has never asked of them: not yet. The rock still has to be warded, the plate still has to be in its column, and the trigger has to find the beat when nothing is crossing overhead.
+
 ## 2026-09-06 · 8a5e54ff — HOLD FIRE and HOLD DOME are gone, and a fault runs for the whole wave
 
 The owner asked for the relief out. It was one mechanic wearing two labels — `reliefFire` on player 2 for a cannon fault, `reliefGuard` on player 1 for a shield one — and a tap on it bought two beats in which the runaway control did not act, then a rest before the next tap was answered.
