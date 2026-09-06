@@ -1,7 +1,6 @@
 import type { SimEvent } from "@neon-spore/sim";
 import type { Arrivals } from "./arrivals.js";
 import type { CrawlerFx } from "./crawler-fx.js";
-import { SIT } from "./crawler-place.js";
 import type { DeflectFx } from "./deflect.js";
 import { ingestBreach, ingestDeflect } from "./effects-breach.js";
 import type { LayEcho } from "./lay-echo.js";
@@ -71,19 +70,19 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
     // picture on, which is `rockImpactFx`'s reason for existing said about a
     // body that left sideways (`crawler-fx.ts`).
     //
-    // The splash is placed at the point the ring was *drawn* on rather than at
-    // its tile's centre — a worm sits `SIT` of a tile low, so that it crawls on
-    // the plating instead of flying beside it (`crawler-place.ts`), and goo
-    // thrown from a tile centre would leave the animal's own outline.
+    // The splash carries a column and no row: a worm is drawn on the ship's
+    // own surface and is pushed up by the cannon under it, so where the ring
+    // was standing is a question only the frame that draws the goo can answer
+    // (`crawler-fx.ts`).
     case "crawlerBreak":
-      ctx.crawler.splash(tileCX(ctx.l, e.col), tileCY(ctx.l, e.row) + ctx.l.tile * SIT, e.color);
+      ctx.crawler.splash(tileCX(ctx.l, e.col), e.color);
       // And the shipped kill sprite beside it, on the same terms as `destroy`
       // below: this is a cannon shot that killed the thing it hit, and the
       // pair should not have to learn a second reading of that.
       ctx.spriteBursts.spawn(tileCX(ctx.l, e.col), tileCY(ctx.l, e.row), ctx.l.tile * 2.4);
       break;
     case "crawlerBeam":
-      ctx.crawler.beam(e.col, e.row);
+      ctx.crawler.beam(e.col);
       break;
     case "crawlerBurrow":
       ctx.crawler.mound(e.col, e.row);

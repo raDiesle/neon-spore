@@ -2,6 +2,7 @@ import { type Creature, linkIsArmoured, type World } from "@neon-spore/sim";
 import { linkCenter, linkScale } from "./crawler-place.js";
 import { hazed, nearness } from "./depth.js";
 import { strokeGlow } from "./glow.js";
+import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 
@@ -64,9 +65,13 @@ export function drawLinkMarks(
   c: Creature,
   beats: number,
   beatPhase: number,
+  surfaceY?: SurfaceY,
 ): void {
   if (l.tile <= 0) return;
-  const { x, y } = linkCenter(l, c, beatPhase);
+  // The same point the ring itself was drawn on, off the same sampler: a mark
+  // placed on the flat hull line would stay put while the ring under it rode
+  // over the cannon (`crawler-place.ts`).
+  const { x, y } = linkCenter(l, c, beatPhase, surfaceY);
   const k = linkScale(world, l);
   const ink = hazed(world.cfg, PALETTE.hullRim, nearness(l, world.cfg.rows - 2));
   ctx.save();

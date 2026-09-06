@@ -1,5 +1,7 @@
 import type { Color } from "@neon-spore/sim";
-import { type Layout, tileCX, tileCY } from "./layout.js";
+import { flatSurface, RIDE } from "./crawler-place.js";
+import type { SurfaceY } from "./hull-frame.js";
+import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
 /**
@@ -50,7 +52,6 @@ const DROPS = 22;
 
 interface Beam {
   col: number;
-  row: number;
   left: number;
 }
 
@@ -62,7 +63,6 @@ interface Mound {
 
 interface Splash {
   x: number;
-  y: number;
   hex: string;
   /** One angle, reach and size per droplet, laid down when the ring burst so
    * the crown does not reshuffle itself every frame. */
@@ -75,9 +75,11 @@ export class CrawlerFx {
   private mounds: Mound[] = [];
   private splashes: Splash[] = [];
 
-  /** A worm with its last ring off, and the lane the ship swept clean. */
-  beam(col: number, row: number): void {
-    this.beams.push({ col, row, left: BEAM_LIFE });
+  /** A worm with its last ring off, and the lane the ship swept clean. The
+   * row is not kept: the lane comes down onto the *ship*, and where that is at
+   * this column is the same question a ring standing there asks. */
+  beam(col: number): void {
+    this.beams.push({ col, left: BEAM_LIFE });
   }
 
   /** A worm that reached the far wall, and the banks it threw up going in. */
@@ -86,7 +88,13 @@ export class CrawlerFx {
   }
 
   /**
-   * A ring burst by the matching cannon, at the point it was standing on.
+   * A ring burst by the matching cannon, at the column it was standing in.
+   *
+   * The column and not the point, because the point is on the ship and the
+   * ship moves: a worm rides the hull's own surface and is pushed up by the
+   * cannon under it (`crawler-place.ts`), so goo thrown from a tile centre
+   * would leave the animal's outline exactly when the pair is most likely to
+   * be looking — the cannon has to be under a ring to burst it at all.
    *
    * The crown is laid down here rather than sampled per frame: a droplet that
    * picked a fresh angle every frame is a shimmer, and what this has to be is
@@ -94,7 +102,7 @@ export class CrawlerFx {
    * of the crown is kept short — because the shot came from underneath and
    * that is the direction the contents leave in.
    */
-  splash(x: number, y: number, color: Color): void {
+  splash(x: number, color: Color): void {
     const drops: { a: number; r: number; s: number }[] = [];
     for (let i = 0; i < DROPS; i++) {
       const a = (i / DROPS) * Math.PI * 2 + (i % 3) * 0.21;
@@ -103,7 +111,6 @@ export class CrawlerFx {
     }
     this.splashes.push({
       x,
-      y,
       hex: color === "red" ? PALETTE.red : PALETTE.cyan,
       drops,
       left: SPLASH_LIFE,
@@ -125,10 +132,19 @@ export class CrawlerFx {
     this.splashes.length = 0;
   }
 
-  draw(ctx: CanvasRenderingContext2D, l: Layout): void {
-    for (const b of this.beams) this.drawBeam(ctx, l, b);
+  /** `surfaceY` is the ship's drawn skin, the one a worm walks on: both the
+   * lane and the goo come off a body that was standing on it. Absent is the
+   * flat hull line, exactly as it is for the ring itself. */
+  draw(ctx: CanvasRenderingContext2D, l: Layout, surfaceY: SurfaceY = flatSurface(l)): void {
+    for (const b of this.beams) this.drawBeam(ctx, l, b, surfaceY);
     for (const m of this.mounds) this.drawMound(ctx, l, m);
-    for (const s of this.splashes) this.drawSplash(ctx, l, s);
+    for (const s of this.splashes) this.drawSplash(ctx, l, s, surfaceY);
+  }
+
+  /** Where a ring standing at this x was drawn — one line, so the transients a
+   * ring leaves behind and the ring itself cannot part company. */
+  private static ringY(l: Layout, x: number, surfaceY: SurfaceY): number {
+    return surfaceY(x) - l.tile * RIDE;
   }
 
   /**
@@ -137,10 +153,10 @@ export class CrawlerFx {
    * third and fades over the rest, so the eye is pulled to it before it is
    * asked to let it go.
    */
-  private drawBeam(ctx: CanvasRenderingContext2D, l: Layout, b: Beam): void {
+  private drawBeam(ctx: CanvasRenderingContext2D, l: Layout, b: Beam, surfaceY: SurfaceY): void {
     const t = 1 - b.left / BEAM_LIFE;
     const x = tileCX(l, b.col);
-    const foot = tileCY(l, b.row);
+    const foot = CrawlerFx.ringY(l, x, surfaceY);
     const lift = foot - (foot - l.gridTop) * Math.min(1, t * 1.4);
     const strength = t < 0.3 ? t / 0.3 : 1 - (t - 0.3) / 0.7;
     const grad = ctx.createLinearGradient(x, l.gridTop, x, foot);
@@ -170,22 +186,20 @@ export class CrawlerFx {
    * droplets travel and fade, which is what a thrown liquid does; the patch
    * spreads and thins under them.
    */
-  private drawSplash(ctx: CanvasRenderingContext2D, l: Layout, s: Splash): void {
+  private drawSplash(
+    ctx: CanvasRenderingContext2D,
+    l: Layout,
+    s: Splash,
+    surfaceY: SurfaceY,
+  ): void {
     const t = 1 - s.left / SPLASH_LIFE;
+    const y = CrawlerFx.ringY(l, s.x, surfaceY);
     ctx.save();
     ctx.globalCompositeOperation = "lighter";
     ctx.fillStyle = s.hex;
     ctx.globalAlpha = 0.42 * (1 - t);
     const patch = new Path2D();
-    patch.ellipse(
-      s.x,
-      s.y,
-      l.tile * (0.34 + t * 0.7),
-      l.tile * (0.18 + t * 0.3),
-      0,
-      0,
-      Math.PI * 2,
-    );
+    patch.ellipse(s.x, y, l.tile * (0.34 + t * 0.7), l.tile * (0.18 + t * 0.3), 0, 0, Math.PI * 2);
     ctx.fill(patch);
     ctx.globalAlpha = Math.max(0, 1 - t * t);
     const drops = new Path2D();
@@ -193,7 +207,7 @@ export class CrawlerFx {
       const reach = l.tile * d.r * (0.28 + t * 1.35);
       const rad = l.tile * 0.085 * d.s * (1 - t * 0.35);
       const dx = s.x + Math.cos(d.a) * reach;
-      const dy = s.y + Math.sin(d.a) * reach;
+      const dy = y + Math.sin(d.a) * reach;
       drops.moveTo(dx + rad, dy);
       drops.arc(dx, dy, rad, 0, Math.PI * 2);
     }

@@ -10,8 +10,11 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { linkOnField } from "../src/crawler.js";
+import { linkCenter, RIDE } from "../src/crawler-place.js";
+import { frame, type HullMood, type LobePositions, surfaceSampler } from "../src/hull-frame.js";
 import type { ViewRole } from "../src/layout.js";
-import { CFG, installCanvasGlobals, ROLES, runFrames } from "./frame-harness.js";
+import { computeLayout } from "../src/layout.js";
+import { CFG, installCanvasGlobals, ROLES, runFrames, VIEWPORT } from "./frame-harness.js";
 
 /**
  * THE CRAWLER, drawn: a run of links along the ship's own row, the marks over
@@ -126,5 +129,90 @@ describe("the crawler", () => {
     // phone has, and a body drawn there would be one the pilot can see and can
     // never put the cannon under.
     expect(links.filter((c) => linkOnField(CFG, c, 0))).toHaveLength(1);
+  });
+});
+
+/**
+ * A hull at rest with its cannon over one column and no shield lobes at all —
+ * the shield is left out so that what the numbers below are about is the one
+ * swelling being moved.
+ */
+const AT_REST: HullMood = { armed: 0, intake: 0, chew: 0, charge: 0 };
+
+function surfaceWithCannonAt(l: ReturnType<typeof computeLayout>, cannon: number) {
+  const at: LobePositions = { cannon, shield: [] };
+  return surfaceSampler(frame(l, 0, AT_REST, at));
+}
+
+describe("a worm walks the ship rather than a line over it", () => {
+  const l = computeLayout(VIEWPORT, CFG, "p1");
+  // A link standing still in column three: `fromCol` equals `col`, so nothing
+  // here depends on where in a beat the picture was taken.
+  const ring = {
+    id: 1,
+    kind: "crawler" as const,
+    col: 3,
+    row: CFG.rows - 2,
+    fromRow: CFG.rows - 2,
+    fromCol: 3,
+    color: null,
+    holes: 0,
+    petals: 0,
+    dragMilli: 0,
+    shell: 0,
+  };
+
+  it("falls back to the flat hull line for a caller with no ship to sample", () => {
+    // That fallback has to be the placement this creature shipped with, or a
+    // host that never built a `HullFrame` would draw a different worm.
+    expect(linkCenter(l, ring, 0).y).toBeCloseTo(l.hullY, 6);
+  });
+
+  it("lies on the skin the ship is drawn with, not on that flat line", () => {
+    // The two are half a tile apart: `Layout.hullY` is a straight line and the
+    // hull is an arc with a lobed radius, so a worm measured from the line was
+    // floating over the plating (`crawler-place.ts`). `RIDE` is the clearance
+    // that keeps it on the ship instead.
+    const s = surfaceWithCannonAt(l, 0);
+    expect(linkCenter(l, ring, 0, s).y).toBeCloseTo(s(linkCenter(l, ring, 0).x) - l.tile * RIDE, 6);
+  });
+
+  it("is pushed up by the cannon lobe when the cannon is under it", () => {
+    const under = linkCenter(l, ring, 0, surfaceWithCannonAt(l, 3)).y;
+    const away = linkCenter(l, ring, 0, surfaceWithCannonAt(l, 8)).y;
+    // Up the screen is a smaller y. Half a tile is the lobe's whole lift
+    // (`CANNON_LOBE.liftTiles`), and the breath takes a little off it, so what
+    // is pinned here is that most of it arrives rather than the exact figure.
+    expect(away - under).toBeGreaterThan(l.tile * 0.35);
+    // And the ring does not move sideways for it: the column is the rule, and
+    // a body that slid would be one the cannon could no longer be put under.
+    expect(linkCenter(l, ring, 0, surfaceWithCannonAt(l, 3)).x).toBeCloseTo(
+      linkCenter(l, ring, 0).x,
+      6,
+    );
+  });
+
+  it("lets it down again a column either side, so the lobe reads as a hill", () => {
+    const under = linkCenter(l, ring, 0, surfaceWithCannonAt(l, 3)).y;
+    const beside = linkCenter(l, ring, 0, surfaceWithCannonAt(l, 4)).y;
+    const away = linkCenter(l, ring, 0, surfaceWithCannonAt(l, 8)).y;
+    expect(beside).toBeGreaterThan(under);
+    expect(beside).toBeLessThanOrEqual(away);
+  });
+
+  it("follows the ship's own contour, so a long worm is not drawn on one line", () => {
+    // The hull is a breathing arc with a lobed radius, not a shelf
+    // (`hull-frame.ts`), and the whole of what was asked for is that a worm is
+    // *on* it. So the rings of one body standing across the field are at
+    // several different heights — which is the difference between a thing
+    // lying along a ship and a row of counters on a rule.
+    const away = surfaceWithCannonAt(l, 0);
+    const ys = [];
+    // From column one, so the cannon parked on column zero is not what this is
+    // measuring: the contour has to be uneven on its own.
+    for (let col = 1; col < CFG.cols; col++) {
+      ys.push(linkCenter(l, { ...ring, col, fromCol: col }, 0, away).y);
+    }
+    expect(Math.max(...ys) - Math.min(...ys)).toBeGreaterThan(l.tile * 0.1);
   });
 });

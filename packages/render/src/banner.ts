@@ -9,25 +9,34 @@ const POD_RECEIPT: Record<PodKind, { text: string; hex: string }> = {
   ward: { text: "WARDED", hex: PALETTE.shieldRim },
 };
 
-/** What the words over the hull are reading from, all of it `Effects` state. */
+/**
+ * The clock a pod's receipt reads from — the shape `Swallow` already has
+ * (`swallow.ts`), taken whole rather than copied field by field into a state
+ * object at the call site. That copy was five lines of re-spelling and one
+ * more name for each number.
+ */
 export interface BannerState {
-  /** Counts down while DEFLECTED is up. */
-  guardHit: number;
-  /** Counts down from `swallowLife` while a pod is being taken in. */
-  swallow: number;
-  swallowLife: number;
+  /** Counts down from `life` while a pod is being taken in. */
+  remaining: number;
+  life: number;
   /** Share of the swallow the chewing takes; the receipt waits for it. */
   chewShare: number;
   podKind: PodKind | null;
 }
 
-/** DEFLECTED, or a pod's one-word receipt, over the hull. */
-export function drawBanner(ctx: CanvasRenderingContext2D, l: Layout, s: BannerState): void {
-  if (s.guardHit > 0) {
-    drawWord(ctx, l, "DEFLECTED", PALETTE.shieldRim, Math.min(1, s.guardHit / 0.6), 0.9);
+/** DEFLECTED, or a pod's one-word receipt, over the hull. `guardHit` counts
+ * down while the first is up. */
+export function drawBanner(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  guardHit: number,
+  s: BannerState,
+): void {
+  if (guardHit > 0) {
+    drawWord(ctx, l, "DEFLECTED", PALETTE.shieldRim, Math.min(1, guardHit / 0.6), 0.9);
   }
-  if (s.swallow <= 0 || !s.podKind) return;
-  const done = 1 - s.swallow / s.swallowLife;
+  if (s.remaining <= 0 || !s.podKind) return;
+  const done = 1 - s.remaining / s.life;
   if (done < s.chewShare) return; // wait for the chewing to finish first
   const after = (done - s.chewShare) / (1 - s.chewShare);
   const a = Math.min(1, 1 - after);

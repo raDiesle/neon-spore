@@ -1,6 +1,7 @@
 import { guardArmed, mawOpen, ticksPerBeat, wispOnField } from "@neon-spore/sim";
 import { drawWaveOpening } from "./briefing.js";
 import { drawBodies, drawFieldBack, drawOverlays, drawShip } from "./frame-passes.js";
+import { frame, surfaceSampler } from "./hull-frame.js";
 import { computeLayout, computeStage, type Layout, type Stage } from "./layout.js";
 import { openingKey } from "./opening-fx.js";
 import { RenderState } from "./render-state.js";
@@ -173,27 +174,35 @@ export class Canvas2DRenderer implements Renderer {
     const flash = Math.max(0, 1 - view.beatPhase * (ticksPerBeat(world.cfg) / 26));
 
     // A bare frame is the bodies and nothing else — see `ViewState.bare`. It
-    // returns here rather than skipping four calls one at a time, so what a
+    // returns below rather than skipping four calls one at a time, so what a
     // thumbnail contains is one branch a reader can hold, and the hull, the
     // band and the HUD cannot creep back into it a pass at a time.
+    // **One membrane for the whole frame, and it is built before the field.**
+    // The ship's surface used to be the hull pass's private business, computed
+    // inside `drawShip` and thrown away; THE CRAWLER walks on it now — the
+    // cannon and the shield are swellings of that membrane and a worm goes over
+    // them, which is what makes sliding a lobe under one push it up
+    // (`crawler-place.ts`). So the frame is made here and handed to both
+    // passes: one `frame()` call, and the ground a body stands on cannot be a
+    // different membrane from the one drawn under it a pass later.
+    const mood = this.held.pose.mood(world, this.held.effects);
+    const hull = frame(l, view.time, mood, at);
+    const surfaceY = surfaceSampler(hull);
+
+    // A bare frame is the bodies and nothing else, and a worm in one still
+    // rides the ship it is standing on: there is no hull drawn under it, but
+    // the *body* is the same body, and a thumbnail that flattened it would be a
+    // picture of a creature this game has not got.
     if (view.bare) {
-      drawBodies(ctx, l, world, view, this.held.effects, at.cannon);
+      drawBodies(ctx, l, world, view, this.held.effects, at.cannon, surfaceY);
       ctx.restore();
       return;
     }
 
     drawFieldBack(ctx, l, world, view, flash, this.held.effects.coordGrid.shown);
-    drawBodies(ctx, l, world, view, this.held.effects, at.cannon);
+    drawBodies(ctx, l, world, view, this.held.effects, at.cannon, surfaceY);
 
-    drawShip(
-      ctx,
-      l,
-      world,
-      view,
-      this.held.effects,
-      this.held.pose.mood(world, this.held.effects),
-      at,
-    );
+    drawShip(ctx, l, world, view, this.held.effects, mood, at, hull);
     drawOverlays(ctx, l, world, view, {
       armed: isArmed,
       open: isOpen,

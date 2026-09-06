@@ -9,6 +9,7 @@ import { ingestOne, QUEEN_SHAKE_LIFE } from "./effects-ingest.js";
 import { burstFor } from "./effects-spark.js";
 import { FleetFx } from "./fleet-fx.js";
 import { GhostTrail } from "./ghost-trail.js";
+import type { SurfaceY } from "./hull-frame.js";
 import { LayEcho } from "./lay-echo.js";
 import type { Layout } from "./layout.js";
 import { OpeningFx } from "./opening-fx.js";
@@ -49,9 +50,8 @@ export class Effects {
   readonly arrivals = new Arrivals();
   /** The two transients that belong to one body — `effects-body.ts`. */
   private bodies = new BodyTransients();
-  /** THE CRAWLER's two endings, both of which outlive the worm they are about
-   * (`crawler-fx.ts`): the lane the ship opens for a stripped one, and the
-   * banks a burrowing one throws up. */
+  /** THE CRAWLER's three transients, each outliving what it is about: a burst
+   * ring's goo, the swept lane, the burrow's banks (`crawler-fx.ts`). */
   private crawler = new CrawlerFx();
   /**
    * THE MIRROR's own transients. Public because the boss is drawn as a whole
@@ -141,7 +141,7 @@ export class Effects {
     this.bodies.ingest(events, l, cfg, beatSeconds, time);
     for (const e of events) {
       const spark = burstFor(e, l);
-      if (spark) this.burst(spark.x, spark.y, spark.n, spark.hex);
+      if (spark) this.sparks.burst(spark.x, spark.y, spark.n, spark.hex);
 
       // Everything past the burst table: `effects-ingest.ts`'s `ingestOne`,
       // split out on this file's own line count. Its switch is exhaustive
@@ -166,7 +166,7 @@ export class Effects {
         setQueenShake: (v) => {
           this.queenShakeUntil = v;
         },
-        burst: (x, y, n, hex) => this.burst(x, y, n, hex),
+        burst: (x, y, n, hex) => this.sparks.burst(x, y, n, hex),
       });
     }
   }
@@ -193,16 +193,24 @@ export class Effects {
     // A salvo's particles are thrown from here on the frame it lands, not from
     // `burstFor` on the frame the event arrived — a second and a quarter
     // earlier (`fleet-fx.ts`).
-    this.fleet.update(dt, l, (x, y, n, hex) => this.burst(x, y, n, hex));
+    this.fleet.update(dt, l, (x, y, n, hex) => this.sparks.burst(x, y, n, hex));
   }
 
   /** Drawn under the hull, so a deflected rock passes behind nothing. The
-   * world is here for the clasp transients alone — `drawOnBodies` says why. */
-  draw(ctx: CanvasRenderingContext2D, l: Layout, world: World, beatPhase: number): void {
+   * world is here for the clasp transients alone — `drawOnBodies` says why —
+   * and `surfaceY` for THE CRAWLER's, which are about a body that was standing
+   * on the ship's own skin (`crawler-place.ts`). */
+  draw(
+    ctx: CanvasRenderingContext2D,
+    l: Layout,
+    world: World,
+    beatPhase: number,
+    surfaceY?: SurfaceY,
+  ): void {
     this.deflectFx.draw(ctx);
     this.sparks.draw(ctx);
     this.bodies.draw(ctx);
-    this.crawler.draw(ctx, l);
+    this.crawler.draw(ctx, l, surfaceY);
     this.spriteBursts.draw(ctx);
     this.bodies.drawOnBodies(ctx, l, world, beatPhase);
   }
@@ -234,16 +242,6 @@ export class Effects {
 
   /** The word itself, over the hull — DEFLECTED, or a pod's one-word receipt. */
   drawBanner(ctx: CanvasRenderingContext2D, l: Layout): void {
-    drawBanner(ctx, l, {
-      guardHit: this.guardHit,
-      swallow: this.swallow.remaining,
-      swallowLife: this.swallow.life,
-      chewShare: this.swallow.chewShare,
-      podKind: this.swallow.podKind,
-    });
-  }
-
-  private burst(x: number, y: number, n: number, hex: string): void {
-    this.sparks.burst(x, y, n, hex);
+    drawBanner(ctx, l, this.guardHit, this.swallow);
   }
 }

@@ -6,7 +6,7 @@ import type { GuideStage } from "./guide-scene.js";
 import { drawControlHover } from "./hover.js";
 import { drawHud, drawOverlay } from "./hud.js";
 import { drawHull, type HullMood, hullSkinY, type LobePositions } from "./hull.js";
-import { frame } from "./hull-frame.js";
+import { frame, type HullFrame } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import type { OpeningFx } from "./opening-fx.js";
 import { drawOtherHand } from "./other-hand.js";
@@ -35,6 +35,15 @@ export function drawShip(
   effects: Effects,
   mood: HullMood,
   at: LobePositions,
+  // Built once for the whole ship pass: `drawHull`, `drawOtherHand` and the
+  // rock-impact overlay below all sample the same breathing membrane this
+  // tick, and `frame()` is not free — see hull-frame.ts. The caller passes one
+  // in when it built the same frame a pass earlier, which it does the moment
+  // anything on the *field* has to stand on this ship: a worm walks the hull
+  // and its cannon (`frame-field.ts`), and two frames of one membrane a
+  // fraction of a tick apart would put the ground under it in one place and
+  // the ship in another.
+  f: HullFrame = frame(l, view.time, mood, at),
 ): void {
   // Queen boss only: the ship's own render-only echo of her torch tremor
   // (queen.ts's `hullShake`); undefined everywhere else, so `drawHull` falls
@@ -43,10 +52,6 @@ export function drawShip(
     world.boss?.kind === "queen"
       ? hullShake(torchTremor(l.tile, world.boss, world.beat, view.time))
       : undefined;
-  // Built once for the whole ship pass: `drawHull`, `drawOtherHand` and the
-  // rock-impact overlay below all sample the same breathing membrane this
-  // tick, and `frame()` is not free — see hull-frame.ts.
-  const f = frame(l, view.time, mood, at);
   drawHull(
     ctx,
     l,

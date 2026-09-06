@@ -13,6 +13,7 @@ import { linkCenter, linkScale } from "./crawler-place.js";
 import { drawFace, drawSlime } from "./crawler-skin.js";
 import { drawnCol, hazed, nearness } from "./depth.js";
 import { strokeGlow } from "./glow.js";
+import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { PLATE, PLATE_RIM } from "./shell-plate.js";
@@ -118,8 +119,9 @@ function drawLink(
   c: Creature,
   beats: number,
   beatPhase: number,
+  surfaceY: SurfaceY | undefined,
 ): void {
-  const { x, y } = linkCenter(l, c, beatPhase);
+  const { x, y } = linkCenter(l, c, beatPhase, surfaceY);
   const near = nearness(l, world.cfg.rows - 2);
   const k = linkScale(world, l);
   ctx.save();
@@ -158,11 +160,17 @@ function drawLink(
 /**
  * Every worm on the field, each drawn tail first so its rings overlap forward.
  *
- * Called from `drawCreatures` before the per-body pass, which skips every
- * `crawler` — THE GYRE's arrangement, and for the sharper version of its
+ * Called from `drawBodies` immediately before the per-body pass, which skips
+ * every `crawler` — THE GYRE's arrangement, and for the sharper version of its
  * reason: a wheel's rim has to be drawn as one thing because the spokes join
  * it, and a worm has to be drawn as one thing because there is nothing joining
  * its rings at all except the order they are painted in.
+ *
+ * It used to be called from inside `drawCreatures` next door, one line above
+ * the same loop, and it moved out when a worm started walking the ship's own
+ * surface: `drawCreatures` is a pass over bodies standing in a *field* and has
+ * no business being handed the shape of the hull, while `drawBodies` is
+ * already the place that knows where the ship's cannon is drawn (`frame-field.ts`).
  *
  * The perspective transform is per ring, inside `drawLink`, and the reason it
  * is not one transform around the whole run is written down there.
@@ -177,6 +185,9 @@ export function drawCrawlers(
   world: World,
   beats: number,
   beatPhase: number,
+  /** The ship's drawn surface, so the worm walks over the cannon rather than
+   * through it. Absent leaves it on the flat hull line (`crawler-place.ts`). */
+  surfaceY?: SurfaceY,
 ): void {
   const links = world.creatures.filter(
     (c) => c.kind === "crawler" && linkOnField(world.cfg, c, beatPhase),
@@ -187,7 +198,7 @@ export function drawCrawlers(
   // between". Sorted on the place along the body rather than on the column, so
   // a worm walking left overlaps the same way one walking right does.
   for (const c of [...links].sort((a, b) => linkOrder(b) - linkOrder(a))) {
-    drawLink(ctx, l, world, c, beats, beatPhase);
+    drawLink(ctx, l, world, c, beats, beatPhase, surfaceY);
   }
-  for (const c of links) drawLinkMarks(ctx, l, world, c, beats, beatPhase);
+  for (const c of links) drawLinkMarks(ctx, l, world, c, beats, beatPhase, surfaceY);
 }

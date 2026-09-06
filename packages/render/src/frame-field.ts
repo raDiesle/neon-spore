@@ -1,6 +1,7 @@
 import type { World } from "@neon-spore/sim";
 import { drawBoss } from "./boss-draw.js";
 import { drawBullets } from "./bullets.js";
+import { drawCrawlers } from "./crawler.js";
 import { drawCreatures } from "./creatures.js";
 import { drawDartGuides } from "./dart-path.js";
 import { drawDartQueries } from "./dart-query.js";
@@ -11,6 +12,7 @@ import { drawGhostTrails } from "./ghost-trail.js";
 import { drawGrips } from "./grip.js";
 import { drawGyres } from "./gyre.js";
 import { drawGyreWind } from "./gyre-wind.js";
+import type { SurfaceY } from "./hull-frame.js";
 import { drawLanceMark } from "./lance.js";
 import type { Layout } from "./layout.js";
 import { drawLockMarks } from "./lock-mark.js";
@@ -76,6 +78,11 @@ export function drawBodies(
    * it may not be `world.cannonCol`, which is the default here for a caller
    * with no pose to ease (`lock-mark.ts`). */
   cannonCol = world.cannonCol,
+  /** The ship's drawn surface, off the same `HullFrame` the hull pass uses.
+   * THE CRAWLER walks on it — the cannon and the shield are swellings of that
+   * membrane, and a worm goes over them (`crawler-place.ts`). Absent leaves
+   * every worm on the flat hull line, which is where they all were. */
+  surfaceY?: SurfaceY,
 ): void {
   // Under the creatures: the mark is on the column, not on anything in it.
   drawLanceMark(ctx, l, world);
@@ -96,6 +103,12 @@ export function drawBodies(
   // Where a ghost has just been, under every body on the field: a stamp drawn
   // over the slick in the next column would read as a body in front of it.
   drawGhostTrails(ctx, l, world, effects.ghostTrail, view.beatPhase, view.time);
+  // Every worm, whole, before the pass below skips its links. A crawler's
+  // rings overlap and have to be painted back to front, which is an order
+  // `byDepth` cannot give: every link of one stands on the same row. It is
+  // called from here rather than from inside `drawCreatures` because it is the
+  // one body that has to be placed against the *ship* (`crawler.ts`).
+  drawCrawlers(ctx, l, world, world.beat + view.beatPhase, view.beatPhase, surfaceY);
   drawCreatures(ctx, l, world, view.beatPhase, view.time, effects.blocked);
   // Over the same bodies drawCreatures just drew, and nowhere else: the
   // plating recomputes fresh from world.creatures every frame (see
@@ -154,5 +167,5 @@ export function drawBodies(
   // ward's bolts and the shell they take off a clasp: both are drawn around a
   // creature the world still holds, from the same `creatureCenter` the body
   // was — not from where the event happened to fire.
-  effects.draw(ctx, l, world, view.beatPhase);
+  effects.draw(ctx, l, world, view.beatPhase, surfaceY);
 }

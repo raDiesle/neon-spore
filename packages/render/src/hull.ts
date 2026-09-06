@@ -20,8 +20,8 @@ import { drawScars } from "./scars.js";
 import { bloom, dither, innerLight, iridescence, sweep } from "./sheen.js";
 import { drawShieldRim } from "./shield.js";
 
-export type { HullMood, LobePositions } from "./hull-frame.js";
-export { hullSkinY } from "./hull-frame.js";
+export type { HullMood, LobePositions, SurfaceY } from "./hull-frame.js";
+export { hullSkinY, surfaceSampler } from "./hull-frame.js";
 
 /**
  * The ship, from `legacy/style-guide.html`. One membrane, not a collection of

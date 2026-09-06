@@ -2,6 +2,7 @@ import { guardArmed, mawOpen, ticksPerBeat, type World, wispOnField } from "@neo
 import { Effects } from "./effects.js";
 import { FieldPose } from "./field-pose.js";
 import { drawBodies, drawFieldBack, drawOverlays, drawShip } from "./frame-passes.js";
+import { frame, surfaceSampler } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import type { ViewState } from "./renderer.js";
 import { ROUND_DRAWS } from "./round-draw.js";
@@ -56,9 +57,13 @@ export class SeatView {
     this.pose.update(isArmed, isOpen, world.cannonCol, world.shieldCol, view.dt);
 
     const flash = Math.max(0, 1 - view.beatPhase * (ticksPerBeat(world.cfg) / 26));
+    // One membrane for the whole frame, built before the field pass because a
+    // worm on it walks the ship's own surface — `canvas2d.ts` says the rest.
+    const mood = this.pose.mood(world, this.effects);
+    const hull = frame(l, view.time, mood, this.pose.at);
     drawFieldBack(ctx, l, world, view, flash, this.effects.coordGrid.shown);
-    drawBodies(ctx, l, world, view, this.effects, this.pose.at.cannon);
-    drawShip(ctx, l, world, view, this.effects, this.pose.mood(world, this.effects), this.pose.at);
+    drawBodies(ctx, l, world, view, this.effects, this.pose.at.cannon, surfaceSampler(hull));
+    drawShip(ctx, l, world, view, this.effects, mood, this.pose.at, hull);
     // No scene of its own, and that is the whole of the recursion guard: a
     // rehearsal's config has `briefings` off, so the opening pass finds
     // nothing to draw and a scene can never open a scene.

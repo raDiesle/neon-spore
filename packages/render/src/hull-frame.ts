@@ -188,3 +188,31 @@ export function hullSkinY(
 ): number {
   return skin(f, x).y;
 }
+
+/**
+ * **The screen y of one x on a ship's surface, as drawn** — a sampler handed
+ * to whatever has to stand on the ship rather than beside it.
+ *
+ * A function rather than the frame itself, because the thing that wants it is
+ * a creature pass and a creature pass has no business knowing what a hull
+ * frame is. It is built once per rendered frame beside `drawShip`'s own, from
+ * the same `HullFrame`, so the surface a worm walks on and the surface the eye
+ * sees are the same arithmetic and cannot drift.
+ */
+export type SurfaceY = (x: number) => number;
+
+/**
+ * That sampler off a frame the caller already has.
+ *
+ * `surface` and not `skin`: the lobes are the whole point. A crawler walks the
+ * ship lengthways and the owner asked for the cannon to be part of the ground
+ * it covers — *"so its part of the area it walks, not just the ship surface.
+ * when i move cannon, the worm is pushed up accordingly"* — and a swelling the
+ * hull grows where a player puts something is exactly a thing to be walked
+ * over. `hullSkinY` above leaves the cannon out on purpose, because what it
+ * serves is damage hanging *from* the plating rather than a body standing on
+ * it, and the two questions have stayed apart since.
+ */
+export function surfaceSampler(f: HullFrame): SurfaceY {
+  return (x) => surface(f, x).y;
+}

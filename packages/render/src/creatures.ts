@@ -2,7 +2,6 @@ import { isBossBody, recoilTurn, veilArmourPhase, type World, wispOnField } from
 import { drawCaromCrust } from "./carom.js";
 import { drawChute } from "./chute.js";
 import { claspResonance, drawClaspShield } from "./clasp.js";
-import { drawCrawlers } from "./crawler.js";
 import { bodyDraw } from "./creature-body.js";
 import { creatureCenter } from "./creature-place.js";
 import { drawDartJet } from "./dart.js";
@@ -56,11 +55,6 @@ export function drawCreatures(
     if (showsWisp(l)) drawWispGround(ctx, l, world, beatPhase);
     if (showsWispSearch(l)) drawWispSearch(ctx, l, world.cfg, time);
   }
-  // Every worm, whole, before the pass below skips its links. A crawler's
-  // rings overlap and have to be painted back to front, which is an order
-  // `byDepth` cannot give: every link of one stands on the same row
-  // (`crawler.ts`).
-  drawCrawlers(ctx, l, world, beats, beatPhase);
   // Farthest first: which of two overlapping bodies is in front used to be
   // decided by spawn order, which is not a fact about the picture. See
   // `byDepth` — it copies rather than sorting the simulation's own array.
