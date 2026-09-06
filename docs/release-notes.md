@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · 6cb26c6f — A stepped worm pulse, offered beside the one that glides
+
+The owner asked to see whether THE CRAWLER's contraction may be quantised. `crawler:pulse` opens with two answers: `stepped` stands the wave in one of sixteen positions per cycle, `fine` in one of thirty-two.
+
 ## 2026-09-06 · 3b68f226 — THE GHOST's frame is 58% cheaper on the seat that can see it
 
 Timed through a null canvas at 390x844 dpr 3, at the tick the wave carries the most bodies. The queue entry blamed `ghost-row.ts` on player 2; both halves of that were wrong. The band is drawn on **player 1**, the seat that is *not* shown the body, and it costs 3 us. What made player 2 dear was `ghost-trail.ts`:
