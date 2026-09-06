@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · 4d090b7c — The relay's tests are configured by the deploy's own file, not by a copy of it
+
+`apps/server` pinned `miniflare` at an exact alpha and waited for a stable 5 to ship. None has: npm's `latest` for miniflare is still the alpha, and stable `wrangler` 4.129.0 depends on it. So the wait was for something that had already arrived by another road.
+
 ## 2026-09-06 · 4f483002 — The desk rig's G pulls THE WARDEN's rope instead of grabbing at it
 
 `nearestHull` returned the tether's id before it asked anything else, and a tether refuses a hand — it is in `UNGRIPPABLE`, and has been since the rope stopped being held and started being dragged by a handle. So `setGrip` threw the command away and G did nothing at all on the one boss it was written for.
