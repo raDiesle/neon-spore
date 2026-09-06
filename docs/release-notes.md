@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · 070d033f — The two tables a creature is added to have room for the next one again
+
+`creatures-table.ts` and `mechanics-table.ts` are both total over their roster, so a new creature costs each of them a row, and both stood at exactly the 250-line limit `limits.test.ts` enforces. THE FENCE fitted only because its rows were written short and a comment was trimmed to make room; the next creature would not have fitted at all, and the lane that hit it would have been a lane that came to add a creature rather than to choose a seam.
+
 ## 2026-09-06 · 771617c9 — The worker-model guard reads an invocation, not a commit message
 
 `workerModelRefusal` tested the whole command line for a mention of the worker next to an Anthropic model name. A `git commit -m` carries its entire message on that line, and CLAUDE.md requires every message here to end with a `Co-Authored-By` trailer at an anthropic.com address — half the rule, on every commit there is. So a message that happened to use the word "delegate" was refused, with a note about billing a worker on the wrong key that had nothing to do with what was being run. It cost this lane a turn again while the fix was being typed.
