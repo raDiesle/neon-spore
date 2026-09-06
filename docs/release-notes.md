@@ -9,6 +9,26 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · 6efba8a4 — The trunk-race refusal moves out of land.ts, which the limit had no room for
+
+`land.ts` was 273 lines with `trunkRaced` in it and the limit is 250. It is also the one question in that file which is not about the state of the world but about two readings of it at different moments, so it has its own file rather than a seat in the planning. `docs/INDEX.md` picks up the four files this session's landings added.
+
+## 2026-09-06 · fffe691d — The landing says "line ending" before the formatter says "whole file"
+
+A landing failed in a lane on a file the lane had never touched: `.claude/launch.json` had CRLF on disk while its blob in `HEAD` was LF, so `git status` was clean and nothing pointed at the working copy at all. Biome printed the entire file as a formatter diff and the landing stopped with `script "lint" exited with code 1`. Six commands to find; one substitution to fix. Any tracked file a Windows tool rewrites can do it again — `.gitattributes` governs checkout and commit, not a third party's write.
+
+## 2026-09-06 · b2810f66 — frames takes its scratch checkouts off disk, and sweeps the ones it already left
+
+`%TEMP%` held 5 545 `neon-spore-frames-*` directories, each one a checkout of this repository and three of them still registered worktrees. Both places that make one tore it down the same wrong way — `git worktree remove --force`, which on Windows deregisters and then fails on a lagging `node_modules` handle, followed by an `rm` whose failure was swallowed.
+
+## 2026-09-06 · 0c48340b — Refuse a landing whose trunk moved while the check was running
+
+A landing is rebase, then `bun run check`, then fast-forward, and the check is minutes long with nothing holding the trunk across it. A tree with `main` checked out fast-forwards with `merge --ff-only`, which refuses on its own; a clone where nothing holds the trunk moves it with `git branch --force`, and that head was built on the trunk as it stood before the check began — whatever landed in between was dropped without a word. Every cloud session lands that way.
+
+## 2026-09-06 · 3071c653 — Sweep on a clock git cannot reset, and remove a worktree in an order that cannot orphan one
+
+The idle window was measured off `.git/worktrees/<name>/`, which git rewrites on essentially any command aimed at the tree — including the sweep's own probe. The clock was therefore reset by being read: across forty worktrees every one reported 0.0 idle days and `KEEP_DAYS = 5` was unreachable, so forty checkouts stood with forty `node_modules`. It now reads `logs/HEAD`, the reflog of the one ref a worktree owns, which moves on a checkout, a commit, a rebase or a reset and at no other time; the same forty trees spread from 0.1 to 12.3 hours.
+
 ## 2026-09-05 · e52ae0af — Take THE CRAWLER apart ring by ring, and say on each ring which control it wants
 
 Every part of a worm comes off now. The head and the tail carried no colour and nothing took either of them away, so a stripped worm had to be rescued by a beam; both are plates like every third segment, the dome answers them, and what ends a worm is the ring that empties it. Each ring wears a crosshair, and every ring the shield is owed wears the dome's own mark above it — the order the pair has to agree out loud is now read off the body rather than learned from its materials.
