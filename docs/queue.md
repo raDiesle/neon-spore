@@ -122,6 +122,7 @@ shim that shows what the new shape wants if it changed again.
 ## A worm builds a path string per link per frame, and never caches one
 
 - **Found:** 2026-09-05, claude/crawler-enemy-design-ba0a00
+- **Taken:** 2026-09-06, claude/queue-a-worm-builds-a-path-string-per-link-per-frame-a
 - **Files:** `packages/content/src/crawler-shape.ts`, `packages/render/src/crawler.ts`,
   `packages/render/test/crawler-budget.test.ts`
 
