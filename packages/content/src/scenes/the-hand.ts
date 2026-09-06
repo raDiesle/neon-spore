@@ -23,7 +23,7 @@ import type { GuideScene } from "../scene-types.js";
  * rides the rock it is slowing, and cannot be somewhere the rock is not.
  */
 export const THE_HAND: GuideScene = {
-  ticks: 1500,
+  ticks: 1560,
   bpm: 120,
   seed: 1,
   entries: [
@@ -37,14 +37,20 @@ export const THE_HAND: GuideScene = {
     // is no subject and no caption; thirty ticks is the caption's own fade and
     // no more. It is also the one press where arriving with the words spoils
     // nothing: the hand is the sentence rather than the answer to it.
-    { tick: 350, grip: 1, col: 5, until: 1080 },
+    { tick: 350, grip: 1, col: 5, until: 1500 },
     { tick: 690, control: "shield", col: 3 },
     { tick: 750, control: "shield", col: 2 },
     { tick: 810, control: "shield", col: 1 },
     { tick: 850, control: "guard" },
-    { tick: 1050, control: "shield", col: 3 },
-    { tick: 1110, control: "shield", col: 5 },
-    { tick: 1270, control: "guard" },
+    // The same hand, still down, moved sideways: THE PUSH is the grip's second
+    // gesture and not a second control, so it is authored on the hold that is
+    // already running rather than beside it. `dir` and never a distance — how
+    // far one column is is `cfg.gripPushMilli` and a film that wrote the number
+    // down would be a second copy of it (`scene-script.ts`).
+    { tick: 980, drag: "gripBody", dir: -1, by: 1040, until: 1500 },
+    { tick: 1250, control: "shield", col: 3 },
+    { tick: 1310, control: "shield", col: 4 },
+    { tick: 1400, control: "guard" },
   ],
   steps: [
     { tick: 0, seat: 1, text: "TWO AT ONCE · ONE SHIELD", anchor: { at: "body" } },
@@ -55,10 +61,11 @@ export const THE_HAND: GuideScene = {
       text: "PLAYER 2 TAKES THE FIRST",
       anchor: { at: "control", control: "shield" },
     },
+    { tick: 900, seat: 1, text: "AND CARRIES IT A COLUMN", anchor: { at: "held" } },
     {
-      tick: 960,
+      tick: 1160,
       seat: 2,
-      text: "THEN THE ONE HE HELD",
+      text: "PLAYER 2 MEETS IT THERE",
       anchor: { at: "control", control: "shield" },
     },
   ],

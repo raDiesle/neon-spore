@@ -111,8 +111,8 @@ export const WAVES_ACT_1: Wave[] = [
     sentence: "The one where three arrive on the same beat and the shield is one column.",
     guide: {
       both: "Three rocks, one beat, one shield. Either of you can put a finger on the field and hold something back — it falls slower for as long as you hold it, and the hand is the cost.",
-      p1: "Hold the far one where it is. Your thumb is off your own strip while you do, so say what you are holding.",
-      p2: "Take the near one with the shield, then go and get the one he is holding.",
+      p1: "Hold the far one where it is, then slide the same thumb sideways and it moves a column. Your thumb is off your own strip while you do, so say what you are holding and where you are putting it.",
+      p2: "Take the near one with the shield, then go and get the one he is holding — in whichever column he has left it.",
       scene: "theHand",
     },
     entries: [

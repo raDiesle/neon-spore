@@ -9,6 +9,7 @@ import {
   type OpeningStop,
   openingPhase,
 } from "./opening.js";
+import type { FrameSpec } from "./spec.js";
 
 /**
  * **Standing *in* a wave's opening**, rather than getting past it.
@@ -89,4 +90,38 @@ export async function holdOpening(page: Page, stopAt: OpeningStop, driven: boole
     if (!driven) await page.waitForTimeout(OPENING_POLL_MS);
   }
   throw new Error("the guide never passed — the introduction never came up");
+}
+
+/**
+ * **Turn a rehearsal to the page being photographed.**
+ *
+ * A guide waits for its reader — a page plays once and stands on its last
+ * frame until somebody presses NEXT — so `--opening guide` could only ever
+ * photograph the *first* page of a film, whatever the film was about. A lane
+ * that added a page to an existing rehearsal had no way to take a picture of
+ * the page it had added, which is the one thing the owner is sent.
+ *
+ * The turn goes through the desk rig's own key rather than a handle of its
+ * own: the right arrow is a guide's next page (`apps/game/src/keys-guide.ts`)
+ * and it reaches the simulation the way a thumb on the bar does. A tick after
+ * each, because the press is a command and lands on the next one.
+ *
+ * Each seat carries its own cursor, and one keypress turns the page of the
+ * seat the film is showing — so a film that changes seat is walked one page at
+ * a time from the front, which is what a reader does.
+ */
+export async function turnGuide(page: Page, spec: FrameSpec): Promise<void> {
+  if (!spec.guidePage) return;
+  if (spec.opening !== "guide") {
+    throw new Error("--guide-page is a page of a rehearsal, so it needs --opening guide");
+  }
+  await page.evaluate((turns) => {
+    const ns = window.neonSpore;
+    if (!ns) throw new Error("window.neonSpore missing before a page turn");
+    for (let i = 0; i < turns; i++) {
+      window.dispatchEvent(new KeyboardEvent("keydown", { code: "ArrowRight" }));
+      window.dispatchEvent(new KeyboardEvent("keyup", { code: "ArrowRight" }));
+      ns.advance(2);
+    }
+  }, spec.guidePage);
 }

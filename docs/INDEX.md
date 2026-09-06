@@ -371,6 +371,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/veer-clown-shape.ts` | **THE VEER's rider, as geometry**: where every disc of the clown sits on the rock, and the loops it comes to |
 | `packages/content/src/scenes/the-claw.ts` | THE CLAW's rehearsal: one of you has every button and none of the map |
 | `packages/content/src/control-sets-waves.ts` | The three questions a **wave** asks about a panel |
+| `packages/content/src/scene-step-types.ts` | a page of a rehearsal, and the thing its words point at |
 
 ### packages/render
 

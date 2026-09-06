@@ -151,6 +151,18 @@ it honestly can: whoever lets go first sends it.
 thumb pressed on into the edge of the field is simply a thumb held on a body,
 which is 6.4 and still slows it.
 
+**It is taught on THE HAND, as a second page of that wave's rehearsal.** Not a
+wave of its own: THE HAND already introduces the grip, and a second wave whose
+subject was the same hand would be two waves teaching one thing — which is a
+defect rather than thoroughness. The film shows the hold first and the carry
+*out of* it, in that order and with the same thumb still down, so what a pair
+reads is one gesture with two halves rather than two gestures side by side.
+The sentence it has to beat is that a hand on a rock does two things, and the
+second one is the column: the pilot holds the far rock, wards the near one,
+carries the held one a lane over, and the navigator's shield meets it where it
+has been put rather than where it arrived
+(`packages/content/src/scenes/the-hand.ts`).
+
 ## 6.6 THE LOCK — the same hand, read a second way, built
 
 While **player 1** has a hand on a body, every shot the cannon puts out steers

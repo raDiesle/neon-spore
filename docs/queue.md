@@ -221,27 +221,3 @@ This one **is** a look and the owner decides it. Do not pick one and land it.
 Whichever it is, `ControlDef.label` is the one copy of the word — the band, the
 CONTROLS page and the director's panel roster all read it, so nothing needs a
 second string.
-
-## Nothing teaches THE PUSH, and THE HAND is where it belongs
-
-- **Found:** 2026-09-06, claude/meteor-pull-drag-mechanics-42170b
-- **Taken:** 2026-09-06, claude/queue-nothing-teaches-the-push-and-the-hand-is-where-i
-- **Files:** `packages/content/src/waves/`, `packages/content/src/scenes/`, `docs/spec/assists.md`
-
-THE PUSH ships with no guide page: a pair meets it only if somebody happens to
-move a thumb that is already holding a rock. The owner's answer is that it goes
-on **THE HAND (wave 6)** — three rocks on one beat in three columns against one
-shield, the wave whose arithmetic already does not work without a hand, so a
-second thing a hand can do belongs there and nowhere earlier.
-
-Read `.claude/skills/new-tutorial` before writing it; every rule in there is a
-correction the owner has already made once. Two things this page in particular
-has to respect. THE HAND already introduces the grip, so this is a *second*
-page on one wave rather than a second wave teaching the same thing — the
-rehearsal has to show the hold first and the carry out of it, not two gestures
-side by side. And `SceneAct.drag` can drive it: `gripBody` is a `DragTarget`
-and `tautMilli` already answers `cfg.gripPushMilli` for it, so the film carries
-the hand a tile across the way it carries a cord (`scene-script.ts`).
-
-The sentence to beat: a hand on a rock does two things, and the second one is
-the column.

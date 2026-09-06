@@ -1,5 +1,6 @@
 import type { Browser, Page } from "playwright-core";
 import { clearOpening } from "./opening.js";
+import { turnGuide } from "./opening-hold.js";
 import type { FrameSpec } from "./spec.js";
 
 /**
@@ -133,6 +134,7 @@ export async function openStage(
   }
 
   await clearOpening(page, spec.opening, driven);
+  await turnGuide(page, spec);
 
   // The PC key toast (`apps/game/src/key-hint.ts`) sits over the top of the
   // field for its first six seconds, and headless Chrome reports `pointer:

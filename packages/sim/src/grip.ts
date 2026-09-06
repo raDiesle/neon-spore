@@ -58,6 +58,19 @@ export function gripsCreature(world: World, player: 1 | 2, id: number): boolean 
   return player === 1 ? world.gripP1 === id : world.gripP2 === id;
 }
 
+/**
+ * The body this seat's hand is on, or `NO_GRIP` for a hand on nothing.
+ *
+ * The reading `gripsCreature` cannot give: a caller that already knows the id
+ * asks that, and a caller that wants to *name* the body — a film carrying it a
+ * column, which has no id to guess (`scene-aim.ts`) — asks this. Both ask
+ * rather than reading `world.gripP1`, because which of the two fields a seat
+ * owns is this file's business and nowhere else's.
+ */
+export function gripOf(world: World, player: 1 | 2): number {
+  return player === 1 ? world.gripP1 : world.gripP2;
+}
+
 /** How many hands are on it: 0, 1 or 2. */
 export function gripCount(world: World, id: number): number {
   return (gripsCreature(world, 1, id) ? 1 : 0) + (gripsCreature(world, 2, id) ? 1 : 0);

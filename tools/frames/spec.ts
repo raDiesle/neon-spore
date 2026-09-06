@@ -39,6 +39,16 @@ export interface FrameSpec {
    */
   seat?: "p1" | "p2" | "test";
   /**
+   * How many pages into the rehearsal to stand, counted from the first — `1`
+   * is the second page. Only with `opening: "guide"`.
+   *
+   * A page of a film plays once and waits for its reader, so without this a
+   * capture always came back with page one, and a lane that added a page to an
+   * existing rehearsal could not photograph what it had added — which is the
+   * one thing the owner is sent.
+   */
+  guidePage?: number;
+  /**
    * A thumb held down for the whole run of ticks.
    *
    * Every other verb here drives a *wave*; four mechanics on this field are a

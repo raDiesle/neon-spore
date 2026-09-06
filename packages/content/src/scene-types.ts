@@ -1,5 +1,6 @@
 import type { BossEntry, DragTarget, PodEntry } from "@neon-spore/sim";
 import type { ControlId } from "./controls.js";
+import type { SceneStep } from "./scene-step-types.js";
 import type { WaveEntry } from "./wave-types.js";
 
 /**
@@ -87,6 +88,21 @@ export interface SceneAct {
    */
   toMilli?: number;
   /**
+   * Which way a carry goes, for the one handle that has a side rather than a
+   * distance: a held body is carried into the column to its left or the one to
+   * its right (`sim/grip-push.ts`).
+   *
+   * It exists so a film does not have to write a *negative distance* down. How
+   * far one column is is `cfg.gripPushMilli`, and a scene that spelled the
+   * number out would be a second copy of the rule — the class of drift
+   * `packages/sim/test/purity.test.ts` carries a table against. So the film
+   * says the side and `scene-script.ts` reads the distance off the config.
+   *
+   * Absent is `1`, the way an unwritten `toMilli` is the target's own taut
+   * distance. Meaningless on the three handles that are pulled.
+   */
+  dir?: -1 | 1;
+  /**
    * The tick the carry is *finished*, when that is not the tick the hand lets
    * go. The messages spread over `tick`..`by` and then stop; the hand stays
    * where it left them until `until`.
@@ -128,82 +144,6 @@ export interface SceneAct {
   onField?: true;
 }
 
-/**
- * What a caption is pointing at, so it is drawn beside the thing it explains
- * rather than in a paragraph underneath the picture.
- *
- * The owner's instruction, and the whole reason there is no text block any
- * more: *show the text inside the screen, in the position where it is
- * explaining*. So a caption names a thing and the drawing finds it — a body on
- * the field, a control on the band, the ship, the hull bar — which means a
- * caption cannot drift away from its subject when the layout changes.
- */
-export type SceneAnchor =
-  | { at: "body" }
-  | { at: "control"; control: ControlId }
-  /** Whatever a hand is holding — the subject of a page about THE GRIP, and
-   * the one anchor that follows a body chosen by the world rather than named
-   * by the author. */
-  | { at: "held" }
-  /** The pod hanging in the field — the subject of SALVAGE, THE PURGE and THE
-   * WARD, and the one thing on the field that is neither a body nor a shot. */
-  | { at: "pod" }
-  /**
-   * Both of the queen's marks at once, in one ring around the pair.
-   *
-   * The one anchor that is deliberately about *two* things. `one mark is real`
-   * is a sentence about a pair, and it was pointed at `body` — which is her,
-   * so the ring sat on her shell between the two marks and touched neither.
-   * `render/queen-figure.ts` places them, and this asks it.
-   */
-  | { at: "marks" }
-  /**
-   * The swelling on the hull a control is reached through, rather than the
-   * button for it on the panel — the cannon, or the plate. Which of the two
-   * answers a given control is `shipCircle`'s, so a caption cannot point at
-   * one swelling while the hand presses the other.
-   */
-  | { at: "ship"; control: ControlId }
-  /** A handle on the field, wherever the hand has carried it — the maze's
-   * string, the warden's rope or a lid's cord (`render/handles.ts`). */
-  | { at: "handle"; target: DragTarget }
-  /**
-   * The warning strip along the top edge. It points at the blip when this
-   * screen carries one and at the middle of the strip when it does not, which
-   * is what makes *"player 2 sees nothing"* a page that can be drawn at all:
-   * the same anchor, on the two screens, pointing at a thing and at its
-   * absence.
-   */
-  | { at: "radar" }
-  | { at: "hull" }
-  | { at: "health" };
-
-/**
- * One step of the film: a screen, a few words, and what they point at.
- *
- * **A step owns a seat, and that is what makes the switch legible.** The
- * rehearsal is drawn one screen at a time at full size — the owner asked for
- * the real screen and the room that buys — so the moment a step changes seat,
- * the picture slides from one device to the other and says whose it now is
- * (`guide-scene.ts`). A film that cut without saying would be two screens the
- * pair could not tell apart.
- */
-export interface SceneStep {
-  /**
-   * Tick this step begins on. Ordered, and the first one starts at 0.
-   *
-   * A step runs until the next one begins, and the last until the loop ends:
-   * that span is a **page**, and it is what repeats while a seat is reading it
-   * (`stepSpan`). So a tick here is not a cue inside a film any more, it is a
-   * page boundary — two steps close together are one page nobody can read.
-   */
-  tick: number;
-  seat: 1 | 2;
-  /** As few words as will do. It is read at a glance, beside its subject. */
-  text: string;
-  anchor: SceneAnchor;
-}
-
 export interface GuideScene {
   /** How long one turn of the loop is, in ticks. */
   ticks: number;
@@ -242,3 +182,10 @@ export interface GuideScene {
   acts: SceneAct[];
   steps: SceneStep[];
 }
+
+// A caption and the thing it points at are `scene-step-types.ts` next door,
+// cut out when THE PUSH's `dir` took this file over its 250-line limit and
+// along the seam it already had: an *act* is a thumb on a control and a
+// **step** is a page of words, and nothing here reads the other. Re-exported
+// so nothing that reached for either through this file had to move.
+export type { SceneAnchor, SceneStep } from "./scene-step-types.js";

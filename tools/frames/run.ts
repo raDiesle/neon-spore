@@ -32,7 +32,13 @@
  *   bun run frames <sha> --wave 21 --at 120,400,150,150 --zoom 3   one body, close up
  *   bun run frames <sha> --wave 19 --boss-round 3   a later sheet of THE MAZE
  *   bun run frames <sha> --wave 2 --opening guide|intro --frames 8 --stride 6   its opening
+ *   bun run frames <sha> --wave 7 --opening guide --guide-page 3   a later page of a rehearsal
  *   bun run frames <sha> --wave 21 --out docs/frames/<sha>
+ *
+ * `--guide-page N` turns the rehearsal N pages on before the picture, because a
+ * page of a film plays once and then waits for its reader: without it every
+ * capture came back with page one, and a lane that added a page to an existing
+ * guide could not photograph the thing it had added.
  *
  * `--opening` stands in the wave's opening instead of running past it, which
  * every capture before it did unconditionally. A wave opens on its **guide**
@@ -160,6 +166,9 @@ async function main(): Promise<void> {
     ...(argv.includes("--boss-round") ? { bossRound: flag("boss-round", 0) } : {}),
     press,
     opening,
+    // Undefined rather than 0, so `--opening guide` on a film of one page is
+    // not refused for a flag nobody wrote.
+    ...(argv.includes("--guide-page") ? { guidePage: flag("guide-page", 0) } : {}),
   };
 
   // A press past the picture is a press nobody ever sees, and silently

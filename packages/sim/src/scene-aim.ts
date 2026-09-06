@@ -1,10 +1,10 @@
-import { NO_GRIP } from "./grip.js";
+import { gripOf, NO_GRIP } from "./grip.js";
 import { occupiesCol } from "./span.js";
 import type { Command, Creature } from "./types.js";
 import type { World } from "./world.js";
 
 /**
- * **The three acts a film aims rather than writes down**, and the one function
+ * **The four acts a film aims rather than writes down**, and the one function
  * that resolves them against a world.
  *
  * Cut out of `scene.ts` when the third one arrived and that file went over its
@@ -12,7 +12,8 @@ import type { World } from "./world.js";
  * rehearsal *is* — the script, the loop, the rebuild — and this is the one
  * question that cannot be answered until a world exists. A grip and a lid
  * cord know a column and want an id; a strip marked `atBody` knows the body
- * and wants a column. All three are the same bargain, so they live together.
+ * and wants a column; a carry knows neither and asks the hand that is already
+ * holding one. All four are the same bargain, so they live together.
  */
 
 export interface SceneCommand {
@@ -77,6 +78,21 @@ export interface SceneCommand {
  * treats as a hand let go.
  */
 export function aimed(world: World, c: SceneCommand): Command {
+  if (c.command.kind === "drag" && c.command.target === "gripBody") {
+    // **THE PUSH is aimed off the hand rather than off a column**, and it is
+    // the one act here that cannot use the arrangement the other three use:
+    // the body a carry names is the body it is *moving*, so its column changes
+    // under the carry, and a film that re-found it by column would let go of it
+    // after the first tile and take hold of whatever was standing where it
+    // used to be. The hand already names it exactly.
+    //
+    // Player 1's, because a drag is: all four handles are the pilot's
+    // (`content/scene-script.ts`). With no hand down the command is left as it
+    // was written, which `gripPushHeard` reads as a carry with nothing under
+    // it — the grip's bargain, so a film that mistimed its grab looks mistimed.
+    const held = gripOf(world, c.player);
+    return held === NO_GRIP ? c.command : { ...c.command, id: held };
+  }
   if (c.dragCol !== undefined && c.command.kind === "drag") {
     // The lowest body in the column, as a grip takes: a hand goes on the thing
     // that is arriving first. A cord with no body under it is left as it was

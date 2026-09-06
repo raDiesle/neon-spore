@@ -100,7 +100,7 @@ function pullsDown(target: DragTarget): boolean {
  */
 function dragCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
   const target = act.drag as DragTarget;
-  const to = act.toMilli ?? tautMilli(target, cfg);
+  const to = act.toMilli ?? tautMilli(target, cfg) * (act.dir ?? 1);
   const until = act.until ?? act.tick;
   // The carry and the letting go are two clocks, not one. A film about a lid
   // has to fire *while* the cord is held — the plates shut the instant it is
@@ -124,6 +124,9 @@ function dragCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
       // Every one of them, not only the grab: a lid may have fallen a row
       // between two of these, and the id is the address of the cord rather
       // than of where it was.
+      // A held body needs no column: it is named by the hand that is already
+      // on it, which is the only address that survives the body being carried
+      // out of the column it was found in (`sim/scene-aim.ts`).
       ...(target === "lidString" ? { dragCol: actCol(act, cfg.cols) } : {}),
     });
   }
