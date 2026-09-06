@@ -5,6 +5,7 @@ import {
   FRAME_STEP_MS,
   PEAK_SEARCH_STEP,
   PEAK_SEARCH_TICKS,
+  POSE_CLOCK_START,
   SAMPLES,
   type Sample,
   summarise,
@@ -111,10 +112,16 @@ function toPeak(ns: PerfHandle, wave: number): number {
  * clock is kept in a closure the stub cannot reach and put back in a `finally`
  * — a page left with a frozen `performance.now` measures every later wave as
  * zero.
+ *
+ * `startAt` is where that clock picks up, and the sweep carries it from one
+ * wave to the next rather than restarting at nought: the clock is absolute, a
+ * transient in `Effects` reads its age back as `time - began`, and a wave that
+ * started over handed the wave before it a negative one. `POSE_CLOCK_START` in
+ * `sweep-timing.ts` carries the whole of that.
  */
-async function timePaints(ns: PerfHandle): Promise<Sample> {
+async function timePaints(ns: PerfHandle, startAt: number): Promise<Sample & { endedAt: number }> {
   const realNow = performance.now.bind(performance);
-  let posed = 0;
+  let posed = startAt;
   performance.now = () => posed;
   const taken: number[] = [];
   try {
@@ -138,7 +145,7 @@ async function timePaints(ns: PerfHandle): Promise<Sample> {
   } finally {
     performance.now = realNow;
   }
-  return summarise(taken);
+  return { ...summarise(taken), endedAt: posed };
 }
 
 /** How many waves a full sweep walks. */
@@ -160,9 +167,12 @@ export async function sweepInPage(
 ): Promise<PhoneCost[]> {
   const out: PhoneCost[] = [];
   const round = (v: number): number => Math.round(v * 100) / 100;
+  // One clock for the whole sweep — `POSE_CLOCK_START`.
+  let clock = POSE_CLOCK_START;
   for (let index = 0; index < WAVES.length; index++) {
     const bodies = toPeak(ns, index);
-    const sample = await timePaints(ns);
+    const sample = await timePaints(ns, clock);
+    clock = sample.endedAt;
     const cost: PhoneCost = {
       wave: index + 1,
       name: waveName(index),

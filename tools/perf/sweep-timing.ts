@@ -49,6 +49,29 @@ export const TICKS_PER_FRAME = 2;
 /** One frame at 60 Hz, in milliseconds — what the posed clock steps by. */
 export const FRAME_STEP_MS = 1000 / 60;
 
+/**
+ * Where the posed clock starts, once for a whole sweep rather than once per
+ * wave — and the reason a sweep has to carry it from one wave to the next.
+ *
+ * `paint` is handed `performance.now() / 1000` as `time`, so both sweeps freeze
+ * that clock and step it by exactly one frame per paint: the sequence of
+ * pictures is then the same every run, which is the whole reason the fake clock
+ * exists. What it used to do as well was restart at nought for every wave. The
+ * clock is *absolute* — a transient in `Effects` records the `time` it began at
+ * and reads its age back as `time - began` — so the second wave's first paint
+ * was handed an age of minus however long the first wave had been measured
+ * for. A clasp coming apart on a negative age put a ring at a negative radius
+ * and Chrome refused the frame with `IndexSizeError`, which reads as a bug in
+ * the game and is not one.
+ *
+ * `Effects.update` refuses a non-positive step now, so nothing crashes either
+ * way. That guard is not the fix: it makes the harness's lie survivable, and
+ * the frame it was lying on is a real frame in a real measurement. The fix is
+ * that a wave picks the clock up where the wave before it put it down, which
+ * keeps the pictures identical run to run *and* keeps time going forwards.
+ */
+export const POSE_CLOCK_START = 0;
+
 /** One 60 Hz frame, rounded — every verdict in `compare.ts` is a fraction of
  * it, and the phone readout says what it is measuring against. */
 export const FRAME_MS = 16.7;

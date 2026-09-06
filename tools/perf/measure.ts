@@ -10,6 +10,7 @@ import {
   FRAME_STEP_MS,
   PEAK_SEARCH_STEP,
   PEAK_SEARCH_TICKS,
+  POSE_CLOCK_START,
   SAMPLES,
   summarise,
   TICKS_PER_FRAME,
@@ -96,8 +97,17 @@ export async function toPeak(page: Page, waveIndex: number): Promise<number> {
   return peak.bodies;
 }
 
+/** A sample, and where the fake clock stood when it was taken. */
+export interface Timed extends Sample {
+  /** Hand this to the next wave as `startAt` — `POSE_CLOCK_START` says why. */
+  endedAt: number;
+}
+
 /**
  * Time one wave's paint, in milliseconds, as the per-paint cost of each batch.
+ *
+ * `startAt` is where the fake clock picks up, and a sweep carries it from one
+ * wave to the next — `POSE_CLOCK_START` in `sweep-timing.ts` says why it must.
  *
  * The `setTimeout` between batches is the load-bearing part. Without it the
  * measurement is one long tight loop, the GPU queue backs up, and the 99th
@@ -105,9 +115,9 @@ export async function toPeak(page: Page, waveIndex: number): Promise<number> {
  * rather than about this game. `BATCH` says why the paints inside one reading
  * are grouped rather than timed singly.
  */
-export async function timePaints(page: Page): Promise<Sample> {
-  const batches = await page.evaluate(
-    async ([samples, batch, warmup, ticks, frameMs, gapMs]) => {
+export async function timePaints(page: Page, startAt = POSE_CLOCK_START): Promise<Timed> {
+  const timed = await page.evaluate(
+    async ([samples, batch, warmup, ticks, frameMs, gapMs, from]) => {
       const ns = window.neonSpore;
       if (!ns) throw new Error("window.neonSpore missing");
 
@@ -125,7 +135,7 @@ export async function timePaints(page: Page): Promise<Sample> {
       // frozen `performance.now` would make every later wave in the sweep
       // measure zero.
       const realNow = performance.now.bind(performance);
-      let posed = 0;
+      let posed = from;
       performance.now = () => posed;
       const taken: number[] = [];
       try {
@@ -150,14 +160,14 @@ export async function timePaints(page: Page): Promise<Sample> {
       } finally {
         performance.now = realNow;
       }
-      return taken;
+      return { taken, endedAt: posed };
     },
-    [SAMPLES, BATCH, WARMUP, TICKS_PER_FRAME, FRAME_STEP_MS, BETWEEN_BATCHES_MS] as const,
+    [SAMPLES, BATCH, WARMUP, TICKS_PER_FRAME, FRAME_STEP_MS, BETWEEN_BATCHES_MS, startAt] as const,
   );
   // Reduced out here rather than in the page: the arithmetic is the phone
   // sweep's too, and it is the one part of a measurement a test can hold
   // (`sweep-timing.ts`).
-  return summarise(batches);
+  return { ...summarise(timed.taken), endedAt: timed.endedAt };
 }
 
 /** The name a player would call a wave, or its number when it has none. */
@@ -191,9 +201,12 @@ export async function sweep(
   only: readonly number[] = WAVES.map((_, i) => i),
 ): Promise<WaveCost[]> {
   const out: WaveCost[] = [];
+  // The fake clock runs on across the whole sweep — `POSE_CLOCK_START`.
+  let clock = POSE_CLOCK_START;
   for (const index of only) {
     const bodies = await toPeak(page, index);
-    const { typical, mean, p90, jitter } = await timePaints(page);
+    const { typical, mean, p90, jitter, endedAt } = await timePaints(page, clock);
+    clock = endedAt;
     const round = (v: number): number => Math.round(v * 100) / 100;
     const cost: WaveCost = {
       id: waveId(index),

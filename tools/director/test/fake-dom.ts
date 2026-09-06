@@ -12,8 +12,8 @@
  *
  * This is the alternative to a devDependency: about a hundred lines covering
  * exactly the surface the director touches — a class list, a dataset, a text
- * body, children, one event type, and a `location`/`history` pair that records
- * the URL. It is deliberately not a DOM. A page that needs more than is here
+ * body, a field's value, children, one event type, and a `location`/`history`
+ * pair that records the URL. It is deliberately not a DOM. A page that needs more than is here
  * either grows this file by the one method it wants, or is telling you it
  * reaches further into the browser than a director page should.
  */
@@ -24,6 +24,8 @@ export class FakeEl {
   readonly children: FakeEl[] = [];
   tagName = "";
   textContent = "";
+  /** A textarea's or input's own content — the vote box reads one. */
+  value = "";
   type = "";
   disabled = false;
   private readonly clicks: Array<() => void> = [];

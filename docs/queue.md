@@ -222,32 +222,6 @@ Whichever it is, `ControlDef.label` is the one copy of the word — the band, th
 CONTROLS page and the director's panel roster all read it, so nothing needs a
 second string.
 
-## `bun run perf` restarts its own clock at zero for every wave
-
-- **Found:** 2026-09-06, claude/hoof-magnet-enemy-70fd5a
-- **Taken:** 2026-09-06, claude/queue-bun-run-perf-restarts-its-own-clock-at-zero-for
-- **Files:** `tools/perf/measure.ts`, `packages/render/src/effects.ts`
-
-`timePaints` freezes `performance.now` and steps a `posed` counter that starts
-at **0** for each wave it measures. The renderer reads that clock as the wall
-clock, so the first paint of every wave after the first is handed a step of
-minus however long the sweep has been running — and every transient in
-`Effects` is a `+= dt` read back as a phase.
-
-It crashed a run: a clasp coming apart on a negative age put a ring at a
-negative radius and Chrome refused the frame with `IndexSizeError`, which
-reads as a game bug and is not one. `Effects.update` now refuses a
-non-positive step, so nothing crashes and the numbers are sound — but the
-harness is still lying about time, and the frame it lies on is a real frame in
-a real measurement.
-
-The fix is in the harness rather than in the guard: carry `posed` on from
-where the previous wave left it, or reset the page's own effects between
-waves. Either way the comment in `timePaints` about a fake clock making the
-sequence of pictures identical run to run has to stay true, which is the whole
-reason the counter starts where it does — so the answer is probably a running
-offset kept across waves rather than the real clock.
-
 ## The desk rig cannot carry a body sideways
 
 - **Found:** 2026-09-06, claude/meteor-pull-drag-mechanics-42170b
@@ -340,34 +314,6 @@ shot, so the one frame that shows the whole creature — the bolt climbing, the
 corner, the horizontal leg arriving at a pole — cannot be captured, and the
 owner was sent a shot bouncing off the plate instead. Every later lane that
 touches THE LOCK, THE GRIP or this creature pays the same price.
-
-## The vote box says `tools/versus/prompt.ts` is not built yet, and it is
-
-- **Found:** 2026-09-06, claude/versus-page-refactor
-- **Taken:** 2026-09-06, claude/queue-the-vote-box-says-tools-versus-prompt-ts-is-not
-- **Files:** `tools/director/src/versus-vote.ts`, `tools/versus/prompt.ts`,
-  `tools/versus/prompt-changes.ts`, `tools/versus/prompt-close.ts`,
-  `tools/versus/prompt-steps.ts`, `tools/versus/prompt-text.ts`,
-  `tools/versus/test/prompt.test.ts`
-
-`emit` in `versus-vote.ts` builds a short clipboard record and says so twice —
-once in its docstring, once in the first line of the text it copies:
-"Not the adoption prompt: `tools/versus/prompt.ts` is not built yet". It is
-built. `tools/versus/prompt.ts` and its four companions exist, are typechecked
-and linted, and `tools/versus/test/prompt.test.ts` passes against them — but
-nothing in the director imports any of them, so the full adoption prompt
-`docs/versus.md` specifies has never once reached a clipboard, and roughly
-four hundred lines of tool are dead code carrying a test that proves they work.
-
-Two ways out and they are not equivalent. Either wire it: `emit` calls the
-builder and copies what it returns, and the two "not built yet" sentences go.
-Or delete the five files and the test, and say in the commit that the short
-record is the whole of what a vote emits. The first is what `docs/versus.md`
-argues for at length, including the `bun run shapes` step and the reader grep
-it says the prompt must carry; the second is honest if nobody wants that text.
-Read `docs/versus.md`'s "The prompt a vote emits" before choosing — it is a
-decision that document already made, and this entry exists because the code
-never caught up with it.
 
 ## Every file a new creature must touch is sitting on the 250-line ceiling
 
