@@ -120,6 +120,7 @@ shim that shows what the new shape wants if it changed again.
 ## THE STRAND is drawn by nothing in `packages/render/test/frame.test.ts`
 
 - **Found:** 2026-09-05, claude/string-connected-enemy-0dae70
+- **Taken:** 2026-09-06, claude/queue-the-strand-is-drawn-by-nothing-in-packages-rende
 - **Files:** `packages/render/test/frame.test.ts`, `packages/render/src/strand.ts`,
   `packages/render/src/strand-bead.ts`, `packages/render/src/creature-body.ts`
 
