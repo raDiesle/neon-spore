@@ -326,29 +326,3 @@ everything it needs. Keep the same viewport-independent shape the tool records �
 throttle is meaningless on a phone, so the page records `null` for it and
 `docs/performance.md` gains a line saying a phone run is compared against other
 phone runs, never against a throttled desktop one.
-
-## The worker-model guard blocks a commit whose message says "delegate"
-
-- **Found:** 2026-09-06, claude/queue-bun-run-perf-dies-on-the-sweep-after-a-sweep
-- **Taken:** 2026-09-06, claude/queue-the-worker-model-guard-blocks-a-commit-whose-mes
-- **Files:** `tools/hooks/guard.ts`, `tools/hooks/test/guard.test.ts`
-
-`workerModelRefusal` reads the whole command line and refuses it when the line
-mentions `aider|delegate` *and* one of `anthropic`, `claude-sonnet`,
-`claude-opus` or `claude-haiku`. A `git commit -m` carries its entire message on
-that line, and CLAUDE.md requires every commit to end
-`Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>` — which matches the
-second half all on its own. So any commit whose message happens to contain the
-word "delegate" is refused, with a message about billing a worker on the wrong
-key that has nothing to do with what was being run.
-
-It cost a turn here twice: once on a commit whose message mentioned the spent
-delegate specs a landing sweeps, and again on the heredoc appending this very
-entry. The escape hatch was `git commit -F <file>`, which is worth nobody
-rediscovering.
-
-The rule is right about what it is for and wrong about where it looks — a commit
-message is not an invocation, and neither is a file being written. Narrow it to
-read the command's *arguments* the way `hotServer` and the `--unsafe` rule next
-door do, or let a line whose program is `git` through; either way the mandatory
-trailer must stop being half a match.

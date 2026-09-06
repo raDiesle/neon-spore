@@ -129,6 +129,38 @@ describe("guard", () => {
     expect(refusal(String.raw`bun run delegate C:\Users\raDi\spec.md`)).toBeNull();
   });
 
+  /** A model name reaches aider through the environment as readily as through a flag. */
+  it("finds the model name in an environment assignment", () => {
+    const command = "OPENROUTER_MODEL=anthropic/claude-opus-4 bun run delegate spec.md";
+    expect(refusal(command)?.blocked).toContain("Anthropic model through OpenRouter");
+  });
+
+  /**
+   * This rule used to read the whole command line, and CLAUDE.md requires every
+   * commit message to end with a `Co-Authored-By` trailer at an anthropic.com
+   * address — half this rule, on every commit there is. So a message that
+   * happened to use the word "delegate" was refused, and told it was about to
+   * bill a worker on the wrong key. It cost two turns before it was written
+   * down. A commit message is not an invocation.
+   */
+  it("allows a commit whose message says delegate under the mandatory trailer", () => {
+    const message =
+      "Sweep the spent delegate specs a landing leaves behind\n\n" +
+      "Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>";
+    expect(refusal(`git commit -m ${JSON.stringify(message)}`)).toBeNull();
+    expect(psRefusal(`git commit -m ${JSON.stringify(message)}`)).toBeNull();
+  });
+
+  /** Nor is a heredoc body — it is data being written to a file, not a command. */
+  it("allows a heredoc that writes the words down", () => {
+    const command =
+      "cat >> docs/queue.md <<'EOF'\n" +
+      "## bun run delegate is refused by its own guard\n" +
+      "The trailer is `Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>`.\n" +
+      "EOF\n";
+    expect(refusal(command)).toBeNull();
+  });
+
   /**
    * On Windows the session's primary shell is the separate PowerShell tool, and
    * the hook's matcher named only `Bash`. Every rule above was unenforced the

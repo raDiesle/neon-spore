@@ -161,8 +161,14 @@ function commandRefusal(raw: readonly string[], cwd: string): Refusal | null {
   const args = withoutPrefixes(raw);
   if (args.length === 0) return null;
 
-  const git = gitCommand(args);
-  if (git) return gitRefusal(git, cwd);
+  // `git` is never the worker, and its arguments carry whole commit messages.
+  if (isProgram(args[0], "git")) {
+    const git = gitCommand(args);
+    return git ? gitRefusal(git, cwd) : null;
+  }
+
+  const worker = workerModelRefusal(raw);
+  if (worker) return worker;
 
   if (isProgram(args[0], "bun")) {
     if (args.includes("--hot")) return REFUSALS.hotServer;
@@ -175,12 +181,21 @@ function commandRefusal(raw: readonly string[], cwd: string): Refusal | null {
 }
 
 /**
- * The worker rule reads the whole line rather than its arguments: it is about
- * what the command *mentions*, and a model name reaches aider through a config
- * file, a flag or an environment variable indifferently.
+ * The worker rule reads one command's arguments, its leading environment
+ * assignments included: a model name reaches aider through a config file, a
+ * flag or an environment variable indifferently, so it is about what an
+ * *invocation* mentions rather than how one flag is spelled.
+ *
+ * It used to read the whole line, and that made an ordinary commit a refusal.
+ * CLAUDE.md requires every commit message to end `Co-Authored-By: Claude Opus 5
+ * <noreply@anthropic.com>`, which matches the second half of this rule on its
+ * own, so a message that happened to use the word "delegate" was blocked and
+ * told it was about to bill a worker on the wrong key. A commit message is not
+ * an invocation, and neither is a heredoc body: `commandsIn` already keeps both
+ * out of the arguments it hands back, and `git` never reaches this rule at all.
  */
-function workerModelRefusal(line: string): Refusal | null {
-  const text = line.toLowerCase();
+function workerModelRefusal(args: readonly string[]): Refusal | null {
+  const text = args.join(" ").toLowerCase();
   if (!/aider|delegate/.test(text)) return null;
   if (!/anthropic|claude-sonnet|claude-opus|claude-haiku/.test(text)) return null;
   return REFUSALS.workerModel;
@@ -197,8 +212,6 @@ export function refusalFor(
   cwd: string = process.cwd(),
   dialect: Dialect = "posix",
 ): Refusal | null {
-  const worker = workerModelRefusal(line);
-  if (worker) return worker;
   for (const args of commandsIn(line, dialect)) {
     const refusal = commandRefusal(args, cwd);
     if (refusal) return refusal;
