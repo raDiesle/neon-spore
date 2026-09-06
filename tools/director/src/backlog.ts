@@ -44,11 +44,11 @@ export interface BacklogGroup {
 }
 
 export interface Backlog {
-  bestiary: BacklogGroup[];
-  mechanics: BacklogGroup[];
-  controls: BacklogGroup[];
+  /** Bosses, and the rounds that are not the field, on one page. */
   bosses: BacklogGroup[];
-  rounds: BacklogGroup[];
+  bestiary: BacklogGroup[];
+  /** Rules the field plays by, and what a player's hands would do — one page. */
+  mechanics: BacklogGroup[];
   // Worked-out design documents — `docs/versus.md` and friends — each
   // carrying numbers a queued lane is meant to build. Built in
   // `design-docs.ts`, a different thing from an idea nobody has argued with.
@@ -149,6 +149,26 @@ export function buildBacklog(
   const sheet = parseConcepts(couplings, assists, systems, ideas);
 
   return {
+    // Bosses and rounds are one page: both are an encounter that takes a slot
+    // in the act order, and a round filed on a tab of its own was read as a
+    // different kind of thing than the boss it stands next to.
+    bosses: [
+      fromRoster("THE ACT ORDER", "one boss every ten waves — bosses.md", roster.bosses),
+      fromIdeas(
+        "BOSS IDEAS",
+        "encounters worked out and set aside, each naming the slot it would fit — ideas.md",
+        sheet,
+        "Bosses",
+      ),
+      dropBuilt(
+        fromIdeas(
+          "ROUND IDEAS",
+          "rounds that are not the field, each with its own controls and picture — ideas.md",
+          sheet,
+          "Rounds",
+        ),
+      ),
+    ],
     bestiary: [
       fromRoster(
         "THE FIRST THIRTEEN",
@@ -174,14 +194,14 @@ export function buildBacklog(
         "bestiary.md 10.3",
       ),
     ],
+    // The controls used to be a tab of their own, holding two idea groups. A
+    // control is a rule the field plays by that happens to live in a hand, and
+    // two groups is not a page — so they read on down this one.
     mechanics: [
       fromConcepts("COUPLINGS", "the patterns everything else follows from", sheet.couplings),
       fromConcepts("ASSIST FORMS", "how the pair cushions a difference in ability", sheet.assists),
       fromConcepts("SYSTEMS", "the rules the field plays by", sheet.systems),
       fromIdeas("MECHANIC IDEAS", "accepted in principle, not worked out", sheet, "Mechanics"),
-      deferredGroup(sheet.deferred),
-    ],
-    controls: [
       fromIdeas(
         "CONTROL IDEAS",
         "what a player's own hands would do differently — ideas.md",
@@ -194,25 +214,7 @@ export function buildBacklog(
         sheet,
         "Weapons",
       ),
-    ],
-    bosses: [
-      fromRoster("THE ACT ORDER", "one boss every ten waves — bosses.md", roster.bosses),
-      fromIdeas(
-        "BOSS IDEAS",
-        "encounters worked out and set aside, each naming the slot it would fit — ideas.md",
-        sheet,
-        "Bosses",
-      ),
-    ],
-    rounds: [
-      dropBuilt(
-        fromIdeas(
-          "ROUND IDEAS",
-          "rounds that are not the field, each with its own controls and picture — ideas.md",
-          sheet,
-          "Rounds",
-        ),
-      ),
+      deferredGroup(sheet.deferred),
     ],
     designs,
   };

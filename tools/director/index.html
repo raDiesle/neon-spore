@@ -391,12 +391,10 @@
         <button type="button" id="backlogClose">✕ CLOSE</button>
       </header>
       <div id="backlogTabs">
-        <button type="button" data-tab="bestiary" class="on">BESTIARY</button>
+        <button type="button" data-tab="bosses" class="on">BOSSES</button>
+        <button type="button" data-tab="bestiary">BESTIARY</button>
         <button type="button" data-tab="shapes">SHAPES</button>
         <button type="button" data-tab="mechanics">MECHANICS</button>
-        <button type="button" data-tab="controls">CONTROLS</button>
-        <button type="button" data-tab="bosses">BOSSES</button>
-        <button type="button" data-tab="rounds">ROUNDS</button>
         <button type="button" data-tab="designs">DESIGNS</button>
         <button type="button" data-tab="queen">BULB QUEEN VARIANTS</button>
         <button type="button" data-tab="borrowed">BORROWED</button>
@@ -405,7 +403,19 @@
         <button type="button" data-tab="spec">SPEC</button>
       </div>
       <div id="backlogBody">
-        <div class="sheetpage on" id="sheet-bestiary">
+        <div class="sheetpage on" id="sheet-bosses">
+          <p class="pagewhat">
+            One boss every ten waves, and the rounds that are not the field.
+            Only a few have a worked-out design; the rest are names holding a
+            slot in the act structure. A round has its own rules, its own
+            controls and its own picture, and is over in about ninety seconds —
+            THE MIRROR is one already and is filed as a boss, because it is
+            one. What a round may be is docs/spec/interludes.md.
+          </p>
+          <button type="button" class="expand" data-expand="#backlogBosses">EXPAND ALL</button>
+          <div id="backlogBosses" class="columns reading"></div>
+        </div>
+        <div class="sheetpage" id="sheet-bestiary">
           <p class="pagewhat">
             Every creature the design has a name for and the simulation does
             not: the first thirteen, everything argued into the spec since, and
@@ -417,7 +427,7 @@
             rather than an edit here.
           </p>
           <button type="button" class="expand" data-expand="#backlogBestiary">EXPAND ALL</button>
-          <div id="backlogBestiary" class="columns"></div>
+          <div id="backlogBestiary" class="columns reading"></div>
         </div>
         <div class="sheetpage" id="sheet-shapes">
           <!-- OVERVIEW is the default and first view: one body walked across
@@ -505,40 +515,17 @@
         </div>
         <div class="sheetpage" id="sheet-mechanics">
           <p class="pagewhat">
-            Rules the field would play by. The couplings are the patterns
-            everything else follows from, the assist forms cushion a difference
-            in ability, and the systems are the machinery underneath. Anything
-            whose heading says plainly "built" is not here.
+            Rules the field would play by, and what a player's own hands would
+            do differently — one page, because a control is a rule that happens
+            to live in a hand. The couplings are the patterns everything else
+            follows from, the assist forms cushion a difference in ability, the
+            systems are the machinery underneath, and the control and weapon
+            ideas are the queue of changes to the scheme the game already has
+            in its KEYS screen. Anything whose heading says plainly "built" is
+            not here.
           </p>
           <button type="button" class="expand" data-expand="#backlogMechanics">EXPAND ALL</button>
-          <div id="backlogMechanics" class="columns"></div>
-        </div>
-        <div class="sheetpage" id="sheet-controls">
-          <p class="pagewhat">
-            What a player's own hands would do differently. The control scheme
-            that exists is in the game itself and in its KEYS screen; this is
-            the queue of changes to it.
-          </p>
-          <div id="backlogControls" class="columns"></div>
-        </div>
-        <div class="sheetpage" id="sheet-bosses">
-          <p class="pagewhat">
-            One boss every ten waves. Only a few have a worked-out design; the
-            rest are names holding a slot in the act structure.
-          </p>
-          <button type="button" class="expand" data-expand="#backlogBosses">EXPAND ALL</button>
-          <div id="backlogBosses" class="columns"></div>
-        </div>
-        <div class="sheetpage" id="sheet-rounds">
-          <p class="pagewhat">
-            Rounds that are not the field: their own rules, their own controls
-            and their own picture, over in about ninety seconds. THE MIRROR is
-            one already and is filed as a boss, because it is one; these have
-            nowhere else to go. What a round may be is
-            docs/spec/interludes.md.
-          </p>
-          <button type="button" class="expand" data-expand="#backlogRounds">EXPAND ALL</button>
-          <div id="backlogRounds" class="columns"></div>
+          <div id="backlogMechanics" class="columns reading"></div>
         </div>
         <div class="sheetpage" id="sheet-designs">
           <p class="pagewhat">

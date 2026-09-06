@@ -40,7 +40,7 @@ describe("the backlog sheet", () => {
   it("gives every filled group a container to be filled into", () => {
     const ids = matches(pageSource, /\bfill\("([^"]+)"/g);
 
-    expect(ids).toContain("backlogRounds");
+    expect(ids).toContain("backlogBosses");
     for (const id of ids) expect(html).toContain(`id="${id}"`);
   });
 });

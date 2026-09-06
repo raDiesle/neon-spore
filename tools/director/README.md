@@ -149,15 +149,23 @@ somebody wrote it down.
 
 | Tab | What is in it |
 |---|---|
+| `BOSSES` | the act order minus the ones that exist, the boss ideas, and the rounds that are not the field |
 | `BESTIARY` | every creature with a name and no code: the first thirteen, everything accepted since, and the creature ideas |
 | `SHAPES` | the contour catalogue — see below |
-| `MECHANICS` | couplings, assist forms, systems and the mechanic ideas |
-| `CONTROLS` | what a player's own hands would do differently |
-| `BOSSES` | the act order, minus the ones that exist |
+| `MECHANICS` | couplings, assist forms, systems, and the mechanic, control and weapon ideas |
 | `BORROWED` | It Takes Two and Split Fiction, mapped row by row onto whether each mechanic can reach this one |
 | `TOWER DEFENCE` | the same for 2D tower defence — what else a slick, a bulb or a meteor could be, with the reference pictures linked from those games' own wikis |
 | `PARKED` | deferred on purpose, or examined and turned down with the reason |
 | `SPEC` | every file in `docs/spec/`, verbatim |
+
+**BOSSES, BESTIARY and MECHANICS read in one column.** Each is a page somebody
+goes down heading by heading to decide what is worth building, and a grid of
+side-by-side groups is read in vertical strips with no way to tell which
+heading a paragraph belongs under. The rounds are on the boss page because a
+round takes a slot in the act order the same way a boss does — THE MIRROR is
+one already and is filed as a boss — and the controls are on the mechanics page
+because a control is a rule the field plays by that happens to live in a hand.
+Neither had enough of its own to be a page.
 
 **Anything built is not on this page at all.** A creature that exists is in the
 brush palette; a capability that exists is on `SHIP`. Each group says how many

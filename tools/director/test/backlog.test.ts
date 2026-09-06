@@ -18,6 +18,13 @@ async function realBacklog(): Promise<Backlog> {
 const names = (groups: BacklogGroup[]): string[] =>
   groups.flatMap((g) => g.entries.map((e) => e.name));
 
+/** One group of a page, by its heading — the rounds share the boss page. */
+const group = (groups: BacklogGroup[], title: string): BacklogGroup => {
+  const found = groups.find((g) => g.title === title);
+  if (!found) throw new Error(`no group titled ${title}`);
+  return found;
+};
+
 describe("buildBacklog", () => {
   test("a built thing is not backlog, and the count of what was hidden is kept", async () => {
     const backlog = await realBacklog();
@@ -82,15 +89,18 @@ describe("buildBacklog", () => {
     expect(names(backlog.bestiary)).toContain("Prism");
     expect(names(backlog.bestiary)).toContain("Wave gate");
     expect(names(backlog.mechanics)).toContain("Reverse wave");
-    expect(names(backlog.controls)).toContain("Inverted instructions");
+    // The controls read on down the mechanics page rather than having one of
+    // their own — a control is a rule that happens to live in a hand.
+    expect(names(backlog.mechanics)).toContain("Inverted instructions");
 
     // A round that is not the field is none of the three above: it has no
     // silhouette, it is not a rule the field plays by, and it does not change
     // what a hand does on a wave. Before this group existed the whole heading
     // was parsed and then dropped, which is the failure a spec-derived page is
     // supposed to make impossible.
-    expect(names(backlog.rounds)).toContain("THE LATHE");
-    expect(names(backlog.rounds)).toContain("THE VAULT");
+    // The rounds read on down the boss page, under their own heading.
+    expect(names(backlog.bosses)).toContain("THE LATHE");
+    expect(names(backlog.bosses)).toContain("THE VAULT");
 
     // THE GAUGE and SNAKE are both built — `packages/sim/src/gauge.ts` and
     // `snake.ts`, and `BOSS_KINDS` carries both — and a built round leaves the
@@ -98,9 +108,9 @@ describe("buildBacklog", () => {
     // to need a third table beside those two, because a round was in neither of
     // them; it does not any more, and the count is the proof that a second one
     // needed nothing added here to disappear.
-    expect(names(backlog.rounds)).not.toContain("THE GAUGE");
-    expect(names(backlog.rounds)).not.toContain("SNAKE");
-    expect(backlog.rounds[0]!.builtHidden).toBe(2);
+    expect(names(backlog.bosses)).not.toContain("THE GAUGE");
+    expect(names(backlog.bosses)).not.toContain("SNAKE");
+    expect(group(backlog.bosses, "ROUND IDEAS").builtHidden).toBe(2);
 
     // A boss idea sits with the act order rather than among the creatures:
     // it is a whole encounter waiting for a slot, not a thing that falls.
@@ -112,8 +122,7 @@ describe("buildBacklog", () => {
     const everywhere = [
       ...names(backlog.bestiary),
       ...names(backlog.mechanics),
-      ...names(backlog.controls),
-      ...names(backlog.rounds),
+      ...names([group(backlog.bosses, "ROUND IDEAS")]),
     ];
     expect(new Set(everywhere).size).toBe(everywhere.length);
   });

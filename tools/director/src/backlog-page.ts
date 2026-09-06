@@ -7,10 +7,10 @@
  * what the next wave is for, and a 300 px column is the wrong shape for a
  * paragraph. The stage keeps running behind it.
  *
- * Grouped by what a thing would become — creatures, shapes, mechanics,
- * controls, bosses, rounds — not by which spec file it was written in.
- * `backlog.ts`
- * does that grouping on the server, out of the spec's own headings.
+ * Grouped by what a thing would become — bosses and the rounds beside them,
+ * creatures, shapes, mechanics — not by which spec file it was written in.
+ * `backlog.ts` does that grouping on the server, out of the spec's own
+ * headings.
  */
 
 import { mountLazyTabs } from "./backlog-tabs.js";
@@ -42,11 +42,9 @@ interface BacklogGroup {
 }
 
 interface Backlog {
+  bosses: BacklogGroup[];
   bestiary: BacklogGroup[];
   mechanics: BacklogGroup[];
-  controls: BacklogGroup[];
-  bosses: BacklogGroup[];
-  rounds: BacklogGroup[];
   designs: BacklogGroup[];
 }
 
@@ -184,11 +182,9 @@ async function load(): Promise<void> {
   if (!res.ok) throw new Error(res.statusText);
   const backlog = (await res.json()) as Backlog;
 
+  fill("backlogBosses", backlog.bosses);
   fill("backlogBestiary", backlog.bestiary);
   fill("backlogMechanics", backlog.mechanics);
-  fill("backlogControls", backlog.controls);
-  fill("backlogBosses", backlog.bosses);
-  fill("backlogRounds", backlog.rounds);
   fill("backlogDesigns", backlog.designs);
   void renderWholeDoc("borrowedDoc", "/api/borrowed");
   void renderWholeDoc("towerDefenceDoc", "/api/tower-defence");
@@ -226,7 +222,7 @@ export function bindBacklog(): void {
 
   function onceOpen(): void {
     load().catch(() => {
-      const failed = document.getElementById("backlogBestiary");
+      const failed = document.getElementById("backlogBosses");
       if (!failed) return;
       failed.replaceChildren();
       const msg = document.createElement("p");
