@@ -121,6 +121,7 @@ shim that shows what the new shape wants if it changed again.
 ## A drained queue item leaves its claim branch standing for ever
 
 - **Found:** 2026-09-06, claude/queue-branch-sweep-stale-claims
+- **Taken:** 2026-09-06, claude/queue-a-drained-queue-item-leaves-its-claim-branch-sta
 - **Files:** `tools/land/claims.ts`, `tools/land/sweep.ts`, `tools/land/test/claims.test.ts`
 
 `partitionMerged` protects every merged branch whose name `isClaimBranch`
