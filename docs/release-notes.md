@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · a8e0d9d7 — A narrow run carries five waves nobody touched, and gets its verdict back
+
+Scoping a run to the waves a change touched made it fast and made it mute: a verdict is a wave's share of its own run's median, and a run of one wave has a median that *is* that wave, so dividing by it cancelled exactly what the run was taken to see. The tool printed two numbers and left the judgement to a person.
+
 ## 2026-09-06 · 1513d988 — A performance run measures the waves the new thing is in, not the whole game
 
 The owner's instruction, and the tool could not do it: `sweep` walked every wave there was, so landing a change to one creature meant minutes of a machine that had to be otherwise idle, twice over if anything went wrong. `--wave` takes the number the HUD prints or the name beside it, repeated or comma-separated, and the full sweep is now what a baseline is taken from rather than what every run does.
