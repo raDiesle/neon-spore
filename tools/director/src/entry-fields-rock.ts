@@ -25,13 +25,13 @@ export type MeteorSpeed = 1 | 2 | 3 | 4 | 5;
 export const METEOR_SPEEDS: readonly MeteorSpeed[] = [1, 2, 3, 4, 5];
 export const METEOR_SIZES: readonly RockSize[] = [1, 2];
 /**
- * Whether this entry is a plain meteor — a rock whose speed and size are the
+ * Whether this entry is a plain meteor — a rock whose **speed** is the
  * author's to set. The torch is a rock and is deliberately not one of these:
- * it is not a tier (`fallTilesPerBeat`) and its width is what it is. Nor is
- * THE VEER, for the sharper version of the same reason — it *is* one of the
- * tiers' speeds, but its kind is what makes it step sideways, so a speed dial
- * that writes `METEOR_TIER_KINDS[n]` back over it would quietly turn the
- * author's creature into a plain rock.
+ * it is not a tier (`fallTilesPerBeat`), so a speed dial on one would have to
+ * write a tier's kind back over it. Nor is THE VEER, for the sharper version
+ * of the same reason — it *is* one of the tiers' speeds, but its kind is what
+ * makes it step sideways, so a dial that writes `METEOR_TIER_KINDS[n]` back
+ * over it would quietly turn the author's creature into a plain rock.
  *
  * Asked of `METEOR_TIER_KINDS` rather than by excluding two names, so a rock
  * added beside those two is out of here by default rather than by being
@@ -40,6 +40,25 @@ export const METEOR_SIZES: readonly RockSize[] = [1, 2];
 export function isTieredRock(entry: WaveEntry): boolean {
   if (entry.kind === undefined || !isMeteorKind(entry.kind)) return false;
   return (METEOR_TIER_KINDS as readonly string[]).includes(entry.kind);
+}
+
+/**
+ * Whether this entry's **width** is the author's to set — the five tiers, and
+ * the torch.
+ *
+ * A second predicate rather than more of `isTieredRock`, because the two
+ * questions came apart the day a torch got a width. Speed is a kind and width
+ * is a field (`WaveEntry.size`), and the torch is the one rock that has the
+ * second without the first: it is not a tier, and it is the body a coil's dome
+ * leaves behind standing in a single column (`sim/coil.ts`), so a wave that
+ * wants one directly has to be able to say so.
+ *
+ * THE VEER is deliberately still out. Its kind is what makes it step sideways,
+ * and nothing about the sidestep is written for a body two columns wide — a
+ * width offered there would be an author setting a number nobody has drawn.
+ */
+export function hasRockWidth(entry: WaveEntry): boolean {
+  return isTieredRock(entry) || entry.kind === "torch";
 }
 
 /** The tier this rock falls at, counted from 1. */
@@ -63,10 +82,17 @@ export function meteorSize(entry: WaveEntry): RockSize {
 }
 
 /**
- * Set the width. One tile is written as *no* field rather than as `size: 1`,
- * so a rock left at the ordinary width serialises exactly as it always did and
- * the diff of a wave nobody widened is empty.
+ * Set the width. The **kind's own** width is written as no field at all rather
+ * than as a number, so a rock left as it comes serialises exactly as it always
+ * did and the diff of a wave nobody resized is empty.
+ *
+ * `colSpan` and not the literal one, which is what this used to be. A torch is
+ * two tiles by default, so the plain-tier rule read backwards on one: a torch
+ * an author left alone would have been written down as `size: 2`, and a torch
+ * narrowed to a single column would have carried no field and come back two
+ * tiles wide. The rule is *whatever the kind is* at either width, called
+ * rather than spelled out.
  */
 export function setMeteorSize(entry: WaveEntry, size: RockSize): void {
-  entry.size = size === 1 ? undefined : size;
+  entry.size = size === colSpan(entry.kind ?? "meteor") ? undefined : size;
 }

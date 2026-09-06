@@ -1,6 +1,7 @@
 import { beatMetronome, onBeat } from "./beat.js";
 import { briefHeard, briefingHolds, guideStepHeard, stepReady } from "./briefing.js";
 import { advanceBullets, releaseShot } from "./bullets.js";
+import { wardCoils } from "./coil.js";
 import { applyCommand } from "./commands.js";
 import { ticksPerBeat } from "./config.js";
 import { fleetHeard } from "./fleet.js";
@@ -158,6 +159,14 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
     // both of these doors to a thumb (`malfunction.ts`).
     stepMalfunction(world);
   }
+  // The dome under the plate, on the tick and not on the press. Here rather
+  // than in `armShield` because the shield opens a coil by *standing* under
+  // it: a plate carried into a coil's column while the window is still open
+  // opens it, and so does a coil that crosses into a column the plate is
+  // already holding. After the beat, so a body that has just stepped into the
+  // shield's column is answered on the beat it is drawn arriving there rather
+  // than a whole beat later (`coil.ts`).
+  wardCoils(world);
 
   advanceBullets(world);
   // After the shots, before anything else asks who is holding what: a hand

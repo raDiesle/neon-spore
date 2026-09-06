@@ -1,6 +1,8 @@
 import { markMoment } from "./balance.js";
+import { coilCharged, coilDue, coilHeading, coilIsDomed } from "./coil-state.js";
 import { hullRow, type SimConfig } from "./config.js";
-import { type CrossDir, crossField } from "./cross.js";
+import { crossField } from "./cross.js";
+import { guardArmed } from "./hull-guard.js";
 import { nextInt } from "./rng.js";
 import { occupiesCol, spanOf } from "./span.js";
 import type { Creature } from "./types.js";
@@ -51,76 +53,6 @@ import type { World } from "./world.js";
  */
 
 /**
- * Which way across the field it is going. `-1` is to the left, which is where
- * every coil sets off — `CrossDir` under this creature's own name, the way
- * `CaromDir` is: the wall it turns at is `cross.ts`, which THE CAROM and THE
- * VOLLEY already cross the field by.
- */
-export type CoilDir = CrossDir;
-
-/**
- * Which way this one is going. Call it rather than reading `coilDir` by hand:
- * the step, the lean render draws and the wall it is heading for are three
- * readings of one number, and a second copy of the fallback is how they come
- * to disagree about which side of the field the pair should be looking at.
- *
- * The fallback is **left**, because that is the one thing every coil has in
- * common: it comes in at the right wall (`coilOnSpawn`).
- */
-export function coilHeading(c: Creature): CoilDir {
-  return c.coilDir ?? -1;
-}
-
-/** Whether this body is still wearing its dome. The kind *is* the state, for
- * `claspIsShielded`'s reason: a `shielded` flag beside it would be a second
- * truth about one body that the fingerprint could agree with while the two
- * devices disagreed. */
-export function coilIsDomed(c: Creature): boolean {
-  return c.kind === "coil";
-}
-
-/**
- * The fields a coil arrives with. It always sets off **to the left**, which is
- * the whole of what "comes in at the right wall" means once the wave has put
- * it in a column — deliberately not `crossAwayFromWall`, which THE CAROM and
- * THE VOLLEY use: those two are balls and the long first crossing is what buys
- * them their bounces, while this one is a body with a direction, and a coil
- * authored near the left wall that set off rightwards would be entering from
- * the wrong side of the field.
- */
-export function coilOnSpawn(): { coilDir: CoilDir } {
-  return { coilDir: -1 };
-}
-
-/**
- * The beat the charge landed on this one, or nothing at all for a coil no
- * chain has reached. Read it through here and never by hand: the bolt render
- * draws, the beat the dome comes open on and the warning the pair is acting on
- * are three readings of one number.
- *
- * **A moment and not a countdown**, for `Creature.veilStruckTick`'s reason and
- * a sharper version of it: a stored countdown would be ticked by the same beat
- * loop that pops the domes, so a coil chained by a body standing *later* in
- * `world.creatures` would lose a beat that one standing earlier kept — a
- * creature whose timing depended on array order, which is the definition of a
- * thing two devices can be made to disagree about.
- */
-export function coilCharged(c: Creature): boolean {
-  return c.coilLit !== undefined;
-}
-
-/** Beats since the charge was sent to this one; negative for a coil no chain
- * has reached, which is a value the count can never take. */
-export function coilChargeAge(world: World, c: Creature): number {
-  return c.coilLit === undefined ? -1 : world.beat - c.coilLit;
-}
-
-/** Whether the charge has arrived and this dome comes open on this beat. */
-export function coilDue(cfg: SimConfig, world: World, c: Creature): boolean {
-  return coilCharged(c) && coilChargeAge(world, c) >= cfg.coilJumpBeats;
-}
-
-/**
  * One beat of a coil, in place of the fall every other body takes.
  *
  * The charge is read first and it replaces the crossing rather than sitting
@@ -167,6 +99,21 @@ function popCoil(world: World, c: Creature, ward: boolean): void {
   const span = spanOf(c);
   c.kind = "torch";
   c.span = span;
+  // **And it runs for the far wall.** The rock does not fall out of the dome
+  // where the dome stood: it is at the wall furthest from the plate on the
+  // same beat, and it comes down there (`escapeCol`). That is what makes
+  // opening a dome a *price* rather than a move — the plate that opened it is
+  // by construction the plate least able to catch what came out — and it is
+  // the whole reason a pair now talks about keeping the shield *out* of a
+  // coil's column.
+  //
+  // `fromCol` goes with it so nothing glides: a body drawn crossing eleven
+  // columns in one beat is a carom, and a carom is a lead the pair reads a
+  // path off. This one has no path. It is at the wall, and the only picture of
+  // where it came from is the dome bursting where it stood
+  // (`render/effects-spark.ts` places that burst from the event's own column).
+  c.col = escapeCol(world);
+  c.fromCol = c.col;
   // It has stopped crossing and it is no longer holding a charge, so it holds
   // neither field. Cleared for `caromStruck`'s reason: the fingerprint of a
   // rock has to be the fingerprint of a rock whatever made it.
@@ -216,25 +163,56 @@ export function coilStruck(world: World, hit: Creature): void {
 }
 
 /**
- * Break every dome standing in the shield's column, and start a chain from
- * each. `breakClaspsInColumn`'s contract exactly — called from the `guard`
- * command through `armShield` and from nowhere else — and it is deliberately
- * **not** counted in `world.guard`: those three numbers are the rock ledger
- * the balance sheet reads as "rocks that reached the shield, and how many you
- * turned", and a coil never reaches anything. The torch it leaves behind is
- * counted there like any other rock, one beat later.
+ * Break every dome the standing shield is under, and start a chain from each.
+ *
+ * **A state and not an edge, which is the whole of it.** This used to hang off
+ * `armShield`, so a dome only came off on the tick the trigger was pressed —
+ * and a plate already lit that a coil *crossed into*, or a plate carried under
+ * a coil while the window was still open, did nothing at all. Both are the
+ * pair doing exactly what they said out loud and watching nothing happen,
+ * which is the defect the owner reported. So it is asked every tick instead,
+ * of the window rather than of the press (`guardArmed`), and the dome comes
+ * off on the first tick the two are in the same column whichever of them
+ * arrived there second.
+ *
+ * `step` calls it and nothing else does. It is deliberately **not** counted in
+ * `world.guard`: those three numbers are the rock ledger the balance sheet
+ * reads as "rocks that reached the shield, and how many you turned", and a
+ * coil never reaches anything. The torch it leaves behind is counted there
+ * like any other rock, one beat later.
  *
  * The loop reads the array while `popCoil` writes to it, which is safe and
  * meant: nothing is added or removed, and a coil the chain lights *inside this
  * column* is opened by the ward on the same pass rather than waiting three
  * beats for a charge that had nowhere better to go.
  */
-export function breakCoilsInColumn(world: World): void {
+export function wardCoils(world: World): void {
+  if (!guardArmed(world)) return;
   for (const c of world.creatures) {
     if (!coilIsDomed(c)) continue;
     if (!occupiesCol(c, world.shieldCol)) continue;
     popCoil(world, c, true);
   }
+}
+
+/**
+ * The wall a freed rock runs for: the one furthest from the plate.
+ *
+ * Read off which half of the field the shield is standing in rather than by
+ * measuring both distances and comparing them — the two are the same number
+ * and one of them needs a tie-break written down. A plate at dead centre is
+ * equally far from either wall, and `<` sends it to the left one, which is a
+ * rule rather than whichever way a `>=` happened to be spelled.
+ *
+ * It is the plate's column and not the rock's on purpose. What the pair is
+ * being charged for is the ward, so the punishment has to be measured from the
+ * thing that did it: a rock that ran to the wall it was already heading away
+ * from would sometimes land beside the shield by luck, and a price that is
+ * sometimes free is not one anybody plans around.
+ */
+function escapeCol(world: World): number {
+  const cols = world.cfg.cols;
+  return world.shieldCol * 2 < cols - 1 ? cols - 1 : 0;
 }
 
 /**

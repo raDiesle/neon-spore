@@ -1,5 +1,5 @@
 import type { CaromDir } from "./carom.js";
-import type { CoilDir } from "./coil.js";
+import type { CoilDir } from "./coil-state.js";
 import type { DartDir } from "./dart.js";
 import type { GhostDir } from "./ghost.js";
 

@@ -272,6 +272,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/hash-creature-late.ts` | the tail of one body's fingerprint, cut at a position and never a subject |
 | `packages/sim/src/fence-crack.ts` |  |
 | `packages/sim/src/hand.ts` | you are deciding what a finger on the field is worth — a brake on a rock, an aim on anything living, nothing where it would be neither |
+| `packages/sim/src/coil-state.ts` | **What a coil is right now**: which way it is going, whether it is still wearing its dome |
 
 ### packages/content
 
@@ -378,6 +379,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-fence.ts` | THE FENCE's rehearsal: a wall the width of the field, and the one thing that has to be true when it lands |
 | `packages/content/src/scenes/the-gap.ts` | THE GAP's rehearsal: the wall moves its opening, and only one of them can see where it went |
 | `packages/content/src/control-sets-keys.ts` | Whether a panel answers a command — what the desk keyboard is gated by |
+| `packages/content/src/waves/act-7b.ts` | The second half of act seven, cut off `act-7.ts` when THE COIL was split into two waves and that file reached… |
 
 ### packages/render
 
@@ -404,7 +406,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/touch.ts` | the control scheme: a point on the layout, and what the ship is told |
 | `packages/render/src/grip.ts` | the grip drawn: a ring on every held body, a beam and arrows on a rock, and whose hand it is |
 | `packages/render/src/lance.ts` | the lance drawn: the button filling, and the mark that puts on a column |
-| `packages/render/src/torch.ts` | the torch: three-tile crystal, amber core, its own afterimages |
+| `packages/render/src/torch.ts` | the torch: a rock drawn at whatever width its body carries, with an ember ring and a tail |
 | `packages/render/src/torch-alarm.ts` | the role-aware banner and pulsing band a torch in the queue triggers |
 | `packages/render/src/bullets.ts` | shots and their tails |
 | `packages/render/src/effects.ts` | deflection, shockwave, DEFLECTED, the swallow's timing |
@@ -1179,5 +1181,6 @@ place — the generator keeps whatever is there.
 | `tools/queue/edit.ts` | Editing `docs/queue.md` and `docs/parked.md` in place: the claim written into an entry |
 | `tools/frames/press-plan.ts` | when each `--press` is sent, and the tick that must run after it |
 | `tools/perf/renumber.ts` | a merged baseline put back on today's wave numbers |
+| `tools/director/src/cell-config-rows.ts` |  |
 
 <!-- index:code:end -->

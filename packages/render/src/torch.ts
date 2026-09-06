@@ -1,10 +1,19 @@
 import { crystalPath, METEOR } from "@neon-spore/content";
-import { type Creature, colSpan } from "@neon-spore/sim";
+import { type Creature, colSpan, spanOf } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import { type Layout, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 
-/** How far a torch's radius reaches, in tiles — shared with `rock-impact.ts` so the two never drift apart. */
+/**
+ * How far a **full-width** torch's radius reaches, in tiles.
+ *
+ * The kind's own width and not a body's, which is the whole of what this is
+ * for: it answers for the fixtures — the queen's sockets, the shape sheet, the
+ * director's cards — where there is no creature to ask and a torch is the
+ * two-tile thing the name has always meant. A torch actually standing in the
+ * field is asked `rockRadius(l, spanOf(c))` instead, because its width is
+ * authored now (`RockSize`) and a one-tile torch is a thing a wave may write.
+ */
 export function torchRadius(l: Layout): number {
   return rockRadius(l, colSpan("torch"));
 }
@@ -155,11 +164,19 @@ export function drawTorchRock(
 /**
  * The torch: a rock, not a different material — the same crystal shape and
  * the same stone-grey fill as a plain meteor (`METEOR`, `drawMeteor` in
- * `creatures.ts`), so the pair reads it as the rock family at a glance. Two
- * tiles wide against a meteor's one, which is the whole of what still marks
- * it apart, plus a faint second ring in the tail's old colour — the one
- * trace it keeps of the flame it used to carry. Craters from shots place the
- * same way a meteor's do.
+ * `creatures.ts`), so the pair reads it as the rock family at a glance, plus a
+ * faint second ring in the tail's old colour — the one trace it keeps of the
+ * flame it used to carry. Craters from shots place the same way a meteor's do.
+ *
+ * **It is drawn at the width the body is carrying, not at the kind's.** A
+ * torch was two tiles and nothing else, and a wave may now author a one-tile
+ * one — the coil's dome leaves exactly that when it comes off (`sim/coil.ts`),
+ * and the director offers the width on any torch an author places. Everything
+ * about the picture is unchanged at either width: same shape, same tail, same
+ * facing, same ring. What is different is what the pair can put a plate over,
+ * which is why the width has to come off `spanOf` here rather than off the
+ * name — a one-tile torch drawn two wide is a rock hanging over a lane the
+ * shield does not have to cover.
  *
  * It is also the fastest thing in the field (`fallTilesPerBeat` in
  * sim/types.ts), which on its own would read as a blink rather than a fall —
@@ -183,7 +200,7 @@ export function drawTorch(
   y: number,
   time: number,
 ): void {
-  const r = torchRadius(l);
+  const r = rockRadius(l, spanOf(c));
 
   // No travel this beat, no trail: the beat a torch breaks off the queen it
   // stands still in the socket it grew in (`spit`, sim/boss.ts), and a streak

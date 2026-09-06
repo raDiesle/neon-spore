@@ -1,5 +1,5 @@
 import { caromOnSpawn } from "./carom.js";
-import { coilOnSpawn } from "./coil.js";
+import { coilOnSpawn } from "./coil-state.js";
 import { growCrawler } from "./crawler-round.js";
 import { dartOnSpawn } from "./dart.js";
 import { echoOnSpawn } from "./echo.js";

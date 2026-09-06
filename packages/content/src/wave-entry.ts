@@ -64,7 +64,16 @@ export interface WaveEntry {
    * How many tiles wide this rock arrives: `1`, or `2` for one that fills a
    * 2x2 square. Absent on every other kind, and absent on a rock the author
    * left at its ordinary width — a wave written before sizes existed is the
-   * same wave.
+   * same wave. **Ordinary is the kind's own width and not the number one**: a
+   * torch is two tiles by default, so a torch an author narrows carries
+   * `size: 1` and a torch left alone carries nothing.
+   *
+   * The torch has both widths for a reason the coil made unavoidable: when a
+   * dome comes off, what is left is a rock at a torch's speed standing in the
+   * single column the dome covered (`sim/coil.ts`), and that is a body the
+   * game now draws often enough that a wave should be able to place one
+   * directly. It is the same creature at either width — same speed, same tail,
+   * same answer — and what changes is how much of the hull one plate covers.
    *
    * **Speed is the kind and size is a field, and the asymmetry is deliberate.**
    * The five tiers `meteor`…`meteorFastest` already exist, are named in the

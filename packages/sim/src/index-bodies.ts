@@ -19,12 +19,12 @@
 export { type CaromDir, caromBecomes, caromHeading, caromImpactDamage } from "./carom.js";
 export { chuteBecomes, chuteFalls, chuteIsOpen } from "./chute.js";
 export { claspBecomes, claspIsShielded, claspStruck } from "./clasp.js";
+export { coilImpactDamage } from "./coil.js";
 export {
   type CoilDir,
   coilChargeAge,
   coilCharged,
   coilDue,
   coilHeading,
-  coilImpactDamage,
   coilIsDomed,
-} from "./coil.js";
+} from "./coil-state.js";

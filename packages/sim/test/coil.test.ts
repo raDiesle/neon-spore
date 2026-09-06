@@ -1,5 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import { coilCharged, coilHeading, coilIsDomed, coilStruck } from "../src/coil.js";
+import { coilStruck } from "../src/coil.js";
+import { coilCharged, coilHeading, coilIsDomed } from "../src/coil-state.js";
 import { DEFAULT_CONFIG, hullRow, ticksPerBeat } from "../src/config.js";
 import { hashWorld } from "../src/hash.js";
 import { spanOf } from "../src/span.js";
@@ -160,6 +161,60 @@ describe("the ward opens a dome and what is left is a torch", () => {
   it("needs the trigger and not merely the plate standing there", () => {
     const { world } = run([coil(0, 8)], TPB * 3, [shieldTo(4, 8)]);
     expect(coilIsDomed(only(world))).toBe(true);
+  });
+
+  it("opens one the plate is carried under while the window is still open", () => {
+    // The defect the owner reported, from one side. The ward used to hang off
+    // the *press* (`armShield`), so a trigger spent on an empty column and a
+    // plate then carried into the coil's did nothing at all until somebody
+    // pressed again. It is asked of the open window every tick now, so
+    // whichever of the two arrives in the column second is the one that opens
+    // it (`wardCoils`).
+    const world = createWorld({ ...CFG }, 7, [coil(0, 8)]);
+    for (let t = 0; t < TPB * 2; t++) step(world, [shieldTo(t, 0)]);
+    const body = only(world);
+    const standing = body.col;
+    step(world, [guard(world.tick)]);
+    expect(coilIsDomed(body)).toBe(true);
+    step(world, [shieldTo(world.tick, standing)]);
+    expect(coilIsDomed(body)).toBe(false);
+  });
+
+  it("opens one that crosses into a column the plate is already holding", () => {
+    // The same defect from the other side, and the one a pair actually meets:
+    // they agree on a lane, stand in it and trigger, and the dome walks into
+    // them. The window outlives a beat (`guardWindowMs` against `bpm`), so the
+    // body that steps in is answered on the beat it steps.
+    const world = createWorld({ ...CFG }, 7, [coil(0, 8)]);
+    for (let t = 0; t < TPB * 2; t++) step(world, []);
+    const body = only(world);
+    // One lane along its own heading, which is where it will stand next beat.
+    const ahead = body.col + coilHeading(body);
+    step(world, [shieldTo(world.tick, ahead), guard(world.tick)]);
+    expect(coilIsDomed(body)).toBe(true);
+    for (let t = 0; t < TPB; t++) step(world, []);
+    expect(coilIsDomed(body)).toBe(false);
+  });
+
+  it("puts the rock it leaves at the wall furthest from the plate", () => {
+    // The price of opening one, and the reason a pair now talks about keeping
+    // the shield *out* of a coil's column. The plate that opened the dome is
+    // by construction the plate least able to catch what came out of it
+    // (`escapeCol`), so the wall is read off the shield and never off the rock.
+    const right = run([coil(0, 8)], TPB * 2 - 1, [shieldTo(4, 8), guard(TPB)]);
+    expect(only(right.world).col).toBe(0);
+    const left = run([coil(0, 2)], TPB * 2 - 1, [shieldTo(4, 2), guard(TPB)]);
+    expect(only(left.world).col).toBe(CFG.cols - 1);
+  });
+
+  it("is standing at that wall rather than drawn crossing to it", () => {
+    // `fromCol` goes with the column. A body drawn crossing eleven lanes in
+    // one beat is a carom, and a carom is a lead the pair reads a path off —
+    // this one has no path, and the only picture of where it came from is the
+    // dome bursting where it stood.
+    const { world } = run([coil(0, 8)], TPB * 2 - 1, [shieldTo(4, 8), guard(TPB)]);
+    const body = only(world);
+    expect(body.fromCol).toBe(body.col);
   });
 
   it("pays scoreCoilBreak for it", () => {

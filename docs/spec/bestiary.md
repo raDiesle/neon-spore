@@ -185,16 +185,21 @@ cleared and never blocks a wave, so it lives outside `CREATURES` entirely — it
 own list on the wave, its own list in the world. Shooting it loose needs both
 players, catching it needs player 1's maw. See [systems](systems.md) 5.7.
 
-**The torch is built, and it is a rock, not a new tier.** Three tiles wide,
-falling at `meteorFastest`'s speed rather than a faster one of its own — the
-other session already tuned that tier, and a new number would only drift from
-it. What is new is the shape and the size: `colSpan` makes it occupy three
-columns at once, so a shield in any one of them deflects it and a miss scars
-all three, once, for a single `damageMeteor`. Radar `"p1"`, the same as every
-other rock — see `docs/decisions.md` #15 — and `packages/render/src/torch-alarm.ts`
-gives the strip a second, louder cue: a pulsing band and a role-specific line,
-because three columns of warning is worth more than a blip the size of every
-other rock's.
+**The torch is built, and it is a rock, not a new tier.** It falls at
+`meteorFastest`'s speed rather than at a faster one of its own — that tier was
+already tuned, and a new number would only drift from it — so what is different
+is the shape and the width. `colSpan` gives it two columns where every plain
+rock has one, and a wave may narrow it to a single tile
+(`WaveEntry.size`, offered as SIZE in the director beside a plain rock's): the
+same creature at either width, and what changes is how much of the hull one
+plate has to cover. A shield in any column the body occupies deflects it, and a
+miss scars all of them, once, for a single `damageMeteor`. The one-tile torch
+is also what a coil's dome leaves behind when it comes off — see THE COIL. Radar
+`"p1"`, the same as every other rock (`docs/decisions.md` #15), and
+`packages/render/src/torch-alarm.ts` gives the strip a second, louder cue: a
+pulsing band over the columns the body will actually cover, and a role-specific
+line, because a rock the pair has to cover two lanes for is worth more than a
+blip the size of every other rock's.
 
 **The strand in detail, as it was written:** it appears, turns lengthways,
 fires an unavoidable marking shot at the hull, **extinguishes its own drive**

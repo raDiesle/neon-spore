@@ -571,8 +571,24 @@
       "jitter": 0.129
     },
     {
-      "id": "theTwitch",
+      "id": "theCoil",
       "wave": 52,
+      "name": "THE COIL",
+      "bodies": 3,
+      "arrivals": "9:fc0581b3",
+      "typical": 2.94,
+      "mean": 2.97,
+      "p90": 3.56,
+      "jitter": 0.136,
+      "mergedFrom": {
+        "measuredAt": "2026-09-06",
+        "commit": "a3e11fb195ef90ccdeac27a08c44bf89c2288787",
+        "scale": 1
+      }
+    },
+    {
+      "id": "theTwitch",
+      "wave": 53,
       "name": "THE TWITCH",
       "bodies": 3,
       "arrivals": "10:23c99a32",
@@ -583,7 +599,7 @@
     },
     {
       "id": "theClaw",
-      "wave": 53,
+      "wave": 54,
       "name": "THE CLAW",
       "bodies": 2,
       "arrivals": "6:5494c513",

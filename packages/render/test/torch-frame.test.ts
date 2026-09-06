@@ -1,6 +1,7 @@
 import { beforeAll, describe, expect, it } from "bun:test";
 import { createWorld, type SpawnEntry, step, ticksPerBeat } from "@neon-spore/sim";
 import type { ViewRole } from "../src/layout.js";
+import { torchWarning } from "../src/torch-alarm.js";
 import { CFG, installCanvasGlobals, ROLES, runFrames } from "./frame-harness.js";
 
 /**
@@ -9,6 +10,10 @@ import { CFG, installCanvasGlobals, ROLES, runFrames } from "./frame-harness.js"
  * The shield is never in its column: every torch reaches the hull and deflects
  * nothing, so both the miss (span scars, single breach) and the deflect path
  * get exercised across the two queued torches and every role.
+ *
+ * A torch is one tile wide or two now (`RockSize`), so the narrow one is drawn
+ * here as well: it is the body a coil's dome leaves behind, and it is a width
+ * a wave may author directly.
  */
 
 beforeAll(installCanvasGlobals);
@@ -17,6 +22,7 @@ function torchFrames(role: ViewRole, ticks: number) {
   const queue: SpawnEntry[] = [
     { beat: 0, col: 1, kind: "torch", color: null },
     { beat: 6, col: 5, kind: "torch", color: null },
+    { beat: 12, col: 8, kind: "torch", color: null, span: 1 },
   ];
   const tpb = ticksPerBeat(CFG);
   return runFrames(createWorld(CFG, 3, queue), role, ticks, {
@@ -34,4 +40,16 @@ describe("the torch", () => {
       expect(ctx.calls).toBeGreaterThan(500);
     });
   }
+});
+
+describe("the alarm ahead of one", () => {
+  it("names the columns the body will actually cover, at either width", () => {
+    // Read off the queue entry's own span rather than off the kind. A band
+    // drawn two wide over a one-tile torch tells player 1 to call a column the
+    // plate never has to cover, which is the pair rehearsing the wrong lane.
+    const wide = createWorld(CFG, 3, [{ beat: 1, col: 4, kind: "torch", color: null }]);
+    expect(torchWarning(wide, CFG.radarLead)?.span).toBe(2);
+    const narrow = createWorld(CFG, 3, [{ beat: 1, col: 4, kind: "torch", color: null, span: 1 }]);
+    expect(torchWarning(narrow, CFG.radarLead)?.span).toBe(1);
+  });
 });

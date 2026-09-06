@@ -5,6 +5,7 @@ import { BRUSHES } from "../src/brushes.js";
 import {
   authorsBody,
   bodyOf,
+  hasRockWidth,
   isTieredRock,
   METEOR_SIZES,
   METEOR_SPEEDS,
@@ -117,6 +118,45 @@ describe("a rock's width", () => {
     setMeteorSize(at(wave), 2);
     const queue = queueFromWave(wave, 11);
     expect(queue[0] && spanOf(queue[0])).toBe(2);
+  });
+
+  test("is offered on a torch, which has a width but no tier", () => {
+    // The two questions came apart the day the torch got a width: it is not a
+    // tier and has no speed to set, and it is the one rock the game leaves
+    // standing in a single column by itself, when a coil's dome comes off.
+    const wave = emptyWave();
+    paint(wave, 0, 3, "torch");
+    expect(isTieredRock(at(wave))).toBe(false);
+    expect(hasRockWidth(at(wave))).toBe(true);
+  });
+
+  test("is the kind's own width that saves as nothing, so a torch narrows to one", () => {
+    // Read backwards from a plain tier's rule, which is the whole reason the
+    // literal one had to go: two is what a torch already is, and one is the
+    // thing an author is asking for.
+    const wave = emptyWave();
+    paint(wave, 0, 3, "torch");
+    expect(meteorSize(at(wave))).toBe(2);
+    expect(at(wave).size).toBeUndefined();
+    setMeteorSize(at(wave), 1);
+    expect(at(wave).size).toBe(1);
+    expect(meteorSize(at(wave))).toBe(1);
+    setMeteorSize(at(wave), 2);
+    expect(at(wave).size).toBeUndefined();
+  });
+
+  test("reaches the field on a torch too, at one tile", () => {
+    const wave = emptyWave();
+    paint(wave, 0, 3, "torch");
+    setMeteorSize(at(wave), 1);
+    const queue = queueFromWave(wave, 11);
+    expect(queue[0] && spanOf(queue[0])).toBe(1);
+  });
+
+  test("is not offered on THE VEER, whose sidestep is written for one tile", () => {
+    const wave = emptyWave();
+    paint(wave, 0, 3, "veer");
+    expect(hasRockWidth(at(wave))).toBe(false);
   });
 });
 

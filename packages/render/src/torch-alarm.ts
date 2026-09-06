@@ -1,4 +1,4 @@
-import { colSpan, type World } from "@neon-spore/sim";
+import { spanOf, type World } from "@neon-spore/sim";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { SIREN_PAD } from "./siren-seats.js";
@@ -20,6 +20,14 @@ const ROCK_RGB = "199,203,214";
 export interface TorchWarning {
   col: number;
   inBeats: number;
+  /**
+   * How many columns it will cover when it lands — the queue entry's own
+   * width and not the kind's, because a torch's is authored now (`RockSize`)
+   * and a one-tile one is a thing a wave may write. A band drawn at the kind's
+   * width would tell player 1 to call two columns for a rock standing in one,
+   * which is the pair rehearsing a plate that covers the wrong lane.
+   */
+  span: number;
 }
 
 /** Clear of the hull bar (`hud.ts`, y = 14) and the guard balance (y = 48). */
@@ -33,7 +41,7 @@ export function torchWarning(world: World, lead: number): TorchWarning | null {
     if (q.kind !== "torch") continue;
     const inBeats = q.beat - (world.waveBeat - 1);
     if (inBeats < 0 || inBeats > lead) continue;
-    return { col: q.col, inBeats };
+    return { col: q.col, inBeats, span: spanOf(q) };
   }
   return null;
 }
@@ -52,7 +60,7 @@ export function drawTorchAlarm(
   // so the band runs from that column's left edge to the right edge of the
   // column past it.
   const left = l.gridLeft + warning.col * l.tile;
-  const right = l.gridLeft + (warning.col + colSpan("torch")) * l.tile;
+  const right = l.gridLeft + (warning.col + warning.span) * l.tile;
 
   ctx.save();
 
@@ -97,8 +105,10 @@ export function drawTorchAlarm(
 function alarmText(role: Layout["role"], w: TorchWarning): string {
   if (role === "p2") return "TORCH INBOUND · TAKE THE COLUMN";
   // 1-based, the way a caller says a column out loud: `w.col` is the torch's
-  // leftmost (0-based) column, so the pair spans `w.col + 1` to `w.col + colSpan`.
+  // leftmost (0-based) column, so the pair spans `w.col + 1` to `w.col + span`.
+  // One column at a one-tile torch, and the line says so rather than naming a
+  // range of one.
   const lo = w.col + 1;
-  const hi = w.col + colSpan("torch");
-  return `TORCH · COLUMNS ${lo}-${hi} · CALL IT`;
+  const hi = w.col + w.span;
+  return lo === hi ? `TORCH · COLUMN ${lo} · CALL IT` : `TORCH · COLUMNS ${lo}-${hi} · CALL IT`;
 }

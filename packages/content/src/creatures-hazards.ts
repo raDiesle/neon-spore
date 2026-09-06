@@ -126,7 +126,7 @@ export const HAZARD_CREATURES: Record<HazardKind, CreatureDef> = {
     // only seat that can move the plate, is shown domes and no bolt at all.
     radar: "p1",
     blurb:
-      "A rock inside a dome of its own, coming in at the right wall and crossing the field to the left rather than falling — two lanes a beat, sinking two rows at each wall it turns at. Nothing touches it while the dome is on. Put the shield in its column and trigger, and the dome comes off wherever it is standing: what is left is a torch. But the charge does not go out with it — it jumps to another dome still standing, opens that one too and jumps again, until the field is bare. Only the pilot is shown which one is next.",
+      "A rock inside a dome of its own, coming in at the right wall and crossing the field to the left rather than falling — a lane a beat, sinking at each wall it turns at. Nothing touches it while the dome is on. The plate takes the dome off wherever it is standing, the instant the two share a column with the trigger open — and that is a price, not a move: the rock that is left runs for the wall furthest from the plate and comes down there, almost out of reach. The charge does not go out with it either; it jumps to another dome still standing, opens that one too and jumps again, until the field is bare. Only the pilot is shown which one is next. Author it **above** the rocks it shares a lane with, so the pair has to keep the shield out of its column while they still need it somewhere else.",
   },
   torch: {
     kind: "torch",
@@ -134,6 +134,6 @@ export const HAZARD_CREATURES: Record<HazardKind, CreatureDef> = {
     color: null,
     radar: "p1",
     blurb:
-      "Same rock, same colour as a meteor, just twice as wide and the fastest thing in the field. Cannot be shot — and it is what the queen carries on each wing. Shield across both columns, triggered at the right moment.",
+      "Same rock, same colour as a meteor, and the fastest thing in the field. Cannot be shot — and it is what the queen carries on each wing. Two tiles wide as it comes, so the shield has to cover both columns; SIZE narrows one to a single tile, which is also what a coil leaves behind when its dome comes off.",
   },
 };

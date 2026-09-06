@@ -145,11 +145,11 @@ export const SHORT_NOTE: Partial<Record<CreatureKind, string>> = {
   rind: "starts bigger, shrinks when shot",
   recoil: "a hit knocks it back up and flips its colour",
   carom: "bounces off the walls; shoot it, then ward the rock",
-  coil: "crosses right to left; ward one and the rest chain open",
+  coil: "crosses right to left; opening one costs the rock it leaves",
   chute: "what a cracked carom throws out — it goes up, then drifts back down",
   volley: "ward it three times, then shoot what hatches",
   gyre: "a wheel of six bodies; the maw slows it",
   lid: "p1 holds its cord open, p2 shoots the lens",
   veer: "a rock that steps a lane every 3 rows; only p1 sees which way",
-  torch: "p1 calls the column, p2 wards — the fastest rock",
+  torch: "p1 calls the column, p2 wards — the fastest rock; one or two tiles wide",
 };

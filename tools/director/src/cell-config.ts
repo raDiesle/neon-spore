@@ -1,14 +1,20 @@
 import type { WaveEntry } from "@neon-spore/content";
-import { PALETTE } from "@neon-spore/render";
 import { CRAWLER_SIDES, type CrawlerSide, type GhostPath, type RockSize } from "@neon-spore/sim";
 import { fenceCracksRow, fenceGapsRow } from "./cell-config-gaps.js";
 import {
+  beadLabel,
+  bodyRow,
+  choiceRow,
+  labelled,
+  pathLabel,
+  sideLabel,
+  sizeLabel,
+  speedLabel,
+} from "./cell-config-rows.js";
+import {
   authorsBody,
-  BODY_KINDS,
   beadCountOf,
-  bodyOf,
   CRAWLER_COUNTS,
-  colorForBody,
   crawlerCountOf,
   crawlerSideOf,
   GHOST_PATHS,
@@ -16,15 +22,14 @@ import {
   hasBeadCount,
   hasCrawlerFields,
   hasGhostPath,
+  hasRockWidth,
   isTieredRock,
   METEOR_SIZES,
   METEOR_SPEEDS,
-  type MeteorSpeed,
   meteorSize,
   meteorSpeed,
   STRAND_COUNTS,
   setBeadCount,
-  setBody,
   setCrawlerCount,
   setCrawlerSide,
   setGhostPath,
@@ -32,7 +37,6 @@ import {
   setMeteorSpeed,
 } from "./entry-fields.js";
 import { hasFenceGaps } from "./entry-fields-fence.js";
-import { silhouette } from "./silhouette.js";
 
 /**
  * The rows under the selected cell that configure the arrival in it: how fast
@@ -44,6 +48,11 @@ import { silhouette } from "./silhouette.js";
  * facts about *one arrival* rather than about a tool, so they belong to the
  * cell you are pointing at — see `entry-fields.ts` for the reading and the
  * writing, and `brushes.ts` for why the palette lost four buttons.
+ *
+ * **How a row is drawn is `cell-config-rows.ts`**, cut off this file when the
+ * torch got a width of its own and it reached its limit. The seam is the one
+ * the paragraph above describes: this half is which questions the arrival
+ * answers, and that half is every row made out of elements.
  *
  * Its own file rather than more of `cell-panel.ts` because the two answer
  * different questions: that one is what is in the cell and what can be done to
@@ -75,6 +84,13 @@ export function cellConfig({ entry, onEdit }: CellConfigOptions): HTMLElement | 
         onEdit();
       }),
     );
+  }
+  // The width, on its own test. It used to hang off the speed row's, and the
+  // two came apart the day the torch got one: a torch is not a tier and has no
+  // speed to set, and it is the one rock the game now leaves standing in a
+  // single column all by itself, when a coil's dome comes off (`sim/coil.ts`).
+  // So a torch draws SIZE and no SPEED, and every plain tier draws both.
+  if (hasRockWidth(e)) {
     rows.push(
       choiceRow("SIZE", METEOR_SIZES, meteorSize(e), sizeLabel, (size: RockSize) => {
         setMeteorSize(e, size);
@@ -149,98 +165,4 @@ export function cellConfig({ entry, onEdit }: CellConfigOptions): HTMLElement | 
   box.className = "cell-config";
   box.append(...rows);
   return box;
-}
-
-/** A rock's fall, said in the unit the pair actually say out loud: tiles a
- * beat, which is what the tier number *is* (`fallTilesPerBeat`). */
-function speedLabel(speed: MeteorSpeed): string {
-  return `×${speed}`;
-}
-
-/** The path a ghost takes, said the way the wave's guide says it: it falls,
- * or it goes across. */
-function pathLabel(path: GhostPath): string {
-  return path === "down" ? "DOWN" : "ACROSS";
-}
-
-/** How many bodies hang on the thread, or run along the worm. The bare
- * number: the label beside it already says what is being counted. */
-function beadLabel(beads: number): string {
-  return String(beads);
-}
-
-/** Which wall a worm comes over, said the way the wave's guide says it. */
-function sideLabel(side: CrawlerSide): string {
-  return side === "left" ? "LEFT" : "RIGHT";
-}
-
-/** One tile or the 2x2 square. The number is the width in tiles, so the label
- * says the shape rather than repeating it. */
-function sizeLabel(size: RockSize): string {
-  return size === 1 ? "1×1" : "2×2";
-}
-
-/**
- * The body behind a lure, a shell, a clasp or a dart, drawn as the two
- * silhouettes rather than as the two colour words. The author is choosing a
- * shape — the colour is only how the game names it (`setBody`) — and a red and
- * a cyan swatch side by side say nothing about which one is flat and wide.
- */
-function bodyRow(e: WaveEntry, onEdit: () => void): HTMLElement {
-  const current = bodyOf(e);
-  const row = labelled("BODY");
-  for (const body of BODY_KINDS) {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = current === body ? "chip on" : "chip";
-    button.dataset.body = body;
-    button.append(silhouette(body.toUpperCase(), bodyStroke(body), 20), text(body.toUpperCase()));
-    button.addEventListener("click", () => {
-      setBody(e, body);
-      onEdit();
-    });
-    row.appendChild(button);
-  }
-  return row;
-}
-
-/** The stroke a body's card is drawn in: its own colour, straight out of the
- * palette the game draws it with. */
-function bodyStroke(body: "slick" | "bulb"): string {
-  return colorForBody(body) === "red" ? PALETTE.red : PALETTE.cyan;
-}
-
-function choiceRow<T>(
-  label: string,
-  options: readonly T[],
-  current: T,
-  name: (value: T) => string,
-  pick: (value: T) => void,
-): HTMLElement {
-  const row = labelled(label);
-  for (const option of options) {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = option === current ? "chip on" : "chip";
-    button.textContent = name(option);
-    button.addEventListener("click", () => pick(option));
-    row.appendChild(button);
-  }
-  return row;
-}
-
-function labelled(label: string): HTMLElement {
-  const row = document.createElement("div");
-  row.className = "cell-row";
-  const name = document.createElement("span");
-  name.className = "cell-row-label";
-  name.textContent = label;
-  row.appendChild(name);
-  return row;
-}
-
-function text(value: string): HTMLElement {
-  const span = document.createElement("span");
-  span.textContent = value;
-  return span;
 }

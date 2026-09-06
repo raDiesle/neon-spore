@@ -10,7 +10,7 @@ import type { Wave } from "../wave-types.js";
  * no room left for three waves carrying guides, exactly as `act-5.ts` had none
  * for THE VEER, so this is where new waves land now.
  *
- * The four of them are one argument taken in four steps, and the order is
+ * The five of them are one argument taken in five steps, and the order is
  * the whole of it.
  *
  * 1. **THE MAGNET** takes the oldest habit in the game away — put the muzzle
@@ -21,20 +21,19 @@ import type { Wave } from "../wave-types.js";
  *    on the creature the game has already taught them not to shoot. Nothing
  *    new is on the field — every body here is one they know — and the only new
  *    thing is that firing is no longer something either of them decides.
- * 3. **THE TWITCH** is the other fault, and it is the only wave here that
- *    carries a body nobody has met. THE COIL is a rock in a dome that crosses
- *    the field, and the fault is what makes the pair meet it the right way
- *    round: the timing is taken out of their hands, so what is left to learn
- *    is where the plate goes and which dome the charge jumps to next.
- * 4. **THE CLAW** is the end of the same line, and the only wave here that is
- *    a **panel** rather than a rule. The two faults take a control away from a
- *    seat and hand it to the wave; this takes the gun away from player 1 and
- *    gives him a hand, moves the mouth to player 2, and shows the power-ups to
- *    her alone. Its one-sentence test is the one where the gun is a hand and
- *    the hand cannot see what it is reaching for, and everything else follows:
- *    the arm is committed once it leaves, so a sentence has to be finished
- *    before it does, and the power-ups cross sideways, so the column she names
- *    is not the column it will be in (`docs/spec/controls.md`).
+ * 3. **THE COIL** is the only wave here that carries a body nobody has met,
+ *    and it is played on the panel the pair already knows. A rock in a dome
+ *    crosses the field, nothing touches it while the dome is on, and the plate
+ *    standing under it with the trigger open takes the dome off — which is a
+ *    *price* and not a move, because the rock that comes out runs for the wall
+ *    furthest from the plate. So what the wave teaches is the trigger held
+ *    back, and that is a thing a pair can only learn while they still have it.
+ *
+ * The two after those are in `act-7b.ts`, and the seam is a real one rather
+ * than a page break: everything here is played on a panel the pair knows, and
+ * the last two are not. **THE TWITCH** is THE COIL again with the trigger
+ * stuck down, and **THE CLAW** is a whole panel of its own. That file's header
+ * carries both arguments.
  *
  * The prose about a wave lives **here, above the array**, and not beside the
  * entry it is about: `tools/director/src/serialize.ts` regenerates everything
@@ -91,42 +90,48 @@ import type { Wave } from "../wave-types.js";
  * 5. Beats 48–50, a last lure at one wall and a slick at the other.
  */
 /**
- * **THE TWITCH**, and the fault that gives with one hand and bills with the
- * other. The trigger has stuck down: the dome comes up over player 2's column
- * on every beat, with nobody asking and nobody able to stop it.
+ * **THE COIL, and the first wave in this game about a trigger nobody presses.**
+ * A rock inside a dome of its own comes in at the right wall and crosses to
+ * the left instead of falling, sinking at each wall it turns at. Nothing
+ * touches it while the dome is on, and the plate standing under it with the
+ * window open takes that dome off wherever it happens to be.
  *
- * That is why the wave is written on THE COIL. A rock the plate is standing
- * under is warded for free — player 2's job stops being timing and becomes
- * pure position. A coil the plate crosses is *opened* for free as well, on a
- * beat nobody chose, and the charge that was holding its dome shut jumps
- * straight to another one and opens that too. So the navigator's route across
- * the field is a schedule of work neither of them wrote, the pilot is the only
- * seat that can see which dome comes open next, and the only thing that can
- * hold any of it back is where player 2 decides to stand.
+ * **Opening one is a price, and that is the whole creature.** The rock left
+ * behind does not fall out of the dome where the dome stood: it runs for the
+ * wall furthest from the plate and comes down there, which is by construction
+ * as far as the plate could possibly have to travel. And the charge that was
+ * holding the dome shut jumps to another one still standing and opens that
+ * too, until the field is bare. So a pair that wards a rock with a dome
+ * overhead does not lose the rock — they lose the next four beats.
  *
- * **The creature and the fault teach each other, which is why they share a
- * wave.** A coil met on an ordinary panel is a body the pair chooses a moment
- * for: park the plate, wait for it to cross, trigger. That is the timing
- * lesson, and this wave deliberately does not give it — the fault has taken
- * the moment away and left only the geography and the order. What is left is
- * exactly the two things a coil is about: *where the plate is going*, and
- * *which dome is next*. The pair learns the creature by having no choice.
+ * What is left for them to do is therefore the one thing they have never had
+ * to do with the shield: **not use it yet**. The rock still has to be turned,
+ * the plate still has to be in its column, and the trigger has to find the
+ * beat when nothing else is over that column. That sentence needs two people
+ * because neither of them can see both halves of it: the domes are on player
+ * 2's screen and the charge jumping between them is on player 1's.
  *
- * 1. Beat 0, a rock alone, so the first thing they meet is the fault being
- *    plainly *useful*.
- * 2. Beat 10, one coil, on its own with nothing else on the field. It comes in
- *    at the right wall and crosses; whenever the plate happens to be in its
- *    column the dome goes, and a torch drops into the plate that opened it.
- *    One body, one bolt with nowhere to go, and the whole lesson in miniature.
- * 3. Beats 26–30, three coils at once, entering a wall apart. Now the bolt has
- *    somewhere to go: the first dome to fail throws the charge at one of the
- *    other two, and the pilot is the only one who can see which — so this is
- *    the first time the navigator has to be *told* a column rather than
- *    choosing one.
- * 4. Beats 48–52, four of them and a rock. There is no route across the field
- *    that does not open one, so the order the plate crosses them in is the
- *    only thing left to choose — and the rock at the end says whether the
- *    route was worth it.
+ * **Every rock here is authored under a coil that is already on the field**,
+ * which is the standing rule for this creature (`.claude/skills/new-wave`). A
+ * coil enters at the top and sinks a wall at a time; a rock falls a lane a
+ * beat. Author the rock first and it is on the ship before a dome is anywhere
+ * near its lane, and the wave is two creatures taking turns instead of one
+ * decision.
+ *
+ * 1. Beat 0, one rock alone, dead centre, with nothing else on the field. The
+ *    pair does the thing they have done since THE ROCK, one last time, on a
+ *    clear field.
+ * 2. Beat 10, one coil, on its own. There is nothing to ward and nothing to be
+ *    lost, so this is where they find out that nothing touches it, that it
+ *    crosses rather than falls, and that it is sinking all the same.
+ * 3. Beat 14, a rock two lanes off the coil's own wall, with the coil above
+ *    it. The first beat the trigger is a decision: the plate has to be under
+ *    the rock, and the beat it is pressed on has to be one no dome is over.
+ * 4. Beats 28–34, two coils and a faster rock between them. Now there is a
+ *    chain to lose — the first dome to open lights a second — so the cost of
+ *    getting the beat wrong stops being one body.
+ * 5. Beats 46–52, a last coil and two rocks two lanes apart. There is no beat
+ *    that is clear for both of them, and choosing which one to eat is the wave.
  */
 export const WAVES_ACT_7: Wave[] = [
   {
@@ -172,52 +177,24 @@ export const WAVES_ACT_7: Wave[] = [
     malfunction: { kind: "cannon", color: "alternating" },
   },
   {
-    id: "theTwitch",
-    name: "THE TWITCH",
-    sentence: "The one where opening one of them opens all of them, on a beat nobody chose.",
+    id: "theCoil",
+    name: "THE COIL",
+    sentence: "The one where the trigger waits for the lane above it to clear.",
     guide: {
-      both: "The trigger has stuck down: the dome comes up by itself over player 2's column on every beat, and nobody can stop it. New on the field is a rock inside a dome of its own. It comes in at the right wall and crosses to the left instead of falling, sinking two rows at every wall it turns at, and nothing touches it while the dome is on. The dome the plate passes under comes off — and the charge inside it jumps to another dome still standing and opens that one too. GUARD is dead on player 1's panel and stays dead.",
-      p1: "The bolt is on your screen and on nobody else's, so which dome opens next is yours to say. Call the column the moment it leaves — they have four beats. It is the only thing you can do this wave.",
-      p2: "Where the plate goes matters now, not when. Every dome you cross comes off and drops a torch, so be standing in the column they call before the rock is.",
+      both: "A rock inside a dome of its own. It comes in at the right wall and crosses the field to the left instead of falling, sinking at every wall it turns at, and nothing touches it while the dome is on. The plate takes a dome off the instant the two are in one column with the trigger open — and what comes out runs for the wall furthest from the plate and lands there, too far off to turn. Opening one throws its charge at another dome still standing, and that one opens too.",
+      p1: "The trigger is the only thing here you can get wrong. Before you press, ask what is over her column: a dome she stands under opens with the rock, and what it leaves is at the far wall. The charge is yours to call.",
+      p2: "The plate is yours and the domes are on your screen. Say your column and say what is crossing it — how many beats until it is clear. They cannot press while a dome is on you, so the count is the whole sentence.",
     },
     entries: [
       { beat: 0, col: 3, kind: "meteor", color: null },
       { beat: 10, col: 6, kind: "coil", color: null },
-      { beat: 26, col: 6, kind: "coil", color: null },
+      { beat: 14, col: 2, kind: "meteor", color: null },
       { beat: 28, col: 6, kind: "coil", color: null },
       { beat: 30, col: 6, kind: "coil", color: null },
-      { beat: 48, col: 6, kind: "coil", color: null },
-      { beat: 50, col: 6, kind: "coil", color: null },
-      { beat: 52, col: 6, kind: "coil", color: null },
-      { beat: 54, col: 6, kind: "coil", color: null },
-      { beat: 62, col: 0, kind: "meteorMedium", color: null },
+      { beat: 34, col: 4, kind: "meteorMedium", color: null },
+      { beat: 46, col: 6, kind: "coil", color: null },
+      { beat: 50, col: 1, kind: "meteor", color: null },
+      { beat: 52, col: 5, kind: "meteor", color: null },
     ],
-    malfunction: { kind: "shield" },
-  },
-  {
-    id: "theClaw",
-    name: "THE CLAW",
-    sentence: "The one where the gun is a hand, and the hand cannot see what it is reaching for.",
-    guide: {
-      both: "The cannon is an arm. It slides the way the cannon did and REACH sends it up its column — it closes on the first thing it meets, comes back, and nothing calls it home early, not even the strip. Power-ups cross the field sideways instead of hanging. A rock the arm closes on is not crushed: it is dropped, and it comes down like a torch.",
-      p1: "The arm is all you have: no trigger, no plate. Slide ahead of a power-up, not at it, and REACH — and never into a lane with a rock in it, because a rock you touch comes down at you like a torch.",
-      p2: "SUCK is the only thing you have, and nothing is caught without it: the arm brings a power-up down to the hull and it is yours only if your mouth is open when it lands. Count the arm down and open on it.",
-      scene: "theClaw",
-    },
-    entries: [
-      { beat: 4, col: 3, kind: "meteor", color: null },
-      { beat: 14, col: 1, kind: "meteor", color: null },
-      { beat: 24, col: 5, kind: "meteorMedium", color: null },
-      { beat: 36, col: 2, kind: "meteor", color: null },
-      { beat: 44, col: 4, kind: "meteor", color: null },
-      { beat: 54, col: 6, kind: "meteorMedium", color: null },
-    ],
-    pods: [
-      { beat: 2, col: 0, row: 4, kind: "mend", cross: 1 },
-      { beat: 18, col: 6, row: 6, kind: "ward", cross: -1 },
-      { beat: 34, col: 0, row: 3, kind: "purge", cross: 1, speed: 3 },
-      { beat: 50, col: 6, row: 5, kind: "mend", cross: -1 },
-    ],
-    controls: "claw",
   },
 ];

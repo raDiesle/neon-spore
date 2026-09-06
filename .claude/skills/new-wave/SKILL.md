@@ -66,6 +66,27 @@ A living creature's **kind is not written down** — the colour decides it
 (`kindForColor`). One kind is one colour and one silhouette, so a red one is a
 slick and a cyan one is a bulb; naming both would only let them disagree.
 
+## 2b. THE COIL is authored above the rocks it shares a wave with
+
+A standing rule the owner gave, and the only one of its kind: **a coil goes in
+the wave before any rock it is meant to be flying with.**
+
+A coil enters at the top and crosses sideways, sinking only at the walls, so it
+is on the field for most of a wave. A rock falls a lane a beat and is at the
+hull in a dozen. Author the rock first and it is warded and gone before a dome
+is anywhere near its column, and the wave is two creatures taking turns.
+
+The whole creature is the conflict between them. The plate has to be in the
+rock's column and the trigger has to find a beat when no dome is over it,
+because a dome the plate is under comes off — and what comes out of it runs for
+the wall furthest from the plate and lands there, out of reach
+(`packages/sim/src/coil.ts`). A wave where those two things never overlap has
+nothing for the pair to say to each other.
+
+Slowing the rock is the other half of the same lever: a `meteor` gives them
+several beats under a crossing dome to decide in, a `meteorFast` gives them
+one.
+
 ## 3. Variation before new material
 
 Reach for these before inventing a creature. Each one makes a known wave feel
