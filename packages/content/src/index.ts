@@ -39,6 +39,7 @@ export {
   type CrawlerSilhouette,
   crawlerOutline,
   crawlerPath,
+  crawlerPoints,
   crawlerSqueeze,
 } from "./crawler-shape.js";
 export {

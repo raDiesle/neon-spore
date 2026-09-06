@@ -22,11 +22,13 @@ import { CFG, installCanvasGlobals, runFrames } from "./frame-harness.js";
  * every ring (`crawler-skin.ts`), which is where the *alive* comes from and is
  * the dearest thing on this body.
  *
- * The Path2D count is the row worth watching: unlike the panel's sheet beside
- * it, it does **not** come down on the second frame, because every ring builds
- * its contour afresh every frame — `crawlerPath` returns a string that a
- * `Path2D` then parses (`content/crawler-shape.ts`). That is THE LID's
- * arrangement and it is cheap at one body; at nine rings it is nine of them.
+ * The Path2D count is the row worth watching, and it does **not** come down on
+ * the second frame the way the panel's sheet beside it does: every ring builds
+ * its contour afresh, because the squeeze that shapes it is a continuous clock
+ * and there is no key to cache one under. What the ring no longer pays is the
+ * round trip through text — `crawlerPoints` hands its outline to
+ * `spline.ts`, which writes the curve into the `Path2D` as numbers instead of
+ * formatting an SVG string for a parser to read back.
  *
  * **The marks cost twenty strokes and nine saves, and both were paid on
  * purpose** (`crawler-marks.ts`). `strokeGlow` is four strokes, so a crosshair

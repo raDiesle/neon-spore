@@ -116,10 +116,32 @@ export function crawlerSqueeze(beats: number, order: number, perLink = 0.22): nu
 }
 
 /**
- * The same outline as an SVG path string, centred on `cx`,`cy` and facing
- * `dir` — what a canvas and a sheet both stroke. `catmullRomToBezierPath`
- * rather than an `ellipse` call, so the shape the game draws and the shape the
- * sheet measures are one list of points and not two descriptions of one idea.
+ * The same outline placed on the field: centred on `cx`,`cy` and facing
+ * `dir`. What the canvas draws every frame — `render/src/spline.ts` walks
+ * these points straight into a `Path2D`, and a worm is up to nine rings of
+ * them at once, so nothing here is allowed to build a string.
+ */
+export function crawlerPoints(
+  cx: number,
+  cy: number,
+  rx: number,
+  ry: number,
+  taper: number,
+  pulse: number,
+  squeeze: number,
+  dir: 1 | -1 = 1,
+): Point[] {
+  return crawlerOutline(rx, ry, taper, pulse, squeeze).map((p) => ({
+    x: cx + p.x * dir,
+    y: cy + p.y,
+  }));
+}
+
+/**
+ * The same outline as an SVG path string — what a sheet strokes.
+ * `catmullRomToBezierPath` rather than an `ellipse` call, so the shape the game
+ * draws and the shape the sheet measures are one list of points and not two
+ * descriptions of one idea.
  */
 export function crawlerPath(
   cx: number,
@@ -131,9 +153,5 @@ export function crawlerPath(
   squeeze: number,
   dir: 1 | -1 = 1,
 ): string {
-  const pts = crawlerOutline(rx, ry, taper, pulse, squeeze).map((p) => ({
-    x: cx + p.x * dir,
-    y: cy + p.y,
-  }));
-  return catmullRomToBezierPath(pts);
+  return catmullRomToBezierPath(crawlerPoints(cx, cy, rx, ry, taper, pulse, squeeze, dir));
 }

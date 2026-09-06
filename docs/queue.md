@@ -119,33 +119,6 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 shim that shows what the new shape wants if it changed again.
 
 
-## A worm builds a path string per link per frame, and never caches one
-
-- **Found:** 2026-09-05, claude/crawler-enemy-design-ba0a00
-- **Taken:** 2026-09-06, claude/queue-a-worm-builds-a-path-string-per-link-per-frame-a
-- **Files:** `packages/content/src/crawler-shape.ts`, `packages/render/src/crawler.ts`,
-  `packages/render/test/crawler-budget.test.ts`
-
-`drawCrawlerLink` builds its contour by calling `crawlerPath`, which formats a
-28-point Catmull-Rom curve into an SVG path **string** and hands it to
-`new Path2D(...)` to be parsed again. That is THE LID's arrangement and it is
-cheap at one body; a worm is up to nine of them at once, every frame, and
-`crawler-budget.test.ts` is the receipt — the `new Path2D` count is the one
-number in that file that does *not* come down on the second frame, unlike the
-panel's sheet beside it.
-
-The shape only depends on the squeeze, which is one of a small number of
-positions on a cycle the whole body shares. So the fix is `baked.ts`'s: a cache
-keyed on the quantised squeeze and the tile size, the way `haloSprite` is keyed
-on a colour and a radius. Quantising a time is a **visible** change by
-`.claude/skills/render-perf`'s own rule, so this has to be proved with the
-ordered log rather than the tally: if the diff is not empty, it is an
-alternative for `tools/versus/` and not a landing.
-
-`bun run check` proves the half that matters here — the budget rows in
-`crawler-budget.test.ts` come down and `packages/render/test/crawler-frame.test.ts`
-still draws.
-
 ## The op-count budget weighs one quiet wave; the five expensive ones have none
 
 - **Found:** 2026-09-03, claude/game-performance-mobile-analysis-cd4207

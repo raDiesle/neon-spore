@@ -1,4 +1,4 @@
-import { CRAWLER, crawlerPath, crawlerSqueeze } from "@neon-spore/content";
+import { CRAWLER, crawlerPoints, crawlerSqueeze } from "@neon-spore/content";
 import {
   type Color,
   type Creature,
@@ -17,6 +17,7 @@ import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { PLATE, PLATE_RIM } from "./shell-plate.js";
+import { splinePath } from "./spline.js";
 
 /**
  * THE CRAWLER, drawn — a maggot lying along the ship's surface, its rings
@@ -139,7 +140,10 @@ function drawLink(
   const rx = l.tile * CRAWLER.rx * UNIT * part.rx;
   const ry = l.tile * CRAWLER.ry * UNIT * part.ry;
   const taper = CRAWLER.taper * part.taper;
-  const body = new Path2D(crawlerPath(x, y, rx, ry, taper, CRAWLER.pulse, squeeze, dir));
+  // Points into a `Path2D`, never the string form: nine rings a frame, each
+  // one rebuilt every frame because the squeeze is a continuous clock
+  // (`spline.ts`).
+  const body = splinePath(crawlerPoints(x, y, rx, ry, taper, CRAWLER.pulse, squeeze, dir), true);
   ctx.fillStyle = fill;
   ctx.fill(body);
   drawSlime(ctx, body, x, y, rx * (1 - CRAWLER.pulse * squeeze), ry, dir, squeeze);
