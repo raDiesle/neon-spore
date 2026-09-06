@@ -122,6 +122,7 @@ shim that shows what the new shape wants if it changed again.
 ## THE GHOST is the dearest frame in the game, and it is dearer on one seat
 
 - **Found:** 2026-09-03, claude/game-performance-mobile-analysis-cd4207
+- **Taken:** 2026-09-06, claude/queue-the-ghost-is-the-dearest-frame-in-the-game-and-i
 - **Files:** `packages/render/src/ghost-trail.ts`, `packages/render/src/ghost-row.ts`, `packages/render/src/ghost-eyes.ts`, `packages/render/src/ghost.ts`, `packages/render/src/ghost-glitch.ts`, `packages/render/src/ghost-release.ts`
 
 Wave 32 costs 7.06 ms per paint at 4x CPU throttle and 12.45 ms at 6x
