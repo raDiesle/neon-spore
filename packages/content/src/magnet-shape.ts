@@ -52,10 +52,12 @@ export interface MagnetShape {
 /**
  * The shipped horseshoe.
  *
- * `gapTurn` 0.1 is 36° either side of straight down, which stands the poles
- * 0.59 of a radius apart and leaves an opening the plate can plainly be seen
- * *through* — the whole of what the pair has to read off this body is that
- * there is a way in from the side and none from below.
+ * `gapTurn` 0.14 is 50° either side of straight down: a hundred degrees of
+ * opening, which is what it takes for the gap to read as a *mouth* rather than
+ * as a ring with a nick in it at forty pixels. The first drawing was 36° and
+ * came out as a closed hoop with two chips of colour in it — and the whole of
+ * what the pair has to read off this body is that there is a way in from the
+ * side and none from below.
  *
  * `plateHalf` is wider than the poles stand and `plateDrop` puts it a fifth of
  * a radius below their tips, so the two are never confused for one shape. A
@@ -63,13 +65,13 @@ export interface MagnetShape {
  */
 export const MAGNET_SHAPE: MagnetShape = {
   outer: 1,
-  inner: 0.46,
-  gapTurn: 0.1,
-  poleTurn: 0.085,
+  inner: 0.44,
+  gapTurn: 0.14,
+  poleTurn: 0.11,
   plateHalf: 0.92,
   plateThick: 0.13,
-  staffHalf: 0.14,
-  plateDrop: 1.06,
+  staffHalf: 0.1,
+  plateDrop: 1.12,
 };
 
 /**

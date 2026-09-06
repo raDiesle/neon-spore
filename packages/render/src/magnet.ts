@@ -109,6 +109,14 @@ export function magnetPlatePath(r: number, s: MagnetShape = MAGNET_SHAPE): Path2
   // the two overlap instead of touching.
   const top = -r * (s.outer + s.inner) * 0.5;
   p.rect(-r * s.staffHalf, top, r * s.staffHalf * 2, r * s.plateDrop - top);
+  p.addPath(magnetSlabPath(r, s));
+  return p;
+}
+
+/** The plate alone, without the staff it hangs on — the half that is armour,
+ * and the only edge on this body drawn in hard white. */
+export function magnetSlabPath(r: number, s: MagnetShape = MAGNET_SHAPE): Path2D {
+  const p = new Path2D();
   p.roundRect(
     -r * s.plateHalf,
     r * (s.plateDrop - s.plateThick),
@@ -138,6 +146,13 @@ function drawMagnet(d: MagnetDraw): void {
   // draw the same body at the same angle (`content/own-motion.ts`).
   ctx.rotate(Math.sin((beats / HANG_BEATS + c.id * 0.37) * TURN) * HANG);
 
+  // The staff and the plate go down **first**, so the arch is drawn over the
+  // top of the staff rather than the staff across the arch. They are one mass
+  // either way — the staff is rooted inside the crown — but a bright bar laid
+  // over the body reads as a pillar standing in front of it, which is the one
+  // thing this creature must not look like.
+  drawPlate(d, r, s, struck);
+
   // The arch, dark and matte: it carries no colour of its own, because both of
   // the colours it carries are on the ends.
   const arch = magnetArchPath(r);
@@ -149,7 +164,6 @@ function drawMagnet(d: MagnetDraw): void {
 
   drawPole(d, r, true);
   drawPole(d, r, false);
-  drawPlate(d, r, s, struck);
   ctx.restore();
 }
 
@@ -181,9 +195,15 @@ function drawPlate(d: MagnetDraw, r: number, s: MagnetShape, struck: number): vo
   const path = magnetPlatePath(r, s);
   ctx.fillStyle = haze(PALETTE.rockDark);
   ctx.fill(path);
+  // The staff is the body's own dim and the plate's edge is hard rock white:
+  // one of these two is a limb and the other is armour, and the line weight is
+  // where a glance is told which.
+  ctx.lineWidth = STROKE.inner;
+  ctx.strokeStyle = haze(PALETTE.dim);
+  ctx.stroke(path);
   ctx.lineWidth = STROKE.outline;
   ctx.strokeStyle = haze(PALETTE.rock);
-  ctx.stroke(path);
+  ctx.stroke(magnetSlabPath(r, s));
   // A shot that came straight up and went nowhere. It is drawn on the plate
   // rather than over the body for the reason the plate exists: what refused
   // the bolt is one edge of this creature, and a flash over the whole of it

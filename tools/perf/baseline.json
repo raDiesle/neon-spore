@@ -484,14 +484,14 @@
       "name": "THE MAGNET",
       "bodies": 3,
       "arrivals": "7:2ee2243d",
-      "typical": 3.97,
-      "mean": 4.14,
-      "p90": 5.38,
-      "jitter": 0.203,
+      "typical": 3.9,
+      "mean": 3.99,
+      "p90": 5,
+      "jitter": 0.087,
       "mergedFrom": {
         "measuredAt": "2026-09-06",
-        "commit": "69c8de82f9ff19a7127d611e5f438ad31e7b935d",
-        "scale": 1.32
+        "commit": "6b9b93dc7523bca9762dfff4db783a5821abf36b",
+        "scale": 1.3
       }
     },
     {
