@@ -1,21 +1,15 @@
 import { describe, expect, it } from "bun:test";
-import { WAVES } from "@neon-spore/content";
-import baseline from "../baseline.json" with { type: "json" };
+import { arrivalsOf } from "../arrivals.js";
 import {
   budgetPct,
-  comparable,
   compareRuns,
-  DRIFT_MIN_WAVES,
-  driftIsMeasurable,
   FRAME_MS,
-  medianMs,
-  NOISE_PCT,
   type Run,
   shapeOf,
   verdictFor,
   type WaveCost,
 } from "../compare.js";
-import { waveName } from "../measure.js";
+import { comparable, DRIFT_MIN_WAVES, driftIsMeasurable, NOISE_PCT } from "../noise.js";
 
 /**
  * The half of `bun run perf` that has no browser in it: what a run is, and what
@@ -181,28 +175,17 @@ describe("two runs side by side", () => {
   });
 });
 
-describe("the checked-in baseline", () => {
-  const saved = baseline as Run;
-
-  it("covers every wave the game ships, by the name the game gives it", () => {
-    expect(saved.waves).toHaveLength(WAVES.length);
-    for (const [index, cost] of saved.waves.entries()) {
-      expect(cost.wave, `wave ${index + 1} is in play order`).toBe(index + 1);
-      expect(cost.name, `wave ${index + 1}'s name`).toBe(waveName(index));
-    }
+describe("what a wave sends", () => {
+  it("changes its digest when an entry does, and holds still when nothing does", () => {
+    expect(arrivalsOf(0)).toBe(arrivalsOf(0));
+    expect(arrivalsOf(0)).not.toBe(arrivalsOf(1));
+    // The count is readable on its own, ahead of the colon, so a diff of the
+    // baseline says how many bodies a row was measuring without running anything.
+    expect(arrivalsOf(0)).toMatch(/^\d+:[0-9a-f]+$/);
   });
 
-  it("was taken at the settings the tool defaults to, or it cannot be compared", () => {
-    expect(saved.throttle).toBe(4);
-    expect(saved.viewport).toEqual({ width: 390, height: 844, dpr: 2 });
-    expect(saved.commit).toMatch(/^[0-9a-f]{40}$/);
-    expect(saved.measuredAt).toMatch(/^\d{4}-\d{2}-\d{2}$/);
-  });
-
-  it("is a game that fits in a frame — no wave over budget when it was taken", () => {
-    const over = saved.waves.filter((w: WaveCost) => verdictFor(w.p90) !== "fine");
-    expect(over.map((w: WaveCost) => `${w.name} ${w.p90}ms`)).toEqual([]);
-    expect(medianMs(saved)).toBeLessThan(FRAME_MS / 2);
+  it("answers for a wave the game does not have rather than throwing", () => {
+    expect(arrivalsOf(9_999)).toBe("0:0");
   });
 });
 

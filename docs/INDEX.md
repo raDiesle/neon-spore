@@ -1084,5 +1084,7 @@ place — the generator keeps whatever is there.
 | `tools/perf/waves.ts` | which waves a run covers, from `--wave` to a list of indices |
 | `tools/director/src/entry-fields-fence.ts` | **Where a fence is open**, read and written on one arrival |
 | `tools/perf/say.ts` | what a run looks like when it is printed — the table, the summary, the comparison |
+| `tools/perf/arrivals.ts` | WHAT A WAVE SENDS, in one short string a stale baseline row can be caught by |
+| `tools/perf/noise.ts` | WHEN A MEASUREMENT CAN BE TRUSTED, and by how much it has to move before anybody is told about it |
 
 <!-- index:code:end -->

@@ -105,7 +105,16 @@ or the two-device link, which have their own check in `bun run relay:check`.
 `tools/perf/baseline.json` is the last run somebody meant to keep. A later run
 prints the delta against it, worst first.
 
-Timing a browser is noisy, and four separate defences are stacked against it —
+Every row also records **what the wave sent when it was measured** — a count and
+a digest of the spawn queue its entries translate into (`arrivalsOf`). The name
+already caught a wave renamed or one inserted ahead of it; this catches the far
+commoner thing, a wave whose arrivals changed under a name that still matched.
+THE FENCE gained two figures and kept the timings that went with the old two,
+and every comparison after that was against a wave that no longer existed.
+`tools/perf/test/baseline.test.ts` fails those rows by name and asks for *those*
+waves to be re-measured rather than the whole game.
+
+Timing a browser is noisy, and five separate defences are stacked against it —
 each one added because the version without it reported a regression in code
 nobody had touched:
 
@@ -137,14 +146,41 @@ nobody had touched:
   under. A pause between them stretches the sample to about two seconds. This
   one alone took the number of falsely flagged waves from ten to two.
 
-**What is left is a floor of about 20%, and that is the honest limit of this
-tool.** Two runs of an identical commit still disagree about a wave or two,
-usually the very cheapest ones, where a tenth of a millisecond is a third of the
-figure. It catches a shape that costs substantially more — which is what a new
-creature or a new animation does, and what it exists to be run for. It will not
-catch a 15% drift, and should not be read as if it could;
-`packages/render/test/frame-budget.test.ts` is the exact guard, because an op
-count has no variance at all.
+- **A floor of the wave's own, not one number for all of them.** 20% is the
+  flat minimum, and it was still not enough: six full sweeps of one commit on
+  6 September 2026, on an idle desk with nothing else running, named two waves
+  apiece that nobody had touched. On top of it each wave has to clear one and a
+  half times its **own** unsteadiness — `jitter`, the interquartile spread of
+  the thirty batches it was timed over, which every run now records. That takes
+  282 wave-pairs of identical code from six wrongly named waves to none, and it
+  leaves 23 of the 47 waves on the flat 20%, so the tool is no blunter where it
+  was already right. It is a floor and not a cure: two later sweeps of the same
+  commit each still named two waves, and never the same two — so a lone `WORSE`
+  on a wave a lane never went near is worth one more run before it is worth an
+  afternoon. A wave whose sample spread
+  past half its own median gets no verdict at all and is printed as `NOISY`:
+  PINBALL's floor would come out at 2400%, and reporting `same` about a wave
+  nothing could move past is the quiet version of the same lie.
+
+**Two things that sound right and are not**, both measured the same day and
+written down here so nobody spends the afternoon again. **A floor that scales
+with how cheap a wave is** scales on the wrong axis — the two cheapest waves in
+the game held still, and the swings landed on ordinary 4 ms waves. **An absolute
+millisecond gate** says nothing a share does not: every run's median is about
+4 ms, so "more than 20% of its share" and "more than 0.8 ms" are the same
+sentence twice. And **a flat floor high enough to silence the swings is 35%**,
+which is more than a whole new creature costs — THE CRAWLER is about 25% over a
+bare wave — so the tool would have gone quiet about the one thing it exists to
+catch.
+
+**What is left is a floor between 20% and about 50% depending on the wave, and
+that is the honest limit of this tool.** It catches a shape that costs
+substantially more — which is what a new creature or a new animation does, and
+what it exists to be run for. It will not catch a 15% drift, and should not be
+read as if it could; `packages/render/test/frame-budget.test.ts` is the exact
+guard, because an op count has no variance at all.
+`tools/perf/test/two-quiet-runs.json` holds the two sweeps those numbers came
+off, so the floor cannot be lowered again without the evidence coming back.
 
 The milliseconds are still printed, because a reader wants them. They are just
 not what `worse` and `better` are decided on, and a run whose median moved says
@@ -156,21 +192,21 @@ more than 25% away from the baseline's machine, or taken at a different throttle
 or size, says its milliseconds are for reading rather than comparing. The shares
 still compare, which is the point of using them.
 
-## The statistics, as of 3 September 2026
+## The statistics, as of 6 September 2026
 
 Measured at 4x on the owner's Windows machine; `tools/perf/baseline.json` names
 the exact commit and carries every wave's row. One 60 Hz frame is 16.7 ms.
 
 | | ms per paint |
 |---|---|
-| Median wave | 2.62 |
-| Cheapest — THE GAUGE, whose round has no field and no hull | 0.24 |
-| Dearest — THE GHOST | 5.77 |
-| Worst 90th percentile — THE GHOST | 6.78 |
+| Median wave | 3.89 |
+| Cheapest — THE GAUGE, whose round has no field and no hull | 0.23 |
+| Dearest — THE GHOST | 8.35 |
+| Worst 90th percentile — THE GHOST | 9.63 |
 
-Nothing is close to a full frame; the worst wave in the game spends about 40% of
+Nothing is close to a full frame; the worst wave in the game spends about 58% of
 one. The floor matters more than the ceiling: wave 1, with a single body on the
-field, still costs 2.55 ms because the hull is always there, and the dearest
+field, still costs 3.18 ms because the hull is always there, and the dearest
 wave is only about twice that. **Adding enemies barely moves the number; the
 ship does not go away.**
 

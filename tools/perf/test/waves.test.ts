@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { WAVES } from "@neon-spore/content";
-import { DRIFT_MIN_WAVES } from "../compare.js";
 import { waveName } from "../measure.js";
+import { DRIFT_MIN_WAVES } from "../noise.js";
 import { REFERENCE_WAVE_IDS, referenceWaves, wavesAsked, withReferences } from "../waves.js";
 
 /**

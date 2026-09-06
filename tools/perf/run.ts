@@ -2,8 +2,9 @@ import { WAVES } from "@neon-spore/content";
 import { chromium } from "playwright-core";
 import { findChrome } from "../frames/chrome.js";
 import { git, root, startPreview } from "../frames/serve.js";
-import { DEFAULT_THROTTLE, DRIFT_MIN_WAVES, type Run } from "./compare.js";
+import { DEFAULT_THROTTLE, type Run } from "./compare.js";
 import { assemble, calibrate, sweep } from "./measure.js";
+import { DRIFT_MIN_WAVES } from "./noise.js";
 import { printComparison, printRun, printSummary } from "./say.js";
 import { wavesAsked, withReferences } from "./waves.js";
 

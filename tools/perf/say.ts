@@ -1,16 +1,13 @@
 import {
   budgetPct,
-  comparable,
   compareRuns,
-  DRIFT_MIN_WAVES,
-  driftIsMeasurable,
   FRAME_MS,
   medianMs,
-  NOISE_PCT,
   type Run,
   verdictFor,
   type WaveCost,
 } from "./compare.js";
+import { comparable, DRIFT_MIN_WAVES, driftIsMeasurable, NOISE_PCT } from "./noise.js";
 
 /**
  * WHAT A RUN LOOKS LIKE WHEN IT IS PRINTED.
@@ -111,6 +108,9 @@ export function printComparison(before: Run, after: Run, carried: ReadonlySet<nu
   const worse = deltas.filter((d) => d.verdict === "worse");
   const better = deltas.filter((d) => d.verdict === "better");
   const fresh = deltas.filter((d) => d.verdict === "new");
+  // A wave whose own sample was all over the place gets its milliseconds and
+  // says so, rather than a `same` nothing could ever have moved past.
+  const noisy = deltas.filter((d) => d.verdict === "noisy");
 
   // **A reference wave with a verdict is a broken run, not a finding.** Nothing
   // the lane did can have reached one — that is the whole reason they are
@@ -132,6 +132,12 @@ export function printComparison(before: Run, after: Run, carried: ReadonlySet<nu
           `(typical paint ${d.before.toFixed(2)} -> ${d.after.toFixed(2)} ms)`;
     console.log(
       `  ${d.verdict.toUpperCase().padEnd(7)} ${String(d.wave).padStart(2)} ${d.name.padEnd(20)} ${change}`,
+    );
+  }
+  for (const d of noisy) {
+    console.log(
+      `  NOISY   ${String(d.wave).padStart(2)} ${d.name.padEnd(20)} its own sample was too ` +
+        `unsteady to compare — ${d.before.toFixed(2)} -> ${d.after.toFixed(2)} ms, read them yourself`,
     );
   }
   if (worse.length === 0 && fresh.length === 0) console.log("  nothing got dearer.");

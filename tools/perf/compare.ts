@@ -1,3 +1,5 @@
+import { JITTER_UNUSABLE, NOISE_PCT, noiseFloorFor } from "./noise.js";
+
 /**
  * What a performance run *is*, and what two of them say when held side by side.
  *
@@ -18,55 +20,21 @@ export const FRAME_MS = 16.7;
  */
 export const DEFAULT_THROTTLE = 4;
 
-/**
- * A change smaller than this is noise, not a regression — applied to a wave's
- * **share** of its run's median rather than to its milliseconds.
- *
- * **20 is a measured number, not a chosen one, and it is the honest limit of
- * this tool.** Repeated runs of an identical commit on one quiet desk, with
- * every defence below in place — the median batch rather than the mean or the
- * minimum, each wave normalised against its own run, and the game's clock held
- * still so the animations pose identically — still moved individual waves by up
- * to 19%. Set lower, the tool reports a regression every time it is run.
- *
- * So this catches a shape that costs *substantially* more, which is what a new
- * creature or a new animation does and what `CLAUDE.md` asks it to be run for.
- * It is not a fine instrument, and it should not be read as one: a real 15%
- * regression will pass through it unremarked. `packages/render/test/frame-budget.test.ts`
- * is the exact guard, because an op count has no variance at all.
- */
-export const NOISE_PCT = 20;
-
-/**
- * The fewest waves a run needs before its median carries the machine's drift
- * rather than the change being looked for. A run of one wave has a median that
- * *is* that wave, so dividing by it cancels the very thing the run was taken to
- * see and every verdict comes out `same` — and the ordinary run is a narrow one
- * now, since a lane that adds a creature measures the waves it appears in.
- */
-export const DRIFT_MIN_WAVES = 5;
-
-/** Whether a run has enough waves for `compareRuns`' verdicts to mean anything.
- * Here so the rule is one number in one file that a test can hold; what a
- * caller does about a `false` is its own business. */
-export function driftIsMeasurable(run: Run): boolean {
-  return run.waves.length >= DRIFT_MIN_WAVES;
-}
-
-/**
- * Two machines whose calibration differs by more than this cannot have their
- * millisecond figures compared at all — only their shapes. The owner alternates
- * between a Windows box and a Mac (`docs/cloud-session.md` adds a third), and a
- * baseline taken on one of them is not a fact about the others.
- */
-export const CALIBRATION_TOLERANCE_PCT = 25;
-
 export interface WaveCost {
   /** 1-based, the number a player would say. */
   wave: number;
   name: string;
   /** Creatures on the field at the tick this was measured. */
   bodies: number;
+  /**
+   * What the wave sent when this row was measured — `arrivalsOf`'s count and
+   * digest of its spawn queue. The name above catches a wave renamed or
+   * inserted; this catches a wave whose *arrivals* changed under a name that
+   * still matches, which is the way a row actually goes stale. A row written
+   * before this field existed has none, and is read as stale for the same
+   * reason: nothing can say what it was measuring.
+   */
+  arrivals?: string;
   /**
    * The middle batch of the sample, per paint — and what two runs are compared
    * on, rather than `mean`.
@@ -85,6 +53,12 @@ export interface WaveCost {
   mean: number;
   /** The slow ones — the 90th percentile of the same sample. */
   p90: number;
+  /**
+   * How unsteady the sample was — its interquartile spread over its median,
+   * so 0.1 is "the middle half of the batches lay within a tenth of the
+   * middle one". A row written before this existed has none.
+   */
+  jitter?: number;
 }
 
 export interface Run {
@@ -114,16 +88,9 @@ export interface WaveDelta {
   after: number;
   /** Positive is worse. */
   changePct: number;
-  verdict: "worse" | "better" | "same" | "new";
-}
-
-/** Whether two runs' milliseconds mean the same thing. */
-export function comparable(before: Run, after: Run): boolean {
-  if (before.throttle !== after.throttle) return false;
-  if (before.viewport.dpr !== after.viewport.dpr) return false;
-  if (before.viewport.width !== after.viewport.width) return false;
-  const drift = Math.abs(after.calibration - before.calibration) / before.calibration;
-  return drift * 100 <= CALIBRATION_TOLERANCE_PCT;
+  /** What this wave had to clear to earn a verdict — `noiseFloorFor`. */
+  floorPct: number;
+  verdict: "worse" | "better" | "same" | "new" | "noisy";
 }
 
 /**
@@ -145,6 +112,12 @@ export function comparable(before: Run, after: Run): boolean {
  * A wave the baseline has never seen is `new` rather than a regression: adding
  * a wave is not making one slower, and the point of this tool is that the new
  * shape gets a number of its own rather than a verdict it cannot earn.
+ *
+ * The floor each wave has to clear is its own (`noiseFloorFor`), because a flat
+ * one was still naming waves nobody had touched. A wave whose sample was too
+ * unsteady to compare at all is `noisy`, which is a thing worth saying out loud
+ * — reporting `same` about a wave nothing could ever move past is the quiet
+ * version of the same lie.
  */
 export function compareRuns(before: Run, after: Run): WaveDelta[] {
   const was = new Map(before.waves.map((w) => [w.wave, w]));
@@ -183,18 +156,34 @@ export function compareRuns(before: Run, after: Run): WaveDelta[] {
         before: then?.typical ?? 0,
         after: now.typical,
         changePct: 0,
+        floorPct: NOISE_PCT,
         verdict: "new",
       });
       continue;
     }
     const changePct = ((nowShare - thenShare) / thenShare) * 100;
-    const verdict = changePct > NOISE_PCT ? "worse" : changePct < -NOISE_PCT ? "better" : "same";
+    // **The unsteadier of the two samples decides the floor.** A wave that was
+    // solid when the baseline was taken and all over the place today is exactly
+    // as uncomparable as the other way round, and taking the smaller of the two
+    // would let whichever run happened to be calm license a verdict the other
+    // cannot support.
+    const jitter = Math.max(then.jitter ?? 0, now.jitter ?? 0);
+    const floorPct = noiseFloorFor(jitter);
+    const verdict =
+      jitter > JITTER_UNUSABLE
+        ? "noisy"
+        : changePct > floorPct
+          ? "worse"
+          : changePct < -floorPct
+            ? "better"
+            : "same";
     out.push({
       wave: now.wave,
       name: now.name,
       before: then.typical,
       after: now.typical,
       changePct,
+      floorPct,
       verdict,
     });
   }

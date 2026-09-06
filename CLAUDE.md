@@ -125,7 +125,9 @@ each is where it is: `docs/queue.md`'s own preamble.
 **A technical finding is always written down, in the same turn it is found.**
 A refactor stepped around, a rule re-derived instead of called, a file grown
 past ~250 lines, dead code, a slow path, a missing test, a document that no
-longer describes the code, a tool that would have helped. It goes in
+longer describes the code, a tool that would have helped, **a command that
+failed and was worked around** — the retry costs every later session the same
+tokens. It goes in
 `docs/queue.md` as one `##` item — the date, the branch, the files, and what to
 do — committed with the work that found it. Do not ask first, do not weigh
 whether it is worth the owner's attention, do not settle for saying it in the

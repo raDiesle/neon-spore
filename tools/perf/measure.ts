@@ -1,6 +1,7 @@
 import { WAVES } from "@neon-spore/content";
 import type { Page } from "playwright-core";
 import { clearOpening } from "../frames/opening.js";
+import { arrivalsOf } from "./arrivals.js";
 import type { Run, WaveCost } from "./compare.js";
 
 /**
@@ -132,7 +133,7 @@ export async function toPeak(page: Page, waveIndex: number): Promise<number> {
  */
 export async function timePaints(
   page: Page,
-): Promise<{ typical: number; mean: number; p90: number }> {
+): Promise<{ typical: number; mean: number; p90: number; jitter: number }> {
   return page.evaluate(
     async ([samples, batch, warmup, ticks, frameMs, gapMs]) => {
       const ns = window.neonSpore;
@@ -179,7 +180,13 @@ export async function timePaints(
       }
       const sorted = [...taken].sort((a, b) => a - b);
       const mean = taken.reduce((sum, v) => sum + v, 0) / taken.length;
+      const at = (q: number) => sorted[Math.floor(sorted.length * q)] as number;
+      const middle = at(0.5);
       return {
+        // How unsteady this wave's own sample was: the interquartile spread of
+        // the batches, as a fraction of the middle one. `WaveCost.jitter` says
+        // what it is for.
+        jitter: middle === 0 ? 0 : (at(0.75) - at(0.25)) / middle,
         // The middle batch, per paint. `WaveCost.typical` says why the middle
         // and not the cheapest.
         typical: sorted[Math.floor(sorted.length / 2)] as number,
@@ -213,15 +220,17 @@ export async function sweep(
   const out: WaveCost[] = [];
   for (const index of only) {
     const bodies = await toPeak(page, index);
-    const { typical, mean, p90 } = await timePaints(page);
+    const { typical, mean, p90, jitter } = await timePaints(page);
     const round = (v: number): number => Math.round(v * 100) / 100;
     const cost: WaveCost = {
       wave: index + 1,
       name: waveName(index),
       bodies,
+      arrivals: arrivalsOf(index),
       typical: round(typical),
       mean: round(mean),
       p90: round(p90),
+      jitter: Math.round(jitter * 1000) / 1000,
     };
     out.push(cost);
     onWave?.(cost);

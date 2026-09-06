@@ -1,389 +1,483 @@
 {
   "measuredAt": "2026-09-06",
-  "commit": "13e78bad03229783e666e8ff3651433408ca6533",
+  "commit": "b1085619cc673797f7aa521fef53cc3b247126e9",
   "throttle": 4,
   "viewport": {
     "width": 390,
     "height": 844,
     "dpr": 2
   },
-  "calibration": 43042,
+  "calibration": 42254,
   "waves": [
     {
       "wave": 1,
       "name": "FIRST STEP",
       "bodies": 1,
-      "typical": 2.94,
-      "mean": 2.81,
-      "p90": 3.31
+      "arrivals": "1:b34c00c5",
+      "typical": 3.26,
+      "mean": 3.18,
+      "p90": 3.96,
+      "jitter": 0.264
     },
     {
       "wave": 2,
       "name": "CYAN",
       "bodies": 2,
-      "typical": 3.38,
-      "mean": 3.42,
-      "p90": 4.03
+      "arrivals": "2:8b9b604",
+      "typical": 3.56,
+      "mean": 3.61,
+      "p90": 4.19,
+      "jitter": 0.102
     },
     {
       "wave": 3,
       "name": "TWO COLOURS",
       "bodies": 2,
-      "typical": 3.17,
-      "mean": 3.23,
-      "p90": 3.68
+      "arrivals": "2:4c63cdb1",
+      "typical": 3.4,
+      "mean": 3.44,
+      "p90": 3.7,
+      "jitter": 0.081
     },
     {
       "wave": 4,
       "name": "ALTERNATING",
       "bodies": 3,
-      "typical": 3.21,
-      "mean": 3.27,
-      "p90": 3.95
+      "arrivals": "3:dc76010a",
+      "typical": 3.56,
+      "mean": 3.55,
+      "p90": 3.89,
+      "jitter": 0.105
     },
     {
       "wave": 5,
       "name": "THE ROCK",
       "bodies": 1,
-      "typical": 3.57,
-      "mean": 3.38,
-      "p90": 4
+      "arrivals": "1:b488ef6",
+      "typical": 2.91,
+      "mean": 2.93,
+      "p90": 3.2,
+      "jitter": 0.086
     },
     {
       "wave": 6,
       "name": "TWO ROCKS",
       "bodies": 2,
-      "typical": 2.84,
-      "mean": 2.88,
-      "p90": 3.53
+      "arrivals": "2:f0f61b00",
+      "typical": 3.03,
+      "mean": 3.02,
+      "p90": 3.35,
+      "jitter": 0.083
     },
     {
       "wave": 7,
       "name": "THE HAND",
       "bodies": 3,
-      "typical": 2.9,
-      "mean": 2.92,
-      "p90": 3.28
+      "arrivals": "3:b222b0e2",
+      "typical": 3,
+      "mean": 3.07,
+      "p90": 3.36,
+      "jitter": 0.121
     },
     {
       "wave": 8,
       "name": "TORCH",
       "bodies": 1,
-      "typical": 3.44,
-      "mean": 3.42,
-      "p90": 3.68
+      "arrivals": "3:627a6e9c",
+      "typical": 3.69,
+      "mean": 3.77,
+      "p90": 4.13,
+      "jitter": 0.095
     },
     {
       "wave": 9,
       "name": "SHIELD, THEN CANNON",
       "bodies": 2,
-      "typical": 3.07,
-      "mean": 3.09,
-      "p90": 3.74
+      "arrivals": "2:ef515827",
+      "typical": 3.42,
+      "mean": 3.43,
+      "p90": 3.79,
+      "jitter": 0.091
     },
     {
       "wave": 10,
       "name": "THE WALL",
       "bodies": 4,
-      "typical": 3.54,
-      "mean": 3.55,
-      "p90": 3.78
+      "arrivals": "4:a45835e9",
+      "typical": 3.89,
+      "mean": 3.89,
+      "p90": 4.25,
+      "jitter": 0.064
     },
     {
       "wave": 11,
       "name": "SHOOT AND SHIELD",
       "bodies": 4,
-      "typical": 3.34,
-      "mean": 3.33,
-      "p90": 3.61
+      "arrivals": "4:8ca05781",
+      "typical": 3.51,
+      "mean": 3.52,
+      "p90": 3.83,
+      "jitter": 0.075
     },
     {
       "wave": 12,
       "name": "IN ITS SHADOW",
       "bodies": 4,
-      "typical": 3.38,
-      "mean": 3.35,
-      "p90": 3.88
+      "arrivals": "4:83a7c658",
+      "typical": 3.57,
+      "mean": 3.58,
+      "p90": 3.99,
+      "jitter": 0.112
     },
     {
       "wave": 13,
       "name": "CROWDED",
       "bodies": 5,
-      "typical": 3.65,
-      "mean": 3.65,
-      "p90": 3.99
+      "arrivals": "5:91b30c99",
+      "typical": 5.2,
+      "mean": 4.95,
+      "p90": 5.69,
+      "jitter": 0.166
     },
     {
       "wave": 14,
       "name": "SALVAGE",
       "bodies": 2,
-      "typical": 3.4,
-      "mean": 3.46,
-      "p90": 3.95
+      "arrivals": "2:5bbd3a41",
+      "typical": 3.73,
+      "mean": 3.72,
+      "p90": 4.15,
+      "jitter": 0.091
     },
     {
       "wave": 15,
       "name": "CATCH AND AIM",
       "bodies": 3,
-      "typical": 3.65,
-      "mean": 3.65,
-      "p90": 4.04
+      "arrivals": "3:a6cc947c",
+      "typical": 3.8,
+      "mean": 3.82,
+      "p90": 4.17,
+      "jitter": 0.082
     },
     {
       "wave": 16,
       "name": "FINALE",
       "bodies": 7,
-      "typical": 3.79,
-      "mean": 3.81,
-      "p90": 4.13
+      "arrivals": "7:bfdd2f64",
+      "typical": 4.05,
+      "mean": 4.08,
+      "p90": 4.74,
+      "jitter": 0.071
     },
     {
       "wave": 17,
       "name": "BULB QUEEN",
       "bodies": 2,
-      "typical": 4.39,
-      "mean": 4.42,
-      "p90": 4.88
+      "arrivals": "0:741638a5",
+      "typical": 4.75,
+      "mean": 4.88,
+      "p90": 5.45,
+      "jitter": 0.087
     },
     {
       "wave": 18,
       "name": "THE MIRROR",
       "bodies": 0,
-      "typical": 4.32,
-      "mean": 4.36,
-      "p90": 4.95
+      "arrivals": "0:741638a5",
+      "typical": 5.18,
+      "mean": 5.02,
+      "p90": 5.7,
+      "jitter": 0.126
     },
     {
       "wave": 19,
       "name": "THE MAZE",
       "bodies": 0,
-      "typical": 3.35,
-      "mean": 3.35,
-      "p90": 3.79
+      "arrivals": "0:741638a5",
+      "typical": 3.48,
+      "mean": 3.58,
+      "p90": 4.04,
+      "jitter": 0.122
     },
     {
       "wave": 20,
       "name": "THE GAUGE",
       "bodies": 0,
-      "typical": 0.2,
-      "mean": 0.21,
-      "p90": 0.26
+      "arrivals": "0:741638a5",
+      "typical": 0.22,
+      "mean": 0.23,
+      "p90": 0.32,
+      "jitter": 0.222
     },
     {
       "wave": 21,
       "name": "THE WARDEN",
       "bodies": 2,
-      "typical": 5.06,
-      "mean": 4.76,
-      "p90": 5.59
+      "arrivals": "0:741638a5",
+      "typical": 4.21,
+      "mean": 4.26,
+      "p90": 4.8,
+      "jitter": 0.086
     },
     {
       "wave": 22,
       "name": "THE FLEET",
       "bodies": 0,
-      "typical": 3.14,
-      "mean": 3.13,
-      "p90": 3.5
+      "arrivals": "0:741638a5",
+      "typical": 3.43,
+      "mean": 3.42,
+      "p90": 3.96,
+      "jitter": 0.091
     },
     {
       "wave": 23,
       "name": "THE LURE",
       "bodies": 7,
-      "typical": 4.35,
-      "mean": 4.21,
-      "p90": 4.92
+      "arrivals": "9:1a768d01",
+      "typical": 4.8,
+      "mean": 4.72,
+      "p90": 5.64,
+      "jitter": 0.201
     },
     {
       "wave": 24,
       "name": "THE THROB",
       "bodies": 1,
-      "typical": 3.67,
-      "mean": 3.67,
-      "p90": 4.09
+      "arrivals": "1:20e3158d",
+      "typical": 3.97,
+      "mean": 4.06,
+      "p90": 4.99,
+      "jitter": 0.132
     },
     {
       "wave": 25,
       "name": "THE THIRD SHOT",
       "bodies": 3,
-      "typical": 3.85,
-      "mean": 4.03,
-      "p90": 4.74
+      "arrivals": "3:f09767f4",
+      "typical": 4.45,
+      "mean": 4.42,
+      "p90": 5.05,
+      "jitter": 0.202
     },
     {
       "wave": 26,
       "name": "THE CLASP",
       "bodies": 4,
-      "typical": 4,
-      "mean": 3.96,
-      "p90": 4.38
+      "arrivals": "8:d48656d5",
+      "typical": 4.05,
+      "mean": 4.16,
+      "p90": 4.73,
+      "jitter": 0.052
     },
     {
       "wave": 27,
       "name": "THE DART",
       "bodies": 4,
-      "typical": 4.49,
-      "mean": 4.48,
-      "p90": 5.38
+      "arrivals": "7:4b68c3c1",
+      "typical": 5.95,
+      "mean": 5.81,
+      "p90": 6.78,
+      "jitter": 0.155
     },
     {
       "wave": 28,
       "name": "THE VEIL",
       "bodies": 6,
-      "typical": 4.1,
-      "mean": 4.19,
-      "p90": 4.93
+      "arrivals": "8:5797fa3d",
+      "typical": 4.46,
+      "mean": 4.5,
+      "p90": 5.31,
+      "jitter": 0.137
     },
     {
       "wave": 29,
       "name": "THE VANE",
       "bodies": 5,
-      "typical": 3.8,
-      "mean": 3.82,
-      "p90": 4.33
+      "arrivals": "12:7a06427b",
+      "typical": 4.15,
+      "mean": 4.15,
+      "p90": 4.51,
+      "jitter": 0.084
     },
     {
       "wave": 30,
       "name": "THE LANCE",
       "bodies": 3,
-      "typical": 3.4,
-      "mean": 3.4,
-      "p90": 3.81
+      "arrivals": "3:133775a2",
+      "typical": 3.55,
+      "mean": 3.56,
+      "p90": 3.95,
+      "jitter": 0.081
     },
     {
       "wave": 31,
       "name": "THE PURGE",
       "bodies": 4,
-      "typical": 3.56,
-      "mean": 3.62,
-      "p90": 4.09
+      "arrivals": "4:6de2254f",
+      "typical": 3.91,
+      "mean": 3.95,
+      "p90": 4.26,
+      "jitter": 0.054
     },
     {
       "wave": 32,
       "name": "THE WARD",
       "bodies": 5,
-      "typical": 3.46,
-      "mean": 3.4,
-      "p90": 3.88
+      "arrivals": "5:4960610",
+      "typical": 3.71,
+      "mean": 3.68,
+      "p90": 4.06,
+      "jitter": 0.098
     },
     {
       "wave": 33,
       "name": "THE WISP",
       "bodies": 6,
-      "typical": 4.61,
-      "mean": 4.83,
-      "p90": 6.07
+      "arrivals": "7:12716686",
+      "typical": 5.19,
+      "mean": 5.2,
+      "p90": 5.86,
+      "jitter": 0.137
     },
     {
       "wave": 34,
       "name": "THE GHOST",
       "bodies": 4,
-      "typical": 7.82,
-      "mean": 7.67,
-      "p90": 8.85
+      "arrivals": "7:b218b1a8",
+      "typical": 8.56,
+      "mean": 8.35,
+      "p90": 9.63,
+      "jitter": 0.184
     },
     {
       "wave": 35,
       "name": "SNAKE",
       "bodies": 0,
-      "typical": 2.36,
-      "mean": 2.56,
-      "p90": 3.56
+      "arrivals": "0:741638a5",
+      "typical": 1.78,
+      "mean": 2.35,
+      "p90": 3.44,
+      "jitter": 0.93
     },
     {
       "wave": 36,
       "name": "THE ECHO",
       "bodies": 17,
-      "typical": 6.32,
-      "mean": 6.32,
-      "p90": 7.3
+      "arrivals": "7:259a559d",
+      "typical": 6.81,
+      "mean": 6.74,
+      "p90": 7.81,
+      "jitter": 0.128
     },
     {
       "wave": 37,
       "name": "PINBALL",
       "bodies": 0,
-      "typical": 0.36,
-      "mean": 2.28,
-      "p90": 5.89
+      "arrivals": "0:741638a5",
+      "typical": 0.33,
+      "mean": 2.29,
+      "p90": 5.94,
+      "jitter": 16.346
     },
     {
       "wave": 38,
       "name": "THE RIND",
       "bodies": 6,
-      "typical": 3.5,
-      "mean": 3.61,
-      "p90": 4.15
+      "arrivals": "7:33ebdddf",
+      "typical": 3.83,
+      "mean": 3.95,
+      "p90": 4.93,
+      "jitter": 0.206
     },
     {
       "wave": 39,
       "name": "THE GYRE",
       "bodies": 11,
-      "typical": 4.85,
-      "mean": 4.96,
-      "p90": 6.14
+      "arrivals": "5:91dc6050",
+      "typical": 5.41,
+      "mean": 5.48,
+      "p90": 6.44,
+      "jitter": 0.127
     },
     {
       "wave": 40,
       "name": "THE LID",
       "bodies": 4,
-      "typical": 3.55,
-      "mean": 3.66,
-      "p90": 4.55
+      "arrivals": "5:21a929f",
+      "typical": 4.03,
+      "mean": 4.04,
+      "p90": 4.66,
+      "jitter": 0.134
     },
     {
       "wave": 41,
       "name": "THE RECOIL",
       "bodies": 5,
-      "typical": 3.7,
-      "mean": 3.71,
-      "p90": 4.09
+      "arrivals": "6:5b8ac045",
+      "typical": 5.16,
+      "mean": 4.89,
+      "p90": 5.92,
+      "jitter": 0.322
     },
     {
       "wave": 42,
       "name": "THE CAROM",
       "bodies": 3,
-      "typical": 3.65,
-      "mean": 3.7,
-      "p90": 4.09
+      "arrivals": "5:8ecb49af",
+      "typical": 3.99,
+      "mean": 3.96,
+      "p90": 4.33,
+      "jitter": 0.113
     },
     {
       "wave": 43,
       "name": "THE VOLLEY",
       "bodies": 2,
-      "typical": 3.19,
-      "mean": 3.15,
-      "p90": 3.44
+      "arrivals": "5:8d33057f",
+      "typical": 3.41,
+      "mean": 3.45,
+      "p90": 3.69,
+      "jitter": 0.07
     },
     {
       "wave": 44,
       "name": "THE VEER",
       "bodies": 2,
-      "typical": 3.44,
-      "mean": 3.52,
-      "p90": 4.01
+      "arrivals": "6:ab2ebe26",
+      "typical": 3.7,
+      "mean": 3.74,
+      "p90": 4.15,
+      "jitter": 0.088
     },
     {
       "wave": 45,
       "name": "THE STRAND",
       "bodies": 6,
-      "typical": 4.64,
-      "mean": 4.7,
-      "p90": 5.54
+      "arrivals": "5:5fd8bbdd",
+      "typical": 5.03,
+      "mean": 5.23,
+      "p90": 6.41,
+      "jitter": 0.187
     },
     {
       "wave": 46,
       "name": "THE CRAWLER",
       "bodies": 8,
-      "typical": 4.25,
-      "mean": 4.27,
-      "p90": 4.78
+      "arrivals": "5:173045b8",
+      "typical": 4.6,
+      "mean": 4.66,
+      "p90": 5.38,
+      "jitter": 0.087
     },
     {
       "wave": 47,
       "name": "THE FENCE",
       "bodies": 2,
-      "typical": 3.22,
-      "mean": 3.26,
-      "p90": 3.71
+      "arrivals": "10:7cc64b",
+      "typical": 3.5,
+      "mean": 3.5,
+      "p90": 3.69,
+      "jitter": 0.086
     }
   ]
 }

@@ -6,8 +6,10 @@ anything.
 
 **What belongs here.** A refactor stepped around, a rule re-derived instead of
 called, a file grown past ~250 lines, dead code, a slow path, a missing test, a
-document that no longer describes the code, a tool that would have helped. The
-test is one question: **could a fresh session finish this alone and prove it
+document that no longer describes the code, a tool that would have helped, and
+**a command that failed and was worked around** — retried, slept past, run
+twice. Working around one is what keeps it, and every later session pays the
+same tax in minutes and in tokens. The test is one question: **could a fresh session finish this alone and prove it
 with `bun run check`?** Yes — it goes here, in the same commit as the work that
 found it, without asking first.
 
@@ -123,26 +125,6 @@ to cut next is the same in both: the bodies one seat cannot see whole —
 Do both in one lane: they fail the same way, on the same day, for the same
 reason, and a lane that splits one learns the argument for the other for free.
 
-
-## The perf baseline goes stale silently when a wave's entries change
-
-- **Found:** 2026-09-06, claude/electric-barrier-enemy-e6fi1d
-- **Taken:** 2026-09-06, claude/queue-the-perf-baseline-goes-stale-silently-when-a-wav
-- **Files:** `tools/perf/baseline.json`, `tools/perf/test/compare.test.ts`, `tools/perf/measure.ts`
-
-`compare.test.ts` checks that every row of `baseline.json` is in play order and
-carries the name the game gives that wave, which catches a wave *renamed* or
-*inserted*. It cannot catch a wave whose **arrivals changed**: THE FENCE gained
-two figures in this lane and its row still reads `"bodies": 2` and the timings
-that went with them, under a name that still matches, so the next comparison is
-against a wave that no longer exists.
-
-Give a row something derived from the wave's own entries — a count and a small
-hash of `queueFromWave`'s output would do — and fail the row when it disagrees,
-the way the name already does. The failure should say *re-measure this wave*
-rather than refusing the whole baseline: the other forty-six rows are still
-good, and a check that makes an editor re-measure everything is a check people
-delete.
 
 ## A landing from a clone writes no release note at all
 
@@ -345,36 +327,28 @@ throttle is meaningless on a phone, so the page records `null` for it and
 `docs/performance.md` gains a line saying a phone run is compared against other
 phone runs, never against a throttled desktop one.
 
-## `bun run perf`'s 20% noise floor still flags waves nobody touched
+## `bun run perf` dies on the sweep after a sweep
 
-- **Found:** 2026-09-06, claude/queue-the-perf-baseline-covers-38-of-the-45-waves-the
-- **Taken:** 2026-09-06, claude/queue-bun-run-perf-s-20-noise-floor-still-flags-waves
-- **Files:** `tools/perf/compare.ts`, `tools/perf/test/compare.test.ts`, `docs/performance.md`
+- **Found:** 2026-09-06, claude/queue-bun-run-perf-s-20-noise-floor-still-flags-waves
+- **Files:** `tools/perf/run.ts`, `tools/frames/serve.ts`, `tools/frames/opening.ts`
 
-`NOISE_PCT` is 20, and two runs taken twenty minutes apart on the same idle
-machine — no other session, nothing else open — reported THE ROCK 31% worse and
-THE WARDEN 30% worse, with FINALE 26% better in the same breath. Nothing in the
-lane between them went near any of the three. The run-wide drift `compare.ts`
-already divides out was doing its job; what is left is per-wave variance the
-threshold does not cover.
+Two sweeps taken one after the other, in the same shell, and the second one
+died four waves in with `waitForTimeout: Target page, context or browser has
+been closed` out of `clearOpening`. The third died the same way. Both worked
+when a `sleep 25` was put between them, and the measurement itself was never at
+fault — the browser had gone, not the game.
 
-That matters because of what the tool is for. A session that adds a shape runs
-this and reads the verdict, and a verdict that names three waves it did not touch
-teaches it to stop reading — which is the failure mode the whole comparison
-exists to prevent.
+`run.ts` closes the browser and stops the preview in a `finally`, and returns
+before either has actually let go: the next run's `startPreview` and
+`chromium.launch` come up against a port and a Chrome profile the previous one
+is still unwinding. Anything that takes a floor from repeated sweeps — which is
+now how the noise floor in `compare.ts` is set — pays for this twice, once in
+wall-clock and once in a session working out that the crash is not about the
+code under test.
 
-Two things to find out before changing a number. Take three runs back to back on
-an idle machine with no commits in between and print the per-wave spread: that
-says what the floor actually is, and it may be a good deal higher than 20 for the
-cheap waves, which are the ones that swung. Then decide whether the answer is a
-higher floor, a floor that scales with how cheap the wave is (a 30% swing on a
-2.8 ms wave is 0.8 ms and on a 7 ms wave is 2.1 ms — the second is worth hearing
-about and the first is not), or an absolute millisecond gate under which nothing
-is reported at all.
-
-Whatever it becomes, say it in `docs/performance.md` in the terms the run prints,
-and hold it in `compare.test.ts` with a fixture built from two runs that differ
-only by noise.
+Make the teardown wait for what it closed, and say so when a launch loses that
+race rather than failing a hundred lines later inside a page helper. A run that
+cannot get a browser should print one line naming the reason.
 
 ## An interrupted `perf` or `frames` run leaves a browser profile behind forever
 
@@ -404,3 +378,22 @@ creatures, and half a gigabyte of it went unnoticed for a month.
 `bun run check` proves the tools still launch; the sweep's own test covers the
 clearing.
 
+## Re-measuring one stale baseline row costs a sweep of all 47 waves
+
+- **Found:** 2026-09-06, claude/queue-the-perf-baseline-goes-stale-silently-when-a-wav
+- **Files:** `tools/perf/run.ts`, `tools/perf/test/baseline.test.ts`, `tools/perf/baseline.json`
+
+`baseline.test.ts` now names the waves whose arrivals changed and asks for
+*those* to be re-measured, which is the right advice and cannot be taken:
+`--save` refuses a narrow run, on the good grounds that a baseline stitched out
+of two afternoons compares shares of different games. So the only way to fix one
+stale row is a three-minute sweep of the whole game, and — worse — that sweep
+silently re-baselines the other forty-six rows off whatever the machine was
+doing that afternoon.
+
+There is a shape that gives both: `--save --wave X` could merge one row in *and*
+record what it merged, so `compare.ts` can tell a stitched row from a swept one
+and decline to take a share off it. Or the row could carry its own run's median
+alongside its milliseconds, which is all `shapeOf` needs and would make a merged
+row comparable on its own terms. Decide which, and let the advice the test
+prints be a command that works.
