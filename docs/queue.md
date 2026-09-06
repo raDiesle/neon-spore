@@ -158,6 +158,7 @@ for the cut.
 ## CRLF on disk fails the lint while `git status` says the tree is clean
 
 - **Found:** 2026-09-03, claude/scan-box-wisp-ghost-4f7c35
+- **Taken:** 2026-09-06, claude/queue-crlf-on-disk-fails-the-lint-while-git-status-say
 - **Files:** `tools/land/run.ts`, `package.json`, `tools/land/test/`
 
 `bun run land` failed in this lane on a file the lane had never touched:
