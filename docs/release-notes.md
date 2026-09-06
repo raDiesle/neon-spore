@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · c8eeca01 — THE HAND's rehearsal teaches the carry, as a second page of the same hold
+
+THE PUSH shipped with no guide at all: a pair met it only if somebody happened to move a thumb that was already holding a rock. It goes on THE HAND, which is the wave whose arithmetic does not work without a hand — and as a *second page* of that film rather than a wave of its own, because THE HAND already introduces the grip and a second wave about the same hand would be two waves teaching one thing.
+
 ## 2026-09-06 · edfda2dd — The seven files on a new creature's path are split before a lane has to
 
 Adding THE COIL cost five unplanned splits before the creature could land, and three more files only fitted because comments were shortened to buy back a line or two — the limit paid off rather than obeyed. That is not the limit misbehaving: the files a creature has to touch are exactly the files that grow by a row per creature, so the next body would have hit the same wall in the same places, and the cut would again have been chosen by whoever happened to be adding a creature that day.
