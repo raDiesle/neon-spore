@@ -93,9 +93,11 @@ export interface SpawnEntry {
    * The columns THE FENCE is open in, on the real field, and absent on every
    * other kind. Never absent on a wall: `queueFromWave` writes the cell the
    * author painted it in as its first gap, so a wave that named none still
-   * arrives with exactly one — and `fenceMask` gives the middle column to
-   * anything that somehow reaches it with none at all, because a wall nobody
-   * can pass is a price with a picture on it rather than a creature.
+   * arrives with exactly one. An **empty list is a real answer** — a wall with
+   * no way through at all — and it is answerable because such a wall always
+   * carries a crack, authored or given to it by the same default (`cracksRed`
+   * below): a wall nobody can pass and nobody can cut is a price with a
+   * picture on it rather than a creature.
    *
    * A list here and a bitmask on the body (`Creature.fenceGaps`): the two
    * shapes answer two questions. An author names places, in the order they
@@ -108,6 +110,20 @@ export interface SpawnEntry {
    * author does not know.
    */
   gaps?: number[];
+  /**
+   * Where this wall's **cracks** are, one list per colour a cannon can load,
+   * on the real field and already remapped (`queueFromWave`). A crack is the
+   * only column a bolt opens and the colour is the only bolt that opens it
+   * (`fence-crack.ts`).
+   *
+   * Two lists rather than one list of places-and-colours, and it is the shape
+   * `gaps` already has said twice: an author names columns, the field asks
+   * *what colour opens this one*, and `fenceCracksOnSpawn` is the one crossing
+   * between them. Absent on every other kind, and absent on a wall the wave
+   * gave no breaking point.
+   */
+  cracksRed?: number[];
+  cracksCyan?: number[];
 }
 
 /**

@@ -19,8 +19,13 @@ import { CFG, installCanvasGlobals, ROLES, runFrames, VIEWPORT } from "./frame-h
 
 beforeAll(installCanvasGlobals);
 
-function fenceFrames(role: ViewRole, gaps: number[], ticks: number) {
-  const queue: SpawnEntry[] = [{ beat: 0, col: 0, kind: "fence", color: null, gaps }];
+function fenceFrames(
+  role: ViewRole,
+  gaps: number[],
+  ticks: number,
+  cracks?: { cracksRed?: number[]; cracksCyan?: number[] },
+) {
+  const queue: SpawnEntry[] = [{ beat: 0, col: 0, kind: "fence", color: null, gaps, ...cracks }];
   // Every second tick: the filament crackles inside one beat and the wall
   // crosses the field in six, so a sampling that only caught beat boundaries
   // would draw a handful of frames of the fastest thing in the wave.
@@ -63,6 +68,28 @@ describe("the fence", () => {
     for (const role of ROLES) {
       const l = computeLayout(VIEWPORT, CFG, role);
       expect(showsFenceGaps(l), role).toBe(role !== "p2");
+    }
+  });
+
+  it("draws a crack for the pilot and never for the navigator", () => {
+    // The other opening, and the other half of the split. A crack is a column
+    // and an ammunition colour on the pilot's screen; the navigator gets the
+    // same unbroken wire they always did, so the two frames cannot match.
+    const solid = fenceFrames("p2", [], TICKS);
+    const cracked = fenceFrames("p2", [], TICKS, { cracksRed: [4] });
+    expect(cracked.ctx.calls, "the navigator must not be shown a crack").toBe(solid.ctx.calls);
+    const seen = fenceFrames("p1", [], TICKS, { cracksRed: [4] });
+    expect(seen.ctx.calls).toBeGreaterThan(fenceFrames("p1", [], TICKS).ctx.calls);
+  });
+
+  it("keeps the canvas happy with a crack of either colour against either wall", () => {
+    for (const cracks of [
+      { cracksRed: [0] },
+      { cracksCyan: [CFG.cols - 1] },
+      { cracksRed: [1, 5], cracksCyan: [8] },
+    ]) {
+      const { ctx } = fenceFrames("p1", [], TICKS, cracks);
+      expect(ctx.calls).toBeGreaterThan(1000);
     }
   });
 

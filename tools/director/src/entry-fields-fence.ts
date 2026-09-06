@@ -1,4 +1,5 @@
 import { AUTHORED_COL_MAX, type WaveEntry } from "@neon-spore/content";
+import type { Color } from "@neon-spore/sim";
 
 /**
  * **Where a fence is open**, read and written on one arrival.
@@ -10,7 +11,16 @@ import { AUTHORED_COL_MAX, type WaveEntry } from "@neon-spore/content";
  * of a handful of values, and this one turns columns on and off — so the
  * reading and the writing are a different shape from everything next door.
  *
- * Nothing here knows a panel exists. `cell-config-gaps.ts` draws it.
+ * **And where it is cracked**, on the same terms one row down. A crack is a
+ * place *and* a colour — the only column a bolt opens and the only bolt that
+ * opens it (`sim/fence-crack.ts`) — so its chips carry three states rather
+ * than two, and the owner asked for exactly that: *let me configure where and
+ * how many cracks in which colour there are, for any kind of fence, and for a
+ * fence without gaps let me place the number of cracks and where, up to the
+ * maximum available.* The maximum available is one per column, which is what
+ * `GAP_COLS` already is.
+ *
+ * Nothing here knows a panel exists. `cell-config-gaps.ts` draws both rows.
  */
 
 /** The columns a fence may be opened in: the seven every wave is authored
@@ -63,4 +73,56 @@ export function toggleFenceGap(entry: WaveEntry, col: number): void {
   else gaps.add(col);
   const next = [...gaps].sort((a, b) => a - b);
   entry.gaps = next.length === 1 && next[0] === entry.col ? undefined : next;
+}
+
+/**
+ * The colour of the crack in this column, or `null` for a column with none.
+ * Red is asked first, so a hand-authored entry naming a column in both lists
+ * reads the way the simulation reads it (`fenceCrackAt`) rather than the other
+ * way round.
+ */
+export function fenceCrackAtCol(entry: WaveEntry, col: number): Color | null {
+  if (entry.cracksRed?.includes(col)) return "red";
+  if (entry.cracksCyan?.includes(col)) return "cyan";
+  return null;
+}
+
+/** Every crack this wall carries, in column order — what the row draws and
+ * what a solid wall has to have at least one of to be answerable at all. */
+export function fenceCracksOf(entry: WaveEntry): { col: number; color: Color }[] {
+  const out: { col: number; color: Color }[] = [];
+  for (const col of GAP_COLS) {
+    const color = fenceCrackAtCol(entry, col);
+    if (color) out.push({ col, color });
+  }
+  return out;
+}
+
+/**
+ * Take one column's crack round its cycle: none, red, cyan, none.
+ *
+ * **A cycle rather than two rows of chips**, because a crack is one thing with
+ * a colour and not two independent sets. Two rows would let a column be both,
+ * which is a wall the simulation has to break a tie about and an author cannot
+ * see they have made.
+ *
+ * A list that comes back empty is written as *no field* rather than as `[]`,
+ * `setGhostPath`'s arrangement and `toggleFenceGap`'s next door: a wall nobody
+ * has cracked serialises exactly as it did before cracks existed. There is no
+ * empty-list-means-something case here, unlike `gaps` — a wall with no cracks
+ * and no gaps is given one by `queueFromWave`, so absent is the only answer
+ * this field needs.
+ */
+export function cycleFenceCrack(entry: WaveEntry, col: number): void {
+  const at = fenceCrackAtCol(entry, col);
+  const next = at === null ? "red" : at === "red" ? "cyan" : null;
+  const put = (list: number[] | undefined, on: boolean): number[] | undefined => {
+    const set = new Set(list ?? []);
+    if (on) set.add(col);
+    else set.delete(col);
+    const out = [...set].sort((a, b) => a - b);
+    return out.length ? out : undefined;
+  };
+  entry.cracksRed = put(entry.cracksRed, next === "red");
+  entry.cracksCyan = put(entry.cracksCyan, next === "cyan");
 }

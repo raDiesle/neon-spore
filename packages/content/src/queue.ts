@@ -74,6 +74,17 @@ export function queueFromWave(wave: Pick<Wave, "entries">, cols: number): SpawnE
     // any other column, so a gap authored for seven columns lands where the
     // arrival authored beside it does.
     const gaps = kind === "fence" ? (e.gaps ?? [e.col]).map((gap) => mapCol(gap, cols)) : undefined;
+    // And where it is cracked — the columns a bolt opens, remapped the same
+    // way. A wall with **no gaps at all** and no crack authored on it gets one
+    // red crack in the cell it was painted in: that is `gaps`' own default
+    // said about the other answer, and without it the brush can paint a wall
+    // the pair has no way past at all.
+    const cracked = kind === "fence" && gaps !== undefined;
+    const bare = cracked && gaps.length === 0 && !e.cracksRed?.length && !e.cracksCyan?.length;
+    const cracksRed = cracked
+      ? (bare ? [e.col] : (e.cracksRed ?? [])).map((col) => mapCol(col, cols))
+      : undefined;
+    const cracksCyan = cracked ? (e.cracksCyan ?? []).map((col) => mapCol(col, cols)) : undefined;
     queue.push({
       beat: e.beat,
       col: gaps ? 0 : mapCol(e.col, cols),
@@ -103,6 +114,12 @@ export function queueFromWave(wave: Pick<Wave, "entries">, cols: number): SpawnE
       // never for anything else, so every wave in the game is byte-for-byte
       // the same queue it was before this creature existed.
       ...(gaps === undefined ? {} : { gaps }),
+      // Where the wall is cracked, on the real field. Written for a fence and
+      // never for anything else, and only when there is one — so every wave in
+      // the game is byte-for-byte the same queue it was before cracks existed,
+      // apart from the solid walls that now arrive answerable.
+      ...(cracksRed?.length ? { cracksRed } : {}),
+      ...(cracksCyan?.length ? { cracksCyan } : {}),
     });
   }
   return queue.sort((a, b) => a.beat - b.beat);

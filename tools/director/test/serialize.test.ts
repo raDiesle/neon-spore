@@ -98,7 +98,7 @@ test("writes a rock's size and a lure's worn body, and only when they are there"
  * **An empty list and no list are two different walls**, which is why the
  * absent case is asserted as hard as the present one: absent means *the column
  * this was painted in* and `[]` means a wall with no way through at all — the
- * only wall the cannon can cut (`fenceIsCuttable`).
+ * wall whose only answer is the crack the cannon opens (`fence-crack.ts`).
  */
 test("writes a fence's gaps, including the empty list that means a solid wall", async () => {
   const file = new URL("../../../packages/content/src/waves/act-1.ts", import.meta.url);

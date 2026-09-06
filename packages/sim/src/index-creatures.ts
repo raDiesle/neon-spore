@@ -62,11 +62,14 @@ export {
   fenceGapCols,
   fenceGapSeen,
   fenceIsBurnt,
-  fenceIsCuttable,
   fenceIsOpen,
   fenceMask,
   fenceSettleTicks,
 } from "./fence.js";
+// And where it is cracked: the columns a bolt opens and the colour each wants.
+// `crackMask` and `fenceCracksOnSpawn` are the simulation's own and stay
+// inside it, the way `fenceMask`'s two neighbours do.
+export { fenceCrackAt, fenceCrackCols } from "./fence-crack.js";
 export { type GhostPath, ghostCrosses, ghostIsCharging, ghostLaps, ghostRage } from "./ghost.js";
 export {
   gyreMountsLeft,

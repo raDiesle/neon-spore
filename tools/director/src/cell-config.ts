@@ -1,7 +1,7 @@
 import type { WaveEntry } from "@neon-spore/content";
 import { PALETTE } from "@neon-spore/render";
 import { CRAWLER_SIDES, type CrawlerSide, type GhostPath, type RockSize } from "@neon-spore/sim";
-import { fenceGapsRow } from "./cell-config-gaps.js";
+import { fenceCracksRow, fenceGapsRow } from "./cell-config-gaps.js";
 import {
   authorsBody,
   BODY_KINDS,
@@ -137,6 +137,11 @@ export function cellConfig({ entry, onEdit }: CellConfigOptions): HTMLElement | 
     // what this creature asks the pair to say out loud, so it is the one thing
     // about a wall an author composes anything else against (`WaveEntry.gaps`).
     rows.push(fenceGapsRow(e, onEdit, labelled));
+    // And where it is cracked, which is the other half of the same question:
+    // the gaps are what the *shield* answers and the cracks are what the
+    // *cannon* does, and a wall is authored by deciding how much of each
+    // answer it leaves the pair (`entry-fields-fence.ts`).
+    rows.push(fenceCracksRow(e, onEdit, labelled));
   }
   if (!rows.length) return null;
 

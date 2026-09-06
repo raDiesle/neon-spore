@@ -111,6 +111,12 @@ function serializeEntry(entry: WaveEntry): string {
   // and every save dropped it. That is `wears`'s own failure said twice, which
   // is what the note above this function is for.
   if (entry.gaps !== undefined) parts.push(`gaps: [${entry.gaps.join(", ")}]`);
+  // And where it is cracked, one list per ammunition colour. Absent is the only
+  // "nothing" these two have — a wall with no cracks and no gaps is given one
+  // by `queueFromWave` — so unlike `gaps` there is no empty list to preserve,
+  // and `cycleFenceCrack` never writes one.
+  if (entry.cracksRed !== undefined) parts.push(`cracksRed: [${entry.cracksRed.join(", ")}]`);
+  if (entry.cracksCyan !== undefined) parts.push(`cracksCyan: [${entry.cracksCyan.join(", ")}]`);
   return `{ ${parts.join(", ")} }`;
 }
 

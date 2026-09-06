@@ -62,7 +62,7 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
   if (hit.kind === "fence") {
     // **The cannon's half of THE FENCE.** Whether the wire comes apart here or
     // refuses, and what each costs, is one call: `fenceStruck` (`fence.ts`).
-    fenceStruck(world, hit, b.col);
+    fenceStruck(world, hit, b.col, b.color);
     return false;
   }
   if (hit.kind === "queen") {

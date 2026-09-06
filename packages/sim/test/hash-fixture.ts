@@ -72,6 +72,8 @@ const creature = (): Required<Creature> => ({
   crawlerDir: -1,
   fenceGaps: 0b101,
   fenceBurns: 0b010,
+  fenceCracksRed: 0b1000,
+  fenceCracksCyan: 0b10000,
   coilDir: 1,
   coilLit: 3,
 });

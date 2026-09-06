@@ -41,4 +41,18 @@ export interface FenceState {
    * the union the shield is tested against.
    */
   fenceBurns?: number;
+  /**
+   * And the columns a **crack** runs down, one mask per colour a cannon can
+   * load. A crack is the only place a bolt opens this wall and the colour is
+   * the only bolt that opens it (`fence-crack.ts`), so the two masks are one
+   * fact taken apart by colour rather than two facts about a wall.
+   *
+   * Absent on a wall the wave gave no breaking point, which is most of them.
+   * Read them through `fenceCrackAt` and never by shifting here, for
+   * `fenceGaps`' reason: the mark the pilot is shown and the column a shot is
+   * tested against are one fact, and a second spelling is how the pair comes
+   * to be shown a way through the cannon has not got.
+   */
+  fenceCracksRed?: number;
+  fenceCracksCyan?: number;
 }

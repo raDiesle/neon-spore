@@ -4,11 +4,11 @@ import {
   fenceGapCols,
   fenceGapSeen,
   fenceIsBurnt,
-  fenceIsCuttable,
   fenceIsOpen,
   fenceMask,
   fenceSettleTicks,
 } from "../src/fence.js";
+import { fenceCrackAt, fenceCrackCols } from "../src/fence-crack.js";
 import { isGrippable } from "../src/grippable.js";
 import { hashWorld } from "../src/hash.js";
 import { hullPercent } from "../src/hull.js";
@@ -39,12 +39,18 @@ const HULL = hullRow(CFG);
  * wrong. */
 const SHIELD = HULL - 1;
 
-const fence = (gaps: number[]): SpawnEntry => ({
+const fence = (
+  gaps: number[],
+  cracksRed: number[] = [],
+  cracksCyan: number[] = [],
+): SpawnEntry => ({
   beat: 0,
   col: 0,
   kind: "fence",
   color: null,
   gaps,
+  ...(cracksRed.length ? { cracksRed } : {}),
+  ...(cracksCyan.length ? { cracksCyan } : {}),
 });
 const guard = (tick: number): TimedCommand => ({ tick, player: 1, command: { kind: "guard" } });
 const shieldTo = (tick: number, col: number): TimedCommand => ({
@@ -211,16 +217,16 @@ describe("a fence reaching the ship", () => {
 });
 
 describe("a bolt and a fence", () => {
-  /** Put the cannon in `col` and fire a few ticks later. Either colour cuts a
-   * wire, so which one is loaded says nothing. */
-  const shootAt = (col: number, tick: number): TimedCommand[] => [
+  /** Put the cannon in `col` and fire a few ticks later. The colour is the
+   * other half of the answer now: only the one the crack carries opens it. */
+  const shootAt = (col: number, tick: number, color: "red" | "cyan" = "red"): TimedCommand[] => [
     { tick, player: 1, command: { kind: "cannonCol", col } },
-    { tick: tick + 8, player: 2, command: { kind: "fire", color: "red" } },
+    { tick: tick + 8, player: 2, command: { kind: "fire", color } },
   ];
 
-  it("cuts a way through in the column the cannon was standing in", () => {
-    // A solid wall, which is the only kind a bolt opens: `fenceIsCuttable`.
-    const { world, events } = run([fence([])], TPB * 4, shootAt(7, TPB));
+  it("cuts a way through at a crack, in the crack's own colour", () => {
+    // The only place a bolt opens a wall, and the only colour that opens it.
+    const { world, events } = run([fence([], [7])], TPB * 4, shootAt(7, TPB));
     const body = fenceOf(world) as Creature;
     expect(fenceIsBurnt(body, 7)).toBe(true);
     expect(fenceIsOpen(body, 7)).toBe(true);
@@ -231,14 +237,13 @@ describe("a bolt and a fence", () => {
     expect(body.holes).toBe(0);
   });
 
-  it("refuses to come apart while it has a way through of its own", () => {
-    // The owner's rule: a fence is only destructible if it has no gap. A wall
-    // with one has to be *found*, and a cannon that could open a second
-    // wherever it liked would turn every fence into the same fence — point at
-    // the dome, fire, done.
-    const { world, events } = run([fence([4])], TPB * 4, shootAt(7, TPB));
+  it("refuses every column that is not cracked", () => {
+    // The owner's rule: only on the breaking point can you shoot through. A
+    // cannon that could open a column wherever it liked would turn every wall
+    // into the same wall — point at the dome, fire, done.
+    const { world, events } = run([fence([4], [2])], TPB * 4, shootAt(7, TPB));
     const body = fenceOf(world) as Creature;
-    expect(fenceIsCuttable(body)).toBe(false);
+    expect(fenceCrackAt(body, 7)).toBe(null);
     expect(fenceIsBurnt(body, 7)).toBe(false);
     expect(events.some((e) => e.type === "fenceBurn")).toBe(false);
     // The bolt is spent all the same — the wire took it — and says so, because
@@ -246,11 +251,36 @@ describe("a bolt and a fence", () => {
     expect(events.some((e) => e.type === "reject" && e.col === 7)).toBe(true);
   });
 
-  it("stays cuttable after the pair has cut it, so a wrong column is not final", () => {
-    const { world } = run([fence([])], TPB * 5, [...shootAt(7, TPB), ...shootAt(2, TPB * 3)]);
+  it("refuses a crack shot in the other colour", () => {
+    // The crack is a place *and* a colour, which is what makes it a sentence
+    // rather than a mark: the pilot who can see it holds neither trigger.
+    const { world, events } = run([fence([], [], [7])], TPB * 4, shootAt(7, TPB, "red"));
+    const body = fenceOf(world) as Creature;
+    expect(fenceCrackAt(body, 7)).toBe("cyan");
+    expect(fenceIsBurnt(body, 7)).toBe(false);
+    expect(events.some((e) => e.type === "reject" && e.col === 7)).toBe(true);
+  });
+
+  it("opens every crack it carries, so a wrong column is not final", () => {
+    const { world } = run([fence([], [7, 2])], TPB * 5, [
+      ...shootAt(7, TPB),
+      ...shootAt(2, TPB * 3),
+    ]);
     const body = fenceOf(world) as Creature;
     expect(fenceIsBurnt(body, 7)).toBe(true);
     expect(fenceIsBurnt(body, 2)).toBe(true);
+  });
+
+  it("cracks a wall the wave left solid and uncracked, in the cell it was painted in", () => {
+    // `queueFromWave`'s default, checked here because it is the one thing
+    // standing between the brush and a wall nobody can pass or cut.
+    const { world } = run(
+      [{ beat: 0, col: 0, kind: "fence", color: null, gaps: [], cracksRed: [5] }],
+      TPB,
+      [],
+    );
+    const body = fenceOf(world) as Creature;
+    expect(fenceCrackCols(CFG, body)).toEqual([{ col: 5, color: "red" }]);
   });
 
   it("counts the dome settled after half a tile of this wall's own fall", () => {
@@ -265,7 +295,7 @@ describe("a bolt and a fence", () => {
     // the pilot holds the cannon and the navigator holds the shield, so a hole
     // over the dome takes one of them saying where it is and the other putting
     // the cannon there.
-    const { world, events } = run([fence([])], ticksPast, [
+    const { world, events } = run([fence([], [2])], ticksPast, [
       shieldTo(TPB, 2),
       ...shootAt(2, TPB * 2),
     ]);
@@ -276,7 +306,7 @@ describe("a bolt and a fence", () => {
   it("costs the hull when nobody cuts one", () => {
     // The same solid fence, left alone. Without the cannon there is no answer
     // at all, which is what makes authoring no gaps a decision.
-    const { world } = run([fence([])], ticksPast, [shieldTo(TPB, 2)]);
+    const { world } = run([fence([], [2])], ticksPast, [shieldTo(TPB, 2)]);
     expect(hullPercent(world)).toBeLessThan(100);
   });
 

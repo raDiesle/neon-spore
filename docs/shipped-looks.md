@@ -255,15 +255,20 @@ across the field from strobing the arc a column at a time; the cost is that the
 navigator can probe for an opening by standing in columns, which the owner
 asked for knowingly.
 
-**A cut is drawn as a break, and only a wall with no way through can be cut.**
-`fenceIsCuttable` is the rule and it is the wave author's lever back: a cannon
-that could open a hole in any fence would make every one of them the same
-fence. A bolt into a wall that has an opening somewhere is spent and rejected.
-A bolt into one that has none tears the column open — torn ends curling out of
-it, a scorch across the tile, rags of wire still hanging in it, and fourteen
-pieces of the line itself thrown out of the cut and tumbling. Two openings on
-one screen are therefore never the same picture: posts mean the wave built this
-one, a break means the pair made it.
+**A cut is drawn as a break, and a wall is only ever cut at a crack.** A crack
+is a column *and* an ammunition colour, drawn on the pilot's screen alone — the
+two wires bowed apart into a lens of that colour with a jagged split across the
+band between them — and a bolt arriving on one in its own colour is the only
+shot in the game that opens a wire (`fence-crack.ts`). That is the wave
+author's lever: a cannon that could open a hole anywhere would make every fence
+the same fence, and a crack makes the shot a sentence with two halves in it,
+because the seat that can see the crack holds neither trigger. A bolt anywhere
+else is spent and rejected. A bolt on the crack tears the column open — torn
+ends curling out of it, a scorch across the tile, rags of wire still hanging in
+it, and fourteen pieces of the line itself thrown out of the cut and tumbling.
+Three markings on one screen are therefore never the same picture: posts mean
+the wave built this way through, a crack means the cannon may make one here,
+and a break means it has.
 
 **What it costs is drawn on the shield and on the whole ship, not in the skin.**
 A wall that finds the dome in its way earths through it, so there is no crack:

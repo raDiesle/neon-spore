@@ -209,12 +209,13 @@ export const MECHANICS = {
     waveNames: true,
   },
   fence: {
-    what: "A live wire across the whole field with gaps burnt through it, coming down twice as fast as anything else. The trigger does nothing — the shield does not stop it, it goes through it. The ship lives if the dome is standing in a gap when the wire arrives, and only the pilot can see where the wave's own gaps are. A shot cuts a new one in the column the cannon is in, and that hole is on both screens: so a wire with no gaps at all is answered the other way round, the navigator naming the column and the pilot taking the cannon there.",
+    what: "A live wire across the whole field with gaps burnt through it, coming down twice as fast as anything else. The trigger does nothing — the shield does not stop it, it goes through it. The ship lives if the dome is standing in a gap when the wire arrives, and only the pilot can see where the wave's own gaps are. A wall may also carry cracks — a column and an ammunition colour each, drawn on the pilot's screen — and a bolt arriving on one in that colour opens the wire there for good. That is the only place any shot goes through, so a wire with no gaps at all is answered by the pilot saying a column and a colour and the navigator loading it and firing.",
     reach: "spawn",
     // A wave names this kind and never a colour: a wall carries none at all,
     // the way a wisp does. What a wave authors instead is where the gaps are
-    // (`WaveEntry.gaps`), which is the one thing about this creature an author
-    // composes anything else against.
+    // and where the cracks are (`WaveEntry.gaps`, `WaveEntry.cracksRed`),
+    // which is the one thing about this creature an author composes anything
+    // else against. The colours on the entry are the *cracks*, not the wall.
     waveNames: true,
   },
   magnet: {

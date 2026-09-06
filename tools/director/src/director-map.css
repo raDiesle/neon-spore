@@ -174,7 +174,7 @@
   gap: 4px;
 }
 .cell-row-label {
-  flex: 0 0 44px;
+  flex: 0 0 58px;
   font-size: 8px;
   letter-spacing: 1px;
   color: var(--dim);
@@ -194,6 +194,20 @@
 .cell-row .chip.on {
   border-color: var(--gold);
   color: var(--gold);
+}
+/* THE FENCE's cracks, in the ammunition's own two colours — the chip says
+   which trigger opens the wall there, so it has to be the colour the player
+   is going to load rather than the gold every other latched chip uses. The
+   hues are `PALETTE.red` and `PALETTE.cyan` from the renderer. */
+.cell-row .chip.crack.red {
+  border-color: #ff3b6b;
+  color: #ff8aa3;
+  background: #2a0a1a;
+}
+.cell-row .chip.crack.cyan {
+  border-color: #2fe0f0;
+  color: #bff6ff;
+  background: #06232b;
 }
 .cell-actions {
   display: flex;

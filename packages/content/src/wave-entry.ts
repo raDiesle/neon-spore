@@ -145,4 +145,24 @@ export interface WaveEntry {
    * again with every gap.
    */
   gaps?: number[];
+  /**
+   * Where this wall is **cracked**, one list of authored columns per colour a
+   * cannon can load. A crack is the only column a bolt opens, and the colour
+   * naming the list is the only bolt that opens it (`sim/fence-crack.ts`).
+   *
+   * Absent on every other kind, and absent on a wall the author left
+   * uncracked — except a wall with **no gaps at all**, which `queueFromWave`
+   * gives one red crack in the cell it was painted in, exactly as it gives an
+   * ungapped wall one gap there. A wall nobody can pass and nobody can cut is
+   * a price with a picture on it rather than a creature.
+   *
+   * **Two lists rather than one list of pairs**, and the reason is the file
+   * the director writes: an entry is serialised on one line, and
+   * `{ col: 3, color: "red" }` inside it puts a fence past the formatter's
+   * width and out of the round trip `serialize.test.ts` holds. Two lists read
+   * exactly like `gaps` — a row of columns — which is also how the brush
+   * offers them: one chip per column, cycling dark, red, cyan.
+   */
+  cracksRed?: number[];
+  cracksCyan?: number[];
 }

@@ -86,9 +86,9 @@ export const HAZARD_CREATURES: Record<HazardKind, CreatureDef> = {
     kind: "fence",
     // **Both**, and it is the only entry in this file that is not the shield's
     // alone. The shield is the ordinary answer — the dome standing in a gap —
-    // but the cannon can cut a gap of its own (`fenceBurn`), and a wave may
-    // author a fence with no gaps at all, which is a wave the cannon is the
-    // *only* answer to. A panel missing either half is a panel that cannot
+    // but the cannon can cut a gap of its own at a crack (`fence-crack.ts`),
+    // and a wave may author a fence with no gaps at all, which is a wave the
+    // cannon is the *only* answer to. A panel missing either half is a panel that cannot
     // answer one of those two waves, and `test/waves.test.ts` is where that
     // would otherwise go unnoticed.
     controls: ["aim", "guard"],
@@ -103,7 +103,7 @@ export const HAZARD_CREATURES: Record<HazardKind, CreatureDef> = {
     // seat that can move the dome, is shown a line with nothing in it.
     radar: "p1",
     blurb:
-      "A live wire across the whole field with a gap burnt through it, coming down twice as fast as anything else. The trigger does nothing to it: the ship survives by having the shield standing in a gap when it arrives, and only the pilot can see where the gaps are. A shot cuts a new one in the cannon's own column — so the other way through is the navigator saying where the dome is and the pilot putting the cannon over it.",
+      "A live wire across the whole field with a gap burnt through it, coming down twice as fast as anything else. The trigger does nothing to it: the ship survives by having the shield standing in a gap when it arrives, and only the pilot can see where the gaps are. A wall may also carry a crack — a column and an ammunition colour, on the pilot's screen only — and a bolt of that colour arriving there is the one shot that opens a wire. So the other way through is the pilot saying a column and a colour, taking the cannon under it, and the navigator loading what was said and firing.",
   },
   coil: {
     kind: "coil",

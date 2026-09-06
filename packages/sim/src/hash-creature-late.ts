@@ -118,6 +118,13 @@ export function lateHashParts(c: Creature): number[] {
   // devices could actually come to disagree about — and a device that missed
   // one has the ship holed where the other has it whole.
   out.push(c.fenceBurns ?? 0);
+  // And where it is cracked, one mask per colour. A crack is the only column a
+  // bolt opens, so two devices that disagree about one disagree about whether
+  // a shot went through the wall or bounced off it — and they would go on
+  // disagreeing, because the burn that follows is written from the crack.
+  // `0` for a body that is not a wall, and for a wall the wave left uncracked.
+  out.push(c.fenceCracksRed ?? 0);
+  out.push(c.fenceCracksCyan ?? 0);
   // THE COIL's two. The heading decides which column the body reaches on the
   // next beat and which wall it sinks at, so two devices that disagree about
   // it hold one dome on opposite sides of the field — and the beat the charge

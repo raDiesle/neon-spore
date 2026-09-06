@@ -4,6 +4,7 @@ import { growCrawler } from "./crawler-round.js";
 import { dartOnSpawn } from "./dart.js";
 import { echoOnSpawn } from "./echo.js";
 import { fenceOnSpawn } from "./fence.js";
+import { fenceCracksOnSpawn } from "./fence-crack.js";
 import { ghostOnSpawn } from "./ghost.js";
 import { gyreOnSpawn, mountsFor } from "./gyre.js";
 import { recoilOnSpawn } from "./recoil.js";
@@ -143,6 +144,14 @@ export function spawnArrivals(world: World): void {
       // both devices are handed the same way through — and the way through is
       // the one thing in this creature the pair has to say out loud.
       ...(entry.kind === "fence" ? { fenceGaps: fenceOnSpawn(world.cfg, entry.gaps) } : {}),
+      // And where it is cracked, which is the other half of the same arrival:
+      // the columns a bolt opens and the colour each of them wants. Authored
+      // and remapped exactly as the gaps are, so both devices are handed the
+      // same breaking points — and a crack is the one thing about this wall
+      // the pair has to say *two* words about (`fence-crack.ts`).
+      ...(entry.kind === "fence"
+        ? fenceCracksOnSpawn(world.cfg, entry.cracksRed, entry.cracksCyan)
+        : {}),
       // Which way THE CAROM sets off, and absent on every other kind — so a
       // body that never crosses carries no field at all and every wave written
       // before this creature is byte-for-byte the same world. Derived from the

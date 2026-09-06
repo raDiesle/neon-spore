@@ -1,6 +1,7 @@
 import { type SimConfig, ticksPerBeat } from "./config.js";
+import { fenceCrackAt } from "./fence-crack.js";
 import { fallTilesPerBeat } from "./kinds.js";
-import type { Creature } from "./types.js";
+import type { Color, Creature } from "./types.js";
 import type { World } from "./world.js";
 
 /**
@@ -20,15 +21,17 @@ import type { World } from "./world.js";
  * is shown an unbroken wire (`render/fence.ts`). Neither of them can do
  * anything with what they have.
  *
- * **And the cannon can burn a gap of its own, which is the same sentence said
- * backwards.** A bolt that reaches the wire opens the column it was fired up
- * (`fenceBurn`), and the cannon is *player 1's* while the trigger that fires
- * it is player 2's — so making a way through needs the navigator to say where
- * the dome is standing and the pilot to put the cannon there. The creature
- * runs in both directions at once: p1 names a gap and p2 moves to it, or p2
- * names the dome and p1 makes a gap over it. Which of the two a pair reaches
- * for is the wave's own question, and a fence with **no** gaps at all
- * (`WaveEntry.gaps: []`) is a wave that has taken the first answer away.
+ * **And the cannon can burn a gap of its own, at a crack and nowhere else.** A
+ * wall may carry breaking points — a column and a colour each, drawn on the
+ * pilot's screen beside the gaps — and a bolt that arrives on one in its own
+ * colour opens that column for good (`fence-crack.ts`, `fenceBurn`). The
+ * cannon is *player 1's* and both triggers are player 2's, so cutting the wall
+ * needs the pilot to say a number and a colour and the navigator to load and
+ * fire. The creature runs in both directions at once: p1 names a gap and p2
+ * steers the dome to it, or p1 names a crack and p2 sends the colour that
+ * opens it. Which of the two a pair reaches for is the wave's own question,
+ * and a fence with **no** gaps at all (`WaveEntry.gaps: []`) is a wave that
+ * has taken the first answer away and left only the second.
  *
  * **A burnt gap is public and an authored one is not.** The burn happened in
  * front of both of them — a bolt went up a column and the wire came apart — so
@@ -61,7 +64,8 @@ const SOLID = 0;
  * **A wall with no gaps is a wall with no gaps.** There used to be a rule here
  * giving one to the middle column, on the argument that a fence nobody can
  * pass is a fixed price with a picture on it rather than a creature. The
- * cannon can cut one now, so the argument is spent: a solid fence is the
+ * cannon can cut one now — at a crack, which `queueFromWave` gives a solid
+ * wall nobody authored one on — so the argument is spent: a solid fence is the
  * hardest thing this creature can be and it is still answerable, by the seat
  * the gaps were never for.
  */
@@ -126,27 +130,6 @@ export function fenceGapCols(cfg: SimConfig, c: Creature, secret = true): number
 }
 
 /**
- * **Whether the cannon can cut this wall at all**, and the whole of the owner's
- * rule about it: *a fence is only destructible if it has no gap.*
- *
- * It used to be every fence, and the argument for that was symmetry — the
- * creature runs in both directions, p1 naming a gap or p2 naming the dome and
- * p1 burning one over it. What that cost is the wave author's only lever. A
- * wall with a way through it is a wall the pair has to *find* the way through,
- * and a cannon that can open a second one wherever it likes turns every one of
- * them into the same wall: point at the dome, fire, done. So the shot is now
- * the answer to exactly the fence that has no other answer, and a wall with a
- * gap has to be talked through.
- *
- * Authored gaps only, deliberately. A wall the pair has already cut stays
- * cuttable — otherwise the first bolt would lock the wire against the second,
- * and a pair that opened the wrong column would have no way back.
- */
-export function fenceIsCuttable(c: Creature): boolean {
-  return (c.fenceGaps ?? SOLID) === SOLID;
-}
-
-/**
  * **A bolt cutting the wire.** The column is opened for good — a fence is
  * never repaired — and the shot is spent on it, which is the whole price: a
  * cannon spent on the wall is a cannon that is not under the slick beside it.
@@ -155,9 +138,9 @@ export function fenceIsCuttable(c: Creature): boolean {
  * that arrives when the fence goes over the ship (`resolveFence`); paying
  * twice would make cutting three gaps worth more than needing none.
  *
- * Callers ask `fenceIsCuttable` first. It is not asked here because the two
- * answers to a bolt that cannot cut — the shot is still spent, and the pair is
- * still told it bounced — belong to the shot rather than to the wall
+ * Callers ask `fenceCrackAt` first. It is not asked here because the two
+ * answers to a bolt that lands nowhere — the shot is still spent, and the pair
+ * is still told it bounced — belong to the shot rather than to the wall
  * (`bullet-hit.ts`).
  */
 export function fenceBurn(c: Creature, col: number): void {
@@ -200,21 +183,25 @@ export function fenceOnSpawn(cfg: SimConfig, gaps: readonly number[] | undefined
  *
  * Two answers and the bolt is spent either way, which is the whole price: a
  * cannon spent on the wall is a cannon that is not under the slick beside it.
- * A wall with no way through comes apart in this column and stays apart, and
- * the event goes to both devices because a cut is the one hole in a fence that
- * is not a secret. A wall that already has a way through somewhere refuses —
- * the pair has to find the opening rather than make a second one — and the
- * shot is rejected out loud, because a bolt that vanished with nothing to show
- * for it would read as the game having missed the press.
+ * A bolt that arrives on a **crack**, in the crack's own colour, comes through
+ * it — the wall opens in that column and stays open, and the event goes to
+ * both devices because a cut is the one hole in a fence that is not a secret.
+ * Anywhere else, or in the other colour, the wall refuses and the shot is
+ * rejected out loud, because a bolt that vanished with nothing to show for it
+ * would read as the game having missed the press.
  *
- * Any colour cuts. A fence carries none, so there is nothing to match.
+ * **The colour matters, and it is the whole of why this creature needs two
+ * mouths twice over.** The crack is drawn on the pilot's screen and the
+ * cannon under it is the pilot's to slide, while both triggers are the
+ * navigator's — so the pilot has to say a number *and* a colour, and neither
+ * half opens the wall on its own (`fence-crack.ts`).
  *
  * Here rather than inline in `bullet-hit.ts`, which is at its 250-line limit
  * and where every other creature is already one call — `caromStruck`,
  * `claspStruck`, `veilStruck` and nine more. This was the odd one out.
  */
-export function fenceStruck(world: World, c: Creature, col: number): void {
-  if (!fenceIsCuttable(c)) {
+export function fenceStruck(world: World, c: Creature, col: number, color: Color): void {
+  if (fenceCrackAt(c, col) !== color) {
     world.events.push({ type: "reject", col, row: c.row });
     return;
   }

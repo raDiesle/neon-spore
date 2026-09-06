@@ -1,5 +1,6 @@
-import { fenceGapSeen, fenceIsBurnt, type World } from "@neon-spore/sim";
+import { fenceCrackAt, fenceGapSeen, fenceIsBurnt, type World } from "@neon-spore/sim";
 import { drawnRow } from "./depth.js";
+import { drawFenceCrack } from "./fence-crack.js";
 import { drawFenceGate } from "./fence-gate.js";
 import { drawFenceSweep } from "./fence-sweep.js";
 import { drawRun } from "./fence-wire.js";
@@ -18,14 +19,23 @@ import type { Layout } from "./layout.js";
  * wire runs from wall to wall, and the navigator is the only seat that can move
  * the dome (`comms.ts`).
  *
+ * **And the pilot is shown where it can be cut.** A wall may carry cracks — a
+ * column and a colour each — and only a bolt arriving on one, in that colour,
+ * opens the wire (`sim/fence-crack.ts`). They are on the pilot's screen for
+ * the same reason the gaps are: the seat that can see the answer is not the
+ * seat that can carry it out, and here it is not even the seat that fires. So
+ * the pilot says a number and a colour, the navigator loads and presses, and
+ * the pilot slides the cannon — three hands on one hole.
+ *
  * **Except where the cannon cut it.** A burnt column is on **both** screens:
  * the bolt went up in front of the two of them, so there is nothing left to
  * withhold. `fenceGapSeen` is the one place that split is decided and it lives
  * in the simulation, because *which of these holes is a secret* is a fact about
  * the creature rather than about a canvas. A cut is drawn as a *break* rather
- * than as a doorway, and only a wall the wave gave no way through can be cut
- * at all (`fenceIsCuttable`) — so the two openings on a screen are never the
- * same picture and never the same wall.
+ * than as a doorway, and a column is only ever cut where a crack was drawn on
+ * it (`fenceCrackAt`) — so the three markings on a screen are never the same
+ * picture: posts mean the wave built this way through, a crack means the
+ * cannon may make one here, and a break means it has.
  *
  * **And player 2 gets a sweep where the pilot gets the doorways.** A screen
  * shown an unbroken wire has nothing to look at and no reason to ask, so a
@@ -84,6 +94,17 @@ export function drawFences(
       from = col + 1;
     }
     if (from < l.cols) drawRun(ctx, l, from, l.cols, row, time, surfaceY);
+    // The cracks, over the wire they run down and on the pilot's screen alone.
+    // A column already cut wears the break instead — the crack was the reason
+    // it could be cut, and drawing both would say the wall is still faulted
+    // where it is now simply open.
+    if (secret) {
+      for (let col = 0; col < l.cols; col++) {
+        if (fenceIsBurnt(c, col)) continue;
+        const crack = fenceCrackAt(c, col);
+        if (crack) drawFenceCrack(ctx, l, col, row, crack, time, surfaceY);
+      }
+    }
     // And, on the one screen shown no gaps at all, the sweep that says there is
     // something to be told. Over the wire and across the whole width, so there
     // is no way for it to carry *where*.
