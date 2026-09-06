@@ -1,4 +1,4 @@
-import { openSmoothPath, type Point } from "@neon-spore/content";
+import type { Point } from "@neon-spore/content";
 import { type Glide, glideTo } from "./glide.js";
 import { strokeGlow } from "./glow.js";
 import type { LobePositions } from "./hull.js";
@@ -6,6 +6,7 @@ import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawShieldFlashes } from "./shield-flash.js";
 import { drawShieldSparks } from "./shield-spark.js";
+import { splinePath } from "./spline.js";
 
 /**
  * The shield, as a body rather than a plate.
@@ -207,7 +208,7 @@ export function drawShieldRim(
   const steps = 26;
   for (let i = 0; i <= steps; i++) pts.push(surface(from + (to - from) * (i / steps)));
 
-  const seg = new Path2D(openSmoothPath(pts));
+  const seg = splinePath(pts, false);
   ctx.globalAlpha = w.alphaBase + w.alphaGlow * glow;
   strokeGlow(
     ctx,

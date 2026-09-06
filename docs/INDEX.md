@@ -609,6 +609,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/crawler-place.ts` | Where a ring of THE CRAWLER actually sits on screen, and how much bigger it draws for being that near |
 | `packages/render/src/fence-gate.ts` | The way through a fence, on the screen that is shown it |
 | `packages/render/src/fence.ts` | THE FENCE: a live line the width of the field, and the two different pictures of it the two screens carry |
+| `packages/render/src/spline.ts` | A contour, written into a `Path2D` as numbers |
 
 ### packages/net
 

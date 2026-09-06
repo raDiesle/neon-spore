@@ -1,8 +1,9 @@
-import { openSmoothPath, type Point } from "@neon-spore/content";
+import type { Point } from "@neon-spore/content";
 import { halo, strokeGlow } from "./glow.js";
 import type { HullMood } from "./hull.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { splinePath } from "./spline.js";
 
 /**
  * Swallowing a pod, in three movements.
@@ -97,7 +98,7 @@ export function drawChew(
     // Nearest the mouth is brightest and most eaten.
     const near = 1 - Math.abs((a + b) / 2 - cannonX) / half;
     const heat = Math.max(0, near) * mood.chew;
-    const piece = new Path2D(openSmoothPath(pts));
+    const piece = splinePath(pts, false);
     ctx.globalAlpha = 0.25 + 0.75 * heat;
     strokeGlow(ctx, piece, heat > 0.5 ? PALETTE.podRim : PALETTE.ember, 1.4 + 3.4 * heat, 0.9);
   }

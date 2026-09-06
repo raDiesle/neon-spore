@@ -7,24 +7,56 @@
  */
 
 /**
+ * A Catmull-Rom spline as the cubic Beziers it is made of: after the start
+ * point, six numbers per curve — `c1x, c1y, c2x, c2y, x, y` — in one flat
+ * array. `closed` wraps the loop round; open clamps the tangent at each end.
+ *
+ * **The one place the control points are worked out**, and the reason it is
+ * numbers rather than text. A canvas never wanted a string: every site in
+ * `render/` handed one straight to `new Path2D(...)`, which parsed the decimal
+ * back into the numbers it had just been made from — 840 `toFixed(2)` calls and
+ * a five-thousand-character string per hull, on every frame of every wave.
+ * `packages/render/src/spline.ts` walks these numbers into a `Path2D` with
+ * `bezierCurveTo` instead. The two functions below still format them for the
+ * things that genuinely want an SVG `d`: `tools/shape-sheet`, the menu's
+ * wordmark, and every contour that reaches a real `<path>` element.
+ */
+export function catmullRomSegments(pts: Point[], closed: boolean): number[] {
+  const n = pts.length;
+  const out: number[] = [];
+  for (let i = 0; i < (closed ? n : n - 1); i++) {
+    const p0 = closed ? pts[(i - 1 + n) % n]! : pts[i === 0 ? 0 : i - 1]!;
+    const p1 = pts[i]!;
+    const p2 = closed ? pts[(i + 1) % n]! : pts[i + 1]!;
+    const p3 = closed ? pts[(i + 2) % n]! : pts[i + 2 < n ? i + 2 : i + 1]!;
+    out.push(
+      p1.x + (p2.x - p0.x) / 6,
+      p1.y + (p2.y - p0.y) / 6,
+      p2.x - (p3.x - p1.x) / 6,
+      p2.y - (p3.y - p1.y) / 6,
+      p2.x,
+      p2.y,
+    );
+  }
+  return out;
+}
+
+/** The segments above written out as `C` commands, two decimals apiece. */
+function curveText(seg: number[]): string {
+  let d = "";
+  for (let i = 0; i < seg.length; i += 6) {
+    d += `C ${seg[i]!.toFixed(2)} ${seg[i + 1]!.toFixed(2)}, ${seg[i + 2]!.toFixed(2)} ${seg[i + 3]!.toFixed(2)}, ${seg[i + 4]!.toFixed(2)} ${seg[i + 5]!.toFixed(2)} `;
+  }
+  return d;
+}
+
+/**
  * Catmull-Rom spline through a closed loop of points. Returns an SVG path
  * string with Bezier curves.
  */
 export function catmullRomToBezierPath(pts: Point[]): string {
-  const n = pts.length;
-  let d = `M ${pts[0]!.x.toFixed(2)} ${pts[0]!.y.toFixed(2)} `;
-  for (let i = 0; i < n; i++) {
-    const p0 = pts[(i - 1 + n) % n]!;
-    const p1 = pts[i]!;
-    const p2 = pts[(i + 1) % n]!;
-    const p3 = pts[(i + 2) % n]!;
-    const c1x = p1.x + (p2.x - p0.x) / 6;
-    const c1y = p1.y + (p2.y - p0.y) / 6;
-    const c2x = p2.x - (p3.x - p1.x) / 6;
-    const c2y = p2.y - (p3.y - p1.y) / 6;
-    d += `C ${c1x.toFixed(2)} ${c1y.toFixed(2)}, ${c2x.toFixed(2)} ${c2y.toFixed(2)}, ${p2.x.toFixed(2)} ${p2.y.toFixed(2)} `;
-  }
-  return `${d}Z`;
+  const head = `M ${pts[0]!.x.toFixed(2)} ${pts[0]!.y.toFixed(2)} `;
+  return `${head}${curveText(catmullRomSegments(pts, true))}Z`;
 }
 
 /**
@@ -33,19 +65,8 @@ export function catmullRomToBezierPath(pts: Point[]): string {
  */
 export function openSmoothPath(pts: Point[]): string {
   if (pts.length < 2) return "";
-  let d = `M ${pts[0]!.x.toFixed(2)} ${pts[0]!.y.toFixed(2)} `;
-  for (let i = 0; i < pts.length - 1; i++) {
-    const p0 = pts[i === 0 ? 0 : i - 1]!;
-    const p1 = pts[i]!;
-    const p2 = pts[i + 1]!;
-    const p3 = pts[i + 2 < pts.length ? i + 2 : i + 1]!;
-    const c1x = p1.x + (p2.x - p0.x) / 6;
-    const c1y = p1.y + (p2.y - p0.y) / 6;
-    const c2x = p2.x - (p3.x - p1.x) / 6;
-    const c2y = p2.y - (p3.y - p1.y) / 6;
-    d += `C ${c1x.toFixed(2)} ${c1y.toFixed(2)}, ${c2x.toFixed(2)} ${c2y.toFixed(2)}, ${p2.x.toFixed(2)} ${p2.y.toFixed(2)} `;
-  }
-  return d;
+  const head = `M ${pts[0]!.x.toFixed(2)} ${pts[0]!.y.toFixed(2)} `;
+  return head + curveText(catmullRomSegments(pts, false));
 }
 
 /**

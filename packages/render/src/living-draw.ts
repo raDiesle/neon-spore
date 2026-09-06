@@ -1,4 +1,4 @@
-import { livingMotion, livingPath, livingSilhouette, poseClock } from "@neon-spore/content";
+import { livingMotion, livingPoints, livingSilhouette, poseClock } from "@neon-spore/content";
 import {
   type Creature,
   otherColor,
@@ -18,6 +18,7 @@ import { mixHex } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { drawLureVent, lureHolePath, lureVented } from "./lure-hole.js";
 import { PALETTE } from "./palette.js";
+import { splinePath } from "./spline.js";
 import { drawThrobHalf } from "./throb.js";
 
 /**
@@ -115,14 +116,18 @@ export function drawLiving(
   const flip = look === "dart" ? dartFlip(c) : 1;
 
   // Not `blobPath`: a throb's rim wears clubs and the walk that draws them is
-  // the silhouette's business, not this file's (`livingPath`, content).
-  const d = livingPath(shape, t, 28);
+  // the silhouette's business, not this file's (`livingPoints`, content).
+  // Points rather than the `d` string `livingPath` builds out of them — this
+  // is the hottest contour in the game after the hull, and nobody here wanted
+  // text (`spline.ts`).
+  const outline = livingPoints(shape, t, 28);
   // THE LURE's hole, and the one thing drawn here that is *not* the disguise.
   // Two contours in one path filled even-odd is a hole the field shows through
   // (`lure-hole.ts`), and it is cut on the seat that is being told and nowhere
   // else — player 1 gets an ordinary slick or bulb, which is the whole wave.
   const vent = lureVented(l, c);
-  const path = new Path2D(vent ? `${d} ${lureHolePath(shape, t)}` : d);
+  const path = splinePath(outline, true);
+  if (vent) path.addPath(new Path2D(lureHolePath(shape, t)));
   const rule: CanvasFillRule = vent ? "evenodd" : "nonzero";
 
   ctx.save();

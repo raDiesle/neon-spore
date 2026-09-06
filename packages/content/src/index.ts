@@ -140,6 +140,7 @@ export {
 export {
   blobPath,
   blobRadiusMul,
+  catmullRomSegments,
   catmullRomToBezierPath,
   circleSubpath,
   crystalPath,

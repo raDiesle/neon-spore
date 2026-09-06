@@ -1,4 +1,4 @@
-import { LIGHT_HALF, openSmoothPath } from "@neon-spore/content";
+import { LIGHT_HALF } from "@neon-spore/content";
 import type { Scar } from "@neon-spore/sim";
 import { hullBottom } from "./band-seam.js";
 import { drawLay } from "./cannon-maw.js";
@@ -20,6 +20,7 @@ import { PALETTE, STROKE } from "./palette.js";
 import { drawScars } from "./scars.js";
 import { bloom, dither, innerLight, iridescence, sweep } from "./sheen.js";
 import { drawShieldRim } from "./shield.js";
+import { splinePath, splineSkirt } from "./spline.js";
 
 export type { HullMood, LobePositions, SurfaceY } from "./hull-frame.js";
 export { hullSkinY, surfaceSampler } from "./hull-frame.js";
@@ -113,9 +114,8 @@ export function drawHull(
 
   const right = l.gridLeft + l.gridWidth;
   const bottom = hullBottom(l);
-  const spline = openSmoothPath(pts);
-  const body = new Path2D(spline);
-  const filled = new Path2D(`${spline} L ${right} ${bottom} L ${l.gridLeft} ${bottom} Z`);
+  const body = splinePath(pts, false);
+  const filled = splineSkirt(pts, right, bottom, l.gridLeft, bottom);
 
   // The hull is cut off at the columns, not at the window: the contour is
   // sampled past both edges so it never ends in view, but nothing of the ship

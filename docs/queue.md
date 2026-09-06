@@ -145,45 +145,6 @@ alternative for `tools/versus/` and not a landing.
 `crawler-budget.test.ts` come down and `packages/render/test/crawler-frame.test.ts`
 still draws.
 
-## Every organic shape is rebuilt as an SVG path *string* on every frame
-
-- **Found:** 2026-09-03, claude/game-performance-mobile-analysis-cd4207
-- **Taken:** 2026-09-06, claude/queue-every-organic-shape-is-rebuilt-as-an-svg-path-st
-- **Files:** `packages/content/src/shapes.ts`, `packages/render/src/hull.ts`, `packages/render/src/creatures.ts`, `packages/render/src/shield.ts`, `packages/render/src/maw.ts`, `packages/render/test/frame-budget.test.ts`
-
-`openSmoothPath` and `blobPath` both return a **string**, built with
-`toFixed(2)` on every coordinate, and every caller in `render/` hands that
-string straight to `new Path2D(...)`, which parses the decimal text back into
-the numbers it was made from. The round trip runs once per shape per frame.
-
-Measured on this machine (Bun, null canvas, 375x812 dpr2, wave 12):
-
-| what | us per frame |
-|---|---|
-| `drawShip` (the whole pass) | 118 |
-| — of which `drawHull` | 117 |
-| — — of which `openSmoothPath(141 pts)` | 54 |
-| — — of which 141 x `surface()` | 21 |
-| `drawBodies`, 2 creatures | 28 |
-| `drawFieldBack` | 2 |
-| `drawOverlays` | 2 |
-
-`drawHull` alone is 78% of a quiet frame and it is paid on **every** frame of
-**every** wave, because the hull is always there. Its contour is
-`pointsAcross(f, l, 140)` — 141 points — and `openSmoothPath` then makes 840
-`toFixed(2)` calls and one 5 085-character string out of them. `blobPath` does
-the same at `N = 40` for each creature body, which is where the ~14us per
-creature goes.
-
-The work: add a sibling of each that writes into a `Path2D` with `moveTo` /
-`bezierCurveTo` instead of building text, and use it at the sites in `render/`
-that only ever wanted the `Path2D`. The SVG-string form stays for
-`tools/shape-sheet`, which really does want text. Dropping `toFixed(2)` moves
-a coordinate by less than 0.005 px, which `.claude/skills/render-perf` calls
-*imperceptible* and lands, but say so in the commit message in those terms and
-prove it with the ordered call log the skill describes. Lower the rows in
-`frame-budget.test.ts` in the same commit.
-
 ## The op-count budget weighs one quiet wave; the five expensive ones have none
 
 - **Found:** 2026-09-03, claude/game-performance-mobile-analysis-cd4207

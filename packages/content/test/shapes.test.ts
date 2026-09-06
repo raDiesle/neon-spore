@@ -1,6 +1,12 @@
 import { describe, expect, it } from "bun:test";
 import { bumpAdd, bumpLift, hullAngleAtX, hullPointAtX, hullRadiusMul } from "../src/hull-shape.js";
-import { blobPath, catmullRomToBezierPath, type Point } from "../src/shapes.js";
+import {
+  blobPath,
+  catmullRomSegments,
+  catmullRomToBezierPath,
+  openSmoothPath,
+  type Point,
+} from "../src/shapes.js";
 
 describe("shapes", () => {
   describe("catmullRomToBezierPath", () => {
@@ -25,6 +31,48 @@ describe("shapes", () => {
       const pts: Point[] = [{ x: 5, y: 5 }];
       const path = catmullRomToBezierPath(pts);
       expect(path).toContain("5");
+    });
+  });
+
+  /**
+   * The numbers and the text are one spline. `render/src/spline.ts` walks the
+   * segments straight into a `Path2D` and never builds the string at all, and
+   * a second copy of the control-point arithmetic is exactly the drift
+   * `packages/sim/test/purity.test.ts` keeps a table against — so what is
+   * checked here is that the two forms still describe the same curve, to the
+   * two decimals the text was ever rounded to.
+   */
+  describe("catmullRomSegments", () => {
+    const ring: Point[] = [
+      { x: 3, y: 7 },
+      { x: 41, y: 11 },
+      { x: 37, y: 53 },
+      { x: 5, y: 47 },
+      { x: -9, y: 23 },
+    ];
+
+    /** Every number in an SVG `d`, in the order it was written. */
+    const numbersIn = (d: string) => (d.match(/-?\d+\.\d+/g) ?? []).map(Number);
+
+    it("carries the same curve the closed path spells out", () => {
+      const text = numbersIn(catmullRomToBezierPath(ring));
+      const seg = catmullRomSegments(ring, true);
+      // The string leads with its `M`, which the segments do not carry.
+      expect(text.slice(0, 2)).toEqual([3, 7]);
+      expect(text.length).toBe(2 + seg.length);
+      for (const [i, n] of seg.entries()) expect(text[2 + i]).toBeCloseTo(n, 2);
+    });
+
+    it("carries the same curve the open path spells out", () => {
+      const text = numbersIn(openSmoothPath(ring));
+      const seg = catmullRomSegments(ring, false);
+      expect(text.length).toBe(2 + seg.length);
+      for (const [i, n] of seg.entries()) expect(text[2 + i]).toBeCloseTo(n, 2);
+    });
+
+    it("closes the loop and clamps the open run", () => {
+      expect(catmullRomSegments(ring, true).length / 6).toBe(ring.length);
+      expect(catmullRomSegments(ring, false).length / 6).toBe(ring.length - 1);
     });
   });
 
