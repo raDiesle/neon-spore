@@ -33,6 +33,7 @@ file, and a count has to agree with what the file's own header counts.
 | `docs/release-notes.md` | you want to know what changed and when — read-only, written by `bun run land` |
 | `docs/queue.md` | you found a technical improvement and are not doing it now, or you are opening a session to drain one — `bun run queue` |
 | `docs/parked.md` | you are stopping mid-way through something, or picking up what a session left half-done — the front of the same queue, work only, never ideas |
+| `docs/performance.md` | you added a shape or an animation, or you want to know what a frame costs and where the time goes — `bun run perf` |
 | `docs/token-budget.md` | you wonder why files are small and docs are split |
 | `docs/delegating.md` | you hand implementation to the worker model |
 | `docs/delegation-cost.md` | you wonder whether delegating is worth it — it was measured |
@@ -1074,5 +1075,8 @@ place — the generator keeps whatever is there.
 | `tools/land/race.ts` | Whether some other lane landed while this one was in `bun run check` |
 | `tools/director/src/cell-config-gaps.ts` | THE GRATE's row under the map: one chip per column, lit where the wall is open |
 | `tools/director/src/entry-fields-grate.ts` | **Where a wall is open**, read and written on one arrival |
+| `tools/perf/compare.ts` | What a performance run *is*, and what two of them say when held side by side |
+| `tools/perf/measure.ts` | One performance run, taken off a real browser driving the real bundle |
+| `tools/perf/run.ts` | `bun run perf` — what a frame costs, wave by wave, at phone speed |
 
 <!-- index:code:end -->

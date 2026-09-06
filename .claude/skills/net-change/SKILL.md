@@ -51,10 +51,16 @@ socket delivers in. For that, and only with a wrangler running:
 bun run --cwd apps/server dev     # prints its port
 bun run relay:check
 bun run relay:check ws://127.0.0.1:8800 8 --split
+bun run relay:check ws://127.0.0.1:8800 8 --full
+bun run relay:check ws://127.0.0.1:8800 14 --rejoin
 ```
 
 `--split` reaches into one of the two worlds on purpose, to prove the desync
-detector is watching rather than merely present. Kill the wrangler when done.
+detector is watching rather than merely present. `--full` sends a third device
+at a room that already has two, and `--rejoin` drops one mid-run and brings it
+back — the two things the Durable Object does that no unit test reaches, and
+both of them were broken when somebody first looked. Kill the wrangler when
+done.
 
 If you could not run it — no wrangler, a sandbox with no network — say
 **unverified** in the report and name what a person should run. Do not offer a

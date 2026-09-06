@@ -48,11 +48,9 @@ Style and formatting are Biome's job: `bun run lint`, `bun run format`.
   long-lived branches. One person works on this repo.
 - **Worktrees are a working tool**, and the branch that comes with one is
   temporary. A fresh worktree needs its own `bun install` — `node_modules` must
-  **not** be linked or copied from the main tree — and on Windows it must be run
-  **from a native shell**, PowerShell rather than the Bash tool. MSYS writes the
-  workspace link with a POSIX target that `tsc` cannot follow, and the typecheck
-  then fails with *Cannot find module `@neon-spore/sim`* in a file the lane never
-  opened (`docs/working-with-claude.md`).
+  **not** be linked or copied from the main tree, and on Windows it is run **from
+  a native shell**: MSYS writes the workspace link with a POSIX target `tsc`
+  cannot follow (`docs/working-with-claude.md`).
 - **Landing is one command: `bun run land`, from inside the lane's worktree.**
   It rebases onto `main`, checks the result, fast-forwards, writes the release
   note, deletes the branch and sweeps spent worktrees. Do not do any of it by
@@ -270,9 +268,9 @@ Fix it in the same turn.
 
 ## Verifying in a browser
 
-**`bun run preview`, never `bun run dev:game`.** It builds first (about ten
-milliseconds) and serves the bundle that ships. The two ports are separate on
-purpose: `dev:game` is the human's on 3000, `preview` is the agent's on 4173.
+**`bun run preview`, never `bun run dev:game`.** It builds first (ten
+milliseconds) and serves the bundle that ships. The ports are separate on
+purpose: `dev:game` is the human's on 3000, `preview` the agent's on 4173.
 
 **Ask who answered before trusting a measurement.** A dev server returns
 `index.html` for any path, so a 200 proves nothing:
@@ -285,63 +283,51 @@ Only the preview answers `{"app":"neon-spore-preview",...}`, and it names the
 checkout it serves in `tree`. If that tree is not the one under test, the number
 came off the wrong server.
 
-**Read the port out of the server's own startup line.** A worktree's preview
-takes 4173 when 4173 is free — a single server in a single tree still answers
-where every document and `curl` line says it does — and steps aside onto a port
-derived from its tree's path (`tools/ports.ts`) only when another tree's server
-is already holding the base. So the port is one of two numbers and the log says
-which, along with the tree. The director does the same from 4174. Do not read
-"this is a worktree" as "the port is derived": a session that assumed that
-probed the derived port, found nothing, and concluded its server had failed to
-start.
+**Read the port out of the server's own startup line.** A preview takes 4173
+when it is free and steps aside onto a port derived from its tree's path
+(`tools/ports.ts`) only when another tree already holds the base; the director
+does the same from 4174. So the port is one of two numbers, and the log says
+which. Do not read "this is a worktree" as "the port is derived" —
+`docs/working-with-claude.md` has the session that did.
 
-**In a worktree, `.claude/launch.json` is the wrong tool** — its entries carry no
-`cwd`, so they start the *main* checkout's server, which then serves main's
-code with nothing erroring. Launch the server by absolute path inside your own
-tree and confirm who answered.
+**In a worktree, `.claude/launch.json` is the wrong tool**: its entries carry no
+`cwd`, so they start the *main* checkout's server, which serves main's code with
+nothing erroring. Launch by absolute path inside your own tree, and confirm who
+answered.
 
-The game opens on the main menu; `?play=1` goes straight onto the field, and
+The game opens on the main menu; `?play=1` goes straight onto the field, which
 is what `tools/frames` drives so a captured frame is the game rather than a
-title screen.
-`bun run preview:once` takes a free port for a throwaway check. Never start a
-server with a backgrounded shell command. The history behind all of this is in
-`docs/working-with-claude.md`.
+title screen. `bun run preview:once` takes a free port for a throwaway check.
+Never start a server with a backgrounded shell command. The history behind all
+of this: `docs/working-with-claude.md`.
 
-**Nothing on a local address installs a service worker**, and that is the same
-rule as asking who answered. A cache that replies when the server has idled out
-serves a build that no longer exists, and the stale page reads as a bug in the
-code that just replaced it — which is exactly what it did once. `?pwa=1` turns
-one on locally for the only case that wants it, testing the install itself;
-`apps/game/test/solo-is-quiet.test.ts` holds the rule.
+**Nothing on a local address installs a service worker.** A cache that replies
+after the server has idled out serves a build that no longer exists, and the
+stale page reads as a bug in the code that just replaced it. `?pwa=1` turns one
+on locally for the one case that wants it, testing the install.
 
 **Playing alone opens no socket.** The two-device layer is built on every run
 because solo is the default rather than a mode, and it is inert until a room is
-joined — no ping, no fingerprint, not even a status callback. The same test
-holds that, because "inert" is a claim that stays true in the reading and stops
-being true the moment a timer moves above the check for a socket.
+joined — no ping, no fingerprint, not even a status callback.
+`apps/game/test/solo-is-quiet.test.ts` holds that and the rule above: "inert" is
+a claim that stops being true the moment a timer moves above the check for a
+socket.
 
 ## Measuring what a frame costs
 
-**A new shape or a new animation gets a performance run. An ordinary change does
-not.** A creature, a boss, a round, or a new animated behaviour on a body that
-already exists is the only kind of change that can put per-frame cost on the
-field that nobody has weighed; tuning a number, moving a control or fixing a bug
-cannot.
+**A new shape or a new animation gets a performance run; an ordinary change does
+not.** A creature, a boss, a round or a new animated behaviour is the only kind
+of change that can put per-frame cost nobody has weighed onto the field.
 
 ```
 bun run perf           # every wave, at its busiest tick, CPU throttled to a phone
 bun run perf --save    # keep it as the baseline, once the change is one you meant
 ```
 
-It drives the built bundle in Chrome, throttled to a mid-tier phone, and prints
-what changed against `tools/perf/baseline.json`, worst first. It does not
-replace `packages/render/test/frame-budget.test.ts`, which counts canvas
-*operations*: an op is not a millisecond.
-
-Never `--save` to make a regression stop being reported.
-
-The mechanism, the numbers it last agreed with, and where the time actually goes:
-`docs/performance.md`.
+**Never `--save` to make a regression stop being reported**, and never run one on
+a busy machine — the 90th percentile then measures the other sessions rather than
+the frame. It does not replace `frame-budget.test.ts`: an op is not a
+millisecond. `docs/performance.md` carries the mechanism and the figures.
 
 ## Verifying the relay
 
@@ -357,14 +343,10 @@ bun run relay:check ws://127.0.0.1:8800 8 --full
 bun run relay:check ws://127.0.0.1:8800 14 --rejoin
 ```
 
-`--split` reaches into one of the two worlds on purpose, to prove the desync
-detector is watching. `--full` sends a third device at a room that has two, and
-`--rejoin` drops one mid-run and brings it back — the two things the Durable
-Object does that no unit test reaches, and both of them were broken. The relay is the one server whose port
-*is* always derived in a worktree — wrangler answers no marker, so there is
-nothing to settle with and `relayPort` simply hands it a number of its tree's
-own; `curl -s http://127.0.0.1:<port>/net/health` says who answered.
-Kill the wrangler process when the check is done.
+What the three flags reach, and why: `.claude/skills/net-change`. The relay is
+the one server whose port *is* always derived in a worktree — wrangler answers no marker, so `relayPort` hands it a
+number of its tree's own; `curl -s http://127.0.0.1:<port>/net/health` says who
+answered. Kill the wrangler when the check is done.
 
 ## Where things live
 
