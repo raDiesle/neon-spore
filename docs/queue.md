@@ -354,6 +354,7 @@ cannot get a browser should print one line naming the reason.
 ## An interrupted `perf` or `frames` run leaves a browser profile behind forever
 
 - **Found:** 2026-09-06, claude/queue-stale-browser-profiles
+- **Taken:** 2026-09-06, claude/queue-an-interrupted-perf-or-frames-run-leaves-a-brows
 - **Files:** `tools/perf/run.ts`, `tools/frames/run.ts`, `tools/land/sweep.ts`
 
 `chromium.launch()` with no `userDataDir` makes a throwaway profile under the
