@@ -211,7 +211,6 @@ export {
 } from "./types.js";
 export {
   type VeerDir,
-  veerChangesLeft,
   veerDist,
   veerHeading,
   veerRowIsChange,

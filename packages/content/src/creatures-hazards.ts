@@ -80,7 +80,7 @@ export const HAZARD_CREATURES: Record<HazardKind, CreatureDef> = {
     // who can move the shield under it, is shown the rock and nothing else.
     radar: "p1",
     blurb:
-      "Dead rock with a rider on it, coming down a row a beat. Cannot be shot. Three times on the way down it steps a lane to one side — at the same three rows every time, and only the pilot is shown which side the next one takes.",
+      "Dead rock with a rider on it, coming down a row a beat. Cannot be shot. Every three rows it steps up to four lanes to one side, and it never stops — only the pilot is shown which side the next step takes.",
   },
   fence: {
     kind: "fence",

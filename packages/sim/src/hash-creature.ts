@@ -182,9 +182,9 @@ export function creatureHashParts(c: Creature): number[] {
   // devices that disagree about either are two devices holding one rock over
   // two lanes, and one of them wards an empty column. `0` for a kind that
   // never changes lane, a pair of values neither field can take on a live
-  // veer, so "not a veer" is never the same pair as any real change. How many
-  // changes are left needs no field of its own: it is `c.row` far above,
-  // which `veerChangesLeft` divides.
+  // veer, so "not a veer" is never the same pair as any real change. When the
+  // next change falls needs no field of its own: it is `c.row` far above,
+  // which `veerRowIsChange` divides.
   out.push(c.veerDir ?? 0);
   out.push(c.veerDist ?? 0);
   // THE STRAND's four. Which thread a bead hangs on, where it hangs along it

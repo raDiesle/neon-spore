@@ -328,12 +328,11 @@ export const COPIES: Copy[] = [
     strip: false,
   },
   {
-    // When THE VEER changes lane. It is a row against a spacing and a count —
-    // three lines of arithmetic — and three separate readers want the answer:
-    // the step itself, the arrow render draws over the rider, and the crouch
-    // it draws on both screens. Exactly the size and shape of rule a second
-    // reader writes out again rather than importing, and the cost of the copy
-    // is a mark that says "it moves now" on a beat it does not.
+    // When THE VEER changes lane. It is a row against a spacing, and two
+    // separate readers want the answer: the step itself and the crouch render
+    // draws on both screens the beat before one. Exactly the size and shape of
+    // rule a second reader writes out again rather than importing, and the cost
+    // of the copy is a mark that says "it moves now" on a beat it does not.
     call: "veerRowIsChange",
     owner: "packages/sim/src/veer.ts",
     pattern: /%\s*[\w.]*veerRowsApart/,

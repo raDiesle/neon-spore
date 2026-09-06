@@ -15,7 +15,8 @@ import type { Wave } from "../wave-types.js";
  * rock so far has rewarded: *say the column once, put the shield there, stop
  * looking*. Five speed tiers, a torch, a volley and a carom have all been
  * answered that way — the number a pilot reads off the strip has never gone
- * stale before it landed. This rock's number expires three times.
+ * stale before it landed. This rock's number expires every three rows, and it
+ * goes on expiring right down to the row the shield answers at.
  *
  * The split is the sharp end of it. A rock is the pilot's on the radar and the
  * navigator's on the field, so the seat that can see which way the next step
@@ -24,9 +25,9 @@ import type { Wave } from "../wave-types.js";
  *
  * 1. Beat 0, one alone, dead centre. Nothing else on the field for eighteen
  *    beats, so the pair can spend the whole fall discovering that it steps at
- *    all, that it steps at the same three rows every time, and that only one
- *    of them is being told which way. It reaches the ship if they give up on
- *    it, and it costs exactly what a rock costs.
+ *    all, that it steps every third row and never stops, and that only one of
+ *    them is being told which way. It reaches the ship if they give up on it,
+ *    and it costs exactly what a rock costs.
  * 2. Beats 18–20, a veer and an ordinary slick beside it. This is the wave:
  *    the pilot is reading an arrow and calling sides while the cannon is
  *    wanted in another lane, and the thumb on GUARD is the same thumb.
@@ -112,9 +113,9 @@ export const WAVES_ACT_6: Wave[] = [
     name: "THE VEER",
     sentence: "The one where parking the shield under it is what loses it.",
     guide: {
-      both: "A rock with a rider on it. Three times on the way down it steps one lane to the side — the same three rows every fall, and nothing about it can be shot. What lands is still a rock, and still wants the shield.",
-      p1: "You are the only one who sees the arrow over its hat, and it points three rows before it moves. Say the side out loud every single time it re-aims — and keep the thumb on GUARD, because saying it is not warding it.",
-      p2: "You can see where it is, not where it is going. Move the shield on what you are told rather than on what you can see, and never park it early — count the rows it steps on and be one call behind, not one lane.",
+      both: "A rock with a rider on it. Every third row it steps to one side, and it never stops — the last step lands one row above the ship. Nothing about it can be shot. What lands is still a rock, and still wants the shield.",
+      p1: "You are the only one who sees the arrow over its hat, and it re-aims every three rows all the way down. Say the side out loud every single time — and keep the thumb on GUARD, because saying it is not warding it.",
+      p2: "You can see where it is, not where it is going. Move the shield on what you are told rather than on what you can see, and never park it — there is no row on the way down where the last thing you were told is still true.",
     },
     entries: [
       { beat: 0, col: 3, kind: "veer", color: null },

@@ -1,20 +1,29 @@
 /**
- * THE VEER's three numbers: how many times it changes lane on the way down,
- * how far apart the rows it does it on are, and the widest a single change
- * can reach (`veer.ts`).
+ * THE VEER's two numbers: how far apart the rows it changes lane on are, and
+ * the widest a single change can reach (`veer.ts`).
  *
  * Its own file rather than two more rows in `config-creatures.ts`, which was
  * one line under the 250-line limit the day this creature was written — the
  * immediate reason, and the same one `config-ghost.ts`, `config-recoil.ts` and
  * `config-gyre.ts` each record for themselves. The better reason is the one
  * `config-recoil.ts` gives: these two only mean anything against each other. A
- * count without a spacing says nothing about how long a call stays true, and a
- * spacing without a count says nothing about when the rock settles — they are
- * argued together or not at all.
+ * spacing without a width says nothing about how far a call can be wrong by,
+ * and a width without a spacing says nothing about how long the pair has to
+ * act on one — they are argued together or not at all.
  *
  * `SimConfig` extends this rather than nesting it, so every call site still
- * reads `cfg.veerChanges` and the split is only about how much of one file a
+ * reads `cfg.veerRowsApart` and the split is only about how much of one file a
  * reader has to hold at once.
+ *
+ * **There used to be a third number here, `veerChanges`, and cutting it is the
+ * creature.** It capped the changes at three, which put the last one nine rows
+ * down and left a tail of straight fall the pair could watch the rock settle
+ * in. The owner asked for that tail gone on 6 September 2026: a rock that stops
+ * moving is a rock the old habit answers again — say the column once, park the
+ * shield, stop looking — and the last thing anybody said about it being still
+ * true when it lands is exactly what every other rock already offers. It
+ * changes lane every `veerRowsApart` rows for the whole of its fall now, and
+ * the pilot's arrow stands over it the whole way down.
  *
  * **There is no fall speed in here, and that is the point.** A veer comes down
  * a row a beat because `fallTilesPerBeat` says so for anything it does not
@@ -27,26 +36,17 @@
  */
 export interface VeerConfig {
   /**
-   * Times it changes lane between the top of the field and the ship. Three,
-   * and the number is the creature. One is a rock that surprises the pair
-   * once, which they answer by waiting; two is that said twice. Three is the
-   * first count at which parking the shield and watching is plainly worse than
-   * listening to every call — and it is small enough that a pair who miss one
-   * still have two more chances to be told.
-   */
-  veerChanges: number;
-  /**
    * Rows between one change and the next, and therefore how long a column the
    * pilot says out loud stays true. Three, which at the default beat is a
    * little under two seconds — long enough for a number to cross the room and
    * be acted on, short enough that a shield left where it was is in the wrong
    * lane before the pair has finished congratulating itself.
    *
-   * Three of them three rows apart puts the last change nine rows down, which
-   * leaves five rows of straight fall before the ship. That tail is deliberate:
-   * the pair has to be able to see the rock stop moving and settle into the
-   * lane it will actually land in, or the ward would be a guess at the end
-   * rather than the answer to the last thing they said.
+   * Three of them across the fifteen rows of the field puts changes on rows 3,
+   * 6, 9 and 12, and the last of those is one row above the one the shield
+   * answers at. That is the creature: there is no row on the way down at which
+   * the pair may stop listening, and the final call is the one that has to be
+   * said and acted on quickest.
    */
   veerRowsApart: number;
   /**
@@ -67,7 +67,6 @@ export interface VeerConfig {
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
 export const VEER_DEFAULTS: VeerConfig = {
-  veerChanges: 3,
   veerRowsApart: 3,
   veerMaxDist: 4,
 };

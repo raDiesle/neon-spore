@@ -18,9 +18,9 @@ export interface VeerState {
    * the same world.
    *
    * It is most of its state, because *when* it changes lane is not stored at
-   * all: the three changes happen on three fixed rows, so how many are left
-   * is read off `row` (`veerChangesLeft`) rather than counted down. Read the
-   * side through `veerHeading` and never directly — the arrow on player 1's
+   * all: a change happens on every row a multiple of `veerRowsApart` below the
+   * top, so whether one is due is read off `row` (`veerRowIsChange`) rather
+   * than counted down. Read the side through `veerHeading` and never directly — the arrow on player 1's
    * screen, the rider's lean on both, and the column the body actually steps
    * into are three readings of one number, and a second copy of the fallback
    * is how the pair comes to be told a side the rock does not take.

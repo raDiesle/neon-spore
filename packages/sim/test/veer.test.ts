@@ -6,7 +6,6 @@ import { isMeteorKind, isWardable } from "../src/kinds.js";
 import { createRng } from "../src/rng.js";
 import type { Creature, TimedCommand } from "../src/types.js";
 import {
-  veerChangesLeft,
   veerDist,
   veerHeading,
   veerPickChange,
@@ -17,12 +16,13 @@ import {
 import { createWorld, type SimEvent, type SpawnEntry, step, type World } from "../src/world.js";
 
 /**
- * THE VEER: a rock that steps a lane to one side three times on the way down.
+ * THE VEER: a rock that steps a lane to one side every `veerRowsApart` rows,
+ * all the way down.
  *
  * What is worth pinning here is the half a reader of `veer.ts` cannot check by
- * eye — that it really does fall like every other rock, that it changes lane
- * exactly `veerChanges` times and on the rows it says it does, that a change is
- * never wider than `veerMaxDist`, that it never steps off the field, that
+ * eye — that it really does fall like every other rock, that it changes lane on
+ * every row the spacing names and goes on doing it to the ship, that a change
+ * is never wider than `veerMaxDist`, that it never steps off the field, that
  * `veerDir` and `veerDist` are the side and width of the change still to come
  * rather than the one just taken, that the shield still answers it, and that a
  * second device walking the same beats arrives at the same fingerprint.
@@ -99,23 +99,24 @@ describe("THE VEER", () => {
     for (const [i, s] of walk.entries()) expect(s.row).toBe(Math.min(i, HULL));
   });
 
-  it("changes lane exactly three times, up to veerMaxDist columns each, on rows 3, 6 and 9", () => {
+  it("changes lane up to veerMaxDist columns each time, on rows 3, 6, 9 and 12", () => {
     const { walk } = run([veer(3)], tickOfRow(HULL) + TPB);
     const moved = walk.filter((s, i) => i > 0 && s.col !== walk[i - 1]!.col);
-    expect(moved.length).toBe(CFG.veerChanges);
-    expect(moved.map((s) => s.row)).toEqual([3, 6, 9]);
+    expect(moved.map((s) => s.row)).toEqual([3, 6, 9, 12]);
     for (const [i, s] of walk.entries()) {
       if (i === 0) continue;
       expect(Math.abs(s.col - walk[i - 1]!.col)).toBeLessThanOrEqual(CFG.veerMaxDist);
     }
   });
 
-  it("holds the lane it settles in for the rest of the fall", () => {
+  it("never settles: the last change lands one row above the row the shield answers at", () => {
+    // The creature, in one number. There used to be a tail of straight fall
+    // below the last change, and a pair could park the shield in the lane the
+    // rock had arrived in and stop listening — which is what every other rock
+    // already rewards. The last step now comes on the row above the shield's.
     const { walk } = run([veer(3)], tickOfRow(HULL) + TPB);
-    const settled = walk.filter((s) => s.row >= 9);
-    const cols = new Set(settled.map((s) => s.col));
-    expect(settled.length).toBeGreaterThan(3);
-    expect(cols.size).toBe(1);
+    const moved = walk.filter((s, i) => i > 0 && s.col !== walk[i - 1]!.col);
+    expect(moved.at(-1)?.row).toBe(SHIELD - 1);
   });
 
   it("takes the side and width it was aiming at, not the ones it re-aims to", () => {
@@ -184,28 +185,35 @@ describe("THE VEER", () => {
     }
   });
 
-  it("stops asking for a call once the last change is spent", () => {
-    expect(veerChangesLeft(CFG, 0)).toBe(CFG.veerChanges);
-    expect(veerChangesLeft(CFG, 9)).toBe(0);
+  it("has a change ahead of it at every height, and asks for a call the whole way", () => {
+    expect(veerRowIsChange(CFG, 0)).toBe(false);
+    for (let row = 1; row <= HULL; row++) {
+      expect(veerRowIsChange(CFG, row)).toBe(row % CFG.veerRowsApart === 0);
+      expect(veerRowsToChange(CFG, row)).toBeGreaterThan(0);
+      expect(veerRowsToChange(CFG, row)).toBeLessThanOrEqual(CFG.veerRowsApart);
+    }
     expect(veerRowsToChange(CFG, 0)).toBe(CFG.veerRowsApart);
     expect(veerRowsToChange(CFG, 2)).toBe(1);
-    expect(veerRowsToChange(CFG, 9)).toBeNull();
   });
 
   it("is turned by a ward in the lane it actually lands in, and not the one it left", () => {
     // The wave in one test. The shield parked in the column the rock entered
     // answers nothing, because by the ship it is somewhere else; the shield
     // moved to where it settles turns it, and the hull is whole.
+    // A named seed, and the three runs share it: on seed 0 the four changes
+    // happen to bring this rock back to the column it entered, which would
+    // make the parked shield right by luck and prove nothing.
+    const SEED = 1;
     const ticks = tickOfRow(HULL) + TPB * 2;
-    const settled = run([veer(3)], ticks).walk.find((s) => s.row === 9);
+    const settled = run([veer(3)], ticks, [], SEED).walk.find((s) => s.row === SHIELD - 1);
     expect(settled).toBeDefined();
     const landed = settled?.col ?? 3;
     expect(landed).not.toBe(3);
 
-    const stale = run([veer(3)], ticks, [shieldTo(0, 3), guard(tickOfRow(SHIELD))]);
+    const stale = run([veer(3)], ticks, [shieldTo(0, 3), guard(tickOfRow(SHIELD))], SEED);
     expect(hullPercent(stale.world)).toBeLessThan(100);
 
-    const told = run([veer(3)], ticks, [shieldTo(0, landed), guard(tickOfRow(SHIELD))]);
+    const told = run([veer(3)], ticks, [shieldTo(0, landed), guard(tickOfRow(SHIELD))], SEED);
     expect(told.events.some((e) => e.type === "deflect")).toBe(true);
     expect(hullPercent(told.world)).toBe(100);
   });

@@ -373,3 +373,23 @@ the hand a tile across the way it carries a cord (`scene-script.ts`).
 
 The sentence to beat: a hand on a rock does two things, and the second one is
 the column.
+
+## The relay's "run nobody came back to" test is timing-flaky under a full suite
+
+- **Found:** 2026-09-06, claude/veer-brush-preview-tiles
+- **Files:** `apps/server/test/room.test.ts`
+
+`ends a run nobody came back to, so the next arrival starts a fresh one`
+shortens the room's two real-time windows to `SEAT_SILENT_MS: 100` and
+`RUN_OVER_MS: 200` and then waits `quiet(400)` for them to expire. Run on its
+own the file is green; run inside `bun test` with three hundred other files on
+one machine it failed once with `expected > 0, received 0` — the wait elapsed
+before the room had processed the silence, so the next arrival was handed the
+old stamp. Nothing about the relay is wrong; the test measures a deadline
+against a wall clock that a loaded machine does not honour.
+
+Make it wait for the *state* rather than for a duration — poll the next
+arrival's `welcome` until the stamp clears, with a generous ceiling — or raise
+the two windows and the wait together so the margin is not a tenth of a second.
+Both are local to that one test; the second is a smaller change and the first
+is the one that cannot come back.

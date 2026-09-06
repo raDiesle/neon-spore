@@ -210,8 +210,8 @@ export function onBeat(world: World): void {
     // and the colour a shot has to match are two readings of one number.
     if (c.kind === "veil") veilMorph(world, c);
     // And THE VEER, the one body that steps sideways **beside** the fall
-    // rather than instead of it: it has dropped its row above, and on the
-    // three rows `veerRowIsChange` names it takes a lane with it. Every other
+    // rather than instead of it: it has dropped its row above, and on every
+    // row `veerRowIsChange` names it takes a lane with it. Every other
     // sideways body is a branch further up that replaces the fall, because one
     // that both stepped and fell would cover twice the ground it is drawn
     // covering; here the diagonal is the fall it already had (`veer.ts`).

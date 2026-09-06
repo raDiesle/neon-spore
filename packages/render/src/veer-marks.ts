@@ -1,4 +1,4 @@
-import { spanOf, veerChangesLeft, veerDist, veerHeading, type World } from "@neon-spore/sim";
+import { spanOf, veerDist, veerHeading, type World } from "@neon-spore/sim";
 import { creatureCenter } from "./creature-place.js";
 import { drawDartArrow } from "./dart.js";
 import type { Layout } from "./layout.js";
@@ -29,10 +29,12 @@ import { rockRadius } from "./torch.js";
  * know what two dim arrows inside a frame mean, and teaching them a second
  * marking for one idea is what `comms.ts` exists to stop.
  *
- * **Neither mark outlives the last change.** After the third one the rock is a
- * plain tier falling down a settled column, and a mark still standing over it
- * would be saying there is something left to call. `veerChangesLeft` is the
- * gate, and it is the simulation's rule rather than a count kept here.
+ * **Both marks stand over it for the whole fall.** There used to be a gate
+ * here — after the third change the rock was a plain tier falling down a
+ * settled column, and a mark over it would have been saying there was
+ * something left to call. There is no last change any more (`sim/veer.ts`), so
+ * there is nothing to gate on: a veer is re-aiming at every height it can be
+ * seen at, and the arrow is true until the shield answers it.
  *
  * **The width is a third mark, and it sits above the arrow on both screens.**
  * How many tiles the change covers decides nothing about which lane the
@@ -105,7 +107,6 @@ export function drawVeerMarks(
   const tell = showsVeerArrow(l);
   for (const c of world.creatures) {
     if (c.kind !== "veer") continue;
-    if (veerChangesLeft(world.cfg, c.row) <= 0) continue;
     const { x, y } = creatureCenter(l, c, beatPhase);
     const r = rockRadius(l, spanOf(c));
     const above = y - r * LIFT;

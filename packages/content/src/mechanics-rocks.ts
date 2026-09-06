@@ -33,7 +33,7 @@ export const ROCK_MECHANICS = {
     waveNames: true,
   },
   veer: {
-    what: "A rock with a rider on it, coming down a row a beat like the plain one — and changing lane three times on the way, a tile at a time, at the same three rows every fall. Only one of you is shown which side the next change takes, and it is not the one holding the shield.",
+    what: "A rock with a rider on it, coming down a row a beat like the plain one — and changing lane every three rows, up to four tiles at a time, all the way to the ship. Only one of you is shown which side the next change takes, and it is not the one holding the shield.",
     reach: "spawn",
     waveNames: true,
   },

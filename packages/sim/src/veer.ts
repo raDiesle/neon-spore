@@ -9,16 +9,25 @@ import type { World } from "./world.js";
  * Every other rock in the game is a column said once. Player 1 reads one off
  * the strip, says a number, and player 2 has the whole fall to put the shield
  * there — the number never goes stale, which is why a pair who have learned
- * the ward can park the shield and stop looking. This one expires three times
- * on the way down.
+ * the ward can park the shield and stop looking. This one expires every three
+ * rows, from the top of the field to the row the shield answers at.
  *
- * **One to four tiles to one side, at three fixed rows.** It falls a row a
- * beat like the plain tier and steps sideways as it lands on each of the
- * `veerChanges` rows `veerRowsApart` apart below the top — so the *when* is a
+ * **One to four tiles to one side, every `veerRowsApart` rows, the whole way
+ * down.** It falls a row a beat like the plain tier and steps sideways as it
+ * lands on every row that is a multiple of the spacing — so the *when* is a
  * thing both players can learn and count, and only the *which way* is hidden.
  * That split is deliberate: a body whose timing and side were both secrets
  * would be a body the pair can only answer by luck, and the pair are supposed
  * to be talking rather than guessing.
+ *
+ * **It never settles.** There were three changes and then a tail of straight
+ * fall, so the pair could watch the rock arrive in the lane it would land in;
+ * the owner cut the tail on 6 September 2026 and the reason is the whole
+ * creature. A rock that stops moving is answered by the habit every other rock
+ * rewards — say the column once, park the shield, stop looking — and a
+ * creature written to break that habit must not hand it back on the last five
+ * rows. The last change lands one row above the shield's, so there is no
+ * height at which the pair may stop listening.
  *
  * **How far is rolled fresh with every change, up to `veerMaxDist`, and it is
  * not a secret.** A rock that always moved one tile would be answerable by a
@@ -36,12 +45,13 @@ import type { World } from "./world.js";
  * arrangement has the seats the other way round, which is the same reason it
  * is the other way round there: whoever is told is never whoever acts.
  *
- * **It keeps no count.** How many changes are still in it is `row` divided by
- * `veerRowsApart` (`veerChangesLeft`), so there are only two numbers on the
- * creature and they are the side and the width of the next change. A stored
- * countdown would be a second copy of something the row already says, and the
- * two could disagree the first time a hand on the rock held it still for a
- * beat.
+ * **It keeps no count.** There is nothing left to count now that the changes
+ * run to the ship: whether this row is one of them is `row` against
+ * `veerRowsApart` and nothing else (`veerRowIsChange`), so there are only two
+ * numbers on the creature and they are the side and the width of the next
+ * change. A stored countdown would be a second copy of something the row
+ * already says, and the two could disagree the first time a hand on the rock
+ * held it still for a beat.
  */
 
 /** Which way a veer's next change of lane goes: left or right. */
@@ -76,35 +86,25 @@ export function veerDist(c: Creature): number {
 
 /**
  * Whether a body standing on this row has just landed on one of the rows a
- * veer changes lane at. Positive multiples of `veerRowsApart`, and only the
- * first `veerChanges` of them — after the last one it is a plain rock falling
- * down a column that has stopped moving.
+ * veer changes lane at: every positive multiple of `veerRowsApart`, all the
+ * way to the ship. The row above the top is not one of them, so a rock that
+ * has only just entered is not asked to step before it has fallen.
  */
 export function veerRowIsChange(cfg: SimConfig, row: number): boolean {
-  if (row <= 0 || row % cfg.veerRowsApart !== 0) return false;
-  return row / cfg.veerRowsApart <= cfg.veerChanges;
+  return row > 0 && row % cfg.veerRowsApart === 0;
 }
 
 /**
- * How many changes of lane a body on this row still has ahead of it. The whole
- * of the creature's bookkeeping, derived rather than stored — see the note in
- * the header, and `Creature.veerDir`, which is the only field it carries.
+ * Rows between a body on this row and its next change of lane. One means it
+ * changes at the end of this very beat, which is what the rider's crouch is
+ * drawn off — a tell that says *now* on both screens without saying *which
+ * way*, exactly as the dart's jet does.
  *
- * Render asks this to decide whether to draw the arrow at all: a rock with
- * nothing left to say must not be carrying a mark that says it has.
+ * It never answers "none": a veer has a change ahead of it at every height,
+ * which is why render draws the arrow over one for the whole of its fall
+ * rather than gating on a count (`veer-marks.ts`).
  */
-export function veerChangesLeft(cfg: SimConfig, row: number): number {
-  return Math.max(0, cfg.veerChanges - Math.floor(row / cfg.veerRowsApart));
-}
-
-/**
- * Rows between a body on this row and its next change of lane, or `null` when
- * it has none left. One means it changes at the end of this very beat, which
- * is what the rider's crouch is drawn off — a tell that says *now* on both
- * screens without saying *which way*, exactly as the dart's jet does.
- */
-export function veerRowsToChange(cfg: SimConfig, row: number): number | null {
-  if (veerChangesLeft(cfg, row) <= 0) return null;
+export function veerRowsToChange(cfg: SimConfig, row: number): number {
   return cfg.veerRowsApart - (row % cfg.veerRowsApart);
 }
 
