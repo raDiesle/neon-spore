@@ -467,6 +467,7 @@ to change: `index.ts` stays the one import path, and
 ## A narrow perf --save overwrote a neighbouring wave's row
 
 - **Found:** 2026-09-06, claude/fence-enemy-visuals
+- **Taken:** 2026-09-06, claude/queue-a-narrow-perf-save-overwrote-a-neighbouring-wave
 - **Files:** `tools/perf/run.ts`, `tools/perf/compare.ts`, `tools/perf/baseline.json`, `tools/perf/test/compare.test.ts`
 
 Inserting THE CUT at wave 48 pushed THE MAGNET, THE JAM and THE TWITCH up by
