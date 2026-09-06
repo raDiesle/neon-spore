@@ -1,5 +1,13 @@
-import { type ControlSet, WAVES, type Wave } from "@neon-spore/content";
-import { DEFAULT_CONFIG, type SimEvent, step, ticksPerBeat, type World } from "@neon-spore/sim";
+import { buildBoss, buildQueue, type ControlSet, WAVES, type Wave } from "@neon-spore/content";
+import {
+  createWorld,
+  DEFAULT_CONFIG,
+  type SimEvent,
+  startWave,
+  step,
+  ticksPerBeat,
+  type World,
+} from "@neon-spore/sim";
 import { Canvas2DRenderer } from "../src/canvas2d.js";
 import type { ViewRole } from "../src/layout.js";
 import type { Viewport } from "../src/renderer.js";
@@ -33,6 +41,49 @@ export function waveWith(kind: NonNullable<Wave["boss"]>["kind"]): number {
   const index = WAVES.findIndex((w) => w.boss?.kind === kind);
   if (index === -1) throw new Error(`no wave carries the ${kind}`);
   return index;
+}
+
+/**
+ * A wave stepped to the tick where it carries the most bodies — its dearest
+ * picture, which is the one a budget wants to be a ceiling on.
+ *
+ * Two passes rather than one, because a world only goes forwards: the first
+ * finds the busiest tick and the second builds a fresh world and stops there.
+ * The simulation is deterministic from a seed, so the two runs are the same
+ * run — that is the property rule 2 in `CLAUDE.md` exists for.
+ *
+ * **The wave is named by id, not by index**, for `frame-budget.test.ts`'s
+ * reason: a wave inserted earlier in the campaign moves every index after it,
+ * and an index here would be a silent claim about the order of the whole game.
+ */
+export function peakWorld(id: string, seed = 3, beats = 24): World {
+  const index = WAVES.findIndex((w) => w.id === id);
+  if (index === -1) throw new Error(`no wave with the id ${id}`);
+  const build = () => {
+    const world = createWorld(DEFAULT_CONFIG, seed, []);
+    startWave(
+      world,
+      index,
+      buildQueue(index, DEFAULT_CONFIG.cols),
+      [],
+      buildBoss(index, DEFAULT_CONFIG.cols),
+    );
+    return world;
+  };
+  const ticks = ticksPerBeat(DEFAULT_CONFIG) * beats;
+  const scout = build();
+  let peakTick = 0;
+  let peak = scout.creatures.length;
+  for (let t = 1; t <= ticks; t++) {
+    step(scout, []);
+    if (scout.creatures.length > peak) {
+      peak = scout.creatures.length;
+      peakTick = t;
+    }
+  }
+  const world = build();
+  for (let t = 0; t < peakTick; t++) step(world, []);
+  return world;
 }
 
 export interface FramesOptions {

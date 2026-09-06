@@ -119,35 +119,6 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 shim that shows what the new shape wants if it changed again.
 
 
-## The op-count budget weighs one quiet wave; the five expensive ones have none
-
-- **Found:** 2026-09-03, claude/game-performance-mobile-analysis-cd4207
-- **Taken:** 2026-09-06, claude/queue-the-op-count-budget-weighs-one-quiet-wave-the-fi
-- **Files:** `packages/render/test/frame-budget.test.ts`, `packages/render/test/frame-harness.ts`
-
-`frame-budget.test.ts` pins wave 3 on both seats and two open eyes. Wave 3 is
-one of the *cheapest* pictures in the game. Measured over all 38 waves, each
-stepped to the tick where it carries the most bodies, in Chrome at 390x844
-dpr2 with the CPU throttled 4x (DevTools' mid-tier-mobile preset), the five
-dearest frames are:
-
-| wave | | ms per paint at 4x |
-|---|---|---|
-| 32 | THE GHOST | 7.06 |
-| 31 | THE WISP | 6.80 |
-| 15 | BULB QUEEN | 6.47 |
-| 34 | THE ECHO | 6.41 |
-| 37 | THE GYRE | 6.38 |
-
-— against a floor of 3.5 ms on wave 1 and 0.76 ms on THE GAUGE, whose round
-has no field and no hull. None of the five has a budget row, so any of them can
-get slower without a test noticing.
-
-Add a row per wave for those five, both seats, built the way the existing rows
-are: step to the wave's peak population (the harness needs a helper for that —
-step in small increments and keep the tick with the most `world.creatures`),
-measure `ctx.tally`, and write down the exact number. Do not pad.
-
 ## THE GHOST is the dearest frame in the game, and it is dearer on one seat
 
 - **Found:** 2026-09-03, claude/game-performance-mobile-analysis-cd4207
