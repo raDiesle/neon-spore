@@ -1,7 +1,8 @@
 import type { Canvas2DRenderer } from "@neon-spore/render";
-import { type SimEvent, step, type World } from "@neon-spore/sim";
+import { type SimEvent, step, ticksPerBeat, type World } from "@neon-spore/sim";
 import type { GameAudio } from "./audio.js";
 import type { InputBuffer } from "./input.js";
+import { interpolatedBeatPhase } from "./interpolate.js";
 import type { Intro } from "./intro.js";
 import { startLoop } from "./loop.js";
 import type { RunState } from "./run-state.js";
@@ -40,6 +41,12 @@ export interface FrameParts {
   /** The seat this screen is showing, and where it is in the beat. */
   role: () => Parameters<Canvas2DRenderer["draw"]>[0]["role"];
   beatPhase: () => number;
+  /**
+   * `?interpolate=1`: draw between ticks rather than on them
+   * (`interpolate.ts`). A look, so it is off unless asked for, and the flag is
+   * read in `main.ts` where the rest of the URL is.
+   */
+  interpolate?: boolean;
   /** The ring round whatever this device's finger has hold of. */
   hand: { current: Parameters<Canvas2DRenderer["draw"]>[0]["hand"] };
   pointer: () => { x: number; y: number } | undefined;
@@ -73,13 +80,19 @@ export function startFrames(p: FrameParts): Frames {
   // collected here rather than read off the world.
   let frameEvents: SimEvent[] = [];
   let lastFrame = performance.now();
+  // The loop's leftover accumulator, handed over every frame and read only
+  // when the flag is on — the shipped picture never depends on it.
+  let frameAlpha = 0;
+  const tpb = ticksPerBeat(p.world.cfg);
 
   const paint = (dt: number): void => {
     p.audio.frame(p.world, frameEvents);
     p.haptics.frame(frameEvents);
     p.renderer.draw({
       world: p.world,
-      beatPhase: p.beatPhase(),
+      beatPhase: p.interpolate
+        ? interpolatedBeatPhase(p.world.tick, frameAlpha, tpb)
+        : p.beatPhase(),
       role: p.role(),
       // Per device by design, not a value the two phones share — own-motion
       // (a shimmer, a wobble) is allowed to differ between them because it
@@ -119,10 +132,11 @@ export function startFrames(p: FrameParts): Frames {
       }
       p.link.checkpoint();
     },
-    () => {
+    (alpha) => {
       const now = performance.now();
       const dt = Math.min(0.05, (now - lastFrame) / 1000);
       lastFrame = now;
+      frameAlpha = alpha;
       p.link.frame(dt * 1000);
       tellTally(p.world.wave, p.world.score);
       // The wave's name and sentence stand for a few seconds and pass on their

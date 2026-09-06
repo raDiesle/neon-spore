@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { MAX_CATCH_UP_MS, startLoop } from "../src/loop.js";
+import { accumulate, MAX_CATCH_UP_MS, startLoop } from "../src/loop.js";
 
 /**
  * The fixed-timestep driver, run by hand.
@@ -20,11 +20,15 @@ function driven() {
   let scheduled = 0;
   const ticks: number[] = [];
   const frames: number[] = [];
+  const alphas: number[] = [];
 
   const loop = startLoop(
     HZ,
     () => ticks.push(at),
-    () => frames.push(at),
+    (alpha) => {
+      frames.push(at);
+      alphas.push(alpha);
+    },
     {
       now: () => at,
       raf: (frame) => {
@@ -38,6 +42,7 @@ function driven() {
     loop,
     ticks,
     frames,
+    alphas,
     scheduled: () => scheduled,
     /** Move the clock on and deliver one frame. */
     advance: (ms: number) => {
@@ -116,5 +121,60 @@ describe("stopping", () => {
     d.loop.stop();
     d.loop.stop();
     expect(d.ticks.length).toBe(0);
+  });
+});
+
+/**
+ * The arithmetic the frame runs, pulled out of it so it can be checked
+ * without a `requestAnimationFrame`.
+ *
+ * The remainder was carried across frames and never handed to one: a frame
+ * landing between two ticks knew exactly how far past the last tick it was and
+ * drew the last tick's picture anyway. `interpolate.ts` is what reads it now,
+ * behind its flag, so the number itself is worth pinning here.
+ */
+describe("accumulate", () => {
+  it("runs no tick and keeps the whole gap when less than one has passed", () => {
+    expect(accumulate(0, 4, TICK_MS)).toEqual({ ticks: 0, remainder: 4 });
+  });
+
+  it("leaves nothing over on an exact tick", () => {
+    const { ticks, remainder } = accumulate(0, TICK_MS, TICK_MS);
+    expect(ticks).toBe(1);
+    expect(remainder).toBeCloseTo(0, 10);
+  });
+
+  it("carries the leftover forward, so a slow frame is not a lost tick", () => {
+    const first = accumulate(0, TICK_MS * 1.2, TICK_MS);
+    expect(first.ticks).toBe(1);
+    const second = accumulate(first.remainder, TICK_MS * 0.5, TICK_MS);
+    expect(second.ticks).toBe(0);
+    expect(second.remainder).toBeCloseTo(TICK_MS * 0.7, 10);
+  });
+
+  it("refuses more than the cap, whatever it is handed", () => {
+    expect(accumulate(0, 60_000, TICK_MS).ticks).toBe(MAX_CATCH_UP_MS / TICK_MS);
+  });
+});
+
+describe("the fraction of a tick a frame lands on", () => {
+  it("is zero when the frame lands on a tick", () => {
+    const d = driven();
+    d.advance(TICK_MS);
+    expect(d.alphas[0]).toBeCloseTo(0, 10);
+  });
+
+  it("is how far past the last tick the frame is", () => {
+    const d = driven();
+    d.advance(TICK_MS * 1.25);
+    expect(d.alphas[0]).toBeCloseTo(0.25, 10);
+  });
+
+  it("is under one however little time passed", () => {
+    const d = driven();
+    for (const step of [0.3, 0.3, 0.3, 0.3, 0.3]) {
+      d.advance(TICK_MS * step);
+      expect(d.alphas[d.alphas.length - 1]).toBeLessThan(1);
+    }
   });
 });

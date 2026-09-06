@@ -31,10 +31,32 @@ export interface LoopClock {
  */
 export const MAX_CATCH_UP_MS = 250;
 
+/**
+ * How many ticks a wall-clock gap is worth, and what is left over.
+ *
+ * `remainder` is always in `[0, tickMs)` — the wall-clock time already elapsed
+ * toward a tick that has not run yet — and `remainder / tickMs` is the
+ * fraction `interpolate.ts` folds into `beatPhase` behind its flag. It was
+ * being carried and discarded before anything read it.
+ *
+ * Pure, and split out for that reason: the catch-up cap and this arithmetic
+ * are the whole of what can be wrong here, and neither wants a
+ * `requestAnimationFrame` to check.
+ */
+export function accumulate(
+  accumulator: number,
+  elapsedMs: number,
+  tickMs: number,
+): { ticks: number; remainder: number } {
+  const total = accumulator + Math.min(MAX_CATCH_UP_MS, elapsedMs);
+  const ticks = Math.floor(total / tickMs);
+  return { ticks, remainder: total - ticks * tickMs };
+}
+
 export function startLoop(
   tickHz: number,
   onTick: () => void,
-  onFrame: () => void,
+  onFrame: (alpha: number) => void,
   clock: LoopClock = {},
 ): Loop {
   const now = clock.now ?? (() => performance.now());
@@ -46,13 +68,11 @@ export function startLoop(
 
   const frame = (at: number): void => {
     if (!running) return;
-    accumulator += Math.min(MAX_CATCH_UP_MS, at - last);
+    const { ticks, remainder } = accumulate(accumulator, at - last, tickMs);
     last = at;
-    while (accumulator >= tickMs) {
-      onTick();
-      accumulator -= tickMs;
-    }
-    onFrame();
+    accumulator = remainder;
+    for (let i = 0; i < ticks; i++) onTick();
+    onFrame(remainder / tickMs);
     raf(frame);
   };
   raf(frame);

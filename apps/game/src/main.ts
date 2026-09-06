@@ -20,6 +20,7 @@ import { bindGauge } from "./gauge.js";
 import { installTestingHandle } from "./handle.js";
 import { bindHaptics } from "./haptics.js";
 import { bindControls, InputBuffer } from "./input.js";
+import { interpolationRequested } from "./interpolate.js";
 import { bindIntro } from "./intro.js";
 import { bindPinball } from "./pinball.js";
 import { bindRasterBurst } from "./raster.js";
@@ -214,6 +215,9 @@ const frames = startFrames({
   intro,
   role: () => view.role(),
   beatPhase,
+  // `?interpolate=1` — offered rather than the shipped default
+  // (`interpolate.ts`).
+  interpolate: interpolationRequested(location.href),
   hand,
   pointer,
   tickKeys,

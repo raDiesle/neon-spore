@@ -705,6 +705,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/keys-guide.ts` | What a key means while a wave's guide is up, at a desk |
 | `apps/game/src/intro.ts` | THE SIX PAGES A PAIR SEES BEFORE THEY HAVE CHOSEN ANYTHING |
 | `apps/game/src/frame.ts` | WHAT HAPPENS EVERY TICK, AND WHAT HAPPENS EVERY FRAME |
+| `apps/game/src/interpolate.ts` | the picture drawn between ticks rather than on them, behind `?interpolate=1` |
 
 ### apps/server
 
