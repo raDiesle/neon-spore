@@ -97,7 +97,16 @@ function drawDuty(
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   ctx.fillStyle = TICK;
-  ctx.fillText(word, cx, y);
+  // Pulled back inside the screen when it is too wide to be centred under the
+  // dial, which sits close to the right edge. THE FENCE's own word is nineteen
+  // characters — FIND GAP FOR SHIELD, the owner's wording — and two kinds
+  // owing a word at once join theirs with a dot, so the line outgrew the
+  // corner it was written for. Clamped rather than shortened: the words are
+  // the instruction, and the one thing that must not happen is half of one
+  // running off the edge of the phone.
+  const half = ctx.measureText(word).width / 2;
+  const x = Math.min(Math.max(cx, SIREN_PAD + half), l.width - SIREN_PAD - half);
+  ctx.fillText(word, x, y);
 }
 
 /**

@@ -78,15 +78,18 @@ const DUTY_WORD = {
   // and the only one whose word is not fixed. It said EVADE under the pilot
   // alone, then GAP under both, and the owner asked for the pair to be told
   // which of this creature's two answers the wall in front of them takes:
-  // FIND GAP for a wall with a way through it somewhere, SHOOT THROUGH for one
-  // with none. `fenceWord` picks; the row below is the shape and the default.
+  // FIND GAP FOR SHIELD for a wall with a way through it somewhere, SHOOT
+  // THROUGH for one with none. `fenceWord` picks; the row below is the shape
+  // and the default. The long one is the owner's own wording, asked for by
+  // name: GAP alone said nothing about *what* the gap is for, and the seat
+  // reading it is holding a shield rather than a cannon.
   //
   // Both seats get it because both are needed either way round. The pilot can
   // see where the wall is open and cannot move the dome; the navigator moves
   // the dome and is shown an unbroken wire (`fence.ts`) — and the cannon is
   // the pilot's while the trigger that fires it is the navigator's, so
   // SHOOT THROUGH is an instruction to two people and not a secret.
-  fence: { p1: "FIND GAP", p2: "FIND GAP" },
+  fence: { p1: "FIND GAP FOR SHIELD", p2: "FIND GAP FOR SHIELD" },
   // THE MAGNET, and the only word in this table naming something the seat has
   // to *choose* rather than something it can see. The pilot picks which side
   // to bring the shot in from, and until they say so the navigator is holding
@@ -113,9 +116,10 @@ function kindActive(kind: CreatureKind, world: World): boolean {
 /**
  * Which of THE FENCE's two answers the wall on the field takes.
  *
- * A wall with no way through at all is the one the cannon is for, and it is
- * the only fence a bolt cuts (`fenceIsCuttable`) — so the pair is told to make
- * a hole rather than to hunt for one. Everything else has an opening somewhere
+ * A wall with no way through at all is the one the cannon is for: its cracks
+ * are the only openings it has, and a bolt in the right colour is the only
+ * thing that makes one (`fence-crack.ts`) — so the pair is told to make a hole
+ * rather than to hunt for one. Everything else has an opening somewhere
  * and has to be talked through. A wall the pair has already cut counts as
  * having one: they watched the bolt open it, and the job from that beat on is
  * to get the dome there.
@@ -128,7 +132,7 @@ function fenceWord(world: World): string {
   for (const c of world.creatures) {
     if (c.kind === "fence" && fenceGapCols(world.cfg, c, true).length === 0) return "SHOOT THROUGH";
   }
-  return "FIND GAP";
+  return "FIND GAP FOR SHIELD";
 }
 
 /** The words owed by one seat, in table order, without repeats. */
@@ -164,7 +168,7 @@ export function dutyWord(role: ViewRole, world: World): string | null {
   if (role === "p1") return p1.length ? p1.join(" · ") : null;
   if (role === "p2") return p2.length ? p2.join(" · ") : null;
   // The rig is both seats at once, so a word owed by each of them — THE
-  // FENCE's GAP is one word under two dials — must not be printed twice.
+  // FENCE's word is one word under two dials — must not be printed twice.
   const parts = [...p1, ...p2.filter((w) => !p1.includes(w))];
   return parts.length ? parts.join(" · ") : null;
 }

@@ -42,6 +42,10 @@ const BUSY: SimEvent[] = [
   // own frame — a canopy climbing away and a body dropping out from under it,
   // most of a second of both — so it is state.
   { type: "chuteCut", col: 4, row: 7, color: "red", kind: "slick" },
+  // A wall going back up off a ship it did not touch. It outlives its own
+  // frame by well over half a second — a lift and then a parting — so it is
+  // state, and state is what this file is for (`fence-exit.ts`).
+  { type: "fencePass", col: 3, row: 13 },
 ];
 
 beforeAll(installCanvasGlobals);

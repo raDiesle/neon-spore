@@ -1,5 +1,7 @@
 import { fenceIsOpen, fenceSettleTicks, type World } from "@neon-spore/sim";
 import { drawnRow } from "./depth.js";
+import { drawBolt } from "./fence-bolt.js";
+import { drawFenceSkull } from "./fence-skull.js";
 import { fenceLineY, GAUGE } from "./fence-wire.js";
 import { halo, strokeGlow } from "./glow.js";
 import { signedHash } from "./hash.js";
@@ -26,6 +28,14 @@ import { PALETTE } from "./palette.js";
  * name — and builds all the way down, loudest on the beat the wall comes to
  * rest, which is the beat the answer lands on.
  *
+ * **And when the column is shut, the current draws a skull over the dome.**
+ * The fan alone could not say which of the two it was — an unanswered wall and
+ * a wrongly answered one look identical from underneath — so a shut column
+ * gets a sign of its own, flashing between the strikes a tile above the dome
+ * (`fence-skull.ts`). It is the negative of the paragraph below: the arcs
+ * stopping is the pair being told they are right, and this is the pair being
+ * told they are not, while there is still field left to cross.
+ *
  * **And it goes out when the dome has settled in a way through.** A gap is a
  * hole in a circuit: there is nothing over the dome to earth into, so the
  * current stops, and that is the pair's own confirmation that the number they
@@ -49,6 +59,13 @@ import { PALETTE } from "./palette.js";
  * the same tick rather than a frame apart on each device's own timer.
  */
 
+/** How far over the dome the warning skull hangs, in tiles — *some tile above
+ * the shield*, which is the owner's own placement: clear of the swelling so it
+ * does not read as something growing out of it, and low enough to be read in
+ * the same glance. A ceiling rather than a distance: once the wire is nearer
+ * than this, the sign takes the middle of what is left. */
+const SKULL_LIFT = 1.15;
+
 /** How much of the fan is there the moment the wall arrives, before the fall
  * has closed any of the distance. Not zero: the owner asked to see the two of
  * them reaching for each other across the whole field, so the current is on
@@ -59,22 +76,6 @@ const REACH_FLOOR = 0.28;
  * always favour one direction. */
 const BOLTS_MIN = 4;
 const BOLTS_MAX = 12;
-
-/** Kinks in one bolt, and how far it strays sideways at the middle of its
- * flight, as a share of the gap it is crossing — capped in tiles as well, or a
- * bolt crossing the whole field would swing half of it sideways and the fan
- * would read as a scribble rather than as current. The kink count grows with
- * the length: five across most of the field is a bent line, and what a bolt
- * has to read as is a thing that found its own way down. */
-const KINKS_MIN = 5;
-const KINKS_MAX = 13;
-const STRAY = 0.16;
-
-/** How wide the two ends of the fan are, in tiles: broad on the wire, narrow
- * where it gathers on the dome. A current earthing looks like this — many
- * places to leave from and one to arrive at. */
-const FAN_WIRE = 2.2;
-const FAN_DOME = 0.7;
 
 /** Times a second the bolts are struck again. Fast enough to read as current
  * and slow enough that the eye catches one shape before the next. */
@@ -119,7 +120,24 @@ export function drawFenceArcs(
     // tiles: `REACH_FLOOR` at the top of the field and 1 where the wire is on
     // the ship, so the fan is there the moment the wall is and only grows.
     const near = 1 - Math.min(1, gap / Math.max(1, l.gridHeight));
-    drawArgument(ctx, l, domeX, wireY, domeY, REACH_FLOOR + (1 - REACH_FLOOR) * near, time);
+    const force = REACH_FLOOR + (1 - REACH_FLOOR) * near;
+    drawArgument(ctx, l, domeX, wireY, domeY, force, time);
+    // And the warning, when the column the dome is standing in has no way
+    // through it: a skull struck out of the same current, a tile over the
+    // dome, flashing between the bolts (`fence-skull.ts`). It is asked of
+    // `fenceIsOpen` rather than of the settle — the pair has to be told the
+    // column is wrong while there is still time to move, and the settle is a
+    // clock about the dome having *arrived*.
+    //
+    // It stays lit all the way down, and comes **halfway** once the wire is
+    // nearer than a tile: the last beat is when this creature is still
+    // answerable and is exactly when the warning must not go out. A sign that
+    // faded as the wall closed would be a sign that was only ever there while
+    // there was nothing to worry about.
+    if (fenceIsOpen(c, world.shieldCol)) continue;
+    const lift = Math.min(l.tile * SKULL_LIFT, gap * 0.55);
+    if (lift < l.tile * 0.25) continue;
+    drawFenceSkull(ctx, l, domeX, domeY - lift, force, time);
   }
 }
 
@@ -177,61 +195,8 @@ function drawArgument(
   ctx.restore();
 }
 
-interface Bolt {
-  domeX: number;
-  wireY: number;
-  domeY: number;
-  force: number;
-  up: boolean;
-  seed: number;
-  strike: number;
-  /** 0..1 along the bolt, where the bright head of the flow is sitting. */
-  phase: number;
-}
-
-/** One bolt, and the bright head running along it the way the current is
- * going. The head is the whole of *which way round this one is*. */
-function drawBolt(ctx: CanvasRenderingContext2D, l: Layout, b: Bolt): void {
-  const spread = signedHash(b.seed, 1, b.strike);
-  const xWire = b.domeX + spread * l.tile * (FAN_WIRE / 2);
-  const xDome = b.domeX + signedHash(b.seed, 2, b.strike) * l.tile * (FAN_DOME / 2);
-  const span = b.domeY - b.wireY;
-  // One kink every tile and a half or so, between the two bounds: a bolt from
-  // the top of the field has ten and one jumping the last of the gap has five,
-  // so both read as the same material at two lengths.
-  const kinks = Math.max(
-    KINKS_MIN,
-    Math.min(KINKS_MAX, Math.round(Math.abs(span) / (l.tile * 1.5))),
-  );
-  const pts: { x: number; y: number }[] = [];
-  for (let i = 0; i <= kinks; i++) {
-    const t = i / kinks;
-    const straight = xWire + (xDome - xWire) * t;
-    // Pinned at both ends and loosest in the middle: a bolt that wandered
-    // where it meets the wire or the skin would read as one that had come
-    // away from whatever it is arcing between. The stray is capped in tiles as
-    // well as in span, or a bolt crossing the whole field would swing half of
-    // it sideways.
-    const belly = Math.sin(t * Math.PI);
-    const reach = Math.min(Math.abs(span) * STRAY, l.tile * 0.7);
-    const sway = signedHash(b.seed, 4 + i, b.strike) * reach * belly;
-    pts.push({ x: straight + sway, y: b.wireY + span * t });
-  }
-
-  const hex = b.up ? PALETTE.shieldRim : PALETTE.arc;
-  const path = new Path2D();
-  path.moveTo(pts[0]!.x, pts[0]!.y);
-  for (let i = 1; i < pts.length; i++) path.lineTo(pts[i]!.x, pts[i]!.y);
-  strokeGlow(ctx, path, hex, Math.max(1.2, l.tile * 0.03 * (0.6 + b.force)), 0.8 + b.force);
-
-  // The head: one segment of the same path, redrawn white-hot. It walks from
-  // the wire to the dome on a blue bolt and from the dome to the wire on a
-  // cyan one, which is the only thing in the picture that says the two
-  // currents are going opposite ways.
-  const t = b.up ? 1 - b.phase : b.phase;
-  const at = Math.min(kinks - 1, Math.floor(t * kinks));
-  const head = new Path2D();
-  head.moveTo(pts[at]!.x, pts[at]!.y);
-  head.lineTo(pts[at + 1]!.x, pts[at + 1]!.y);
-  strokeGlow(ctx, head, PALETTE.arcRim, Math.max(1.6, l.tile * 0.045), 1.4 + b.force);
-}
+// **One bolt of the fan, and the head running along it**, is `fence-bolt.ts`
+// next door — cut out when the warning skull took this file past its 250-line
+// limit. The seam is a real one: what is left here is *the argument* — how many
+// bolts there are, how hard, which way round and what else is drawn while it is
+// going on — and next door is one line of current, drawn once.

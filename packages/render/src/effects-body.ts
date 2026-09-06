@@ -3,7 +3,9 @@ import { ChuteCutFx } from "./chute-cut.js";
 import { ClaspBreakFx } from "./clasp-break.js";
 import { ClaspStrikeFx } from "./clasp-strike.js";
 import { CoilJumpFx } from "./coil-jump.js";
+import { FenceExitFx } from "./fence-exit.js";
 import { GhostReleaseFx } from "./ghost-release.js";
+import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import { LureVanishFx } from "./lure-vanish.js";
 import { MagnetBounceFx } from "./magnet-bounce.js";
@@ -19,7 +21,8 @@ import { VeilTearFx } from "./veil-tear.js";
  * reaching up a column, a clasp's shield blinking out, a veil's cloud tearing
  * open on the body inside it, a ghost letting go and climbing out of the top
  * of the field, a layer coming off a rind, a recoil's cage failing, a chute's
- * canopy cut off the body it was carrying.
+ * canopy cut off the body it was carrying, a wall lifting off a ship it did
+ * not touch.
  *
  * Split out of `effects.ts` when the second one arrived and that file went
  * over its 250-line limit — the same reason `effects-spark.ts` and
@@ -58,6 +61,10 @@ export class BodyTransients {
   private magnetBreak = new MagnetBreakFx();
   private magnetBounce = new MagnetBounceFx();
   private coilJump = new CoilJumpFx();
+  /** THE FENCE lifting off the ship and parting at the gap that saved it —
+   * the one transient here that is a body *leaving* rather than failing, and
+   * the reason `draw` takes a layout and the ship's surface (`fence-exit.ts`). */
+  private fenceExit = new FenceExitFx();
 
   /** `time` is the wall clock the contour wobble is sampled at — the husk
    * freezes the outline the body had on the frame the layer came off. */
@@ -94,6 +101,9 @@ export class BodyTransients {
     // on a place**, which is why it takes the layout at ingest and the world
     // at draw (`coil-jump.ts`).
     this.coilJump.ingest(events, l, cfg, beatSeconds);
+    // And a wall going back up off a ship it did not touch, parting at the way
+    // through the dome was standing in (`fence-exit.ts`).
+    this.fenceExit.ingest(events);
   }
 
   update(dt: number): void {
@@ -109,9 +119,16 @@ export class BodyTransients {
     this.magnetBreak.update(dt);
     this.magnetBounce.update(dt);
     this.coilJump.update(dt);
+    this.fenceExit.update(dt);
   }
 
-  draw(ctx: CanvasRenderingContext2D): void {
+  draw(ctx: CanvasRenderingContext2D, l: Layout, surfaceY?: SurfaceY): void {
+    // The wall leaving, first and therefore under everything else here: it is
+    // the width of the field, and a picture that broad has to sit behind the
+    // small ones rather than over them. It is the one transient in this file
+    // that is still being *placed* — a lifting row and a parting pair of ends
+    // — so it takes the layout and the skin the wire was resting on.
+    this.fenceExit.draw(ctx, l, surfaceY);
     this.lureVanish.draw(ctx);
     // A cloud tearing open, frozen where it happened for the same reason the
     // lure's fold is: the body is gone from the world by the time this draws,
@@ -173,5 +190,6 @@ export class BodyTransients {
     this.magnetBreak.clear();
     this.coilJump.clear();
     this.magnetBounce.clear();
+    this.fenceExit.clear();
   }
 }

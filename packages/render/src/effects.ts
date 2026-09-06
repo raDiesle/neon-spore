@@ -212,7 +212,7 @@ export class Effects {
   ): void {
     this.deflectFx.draw(ctx);
     this.sparks.draw(ctx);
-    this.bodies.draw(ctx);
+    this.bodies.draw(ctx, l, surfaceY);
     this.crawler.draw(ctx, l, surfaceY);
     this.spriteBursts.draw(ctx);
     this.bodies.drawOnBodies(ctx, l, world, beatPhase);

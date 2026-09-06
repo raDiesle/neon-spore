@@ -17,9 +17,13 @@ import { PALETTE } from "./palette.js";
  * unclear open gap, but you do not see it*.
  *
  * So a reading head runs the width of the field, over and over: a soft blaze
- * on the wire with a trail behind it and a caliper tick above and below, going
- * one way only. It says the wall is being searched and the search is not
- * finding anything on this screen.
+ * on the wire with a trail behind it and a caliper tick above and below. It
+ * **turns round at each wall** rather than jumping back to the left, and it
+ * runs quick — the owner's second word on it: *the animation of the scanner
+ * along the fence should be faster and bounce between left and right game area
+ * sides.* So the sweep is one thing working up and down the wire rather than a
+ * procession of lights going past, and it says the wall is being searched and
+ * the search is not finding anything on this screen.
  *
  * **Every term in it is the clock and the field, and none of them is the
  * creature.** It does not know where a gap is, whether there is one, or how
@@ -34,10 +38,15 @@ import { PALETTE } from "./palette.js";
  * a second thing crossing them would only make them harder to count.
  */
 
-/** Seconds for one crossing. Slow enough to read as a search rather than a
- * flicker, and quick enough that a wall crossing the field in six beats is
- * swept two or three times on the way down. */
-const CROSS_S = 2.4;
+/** Seconds for one crossing — **one** crossing, of the two that make a round
+ * trip. The owner asked for the head to be quicker and to turn round at the
+ * walls rather than jumping back to the left: *the animation of the scanner
+ * along the fence should be faster and bounce between left and right game area
+ * sides.* At this tempo a wall crossing the field in six beats is swept a
+ * dozen times on the way down, and the turn at each wall is what makes it read
+ * as an instrument working the whole width rather than as a light going past.
+ */
+const CROSS_S = 1.05;
 
 /** How far past each edge the head starts and ends, in tiles, so it enters and
  * leaves rather than appearing in the field. */
@@ -72,7 +81,14 @@ export function drawFenceSweep(
 
   const span = l.gridWidth + 2 * OVERRUN * l.tile;
   const start = l.gridLeft - OVERRUN * l.tile;
-  const phase = (((time / CROSS_S) % 1) + 1) % 1;
+  // A triangle wave over two crossings, not a sawtooth over one: the head runs
+  // to the right wall, turns, and runs back. `dir` is which way it is going
+  // right now, and the trail is laid behind it either way — a trail pinned to
+  // one direction would run *ahead* of the head on the return leg.
+  const cycle = (((time / (2 * CROSS_S)) % 1) + 1) % 1;
+  const out = cycle < 0.5;
+  const phase = out ? cycle * 2 : 2 - cycle * 2;
+  const dir = out ? 1 : -1;
   const headX = start + span * phase;
 
   ctx.save();
@@ -80,9 +96,9 @@ export function drawFenceSweep(
   // whatever went along it, falling away over a couple of tiles.
   ctx.lineCap = "round";
   for (let i = 0; i < STEPS; i++) {
-    const xA = headX - (i / STEPS) * TRAIL * l.tile;
-    const xB = headX - ((i + 1) / STEPS) * TRAIL * l.tile;
-    if (xB < start) break;
+    const xA = headX - dir * (i / STEPS) * TRAIL * l.tile;
+    const xB = headX - dir * ((i + 1) / STEPS) * TRAIL * l.tile;
+    if (xB < start || xB > start + span) break;
     const drop = 1 - i / STEPS;
     ctx.globalAlpha = 0.3 * drop * drop * fade;
     ctx.strokeStyle = PALETTE.arcRim;
