@@ -225,6 +225,7 @@ second string.
 ## `bun run perf` restarts its own clock at zero for every wave
 
 - **Found:** 2026-09-06, claude/hoof-magnet-enemy-70fd5a
+- **Taken:** 2026-09-06, claude/queue-bun-run-perf-restarts-its-own-clock-at-zero-for
 - **Files:** `tools/perf/measure.ts`, `packages/render/src/effects.ts`
 
 `timePaints` freezes `performance.now` and steps a `posed` counter that starts
