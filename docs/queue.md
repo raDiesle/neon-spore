@@ -225,6 +225,7 @@ second string.
 ## Nothing teaches THE PUSH, and THE HAND is where it belongs
 
 - **Found:** 2026-09-06, claude/meteor-pull-drag-mechanics-42170b
+- **Taken:** 2026-09-06, claude/queue-nothing-teaches-the-push-and-the-hand-is-where-i
 - **Files:** `packages/content/src/waves/`, `packages/content/src/scenes/`, `docs/spec/assists.md`
 
 THE PUSH ships with no guide page: a pair meets it only if somebody happens to
