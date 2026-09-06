@@ -225,6 +225,7 @@ second string.
 ## The desk rig cannot carry a body sideways
 
 - **Found:** 2026-09-06, claude/meteor-pull-drag-mechanics-42170b
+- **Taken:** 2026-09-06, claude/queue-the-desk-rig-cannot-carry-a-body-sideways
 - **Files:** `apps/game/src/keys.ts`, `apps/game/src/key-hint.ts`, `apps/game/src/menu-controls.ts`, `apps/game/test/keys.test.ts`
 
 THE PUSH is the grip carried sideways: a `drag` at `gripBody` whose
