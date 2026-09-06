@@ -114,10 +114,54 @@ export function drawFireButton(
   ctx.restore();
 }
 
+/** Which of player 1's two actions a button is — the ward, or the throat. */
+export type ActionKind = "guard" | "intake";
+
+/**
+ * What is drawn on the face of one of player 1's action buttons, once the body
+ * under it has been painted.
+ *
+ * `label` is the control's own word and is `null` when the button is too small
+ * to carry text, which is what happens in a sequence glyph; `kind` says which
+ * control it is, for a face that draws the thing rather than naming it.
+ */
+export type ActionFace = (
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  r: number,
+  ink: string,
+  kind: ActionKind,
+  label: string | null,
+) => void;
+
+/**
+ * The face, as a record rather than as a branch in the function below.
+ *
+ * A button that said its name in a word was the first answer and is still the
+ * shipped one; a button that shows the ship doing the thing is the obvious
+ * second, and the only way to choose between them is to see both at the size a
+ * thumb actually meets them. So the drawing is reachable — `variant.ts`'s
+ * arrangement, and `STRAND_LOOK`'s exactly (`strand-bead.ts`) — and this
+ * record is what a candidate in `tools/versus/` patches for the length of one
+ * frame. Nothing about what the game draws depends on the indirection.
+ */
+export interface ActionLook {
+  face: ActionFace;
+}
+
+/** The shipped face: the control's own word, in the ink the state gives it. */
+const drawActionWord: ActionFace = (ctx, x, y, _r, ink, _kind, label) => {
+  if (label === null) return;
+  ctx.fillStyle = ink;
+  ctx.fillText(label, x, y + 3);
+};
+
+export const ACTION_LOOK: ActionLook = { face: drawActionWord };
+
 /**
  * One of player 1's two actions — the trigger or the maw. The same button,
- * different colour and word; `label` is dropped when the button is too small
- * to carry text, which is what happens in a sequence glyph.
+ * different colour and face.
  *
  * `dead` is what it is made of while it is out: the panel's own flesh, so an
  * unlit button reads as a swelling of the chamber rather than a plate on it.
@@ -130,6 +174,7 @@ export function drawActionButton(
   lit: boolean,
   hex: string,
   litText: string,
+  kind: ActionKind,
   label: string | null,
   dead: string = P1_SKIN.dead[0],
 ): void {
@@ -140,9 +185,7 @@ export function drawActionButton(
   ctx.strokeStyle = hex;
   ctx.lineWidth = 2;
   paintLobe(ctx, x, y, r, "both");
-  if (label === null) return;
-  ctx.fillStyle = lit ? litText : hex;
-  ctx.fillText(label, x, y + 3);
+  ACTION_LOOK.face(ctx, x, y, r, lit ? litText : hex, kind, label);
 }
 
 /**

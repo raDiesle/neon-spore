@@ -99,10 +99,10 @@ export function drawStepGlyph(
       break;
     case "guard":
       // Lit, because a sequence shows the control being *used*, not resting.
-      drawActionButton(ctx, x, y, r, true, PALETTE.shield, "#08131A", null, skin.dead[0]);
+      drawActionButton(ctx, x, y, r, true, PALETTE.shield, "#08131A", "guard", null, skin.dead[0]);
       break;
     case "intake":
-      drawActionButton(ctx, x, y, r, true, PALETTE.pod, "#2C1C05", null, skin.dead[0]);
+      drawActionButton(ctx, x, y, r, true, PALETTE.pod, "#2C1C05", "intake", null, skin.dead[0]);
       break;
     default: {
       const dir = step === "cannonLeft" ? -1 : 1;

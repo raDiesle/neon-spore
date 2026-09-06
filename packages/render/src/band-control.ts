@@ -61,7 +61,18 @@ function drawFace(
   // The first two are lit for exactly as long as their window is open, so
   // player 1 can see what they are spending.
   if (c.id === "guard") {
-    drawActionButton(ctx, x, y, r, armed, PALETTE.shield, "#08131A", c.label, skin.dead[0]);
+    drawActionButton(
+      ctx,
+      x,
+      y,
+      r,
+      armed,
+      PALETTE.shield,
+      "#08131A",
+      "guard",
+      c.label,
+      skin.dead[0],
+    );
     // A press that outlives its own window looks, on this button, exactly
     // like a press that never happened — same dark fill, same outline. Once
     // `armed` drops there is nothing left on screen saying the guard used to
@@ -74,7 +85,18 @@ function drawFace(
     return;
   }
   if (c.id === "intake") {
-    drawActionButton(ctx, x, y, r, open, PALETTE.pod, PALETTE.podDark, c.label, skin.dead[0]);
+    drawActionButton(
+      ctx,
+      x,
+      y,
+      r,
+      open,
+      PALETTE.pod,
+      PALETTE.podDark,
+      "intake",
+      c.label,
+      skin.dead[0],
+    );
     return;
   }
   // Not a `drawActionButton`: the other two are lit or not, and this one has

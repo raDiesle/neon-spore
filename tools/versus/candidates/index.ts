@@ -4,6 +4,7 @@ import { SHOT_STREAK } from "./cannon-shot/streak/index.js";
 import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
 import { STRAND_MUTE } from "./creature-strand/mute/index.js";
 import { STRAND_SEALED } from "./creature-strand/sealed/index.js";
+import { PANEL_EMBLEM } from "./panel-action/emblem/index.js";
 // endregion
 
 /**
@@ -29,4 +30,10 @@ import { STRAND_SEALED } from "./creature-strand/sealed/index.js";
  * (`packages/render/src/seat-skin.ts`). A question with a shipped answer is not
  * a question, so the directory went with the entry.
  */
-export const VARIANTS: Variant[] = [SHOT_STREAK, METEOR_FORGE, STRAND_SEALED, STRAND_MUTE];
+export const VARIANTS: Variant[] = [
+  SHOT_STREAK,
+  METEOR_FORGE,
+  STRAND_SEALED,
+  STRAND_MUTE,
+  PANEL_EMBLEM,
+];
