@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · a1444b4f — THE CLAW: the arm carries what it caught, and the panel owns the keyboard
+
+Five things the owner reported after playing it, and three of them were plain defects rather than tuning.
+
 ## 2026-09-06 · 3e9005b8 — The word is SHOOT THE CRACK, and the skull is half again as big
 
 Two corrections the owner made off a real frame.
