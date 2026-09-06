@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · 771617c9 — The worker-model guard reads an invocation, not a commit message
+
+`workerModelRefusal` tested the whole command line for a mention of the worker next to an Anthropic model name. A `git commit -m` carries its entire message on that line, and CLAUDE.md requires every message here to end with a `Co-Authored-By` trailer at an anthropic.com address — half the rule, on every commit there is. So a message that happened to use the word "delegate" was refused, with a note about billing a worker on the wrong key that had nothing to do with what was being run. It cost this lane a turn again while the fix was being typed.
+
 ## 2026-09-06 · f70daf9c — The worker-model guard reads a commit message as if it were an invocation
 
 `workerModelRefusal` refuses any command line mentioning aider or delegation together with an Anthropic model name. A `git commit -m` carries its whole message on that line, and every commit here is required to end with a `Co-Authored-By` trailer at an anthropic.com address — so a commit whose message happens to use the word "delegate" is blocked, and told it is about to bill a worker on the wrong key. It happened twice in this lane, the second time on the heredoc writing this entry down. Queued rather than fixed here: the rule is the delegation guard's and belongs to a session that has the hook's tests in front of it.
