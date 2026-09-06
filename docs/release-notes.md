@@ -9,6 +9,26 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · a458d7f0 — The thread, the reel and the raisin go through the canvas that refuses things
+
+Every other creature is drawn again through the stub canvas that refuses what a real one refuses, which is what catches a value that is a perfectly good `string` and not a colour. THE STRAND's three pictures were not: `drawStrands`, the sealed reel player 2 sees in place of a body, and the raisin a shrivelled one leaves behind each take a colour out of `PALETTE` and put it through `hazed`, and none is reached without a `strand` on the field.
+
+## 2026-09-06 · c252a5a0 — What the game draws now says what a worm is made of
+
+`docs/shipped-looks.md` is the answer to *what does the game actually draw today*, creature by creature, with the numbers — and THE CRAWLER was not in it, despite having a contour family of its own, three materials along one body, a contraction that runs from the head backwards and two pictures that outlive the body.
+
+## 2026-09-06 · fee59c10 — A worktree's install is run from a native shell on Windows, or tsc cannot read it
+
+A fresh worktree had no `tools/maze/node_modules` at all, so the typecheck stopped with *Cannot find module `@neon-spore/sim`* pointing at a file the lane had never opened. `bun install` from the agent's Bash tool did not fix it and did not complain either: MSYS writes the workspace symlink with a POSIX target, which Bun resolves happily and the Windows `tsc` cannot follow, so the same error came back looking like a fault in the code. `bun install --force` from PowerShell wrote a real junction and the tree went green.
+
+## 2026-09-06 · 490a92dc — The scene sweep, the pages it draws and the films it names are three files
+
+`scenes.test.ts` had reached 443 lines carrying three questions that fail for three different reasons. The acts a film performs fail when the scene format changes; the pages written over them fail when a caption grows or a step stops standing long enough to read; a named film fails when a creature's rule moves underneath it. They are added to at different rates, which is the whole argument for the cut.
+
+## 2026-09-06 · 9f7ad777 — What a creature is worth leaves the file about how long its clock runs
+
+`config-creatures.ts` sat exactly on the 250-line limit, so a field could not be added and an existing comment could not gain a line — the lane that brought `throbSpinBeats` down from four to three had to put its three sentences in `throb.ts` instead, which is the right file for the argument and the wrong one for a reader looking up the number.
+
 ## 2026-09-06 · ab51fd7a — Put THE CRAWLER on the ship's own skin, so it walks over the cannon
 
 A worm was drawn on a straight line a fixed distance from `Layout.hullY` while the hull under it is a membrane that swells wherever a player puts something. So it walked *through* the cannon. Its rings are now placed against the surface the ship is actually drawn with, sampled under each ring's own column: sliding the cannon under a worm lifts that stretch of it and lets it down again, and the body lies along the ship's own breathing contour instead of across it.
