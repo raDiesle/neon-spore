@@ -117,27 +117,6 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 shim that shows what the new shape wants if it changed again.
 
 
-## THE STRAND is drawn by nothing in `packages/render/test/frame.test.ts`
-
-- **Found:** 2026-09-05, claude/string-connected-enemy-0dae70
-- **Taken:** 2026-09-06, claude/queue-the-strand-is-drawn-by-nothing-in-packages-rende
-- **Files:** `packages/render/test/frame.test.ts`, `packages/render/src/strand.ts`,
-  `packages/render/src/strand-bead.ts`, `packages/render/src/creature-body.ts`
-
-Every other creature is drawn again through the stub canvas that refuses what
-a real one refuses — that is what catches a value which is a perfectly good
-`string` and not a colour. The strand's three new pictures are not: the thread
-(`drawStrands`), the sealed bead player 2 sees in place of a body, and the
-raisin a shrivelled one leaves behind. All three take a colour out of
-`PALETTE`, go through `hazed`, and are only ever reached with a `strand` on the
-field, which no existing frame test puts there.
-
-Add a case beside the gyre's and the veer's: a world with one thread on it,
-drawn at each of the three `ViewRole`s, with at least one bead shrivelled so
-`drawRaisin` is reached, and once with the thread's last bead spent so the
-sweep has run. `gyre-frame.test.ts` and `veer-frame.test.ts` are the shape to
-copy.
-
 ## A worm builds a path string per link per frame, and never caches one
 
 - **Found:** 2026-09-05, claude/crawler-enemy-design-ba0a00
