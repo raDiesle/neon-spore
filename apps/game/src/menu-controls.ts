@@ -94,6 +94,7 @@ const KEYS: [string, string][] = [
   ["W", "Fire red — and guard in the same press."],
   ["E", "Fire cyan."],
   ["G", "Hold the nearest creature — the grip, as the other player."],
+  [", / .", "Carry the held creature a column left or right. Nothing without G held."],
   ["SPACE", "Hold the wave's guide down, both seats at once. F and G hold one seat each."],
   ["← / →", "The previous and the next wave."],
   ["P", "Pause."],

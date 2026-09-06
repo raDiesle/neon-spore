@@ -1,7 +1,7 @@
 import type { Layout } from "@neon-spore/render";
-import { type Creature, midCol, NO_GRIP, type SimConfig } from "@neon-spore/sim";
+import { type Creature, midCol, type SimConfig } from "@neon-spore/sim";
 import type { InputBuffer } from "./input.js";
-import { nearestHull } from "./keys-grip.js";
+import { deskGrip } from "./keys-grip.js";
 import { guideKeyDown } from "./keys-guide.js";
 import { roundKeyDown, roundKeyUp } from "./keys-round.js";
 
@@ -72,6 +72,7 @@ export function bindKeys({
 }: KeyBindings): () => void {
   let cannon = -1;
   let shield = -1;
+  const grip = deskGrip(cfg);
   const held = new Set<string>();
   const repeatTicks = new Map<string, number>();
 
@@ -170,10 +171,19 @@ export function bindKeys({
       case "KeyG": {
         // And G is player 2's half, for the same reason F is player 1's.
         if (guideKey("KeyG")) break;
-        const target = nearestHull(creatures());
-        if (target !== NO_GRIP) buffer.push(2, { kind: "grip", id: target });
+        for (const command of grip.take(creatures())) buffer.push(2, command);
         break;
       }
+      // THE PUSH, which on a phone is the same thumb sliding sideways and here
+      // has to be keys of its own. They sit under the same hand as G and mean
+      // nothing without it: one press carries the held body one column further
+      // from where it was grabbed (`keys-grip.ts`).
+      case "Comma":
+        for (const command of grip.carry(-1)) buffer.push(2, command);
+        break;
+      case "Period":
+        for (const command of grip.carry(1)) buffer.push(2, command);
+        break;
       // Space is both seats at once, for the person at a desk playing both of
       // them — the same answer the director's stage gives in `TEST`.
       case "Space":
@@ -218,7 +228,7 @@ export function bindKeys({
     const off = { kind: "brief", on: false } as const;
     if (e.code === "Space" || e.code === "KeyF") buffer.push(1, off);
     if (e.code === "Space" || e.code === "KeyG") buffer.push(2, off);
-    if (e.code === "KeyG") buffer.push(2, { kind: "grip", id: NO_GRIP });
+    if (e.code === "KeyG") for (const c of grip.release()) buffer.push(2, c);
     if (e.code === "KeyF") buffer.push(1, { kind: "prime", on: false });
     const round = roundKeyUp(e.code);
     if (round) buffer.push(round.player, round.command);
