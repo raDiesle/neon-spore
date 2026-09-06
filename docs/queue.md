@@ -166,6 +166,7 @@ owner to judge. Say which in the commit.
 ## A frame can be measured on this desk but not on the phone it is for
 
 - **Found:** 2026-09-03, claude/game-performance-mobile-analysis-cd4207
+- **Taken:** 2026-09-06, claude/queue-a-frame-can-be-measured-on-this-desk-but-not-on
 - **Files:** `apps/game/src/main.ts`, `apps/game/src/handle.ts`, `tools/perf/measure.ts`, `docs/performance.md`
 
 `bun run perf` measures every wave at its busiest tick with Chrome's CPU
