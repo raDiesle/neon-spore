@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · 4f6d3050 — THE CLAW: one of you has every button and none of the map
+
+A ninth boss, and it is THE FLEET's split turned round. That fight gives the map to the seat holding the trigger, so the whole of it is one person getting a coordinate out of their mouth; this gives the map to the seat with no controls at all, and takes the coordinates away. A salvage rail over nine sockets with four pods and three rocks buried in them, dealt from the seeded rng. Player 1 walks the claw a socket a press and drops it. Player 2 sees what is in every socket and has no slab on the panel.
+
 ## 2026-09-06 · aaf86dc0 — GUIDES leaves NOT BUILT YET for the list of the guides it draws
 
 The owner's answer to the question the last commit's paragraph raised: the two review pictures move to DOCUMENTATION and hang under the GUIDES list, which was already a list of the same waves. Nothing about them was ever unbuilt, and a sheet cannot have two tabs called GUIDES. `guide-page.ts` stops mounting a tab and exports the two sections instead; `guide-sheet.ts` appends them once the list is drawn, and `backlog-tabs.ts` is down to two lazy tabs.
