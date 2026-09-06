@@ -346,6 +346,7 @@ the column.
 ## The relay's "run nobody came back to" test is timing-flaky under a full suite
 
 - **Found:** 2026-09-06, claude/veer-brush-preview-tiles
+- **Taken:** 2026-09-06, claude/queue-the-relays-run-nobody-came-back-to-test-is-timin
 - **Files:** `apps/server/test/room.test.ts`
 
 `ends a run nobody came back to, so the next arrival starts a fresh one`
