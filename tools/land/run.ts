@@ -48,6 +48,7 @@
  * that comes after them.
  */
 
+import { crlfOnDisk, crlfRefusal } from "./crlf.js";
 import { git, gitOrDie } from "./git.js";
 import { type Landing, plan, pushNow, SWEPT_NOTHING, trunkRaced } from "./land.js";
 import { type Landed, LOG_FORMAT, parseLanded } from "./notes.js";
@@ -152,6 +153,16 @@ async function moveTrunk(): Promise<Landed[]> {
   if (installCode !== 0) {
     console.log(`✗ bun install --frozen-lockfile failed after the rebase; ${TRUNK} was not moved`);
     console.log(installErr.trim());
+    process.exit(1);
+  }
+
+  // Asked before the check rather than diagnosed after it. A tracked file with
+  // CRLF on disk fails the lint as a whole-file formatter diff that names a
+  // formatter and no cause, and `git status` can be clean the whole time
+  // (`crlf.ts`).
+  const crlf = crlfOnDisk(await git(["ls-files", "--eol"], root));
+  if (crlf.length > 0) {
+    for (const line of crlfRefusal(crlf, TRUNK)) console.log(line);
     process.exit(1);
   }
 
