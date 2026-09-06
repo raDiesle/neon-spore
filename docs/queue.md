@@ -330,6 +330,7 @@ phone runs, never against a throttled desktop one.
 ## `bun run perf` dies on the sweep after a sweep
 
 - **Found:** 2026-09-06, claude/queue-bun-run-perf-s-20-noise-floor-still-flags-waves
+- **Taken:** 2026-09-06, claude/queue-bun-run-perf-dies-on-the-sweep-after-a-sweep
 - **Files:** `tools/perf/run.ts`, `tools/frames/serve.ts`, `tools/frames/opening.ts`
 
 Two sweeps taken one after the other, in the same shell, and the second one
