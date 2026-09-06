@@ -144,7 +144,6 @@ changes a pixel is a VERSUS candidate, not a landing.
 ## The game paints a full field frame behind the main menu, under a blur
 
 - **Found:** 2026-09-03, claude/game-performance-mobile-analysis-cd4207
-- **Taken:** 2026-09-06, claude/queue-the-game-paints-a-full-field-frame-behind-the-ma
 - **Files:** `apps/game/src/main.ts`, `apps/game/src/loop.ts`, `apps/game/src/menu.css`, `apps/game/src/run-state.ts`
 
 `startLoop`'s `onFrame` calls `paint()` unconditionally. The `menu` hold stops
