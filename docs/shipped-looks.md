@@ -148,6 +148,63 @@ coloured thing on any rock in the game — the whole clown was built grey on the
 argument that a red nose reads as *shoot me*, and the owner spent a hue on it
 anyway, which is why `PALETTE.clownNose` is a fuchsia and not a red.
 
+## The crawler
+
+`packages/render/src/crawler.ts`, `crawler-skin.ts`, `crawler-fx.ts`; the
+contour is `packages/content/src/crawler-shape.ts`, the fifth family of shapes
+in that package and the only one that is not a body but a **segment**.
+
+A worm is one drawing rather than a run of bodies. `drawCrawlers` takes every
+`crawler` link out of `drawCreatures`' ordinary pass — THE GYRE's arrangement —
+and paints them back to front along the body, `linkOrder` descending, so each
+leading dome lies over the tucked tail of the one behind it. That overlap is
+the picture: the owner's instruction was *the segments are attached together as
+they belong together — no space in between*, and `OVERLAP` is `0.16` of a tile.
+Rings standing in a column the field does not have are not drawn at all
+(`linkOnField`), because a worm feeds itself onto the ship a link at a time and
+a body the pilot can see but can never put the cannon under is a lie.
+
+One ring, in draw order:
+
+| Pass | What | Numbers |
+|---|---|---|
+| body | the egg, squeezed | `CRAWLER` `rx 95`, `ry 42`, `taper 0.22`, `pulse 0.14`, in hundredths of a tile |
+| belly | a dark band under it, so it sits on the hull | `PALETTE.background` at `0.34`, `1.1rx × 0.75ry`, dropped `0.95ry` |
+| sheen | a specular along the top, `lighter` | `PALETTE.text` at `0.16`, `0.62rx × 0.3ry` |
+| wet | one catchlight that **slides with the contraction** | `PALETTE.text` at `0.4`, `0.2rx × 0.16ry`, offset `rx·(0.1 + squeeze·0.12)` |
+| rim | glow if the ring is lit, a flat stroke if it is a plate | `strokeGlow` or `STROKE.outline` |
+| face | head only: one eye, a catchlight, a mouth that gapes on the beat | eye `0.16rx`, spark `0.06rx` at `0.85`, gape `ry·(0.16 + (squeeze + 1)·0.07)` |
+
+**Three materials along one animal, and none of them is a new colour.** A ring
+the cannon owes is `PALETTE.red` or `PALETTE.cyan`, lit and glowing; every ring
+the shield owes is `PLATE` and `PLATE_RIM`, the same dead grey a shell and a
+lid already wear, imported rather than picked again. The two ends are plates
+too, and they say which end they are by **shape** rather than by ink — the head
+is `0.66 × 1.34` of a ring with almost none of its taper (`0.05`), the tail is
+`0.86 × 0.78` and fully tucked. Material says which control; the silhouette
+says which way the animal faces.
+
+The contraction runs **from the head backwards**, `crawlerSqueeze` at `0.22` of
+a cycle per link, and it is the one thing on screen that says which end is the
+front before anybody has looked at the mouth. It lives in `content` rather than
+here because the shape sheet has to draw the same body the field does.
+
+**Two pictures outlive the body**, in `Effects` rather than in the renderer
+(`crawler-fx.ts`), because by the frame after the event there is nothing left
+to hang them on:
+
+| | what | numbers |
+|---|---|---|
+| splash | a crown of droplets in the ring's own colour and a wet patch under it, over the ordinary spark burst | `22` drops, `0.62` s |
+| beam | a lane of the ship's light up the column the last ring stood in | `1.1` s — the longest transient in the game short of a boss |
+| mound | two banks of grey plating thrown up either side of a burrow | `0.6` s |
+
+The splash is the owner's, and its argument is the one this file keeps: a
+matched shot into a sac of the colour the pair have just said out loud should
+not put it out like a lamp. The beam is deliberately the longest thing here —
+taking a worm apart costs both controls, turn about, for most of a wave, and it
+is the only moment the ship says so.
+
 ## Bullets
 
 `packages/render/src/bullets.ts`. Two looks, one shape.

@@ -165,21 +165,3 @@ alternative for `tools/versus/` and not a landing.
 still draws.
 
 
-## `docs/shipped-looks.md` does not know THE CRAWLER exists
-
-- **Found:** 2026-09-05, claude/crawler-enemy-design-ba0a00
-- **Taken:** 2026-09-06, claude/queue-docs-shipped-looks-md-does-not-know-the-crawler
-- **Files:** `docs/shipped-looks.md`, `packages/render/src/crawler.ts`,
-  `packages/render/src/crawler-fx.ts`, `packages/content/src/crawler-shape.ts`
-
-That document is the answer to *what does the game actually draw today*, creature
-by creature, with the numbers. THE CRAWLER has a contour family of its own
-(`crawler-shape.ts`, the fifth in `packages/content`), three materials along one
-body, a drawn neck, a contraction that runs from the head backwards, and two
-pictures that outlive the body — none of which is in it.
-
-Write the entry the way the neighbouring ones are written: the figures off
-`CRAWLER`, the three inks off `crawler.ts`, and the two lives off
-`crawler-fx.ts`. Nothing about the game changes and `bun run check` still
-passes, which is the whole of the acceptance.
-
