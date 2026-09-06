@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · 6f545b46 — The five dearest frames in the game have budgets of their own
+
+`frame-budget.test.ts` weighs ALTERNATING, which is one of the cheapest pictures there is: three bodies falling down an ordinary field. Measured over every wave at its busiest tick, throttled four times in Chrome at phone size, the five dearest were THE GHOST, THE WISP, BULB QUEEN, THE ECHO and THE GYRE, between 6.4 and 7.1 ms a paint against a floor of 3.5. None of them had a row, so any of them could get slower without a test noticing.
+
 ## 2026-09-06 · 1c7044ed — A worm's rings are built as numbers, and its cache is a question for the owner
 
 Every ring of a crawler called `crawlerPath`, which formatted a 28-point Catmull-Rom curve into an SVG path string and handed it to `new Path2D(...)` to be parsed again. That is THE LID's arrangement and it is cheap at one body; a worm is up to nine of them at once, every frame. `crawlerPoints` now returns the placed outline and `spline.ts` writes it into the path as numbers, the same way the hull and every lobed body were changed. The string form stays for the shape sheet, which really does stroke text.
