@@ -218,7 +218,7 @@ export const MECHANICS = {
     waveNames: true,
   },
   magnet: {
-    what: "A horseshoe standing on two poles, one red and one cyan, with an armoured plate slung under it. A shot climbing its own column hits the plate and does nothing at all. The only bolt that reaches it is one arriving at a slant, which means the cannon has to be somewhere else and the pilot's thumb has to be on the body bending the shot across (THE LOCK). Whichever side it comes in on is the pole it meets, and that pole's colour is the only one that kills it.",
+    what: "A horseshoe standing on two poles, one red and one cyan, with an armoured plate slung under it. A shot climbing its own column hits the plate and is reflected back down. The only bolt that reaches it is one arriving sideways, which means the cannon has to be in some other column and the pilot's thumb has to be on the body: a locked shot climbs, turns level with it and runs across (THE LOCK). Whichever side it comes in on is the pole it meets, and that pole's colour is the only one that kills it.",
     reach: "spawn",
     // A wave names this kind and gives it a colour, the way it does for a
     // clasp and a dart — and here the colour is doing double work: it is the

@@ -20,7 +20,7 @@ export type MagnetEvent =
    * made by two different seats, and a pair that hears one sound for both will
    * keep reloading when what they had to do was move the cannon.
    */
-  | { type: "magnetPlate"; col: number; row: number }
+  | { type: "magnetPlate"; col: number; row: number; color: Color }
   /**
    * A magnet came apart. It rides beside the ordinary `destroy` on the same
    * tick rather than in place of it, on `veilTorn`'s terms: the kill is a kill

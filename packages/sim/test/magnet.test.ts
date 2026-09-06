@@ -15,11 +15,12 @@ import {
  * THE MAGNET: a body that cannot be answered from the column it is standing
  * in, and the tests are that sentence taken apart.
  *
- * A shot up its own column meets the plate and does nothing. A shot bent into
- * it by player 1's hand from a lane or two away gets under the plate's edge
- * and lands. Which pole it meets is which side it came from, and which pole it
- * meets is which trigger it has to be — so the same bolt from the other side
- * of the field is the wrong colour without a word of the wave changing.
+ * A shot up its own column meets the plate and does nothing. A shot player 1
+ * has locked from any other column climbs, turns level with the body and comes
+ * in horizontally under the plate's edge, and lands. Which pole it meets is
+ * which side it came from, and which pole it meets is which trigger it has to
+ * be — so the same bolt from the other side of the field is the wrong colour
+ * without a word of the wave changing.
  *
  * The fingerprint is compared between two runs in one process rather than
  * pinned as a constant: two phones on the same build is the property lockstep
@@ -94,6 +95,22 @@ describe("a bolt bent in from the side", () => {
     // about to land. That is `magnetSlantMilli` doing its whole job.
     const { w } = play(ONE, [cannon(0, 1), grip(TPB, 1, 1), fire(TPB * 2, "red")]);
     expect(w.creatures).toHaveLength(0);
+  });
+
+  /**
+   * **One lane over is enough, and it is enough at any height.** The path is a
+   * corner rather than a diagonal, so how far the bolt has to climb before it
+   * turns has nothing to do with whether it gets past the plate — only whether
+   * it turns at all does. A pilot standing anywhere but the magnet's own column
+   * is answering it.
+   */
+  it("gets in from the lane next door, high or low", () => {
+    expect(
+      play(ONE, [cannon(0, 4), grip(TPB, 1, 1), fire(TPB * 2, "red")]).w.creatures,
+    ).toHaveLength(0);
+    expect(
+      play(ONE, [cannon(0, 4), grip(TPB, 1, 1), fire(TPB * 5, "red")]).w.creatures,
+    ).toHaveLength(0);
   });
 
   it("meets the other pole from the other side, and the colour is the other one", () => {

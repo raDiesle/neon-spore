@@ -5,6 +5,7 @@ import { ClaspStrikeFx } from "./clasp-strike.js";
 import { GhostReleaseFx } from "./ghost-release.js";
 import type { Layout } from "./layout.js";
 import { LureVanishFx } from "./lure-vanish.js";
+import { MagnetBounceFx } from "./magnet-bounce.js";
 import { MagnetBreakFx } from "./magnet-break.js";
 import { RecoilCageBreakFx } from "./recoil-cage-break.js";
 import { RecoilVentFx } from "./recoil-vent.js";
@@ -54,6 +55,7 @@ export class BodyTransients {
   private recoilCageBreak = new RecoilCageBreakFx();
   private chuteCut = new ChuteCutFx();
   private magnetBreak = new MagnetBreakFx();
+  private magnetBounce = new MagnetBounceFx();
 
   /** `time` is the wall clock the contour wobble is sampled at — the husk
    * freezes the outline the body had on the frame the layer came off. */
@@ -81,6 +83,10 @@ export class BodyTransients {
     // A horseshoe coming apart the way the bolt was going — the one transient
     // here whose picture depends on a direction (`magnet-break.ts`).
     this.magnetBreak.ingest(events, l);
+    // And a bolt the plate under one turned away, coming back down the way it
+    // arrived — the only transient here that is about a shot rather than about
+    // a body (`magnet-bounce.ts`).
+    this.magnetBounce.ingest(events, l);
   }
 
   update(dt: number): void {
@@ -94,6 +100,7 @@ export class BodyTransients {
     this.recoilCageBreak.update(dt);
     this.chuteCut.update(dt);
     this.magnetBreak.update(dt);
+    this.magnetBounce.update(dt);
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
@@ -117,6 +124,7 @@ export class BodyTransients {
     // And a magnet's two arms and its plate, frozen on the tile it went in for
     // the same reason: the body is gone from the world before this draws.
     this.magnetBreak.draw(ctx);
+    this.magnetBounce.draw(ctx);
   }
 
   /** The four that are drawn around a body the world still has. */
@@ -150,5 +158,6 @@ export class BodyTransients {
     this.recoilCageBreak.clear();
     this.chuteCut.clear();
     this.magnetBreak.clear();
+    this.magnetBounce.clear();
   }
 }

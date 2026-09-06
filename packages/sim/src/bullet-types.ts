@@ -46,14 +46,16 @@ export interface Bullet {
    */
   driftMilli: number;
   /**
-   * Which way it is going: thousandths of a column crossed per tile climbed,
-   * signed. Zero for a shot travelling straight up, which is every shot that
-   * is not steering.
+   * Thousandths of a column crossed on the last tick, signed. Zero for a shot
+   * climbing, which is every shot in the game except one that has turned the
+   * corner of a lock and is running sideways into the body (`lock.ts`).
    *
    * It is on the shot rather than worked out again by whoever needs it because
-   * the one thing that needs it is the tail behind the head, and render/ has no
-   * business re-deriving where a bolt was a tile ago from a lock it would have
-   * to read the simulation's rules to understand.
+   * both things that need it would otherwise have to read the lock's own rules
+   * to get it: the tail render/ draws behind the head, which points at nowhere
+   * if it is drawn under a bolt travelling across, and the plate under a
+   * magnet, which is the question *did this arrive from the side* and nothing
+   * else (`magnet.ts`).
    */
   aimMilli: number;
 }

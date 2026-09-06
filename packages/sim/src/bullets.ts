@@ -112,13 +112,19 @@ export function advanceBullets(world: World): void {
  */
 function sweep(world: World, b: Bullet): boolean {
   const stepMilli = Math.round((tilesPerBeat(world.cfg, b) * MILLI) / ticksPerBeat(world.cfg));
-  // Sideways first, then up the column it has arrived in. The order is the
+  // Sideways first, then along the column it has arrived in. The order is the
   // whole of why a locked shot connects: `firstAlong` below tests one column,
   // and on the tick the bolt reaches the body it has to already be in the lane
   // that body is standing in rather than in the one it left (`lock.ts`).
-  steerShot(world, b, stepMilli);
+  //
+  // What comes back is how far it climbs, which is `stepMilli` for every shot
+  // in the game but one already round the corner of a lock — that one has spent
+  // this tick's travel sideways instead, and the segment below shrinks to a
+  // point at the body's own level. A point is a hit test: nothing can be
+  // crossed sideways in a tick that is not still in the lane on the next one.
+  const climb = steerShot(world, b, stepMilli);
   let from = bulletMilli(b);
-  const to = from - stepMilli;
+  const to = from - climb;
 
   for (;;) {
     // The shot sweeps a segment every tick, so nothing can slip between two

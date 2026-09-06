@@ -33,12 +33,12 @@ import type { Wave } from "../wave-types.js";
  *
  * 1. Beat 0, one alone, dead centre, with nothing else on the field for
  *    fourteen beats. The pair has the whole fall to find out that a shot
- *    straight up its column glances off the plate, and that a thumb on the
- *    body with the muzzle two lanes over does not.
+ *    straight up its column bounces off the plate, and that a thumb on the
+ *    body with the muzzle a lane over does not.
  * 2. Beats 14–16, a magnet at one wall and an ordinary body away from it. The
  *    cannon wants to be where the slick is, and that is also a side the magnet
  *    can be taken from — so the first time the pair gets this right it is
- *    because standing in the *other* body's column happened to be the answer,
+ *    because standing in the *other* body's column happened to be an answer,
  *    which is the sentence stated as geography.
  * 3. Beats 28–30, a magnet and a rock two columns apart. The plate has to be
  *    under one, the muzzle has to be beside the other, and neither of them can
@@ -102,9 +102,9 @@ export const WAVES_ACT_7: Wave[] = [
     name: "THE MAGNET",
     sentence: "The one where standing under it is how you miss.",
     guide: {
-      both: "A horseshoe on two poles, one red and one cyan, with an armoured plate slung underneath. A shot straight up its column meets the plate and does nothing at all. Player 1 holds a thumb on the body instead and the shot bends across the field into it: whichever side the bolt comes in on is the pole it meets, and that pole's colour is the only one that kills it.",
+      both: "A horseshoe on two poles, one red and one cyan, with an armoured plate slung underneath. A shot straight up its column hits the plate and bounces off it. Player 1 holds a thumb on the body from another column instead: the shot climbs, turns level with it and comes in sideways. Whichever side it arrives from is the pole it meets, and that pole's colour is the only one that kills it.",
       p1: "Never stand under it. Take the cannon two or three columns to one side, hold your thumb on the body, and say which side you are coming in from. That is your whole half; the colour is not yours to pick.",
-      p2: "You cannot put a hand on this one, so wait to be told the side and read the pole on it. Load that colour and fire. A bolt that turns away flat underneath means they were still in its column.",
+      p2: "You cannot put a hand on this one, so wait to be told the side and read the pole on it. Load that colour and fire. A bolt that bounces off the underside means they were still in its column.",
     },
     entries: [
       { beat: 0, col: 3, kind: "magnet", color: "red" },

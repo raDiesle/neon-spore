@@ -33,7 +33,6 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   tickHz: "PLUMBING — not a dial a person turns",
   inputDelayTicks: "PLUMBING — not a dial a person turns",
   guardWindowMs: "GUARD — the shared defence",
-  magnetSlantMilli: "THE MAGNET — a body no shot can reach from under it",
   malfunctionEveryBeats: "THE MALFUNCTION — a control that acts by itself",
   reliefPauseBeats: "THE MALFUNCTION — a control that acts by itself",
   reliefRestBeats: "THE MALFUNCTION — a control that acts by itself",

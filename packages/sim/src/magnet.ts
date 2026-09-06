@@ -15,11 +15,12 @@ import type { World } from "./world.js";
  * arrives square underneath, meets the plate and does nothing at all.
  *
  * **So the answer is THE LOCK, used as an aim rather than as a convenience.**
- * A shot only reaches a pole if it is coming in at a slant, and the only thing
- * in the game that bends a shot is player 1's hand held on a body (`lock.ts`).
- * The pilot has to stand the cannon *away* from the column — which is the one
- * thing they have never had to do — hold the magnet, and let the bolt cross
- * the field into it under the plate's edge.
+ * A shot only reaches a pole if it arrives **sideways**, and the only thing in
+ * the game that sends a bolt sideways is player 1's hand held on a body: a
+ * locked shot climbs its own column, turns level with the body and runs
+ * straight across into it (`lock.ts`). So the pilot has to stand the cannon
+ * away from the column — which is the one thing they have never had to do —
+ * and hold the magnet.
  *
  * **And the side it comes in on is which trigger kills it.** The poles are the
  * two ammunition colours, left and right, so a shot arriving from the left
@@ -60,17 +61,23 @@ export function magnetPoleColor(c: Creature, fromLeft: boolean): Color | null {
 }
 
 /**
- * Whether this shot is climbing steeply enough to get under the plate.
+ * Whether this shot arrived from the side rather than from underneath.
  *
- * `aimMilli` is the bolt's own bearing — thousandths of a column crossed per
- * tile climbed — and it is zero for every shot that is not being steered, so a
- * bolt fired straight up the magnet's column is refused by the same expression
- * that refuses one steered from the column next door at four tiles' range.
- * There is no second rule about where the cannon is standing: the cannon's
- * position is *in* the bearing already.
+ * **One question and no number.** A locked bolt climbs its own column, turns
+ * level with the body and runs *straight across* into it (`lock.ts`), so what
+ * reached a magnet is either travelling sideways or it is not — and `aimMilli`
+ * is exactly that, thousandths of a column crossed on the tick it landed. A
+ * shot fired up the magnet's own column has nowhere to turn to and arrives
+ * carrying a zero; so does every unlocked shot, and so does one locked on some
+ * other body that happens to be climbing through this column. All three met
+ * the plate, and all three met it for the one reason the picture shows.
+ *
+ * It was a slant against `magnetSlantMilli` while the lock steered a diagonal,
+ * and the threshold went with the diagonal: an approach that is horizontal or
+ * vertical and never anything in between has nothing left to compare.
  */
-export function magnetLetsThrough(world: World, b: Bullet): boolean {
-  return Math.abs(b.aimMilli) >= world.cfg.magnetSlantMilli;
+export function magnetLetsThrough(_world: World, b: Bullet): boolean {
+  return b.aimMilli !== 0;
 }
 
 /**
@@ -89,7 +96,7 @@ export function magnetLetsThrough(world: World, b: Bullet): boolean {
  */
 export function magnetStruck(world: World, b: Bullet, hit: Creature): void {
   if (!magnetLetsThrough(world, b)) {
-    world.events.push({ type: "magnetPlate", col: hit.col, row: hit.row });
+    world.events.push({ type: "magnetPlate", col: hit.col, row: hit.row, color: b.color });
     return;
   }
   // Positive is a bolt crossing towards higher columns, so it came from the

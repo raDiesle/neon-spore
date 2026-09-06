@@ -210,11 +210,12 @@ export type CreatureKind =
   /**
    * A horseshoe standing on its two poles, one red and one cyan, with an
    * armoured plate slung under it on a staff. The plate is the creature: a
-   * shot climbing its column arrives square underneath and is turned away, so
-   * the only bolt that reaches a pole is one coming in at a slant — which
-   * means player 1 has to stand the cannon *off* the column and hold the body
-   * (`lock.ts`) to bend the shot into it. Which side it comes from is which
-   * pole it meets, and which pole it meets is which trigger kills it.
+   * shot climbing its column arrives square underneath and is reflected, so
+   * the only bolt that reaches a pole is one arriving *sideways* — which means
+   * player 1 has to stand the cannon off the column and hold the body, and the
+   * shot climbs, turns level with it and comes in across (`lock.ts`). Which
+   * side it comes from is which pole it meets, and which pole it meets is
+   * which trigger kills it.
    * `magnet.ts` holds the whole of it, and it carries no state of its own —
    * the two pole colours are `color` and its opposite, left and right.
    */

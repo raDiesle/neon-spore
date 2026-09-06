@@ -104,13 +104,17 @@ export function drawBullets(
     const col = b.col + b.driftMilli / 1000;
     const x = tileCX(l, col);
     const y = tileCY(l, row);
-    // How far back down the shot's own path the tail begins. The head has
-    // climbed `back` tiles since then, and crossed `aimMilli` thousandths of a
-    // column for each of them — so the tail's far end is that much *behind* in
-    // both axes, and a shot going straight up is drawn exactly as it was.
+    // How far back down the shot's own path the tail begins — and the path has
+    // two legs, so the tail has two forms. A bolt with nothing sideways on it
+    // is climbing, and its tail hangs `back` tiles straight below, which is
+    // every shot in the game but one. A bolt carrying an `aimMilli` has turned
+    // the corner of a lock and is running level into the body, so its tail
+    // trails `back` *columns* behind it on the same row — the same length of
+    // path, laid along the leg it is actually on (`sim/lock.ts`).
     const back = Math.max(0, look.tailBack(frac));
-    const fromY = tileCY(l, row + back);
-    const fromX = tileCX(l, col - (b.aimMilli / 1000) * back);
+    const across = Math.sign(b.aimMilli);
+    const fromY = tileCY(l, row + (across === 0 ? back : 0));
+    const fromX = tileCX(l, col - across * back);
 
     // A tail behind the head, so the direction is legible even at twelve tiles
     // a beat.

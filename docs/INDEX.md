@@ -248,7 +248,6 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-view.ts` | **The numbers only the picture reads.** Every field here is taken off `SimConfig` by `packages/render` |
 | `packages/sim/src/fault-surface.ts` | Every name THE MALFUNCTION puts on `@neon-spore/sim`'s surface, written out |
 | `packages/sim/src/malfunction.ts` | THE MALFUNCTION: a wave in which one of the two seats does not have its control any more — the control has it |
-| `packages/sim/src/config-magnet.ts` | THE MAGNET's one number: how steeply a shot has to be climbing before it clears the plate slung under the body |
 | `packages/sim/src/magnet.ts` | THE MAGNET: the first body in this game that cannot be answered from the column it is standing in |
 | `packages/sim/src/events-magnet.ts` | **What THE MAGNET does**, as events: a bolt turned away by the plate slung under the body |
 | `packages/sim/src/grip-push.ts` | THE PUSH: the same hand read a third way |
@@ -634,6 +633,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/fence-sweep.ts` | What the navigator gets instead of the doorways: a reading head crossing the wire |
 | `packages/render/src/fence-wire.ts` | What a stretch of live wire looks like, and how far above the ship it hangs |
 | `packages/render/src/shield-outage.ts` | The shield's line burnt out in places, which is what a wall costs instead of a scar |
+| `packages/render/src/magnet-bounce.ts` | A shot turned away by the plate under a magnet, coming back down |
 
 ### packages/net
 

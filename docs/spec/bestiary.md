@@ -392,17 +392,19 @@ way in, the plate says the way in is not from underneath, and the two colours
 say the way in has a colour.
 
 **What it does.** A shot climbing its own column arrives square under the plate
-and does nothing at all — no crater, no colour miss, no window. `magnetSlantMilli`
-is the whole of the rule: the bolt has to be crossing at least that many
-thousandths of a column for every tile it climbs before the plate lets it past.
-A shot fired straight up is crossing none, so it never gets in.
+and does nothing at all — no crater, no colour miss, no window. It is
+**reflected**: it comes back off the plate the way it went in, falls about a
+tile and is gone (`render/magnet-bounce.ts`). There is no number in the rule
+and nothing to tune. A locked bolt travels a corner — up its own column, then
+level and straight across (6.6) — so what reaches a magnet either arrived
+sideways or it did not, and only the second meets armour.
 
 **So the answer is THE LOCK, used as an aim.** The one thing in this game that
-bends a shot is player 1's hand held on a body (`sim/lock.ts`). The pilot has
-to stand the cannon *off* the column — two lanes at mid-field, three near the
-top — hold the magnet, and let the bolt cross the field into it under the
-plate's edge. The gesture already cost the pilot their strip; here it also
-costs them the habit.
+sends a shot sideways is player 1's hand held on a body (`sim/lock.ts`). Any
+column but the magnet's own is an answer, at any height: the pilot stands the
+cannon off the column, holds the body, and the bolt climbs, turns level with
+it and comes in horizontally at a pole. The gesture already cost the pilot
+their strip; here it also costs them the oldest habit in the game.
 
 **And the side is the colour.** The left pole carries the authored colour and
 the right one carries its opposite (`magnetPoleColor`), so which side the bolt

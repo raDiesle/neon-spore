@@ -187,7 +187,7 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     // they are coming in on before the colour means anything at all.
     radar: "p1",
     blurb:
-      "A horseshoe on two poles, one red and one cyan, with an armoured plate slung under it on a staff. A shot up its own column meets the plate and does nothing. The only bolt that reaches a pole is one coming in at a slant — so player 1 stands the cannon *off* the column and holds the body, and the shot bends across the field into it. The side it arrives from is the pole it meets, and the pole it meets is the trigger that kills it.",
+      "A horseshoe on two poles, one red and one cyan, with an armoured plate slung under it on a staff. A shot up its own column meets the plate and is reflected straight back down. The only bolt that reaches a pole is one arriving sideways — so player 1 stands the cannon *off* the column and holds the body, and the shot climbs, turns level with it and comes in across. The side it arrives from is the pole it meets, and the pole it meets is the trigger that kills it.",
   },
   crawler: {
     kind: "crawler",

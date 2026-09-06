@@ -159,6 +159,16 @@ off and a bolt already in the air stops steering and finishes its climb
 straight up from wherever it had got to. `sim/lock.ts` is the whole rule and
 `render/lock-mark.ts` the whole picture.
 
+**The path is a corner rather than a diagonal.** The bolt climbs its own column
+until it is level with the body, turns, and runs straight across into it — and
+it holds the body's own level from the turn on, so a body still falling is
+followed rather than watched past. That is about the *picture*: a diagonal
+arrives at a body from underneath, and THE MAGNET is a body with armour slung
+exactly there (`bestiary.md`), so a shot the pair had aimed round the side of one still
+looked as though it had come up through the plate. A horizontal leg cannot be
+misread. It costs one speed and not two — a tick's travel is
+`bulletTilesPerBeat` whichever leg it is spent on.
+
 **It is not a new gesture.** It is 6.4's, held by the seat that owns the
 cannon. That matters because the price is already built in: a thumb on the
 field is a thumb off the strip below it, so a pilot who has locked a body

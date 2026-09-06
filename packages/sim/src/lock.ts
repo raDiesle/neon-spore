@@ -72,69 +72,88 @@ export function isLockedOn(world: World, id: number): boolean {
 }
 
 /**
- * One tick of steering, before the shot travels.
+ * One tick of a locked shot's flight, before it travels: how far it climbs,
+ * and any sideways it took instead.
  *
- * **The rule is a proportion and there is no speed in it.** The shot moves
- * across by the same share of what is left sideways as this tick's climb is of
- * what is left upwards — so it arrives exactly, whatever the two distances
- * were, and the last tick before contact closes whatever remains. A cap on how
- * fast it may slide would be a number that decides, for some pairs of
- * distances, that the frame drawn round the body was lying; there is nothing
- * to tune here and so nothing tunable.
+ * **The path is a corner, not a diagonal.** The bolt goes straight up its own
+ * column until it is level with the body, turns, and runs straight across into
+ * it. That is the owner's rule and it is about the *picture* rather than about
+ * the arithmetic: a diagonal arrives at a body from underneath, which is
+ * exactly where THE MAGNET's plate is, so a shot the pair had aimed round the
+ * side of one still looked as though it had come up through the armour. A
+ * corner cannot be misread — the leg that reaches the body is horizontal, and
+ * a horizontal bolt has plainly come from one side or the other.
  *
- * The consequences are honest rather than hidden. A body nearly level with the
- * muzzle and far to one side is answered by a bolt that whips almost sideways,
- * because that is what reaching it means. A body **below** the shot cannot be
- * reached at all — a shot only goes up — so it stops steering and finishes its
- * climb straight, which is also what a shot fired before the hand went down
- * does for the part of its flight that is already past.
+ * **The turn is taken on the tick the climb would pass the body**, and the
+ * rest of that tick's travel is spent sideways, so the bolt never overshoots
+ * and never stalls. After it, the shot holds the body's own level rather than
+ * its own: the body is still falling — slower, if a hand is still on it, which
+ * is the other half of what that hand is for — and a bolt that stayed on the
+ * row it turned on would watch the thing it promised to hit sink past it. It
+ * is a fraction of a tile a beat and it reads as level.
  *
- * And a locked shot passes through nothing: it sweeps its column like any
- * other bolt, so a body that wanders into the diagonal is met first and stops
- * it. The lock aims the shot; it does not excuse it from the field.
+ * **It costs one speed, not two.** The whole of a tick's travel is
+ * `bulletTilesPerBeat` whichever leg it is spent on, so there is nothing here
+ * to tune: a bolt that crossed sideways faster than it climbs would be two
+ * shots wearing one colour.
+ *
+ * And a locked shot still passes through nothing. It cannot skip a column —
+ * sideways travel is a sixth of a tile a tick — so every lane it crosses is a
+ * lane `firstAlong` tests at the body's own level on some tick, and a body
+ * standing in the way of the horizontal leg is met first and stops it. The
+ * lock aims the shot; it does not excuse it from the field.
+ *
+ * The number it returns is what `sweep` climbs this tick, in thousandths of a
+ * tile. It is **signed**: a body that has fallen below the shot's level brings
+ * it down by that much, which is how the second leg stays level with the thing
+ * it is about.
  */
-export function steerShot(world: World, b: Bullet, stepMilli: number): void {
+export function steerShot(world: World, b: Bullet, stepMilli: number): number {
+  b.aimMilli = 0;
   const target = lockedBody(world);
-  if (!target) {
-    b.aimMilli = 0;
-    return;
-  }
-  // How far the body is above the shot right now. Zero or less is a body the
-  // climb has already passed, and there is nothing to steer towards.
+  // Nothing held: dumb again, and it climbs the whole step from wherever the
+  // hand let go of it.
+  if (!target) return stepMilli;
   const gap = bulletMilli(b) - creatureMilli(world, target);
-  if (gap <= 0) {
-    b.aimMilli = 0;
-    return;
-  }
+  // Still below it by more than this tick's travel — the first leg, and there
+  // is nothing sideways in it.
+  if (gap > stepMilli) return stepMilli;
+  // The turn: climb only as far as the body's own level, and spend what is
+  // left of the step running across. A negative gap is a body that has sunk
+  // below the bolt, and the bolt goes down with it.
+  const climb = Math.min(gap, stepMilli);
+  slide(world, b, target, Math.max(0, stepMilli - Math.abs(climb)));
+  return climb;
+}
+
+/**
+ * The second leg: `amount` thousandths of a tile spent sideways, towards the
+ * nearest lane the body actually occupies.
+ *
+ * A shot already inside the span has nowhere to go and says so with a zero —
+ * which is also the answer THE MAGNET reads as *this one came up from
+ * underneath* (`magnet.ts`). A two-column body is answered in whichever of its
+ * two lanes the bolt is nearest, not dragged to a centre half a tile from
+ * either.
+ */
+function slide(world: World, b: Bullet, target: Creature, amount: number): void {
+  if (amount <= 0) return;
   const x = b.col * MILLI + b.driftMilli;
-  // The nearest lane the body actually occupies, which for everything but a
-  // wide one is simply the lane it is in. A shot already inside the span is
-  // already where it needs to be sideways — a two-column body is answered in
-  // whichever of its two columns the bolt is nearest, not dragged to a centre
-  // that is half a tile from either.
   const lane = creatureLane(world, target);
   const aimAt = Math.max(lane * MILLI, Math.min((lane + spanOf(target) - 1) * MILLI, x));
   const left = aimAt - x;
-  const move = gap <= stepMilli ? left : Math.round((left * stepMilli) / gap);
+  if (left === 0) return;
+  const move = Math.abs(left) <= amount ? left : Math.sign(left) * amount;
   const to = x + move;
   // Half a tile either way and then the column itself changes. That is what
   // keeps `Bullet.col` the lane the shot is *nearest*, and so the lane the hit
   // test may go on asking about with no idea any of this happened.
   b.col = Math.floor((to + MILLI / 2) / MILLI);
   b.driftMilli = to - b.col * MILLI;
-  // Which way it is going, in thousandths of a column per tile climbed: what
-  // is left sideways over what is left upwards, which is the same number on
-  // every tick of a steer because the steer is a straight line. It is stored
-  // rather than recomputed by the two things that read it — the tail render/
-  // draws behind the head, which points at nowhere if it is drawn straight
-  // down under a bolt crossing the field, and the plate under a magnet, which
-  // is a question about exactly this bearing (`magnet.ts`). A shot that is not
-  // steering carries a zero and is drawn as it always was.
-  //
-  // Deliberately *not* `move / stepMilli`, which is what it used to be. Those
-  // two agree on every tick but the last one, where `move` is clamped to what
-  // is left and the quotient collapses towards zero — so a bolt visibly
-  // crossing the field arrived, on the one tick anything asks, reading as
-  // though it had come straight up.
-  b.aimMilli = Math.round((left * MILLI) / gap);
+  // Thousandths of a column crossed on this tick, signed. Zero is a bolt on
+  // its first leg, climbing, and it is drawn exactly as an unlocked one is.
+  // The two things that read it want the same fact from it — which way the
+  // tail trails (`render/bullets.ts`), and which side of a magnet the bolt
+  // arrived at (`magnet.ts`) — and neither has to know this file's rules.
+  b.aimMilli = move;
 }

@@ -91,13 +91,34 @@ describe("player 1's hand on a body", () => {
     expect(w.creatures).toHaveLength(1);
   });
 
-  it("aims the bolt sideways while it flies, and says which way", () => {
+  /**
+   * **The path is a corner and this is where that is said.** Straight up the
+   * muzzle's own column while it is below the body, and straight across once it
+   * is level with it — so the leg that reaches the body is horizontal, and a
+   * horizontal bolt has plainly come from one side. The old rule was a
+   * diagonal, which arrives from underneath and is exactly what THE MAGNET's
+   * plate is for.
+   */
+  it("climbs its own column first, with nothing sideways in it", () => {
     const w = world(FAR);
     play(w, 2, [cannon(0, AWAY), grip(TPB, 1, 1)]);
     play(w, 0.2, [fire(w.tick, "red")]);
     const b = w.bullets[0];
     if (!b) throw new Error("no shot is in the air");
-    // Left of the muzzle it is not: the body is to the right of column 1.
+    expect(b.col).toBe(AWAY);
+    expect(b.driftMilli).toBe(0);
+    expect(b.aimMilli).toBe(0);
+  });
+
+  it("turns level with the body and runs across, and says which way", () => {
+    const w = world(FAR);
+    play(w, 2, [cannon(0, AWAY), grip(TPB, 1, 1)]);
+    play(w, 0.2, [fire(w.tick, "red")]);
+    // Far enough on that the climb is over: the body is two rows down the
+    // field and the bolt is level with it, crossing towards column 8.
+    play(w, 0.9);
+    const b = w.bullets[0];
+    if (!b) throw new Error("the shot landed before it could be read");
     expect(b.col * 1000 + b.driftMilli).toBeGreaterThan(AWAY * 1000);
     expect(b.aimMilli).toBeGreaterThan(0);
   });

@@ -39,13 +39,20 @@ import { drawTargetLock } from "./target-lock.js";
  * says *this one is picked out*; it says nothing about **what** has picked it
  * out, and the whole of the rule is that a shot leaving a muzzle somewhere else
  * entirely is going to arrive here. So the link is drawn: cannon at one end,
- * body at the other, straight, in the grip's own amber.
+ * body at the other, in the grip's own amber.
+ *
+ * **It turns a corner, because the shot does.** A locked bolt climbs its own
+ * column, turns level with the body and runs straight across into it
+ * (`sim/lock.ts`), so a straight line between the two ends would be a promise
+ * about a path nothing takes — and on THE MAGNET it would be the wrong promise
+ * in the one place it matters, drawing a route in under the plate that stops
+ * every shot arriving that way.
  *
  * It is deliberately the same colour as the beam `grip.ts` hangs off the hull
  * and deliberately *not* the same line. That beam is vertical, solid and full
  * of lights climbing it — it is the pull, and a pull comes off the ship as a
- * whole. This is dotted and it leans, because it is not a force on the body at
- * all: it is the path a bolt has not taken yet.
+ * whole. This is dotted and it corners, because it is not a force on the body
+ * at all: it is the path a bolt has not taken yet.
  */
 
 /** How far outside the silhouette the frame's box stands. Outside the grip's
@@ -117,17 +124,40 @@ export function lockLink(
   toX: number,
   toY: number,
   clear: number,
-): { fromX: number; fromY: number; toX: number; toY: number } | null {
+): {
+  fromX: number;
+  fromY: number;
+  cornerX: number;
+  cornerY: number;
+  toX: number;
+  toY: number;
+} | null {
   const fromX = tileCX(l, cannonCol);
   const fromY = l.hullY;
-  const dx = toX - fromX;
-  const dy = toY - fromY;
-  const len = Math.hypot(dx, dy);
-  // The body is already inside the frame the line would be pointing at: there
-  // is nothing left to draw, and a zero length is a division by zero below.
-  if (len <= clear) return null;
-  const end = (len - clear) / len;
-  return { fromX, fromY, toX: fromX + dx * end, toY: fromY + dy * end };
+  // The corner: straight up the muzzle's own column to the body's own level,
+  // and across from there. Both legs come off one point, so a body directly
+  // over the cannon has a corner sitting on top of it and no second leg at all
+  // — which is exactly the shot that arrives from underneath.
+  const cornerX = fromX;
+  const cornerY = toY;
+  const dx = toX - cornerX;
+  const across = Math.abs(dx);
+  const up = Math.abs(cornerY - fromY);
+  // The body is already inside the frame the line would be pointing at, along
+  // whichever leg is left. Nothing to draw, and a zero length is a division by
+  // zero below.
+  if (across + up <= clear) return null;
+  // The gap is taken off the horizontal leg, which is the one that arrives.
+  // When there is not enough of it the corner itself is pulled back down the
+  // climb, so the line always stops `clear` short of the body it points at.
+  if (across >= clear) {
+    const end = (across - clear) / across;
+    return { fromX, fromY, cornerX, cornerY, toX: cornerX + dx * end, toY: cornerY };
+  }
+  const climb = clear - across;
+  const dir = Math.sign(cornerY - fromY) || 1;
+  const y = cornerY - dir * climb;
+  return { fromX, fromY, cornerX, cornerY: y, toX: cornerX, toY: y };
 }
 
 /** The same line, stroked. */
@@ -146,6 +176,7 @@ function drawLink(
   ctx.save();
   ctx.strokeStyle = PALETTE.pod;
   ctx.lineCap = "round";
+  ctx.lineJoin = "round";
   ctx.lineWidth = 1.6;
   ctx.globalAlpha = 0.5 + 0.12 * Math.sin(time * 5);
   ctx.setLineDash([...DASH]);
@@ -155,6 +186,7 @@ function drawLink(
   ctx.lineDashOffset = -time * MARCH;
   ctx.beginPath();
   ctx.moveTo(line.fromX, line.fromY);
+  ctx.lineTo(line.cornerX, line.cornerY);
   ctx.lineTo(line.toX, line.toY);
   ctx.stroke();
   ctx.restore();
