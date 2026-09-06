@@ -16,8 +16,10 @@ import { breachCue } from "./bind-breach.js";
 import { caromCue } from "./bind-carom.js";
 import { crawlerCue } from "./bind-crawler.js";
 import { creatureCue } from "./bind-creatures.js";
+import { fenceCue } from "./bind-fence.js";
 import { fleetCue } from "./bind-fleet.js";
 import { MIRROR_STEP_SOUNDS, POD_TAKEN_SOUNDS } from "./bind-lookups.js";
+import { panForCol, pitchForRow } from "./bind-place.js";
 import { volleyCue } from "./bind-volley.js";
 
 export interface Cue {
@@ -52,22 +54,13 @@ export interface Cue {
   delayBeats?: number;
 }
 
-/** A column as a stereo position. The edges stop short of hard left and right. */
-export function panForCol(col: number, cols: number): number {
-  if (cols <= 1) return 0;
-  return ((col / (cols - 1)) * 2 - 1) * 0.75;
-}
-
-/**
- * Higher up the field is higher in pitch — the same mapping the radar makes
- * with length. It is a small range on purpose: a fifth across the whole field,
- * so a sound is still recognisably itself wherever it happens.
- */
-export function pitchForRow(row: number, rows: number): number {
-  if (rows <= 1) return 1;
-  const t = 1 - Math.min(1, Math.max(0, row / (rows - 1)));
-  return 1 + t * 0.5;
-}
+// **Where a sound is** — a column as a stereo position and a row as a pitch —
+// is `bind-place.ts` next door, cut out when THE FENCE took this file over its
+// limit. It is arithmetic about placement and everything left here is an
+// argument about which sound a moment deserves, which is the same seam
+// `bind-lookups.ts` was cut along. Both are re-exported below, so the six
+// `bind-*.ts` files that reach for them through this one did not have to move.
+export { panForCol, pitchForRow } from "./bind-place.js";
 
 // The two id-to-id lookups this file reads are `bind-lookups.ts` next door,
 // cut out when THE CRAWLER took this one over its limit: they are data, and
@@ -207,11 +200,11 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     // What a covering did — armour chipping, a membrane coming off, a cage
     // buckling, a crust cracking, a body turning at a wall — and, below it,
     // what a body one of them cannot see did: a disguise going, a cloud
-    // shutting or opening, a tile expiring. `bind-armour.ts` and
-    // `bind-creatures.ts` next door, listed case by case rather than reached
-    // through a `default`: a default would have taken the exhaustiveness of
-    // this switch with it, and the exhaustiveness is what makes a new event a
-    // compile error here instead of a silence nobody hears.
+    // shutting or opening, a tile expiring. `bind-creatures.ts` next door,
+    // listed case by case rather than reached through a `default`: a default
+    // would have taken the exhaustiveness of this switch with it, and the
+    // exhaustiveness is what makes a new event a compile error here instead of
+    // a silence nobody hears.
     case "shellBreak":
     case "shellBare":
     case "rindShed":
@@ -229,7 +222,6 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "ghostCharge":
     case "strandBead":
     case "strandSwell":
-    case "gratePass":
       return creatureCue(e, cols, rows);
     // THE CAROM's four, in `bind-carom.ts` — one arrival taken apart, cut out
     // of `bind-creatures.ts` the way `events-carom.ts` is cut out of
@@ -242,7 +234,11 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "chuteOpen":
     case "chuteCut":
       return caromCue(e, cols, rows);
-    // THE VOLLEY's two, on exactly the same terms and in `bind-volley.ts`.
+    // THE FENCE's two and THE VOLLEY's two, on exactly the same terms, in
+    // `bind-fence.ts` and `bind-volley.ts`.
+    case "fencePass":
+    case "fenceBurn":
+      return fenceCue(e, cols, rows);
     case "volleyReturn":
     case "volleyHatch":
       return volleyCue(e, cols, rows);

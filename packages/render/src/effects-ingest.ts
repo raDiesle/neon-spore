@@ -238,10 +238,11 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
     case "fleetHit":
     case "fleetSunk":
     case "fleetDown":
-    // THE GRATE going over the ship: `effects-spark.ts` throws the burst, and
-    // unlike a deflection there is no body left to be drawn tumbling away
-    // from the dome, so nothing here has to remember anything.
-    case "gratePass":
+    // THE FENCE passing the ship, and a bolt cutting it open. Both bursts are
+    // `effects-spark.ts`'; neither leaves anything here, since a fence that
+    // passed is off the field and a burnt column is world state.
+    case "fencePass":
+    case "fenceBurn":
       break;
     default:
       assertNever(e);

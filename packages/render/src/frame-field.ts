@@ -6,10 +6,10 @@ import { drawCreatures } from "./creatures.js";
 import { drawDartGuides } from "./dart-path.js";
 import { drawDartQueries } from "./dart-query.js";
 import type { Effects } from "./effects.js";
+import { drawFences } from "./fence.js";
 import { drawBackground, drawGrid, drawRadar } from "./field.js";
 import { drawGhostRows } from "./ghost-row.js";
 import { drawGhostTrails } from "./ghost-trail.js";
-import { drawGrates } from "./grate.js";
 import { drawGrips } from "./grip.js";
 import { drawGyres } from "./gyre.js";
 import { drawGyreWind } from "./gyre-wind.js";
@@ -111,11 +111,11 @@ export function drawBodies(
   // one body that has to be placed against the *ship* (`crawler.ts`).
   drawCrawlers(ctx, l, world, world.beat + view.beatPhase, view.beatPhase, surfaceY);
   // Every wall, whole, before the pass below skips it — the crawler's reason
-  // arrived at from the other side. THE GRATE is a line across every column of
+  // arrived at from the other side. THE FENCE is a line across every column of
   // the field rather than a body standing on a tile, so it has no centre for
   // the per-body perspective transform to scale about; and its two screens
-  // differ in where it is *broken*, which is the whole creature (`grate.ts`).
-  drawGrates(ctx, l, world, view.beatPhase, view.time);
+  // differ in where it is *broken*, which is the whole creature (`fence.ts`).
+  drawFences(ctx, l, world, view.beatPhase, view.time);
   drawCreatures(ctx, l, world, view.beatPhase, view.time, effects.blocked);
   // Over the same bodies drawCreatures just drew, and nowhere else: the
   // plating recomputes fresh from world.creatures every frame (see

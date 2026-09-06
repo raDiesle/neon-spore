@@ -231,13 +231,18 @@ export function creatureHashParts(c: Creature): number[] {
   out.push(c.crawlerId ?? -1);
   out.push(c.crawlerOrder ?? -1);
   out.push(c.crawlerDir ?? 0);
-  // Which columns THE GRATE is open in. It decides whether the wall breaks the
+  // Which columns THE FENCE is open in. It decides whether the wall breaks the
   // hull or goes over it, so two devices that disagree about it are two
   // devices where one has the ship intact and the other has it holed — and
   // they disagree about it *silently*, because the two screens are drawn
   // differently on purpose and neither player could see the other's. `0` for a
-  // body that is not a wall, a mask no live grate can carry: `grateMask` never
+  // body that is not a wall, a mask no live fence can carry: `fenceMask` never
   // returns a solid line.
-  out.push(c.grateGaps ?? 0);
+  out.push(c.fenceGaps ?? 0);
+  // And the columns the cannon has cut in it. The loudest of the two: a burn
+  // is written by a shot rather than by the wave, so it is the half two
+  // devices could actually come to disagree about — and a device that missed
+  // one has the ship holed where the other has it whole.
+  out.push(c.fenceBurns ?? 0);
   return out;
 }

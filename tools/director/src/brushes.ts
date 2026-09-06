@@ -55,7 +55,7 @@ export const ROCK_BRUSHES: readonly [Brush, RockKind][] = [
  * `"special"` kind, the tether, which a boss installs rather than a wave
  * author (`categoryOf`).
  *
- * **"Living" is one name short since THE GRATE**, which is a wall of current
+ * **"Living" is one name short since THE FENCE**, which is a wall of current
  * rather than a body and is still exactly what this list is for: one click,
  * one kind, no tier to pick. It is kept here rather than given a hand-written
  * brush beside the rocks because the rocks need one for a reason it does not

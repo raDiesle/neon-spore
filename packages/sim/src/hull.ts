@@ -1,6 +1,6 @@
 import { markMoment } from "./balance.js";
 import { hullRow } from "./config.js";
-import { grateIsOpen } from "./grate.js";
+import { fenceIsOpen } from "./fence.js";
 import { breachHull, damageSpan } from "./hull-damage.js";
 import { guardArmed, shieldRow } from "./hull-guard.js";
 import { impactDamage } from "./impact.js";
@@ -35,19 +35,19 @@ export function resolveHull(world: World): void {
   const guardRow = shieldRow(world.cfg);
 
   for (const c of world.creatures) {
-    // **THE GRATE, and the only body on this field the trigger cannot answer.**
+    // **THE FENCE, and the only body on this field the trigger cannot answer.**
     // It is the width of the field, so there is no column to be in and no
     // moment to be on: the wall reaches the shield's row and either the dome
     // is standing in one of the gaps or it is not. Armed or idle makes no
-    // difference — see `grate.ts` for why that is the creature rather than an
+    // difference — see `fence.ts` for why that is the creature rather than an
     // omission — so this branch stands ahead of the ward's and never reaches
-    // it. `resolveGrate` is the whole of what happens either way.
-    if (c.kind === "grate") {
+    // it. `resolveFence` is the whole of what happens either way.
+    if (c.kind === "fence") {
       if (c.row < guardRow) {
         survivors.push(c);
         continue;
       }
-      if (resolveGrate(world, c, shipRow)) survivors.push(c);
+      if (resolveFence(world, c, shipRow)) survivors.push(c);
       continue;
     }
 
@@ -134,13 +134,13 @@ export function resolveHull(world: World): void {
  * shield's own column, because the ship is broken where the wall found it and
  * not along its whole width.
  */
-function resolveGrate(world: World, c: Creature, shipRow: number): boolean {
-  if (grateIsOpen(c, world.shieldCol)) {
+function resolveFence(world: World, c: Creature, shipRow: number): boolean {
+  if (fenceIsOpen(c, world.shieldCol)) {
     world.guard.tries += 1;
     world.guard.deflected += 1;
     markMoment(world, true);
     world.score += world.cfg.scoreDeflect;
-    world.events.push({ type: "gratePass", col: world.shieldCol, row: c.row });
+    world.events.push({ type: "fencePass", col: world.shieldCol, row: c.row });
     return false;
   }
   if (c.fromRow < shipRow) return true;
@@ -150,13 +150,13 @@ function resolveGrate(world: World, c: Creature, shipRow: number): boolean {
   // a try nobody met and nothing else. Counting it as mistimed would put a
   // timing lesson in the pair's balance sheet for a creature that has none.
   markMoment(world, false);
-  breachHull(world, world.shieldCol, c.kind, c.fromRow, world.cfg.grateDamage);
+  breachHull(world, world.shieldCol, c.kind, c.fromRow, world.cfg.fenceDamage);
   return false;
 }
 
 // **What a breach costs and how the hull mends** — `breachHull`, `damageSpan`,
 // `hullPercent` and `regenerateHull` — is `hull-damage.ts` next door, cut out
-// when THE GRATE took this file over its limit. What is left here is the one
+// when THE FENCE took this file over its limit. What is left here is the one
 // question this file was named for: what happens to a body that reached the
 // ship. All four are re-exported below, so nothing that reached for one
 // through this file had to move.

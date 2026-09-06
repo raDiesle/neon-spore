@@ -25,7 +25,7 @@ import { torchWarning } from "./torch-alarm.js";
  * | `wisp` | the navigator is the only one it is drawn on at all | P2 |
  * | `ghost`| the navigator is the only one the body is drawn on | P2 |
  * | `veer` | the pilot sees which lane its next step takes | P1 |
- * | `grate`| the pilot sees where the wall is open | P1 |
+ * | `fence`| the pilot sees where the wall is open | P1 |
  *
  * The rocks are **not** in it, and that is a decision rather than an
  * oversight: a meteor is on the pilot's strip like a torch, but there is one
@@ -180,12 +180,12 @@ const TALKER = {
   // something hidden, and the whole point of this creature is that the plan is
   // in plain sight and still has to be spoken.
   crawler: null,
-  // THE GRATE, and the table's own rule with nothing left over: the pilot is
+  // THE FENCE, and the table's own rule with nothing left over: the pilot is
   // shown where the wall is open and the navigator, the one seat that can move
   // the dome, is shown a line with no way through it at all. It is THE VEER's
   // row pushed as far as it goes — there the pilot knows which lane the rock
   // takes next, here the pilot knows the only lane there is.
-  grate: "p1",
+  fence: "p1",
 } as const satisfies Record<CreatureKind, Talker | null>;
 
 /** The seat that has to say something about this kind, or null if the two of

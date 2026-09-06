@@ -108,7 +108,7 @@ export const IMPACT_SOUNDS: SoundDef[] = [
     family: "impact",
     blurb: "A shot going past close enough to hear. Air, no body.",
     status: "bound",
-    use: "THE GRATE going over the ship: the dome was standing in a gap, so the wall touches nothing on its way past.",
+    use: "THE FENCE going over the ship: the dome was standing in a gap, so the wall touches nothing on its way past.",
     level: 0.2,
     layers: [air(9000, 4200, 0.09, 0.2, 4)],
   },

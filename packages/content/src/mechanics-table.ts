@@ -233,8 +233,8 @@ export const MECHANICS = {
     // the body (`segmentColor`) rather than from anything an author writes.
     waveNames: true,
   },
-  grate: {
-    what: "A live line across the whole field with one or more gaps burnt through it, coming down twice as fast as anything else. It cannot be shot and the trigger does nothing — the shield does not stop it, it goes through it. The only thing that saves the ship is the dome standing in a gap when the line arrives, and only the pilot can see where the gaps are.",
+  fence: {
+    what: "A live wire across the whole field with gaps burnt through it, coming down twice as fast as anything else. The trigger does nothing — the shield does not stop it, it goes through it. The ship lives if the dome is standing in a gap when the wire arrives, and only the pilot can see where the wave's own gaps are. A shot cuts a new one in the column the cannon is in, and that hole is on both screens: so a wire with no gaps at all is answered the other way round, the navigator naming the column and the pilot taking the cannon there.",
     reach: "spawn",
     // A wave names this kind and never a colour: a wall carries none at all,
     // the way a wisp does. What a wave authors instead is where the gaps are

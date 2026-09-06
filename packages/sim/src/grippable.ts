@@ -5,7 +5,7 @@ import { isBossBody } from "./kinds.js";
  * **Whether a hand may be put on a body at all**, and the ten refusals that
  * answer it.
  *
- * Cut out of `kinds.ts` when THE GRATE took that file over its 250-line limit,
+ * Cut out of `kinds.ts` when THE FENCE took that file over its 250-line limit,
  * and the seam is the one that file's own header draws: everything left there
  * answers a question about a *kind* in one or two lines — which colour, how
  * fast, how many tiles — and this one answers a question about a *gesture*,
@@ -92,14 +92,14 @@ const UNGRIPPABLE: readonly CreatureKind[] = [
   // — so a brake has no rate to scale and a hand on one would drag at nothing
   // while showing every sign of working.
   "crawler",
-  // And THE GRATE, which is the tether's refusal wearing the one body a hand
+  // And THE FENCE, which is the tether's refusal wearing the one body a hand
   // would most obviously reach for. It falls, and fast, so there *is* a rate
   // for a brake to scale — but it is the width of the field, so a hand on it
   // has no column to be on, and either player could put one anywhere and slow
   // the whole wall. That is a way of buying the seconds this creature exists
   // to take away, and it would be bought by the seat that already knows where
   // the gaps are.
-  "grate",
+  "fence",
 ];
 
 export function isGrippable(kind: CreatureKind): boolean {

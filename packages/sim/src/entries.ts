@@ -90,17 +90,17 @@ export interface SpawnEntry {
    */
   side?: CrawlerSide;
   /**
-   * The columns THE GRATE is open in, on the real field, and absent on every
+   * The columns THE FENCE is open in, on the real field, and absent on every
    * other kind. Never absent on a wall: `queueFromWave` writes the cell the
    * author painted it in as its first gap, so a wave that named none still
-   * arrives with exactly one — and `grateMask` gives the middle column to
+   * arrives with exactly one — and `fenceMask` gives the middle column to
    * anything that somehow reaches it with none at all, because a wall nobody
    * can pass is a price with a picture on it rather than a creature.
    *
-   * A list here and a bitmask on the body (`Creature.grateGaps`): the two
+   * A list here and a bitmask on the body (`Creature.fenceGaps`): the two
    * shapes answer two questions. An author names places, in the order they
    * were painted; the field asks *is this column open*, of one column, on
-   * every beat — and `grateMask` is the one crossing between them.
+   * every beat — and `fenceMask` is the one crossing between them.
    *
    * Authored rather than rolled, for `wears`' reason with the most riding on
    * it of any of them: the way through **is** the sentence one player has to

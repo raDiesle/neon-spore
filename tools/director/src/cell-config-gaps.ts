@@ -1,8 +1,8 @@
 import type { WaveEntry } from "@neon-spore/content";
-import { GAP_COLS, grateGapsOf, toggleGrateGap } from "./entry-fields-grate.js";
+import { fenceGapsOf, GAP_COLS, toggleFenceGap } from "./entry-fields-fence.js";
 
 /**
- * THE GRATE's row under the map: one chip per column, lit where the wall is
+ * THE FENCE's row under the map: one chip per column, lit where the wall is
  * open.
  *
  * **The one row here that is a set rather than a choice.** Every other row
@@ -16,12 +16,12 @@ import { GAP_COLS, grateGapsOf, toggleGrateGap } from "./entry-fields-grate.js";
  * also the order they appear on the map above — so a wall's opening is set by
  * pointing at the same place on the row as the cell it will be in.
  */
-export function grateGapsRow(
+export function fenceGapsRow(
   entry: WaveEntry,
   onEdit: () => void,
   labelled: (label: string) => HTMLElement,
 ): HTMLElement {
-  const open = new Set(grateGapsOf(entry));
+  const open = new Set(fenceGapsOf(entry));
   const row = labelled("GAPS");
   for (const col of GAP_COLS) {
     const button = document.createElement("button");
@@ -29,7 +29,7 @@ export function grateGapsRow(
     button.className = open.has(col) ? "chip on" : "chip";
     button.textContent = String(col);
     button.addEventListener("click", () => {
-      toggleGrateGap(entry, col);
+      toggleFenceGap(entry, col);
       onEdit();
     });
     row.appendChild(button);

@@ -237,11 +237,13 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/kind-code.ts` | **A kind as a number**, and the compile-time proof that every kind has one |
 | `packages/sim/src/lure-exit.ts` | **THE LURE leaving on its own**, which is the one thing in this game a body does at the end of a beat for no… |
 | `packages/sim/src/config-creature-scores.ts` | what one creature pays and what one costs, priced against each other |
-| `packages/sim/src/config-grate.ts` | THE GRATE's three numbers: how many gaps a wall the author left blank has burnt in it |
 | `packages/sim/src/creature-roster.ts` | **The fixed order every kind is written into the world fingerprint in.** Cut out of `creature-kinds.ts` when… |
-| `packages/sim/src/grate.ts` | THE GRATE: a live line the width of the field, with gaps burnt through it |
 | `packages/sim/src/grippable.ts` | **Whether a hand may be put on a body at all**, and the ten refusals that answer it |
 | `packages/sim/src/hull-damage.ts` | **What the hull loses, and what it gets back.** Cut out of `hull.ts` when THE GRATE's own answer took that… |
+| `packages/sim/src/config-fence.ts` | THE FENCE's two numbers: how wide each way through it is |
+| `packages/sim/src/creature-state-fence.ts` | **THE FENCE's two fields**, and both of them are sets of columns: the ways through the wave authored |
+| `packages/sim/src/events-fence.ts` | **What THE FENCE does**, as events: the wire going over the ship, and a bolt cutting a way through it |
+| `packages/sim/src/fence.ts` | THE FENCE: a live line the width of the field, with gaps burnt through it |
 
 ### packages/content
 
@@ -332,7 +334,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/creatures-fixtures.ts` | **The three bodies a wave never sends** |
 | `packages/content/src/mechanics-run.ts` | **The five mechanics that are not a thing the field sends**, and the whole of `reach: "run"` |
 | `packages/content/src/wave-entry.ts` | **What one arrival is**, and the half of a wave that grows |
-| `packages/content/src/creatures-guarded.ts` | **Everything the shield answers and the cannon cannot**: the five speed tiers, THE VEER, the torch |
+| `packages/content/src/creatures-hazards.ts` | **The arrivals with nothing alive in them**: the five speed tiers, THE VEER, the torch — and THE FENCE |
 
 ### packages/render
 
@@ -603,8 +605,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/strand-plate.ts` | One bead's plating, as geometry |
 | `packages/render/src/crawler-marks.ts` | What each ring of THE CRAWLER is owed — a crosshair on every one, the shield's mark over the dome's |
 | `packages/render/src/crawler-place.ts` | Where a ring of THE CRAWLER actually sits on screen, and how much bigger it draws for being that near |
-| `packages/render/src/grate-gate.ts` | The way through a wall, on the one screen that is shown it |
-| `packages/render/src/grate.ts` | THE GRATE: a live line the width of the field, and the two different pictures of it the two screens carry |
+| `packages/render/src/fence-gate.ts` | The way through a fence, on the screen that is shown it |
+| `packages/render/src/fence.ts` | THE FENCE: a live line the width of the field, and the two different pictures of it the two screens carry |
 
 ### packages/net
 
@@ -650,6 +652,8 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-breach.ts` | What a hull breach sounds like, split by what it cost rather than by what hit |
 | `packages/audio/src/bind-crawler.ts` | THE CRAWLER's two endings, as sounds |
 | `packages/audio/src/bind-lookups.ts` | The two id-to-id tables `bind.ts` reads, and the only *data* in a file that is otherwise a switch |
+| `packages/audio/src/bind-fence.ts` | **What THE FENCE sounds like**: the wire going over the ship, and a bolt cutting a way through it |
+| `packages/audio/src/bind-place.ts` | **Where a sound is**: a column as a stereo position, and a row as a pitch |
 
 ### apps/game
 
@@ -1074,10 +1078,10 @@ place — the generator keeps whatever is there.
 | `tools/retry.ts` | Removing something from disk and then *asking* whether it went — the policy |
 | `tools/land/race.ts` | Whether some other lane landed while this one was in `bun run check` |
 | `tools/director/src/cell-config-gaps.ts` | THE GRATE's row under the map: one chip per column, lit where the wall is open |
-| `tools/director/src/entry-fields-grate.ts` | **Where a wall is open**, read and written on one arrival |
 | `tools/perf/compare.ts` | What a performance run *is*, and what two of them say when held side by side |
 | `tools/perf/measure.ts` | One performance run, taken off a real browser driving the real bundle |
 | `tools/perf/run.ts` | `bun run perf` — what a frame costs, wave by wave, at phone speed |
 | `tools/perf/waves.ts` | which waves a run covers, from `--wave` to a list of indices |
+| `tools/director/src/entry-fields-fence.ts` | **Where a fence is open**, read and written on one arrival |
 
 <!-- index:code:end -->

@@ -139,12 +139,12 @@ const LIVING_LOOK = {
   // joints in it. `render/crawler.ts` strokes it, routed away in
   // `drawCreatures` before the living pass ever sees one.
   crawler: null,
-  // THE GRATE, and the only `null` here that is not a body at all. It is a
-  // line the width of the field with gaps in it — `render/grate.ts` strokes
+  // THE FENCE, and the only `null` here that is not a body at all. It is a
+  // line the width of the field with gaps in it — `render/fence.ts` strokes
   // it, routed away in `drawCreatures` before the living pass ever sees one —
   // so there is no contour to give it and nothing for an own-motion to move.
   // A silhouette here would put a blob on a tile the wall merely passes over.
-  grate: null,
+  fence: null,
 } as const satisfies Record<CreatureKind, { shape: CreatureSilhouette; motion: OwnMotion } | null>;
 
 /**

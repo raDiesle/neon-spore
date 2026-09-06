@@ -176,15 +176,22 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "veilRebuff":
       return at(l, e.col, e.row, 4, PALETTE.sparkDim);
 
-    // THE GRATE going over the ship. The wall does not touch anything — that
+    // THE FENCE going over the ship. The wall does not touch anything — that
     // is the whole of a pass — but the current earths itself around the dome
     // on the way through, so the burst is the shield's own colour and it is
     // thrown at the shield's own column rather than at the body's. A big one:
     // it is the beat the pair finds out whether the number that crossed the
     // room was the right one, and until this instant neither of them can see
     // that it was.
-    case "gratePass":
+    case "fencePass":
       return at(l, e.col, e.row, 20, PALETTE.shieldRim);
+
+    // A bolt cutting the wire. Fewer particles than a pass and in the fence's
+    // own blue rather than the dome's cyan: what came apart is one column of a
+    // line that is still there, and a burst the size of a pass would read as
+    // the whole thing going out.
+    case "fenceBurn":
+      return at(l, e.col, e.row, 12, PALETTE.arc);
 
     default:
       return assertNever(e);

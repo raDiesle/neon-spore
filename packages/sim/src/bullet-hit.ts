@@ -9,6 +9,7 @@ import { colourIsArmoured } from "./colour-armour.js";
 import { linkStruck } from "./crawler-round.js";
 import { lureBlastCols } from "./creature-rules.js";
 import { echoStruck } from "./echo.js";
+import { fenceBurn } from "./fence.js";
 import { removeCreature } from "./field.js";
 import { ghostStruck } from "./ghost.js";
 import { breachHull } from "./hull.js";
@@ -53,6 +54,18 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
     // catching it (`volley.ts`).
     hit.holes = Math.min(world.cfg.maxHoles, hit.holes + 1);
     world.events.push({ type: "hole", col: hit.col, row: hit.row });
+    return false;
+  }
+  if (hit.kind === "fence") {
+    // **The cannon's half of THE FENCE**, and the one thing in this game a
+    // shot does to a body without touching what is inside it: the wire comes
+    // apart in this column and stays apart. Any colour cuts it — a fence
+    // carries none, so there is nothing to match — and the bolt is spent,
+    // which is the whole price. `fenceBurn` is the rule; the event is what
+    // both screens are told, because a cut is the one hole in a fence that is
+    // not a secret (`fence.ts`).
+    fenceBurn(hit, b.col);
+    world.events.push({ type: "fenceBurn", col: b.col, row: hit.row });
     return false;
   }
   if (hit.kind === "queen") {

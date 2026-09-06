@@ -1,5 +1,6 @@
 import type { CaromEvent } from "./events-carom.js";
 import type { CrawlerEvent } from "./events-crawler.js";
+import type { FenceEvent } from "./events-fence.js";
 import type { GhostEvent } from "./events-ghost.js";
 import type { StrandEvent } from "./events-strand.js";
 import type { VolleyEvent } from "./events-volley.js";
@@ -42,21 +43,6 @@ export type CreatureEvent =
    * sitting next to each other.
    */
   | { type: "lureSeen"; col: number }
-  /**
-   * A wall went over the ship: the dome was standing in one of its gaps when
-   * it reached the shield's row (`resolveGrate`, hull.ts). `col` is the
-   * shield's own column, which is the gap the pair found, and `row` the row
-   * the wall was on when it passed.
-   *
-   * Its own event because there is nothing else that could stand for it. A
-   * `deflect` is a body thrown off the dome and render draws one tumbling away
-   * from it, and this body is not turned at all — it goes *through*, over a
-   * ship it did not touch. And the moment has to be audible: it is the one
-   * beat in this creature where the pair finds out whether the number that
-   * crossed the room was the right one, and until the wall is past the ship
-   * neither of them can see that it was.
-   */
-  | { type: "gratePass"; col: number; row: number }
   /**
    * A lure left the field on its own, `lureVanishRows` short of the hull. The
    * one moment of this creature both screens show identically, and player 1's
@@ -237,11 +223,17 @@ export type CreatureEvent =
   // endings of one arrival, in a file of its own because this one is at its
   // limit. Its two *answers* are a plain `destroy` and a plain `deflect`.
   | CrawlerEvent
+  // And THE FENCE's two — the wire going over the ship and a bolt cutting it
+  // open — are `events-fence.ts`, on the same terms as the three above: one
+  // arrival taken apart, in a file of its own because this one is at its
+  // limit.
+  | FenceEvent
   | StrandEvent;
 
 // Re-exported so nothing that reaches for one through this file has to move.
 export type { CaromEvent } from "./events-carom.js";
 export type { CrawlerEvent } from "./events-crawler.js";
+export type { FenceEvent } from "./events-fence.js";
 export type { GhostEvent } from "./events-ghost.js";
 export type { StrandEvent } from "./events-strand.js";
 export type { VolleyEvent } from "./events-volley.js";

@@ -85,7 +85,7 @@ export function cardSubjects(kind: CreatureKind): string[] {
   // reason: a chain that long is one somebody extends by pattern instead of by
   // argument, and every one of these eight is an argument.
   if (TWO_BODIED.includes(kind)) return ["SLICK", "BULB"];
-  // THE GRATE draws **no card at all**, and it is the only kind here that
+  // THE FENCE draws **no card at all**, and it is the only kind here that
   // does not. Every other brush in this palette places a body, and a body has
   // a silhouette an eye judges; a wall is a line across every column of the
   // field, so the sheet has no contour for it and never will —
@@ -93,7 +93,7 @@ export function cardSubjects(kind: CreatureKind): string[] {
   // a horizontal stroke would be a picture of a grid line. What tells this
   // brush apart in the strip is its colour and its note, which is also all
   // there is to know about it.
-  if (kind === "grate") return [];
+  if (kind === "fence") return [];
   return [kind.toUpperCase()];
 }
 
@@ -120,7 +120,7 @@ export function cardSubjects(kind: CreatureKind): string[] {
  * importing `Brush` back out of `brushes.ts` and closing a module cycle.
  */
 export const SHORT_NOTE: Partial<Record<CreatureKind, string>> = {
-  grate: "a wall with a gap; only p1 sees where the gap is",
+  fence: "a wall with a gap; only p1 sees where the gap is",
   slick: "shot with the red cannon",
   bulb: "shot with the cyan cannon",
   lure: "do not shoot it",

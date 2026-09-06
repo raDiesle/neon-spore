@@ -205,34 +205,49 @@ not put it out like a lamp. The beam is deliberately the longest thing here —
 taking a worm apart costs both controls, turn about, for most of a wave, and it
 is the only moment the ship says so.
 
-## The grate
+## The fence
 
-`packages/render/src/grate.ts` and `grate-gate.ts`. The only body in the game
+`packages/render/src/fence.ts` and `fence-gate.ts`. The only body in the game
 drawn as a **line** rather than as a thing standing on a tile, and the only one
 whose two screens differ in where it *stops*.
 
 | Pass | What | Numbers |
 |---|---|---|
-| filament | a jagged polyline across the row, glow-stroked | `4` points a tile, `±0.09` tiles of stray, `PALETTE.arc` at `STROKE.outline`, glow intensity `1.4` |
-| core | the same path again, thin, over the glow | `STROKE.inner`, `PALETTE.arcRim` |
-| terminals | a bead at each end of every unbroken run | `0.055` tiles, pulsed `0.75`–`1.0` on the crackle clock |
-| **gate** | two uprights framing an open column — pilot's screen only | `±0.22` tiles, `PALETTE.arc` at `0.5`–`0.62` alpha, `STROKE.inner` |
+| rail | the band between the two wires, filled | `0.34` tiles of gauge, `PALETTE.arc` at `0.16` alpha |
+| wires | two jagged polylines, glow-stroked, one either side of the row | `4` points a tile, `±0.055` tiles of stray, `PALETTE.arc` at `max(2.2px, 0.055` tiles`)`, glow intensity `1.8` |
+| cores | each wire again, thinner, over its own glow | `45%` of the wire's width, `PALETTE.arcRim` |
+| terminals | a bead at each end of each wire | `0.085` tiles, pulsed `0.75`–`1.0` on the crackle clock |
+| **gate** | two posts framing an open column | `±0.26` tiles, `PALETTE.arc` at `0.5`–`0.62` alpha, `max(STROKE.inner, 0.035` tiles`)` |
 
-The crackle runs at `11` Hz and is a function of the column, the row and the
-wall clock — **and of nothing else**. That is the decision in this file rather
-than a drawing choice: no term in the wobble knows where a gap is, so a
-navigator watching the line hard cannot read the answer out of how it shakes.
-It is `ghost-row.ts`'s rule about a column-blind sweep, said about a filament.
+**Two wires and not one, and the owner asked for it by name.** At a single
+hairline the thing coming down read as a scratch on the grid; what it has to
+read as is a barrier the ship is threaded through, so it has a gauge — a top
+edge, a bottom edge and a charged rail between them — and the posts of a gate
+stand taller than the gauge so an opening is visibly a way *past* rather than a
+mark laid over an unbroken line.
 
-The filament is **pinned at both ends of every run**, tapering the stray to
-zero at the wall and at the lip of a gap: a line that jittered where it meets
-something reads as one that has come loose, and this is a thing anchored at
-both ends and humming.
+The crackle runs at `11` Hz and is a function of the column, the row, which of
+the two wires it is, and the wall clock — **and of nothing else**. That is the
+decision in this file rather than a drawing choice: no term in the wobble knows
+where a gap is, so a navigator watching the line hard cannot read the answer
+out of how it shakes. It is `ghost-row.ts`'s rule about a column-blind sweep,
+said about a wire.
+
+Each wire is **pinned at both ends of every run**, tapering the stray to zero
+at the field's edge and at the lip of a gap: a line that jittered where it
+meets something reads as one that has come loose, and this is a thing anchored
+at both ends and humming.
+
+**Which gaps a screen draws is the simulation's call, not this file's.**
+`fenceGapSeen` decides it: an authored gap is on the pilot's screen only, and
+one the cannon *cut* is on both, because the bolt went up in front of the two
+of them. `showsFenceGaps` is the seat predicate and it answers only the first
+half of that question.
 
 `PALETTE.arc` is a hard electric blue at 225°, chosen to be near neither
 ammunition colour — pale electric cyan is what lightning actually looks like
 and is exactly `cyanRim`, which would put *load cyan* across every column of
-the field on the one arrival nothing can be fired at.
+the field on an arrival the cannon answers by cutting rather than by killing.
 
 ## Bullets
 

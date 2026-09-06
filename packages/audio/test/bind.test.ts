@@ -40,6 +40,8 @@ async function eventTypes(): Promise<string[]> {
     // `events-creature.ts` on the day THE CRAWLER needed room in it.
     ["packages/sim/src/events-ghost.ts", "export type GhostEvent ="],
     ["packages/sim/src/events-crawler.ts", "export type CrawlerEvent ="],
+    // And THE FENCE's two, cut out the day the second one was added.
+    ["packages/sim/src/events-fence.ts", "export type FenceEvent ="],
   ] as const) {
     const src = await Bun.file(join(ROOT, file)).text();
     const start = src.indexOf(decl);
@@ -94,7 +96,8 @@ const SAMPLES: Record<string, SimEvent> = {
   lureSeen: { type: "lureSeen", col: 3 },
   strandBead: { type: "strandBead", id: 6, col: 2, row: 3, color: "red", left: 2 },
   strandSwell: { type: "strandSwell", id: 6, col: 2, row: 3, color: "cyan", left: 3 },
-  gratePass: { type: "gratePass", col: 4, row: 11 },
+  fencePass: { type: "fencePass", col: 4, row: 11 },
+  fenceBurn: { type: "fenceBurn", col: 3, row: 8 },
   strandBroke: { type: "strandBroke", col: 3, row: 5 },
   lureVanished: { type: "lureVanished", col: 3, row: 4, color: "cyan" },
   shellBreak: { type: "shellBreak", col: 3, row: 4, left: 1 },
@@ -281,7 +284,6 @@ const CREATURE_IDS: Record<string, string> = {
   ghostCharge: "creature.ghostCharge",
   strandBead: "impact.split",
   strandSwell: "impact.wrongTarget",
-  gratePass: "impact.graze",
 };
 
 /**
@@ -309,6 +311,16 @@ const VOLLEY_IDS: Record<string, string> = {
   volleyHatch: "creature.moult",
 };
 
+/**
+ * And the same table again for THE FENCE's two, bound in `bind-fence.ts`.
+ * Apart for `CAROM_IDS`' reason: one table per source file, so a case list is
+ * always checked against the file it came from.
+ */
+const FENCE_IDS: Record<string, string> = {
+  fencePass: "impact.graze",
+  fenceBurn: "impact.split",
+};
+
 describe("what one body did", () => {
   it("covers every event `creatureCue` names, so a new one cannot be left out", async () => {
     const src = await Bun.file(join(ROOT, "packages/audio/src/bind-creatures.ts")).text();
@@ -328,7 +340,18 @@ describe("what one body did", () => {
     expect(cases.sort()).toEqual(Object.keys(VOLLEY_IDS).sort());
   });
 
-  for (const [type, id] of Object.entries({ ...CREATURE_IDS, ...CAROM_IDS, ...VOLLEY_IDS })) {
+  it("covers every event `fenceCue` names, on the same terms", async () => {
+    const src = await Bun.file(join(ROOT, "packages/audio/src/bind-fence.ts")).text();
+    const cases = [...src.matchAll(/case "([a-zA-Z]+)":/g)].map((m) => m[1] as string);
+    expect(cases.sort()).toEqual(Object.keys(FENCE_IDS).sort());
+  });
+
+  for (const [type, id] of Object.entries({
+    ...CREATURE_IDS,
+    ...CAROM_IDS,
+    ...VOLLEY_IDS,
+    ...FENCE_IDS,
+  })) {
     it(`plays ${id} for ${type}`, () => {
       const sample = SAMPLES[type];
       expect(sample, `${type} has no sample`).toBeDefined();

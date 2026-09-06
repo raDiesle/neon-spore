@@ -77,10 +77,10 @@ export function drawCreatures(
     // `drawCrawlers` above has already drawn the whole of it (`crawler.ts`).
     if (c.kind === "crawler") continue;
     // And a wall, for the crawler's reason with nothing left over: it is not a
-    // body on a tile at all, and `drawGrates` above has already drawn the
+    // body on a tile at all, and `drawFences` above has already drawn the
     // whole of it. One that fell through here would be handed to `drawLiving`
     // and drawn as a blob standing in column zero.
-    if (c.kind === "grate") continue;
+    if (c.kind === "fence") continue;
     // A body on a rim is placed by the wheel that carries it, not by the walk
     // every falling body takes: it turns rather than crosses, and the arc is
     // written down once in `gyre-place.ts` so the rim, the spokes and the six

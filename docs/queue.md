@@ -98,32 +98,70 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
 
 
-## Three tables the next creature cannot be added to without splitting them first
+## Two tables the next creature cannot be added to without splitting them first
 
 - **Found:** 2026-09-06, claude/electric-barrier-enemy-e6fi1d
-- **Files:** `packages/sim/src/creature-state.ts`, `packages/content/src/creatures-table.ts`, `packages/content/src/mechanics-table.ts`
+- **Files:** `packages/content/src/creatures-table.ts`, `packages/content/src/mechanics-table.ts`
 
-All three are total over `CreatureKind` or `MechanicId`, so a new creature costs
-each of them a row — and all three now stand at exactly 250 lines, which is the
-limit `packages/sim/test/limits.test.ts` enforces. THE GRATE fitted only because
-its rows were written short and one comment in `creatures-table.ts` was trimmed
-by two lines to make room; the next one will not fit at all, and the lane that
-hits this will be a lane that came to add a creature, not to choose a seam.
+Both are total over `CreatureKind` or `MechanicId`, so a new creature costs
+each of them a row — and both now stand at exactly 250 lines, which is the
+limit `packages/sim/test/limits.test.ts` enforces. THE FENCE fitted only
+because its rows were written short and one comment in `creatures-table.ts` was
+trimmed by two lines to make room; the next one will not fit at all, and the
+lane that hits this will be a lane that came to add a creature, not to choose a
+seam. (It was three files. `creature-state.ts` was the third and THE FENCE's
+second mask took it over on the spot, so it was split there and then, into
+`creature-state-fence.ts` — which is the same fix these two want, arrived at
+under duress rather than on purpose.)
 
-Each has a seam its own header already names. `creature-state.ts` says it: the
-fields that "only mean anything against each other" go next door, the way
-`creature-state-held.ts`, `-strand.ts`, `-crawler.ts` and `-veer.ts` already
-have — THE GYRE's four and THE LID's five are each such a group.
-`creatures-table.ts` and `mechanics-table.ts` are split by family already
-(`creatures-guarded.ts`, `creatures-worn.ts`, `creatures-bare.ts`,
-`mechanics-rocks.ts`, `mechanics-run.ts`), and the families to cut next are the
-same in both: the bodies one seat cannot see whole — `lure`, `veil`, `wisp`,
-`ghost`, `dart` — which is a group the bestiary and `render/comms.ts` both
-already read as one.
+Both are split by family already (`creatures-hazards.ts`, `creatures-worn.ts`,
+`creatures-bare.ts`, `mechanics-rocks.ts`, `mechanics-run.ts`), and the family
+to cut next is the same in both: the bodies one seat cannot see whole —
+`lure`, `veil`, `wisp`, `ghost`, `dart` — which is a group the bestiary and
+`render/comms.ts` both already read as one.
 
-Do all three in one lane: they fail the same way, on the same day, for the same
-reason, and a lane that splits one of them learns the argument for the other two
-for free.
+Do both in one lane: they fail the same way, on the same day, for the same
+reason, and a lane that splits one learns the argument for the other for free.
+
+
+## The perf baseline goes stale silently when a wave's entries change
+
+- **Found:** 2026-09-06, claude/electric-barrier-enemy-e6fi1d
+- **Files:** `tools/perf/baseline.json`, `tools/perf/test/compare.test.ts`, `tools/perf/measure.ts`
+
+`compare.test.ts` checks that every row of `baseline.json` is in play order and
+carries the name the game gives that wave, which catches a wave *renamed* or
+*inserted*. It cannot catch a wave whose **arrivals changed**: THE FENCE gained
+two figures in this lane and its row still reads `"bodies": 2` and the timings
+that went with them, under a name that still matches, so the next comparison is
+against a wave that no longer exists.
+
+Give a row something derived from the wave's own entries — a count and a small
+hash of `queueFromWave`'s output would do — and fail the row when it disagrees,
+the way the name already does. The failure should say *re-measure this wave*
+rather than refusing the whole baseline: the other forty-six rows are still
+good, and a check that makes an editor re-measure everything is a check people
+delete.
+
+## A landing from a clone writes no release note at all
+
+- **Found:** 2026-09-06, claude/electric-barrier-enemy-e6fi1d
+- **Files:** `tools/land/sweep.ts`, `tools/land/state.ts`, `docs/release-notes.md`
+
+`bun run land` in a clone with no worktrees prints
+`⚑ no release note — nothing has main checked out` and moves on. It is the
+shape every session started from a phone runs in (`docs/cloud-session.md`), so
+every landing that reaches `origin/main` from one is a landing the release
+notes never hear about — and the commit message being turned into the note is
+the only part of a landing anybody sees twice (CLAUDE.md's Git section says so
+in as many words).
+
+The guard is presumably there because the note is written into a *checked-out*
+`main` and a clone standing on the lane's own branch has none. In a clone the
+trunk is fast-forwarded under the session's feet anyway, so the same is true of
+the note: write it, commit it onto `main`, and push it with the trunk. Check
+what `--keep` should do — it moves `main` without sweeping, and a note written
+then is a note about a lane that has not finished.
 
 
 ## Move apps/server off the miniflare alpha when a stable 5 ships

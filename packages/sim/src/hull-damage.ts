@@ -4,7 +4,7 @@ import { MILLI, type World } from "./world.js";
 /**
  * **What the hull loses, and what it gets back.**
  *
- * Cut out of `hull.ts` when THE GRATE's own answer took that file over its
+ * Cut out of `hull.ts` when THE FENCE's own answer took that file over its
  * 250-line limit, and along the seam that file had already written down in
  * `regenerateHull`'s own header — *one file for what the hull loses and what
  * it gets back*. Next door is the question of what happens to a body that

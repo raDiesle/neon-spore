@@ -2,7 +2,7 @@ import type { CreatureKind } from "@neon-spore/sim";
 import type { CreatureDef } from "./creatures.js";
 import { BARE_CREATURES } from "./creatures-bare.js";
 import { FIXTURE_CREATURES } from "./creatures-fixtures.js";
-import { GUARDED_CREATURES } from "./creatures-guarded.js";
+import { HAZARD_CREATURES } from "./creatures-hazards.js";
 import { WORN_CREATURES } from "./creatures-worn.js";
 
 /**
@@ -37,11 +37,11 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     radar: "p2",
     blurb: "Round and swollen, and always cyan. Sways in its lane and pumps.",
   },
-  // Everything the shield answers and the cannon cannot, next door in
-  // `creatures-guarded.ts`. Spread in here at exactly the position the rocks
+  // The arrivals with nothing alive in them, next door in
+  // `creatures-hazards.ts`. Spread in here at exactly the position the rocks
   // have always held, so key order is untouched — the director reads its brush
-  // strip off it. See that file for why the group is a category, not a stone.
-  ...GUARDED_CREATURES,
+  // strip off it. See that file for why the family is not the material.
+  ...HAZARD_CREATURES,
   // The three bodies a wave never *sends* — the two bosses and the rope one of
   // them lowers — live next door in `creatures-fixtures.ts`, named one by one
   // rather than spread so this table still reads in the order the bestiary has

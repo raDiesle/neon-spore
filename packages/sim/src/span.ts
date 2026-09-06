@@ -91,18 +91,18 @@ export function spanOf(body: { kind: CreatureKind; span?: number }): number {
  * How wide a body is **on this field** — `spanOf`, plus the one kind whose
  * width is the field's own.
  *
- * THE GRATE is a line across every column there is, so its width is not a fact
+ * THE FENCE is a line across every column there is, so its width is not a fact
  * about its kind and cannot be answered by `colSpan`, which is handed no
  * configuration. It is written onto the body at the moment it arrives
  * (`spawnArrivals`), and from then on `spanOf` answers for it like anything
  * else — so this is only ever asked of a thing that is not on the field yet:
  * an arrival being built, and the blip on the strip that warns about one.
  *
- * **Call this, never `kind === "grate" ? cols : …` by hand.** Two spellings of
+ * **Call this, never `kind === "fence" ? cols : …` by hand.** Two spellings of
  * it is a warning strip drawn one tile wide over a wall that covers eleven.
  */
 export function spawnSpan(cols: number, body: { kind: CreatureKind; span?: number }): number {
-  return body.kind === "grate" ? cols : spanOf(body);
+  return body.kind === "fence" ? cols : spanOf(body);
 }
 
 /**

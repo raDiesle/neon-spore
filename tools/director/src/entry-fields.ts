@@ -204,15 +204,15 @@ const COLOR_FOR_BODY: Record<"slick" | "bulb", Color> = (() => {
 // file over its limit. Re-exported here so nothing that already reached for
 // one had to move.
 // **Where a wall is open** — the first per-arrival fact that is a set rather
-// than a choice — is `entry-fields-grate.ts` next door, cut out for the reason
+// than a choice — is `entry-fields-fence.ts` next door, cut out for the reason
 // the rock's two numbers were. Re-exported here so nothing that already
 // reached for one had to move.
 export {
+  fenceGapsOf,
   GAP_COLS,
-  grateGapsOf,
-  hasGrateGaps,
-  toggleGrateGap,
-} from "./entry-fields-grate.js";
+  hasFenceGaps,
+  toggleFenceGap,
+} from "./entry-fields-fence.js";
 export {
   isTieredRock,
   METEOR_SIZES,

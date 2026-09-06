@@ -126,15 +126,15 @@ export interface WaveEntry {
    */
   side?: CrawlerSide;
   /**
-   * Which columns THE GRATE is open in, authored in the same seven columns
+   * Which columns THE FENCE is open in, authored in the same seven columns
    * every wave is written in and remapped by `queueFromWave`. Absent on every
    * other kind, and absent on a wall with **one** gap — which is the cell the
    * author painted it in, so a wall placed in column three has its way through
    * at column three and the map reads the way it looks.
    *
-   * **A list on the entry and a bitmask on the body** (`Creature.grateGaps`).
+   * **A list on the entry and a bitmask on the body** (`Creature.fenceGaps`).
    * An author names places, in the order they were painted; the field asks
-   * *is this column open* of one column on every beat, and `grateMask` is the
+   * *is this column open* of one column on every beat, and `fenceMask` is the
    * one crossing between the two shapes.
    *
    * **A field and not a kind per shape of wall**, the asymmetry `size` argues

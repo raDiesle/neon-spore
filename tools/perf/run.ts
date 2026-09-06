@@ -32,7 +32,7 @@ import { wavesAsked } from "./waves.js";
  * bundle a `bun run preview` serves. `docs/performance.md` carries the
  * mechanism in prose and the numbers this tool last agreed with.
  *
- *   bun run perf --wave "THE GRATE"   the waves a change touched, and nothing else
+ *   bun run perf --wave "THE FENCE"   the waves a change touched, and nothing else
  *   bun run perf                      every wave — what a baseline is taken from
  *   bun run perf --throttle 6         at low-end-mobile speed instead
  *   bun run perf --save               write a full sweep back as the new baseline

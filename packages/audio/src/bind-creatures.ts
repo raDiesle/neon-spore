@@ -46,8 +46,7 @@ export function creatureCue(
         | "ghostTurn"
         | "ghostCharge"
         | "strandBead"
-        | "strandSwell"
-        | "gratePass";
+        | "strandSwell";
     }
   >,
   cols: number,
@@ -126,18 +125,6 @@ export function creatureCue(
       // the lure's mistake exactly — a shot that landed and cost something.
       return {
         id: "impact.wrongTarget",
-        pan: panForCol(e.col, cols),
-        pitch: pitchForRow(e.row, rows),
-      };
-    case "gratePass":
-      // THE GRATE going over the ship, and the one moment in this creature
-      // either player finds out whether the number that crossed the room was
-      // right. `impact.graze` is *air and no body*, which is exactly what a
-      // pass is: the wall touches nothing. It is pitched at the row it went
-      // through on and panned to the gap the pair found, so the ear is told
-      // where as well as whether.
-      return {
-        id: "impact.graze",
         pan: panForCol(e.col, cols),
         pitch: pitchForRow(e.row, rows),
       };

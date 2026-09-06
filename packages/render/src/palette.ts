@@ -131,7 +131,7 @@ export const PALETTE = {
   wisp: "#8A4BFF",
   wispRim: "#DCC8FF",
   /**
-   * THE GRATE's current, and the second hue in this palette that is not a body
+   * THE FENCE's current, and the second hue in this palette that is not a body
    * — a wall of live line across the whole field, which is a hazard rather
    * than a thing anybody shoots.
    *

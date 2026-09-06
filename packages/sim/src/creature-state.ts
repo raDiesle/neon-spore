@@ -1,5 +1,6 @@
 import type { CaromDir } from "./carom.js";
 import type { CrawlerState } from "./creature-state-crawler.js";
+import type { FenceState } from "./creature-state-fence.js";
 import type { HeldState } from "./creature-state-held.js";
 import type { StrandState } from "./creature-state-strand.js";
 import type { VeerState } from "./creature-state-veer.js";
@@ -18,10 +19,11 @@ import type { GhostDir } from "./ghost.js";
  * This is the list that grows, and it has grown by a field for nearly every
  * creature added since THE DART.
  *
- * **Three groups have gone next door**, each a set of fields that only mean
+ * **Four groups have gone next door**, each a set of fields that only mean
  * anything against each other and each with its own argument in its own
  * header: `creature-state-held.ts` (the four a hand writes),
- * `creature-state-strand.ts` and `creature-state-crawler.ts`.
+ * `creature-state-strand.ts`, `creature-state-crawler.ts` and
+ * `creature-state-fence.ts`.
  *
  * `Creature extends CreatureState` rather than nesting it under a key, so
  * every call site still reads `c.ghostLaps` and nothing moved. It is the same
@@ -35,7 +37,7 @@ import type { GhostDir } from "./ghost.js";
  * siblings are the rules, and a second spelling of a fallback is how the
  * picture and the shot come to disagree about the same body.
  */
-export interface CreatureState extends CrawlerState, HeldState, StrandState, VeerState {
+export interface CreatureState extends CrawlerState, FenceState, HeldState, StrandState, VeerState {
   /**
    * The dart's three fields, and `dart.ts` is the whole of what they mean.
    * `dartDir` is the side it is concerned with now (`-1` left, `1` right),
@@ -232,19 +234,4 @@ export interface CreatureState extends CrawlerState, HeldState, StrandState, Vee
    */
   volleyPlates?: number;
   volleyRise?: number;
-  /**
-   * THE GRATE's one field: which columns the wall is open in, as a bitmask —
-   * bit `k` set means column `k` lets the dome through. Absent on every other
-   * kind, and never absent on a wall, because a wall with no way through is
-   * not a creature (`grateMask`).
-   *
-   * A mask and not a list of columns, for `Creature.shell`'s reason: it is a
-   * set, two devices have to agree about it exactly, and an integer is the
-   * shape the fingerprint already takes. Read it through `grateIsOpen` and
-   * `grateGapCols` (`grate.ts`) and never by shifting here — the break render
-   * draws and the column the shield is tested against are one fact, and a
-   * second spelling is how the pair comes to be shown a way through the ship
-   * has not got.
-   */
-  grateGaps?: number;
 }

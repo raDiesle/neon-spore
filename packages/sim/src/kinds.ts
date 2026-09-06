@@ -148,13 +148,13 @@ export function fallTilesPerBeat(kind: CreatureKind): number {
   // one *arrive* rather than glide in — `spawnArrivals` seeds `fromRow` from
   // this number, and a worm coming over a wall has no fall to enter on.
   if (kind === "crawler") return 0;
-  // THE GRATE, at the second tier's speed: twice everything else on the field
+  // THE FENCE, at the second tier's speed: twice everything else on the field
   // and the fastest a thing whose answer has to be *said out loud* can come
   // down. Thirteen rows at two a beat is a little over four seconds from the
   // top of the field to the shield's row, which is the floor a spoken exchange
   // needs (`.claude/skills/new-creature`, step 4). Called rather than written
   // as `2`, so a wall stays "twice a slick" if the tiers are ever re-spaced.
-  if (kind === "grate") return fallTilesPerBeat("meteorMedium");
+  if (kind === "fence") return fallTilesPerBeat("meteorMedium");
   const tier = (METEOR_TIER_KINDS as readonly CreatureKind[]).indexOf(kind);
   return tier === -1 ? 1 : tier + 1;
 }
@@ -174,7 +174,7 @@ export function isBossBody(kind: CreatureKind): boolean {
 }
 
 // **Whether a hand may be put on a body** — `isGrippable` and the ten kinds
-// that refuse one — is `grippable.ts` next door, cut out when THE GRATE took
+// that refuse one — is `grippable.ts` next door, cut out when THE FENCE took
 // this file over its limit. It is a question about a gesture rather than about
 // a kind, and it was nine tenths of this file's length. `types.ts` exports it
 // beside everything here, so nothing that reaches for it had to move.

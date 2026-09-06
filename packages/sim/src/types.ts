@@ -17,7 +17,7 @@ export { CREATURE_KINDS, type CreatureKind } from "./creature-kinds.js";
 // is re-exported here so nothing reaching for a `Creature` had to move.
 export type { Creature } from "./creature-types.js";
 // Whether a hand may be put on a body: `grippable.ts`, cut out of `kinds.ts`
-// when THE GRATE arrived, and re-exported here beside everything still there
+// when THE FENCE arrived, and re-exported here beside everything still there
 // so nothing reaching for `isGrippable` had to move.
 export { isGrippable } from "./grippable.js";
 export type { GuardStats, Scar } from "./hull-types.js";

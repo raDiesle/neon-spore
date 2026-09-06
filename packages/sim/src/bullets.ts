@@ -1,5 +1,6 @@
 import { resolve } from "./bullet-hit.js";
 import { hullRow, type SimConfig, ticksPerBeat } from "./config.js";
+import { fenceIsOpen } from "./fence.js";
 import { endPrime, lanceReady, priming } from "./lance.js";
 import { steerShot } from "./lock.js";
 import { bulletMilli, creatureLane, creatureMilli } from "./mid-beat.js";
@@ -185,12 +186,13 @@ function firstAlong(world: World, b: Bullet, from: number, to: number): Creature
     // hub that stopped bolts would put a wall across five columns of the
     // field with no body anywhere in it.
     if (c.kind === "gyre") continue;
-    // Nor THE GRATE, and it is the tether's refusal at the width of the field.
-    // A wall is answered by where the shield is standing and by nothing else
-    // (`grate.ts`), so there is nothing on it to shoot — and one that stopped
-    // bolts would put a ceiling across every column at once and make player
-    // 2's whole job *wait*, which is not a thing either of them says out loud.
-    if (c.kind === "grate") continue;
+    // THE FENCE stops a bolt in every column it is still **shut** in, and in
+    // none of the ones it is open in: a hole is a hole, so a shot fired up a
+    // way through reaches whatever is above it rather than dying on a gap the
+    // pair had already made. `fenceIsOpen` is the rule and it takes the burnt
+    // columns as well as the authored ones, so the second shot up a column the
+    // first one cut is not wasted (`fence.ts`).
+    if (c.kind === "fence" && fenceIsOpen(c, b.col)) continue;
     const inCol =
       c.kind === "queen"
         ? queenOccupiesCol(c.col, b.col)

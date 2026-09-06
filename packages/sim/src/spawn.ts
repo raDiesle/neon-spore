@@ -2,8 +2,8 @@ import { caromOnSpawn } from "./carom.js";
 import { growCrawler } from "./crawler-round.js";
 import { dartOnSpawn } from "./dart.js";
 import { echoOnSpawn } from "./echo.js";
+import { fenceOnSpawn } from "./fence.js";
 import { ghostOnSpawn } from "./ghost.js";
-import { grateOnSpawn } from "./grate.js";
 import { gyreOnSpawn, mountsFor } from "./gyre.js";
 import { recoilOnSpawn } from "./recoil.js";
 import { rindOnSpawn } from "./rind.js";
@@ -53,7 +53,7 @@ export function spawnArrivals(world: World): void {
     // rather than fixed by its kind, so the clamp that keeps a body's whole
     // span on the field has to be told the real number — a two-wide meteor
     // authored in the last column would otherwise hang half off the edge.
-    // `spawnSpan` and not `spanOf`: THE GRATE is the width of the field, which
+    // `spawnSpan` and not `spanOf`: THE FENCE is the width of the field, which
     // is not a fact about its kind and is not a number `colSpan` is handed the
     // configuration to answer. The width is written onto the body below, so
     // every later reader — the shield's column test, the shot that passes
@@ -141,7 +141,7 @@ export function spawnArrivals(world: World): void {
       // remapped onto the real field before it got here (`queueFromWave`), so
       // both devices are handed the same way through — and the way through is
       // the one thing in this creature the pair has to say out loud.
-      ...(entry.kind === "grate" ? { grateGaps: grateOnSpawn(world.cfg, entry.gaps) } : {}),
+      ...(entry.kind === "fence" ? { fenceGaps: fenceOnSpawn(world.cfg, entry.gaps) } : {}),
       // Which way THE CAROM sets off, and absent on every other kind — so a
       // body that never crosses carries no field at all and every wave written
       // before this creature is byte-for-byte the same world. Derived from the

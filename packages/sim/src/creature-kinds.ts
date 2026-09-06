@@ -203,13 +203,13 @@ export type CreatureKind =
    * trigger has nothing to say to it: the only question is whether the
    * shield's dome is standing in one of the gaps when the line reaches it.
    * Player 1 is shown where the gaps are and player 2, who is the only one
-   * who can move the shield, is shown an unbroken wall. `grate.ts` holds the
-   * whole of it and `Creature.grateGaps` is the whole of its state.
+   * who can move the shield, is shown an unbroken wall. `fence.ts` holds the
+   * whole of it and `Creature.fenceGaps` is the whole of its state.
    */
-  | "grate";
+  | "fence";
 
 // **The list those names are written in, and the order they hash in**, is
-// `creature-roster.ts` next door — cut out when THE GRATE took this file over
+// `creature-roster.ts` next door — cut out when THE FENCE took this file over
 // its limit, and re-exported here so nothing that reaches for `CREATURE_KINDS`
 // through this file had to move. What that order is *for* — `kindCode`, and
 // the proof that the list names every member of the union — is `kind-code.ts`

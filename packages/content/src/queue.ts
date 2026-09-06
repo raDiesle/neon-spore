@@ -66,14 +66,14 @@ export function queueFromWave(wave: Pick<Wave, "entries">, cols: number): SpawnE
     // in the game could produce. `e.wears` overrides it, and today nothing
     // does; a wave that ever did would be authoring a mismatch on purpose.
     const wears = kind === "lure" && color ? (e.wears ?? kindForColor(color)) : e.wears;
-    // **THE GRATE has no column of its own** — it is every column at once, so
+    // **THE FENCE has no column of its own** — it is every column at once, so
     // `col` is 0 and its span is the field's width (`spawnSpan`). What the
     // author painted is the way *through*: a wall whose entry names no gaps
     // has exactly one, in the cell it was placed in, which is what makes the
     // brush read the way it looks on the map. Remapped through `mapCol` like
     // any other column, so a gap authored for seven columns lands where the
     // arrival authored beside it does.
-    const gaps = kind === "grate" ? (e.gaps ?? [e.col]).map((gap) => mapCol(gap, cols)) : undefined;
+    const gaps = kind === "fence" ? (e.gaps ?? [e.col]).map((gap) => mapCol(gap, cols)) : undefined;
     queue.push({
       beat: e.beat,
       col: gaps ? 0 : mapCol(e.col, cols),
@@ -99,7 +99,7 @@ export function queueFromWave(wave: Pick<Wave, "entries">, cols: number): SpawnE
       // `crawlerSide` are the one place each of those defaults is read.
       ...(e.segments === undefined ? {} : { segments: e.segments }),
       ...(e.side === undefined ? {} : { side: e.side }),
-      // Where the wall is open, on the real field. Written for a grate and
+      // Where the wall is open, on the real field. Written for a fence and
       // never for anything else, so every wave in the game is byte-for-byte
       // the same queue it was before this creature existed.
       ...(gaps === undefined ? {} : { gaps }),
