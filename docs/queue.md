@@ -225,6 +225,7 @@ second string.
 ## A body carried a column makes no sound
 
 - **Found:** 2026-09-06, claude/meteor-pull-drag-mechanics-42170b
+- **Taken:** 2026-09-06, claude/queue-a-body-carried-a-column-makes-no-sound
 - **Files:** `packages/sim/src/grip-push.ts`, `packages/sim/src/events.ts`, `packages/audio/src/sounds/creature.ts`, `packages/render/src/effects-ingest-silent.ts`, `packages/render/src/effects-spark-silent.ts`
 
 THE PUSH moves a held body one column on the beat and pushes no event, so the
