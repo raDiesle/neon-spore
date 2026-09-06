@@ -33,7 +33,8 @@ interface Press {
  * rough diamond around J, close enough together to press without looking — and
  * R fires the pilot's salvo into whichever square they are standing on. The
  * sideways arrows are SNAKE's two quarter turns — the navigator's, who does
- * all of its driving — with V for the pilot's shot and B for his mouth.
+ * all of its driving — with V for the pilot's shot and B for his mouth. J L and
+ * M walk and drop THE CLAW, all three of them the pilot's.
  *
  * `snakeUp` is the one piece of state any of this asks about, and it is asked
  * for two keys only: at a desk the sideways arrows step between waves, and
@@ -78,6 +79,16 @@ export function roundKeyDown(code: string, snakeUp = false): Press | null {
       return { player: 1, command: { kind: "latch" } };
     case "KeyY":
       return { player: 2, command: { kind: "launch" } };
+    // THE CLAW, and all three are the pilot's — the one round where the other
+    // seat has no button at all. J and L sit either side of the home row's
+    // middle with M under them, so the trio is reachable with one hand without
+    // looking, which is what a round played by counting asks for.
+    case "KeyJ":
+      return { player: 1, command: { kind: "clawStep", dir: -1 } };
+    case "KeyL":
+      return { player: 1, command: { kind: "clawStep", dir: 1 } };
+    case "KeyM":
+      return { player: 1, command: { kind: "clawGrab" } };
     default:
       return null;
   }

@@ -242,6 +242,13 @@ relaxation and never were; they are outside the sentence.
 THE GAUGE still went first, and for a better reason than caution: it is the
 smallest, so the shape it dragged in was the visible part of the work.
 
+THE CLAW is built now ([bosses](bosses.md) 11.8) and it asked for nothing, as
+predicted: a claw sliding a rail one socket a press is the cannon's own verb on
+a hull by another name. What it did drag in was the opposite of a relaxation —
+it is the one round with **no coordinates at all**, where THE FLEET's chart has
+letters across and numbers down, so the pair has nothing to name and has to
+count instead.
+
 ## What a round is drawn out of
 
 One rule, and it costs no new art: **slabs and glyphs, never blobs.**

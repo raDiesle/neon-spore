@@ -1,9 +1,10 @@
 # The asset catalogue
 
-> **Status: thirty-eight drafts, and one claimed so far.** A draft is a picture
+> **Status: thirty-seven drafts, and two claimed so far.** A draft is a picture
 > offered to an idea, not a decision about it. Nothing on this page is in the
-> game until it is claimed — its parameters moving into `packages/content` —
-> or cut.
+> game until it is claimed — its parameters moving into `packages/content`, or
+> into `packages/render` where what was drawn is a round's machinery rather
+> than a body — or cut.
 
 **A construction can be claimed without the body it drew.** THE THROB needed a
 rim whose bearing is legible at forty pixels — the creature turns, and a ball
@@ -123,7 +124,9 @@ THE LATHE is the blob vocabulary itself, on purpose. THE GAUGE is built. THE
 BELT was drawn and thrown away — see below. What was actually missing was a
 thing that **grips** and a line that **crosses itself**, so THE CLAW and THE
 SPLICE are the two cards, and the rest of the category is spendable out of what
-the page already holds.
+the page already holds. The first of those two has since been spent: THE CLAW is
+built, its card is `taken` rather than `draft`, and the round draws the same
+machine out of `packages/render/src/claw-rig.ts`.
 
 **Two ideas carry two drafts each**, which is new. Every other entry here is one
 picture offered to one idea, and that works while the open question is *what*
@@ -330,7 +333,7 @@ Roughly in the order the work is worth doing.
    a drawing: *The Flip* is the whole field rolling over, which is a motion and
    not a contour; *The Fork* is two routes and a gate; *Call signs* is what the
    eleven columns are **called**, which is typography. Of the twelve interludes,
-   THE CLAW and THE SPLICE are drawn, THE GAUGE and SNAKE are built — the
+   THE SPLICE is drawn, THE GAUGE, SNAKE and THE CLAW are built — the
    snake's arena is drawn in the ship's own violet and cyan rather than the
    arcade's green, because green is spent (`palette.ts`) and the body *is* the
    ship, which the round says out loud by shrinking the real hull into it —

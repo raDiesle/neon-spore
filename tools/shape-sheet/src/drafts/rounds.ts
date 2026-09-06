@@ -20,6 +20,12 @@ import { cable, claw } from "./machined.js";
  * the catalogue does. A cable is a line that crosses itself, which no arm here
  * does, because every arm hangs from a pivot and sweeps in one direction.
  *
+ * **One of the two has since been claimed.** THE CLAW is built and its card is
+ * `taken` rather than `draft`, which is the state the catalogue's own header
+ * describes: a picture drawn at a behaviour stops being a proposal by being
+ * spent. It stays in this file because this is where it was drawn and where
+ * the argument for its contour is; only the status and the owner changed.
+ *
  * A third — THE BELT — was drawn and thrown away, and the reason is in
  * `docs/asset-catalogue.md` where it is more use than a card would have been.
  */
@@ -32,11 +38,10 @@ export const ROUND_DRAFTS: CatalogueEntry[] = [
       period: 4.2,
     }),
     motion: LURCH,
-    status: "draft",
+    status: "taken",
     slot: "field",
-    suggests: "THE CLAW",
     owner:
-      "the strongest argument that a round like this is cheap, and it needed one shape nobody had drawn: a thing that grips. The pilot slides it along a rail with the cannon's exact verb, so the motion is a travel with a destination and the gape is in the contour — an own-motion can move a body about and cannot close a hand. What it must not be read as is THE MOTHER, which is also arms around an opening: hers is a hole with the field showing through the middle of a body, and this has no inside at all below the shaft",
+      "THE CLAW, which is built — the round that raises pods out of a row of sockets while only one seat can see what is in them. The card is what the round was drawn at and it stayed a draft for exactly one landing; its parameters live in `packages/render/src/claw-rig.ts` rather than in `packages/content`, because a round's machinery is not a creature contour and nothing samples it through `blobPath`. The gape is in the contour and not in the motion, which is why the picture survived the build unchanged: an own-motion can move a body about and cannot close a hand. What it must not be read as is THE MOTHER, which is also arms around an opening: hers is a hole with the field showing through the middle of a body, and this has no inside at all below the shaft",
   },
   {
     subject: cable("THE SPLICE", "one strand, two free ends, and a crossing in between", {

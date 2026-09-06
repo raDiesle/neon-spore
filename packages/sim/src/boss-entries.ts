@@ -140,6 +140,20 @@ export interface PinballEntry {
   rounds: PinballRound[];
 }
 
+/**
+ * What a wave authors when it wants THE CLAW, which is nothing at all.
+ *
+ * THE GAUGE's entry twice over, and for the same reason: the whole encounter
+ * is one rail over one row of sockets, and how many sockets there are, what is
+ * buried in them and how often a wreck shifts are tuning rather than content
+ * (`config-claw.ts`). What is *in* the field cannot be authored even in
+ * principle — it is drawn from the seeded rng, because a field the pilot has
+ * memorised is a round where nobody has to say anything (`claw-field.ts`).
+ */
+export interface ClawEntry {
+  kind: "claw";
+}
+
 /** The boss counterpart of `PodEntry`: whichever boss a wave carries. */
 export type BossEntry =
   | QueenEntry
@@ -150,7 +164,8 @@ export type BossEntry =
   | GaugeEntry
   | FleetEntry
   | SnakeEntry
-  | PinballEntry;
+  | PinballEntry
+  | ClawEntry;
 
 /**
  * Whether this boss *is* the wave, or only bends what the wave sends.
@@ -183,4 +198,5 @@ export const BOSS_KINDS: readonly BossEntry["kind"][] = [
   "fleet",
   "snake",
   "pinball",
+  "claw",
 ];

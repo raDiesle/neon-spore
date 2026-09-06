@@ -113,6 +113,17 @@ export function controlPress(id: ControlId, col = 0): ControlPress {
       return { down: { kind: "latch" } };
     case "pinLaunch":
       return { down: { kind: "launch" } };
+    // THE CLAW. Every one of these is over the moment it happens: a step is one
+    // socket and a grab is one drop, and a thumb resting on an arrow that
+    // walked the claw would take the counting out of the round — and the
+    // counting is all the pair has, there being nothing on the rail with a
+    // name (`sim/claw.ts`).
+    case "clawLeft":
+      return { down: { kind: "clawStep", dir: -1 } };
+    case "clawRight":
+      return { down: { kind: "clawStep", dir: 1 } };
+    case "clawGrab":
+      return { down: { kind: "clawGrab" } };
   }
 }
 

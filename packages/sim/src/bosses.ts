@@ -1,12 +1,12 @@
 /**
- * The seven bosses, as one barrel.
+ * The nine bosses, as one barrel.
  *
  * Split out of `index.ts` when THE FLEET pushed that file past its 250-line
  * limit, and along the seam `hash.ts` and `hash-boss.ts` already cut: what is
  * left next door is the **field** — the ship, the bodies on it, the shots, the
  * wave's own clock — and everything here is whichever mechanism happens to be
  * installed above one. The field's half grows by a name at a time; this half
- * grows by a whole boss at a time, and seven of them are already the larger
+ * grows by a whole boss at a time, and nine of them are already the larger
  * share.
  *
  * `index.ts` re-exports the whole of it, so nothing that already reached for a
@@ -16,8 +16,38 @@
 export { clampQueenCol, QUEEN_FLANK_TILES, queenHalfCols, queenTorchCol } from "./boss.js";
 export type { BossState, FleetState, QueenState, VaneState, WardenState } from "./boss-state.js";
 export {
+  CLAW_PHASES,
+  type ClawPhase,
+  type ClawState,
+  clawBeatsLeft,
+  clawDown,
+  clawRound,
+} from "./claw.js";
+export {
+  CLAW_HOLDS,
+  CLAW_NOTHING,
+  CLAW_POD,
+  CLAW_ROCK,
+  type ClawHold,
+  clawCells,
+  clawHoldAt,
+  clawOnRail,
+  clawPodsLeft,
+  clawRocksLeft,
+  clawStartCell,
+} from "./claw-field.js";
+export {
+  CLAW_LEAD_BEATS,
+  CLAW_VERDICT_BEATS,
+  clawBeats,
+  clawHolds,
+  clawRoundHeard,
+  closeClaw,
+} from "./claw-round.js";
+export {
   BOSS_KINDS,
   bossFillsWave,
+  type ClawEntry,
   type FleetEntry,
   type GaugeEntry,
   type PinballEntry,

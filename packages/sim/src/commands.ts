@@ -1,4 +1,5 @@
 import { fire } from "./bullets.js";
+import { closeClaw } from "./claw-round.js";
 import { closeGauge } from "./gauge-round.js";
 import { gripsCreature, setGrip } from "./grip.js";
 import { armShield } from "./hull-guard.js";
@@ -44,14 +45,15 @@ export function applyCommand(world: World, timed: TimedCommand): void {
     // and the host does not answer `needWave` on the same tick it is asked, so
     // there are ticks in between for a charge to go out into (`shot-charge.ts`).
     endCharge(world);
-    // And the three rounds that take the whole picture, for the third time
+    // And the four rounds that take the whole picture, for the third time
     // the same argument: a run being left is not a run standing at a dial, in
-    // an arena or over a table. Only those three — every other boss goes when
-    // `startWave` installs the next wave's, and none of the others holds the
-    // whole of `step` in the ticks before it gets there.
+    // an arena, over a table or on a salvage rail. Only those four — every
+    // other boss goes when `startWave` installs the next wave's, and none of
+    // the others holds the whole of `step` in the ticks before it gets there.
     closeGauge(world);
     closeSnake(world);
     closePinball(world);
+    closeClaw(world);
     world.events.push({ type: "needWave", wave: 0 });
     return;
   }

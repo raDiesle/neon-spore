@@ -1,6 +1,7 @@
 import { beatMetronome, onBeat } from "./beat.js";
 import { briefHeard, briefingHolds, guideStepHeard, stepReady } from "./briefing.js";
 import { advanceBullets, releaseShot } from "./bullets.js";
+import { clawHolds, clawRoundHeard, stepClawRound } from "./claw-round.js";
 import { applyCommand } from "./commands.js";
 import { ticksPerBeat } from "./config.js";
 import { fleetHeard } from "./fleet.js";
@@ -102,6 +103,23 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
     world.tick += 1;
     if (world.tick % ticksPerBeat(world.cfg) === 0) beatMetronome(world);
     stepPinballRound(world);
+    // A round that has run its course ends its wave from here: there is no
+    // field to be empty, and its picture holds until the next wave arrives.
+    endSpentRound(world);
+    return;
+  }
+  // THE CLAW has it fourth, and the branch is the same shape a fourth time.
+  // What the tick buys here is the machine: the claw slides a socket a press
+  // and drops on one, and a rail answered on the beat would put a queue
+  // between the sentence and the hand (`claw-round.ts`).
+  if (clawHolds(world)) {
+    for (const c of commands) {
+      if (c.command.kind === "restart") applyCommand(world, c);
+      else clawRoundHeard(world, c.player, c.command);
+    }
+    world.tick += 1;
+    if (world.tick % ticksPerBeat(world.cfg) === 0) beatMetronome(world);
+    stepClawRound(world);
     // A round that has run its course ends its wave from here: there is no
     // field to be empty, and its picture holds until the next wave arrives.
     endSpentRound(world);

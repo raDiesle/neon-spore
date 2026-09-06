@@ -10,8 +10,8 @@ import type { Wave } from "../wave-types.js";
  * no room left for three waves carrying guides, exactly as `act-5.ts` had none
  * for THE VEER, so this is where new waves land now.
  *
- * The three of them are one argument taken in three steps, and the order is
- * the whole of it.
+ * The four of them are one argument taken in four steps, and the order is the
+ * whole of it.
  *
  * 1. **THE MAGNET** takes the oldest habit in the game away — put the muzzle
  *    under it and fire — while both seats still have every control they are
@@ -23,6 +23,21 @@ import type { Wave } from "../wave-types.js";
  *    thing is that firing is no longer something either of them decides.
  * 3. **THE TWITCH** is the other fault, and the only wave here that could not
  *    have been written before the other two.
+ * 4. **THE CLAW** is the act's boss and the end of the same line. The two
+ *    faults take a control away from a seat and hand it to the wave; this
+ *    takes *every* control away from player 2 and hands them all to player 1,
+ *    and what is left in her hands is the only thing the game has ever really
+ *    been played with. Its one-sentence test is the one where the only person
+ *    who can see the wrecks is the only person who cannot touch anything, and
+ *    everything else about the round follows from it: the rail carries no
+ *    letters, because a coordinate would let her say it once and stop, and the
+ *    wrecks shift, because a sentence that stays true is a sentence nobody
+ *    repeats (`docs/spec/bosses.md` 11.8).
+ *
+ * The prose about a wave lives **here, above the array**, and not beside the
+ * entry it is about: `tools/director/src/serialize.ts` regenerates everything
+ * from `export const WAVES_ACT_7` down every time somebody saves a wave in the
+ * editor, and a comment inside the array is gone the first time they do.
  */
 
 /**
@@ -159,5 +174,20 @@ export const WAVES_ACT_7: Wave[] = [
       { beat: 56, col: 6, kind: "meteor", color: null },
     ],
     malfunction: { kind: "shield" },
+  },
+  {
+    id: "theClaw",
+    name: "THE CLAW",
+    sentence:
+      "The one where the only one who can see the wrecks is the only one who cannot touch anything.",
+    guide: {
+      both: "The field is gone. A salvage rail over a row of sockets with pods and rocks buried in them, and nothing on the screen has a name. Raise every pod and the round is over; bring up a rock and the hull pays for it. A wreck shifts a socket every few beats, so nothing said stays true for long.",
+      p1: "Every button is yours and you cannot see a thing in the sockets. LEFT and RIGHT are one socket each — count them out loud so they can stop you — and GRAB drops the claw where it stands. Never press it on a guess.",
+      p2: "You have no button at all. Your screen is the only one with the wrecks on it: say which way and how many, keep saying it, and say it again when one of them moves — because they do, and they only move on your screen.",
+      scene: "theClaw",
+    },
+    entries: [],
+    boss: { kind: "claw" },
+    controls: "claw",
   },
 ];

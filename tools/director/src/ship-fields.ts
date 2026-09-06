@@ -1,4 +1,4 @@
-import type { BossEntry, SimConfig } from "@neon-spore/sim";
+import type { SimConfig } from "@neon-spore/sim";
 
 /**
  * Every `SimConfig` field, sorted into the card that explains it to a person
@@ -17,6 +17,7 @@ import type { BossEntry, SimConfig } from "@neon-spore/sim";
 // are `ship-groups.ts` next door. Re-exported here so nothing that already
 // reaches for one through this file has to move.
 export {
+  BOSS_GROUP,
   GROUP_NOTE,
   GROUP_ORDER,
   type GroupName,
@@ -196,6 +197,17 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   pinballSlideMilli: "PINBALL — a table the ship is the bucket of",
   pinballBucketMilli: "PINBALL — a table the ship is the bucket of",
   pinballFlightBeats: "PINBALL — a table the ship is the bucket of",
+  // ClawConfig
+  clawCells: "THE CLAW — a rail only one of you can read",
+  clawPods: "THE CLAW — a rail only one of you can read",
+  clawRocks: "THE CLAW — a rail only one of you can read",
+  clawRoundBeats: "THE CLAW — a rail only one of you can read",
+  clawGrabRestBeats: "THE CLAW — a rail only one of you can read",
+  clawDriftBeats: "THE CLAW — a rail only one of you can read",
+  damageClaw: "THE CLAW — a rail only one of you can read",
+  damageClawRock: "THE CLAW — a rail only one of you can read",
+  scoreClawPod: "SCORE",
+  scoreClawClear: "SCORE",
   damagePinball: "PINBALL — a table the ship is the bucket of",
   damagePinballDrop: "PINBALL — a table the ship is the bucket of",
   // PairConfig
@@ -222,21 +234,3 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
 export function fieldsIn(group: GroupName): (keyof SimConfig)[] {
   return (Object.keys(FIELD_GROUP) as (keyof SimConfig)[]).filter((k) => FIELD_GROUP[k] === group);
 }
-
-/**
- * The boss group each `BossEntry` kind shows — a wave that carries `warden`
- * shows WARDEN, and nothing else here changes because of it. `ship.ts` reads
- * this to decide what belongs beside the wave being edited rather than beside
- * the ship, which is the split the SHIP-column brief asked for.
- */
-export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
-  pinball: "PINBALL — a table the ship is the bucket of",
-  queen: "QUEEN",
-  warden: "WARDEN",
-  mirror: "MIRROR",
-  vane: "VANE",
-  maze: "MAZE",
-  gauge: "THE GAUGE — a round with no field in it",
-  fleet: "THE FLEET — a chart only one of you can read",
-  snake: "SNAKE — a round the ship is the body of",
-};

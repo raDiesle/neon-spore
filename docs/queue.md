@@ -528,4 +528,30 @@ baseline stores a name instead. Two halves:
   a changed arrival fingerprint; it did not notice that one name appeared
   twice. A row-uniqueness assertion is two lines and would have named the
   problem instead of leaving a mismatched name at an index.
+## THE GAUGE and SNAKE are still written up as ideas in `docs/spec/ideas.md`
 
+- **Found:** 2026-09-06, claude/rounds-claw-boss-level-272aef
+- **Files:** `docs/spec/ideas.md`, `docs/spec/bosses.md`, `tools/director/test/backlog.test.ts`
+
+Both rounds are built — `packages/sim/src/gauge.ts` and `snake.ts`, and
+`BOSS_KINDS` carries both — and both still have an entry under the **Rounds**
+heading of the idea store describing them as things the game could have. The
+director's backlog hides them by name off `BOSS_KINDS` (`dropBuilt` in
+`tools/director/src/backlog-ideas.ts`), so nobody is offered them twice; what
+is left is a spec page that describes two shipped rounds in the future tense,
+including "unworked out" questions the code answered months ago.
+
+THE CLAW's entry was cut when the round landed and the section that replaced it
+is `docs/spec/bosses.md` 11.8, so there is a worked example of what to do:
+delete the entry, make sure the built round has a section in `bosses.md` saying
+what it actually is, and drop `backlog.rounds[0].builtHidden` in
+`tools/director/test/backlog.test.ts` by one for each entry removed — the count
+is what proves nothing was left behind.
+
+Neither has a `##` section in `bosses.md` yet — THE GAUGE is described at
+length in `docs/spec/interludes.md`, which is the round *category's* page
+rather than the round's, and SNAKE has nothing but its wave and its code. So
+this is not a pure deletion: the part of each idea-store entry that is still
+true has to land in a section of its own first, the way THE CLAW's did, and
+only then does the entry go. PINBALL is the model to copy — it has 11.7 and no
+entry in the idea store.

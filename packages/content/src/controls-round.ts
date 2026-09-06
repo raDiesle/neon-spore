@@ -100,6 +100,27 @@ export const ROUND_CONTROLS: readonly ControlDef[] = [
     does: "Opens the mouth for a moment. A point driven over with it shut starts the round again.",
   },
   {
+    id: "clawLeft",
+    player: 1,
+    form: "slab",
+    label: "◀",
+    does: "Carries THE CLAW one socket left along the rail. A step, never a place — there is no place on this screen to name.",
+  },
+  {
+    id: "clawGrab",
+    player: 1,
+    form: "slab",
+    label: "GRAB",
+    does: "Drops the claw into the socket it is standing over. The only thing in the round that can be wrong, and the only seat that can be wrong is the one that cannot see.",
+  },
+  {
+    id: "clawRight",
+    player: 1,
+    form: "slab",
+    label: "▶",
+    does: "One socket right, under the same hand. Player 2 has no button on this panel at all.",
+  },
+  {
     id: "pinLeft",
     player: 1,
     form: "slab",

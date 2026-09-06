@@ -1,5 +1,14 @@
 export { drawWaveOpening } from "./briefing.js";
 export { Canvas2DRenderer } from "./canvas2d.js";
+export {
+  clawCellX,
+  clawRig,
+  drawClaw,
+  drawClawRail,
+  drawClawSockets,
+  type Rig,
+} from "./claw-rig.js";
+export { drawClawRound } from "./claw-round.js";
 export { creatureAt, creatureCenter, creatureRadius } from "./creature-place.js";
 export { smoothstep } from "./ease.js";
 export {
@@ -26,6 +35,7 @@ export {
   type Stage,
   type Strip,
   showsCannon,
+  showsClawWrecks,
   showsShield,
   tileCX,
   tileCY,

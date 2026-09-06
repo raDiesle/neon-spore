@@ -62,6 +62,12 @@ export function lobeMeans(id: ControlId): { command: Command; hold: Hold | null 
     case "pinRight":
     case "pinLatch":
     case "pinLaunch":
+    // THE CLAW's three, read by their own listener in `apps/game` beside the
+    // other three rounds' — a slab is not a lobe, and `lobeUnder` never
+    // reaches one.
+    case "clawLeft":
+    case "clawRight":
+    case "clawGrab":
       return null;
     default:
       return assertNever(id);

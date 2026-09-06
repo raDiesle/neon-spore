@@ -43,7 +43,10 @@ export type ControlId =
   | "pinLeft"
   | "pinRight"
   | "pinLatch"
-  | "pinLaunch";
+  | "pinLaunch"
+  | "clawLeft"
+  | "clawRight"
+  | "clawGrab";
 
 /**
  * What a whole panel *is*, rather than what is on it.

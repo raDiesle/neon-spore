@@ -125,6 +125,9 @@ export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {
   vane: { kind: "vane", pins: 3 },
   maze: { kind: "maze", rounds: [WHEEL] },
   gauge: { kind: "gauge" },
+  // THE CLAW authors nothing either: the wreck field is dealt from the seeded
+  // rng, so a fixture entry can only name the round (`claw-field.ts`).
+  claw: { kind: "claw" },
   // Two ships, one lying each way, neither touching the other and both well
   // inside a chart eleven columns by ten. `fleetFault` is what says that is a
   // fleet at all, and `fleet.test.ts` asks it of this one.

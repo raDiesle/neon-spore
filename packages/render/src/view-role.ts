@@ -42,3 +42,12 @@ export const showsQueenShape = (role: ViewRole): boolean => role !== "p2";
  * (`fleet-hulls.ts`).
  */
 export const showsFleetHulls = (role: ViewRole): boolean => role !== "p2";
+/**
+ * THE CLAW's wreck field. The navigator's, the same half as the shield — and
+ * the mirror image of the line above it, which is the point of the round: THE
+ * FLEET gives the map to the seat that can act on it and this one gives it to
+ * the seat that cannot act at all. Player 1 is shown a row of sockets and the
+ * dark inside them, which is everything the machine's operator gets
+ * (`claw-rig.ts`).
+ */
+export const showsClawWrecks = (role: ViewRole): boolean => role !== "p1";

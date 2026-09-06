@@ -1,3 +1,5 @@
+import type { BossEntry } from "@neon-spore/sim";
+
 /**
  * The cards the SHIP tab is divided into: their names, the order they are read
  * in, and the paragraph under each heading that says what the group *is*.
@@ -11,6 +13,12 @@
  * a dial of its own arrives here as one name and one paragraph, and nobody
  * reads it top to bottom. The same split `mechanics.ts` and
  * `mechanics-table.ts` already use, for the same reason.
+ *
+ * **`BOSS_GROUP` is here too**, and it arrived with THE CLAW: the file next
+ * door had run out of room, and a map from a boss kind to a group is a
+ * statement about *groups* rather than about `SimConfig` fields, which is
+ * everything that file is. It grows by a boss where `FIELD_GROUP` grows by a
+ * mechanic, so the two were never going to fill up at the same rate.
  *
  * Every name is re-exported from `ship-fields.ts`, so nothing that already
  * reaches for one through that file had to move.
@@ -29,6 +37,7 @@ export type GroupName =
   | "THE GAUGE — a round with no field in it"
   | "SNAKE — a round the ship is the body of"
   | "PINBALL — a table the ship is the bucket of"
+  | "THE CLAW — a rail only one of you can read"
   | "THROB — red one side, cyan the other, turning"
   | "THE LURE — a body only one of you can see through"
   | "THE VEIL — a cloud only one of you can see into"
@@ -70,6 +79,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE GAUGE — a round with no field in it",
   "SNAKE — a round the ship is the body of",
   "PINBALL — a table the ship is the bucket of",
+  "THE CLAW — a rail only one of you can read",
   "THROB — red one side, cyan the other, turning",
   "THE LURE — a body only one of you can see through",
   "THE VEIL — a cloud only one of you can see into",
@@ -119,7 +129,27 @@ export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
   "THE FLEET — a chart only one of you can read",
   "SNAKE — a round the ship is the body of",
   "PINBALL — a table the ship is the bucket of",
+  "THE CLAW — a rail only one of you can read",
 ]);
 
 /** The ship's own dials — the same on every wave, and one click away on the topbar. */
 export const SHIP_GROUPS: GroupName[] = GROUP_ORDER.filter((g) => !WAVE_ONLY_GROUPS.has(g));
+
+/**
+ * The boss group each `BossEntry` kind shows — a wave that carries `warden`
+ * shows WARDEN, and nothing else here changes because of it. `ship.ts` reads
+ * this to decide what belongs beside the wave being edited rather than beside
+ * the ship, which is the split the SHIP-column brief asked for.
+ */
+export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
+  pinball: "PINBALL — a table the ship is the bucket of",
+  queen: "QUEEN",
+  warden: "WARDEN",
+  mirror: "MIRROR",
+  vane: "VANE",
+  maze: "MAZE",
+  gauge: "THE GAUGE — a round with no field in it",
+  fleet: "THE FLEET — a chart only one of you can read",
+  snake: "SNAKE — a round the ship is the body of",
+  claw: "THE CLAW — a rail only one of you can read",
+};

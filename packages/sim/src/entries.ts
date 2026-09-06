@@ -132,6 +132,7 @@ export {
   BOSS_KINDS,
   type BossEntry,
   bossFillsWave,
+  type ClawEntry,
   type FleetEntry,
   type GaugeEntry,
   type MazeEntry,

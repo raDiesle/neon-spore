@@ -136,6 +136,24 @@ export type Command =
   | { kind: "latch" }
   | { kind: "launch" }
   /**
+   * THE CLAW's two, and the same argument one round further still: a round
+   * that is not the field has its own verbs.
+   *
+   * **Both are player 1's, which no other round can say.** The seat that can
+   * see the wreck field has no command at all here — every other split in this
+   * game hands each seat half of one action, and this one hands one seat the
+   * whole machine and the other seat nothing but the map.
+   *
+   * `clawStep` is a *step* and not a place, for `aim`'s reason and one more
+   * besides: THE FLEET's chart is lettered and numbered, so a step there could
+   * always have been a coordinate, and here there is no coordinate to be. A
+   * socket can only be counted to, out loud, from wherever the claw already
+   * is. `clawGrab` is the drop, and it is the only thing in the round that can
+   * be wrong. Which seat may send which is checked in `claw.ts`, not here.
+   */
+  | { kind: "clawStep"; dir: -1 | 1 }
+  | { kind: "clawGrab" }
+  /**
    * A hand that grabbed something and moved: the second gesture, beside the
    * press-and-hold that only slows a fall (`grip.ts`). `on` is the hold, the
    * contract `prime` and `valve` have — true for the grab and every move after

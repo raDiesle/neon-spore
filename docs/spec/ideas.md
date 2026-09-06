@@ -565,29 +565,22 @@ controls, their own picture, over in about ninety seconds, and nothing they
 teach is used again. The category comes from reading Hazelight's two co-op
 games — see [transfers-hazelight](transfers-hazelight.md) — and what a
 round is allowed to be is [interludes](interludes.md). THE MIRROR
-([bosses](bosses.md) 11.4) is the one the game already has without calling it
-that, and it is the only one.
+([bosses](bosses.md) 11.4) is the one the game already had without calling it
+that.
+
+**A built round stops being an idea.** The director's backlog drops one by
+name off `BOSS_KINDS` rather than by anybody remembering to, so an entry left
+standing here after the round exists is hidden rather than wrong — THE GAUGE's
+and SNAKE's still are, and are worth reading beside what was actually built.
+THE CLAW's was cut instead, because the owner asked for it the day the round
+landed: what it is now lives in [bosses](bosses.md) 11.8, and two descriptions
+of one round are one description too many.
 
 Each entry says whether it needs the no-travel rule relaxed. Most do not, and
 that is deliberate: a round that survives either answer to
 [the question the category hangs on](interludes.md#the-question-the-whole-page-hangs-on)
 is worth more than a better one that is waiting on it.
 
-- **THE CLAW** — a salvage machine over a wreck field, and the strongest
-  argument that this category costs almost nothing. The pilot slides a claw
-  along a rail above the wreckage — the cannon's exact verb, one tile per
-  press, on a rail that is a hull by another name, so **no relaxation is
-  needed**. The navigator sees what the pilot cannot: the wreck field's
-  contents, cell by cell, pods and rocks mixed. The pilot sees only the claw,
-  the rail and the dark. Every drop is a sentence, and a wrong one comes back
-  holding a rock. What it gives is `mend`, `purge` and `ward`
-  ([systems](systems.md) 5.7) for the act about to start, which is the whole of
-  its stakes: nothing is lost by fishing badly, and an act begins better or
-  plainer. Unworked out: whether the pilot ever sees a cell resolve, since a
-  claw that comes up empty and says nothing is a round with no feedback in it;
-  whether the navigator's map is fixed at the start or is revealed a column at
-  a time as the claw passes, which turns one long announcement into eight short
-  ones; how many drops a round gets, which is the only difficulty knob it has
 - **THE LATHE** — one of you describes a shape and the other builds it blind,
   and it is made entirely out of maths the game already has. The navigator's
   device shows a target contour and no controls. The pilot's shows four

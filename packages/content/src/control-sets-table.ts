@@ -96,4 +96,10 @@ export const CONTROL_SETS: readonly ControlSet[] = [
     why: "Three slabs against one: the seat that holds the bucket also stops the needle, and the seat that does not hold it is the only one that can fire.",
     controls: ["pinLeft", "pinLatch", "pinRight", "pinLaunch"],
   },
+  {
+    id: "claw",
+    name: "THE CLAW",
+    why: "Three slabs against none: the seat working the machine has every button in the round, and the seat that can see the wreck field has nothing but its mouth.",
+    controls: ["clawLeft", "clawGrab", "clawRight"],
+  },
 ];

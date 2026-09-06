@@ -94,6 +94,12 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "above, since a headless caller has no second thumb to answer it with. On, " +
     "the gaps between acts may carry a round that is not the field: a needle " +
     "walked by drift and corrected by a valve. See gauge.ts, gauge-round.ts.",
+  "THE CLAW — a rail only one of you can read":
+    "A salvage rail over a row of sockets, and the one round where a seat has " +
+    "no button. Player 1 walks the claw a socket a press and drops it; player " +
+    "2 sees what is buried in every socket and can do nothing but say so — and " +
+    "a wreck shifts a socket every clawDriftBeats, so the sentence has to be " +
+    "said again. See claw.ts, claw-field.ts, claw-round.ts.",
   "THE FLEET — a chart only one of you can read":
     "A lattice of squares with ships hidden in it. Player 1 sees every hull and " +
     "holds the only trigger; player 2 walks the sights a square at a time and is " +

@@ -1,11 +1,12 @@
 import type { BossState } from "./boss-state.js";
+import { clawHashParts } from "./claw-hash.js";
 import { BOSS_KINDS } from "./entries.js";
 import { FLEET_DIRS } from "./fleet-board.js";
 import { GAUGE_PHASES } from "./gauge.js";
 import { mazeHashParts } from "./maze-hash.js";
 import { pinballHashParts } from "./pinball-board.js";
 import { MIRROR_PHASES, MIRROR_STEPS } from "./simon.js";
-import { SNAKE_PHASES } from "./snake.js";
+import { snakeHashParts } from "./snake-hash.js";
 
 /**
  * The boss half of the world fingerprint.
@@ -140,76 +141,11 @@ export function bossHashParts(boss: BossState | null): number[] {
     push(boss.lastRow);
     push(boss.lastHit ? 1 : 0);
   }
-  // SNAKE. The body is where the fight is, and everything after it is what
-  // the arena has left in it.
+  // SNAKE, gathered beside the boss for the same reason and with the most in
+  // it of the four: the body, the arena it is driving round, and everything
+  // already spent off both (`snake-hash.ts`).
   if (boss !== null && boss.kind === "snake") {
-    push(SNAKE_PHASES.indexOf(boss.phase));
-    push(boss.phaseBeat);
-    push(boss.openBeat);
-    push(boss.passed ? 1 : 0);
-    push(boss.round);
-    push(boss.roundBeat);
-    push(boss.dirCol);
-    push(boss.dirRow);
-    push(boss.turn);
-    push(boss.stepTick);
-    push(boss.grow);
-    push(boss.mawTick);
-    push(boss.shotBeat);
-    push(boss.shotCol);
-    push(boss.shotRow);
-    push(boss.shotHit ? 1 : 0);
-    push(boss.repeats);
-    push(boss.repeatBeat);
-    push(boss.repeatTick);
-    push(boss.bumpCol);
-    push(boss.bumpRow);
-    push(boss.body.length);
-    for (const tile of boss.body) {
-      push(tile.col);
-      push(tile.row);
-    }
-    // The body as it stood on the tick of the last crash. Nothing but the
-    // picture reads it, and it is in here anyway: rule 4 has no clause for a
-    // field only the drawing wants, because a device that disagrees about one
-    // is a device drawing a different round.
-    push(boss.ghostDirCol);
-    push(boss.ghostDirRow);
-    push(boss.ghost.length);
-    for (const tile of boss.ghost) {
-      push(tile.col);
-      push(tile.row);
-    }
-    // What has been spent, and then the map it was spent on. The lists of
-    // indices are the fight itself — a device that thinks one more enemy is
-    // down is a device drawing a different arena for the player who can see
-    // it — and the placement is authored, so it is in for THE MIRROR's reason:
-    // two phones on two builds of `content` would be driving round different
-    // maps and nothing else here would say a word about it.
-    push(boss.struck.length);
-    for (const at of boss.struck) push(at);
-    push(boss.taken.length);
-    for (const at of boss.taken) push(at);
-    push(boss.rounds.length);
-    for (const round of boss.rounds) {
-      push(round.beats);
-      push(round.stepTicks);
-      push(round.enemies.length);
-      for (const tile of round.enemies) {
-        push(tile.col);
-        push(tile.row);
-      }
-      push(round.points.length);
-      for (const tile of round.points) {
-        push(tile.col);
-        push(tile.row);
-      }
-      push(round.rocks.length);
-      for (const tile of round.rocks) {
-        push(tile.col);
-        push(tile.row);
-      }
-    }
+    for (const n of snakeHashParts(boss)) push(n);
   }
   // PINBALL, gathered beside the boss rather than spelled out here — the
   // arrangement `mazeHashParts` already has, and for its reason: a piece's
@@ -217,6 +153,11 @@ export function bossHashParts(boss: BossState | null): number[] {
   // loop in here is a field two devices could disagree about silently.
   if (boss !== null && boss.kind === "pinball") {
     for (const n of pinballHashParts(boss)) push(n);
+  }
+  // THE CLAW, gathered beside the boss for the reason THE MAZE's and PINBALL's
+  // are: `clawHashParts` says what is in it and why, the wreck field included.
+  if (boss !== null && boss.kind === "claw") {
+    for (const n of clawHashParts(boss)) push(n);
   }
   if (boss !== null && boss.kind === "mirror") {
     // Every sequence, not only the one being played. They are authored, which

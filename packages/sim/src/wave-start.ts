@@ -1,5 +1,6 @@
 import { clampQueenCol, initialDropSide } from "./boss.js";
 import { openWave } from "./briefing.js";
+import { installClaw } from "./claw-round.js";
 import { midCol } from "./config.js";
 import type { WardenEntry } from "./entries.js";
 import { installFleet } from "./fleet.js";
@@ -87,6 +88,11 @@ export function startWave(
     // arena is the round's own and the ship is in it as the snake, so there is
     // no body here for the fall loop, the hull or a hand to find.
     world.boss = installSnake(world, boss.rounds);
+  } else if (boss?.kind === "claw") {
+    // The same nothing once more: the rail and the wreck field are the round's
+    // own picture, there is no ship drawn under them, and no body of this boss
+    // is on the field for the fall loop, the hull or a hand to find.
+    world.boss = installClaw(world);
   } else if (boss?.kind === "pinball") {
     // The same nothing again: the table is the round's own picture and the
     // ship is in it as the bucket, so no body of this boss is on the field for

@@ -252,6 +252,12 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-magnet.ts` | **What THE MAGNET does**, as events: a bolt turned away by the plate slung under the body |
 | `packages/sim/src/grip-push.ts` | THE PUSH: the same hand read a third way |
 | `packages/sim/src/hash-creature-held.ts` | **The fields a hand writes**, folded into the fingerprint |
+| `packages/sim/src/claw-field.ts` | THE CLAW's wreck field, as arithmetic |
+| `packages/sim/src/claw-hash.ts` | What THE CLAW puts into `hashWorld`, and nothing else |
+| `packages/sim/src/claw-round.ts` | THE CLAW's clock: the four phases, the way in and the way out |
+| `packages/sim/src/claw.ts` | THE CLAW: the one where nothing on either screen has a name |
+| `packages/sim/src/config-claw.ts` | THE CLAW's numbers — the rail, the clock, and what a bad grab costs |
+| `packages/sim/src/snake-hash.ts` | What SNAKE puts into `hashWorld`, and nothing else |
 
 ### packages/content
 
@@ -351,6 +357,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/waves/act-7.ts` | Act seven, and it opens on the first body in this game that cannot be answered from the column it is standing in |
 | `packages/content/src/magnet-shape.ts` | THE MAGNET's contour, as numbers rather than as drawing |
 | `packages/content/src/veer-clown-shape.ts` | **THE VEER's rider, as geometry**: where every disc of the clown sits on the rock, and the loops it comes to |
+| `packages/content/src/scenes/the-claw.ts` | THE CLAW's rehearsal: one of you has every button and none of the map |
 
 ### packages/render
 
@@ -637,6 +644,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/fence-shards.ts` | The pieces of wall a bolt knocks out of a column it cuts |
 | `packages/render/src/fence-strike.ts` | A wall landing on the ship, remembered: the outage and the shock it leaves |
 | `packages/render/src/hull-shock.ts` | The whole ship conducting for a moment after a wall earthed through the dome |
+| `packages/render/src/claw-rig.ts` | THE CLAW's machinery, drawn: the rail, the sockets under it, and the claw itself hanging between the two |
+| `packages/render/src/claw-round.ts` | THE CLAW over the whole stage — the title, the tally, the panel and the verdict |
 
 ### packages/net
 
@@ -752,6 +761,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/perf-sweep.ts` | The performance sweep, run **inside the page**, on the device the game is for |
 | `apps/game/src/menu-idle.ts` | `?menuidle=<hz>` — how often the field is repainted while the main menu is up |
 | `apps/game/src/keys-grip.ts` | **What the desk rig's grip key takes hold of.** Cut out of `keys.ts` when the relief's key took that file… |
+| `apps/game/src/claw.ts` | The host's half of THE CLAW: the three thumbs that play it, all on one seat |
 
 ### apps/server
 
@@ -1134,5 +1144,6 @@ place — the generator keeps whatever is there.
 | `tools/director/src/versus-one.ts` | One candidate, alone, on a page of its own — the live half of VERSUS |
 | `tools/director/src/versus-open.ts` | Where a look opens, and how a page links to it |
 | `tools/director/src/versus-tab.ts` | The VERSUS tab: every look offered beside what the field already draws, never in place of it |
+| `tools/director/src/stage-claw.ts` | THE CLAW's three slabs, answered by the director's mouse |
 
 <!-- index:code:end -->

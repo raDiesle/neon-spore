@@ -8,6 +8,7 @@ import { SALVAGE } from "./scenes/salvage.js";
 import { SNAKE } from "./scenes/snake.js";
 import { THE_CAROM } from "./scenes/the-carom.js";
 import { THE_CLASP } from "./scenes/the-clasp.js";
+import { THE_CLAW } from "./scenes/the-claw.js";
 import { THE_DART } from "./scenes/the-dart.js";
 import { THE_ECHO } from "./scenes/the-echo.js";
 import { THE_FLEET } from "./scenes/the-fleet.js";
@@ -91,6 +92,7 @@ export type SceneId =
   | "theMaze"
   | "theWarden"
   | "theCarom"
+  | "theClaw"
   | "theVolley";
 
 export const SCENES: Record<SceneId, GuideScene> = {
@@ -128,6 +130,7 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theMaze: THE_MAZE,
   theWarden: THE_WARDEN,
   theCarom: THE_CAROM,
+  theClaw: THE_CLAW,
   theVolley: THE_VOLLEY,
 };
 
