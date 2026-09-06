@@ -335,3 +335,33 @@ shape to copy — the test's own failure message names it.
 `bun run check` proves it: the ceiling test goes green with real room behind it,
 and nothing else in the repository reads the prose that moved.
 
+## `bun run perf`'s 20% noise floor still flags waves nobody touched
+
+- **Found:** 2026-09-06, claude/queue-the-perf-baseline-covers-38-of-the-45-waves-the
+- **Files:** `tools/perf/compare.ts`, `tools/perf/test/compare.test.ts`, `docs/performance.md`
+
+`NOISE_PCT` is 20, and two runs taken twenty minutes apart on the same idle
+machine — no other session, nothing else open — reported THE ROCK 31% worse and
+THE WARDEN 30% worse, with FINALE 26% better in the same breath. Nothing in the
+lane between them went near any of the three. The run-wide drift `compare.ts`
+already divides out was doing its job; what is left is per-wave variance the
+threshold does not cover.
+
+That matters because of what the tool is for. A session that adds a shape runs
+this and reads the verdict, and a verdict that names three waves it did not touch
+teaches it to stop reading — which is the failure mode the whole comparison
+exists to prevent.
+
+Two things to find out before changing a number. Take three runs back to back on
+an idle machine with no commits in between and print the per-wave spread: that
+says what the floor actually is, and it may be a good deal higher than 20 for the
+cheap waves, which are the ones that swung. Then decide whether the answer is a
+higher floor, a floor that scales with how cheap the wave is (a 30% swing on a
+2.8 ms wave is 0.8 ms and on a 7 ms wave is 2.1 ms — the second is worth hearing
+about and the first is not), or an absolute millisecond gate under which nothing
+is reported at all.
+
+Whatever it becomes, say it in `docs/performance.md` in the terms the run prints,
+and hold it in `compare.test.ts` with a fixture built from two runs that differ
+only by noise.
+
