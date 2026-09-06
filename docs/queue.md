@@ -296,6 +296,7 @@ to change: `index.ts` stays the one import path, and
 ## A merged baseline keeps yesterday's wave numbers on every row it did not measure
 
 - **Found:** 2026-09-06, claude/queue-drain-lcg-perf-docs
+- **Taken:** 2026-09-06, claude/queue-a-merged-baseline-keeps-yesterdays-wave-numbers
 - **Files:** `tools/perf/run.ts`, `tools/perf/shape.ts`, `tools/perf/test/baseline.test.ts`
 
 `mergeInto` matches a row on `Wave.id` now, so a narrow `--save` can never
