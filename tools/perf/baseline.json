@@ -501,17 +501,17 @@
     },
     {
       "wave": 49,
-      "name": "THE JAM",
+      "name": "THE MAGNET",
       "bodies": 3,
-      "arrivals": "9:ad36d5ea",
-      "typical": 4.83,
-      "mean": 4.9,
-      "p90": 6.69,
-      "jitter": 0.312,
+      "arrivals": "7:2ee2243d",
+      "typical": 3.96,
+      "mean": 4.06,
+      "p90": 4.97,
+      "jitter": 0.23,
       "mergedFrom": {
         "measuredAt": "2026-09-06",
-        "commit": "ecf7124380ee4b2e1314a235990727e55f16e88d",
-        "scale": 0.58
+        "commit": "fb79fdd82d7fff418b3a0011ec30e2c2df7fb5a9",
+        "scale": 1.04
       }
     },
     {
