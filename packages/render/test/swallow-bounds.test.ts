@@ -1,5 +1,6 @@
 import { beforeAll, describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
+import { hullBottom } from "../src/band-seam.js";
 import { drawHull, type HullMood } from "../src/hull.js";
 import { computeLayout } from "../src/layout.js";
 import { installCanvasGlobals, StubContext } from "./canvas-stub.js";
@@ -8,18 +9,25 @@ import { installCanvasGlobals, StubContext } from "./canvas-stub.js";
  * The bug this guards: the maw is the one shape on the hull with *negative*
  * lift — at full intake it inverts the cannon lobe into a dent instead of a
  * bump — and nothing before this test ever asked whether that dent, or the
- * muzzle drawn into the bottom of it, could reach past the field's own
- * bottom edge (`Layout.bandTop`) into the control band underneath. It could:
- * at full intake, past a particular column and breath phase, the bare
- * contour landed more than half a tile below `bandTop` with nothing to stop
- * it — `drawHull`'s own clip rect reached to `l.height`, the whole canvas,
- * not to the field it was meant to bound.
+ * muzzle drawn into the bottom of it, could reach past the ship's own bottom
+ * edge into the control band underneath. It could: at full intake, past a
+ * particular column and breath phase, the bare contour landed more than half
+ * a tile below it with nothing to stop it — `drawHull`'s own clip rect
+ * reached to `l.height`, the whole canvas, not to the field it was meant to
+ * bound.
+ *
+ * **The bound is `hullBottom` and no longer `bandTop`, and that is a second
+ * defect repaired rather than this one loosened.** Against `bandTop` the ship
+ * ended on a ruled horizontal line, and the dent and the throat drawn in it
+ * were sliced by it. The ship reaches the bottom of its own belly now
+ * (`band-seam.ts`), and the rule this file exists for is unchanged: nothing
+ * the hull draws may reach the chamber where the buttons are.
  *
  * Two guards, matching the two halves of the fix:
  *
- * 1. Whatever `drawHull` draws is clipped no lower than `bandTop` — a frame
- *    that regresses the clip rect back to the full canvas height fails this
- *    immediately, regardless of any lobe math upstream of it.
+ * 1. Whatever `drawHull` draws is clipped no lower than `hullBottom` — a
+ *    frame that regresses the clip rect back to the full canvas height fails
+ *    this immediately, regardless of any lobe math upstream of it.
  * 2. The muzzle's own reach below the tip (`ry` in `drawMuzzle`) never grows
  *    with intake — the growth the old circle spent on getting deeper now
  *    only ever goes sideways (`rx`), so the shape cannot re-introduce the
@@ -68,7 +76,7 @@ function moodAt(intake: number): HullMood {
 }
 
 describe("the maw stays inside the field", () => {
-  it("clips no lower than bandTop, at every intake, column and breath phase", () => {
+  it("clips no lower than the ship's own belly, at every intake, column and breath phase", () => {
     const ctx = new RecordingContext();
     for (let col = 0; col <= CFG.cols - 1; col += 1) {
       for (let ti = 0; ti < 20; ti++) {
@@ -81,9 +89,12 @@ describe("the maw stays inside the field", () => {
         }
       }
     }
+    // And the belly is still the ship's, not the panel's: nothing the hull
+    // draws comes near the row the buttons stand on.
+    expect(hullBottom(L)).toBeLessThan(L.lobeY - L.lobeR);
     expect(ctx.clipRects.length).toBeGreaterThan(0);
     for (const r of ctx.clipRects) {
-      expect(r.y + r.h).toBeLessThanOrEqual(L.bandTop + EPS);
+      expect(r.y + r.h).toBeLessThanOrEqual(hullBottom(L) + EPS);
     }
   });
 

@@ -92,20 +92,56 @@ export function seamBottom(l: Layout): number {
 }
 
 /**
- * The ship's own body, in the sliver the membrane hangs down through.
+ * HOW FAR DOWN THE SHIP GOES — and it is not `bandTop`.
  *
- * `hull.ts` fills its contour down to `bandTop` and stops. Anything the
- * membrane dips below that would be raw background showing through the ship,
- * so the same deep violet the hull ends in is carried the rest of the way —
- * which is what it is: the inside of the belly, above the skin.
+ * It was, and that produced the one straight edge nothing else about this ship
+ * has: the membrane was cut off flat at the top of the panel, so the hull's
+ * fill, its ramp and its key light all stopped in mid-air along a ruled line
+ * with the seam's lit rim a few pixels under it. Two horizontals, read exactly
+ * as drawn — the ship, and then another line separating the controls.
+ *
+ * So the ship ends where its skin does. `seamBottom` is the lowest the
+ * membrane hangs, which is the bottom of the belly, and the panel is drawn
+ * over whatever of the ship lies below the membrane — so the visible edge is
+ * the contour rather than a rectangle's bottom.
+ *
+ * It buys the maw the room it never had as well. At full intake the cannon
+ * lobe inverts most of a tile below the hull line and the throat is drawn in
+ * the bottom of that dent; against `bandTop` both were sliced flat.
+ * `test/swallow-bounds.test.ts` holds this bound rather than the old one, and
+ * the rule it exists for is unchanged: the ship still may not draw into the
+ * chamber where the buttons are, only into its own skin.
+ */
+export function hullBottom(l: Layout): number {
+  return seamBottom(l);
+}
+
+/**
+ * The ship's own body in the sliver the membrane hangs down through — and only
+ * where the hull itself cannot reach.
+ *
+ * It used to be the whole width, because `hull.ts` filled its contour down to
+ * `bandTop` and stopped, so everything the membrane dipped below that was raw
+ * background and this carried the deep violet the hull ends in the rest of the
+ * way. The ship fills its own belly now (`hullBottom`), which is the better
+ * answer: a flat band of one colour under a gradient is exactly the horizontal
+ * cut this shape was drawn to avoid.
+ *
+ * What is left is the strip beside the columns. The hull is clipped to the
+ * field, and a stage wider than it — which the phone never is, and a test or a
+ * director frame may be — would otherwise show background through the dip.
  */
 export function drawSeamFlesh(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   skin: SeatSkin = P1_SKIN,
 ): void {
+  const top = l.bandTop - 1;
+  const height = seamBottom(l) - top;
+  const right = l.gridLeft + l.gridWidth;
   ctx.fillStyle = skin.hull.body[3];
-  ctx.fillRect(0, l.bandTop - 1, l.width, seamBottom(l) - l.bandTop + 1);
+  if (l.gridLeft > 0) ctx.fillRect(0, top, l.gridLeft, height);
+  if (right < l.width) ctx.fillRect(right, top, l.width - right, height);
 }
 
 /**

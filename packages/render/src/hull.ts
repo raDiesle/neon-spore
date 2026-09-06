@@ -1,5 +1,6 @@
 import { LIGHT_HALF, openSmoothPath } from "@neon-spore/content";
 import type { Scar } from "@neon-spore/sim";
+import { hullBottom } from "./band-seam.js";
 import { drawLay } from "./cannon-maw.js";
 import { type Crater, clipOutMouths, drawCraters, craters as findCraters } from "./craters.js";
 import { strokeGlow } from "./glow.js";
@@ -111,19 +112,17 @@ export function drawHull(
   const pts = pointsAcross(f, l, 140);
 
   const right = l.gridLeft + l.gridWidth;
+  const bottom = hullBottom(l);
   const spline = openSmoothPath(pts);
   const body = new Path2D(spline);
-  const filled = new Path2D(`${spline} L ${right} ${l.bandTop} L ${l.gridLeft} ${l.bandTop} Z`);
+  const filled = new Path2D(`${spline} L ${right} ${bottom} L ${l.gridLeft} ${bottom} Z`);
 
-  // The hull is cut off at the columns, not at the window. The contour itself
-  // is unchanged — it is sampled past both edges so it never ends in view — but
-  // nothing of the ship is drawn outside the coordinate field, because that is
-  // where the game ends on a phone and a wider screen may not show more ship.
-  // The bottom edge is `bandTop`, not `l.height`: the field ends where the
-  // control band begins, and everything in this function — the fill already
-  // stops there (`filled`, above) — has to agree, or the one shape with
-  // negative lift (the maw, inverted past the hull line) draws into the
-  // buttons instead of stopping at the skin around it.
+  // The hull is cut off at the columns, not at the window: the contour is
+  // sampled past both edges so it never ends in view, but nothing of the ship
+  // is drawn outside the coordinate field. The bottom edge is `hullBottom` —
+  // not `l.height`, and no longer `bandTop`: the ship ends at its own membrane,
+  // and everything here has to agree with it, or the one shape with negative
+  // lift (the maw, inverted past the hull line) is sliced down its own throat.
   ctx.save();
   // The shake translates the whole hull pass — clip included, so the clipped
   // window shudders with the ship rather than cropping it against a window
@@ -133,7 +132,7 @@ export function drawHull(
   // believes.
   ctx.translate(shake.x, shake.y);
   ctx.beginPath();
-  ctx.rect(l.gridLeft, 0, l.gridWidth, l.bandTop);
+  ctx.rect(l.gridLeft, 0, l.gridWidth, bottom);
   ctx.clip();
 
   // Dark where it is thick, bright at the skin: a jellyfish is mostly the
@@ -141,7 +140,7 @@ export function drawHull(
   // The light is put back on top, by the passes in sheen.ts.
   let top = Number.POSITIVE_INFINITY;
   for (const p of pts) if (p.y < top) top = p.y;
-  const bg = ctx.createLinearGradient(0, top, 0, l.bandTop);
+  const bg = ctx.createLinearGradient(0, top, 0, bottom);
   bg.addColorStop(0, skin_.body[0]);
   bg.addColorStop(0.14, skin_.body[1]);
   bg.addColorStop(0.5, skin_.body[2]);
@@ -165,7 +164,7 @@ export function drawHull(
   // lies on the silhouette and the outline *is* the silhouette here. The
   // direction is `@neon-spore/content`'s `KEY`, the one constant the director's
   // skins and this renderer both read; nothing in this file names an angle.
-  litBox(ctx, filled, l.gridLeft, top, l.gridWidth, l.bandTop - top, LIGHT_HALF.hull);
+  litBox(ctx, filled, l.gridLeft, top, l.gridWidth, bottom - top, LIGHT_HALF.hull);
   // Every crater's geometry, whether or not its hole is open yet — a crack's
   // *position* (`scars.ts`'s `crackOrigin`) reads this unconditional list, so
   // it never moves once drawn. The rim goes round every OPEN crater, not
