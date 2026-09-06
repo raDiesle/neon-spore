@@ -244,32 +244,3 @@ the hand a tile across the way it carries a cord (`scene-script.ts`).
 
 The sentence to beat: a hand on a rock does two things, and the second one is
 the column.
-
-## Every file a new creature must touch is sitting on the 250-line ceiling
-
-- **Found:** 2026-09-06, claude/shielded-meteor-enemy
-- **Taken:** 2026-09-06, claude/queue-every-file-a-new-creature-must-touch-is-sitting
-- **Files:** `packages/sim/src/hash-creature.ts`, `packages/sim/src/events-creature.ts`, `packages/sim/src/creature-state.ts`, `packages/sim/src/bullet-hit.ts`, `packages/sim/src/creature-kinds.ts`, `packages/render/src/comms.ts`, `packages/audio/src/bind-creatures.ts`
-
-Adding THE COIL cost five unplanned splits *before* the creature could land,
-and none of them was a decision this lane wanted to make: `beat.ts` went out to
-`own-step.ts`, THE GYRE's four fields out of `creature-state.ts` to
-`creature-state-gyre.ts`, THE COIL's cues out of `bind-creatures.ts` to
-`bind-coil.ts`, `Cue` out of `bind.ts` to `bind-cue.ts`, and four bodies out of
-`packages/sim/src/index.ts` to `index-bodies.ts`. Three more files —
-`bullet-hit.ts`, `events-creature.ts` and `ship-fields.ts` — only fitted
-because comments were shortened to buy back two or three lines each, which is
-the limit being paid off rather than obeyed.
-
-That is not the limit misbehaving. It is that **the files a creature has to
-touch are exactly the files that grow by a row per creature**, and nineteen
-files in the repository are at 250 exactly today with another thirty within
-five. The seven above are the ones on the path of every new body, so the next
-creature will hit the same wall in the same places, and the split it is forced
-into will again be chosen by whoever happened to be adding a creature that day.
-
-Split them **now, on purpose**, before a lane has to. Each already has a seam
-its own header describes — `creature-state.ts` names its five sub-files,
-`events-creature.ts` names its six, `bind-creatures.ts` names its five — so the
-work is to carry one more group out of each and leave real room. Nothing
-outside `packages/sim` need change; `bun run check` is the proof.

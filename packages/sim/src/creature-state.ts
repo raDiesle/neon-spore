@@ -1,13 +1,10 @@
-import type { CaromDir } from "./carom.js";
-import type { CoilDir } from "./coil.js";
 import type { CrawlerState } from "./creature-state-crawler.js";
 import type { FenceState } from "./creature-state-fence.js";
 import type { GyreState } from "./creature-state-gyre.js";
+import type { HeadingState } from "./creature-state-heading.js";
 import type { HeldState } from "./creature-state-held.js";
 import type { StrandState } from "./creature-state-strand.js";
 import type { VeerState } from "./creature-state-veer.js";
-import type { DartDir } from "./dart.js";
-import type { GhostDir } from "./ghost.js";
 
 /**
  * **The state one kind carries and no other does.** Every field here is
@@ -21,11 +18,12 @@ import type { GhostDir } from "./ghost.js";
  * This is the list that grows, and it has grown by a field for nearly every
  * creature added since THE DART.
  *
- * **Five groups have gone next door**, each a set of fields that only mean
+ * **Six groups have gone next door**, each a set of fields that only mean
  * anything against each other and each with its own argument in its own
  * header: `creature-state-held.ts` (the four a hand writes),
  * `creature-state-strand.ts`, `creature-state-crawler.ts`,
- * `creature-state-fence.ts` and `creature-state-gyre.ts`.
+ * `creature-state-fence.ts`, `creature-state-gyre.ts` and
+ * `creature-state-heading.ts` (the four kinds that carry a direction).
  *
  * `Creature extends CreatureState` rather than nesting it under a key, so
  * every call site still reads `c.ghostLaps` and nothing moved. It is the same
@@ -43,24 +41,10 @@ export interface CreatureState
   extends CrawlerState,
     FenceState,
     GyreState,
+    HeadingState,
     HeldState,
     StrandState,
     VeerState {
-  /**
-   * The dart's three fields, and `dart.ts` is the whole of what they mean.
-   * `dartDir` is the side it is concerned with now (`-1` left, `1` right),
-   * `dartNext` the side of the move after that — rolled a beat early, which is
-   * what lets a path be previewed while the body is still in the air — and
-   * `dartFloat` says which beat of the two it is on: true while it hangs.
-   *
-   * Read the two sides through `dartHeading` and `dartNextHeading`, never
-   * directly: the lean, the jet, the arrow and the previewed legs are five
-   * pictures of two numbers, and a second copy of the fallback is how they
-   * come to disagree.
-   */
-  dartDir?: DartDir;
-  dartFloat?: boolean;
-  dartNext?: DartDir;
   /**
    * The tile THE WISP will stand on after its next hop, packed as
    * `row * cols + col`, absent on every other kind. **Rolled on the beat it
@@ -98,21 +82,6 @@ export interface CreatureState
    * render/ draws and the shot the simulation refuses are one fact.
    */
   colourStruckTick?: number;
-  /**
-   * THE GHOST's two fields, and `ghost.ts` is the whole of what they mean.
-   * `ghostDir` is which way along its row a *crossing* ghost is going (`-1`
-   * left, `1` right) and its presence is the path itself — absent means this
-   * ghost falls like every other body. `ghostLaps` is how many walls it has
-   * already turned at, which is how angry it is, and at `ghostChargeLaps` it
-   * stops prowling and comes down at the hull.
-   *
-   * Read them through `ghostCrosses`, `ghostLaps` and `ghostIsCharging`, never
-   * directly: the picture that drops the camouflage, the step that decides
-   * which way the body moves and the damage the hull takes are three readings
-   * of one count, and a second copy of the threshold is how they disagree.
-   */
-  ghostDir?: GhostDir;
-  ghostLaps?: number;
   /**
    * How many times THE ECHO still divides, and absent on every other kind. It
    * is the only state this creature carries, and it answers three questions at
@@ -169,20 +138,6 @@ export interface CreatureState
    */
   recoilBounces?: number;
   /**
-   * Which way across the field THE CAROM is going (`-1` left, `1` right), and
-   * absent on every other kind. It is the only state this creature carries,
-   * and it answers two questions at once: which column the diagonal reaches
-   * next, and which of the two side walls it is about to turn at.
-   *
-   * Read it through `caromHeading`, never directly. A rock made out of a carom
-   * carries no heading at all — `caromStruck` clears it, because a body that
-   * has stopped crossing has no side to be going to — so absent and "straight
-   * down" mean the same thing, and a site that spelled the fallback again is a
-   * site where the lean render draws and the column the body lands in can
-   * disagree.
-   */
-  caromDir?: CaromDir;
-  /**
    * Whether THE CHUTE's canopy is out, and absent on every other kind. It is
    * the only state this creature carries and it answers two questions at once:
    * which way the body is going — up while it is stowed, down once it is
@@ -225,26 +180,4 @@ export interface CreatureState
    * can disagree about whether a rock may move yet.
    */
   pushBeat?: number;
-  /**
-   * THE COIL's two, and `coil.ts` is the whole of what they mean. `coilDir` is
-   * which way across the field this one is crossing (`-1` left, which is where
-   * every coil sets off) and `coilLit` is the **beat the charge from another
-   * failed dome landed on it** — absent while nothing has been sent its way,
-   * which is what makes the field's absence the answer to "is this one about
-   * to come open".
-   *
-   * Read them through `coilHeading`, `coilCharged` and `coilDue`, never directly.
-   * The bolt render draws, the beat the dome fails on and the wall the body is
-   * heading for are readings of these two numbers, and a second copy of either
-   * fallback is how the picture and the step come to disagree about which
-   * column the pair should be standing in.
-   *
-   * `coilLit` is a moment rather than a countdown, and that is load-bearing
-   * here rather than tidy: a countdown would be ticked by the same loop that
-   * opens the domes, so a body chained by one standing later in
-   * `world.creatures` would lose a beat that one standing earlier kept — a
-   * creature whose timing depended on array order.
-   */
-  coilDir?: CoilDir;
-  coilLit?: number;
 }

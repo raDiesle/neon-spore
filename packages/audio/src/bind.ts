@@ -93,12 +93,10 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     // THE PUSH, the same hand's second gesture. Deliberately not another
     // `ship.gripTake`: the pair has already heard the grab, and a carry that
     // sounded like one would say a hand had landed on something new. What the
-    // seat without the thumb on it needs is the *column*, which the pan says.
-    //
-    // The direction lifts or drops it about a semitone, on top of the row's
-    // own pitch. It is the one thing an ear can be told here that an eye
-    // looking at the other half of the screen cannot see for itself, and the
-    // rock's next column is the whole of what the pair is about to say aloud.
+    // seat without the thumb on it needs is the *column*, which the pan says —
+    // and the direction, which lifts or drops it about a semitone on top of
+    // the row's own pitch. Neither is visible to an eye on the other half of
+    // the screen, and both are what the pair is about to say aloud.
     case "carry":
       return {
         id: "ship.gripCarry",
@@ -204,12 +202,12 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "rindShed":
     case "recoilBounce":
     case "claspBreak":
-    case "lureHit":
-    case "lureSeen":
-    case "lureVanished":
     case "veilMorph":
     case "veilRebuff":
     case "veilTorn":
+    case "lureHit":
+    case "lureSeen":
+    case "lureVanished":
     case "wispHop":
     case "ghostRelease":
     case "ghostTurn":

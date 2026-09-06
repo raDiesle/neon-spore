@@ -1,5 +1,6 @@
 import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol, pitchForRow } from "./bind.js";
+import { veilCue } from "./bind-veil.js";
 
 /**
  * What one **body** did, as a sound: armour chipping, a covering coming off, a
@@ -35,12 +36,12 @@ export function creatureCue(
         | "rindShed"
         | "recoilBounce"
         | "claspBreak"
-        | "lureHit"
-        | "lureSeen"
-        | "lureVanished"
         | "veilMorph"
         | "veilRebuff"
         | "veilTorn"
+        | "lureHit"
+        | "lureSeen"
+        | "lureVanished"
         | "wispHop"
         | "ghostRelease"
         | "ghostTurn"
@@ -55,6 +56,14 @@ export function creatureCue(
   rows: number,
 ): Cue | null {
   switch (e.type) {
+    // THE VEIL's three, next door. `bind-carom.ts` and `bind-coil.ts` are
+    // reached from `cueFor` itself; this one is reached from here, because
+    // what was cut out is a *creature* rather than one arrival taken apart —
+    // the group this file is made of, and the one it grows by.
+    case "veilMorph":
+    case "veilRebuff":
+    case "veilTorn":
+      return veilCue(e, cols, rows);
     // A bolt that arrived on the wrong bearing. Panned and pitched like any
     // other body's moment, and deliberately *not* the wrong-colour sound: the
     // ammunition was right and the angle was not, and a pair that cannot hear
@@ -157,43 +166,6 @@ export function creatureCue(
       // alarm is already on the body and on the strip, and this is one more
       // indicator rather than a replacement for either.
       return { id: "signal.lureWarn", pan: panForCol(e.col, cols), gain: 0.5, seat: 2 };
-    case "veilMorph":
-      // Both devices, and deliberately a sound with no colour in it. What
-      // player 2 has to know is that the call they are holding has just
-      // expired; what they must not be told is what replaced it, and a cue
-      // that came in two flavours would say the second thing every time it
-      // said the first. `creature.moult` is a covering coming off a body and
-      // this is the body changing under one, so it gets its own: the pip that
-      // does not resolve, which is the same sound the strip uses for a veil
-      // nobody can name yet.
-      return {
-        id: "signal.radarUnknown",
-        pan: panForCol(e.col, cols),
-        pitch: pitchForRow(e.row, rows),
-        gain: 0.6,
-      };
-    case "veilRebuff":
-      // Not `impact.reject`. A shot that bounced off armour is spent and
-      // nothing else; this one cost the pair two seconds of a body that is
-      // still turning over underneath, so the ear has to be able to tell the
-      // two apart at the moment player 2 decides whether to fire again. The
-      // cue is the one written for a thing that takes a hit and keeps it,
-      // which is exactly what a cloud shutting over a bolt is.
-      return {
-        id: "impact.absorb",
-        pan: panForCol(e.col, cols),
-        pitch: pitchForRow(e.row, rows),
-      };
-    case "veilTorn":
-      // The cue that was written for this creature and never spent: opaque,
-      // then one bright moment where the core shows. It rides beside the
-      // `destroy` on the same tick, so what the ear gets is the cloud opening
-      // and then the kill, in that order and half a beat apart.
-      return {
-        id: "creature.veilFlash",
-        pan: panForCol(e.col, cols),
-        pitch: pitchForRow(e.row, rows),
-      };
     case "wispHop":
       // The cue that was written for a coordinate grid and never spent — two
       // pips, one for the column and one for the row — played on both devices

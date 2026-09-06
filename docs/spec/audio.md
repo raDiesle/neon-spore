@@ -133,7 +133,7 @@ three things on every row:
 The `BOUND` stamp is not a label anyone maintains: the test reads `bind.ts`,
 `bind-creatures.ts`, `bind-carom.ts`, `bind-coil.ts`, `bind-crawler.ts`,
 `bind-fence.ts`,
-`bind-volley.ts`,
+`bind-veil.ts`, `bind-volley.ts`,
 `bind-fleet.ts`, `bind-breach.ts`, `bind-lookups.ts`, `mixer.ts` and
 `mixer-boss.ts` and fails if a sound claims to
 be wired and is not, or is

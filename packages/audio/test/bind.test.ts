@@ -46,6 +46,10 @@ async function eventTypes(): Promise<string[]> {
     ["packages/sim/src/events-magnet.ts", "export type MagnetEvent ="],
     // And THE COIL's two, cut out for the same reason once more.
     ["packages/sim/src/events-coil.ts", "export type CoilEvent ="],
+    // And THE VEIL's three, cut out on purpose rather than under pressure —
+    // `events-creature.ts` was at its limit and grows by an arm per creature
+    // (`docs/queue.md`, 6 September 2026).
+    ["packages/sim/src/events-veil.ts", "export type VeilEvent ="],
   ] as const) {
     const src = await Bun.file(join(ROOT, file)).text();
     const start = src.indexOf(decl);

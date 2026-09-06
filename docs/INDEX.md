@@ -265,6 +265,11 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/index-creatures.ts` | one creature's own rules, as the rest of the repository reads them |
 | `packages/sim/src/index-run.ts` | the world, the clock, a wave's start and end, and the fingerprint |
 | `packages/sim/src/index-ship.ts` | the ship and what a thumb does to it, as a reading |
+| `packages/sim/src/bullet-hit-lure.ts` | What a shot does when it meets THE LURE |
+| `packages/sim/src/creature-kinds-many.ts` | the five kinds that are more than one body, answered a part at a time |
+| `packages/sim/src/creature-state-heading.ts` | the four kinds that carry a direction, and the beats attached to it |
+| `packages/sim/src/events-veil.ts` | THE VEIL's three events: the turn, the rebuff and the tear |
+| `packages/sim/src/hash-creature-late.ts` | the tail of one body's fingerprint, cut at a position and never a subject |
 
 ### packages/content
 
@@ -656,6 +661,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/coil-jump.ts` | The charge leaving a dome that has just failed and crossing the field to the next one |
 | `packages/render/src/coil.ts` | THE COIL's dome: the shell a rock crosses the field inside, and the three studs the charge leaves it by |
 | `packages/render/src/reach-arm.ts` | THE CLAW's arm, drawn out of the swelling that was the gun |
+| `packages/render/src/comms-talker.ts` | one row per creature: which seat has to say something about it |
 
 ### packages/net
 
@@ -705,6 +711,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-place.ts` | **Where a sound is**: a column as a stereo position, and a row as a pitch |
 | `packages/audio/src/bind-coil.ts` | **THE COIL's two, as sounds**: a dome coming off, and the charge it was holding leaving for the next one |
 | `packages/audio/src/bind-cue.ts` | **What one sound-to-be is**: an id out of the catalogue, where it sits in the stereo field |
+| `packages/audio/src/bind-veil.ts` | THE VEIL's three, as sounds |
 
 ### apps/game
 

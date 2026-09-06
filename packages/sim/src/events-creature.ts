@@ -5,6 +5,7 @@ import type { FenceEvent } from "./events-fence.js";
 import type { GhostEvent } from "./events-ghost.js";
 import type { MagnetEvent } from "./events-magnet.js";
 import type { StrandEvent } from "./events-strand.js";
+import type { VeilEvent } from "./events-veil.js";
 import type { VolleyEvent } from "./events-volley.js";
 import type { Color, CreatureKind } from "./types.js";
 
@@ -93,40 +94,11 @@ export type CreatureEvent =
       kind: CreatureKind;
       color?: Color;
     }
-  /**
-   * The body inside a veil turned over — a slick became a bulb, or the other
-   * way round. `color` is what it is *now*, which is the whole of what player 1
-   * has to say next.
-   *
-   * Both devices carry it, and that is deliberate rather than an oversight of
-   * the split: what player 2 is not told is *which* body, and a cloud that
-   * visibly rolls over its own weather at the moment it turns is a fact both
-   * screens already show. The ear gets the same thing — a turn nobody can read
-   * the colour of — so player 2 knows the call they are holding has expired
-   * without being told what replaced it.
-   */
-  | { type: "veilMorph"; col: number; row: number; color: Color }
-  /**
-   * A shot in the wrong colour struck a veil, and the cloud shut on it for
-   * `veilArmourMs`. Its own event rather than a `reject`, because the ear has
-   * to tell "that did nothing" from "that did something and it was bad": a
-   * rebuff costs the pair a window as well as a shot, and the picture that
-   * follows — red cloud, red lightning — is the only warning player 2 gets
-   * that the next shot will bounce too.
-   */
-  | { type: "veilRebuff"; col: number; row: number }
-  /**
-   * The cloud came apart on a shot that matched, and what was inside it is
-   * visible for the first time on player 2's screen. `kind` is the body that
-   * was in there and `color` the shot that took it — the same colour, since
-   * nothing else opens a veil.
-   *
-   * It rides beside the ordinary `destroy` on the same tick rather than in
-   * place of it: the kill is a kill and gets the kill's burst, its sound and
-   * its score, and this is the half-second of weather that comes off the top
-   * of it (`render/veil-tear.ts`).
-   */
-  | { type: "veilTorn"; col: number; row: number; color: Color; kind: CreatureKind }
+  // THE VEIL's three — the cloud turning its weather over, shutting on a shot
+  // in the wrong colour, and coming apart on one that matched — are
+  // `events-veil.ts`, on the same terms as the six below: one creature taken
+  // apart, in a file of its own because this one is at its limit.
+  | VeilEvent
   /**
    * Every wisp on the field is somewhere else. **It carries no column and no
    * row, and that is the whole of the event**: a cue is panned by column and
@@ -247,4 +219,5 @@ export type { FenceEvent } from "./events-fence.js";
 export type { GhostEvent } from "./events-ghost.js";
 export type { MagnetEvent } from "./events-magnet.js";
 export type { StrandEvent } from "./events-strand.js";
+export type { VeilEvent } from "./events-veil.js";
 export type { VolleyEvent } from "./events-volley.js";

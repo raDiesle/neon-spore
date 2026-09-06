@@ -1,4 +1,5 @@
 import { heldHashParts } from "./hash-creature-held.js";
+import { lateHashParts } from "./hash-creature-late.js";
 import { kindCode } from "./kind-code.js";
 import { spanOf } from "./span.js";
 import type { Creature } from "./types.js";
@@ -137,114 +138,8 @@ export function creatureHashParts(c: Creature): number[] {
   // last carried a column on — in the position those fields have always had
   // (`hash-creature-held.ts`).
   out.push(...heldHashParts(c));
-  // How many bounces THE RECOIL has left. It decides whether the next matching
-  // shot throws the body two rows back up and a lane sideways or takes it off
-  // the field, so two devices that disagree about it disagree about where the
-  // body is a tick later and about whether the column is closed — the loudest
-  // kind of desync there is. The colour the bounce turns over and the lane it
-  // lands in need no fields of their own: they are `c.color` and `c.col` far
-  // above, and `rng.state` in `hash.ts` is what makes both devices roll the
-  // same side. `-1` for a kind that never bounces, which is a value no count
-  // can take, so "not a recoil" and "out of bounces" are never the same number
-  // in the fingerprint.
-  out.push(c.recoilBounces ?? -1);
-  // Which way THE CAROM is going. It decides which column the body reaches on
-  // the next beat and which wall it turns at, so two devices that disagree
-  // about it are two devices holding the same ball on opposite sides of the
-  // field — and one of them has the cannon in a lane nothing arrives in. `0`
-  // for a body that never crosses, which is a value no direction can take, so
-  // "not a carom" and "going left" are never the same number in the
-  // fingerprint. What it *becomes* needs no field of its own: the crust coming
-  // off is `c.kind` at the top of this list, and the width it keeps is
-  // `spanOf` beside it.
-  out.push(c.caromDir ?? 0);
-  // Whether THE CHUTE's canopy is out. It decides which *direction* the body
-  // moves on the next beat, so two devices that disagree about it are two
-  // devices holding one body at one row and pulling it apart — the loudest
-  // desync a single boolean can buy. Absent and false are one state here
-  // (`chuteIsOpen`), so they fold to the same number on purpose.
-  out.push(c.chuteOpen ? 1 : 0);
-  // THE VOLLEY's two. The plate count decides whether the next ward is the one
-  // that opens it, and therefore whether the pair is holding a shield or a
-  // trigger a beat later; and the climb decides whether the body is going up
-  // or down, which is the loudest thing two devices could disagree about — one
-  // screen with a rock arriving and one with a rock leaving. `-1` for a kind
-  // that carries neither, a value no count can take, so "not a volley" and
-  // "out of plates, falling" are never the same numbers in the fingerprint.
-  // What it *becomes* needs no field of its own: the shell coming off is
-  // `c.kind` at the top of this list, and the colour it comes off to reveal is
-  // `c.color` beside it.
-  out.push(c.volleyPlates ?? -1);
-  out.push(c.volleyRise ?? -1);
-  // Which side THE VEER's next change of lane takes, and how wide it is. They
-  // decide the column the rock will be standing in three rows from now, and
-  // therefore the column the shield has to be in when it lands — so two
-  // devices that disagree about either are two devices holding one rock over
-  // two lanes, and one of them wards an empty column. `0` for a kind that
-  // never changes lane, a pair of values neither field can take on a live
-  // veer, so "not a veer" is never the same pair as any real change. When the
-  // next change falls needs no field of its own: it is `c.row` far above,
-  // which `veerRowIsChange` divides.
-  out.push(c.veerDir ?? 0);
-  out.push(c.veerDist ?? 0);
-  // THE STRAND's four. Which thread a bead hangs on, where it hangs along it
-  // and whether it is spent decide between them which beads are still a run at
-  // all; the lit flag decides *which one of that run may be shot*, and it is
-  // rolled afresh after every change (`lightStrandEnd`). So two devices that
-  // disagree about any of the four are two devices where one player's press
-  // kills and the other's swells a raisin back — one field walking in two
-  // directions. `-1` for a body that is not a bead, a value neither an id nor
-  // a place can take, so "not a strand" and "the leftmost bead of one" are
-  // never the same number in the fingerprint. The colour needs no field of its
-  // own: it is `c.color` far above, drawn from the place by `beadColor` on the
-  // beat the thread arrives.
-  out.push(c.strandId ?? -1);
-  out.push(c.strandOrder ?? -1);
-  out.push(c.strandSpent ? 1 : 0);
-  out.push(c.strandLit ? 1 : 0);
-  // THE CRAWLER's three. Which worm a link belongs to and where it sits along
-  // it decide, between them, *where every link on the field is standing*:
-  // a link stands at its rank among the living, so two devices that disagree
-  // about either put the same body in two columns — one player's cannon under
-  // a red segment and the other's under a plate. The heading is the same fact
-  // one beat ahead: it is which way the whole body is about to walk, and which
-  // wall the head is going to reach. `-1` for a body that is not a link, a
-  // value neither an id nor a place can take, and `0` for the heading, which
-  // is a value no direction can take — so "not a crawler" and "the head of
-  // one, walking left" are never the same numbers in the fingerprint.
-  //
-  // What answers each link needs no field of its own: it is `c.color` far
-  // above, written once from `segmentColor` on the beat the worm comes on, and
-  // which links are the two ends follows from the run itself (`linkIsEnd`).
-  out.push(c.crawlerId ?? -1);
-  out.push(c.crawlerOrder ?? -1);
-  out.push(c.crawlerDir ?? 0);
-  // Which columns THE FENCE is open in. It decides whether the wall breaks the
-  // hull or goes over it, so two devices that disagree about it are two
-  // devices where one has the ship intact and the other has it holed — and
-  // they disagree about it *silently*, because the two screens are drawn
-  // differently on purpose and neither player could see the other's. `0` for a
-  // body that is not a wall, a mask no live fence can carry: `fenceMask` never
-  // returns a solid line.
-  out.push(c.fenceGaps ?? 0);
-  // And the columns the cannon has cut in it. The loudest of the two: a burn
-  // is written by a shot rather than by the wave, so it is the half two
-  // devices could actually come to disagree about — and a device that missed
-  // one has the ship holed where the other has it whole.
-  out.push(c.fenceBurns ?? 0);
-  // THE COIL's two. The heading decides which column the body reaches on the
-  // next beat and which wall it sinks at, so two devices that disagree about
-  // it hold one dome on opposite sides of the field — and the beat the charge
-  // landed decides *when it comes open*, which is louder still: one screen has
-  // a rock at a torch's speed coming down and the other has a dome still
-  // crossing. The chain's roll needs no field of its own — it is `rng.state`
-  // in `hash.ts` — and what a dome becomes needs none either, being `c.kind`
-  // at the top of this list and `spanOf` beside it.
-  //
-  // `0` for a heading, which no live coil can carry, and `-1` for the beat,
-  // which no beat can be — so "not a coil" and "crossing left, charge not sent
-  // yet" are never the same pair of numbers in the fingerprint.
-  out.push(c.coilDir ?? 0);
-  out.push(c.coilLit ?? -1);
+  // Everything from THE RECOIL on, in the position those fields have always
+  // had (`hash-creature-late.ts`).
+  out.push(...lateHashParts(c));
   return out;
 }
