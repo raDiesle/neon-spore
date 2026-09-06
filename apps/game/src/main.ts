@@ -22,6 +22,7 @@ import { bindHaptics } from "./haptics.js";
 import { bindControls, InputBuffer } from "./input.js";
 import { interpolationRequested } from "./interpolate.js";
 import { bindIntro } from "./intro.js";
+import { runPerfPage } from "./perf-page.js";
 import { bindPinball } from "./pinball.js";
 import { bindRasterBurst } from "./raster.js";
 import { createRunState } from "./run-state.js";
@@ -225,7 +226,7 @@ const frames = startFrames({
   progression,
 });
 
-installTestingHandle({
+const handle = installTestingHandle({
   world,
   buffer,
   jumpToWave,
@@ -235,3 +236,7 @@ installTestingHandle({
   paint: frames.paint,
   launching: () => renderer.launching,
 });
+
+// `?perf=1` — the sweep `bun run perf` runs, on the device itself rather than
+// on a throttled desktop standing in for one (`perf-page.ts`).
+void runPerfPage(location.href, handle);

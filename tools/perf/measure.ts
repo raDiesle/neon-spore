@@ -3,6 +3,18 @@ import type { Page } from "playwright-core";
 import { clearOpening } from "../frames/opening.js";
 import { arrivalsOf } from "./arrivals.js";
 import type { WaveCost } from "./compare.js";
+import type { Sample } from "./sweep-timing.js";
+import {
+  BATCH,
+  BETWEEN_BATCHES_MS,
+  FRAME_STEP_MS,
+  PEAK_SEARCH_STEP,
+  PEAK_SEARCH_TICKS,
+  SAMPLES,
+  summarise,
+  TICKS_PER_FRAME,
+  WARMUP,
+} from "./sweep-timing.js";
 
 /**
  * One performance run, taken off a real browser driving the real bundle.
@@ -24,44 +36,6 @@ import type { WaveCost } from "./compare.js";
 /** Iterations of the calibration loop. Fixed forever: the figure is only
  * meaningful against another run of the identical loop. */
 export const CALIBRATION_ITERATIONS = 3_000_000;
-
-/** How far a wave is searched for its busiest moment, and in what steps. Six
- * hundred ticks is five seconds of play at 120 Hz, and 2 400 covers the
- * longest wave's arrivals without running past the end of a short one. */
-const PEAK_SEARCH_TICKS = 2_400;
-const PEAK_SEARCH_STEP = 15;
-
-/**
- * Samples per wave, and paints per sample, after 25 discarded to warm the
- * caches — several of the renderer's savings only pay off from the second frame
- * on (`packages/render/test/frame-budget.test.ts` says which).
- *
- * The batch is the load-bearing number. `performance.now()` is clamped to a
- * tenth of a millisecond in Chrome, and the cheapest waves paint in about that
- * — THE GAUGE's fastest frame came back as `0.1`, then as `0.0`, which is a
- * 100% "improvement" in a game nobody had touched. Timing eight paints inside
- * one clock reading divides the quantum by eight and puts a real figure back
- * under the cheap end of the table.
- */
-const SAMPLES = 30;
-const BATCH = 8;
-const WARMUP = 25;
-
-/**
- * Real milliseconds left between batches, which is what spreads a wave's
- * thirty readings over about two seconds instead of two hundred milliseconds.
- *
- * With no wait the whole sample lands inside one short window, so a single
- * transient somewhere else on the machine — a background task waking up, a
- * timer firing — is not an outlier the median discards but the condition
- * *every* batch was taken under. That is what made individual waves swing by a
- * third between runs of identical code while the run's own median held still.
- */
-const BETWEEN_BATCHES_MS = 45;
-
-/** Sim ticks run between paints: the game's own ratio of a 120 Hz tick to a
- * 60 Hz frame, so bodies move between frames exactly as they do in play. */
-const TICKS_PER_FRAME = 2;
 
 export interface Seat {
   seat: "p1" | "p2";
@@ -131,10 +105,8 @@ export async function toPeak(page: Page, waveIndex: number): Promise<number> {
  * rather than about this game. `BATCH` says why the paints inside one reading
  * are grouped rather than timed singly.
  */
-export async function timePaints(
-  page: Page,
-): Promise<{ typical: number; mean: number; p90: number; jitter: number }> {
-  return page.evaluate(
+export async function timePaints(page: Page): Promise<Sample> {
+  const batches = await page.evaluate(
     async ([samples, batch, warmup, ticks, frameMs, gapMs]) => {
       const ns = window.neonSpore;
       if (!ns) throw new Error("window.neonSpore missing");
@@ -178,24 +150,14 @@ export async function timePaints(
       } finally {
         performance.now = realNow;
       }
-      const sorted = [...taken].sort((a, b) => a - b);
-      const mean = taken.reduce((sum, v) => sum + v, 0) / taken.length;
-      const at = (q: number) => sorted[Math.floor(sorted.length * q)] as number;
-      const middle = at(0.5);
-      return {
-        // How unsteady this wave's own sample was: the interquartile spread of
-        // the batches, as a fraction of the middle one. `WaveCost.jitter` says
-        // what it is for.
-        jitter: middle === 0 ? 0 : (at(0.75) - at(0.25)) / middle,
-        // The middle batch, per paint. `WaveCost.typical` says why the middle
-        // and not the cheapest.
-        typical: sorted[Math.floor(sorted.length / 2)] as number,
-        mean,
-        p90: sorted[Math.floor(sorted.length * 0.9)] as number,
-      };
+      return taken;
     },
-    [SAMPLES, BATCH, WARMUP, TICKS_PER_FRAME, 1000 / 60, BETWEEN_BATCHES_MS] as const,
+    [SAMPLES, BATCH, WARMUP, TICKS_PER_FRAME, FRAME_STEP_MS, BETWEEN_BATCHES_MS] as const,
   );
+  // Reduced out here rather than in the page: the arithmetic is the phone
+  // sweep's too, and it is the one part of a measurement a test can hold
+  // (`sweep-timing.ts`).
+  return summarise(batches);
 }
 
 /** The name a player would call a wave, or its number when it has none. */

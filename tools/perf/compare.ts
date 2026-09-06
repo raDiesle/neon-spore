@@ -1,5 +1,6 @@
 import { JITTER_UNUSABLE, NOISE_PCT, noiseFloorFor } from "./noise.js";
 import { shapeOf } from "./shape.js";
+import { FRAME_MS } from "./sweep-timing.js";
 
 /**
  * What a performance run *is*, and what two of them say when held side by side.
@@ -16,8 +17,9 @@ import { shapeOf } from "./shape.js";
  * come through here rather than moving. */
 export { medianMs, mergeInto, shapeOf } from "./shape.js";
 
-/** One 60 Hz frame. Every verdict in this file is a fraction of it. */
-export const FRAME_MS = 16.7;
+/** One 60 Hz frame. Every verdict in this file is a fraction of it, and the
+ * phone readout measures against the same number (`sweep-timing.ts`). */
+export { FRAME_MS };
 
 /**
  * How much slower than the measuring machine the run pretends to be. 4 is what

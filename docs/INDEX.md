@@ -721,6 +721,8 @@ place — the generator keeps whatever is there.
 | `apps/game/src/intro.ts` | THE SIX PAGES A PAIR SEES BEFORE THEY HAVE CHOSEN ANYTHING |
 | `apps/game/src/frame.ts` | WHAT HAPPENS EVERY TICK, AND WHAT HAPPENS EVERY FRAME |
 | `apps/game/src/interpolate.ts` | the picture drawn between ticks rather than on them, behind `?interpolate=1` |
+| `apps/game/src/perf-page.ts` | The readout `?perf=1` puts on the screen |
+| `apps/game/src/perf-sweep.ts` | The performance sweep, run **inside the page**, on the device the game is for |
 
 ### apps/server
 
@@ -1092,5 +1094,6 @@ place — the generator keeps whatever is there.
 | `tools/frames/browser.ts` | THE ONE PLACE A BROWSER IS OPENED, and the one place it is shut |
 | `tools/tmp-litter.ts` | The directories a browser run leaves under `.claude/tmp`, and when one of them is spent |
 | `tools/perf/shape.ts` | PUTTING TWO RUNS ON THE SAME FOOTING, and one row from one of them into the other |
+| `tools/perf/sweep-timing.ts` | The numbers a paint is sampled with, and the statistics taken off the sample |
 
 <!-- index:code:end -->

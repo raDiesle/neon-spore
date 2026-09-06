@@ -114,9 +114,25 @@ other question, and the two are not substitutes for one another.
   clamped to a tenth of a millisecond, and the cheapest waves paint in about
   that.
 
-Two things it does **not** measure. It never runs on a real phone — the throttle
-is a good proxy and not the thing itself. And it says nothing about the network
-or the two-device link, which have their own check in `bun run relay:check`.
+One thing it does **not** measure: the network and the two-device link, which
+have their own check in `bun run relay:check`.
+
+## On the phone itself
+
+`bun run perf` never runs on a phone — the throttle is a good proxy and not the
+thing itself. **`?perf=1` is the other half.** Open the game on the device with
+that flag and it runs the same sweep in the page — every wave, each stepped to
+its busiest tick, sixty paced paints — and draws the table over the screen with
+the median large enough to photograph. The sampling numbers and the arithmetic
+are one module both callers import (`tools/perf/sweep-timing.ts`), so a phone
+row and a desktop row are the same measurement taken on different machines.
+
+**A phone run is compared against other phone runs, never against a throttled
+desktop one.** There is no throttle on a phone to be comparable to, so the page
+records none and says so at the top of the readout; `tools/perf/baseline.json`
+is a desktop file and nothing from the phone goes into it. What a phone run is
+for is the shape of the table — which waves are dear relative to each other on
+the hardware that matters, and whether the worst of them fits in a frame.
 
 ## Comparing two runs
 

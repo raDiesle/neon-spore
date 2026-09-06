@@ -1,5 +1,6 @@
 import { type Command, type SimEvent, setBossRound, step, type World } from "@neon-spore/sim";
 import type { InputBuffer } from "./input.js";
+import type { PerfHandle } from "./perf-sweep.js";
 
 /**
  * `window.neonSpore` — the handle a headless check drives the game by.
@@ -31,9 +32,15 @@ export interface HandleParts {
   launching: () => boolean;
 }
 
-export function installTestingHandle(parts: HandleParts): void {
+/**
+ * Installs the handle and hands it back, so a caller inside the app can drive
+ * the game by the same verbs an outside one does — `?perf=1` sweeps every wave
+ * through `advance` and `paint` exactly as `tools/perf` does over a wire
+ * (`perf-sweep.ts`).
+ */
+export function installTestingHandle(parts: HandleParts): PerfHandle {
   const { world, buffer, progression } = parts;
-  (window as unknown as { neonSpore: unknown }).neonSpore = {
+  const handle = {
     world,
     jumpToWave: parts.jumpToWave,
     dismissBriefing: parts.dismissBriefing,
@@ -110,4 +117,6 @@ export function installTestingHandle(parts: HandleParts): void {
      */
     launching: parts.launching,
   };
+  (window as unknown as { neonSpore: unknown }).neonSpore = handle;
+  return handle;
 }
