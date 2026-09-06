@@ -9,6 +9,34 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · 9061a559 — THE GRATE landed under this lane, so the baseline is taken again with it
+
+A wave arrived on `main` while this was rebasing, and `compare.test.ts` refuses a baseline that does not cover every wave the game ships — correctly, since a wave with no row is a wave nothing can notice getting slower. All 47 measured again on the idle machine: the median is 3.61 ms of a 16.7 ms frame, THE GRATE is cheap at 3.26, and the dearest picture is still THE GHOST at 8.8 ms on the 90th percentile.
+
+## 2026-09-06 · 13e78bad — The perf baseline is measured, so nothing is parked any more
+
+`docs/parked.md` is empty again. The entry said the branch was rebased and green apart from one test; what it actually needed was the whole tool landing — the three commits had never reached `main` at all — and a run taken on a machine with nothing else on it.
+
+## 2026-09-06 · cb6fc62a — The perf section is paid for out of prose that was already written down twice
+
+`CLAUDE.md` had twenty-seven characters of headroom under its 22,000 ceiling, and `bun run perf` needs a section. The ceiling is not the thing to move: the file is re-read on every turn of every session, and an edit invalidates the cache that would otherwise bill the re-read at a tenth of the price.
+
+## 2026-09-06 · f7c533f7 — Re-measure the baseline over all 46 waves, on a machine with nothing else on it
+
+The saved run covered 45 waves and the game ships 46, so `compare.test.ts` refused it and the branch could not land. It also carried THE GHOST at 13.26 ms, over budget — which was never a fact about the game. Three attempts on 5 September were each taken with other sessions on the machine and each flagged a different wave, because the 90th percentile of a handful of paints measures the load rather than the frame.
+
+## 2026-09-05 · 2164388f — Re-measure the perf baseline over all 45 waves
+
+The lane was written when the game shipped 38, and seven waves have landed since — THE GYRE through THE STRAND — so the checked-in baseline no longer covered the game and `compare.test.ts` failed on the count. Measured again on the same terms. CLAUDE.md's new section is trimmed by the few characters that put the file over its ceiling; the detail it dropped is in `docs/performance.md`.
+
+## 2026-09-04 · e5dbbcbb — `bun run perf`, and the numbers it agrees with today
+
+What a frame costs, wave by wave, with the CPU genuinely slowed to a phone's: `Emulation.setCPUThrottlingRate` over the DevTools protocol, on the built bundle a preview serves, driven through the handle `tools/frames` already uses. It is not a substitute for `frame-budget.test.ts` — an op count is exact and is not a millisecond — and neither answers the other's question. The baseline goes in beside it, so the next run says what moved rather than only what it costs, and `docs/performance.md` carries the mechanism and where the time actually goes.
+
+## 2026-09-03 · ffff195c — Five performance findings, measured rather than guessed
+
+All 38 waves timed in Chrome at 390x844 dpr2 with the CPU throttled through `Emulation.setCPUThrottlingRate`, each wave entered properly and stepped to the tick it carries the most bodies. Nothing in the game threatens a 60 Hz frame: the dearest picture is THE GHOST at 7.06 ms mean, 8.8 ms at the 90th percentile, against a 16.7 ms budget, and the simulation costs 0.05 ms for all 120 ticks of a second together.
+
 ## 2026-09-06 · 3bcd173b — Three lanes from 3–4 September are resolved, and none of them by replaying
 
 The interpolation one is rebuilt against current `main` — ordinary work, redone rather than replayed, because the loop it patches has moved into `frame.ts` since. The panel one is rebuilt in two halves: the cut-off hull is a defect and lands, and the two buttons that carried words are a look and go to VERSUS. Its third half, the fire buttons wearing their creatures, had already reached `main` by another route.
