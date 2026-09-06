@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · c048dec9 — The hull and the bodies reach the canvas as numbers, not as text
+
+`openSmoothPath` and `blobPath` return an SVG path *string*, built with `toFixed(2)` on every coordinate, and every caller in `render/` handed that string straight to `new Path2D(...)`, which parsed the decimal text back into the numbers it was made from. The hull's contour is 141 points: 840 `toFixed` calls and a five-thousand-character string, on every frame of every wave, because the hull is always there.
+
 ## 2026-09-06 · 18a4ac80 — A landing from a clone writes its release note like any other
 
 `bun run land` in a clone with no worktrees printed `no release note — nothing has main checked out` and moved on. That is the shape every session started from a phone runs in, so every landing that reached `origin/main` from one was a landing the release notes never heard about — and the commit message turned into a note is the only part of a landing anybody sees twice.
