@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · 18a4ac80 — A landing from a clone writes its release note like any other
+
+`bun run land` in a clone with no worktrees printed `no release note — nothing has main checked out` and moved on. That is the shape every session started from a phone runs in, so every landing that reached `origin/main` from one was a landing the release notes never heard about — and the commit message turned into a note is the only part of a landing anybody sees twice.
+
 ## 2026-09-06 · 070d033f — The two tables a creature is added to have room for the next one again
 
 `creatures-table.ts` and `mechanics-table.ts` are both total over their roster, so a new creature costs each of them a row, and both stood at exactly the 250-line limit `limits.test.ts` enforces. THE FENCE fitted only because its rows were written short and a comment was trimmed to make room; the next creature would not have fitted at all, and the lane that hit it would have been a lane that came to add a creature rather than to choose a seam.
