@@ -146,21 +146,33 @@ which releases it. A session draining several in one sitting claims each with
 `bun run queue take <n|title>` instead: the same claim, no prompt and no
 worktree.
 
-**An idea for the game is not collected.** What the game could have and does
-not — a creature, a mechanic, a control, a weapon, a boss, a round — is a
-decision, and a decision drains only through the owner. Unasked, it goes in
-`docs/spec/`, which is what the director's `◇ NOT BUILT YET` sheet reads, next
-to the built things it would sit beside. A *look* is offered in `tools/versus/`
-instead, because the only way to choose one is to see it. Neither is ever filed
-into the queue by the session that thought of it.
+**A topic that needs the owner's answer is queued too, on an `Asks:` line.**
+That is a rule the owner changed on 6 September 2026, and it reverses what this
+section used to say. The test is not whether a decision is involved — it is
+**whether there is work waiting on it**. Work that is decided, sized and
+sitting in named files, held up by one sentence from him, goes in
+`docs/queue.md` like anything else, with
+`- **Asks:** <question ending in a question mark>` under `Files:`. The listing
+then marks it `ASKS THE OWNER`, and `bun run queue next` hands the session a
+prompt that puts the question first and says to build nothing until it is
+answered. The body must still **name the options the answer picks between**: a
+bare "what should this look like" is not an entry.
 
-**But it may be put to the owner, at the end of the turn that found it.** A
-session working on something else that sees a feature the game wants — a
+**An idea for the game is still not collected.** What the game could have and
+does not — a creature, a mechanic, a control, a weapon, a boss, a round — has no
+lane waiting on it, so it goes in `docs/spec/`, which is what the director's
+`◇ NOT BUILT YET` sheet reads, next to the built things it would sit beside. A
+*look* with something already shipped in its place is offered in `tools/versus/`
+instead, because the only way to choose between two is to see both. Neither is
+filed into the queue by the session that thought of it.
+
+**Either may still be put to the owner, at the end of the turn that found it.**
+A session working on something else that sees a feature the game wants — a
 control, a screen, a way in, anything a player would notice — says so in the
 report: one line each, and the question of where it should go. The owner
-answers, item by item: onto `docs/queue.md`, into `docs/spec/`, or nowhere.
-That is the *only* way a user-visible feature reaches the queue. Ask once, at
-the end, in a batch — never mid-task, and never as a background-task chip.
+answers, item by item: onto `docs/queue.md`, into `docs/spec/`, or nowhere. Ask
+once, at the end, in a batch — never mid-task, and never as a background-task
+chip.
 
 **Half-done work goes in `docs/parked.md`** — a refactor abandoned when it
 grew, a test skipped with a reason, a migration done in three files out of

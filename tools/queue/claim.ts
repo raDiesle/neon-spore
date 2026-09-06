@@ -147,9 +147,23 @@ export function promptFor(item: Item, branch: string): string {
   const from = item.source === "parked" ? "docs/parked.md" : "docs/queue.md";
   const tree = branch.replace(/^claude\//, "");
   return [
-    `Work this item on Neon Spore. It is a technical improvement, not a look —`,
-    `it lands on main like any refactor. Read CLAUDE.md first.`,
+    `Work this item on Neon Spore. Read CLAUDE.md first.`,
     "",
+    ...(item.asks
+      ? [
+          // The whole difference an `Asks:` makes, said at the top where a
+          // session reads it before it starts building the wrong thing.
+          `**This one opens with a question, and the owner answers it.** Put it`,
+          `to them before you write anything, in one message, with the options`,
+          `the body names:`,
+          "",
+          `    ${item.asks}`,
+          "",
+          `Their answer is the spec. If it has not arrived by the time you have`,
+          `everything else ready, say so and land nothing that depends on it.`,
+          "",
+        ]
+      : [`It is a technical improvement, not a look — it lands on main like any`, `refactor.`, ""]),
     `The branch is already made and is your claim on the item — check it out in`,
     `its own worktree, do not make another:`,
     "",

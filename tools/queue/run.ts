@@ -37,10 +37,15 @@ if (!command || command === "list") {
   } else {
     for (const [i, item] of items.entries()) {
       const held = claimOn(item, known);
-      const tag = item.source === "parked" ? " (parked, half-done)" : "";
+      const parked = item.source === "parked" ? " (parked, half-done)" : "";
+      // The owner reads this list to find what is waiting on *them*, so the
+      // mark goes on the title line rather than under it — a question three
+      // lines down is a question found by whoever was already reading.
+      const tag = `${item.asks ? " — ASKS THE OWNER" : ""}${parked}`;
       console.log(`${String(i + 1).padStart(2)}. ${item.title}${tag}`);
       console.log(`    ${item.found}`);
       console.log(`    ${item.files.join(", ")}`);
+      if (item.asks) console.log(`    ${item.asks}`);
       if (held) console.log(`    taken — ${held}`);
     }
     const free = unclaimed(items, known).length;

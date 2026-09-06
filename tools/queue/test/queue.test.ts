@@ -45,6 +45,51 @@ describe("parseItems", () => {
   });
 });
 
+const ASKING = `## The relief says the wrong word
+
+- **Found:** 2026-09-06, claude/some-lane
+- **Files:** \`packages/content/src/controls.ts\`
+- **Asks:** Leave the two words, hang a caption, or widen the lobe?
+
+Why the short label is what fits, and what each of the three costs.
+`;
+
+describe("an entry that asks the owner something", () => {
+  it("reads the question off the Asks: line", () => {
+    expect(parseItems(ASKING, "queue")[0]?.asks).toBe(
+      "Leave the two words, hang a caption, or widen the lobe?",
+    );
+  });
+
+  it("leaves asks empty on an entry that needs nobody's answer", () => {
+    expect(parseItems(ENTRY, "queue")[0]?.asks).toBe("");
+  });
+
+  it("is otherwise an ordinary entry a cold session could act on", () => {
+    expect(problemsIn(parseItems(ASKING, "queue"))).toEqual([]);
+  });
+
+  it("catches an Asks: line that is not a question", () => {
+    // A line reading like a task is one the owner agrees with and still cannot
+    // answer, which is the whole failure the field exists to prevent.
+    const md = ASKING.replace(/- \*\*Asks:\*\*.*\n/, "- **Asks:** Widen the lobe.\n");
+    expect(problemsIn(parseItems(md, "queue"))[0] ?? "").toContain("not a question");
+  });
+
+  it("puts the question at the top of the prompt the session is handed", () => {
+    const item = parseItems(ASKING, "queue")[0]!;
+    const prompt = promptFor(item, branchFor(item));
+    expect(prompt).toContain("Leave the two words, hang a caption, or widen the lobe?");
+    // Before the body, so nobody starts building the wrong one of the three.
+    expect(prompt.indexOf("opens with a question")).toBeLessThan(prompt.indexOf("## "));
+  });
+
+  it("says nothing about a question on an entry that carries none", () => {
+    const item = parseItems(ENTRY, "queue")[0]!;
+    expect(promptFor(item, branchFor(item))).not.toContain("opens with a question");
+  });
+});
+
 describe("problemsIn", () => {
   it("passes an entry a cold session could act on", () => {
     expect(problemsIn(parseItems(ENTRY, "queue"))).toEqual([]);

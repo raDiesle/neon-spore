@@ -15,22 +15,27 @@ here before anything in `docs/queue.md`, because half-done work is the only
 kind that gets harder while it waits; `bun run queue next` hands it to a fresh
 session as a prompt, and that session removes the entry in the commit that
 finishes it. Nothing here waits for the owner to decide anything — if it does,
-it is not parked work.
+it is not parked work, and `docs/queue.md`'s `Asks:` line is where it goes.
 
 **It is not the backlog, and it must never grow into one.** What the game could
 have and does not — a creature, a mechanic, a control, a weapon, a boss, a round
 — belongs in `docs/spec/`, which is what the director's `◇ NOT BUILT YET` sheet
 reads. That page is the owner's own working surface: he picks from it by hand,
-in a session he opens, and nothing on it is waiting for an answer. An idea filed
-here instead is filed away from the built things it would sit beside, on a page
-nobody opens — which is what happened last time and why sixty-two entries had to
-be deleted by hand.
+in a session he opens. An idea filed here instead is filed away from the built
+things it would sit beside, on a page nobody opens — which is what happened last
+time and why sixty-two entries had to be deleted by hand.
 
 The test, if an entry is borderline: **would a session need this to finish
 something already started?** Yes, it belongs here. No — it is a thing the game
 could be rather than a thing half-done — it belongs in the spec. A technical
 improvement nobody has started belongs in `docs/queue.md`, which drains the
 same way.
+
+**Work waiting on an answer is not parked work.** This file used to say nothing
+here waits for the owner to decide anything, and that is still true of *this*
+file — but it is no longer a thing with nowhere to go. `docs/queue.md` takes an
+entry whose first step is a question, on an `Asks:` line; park something here
+only when a session actually started it and stopped.
 
 **One `##` per parked item**, in the same shape a queue item takes, because the
 same tool reads both and the same session picks either one up cold:

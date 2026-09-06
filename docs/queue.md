@@ -1,8 +1,8 @@
 # Queue
 
-Technical work a session found and did not do. Every entry here is waiting for
-a session of its own, and every entry here drains without the owner deciding
-anything.
+Work a session found and did not do. Every entry here is waiting for a session
+of its own, and most of them drain without the owner deciding anything — the
+ones that do not say so on their own line.
 
 **What belongs here.** A refactor stepped around, a rule re-derived instead of
 called, a file grown past ~250 lines, dead code, a slow path, a missing test, a
@@ -13,6 +13,21 @@ same tax in minutes and in tokens. The test is one question: **could a fresh ses
 with `bun run check`?** Yes — it goes here, in the same commit as the work that
 found it, without asking first.
 
+**And a topic that asks the owner something belongs here too**, on an
+`- **Asks:** <question>` line. That is a change the owner made on 6 September
+2026, and it reverses the paragraph this file used to carry. What it fixes is
+where such a thing was going instead: a question filed in `docs/spec/` is on a
+page nobody opens on the way to work, so it was read the day it was written and
+never again. Here it is in front of whoever runs `bun run queue`, the listing
+marks it `ASKS THE OWNER`, and `next` hands the session a prompt that puts the
+question first and says to build nothing until it is answered.
+
+Such an entry is otherwise an ordinary one and is held to the same test — it is
+claimed, worked in its own lane and removed by `queue done` — so the body still
+has to say what to change and still has to **name the options the answer picks
+between**. "What should this look like?" is not an entry. "Three places it
+could be drawn, and here is what each costs" is.
+
 **And nowhere else.** Not the report, which scrolls away — the next session
 clones `origin` and sees only files. Not a suggested background task either:
 this file *is* the mechanism, and a chip is a popup the owner has to dismiss
@@ -20,13 +35,20 @@ that says nothing `bun run queue` does not already say to whoever asks it. A
 finding written here is read by every session that comes after; a finding
 offered as a chip is read once, by the one person the queue exists to spare.
 
-**What does not.** A thing the game could be — a creature, a mechanic, a
-control, a weapon, a boss, a round — is a decision, and a decision drains only
-through the owner. It goes in `docs/spec/`, where the director's
+**What still does not.** A thing the game could be — a creature, a mechanic, a
+control, a weapon, a boss, a round — goes in `docs/spec/`, where the director's
 `◇ NOT BUILT YET` sheet reads it next to the built things it would sit beside.
-A *look* is not queued either: it is offered in `tools/versus/`, because the
-only way to choose one is to see it. Mixing decisions into this file is exactly
-what buried the last one under sixty-two entries nobody could face.
+A *look* with a shipped alternative is offered in `tools/versus/`, because the
+only way to choose between two is to see both.
+
+The line between those and an `Asks:` entry is **whether there is work waiting
+on the answer**. A creature nobody has built is a page in the spec: there is no
+lane held up by it, and the owner picks from that sheet when he opens a session
+to. A control that is drawn but says the wrong word is an entry here: the work
+is decided, sized and sitting in named files, and the only thing missing is one
+sentence from him. Filing the first kind here is what buried the queue last
+time under sixty-two entries nobody could face, and that has not stopped being
+true — the new rule widens the door by one hinge, not off them.
 
 **Draining it.** `bun run queue` lists what is waiting, half-done work from
 `docs/parked.md` first, and says which items somebody is already on.
@@ -90,10 +112,27 @@ What is wrong, what to do about it, and anything the code does not already
 say. Written for somebody who was not there.
 ```
 
-A third line, `- **Taken:** 2026-09-04, claude/queue-one-line-saying-what`, sits
-between the two while somebody is on it. Nobody writes or deletes it by hand:
+`- **Taken:** 2026-09-04, claude/queue-one-line-saying-what` sits between the
+two while somebody is on it. Nobody writes or deletes it by hand:
 `bun run queue next` puts it there and `release` or `done` takes it away, and an
 entry that already has one is refused rather than overwritten.
+
+`- **Asks:** <question>` is the fourth line, and it is the only one a finder
+writes on purpose. It goes under `Files:`, it has to end in a question mark —
+the parser refuses one that does not, because an `Asks:` reading like a task is
+a line the owner agrees with and still cannot answer — and it makes the listing
+say `ASKS THE OWNER`. Write the question so it can be answered in a sentence,
+and let the body carry the options it picks between:
+
+```
+## The relief says HOLD FIRE, not the sentence asked for
+
+- **Found:** 2026-09-06, claude/some-lane
+- **Files:** `packages/content/src/controls.ts`
+- **Asks:** Leave the two words, hang a caption over the band, or widen the lobe?
+
+Why the short label is what fits today, and what each of the three costs.
+```
 
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
@@ -118,10 +157,11 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 `{ modules, script, durableObjects }`, and `convertV4MiniflareOptions` is the
 shim that shows what the new shape wants if it changed again.
 
-## ANSWER NEEDED — nothing on the field says the dome is torn
+## Nothing on the field says the dome is torn
 
 - **Found:** 2026-09-06, claude/control-set-malfunction-mods-vv9icb
 - **Files:** `packages/render/src/malfunction-look.ts`, `packages/render/src/band-channel.ts`, `packages/sim/src/barb.ts`
+- **Asks:** Draw the scar on player 2's shield strip, on player 1's trigger, or on the dome itself?
 
 THE BARB catches the dome and `domeScarred` then makes `guardArmed` answer false
 for `barbScarBeats`. Nothing draws that. The trigger simply stops lighting, and
@@ -153,10 +193,11 @@ is one file, and it does not collide with a fault already drawing on the lobes.
 Count the beats down visibly either way — how *long* is the half the pair has to
 say out loud.
 
-## ANSWER NEEDED — the relief says HOLD FIRE, not the sentence asked for
+## The relief says HOLD FIRE, not the sentence asked for
 
 - **Found:** 2026-09-06, claude/control-set-malfunction-mods-vv9icb
 - **Files:** `packages/content/src/controls.ts`, `packages/render/src/band-control.ts`, `packages/render/src/malfunction-look.ts`
+- **Asks:** Leave the two words, hang a caption over the band, or widen that one lobe?
 
 The owner asked for the relief to say what it pauses — *"Pause p2 cannon
 malfunction"* — and it says `HOLD FIRE` and `HOLD DOME`. That is not a

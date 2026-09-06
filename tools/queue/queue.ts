@@ -8,6 +8,14 @@
  * set aside half-done is the same kind of thing as work nobody started: a
  * session with nothing else in it can finish either, and only one of the two
  * rots while it waits.
+ *
+ * **An entry may open with a question for the owner** (`Asks:`), and the
+ * sentence at the top of this file used to say it may not. The owner changed
+ * that rule on 6 September 2026 and the reason is the one the old rule was
+ * built to protect: a decision the owner has not made was going into
+ * `docs/spec/`, which nobody opens on the way to work, so it was read the day
+ * it was written and never again. Here it is in front of whoever runs
+ * `bun run queue`, and the session that picks it up asks before it builds.
  */
 
 export type Source = "queue" | "parked";
@@ -25,6 +33,21 @@ export type Item = {
   readonly taken: string;
   /** Paths the next session should open first. */
   readonly files: readonly string[];
+  /**
+   * The `Asks:` line's text, or "" when the item needs nobody's answer.
+   *
+   * An entry carrying one is work whose **first step is a question**: the
+   * session that picks it up puts it to the owner, waits, and builds what comes
+   * back. Everything else about such an entry is ordinary — it is claimed the
+   * same way, worked in its own lane and removed by `queue done` — so the body
+   * still has to say what to change, and still has to name the options the
+   * answer picks between, or the question is one nobody can answer quickly.
+   *
+   * A field rather than a word in the title, which is where it started: the
+   * title is capped at 80 characters and an `ANSWER NEEDED —` prefix spent a
+   * fifth of them on saying what a field says once.
+   */
+  readonly asks: string;
   /** Everything under the heading, comments and blank edges removed. */
   readonly body: string;
 };
@@ -33,6 +56,7 @@ const HEADING = /^##\s+(\S.*?)\s*$/;
 const FOUND = /^-\s+\*\*Found:\*\*\s+(\d{4}-\d{2}-\d{2}\b.*)$/;
 const TAKEN = /^-\s+\*\*Taken:\*\*\s+(\S.*)$/;
 const FILES = /^-\s+\*\*Files:\*\*\s+(\S.*)$/;
+const ASKS = /^-\s+\*\*Asks:\*\*\s+(\S.*)$/;
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}/;
 
 /**
@@ -83,6 +107,7 @@ export function parseItems(md: string, source: Source): Item[] {
       found: fieldOf(text, FOUND),
       taken: fieldOf(text, TAKEN),
       files: splitFiles(fieldOf(text, FILES)),
+      asks: fieldOf(text, ASKS),
       body: text,
     });
   };
@@ -124,6 +149,14 @@ export function problemsIn(items: readonly Item[]): string[] {
       .filter((l) => l.trim() && !l.trim().startsWith("- **"))
       .join("");
     if (!prose.trim()) problems.push(`${where} — nothing but fields; say what to change and why`);
+    // An `Asks:` line is a question somebody has to be able to answer in a
+    // sentence, which means the body has to have laid the choice out. Prose is
+    // already required above; what this adds is that the question is a
+    // question — an `Asks:` reading like a task is an entry whose owner will
+    // read it, agree, and still not know what was wanted from them.
+    if (item.asks && !item.asks.includes("?")) {
+      problems.push(`${where} — the Asks: line is not a question`);
+    }
   }
   return problems;
 }
