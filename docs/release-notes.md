@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · 3b68f226 — THE GHOST's frame is 58% cheaper on the seat that can see it
+
+Timed through a null canvas at 390x844 dpr 3, at the tick the wave carries the most bodies. The queue entry blamed `ghost-row.ts` on player 2; both halves of that were wrong. The band is drawn on **player 1**, the seat that is *not* shown the body, and it costs 3 us. What made player 2 dear was `ghost-trail.ts`:
+
 ## 2026-09-06 · eb3515ce — A frame can be measured on the phone it is for, at ?perf=1
 
 `bun run perf` measures every wave in a headless Chrome with the CPU throttled to DevTools' mid-tier-mobile setting, and `docs/performance.md` already said what that is worth: a good proxy, and not a phone. This is the half that needs no proxy. Open the game on the device with `?perf=1` and it runs the same sweep in the page — every wave, each stepped to its busiest tick, warmed and then timed in paced batches — and draws the table over the screen, with the median and the worst wave large enough to photograph. The rows also go to the console as JSON for the case where a cable is attached.
