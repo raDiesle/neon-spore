@@ -409,7 +409,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/torch.ts` | the torch: a rock drawn at whatever width its body carries, with an ember ring and a tail |
 | `packages/render/src/torch-alarm.ts` | the role-aware banner and pulsing band a torch in the queue triggers |
 | `packages/render/src/bullets.ts` | shots and their tails |
-| `packages/render/src/effects.ts` | deflection, shockwave, DEFLECTED, the swallow's timing |
+| `packages/render/src/effects.ts` | every transient the field keeps past its frame, and where each one is kept |
 | `packages/render/src/sparks.ts` | the particles every impact spends, thrown out or drawn in |
 | `packages/render/src/balance.ts` | the screen after the run, drawn |
 | `packages/render/src/hud.ts` | hull, score, beat, the guard balance, overlays |
@@ -676,6 +676,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/fence-exit.ts` | **A wall leaving the ship it did not touch.** A fence that finds the dome standing in one of its ways through… |
 | `packages/render/src/fence-skull.ts` | **The skull the current draws over the dome when the wall above it is shut.** A fence is answered by the… |
 | `packages/render/src/grip-arrows.ts` | THE PUSH, said before it happens: the two white arrows beside a held rock, and the beat they go out for |
+| `packages/render/src/effects-ship.ts` | the ship's own clocks: the swallow, the fire opening, the deflection flash, the queen's shudder |
 
 ### packages/net
 

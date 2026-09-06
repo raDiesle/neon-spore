@@ -1,23 +1,22 @@
 import type { SimConfig, SimEvent, World } from "@neon-spore/sim";
 import { Arrivals } from "./arrivals.js";
-import { drawBanner } from "./banner.js";
 import { CoordGrid } from "./coord-grid.js";
 import { CrawlerFx } from "./crawler-fx.js";
 import { DeflectFx } from "./deflect.js";
 import { BodyTransients } from "./effects-body.js";
-import { ingestOne, QUEEN_SHAKE_LIFE } from "./effects-ingest.js";
+import { ingestOne } from "./effects-ingest.js";
+import { ShipMoods } from "./effects-ship.js";
 import { burstFor } from "./effects-spark.js";
 import { FleetFx } from "./fleet-fx.js";
 import { GhostTrail } from "./ghost-trail.js";
 import type { SurfaceY } from "./hull-frame.js";
-import { LayEcho } from "./lay-echo.js";
+import type { LayEcho } from "./lay-echo.js";
 import type { Layout } from "./layout.js";
 import { OpeningFx } from "./opening-fx.js";
 import { RockImpactFx } from "./rock-impact.js";
 import { MirrorFx } from "./simon-fx.js";
 import { Sparks } from "./sparks.js";
 import { SpriteBursts } from "./sprite-burst.js";
-import { SwallowFx } from "./swallow.js";
 import { WardenFx } from "./warden-fx.js";
 
 /**
@@ -40,11 +39,13 @@ export class Effects {
    */
   readonly rockImpact = new RockImpactFx();
   private blockedUntil = new Map<number, number>();
-  private guardHit = 0;
-  /** Taking a pod in — its own two-part clock, see `swallow.ts`. */
-  private swallow = new SwallowFx();
-  /** Counts down after she loses a petal. There is only ever one queen. */
-  private queenShakeUntil = 0;
+  /**
+   * The ship's own clocks — the swallow, the fire opening, the deflection
+   * flash and the queen's shudder, with the banner the last two write
+   * (`effects-ship.ts`). Public because `ingestOne` is handed it whole; the
+   * getters below keep every name a caller already reads.
+   */
+  readonly ship = new ShipMoods();
   /** Which impacts have visibly landed. Public: the hull asks before it
    * draws a scar's crack (`arrivals.ts`, `scars.ts`'s `arrived`). */
   readonly arrivals = new Arrivals();
@@ -75,13 +76,12 @@ export class Effects {
    * looks exactly as it shipped. See `sprite-burst.ts` and `docs/raster.md`.
    */
   readonly spriteBursts = new SpriteBursts();
-  /** The fire opening relaxing after a shot — `canvas2d.ts` folds it onto
-   * `HullMood.lay`, the way it reads `armed` off the mirror. */
-  readonly layEcho = new LayEcho();
-  /** The two clocks a wave's opening needs and a world standing still cannot
+  /**
+   * The two clocks a wave's opening needs and a world standing still cannot
    * give it: how long the page that is up has been up, and the blobs a circle
    * throws when it says READY. Public for the mirror's reason — `briefing.ts`
-   * draws the opening, and this is only where it is kept and cleared. */
+   * draws the opening, and this is only where it is kept and cleared.
+   */
   readonly opening = new OpeningFx();
   /**
    * Where every ghost has just been. Public and driven from the field pass
@@ -106,23 +106,28 @@ export class Effects {
     return this.blockedUntil;
   }
 
-  /** 0..1, how hard the queen is shuddering right now. */
+  /** The five below are the ship's own, read straight off `ship`. They stay
+   * spelled out here because `field-pose.ts`, `boss-draw.ts` and the tests ask
+   * `Effects` for them, and which object keeps the clock is this file's
+   * business rather than theirs. */
+  get layEcho(): LayEcho {
+    return this.ship.layEcho;
+  }
+
   get queenShake(): number {
-    return Math.max(0, this.queenShakeUntil / QUEEN_SHAKE_LIFE);
+    return this.ship.queenShake;
   }
 
   get deflectFlash(): number {
-    return this.guardHit;
+    return this.ship.deflectFlash;
   }
 
-  /** 0..1 while the membrane around the maw is coming apart. */
   get chew(): number {
-    return this.swallow.chew;
+    return this.ship.chew;
   }
 
-  /** 0..1 for the light that goes through the ship once the pod is inside. */
   get charge(): number {
-    return this.swallow.charge;
+    return this.ship.charge;
   }
 
   ingest(
@@ -156,16 +161,9 @@ export class Effects {
         rockImpactFx: this.rockImpact,
         arrivals: this.arrivals,
         deflectFx: this.deflectFx,
-        swallow: this.swallow,
-        layEcho: this.layEcho,
+        ship: this.ship,
         crawler: this.crawler,
         blockedUntil: this.blockedUntil,
-        setGuardHit: (v) => {
-          this.guardHit = v;
-        },
-        setQueenShake: (v) => {
-          this.queenShakeUntil = v;
-        },
         burst: (x, y, n, hex) => this.sparks.burst(x, y, n, hex),
       });
     }
@@ -184,10 +182,7 @@ export class Effects {
       if (left <= 0) this.blockedUntil.delete(id);
       else this.blockedUntil.set(id, left);
     }
-    this.guardHit = Math.max(0, this.guardHit - dt);
-    this.swallow.update(dt);
-    this.queenShakeUntil = Math.max(0, this.queenShakeUntil - dt);
-    this.layEcho.update(dt);
+    this.ship.update(dt);
     this.mirror.update(dt);
     this.warden.update(dt);
     this.bodies.update(dt);
@@ -228,10 +223,7 @@ export class Effects {
     this.rockImpact.clear();
     this.arrivals.clear();
     this.blockedUntil.clear();
-    this.guardHit = 0;
-    this.swallow.clear();
-    this.queenShakeUntil = 0;
-    this.layEcho.clear();
+    this.ship.clear();
     this.mirror.clear();
     this.warden.reset();
     this.fleet.clear();
@@ -245,6 +237,6 @@ export class Effects {
 
   /** The word itself, over the hull — DEFLECTED, or a pod's one-word receipt. */
   drawBanner(ctx: CanvasRenderingContext2D, l: Layout): void {
-    drawBanner(ctx, l, this.guardHit, this.swallow);
+    this.ship.drawBanner(ctx, l);
   }
 }

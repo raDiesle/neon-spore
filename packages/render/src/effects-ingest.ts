@@ -4,14 +4,13 @@ import type { CrawlerFx } from "./crawler-fx.js";
 import type { DeflectFx } from "./deflect.js";
 import { ingestBreach, ingestDeflect } from "./effects-breach.js";
 import { isIngestSilent } from "./effects-ingest-silent.js";
-import type { LayEcho } from "./lay-echo.js";
+import type { ShipMoods } from "./effects-ship.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { assertNever } from "./never.js";
 import { PALETTE } from "./palette.js";
 import type { RockImpactFx } from "./rock-impact.js";
 import type { Sparks } from "./sparks.js";
 import type { SpriteBursts } from "./sprite-burst.js";
-import type { SwallowFx } from "./swallow.js";
 
 /**
  * Everything `ingestOne` needs to act on a single event, gathered rather than
@@ -29,22 +28,14 @@ export interface IngestOneCtx {
   rockImpactFx: RockImpactFx;
   arrivals: Arrivals;
   deflectFx: DeflectFx;
-  swallow: SwallowFx;
-  layEcho: LayEcho;
+  ship: ShipMoods;
   crawler: CrawlerFx;
   blockedUntil: Map<number, number>;
-  setGuardHit: (v: number) => void;
-  setQueenShake: (v: number) => void;
   burst: (x: number, y: number, n: number, hex: string) => void;
 }
 
 /** How long a wrong-colour hit's grey flash lasts. */
 const REJECT_FLASH = 0.35;
-/** How long "DEFLECTED" stays up. Long enough to look at, short enough to miss. */
-const BANNER_LIFE = 0.9;
-/** How long the queen shudders after losing a petal. Exported: `Effects.queenShake`
- * reads it back to normalise the countdown to 0..1. */
-export const QUEEN_SHAKE_LIFE = 0.35;
 
 /**
  * One event, applied to whatever `Effects` remembers past this frame. Split
@@ -110,10 +101,10 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
       ctx.spriteBursts.spawn(tileCX(ctx.l, e.col), tileCY(ctx.l, e.row), ctx.l.tile * 2.4);
       break;
     case "petal":
-      ctx.setQueenShake(QUEEN_SHAKE_LIFE);
+      ctx.ship.shudder();
       break;
     case "fire":
-      ctx.layEcho.start(ctx.beatSeconds, e.color);
+      ctx.ship.layEcho.start(ctx.beatSeconds, e.color);
       break;
     case "breach":
       ingestBreach(e, ctx.l, ctx.time, ctx.beatSeconds, {
@@ -126,7 +117,7 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
       // Sparks flying *inwards*: the one moment in the game where the ship
       // takes something instead of losing it.
       ctx.sparks.implode(tileCX(ctx.l, e.col), ctx.l.hullY, 22, PALETTE.pod, ctx.l.tile * 1.9);
-      ctx.swallow.start(e.kind);
+      ctx.ship.swallowPod(e.kind);
       break;
     case "volleyReturn":
       // The banner a ward earns, and the only half of a `deflect` a volley
@@ -134,7 +125,7 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
       // beat, so the ship says so. The tumbling rock `ingestDeflect` throws is
       // deliberately not — the body is still standing there, climbing, and
       // would be drawn twice (`sim/ward.ts`).
-      ctx.setGuardHit(BANNER_LIFE);
+      ctx.ship.deflected();
       break;
     case "deflect":
       ingestDeflect(e, ctx.l, ctx.time, ctx.beatSeconds, {
@@ -142,7 +133,7 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
         rockImpactFx: ctx.rockImpactFx,
         arrivals: ctx.arrivals,
         deflectFx: ctx.deflectFx,
-        onDeflect: () => ctx.setGuardHit(BANNER_LIFE),
+        onDeflect: () => ctx.ship.deflected(),
       });
       break;
     default:
