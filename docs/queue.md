@@ -375,3 +375,32 @@ is reported at all.
 Whatever it becomes, say it in `docs/performance.md` in the terms the run prints,
 and hold it in `compare.test.ts` with a fixture built from two runs that differ
 only by noise.
+
+## An interrupted `perf` or `frames` run leaves a browser profile behind forever
+
+- **Found:** 2026-09-06, claude/queue-stale-browser-profiles
+- **Files:** `tools/perf/run.ts`, `tools/frames/run.ts`, `tools/land/sweep.ts`
+
+`chromium.launch()` with no `userDataDir` makes a throwaway profile under the
+system temp directory and removes it when `browser.close()` runs. Both tools
+close in a `finally`, so an ordinary run cleans up after itself — but a run that
+is killed, interrupted or times out never reaches it, and nothing else ever
+looks. A cleanup on 6 September found **46 of them holding 508 MB**, one of
+them still had a headless Chrome attached, and no session had ever noticed:
+they are outside the repository, so `git status` is clean and `bun run sweep`
+does not reach them.
+
+Two halves, and the second is the one that matters. Give the launch a
+`userDataDir` of its own under `.claude/tmp` so the debris lands somewhere the
+repository already owns, next to the spent specs `sweep.ts` clears; then have
+`bun run sweep` clear stale ones the way it clears those — by age, so a profile
+belonging to a run happening right now is left alone. `sweep.ts` already has
+that shape and its own idle-days clock to copy.
+
+Worth doing rather than tidying by hand once: `bun run perf` is now something a
+lane runs for every new shape, so this accrues at whatever rate the game gains
+creatures, and half a gigabyte of it went unnoticed for a month.
+
+`bun run check` proves the tools still launch; the sweep's own test covers the
+clearing.
+
