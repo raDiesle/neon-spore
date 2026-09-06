@@ -139,73 +139,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
 
 
-## A sheet restored from its URL always opens on its first inner tab
-
-- **Found:** 2026-09-06, claude/not-build-yet-cleanup-553bf1
-- **Taken:** 2026-09-06, claude/queue-a-sheet-restored-from-its-url-always-opens-on-it
-- **Files:** `tools/director/src/session.ts`, `tools/director/test/session.test.ts`
-
-`mountSheet`'s restore block reads the wanted inner tab *after* it has already
-clicked the sheet open:
-
-```ts
-if (initialSheet(name)) {
-  open.click();
-  const wantInner = innerBar ? initialInner(name) : null;
-```
-
-`open.click()` runs the open handler, which calls
-`openSheet(name, currentInnerTab(innerBar))` — and at that moment the sheet's
-current inner tab is still whichever button carries `.on` in the markup, the
-first one. That overwrites `current.inner`, so `initialInner(name)` on the very
-next line returns the default rather than the name the URL carried, the
-`?inner=` click never fires, and the URL is rewritten to the default too.
-
-So `?sheet=states&inner=spec` opens DOCUMENTATION on STATES and rewrites itself
-to `inner=states`; `?sheet=backlog&inner=shapes` does the same on NOT BUILT YET.
-Every doc comment that promises this works — `spec.ts`'s `bindSpecTab`,
-`controlsets-page.ts`'s `bindControlSetsTab`, `guide-sheet.ts`'s
-`bindGuidesTab` — is describing behaviour the code does not have, and each of
-those lazy renders is therefore never reached by a restore.
-
-Hoist the read above the click (`const wantInner = innerBar ? initialInner(name)
-: null;` before `open.click()`) and add a case to
-`tools/director/test/session.test.ts` that mounts a sheet with a two-button
-inner bar, seeds the place with the *second* button's name, and asserts that
-button ends up `.on`. The existing tests pass today, which is why this survived.
-
-## Move apps/server off the miniflare alpha when a stable 5 ships
-
-- **Found:** 2026-09-03, claude/bun-queue-list-command-5a8695
-- **Files:** `apps/server/package.json`, `apps/server/test/room.test.ts`, `bun.lock`
-
-`apps/server/test/room.test.ts` pins `miniflare` at `5.20260831.0-alpha`, exactly
-and on purpose. The last stable 4.x is `4.20260730.0`, whose workerd binary
-refuses the `compatibility_date` in `wrangler.jsonc` ("newest date supported by
-this server binary is 2026-08-06"), and the test reads that date from the
-deploy's own config rather than carrying a second copy of it — so a stable 4
-would mean testing on a date the deploy does not use.
-
-When a non-alpha 5 is published, move to it and check the config shape the test
-builds by hand (`workers[0].config` with `manifest.modules` and
-`exports.Room.storage`) still holds — miniflare 5 changed it from 4's flat
-`{ modules, script, durableObjects }`, and `convertV4MiniflareOptions` is the
-shim that shows what the new shape wants if it changed again.
-
-## The relief says HOLD FIRE, not the sentence asked for
-
-- **Found:** 2026-09-06, claude/some-lane
-- **Files:** `packages/content/src/controls.ts`
-- **Asks:** Leave the two words, hang a caption over the band, or widen the lobe?
-
-Why the short label is what fits today, and what each of the three costs.
-```
-
-`tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
-session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
-
-
-
 ## Move apps/server off the miniflare alpha when a stable 5 ships
 
 - **Found:** 2026-09-03, claude/bun-queue-list-command-5a8695
@@ -530,7 +463,7 @@ their rounds, the openings and guides. Nothing outside `packages/sim` may need
 to change: `index.ts` stays the one import path, and
 `bunx tsc --noEmit` across the workspace is the proof.
 
-## A narrow perf --save overwrote a neighbouring wave's row when a wave was inserted
+## A narrow perf --save overwrote a neighbouring wave's row
 
 - **Found:** 2026-09-06, claude/fence-enemy-visuals
 - **Files:** `tools/perf/run.ts`, `tools/perf/compare.ts`, `tools/perf/baseline.json`, `tools/perf/test/compare.test.ts`
@@ -584,3 +517,71 @@ this is not a pure deletion: the part of each idea-store entry that is still
 true has to land in a section of its own first, the way THE CLAW's did, and
 only then does the entry go. PINBALL is the model to copy — it has 11.7 and no
 entry in the idea store.
+
+## `session.ts` sits at exactly the 250-line limit
+
+- **Found:** 2026-09-06, claude/queue-a-sheet-restored-from-its-url-always-opens-on-it
+- **Files:** `tools/director/src/session.ts`, `packages/sim/test/limits.test.ts`
+
+The restore fix landed at 250 lines on the nose, and `limits.test.ts` refuses
+251 — so the next comment, the next sheet field, the next fallback rule in this
+file fails the check before it is finished, and whoever hits it will trim prose
+to make room rather than split, which is how the file got here.
+
+The seam is already in the module: the top half is the `Place` value type and
+its two pure functions (`parsePlace`, `placeToSearch`), the bottom half is the
+DOM wiring (`bindPlace`, `mountSheet`, the module-level `current`). Move the
+pure half to `tools/director/src/place.ts` and re-export it from `session.ts`
+so no caller changes, or move the wiring to `sheet-mount.ts` — either leaves
+both halves near 125 lines. `tools/director/test/session.test.ts` already
+splits along the same line and can follow. Do not answer this by adding the
+file to `KNOWN_LONG`.
+
+## The director's DOM wiring has no fake `document` to test against
+
+- **Found:** 2026-09-06, claude/queue-a-sheet-restored-from-its-url-always-opens-on-it
+- **Files:** `tools/director/test/session.test.ts`, `tools/director/test/demo-panel.test.ts`
+
+This repo carries no jsdom and no happy-dom, so every test of a director page's
+wiring is written against the *source text* instead — `demo-panel.test.ts`
+asserts a regex over `demo-panel.ts`, and `sheet.test.ts` reads ids out of
+`index.html`. That catches a rename and misses a bug, which is exactly what
+happened to `mountSheet`'s restore: three doc comments described behaviour the
+code did not have and every test passed.
+
+`session.test.ts` now carries a hand-rolled `FakeEl`/`installDom` pair, about
+sixty lines covering the whole surface `session.ts` touches: two selector
+shapes, `classList`, `dataset`, `addEventListener("click")` and `click()`, plus
+a `window.location`/`history.replaceState` that records the URL. Lift it to
+`tools/director/test/fake-dom.ts`, have `session.test.ts` import it, and
+convert `demo-panel.test.ts` from regexes over its own source to a real
+`bindDemoPanel` call — its three assertions (lazy render on the tab's click,
+closing DOCUMENTATION when a demo is picked, no CLOSE button of its own) are
+all reachable through it. The alternative, a happy-dom devDependency, is the
+decision to weigh against sixty lines that never go out of date.
+
+## An unclosed fence in `docs/queue.md` hides every entry after it, silently
+
+- **Found:** 2026-09-06, claude/queue-a-sheet-restored-from-its-url-always-opens-on-it
+- **Files:** `tools/queue/queue.ts`, `tools/queue/test/queue.test.ts`
+
+`stripProse` toggles one `fenced` flag on every line matching ```` ``` ```` and
+returns "" while it is set. That is right for the two format examples in the
+preamble, and catastrophic for an odd number of fences: from the unmatched one
+to the end of the file, every entry is erased before `parseItems` ever sees a
+heading, and `bun run queue` prints a shorter list with no warning at all.
+
+It happened. A rebase resolution duplicated the preamble's `Asks:` example —
+its closing fence landed a second time, in the middle of the entries, and from
+6 September 2026 `bun run queue` reported "3 in the queue" while fifteen more
+sat under it in the file. Nothing failed: not `problemsIn`, which only sees the
+items it was handed, and not `bun run check`. This branch cut the duplicate
+out.
+
+Make `stripProse` (or `parseItems`) throw when `fenced` is still true at the
+last line, naming the line the last fence opened on, and have `run.ts` print
+that the way it prints the entries a cold session could not act on. A test in
+`tools/queue/test/queue.test.ts` that parses a fixture with three fences and
+expects the failure holds it. The alternative — counting fences and assuming
+the odd one out closes the file — guesses at what a person meant and would have
+hidden this one just as well.

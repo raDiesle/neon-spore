@@ -205,9 +205,10 @@ export interface SheetSpec {
  * buttons, if given, to record the sheet's current inner tab, and drives the
  * restoring click for both on startup: `open.click()` runs every listener
  * wired here in the order a real click would, rather than a class toggle
- * that would skip `onOpen` and leave the sheet blank; the inner tab is
- * clicked after, and one the bar does not have is simply never found, the
- * same fallback an unknown top-level `tab` gets.
+ * that would skip `onOpen` and leave the sheet blank; the wanted inner tab is
+ * read out of the place *before* that click, which would otherwise record the
+ * bar's default over it, and clicked after, and one the bar does not have is
+ * simply never found, the same fallback an unknown top-level `tab` gets.
  */
 export function mountSheet(spec: SheetSpec): void {
   const { name, sheet, open, close, innerBar, onOpen, onClose } = spec;
@@ -236,8 +237,10 @@ export function mountSheet(spec: SheetSpec): void {
   }
 
   if (initialSheet(name)) {
-    open.click();
+    // Before the click, never after: `open.click()` records the bar's own
+    // default over `current.inner` and there is nothing left here to read.
     const wantInner = innerBar ? initialInner(name) : null;
+    open.click();
     if (wantInner) {
       document
         .querySelector<HTMLButtonElement>(`${innerBar} button[data-tab="${wantInner}"]`)
