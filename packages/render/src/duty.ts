@@ -79,7 +79,7 @@ const DUTY_WORD = {
   // alone, then GAP under both, and the owner asked for the pair to be told
   // which of this creature's two answers the wall in front of them takes:
   // FIND GAP FOR SHIELD for a wall with a way through it somewhere, SHOOT
-  // THROUGH for one with none. `fenceWord` picks; the row below is the shape
+  // THE CRACK for one with none. `fenceWord` picks; the row below is the shape
   // and the default. The long one is the owner's own wording, asked for by
   // name: GAP alone said nothing about *what* the gap is for, and the seat
   // reading it is holding a shield rather than a cannon.
@@ -88,7 +88,10 @@ const DUTY_WORD = {
   // see where the wall is open and cannot move the dome; the navigator moves
   // the dome and is shown an unbroken wire (`fence.ts`) — and the cannon is
   // the pilot's while the trigger that fires it is the navigator's, so
-  // SHOOT THROUGH is an instruction to two people and not a secret.
+  // SHOOT THE CRACK is an instruction to two people and not a secret. It names
+  // the place rather than the act because that is what changed under it: a
+  // bolt no longer opens a wall wherever it likes, and the crack is a column
+  // *and* a colour the pilot has to say out loud (`fence-crack.ts`).
   fence: { p1: "FIND GAP FOR SHIELD", p2: "FIND GAP FOR SHIELD" },
   // THE MAGNET, and the only word in this table naming something the seat has
   // to *choose* rather than something it can see. The pilot picks which side
@@ -130,7 +133,8 @@ function kindActive(kind: CreatureKind, world: World): boolean {
  */
 function fenceWord(world: World): string {
   for (const c of world.creatures) {
-    if (c.kind === "fence" && fenceGapCols(world.cfg, c, true).length === 0) return "SHOOT THROUGH";
+    if (c.kind === "fence" && fenceGapCols(world.cfg, c, true).length === 0)
+      return "SHOOT THE CRACK";
   }
   return "FIND GAP FOR SHIELD";
 }

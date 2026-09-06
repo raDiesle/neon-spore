@@ -33,10 +33,12 @@ import { PALETTE } from "./palette.js";
  * and the whole of the creature.
  */
 
-/** How wide the skull is, in tiles. About one: big enough to be read at a
- * glance on a phone, small enough to sit between the wire and the dome without
- * covering either. */
-const WIDTH = 1.05;
+/** How wide the skull is, in tiles. Half again over a tile, which is the size
+ * the owner picked off a real frame: at one tile it was legible and not
+ * *alarming*, and a warning that has to be looked for is not a warning. Still
+ * short of the space between the wire and the dome, so it never covers the
+ * thing it is warning about. */
+const WIDTH = 1.55;
 
 /** Times a second the whole sign comes and goes, and the share of each cycle it
  * is lit for. Slower than the bolts, so it is a face in the flashes. */

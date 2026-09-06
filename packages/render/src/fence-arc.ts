@@ -64,7 +64,7 @@ import { PALETTE } from "./palette.js";
  * does not read as something growing out of it, and low enough to be read in
  * the same glance. A ceiling rather than a distance: once the wire is nearer
  * than this, the sign takes the middle of what is left. */
-const SKULL_LIFT = 1.15;
+const SKULL_LIFT = 1.3;
 
 /** How much of the fan is there the moment the wall arrives, before the fall
  * has closed any of the distance. Not zero: the owner asked to see the two of
