@@ -2,8 +2,8 @@
 
 /**
  * `bun run shot <#selector> <out.png> [--open "≡ RELEASE NOTES"] [--tab SHAPES]
- * [--wait 2500] [--hold Control]` — photograph one element of the running
- * director.
+ * [--inner SPEC] [--wait 2500] [--hold Control]` — photograph one element of
+ * the running director.
  *
  * CLAUDE.md's *Showing the owner something* says to send a PNG and never a
  * path, and there were two tools for it: `bun run frames <sha>` for the game
@@ -44,6 +44,7 @@ if (!selector || !out) {
   console.error(
     'usage: bun run shot <#selector> <out.png> [--open "≡ RELEASE NOTES"] [--tab SHAPES] [--wait 2500]',
   );
+  console.error('       --inner is a tab inside the sheet --open just opened, e.g. "SPEC"');
   console.error('       --path is what the port is asked for, e.g. "/?play=1" — the field itself');
   console.error("       --size is a viewport, e.g. 390x844 — a phone, for something a phone shows");
   console.error("       --open is a header button to press first, for a sheet that starts hidden");
@@ -54,6 +55,14 @@ if (!selector || !out) {
 }
 
 const tab = flag("tab");
+/**
+ * A tab *inside* the sheet `--open` just opened. `--tab` presses NOT BUILT
+ * YET's own strip and nothing else, so every other sheet's rooms — SPEC,
+ * GUIDES, CONTROLS, the three inside CONTROLS — were unreachable and each
+ * wanted a hand-rolled Playwright script again. That is the friction this
+ * whole file was written to stop, so it is a flag.
+ */
+const inner = flag("inner");
 // A state only a held key reveals cannot be photographed by pressing buttons:
 // the palette says what Ctrl-click would do only while Ctrl is down
 // (`tools/director/src/palette.ts`). One flag rather than a second script.
@@ -99,6 +108,28 @@ try {
     await page.getByRole("button", { name: "NOT BUILT YET" }).click();
     await page.waitForTimeout(600);
     await page.getByRole("button", { name: tab, exact: true }).click();
+  }
+  if (inner) {
+    // Pressed in the page rather than through Playwright's locator engine.
+    // An inner tab lives in a sheet that was `display: none` a moment ago, and
+    // both `click()` and `dispatchEvent()` on a role locator spent thirty
+    // seconds waiting for that to settle and then timed out — twice, on a
+    // strip of plain buttons wired to `click`. The visible one with that
+    // label is unambiguous, and pressing it is one line.
+    const pressed = await page.evaluate((label: string) => {
+      for (const b of document.querySelectorAll("button")) {
+        if (b.textContent?.trim() === label && b.offsetParent !== null) {
+          b.click();
+          return true;
+        }
+      }
+      return false;
+    }, inner);
+    if (!pressed) {
+      console.error(`no visible button reads ${inner} — is --open the right sheet?`);
+      process.exit(2);
+    }
+    await page.waitForTimeout(600);
   }
   if (hold) await page.keyboard.down(hold);
   await page.waitForTimeout(settle);

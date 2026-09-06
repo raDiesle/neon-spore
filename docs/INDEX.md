@@ -862,7 +862,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/guide-fields.ts` | The GUIDE section `rail.ts` shows directly under SENTENCE: the three lines a wave's guide is made of |
 | `tools/director/src/guide-gallery.ts` | Every guide in the game, drawn in both roles side by side |
 | `tools/director/src/guide-order.ts` | How one wave opens, drawn in order: the introduction, then its guide |
-| `tools/director/src/guide-page.ts` | A GUIDES tab, added to the NOT BUILT YET sheet — two review pictures for guides that already ship, not a list of unbuilt ones |
+| `tools/director/src/guide-page.ts` | The two review pictures a finished guide is put to, appended under DOCUMENTATION's GUIDES list |
 | `tools/director/src/guide-sheet.ts` | GUIDES: every wave that carries a guide, in the order a pair plays them |
 | `tools/director/src/guide-waves.ts` | Which waves carry a guide, and a world posed at the moment one opens |
 | `tools/director/src/hits/dim.ts` | The body simply goes dark for a beat |

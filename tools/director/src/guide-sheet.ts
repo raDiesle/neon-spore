@@ -1,4 +1,5 @@
 import { waveGuideFrames } from "./guide-order.js";
+import { drawGuideReview, mountGuideReview } from "./guide-page.js";
 import { waveLabel, wavesWithGuides } from "./guide-waves.js";
 
 /**
@@ -8,6 +9,12 @@ import { waveLabel, wavesWithGuides } from "./guide-waves.js";
  * TUNING joined that sheet for. Its own file since `guide-page.ts` (the NOT
  * BUILT YET tab, the other half of the same split) crossed the 250-line
  * limit `packages/sim/test/limits.test.ts` enforces.
+ *
+ * The two review pictures a guide is put to — every guide on both screens,
+ * and how one wave opens in order — hang under that list, from
+ * `guide-page.ts`. They were a GUIDES tab of NOT BUILT YET until the owner
+ * moved them here on 6 September 2026: nothing about them was unbuilt, and a
+ * sheet cannot have two tabs called GUIDES.
  *
  * Read straight off `WAVES` (`guide-waves.ts`), so a wave that gains or loses a
  * guide is reflected here without anyone updating a second list. That lookup
@@ -117,6 +124,11 @@ function renderGuidesTab(): void {
     empty.textContent = "no wave carries a guide yet.";
     body.appendChild(empty);
   }
+
+  // The mounts have to be in the document before anything is rendered into
+  // them, which is why this is two calls rather than one.
+  mountGuideReview(body);
+  drawGuideReview();
 }
 
 /**

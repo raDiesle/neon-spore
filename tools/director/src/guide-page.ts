@@ -2,82 +2,36 @@ import { renderGallery } from "./guide-gallery.js";
 import { bindOrderPicker } from "./guide-order.js";
 
 /**
- * A GUIDES tab, added to the NOT BUILT YET sheet.
+ * The two review pictures a finished guide is put to, appended under
+ * DOCUMENTATION's GUIDES list — `guide-sheet.ts` owns that tab and calls both
+ * functions here.
  *
  * A wave's guide is the one drawn thing in the game that is awkward to review
  * on the phone: seeing it means starting the wave it belongs to, and seeing
- * all of them means starting sixteen. This tab exists so a guide can be looked
- * at as many times as the design needs it looked at, and beside every other
- * one.
+ * all of them means starting sixteen. This exists so a guide can be looked at
+ * as many times as the design needs it looked at, and beside every other one.
  *
- * Every picture on it draws through the real `packages/render/src/briefing.ts`
+ * Every picture draws through the real `packages/render/src/briefing.ts`
  * against a real `World`, exactly as `pose-art.ts` draws a posed state for the
  * STATES sheet — see `guide-gallery.ts` and `guide-order.ts` for the two
  * questions it puts a picture to.
  *
- * It rides the backlog sheet's own header, close button and Esc handling
- * rather than opening one of its own: that chrome already exists once, on
- * `#backlog`, and a second copy of it here would be a second thing to keep in
- * step with the first. `mountCardTab` only asks the sheet's existing tab bar
- * for one more button, the same way a tenth spec file asks the SPEC tab for
- * one more file rather than a tab of its own.
- *
- * **Nothing here is a proposal any more, and that is why the first section
- * went.** This tab used to lead with the cards no wave could reach — a real
- * gap while help lived in a catalogue beside the waves rather than in them. A
- * guide is written inside the wave that plays it now, so a guide with no wave
- * cannot be expressed; what is left are the two review tools, which are
- * working aids for any guide rather than a listing of unbuilt ones. The list
- * of every guide that ships lives in DOCUMENTATION's own GUIDES tab,
- * `guide-sheet.ts`'s `bindGuidesTab` — the same shape STATES and CONTROL
- * SETS already use for "built, and here is the proof".
- *
- * That leaves a tab on a sheet headed NOT BUILT YET whose content is entirely
- * built, which reads as a gap that nobody got round to. It is not one, and the
- * page now says so in its own first paragraph rather than leaving a reader to
- * work it out — whether the tab should move to DOCUMENTATION beside the list
- * is the owner's call and not a defect to be fixed quietly.
+ * **It was a tab of NOT BUILT YET and is not one any more.** It led, once,
+ * with the cards no wave could reach — a real gap while help lived in a
+ * catalogue beside the waves rather than in them. A guide is written inside
+ * the wave that plays it now, so a guide with no wave cannot be expressed and
+ * there is no such thing as a proposed one: what was left were two review
+ * tools, entirely about guides that ship, sitting under a heading reading NOT
+ * BUILT YET and reading as work nobody got round to. The owner moved them here
+ * on 6 September 2026, under the list of the very guides they draw.
  */
-
-const TAB_ID = "cards";
 
 /**
- * The tab button and its (empty) page, appended before `bindBacklog` calls
- * `bindTabs` over the bar — so a click on GUIDES is wired exactly like a click
- * on BESTIARY or SPEC, by the one place that already knows how a tab behaves.
+ * The prose and the two mounts, appended to whatever container is given. Drawn
+ * separately, by `drawGuideReview` — the mounts have to be in the document
+ * before thirty-two posed worlds are rendered into them.
  */
-export function mountCardTab(): void {
-  const tabs = document.getElementById("backlogTabs");
-  const body = document.getElementById("backlogBody");
-  if (!tabs || !body || document.getElementById(`sheet-${TAB_ID}`)) return;
-
-  const tab = document.createElement("button");
-  tab.type = "button";
-  tab.dataset.tab = TAB_ID;
-  tab.textContent = "GUIDES";
-  tabs.appendChild(tab);
-
-  const page = document.createElement("div");
-  page.className = "sheetpage";
-  page.id = `sheet-${TAB_ID}`;
-
-  // Said first, and in bold, because the heading over this whole sheet is
-  // NOT BUILT YET and every other tab under it is a list of things the game
-  // does not have. This one is not. Anybody reading the tab strip is owed
-  // that sentence before the pictures start.
-  const built = document.createElement("p");
-  built.className = "pagewhat";
-  built.textContent =
-    "Nothing on this tab is unbuilt, and nothing on it is waiting on a " +
-    "decision. Every guide drawn here ships: a guide is written inside the " +
-    "wave that plays it, so a guide with no wave cannot be expressed and " +
-    "there is no such thing as a proposed one. This tab is a review tool — " +
-    "the two questions a finished guide is put to — and it sits on this " +
-    "sheet only because this sheet already had the full-screen frame the " +
-    "pictures need. The plain list of every guide that ships is in " +
-    "DOCUMENTATION's own GUIDES tab.";
-  page.appendChild(built);
-
+export function mountGuideReview(body: HTMLElement): void {
   const intro = document.createElement("p");
   intro.className = "note";
   intro.textContent =
@@ -85,27 +39,18 @@ export function mountCardTab(): void {
     "field, no panel — and then, if it carries one, on a guide: a concrete " +
     "instruction about the control or the concept the pair is about to meet. " +
     "Each player gets their own half, and neither half is the whole of it.";
-  page.appendChild(intro);
-
-  const why = document.createElement("p");
-  why.className = "note";
-  why.textContent =
-    "This page exists because seeing a guide in the game means playing the wave " +
-    "it belongs to. Sixteen waves carry one, so checking them on a phone means " +
-    "sixteen starts. Here they can be read as often as they need reading.";
-  page.appendChild(why);
+  body.appendChild(intro);
 
   const how = document.createElement("p");
   how.className = "note";
   how.textContent =
-    "Nothing here is a mock-up. Every frame is drawn by the game's own renderer " +
+    "Nothing below is a mock-up. Every frame is drawn by the game's own renderer " +
     "at the phone's real width, so a guide that is too long, too small or " +
     "confusing here is too long, too small or confusing in the game.";
-  page.appendChild(how);
+  body.appendChild(how);
 
-  page.appendChild(gallerySection());
-  page.appendChild(orderSection());
-  body.appendChild(page);
+  body.appendChild(gallerySection());
+  body.appendChild(orderSection());
 }
 
 function gallerySection(): HTMLElement {
@@ -153,11 +98,12 @@ function orderSection(): HTMLElement {
 let drawn = false;
 
 /**
- * Built on first look at the tab, not on page load — thirty-two posed worlds
+ * Drawn on first look at the tab, not on page load — thirty-two posed worlds
  * and their frames is not work a session that came here to place a creature on
- * the grid should pay for. Matches the lazy draw the SHAPES tab already does.
+ * the grid should pay for. `renderGuidesTab` is itself lazy for the same
+ * reason, so this runs exactly once, on the first click of GUIDES.
  */
-export function drawCards(): void {
+export function drawGuideReview(): void {
   if (drawn) return;
   drawn = true;
   const gallery = document.getElementById("cardGalleryMount");

@@ -155,7 +155,6 @@ somebody wrote it down.
 | `MECHANICS` | couplings, assist forms, systems, and the mechanic, control and weapon ideas |
 | `BORROWED` | It Takes Two and Split Fiction, mapped row by row onto whether each mechanic can reach this one |
 | `PARKED` | deferred on purpose, or examined and turned down with the reason |
-| `GUIDES` | not unbuilt — the two review pictures a shipping guide is put to, here for the full-screen frame and nothing else; the tab says so in its own first paragraph |
 
 `SPEC` was a tab here and is one of `▣ DOCUMENTATION`'s now: `docs/spec/` read
 verbatim describes the shield, the beat and the cannon as much as it describes
@@ -495,9 +494,8 @@ question: what the wave being edited actually puts in front of a pair — its
 introduction, and then the guide written in the `GUIDE` section right below,
 or nothing. `src/wave-opening.ts` reads that off the store's live entry, so an
 edit not yet saved shows there immediately. `▣ DOCUMENTATION → GUIDES` lists
-every wave that carries one, and `◇ NOT BUILT YET → GUIDES` holds both screens
-of each side by side — those pages ask the shipped waves, this line asks the
-stage.
+every wave that carries one and, under the list, holds both screens of each
+side by side — that page asks the shipped waves, this line asks the stage.
 
 ## MUSIC
 
