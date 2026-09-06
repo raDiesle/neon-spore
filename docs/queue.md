@@ -563,6 +563,7 @@ decision to weigh against sixty lines that never go out of date.
 ## An unclosed fence in `docs/queue.md` hides every entry after it, silently
 
 - **Found:** 2026-09-06, claude/queue-a-sheet-restored-from-its-url-always-opens-on-it
+- **Taken:** 2026-09-06, claude/queue-an-unclosed-fence-in-docs-queue-md-hides-every-e
 - **Files:** `tools/queue/queue.ts`, `tools/queue/test/queue.test.ts`
 
 `stripProse` toggles one `fenced` flag on every line matching ```` ``` ```` and
