@@ -187,6 +187,7 @@ still draws.
 ## `bun install` run from a POSIX shell on Windows writes links `tsc` cannot follow
 
 - **Found:** 2026-09-05, claude/crawler-enemy-design-ba0a00
+- **Taken:** 2026-09-06, claude/queue-bun-install-run-from-a-posix-shell-on-windows-wr
 - **Files:** `docs/working-with-claude.md`, `CLAUDE.md`
 
 A fresh worktree on Windows had no `tools/maze/node_modules` at all, so
