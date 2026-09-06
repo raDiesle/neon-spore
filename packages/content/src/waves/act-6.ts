@@ -165,9 +165,9 @@ export const WAVES_ACT_6: Wave[] = [
     name: "THE FENCE",
     sentence: "The one where reaching for the trigger is the miss.",
     guide: {
-      both: "A live wire right across the field, coming down twice as fast as anything else. The trigger does nothing to it — the shield does not stop this, it goes through it. Where the wire is broken, the ship lives. A shot cuts a new break wherever the cannon is standing.",
-      p1: "Only your screen shows where the wire is open. Count from the left and say the number, early — GUARD is worth nothing here. If nothing is open, put the cannon where you are told and hold it.",
-      p2: "Your wire looks unbroken, so ask — and be in the column you are given before it lands. When nothing is open, say where the shield is and fire the moment the cannon is over it: that hole you can both see.",
+      both: "A live wire right across the field, coming down twice as fast as anything else. The trigger does nothing to it — the shield does not stop this, it goes through it. Where the wire is broken, the ship lives, and the current stops jumping to the dome the moment the dome is standing in a break.",
+      p1: "Only your screen shows where the wire is open. Count from the left and say the number, early — GUARD is worth nothing here.",
+      p2: "Your wire looks unbroken, so ask — and be in the column you are given before it lands. When the current stops crossing to your dome, you are in it.",
     },
     entries: [
       { beat: 0, col: 3, kind: "fence", color: null },
@@ -178,8 +178,23 @@ export const WAVES_ACT_6: Wave[] = [
       { beat: 40, col: 2, color: "cyan" },
       { beat: 42, col: 0, kind: "fence", color: null },
       { beat: 54, col: 4, kind: "meteorMedium", color: null },
-      { beat: 58, col: 3, kind: "fence", color: null, gaps: [] },
+      { beat: 58, col: 3, kind: "fence", color: null },
       { beat: 62, col: 6, color: "red" },
+    ],
+  },
+  {
+    id: "theCut",
+    name: "THE CUT",
+    sentence: "The one where the only way through is the one you make.",
+    entries: [
+      { beat: 0, col: 3, kind: "fence", color: null, gaps: [] },
+      { beat: 10, col: 5, color: "red" },
+      { beat: 16, col: 3, kind: "fence", color: null, gaps: [] },
+      { beat: 26, col: 1, kind: "meteor", color: null },
+      { beat: 32, col: 3, kind: "fence", color: null, gaps: [] },
+      { beat: 42, col: 6, color: "cyan" },
+      { beat: 48, col: 3, kind: "fence", color: null, gaps: [] },
+      { beat: 56, col: 2, kind: "meteorMedium", color: null },
     ],
   },
 ];
