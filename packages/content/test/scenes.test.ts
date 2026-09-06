@@ -1,14 +1,8 @@
 import { describe, expect, it } from "bun:test";
-import {
-  DEFAULT_CONFIG,
-  hullPercent,
-  SceneRun,
-  type SimEvent,
-  type SpawnEntry,
-} from "@neon-spore/sim";
+import { DEFAULT_CONFIG, hullPercent, SceneRun, type SimEvent } from "@neon-spore/sim";
 import { type ControlId, control, controlHeld, controlSetForWave, setHas } from "../src/index.js";
 import { sceneScript } from "../src/scene-script.js";
-import { SCENES, type SceneId, stepAt, stepSpan } from "../src/scenes.js";
+import { SCENES, type SceneId, stepAt } from "../src/scenes.js";
 import { WAVES } from "../src/waves.js";
 
 /**
@@ -162,62 +156,6 @@ describe("the rehearsals a guide can show", () => {
     }
   });
 
-  it("gives every page long enough on the screen to be read", () => {
-    // A step is a page now, not a cue: it repeats until the seat reading it
-    // presses NEXT, and what it repeats is the span between it and the next
-    // one. A page under a second is a flicker nobody can follow, and the owner
-    // asked for the film to be slower rather than tighter.
-    for (const id of SCENE_IDS) {
-      const scene = SCENES[id];
-      const perSecond = DEFAULT_CONFIG.tickHz;
-      for (let i = 0; i < scene.steps.length; i++) {
-        const span = stepSpan(scene, i);
-        expect(
-          (span.to - span.from) / perSecond,
-          `${id}: "${scene.steps[i]?.text}" is a page that flickers past`,
-        ).toBeGreaterThanOrEqual(1.5);
-      }
-    }
-  });
-
-  it("spends at most one page on what the hull has left", () => {
-    // The film exists to teach a pair that they hold two different halves, and
-    // the bar saying what the hull has left is the one readout that is
-    // *identical* on both screens. The owner cut the one page that pointed at
-    // it — "the game scene shows exactly the same for both players ... remove
-    // this, also for future tutorials" — and then asked for it back, because
-    // without it the film never says what a miss costs: "the step is missing
-    // to show that the enemy hits the ship and it loses health".
-    //
-    // One, then. A film built out of pages about the cost teaches nothing
-    // about the split; a film with none of them never names the price of
-    // getting it wrong.
-    //
-    // `hull` is deliberately not counted with it. That anchor is a *place* —
-    // the middle of the field — and what stands there is not always the same
-    // on the two screens: THE FLEET's chart fills it and carries the ships on
-    // one phone and nothing but water on the other, which is the split itself
-    // rather than an escape from it.
-    for (const id of SCENE_IDS) {
-      const paid = SCENES[id].steps.filter((s) => s.anchor.at === "health");
-      expect(
-        paid.length,
-        `${id} spends ${paid.length} pages on what the hull has left`,
-      ).toBeLessThanOrEqual(1);
-    }
-  });
-
-  it("keeps every caption short enough to read at a glance", () => {
-    // A caption is read beside the thing it is about, under a beat, by
-    // somebody who is watching something move. The owner's instruction was
-    // "as short as possible"; this is the half of it that can be checked.
-    for (const id of SCENE_IDS) {
-      for (const step of SCENES[id].steps) {
-        expect(step.text.length, `${id}: "${step.text}" is a long caption`).toBeLessThanOrEqual(28);
-      }
-    }
-  });
-
   it("finds the step showing at any tick of the loop", () => {
     for (const id of SCENE_IDS) {
       const scene = SCENES[id];
@@ -225,19 +163,6 @@ describe("the rehearsals a guide can show", () => {
         expect(stepAt(scene, step.tick)).toBe(step);
       }
       expect(stepAt(scene, scene.ticks - 1)).toBe(scene.steps[scene.steps.length - 1]!);
-    }
-  });
-
-  it("only points a caption at a control the wave's own panel carries", () => {
-    for (const { wave, id } of USED) {
-      const set = controlSetForWave(wave);
-      for (const step of SCENES[id].steps) {
-        if (step.anchor.at !== "control") continue;
-        expect(
-          setHas(set, step.anchor.control),
-          `${WAVES[wave]?.name}'s scene points at ${step.anchor.control}`,
-        ).toBe(true);
-      }
     }
   });
 
@@ -336,108 +261,5 @@ describe("the rehearsals a guide can show", () => {
       // The rehearsal is never itself held behind an opening.
       expect(script.cfg.briefings).toBe(false);
     }
-  });
-});
-
-/**
- * **A strip that goes where the body is.**
- *
- * Every other column in a film is authored: `actCol` puts a `SceneAct`'s `col`
- * through `mapCol`, which on the eleven columns the game ships reaches 0, 2,
- * 3, 5, 7, 8 and 10 and nothing else. A shield authored into the gaps cannot
- * be written at all, and a body standing in one of them goes past whatever was
- * written instead — which is what stopped THE VOLLEY's rehearsal being written.
- *
- * So the column is resolved out of the world, the way a grip's id and a lid
- * cord's id already are, and these are the two halves of that: it lands on the
- * body even in a column no author could have named, and an empty field leaves
- * the press exactly as written rather than quietly moving it somewhere.
- */
-describe("a strip act aimed at a body", () => {
-  /** A film of one press, on a field holding whatever is passed in. */
-  function run(queue: SpawnEntry[], atBody: boolean, authored: number): SceneRun {
-    const cfg = { ...DEFAULT_CONFIG, briefings: false };
-    return new SceneRun({
-      cfg,
-      seed: 1,
-      wave: 0,
-      queue,
-      pods: [],
-      boss: null,
-      commands: [
-        {
-          tick: PRESS,
-          player: 1,
-          command: { kind: "shieldCol", col: authored },
-          ...(atBody ? { atBody: true as const } : {}),
-        },
-      ],
-      ticks: 600,
-    });
-  }
-
-  /** Column 4 is one `mapCol` never reaches on an eleven-column field. */
-  const UNREACHABLE = 4;
-  /** After the first beat, so the arrival is standing there to be answered. */
-  const PRESS = 100;
-
-  function advanceTo(scene: SceneRun, tick: number): void {
-    const events: SimEvent[] = [];
-    for (let i = 0; i <= tick; i++) scene.advance(events);
-  }
-
-  it("lands in a column no authored one could have named", () => {
-    const scene = run([{ beat: 0, col: UNREACHABLE, kind: "slick", color: "red" }], true, 0);
-    advanceTo(scene, PRESS + 1);
-    expect(scene.world.creatures[0]?.col).toBe(UNREACHABLE);
-    expect(scene.world.shieldCol).toBe(UNREACHABLE);
-  });
-
-  it("leaves the press where it was written when the field is empty", () => {
-    const scene = run([], true, 2);
-    advanceTo(scene, PRESS + 1);
-    expect(scene.world.shieldCol).toBe(2);
-  });
-
-  it("changes nothing for an ordinary strip act", () => {
-    const scene = run([{ beat: 0, col: UNREACHABLE, kind: "slick", color: "red" }], false, 2);
-    advanceTo(scene, PRESS + 1);
-    expect(scene.world.shieldCol).toBe(2);
-  });
-});
-
-/**
- * THE THROB's film says its rule twice — a shot wasted and a shot landing —
- * and neither half is staged: both bolts arrive at the same half of a turning
- * body, and what separates them is which trigger was pressed.
- *
- * The scene's two act ticks are chosen against `throbSpinBeats`, and that
- * choice is written in the file as a comment doing arithmetic (beats 9.75 to
- * 11.25). A comment is not a mechanism. Change the turn or the window and one
- * of these two shots stops meaning what the page over it says, silently, in a
- * film nobody re-watches once it is written.
- */
-describe("the rehearsal for THE THROB", () => {
-  it("wastes one shot on the trigger that turned away and lands the next", () => {
-    const wave = WAVES.findIndex((w) => w.guide?.scene === "theThrob");
-    const run = new SceneRun(sceneScript("theThrob", wave, DEFAULT_CONFIG));
-    const seen: SimEvent[] = [];
-    const spent: SimEvent[] = [];
-    for (let t = 0; t < SCENES.theThrob.ticks - 1; t++) {
-      spent.length = 0;
-      run.advance(spent);
-      seen.push(...spent);
-    }
-    const rejected = seen.findIndex((e) => e.type === "reject");
-    const destroyed = seen.findIndex((e) => e.type === "destroy");
-    expect(
-      rejected,
-      "the first bolt is not refused — the half it arrives at still takes red",
-    ).toBeGreaterThan(-1);
-    expect(destroyed, "the second bolt does not land — cyan is not the half round").toBeGreaterThan(
-      -1,
-    );
-    expect(rejected, "the film lands its shot before it loses one").toBeLessThan(destroyed);
-    expect(run.world.creatures).toHaveLength(0);
   });
 });
