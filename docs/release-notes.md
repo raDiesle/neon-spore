@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · aaf86dc0 — GUIDES leaves NOT BUILT YET for the list of the guides it draws
+
+The owner's answer to the question the last commit's paragraph raised: the two review pictures move to DOCUMENTATION and hang under the GUIDES list, which was already a list of the same waves. Nothing about them was ever unbuilt, and a sheet cannot have two tabs called GUIDES. `guide-page.ts` stops mounting a tab and exports the two sections instead; `guide-sheet.ts` appends them once the list is drawn, and `backlog-tabs.ts` is down to two lazy tabs.
+
+## 2026-09-06 · a7d2be18 — NOT BUILT YET loses two studies and the spec, and GAME MECHANICS is DOCUMENTATION
+
+TOWER DEFENCE and CLAUDE VS CHATGPT come off the sheet, with their routes and readers; `docs/tower-defence.md` stays in the repository, where half of `tools/shape-sheet` cites it. SPEC moves to the other sheet: `docs/spec/` read verbatim describes the shield, the beat and the cannon as much as it describes what is still an argument, and reference does not belong under a heading reading NOT BUILT YET. That sheet is called DOCUMENTATION now rather than GAME MECHANICS, which it had outgrown; the ids stay `#states` and `mech-` so a bookmarked `?sheet=states` still restores.
+
 ## 2026-09-06 · a602caa1 — Repair the perf baseline row a narrow --save clobbered, and queue the cause
 
 Merging THE JAM after the wave insertion wrote it into row 50 and left a second copy in row 49, where it sat before — so THE MAGNET had no row and the check failed on a name it could not explain. Re-measured THE MAGNET to repair it; the merge itself is a queue item.
