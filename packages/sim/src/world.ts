@@ -6,7 +6,6 @@ import { NO_GRIP } from "./grip.js";
 import type { GripPush } from "./grip-push.js";
 import { NO_PRIME } from "./lance.js";
 import type { Malfunction } from "./malfunction.js";
-import { NO_RELIEF } from "./malfunction.js";
 import { createRng, type Rng } from "./rng.js";
 import type { ShotCharge } from "./shot-charge.js";
 import { startWave } from "./wave-start.js";
@@ -125,13 +124,11 @@ export interface World {
    * straight. Installed by `startWave` from the wave's own field, exactly the
    * way a boss is, and never written again while the wave runs.
    *
-   * `reliefTick` beside it is the tick the other seat last held the fault off.
-   * Both are read through `malfunction.ts` rather than by name — how long a
-   * pause lasts and when the next press is answered are that file's business,
-   * and the panel, the button's glow and the beat all ask the same question.
+   * Read through `malfunction.ts` rather than by name — what a fault does on
+   * a beat and what it loads are that file's business, and the panel, the
+   * picture and the beat all ask the same question.
    */
   malfunction: Malfunction | null;
-  reliefTick: number;
 
   creatures: Creature[];
   bullets: Bullet[];
@@ -201,7 +198,6 @@ export function createWorld(
     primeTick: NO_PRIME,
     charge: null,
     malfunction: null,
-    reliefTick: NO_RELIEF,
     creatures: [],
     bullets: [],
     pods: [],

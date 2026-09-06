@@ -123,12 +123,12 @@ export const SHIP_SOUNDS: SoundDef[] = [
   {
     id: "ship.reliefHold",
     family: "ship",
-    // Quiet, and a *stop* rather than a start: what this button buys is two
-    // beats in which the fault does not happen, and a sound that announced
-    // itself would be louder than the thing it is silencing.
+    // Quiet, and a *stop* rather than a start: what it was written for bought
+    // two beats in which a fault did not happen, and a sound that announced
+    // itself would have been louder than the thing it was silencing.
     blurb: "A latch dropping onto something already running. Short, dry, and then nothing.",
-    status: "bound",
-    use: "A seat held its own broken control off for a moment.",
+    status: "spare",
+    use: "Was the relief, until the owner took that button out on 6 September 2026. Kept because a latch dropping onto something already running is a shape nothing else in the catalogue has.",
     level: 0.3,
     layers: [
       // Low and short. `band.ts` gives every sound a budget inside the speech

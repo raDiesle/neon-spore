@@ -1,5 +1,4 @@
 import { fire } from "./bullets.js";
-import { ticksPerBeat } from "./config.js";
 import { armShield } from "./hull-guard.js";
 import type { Color, Command } from "./types.js";
 import type { World } from "./world.js";
@@ -22,13 +21,14 @@ import type { World } from "./world.js";
  * it is written for the two creatures whose answer is "not here": THE LURE, on
  * which a shot is the mistake.
  *
- * **The other seat is not a spectator, it is the brake.** The seat whose
- * control broke gets one lobe back in its place — the relief — and a tap on it
- * holds the fault off for `reliefPauseBeats`. It is on the *broken* seat
- * deliberately: the seat that can still move has both hands full of a column,
- * and a brake either of them could reach would be a brake nobody has to ask
- * for. As it stands the crossing is a sentence — *hold it, I am going
- * through* — which is the only kind of coupling this game has ever wanted.
+ * **There is no brake, and that is the owner's decision.** The seat whose
+ * control broke used to get one lobe back in its place — a relief, two words
+ * on a face that fits nine characters — and on 6 September 2026 he took it
+ * out: he did not want the button. So a fault runs for the whole wave and the
+ * only answer to it is where the other seat stands. That is a harder wave and
+ * a plainer one: the seat that can still move has to aim the fault somewhere
+ * harmless every beat rather than buy two beats of quiet at the moment of a
+ * crossing.
  *
  * **It is the wave's, not the panel's.** `packages/content/src/control-sets.ts`
  * is emphatic that a set is a whole panel and that sets do not compose, and a
@@ -62,80 +62,6 @@ export type MalfunctionColor = (typeof MALFUNCTION_COLORS)[number];
  * `cell-config.ts` makes about drawing no speed row on a shell.
  */
 export type Malfunction = { kind: "cannon"; color: MalfunctionColor } | { kind: "shield" };
-
-/** No relief has been pressed. Far enough back that every window is shut. */
-export const NO_RELIEF = -1_000_000;
-
-/**
- * Whose lobe the relief is. The seat whose control broke, which is the seat
- * that is **not** holding a strip this wave — see the header.
- *
- * One function, because three places ask it and each of them would otherwise
- * spell out the same ternary: the panel that draws the lobe, the hit test that
- * answers it, and `reliefHeard` below, which is the only one that matters.
- */
-export function reliefSeat(m: Malfunction): 1 | 2 {
-  return m.kind === "cannon" ? 2 : 1;
-}
-
-/** Ticks one tap of the relief buys. */
-function pauseTicks(world: World): number {
-  return Math.round(world.cfg.reliefPauseBeats * ticksPerBeat(world.cfg));
-}
-
-/** Ticks from one answered press to the next. */
-function restTicks(world: World): number {
-  return Math.round(world.cfg.reliefRestBeats * ticksPerBeat(world.cfg));
-}
-
-/**
- * Whether the fault is being held off right now — the one place it is decided.
- *
- * `stepMalfunction` reads it to know whether to act, the panel reads it to
- * know whether to draw the dead controls quiet, and the button's own glow
- * reads it to say how much of the pause is left. Three readings of one window,
- * the way `guardArmed` is one window read by four things.
- */
-export function reliefHolds(world: World): boolean {
-  return world.tick - world.reliefTick < pauseTicks(world);
-}
-
-/**
- * Whether a press would be answered. False for the whole rest, pause included,
- * so a thumb never buys a pause that was already running — which would make
- * the quiet arbitrarily long and the mechanic nothing at all.
- */
-export function reliefReady(world: World): boolean {
-  return world.malfunction !== null && world.tick - world.reliefTick >= restTicks(world);
-}
-
-/**
- * How much of the rest is still to run, 0..1, for the button to show.
- *
- * Read off the world every frame rather than eased, for the reason THE
- * FLEET's salvo rest is: it is the seat's only readout of whether the next
- * press will do anything, and a button that lied about that for a quarter of a
- * beat would lie at exactly the moment somebody is deciding to call a crossing.
- */
-export function reliefRest(world: World): number {
-  if (world.malfunction === null) return 0;
-  const rest = restTicks(world);
-  if (rest <= 0) return 0;
-  return Math.max(0, Math.min(1, (rest - (world.tick - world.reliefTick)) / rest));
-}
-
-/**
- * A thumb on the relief. Which seat may send it is checked here rather than in
- * `applyCommand`, the way every round's own rule is: the command says what was
- * pressed, and whose press counts is the mechanic's business.
- */
-export function reliefHeard(world: World, player: 1 | 2): void {
-  const m = world.malfunction;
-  if (m === null || player !== reliefSeat(m)) return;
-  if (!reliefReady(world)) return;
-  world.reliefTick = world.tick;
-  world.events.push({ type: "relief", player, beats: world.cfg.reliefPauseBeats });
-}
 
 /**
  * Whether this press falls into a control the fault has taken over.
@@ -197,7 +123,7 @@ export function malfunctionColor(world: World, m: Malfunction): Color {
  */
 export function stepMalfunction(world: World): void {
   const m = world.malfunction;
-  if (m === null || reliefHolds(world)) return;
+  if (m === null) return;
   const every = Math.max(1, Math.round(world.cfg.malfunctionEveryBeats));
   if (faultStep(world) % every !== 0) return;
   if (m.kind === "cannon") fire(world, malfunctionColor(world, m));

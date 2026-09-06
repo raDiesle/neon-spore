@@ -27,12 +27,6 @@ export function lobeMeans(id: ControlId): { command: Command; hold: Hold | null 
     case "intake":
     case "fireRed":
     case "fireCyan":
-    // The two reliefs, and they are a press rather than a hold on purpose: the
-    // quiet is a fixed two beats somebody asked for out loud, and a thumb that
-    // could simply rest on it would make the fault optional
-    // (`sim/malfunction.ts`).
-    case "reliefFire":
-    case "reliefGuard":
     // THE CLAW's two. Both are on a *band* rather than on slabs — the panel is
     // a control set on the ordinary field, so its lobes are answered here like
     // every other lobe in the game and no listener of its own exists.

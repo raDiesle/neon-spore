@@ -123,6 +123,13 @@ class StubPath {
     drew("Path2D.arc", [x, y, r, from, to]);
     if (r < 0) fail("Path2D.arc", `radius ${r} is negative`);
   }
+  /** A rounded rectangle in one call — THE MAGNET's plate, and the only
+   * builder in this file that was missing until a frame actually reached it.
+   * A real one refuses a negative radius the way `arc` does. */
+  roundRect(x: number, y: number, w: number, h: number, r: number): void {
+    drew("Path2D.roundRect", [x, y, w, h, r]);
+    if (r < 0) fail("Path2D.roundRect", `radius ${r} is negative`);
+  }
   /** The rounded corner every plate in the intro is cut with. A real one
    * refuses a negative radius the same way `arc` does. */
   arcTo(x1: number, y1: number, x2: number, y2: number, r: number): void {

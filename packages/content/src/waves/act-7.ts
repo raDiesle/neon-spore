@@ -83,7 +83,8 @@ import type { Wave } from "../wave-types.js";
  *    colour has a consequence.
  * 3. Beats 18–22, two lures with one target between them. The muzzle can only
  *    rest in one place and getting to it crosses a column it must not fire up:
- *    this is the beat HOLD FIRE exists for.
+ *    this is the beat the pair has to talk their way across, with nothing to
+ *    spend on it.
  * 4. Beat 36, a red body and a cyan one two columns apart, arriving together.
  *    Standing between them is worth nothing; they have to be taken on
  *    alternate beats, which is the pair counting the fault's own clock.
@@ -101,7 +102,7 @@ import type { Wave } from "../wave-types.js";
  * straight to another one and opens that too. So the navigator's route across
  * the field is a schedule of work neither of them wrote, the pilot is the only
  * seat that can see which dome comes open next, and the only thing that can
- * hold any of it back is player 1's own hand on HOLD DOME.
+ * hold any of it back is where player 2 decides to stand.
  *
  * **The creature and the fault teach each other, which is why they share a
  * wave.** A coil met on an ordinary panel is a body the pair chooses a moment
@@ -123,8 +124,9 @@ import type { Wave } from "../wave-types.js";
  *    the first time the navigator has to be *told* a column rather than
  *    choosing one.
  * 4. Beats 48–52, four of them and a rock. There is no route across the field
- *    that does not open one, so HOLD DOME is the only way to take them a few
- *    at a time — and the rock at the end says whether it was spent too early.
+ *    that does not open one, so the order the plate crosses them in is the
+ *    only thing left to choose — and the rock at the end says whether the
+ *    route was worth it.
  */
 export const WAVES_ACT_7: Wave[] = [
   {
@@ -152,9 +154,9 @@ export const WAVES_ACT_7: Wave[] = [
     sentence:
       "The one where the gun will not stop, and the only thing left to decide is what it is pointed at.",
     guide: {
-      both: "The cannon has jammed on. It fires by itself, on every beat, up whichever column player 1 is standing in — and it alternates: red, cyan, red, cyan. RED and CYAN are dead. In their place player 2 has HOLD FIRE, which stops the gun for two beats and then needs six before it will answer again.",
-      p1: "You are not shooting any more, you are aiming. Slide onto a body on the beat its colour comes up, and get off a lure's column before the next shot — say which column you are crossing and ask for the quiet.",
-      p2: "You have one button and it is a brake, not a trigger. Count the colours out loud so they know which beat is theirs, and press HOLD FIRE the moment they say they are crossing. You cannot spend it twice.",
+      both: "The cannon has jammed on. It fires by itself, on every beat, up whichever column player 1 is standing in — and it alternates: red, cyan, red, cyan. RED and CYAN are dead, and nothing stops the gun.",
+      p1: "You are not shooting any more, you are aiming. Slide onto a body on the beat its colour comes up, and be off a lure's column before the next shot lands.",
+      p2: "You have no trigger this wave. Count the colours out loud so they know which beat is theirs, and call the lures — where the gun is pointed is the only thing either of you can still decide.",
     },
     entries: [
       { beat: 0, col: 3, kind: "lure", color: "red" },
@@ -174,8 +176,8 @@ export const WAVES_ACT_7: Wave[] = [
     name: "THE TWITCH",
     sentence: "The one where opening one of them opens all of them, on a beat nobody chose.",
     guide: {
-      both: "The trigger has stuck down: the dome comes up by itself over player 2's column on every beat, and nobody can stop it. New on the field is a rock inside a dome of its own. It comes in at the right wall and crosses to the left instead of falling, sinking two rows at every wall it turns at, and nothing touches it while the dome is on. The dome the plate passes under comes off — and the charge inside it jumps to another dome still standing and opens that one too. SHIELD is dead on player 1's panel; HOLD DOME is in its place, two beats of quiet and then a rest.",
-      p1: "The bolt is on your screen and on nobody else's, so which dome opens next is yours to say. Call the column the moment it leaves — they have four beats. HOLD DOME is yours as well.",
+      both: "The trigger has stuck down: the dome comes up by itself over player 2's column on every beat, and nobody can stop it. New on the field is a rock inside a dome of its own. It comes in at the right wall and crosses to the left instead of falling, sinking two rows at every wall it turns at, and nothing touches it while the dome is on. The dome the plate passes under comes off — and the charge inside it jumps to another dome still standing and opens that one too. GUARD is dead on player 1's panel and stays dead.",
+      p1: "The bolt is on your screen and on nobody else's, so which dome opens next is yours to say. Call the column the moment it leaves — they have four beats. It is the only thing you can do this wave.",
       p2: "Where the plate goes matters now, not when. Every dome you cross comes off and drops a torch, so be standing in the column they call before the rock is.",
     },
     entries: [

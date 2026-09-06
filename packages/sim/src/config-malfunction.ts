@@ -1,6 +1,6 @@
 /**
  * THE MALFUNCTION's four numbers: how often a broken control acts by itself,
- * and what the other seat's relief is worth.
+ * and what it loads.
  *
  * Its own file, the way every mechanic with numbers of its own has one. The
  * seam is the same one `config-fence.ts` and `config-recoil.ts` were cut
@@ -26,29 +26,8 @@ export interface MalfunctionConfig {
    * its attention on elsewhere.
    */
   malfunctionEveryBeats: number;
-  /**
-   * How long one tap of the relief holds the fault off.
-   *
-   * Two beats is one crossing and not two. It is deliberately shorter than
-   * `reliefRestBeats` below, so a seat cannot simply hold the fault down for
-   * the whole wave by tapping on a rhythm — the quiet is a window somebody
-   * asked for out loud, and there is a gap between windows whatever they do.
-   */
-  reliefPauseBeats: number;
-  /**
-   * Beats from one relief press to the next one that is answered.
-   *
-   * Measured from the **press** and not from the end of the pause, so the
-   * whole cycle is one number the pair can count rather than two they have to
-   * add up. Six against a pause of two means a third of the wave is quiet and
-   * two thirds are not, which is what makes the call worth making at the right
-   * moment instead of at the first moment.
-   */
-  reliefRestBeats: number;
 }
 
 export const MALFUNCTION_DEFAULTS: MalfunctionConfig = {
   malfunctionEveryBeats: 1,
-  reliefPauseBeats: 2,
-  reliefRestBeats: 6,
 };

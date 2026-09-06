@@ -4,7 +4,7 @@ import { handMeans, NO_GRIP } from "@neon-spore/sim";
 /**
  * **What the desk rig's grip key takes hold of.**
  *
- * Cut out of `keys.ts` when the relief's key took that file over its 250-line
+ * Cut out of `keys.ts` when a key too many took that file over its 250-line
  * limit, along the seam `keys-round.ts` and `keys-guide.ts` already cut: next
  * door is the *rig* — which key sends which command, and the repeat clock the
  * held ones run on — and this is the one question any of those keys has to

@@ -2,7 +2,7 @@ import { describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG, ticksPerBeat } from "../src/config.js";
 import { hashWorld } from "../src/hash.js";
 import { guardArmed } from "../src/hull-guard.js";
-import { type Malfunction, reliefHolds, reliefReady, reliefSeat } from "../src/malfunction.js";
+import type { Malfunction } from "../src/malfunction.js";
 import type { TimedCommand } from "../src/types.js";
 import { startWave } from "../src/wave-start.js";
 import { createWorld, type SimEvent, type SpawnEntry, step, type World } from "../src/world.js";
@@ -90,46 +90,16 @@ describe("a cannon that fires itself", () => {
     expect(events.some((e) => e.type === "fire")).toBe(false);
   });
 
-  it("hands the relief to player 2, and refuses it to player 1", () => {
-    expect(reliefSeat({ kind: "cannon", color: "red" })).toBe(2);
-    const wrong = open({ kind: "cannon", color: "red" });
-    play(wrong, 4, [{ tick: 1, player: 1, command: { kind: "relief" } }]);
-    expect(reliefHolds(wrong)).toBe(false);
-  });
-});
-
-describe("the relief", () => {
-  it("stops the fault for the beats it buys, and no longer", () => {
+  it("keeps firing for the whole wave, because nothing holds a fault off", () => {
+    // The seat whose control broke used to get a relief lobe that bought two
+    // beats of quiet; the owner took that button out on 6 September 2026. What
+    // has to hold now is that there is no quiet at all — a fault that could be
+    // paused by something nobody has drawn would be the silent kind of dead
+    // control this whole file exists to refuse.
     const world = open({ kind: "cannon", color: "red" });
-    play(world, 4, [{ tick: 1, player: 2, command: { kind: "relief" } }]);
-    expect(reliefHolds(world)).toBe(true);
-    const shots = play(world, TPB * CFG.reliefPauseBeats - 8).events.filter(
-      (e) => e.type === "fire",
-    );
-    expect(shots).toHaveLength(0);
-    expect(play(world, TPB * 2).events.some((e) => e.type === "fire")).toBe(true);
-  });
-
-  it("cannot be spent again until the rest has run", () => {
-    // The pause is shorter than the rest on purpose: a seat that could tap on a
-    // rhythm would hold the fault off for the whole wave, and the mechanic
-    // would be nothing at all (`config-malfunction.ts`).
-    const world = open({ kind: "cannon", color: "red" });
-    play(world, 4, [{ tick: 1, player: 2, command: { kind: "relief" } }]);
-    play(world, TPB * CFG.reliefPauseBeats, [
-      { tick: TPB, player: 2, command: { kind: "relief" } },
-    ]);
-    expect(reliefHolds(world)).toBe(false);
-    expect(reliefReady(world)).toBe(false);
-    play(world, TPB * (CFG.reliefRestBeats - CFG.reliefPauseBeats));
-    expect(reliefReady(world)).toBe(true);
-  });
-
-  it("is nothing at all on a wave with no fault", () => {
-    const world = createWorld({ ...CFG }, 0, []);
-    play(world, 4, [{ tick: 1, player: 2, command: { kind: "relief" } }]);
-    expect(reliefHolds(world)).toBe(false);
-    expect(reliefReady(world)).toBe(false);
+    const beats = 8;
+    const shots = play(world, TPB * beats).events.filter((e) => e.type === "fire");
+    expect(shots.length).toBeGreaterThanOrEqual(beats - 1);
   });
 });
 
@@ -149,19 +119,12 @@ describe("a shield that arms itself", () => {
     expect(world.guardTick).toBe(before);
   });
 
-  it("hands the relief to player 1", () => {
-    expect(reliefSeat({ kind: "shield" })).toBe(1);
+  it("keeps arming for the whole wave, because nothing holds a fault off", () => {
     const world = open({ kind: "shield" });
-    play(world, 4, [{ tick: 1, player: 1, command: { kind: "relief" } }]);
-    expect(reliefHolds(world)).toBe(true);
-  });
-
-  it("keeps the dome down for as long as the relief holds", () => {
-    const world = open({ kind: "shield" });
-    play(world, TPB - 2, [{ tick: 1, player: 1, command: { kind: "relief" } }]);
-    const before = world.guardTick;
+    play(world, TPB + 2);
+    const first = world.guardTick;
     play(world, TPB);
-    expect(world.guardTick).toBe(before);
+    expect(world.guardTick).toBeGreaterThan(first);
   });
 });
 
@@ -174,19 +137,11 @@ describe("the fingerprint", () => {
     expect(hashWorld(red)).not.toBe(hashWorld(cyan));
   });
 
-  it("notices a relief one device answered and the other did not", () => {
-    const held = open({ kind: "cannon", color: "red" }, [slick(0, 3)]);
-    const loose = open({ kind: "cannon", color: "red" }, [slick(0, 3)]);
-    play(held, TPB, [{ tick: 1, player: 2, command: { kind: "relief" } }]);
-    play(loose, TPB);
-    expect(hashWorld(held)).not.toBe(hashWorld(loose));
-  });
-
   it("fingerprints the same run the same way twice", () => {
     const a = open({ kind: "cannon", color: "alternating" }, [slick(0, 3)]);
     const b = open({ kind: "cannon", color: "alternating" }, [slick(0, 3)]);
-    play(a, TPB * 4, [{ tick: 20, player: 2, command: { kind: "relief" } }]);
-    play(b, TPB * 4, [{ tick: 20, player: 2, command: { kind: "relief" } }]);
+    play(a, TPB * 4);
+    play(b, TPB * 4);
     expect(hashWorld(a)).toBe(hashWorld(b));
   });
 });

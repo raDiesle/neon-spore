@@ -65,9 +65,9 @@ export interface KeyBindings {
  * game rather than standing in for a thumb.
  *
  * The gate is `panelSends`, asked once around the buffer rather than at each
- * of the twenty pushes below, so a key added here cannot forget it. The five
- * commands that are nobody's button — `restart`, the guide's two, the grip and
- * the relief — pass regardless, and that list is `control-sets-keys.ts`'s.
+ * of the twenty pushes below, so a key added here cannot forget it. The four
+ * commands that are nobody's button — `restart`, the guide's two and the grip —
+ * pass regardless, and that list is `control-sets-keys.ts`'s.
  */
 export function bindKeys({
   buffer,
@@ -123,16 +123,6 @@ export function bindKeys({
         break;
       case "KeyS":
         send(1, { kind: "intake" });
-        break;
-      // H holds the wave's malfunction off, and it is sent **as both seats**.
-      // A fault hands the relief to one of them and `reliefHeard` drops it
-      // from the other (`sim/malfunction.ts`), so one key covers either wave
-      // without the desk rig having to know which fault is up — the same
-      // reason W sends a shot and a guard in one press. Not R: that is the
-      // film's replay and has been since guides had one.
-      case "KeyH":
-        send(1, { kind: "relief" });
-        send(2, { kind: "relief" });
         break;
       // F holds the lance, as player 1. Held, not tapped: the lobe fills for
       // as long as the key is down and empties on the keyup below, which is

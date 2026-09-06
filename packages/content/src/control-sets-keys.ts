@@ -22,9 +22,7 @@ import type { ControlSet } from "./control-sets.js";
  * its own reason: `restart` and the two guide verbs are the *host* talking to
  * a run rather than a seat talking to a ship, and `grip` is a hand on the
  * field, which is the one command that was never half of the split
- * (`sim/command-types.ts`). `relief` is the fifth and the subtlest: a fault
- * substitutes it onto whichever panel is up (`controlBroken`), so it is on no
- * set's own list and is gated by `reliefHeard` instead.
+ * (`sim/command-types.ts`).
  */
 export function panelSends(set: ControlSet, kind: Command["kind"]): boolean {
   if (OFF_PANEL.has(kind)) return true;
@@ -39,7 +37,6 @@ const OFF_PANEL: ReadonlySet<Command["kind"]> = new Set([
   "brief",
   "guideStep",
   "grip",
-  "relief",
   // A drag is a hand on something the *field* is carrying — a maze string, a
   // warden's rope, a lid's cord, a body being pushed — and none of them is a
   // button on any panel (`DragTarget`).

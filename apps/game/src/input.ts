@@ -78,8 +78,9 @@ export function bindControls({
     maze: maze(),
     warden: warden(),
     controls: controls(),
-    // The wave's fault, so the relief is answered where it is drawn — the same
-    // argument `controls` makes one line up (`render/src/control-fault.ts`).
+    // The wave's fault, so a button it has taken over is refused where it is
+    // drawn dead — the same argument `controls` makes one line up
+    // (`content/src/control-fault.ts`).
     malfunction: malfunction(),
   });
 

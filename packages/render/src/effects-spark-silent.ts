@@ -34,12 +34,6 @@ export const SILENT = [
   // carry should also throw something is a look and the owner's to choose
   // (`docs/looks.md`), so nothing is invented here.
   "carry",
-  // A seat holding its own broken control off. Nothing happened on the field
-  // — the relief buys a *silence*, and the whole of what it shows is on the
-  // panel: the fault's own glitch stops for two beats and the button starts
-  // counting its rest back (`malfunction.ts`). Particles over the grid would
-  // point at the one place nothing changed.
-  "relief",
   // A cloud coming apart and the body inside it showing: `veil-tear.ts` draws
   // the whole of it, and the ordinary `destroy` that rides beside it on the
   // same tick is what throws the particles.

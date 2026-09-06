@@ -34,7 +34,7 @@ export function drawControlHover(ctx: CanvasRenderingContext2D, l: Layout, view:
   const set = bandControlSet(view.controls, view.world.wave);
   const skin = seatSkin(l.role);
   for (const player of [1, 2] as const) {
-    for (const lobe of bandLobes(l, set, player, view.world.malfunction)) {
+    for (const lobe of bandLobes(l, set, player)) {
       if (!hitCircle(lobe.circle, p.x, p.y)) continue;
       const { x, y, r } = lobe.circle;
       halo(ctx, x, y, r * 1.9, skin.rim, 0.3);

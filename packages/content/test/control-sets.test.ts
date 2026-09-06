@@ -300,7 +300,6 @@ describe("what a panel answers", () => {
       expect(panelSends(set, "restart"), `${set.id} refuses restart`).toBe(true);
       expect(panelSends(set, "grip"), `${set.id} refuses the grip`).toBe(true);
       expect(panelSends(set, "brief"), `${set.id} refuses READY`).toBe(true);
-      expect(panelSends(set, "relief"), `${set.id} refuses the relief`).toBe(true);
     }
   });
 });

@@ -43,20 +43,6 @@ export type Command =
    */
   | { kind: "grip"; id: number }
   /**
-   * A thumb on the relief, which is the one lobe a wave with a malfunction
-   * hands back to the seat whose control it broke. One press, over the moment
-   * it happens: it buys `reliefPauseBeats` of quiet and then a rest, and a
-   * held brake would be a brake nobody has to ask for out loud
-   * (`malfunction.ts`).
-   *
-   * It carries nothing at all — not even which fault it is pausing. There is
-   * exactly one on a wave, and a command that named it would be a second copy
-   * of something `World` already knows, arriving from a device that could be
-   * wrong about it. Whose thumb this is allowed to be is checked in
-   * `reliefHeard`, not on the wire.
-   */
-  | { kind: "relief" }
-  /**
    * Player 1's thumb on the lance, down (`on`) and up again. The hold is the
    * whole of it: the lobe fills for as long as the thumb stays and the cannon
    * stands still, and nothing in the simulation keeps it filled once the

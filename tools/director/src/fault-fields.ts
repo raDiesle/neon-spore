@@ -1,10 +1,5 @@
 import type { Wave } from "@neon-spore/content";
-import {
-  MALFUNCTION_COLORS,
-  type Malfunction,
-  type MalfunctionColor,
-  reliefSeat,
-} from "@neon-spore/sim";
+import { MALFUNCTION_COLORS, type Malfunction, type MalfunctionColor } from "@neon-spore/sim";
 
 /**
  * The MALFUNCTION section `rail.ts` shows under the control set: which of the
@@ -98,8 +93,8 @@ export function bindFaultFields(host: HTMLElement | null): FaultFields {
         : // The one sentence an author actually has to hold in their head while
           // composing the arrivals: which seat still has a strip to aim with,
           // and therefore which body the wave can be *about*.
-          `Player ${reliefSeat(fault)} loses their buttons and gets the relief; player ${
-            reliefSeat(fault) === 1 ? 2 : 1
+          `Player ${fault.kind === "cannon" ? 2 : 1} loses their buttons and gets nothing back; player ${
+            fault.kind === "cannon" ? 1 : 2
           } still has a strip and has to point the fault somewhere harmless.`;
   };
 

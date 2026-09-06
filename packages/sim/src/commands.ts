@@ -3,7 +3,7 @@ import { closeGauge } from "./gauge-round.js";
 import { gripsCreature, setGrip } from "./grip.js";
 import { armShield } from "./hull-guard.js";
 import { endPrime, startPrime } from "./lance.js";
-import { faultSwallows, reliefHeard } from "./malfunction.js";
+import { faultSwallows } from "./malfunction.js";
 import { mazeHeard } from "./maze-controls.js";
 import { mirrorHeard, mirrorHoldsControls } from "./mirror.js";
 import { closePinball } from "./pinball-round.js";
@@ -102,11 +102,6 @@ export function applyCommand(world: World, timed: TimedCommand): void {
       // malfunction arms it on the beat with nobody pressing anything and the
       // two paths must not drift (`armShield` in `hull-guard.ts`).
       armShield(world);
-      break;
-    case "relief":
-      // Whose thumb this is allowed to be is `malfunction.ts`'s rule, not this
-      // file's — the same split every round's own verbs are read with.
-      reliefHeard(world, timed.player);
       break;
     case "reach":
       // The arm, on THE CLAW's panel. It is an ordinary ship control and not a

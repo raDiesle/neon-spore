@@ -262,7 +262,6 @@ describe("the fingerprint covers the world", () => {
         "reachDir",
         "reachHeld",
         "reachMilli",
-        "reliefTick",
         "restBeat",
         "rng",
         "scars",

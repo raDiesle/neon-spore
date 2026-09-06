@@ -79,10 +79,10 @@ export interface Field {
    * The fault this wave is played under, or `null`.
    *
    * **Required and stated rather than defaulted**, for the reason every field
-   * above it is: a caller that quietly meant `null` would leave the seat whose
-   * control has been taken over with no relief drawn and no relief answered —
-   * a wave with a runaway cannon and no way to stop it, which is not a harder
-   * wave, it is an unplayable one.
+   * above it is: a caller that quietly meant `null` would answer a button the
+   * fault has taken over, so a thumb would fire a gun the pair can see is
+   * broken — the one thing the picture and the simulation must never disagree
+   * about.
    */
   malfunction: Malfunction | null;
 }

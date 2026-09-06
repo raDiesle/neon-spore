@@ -73,18 +73,15 @@ export function hashWorld(world: World): number {
   push(world.reachHeld);
   push(world.wardUntilTick);
   push(world.lastFireTick);
-  // The wave's fault, and the brake against it. The fault is script — handed
-  // in by `startWave` the way the queue is — but it is *hashed* where the
-  // queue is not, and cheaply: it is one small object rather than a list read
-  // by index, and it decides on every beat whether a shot goes out that
-  // nobody pressed. `reliefTick` is the window that stops one, and it is
-  // written by a command, so it is state in the plainest sense.
+  // The wave's fault. It is script — handed in by `startWave` the way the
+  // queue is — but it is *hashed* where the queue is not, and cheaply: it is
+  // one small object rather than a list read by index, and it decides on every
+  // beat whether a shot goes out that nobody pressed.
   const fault = world.malfunction;
   push(fault === null ? -1 : MALFUNCTION_KINDS.indexOf(fault.kind));
   if (fault !== null && fault.kind === "cannon") {
     push(MALFUNCTION_COLORS.indexOf(fault.color) + 1);
   }
-  push(world.reliefTick);
   // The shot that has been pressed and has not left yet. In for the reason a
   // bullet is: two devices that disagree about whether a shot exists have
   // desynced, and a charge is a shot that exists everywhere except on the

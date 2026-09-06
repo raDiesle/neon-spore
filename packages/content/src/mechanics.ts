@@ -67,8 +67,8 @@ export type RunMechanicId = "briefing" | "windup" | "lance" | "grip" | "lock";
  * two rules: one takes the colours off the navigator and hands the pilot a gun
  * that will not stop, the other takes the trigger off the pilot and hands the
  * navigator a plate that comes up whether or not anybody wants it. A pair who
- * has played one has learnt nothing about the other except the shape of the
- * relief. Collapsing them into a single row would say the game introduces this
+ * has played one has learnt almost nothing about the other. Collapsing them
+ * into a single row would say the game introduces this
  * once, and `test/waves.test.ts` would then hold that the second wave to carry
  * one must *not* explain itself.
  */

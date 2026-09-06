@@ -1,5 +1,4 @@
 import { type ControlDef, type ControlSet, panelSlots } from "@neon-spore/content";
-import type { Malfunction } from "@neon-spore/sim";
 import type { Circle, Layout } from "./layout.js";
 import { showsCannon, showsShield } from "./view-role.js";
 
@@ -60,27 +59,20 @@ export interface Lobe {
  * waves that moves under them in the fifth — which is the whole of what the
  * owner asked for when he asked for a reduced panel.
  *
- * **`fault` is the wave's malfunction**, and the row it produces is
- * `panelSlots`' answer rather than one worked out here — a seat whose control
- * has been taken over keeps every button where it was and gains a relief at
- * the end of the row (`content/src/control-fault.ts`). It is a **required**
- * argument for the reason `Field.controls` is: a caller that quietly meant
- * `null` would draw a panel with no brake on it, and the seat holding that
- * brake is the only thing standing between the pair and a gun that fires on
- * every beat.
+ * **The wave's fault does not reach this function at all**, and it used to: a
+ * fault handed the broken seat one more lobe, so the row a seat had depended on
+ * it. The owner took that button out on 6 September 2026, and what a fault
+ * changes now is only what a button *does* and how it is drawn — which is
+ * `band-control.ts`'s business and read off `world.malfunction` there. The row
+ * is `panelSlots`' answer and nothing else (`content/src/control-fault.ts`).
  */
-export function bandLobes(
-  l: Layout,
-  set: ControlSet,
-  player: 1 | 2,
-  fault: Malfunction | null,
-): Lobe[] {
+export function bandLobes(l: Layout, set: ControlSet, player: 1 | 2): Lobe[] {
   // A seat this screen does not carry has no buttons on it at all — not
   // buttons somewhere off to one side. A solo view gives its one seat the
   // whole width, so the absent seat's circles would otherwise land on top of
   // the present one's and both would claim the same thumb.
   if (player === 1 ? !showsCannon(l.role) : !showsShield(l.role)) return [];
-  const slots = panelSlots(set, player, fault);
+  const slots = panelSlots(set, player);
   if (slots.length === 0) return [];
   const solo = l.role !== "test";
   // Each seat's share of the width, and the middle of it. In the test view the

@@ -22,7 +22,7 @@ export const WAVE_MECHANICS = {
     reach: "wave",
   },
   shieldFault: {
-    what: "The dome comes up by itself, over whatever column the navigator has left it in, on every beat. The trigger goes dead on the pilot's panel and the same relief takes its place. Every rock the plate is standing under is warded without anybody asking — and every clasp it passes is opened without anybody asking either, whether or not the cannon is ready for the body inside.",
+    what: "The dome comes up by itself, over whatever column the navigator has left it in, on every beat. The trigger goes dead on the pilot's panel and stays dead. Every rock the plate is standing under is warded without anybody asking — and every clasp it passes is opened without anybody asking either, whether or not the cannon is ready for the body inside.",
     reach: "wave",
   },
 } as const;

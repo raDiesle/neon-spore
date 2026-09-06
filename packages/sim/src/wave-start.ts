@@ -7,7 +7,6 @@ import { installGauge } from "./gauge-round.js";
 import { clearGrips } from "./grip.js";
 import { endPrime } from "./lance.js";
 import type { Malfunction } from "./malfunction.js";
-import { NO_RELIEF } from "./malfunction.js";
 import { installMaze } from "./maze-round.js";
 import { installMirror } from "./mirror.js";
 import { installPinball } from "./pinball-round.js";
@@ -71,7 +70,6 @@ export function startWave(
   // wave-local: a scar, a pause and a rest are all measured from a tick, and a
   // wave that inherited one would open with a window already half run.
   world.malfunction = malfunction;
-  world.reliefTick = NO_RELIEF;
   // The arm home and empty. A wave that inherited one halfway up a column
   // would open with a hand reaching for something the last wave had.
   world.reachDir = 0;

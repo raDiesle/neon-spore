@@ -73,7 +73,6 @@ const SAMPLES: Record<string, SimEvent> = {
   reject: { type: "reject", col: 2, row: 5 },
   magnetPlate: { type: "magnetPlate", col: 2, row: 5, color: "cyan" },
   magnetBreak: { type: "magnetBreak", col: 2, row: 5, color: "red", fromLeft: true },
-  relief: { type: "relief", player: 2, beats: 2 },
   deflect: { type: "deflect", col: 2, span: 1, kind: "meteor", fromRow: 9 },
   grip: { type: "grip", player: 1, col: 1, row: 3 },
   carry: { type: "carry", player: 2, col: 1, row: 3, dir: 1 },

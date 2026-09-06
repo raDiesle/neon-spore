@@ -791,7 +791,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/perf-page.ts` | The readout `?perf=1` puts on the screen |
 | `apps/game/src/perf-sweep.ts` | The performance sweep, run **inside the page**, on the device the game is for |
 | `apps/game/src/menu-idle.ts` | `?menuidle=<hz>` — how often the field is repainted while the main menu is up |
-| `apps/game/src/keys-grip.ts` | **What the desk rig's grip key takes hold of.** Cut out of `keys.ts` when the relief's key took that file… |
+| `apps/game/src/keys-grip.ts` | what the desk rig's grip key takes hold of, and how it carries it |
 | `apps/game/src/keys-slide.ts` | The desk keys that slide a swelling, and keep sliding while held |
 
 ### apps/server

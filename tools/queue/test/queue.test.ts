@@ -46,7 +46,7 @@ describe("parseItems", () => {
   });
 });
 
-const ASKING = `## The relief says the wrong word
+const ASKING = `## A button says the wrong word
 
 - **Found:** 2026-09-06, claude/some-lane
 - **Files:** \`packages/content/src/controls.ts\`

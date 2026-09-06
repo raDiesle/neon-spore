@@ -1,5 +1,5 @@
 import { type ControlSet, controlSetForWave, setControls } from "@neon-spore/content";
-import { type Malfunction, mirrorHoldsControls, type World } from "@neon-spore/sim";
+import { mirrorHoldsControls, type World } from "@neon-spore/sim";
 import { drawStripFor } from "./band-channel.js";
 import { drawLobe } from "./band-control.js";
 import { drawBandGround } from "./band-ground.js";
@@ -87,7 +87,7 @@ export function drawBand(
   ctx.clip(chamber);
   drawBandGround(ctx, l, seamTop(l), skin);
   drawSeamSpill(ctx, l, skin);
-  drawFeeders(ctx, l, feeders(l, set, world.malfunction), time, skin);
+  drawFeeders(ctx, l, feeders(l, set), time, skin);
   ctx.restore();
   drawDrips(ctx, l, time, skin);
 
@@ -107,14 +107,10 @@ export function drawBand(
  * carries, asked of the same `bandLobes` that draws and answers them, so a
  * tendril can never run to a button that is not there.
  */
-function feeders(
-  l: Layout,
-  set: ControlSet,
-  fault: Malfunction | null,
-): { x: number; y: number }[] {
+function feeders(l: Layout, set: ControlSet): { x: number; y: number }[] {
   const out: { x: number; y: number }[] = [];
   for (const player of [1, 2] as const) {
-    for (const lobe of bandLobes(l, set, player, fault)) {
+    for (const lobe of bandLobes(l, set, player)) {
       out.push({ x: lobe.circle.x, y: lobe.circle.y - lobe.circle.r * 1.1 });
     }
   }
@@ -143,7 +139,7 @@ function drawHalf(
   // The lobes come from `bandLobes` rather than from named fields of the
   // layout, and `touchDown` asks it the same question with the same set — so
   // there is one answer to "where is this button", not two that have to agree.
-  for (const lobe of bandLobes(l, set, player, world.malfunction)) {
+  for (const lobe of bandLobes(l, set, player)) {
     drawLobe(ctx, l, lobe.circle, lobe.control, world, armed, open, time);
   }
 }

@@ -11,7 +11,7 @@ export {
   controlHold,
   controlPress,
 } from "./control-command.js";
-export { controlBroken, panelSlots, reliefControl } from "./control-fault.js";
+export { controlBroken, panelSlots } from "./control-fault.js";
 export {
   CONTROL_SETS,
   type ControlSet,

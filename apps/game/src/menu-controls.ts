@@ -1,7 +1,6 @@
 import {
   CONTROL_SETS,
   type ControlSet,
-  control,
   heldBack,
   panelForm,
   setControls,
@@ -69,20 +68,6 @@ const PHONE: [string, string][] = [
   ],
 ];
 
-/**
- * The two reliefs, read off `controls.ts` rather than written out again — the
- * `does` line is the vocabulary's own sentence about the button, and a second
- * copy of it here is a copy that goes stale the first time one is retuned.
- *
- * They are not on any panel, which is why they are a block of their own rather
- * than rows inside one: a fault hands a seat its relief, and a fault is a fact
- * about the wave (`packages/content/src/control-fault.ts`).
- */
-const RELIEFS: [string, string][] = [
-  [control("reliefFire").label, control("reliefFire").does],
-  [control("reliefGuard").label, control("reliefGuard").does],
-];
-
 /** Read off `bindControls` in `keys.ts`. One row per key a tester presses. */
 const KEYS: [string, string][] = [
   ["A / D", "The cannon, and the shield along with it."],
@@ -129,9 +114,8 @@ export function buildControls(show: (page: MenuPage) => void, back: MenuPage): H
     el(
       "p",
       "lead",
-      "A few waves are played under a malfunction: one of the two controls acts on every beat by itself, and the seat it belonged to cannot use it at all. That seat is handed one button in its place, and it is the only thing either of you can do about the fault — a tap holds it off for two beats, then it needs six before it will answer again. The other seat still has a strip, and their job is to point the runaway control somewhere it can do no harm.",
+      "A few waves are played under a malfunction: one of the two controls acts on every beat by itself, and the seat it belonged to cannot use it at all. Nothing stops it. The other seat still has a strip, and the whole answer to the fault is where they decide to stand — pointing the runaway control somewhere it can do no harm, every beat, for the length of the wave.",
     ),
-    rows(RELIEFS),
   );
 
   page.append(el("h2", undefined, "AT A DESK"));

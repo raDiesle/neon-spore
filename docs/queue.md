@@ -125,7 +125,7 @@ say `ASKS THE OWNER`. Write the question so it can be answered in a sentence,
 and let the body carry the options it picks between:
 
 ```
-## The relief says HOLD FIRE, not the sentence asked for
+## A button says two words where a sentence was asked for
 
 - **Found:** 2026-09-06, claude/some-lane
 - **Files:** `packages/content/src/controls.ts`
@@ -156,71 +156,6 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 `exports.Room.storage`) still holds — miniflare 5 changed it from 4's flat
 `{ modules, script, durableObjects }`, and `convertV4MiniflareOptions` is the
 shim that shows what the new shape wants if it changed again.
-
-## Nothing on the field says the dome is torn
-
-- **Found:** 2026-09-06, claude/control-set-malfunction-mods-vv9icb
-- **Files:** `packages/render/src/malfunction-look.ts`, `packages/render/src/band-channel.ts`, `packages/sim/src/barb.ts`
-- **Asks:** Draw the scar on player 2's shield strip, on player 1's trigger, or on the dome itself?
-
-THE BARB catches the dome and `domeScarred` then makes `guardArmed` answer false
-for `barbScarBeats`. Nothing draws that. The trigger simply stops lighting, and
-a control that quietly does nothing is indistinguishable from one that is
-broken — which is the exact failure `drawLock` was written to avoid for THE
-MIRROR. A pair will read it as a bug the first time, and on THE TWITCH they meet
-it under a fault that arms the dome for them, so they never pressed anything at
-all.
-
-It is a **defect rather than an unlovely look** (`docs/looks.md`'s third
-exemption), so it does not go to VERSUS and does not need a candidate beside it.
-`domeScarred(world)` is the one question to ask and it is already exported.
-
-**The owner's answer decides where it is drawn, and there are three places:**
-
-- **a) On the shield strip.** A torn edge or a red break in player 2's channel
-  for as long as the scar is open — the plate is theirs and this is what has
-  been taken away from them. `band-channel.ts` draws the strip.
-- **b) On the trigger.** A scar over player 1's GUARD lobe, the way a fault is
-  drawn over a dead one — `drawFaultOver` in `malfunction-look.ts` is the shape
-  to reuse. But under a shield fault that button is dead already, and two kinds
-  of damage on one lobe would read as one.
-- **c) On the dome itself, over the hull.** Truest to what happened and the most
-  work: the shield is drawn from `ship-silhouettes.ts` and nothing there takes a
-  damage term yet.
-
-Take (a) if the answer has not arrived: it is the seat that lost something, it
-is one file, and it does not collide with a fault already drawing on the lobes.
-Count the beats down visibly either way — how *long* is the half the pair has to
-say out loud.
-
-## The relief says HOLD FIRE, not the sentence asked for
-
-- **Found:** 2026-09-06, claude/control-set-malfunction-mods-vv9icb
-- **Files:** `packages/content/src/controls.ts`, `packages/render/src/band-control.ts`, `packages/render/src/malfunction-look.ts`
-- **Asks:** Leave the two words, hang a caption over the band, or widen that one lobe?
-
-The owner asked for the relief to say what it pauses — *"Pause p2 cannon
-malfunction"* — and it says `HOLD FIRE` and `HOLD DOME`. That is not a
-compromise anybody argued for, it is what fits: a band lobe is drawn at
-`l.lobeR` and the label is 9px Courier under the face, so about nine characters
-before it runs into the lobe beside it. The long sentence is on the CONTROLS
-page (`apps/game/src/menu-controls.ts`, which reads `ControlDef.does`) and in
-each wave's guide, and nowhere the pair can see mid-wave.
-
-This one **is** a look and the owner decides it. Do not pick one and land it.
-
-- **a) Leave it.** Two words is what a thumb reads under a beat, and the guide
-  has already said the rest twice before the wave starts.
-- **b) A caption over the band**, the way a rehearsal points at a control
-  (`caption-anchor.ts` already anchors to a lobe by id). Room for the whole
-  sentence, on the first wave that carries a fault and never again.
-- **c) A wider lobe for this one control.** `bandLobes` centres a seat's lobes
-  in its share and would take a per-control width; the relief is the only
-  button in the game that would want one, which is the argument against.
-
-Whichever it is, `ControlDef.label` is the one copy of the word — the band, the
-CONTROLS page and the director's panel roster all read it, so nothing needs a
-second string.
 
 ## packages/render/src/effects.ts is at its 250-line ceiling and turning work away
 

@@ -236,10 +236,6 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "fencePass":
     case "fenceBurn":
       return fenceCue(e, cols, rows);
-    // A seat holding a broken control off. No pan: it is a thumb rather than a
-    // place on the field, and one constant is not a file (`bind-ship.ts` was).
-    case "relief":
-      return { id: "ship.reliefHold" };
     case "volleyReturn":
     case "volleyHatch":
       return volleyCue(e, cols, rows);

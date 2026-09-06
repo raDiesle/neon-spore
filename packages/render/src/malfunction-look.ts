@@ -1,5 +1,3 @@
-import { type Malfunction, reliefHolds, reliefRest, type World } from "@neon-spore/sim";
-import { drawActionButton } from "./controls.js";
 import { halo } from "./glow.js";
 import { sinHash } from "./hash.js";
 import { rgba } from "./hex.js";
@@ -26,10 +24,11 @@ import { P1_SKIN } from "./seat-skin.js";
  * to see which of the two they are looking at. So the lobe keeps its face, its
  * colour and its place — nothing moves — and the damage is laid over the top.
  *
- * **It stops while the relief holds.** Two beats of quiet are the one thing
- * either seat can buy, and the surest way to know they got it is that the
- * button stops tearing. That is why `reliefHolds` is read here rather than
- * only in the simulation.
+ * **It does not stop.** The seat whose control broke used to be handed a
+ * relief lobe that bought two beats of quiet, and the tearing stopped for as
+ * long as it held; the owner took that button out on 6 September 2026. A fault
+ * now runs for the whole wave, so the damage on the face is a fact about the
+ * wave rather than a window somebody is spending.
  */
 
 /** How far a slice of a glitched lobe is thrown sideways, as a share of its radius. */
@@ -123,49 +122,4 @@ function drawBleed(
   ctx.ellipse(x, drop, size, size * 1.25, 0, 0, Math.PI * 2);
   ctx.fill();
   ctx.restore();
-}
-
-/**
- * The relief itself: the one lobe a fault hands back to the seat it broke.
- *
- * `drawActionButton`'s picture rather than one of its own, because it *is* one
- * of player 1's actions read one seat over — a thing that is lit or not, with
- * its own word under it. Lit means the quiet is running; the ring under it is
- * how much of the rest is left, which is the only readout either seat has of
- * whether the next press will do anything (`reliefRest`).
- */
-export function drawReliefButton(
-  ctx: CanvasRenderingContext2D,
-  c: Circle,
-  world: World,
-  label: string,
-  dead: string,
-): void {
-  const { x, y, r } = c;
-  const holding = reliefHolds(world);
-  drawActionButton(ctx, x, y, r, holding, PALETTE.good, "#06231A", "guard", label, dead);
-  const rest = reliefRest(world);
-  if (rest <= 0) return;
-  // The rest, as an arc closing anticlockwise back to nothing. Drawn outside
-  // the body so it never fights the word on the face, and in the dim rather
-  // than in the button's own green: what it says is *not yet*.
-  ctx.save();
-  ctx.strokeStyle = rgba(PALETTE.sparkDim, 0.85);
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  ctx.arc(x, y, r * 1.28, -Math.PI / 2, -Math.PI / 2 + rest * Math.PI * 2);
-  ctx.stroke();
-  ctx.restore();
-}
-
-/**
- * Which word the relief carries, for a seat that has to press it under a beat.
- *
- * The control's own `label` is the short one the band draws; this is the
- * sentence a page listing the panel wants. It is here rather than beside the
- * label because a caption is a picture's business, and `controls.ts` is the
- * vocabulary.
- */
-export function reliefSays(m: Malfunction): string {
-  return m.kind === "cannon" ? "HOLD FIRE" : "HOLD DOME";
 }

@@ -47,13 +47,6 @@ export function controlPress(id: ControlId, col = 0): ControlPress {
       return { down: { kind: "fire", color: "red" } };
     case "fireCyan":
       return { down: { kind: "fire", color: "cyan" } };
-    // Both reliefs say the same thing, and the command carries nothing: there
-    // is one fault on a wave, and whose thumb is allowed to pause it is
-    // checked in `reliefHeard` rather than named on the wire
-    // (`sim/command-types.ts`).
-    case "reliefFire":
-    case "reliefGuard":
-      return { down: { kind: "relief" } };
     case "guard":
       return { down: { kind: "guard" } };
     case "intake":

@@ -8,7 +8,7 @@ import type { SimEvent } from "@neon-spore/sim";
  * transient the renderer has to carry from one frame to the next. This is the
  * long tail it used to carry underneath that switch — a run of `case` labels
  * falling through to one `break`, with a paragraph over each explaining what
- * draws the thing instead. THE BARB's tear and the relief were two more, and
+ * draws the thing instead. Two more arrived on one day, and
  * the file was already exactly at its 250-line limit, so the only way to land
  * them there would have been to reword comments belonging to other creatures
  * until four lines came back. `effects-spark-silent.ts` was cut off its own
@@ -145,7 +145,6 @@ export const INGEST_SILENT = [
   // breach of its own, the other is a window the panel reads off the world.
   "fencePass",
   "fenceBurn",
-  "relief",
   // A magnet coming apart, for THE CHUTE's reason exactly: what it leaves is a
   // transient of its own in `effects-body.ts`, spawned there rather than here
   // (`magnet-break.ts`).

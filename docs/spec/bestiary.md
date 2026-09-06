@@ -451,13 +451,14 @@ a lure's column, past a clasp the cannon is not ready for — which is why those
 creatures are what the faults were built for. A fault that took the strip
 instead would leave the pair with nothing to do about it.
 
-**The relief is the coupling.** The seat whose control broke gets one lobe back
-where its buttons were: a tap holds the fault off for `reliefPauseBeats`, and
-the next tap is only answered `reliefRestBeats` after the last. It is on the
-*broken* seat deliberately — the seat that can still move has both hands full
-of a column, and a brake either of them could reach would be a brake nobody has
-to ask for. As it stands a crossing is a sentence: *hold it, I am going
-through.*
+**There is no brake, and the coupling is the calling.** The broken seat used to
+get one lobe back where its buttons were — a relief, two beats of quiet a tap at
+a time — and the owner took it out on 6 September 2026: he did not want the
+button. So the seat with no control has nothing to press at all, and everything
+it knows has to leave its mouth. On THE JAM that is the colour the gun has
+loaded and which columns are lures; on THE TWITCH it is which dome the charge is
+travelling to. The other seat holds the only thing that can act on any of it,
+and a fault runs from the first beat of the wave to the last.
 
 **The rule is enforced in the simulation, not on the panel.** A lobe is not the
 only way into a `fire` or a `guard` — a swipe on the hull is a second, a

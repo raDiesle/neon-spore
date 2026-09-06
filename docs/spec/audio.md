@@ -90,7 +90,7 @@ grain changes the game's voice and should be rare; adding a sound is not.
 | Family | Holds | Bound |
 |---|---|---|
 | `beat` | the click track | 2 of 7 |
-| `ship` | cannon, shield, maw, and THE GRIP | 13 of 19 |
+| `ship` | cannon, shield, maw, and THE GRIP | 12 of 19 |
 | `impact` | what a shot does when it arrives | 12 of 14 |
 | `hull` | the hull taking it | 6 of 10 |
 | `pod` | hanging, loose, taken, lost | 5 of 10 |
@@ -110,7 +110,7 @@ in a noisy room throws away.
 
 ## 5 · Built and unspent
 
-119 of the 206 are `spare`: finished, tested, and nothing plays them. That is
+120 of the 206 are `spare`: finished, tested, and nothing plays them. That is
 deliberate. A creature that is still a name in `bestiary.md` is easier to argue
 about once you can hear what it would sound like, and several idea-store entries stand or fall on exactly that — the
 countdown creature is three pips and a hole where the fourth should be, and

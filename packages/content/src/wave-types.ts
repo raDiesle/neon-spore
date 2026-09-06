@@ -145,8 +145,8 @@ export interface Wave {
   controls?: ControlSetId;
   /**
    * The fault this wave is played under, if any — a control that acts by
-   * itself, and the seat it belongs to left holding a relief instead of a
-   * button (`packages/sim/src/malfunction.ts`).
+   * itself, and the seat it belongs to left with nothing at all in its place
+   * (`packages/sim/src/malfunction.ts`).
    *
    * **Beside `controls` and not part of it.** A set is a whole panel and sets
    * do not compose, which is the rule that makes a panel a thing a person can
