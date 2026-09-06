@@ -227,20 +227,3 @@ Write the entry the way the neighbouring ones are written: the figures off
 `crawler-fx.ts`. Nothing about the game changes and `bun run check` still
 passes, which is the whole of the acceptance.
 
-## `packages/sim/src/config-creatures.ts` sits exactly on the 250-line limit
-
-- **Found:** 2026-09-05, claude/throb-color-rotation-5dd05f
-- **Taken:** 2026-09-06, claude/queue-packages-sim-src-config-creatures-ts-sits-exactl
-- **Files:** `packages/sim/src/config-creatures.ts`, `packages/sim/src/config.ts`
-
-The file is 250 lines and `packages/sim/test/limits.test.ts` refuses 251, so a
-field cannot be added and an existing comment cannot gain a line. This lane
-wanted three sentences on why `throbSpinBeats` came down from four to three and
-had to put them in `packages/sim/src/throb.ts` instead, which is the right file
-for the argument but leaves the number documented somewhere the config does not
-point at. Split it the way `config-gyre.ts` and `config-fleet.ts` were split —
-the creature-by-creature clocks (`throbSpinBeats`, `throbFaceMilli`,
-`veilMorphBeats`, `wispDwellBeats`, `claspBreakBeats`) are one group and the
-score and damage numbers are another — and re-export both from `config.ts` so
-no call site moves. `bun run check` proves it: nothing outside the file should
-need an edit.

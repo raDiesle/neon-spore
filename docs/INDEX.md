@@ -113,7 +113,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/clasp.ts` | THE CLASP: a slick or a bulb inside a shield of its own, becoming a different creature instead of dying |
 | `packages/sim/src/command-types.ts` | what a press *is*, as a flat union — so that a replay is a list of these and nothing else |
 | `packages/sim/src/config-boss.ts` | the numbers the bosses own |
-| `packages/sim/src/config-creatures.ts` | what one creature costs and how long its own clock runs |
+| `packages/sim/src/config-creatures.ts` | how long one creature's own clock runs, and the shapes it moves |
 | `packages/sim/src/config-gauge.ts` | THE GAUGE's numbers — the first of the twelve rounds, and its whole difficulty |
 | `packages/sim/src/config-pair.ts` | the switch that exists because the game has two people in front of it |
 | `packages/sim/src/config-shot.ts` | everything about a shot, as numbers: speed, rate, hold value, which moments it may leave on |
@@ -235,6 +235,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-ghost.ts` | THE GHOST's three: the body letting go, a wall turned at, and the dive |
 | `packages/sim/src/kind-code.ts` | **A kind as a number**, and the compile-time proof that every kind has one |
 | `packages/sim/src/lure-exit.ts` | **THE LURE leaving on its own**, which is the one thing in this game a body does at the end of a beat for no… |
+| `packages/sim/src/config-creature-scores.ts` | what one creature pays and what one costs, priced against each other |
 
 ### packages/content
 

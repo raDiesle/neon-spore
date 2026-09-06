@@ -1,10 +1,16 @@
 /**
- * What one *creature* costs and how long its own clock runs: the lure's price
- * and the row it leaves on, the throb's cycle, the shell's chipping, the
- * clasp's break, the veil's morph and its armour, the wisp's dwell and how far
- * a hand has to carry THE LID's cord.
+ * How long one *creature's* own clock runs, and the shapes that clock moves:
+ * the row a lure leaves on and how many holes its blast makes, the throb's
+ * cycle, the clasp's break, the veil's morph and its armour, the wisp's dwell,
+ * the echo's fall and its divisions, the rind's layers, and how far a hand has
+ * to carry THE LID's cord.
  *
- * **THE GHOST's six live next door**, in `config-ghost.ts`, for the reason
+ * **What each of them is worth lives next door**, in `config-creature-scores.ts`.
+ * The prices left the day this file sat exactly on its limit: a price is argued
+ * against the other prices and a clock is argued against the beat, so the two
+ * halves were being read at different times and neither could gain a line.
+ *
+ * **THE GHOST's six live next door too**, in `config-ghost.ts`, for the reason
  * `config-gyre.ts` gives about the seven it took with it: a creature with two
  * numbers is a row in this shared list, and a creature with six is a section —
  * and a section is a file. That is also what stopped this one going over its
@@ -14,23 +20,18 @@
  *
  * `SimConfig` extends this rather than nesting it, for the reason
  * `config-shot.ts` and `config-boss.ts` already give: every call site still
- * reads `cfg.throbPeriodBeats`, and the split is only about how much of one
- * file a reader has to hold at once. The immediate reason is the same one
- * those two record — `config.ts` went over its size limit the day THE VEIL
- * added three fields. The better reason is that these eleven were already
- * sitting in a row and are argued about one creature at a time, while
- * everything left next door is argued about for the whole game: the beat, the
- * hull, the shield, the pod, the field.
+ * reads `cfg.throbSpinBeats`, and the split is only about how much of one file
+ * a reader has to hold at once. The immediate reason is the same one those two
+ * record — `config.ts` went over its size limit the day THE VEIL added three
+ * fields. The better reason is that these were already sitting in a row and are
+ * argued about one creature at a time, while everything left in `config.ts` is
+ * argued about for the whole game: the beat, the hull, the shield, the pod, the
+ * field.
  *
- * A creature added to the bestiary that wants a number of its own adds it
- * here, not there.
+ * A creature added to the bestiary that wants a clock of its own adds it here,
+ * not there.
  */
 export interface CreatureConfig {
-  /** What a shot at a lure costs the hull. Not the score: two currencies for
-   * one mistake reads as bookkeeping, and the hull is the one the pair feels.
-   * Above `damageCreature` on purpose — a body that reached the hull cost a
-   * shot nobody fired, and this cost one that was. */
-  damageLure: number;
   /** Rows above the hull a lure stands on before it goes (`lureVanishRow`).
    * Two: close enough that player 1's eye is already on it, far enough that it
    * plainly never threatened the ship. */
@@ -38,22 +39,12 @@ export interface CreatureConfig {
   /** Places along the hull the blast breaks it in (`lureBlastCols`).
    * `damageLure` is split between them: priced once, paid in several holes. */
   lureBlastPlaces: number;
-  /** Score for hitting a Throb with the colour its round half is in. */
-  scoreThrobHit: number;
-  /** What one piece of THE SHELL is worth. Smaller than a kill: chipping the
-   * armour is work either colour can do, and the kill is still to come. */
-  scoreShellPiece: number;
   /** Beats a Throb takes to turn once, clockwise — the whole of its clock
    * (`throbTurnMilli`, throb.ts), read off the beat both players share. */
   throbSpinBeats: number;
   /** Thousandths of every turn the authored colour is square to the cannon.
    * The rest is the other colour's half, a body too (`throbColorAt`). */
   throbFaceMilli: number;
-  /**
-   * Opening a clasp with the ward. Between `scoreDestroy` and `scoreDeflect`:
-   * the same joint shape as a deflection, but it only sets the kill up.
-   */
-  scoreClaspBreak: number;
   /**
    * Beats the broken shield goes on flying apart for. Render-only — the sim
    * opens a clasp on the instant of the trigger — but a `SimConfig` field
@@ -80,9 +71,6 @@ export interface CreatureConfig {
    * that simply cannot be killed.
    */
   veilArmourMs: number;
-  /** What a veil is worth. Above `scoreThrobHit`: the timing is only half of
-   * it, and the other half is a sentence that had to be said in time. */
-  scoreVeilKill: number;
   /**
    * Beats THE WISP stands on one tile before it is somewhere else — the whole
    * cycle, of which the first is the jump and the rest is the standing.
@@ -101,10 +89,6 @@ export interface CreatureConfig {
    * that survives.
    */
   wispDwellBeats: number;
-  /** What a wisp is worth. The highest single body in the game: it is only
-   * ever killed by a tile that crossed the room, and the pair has one dwell
-   * to say it, hear it, aim and fire. */
-  scoreWispKill: number;
   /**
    * Beats between one step down and the next for THE ECHO. Two — it is the
    * whole of "half as fast", and it is the smallest number that is one: at
@@ -146,17 +130,6 @@ export interface CreatureConfig {
    */
   echoSplitBeats: number;
   /**
-   * What *one* echo body is worth. `echoStruck` multiplies it by how many
-   * bodies the one it killed would still have become, so a whole arrival pays
-   * the same however it is taken and the pair is never paid for letting one
-   * divide.
-   *
-   * Eight bodies at twenty-five is two ordinary kills for one arrival, and
-   * that is right rather than generous: an echo is on the field for eighteen
-   * beats and spends all of them asking the pair for an order.
-   */
-  scoreEchoKill: number;
-  /**
    * How many layers THE RIND sheds before an ordinary shot kills it. Two, so
    * one arrival is three shots and three sizes — and three is the number
    * rather than a tuning: two would be a body that flinches once, and four
@@ -168,17 +141,6 @@ export interface CreatureConfig {
    * body three times the size of a slick and every shed steps it down by one.
    */
   rindLayers: number;
-  /**
-   * What taking one layer off a rind is worth. Half of `scoreDestroy`, so a
-   * whole arrival pays two hundred for three shots — more than the hundred a
-   * slick pays for one, and less than the three hundred three slicks would.
-   *
-   * Deliberately not nothing. The shed is the moment this creature exists for:
-   * the pair has to say *again* out loud and keep a column they had finished
-   * with, and a mechanic that paid only at the end would teach them that the
-   * first two shots were a tax rather than the fight.
-   */
-  scoreRindShed: number;
   /**
    * Thousandths of a tile player 1's hand must carry THE LID's cord for the
    * plates to stand fully apart. `wardenTautMilli`'s figure exactly, and that
@@ -213,38 +175,22 @@ export interface CreatureConfig {
    * another.
    */
   lidCordMilli: number;
-  /**
-   * What a lid is worth. `scoreVeilKill`'s and `scoreGhostKill`'s figure, and
-   * for their reason: all three are bodies the pair can only reach by doing
-   * one thing together at one moment, and pricing one above the others would
-   * teach that one kind of agreement is worth more than another.
-   */
-  scoreLidKill: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
 export const CREATURE_DEFAULTS: CreatureConfig = {
-  damageLure: 15,
   lureVanishRows: 2,
   lureBlastPlaces: 3,
-  scoreThrobHit: 200,
-  scoreShellPiece: 120,
   throbSpinBeats: 3,
   throbFaceMilli: 500,
-  scoreClaspBreak: 120,
   claspBreakBeats: 2,
   veilMorphBeats: 5,
   veilArmourMs: 2000,
-  scoreVeilKill: 250,
   wispDwellBeats: 6,
-  scoreWispKill: 300,
   echoFallBeats: 2,
   echoSplits: 3,
   echoSplitBeats: 3,
-  scoreEchoKill: 25,
   rindLayers: 2,
-  scoreRindShed: 50,
   lidTautMilli: 7000,
   lidCordMilli: 800,
-  scoreLidKill: 250,
 };
