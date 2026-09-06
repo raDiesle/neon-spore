@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · 3de019d5 — THE CLAW again, as a control set: the gun replaced by a hand
+
+The boss round of the last landing is gone and THE CLAW is a panel on the ordinary field instead — the owner's redesign, and a better game. There is no second picture to draw and no wreck field: the grid, the hull and the rocks coming down it are exactly what they always are, and everything that is different is on the panel and in what one of the two screens is allowed to show.
+
 ## 2026-09-06 · e2982b80 — THE COIL: a rock in a dome that crosses the field, and opens the rest of them
 
 A rock sitting inside a shield of its own, coming in at the right wall and crossing to the left rather than falling — a lane a beat, sinking five rows at each wall it turns at. Nothing touches it while the dome is on. The ward reaching up its column takes the dome off wherever it is standing, exactly as it opens a clasp, and what is left is a torch. But the charge the dome was holding does not go out with it: it jumps to another dome still standing, and three beats later that one opens and throws it on again, until the field is bare. Only player 1 is shown the bolt in flight, and only player 2 can move the plate — so what the pair say to each other is an order, at tempo.
