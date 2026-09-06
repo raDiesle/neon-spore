@@ -1,4 +1,4 @@
-import { CRAWLER, crawlerPoints, crawlerSqueeze } from "@neon-spore/content";
+import { CRAWLER, CRAWLER_PULSE, crawlerPoints } from "@neon-spore/content";
 import {
   type Color,
   type Creature,
@@ -135,7 +135,7 @@ function drawLink(
   const flat = linkInk(c.color);
   const fill = hazed(world.cfg, flat.fill, near);
   const rim = hazed(world.cfg, flat.rim, near);
-  const squeeze = crawlerSqueeze(beats, linkOrder(c));
+  const squeeze = CRAWLER_PULSE.squeezeAt(beats, linkOrder(c));
   const part = head ? HEAD : end ? TAIL : { rx: 1, ry: 1, taper: 1 };
   const rx = l.tile * CRAWLER.rx * UNIT * part.rx;
   const ry = l.tile * CRAWLER.ry * UNIT * part.ry;

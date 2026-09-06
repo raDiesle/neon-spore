@@ -1,6 +1,8 @@
 import type { Variant } from "../variant.js";
 // region: candidates
 import { SHOT_STREAK } from "./cannon-shot/streak/index.js";
+import { CRAWLER_FINE } from "./crawler-pulse/fine/index.js";
+import { CRAWLER_STEPPED } from "./crawler-pulse/stepped/index.js";
 import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
 import { STRAND_MUTE } from "./creature-strand/mute/index.js";
 import { STRAND_SEALED } from "./creature-strand/sealed/index.js";
@@ -32,6 +34,8 @@ import { PANEL_EMBLEM } from "./panel-action/emblem/index.js";
  */
 export const VARIANTS: Variant[] = [
   SHOT_STREAK,
+  CRAWLER_STEPPED,
+  CRAWLER_FINE,
   METEOR_FORGE,
   STRAND_SEALED,
   STRAND_MUTE,

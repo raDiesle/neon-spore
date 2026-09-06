@@ -1,11 +1,11 @@
 import {
   CRAWLER,
+  CRAWLER_PULSE,
   type CrawlerSilhouette,
   type CreatureSilhouette,
   type CrystalSilhouette,
   catmullRomToBezierPath,
   crawlerOutline,
-  crawlerSqueeze,
   crystalRadiusMul,
   GHOST,
   type GhostSilhouette,
@@ -140,7 +140,7 @@ export function lid(name: string, s: LidSilhouette, note: string): Subject {
 /**
  * One link of THE CRAWLER. `t` is a wall clock everywhere else on this sheet
  * and here it is read as beats, which is right rather than convenient: the
- * contraction is on the shared clock (`crawlerSqueeze`), because a wave the
+ * contraction is on the shared clock (`CRAWLER_PULSE`), because a wave the
  * pair counts links along has to run at the same rate on both phones.
  */
 export function crawler(name: string, s: CrawlerSilhouette, note: string): Subject {
@@ -148,7 +148,7 @@ export function crawler(name: string, s: CrawlerSilhouette, note: string): Subje
     name,
     note,
     open: false,
-    pointsAt: (t) => crawlerOutline(s.rx, s.ry, s.taper, s.pulse, crawlerSqueeze(t, 0)),
+    pointsAt: (t) => crawlerOutline(s.rx, s.ry, s.taper, s.pulse, CRAWLER_PULSE.squeezeAt(t, 0)),
     path: catmullRomToBezierPath,
   };
 }

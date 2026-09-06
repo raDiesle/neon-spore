@@ -102,18 +102,32 @@ export function crawlerOutline(
 }
 
 /**
- * Where the segment stands in the wave of contraction, −1 to 1, from the shared
- * clock and its place along the body.
+ * The contraction wave, and **a record rather than a bare function** so a
+ * second answer to it has somewhere to live.
  *
- * The offset per link is what makes the wave run **from the head backwards**,
- * which is the direction a maggot actually moves — and it is the one thing on
- * screen that says which end is the front before the pair has looked at the
- * mouth. Here rather than in render/ because the shape sheet has to draw the
- * same shape the field does, which is the whole reason this file exists.
+ * `tools/versus` offers a candidate look by overwriting fields on records the
+ * game already exports, held for the length of one `draw()`. A bare export
+ * cannot be overwritten, and the alternative is a branch — which cannot sit
+ * beside the thing it is arguing with at 26 px and at tempo (`docs/versus.md`).
+ * The open question here is whether the pulse may be *stepped*: a contour that
+ * only ever stands in one of a fixed number of positions is one a renderer can
+ * cache, and every ring of every worm currently rebuilds its own every frame.
  */
-export function crawlerSqueeze(beats: number, order: number, perLink = 0.22): number {
-  return Math.sin((beats / 2 - order * perLink) * Math.PI * 2);
-}
+export const CRAWLER_PULSE = {
+  /**
+   * Where the segment stands in the wave of contraction, −1 to 1, from the
+   * shared clock and its place along the body.
+   *
+   * The offset per link is what makes the wave run **from the head backwards**,
+   * which is the direction a maggot actually moves — and it is the one thing on
+   * screen that says which end is the front before the pair has looked at the
+   * mouth. Here rather than in render/ because the shape sheet has to draw the
+   * same shape the field does, which is the whole reason this file exists.
+   */
+  squeezeAt(beats: number, order: number, perLink = 0.22): number {
+    return Math.sin((beats / 2 - order * perLink) * Math.PI * 2);
+  },
+};
 
 /**
  * The same outline placed on the field: centred on `cx`,`cy` and facing

@@ -36,11 +36,11 @@ export {
 } from "./controls.js";
 export {
   CRAWLER,
+  CRAWLER_PULSE,
   type CrawlerSilhouette,
   crawlerOutline,
   crawlerPath,
   crawlerPoints,
-  crawlerSqueeze,
 } from "./crawler-shape.js";
 export {
   authorsBodyColor,
