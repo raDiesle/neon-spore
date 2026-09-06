@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · 50cd3ca1 — A spent queue claim is swept like any other merged branch
+
+`partitionMerged` protected every merged branch whose name looked like a queue claim, because a claim points at `main`'s tip from the second it is made and would otherwise be deleted by the next lane to land — which cost two sessions every claim they held on 3 September 2026. What it never asked is whether the claim is still a claim. A claim is a branch *and* an entry, and `bun run queue done` takes the entry out at the moment the work reaches `main`, so a branch with nothing behind it is a husk that only its own landing could remove: the sweep on 6 September kept fifteen of them, and none could be given back because `bun run queue release` needs the entry that went away.
+
 ## 2026-09-06 · aa492ded — A drained queue item leaves its claim branch standing for ever
 
 `partitionMerged` protects every merged branch that looks like a queue claim, because a claim points at main's tip from the second it is made and would otherwise be swept away by the next lane to land — which is what cost two sessions every claim they held on 3 September. What it does not ask is whether the claim is still a claim: a branch is only ever deleted by its own landing, so a session that drains several items with `--keep` and sweeps once at the end deletes exactly one. Today's sweep kept eleven whose entries `queue done` had already removed, on top of four left by earlier sessions, and none of them can be given back because `queue release` needs the entry that went away. Queued rather than fixed here: the rule belongs to a session with the sweep's tests in front of it, and the fifteen already standing want clearing in the same change.
