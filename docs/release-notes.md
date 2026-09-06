@@ -9,6 +9,18 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · ffe7f4a — The wave list has a filter, and it costs the column no width
+
+Fifty-two waves in a 210px rail, and no way to ask which ones send a slick or which are played on the ladder. WAVES is the narrowest column the director has, so every shape that would have answered that — a rail of category buttons, a dropdown beside a field, a row of chips — was out on its face: all of them spend width, and the width is what the wave names are for. What is left is vertical. One field above the list, full width, plus a count line that is only there while it is filtering.
+
+## 2026-09-06 · 4ee3646 — A power-up on the map is its own picture, not a glyph
+
+MEND, PURGE and WARD were placed from palette buttons that draw the pod — the real frame, the same `Canvas2DRenderer` the phone runs — and landed in the map as `◇3`, `✦3`, `◎3`. Every creature beside them was already the drawing it was clicked from, so the one thing in a wave that says "something hangs here" was the one thing written in a second language, and three marks a wave author had to have learnt. The pod list under the map and the CELL panel said it a third and fourth way: a glyph in one, a bare label in the other, next to a creature that had a picture.
+
+## 2026-09-06 · 1b9a7a4 — bun run shot can crop, and can type into a field first
+
+Two flags on the director's screenshot tool, both paid for by the same turn that wanted them. `--at x,y,w,h` narrows the shot to a rectangle inside the element, using `crop.ts`'s own parser rather than a second copy of it: the map's `#grid` is twenty-five beats tall, so a change to what one cell draws arrived as a stamp somewhere in four thousand pixels of empty board. It scrolls the nearest scrolling ancestor to the rectangle before clipping, because `scrollIntoViewIfNeeded` only brings the element's top into view and Playwright refuses a clip that is off screen.
+
 ## 2026-09-06 · 080efdb6 — THE COIL becomes a price: the plate opens a dome by standing under it
 
 Opening a dome is now something a pair spends rather than something they do. The rock a dome leaves behind no longer falls where the dome stood — it runs for the wall furthest from the plate and comes down there, which is by construction the furthest that plate could have to travel, so it is almost never turned. The chain still lights the next dome from there. What is left for the pair to decide is the one thing the shield has never asked of them: not yet. The rock still has to be warded, the plate still has to be in its column, and the trigger has to find the beat when nothing is crossing overhead.
