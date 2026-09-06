@@ -521,6 +521,7 @@ entry in the idea store.
 ## `session.ts` sits at exactly the 250-line limit
 
 - **Found:** 2026-09-06, claude/queue-a-sheet-restored-from-its-url-always-opens-on-it
+- **Taken:** 2026-09-06, claude/queue-session-ts-sits-at-exactly-the-250-line-limit
 - **Files:** `tools/director/src/session.ts`, `packages/sim/test/limits.test.ts`
 
 The restore fix landed at 250 lines on the nose, and `limits.test.ts` refuses
