@@ -272,25 +272,3 @@ its own header describes — `creature-state.ts` names its five sub-files,
 `events-creature.ts` names its six, `bind-creatures.ts` names its five — so the
 work is to carry one more group out of each and leave real room. Nothing
 outside `packages/sim` need change; `bun run check` is the proof.
-
-## packages/sim/src/index.ts is at its 250-line ceiling and shaping other files
-
-- **Found:** 2026-09-06, claude/fence-enemy-visuals
-- **Taken:** 2026-09-06, claude/queue-packages-sim-src-index-ts-is-at-its-250-line-cei
-- **Files:** `packages/sim/src/index.ts`
-
-The barrel is 249 lines and the limit is 250, so a lane that adds two rules to
-`packages/sim` cannot list them. This one wanted `fenceIsBurnt` and
-`fenceSettleTicks` beside the four fence exports already there; the explicit
-list wraps to nine lines and put the file over, so it went out as
-`export * from "./fence.js"` instead — which is a real pattern in the file
-(`boss-surface.js`, `fault-surface.js` do it) but was chosen for the line count
-rather than for the boundary. That is the file deciding an API question by
-running out of room, and the next lane will hit it again.
-
-Split it the way `packages/render` never had to: one barrel that re-exports a
-handful of grouped ones. The grouping is already visible in the file's own
-order — the field and its bodies, the controls and commands, the bosses and
-their rounds, the openings and guides. Nothing outside `packages/sim` may need
-to change: `index.ts` stays the one import path, and
-`bunx tsc --noEmit` across the workspace is the proof.

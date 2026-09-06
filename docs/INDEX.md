@@ -262,6 +262,9 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/index-bodies.ts` | **The four bodies that wear something**, narrowed to what render/ and the tools actually ask of each |
 | `packages/sim/src/pod-effects.ts` | What a pod *gives*, once the mouth has closed on it |
 | `packages/sim/src/reach.ts` | THE CLAW's arm: the cannon's column, reached up instead of fired along |
+| `packages/sim/src/index-creatures.ts` | one creature's own rules, as the rest of the repository reads them |
+| `packages/sim/src/index-run.ts` | the world, the clock, a wave's start and end, and the fingerprint |
+| `packages/sim/src/index-ship.ts` | the ship and what a thumb does to it, as a reading |
 
 ### packages/content
 
