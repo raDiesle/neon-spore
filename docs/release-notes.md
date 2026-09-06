@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · 564a60f8 — Two keys beside G carry a body, so THE PUSH is reachable from a keyboard
+
+The grip's second gesture had no key at all: G took hold of the nearest body and nothing moved it, so the whole of THE PUSH could only be reached with a pointer — the director's stage and a mouse, and nothing from a headless check.
+
 ## 2026-09-06 · ce2e694b — Queue: a merged baseline keeps yesterday's numbers on untouched rows
 
 Found while keying the baseline's rows by `Wave.id`. The duplicate-row failure is closed, but a wave that shifted without its arrivals changing keeps a stale number that only a full sweep repairs.
