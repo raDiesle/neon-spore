@@ -3,7 +3,7 @@ import { WAVES } from "@neon-spore/content";
 import { arrivalsOf } from "../arrivals.js";
 import baseline from "../baseline.json" with { type: "json" };
 import { FRAME_MS, medianMs, type Run, verdictFor, type WaveCost } from "../compare.js";
-import { waveName } from "../measure.js";
+import { waveId, waveName } from "../measure.js";
 
 /**
  * `tools/perf/baseline.json` read as data rather than taken on trust.
@@ -22,7 +22,29 @@ describe("the checked-in baseline", () => {
     for (const [index, cost] of saved.waves.entries()) {
       expect(cost.wave, `wave ${index + 1} is in play order`).toBe(index + 1);
       expect(cost.name, `wave ${index + 1}'s name`).toBe(waveName(index));
+      expect(cost.id, `wave ${index + 1}'s id`).toBe(waveId(index));
     }
+  });
+
+  /**
+   * One row per wave, and the check that would have named the problem instead
+   * of leaving it to be discovered as a mismatched name at an index.
+   *
+   * A narrow `--save` used to match a row by the number it was writing to, so
+   * inserting THE CUT at wave 48 and re-measuring THE JAM afterwards wrote THE
+   * JAM into row 50 and left the copy of it still sitting at row 49. The file
+   * held fifty-one rows with one name twice and no row at all for THE MAGNET,
+   * and the failure that came back was "wave 49's name" — true, and no help.
+   * `mergeInto` matches on `id` now and cannot leave a duplicate; this is the
+   * assertion that says so about the file rather than about the function.
+   */
+  it("has one row per wave, with no name or id appearing twice", () => {
+    const ids = saved.waves.map((w: WaveCost) => w.id ?? "");
+    const names = saved.waves.map((w: WaveCost) => w.name);
+    expect(new Set(ids).size, `${ids.length} rows, ${new Set(ids).size} ids`).toBe(ids.length);
+    expect(new Set(names).size, `${names.length} rows, ${new Set(names).size} names`).toBe(
+      names.length,
+    );
   });
 
   /**

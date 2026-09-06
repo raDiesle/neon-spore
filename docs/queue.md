@@ -316,27 +316,6 @@ the hand a tile across the way it carries a cord (`scene-script.ts`).
 The sentence to beat: a hand on a rock does two things, and the second one is
 the column.
 
-## The relay's "run nobody came back to" test is timing-flaky under a full suite
-
-- **Found:** 2026-09-06, claude/veer-brush-preview-tiles
-- **Taken:** 2026-09-06, claude/queue-the-relays-run-nobody-came-back-to-test-is-timin
-- **Files:** `apps/server/test/room.test.ts`
-
-`ends a run nobody came back to, so the next arrival starts a fresh one`
-shortens the room's two real-time windows to `SEAT_SILENT_MS: 100` and
-`RUN_OVER_MS: 200` and then waits `quiet(400)` for them to expire. Run on its
-own the file is green; run inside `bun test` with three hundred other files on
-one machine it failed once with `expected > 0, received 0` — the wait elapsed
-before the room had processed the silence, so the next arrival was handed the
-old stamp. Nothing about the relay is wrong; the test measures a deadline
-against a wall clock that a loaded machine does not honour.
-
-Make it wait for the *state* rather than for a duration — poll the next
-arrival's `welcome` until the stamp clears, with a generous ceiling — or raise
-the two windows and the wait together so the margin is not a tenth of a second.
-Both are local to that one test; the second is a smaller change and the first
-is the one that cannot come back.
-
 ## `bun run frames --press grip=<id>` puts no hand on any body
 
 - **Found:** 2026-09-06, claude/hoof-magnet-enemy-70fd5a
@@ -438,32 +417,3 @@ order — the field and its bodies, the controls and commands, the bosses and
 their rounds, the openings and guides. Nothing outside `packages/sim` may need
 to change: `index.ts` stays the one import path, and
 `bunx tsc --noEmit` across the workspace is the proof.
-
-## A narrow perf --save overwrote a neighbouring wave's row
-
-- **Found:** 2026-09-06, claude/fence-enemy-visuals
-- **Taken:** 2026-09-06, claude/queue-a-narrow-perf-save-overwrote-a-neighbouring-wave
-- **Files:** `tools/perf/run.ts`, `tools/perf/compare.ts`, `tools/perf/baseline.json`, `tools/perf/test/compare.test.ts`
-
-Inserting THE CUT at wave 48 pushed THE MAGNET, THE JAM and THE TWITCH up by
-one, and `baseline.test.ts` correctly asked for the four moved waves to be
-re-measured. Running `bun run perf --wave "THE JAM" --save` afterwards wrote
-THE JAM into row 50 **and left a second copy of it in row 49**, which is where
-THE JAM sat before the insertion — so THE MAGNET's row was gone, the baseline
-held 51 rows with one name twice, and the next check failed on `wave 49's name`
-with nothing to say about why. Re-running `--save` for THE MAGNET repaired it,
-which is the workaround this lane used and the reason the entry is here.
-
-The merge is matching a row by the wave *number* it is being written to and by
-the name it has, and doing something different when the two disagree. It should
-match on one thing only — the wave's `id` is the handle everything else points
-at (`Wave.id`, added exactly so a rename could not break a reference) and the
-baseline stores a name instead. Two halves:
-
-- **Key the baseline's rows by `id`**, keeping `wave` and `name` as the
-  human-readable columns they are. A merge then replaces exactly the row it
-  measured and can never leave a duplicate.
-- **Fail loudly on a duplicate.** `baseline.test.ts` catches a missing wave and
-  a changed arrival fingerprint; it did not notice that one name appeared
-  twice. A row-uniqueness assertion is two lines and would have named the
-  problem instead of leaving a mismatched name at an index.

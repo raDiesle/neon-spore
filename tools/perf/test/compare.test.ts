@@ -171,8 +171,8 @@ describe("two runs side by side", () => {
         [3, 8],
       ]),
     );
-    expect(shape.get(2)).toBeCloseTo(1, 5);
-    expect(shape.get(3)).toBeCloseTo(2, 5);
+    expect(shape.get("#2")).toBeCloseTo(1, 5);
+    expect(shape.get("#3")).toBeCloseTo(2, 5);
   });
 });
 
@@ -299,6 +299,52 @@ describe("merging one wave back into a baseline", () => {
 
   it("refuses a merge it has no untouched wave to take a scale off", () => {
     expect(mergeInto(run(full), run([[3, 9]]), [3])).toBeNull();
+  });
+
+  /**
+   * The failure the id is for, played back. Inserting THE CUT at wave 48 pushed
+   * THE MAGNET, THE JAM and THE TWITCH each up by one, and a narrow `--save`
+   * for THE JAM afterwards wrote it into row 50 while the copy of it still
+   * sitting at row 49 stayed put: fifty-one rows, one name twice, and no row at
+   * all for THE MAGNET. Matched on the id there is one THE JAM and it moves.
+   */
+  it("follows a wave that was pushed up a number rather than duplicating it", () => {
+    const named = (rows: [string, number, number][]): Run =>
+      run(
+        rows.map(([, wave, ms]) => [wave, ms] as [number, number]),
+        {},
+      );
+    const withIds = (r: Run, ids: string[]): Run => ({
+      ...r,
+      waves: r.waves.map((w, i) => ({ ...w, id: ids[i] as string, name: ids[i] as string })),
+    });
+    // Yesterday: three waves at 1, 2, 3.
+    const before = withIds(
+      named([
+        ["a", 1, 3],
+        ["b", 2, 3],
+        ["c", 3, 3],
+      ]),
+      ["a", "b", "c"],
+    );
+    // Today a wave was inserted ahead of them, so every number is one higher.
+    const today = withIds(
+      named([
+        ["a", 2, 3],
+        ["b", 3, 3],
+        ["c", 4, 3],
+      ]),
+      ["a", "b", "c"],
+    );
+
+    const merged = mergeInto(before, today, [3]);
+    expect(merged?.waves).toHaveLength(3);
+    expect(merged?.waves.filter((w) => w.id === "b")).toHaveLength(1);
+    expect(merged?.waves.find((w) => w.id === "b")?.wave).toBe(3);
+    expect(merged?.waves.find((w) => w.id === "b")?.mergedFrom).toBeDefined();
+    // And the two nobody measured are untouched, at the numbers they had.
+    expect(merged?.waves.find((w) => w.id === "a")?.mergedFrom).toBeUndefined();
+    expect(merged?.waves.find((w) => w.id === "c")?.mergedFrom).toBeUndefined();
   });
 
   it("says which afternoon and which commit a stitched row is really from", () => {

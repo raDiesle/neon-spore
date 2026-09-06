@@ -1,8 +1,8 @@
 import { WAVES } from "@neon-spore/content";
 import { closeBrowser, launchBrowser } from "../frames/browser.js";
 import { git, root, startPreview } from "../frames/serve.js";
-import { DEFAULT_THROTTLE, mergeInto, type Run } from "./compare.js";
-import { calibrate, sweep } from "./measure.js";
+import { DEFAULT_THROTTLE, keyOf, mergeInto, type Run } from "./compare.js";
+import { calibrate, sweep, waveId } from "./measure.js";
 import { DRIFT_MIN_WAVES } from "./noise.js";
 import { printComparison, printRun, printSummary } from "./say.js";
 import { assemble } from "./shape.js";
@@ -153,7 +153,13 @@ try {
     // it to the full sweep this flag exists to spare. So the question is asked
     // about the file this run is about to *write* — every wave covered, by the
     // rows that are there plus the ones being merged in (`mergeInto`).
-    const covered = new Set([...(before?.waves ?? []).map((w) => w.wave), ...taken]);
+    // By id rather than by number, for the same reason the merge is: an
+    // inserted wave moves every number after it, so a baseline's numbers are
+    // yesterday's and counting today's against them says nothing.
+    const covered = new Set([
+      ...(before?.waves ?? []).map((w) => keyOf(w)),
+      ...asked.map((i) => waveId(i)),
+    ]);
     if (!before || covered.size !== WAVES.length) {
       console.log("✗ --wave --save would leave the baseline short of the game");
       console.log(

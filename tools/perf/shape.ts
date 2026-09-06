@@ -11,6 +11,27 @@ import type { Run, WaveCost } from "./compare.js";
  * figure two afternoons can be held against each other on.
  */
 
+/**
+ * What a row is matched on across two runs: its `Wave.id`, falling back to the
+ * number for a row written before that field existed.
+ *
+ * One handle and one only. The merge used to match a row by the number it was
+ * being written to *and* by the name it carried, and did something different
+ * when the two disagreed. Inserting THE CUT at wave 48 pushed THE MAGNET, THE
+ * JAM and THE TWITCH each up by one, and `bun run perf --wave "THE JAM" --save`
+ * afterwards wrote THE JAM into row 50 while the copy of it still sitting at
+ * row 49 stayed put — fifty-one rows, one name twice, and no row at all for THE
+ * MAGNET. The check that came back said "wave 49's name", which is true and no
+ * help.
+ *
+ * The number moves when a wave is inserted and the name moves when the owner
+ * renames one; the id is the field that was added so neither could break a
+ * reference (`Wave.id`).
+ */
+export function keyOf(w: WaveCost): string {
+  return w.id ?? `#${w.wave}`;
+}
+
 function median(run: Run, of: (w: WaveCost) => number): number {
   if (run.waves.length === 0) return 0;
   const sorted = run.waves.map(of).sort((a, b) => a - b);
@@ -31,11 +52,11 @@ export function medianMs(run: Run): number {
  * shape, which is comparable across machines, across days, and across a desk
  * that got busy halfway through.
  */
-export function shapeOf(run: Run): Map<number, number> {
+export function shapeOf(run: Run): Map<string, number> {
   const mid = median(run, (w) => w.typical);
-  const out = new Map<number, number>();
+  const out = new Map<string, number>();
   if (mid === 0) return out;
-  for (const w of run.waves) out.set(w.wave, w.typical / mid);
+  for (const w of run.waves) out.set(keyOf(w), w.typical / mid);
   return out;
 }
 
@@ -58,13 +79,13 @@ function round(v: number): number {
 export function machineScale(
   baseline: Run,
   run: Run,
-  replacing: ReadonlySet<number>,
+  replacing: ReadonlySet<string>,
 ): number | null {
-  const was = new Map(baseline.waves.map((w) => [w.wave, w.typical]));
+  const was = new Map(baseline.waves.map((w) => [keyOf(w), w.typical]));
   const ratios: number[] = [];
   for (const now of run.waves) {
-    if (replacing.has(now.wave) || !(now.typical > 0)) continue;
-    const then = was.get(now.wave);
+    if (replacing.has(keyOf(now)) || !(now.typical > 0)) continue;
+    const then = was.get(keyOf(now));
     if (then === undefined || !(then > 0)) continue;
     ratios.push(then / now.typical);
   }
@@ -113,14 +134,17 @@ export function machineScale(
  * the new waves are the last ones.
  */
 export function mergeInto(baseline: Run, run: Run, waves: readonly number[]): Run | null {
-  const taking = new Set(waves);
+  const asked = new Set(waves);
+  // The caller says which waves it measured by number, because that is what it
+  // asked for on the command line. Everything after this line works in ids.
+  const taking = new Set(run.waves.filter((w) => asked.has(w.wave)).map((w) => keyOf(w)));
   const scale = machineScale(baseline, run, taking);
   if (scale === null) return null;
   const fresh = new Map(
     run.waves
-      .filter((w) => taking.has(w.wave))
+      .filter((w) => taking.has(keyOf(w)))
       .map((w) => [
-        w.wave,
+        keyOf(w),
         {
           ...w,
           typical: round(w.typical * scale),
@@ -130,9 +154,9 @@ export function mergeInto(baseline: Run, run: Run, waves: readonly number[]): Ru
         } satisfies WaveCost,
       ]),
   );
-  const known = new Set(baseline.waves.map((w) => w.wave));
-  const added = [...fresh.values()].filter((w) => !known.has(w.wave));
-  const rows = [...baseline.waves.map((w) => fresh.get(w.wave) ?? w), ...added];
+  const known = new Set(baseline.waves.map((w) => keyOf(w)));
+  const added = [...fresh.values()].filter((w) => !known.has(keyOf(w)));
+  const rows = [...baseline.waves.map((w) => fresh.get(keyOf(w)) ?? w), ...added];
   rows.sort((a, b) => a.wave - b.wave);
   return { ...baseline, waves: rows };
 }

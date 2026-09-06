@@ -1,5 +1,5 @@
 import { JITTER_UNUSABLE, NOISE_PCT, noiseFloorFor } from "./noise.js";
-import { shapeOf } from "./shape.js";
+import { keyOf, shapeOf } from "./shape.js";
 import { FRAME_MS } from "./sweep-timing.js";
 
 /**
@@ -15,7 +15,7 @@ import { FRAME_MS } from "./sweep-timing.js";
 /** Putting runs on one footing, and one row into another run's baseline. The
  * subject is `shape.ts`'s; every caller already asks this file, so both names
  * come through here rather than moving. */
-export { medianMs, mergeInto, shapeOf } from "./shape.js";
+export { keyOf, medianMs, mergeInto, shapeOf } from "./shape.js";
 
 /** One 60 Hz frame. Every verdict in this file is a fraction of it, and the
  * phone readout measures against the same number (`sweep-timing.ts`). */
@@ -29,6 +29,13 @@ export { FRAME_MS };
 export const DEFAULT_THROTTLE = 4;
 
 export interface WaveCost {
+  /**
+   * `Wave.id` — the handle a row is *matched* on, and the only field here that
+   * does not move. `wave` and `name` are the human-readable columns beside it.
+   * `shape.ts`'s `keyOf` is where it is read, and carries what matching on the
+   * number cost once. A row written before this existed has none.
+   */
+  id?: string;
   /** 1-based, the number a player would say. */
   wave: number;
   name: string;
@@ -150,23 +157,23 @@ export interface WaveDelta {
  * version of the same lie.
  */
 export function compareRuns(before: Run, after: Run): WaveDelta[] {
-  const was = new Map(before.waves.map((w) => [w.wave, w]));
+  const was = new Map(before.waves.map((w) => [keyOf(w), w]));
   // **Like for like.** A narrow run's median is taken over the waves it
   // measured, so the baseline's is taken over the same ones or the two shares
   // are shares of different games — THE GAUGE alone, at a fifth of any other
   // wave, moves a sweep's median somewhere a three-wave run's cannot reach.
-  const covered = new Set(after.waves.map((w) => w.wave));
+  const covered = new Set(after.waves.map((w) => keyOf(w)));
   const wasShape = shapeOf(
     after.waves.length === before.waves.length
       ? before
-      : { ...before, waves: before.waves.filter((w) => covered.has(w.wave)) },
+      : { ...before, waves: before.waves.filter((w) => covered.has(keyOf(w))) },
   );
   const nowShape = shapeOf(after);
   const out: WaveDelta[] = [];
   for (const now of after.waves) {
-    const then = was.get(now.wave);
-    const thenShare = wasShape.get(now.wave);
-    const nowShare = nowShape.get(now.wave);
+    const then = was.get(keyOf(now));
+    const thenShare = wasShape.get(keyOf(now));
+    const nowShare = nowShape.get(keyOf(now));
     // `Number.isFinite` and not just a presence check: a baseline written
     // before `typical` existed has no such field, its median comes out `NaN`, and
     // every comparison against `NaN` is false — so a run against one would have

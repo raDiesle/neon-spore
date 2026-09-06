@@ -508,15 +508,33 @@ describe("what the pair got to, and the run that nobody came back to", () => {
         await two.settle();
         expect(of(two.said, "welcome").at(-1)?.startMs).toBeGreaterThan(0);
 
-        // Both phones stop answering — two pockets rather than one. Without this
-        // the room keeps the stamp, and the next arrival is handed a beat zero
-        // from a game that ended.
-        await quiet(400);
-
-        const back = await phone("AKAL", PROTOCOL_VERSION, brief);
-        await back.settle();
-        expect(of(back.said, "welcome").at(-1)?.startMs).toBe(0);
-        back.close();
+        // Both phones stop answering — two pockets rather than one. Without the
+        // silence the room keeps the stamp, and the next arrival is handed a
+        // beat zero from a game that ended.
+        //
+        // The wait is for the *state* and not for a duration. Waiting out the
+        // two windows and then arriving once failed under a full suite: the
+        // deadline elapsed before the room had processed the silence, so the
+        // arrival was handed the old stamp and the test read a working relay
+        // as a broken one. `runIsOver` is answered at the moment a phone
+        // arrives (`Room.fetch`), so the honest way to ask is to arrive.
+        //
+        // Hanging up between attempts is what makes that safe. The room's
+        // clock moves on a client *message* and `phone` sends none, and a
+        // closed socket gives its seat back, so an attempt that came too early
+        // costs the next one nothing.
+        let back: Awaited<ReturnType<typeof phone>> | undefined;
+        for (let tries = 0; tries < 60 && !back; tries++) {
+          const arrival = await phone("AKAL", PROTOCOL_VERSION, brief);
+          await arrival.settle();
+          if (of(arrival.said, "welcome").at(-1)?.startMs === 0) back = arrival;
+          else {
+            arrival.close();
+            await quiet(100);
+          }
+        }
+        expect(of(back?.said ?? [], "welcome").at(-1)?.startMs).toBe(0);
+        back?.close();
       } finally {
         await brief.dispose();
       }

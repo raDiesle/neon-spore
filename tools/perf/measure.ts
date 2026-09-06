@@ -167,6 +167,17 @@ export function waveName(index: number): string {
 }
 
 /**
+ * The handle a baseline row is matched on — `Wave.id`, which exists so that a
+ * rename cannot break a reference and is the one field the director never
+ * edits. A row with no id is a row from before this existed, and falls back to
+ * the number it was written at.
+ */
+export function waveId(index: number): string {
+  const wave = WAVES[index] as { id?: string } | undefined;
+  return wave?.id ?? `wave${index + 1}`;
+}
+
+/**
  * The waves asked for, in play order, each at its own busiest tick.
  *
  * `only` is a list of indices (`wavesAsked`), and the default is every wave.
@@ -185,6 +196,7 @@ export async function sweep(
     const { typical, mean, p90, jitter } = await timePaints(page);
     const round = (v: number): number => Math.round(v * 100) / 100;
     const cost: WaveCost = {
+      id: waveId(index),
       wave: index + 1,
       name: waveName(index),
       bodies,

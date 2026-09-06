@@ -10,6 +10,7 @@
   "calibration": 42254,
   "waves": [
     {
+      "id": "firstStep",
       "wave": 1,
       "name": "FIRST STEP",
       "bodies": 1,
@@ -20,6 +21,7 @@
       "jitter": 0.264
     },
     {
+      "id": "cyan",
       "wave": 2,
       "name": "CYAN",
       "bodies": 2,
@@ -30,6 +32,7 @@
       "jitter": 0.102
     },
     {
+      "id": "twoColours",
       "wave": 3,
       "name": "TWO COLOURS",
       "bodies": 2,
@@ -40,6 +43,7 @@
       "jitter": 0.081
     },
     {
+      "id": "alternating",
       "wave": 4,
       "name": "ALTERNATING",
       "bodies": 3,
@@ -50,6 +54,7 @@
       "jitter": 0.105
     },
     {
+      "id": "theRock",
       "wave": 5,
       "name": "THE ROCK",
       "bodies": 1,
@@ -60,6 +65,7 @@
       "jitter": 0.086
     },
     {
+      "id": "twoRocks",
       "wave": 6,
       "name": "TWO ROCKS",
       "bodies": 2,
@@ -70,6 +76,7 @@
       "jitter": 0.083
     },
     {
+      "id": "theHand",
       "wave": 7,
       "name": "THE HAND",
       "bodies": 3,
@@ -80,6 +87,7 @@
       "jitter": 0.121
     },
     {
+      "id": "torch",
       "wave": 8,
       "name": "TORCH",
       "bodies": 1,
@@ -90,6 +98,7 @@
       "jitter": 0.095
     },
     {
+      "id": "shieldThenCannon",
       "wave": 9,
       "name": "SHIELD, THEN CANNON",
       "bodies": 2,
@@ -100,6 +109,7 @@
       "jitter": 0.091
     },
     {
+      "id": "theWall",
       "wave": 10,
       "name": "THE WALL",
       "bodies": 4,
@@ -110,6 +120,7 @@
       "jitter": 0.064
     },
     {
+      "id": "shootAndShield",
       "wave": 11,
       "name": "SHOOT AND SHIELD",
       "bodies": 4,
@@ -120,6 +131,7 @@
       "jitter": 0.075
     },
     {
+      "id": "inItsShadow",
       "wave": 12,
       "name": "IN ITS SHADOW",
       "bodies": 4,
@@ -130,6 +142,7 @@
       "jitter": 0.112
     },
     {
+      "id": "crowded",
       "wave": 13,
       "name": "CROWDED",
       "bodies": 5,
@@ -140,6 +153,7 @@
       "jitter": 0.166
     },
     {
+      "id": "salvage",
       "wave": 14,
       "name": "SALVAGE",
       "bodies": 2,
@@ -150,6 +164,7 @@
       "jitter": 0.091
     },
     {
+      "id": "catchAndAim",
       "wave": 15,
       "name": "CATCH AND AIM",
       "bodies": 3,
@@ -160,6 +175,7 @@
       "jitter": 0.082
     },
     {
+      "id": "finale",
       "wave": 16,
       "name": "FINALE",
       "bodies": 7,
@@ -170,6 +186,7 @@
       "jitter": 0.071
     },
     {
+      "id": "bulbQueen",
       "wave": 17,
       "name": "BULB QUEEN",
       "bodies": 2,
@@ -180,6 +197,7 @@
       "jitter": 0.087
     },
     {
+      "id": "theMirror",
       "wave": 18,
       "name": "THE MIRROR",
       "bodies": 0,
@@ -190,6 +208,7 @@
       "jitter": 0.126
     },
     {
+      "id": "theMaze",
       "wave": 19,
       "name": "THE MAZE",
       "bodies": 0,
@@ -200,6 +219,7 @@
       "jitter": 0.122
     },
     {
+      "id": "theGauge",
       "wave": 20,
       "name": "THE GAUGE",
       "bodies": 0,
@@ -210,6 +230,7 @@
       "jitter": 0.222
     },
     {
+      "id": "theWarden",
       "wave": 21,
       "name": "THE WARDEN",
       "bodies": 2,
@@ -220,6 +241,7 @@
       "jitter": 0.086
     },
     {
+      "id": "theFleet",
       "wave": 22,
       "name": "THE FLEET",
       "bodies": 0,
@@ -230,6 +252,7 @@
       "jitter": 0.091
     },
     {
+      "id": "theLure",
       "wave": 23,
       "name": "THE LURE",
       "bodies": 7,
@@ -240,6 +263,7 @@
       "jitter": 0.201
     },
     {
+      "id": "theThrob",
       "wave": 24,
       "name": "THE THROB",
       "bodies": 1,
@@ -250,6 +274,7 @@
       "jitter": 0.132
     },
     {
+      "id": "theThirdShot",
       "wave": 25,
       "name": "THE SHELL",
       "bodies": 3,
@@ -260,6 +285,7 @@
       "jitter": 0.202
     },
     {
+      "id": "theClasp",
       "wave": 26,
       "name": "THE CLASP",
       "bodies": 4,
@@ -270,6 +296,7 @@
       "jitter": 0.052
     },
     {
+      "id": "theDart",
       "wave": 27,
       "name": "THE DART",
       "bodies": 4,
@@ -280,6 +307,7 @@
       "jitter": 0.155
     },
     {
+      "id": "theVeil",
       "wave": 28,
       "name": "THE VEIL",
       "bodies": 6,
@@ -290,6 +318,7 @@
       "jitter": 0.137
     },
     {
+      "id": "theVane",
       "wave": 29,
       "name": "THE VANE",
       "bodies": 5,
@@ -300,6 +329,7 @@
       "jitter": 0.084
     },
     {
+      "id": "theLance",
       "wave": 30,
       "name": "THE LANCE",
       "bodies": 3,
@@ -310,6 +340,7 @@
       "jitter": 0.081
     },
     {
+      "id": "thePurge",
       "wave": 31,
       "name": "THE PURGE",
       "bodies": 4,
@@ -320,6 +351,7 @@
       "jitter": 0.054
     },
     {
+      "id": "theWard",
       "wave": 32,
       "name": "THE WARD",
       "bodies": 5,
@@ -330,6 +362,7 @@
       "jitter": 0.098
     },
     {
+      "id": "theWisp",
       "wave": 33,
       "name": "THE WISP",
       "bodies": 6,
@@ -340,6 +373,7 @@
       "jitter": 0.137
     },
     {
+      "id": "theGhost",
       "wave": 34,
       "name": "THE GHOST",
       "bodies": 4,
@@ -350,6 +384,7 @@
       "jitter": 0.184
     },
     {
+      "id": "snake",
       "wave": 35,
       "name": "SNAKE",
       "bodies": 0,
@@ -360,6 +395,7 @@
       "jitter": 0.93
     },
     {
+      "id": "theEcho",
       "wave": 36,
       "name": "THE ECHO",
       "bodies": 17,
@@ -370,6 +406,7 @@
       "jitter": 0.128
     },
     {
+      "id": "pinball",
       "wave": 37,
       "name": "PINBALL",
       "bodies": 0,
@@ -380,6 +417,7 @@
       "jitter": 16.346
     },
     {
+      "id": "theRind",
       "wave": 38,
       "name": "THE RIND",
       "bodies": 6,
@@ -390,6 +428,7 @@
       "jitter": 0.206
     },
     {
+      "id": "theGyre",
       "wave": 39,
       "name": "THE GYRE",
       "bodies": 11,
@@ -400,6 +439,7 @@
       "jitter": 0.127
     },
     {
+      "id": "theLid",
       "wave": 40,
       "name": "THE LID",
       "bodies": 4,
@@ -410,6 +450,7 @@
       "jitter": 0.134
     },
     {
+      "id": "theRecoil",
       "wave": 41,
       "name": "THE RECOIL",
       "bodies": 5,
@@ -420,6 +461,7 @@
       "jitter": 0.322
     },
     {
+      "id": "theCarom",
       "wave": 42,
       "name": "THE CAROM",
       "bodies": 3,
@@ -430,6 +472,7 @@
       "jitter": 0.113
     },
     {
+      "id": "theVolley",
       "wave": 43,
       "name": "THE VOLLEY",
       "bodies": 2,
@@ -440,6 +483,7 @@
       "jitter": 0.07
     },
     {
+      "id": "theVeer",
       "wave": 44,
       "name": "THE VEER",
       "bodies": 2,
@@ -450,6 +494,7 @@
       "jitter": 0.088
     },
     {
+      "id": "theStrand",
       "wave": 45,
       "name": "THE STRAND",
       "bodies": 6,
@@ -460,6 +505,7 @@
       "jitter": 0.187
     },
     {
+      "id": "theCrawler",
       "wave": 46,
       "name": "THE CRAWLER",
       "bodies": 8,
@@ -470,6 +516,7 @@
       "jitter": 0.087
     },
     {
+      "id": "theFence",
       "wave": 47,
       "name": "THE FENCE",
       "bodies": 2,
@@ -485,6 +532,7 @@
       }
     },
     {
+      "id": "theCut",
       "wave": 48,
       "name": "THE CUT",
       "bodies": 2,
@@ -500,6 +548,7 @@
       }
     },
     {
+      "id": "theMagnet",
       "wave": 49,
       "name": "THE MAGNET",
       "bodies": 3,
@@ -515,6 +564,7 @@
       }
     },
     {
+      "id": "theJam",
       "wave": 50,
       "name": "THE JAM",
       "bodies": 3,
@@ -530,6 +580,7 @@
       }
     },
     {
+      "id": "theTwitch",
       "wave": 51,
       "name": "THE TWITCH",
       "bodies": 3,
@@ -545,6 +596,7 @@
       }
     },
     {
+      "id": "theClaw",
       "wave": 52,
       "name": "THE CLAW",
       "bodies": 2,
