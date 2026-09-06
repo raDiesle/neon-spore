@@ -83,27 +83,3 @@ median it also measures.
 The branch is rebased onto `main` at `7ee0e68f` and clean; everything but this
 one test is green, and `CLAUDE.md`'s new section is already trimmed under its
 ceiling.
-
-## Three lanes from 3–4 September no longer replay onto main
-
-- **Found:** 2026-09-05, claude/git-flow-parallel-sessions-6f1b43
-- **Taken:** 2026-09-06, claude/queue-three-lanes-from-3-4-september-no-longer-replay
-- **Files:** the three branches named below
-
-Each carries one piece of finished work and six hundred commits of drift, and
-each conflicts deeply enough that a rebase is a rewrite rather than a
-resolution. The branches are kept; their worktrees are gone.
-
-- `claude/awaiting-task-b79c6f` — sub-tick interpolation behind `?interpolate=1`.
-  Conflicts in `apps/game/src/loop.ts`, `main.ts` and `test/loop.test.ts`.
-- `claude/wisp-jump-preview` — the wisp says where it is going and jumps there.
-  Conflicts across thirteen files in `sim` and `render`, THE WISP having been
-  rewritten under it.
-- `claude/control-button-visuals-suck-120e5e` — the panel says what it is for in
-  pictures. Conflicts in six `render` files, the control panel having been
-  redrawn since.
-
-The two visual ones are looks, so what they carry is a decision the owner makes
-by seeing it — the work is to rebuild each against current `main` and offer it
-in `tools/versus/`, not to force the old diff through. The interpolation one is
-ordinary work and can simply be redone.
