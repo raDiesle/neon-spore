@@ -178,7 +178,7 @@ export const WAVES_ACT_6: Wave[] = [
       { beat: 40, col: 2, color: "cyan" },
       { beat: 42, col: 0, kind: "fence", color: null },
       { beat: 54, col: 4, kind: "meteorMedium", color: null },
-      { beat: 58, col: 3, kind: "fence", color: null },
+      { beat: 58, col: 3, kind: "fence", color: null, gaps: [] },
       { beat: 62, col: 6, color: "red" },
     ],
   },

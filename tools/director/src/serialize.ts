@@ -78,11 +78,14 @@ function guideLine(name: string, value: string): string[] {
  * One arrival. The field order is the order `WaveEntry` declares them in, so a
  * hand-written wave and a saved one look the same.
  *
- * `wears`, `size` and `path` are written only when they are there — a lure that takes
- * the body its colour names, or a rock at its ordinary width, says nothing —
- * so every wave written before either field existed round-trips byte for byte.
- * Dropping them was the earlier failure: the editor read a `wears` in and
- * wrote it back out as nothing, which quietly re-authored the wave.
+ * Every optional field is written only when it is there — a lure that takes the
+ * body its colour names, or a rock at its ordinary width, says nothing — so
+ * every wave written before any of them existed round-trips byte for byte.
+ * Dropping one is the failure this shape exists to prevent: the editor reads a
+ * `wears` in and writes it back out as nothing, which quietly re-authors the
+ * wave. It has happened twice — `wears` and then `gaps` — so a new field on
+ * `WaveEntry` needs a line here in the same commit, and `serialize.test.ts`
+ * only proves the fields it knows about.
  */
 function serializeEntry(entry: WaveEntry): string {
   const parts: string[] = [];
@@ -98,6 +101,16 @@ function serializeEntry(entry: WaveEntry): string {
   if (entry.beads !== undefined) parts.push(`beads: ${entry.beads}`);
   if (entry.segments !== undefined) parts.push(`segments: ${entry.segments}`);
   if (entry.side !== undefined) parts.push(`side: "${entry.side}"`);
+  // **THE FENCE's gaps, and an empty list is not nothing.** Absent means *the
+  // column this was painted in* (`queueFromWave`) and `[]` means a wall with no
+  // way through at all, which is a decision an author makes and the only wall
+  // the cannon can cut — so the two must not collapse into each other here.
+  // This row was missing until the day somebody hand-authored a solid fence and
+  // found `bun test` had quietly taken it out again: the GAPS panel
+  // (`cell-config-gaps.ts`) has written `entry.gaps` since THE FENCE shipped,
+  // and every save dropped it. That is `wears`'s own failure said twice, which
+  // is what the note above this function is for.
+  if (entry.gaps !== undefined) parts.push(`gaps: [${entry.gaps.join(", ")}]`);
   return `{ ${parts.join(", ")} }`;
 }
 

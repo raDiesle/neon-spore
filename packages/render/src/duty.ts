@@ -1,4 +1,4 @@
-import type { CreatureKind, World } from "@neon-spore/sim";
+import { type CreatureKind, fenceGapCols, type World } from "@neon-spore/sim";
 import { torchWarning } from "./torch-alarm.js";
 import type { ViewRole } from "./view-role.js";
 
@@ -74,17 +74,19 @@ const DUTY_WORD = {
   // walking, not a fact one of them is missing — so there is no word for a
   // siren to carry (`comms.ts`).
   crawler: null,
-  // THE FENCE, and the only row where **both seats are given the same word**.
-  // It said EVADE under the pilot alone and nothing under the navigator, on
-  // the argument that a siren should name the job rather than the scenery. The
-  // owner reversed it: GAP, on both screens. It is the better answer and for a
-  // reason the old one missed — the two seats hold opposite halves of that one
-  // word, and neither half is any use in the seat that has it. The pilot can
+  // THE FENCE, and the only row where **both seats are given the same word**
+  // and the only one whose word is not fixed. It said EVADE under the pilot
+  // alone, then GAP under both, and the owner asked for the pair to be told
+  // which of this creature's two answers the wall in front of them takes:
+  // FIND GAP for a wall with a way through it somewhere, SHOOT THROUGH for one
+  // with none. `fenceWord` picks; the row below is the shape and the default.
+  //
+  // Both seats get it because both are needed either way round. The pilot can
   // see where the wall is open and cannot move the dome; the navigator moves
-  // the dome and is shown an unbroken wire (`fence.ts`). One word under both
-  // dials is the pair being handed the subject of the sentence and left to
-  // work out which of them says it, which is the whole creature.
-  fence: { p1: "GAP", p2: "GAP" },
+  // the dome and is shown an unbroken wire (`fence.ts`) — and the cannon is
+  // the pilot's while the trigger that fires it is the navigator's, so
+  // SHOOT THROUGH is an instruction to two people and not a secret.
+  fence: { p1: "FIND GAP", p2: "FIND GAP" },
   // THE MAGNET, and the only word in this table naming something the seat has
   // to *choose* rather than something it can see. The pilot picks which side
   // to bring the shot in from, and until they say so the navigator is holding
@@ -101,6 +103,27 @@ function kindActive(kind: CreatureKind, world: World): boolean {
   return false;
 }
 
+/**
+ * Which of THE FENCE's two answers the wall on the field takes.
+ *
+ * A wall with no way through at all is the one the cannon is for, and it is
+ * the only fence a bolt cuts (`fenceIsCuttable`) — so the pair is told to make
+ * a hole rather than to hunt for one. Everything else has an opening somewhere
+ * and has to be talked through. A wall the pair has already cut counts as
+ * having one: they watched the bolt open it, and the job from that beat on is
+ * to get the dome there.
+ *
+ * `fenceGapCols` with `secret` true, which is the *world's* answer rather than
+ * either screen's — the word is the same on both phones, the way every other
+ * row in this table is.
+ */
+function fenceWord(world: World): string {
+  for (const c of world.creatures) {
+    if (c.kind === "fence" && fenceGapCols(world.cfg, c, true).length === 0) return "SHOOT THROUGH";
+  }
+  return "FIND GAP";
+}
+
 /** The words owed by one seat, in table order, without repeats. */
 function wordsFor(seat: "p1" | "p2", world: World): string[] {
   const words: string[] = [];
@@ -108,8 +131,10 @@ function wordsFor(seat: "p1" | "p2", world: World): string[] {
     CreatureKind,
     { p1?: string; p2?: string } | null,
   ][]) {
-    const word = entry?.[seat];
-    if (word && !words.includes(word) && kindActive(kind, world)) words.push(word);
+    const owed = entry?.[seat];
+    if (!owed || !kindActive(kind, world)) continue;
+    const word = kind === "fence" ? fenceWord(world) : owed;
+    if (!words.includes(word)) words.push(word);
   }
   return words;
 }

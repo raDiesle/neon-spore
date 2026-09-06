@@ -473,11 +473,16 @@
       "wave": 47,
       "name": "THE FENCE",
       "bodies": 2,
-      "arrivals": "10:7cc64b",
-      "typical": 3.5,
-      "mean": 3.5,
-      "p90": 3.69,
-      "jitter": 0.086
+      "arrivals": "10:c8c83510",
+      "typical": 4.25,
+      "mean": 4.14,
+      "p90": 4.91,
+      "jitter": 0.306,
+      "mergedFrom": {
+        "measuredAt": "2026-09-06",
+        "commit": "b5ce0a609f8d0c978753ccf97fa1ae3ec34ecd7f",
+        "scale": 0.82
+      }
     },
     {
       "wave": 48,

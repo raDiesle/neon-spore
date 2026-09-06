@@ -87,6 +87,41 @@ test("writes a rock's size and a lure's worn body, and only when they are there"
 });
 
 /**
+ * THE FENCE's gaps, and the same failure a third time — this one shipped.
+ *
+ * The GAPS panel has written `entry.gaps` since the creature landed
+ * (`cell-config-gaps.ts`) and the serializer had no line for it, so every save
+ * dropped whatever the author had set. It cost a lane a puzzled half hour: a
+ * solid fence written into an act file by hand was quietly taken out again by
+ * `bun test`, which round-trips the real files through this code.
+ *
+ * **An empty list and no list are two different walls**, which is why the
+ * absent case is asserted as hard as the present one: absent means *the column
+ * this was painted in* and `[]` means a wall with no way through at all — the
+ * only wall the cannon can cut (`fenceIsCuttable`).
+ */
+test("writes a fence's gaps, including the empty list that means a solid wall", async () => {
+  const file = new URL("../../../packages/content/src/waves/act-1.ts", import.meta.url);
+  const source = await Bun.file(file).text();
+
+  const wave = {
+    id: "test7",
+    name: "TEST",
+    sentence: "Test wave.",
+    entries: [
+      { beat: 0, col: 3, kind: "fence" as const, color: null },
+      { beat: 4, col: 3, kind: "fence" as const, color: null, gaps: [] },
+      { beat: 8, col: 3, kind: "fence" as const, color: null, gaps: [1, 5] },
+    ],
+  };
+
+  const result = serializeWaveArray(source, [wave], "WAVES_ACT_1");
+  expect(result).toContain('{ beat: 0, col: 3, kind: "fence", color: null },');
+  expect(result).toContain('{ beat: 4, col: 3, kind: "fence", color: null, gaps: [] },');
+  expect(result).toContain('{ beat: 8, col: 3, kind: "fence", color: null, gaps: [1, 5] },');
+});
+
+/**
  * The seam that landed `main` red once, closed.
  *
  * The director renames a wave from its own screen, and four places pointed at

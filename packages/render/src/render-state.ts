@@ -1,10 +1,11 @@
 import type { SimEvent, World } from "@neon-spore/sim";
 import { Effects } from "./effects.js";
+import { FenceShards } from "./fence-shards.js";
+import { FenceStrike } from "./fence-strike.js";
 import { FieldPose } from "./field-pose.js";
 import { GuideStage } from "./guide-scene.js";
 import type { Layout } from "./layout.js";
 import { LureBlastFx } from "./lure-blast.js";
-import { ShieldOutage } from "./shield-outage.js";
 import type { SpriteBursts } from "./sprite-burst.js";
 
 /**
@@ -47,16 +48,23 @@ export class RenderState {
    */
   readonly lureBlast = new LureBlastFx();
   /**
-   * The shield's line burnt out where a wall earthed through the dome
-   * (`shield-outage.ts`).
+   * A wall landing on the ship: the shield's line burnt out where it earthed,
+   * and the whole hull conducting for a moment (`fence-strike.ts`).
    *
-   * Here for the blast's reason above, arrived at from the other side: it is
+   * Here for the blast's reason above, arrived at from the other side: both are
    * drawn *over* the hull — on the lit rim `drawHull` has just put down — and
-   * everything `Effects` owns goes under it. THE FENCE is the only thing that
-   * makes one, and the `breach` event it rides in on is the same one `Effects`
-   * is fed next door; this is the half of it that is not theirs to draw.
+   * everything `Effects` owns goes under it. The `breach` event they ride in on
+   * is the same one `Effects` is fed next door; this is the half of it that is
+   * not theirs to draw.
    */
-  readonly shieldOutage = new ShieldOutage();
+  readonly fenceStrike = new FenceStrike();
+  /**
+   * And the pieces of wall a bolt knocks out of one (`fence-shards.ts`). Held
+   * here rather than in `Effects` for that file's line count alone — these are
+   * drawn *under* the hull, with the field, unlike everything else this class
+   * owns.
+   */
+  readonly fenceShards = new FenceShards();
   /** Enough of last frame's world to notice a wave starting over — see `restarted`. */
   private seen: { world: World; wave: number; waveBeat: number } | null = null;
 
@@ -105,8 +113,10 @@ export class RenderState {
   frame(events: readonly SimEvent[], l: Layout, dt: number): void {
     this.lureBlast.ingest(events, l);
     this.lureBlast.update(dt);
-    this.shieldOutage.ingest(events);
-    this.shieldOutage.update(dt);
+    this.fenceStrike.ingest(events);
+    this.fenceStrike.update(dt);
+    this.fenceShards.ingest(events, l);
+    this.fenceShards.update(dt, l);
   }
 
   restarted(world: World): boolean {
@@ -129,6 +139,7 @@ export class RenderState {
     this.effects.reset();
     this.pose.reset();
     this.lureBlast.clear();
-    this.shieldOutage.clear();
+    this.fenceStrike.clear();
+    this.fenceShards.clear();
   }
 }

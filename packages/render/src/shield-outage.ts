@@ -1,4 +1,3 @@
-import type { SimEvent } from "@neon-spore/sim";
 import { signedHash } from "./hash.js";
 import type { LobePositions, SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
@@ -30,17 +29,12 @@ import { rimSpan } from "./shield.js";
  * something that does not move, and a burnt-out stretch of a lobe that crawls
  * along the ship has no fixed place to stay in.
  *
- * **It is held by `RenderState` rather than by `Effects`**, on the same terms
- * as the lure's blast beside it: everything `Effects` owns is drawn inside the
- * field pass and painted over by the hull, and this one is drawn on top of the
- * ship it is about. It is transient state that outlives its frame either way,
- * so `RenderState.forget` clears it when a wave starts over.
+ * **The clock is next door.** This file draws one outage at one strength;
+ * `fence-strike.ts` is what remembers that there is one, for how much longer,
+ * and in what shape — because the same event also shocks the whole ship
+ * (`hull-shock.ts`), and one wall landing is one thing to remember rather than
+ * two.
  */
-
-/** Seconds a blown line takes to come back. Long enough to be read after the
- * banner that shares the moment with it, short enough that two fences in a
- * wave are two separate outages rather than one that never ends. */
-const LIFE = 2.2;
 
 /** How many notches. Enough to read as a line failing along its length rather
  * than as one hole in it, few enough to count at a glance. */
@@ -71,109 +65,75 @@ const FIZZ_HZ = 17;
  * as something painted on top. */
 const DEAD = "#150632";
 
-export class ShieldOutage {
-  /** Seconds left of the outage; 0 when the line is whole. */
-  private life = 0;
-  /** The column the wall earthed in, and the whole of what the notches are
-   * shaped from — so one fence's outage is not a copy of the last one's. */
-  private seed = 0;
+/**
+ * The notches, on the line as it is drawn this frame. `alpha` is how much of
+ * the outage is left and `seed` shapes it — both from `fence-strike.ts`.
+ */
+export function drawShieldOutage(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  at: LobePositions,
+  surfaceY: SurfaceY,
+  time: number,
+  alpha: number,
+  seed: number,
+): void {
+  if (alpha <= 0) return;
+  const span = rimSpan(l, at);
+  if (!span) return;
+  const strike = Math.floor(time * FIZZ_HZ);
 
-  /**
-   * One frame's events. A wall that found the dome in its way is a `breach`
-   * carrying the fence's own kind, and there is no other way to make one — a
-   * fence that passes over the ship breaks nothing and leaves the line whole.
-   */
-  ingest(events: readonly SimEvent[]): void {
-    for (const e of events) {
-      if (e.type === "breach" && e.kind === "fence") this.hit(e.col);
+  ctx.save();
+  ctx.lineCap = "butt";
+  ctx.lineJoin = "round";
+  for (let i = 0; i < COUNT; i++) {
+    const u = INSET + ((1 - 2 * INSET) * i) / (COUNT - 1);
+    const wander = signedHash(seed, i) * (1 - 2 * INSET) * 0.08;
+    const x = span.from + (span.to - span.from) * Math.min(1, Math.max(0, u + wander));
+    const half =
+      (l.tile * (DEAD_MIN + (DEAD_MAX - DEAD_MIN) * Math.abs(signedHash(seed, i + 5)))) / 2;
+
+    // The dead stretch: a piece of the line itself, painted out in the ship's
+    // own deepest body colour and following the membrane so it lies exactly
+    // where the rim was. Wide enough to take the rim's glow with it — a
+    // hairline would leave the light and remove only the core.
+    const dead = new Path2D();
+    for (let k = 0; k <= 4; k++) {
+      const px = x - half + (2 * half * k) / 4;
+      if (k === 0) dead.moveTo(px, surfaceY(px));
+      else dead.lineTo(px, surfaceY(px));
+    }
+    ctx.globalAlpha = alpha;
+    ctx.strokeStyle = DEAD;
+    ctx.lineWidth = Math.max(4, l.tile * 0.15);
+    ctx.stroke(dead);
+
+    // And the two ends it broke at, jagged: a short tear up on one side of the
+    // line and down on the other, so the gap reads as something that came
+    // apart rather than as a piece somebody rubbed out.
+    const ends = new Path2D();
+    for (const side of [-1, 1]) {
+      const px = x + side * half;
+      const py = surfaceY(px);
+      const lean = signedHash(seed, i + 11 + side);
+      ends.moveTo(px + lean * half * 0.4, py - l.tile * JAG * 0.6);
+      ends.lineTo(px, py);
+      ends.lineTo(px - lean * half * 0.5, py + l.tile * JAG * 0.5);
+    }
+    ctx.lineWidth = Math.max(2, l.tile * 0.05);
+    ctx.stroke(ends);
+
+    // The wall's current still in it, at the two raw ends. The fence's blue and
+    // not the shield's cyan: what is fizzing there is the thing that did this,
+    // and the line it did it to is the part that has gone out.
+    ctx.globalAlpha = alpha * (0.3 + 0.45 * Math.abs(signedHash(strike, i)));
+    ctx.fillStyle = PALETTE.arc;
+    for (const side of [-1, 1]) {
+      const px = x + side * half;
+      ctx.beginPath();
+      ctx.arc(px, surfaceY(px), Math.max(1, l.tile * 0.03), 0, Math.PI * 2);
+      ctx.fill();
     }
   }
-
-  /** A wall has earthed through the dome, in that column. */
-  hit(col: number): void {
-    this.life = LIFE;
-    this.seed = col + 1;
-  }
-
-  update(dt: number): void {
-    this.life = Math.max(0, this.life - dt);
-  }
-
-  clear(): void {
-    this.life = 0;
-    this.seed = 0;
-  }
-
-  /** The notches, on the line as it is drawn this frame. */
-  draw(
-    ctx: CanvasRenderingContext2D,
-    l: Layout,
-    at: LobePositions,
-    surfaceY: SurfaceY,
-    time: number,
-  ): void {
-    if (this.life <= 0) return;
-    const span = rimSpan(l, at);
-    if (!span) return;
-    // Full while the current is still in it, then out. The knee rather than a
-    // straight fade: a line that dimmed from the first frame reads as one
-    // going out slowly, and what happened here was sudden.
-    const left = this.life / LIFE;
-    const alpha = Math.min(1, left / 0.55);
-    const strike = Math.floor(time * FIZZ_HZ);
-
-    ctx.save();
-    ctx.lineCap = "butt";
-    ctx.lineJoin = "round";
-    for (let i = 0; i < COUNT; i++) {
-      const u = INSET + ((1 - 2 * INSET) * i) / (COUNT - 1);
-      const wander = signedHash(this.seed, i) * (1 - 2 * INSET) * 0.08;
-      const x = span.from + (span.to - span.from) * Math.min(1, Math.max(0, u + wander));
-      const half =
-        (l.tile * (DEAD_MIN + (DEAD_MAX - DEAD_MIN) * Math.abs(signedHash(this.seed, i + 5)))) / 2;
-
-      // The dead stretch: a piece of the line itself, painted out in the ship's
-      // own deepest body colour and following the membrane so it lies exactly
-      // where the rim was. Wide enough to take the rim's glow with it — a
-      // hairline would leave the light and remove only the core.
-      const dead = new Path2D();
-      for (let k = 0; k <= 4; k++) {
-        const px = x - half + (2 * half * k) / 4;
-        if (k === 0) dead.moveTo(px, surfaceY(px));
-        else dead.lineTo(px, surfaceY(px));
-      }
-      ctx.globalAlpha = alpha;
-      ctx.strokeStyle = DEAD;
-      ctx.lineWidth = Math.max(4, l.tile * 0.15);
-      ctx.stroke(dead);
-
-      // And the two ends it broke at, jagged: a short tear up on one side of
-      // the line and down on the other, so the gap reads as something that
-      // came apart rather than as a piece somebody rubbed out.
-      const ends = new Path2D();
-      for (const side of [-1, 1]) {
-        const px = x + side * half;
-        const py = surfaceY(px);
-        const lean = signedHash(this.seed, i + 11 + side);
-        ends.moveTo(px + lean * half * 0.4, py - l.tile * JAG * 0.6);
-        ends.lineTo(px, py);
-        ends.lineTo(px - lean * half * 0.5, py + l.tile * JAG * 0.5);
-      }
-      ctx.lineWidth = Math.max(2, l.tile * 0.05);
-      ctx.stroke(ends);
-
-      // The wall's current still in it, at the two raw ends. The fence's blue
-      // and not the shield's cyan: what is fizzing there is the thing that did
-      // this, and the line it did it to is the part that has gone out.
-      ctx.globalAlpha = alpha * (0.3 + 0.45 * Math.abs(signedHash(strike, i)));
-      ctx.fillStyle = PALETTE.arc;
-      for (const side of [-1, 1]) {
-        const px = x + side * half;
-        ctx.beginPath();
-        ctx.arc(px, surfaceY(px), Math.max(1, l.tile * 0.03), 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-    ctx.restore();
-  }
+  ctx.restore();
 }

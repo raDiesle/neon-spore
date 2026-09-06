@@ -634,6 +634,9 @@ place — the generator keeps whatever is there.
 | `packages/render/src/fence-wire.ts` | What a stretch of live wire looks like, and how far above the ship it hangs |
 | `packages/render/src/shield-outage.ts` | The shield's line burnt out in places, which is what a wall costs instead of a scar |
 | `packages/render/src/magnet-bounce.ts` | A shot turned away by the plate under a magnet, coming back down |
+| `packages/render/src/fence-shards.ts` | The pieces of wall a bolt knocks out of a column it cuts |
+| `packages/render/src/fence-strike.ts` | A wall landing on the ship, remembered: the outage and the shock it leaves |
+| `packages/render/src/hull-shock.ts` | The whole ship conducting for a moment after a wall earthed through the dome |
 
 ### packages/net
 

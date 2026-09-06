@@ -1,4 +1,4 @@
-import { fenceGapSeen, type World } from "@neon-spore/sim";
+import { fenceGapSeen, fenceIsBurnt, type World } from "@neon-spore/sim";
 import { drawnRow } from "./depth.js";
 import { drawFenceGate } from "./fence-gate.js";
 import { drawFenceSweep } from "./fence-sweep.js";
@@ -22,7 +22,10 @@ import type { Layout } from "./layout.js";
  * the bolt went up in front of the two of them, so there is nothing left to
  * withhold. `fenceGapSeen` is the one place that split is decided and it lives
  * in the simulation, because *which of these holes is a secret* is a fact about
- * the creature rather than about a canvas.
+ * the creature rather than about a canvas. A cut is drawn as a *break* rather
+ * than as a doorway, and only a wall the wave gave no way through can be cut
+ * at all (`fenceIsCuttable`) — so the two openings on a screen are never the
+ * same picture and never the same wall.
  *
  * **And player 2 gets a sweep where the pilot gets the doorways.** A screen
  * shown an unbroken wire has nothing to look at and no reason to ask, so a
@@ -77,7 +80,7 @@ export function drawFences(
     for (let col = 0; col <= l.cols; col++) {
       if (col < l.cols && !fenceGapSeen(c, col, secret)) continue;
       if (col > from) drawRun(ctx, l, from, col, row, time, surfaceY);
-      if (col < l.cols) drawFenceGate(ctx, l, col, row, time, surfaceY);
+      if (col < l.cols) drawFenceGate(ctx, l, col, row, time, surfaceY, fenceIsBurnt(c, col));
       from = col + 1;
     }
     if (from < l.cols) drawRun(ctx, l, from, l.cols, row, time, surfaceY);

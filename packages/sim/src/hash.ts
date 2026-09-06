@@ -37,6 +37,7 @@ export function hashWorld(world: World): number {
   push(world.score);
   push(world.cannonCol);
   push(world.shieldCol);
+  push(world.shieldSinceTick);
   push(world.gripP1);
   push(world.gripP2);
   // And what each of those hands has carried. Two devices that disagreed about

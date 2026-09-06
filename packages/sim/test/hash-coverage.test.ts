@@ -264,6 +264,7 @@ describe("the fingerprint covers the world", () => {
         "scars",
         "score",
         "shieldCol",
+        "shieldSinceTick",
         "spawned",
         "tick",
         "wardUntilTick",

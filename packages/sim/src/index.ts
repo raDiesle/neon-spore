@@ -81,7 +81,7 @@ export {
   echoWaitBeats,
 } from "./echo-split.js";
 export * from "./fault-surface.js";
-export { fenceGapCols, fenceGapSeen, fenceIsOpen, fenceMask } from "./fence.js";
+export * from "./fence.js";
 export { type GhostPath, ghostCrosses, ghostIsCharging, ghostLaps, ghostRage } from "./ghost.js";
 export {
   gripCount,

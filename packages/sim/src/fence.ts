@@ -1,5 +1,7 @@
-import type { SimConfig } from "./config.js";
+import { type SimConfig, ticksPerBeat } from "./config.js";
+import { fallTilesPerBeat } from "./kinds.js";
 import type { Creature } from "./types.js";
+import type { World } from "./world.js";
 
 /**
  * THE FENCE: a live line the width of the field, with gaps burnt through it.
@@ -124,6 +126,27 @@ export function fenceGapCols(cfg: SimConfig, c: Creature, secret = true): number
 }
 
 /**
+ * **Whether the cannon can cut this wall at all**, and the whole of the owner's
+ * rule about it: *a fence is only destructible if it has no gap.*
+ *
+ * It used to be every fence, and the argument for that was symmetry — the
+ * creature runs in both directions, p1 naming a gap or p2 naming the dome and
+ * p1 burning one over it. What that cost is the wave author's only lever. A
+ * wall with a way through it is a wall the pair has to *find* the way through,
+ * and a cannon that can open a second one wherever it likes turns every one of
+ * them into the same wall: point at the dome, fire, done. So the shot is now
+ * the answer to exactly the fence that has no other answer, and a wall with a
+ * gap has to be talked through.
+ *
+ * Authored gaps only, deliberately. A wall the pair has already cut stays
+ * cuttable — otherwise the first bolt would lock the wire against the second,
+ * and a pair that opened the wrong column would have no way back.
+ */
+export function fenceIsCuttable(c: Creature): boolean {
+  return (c.fenceGaps ?? SOLID) === SOLID;
+}
+
+/**
  * **A bolt cutting the wire.** The column is opened for good — a fence is
  * never repaired — and the shot is spent on it, which is the whole price: a
  * cannon spent on the wall is a cannon that is not under the slick beside it.
@@ -131,9 +154,33 @@ export function fenceGapCols(cfg: SimConfig, c: Creature, secret = true): number
  * Nothing is scored. What the pair bought is a way through, and the score for
  * that arrives when the fence goes over the ship (`resolveFence`); paying
  * twice would make cutting three gaps worth more than needing none.
+ *
+ * Callers ask `fenceIsCuttable` first. It is not asked here because the two
+ * answers to a bolt that cannot cut — the shot is still spent, and the pair is
+ * still told it bounced — belong to the shot rather than to the wall
+ * (`bullet-hit.ts`).
  */
 export function fenceBurn(c: Creature, col: number): void {
   c.fenceBurns = (c.fenceBurns ?? SOLID) | (1 << col);
+}
+
+/**
+ * **How long the dome has to stand still before a way through counts as
+ * found**, in ticks: the time this wall takes to fall half a tile.
+ *
+ * The current a fence throws at the ship goes out when the dome has settled in
+ * one of its gaps (`render/fence-arc.ts`), and the owner asked for the pause —
+ * *after half a tile time when it stays there.* Without one, sliding the
+ * shield across the field would strobe the arc on and off a column at a time
+ * and read as a fault rather than as an answer.
+ *
+ * A rule here rather than the arithmetic written out in render/, for
+ * `fenceIsOpen`'s reason: it is half of this creature's own fall, and a second
+ * spelling of that in a draw call is a number free to disagree with the tier
+ * the wall actually comes down at.
+ */
+export function fenceSettleTicks(cfg: SimConfig): number {
+  return Math.max(1, Math.round(ticksPerBeat(cfg) / (2 * fallTilesPerBeat("fence"))));
 }
 
 /**
@@ -145,4 +192,32 @@ export function fenceBurn(c: Creature, col: number): void {
  */
 export function fenceOnSpawn(cfg: SimConfig, gaps: readonly number[] | undefined): number {
   return fenceMask(cfg, gaps ?? []);
+}
+
+/**
+ * **What a bolt does when it meets a wall**, and the one thing in this game a
+ * shot does to a body without touching what is inside it.
+ *
+ * Two answers and the bolt is spent either way, which is the whole price: a
+ * cannon spent on the wall is a cannon that is not under the slick beside it.
+ * A wall with no way through comes apart in this column and stays apart, and
+ * the event goes to both devices because a cut is the one hole in a fence that
+ * is not a secret. A wall that already has a way through somewhere refuses —
+ * the pair has to find the opening rather than make a second one — and the
+ * shot is rejected out loud, because a bolt that vanished with nothing to show
+ * for it would read as the game having missed the press.
+ *
+ * Any colour cuts. A fence carries none, so there is nothing to match.
+ *
+ * Here rather than inline in `bullet-hit.ts`, which is at its 250-line limit
+ * and where every other creature is already one call — `caromStruck`,
+ * `claspStruck`, `veilStruck` and nine more. This was the odd one out.
+ */
+export function fenceStruck(world: World, c: Creature, col: number): void {
+  if (!fenceIsCuttable(c)) {
+    world.events.push({ type: "reject", col, row: c.row });
+    return;
+  }
+  fenceBurn(c, col);
+  world.events.push({ type: "fenceBurn", col, row: c.row });
 }

@@ -1,6 +1,14 @@
 import { describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG, hullRow, midCol, ticksPerBeat } from "../src/config.js";
-import { fenceGapCols, fenceGapSeen, fenceIsBurnt, fenceIsOpen, fenceMask } from "../src/fence.js";
+import {
+  fenceGapCols,
+  fenceGapSeen,
+  fenceIsBurnt,
+  fenceIsCuttable,
+  fenceIsOpen,
+  fenceMask,
+  fenceSettleTicks,
+} from "../src/fence.js";
 import { isGrippable } from "../src/grippable.js";
 import { hashWorld } from "../src/hash.js";
 import { hullPercent } from "../src/hull.js";
@@ -211,7 +219,8 @@ describe("a bolt and a fence", () => {
   ];
 
   it("cuts a way through in the column the cannon was standing in", () => {
-    const { world, events } = run([fence([4])], TPB * 4, shootAt(7, TPB));
+    // A solid wall, which is the only kind a bolt opens: `fenceIsCuttable`.
+    const { world, events } = run([fence([])], TPB * 4, shootAt(7, TPB));
     const body = fenceOf(world) as Creature;
     expect(fenceIsBurnt(body, 7)).toBe(true);
     expect(fenceIsOpen(body, 7)).toBe(true);
@@ -220,6 +229,35 @@ describe("a bolt and a fence", () => {
     // does not dent it — it changes what it is.
     expect(fenceIsBurnt(body, 6)).toBe(false);
     expect(body.holes).toBe(0);
+  });
+
+  it("refuses to come apart while it has a way through of its own", () => {
+    // The owner's rule: a fence is only destructible if it has no gap. A wall
+    // with one has to be *found*, and a cannon that could open a second
+    // wherever it liked would turn every fence into the same fence — point at
+    // the dome, fire, done.
+    const { world, events } = run([fence([4])], TPB * 4, shootAt(7, TPB));
+    const body = fenceOf(world) as Creature;
+    expect(fenceIsCuttable(body)).toBe(false);
+    expect(fenceIsBurnt(body, 7)).toBe(false);
+    expect(events.some((e) => e.type === "fenceBurn")).toBe(false);
+    // The bolt is spent all the same — the wire took it — and says so, because
+    // a shot that vanished with nothing to show reads as a missed press.
+    expect(events.some((e) => e.type === "reject" && e.col === 7)).toBe(true);
+  });
+
+  it("stays cuttable after the pair has cut it, so a wrong column is not final", () => {
+    const { world } = run([fence([])], TPB * 5, [...shootAt(7, TPB), ...shootAt(2, TPB * 3)]);
+    const body = fenceOf(world) as Creature;
+    expect(fenceIsBurnt(body, 7)).toBe(true);
+    expect(fenceIsBurnt(body, 2)).toBe(true);
+  });
+
+  it("counts the dome settled after half a tile of this wall's own fall", () => {
+    // What the arc between the wall and the dome waits for before it goes out
+    // (`render/fence-arc.ts`). Half a tile at two tiles a beat is a quarter of
+    // one, and the rule is called rather than written out at the draw site.
+    expect(fenceSettleTicks(CFG)).toBe(Math.round(TPB / 4));
   });
 
   it("saves the ship from a fence with no authored gaps at all", () => {

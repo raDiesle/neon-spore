@@ -201,12 +201,16 @@ export class Canvas2DRenderer implements Renderer {
 
     drawFieldBack(ctx, l, world, view, flash, this.held.effects.coordGrid.shown);
     drawBodies(ctx, l, world, view, this.held.effects, at.cannon, surfaceY);
+    // The pieces a bolt knocked out of a wall, over the field and under the
+    // hull, because that is where the wall is (`fence-shards.ts`).
+    this.held.fenceShards.draw(ctx, l);
 
     drawShip(ctx, l, world, view, this.held.effects, mood, at, hull);
-    // Over the finished ship: the shield's line burnt out in places where a
-    // wall earthed through the dome. It sits *on* the rim `drawHull` has just
-    // lit, so it cannot go down with the field pass (`shield-outage.ts`).
-    this.held.shieldOutage.draw(ctx, l, at, surfaceY, view.time);
+    // Over the finished ship: the shield's line burnt out where a wall earthed
+    // through the dome, and the hull still conducting from it. Both sit *on*
+    // the rim `drawHull` has just lit, so neither can go down with the field
+    // pass (`fence-strike.ts`).
+    this.held.fenceStrike.draw(ctx, l, at, surfaceY, view.time);
     drawOverlays(ctx, l, world, view, {
       armed: isArmed,
       open: isOpen,

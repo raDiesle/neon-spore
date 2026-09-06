@@ -210,12 +210,13 @@ is the only moment the ship says so.
 
 ## The fence
 
-`packages/render/src/fence.ts`, and five files around it: `fence-wire.ts` (the
-material), `fence-gate.ts` (a way through), `fence-sweep.ts` (what the other
-seat gets instead), `fence-arc.ts` (the meeting with the dome) and
-`shield-outage.ts` (what it costs). The only body in the game drawn as a
-**line** rather than as a thing standing on a tile, and the only one whose two
-screens differ in where it *stops*.
+`packages/render/src/fence.ts`, and the files around it: `fence-wire.ts` (the
+material), `fence-gate.ts` (a way through, built or broken), `fence-sweep.ts`
+(what the other seat gets instead), `fence-arc.ts` (the meeting with the dome),
+`fence-shards.ts` (the pieces a bolt knocks out), and `fence-strike.ts` with
+`shield-outage.ts` and `hull-shock.ts` (what a wall costs the ship). The only
+body in the game drawn as a **line** rather than as a thing standing on a tile,
+and the only one whose two screens differ in where it *stops*.
 
 | Pass | What | Numbers |
 |---|---|---|
@@ -226,8 +227,11 @@ screens differ in where it *stops*.
 | **gate** | two posts framing an open column | `±0.26` tiles, `PALETTE.arc` at `0.5`–`0.62` alpha, `max(STROKE.inner, 0.035` tiles`)` |
 | **drape** | the line clamped onto the ship's own surface | never below `surface(x) − 0.37` tiles (`GAUGE/2 + 0.2`) |
 | **sweep** | a reading head crossing the wire, p2 only | `2.4` s a crossing, `2.2` tiles of trail, two ticks at `±0.34` tiles, gone over the last `1.4` rows |
-| **arcs** | bolts both ways between the wire and the dome | from `2.9` tiles apart, `4`–`12` bolts, `5` kinks, struck at `22` Hz, fan `2.2` tiles at the wire and `0.7` at the dome |
+| **arcs** | bolts both ways between the wire and the dome | the whole drop, `0.28`→`1` with nearness, `4`–`12` bolts (squared), `5`–`13` kinks, struck at `22` Hz, fan `2.2` tiles at the wire and `0.7` at the dome |
+| **break** | a column the cannon cut | torn ends reaching `0.3` tiles back and curling `0.34`, a `#150632` scorch across the tile, `3` rags swinging at `2.2` Hz |
+| **shards** | the pieces the cut throws | `14`, `0.1`–`0.26` tiles long, `5.2`/`2.6` tiles a second out and up, `7` of pull, `0.62` s |
 | **outage** | the shield's line, dead in places | `5` stretches of `0.1`–`0.24` tiles, `#150632` at `0.15` tiles wide, `PALETTE.arc` at the raw ends, `2.2` s |
+| **shock** | the whole ship conducting | `7` crawlers over `0.16`–`0.42` of the width lifting `0.22` tiles, `5` hops of `0.5`, `0.75` s |
 
 **The wall comes to rest on the ship.** It used to be drawn at its row's own
 centre and taken off the field the moment the dome was standing in one of its
@@ -238,22 +242,39 @@ draped along the ship's outline with the dome and the cannon holding it up; the
 simulation's half of the same repair is `resolveFence`, which now gives both
 answers on the beat the wall is drawn resting on the ship.
 
-**The arcs are the moment, and they are the same on both screens.** As the two
-close, bolts jump the last of the gap in both directions at once — the wall's
-`arc` blue going down, the shield's `shieldRim` coming up, each with a white
-head walking the way its own current runs — with the wire over the dome burning
-brighter and the membrane lit where it is earthing. Nothing in `fence-arc.ts`
-asks whether the wall is open over the dome, and that is a rule rather than a
-convenience: a fan that fizzled out over a gap would hand the navigator the
-answer a beat early, with the shield still in their hand.
+**The arcs run the full height of the field and go out when the dome finds a
+way through.** From the beat the wall arrives, bolts jump between the wire and
+the dome in both directions at once — the wall's `arc` blue going down, the
+shield's `shieldRim` coming up, each with a white head walking the way its own
+current runs — thickening as the two close, with the wire over the dome burning
+brighter and the membrane lit where it is earthing. A gap is a hole in a
+circuit, so once the dome has stood in one for `fenceSettleTicks` — half a tile
+of this wall's own fall — the current stops, and that is the pair's own
+confirmation before the wall lands. The settle is what keeps a shield sliding
+across the field from strobing the arc a column at a time; the cost is that the
+navigator can probe for an opening by standing in columns, which the owner
+asked for knowingly.
 
-**What it costs is drawn on the shield, not in the skin.** A wall that finds the
-dome in its way earths through it, so there is no crack: `breachUnscarred`
-leaves no `Scar` behind the event, and `shield-outage.ts` bites five dead
-stretches out of the lit rim instead, each with the wall's own blue still
-fizzing at the two raw ends. They ride `rimSpan`, so sliding the dome afterwards
-takes the outage with it — what was put out is the shield, and the shield
-travels.
+**A cut is drawn as a break, and only a wall with no way through can be cut.**
+`fenceIsCuttable` is the rule and it is the wave author's lever back: a cannon
+that could open a hole in any fence would make every one of them the same
+fence. A bolt into a wall that has an opening somewhere is spent and rejected.
+A bolt into one that has none tears the column open — torn ends curling out of
+it, a scorch across the tile, rags of wire still hanging in it, and fourteen
+pieces of the line itself thrown out of the cut and tumbling. Two openings on
+one screen are therefore never the same picture: posts mean the wave built this
+one, a break means the pair made it.
+
+**What it costs is drawn on the shield and on the whole ship, not in the skin.**
+A wall that finds the dome in its way earths through it, so there is no crack:
+`breachUnscarred` leaves no `Scar` behind the event, and `shield-outage.ts`
+bites five dead stretches out of the lit rim instead, each with the wall's own
+blue still fizzing at the two raw ends. They ride `rimSpan`, so sliding the dome
+afterwards takes the outage with it — what was put out is the shield, and the
+shield travels. And for three quarters of a second the ship *conducts*: arcs run
+along its own membrane from wall to wall, crossing the lobes, with short hops
+jumping clear of the skin and back (`hull-shock.ts`). One clock drives both
+(`fence-strike.ts`), because one thing happened.
 
 **And the navigator gets a sweep where the pilot gets the doorways.** A screen
 shown an unbroken wire had nothing on it and no reason written into the picture

@@ -76,9 +76,18 @@ export function applyCommand(world: World, timed: TimedCommand): void {
       }
       break;
     }
-    case "shieldCol":
-      world.shieldCol = clampCol(world, c.col);
+    case "shieldCol": {
+      const to = clampCol(world, c.col);
+      // Only when it really moves. The control is held, not tapped, so a seat
+      // pressing a column it is already in — or leaning against the wall the
+      // clamp stops them at — would otherwise reset the standing clock every
+      // tick and the dome would never count as settled anywhere (`World`).
+      if (to !== world.shieldCol) {
+        world.shieldCol = to;
+        world.shieldSinceTick = world.tick;
+      }
       break;
+    }
     case "guard":
       mirrorHeard(world, "guard");
       // Everything the dome coming up means is one call, because a shield

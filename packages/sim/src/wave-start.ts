@@ -74,6 +74,7 @@ export function startWave(
   world.reliefTick = NO_RELIEF;
   world.cannonCol = mid;
   world.shieldCol = mid;
+  world.shieldSinceTick = world.tick;
   world.boss = null;
 
   if (boss?.kind === "gauge") {

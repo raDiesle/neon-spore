@@ -1,4 +1,4 @@
-import type { World } from "@neon-spore/sim";
+import { fenceIsOpen, fenceSettleTicks, type World } from "@neon-spore/sim";
 import { drawnRow } from "./depth.js";
 import { fenceLineY, GAUGE } from "./fence-wire.js";
 import { halo, strokeGlow } from "./glow.js";
@@ -18,12 +18,24 @@ import { PALETTE } from "./palette.js";
  * nearest to the ship, big electric animations, the fence's current flowing to
  * the shield and back the other way, so we see they disturb each other.*
  *
- * So this: bolts jumping the last of the gap in both directions at once, the
- * wall's own blue going down and the shield's white-cyan coming up, with the
- * wire above the dome burning brighter for it and the ship's own line lit
- * where the current is earthing into it. It builds as the two close and is at
- * its loudest on the beat the wall comes to rest, which is the beat the answer
- * lands on.
+ * So this: bolts jumping between the wire and the dome in both directions at
+ * once, the wall's own blue going down and the shield's white-cyan coming up,
+ * with the wire above the dome burning brighter for it and the ship's own line
+ * lit where the current is earthing into it. It reaches **the full height of
+ * the field from the beat the wall arrives** — the owner asked for that by
+ * name — and builds all the way down, loudest on the beat the wall comes to
+ * rest, which is the beat the answer lands on.
+ *
+ * **And it goes out when the dome has settled in a way through.** A gap is a
+ * hole in a circuit: there is nothing over the dome to earth into, so the
+ * current stops, and that is the pair's own confirmation that the number they
+ * said was the right one. It waits `fenceSettleTicks` — half a tile of this
+ * wall's fall — before it believes the dome has arrived, or sliding the shield
+ * across the field would strobe the arc a column at a time and read as a
+ * fault. The cost is that the navigator can now *probe* for a way through by
+ * standing in columns, which is a real change to what this creature keeps
+ * back; the owner asked for the confirmation knowing the wire is the same
+ * picture on both screens until it goes out.
  *
  * **It is drawn in the ship's pass, not the field's.** Everything here starts
  * on the wire and ends on the membrane, and the field pass runs *under* the
@@ -31,18 +43,17 @@ import { PALETTE } from "./palette.js";
  * matters. `frame-ship.ts` calls it straight after the hull, so the current
  * reaches the thing it is earthing into.
  *
- * **It is the same picture on both screens, and that is a rule rather than a
- * convenience.** Nothing here asks whether the wall is open over the dome:
- * the bolts jump whether the dome is standing in a gap or in the wire, at the
- * same size and in the same colours. A version that fizzled out over a gap
- * would hand the navigator — the one seat not shown where the gaps are — the
- * answer, a beat before the wall arrives and with the shield still in their
- * hand. What both of them are watching is two things fighting; which of them
- * won is the banner afterwards.
+ * **What is drawn is the same on both screens**, gap or no gap, until the
+ * settle passes — one clock off the world (`World.shieldSinceTick`) and one
+ * question asked of the world (`fenceIsOpen`), so two phones stop arcing on
+ * the same tick rather than a frame apart on each device's own timer.
  */
 
-/** How far above the ship the wall starts arcing, in tiles. */
-const REACH = 2.9;
+/** How much of the fan is there the moment the wall arrives, before the fall
+ * has closed any of the distance. Not zero: the owner asked to see the two of
+ * them reaching for each other across the whole field, so the current is on
+ * from the top and the descent only makes it louder. */
+const REACH_FLOOR = 0.28;
 
 /** Bolts at rest and at contact. Both ways at once, so an odd count would
  * always favour one direction. */
@@ -50,9 +61,14 @@ const BOLTS_MIN = 4;
 const BOLTS_MAX = 12;
 
 /** Kinks in one bolt, and how far it strays sideways at the middle of its
- * flight, as a share of the gap it is crossing. */
-const KINKS = 5;
-const STRAY = 0.42;
+ * flight, as a share of the gap it is crossing — capped in tiles as well, or a
+ * bolt crossing the whole field would swing half of it sideways and the fan
+ * would read as a scribble rather than as current. The kink count grows with
+ * the length: five across most of the field is a bent line, and what a bolt
+ * has to read as is a thing that found its own way down. */
+const KINKS_MIN = 5;
+const KINKS_MAX = 13;
+const STRAY = 0.16;
 
 /** How wide the two ends of the fan are, in tiles: broad on the wire, narrow
  * where it gathers on the dome. A current earthing looks like this — many
@@ -64,9 +80,8 @@ const FAN_DOME = 0.7;
  * and slow enough that the eye catches one shape before the next. */
 const STRIKE_HZ = 22;
 
-/** Every fence close enough to the ship to be reaching it, drawn arguing with
- * the dome. Called once per frame from `frame-ship.ts`, over the finished
- * hull. */
+/** Every fence on the field, drawn arguing with the dome. Called once per frame
+ * from `frame-ship.ts`, over the finished hull. */
 export function drawFenceArcs(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -84,15 +99,27 @@ export function drawFenceArcs(
   const domeCol = head !== undefined && Number.isFinite(head) ? head : world.shieldCol;
   const domeX = tileCX(l, domeCol);
   const domeY = surfaceY(domeX);
+  // Whether the dome has been still long enough for a way through under it to
+  // count as found. One question off the world, asked once for the frame:
+  // every wall on the field is answered by the same dome standing in the same
+  // column for the same length of time.
+  const settled = world.tick - world.shieldSinceTick >= fenceSettleTicks(world.cfg);
 
   for (const c of world.creatures) {
     if (c.kind !== "fence") continue;
+    // The circuit is broken here: a hole over the dome has nothing to earth
+    // into, and the pair watching the current stop is the pair being told the
+    // number was right.
+    if (settled && fenceIsOpen(c, world.shieldCol)) continue;
     const row = drawnRow(c, beatPhase);
     const wireY = fenceLineY(l, row, domeX, surfaceY) + (l.tile * GAUGE) / 2;
     const gap = domeY - wireY;
-    const force = Math.max(0, Math.min(1, 1 - gap / (REACH * l.tile)));
-    if (force <= 0) continue;
-    drawArgument(ctx, l, domeX, wireY, domeY, force, time);
+    if (gap <= 0) continue;
+    // How near it is, over the whole drop rather than over the last couple of
+    // tiles: `REACH_FLOOR` at the top of the field and 1 where the wire is on
+    // the ship, so the fan is there the moment the wall is and only grows.
+    const near = 1 - Math.min(1, gap / Math.max(1, l.gridHeight));
+    drawArgument(ctx, l, domeX, wireY, domeY, REACH_FLOOR + (1 - REACH_FLOOR) * near, time);
   }
 }
 
@@ -127,7 +154,10 @@ function drawArgument(
   halo(ctx, domeX, domeY, l.tile * (0.7 + 0.7 * force), PALETTE.shieldRim, 0.3 * force);
   halo(ctx, domeX, wireY, l.tile * (0.5 + 0.5 * force), PALETTE.arc, 0.34 * force);
 
-  const bolts = Math.round(BOLTS_MIN + (BOLTS_MAX - BOLTS_MIN) * force);
+  // Squared, so the fan thickens as the two close rather than filling the
+  // field with a net the moment the wall arrives: four bolts reaching the
+  // whole height, a dozen in the last tile.
+  const bolts = Math.round(BOLTS_MIN + (BOLTS_MAX - BOLTS_MIN) * force * force);
   const strike = Math.floor(time * STRIKE_HZ);
   for (let b = 0; b < bolts; b++) {
     // Alternating, so half the fan is the wall reaching down and half is the
@@ -166,15 +196,25 @@ function drawBolt(ctx: CanvasRenderingContext2D, l: Layout, b: Bolt): void {
   const xWire = b.domeX + spread * l.tile * (FAN_WIRE / 2);
   const xDome = b.domeX + signedHash(b.seed, 2, b.strike) * l.tile * (FAN_DOME / 2);
   const span = b.domeY - b.wireY;
+  // One kink every tile and a half or so, between the two bounds: a bolt from
+  // the top of the field has ten and one jumping the last of the gap has five,
+  // so both read as the same material at two lengths.
+  const kinks = Math.max(
+    KINKS_MIN,
+    Math.min(KINKS_MAX, Math.round(Math.abs(span) / (l.tile * 1.5))),
+  );
   const pts: { x: number; y: number }[] = [];
-  for (let i = 0; i <= KINKS; i++) {
-    const t = i / KINKS;
+  for (let i = 0; i <= kinks; i++) {
+    const t = i / kinks;
     const straight = xWire + (xDome - xWire) * t;
     // Pinned at both ends and loosest in the middle: a bolt that wandered
     // where it meets the wire or the skin would read as one that had come
-    // away from whatever it is arcing between.
+    // away from whatever it is arcing between. The stray is capped in tiles as
+    // well as in span, or a bolt crossing the whole field would swing half of
+    // it sideways.
     const belly = Math.sin(t * Math.PI);
-    const sway = signedHash(b.seed, 4 + i, b.strike) * Math.abs(span) * STRAY * belly;
+    const reach = Math.min(Math.abs(span) * STRAY, l.tile * 0.7);
+    const sway = signedHash(b.seed, 4 + i, b.strike) * reach * belly;
     pts.push({ x: straight + sway, y: b.wireY + span * t });
   }
 
@@ -184,12 +224,12 @@ function drawBolt(ctx: CanvasRenderingContext2D, l: Layout, b: Bolt): void {
   for (let i = 1; i < pts.length; i++) path.lineTo(pts[i]!.x, pts[i]!.y);
   strokeGlow(ctx, path, hex, Math.max(1.2, l.tile * 0.03 * (0.6 + b.force)), 0.8 + b.force);
 
-  // The head: two segments of the same path, redrawn white-hot. It walks from
+  // The head: one segment of the same path, redrawn white-hot. It walks from
   // the wire to the dome on a blue bolt and from the dome to the wire on a
   // cyan one, which is the only thing in the picture that says the two
   // currents are going opposite ways.
   const t = b.up ? 1 - b.phase : b.phase;
-  const at = Math.min(KINKS - 1, Math.floor(t * KINKS));
+  const at = Math.min(kinks - 1, Math.floor(t * kinks));
   const head = new Path2D();
   head.moveTo(pts[at]!.x, pts[at]!.y);
   head.lineTo(pts[at + 1]!.x, pts[at + 1]!.y);

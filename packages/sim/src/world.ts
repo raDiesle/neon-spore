@@ -44,6 +44,21 @@ export interface World {
 
   cannonCol: number;
   shieldCol: number;
+  /**
+   * The tick the shield arrived in the column it is standing in — how long it
+   * has been *still*, rather than where it is.
+   *
+   * One reader today and it is a picture: the current a fence throws at the
+   * dome goes out once the dome has stood in one of its gaps long enough to
+   * have settled there (`fenceSettleTicks`, fence.ts). That is a fact about
+   * the world rather than about a canvas — both devices have to agree when the
+   * arc stops, and a renderer timing it off its own frame clock would be two
+   * different answers to one question.
+   *
+   * Set only when the column actually changes, so a seat holding the control
+   * against a wall is not restarting the clock every tick.
+   */
+  shieldSinceTick: number;
   /** Tick of the most recent shield trigger by player 1. */
   guardTick: number;
   /** Tick of the most recent maw opening by player 1. */
@@ -153,6 +168,7 @@ export function createWorld(
     nextId: 1,
     cannonCol: mid,
     shieldCol: mid,
+    shieldSinceTick: 0,
     guardTick: -1_000_000,
     intakeTick: -1_000_000,
     wardUntilTick: -1_000_000,
