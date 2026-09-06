@@ -310,6 +310,7 @@ this — it is a fact about the world at two different moments — so it belongs
 ## `tools/frames` leaves its scratch worktrees in the temp directory
 
 - **Found:** 2026-09-05, claude/git-flow-parallel-sessions-6f1b43
+- **Taken:** 2026-09-06, claude/queue-tools-frames-leaves-its-scratch-worktrees-in-the
 - **Files:** `tools/frames/run.ts`, `tools/frames/test/`
 
 `%TEMP%` on this machine holds thousands of `neon-spore-frames-test-*`,
