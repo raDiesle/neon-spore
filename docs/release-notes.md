@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-06 · edfda2dd — The seven files on a new creature's path are split before a lane has to
+
+Adding THE COIL cost five unplanned splits before the creature could land, and three more files only fitted because comments were shortened to buy back a line or two — the limit paid off rather than obeyed. That is not the limit misbehaving: the files a creature has to touch are exactly the files that grow by a row per creature, so the next body would have hit the same wall in the same places, and the cut would again have been chosen by whoever happened to be adding a creature that day.
+
 ## 2026-09-06 · 081982ff — The sim barrel is four grouped ones, so a rule can be exported by name again
 
 `packages/sim/src/index.ts` was 249 lines against a 250-line limit, and it had started answering API questions with the shortfall: a lane that wanted `fenceIsBurnt` and `fenceSettleTicks` beside the four fence exports could not fit the nine lines an explicit list takes, and shipped `export * from "./fence.js"` instead — a wider surface chosen for the line count rather than for the boundary.
