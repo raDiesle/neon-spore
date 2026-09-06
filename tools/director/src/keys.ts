@@ -1,8 +1,8 @@
 import {
   type Command,
   type Creature,
-  handMeans,
   NO_GRIP,
+  nearestHull,
   type TimedCommand,
 } from "@neon-spore/sim";
 
@@ -13,6 +13,13 @@ import {
  * out again rather than imported: `apps/game` is an application and a tool that
  * reached into its source would be a dependency the workspace does not offer.
  * If the two ever disagree, the game is right.
+ *
+ * **Which body `G` takes hold of is the exception**, and it is not typed out
+ * twice any more. This file kept its own `nearestHull`, differing from the
+ * game's only in a branch it never had; two copies of *which body a key takes
+ * hold of* is the kind of pair that drifts, and it did. The answer moved to
+ * where neither rig owns it and both may ask — `sim/grip.ts`, beside the
+ * `setGrip` that would refuse a wrong one.
  */
 export interface Keys {
   drain(tick: number): TimedCommand[];
@@ -123,7 +130,7 @@ export function bindKeys(cols: () => number, creatures: () => readonly Creature[
       // The grip, as player 2 — the mouse on the stage is player 1's hand, so
       // this is the only way to see the half that matters: the other player's.
       case "KeyG": {
-        const target = nearestHull(creatures());
+        const target = nearestHull(creatures(), 2);
         if (target !== NO_GRIP) push(2, { kind: "grip", id: target });
         break;
       }
@@ -182,22 +189,6 @@ export function bindKeys(cols: () => number, creatures: () => readonly Creature[
     },
     push,
   };
-}
-
-/** The creature closest to the hull that player 2's hand would do something
- * to. `handMeans` rather than a list of refusals: the queen was the only one
- * this stage knew about, and a hand is a brake on a rock and an aim on
- * anything else — an aim the seat this key belongs to does not have
- * (`sim/hand.ts`). */
-function nearestHull(creatures: readonly Creature[]): number {
-  let best = NO_GRIP;
-  let bestRow = -1;
-  for (const c of creatures) {
-    if (handMeans(c.kind, 2) === null || c.row <= bestRow) continue;
-    best = c.id;
-    bestRow = c.row;
-  }
-  return best;
 }
 
 function isTyping(target: EventTarget | null): boolean {

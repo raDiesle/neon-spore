@@ -18,6 +18,7 @@ export {
   gripCount,
   gripsCreature,
   NO_GRIP,
+  nearestHull,
   setGrip,
 } from "./grip.js";
 export { carryIsReady, type GripPush, gripPushOf } from "./grip-push.js";

@@ -153,21 +153,25 @@ export function bindKeys({
       // phone the grip is a finger on the field and either player may use it;
       // at a desk this is the only way to see the half of it that matters —
       // the other player's hand, and the word on the field that names it.
+      //
+      // On THE WARDEN it is the rope instead, and that one is player 1's: the
+      // seat is whatever `keys-grip.ts` says it is, per press.
       case "KeyG": {
         // And G is player 2's half, for the same reason F is player 1's.
         if (guideKey("KeyG")) break;
-        for (const command of grip.take(creatures(), 2)) send(2, command);
+        for (const p of grip.take(creatures(), 2)) send(p.player, p.command);
         break;
       }
       // THE PUSH, which on a phone is the same thumb sliding sideways and here
       // has to be keys of its own. They sit under the same hand as G and mean
       // nothing without it: one press carries the held body one column further
-      // from where it was grabbed (`keys-grip.ts`).
+      // from where it was grabbed — or, with a rope in hand, the rope one step
+      // further down (`keys-grip.ts`).
       case "Comma":
-        for (const command of grip.carry(-1)) send(2, command);
+        for (const p of grip.carry(-1)) send(p.player, p.command);
         break;
       case "Period":
-        for (const command of grip.carry(1)) send(2, command);
+        for (const p of grip.carry(1)) send(p.player, p.command);
         break;
       // Space is both seats at once, for the person at a desk playing both of
       // them — the same answer the director's stage gives in `TEST`.
@@ -213,7 +217,7 @@ export function bindKeys({
     const off = { kind: "brief", on: false } as const;
     if (e.code === "Space" || e.code === "KeyF") send(1, off);
     if (e.code === "Space" || e.code === "KeyG") send(2, off);
-    if (e.code === "KeyG") for (const c of grip.release()) send(2, c);
+    if (e.code === "KeyG") for (const p of grip.release()) send(p.player, p.command);
     if (e.code === "KeyF") send(1, { kind: "prime", on: false });
     const round = roundKeyUp(e.code);
     if (round) send(round.player, round.command);

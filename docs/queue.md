@@ -157,32 +157,3 @@ builds by hand (`workers[0].config` with `manifest.modules` and
 `exports.Room.storage`) still holds — miniflare 5 changed it from 4's flat
 `{ modules, script, durableObjects }`, and `convertV4MiniflareOptions` is the
 shim that shows what the new shape wants if it changed again.
-
-## The desk rig's grip key still reaches for a tether it cannot hold
-
-- **Found:** 2026-09-06, claude/meteor-pull-directional-move-7b0e63
-- **Taken:** 2026-09-06, claude/queue-the-desk-rigs-grip-key-still-reaches-for-a-tethe
-- **Files:** `apps/game/src/keys-grip.ts`, `tools/director/src/keys.ts`
-
-`nearestHull` opens with `const tether = creatures.find(c => c.kind === "tether"); if (tether) return tether.id;`
-and returns that id before it asks anything else. A tether refuses a hand —
-it is in `UNGRIPPABLE`, and has been since the rope stopped being *held* and
-started being *dragged* by a handle (`render/src/tether.ts`) — so `setGrip`
-throws the command away and `G` does nothing at all on THE WARDEN, which is
-the one wave the branch was written for. The comment above it still argues the
-old mechanic in the present tense.
-
-Two things to settle, and the second is the reason this is not a one-line
-delete. Either the branch goes and the desk rig loses its way of pulling the
-rope, or the key learns the handle: `handlePull`/`sim/handle-pull.ts` takes a
-`drag` at a `PullVec`, which is what a pointer sends, and a key would have to
-synthesise a displacement the way `deskGrip.carry` already synthesises one for
-THE PUSH. The second is the useful answer — `bun run relay:check` and every
-headless run of that boss currently exercise half the fight — and it is the
-same shape of work `deskGrip` already is.
-
-And while that file is open: the director keeps a second `nearestHull` of its
-own (`tools/director/src/keys.ts`), differing from the game's only in the
-tether branch it never had. Two copies of *which body a key takes hold of* is
-the kind of pair that drifts; one of them should import the other, and the
-game's is the one with the argument written above it.

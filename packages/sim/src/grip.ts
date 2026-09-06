@@ -160,3 +160,27 @@ export function grippedFallTiles(world: World, c: Creature): number {
   c.dragMilli = milli - tiles * MILLI;
   return tiles;
 }
+
+/**
+ * The creature closest to the hull that **this seat's hand would do something
+ * to**, or `NO_GRIP` — which since the brake was narrowed to rocks is a
+ * question about the seat and not only about the kind: a rig's grip key is one
+ * player's hand, and player 2 has no aim (`hand.ts`).
+ *
+ * Asked rather than answered by a caller — a key that took hold of a slick for
+ * the navigator would send a command `setGrip` above refuses and leave the rig
+ * showing a hand that is not there. It lives here rather than in the app
+ * because there are two rigs and they must not disagree: `apps/game`'s desk
+ * keys and the director's stage keyboard both ask this, and the copy the
+ * director kept differed from the game's in exactly the branch it never had.
+ */
+export function nearestHull(creatures: readonly Creature[], player: 1 | 2): number {
+  let best = NO_GRIP;
+  let bestRow = -1;
+  for (const c of creatures) {
+    if (handMeans(c.kind, player) === null || c.row <= bestRow) continue;
+    best = c.id;
+    bestRow = c.row;
+  }
+  return best;
+}

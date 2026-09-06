@@ -1,8 +1,20 @@
 import { afterEach, describe, expect, it } from "bun:test";
 import { controlSet, DEFAULT_CONTROL_SET_ID } from "@neon-spore/content";
 import type { Layout } from "@neon-spore/render";
-import { type Command, type Creature, DEFAULT_CONFIG } from "@neon-spore/sim";
+import {
+  type Command,
+  type Creature,
+  createWorld,
+  DEFAULT_CONFIG,
+  startWave,
+  step,
+  type TimedCommand,
+  ticksPerBeat,
+  wardenPullMilli,
+  wardenTether,
+} from "@neon-spore/sim";
 import { bindKeys } from "../src/keys.js";
+import { deskGrip } from "../src/keys-grip.js";
 
 /**
  * THE PUSH at a desk, driven rather than read.
@@ -28,6 +40,10 @@ afterEach(() => {
  * three rather than a whole body it would have to keep in step with. */
 const rock = (id: number, row: number): Creature =>
   ({ id, kind: "meteor", row }) as unknown as Creature;
+
+/** THE WARDEN's line. A tether refuses a hand outright (`sim/grippable.ts`),
+ * so the only thing the rig can do with one is pull it by its handle. */
+const tether = (id: number): Creature => ({ id, kind: "tether", row: 1 }) as unknown as Creature;
 
 function desk(creatures: readonly Creature[]) {
   const listeners: Listeners = {};
@@ -147,4 +163,87 @@ describe("carrying a body at a desk", () => {
     d.down("Period");
     expect(d.sent.filter((c) => c.command.kind === "drag").every((c) => c.player === 2)).toBe(true);
   });
+});
+
+/**
+ * THE WARDEN at a desk.
+ *
+ * `G` used to take hold of the tether itself, which is a creature no hand may
+ * hold: the command was thrown away by `setGrip` and the key did nothing at
+ * all on the one boss it mattered on. What the rope takes is the drag a
+ * pointer sends, and it takes it **from player 1** — the seat that is the only
+ * one allowed to pull (`sim/warden-rope.ts`).
+ */
+describe("pulling THE WARDEN's rope at a desk", () => {
+  /** The rope's own messages, whose hand each one is included. */
+  const ropes = (d: ReturnType<typeof desk>) =>
+    d.sent
+      .filter(
+        (c) =>
+          c.command.kind === "drag" && (c.command as { target: string }).target === "wardenTether",
+      )
+      .map((c) => ({
+        player: c.player,
+        on: (c.command as { on: boolean }).on,
+        y: (c.command as { fromYMilli?: number }).fromYMilli ?? 0,
+      }));
+
+  it("grabs the rope rather than the body, and pulls it down a step a press", () => {
+    const d = desk([tether(4), rock(7, 3)]);
+    d.down("KeyG");
+    d.down("Period");
+    d.up("Period");
+    d.down("Period");
+    expect(ropes(d)).toEqual([
+      { player: 1, on: true, y: 0 },
+      { player: 1, on: true, y: DEFAULT_CONFIG.gripPushMilli },
+      { player: 1, on: true, y: DEFAULT_CONFIG.gripPushMilli * 2 },
+    ]);
+    // And no hand on the tether: it is not a body a grip may name.
+    expect(
+      d.sent.some((c) => c.command.kind === "grip" && (c.command as { id: number }).id !== 0),
+    ).toBe(false);
+  });
+
+  it("lets a step back out, and never above where the hand took it", () => {
+    const d = desk([tether(4)]);
+    d.down("KeyG");
+    d.down("Comma");
+    expect(ropes(d).map((r) => r.y)).toEqual([0, 0]);
+  });
+
+  it("goes slack when the hand lifts", () => {
+    const d = desk([tether(4)]);
+    d.down("KeyG");
+    d.down("Period");
+    d.up("KeyG");
+    expect(ropes(d).at(-1)).toEqual({ player: 1, on: false, y: DEFAULT_CONFIG.gripPushMilli });
+  });
+});
+
+/**
+ * And the same thing against the boss itself, because the wire being right is
+ * not the claim — the claim is that the gate opens. Seven presses is
+ * `wardenTautMilli` at a `gripPushMilli` each, which is what a pair at a desk
+ * has to do to hold the hatch wide.
+ */
+it("opens the hatch all the way, which is what the key never did", () => {
+  const world = createWorld({ ...DEFAULT_CONFIG }, 1);
+  startWave(world, 0, [], [], { kind: "warden" });
+  for (let t = 0; t < 8 * ticksPerBeat(DEFAULT_CONFIG) && !wardenTether(world); t++)
+    step(world, []);
+  expect(wardenTether(world)).not.toBeNull();
+
+  const rig = deskGrip(DEFAULT_CONFIG);
+  const presses = [...rig.take(world.creatures, 2)];
+  for (let i = 0; i < DEFAULT_CONFIG.wardenTautMilli / DEFAULT_CONFIG.gripPushMilli; i++) {
+    presses.push(...rig.carry(1));
+  }
+  for (const p of presses) {
+    step(world, [{ tick: world.tick, player: p.player, command: p.command } as TimedCommand]);
+    step(world, []);
+  }
+  const boss = world.boss;
+  expect(boss?.kind).toBe("warden");
+  expect(boss?.kind === "warden" ? wardenPullMilli(world, boss) : 0).toBe(1000);
 });
