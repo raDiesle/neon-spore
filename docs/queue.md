@@ -160,6 +160,7 @@ shim that shows what the new shape wants if it changed again.
 ## packages/render/src/effects.ts is at its 250-line ceiling and turning work away
 
 - **Found:** 2026-09-06, claude/fence-shield-mechanics
+- **Taken:** 2026-09-06, claude/queue-packages-render-src-effects-ts-is-at-its-250-lin
 - **Files:** `packages/render/src/effects.ts`, `packages/render/src/effects-body.ts`
 
 `Effects` is the one place in `packages/render` a transient that outlives its
