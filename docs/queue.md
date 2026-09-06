@@ -250,6 +250,7 @@ offset kept across waves rather than the real clock.
 ## Three private copies of one LCG, beside the shared hash render/ already has
 
 - **Found:** 2026-09-06, claude/fence-enemy-visuals
+- **Taken:** 2026-09-06, claude/queue-three-private-copies-of-one-lcg-beside-the-share
 - **Files:** `packages/render/src/scars.ts`, `packages/render/src/snake-shot.ts`, `packages/render/src/lure-blast.ts`, `packages/render/src/hash.ts`
 
 `packages/render/src/hash.ts` exists to be *the* repeatable 0..1 in render/, and
