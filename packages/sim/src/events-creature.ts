@@ -1,4 +1,5 @@
 import type { CaromEvent } from "./events-carom.js";
+import type { CoilEvent } from "./events-coil.js";
 import type { CrawlerEvent } from "./events-crawler.js";
 import type { FenceEvent } from "./events-fence.js";
 import type { GhostEvent } from "./events-ghost.js";
@@ -234,10 +235,13 @@ export type CreatureEvent =
   // the four above: one arrival taken apart, in a file of its own because this
   // one is at its limit.
   | MagnetEvent
+  // And THE COIL's two, on the same terms as the five above (`events-coil.ts`).
+  | CoilEvent
   | StrandEvent;
 
-// Re-exported so nothing that reaches for one through this file has to move.
 export type { CaromEvent } from "./events-carom.js";
+// Re-exported so nothing that reaches for one through this file has to move.
+export type { CoilEvent } from "./events-coil.js";
 export type { CrawlerEvent } from "./events-crawler.js";
 export type { FenceEvent } from "./events-fence.js";
 export type { GhostEvent } from "./events-ghost.js";

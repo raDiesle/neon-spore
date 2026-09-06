@@ -1,4 +1,5 @@
 import { caromOnSpawn } from "./carom.js";
+import { coilOnSpawn } from "./coil.js";
 import { growCrawler } from "./crawler-round.js";
 import { dartOnSpawn } from "./dart.js";
 import { echoOnSpawn } from "./echo.js";
@@ -149,6 +150,14 @@ export function spawnArrivals(world: World): void {
       // heading from the first frame, and what the pair cannot do is be there
       // (`caromOnSpawn`).
       ...(entry.kind === "carom" ? caromOnSpawn(world.cfg, col, span) : {}),
+      // Which way THE COIL sets off, and absent on every other kind — so a body
+      // that never crosses carries no field at all and every wave written
+      // before this creature is byte-for-byte the same world. Always left,
+      // which is what "it comes in at the right wall" means once the wave has
+      // put it in a column: nothing is rolled and nothing is read off the
+      // field's width (`coilOnSpawn`). The charge it may one day be sent is
+      // deliberately not here — an arrival is never already chained.
+      ...(entry.kind === "coil" ? coilOnSpawn() : {}),
       // Every plate of shell on, and absent on every other kind — so a body
       // the shield simply removes carries no field at all and every wave
       // written before THE VOLLEY is byte-for-byte the same world. It is the

@@ -1,4 +1,5 @@
 import { caromImpactDamage } from "./carom.js";
+import { coilImpactDamage } from "./coil.js";
 import type { SimConfig } from "./config.js";
 import { ghostImpactDamage } from "./ghost.js";
 import type { Creature } from "./types.js";
@@ -23,6 +24,10 @@ export function impactDamage(cfg: SimConfig, c: Creature): number {
   // A carom nobody cracked open. It arrives as the rock it always was and
   // costs what a rock costs, because the shield was never able to turn it.
   if (c.kind === "carom") return caromImpactDamage(cfg);
+  // A coil whose dome nobody opened. The carom's case exactly, arrived at from
+  // the other control: there the cannon was never able to crack it, here the
+  // shield was never able to turn it — and either way what landed is a rock.
+  if (c.kind === "coil") return coilImpactDamage(cfg);
   // A charging ghost, head first. The one arrival that aimed itself at the
   // ship, and the only branch here that is about intent rather than material.
   return ghostImpactDamage(cfg, c);

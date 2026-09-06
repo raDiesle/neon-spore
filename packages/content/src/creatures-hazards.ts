@@ -28,7 +28,7 @@ import type { CreatureDef } from "./creatures.js";
  * always held, so nothing that reads the table in key order — the director's
  * brush strip, the bestiary sheet — sees any change at all.
  */
-type HazardKind = RockKind | Extract<CreatureKind, "fence">;
+type HazardKind = RockKind | Extract<CreatureKind, "fence" | "coil">;
 
 export const HAZARD_CREATURES: Record<HazardKind, CreatureDef> = {
   meteor: {
@@ -104,6 +104,29 @@ export const HAZARD_CREATURES: Record<HazardKind, CreatureDef> = {
     radar: "p1",
     blurb:
       "A live wire across the whole field with a gap burnt through it, coming down twice as fast as anything else. The trigger does nothing to it: the ship survives by having the shield standing in a gap when it arrives, and only the pilot can see where the gaps are. A shot cuts a new one in the cannon's own column — so the other way through is the navigator saying where the dome is and the pilot putting the cannon over it.",
+  },
+  coil: {
+    kind: "coil",
+    // **The shield alone**, and it does two different jobs with it. The ward
+    // reaching up a column takes the dome off — the clasp's coupling, pointed
+    // at a rock — and then the torch that leaves has to be turned at the hull
+    // like any other rock. Two uses of one control, which is why this is
+    // `["guard"]` and not `["aim", "guard"]`: a bolt does nothing to either
+    // half of it, so a panel that could fire and not ward is a panel this body
+    // cannot be answered on at all.
+    controls: ["guard"],
+    // None, and none ever authored. There is nothing alive inside a dome —
+    // what sits in the middle of one is a rock — so a colour here would be an
+    // offer to load a cannon that has nothing to fire at (THE FENCE's blank,
+    // arrived at from the same side).
+    color: null,
+    // Player 1's strip, like every other thing the shield answers — and the
+    // split it makes is the whole creature. The pilot is shown the arrival
+    // *and* the bolt jumping from one dome to the next; the navigator, the
+    // only seat that can move the plate, is shown domes and no bolt at all.
+    radar: "p1",
+    blurb:
+      "A rock inside a dome of its own, coming in at the right wall and crossing the field to the left rather than falling — two lanes a beat, sinking two rows at each wall it turns at. Nothing touches it while the dome is on. Put the shield in its column and trigger, and the dome comes off wherever it is standing: what is left is a torch. But the charge does not go out with it — it jumps to another dome still standing, opens that one too and jumps again, until the field is bare. Only the pilot is shown which one is next.",
   },
   torch: {
     kind: "torch",

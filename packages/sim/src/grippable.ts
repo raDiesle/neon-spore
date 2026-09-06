@@ -100,6 +100,13 @@ const UNGRIPPABLE: readonly CreatureKind[] = [
   // to take away, and it would be bought by the seat that already knows where
   // the gaps are.
   "fence",
+  // And THE COIL, for THE CAROM's reason with nothing left over: it crosses the
+  // field and sinks only at the walls, so `stepCoil` never goes near
+  // `grippedFallTiles` and there is no rate for a brake to scale. The torch it
+  // becomes is grippable again the instant the dome is off, which is the
+  // creature rather than an inconsistency — a hand is worth nothing against
+  // the half the ward answers and buys a beat against the half it does not.
+  "coil",
 ];
 
 export function isGrippable(kind: CreatureKind): boolean {

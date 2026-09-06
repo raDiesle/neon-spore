@@ -68,6 +68,13 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   // how long the broken shield goes on flying apart after the body under it
   // is already an ordinary slick or bulb (`clasp.ts`).
   claspBreakBeats: "GUARD — the shared defence",
+  // THE COIL's three shapes sit with the control that answers all of it: each
+  // is really beats the plate has to get somewhere (`config-coil.ts`).
+  coilCols: "GUARD — the shared defence",
+  coilDropRows: "GUARD — the shared defence",
+  coilJumpBeats: "GUARD — the shared defence",
+  scoreCoilBreak: "SCORE",
+  damageCoil: "HULL — damage and repair",
   scoreShellPiece: "SCORE",
   veilMorphBeats: "THE VEIL — a cloud only one of you can see into",
   veilArmourMs: "THE VEIL — a cloud only one of you can see into",

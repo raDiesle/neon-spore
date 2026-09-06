@@ -1,26 +1,21 @@
 import { stepBoss } from "./boss.js";
-import { stepCarom } from "./carom.js";
-import { stepChute } from "./chute.js";
 import { hullRow } from "./config.js";
 import { stepCrawlers } from "./crawler-beat.js";
-import { stepDart } from "./dart.js";
 import { splitEchoes } from "./echo-split.js";
-import { ghostCrosses, stepGhostAcross } from "./ghost.js";
 import { grippedFallTiles } from "./grip.js";
 import { carryGrips } from "./grip-push.js";
-import { breakSpentGyres, stepGyre } from "./gyre.js";
+import { breakSpentGyres } from "./gyre.js";
 import { resolveHull } from "./hull.js";
 import { removeSpentLures } from "./lure-exit.js";
+import { steppedInsteadOfFalling } from "./own-step.js";
 import { spawnPods } from "./pods.js";
-import { slowStep } from "./slow-fall.js";
 import { spawnArrivals } from "./spawn.js";
 import { breakSpentStrands } from "./strand-round.js";
 import { isBossBody } from "./types.js";
 import { stepVeer } from "./veer.js";
 import { veilMorph } from "./veil.js";
-import { stepVolley, volleyIsClimbing } from "./volley.js";
 import { noteWaveCleared } from "./wave-end.js";
-import { stepWisp, wispHops, wispOnField } from "./wisp.js";
+import { wispHops, wispOnField } from "./wisp.js";
 import type { World } from "./world.js";
 
 // `startWave` (and its private `installWarden`) is the shape of a wave
@@ -114,75 +109,17 @@ export function onBeat(world: World): void {
     // straight down the line costs nothing and says the same thing: the fall
     // is over.
     if (c.row >= hullRow(world.cfg)) continue;
-    // A dart does not fall. It takes a diagonal every other beat and hangs in
-    // between, and `stepDart` is the whole of that — deliberately in place of
-    // the line below rather than beside it, because a body that both stepped
-    // and fell would be moving three rows on the beats it moved.
-    if (c.kind === "dart") {
-      stepDart(world, c);
-      continue;
-    }
-    // A carom does not fall either: it crosses the field on a diagonal and
-    // turns at the walls, and `stepCarom` is the whole of that — the drop is
-    // inside it. In place of the line below for the dart's reason, and with
-    // more riding on it than any of them: a body that both caromed and fell
-    // would be dropping twice the rows it is drawn dropping, and the wall
-    // count `caromCols` was chosen for would be wrong by half.
-    if (c.kind === "carom") {
-      stepCarom(world, c);
-      continue;
-    }
-    // And the body thrown out of one does not fall until it has finished
-    // going up. `stepChute` is the climb, the canopy opening at the top and
-    // the half-speed descent after it — in place of the line below for
-    // `stepDart`'s reason, and here it is the sign that matters: a body that
-    // both climbed and fell would go nowhere at all.
-    if (c.kind === "chute") {
-      stepChute(world, c);
-      continue;
-    }
-    // A volley that a ward has just hit back **climbs**, and only then: it is
-    // a rock the rest of the time and falls through the line below like one,
-    // which is the whole of that creature. In place of the fall rather than
-    // beside it for `stepDart`'s reason, with the sharpest version of it in
-    // the game — a body that both climbed and fell would end a ward exactly
-    // where it started one.
-    if (volleyIsClimbing(c)) {
-      stepVolley(world, c);
-      continue;
-    }
-    // A wisp does not fall either, and it does not cross the ground between
-    // two tiles: on the beats `wispHops` names it is simply somewhere else,
-    // and on the beats in between it is nowhere new. In place of the line
-    // below for the dart's reason — a body that both hopped and fell would be
-    // arriving one row lower than the tile player 2 just read out.
-    if (c.kind === "wisp") {
-      stepWisp(world, c);
-      continue;
-    }
-    // A crossing ghost does not fall either: it drifts in to the row it
-    // prowls along, walks it a column a beat, and only comes down once its
-    // temper is spent (`stepGhostAcross`). In place of the fall rather than
-    // beside it, for `stepDart`'s reason — a body that both walked and fell
-    // would be moving in two directions on one beat.
-    if (ghostCrosses(c)) {
-      stepGhostAcross(world, c);
-      continue;
-    }
-    // The two bodies that come down slower than a tile a beat, and what each
-    // does with the beats it does not spend falling: THE ECHO nothing at all,
-    // THE STRAND its wave. In place of the fall rather than beside it, for
-    // `stepDart`'s reason — and an echo still *falls* on the beats it takes,
-    // so a hand may be put on one and slows it further through the same
-    // `grippedFallTiles` every other body uses (`slow-fall.ts`).
-    if (slowStep(world, c)) continue;
-    // THE GYRE's hub walks a diamond and turns its rim, and carries its six
-    // bodies with it. In place of the fall for `stepDart`'s reason — a wheel
-    // that both walked and fell would be moving in two directions on one beat.
-    if (c.kind === "gyre") {
-      stepGyre(world, c);
-      continue;
-    }
+    // **Everything that moves by a rule of its own instead of falling**: the
+    // dart's diagonal, the carom's, THE COIL's crossing and the dome coming
+    // off it, the chute's climb, a volley a ward has just sent back up, the
+    // wisp's hop, a prowling ghost, the two slow bodies and THE GYRE's wheel.
+    //
+    // One call rather than nine branches here (`own-step.ts`). Every one of
+    // them stood in place of the fall below rather than beside it, and gave
+    // the same reason in its own creature's terms — a body that both stepped
+    // and fell would cover twice the ground it is drawn covering. Nine copies
+    // of one sentence is a rule, and the rule now has a file.
+    if (steppedInsteadOfFalling(world, c)) continue;
     // Not `fallTilesPerBeat` directly: a hand held on this creature slows it,
     // and `grippedFallTiles` is where that is decided (grip.ts).
     const fall = grippedFallTiles(world, c);

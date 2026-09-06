@@ -21,8 +21,11 @@ import type { Wave } from "../wave-types.js";
  *    on the creature the game has already taught them not to shoot. Nothing
  *    new is on the field — every body here is one they know — and the only new
  *    thing is that firing is no longer something either of them decides.
- * 3. **THE TWITCH** is the other fault, and the only wave here that could not
- *    have been written before the other two.
+ * 3. **THE TWITCH** is the other fault, and it is the only wave here that
+ *    carries a body nobody has met. THE COIL is a rock in a dome that crosses
+ *    the field, and the fault is what makes the pair meet it the right way
+ *    round: the timing is taken out of their hands, so what is left to learn
+ *    is where the plate goes and which dome the charge jumps to next.
  * 4. **THE CLAW** is the act's boss and the end of the same line. The two
  *    faults take a control away from a seat and hand it to the wave; this
  *    takes *every* control away from player 2 and hands them all to player 1,
@@ -92,24 +95,37 @@ import type { Wave } from "../wave-types.js";
  * other. The trigger has stuck down: the dome comes up over player 2's column
  * on every beat, with nobody asking and nobody able to stop it.
  *
- * That is why the wave is written on clasps. A rock the plate is standing
+ * That is why the wave is written on THE COIL. A rock the plate is standing
  * under is warded for free — player 2's job stops being timing and becomes
- * pure position. A clasp the plate passes is *opened* for free as well, on a
- * beat nobody chose, and what comes out of one is a body the cannon has to
- * answer straight away. So the navigator's route across the field is also a
- * schedule of work for the pilot, and the only thing that can hold it back is
- * player 1's own hand.
+ * pure position. A coil the plate crosses is *opened* for free as well, on a
+ * beat nobody chose, and the charge that was holding its dome shut jumps
+ * straight to another one and opens that too. So the navigator's route across
+ * the field is a schedule of work neither of them wrote, the pilot is the only
+ * seat that can see which dome comes open next, and the only thing that can
+ * hold any of it back is player 1's own hand on HOLD DOME.
  *
- * 1. Beat 0, a rock alone, so the first thing the pair meets is the fault
- *    being *useful*.
- * 2. Beat 12, one clasp, well away from anything, so they can watch it come
- *    open by itself and see what that costs.
- * 3. Beats 24–26, a rock and a clasp two columns apart: the plate has to be
- *    under one and past the other, which is a crossing worth asking for.
- * 4. Beats 40–44, a rock at the wall with two clasps between it and the plate.
- *    There is no route to the rock that does not open both, so HOLD DOME is
- *    the only way to take them one at a time — and the wave ends on a rock at
- *    the far wall to say whether they spent it too early.
+ * **The creature and the fault teach each other, which is why they share a
+ * wave.** A coil met on an ordinary panel is a body the pair chooses a moment
+ * for: park the plate, wait for it to cross, trigger. That is the timing
+ * lesson, and this wave deliberately does not give it — the fault has taken
+ * the moment away and left only the geography and the order. What is left is
+ * exactly the two things a coil is about: *where the plate is going*, and
+ * *which dome is next*. The pair learns the creature by having no choice.
+ *
+ * 1. Beat 0, a rock alone, so the first thing they meet is the fault being
+ *    plainly *useful*.
+ * 2. Beat 10, one coil, on its own with nothing else on the field. It comes in
+ *    at the right wall and crosses; whenever the plate happens to be in its
+ *    column the dome goes, and a torch drops into the plate that opened it.
+ *    One body, one bolt with nowhere to go, and the whole lesson in miniature.
+ * 3. Beats 26–30, three coils at once, entering a wall apart. Now the bolt has
+ *    somewhere to go: the first dome to fail throws the charge at one of the
+ *    other two, and the pilot is the only one who can see which — so this is
+ *    the first time the navigator has to be *told* a column rather than
+ *    choosing one.
+ * 4. Beats 48–52, four of them and a rock. There is no route across the field
+ *    that does not open one, so HOLD DOME is the only way to take them a few
+ *    at a time — and the rock at the end says whether it was spent too early.
  */
 export const WAVES_ACT_7: Wave[] = [
   {
@@ -157,21 +173,23 @@ export const WAVES_ACT_7: Wave[] = [
   {
     id: "theTwitch",
     name: "THE TWITCH",
-    sentence: "The one where the plate opens every clasp it walks past, ready or not.",
+    sentence: "The one where opening one of them opens all of them, on a beat nobody chose.",
     guide: {
-      both: "The trigger has stuck down. The dome comes up by itself over player 2's column on every beat — nobody has to ask for it and nobody can stop it. A rock the plate is under is warded for free. A clasp the plate passes is cracked open for free as well, and what falls out of one is a body the cannon has to answer. SHIELD is dead on player 1's panel; HOLD DOME is in its place, two beats of quiet and then a rest.",
-      p1: "Your trigger is gone and your cannon is not, and everything the plate opens lands on you. Say when you are behind — HOLD DOME is the only way they can cross a clasp column without cracking it, and it is yours to spend.",
-      p2: "The plate is doing your old job by itself, so what matters is where it goes rather than when. Name the clasp columns before you reach them: every one you pass comes open, and that is a body to shoot.",
+      both: "The trigger has stuck down: the dome comes up by itself over player 2's column on every beat, and nobody can stop it. New on the field is a rock inside a dome of its own. It comes in at the right wall and crosses to the left instead of falling, sinking two rows at every wall it turns at, and nothing touches it while the dome is on. The dome the plate passes under comes off — and the charge inside it jumps to another dome still standing and opens that one too. SHIELD is dead on player 1's panel; HOLD DOME is in its place, two beats of quiet and then a rest.",
+      p1: "The bolt is on your screen and on nobody else's, so which dome opens next is yours to say. Call the column the moment it leaves — they have four beats. HOLD DOME is yours as well.",
+      p2: "Where the plate goes matters now, not when. Every dome you cross comes off and drops a torch, so be standing in the column they call before the rock is.",
     },
     entries: [
       { beat: 0, col: 3, kind: "meteor", color: null },
-      { beat: 12, col: 1, kind: "clasp", color: "red" },
-      { beat: 24, col: 5, kind: "meteor", color: null },
-      { beat: 26, col: 3, kind: "clasp", color: "cyan" },
-      { beat: 40, col: 0, kind: "meteorMedium", color: null },
-      { beat: 42, col: 2, kind: "clasp", color: "red" },
-      { beat: 44, col: 4, kind: "clasp", color: "cyan" },
-      { beat: 56, col: 6, kind: "meteor", color: null },
+      { beat: 10, col: 6, kind: "coil", color: null },
+      { beat: 26, col: 6, kind: "coil", color: null },
+      { beat: 28, col: 6, kind: "coil", color: null },
+      { beat: 30, col: 6, kind: "coil", color: null },
+      { beat: 48, col: 6, kind: "coil", color: null },
+      { beat: 50, col: 6, kind: "coil", color: null },
+      { beat: 52, col: 6, kind: "coil", color: null },
+      { beat: 54, col: 6, kind: "coil", color: null },
+      { beat: 62, col: 0, kind: "meteorMedium", color: null },
     ],
     malfunction: { kind: "shield" },
   },

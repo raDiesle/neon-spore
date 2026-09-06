@@ -26,14 +26,6 @@ export {
   toReadyPage,
 } from "./briefing.js";
 export {
-  type CaromDir,
-  caromBecomes,
-  caromHeading,
-  caromImpactDamage,
-} from "./carom.js";
-export { chuteBecomes, chuteFalls, chuteIsOpen } from "./chute.js";
-export { claspBecomes, claspIsShielded, claspStruck } from "./clasp.js";
-export {
   COLOUR_UNSTRUCK,
   colourArmourLeft,
   colourArmourPhase,
@@ -113,6 +105,7 @@ export {
 export { isqrt, type PullVec, tileCentreMilli } from "./handle-pull.js";
 export { hashWorld } from "./hash.js";
 export { guardArmed, hullPercent, ticksSinceGuard } from "./hull.js";
+export * from "./index-bodies.js";
 export {
   lanceReady,
   NO_PRIME,

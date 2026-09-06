@@ -5,6 +5,7 @@ import { resolveQueen, resolveWarden } from "./bullet-hit-boss.js";
 import { caromStruck } from "./carom.js";
 import { chuteIsOpen, chuteStruck } from "./chute.js";
 import { claspIsShielded, claspStruck } from "./clasp.js";
+import { coilIsDomed, coilStruck } from "./coil.js";
 import { colourIsArmoured } from "./colour-armour.js";
 import { linkStruck } from "./crawler-round.js";
 import { lureBlastCols } from "./creature-rules.js";
@@ -77,6 +78,11 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
   }
   if (claspIsShielded(hit)) {
     claspStruck(world, hit);
+    return false;
+  }
+  // A dome over a rock, and the clasp's answer word for word (`coil.ts`).
+  if (coilIsDomed(hit)) {
+    coilStruck(world, hit);
     return false;
   }
   if (hit.kind === "veil") {

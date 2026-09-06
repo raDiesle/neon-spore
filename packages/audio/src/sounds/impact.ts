@@ -116,8 +116,8 @@ export const IMPACT_SOUNDS: SoundDef[] = [
     id: "impact.chain",
     family: "impact",
     blurb: "One burst dragging three more behind it, each smaller and higher.",
-    status: "spare",
-    use: "Chain reaction, and the strand losing more than one segment at once.",
+    status: "bound",
+    use: "THE COIL's charge leaving a dome that has just failed for the next one still standing.",
     level: 0.4,
     layers: [
       thud(240, 60, 0.14, 0.6),

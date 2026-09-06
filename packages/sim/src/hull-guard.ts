@@ -1,4 +1,5 @@
 import { breakClaspsInColumn } from "./clasp.js";
+import { breakCoilsInColumn } from "./coil.js";
 import { hullRow, msToTicks, type SimConfig } from "./config.js";
 import type { World } from "./world.js";
 
@@ -78,6 +79,12 @@ export function armShield(world: World): void {
   // a clasp is opened by the dome wherever it stands, on the beat the trigger
   // arrives, because the shield is a column and not a plate on one row.
   breakClaspsInColumn(world);
+  // And every dome in that column, on exactly the same terms — the shield is a
+  // column and not a plate on one row, so a coil is opened wherever it happens
+  // to be crossing when the trigger arrives. What is different is what follows
+  // it: the charge goes on to another one, and the pair has a chain to answer
+  // rather than a body (`coil.ts`).
+  breakCoilsInColumn(world);
 }
 
 /**

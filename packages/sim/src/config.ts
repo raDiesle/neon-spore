@@ -1,6 +1,7 @@
 import { BOSS_DEFAULTS, type BossConfig } from "./config-boss.js";
 import { CAROM_DEFAULTS, type CaromConfig } from "./config-carom.js";
 import { CLAW_DEFAULTS, type ClawConfig } from "./config-claw.js";
+import { COIL_DEFAULTS, type CoilConfig } from "./config-coil.js";
 import { CRAWLER_DEFAULTS, type CrawlerConfig } from "./config-crawler.js";
 import { CREATURE_SCORE_DEFAULTS, type CreatureScoreConfig } from "./config-creature-scores.js";
 import { CREATURE_DEFAULTS, type CreatureConfig } from "./config-creatures.js";
@@ -24,6 +25,7 @@ import { VOLLEY_DEFAULTS, type VolleyConfig } from "./config-volley.js";
 export { BOSS_DEFAULTS, type BossConfig } from "./config-boss.js";
 export { CAROM_DEFAULTS, type CaromConfig } from "./config-carom.js";
 export { CLAW_DEFAULTS, type ClawConfig } from "./config-claw.js";
+export { COIL_DEFAULTS, type CoilConfig } from "./config-coil.js";
 export { CRAWLER_DEFAULTS, type CrawlerConfig } from "./config-crawler.js";
 export { CREATURE_SCORE_DEFAULTS, type CreatureScoreConfig } from "./config-creature-scores.js";
 export { CREATURE_DEFAULTS, type CreatureConfig } from "./config-creatures.js";
@@ -49,7 +51,8 @@ export { VOLLEY_DEFAULTS, type VolleyConfig } from "./config-volley.js";
  * this object is what a comparison screen varies and what a replay pins down.
  */
 export interface SimConfig
-  extends BossConfig,
+  extends CoilConfig,
+    BossConfig,
     CaromConfig,
     ClawConfig,
     CrawlerConfig,
@@ -176,6 +179,7 @@ export interface SimConfig
 export const DEFAULT_CONFIG: SimConfig = {
   ...MALFUNCTION_DEFAULTS,
   ...VIEW_DEFAULTS,
+  ...COIL_DEFAULTS,
   ...BOSS_DEFAULTS,
   ...CAROM_DEFAULTS,
   ...CRAWLER_DEFAULTS,

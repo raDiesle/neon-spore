@@ -94,6 +94,13 @@ export function cardSubjects(kind: CreatureKind): string[] {
   // brush apart in the strip is its colour and its note, which is also all
   // there is to know about it.
   if (kind === "fence") return [];
+  // THE COIL draws the **rock** card, and it is the only brush here that names
+  // a subject that is not its own kind for a reason that is neither of the two
+  // above. What stands in the middle of one is a meteor — `drawMeteor` puts it
+  // down and `living-look.ts` gives the kind no contour at all — and the dome
+  // over it is a membrane, which is no more a silhouette than a clasp's is. A
+  // card asking for "COIL" would draw a blank.
+  if (kind === "coil") return ["METEOR"];
   return [kind.toUpperCase()];
 }
 
@@ -138,6 +145,7 @@ export const SHORT_NOTE: Partial<Record<CreatureKind, string>> = {
   rind: "starts bigger, shrinks when shot",
   recoil: "a hit knocks it back up and flips its colour",
   carom: "bounces off the walls; shoot it, then ward the rock",
+  coil: "crosses right to left; ward one and the rest chain open",
   chute: "what a cracked carom throws out — it goes up, then drifts back down",
   volley: "ward it three times, then shoot what hatches",
   gyre: "a wheel of six bodies; the maw slows it",

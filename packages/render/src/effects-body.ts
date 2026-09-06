@@ -2,6 +2,7 @@ import type { SimConfig, SimEvent, World } from "@neon-spore/sim";
 import { ChuteCutFx } from "./chute-cut.js";
 import { ClaspBreakFx } from "./clasp-break.js";
 import { ClaspStrikeFx } from "./clasp-strike.js";
+import { CoilJumpFx } from "./coil-jump.js";
 import { GhostReleaseFx } from "./ghost-release.js";
 import type { Layout } from "./layout.js";
 import { LureVanishFx } from "./lure-vanish.js";
@@ -56,6 +57,7 @@ export class BodyTransients {
   private chuteCut = new ChuteCutFx();
   private magnetBreak = new MagnetBreakFx();
   private magnetBounce = new MagnetBounceFx();
+  private coilJump = new CoilJumpFx();
 
   /** `time` is the wall clock the contour wobble is sampled at — the husk
    * freezes the outline the body had on the frame the layer came off. */
@@ -87,6 +89,11 @@ export class BodyTransients {
     // arrived — the only transient here that is about a shot rather than about
     // a body (`magnet-bounce.ts`).
     this.magnetBounce.ingest(events, l);
+    // And a charge crossing the field from a dome that has just failed to the
+    // next one — the only transient here with **one end on a body and one end
+    // on a place**, which is why it takes the layout at ingest and the world
+    // at draw (`coil-jump.ts`).
+    this.coilJump.ingest(events, l, cfg, beatSeconds);
   }
 
   update(dt: number): void {
@@ -101,6 +108,7 @@ export class BodyTransients {
     this.chuteCut.update(dt);
     this.magnetBreak.update(dt);
     this.magnetBounce.update(dt);
+    this.coilJump.update(dt);
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
@@ -127,8 +135,13 @@ export class BodyTransients {
     this.magnetBounce.draw(ctx);
   }
 
-  /** The four that are drawn around a body the world still has. */
+  /** The five that are drawn around a body the world still has. */
   drawOnBodies(ctx: CanvasRenderingContext2D, l: Layout, world: World, beatPhase: number): void {
+    // The charge in flight, under everything else here and on player 1's
+    // screen alone: it is aimed at a dome that has not failed yet, so it is
+    // the only one of these drawn *before* anything has happened rather than
+    // after (`coil-jump.ts`).
+    this.coilJump.draw(ctx, l, world, beatPhase);
     // The strike first, the shell coming apart over it: the bolt arrives and
     // then the thing it hit fails, which is the order the pair caused.
     this.claspStrike.draw(ctx, l, world, beatPhase);
@@ -158,6 +171,7 @@ export class BodyTransients {
     this.recoilCageBreak.clear();
     this.chuteCut.clear();
     this.magnetBreak.clear();
+    this.coilJump.clear();
     this.magnetBounce.clear();
   }
 }

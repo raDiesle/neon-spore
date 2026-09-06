@@ -44,6 +44,8 @@ async function eventTypes(): Promise<string[]> {
     ["packages/sim/src/events-fence.ts", "export type FenceEvent ="],
     // And THE MAGNET's two, on the same terms again.
     ["packages/sim/src/events-magnet.ts", "export type MagnetEvent ="],
+    // And THE COIL's two, cut out for the same reason once more.
+    ["packages/sim/src/events-coil.ts", "export type CoilEvent ="],
   ] as const) {
     const src = await Bun.file(join(ROOT, file)).text();
     const start = src.indexOf(decl);
@@ -126,6 +128,8 @@ const SAMPLES: Record<string, SimEvent> = {
   volleyReturn: { type: "volleyReturn", id: 4, col: 2, row: 13, left: 2 },
   volleyHatch: { type: "volleyHatch", col: 2, row: 6, kind: "slick", color: "red" },
   claspBreak: { type: "claspBreak", id: 7, col: 3, row: 5, kind: "bulb", color: "cyan" },
+  coilBreak: { type: "coilBreak", id: 8, col: 4, row: 6, ward: true },
+  coilJump: { type: "coilJump", id: 9, col: 4, row: 6 },
   veilMorph: { type: "veilMorph", col: 3, row: 4, color: "red" },
   veilRebuff: { type: "veilRebuff", col: 3, row: 4 },
   veilTorn: { type: "veilTorn", col: 3, row: 4, color: "cyan", kind: "bulb" },
@@ -309,6 +313,16 @@ const CAROM_IDS: Record<string, string> = {
 };
 
 /**
+ * And the same table again for THE COIL's two, bound in `bind-coil.ts`. Apart
+ * for `CAROM_IDS`' reason: one table per source file, so a case list is always
+ * checked against the file it came from.
+ */
+const COIL_IDS: Record<string, string> = {
+  coilBreak: "creature.moult",
+  coilJump: "impact.chain",
+};
+
+/**
  * And the same table again for THE VOLLEY's two, bound in `bind-volley.ts`.
  * Apart for `CAROM_IDS`' reason: one table per source file, so a case list is
  * always checked against the file it came from.
@@ -341,6 +355,12 @@ describe("what one body did", () => {
     expect(cases.sort()).toEqual(Object.keys(CAROM_IDS).sort());
   });
 
+  it("covers every event `coilCue` names, on the same terms", async () => {
+    const src = await Bun.file(join(ROOT, "packages/audio/src/bind-coil.ts")).text();
+    const cases = [...src.matchAll(/case "([a-zA-Z]+)":/g)].map((m) => m[1] as string);
+    expect(cases.sort()).toEqual(Object.keys(COIL_IDS).sort());
+  });
+
   it("covers every event `volleyCue` names, on the same terms", async () => {
     const src = await Bun.file(join(ROOT, "packages/audio/src/bind-volley.ts")).text();
     const cases = [...src.matchAll(/case "([a-zA-Z]+)":/g)].map((m) => m[1] as string);
@@ -356,6 +376,7 @@ describe("what one body did", () => {
   for (const [type, id] of Object.entries({
     ...CREATURE_IDS,
     ...CAROM_IDS,
+    ...COIL_IDS,
     ...VOLLEY_IDS,
     ...FENCE_IDS,
   })) {

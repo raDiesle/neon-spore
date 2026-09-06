@@ -1,7 +1,7 @@
 import type { SimEvent, World } from "@neon-spore/sim";
+import { drawBolt } from "./bolt.js";
 import { creatureCenter } from "./creature-place.js";
 import { halo } from "./glow.js";
-import { signedHash } from "./hash.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -42,58 +42,11 @@ export interface ClaspStrike {
 const LIFE = 0.26;
 /** Bolts per strike. Three reads as a discharge; one reads as a laser. */
 const BOLTS = 3;
-/** Vertices along a bolt, end to end. */
-const STEPS = 9;
-/** Sideways wander per vertex, as a share of a tile. */
-const JITTER = 0.3;
 
-/**
- * One bolt from `(x0, y0)` to `(x1, y1)`, drawn twice: a wide soft pass and a
- * hard thin one over it. `strokeGlow` is the wrong tool here for the reason
- * `shield-spark.ts` gives — it softens a curve meant to look drawn, and a
- * discharge is meant to look struck.
- */
-function bolt(
-  ctx: CanvasRenderingContext2D,
-  x0: number,
-  y0: number,
-  x1: number,
-  y1: number,
-  tile: number,
-  seed: number,
-  alpha: number,
-  width: number,
-): void {
-  const path = (): void => {
-    ctx.beginPath();
-    ctx.moveTo(x0, y0);
-    for (let i = 1; i < STEPS; i++) {
-      const f = i / STEPS;
-      // The wander is pinched to nothing at both ends, so the bolt leaves the
-      // hull where the shield is and lands on the body rather than near it.
-      const spread = Math.sin(f * Math.PI);
-      ctx.lineTo(
-        x0 + (x1 - x0) * f + signedHash(seed + i * 7.7) * JITTER * tile * spread,
-        y0 + (y1 - y0) * f,
-      );
-    }
-    ctx.lineTo(x1, y1);
-    ctx.stroke();
-  };
-
-  const prev = ctx.globalCompositeOperation;
-  ctx.globalCompositeOperation = "lighter";
-  ctx.strokeStyle = PALETTE.shieldRim;
-  ctx.globalAlpha = alpha * 0.3;
-  ctx.lineWidth = width * 3;
-  path();
-  ctx.globalAlpha = alpha;
-  ctx.lineWidth = width;
-  path();
-  ctx.globalAlpha = 1;
-  ctx.globalCompositeOperation = prev;
-}
-
+// **The bolt itself is `bolt.ts` now**, cut out when THE COIL's charge started
+// jumping from one dome to the next along a line that is not a column. It is
+// the same light doing the same thing, so a second copy of the shape would
+// have been the kind of thing `copies-table.ts` catches after the fact.
 /** Every strike in flight. Fed by `claspBreak`, and by nothing else. */
 export class ClaspStrikeFx {
   private live: ClaspStrike[] = [];
@@ -127,7 +80,7 @@ export class ClaspStrikeFx {
         // Each bolt is redrawn from a different seed a few times over its
         // life, so the discharge crackles instead of holding one shape.
         const seed = k * 131 + Math.floor(fx.age * 90) * 17;
-        bolt(ctx, x, l.hullY, x, y, l.tile, seed, alpha * (k === 0 ? 1 : 0.7), 1.6);
+        drawBolt(ctx, x, l.hullY, x, y, l.tile, seed, alpha * (k === 0 ? 1 : 0.7), 1.6);
       }
       // Where it lands. The one part of this drawn as light rather than as a
       // line: the shell is being hit, not cut.

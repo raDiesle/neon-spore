@@ -153,6 +153,13 @@ const LIVING_LOOK = {
   // `magnet-shape.ts` and `render/magnet.ts` strokes them, routed away in
   // `drawCreatures` before the living pass ever sees one.
   magnet: null,
+  // THE COIL, and the plainest `null` left in this table: what stands in the
+  // middle of one is a rock — `drawMeteor` draws it, routed there by
+  // `creature-body.ts` the way every other rock is — and the dome over it is a
+  // membrane laid on top rather than a contour of its own (`render/coil.ts`),
+  // exactly as THE CLASP's is. A silhouette here would be a second answer to a
+  // question a rock has already answered.
+  coil: null,
 } as const satisfies Record<CreatureKind, { shape: CreatureSilhouette; motion: OwnMotion } | null>;
 
 /**

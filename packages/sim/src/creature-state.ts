@@ -1,6 +1,8 @@
 import type { CaromDir } from "./carom.js";
+import type { CoilDir } from "./coil.js";
 import type { CrawlerState } from "./creature-state-crawler.js";
 import type { FenceState } from "./creature-state-fence.js";
+import type { GyreState } from "./creature-state-gyre.js";
 import type { HeldState } from "./creature-state-held.js";
 import type { StrandState } from "./creature-state-strand.js";
 import type { VeerState } from "./creature-state-veer.js";
@@ -19,11 +21,11 @@ import type { GhostDir } from "./ghost.js";
  * This is the list that grows, and it has grown by a field for nearly every
  * creature added since THE DART.
  *
- * **Four groups have gone next door**, each a set of fields that only mean
+ * **Five groups have gone next door**, each a set of fields that only mean
  * anything against each other and each with its own argument in its own
  * header: `creature-state-held.ts` (the four a hand writes),
- * `creature-state-strand.ts`, `creature-state-crawler.ts` and
- * `creature-state-fence.ts`.
+ * `creature-state-strand.ts`, `creature-state-crawler.ts`,
+ * `creature-state-fence.ts` and `creature-state-gyre.ts`.
  *
  * `Creature extends CreatureState` rather than nesting it under a key, so
  * every call site still reads `c.ghostLaps` and nothing moved. It is the same
@@ -37,7 +39,13 @@ import type { GhostDir } from "./ghost.js";
  * siblings are the rules, and a second spelling of a fallback is how the
  * picture and the shot come to disagree about the same body.
  */
-export interface CreatureState extends CrawlerState, FenceState, HeldState, StrandState, VeerState {
+export interface CreatureState
+  extends CrawlerState,
+    FenceState,
+    GyreState,
+    HeldState,
+    StrandState,
+    VeerState {
   /**
    * The dart's three fields, and `dart.ts` is the whole of what they mean.
    * `dartDir` is the side it is concerned with now (`-1` left, `1` right),
@@ -147,35 +155,6 @@ export interface CreatureState extends CrawlerState, FenceState, HeldState, Stra
    */
   rindLayers?: number;
   /**
-   * THE GYRE's two hub fields, and `gyre.ts` is the whole of what they mean.
-   * `gyreTurnMilli` is how far the wheel has turned, in thousandths of a rim
-   * position, wrapped at `GYRE_TURN_MILLI` so it stays a bounded integer;
-   * `gyreStep` is how many beats it has been on the field, which is its route
-   * and its speed at once — how far it has fallen, which corner of the diamond
-   * it is walking to, how many laps it has sunk and how fast the rim is going
-   * are all read off it.
-   *
-   * Thousandths and not whole clicks, for `dragMilli`'s reason: the rim
-   * accelerates, so the turn one beat buys is a fraction of a position and the
-   * remainder has to be carried rather than rounded away, or the wheel would
-   * have three speeds. Read them through `gyreClick`, `gyreAt` and
-   * `gyreSpinPerBeat` (`gyre-rim.ts`) and never by hand — where the six bodies
-   * stand, where the spokes are drawn and which column a shot has to be fired
-   * up are four readings of the same two numbers.
-   */
-  gyreTurnMilli?: number;
-  gyreStep?: number;
-  /**
-   * A mount's two, and absent on everything that is not one. `gyreId` is the
-   * hub it rides and its presence *is* the attachment — `carryMounts` moves
-   * whatever names one and `gyreMountsLeft` counts the same field to decide
-   * when the wheel breaks — and `gyreSlot` is which of the six positions on
-   * the rim, 0..5, which fixes the mount's colour (`mountColor`) as well as
-   * its place, so the alternation around the rim is one fact and not two.
-   */
-  gyreId?: number;
-  gyreSlot?: number;
-  /**
    * How many times THE RECOIL still survives a shot, and absent on every other
    * kind. It is the only state this creature carries, and it answers three
    * questions at once: whether the next matching shot throws the body back or
@@ -246,4 +225,26 @@ export interface CreatureState extends CrawlerState, FenceState, HeldState, Stra
    * can disagree about whether a rock may move yet.
    */
   pushBeat?: number;
+  /**
+   * THE COIL's two, and `coil.ts` is the whole of what they mean. `coilDir` is
+   * which way across the field this one is crossing (`-1` left, which is where
+   * every coil sets off) and `coilLit` is the **beat the charge from another
+   * failed dome landed on it** — absent while nothing has been sent its way,
+   * which is what makes the field's absence the answer to "is this one about
+   * to come open".
+   *
+   * Read them through `coilHeading`, `coilCharged` and `coilDue`, never directly.
+   * The bolt render draws, the beat the dome fails on and the wall the body is
+   * heading for are readings of these two numbers, and a second copy of either
+   * fallback is how the picture and the step come to disagree about which
+   * column the pair should be standing in.
+   *
+   * `coilLit` is a moment rather than a countdown, and that is load-bearing
+   * here rather than tidy: a countdown would be ticked by the same loop that
+   * opens the domes, so a body chained by one standing later in
+   * `world.creatures` would lose a beat that one standing earlier kept — a
+   * creature whose timing depended on array order.
+   */
+  coilDir?: CoilDir;
+  coilLit?: number;
 }

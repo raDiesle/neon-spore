@@ -27,6 +27,7 @@ import { torchWarning } from "./torch-alarm.js";
  * | `veer` | the pilot sees which lane its next step takes | P1 |
  * | `fence`| the pilot sees where the wall is open | P1 |
  * | `magnet`| the pilot picks the side the shot comes in from | P1 |
+ * | `coil` | the pilot sees which dome the charge jumps to next | P1 |
  *
  * The rocks are **not** in it, and that is a decision rather than an
  * oversight: a meteor is on the pilot's strip like a torch, but there is one
@@ -194,6 +195,14 @@ const TALKER = {
   // a picture withheld, and it is withheld the same way for the same reason:
   // player 2 is holding both triggers and cannot pick one until it is said.
   magnet: "p1",
+  // THE COIL, and it is THE FENCE's row said about an *order* instead of a
+  // place. Both screens carry the domes, the rocks that drop out of them and
+  // the whole crossing; what only the pilot is drawn is the **bolt** — which
+  // dome the charge is on its way to (`render/coil-jump.ts`). So the one thing
+  // withheld is which column comes open next, and it is withheld from the only
+  // seat that can put the plate there. Four beats between the bolt leaving and
+  // the rock landing is one call, not a sentence.
+  coil: "p1",
 } as const satisfies Record<CreatureKind, Talker | null>;
 
 /** The seat that has to say something about this kind, or null if the two of

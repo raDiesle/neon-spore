@@ -14,45 +14,24 @@
 import type { SimEvent } from "@neon-spore/sim";
 import { breachCue } from "./bind-breach.js";
 import { caromCue } from "./bind-carom.js";
+import { coilCue } from "./bind-coil.js";
 import { crawlerCue } from "./bind-crawler.js";
 import { creatureCue } from "./bind-creatures.js";
+import type { Cue } from "./bind-cue.js";
 import { fenceCue } from "./bind-fence.js";
 import { fleetCue } from "./bind-fleet.js";
 import { MIRROR_STEP_SOUNDS, POD_TAKEN_SOUNDS } from "./bind-lookups.js";
 import { panForCol, pitchForRow } from "./bind-place.js";
 import { volleyCue } from "./bind-volley.js";
 
-export interface Cue {
-  id: string;
-  /** -1..1 across the field, or undefined for something with no column. */
-  pan?: number;
-  /** Multiplies every frequency — how a row becomes a pitch. */
-  pitch?: number;
-  gain?: number;
-  /**
-   * The one seat this cue belongs to, or absent for the overwhelming majority
-   * that belong to both. Both players hear everything (`docs/spec/systems.md`
-   * 5.3) and that is still the rule — this is the exception THE LURE forced,
-   * and it exists because the two of them are in one room: a sound made on
-   * both phones is a sound the player who is not supposed to have it hears
-   * anyway. `Mixer` drops a seated cue unless it has been told which seat it
-   * is, so a device that was never told stays silent rather than leaking.
-   */
-  seat?: 1 | 2;
-  /**
-   * Beats to hold this cue back by, or absent for the overwhelming majority
-   * that sound the moment they are bound.
-   *
-   * THE FLEET is the only thing that uses it, and it uses it because its shot
-   * is no longer resolved where it is heard: the salvo is decided on the tick
-   * the thumb lands, and the shell is drawn arcing over the water for
-   * `FLEET_SHELL_BEATS` before it reaches the square. A splash that sounded on
-   * the press would close the water over a shell still climbing. In beats
-   * rather than seconds because the tempo is the game's clock and only the
-   * mixer knows it (`Mixer.frame`).
-   */
-  delayBeats?: number;
-}
+// **What a cue is** — an id, where it sits in the stereo field, what it is
+// pitched and delayed by, and which seat may hear it — is `bind-cue.ts` next
+// door, cut out when THE COIL's two took this file over its limit. It is the
+// same seam `bind-place.ts` and `bind-lookups.ts` were cut along: a shape and
+// two lookups on one side, and on the other the one thing this file is for —
+// an argument about which sound each moment deserves. Re-exported below, so
+// the seven `bind-*.ts` files that reach for it through this one did not move.
+export type { Cue } from "./bind-cue.js";
 
 // **Where a sound is** — a column as a stereo position and a row as a pitch —
 // is `bind-place.ts` next door, cut out when THE FENCE took this file over its
@@ -225,6 +204,11 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "magnetPlate":
     case "magnetBreak":
       return creatureCue(e, cols, rows);
+    // THE COIL's two, in `bind-coil.ts` — one arrival taken apart, cut out
+    // the way THE CAROM's four were, and named here for their reason too.
+    case "coilBreak":
+    case "coilJump":
+      return coilCue(e, cols, rows);
     // THE CAROM's four, in `bind-carom.ts` — one arrival taken apart, cut out
     // of `bind-creatures.ts` the way `events-carom.ts` is cut out of
     // `events-creature.ts`. Named here rather than reached through a default,

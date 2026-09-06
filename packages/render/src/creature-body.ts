@@ -205,6 +205,12 @@ function drawStrandBody(b: Body): void {
 /** The kinds whose body is not the ordinary blob and not a rock. */
 const EXCLUSIVE: ReadonlyMap<CreatureKind, BodyDraw> = new Map<CreatureKind, BodyDraw>([
   ["torch", drawTorchBody],
+  // THE COIL is a rock and is **not** an `isMeteorKind` — the shield strips its
+  // dome rather than turning it away, so it is not in that list and would fall
+  // through to `drawLiving`, which would ask a body with no contour for one
+  // and throw. A row here rather than a name in `kinds.ts`: what it looks like
+  // and what answers it are two questions, and this file is the first.
+  ["coil", drawMeteorBody],
   ["ghost", drawGhostBody],
   ["wisp", drawWispBody],
   ["lid", drawLidBody],

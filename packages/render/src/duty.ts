@@ -93,6 +93,13 @@ const DUTY_WORD = {
   // two triggers and cannot tell which of the two poles is the one that will
   // be met.
   magnet: { p1: "POLE" },
+  // THE COIL. The pilot is the only seat the bolt is drawn on, so the only
+  // thing they can say is *which one opens next* — and the navigator, who
+  // cannot see the bolt, has four beats to get the plate into that column.
+  // NEXT rather than COLUMN, which is THE GHOST's word: there the number is
+  // the whole of what is missing, here the number is easy and the **order** is
+  // what nobody else has.
+  coil: { p1: "NEXT" },
 } as const satisfies Record<CreatureKind, { p1?: string; p2?: string } | null>;
 
 /** Whether a kind counts as active for this word, including the one kind

@@ -75,6 +75,12 @@ const BY_ID: Record<string, Subject> = {
   "creature.magnetPlate": shape("MAGNET"),
   "creature.magnetBreak": shape("MAGNET"),
 
+  // THE COIL's charge leaving one failed dome for the next. The card is the
+  // rock, because that is what a dome has inside it and what drops out of the
+  // one this bolt is on its way to — the bolt itself is drawn nowhere but on
+  // the field, and only on one of the two screens (`render/coil-jump.ts`).
+  "impact.chain": shape("METEOR"),
+
   "impact.destroyRed": shape("SLICK"),
   "impact.destroyCyan": shape("BULB"),
   "impact.reject": shape("METEOR"),

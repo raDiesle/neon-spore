@@ -65,6 +65,11 @@ export const SILENT = [
   // the pole's colour off the tile; this one is the arch and the plate going,
   // and `magnet-break.ts` draws all of it.
   "magnetBreak",
+  // THE COIL's charge crossing the field to the next dome. Nothing has broken
+  // yet — that is the whole of what it means — and a shower of sparks along
+  // the way would say something had. It is drawn as the bolt it is, on the one
+  // screen that gets it (`coil-jump.ts`), and the burst comes when it lands.
+  "coilJump",
   // A carom turning at a wall, and it is `ghostTurn`'s reason inverted:
   // nothing broke. The body bounced off the edge of the field intact, and a
   // shower of sparks there would read as damage to something the pair can

@@ -146,6 +146,13 @@ export const INGEST_SILENT = [
   // transient of its own in `effects-body.ts`, spawned there rather than here
   // (`magnet-break.ts`).
   "magnetBreak",
+  // THE COIL's two. The dome coming off is `effects-spark.ts`' burst and
+  // nothing else — what is left is an ordinary torch, drawn by the same
+  // `drawMeteor` every rock is — and the charge in flight is a transient of
+  // its own in `effects-body.ts`, spawned there rather than here, for THE
+  // CHUTE's reason exactly (`coil-jump.ts`).
+  "coilBreak",
+  "coilJump",
 ] as const satisfies readonly SimEvent["type"][];
 
 /** One of the above, as a type — what the guard narrows the union by. */

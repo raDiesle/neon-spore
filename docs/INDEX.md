@@ -258,6 +258,12 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/claw.ts` | THE CLAW: the one where nothing on either screen has a name |
 | `packages/sim/src/config-claw.ts` | THE CLAW's numbers — the rail, the clock, and what a bad grab costs |
 | `packages/sim/src/snake-hash.ts` | What SNAKE puts into `hashWorld`, and nothing else |
+| `packages/sim/src/coil.ts` | THE COIL: a rock sitting inside a dome of its own |
+| `packages/sim/src/config-coil.ts` | THE COIL's numbers: how far it crosses the field each beat, how far it sinks at a wall |
+| `packages/sim/src/events-coil.ts` | **THE COIL's two**: a dome coming off, and the charge it was holding leaving for the next one |
+| `packages/sim/src/own-step.ts` | **The bodies that move by a rule of their own instead of falling** |
+| `packages/sim/src/creature-state-gyre.ts` | **THE GYRE's four**: the two the hub carries and the two a body on its rim does |
+| `packages/sim/src/index-bodies.ts` | **The four bodies that wear something**, narrowed to what render/ and the tools actually ask of each |
 
 ### packages/content
 
@@ -646,6 +652,9 @@ place — the generator keeps whatever is there.
 | `packages/render/src/hull-shock.ts` | The whole ship conducting for a moment after a wall earthed through the dome |
 | `packages/render/src/claw-rig.ts` | THE CLAW's machinery, drawn: the rail, the sockets under it, and the claw itself hanging between the two |
 | `packages/render/src/claw-round.ts` | THE CLAW over the whole stage — the title, the tally, the panel and the verdict |
+| `packages/render/src/bolt.ts` | **One discharge drawn between two points**, and the one place the shape of a bolt in this game is decided |
+| `packages/render/src/coil-jump.ts` | The charge leaving a dome that has just failed and crossing the field to the next one |
+| `packages/render/src/coil.ts` | THE COIL's dome: the shell a rock crosses the field inside, and the three studs the charge leaves it by |
 
 ### packages/net
 
@@ -693,6 +702,8 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-lookups.ts` | The two id-to-id tables `bind.ts` reads, and the only *data* in a file that is otherwise a switch |
 | `packages/audio/src/bind-fence.ts` | **What THE FENCE sounds like**: the wire going over the ship, and a bolt cutting a way through it |
 | `packages/audio/src/bind-place.ts` | **Where a sound is**: a column as a stereo position, and a row as a pitch |
+| `packages/audio/src/bind-coil.ts` | **THE COIL's two, as sounds**: a dome coming off, and the charge it was holding leaving for the next one |
+| `packages/audio/src/bind-cue.ts` | **What one sound-to-be is**: an id out of the catalogue, where it sits in the stereo field |
 
 ### apps/game
 

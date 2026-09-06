@@ -37,6 +37,11 @@ export const ROCK_MECHANICS = {
     reach: "spawn",
     waveNames: true,
   },
+  coil: {
+    what: "A rock inside a dome, crossing the field from the right wall to the left instead of falling and sinking two rows at every wall it turns at. Nothing reaches it while the dome is on; the shield standing in its column opens it wherever it is, and what drops out is a torch. The charge then jumps to another dome still standing and opens that one too, and on again — so one trigger frees the whole field, one at a time, and only the pilot can see which is next.",
+    reach: "spawn",
+    waveNames: true,
+  },
   torch: {
     what: "Rock again, twice as wide, and the fastest thing in the field. It cannot be shot either.",
     reach: "spawn",

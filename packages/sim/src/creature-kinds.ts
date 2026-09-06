@@ -219,7 +219,21 @@ export type CreatureKind =
    * `magnet.ts` holds the whole of it, and it carries no state of its own —
    * the two pole colours are `color` and its opposite, left and right.
    */
-  | "magnet";
+  | "magnet"
+  /**
+   * A rock inside a dome of its own, coming in at the **right wall** and
+   * crossing the field to the left rather than falling — and the first body
+   * whose answer takes every other one of its kind with it. Nothing touches it
+   * while the dome is on; the ward reaching up its column takes the dome off,
+   * exactly as it opens a clasp, and what is left is a `torch` dropping at
+   * thirteen rows a beat. But the charge the dome was holding does not go out
+   * with it: it jumps to another coil still standing, and `coilJumpBeats` later
+   * that one opens too and throws it on again, until the field is bare. Only
+   * player 1 is shown the bolt in flight, and only player 2 can move the dome.
+   * `coil.ts` holds the whole of it; `Creature.coilDir` and `Creature.coilLit`
+   * are the whole of its state.
+   */
+  | "coil";
 
 // **The list those names are written in, and the order they hash in**, is
 // `creature-roster.ts` next door — cut out when THE FENCE took this file over

@@ -115,6 +115,14 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "claspBreak":
       return at(l, e.col, e.row, 14, PALETTE.claspShield);
 
+    // THE COIL's dome, and `claspBreak`'s burst word for word: it is the same
+    // shell coming off, so it is the same colour and the same size, whichever
+    // of the two opened it. Nothing was revealed — a rock was visible through
+    // the dome the whole way across — and the lane has not closed either,
+    // which is why this is deliberately not a `destroy`'s worth of anything.
+    case "coilBreak":
+      return at(l, e.col, e.row, 14, PALETTE.claspShield);
+
     // A layer off THE RIND, and a bead shrivelling on THE STRAND: the body's
     // own colour, because the shot landed and the pair should feel that it did
     // — and half the particles of a `destroy`, because the thing is still

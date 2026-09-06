@@ -533,15 +533,15 @@
       "wave": 51,
       "name": "THE TWITCH",
       "bodies": 3,
-      "arrivals": "8:7962b3ea",
-      "typical": 3.4,
-      "mean": 3.9,
-      "p90": 5.42,
-      "jitter": 0.351,
+      "arrivals": "10:23c99a32",
+      "typical": 4.14,
+      "mean": 5.09,
+      "p90": 7.47,
+      "jitter": 0.528,
       "mergedFrom": {
         "measuredAt": "2026-09-06",
-        "commit": "d070de970f0236378e85da9a2e697280e2ab1f7d",
-        "scale": 0.7
+        "commit": "10e1568e6ed577fd754bed562f1a81b5afb9050d",
+        "scale": 1.15
       }
     },
     {

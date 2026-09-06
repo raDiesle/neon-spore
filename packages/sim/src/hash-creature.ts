@@ -232,5 +232,19 @@ export function creatureHashParts(c: Creature): number[] {
   // devices could actually come to disagree about — and a device that missed
   // one has the ship holed where the other has it whole.
   out.push(c.fenceBurns ?? 0);
+  // THE COIL's two. The heading decides which column the body reaches on the
+  // next beat and which wall it sinks at, so two devices that disagree about
+  // it hold one dome on opposite sides of the field — and the beat the charge
+  // landed decides *when it comes open*, which is louder still: one screen has
+  // a rock at a torch's speed coming down and the other has a dome still
+  // crossing. The chain's roll needs no field of its own — it is `rng.state`
+  // in `hash.ts` — and what a dome becomes needs none either, being `c.kind`
+  // at the top of this list and `spanOf` beside it.
+  //
+  // `0` for a heading, which no live coil can carry, and `-1` for the beat,
+  // which no beat can be — so "not a coil" and "crossing left, charge not sent
+  // yet" are never the same pair of numbers in the fingerprint.
+  out.push(c.coilDir ?? 0);
+  out.push(c.coilLit ?? -1);
   return out;
 }

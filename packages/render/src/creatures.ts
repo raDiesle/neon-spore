@@ -2,6 +2,7 @@ import { isBossBody, recoilTurn, veilArmourPhase, type World, wispOnField } from
 import { drawCaromCrust } from "./carom.js";
 import { drawChute } from "./chute.js";
 import { claspResonance, drawClaspShield } from "./clasp.js";
+import { coilCharge, drawCoilDome, showsCoilCharge } from "./coil.js";
 import { bodyDraw } from "./creature-body.js";
 import { creatureCenter } from "./creature-place.js";
 import { drawDartJet } from "./dart.js";
@@ -156,6 +157,16 @@ export function drawCreatures(
     // around one and not a substitute for one — `wornKind` has already drawn
     // the slick or the bulb inside, in its own colour, which is what player 2
     // has to be able to read through it (`clasp.ts`).
+    // And THE COIL's, on exactly the same terms one creature along: a membrane
+    // around a **rock** rather than around a body, so `drawMeteor` has already
+    // put the thing inside it down. What is different is the charge — how far
+    // the bolt from the last dome to fail has come — and that is passed as
+    // zero on player 2's screen, because which dome opens next is the one fact
+    // this creature keeps from the seat that can move the plate (`coil.ts`).
+    if (c.kind === "coil") {
+      const charge = showsCoilCharge(l) ? coilCharge(world.cfg, world, c, beatPhase) : 0;
+      drawCoilDome(ctx, l, world, c, x, y, time, near, charge, claspImage);
+    }
     if (c.kind === "clasp") {
       drawClaspShield(
         ctx,
