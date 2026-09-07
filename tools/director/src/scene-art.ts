@@ -74,6 +74,19 @@ export interface Placed {
    * middle of what it draws, the same pivot `shape-figure.ts` fits a card to.
    */
   mid: { x: number; y: number };
+  /**
+   * Half of what the body actually draws, top to bottom, in the frame's own
+   * pixels — the number a label is hung below.
+   *
+   * It cannot come off the tile. A creature draws `tile * 0.8` across and a
+   * label half a lane under the middle clears it comfortably; THE WEIGHT is
+   * three lanes and THE TITHE, THE CAIRN and THE CODEX are seven, so the same
+   * offset lands the word inside the contour it was meant to name. The scale
+   * and the contour's bounds are both known here, and `turn` is applied
+   * because a body leaning is a body reaching further down than its own
+   * height.
+   */
+  halfHeight: number;
   ghost: boolean;
   label?: string;
   entry: CatalogueEntry;
@@ -102,6 +115,25 @@ function bodyScale(subject: Subject, tile: number, span: number, fill: number): 
   return half > 0 ? (span * tile * fill) / 2 / half : 1;
 }
 
+/**
+ * How far below its centre a body reaches once it is drawn, in frame pixels.
+ *
+ * The contour's own bounds scaled by the fit, and turned: a box `w` by `h`
+ * rotated by `a` stands `|w sin a| + |h cos a|` tall, which is the two vertical
+ * extents of its edges added. Nothing here asks about the own-motion — a pose
+ * that swells by a tenth for a beat would move a label with it, and a caption
+ * that breathes is harder to read than one a hair close.
+ */
+function drawnHalfHeight(
+  b: { x0: number; x1: number; y0: number; y1: number },
+  scale: number,
+  turn: number,
+): number {
+  const halfW = ((b.x1 - b.x0) / 2) * scale;
+  const halfH = ((b.y1 - b.y0) / 2) * scale;
+  return Math.abs(halfW * Math.sin(turn)) + Math.abs(halfH * Math.cos(turn));
+}
+
 /** Every body in a scene, resolved against the catalogue and the frame's layout. */
 export function placeBodies(
   scene: Scene,
@@ -119,13 +151,16 @@ export function placeBodies(
     // off the field.
     const centre = toCard(tileCX(l, body.col + (span - 1) / 2), tileCY(l, body.row));
     const b = boundsOver(entry.subject, FIT_TIMES);
+    const scale = bodyScale(entry.subject, l.tile, span, body.fill ?? LANE_FILL) * cardScale;
+    const turn = ((body.turn ?? 0) * Math.PI) / 180;
     out.push({
-      scale: bodyScale(entry.subject, l.tile, span, body.fill ?? LANE_FILL) * cardScale,
+      scale,
       centre,
       tile: l.tile * cardScale,
       color: TINT[body.tint ?? "draft"],
-      turn: ((body.turn ?? 0) * Math.PI) / 180,
+      turn,
       mid: { x: (b.x0 + b.x1) / 2, y: (b.y0 + b.y1) / 2 },
+      halfHeight: drawnHalfHeight(b, scale, turn),
       ghost: body.ghost === true,
       label: body.label,
       entry,
@@ -175,7 +210,11 @@ export function drawOverlay(
       strokeGlow(ctx, path, p.color, STROKE.outline / p.scale, 0.8);
     }
     ctx.restore();
-    if (p.label) label(ctx, p.centre.x, p.centre.y + p.tile * 0.5, p.label);
+    // Clear of the bottom of what was actually drawn, plus the gap a creature
+    // used to get from `tile * 0.5` — that offset was the lane-wide body's
+    // half-height and a tenth of a lane under it, and only the first half of
+    // it was ever about the tile.
+    if (p.label) label(ctx, p.centre.x, p.centre.y + p.halfHeight + p.tile * 0.1, p.label);
   }
   ctx.restore();
 }

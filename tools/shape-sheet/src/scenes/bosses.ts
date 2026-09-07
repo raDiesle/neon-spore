@@ -83,7 +83,7 @@ export const BOSS_SCENES: Scene[] = [
     role: "p1",
     claim:
       "**4 · OPEN.** Below the line the seam at its narrow top parts, and for the first time there is something to shoot — one column, four rows above the hull, and the hand that takes the shot is a hand that was holding it up.",
-    bodies: [{ shape: "THE WEIGHT", col: 4, row: 11, span: 3 }],
+    bodies: [{ shape: "THE WEIGHT", col: 4, row: 11, span: 3, label: "the seam, parted" }],
     marks: [
       { kind: "line", row: 10, note: "the line the seam opens below" },
       { kind: "lane", col: 5, note: "the column the shot has to go up" },
