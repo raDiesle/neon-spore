@@ -57,3 +57,31 @@ when it is not yet that concrete. `docs/versus.md` has the mechanism.
 is a second lane and an owner decision, not a tidy-up on the way past. Put it
 in the report.
 
+
+## A drawn picture is built by looking at it
+
+**SVG written blind comes out thin, every time.** A session cannot see what it
+wrote, so it stays inside the shapes it can predict from the coordinates
+alone — four or five paths, one gradient, two keyframes — because without a
+look every extra element is a risk rather than an improvement. The owner named
+it on 7 September 2026, holding a picture drawn here beside an SVG another
+model had given him: much more detailed, and drawn by something that was not
+being more careful, only less blind. Nothing about file size or frame cost is
+at stake. A phone renders far more than any of these files contain.
+
+So a picture is rendered and corrected rather than emitted once. Numbers first,
+because `bun run shapes:report` catches a clipped contour or a bad proportion
+for a fraction of what an image costs; then one still through `bun run png`,
+**read** and not merely written; then a correction, and a second look. Two or
+three rounds, and stop — the returns fall off and the cost does not.
+
+**A reference in the conversation is the density to meet.** If the owner has
+attached an SVG, count what it actually contains before drawing beside it.
+
+`.claude/skills/svg-look` holds the loop and the craft.
+`tools/hooks/after-svg-edit.ts` says so at the moment a drawing file is edited,
+once per file per session, and it cannot tell a picture from an explanatory
+diagram — a diagram is exempt and plain is right for it. The skill's own
+description is what a session sees first, which is why the rule lives here and
+in that description rather than in `CLAUDE.md`, whose size ceiling it does not
+fit under.

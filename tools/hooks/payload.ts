@@ -16,6 +16,7 @@
 export interface HookPayload {
   tool_input?: { file_path?: unknown };
   stop_hook_active?: unknown;
+  session_id?: unknown;
 }
 
 /** The payload on stdin, or `null` when it is absent or not JSON. */
@@ -49,4 +50,19 @@ export function editedPath(payload: HookPayload | null): string | null {
  */
 export function stopHookActive(payload: HookPayload | null): boolean {
   return payload?.stop_hook_active === true;
+}
+
+/**
+ * The session this payload belongs to, or a stand-in when it names none.
+ *
+ * `after-svg-edit.ts` remembers which files it has already spoken about, and
+ * the memory has to end with the session — a marker that outlived one would
+ * silence the reminder for every session after it, which is the same as not
+ * having written the hook. The fallback is a constant rather than a random
+ * value on purpose: an unkeyed payload should share one bucket, not mint a new
+ * one per edit and remind on every single keystroke.
+ */
+export function sessionId(payload: HookPayload | null): string {
+  const raw = payload?.session_id;
+  return typeof raw === "string" && raw !== "" ? raw.replaceAll(/[^\w-]/g, "") : "unkeyed";
 }

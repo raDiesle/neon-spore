@@ -1242,5 +1242,6 @@ place — the generator keeps whatever is there.
 | `tools/director/src/pose-type.ts` | What a pose *is* — the shape of one, and the two things a caller can ask of one without building it |
 | `tools/director/src/versus-crop.ts` | One side of a VERSUS pair: a whole phone, drawn, shown through the window its pose's own `crop` cuts in it |
 | `tools/director/src/versus-diff.ts` | How two pictures of the same frame are compared — the pixel arithmetic behind `versus-seat.ts` |
+| `tools/hooks/after-svg-edit.ts` | A drawn picture is the one thing a session cannot check by reading it back |
 
 <!-- index:code:end -->

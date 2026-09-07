@@ -31,6 +31,15 @@
             "command": "bun tools/hooks/after-sim-edit.ts"
           }
         ]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun tools/hooks/after-svg-edit.ts"
+          }
+        ]
       }
     ],
     "Stop": [
