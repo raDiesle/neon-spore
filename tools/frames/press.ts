@@ -75,6 +75,12 @@ const SEAT_OF: Record<string, 1 | 2 | "either"> = {
   shieldCol: 2,
   fire: 2,
   grip: "either",
+  // THE CHOIR's shake, and the only entry here that is not a thumb on
+  // anything: the *device* was moved. It is the pilot's for the reason every
+  // handle on this field is — the navigator carries both colours and fires —
+  // and it takes no value, so it falls through to the bare-kind branch below
+  // with `guard` and `reach` (`sim/choir-gesture.ts`).
+  shake: 1,
 };
 
 /** Which way an `aim` steps, as the four words a person would say. */

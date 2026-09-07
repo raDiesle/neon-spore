@@ -56,6 +56,14 @@ export function isBuilt(name: string): boolean {
   const key = name.toLowerCase();
   if (key in CREATURES) return true;
   const last = key.split(/\s+/).at(-1) ?? "";
+  // **The last word against the creatures too, and not only against the
+  // bosses.** The act order in `bosses.md` names its slots the way a person
+  // says them — "The Choir (40)" — and THE CHOIR is a creature now, so the
+  // page went on listing a shipped body as something still to build. It is the
+  // same allowance the line below already makes for "Bulb Queen", read one
+  // table along: what a slot is called and what the simulation calls it differ
+  // by the words a person puts in front.
+  if (last in CREATURES) return true;
   return BOSS_KINDS.some((kind) => kind === last);
 }
 

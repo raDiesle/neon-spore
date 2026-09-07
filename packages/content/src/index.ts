@@ -168,6 +168,7 @@ export {
 export {
   BULB,
   CANNON_LOBE,
+  CHOIR,
   type CreatureSilhouette,
   type CrystalSilhouette,
   HULL,

@@ -170,6 +170,36 @@ export const WISP: CreatureSilhouette = {
   seed: 6.0,
 };
 
+/**
+ * Choir: one voice of a chorus, and there are three of them in a body.
+ *
+ * **Round, and deliberately neither of the two the pair has a word for.** A
+ * choir carries no colour at all until the pilot's gesture lands, so a voice
+ * drawn as a bulb would tell the navigator *cyan* off the silhouette alone —
+ * which is the leak `showsVeilCore` refuses about a halo, said about a shape.
+ * Nine fine lobes is a bulb, two broad flat ones is a slick and five deep ones
+ * is a wisp; three shallow lobes on a nearly round body is a fourth reading,
+ * plainly rounded and plainly none of them. Three of them is also the count of
+ * voices, which is a rhyme rather than an argument but costs nothing.
+ *
+ * It is smaller than any body the pair shoots (`rx`, `ry` against BULB's 52),
+ * because three of these standing together must not read as three slicks — the
+ * mass is one arrival and the voices in it are its parts.
+ *
+ * **`living-look.ts` still answers `null` for the kind, and must.** That table
+ * says "this body is drawn as one contour with one own-motion", and a choir is
+ * three; `render/choir.ts` reads this shape three times and places them itself.
+ * A row over there would hand the kind to `drawLiving`, which would draw one.
+ */
+export const CHOIR: CreatureSilhouette = {
+  lobes: 3,
+  depth: 0.16,
+  wobble: 0.05,
+  rx: 44,
+  ry: 42,
+  seed: 3.0,
+};
+
 // Which kind is drawn with which of the shapes above is *not* here: it is one
 // row per kind in `living-look.ts`, beside that kind's own-motion, because
 // "is this a body and which one" is a single fact and this file is a sheet of

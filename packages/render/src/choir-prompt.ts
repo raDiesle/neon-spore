@@ -1,5 +1,5 @@
 import { choirIsDots, type World } from "@neon-spore/sim";
-import { choirDotAt } from "./choir.js";
+import { choirVoiceAt } from "./choir.js";
 import { creatureCenter } from "./creature-place.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -47,8 +47,8 @@ import { showsCannon } from "./view-role.js";
  * no lane among the three that is more the answer than the others. The
  * instruction is about the body, so the frame is the body's.
  */
-const FRAME_W = 1.85;
-const FRAME_H = 0.72;
+const FRAME_W = 1.45;
+const FRAME_H = 0.68;
 
 export function drawChoirPrompt(
   ctx: CanvasRenderingContext2D,
@@ -61,12 +61,10 @@ export function drawChoirPrompt(
   for (const c of world.creatures) {
     if (!choirIsDots(c)) continue;
     const { x, y } = creatureCenter(l, c, beatPhase);
-    // Centred on the **middle dot's** wander rather than on the span's fixed
-    // centre, and they are not the same point: the film breathes with the
-    // three, and a frame nailed to a fixed centre while the body it is around
-    // drifts reads as a mark that is not about it (`choirDotAt` is the one
-    // copy of where a dot is).
-    const dot = choirDotAt(l, x, y, 1, time);
+    // Centred on the **middle voice**, which breathes with the other two —
+    // `choirVoiceAt` is the one copy of where a voice stands, so the frame
+    // cannot come adrift from the body it is around.
+    const dot = choirVoiceAt(l, x, y, 1, time);
     const halfW = l.tile * FRAME_W;
     const halfH = l.tile * FRAME_H;
     drawTargetLock(ctx, dot.x, dot.y, halfW, halfH, PALETTE.rock, time, 0.85, c.id);
