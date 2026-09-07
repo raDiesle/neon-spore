@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-07 · 606221d — THE WEIGHT is a cycle, so it is drawn as five states rather than one
+
+The one draft boss whose question is not about a shape. Every other entry on docs/spec/transfers-bosses.md asks whether something reads at boss size and one frame answers it; this one has no attack, no pattern and no phases — the fight is the rhythm of two hands going on and coming off, and a single frame of that is a sac hanging in the middle of an empty field, which is the one moment where nothing is being decided. So it gets five scenes in the order the fight runs in — SINKING, HELD, BALLAST, OPEN, HEAVE — each one the state the previous one forces, and a section in the spec that says what each costs the pair.
+
 ## 2026-09-07 · 9b542e4d — A crossing rock leaves at the far side, and its arrow waits on the row
 
 Two corrections from the owner, and between them they change what the creature is.
