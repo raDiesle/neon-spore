@@ -187,9 +187,9 @@ export const WAVES_ACT_7: Wave[] = [
     },
     entries: [
       { beat: 0, col: 4, kind: "coil", color: null },
-      { beat: 2, col: 3, kind: "meteor", color: null, size: 2 },
-      { beat: 3, col: 2, kind: "meteor", color: null, size: 2 },
-      { beat: 3, col: 4, kind: "meteor", color: null },
+      { beat: 5, col: 2, kind: "meteor", color: null, size: 2 },
+      { beat: 5, col: 3, kind: "meteor", color: null, size: 2 },
+      { beat: 5, col: 4, kind: "meteor", color: null, size: 2 },
       { beat: 10, col: 6, kind: "coil", color: null },
       { beat: 14, col: 2, kind: "meteor", color: null },
       { beat: 28, col: 6, kind: "coil", color: null },
