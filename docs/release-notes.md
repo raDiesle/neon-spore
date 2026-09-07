@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-07 · 97b5f083 — Every bead on the navigator's thread rolls, and all of them in one violet
+
+Three answers, all of them the owner's, and the look they change is his by name — the second of the three exemptions in CLAUDE.md.
+
 ## 2026-09-07 · d15c62d7 — The grip's pause is already drawn, so the ring slot closes
 
 `grip:ring-pause` asked how the field should say that a body just carried a column cannot be carried again for a beat, and offered `latch` — the four arcs stopping until the pause is over. Its premise was that nothing says so today. Something does, and it is louder than a ring that has stopped turning: the two white carry arrows are drawn only while `carryIsReady` (`grip-arrows.ts`), so they go out for the length of the pause and come back with it. `latch` was a second and much quieter statement of the same fact — invisible at the size the ring is actually drawn, and a ring at rest reads as a hand let go while the beam is still pulling. Withdrawn rather than shipped.
