@@ -1,6 +1,7 @@
 import { type SimConfig, ticksPerBeat } from "./config.js";
 import type { BossEntry, PodEntry, SpawnEntry } from "./entries.js";
 import type { SimEvent } from "./events.js";
+import type { Malfunction } from "./malfunction.js";
 import { aimed, type SceneCommand } from "./scene-aim.js";
 import { step } from "./step.js";
 import { startWave } from "./wave-start.js";
@@ -63,6 +64,8 @@ export interface SceneScript {
   queue: SpawnEntry[];
   pods: PodEntry[];
   boss: BossEntry | null;
+  /** The fault the rehearsed wave is played under, or none. */
+  malfunction: Malfunction | null;
   /** Sorted by tick. What the ghost thumb is doing, as presses. */
   commands: readonly SceneCommand[];
   /** How long one turn of the loop is, in ticks. */
@@ -147,6 +150,15 @@ function build(script: SceneScript): World {
   // `hasGuide` false, and `cfg.briefings` is off in a scene's own config: a
   // rehearsal held behind its own opening would be a guide inside a guide,
   // waiting for two thumbs that are not there.
-  startWave(world, script.wave, script.queue, script.pods, script.boss, false);
+  startWave(
+    world,
+    script.wave,
+    script.queue,
+    script.pods,
+    script.boss,
+    false,
+    0,
+    script.malfunction,
+  );
   return world;
 }

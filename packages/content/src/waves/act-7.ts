@@ -31,9 +31,9 @@ import type { Wave } from "../wave-types.js";
  *
  * The two after those are in `act-7b.ts`, and the seam is a real one rather
  * than a page break: everything here is played on a panel the pair knows, and
- * the last two are not. **THE TWITCH** is THE COIL again with the trigger
- * stuck down, and **THE CLAW** is a whole panel of its own. That file's header
- * carries both arguments.
+ * the last two are not. **THE TWITCH** is THE COIL at length and teaches
+ * nothing new, and **THE CLAW** is a whole panel of its own. That file's
+ * header carries both arguments.
  *
  * The prose about a wave lives **here, above the array**, and not beside the
  * entry it is about: `tools/director/src/serialize.ts` regenerates everything
@@ -90,26 +90,41 @@ import type { Wave } from "../wave-types.js";
  * 5. Beats 48–50, a last lure at one wall and a slick at the other.
  */
 /**
- * **THE COIL, and the first wave in this game about a trigger nobody presses.**
- * A rock inside a dome of its own comes in at the right wall and crosses to
- * the left instead of falling, sinking at each wall it turns at. Nothing
- * touches it while the dome is on, and the plate standing under it with the
- * window open takes that dome off wherever it happens to be.
+ * **THE COIL, and the first wave in this game where the shield will not go
+ * away.** A rock inside a dome of its own comes in at the right wall and
+ * crosses to the left instead of falling, sinking at each wall it turns at.
+ * Nothing touches it while the dome is on, and the plate standing under it
+ * while the shield is armed takes that dome off.
  *
- * **Opening one is a price, and that is the whole creature.** The rock left
- * behind does not fall out of the dome where the dome stood: it runs for the
- * wall furthest from the plate and comes down there, which is by construction
- * as far as the plate could possibly have to travel. And the charge that was
- * holding the dome shut jumps to another one still standing and opens that
- * too, until the field is bare. So a pair that wards a rock with a dome
- * overhead does not lose the rock — they lose the next four beats.
+ * **The fault is not a second subject, it is what makes the creature one.**
+ * The trigger has stuck down: the shield comes up over player 2's column on
+ * every beat, with nobody pressing anything and nothing to press. So the plate
+ * has stopped being a thing that is *aimed* and become a thing that is
+ * *standing somewhere* — and where it is standing is now the whole question.
+ * GUARD is dead on player 1's panel and stays dead. That is the required
+ * combination rather than two ideas in one wave: without the fault the pair
+ * would simply hold the trigger back, and holding it back is the one answer
+ * this creature must not have.
  *
- * What is left for them to do is therefore the one thing they have never had
- * to do with the shield: **not use it yet**. The rock still has to be turned,
- * the plate still has to be in its column, and the trigger has to find the
- * beat when nothing else is over that column. That sentence needs two people
- * because neither of them can see both halves of it: the domes are on player
- * 2's screen and the charge jumping between them is on player 1's.
+ * **And the ward only opens what it can see** (`coilWardReaches`). A body
+ * falling in the lane between the plate and a dome takes the whole reach, so
+ * the dome is not opened, not lit and not touched — the pair stands there and
+ * watches nothing happen. A column clears from the bottom up, a beat a dome,
+ * while the window stays open.
+ *
+ * **Opening one is a price, and that is the rest of the creature.** The rock
+ * left behind does not fall out of the dome where the dome stood: it runs for
+ * the wall furthest from the plate and comes down there, which is by
+ * construction as far as the plate could possibly have to travel. And the
+ * charge that was holding the dome shut jumps to another one still standing
+ * and opens that too, until the field is bare. So a pair whose lane clears
+ * under a dome does not get a free beat — they lose the next four.
+ *
+ * What is left for them to do is therefore geography and order, and neither
+ * seat can see both: the domes are on player 2's screen and the charge jumping
+ * between them is on player 1's. She says the route she has to take and what
+ * is in the lane; he says which dome the bolt has gone to and how long they
+ * have.
  *
  * **Every rock here is authored under a coil that is already on the field**,
  * which is the standing rule for this creature (`.claude/skills/new-wave`). A
@@ -118,20 +133,18 @@ import type { Wave } from "../wave-types.js";
  * near its lane, and the wave is two creatures taking turns instead of one
  * decision.
  *
- * 1. Beat 0, one rock alone, dead centre, with nothing else on the field. The
- *    pair does the thing they have done since THE ROCK, one last time, on a
- *    clear field.
- * 2. Beat 10, one coil, on its own. There is nothing to ward and nothing to be
- *    lost, so this is where they find out that nothing touches it, that it
- *    crosses rather than falls, and that it is sinking all the same.
- * 3. Beat 14, a rock two lanes off the coil's own wall, with the coil above
- *    it. The first beat the trigger is a decision: the plate has to be under
- *    the rock, and the beat it is pressed on has to be one no dome is over.
- * 4. Beats 28–34, two coils and a faster rock between them. Now there is a
+ * 1. Beats 5–10, three wide rocks abreast and two coils entering behind them.
+ *    The rocks have to be met and the domes are still high, so the first thing
+ *    the pair finds out is that the plate answers a rock by *being there* —
+ *    the fault, on a field where it has not yet cost anything.
+ * 2. Beat 14, a rock two lanes off the wall with a coil crossing above it.
+ *    This is the wave: while the rock is falling between them the dome is safe
+ *    from her, and the beat it clears is the beat she is charged for it.
+ * 3. Beats 28–34, two coils and a faster rock between them. Now there is a
  *    chain to lose — the first dome to open lights a second — so the cost of
- *    getting the beat wrong stops being one body.
- * 5. Beats 46–52, a last coil and two rocks two lanes apart. There is no beat
- *    that is clear for both of them, and choosing which one to eat is the wave.
+ *    being in the wrong column when a lane clears stops being one body.
+ * 4. Beats 46–52, a last coil and two rocks two lanes apart. There is no
+ *    column that answers both, and choosing which one to eat is the end of it.
  */
 export const WAVES_ACT_7: Wave[] = [
   {
@@ -179,11 +192,12 @@ export const WAVES_ACT_7: Wave[] = [
   {
     id: "theCoil",
     name: "THE COIL",
-    sentence: "The one where the trigger waits for the lane above it to clear.",
+    sentence: "The one where the shield never goes away, and it opens whatever it can see.",
     guide: {
-      both: "A rock inside a dome of its own. It comes in at the right wall and crosses the field to the left instead of falling, sinking at every wall it turns at, and nothing touches it while the dome is on. The plate takes a dome off the instant the two are in one column with the trigger open — and what comes out runs for the wall furthest from the plate and lands there, too far off to turn. The plate has to see it: a rock falling in the lane between them takes the whole reach, and while one is under a dome nothing happens at all. Opening one throws its charge at another dome still standing, and that one opens too.",
-      p1: "The trigger is the only thing here you can get wrong. Before you press, ask what is over her column: a dome she stands under opens with the rock, and what it leaves is at the far wall. The charge is yours to call.",
-      p2: "The plate is yours and the domes are on your screen. Say your column and the count until it is clear: they cannot press while a dome is on you, and nothing opens at all while a rock is between the two of you.",
+      both: "The trigger has stuck down: the shield is up over player 2's column on every beat, and nobody can put it away. New on the field is a rock inside a dome of its own. It comes in at the right wall and crosses to the left instead of falling, sinking at every wall it turns at, and nothing touches it while the dome is on. A dome the plate is standing under comes off — but the plate has to see it: a rock falling in the lane between them takes the whole reach, and while one is under a dome nothing happens at all. What comes out runs for the wall furthest from the plate. The charge jumps to another dome still standing and opens that one too. GUARD is dead on player 1's panel.",
+      p1: "The bolt is on your screen and on nobody else's, so which dome opens next is yours to say. Call the column the moment it leaves — they have four beats. GUARD does nothing this wave.",
+      p2: "The plate is yours and the domes are on your screen, and the shield never goes away: a dome you stand under comes open unless something is falling between you. Say the route, and say what is in the lane.",
+      scene: "theCoil",
     },
     entries: [
       { beat: 5, col: 2, kind: "meteor", color: null, size: 2 },

@@ -38,6 +38,7 @@ describe("a strip act aimed at a body", () => {
       wave: 0,
       queue,
       pods: [],
+      malfunction: null,
       boss: null,
       commands: [
         {

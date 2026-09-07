@@ -14,17 +14,18 @@ import type { Wave } from "../wave-types.js";
  * `act-7.ts` is played on a panel the pair already knows, and neither of these
  * is.
  *
- * 1. **THE TWITCH** is THE COIL again with the trigger stuck down. The dome
- *    comes up over player 2's column on every beat, with nobody asking and
- *    nothing to press about it — a fault is purely a subtraction now, so the
- *    seat whose control broke has nothing at all in front of it.
+ * 1. **THE TWITCH** is THE COIL at length, and it carries **no guide**. The
+ *    fault and the creature arrive together on THE COIL — the shield is stuck
+ *    open there too, because a coil a pair can simply decline to ward is not a
+ *    creature — so there is nothing here the wave before it has not already
+ *    taught, and a second introduction of one idea is the defect the rule in
+ *    `packages/content/test/waves.test.ts` exists to catch.
  *
- *    So the creature and the fault are met in that order and never the other
- *    way round. On THE COIL the pair learns *when not to press*; here the
- *    pressing is gone and only the route is left, which is the same lesson
- *    with the one control that could have saved them taken away. Player 1 is
- *    not a spectator for it: the bolt jumping from one failed dome to the next
- *    is drawn on his screen alone, so which column will be dangerous next is a
+ *    What it is instead is the same field with no beginner's room in it: four
+ *    figures against THE COIL's four, more coils at once, and a chain long
+ *    enough that the order player 1 calls is the whole wave. Player 1 is not a
+ *    spectator for it: the bolt jumping from one failed dome to the next is
+ *    drawn on his screen alone, so which column will be dangerous next is a
  *    thing only he can say.
  *
  *    1. Beat 0, a rock alone, so the first thing they meet is the fault being

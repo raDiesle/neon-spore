@@ -9,6 +9,7 @@ import { SNAKE } from "./scenes/snake.js";
 import { THE_CAROM } from "./scenes/the-carom.js";
 import { THE_CLASP } from "./scenes/the-clasp.js";
 import { THE_CLAW } from "./scenes/the-claw.js";
+import { THE_COIL } from "./scenes/the-coil.js";
 import { THE_CUT } from "./scenes/the-cut.js";
 import { THE_DART } from "./scenes/the-dart.js";
 import { THE_ECHO } from "./scenes/the-echo.js";
@@ -94,6 +95,7 @@ export type SceneId =
   | "theLid"
   | "theMaze"
   | "theWarden"
+  | "theCoil"
   | "theCarom"
   | "theClaw"
   | "theVolley"
@@ -135,6 +137,7 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theLid: THE_LID,
   theMaze: THE_MAZE,
   theWarden: THE_WARDEN,
+  theCoil: THE_COIL,
   theCarom: THE_CAROM,
   theClaw: THE_CLAW,
   theVolley: THE_VOLLEY,

@@ -1,4 +1,4 @@
-import type { BossEntry, DragTarget, PodEntry } from "@neon-spore/sim";
+import type { BossEntry, DragTarget, Malfunction, PodEntry } from "@neon-spore/sim";
 import type { ControlId } from "./controls.js";
 import type { SceneStep } from "./scene-step-types.js";
 import type { WaveEntry } from "./wave-types.js";
@@ -179,6 +179,19 @@ export interface GuideScene {
    */
   pods?: PodEntry[];
   boss?: BossEntry;
+  /**
+   * The wave's **fault**, on the same terms as the two above and for the same
+   * reason: a rehearsal that could not carry one could not teach the waves
+   * whose whole subject is a control running by itself.
+   *
+   * THE COIL is why it exists. Its dome comes off wherever the plate is
+   * standing while the shield is armed, and on that wave the shield is armed
+   * on every beat with nobody pressing anything — so a film played without the
+   * fault would show a pair of controls that behave, which is the one thing
+   * that wave is not. `startWave` has always taken it; only this shape was
+   * missing.
+   */
+  malfunction?: Malfunction;
   acts: SceneAct[];
   steps: SceneStep[];
 }

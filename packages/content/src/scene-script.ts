@@ -223,6 +223,7 @@ export function sceneScript(id: SceneId, wave: number, cfg: SimConfig): SceneScr
     // columns every wave is authored in (`queue.ts`).
     pods: podsFromWave(scene, sceneCfg.cols),
     boss: bossFromWave(scene, sceneCfg.cols),
+    malfunction: scene.malfunction ?? null,
     // Sorted, because a grip contributes its release as well as its hold, and a
     // drag a whole run of carries — and any of those can fall after the act
     // written under it. `SceneRun` walks
