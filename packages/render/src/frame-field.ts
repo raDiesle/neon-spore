@@ -183,5 +183,5 @@ export function drawBodies(
   // ward's bolts and the shell they take off a clasp: both are drawn around a
   // creature the world still holds, from the same `creatureCenter` the body
   // was — not from where the event happened to fire.
-  effects.draw(ctx, l, world, view.beatPhase, view.time, surfaceY);
+  effects.draw(ctx, l, world, view.beatPhase, surfaceY);
 }

@@ -25,8 +25,20 @@ export type ChoirEvent =
    * carries `id` for the same reason: the picture of a membrane closing is
    * drawn around a body that is still falling.
    */
+  | { type: "choirMerge"; id: number; col: number; row: number; kind: CreatureKind }
+  /**
+   * And the closing finished: the body is a slick or a bulb now, standing in
+   * the lane it arrived in, and the colour on this event is the one that has
+   * *just* come into existence. It is the beat player 2 has been waiting for —
+   * nothing about a choir names a trigger until this.
+   *
+   * Two events rather than one because they are two moments a beat apart, and
+   * the pair does something different at each: the first says *stop shaking,
+   * it is working* and the second says *now*. One event with a delay read off
+   * it would have made the ear and the eye do arithmetic.
+   */
   | {
-      type: "choirMerge";
+      type: "choirOpen";
       id: number;
       col: number;
       row: number;

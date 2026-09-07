@@ -149,5 +149,10 @@ export function lateHashParts(c: Creature): number[] {
   // of numbers in the fingerprint.
   out.push(c.rockDir ?? 0);
   out.push(c.rockRow ?? -1);
+  // THE CHOIR's fuse. Two devices that disagree about the tick the gesture
+  // landed on disagree about the tick the body stops being a membrane — which
+  // is to say about whether the shot player 2 just fired reached anything.
+  // `-1` for a membrane nobody has opened, which no tick can be.
+  out.push(c.choirFuseTick ?? -1);
   return out;
 }

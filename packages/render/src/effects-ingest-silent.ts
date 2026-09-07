@@ -40,6 +40,12 @@ export const INGEST_SILENT = [
   // its frame: the two events that *do* start a clock here are `choirArm` and
   // `choirMerge`, and both are in the switch next door.
   "choirSing",
+  // And the film finishing. The burst is thrown by `burstFor` above and the
+  // body underneath is an ordinary slick or bulb from that tick on, drawn by
+  // `drawLiving` like any other. Nothing about the moment outlives its frame:
+  // the *closing* is read straight off `Creature.choirFuseTick` every frame
+  // (`render/choir.ts`), which is the one thing that cannot go stale.
+  "choirOpen",
   "veilTorn",
   // A layer off THE RIND: the burst is thrown by `burstFor` above, and the
   // skin it came off in is `rind-shed.ts`, ingested with the rest of

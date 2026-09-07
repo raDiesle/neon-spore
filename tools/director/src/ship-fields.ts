@@ -127,6 +127,7 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   // what the pair does about this creature is the same whatever is inside it.
   choirPullMilli: "THE CHOIR — two bodies opened by shaking the phone",
   choirWindowBeats: "THE CHOIR — two bodies opened by shaking the phone",
+  choirFuseBeats: "THE CHOIR — two bodies opened by shaking the phone",
   damageChoirSong: "THE CHOIR — two bodies opened by shaking the phone",
   scoreChoirMerge: "SCORE",
   recoilBounces: "THE RECOIL — a shot that sends it the wrong way",

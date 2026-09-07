@@ -69,6 +69,25 @@ export interface CreatureState
    */
   veilStruckTick?: number;
   /**
+   * The tick THE CHOIR's gesture landed on, or absent on a membrane nobody has
+   * opened yet and on every other kind. While it is inside `choirFuseBeats`
+   * the two bodies are drawing together, the film is still grey and no shot
+   * reaches it; when it runs out the kind becomes a slick or a bulb and the
+   * colour arrives with it (`choirFused`, choir.ts).
+   *
+   * A tick and not a countdown, for `veilStruckTick`'s reason above: a window
+   * is a moment plus a length, and a number that ticks down is a second copy
+   * of the length that can disagree with the config it came from.
+   *
+   * **It is why the merge is not instant, and that is a rule rather than a
+   * flourish.** The owner asked to watch two become one and *then* see the
+   * colour arrive — so if the kind flipped on the instant of the gesture, the
+   * body would be shootable for a third of a second while it still looked
+   * like something no shot can reach. The picture and the rule agree because
+   * they are the same number.
+   */
+  choirFuseTick?: number;
+  /**
    * The tick a shot of the wrong colour last landed on an *ordinary* body — a
    * slick, a bulb, or anything else that is answered by matching its colour —
    * and absent on one nobody has missed. While it is inside `colourArmourMs`

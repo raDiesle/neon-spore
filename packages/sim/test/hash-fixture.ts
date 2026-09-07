@@ -42,6 +42,7 @@ const creature = (): Required<Creature> => ({
   dartNext: -1,
   wispNext: 17,
   veilStruckTick: 40,
+  choirFuseTick: 41,
   colourStruckTick: 38,
   ghostDir: -1,
   ghostLaps: 2,

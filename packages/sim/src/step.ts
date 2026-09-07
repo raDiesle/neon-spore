@@ -1,6 +1,7 @@
 import { beatMetronome, onBeat } from "./beat.js";
 import { briefHeard, briefingHolds, guideStepHeard, stepReady } from "./briefing.js";
 import { advanceBullets, releaseShot } from "./bullets.js";
+import { stepChoirFuse } from "./choir.js";
 import { choirArrowHeard, stepChoirWindow } from "./choir-gesture.js";
 import { wardCoils } from "./coil.js";
 import { applyCommand } from "./commands.js";
@@ -158,6 +159,11 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // window between the two of them is counted in ticks (`choir-gesture.ts`).
   for (const c of commands) choirArrowHeard(world, c.player, c.command);
   stepChoirWindow(world);
+  // And a membrane that has finished drawing together, which is where the
+  // colour arrives and the body becomes something a shot can reach. On the
+  // tick with the window above, because both are lengths counted in ticks and
+  // a beat's granularity would let a bolt through a film still closing.
+  stepChoirFuse(world);
   // THE FLEET's sights and its salvo, read on the tick for the third time and
   // the same reason: a square the pair just named out loud is answered now,
   // not on the next beat. Its clock is the one thing about it that is on the

@@ -15,7 +15,7 @@ import { type Cue, panForCol, pitchForRow } from "./bind.js";
  * and that is a different sentence from *what just happened to that thing*.
  */
 export function choirCue(
-  e: Extract<SimEvent, { type: "choirMerge" | "choirArm" | "choirSing" }>,
+  e: Extract<SimEvent, { type: "choirMerge" | "choirOpen" | "choirArm" | "choirSing" }>,
   cols: number,
   rows: number,
 ): Cue | null {
@@ -36,11 +36,17 @@ export function choirCue(
         pan: panForCol(e.side === -1 ? 0 : cols - 1, cols),
       };
     case "choirMerge":
-      // The same cue THE CLASP's break gets, and for its reason word for word:
-      // a covering coming off a body that goes on falling. A membrane and a
-      // shield are the same event to the ear — the thing that was stopping
-      // every shot has stopped — and two sounds for one moment would teach the
-      // pair a difference that is not there.
+      // The gesture landing, which is not yet the body opening: the two are
+      // drawing together and there is still nothing to shoot. It is
+      // deliberately **silent** — the screen is shaking on this beat and the
+      // arrow that started it already announced itself, so a third sound here
+      // would be the game saying the same thing three ways.
+      return null;
+    case "choirOpen":
+      // And the closing finishing. The same cue THE CLASP's break gets, for
+      // its reason word for word: a covering leaving a body that goes on
+      // falling. A membrane and a shield are the same event to the ear — the
+      // thing that was stopping every shot has stopped.
       return {
         id: "creature.moult",
         pan: panForCol(e.col, cols),

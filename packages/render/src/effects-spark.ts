@@ -209,13 +209,17 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "magnetPlate":
       return at(l, e.col, e.row, 7, PALETTE.rock);
 
-    // THE CHOIR drawing together. `claspBreak`'s burst word for word and for
-    // its reason — a covering coming off a body that goes on falling — except
-    // that this one is thrown in the colour the body has *just* acquired
-    // rather than in the covering's. Nothing was uncovered here: the colour
-    // did not exist a frame ago, and this is the moment the pair finally learn
-    // which trigger to load, so the burst is what tells them.
-    case "choirMerge":
+    // THE CHOIR's film finishing, and the colour arriving with it.
+    // `claspBreak`'s burst word for word and for its reason — a covering
+    // leaving a body that goes on falling — except that this one is thrown in
+    // the colour the body has *just* acquired. Nothing was uncovered: the
+    // colour did not exist a frame ago, and this is the moment the pair
+    // finally learn which trigger to load, so the burst is what tells them.
+    //
+    // The **start** of the closing throws nothing, and deliberately: the whole
+    // screen is shaking on that beat (`choir-quake.ts`), and particles under
+    // an earthquake are particles nobody can see.
+    case "choirOpen":
       return at(l, e.col, e.row, 14, e.color === "red" ? PALETTE.red : PALETTE.cyan);
 
     // And the chord. Rock grey and wide, so it reads as the membrane doing

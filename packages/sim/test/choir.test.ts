@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { choirIsDots } from "../src/choir.js";
+import { choirIsDots, choirIsFusing } from "../src/choir.js";
 import { choirArmed } from "../src/choir-gesture.js";
 import { DEFAULT_CONFIG, ticksPerBeat } from "../src/config.js";
 import { hashWorld } from "../src/hash.js";
@@ -90,27 +90,50 @@ describe("the gesture", () => {
     expect(events.some((e) => e.type === "choirSing")).toBe(false);
   });
 
-  it("draws the dots together on the other arrow, inside the window", () => {
+  it("starts the closing on the other arrow, inside the window", () => {
     const inputs = [...pull(ON_FIELD, "choirLeft", -FAR), ...pull(TPB * 2, "choirRight", FAR)];
-    const { world, events } = run([choir(2, "red")], TPB * 3, inputs);
+    // Stopped one tick after the gesture: the film is closing and the body is
+    // still a membrane, which is the whole of what `choirFuseBeats` bought.
+    const { world, events } = run([choir(2, "red")], TPB * 2 + 3, inputs);
+    expect(choirIsFusing(only(world))).toBe(true);
+    expect(events.filter((e) => e.type === "choirMerge")).toHaveLength(1);
+    expect(events.some((e) => e.type === "choirOpen")).toBe(false);
+    // Nothing is paid until it opens: a run that ended halfway through a
+    // closing has not opened anything.
+    expect(world.score).toBe(0);
+  });
+
+  it("becomes the body a beat later, in the lane it arrived in", () => {
+    const inputs = [...pull(ON_FIELD, "choirLeft", -FAR), ...pull(TPB * 2, "choirRight", FAR)];
+    const { world, events } = run([choir(2, "red")], TPB * 4, inputs);
     const body = only(world);
     // A red choir becomes a slick, because `livingKindForColor` is the one
     // copy of the colour-to-silhouette pairing and nothing authors the target.
     expect(body.kind).toBe("slick");
+    expect(events.filter((e) => e.type === "choirOpen")).toHaveLength(1);
     // And it stays in the lane it arrived in. The body is one tile wide the
     // whole time, so the column player 2 was given is the one that answers —
     // a merge that moved the lane would expire a number already said aloud.
     expect(body.col).toBe(2);
-    expect(events.filter((e) => e.type === "choirMerge")).toHaveLength(1);
     expect(world.score).toBe(CFG.scoreChoirMerge);
     // The gesture is spent: nothing is left armed to be finished twice.
     expect(choirArmed(world)).toBeNull();
   });
 
   it("is one shake and not two, where a phone can report one", () => {
-    const { world, events } = run([choir(2, "cyan")], TPB * 2, [shake(ON_FIELD)]);
+    const { world, events } = run([choir(2, "cyan")], TPB * 3, [shake(ON_FIELD)]);
     expect(only(world).kind).toBe("bulb");
     expect(events.filter((e) => e.type === "choirMerge")).toHaveLength(1);
+    expect(events.filter((e) => e.type === "choirOpen")).toHaveLength(1);
+  });
+
+  it("ignores a second gesture at a membrane already closing", () => {
+    const { world, events } = run([choir(2, "cyan")], TPB * 3, [
+      shake(ON_FIELD),
+      shake(ON_FIELD + 4),
+    ]);
+    expect(events.filter((e) => e.type === "choirMerge")).toHaveLength(1);
+    expect(only(world).kind).toBe("bulb");
   });
 
   it("counts two pulls on the same side as one gesture done twice", () => {
@@ -121,7 +144,7 @@ describe("the gesture", () => {
   });
 
   it("reaches every membrane on the field at once, having no column to be in", () => {
-    const { world } = run([choir(0, "red"), choir(4, "cyan")], TPB * 2, [shake(ON_FIELD)]);
+    const { world } = run([choir(0, "red"), choir(4, "cyan")], TPB * 3, [shake(ON_FIELD)]);
     expect(world.creatures.map((c) => c.kind)).toEqual(["slick", "bulb"]);
     expect(world.creatures.map((c) => c.col)).toEqual([0, 4]);
   });
@@ -178,9 +201,9 @@ describe("the body it becomes", () => {
       aim(2, 2),
       ...pull(ON_FIELD, "choirLeft", -FAR),
       ...pull(TPB * 2, "choirRight", FAR),
-      fire(TPB * 2 + 4, "red"),
+      fire(TPB * 3 + 4, "red"),
     ];
-    const { world, events } = run([choir(2, "red")], TPB * 8, inputs);
+    const { world, events } = run([choir(2, "red")], TPB * 9, inputs);
     expect(world.creatures).toHaveLength(0);
     expect(events.some((e) => e.type === "destroy")).toBe(true);
   });

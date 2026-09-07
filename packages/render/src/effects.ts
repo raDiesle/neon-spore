@@ -201,15 +201,13 @@ export class Effects {
   }
 
   /** Drawn under the hull, so a deflected rock passes behind nothing. The world
-   * is here for the clasp transients alone — `drawOnBodies` says why — `time`
-   * for the one whose shape moves while it plays, and
+   * is here for the clasp transients alone — `drawOnBodies` says why — and
    * `surfaceY` for THE CRAWLER's, about a body on the ship's own skin. */
   draw(
     ctx: CanvasRenderingContext2D,
     l: Layout,
     world: World,
     beatPhase: number,
-    time: number,
     surfaceY?: SurfaceY,
   ): void {
     this.deflectFx.draw(ctx);
@@ -217,7 +215,7 @@ export class Effects {
     this.bodies.draw(ctx, l, surfaceY);
     this.crawler.draw(ctx, l, surfaceY);
     this.spriteBursts.draw(ctx);
-    this.bodies.drawOnBodies(ctx, l, world, beatPhase, time);
+    this.bodies.drawOnBodies(ctx, l, world, beatPhase);
   }
 
   /** Forget everything transient: a wave has (re)started and none of it

@@ -223,10 +223,10 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "coilBreak":
     case "coilJump":
       return coilCue(e, cols, rows);
-    // THE CHOIR's three, in `bind-choir.ts` — the first group here about the
-    // pilot's **hands** rather than a shot meeting a body. Named, not defaulted.
+    // THE CHOIR's four, in `bind-choir.ts`: the pilot's hands, not a shot.
     case "choirArm":
     case "choirMerge":
+    case "choirOpen":
     case "choirSing":
       return choirCue(e, cols, rows);
     // THE CAROM's four, in `bind-carom.ts` — one arrival taken apart, cut out

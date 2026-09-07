@@ -1,4 +1,4 @@
-import { choirIsDots, type World } from "@neon-spore/sim";
+import { choirIsDots, choirIsFusing, type World } from "@neon-spore/sim";
 import { creatureCenter } from "./creature-place.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -57,7 +57,11 @@ export function drawChoirPrompt(
 ): void {
   if (!showsCannon(l.role)) return;
   for (const c of world.creatures) {
-    if (!choirIsDots(c)) continue;
+    // A membrane already closing is one nobody has to do anything about: the
+    // gesture worked, and an instruction still standing over it would be
+    // telling the pilot to shake a thing that is halfway shut. The arrows go
+    // for the same reason and by the same test (`choirOnField`).
+    if (!choirIsDots(c) || choirIsFusing(c)) continue;
     const { x, y } = creatureCenter(l, c, beatPhase);
     // On the tile's own centre, which is where the pair orbits: the two bodies
     // lean about it and neither of them is the middle of anything, so a frame

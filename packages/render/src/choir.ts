@@ -1,4 +1,5 @@
 import { isoLoops, type Point, resample } from "@neon-spore/content";
+import { choirFusePhase } from "@neon-spore/sim";
 import type { Body } from "./creature-body.js";
 import { hazed } from "./depth.js";
 import { halo } from "./glow.js";
@@ -76,23 +77,24 @@ const VOICES = 2;
  * a multiple of a body's own radius, not as a share of a tile: SYMBIOSIS runs
  * from 0.3 to 2.4 radii, and above about 2.2 a metaball genuinely parts.
  *
- * These run from **2.0 to 2.7 radii apart**, and the ceiling is arithmetic
- * rather than taste: with a `r² / d²` field at a threshold of 1, the point
- * halfway between two bodies falls outside the skin at exactly `2√2 ≈ 2.83`
- * radii, so anything under that is joined and anything over it is two separate
- * rings. Below about 2 radii the waist closes up entirely and the pair reads as
- * one oval, which two drafts of this file shipped before the number was worked
- * out rather than guessed.
+ * These run from **3.0 to 3.4 radii apart, which is two separate balls**, and
+ * the floor is arithmetic rather than taste: with an `r² / d²` field at a
+ * threshold of 1, the point halfway between two bodies falls outside the skin
+ * at exactly `2√2 ≈ 2.83` radii. Under that they are one shape with a waist;
+ * over it the trace returns two rings and the pair is two bodies.
  *
- * They are never one, because **one is what the gesture makes** — *two become
- * one, not one becomes two* — and an idle body that closed up on its own would
- * be doing the pair's work for them and then undoing it.
+ * **Two, and never joined, until the gesture.** The owner asked for
+ * SYMBIOSIS's *last* state — the parted one — and three drafts of this file
+ * shipped a joined pair or an oval because the number was guessed rather than
+ * worked out. What closes them is `close`, and only that: *two become one, not
+ * one becomes two*, so an idle body that drifted shut on its own would be
+ * doing the pair's work for them and then undoing it.
  */
-const ORBIT = 0.3;
-const FLOOR = 0.74;
+const ORBIT = 0.34;
+const FLOOR = 0.88;
 /** A body's radius, as a share of a tile. Two of these at `ORBIT` reach a
  * tile across at their widest, which is the lane they stand in. */
-const VOICE = 0.22;
+const VOICE = 0.2;
 /** Seconds for one breathe-wide-and-back, and for one turn of the pair about
  * its own centre. Slow, and prime against each other so the picture never
  * repeats on a count an eye can follow. */
@@ -197,15 +199,22 @@ export function choirMembranePath(
 export function drawChoir(b: Body): void {
   const { ctx, l, world, near } = b;
   const haze = (h: string): string => hazed(world.cfg, h, near);
+  // **The closing is read off the world, not off a clock this file keeps.**
+  // `choirFuseTick` is on the body and in the fingerprint, so how far shut the
+  // film is and whether a shot reaches it are one number on both phones — and
+  // a run restarted mid-close cannot leave a stale transient behind, because
+  // there is no transient. It is the arrangement `veilArmourPhase` already
+  // has, and the reason the merge needs nothing in `Effects` at all.
+  const close = choirFusePhase(world, b.c);
 
   // The light the pair throws, under everything: a body that is there and
   // cannot be reached still has to be seen coming.
   for (let i = 0; i < VOICES; i++) {
-    const v = choirVoiceAt(l, b.x, b.y, i, b.time);
+    const v = choirVoiceAt(l, b.x, b.y, i, b.time, close);
     halo(ctx, v.x, v.y, v.r * 1.9, haze(PALETTE.rock), 0.18);
   }
 
-  const path = choirMembranePath(l, b.x, b.y, b.time);
+  const path = choirMembranePath(l, b.x, b.y, b.time, close);
   ctx.save();
   // **A film and not a fill.** The owner's complaint about an earlier draft was
   // that the body hid what was behind it, and a soap film is what this creature

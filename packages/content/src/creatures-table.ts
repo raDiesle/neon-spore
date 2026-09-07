@@ -211,7 +211,7 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     // somebody has to say when the shaking starts.
     radar: "p1",
     blurb:
-      "Two rounded bodies leaning on each other inside one soap-film membrane, in one lane, and no shot reaches either of them. Shake the phone — or carry the two arrows at the edges of the field outward, one and then the other inside two beats — and they draw together into a single slick or bulb in the same lane, in a colour they did not have while they were apart. Miss the window and it sings, and the hull pays for the chord.",
+      "Two grey balls standing apart in one lane, and no shot reaches either of them. Shake the phone — or carry the two arrows at the edges of the field outward, one and then the other inside two beats — and they draw together over a beat into a single slick or bulb, in a colour that arrives only once they are one. Until then there is nothing to shoot. Miss the window and it sings, and the hull pays for the chord.",
   },
   crawler: {
     kind: "crawler",

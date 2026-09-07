@@ -711,7 +711,6 @@ place — the generator keeps whatever is there.
 | `packages/render/src/pulse-lane.ts` | Where THE PULSE's four lanes are, and where the line across them is |
 | `packages/render/src/pulse-meter.ts` | The one meter, the tally under it, and the verdict |
 | `packages/render/src/pulse-round.ts` | THE PULSE over the whole stage |
-| `packages/render/src/choir-merge.ts` | two becoming one: THE CHOIR's membrane drawn closing over the body it has already become |
 | `packages/render/src/pulse-button.ts` | THE PULSE's four lanes, as a face on one of the band's own lobes |
 | `packages/render/src/pulse-drop.ts` | An arrow nobody answered falls into the ship |
 | `packages/render/src/pulse-shape.ts` | What an arrow in THE PULSE is made of: its hue, its heading and its contour |

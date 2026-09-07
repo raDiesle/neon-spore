@@ -185,13 +185,13 @@ export type CreatureKind =
    */
   | "veer"
   /**
-   * Two rounded bodies leaning on each other inside one soap-film membrane,
-   * sharing a lane, and the first body **no shot can reach at all** until a
-   * gesture that is not a button has been made. Player 1 shakes the phone — or, where no phone can
+   * Two grey balls standing apart in one lane, and the first body **no shot
+   * can reach at all** until a gesture that is not a button has been made. Player 1 shakes the phone — or, where no phone can
    * report a shake, carries the two arrows at the edges of the field outward
    * one after the other inside `choirWindowBeats` — and the two draw together
-   * into an ordinary slick or a bulb in the same column, in a colour they did
-   * not have while they were apart. From there it is answered by the
+   * over `choirFuseBeats`, becoming an ordinary slick or bulb in the same
+   * column. The colour arrives with the body and not before: until the closing
+   * finishes there is still nothing any trigger answers. From there it is answered by the
    * ordinary rule and player 2's cannon.
    *
    * The kind *is* the state, THE CLASP's arrangement one creature on: there is

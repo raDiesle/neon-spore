@@ -31,6 +31,17 @@ export interface ChoirConfig {
    */
   choirWindowBeats: number;
   /**
+   * Beats the two bodies take to draw together once the gesture has landed.
+   *
+   * One, and it is the length of the *picture* rather than a difficulty dial:
+   * the owner asked to watch two become one and then see the colour arrive,
+   * and a beat is long enough to read as a movement and short enough that the
+   * pair is not standing over a body they cannot shoot while the wave goes on
+   * around them. Nothing about it is a penalty — the gesture has already
+   * succeeded by the time this starts.
+   */
+  choirFuseBeats: number;
+  /**
    * What the song costs the hull when the window lapses, or when an arrow is
    * carried the wrong way. Below `damageCreature`, because a body that reached
    * the ship has beaten the pair and a missed gesture has only delayed them —
@@ -52,6 +63,7 @@ export interface ChoirConfig {
 export const CHOIR_DEFAULTS: ChoirConfig = {
   choirPullMilli: 1500,
   choirWindowBeats: 2,
+  choirFuseBeats: 1,
   damageChoirSong: 8,
   scoreChoirMerge: 120,
 };
