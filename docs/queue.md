@@ -136,28 +136,3 @@ Why the short label is what fits today, and what each of the three costs.
 
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
-
-
-
-## The deploy runs whatever wrangler npm has today, the tests run a pinned one
-
-- **Found:** 2026-09-06, claude/queue-move-apps-server-off-the-miniflare-alpha-when-a
-- **Taken:** 2026-09-07, claude/queue-the-deploy-runs-whatever-wrangler-npm-has-today
-- **Files:** `package.json`, `apps/server/package.json`, `apps/server/dev.ts`
-
-`apps/server` now declares `wrangler`, and `apps/server/test/relay.ts` reads
-`wrangler.jsonc` through it, so the suite runs against a known version and
-`versions.test.ts` holds miniflare to the one it pins. The two `deploy` scripts
-in the root `package.json` do not: `npx wrangler deploy --config …` runs from
-the repository root, where wrangler is not installed, so `npx` fetches the
-latest published one and ships with it. `apps/server/dev.ts` spawns
-`npx --yes wrangler dev` and gets the local copy only because it runs from
-`apps/server` — which is true by accident rather than on purpose.
-
-Move `wrangler` to the root `devDependencies` (dropping it from
-`apps/server`), so one pinned wrangler serves the deploy, the dev server and
-the tests alike. `versions.test.ts` resolves it with
-`import.meta.resolve("wrangler/package.json")` and does not care where it
-sits. Check that `bun install` puts `wrangler` in the root `node_modules/.bin`
-afterwards — that is what makes `npx wrangler` at the root find it rather than
-download one — and that `bun run deploy:game:dry` still builds.

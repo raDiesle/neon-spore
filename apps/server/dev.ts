@@ -15,6 +15,11 @@ console.log(`relay for ${treeKey(tree)}`);
 console.log(`  http://127.0.0.1:${port}/net/health`);
 console.log(`  bun run relay:check ws://127.0.0.1:${port}`);
 
+// `wrangler` is a root `devDependency`, so it sits in the tree's own
+// `node_modules/.bin` and `npx` finds it from any directory under the root.
+// That is what keeps the dev server, the deploy and `apps/server`'s tests on
+// one version rather than on whatever npm published this morning.
+//
 // Through a shell on purpose: Node's `spawnSync` refuses a `.cmd` directly on
 // Windows with EINVAL, and `npx` is a `.cmd` there. Nothing here has a space in
 // it, so there is no quoting to get wrong.

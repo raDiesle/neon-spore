@@ -8,6 +8,7 @@
         "@biomejs/biome": "^2.5.10",
         "@types/bun": "latest",
         "typescript": "^7.0.2",
+        "wrangler": "^4.129.0",
       },
     },
     "apps/game": {
@@ -30,7 +31,6 @@
       "devDependencies": {
         "@cloudflare/workers-types": "^4.20250803.0",
         "miniflare": "5.20260903.0-alpha",
-        "wrangler": "^4.129.0",
       },
     },
     "packages/audio": {
