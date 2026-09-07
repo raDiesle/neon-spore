@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-07 · 17391803 — The panel-override test reads its lobes where the drawing reads them
+
+A landing on `main` while this branch was open added a test whose witness is the word on an action button: it swapped THE CLAW's panel in over SALVAGE's and looked for REACH and SUCK in the frame's text. There is no word on an action button any more, and the only strings a band still writes are its two strip captions — so the shipped and overridden frames came back with the same text and the assertion failed for a reason that had nothing to do with the override.
+
+## 2026-09-07 · f2071f2e — The action buttons show the ship doing it, and the word is gone
+
+EMBLEM won `panel:action-face`. The owner looked at SHIELD and SUCK beside the two pictures and picked the pictures, so what the panel draws now is the membrane the hull is made of: swelling into the ward on one button, pressed inwards into the throat on the other with three motes falling down it. One skin, two directions — which is what the simulation already does with the pair, the maw being the cannon lobe with the sign of its lift taken away — so the two are legible against each other rather than one at a time. `action-face.ts` is the candidate's own geometry, moved in whole.
+
 ## 2026-09-07 · 17279bba — THE CHOIR's two stay two until the gesture
 
 The pair went on joining before anything had been shaken, and the owner said so three times running. The cause was not the separation figure — it was the *orbit*.
