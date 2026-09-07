@@ -10,9 +10,10 @@ import type { Variant } from "../../versus/variant.js";
  * the owner's complaint the whole split answers: the tab is a list of doors,
  * and a look costs a browser something only once somebody opens it.
  *
- * One extra page carries both kinds of door — `versus.html`, routed by its
- * query string in `versus-app.ts` — rather than one HTML file per kind. It is
- * the same page furniture either way, and a second entrypoint is a second
+ * One extra page carries the door — `versus.html`, routed by its query string
+ * in `versus-app.ts`. It carried a second kind until 7 September 2026, when
+ * the baked-animation page was rejected on bandwidth; the route stayed a query
+ * string rather than becoming a path, because a second entrypoint is a second
  * route in `server.ts` and a second line in `build.ts` forever.
  *
  * The link is written `versus.html?…`, relative and with the extension on it,
@@ -27,12 +28,6 @@ export const VERSUS_PAGE = "versus.html";
 export function candidateUrl(variant: Variant): string {
   const query = new URLSearchParams({ slot: variant.slot, name: variant.name });
   return `${VERSUS_PAGE}?${query.toString()}`;
-}
-
-/** The baked animations — every PNG, APNG and WebP example, and the field
- * they are judged on. */
-export function animationsUrl(): string {
-  return `${VERSUS_PAGE}?page=animations`;
 }
 
 /**

@@ -1,5 +1,13 @@
 # Baked pictures: sprite atlases, APNG and animated WebP
 
+> **Parked, 7 September 2026.** The owner rejected the baked burst as a look:
+> 80–200 kB down a phone's connection for an explosion the field already draws
+> procedurally. The BAKED ANIMATIONS page in the director is gone, and the
+> VERSUS tab carries a PARKED block in its place. **Everything described below
+> still exists, still passes its tests, and still runs in the game behind
+> `?raster=1`** — it is switched off, not removed, and it comes back the day
+> there is a graphic worth the bytes and a use case the renderer cannot reach.
+
 > **Short answer: yes, and one of the three is not what it looks like.**
 > A baked frame-by-frame animation is worth having in this game, and the
 > machinery for making one now exists. But of the three ways to ship one, only

@@ -1,6 +1,5 @@
 import { VARIANTS } from "../../versus/candidates/index.js";
 import { slots } from "../../versus/variant.js";
-import { drawAnimations, mountAnimations } from "./animations-page.js";
 import { el } from "./dom.js";
 import { bindKeepAlive } from "./keep-alive.js";
 import { renderCandidate } from "./versus-one.js";
@@ -10,11 +9,12 @@ import { type Head, readHead } from "./versus-vote.js";
  * `versus.html` — the page a VERSUS door opens into, and the whole of its
  * routing.
  *
- * Two destinations, told apart by the query string alone: `?page=animations`
- * is the baked-animation page, and `?slot=…&name=…` is one candidate, live,
- * against what the game draws today. Nothing else is a route, and an
- * unrecognised one says so on the page rather than showing an empty screen —
- * a door that opens onto nothing is worse than a door that says it is locked.
+ * One destination, named by the query string: `?slot=…&name=…` is one
+ * candidate, live, against what the game draws today. Nothing else is a route,
+ * and an unrecognised one says so on the page rather than showing an empty
+ * screen — a door that opens onto nothing is worse than a door that says it is
+ * locked. `?page=animations` was the second destination until 7 September
+ * 2026; it now falls through to the same message as any other stale link.
  *
  * It is a page rather than a mode of the director for the reason the owner
  * gave: a comparison you opened should be the only thing the browser is
@@ -43,13 +43,7 @@ void fetch("/__director")
   .catch(() => true)
   .then(bindKeepAlive);
 
-if (params.get("page") === "animations") {
-  document.title = "Neon Spore — Baked animations";
-  mountAnimations(host);
-  drawAnimations();
-} else {
-  routeCandidate(host, params.get("slot"), params.get("name"));
-}
+routeCandidate(host, params.get("slot"), params.get("name"));
 
 /** One candidate, named by its slot and its own name — the two fields
  * `versus-open.ts` writes into the link. */

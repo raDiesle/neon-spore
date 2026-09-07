@@ -1,5 +1,4 @@
 import { button, el } from "./dom.js";
-import { animationsUrl, openInNewTab } from "./versus-open.js";
 import { versusListSection } from "./versus-page.js";
 
 /**
@@ -12,15 +11,20 @@ import { versusListSection } from "./versus-page.js";
  * after the one word nobody uses is a tab you have to remember the way to.
  * The name on the button is now the name in the files.
  *
- * Two kinds of look live behind it and both open in a new tab rather than on
- * this page. **Candidates** (`versus-page.ts`) are patches on records the game
- * already exports, judged against what ships. **Baked animations**
- * (`animations-page.ts`) are the PNG, APNG and animated WebP examples, plus the
- * hand-painted sequences with no shipped counterpart at all — CLAUDE.md's *A
- * look with no shipped alternative* exemption. Everything used to be drawn
- * here at once, which meant a tab nobody could open without the browser
- * animating five demos and eighteen phone-sized renderers. It is a list now,
- * and a look costs something only when it is opened.
+ * One kind of look lives behind it, and it opens in a new tab rather than on
+ * this page: **candidates** (`versus-page.ts`), patches on records the game
+ * already exports, judged against what ships. Everything used to be drawn here
+ * at once, which meant a tab nobody could open without the browser animating
+ * five demos and eighteen phone-sized renderers. It is a list now, and a look
+ * costs something only when it is opened.
+ *
+ * A second door stood here until 7 September 2026: BAKED ANIMATIONS, the PNG,
+ * APNG and animated WebP examples. The owner rejected it on the one ground the
+ * technique cannot answer — a baked sequence is hundreds of kilobytes down a
+ * phone's connection for something the field already draws procedurally, and
+ * looking at it harder does not make those bytes worth sending. The machinery
+ * it was a door onto is still in the tree and still works, so the page opens
+ * on `parkedSection()`, which says so in the one place somebody would look.
  *
  * Mounted the way GUIDES is (`guide-page.ts`): a tab button and a page
  * appended to the backlog sheet's own bar before `bindTabs` runs, placed right
@@ -47,6 +51,7 @@ export function mountVersusTab(): void {
   const page = el("div", "sheetpage");
   page.id = `sheet-${TAB_ID}`;
 
+  page.appendChild(parkedSection());
   page.appendChild(
     el(
       "p",
@@ -67,29 +72,49 @@ export function mountVersusTab(): void {
   );
 
   page.appendChild(versusListSection());
-  page.appendChild(animationsSection());
   body.appendChild(page);
 }
 
-/** The other door: the baked-animation page, which is a page rather than a
- * candidate because none of it has a shipped counterpart to vote against. */
-function animationsSection(): HTMLElement {
+/**
+ * The first thing on the tab, and the reason it is first: a capability the
+ * game carries and does not use is invisible, and the next session that wants
+ * an animated sequence would build the whole of it a second time.
+ *
+ * Baked sprite sheets — a strip, an APNG, an animated WebP, the loader, the
+ * browser capability probe and the generator that writes them — are shipped
+ * code, tested, and wired into the real game behind `?raster=1`. What they do
+ * not have is a graphic worth the bytes or a place on the field that wants
+ * one. The owner asked for that written down where it cannot be lost, rather
+ * than for the code to be deleted.
+ */
+function parkedSection(): HTMLElement {
   const section = el("section");
-  section.appendChild(el("h2", "", "BAKED ANIMATIONS"));
+  section.appendChild(el("h2", "", "PARKED: ANIMATED SPRITE SHEETS"));
   section.appendChild(
     el(
       "p",
       "note",
-      "The sixteen-frame burst as a sprite strip, an APNG and an animated " +
-        "WebP; the same strip looping as a powerup aura; the burst hung on a " +
-        "real kill on a real field; what this browser can decode; and the " +
-        "hand-painted sequences collected from outside this repository. Five " +
-        "animations, all of them running the whole time they are on screen — " +
-        "which is why they are behind this button and not on this page.",
+      "The game can play baked frame animations — a sprite strip stepped by " +
+        "the tick counter, an APNG or an animated WebP in a plain <img>, a " +
+        "loader, and a probe for what the browser can decode. It is built, " +
+        "tested and wired into the real field behind ?raster=1. It is switched " +
+        "off because a sixteen-frame burst costs 80–200 kB down a phone's " +
+        "connection and the field draws the same explosion procedurally for " +
+        "nothing.",
     ),
   );
-  const open = button("OPEN THE BAKED ANIMATIONS ↗", "versus-cast");
-  open.addEventListener("click", () => openInNewTab(animationsUrl()));
-  section.appendChild(open);
+  section.appendChild(
+    el(
+      "p",
+      "note",
+      "Turn it back on the day there is a graphic that earns the bytes and a " +
+        "use case the procedural renderer cannot reach. The parts are " +
+        "packages/render's sprite-burst.ts, raster-load.ts, raster-caps.ts and " +
+        "raster-probe.ts; apps/game's raster.ts; the generator under " +
+        "tools/raster (bun run raster, raster:pack, raster:verify); and the " +
+        "assets in assets/raster and assets/gallery. How the whole of it fits " +
+        "together is docs/raster.md.",
+    ),
+  );
   return section;
 }

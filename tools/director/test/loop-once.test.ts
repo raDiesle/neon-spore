@@ -44,5 +44,5 @@ test("the one that does is the one everything else calls", async () => {
     if (rel === HOME) continue;
     if ((await Bun.file(join(SRC, file)).text()).includes("runStageLoop(")) callers.push(rel);
   }
-  expect(callers.sort()).toEqual(["src/raster-field.ts", "src/stage.ts", "src/versus-pair.ts"]);
+  expect(callers.sort()).toEqual(["src/stage.ts", "src/versus-pair.ts"]);
 });

@@ -285,9 +285,21 @@ will be judged on, and a button. The button opens `versus.html?slot=…&name=…
 in a new tab, where that one comparison is the only thing the browser is
 animating (`versus-page.ts` lists, `versus-one.ts` draws, `versus-app.ts`
 routes). The baked animations — every PNG, APNG and animated WebP example, the
-live field they are judged on, and the hand-painted COLLECTED LOOKS — moved
-behind the same kind of button, to `versus.html?page=animations`
-(`animations-page.ts`).
+live field they were judged on, and the hand-painted COLLECTED LOOKS — moved
+behind the same kind of button for a fortnight and were then **rejected**: a
+sixteen-frame burst is 80–200 kB down a phone's connection for an explosion the
+field already draws procedurally for nothing, and no amount of looking at it
+changes that arithmetic. The page and its six modules are gone.
+
+The machinery underneath is not. `sprite-burst.ts`, `raster-load.ts`,
+`raster-caps.ts`, `raster-probe.ts`, `apps/game/src/raster.ts`, `tools/raster`
+and the assets all still ship, still pass their tests, and the real game still
+plays the burst behind `?raster=1`. A rejected *look* is not a deleted
+*capability*, and the owner asked for the difference written where somebody
+would trip over it rather than left in a commit message — so the VERSUS tab now
+opens on a PARKED: ANIMATED SPRITE SHEETS block naming every part and the one
+condition for switching it back on: a graphic that earns the bytes, and a use
+case the procedural renderer cannot reach. `docs/raster.md` is the long form.
 
 `server.ts` answers `/versus.html`; `build.ts` carries it as a second HTML
 entrypoint, so the static bundle gets a `dist/versus.html` a host

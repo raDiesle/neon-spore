@@ -931,8 +931,6 @@ place — the generator keeps whatever is there.
 | `tools/director/src/docs-api.ts` | The GET routes that only read a document off disk — `docs/borrowed.md` and the spec directory |
 | `tools/director/src/field-controls-page.ts` | The other half of the CONTROLS tab (`controlsets-page.ts`) — split out on line count |
 | `tools/director/src/fleet-editor.ts` | THE FLEET's placement, edited on the chart the pair will play it on |
-| `tools/director/src/gallery-clips.ts` | "COLLECTED LOOKS" on the OTHER GRAPHICS tab: hand-painted frame sequences from outside this repo |
-| `tools/director/src/gallery-page.ts` | "COLLECTED LOOKS": external hand-painted frame sequences |
 | `tools/director/src/glows/aura.ts` | A ring standing clear of the body, pulsing |
 | `tools/director/src/glows/bloom.ts` | Optical glare: bright pixels bleeding softly into what is around them |
 | `tools/director/src/glows/corona.ts` | A halo made of rays rather than of haze |
@@ -989,10 +987,6 @@ place — the generator keeps whatever is there.
 | `tools/director/src/poses.ts` | Every state the STATES sheet draws, in reading order |
 | `tools/director/src/query.ts` | What is in a wave: the questions, with no answer that changes anything |
 | `tools/director/src/rail.ts` | The wave list and the fields every wave must carry |
-| `tools/director/src/raster-cards.ts` | The card builders for "THE BURST, THREE WAYS" and the caps table for "WHAT THIS BROWSER CAN DO" |
-| `tools/director/src/raster-demos.ts` | The three canvas demos on the RASTER tab — the atlas driven by hand, outside a `World` |
-| `tools/director/src/raster-field.ts` | A real wave, playable, with the baked burst on a switch |
-| `tools/director/src/raster-play.ts` | "PLAY IT" — the section that puts the burst where it would actually live |
 | `tools/director/src/scene-art.ts` | The unbuilt half of a scene, drawn over a real frame of the game |
 | `tools/director/src/scene-box.ts` | `⌖ ON THE FIELD`, beside a backlog entry: the idea drawn where it happens |
 | `tools/director/src/scene-panel.ts` | A scene, assembled: a real frame of the game with an unbuilt idea standing in it |
@@ -1212,7 +1206,6 @@ place — the generator keeps whatever is there.
 | `tools/director/src/field-control-def.ts` | **What one row of the ON THE FIELD tab is**, and nothing that fills one in |
 | `tools/shape-sheet/src/veer-subject.ts` | **THE VEER**: the meteor with its rider on it, the one card made of a shape already on the sheet plus something over the top |
 | `tools/shape-sheet/src/rock-subjects.ts` | Everything on this sheet that is faceted rather than grown: the builder that draws a crystal |
-| `tools/director/src/animations-page.ts` | BAKED ANIMATIONS — every PNG, APNG and animated WebP example, on a page of its own that opens in a new tab |
 | `tools/director/src/poses-versus.ts` | The states a candidate look is judged on — one per slot that had none |
 | `tools/director/src/versus-app.ts` | `versus.html` — the page a VERSUS door opens into, and the whole of its routing |
 | `tools/director/src/versus-one.ts` | One candidate, alone, on a page of its own — the live half of VERSUS |
