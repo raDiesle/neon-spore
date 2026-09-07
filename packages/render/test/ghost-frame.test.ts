@@ -1,4 +1,4 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import {
   createWorld,
   ghostIsCharging,
@@ -15,12 +15,19 @@ import { drawGhostRows } from "../src/ghost-row.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import {
   CFG,
+  FRAME_TIMEOUT_MS,
   installCanvasGlobals,
   ROLES,
   runFrames,
   stubCanvas,
   VIEWPORT,
 } from "./frame-harness.js";
+
+// The cap this file runs under. Asked for here rather than inherited: bun
+// applies `setDefaultTimeout` to the file the call is in, and the harness is
+// evaluated once, so a call left there reaches only whichever frame test
+// imported it first (`frame-harness.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * THE GHOST, drawn — through the same canvas that refuses what a real one

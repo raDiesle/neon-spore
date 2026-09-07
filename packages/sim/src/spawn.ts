@@ -84,8 +84,7 @@ export function spawnArrivals(world: World): void {
         ? 0
         : rockCrossRowFor(world.cfg, entry.row);
     // Said once, at the top of the field, so player 2's ear has the column
-    // before the eye has found the ring. A hit should always be player 2's
-    // haste and never player 2's surprise.
+    // before the eye has found the ring — haste, never surprise.
     if (entry.kind === "lure") world.events.push({ type: "lureSeen", col });
     world.creatures.push({
       id: world.nextId++,

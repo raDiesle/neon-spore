@@ -212,28 +212,22 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "magnetPlate":
     case "magnetBreak":
       return creatureCue(e, cols, rows);
-    // THE COIL's two, in `bind-coil.ts` — one arrival taken apart, cut out
-    // the way THE CAROM's four were, and named here for their reason too.
+    // The groups below each live in a `bind-*.ts` of their own, cut out the way
+    // their events were cut out of `events-creature.ts`. Every one of them is
+    // **named here rather than reached through a default**: the exhaustiveness
+    // is what makes a new event a compile error instead of a silence.
     case "coilBreak":
     case "coilJump":
       return coilCue(e, cols, rows);
-    // THE CHOIR's four, in `bind-choir.ts`: the pilot's hands, not a shot.
     case "choirArm":
     case "choirMerge":
     case "choirOpen":
     case "choirSing":
       return choirCue(e, cols, rows);
-    // THE BALLOON's three, in `bind-balloon.ts` — the three ends one body can
-    // come to. Named, not defaulted, for the reason every case here is.
     case "balloonSplit":
     case "balloonPop":
     case "balloonBurst":
       return balloonCue(e, cols, rows);
-    // THE CAROM's four, in `bind-carom.ts` — one arrival taken apart, cut out
-    // of `bind-creatures.ts` the way `events-carom.ts` is cut out of
-    // `events-creature.ts`. Named here rather than reached through a default,
-    // for the reason every other case in this switch is: the exhaustiveness is
-    // what makes a new event a compile error instead of a silence.
     case "caromBounce":
     case "caromCrack":
     case "caromEject":

@@ -1,16 +1,23 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { controlSet } from "@neon-spore/content";
 import { createWorld, type Malfunction, startWave } from "@neon-spore/sim";
 import { Canvas2DRenderer } from "../src/canvas2d.js";
 import { bandLobes, computeLayout } from "../src/layout.js";
 import {
   CFG,
+  FRAME_TIMEOUT_MS,
   installCanvasGlobals,
   ROLES,
   runFrames,
   stubCanvas,
   VIEWPORT,
 } from "./frame-harness.js";
+
+// The cap this file runs under. Asked for here rather than inherited: bun
+// applies `setDefaultTimeout` to the file the call is in, and the harness is
+// evaluated once, so a call left there reaches only whichever frame test
+// imported it first (`frame-harness.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /** The band at a phone's size, which is where these buttons are actually met. */
 const layout = (role: (typeof ROLES)[number]) =>

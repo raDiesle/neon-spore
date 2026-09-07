@@ -1,10 +1,22 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { type Creature, NO_SHELL, type SimEvent, type World } from "@neon-spore/sim";
 import { computeLayout } from "../src/layout.js";
 import { drawRecoilCage } from "../src/recoil.js";
 import { RecoilCageBreakFx } from "../src/recoil-cage-break.js";
 import { RecoilVentFx } from "../src/recoil-vent.js";
-import { CFG, installCanvasGlobals, stubCanvas, VIEWPORT } from "./frame-harness.js";
+import {
+  CFG,
+  FRAME_TIMEOUT_MS,
+  installCanvasGlobals,
+  stubCanvas,
+  VIEWPORT,
+} from "./frame-harness.js";
+
+// The cap this file runs under. Asked for here rather than inherited: bun
+// applies `setDefaultTimeout` to the file the call is in, and the harness is
+// evaluated once, so a call left there reaches only whichever frame test
+// imported it first (`frame-harness.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * THE RECOIL's two pictures, and the things about them a reader of

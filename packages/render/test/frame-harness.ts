@@ -53,8 +53,15 @@ export { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
  * test on a green tree and spends its first minutes re-running the check to
  * find out it was nothing.
  *
- * Importing this module is what applies it: every file that draws frames comes
- * through here for the harness, and none of them has to remember a number.
+ * **Each file calls `setDefaultTimeout(FRAME_TIMEOUT_MS)` for itself**, and the
+ * number is exported here so there is still only one of it. Importing this
+ * module used to be what applied the cap, and that was never true of more than
+ * one file at a time: bun applies the call to the file it is *in*, and a module
+ * is evaluated once — by whichever frame test imports it first — so everything
+ * after that one was quietly running on bun's five-second default. It surfaced
+ * on 7 September 2026 as `crawler-frame.test.ts` failing at 5017 ms inside a
+ * check it passes in 4.4 s on its own, which is the exact case this constant
+ * was written for.
  * It is deliberately far above what any of these files take, because it is not
  * a budget — `frame-budget.test.ts` is the budget, and an op is not a
  * millisecond. This one only says "a busy machine is not a failure".

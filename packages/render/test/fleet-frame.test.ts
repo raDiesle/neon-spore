@@ -1,4 +1,4 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
 import { createWorld, fleetRows, startWave, step, ticksPerBeat, type World } from "@neon-spore/sim";
 import { chartOf, crossingSize } from "../src/fleet-chart.js";
@@ -6,12 +6,19 @@ import type { ViewRole } from "../src/layout.js";
 import { computeLayout } from "../src/layout.js";
 import {
   CFG,
+  FRAME_TIMEOUT_MS,
   installCanvasGlobals,
   ROLES,
   runFrames,
   VIEWPORT,
   waveWith,
 } from "./frame-harness.js";
+
+// The cap this file runs under. Asked for here rather than inherited: bun
+// applies `setDefaultTimeout` to the file the call is in, and the harness is
+// evaluated once, so a call left there reaches only whichever frame test
+// imported it first (`frame-harness.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * THE FLEET, played rather than posed: the chart with its water under it, the

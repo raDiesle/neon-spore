@@ -1,4 +1,4 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import {
   createWorld,
   type SpawnEntry,
@@ -12,7 +12,13 @@ import { CoordGrid, colLabel, rowLabel } from "../src/coord-grid.js";
 import type { ViewRole } from "../src/layout.js";
 import { JUMP_TILES, showsWisp, wispApexTiles, wispJump } from "../src/wisp.js";
 import { showsWispSearch, wispSearchAt } from "../src/wisp-search.js";
-import { CFG, installCanvasGlobals, ROLES, runFrames } from "./frame-harness.js";
+import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, ROLES, runFrames } from "./frame-harness.js";
+
+// The cap this file runs under. Asked for here rather than inherited: bun
+// applies `setDefaultTimeout` to the file the call is in, and the harness is
+// evaluated once, so a call left there reaches only whichever frame test
+// imported it first (`frame-harness.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * THE WISP's two halves that a type check cannot see: the body is drawn on one

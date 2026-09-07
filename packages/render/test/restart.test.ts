@@ -1,10 +1,23 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { createWorld, type SimEvent, step } from "@neon-spore/sim";
 import { Canvas2DRenderer } from "../src/canvas2d.js";
 import { Effects } from "../src/effects.js";
 import { computeLayout } from "../src/layout.js";
 import { ShieldBody } from "../src/shield.js";
-import { CFG, installCanvasGlobals, runFrames, stubCanvas, VIEWPORT } from "./frame-harness.js";
+import {
+  CFG,
+  FRAME_TIMEOUT_MS,
+  installCanvasGlobals,
+  runFrames,
+  stubCanvas,
+  VIEWPORT,
+} from "./frame-harness.js";
+
+// The cap this file runs under. Asked for here rather than inherited: bun
+// applies `setDefaultTimeout` to the file the call is in, and the harness is
+// evaluated once, so a call left there reaches only whichever frame test
+// imported it first (`frame-harness.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * The bug this guards, once: the director restarts a wave by building a whole
