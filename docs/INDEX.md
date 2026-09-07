@@ -1206,5 +1206,8 @@ place — the generator keeps whatever is there.
 | `tools/director/src/stage-world.ts` | A fresh run of the wave being edited, stood up the way the game stands one up |
 | `tools/port.ts` | `bun run port` — which port this checkout's servers answer on |
 | `tools/servers.ts` | The two servers this repository starts and settles a port with, described once |
+| `tools/probe/example.ts` | The worked example, and the thing to copy |
+| `tools/probe/run.ts` | `bun run probe [file]` — run a script that needs a live world |
+| `tools/probe/world.ts` | A world, stood up and stepped, for a question that only a running one answers |
 
 <!-- index:code:end -->

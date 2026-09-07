@@ -186,6 +186,30 @@ curl -s http://localhost:<port>/__director
 — and if a launch entry really is wanted anyway, it is written, used and taken
 straight back out with `git checkout .claude/launch.json` in the same turn.
 
+*Added 2026-09-07:* **a throwaway script that needs a live world goes in
+`tools/probe/`**, and `bun run probe` runs it.
+
+"Where is this creature on beat 13 of THE COIL" is ten lines that step a world
+and print the field, and it had nowhere to live. A file in a session's scratch
+directory cannot resolve `@neon-spore/sim` at all — it is outside the workspace,
+and a module's imports are resolved from where the module *is*, so no way of
+running it helps. A file under `tools/frames/` cannot either: that package does
+not declare the dependency and should not. What worked was a file dropped inside
+`packages/render/`, which happens to depend on both `sim` and `content` — found
+by trying three places, left behind afterwards, and every session that needed a
+number off a running world paid the same three tries.
+
+```
+bun run probe                      # the worked example, and the thing to copy
+bun run probe scratch/<name>       # a throwaway of your own
+```
+
+`tools/probe/` depends on `sim`, `content` and `render`; `world.ts` has the
+three helpers a probe is written on (`waveWorld` by **id**, `beats`, `field`);
+`scratch/` is git-ignored, so a probe left behind is neither committed nor in
+anybody's way. It is a rig and not a test: a question worth asking twice is a
+test in the package that owns the answer.
+
 ## A hot server and a tree that moved
 
 *Added 2026-09-03.* A hot bundler reloads the module whose file changed, which

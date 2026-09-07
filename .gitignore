@@ -24,3 +24,10 @@ tools/shape-sheet/skin-sheet.svg
 # of the tree — and until it was ignored, every lane that took one could not
 # land, because `git status --porcelain` counts untracked files.
 docs/frames/
+
+# `bun run probe` answers a question about a running world, and the script that
+# asks one is a throwaway — the finding it exists for is that such a file had
+# nowhere to live, so it needs a place nobody has to remember to sweep. The
+# directory itself stays, by its `.gitkeep`; what a session drops in it does not.
+tools/probe/scratch/*
+!tools/probe/scratch/.gitkeep

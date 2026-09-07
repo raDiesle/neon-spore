@@ -137,32 +137,6 @@ Why the short label is what fits today, and what each of the three costs.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
-## A throwaway world-probe script has nowhere to live
-
-- **Found:** 2026-09-07, claude/coil-dome-vertical-blocking-b5d660
-- **Files:** `package.json`, `tools/probe/` (new), `docs/working-with-claude.md`
-
-Answering "where is this creature on beat 13 of THE COIL" is a ten-line script
-that steps a world and prints the field, and there is nowhere to put it. A file
-in the session's scratch directory cannot resolve `@neon-spore/sim` at all
-because it is outside the workspace; a file under `tools/frames/` cannot
-resolve it either, because that package does not declare the dependency and
-should not. What worked was a file dropped inside `packages/render/`, which
-happens to depend on both `sim` and `content` — found by trying three places,
-and every session that needs a number off a running world pays the same three
-tries.
-
-Add `tools/probe/`: a package that depends on `sim`, `content` and `render`,
-with a `bun run probe <file.ts>` script that runs a script placed in (or passed
-to) it, and one worked example in its own doc comment that builds a world from
-a wave by name and prints the field beat by beat. Then say in
-`docs/working-with-claude.md` that this is where a throwaway world question
-goes, beside the traps that file already collects. The alternative — a line in
-that document saying "put it under `packages/render/`" — is cheaper and worse:
-it makes an unrelated package the place scratch files live, and nothing sweeps
-them up.
-
-
 ## `bun run frames --opening guide` cannot photograph a page past its first moment
 
 - **Found:** 2026-09-07, claude/strand-enemy-visuals-26ba40
@@ -281,5 +255,6 @@ and each already names the document holding the argument
 (`docs/working-with-claude.md`, `docs/performance.md`,
 `docs/delegation-cost.md`) — so the paragraphs after the first sentence of each
 have somewhere to go that a session reaches in one hop. Two of the three would
-buy back a thousand characters. Add `bun run port` to the Commands block in the
-same commit, since it is the line this lane could not afford.
+buy back a thousand characters. Add `bun run port` and `bun run probe` to the
+Commands block in the same commit: both are lines this lane could not afford,
+and both are commands a session looks for exactly where it cannot find them.

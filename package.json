@@ -30,6 +30,7 @@
     "maze": "bun run tools/maze/run.ts",
     "perf": "bun run tools/perf/run.ts",
     "port": "bun run tools/port.ts",
+    "probe": "bun run tools/probe/run.ts",
     "queue": "bun run tools/queue/run.ts",
     "index": "bun run tools/index/run.ts",
     "land": "bun run tools/land/run.ts",

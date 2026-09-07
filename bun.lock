@@ -133,6 +133,15 @@
         "playwright-core": "^1.62.1",
       },
     },
+    "tools/probe": {
+      "name": "@neon-spore/probe",
+      "version": "0.0.0",
+      "dependencies": {
+        "@neon-spore/content": "workspace:*",
+        "@neon-spore/render": "workspace:*",
+        "@neon-spore/sim": "workspace:*",
+      },
+    },
     "tools/queue": {
       "name": "@neon-spore/queue",
       "version": "0.0.0",
@@ -343,6 +352,8 @@
     "@neon-spore/orphans": ["@neon-spore/orphans@workspace:tools/orphans"],
 
     "@neon-spore/perf": ["@neon-spore/perf@workspace:tools/perf"],
+
+    "@neon-spore/probe": ["@neon-spore/probe@workspace:tools/probe"],
 
     "@neon-spore/queue": ["@neon-spore/queue@workspace:tools/queue"],
 
