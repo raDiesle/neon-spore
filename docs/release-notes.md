@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-07 · 93ef1ab3 — THE CRAWLER's pulse steps, and a ring's contour is baked once
+
+The owner looked at the `crawler:pulse` pair and could not tell the stepped side from the gliding one. That is the answer the slot was opened for, so sixteen positions ship and both candidates go.
+
 ## 2026-09-07 · 0096fa79 — THE PULSE reads as arrows, and its first one can be hit
 
 Three things the first photograph of it found. The arrows were six points round a blob with one pulled into a nose, and on a screen they were four kites that pointed nowhere — an arrow is read by its barbs, so the contour now has a head, a waist and a notched tail, and it is bigger. The tally sat along the bottom where the receptors are, so an arrow landing wrote over it; it has moved under the meter, which is the only quiet strip on the screen.
