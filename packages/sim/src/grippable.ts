@@ -2,7 +2,7 @@ import type { CreatureKind } from "./creature-kinds.js";
 import { isBossBody } from "./kinds.js";
 
 /**
- * **Whether a hand may be put on a body at all**, and the thirteen refusals
+ * **Whether a hand may be put on a body at all**, and the fourteen refusals
  * that answer it.
  *
  * Cut out of `kinds.ts` when THE FENCE took that file over its 250-line limit,
@@ -120,6 +120,15 @@ const UNGRIPPABLE: readonly CreatureKind[] = [
   // creature rather than an inconsistency — a hand is worth nothing against
   // the half the ward answers and buys a beat against the half it does not.
   "coil",
+  // And THE BEATBOX, which is THE GHOST's refusal arrived at from the other
+  // side. A box falls, so a brake would have a rate to scale — but the field
+  // already has a press on this body that means something, and it means it for
+  // player 2 (`beatboxTapped`). A hand that also meant *slow it down* would be
+  // one gesture answering two rules on one body, and a thumb that rested a
+  // fraction too long would silently become the other one. So the tap is the
+  // only thing a finger on a box does, and a hand is refused rather than
+  // quietly overloaded.
+  "beatbox",
 ];
 
 export function isGrippable(kind: CreatureKind): boolean {

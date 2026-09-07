@@ -1,6 +1,4 @@
 import {
-  beadIsActive,
-  beadIsSpent,
   type Creature,
   type CreatureKind,
   colourArmourLeft,
@@ -8,16 +6,14 @@ import {
   recoilTurn,
   type World,
 } from "@neon-spore/sim";
+import { beatboxSwell } from "./beatbox.js";
 import { drawChoir } from "./choir.js";
+import { drawMagnetBody, drawStrandBody } from "./creature-body-worn.js";
 import { drawGhost, showsGhostBody } from "./ghost.js";
 import type { Layout } from "./layout.js";
 import { drawLid } from "./lid.js";
 import { drawLiving } from "./living-draw.js";
-import { MAGNET_LOOK } from "./magnet.js";
 import { drawMeteor } from "./meteor.js";
-import { showsBeadColor } from "./strand.js";
-import { drawRaisin, STRAND_LOOK } from "./strand-bead.js";
-import { drawStillBead } from "./strand-still.js";
 import { drawTorch } from "./torch.js";
 import { showsVeilCore } from "./veil.js";
 import { showsVolleyCore } from "./volley.js";
@@ -112,31 +108,11 @@ function drawLidBody({ ctx, l, world, c, x, y, time, beats, near }: Body): void 
 }
 
 /**
- * A horseshoe on two coloured poles with an armoured plate under it, and the
- * third body with a contour of its own that is no blob: a band with a hole
- * through it and an opening at the bottom, which no radial contour describes
- * (`content/magnet-shape.ts`). Both screens draw the whole of it — nothing
- * about a magnet is hidden — so it has no gate, only a draw path of its own.
- *
- * Through the record rather than by calling the draw directly, for
- * `drawStrandBody`'s reason: a candidate look is a field patched onto
- * `MAGNET_LOOK` for the length of one frame (`docs/versus.md`).
+ * `drawMagnetBody` and `drawStrandBody`, the two body draws that read their
+ * own record rather than calling a draw function directly, live in
+ * `creature-body-worn.ts` next door — cut out when THE BEATBOX's row took
+ * this file over its 250-line limit.
  */
-function drawMagnetBody(b: Body): void {
-  MAGNET_LOOK.body({
-    ctx: b.ctx,
-    l: b.l,
-    cfg: b.world.cfg,
-    c: b.c,
-    x: b.x,
-    y: b.y,
-    beats: b.beats,
-    // The same map a wrong colour writes to, read here as the seconds of white
-    // left on the plate after it turned a bolt away (`effects-ingest.ts`).
-    struck: b.blocked.get(b.c.id) ?? 0,
-    near: b.near,
-  });
-}
 
 /**
  * The ordinary blob, and what a kind nobody has listed here gets.
@@ -150,7 +126,23 @@ function drawMagnetBody(b: Body): void {
  * colour would show as a ring of light around the one thing holding the body
  * back. `showsVeilCore` and `showsVolleyCore` are the two copies of that gate.
  */
-function drawLivingBody(b: Body): void {
+/**
+ * A soundbox, and the one body in this table that takes the **ordinary** blob
+ * draw and is listed anyway.
+ *
+ * What is different about it is not its contour — four shallow lobes on a
+ * nearly square body, which `living-look.ts` answers for like any other — but
+ * its *size*, which changes several times a beat: a pulse on every beat and a
+ * much bigger one on a beat a thumb landed (`beatbox.ts`). That is the whole
+ * of what this creature says, and it is passed to `drawLiving` as a swell
+ * rather than being folded into `livingBodyMul`, which is the size a thumb is
+ * hit-tested against and must not move inside a beat.
+ */
+function drawBeatboxBody(b: Body): void {
+  drawLivingBody(b, beatboxSwell(b.c, b.world.beat, b.beatPhase));
+}
+
+export function drawLivingBody(b: Body, swell = 1): void {
   const { ctx, l, world, c, x, y, time, beats, beatPhase, near } = b;
   if (c.kind === "veil" && !showsVeilCore(l)) return;
   if (!showsVolleyCore(world.cfg, c)) return;
@@ -172,44 +164,8 @@ function drawLivingBody(b: Body): void {
     world.cfg,
     near,
     recoilTurn(c, beatPhase),
+    swell,
   );
-}
-
-/**
- * One bead of THE STRAND, and the only row in this table whose answer depends
- * on **which screen is asking**.
- *
- * A bead already shot is a raisin on both, because how far along the thread
- * the pair has got is the one fact about this creature that is not split. A
- * live one is the slick or the bulb its colour names on the pilot's screen —
- * the ordinary living draw, `wornKind` and all — and on the navigator's a reel
- * rolling between the two of them. Deliberately not the real body drawn grey:
- * a slick is flat and a bulb is round, so the silhouette alone would name the
- * colour, which is `showsVeilCore`'s argument about a halo said about a shape
- * instead (`strand-bead.ts`).
- *
- * And only the bead a shot can actually answer rolls. The rest of the thread
- * is that same reel stopped and drawn as a grey outline — the wrong-colour
- * look, which already means *nothing reaches this* — so the navigator's screen
- * says which one is live in the body itself as well as under the arrow
- * (`strand-still.ts`).
- */
-function drawStrandBody(b: Body): void {
-  const { ctx, l, world, c, x, y, time, near } = b;
-  const bead = { ctx, l, cfg: world.cfg, c, x, y, time, beatPhase: b.beatPhase, near };
-  if (beadIsSpent(c)) {
-    drawRaisin(bead);
-    return;
-  }
-  // Through the record rather than by calling the reel directly: a candidate
-  // look is a field patched onto `STRAND_LOOK` for the length of one draw, and
-  // a draw path that named the function would never see it (`docs/versus.md`).
-  if (!showsBeadColor(l)) {
-    if (beadIsActive(world, c)) STRAND_LOOK.bead(bead);
-    else drawStillBead(bead);
-    return;
-  }
-  drawLivingBody(b);
 }
 
 /** The kinds whose body is not the ordinary blob and not a rock. */
@@ -232,6 +188,11 @@ const EXCLUSIVE: ReadonlyMap<CreatureKind, BodyDraw> = new Map<CreatureKind, Bod
   // rather than loose arguments so this stays a row instead of a wrapper —
   // `MAGNET_LOOK.body` next door already reads its own record the same way.
   ["choir", drawChoir],
+  // A soundbox, and the one row here whose draw *is* `drawLivingBody` — see
+  // its own header. A row rather than a branch inside that function, because
+  // this table is the place a kind's draw is decided and a lone `if` in the
+  // fall-through is exactly the severed chain this file exists to prevent.
+  ["beatbox", drawBeatboxBody],
 ]);
 
 /**

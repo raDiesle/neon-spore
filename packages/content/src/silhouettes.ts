@@ -230,6 +230,10 @@ export {
   SHIELD_LOBE,
   xToHullAngle,
 } from "./ship-silhouettes.js";
+// THE BEATBOX's contour is `silhouettes-beatbox.ts` next door, cut out when
+// this file went over its limit. Re-exported here so nothing that already
+// reaches for it through this file has to move.
+export { BEATBOX } from "./silhouettes-beatbox.js";
 // The two contours in this family that are **not a body on the roster** — the
 // retired shell and the pod's capsule — are `silhouettes-spare.ts` next door,
 // cut out when THE BARB took this file over its limit. Re-exported here so

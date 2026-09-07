@@ -1,5 +1,6 @@
 import type { SimEvent } from "@neon-spore/sim";
 import type { Arrivals } from "./arrivals.js";
+import type { BeatboxWaves } from "./beatbox-wave.js";
 import type { ChoirQuake } from "./choir-quake.js";
 import type { CrawlerFx } from "./crawler-fx.js";
 import type { DeflectFx } from "./deflect.js";
@@ -32,6 +33,8 @@ export interface IngestOneCtx {
   ship: ShipMoods;
   crawler: CrawlerFx;
   quake: ChoirQuake;
+  /** THE BEATBOX's discharge, travelling down the field (`beatbox-wave.ts`). */
+  beatboxWaves: BeatboxWaves;
   blockedUntil: Map<number, number>;
   burst: (x: number, y: number, n: number, hex: string) => void;
 }
@@ -147,6 +150,13 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
         deflectFx: ctx.deflectFx,
         onDeflect: () => ctx.ship.deflected(),
       });
+      break;
+    // A miscounted run discharging: the arcs that carry the sound down the
+    // field at the ship. The two beside it are handled by the burst table
+    // alone (`effects-spark.ts`) — they are a flash and nothing that outlives
+    // its own frame.
+    case "beatboxWave":
+      ctx.beatboxWaves.cast(tileCX(ctx.l, e.col), tileCY(ctx.l, e.row));
       break;
     default:
       assertNever(e);

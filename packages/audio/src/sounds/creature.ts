@@ -100,8 +100,13 @@ export const CREATURE_SOUNDS: SoundDef[] = [
     id: "creature.throbSwell",
     family: "creature",
     blurb: "A body growing over two beats and shrinking over one. Timing you can hear.",
-    status: "spare",
-    use: "Spare. It was written for the throb's swell, which the creature no longer has — a body growing and shrinking is still a sound the catalogue wants.",
+    status: "bound",
+    // Written for a swell THE THROB no longer has, and spent on the creature
+    // that turned out to be *made* of one. THE BEATBOX grows on every beat and
+    // grows harder on a tap, and this is the tap (`bind-beatbox.ts`) — pitched
+    // a step higher for each one that has landed, so the navigator hears the
+    // run they are making rather than reading it off the glass.
+    use: "THE BEATBOX taking a tap: one more beat of the run, a step up in pitch.",
     level: 0.24,
     layers: [
       {

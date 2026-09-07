@@ -1,7 +1,7 @@
 import type { CreatureKind } from "@neon-spore/sim";
-import { FLICKER, HOLD, POISE, SWAY_PUMP, TILT_RIPPLE } from "./motions.js";
+import { FLICKER, HOLD, POISE, RUMBLE, SWAY_PUMP, TILT_RIPPLE } from "./motions.js";
 import type { OwnMotion } from "./own-motion.js";
-import { BULB, type CreatureSilhouette, DART, SLICK, THROB, WISP } from "./silhouettes.js";
+import { BEATBOX, BULB, type CreatureSilhouette, DART, SLICK, THROB, WISP } from "./silhouettes.js";
 
 /**
  * Which kinds are drawn as a body of their own, and what that body looks like
@@ -42,6 +42,13 @@ const LIVING_LOOK = {
   throb: { shape: THROB, motion: HOLD },
   dart: { shape: DART, motion: POISE },
   wisp: { shape: WISP, motion: FLICKER },
+  // A body of its own, and the first here whose *size* is not part of its
+  // silhouette but is the whole of what it says: the contour is a rounded
+  // cabinet and `render/beatbox.ts` swells it on the beat. A row here rather
+  // than a draw path of its own, unlike THE GHOST and THE LID next door,
+  // because four shallow lobes on a nearly square body is exactly what a
+  // radial contour describes well.
+  beatbox: { shape: BEATBOX, motion: RUMBLE },
   // Drawn as the body underneath — resolve with `wornKind` before asking.
   lure: null,
   clasp: null,

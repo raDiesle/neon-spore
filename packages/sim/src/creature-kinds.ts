@@ -203,6 +203,20 @@ export type CreatureKind =
    * `choir.ts` is the whole of it.
    */
   | "choir"
+  /**
+   * A soundbox that swells on every beat, and the first body in this game
+   * answered by **when** a finger lands rather than by what is under it. It
+   * asks for a number of beats; player 2 taps the body itself, once a beat, on
+   * the beat, and the run is committed by *stopping* rather than by finishing.
+   * The number is drawn on player 1's screen and on nobody else's — so what
+   * crosses the room is the plainest sentence this game has after THE GHOST's
+   * column, and the seat that can read it is the seat with no thumb on the
+   * body. Right and it is silenced; wrong and it fires a wave of sound at the
+   * hull and keeps falling. `Creature.beatboxWant`, `beatboxHits` and
+   * `beatboxBeat` are the whole of its state; `beatbox.ts` is what one is and
+   * `beatbox-round.ts` what happens to one.
+   */
+  | "beatbox"
   // **The five that are more than one body**, each answered a member or a
   // column at a time rather than as a single arrival: a thread of beads, a
   // worm of links, a wire across the field, an arch with two poles, a chain of

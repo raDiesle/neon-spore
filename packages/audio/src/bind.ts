@@ -12,6 +12,7 @@
  */
 
 import type { SimEvent } from "@neon-spore/sim";
+import { beatboxCue } from "./bind-beatbox.js";
 import { breachCue } from "./bind-breach.js";
 import { caromCue } from "./bind-carom.js";
 import { choirCue } from "./bind-choir.js";
@@ -25,26 +26,18 @@ import { MIRROR_STEP_SOUNDS, POD_TAKEN_SOUNDS } from "./bind-lookups.js";
 import { panForCol, pitchForRow } from "./bind-place.js";
 import { volleyCue } from "./bind-volley.js";
 
-// **What a cue is** — an id, where it sits in the stereo field, what it is
-// pitched and delayed by, and which seat may hear it — is `bind-cue.ts` next
-// door, cut out when THE COIL's two took this file over its limit. It is the
-// same seam `bind-place.ts` and `bind-lookups.ts` were cut along: a shape and
-// two lookups on one side, and on the other the one thing this file is for —
-// an argument about which sound each moment deserves. Re-exported below, so
-// the seven `bind-*.ts` files that reach for it through this one did not move.
+// **What a cue is** — an id, stereo position, pitch, delay and the seat that
+// may hear it — is `bind-cue.ts` next door, cut out on the same limit. Every
+// `bind-*.ts` file that reaches for it does so through this re-export.
 export type { Cue } from "./bind-cue.js";
 
-// **Where a sound is** — a column as a stereo position and a row as a pitch —
-// is `bind-place.ts` next door, cut out when THE FENCE took this file over its
-// limit. It is arithmetic about placement and everything left here is an
-// argument about which sound a moment deserves, which is the same seam
-// `bind-lookups.ts` was cut along. Both are re-exported below, so the six
-// `bind-*.ts` files that reach for them through this one did not have to move.
+// **Where a sound is** — a column as a stereo position, a row as a pitch — is
+// `bind-place.ts` next door, cut out on the same limit and re-exported here.
 export { panForCol, pitchForRow } from "./bind-place.js";
 
 // The two id-to-id lookups this file reads are `bind-lookups.ts` next door,
-// cut out when THE CRAWLER took this one over its limit: they are data, and
-// everything here is an argument about which sound a moment deserves.
+// cut out for the same reason: data, not an argument about which sound a
+// moment deserves.
 
 /**
  * One event, one cue, or none. `needWave` is bookkeeping between the host and
@@ -240,6 +233,11 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "chuteOpen":
     case "chuteCut":
       return caromCue(e, cols, rows);
+    // THE BEATBOX's three, in `bind-beatbox.ts` — about a rhythm, not a shot.
+    case "beatboxTap":
+    case "beatboxWave":
+    case "beatboxSilent":
+      return beatboxCue(e, cols, rows);
     case "fencePass":
     case "fenceBurn":
       return fenceCue(e, cols, rows);

@@ -645,6 +645,22 @@
         "commit": "cac732e3cfb181d8a8feec33cde315a944c9ebbc",
         "scale": 0.98
       }
+    },
+    {
+      "id": "theBeatbox",
+      "wave": 58,
+      "name": "THE BEATBOX",
+      "bodies": 3,
+      "arrivals": "7:bdde6c4f",
+      "typical": 2.2,
+      "mean": 2.17,
+      "p90": 2.54,
+      "jitter": 0.177,
+      "mergedFrom": {
+        "measuredAt": "2026-09-07",
+        "commit": "de20cea4e66b76c940b1ee5439a925fe4260decc",
+        "scale": 0.42
+      }
     }
   ]
 }

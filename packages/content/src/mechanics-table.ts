@@ -1,4 +1,5 @@
 import type { Mechanic, MechanicId } from "./mechanics.js";
+import { BEATBOX_MECHANIC } from "./mechanics-beatbox.js";
 import { ROCK_MECHANICS } from "./mechanics-rocks.js";
 import { ROUND_MECHANICS } from "./mechanics-rounds.js";
 import { RUN_MECHANICS } from "./mechanics-run.js";
@@ -8,9 +9,7 @@ import { WAVE_MECHANICS } from "./mechanics-wave.js";
 /**
  * The rows themselves, lifted out of `mechanics.ts` when that file crossed the
  * 250-line limit. What stayed there is the shape of a mechanic and the four
- * questions asked of the set; this is the data. The split is along the same
- * seam `wave-types.ts` and `waves/act-*.ts` already use — the list is the half
- * that grows, and it is the half nobody reads top to bottom.
+ * questions asked of the set; this is the data, and the half that grows.
  */
 /**
  * One row per mechanic. `as const satisfies` rather than a type annotation on
@@ -222,6 +221,9 @@ export const MECHANICS = {
     // says which way round the body stands.
     waveNames: true,
   },
+  // THE BEATBOX, in `mechanics-beatbox.ts` next door — cut out for the reason
+  // named there.
+  beatbox: BEATBOX_MECHANIC,
   // The five that are not a thing the field sends — a wave's own opening, the
   // wind-up, and the three things a held thumb does — are `mechanics-run.ts`
   // next door, cut out when THE CRAWLER took this file past its limit along

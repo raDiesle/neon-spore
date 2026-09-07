@@ -131,6 +131,7 @@ const {
   shieldCol: () => world.shieldCol,
   opening: () => briefingHolds(world),
   beatPhase,
+  beat: () => world.beat,
   // Space at the keyboard must not be able to do what a tap on the field
   // already can't: put the introduction away before its timer does. See the
   // guard in `keys.ts`.

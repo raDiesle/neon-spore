@@ -38,6 +38,12 @@ const WARDEN_OPEN = shape("WARDEN · OPEN");
  * be a second copy of the catalogue, and it would rot.
  */
 const BY_ID: Record<string, Subject> = {
+  // THE BEATBOX's three, all pointed at the one body: a tap landing, a run
+  // committed right and a run committed wrong are three moments about the
+  // same soundbox, and the sheet has one card for it.
+  "creature.throbSwell": shape("BEATBOX"),
+  "beat.drift": shape("BEATBOX"),
+  "beat.lock": shape("BEATBOX"),
   "ship.cannonStep": control("cannonRight"),
   "ship.cannonEdge": control("cannonLeft"),
   "ship.shieldStep": control("guard"),

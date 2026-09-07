@@ -131,6 +131,7 @@ describe("the stage's pointer conversion", () => {
         cannonCol: world.cannonCol,
         shieldCol: world.shieldCol,
         beatPhase: 0,
+        beat: 0,
         seat: pointerSeat("test"),
         cfg,
         maze: mazeRound(world),

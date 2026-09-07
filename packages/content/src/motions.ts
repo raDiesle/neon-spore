@@ -186,6 +186,41 @@ export const FLICKER: OwnMotion = {
   },
 };
 
+/**
+ * The beatbox: a cabinet with something heavy moving inside it, and the
+ * smallest motion in this file after HOLD's.
+ *
+ * `HOLD` makes the argument and this is the same one about a different signal.
+ * The whole of what this body says is **how big it is right now** — it swells
+ * on every beat and swells much harder on a tap, and the pair reads the run
+ * off exactly that (`render/beatbox.ts`). So there is no scale here at all: a
+ * pump in the own-motion would be a second size signal running on a clock the
+ * beat does not own, and the one thing the navigator has to judge is *whether
+ * that swell was the beat*. No rotation either — a box has flats and corners,
+ * and a contour that turned would put a corner where the eye is expecting an
+ * edge, which is a different body every quarter turn.
+ *
+ * What is left is a shudder, and it is deliberately fast, tiny and not
+ * commensurate with the beat: three frequencies with no common period, so the
+ * cabinet never settles into a rhythm of its own beside the one it is beating.
+ * That is TREMBLE's arithmetic at a third of its excursion — there it says
+ * *too small to do more than shake*, here it says *there is a driver in this
+ * thing and it is idling*.
+ */
+export const RUMBLE: OwnMotion = {
+  name: "RUMBLE",
+  note: "a fast, tiny, arrhythmic shudder — no scale and no turn, so the swell on the beat is the only size it says",
+  poseAt(t) {
+    return {
+      dx: Math.sin(t * 6.3125) * 0.012 + Math.sin(t * 9.4375) * 0.008,
+      dy: Math.sin(t * 4.6875) * 0.01,
+      rot: 0,
+      sx: 1,
+      sy: 1,
+    };
+  },
+};
+
 // Which kind sways with which of the motions above is *not* here: it is one
 // row per kind in `living-look.ts`, beside that kind's contour, because a body
 // and its own-motion are one fact and were two hand-kept lists over it.

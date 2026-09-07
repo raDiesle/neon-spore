@@ -99,6 +99,9 @@ function serializeEntry(entry: WaveEntry): string {
   if (entry.size !== undefined) parts.push(`size: ${entry.size}`);
   if (entry.path !== undefined) parts.push(`path: "${entry.path}"`);
   if (entry.beads !== undefined) parts.push(`beads: ${entry.beads}`);
+  // How many beats a box asks for — dropped, a wave's own count would silently
+  // become `cfg.beatboxBeats` on the first save.
+  if (entry.beats !== undefined) parts.push(`beats: ${entry.beats}`);
   if (entry.segments !== undefined) parts.push(`segments: ${entry.segments}`);
   if (entry.side !== undefined) parts.push(`side: "${entry.side}"`);
   // **THE FENCE's gaps, and an empty list is not nothing.** Absent means *the

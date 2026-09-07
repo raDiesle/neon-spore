@@ -1,3 +1,4 @@
+import { beatboxTapped } from "./beatbox-round.js";
 import { fire } from "./bullets.js";
 import { choirShaken } from "./choir-gesture.js";
 import { closeGauge } from "./gauge-round.js";
@@ -166,6 +167,13 @@ export function applyCommand(world: World, timed: TimedCommand): void {
       // rehearsal, a replay, the director's loop. The lobes send `prime` and
       // arrive here through its lift.
       firePress(world, c.color);
+      break;
+    case "tap":
+      // Player 2's thumb on a soundbox, and the one command in this game that
+      // is a press on a body. Which seat may send it is `beatbox-round.ts`'s
+      // rule and not this file's, on `valve`'s terms: the command is what was
+      // pressed, and whose press counts belongs to the creature.
+      beatboxTapped(world, timed.player, c.id);
       break;
     case "grip": {
       // Either seat may send this one, so it is the player on the command

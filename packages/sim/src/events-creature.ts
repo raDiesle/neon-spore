@@ -1,3 +1,4 @@
+import type { BeatboxEvent } from "./events-beatbox.js";
 import type { CaromEvent } from "./events-carom.js";
 import type { ChoirEvent } from "./events-choir.js";
 import type { CoilEvent } from "./events-coil.js";
@@ -214,8 +215,15 @@ export type CreatureEvent =
   // (`events-choir.ts`) — the first group in this list that is about the
   // pilot's hands rather than about something meeting a body.
   | ChoirEvent
+  // And THE BEATBOX's two, on the same terms as the six above
+  // (`events-beatbox.ts`) — the second group in this list that is about a
+  // player's hands rather than about something meeting a body, and the first
+  // whose every event deliberately leaves out the one number the creature is
+  // *about*, because both phones play a cue and only one seat may know it.
+  | BeatboxEvent
   | StrandEvent;
 
+export type { BeatboxEvent } from "./events-beatbox.js";
 export type { CaromEvent } from "./events-carom.js";
 // Re-exported so nothing that reaches for one through this file has to move.
 export type { ChoirEvent } from "./events-choir.js";

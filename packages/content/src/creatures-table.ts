@@ -1,6 +1,7 @@
 import type { CreatureKind } from "@neon-spore/sim";
 import type { CreatureDef } from "./creatures.js";
 import { BARE_CREATURES } from "./creatures-bare.js";
+import { BEATBOX_CREATURE } from "./creatures-beatbox.js";
 import { FIXTURE_CREATURES } from "./creatures-fixtures.js";
 import { HAZARD_CREATURES } from "./creatures-hazards.js";
 import { SPLIT_CREATURES } from "./creatures-split.js";
@@ -213,6 +214,10 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     blurb:
       "Two grey balls standing apart in one lane, and no shot reaches either of them. Shake the phone twice — or carry the two arrows at the edges of the field outward, one and then the other — inside two beats, and they glow, draw together over a beat, and become a single slick or bulb. The colour bleeds in as they close and is only whole when they are one; until then there is nothing to shoot. Miss the window and it sings, and the hull pays for the chord.",
   },
+  // THE BEATBOX, and the one row this table names alone rather than spreads:
+  // `creatures-beatbox.ts`, cut out when it took this file over its 250-line
+  // limit. See that file for why it neither wears nor is bare.
+  beatbox: BEATBOX_CREATURE,
   crawler: {
     kind: "crawler",
     // **Both**, and the only kind where the two are not two halves of one

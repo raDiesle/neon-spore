@@ -1,3 +1,4 @@
+import { settleSpentBeatboxes } from "./beatbox-round.js";
 import { stepBoss } from "./boss.js";
 import { hullRow } from "./config.js";
 import { stepCrawlers } from "./crawler-beat.js";
@@ -154,6 +155,13 @@ export function onBeat(world: World): void {
     // covering; here the diagonal is the fall it already had (`veer.ts`).
     if (c.kind === "veer") stepVeer(world, c);
   }
+
+  // Every box whose run has stopped, judged on the count that stands. After
+  // the fall loop, because a run settling on the beat the body also arrives at
+  // the ship must be worth something — and before `resolveHull` below, so a
+  // box the pair got right on its last beat is silenced rather than charged to
+  // the hull (`beatbox-round.ts`).
+  settleSpentBeatboxes(world);
 
   // Every body a hand has carried far enough, moved one column the way the
   // hand went. After the loop rather than inside it: that loop has just written

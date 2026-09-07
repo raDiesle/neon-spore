@@ -230,6 +230,16 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "choirSing":
       return at(l, e.col, e.row, 18, PALETTE.rock);
 
+    // THE BEATBOX's three: a tap's small white receipt, the box going quiet in
+    // white and wide, and the discharge in rock grey on `choirSing`'s terms —
+    // a box has no colour, so none of the three may borrow red or cyan.
+    case "beatboxTap":
+      return at(l, e.col, e.row, 6, PALETTE.text);
+    case "beatboxSilent":
+      return at(l, e.col, e.row, 16, PALETTE.text);
+    case "beatboxWave":
+      return at(l, e.col, e.row, 12, PALETTE.rock);
+
     default:
       return assertNever(e);
   }

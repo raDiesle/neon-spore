@@ -36,7 +36,14 @@ describe("categoryOf", () => {
     // throws out is never authored either, and the `carom` entry that made it
     // already shows both panels — the cannon that has to finish it and the
     // shield that owes the rock beside it.
-    expect(special).toEqual(["tether", "mount", "chute"]);
+    //
+    // THE BEATBOX is the fourth, and the first to arrive here for a different
+    // reason than the other three: it *is* authored directly, but nothing
+    // about it wants a panel at all — it is answered by a tap on the body,
+    // which is not a `ControlGroup` any more than THE MAGNET's hand or THE
+    // CHOIR's shake is, and unlike either of those this creature has no body
+    // underneath that still needs the cannon or the shield.
+    expect(special).toEqual(["tether", "mount", "chute", "beatbox"]);
   });
 });
 

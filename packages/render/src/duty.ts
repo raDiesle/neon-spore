@@ -113,6 +113,12 @@ const DUTY_WORD = {
   // word under the dial is the gesture itself, and what the navigator reads
   // off their own dark dial is that the pilot has been asked for it.
   choir: { p1: "SHAKE" },
+  // THE BEATBOX. The pilot is the only seat the count is drawn on and the
+  // navigator is the only one who can tap it out, so the word is the thing
+  // being asked for and nothing else. BEATS rather than COUNT, because what
+  // the navigator has to hear is a number *of beats* — COUNT would read as an
+  // instruction to count something they can already see.
+  beatbox: { p1: "BEATS" },
 } as const satisfies Record<CreatureKind, { p1?: string; p2?: string } | null>;
 
 /** Whether a kind counts as active for this word, including the one kind

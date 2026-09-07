@@ -1,4 +1,5 @@
 import { metColor, missedColor } from "./balance.js";
+import { beatboxStruck } from "./beatbox-round.js";
 // The queen's petals and the warden's plates, next door: what a shot does when
 // it meets a boss rather than an arrival (`bullet-hit-boss.ts`).
 import { resolveQueen, resolveWarden } from "./bullet-hit-boss.js";
@@ -75,6 +76,13 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
   }
   if (hit.kind === "warden") {
     resolveWarden(world, b, hit);
+    return false;
+  }
+  if (hit.kind === "beatbox") {
+    // **A soundbox refuses every shot**, and it is the creature rather than an
+    // omission: it carries no colour, so no ammunition could be right, and
+    // what answers one is a thumb on the beat (`beatbox-round.ts`).
+    beatboxStruck(world, b, hit);
     return false;
   }
   if (hit.kind === "lure") {

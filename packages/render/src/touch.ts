@@ -1,6 +1,7 @@
 import { type ControlSet, controlPress, type Point, setHas } from "@neon-spore/content";
 import type { Command } from "@neon-spore/sim";
 import { NO_GRIP } from "@neon-spore/sim";
+import { beatboxUnder } from "./beatbox-tap.js";
 import { creatureAt } from "./creature-place.js";
 import { handleUnder } from "./handles.js";
 import { bandLobes, colFromX, hitCircle, type Layout, showsCannon, showsShield } from "./layout.js";
@@ -21,13 +22,10 @@ import { shipUnder, sucksOnLift, swipeColor } from "./touch-ship.js";
  * ship should be told about it.
  *
  * It lives beside `layout.ts` for the reason that file already gives — a
- * control is never drawn in one place and answered in another — and it is here
- * rather than in `apps/game` because it has two callers: the game, and the
- * director's stage, which is the same picture and has to answer a finger the
- * same way. A tool cannot import an application, so the alternative was a
- * second hand-typed copy of the decision table, and a control scheme that
- * disagrees with itself on the screen it is being judged on is worse than no
- * editor at all.
+ * control is never drawn in one place and answered in another — and it is
+ * here rather than in `apps/game` because it has two callers: the game and
+ * the director's stage, which have to answer a finger the same way or one
+ * screen judges a control scheme the other disagrees with.
  *
  * No DOM, no pointer, no state: the plumbing of pointers, capture and which
  * finger is which belongs to whoever owns the canvas.
@@ -48,6 +46,10 @@ export function touchDown(l: Layout, x: number, y: number, field: Field): Touch 
     // shield is not a hand on whatever is falling behind it (`touch-ship.ts`).
     const ship = shipUnder(l, x, y, field);
     if (ship) return ship;
+    // Then a soundbox: a press on a box is a **tap**, not a hand, and a box
+    // refuses a hand outright (`beatbox-tap.ts`) so `creatureAt` skips it.
+    const tap = beatboxUnder(l, field, x, y);
+    if (tap) return tap;
     // The seat, because what a hand is worth depends on it: a rock is a brake
     // for either player and a living body is an aim only the pilot has, so a
     // navigator's thumb finds nothing over a slick (`sim/hand.ts`).

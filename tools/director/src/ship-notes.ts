@@ -27,6 +27,17 @@ import type { GroupName } from "./ship-groups.js";
  * `SimEvent`.
  */
 export const GROUP_NOTE: Record<GroupName, string> = {
+  "THE BEATBOX — a soundbox counted out on the beat":
+    "A rounded soundbox that swells on every beat and asks for a number of " +
+    "them. No shot touches it. Player 2 taps the body itself, once a beat, " +
+    "on the beat, within beatboxWindowMs either side — and the run is " +
+    "committed by *stopping*, so the first beat that goes by untapped is the " +
+    "beat the count is judged on. Only player 1 is drawn the number; player " +
+    "2 sees a tally of their own taps and no target. Right and the box goes " +
+    "quiet; wrong, over or under, and it puts damageBeatboxWave through the " +
+    "hull and keeps falling, which is another run for whatever height is " +
+    "left. beatboxBeats is only what a box gets when a wave names no count — " +
+    "the count is authored per arrival.",
   "THE CHOIR — two bodies opened by shaking the phone":
     "Two grey balls standing apart in one lane, and no shot reaches either " +
     "of them. What opens them is on neither panel, and it is two moves " +

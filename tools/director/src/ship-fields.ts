@@ -130,6 +130,13 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   choirFuseBeats: "THE CHOIR — two bodies opened by shaking the phone",
   damageChoirSong: "THE CHOIR — two bodies opened by shaking the phone",
   scoreChoirMerge: "SCORE",
+  // THE BEATBOX's three dials and its score. The count a box gets when a wave
+  // names none, how near the beat a tap has to land, and what a miscounted run
+  // costs — a box's own count is authored per arrival (`WaveEntry.beats`).
+  beatboxBeats: "THE BEATBOX — a soundbox counted out on the beat",
+  beatboxWindowMs: "THE BEATBOX — a soundbox counted out on the beat",
+  damageBeatboxWave: "THE BEATBOX — a soundbox counted out on the beat",
+  scoreBeatboxSilence: "SCORE",
   recoilBounces: "THE RECOIL — a shot that sends it the wrong way",
   recoilRows: "THE RECOIL — a shot that sends it the wrong way",
   scoreRecoilBounce: "SCORE",

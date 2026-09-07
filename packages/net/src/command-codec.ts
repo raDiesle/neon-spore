@@ -109,6 +109,12 @@ export function decodeCommand(x: unknown): Command | null {
       return { kind: "intake" };
     case "grip":
       return isNonNegInt(c.id) ? { kind: "grip", id: c.id } : null;
+    // THE BEATBOX's tap. `grip`'s shape word for word, because it names the
+    // same thing — a body, by the id the simulation dealt out — and nothing
+    // else: which beat a press was for is decided from the tick it arrives on,
+    // on the side of the wire that owns the clock (`beatboxBeatFor`).
+    case "tap":
+      return isNonNegInt(c.id) ? { kind: "tap", id: c.id } : null;
     case "prime":
       return isBool(c.on) && isColor(c.color) ? { kind: "prime", on: c.on, color: c.color } : null;
     case "brief":

@@ -78,6 +78,20 @@ export type Command =
    */
   | { kind: "guideStep"; back?: boolean }
   /**
+   * **The rounds that are not the field**, and their own verbs:
+   * `command-round.ts` next door.
+   *
+   * Every one of them makes the same argument in its own round's words — a
+   * round with its own picture has its own vocabulary, and a pair told to
+   * "fire" at a dial would be learning that the words mean whatever the screen
+   * currently needs. Several variants making one argument again and again is a
+   * group, and it is the group this file is cut along now that the ship's own
+   * verbs no longer fit beside them. Nothing moved but the address: `Command`
+   * is the same flat union it has always been, so a replay is still a list of
+   * these and nothing else.
+   */
+  | RoundCommand
+  /**
    * A hand that grabbed something and moved: the second gesture, beside the
    * press-and-hold that only slows a fall (`grip.ts`). `on` is the hold, the
    * contract `prime` and `valve` have — true for the grab and every move after
@@ -140,9 +154,31 @@ export type Command =
    * because they are a hand carrying something and not a press.
    */
   | { kind: "shake" }
-  | { kind: "restart" }
-  // And the rounds' own, next door — see `command-round.ts`.
-  | RoundCommand;
+  /**
+   * **Player 2's thumb on a soundbox**, and the first command in this game that
+   * is a press on a *body* rather than on a control (`beatbox-round.ts`).
+   *
+   * `grip` next door is the other thing a finger on the field can be, and the
+   * two are deliberately different messages rather than one message read two
+   * ways: a grip is a **hold**, so it has a lift to send and a state that lasts
+   * as long as the thumb does, and this is instant and complete on the press —
+   * what it says is *now*, and a moment cannot be released. A box refuses a
+   * hand outright (`grippable.ts`) so that no finger is ever both.
+   *
+   * `id` names which box, for THE LID's cord's reason exactly: a wave may send
+   * several down at once and each is counting its own run. It is safe to name
+   * across the wire because ids are dealt out by the simulation, so both
+   * devices already agree about which body is which; a stale one finds nothing
+   * and does nothing (`beatboxTapped`).
+   *
+   * It carries no beat and no column. Which beat a press was *for* is decided
+   * from the tick it lands on (`beatboxBeatFor`), on the same side of the wire
+   * as every other timing in this game — a command that named its own beat
+   * would be a device grading its own rhythm, and two devices would grade it
+   * differently.
+   */
+  | { kind: "tap"; id: number }
+  | { kind: "restart" };
 
 /** The draggable elements: one name per thing a hand may take hold of. A closed
  * list rather than a creature id, because THE MAZE's string is not a creature —

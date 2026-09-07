@@ -1,5 +1,6 @@
 import type { SimConfig, SimEvent, World } from "@neon-spore/sim";
 import { Arrivals } from "./arrivals.js";
+import { BeatboxWaves } from "./beatbox-wave.js";
 import { ChoirQuake } from "./choir-quake.js";
 import { CoordGrid } from "./coord-grid.js";
 import { CrawlerFx } from "./crawler-fx.js";
@@ -32,19 +33,16 @@ export class Effects {
   private deflectFx = new DeflectFx();
   /**
    * The last step of a rock's fall, replayed until it reaches the hull, and
-   * the stuck-then-rolling rock afterwards. Public, and drawn *over* the hull
-   * unlike the rest of this class: a rock falling or lodged has to stay in
-   * front, so the ship pass calls it rather than `draw` doing it here. The
-   * hull also asks it whether a rock is still sitting in its own crater,
-   * before drawing that crater at all (`craters.ts`).
+   * the stuck-then-rolling rock afterwards. Public and drawn *over* the hull
+   * by the ship pass rather than by `draw` here; the hull also asks it
+   * whether a rock still sits in its own crater (`craters.ts`).
    */
   readonly rockImpact = new RockImpactFx();
   private blockedUntil = new Map<number, number>();
   /**
    * The ship's own clocks — the swallow, the fire opening, the deflection
    * flash and the queen's shudder, with the banner the last two write
-   * (`effects-ship.ts`). Public because `ingestOne` is handed it whole; the
-   * getters below keep every name a caller already reads.
+   * (`effects-ship.ts`). Public: `ingestOne` is handed it whole.
    */
   readonly ship = new ShipMoods();
   /** Which impacts have visibly landed. Public: the hull asks before it
@@ -56,9 +54,9 @@ export class Effects {
    * banks — each outliving what it is about (`crawler-fx.ts`). */
   private crawler = new CrawlerFx();
   /**
-   * THE MIRROR's own transients. Public because the boss is drawn as a whole
-   * ship rather than as a handful of particles: `canvas2d` reads `armed` and
-   * `intake` off it to build the mirror's hull mood, and calls its own draws.
+   * THE MIRROR's own transients. Public: the boss is drawn as a whole ship
+   * rather than as particles, and `canvas2d` reads `armed` and `intake` off
+   * it to build the mirror's hull mood.
    */
   readonly mirror = new MirrorFx();
   /** THE WARDEN's one transient: the line whipping down after it is torn.
@@ -71,38 +69,36 @@ export class Effects {
   readonly fleet = new FleetFx();
   /**
    * The baked burst, played from an atlas over a destroyed creature. Public
-   * because installing the atlas is the *host's* decision, not the renderer's:
-   * `apps/game` does it behind `?raster=1` and the director does it on the
-   * RASTER page, and until one of them does, this draws nothing and the field
-   * looks exactly as it shipped. See `sprite-burst.ts` and `docs/raster.md`.
+   * because installing the atlas is the *host's* decision: `apps/game` does it
+   * behind `?raster=1` and the director on the RASTER page — until one of them
+   * does, this draws nothing (`sprite-burst.ts`, `docs/raster.md`).
    */
   readonly spriteBursts = new SpriteBursts();
   /**
    * The two clocks a wave's opening needs and a world standing still cannot
    * give it: how long the page that is up has been up, and the blobs a circle
-   * throws when it says READY. Public for the mirror's reason — `briefing.ts`
-   * draws the opening, and this is only where it is kept and cleared.
+   * throws when it says READY. Public: `briefing.ts` draws the opening, and
+   * this is only where it is kept and cleared.
    */
   readonly opening = new OpeningFx();
   /**
-   * Where every ghost has just been. Public and driven from the field pass
-   * rather than fed by an event, for the coord grid's reason below: it is a
-   * sample of where a body is drawn, and only the pass that draws it knows
-   * that. It lives here because it outlives its frame — see `ghost-trail.ts`.
+   * Where every ghost has just been. Driven from the field pass rather than
+   * fed by an event — only the pass that draws a body knows where — and kept
+   * here because it outlives its frame (`ghost-trail.ts`).
    */
   readonly ghostTrail = new GhostTrail();
   /**
-   * The lettered grid coming up and going again. Public and driven from
-   * `canvas2d.ts` rather than fed by an event, because it is not a transient
-   * at all — it is a fade toward a fact about the world (is anything on the
-   * field named by tile), read fresh every frame. It lives here for the one
-   * reason everything else does: it outlives its frame, so a wave restarting
-   * with it half up would carry that into the new run (`reset`).
+   * The lettered grid coming up and going again. Driven from `canvas2d.ts`
+   * rather than fed by an event — it is a fade toward a fact read fresh every
+   * frame — and kept here because it outlives its frame, or a restarted wave
+   * would inherit it half up (`reset`).
    */
   readonly coordGrid = new CoordGrid();
   /** THE CHOIR's earthquake: the one transient that moves the *picture* rather
    * than something in it, applied where the stage is placed (`choir-quake.ts`). */
   readonly quake = new ChoirQuake();
+  /** THE BEATBOX's discharges, outliving their frame like everything above. */
+  private beatboxWaves = new BeatboxWaves();
 
   /** Per-creature grey flash after a wrong-colour hit, by creature id. */
   get blocked(): ReadonlyMap<number, number> {
@@ -167,6 +163,7 @@ export class Effects {
         ship: this.ship,
         crawler: this.crawler,
         quake: this.quake,
+        beatboxWaves: this.beatboxWaves,
         blockedUntil: this.blockedUntil,
         burst: (x, y, n, hex) => this.sparks.burst(x, y, n, hex),
       });
@@ -194,6 +191,7 @@ export class Effects {
     this.spriteBursts.update(dt);
     this.ghostTrail.update(dt);
     this.quake.update(dt);
+    this.beatboxWaves.update(dt);
     // A salvo's particles are thrown from here on the frame it lands, not from
     // `burstFor` on the frame the event arrived — a second and a quarter
     // earlier (`fleet-fx.ts`).
@@ -215,6 +213,7 @@ export class Effects {
     this.bodies.draw(ctx, l, surfaceY);
     this.crawler.draw(ctx, l, surfaceY);
     this.spriteBursts.draw(ctx);
+    this.beatboxWaves.draw(ctx, l);
     this.bodies.drawOnBodies(ctx, l, world, beatPhase);
   }
 
@@ -239,6 +238,7 @@ export class Effects {
     this.ghostTrail.clear();
     this.opening.reset();
     this.quake.clear();
+    this.beatboxWaves.clear();
   }
 
   /** The word itself, over the hull — DEFLECTED, or a pod's one-word receipt. */

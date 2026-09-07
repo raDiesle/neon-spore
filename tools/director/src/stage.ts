@@ -78,6 +78,7 @@ export function bindStage(
       cannonCol: world.cannonCol,
       shieldCol: world.shieldCol,
       beatPhase: (world.tick % ticksPerBeat(cfg)) / ticksPerBeat(cfg),
+      beat: world.beat,
       seat: pointerSeat(role),
       cfg,
       maze: mazeRound(world),

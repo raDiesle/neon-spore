@@ -1,3 +1,4 @@
+import { beatboxOnSpawn } from "./beatbox.js";
 import { caromOnSpawn } from "./carom.js";
 import { coilOnSpawn } from "./coil-state.js";
 import { growCrawler } from "./crawler-round.js";
@@ -202,6 +203,14 @@ export function spawnArrivals(world: World): void {
       // rather than trusted from the wave: a route on a body that already
       // moves by a rule of its own would be a body stepped twice in one beat
       // (`own-step.ts`), and a stale entry must not be able to buy one.
+      // How many beats this box is asking for, and absent on every other kind —
+      // so a body with no run to count carries no field at all and every wave
+      // written before THE BEATBOX is byte-for-byte the same world. Authored
+      // and never rolled, for the lure's reason with the most riding on it:
+      // the count is the sentence the pilot has to say (`beatboxOnSpawn`).
+      // The tally and the beat it stands on are deliberately not here — an
+      // arrival is never already part-way through a run.
+      ...(entry.kind === "beatbox" ? beatboxOnSpawn(world.cfg, entry.beats) : {}),
       ...(across === undefined ? {} : rockCrossOnSpawn(across, row)),
     });
     // A gyre is the one arrival that brings bodies with it: six on its rim,

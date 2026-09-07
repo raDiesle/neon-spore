@@ -33,6 +33,15 @@ export interface Field {
   /** 0..1 within the beat, so a grab lands on the creature as drawn. */
   beatPhase: number;
   /**
+   * The beat the field is standing on. **Required and stated rather than
+   * defaulted**, for the reason every field below it is: THE BEATBOX's hit
+   * test reaches as far as the body is *drawn* (`beatbox-tap.ts`), and how big
+   * that is depends on whether this beat has already been tapped — so a
+   * default of nought would make the target smallest at exactly the moment the
+   * pair is aiming at it.
+   */
+  beat: number;
+  /**
    * Whose hand a touch on the *field* is. The strips below say who they belong
    * to by where they are; the field belongs to both players, so it can only be
    * signed by the seat this screen holds.

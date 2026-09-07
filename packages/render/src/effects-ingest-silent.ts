@@ -31,6 +31,14 @@ export const INGEST_SILENT = [
   "mirrorEcho",
   "mirrorVerdict",
   "mirrorDown",
+  // THE BEATBOX's two flashes. A tap and a box going quiet are both drawn by
+  // `burstFor` above and neither outlives its own frame — the swell a tap is
+  // read off is world state, redrawn from the creature every frame
+  // (`beatbox.ts`), and a silenced box is simply gone. The one that *does*
+  // start a clock here is `beatboxWave`, whose arcs go on crossing the field
+  // after the body they came out of has moved on.
+  "beatboxTap",
+  "beatboxSilent",
   "plate",
   "lureVanished",
   "claspBreak",

@@ -63,8 +63,14 @@ export const BEAT_SOUNDS: SoundDef[] = [
     id: "beat.drift",
     family: "beat",
     blurb: "The click with its low body detuned flat, dragging behind itself.",
-    status: "spare",
-    use: "The beat-breaker: the global beat stays right, this one says something is off.",
+    status: "bound",
+    // Written for the beat-breaker and spent on the creature that got here
+    // first, on `boss.choir`'s terms exactly. A miscounted run on THE BEATBOX
+    // is precisely this sound's own blurb — the global beat is still right and
+    // this is not on it (`bind-beatbox.ts`). The beat-breaker keeps `beat.half`
+    // and `creature.beatBreaker`, which are the two that are about an *offset*
+    // rather than about a count coming apart.
+    use: "THE BEATBOX discharging: a run committed on the wrong count.",
     level: 0.32,
     layers: [
       tick(0.45, 0, 4600),
@@ -75,8 +81,13 @@ export const BEAT_SOUNDS: SoundDef[] = [
     id: "beat.lock",
     family: "beat",
     blurb: "Two clicks a hair apart, closing into one.",
-    status: "spare",
-    use: "Both inputs landing on the same beat — the whisperer's whole mechanic.",
+    status: "bound",
+    // Two clicks a hair apart closing into one, which is what a run that
+    // answered is: several beats of counting resolving into a single fact.
+    // Deliberately used here rather than an ordinary kill cue — nothing was
+    // shot, and a pair who heard a body burst would learn that a box is
+    // answered the way a slick is (`bind-beatbox.ts`).
+    use: "THE BEATBOX going quiet: the run committed on the count it asked for.",
     level: 0.42,
     layers: [tick(0.5, 0, 5600), tick(0.5, 0.028, 5600), sub(96, 0.1, 0.55, 0.028)],
   },

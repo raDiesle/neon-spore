@@ -66,7 +66,7 @@ table in a document cannot be wrong in a way a compiler notices.
 | `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand`, `magnet`, `choir` |
 | `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch`, `veer`, `coil` |
 | `mixed` | `aim` and `guard` | `queen`, `warden`, `clasp`, `carom`, `volley`, `crawler`, `fence` |
-| `special` | neither | `tether`, `mount`, `chute` |
+| `special` | neither | `tether`, `mount`, `chute`, `beatbox` |
 | `suck` | — (pods, not `CreatureKind`) | mend, purge, ward |
 
 `special` was reserved and empty for a long time on the reasoning that nothing
@@ -82,6 +82,17 @@ is answered by `aim` like one — but it is not a body a wave places, it is a
 body a wheel brings, so it carries no control group and the `gyre` beside it
 in `cannon` is what shows the panel. Both rows say the same thing: `special`
 is where a body goes when something else on the field put it there.
+
+**THE BEATBOX is the fourth, and it lands here for a reason none of the first
+three has.** It is authored directly, like any ordinary arrival, and nothing
+else on the field shows a panel on its behalf — a wave carrying one needs no
+`aim` and no `guard` at all, because the body is answered by a tap, and a tap
+on the field is not a `ControlGroup` any more than THE MAGNET's hand or THE
+CHOIR's shake is (below). What makes it `special` rather than `cannon`, the way
+those two are, is that there is no body underneath still waiting on the cannon
+once the gesture is done: a magnet is answered sideways by a shot and a choir
+becomes a slick or a bulb, but a box that is answered correctly simply goes
+quiet.
 
 **THE CHOIR is in `cannon` and its whole answer is not**, which is the sharpest
 reading this table has of what a category is for. A pair of bodies in one

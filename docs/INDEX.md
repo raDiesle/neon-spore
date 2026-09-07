@@ -238,7 +238,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/lure-exit.ts` | **THE LURE leaving on its own**, which is the one thing in this game a body does at the end of a beat for no… |
 | `packages/sim/src/config-creature-scores.ts` | what one creature pays and what one costs, priced against each other |
 | `packages/sim/src/creature-roster.ts` | **The fixed order every kind is written into the world fingerprint in.** Cut out of `creature-kinds.ts` when… |
-| `packages/sim/src/grippable.ts` | **Whether a hand may be put on a body at all**, and the thirteen refusals that answer it |
+| `packages/sim/src/grippable.ts` | **Whether a hand may be put on a body at all**, and the fourteen refusals that answer it |
 | `packages/sim/src/hull-damage.ts` | **What the hull loses, and what it gets back.** Cut out of `hull.ts` when THE GRATE's own answer took that… |
 | `packages/sim/src/config-fence.ts` | THE FENCE's two numbers: how wide each way through it is |
 | `packages/sim/src/creature-state-fence.ts` | **THE FENCE's two fields**, and both of them are sets of columns: the ways through the wave authored |
@@ -289,6 +289,11 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/pulse-open.ts` | Opening a stage, and opening the round — the two places a `PulseState` is written from nothing |
 | `packages/sim/src/lance-burn.ts` | **THE LANCE going off**: the lobe coming full, and the column burning on that tick |
 | `packages/sim/src/shot-reach.ts` | **What a shot meets on a stretch of a column**, and the one place that question is answered |
+| `packages/sim/src/beatbox-round.ts` | **What happens to a soundbox**: the thumb that lands on it, the run being committed |
+| `packages/sim/src/beatbox.ts` | THE BEATBOX: a soundbox that swells on every beat |
+| `packages/sim/src/config-beatbox.ts` | THE BEATBOX's numbers: how many beats one asks for, how near the beat a tap has to land |
+| `packages/sim/src/creature-state-beatbox.ts` | **THE BEATBOX's three fields**, and the whole of what one box remembers: how many beats it is asking for |
+| `packages/sim/src/events-beatbox.ts` | **What THE BEATBOX does**, as events: a tap landing on the beat |
 
 ### packages/content
 
@@ -405,6 +410,10 @@ place — the generator keeps whatever is there.
 | `packages/content/src/metaball-spread.ts` | spreading a fixed number of points across a subject that may be in pieces — the shape sheet's need, not the game's |
 | `packages/content/src/metaball.ts` | the outline of a metaball field, as however many closed loops it has — what SYMBIOSIS and THE CHOIR are drawn with |
 | `packages/content/src/scene-drag.ts` | **A hand carrying a handle**, turned into the stream of `drag` messages a rehearsal's runner sends — how far |
+| `packages/content/src/creatures-beatbox.ts` | THE BEATBOX's row, cut out of `creatures-table.ts` when it took that file past its 250-line limit |
+| `packages/content/src/mechanics-beatbox.ts` | THE BEATBOX's row, cut out of `mechanics-table.ts` when it took that file past its 250-line limit |
+| `packages/content/src/silhouettes-beatbox.ts` | Beatbox: a rounded cabinet, and the one body on this roster whose contour is *architecture* rather than an… |
+| `packages/content/src/waves/act-8.ts` | Act eight, opened for THE BEATBOX rather than for a chapter |
 
 ### packages/render
 
@@ -722,6 +731,11 @@ place — the generator keeps whatever is there.
 | `packages/render/src/pulse-body.ts` | One arrival falling down a lane, and the two ways of drawing one that cannot be read |
 | `packages/render/src/choir-shape.ts` | where THE CHOIR's two bodies stand and the skin traced over them — the shape half, with no light or colour in it |
 | `packages/render/src/action-face.ts` | Player 1's action buttons, showing the ship doing the thing instead of spelling its name |
+| `packages/render/src/beatbox-marks.ts` | THE BEATBOX's two half-pictures: the **count** over the box on player 1's screen |
+| `packages/render/src/beatbox-tap.ts` | **Player 2's thumb on a soundbox**, and the first press in this game that lands on a *body* and is over the… |
+| `packages/render/src/beatbox-wave.ts` | **The wave of sound a miscounted box sends at the ship**, and the picture this creature is named for |
+| `packages/render/src/beatbox.ts` | **How big a soundbox is drawn this instant**, which is the whole of what this creature says |
+| `packages/render/src/creature-body-worn.ts` | **The two body draws that read their own record rather than calling a draw function directly** |
 
 ### packages/net
 
@@ -774,6 +788,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-veil.ts` | THE VEIL's three, as sounds |
 | `packages/audio/src/bind-choir.ts` | THE CHOIR's three, in a file of its own |
 | `packages/audio/src/mixer-pulse.ts` | THE PULSE's song, played off the simulation's own clock |
+| `packages/audio/src/bind-beatbox.ts` | THE BEATBOX's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
 
 ### apps/game
 

@@ -64,6 +64,19 @@ export interface SpawnEntry {
    */
   beads?: number;
   /**
+   * How many beats a `beatbox` asks for, and absent on every other kind — and
+   * on a box the author left at the default, which is `cfg.beatboxBeats`. The
+   * clamp is `beatboxOnSpawn`'s and is never re-derived here, because the
+   * field's own height has a say in it: a box cannot ask for more beats than
+   * its fall is long.
+   *
+   * Authored rather than rolled, for `wears`' reason with the most riding on
+   * it of any of them — this number **is** the sentence one player says to the
+   * other, and a wave cannot be composed against a sentence its author does
+   * not know. Nothing about this creature is rolled at all.
+   */
+  beats?: number;
+  /**
    * How many segments a `crawler` arrives with between its two ends, and
    * absent on every other kind — and on a worm the author left at the default,
    * which is what `crawlerSegmentCount` answers. Two to seven; the clamp is

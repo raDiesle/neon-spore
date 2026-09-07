@@ -164,4 +164,11 @@ export const TALKER = {
   // the one thing they need to hear is that it is about to become one — which
   // is this table's own sentence said about a hand instead of a picture.
   choir: "p1",
+  // THE BEATBOX, and the plainest row in this table since THE GHOST's column.
+  // Both screens draw the same swelling body; only the pilot's carries the
+  // **number of beats** it is asking for, and only the navigator can put a
+  // thumb on it. So what has to cross the room is a single digit, said once,
+  // early enough that the thumb can spend it — and the seat that can read it
+  // is by construction the seat with nothing to press.
+  beatbox: "p1",
 } as const satisfies Record<CreatureKind, Talker | null>;

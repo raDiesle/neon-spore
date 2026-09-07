@@ -81,6 +81,10 @@ export interface Bindings {
   /** 0..1 within the beat, so a grab lands on the creature as drawn, not as
    * it stood on the last beat. */
   beatPhase: () => number;
+  /** The beat the field is standing on. THE BEATBOX's hit test reaches as far
+   * as the body is *drawn*, and how big that is depends on whether this beat
+   * has already been tapped (`render/beatbox-tap.ts`). */
+  beat: () => number;
   /**
    * Whether the guide is up — passed straight through to the keyboard rig,
    * which needs it to keep Space from skipping the introduction ahead of the

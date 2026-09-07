@@ -1,4 +1,5 @@
 import type { World } from "@neon-spore/sim";
+import { drawBeatboxMarks } from "./beatbox-marks.js";
 import { drawBoss } from "./boss-draw.js";
 import { drawBullets } from "./bullets.js";
 import { drawChoirArrows } from "./choir-arrows.js";
@@ -156,6 +157,11 @@ export function drawBodies(
   // that is not drawn the ghost. Under everything the ship does and over the
   // grid, so the pilot reads it as a row of the field.
   drawGhostRows(ctx, l, world, view.beatPhase, view.time);
+  // THE BEATBOX's, and the sharpest of these splits: the pilot is drawn the
+  // count the box is asking for and the navigator their own running tally of
+  // taps, which are two different numbers rather than more and less of one
+  // (`beatbox-marks.ts`).
+  drawBeatboxMarks(ctx, l, world, view.beatPhase, view.time);
   // THE CHOIR's instruction, over the membrane and on the pilot's screen only.
   // Here with the half-pictures because that is what it is — one seat is being
   // told something the other is not — with the difference that what it names

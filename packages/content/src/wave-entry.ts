@@ -113,6 +113,24 @@ export interface WaveEntry {
    */
   beads?: number;
   /**
+   * How many beats a `beatbox` asks for. Absent on every other kind, and
+   * absent on a box left at the default — so a wave nobody tuned serialises
+   * exactly as it always did, the same arrangement `size`, `path` and `beads`
+   * make above.
+   *
+   * **A field and not one kind per count**, and the asymmetry `beads` argues
+   * for said about a rhythm: a box asking for two beats and one asking for
+   * four are not two creatures — the pair says exactly the same sentence about
+   * both, and the number in it is what changes. That is in fact the *point* of
+   * the creature, so kinds here would be the worst version of this mistake in
+   * the bestiary.
+   *
+   * The clamp is `beatboxOnSpawn`'s and is never re-derived here, because the
+   * field's own height has a say in it: a box cannot ask for more beats than
+   * its fall is long.
+   */
+  beats?: number;
+  /**
    * How many segments a `crawler` arrives with between its two ends: `2`..`7`.
    * Absent on every other kind, and absent on a worm left at the default.
    *

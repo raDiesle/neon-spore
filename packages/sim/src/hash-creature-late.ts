@@ -2,7 +2,7 @@ import type { Creature } from "./types.js";
 
 /**
  * **The tail of one body's fingerprint**, from THE RECOIL's bounces to THE
- * COIL's charge.
+ * BEATBOX's run.
  *
  * Cut out of `hash-creature.ts` on purpose rather than under pressure: that
  * file sat at 250 lines exactly, and every creature added to this game brings
@@ -154,5 +154,21 @@ export function lateHashParts(c: Creature): number[] {
   // is to say about whether the shot player 2 just fired reached anything.
   // `-1` for a membrane nobody has opened, which no tick can be.
   out.push(c.choirFuseTick ?? -1);
+  // THE BEATBOX's three. The count decides whether the run standing on this
+  // body is right, the tally is that run, and the beat it stands on decides
+  // *when it is committed* — so two devices that disagree about any of them
+  // disagree about whether the box is about to be silenced or about to put a
+  // wave of sound through the hull, which is as loud as a disagreement gets.
+  // They are also the pair's most private numbers: only player 1 is drawn the
+  // count and only player 2's thumb writes the other two, so nothing on either
+  // screen would show the pair that their two worlds had come apart.
+  //
+  // `-1` for a body that is not a box, a value no count and no tally can take,
+  // and `-2` for the beat, which no beat can be — so "not a beatbox" and "a
+  // box asking for one beat, untouched, on beat nought" are never the same
+  // three numbers in the fingerprint.
+  out.push(c.beatboxWant ?? -1);
+  out.push(c.beatboxHits ?? -1);
+  out.push(c.beatboxBeat ?? -2);
   return out;
 }

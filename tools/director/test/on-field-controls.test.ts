@@ -163,6 +163,7 @@ const FIELD: Field = {
   cannonCol: 5,
   shieldCol: 5,
   beatPhase: 0,
+  beat: 0,
   seat: 1,
   cfg: CFG,
   maze: null,

@@ -16,6 +16,20 @@
  * is already true.
  */
 
+// THE BEATBOX's readings: what one is asking for, how far into a run it is,
+// and which beat a thumb landing now would answer. Render draws the first on
+// player 1's screen and the second on player 2's, and the hit test asks the
+// third so that the swell a finger is aiming at and the beat the simulation
+// credits are one moment. The rules stay inside — nothing here decides whether
+// a tap counted (`beatbox-round.ts`).
+export {
+  beatboxBeatFor,
+  beatboxHitsMade,
+  beatboxIsBox,
+  beatboxRunOpen,
+  beatboxWanted,
+  beatboxWindowTicks,
+} from "./beatbox.js";
 export { type CaromDir, caromBecomes, caromHeading, caromImpactDamage } from "./carom.js";
 export {
   choirBecomes,

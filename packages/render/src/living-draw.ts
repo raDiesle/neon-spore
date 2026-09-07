@@ -42,6 +42,20 @@ export function drawLiving(
   cfg: SimConfig,
   near: number,
   turn = 1,
+  /**
+   * How much of its footprint this body is drawing at *right now*, beyond the
+   * size its kind implies. One for everything but THE BEATBOX, which swells on
+   * every beat and swells harder on a tap — the whole of what that creature
+   * says (`beatbox.ts`).
+   *
+   * Deliberately **not** folded into `livingBodyMul` next door, which is the
+   * two kinds whose size *is* their silhouette: an echo is small and a rind is
+   * large, and both are facts that hold for a whole frame *and* for the ring a
+   * thumb is hit-tested against. This one changes several times a beat and is
+   * a picture only, so a hit test that followed it would make the same press
+   * land or miss depending on where in the beat it arrived.
+   */
+  swell = 1,
 ): void {
   // **Not `c.kind`.** A lure is drawn as the body it wears — the contour, the
   // own-motion, the interior, the size, all of it — and this is the line that
@@ -87,7 +101,7 @@ export function drawLiving(
   // at a whole footprint per layer it still wears — and `livingBodyMul` is the
   // one copy of that, shared with `creatureRadius`, so the ring a thumb grips
   // and the body it is drawn around are one size.
-  const r = l.tile * 0.4 * livingBodyMul(c);
+  const r = l.tile * 0.4 * livingBodyMul(c) * swell;
   const scale = (r / Math.max(shape.rx, shape.ry)) * (shape.sizeMul ?? 1);
 
   // The sway itself is data, in `content/own-motion.ts`, so the shape tools

@@ -104,6 +104,10 @@ export function queueFromWave(wave: Pick<Wave, "entries">, cols: number): SpawnE
       // a length, so a strand left at the default carries no field at all and
       // `strandBeadCount` is the one place that default is read.
       ...(e.beads === undefined ? {} : { beads: e.beads }),
+      // How many beats a box asks for, on the same terms: a beatbox left at
+      // the shipped count carries no field at all, and `beatboxOnSpawn` is the
+      // one place that default is read.
+      ...(e.beats === undefined ? {} : { beats: e.beats }),
       // How long a worm is and which wall it comes over, on the same terms
       // again: a crawler left at the shipped length and at the side its own
       // column implies carries neither field, and `crawlerSegmentCount` and

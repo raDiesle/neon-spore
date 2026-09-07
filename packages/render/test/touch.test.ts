@@ -47,6 +47,7 @@ function field(seat: 1 | 2 = 1, controls: ControlSet = STANDARD): Field {
     cannonCol: world.cannonCol,
     shieldCol: world.shieldCol,
     beatPhase: 0.5,
+    beat: 0,
     seat,
     cfg: CFG,
     maze: null,
