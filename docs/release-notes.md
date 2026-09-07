@@ -9,6 +9,38 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-07 · 0d1d76d — THE CHOIR gets a rehearsal, and a film can shake the phone
+
+THE CHOIR shipped with a prose guide and it is the wave in the game that can least afford one. Every other guide describes something a pair can find on their own screen; this one has to teach a hand shaking the *device*, and a pair who do not read the words carefully sit and watch three dots reach the hull with both thumbs on controls that cannot touch them.
+
+## 2026-09-07 · a746656 — A strip of a rehearsal is a strip of the film again
+
+`--opening guide --frames 6 --stride 30` came back as six pictures of one instant, so the moment a film is *about* was the one moment a session could not send the owner — THE COIL's third page turns on a dome opening a second in, and the only proof available was a simulation dump, which is exactly what CLAUDE.md says not to send instead of a frame.
+
+## 2026-09-07 · 1717261 — `bun run probe` gives a throwaway world question somewhere to live
+
+"Where is this creature on beat 13 of THE COIL" is ten lines that step a world and print the field, and there was nowhere to put them. A file in a session's scratch directory cannot resolve `@neon-spore/sim` at all — a module's imports are resolved from where the module is, so no way of running it helps. A file under `tools/frames/` cannot either: that package does not declare the dependency and should not. What worked was a file dropped inside `packages/render/`, found by trying three places, left behind afterwards, and paid for again by every session with a number to get off a running world.
+
+## 2026-09-07 · f5a8466 — The stage holds its round, so the tab cannot outlive it
+
+Picking STAGE 4 in THE MAZE's boss panel stood the field on the fourth sheet by ordering: the click ran `onEdit`, which rebuilt the world at round 0, and then `setBossRound` on the world that rebuild had just stood up. The order was the whole of why it worked and it was also the hole. `OPEN` lived at module scope in `maze-editor.ts`, so anything else that rebuilt the stage — a tuning slider, a pair switch, a jump to another wave and back — put the fight back on round 0 while the bar still read STAGE 4, which is the disagreement the choice was added to end.
+
+## 2026-09-07 · 965dc12 — The director's keyboard asks the panel, like the game's does
+
+A key in `apps/game` is a seat and a slot on the wave's panel, and `content/src/keys-desk.ts` is the one table that says which. The director still carried the old arrangement typed out by hand — `KEY_BINDINGS` plus a `switch` that was a second copy of it — and it had drifted exactly as far as a hand copy drifts: THE GAUGE on Z/X/C, THE FLEET on U/H/N/K, and nothing at all for THE CLAW, PINBALL or SNAKE, on a keyboard whose own header said the game is right when the two disagree.
+
+## 2026-09-07 · eb6fc68 — `bun run port` says which port a server here takes
+
+"Read it off the startup line" answers a session that has already started a server. It does not answer one that needs the number first — to hand the owner a URL, or to write the throwaway `.claude/launch.json` entry a worktree kept hand-writing to look at its own director. That file is tracked, so a forgotten revert lands a lane-specific entry on `main`; it happened twice in one afternoon, two turns each.
+
+## 2026-09-07 · 3852a3f — A scene body's label clears what was drawn, not what a lane is
+
+`drawOverlay` hung a label half a tile below a body's middle. That is right for a creature, which draws four fifths of a lane across, and it is inside the outline for anything wider — THE WEIGHT is three lanes and printed the word meant to name its seam across its own sac, which is why that scene had to ship without one. The seven-lane bosses would be worse.
+
+## 2026-09-07 · 9ad9d8c — Frame tests get a cap stated where the cost is
+
+A test that draws a whole wave of frames through a checking canvas takes seconds by construction, and bun's default cap is five. The fence's crack test crossed it at 5126 ms inside `bun run check` and then passed on its own in under four for the whole file — so the next session reads one red test on a green tree and spends its first minutes re-running the check to find out it was nothing.
+
 ## 2026-09-07 · fe2a2a80 — Four commands the wire was silently dropping
 
 `decodeCommand` rejects an unrecognised `kind` outright, and its list of accepted examples was hand-kept with nothing checking it against the union. So a command added to `sim` and not to that switch is not a build error — it is silence: the press works on the phone it was made on and reaches the other device as nothing at all, while both halves type-check and pass their own tests. THE CHOIR's `shake` and its two arrows went in that way and were caught by reading rather than by running.
