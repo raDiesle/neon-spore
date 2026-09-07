@@ -1,4 +1,5 @@
 import { type Color, livingKindForColor } from "@neon-spore/sim";
+import { emblem } from "./action-face.js";
 import { drawLivingMark } from "./body-mark.js";
 import { halo } from "./glow.js";
 import { mixHex, rgba } from "./hex.js";
@@ -113,16 +114,21 @@ export function drawFireButton(
   ctx.restore();
 }
 
-/** Which of player 1's two actions a button is — the ward, or the throat. */
+/** Which of player 1's actions a button is — the ward, the throat, or the arm. */
 export type ActionKind = "guard" | "intake" | "reach";
 
 /**
  * What is drawn on the face of one of player 1's action buttons, once the body
- * under it has been painted.
+ * under it has been painted. `kind` says which control it is; a face draws the
+ * thing rather than naming it, so there is no word to hand it.
  *
- * `label` is the control's own word and is `null` when the button is too small
- * to carry text, which is what happens in a sequence glyph; `kind` says which
- * control it is, for a face that draws the thing rather than naming it.
+ * It stayed a type after the vote that settled `panel:action-face` because
+ * `emblem` needs somewhere to live that is not this file — the drawing is a
+ * couple of hundred lines of geometry and this file is the panel's buttons —
+ * and because the next second answer to a face patches a function, the way
+ * `STRAND_LOOK` still does (`strand-bead.ts`). What is gone is the record that
+ * held two of them at once: the owner picked the emblem on 7 September 2026,
+ * and a slot that has been decided is removed whole, its indirection with it.
  */
 export type ActionFace = (
   ctx: CanvasRenderingContext2D,
@@ -131,32 +137,7 @@ export type ActionFace = (
   r: number,
   ink: string,
   kind: ActionKind,
-  label: string | null,
 ) => void;
-
-/**
- * The face, as a record rather than as a branch in the function below.
- *
- * A button that said its name in a word was the first answer and is still the
- * shipped one; a button that shows the ship doing the thing is the obvious
- * second, and the only way to choose between them is to see both at the size a
- * thumb actually meets them. So the drawing is reachable — `variant.ts`'s
- * arrangement, and `STRAND_LOOK`'s exactly (`strand-bead.ts`) — and this
- * record is what a candidate in `tools/versus/` patches for the length of one
- * frame. Nothing about what the game draws depends on the indirection.
- */
-export interface ActionLook {
-  face: ActionFace;
-}
-
-/** The shipped face: the control's own word, in the ink the state gives it. */
-const drawActionWord: ActionFace = (ctx, x, y, _r, ink, _kind, label) => {
-  if (label === null) return;
-  ctx.fillStyle = ink;
-  ctx.fillText(label, x, y + 3);
-};
-
-export const ACTION_LOOK: ActionLook = { face: drawActionWord };
 
 /**
  * One of the panel's action buttons — the trigger, the maw, or THE CLAW's arm.
@@ -179,7 +160,6 @@ export function drawActionButton(
   hex: string,
   litText: string,
   kind: ActionKind,
-  label: string | null,
   dead: string = P1_SKIN.dead[0],
 ): void {
   // The glow goes down first, the way every other lit button in this file
@@ -189,7 +169,7 @@ export function drawActionButton(
   ctx.strokeStyle = hex;
   ctx.lineWidth = 2;
   paintLobe(ctx, x, y, r, "both");
-  ACTION_LOOK.face(ctx, x, y, r, lit ? litText : hex, kind, label);
+  emblem(ctx, x, y, r, lit ? litText : hex, kind);
 }
 
 /**

@@ -174,10 +174,16 @@ const GRIP_POSE: Pose = {
  * wave 0, whose control set is `standard1` — a cannon and a red button — so
  * neither GUARD nor INTAKE has ever been drawn in one, and the
  * `panel:action-face` slot had nothing on screen to argue about.
+ *
+ * That slot is decided and gone — the owner picked the emblems, and
+ * `action-face.ts` draws them on every action button now. The pose stays, the
+ * way `GRIP · THE PUSH PAUSE` did for the same reason: it is the only card in
+ * the gallery that shows the panel's own two faces, and they are worth a
+ * picture whether or not anybody is voting on them.
  */
 const BAND_POSE: Pose = {
   name: "BAND · THE ACTION FACES",
-  note: "Player 1's control panel. It has a slider for the cannon and two round buttons beside it. Today those two buttons carry the words SHIELD and SUCK, and the word is the only thing telling a player which is which.",
+  note: "Player 1's control panel. It has a slider for the cannon and two round buttons beside it: a lobe swelling upwards for the shield, and the same lobe pressed inwards with specks falling into it for the maw.",
   lookAt:
     "the two round buttons at the bottom of the panel — SHIELD on the left, SUCK on the right",
   crop: "band",

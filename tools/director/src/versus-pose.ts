@@ -50,16 +50,16 @@ const SLOT_POSE: Record<string, string> = {
   "cannon:shot": "SHOT · BEING LAID",
   "cannon:mouth": "SHOT · BEING LAID",
   "shield:ward": "WARD · DEFLECTED",
-  // Five more, all of them added at once, because until they existed every one
+  // Four more, all of them added at once, because until they existed every one
   // of these slots fell through to the default and was compared against a red
   // slick that none of them touches. `poses-versus.ts` says what each shows.
-  // `grip:ring-pause` was a sixth and is gone with its candidate; its pose
-  // stays in the gallery, which is where a picture of THE PUSH belongs.
+  // `grip:ring-pause` and `panel:action-face` were a sixth and a seventh and
+  // are gone with their candidates; both poses stay in the gallery, which is
+  // where a picture of THE PUSH and of the panel's own faces belongs.
   "creature:meteor": "METEOR · A SHOT ARRIVING",
   "creature:magnet": "MAGNET · A SHOT TURNED AWAY",
   "creature:strand": "STRAND · THE NAVIGATOR'S BEAD",
   "crawler:pulse": "CRAWLER · WALKING",
-  "panel:action-face": "BAND · THE ACTION FACES",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

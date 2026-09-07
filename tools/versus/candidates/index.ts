@@ -2,7 +2,6 @@ import type { Variant } from "../variant.js";
 // region: candidates
 import { SHOT_STREAK } from "./cannon-shot/streak/index.js";
 import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
-import { PANEL_EMBLEM } from "./panel-action/emblem/index.js";
 // endregion
 
 /**
@@ -50,6 +49,16 @@ import { PANEL_EMBLEM } from "./panel-action/emblem/index.js";
  * on paper — *it is one of these two* — and on a phone it puts a red body in
  * front of a navigator who is about to say a colour out loud.
  *
+ * `panel:action-face` left by being *chosen*. The owner looked at SHIELD and
+ * SUCK beside the two emblems and picked the pictures, so the membrane that
+ * swells into the ward and dips into the throat is what
+ * `packages/render/src/action-face.ts` draws on every action button now, and
+ * `ActionLook` — the record that existed to hold two faces at once — went with
+ * the directory. REACH, the third button and the one the candidate never drew,
+ * got an emblem of its own in the same language rather than keeping the word:
+ * the same swelling with the claw's own rails and open fingers standing out of
+ * it, at `reach-arm.ts`'s own proportions.
+ *
  * `crawler:pulse` left the same way, and by the answer a vote is *most* worth
  * having: the owner looked at the pair and could not tell which side was
  * stepped. That is not a tie. The slot asked whether a quantised contraction
@@ -59,4 +68,4 @@ import { PANEL_EMBLEM } from "./panel-action/emblem/index.js";
  * `fine` went with it: it existed only to buy back half a step nobody could
  * see the whole of.
  */
-export const VARIANTS: Variant[] = [SHOT_STREAK, METEOR_FORGE, PANEL_EMBLEM];
+export const VARIANTS: Variant[] = [SHOT_STREAK, METEOR_FORGE];

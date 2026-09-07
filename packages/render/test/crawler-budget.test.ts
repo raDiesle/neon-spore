@@ -60,12 +60,12 @@ type Budget = Partial<
 
 const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
   p1: [
-    { fillRect: 66, stroke: 60, fill: 41, clip: 10, save: 32, "new Path2D": 50, fillText: 4 },
-    { fillRect: 66, stroke: 62, fill: 41, clip: 10, save: 32, "new Path2D": 32, fillText: 4 },
+    { fillRect: 65, stroke: 70, fill: 41, clip: 10, save: 34, "new Path2D": 54, fillText: 2 },
+    { fillRect: 65, stroke: 72, fill: 41, clip: 10, save: 34, "new Path2D": 32, fillText: 2 },
   ],
   p2: [
-    { fillRect: 66, stroke: 68, fill: 47, clip: 10, save: 34, "new Path2D": 52, fillText: 2 },
-    { fillRect: 66, stroke: 70, fill: 47, clip: 10, save: 34, "new Path2D": 32, fillText: 2 },
+    { fillRect: 65, stroke: 68, fill: 47, clip: 10, save: 34, "new Path2D": 52, fillText: 2 },
+    { fillRect: 65, stroke: 70, fill: 47, clip: 10, save: 34, "new Path2D": 32, fillText: 2 },
   ],
 };
 

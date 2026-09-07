@@ -36,10 +36,18 @@ import { PALETTE } from "./palette.js";
  * halfway up a column into the next run.
  */
 
-/** How wide the arm's shaft is, as a share of a tile. */
-const SHAFT_TILES = 0.16;
-/** And how far the fingers reach past the tip. */
-const FINGER_TILES = 0.34;
+/**
+ * How wide the arm's shaft is, as a share of a tile, and how far the fingers
+ * reach past the tip.
+ *
+ * Exported because the REACH button draws the same arm at button size
+ * (`action-face.ts`), and a glyph that named the arm with proportions of its
+ * own would be a second copy of what this mechanism looks like — the thing
+ * `purity.test.ts` keeps a table about. There they are shares of the arm's own
+ * rise rather than of a tile; the ratio between them is what carries over.
+ */
+export const ARM_SHAFT_TILES = 0.16;
+export const ARM_FINGER_TILES = 0.34;
 /**
  * How far the folded fingers stand above the crown of the lobe, in tiles, when
  * the arm is home.
@@ -96,7 +104,7 @@ export function drawReachArm(
   // rest, which is inside the membrane, and a tip drawn there would put the
   // fingers under the skin they are part of.
   const to = Math.min(tileCY(l, reachTipMilli(world) / 1000), surfaceY(x) - l.tile * REST_TILES);
-  const half = l.tile * SHAFT_TILES;
+  const half = l.tile * ARM_SHAFT_TILES;
 
   ctx.strokeStyle = PALETTE.hull;
   ctx.lineWidth = 2.2;
@@ -127,7 +135,7 @@ function drawFingers(
   half: number,
   shut: boolean,
 ): void {
-  const reach = l.tile * FINGER_TILES;
+  const reach = l.tile * ARM_FINGER_TILES;
   const out = shut ? half * 0.4 : half * 2.1;
 
   ctx.strokeStyle = PALETTE.hullRim;

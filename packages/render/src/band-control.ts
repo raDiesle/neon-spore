@@ -72,18 +72,7 @@ function drawFace(
   // The first two are lit for exactly as long as their window is open, so
   // player 1 can see what they are spending.
   if (c.id === "guard") {
-    drawActionButton(
-      ctx,
-      x,
-      y,
-      r,
-      armed,
-      PALETTE.shield,
-      "#08131A",
-      "guard",
-      c.label,
-      skin.dead[0],
-    );
+    drawActionButton(ctx, x, y, r, armed, PALETTE.shield, "#08131A", "guard", skin.dead[0]);
     // A press that outlives its own window looks, on this button, exactly
     // like a press that never happened — same dark fill, same outline. Once
     // `armed` drops there is nothing left on screen saying the guard used to
@@ -99,18 +88,7 @@ function drawFace(
   // player 1 needs off this button, because the press is refused while it is
   // (`sim/reach.ts`). The ship's own violet: it is the ship reaching.
   if (c.id === "reach") {
-    drawActionButton(
-      ctx,
-      x,
-      y,
-      r,
-      reachOut(world),
-      PALETTE.hull,
-      "#150A22",
-      "reach",
-      c.label,
-      skin.dead[0],
-    );
+    drawActionButton(ctx, x, y, r, reachOut(world), PALETTE.hull, "#150A22", "reach", skin.dead[0]);
     return;
   }
   // The maw, and on THE CLAW's panel it is `mawTake` on the other seat — the
@@ -118,18 +96,7 @@ function drawFace(
   // mouth. Two ids and one drawing rather than two drawings, so a change to
   // the mouth cannot land on one seat and not the other.
   if (c.id === "intake" || c.id === "mawTake") {
-    drawActionButton(
-      ctx,
-      x,
-      y,
-      r,
-      open,
-      PALETTE.pod,
-      PALETTE.podDark,
-      "intake",
-      c.label,
-      skin.dead[0],
-    );
+    drawActionButton(ctx, x, y, r, open, PALETTE.pod, PALETTE.podDark, "intake", skin.dead[0]);
     return;
   }
   // THE PULSE's four, and it is the first *round* whose buttons are lobes on

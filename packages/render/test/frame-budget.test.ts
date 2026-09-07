@@ -30,6 +30,16 @@ import { CFG, installCanvasGlobals, runFrames, waveWith } from "./frame-harness.
  * `ctx.tally` (log it, or `console.log(ctx.tally)` in a scratch run of this
  * same setup) and update the row that changed — do not pad it "to be safe".
  *
+ * **Every row moved on 7 September 2026, and one change moved all of them.**
+ * Player 1's two action buttons stopped carrying words and started carrying
+ * emblems (`src/action-face.ts`), which is a shape where a `fillText` used to
+ * be: each button costs one membrane stroke plus `strokeGlow`'s four, so every
+ * row that draws a full band is ten strokes, two saves and — for the maw's
+ * three motes — three cached `drawImage` blits dearer, and two `fillText`
+ * cheaper. Every number here was measured again after it, not adjusted by the
+ * difference, which is why a few also came *down*: they were carrying slack a
+ * ceiling test never notices.
+ *
  * **Every run starts cold.** `installCanvasGlobals` empties render's baked
  * caches (`src/baked.ts`), so each frame-0 row below pays for its own bake.
  * Before it did, the first run to ask for a size baked the panel's sheet and
@@ -66,32 +76,36 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // rect over the backdrop, one save for the composite mode it needs, and
       // one gradient on the first frame at a size and none after
       // (`ship-air.ts`).
-      fillRect: 66,
-      // Five fewer than before the membrane's lit rim came off: `strokeGlow`
-      // is four passes and the pale thread over it was the fifth
-      // (`band-seam.ts`, and the owner's *remove the line*).
-      stroke: 40,
+      fillRect: 65,
+      // Ten of these are the two action buttons' emblems: one membrane stroke
+      // and `strokeGlow`'s four passes over the lit crest, twice
+      // (`action-face.ts`). They replaced two `fillText` calls, which is the
+      // whole of the trade the owner chose — the word cost almost nothing and
+      // could not be drawn at a sequence glyph's size at all.
+      stroke: 50,
       fill: 26,
       clip: 5,
-      save: 23,
-      drawImage: 23,
+      save: 25,
+      drawImage: 26,
       createLinearGradient: 14,
       createRadialGradient: 3,
       // Fourteen of these are the panel's own sheet, painted here and only
       // here: it depends on the size of the band and nothing else, so the
       // first frame at a size pays for every cell and vein in it and no frame
-      // after that pays anything (`band-ground.ts`). The row below is the
+      // after that pays anything (`band-ground.ts`). Four more are the two
+      // emblems' membrane and crest, baked the same way and by the same
+      // mechanism (`action-face.ts`'s `bakedCache`). The row below is the
       // proof — same seat, same size, one frame later, and back down.
-      "new Path2D": 25,
-      fillText: 4,
+      "new Path2D": 29,
+      fillText: 2,
     },
     {
-      fillRect: 66,
-      stroke: 42,
+      fillRect: 65,
+      stroke: 52,
       fill: 26,
       clip: 5,
-      save: 23,
-      drawImage: 23,
+      save: 25,
+      drawImage: 26,
       // Down from frame 0: the layout-only gradients (`gradient-slot.ts`'s
       // sites in field.ts and backdrop.ts, key-light.ts's own slot, and the
       // channels' three in band-control.ts) are cache hits from the second
@@ -99,12 +113,12 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       createLinearGradient: 5,
       createRadialGradient: 1,
       "new Path2D": 11,
-      fillText: 4,
+      fillText: 2,
     },
   ],
   p2: [
     {
-      fillRect: 66,
+      fillRect: 65,
       // The seam's rim off (five, as on p1) and the fire buttons rebuilt: each
       // one lost a crosshair's two strokes and gained the outline round its
       // contour plus `strokeGlow`'s four passes round the creature inside it,
@@ -128,7 +142,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       fillText: 2,
     },
     {
-      fillRect: 66,
+      fillRect: 65,
       stroke: 50,
       fill: 31,
       clip: 5,
@@ -262,7 +276,7 @@ function rope(fromYMilli: number) {
 const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
   "THE WARDEN's eye": [
     {
-      fillRect: 66,
+      fillRect: 65,
       // Two more than the plates alone would take: the opening below the eye
       // splits the plate it stands under into the two pieces either side of
       // it, and a plate is a stroke (`render/warden.ts`).
@@ -279,7 +293,7 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // **Four of these are the iris**: the aperture ring and every spoke go
       // into one path stroked once, so this row does not move when the spoke
       // count does (`eye-iris.ts`).
-      stroke: 94,
+      stroke: 104,
       // Four more: the two patches of the wet film, the eyelids and their
       // pupils. Flat, whatever the openness.
       fill: 32,
@@ -287,32 +301,32 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // clip to it, and the lens opens one of its own so the lids can cut the
       // pupil instead of the pupil being sized to miss them (`eye-lens.ts`).
       clip: 7,
-      save: 29,
-      drawImage: 15,
+      save: 31,
+      drawImage: 18,
       createLinearGradient: 14,
       createRadialGradient: 3,
       // Fourteen of them the panel's sheet, as on every frame 0 here. Four are
       // the skin's, and there are four of them however much of it is showing.
       // One is the lids' folds, and it is one however far apart they stand.
-      "new Path2D": 42,
-      fillText: 4,
+      "new Path2D": 46,
+      fillText: 2,
     },
     {
-      fillRect: 66,
-      stroke: 96,
+      fillRect: 65,
+      stroke: 106,
       fill: 32,
       clip: 7,
-      save: 29,
-      drawImage: 15,
+      save: 31,
+      drawImage: 18,
       createLinearGradient: 5,
       createRadialGradient: 1,
       "new Path2D": 28,
-      fillText: 4,
+      fillText: 2,
     },
   ],
   "THE LID": [
     {
-      fillRect: 68,
+      fillRect: 67,
       // Five under the row that stood here, and none of the five was spent by
       // this change: they were slack left behind by a saving that landed
       // without lowering the row, which a ceiling test never notices. Measured
@@ -320,32 +334,32 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // **Four of these are the iris**: the aperture ring and every spoke go
       // into one path stroked once, so this row does not move when the spoke
       // count does (`eye-iris.ts`).
-      stroke: 71,
+      stroke: 81,
       fill: 24,
       // The one op this body's share of the new lens costs: the clip the lids
       // cut the pupil through (`eye-lens.ts`).
       clip: 7,
-      save: 27,
-      drawImage: 15,
+      save: 29,
+      drawImage: 18,
       createLinearGradient: 14,
       createRadialGradient: 3,
-      "new Path2D": 34,
-      fillText: 4,
+      "new Path2D": 38,
+      fillText: 2,
     },
     {
-      fillRect: 68,
-      stroke: 73,
+      fillRect: 67,
+      stroke: 83,
       fill: 24,
       clip: 7,
-      save: 27,
-      drawImage: 15,
+      save: 29,
+      drawImage: 18,
       createLinearGradient: 5,
       // The eye builds none of its own: the wash around it is a `halo` sprite
       // cached by colour and radius, and the one left is `key-light.ts`'s
       // layout-only slot (`render/eye.ts`).
       createRadialGradient: 1,
       "new Path2D": 20,
-      fillText: 4,
+      fillText: 2,
     },
   ],
 };

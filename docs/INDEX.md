@@ -719,6 +719,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/body-mark.ts` | One living body, at a size, with no world around it |
 | `packages/render/src/pulse-body.ts` | One arrival falling down a lane, and the two ways of drawing one that cannot be read |
 | `packages/render/src/choir-shape.ts` | where THE CHOIR's two bodies stand and the skin traced over them — the shape half, with no light or colour in it |
+| `packages/render/src/action-face.ts` | Player 1's action buttons, showing the ship doing the thing instead of spelling its name |
 
 ### packages/net
 

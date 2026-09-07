@@ -10,8 +10,10 @@ import { Canvas2DRenderer } from "@neon-spore/render";
  * draw less — would be a second thing to keep honest for no gain. So what is
  * *shown* is cut instead, by an overflow-hidden window with the canvas
  * positioned inside it at a negative offset: no scaling, no resampling, and
- * the two buttons `panel:action-face` is decided on arrive at exactly the size
- * a thumb meets them at.
+ * whatever the slot is about arrives at exactly the size a thumb meets it at.
+ * `panel:action-face` is the slot that asked for this and is decided and gone;
+ * two buttons 130 px from the bottom of an 820 px phone were the case that
+ * showed a whole phone is the wrong picture to offer a vote on.
  *
  * Its own file because `versus-pair.ts` is at CLAUDE.md's line ceiling, and
  * because this is a different subject from the loop next door: that file is

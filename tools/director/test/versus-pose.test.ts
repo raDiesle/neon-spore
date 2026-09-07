@@ -3,6 +3,7 @@ import { controlSetForWave, setHas } from "@neon-spore/content";
 import { chargeMilli, laying, step } from "@neon-spore/sim";
 import { VARIANTS } from "../../versus/candidates/index.js";
 import { slots } from "../../versus/variant.js";
+import { VERSUS_POSES } from "../src/poses-versus.js";
 import { poseForSlot } from "../src/versus-pose.js";
 
 /**
@@ -73,9 +74,18 @@ describe("poseForSlot", () => {
     expect((bullet?.row ?? 0) - (rock?.row ?? 0)).toBeLessThanOrEqual(2);
   });
 
+  /**
+   * `panel:action-face` is decided and gone, but its pose is not: it is the
+   * only card in the gallery that draws the panel's own two faces, and the
+   * wave it opens on is the only reason it can. A wave list reordered under
+   * `WAVE_WITH_BOTH_FACES` would leave it drawing a band with neither button
+   * on it, silently, so the assertion outlives the slot it was written for.
+   */
   test("the band pose draws a wave whose control set carries both action faces", () => {
-    const world = poseForSlot("panel:action-face").build();
-    const set = controlSetForWave(world.wave);
+    const pose = VERSUS_POSES.find((p) => p.name === "BAND · THE ACTION FACES");
+    expect(pose).toBeDefined();
+    const world = pose?.build();
+    const set = controlSetForWave(world?.wave ?? 0);
     expect(setHas(set, "guard"), set.id).toBe(true);
     expect(setHas(set, "intake"), set.id).toBe(true);
   });

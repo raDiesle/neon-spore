@@ -119,9 +119,14 @@ describe("THE PULSE draws on all three screens", () => {
     // through the drawing side.
     //
     // The round is played on the **band** now, so the set handed in has to be
-    // one — STANDARD, whose two action lobes carry their names on the panel.
-    // A slab set would draw no buttons here for the same reason it draws none
-    // on any other wave: `panelSlots` has no lobes to place.
+    // one — STANDARD, whose cannon strip is captioned on the panel. A slab set
+    // would draw no strip and no buttons here for the same reason it draws
+    // none on any other wave: `panelSlots` has no lobes to place.
+    //
+    // The evidence used to be the word SUCK on the maw's face. There is no
+    // word on an action button any more (`action-face.ts`), and the two
+    // captions under the strips are what the standard panel writes and the
+    // round's own set does not.
     const labels: string[] = [];
     const world = createWorld(CFG, 5);
     const index = waveWith("pulse");
@@ -137,7 +142,8 @@ describe("THE PULSE draws on all three screens", () => {
       },
       onTick: (_tick, w) => step(w, []),
     });
-    expect(labels).toContain("SUCK");
+    expect(labels).toContain("PLAYER 1 · CANNON");
+    expect(labels).toContain("PLAYER 2 · SHIELD");
     expect(labels).toContain("THE PULSE");
   });
 
