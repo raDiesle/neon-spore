@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-07 · 98ad2038 — The craft half of the SVG loop, and GLASS as its first specimen
+
+`svg-look` could say what to look for and could not say how to make anything. This adds the half that produces detail, translated out of `upbrew-tech/svg-creator-skill` rather than adopted: each recipe is either already implemented here, in which case the skill says call it, or genuinely missing, in which case it says so.
+
 ## 2026-09-07 · de17df5c — The beam is the weapon: the column burns and nothing travels
 
 At the top of the fill the lance no longer fires a bolt. The beam standing in the cannon's column *is* the shot: it burns everything of that colour in the column on the tick it lights, and then stays where it reached for one beat before going out. A rock or a wrong colour still stops it, and the beam ends there rather than pretending to have gone through.
