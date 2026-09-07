@@ -186,7 +186,8 @@ export const WAVES_ACT_7: Wave[] = [
       p2: "The plate is yours and the domes are on your screen. Say your column and say what is crossing it — how many beats until it is clear. They cannot press while a dome is on you, so the count is the whole sentence.",
     },
     entries: [
-      { beat: 0, col: 3, kind: "meteor", color: null },
+      { beat: 0, col: 6, kind: "clasp", color: "red" },
+      { beat: 1, col: 3, kind: "meteor", color: null, size: 2 },
       { beat: 10, col: 6, kind: "coil", color: null },
       { beat: 14, col: 2, kind: "meteor", color: null },
       { beat: 28, col: 6, kind: "coil", color: null },
