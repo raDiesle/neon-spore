@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-07 · de17df5c — The beam is the weapon: the column burns and nothing travels
+
+At the top of the fill the lance no longer fires a bolt. The beam standing in the cannon's column *is* the shot: it burns everything of that colour in the column on the tick it lights, and then stays where it reached for one beat before going out. A rock or a wrong colour still stops it, and the beam ends there rather than pretending to have gone through.
+
 ## 2026-09-07 · b32a5f18 — A drawn picture is built by looking at it, not emitted in one pass
 
 SVG written here comes out thin, and the reason is not taste or file size: a session cannot see what it wrote, so it stays inside the shapes it can predict from the coordinates alone. Without a look, every extra element is a risk rather than an improvement, and the thinness is the ceiling that comes with being blind. The owner named it holding a picture drawn here beside an SVG another model had given him.
