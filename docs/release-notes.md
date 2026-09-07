@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-07 · 6e367068 — THE CHOIR is drawn with the Symbiosis trace, and closes into one
+
+Two drafts of this creature drew two blob contours over each other, which is two bodies with two rims and a lens between them — not the Symbiosis picture. The owner asked for the graphic itself: *use the symbiosis graphic and animation*.
+
+## 2026-09-07 · d119f69f — THE CHOIR is two bodies in one tile, and you can see through it
+
+Third draft of this creature's look, and this one is what was asked for from the start. The first invented three dots inside a grey membrane. The second read HERALD off the drafts page and made three bodies across three lanes. The owner named the subject exactly: shapes like Symbiosis — rounded, two of them, can be in one tile — merging into one that becomes the slick or bulb, and *right now you hide with 3 grey blobs what is behind*.
+
 ## 2026-09-07 · 93ef1ab3 — THE CRAWLER's pulse steps, and a ring's contour is baked once
 
 The owner looked at the `crawler:pulse` pair and could not tell the stepped side from the gliding one. That is the answer the slot was opened for, so sixteen positions ship and both candidates go.
