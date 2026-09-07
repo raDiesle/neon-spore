@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-07 · d15c62d7 — The grip's pause is already drawn, so the ring slot closes
+
+`grip:ring-pause` asked how the field should say that a body just carried a column cannot be carried again for a beat, and offered `latch` — the four arcs stopping until the pause is over. Its premise was that nothing says so today. Something does, and it is louder than a ring that has stopped turning: the two white carry arrows are drawn only while `carryIsReady` (`grip-arrows.ts`), so they go out for the length of the pause and come back with it. `latch` was a second and much quieter statement of the same fact — invisible at the size the ring is actually drawn, and a ring at rest reads as a hand let go while the beam is still pulling. Withdrawn rather than shipped.
+
 ## 2026-09-07 · 22d2cf0d — THE PULSE is the game it is part of: the ship, the panel, and the arrows that hit it
 
 The round replaced the whole picture, on the rule the first three rounds set — the field is gone, not dimmed and not re-skinned. The owner looked at it and asked for the opposite: more integrated, how a regular game with control panel looks, to see the ship and its controls, and buttons in the same style as the default set. He is right, and the rule survives him being right: what a round takes away is the *field* — the eleven columns, the bodies falling down them and the vocabulary that hangs on both — and the hull and the band are not the field. They are what the pair have been holding since wave one.
