@@ -142,6 +142,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## The deploy runs whatever wrangler npm has today, the tests run a pinned one
 
 - **Found:** 2026-09-06, claude/queue-move-apps-server-off-the-miniflare-alpha-when-a
+- **Taken:** 2026-09-07, claude/queue-the-deploy-runs-whatever-wrangler-npm-has-today
 - **Files:** `package.json`, `apps/server/package.json`, `apps/server/dev.ts`
 
 `apps/server` now declares `wrangler`, and `apps/server/test/relay.ts` reads
