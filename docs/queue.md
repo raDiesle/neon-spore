@@ -294,3 +294,25 @@ saying `run bun install in this worktree`. It has to run before `tsc`, because
 the whole point is to replace `tsc`'s answer with the true one. Prove it by
 renaming one package's `node_modules` aside and checking the message, then
 putting it back.
+
+## The relay room test fails under a full `bun test` and passes on its own
+
+- **Found:** 2026-09-07, claude/versus-creature-strand-updates-efa043
+- **Files:** `apps/server/test/room.test.ts`
+
+`a room relays and answers > a ping comes back as a pong carrying both server
+stamps` failed once inside a full `bun test` run — one failure in 60851 — and
+passed immediately when the file was run on its own. The whole run still exited
+0, which is worse than the failure: a suite that reports a red test and returns
+success is a suite whose exit code nobody can read, so a session that sees the
+line has to re-run the file by hand to find out whether it means anything, and
+one that does not read the output at all learns nothing.
+
+Two things to settle, and they are separate. First, why the test is timing
+dependent: it stands up a Durable Object room, sends a ping and waits for the
+pong, and under a loaded machine — 339 files running at once — whatever it
+waits on is not long enough. Either the wait is a fixed timeout that should be
+a poll until the message arrives, or the socket ordering it assumes is only
+usually true. Second, why `bun test` exited 0 with a failure in it; if that is
+a wrapper in `package.json` swallowing the status, the wrapper is the bug and
+every green check taken through it since is worth less than it looked.

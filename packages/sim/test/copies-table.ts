@@ -435,11 +435,7 @@ export const COPIES: Copy[] = [
     owner: "packages/content/src/body-path.ts",
     pattern: /shape\.lobes,\s*shape\.depth/,
     strip: true,
-    also: [
-      "packages/render/src/wisp-body.ts",
-      "packages/render/src/strand-bead.ts",
-      "tools/versus/candidates/creature-strand/mute/paint.ts",
-    ],
+    also: ["packages/render/src/wisp-body.ts", "packages/render/src/strand-bead.ts"],
   },
   {
     // How far round a Throb has turned — which is the same question as whether

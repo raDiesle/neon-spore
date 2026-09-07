@@ -1,7 +1,6 @@
 import { blobPath } from "@neon-spore/content";
 import type { Creature, SimConfig } from "@neon-spore/sim";
 import { contourClock, creatureCenter } from "./creature-place.js";
-import { colorTrio } from "./creature-tint.js";
 import { drawnRow, hazed, nearness } from "./depth.js";
 import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
@@ -12,8 +11,9 @@ import { drawReelStatic, REEL_JUMP, reelAt } from "./strand-reel.js";
 /**
  * Two of the three bodies THE STRAND draws that are **not** an ordinary slick
  * or bulb: the reel player 2 sees in place of one, and the raisin either seat
- * sees once it has been shot. The third is the reel *stopped*, worn by every
- * bead on that screen a shot cannot answer, and it is in `strand-still.ts`.
+ * sees once it has been shot. The third is the same reel with the light taken
+ * out of it, worn by every bead on that screen a shot cannot answer, and it is
+ * in `strand-still.ts`.
  *
  * Its own file beside `strand.ts`, which is the thread and the marks on it.
  * These are contours; that is a line between them, and the two change for
@@ -29,15 +29,19 @@ import { drawReelStatic, REEL_JUMP, reelAt } from "./strand-reel.js";
  *
  * The first answer was a sealed bead: a smooth ovoid with a socket in it,
  * belonging to neither body. It works, and it teaches the pair a third shape
- * to hold. **This one is the owner's, and it is better because it teaches
- * none**: the bead *rolls between the two bodies it could be* — a red slick,
- * then a cyan bulb, colour and all — a slot machine reel that never stops, so
- * what the navigator is looking at says the true thing: it is one of these two
- * and you do not know which.
+ * to hold. **This one is better because it teaches none**: the bead *rolls
+ * between the two bodies it could be* — a slot machine reel that never stops,
+ * so what the navigator is looking at says the true thing: it is one of these
+ * two and you do not know which.
  *
- * Both looks it replaced are parked beside it rather than deleted — the sealed
- * ovoid, and the first reel, which rolled three times as fast and in one
- * neutral violet (`tools/versus/candidates/creature-strand/`).
+ * **In one violet, and not in the two ammunition colours.** The reel wore the
+ * face's own colour for a while — a red slick, then a cyan bulb — on the
+ * argument that a coloured reel says the sharper thing: it is one of *these*,
+ * and which is not yours to know. It was stood beside the violet one on two
+ * phones at tempo and lost (`docs/versus.md`). A bead that is visibly red for
+ * a moment is a bead somebody may call red, and this field is played by saying
+ * colours out loud: violet is the palette's own "no colour", and a reel in it
+ * never asks a pair to treat something they can see as noise.
  *
  * The roll flattens to a line at each swap rather than cutting between the two
  * shapes. A cut at this rate is a strobe; a reel that squashes through zero
@@ -87,6 +91,13 @@ const RAISIN_MUL = 0.42;
 const DEAD = PALETTE.rockDark;
 const DEAD_RIM = PALETTE.sparkDim;
 
+/** The reel's one colour, for both faces: the palette's violet, which is the
+ * hue a wisp wears for the same reason — a body neither trigger names. The
+ * fill is the field's own background, so the reel reads as a hole in the
+ * screen with a lit edge rather than as a body with a colour. */
+const REEL = PALETTE.wisp;
+const REEL_RIM = PALETTE.wispRim;
+
 /** Six shallow lobes on an ovoid — the raisin's contour, and nothing else's.
  * Six is free: slick is 2, dart 3, wisp 5, throb 6 and round where this is
  * not. */
@@ -94,8 +105,9 @@ const RAISIN_LOBES = 6;
 
 /**
  * Everything a bead draw needs. A record rather than eight arguments, because
- * the two halves of this file and the candidate parked beside it all take the
- * same set and a candidate that took a different one could not be swapped in.
+ * the two halves of this file and any candidate offered against them all take
+ * the same set, and a candidate that took a different one could not be swapped
+ * in.
  */
 export interface Bead {
   ctx: CanvasRenderingContext2D;
@@ -112,7 +124,7 @@ export interface Bead {
 
 /**
  * How the navigator's live bead is drawn — the one field a candidate look
- * patches (`tools/versus/candidates/creature-strand/sealed`).
+ * patches.
  *
  * A record rather than a direct call, so a second answer to "what does a body
  * of unknown colour look like" can be held beside this one at tempo, on a
@@ -130,23 +142,20 @@ export function drawReelBead(b: Bead): void {
   const { ctx, l, cfg, c, time, near } = b;
   const haze = (h: string): string => hazed(cfg, h, near);
   const f = reelFrame(l, c, b.beatPhase, time);
-  const { color, flat } = reelAt(c.id, time);
-  // The face's own colour, not the bead's: a red slick, then a cyan bulb, and
-  // never a hint of which of the two this body really is (`strand-reel.ts`).
-  const tint = colorTrio(color);
+  const { flat } = reelAt(c.id, time);
   const rx = f.scale * f.shape.rx;
   const ry = f.scale * f.shape.ry * f.squash.sy;
   const y = f.y + f.jump;
   const body = new Path2D(
     blobPath(f.x, y, rx, ry, f.shape.lobes, f.shape.depth, f.shape.wobble, f.t, f.shape.seed),
   );
-  ctx.fillStyle = haze(tint.dark);
+  ctx.fillStyle = haze(PALETTE.background);
   ctx.fill(body);
-  strokeGlow(ctx, body, haze(tint.hex), STROKE.outline);
-  drawReelStatic(ctx, body, c.id, time, rx, ry, f.x, y, haze(tint.rim));
+  strokeGlow(ctx, body, haze(REEL), STROKE.outline);
+  drawReelStatic(ctx, body, c.id, time, rx, ry, f.x, y, haze(REEL_RIM));
   // A rim of light that swells as the reel comes flat, so the swap reads as
   // the body catching the light on its edge rather than as a shape blinking.
-  halo(ctx, f.x, y, f.r * 1.8, haze(tint.rim), 0.1 + 0.18 * (1 - flat));
+  halo(ctx, f.x, y, f.r * 1.8, haze(REEL_RIM), 0.1 + 0.18 * (1 - flat));
 }
 
 /**
@@ -155,9 +164,9 @@ export function drawReelBead(b: Bead): void {
  * local units and the squash the roll is at.
  *
  * Its own function rather than four lines inside the draw, because the still
- * bead below stands in exactly the same place and must not drift from it: a
- * bead that changed size or row on the frame it stopped rolling would read as
- * two different bodies.
+ * bead in `strand-still.ts` rolls on exactly the same clock and stands in
+ * exactly the same place, and must not drift from it: a bead that changed size,
+ * row or face on the frame it became answerable would read as two bodies.
  */
 export function reelFrame(l: Layout, c: Creature, beatPhase: number, time: number): ReelFrame {
   const { shape, flat, face } = reelAt(c.id, time);

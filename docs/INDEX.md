@@ -698,7 +698,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/fence-skull.ts` | **The skull the current draws over the dome when the wall above it is shut.** A fence is answered by the… |
 | `packages/render/src/grip-arrows.ts` | THE PUSH, said before it happens: the two white arrows beside a held rock, and the beat they go out for |
 | `packages/render/src/effects-ship.ts` | the ship's own clocks: the swallow, the fire opening, the deflection flash, the queen's shudder |
-| `packages/render/src/strand-still.ts` | One live bead on the navigator's screen that **no shot can answer this instant**: the reel stopped |
+| `packages/render/src/strand-still.ts` | One live bead on the navigator's screen that **no shot can answer this instant**: the reel drawn as a grey outline |
 | `packages/render/src/maze-timer.ts` | THE MAZE's clock, drawn on the outside of the heart |
 | `packages/render/src/choir-arrows.ts` | **THE CHOIR's two arrows**: the way to open a membrane on a device that cannot tell you it has been shaken |
 | `packages/render/src/choir-prompt.ts` | **The instruction over a membrane**: a scan frame around the middle dot with the gesture written under it |

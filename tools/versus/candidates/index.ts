@@ -1,10 +1,7 @@
 import type { Variant } from "../variant.js";
 // region: candidates
 import { SHOT_STREAK } from "./cannon-shot/streak/index.js";
-import { MAGNET_HOOKED } from "./creature-magnet/hooked/index.js";
 import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
-import { STRAND_MUTE } from "./creature-strand/mute/index.js";
-import { STRAND_SEALED } from "./creature-strand/sealed/index.js";
 import { PANEL_EMBLEM } from "./panel-action/emblem/index.js";
 // endregion
 
@@ -44,6 +41,15 @@ import { PANEL_EMBLEM } from "./panel-action/emblem/index.js";
  * must not say. The owner could not see the difference on the pair; magnified
  * six times it is there and on a phone it is not.
  *
+ * `creature:strand` left with its slot decided rather than closed. Two of its
+ * three candidates lost — the sealed ovoid, which teaches a third shape, and
+ * `hooked` beside it in the magnet's slot — and `mute` **won and shipped**: the
+ * reel rolls at six swaps a second in one violet, which is what
+ * `strand-bead.ts` and `strand-reel.ts` now draw. The colour was the whole of
+ * the argument. A reel wearing each face's real colour says the sharper thing
+ * on paper — *it is one of these two* — and on a phone it puts a red body in
+ * front of a navigator who is about to say a colour out loud.
+ *
  * `crawler:pulse` left the same way, and by the answer a vote is *most* worth
  * having: the owner looked at the pair and could not tell which side was
  * stepped. That is not a tie. The slot asked whether a quantised contraction
@@ -53,11 +59,4 @@ import { PANEL_EMBLEM } from "./panel-action/emblem/index.js";
  * `fine` went with it: it existed only to buy back half a step nobody could
  * see the whole of.
  */
-export const VARIANTS: Variant[] = [
-  SHOT_STREAK,
-  METEOR_FORGE,
-  MAGNET_HOOKED,
-  STRAND_SEALED,
-  STRAND_MUTE,
-  PANEL_EMBLEM,
-];
+export const VARIANTS: Variant[] = [SHOT_STREAK, METEOR_FORGE, PANEL_EMBLEM];
