@@ -17,6 +17,22 @@ A new arrival, and the first body in this game where a mistake is an absence rat
 
 `svg-look` could say what to look for and could not say how to make anything. This adds the half that produces detail, translated out of `upbrew-tech/svg-creator-skill` rather than adopted: each recipe is either already implemented here, in which case the skill says call it, or genuinely missing, in which case it says so.
 
+## 2026-09-07 · 378049c — Fix the rebase against THE CHOIR's rework and THE PULSE landing on main
+
+Rebasing THE BALLOON onto a trunk that had moved 34 commits (THE PULSE, and THE CHOIR reworked from three dots to two bodies with a separate opening and closing) needed four follow-up fixes past the conflict resolution itself:
+
+## 2026-09-07 · 0497dcf — `bun run frames --hold` can take a hand that is not the pilot's
+
+A capture could hold the maze's string, the warden's rope, the lid's cord and the choir's two arrows, and every one of them was sent as player 1 because every handle in the game was the pilot's. THE BALLOON has one per seat, and the only state it can be photographed giving in is both sides held at once — so a lane that added it could not photograph the thing it had added.
+
+## 2026-09-07 · cff95b1 — Frame tests get the cap the harness only ever gave to one of them
+
+`frame-harness.ts` calls `setDefaultTimeout(FRAME_TIMEOUT_MS)` at module scope and its header said importing it was what applied the cap — "none of them has to remember a number". That was never true of more than one file: bun applies the call to the file it is *in*, and a module is evaluated once, by whichever frame test imports it first, so the other forty-two have been running on bun's five-second default since they were written. It surfaced as `crawler-frame` at 5017 ms and `fence-frame` at 5414 ms inside a check both pass in four seconds on their own. Each file asks for the cap itself now; the constant stays in the harness, so there is still only one of the number.
+
+## 2026-09-07 · 2d2c1fa — THE BALLOON: a body that goes up, and two hands that stop it
+
+The first arrival neither panel can touch. It appears out of nothing one row above the ship, swells there, then climbs a row and a lane every beat, turning at the side walls, and at the top of the field it bursts and the hull pays for it wherever the ship is standing. No bolt lands on it in any colour. What answers it is two hands at the same instant — the pilot carries the handle on its left leftward and the navigator the one on its right rightward — and while both are taut the skin gives: the first rub splits it into two smaller ones that swell again before climbing on, the second pops them for nothing. A wave sends several at once on purpose, so the only sentence left is which one.
+
 ## 2026-09-07 · de17df5c — The beam is the weapon: the column burns and nothing travels
 
 At the top of the fill the lance no longer fires a bolt. The beam standing in the cannon's column *is* the shot: it burns everything of that colour in the column on the tick it lights, and then stays where it reached for one beat before going out. A rock or a wrong colour still stops it, and the beam ends there rather than pretending to have gone through.
