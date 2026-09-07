@@ -76,6 +76,12 @@ export {
   type IntroFigure,
   type IntroPage,
 } from "./intro.js";
+export {
+  type DeskKey,
+  deskKey,
+  deskKeys,
+  deskSlideKeys,
+} from "./keys-desk.js";
 export { LID, type LidSilhouette, lidOutline, lidPath } from "./lid-shape.js";
 export { KEY, LIGHT_HALF, type LightHalf } from "./light.js";
 // Which kinds are bodies, and what each one looks like — the contour and the

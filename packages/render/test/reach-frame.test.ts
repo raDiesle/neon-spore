@@ -8,8 +8,17 @@ import {
   type TimedCommand,
   ticksPerBeat,
 } from "@neon-spore/sim";
-import type { ViewRole } from "../src/layout.js";
-import { CFG, installCanvasGlobals, ROLES, runFrames, waveOnPanel } from "./frame-harness.js";
+import { computeLayout, type ViewRole } from "../src/layout.js";
+import { drawReachArm } from "../src/reach-arm.js";
+import { stubCanvas } from "./canvas-stub.js";
+import {
+  CFG,
+  installCanvasGlobals,
+  ROLES,
+  runFrames,
+  VIEWPORT,
+  waveOnPanel,
+} from "./frame-harness.js";
 
 /**
  * THE CLAW's panel, drawn — and it is drawn by every pass the ordinary field
@@ -82,6 +91,33 @@ describe("THE CLAW's panel draws on all three screens", () => {
       expect(ctx.calls).toBeGreaterThan(500);
     });
   }
+
+  /**
+   * The owner's correction, as the one assertion that can hold it: *the claw
+   * is there before it is used*. It used to be drawn only while it was out, so
+   * a press made a hand appear on top of the swelling out of nothing; now the
+   * fingers sit folded on the crown and a press only moves them. The subject
+   * is the pass rather than a whole frame, because a whole frame draws five
+   * hundred other things and would say nothing about this one.
+   */
+  it("draws the folded arm on a panel that carries it, out or not", () => {
+    const l = computeLayout(VIEWPORT, CFG, "test");
+    const world = createWorld(CFG, 5);
+    const index = clawWave();
+    startWave(world, index, buildQueue(index, CFG.cols), buildPods(index, CFG.cols));
+    expect(world.reachDir).toBe(0);
+    const surface = () => l.hullY;
+
+    const home = stubCanvas();
+    drawReachArm(home.ctx as never, l, world, surface, true, l.width / 2);
+    expect(home.ctx.calls).toBeGreaterThan(0);
+
+    // And nothing at all on every other panel in the game, where the swelling
+    // is a gun and the mouth `hull.ts` draws in it is the picture.
+    const gun = stubCanvas();
+    drawReachArm(gun.ctx as never, l, world, surface, false, l.width / 2);
+    expect(gun.ctx.calls).toBe(0);
+  });
 
   it("really sent the arm out, closed it on something and brought it home", () => {
     const { seen } = clawFrames("test", TICKS);

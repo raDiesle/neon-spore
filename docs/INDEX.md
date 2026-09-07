@@ -380,6 +380,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-gap.ts` | THE GAP's rehearsal: the wall moves its opening, and only one of them can see where it went |
 | `packages/content/src/control-sets-keys.ts` | Whether a panel answers a command — what the desk keyboard is gated by |
 | `packages/content/src/waves/act-7b.ts` | The second half of act seven, cut off `act-7.ts` when THE COIL was split into two waves and that file reached… |
+| `packages/content/src/keys-desk.ts` | which control a desk key stands for on a panel — a seat and a slot, never a letter per button |
 
 ### packages/render
 
@@ -752,7 +753,6 @@ place — the generator keeps whatever is there.
 | `apps/game/src/key-hint.ts` | a keyboard hint for the player who sits at a PC with no panel to read the keys off |
 | `apps/game/src/raster.ts` | the baked burst, in the real game, behind a flag |
 | `apps/game/src/view.ts` | the view switch, always on screen |
-| `apps/game/src/keys-round.ts` | The keys that belong to a round rather than to the field |
 | `apps/game/src/snake.ts` | The host's half of SNAKE: the four thumbs that play it |
 | `apps/game/src/pinball.ts` | The host's half of PINBALL: the four thumbs that play it |
 | `apps/game/src/install.ts` | The home-screen shortcut, and the service worker that makes one possible |

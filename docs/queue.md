@@ -161,3 +161,57 @@ goes, beside the traps that file already collects. The alternative — a line in
 that document saying "put it under `packages/render/`" — is cheaper and worse:
 it makes an unrelated package the place scratch files live, and nothing sweeps
 them up.
+
+
+## The director's keyboard is a hand-typed copy of a table it could now call
+
+- **Found:** 2026-09-07, claude/queue-status-check-kydfx5
+- **Files:** `tools/director/src/keys.ts`, `tools/director/src/key-help.ts`, `tools/director/src/stage.ts`
+
+`apps/game`'s keyboard no longer knows a letter per control: a key is a seat
+and a slot on the wave's panel, and `packages/content/src/keys-desk.ts` is the
+one table that answers which. The director still carries the old arrangement
+typed out by hand — `KEY_BINDINGS` plus a `switch` that is a second copy of it
+— with THE GAUGE on Z/X/C and THE FLEET on U/H/N/K, and nothing at all for THE
+CLAW, PINBALL or SNAKE. Its own header says the two are typed out twice and
+that the game is right when they disagree; they disagree now.
+
+The header's reason for the copy is gone: it says `apps/game` is an
+application a tool may not reach into, and that was true when the answer lived
+there. It lives in `@neon-spore/content` now, which `tools/director` already
+depends on.
+
+Replace both the table and the `switch` with `deskKey(set, code)` and
+`controlPress`, the way `apps/game/src/keys.ts` does. `bindKeys` has to be
+handed the panel — `controls: () => ControlSet`, read fresh, because the
+director edits a draft list and `controlSetForWave` would answer about
+whatever was last saved (`ViewState.controls` says why in as many words). The
+stage knows which wave it is standing on and is the caller. `KEY_BINDINGS`
+becomes `deskKeys(set)` read through the same call, so `key-help.ts` prints
+the keys of the panel actually on the stage rather than a fixed list; A/D
+carrying both seats and G taking hold of a body stay where they are, because
+neither is a control on any panel.
+
+
+## A frame test is 5.1 s against a 5 s cap, so a full run fails on a busy machine
+
+- **Found:** 2026-09-07, claude/queue-status-check-kydfx5
+- **Files:** `packages/render/test/fence-frame.test.ts`, `packages/render/test/frame-harness.ts`
+
+`the fence > draws a crack for the pilot and never for the navigator` timed out
+at 5126 ms inside `bun run check` and then passed on its own in 3.9 s for the
+whole file. Nothing is wrong with it: it is simply close enough to bun's
+default five-second cap that the rest of the suite running beside it pushes it
+over, so a green tree reports one red test and the next session re-runs the
+check to find out it was nothing. That retry costs every later session the same
+minutes.
+
+It draws a whole wave of frames per case and there are nine of them. Two
+things would fix it and either is enough: give the file the ticks it actually
+needs rather than a beat count copied from the other frame tests — most of the
+run happens after the crack it is asserting about — or hand `runFrames` a
+`timeout` the frame tests set once, so the cap is stated where the cost is
+rather than inherited from the runner's default. Check the other files in
+`packages/render/test` that use `runFrames` for the same margin while you are
+in there; the fence's is the first to cross, not the only one near it.
+

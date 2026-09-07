@@ -1,6 +1,8 @@
 import {
   CONTROL_SETS,
+  type ControlDef,
   type ControlSet,
+  deskKeys,
   heldBack,
   panelForm,
   setControls,
@@ -68,20 +70,28 @@ const PHONE: [string, string][] = [
   ],
 ];
 
-/** Read off `bindControls` in `keys.ts`. One row per key a tester presses. */
+/**
+ * The keys that are **nobody's button**, which is the only list this page can
+ * type out.
+ *
+ * Every other key belongs to a *slot* on the panel rather than to a control
+ * (`content/src/keys-desk.ts`), so what A or I or Q does is a question about
+ * the wave in front of you — and the answer is printed against each panel
+ * above, off the same table the keyboard reads. A second copy here would be
+ * one more list to keep in step with eleven rounds still to come.
+ */
 const KEYS: [string, string][] = [
-  ["A / D", "The cannon, and the shield along with it."],
-  ["J / L", "The shield on its own."],
-  ["I", "The guard trigger."],
-  ["S", "The maw, to take a loose pod in."],
-  ["H", "Hold the wave's malfunction off for two beats. Nothing on a wave with none."],
-  ["F", "Hold the lance. Three beats with the cannon still, then one shot goes through three."],
-  ["W", "Fire red — and guard in the same press."],
-  ["E", "Fire cyan."],
   ["G", "Hold the nearest creature — the grip, as the other player."],
   [", / .", "Carry the held creature a column left or right. Nothing without G held."],
+  [
+    "W",
+    "Fire red and guard in one press, on a panel that has both. Not a button: a shortcut for one person playing two seats.",
+  ],
   ["SPACE", "Hold the wave's guide down, both seats at once. F and G hold one seat each."],
-  ["← / →", "The previous and the next wave."],
+  [
+    "← / →",
+    "The previous and the next wave — except on a panel that walks something across the field, where they are its.",
+  ],
   ["P", "Pause."],
   ["ESC", "This menu. It pauses the game while it is up, when you are playing alone."],
 ];
@@ -123,7 +133,7 @@ export function buildControls(show: (page: MenuPage) => void, back: MenuPage): H
     el(
       "p",
       "lead",
-      "One person playing both seats on a keyboard — the rig, not the game. Every key below is one of the buttons above.",
+      "One person playing both seats on a keyboard — the rig, not the game. A key belongs to a place on the panel and not to a control, so the same key is the guard on one wave and the arm on the next: A and D carry player 1's sideways thing and J and L player 2's, I and S are player 1's buttons, Q and E are player 2's, and the arrows are whatever a panel walks across the field. Each panel above says which is which. What is left is the handful below, which no panel owns.",
     ),
   );
   const table = el("table", "keys");
@@ -180,13 +190,33 @@ function panelBlock(set: ControlSet): HTMLElement {
     }
     for (const c of has) {
       const row = el("div", "control");
-      row.append(el("span", "name", seatLabel(c.label)), el("span", "s", c.does));
+      row.append(
+        el("span", "name", seatLabel(c.label)),
+        el("span", "key", deskLabel(set, c)),
+        el("span", "s", c.does),
+      );
       list.append(row);
     }
     seat.append(list);
     block.append(seat);
   }
   return block;
+}
+
+/**
+ * Which key this control is on, on this panel — read off the same table the
+ * keyboard itself reads, never typed out beside it.
+ *
+ * A strip takes both keys of its seat's sideways pair and reads as "A / D";
+ * everything else takes one. A control with none would be a button no desk can
+ * reach, which `content/test/keys-desk.test.ts` refuses, so the empty string
+ * here is a case that cannot happen rather than one this page hides.
+ */
+function deskLabel(set: ControlSet, c: ControlDef): string {
+  const codes = deskKeys(set)
+    .filter((k) => k.control === c.id)
+    .map((k) => k.code.replace("Key", "").replace("Arrow", "").toUpperCase());
+  return codes.join(" / ");
 }
 
 /**

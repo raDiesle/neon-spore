@@ -27,8 +27,14 @@ export function showKeyHint(canvas: HTMLCanvasElement): void {
   // A class as well as the inline styles, so `menu.css` can put it away while
   // a sheet is over the field — see below.
   hint.className = "key-hint";
+  // A key belongs to a place on the panel rather than to a control
+  // (`content/src/keys-desk.ts`), so this names the *places* — which do not
+  // change from wave to wave — instead of the buttons, which do. The panel on
+  // screen is what says what is in each place, and CONTROLS in the menu prints
+  // it panel by panel.
   hint.textContent =
-    "Keyboard — A/D move · Q/W/E fire · S intake · F lance · G grip · ,/. carry\n" +
+    "Keyboard — A/D and J/L slide · I and S are P1's buttons · Q and E are P2's\n" +
+    "Each is whatever this wave's panel puts there · W fires red and guards · G grip · ,/. carry\n" +
     "On a guide — hold F and G, one seat each, or Space for both" +
     "   Mouse — drag a strip, click a lobe";
   Object.assign(hint.style, {

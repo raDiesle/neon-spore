@@ -1,8 +1,9 @@
 import { priming, type World } from "@neon-spore/sim";
 import { halo } from "./glow.js";
-import { cannonTip, type HullMood, type LobePositions } from "./hull.js";
+import type { HullMood, LobePositions } from "./hull.js";
 import type { HullFrame } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
+import { cannonTip } from "./muzzle.js";
 import { PALETTE } from "./palette.js";
 
 /**

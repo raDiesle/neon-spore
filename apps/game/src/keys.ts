@@ -1,10 +1,9 @@
-import { type ControlSet, panelSends } from "@neon-spore/content";
+import { type ControlSet, controlPress, deskKey, panelSends } from "@neon-spore/content";
 import type { Layout } from "@neon-spore/render";
 import { type Command, type Creature, midCol, type SimConfig } from "@neon-spore/sim";
 import type { InputBuffer } from "./input.js";
 import { deskGrip } from "./keys-grip.js";
 import { guideKeyDown } from "./keys-guide.js";
-import { roundKeyDown, roundKeyUp } from "./keys-round.js";
 import { bindSliding } from "./keys-slide.js";
 
 /**
@@ -28,8 +27,6 @@ export interface KeyBindings {
    * (`sim/step.ts`); the touch dismiss guards on this for the same reason.
    */
   guideHolds: () => boolean;
-  /** Whether SNAKE has the world: the arrows are the body's while it does. */
-  snakeHolds: () => boolean;
   onPauseToggle: () => void;
   onWaveStep: (delta: number) => void;
   /** R, behind a guide: the desk's REPLAY (`render/guide-nav.ts`). */
@@ -43,15 +40,27 @@ export interface KeyBindings {
 }
 
 /**
- * A/D slide the cannon *and* the shield together, J/L move the shield alone.
- * Holding any of them keeps sliding: one step on keydown, then steps on a
- * repeat timer driven by `tick()` — the sim tick, not wall-clock time.
+ * **A key belongs to the panel, not to a control**, and that is the whole
+ * shape of this file now.
  *
- * F and G are the two keys that are *held* rather than pressed: the lance and
- * the grip. Both send a second command on the keyup, because nothing in the
- * simulation ends either on its own. Behind a wave's guide those same two keys
- * are the ready gate's two halves — one seat each — and Space is both at once
- * for the desk player who is both seats.
+ * It used to be a switch with a case per button, and a second switch next door
+ * with a case per *round's* button — so every panel invented since had cost a
+ * letter of its own, and THE CLAW's arm and mouth had ended up on M and O,
+ * which nobody could be expected to find. The owner ended it: *the game
+ * control keys should reuse the existing primary keys, so each key has several
+ * actions depending on the active control set.* `content/src/keys-desk.ts` is
+ * that rule — a seat's sideways pair, its two press keys, and the arrows for
+ * whatever a panel walks across the field — and this file asks it one question
+ * per press.
+ *
+ * What is left here is everything that is **nobody's button**. The grip and
+ * the two keys that carry a held body, the ready gate's F, G and Space, pause,
+ * replay, restart and the wave step are the host talking to a run rather than
+ * a seat talking to a ship, so they keep fixed keys — the same four kinds
+ * `panelSends` lets past its own gate (`control-sets-keys.ts`). W is the one
+ * survivor of the old switch and it is not a button either: it is red and a
+ * guard in one press, for the person at a desk who is both seats, and on a
+ * panel carrying neither it says nothing.
  *
  * **The keyboard is gated by the wave's control set**, and it used to be the
  * opposite. The argument for leaving it open was that this file is the desk
@@ -65,9 +74,7 @@ export interface KeyBindings {
  * game rather than standing in for a thumb.
  *
  * The gate is `panelSends`, asked once around the buffer rather than at each
- * of the twenty pushes below, so a key added here cannot forget it. The four
- * commands that are nobody's button — `restart`, the guide's two and the grip —
- * pass regardless, and that list is `control-sets-keys.ts`'s.
+ * of the pushes below, so a key added here cannot forget it.
  */
 export function bindKeys({
   buffer,
@@ -76,7 +83,6 @@ export function bindKeys({
   isOver,
   creatures,
   guideHolds,
-  snakeHolds,
   onPauseToggle,
   onWaveStep,
   onGuideReplay,
@@ -85,7 +91,7 @@ export function bindKeys({
   /**
    * Every press this file makes, with the wave's own panel in front of it.
    *
-   * One gate rather than twenty conditions — see the header — so a key added
+   * One gate rather than a condition per key — see the header — so a key added
    * below cannot forget it, and a key that means nothing on this panel sends
    * nothing rather than something invisible. `send` and not `buffer.push`
    * everywhere in here, deliberately: the only way to reach the buffer
@@ -98,9 +104,9 @@ export function bindKeys({
 
   const grip = deskGrip(cfg);
   const held = new Set<string>();
-  /** The four keys that slide a swelling and repeat while held, and nothing
+  /** The two keys under each hand that carry something sideways, and nothing
    * else in this file has to know they have a timer (`keys-slide.ts`). */
-  const sliding = bindSliding(layout, midCol(cfg), send);
+  const sliding = bindSliding(layout, midCol(cfg), send, controls);
 
   /** Whatever this key means to a wave's guide, if one is up. `false` when it
    * meant nothing there and the key is still the ship's (`keys-guide.ts`). */
@@ -111,43 +117,41 @@ export function bindKeys({
     return presses.length > 0;
   };
 
+  /**
+   * Whatever this panel puts on this key, pressed. `false` when the panel puts
+   * nothing there and the key is one of the host's below.
+   *
+   * The sideways pairs are `sliding`'s and are asked first: a strip is a
+   * column somebody has to count and a held direction has a release, neither
+   * of which is one press of one command.
+   */
+  const panelKey = (code: string): boolean => {
+    const key = deskKey(controls(), code);
+    if (key === undefined) return false;
+    send(key.player, controlPress(key.control).down);
+    return true;
+  };
+
   window.addEventListener("keydown", (e) => {
     if (held.has(e.code)) return;
     held.add(e.code);
-    // Never the page's scroll: every arrow means something here.
-    if (e.code.startsWith("Arrow")) e.preventDefault();
+    // Never the page's scroll: every arrow means something here, and Space is
+    // the ready gate rather than a page jump.
+    if (e.code.startsWith("Arrow") || e.code === "Space") e.preventDefault();
+    // A guide is up, and it owns its own keys before the ship gets them: F and
+    // G are the ready gate's two halves, one seat each, Space is both at once
+    // for the desk player who is both seats, and the sideways arrows turn its
+    // pages (`keys-guide.ts`).
+    if (guideKey(e.code)) return;
     if (sliding.down(e.code)) return;
+    if (panelKey(e.code)) return;
     switch (e.code) {
-      case "KeyI":
-        send(1, { kind: "guard" });
-        break;
-      case "KeyS":
-        send(1, { kind: "intake" });
-        break;
-      // F holds the lance, as player 1. Held, not tapped: the lobe fills for
-      // as long as the key is down and empties on the keyup below, which is
-      // the same contract the thumb on the band has (`sim/lance.ts`).
-      //
-      // On a phone this key's button is on one panel only — the LANCE PANEL,
-      // which a wave has to name. At a desk it is always here; see the note
-      // above `bindKeys`.
-      case "KeyF":
-        // Behind a guide it is player 1's half of the ready gate (`keys-guide.ts`).
-        if (guideKey("KeyF")) break;
-        send(1, { kind: "prime", on: true });
-        break;
+      // Red *and* a guard, in one press. Not a button on any panel: it is one
+      // whole defence for the person at a desk playing both seats, and two
+      // gestures for THE MIRROR, which is why Q on its own is still red alone.
       case "KeyW":
         send(2, { kind: "fire", color: "red" });
         send(1, { kind: "guard" });
-        break;
-      // Red on its own. W sends red *and* a guard, which is one press for a
-      // whole defence and two gestures for THE MIRROR — a sequence asking for
-      // a red shot and nothing else cannot be answered with it.
-      case "KeyQ":
-        send(2, { kind: "fire", color: "red" });
-        break;
-      case "KeyE":
-        send(2, { kind: "fire", color: "cyan" });
         break;
       // G takes hold of whatever is nearest the hull, **as player 2**. On a
       // phone the grip is a finger on the field and either player may use it;
@@ -156,12 +160,9 @@ export function bindKeys({
       //
       // On THE WARDEN it is the rope instead, and that one is player 1's: the
       // seat is whatever `keys-grip.ts` says it is, per press.
-      case "KeyG": {
-        // And G is player 2's half, for the same reason F is player 1's.
-        if (guideKey("KeyG")) break;
+      case "KeyG":
         for (const p of grip.take(creatures(), 2)) send(p.player, p.command);
         break;
-      }
       // THE PUSH, which on a phone is the same thumb sliding sideways and here
       // has to be keys of its own. They sit under the same hand as G and mean
       // nothing without it: one press carries the held body one column further
@@ -173,15 +174,6 @@ export function bindKeys({
       case "Period":
         for (const p of grip.carry(1)) send(p.player, p.command);
         break;
-      // Space is both seats at once, for the person at a desk playing both of
-      // them — the same answer the director's stage gives in `TEST`.
-      case "Space":
-        e.preventDefault();
-        guideKey("Space");
-        break;
-      // Whichever round has taken the panel away — THE GAUGE's valve and
-      // call, THE FLEET's sights and salvo. One table next door rather than a
-      // dozen more cases here (`keys-round.ts`).
       case "KeyP":
         onPauseToggle();
         break;
@@ -194,23 +186,21 @@ export function bindKeys({
       case "Enter":
         if (isOver()) send(1, { kind: "restart" });
         break;
-      default: {
-        // The arrows are the last word here: SNAKE takes all four while it has
-        // the world, and otherwise the sideways two step between waves.
-        const round = roundKeyDown(e.code, snakeHolds());
-        if (round) send(round.player, round.command);
-        // The sideways two turn a guide's pages while one is up, and step
-        // between waves otherwise (`keys-guide.ts`).
-        else if (e.code === "ArrowRight" || e.code === "ArrowLeft") {
-          if (!guideKey(e.code)) onWaveStep(e.code === "ArrowLeft" ? -1 : 1);
-        }
+      // The sideways arrows are the last word here, and only on a panel that
+      // walks nothing across the field: a chart's sights and a snake's turns
+      // took them above, the way the band takes them from the thumb.
+      case "ArrowLeft":
+        onWaveStep(-1);
         break;
-      }
+      case "ArrowRight":
+        onWaveStep(1);
+        break;
+      default:
+        break;
     }
   });
   window.addEventListener("keyup", (e) => {
     held.delete(e.code);
-    sliding.up(e.code);
     // Unconditionally: a release arriving after the wave started is a no-op in
     // the simulation, while one skipped because the guide had *just* gone
     // would leave a thumb pressed on nobody's screen (`sim/briefing.ts`).
@@ -218,9 +208,12 @@ export function bindKeys({
     if (e.code === "Space" || e.code === "KeyF") send(1, off);
     if (e.code === "Space" || e.code === "KeyG") send(2, off);
     if (e.code === "KeyG") for (const p of grip.release()) send(p.player, p.command);
-    if (e.code === "KeyF") send(1, { kind: "prime", on: false });
-    const round = roundKeyUp(e.code);
-    if (round) send(round.player, round.command);
+    if (sliding.up(e.code)) return;
+    // And whatever this panel puts on this key, let go — present on exactly
+    // the controls a thumb stays on (`content/src/control-command.ts`).
+    const key = deskKey(controls(), e.code);
+    const release = key === undefined ? undefined : controlPress(key.control).up;
+    if (key !== undefined && release !== undefined) send(key.player, release);
   });
 
   /** Called once per sim tick to advance held-key repeats. */

@@ -50,8 +50,6 @@ function desk(guideUp: boolean, panel: ControlSetId = DEFAULT_CONTROL_SET_ID) {
     isOver: () => false,
     creatures: () => [],
     guideHolds: () => guideUp,
-    // The arrows are the wave step here: no round is running in this rig.
-    snakeHolds: () => false,
     onPauseToggle: () => {},
     onWaveStep: () => {},
     onGuideReplay: () => {},
@@ -110,17 +108,30 @@ describe("holding the ready gate at a desk", () => {
     }
   });
 
-  it("leaves F and G alone when no guide is up — they are still the lance and the grip", () => {
-    // On the panel that *has* a lance. The keyboard is gated by the wave's own
-    // control set now, so F on the ordinary panel is a key for a button that
-    // is not there — see the case below, which is the other half of the same
-    // rule.
+  it("leaves F and G alone when no guide is up — neither is a button on any panel", () => {
+    // F and G are the gate's two halves and nothing else. The lance used to be
+    // on F and is on S now, because a key belongs to a *slot* on the panel
+    // rather than to a control (`content/src/keys-desk.ts`) — so with no guide
+    // up these two say nothing at all, and the grip is G's own business.
     const d = desk(false, "lance");
     d.down("KeyF");
-    d.down("KeyG");
     expect(d.briefs(1)).toEqual([]);
-    expect(d.briefs(2)).toEqual([]);
+    expect(d.sent.some((c) => c.command.kind === "prime")).toBe(false);
+    d.down("KeyS");
     expect(d.sent.some((c) => c.command.kind === "prime")).toBe(true);
+  });
+
+  it("holds a control the panel puts on a key, and lets it go", () => {
+    // The lance is held, and nothing in the simulation empties it on its own.
+    // Which key it is on is the panel's answer; that a held one has a release
+    // is `controlPress`', and this is the two of them meeting.
+    const d = desk(false, "lance");
+    d.down("KeyS");
+    d.up("KeyS");
+    const primes = d.sent
+      .filter((c) => c.command.kind === "prime")
+      .map((c) => (c.command as { on?: boolean }).on);
+    expect(primes).toEqual([true, false]);
   });
 
   /**
@@ -136,13 +147,35 @@ describe("holding the ready gate at a desk", () => {
     claw.down("KeyW");
     expect(claw.sent.some((c) => c.command.kind === "fire")).toBe(false);
     expect(claw.sent.some((c) => c.command.kind === "guard")).toBe(false);
-    // And the arm, which is the one thing this panel does answer.
-    claw.down("KeyM");
+    // And the arm, which is the one thing this panel does answer — on player
+    // 1's first press key, where the guard stands on the standard panel.
+    claw.down("KeyI");
     expect(claw.sent.some((c) => c.command.kind === "reach")).toBe(true);
 
     const standard = desk(false);
     standard.down("KeyW");
     expect(standard.sent.some((c) => c.command.kind === "fire")).toBe(true);
+  });
+
+  it("gives one key several meanings, and the panel picks", () => {
+    // The owner's rule, driven rather than read: I is the guard on the panel
+    // almost every wave carries and the arm on THE CLAW's, and neither panel
+    // needed a letter of its own for it.
+    const standard = desk(false);
+    standard.down("KeyI");
+    expect(standard.sent.some((c) => c.command.kind === "guard")).toBe(true);
+    expect(standard.sent.some((c) => c.command.kind === "reach")).toBe(false);
+
+    const claw = desk(false, "claw");
+    claw.down("KeyI");
+    expect(claw.sent.some((c) => c.command.kind === "reach")).toBe(true);
+    expect(claw.sent.some((c) => c.command.kind === "guard")).toBe(false);
+
+    // And the mouth moves to the other seat with the panel, so player 2's
+    // first key is red on one and the maw on the other.
+    claw.down("KeyQ");
+    const maw = claw.sent.find((c) => c.command.kind === "intake");
+    expect(maw?.player).toBe(2);
   });
 
   it("says nothing at all on Space before the guide is up", () => {

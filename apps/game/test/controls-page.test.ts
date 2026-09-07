@@ -80,8 +80,18 @@ describe("the controls page", () => {
   });
 
   it("still carries the keys, for the one person playing both seats", () => {
-    for (const key of ["A / D", "J / L", "ESC", "SPACE"]) {
+    for (const key of ["ESC", "SPACE"]) {
       expect(src, `the desk's table never says "${key}"`).toContain(key);
     }
+  });
+
+  it("reads a control's key off the table the keyboard reads", () => {
+    // A key belongs to a slot on the panel and not to a control
+    // (`content/src/keys-desk.ts`), so which key a button is on is a different
+    // answer per panel and this page must ask rather than tell. A hand-typed
+    // row would be the same drift the panels themselves were freed of above.
+    expect(src).toContain("deskKeys");
+    expect(src).not.toContain('"KeyI"');
+    expect(src).not.toContain('"KeyQ"');
   });
 });

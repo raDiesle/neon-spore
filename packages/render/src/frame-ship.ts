@@ -1,5 +1,6 @@
+import { setHas } from "@neon-spore/content";
 import { hullPercent, type World } from "@neon-spore/sim";
-import { drawBand } from "./band.js";
+import { bandControlSet, drawBand } from "./band.js";
 import { drawWaveOpening } from "./briefing.js";
 import type { Effects } from "./effects.js";
 import { drawFenceArcs } from "./fence-arc.js";
@@ -48,6 +49,12 @@ export function drawShip(
   // the ship in another.
   f: HullFrame = frame(l, view.time, mood, at),
 ): void {
+  // Whether the swelling player 1 slides is a **hand** rather than a gun. It
+  // is the panel's answer and not the world's — an arm at home looks like no
+  // arm at all — and it is asked once here for the two passes that need it:
+  // the hull leaves the gun's own mouth undrawn, and the arm is drawn folded
+  // on the crown where that mouth used to sit (`reach-arm.ts`).
+  const arm = setHas(bandControlSet(view.controls, world.wave), "reach");
   // Queen boss only: the ship's own render-only echo of her torch tremor
   // (queen.ts's `hullShake`); undefined everywhere else, so `drawHull` falls
   // back to its own no-shake default.
@@ -71,6 +78,7 @@ export function drawShip(
     seatSkin(view.role).hull,
     shake,
     f,
+    arm,
   );
   // **THE FENCE's current, jumping between a wall on its way down and the dome
   // under it** — here rather than in the field pass, because that pass runs
@@ -82,7 +90,7 @@ export function drawShip(
   // the ship pass rather than the field one, and after the hull: it *is* the
   // ship on this panel, and an arm drawn under the membrane would come out
   // from behind the thing it is part of (`reach-arm.ts`).
-  drawReachArm(ctx, l, world, surfaceSampler(f));
+  drawReachArm(ctx, l, world, surfaceSampler(f), arm, f.cannonX);
   // A hand on the lance, read straight off the world both devices share (other-hand.ts).
   drawOtherHand(ctx, l, world, view.time, mood, at, f);
   // In front of the hull, unlike the rest of Effects.draw() — `Effects.rockImpact`.

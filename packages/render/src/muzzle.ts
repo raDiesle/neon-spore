@@ -1,7 +1,7 @@
 import type { Point } from "@neon-spore/content";
 import type { HullSkin } from "./hull.js";
-import type { HullFrame } from "./hull-frame.js";
-import { surface } from "./hull-frame.js";
+import type { HullFrame, HullMood, LobePositions } from "./hull-frame.js";
+import { frame, surface } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 
@@ -131,4 +131,25 @@ export function drawMuzzle(
   MOUTH_LOOK.draw(ctx, mouthFrame(f, l, intake), skin_);
 }
 
-/** Where a shot leaves the hull, so the bullet starts at the muzzle. */
+/**
+ * Where the tip of the cannon lobe is, which is where this mouth hangs from.
+ *
+ * It lived in `hull.ts` until that file passed its length limit, and this is
+ * the seam it was always on: the answer is one call to `surface` at the
+ * cannon's own x, and every reader of it is asking about the *opening* rather
+ * than about the membrane — the mouth's own two passes above, and the other
+ * player's hand resting on the lance (`other-hand.ts`).
+ *
+ * While the maw is open the tip is inside the throat rather than on top of the
+ * swelling, because `surface` follows the lobe wherever the lobe has gone;
+ * `muzzleCenterY` is what turns it into the mouth's own centre.
+ */
+export function cannonTip(
+  l: Layout,
+  time: number,
+  mood: HullMood,
+  at: LobePositions,
+  f: HullFrame = frame(l, time, mood, at),
+): { x: number; y: number } {
+  return surface(f, f.cannonX);
+}

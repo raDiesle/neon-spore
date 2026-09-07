@@ -87,12 +87,6 @@ export interface Bindings {
    * guide (`keys.ts`).
    */
   guideHolds: () => boolean;
-  /**
-   * Whether SNAKE is the boss running — passed straight through to the
-   * keyboard rig, where the arrows are the body's four while it stands and the
-   * wave step otherwise (`keys-round.ts`).
-   */
-  snakeHolds: () => boolean;
   onPauseToggle: () => void;
   /** Wave step, for the test keys. Positive is forwards. */
   onWaveStep: (delta: number) => void;

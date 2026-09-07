@@ -8,7 +8,6 @@ import {
   mazeRound,
   PAIR_ON,
   resetClock,
-  snakeHolds,
   ticksPerBeat,
 } from "@neon-spore/sim";
 import { mountBuildStamp } from "../../../tools/build-stamp.js";
@@ -138,9 +137,6 @@ const {
   // already can't: put the introduction away before its timer does. See the
   // guard in `keys.ts`.
   guideHolds: () => guideHolds(world),
-  // The arrows are the body's while it is moving, and the rig's otherwise
-  // (`keys.ts`).
-  snakeHolds: () => snakeHolds(world),
   onPauseToggle: () => run.hold("hand", !run.held("hand")),
   onWaveStep: (delta) => jumpToWave(world.wave + delta),
   onGuideReplay: () => renderer.replayGuide(),

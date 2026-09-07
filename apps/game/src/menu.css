@@ -661,10 +661,19 @@ body[data-motion="off"] #menu .entry {
   margin-bottom: 0;
 }
 #menu .panel .control .name {
-  display: block;
   font-size: 10px;
   letter-spacing: 0.14em;
   color: #c8bdf5;
+}
+/* The key this button is on, on this panel. Beside the name rather than under
+   it: it is the same button said a second way, for the one person at a desk,
+   and a line of its own would read as a second control. */
+#menu .panel .control .key {
+  margin-left: 8px;
+  font-family: ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: #6f639f;
 }
 #menu .panel .s {
   display: block;

@@ -107,6 +107,24 @@ export function drawHull(
   shake: { x: number; y: number } = { x: 0, y: 0 },
   // As `hullSkinY`: usually already built this tick and handed down.
   f: HullFrame = frame(l, time, mood, at),
+  /**
+   * Whether the cannon lobe is a **hand** rather than a mouth — THE CLAW's
+   * panel, and nothing else in the game.
+   *
+   * It leaves the laying pass undrawn, which is the whole of it. That pass is
+   * the cloaca a shot is pressed out of, and it is drawn at rest as well as
+   * under load (`cannon-maw.ts`), so on a panel with no trigger on it the
+   * swelling carried a mouth nothing would ever come out of — a round dark
+   * shape sitting in the bump, which is what the owner asked to be replaced by
+   * the arm itself. The throat is untouched: `mawTake` still opens it, because
+   * the pod the arm brings home is caught by the other seat's mouth.
+   *
+   * It is a parameter rather than a field of `HullMood` because it is not a
+   * mood: nothing about it is eased and nothing about it is transient. It is a
+   * fact about the panel, and `frame-ship.ts` reads it off the one function
+   * that answers which panel a frame is drawn on.
+   */
+  arm = false,
 ): void {
   // High resolution: the swelling has to read as one unbroken transition, not
   // as a bump glued to a line.
@@ -200,8 +218,11 @@ export function drawHull(
   drawChew(ctx, l, mood, time, f.cannonX, on);
   drawCharge(ctx, l, mood, filled, body);
   // Last, and over everything the ship is otherwise doing: a shot about to leave
-  // is the only thing here either player has to act on within the beat.
-  drawLay(ctx, l, mood.lay ?? 0, time, f.cannonX, tip.y, mood.intake, on, mood.layFlare);
+  // is the only thing here either player has to act on within the beat. Not on
+  // the panel where the swelling is a hand — see `arm`.
+  if (!arm) {
+    drawLay(ctx, l, mood.lay ?? 0, time, f.cannonX, tip.y, mood.intake, on, mood.layFlare);
+  }
   ctx.restore();
 }
 
@@ -218,32 +239,4 @@ function strokeHullRim(
   clipOutMouths(ctx, l, craters);
   strokeGlow(ctx, body, rim, STROKE.outline + 0.6, Math.max(0.25, hullPercent / 100));
   ctx.restore();
-}
-
-/**
- * The fire opening at the tip of the cannon lobe. While the maw is open it is
- * the throat instead: it widens and darkens, and it sits at the bottom of the
- * dent rather than at the top of the swelling, because `surface` follows the
- * lobe wherever the lobe has gone.
- *
- * At rest this is the same circle it always was, offset a little below the
- * tip so it sits inside the raised muzzle rather than on its peak. As the
- * maw opens, that offset eases back to zero — the tip is already sinking
- * into the throat, so the opening no longer needs to reach further below it
- * — and the growth that used to go equally into the radius in every
- * direction now goes sideways only. `MUZZLE_RY` never changes with intake:
- * whatever the maw does, this shape cannot reach any further below the tip
- * than the resting muzzle already did. The width spends what the depth no
- * longer does — at full intake, `rx` against `MUZZLE_RY` fills 0.94 × 0.13 ×
- * π ≈ 0.1222 tile², against the old full-intake circle's 0.35² × π ≈ 0.1225
- * tile²: the same opening, spent across instead of down.
- */
-export function cannonTip(
-  l: Layout,
-  time: number,
-  mood: HullMood,
-  at: LobePositions,
-  f: HullFrame = frame(l, time, mood, at),
-): { x: number; y: number } {
-  return surface(f, f.cannonX);
 }

@@ -65,7 +65,6 @@ function desk(creatures: readonly Creature[]) {
     isOver: () => false,
     creatures: () => creatures,
     guideHolds: () => false,
-    snakeHolds: () => false,
     onPauseToggle: () => {},
     onWaveStep: () => {},
     onGuideReplay: () => {},
