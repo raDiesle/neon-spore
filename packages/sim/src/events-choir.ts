@@ -46,13 +46,15 @@ export type ChoirEvent =
       color?: Color;
     }
   /**
-   * One of the two arrows was carried outward and the window is open — the
-   * field starts to shake, and shakes harder when the second one lands. It is
+   * The first half of the gesture landed — an arrow carried outward, or the
+   * phone shaken once — and the window is open. The field starts to shake, the
+   * two bodies start to glow, and both go further when the second lands.
+   * `side` is `2` for the shake (`CHOIR_SHAKEN`). It is
    * an event rather than a state read off the world because it is a *moment*:
    * what render/ keeps is a decaying quake, and a clock started by a flag
    * would restart on every frame the flag was still true.
    */
-  | { type: "choirArm"; side: -1 | 1 }
+  | { type: "choirArm"; side: -1 | 1 | 2 }
   /**
    * The window lapsed, or an arrow went the wrong way, and the thing sang. The
    * hull damage rides on the `breach` beside it (`singChoirs`); this is the

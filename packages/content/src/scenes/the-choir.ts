@@ -11,11 +11,11 @@ import type { GuideScene } from "../scene-types.js";
  * controls that cannot touch them.
  *
  * **Two gestures, in that order, and they are not alternatives to a reader.**
- * The shake is the whole thing in one move; the two arrows are the same thing
- * for a phone that reports no shake, and they are two trips because a swipe is
- * something a thumb does by accident (`sim/choir-gesture.ts`). So the film
- * shows the shake first, because it is what the pair should reach for, and the
- * arrows after it as the thing that is there when it will not work.
+ * Both are **two moves inside a window** — shake and shake again, or one arrow
+ * and then the other — so the film is teaching one shape twice rather than two
+ * different things (`sim/choir-gesture.ts`). It shows the shake first, because
+ * it is what the pair should reach for, and the arrows after it as the thing
+ * that is there when a phone will not answer.
  *
  * **Nothing draws a ghost hand for either.** A shake is not a hand anywhere on
  * the screen, and an arrow is a switch a hand throws rather than a handle that
@@ -40,8 +40,8 @@ import type { GuideScene } from "../scene-types.js";
  * what keeps this page right whatever lane the wave author put the membrane in
  * (`sim/scene-aim.ts`).
  *
- * **The last page is the half-made gesture.** One arrow carried, the window
- * shut, and the thing sings: the wave's own sentence is *the one where the
+ * **The last page is the half-made gesture.** One move made, the window shut,
+ * and the thing sings: the wave's own sentence is *the one where the
  * half-made gesture is worse than none at all*, and a film that never showed
  * the pilot being late would have left that sentence unearned.
  */
@@ -59,7 +59,10 @@ export const THE_CHOIR: GuideScene = {
     { beat: 18, col: 2, kind: "choir", color: "red" },
   ],
   acts: [
+    // Twice, inside the window, which is the gesture: the first arms the pair
+    // and sets them glowing, the second closes them (`sim/choir-gesture.ts`).
     { tick: 90, shake: true },
+    { tick: 150, shake: true },
     // Under the membrane's own lane, which is where the merge stays.
     { tick: 240, control: "cannon", col: 2, atBody: true },
     { tick: 420, control: "fireRed" },

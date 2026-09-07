@@ -27,18 +27,35 @@ import type { World } from "./world.js";
  * creature one phone could play.
  */
 
-/** No arrow standing out. Read the two states through `choirArmed` below,
- * which is what everything outside this file asks. */
+/** Nothing made yet. Read the states through `choirArmed` below, which is what
+ * everything outside this file asks. */
 export const NO_CHOIR_ARM = 0;
+
+/** The shake, as an arm. It sits beside the two arrows rather than in a field
+ * of its own because it is the same half-made gesture: something has been done
+ * once and the pair is inside the window for the second (`ChoirArm`). */
+export const CHOIR_SHAKEN = 2;
 
 /** Which arrow: the one against the left wall of the field, or the right. A
  * side rather than a `DragTarget`, so the rule never learns the two names
  * render/ answers a finger with (`handles.ts`). */
 export type ChoirSide = -1 | 1;
 
-/** The arrow standing out, or `null` while none is. */
-export function choirArmed(world: World): ChoirSide | null {
+/**
+ * **The half-made gesture: one of the two arrows, or the phone once shaken.**
+ *
+ * The owner asked for the shake to be two moves rather than one — *when shaked
+ * two times, they merge together* — which makes both ways in the same shape:
+ * do a thing, and then do a *different* thing inside `choirWindowBeats`. So
+ * the shake is a third value of the arm the arrows already used, and every
+ * question about the gesture is one question about this number.
+ */
+export type ChoirArm = ChoirSide | typeof CHOIR_SHAKEN;
+
+/** What has been made so far, or `null` while nothing has. */
+export function choirArmed(world: World): ChoirArm | null {
   if (world.choirArm === NO_CHOIR_ARM) return null;
+  if (world.choirArm === CHOIR_SHAKEN) return CHOIR_SHAKEN;
   return world.choirArm === -1 ? -1 : 1;
 }
 
@@ -77,33 +94,50 @@ export function choirPulled(world: World, side: ChoirSide, out: -1 | 1): void {
     singChoirs(world);
     return;
   }
-  const armed = choirArmed(world);
-  if (armed === null || armed === side) {
-    world.choirArm = side;
-    world.choirArmTick = world.tick + world.cfg.choirWindowBeats * ticksPerBeat(world.cfg);
-    world.events.push({ type: "choirArm", side });
-    return;
-  }
-  clearChoirArm(world);
-  mergeChoirs(world);
+  // The **same** arrow twice is one gesture done twice and opens nothing. A
+  // shake standing as the first move is answered by either arrow, because the
+  // pilot has plainly made two moves — the two ways in are not two separate
+  // machines and a pair that starts one way should not be told off for
+  // finishing the other.
+  if (choirArmed(world) === side) return;
+  armOrMerge(world, side);
 }
 
 /**
- * The device itself was shaken, and it finishes the whole gesture on its own.
+ * The half of both gestures that is the same: arm if nothing is armed, and
+ * otherwise finish.
  *
- * **One shake and not two**, which is the owner's decision and deliberately
- * unlike the arrows. The two arrows are two trips because a swipe is a thing a
- * thumb does by accident; a phone that reports being shaken has already been
- * picked up and moved, and asking for that twice would make the path with a
- * sensor the harder of the two.
+ * One copy, because the shake and the arrows only differ in what counts as a
+ * *second* move, and a second spelling of the window is how the two paths come
+ * to expire at different times.
+ */
+function armOrMerge(world: World, arm: ChoirArm): void {
+  if (choirArmed(world) !== null) {
+    clearChoirArm(world);
+    mergeChoirs(world);
+    return;
+  }
+  world.choirArm = arm;
+  world.choirArmTick = world.tick + world.cfg.choirWindowBeats * ticksPerBeat(world.cfg);
+  world.events.push({ type: "choirArm", side: arm });
+}
+
+/**
+ * The device was shaken.
  *
- * Shaking a field with nothing to merge costs nothing: there is no window it
+ * **Twice, not once**, and that is the owner reversing an earlier answer of
+ * his own: *when shaked two times, they merge together*. The first shake arms
+ * the gesture and sets the two bodies glowing; the second, inside
+ * `choirWindowBeats`, closes them. It makes the two ways in the same shape —
+ * do a thing, then do another inside the window — and it makes the shake cost
+ * what the arrows cost, where before it was the easier path by a whole move.
+ *
+ * Shaking a field with nothing to open costs nothing: there is no window it
  * could spend and nothing for it to be wrong about.
  */
 export function choirShaken(world: World): void {
   if (!choirOnField(world.creatures)) return;
-  clearChoirArm(world);
-  mergeChoirs(world);
+  armOrMerge(world, CHOIR_SHAKEN);
 }
 
 /**

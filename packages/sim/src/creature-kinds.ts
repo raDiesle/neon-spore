@@ -186,7 +186,8 @@ export type CreatureKind =
   | "veer"
   /**
    * Two grey balls standing apart in one lane, and the first body **no shot
-   * can reach at all** until a gesture that is not a button has been made. Player 1 shakes the phone — or, where no phone can
+   * can reach at all** until a gesture that is not a button has been made
+   * twice. Player 1 shakes the phone — or, where no phone can
    * report a shake, carries the two arrows at the edges of the field outward
    * one after the other inside `choirWindowBeats` — and the two draw together
    * over `choirFuseBeats`, becoming an ordinary slick or bulb in the same

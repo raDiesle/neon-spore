@@ -161,9 +161,9 @@ export const WAVES_ACT_7B: Wave[] = [
     name: "THE CHOIR",
     sentence: "The one where the half-made gesture is worse than none at all.",
     guide: {
-      both: "Two grey balls, apart, in one lane. Nothing you can fire reaches either of them. What opens them is not on either panel: shake the phone, or carry the two big arrows at the edges of the field outward — one, then the other, inside two beats. They draw together over a beat, and the colour only arrives once they are one.",
-      p1: "Yours, and it is not a button. Shake the phone; if it will not, carry the left arrow off the left edge and the right one off the right, inside two beats. Stop halfway and it sings — the hull pays. Say when you start.",
-      p2: "You cannot open it, and a shot before it is one is spent on nothing. Watch the two close, wait for the colour to arrive, then fire it up the lane they have been in the whole time.",
+      both: "Two grey balls, apart, in one lane. Nothing you can fire reaches either of them. What opens them is not on either panel, and it is two moves inside two beats: shake the phone and shake it again, or carry the two big arrows outward — one, then the other. They glow, then close, and the colour bleeds in as they do.",
+      p1: "Yours, and it is not a button. Shake the phone twice; if it will not answer, carry one arrow off its edge and then the other. Two moves, two beats. Stop after the first and it sings, and the hull pays.",
+      p2: "You cannot open it, and a shot before it is one is spent on nothing. The glow says it has started; the colour bleeding in says which trigger. Load it, wait for them to close, then fire up their lane.",
       scene: "theChoir",
     },
     entries: [

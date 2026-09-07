@@ -1,4 +1,4 @@
-import { choirIsDots, choirIsFusing, type World } from "@neon-spore/sim";
+import { choirArmed, choirIsDots, choirIsFusing, type World } from "@neon-spore/sim";
 import { creatureCenter } from "./creature-place.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -79,7 +79,12 @@ export function drawChoirPrompt(
     ctx.textAlign = "center";
     ctx.fillStyle = PALETTE.rock;
     ctx.globalAlpha = 0.55 + 0.35 * ((Math.sin(time * 4.4) + 1) / 2);
-    ctx.fillText("SHAKE SCREEN", dot.x, dot.y + halfH + 18);
+    // **The word changes once the first move has landed**, because the thing
+    // being asked for changes: a pilot who has shaken once needs to know the
+    // gesture took and that a second one finishes it, and "SHAKE SCREEN" over
+    // a pair that is already glowing reads as the first one having failed.
+    const word = choirArmed(world) === null ? "SHAKE SCREEN" : "SHAKE AGAIN";
+    ctx.fillText(word, dot.x, dot.y + halfH + 18);
     ctx.restore();
     ctx.textAlign = "left";
     // One prompt, however many membranes are up: the gesture is the whole

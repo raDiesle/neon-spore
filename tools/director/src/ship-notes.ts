@@ -29,11 +29,12 @@ import type { GroupName } from "./ship-groups.js";
 export const GROUP_NOTE: Record<GroupName, string> = {
   "THE CHOIR — two bodies opened by shaking the phone":
     "Two grey balls standing apart in one lane, and no shot reaches either " +
-    "of them. What opens it is on " +
-    "neither panel: player 1 shakes the device, or — where a device cannot " +
+    "of them. What opens them is on neither panel, and it is two moves " +
+    "inside choirWindowBeats: player 1 shakes the device twice, or — where a device cannot " +
     "report a shake, which is a question no browser answers reliably — " +
     "carries the two big arrows standing against the walls of the field " +
-    "outward, one and then the other, inside choirWindowBeats. The two then " +
+    "outward, one and then the other. The first move sets them glowing and " +
+    "puts the faintest wash of the coming colour into them. The two then " +
     "draw together over choirFuseBeats, and only when they are one does the " +
     "colour arrive and the body become something player 2 can shoot. Miss the window, or carry an arrow inward, and " +
     "it sings: damageChoirSong off the hull, and the gesture starts again. " +

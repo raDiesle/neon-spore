@@ -195,7 +195,7 @@ export const MECHANICS = {
     waveNames: true,
   },
   choir: {
-    what: "Two grey balls standing apart in one lane, carrying no colour at all. Nothing reaches them: a bolt in either colour is spent on nothing. What opens them is a gesture neither panel has — the pilot shakes the phone, or, where a phone cannot report being shaken, carries the two arrows standing against the walls of the field outward, one and then the other, inside two beats. The two then draw together over a beat, and only when they are one does the colour arrive and the body become something the navigator can shoot. Miss the window, or carry an arrow inward, and it sings: the hull pays for the chord and the gesture starts again.",
+    what: "Two grey balls standing apart in one lane, carrying no colour at all. Nothing reaches them: a bolt in either colour is spent on nothing. What opens them is a gesture neither panel has, and it is two moves inside two beats — the pilot shakes the phone and shakes it again, or, where a phone cannot report being shaken, carries the two arrows standing against the walls of the field outward, one and then the other. The first move sets them glowing; the second closes them over a beat, the colour bleeding in as they go, and only when they are one is there a body the navigator can shoot. Miss the window, or carry an arrow inward, and it sings: the hull pays for the chord and the gesture starts again.",
     reach: "spawn",
     // A wave names this kind and gives it a colour, the way it does for a
     // clasp: the silhouette is the membrane's and the colour is the body it

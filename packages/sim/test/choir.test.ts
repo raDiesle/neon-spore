@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { choirIsDots, choirIsFusing } from "../src/choir.js";
-import { choirArmed } from "../src/choir-gesture.js";
+import { CHOIR_SHAKEN, choirArmed } from "../src/choir-gesture.js";
 import { DEFAULT_CONFIG, ticksPerBeat } from "../src/config.js";
 import { hashWorld } from "../src/hash.js";
 import type { Color, Creature, DragTarget, TimedCommand } from "../src/types.js";
@@ -15,6 +15,11 @@ import { createWorld, type SimEvent, type SpawnEntry, step, type World } from ".
  * answer in this game made of two commands that have to arrive in the right
  * order inside a window, from one seat, on a body standing in a lane that
  * neither arrow is anywhere near.
+ *
+ * The gesture is **two moves either way**: a shake and then a shake, or one
+ * arrow and then the other, inside `choirWindowBeats`. The owner reversed an
+ * earlier answer of his own to get there, and the tests below are what say the
+ * two paths cost the same.
  *
  * The second is what a **wrong** move costs. Every other creature answers a
  * mistake by simply not dying; this one takes the hull, on the owner's own
@@ -120,20 +125,28 @@ describe("the gesture", () => {
     expect(choirArmed(world)).toBeNull();
   });
 
-  it("is one shake and not two, where a phone can report one", () => {
-    const { world, events } = run([choir(2, "cyan")], TPB * 3, [shake(ON_FIELD)]);
+  it("arms on the first shake and does not open on it", () => {
+    const { world, events } = run([choir(2, "cyan")], TPB * 2, [shake(ON_FIELD)]);
+    expect(choirIsDots(only(world))).toBe(true);
+    expect(choirArmed(world)).toBe(CHOIR_SHAKEN);
+    expect(events.filter((e) => e.type === "choirArm")).toHaveLength(1);
+    expect(events.some((e) => e.type === "choirMerge")).toBe(false);
+  });
+
+  it("opens on the second shake, inside the window", () => {
+    const { world, events } = run([choir(2, "cyan")], TPB * 3, [
+      shake(ON_FIELD),
+      shake(ON_FIELD + 8),
+    ]);
     expect(only(world).kind).toBe("bulb");
     expect(events.filter((e) => e.type === "choirMerge")).toHaveLength(1);
     expect(events.filter((e) => e.type === "choirOpen")).toHaveLength(1);
   });
 
-  it("ignores a second gesture at a membrane already closing", () => {
-    const { world, events } = run([choir(2, "cyan")], TPB * 3, [
-      shake(ON_FIELD),
-      shake(ON_FIELD + 4),
-    ]);
-    expect(events.filter((e) => e.type === "choirMerge")).toHaveLength(1);
-    expect(only(world).kind).toBe("bulb");
+  it("takes a shake and then an arrow, because the two ways in are one gesture", () => {
+    const inputs = [shake(ON_FIELD), ...pull(ON_FIELD + 8, "choirRight", FAR)];
+    const { world } = run([choir(2, "red")], TPB * 3, inputs);
+    expect(only(world).kind).toBe("slick");
   });
 
   it("counts two pulls on the same side as one gesture done twice", () => {
@@ -144,7 +157,10 @@ describe("the gesture", () => {
   });
 
   it("reaches every membrane on the field at once, having no column to be in", () => {
-    const { world } = run([choir(0, "red"), choir(4, "cyan")], TPB * 3, [shake(ON_FIELD)]);
+    const { world } = run([choir(0, "red"), choir(4, "cyan")], TPB * 3, [
+      shake(ON_FIELD),
+      shake(ON_FIELD + 8),
+    ]);
     expect(world.creatures.map((c) => c.kind)).toEqual(["slick", "bulb"]);
     expect(world.creatures.map((c) => c.col)).toEqual([0, 4]);
   });
@@ -177,7 +193,8 @@ describe("what a wrong move costs", () => {
   it("costs nothing at all with no membrane on the field", () => {
     const { world, events } = run([], TPB * 2, [
       shake(ON_FIELD),
-      ...pull(ON_FIELD + 4, "choirLeft", FAR),
+      shake(ON_FIELD + 8),
+      ...pull(ON_FIELD + 12, "choirLeft", FAR),
     ]);
     expect(events.some((e) => e.type === "choirSing")).toBe(false);
     expect(world.hullMilli).toBe(full);

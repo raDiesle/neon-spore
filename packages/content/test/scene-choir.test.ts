@@ -78,11 +78,23 @@ const merged = (p: Played) => p.events.some((e) => e.type === "choirMerge");
 const sang = (p: Played) => p.events.some((e) => e.type === "choirSing");
 
 describe("a rehearsal that shakes the device", () => {
-  it("draws the membrane together, out of an act naming nothing", () => {
-    const shaken = play([{ tick: 90, shake: true }]);
+  it("draws the membrane together on the second, out of acts naming nothing", () => {
+    const shaken = play([
+      { tick: 90, shake: true },
+      { tick: 150, shake: true },
+    ]);
     expect(shaken.dots[89], "the membrane was already gone before the shake").toBe(true);
-    expect(merged(shaken), "the shake did nothing").toBe(true);
+    expect(merged(shaken), "the shakes did nothing").toBe(true);
     expect(shaken.dots[shaken.dots.length - 1], "it is still a membrane").toBe(false);
+  });
+
+  it("arms on the first and does not open on it", () => {
+    // The owner made the shake two moves rather than one, so a film that
+    // showed one and cut to a merged body would be teaching a gesture the
+    // game does not have (`sim/choir-gesture.ts`).
+    const once = play([{ tick: 90, shake: true }]);
+    expect(once.armed[120], "the first shake armed nothing").not.toBeNull();
+    expect(merged(once), "one shake opened it").toBe(false);
   });
 
   it("is the pilot's, and the film does not say so", () => {

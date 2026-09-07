@@ -31,9 +31,12 @@ export function choirCue(
       // a tile — and the side *is* the information: which one is left to
       // carry. `-1` is the left wall, so the pan is the side itself read as a
       // column at either end of the field.
+      // Panned to the wall the hand is on, and dead centre for a shake, which
+      // has no side at all: the phone is the whole device and pointing that at
+      // one edge of the field would be inventing a place for it.
       return {
         id: "signal.announce",
-        pan: panForCol(e.side === -1 ? 0 : cols - 1, cols),
+        pan: e.side === 2 ? 0 : panForCol(e.side === -1 ? 0 : cols - 1, cols),
       };
     case "choirMerge":
       // The gesture landing, which is not yet the body opening: the two are
