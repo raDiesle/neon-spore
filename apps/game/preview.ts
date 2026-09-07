@@ -16,12 +16,15 @@
 //
 // Run it through `bun run preview`, which builds first.
 
-import { claimPort, PREVIEW_BAND, treeKey } from "../../tools/ports.js";
+import { claimPort, treeKey } from "../../tools/ports.js";
+import { SERVERS } from "../../tools/servers.js";
 
 const tree = Bun.fileURLToPath(new URL("../../", import.meta.url));
 const given = process.env.PREVIEW_PORT === undefined ? undefined : Number(process.env.PREVIEW_PORT);
 const root = new URL("./dist/", import.meta.url);
-const marker = "neon-spore-preview";
+/** The base, the band, the marker and the two paths, from the one table. */
+const spec = SERVERS.preview;
+const marker = spec.marker;
 /** Which checkout this one serves. Two trees, two previews, two ports. */
 const treeId = treeKey(tree);
 const idleMs = Number(process.env.PREVIEW_IDLE_MS ?? 30 * 1000);
@@ -32,15 +35,7 @@ const idleMs = Number(process.env.PREVIEW_IDLE_MS ?? 30 * 1000);
 const port =
   given === 0
     ? 0
-    : await claimPort({
-        base: 4173,
-        band: PREVIEW_BAND,
-        tree,
-        marker,
-        probePath: "/__preview",
-        quitPath: "/__preview/quit",
-        given,
-      }).catch((err: Error) => {
+    : await claimPort({ ...spec, tree, given }).catch((err: Error) => {
         console.error(err.message);
         process.exit(1);
       });

@@ -1,5 +1,15 @@
 import { describe, expect, it } from "bun:test";
-import { DIRECTOR_BAND, derivePort, freePort, PREVIEW_BAND, portFor, treeKey } from "../ports.js";
+import {
+  DIRECTOR_BAND,
+  DIRECTOR_BASE,
+  derivePort,
+  freePort,
+  PREVIEW_BAND,
+  PREVIEW_BASE,
+  portFor,
+  treeKey,
+} from "../ports.js";
+import { SERVERS } from "../servers.js";
 
 /**
  * The one property that matters: a worktree's port is its own and it is the
@@ -57,6 +67,29 @@ describe("a server's port", () => {
   it("falls back to the base port where there is no worktree to be in", () => {
     // A path with no `.git` at all is the only checkout there is, so the
     // number everything else is written against stays free for it.
-    expect(portFor(4173, PREVIEW_BAND, "/nowhere/at/all")).toBe(4173);
+    expect(portFor(PREVIEW_BASE, PREVIEW_BAND, "/nowhere/at/all")).toBe(PREVIEW_BASE);
+  });
+});
+
+/**
+ * The descriptors, which are the numbers and the strings the servers used to
+ * carry a copy of each. `bun run port` prints them and both servers claim with
+ * them, so a drift here is a `curl` against a port nothing is on.
+ */
+describe("the server table", () => {
+  it("gives each server its own base inside its own band", () => {
+    expect(SERVERS.director.base).toBe(DIRECTOR_BASE);
+    expect(SERVERS.preview.base).toBe(PREVIEW_BASE);
+    expect(SERVERS.director.band).toBe(DIRECTOR_BAND);
+    expect(SERVERS.preview.band).toBe(PREVIEW_BAND);
+    expect(SERVERS.director.base).not.toBe(SERVERS.preview.base);
+  });
+
+  it("answers on a path under the marker it answers with", () => {
+    for (const spec of Object.values(SERVERS)) {
+      expect(spec.marker).toStartWith("neon-spore-");
+      expect(spec.quitPath).toBe(`${spec.probePath}/quit`);
+      expect(spec.env).toMatch(/^[A-Z_]+_PORT$/);
+    }
   });
 });

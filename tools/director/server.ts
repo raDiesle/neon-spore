@@ -1,5 +1,6 @@
 import gameHtml from "../../apps/game/index.html";
-import { claimPort, DIRECTOR_BAND, treeKey } from "../ports.js";
+import { claimPort, treeKey } from "../ports.js";
+import { SERVERS } from "../servers.js";
 import indexHtml from "./index.html";
 import { backlogState } from "./src/backlog-api.js";
 import { DOC_ROUTES, readSpecFiles } from "./src/docs-api.js";
@@ -30,7 +31,9 @@ const given =
   process.env.DIRECTOR_PORT === undefined ? undefined : Number(process.env.DIRECTOR_PORT);
 /** Which checkout's wave-act files this one reads and writes. */
 const treeId = treeKey(repoRootPath);
-const marker = "neon-spore-director";
+/** The base, the band, the marker and the two paths, from the one table. */
+const spec = SERVERS.director;
+const marker = spec.marker;
 /**
  * How long the server stays up with nobody looking at it.
  *
@@ -74,15 +77,7 @@ const hot = globalDirector.__director;
 
 if (!hot.booted) {
   hot.booted = true;
-  hot.port = await claimPort({
-    base: 4174,
-    band: DIRECTOR_BAND,
-    tree: repoRootPath,
-    marker,
-    probePath: "/__director",
-    quitPath: "/__director/quit",
-    given,
-  }).catch((err: Error) => {
+  hot.port = await claimPort({ ...spec, tree: repoRootPath, given }).catch((err: Error) => {
     console.error(err.message);
     process.exit(1);
   });
@@ -90,7 +85,7 @@ if (!hot.booted) {
 // `bun --hot` re-evaluates this file in the same process, and the port was
 // settled the first time round. Claiming it again would find this very server
 // and ask it to quit.
-const port = hot.port ?? 4174;
+const port = hot.port ?? spec.base;
 
 function resetIdle(): void {
   clearTimeout(hot.idle);

@@ -81,6 +81,14 @@ export function portFor(base: number, band: number, root: string): number {
 export const PREVIEW_BAND = 4200;
 export const DIRECTOR_BAND = 4300;
 /**
+ * The number each of the two is tried on first, and the one every document, a
+ * `curl` line and `.claude/launch.json` all say. Beside the relay's own base
+ * below, because the three answer the same question and a session reading one
+ * of them is usually about to ask about another.
+ */
+export const PREVIEW_BASE = 4173;
+export const DIRECTOR_BASE = 4174;
+/**
  * The relay's band. Its base is 8787 rather than a number of ours, because
  * that is wrangler's default and the one a person will type from memory.
  * `claimPort` is no use here — wrangler is not our server and answers no
@@ -144,7 +152,7 @@ export interface ClaimRequest {
 /** Both loopback families: a ghost on `::1` leaves `127.0.0.1` free. */
 const LOOPBACKS = ["127.0.0.1", "[::1]"] as const;
 
-type Verdict = "free" | "mine" | "other" | "stranger";
+export type Verdict = "free" | "mine" | "other" | "stranger";
 
 async function identify(
   host: string,
@@ -198,6 +206,18 @@ async function retire(req: ClaimRequest, port: number): Promise<void> {
       throw new Error(`the previous ${req.marker} on ${host}:${port} did not exit.`);
     }
   }
+}
+
+/**
+ * Who is on a port right now, asked and not acted on.
+ *
+ * `claimPort` settles a port by taking it, which is the wrong thing entirely
+ * for a session that only wants to know the number before it starts anything —
+ * "mine" would be asked to quit. This is the same question without the answer
+ * being acted on, and `tools/port.ts` is what it is for.
+ */
+export async function holderOf(req: ClaimRequest, port: number): Promise<Verdict> {
+  return survey(req, port);
 }
 
 /** The port to bind, having settled with whatever was already there. */

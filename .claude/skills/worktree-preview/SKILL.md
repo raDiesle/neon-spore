@@ -32,15 +32,23 @@ From the worktree's root, in the background:
 bun run dev
 ```
 
-That is the whole command. **Do not set `DIRECTOR_PORT`.** A port belongs to
-a tree (`tools/ports.ts`): the main checkout keeps 4174, and every worktree
-derives its own stable number from its own path. Two sessions in two trees
-therefore cannot collide, and neither can retire the other — while an
-OS-assigned port (`DIRECTOR_PORT=0`, `dev:once`) would hand the user a
-different URL on every restart and make the number worthless in a log.
+That is the whole command. **Do not set `DIRECTOR_PORT`.** `claimPort` tries
+4174 first, always, and falls back to a number derived from this tree's own
+path only when another checkout's director already holds it (`tools/ports.ts`).
+So two sessions in two trees cannot collide and neither can retire the other,
+while an OS-assigned port (`DIRECTOR_PORT=0`, `dev:once`) would hand the user a
+different URL on every restart and make the number worthless in a log. A
+worktree does **not** get its own port as a matter of course, and this page
+said for a while that it did.
 
-Read the port off its first line — `director on http://localhost:<port>` —
-and confirm it is really the director before handing it over:
+Read the port off its first line — `director on http://localhost:<port>` — or
+ask for it before there is a line to read:
+
+```bash
+bun run port director
+```
+
+Either way, confirm it is really the director before handing it over:
 
 ```bash
 curl -s http://localhost:<port>/__director

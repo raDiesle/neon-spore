@@ -29,6 +29,7 @@
     "orphans": "bun run tools/orphans/run.ts",
     "maze": "bun run tools/maze/run.ts",
     "perf": "bun run tools/perf/run.ts",
+    "port": "bun run tools/port.ts",
     "queue": "bun run tools/queue/run.ts",
     "index": "bun run tools/index/run.ts",
     "land": "bun run tools/land/run.ts",

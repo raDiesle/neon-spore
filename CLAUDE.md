@@ -295,10 +295,10 @@ curl -s http://localhost:4173/__preview
 
 Only the preview answers `{"app":"neon-spore-preview",...}`, and it names the
 checkout it serves in `tree`. If that tree is not the one under test, the number
-came off the wrong server. **Read the port out of the server's own startup
-line** rather than deriving it, and in a worktree **launch by absolute path**:
-`.claude/launch.json` carries no `cwd`, so it starts the *main* checkout's
-server and nothing errors.
+came off the wrong server. **`bun run port` says which port a server
+here takes; its startup line says which it took.** In a worktree **launch by
+absolute path**: `.claude/launch.json` carries no `cwd`, so it starts the
+*main* checkout's server and nothing errors.
 
 `?play=1` opens on the field rather than the menu, which is what `tools/frames`
 drives. `bun run preview:once` takes a free port for a throwaway check. Never

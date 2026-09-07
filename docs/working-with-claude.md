@@ -153,6 +153,39 @@ the port out of the server's own startup line, which prints the number and the
 tree together. The relay is the exception that proves it — wrangler answers no
 marker, so `claimPort` is no use and `relayPort` derives unconditionally.
 
+*Amended 2026-09-07:* and there is a command for it now, because "read it off
+the startup line" answers a session that has already started a server and not
+one that has to write the number down *first*.
+
+```
+bun run port            # all three
+bun run port director   # one of them
+```
+
+It prints both candidates for each server, the one that will answer, and why —
+the base is probed with `holderOf`, which is `claimPort`'s own question asked
+without acting on the answer, so nothing is started, retired or moved. The
+numbers come from `tools/servers.ts`, which is where the base, the band, the
+marker and the two paths of each server now live; both servers claim with that
+table rather than with a copy of it.
+
+What it ends is a **throwaway `.claude/launch.json` entry**, which is what a
+session in a worktree kept hand-writing to look at its own director: a fifth
+configuration carrying an absolute `--cwd` and a guessed port. That file is
+tracked, so a forgotten revert lands a lane-specific entry on `main` — it
+happened twice in one afternoon, two turns each. The launch entries are the
+main checkout's and they have no `cwd`; a worktree starts its own server from
+its own root instead —
+
+```
+bun run dev                       # from the worktree's root, not by name
+bun run port director             # the URL to hand over
+curl -s http://localhost:<port>/__director
+```
+
+— and if a launch entry really is wanted anyway, it is written, used and taken
+straight back out with `git checkout .claude/launch.json` in the same turn.
+
 ## A hot server and a tree that moved
 
 *Added 2026-09-03.* A hot bundler reloads the module whose file changed, which

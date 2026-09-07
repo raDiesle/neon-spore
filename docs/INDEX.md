@@ -1204,5 +1204,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/brush-hints.ts` | SHOW DESCRIPTIONS: whether each brush in the palette carries its sentence |
 | `tools/director/src/scene-marks.ts` | The marks: everything a scene draws that is not a body |
 | `tools/director/src/stage-world.ts` | A fresh run of the wave being edited, stood up the way the game stands one up |
+| `tools/port.ts` | `bun run port` — which port this checkout's servers answer on |
+| `tools/servers.ts` | The two servers this repository starts and settles a port with, described once |
 
 <!-- index:code:end -->
