@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-07 · c80ce966 — THE TWITCH loses the guide THE COIL now gives
+
+Two tests were red on main after the last director save. THE COIL was rebuilt one wave earlier and now teaches the coil itself, so THE TWITCH's guide was introducing a creature the pair had already met — a repeated introduction, which is a defect rather than a second chance. Its shield malfunction is not new either. The guide goes; the wave keeps its sentence. And THE COIL sends different arrivals than the checked-in baseline records, so that row is re-measured.
+
+## 2026-09-07 · b39a33ba — The fence's skull is bigger and stops blinking
+
+The warning over a shut column was 1.55 tiles wide and came and went at 2.6 Hz, caught in the gaps of the fan the way a face is caught in lightning. The owner asked for it bigger and lit for the whole of the time the effect takes place: a warning that is only there on half the beats is one the pair has to catch, and the beat it is missed on is the beat the wall lands. It is 2.3 tiles across now and never goes out — only its material still moves, every point struck again on the bolts' own clock, so it crawls with the current instead of flashing.
+
 ## 2026-09-07 · ab36186c — One pinned wrangler serves the deploy, the dev server and the tests alike
 
 The two `deploy` scripts run `npx wrangler` from the repository root, where `wrangler` was not installed — so `npx` fetched whatever npm had published that morning and shipped the worker with it, while `apps/server`'s suite ran against the version its own `devDependencies` pinned. `apps/server/dev.ts` got the pinned one, but only because it happens to run from `apps/server`.
