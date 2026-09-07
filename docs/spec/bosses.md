@@ -884,11 +884,34 @@ clock, and a minute of that on a slow phone is a song that has walked away from
 its own chart. The four lanes are a minor-seventh spread, so a bar of arrows is
 a melody and a jump is an interval.
 
+**The ship is on the screen and the panel is the band.** It did not ship that
+way: the round replaced the whole picture, on the rule the first three rounds
+set — the field is *gone*. The owner looked at it and asked for the opposite:
+*more integrated, how a regular game with control panel looks — to see the ship
+and its controls, and buttons in the same style as the default set.* So the
+hull is drawn under the lanes, the HUD is over them, and the four buttons are
+**lobes in the band's own sockets** rather than a slab panel of the round's
+own — the same grown contour, wet socket, gloss and slime every other button in
+the game stands in, each carrying the arrow of its lane. The rule survives it:
+what a round takes away is the *field*, and the hull and the panel are not the
+field ([interludes](interludes.md)).
+
+**An arrow nobody answered falls into the ship.** The owner asked for that in
+the same breath — *let the arrows who were incorrect, not in time, fall inside
+the ship like meteors do* — and it is what turns a drained bar into a picture.
+A dropped arrow used to stop being drawn while a number went down somewhere;
+now it goes past the line at the speed it was already falling, sinks into the
+hull, and burns out there in its own lane's colour. It costs the hull nothing:
+the meter is still the accounting, which was the owner's answer when he was
+asked. It is drawn from the world alone — the tick a note expires on is fixed
+by the chart — so it holds no state and two devices cannot disagree about it
+(`packages/render/src/pulse-drop.ts`).
+
 **Where it lives.** The round is `packages/sim/src/pulse.ts`, its clock
 `pulse-round.ts`, its chart arithmetic `pulse-chart.ts` and its one verb
 `pulse-controls.ts`; its numbers are `config-pulse.ts` and its panel is the
-`pulse` control set — eight slabs, four to a seat, and the first panel in the
-game that is the same in both. The picture is five files under
+`pulse` control set — eight lobes, four to a seat, and the first panel in the
+game that is the same in both. The picture is seven files under
 `packages/render/src/pulse-*.ts`. Its stages are
 `packages/content/src/pulse-stages.ts`, **written as bars of text** rather than
 as a list of `{ step, lane }`, because the only thing that matters about a

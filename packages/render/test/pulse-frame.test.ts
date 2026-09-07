@@ -117,12 +117,17 @@ describe("THE PULSE draws on all three screens", () => {
     // onto the draft. Buttons drawn where nothing answers them is the failure
     // `tools/director/test/stage-rounds.test.ts` exists to prevent, arriving
     // through the drawing side.
+    //
+    // The round is played on the **band** now, so the set handed in has to be
+    // one — STANDARD, whose two action lobes carry their names on the panel.
+    // A slab set would draw no buttons here for the same reason it draws none
+    // on any other wave: `panelSlots` has no lobes to place.
     const labels: string[] = [];
     const world = createWorld(CFG, 5);
     const index = waveWith("pulse");
     startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
     runFrames(world, "test", ticksPerBeat(CFG) * 2, {
-      controls: controlSet("snake"),
+      controls: controlSet("default"),
       onCanvas: (ctx) => {
         const write = ctx.fillText.bind(ctx);
         ctx.fillText = (text: string, x: number, y: number) => {
@@ -132,7 +137,7 @@ describe("THE PULSE draws on all three screens", () => {
       },
       onTick: (_tick, w) => step(w, []),
     });
-    expect(labels).toContain("MAW");
+    expect(labels).toContain("SUCK");
     expect(labels).toContain("THE PULSE");
   });
 

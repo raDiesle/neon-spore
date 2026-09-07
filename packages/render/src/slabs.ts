@@ -39,8 +39,7 @@ function seatOn(role: ViewRole, player: 1 | 2): boolean {
 }
 
 /**
- * How many buttons stand side by side before the next ones go underneath,
- * unless the set says otherwise (`ControlSet.slabsPerRow`).
+ * How many buttons stand side by side before the next ones go underneath.
  *
  * Three is where a phone gives out: a fourth on the same row is a column of
  * glass narrower than a thumb, and a label that no longer fits in it. THE
@@ -67,11 +66,7 @@ export function slabPanel(l: Layout, set: ControlSet, role: ViewRole): Slab[] {
   if (controls.length === 0) return [];
 
   const pad = Math.max(6, l.width * 0.03);
-  // A panel may ask for a width of its own, and exactly one does: THE PULSE's
-  // four buttons *are* its four lanes, and arrows falling onto two rows of two
-  // would meet them in a different order every other row (`ControlSet`).
-  const across = set.slabsPerRow ?? PER_ROW;
-  const rows = Math.ceil(controls.length / across);
+  const rows = Math.ceil(controls.length / PER_ROW);
   const perRow = Math.ceil(controls.length / rows);
   const h = Math.max(
     1,

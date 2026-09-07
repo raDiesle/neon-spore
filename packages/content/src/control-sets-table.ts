@@ -110,9 +110,6 @@ export const CONTROL_SETS: readonly ControlSet[] = [
       "pulse2Up",
       "pulse2Right",
     ],
-    // Four across, because they are the four lanes and the arrows come down
-    // onto them (`ControlSet.slabsPerRow`).
-    slabsPerRow: 4,
   },
   {
     id: "claw",

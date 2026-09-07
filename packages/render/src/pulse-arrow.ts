@@ -1,6 +1,7 @@
 import type { PulseLane } from "@neon-spore/sim";
 import { halo, strokeGlow } from "./glow.js";
 import { PALETTE } from "./palette.js";
+import { arrowPath, LANE_COLOR, LANE_RIM, LANE_TURN } from "./pulse-shape.js";
 
 /**
  * One arrow, and the two ways of drawing one that cannot be read.
@@ -29,73 +30,6 @@ import { PALETTE } from "./palette.js";
  * the screen. Its colour goes to the rock grey armour wears, which is the
  * game's own word for *you cannot act on this yet*.
  */
-
-/** The four hues, in `PULSE_LANES`' order. */
-const LANE_COLOR: Record<PulseLane, string> = {
-  left: PALETTE.hull,
-  down: PALETTE.cyan,
-  up: PALETTE.pod,
-  right: PALETTE.red,
-};
-
-const LANE_RIM: Record<PulseLane, string> = {
-  left: PALETTE.hullRim,
-  down: PALETTE.cyanRim,
-  up: PALETTE.podRim,
-  right: PALETTE.redRim,
-};
-
-export const pulseLaneColor = (lane: PulseLane): string => LANE_COLOR[lane];
-
-/** How far round the nose points: 0 is up, and the four are quarters of a turn. */
-const LANE_TURN: Record<PulseLane, number> = {
-  up: 0,
-  right: Math.PI / 2,
-  down: Math.PI,
-  left: -Math.PI / 2,
-};
-
-/**
- * The contour, drawn around the origin with the nose pointing up, at radius 1.
- *
- * **A head and a shaft, and the first draft had neither.** It was written as
- * six points round a blob with one of them pulled out into a nose, on the
- * argument that everything in this game is a body — and the first frame of it
- * said the argument was wrong: four kites, none of which pointed anywhere. An
- * arrow is read by its *barbs*, the two corners that stand out sideways behind
- * the point, and a contour with no waist has none. So this is the arcade's own
- * silhouette — a wide head, a step in at the shoulders, a shaft, and a notch
- * cut up into the tail — with every corner rounded and the whole thing
- * breathing, which is what keeps it a body rather than a glyph.
- *
- * `squash` is the breath: over 1 it is taller and thinner, under 1 flatter and
- * wider, so the same shape stretches towards the line it is falling at rather
- * than simply growing.
- */
-function arrowPath(r: number, squash: number): Path2D {
-  const p = new Path2D();
-  const ry = r * squash;
-  const rx = r / squash;
-  // The waist: how far in the shaft is from the barbs, and where it starts.
-  const wx = rx * 0.4;
-  const wy = ry * 0.1;
-  p.moveTo(0, -ry);
-  // Down the right side of the head to the barb, with the edge bowed a little
-  // so the head reads as grown rather than cut.
-  p.quadraticCurveTo(rx * 0.72, -ry * 0.38, rx, wy);
-  // Round the barb and in to the shaft.
-  p.quadraticCurveTo(rx * 0.86, wy + ry * 0.16, wx, wy + ry * 0.12);
-  p.lineTo(wx, ry * 0.92);
-  // The notch: the tail is cut up into rather than left flat, which is what
-  // stops the shaft reading as a stalk.
-  p.quadraticCurveTo(wx * 0.5, ry * 0.98, 0, ry * 0.62);
-  p.quadraticCurveTo(-wx * 0.5, ry * 0.98, -wx, ry * 0.92);
-  p.lineTo(-wx, wy + ry * 0.12);
-  p.quadraticCurveTo(-rx * 0.86, wy + ry * 0.16, -rx, wy);
-  p.quadraticCurveTo(-rx * 0.72, -ry * 0.38, 0, -ry);
-  p.closePath();
-  return p;
-}
 
 export interface ArrowLook {
   /** Where it is. */
@@ -180,6 +114,34 @@ export function drawPulseArrow(ctx: CanvasRenderingContext2D, a: ArrowLook): voi
 function veilTurn(time: number): number {
   const step = Math.floor(time * 6) % 4;
   return (step * Math.PI) / 2;
+}
+
+/**
+ * The arrow's own contour, filled flat and pointing where its lane points.
+ *
+ * It is here rather than in the file that wants it because there is one arrow
+ * shape in this round and it is this one: the thing that falls, the empty one
+ * on the line and **the mark on the button it lands on** are the same body seen
+ * three ways, and a button that drew a triangle of its own would be a fourth,
+ * different arrow on the same screen. `alpha` is how lit the button is.
+ */
+export function drawPulseArrowMark(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  r: number,
+  lane: PulseLane,
+  color: string,
+  alpha: number,
+): void {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.rotate(LANE_TURN[lane]);
+  ctx.globalAlpha = alpha;
+  ctx.fillStyle = color;
+  ctx.fill(arrowPath(r, 1));
+  ctx.globalAlpha = 1;
+  ctx.restore();
 }
 
 /**

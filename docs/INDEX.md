@@ -710,9 +710,11 @@ place — the generator keeps whatever is there.
 | `packages/render/src/pulse-fall.ts` | The arrows themselves: what is falling, what is standing on the line |
 | `packages/render/src/pulse-lane.ts` | Where THE PULSE's four lanes are, and where the line across them is |
 | `packages/render/src/pulse-meter.ts` | The one meter, the tally under it, and the verdict |
-| `packages/render/src/pulse-panel.ts` | THE PULSE's four buttons, drawn as sockets rather than as plates |
 | `packages/render/src/pulse-round.ts` | THE PULSE over the whole stage |
 | `packages/render/src/choir-merge.ts` | two becoming one: THE CHOIR's membrane drawn closing over the body it has already become |
+| `packages/render/src/pulse-button.ts` | THE PULSE's four lanes, as a face on one of the band's own lobes |
+| `packages/render/src/pulse-drop.ts` | An arrow nobody answered falls into the ship |
+| `packages/render/src/pulse-shape.ts` | What an arrow in THE PULSE is made of: its hue, its heading and its contour |
 
 ### packages/net
 
@@ -834,7 +836,6 @@ place — the generator keeps whatever is there.
 | `apps/game/src/keys-grip.ts` | what the desk rig's grip key takes hold of, and how it carries it |
 | `apps/game/src/keys-slide.ts` | The desk keys that slide a swelling, and keep sliding while held |
 | `apps/game/src/shake.ts` | the device being shaken, which is THE CHOIR's control and the only input that is not a finger on the glass |
-| `apps/game/src/pulse.ts` | The host's half of THE PULSE: eight thumbs on eight buttons |
 | `apps/game/src/rounds.ts` | Every round that is not the field, bound to the canvas at once |
 
 ### apps/server
@@ -1239,7 +1240,6 @@ place — the generator keeps whatever is there.
 | `tools/director/src/stage-panel.ts` | **What the stage panel is, as a contract**, and nothing about how it is driven |
 | `tools/frames/guide-film.ts` | **Driving a rehearsal**, which is a clock of its own and not the world's |
 | `tools/director/src/ship-fields-round.ts` | The rounds' own dials, sorted into their cards |
-| `tools/director/src/stage-pulse.ts` | THE PULSE'S EIGHT SLABS, ANSWERED BY THE DIRECTOR'S MOUSE |
 | `tools/director/src/sound-link-pulse.ts` | Why none of THE PULSE's twelve sounds has a picture |
 
 <!-- index:code:end -->

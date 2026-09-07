@@ -1,6 +1,5 @@
 import {
   PULSE_LANES,
-  type PulseLane,
   type PulseState,
   pulseCalls,
   pulseLaneIndex,
@@ -10,7 +9,6 @@ import {
 } from "@neon-spore/sim";
 import { drawPulseArrow, drawPulseReceptor } from "./pulse-arrow.js";
 import type { PulseField } from "./pulse-lane.js";
-import type { PulseSlabLook } from "./pulse-panel.js";
 import type { ViewState } from "./renderer.js";
 
 /**
@@ -19,9 +17,14 @@ import type { ViewState } from "./renderer.js";
  *
  * Split out of `pulse-round.ts` on the 250-line limit, along the seam that was
  * already there: next door composes a screen — a title, a meter, a count-in, a
- * verdict, a panel — and everything here reads the *chart*. It is also the only
- * half that differs between the two seats, which makes it the half worth
+ * verdict, the ship — and everything here reads the *chart*. It is also the
+ * only half that differs between the two seats, which makes it the half worth
  * finding.
+ *
+ * **What the four buttons should be doing about it is not here any more.**
+ * They are lobes on the band now rather than a panel of the round's own, and a
+ * lobe's face is drawn from inside the band's own pass off nothing but the
+ * world (`pulse-button.ts`).
  *
  * **Nothing here works out where a lane is.** `PulseField` is handed in, and it
  * was read off the buttons rather than laid out beside them (`pulse-lane.ts`).
@@ -97,58 +100,4 @@ export function drawReceptors(
       last === 3 || last === 4 ? mine : 0,
     );
   });
-}
-
-/**
- * How close the nearest unresolved arrow in each lane is, 0..1.
- *
- * The panel is lit by it (`pulse-panel.ts`), and it is worked out here rather
- * than there because it is a question about the *chart* and the panel should
- * not have to know what a note is.
- */
-export function laneApproach(view: ViewState, boss: PulseState): number[] {
-  const cfg = view.world.cfg;
-  const out = [0, 0, 0, 0];
-  if (boss.phase !== "play") return out;
-  const seat: 1 | 2 = view.role === "p2" ? 2 : 1;
-  const judged = seat === 1 ? boss.judged1 : boss.judged2;
-  const from = seat === 1 ? boss.from1 : boss.from2;
-  for (let i = from; i < boss.notes.length; i++) {
-    const note = boss.notes[i];
-    if (note === undefined) continue;
-    if (pulseNoteTick(cfg, boss.startTick, note) - view.world.tick > cfg.pulseLeadTicks) break;
-    if (judged[i] !== 0) continue;
-    // A veiled arrow lights nothing: the button it belongs to is exactly what
-    // this seat is not being told.
-    if (pulseVeiled(note, seat)) continue;
-    const at = Math.max(0, Math.min(1, pulseNoteAt(cfg, boss.startTick, note, view.world.tick)));
-    const lane = pulseLaneIndex(note.lane);
-    out[lane] = Math.max(out[lane] ?? 0, at ** 3);
-  }
-  return out;
-}
-
-/** What one slab should look like: whose lane it is, and what is happening in it. */
-export function slabLook(
-  id: string,
-  seat: 1 | 2,
-  near: number[],
-  view: ViewState,
-  boss: PulseState,
-): PulseSlabLook {
-  const match = /^pulse([12])(Left|Down|Up|Right)$/.exec(id);
-  // Not one of ours: a draft wave on some other panel. Drawn plainly rather
-  // than skipped — see `PulseSlabLook.lane`.
-  if (match === null) return { lane: null, near: 0, press: 0 };
-  const lane = (match[2] ?? "Left").toLowerCase() as PulseLane;
-  const index = pulseLaneIndex(lane);
-  const mine = match[1] === String(seat);
-  const at = mine ? (near[index] ?? 0) : 0;
-  const lastTick = seat === 1 ? boss.lastTick1 : boss.lastTick2;
-  const lastLane = seat === 1 ? boss.lastLane1 : boss.lastLane2;
-  const press =
-    mine && lastLane === index && lastTick >= 0
-      ? Math.max(0, 1 - (view.world.tick - lastTick) / FADE_TICKS)
-      : 0;
-  return { lane, near: at, press };
 }

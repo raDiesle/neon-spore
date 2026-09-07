@@ -1,14 +1,14 @@
 import { bindStageGauge, type StageGauge } from "./stage-gauge.js";
 import { bindStagePinball, type StagePinball } from "./stage-pinball.js";
-import { bindStagePulse, type StagePulse } from "./stage-pulse.js";
 import { bindStageSnake, type StageSnake } from "./stage-snake.js";
 
 /**
- * Every round that is not the field, bound to the director's canvas at once.
+ * Every round that draws **slabs**, bound to the director's canvas at once.
  *
- * A round draws **slabs** instead of a band, and `stage-touch.ts` cannot
- * answer one: it is handed a `Field`, and a round's own buttons are in none of
- * them. So each round needs a listener of its own, and there are twelve rounds
+ * `stage-touch.ts` cannot answer a slab: it is handed a `Field`, and a slab
+ * panel's buttons are in none of them. A round played on the *band* — THE
+ * PULSE is the first — needs nothing here at all, because `touchDown` already
+ * answers a lobe wherever it stands. So each round needs a listener of its own, and there are twelve rounds
  * coming — this is the one line `stage.ts` spends on all of them rather than
  * nine lines apiece, which is what it was already spending on the first.
  *
@@ -25,9 +25,8 @@ import { bindStageSnake, type StageSnake } from "./stage-snake.js";
  * is the guard that replaced them — it walks every slab of every control set
  * and fails on one no listener here answers.
  */
-export function bindStageRounds(handle: StageGauge & StagePinball & StagePulse & StageSnake): void {
+export function bindStageRounds(handle: StageGauge & StagePinball & StageSnake): void {
   bindStageGauge(handle);
   bindStageSnake(handle);
   bindStagePinball(handle);
-  bindStagePulse(handle);
 }

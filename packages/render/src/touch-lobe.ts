@@ -45,6 +45,20 @@ export function lobeMeans(id: ControlId): { command: Command; hold: Hold | null 
     case "aimRight":
     case "aimUp":
     case "aimDown":
+    // THE PULSE's eight, and they are lobes rather than slabs because the
+    // owner asked for that round to be the game it is part of: the ship is on
+    // the screen and the four lanes stand in the band's own sockets. None of
+    // them is held — a rhythm is a sequence of instants, and a control that
+    // did anything on release would put a second event a hundred milliseconds
+    // after the one the pair meant (`sim/pulse-round.ts`).
+    case "pulse1Left":
+    case "pulse1Down":
+    case "pulse1Up":
+    case "pulse1Right":
+    case "pulse2Left":
+    case "pulse2Down":
+    case "pulse2Up":
+    case "pulse2Right":
       return { command: controlPress(id).down, hold: null };
     case "cannon":
     case "shield":
@@ -61,16 +75,6 @@ export function lobeMeans(id: ControlId): { command: Command; hold: Hold | null 
     case "pinRight":
     case "pinLatch":
     case "pinLaunch":
-    // THE PULSE's eight, for the same reason once more: a slab is a panel and
-    // never a swelling on a hull that this round does not draw.
-    case "pulse1Left":
-    case "pulse1Down":
-    case "pulse1Up":
-    case "pulse1Right":
-    case "pulse2Left":
-    case "pulse2Down":
-    case "pulse2Up":
-    case "pulse2Right":
       return null;
     default:
       return assertNever(id);

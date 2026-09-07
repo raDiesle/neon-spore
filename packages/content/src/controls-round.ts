@@ -6,10 +6,18 @@ import type { ControlDef } from "./controls.js";
  * Split out of `controls.ts` on line count, along the seam `keys-round.ts`
  * already cut for the same growth: next door is the **ship**, which is the
  * same on every wave, and this is whichever boss has taken the panel away.
- * Every one of these is a `slab` — a round replaces the band rather than
- * adding to it (`docs/spec/interludes.md`) — and there are nine more rounds
- * designed, each wanting a handful, so the growth belongs in a file of its own
- * rather than under the cannon's row.
+ * Most of these are a `slab` — a round replaces the band rather than adding to
+ * it (`docs/spec/interludes.md`) — and there are nine more rounds designed,
+ * each wanting a handful, so the growth belongs in a file of its own rather
+ * than under the cannon's row.
+ *
+ * **THE PULSE's eight are lobes, and that is the owner's decision rather than
+ * an exception that crept in.** He asked for that round to look like the game
+ * it is part of — the ship on the screen and the four buttons in the panel the
+ * pair have been holding since wave one — so its controls stand in the band's
+ * own sockets like every other button in the game. A round is still free to
+ * take the field away; what it is not free to do is invent a second kind of
+ * button while it is there.
  *
  * `CONTROLS` spreads this in place, so nothing that reads the vocabulary had
  * to learn there are two files.
@@ -109,56 +117,56 @@ export const ROUND_CONTROLS: readonly ControlDef[] = [
   {
     id: "pulse1Left",
     player: 1,
-    form: "slab",
+    form: "lobe",
     label: "◀",
     does: "Player 1's left lane in THE PULSE. Both seats carry all four, and both press the same chart.",
   },
   {
     id: "pulse1Down",
     player: 1,
-    form: "slab",
+    form: "lobe",
     label: "▼",
     does: "Player 1's down lane in THE PULSE. Both seats carry all four, and both press the same chart.",
   },
   {
     id: "pulse1Up",
     player: 1,
-    form: "slab",
+    form: "lobe",
     label: "▲",
     does: "Player 1's up lane in THE PULSE. Both seats carry all four, and both press the same chart.",
   },
   {
     id: "pulse1Right",
     player: 1,
-    form: "slab",
+    form: "lobe",
     label: "▶",
     does: "Player 1's right lane in THE PULSE. Both seats carry all four, and both press the same chart.",
   },
   {
     id: "pulse2Left",
     player: 2,
-    form: "slab",
+    form: "lobe",
     label: "◀",
     does: "Player 2's left lane in THE PULSE. Both seats carry all four, and both press the same chart.",
   },
   {
     id: "pulse2Down",
     player: 2,
-    form: "slab",
+    form: "lobe",
     label: "▼",
     does: "Player 2's down lane in THE PULSE. Both seats carry all four, and both press the same chart.",
   },
   {
     id: "pulse2Up",
     player: 2,
-    form: "slab",
+    form: "lobe",
     label: "▲",
     does: "Player 2's up lane in THE PULSE. Both seats carry all four, and both press the same chart.",
   },
   {
     id: "pulse2Right",
     player: 2,
-    form: "slab",
+    form: "lobe",
     label: "▶",
     does: "Player 2's right lane in THE PULSE. Both seats carry all four, and both press the same chart.",
   },

@@ -3,18 +3,20 @@ import type { World } from "@neon-spore/sim";
 import { bindGauge } from "./gauge.js";
 import type { InputBuffer } from "./input.js";
 import { bindPinball } from "./pinball.js";
-import { bindPulse } from "./pulse.js";
 import { bindSnake } from "./snake.js";
 
 /**
- * Every round that is not the field, bound to the canvas at once.
+ * Every round that draws **slabs**, bound to the canvas at once.
  *
- * A round draws **slabs** instead of a band, and `bindControls` cannot answer
- * one: it is handed a `Field`, and a round's own buttons are in none of them.
- * So each round needs a listener of its own — and they all take the same
- * handle, which is what this file is for. `main.ts` spends one line on all of
- * them rather than a line and an import apiece, and the eight rounds still to
- * come cost that file nothing at all.
+ * `bindControls` cannot answer a slab: it is handed a `Field`, and a slab
+ * panel's buttons are in none of them. So each such round needs a listener of
+ * its own — and they all take the same handle, which is what this file is for.
+ * `main.ts` spends one line on all of them rather than a line and an import
+ * apiece, and the rounds still to come cost that file nothing at all.
+ *
+ * **A round on the band needs nothing here**, and THE PULSE is the first:
+ * its four lanes are lobes in the panel the pair already hold, so `touchDown`
+ * answers them like every other button in the game (`render/touch-lobe.ts`).
  *
  * It is `tools/director/src/stage-rounds.ts` on this side of the fence, and it
  * arrived for the same reason: the fourth round was the one that made four
@@ -36,5 +38,4 @@ export function bindRounds(handle: RoundBindings): void {
   bindGauge(handle);
   bindSnake(handle);
   bindPinball(handle);
-  bindPulse(handle);
 }

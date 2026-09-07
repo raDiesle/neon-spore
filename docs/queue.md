@@ -219,6 +219,7 @@ plus a `--press`/`--hold` pair whose recorded order is the one written.
 
 - **Found:** 2026-09-07, claude/ddr-boss-concept-57c9c8
 - **Files:** `packages/sim/src/config-pulse.ts`, `packages/render/src/pulse-fall.ts`,
+  `packages/render/src/pulse-drop.ts`, `packages/render/src/pulse-button.ts`,
   `packages/render/src/renderer.ts`, `apps/game/src/main.ts`, `packages/net/src/delay.ts`
 
 Delayed lockstep schedules every press `delayTicks` into the future — 12 ticks
@@ -245,6 +246,12 @@ link's `delay` when there is a link and 0 when there is not. A unit test can
 prove the arithmetic: at `leadTicks = 12`, an arrow whose judged tick is T is
 drawn on the line at tick T − 12.
 
+There are **three** callers of the chart's clock in render/ now, not one: the
+arrows falling (`pulse-fall.ts`), the arrows dropping into the ship
+(`pulse-drop.ts`) and the light on the four buttons (`pulse-button.ts`). All
+three have to take the same lead or the picture will disagree with itself — an
+arrow drawn on the line while the button under it is still dark.
+
 ## `bun run index` appends a new row instead of filing it beside its siblings
 
 - **Found:** 2026-09-07, claude/crawler-pulse-stepped-comparison-7b9280
@@ -264,3 +271,26 @@ the longest shared path prefix among the rows already there — for
 `crawler-skin.ts` — rather than appending to the end of its section, and
 `tools/index/test/` should hold a case that adds a file with an obvious
 neighbour and asserts it lands beside it.
+
+## `bun run check` blames the code when a worktree's install is stale
+
+- **Found:** 2026-09-07, claude/pulse-boss-visual-integration-0678e7
+- **Files:** `tools/check/` (wherever `bun run check` is driven from), `package.json`
+
+A worktree installed before a workspace package existed has no `node_modules`
+link for it, and the first thing that says so is `bunx tsc --noEmit` reporting
+`Cannot find module '@neon-spore/content'` in files nobody touched — eight
+errors in `tools/probe/` and `apps/server/`, all of them looking like a real
+break in the tree under test. The cure is one `bun install` in the worktree and
+the whole list goes away, but a session that does not already know that spends
+a turn reading code that was never wrong. CLAUDE.md warns that a fresh worktree
+needs its own install; it does not warn that an *existing* one goes stale the
+moment `main` gains a package, which is the case that actually bites.
+
+Add a preflight to `bun run check`: read the workspace globs out of the root
+`package.json`, and for each package directory that has a `package.json` with
+dependencies, fail before the typecheck with one line naming the package and
+saying `run bun install in this worktree`. It has to run before `tsc`, because
+the whole point is to replace `tsc`'s answer with the true one. Prove it by
+renaming one package's `node_modules` aside and checking the message, then
+putting it back.

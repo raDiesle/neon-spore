@@ -10,6 +10,7 @@ import type { Circle, Layout } from "./layout.js";
 import { drawLobeGloss, drawLobeSocket } from "./lobe-shell.js";
 import { drawFaultOver } from "./malfunction-look.js";
 import { PALETTE } from "./palette.js";
+import { drawPulseLobe, pulseLobeOf } from "./pulse-button.js";
 import { type SeatSkin, seatSkin } from "./seat-skin.js";
 
 /**
@@ -135,6 +136,15 @@ function drawFace(
   // a length. See `drawLanceButton`.
   if (c.id === "lance") {
     drawLanceButton(ctx, x, y, r, world);
+    return;
+  }
+  // THE PULSE's four, and it is the first *round* whose buttons are lobes on
+  // the band rather than a slab panel of its own. The owner asked for that
+  // round to look like the game it is part of, so its lanes stand in the same
+  // sockets as everything else and this branch is the whole of the difference
+  // (`pulse-button.ts`).
+  if (pulseLobeOf(c.id) !== null) {
+    drawPulseLobe(ctx, circle, c.id, world, skin);
     return;
   }
   // THE FLEET's five. The arrows are one picture with a direction, so they

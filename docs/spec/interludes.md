@@ -45,6 +45,19 @@ Three things make it one, and all three are required:
    panel — gone. Eleven columns and fifteen rows are what the pair spends a run
    learning to talk about, and a round that borrowed the grid is a wave with a
    costume on.
+
+   **The field is the grid, not the ship.** The owner drew that line in
+   September 2026, looking at THE PULSE: he asked for the round to be *more
+   integrated, how a regular game with control panel looks — to see the ship
+   and its controls, and buttons in the same style as the default set*. The
+   first four rounds all threw the hull and the band away along with the
+   columns, and on a rhythm round that made the last boss of an act look like a
+   different game. So a round may keep the ship and the panel — they are what
+   the pair are holding, not what the pair are reading — and what it may never
+   keep is the eleven columns, the bodies falling down them, and the vocabulary
+   that hangs on both. THE PULSE keeps the hull, the band and the HUD; it has
+   no grid, no radar and no creature, and an arrow that nobody answers falls
+   into the ship the way a rock does.
 2. **Neither player can play it alone.** Each holds half the information or
    half the verbs, and the round does not resolve without both. This is filter
    6 in [transfers-hazelight](transfers-hazelight.md#the-filter) and it is the
