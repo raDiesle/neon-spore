@@ -1,8 +1,10 @@
 import { beforeAll, describe, expect, it } from "bun:test";
 import { buildQueue, CONTROL_SETS, control, controlSetForWave } from "@neon-spore/content";
 import { createWorld, step, ticksPerBeat } from "@neon-spore/sim";
+import { bandControlSet } from "../src/band.js";
+import { bandLobes } from "../src/band-lobes.js";
 import { Canvas2DRenderer } from "../src/canvas2d.js";
-import type { ViewRole } from "../src/layout.js";
+import { computeLayout, computeStage, type ViewRole } from "../src/layout.js";
 import type { Viewport } from "../src/renderer.js";
 import {
   CFG,
@@ -94,6 +96,16 @@ describe("the guard lapsing", () => {
  * The lobes are the better witness anyway — THE CLAW's panel trades the maw and
  * the colours for an arm and a mouth of its own, so the two frames differ by
  * which buttons are on the band, which is the difference the override makes.
+ *
+ * **How a lobe is read changed when the words came off it.** An action button
+ * used to write its own name and the frame could be searched for the string;
+ * it draws an emblem now and writes nothing (`action-face.ts`), so the two
+ * strip captions are all the text a band still carries. Those alone would
+ * prove only half of this — the shield strip going away — so the row itself is
+ * asked of `bandLobes`, which is not a re-derivation but the very function
+ * `band.ts` calls to place and draw the circles, and `hover.ts` and `touch.ts`
+ * to answer a thumb. What is asserted is still the buttons the override puts
+ * on the band, read from the one place that decides them.
  */
 describe("the band draws the panel it is handed", () => {
   const claw = CONTROL_SETS.find((s) => s.id === "claw");
@@ -122,6 +134,24 @@ describe("the band draws the panel it is handed", () => {
     return seen;
   }
 
+  /** The ids on one seat's row of the band, or on both — `band.ts`'s own
+   * `bandLobes`, asked the same question the drawing pass asks it. */
+  function lobeIds(
+    world: ReturnType<typeof createWorld>,
+    controls?: typeof claw,
+    player?: 1 | 2,
+  ): string[] {
+    const stage = computeStage(VIEWPORT, world.cfg, "test");
+    const layout = computeLayout(
+      { width: stage.width, height: stage.height, dpr: VIEWPORT.dpr },
+      world.cfg,
+      "test",
+    );
+    const set = bandControlSet(controls, world.wave);
+    const seats: (1 | 2)[] = player ? [player] : [1, 2];
+    return seats.flatMap((p) => bandLobes(layout, set, p).map((lobe) => lobe.control.id));
+  }
+
   it("follows an explicit override rather than the shipped wave at the same index", () => {
     const world = createWorld(CFG, 7, buildQueue(0, CFG.cols));
     // SALVAGE, the first wave played on the whole standard panel — so the
@@ -129,20 +159,23 @@ describe("the band draws the panel it is handed", () => {
     // is a trade in both directions rather than a button added.
     world.wave = 13;
     expect(controlSetForWave(world.wave).id).not.toBe(claw.id);
-    const armLobe = control("reach").label;
-    const mawLobe = control("intake").label;
-
-    const shipped = drawnNames(world);
-    expect(shipped).not.toContain(armLobe);
-    const overridden = drawnNames(world, claw);
-    expect(overridden).toContain(armLobe);
+    // The arm is on THE CLAW's panel and on no other, so it is the whole of
+    // the difference in one direction.
+    expect(lobeIds(world)).not.toContain("reach");
+    expect(lobeIds(world, claw)).toContain("reach");
     // And the trade in the other direction, so the override is a whole panel
-    // rather than a button added to the one the wave already had.
-    // `mawTake` on THE CLAW's panel wears the maw's own word, so the witness is
-    // the seat it is drawn in rather than the word: the shipped maw is player
-    // 1's and the claw moves the mouth to player 2 (`control-sets-table.ts`).
-    expect(shipped.filter((t) => t === mawLobe)).toHaveLength(1);
-    expect(overridden.filter((t) => t === mawLobe)).toHaveLength(1);
+    // rather than a button added to the one the wave already had. The mouth is
+    // on both panels and moves seat rather than going away: the shipped maw is
+    // player 1's `intake` and the claw's is player 2's `mawTake`
+    // (`control-sets-table.ts`).
+    expect(lobeIds(world, undefined, 1)).toContain("intake");
+    expect(lobeIds(world, claw, 2)).toContain("mawTake");
+    expect(lobeIds(world, claw, 1)).not.toContain("intake");
+
+    // And the strips, which are the only text a band still writes: the shipped
+    // panel gives player 2 a shield to slide and THE CLAW's does not.
+    const shipped = drawnNames(world);
+    const overridden = drawnNames(world, claw);
     expect(shipped).toContain(control("shield").label);
     expect(overridden).not.toContain(control("shield").label);
   });
