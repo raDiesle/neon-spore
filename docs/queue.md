@@ -193,29 +193,6 @@ carrying both seats and G taking hold of a body stay where they are, because
 neither is a control on any panel.
 
 
-## A frame test is 5.1 s against a 5 s cap, so a full run fails on a busy machine
-
-- **Found:** 2026-09-07, claude/queue-status-check-kydfx5
-- **Files:** `packages/render/test/fence-frame.test.ts`, `packages/render/test/frame-harness.ts`
-
-`the fence > draws a crack for the pilot and never for the navigator` timed out
-at 5126 ms inside `bun run check` and then passed on its own in 3.9 s for the
-whole file. Nothing is wrong with it: it is simply close enough to bun's
-default five-second cap that the rest of the suite running beside it pushes it
-over, so a green tree reports one red test and the next session re-runs the
-check to find out it was nothing. That retry costs every later session the same
-minutes.
-
-It draws a whole wave of frames per case and there are nine of them. Two
-things would fix it and either is enough: give the file the ticks it actually
-needs rather than a beat count copied from the other frame tests — most of the
-run happens after the crack it is asserting about — or hand `runFrames` a
-`timeout` the frame tests set once, so the cap is stated where the cost is
-rather than inherited from the runner's default. Check the other files in
-`packages/render/test` that use `runFrames` for the same margin while you are
-in there; the fence's is the first to cross, not the only one near it.
-
-
 ## `bun run frames --opening guide` cannot photograph a page past its first moment
 
 - **Found:** 2026-09-07, claude/strand-enemy-visuals-26ba40

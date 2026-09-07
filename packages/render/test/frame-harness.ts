@@ -1,3 +1,4 @@
+import { setDefaultTimeout } from "bun:test";
 import {
   buildBoss,
   buildQueue,
@@ -38,6 +39,28 @@ import { stubCanvas } from "./canvas-stub.js";
  */
 
 export { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+
+/**
+ * The cap a test that draws frames runs under, stated here because this is
+ * where the cost is.
+ *
+ * A run of `runFrames` is a whole wave of frames through a canvas that checks
+ * every value, and a file holds a handful of them: seconds, by construction,
+ * and none of them wrong. bun's default is five, which the fence's crack test
+ * crossed on 7 September 2026 at 5126 ms inside `bun run check` and then
+ * cleared on its own in less than four for the whole file. What tipped it was
+ * the rest of the suite running beside it — so the next session reads one red
+ * test on a green tree and spends its first minutes re-running the check to
+ * find out it was nothing.
+ *
+ * Importing this module is what applies it: every file that draws frames comes
+ * through here for the harness, and none of them has to remember a number.
+ * It is deliberately far above what any of these files take, because it is not
+ * a budget — `frame-budget.test.ts` is the budget, and an op is not a
+ * millisecond. This one only says "a busy machine is not a failure".
+ */
+export const FRAME_TIMEOUT_MS = 30_000;
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 export const CFG = DEFAULT_CONFIG;
 export const ROLES: ViewRole[] = ["p1", "p2", "test"];

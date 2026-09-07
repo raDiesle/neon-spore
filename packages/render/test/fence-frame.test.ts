@@ -38,8 +38,12 @@ function fenceFrames(
 describe("the fence", () => {
   // Past the hull, so every frame this creature produces — the fall, the
   // gaps, the pass or the breach at the end — has been through a canvas that
-  // refuses what a real one refuses.
-  const TICKS = ticksPerBeat(CFG) * 12;
+  // refuses what a real one refuses. The wall is spawned on the first beat and
+  // is off the field before the ninth, so ten is the last beat that draws
+  // anything: the two beyond it were a number copied from the other frame
+  // tests, and they were a quarter of the file's run spent drawing an empty
+  // field.
+  const TICKS = ticksPerBeat(CFG) * 10;
 
   for (const role of ROLES) {
     it(`draws the wall and its breaks for ${role}`, () => {
