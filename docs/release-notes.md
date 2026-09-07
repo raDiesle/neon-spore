@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-07 · 0096fa79 — THE PULSE reads as arrows, and its first one can be hit
+
+Three things the first photograph of it found. The arrows were six points round a blob with one pulled into a nose, and on a screen they were four kites that pointed nowhere — an arrow is read by its barbs, so the contour now has a head, a waist and a notched tail, and it is bigger. The tally sat along the bottom where the receptors are, so an arrow landing wrote over it; it has moved under the meter, which is the only quiet strip on the screen.
+
+## 2026-09-07 · 42dfc89b — THE PULSE: the same song on two screens, and neither of you can read all of it
+
+A seventh boss and the fourth round that is not the field. Four lanes of arrows fall onto four buttons, both seats have the same four, and both press against the same chart at the same moment — Dance Dance Revolution, deliberately unmodified, so a pair who have played one need no teaching. What is ours is the veil: four arrows in the minute arrive on one seat's screen with the direction stripped off, cycling between the lanes, readable only on the other screen, and both of them still have to press it. That is how a rhythm game passes the rule that neither player may play a round alone, without changing a single button.
+
 ## 2026-09-07 · 4d3519a8 — The heart throws a refused shot back instead of dropping a rock on the ship
 
 A shot of the wrong colour reaches the middle of THE MAZE, is refused there and costs the hull — and what the pair used to see for it was a meteor falling on the ship from nowhere, which is neither what happened nor anything to do with the heart. The owner asked for the heart's own blood instead.
