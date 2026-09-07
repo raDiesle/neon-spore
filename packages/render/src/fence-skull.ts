@@ -21,11 +21,15 @@ import { PALETTE } from "./palette.js";
  * it is not drawn like one — no contour out of `blobPath`, no lobes — because
  * it is the current making a shape rather than a thing standing in the field.
  *
- * **It flashes between the strikes rather than sitting there.** The bolts are
- * struck at `STRIKE_HZ` and this comes and goes at a fraction of that, so it
- * is caught in the gaps of the fan the way a face is caught in lightning. A
- * sign that stayed lit would become furniture in about two waves, and the pair
- * would stop reading it exactly when a wall was over them.
+ * **It stays lit for as long as the column is shut.** It used to flash between
+ * the strikes, on a blink slower than the bolts, so that it was caught in the
+ * gaps of the fan the way a face is caught in lightning. The owner had it out:
+ * *the skull should be bigger and not blinking but staying there all the time,
+ * when the effect takes place.* A warning that is only there on half the beats
+ * is a warning the pair has to catch, and the beat it is missed on is the beat
+ * the wall lands. So the face is continuous and only its **material** moves —
+ * every point is struck again on `STRIKE_HZ`, the bolts' own clock, so it
+ * crawls with the current without ever going out.
  *
  * **It says the column and nothing else.** Everything about it is placed off
  * the dome, so it is the same skull over every shut column on every wall — it
@@ -33,17 +37,13 @@ import { PALETTE } from "./palette.js";
  * and the whole of the creature.
  */
 
-/** How wide the skull is, in tiles. Half again over a tile, which is the size
- * the owner picked off a real frame: at one tile it was legible and not
- * *alarming*, and a warning that has to be looked for is not a warning. Still
- * short of the space between the wire and the dome, so it never covers the
- * thing it is warning about. */
-const WIDTH = 1.55;
-
-/** Times a second the whole sign comes and goes, and the share of each cycle it
- * is lit for. Slower than the bolts, so it is a face in the flashes. */
-const BLINK_HZ = 2.6;
-const LIT = 0.55;
+/** How wide the skull is, in tiles. Better than two, which is the size the
+ * owner picked off a real frame after asking for it twice: at one and a half
+ * it was legible and not *alarming*, and a warning that has to be looked for
+ * is not a warning. Still short of the space between the wire and the dome at
+ * the height `SKULL_LIFT` hangs it, so it never covers the thing it warns
+ * about. */
+const WIDTH = 2.3;
 
 /** Times a second the jag is struck again — the bolts' own rate, so the skull
  * is made of the same material as the fan around it. */
@@ -51,20 +51,6 @@ const STRIKE_HZ = 22;
 
 /** How far a point strays from the drawn outline, as a share of the width. */
 const JITTER = 0.055;
-
-/**
- * How bright the sign is right now, 0 when it is between flashes. Exported so
- * the caller can skip the whole draw on the dark half of the blink rather than
- * paying for a path it is about to draw at zero alpha.
- */
-export function skullFlash(time: number): number {
-  const phase = (((time * BLINK_HZ) % 1) + 1) % 1;
-  if (phase > LIT) return 0;
-  // Up fast and down slow inside the lit half, so it strikes rather than
-  // breathes.
-  const t = phase / LIT;
-  return Math.min(1, Math.sin(Math.PI * t) * 1.4);
-}
 
 /** One point of the skull, in the unit square, jittered on the strike clock. */
 function jag(x: number, y: number, seed: number, strike: number): [number, number] {
@@ -145,11 +131,11 @@ export function drawFenceSkull(
   force: number,
   time: number,
 ): void {
-  const flash = skullFlash(time);
-  if (flash <= 0) return;
   const size = l.tile * WIDTH;
   const strike = Math.floor(time * STRIKE_HZ);
-  const alpha = flash * (0.55 + 0.45 * force);
+  // No blink term: the sign is lit for the whole of the time it is drawn, and
+  // only the fan's nearness moves its brightness.
+  const alpha = 0.6 + 0.4 * force;
 
   ctx.save();
   ctx.globalAlpha = alpha;

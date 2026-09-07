@@ -136,3 +136,27 @@ Why the short label is what fits today, and what each of the three costs.
 
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
+
+## Two tests are red on main, from the last director save
+
+- **Found:** 2026-09-07, claude/fence-skull-effect-8c98a6
+- **Files:** `packages/content/test/waves.test.ts`, `packages/content/src/waves/act-7b.ts`, `tools/perf/test/baseline.test.ts`
+
+`bun test` fails twice on a clean `main` (9758baf1), and both failures came in
+with the recent *The wave list as the director saved it* commits rather than
+with any lane's code:
+
+- `wave content > gives a guide only to a wave that introduces something` —
+  wave 53 · THE TWITCH carries a full three-part guide and the test finds it
+  introduces nothing new. Either the wave lost the creature its guide was
+  written for, in which case the guide goes, or it still introduces something
+  the test's `introduces` check no longer sees, in which case the entry the
+  check reads is what is wrong. Read the guide's text against the wave's
+  `entries` and decide which.
+- `the checked-in baseline > measured the arrivals each wave sends today` —
+  52 THE COIL sends something other than what the baseline records. The test
+  prints its own remedy: `bun run perf --wave "THE COIL" --save`, after
+  confirming the wave really did change on purpose.
+
+Until both are green, every lane's `bun run check` ends red and has to argue
+that the two failures are somebody else's.

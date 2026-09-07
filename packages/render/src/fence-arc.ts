@@ -124,7 +124,7 @@ export function drawFenceArcs(
     drawArgument(ctx, l, domeX, wireY, domeY, force, time);
     // And the warning, when the column the dome is standing in has no way
     // through it: a skull struck out of the same current, a tile over the
-    // dome, flashing between the bolts (`fence-skull.ts`). It is asked of
+    // dome, lit for as long as the column is shut (`fence-skull.ts`). It is asked of
     // `fenceIsOpen` rather than of the settle — the pair has to be told the
     // column is wrong while there is still time to move, and the settle is a
     // clock about the dome having *arrived*.
