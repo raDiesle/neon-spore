@@ -2,7 +2,9 @@ import type { Wave } from "../wave-types.js";
 
 /**
  * The second half of act seven, cut off `act-7.ts` when THE COIL was split
- * into two waves and that file reached the 250-line ceiling.
+ * into two waves and that file reached the 250-line ceiling. Three waves now:
+ * the fault at length, the panel that replaces the gun, and the rock that
+ * takes THE COIL's flight with nothing on it.
  *
  * **`7b` and not `8`, because the order of the waves is the order of the
  * game** — the rule `act-3b.ts` already states, arrived at the same way. An
@@ -55,6 +57,29 @@ import type { Wave } from "../wave-types.js";
  *    column she names is not the column it will be in
  *    (`docs/spec/controls.md`).
  *
+ * 3. **THE CROSSING** is a rock on THE COIL's flight with nothing on it, and
+ *    it is here rather than beside its relatives for one reason: it needs the
+ *    coil to have been seen. A pair who has watched a dome cross the field and
+ *    sink two rows at every wall already knows this movement — what they have
+ *    never met is that movement on a body there is *nothing to open*, so the
+ *    plate is the whole answer and it has to be somewhere before the rock is.
+ *
+ *    The rule the wave is built on is one line of arithmetic: it only sinks
+ *    when it turns and it only turns at a wall, so **it always reaches the
+ *    hull standing on an edge** — never anywhere between. Which of the two
+ *    edges follows from the row it came in on and nothing else, and working
+ *    that out is a whole crossing's worth of talking with nothing else to do.
+ *
+ *    1. Beat 0, one alone from the left at row 10: four crossings and it is
+ *       down, which is short enough to be watched from start to finish.
+ *    2. Beat 16, one from the right at row 8, and beat 24, one from the left
+ *       at row 7 — overlapping on purpose. Two answers wanted at once and one
+ *       plate to give them, so the order is the choice and the edges are far
+ *       enough apart that it costs something.
+ *
+ *    It is played on the ordinary panel, so it reads as a wave of the act
+ *    rather than as a sequel to THE CLAW standing in front of it.
+ *
  * The prose about a wave lives **here, above the array**, and not beside the
  * entry it is about: `tools/director/src/serialize.ts` regenerates everything
  * from `export const WAVES_ACT_7B` down every time somebody saves a wave in
@@ -104,5 +129,20 @@ export const WAVES_ACT_7B: Wave[] = [
       { beat: 50, col: 6, row: 5, kind: "mend", cross: -1 },
     ],
     controls: "claw",
+  },
+  {
+    id: "theCrossing",
+    name: "THE CROSSING",
+    sentence: "The one where it always lands on a wall, and the only question is which one.",
+    guide: {
+      both: "A rock that comes over a side wall instead of the top, and walks a row two lanes a beat. It only sinks when it turns and it only turns at a wall, so it reaches the hull on the left edge or the right one and nowhere between.",
+      p1: "Your strip shows the arrow before it arrives: which wall it comes over. Count from there — a crossing is one edge to the other and two rows down — and name the edge it runs out of rows on. The trigger is still yours.",
+      p2: "Never chase it: two lanes a beat is faster than the plate. Take the edge they name and be standing on it early — you have a whole crossing to get there.",
+    },
+    entries: [
+      { beat: 0, col: 0, kind: "meteor", color: null, cross: 1, row: 10 },
+      { beat: 16, col: 6, kind: "meteor", color: null, cross: -1, row: 8 },
+      { beat: 24, col: 0, kind: "meteor", color: null, cross: 1, row: 7 },
+    ],
   },
 ];

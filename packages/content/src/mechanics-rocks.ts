@@ -1,5 +1,5 @@
 /**
- * The seven rocks' rows, lifted out of `mechanics-table.ts` when THE VOLLEY took
+ * The rocks' rows, lifted out of `mechanics-table.ts` when THE VOLLEY took
  * that file past its 250-line limit — the same seam `creatures-rocks.ts`
  * already cuts in the bestiary next door, and for the same reason: five speed
  * tiers and a torch are one fact said six times, and they are the longest run
@@ -41,6 +41,22 @@ export const ROCK_MECHANICS = {
     what: "A rock inside a dome, crossing the field from the right wall to the left instead of falling and sinking two rows at every wall it turns at. Nothing reaches it while the dome is on; the shield standing in its column opens it wherever it is, and what drops out is a torch. The charge then jumps to another dome still standing and opens that one too, and on again — so one trigger frees the whole field, one at a time, and only the pilot can see which is next.",
     reach: "spawn",
     waveNames: true,
+  },
+  /**
+   * **The one row here that is not a kind.** Every other id in this table is a
+   * creature, a boss or a pod the simulation already publishes a union for;
+   * this one is a *route* a wave puts a plain rock on (`WaveEntry.cross`), so
+   * it carries no `waveNames` — there is nothing for an entry's `kind` to say
+   * — and `mechanicsInWave` finds it by reading the queue's own `cross` rather
+   * than by matching a kind.
+   *
+   * It is a mechanic by this table's own test all the same: it is a rule the
+   * pair has to learn, and the game is a smaller game without it rather than
+   * no game at all.
+   */
+  rockCross: {
+    what: "A rock that comes over one of the side walls instead of the top, walking a row two lanes a beat. It only sinks when it turns and it only turns at a wall — so it reaches the hull standing on the left edge or the right one and never anywhere between, and which of the two is a thing the pair has a whole crossing to work out.",
+    reach: "spawn",
   },
   torch: {
     what: "Rock again, twice as wide, and the fastest thing in the field. It cannot be shot either.",

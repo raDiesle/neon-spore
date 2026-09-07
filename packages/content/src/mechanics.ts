@@ -75,6 +75,16 @@ export type RunMechanicId = "briefing" | "windup" | "lance" | "grip" | "lock";
 export type WaveMechanicId = "cannonFault" | "shieldFault";
 
 /**
+ * A mechanic a wave turns on **by a field on an arrival rather than by its
+ * kind**: a plain rock sent across the field instead of down a column
+ * (`WaveEntry.cross`, `sim/rock-cross.ts`). Its own class rather than a third
+ * `WaveMechanicId`, because those two are defined by putting *no body* on the
+ * field and this one does — it is a `spawn`, and what is unusual is only how
+ * `mechanicsInWave` finds it.
+ */
+export type RouteMechanicId = "rockCross";
+
+/**
  * The closed list. `queen` and `warden` are a `CreatureKind` and a boss kind at
  * once, which is right — the body and the fight are one mechanic — so the
  * union deliberately collapses them and only `mirror` and `vane` are added.
@@ -84,7 +94,8 @@ export type MechanicId =
   | PodKind
   | Exclude<BossEntry["kind"], CreatureKind>
   | RunMechanicId
-  | WaveMechanicId;
+  | WaveMechanicId
+  | RouteMechanicId;
 
 /**
  * How to tell whether a wave reaches a mechanic — and, for one class, that the
@@ -191,7 +202,14 @@ export function faultMechanic(m: Malfunction): WaveMechanicId {
 
 export function mechanicsInWave(wave: Wave): Set<MechanicId> {
   const found = new Set<MechanicId>();
-  for (const e of queueFromWave(wave, AUTHORED_COLS)) found.add(e.kind);
+  for (const e of queueFromWave(wave, AUTHORED_COLS)) {
+    found.add(e.kind);
+    // The one mechanic a queue entry carries in a *field* rather than in its
+    // kind (`RouteMechanicId`), read off the translated queue like everything
+    // else here — so the rule saying which kinds may take a route is called
+    // once rather than restated.
+    if (e.cross !== undefined) found.add("rockCross");
+  }
   for (const p of podsFromWave(wave, AUTHORED_COLS)) found.add(podKindOf(p));
   const boss = bossFromWave(wave, AUTHORED_COLS);
   if (boss) found.add(boss.kind);

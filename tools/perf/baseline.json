@@ -607,6 +607,22 @@
       "mean": 3.2,
       "p90": 4.43,
       "jitter": 0.259
+    },
+    {
+      "id": "theCrossing",
+      "wave": 55,
+      "name": "THE CROSSING",
+      "bodies": 2,
+      "arrivals": "3:62338910",
+      "typical": 2.87,
+      "mean": 2.97,
+      "p90": 3.42,
+      "jitter": 0.08,
+      "mergedFrom": {
+        "measuredAt": "2026-09-07",
+        "commit": "a1c67330c27634b0281ff23c3655f2b01b7a5a44",
+        "scale": 1.53
+      }
     }
   ]
 }
