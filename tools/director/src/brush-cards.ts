@@ -164,6 +164,7 @@ export const SHORT_NOTE: Partial<Record<CreatureKind, string>> = {
   carom: "bounces off the walls; shoot it, then ward the rock",
   coil: "crosses right to left; opening one costs the rock it leaves",
   balloon: "rises from the ship; both of you pull a handle at once",
+  beatbox: "p2 taps the beat; p1 sees the count",
   chute: "what a cracked carom throws out — it goes up, then drifts back down",
   volley: "ward it three times, then shoot what hatches",
   gyre: "a wheel of six bodies; the maw slows it",
