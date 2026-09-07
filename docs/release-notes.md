@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-07 · f2e910d0 — THE PULSE drops slicks, bulbs, rocks and pods into four craters in the hull
+
+Three things the owner asked for in one message, and the first of them is the one that reaches furthest.
+
 ## 2026-09-07 · d0ba3a7d — The lance loses its button: hold a colour and the cannon fires itself
 
 The two fire lobes are held as well as tapped. A tap is the shot it always was; a thumb that stays fills the cannon lobe for as long as player 1 keeps the cannon still, and at the top of the fill a lance goes by itself — in the colour that was held, at half speed, through every body of that colour in the column. The LANCE button and the LANCE PANEL are gone, so the weapon every wave with a colour on it can now reach costs no wave a button.
