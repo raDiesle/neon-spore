@@ -359,3 +359,45 @@ optional list of `TimedCommand`s the measurement sends before its busiest tick,
 send them the way `capture.ts` does, and give THE LANCE a held colour so its row
 means something. The rows for waves with no commands are untouched, so the rest
 of the baseline stays comparable.
+
+## A handle's own word assumes every handle is the pilot's
+
+- **Found:** 2026-09-07, claude/balloon-enemy-unit-tkbivj
+- **Files:** `packages/render/src/handle-draw.ts`,
+  `packages/render/src/balloon-handles.ts`, `packages/render/src/lid-string.ts`,
+  `packages/render/src/tether.ts`, `packages/render/src/maze-string.ts`
+
+`drawHandleHint` writes `"PULL"` on the pilot's screen and `"PILOT'S"` on the
+navigator's, with the seat baked in as `role !== "p2"`. That was true of every
+handle in the game until THE BALLOON, which has one per seat — so
+`balloon-handles.ts` carries a `hint` of its own, four lines that say the same
+thing with the seat passed in and the direction named. Two copies of one word
+under two kinds of handle is exactly the drift `handle-draw.ts`' own header
+was written to stop.
+
+Give `drawHandleHint` the seat and the words as arguments — `{ seat, mine,
+theirs }` — and delete the balloon's copy. The three existing callers pass
+`{ seat: 1, mine: "PULL", theirs: "PILOT'S" }` and draw byte for byte what they
+draw today, which is what `bun run check` proves: nothing in `frame.test.ts` or
+`touch.test.ts` should move.
+
+## `mechanics-table.ts` is at its ceiling and pays for the next creature in prose
+
+- **Found:** 2026-09-07, claude/balloon-enemy-unit-tkbivj
+- **Files:** `packages/content/src/mechanics-table.ts`,
+  `packages/content/src/mechanics-handed.ts`,
+  `packages/content/src/mechanics-split.ts`
+
+The file stood at 248 of its 250 lines when THE BALLOON arrived. Its row went
+next door into `mechanics-handed.ts`, which still costs an import and a spread
+— three lines for two — so the lane had to buy them back by rewording a comment
+belonging to `WAVE_MECHANICS`. That is the cost `docs/token-budget.md` names:
+prose nobody meant to touch, edited to make room, and the next creature pays it
+again with nothing left to trim.
+
+Cut it properly. `SPLIT_MECHANICS` is the precedent and the seam is already
+drawn in the table's own comments: the rocks, the run switches, the wave
+switches and the split five are out; what is left is one long undifferentiated
+run. Move the four bosses' rows, or the six worn bodies', into a file of their
+own and name them in place the way the existing groups are — key order is read
+by `MECHANIC_IDS` and walked by the bestiary, so nothing may be reordered.

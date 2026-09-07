@@ -1,3 +1,4 @@
+import { BALLOON_DEFAULTS, type BalloonConfig } from "./config-balloon.js";
 import { BEATBOX_DEFAULTS, type BeatboxConfig } from "./config-beatbox.js";
 import { BOSS_DEFAULTS, type BossConfig } from "./config-boss.js";
 import { CAROM_DEFAULTS, type CaromConfig } from "./config-carom.js";
@@ -26,6 +27,7 @@ import { VEER_DEFAULTS, type VeerConfig } from "./config-veer.js";
 import { VIEW_DEFAULTS, type ViewConfig } from "./config-view.js";
 import { VOLLEY_DEFAULTS, type VolleyConfig } from "./config-volley.js";
 
+export { BALLOON_DEFAULTS, type BalloonConfig } from "./config-balloon.js";
 export { BEATBOX_DEFAULTS, type BeatboxConfig } from "./config-beatbox.js";
 export { BOSS_DEFAULTS, type BossConfig } from "./config-boss.js";
 export { CAROM_DEFAULTS, type CaromConfig } from "./config-carom.js";
@@ -60,6 +62,7 @@ export { VOLLEY_DEFAULTS, type VolleyConfig } from "./config-volley.js";
  */
 export interface SimConfig
   extends CoilConfig,
+    BalloonConfig,
     BeatboxConfig,
     BossConfig,
     CaromConfig,
@@ -192,6 +195,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   ...MALFUNCTION_DEFAULTS,
   ...VIEW_DEFAULTS,
   ...COIL_DEFAULTS,
+  ...BALLOON_DEFAULTS,
   ...BOSS_DEFAULTS,
   ...CAROM_DEFAULTS,
   ...BEATBOX_DEFAULTS,

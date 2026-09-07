@@ -1,3 +1,4 @@
+import type { BalloonEvent } from "./events-balloon.js";
 import type { BeatboxEvent } from "./events-beatbox.js";
 import type { CaromEvent } from "./events-carom.js";
 import type { ChoirEvent } from "./events-choir.js";
@@ -221,8 +222,13 @@ export type CreatureEvent =
   // whose every event deliberately leaves out the one number the creature is
   // *about*, because both phones play a cue and only one seat may know it.
   | BeatboxEvent
+  // And THE BALLOON's three, on the same terms again (`events-balloon.ts`) —
+  // the three ways one body stops being what it was, which is neither a
+  // gesture taken apart nor an arrival taken apart.
+  | BalloonEvent
   | StrandEvent;
 
+export type { BalloonEvent } from "./events-balloon.js";
 export type { BeatboxEvent } from "./events-beatbox.js";
 export type { CaromEvent } from "./events-carom.js";
 // Re-exported so nothing that reaches for one through this file has to move.

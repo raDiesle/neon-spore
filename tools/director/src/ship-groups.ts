@@ -58,6 +58,7 @@ export type GroupName =
   | "THE LID — an armoured eye held open by a hand"
   | "THE CHOIR — two bodies opened by shaking the phone"
   | "THE BEATBOX — a soundbox counted out on the beat"
+  | "THE BALLOON — a body that goes up, opened by two hands at once"
   | "THE MALFUNCTION — a control that acts by itself"
   | "SCORE"
   | "WARDEN"
@@ -105,6 +106,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE LID — an armoured eye held open by a hand",
   "THE CHOIR — two bodies opened by shaking the phone",
   "THE BEATBOX — a soundbox counted out on the beat",
+  "THE BALLOON — a body that goes up, opened by two hands at once",
   "SCORE",
   "WARDEN",
   "VANE",

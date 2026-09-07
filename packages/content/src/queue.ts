@@ -130,6 +130,12 @@ export function queueFromWave(wave: Pick<Wave, "entries">, cols: number): SpawnE
       // identical queue. The row is a row and never goes through `mapCol` —
       // that function remaps *columns*, and a field is remapped across, never
       // down.
+      // How fast a balloon climbs, on the same terms: only when the wave asked
+      // for something other than the shipped speed, so one left alone carries
+      // no field at all and `balloonRiseRows` is the one place that default is
+      // read. A count of rows and never a column, so `mapCol` has nothing to
+      // say about it.
+      ...(e.rise === undefined ? {} : { rise: e.rise }),
       ...(e.cross === undefined ? {} : { cross: e.cross }),
       ...(e.row === undefined ? {} : { row: e.row }),
     });

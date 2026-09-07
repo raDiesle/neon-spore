@@ -1,3 +1,4 @@
+export { BALLOON, balloonKnot, balloonOutline, balloonPath } from "./balloon-shape.js";
 export {
   type ClubbedRim,
   clubbedPoints,
@@ -52,6 +53,7 @@ export {
   type CreatureCategory,
   type CreatureDef,
   categoryOf,
+  isInstalled,
   kindForColor,
   type RadarOwner,
   radarOwner,

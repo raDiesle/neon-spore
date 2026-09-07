@@ -27,6 +27,13 @@ const ACCEPTED: Command[] = [
   // pilot opening a membrane on their own phone and nowhere else.
   { kind: "drag", target: "choirLeft", on: true, fromMilli: -2000 },
   { kind: "drag", target: "choirRight", on: true, fromMilli: 2000 },
+  // THE BALLOON's two handles, and the first pair on this wire that is one
+  // gesture in two *seats*: the left is the pilot's and the right the
+  // navigator's, both carrying the body's id. A codec that dropped either
+  // would leave one seat pulling on their own phone and the other watching a
+  // body that never gives.
+  { kind: "drag", target: "balloonLeft", on: true, fromMilli: -1400, id: 4 },
+  { kind: "drag", target: "balloonRight", on: true, fromMilli: 1400, id: 4 },
   { kind: "shake" },
   { kind: "restart" },
   // The four the guard below found missing from the codec altogether — THE
@@ -97,6 +104,8 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   gripBody: true,
   choirLeft: true,
   choirRight: true,
+  balloonLeft: true,
+  balloonRight: true,
 };
 
 describe("decodeCommand: one accepted example per variant", () => {

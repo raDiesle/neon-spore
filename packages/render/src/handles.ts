@@ -1,17 +1,9 @@
-import {
-  type DragTarget,
-  lidHandleMilli,
-  lidIsHeld,
-  NO_TETHER,
-  occupiesCol,
-  type World,
-  wardenHandleMilli,
-} from "@neon-spore/sim";
+import { NO_TETHER } from "@neon-spore/sim";
+import { balloonHandleCircle, balloonHandleSeat } from "./balloon-handles.js";
 import { choirArrowCircle, showsChoirArrows } from "./choir-arrows.js";
-import { fieldPoint, handleRadius } from "./handle-draw.js";
-import { type Circle, hitCircle, type Layout } from "./layout.js";
+import { hitCircle, type Layout } from "./layout.js";
 import { lidCordCircle } from "./lid-string.js";
-import { mazeStringCircle, mazeStringHandle } from "./maze-string.js";
+import { mazeStringCircle } from "./maze-string.js";
 import { tetherGrabCircle } from "./tether.js";
 import type { Field, Touch } from "./touch.js";
 
@@ -19,9 +11,12 @@ import type { Field, Touch } from "./touch.js";
  * The handles: the things drawn **on the field** that a hand takes hold of and
  * carries, as opposed to the strips and lobes below the band.
  *
- * There are three of them now — THE MAZE's string, THE WARDEN's rope and THE
- * LID's cord — and that is why they are here rather than in `touch.ts` next
- * door. Both answer
+ * There are five of them now — THE MAZE's string, THE WARDEN's rope, THE LID's
+ * cord, THE CHOIR's two arrows and THE BALLOON's two handles — and that is why
+ * they are here rather than in `touch.ts` next door. The last pair is the one
+ * that is not the pilot's: a balloon has a handle for each seat, and which
+ * side belongs to whom is `balloonHandleSeat`'s
+ * (`balloon-handles.ts`). Both answer
  * the same shape of question (is this seat allowed, is this round running, is
  * the press inside the resting circle) and neither is a creature, so the file
  * that owns the decision table for the whole control scheme was carrying two
@@ -45,8 +40,45 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     mazeStringUnder(l, x, y, field) ??
     wardenRopeUnder(l, x, y, field) ??
     lidCordUnder(l, x, y, field) ??
+    balloonHandleUnder(l, x, y, field) ??
     choirArrowUnder(l, x, y, field)
   );
+}
+
+/**
+ * THE BALLOON's handles, and the first on this field that are **not** the
+ * pilot's — one each. Which side belongs to which seat is
+ * `balloonHandleSeat`'s and is asked here rather than decided here, so the
+ * circle a finger is answered at and the circle the picture draws are one
+ * fact (`balloon-handles.ts`).
+ *
+ * The nearest wins when two overlap, which is `lidCordUnder`'s rule and
+ * `creatureAt`'s before it: a thumb covers more than a handle, and the body a
+ * player meant is the one they put their thumb closest to. It matters more
+ * here than it ever has — a wave puts several of these up at once on purpose,
+ * and grabbing the wrong one is grabbing a body the other seat is not on.
+ */
+function balloonHandleUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
+  const side = field.seat === 1 ? -1 : 1;
+  if (balloonHandleSeat(side) !== field.seat) return null;
+  let best: number | null = null;
+  let bestDist = Number.POSITIVE_INFINITY;
+  for (const c of field.creatures) {
+    if (c.kind !== "balloon") continue;
+    const circle = balloonHandleCircle(l, field.cfg, c, field.beatPhase, side);
+    if (!hitCircle(circle, x, y)) continue;
+    const d = Math.hypot(x - circle.x, y - circle.y);
+    if (d >= bestDist) continue;
+    best = c.id;
+    bestDist = d;
+  }
+  if (best === null) return null;
+  const target = side === -1 ? "balloonLeft" : "balloonRight";
+  return {
+    player: field.seat,
+    command: { kind: "drag", target, on: true, fromMilli: 0, fromYMilli: 0, id: best },
+    hold: { kind: "drag", target, player: field.seat, originX: x, originY: y, id: best },
+  };
 }
 
 /**
@@ -164,58 +196,9 @@ function lidCordUnder(l: Layout, x: number, y: number, field: Field): Touch | nu
   };
 }
 
-/**
- * Where a handle is *standing*, as opposed to where it rests.
- *
- * `handleUnder` above answers where a finger may grab, and that is always the
- * resting circle: by the time a handle has swung the pointer is captured and
- * nothing is hit-tested again. This answers the other question, and two things
- * ask it — the ghost hand in a guide's rehearsal, and the caption pointing at
- * one. A thumb drawn at the rest while the cord it is holding swings away is a
- * hand that has visibly let go.
- *
- * Each of the three comes out of the file that draws it, so the hand cannot
- * stand where the handle is not. Null wherever the handle is not on the field:
- * the wheel between rounds, a warden with no line, a wave with no eye in it.
- */
-export function handleCircle(
-  l: Layout,
-  world: World,
-  target: DragTarget,
-  beatPhase: number,
-  col?: number,
-): Circle | null {
-  const cfg = world.cfg;
-  if (target === "choirLeft" || target === "choirRight") {
-    // The two arrows are the one handle that is *placed* rather than found: a
-    // membrane is on the field or it is not, and the arrows stand against the
-    // walls either way they are drawn. `showsChoirArrows` is the same gate the
-    // drawing and the hit test ask, so a ring can never be put round an arrow
-    // nobody was shown — including on the navigator's screen, which has none.
-    if (!showsChoirArrows(l, world.creatures)) return null;
-    return choirArrowCircle(l, target === "choirLeft" ? -1 : 1);
-  }
-  if (target === "mazeString") {
-    const m = world.boss?.kind === "maze" ? world.boss : null;
-    if (m === null || m.phase !== "read") return null;
-    const rest = mazeStringCircle(l, cfg);
-    return { x: mazeStringHandle(l, cfg, m).x, y: rest.y, r: rest.r };
-  }
-  if (target === "wardenTether") {
-    const b = world.boss?.kind === "warden" ? world.boss : null;
-    if (b === null || b.tetherId === NO_TETHER) return null;
-    const at = fieldPoint(l, wardenHandleMilli(world, b));
-    return { x: at.x, y: at.y, r: handleRadius(l, cfg) };
-  }
-  // A cord hangs off a body, so which body has to be said: the one in the
-  // column the film named, and otherwise the first on the field.
-  const lid = world.creatures.find(
-    (c) => c.kind === "lid" && (col === undefined || occupiesCol(c, col)),
-  );
-  if (!lid) return null;
-  // Held, the handle is wherever the hand carried it; loose, it hangs under
-  // the body and follows it down, which is `lidCordCircle`'s own answer.
-  if (!lidIsHeld(lid)) return lidCordCircle(l, cfg, lid, beatPhase);
-  const at = fieldPoint(l, lidHandleMilli(cfg, lid));
-  return { x: at.x, y: at.y, r: handleRadius(l, cfg) };
-}
+// **Where a handle is standing**, as against where a finger may grab one, is
+// `handle-place.ts` next door — cut out when THE BALLOON's two took this file
+// over its limit, along the seam the header above already draws. Re-exported
+// here so nothing that reached for `handleCircle` through this file had to
+// move.
+export { handleCircle } from "./handle-place.js";

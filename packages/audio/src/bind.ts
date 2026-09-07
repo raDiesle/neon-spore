@@ -12,6 +12,7 @@
  */
 
 import type { SimEvent } from "@neon-spore/sim";
+import { balloonCue } from "./bind-balloon.js";
 import { beatboxCue } from "./bind-beatbox.js";
 import { breachCue } from "./bind-breach.js";
 import { caromCue } from "./bind-carom.js";
@@ -222,6 +223,12 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "choirOpen":
     case "choirSing":
       return choirCue(e, cols, rows);
+    // THE BALLOON's three, in `bind-balloon.ts` — the three ends one body can
+    // come to. Named, not defaulted, for the reason every case here is.
+    case "balloonSplit":
+    case "balloonPop":
+    case "balloonBurst":
+      return balloonCue(e, cols, rows);
     // THE CAROM's four, in `bind-carom.ts` — one arrival taken apart, cut out
     // of `bind-creatures.ts` the way `events-carom.ts` is cut out of
     // `events-creature.ts`. Named here rather than reached through a default,

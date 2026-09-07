@@ -47,6 +47,23 @@ export interface CreatureDef {
    * body (`kindForColor`, `shellBecomes`, `claspBecomes`).
    */
   authorsColor?: true;
+  /**
+   * True for a body **something else on the field puts there**, never a wave:
+   * THE WARDEN's line, one of THE GYRE's mounts, the body a cracked carom
+   * throws clear.
+   *
+   * Data rather than a rule derived from `categoryOf(kind) === "special"`,
+   * because THE BALLOON is the counter-example and it arrived the day it was
+   * written down. That category means *answered by neither control*, and for
+   * three creatures it happened to mean "installed" as well — so the director's
+   * palette, the shape sheet and the `waveNames` invariant all read it as if it
+   * did. A balloon is answered by neither control and **is** authored, one to a
+   * cell like anything else, so a proxy would have left it with no brush to
+   * place it and no row in the table that says a wave may name it.
+   *
+   * Read it through `isInstalled`, never by testing the category.
+   */
+  installed?: true;
   /** One sentence. This is what the first-appearance preview says. */
   blurb: string;
 }
@@ -81,6 +98,17 @@ export function kindForColor(color: Color): CreatureKind {
  */
 export function authorsBodyColor(kind: CreatureKind): boolean {
   return CREATURES[kind].authorsColor === true;
+}
+
+/**
+ * Whether a wave can place this kind at all, or whether something else on the
+ * field is what puts one there. Call this instead of testing
+ * `categoryOf(kind) === "special"`: that shape happened to name the same three
+ * bodies until THE BALLOON, and it silently drops a creature that is answered
+ * by neither control and authored anyway (`CreatureDef.installed`).
+ */
+export function isInstalled(kind: CreatureKind): boolean {
+  return CREATURES[kind].installed === true;
 }
 
 export function controlsForKinds(kinds: readonly CreatureKind[]): ControlGroup[] {

@@ -1,3 +1,4 @@
+import { stepBalloon } from "./balloon.js";
 import { stepCarom } from "./carom.js";
 import { stepChute } from "./chute.js";
 import { stepCoil } from "./coil.js";
@@ -52,6 +53,14 @@ export function steppedInsteadOfFalling(world: World, c: Creature): boolean {
   // be moving three rows on the beats it moved.
   if (c.kind === "dart") {
     stepDart(world, c);
+    return true;
+  }
+  // THE BALLOON goes **up**, on a diagonal, and stands still while it is still
+  // filling — `stepBalloon` is all three phases and the burst at the top. The
+  // sharpest reading of this file's rule in the game: a body that both climbed
+  // and fell would go nowhere at all, which is exactly what it would look like.
+  if (c.kind === "balloon") {
+    stepBalloon(world, c);
     return true;
   }
   // A carom crosses the field on a diagonal and turns at the walls; the drop

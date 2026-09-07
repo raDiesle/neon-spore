@@ -50,6 +50,12 @@ async function eventTypes(): Promise<string[]> {
     // `events-creature.ts` was at its limit and grows by an arm per creature
     // (`docs/queue.md`, 6 September 2026).
     ["packages/sim/src/events-veil.ts", "export type VeilEvent ="],
+    // THE CHOIR's three, which were cut out of `events-creature.ts` and never
+    // named here — so this test has been reading a union with a hole in it
+    // since that creature landed, which is the exact silence it exists to
+    // catch. Named now, with THE BALLOON's three beside them.
+    ["packages/sim/src/events-choir.ts", "export type ChoirEvent ="],
+    ["packages/sim/src/events-balloon.ts", "export type BalloonEvent ="],
   ] as const) {
     const src = await Bun.file(join(ROOT, file)).text();
     const start = src.indexOf(decl);
@@ -134,6 +140,13 @@ const SAMPLES: Record<string, SimEvent> = {
   claspBreak: { type: "claspBreak", id: 7, col: 3, row: 5, kind: "bulb", color: "cyan" },
   coilBreak: { type: "coilBreak", id: 8, col: 4, row: 6, ward: true },
   coilJump: { type: "coilJump", id: 9, col: 4, row: 6 },
+  choirMerge: { type: "choirMerge", id: 10, col: 3, row: 5, kind: "slick" },
+  choirOpen: { type: "choirOpen", id: 10, col: 3, row: 5, kind: "slick", color: "red" },
+  choirArm: { type: "choirArm", side: -1 },
+  choirSing: { type: "choirSing", col: 3, row: 5 },
+  balloonSplit: { type: "balloonSplit", col: 3, row: 5 },
+  balloonPop: { type: "balloonPop", col: 3, row: 5 },
+  balloonBurst: { type: "balloonBurst", col: 3, row: 0 },
   veilMorph: { type: "veilMorph", col: 3, row: 4, color: "red" },
   veilRebuff: { type: "veilRebuff", col: 3, row: 4 },
   veilTorn: { type: "veilTorn", col: 3, row: 4, color: "cyan", kind: "bulb" },

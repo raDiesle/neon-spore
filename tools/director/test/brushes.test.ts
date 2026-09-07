@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { authorsBodyColor, CREATURES, categoryOf } from "@neon-spore/content";
+import { authorsBodyColor, CREATURES, isInstalled } from "@neon-spore/content";
 import { type CreatureKind, isBossBody, isMeteorKind } from "@neon-spore/sim";
 import { BRUSHES, LIVING_BRUSH_KINDS } from "../src/brushes.js";
 import { hasSilhouette } from "../src/silhouette.js";
@@ -23,7 +23,7 @@ import { brushOf, CREATURE_BRUSHES, emptyWave, paint } from "../src/state.js";
  */
 function expectedLivingKinds(): CreatureKind[] {
   return (Object.keys(CREATURES) as CreatureKind[]).filter(
-    (kind) => !isMeteorKind(kind) && !isBossBody(kind) && categoryOf(kind) !== "special",
+    (kind) => !isMeteorKind(kind) && !isBossBody(kind) && !isInstalled(kind),
   );
 }
 

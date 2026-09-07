@@ -59,6 +59,7 @@ export const WORN_CREATURES: Record<WornKind | BareKind, CreatureDef> = {
     // Nobody's strip, for the tether's reason: it does not arrive, the carom
     // does. A blip for something that came out of a body already on the field
     // would be a warning about the past.
+    installed: true,
     radar: "none",
     blurb:
       "The slick or the bulb that was sealed inside a carom, blown out of the hatch the moment the crust cracks. It is the only thing in this game that goes up: it climbs to the top of the field, opens a canopy there and drifts back down at half the speed of a slick, still in its own colour — and it still has to be shot.",

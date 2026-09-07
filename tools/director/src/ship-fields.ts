@@ -25,6 +25,7 @@ export {
   WAVE_ONLY_GROUPS,
 } from "./ship-groups.js";
 
+import { BALLOON_FIELDS } from "./ship-fields-balloon.js";
 import { ROUND_FIELD_GROUP } from "./ship-fields-round.js";
 import type { GroupName } from "./ship-groups.js";
 
@@ -137,6 +138,11 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   beatboxWindowMs: "THE BEATBOX — a soundbox counted out on the beat",
   damageBeatboxWave: "THE BEATBOX — a soundbox counted out on the beat",
   scoreBeatboxSilence: "SCORE",
+  // THE BALLOON's eight, next door in `ship-fields-balloon.ts` — the cut this
+  // file took when that creature brought it over its 250-line limit. Spread
+  // rather than named one by one: this object is a lookup and nothing reads
+  // its key order, unlike `MECHANICS` next door in content.
+  ...BALLOON_FIELDS,
   recoilBounces: "THE RECOIL — a shot that sends it the wrong way",
   recoilRows: "THE RECOIL — a shot that sends it the wrong way",
   scoreRecoilBounce: "SCORE",

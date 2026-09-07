@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { BOSS_KINDS, type CreatureKind, DEFAULT_CONFIG, isBossBody } from "@neon-spore/sim";
-import { CREATURES } from "../src/creatures.js";
+import { CREATURES, isInstalled } from "../src/creatures.js";
 import {
   MECHANIC_IDS,
   MECHANICS,
@@ -45,29 +45,22 @@ describe("the registry is closed over what already exists", () => {
 
 describe("which kinds a wave may name", () => {
   /**
-   * A body something else on the field installs rather than a wave: the
-   * tether a boss lowers, the mount a wheel carries and the chute a cracked
-   * carom throws clear. All three are `special` and none is ever written as a
-   * `kind` in a wave's entries — `docs/spec/bestiary.md`'s own argument for
-   * the category.
-   *
-   * THE BEATBOX is `special` too, on a different door entirely (that file's
-   * own row): nothing else places it, so it is named by a wave like any
-   * ordinary arrival, and the filter below has to say so by exception rather
-   * than by `categoryOf` alone — `special` stopped meaning "not wave-named"
-   * the day a kind could be answered by neither control *and* be an ordinary
-   * arrival at once.
-   */
-  const INSTALLED: readonly CreatureKind[] = ["tether", "mount", "chute"];
-
-  /**
    * The rule, called rather than restated: a wave writes a `kind` only for a
    * creature that carries no colour (a coloured one follows from its colour),
-   * that is not a boss body (the boss panel places those) and that is not one
-   * of the three `special` kinds something else on the field installs.
+   * that is not a boss body (the boss panel places those) and that is not
+   * **installed** — a tether a boss lowers, a mount a wheel carries, the body a
+   * cracked carom throws clear.
+   *
+   * The third clause used to be a hardcoded list of those three, or
+   * equivalently `categoryOf(kind) !== "special"` — both named the same three
+   * bodies until THE BEATBOX and THE BALLOON: `special` means *answered by
+   * neither control*, and both of those are answered by neither and authored
+   * one to a cell like any ordinary arrival. `isInstalled` is the fact the
+   * category and the hardcoded list were both standing in for
+   * (`CreatureDef.installed`).
    */
   const nameable = (Object.keys(CREATURES) as CreatureKind[]).filter(
-    (kind) => CREATURES[kind].color === null && !isBossBody(kind) && !INSTALLED.includes(kind),
+    (kind) => CREATURES[kind].color === null && !isBossBody(kind) && !isInstalled(kind),
   );
 
   it("is exactly what the bestiary says it should be", () => {
@@ -108,6 +101,7 @@ describe("which kinds a wave may name", () => {
       "coil",
       "choir",
       "beatbox",
+      "balloon",
     ];
     expect([...kinds].sort()).toEqual([...nameable].sort() as typeof kinds);
   });

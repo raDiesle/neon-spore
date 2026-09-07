@@ -1,3 +1,4 @@
+import { balloonEntryRow, balloonOnSpawn } from "./balloon.js";
 import { beatboxOnSpawn } from "./beatbox.js";
 import { caromOnSpawn } from "./carom.js";
 import { coilOnSpawn } from "./coil-state.js";
@@ -32,9 +33,8 @@ import type { World } from "./world.js";
  *
  * That is also why it grows and the other half does not. Every creature added
  * to the bestiary since THE LURE has wanted a field of its own on the beat it
- * enters, and each is one spread line here (`dartOnSpawn`, `veilOnSpawn`,
- * `ghostOnSpawn`, `echoOnSpawn`, `rindOnSpawn`, `recoilOnSpawn`, `gyreOnSpawn`) — a list, in a
- * file that is a list, rather than more lines inside a loop that is a rule.
+ * enters, and each is one spread line here — a list, in a file that is a
+ * list, rather than more lines inside a loop that is a rule.
  */
 
 /**
@@ -73,7 +73,16 @@ export function spawnArrivals(world: World): void {
       across === undefined
         ? clampSpanCol(entry.col, world.cfg.cols, span)
         : rockEntryCol(world.cfg.cols, span, across);
-    const row = across === undefined ? 0 : rockCrossRowFor(world.cfg, entry.row);
+    // THE BALLOON does not enter at the top and does not glide in either: it
+    // appears one row above the ship and swells there (`balloonEntryRow`), so
+    // its row and both `from` fields are settled here, beside the crossing
+    // rock's.
+    const rises = entry.kind === "balloon";
+    const row = rises
+      ? balloonEntryRow(world.cfg)
+      : across === undefined
+        ? 0
+        : rockCrossRowFor(world.cfg, entry.row);
     // Said once, at the top of the field, so player 2's ear has the column
     // before the eye has found the ring. A hit should always be player 2's
     // haste and never player 2's surprise.
@@ -94,8 +103,8 @@ export function spawnArrivals(world: World): void {
       // entered at: it has no fall to be drawn making, and a body that slid
       // down from off the top edge into the middle of the field would be a
       // picture of the arrival it deliberately is not.
-      fromRow: across === undefined ? -fallTilesPerBeat(entry.kind) : row,
-      fromCol: across === undefined ? col : col - across * span,
+      fromRow: rises || across !== undefined ? row : -fallTilesPerBeat(entry.kind),
+      fromCol: rises || across === undefined ? col : col - across * span,
       color: entry.color,
       // Only when the wave asked for something other than the kind's own
       // width: `spanOf` falls back to `colSpan`, so an unsized arrival carries
@@ -138,21 +147,17 @@ export function spawnArrivals(world: World): void {
       // at all, so every wave written before crossing existed is byte-for-byte
       // the same world.
       ...(entry.path === "across" ? ghostOnSpawn(world.cfg.cols, col) : {}),
-      // How many divisions this arrival has ahead of it, and absent on every
-      // other kind — so a body that never divides carries no field at all and
-      // every wave written before THE ECHO is byte-for-byte the same world.
+      // How many divisions this arrival has ahead of it, absent on every other
+      // kind — a wave written before THE ECHO is the same world.
       ...(entry.kind === "echo" ? echoOnSpawn(world.cfg, world.beat) : {}),
-      // How many layers this arrival still has to shed, and absent on every
-      // other kind — so a body that wears no skin of its own carries no field
-      // at all and every wave written before THE RIND is byte-for-byte the
-      // same world.
+      // How many layers this arrival has to shed, absent on every other kind —
+      // a wave written before THE RIND is the same world.
       ...(entry.kind === "rind" ? rindOnSpawn(world.cfg) : {}),
       // A wheel arrives upright and with no age on it, so the first rim it
       // shows is the one `GYRE_RING` starts at and its turn begins at the
       // slowest it will ever go (`gyre.ts`).
-      // How many bounces this arrival still has in it, and absent on every
-      // other kind — so a body a shot simply kills carries no field at all and
-      // every wave written before THE RECOIL is byte-for-byte the same world.
+      // How many bounces this arrival has, absent on every other kind — a wave
+      // written before THE RECOIL is the same world.
       ...(entry.kind === "recoil" ? recoilOnSpawn(world.cfg) : {}),
       ...(entry.kind === "gyre" ? gyreOnSpawn() : {}),
       // Which columns a wall is open in, as the mask everything downstream
@@ -176,13 +181,12 @@ export function spawnArrivals(world: World): void {
       // heading from the first frame, and what the pair cannot do is be there
       // (`caromOnSpawn`).
       ...(entry.kind === "carom" ? caromOnSpawn(world.cfg, col, span) : {}),
-      // Which way THE COIL sets off, and absent on every other kind — so a body
-      // that never crosses carries no field at all and every wave written
-      // before this creature is byte-for-byte the same world. Always left,
-      // which is what "it comes in at the right wall" means once the wave has
-      // put it in a column: nothing is rolled and nothing is read off the
-      // field's width (`coilOnSpawn`). The charge it may one day be sent is
-      // deliberately not here — an arrival is never already chained.
+      // Which way THE COIL sets off, absent on every other kind — a wave
+      // written before this creature is the same world. Always left, which is
+      // what "it comes in at the right wall" means once the wave has put it in
+      // a column: nothing is rolled or read off the field's width
+      // (`coilOnSpawn`). The charge it may one day be sent is not here — an
+      // arrival is never already chained.
       ...(entry.kind === "coil" ? coilOnSpawn() : {}),
       // Every plate of shell on, and absent on every other kind — so a body
       // the shield simply removes carries no field at all and every wave
@@ -203,15 +207,16 @@ export function spawnArrivals(world: World): void {
       // rather than trusted from the wave: a route on a body that already
       // moves by a rule of its own would be a body stepped twice in one beat
       // (`own-step.ts`), and a stale entry must not be able to buy one.
-      // How many beats this box is asking for, and absent on every other kind —
-      // so a body with no run to count carries no field at all and every wave
-      // written before THE BEATBOX is byte-for-byte the same world. Authored
-      // and never rolled, for the lure's reason with the most riding on it:
-      // the count is the sentence the pilot has to say (`beatboxOnSpawn`).
-      // The tally and the beat it stands on are deliberately not here — an
-      // arrival is never already part-way through a run.
+      // How many beats this box asks for, absent on every other kind. Authored,
+      // never rolled — the count is the sentence the pilot has to say
+      // (`beatboxOnSpawn`). The tally and its beat are not here — never part
+      // way through a run.
       ...(entry.kind === "beatbox" ? beatboxOnSpawn(world.cfg, entry.beats) : {}),
       ...(across === undefined ? {} : rockCrossOnSpawn(across, row)),
+      // How many times THE BALLOON still splits, the beat it started swelling,
+      // its heading and its speed — absent on every other kind. The heading is
+      // derived rather than rolled, for `caromOnSpawn`'s reason.
+      ...(rises ? balloonOnSpawn(world.cfg, world.beat, col, span, entry.rise) : {}),
     });
     // A gyre is the one arrival that brings bodies with it: six on its rim,
     // alternating, built from the hub that was just pushed so that they are

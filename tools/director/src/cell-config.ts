@@ -14,18 +14,22 @@ import {
   crossLabel,
   labelled,
   pathLabel,
+  riseLabel,
   sideLabel,
   sizeLabel,
   speedLabel,
 } from "./cell-config-rows.js";
 import {
   authorsBody,
+  BALLOON_SPEEDS,
+  balloonSpeedOf,
   beadCountOf,
   CRAWLER_COUNTS,
   crawlerCountOf,
   crawlerSideOf,
   GHOST_PATHS,
   ghostPathOf,
+  hasBalloonSpeed,
   hasBeadCount,
   hasCrawlerFields,
   hasGhostPath,
@@ -41,6 +45,7 @@ import {
   rockCrossOf,
   rockRowOf,
   STRAND_COUNTS,
+  setBalloonSpeed,
   setBeadCount,
   setCrawlerCount,
   setCrawlerSide,
@@ -183,6 +188,22 @@ export function cellConfig({ entry, onEdit }: CellConfigOptions): HTMLElement | 
       }),
       choiceRow("SIDE", CRAWLER_SIDES, crawlerSideOf(e), sideLabel, (side: CrawlerSide) => {
         setCrawlerSide(e, side);
+        onEdit();
+      }),
+    );
+  }
+  if (hasBalloonSpeed(e)) {
+    // THE BALLOON's own row, and the seventh per-arrival fact in the game —
+    // the first that is a *speed* set as a number rather than by choosing a
+    // kind. How fast one climbs is how long the pair has to agree on which one
+    // to take next, which is the whole of this creature, so it is the one
+    // thing about a balloon a wave composes anything else against
+    // (`WaveEntry.rise`). SPEED and not RISE: a rock's row above says the same
+    // word about the same unit, and two words for one idea is two things for
+    // an author to learn.
+    rows.push(
+      choiceRow("SPEED", BALLOON_SPEEDS, balloonSpeedOf(e), riseLabel, (rise: number) => {
+        setBalloonSpeed(e, rise);
         onEdit();
       }),
     );

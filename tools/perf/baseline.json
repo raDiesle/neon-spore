@@ -661,6 +661,22 @@
         "commit": "de20cea4e66b76c940b1ee5439a925fe4260decc",
         "scale": 0.42
       }
+    },
+    {
+      "id": "theBalloon",
+      "wave": 59,
+      "name": "THE BALLOON",
+      "bodies": 4,
+      "arrivals": "8:e4aa072d",
+      "typical": 2.65,
+      "mean": 2.62,
+      "p90": 3.23,
+      "jitter": 0.197,
+      "mergedFrom": {
+        "measuredAt": "2026-09-07",
+        "commit": "cac732e3cfb181d8a8feec33cde315a944c9ebbc",
+        "scale": 0.3
+      }
     }
   ]
 }

@@ -208,6 +208,16 @@ const COLOR_FOR_BODY: Record<"slick" | "bulb", Color> = (() => {
 // *colours* — is `entry-fields-fence.ts` next door, cut out for the reason the
 // rock's two numbers were. Re-exported here so nothing that already reached
 // for one had to move.
+// **How fast THE BALLOON climbs** — the second *speed* an author can set, and
+// the first that is a number rather than a kind — is `entry-fields-balloon.ts`
+// next door, cut out for the reason the rock's and the fence's were.
+// Re-exported here so nothing that already reached for one had to move.
+export {
+  BALLOON_SPEEDS,
+  balloonSpeedOf,
+  hasBalloonSpeed,
+  setBalloonSpeed,
+} from "./entry-fields-balloon.js";
 export {
   cycleFenceCrack,
   fenceCrackAtCol,

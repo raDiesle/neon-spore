@@ -153,6 +153,23 @@ export interface WaveEntry {
    */
   side?: CrawlerSide;
   /**
+   * How many rows a `balloon` climbs a beat, and how many lanes it takes to
+   * the side on the same beat — one number, because the path is a diagonal and
+   * a diagonal is the two being equal. Absent on every other kind, and absent
+   * on a balloon left at the shipped speed, so a wave that authors nothing
+   * serialises exactly as it always did.
+   *
+   * **A field and not a kind per speed**, the asymmetry `size` argues for said
+   * about a clock: a slow balloon and a fast one are not two creatures — the
+   * pair says exactly the same sentence about both, *which one, now* — and
+   * what changes is how long they have to say it in. Five kinds in the
+   * bestiary would teach five words for one thing, which is the mistake the
+   * five meteor tiers were already the argument against.
+   *
+   * The default is `balloonRiseRows`' and is never re-derived here.
+   */
+  rise?: number;
+  /**
    * Which columns THE FENCE is open in, authored in the same seven columns
    * every wave is written in and remapped by `queueFromWave`. Absent on every
    * other kind, and absent on a wall with **one** gap — which is the cell the

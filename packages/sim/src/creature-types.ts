@@ -96,5 +96,6 @@ export type { CreatureState } from "./creature-state.js";
 // this file over its limit, with the four a *hand* writes cut out of that one
 // in turn (`creature-state-held.ts`). `Creature` extends the lot, so every
 // call site still reads `c.ghostLaps` and nothing had to move.
+export type { BalloonState } from "./creature-state-balloon.js";
 export type { CrawlerState } from "./creature-state-crawler.js";
 export type { HeldState } from "./creature-state-held.js";

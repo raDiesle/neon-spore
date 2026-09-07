@@ -111,6 +111,7 @@ export const BARE_CREATURES: Record<BareKind, CreatureDef> = {
     // Nobody's strip, for the tether's reason: it does not arrive, the wheel
     // does. Six more rows for six bodies that came in on one announcement
     // would be noise on a strip that exists to say what is coming.
+    installed: true,
     radar: "none",
     blurb:
       "One of the six on a wheel's rim: an ordinary slick or bulb that does not fall, because the wheel carries it. It is answered exactly like a body in a lane — the right colour, in the right column — except that both of those are only true for a beat at a time.",

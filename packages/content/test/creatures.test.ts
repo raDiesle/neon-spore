@@ -37,13 +37,16 @@ describe("categoryOf", () => {
     // already shows both panels — the cannon that has to finish it and the
     // shield that owes the rock beside it.
     //
-    // THE BEATBOX is the fourth, and the first to arrive here for a different
-    // reason than the other three: it *is* authored directly, but nothing
-    // about it wants a panel at all — it is answered by a tap on the body,
-    // which is not a `ControlGroup` any more than THE MAGNET's hand or THE
-    // CHOIR's shake is, and unlike either of those this creature has no body
-    // underneath that still needs the cannon or the shield.
-    expect(special).toEqual(["tether", "mount", "chute", "beatbox"]);
+    // THE BEATBOX and THE BALLOON are the fourth and fifth, and the first two
+    // that a wave actually places. Both are here because **neither control
+    // reaches them at all** — a box is answered by a thumb on the beat and a
+    // balloon by two hands on its own handles, and neither is a `ControlGroup`
+    // — so the category is right about them and the three above it are what
+    // turned out to be a coincidence: they were also never authored, and three
+    // places had come to read this category as if it meant that. `isInstalled`
+    // is the fact those three actually wanted (`CreatureDef.installed`) — a
+    // box and a balloon are answered by neither control and authored anyway.
+    expect(special).toEqual(["tether", "mount", "chute", "beatbox", "balloon"]);
   });
 });
 

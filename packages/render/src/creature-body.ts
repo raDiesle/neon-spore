@@ -6,6 +6,7 @@ import {
   recoilTurn,
   type World,
 } from "@neon-spore/sim";
+import { drawBalloon } from "./balloon.js";
 import { beatboxSwell } from "./beatbox.js";
 import { drawChoir } from "./choir.js";
 import { drawMagnetBody, drawStrandBody } from "./creature-body-worn.js";
@@ -193,6 +194,13 @@ const EXCLUSIVE: ReadonlyMap<CreatureKind, BodyDraw> = new Map<CreatureKind, Bod
   // this table is the place a kind's draw is decided and a lone `if` in the
   // fall-through is exactly the severed chain this file exists to prevent.
   ["beatbox", drawBeatboxBody],
+  // A skin with a knot under it, and the one body in the game whose *shape*
+  // changes while it is played: two hands stretch it towards opposite walls,
+  // so `living-look.ts` answers `null` and `drawLiving` would ask for a radial
+  // contour that grows evenly — which is the picture of a body filling, and
+  // filling is the other thing this one does. `drawBalloon` takes a `Body` for
+  // `drawChoir`'s reason, so this stays a row rather than a wrapper.
+  ["balloon", drawBalloon],
 ]);
 
 /**

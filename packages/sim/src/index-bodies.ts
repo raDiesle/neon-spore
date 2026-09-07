@@ -30,6 +30,27 @@ export {
   beatboxWanted,
   beatboxWindowTicks,
 } from "./beatbox.js";
+// THE BALLOON's readings: how far through its swell one is, how fast it
+// climbs and how many times it still comes apart — everything a picture needs
+// to draw a body growing, leaning and about to give.
+export {
+  balloonHeading,
+  balloonIsSwelling,
+  balloonRiseRows,
+  balloonSplitsLeft,
+  balloonSwellPhase,
+} from "./balloon.js";
+// And its two hands, the rows in this file that are not a reading of a body at
+// all: the handles are a *control*, so render/ has to know how far each seat
+// has carried its own in order to draw the skin giving on that side. The rule
+// stays inside — nothing here decides whether a pull counted.
+export {
+  balloonHeld,
+  balloonIsRubbed,
+  balloonPull,
+  balloonSideTaut,
+  balloonTension,
+} from "./balloon-pull.js";
 export { type CaromDir, caromBecomes, caromHeading, caromImpactDamage } from "./carom.js";
 export {
   choirBecomes,

@@ -1,3 +1,4 @@
+import type { BalloonState } from "./creature-state-balloon.js";
 import type { BeatboxState } from "./creature-state-beatbox.js";
 import type { CrawlerState } from "./creature-state-crawler.js";
 import type { FenceState } from "./creature-state-fence.js";
@@ -19,13 +20,14 @@ import type { VeerState } from "./creature-state-veer.js";
  * This is the list that grows, and it has grown by a field for nearly every
  * creature added since THE DART.
  *
- * **Seven groups have gone next door**, each a set of fields that only mean
+ * **Eight groups have gone next door**, each a set of fields that only mean
  * anything against each other and each with its own argument in its own
  * header: `creature-state-held.ts` (the four a hand writes),
  * `creature-state-strand.ts`, `creature-state-crawler.ts`,
  * `creature-state-fence.ts`, `creature-state-gyre.ts`,
- * `creature-state-heading.ts` (the four kinds that carry a direction) and
- * `creature-state-beatbox.ts` (the count, the run and the beat it stands on).
+ * `creature-state-heading.ts` (the four kinds that carry a direction),
+ * `creature-state-beatbox.ts` (the count, the run and the beat it stands on)
+ * and `creature-state-balloon.ts` (the one body two hands write at once).
  *
  * `Creature extends CreatureState` rather than nesting it under a key, so
  * every call site still reads `c.ghostLaps` and nothing moved. It is the same
@@ -40,7 +42,8 @@ import type { VeerState } from "./creature-state-veer.js";
  * picture and the shot come to disagree about the same body.
  */
 export interface CreatureState
-  extends BeatboxState,
+  extends BalloonState,
+    BeatboxState,
     CrawlerState,
     FenceState,
     GyreState,

@@ -109,6 +109,14 @@ export function cardSubjects(kind: CreatureKind): string[] {
   // is its colour and its note, and once it is on the field the only thing
   // worth knowing about it is the gesture, which no silhouette shows.
   if (kind === "choir") return [];
+  // And THE BALLOON, for the same reason a third time and the plainest of the
+  // three. A wall has no contour because it is one line, a membrane because it
+  // is three bodies in a film — and a balloon because its shape is **changed
+  // by a control**: two hands stretch it towards opposite walls, and a card is
+  // one still picture of a body at rest (`content/balloon-shape.ts`). What
+  // tells this brush apart in the strip is its colour and its note, and what
+  // is worth knowing about one on the field is a gesture no silhouette shows.
+  if (kind === "balloon") return [];
   return [kind.toUpperCase()];
 }
 
@@ -155,6 +163,7 @@ export const SHORT_NOTE: Partial<Record<CreatureKind, string>> = {
   recoil: "a hit knocks it back up and flips its colour",
   carom: "bounces off the walls; shoot it, then ward the rock",
   coil: "crosses right to left; opening one costs the rock it leaves",
+  balloon: "rises from the ship; both of you pull a handle at once",
   chute: "what a cracked carom throws out — it goes up, then drifts back down",
   volley: "ward it three times, then shoot what hatches",
   gyre: "a wheel of six bodies; the maw slows it",

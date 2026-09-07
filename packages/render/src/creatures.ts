@@ -1,4 +1,5 @@
 import { isBossBody, recoilTurn, veilArmourPhase, type World, wispOnField } from "@neon-spore/sim";
+import { drawBalloonHandles } from "./balloon-handles.js";
 import { drawCaromCrust } from "./carom.js";
 import { drawChute } from "./chute.js";
 import { claspResonance, drawClaspShield } from "./clasp.js";
@@ -186,4 +187,9 @@ export function drawCreatures(
   // last so that a handle is never behind the eye it hangs off or behind the
   // body in the next column (`lid-string.ts`).
   drawLidCords(ctx, l, world, beatPhase, time);
+  // And THE BALLOON's two handles, on exactly the same terms and last for the
+  // same reason: they are flat, they are hit-tested against the circle they
+  // are drawn at, and a handle behind the body in the next lane is a handle a
+  // thumb cannot find (`balloon-handles.ts`).
+  drawBalloonHandles(ctx, l, world, beatPhase, time);
 }
