@@ -14,7 +14,14 @@ import { type Color, type Command, type DragTarget, SNAKE_TURNS } from "@neon-sp
  * second copy elsewhere would be caught.
  */
 const COLORS = ["red", "cyan"] as const;
-const DRAG_TARGETS: readonly DragTarget[] = ["mazeString", "wardenTether", "lidString", "gripBody"];
+const DRAG_TARGETS: readonly DragTarget[] = [
+  "mazeString",
+  "wardenTether",
+  "lidString",
+  "gripBody",
+  "choirLeft",
+  "choirRight",
+];
 
 const isColor = (x: unknown): x is Color =>
   typeof x === "string" && (COLORS as readonly string[]).includes(x);
@@ -106,6 +113,29 @@ export function decodeCommand(x: unknown): Command | null {
         : null;
     case "call":
       return { kind: "call" };
+    /**
+     * **THE CLAW's arm and PINBALL's three, which this codec did not know
+     * about at all** until an exhaustiveness guard was put on its own test
+     * (`command-codec.test.ts`). Every one of them was rejected outright on
+     * the wire, so on two devices the arm never left the hull and the bucket
+     * never moved — while both phones type-checked, passed their own tests and
+     * played perfectly well on their own. That is the whole failure mode the
+     * `default` below has: a kind added to `sim` and not to this switch is
+     * silence rather than an error.
+     *
+     * `slide` is `valve`'s shape word for word, because it is `valve`'s
+     * gesture: a thing that moves for as long as a thumb is on it.
+     */
+    case "reach":
+      return { kind: "reach" };
+    case "slide":
+      return isBool(c.on) && (c.dir === -1 || c.dir === 1)
+        ? { kind: "slide", on: c.on, dir: c.dir }
+        : null;
+    case "latch":
+      return { kind: "latch" };
+    case "launch":
+      return { kind: "launch" };
     // THE FLEET's two verbs. `aim` is a *step* and its two fields are each one
     // of three values, so a peer that sent a column would be rejected here
     // rather than teleporting the sights across the chart three layers down.
@@ -146,6 +176,13 @@ export function decodeCommand(x: unknown): Command | null {
             ...(c.id === undefined ? {} : { id: c.id as number }),
           }
         : null;
+    // THE CHOIR's shake, and the only command on this wire that carries
+    // nothing at all — not even a column. Whether a phone moved enough to
+    // count is decided where the accelerometer is read, because that is the
+    // only side with the numbers (`apps/game/src/shake.ts`), so what crosses
+    // is the fact rather than the reading.
+    case "shake":
+      return { kind: "shake" };
     case "restart":
       return { kind: "restart" };
     default:
