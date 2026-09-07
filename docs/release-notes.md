@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-07 · 2feb7111 — A coil's dome is only opened when the plate can see it
+
+THE COIL's ward now reaches up the shield's column and stops at the first body in the way. A rock crossing the lane below a dome — one tile or two — takes the whole reach, so the dome is not opened, not lit and not touched, and the pair watches nothing happen at all. It is the owner's rule in his own words, "when the cannon vertical tile has not seen the full width of the coil", and THE COIL's own sentence reads as it word for word: the one where the trigger waits for the lane above it to clear.
+
 ## 2026-09-07 · c80ce966 — THE TWITCH loses the guide THE COIL now gives
 
 Two tests were red on main after the last director save. THE COIL was rebuilt one wave earlier and now teaches the coil itself, so THE TWITCH's guide was introducing a creature the pair had already met — a repeated introduction, which is a defect rather than a second chance. Its shield malfunction is not new either. The guide goes; the wave keeps its sentence. And THE COIL sends different arrivals than the checked-in baseline records, so that row is re-measured.
