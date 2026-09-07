@@ -52,15 +52,30 @@ describe("the rehearsals a guide can show", () => {
   });
 
   it("gives every act exactly one gesture", () => {
-    // Three gestures are not presses on the panel: a finger held on the field,
-    // and — since THE LID's cord — a hand carrying a cord, a string or a rope.
-    // So an act carries exactly one of `control`, `grip` and `drag`, never two
-    // and never none. `sceneCommands` throws on the empty case rather than
-    // dropping it silently, and this is what keeps it from being thrown.
+    // Four gestures are not presses on the panel: a finger held on the field,
+    // a hand carrying a cord, a string or a rope since THE LID's, and — since
+    // THE CHOIR's — the *device* being shaken, which is a hand nowhere at all.
+    // So an act carries exactly one of `control`, `grip`, `drag` and `shake`,
+    // never two and never none. `sceneCommands` throws on the empty case rather
+    // than dropping it silently, and this is what keeps it from being thrown.
     for (const id of SCENE_IDS) {
       for (const act of SCENES[id].acts) {
-        const gestures = [act.control, act.grip, act.drag].filter((g) => g !== undefined).length;
+        const gestures = [act.control, act.grip, act.drag, act.shake].filter(
+          (g) => g !== undefined,
+        ).length;
         expect(gestures, `${id} has an act at tick ${act.tick} with ${gestures} gestures`).toBe(1);
+        // A shake names nothing and holds nothing: no column to be in, no
+        // handle to let go of, and no seat to author — it is the pilot's, the
+        // way a drag is. An act that wrote one of those down would be an act
+        // whose author had the wrong gesture in mind.
+        if (act.shake) {
+          expect(act.col, `${id}: a shake at tick ${act.tick} names a column`).toBeUndefined();
+          expect(
+            act.until,
+            `${id}: a shake at tick ${act.tick} lets go of something`,
+          ).toBeUndefined();
+          continue;
+        }
         // A strip that answers a body rather than a column is still a press on
         // a strip. On anything else there is no column to replace, and the
         // flag would read as a promise the runner never keeps.
@@ -248,7 +263,9 @@ describe("the rehearsals a guide can show", () => {
       // than arriving (`scene-script.ts`). So the count is at least one each.
       expect(script.commands.length).toBeGreaterThanOrEqual(SCENES[id].acts.length);
       for (const act of SCENES[id].acts) {
-        const seat = act.grip ?? (act.drag ? 1 : control(act.control!).player);
+        // A drag and a shake are the pilot's and are not authored: the
+        // navigator carries both colours and fires (`scene-script.ts`).
+        const seat = act.grip ?? (act.drag || act.shake ? 1 : control(act.control!).player);
         const sent = script.commands.filter((c) => c.tick === act.tick && c.player === seat);
         expect(sent.length, `${id}: nothing sent for the act at tick ${act.tick}`).toBeGreaterThan(
           0,

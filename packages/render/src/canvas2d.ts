@@ -30,9 +30,9 @@ export class Canvas2DRenderer implements Renderer {
     this.ctx = ctx;
   }
 
-  /** The three a host may reach: the atlas to install a baked burst into, the
-   * film REPLAY plays again, and whether the wave is still arriving. All of
-   * them are state rather than drawing, so all of them are `held`'s. */
+  /** What a host may reach: the atlas a baked burst is installed into, the film
+   * REPLAY plays again and whether it has played out, and whether the wave is
+   * still arriving. State rather than drawing, so every one is `held`'s. */
   get sprites(): SpriteBursts {
     return this.held.sprites;
   }
@@ -182,10 +182,6 @@ export class Canvas2DRenderer implements Renderer {
     // The beat is loud at the moment of the beat and gone before the next one.
     const flash = Math.max(0, 1 - view.beatPhase * (ticksPerBeat(world.cfg) / 26));
 
-    // A bare frame is the bodies and nothing else — see `ViewState.bare`. It
-    // returns below rather than skipping four calls one at a time, so what a
-    // thumbnail contains is one branch a reader can hold, and the hull, the
-    // band and the HUD cannot creep back into it a pass at a time.
     // **One membrane for the whole frame, and it is built before the field.**
     // The ship's surface used to be the hull pass's private business, computed
     // inside `drawShip` and thrown away; THE CRAWLER walks on it now — the
@@ -198,9 +194,11 @@ export class Canvas2DRenderer implements Renderer {
     const hull = frame(l, view.time, mood, at);
     const surfaceY = surfaceSampler(hull);
 
-    // A bare frame is the bodies and nothing else, and a worm in one still
-    // rides the ship it is standing on: there is no hull drawn under it, but
-    // the *body* is the same body, and a thumbnail that flattened it would be a
+    // A bare frame is the bodies and nothing else (`ViewState.bare`), and it
+    // returns here rather than skipping four calls one at a time, so what a
+    // thumbnail contains is one branch a reader can hold. A worm in one still
+    // rides the ship it stands on: there is no hull drawn under it, but the
+    // *body* is the same body, and a thumbnail that flattened it would be a
     // picture of a creature this game has not got.
     if (view.bare) {
       drawBodies(ctx, l, world, view, this.held.effects, at.cannon, surfaceY);

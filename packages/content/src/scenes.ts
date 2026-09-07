@@ -7,6 +7,7 @@ import { PINBALL } from "./scenes/pinball.js";
 import { SALVAGE } from "./scenes/salvage.js";
 import { SNAKE } from "./scenes/snake.js";
 import { THE_CAROM } from "./scenes/the-carom.js";
+import { THE_CHOIR } from "./scenes/the-choir.js";
 import { THE_CLASP } from "./scenes/the-clasp.js";
 import { THE_CLAW } from "./scenes/the-claw.js";
 import { THE_COIL } from "./scenes/the-coil.js";
@@ -101,7 +102,8 @@ export type SceneId =
   | "theVolley"
   | "theFence"
   | "theGap"
-  | "theCut";
+  | "theCut"
+  | "theChoir";
 
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
@@ -144,6 +146,7 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theFence: THE_FENCE,
   theGap: THE_GAP,
   theCut: THE_CUT,
+  theChoir: THE_CHOIR,
 };
 
 export type { GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";

@@ -186,6 +186,15 @@ export function handleCircle(
   col?: number,
 ): Circle | null {
   const cfg = world.cfg;
+  if (target === "choirLeft" || target === "choirRight") {
+    // The two arrows are the one handle that is *placed* rather than found: a
+    // membrane is on the field or it is not, and the arrows stand against the
+    // walls either way they are drawn. `showsChoirArrows` is the same gate the
+    // drawing and the hit test ask, so a ring can never be put round an arrow
+    // nobody was shown — including on the navigator's screen, which has none.
+    if (!showsChoirArrows(l, world.creatures)) return null;
+    return choirArrowCircle(l, target === "choirLeft" ? -1 : 1);
+  }
   if (target === "mazeString") {
     const m = world.boss?.kind === "maze" ? world.boss : null;
     if (m === null || m.phase !== "read") return null;

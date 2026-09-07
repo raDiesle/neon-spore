@@ -55,6 +55,24 @@ export interface SceneAct {
    * `col`, which a grip always carries. */
   grip?: 1 | 2;
   /**
+   * **The device was shaken** — THE CHOIR's own gesture, and the only act here
+   * that names nothing at all.
+   *
+   * There is no control, no column, no seat to author and nothing to hold: a
+   * shake has no place to be, and whether a phone moved enough to count is
+   * decided where the accelerometer is read (`sim/command-types.ts`). So the
+   * act is the flag and the tick, and `sceneCommands` turns it into the one
+   * command it is. The seat is the pilot's, unauthored, for the reason a drag's
+   * is: the navigator carries both colours and fires, so a membrane either seat
+   * could open would be a creature one phone could play.
+   *
+   * **Nothing is drawn for it**, and that is the honest picture rather than a
+   * gap. A shake is not a hand anywhere on the screen — the ghost thumb has
+   * nowhere to be put and putting one somewhere would teach a gesture that does
+   * not exist. What the page shows is the membrane answering.
+   */
+  shake?: true;
+  /**
    * A hand on a **cord, a string or a rope** — the third gesture that is not a
    * press on a button, and the one that had no way of being written down.
    *

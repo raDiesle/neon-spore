@@ -1,4 +1,5 @@
 import type { Page } from "playwright-core";
+import { rewindFilm } from "./guide-film.js";
 import {
   GATE_TICKS_ENOUGH,
   MAX_OPENING_ATTEMPTS,
@@ -125,3 +126,31 @@ export async function turnGuide(page: Page, spec: FrameSpec): Promise<void> {
     }
   }, spec.guidePage);
 }
+
+/**
+ * The opening's words let arrive, and a film wound back to where its page
+ * begins.
+ *
+ * **An opening's words arrive rather than appear**, on painted frames rather
+ * than on ticks (`render/text-drop.ts`), so a capture that painted one frame
+ * caught them at zero opacity. Settling is a second of them, longer than the
+ * longest entrance; `FrameSpec.settle` is the same idea handed to the caller,
+ * for the effects the tool cannot know the length of.
+ *
+
+ * **And on a guide that second is a second of film**, which is most of a page
+ * and sometimes all of it — a page plays once and then holds on its last frame
+ * for good. So the words are let arrive and the film is then wound back, which
+ * is the guide's own middle button (`guide-film.ts`). Both halves in one call,
+ * because doing the first without the second is the bug this pair exists to
+ * close.
+ */
+export async function settleOpening(page: Page, isFilm: boolean): Promise<void> {
+  await page.evaluate((n) => {
+    for (let i = 0; i < n; i++) window.neonSpore?.paint();
+  }, SETTLE_FRAMES);
+  if (isFilm) await rewindFilm(page);
+}
+
+/** Painted frames spent settling an opening before the frame that is kept. */
+const SETTLE_FRAMES = 60;

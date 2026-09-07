@@ -28,6 +28,9 @@ import { guideScene, type SceneId } from "./scenes.js";
 export function sceneCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
   if (act.grip !== undefined) return gripCommands(act, cfg.cols);
   if (act.drag !== undefined) return dragCommands(act, cfg);
+  // The device shaken: one command carrying nothing, and nothing to let go of.
+  // The pilot's, unauthored, exactly as a drag's seat is.
+  if (act.shake) return [{ tick: act.tick, player: 1, command: { kind: "shake" } }];
   const id = controlOf(act);
   const def = control(id);
   const down: SceneCommand = {
@@ -61,6 +64,13 @@ function tautMilli(target: DragTarget, cfg: SimConfig): number {
   // A held body has no taut at all — it is carried a tile at a time and may be
   // carried again — so what a film that does not say means is one column.
   if (target === "gripBody") return cfg.gripPushMilli;
+  // An arrow has no taut either: it does not travel, it is a switch a hand
+  // throws, and the distance is the one that counts as thrown
+  // (`choirArrowHeard`). The side is read off the target rather than authored —
+  // carrying one the wrong way is a thing the *pair* can do and not a thing a
+  // film would be written to do.
+  if (target === "choirLeft") return -cfg.choirPullMilli;
+  if (target === "choirRight") return cfg.choirPullMilli;
   return cfg.mazeTurnMilli;
 }
 
@@ -74,13 +84,18 @@ function tautMilli(target: DragTarget, cfg: SimConfig): number {
  * of taut — the plates then never part, which is a film that shows the gesture
  * and not the point of it.
  *
- * **Across**, for the two that are not pulled at all: a wheel is turned by how
- * far the hand has come, and that is the x of it and nothing else
- * (`sim/maze-controls.ts`) — and a held body is carried into a *column*, which
- * has no other axis to be carried along (`sim/grip-push.ts`).
+ * **Across**, for the ones that are not pulled at all: a wheel is turned by the
+ * x of the hand and nothing else (`sim/maze-controls.ts`), a held body is
+ * carried into a *column* (`sim/grip-push.ts`), and an arrow is carried
+ * **outward** off its own edge — the sign of `fromMilli` and nothing else.
  */
 function pullsDown(target: DragTarget): boolean {
-  return target !== "mazeString" && target !== "gripBody";
+  return (
+    target !== "mazeString" &&
+    target !== "gripBody" &&
+    target !== "choirLeft" &&
+    target !== "choirRight"
+  );
 }
 
 /**

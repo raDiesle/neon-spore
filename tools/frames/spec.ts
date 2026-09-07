@@ -203,9 +203,8 @@ declare global {
         creatures: readonly { id?: number; row?: number }[];
         /** The simulation's own clock, which `--settle` must not move. */
         tick: number;
-        /** Optional for the usual reason — a build older than this reading has
-         * one and does not expose it, so a caller falls back to the shipped
-         * 120 rather than failing. A rehearsal's ticks are counted in it. */
+        /** A rehearsal's ticks are counted in it. Optional for the usual
+         * reason: a caller falls back to the shipped 120 rather than failing. */
         cfg?: { tickHz: number };
       };
       jumpToWave(wave: number): void;
@@ -224,21 +223,15 @@ declare global {
        * than failing as an undefined call somewhere in the page. */
       send?(player: 1 | 2, command: unknown): void;
       advance(ticks: number): void;
-      /**
-       * `dt` is how much time this frame is worth, and it is optional twice
-       * over: a build from before it existed ignores the argument and paints a
-       * sixtieth, which is what every caller but a rehearsal's wanted.
-       */
+      /** `dt` is what this frame is worth. Optional twice over: a build from
+       * before it existed ignores the argument and paints a sixtieth, which is
+       * what every caller but a rehearsal's wanted. */
       paint(dt?: number): void;
-      /**
-       * This page of a rehearsal again, from its first tick. Missing on a build
-       * from before it was exposed, so `--opening guide` says so by name rather
-       * than failing as an undefined call somewhere in the page.
-       */
+      /** This page of a rehearsal again, from its first tick, and whether it
+       * has played out and is holding on its last frame. Both missing on a
+       * build from before they were exposed, so `--opening guide` says so by
+       * name rather than failing as an undefined call inside the page. */
       replayGuide?(): void;
-      /** Whether that page has played out and is holding on its last frame.
-       * Missing on a build from before it was exposed, where "cannot tell" is
-       * the honest answer and no warning is printed. */
       guideFinished?(): boolean;
       /**
        * Whether the wave is still arriving. Missing on a build from before it

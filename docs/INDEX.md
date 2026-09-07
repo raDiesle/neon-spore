@@ -388,6 +388,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/waves/act-7b.ts` | The second half of act seven, cut off `act-7.ts` when THE COIL was split into two waves and that file reached… |
 | `packages/content/src/scenes/the-coil.ts` | THE COIL's rehearsal: the shield is stuck open, and the plate is what opens the dome |
 | `packages/content/src/keys-desk.ts` | **The desk keyboard is a panel too**, and this is where a key finds out what it means |
+| `packages/content/src/scenes/the-choir.ts` | THE CHOIR's rehearsal: the one gesture that is on no panel at all |
 
 ### packages/render
 
@@ -1209,5 +1210,7 @@ place — the generator keeps whatever is there.
 | `tools/probe/example.ts` | The worked example, and the thing to copy |
 | `tools/probe/run.ts` | `bun run probe [file]` — run a script that needs a live world |
 | `tools/probe/world.ts` | A world, stood up and stepped, for a question that only a running one answers |
+| `tools/director/src/stage-panel.ts` | **What the stage panel is, as a contract**, and nothing about how it is driven |
+| `tools/frames/guide-film.ts` | **Driving a rehearsal**, which is a clock of its own and not the world's |
 
 <!-- index:code:end -->

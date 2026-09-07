@@ -1,5 +1,6 @@
 import { type Command, type SimEvent, setBossRound, step, type World } from "@neon-spore/sim";
 import type { InputBuffer } from "./input.js";
+import { runPerfPage } from "./perf-page.js";
 import type { PerfHandle } from "./perf-sweep.js";
 
 /**
@@ -24,17 +25,33 @@ export interface HandleParts {
   dismissBriefing: () => void;
   /** Runs the wave-opening clock, and folds any events a tick produced. */
   progression: { tickOpening: (seconds: number) => void; handle: (e: SimEvent[]) => void };
-  /** Where a frame's events are collected for the next `paint`. */
-  collect: (events: readonly SimEvent[]) => void;
-  paint: (dt: number) => void;
-  /** This page of a rehearsal again, from its first tick. The renderer's, since
-   * a film's clock is render state and the two devices have one each. */
-  replayGuide: () => void;
-  /** Whether that page has played out and is standing on its last frame. */
-  guideFinished: () => boolean;
-  /** Whether the wave is still arriving — a frame-clock animation over the
-   * whole field, which a caller stepping ticks can neither see nor wait out. */
-  launching: () => boolean;
+  /**
+   * The frame loop's two verbs: where a tick's events are collected for the
+   * next frame, and the frame itself. One object rather than two callbacks,
+   * for the reason `renderer` below is one — `startFrames` returns exactly
+   * this pair and `main.ts` was spelling both out.
+   */
+  frames: {
+    collect(events: readonly SimEvent[]): void;
+    paint(dt: number): void;
+  };
+  /**
+   * The three answers that are **render state and no part of the world**: this
+   * page of a rehearsal played again, whether it has played out, and whether
+   * the wave is still arriving.
+   *
+   * Passed as the renderer rather than as three callbacks, because they are
+   * one fact about one object and were three lines in `main.ts` for it.
+   * Structural, so nothing here has to import a renderer to name one.
+   */
+  renderer: {
+    replayGuide(): void;
+    /** Whether that page has played out and is standing on its last frame. */
+    readonly guideFinished: boolean;
+    /** A frame-clock animation over the whole field, which a caller stepping
+     * ticks can neither see nor wait out. */
+    readonly launching: boolean;
+  };
 }
 
 /**
@@ -104,7 +121,7 @@ export function installTestingHandle(parts: HandleParts): PerfHandle {
       for (let i = 0; i < ticks; i++) {
         step(world, buffer.drain(world.tick));
         if (world.events.length) {
-          parts.collect(world.events);
+          parts.frames.collect(world.events);
           progression.handle(world.events);
         }
       }
@@ -127,7 +144,7 @@ export function installTestingHandle(parts: HandleParts): PerfHandle {
      * whatever the page ended on. With a dt and `replayGuide` below, a strip is
      * taken from the page's own first tick, which is the film.
      */
-    paint: (dt = 1 / 60) => parts.paint(dt),
+    paint: (dt = 1 / 60) => parts.frames.paint(dt),
     /**
      * This page of the rehearsal again, from its first tick — the middle
      * button on the guide's own bar (`render/guide-nav.ts`).
@@ -138,7 +155,7 @@ export function installTestingHandle(parts: HandleParts): PerfHandle {
      * ticks before this page silently, which is why what it opens on is what
      * those ticks really left rather than a pose built to look like one.
      */
-    replayGuide: parts.replayGuide,
+    replayGuide: () => parts.renderer.replayGuide(),
     /**
      * Whether the page showing has played out and is holding on its last
      * frame.
@@ -149,7 +166,7 @@ export function installTestingHandle(parts: HandleParts): PerfHandle {
      * is a still" — and the answer decides whether what it wrote is a strip or
      * six copies of one frame (`tools/frames/run.ts`).
      */
-    guideFinished: parts.guideFinished,
+    guideFinished: () => parts.renderer.guideFinished,
     /**
      * Whether the wave is still arriving.
      *
@@ -160,8 +177,22 @@ export function installTestingHandle(parts: HandleParts): PerfHandle {
      * there 2500 ticks into a wave. Painting is what moves them, and this is
      * how a caller knows when to stop (`tools/frames/launch.ts`).
      */
-    launching: parts.launching,
+    launching: () => parts.renderer.launching,
   };
   (window as unknown as { neonSpore: unknown }).neonSpore = handle;
   return handle;
+}
+
+/**
+ * The handle, installed, and the one thing inside the app that drives it.
+ *
+ * `?perf=1` sweeps every wave through `advance` and `paint` exactly as
+ * `tools/perf` does over a wire, on the device itself rather than on a
+ * throttled desktop standing in for one (`perf-page.ts`). It is the only
+ * caller of `installTestingHandle`'s return value, so the two are one call
+ * here rather than two statements and a name in `main.ts` — which is a file
+ * about wiring the game up and was over its ceiling for holding this.
+ */
+export function bindTesting(parts: HandleParts, href: string): void {
+  void runPerfPage(href, installTestingHandle(parts));
 }
