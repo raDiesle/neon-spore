@@ -574,16 +574,16 @@
       "id": "theCoil",
       "wave": 52,
       "name": "THE COIL",
-      "bodies": 3,
-      "arrivals": "9:fc0581b3",
-      "typical": 2.94,
-      "mean": 2.97,
-      "p90": 3.56,
-      "jitter": 0.136,
+      "bodies": 5,
+      "arrivals": "12:39a4cd23",
+      "typical": 4.17,
+      "mean": 4.35,
+      "p90": 5.41,
+      "jitter": 0.261,
       "mergedFrom": {
-        "measuredAt": "2026-09-06",
-        "commit": "a3e11fb195ef90ccdeac27a08c44bf89c2288787",
-        "scale": 1
+        "measuredAt": "2026-09-07",
+        "commit": "b39a33ba1adb249b9d6dc5e0add034163816f43a",
+        "scale": 1.24
       }
     },
     {

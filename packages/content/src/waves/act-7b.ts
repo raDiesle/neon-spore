@@ -64,11 +64,6 @@ export const WAVES_ACT_7B: Wave[] = [
     id: "theTwitch",
     name: "THE TWITCH",
     sentence: "The one where opening one of them opens all of them, on a beat nobody chose.",
-    guide: {
-      both: "The trigger has stuck down: the dome comes up by itself over player 2's column on every beat, and nobody can stop it. New on the field is a rock inside a dome of its own. It comes in at the right wall and crosses to the left instead of falling, sinking two rows at every wall it turns at, and nothing touches it while the dome is on. Every dome the plate passes under comes off, on a beat nobody chose — and the rock it leaves runs for the wall furthest from the plate. The charge jumps to another dome still standing and opens that one too. GUARD is dead on player 1's panel and stays dead.",
-      p1: "The bolt is on your screen and on nobody else's, so which dome opens next is yours to say. Call the column the moment it leaves — they have four beats. It is the only thing you can do this wave.",
-      p2: "Where the plate goes matters now, not when. Every dome you cross comes off and throws its rock at the far wall, so say the route before you take it — and be standing in the column they call before the rock is.",
-    },
     entries: [
       { beat: 0, col: 3, kind: "meteor", color: null },
       { beat: 10, col: 6, kind: "coil", color: null },
