@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-07 · 122d137d — VERSUS drops BAKED ANIMATIONS, and says where it went
+
+The owner rejected the baked-animation door on the one ground the technique cannot answer: a sixteen-frame burst is 80-200 kB down a phone's connection for an explosion the field already draws procedurally, and looking at it harder does not change that arithmetic. The page and its six modules are gone - animations-page, gallery-page, gallery-clips, raster-cards, raster-demos, raster-field and raster-play - along with the section on the VERSUS tab, the animationsUrl link and the ?page=animations route.
+
 ## 2026-09-07 · 97b5f083 — Every bead on the navigator's thread rolls, and all of them in one violet
 
 Three answers, all of them the owner's, and the look they change is his by name — the second of the three exemptions in CLAUDE.md.
