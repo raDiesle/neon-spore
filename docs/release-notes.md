@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-07 · 22d2cf0d — THE PULSE is the game it is part of: the ship, the panel, and the arrows that hit it
+
+The round replaced the whole picture, on the rule the first three rounds set — the field is gone, not dimmed and not re-skinned. The owner looked at it and asked for the opposite: more integrated, how a regular game with control panel looks, to see the ship and its controls, and buttons in the same style as the default set. He is right, and the rule survives him being right: what a round takes away is the *field* — the eleven columns, the bodies falling down them and the vocabulary that hangs on both — and the hull and the band are not the field. They are what the pair have been holding since wave one.
+
 ## 2026-09-07 · 6e367068 — THE CHOIR is drawn with the Symbiosis trace, and closes into one
 
 Two drafts of this creature drew two blob contours over each other, which is two bodies with two rims and a lens between them — not the Symbiosis picture. The owner asked for the graphic itself: *use the symbiosis graphic and animation*.
