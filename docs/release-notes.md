@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-07 · d0ba3a7d — The lance loses its button: hold a colour and the cannon fires itself
+
+The two fire lobes are held as well as tapped. A tap is the shot it always was; a thumb that stays fills the cannon lobe for as long as player 1 keeps the cannon still, and at the top of the fill a lance goes by itself — in the colour that was held, at half speed, through every body of that colour in the column. The LANCE button and the LANCE PANEL are gone, so the weapon every wave with a colour on it can now reach costs no wave a button.
+
 ## 2026-09-07 · eb1091e3 — A VERSUS candidate page that scrolls, cut to the part being voted on
 
 GUARD and INTAKE were on screen and unreachable. `versus.html` reuses `director-shell.css`, which pins `body` to the window with `overflow: hidden` — right for the editor, where a fixed topbar sits over an inner scrolling pane, and a hard clip on a page that has no inner pane. The two buttons live 130 px from the bottom of an 820 px phone, so on any normal window they were below the cut with no wheel, key or bar reaching them, and the page looked like two identical empty fields. The page scrolls.
