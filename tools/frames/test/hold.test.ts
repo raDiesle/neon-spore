@@ -72,7 +72,16 @@ describe("parseHold", () => {
   });
 
   it("an id on a handle there is only one of is a mistake, not a no-op", () => {
-    expect(() => parseHold("wardenTether=900,id=3")).toThrow(/only lidString/);
+    expect(() => parseHold("wardenTether=900,id=3")).toThrow(/hangs off a body/);
+  });
+
+  it("takes THE BALLOON's two, and puts the right one in the navigator's hand", () => {
+    // The first handle here that is not the pilot's. Both sides of one body
+    // held at once is the only state this creature can be photographed giving
+    // in, and it needs two seats to reach (`sim/balloon-pull.ts`).
+    expect(parseHold("balloonLeft=-1600,id=4").map((h) => h.player)).toEqual([1, 1]);
+    expect(parseHold("balloonRight=1600,id=4").map((h) => h.player)).toEqual([2, 2]);
+    expect(() => parseHold("balloonLeft=-1600")).toThrow(/id=N/);
   });
 
   it("a control that does not exist names the ones that do", () => {
