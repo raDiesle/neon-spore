@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from "bun:test";
 import { createWorld, type SpawnEntry } from "@neon-spore/sim";
 import { drawRadar } from "../src/field.js";
-import { computeLayout, type ViewRole } from "../src/layout.js";
+import { computeLayout, tileCY, type ViewRole } from "../src/layout.js";
 import { radarBlips } from "../src/radar-blip.js";
 import { CFG, installCanvasGlobals, stubCanvas } from "./frame-harness.js";
 
@@ -17,12 +17,13 @@ describe("the radar", () => {
 
   /** A rock the wave sent across, authored in the middle of the field so the
    * wall it enters at can never be the column it was painted in. */
-  const rock = (col: number, cross: -1 | 1): SpawnEntry => ({
+  const rock = (col: number, cross: -1 | 1, row: number): SpawnEntry => ({
     beat: 2,
     col,
     kind: "meteor",
     color: null,
     cross,
+    row,
   });
 
   function strips(queue: SpawnEntry[]) {
@@ -47,36 +48,42 @@ describe("the radar", () => {
   });
 
   /**
-   * **A rock that comes over a wall is announced at that wall, pointing the way
-   * it will travel.** The strip answers *which column* with place, and a body
-   * that enters at the edge has no column to be answered in until it is on the
-   * field — so the one thing the pair can say to each other before it appears
-   * is the side, and the mark has to be somewhere the side can be read off it.
+   * **A rock that comes over a side wall is marked at that wall, on the row it
+   * will hold, pointing the way it will fly.** Not on the strip along the top:
+   * that strip answers *which column* with horizontal place and *how soon*
+   * with height, and a body entering at an edge has no column at all — what
+   * the pair needs before it appears is the row and the side.
    *
-   * Two facts, and both are rules rather than looks: the blip is at the wall
-   * the rock will actually enter at (`rockEntryCol`, not the authored column),
-   * and it carries the heading so the arrow can point.
+   * Three facts, all rules rather than looks: the mark is at the wall the rock
+   * will actually enter at (`rockEntryCol`, never the authored column), it is
+   * down in the field at that row rather than above it, and it carries the
+   * heading so the arrow can point.
    */
-  it("puts a crossing rock's blip at the wall it will come over", () => {
+  it("marks a crossing rock at the wall and the row it will come in on", () => {
     const l = layout("p1");
-    const right = radarBlips(l, createWorld(CFG, 1, [rock(3, 1)]));
-    const left = radarBlips(l, createWorld(CFG, 1, [rock(3, -1)]));
-    expect(right).toHaveLength(1);
-    expect(left).toHaveLength(1);
-    expect(right[0]?.cross).toBe(1);
-    expect(left[0]?.cross).toBe(-1);
+    const right = radarBlips(l, createWorld(CFG, 1, [rock(3, 1, 5)]))[0];
+    const left = radarBlips(l, createWorld(CFG, 1, [rock(3, -1, 5)]))[0];
+    expect(right?.cross).toBe(1);
+    expect(left?.cross).toBe(-1);
     // One at each wall, and neither where the author painted it.
-    expect(right[0]?.x).toBeLessThan(left[0]?.x ?? 0);
-    const plain = radarBlips(
-      l,
-      createWorld(CFG, 1, [{ beat: 2, col: 3, kind: "meteor", color: null }]),
-    );
-    expect(plain[0]?.cross).toBeUndefined();
-    expect(right[0]?.x).not.toBeCloseTo(plain[0]?.x ?? 0);
+    expect(right?.x).toBeLessThan(left?.x ?? 0);
+    expect(right?.y).toBeCloseTo(tileCY(l, 5));
+    expect(left?.y).toBeCloseTo(tileCY(l, 5));
+    // A different row is a different place, which is the whole of the warning.
+    const higher = radarBlips(l, createWorld(CFG, 1, [rock(3, 1, 2)]))[0];
+    expect(higher?.y).toBeLessThan(right?.y ?? 0);
+  });
+
+  it("leaves a falling rock on the strip above the field", () => {
+    const l = layout("p1");
+    const fall: SpawnEntry = { beat: 2, col: 3, kind: "meteor", color: null };
+    const plain = radarBlips(l, createWorld(CFG, 1, [fall]))[0];
+    expect(plain?.cross).toBeUndefined();
+    expect(plain?.y).toBeLessThan(l.gridTop);
   });
 
   it("draws that blip rather than skipping it", () => {
-    const { p1 } = strips([rock(3, 1)]);
+    const { p1 } = strips([rock(3, 1, 5)]);
     expect(p1.calls).toBeGreaterThan(0);
   });
 

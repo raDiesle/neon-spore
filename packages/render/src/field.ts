@@ -110,14 +110,21 @@ function drawBeatSweep(ctx: CanvasRenderingContext2D, l: Layout, beatPhase: numb
 }
 
 /**
- * Radar: arrivals only, along the top edge, in the colour of the thing that is
- * coming. Height encodes order — the closer to the edge, the sooner. There are
- * deliberately no trajectory lines inside the field, not even for meteors
+ * Radar: arrivals only, in the colour of the thing that is coming. A body that
+ * falls is marked along the top edge, in its own column, and height encodes
+ * order — the closer to the edge, the sooner. There are deliberately no
+ * trajectory lines inside the field, not even for meteors
  * (docs/spec/systems.md 5.8), because reading the field out loud is the game.
  *
- * The dart is the one exception and it is not a loophole: its column *expires*
+ * The dart is one exception and it is not a loophole: its column *expires*
  * while you are saying it, so `dart-path.ts` draws where it is going — on one
  * screen only, and never the screen holding the cannon that has to be there.
+ *
+ * A rock the wave sent **across** is the other, and it is not a loophole
+ * either: it has no column to be marked in, so its mark goes against the wall
+ * it will come over, on the row it will hold, pointing the way it will fly. It
+ * says where a body will *enter*, which is what every blip on the strip says
+ * too — the strip simply has nowhere to put a row.
  */
 export function drawRadar(ctx: CanvasRenderingContext2D, l: Layout, world: World, time = 0): void {
   ctx.save();
@@ -141,31 +148,31 @@ export function drawRadar(ctx: CanvasRenderingContext2D, l: Layout, world: World
             : PALETTE.cyan;
 
     if (cross !== undefined) {
-      // A body that comes over a wall rather than down a column: the mark
-      // points the way it will travel, and it sits at the wall it will come
-      // over. The two other blips answer *which column* with their place; this
-      // one has no column to answer with until it is on the field, so what it
-      // announces is the side — which is the whole of what the pair can say to
-      // each other before it appears (`radar-blip.ts`).
+      // A body that comes over a side wall rather than down a column, and the
+      // one blip that is drawn **inside the field**: against the wall it will
+      // come over, on the row it will hold, pointing the way it will fly. Its
+      // place is the warning — the row and the side are exactly what this
+      // arrival has instead of a column, and how soon is left to the size and
+      // the alpha (`radar-blip.ts`).
       const pulse = 0.75 + 0.25 * Math.sin(time * 6);
-      const long = s * 1.5 * (span > 1 ? 1.35 : 1);
+      const long = s * 1.6 * (span > 1 ? 1.3 : 1);
+      // Pushed back against the wall it comes over, so the head points into
+      // the field rather than the tail hanging off the edge.
+      const tip = x + cross * long * 0.9;
+      const back = x - cross * long * 0.5;
       ctx.globalAlpha = a * pulse;
       ctx.fillStyle = hex;
       ctx.beginPath();
-      ctx.moveTo(x + cross * long, y);
-      ctx.lineTo(x - cross * long * 0.35, y - s * 0.9);
-      ctx.lineTo(x - cross * long * 0.35, y + s * 0.9);
+      ctx.moveTo(tip, y);
+      ctx.lineTo(back, y - s * 0.95);
+      ctx.lineTo(back, y + s * 0.95);
       ctx.closePath();
       ctx.fill();
-      // The tail, so the arrow reads as something travelling rather than as a
-      // wedge pointing at the wall it is standing on.
-      ctx.globalAlpha = a * pulse * 0.55;
-      ctx.fillRect(
-        Math.min(x - cross * long, x - cross * long * 0.35),
-        y - s * 0.28,
-        long * 0.65,
-        s * 0.56,
-      );
+      // The tail behind it, so the mark reads as something travelling rather
+      // than as a wedge standing still on the edge.
+      ctx.globalAlpha = a * pulse * 0.5;
+      const tailBack = x - cross * long * 1.5;
+      ctx.fillRect(Math.min(back, tailBack), y - s * 0.3, Math.abs(back - tailBack), s * 0.6);
     } else if (span > 1) {
       // As wide as the shape it warns about, and pulsing — the blip on the
       // strip that is never mistaken for a single-tile rock.

@@ -52,10 +52,12 @@ export const ROCK_MECHANICS = {
    *
    * It is a mechanic by this table's own test all the same: it is a rule the
    * pair has to learn, and the game is a smaller game without it rather than
-   * no game at all.
+   * no game at all. And it is the one hazard in the game that costs the hull
+   * *nothing* — it is a window rather than an arrival, and what it takes away
+   * is the lane, for as long as the crossing lasts.
    */
   rockCross: {
-    what: "A rock that comes over one of the side walls instead of the top, walking a row two lanes a beat. It only sinks when it turns and it only turns at a wall — so it reaches the hull standing on the left edge or the right one and never anywhere between, and which of the two is a thing the pair has a whole crossing to work out.",
+    what: "A rock that comes over one of the side walls instead of the top, holds that row for the whole of its life and leaves the field at the far side. Nothing turns it away and it never reaches the ship — what it does is stand in front of the cannon on its way past, a lane at a time, and a bolt that meets it dies there. Player 1 alone is shown the arrow: the row it will hold, the side it comes over, and the way it will fly.",
     reach: "spawn",
   },
   torch: {

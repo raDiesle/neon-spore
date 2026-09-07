@@ -4,7 +4,7 @@ import type { Wave } from "../wave-types.js";
  * The second half of act seven, cut off `act-7.ts` when THE COIL was split
  * into two waves and that file reached the 250-line ceiling. Three waves now:
  * the fault at length, the panel that replaces the gun, and the rock that
- * takes THE COIL's flight with nothing on it.
+ * crosses the field in front of the cannon and leaves.
  *
  * **`7b` and not `8`, because the order of the waves is the order of the
  * game** — the rule `act-3b.ts` already states, arrived at the same way. An
@@ -57,25 +57,28 @@ import type { Wave } from "../wave-types.js";
  *    column she names is not the column it will be in
  *    (`docs/spec/controls.md`).
  *
- * 3. **THE CROSSING** is a rock on THE COIL's flight with nothing on it, and
- *    it is here rather than beside its relatives for one reason: it needs the
- *    coil to have been seen. A pair who has watched a dome cross the field and
- *    sink two rows at every wall already knows this movement — what they have
- *    never met is that movement on a body there is *nothing to open*, so the
- *    plate is the whole answer and it has to be somewhere before the rock is.
+ * 3. **THE CROSSING** is the one hazard in the game that cannot hurt anybody.
+ *    A plain rock comes over a side wall instead of the top, holds one row,
+ *    crosses two lanes a beat and leaves at the far side; nothing turns it
+ *    away, and it never reaches the ship. What it takes is the **lane**: a
+ *    rock stops a bolt, so for the seven beats of its crossing it is a moving
+ *    wall in front of the cannon, and the price is paid by whatever else the
+ *    wave is sending. That is the wave — a shot that has to go before the wall
+ *    arrives, or after it has gone.
  *
- *    The rule the wave is built on is one line of arithmetic: it only sinks
- *    when it turns and it only turns at a wall, so **it always reaches the
- *    hull standing on an edge** — never anywhere between. Which of the two
- *    edges follows from the row it came in on and nothing else, and working
- *    that out is a whole crossing's worth of talking with nothing else to do.
+ *    The split is sharper here than the movement suggests. Rocks are announced
+ *    on **player 1's** strip and on nobody else's, so the arrow at the edge —
+ *    the row it will hold, the side it comes over, the way it will fly — is
+ *    his alone; and the trigger that fires a colour is **player 2's**. So the
+ *    seat that can see the wall coming is the seat that cannot shoot, and the
+ *    seat holding the trigger learns about it by being told.
  *
- *    1. Beat 0, one alone from the left at row 10: four crossings and it is
- *       down, which is short enough to be watched from start to finish.
- *    2. Beat 16, one from the right at row 8, and beat 24, one from the left
- *       at row 7 — overlapping on purpose. Two answers wanted at once and one
- *       plate to give them, so the order is the choice and the edges are far
- *       enough apart that it costs something.
+ *    1. Beat 0, one alone across the middle of the field with nothing else on
+ *       it, so the shape is watched once before it costs anything.
+ *    2. Beats 8–10 and 18–20, a body and then a crossing under it: the first
+ *       two times the lane closes, one at a time, with room to be wrong in.
+ *    3. Beats 28–34, two bodies and two crossings from opposite walls, so the
+ *       order the shots go in is the whole of what is left to choose.
  *
  *    It is played on the ordinary panel, so it reads as a wave of the act
  *    rather than as a sequel to THE CLAW standing in front of it.
@@ -133,16 +136,23 @@ export const WAVES_ACT_7B: Wave[] = [
   {
     id: "theCrossing",
     name: "THE CROSSING",
-    sentence: "The one where it always lands on a wall, and the only question is which one.",
+    sentence:
+      "The one where the lane you are aiming up keeps being taken by something you cannot shoot.",
     guide: {
-      both: "A rock that comes over a side wall instead of the top, and walks a row two lanes a beat. It only sinks when it turns and it only turns at a wall, so it reaches the hull on the left edge or the right one and nowhere between.",
-      p1: "Your strip shows the arrow before it arrives: which wall it comes over. Count from there — a crossing is one edge to the other and two rows down — and name the edge it runs out of rows on. The trigger is still yours.",
-      p2: "Never chase it: two lanes a beat is faster than the plate. Take the edge they name and be standing on it early — you have a whole crossing to get there.",
+      both: "A rock that comes over a side wall instead of the top. It holds one row, crosses two lanes a beat and leaves at the far side — it never reaches the ship and nothing turns it away. What it does is stand in front of the cannon on its way past.",
+      p1: "The arrow at the edge is yours alone: the row it will hold, the side it comes over, the way it will fly. Say the row and count it across — the lane you are aiming up is only yours until it arrives.",
+      p2: "You see it once it is on the field and never before, and the trigger is still yours. Fire on their word: a bolt that meets a rock dies there, and the body above it goes on falling.",
     },
     entries: [
-      { beat: 0, col: 0, kind: "meteor", color: null, cross: 1, row: 10 },
-      { beat: 16, col: 6, kind: "meteor", color: null, cross: -1, row: 8 },
-      { beat: 24, col: 0, kind: "meteor", color: null, cross: 1, row: 7 },
+      { beat: 0, col: 0, kind: "meteor", color: null, cross: 1, row: 5 },
+      { beat: 8, col: 3, color: "red" },
+      { beat: 10, col: 6, kind: "meteor", color: null, cross: -1, row: 7 },
+      { beat: 18, col: 5, color: "cyan" },
+      { beat: 20, col: 0, kind: "meteor", color: null, cross: 1, row: 4 },
+      { beat: 28, col: 1, color: "red" },
+      { beat: 29, col: 5, color: "cyan" },
+      { beat: 31, col: 6, kind: "meteor", color: null, cross: -1, row: 6 },
+      { beat: 34, col: 0, kind: "meteor", color: null, cross: 1, row: 9 },
     ],
   },
 ];

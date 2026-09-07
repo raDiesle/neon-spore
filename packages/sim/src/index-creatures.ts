@@ -101,6 +101,7 @@ export {
   type RockCross,
   rockCrosses,
   rockCrossRow,
+  rockCrossRowFor,
   rockEntryCol,
   rockHeading,
   rockMayCross,

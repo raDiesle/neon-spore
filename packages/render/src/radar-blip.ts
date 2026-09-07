@@ -2,13 +2,14 @@ import { showsRadar } from "@neon-spore/content";
 import {
   bodyCenterCol,
   type RockCross,
+  rockCrossRowFor,
   rockEntryCol,
   rockMayCross,
   type SpawnEntry,
   spanOf,
   type World,
 } from "@neon-spore/sim";
-import { type Layout, tileCX } from "./layout.js";
+import { type Layout, tileCX, tileCY } from "./layout.js";
 
 /**
  * Which arrivals this screen's warning strip is carrying, and where each one
@@ -42,12 +43,14 @@ export interface RadarBlip {
    * Which way this arrival will travel across the field, or nothing at all for
    * the arrivals that come down.
    *
-   * The strip has always answered *how soon* with height and *which column*
-   * with place, and both of those are wrong for a body that enters at a wall:
-   * it has no column to be announced in, and the one thing the pair needs
-   * before it appears is **which side**. So a crossing blip is placed at the
-   * wall it will come over and drawn as an arrow pointing the way it is going
-   * (`field.ts`), and the height still says how soon.
+   * **A crossing blip does not live on the strip along the top.** That strip
+   * answers *which column* with horizontal place and *how soon* with height,
+   * and both are the wrong questions for a body that comes over a side wall:
+   * it has no column at all, and what the pair needs before it appears is the
+   * **row** and the **side**. So this blip is placed at the wall it will come
+   * over, at the row it will hold, pointing the way it will fly — the owner
+   * asked for exactly that, in those three terms. How soon is left to the size
+   * and the alpha, which carried it on the strip too.
    */
   cross?: RockCross;
 }
@@ -69,18 +72,22 @@ export function radarBlips(l: Layout, world: World): RadarBlip[] {
     // would be announcing a side nothing comes over.
     const across = q.cross !== undefined && rockMayCross(q.kind) ? q.cross : undefined;
     const span = spanOf(q);
+    // Where the mark goes. A body that falls is announced on the strip above
+    // the field, in its own column; a body that crosses is announced **in the
+    // field**, against the wall it will come over and on the row it will hold,
+    // because those are the two things it has instead of a column.
+    const entryCol = across === undefined ? q.col : rockEntryCol(world.cfg.cols, span, across);
+    const row = across === undefined ? 0 : rockCrossRowFor(world.cfg, q.row);
     out.push({
       entry: q,
       inBeats,
       // `q.col` is a wide kind's leftmost column (`spanCenterCol` in
       // sim/types.ts) — the blip itself is drawn at the visual centre.
-      x: tileCX(
-        l,
+      x: tileCX(l, bodyCenterCol(q, entryCol)),
+      y:
         across === undefined
-          ? bodyCenterCol(q, q.col)
-          : bodyCenterCol(q, rockEntryCol(world.cfg.cols, span, across)),
-      ),
-      y: l.gridTop - 7 - inBeats * ((l.radarHeight - 12) / lead),
+          ? l.gridTop - 7 - inBeats * ((l.radarHeight - 12) / lead)
+          : tileCY(l, row),
       s: 5 + 4 * (1 - inBeats / (lead + 1)),
       // How wide the thing being warned about actually is. Asked of the entry
       // rather than of its kind: the torch is no longer the only two-tile

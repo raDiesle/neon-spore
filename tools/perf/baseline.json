@@ -612,16 +612,16 @@
       "id": "theCrossing",
       "wave": 55,
       "name": "THE CROSSING",
-      "bodies": 2,
-      "arrivals": "3:62338910",
-      "typical": 2.87,
-      "mean": 2.97,
-      "p90": 3.42,
-      "jitter": 0.08,
+      "bodies": 4,
+      "arrivals": "9:839a4c6b",
+      "typical": 2.96,
+      "mean": 3,
+      "p90": 3.45,
+      "jitter": 0.158,
       "mergedFrom": {
         "measuredAt": "2026-09-07",
-        "commit": "a1c67330c27634b0281ff23c3655f2b01b7a5a44",
-        "scale": 1.53
+        "commit": "fac18a1dd1856834732e5d16418ae78789d54a60",
+        "scale": 1.44
       }
     }
   ]

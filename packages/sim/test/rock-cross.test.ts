@@ -5,15 +5,16 @@ import { rockCrosses, rockCrossRow, rockHeading, rockMayCross } from "../src/roc
 import { createWorld, type SimEvent, type SpawnEntry, step, type World } from "../src/world.js";
 
 /**
- * **A rock authored onto a crossing**, which is the first route in this game
- * that is a field on an arrival rather than a kind in the bestiary.
+ * **A rock the wave sent across the field**, which is the first route in this
+ * game that is a field on an arrival rather than a kind in the bestiary.
  *
- * Three things are checked and they are the three the creature is made of: it
- * falls to the row the wave named and no further, it walks that row and turns
- * at the walls, and it sinks only at a turn — so it reaches the ship and the
- * wave can end. The fingerprint is checked for `coil.test.ts`'s reason: a
- * heading two devices disagreed about is two devices holding one rock over two
- * lanes, and only one of them wards it.
+ * Four things are checked and they are the four the creature is made of: it
+ * enters at the wall it walks away from rather than at the top, it holds its
+ * row for the whole of its life, it **leaves the field at the far side and is
+ * gone** — never turning, never sinking, never reaching the ship — and the
+ * wave clears behind it. The fingerprint is checked for `coil.test.ts`'s
+ * reason: a heading two devices disagreed about is two devices with one rock
+ * on opposite sides of the field.
  */
 
 const CFG = DEFAULT_CONFIG;
@@ -56,19 +57,14 @@ describe("a rock the wave sends across", () => {
     expect(rockMayCross("slick")).toBe(false);
   });
 
-  it("carries the heading and the row the wave authored", () => {
-    const world = run([crossing(1, 4, 1)], 1);
-    const rock = world.creatures[0];
-    expect(rock).toBeDefined();
-    expect(rockCrosses(rock!)).toBe(true);
-    expect(rockHeading(rock!)).toBe(1);
-    expect(rockCrossRow(rock!)).toBe(4);
-  });
-
   it("enters at the wall it walks away from, not at the top", () => {
     const right = run([crossing(4, 4, 1)], 1).creatures[0]!;
     expect(right.col).toBe(0);
     expect(right.row).toBe(4);
+    expect(rockCrosses(right)).toBe(true);
+    expect(rockHeading(right)).toBe(1);
+    expect(rockCrossRow(right)).toBe(4);
+
     const left = run([crossing(4, 4, -1)], 1).creatures[0]!;
     expect(left.col).toBe(CFG.cols - 1);
     expect(left.row).toBe(4);
@@ -80,52 +76,53 @@ describe("a rock the wave sends across", () => {
     expect(rock.fromCol).toBeLessThan(0);
   });
 
-  it("walks its row a stride a beat", () => {
+  it("holds its row for the whole crossing", () => {
+    for (let beats = 1; beats <= 6; beats++) {
+      const rock = run([crossing(4, 4, 1)], beats).creatures[0];
+      if (!rock) break;
+      expect(rock.row).toBe(4);
+    }
+  });
+
+  it("walks a stride a beat", () => {
     const before = run([crossing(4, 4, 1)], 1).creatures[0]!;
     const after = run([crossing(4, 4, 1)], 2).creatures[0]!;
     expect(after.col - before.col).toBe(CFG.rockCrossCols);
-    expect(after.row).toBe(before.row);
   });
 
-  it("turns on the wall and sinks only there", () => {
-    // Right wall of an eleven-column field is ten; from column one at two a
-    // beat that is five strides, the last of which lands on it and turns.
-    let seen = false;
-    let previous = 4;
-    for (let beats = 1; beats <= 10; beats++) {
-      const rock = run([crossing(1, 4, 1)], beats).creatures[0];
-      if (!rock) break;
-      expect(rock.col).toBeGreaterThanOrEqual(0);
-      expect(rock.col).toBeLessThanOrEqual(CFG.cols - 1);
-      if (rock.row !== previous) {
-        expect(rock.row - previous).toBe(CFG.rockCrossDropRows);
-        // It sank because it turned: it is standing on a wall.
-        expect(rock.col === 0 || rock.col === CFG.cols - 1).toBe(true);
-        seen = true;
+  /**
+   * The owner's own correction, and the whole of what makes this a window
+   * rather than an arrival: it goes out of the far side and is gone, instead
+   * of turning, dropping a row and going on being on the screen.
+   */
+  it("leaves the field at the far side and never comes back", () => {
+    for (const dir of [1, -1] as const) {
+      const { world, events } = played([crossing(3, 4, dir)], 30);
+      expect(world.creatures).toHaveLength(0);
+      // It left; it did not arrive. Nothing was broken and nothing was warded.
+      expect(events.some((e) => e.type === "breach")).toBe(false);
+      expect(world.hullMilli).toBe(100 * 1000);
+    }
+  });
+
+  it("never touches the hull row on the way, whatever row it was given", () => {
+    for (const row of [0, 6, hullRow(CFG), hullRow(CFG) + 4]) {
+      for (let beats = 1; beats <= 12; beats++) {
+        const rock = run([crossing(3, row, 1)], beats).creatures[0];
+        if (!rock) continue;
+        expect(rock.row).toBeLessThan(hullRow(CFG));
       }
-      previous = rock.row;
     }
-    expect(seen).toBe(true);
   });
 
-  it("reaches the ship, so the wave can end", () => {
-    const { world, events } = played([crossing(1, 2, 1)], 60);
-    expect(world.creatures.length).toBe(0);
-    // It arrived rather than evaporating: a rock that left the field would
-    // cost the hull nothing, and a wave nobody can lose to is padding.
-    expect(events.some((e) => e.type === "breach")).toBe(true);
-  });
-
-  it("never goes past the hull row", () => {
-    for (let beats = 1; beats <= 40; beats++) {
-      const rock = run([crossing(3, 6, -1)], beats).creatures[0];
-      if (!rock) continue;
-      expect(rock.row).toBeLessThanOrEqual(hullRow(CFG));
-    }
+  it("clears the wave behind it", () => {
+    const world = run([crossing(3, 4, 1)], 30);
+    expect(world.creatures).toHaveLength(0);
+    expect(world.spawned).toBe(1);
   });
 
   it("is in the fingerprint, heading and row alike", () => {
-    const world = run([crossing(1, 4, 1)], 2);
+    const world = run([crossing(4, 4, 1)], 2);
     const before = hashWorld(world);
     world.creatures[0]!.rockDir = -1;
     expect(hashWorld(world)).not.toBe(before);

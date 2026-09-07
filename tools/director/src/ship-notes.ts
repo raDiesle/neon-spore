@@ -194,10 +194,10 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "expires three times before the ship. Both seats see how wide the next " +
     "step is; only the pilot is shown which side it takes. See veer.ts.",
   "A CROSSING ROCK — a route any rock can be put on":
-    "Not a creature at all: a path a wave puts a plain rock on. It falls to " +
-    "the row the wave named, then walks that row, turning at each wall and " +
-    "sinking two rows every time it turns — so the column the pair agreed on " +
-    "expires every beat until it lands. See rock-cross.ts.",
+    "Not a creature at all: a path a wave puts a plain rock on. It comes over " +
+    "one side wall on the row the wave named, walks that row, and leaves the " +
+    "field at the other side — a moving wall the cannon cannot shoot past, " +
+    "for as long as the crossing takes. See rock-cross.ts.",
   "THE VOLLEY — a rock you have to hit back three times":
     "The one arrival the shield does not finish. A ward hits it straight back " +
     "up the field instead of off it and takes a plate of shell with it, and it " +

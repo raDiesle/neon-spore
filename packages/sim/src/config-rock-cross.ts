@@ -1,6 +1,6 @@
 /**
- * **A crossing rock's two numbers**: how far along its row it goes each beat,
- * and how far it sinks at each wall it turns at (`rock-cross.ts`).
+ * **A crossing rock's one number**: how far along its row it goes each beat
+ * (`rock-cross.ts`).
  *
  * `SimConfig` extends this rather than nesting it, for the reason
  * `config-ghost.ts` and `config-carom.ts` already give: every call site still
@@ -14,9 +14,12 @@
  * rows filed under a creature's name would be filed under a creature that does
  * not exist.
  *
- * The two are argued together, and they have to be: how many walls one arrival
- * touches before it reaches the ship is the stride and the drop read against
- * each other, exactly as `caromCols` and `caromRows` are.
+ * It had a second beside it — how far the body sank at each wall it turned at
+ * — and both went when the owner asked for a rock that leaves the field at the
+ * far side rather than turning and working its way down. There is no turn any
+ * more, so there is nothing to sink at; what is left is the one number that
+ * decides how long the crossing lasts, which is the whole of the window the
+ * pair has.
  */
 export interface RockCrossConfig {
   /**
@@ -26,25 +29,15 @@ export interface RockCrossConfig {
    * slides comfortably in one — so the column player 1 calls has to be where
    * the rock is *going* rather than where it is.
    *
-   * One would make a crossing of the shipped field a wave of its own; three is
-   * THE CAROM's lead, and a lead is a different sentence from a lane.
+   * One would make a single crossing a wave of its own — eleven columns is
+   * eleven beats, seven seconds of one rock; three is THE CAROM's lead, and a
+   * lead is a different sentence from a lane. At two a crossing is six beats,
+   * which is about the length of one spoken exchange.
    */
   rockCrossCols: number;
-  /**
-   * Rows it sinks at each wall it turns at. Two, which is THE COIL's drop and
-   * taken from it for the same reason the stride is taken from THE GHOST: the
-   * wall is the only place a crossing body may sink, or the pair never gets
-   * the beats it needs to agree on a column and then stand in it.
-   *
-   * Two rather than one because a rock authored high has the whole field to
-   * work down through, and at one row a wall the pair would be watching the
-   * same arrival for the better part of a wave.
-   */
-  rockCrossDropRows: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
 export const ROCK_CROSS_DEFAULTS: RockCrossConfig = {
   rockCrossCols: 2,
-  rockCrossDropRows: 2,
 };

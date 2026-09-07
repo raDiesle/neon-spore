@@ -9,7 +9,7 @@ import { ghostOnSpawn } from "./ghost.js";
 import { gyreOnSpawn, mountsFor } from "./gyre.js";
 import { recoilOnSpawn } from "./recoil.js";
 import { rindOnSpawn } from "./rind.js";
-import { rockCrossOnSpawn, rockEntryCol, rockMayCross } from "./rock-cross.js";
+import { rockCrossOnSpawn, rockCrossRowFor, rockEntryCol, rockMayCross } from "./rock-cross.js";
 import { shellOnSpawn } from "./shell.js";
 import { stringStrand } from "./strand-spawn.js";
 import { clampSpanCol, colSpan, fallTilesPerBeat, spawnSpan } from "./types.js";
@@ -72,7 +72,7 @@ export function spawnArrivals(world: World): void {
       across === undefined
         ? clampSpanCol(entry.col, world.cfg.cols, span)
         : rockEntryCol(world.cfg.cols, span, across);
-    const row = across === undefined ? 0 : Math.max(0, entry.row ?? 0);
+    const row = across === undefined ? 0 : rockCrossRowFor(world.cfg, entry.row);
     // Said once, at the top of the field, so player 2's ear has the column
     // before the eye has found the ring. A hit should always be player 2's
     // haste and never player 2's surprise.
