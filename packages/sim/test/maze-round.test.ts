@@ -170,6 +170,16 @@ test("the heart takes its own colour, and the other one costs the hull", () => {
   expect(before - world.hullMilli).toBe(CFG.damageMaze * 1000);
   expect(mazeOf(world).hullMilli).toBe(100_000);
 
+  // **What reaches the ship is the heart's blood, not a rock.** The middle
+  // throws the shot back, so the breach carries the heart's own colour and a
+  // kind render/ will not replay as a falling meteor — the picture is the gout
+  // across the drum and down the panel (`render/maze-spill.ts`), and a rock
+  // dropping through it would be a second arrival nobody caused.
+  const breach = seen.filter((e) => e.type === "breach");
+  expect(breach).toHaveLength(1);
+  expect(breach[0]).toMatchObject({ color: mazeHeartColor(0) });
+  expect(isWardable((breach[0] as { kind: CreatureKind }).kind)).toBe(false);
+
   // And the wheel survives it. A shot the heart refused never touched the
   // walls, so the drum is handed straight back standing where it was left —
   // which is the whole difference between this and a dead end.

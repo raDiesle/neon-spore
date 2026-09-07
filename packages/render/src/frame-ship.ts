@@ -11,6 +11,7 @@ import { drawHull, type HullMood, hullSkinY, type LobePositions, surfaceSampler 
 import { frame, type HullFrame } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import { drawMagnetAlarm } from "./magnet-alarm.js";
+import { drawMazeDrips } from "./maze-drips.js";
 import type { OpeningFx } from "./opening-fx.js";
 import { drawOtherHand } from "./other-hand.js";
 import { hullShake, torchTremor } from "./queen.js";
@@ -111,6 +112,9 @@ export function drawShip(
 export interface OverlayState {
   armed: boolean;
   open: boolean;
+  /** The membrane the ship pass was drawn from, so anything laid on the hull
+   * here lies on the skin the eye is looking at rather than on a flat line. */
+  surfaceY?: (x: number) => number;
   /** A rehearsal the caller owns, on a host that has one. */
   scene?: GuideStage;
   /** The opening's own clock (`opening-fx.ts`). */
@@ -125,7 +129,7 @@ export function drawOverlays(
   view: ViewState,
   state: OverlayState,
 ): void {
-  const { armed: isArmed, open: isOpen, scene, fx } = state;
+  const { armed: isArmed, open: isOpen, scene, fx, surfaceY } = state;
   drawHud(ctx, l, view);
   drawTorchAlarm(ctx, l, world, view.time);
   // And the pilot's own call, on the pilot's screen alone (`magnet-alarm.ts`).
@@ -139,6 +143,11 @@ export function drawOverlays(
   // Over the finished band: whichever control a desk's mouse is resting on.
   drawControlHover(ctx, l, view);
   drawOverlay(ctx, l, view);
+  // Over the band, because it runs down the front of it: what a shot the
+  // heart refused threw at the ship (`maze-drips.ts`). It is the one thing on
+  // a frame that is meant to be above the pair's own controls, which is why it
+  // is here and not with the rest of THE MAZE's picture.
+  drawMazeDrips(ctx, l, world, world.beat, view.beatPhase, surfaceY);
   // Over the pause overlay and everything else: while a wave's introduction or
   // its guide is up the world is not ticking, so nothing under it is doing
   // anything worth seeing.

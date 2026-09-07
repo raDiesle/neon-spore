@@ -38,8 +38,12 @@ export interface Splash {
  * A whole number out of two, spread evenly. Not `sim`'s `Rng`: nothing here is
  * in the fingerprint and a stream would have to be wound forward the same way
  * on both phones, where a hash of the two indices simply cannot drift.
+ *
+ * Exported because the gout a refused shot throws is scattered the same way
+ * (`maze-spill.ts`) — one hash for every drop of blood this boss spills, so
+ * two phones cannot lay the same splash in two places.
  */
-function scatter(hit: number, i: number, salt: number): number {
+export function mazeScatter(hit: number, i: number, salt: number): number {
   const n = Math.imul(hit * 2654435761 + i * 40503 + salt * 97, 2246822519) >>> 8;
   return (n % 10_000) / 10_000;
 }
@@ -54,11 +58,11 @@ export function splashesOf(hit: number): Splash[] {
   const many = PER_HIT * hit;
   for (let i = 0; i < many; i++) {
     out.push({
-      a: scatter(hit, i, 1) * Math.PI * 2,
-      dist: 0.62 + scatter(hit, i, 2) * (0.34 + 0.12 * hit),
-      size: 0.09 + scatter(hit, i, 3) * 0.15,
-      turn: scatter(hit, i, 4) * Math.PI,
-      seed: 1 + Math.floor(scatter(hit, i, 5) * 90),
+      a: mazeScatter(hit, i, 1) * Math.PI * 2,
+      dist: 0.62 + mazeScatter(hit, i, 2) * (0.34 + 0.12 * hit),
+      size: 0.09 + mazeScatter(hit, i, 3) * 0.15,
+      turn: mazeScatter(hit, i, 4) * Math.PI,
+      seed: 1 + Math.floor(mazeScatter(hit, i, 5) * 90),
     });
   }
   return out;

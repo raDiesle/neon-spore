@@ -209,3 +209,29 @@ have somewhere to go that a session reaches in one hop. Two of the three would
 buy back a thousand characters. Add `bun run port` and `bun run probe` to the
 Commands block in the same commit: both are lines this lane could not afford,
 and both are commands a session looks for exactly where it cannot find them.
+
+## `bun run frames` cannot photograph THE MAZE's own answer
+
+- **Found:** 2026-09-07, claude/maze-director-wave-boss-d85812
+- **Files:** `tools/frames/capture.ts`, `tools/frames/run.ts`, `tools/frames/spec.ts`,
+  `tools/frames/test/`
+
+Answering THE MAZE is two verbs in order: the pilot pulls the string until a
+way in clicks onto a column, and only then may the navigator slide the cannon
+there and fire. `--hold mazeString=…` is the only way to turn the wheel and
+`--press …:2:fire=…` the only way to shoot, and `capture.ts` runs **every press
+first and the hold afterwards** (the hold gets `holdTicks` of its own at the
+end, so a hand takes hold of a body that has already arrived). So a shot can
+only ever be fired at a wheel that has not turned, and the whole second half of
+this boss — a shot in a corridor, a dead end, a colour the heart refuses —
+cannot be photographed at all. A lane that changed what a refused shot looks
+like had to start `bun run preview`, open the page and drive `window.neonSpore`
+by hand in a browser to see its own change.
+
+The fix is to let a hold take a tick like a press does, so the two share one
+ordered line: `--hold mazeString=1400@240` alongside `--press 300:2:fire=cyan`,
+with the bare form keeping today's meaning (after the wave's ticks, with
+`holdTicks` to show in). `pressPlan` already walks a sorted tick line and is
+tested on its own; holds would join that list rather than getting a second
+one. `tools/frames/test/` holds the ordering, so the proof is a case there
+plus a `--press`/`--hold` pair whose recorded order is the one written.

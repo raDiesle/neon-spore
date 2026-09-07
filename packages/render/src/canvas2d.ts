@@ -222,6 +222,7 @@ export class Canvas2DRenderer implements Renderer {
       armed: isArmed,
       open: isOpen,
       fx: this.held.effects.opening,
+      surfaceY,
     });
     // Over the field and over the ship both, because it is about the second
     // one: a lure shot by mistake, and the hull broken in three places for it

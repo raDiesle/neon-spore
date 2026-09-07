@@ -1,7 +1,7 @@
 import { breachHull } from "./hull.js";
 import { mazeBottomCol } from "./maze.js";
-import { enterMazePhase, type MazeState } from "./maze-round.js";
-import type { CreatureKind } from "./types.js";
+import { enterMazePhase, type MazeState, mazeHeartColor } from "./maze-round.js";
+import { type CreatureKind, livingKindForColor } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
 /**
@@ -42,14 +42,25 @@ export type MazeVerdictReason = (typeof MAZE_REASONS)[number];
 const MAZE_WRECK: CreatureKind = "gyre";
 
 /**
- * A dead end, the wrong colour, or nothing at all.
+ * A dead end, the wrong colour, or nothing at all. Three failures, and each
+ * one now reaches the hull as the thing that actually did it.
  *
- * The first two are paid for here, out of the column the shot went up. **The
- * clock running out is not**: the drum comes down on the ship for that one,
- * and a fall is paid for when it lands rather than when it lets go
- * (`mazeSettle` below, and `a body is resolved when it is seen to touch`). The
- * column it lands in is the one the drum *stands over* rather than wherever
- * the cannon happened to be parked, because that is where the mass is.
+ * **A dead end sends the shot back**, out of the column it went up, as the
+ * rock this game has always answered a wrong step with.
+ *
+ * **The wrong colour is thrown back by the heart**, so what breaks the ship is
+ * the heart's own blood and it is filed as the living body of that colour: no
+ * meteor, and the burst at the hull carries the colour of the thing that made
+ * it rather than a generic damage red. What the pair sees is a gout of it
+ * across the maze and down the ship (`render/maze-spill.ts`) — the owner asked
+ * for exactly that in place of the rock that used to fall here.
+ *
+ * **The clock running out is not paid for here at all**: the drum comes down
+ * on the ship for that one, and a fall is paid for when it lands rather than
+ * when it lets go (`mazeSettle` below, and *a body is resolved when it is seen
+ * to touch*). The column it lands in is the one the drum *stands over* rather
+ * than wherever the cannon happened to be parked, because that is where the
+ * mass is.
  */
 export function mazeWrong(world: World, m: MazeState, reason: MazeVerdictReason): void {
   const aimed = m.lockedCol < 0 ? world.cannonCol : m.lockedCol;
@@ -58,8 +69,13 @@ export function mazeWrong(world: World, m: MazeState, reason: MazeVerdictReason)
   m.verdictCol = col;
   m.lost = reason;
   enterMazePhase(m, "verdict", world.beat);
-  if (reason !== "silence") {
+  if (reason === "mouth") {
     breachHull(world, col, "meteorFastest", world.cfg.mazeRow, world.cfg.damageMaze);
+  }
+  if (reason === "color") {
+    const blood = mazeHeartColor(m.round);
+    const kind = livingKindForColor(blood);
+    breachHull(world, col, kind, world.cfg.mazeRow, world.cfg.damageMaze, blood);
   }
   world.events.push({ type: "mazeVerdict", right: false, col, reason });
 }

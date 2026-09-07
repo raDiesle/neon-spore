@@ -2,8 +2,9 @@ import { type MazeState, mazeCircleMilli, mazeCurrent, type SimConfig } from "@n
 import type { Layout, ViewRole } from "./layout.js";
 import { drawMazeDoors } from "./maze-door.js";
 import { mazeCrash, mazeFall } from "./maze-fall.js";
-import { drawMazeHeart } from "./maze-heart.js";
+import { drawMazeHeart, mazeHeartBlood } from "./maze-heart.js";
 import { drawMazeShot } from "./maze-shot.js";
+import { drawMazeSpill, mazeSpillAge } from "./maze-spill.js";
 import { drawMazeStages } from "./maze-stage.js";
 import { drawMazeString } from "./maze-string.js";
 import { drawMazeWalls, mazeDrum } from "./maze-walls.js";
@@ -35,6 +36,11 @@ import { drawMazeWalls, mazeDrum } from "./maze-walls.js";
  * the picture of what has actually happened: the stage is gone and the boss is
  * not. The ways in stop being drawn the moment it starts — there are no doors
  * in a wall that is coming down.
+ *
+ * **A shot the heart refuses is thrown back rather than dropped as a rock.**
+ * The middle bursts, blood goes out across the whole maze, and the ship wears
+ * the rest of it — `maze-spill.ts` for the gout on the drum and
+ * `maze-drips.ts` for the pool and the run down the panel.
  *
  * **A clock run out takes it apart over the ship instead.** The same pieces,
  * falling rather than drifting, and they come to rest on the hull on the beat
@@ -77,5 +83,13 @@ export function drawMaze(
   drawMazeString(ctx, l, cfg, m, role);
   drawMazeDoors(ctx, l, cfg, m, wheel, beat, beatPhase, fall);
   drawMazeShot(ctx, l, cfg, m, wheel, beat, beatPhase);
+  // A shot the heart refused for its colour, thrown back out across the whole
+  // drum. Over the walls and the corridors rather than under them, because it
+  // went *through* them (`maze-spill.ts`); the rest of it lands on the ship
+  // and is drawn over the finished band (`maze-drips.ts`).
+  const spill = mazeSpillAge(m, beat, beatPhase);
+  if (spill >= 0) {
+    drawMazeSpill(ctx, drum.cx, drum.cy, drum.r, m, mazeHeartBlood(m.round).tint, spill);
+  }
   drawMazeStages(ctx, l, m, beat, beatPhase);
 }

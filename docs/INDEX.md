@@ -690,6 +690,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/choir-prompt.ts` | **The instruction over a membrane**: a scan frame around the middle dot with the gesture written under it |
 | `packages/render/src/choir-quake.ts` | the whole screen shaking, and the only thing in this renderer that moves the picture rather than something in it |
 | `packages/render/src/choir.ts` | THE CHOIR as it stands before the pilot's gesture |
+| `packages/render/src/maze-drips.ts` | The half of a refused shot that lands on the ship: a pool across the top of the hull |
+| `packages/render/src/maze-spill.ts` | What a shot the heart refuses throws back, and how far it gets |
 
 ### packages/net
 
