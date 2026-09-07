@@ -69,7 +69,8 @@ const firstOfKind =
  */
 const CRAWLER_POSE: Pose = {
   name: "CRAWLER · WALKING",
-  note: "Six links along the row above the hull, each squeezing a fraction of a beat behind the one in front. The pulse is what makes the chain read as one animal rather than six rocks in a line — it was the whole subject of the crawler:pulse slot, and nothing about a worm can be judged on a field with no crawler on it.",
+  note: "A worm of six links crossing the row above the ship. Each link squeezes a moment after the one in front of it, and that ripple is what makes six shapes read as one animal.",
+  lookAt: "the chain of six round links crossing the field — how the squeeze travels down it",
   crop: "ship",
   build: () => {
     const entry: SpawnEntry = {
@@ -96,7 +97,8 @@ const CRAWLER_POSE: Pose = {
  */
 const MAGNET_POSE: Pose = {
   name: "MAGNET · A SHOT TURNED AWAY",
-  note: "The horseshoe with its armoured plate slung underneath, and a red bolt fired straight into it. The plate is the clause that says the way in is not from below, and the white it flashes when it refuses a shot is the only moment it says so out loud — held here, and replayed every two seconds.",
+  note: 'A horseshoe with an armoured plate under it, and a red shot fired straight up into that plate. The plate turns the shot away and flashes white as it does. That flash is the only moment the creature says "not from below". It replays every two seconds.',
+  lookAt: "the plate under the horseshoe, at the instant the shot hits it and it flashes",
   crop: "tile",
   span: 5,
   at: firstOfKind("magnet"),
@@ -121,7 +123,8 @@ const MAGNET_POSE: Pose = {
  */
 const STRAND_POSE: Pose = {
   name: "STRAND · THE NAVIGATOR'S BEAD",
-  note: "Five beads on one thread. The pilot sees the real bodies; the navigator sees a reel rolling between the two they could be, because the whole mechanic is that neither player alone knows what is on the string. The creature:strand slot is a second answer to that reel, so this is the only pose it can be judged on.",
+  note: "Five beads on one thread. Player 1 sees what the beads really are. Player 2 sees each one rolling between the two things it could be, because neither player alone is meant to know what is on the string.",
+  lookAt: "the beads on the thread, and how the uncertain ones cycle between two shapes",
   crop: "field",
   role: "p2",
   at: firstOfKind("strand"),
@@ -144,7 +147,8 @@ const STRAND_POSE: Pose = {
  */
 const GRIP_POSE: Pose = {
   name: "GRIP · THE PUSH PAUSE",
-  note: "A hand held on a falling rock, and that hand shoving it one column sideways. A body that has just been pushed cannot be pushed again for a beat, and the field says so by taking the two carry arrows away for as long as the pause lasts.",
+  note: "A hand grabs a falling rock and shoves it one column across. A rock that has just been shoved cannot be shoved again for a beat, and the field says so by taking the two carry arrows away for as long as that wait lasts.",
+  lookAt: "the two carry arrows beside the rock — gone for a beat after it is shoved, then back",
   crop: "tile",
   span: 5,
   at: firstOfKind("meteor"),
@@ -173,7 +177,9 @@ const GRIP_POSE: Pose = {
  */
 const BAND_POSE: Pose = {
   name: "BAND · THE ACTION FACES",
-  note: "GUARD and INTAKE, the two buttons that are not a colour and not the cannon. The word on a face is the whole of what tells a pair which one they are pressing, and the panel:action-face slot is a second answer to how that word is drawn.",
+  note: "Player 1's control panel. It has a slider for the cannon and two round buttons beside it. Today those two buttons carry the words SHIELD and SUCK, and the word is the only thing telling a player which is which.",
+  lookAt:
+    "the two round buttons at the bottom of the panel — SHIELD on the left, SUCK on the right",
   crop: "band",
   build: () => {
     const w = fresh([], [], null, {}, WAVE_WITH_BOTH_FACES);
@@ -190,7 +196,8 @@ const BAND_POSE: Pose = {
  */
 const METEOR_HIT_POSE: Pose = {
   name: "METEOR · A SHOT ARRIVING",
-  note: "A cratered rock with a fourth bolt two tiles under it. It keeps its size and its speed and it is no closer to breaking — the craters are the rule made visible, and how one opens is what the creature:meteor slot is a second answer to.",
+  note: "A rock that has already taken three shots, with a fourth still climbing towards it. Shooting a rock does not shrink it, slow it or break it — it only leaves craters. The craters are how the game says so.",
+  lookAt: "the craters on the face of the rock, as the next shot lands",
   crop: "tile",
   at: firstOfKind("meteor"),
   cadenceSeconds: EVENT_CADENCE_SECONDS,

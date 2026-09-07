@@ -1,9 +1,11 @@
-import { Canvas2DRenderer, type ViewRole, type ViewState } from "@neon-spore/render";
+import type { ViewRole, ViewState } from "@neon-spore/render";
 import { type SimEvent, step, ticksPerBeat, type World } from "@neon-spore/sim";
 import { seedRandom } from "../../versus/seed.js";
 import { type Applied, apply, restore, type Variant } from "../../versus/variant.js";
+import { poseCropRect } from "./pose-art.js";
 import { cadenceElapsed, type Pose } from "./pose-kit.js";
 import { runStageLoop } from "./stage-loop.js";
+import { type CropSide, fitCrop, makeCropSide } from "./versus-crop.js";
 import { hashCanvas } from "./versus-hash.js";
 
 /**
@@ -33,14 +35,12 @@ const SETTLE = 40;
 
 /** How long each side is showing in BLINK, in seconds. One flip per second. */
 const BLINK_SECONDS = 1;
-interface Side {
-  canvas: HTMLCanvasElement;
-  renderer: Canvas2DRenderer;
-}
 export interface Pair {
-  /** Left is what the game draws today; right is the same code, patched. */
-  readonly left: HTMLCanvasElement;
-  readonly right: HTMLCanvasElement;
+  /** Left is what the game draws today; right is the same code, patched.
+   * Each is the *crop window* (`pose-art.ts`'s `poseCropRect`) with the
+   * phone's canvas positioned inside it — not the canvas itself. */
+  readonly left: HTMLElement;
+  readonly right: HTMLElement;
   setRunning(on: boolean): void;
   setRate(rate: number): void;
   /** CSS pixels per phone pixel: 1 is true size, 2 is a magnifier. */
@@ -58,13 +58,6 @@ export interface PairHooks {
   onSettled(identical: boolean): void;
   /** Which side BLINK shows, so a corner tag can name it. */
   onBlink(side: "left" | "right"): void;
-}
-
-function makeSide(dpr: number): Side {
-  const canvas = document.createElement("canvas");
-  const renderer = new Canvas2DRenderer(canvas);
-  renderer.resize({ ...PAIR_PHONE, dpr });
-  return { canvas, renderer };
 }
 
 /**
@@ -100,10 +93,14 @@ export interface PairOptions {
 export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
   const { pose, role, variant } = opts;
   const dpr = Math.min(3, window.devicePixelRatio || 1);
-  const left = makeSide(dpr);
-  const right = makeSide(dpr);
+  const left = makeCropSide(PAIR_PHONE, dpr);
+  const right = makeCropSide(PAIR_PHONE, dpr);
 
   let world = pose.build();
+  // Both sides stay whole phones; only what is *shown* of them is cut. The
+  // rectangle is the pose's own — `crop: "band"` on a slot decided on two
+  // buttons, so a reader is not handed 670 px of empty field above them.
+  const crop = poseCropRect(pose, world, role, { ...PAIR_PHONE, dpr: 1 });
   let running = true;
   let frozen = false;
   let rate = 1;
@@ -140,7 +137,7 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
 
   /** One side, with the patch held for exactly the length of `draw` and put
    * back in a `finally`. `seed` is the same for both sides of a frame. */
-  const drawSide = (side: Side, patched: boolean, seed: number): void => {
+  const drawSide = (side: CropSide, patched: boolean, seed: number): void => {
     const unseed = seedRandom(seed);
     let applied: Applied | null = null;
     try {
@@ -205,22 +202,18 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
       if (blinkAt < BLINK_SECONDS) return;
       blinkAt = 0;
       showing = showing === "left" ? "right" : "left";
-      left.canvas.style.opacity = showing === "left" ? "1" : "0";
-      right.canvas.style.opacity = showing === "right" ? "1" : "0";
+      left.frame.style.opacity = showing === "left" ? "1" : "0";
+      right.frame.style.opacity = showing === "right" ? "1" : "0";
       hooks.onBlink(showing);
     },
   });
 
-  const zoom = (n: number): void => {
-    for (const side of [left, right]) {
-      side.canvas.style.width = `${PAIR_PHONE.width * n}px`;
-      side.canvas.style.height = `${PAIR_PHONE.height * n}px`;
-    }
-  };
+  const zoom = (n: number): void => fitCrop([left, right], PAIR_PHONE, crop, n);
+  zoom(1);
 
   return {
-    left: left.canvas,
-    right: right.canvas,
+    left: left.frame,
+    right: right.frame,
     setRunning(on) {
       running = on;
     },
@@ -233,8 +226,8 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
       blinkAt = 0;
       showing = "left";
       // Out of BLINK both sides are opaque again; in it, left leads.
-      left.canvas.style.opacity = "1";
-      right.canvas.style.opacity = on ? "0" : "1";
+      left.frame.style.opacity = "1";
+      right.frame.style.opacity = on ? "0" : "1";
       hooks.onBlink("left");
     },
     freeze() {

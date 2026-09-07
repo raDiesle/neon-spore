@@ -113,6 +113,20 @@ describe("poseForSlot", () => {
     expect(inTheMuzzle).toBeGreaterThan(TICKS / 6);
   });
 
+  /**
+   * The owner's second complaint on the same page: *"I don't see GUARD and
+   * INTAKE"* — on a page that described them in three paragraphs. A pose that
+   * says which part of the screen it is judged on but never says where to
+   * look is a reference picture with no caption, so every pose a slot is
+   * pointed at now carries one line naming the thing itself.
+   */
+  test("every open slot's pose says in plain words where to look", () => {
+    for (const slot of slots(VARIANTS)) {
+      const pose = poseForSlot(slot.slot);
+      expect(pose.lookAt, `${slot.slot} · ${pose.name}`).toBeTruthy();
+    }
+  });
+
   test("a slot with no dedicated pose still gets a real one", () => {
     const pose = poseForSlot("some:unmapped-slot");
     expect(pose.build().tick).toBeGreaterThan(0);

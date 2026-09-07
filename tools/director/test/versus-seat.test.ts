@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
-import { absDiffHash, bandTopPx, touchFootprintHash } from "../src/versus-seat.js";
+import { absDiffHash, bandTopPx, touchFootprintHash } from "../src/versus-diff.js";
 
 /**
  * `versus-seat.ts`'s pure arithmetic, exercised without a canvas — `bun

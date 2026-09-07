@@ -74,7 +74,8 @@ const MECHANICS: Pose[] = [
   },
   {
     name: "SHOT · BEING LAID",
-    note: "The press has landed and the bolt has not. The opening dilates, the skin beside it parts and the shot leaves on the next half beat — the one thing player 1 gets to see player 2 do, and the only picture on this sheet that needs a rule the default config ships switched off.",
+    note: "The button has been pressed and the shot has not left yet. The mouth on top of the ship opens, the skin beside it parts, and the bolt goes half a beat later. It repeats every two seconds with nobody pressing anything.",
+    lookAt: "the mouth on top of the ship, as it opens and the bolt leaves it",
     crop: "ship",
     // Event-shaped: the whole difference between two `cannon:shot` or
     // `cannon:mouth` candidates lives in the instant the shot leaves, so the
@@ -127,7 +128,8 @@ const MECHANICS: Pose[] = [
   },
   {
     name: "WARD · DEFLECTED",
-    note: "Right column and right moment, both halves arriving. This is the only frame in the game where a rock leaves without a scar.",
+    note: "The shield is in the right column and the trigger came at the right moment, so a falling rock is turned away instead of hitting the ship. It is the only moment in the game where a rock leaves without marking the hull. It repeats every two seconds.",
+    lookAt: "the shield above the hull, at the instant the rock meets it",
     crop: "ship",
     // Event-shaped, the queue entry this cadence was written for: the whole
     // difference between two `shield:ward` candidates is one instant of

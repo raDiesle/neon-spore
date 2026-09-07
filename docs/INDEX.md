@@ -1233,5 +1233,8 @@ place — the generator keeps whatever is there.
 | `tools/frames/guide-film.ts` | **Driving a rehearsal**, which is a clock of its own and not the world's |
 | `tools/director/src/ship-fields-round.ts` | The rounds' own dials, sorted into their cards |
 | `tools/director/src/sound-link-pulse.ts` | Why none of THE PULSE's twelve sounds has a picture |
+| `tools/director/src/pose-type.ts` | What a pose *is* — the shape of one, and the two things a caller can ask of one without building it |
+| `tools/director/src/versus-crop.ts` | One side of a VERSUS pair: a whole phone, drawn, shown through the window its pose's own `crop` cuts in it |
+| `tools/director/src/versus-diff.ts` | How two pictures of the same frame are compared — the pixel arithmetic behind `versus-seat.ts` |
 
 <!-- index:code:end -->

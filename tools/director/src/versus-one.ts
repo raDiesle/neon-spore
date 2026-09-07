@@ -5,7 +5,7 @@ import type { Pose } from "./pose-kit.js";
 import { controlsBar } from "./versus-controls.js";
 import { startPair } from "./versus-pair.js";
 import { poseForSlot } from "./versus-pose.js";
-import { seatsDiffer } from "./versus-seat.js";
+import { seatPlan } from "./versus-seat.js";
 import { buildVoteBox, type Head } from "./versus-vote.js";
 
 /**
@@ -26,6 +26,15 @@ import { buildVoteBox, type Head } from "./versus-vote.js";
  * pictures, and nothing on the old sheet said so — `versus-pose.ts` carries
  * the map and `Pose.note` carries the sentence, so the answer is written
  * where the looking happens.
+ *
+ * Two more, both from one report — *"I don't see GUARD and INTAKE, all
+ * screens show the same"* — and both about a reader who could not find the
+ * difference rather than about the difference. **`Pose.lookAt` goes first, in
+ * plain words**, naming the thing on screen the vote is about, because a
+ * reader who has not found it never reaches the prose under it. And the
+ * screens are `seatPlan`'s now rather than a two-way `seatsDiffer`: a seat
+ * the candidate does not touch at all is not drawn, so a second phone on the
+ * page always carries a second answer.
  */
 
 /** The whole of one candidate: what it is, what it patches, what is on
@@ -45,16 +54,13 @@ export function renderCandidate(slot: Slot, candidate: Variant, head: Head): HTM
         .join("  ·  "),
     ),
   );
-  row.appendChild(el("p", "versus-showing", `WHAT IS ON THE FIELD — ${pose.name}`));
+  if (pose.lookAt) row.appendChild(el("p", "versus-look", `LOOK AT — ${pose.lookAt}`));
+  row.appendChild(el("p", "versus-showing", `WHAT IS ON SCREEN — ${pose.name}`));
   row.appendChild(el("p", "versus-blink-note", pose.note));
 
   // A screenshot candidate is always one seat, never both — the whole point
   // is a still picture documenting this answer, not a seat-by-seat compare.
-  const screens = candidate.screenshot
-    ? (["p1"] as const)
-    : seatsDiffer(pose, candidate)
-      ? (["p1", "p2"] as const)
-      : (["p1"] as const);
+  const screens = candidate.screenshot ? (["p1"] as const) : seatPlan(pose, candidate);
   const screensHost = el("div", "versus-screens");
   for (const role of screens) {
     screensHost.appendChild(renderScreen(slot, pose, role, candidate, screens.length > 1));

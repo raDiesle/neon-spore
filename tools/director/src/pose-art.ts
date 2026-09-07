@@ -104,6 +104,33 @@ export interface Framed {
 }
 
 /**
+ * The rectangle a pose says the picture is about, in one phone's own CSS
+ * pixels — the same cut `frameWorld` makes for a card, asked for by a caller
+ * that draws the whole phone itself and wants to show only this part of it.
+ *
+ * `versus-pair.ts` is that caller. Its two sides have to stay whole phones —
+ * the pair's one claim is that they differ only by the patch, and a second,
+ * smaller render path would be a second thing to keep honest — so it clips
+ * what it shows rather than drawing less, and this is where it learns what to
+ * clip to. Called, not copied: `cropRect` is the only place a crop's
+ * arithmetic lives.
+ */
+export function poseCropRect(
+  pose: Pose,
+  world: World,
+  role: ViewRole,
+  viewport: Viewport,
+): { x: number; y: number; w: number; h: number } {
+  const stage = computeStage(viewport, world.cfg, role);
+  const layout = computeLayout(
+    { width: stage.width, height: stage.height, dpr: viewport.dpr },
+    world.cfg,
+    role,
+  );
+  return cropRect(pose.crop, layout, stage, pose.at?.(world), pose.span ?? TILE_SPAN, world.cfg);
+}
+
+/**
  * A point in the *layout's* coordinates — what `tileCX` and `tileCY` return —
  * in the card's CSS pixels. The stage offset is added here and nowhere else.
  */

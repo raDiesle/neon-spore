@@ -1,5 +1,4 @@
 import { kindForColor } from "@neon-spore/content";
-import type { ViewRole } from "@neon-spore/render";
 import {
   type BossEntry,
   type Color,
@@ -41,77 +40,18 @@ import {
 const POSE_CONFIG: SimConfig = { ...DEFAULT_CONFIG, hullInvulnerable: true };
 export const POSE_TPB = ticksPerBeat(POSE_CONFIG);
 
-/** Which part of the phone the picture is cut out of. */
-export type CropKind =
-  /** The bottom of the field and the whole control band — the ship and its buttons. */
-  | "ship"
-  /** The band alone. */
-  | "band"
-  /** The play area above the band. */
-  | "field"
-  /** The warning strip along the top. */
-  | "radar"
-  /** A few tiles square, centred on what `Pose.at` names. */
-  | "tile"
-  /** The whole phone. */
-  | "full";
-
-export interface Pose {
-  /** `SUBJECT · STATE`, so a column of them sorts and scans. */
-  name: string;
-  /** What the picture is showing, and why that is the moment worth holding. */
-  note: string;
-  crop: CropKind;
-  /** Whose screen. Defaults to `test`, which is both halves at once. */
-  role?: ViewRole;
-  /** A world, posed. Built fresh each time — nothing here is shared. */
-  build(): World;
-  /** Where a `tile` crop is centred. Read off the posed world, never guessed. */
-  at?(world: World): { col: number; row: number };
-  /**
-   * How many tiles across a `tile` crop shows. A creature wants three and the
-   * queen wants seven — she is five columns wide with both wings counted, and
-   * a frame fitted to a slick cuts her marks off, which are the fight.
-   */
-  span?: number;
-  /**
-   * Seconds between replays of this pose's built moment — set on a pose
-   * whose whole difference lives in one instant (a shot leaving, a ward
-   * deflecting, a hull cracking), left undefined on a *continuous* one (a
-   * hull skin, a hover — already on screen, nothing to re-trigger).
-   *
-   * A property of the pose, not of any candidate shown through it: the pair
-   * (`versus-pair.ts`, `advanceCadenced`/`cadenceElapsed`) replays whatever
-   * pose it is handed on that pose's own clock, so the next event pose
-   * inherits the rhythm by setting this one field. Deliberately not
-   * `waveRestBeats` — that beat count is timed for play, and a ward's own
-   * fall to the shield alone already dwarfs two seconds, while a shot's
-   * default rest lands under it. See `EVENT_CADENCE_SECONDS`.
-   */
-  cadenceSeconds?: number;
-}
-
 /**
- * The owner's number: *"the meteorite must repeatingly hit the shield with
- * around 2 seconds pause between"* — long enough that the eye re-reads the
- * unchanged field before the next impact, short enough to watch several
- * candidates without waiting. The pause is what makes the repeat legible.
+ * What a pose is, and the cadence a VERSUS pair replays one on — moved to
+ * `pose-type.ts` when `Pose` grew a field and this file was at the ceiling,
+ * and re-exported here because every caller already asks this file for them.
  */
-export const EVENT_CADENCE_SECONDS = 2;
-
-/** Whether a cadenced pose's own clock says it is time to replay from
- * scratch — the `>=` and the `undefined` guard, provable without a canvas.
- * `versus-pair.ts`'s `startPair` is the only caller. */
-export function cadenceElapsed(pose: Pose, elapsedSeconds: number): boolean {
-  return pose.cadenceSeconds !== undefined && elapsedSeconds >= pose.cadenceSeconds;
-}
-
-export interface PoseGroup {
-  title: string;
-  /** One line: what this group of states has in common. */
-  note: string;
-  poses: Pose[];
-}
+export {
+  type CropKind,
+  cadenceElapsed,
+  EVENT_CADENCE_SECONDS,
+  type Pose,
+  type PoseGroup,
+} from "./pose-type.js";
 
 /**
  * A living creature to spawn. The silhouette follows from the colour through

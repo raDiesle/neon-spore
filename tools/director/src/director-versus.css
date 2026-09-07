@@ -249,10 +249,22 @@
 }
 
 /* `versus.html`: one look, on a page of its own. No columns, no map, no
-   topbar — the page is the picture, so it gets margins and nothing else. */
+   topbar — the page is the picture, so it gets margins and nothing else.
+
+   `director-shell.css` pins `body` to `height: 100%` with `overflow:
+   hidden`, which is right for the editor — there the topbar is fixed and an
+   inner pane does the scrolling. This page has no inner pane, so it inherited
+   a hard clip at the window: a candidate whose difference lives in the band
+   put that band below the fold of an 820 px phone and there was no wheel, key
+   or bar that reached it. The whole comparison was unreachable and the page
+   looked, correctly, like two identical empty fields. So the page scrolls. */
 body.standalone {
   margin: 0;
   padding: 18px 22px 60px;
+  display: block;
+  height: auto;
+  min-height: 100%;
+  overflow: auto;
 }
 body.standalone .sheetpage {
   display: block;
@@ -261,4 +273,36 @@ body.standalone h1 {
   margin: 0 0 10px;
   font-size: 14px;
   letter-spacing: 4px;
+}
+
+/* The window a pose's own `crop` cuts in the phone.
+
+   Both sides are still drawn as whole 380 x 820 phones — the pair's claim is
+   that the two differ only by the patch, and drawing less of them would be a
+   second render path to keep honest. This shows only the part the pose says
+   the vote is about, at true size, by clipping the canvas rather than scaling
+   it: `panel:action-face` is decided on two buttons 130 px from the bottom of
+   the phone, and a full phone above them is 670 px of field nobody is voting
+   on. `versus-pair.ts` positions the canvas inside. */
+.versus-crop {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #05040b;
+}
+.versus-crop canvas {
+  position: absolute;
+  border: 0;
+  border-radius: 0;
+}
+/* The one line saying what on the picture the vote is about, in plain words
+   — gold and above the phones, because a reader who cannot find the
+   difference never gets as far as the prose under it. */
+.versus-look {
+  margin: 8px 0 2px;
+  color: var(--gold);
+  font-size: 11px;
+  letter-spacing: 1px;
+  max-width: 720px;
 }

@@ -39,7 +39,7 @@ export const PANEL_EMBLEM: Variant = {
   slot: "panel:action-face",
   name: "emblem",
   sentence:
-    "the ship's own skin doing it — the ward swelling on one button, the throat opening on the other with motes falling in",
+    "A picture instead of a word — the SHIELD button becomes a lobe swelling upwards, and the SUCK button the same lobe pressed inwards, with three specks falling into the dip.",
   dir: "tools/versus/candidates/panel-action/emblem",
   patches: [
     patch({

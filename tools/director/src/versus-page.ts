@@ -31,9 +31,10 @@ export function versusListSection(): HTMLElement {
     el(
       "p",
       "note",
-      "Every open candidate, with the shipped thing it would replace. Nothing " +
-        "here is drawn on this page — one button per candidate opens it in a " +
-        "new tab, alone, where it is the only thing the browser is animating.",
+      "Every open candidate, beside the thing it would replace. Nothing is " +
+        "drawn on this page: each candidate has a button that opens it alone " +
+        "in a new tab, so the browser is only ever animating the one you " +
+        "asked for.",
     ),
   );
   section.appendChild(
@@ -41,11 +42,13 @@ export function versusListSection(): HTMLElement {
       "p",
       "note",
       "In that tab: left is what the game draws today, right is the same code " +
-        "with the candidate's patch held for one draw. Both at 380 × 820 CSS " +
-        "pixels, uncapped — a picture that shrinks to fit the window answers " +
-        "the 26 px question by making it unanswerable. A second screen appears " +
-        "only where the two seats genuinely draw something different; the page " +
-        "decides that itself.",
+        "with the candidate's change in it. Both are the real game at real " +
+        "phone size — never shrunk to fit the window, because a shape you have " +
+        "to squint at cannot be judged. Each tab shows only the part of the " +
+        "screen its slot is about, and says in one line where to look. A " +
+        "second phone appears only when player 2's screen would show something " +
+        "different; if the change is on one seat's panel only, you get that " +
+        "seat and nothing else.",
     ),
   );
 

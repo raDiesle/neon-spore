@@ -1,14 +1,9 @@
-import {
-  Canvas2DRenderer,
-  computeLayout,
-  computeStage,
-  type ViewRole,
-  type ViewState,
-} from "@neon-spore/render";
-import { type SimConfig, ticksPerBeat } from "@neon-spore/sim";
+import { Canvas2DRenderer, type ViewRole, type ViewState } from "@neon-spore/render";
+import { ticksPerBeat } from "@neon-spore/sim";
 import { seedRandom } from "../../versus/seed.js";
 import { apply, restore, type Variant } from "../../versus/variant.js";
 import type { Pose } from "./pose-kit.js";
+import { bandTopPx, signature } from "./versus-diff.js";
 import { advance } from "./versus-pair.js";
 
 /**
@@ -80,115 +75,24 @@ const SAMPLE_EVERY = 6;
 const SAMPLES = 24;
 
 /**
- * How far a channel has to move, on a 0-255 scale, before a band pixel counts
- * as "touched" by the patch. `cannon:shot`'s `streak` blends at a constant
- * `tailAlpha: 0.8` — nowhere near this threshold's neighbourhood — so this
- * exists for the few pixels right at a translucent shape's own edge, where an
- * anti-aliased fringe can round to a ±1 or ±2 difference on one background and
- * not on the other. Real drawn content — a stroke, a fill, a lobe — moves a
- * channel by tens of levels at least, so this stays far below anything a
- * genuine panel redraw would produce.
+ * What one seat has to say about a candidate: the sequence of differences it
+ * draws, and whether it drew any at all.
+ *
+ * `unchanged` is the signature a picture makes against *itself* — every
+ * per-channel difference zero, every touched bit clear — so it is the same
+ * string for any two identical frames of this geometry. A sample equal to it
+ * is a sample where the patch changed nothing on this seat, and a whole
+ * sequence of them means this seat has nothing to show: `panel:action-face`
+ * is exactly that on `p2`, which carries neither of the two buttons.
  */
-const BAND_TOUCH_THRESHOLD = 10;
-
-/**
- * Where the play area ends and the control band begins, in the probe
- * canvas's own device pixels — computed the same two calls the renderer
- * itself makes (`computeStage` then `computeLayout`) rather than re-derived,
- * per `purity.test.ts`'s table of things that must be called and not copied.
- * `computeStage`'s `top` is always `0`, so the stage's own vertical offset
- * never enters this, and `bandSoloPct` (not `bandPct`) governs both `p1` and
- * `p2` alike — a solo seat's band, whichever half it is — so this returns the
- * same row for both, which is exactly why the two seats' stages are
- * pixel-identical in extent and only their content differs.
- */
-export function bandTopPx(cfg: SimConfig, role: ViewRole): number {
-  const viewport = { ...PROBE_PHONE, dpr: 1 };
-  const stage = computeStage(viewport, cfg, role);
-  const layout = computeLayout({ width: stage.width, height: stage.height, dpr: 1 }, cfg, role);
-  return Math.round(stage.top + layout.bandTop);
-}
-
-/** FNV-1a over the absolute per-channel difference of two same-sized pixel
- * buffers, restricted to rows `[y0, y1)` — the pixel signature of exactly how
- * much changed between them in that band of rows, not of either picture on
- * its own. */
-export function absDiffHash(
-  a: Uint8ClampedArray,
-  b: Uint8ClampedArray,
-  width: number,
-  y0: number,
-  y1: number,
-): string {
-  const rowBytes = width * 4;
-  let h = 0x811c9dc5;
-  for (let y = Math.max(0, y0); y < y1; y++) {
-    const base = y * rowBytes;
-    for (let i = base; i < base + rowBytes; i++) {
-      h ^= Math.abs((a[i] ?? 0) - (b[i] ?? 0));
-      h = Math.imul(h, 0x01000193);
-    }
-  }
-  return (h >>> 0).toString(16);
-}
-
-/** FNV-1a over a one-bit-per-pixel footprint of *which* pixels changed by
- * more than `threshold` on any channel, restricted to rows `[y0, y1)` —
- * where the patch touched something, not how far it moved a value. This is
- * what makes the band comparison blind to a translucent layer's dependence on
- * the background underneath it while staying alert to content that only one
- * seat ever draws at all. */
-export function touchFootprintHash(
-  a: Uint8ClampedArray,
-  b: Uint8ClampedArray,
-  width: number,
-  y0: number,
-  y1: number,
-  threshold: number,
-): string {
-  const rowBytes = width * 4;
-  let h = 0x811c9dc5;
-  for (let y = Math.max(0, y0); y < y1; y++) {
-    const base = y * rowBytes;
-    for (let x = 0; x < width; x++) {
-      const p = base + x * 4;
-      let touched = 0;
-      for (let c = 0; c < 4; c++) {
-        if (Math.abs((a[p + c] ?? 0) - (b[p + c] ?? 0)) > threshold) {
-          touched = 1;
-          break;
-        }
-      }
-      h ^= touched;
-      h = Math.imul(h, 0x01000193);
-    }
-  }
-  return (h >>> 0).toString(16);
-}
-
-/** One sample's signature: an exact value hash of the field rows, and a
- * touched-footprint hash of the band rows — the two different tests this
- * lane's brief asks for, joined so the existing sequence-equality check below
- * needs no change. */
-function sampleSignature(
-  current: HTMLCanvasElement,
-  candidate: HTMLCanvasElement,
-  bandTop: number,
-): string {
-  const ca = current.getContext("2d");
-  const cb = candidate.getContext("2d");
-  if (!ca || !cb) return "";
-  const { width, height } = current;
-  const da = ca.getImageData(0, 0, width, height).data;
-  const db = cb.getImageData(0, 0, width, height).data;
-  const field = absDiffHash(da, db, width, 0, bandTop);
-  const band = touchFootprintHash(da, db, width, bandTop, height, BAND_TOUCH_THRESHOLD);
-  return `${field}:${band}`;
+interface Probe {
+  hashes: string[];
+  changed: boolean;
 }
 
 /** The patch's own difference from the shipped look, sampled across one loop
  * of the pose, at one seat. */
-function diffSequence(pose: Pose, role: ViewRole, variant: Variant): string[] {
+function diffSequence(pose: Pose, role: ViewRole, variant: Variant): Probe {
   const current = document.createElement("canvas");
   const candidate = document.createElement("canvas");
   const renderCurrent = new Canvas2DRenderer(current);
@@ -200,6 +104,7 @@ function diffSequence(pose: Pose, role: ViewRole, variant: Variant): string[] {
   let events = [...world.events];
   const view: ViewState = { world, beatPhase: 0, role, time: 0, dt: 1 / 60, events, running: true };
   const hashes: string[] = [];
+  let unchanged = "";
   try {
     for (let tick = 0; tick < SAMPLES * SAMPLE_EVERY; tick++) {
       const next = advance(world, () => pose.build());
@@ -226,23 +131,49 @@ function diffSequence(pose: Pose, role: ViewRole, variant: Variant): string[] {
         restore(applied);
         unseedB();
       }
-      hashes.push(sampleSignature(current, candidate, bandTop));
+      const ca = current.getContext("2d");
+      const cb = candidate.getContext("2d");
+      if (!ca || !cb) continue;
+      const { width, height } = current;
+      const da = ca.getImageData(0, 0, width, height).data;
+      const db = cb.getImageData(0, 0, width, height).data;
+      if (unchanged === "") unchanged = signature(da, da, width, height, bandTop);
+      hashes.push(signature(da, db, width, height, bandTop));
     }
   } finally {
     renderCurrent.dispose();
     renderCandidate.dispose();
   }
-  return hashes;
+  return { hashes, changed: hashes.some((h) => h !== unchanged) };
 }
 
 function sameSequence(a: readonly string[], b: readonly string[]): boolean {
   return a.length === b.length && a.every((h, i) => h === b[i]);
 }
 
-/** `true` when the patch's own effect is not the same picture at `p1` and at
- * `p2`, anywhere across the sampled loop — on the field exactly, on the band
- * only where the patch touches different pixels rather than the same pixels
- * more or less brightly. */
-export function seatsDiffer(pose: Pose, variant: Variant): boolean {
-  return !sameSequence(diffSequence(pose, "p1", variant), diffSequence(pose, "p2", variant));
+/**
+ * Which seats a candidate is worth drawing, in order.
+ *
+ * Two questions, and the second one is newer than the first. **Does this seat
+ * show the patch at all?** A seat the candidate never touches is two identical
+ * pictures — the same "a vote offered on a difference nobody could see"
+ * failure `versus-pose.ts` was written to stop, arriving from the other
+ * direction: the right pose, on a screen that does not carry the thing.
+ * `panel:action-face` is the case that found it — GUARD and INTAKE are player
+ * 1's buttons, so `p2`'s band draws neither, and the page put a whole second
+ * unchanging phone under the first one. **And do the two seats show it
+ * differently?** That is the older question, and it only gets asked when both
+ * seats show it at all.
+ *
+ * Never empty: a candidate whose patch draws nothing anywhere still gets one
+ * screen, where `onSettled`'s "THE SWAP DID NOT TAKE" banner is the honest
+ * answer and a blank page is not.
+ */
+export function seatPlan(pose: Pose, variant: Variant): readonly ViewRole[] {
+  const p1 = diffSequence(pose, "p1", variant);
+  const p2 = diffSequence(pose, "p2", variant);
+  if (!p1.changed && !p2.changed) return ["p1"];
+  if (!p2.changed) return ["p1"];
+  if (!p1.changed) return ["p2"];
+  return sameSequence(p1.hashes, p2.hashes) ? ["p1"] : ["p1", "p2"];
 }
