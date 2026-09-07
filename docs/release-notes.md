@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-07 · cbbeb686 — THE CHOIR is three rounded bodies, not dots in a membrane
+
+The first version of this creature invented its own picture — three small dots suspended inside a separate grey membrane — when the shape sheet already had the answer. The owner named it: like the Heralds but three, rounded shapes next to each other, merging into one shape like a bulb or a slick. HERALD is `cluster("HERALD", …, { bodies: 2 })` in the drafts, and a chorus is that with three, so the voices *are* the bodies now, drawn with the game's own contour walk instead of being markings held inside something else.
+
 ## 2026-09-07 · 0d1d76d — THE CHOIR gets a rehearsal, and a film can shake the phone
 
 THE CHOIR shipped with a prose guide and it is the wave in the game that can least afford one. Every other guide describes something a pair can find on their own screen; this one has to teach a hand shaking the *device*, and a pair who do not read the words carefully sit and watch three dots reach the hull with both thumbs on controls that cannot touch them.
