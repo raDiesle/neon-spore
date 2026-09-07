@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-07 · 4d3519a8 — The heart throws a refused shot back instead of dropping a rock on the ship
+
+A shot of the wrong colour reaches the middle of THE MAZE, is refused there and costs the hull — and what the pair used to see for it was a meteor falling on the ship from nowhere, which is neither what happened nor anything to do with the heart. The owner asked for the heart's own blood instead.
+
 ## 2026-09-07 · cbbeb686 — THE CHOIR is three rounded bodies, not dots in a membrane
 
 The first version of this creature invented its own picture — three small dots suspended inside a separate grey membrane — when the shape sheet already had the answer. The owner named it: like the Heralds but three, rounded shapes next to each other, merging into one shape like a bulb or a slick. HERALD is `cluster("HERALD", …, { bodies: 2 })` in the drafts, and a chorus is that with three, so the voices *are* the bodies now, drawn with the game's own contour walk instead of being markings held inside something else.
