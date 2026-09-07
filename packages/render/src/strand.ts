@@ -22,8 +22,9 @@ import { strandThreads } from "./strand-thread.js";
  * gets the bead that is lit — a blink, the shared target lock and an arrow —
  * and the pilot gets the same frame *hopping* between the two ends of what is
  * still alive under a question mark, unable to choose. `strand-mark.ts` draws
- * both and argues for each; the plating over every bead a shot cannot answer
- * is `strand-armour.ts`, drawn after the bodies rather than here.
+ * both and argues for each. The navigator's other half of that picture is in
+ * the bodies rather than here: every bead but the lit one is the reel stopped
+ * and greyed out, which is the wrong-colour look (`strand-still.ts`).
  *
  * The pilot's pair is not a leak and it is worth saying why. The ends of a run
  * are already on their screen — they can see which beads are raisins — so what
@@ -103,10 +104,6 @@ export function drawStrands(
   for (const on of strandThreads(world)) {
     if (on.length === 0) continue;
     drawThread(ctx, l, world, on, beatPhase);
-    // The same hop the plating reads, through the same exported function on
-    // the same `time`: the bead this frame is over is the one bead that pass
-    // leaves uncaged, and a second copy of the clock would put the two on
-    // different beads (`strand-armour.ts`).
     const knows = showsBeadMark(l);
     if (knows) drawLit(ctx, l, world, on, beatPhase, time);
     else

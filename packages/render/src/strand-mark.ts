@@ -32,12 +32,9 @@ import { drawTargetLock } from "./target-lock.js";
  * ## The pilot's, and it is the same instrument guessing
  *
  * The pilot gets the **same frame**, hopping fast between the two ends of the
- * live run — and the bead it is over is the one bead on their screen without a
- * cage on it (`strand-armour.ts`), so the two ends flick between armoured and
- * open several times a second. Over it stands a **question mark**, where the
- * navigator's frame has an arrow: the two glyphs are one sentence split across
- * the two screens, and the pilot's half of it is the one they have to say out
- * loud.
+ * live run. Over it stands a **question mark**, where the navigator's frame
+ * has an arrow: the two glyphs are one sentence split across the two screens,
+ * and the pilot's half of it is the one they have to say out loud.
  *
  * That is the owner's picture and it says the right thing. A steady mark on
  * two beads says *one of these two*, which is true and calm; a frame that
@@ -75,9 +72,8 @@ const HOP_HZ = 4;
 const GUESS_REACH = 2.0;
 const GUESS_ALPHA = 0.18;
 
-/** How far the lock's box stands off the body's own drawn radius — outside the
- * armour ring, which nothing wears on a lit bead but which sets the scale the
- * eye is reading these at (`strand-armour.ts`). */
+/** How far the lock's box stands off the body's own drawn radius: far enough
+ * that the frame is plainly around the bead rather than cutting across it. */
 const BOX_MUL = 1.75;
 
 /** Where the arrow hangs above the box and how big it is, both in tiles, and
@@ -170,9 +166,8 @@ function drawArrow(
  * there is nothing to choose between, and the pilot knowing that is not knowing
  * anything the field does not already say.
  *
- * Exported because two pictures read it — the frame here and the one bead
- * `strand-armour.ts` leaves uncaged — and a second copy of the clock would put
- * the cage and the frame on different beads.
+ * Exported because `strand.ts` picks the end and this file draws the frame
+ * over it, and a second copy of the clock in either would be two hops.
  */
 export function hoppedEnd(live: Creature[], time: number): Creature | null {
   if (live.length === 0) return null;

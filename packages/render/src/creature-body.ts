@@ -1,4 +1,5 @@
 import {
+  beadIsActive,
   beadIsSpent,
   type Creature,
   type CreatureKind,
@@ -15,6 +16,7 @@ import { MAGNET_LOOK } from "./magnet.js";
 import { drawMeteor } from "./meteor.js";
 import { showsBeadColor } from "./strand.js";
 import { drawRaisin, STRAND_LOOK } from "./strand-bead.js";
+import { drawStillBead } from "./strand-still.js";
 import { drawTorch } from "./torch.js";
 import { showsVeilCore } from "./veil.js";
 import { showsVolleyCore } from "./volley.js";
@@ -184,6 +186,12 @@ function drawLivingBody(b: Body): void {
  * a slick is flat and a bulb is round, so the silhouette alone would name the
  * colour, which is `showsVeilCore`'s argument about a halo said about a shape
  * instead (`strand-bead.ts`).
+ *
+ * And only the bead a shot can actually answer rolls. The rest of the thread
+ * is that same reel stopped and drawn as a grey outline — the wrong-colour
+ * look, which already means *nothing reaches this* — so the navigator's screen
+ * says which one is live in the body itself as well as under the arrow
+ * (`strand-still.ts`).
  */
 function drawStrandBody(b: Body): void {
   const { ctx, l, world, c, x, y, time, near } = b;
@@ -196,7 +204,8 @@ function drawStrandBody(b: Body): void {
   // look is a field patched onto `STRAND_LOOK` for the length of one draw, and
   // a draw path that named the function would never see it (`docs/versus.md`).
   if (!showsBeadColor(l)) {
-    STRAND_LOOK.bead(bead);
+    if (beadIsActive(world, c)) STRAND_LOOK.bead(bead);
+    else drawStillBead(bead);
     return;
   }
   drawLivingBody(b);

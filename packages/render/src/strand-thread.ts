@@ -3,12 +3,11 @@ import { beadStrand, type Creature, type World } from "@neon-spore/sim";
 /**
  * Which beads of THE STRAND are on one thread, and in what order along it.
  *
- * Its own file because three passes ask the question — the line drawn through
- * them (`strand.ts`), the mark on the one that may be shot (`strand-mark.ts`)
- * and the plating on the ones that may not (`strand-armour.ts`) — and two of
- * those now run either side of the body pass. A copy of this in each would be
- * three answers to "which beads are these", which is exactly the shape of
- * mistake that puts a mark on one bead and a cage on another.
+ * Its own file because two passes ask the question — the line drawn through
+ * them (`strand.ts`) and the mark on the one that may be shot
+ * (`strand-mark.ts`) — and they run either side of the body pass. A copy of
+ * this in each would be two answers to "which beads are these", which is
+ * exactly the shape of mistake that puts the mark on the wrong bead.
  */
 
 /** Every bead on the field, in no particular order. */

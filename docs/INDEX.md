@@ -639,7 +639,6 @@ place — the generator keeps whatever is there.
 | `packages/render/src/strand-bead.ts` | The two bodies THE STRAND draws that are **not** a slick or a bulb |
 | `packages/render/src/strand.ts` | THE STRAND's thread, and the mark on the bead that has to be shot next |
 | `packages/render/src/strand-reel.ts` | THE STRAND's reel: the clock it rolls on, and the bad monitor over it |
-| `packages/render/src/strand-armour.ts` | THE STRAND's armour: the plating around every bead a shot **cannot** answer this instant |
 | `packages/render/src/strand-mark.ts` | THE STRAND's two marks: the bead that has to be shot next on the navigator's screen |
 | `packages/render/src/duty.ts` | The one word (or two) a seat owes the other while a split body is on the field |
 | `packages/render/src/throb.ts` | the plating over a throb's armoured half — the green that means a shot does nothing |
@@ -648,7 +647,6 @@ place — the generator keeps whatever is there.
 | `packages/render/src/crawler-skin.ts` | **The wet on a maggot, and the little on its face** |
 | `packages/render/src/living-frame.ts` | Where a living body is standing this frame, and the transform that puts a pen in its own local units |
 | `packages/render/src/strand-thread.ts` | Which beads of THE STRAND are on one thread, and in what order along it |
-| `packages/render/src/strand-plate.ts` | One bead's plating, as geometry |
 | `packages/render/src/crawler-marks.ts` | What each ring of THE CRAWLER is owed — a crosshair on every one, the shield's mark over the dome's |
 | `packages/render/src/crawler-place.ts` | Where a ring of THE CRAWLER actually sits on screen, and how much bigger it draws for being that near |
 | `packages/render/src/fence-gate.ts` | The way through a fence, on the screen that is shown it |
@@ -678,6 +676,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/fence-skull.ts` | **The skull the current draws over the dome when the wall above it is shut.** A fence is answered by the… |
 | `packages/render/src/grip-arrows.ts` | THE PUSH, said before it happens: the two white arrows beside a held rock, and the beat they go out for |
 | `packages/render/src/effects-ship.ts` | the ship's own clocks: the swallow, the fire opening, the deflection flash, the queen's shudder |
+| `packages/render/src/strand-still.ts` | One live bead on the navigator's screen that **no shot can answer this instant**: the reel stopped |
 
 ### packages/net
 

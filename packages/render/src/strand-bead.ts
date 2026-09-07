@@ -2,7 +2,7 @@ import { blobPath } from "@neon-spore/content";
 import type { Creature, SimConfig } from "@neon-spore/sim";
 import { contourClock, creatureCenter } from "./creature-place.js";
 import { colorTrio } from "./creature-tint.js";
-import { depthScale, drawnRow, hazed, nearness } from "./depth.js";
+import { drawnRow, hazed, nearness } from "./depth.js";
 import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
 import type { LivingFrame } from "./living-frame.js";
@@ -10,9 +10,10 @@ import { PALETTE, STROKE } from "./palette.js";
 import { drawReelStatic, REEL_JUMP, reelAt } from "./strand-reel.js";
 
 /**
- * The two bodies THE STRAND draws that are **not** an ordinary slick or bulb:
- * the reel player 2 sees in place of one, and the raisin either seat sees once
- * it has been shot.
+ * Two of the three bodies THE STRAND draws that are **not** an ordinary slick
+ * or bulb: the reel player 2 sees in place of one, and the raisin either seat
+ * sees once it has been shot. The third is the reel *stopped*, worn by every
+ * bead on that screen a shot cannot answer, and it is in `strand-still.ts`.
  *
  * Its own file beside `strand.ts`, which is the thread and the marks on it.
  * These are contours; that is a line between them, and the two change for
@@ -128,7 +129,7 @@ export interface StrandLook {
 export function drawReelBead(b: Bead): void {
   const { ctx, l, cfg, c, time, near } = b;
   const haze = (h: string): string => hazed(cfg, h, near);
-  const f = reelFrame(l, cfg, c, b.beatPhase, time);
+  const f = reelFrame(l, c, b.beatPhase, time);
   const { color, flat } = reelAt(c.id, time);
   // The face's own colour, not the bead's: a red slick, then a cyan bulb, and
   // never a hint of which of the two this body really is (`strand-reel.ts`).
@@ -153,20 +154,12 @@ export function drawReelBead(b: Bead): void {
  * hands out for an ordinary body: a silhouette, a centre, a scale into its
  * local units and the squash the roll is at.
  *
- * It exists because the **plating** has to fit whatever body this screen is
- * actually drawing (`strand-armour.ts`), and on the navigator's screen that is
- * this — a shape rolling between a slick and a bulb, flattening through zero
- * and jumping a little at each swap. A cage that read the real body's
- * silhouette here would be a cage that named the colour, which is the one
- * thing this screen may never do.
+ * Its own function rather than four lines inside the draw, because the still
+ * bead below stands in exactly the same place and must not drift from it: a
+ * bead that changed size or row on the frame it stopped rolling would read as
+ * two different bodies.
  */
-export function reelFrame(
-  l: Layout,
-  cfg: SimConfig,
-  c: Creature,
-  beatPhase: number,
-  time: number,
-): ReelFrame {
+export function reelFrame(l: Layout, c: Creature, beatPhase: number, time: number): ReelFrame {
   const { shape, flat, face } = reelAt(c.id, time);
   const { x, y } = creatureCenter(l, c, beatPhase);
   const row = drawnRow(c, beatPhase);
@@ -186,11 +179,6 @@ export function reelFrame(
     r,
     scale: r / Math.max(shape.rx, shape.ry),
     squash: { sx: 1, sy },
-    // Distance, for a caller that is **not** already inside `drawCreatures`'
-    // own perspective transform. `drawReelBead` is, and must ignore this; the
-    // plating pass runs after the bodies and has to apply it itself, or a cage
-    // far up the field draws at the size of a near one (`strand-armour.ts`).
-    k: depthScale(cfg, l, row),
     t: contourClock(c.id, time),
   };
 }
@@ -202,8 +190,6 @@ export interface ReelFrame extends LivingFrame {
   squash: { sx: number; sy: number };
   /** How far the vertical hold has slipped this swap, in pixels. */
   jump: number;
-  /** The depth envelope at this row, for a caller outside `drawCreatures`. */
-  k: number;
 }
 
 /** The shipped answer. `creature-body.ts` reads this record on every frame, so

@@ -79,11 +79,34 @@ const FACES: readonly Face[] = (["red", "cyan"] as const).map((color) => ({
 /** Where the reel is in its roll this frame: which of the two bodies it is
  * showing, and how flat it is. Exported so the shape sheet and a candidate can
  * ask the same question rather than each keeping a clock. */
-export function reelAt(
-  id: number,
-  time: number,
-): { shape: CreatureSilhouette; color: Color; flat: number; face: number } {
-  const t = time * REEL_HZ + id * 0.37;
+export function reelAt(id: number, time: number): ReelFace {
+  return faceAt(time * REEL_HZ + id * 0.37);
+}
+
+/**
+ * The reel **stopped**, on the face it happened to be showing at the top of
+ * its own clock.
+ *
+ * A bead that cannot be shot this instant does not roll (`strand-bead.ts`):
+ * the roll is the picture of *this one is still in play and you do not know
+ * what it is*, and a bead nothing can answer is not in play. Which face it
+ * stops on is the id and nothing else — the same arbitrary thing `reelAt`
+ * starts from — so a still bead names its colour no more than a rolling one
+ * does, and two devices stop it on the same face.
+ */
+export function reelStill(id: number): ReelFace {
+  return faceAt(Math.floor(id * 0.37));
+}
+
+/** One face of the roll, at a point on the reel's own continuous clock. */
+export interface ReelFace {
+  shape: CreatureSilhouette;
+  color: Color;
+  flat: number;
+  face: number;
+}
+
+function faceAt(t: number): ReelFace {
   const face = Math.floor(t);
   const showing = FACES[face % FACES.length]!;
   // 1 at the middle of a face, 0 at the instant of a swap: the body is a line
