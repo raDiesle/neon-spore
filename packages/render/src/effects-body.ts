@@ -1,4 +1,5 @@
 import type { SimConfig, SimEvent, World } from "@neon-spore/sim";
+import { ChoirMergeFx } from "./choir-merge.js";
 import { ChuteCutFx } from "./chute-cut.js";
 import { ClaspBreakFx } from "./clasp-break.js";
 import { ClaspStrikeFx } from "./clasp-strike.js";
@@ -50,6 +51,9 @@ import { VeilTearFx } from "./veil-tear.js";
  */
 export class BodyTransients {
   private lureVanish = new LureVanishFx();
+  /** THE CHOIR closing: two bodies drawn falling into each other over the one
+   * they have already become (`choir-merge.ts`). */
+  private choirMerge = new ChoirMergeFx();
   private claspBreak = new ClaspBreakFx();
   private claspStrike = new ClaspStrikeFx();
   private veilTear = new VeilTearFx();
@@ -76,6 +80,7 @@ export class BodyTransients {
     time: number,
   ): void {
     this.lureVanish.ingest(events, l);
+    this.choirMerge.ingest(events);
     this.claspBreak.ingest(events, cfg, beatSeconds);
     this.claspStrike.ingest(events);
     this.veilTear.ingest(events, l);
@@ -108,6 +113,7 @@ export class BodyTransients {
 
   update(dt: number): void {
     this.lureVanish.update(dt);
+    this.choirMerge.update(dt);
     this.claspBreak.update(dt);
     this.claspStrike.update(dt);
     this.veilTear.update(dt);
@@ -153,7 +159,15 @@ export class BodyTransients {
   }
 
   /** The five that are drawn around a body the world still has. */
-  drawOnBodies(ctx: CanvasRenderingContext2D, l: Layout, world: World, beatPhase: number): void {
+  /** `time` is the wall clock, for the one transient here whose shape goes on
+   * moving while it plays: a choir's membrane keeps drifting as it closes. */
+  drawOnBodies(
+    ctx: CanvasRenderingContext2D,
+    l: Layout,
+    world: World,
+    beatPhase: number,
+    time: number,
+  ): void {
     // The charge in flight, under everything else here and on player 1's
     // screen alone: it is aimed at a dome that has not failed yet, so it is
     // the only one of these drawn *before* anything has happened rather than
@@ -169,6 +183,11 @@ export class BodyTransients {
     // And the jet a recoil vented downward out of the tile it was struck in,
     // with a wake of embers reaching up to wherever the body is now.
     this.recoilVent.draw(ctx, l, world, beatPhase);
+    // And last, over the body it made: two drawn falling into each other on
+    // top of the slick or bulb they have already become. It is over rather
+    // than under for the reason it is drawn at all — the colour underneath is
+    // meant to come *up through* a film that is going (`choir-merge.ts`).
+    this.choirMerge.draw(ctx, l, world, beatPhase, time);
   }
 
   /**
@@ -179,6 +198,7 @@ export class BodyTransients {
    */
   clear(): void {
     this.lureVanish.clear();
+    this.choirMerge.clear();
     this.claspBreak.clear();
     this.claspStrike.clear();
     this.veilTear.clear();

@@ -159,12 +159,12 @@ export function ringClearance(s: Subject): number {
   return worst;
 }
 
-export interface Bounds {
-  x0: number;
-  x1: number;
-  y0: number;
-  y1: number;
-}
+// A box in a subject's own units. It is `packages/content`'s now, because the
+// trace that is asked for one is (`metaball.ts`), and re-exported here so
+// nothing in this tool had to move.
+export type { Bounds } from "@neon-spore/content";
+
+import type { Bounds } from "@neon-spore/content";
 
 /**
  * The box a subject occupies across every given moment. The motion sheet draws

@@ -105,6 +105,10 @@ export {
   unreachedMechanics,
   type WaveKind,
 } from "./mechanics.js";
+// The metaball trace SYMBIOSIS, the Colony and THE CHOIR are all drawn with —
+// one description for the game and for the shape sheet (`metaball.ts`).
+export { type Bounds, type Field, isoLoops, perimeter, resample } from "./metaball.js";
+export { resampleAll } from "./metaball-spread.js";
 export {
   type Beats,
   beats,

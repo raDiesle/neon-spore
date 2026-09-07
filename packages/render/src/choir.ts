@@ -1,6 +1,5 @@
-import { CHOIR, livingPoints, type Point } from "@neon-spore/content";
+import { isoLoops, type Point, resample } from "@neon-spore/content";
 import type { Body } from "./creature-body.js";
-import { contourClock } from "./creature-place.js";
 import { hazed } from "./depth.js";
 import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
@@ -38,10 +37,19 @@ import { splinePath } from "./spline.js";
  * 2 a shot that will bounce. `PALETTE.rock` is the game's own word for
  * *nothing you carry reaches this*.
  *
- * **The contour is none of the shapes the pair has a word for**, for the same
- * reason the colour is missing: a bulb silhouette would name cyan without a
- * colour being drawn at all. `CHOIR` in `content/silhouettes.ts` is three
- * shallow lobes on a nearly round body.
+ * **The outline is the sheet's own trace and not an approximation of it.** Two
+ * blob contours drawn over each other read as two bodies with two rims, which
+ * is what the draft before this one did and what the owner rejected. A
+ * metaball field traced by marching squares is one skin with a waist in it,
+ * and it is the same `isoLoops` the shape sheet draws SYMBIOSIS with —
+ * `packages/content/src/metaball.ts`, moved there from the tool so that the
+ * game and the sheet cannot come to disagree about what this shape is.
+ *
+ * **No silhouette, and none needed.** Every other living body walks a lobed
+ * contour out of `CreatureSilhouette`; this one has no rim of its own at all,
+ * because what makes its shape is where two fields add up. A lobed silhouette
+ * would also have been a tell — a bulb rim would name cyan before a colour was
+ * ever drawn.
  *
  * **Nothing here is drawn after the merge.** The kind changes on the instant
  * and the lane never moves (`sim/choir.ts`), so the thing standing there a
@@ -64,28 +72,34 @@ const VOICES = 2;
  * much of that distance is left at their closest.
  *
  * **It stands in one lane**, which is the owner's instruction, and the numbers
- * are what makes the pair legible inside it. What matters is the distance as a
- * multiple of a body's own radius, not as a share of a tile: SYMBIOSIS runs
- * from 0.3 to 2.4 radii and is unmistakably two, and 2.4 radii here would be a
- * body two tiles wide. These run from 0.4 to 1.1 — close enough at the bottom
- * of the drift to be one mass with a dent in it, far enough at the top to be
- * two rounds joined at a waist, and a hair over a tile at their widest.
+ * are what makes the pair legible inside it. What matters is the separation as
+ * a multiple of a body's own radius, not as a share of a tile: SYMBIOSIS runs
+ * from 0.3 to 2.4 radii, and above about 2.2 a metaball genuinely parts.
  *
- * `FLOOR` is SYMBIOSIS's own idea off `ClusterOpts`: they never quite meet and
- * never quite part, because a body that visibly separated would be promising a
- * window this creature does not have.
+ * These run from **2.0 to 2.7 radii apart**, and the ceiling is arithmetic
+ * rather than taste: with a `r² / d²` field at a threshold of 1, the point
+ * halfway between two bodies falls outside the skin at exactly `2√2 ≈ 2.83`
+ * radii, so anything under that is joined and anything over it is two separate
+ * rings. Below about 2 radii the waist closes up entirely and the pair reads as
+ * one oval, which two drafts of this file shipped before the number was worked
+ * out rather than guessed.
+ *
+ * They are never one, because **one is what the gesture makes** — *two become
+ * one, not one becomes two* — and an idle body that closed up on its own would
+ * be doing the pair's work for them and then undoing it.
  */
 const ORBIT = 0.3;
-const FLOOR = 0.35;
-/** A body's radius, as a share of a tile. Two of these still overlap at the
- * top of the drift, which is what keeps the pair one mass — the owner has
- * corrected a cluster that fell into separate parts once already. */
-const VOICE = 0.27;
-/** Seconds for one drift-apart-and-back, and for one turn of the pair about
+const FLOOR = 0.74;
+/** A body's radius, as a share of a tile. Two of these at `ORBIT` reach a
+ * tile across at their widest, which is the lane they stand in. */
+const VOICE = 0.22;
+/** Seconds for one breathe-wide-and-back, and for one turn of the pair about
  * its own centre. Slow, and prime against each other so the picture never
- * repeats on a count an eye can follow. SYMBIOSIS's `period` is 9. */
-const DRIFT = 9;
+ * repeats on a count an eye can follow. */
+const DRIFT = 5;
 const TURN = 23;
+/** Grid cells a side the membrane is traced on. See `membranePath`. */
+const RES = 22;
 
 /**
  * Where one body of a membrane stands, and how big it is this instant.
@@ -100,11 +114,17 @@ export function choirVoiceAt(
   y: number,
   i: number,
   time: number,
+  close = 0,
 ): { x: number; y: number; r: number } {
   // A raised cosine, which is `cluster`'s own: apart for most of the cycle and
   // close briefly, so the drift is a thing that happens rather than a wobble.
   const phase = (1 - Math.cos((time / DRIFT) * Math.PI * 2)) / 2;
-  const apart = l.tile * ORBIT * (FLOOR + (1 - FLOOR) * phase);
+  // `close` is the gesture landing: 0 while the pair is a pair and 1 once they
+  // are one, which is `ChoirMergeFx` driving the orbit to nought over a third
+  // of a second (`choir-merge.ts`). It multiplies the separation rather than
+  // replacing it, so the drift the two were in the middle of goes on happening
+  // while they close and the picture never jumps.
+  const apart = l.tile * ORBIT * (FLOOR + (1 - FLOOR) * phase) * (1 - close);
   // On a circle rather than in a row, and the circle turns: SYMBIOSIS places
   // its bodies at `i / bodies` of a turn plus a slow drift, so a pair leans
   // one way and then the other instead of standing to attention.
@@ -119,30 +139,57 @@ export function choirVoiceAt(
 }
 
 /**
- * The two bodies as one path.
+ * The membrane's outline: **one traced contour**, or two on the rare frame the
+ * pair has come properly apart.
  *
- * One path rather than two draws, so the **fill** is a single operation over
- * their union: two translucent fills would darken where they overlap and the
- * lens between them would read as a third thing. The **stroke** is the same
- * path and does outline each body in full — which is wanted here and was not
- * in an earlier draft of this file. Two soap bubbles pressed together show two
- * rims and the lens where they meet; that is what this creature is, and the
- * owner asked for two rounded shapes rather than one fused lump.
+ * The field is the metaball one `cluster` uses — each body contributes
+ * `r² / d²` and the skin is where the sum crosses 1 — walked on a grid rather
+ * than marched radially from the middle, which is the whole reason the waist
+ * between the two is a real shape rather than a dent drawn in.
+ *
+ * **`RES` is the game's number, not the sheet's.** The sheet traces at 64 cells
+ * a side because it is drawing one still picture at a time; this runs every
+ * frame for every membrane on the field, so it walks 22 — a cell about a
+ * seventh of a body radius. Two round bodies make a smooth field, and the loop
+ * is resampled and splined afterwards, so the corners a coarse grid leaves
+ * never reach the screen.
+ *
+ * **It takes a place rather than a `Body`**, which is what lets the merge
+ * transient draw the same skin closing over a body whose kind has already
+ * changed (`choir-merge.ts`). One copy of what this membrane is, two things
+ * that draw it.
  */
-function voicesPath(l: Layout, b: Body): Path2D {
+export function choirMembranePath(
+  l: Layout,
+  x: number,
+  y: number,
+  time: number,
+  close = 0,
+): Path2D {
+  const centres: { x: number; y: number; r: number }[] = [];
+  for (let i = 0; i < VOICES; i++) centres.push(choirVoiceAt(l, x, y, i, time, close));
+  const field = (fx: number, fy: number): number => {
+    let f = 0;
+    for (const c of centres) {
+      f += (c.r * c.r) / Math.max((fx - c.x) ** 2 + (fy - c.y) ** 2, 1);
+    }
+    return f;
+  };
+  // A body's radius of clearance all round, so the skin never touches the edge
+  // of the grid it is traced on — a loop cut off by the box is an open ring,
+  // and an open ring fills as a wedge.
+  const pad = l.tile * VOICE * 1.7;
+  const xs = centres.map((c) => c.x);
+  const ys = centres.map((c) => c.y);
+  const box = {
+    x0: Math.min(...xs) - pad,
+    y0: Math.min(...ys) - pad,
+    x1: Math.max(...xs) + pad,
+    y1: Math.max(...ys) + pad,
+  };
   const path = new Path2D();
-  for (let i = 0; i < VOICES; i++) {
-    const v = choirVoiceAt(l, b.x, b.y, i, b.time);
-    // The contour wobble is on the wall clock and keyed by the creature's id,
-    // the way every living body's is — deterministic on both devices, so two
-    // screens shake the same membrane the same way (`contourClock`).
-    const t = contourClock(b.c.id + i, b.time);
-    const k = v.r / Math.max(CHOIR.rx, CHOIR.ry);
-    const pts: Point[] = livingPoints(CHOIR, t, 24).map((p) => ({
-      x: v.x + p.x * k,
-      y: v.y + p.y * k,
-    }));
-    path.addPath(splinePath(pts, true));
+  for (const loop of isoLoops(field, box, 1, RES)) {
+    path.addPath(splinePath(resample(loop, 40) as Point[], true));
   }
   return path;
 }
@@ -158,14 +205,14 @@ export function drawChoir(b: Body): void {
     halo(ctx, v.x, v.y, v.r * 1.9, haze(PALETTE.rock), 0.18);
   }
 
-  const path = voicesPath(l, b);
+  const path = choirMembranePath(l, b.x, b.y, b.time);
   ctx.save();
-  // **A film and not a fill.** The owner's complaint about the version before
-  // this one was that the body hid what was behind it, and a soap film is what
-  // this creature has been described as since the first sketch — so the skin is
-  // a wash the grid, the beat flash and anything falling behind read straight
-  // through, and what is solid is the rim.
-  ctx.globalAlpha = 0.38;
+  // **A film and not a fill.** The owner's complaint about an earlier draft was
+  // that the body hid what was behind it, and a soap film is what this creature
+  // has been called since the first sketch — so the skin is a wash the grid,
+  // the beat flash and anything falling behind read straight through, and what
+  // is solid is the rim.
+  ctx.globalAlpha = 0.34;
   ctx.fillStyle = haze(PALETTE.rock);
   ctx.fill(path);
   ctx.globalAlpha = 1;

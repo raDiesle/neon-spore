@@ -400,6 +400,8 @@ place — the generator keeps whatever is there.
 | `packages/content/src/pulse-stages.ts` | THE PULSE's stages — the charts, and so far there is one of them |
 | `packages/content/src/pulse-steps.ts` | A chart, written as bars of text, and the reader that turns one into notes |
 | `packages/content/src/mechanics-rounds.ts` | The rounds that are not the field, as mechanic rows |
+| `packages/content/src/metaball-spread.ts` | spreading a fixed number of points across a subject that may be in pieces — the shape sheet's need, not the game's |
+| `packages/content/src/metaball.ts` | the outline of a metaball field, as however many closed loops it has — what SYMBIOSIS and THE CHOIR are drawn with |
 
 ### packages/render
 
@@ -710,6 +712,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/pulse-meter.ts` | The one meter, the tally under it, and the verdict |
 | `packages/render/src/pulse-panel.ts` | THE PULSE's four buttons, drawn as sockets rather than as plates |
 | `packages/render/src/pulse-round.ts` | THE PULSE over the whole stage |
+| `packages/render/src/choir-merge.ts` | two becoming one: THE CHOIR's membrane drawn closing over the body it has already become |
 
 ### packages/net
 

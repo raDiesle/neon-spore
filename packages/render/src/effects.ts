@@ -50,10 +50,10 @@ export class Effects {
   /** Which impacts have visibly landed. Public: the hull asks before it
    * draws a scar's crack (`arrivals.ts`, `scars.ts`'s `arrived`). */
   readonly arrivals = new Arrivals();
-  /** The two transients that belong to one body — `effects-body.ts`. */
+  /** The transients that belong to one body — `effects-body.ts`. */
   private bodies = new BodyTransients();
-  /** THE CRAWLER's three transients, each outliving what it is about: a burst
-   * ring's goo, the swept lane, the burrow's banks (`crawler-fx.ts`). */
+  /** THE CRAWLER's three: a burst ring's goo, the swept lane, the burrow's
+   * banks — each outliving what it is about (`crawler-fx.ts`). */
   private crawler = new CrawlerFx();
   /**
    * THE MIRROR's own transients. Public because the boss is drawn as a whole
@@ -95,18 +95,16 @@ export class Effects {
    * The lettered grid coming up and going again. Public and driven from
    * `canvas2d.ts` rather than fed by an event, because it is not a transient
    * at all — it is a fade toward a fact about the world (is anything on the
-   * field named by tile), and the fact is read fresh every frame. It lives
-   * here for the one reason everything else here does: it outlives its frame,
-   * so a wave restarting with it half up would carry that into the new run
-   * (`reset`).
+   * field named by tile), read fresh every frame. It lives here for the one
+   * reason everything else does: it outlives its frame, so a wave restarting
+   * with it half up would carry that into the new run (`reset`).
    */
   readonly coordGrid = new CoordGrid();
-  /** THE CHOIR's earthquake — the one transient that moves the *picture*
-   * rather than something in it. Public because it is applied where the stage
-   * is placed (`canvas2d.ts`), and here because it outlives a frame. */
+  /** THE CHOIR's earthquake: the one transient that moves the *picture* rather
+   * than something in it, applied where the stage is placed (`choir-quake.ts`). */
   readonly quake = new ChoirQuake();
 
-  /** Per-creature grey flash after a wrong-colour hit, keyed by creature id. */
+  /** Per-creature grey flash after a wrong-colour hit, by creature id. */
   get blocked(): ReadonlyMap<number, number> {
     return this.blockedUntil;
   }
@@ -203,13 +201,15 @@ export class Effects {
   }
 
   /** Drawn under the hull, so a deflected rock passes behind nothing. The world
-   * is here for the clasp transients alone — `drawOnBodies` says why — and
+   * is here for the clasp transients alone — `drawOnBodies` says why — `time`
+   * for the one whose shape moves while it plays, and
    * `surfaceY` for THE CRAWLER's, about a body on the ship's own skin. */
   draw(
     ctx: CanvasRenderingContext2D,
     l: Layout,
     world: World,
     beatPhase: number,
+    time: number,
     surfaceY?: SurfaceY,
   ): void {
     this.deflectFx.draw(ctx);
@@ -217,7 +217,7 @@ export class Effects {
     this.bodies.draw(ctx, l, surfaceY);
     this.crawler.draw(ctx, l, surfaceY);
     this.spriteBursts.draw(ctx);
-    this.bodies.drawOnBodies(ctx, l, world, beatPhase);
+    this.bodies.drawOnBodies(ctx, l, world, beatPhase, time);
   }
 
   /** Forget everything transient: a wave has (re)started and none of it
