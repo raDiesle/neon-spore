@@ -6,6 +6,7 @@ import { CHAMBER } from "./chamber.js";
 import { CILIA } from "./cilia.js";
 import { CORE } from "./core.js";
 import { CRATER } from "./crater.js";
+import { GLASS } from "./glass.js";
 import { LIGHT } from "./light.js";
 import { LINE } from "./line.js";
 import { MEMBRANE } from "./membrane.js";
@@ -59,6 +60,7 @@ export const SKINS = [
   SUCKER,
   NACRE,
   CHAMBER,
+  GLASS,
   // The mounted four, kept together at the end rather than each next to its
   // flat original. They are one block and answer one question — whether a
   // texture on a turning body goes round the far side or slides across a face —
