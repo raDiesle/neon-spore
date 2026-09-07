@@ -21,8 +21,8 @@ import { cannonGrab, shieldGrab, shipHand } from "../src/touch-ship.js";
 const CFG = DEFAULT_CONFIG;
 const STANDARD = controlSet("default");
 const FLEET = controlSet("fleet");
-/** The panel that trades the maw away for the lance — nothing to tap into. */
-const LANCE = controlSet("lance");
+/** The panel that trades the maw away for an arm — nothing to tap into. */
+const CLAW = controlSet("claw");
 const layout = (role: ViewRole = "test") =>
   computeLayout({ width: 420, height: 900, dpr: 2 }, CFG, role);
 
@@ -93,7 +93,7 @@ describe("player 1 on the ship", () => {
   });
 
   it("has no maw to open on a panel that does not carry one", () => {
-    const f = field(1, LANCE);
+    const f = field(1, CLAW);
     const at = cannonGrab(l, f.cannonCol);
     const hold = touchDown(l, at.x, at.y, f)?.hold;
     expect(hold).toEqual({ kind: "cannon", direct: true });
@@ -225,7 +225,7 @@ describe("the ring that says a hand is on the ship", () => {
     });
     expect(shipHand(l, { kind: "cannon" }, 0, 0, true)).toBeNull();
     expect(shipHand(l, { kind: "shield" }, 0, 0, true)).toBeNull();
-    expect(shipHand(l, { kind: "lance" }, 0, 0, true)).toBeNull();
+    expect(shipHand(l, { kind: "held", control: "fireRed", player: 2 }, 0, 0, true)).toBeNull();
     expect(shipHand(l, { kind: "grip", id: 1, player: 1, originX: 0 }, 0, 0, true)).toBeNull();
   });
 

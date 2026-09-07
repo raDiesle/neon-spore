@@ -316,3 +316,46 @@ a poll until the message arrives, or the socket ordering it assumes is only
 usually true. Second, why `bun test` exited 0 with a failure in it; if that is
 a wrapper in `package.json` swallowing the status, the wrapper is the bug and
 every green check taken through it since is worth less than it looked.
+
+## Four files sit exactly on the 250-line ceiling and pay a tax on every edit
+
+- **Found:** 2026-09-07, claude/cannon-streak-shot-38da84
+- **Files:** `packages/render/src/canvas2d.ts`, `packages/render/src/effects.ts`,
+  `tools/director/src/pose-kit.ts`, `tools/frames/press.ts`
+
+Each of these is at 250 lines to the line, so *any* change to one costs a round
+of reflowing a comment somewhere else in it before `limits.test.ts` goes green
+again. That happened four times in one lane: adding a field to `Effects` cost a
+comment in `canvas2d.ts`, a one-line doc on `pose-kit.ts`'s `prime` had to be
+folded into the group comment above it, and `press.ts` lost a sentence to make
+room for one word. `render-state.ts` already exists because `effects.ts` had
+nothing left to give (its own header says so), which is the shape of the answer
+rather than a reason to keep shaving.
+
+Split each on a seam it already has a heading at, the way `scene-script.ts` was
+cut into `scene-drag.ts` in this lane: `effects.ts` divides into what it *owns*
+and what it *draws*; `canvas2d.ts` into `resize`/layout and the frame itself;
+`pose-kit.ts` into the world builders and the command shorthands; `press.ts`
+into the parser and the per-control table. `bun run check` proves it — nothing
+in any of them is behaviour.
+
+## `bun run perf` never exercises a held control, so a new one is unmeasured
+
+- **Found:** 2026-09-07, claude/cannon-streak-shot-38da84
+- **Files:** `tools/perf/measure.ts`, `tools/perf/waves.ts`,
+  `packages/render/src/lance-beam.ts`, `packages/render/src/lance.ts`
+
+The sweep plays each wave's arrivals with **no commands at all**, so anything a
+player has to press for is drawn zero times in it. THE LANCE gained three new
+draw paths on 7 September 2026 — a beam growing up the column while a colour is
+held, a ribbon with three nodules for the shot itself, and a full-stage wash
+when it leaves — and the wave's row in `baseline.json` measures none of them.
+The same hole covers the shield's dome, the maw, THE CLAW's arm and every
+round's own panel.
+
+`tools/frames` already knows how to hold a control through a run (`--hold`,
+`--press`), so the shape of the answer exists. Give a wave in `waves.ts` an
+optional list of `TimedCommand`s the measurement sends before its busiest tick,
+send them the way `capture.ts` does, and give THE LANCE a held colour so its row
+means something. The rows for waves with no commands are untouched, so the rest
+of the baseline stays comparable.

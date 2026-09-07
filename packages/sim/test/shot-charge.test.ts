@@ -12,7 +12,6 @@ import {
   OPENING_INTRO,
   OPENING_PLAY,
   PAIR_ON,
-  priming,
   type SimConfig,
   type SimEvent,
   type SpawnEntry,
@@ -54,10 +53,10 @@ const shoot = (tick: number, color: "red" | "cyan" = "red"): TimedCommand => ({
   player: 2,
   command: { kind: "fire", color },
 });
-const prime = (tick: number, on: boolean): TimedCommand => ({
+const prime = (tick: number, on: boolean, color: "red" | "cyan" = "red"): TimedCommand => ({
   tick,
-  player: 1,
-  command: { kind: "prime", on },
+  player: 2,
+  command: { kind: "prime", on, color },
 });
 
 function world(cfg: SimConfig = LAID, queue?: SpawnEntry[]) {
@@ -213,37 +212,43 @@ describe("the column it comes out of", () => {
   });
 });
 
-describe("the lance, which is settled at the press", () => {
+describe("the lance, which does not go through the grid at all", () => {
   const FILL = CFG.lancePrimeBeats * TPB;
 
-  it("empties the lobe when the press lands, not when the shot goes", () => {
+  it("leaves on the tick the lobe fills, not on the next point of the grid", () => {
+    // An ordinary press waits for a grid point so player 1 can watch the
+    // cannon work. A lance has announced itself for three beats as a beam
+    // climbing the column, so there is nothing left for a wind-up to tell
+    // anybody — it is launched rather than laid (`bullets.ts`).
     const w = world();
-    play(w, FILL + 3, [aim(0, COL), prime(1, true), shoot(FILL + 2)]);
-    expect(priming(w)).toBe(false);
+    const seen = play(w, FILL + 3, [aim(0, COL), prime(1, true)]);
+    const shot = fired(seen)[0];
+    expect(shot?.event.type === "fire" && shot.event.lance).toBe(true);
+    // The step that carries the tick counter from `FILL` to `FILL + 1`.
+    expect(shot?.tick).toBe(FILL);
+    expect(laying(w)).toBe(false);
+    expect(w.bullets).toHaveLength(1);
+  });
+
+  it("comes out of the column the cannon is standing in when it goes", () => {
+    const w = world();
+    const seen = play(w, FILL + 3, [aim(0, COL), prime(1, true), aim(FILL - 5, COL)]);
+    const shot = fired(seen)[0]?.event;
+    expect(shot?.type === "fire" && shot.col).toBe(COL);
+    expect(lanceReady(w)).toBe(false);
+  });
+
+  it("but the shot a lift owes is laid on the grid like any other", () => {
+    const w = world();
+    play(w, TPB + 2, [aim(0, COL), prime(1, true), prime(TPB, false)]);
     expect(laying(w)).toBe(true);
     expect(w.bullets).toHaveLength(0);
   });
 
-  it("still delivers a lance after the cannon has moved, so the tell cannot lie", () => {
-    // A wind-up that showed a lance being laid and then produced an ordinary
-    // bolt because player 1 slid the cannon would be a tell worth nothing.
+  it("reports a spilled lobe on the lift, where the spill happened", () => {
     const w = world();
-    const seen = play(w, FILL + TPB * 2, [
-      aim(0, COL),
-      prime(1, true),
-      shoot(FILL + 2),
-      aim(FILL + 5, COL + 1),
-    ]);
-    const shot = fired(seen)[0]?.event;
-    expect(shot?.type === "fire" && shot.lance).toBe(true);
-    expect(shot?.type === "fire" && shot.col).toBe(COL + 1);
-    expect(lanceReady(w)).toBe(false);
-  });
-
-  it("reports a spilled lobe on the press, where the spill happened", () => {
-    const w = world();
-    const seen = play(w, TPB * 2, [aim(0, COL), prime(1, true), shoot(TPB)]);
-    const spill = seen.filter((s) => s.event.type === "lanceSpilled");
+    const seen = play(w, TPB * 2, [aim(0, COL), prime(1, true), prime(TPB, false)]);
+    const spill = seen.filter((x) => x.event.type === "lanceSpilled");
     expect(spill).toHaveLength(1);
     expect(spill[0]?.tick).toBe(TPB);
   });

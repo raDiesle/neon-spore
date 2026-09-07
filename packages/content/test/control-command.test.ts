@@ -19,18 +19,25 @@ describe("what a control says", () => {
   });
 
   it("gives a release to exactly the controls a thumb stays on", () => {
-    // The lance's lobe, the gauge's two valve slabs and the bucket's two. Any
+    // The two colours, the gauge's two valve slabs and the bucket's two. Any
     // other control gaining an `up` is a press somebody has quietly turned
     // into a hold, and the panel drawing it would not know.
     const held = CONTROLS.filter((c) => controlHeld(c.id)).map((c) => c.id);
-    expect(held.sort()).toEqual(["gaugeLeft", "gaugeRight", "lance", "pinLeft", "pinRight"]);
+    expect(held.sort()).toEqual([
+      "fireCyan",
+      "fireRed",
+      "gaugeLeft",
+      "gaugeRight",
+      "pinLeft",
+      "pinRight",
+    ]);
     for (const id of held) {
       expect(controlHold(id).up.kind, `${id}'s release sends nothing`).toBeTruthy();
     }
   });
 
   it("refuses to give a release to a control that is only ever pressed", () => {
-    expect(() => controlHold("fireRed")).toThrow();
+    expect(() => controlHold("guard")).toThrow();
   });
 
   it("puts a strip's column into the command and leaves everything else alone", () => {

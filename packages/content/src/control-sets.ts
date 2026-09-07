@@ -21,7 +21,7 @@ export { controlSetForWave, firstOnPanel, wavesUsingSet } from "./control-sets-w
  * is not a list of extras a wave switches on. It is everything the two people
  * have in front of them — player 1's strip and lobes and player 2's strip and
  * lobes, together — and **sets do not compose**. There is no "the usual panel
- * plus the lance": there is a set that has a lance in it and a set that does
+ * plus the maw": there is a set that has a maw on it and a set that does
  * not, and a wave names exactly one of them. Naming none means the default.
  *
  * That rule is the whole reason this file exists rather than a boolean on
@@ -74,7 +74,6 @@ export type ControlSetId =
   | "standard2"
   | "standard3"
   | "standard4"
-  | "lance"
   | "gauge"
   | "fleet"
   | "snake"

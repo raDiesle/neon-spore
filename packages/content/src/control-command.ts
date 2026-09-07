@@ -19,10 +19,15 @@ import type { ControlId } from "./controls.js";
  * `content` already depends on `sim`; the direction stays what it always was.
  *
  * **A held control says two things.** `up` is what letting go sends, and it is
- * present on exactly the five that are held: the lance's thumb, the gauge's two
+ * present on exactly the six that are held: the two colours, the gauge's two
  * valve slabs and the bucket's two. Everything else is over the moment it
  * happens, and `up` is absent rather than a no-op, so a caller can tell a hold
  * from a press without a list of its own.
+ *
+ * The two colours joined that list on 7 September 2026, when the owner took
+ * the lance's own button off the panel and put the fill on the trigger. It is
+ * the one entry here where the *press* is the half that says nothing: the lift
+ * is the shot.
  */
 export interface ControlPress {
   /** What a thumb going down on this control sends. */
@@ -43,10 +48,21 @@ export function controlPress(id: ControlId, col = 0): ControlPress {
       return { down: { kind: "cannonCol", col } };
     case "shield":
       return { down: { kind: "shieldCol", col } };
+    // **The two colours are held, not tapped**, and the press says nothing but
+    // *held*: the lift is the ordinary shot and a hold long enough to fill the
+    // lobe is a lance, in the colour under the thumb. One control, two things
+    // it can do, and no button anywhere for the second one
+    // (`packages/sim/src/lance.ts`).
     case "fireRed":
-      return { down: { kind: "fire", color: "red" } };
+      return {
+        down: { kind: "prime", on: true, color: "red" },
+        up: { kind: "prime", on: false, color: "red" },
+      };
     case "fireCyan":
-      return { down: { kind: "fire", color: "cyan" } };
+      return {
+        down: { kind: "prime", on: true, color: "cyan" },
+        up: { kind: "prime", on: false, color: "cyan" },
+      };
     case "guard":
       return { down: { kind: "guard" } };
     case "intake":
@@ -56,8 +72,6 @@ export function controlPress(id: ControlId, col = 0): ControlPress {
     // (`sim/commands.ts` seat-checks neither).
     case "mawTake":
       return { down: { kind: "intake" } };
-    case "lance":
-      return { down: { kind: "prime", on: true }, up: { kind: "prime", on: false } };
     // The arm. One press and it is committed for the length of its own travel,
     // so there is nothing to hold and nothing to let go of (`sim/reach.ts`).
     case "reach":

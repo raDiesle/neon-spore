@@ -1,7 +1,7 @@
 import { resolve } from "./bullet-hit.js";
 import { hullRow, type SimConfig, ticksPerBeat } from "./config.js";
 import { fenceIsOpen } from "./fence.js";
-import { endPrime, lanceReady, priming } from "./lance.js";
+import { lanceReady, primeColor, spendPrime } from "./lance.js";
 import { steerShot } from "./lock.js";
 import { bulletMilli, creatureLane, creatureMilli } from "./mid-beat.js";
 import { firstPodAlong, freePod } from "./pods.js";
@@ -32,20 +32,40 @@ export function fire(world: World, color: Color): void {
   // a beat cannot both come out on the same grid point.
   if (laying(world)) return;
   world.lastFireTick = world.tick;
-  // Everything leaves through the same lobe. A full one sends a lance; one
-  // that is still filling sends an ordinary shot and loses what was in it,
-  // which is the half of the coupling player 2 holds (`lance.ts`).
-  //
-  // Decided here, at the press, and not when the shot finally goes: the
-  // wind-up is a tell, and a tell that showed a lance being laid and then
-  // delivered an ordinary bolt because the cannon moved in between would be a
-  // tell that lies. Everything about THE LANCE's own timing is unchanged.
-  const lance = lanceReady(world);
-  const spilled = priming(world) && !lance;
-  endPrime(world);
-  if (chargePartTicks(world.cfg) === 0) launch(world, color, lance);
-  else layShot(world, color, lance);
-  if (spilled) world.events.push({ type: "lanceSpilled", col: world.cannonCol });
+  // Always an ordinary bolt. A lance is not fired by a press at all any more:
+  // the hold fills the lobe and the lobe fires itself at the top of the fill
+  // (`releaseLance`), so the two weapons no longer share a moment and a tap
+  // can never come out as the wrong one (`lance.ts`).
+  if (chargePartTicks(world.cfg) === 0) launch(world, color, false);
+  else layShot(world, color, false);
+}
+
+/**
+ * The lobe full, and the lance leaving on that very tick.
+ *
+ * **It fires itself.** There is no press to spend it — the owner's answer on
+ * 7 September 2026 was that the hold is the whole gesture, so the shot goes
+ * the instant the fill reaches the top and the thumb resting on the button
+ * afterwards does nothing at all (`Prime.spent`).
+ *
+ * It is launched rather than laid. The wind-up at the muzzle is a tell bought
+ * for the half beat an ordinary press waits (`shot-charge.ts`), and this shot
+ * has already announced itself for three beats as a beam climbing the column
+ * on both screens — there is nothing left for a wind-up to tell anybody.
+ *
+ * `lanceFull` still goes out beside the `fire` event, and it is not a
+ * duplicate: it is the one row of the information split that is not split at
+ * all (docs/spec/systems.md 5.2), and audio/ has bound the moment since the
+ * day the lance had a button of its own.
+ */
+export function releaseLance(world: World): void {
+  if (world.over || !lanceReady(world)) return;
+  const color = primeColor(world);
+  if (color === null) return;
+  spendPrime(world);
+  world.lastFireTick = world.tick;
+  world.events.push({ type: "lanceFull", col: world.cannonCol });
+  launch(world, color, true);
 }
 
 /**

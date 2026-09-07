@@ -52,7 +52,14 @@ export function hashWorld(world: World): number {
   push(world.pushP2 === null ? 0 : 1);
   push(world.pushP2?.milli ?? 0);
   push(world.pushP2?.cols ?? 0);
-  push(world.primeTick);
+  // The thumb on a colour. All three parts: two devices that disagreed about
+  // when the fill started, about which colour is in it, or about whether the
+  // lance has already left, would disagree about a shot that clears a whole
+  // column (`lance.ts`).
+  const held = world.prime;
+  push(held === null ? -1 : held.tick);
+  push(held === null ? 0 : held.color === "red" ? 1 : 2);
+  push(held?.spent ? 1 : 0);
   // The four ticks the hull remembers. Cosmetic while nothing branched on
   // them, and not cosmetic any more: a call whose `need` is `guard` or
   // `fire(color)` is released by reading them, so a device that disagrees

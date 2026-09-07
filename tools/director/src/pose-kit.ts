@@ -152,7 +152,7 @@ export function runUntil(
   throw new Error(`the world never reached ${what}`);
 }
 
-/** Commands, spelled short — a pose is mostly a list of these. */
+/** Commands, spelled short — a pose is mostly a list of these. `prime` is player 2's thumb on a colour: down fills the cannon lobe, up is the ordinary shot (`sim/lance.ts`). */
 export const aim = (tick: number, col: number): TimedCommand => ({
   tick,
   player: 1,
@@ -173,10 +173,10 @@ export const suck = (tick: number): TimedCommand => ({
   player: 1,
   command: { kind: "intake" },
 });
-export const prime = (tick: number, on: boolean): TimedCommand => ({
+export const prime = (tick: number, on: boolean, color: "red" | "cyan" = "red"): TimedCommand => ({
   tick,
-  player: 1,
-  command: { kind: "prime", on },
+  player: 2,
+  command: { kind: "prime", on, color },
 });
 export const shoot = (tick: number, color: "red" | "cyan"): TimedCommand => ({
   tick,

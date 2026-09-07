@@ -1,5 +1,6 @@
 import { DEFAULT_CONFIG } from "../src/config.js";
 import { BOSS_KINDS, type BossEntry } from "../src/entries.js";
+import type { Prime } from "../src/lance.js";
 import { mazeWheel } from "../src/maze-solve.js";
 import type { MazeWheel } from "../src/maze-wheel.js";
 import type { ShotCharge } from "../src/shot-charge.js";
@@ -108,6 +109,8 @@ const scar = (): Required<Scar> => ({ col: 4, beat: 9, kind: "meteor", span: 2 }
 
 const charge = (): Required<ShotCharge> => ({ left: 5, color: "red", lance: true });
 
+const prime = (): Required<Prime> => ({ tick: 19, color: "cyan", spent: false });
+
 /**
  * A wheel of the shape `installMaze` copies: two rings, two gaps in the rim,
  * a radial wall between them and one of them walled off from the middle —
@@ -214,7 +217,7 @@ export function populatedWorld(bossKind: BossEntry["kind"]): World {
   world.gripP2 = 3;
   world.pushP1 = { milli: 1400, cols: 1 };
   world.pushP2 = { milli: -2300, cols: -2 };
-  world.primeTick = 19;
+  world.prime = prime();
   world.charge = charge();
   // A cannon fault rather than a shield one, because it is the arm that
   // carries a second field: the walk can only mutate what is there, so the

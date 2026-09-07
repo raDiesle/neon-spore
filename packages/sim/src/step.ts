@@ -1,6 +1,6 @@
 import { beatMetronome, onBeat } from "./beat.js";
 import { briefHeard, briefingHolds, guideStepHeard, stepReady } from "./briefing.js";
-import { advanceBullets, releaseShot } from "./bullets.js";
+import { advanceBullets, releaseLance, releaseShot } from "./bullets.js";
 import { stepChoirFuse } from "./choir.js";
 import { choirArrowHeard, stepChoirWindow } from "./choir-gesture.js";
 import { wardCoils } from "./coil.js";
@@ -11,7 +11,6 @@ import { gaugeHolds, gaugeRoundHeard, stepGaugeRound } from "./gauge-round.js";
 import { dropLostGrips } from "./grip.js";
 import { gripPushHeard } from "./grip-push.js";
 import { regenerateHull } from "./hull.js";
-import { noteLanceFull } from "./lance.js";
 import { lidHeard } from "./lid.js";
 import { stepMalfunction } from "./malfunction.js";
 import { mazeStringHeard, stepMazeTurn } from "./maze-controls.js";
@@ -38,7 +37,7 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // froze its tick counter would be waiting for an ack it had arranged to
   // never reach itself. The wave is what stands still, not the clock. It is
   // also what the ready gate is counted in, so `stepReady` runs after the
-  // counter moves, the way `noteLanceFull` does further down.
+  // counter moves, the way `releaseLance` does further down.
   //
   // And nothing below this line runs, `regenerateHull` included. That is the
   // whole of THE FORK's "not a free repair bay" rule, inherited by the shape
@@ -178,7 +177,7 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   world.tick += 1;
   // Before the beat and before the shots: the lobe fills on the tick counter,
   // so the tick it comes full on is this one, whatever else happens next.
-  noteLanceFull(world);
+  releaseLance(world);
   const tpb = ticksPerBeat(world.cfg);
   if (world.tick % tpb === 0) {
     onBeat(world);

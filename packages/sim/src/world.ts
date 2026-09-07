@@ -4,7 +4,7 @@ import { type Briefings, newBriefings } from "./briefing.js";
 import { midCol, type SimConfig, ticksPerBeat } from "./config.js";
 import { NO_GRIP } from "./grip.js";
 import type { GripPush } from "./grip-push.js";
-import { NO_PRIME } from "./lance.js";
+import type { Prime } from "./lance.js";
 import type { Malfunction } from "./malfunction.js";
 import { createRng, type Rng } from "./rng.js";
 import type { ShotCharge } from "./shot-charge.js";
@@ -114,16 +114,17 @@ export interface World {
   pushP1: GripPush | null;
   pushP2: GripPush | null;
   /**
-   * The tick player 1's thumb went down on the lance, or `NO_PRIME`. Read it
-   * through `lance.ts` rather than by name — how full the lobe is and whether
-   * the next shot is a lance are that file's business, and render/, the band
-   * and the shot itself all ask the same question from three places.
+   * Player 2's thumb resting on a colour, filling the cannon lobe, or null.
+   * Read it through `lance.ts` rather than by name — how full the lobe is,
+   * which colour is in it and whether it has already gone are that file's
+   * business, and render/, the band and the shot itself all ask the same
+   * question from three places.
    *
-   * There is no `primeCol` beside it, deliberately: a cannon that moves ends
-   * the fill, so while this is set the column *is* `cannonCol`, and a second
-   * copy of it could only ever disagree.
+   * There is no `primeCol` beside it, deliberately: a cannon that moves resets
+   * the fill, so while this is filling the column *is* `cannonCol`, and a
+   * second copy of it could only ever disagree.
    */
-  primeTick: number;
+  prime: Prime | null;
   /**
    * The shot player 2 has pressed that has not left the muzzle yet, or null.
    * World state for the reason a bullet in flight is: two devices that
@@ -208,7 +209,7 @@ export function createWorld(
     gripP2: NO_GRIP,
     pushP1: null,
     pushP2: null,
-    primeTick: NO_PRIME,
+    prime: null,
     charge: null,
     malfunction: null,
     creatures: [],

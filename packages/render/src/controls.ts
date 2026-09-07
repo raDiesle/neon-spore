@@ -3,8 +3,8 @@ import { type Color, livingKindForColor } from "@neon-spore/sim";
 import { bakedCache } from "./baked.js";
 import { drawDetails } from "./creature-detail.js";
 import { halo, strokeGlow } from "./glow.js";
-import { rgba } from "./hex.js";
-import { paintLobe } from "./lobe-shell.js";
+import { mixHex, rgba } from "./hex.js";
+import { lobeBlob, paintLobe } from "./lobe-shell.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { P1_SKIN, type SeatSkin } from "./seat-skin.js";
 
@@ -82,6 +82,12 @@ export function drawFireButton(
   r: number,
   color: Color,
   skin: SeatSkin = P1_SKIN,
+  /**
+   * How full the cannon lobe is under this thumb, 0..1 — the hold that ends in
+   * a lance (`lance.ts`). Nought is a button nobody is resting on, which is
+   * every frame of every wave until somebody stops tapping and starts holding.
+   */
+  fill = 0,
 ): void {
   const hex = color === "red" ? PALETTE.red : PALETTE.cyan;
   const rim = color === "red" ? PALETTE.redRim : PALETTE.cyanRim;
@@ -111,6 +117,34 @@ export function drawFireButton(
   // the same arithmetic `drawLiving` does around its own body.
   strokeGlow(ctx, blob, hex, Math.max(1, r * 0.09) / s, 1);
   drawDetails(ctx, kind === "bulb", shape.rx, shape.ry, rim);
+  ctx.restore();
+
+  if (fill <= 0) return;
+  // The fill, closing clockwise from the top: a hold has a length and a tap
+  // does not, so the one thing this must not read as is a button that is simply
+  // lit. It is the ammunition's own colour going white as it closes, for the
+  // reason the beam in the column does — that is what the light is about to do
+  // to the whole screen (`lance-flash.ts`).
+  //
+  // **It is the button's own contour, lit part of the way round**, and not a
+  // ring laid over it: an arc is a drawn edge round a grown one, and the owner
+  // has corrected that shape twice — a mark on a body is cut from that body
+  // (`lobe-shell.ts`). So the whole blob is stroked inside a wedge clipped to
+  // how full the lobe is, which lights exactly the fraction that has filled and
+  // leaves the rest of the contour dark.
+  const width = Math.max(2, r * 0.16);
+  const lit = mixHex(hex, "#FFFFFF", 0.3 + 0.7 * fill);
+  halo(ctx, x, y, r * (1.7 + 0.9 * fill), lit, 0.25 + 0.5 * fill);
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.arc(0, 0, r * 2, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * fill);
+  ctx.closePath();
+  ctx.clip();
+  ctx.strokeStyle = lit;
+  ctx.lineWidth = width;
+  ctx.stroke(lobeBlob(Math.round(r - width * 0.4)));
   ctx.restore();
 }
 

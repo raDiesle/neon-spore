@@ -31,8 +31,8 @@ width, a freely sliding cannon on it, and a shield.
 | Move the cannon (column strip) | ✔ | |
 | **Trigger** the shield | ✔ | |
 | **Open the maw** (take a pod in) | ✔ | |
-| **Hold the lance** (mark the column) | ✔ | |
 | Choose colour and fire | | ✔ |
+| **Hold** a colour to fill the lance | | ✔ |
 | **Move** the shield left/right | | ✔ |
 | Radar: rocks + torch (`guard` kinds) | ✔ | |
 | Radar: slick, bulb, queen (`aim` kinds) | | ✔ |
@@ -75,22 +75,23 @@ the maw is open — the one thing in the game player 1 finishes alone, and only
 because player 2 had to shoot the pod loose in the first place. Window: **800 ms**
 (`intakeWindowMs`). See [systems](systems.md) 5.7.
 
-**Lance.** Player 1's third action, and the only one that is *held* rather
-than pressed. The lobe fills over `lancePrimeBeats` while the thumb stays down
-and the cannon stands still; moving the cannon, opening the maw or lifting the
-thumb empties it. What comes out is player 2's shot, and player 2 has to hold
-fire for the whole fill or spend it on an ordinary bolt. See
-[couplings](couplings.md) 2 — it is marking, re-grounded on the column.
+**Lance.** Not an action of its own and not a button: the two colours are
+*held* as well as tapped, and a thumb that stays on one fills the cannon lobe
+over `lancePrimeBeats` while player 1 keeps the cannon still. At the top of the
+fill it goes by itself. Moving the cannon or opening the maw drops the fill
+back to nothing without taking the shot the lift is owed; lifting early fires
+that shot and spends the fill. See [couplings](couplings.md) 2 — it is marking,
+re-grounded on the column and then on the trigger.
 
 **The other hand.** Both screens draw the same world, so a presence in it is
-not split — the same rule that keeps the mark itself unsplit (5.2). The lance
-is the one control the simulation can say anything honest about: `touchDown`
-signs it and `touchUp` explicitly ends it (`touch.ts`), so `world.primeTick`
-is a real "thumb down, thumb up," not a position sampled between two unknown
-edges. The cannon and shield strips are drags with no release — a finger
-lifted from either leaves nothing in the world — so there is no matching
-signal for player 2's hand. **Built, one-directional:** a pulse over the
-cannon lobe while player 1 holds the lance, on both screens
+not split — the same rule that keeps the mark itself unsplit (5.2). A thumb
+resting on a colour is the one control the simulation can say anything honest
+about: `touchDown` signs it and `touchUp` explicitly ends it (`touch.ts`), so
+`world.prime` is a real "thumb down, thumb up," not a position sampled between
+two unknown edges. The cannon and shield strips are drags with no release — a
+finger lifted from either leaves nothing in the world — so there is no matching
+signal for player 1's hand. **Built, one-directional:** a pulse over the cannon
+lobe while player 2 holds a colour, on both screens
 (`packages/render/src/other-hand.ts`). It is presence, not the fill —
 `drawLanceMark` already draws that, precisely, on both screens too — and it
 stops the instant the thumb lifts rather than fading, because a hold that

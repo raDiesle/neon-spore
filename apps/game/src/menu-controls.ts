@@ -43,7 +43,7 @@ const PHONE: [string, string][] = [
   ],
   [
     "A LOBE",
-    "A round button beside the strip. A tap, and it is over the moment it happens — except the lance, which fills for exactly as long as the thumb stays down and empties when it lifts.",
+    "A round button beside the strip. A tap, and it is over the moment it happens — except the two colours, which are held as well: a thumb that stays on one fills the cannon lobe, and at the top of the fill a lance goes by itself.",
   ],
   [
     "A SLAB",
@@ -115,7 +115,7 @@ export function buildControls(show: (page: MenuPage) => void, back: MenuPage): H
     el(
       "p",
       "lead",
-      "A wave names one panel and that panel is the whole of what both of you have. They do not add up: there is no standard panel with a lance on it, there is a panel with a lance in it and a panel without one.",
+      "A wave names one panel and that panel is the whole of what both of you have. They do not add up: there is no standard panel with a maw on it, there is a panel with a maw on it and a panel without one.",
     ),
   );
   for (const set of CONTROL_SETS) page.append(panelBlock(set));

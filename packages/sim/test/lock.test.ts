@@ -153,7 +153,7 @@ describe("the promise the frame makes", () => {
     play(w, 8, [
       cannon(0, 0),
       grip(TPB, 1, 1),
-      { tick: TPB, player: 1, command: { kind: "prime", on: true } },
+      { tick: TPB, player: 2, command: { kind: "prime", on: true, color: "red" } },
       fire(TPB * 3, "red"),
     ]);
     expect(w.creatures).toHaveLength(0);

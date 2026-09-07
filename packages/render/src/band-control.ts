@@ -5,7 +5,7 @@ import { drawActionButton, drawFireButton } from "./controls.js";
 import { drawAimButton, drawSalvoButton } from "./controls-fleet.js";
 import { halo } from "./glow.js";
 import { guardLapse } from "./guard-lapse.js";
-import { drawLanceButton } from "./lance.js";
+import { lanceFillFor } from "./lance.js";
 import type { Circle, Layout } from "./layout.js";
 import { drawLobeGloss, drawLobeSocket } from "./lobe-shell.js";
 import { drawFaultOver } from "./malfunction-look.js";
@@ -132,12 +132,6 @@ function drawFace(
     );
     return;
   }
-  // Not a `drawActionButton`: the other two are lit or not, and this one has
-  // a length. See `drawLanceButton`.
-  if (c.id === "lance") {
-    drawLanceButton(ctx, x, y, r, world);
-    return;
-  }
   // THE PULSE's four, and it is the first *round* whose buttons are lobes on
   // the band rather than a slab panel of its own. The owner asked for that
   // round to look like the game it is part of, so its lanes stand in the same
@@ -159,7 +153,11 @@ function drawFace(
     drawSalvoButton(ctx, x, y, r, salvoRest(world), r > 16 ? c.label : null, skin.dead[0]);
     return;
   }
-  drawFireButton(ctx, x, y, r, c.id === "fireRed" ? "red" : "cyan", skin);
+  // The two colours, and the fill closing round whichever of them a thumb is
+  // resting on: a tap is a shot, a hold is a lance, and the ring is the only
+  // thing that says which one is happening (`lance.ts`).
+  const shot = c.id === "fireRed" ? "red" : "cyan";
+  drawFireButton(ctx, x, y, r, shot, skin, lanceFillFor(world, shot));
 }
 
 /** Which way each of player 2's four arrows points. */

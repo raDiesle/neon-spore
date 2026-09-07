@@ -1,4 +1,4 @@
-import { lanceReady } from "@neon-spore/sim";
+import type { World } from "@neon-spore/sim";
 import {
   aim,
   fresh,
@@ -57,7 +57,7 @@ const CONTROLS: Pose[] = [
   },
   {
     name: "LANCE · FILLING",
-    note: "Player 1's thumb is down and the cannon has not moved. The brackets climb the column as the lobe fills and the ring closes on the button — both players read the same fill.",
+    note: "Player 2 is holding a colour instead of tapping it, and player 1 has not moved the cannon. The beam climbs the column as the lobe fills and the ring closes on the button — both players read the same fill.",
     crop: "full",
     build: () => {
       const w = fresh();
@@ -69,16 +69,23 @@ const CONTROLS: Pose[] = [
   },
   {
     name: "LANCE · FULL",
-    note: "The mark is set and the next shot player 2 fires is a lance. Until they fire it, player 1 is holding a thumb and a column and can do nothing else with either.",
+    note: "The top of the fill, and the lance going by itself — nothing is pressed to send it. The whole screen takes the ammunition colour on the tick it leaves.",
     crop: "full",
     build: () => {
       const w = fresh();
       run(w, TPB, [aim(0, COL), prime(1, true)]);
-      until(w, "a full lobe", lanceReady);
+      until(w, "a lance leaving", lanceGone);
       run(w, 2);
       return w;
     },
   },
 ];
+
+/** A lance is in the air. The lobe fires itself at the top of the fill, so
+ * `lanceReady` is true for exactly one tick inside one step and can never be
+ * seen from outside it — the bullet is the observable (`sim/lance.ts`). */
+function lanceGone(w: World): boolean {
+  return w.bullets.some((b) => b.lance);
+}
 
 export const CONTROL_POSES = CONTROLS;

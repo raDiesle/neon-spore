@@ -6,7 +6,8 @@
  * what they are. Each is named here by the `Command` it actually sends, so
  * what a capture presses is the same thing a finger presses:
  *
- *   --hold prime                    THE LANCE, thumb down, lobe filling
+ *   --hold prime=red                THE LANCE: a thumb on red, lobe filling
+ *   --hold prime=cyan               the same on cyan
  *   --hold wardenTether=900         THE WARDEN's rope, 0.9 of a tile out
  *   --hold wardenTether=0,y=7000    the same rope, carried straight down
  *   --hold mazeString=1400          THE MAZE's wheel, most of a turn
@@ -40,9 +41,10 @@
  * reads its distance straight off the wire and does not need the grab, and a
  * leading zero costs it nothing.
  *
- * Player 1 always, and not a flag: every handle on this field is the pilot's
- * (`maze-string.ts`), and `prime` is the pilot's too. A seat argument here
- * would be a way to send a press the round would refuse.
+ * Player 1 for every handle on this field (`maze-string.ts`), and player 2 for
+ * `prime`, which is a thumb resting on one of the two colours (`sim/lance.ts`).
+ * Neither is a flag: a seat argument here would be a way to send a press the
+ * round would refuse.
  */
 export function parseHold(value: string): { player: 1 | 2; command: Record<string, unknown> }[] {
   const parts = value.split(",");
@@ -66,15 +68,22 @@ export function parseHold(value: string): { player: 1 | 2; command: Record<strin
   }
 
   if (target === "prime") {
-    if (milliText !== undefined || id !== undefined || yMilli !== undefined) {
-      throw new Error("--hold prime: a thumb on the lance takes no distance and no id");
+    if (id !== undefined || yMilli !== undefined) {
+      throw new Error("--hold prime: a thumb on a colour takes no distance and no id");
     }
-    return [{ player: 1, command: { kind: "prime", on: true } }];
+    // Which lobe. It is the whole of what a hold on a colour says, and the
+    // lance leaves in it (`sim/lance.ts`), so there is no sensible default and
+    // an omitted one is red rather than a guess dressed up as a choice.
+    const color = milliText ?? "red";
+    if (color !== "red" && color !== "cyan") {
+      throw new Error("--hold prime: a thumb is on red or on cyan");
+    }
+    return [{ player: 2, command: { kind: "prime", on: true, color } }];
   }
 
   const DRAGS = ["mazeString", "wardenTether", "lidString", "choirLeft", "choirRight"];
   if (!DRAGS.includes(target)) {
-    throw new Error(`--hold ${value}: unknown control. One of prime, ${DRAGS.join(", ")}`);
+    throw new Error(`--hold ${value}: unknown control. One of prime=red|cyan, ${DRAGS.join(", ")}`);
   }
   const fromMilli = milliText === undefined ? 1000 : Number(milliText);
   if (!Number.isFinite(fromMilli)) {

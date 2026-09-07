@@ -3,47 +3,44 @@ import type { GuideScene } from "../scene-types.js";
 /**
  * THE LANCE's rehearsal: one shot instead of three.
  *
- * The wave trades the maw for the lance — they are the same opening, and one
- * empties the other — and the lance is the only control in the game that is
- * paid for in *stillness*. Player 1 holds it and the lobe fills for as long as
- * the cannon does not move; a shot fired off a full one leaves slower and goes
- * straight through every body of its own colour rather than stopping at the
- * first.
+ * The wave adds no button at all. What it teaches is that **the colour is
+ * held**: player 2 keeps her thumb on the lobe instead of tapping it, the
+ * cannon lobe fills for as long as player 1 keeps the cannon still, and at the
+ * top of the fill the shot goes by itself — slower, and straight through every
+ * body of that colour rather than stopping at the first
+ * (`packages/sim/src/lance.ts`).
  *
- * **The wave had no guide at all until this film.** It carries a panel of its
- * own, so the maw a pair has used since SALVAGE is simply gone and a control
- * nothing had ever mentioned is in its place. `waves.test.ts` did not catch it
- * because the lance is a mechanic with `reach: "run"` — on from the first wave
- * to the last, carried by no wave's entries, so no wave *introduces* it and the
- * rule that asks for a guide could never fire.
+ * **The film is about a thumb that does nothing**, which is the one thing a
+ * still picture cannot show and the whole reason this wave has a rehearsal.
+ * Four pages. He gets under the column first, because sliding a column
+ * afterwards drops the fill back to nothing; then she holds, and the lobe
+ * closes round the button while the beam climbs the column on both screens;
+ * then it fires itself and takes all three.
  *
- * Four pages, and the middle two are the price. He gets under the column
- * first, because sliding a column afterwards empties the lobe; then he holds
- * and does nothing, which is the whole of the mechanic and the one thing a
- * still picture cannot show. The lobe reaches full as the last page opens, and
- * the shot on it takes all three.
+ * The thumb goes down and never comes up. `lancePrimeBeats` is three, so the
+ * lobe is full a hundred and eighty ticks later and the film ends with the
+ * finger still resting on a button that has already fired — which is exactly
+ * what a hold looks like, and a lift would be a page about letting go, the one
+ * thing this wave never wants anybody to do.
  */
 export const THE_LANCE: GuideScene = {
   ticks: 1080,
   bpm: 120,
   seed: 1,
   entries: [
-    { beat: 0, col: 2, color: "red" },
-    { beat: 1, col: 2, color: "red" },
-    { beat: 2, col: 2, color: "red" },
+    { beat: 0, col: 2, color: "cyan" },
+    { beat: 1, col: 2, color: "cyan" },
+    { beat: 2, col: 2, color: "cyan" },
   ],
   acts: [
     { tick: 350, control: "cannon", col: 3 },
     { tick: 390, control: "cannon", col: 2 },
-    // The thumb goes down and never comes up: `lancePrimeBeats` is three, so
-    // the lobe is full a hundred and eighty ticks later, and the film ends
-    // while it is still held. A lift would be a page about letting go, which
-    // is the one thing this wave never wants anybody to do.
-    { tick: 590, control: "lance" },
-    { tick: 850, control: "fireRed" },
+    // Held to the last tick of the film: `until` past `ticks` is a thumb that
+    // is still there when the loop comes round, which is what this page is.
+    { tick: 590, control: "fireCyan", until: 1080 },
   ],
   steps: [
-    { tick: 0, seat: 2, text: "THREE REDS, ONE COLUMN", anchor: { at: "body" } },
+    { tick: 0, seat: 2, text: "THREE CYAN, ONE COLUMN", anchor: { at: "body" } },
     {
       tick: 260,
       seat: 1,
@@ -52,15 +49,15 @@ export const THE_LANCE: GuideScene = {
     },
     {
       tick: 500,
-      seat: 1,
-      text: "HOLD IT · DO NOT MOVE",
-      anchor: { at: "control", control: "lance" },
+      seat: 2,
+      text: "HOLD IT · DO NOT TAP",
+      anchor: { at: "control", control: "fireCyan" },
     },
     {
-      tick: 760,
-      seat: 2,
+      tick: 830,
+      seat: 1,
       text: "ONE SHOT TAKES ALL THREE",
-      anchor: { at: "control", control: "fireRed" },
+      anchor: { at: "body" },
     },
   ],
 };

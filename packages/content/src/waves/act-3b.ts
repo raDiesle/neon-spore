@@ -49,19 +49,22 @@ export const WAVES_ACT_3B: Wave[] = [
   {
     id: "theLance",
     name: "THE LANCE",
-    sentence: "The one where three of the same colour arrive in one column.",
+    sentence:
+      "The one where three of the same colour arrive in one column and one shot takes all three.",
     guide: {
-      both: "The maw is gone from the panel and the lance is in its place. A shot fired off a full lance leaves slower and goes straight through every body of its own colour instead of stopping at the first.",
-      p1: "Get under the column, then hold LANCE and do not move. The lobe fills while the cannon stands still, and sliding a column empties it.",
-      p2: "Wait for it to fill and then fire the colour they are all in. One shot takes the lot — fired early it is an ordinary shot and takes one.",
+      both: "The panel is the one you have always had. What is new is that the colours are held as well as tapped: a thumb that stays on one fills the cannon lobe, and at the top of the fill it fires itself — slower, and straight through every body of that colour standing in the column.",
+      p1: "Get under the column and then do not move. The lobe fills while the cannon stands still, and sliding a column drops the fill back to nothing.",
+      p2: "Hold the colour they are all in instead of tapping it, and keep holding until it goes. Let go early and it is an ordinary shot and takes one.",
       scene: "theLance",
     },
     entries: [
-      { beat: 0, col: 2, color: "red" },
-      { beat: 1, col: 2, color: "red" },
-      { beat: 2, col: 2, color: "red" },
+      { beat: 0, col: 2, color: "cyan" },
+      { beat: 1, col: 2, color: "cyan" },
+      { beat: 2, col: 2, color: "cyan" },
+      { beat: 10, col: 5, color: "red" },
+      { beat: 11, col: 5, color: "red" },
+      { beat: 12, col: 5, color: "red" },
     ],
-    controls: "lance",
   },
   {
     id: "thePurge",

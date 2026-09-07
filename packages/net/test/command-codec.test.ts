@@ -9,7 +9,7 @@ const ACCEPTED: Command[] = [
   { kind: "guard" },
   { kind: "intake" },
   { kind: "grip", id: 12 },
-  { kind: "prime", on: true },
+  { kind: "prime", on: true, color: "cyan" },
   { kind: "brief" },
   { kind: "brief", on: false },
   { kind: "valve", on: true, dir: 1 },

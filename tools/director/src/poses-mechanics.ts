@@ -1,4 +1,4 @@
-import { lanceReady, laying, type World } from "@neon-spore/sim";
+import { laying, type World } from "@neon-spore/sim";
 import {
   aim,
   EVENT_CADENCE_SECONDS,
@@ -115,14 +115,14 @@ const MECHANICS: Pose[] = [
   },
   {
     name: "LANCE · IN FLIGHT",
-    note: "The same column at half the speed, with the cannon's own colour round the head. It passes through bodies of its own colour and stops at anything else.",
+    note: "The same column at half the speed, drawn as a ribbon rather than a dot with a tail — the ammunition's own colour, with nodules riding inside it. It passes through bodies of its own colour and stops at anything else.",
     crop: "tile",
     at: (w) => ({ col: w.bullets[0]?.col ?? COL, row: w.bullets[0]?.row ?? 8 }),
     build: () => {
       const w = fresh();
       run(w, TPB, [aim(0, COL), prime(1, true)]);
-      until(w, "a full lobe", lanceReady);
-      run(w, 40, [shoot(w.tick + 1, "red")]);
+      until(w, "a lance in the air", (x) => x.bullets.some((b) => b.lance));
+      run(w, 40);
       return w;
     },
   },

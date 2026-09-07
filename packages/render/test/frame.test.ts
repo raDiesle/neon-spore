@@ -91,15 +91,15 @@ describe("the guard lapsing", () => {
  * It used to be the latter, and the band drew no such plate any more: the owner
  * asked for the panel's name to come off the playing screen entirely, because a
  * label reading STANDARD 2 tells a player there is a STANDARD 3 (`band.ts`).
- * The lobes are the better witness anyway — the lance panel trades the maw for
- * the lance, so the two frames differ by which of those two buttons is on the
- * band, which is the difference the override actually makes.
+ * The lobes are the better witness anyway — THE CLAW's panel trades the maw and
+ * the colours for an arm and a mouth of its own, so the two frames differ by
+ * which buttons are on the band, which is the difference the override makes.
  */
 describe("the band draws the panel it is handed", () => {
-  const lance = CONTROL_SETS.find((s) => s.id === "lance");
-  if (!lance) throw new Error("no lance set registered");
+  const claw = CONTROL_SETS.find((s) => s.id === "claw");
+  if (!claw) throw new Error("no claw set registered");
 
-  function drawnNames(world: ReturnType<typeof createWorld>, controls?: typeof lance) {
+  function drawnNames(world: ReturnType<typeof createWorld>, controls?: typeof claw) {
     const { canvas, ctx } = stubCanvas();
     const renderer = new Canvas2DRenderer(canvas);
     renderer.resize(VIEWPORT);
@@ -124,18 +124,26 @@ describe("the band draws the panel it is handed", () => {
 
   it("follows an explicit override rather than the shipped wave at the same index", () => {
     const world = createWorld(CFG, 7, buildQueue(0, CFG.cols));
-    // world.wave is 0, and the shipped wave there is not the lance panel —
-    // proof that a match below cannot be `controlSetForWave` agreeing by luck.
-    expect(controlSetForWave(world.wave).id).not.toBe(lance.id);
-    const lanceLobe = control("lance").label;
+    // SALVAGE, the first wave played on the whole standard panel — so the
+    // shipped frame has a maw on it and the override's frame has an arm, which
+    // is a trade in both directions rather than a button added.
+    world.wave = 13;
+    expect(controlSetForWave(world.wave).id).not.toBe(claw.id);
+    const armLobe = control("reach").label;
     const mawLobe = control("intake").label;
 
     const shipped = drawnNames(world);
-    expect(shipped).not.toContain(lanceLobe);
-    const overridden = drawnNames(world, lance);
-    expect(overridden).toContain(lanceLobe);
+    expect(shipped).not.toContain(armLobe);
+    const overridden = drawnNames(world, claw);
+    expect(overridden).toContain(armLobe);
     // And the trade in the other direction, so the override is a whole panel
     // rather than a button added to the one the wave already had.
-    expect(overridden).not.toContain(mawLobe);
+    // `mawTake` on THE CLAW's panel wears the maw's own word, so the witness is
+    // the seat it is drawn in rather than the word: the shipped maw is player
+    // 1's and the claw moves the mouth to player 2 (`control-sets-table.ts`).
+    expect(shipped.filter((t) => t === mawLobe)).toHaveLength(1);
+    expect(overridden.filter((t) => t === mawLobe)).toHaveLength(1);
+    expect(shipped).toContain(control("shield").label);
+    expect(overridden).not.toContain(control("shield").label);
   });
 });

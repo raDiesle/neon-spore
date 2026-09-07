@@ -110,24 +110,24 @@ describe("holding the ready gate at a desk", () => {
 
   it("leaves F and G alone when no guide is up — neither is a button on any panel", () => {
     // F and G are the gate's two halves and nothing else. The lance used to be
-    // on F and is on S now, because a key belongs to a *slot* on the panel
-    // rather than to a control (`content/src/keys-desk.ts`) — so with no guide
-    // up these two say nothing at all, and the grip is G's own business.
-    const d = desk(false, "lance");
+    // on F, and there is no lance button at all now: the fill is on the colour
+    // keys, because a key belongs to a *slot* on the panel rather than to a
+    // control (`content/src/keys-desk.ts`).
+    const d = desk(false, "default");
     d.down("KeyF");
     expect(d.briefs(1)).toEqual([]);
     expect(d.sent.some((c) => c.command.kind === "prime")).toBe(false);
-    d.down("KeyS");
+    d.down("KeyQ");
     expect(d.sent.some((c) => c.command.kind === "prime")).toBe(true);
   });
 
   it("holds a control the panel puts on a key, and lets it go", () => {
-    // The lance is held, and nothing in the simulation empties it on its own.
-    // Which key it is on is the panel's answer; that a held one has a release
-    // is `controlPress`', and this is the two of them meeting.
-    const d = desk(false, "lance");
-    d.down("KeyS");
-    d.up("KeyS");
+    // The colours are held, and nothing in the simulation empties the lobe on
+    // its own. Which key one is on is the panel's answer; that a held one has
+    // a release is `controlPress`', and this is the two of them meeting.
+    const d = desk(false, "default");
+    d.down("KeyQ");
+    d.up("KeyQ");
     const primes = d.sent
       .filter((c) => c.command.kind === "prime")
       .map((c) => (c.command as { on?: boolean }).on);

@@ -8,18 +8,20 @@ import type { ControlSet } from "./control-sets.js";
  * questions everything asks one, and this is the list itself — the half that
  * grows by an entry every time a round or a rung is added.
  *
- * `default` is the ordinary field: slide, trigger, swallow, fire. It used to
- * carry the lance as well, which meant every wave in the game shipped a button
- * for a coupling only one of them asks for.
+ * `default` is the ordinary field: slide, trigger, swallow, fire. It carries
+ * the lance as well now, and carries it without a button: the two colours are
+ * **held** rather than tapped, and a thumb that stays on one fills the cannon
+ * lobe (`packages/sim/src/lance.ts`).
  *
- * `lance` is that coupling's own panel, and the interesting part is what it
- * gives up. It is **not** the default with a button added: the maw is gone.
- * That is not tidiness, it is the simulation's own arithmetic — the maw *is*
- * the cannon lobe turned inside out (docs/spec/systems.md 5.7), so `intake`
- * empties a fill (`applyCommand` in `packages/sim/src/commands.ts`). A panel
- * carrying both puts two buttons on one opening and one of them undoes the
- * other. Warding stays, because a rock has no other answer and a panel that
- * could never carry one would not be a panel, it would be a demonstration.
+ * **There used to be a LANCE PANEL, and the owner took it out on 7 September
+ * 2026.** It was the default with the maw traded for a fifth button, which
+ * meant the whole game shipped one wave that could reach a weapon and no other
+ * wave that could. A control every panel with a colour on it already has costs
+ * no panel anything, and the arithmetic that forced the trade is unchanged —
+ * the maw *is* the cannon lobe turned inside out (docs/spec/systems.md 5.7),
+ * so `intake` still empties a fill. It empties it under a thumb that is still
+ * there, which is a thing a player can see and answer, where a button that was
+ * not on the panel at all was not.
  *
  * **The four numbered STANDARDs are the ladder**, and they are the one place
  * in here where a set is written as *less* of another one (`ControlSet.reduces`).
@@ -65,12 +67,6 @@ export const CONTROL_SETS: readonly ControlSet[] = [
     why: "Player 2 gets the plate itself, so a ward is two hands again. The maw is the last thing held back.",
     reduces: "default",
     controls: ["cannon", "guard", "shield", "fireRed", "fireCyan"],
-  },
-  {
-    id: "lance",
-    name: "LANCE PANEL",
-    why: "The maw traded for the lance, because they are the same opening and one empties the other.",
-    controls: ["cannon", "guard", "lance", "shield", "fireRed", "fireCyan"],
   },
   {
     id: "gauge",

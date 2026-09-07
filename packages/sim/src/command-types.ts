@@ -46,12 +46,19 @@ export type Command =
    */
   | { kind: "grip"; id: number }
   /**
-   * Player 1's thumb on the lance, down (`on`) and up again. The hold is the
-   * whole of it: the lobe fills for as long as the thumb stays and the cannon
-   * stands still, and nothing in the simulation keeps it filled once the
-   * thumb lifts (`lance.ts`).
+   * **Player 2's thumb on a colour**, down (`on`) and up again — which is the
+   * whole of the trigger since the lance lost its own button.
+   *
+   * The press says nothing but *held*; the lift is the ordinary shot, in this
+   * colour. Held long enough and the lobe fills and fires a lance by itself,
+   * and then the lift owes nothing (`lance.ts`).
+   *
+   * `color` rides on both halves. It is on the way down because the fill has
+   * to know what it will fire without asking a button that is a long way away
+   * by then, and on the way up because a lift is a shot and a shot has a
+   * colour — the same value twice, from the one thumb that knows it.
    */
-  | { kind: "prime"; on: boolean }
+  | { kind: "prime"; on: boolean; color: Color }
   /**
    * This seat's thumb on the wave's opening. Both seats have to be done before
    * the wave moves — neither was shown the whole guide (`briefing.ts`).

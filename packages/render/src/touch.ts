@@ -1,4 +1,4 @@
-import { type ControlSet, type Point, setHas } from "@neon-spore/content";
+import { type ControlSet, controlPress, type Point, setHas } from "@neon-spore/content";
 import type { Command } from "@neon-spore/sim";
 import { NO_GRIP } from "@neon-spore/sim";
 import { creatureAt } from "./creature-place.js";
@@ -231,8 +231,14 @@ export function touchUp(l: Layout, hold: Hold, field: Field, at?: Point): Touch 
     const color = at === undefined ? null : swipeColor(l, hold.originX, at.x, hold.only);
     return color === null ? null : { player: 2, command: { kind: "fire", color }, hold: null };
   }
-  if (hold.kind === "lance") {
-    return { player: 1, command: { kind: "prime", on: false }, hold: null };
+  // A thumb lifting off a lobe it was resting on — the two colours, which is
+  // every held lobe there is. What that says is the control's own release,
+  // asked for rather than spelled out here: a second copy of "what letting go
+  // of red means" is exactly the drift `control-command.ts` was written to
+  // end.
+  if (hold.kind === "held") {
+    const up = controlPress(hold.control).up;
+    return up ? { player: hold.player, command: up, hold: null } : null;
   }
   if (hold.kind === "drag") {
     return { player: hold.player, command: dragging(hold, 0, 0, false), hold: null };

@@ -3,7 +3,7 @@ import { choirShaken } from "./choir-gesture.js";
 import { closeGauge } from "./gauge-round.js";
 import { gripsCreature, setGrip } from "./grip.js";
 import { armShield } from "./hull-guard.js";
-import { endPrime, startPrime } from "./lance.js";
+import { endPrime, primeChargeMilli, priming, spillPrime, startPrime } from "./lance.js";
 import { faultSwallows } from "./malfunction.js";
 import { mazeHeard } from "./maze-controls.js";
 import { mirrorHeard, mirrorHoldsControls } from "./mirror.js";
@@ -13,7 +13,7 @@ import { resetRun } from "./run.js";
 import { endCharge } from "./shot-charge.js";
 import { fireStep } from "./simon.js";
 import { closeSnake } from "./snake-round.js";
-import { bodyCenterCol, type TimedCommand } from "./types.js";
+import { bodyCenterCol, type Color, type TimedCommand } from "./types.js";
 import type { World } from "./world.js";
 
 /**
@@ -79,9 +79,15 @@ export function applyCommand(world: World, timed: TimedCommand): void {
       if (world.cannonCol !== from) {
         mirrorHeard(world, world.cannonCol > from ? "cannonRight" : "cannonLeft");
         // The mark is on a column. A cannon that leaves the column it was
-        // filling in has nothing left to have marked, so the lobe empties —
-        // which is the whole reason priming costs anything (`lance.ts`).
-        endPrime(world);
+        // filling in has nothing left to have marked, so the fill drops to
+        // nothing and starts again — which is the whole reason a fill costs
+        // anything, and the half of the coupling player 1 holds.
+        //
+        // Reset and not cleared: the thumb is player 2's now, and a slide that
+        // silently ate the shot she was owed would make the trigger unusable
+        // on every wave where the cannon moves, which is all of them
+        // (`spillPrime` in `lance.ts`).
+        if (spillPrime(world)) world.events.push({ type: "lanceSpilled", col: from });
       }
       break;
     }
@@ -120,32 +126,44 @@ export function applyCommand(world: World, timed: TimedCommand): void {
       world.intakeTick = world.tick;
       mirrorHeard(world, "intake");
       // The maw *is* the cannon lobe, turned inside out (docs/spec/systems.md
-      // 5.7). Whatever was filling it goes out of the same opening.
+      // 5.7). Whatever was filling it goes out of the same opening — and, like
+      // a cannon that slid, it empties the fill without taking the shot the
+      // thumb is owed.
+      if (spillPrime(world)) world.events.push({ type: "lanceSpilled", col: world.cannonCol });
+      break;
+    case "prime": {
+      // **A thumb on a colour**, which is the whole of the trigger now: the
+      // press starts the fill and says nothing, and the lift is the shot.
+      //
+      // A tap is therefore an ordinary bolt fired a few hundredths of a second
+      // after the finger landed rather than on the instant it did, and that is
+      // the one thing this costs. It buys the hold: a press that fired
+      // immediately would put a wasted bolt at the front of every lance, and
+      // the lesson the pair is being taught is that **one** shot takes the
+      // column (`lance.ts`).
+      if (c.on) {
+        startPrime(world, c.color);
+        break;
+      }
+      // The lift. A lobe that never came full owes the ordinary shot, in the
+      // colour that was held — and what was in it is lost, which is the spill
+      // the lance has always reported. One that has already fired owes nothing.
+      const held = world.prime;
+      const owed = priming(world) && held !== null;
+      const spill = owed && primeChargeMilli(world) > 0;
       endPrime(world);
-      break;
-    case "prime":
-      // The hold itself. THE MIRROR is not listening for it — the lance is not
-      // in its vocabulary (`simon.ts`), and a sequence cannot ask for one.
-      if (c.on) startPrime(world);
-      else endPrime(world);
-      break;
-    case "fire": {
-      // The ids this press is about to hand out, so a shot the drum swallows
-      // can be told from one that was already in the air up the same column.
-      const before = world.nextId;
-      fire(world, c.color);
-      mirrorHeard(world, fireStep(c.color));
-      // And THE MAZE hears it too. When a gap is standing on the cannon's
-      // column the drum *takes* the shot: the bullet this press produced is
-      // dropped, and from there the whole journey — up the field, in through
-      // the gap and round the corridors — is the maze's own picture of it
-      // (`maze-controls.ts`). Everything else about the press already
-      // happened, so the cooldown and the lobe are spent either way.
-      if (mazeHeard(world, c.color)) {
-        world.bullets = world.bullets.filter((b) => b.id < before);
+      if (owed && held !== null) {
+        firePress(world, held.color);
+        if (spill) world.events.push({ type: "lanceSpilled", col: world.cannonCol });
       }
       break;
     }
+    case "fire":
+      // The swipe on the muzzle, and every caller with no thumbs — a
+      // rehearsal, a replay, the director's loop. The lobes send `prime` and
+      // arrive here through its lift.
+      firePress(world, c.color);
+      break;
     case "grip": {
       // Either seat may send this one, so it is the player on the command
       // that decides whose hand it is — not the control it arrived beside.
@@ -161,6 +179,31 @@ export function applyCommand(world: World, timed: TimedCommand): void {
       }
       break;
     }
+  }
+}
+
+/**
+ * One ordinary shot, and everything else that is listening for one.
+ *
+ * Two commands reach it — the muzzle swipe's `fire` and the lift of a hold on
+ * a colour — and both have to be heard by THE MIRROR and by THE MAZE. Written
+ * once, because a sequence that counted one of them and not the other would be
+ * a sequence a pair could not finish.
+ */
+function firePress(world: World, color: Color): void {
+  // The ids this press is about to hand out, so a shot the drum swallows
+  // can be told from one that was already in the air up the same column.
+  const before = world.nextId;
+  fire(world, color);
+  mirrorHeard(world, fireStep(color));
+  // And THE MAZE hears it too. When a gap is standing on the cannon's
+  // column the drum *takes* the shot: the bullet this press produced is
+  // dropped, and from there the whole journey — up the field, in through
+  // the gap and round the corridors — is the maze's own picture of it
+  // (`maze-controls.ts`). Everything else about the press already
+  // happened, so the cooldown and the lobe are spent either way.
+  if (mazeHeard(world, color)) {
+    world.bullets = world.bullets.filter((b) => b.id < before);
   }
 }
 

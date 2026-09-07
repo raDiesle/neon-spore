@@ -25,16 +25,21 @@ export function lobeMeans(id: ControlId): { command: Command; hold: Hold | null 
   switch (id) {
     case "guard":
     case "intake":
-    case "fireRed":
-    case "fireCyan":
     // THE CLAW's two. Both are on a *band* rather than on slabs — the panel is
     // a control set on the ordinary field, so its lobes are answered here like
     // every other lobe in the game and no listener of its own exists.
     case "reach":
     case "mawTake":
       return { command: controlPress(id).down, hold: null };
-    case "lance":
-      return { command: controlPress(id).down, hold: { kind: "lance" } };
+    // **The two colours are held.** The press says only that a thumb is there;
+    // the lift is the ordinary shot, and a thumb that stays fills the cannon
+    // lobe and fires a lance by itself (`sim/lance.ts`). The hold carries the
+    // id rather than the colour because what lifting sends is the control's
+    // own release, asked for where every other control's is
+    // (`content/src/control-command.ts`).
+    case "fireRed":
+    case "fireCyan":
+      return { command: controlPress(id).down, hold: { kind: "held", control: id, player: 2 } };
     // THE FLEET's five. The salvo is one press and is over the moment it
     // happens; each arrow is one square and is over just as fast — there is
     // nothing held here, which is why a hold would be wrong: a thumb resting

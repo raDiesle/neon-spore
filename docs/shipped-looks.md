@@ -320,22 +320,39 @@ the field on an arrival the cannon answers by cutting rather than by killing.
 
 ## Bullets
 
-`packages/render/src/bullets.ts`. Two looks, one shape.
+`packages/render/src/bullets.ts`. One look and one shape, since the lance grew
+a picture of its own.
 
-| | shot | lance |
-|---|---|---|
-| tail width | 2 | 5 |
-| tail alpha | 0.35 | 0.6 |
-| tail length | `frac` — how far through the tile the head is | `frac` |
+| | shot |
+|---|---|
+| tail width | 2 |
+| tail alpha | 0.35 |
+| tail length | `frac` — how far through the tile the head is |
 
 A straight line from the head back up the column, then a halo and the head
 itself. The reason given in the file is the whole of it: *a tail behind the
-head, so the direction is legible even at twelve tiles a beat*. A lance is half
-the speed, so the same tail is twice the object.
+head, so the direction is legible even at twelve tiles a beat*.
 
 This is the only tail in the game that is a plain hard line, which is why
 `STREAK` is on the TAIL axis — the question it asks is whether the thing that
 works for a point works for a body.
+
+**A lance is not this at all** (`packages/render/src/lance-beam.ts`). It is a
+ribbon three and a half tiles long whose two edges waver in opposite phases, so
+it swells and pinches along its length; three nodules ride inside it, and the
+head carries a white filament, a halo and a ring of the cannon's own colour.
+The wave is a function of where the shot *is* — `row` and `subMilli`, which
+both devices agree about to the thousandth — so the ripple travels because the
+shot travels and no clock is involved. It was asked for by name on 7 September
+2026: *make the beam shot of lance more spectaculous, in the colour of the
+cannon shot*.
+
+Two more looks arrived with it, and neither replaces anything:
+`packages/render/src/lance.ts` draws the fill as a beam growing out of the
+muzzle — white at the core, the ammunition colour at its edges, widening as it
+fills — in place of the two white brackets that used to climb the column; and
+`packages/render/src/lance-flash.ts` washes the whole stage in the ammunition
+colour on the tick the shot leaves.
 
 ## Where this is decided from now on
 

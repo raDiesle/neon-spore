@@ -61,7 +61,8 @@ const SEAT_OF: Record<string, 1 | 2 | "either"> = {
   cannonCol: 1,
   guard: 1,
   intake: 1,
-  prime: 1,
+  // A thumb on a colour: it fills the cannon lobe (`sim/lance.ts`).
+  prime: 2,
   // THE FLEET's pair, and the seat check on them is the fight itself: the
   // pilot holds the only trigger and the navigator the only sights, and the
   // round refuses either one from the other chair (`sim/fleet.ts`).
@@ -207,8 +208,13 @@ function commandFor(
       }
       return { kind, id };
     }
-    case "prime":
-      return { kind, on: true };
+    case "prime": {
+      const color = needs();
+      if (color !== "red" && color !== "cyan") {
+        throw new Error(`--press ${whole}: "${one}" — a thumb is on red or on cyan`);
+      }
+      return { kind, on: true, color };
+    }
     case "aim": {
       const step = AIM_STEPS[needs()];
       if (!step) {

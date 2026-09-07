@@ -4,9 +4,10 @@ import type { ViewRole } from "../src/layout.js";
 import { CFG, installCanvasGlobals, ROLES, runFrames } from "./frame-harness.js";
 
 /**
- * A lobe filling, coming full and going out as a lance. The mark on the field,
- * the ring on the button and the shot in flight are the three things THE LANCE
- * adds to a frame, and none of them is reached by a run with no commands in it.
+ * A lobe filling, coming full and going out as a lance by itself. The beam in
+ * the column, the ring closing round the colour button, the shot in flight and
+ * the wash it throws over the whole stage are the four things THE LANCE adds to
+ * a frame, and none of them is reached by a run with no commands in it.
  */
 
 beforeAll(installCanvasGlobals);
@@ -17,23 +18,22 @@ function lanceFrames(role: ViewRole, ticks: number) {
     { beat: 1, col: 3, kind: "slick", color: "red" },
     { beat: 2, col: 3, kind: "slick", color: "red" },
   ];
-  const full = CFG.lancePrimeBeats * ticksPerBeat(CFG);
+  // The thumb goes down on red and never comes up: the lobe fills for three
+  // beats and the lance leaves on its own (`sim/lance.ts`).
   return runFrames(createWorld(CFG, 5, queue), role, ticks, {
     onTick: (tick, world) => {
       const inputs =
         tick === 0
           ? [{ tick, player: 1 as const, command: { kind: "cannonCol" as const, col: 3 } }]
           : tick === 1
-            ? [{ tick, player: 1 as const, command: { kind: "prime" as const, on: true } }]
-            : tick === full + 2
-              ? [
-                  {
-                    tick,
-                    player: 2 as const,
-                    command: { kind: "fire" as const, color: "red" as const },
-                  },
-                ]
-              : [];
+            ? [
+                {
+                  tick,
+                  player: 2 as const,
+                  command: { kind: "prime" as const, on: true, color: "red" as const },
+                },
+              ]
+            : [];
       step(world, inputs);
     },
   });

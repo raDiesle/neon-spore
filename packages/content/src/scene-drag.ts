@@ -1,0 +1,127 @@
+import type { DragTarget, SceneCommand, SimConfig } from "@neon-spore/sim";
+import { actCol } from "./scene-script.js";
+import type { SceneAct } from "./scene-types.js";
+
+/**
+ * **A hand carrying a handle**, turned into the stream of `drag` messages a
+ * rehearsal's runner sends — how far, along which axis, and in how many steps.
+ *
+ * Cut off `scene-script.ts` when that file went over its 250-line limit, along
+ * the seam it already had a heading at. Next door is what a *press* is, which
+ * is one command and at most one release; this is the one act that is a dozen,
+ * and the only one that has to know anything about the handles themselves —
+ * how far each of them goes, and which way.
+ */
+
+/**
+ * How far a handle is carried when the film does not say: as far as it goes.
+ *
+ * The three numbers are the simulation's own, and are read off the config
+ * rather than repeated here — `packages/sim/test/purity.test.ts` exists to
+ * catch exactly the second copy this would otherwise be.
+ */
+function tautMilli(target: DragTarget, cfg: SimConfig): number {
+  if (target === "lidString") return cfg.lidTautMilli;
+  if (target === "wardenTether") return cfg.wardenTautMilli;
+  // A held body has no taut at all — it is carried a tile at a time and may be
+  // carried again — so what a film that does not say means is one column.
+  if (target === "gripBody") return cfg.gripPushMilli;
+  // An arrow has no taut either: it does not travel, it is a switch a hand
+  // throws, and the distance is the one that counts as thrown
+  // (`choirArrowHeard`). The side is read off the target rather than authored —
+  // carrying one the wrong way is a thing the *pair* can do and not a thing a
+  // film would be written to do.
+  if (target === "choirLeft") return -cfg.choirPullMilli;
+  if (target === "choirRight") return cfg.choirPullMilli;
+  return cfg.mazeTurnMilli;
+}
+
+/**
+ * Which way a handle is carried.
+ *
+ * **Down**, for the two that are pulled: a pull is clamped to stay on the
+ * field (`sim/handle-pull.ts`), and down is the one direction the field always
+ * has room for from where a cord or a rope hangs. Carried sideways by the same
+ * distance, a lid in the third column runs out of field and is clipped short
+ * of taut — the plates then never part, which is a film that shows the gesture
+ * and not the point of it.
+ *
+ * **Across**, for the ones that are not pulled at all: a wheel is turned by the
+ * x of the hand and nothing else (`sim/maze-controls.ts`), a held body is
+ * carried into a *column* (`sim/grip-push.ts`), and an arrow is carried
+ * **outward** off its own edge — the sign of `fromMilli` and nothing else.
+ */
+function pullsDown(target: DragTarget): boolean {
+  return (
+    target !== "mazeString" &&
+    target !== "gripBody" &&
+    target !== "choirLeft" &&
+    target !== "choirRight"
+  );
+}
+
+/**
+ * A hand on a cord, carried and let go.
+ *
+ * **It travels rather than jumping.** A single command at the taut distance
+ * would be a hand that teleported, and the whole of what a page about a handle
+ * has to show is the carrying: the plates parting, the hatch coming up. So the
+ * pull is a handful of commands from the grab to the far end, which is also
+ * what a real thumb sends — a `drag` is cumulative from the grab, so each one
+ * supersedes the last and a film that drops one heals itself
+ * (`sim/command-types.ts`).
+ *
+ * The seat is the pilot's for all three targets and is not authored: the
+ * navigator carries both colours and fires, so a handle either of them could
+ * reach would be a round one phone could play (`render/handles.ts`).
+ */
+export function dragCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
+  const target = act.drag as DragTarget;
+  const to = act.toMilli ?? tautMilli(target, cfg) * (act.dir ?? 1);
+  const until = act.until ?? act.tick;
+  // The carry and the letting go are two clocks, not one. A film about a lid
+  // has to fire *while* the cord is held — the plates shut the instant it is
+  // released — so the hand reaches the end of its travel at `by` and stays
+  // there until `until`. Absent, they are the same tick, which is a hand that
+  // carries and immediately lets go.
+  const span = Math.max(1, (act.by ?? until) - act.tick);
+  const steps = Math.max(1, Math.min(PULL_STEPS, span));
+  const out: SceneCommand[] = [];
+  for (let i = 0; i < steps; i++) {
+    const at = act.tick + Math.round((span * i) / steps);
+    out.push({
+      tick: at,
+      player: 1,
+      command: {
+        kind: "drag",
+        target,
+        on: true,
+        ...carry(target, Math.round((to * i) / (steps - 1 || 1))),
+      },
+      // Every one of them, not only the grab: a lid may have fallen a row
+      // between two of these, and the id is the address of the cord rather
+      // than of where it was.
+      // A held body needs no column: it is named by the hand that is already
+      // on it, which is the only address that survives the body being carried
+      // out of the column it was found in (`sim/scene-aim.ts`).
+      ...(target === "lidString" ? { dragCol: actCol(act, cfg.cols) } : {}),
+    });
+  }
+  out.push({
+    tick: until,
+    player: 1,
+    command: { kind: "drag", target, on: false, ...carry(target, 0) },
+  });
+  return out;
+}
+
+/** How many messages one carry is spelled in. Enough that the plates are seen
+ * parting rather than found apart, and few enough to stay a gesture. */
+const PULL_STEPS = 6;
+
+/** One distance, on the axis this handle is carried along. */
+function carry(target: DragTarget, milli: number): { fromMilli: number; fromYMilli: number } {
+  return pullsDown(target)
+    ? { fromMilli: 0, fromYMilli: milli }
+    : { fromMilli: milli, fromYMilli: 0 };
+}

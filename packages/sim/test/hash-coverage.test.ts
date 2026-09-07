@@ -272,7 +272,7 @@ describe("the fingerprint covers the world", () => {
         "podQueue",
         "podSpawned",
         "pods",
-        "primeTick",
+        "prime",
         "pushP1",
         "pushP2",
         "queue",

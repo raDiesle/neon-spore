@@ -65,7 +65,7 @@ export interface KeyBindings {
  * **The keyboard is gated by the wave's control set**, and it used to be the
  * opposite. The argument for leaving it open was that this file is the desk
  * rig — one person driving both seats, in every view — and that gating it
- * would stop a tester reaching the lance without first finding the wave that
+ * would stop a tester reaching a control without first finding the wave that
  * carries it. The owner reversed it in one sentence: *the active control set
  * also must fit the keyboard bindings, so if no cannon is visible, no cannon
  * shot is possible.* He is right, and THE CLAW is what made it obvious — a

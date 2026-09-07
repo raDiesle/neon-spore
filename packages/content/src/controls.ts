@@ -22,7 +22,6 @@ export type ControlId =
   | "cannon"
   | "guard"
   | "intake"
-  | "lance"
   | "shield"
   | "fireRed"
   | "fireCyan"
@@ -86,8 +85,9 @@ export interface ControlDef {
    * (`render/src/touch-ship.ts`): the cannon carries itself, the maw on a lift
    * that went nowhere, and — on player 2's screen — a colour on a lift that
    * went sideways; the plate carries its own aim and the other seat's trigger.
-   * The lance has no gesture on the ship, and a round's own slabs are a panel
-   * and nothing else.
+   * A round's own slabs are a panel and nothing else. The muzzle's swipe is a
+   * tap and only a tap: a hold on the hull has no lobe to draw a fill round,
+   * so the lance is the band's and the ship's way in stays the quick one.
    *
    * It is here rather than in a switch beside the hit test because three
    * places now ask it: the hit test, the hand a guide's rehearsal draws when a
@@ -144,13 +144,6 @@ export const CONTROLS: readonly ControlDef[] = [
     does: "The maw, on the seat that does not hold the arm. A pod the claw brings home is only caught if this is open when it arrives, which is what makes the catch two hands.",
   },
   {
-    id: "lance",
-    player: 1,
-    form: "lobe",
-    label: "LANCE",
-    does: "Held, not tapped. Fills the cannon lobe for as long as the cannon stays still.",
-  },
-  {
     id: "shield",
     player: 2,
     form: "strip",
@@ -163,7 +156,7 @@ export const CONTROLS: readonly ControlDef[] = [
     player: 2,
     form: "lobe",
     label: "RED",
-    does: "Fires red up whichever column player 1 is standing in.",
+    does: "Tap and it fires red up whichever column player 1 is standing in. Hold it and the cannon lobe fills instead, and a lance goes at the top of the fill — red through every red body in the column (`sim/lance.ts`).",
     ship: "cannon",
   },
   {
@@ -171,7 +164,7 @@ export const CONTROLS: readonly ControlDef[] = [
     player: 2,
     form: "lobe",
     label: "CYAN",
-    does: "Fires cyan up whichever column player 1 is standing in.",
+    does: "Tap and it fires cyan up whichever column player 1 is standing in. Hold it and the cannon lobe fills instead, and a lance goes at the top of the fill — cyan through every cyan body in the column (`sim/lance.ts`).",
     ship: "cannon",
   },
   ...ROUND_CONTROLS,

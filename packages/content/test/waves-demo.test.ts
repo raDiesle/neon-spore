@@ -101,11 +101,20 @@ describe("the three waves added for the demonstrations", () => {
     }
   });
 
-  it("puts three of one colour in one column for THE LANCE", () => {
+  it("puts three of each colour in a column of its own for THE LANCE", () => {
+    // Two columns and nothing else: a wave of one colour could be played by
+    // holding whichever lobe the pair happened to press first, and the hold is
+    // about the colour under the thumb (`sim/lance.ts`).
     const queue = buildQueue(index("THE LANCE"), DEFAULT_CONFIG.cols);
-    expect(queue).toHaveLength(3);
-    expect(new Set(queue.map((q) => q.col)).size).toBe(1);
-    expect(new Set(queue.map((q) => q.color)).size).toBe(1);
+    expect(queue).toHaveLength(6);
+    const byColor = new Map<string, Set<number>>();
+    for (const q of queue) {
+      const cols = byColor.get(String(q.color)) ?? new Set<number>();
+      cols.add(q.col);
+      byColor.set(String(q.color), cols);
+    }
+    expect([...byColor.keys()].sort()).toEqual(["cyan", "red"]);
+    for (const cols of byColor.values()) expect(cols.size).toBe(1);
   });
 
   it("plays each of them to the same fingerprint twice", () => {

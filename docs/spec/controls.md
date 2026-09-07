@@ -25,7 +25,9 @@
 ## Two kinds of control
 
 **Panel controls** are the strip and lobes below the field — SHIELD, SUCK,
-the lance, the guard, the two colours. A wave names exactly one `ControlSet`
+the two colours. The colours are the only ones that do two things: tapped they
+fire, held they fill the cannon lobe and a lance goes at the top of the fill
+([couplings](couplings.md) 2). A wave names exactly one `ControlSet`
 (`packages/content/src/control-sets.ts`) and that set decides the whole
 panel, never a combination of two. Every control on it is a `ControlDef`
 (`packages/content/src/controls.ts`): a label, whose half of the band it
@@ -149,8 +151,8 @@ them apart: carry it and it slides, let go without having carried it anywhere
 and the maw opens. That is the owner's own answer to the maw having no way onto
 the field — the press sends the same `cannonCol` either way, so the gesture
 costs the slide nothing. It is offered only on a panel that carries a maw at
-all: a wave on the lance panel hands back a hold with no origin on it, so no
-lift of it can open an opening the lance is already using.
+all: a wave on a panel without one hands back a hold with no origin on it, so
+no lift of it can open an opening that is not there.
 
 **Nothing in the game teaches any of this**, and that is a decision rather than
 a gap. SHIELD, THEN CANNON carried a five-page rehearsal of these gestures

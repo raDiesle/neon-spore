@@ -5,10 +5,10 @@ import { drawOtherHand } from "../src/other-hand.js";
 import { installCanvasGlobals, StubContext } from "./canvas-stub.js";
 
 /**
- * THE OTHER HAND: presence, not progress. A thumb on the lance is the only
- * hold the simulation can honestly report back (`other-hand.ts` says why),
- * so this checks exactly that boundary — on while primed, off the instant
- * `prime` ends, and never a crash on the strict canvas either way.
+ * THE OTHER HAND: presence, not progress. A thumb resting on a colour is the
+ * only hold the simulation can honestly report back (`other-hand.ts` says
+ * why), so this checks exactly that boundary — on while it is down, off the
+ * instant it lifts, and never a crash on the strict canvas either way.
  */
 
 const CFG = DEFAULT_CONFIG;
@@ -20,19 +20,21 @@ beforeAll(installCanvasGlobals);
 
 function primedWorld() {
   const world = createWorld(CFG, 1);
-  step(world, [{ tick: world.tick, player: 1, command: { kind: "prime", on: true } }]);
+  step(world, [
+    { tick: world.tick, player: 2, command: { kind: "prime", on: true, color: "red" } },
+  ]);
   return world;
 }
 
 describe("drawOtherHand", () => {
-  it("draws nothing while no thumb is on the lance", () => {
+  it("draws nothing while no thumb is on a colour", () => {
     const world = createWorld(CFG, 1);
     const ctx = new StubContext();
     drawOtherHand(ctx as unknown as CanvasRenderingContext2D, L, world, 0, MOOD, AT);
     expect(ctx.calls).toBe(0);
   });
 
-  it("draws a glow the instant the lance is held", () => {
+  it("draws a glow the instant a colour is held", () => {
     const world = primedWorld();
     const ctx = new StubContext();
     drawOtherHand(ctx as unknown as CanvasRenderingContext2D, L, world, 0, MOOD, AT);
@@ -41,7 +43,9 @@ describe("drawOtherHand", () => {
 
   it("stops the moment the thumb lifts, same tick it would end the fill", () => {
     const world = primedWorld();
-    step(world, [{ tick: world.tick, player: 1, command: { kind: "prime", on: false } }]);
+    step(world, [
+      { tick: world.tick, player: 2, command: { kind: "prime", on: false, color: "red" } },
+    ]);
     const ctx = new StubContext();
     drawOtherHand(ctx as unknown as CanvasRenderingContext2D, L, world, 0, MOOD, AT);
     expect(ctx.calls).toBe(0);

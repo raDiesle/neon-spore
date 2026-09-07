@@ -110,7 +110,7 @@ export function decodeCommand(x: unknown): Command | null {
     case "grip":
       return isNonNegInt(c.id) ? { kind: "grip", id: c.id } : null;
     case "prime":
-      return isBool(c.on) ? { kind: "prime", on: c.on } : null;
+      return isBool(c.on) && isColor(c.color) ? { kind: "prime", on: c.on, color: c.color } : null;
     case "brief":
       return optional(c.on, isBool) ? { kind: "brief", on: c.on as boolean | undefined } : null;
     case "guideStep":

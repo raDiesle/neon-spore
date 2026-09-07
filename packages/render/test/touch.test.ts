@@ -2,6 +2,7 @@ import { describe, expect, it } from "bun:test";
 import {
   CONTROL_SETS,
   type ControlSet,
+  controlPress,
   controlSet,
   MAZE_ROUNDS,
   setControls,
@@ -30,7 +31,7 @@ const CFG = DEFAULT_CONFIG;
 const layout = (role: ViewRole) => computeLayout({ width: 420, height: 900, dpr: 2 }, CFG, role);
 
 const STANDARD = controlSet("default");
-const LANCE = controlSet("lance");
+const CLAW = controlSet("claw");
 const ROLES: ViewRole[] = ["p1", "p2", "test"];
 
 function field(seat: 1 | 2 = 1, controls: ControlSet = STANDARD): Field {
@@ -100,42 +101,52 @@ describe("a press on the band", () => {
     });
     const red = drawnAt("test", STANDARD, "fireRed");
     if (!red) throw new Error("the standard panel has no red");
+    // A colour is *held*: the press says only that a thumb is there, and the
+    // lift is the shot (`sim/lance.ts`).
     expect(touchDown(l, red.x, red.y, field())).toEqual({
       player: 2,
-      command: { kind: "fire", color: "red" },
-      hold: null,
+      command: { kind: "prime", on: true, color: "red" },
+      hold: { kind: "held", control: "fireRed", player: 2 },
     });
   });
 
-  it("gives the lance panel a button that is held rather than tapped", () => {
-    const lance = drawnAt("test", LANCE, "lance");
-    if (!lance) throw new Error("the lance panel has no lance");
-    expect(touchDown(l, lance.x, lance.y, field(1, LANCE))).toEqual({
-      player: 1,
-      command: { kind: "prime", on: true },
-      hold: { kind: "lance" },
-    });
-    // The lift is the other half: nothing in the simulation empties a lobe on
-    // its own, so a thumb coming off has to be sent.
-    expect(touchUp(l, { kind: "lance" }, field(1, LANCE))).toEqual({
-      player: 1,
-      command: { kind: "prime", on: false },
-      hold: null,
-    });
+  it("makes both colours held rather than tapped, and sends the lift", () => {
+    for (const [id, color] of [
+      ["fireRed", "red"],
+      ["fireCyan", "cyan"],
+    ] as const) {
+      const at = drawnAt("test", STANDARD, id);
+      if (!at) throw new Error(`the standard panel has no ${id}`);
+      expect(touchDown(l, at.x, at.y, field(2))).toEqual({
+        player: 2,
+        command: { kind: "prime", on: true, color },
+        hold: { kind: "held", control: id, player: 2 },
+      });
+      // The lift is the other half: nothing in the simulation empties a lobe
+      // on its own, so a thumb coming off has to be sent — and it is what
+      // fires the ordinary shot.
+      expect(touchUp(l, { kind: "held", control: id, player: 2 }, field(2))).toEqual({
+        player: 2,
+        command: { kind: "prime", on: false, color },
+        hold: null,
+      });
+    }
   });
 
   /**
    * The one the owner caught. When the lance came off the ordinary panel the
    * button stopped being drawn and went on being *pressable*: the layout still
    * handed out a fixed circle for it and this file still answered that circle,
-   * so every wave in the game had a lance under an empty patch of band.
+   * so every wave in the game had a lance under an empty patch of band. The
+   * lance has no button at all now; THE CLAW's arm stands in the same place
+   * and asks the same question.
    */
   it("answers nothing where a control this wave did not ask for would be", () => {
     for (const role of ["p1", "test"] as const) {
-      const lance = drawnAt(role, LANCE, "lance");
-      if (!lance) throw new Error("the lance panel has no lance");
-      const answered = touchDown(layout(role), lance.x, lance.y, field(1, STANDARD));
-      expect(answered?.command?.kind).not.toBe("prime");
+      const arm = drawnAt(role, CLAW, "reach");
+      if (!arm) throw new Error("the claw panel has no arm");
+      const answered = touchDown(layout(role), arm.x, arm.y, field(1, STANDARD));
+      expect(answered?.command?.kind).not.toBe("reach");
     }
   });
 
@@ -163,7 +174,7 @@ describe("a press on the band", () => {
         const xs = bandLobes(layout(role), set, 1).map((b) => b.circle.x);
         return (xs[0]! + xs[xs.length - 1]!) / 2;
       };
-      expect(mid(STANDARD)).toBeCloseTo(mid(LANCE), 6);
+      expect(mid(STANDARD)).toBeCloseTo(mid(CLAW), 6);
     }
   });
 
@@ -220,8 +231,10 @@ describe("what is drawn and what is touchable", () => {
           if (!at) throw new Error(`${c.id} is drawn nowhere on ${other.id}`);
           const t = touchDown(layout("test"), at.x, at.y, field(1, set));
           // Whatever else is at that point, it is never the absent control's
-          // own command — the lance's is `prime`, the maw's is `intake`.
-          expect(t?.command?.kind).not.toBe(c.id === "lance" ? "prime" : c.id);
+          // own command — a colour's is `prime`, the maw's is `intake`.
+          const says = controlPress(c.id).down.kind;
+          if (says === "prime") continue;
+          expect(t?.command?.kind).not.toBe(says);
         }
       }
     }

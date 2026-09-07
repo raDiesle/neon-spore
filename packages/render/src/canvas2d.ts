@@ -224,11 +224,11 @@ export class Canvas2DRenderer implements Renderer {
       fx: this.held.effects.opening,
       surfaceY,
     });
-    // Over the field and over the ship both, because it is about the second
-    // one: a lure shot by mistake, and the hull broken in three places for it
-    // (`lure-blast.ts`). Everything else this renderer throws goes down in the
-    // field pass and is painted over by the hull.
+    // Over the field and over the ship both, because it is about the second one:
+    // a lure shot by mistake, and the hull broken in three places for it
+    // (`lure-blast.ts`). Everything else goes down in the field pass instead.
     this.held.lureBlast.draw(ctx, l);
+    this.held.lanceFlash.draw(ctx, l);
     // Last, over everything: the wave arriving, once the pair has crossed the
     // gate. There is no opening left to draw it inside by then (`opening-fx.ts`).
     if (this.held.effects.opening.launching) {

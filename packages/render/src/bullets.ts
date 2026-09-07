@@ -1,5 +1,6 @@
 import type { Bullet } from "@neon-spore/sim";
 import { halo } from "./glow.js";
+import { beamAxis, beamHead, drawLanceBeam } from "./lance-beam.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -68,36 +69,25 @@ export const SHOT_LOOK: ShotLook = {
   ringColor: null,
 };
 
-/**
- * A lance. Half the speed, so the same tail is twice the object — which is the
- * point: it has to be told apart from an ordinary shot at a glance by both
- * players. The ring is the cannon's own colour, so the shot carries the mark
- * that made it as well as the ammunition it was loaded with.
- *
- * Its own record, beside `SHOT_LOOK` the way `MIRROR_SKIN` sits beside
- * `OWN_SKIN`, and deliberately not part of the `cannon:shot` slot: a vote on
- * how an ordinary shot travels must not quietly move the thing it has to be
- * distinguished from.
- */
-export const LANCE_LOOK: ShotLook = {
-  tailBack: (frac) => frac,
-  tailAlpha: 0.6,
-  tailWidth: 5,
-  haloMul: 0.5,
-  haloAlpha: 0.85,
-  coreMul: 0.2,
-  ringMul: 0.28,
-  ringWidth: 1.6,
-  ringColor: PALETTE.hullRim,
-};
-
 export function drawBullets(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   bullets: readonly Bullet[],
 ): void {
   for (const b of bullets) {
-    const look = b.lance ? LANCE_LOOK : SHOT_LOOK;
+    // **A lance is not a shot with different numbers.** It is drawn by
+    // `lance-beam.ts` as a ribbon of its own — the owner asked for it to be
+    // spectacular and in the ammunition's colour, and neither is a thing a
+    // record of five numbers can be. Keeping it out of `ShotLook` also keeps
+    // the `cannon:shot` slot honest: a vote on how an ordinary bolt reads must
+    // not quietly move the object it has to be told apart from.
+    if (b.lance) {
+      const [hx, hy] = beamHead(l, b);
+      const [ax, ay] = beamAxis(b);
+      drawLanceBeam(ctx, l, b, hx, hy, ax, ay);
+      continue;
+    }
+    const look = SHOT_LOOK;
     const hex = b.color === "red" ? PALETTE.red : PALETTE.cyan;
     const frac = b.subMilli / 1000;
     const row = b.row - frac;

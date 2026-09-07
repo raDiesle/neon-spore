@@ -6,7 +6,7 @@ import type { ControlId } from "./controls.js";
  * **The desk keyboard is a panel too**, and this is where a key finds out what
  * it means.
  *
- * A key used to belong to a *control*: `KeyF` was the lance's, `KeyZ` was THE
+ * A key used to belong to a *control*: `KeyF` was the old lance button's, `KeyZ` was THE
  * GAUGE's valve, `KeyM` was THE CLAW's arm, and every panel invented since had
  * cost a fresh letter nobody could remember. The owner ended that in one
  * sentence — *the game control keys should reuse the existing primary keys, so
@@ -19,19 +19,19 @@ import type { ControlId } from "./controls.js";
  * the panel carries. A panel fills those slots with its own controls, in its
  * own order, and a key means whatever landed in its slot:
  *
- * | key | STANDARD | LANCE PANEL | THE CLAW | THE GAUGE | PINBALL |
- * |---|---|---|---|---|---|
- * | A / D | the cannon | the cannon | the arm's column | the valve | the bucket |
- * | I | guard | guard | reach | — | set the needle |
- * | S | the maw | the lance | — | — | — |
- * | J / L | the plate | the plate | — | — | — |
- * | Q | red | red | the mouth | call | fire |
- * | E | cyan | cyan | — | — | — |
+ * | key | STANDARD | THE CLAW | THE GAUGE | PINBALL |
+ * |---|---|---|---|---|
+ * | A / D | the cannon | the arm's column | the valve | the bucket |
+ * | I | guard | reach | — | set the needle |
+ * | S | the maw | — | — | — |
+ * | J / L | the plate | — | — | — |
+ * | Q | red | the mouth | call | fire |
+ * | E | cyan | — | — | — |
  *
- * S carrying the maw on one panel and the lance on the next is the rule
- * working rather than a collision: they are the same opening, and the LANCE
- * PANEL exists because one button empties what the other fills
- * (`control-sets-table.ts`).
+ * **Q and E are held**, which no desk key used to be: the two colours fill the
+ * cannon lobe while they are down and fire the ordinary shot when they come up
+ * (`packages/sim/src/lance.ts`). `KeyF` used to be the lance's own key and
+ * there is no lance button any more, which is one letter given back.
  *
  * **Slots are counted on the panel a set is laid out against**, `layoutSet`,
  * for exactly the reason `bandLobes` reads that same function: a rung of the

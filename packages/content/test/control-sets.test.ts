@@ -51,24 +51,24 @@ describe("control sets", () => {
     }
   });
 
-  // The whole point of the lane. The lance is a coupling one wave asks for,
-  // and it used to be on the panel of all twenty-three.
-  it("keeps the lance off the default panel", () => {
-    expect(setHas(controlSet(DEFAULT_CONTROL_SET_ID), "lance")).toBe(false);
+  // The lance has no button at all any more: the fill is on the two colours,
+  // which every panel that can fire already carries (`sim/lance.ts`).
+  it("keeps the maw off the rungs of the ladder, and on the panel they build to", () => {
+    expect(setHas(controlSet(DEFAULT_CONTROL_SET_ID), "intake")).toBe(true);
+    expect(setHas(controlSet("standard4"), "intake")).toBe(false);
   });
 
-  it("has a set that carries the lance, and it is not the default plus a button", () => {
-    const withLance = CONTROL_SETS.filter((s) => setHas(s, "lance"));
-    expect(withLance.length).toBeGreaterThan(0);
+  it("has a set that trades a button away rather than adding one", () => {
+    // Sets do not compose: a set that is the default with something appended
+    // is the one thing the owner ruled out, so every panel that is not a rung
+    // of the ladder both gains and loses against it. THE CLAW is the plainest
+    // case — the gun for an arm.
     const base = controlSet(DEFAULT_CONTROL_SET_ID);
-    for (const set of withLance) {
-      // A set that is the default with the lance appended is the one thing the
-      // owner ruled out: sets do not compose.
-      const added = set.controls.filter((id) => !setHas(base, id));
-      const dropped = base.controls.filter((id) => !setHas(set, id));
-      expect(added.length).toBeGreaterThan(0);
-      expect(dropped.length).toBeGreaterThan(0);
-    }
+    const set = controlSet("claw");
+    const added = set.controls.filter((id) => !setHas(base, id));
+    const dropped = base.controls.filter((id) => !setHas(set, id));
+    expect(added.length).toBeGreaterThan(0);
+    expect(dropped.length).toBeGreaterThan(0);
   });
 
   it("gives every set at least one wave that plays on it", () => {
@@ -285,10 +285,10 @@ describe("what a panel answers", () => {
   });
 
   it("answers a held control's release as well as its press", () => {
-    // A gate that let the lance down and not up would leave the lobe filling
-    // with nobody's thumb on it, which is the failure `keys-gate.test.ts` was
-    // written for in the first place.
-    expect(panelSends(controlSet("lance"), "prime")).toBe(true);
+    // A gate that let a colour down and not up would leave the cannon lobe
+    // filling with nobody's thumb on it, which is the failure
+    // `keys-gate.test.ts` was written for in the first place.
+    expect(panelSends(controlSet("default"), "prime")).toBe(true);
     expect(panelSends(controlSet("gauge"), "valve")).toBe(true);
   });
 

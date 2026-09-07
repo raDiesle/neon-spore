@@ -12,8 +12,13 @@ import type { PressSpec } from "../spec.js";
  * every shape it refuses is written down here.
  */
 describe("parseHold", () => {
-  it("a thumb on the lance is a held prime, from the pilot", () => {
-    expect(parseHold("prime")).toEqual([{ player: 1, command: { kind: "prime", on: true } }]);
+  it("a thumb on a colour is a held prime, from the navigator", () => {
+    expect(parseHold("prime")).toEqual([
+      { player: 2, command: { kind: "prime", on: true, color: "red" } },
+    ]);
+    expect(parseHold("prime=cyan")).toEqual([
+      { player: 2, command: { kind: "prime", on: true, color: "cyan" } },
+    ]);
   });
 
   it("a handle is the grab and then the pull, in thousandths of a tile", () => {
@@ -83,7 +88,8 @@ describe("parseHold", () => {
   });
 
   it("prime takes nothing else", () => {
-    expect(() => parseHold("prime=900")).toThrow(/no distance/);
+    expect(() => parseHold("prime=900")).toThrow(/red or on cyan/);
+    expect(() => parseHold("prime=red,id=2")).toThrow(/no distance/);
   });
 });
 

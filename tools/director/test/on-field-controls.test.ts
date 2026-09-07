@@ -41,8 +41,9 @@ function assertNever(x: never): never {
 }
 
 /**
- * One arm per `Hold["kind"]`. `"lance"` is a panel lobe and nothing else —
- * `packages/content/src/controls.ts` already documents it — so it is named
+ * One arm per `Hold["kind"]`. `"held"` is a panel lobe and nothing else — the
+ * two colours, which are held since the lance lost its own button, and
+ * `packages/content/src/controls.ts` already documents them — so it is named
  * here only to keep the switch exhaustive, not given a field entry.
  *
  * `"cannon"` and `"shield"` used to sit beside it, and no longer do: the same
@@ -52,7 +53,7 @@ function assertNever(x: never): never {
  */
 function documentedHoldKind(kind: Hold["kind"]): "panel" | "field" {
   switch (kind) {
-    case "lance":
+    case "held":
       return "panel";
     case "cannon":
     case "shield":
@@ -197,7 +198,7 @@ const GESTURES: readonly { why: string; hold: Hold; at?: { x: number; y: number 
     hold: { kind: "grip", id: 4, player: 2, originX: 120 },
     at: { x: 240, y: 300 },
   },
-  { why: "a thumb on the lance lobe", hold: { kind: "lance" } },
+  { why: "a thumb resting on a colour", hold: { kind: "held", control: "fireRed", player: 2 } },
   {
     why: "the muzzle carried far enough for a colour",
     hold: { kind: "shot", originX: 40 },
@@ -216,7 +217,7 @@ describe("FIELD_CONTROLS against what touch.ts actually sends", () => {
     // new kind cannot be added to `Hold` without this file failing to compile
     // — and this says the kind is not merely named here but actually pressed.
     const driven = new Set(GESTURES.map((g) => g.hold.kind));
-    for (const kind of ["cannon", "shield", "guard", "grip", "lance", "shot", "drag"] as const) {
+    for (const kind of ["cannon", "shield", "guard", "grip", "held", "shot", "drag"] as const) {
       expect(driven.has(kind), `${kind} is never driven`).toBe(true);
       documentedHoldKind(kind);
     }

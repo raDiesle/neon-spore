@@ -73,12 +73,11 @@ describe("the keys the desk already had", () => {
 });
 
 describe("one key, several meanings", () => {
-  it("gives S the maw on one panel and the lance on the next", () => {
-    // They are the same opening — the LANCE PANEL exists because one button
-    // empties what the other fills — so this is the rule reading correctly
-    // rather than a collision.
+  it("gives S the maw on one panel and nothing on a panel without one", () => {
+    // A key means whatever landed in its slot, and a slot a panel leaves empty
+    // says nothing rather than reaching for the control next to it.
     expect(deskKey(controlSet("default"), "KeyS")?.control).toBe("intake");
-    expect(deskKey(controlSet("lance"), "KeyS")?.control).toBe("lance");
+    expect(deskKey(controlSet("claw"), "KeyS")).toBeUndefined();
   });
 
   it("gives player 1's first press key to whatever the panel puts there", () => {

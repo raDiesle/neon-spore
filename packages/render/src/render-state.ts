@@ -4,6 +4,7 @@ import { FenceShards } from "./fence-shards.js";
 import { FenceStrike } from "./fence-strike.js";
 import { FieldPose } from "./field-pose.js";
 import { GuideStage } from "./guide-scene.js";
+import { LanceFlash } from "./lance-flash.js";
 import type { Layout } from "./layout.js";
 import { LureBlastFx } from "./lure-blast.js";
 import type { SpriteBursts } from "./sprite-burst.js";
@@ -65,6 +66,15 @@ export class RenderState {
    * owns.
    */
   readonly fenceShards = new FenceShards();
+  /**
+   * The whole stage going white when a lance leaves (`lance-flash.ts`).
+   *
+   * Here for the blast's reason: it is drawn last of the frame, over the ship
+   * *and* over the band, and everything `Effects` owns goes under the hull.
+   * The owner asked for the *whole game screen*, and this class is the only
+   * one that reaches it.
+   */
+  readonly lanceFlash = new LanceFlash();
   /** Enough of last frame's world to notice a wave starting over — see `restarted`. */
   private seen: { world: World; wave: number; waveBeat: number } | null = null;
 
@@ -123,6 +133,8 @@ export class RenderState {
     this.fenceStrike.update(dt);
     this.fenceShards.ingest(events, l);
     this.fenceShards.update(dt, l);
+    this.lanceFlash.ingest(events);
+    this.lanceFlash.step(dt);
   }
 
   restarted(world: World): boolean {
@@ -147,5 +159,6 @@ export class RenderState {
     this.lureBlast.clear();
     this.fenceStrike.clear();
     this.fenceShards.clear();
+    this.lanceFlash.clear();
   }
 }

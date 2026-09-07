@@ -34,7 +34,7 @@ const replay: Replay = {
     // A lobe filled and spent: three beats of thumb from 1520, full at 1745,
     // and a lance out of it. The fill is world state and the lance is a field
     // of the shot, so both have to be in the fingerprint.
-    { tick: 1520, player: 1, command: { kind: "prime", on: true } },
+    { tick: 1520, player: 2, command: { kind: "prime", on: true, color: "red" } },
     { tick: 1760, player: 2, command: { kind: "fire", color: "red" } },
   ],
 };

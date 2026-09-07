@@ -129,10 +129,15 @@ the two can be compared by opening the wave.
 | 8 | **The bosses** | the mirror, the maze, the gauge, the warden and its line, the vane | one guide each, on their own wave | 18 · THE MIRROR, 19 · THE MAZE, 20 · THE GAUGE, 21 · THE WARDEN, 29 · THE VANE |
 | 9 | **The rest of the bestiary** | the lure that took the runt's place, the throb, the shell, the pods, the rock speed tiers | one guide each | 23 · THE LURE, 24 · THE THROB, 25 · THE SHELL, 31 · THE PURGE, 32 · THE WARD |
 
-**The grip and the lance are still the odd ones out**, and neither has a guide.
-They are controls no wave *contains*, so no wave is the first to carry them and
-nothing places them. That was true when help was derived and it is still true
-now: placing a guide did not solve it, it only moved where the hole is.
+**The grip is still the odd one out**, and it has no guide. It is a control no
+wave *contains*, so no wave is the first to carry it and nothing places it.
+That was true when help was derived and it is still true now: placing a guide
+did not solve it, it only moved where the hole is.
+
+The lance used to sit beside it and no longer does. It lost its own button on
+7 September 2026 and became a thing the two colours do when they are held, and
+wave 30 — THE LANCE, three cyan in one column and three red in the next — is
+the wave that carries it and the guide that teaches it.
 
 ### The gap the merge left
 
@@ -620,9 +625,8 @@ added quietly back here.
    rehearsal; the key on `WaveGuide` is there, the `Field` split turned out to
    be unnecessary, and §3.2 lists the five pieces deliberately left for after
    the owner has looked at the specimen.
-4. **The gaps**, if looking at it says they matter: the grip and the lance,
-   which no wave contains, and the four waves whose guides carry two subjects'
-   words at once.
+4. **The gaps**, if looking at it says they matter: the grip, which no wave
+   contains, and the four waves whose guides carry two subjects' words at once.
 
 Deliberately not in scope: figures (`wave-design.md` 8.1), an unlockable
 bestiary screen, and anything that reads a microphone — rule 4 stands.

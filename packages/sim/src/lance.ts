@@ -1,33 +1,66 @@
 import { type SimConfig, ticksPerBeat } from "./config.js";
+import type { Color } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
 /**
- * THE LANCE: marking, re-grounded on the raster.
+ * THE LANCE: marking, re-grounded on the raster — and, since the owner took
+ * the lance's own button away, re-grounded a second time on the trigger.
  *
  * Marking (docs/spec/couplings.md 2) was written for free flight — player 1
  * held an aim beam on a creature until the mark locked and player 2 fired the
  * matching colour. There is no beam any more; there is a column. So the mark
- * is on the column, and the thing that locks is the cannon lobe itself: player
- * 1 holds the lance down and the lobe fills, one beat at a time, for as long
- * as the cannon stands still.
+ * is on the column, and the thing that locks is the cannon lobe itself.
  *
- * **The cost is the hand, exactly as it is for THE GRIP.** The thumb filling
- * the lobe is a thumb off the trigger, and a cannon that must not move is a
- * cannon that cannot answer another column. A pair that primes while rocks are
- * falling has decided to take one.
+ * **There is no LANCE button, and that is the change.** The lobe used to be
+ * filled by a fifth button on a panel of its own, which meant one wave in the
+ * whole game shipped a control nothing else could use. Now it is filled by
+ * **holding the colour**: player 2 keeps her thumb on red or on cyan, the fill
+ * closes round that lobe, and at the top it goes on its own — a big shot in
+ * the colour that was held. A tap is a shot, as it always was; the hold is the
+ * only new thing a thumb can do, and every panel in the game that carries a
+ * colour carries it.
  *
- * **The shot is player 2's, and it is the same shot as always.** There is no
- * second fire button: whatever is in the lobe leaves with the next shot that
- * goes out through it. Full, and it is a lance — half speed, and it passes
- * through bodies of its own colour instead of stopping at the first. Part
- * full, and the shot is an ordinary one and the charge is simply gone. That is
- * the whole coupling in one sentence: **player 2 has to not fire** while the
- * lobe fills, which is a thing only player 1 can ask for and only player 2 can
- * do. Neither half is any use alone.
+ * **The cost is the hold and nothing else.** Three beats of thumb is six
+ * ordinary shots not fired, which is the whole price — the owner's own answer
+ * on 7 September 2026. What it buys is a *line* of its own colour, which is
+ * the only thing a column can hold that an ordinary shot has to be fired at
+ * one body at a time.
+ *
+ * **The cannon still has to stand still, and that is the coupling that
+ * survived.** The mark is on a column, so a cannon that leaves the column it
+ * was filling in has nothing left to have marked and the fill drops to
+ * nothing and starts again. The thumb is player 2's and the column is player
+ * 1's: neither of them can do this alone, which is the same sentence the
+ * lance always said with the halves swapped.
+ *
+ * **Sliding never eats the shot.** The fill resets, the *hold* does not — a
+ * lift after the cannon moved still fires the ordinary shot the thumb was
+ * always owed. That is the one thing that would have made the hold unplayable:
+ * player 1 slides constantly, and a trigger whose shots quietly vanished when
+ * he did would be a broken trigger rather than a coupling.
  */
 
-/** No thumb on the lance. `world.primeTick` carries this when nothing is filling. */
-export const NO_PRIME = -1;
+/**
+ * A thumb on a colour, and how long it has been there.
+ *
+ * One object rather than three fields on the world, for `ShotCharge`'s reason:
+ * it is one thing with parts, and every part of it is settled by a press or by
+ * the departure. There is deliberately no column in it — a cannon that moves
+ * resets the fill, so while this is filling the column *is* `cannonCol`, and a
+ * second copy of it could only ever disagree.
+ */
+export interface Prime {
+  /** Tick the fill started from. Reset, not cleared, when the cannon slides. */
+  tick: number;
+  /** Which lobe is held — the colour a full lance leaves in. */
+  color: Color;
+  /**
+   * The lance has gone and the thumb is still down. It owes nothing more: no
+   * second fill while the finger rests there, and no ordinary shot on the
+   * lift. A thumb that wants another one lifts and presses again.
+   */
+  spent: boolean;
+}
 
 /**
  * Ticks of holding before the lobe is full. At least one, so a config that
@@ -39,52 +72,71 @@ export function primeTicks(cfg: SimConfig): number {
 }
 
 /**
- * The thumb goes down. A second press while one is already filling changes
- * nothing — the fill is timed from the first, or a stray repeat from the host
- * would silently restart a lobe that was nearly full.
+ * The thumb goes down on a colour. A second press while one is already filling
+ * changes nothing — the fill is timed from the first, or a stray repeat from
+ * the host would silently restart a lobe that was nearly full.
  */
-export function startPrime(world: World): void {
-  if (world.primeTick !== NO_PRIME) return;
-  world.primeTick = world.tick;
+export function startPrime(world: World, color: Color): void {
+  if (world.prime !== null) return;
+  world.prime = { tick: world.tick, color, spent: false };
 }
 
 /**
- * The thumb lifts, the cannon moves, the maw opens, or a shot takes what was
- * in there. Nothing decays a charge except this — it is a hold, not a timer.
+ * The thumb lifts, or the run is left. Nothing else clears a hold — the cannon
+ * moving and the maw opening *reset* it instead (`spillPrime`), because the
+ * shot the lift owes is not theirs to take away.
  */
 export function endPrime(world: World): void {
-  world.primeTick = NO_PRIME;
-}
-
-/** Whether the lobe is filling at all. */
-export function priming(world: World): boolean {
-  return world.primeTick !== NO_PRIME;
+  world.prime = null;
 }
 
 /**
- * How full the lobe is, in thousandths. 1000 is a lance ready to go, 0 is a
+ * The fill drops to nothing and starts again, under a thumb that never moved:
+ * the cannon slid out of the column it was marking, or the maw opened on the
+ * same lobe. True when there was something in there to lose, which is what the
+ * caller reports as a spill.
+ */
+export function spillPrime(world: World): boolean {
+  const held = world.prime;
+  if (held === null || held.spent) return false;
+  const had = world.tick - held.tick > 0;
+  held.tick = world.tick;
+  return had;
+}
+
+/** Whether a lobe is filling at all — a thumb down that has not yet fired. */
+export function priming(world: World): boolean {
+  return world.prime !== null && !world.prime.spent;
+}
+
+/** The colour being held, or null for no thumb on a colour at all. */
+export function primeColor(world: World): Color | null {
+  return priming(world) ? (world.prime?.color ?? null) : null;
+}
+
+/**
+ * How full the lobe is, in thousandths. 1000 is a lance about to go, 0 is a
  * thumb that is not down. render/ draws this and nothing re-derives it: the
- * ring on the button and the mark on the field are the same number twice.
+ * ring on the button and the beam up the column are the same number twice.
  */
 export function primeChargeMilli(world: World): number {
-  if (!priming(world)) return 0;
-  const have = world.tick - world.primeTick;
+  const held = world.prime;
+  if (held === null || held.spent) return 0;
+  const have = world.tick - held.tick;
   return Math.max(0, Math.min(MILLI, Math.round((have * MILLI) / primeTicks(world.cfg))));
 }
 
-/** Whether the next shot out of this lobe is a lance. */
+/** Whether the lobe is full — the tick the lance goes, and none after it. */
 export function lanceReady(world: World): boolean {
-  return priming(world) && world.tick - world.primeTick >= primeTicks(world.cfg);
+  const held = world.prime;
+  if (held === null || held.spent) return false;
+  return world.tick - held.tick >= primeTicks(world.cfg);
 }
 
 /**
- * The one tick the lobe comes full on, reported once. Both players are told:
- * the mark is the one row of the information split that is not split at all
- * (docs/spec/systems.md 5.2), because the player who has to fire it and the
- * player who has to hold it are different people.
+ * The lobe is spent. Called by the departure itself, so the thumb resting on
+ * the button afterwards fills nothing and owes nothing (`Prime.spent`).
  */
-export function noteLanceFull(world: World): void {
-  if (!priming(world)) return;
-  if (world.tick - world.primeTick !== primeTicks(world.cfg)) return;
-  world.events.push({ type: "lanceFull", col: world.cannonCol });
+export function spendPrime(world: World): void {
+  if (world.prime !== null) world.prime.spent = true;
 }

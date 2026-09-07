@@ -155,7 +155,7 @@ export interface Wave {
    * it has, in the places that set puts them; what has changed is what pressing
    * one *does*, and how a control behaves is a fact about the wave. So a
    * cannon fault can be played on the standard panel, on a rung of the ladder
-   * or on the lance panel without any of those becoming a second panel.
+   * or on THE CLAW's without any of those becoming a second panel.
    *
    * Beside `boss` for the same reason `controls` is: all three say *this wave
    * is not the ordinary thing*, all three are read once before the first tick,

@@ -1,4 +1,4 @@
-import type { Point } from "@neon-spore/content";
+import type { ControlId, Point } from "@neon-spore/content";
 import type { Color, Command, DragTarget } from "@neon-spore/sim";
 
 /**
@@ -30,9 +30,13 @@ import type { Color, Command, DragTarget } from "@neon-spore/sim";
  * lift and hands it back untouched, so none of them learns what any of it
  * means and a new draggable element costs them nothing.
  *
- * `lance` follows nothing sideways — it is here because the *lift* matters:
- * the lobe fills for exactly as long as the thumb stays down, and nothing in
- * the simulation empties it on its own (`sim/lance.ts`).
+ * `held` follows nothing sideways — it is here because the *lift* matters. It
+ * is one case for every lobe a thumb stays on, and since the lance lost its
+ * own button that is the two colours: the press says only that a finger is
+ * there, the lift is the ordinary shot, and a finger that stays fills the
+ * cannon lobe and fires a lance by itself (`sim/lance.ts`). What it carries is
+ * the control's id rather than what lifting means, because what lifting sends
+ * is asked for where every other control's is (`content/control-command.ts`).
  */
 export type Hold =
   /**
@@ -73,7 +77,7 @@ export type Hold =
    * anything that knows which phone it is on.
    */
   | { kind: "grip"; id: number; player: 1 | 2; originX: number }
-  | { kind: "lance" }
+  | { kind: "held"; control: ControlId; player: 1 | 2 }
   /**
    * Player 2's thumb on the muzzle. The press says nothing at all — it is the
    * *lift* that fires, and which colour it fires is how far the muzzle was

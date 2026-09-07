@@ -402,6 +402,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/mechanics-rounds.ts` | The rounds that are not the field, as mechanic rows |
 | `packages/content/src/metaball-spread.ts` | spreading a fixed number of points across a subject that may be in pieces — the shape sheet's need, not the game's |
 | `packages/content/src/metaball.ts` | the outline of a metaball field, as however many closed loops it has — what SYMBIOSIS and THE CHOIR are drawn with |
+| `packages/content/src/scene-drag.ts` | **A hand carrying a handle**, turned into the stream of `drag` messages a rehearsal's runner sends — how far |
 
 ### packages/render
 
@@ -714,6 +715,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/pulse-button.ts` | THE PULSE's four lanes, as a face on one of the band's own lobes |
 | `packages/render/src/pulse-drop.ts` | An arrow nobody answered falls into the ship |
 | `packages/render/src/pulse-shape.ts` | What an arrow in THE PULSE is made of: its hue, its heading and its contour |
+| `packages/render/src/lance-beam.ts` | A lance in flight: not a dot with a tail behind it, but a length of the column that is briefly alive |
+| `packages/render/src/lance-flash.ts` | The whole screen going white, then the ammunition colour, then nothing |
 
 ### packages/net
 

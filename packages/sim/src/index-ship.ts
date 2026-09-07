@@ -29,8 +29,9 @@ export { isqrt, type PullVec, tileCentreMilli } from "./handle-pull.js";
 export { guardArmed, hullPercent, ticksSinceGuard } from "./hull.js";
 export {
   lanceReady,
-  NO_PRIME,
+  type Prime,
   primeChargeMilli,
+  primeColor,
   priming,
 } from "./lance.js";
 export { lidHandleMilli, lidIsHeld, lidIsOpen, lidOpenMilli, lidPull } from "./lid.js";

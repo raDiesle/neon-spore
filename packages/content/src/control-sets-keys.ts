@@ -26,6 +26,13 @@ import type { ControlSet } from "./control-sets.js";
  */
 export function panelSends(set: ControlSet, kind: Command["kind"]): boolean {
   if (OFF_PANEL.has(kind)) return true;
+  // **`fire` belongs to a panel that carries a colour, even though no button
+  // sends it.** Since the lance lost its own button the two colours send
+  // `prime`, and the ordinary shot is what the simulation makes of the *lift*
+  // (`sim/commands.ts`). Two things still send `fire` outright — the swipe on
+  // the muzzle, and the desk's W, which is a colour and a guard in one press —
+  // and both are only reachable on a panel that has a colour on it anyway.
+  if (kind === "fire") return set.controls.some((id) => controlPress(id).down.kind === "prime");
   return set.controls.some((id) => {
     const press = controlPress(id);
     return press.down.kind === kind || press.up?.kind === kind;

@@ -77,7 +77,10 @@ export type Malfunction = { kind: "cannon"; color: MalfunctionColor } | { kind: 
 export function faultSwallows(world: World, c: Command): boolean {
   const m = world.malfunction;
   if (m === null) return false;
-  if (m.kind === "cannon") return c.kind === "fire";
+  // `prime` as well as `fire`: the trigger is a hold now, so a lobe a cannon
+  // fault has taken over is pressed as a `prime` and would otherwise fill and
+  // fire a lance out of a button the panel is drawing dead (`lance.ts`).
+  if (m.kind === "cannon") return c.kind === "fire" || c.kind === "prime";
   return c.kind === "guard";
 }
 
