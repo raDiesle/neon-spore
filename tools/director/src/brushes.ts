@@ -1,4 +1,4 @@
-import { CREATURES, categoryOf } from "@neon-spore/content";
+import { CREATURES, isInstalled } from "@neon-spore/content";
 import { PALETTE } from "@neon-spore/render";
 import { type CreatureKind, isBossBody, isMeteorKind, type RockKind } from "@neon-spore/sim";
 import { cardSubjects, livingStroke, SHORT_NOTE } from "./brush-cards.js";
@@ -52,8 +52,8 @@ export const ROCK_BRUSHES: readonly [Brush, RockKind][] = [
  * The kinds a brush paints one-to-one: everything in `CREATURES` that is
  * neither a rock (`isMeteorKind` — its own tier table below), nor a boss body
  * (`isBossBody` — placed by the boss panel, never by a click), nor the one
- * `"special"` kind, the tether, which a boss installs rather than a wave
- * author (`categoryOf`).
+ * kinds a boss or another body installs rather than a wave
+ * author (`isInstalled`).
  *
  * **"Living" is one name short since THE FENCE**, which is a wall of current
  * rather than a body and is still exactly what this list is for: one click,
@@ -66,11 +66,11 @@ export const ROCK_BRUSHES: readonly [Brush, RockKind][] = [
  * questions ("what does the sheet draw" there, "what can a click place" here).
  *
  * Every key of `CREATURES` is covered by exactly one of "rock", "boss body",
- * "special", or this list — so a creature added there needs nothing done here
+ * "installed", or this list — so a creature added there needs nothing done here
  * to get a brush, and `brushes.test.ts` fails if that ever stops being true.
  */
 export const LIVING_BRUSH_KINDS: CreatureKind[] = (Object.keys(CREATURES) as CreatureKind[]).filter(
-  (kind) => !isMeteorKind(kind) && !isBossBody(kind) && categoryOf(kind) !== "special",
+  (kind) => !isMeteorKind(kind) && !isBossBody(kind) && !isInstalled(kind),
 );
 
 const LIVING_BRUSHES: {

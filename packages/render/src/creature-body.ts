@@ -8,6 +8,7 @@ import {
   recoilTurn,
   type World,
 } from "@neon-spore/sim";
+import { drawBalloon } from "./balloon.js";
 import { drawChoir } from "./choir.js";
 import { drawGhost, showsGhostBody } from "./ghost.js";
 import type { Layout } from "./layout.js";
@@ -232,6 +233,13 @@ const EXCLUSIVE: ReadonlyMap<CreatureKind, BodyDraw> = new Map<CreatureKind, Bod
   // rather than loose arguments so this stays a row instead of a wrapper —
   // `MAGNET_LOOK.body` next door already reads its own record the same way.
   ["choir", drawChoir],
+  // A skin with a knot under it, and the one body in the game whose *shape*
+  // changes while it is played: two hands stretch it towards opposite walls,
+  // so `living-look.ts` answers `null` and `drawLiving` would ask for a radial
+  // contour that grows evenly — which is the picture of a body filling, and
+  // filling is the other thing this one does. `drawBalloon` takes a `Body` for
+  // `drawChoir`'s reason, so this stays a row rather than a wrapper.
+  ["balloon", drawBalloon],
 ]);
 
 /**

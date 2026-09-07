@@ -164,4 +164,13 @@ export const TALKER = {
   // the one thing they need to hear is that it is about to become one — which
   // is this table's own sentence said about a hand instead of a picture.
   choir: "p1",
+  // THE BALLOON, and the first row here where **nothing at all is withheld**.
+  // Both screens draw the whole body, both handles and both stretches; there
+  // is no fact one seat has and the other lacks. What is split is not the
+  // information but the *hand*: one each, and neither is worth anything on its
+  // own, so a field of several rising bodies is answered by both of them
+  // saying the same one out loud. `"both"` for a reason THE STRAND's row does
+  // not have — there each seat holds half a fact, here each holds half a
+  // gesture — and it is the same conclusion, which is why it is the same word.
+  balloon: "both",
 } as const satisfies Record<CreatureKind, Talker | null>;

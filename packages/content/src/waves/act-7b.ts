@@ -188,4 +188,24 @@ export const WAVES_ACT_7B: Wave[] = [
     boss: { kind: "pulse", stages: PULSE_STAGES },
     controls: "pulse",
   },
+  {
+    id: "theBalloon",
+    name: "THE BALLOON",
+    sentence: "The one where a hand on each of two different bodies is no hands at all.",
+    guide: {
+      both: "They come up out of nothing a lane above the ship, swell, and then climb — a row and a lane every beat, turning at the walls. Reach the top and one goes off and the hull pays for it. Nothing either of you can fire touches them. Each one has a handle on its left and a handle on its right: pull both at the same instant and the skin gives. The first time it splits in two; the second pops what is left, for nothing.",
+      p1: "Left handles are yours, carried left. Name the one you are taking — its lane, and how high — before you take it: a pull on your own is a pull on nothing. Say when your hands are off the panel.",
+      p2: "Right handles are yours, carried right. Say the one you are taking back before you take it, then hold until it gives. Your colours still have work to do, and the balloon nobody agreed on is the one that gets away.",
+    },
+    entries: [
+      { beat: 0, col: 2, kind: "balloon", color: null },
+      { beat: 6, col: 5, kind: "balloon", color: null },
+      { beat: 12, col: 1, color: "red" },
+      { beat: 16, col: 4, kind: "balloon", color: null },
+      { beat: 24, col: 0, kind: "balloon", color: null },
+      { beat: 26, col: 6, kind: "balloon", color: null },
+      { beat: 32, col: 3, color: "cyan" },
+      { beat: 36, col: 2, kind: "balloon", color: null },
+    ],
+  },
 ];

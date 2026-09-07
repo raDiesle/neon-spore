@@ -27,6 +27,8 @@ const DRAG_TARGETS: readonly DragTarget[] = [
   "gripBody",
   "choirLeft",
   "choirRight",
+  "balloonLeft",
+  "balloonRight",
 ];
 
 const isColor = (x: unknown): x is Color =>

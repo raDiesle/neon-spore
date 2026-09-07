@@ -230,6 +230,23 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "choirSing":
       return at(l, e.col, e.row, 18, PALETTE.rock);
 
+    // A balloon given: the skin lets go and there are two of them. Rock grey
+    // and narrow, so it reads as *the thing came apart* rather than as
+    // anything landing — a balloon carries no colour, so there is none for a
+    // burst to be thrown in, and grey is what this game already means by a
+    // body no shot reaches. The two halves standing a lane either side are
+    // drawn by the ordinary body pass a frame later.
+    case "balloonSplit":
+      return at(l, e.col, e.row, 12, PALETTE.rock);
+
+    // And one that got to the top. Wide and in the pod's amber, which is the
+    // one warm colour on this field that is neither trigger: what happened is
+    // an explosion and not a kill, and the hull damage riding on the `breach`
+    // beside it is drawn at the ship — a whole field away from this, which is
+    // the creature (`sim/balloon.ts`).
+    case "balloonBurst":
+      return at(l, e.col, e.row, 26, PALETTE.pod);
+
     default:
       return assertNever(e);
   }

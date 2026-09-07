@@ -46,6 +46,15 @@ export const INGEST_SILENT = [
   // the *closing* is read straight off `Creature.choirFuseTick` every frame
   // (`render/choir.ts`), which is the one thing that cannot go stale.
   "choirOpen",
+  // THE BALLOON's three. Nothing about any of them outlives its frame: how big
+  // a balloon is drawn, how far it leans and how far each side has given are
+  // read every frame straight off the body (`balloonSwellPhase`,
+  // `balloonTension`), which is the one thing that cannot go stale across a
+  // restart. The bursts are `burstFor` above, and the hull damage rides on the
+  // `breach` beside the burst, which `ingestBreach` already remembers.
+  "balloonSplit",
+  "balloonPop",
+  "balloonBurst",
   "veilTorn",
   // A layer off THE RIND: the burst is thrown by `burstFor` above, and the
   // skin it came off in is `rind-shed.ts`, ingested with the rest of

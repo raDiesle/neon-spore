@@ -90,6 +90,17 @@ export interface SpawnEntry {
    */
   side?: CrawlerSide;
   /**
+   * How many rows a `balloon` climbs a beat, and how many columns it takes to
+   * the side on the same beat — one number, because the path is a diagonal.
+   * Absent on every other kind, and absent on a balloon the author left at the
+   * shipped speed, which is what `balloonRiseRows` answers.
+   *
+   * Authored rather than rolled, for `beads`' reason: how fast one leaves *is*
+   * how long the pair has to agree on it, and a wave cannot be composed
+   * against a clock its author does not know.
+   */
+  rise?: number;
+  /**
    * The columns THE FENCE is open in, on the real field, and absent on every
    * other kind. Never absent on a wall: `queueFromWave` writes the cell the
    * author painted it in as its first gap, so a wave that named none still

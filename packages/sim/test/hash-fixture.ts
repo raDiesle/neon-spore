@@ -81,6 +81,12 @@ const creature = (): Required<Creature> => ({
   coilLit: 3,
   rockDir: -1,
   rockRow: 4,
+  balloonSplits: 1,
+  balloonBeat: 6,
+  balloonDir: -1,
+  balloonRise: 2,
+  balloonPullP1: -900,
+  balloonPullP2: 700,
 });
 
 const bullet = (): Required<Bullet> => ({

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { BOSS_KINDS, type CreatureKind, DEFAULT_CONFIG, isBossBody } from "@neon-spore/sim";
-import { CREATURES, categoryOf } from "../src/creatures.js";
+import { CREATURES, isInstalled } from "../src/creatures.js";
 import {
   MECHANIC_IDS,
   MECHANICS,
@@ -47,11 +47,18 @@ describe("which kinds a wave may name", () => {
   /**
    * The rule, called rather than restated: a wave writes a `kind` only for a
    * creature that carries no colour (a coloured one follows from its colour),
-   * that is not a boss body (the boss panel places those) and that is not the
-   * one `special` kind, the tether, which a boss installs.
+   * that is not a boss body (the boss panel places those) and that is not
+   * **installed** — a tether a boss lowers, a mount a wheel carries, the body a
+   * cracked carom throws clear.
+   *
+   * The third clause used to be `categoryOf(kind) !== "special"`, which named
+   * the same three bodies until THE BALLOON: that category means *answered by
+   * neither control*, and a balloon is answered by neither and authored one to
+   * a cell like anything else. `isInstalled` is the fact the category was
+   * standing in for (`CreatureDef.installed`).
    */
   const nameable = (Object.keys(CREATURES) as CreatureKind[]).filter(
-    (kind) => CREATURES[kind].color === null && !isBossBody(kind) && categoryOf(kind) !== "special",
+    (kind) => CREATURES[kind].color === null && !isBossBody(kind) && !isInstalled(kind),
   );
 
   it("is exactly what the bestiary says it should be", () => {
@@ -91,6 +98,7 @@ describe("which kinds a wave may name", () => {
       "magnet",
       "coil",
       "choir",
+      "balloon",
     ];
     expect([...kinds].sort()).toEqual([...nameable].sort() as typeof kinds);
   });

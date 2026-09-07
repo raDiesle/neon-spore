@@ -120,6 +120,13 @@ const UNGRIPPABLE: readonly CreatureKind[] = [
   // creature rather than an inconsistency — a hand is worth nothing against
   // the half the ward answers and buys a beat against the half it does not.
   "coil",
+  // And THE BALLOON, for THE CHUTE's reason arrived at from the other end: it
+  // does not fall, it climbs, so `stepBalloon` never goes near
+  // `grippedFallTiles` and a brake has no rate to scale. It is also the one
+  // body a hand is *already* the answer to — two of them, one per seat, on
+  // handles of its own (`balloon-pull.ts`) — so a grip here would be a third
+  // hand doing nothing on a body covered in hands that do.
+  "balloon",
 ];
 
 export function isGrippable(kind: CreatureKind): boolean {

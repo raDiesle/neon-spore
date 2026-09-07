@@ -148,6 +148,11 @@ export function fallTilesPerBeat(kind: CreatureKind): number {
   // one *arrive* rather than glide in — `spawnArrivals` seeds `fromRow` from
   // this number, and a worm coming over a wall has no fall to enter on.
   if (kind === "crawler") return 0;
+  // And THE BALLOON, which is the one body that goes the other way: it climbs
+  // `balloonRiseRows` a beat and never comes down at all (`stepBalloon`), so
+  // there is no fall for a number here to describe. Zero rather than a small
+  // one, the wisp's answer and its reason.
+  if (kind === "balloon") return 0;
   // THE FENCE, at the second tier's speed: twice everything else on the field
   // and the fastest a thing whose answer has to be *said out loud* can come
   // down. Thirteen rows at two a beat is a little over four seconds from the

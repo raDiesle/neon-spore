@@ -156,7 +156,9 @@ export type DragTarget =
   | "lidString"
   | "gripBody"
   | "choirLeft"
-  | "choirRight";
+  | "choirRight"
+  | "balloonLeft"
+  | "balloonRight";
 
 /**
  * `choirLeft` and `choirRight` are the fifth and sixth, and the first pair
@@ -166,6 +168,17 @@ export type DragTarget =
  * there is exactly one of each, so each has exactly one name, and a side
  * carried beside a shared name would be a second, weaker way of saying which
  * arrow the hand is on.
+ */
+
+/**
+ * `balloonLeft` and `balloonRight` are the seventh and eighth, and the first
+ * pair that is one gesture in two **seats**. THE CHOIR's two arrows are one
+ * hand making one gesture twice; these are two hands making one gesture once,
+ * and which seat may send which is the whole of the coupling — the pilot has
+ * the left of every balloon and the navigator the right, always
+ * (`balloonHeard`). They carry `id` for THE LID's reason with more riding on
+ * it: a wave puts several on the field at once on purpose, and *which one*
+ * is the sentence this creature exists to make the pair say.
  */
 
 /**

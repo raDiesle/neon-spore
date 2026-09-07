@@ -1,3 +1,4 @@
+import { balloonHeard, rubBalloons } from "./balloon-pull.js";
 import { beatMetronome, onBeat } from "./beat.js";
 import { briefHeard, briefingHolds, guideStepHeard, stepReady } from "./briefing.js";
 import { advanceBullets, releaseShot } from "./bullets.js";
@@ -165,6 +166,15 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // tick with the window above, because both are lengths counted in ticks and
   // a beat's granularity would let a bolt through a film still closing.
   stepChoirFuse(world);
+  // THE BALLOON's two handles, read on the tick with the other five hands and
+  // for their reason with the most riding on it: the pair counts itself into
+  // the instant both of them pull, and an instant answered on the next beat
+  // would land up to a whole beat after the one they said out loud
+  // (`balloon-pull.ts`). `rubBalloons` is the answer, straight after the
+  // reading, so a body both hands reached is given on the tick they reached
+  // it rather than on the tick after.
+  for (const c of commands) balloonHeard(world, c.player, c.command);
+  rubBalloons(world);
   // THE FLEET's sights and its salvo, read on the tick for the third time and
   // the same reason: a square the pair just named out loud is answered now,
   // not on the next beat. Its clock is the one thing about it that is on the

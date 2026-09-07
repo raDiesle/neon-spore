@@ -1,3 +1,4 @@
+import type { BalloonEvent } from "./events-balloon.js";
 import type { CaromEvent } from "./events-carom.js";
 import type { ChoirEvent } from "./events-choir.js";
 import type { CoilEvent } from "./events-coil.js";
@@ -214,8 +215,13 @@ export type CreatureEvent =
   // (`events-choir.ts`) — the first group in this list that is about the
   // pilot's hands rather than about something meeting a body.
   | ChoirEvent
+  // And THE BALLOON's three, on the same terms again (`events-balloon.ts`) —
+  // the three ways one body stops being what it was, which is neither a
+  // gesture taken apart nor an arrival taken apart.
+  | BalloonEvent
   | StrandEvent;
 
+export type { BalloonEvent } from "./events-balloon.js";
 export type { CaromEvent } from "./events-carom.js";
 // Re-exported so nothing that reaches for one through this file has to move.
 export type { ChoirEvent } from "./events-choir.js";

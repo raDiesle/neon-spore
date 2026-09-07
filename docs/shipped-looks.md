@@ -318,6 +318,42 @@ ammunition colour — pale electric cyan is what lightning actually looks like
 and is exactly `cyanRim`, which would put *load cyan* across every column of
 the field on an arrival the cannon answers by cutting rather than by killing.
 
+## The balloon
+
+`packages/render/src/balloon.ts`, and its two handles in
+`packages/render/src/balloon-handles.ts`. The one body in the game whose
+**shape is changed by a control** while the pair is playing it.
+
+| Pass | What | Numbers |
+|---|---|---|
+| skin | `balloonPath` — an egg fuller above the middle than below | height `0.44` of a tile full-size, `0.29` after a split; widest point lifted `0.12` of the height; wobble `0.05` on the height alone |
+| swell | the whole body scaled by how far through its fill it is | `0.18 + 0.82 ×` `balloonSwellPhase` — never quite nothing, because the swell is the only announcement this creature gets |
+| give | each half-width grown by the hand on that side | `+0.5 ×` the side's tension, and the height cut by `0.16 ×` the larger of the two |
+| fill and rim | `PALETTE.rockDark` under `PALETTE.rock`, the rim going to `PALETTE.text` under tension | glow `0.5 + 1.2 ×` tension |
+| knot | a three-point triangle under the skin, drawn open | `0.22` of the height wide, `0.3` deep |
+| gloss | one ellipse up and to the left, travelling with the left half | `0.2 × rxLeft` by `0.26 × ry`, alpha `0.45` |
+| halo | only once somebody is pulling | `2.4r`, `PALETTE.text` at `0.1 + 0.22 ×` tension |
+| handles | `drawHandleRing` — the shared handle, with a tab back to the skin | `cfg.balloonHandleMilli` off the body's centre; yours in `PALETTE.rock`/`text`, the other seat's in `PALETTE.dim` |
+
+Three things in there are decisions rather than settings.
+
+**It is grey, and no hue was spent on it.** In this game a body carrying no
+ammunition colour is a body no shot reaches — the choir's membrane, the shell's
+plating, the lid's armour — and a balloon is exactly that, permanently. A
+colour of its own would have said *load something*, which is the one thing
+neither player should be doing about it.
+
+**The two half-widths are separate, so the body is lopsided while one hand is
+on it.** That is the whole readout: neither player can see the other's thumb,
+and the shape of the skin is the only place the pair learns that a hand has
+arrived. There is no easing anywhere between `balloonTension` and the picture,
+for the reason `lidOpenMilli` gives about a gap between two plates.
+
+**Both handles are drawn on both screens, and only your own is bright.** Every
+other handle in the game is drawn where it can be used and dimmed where it
+cannot; here each seat has to see the *other* one moving, because the instant
+they are both taut is an instant neither of them can feel.
+
 ## Bullets
 
 `packages/render/src/bullets.ts`. One look and one shape, since the lance grew

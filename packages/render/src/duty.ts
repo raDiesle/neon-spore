@@ -113,6 +113,12 @@ const DUTY_WORD = {
   // word under the dial is the gesture itself, and what the navigator reads
   // off their own dark dial is that the pilot has been asked for it.
   choir: { p1: "SHAKE" },
+  // THE BALLOON, and the only row here that gives **both** seats a word — and
+  // the same kind of word THE CHOIR's is, an instruction to the seat reading
+  // it rather than a fact to pass on. Neither hand does anything alone, so
+  // what each dial says is the half its own thumb owes; what has to be said
+  // out loud is which body, and no dial can carry that.
+  balloon: { p1: "PULL LEFT", p2: "PULL RIGHT" },
 } as const satisfies Record<CreatureKind, { p1?: string; p2?: string } | null>;
 
 /** Whether a kind counts as active for this word, including the one kind

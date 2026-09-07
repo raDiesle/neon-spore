@@ -36,7 +36,14 @@ describe("categoryOf", () => {
     // throws out is never authored either, and the `carom` entry that made it
     // already shows both panels — the cannon that has to finish it and the
     // shield that owes the rock beside it.
-    expect(special).toEqual(["tether", "mount", "chute"]);
+    // THE BALLOON is the fourth and the first that a wave actually places. It
+    // is here because **neither control reaches it at all** — no bolt lands on
+    // it in any colour and the shield is never offered it — so the category is
+    // right about it and the three above it are what turned out to be a
+    // coincidence: they were also never authored, and three places had come to
+    // read this category as if it meant that. `isInstalled` is the fact those
+    // three actually wanted (`CreatureDef.installed`).
+    expect(special).toEqual(["tether", "mount", "chute", "balloon"]);
   });
 });
 

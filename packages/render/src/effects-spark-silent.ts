@@ -40,6 +40,12 @@ export const SILENT = [
   // `choirOpen`, a beat later, when the colour arrives.
   "choirArm",
   "choirMerge",
+  // A balloon popped. The `destroy` beside it on the same tick is what throws
+  // the particles (`rubBalloon`) — the pair earned an ordinary kill's burst
+  // and get one — so a second here would draw the same moment twice. Its two
+  // siblings are not silent: a split and a burst are pictures nothing else
+  // draws.
+  "balloonPop",
   // A cloud coming apart and the body inside it showing: `veil-tear.ts` draws
   // the whole of it, and the ordinary `destroy` that rides beside it on the
   // same tick is what throws the particles.

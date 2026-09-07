@@ -1,4 +1,5 @@
 import type { Mechanic, MechanicId } from "./mechanics.js";
+import { HANDED_MECHANICS } from "./mechanics-handed.js";
 import { ROCK_MECHANICS } from "./mechanics-rocks.js";
 import { ROUND_MECHANICS } from "./mechanics-rounds.js";
 import { RUN_MECHANICS } from "./mechanics-run.js";
@@ -222,13 +223,14 @@ export const MECHANICS = {
     // says which way round the body stands.
     waveNames: true,
   },
+  // THE BALLOON, next door in `mechanics-handed.ts`: named, so key order keeps.
+  balloon: HANDED_MECHANICS.balloon,
   // The five that are not a thing the field sends — a wave's own opening, the
   // wind-up, and the three things a held thumb does — are `mechanics-run.ts`
   // next door, cut out when THE CRAWLER took this file past its limit along
   // the seam `reach` already names.
   ...RUN_MECHANICS,
   // And the two a wave turns on without sending anything at all, next door in
-  // `mechanics-wave.ts` — the third cut of this table, along the seam `reach`
-  // names rather than the one `mechanics-split.ts` cut.
+  // `mechanics-wave.ts` — the third cut, along that same seam.
   ...WAVE_MECHANICS,
 } as const satisfies Record<MechanicId, Mechanic>;

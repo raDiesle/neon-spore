@@ -66,7 +66,7 @@ table in a document cannot be wrong in a way a compiler notices.
 | `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand`, `magnet`, `choir` |
 | `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch`, `veer`, `coil` |
 | `mixed` | `aim` and `guard` | `queen`, `warden`, `clasp`, `carom`, `volley`, `crawler`, `fence` |
-| `special` | neither | `tether`, `mount`, `chute` |
+| `special` | neither | `tether`, `mount`, `chute`, `balloon` |
 | `suck` | — (pods, not `CreatureKind`) | mend, purge, ward |
 
 `special` was reserved and empty for a long time on the reasoning that nothing
@@ -92,6 +92,19 @@ row says `aim` because `aim` is what the *wave's panel* has to be able to
 answer; the gesture is not a `ControlGroup` and never will be, for the reason
 THE MAGNET's hand is not one. So a category names what the panel owes, not
 everything the pair has to do.
+
+**THE BALLOON is the first thing in `special` that a wave actually places**,
+and it is the row's own sentence read the other way. The tether, the mount and
+the chute are all there because something else on the field put them there —
+each is answered by a control well enough, it just has no panel of its own to
+demand. This one is authored like any other arrival and is in `special`
+because **neither control reaches it at all**: no bolt lands on it in any
+colour and the shield is never offered it, so a wave carrying nothing but
+balloons owes its panel nothing. What answers it is a hand from each seat on a
+handle of its own (`sim/balloon-pull.ts`), and a hand is not a `ControlGroup`
+for the reason THE MAGNET's is not and THE CHOIR's gesture is not. The
+difference from THE CHOIR is that there is no body at the end of it for the
+cannon to finish, so the row has no `aim` to owe.
 
 It stays a different axis from `radar`: *The Silent* and *The Jammer* (10.2)
 are unusual in what they tell a radar strip, not in what a player does about

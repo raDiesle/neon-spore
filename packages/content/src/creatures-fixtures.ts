@@ -50,6 +50,7 @@ export const FIXTURE_CREATURES = {
     // above, and the boss is already announced — a second warning of a thing
     // that is not travelling anywhere would be noise on a strip that exists
     // to say what is coming.
+    installed: true,
     radar: "none",
     blurb:
       "A rope lowered out of the middle of THE WARDEN's rim, with a handle on the end of it. Cannot be shot and cannot be warded, and it never falls — the pilot takes the handle and pulls it aside, and the hatch over the eye opens as far as the rope is taut.",

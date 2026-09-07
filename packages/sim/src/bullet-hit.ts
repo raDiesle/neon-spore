@@ -1,4 +1,5 @@
 import { metColor, missedColor } from "./balance.js";
+import { balloonStruck } from "./balloon.js";
 // The queen's petals and the warden's plates, next door: what a shot does when
 // it meets a boss rather than an arrival (`bullet-hit-boss.ts`).
 import { resolveQueen, resolveWarden } from "./bullet-hit-boss.js";
@@ -90,6 +91,14 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
   // no colour test here and no chipping branch (`choir.ts`).
   if (choirIsDots(hit)) {
     choirStruck(world, hit);
+    return false;
+  }
+  // A balloon, and there is nothing a bolt can do to one. Not a colour miss:
+  // it carries no colour at all, so there was no right ammunition to have
+  // loaded, and what the pair has misread is what the body is rather than what
+  // it is made of (`balloon.ts`). Two hands are its whole answer.
+  if (hit.kind === "balloon") {
+    balloonStruck(world, hit);
     return false;
   }
   // A dome over a rock, and the clasp's answer word for word (`coil.ts`).
