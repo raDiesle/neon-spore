@@ -127,7 +127,7 @@ describe("buildBacklog", () => {
     // SNAKE did: its bullet was cut once the thing existed, because an entry
     // describing something shipped in the future tense is a page that lies to
     // whoever reads it next. It is a creature now rather than the boss the
-    // bullet imagined — three dots in a membrane, opened by shaking the phone
+    // bullet imagined — two bodies in a membrane, opened by shaking the phone
     // — and it is in the bestiary like any other arrival. The act-40 slot
     // still carries the name for a boss built on it later.
     expect(names(backlog.bosses)).not.toContain("THE CHOIR");

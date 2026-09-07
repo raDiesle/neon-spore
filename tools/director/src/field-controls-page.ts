@@ -178,7 +178,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
     does:
       "The same control at the other wall, and the second half of one " +
       "gesture: carried outward inside the window the first one opened, the " +
-      "dots draw together into a slick or a bulb. Two pulls on the same side " +
+      "two draw together into a single slick or bulb. Two pulls on one side " +
       "is one gesture done twice and opens nothing (sim/choir-gesture.ts).",
     source: "touch.ts — choirArrowUnder() under handleUnder()",
     holdKind: "drag",

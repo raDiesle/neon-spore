@@ -13,8 +13,8 @@ import { createWorld, type SimEvent, type SpawnEntry, step, type World } from ".
  * one is covered next door and the shape is the same here, so what is tested
  * below is the half that is *not* the same — the gesture. It is the first
  * answer in this game made of two commands that have to arrive in the right
- * order inside a window, from one seat, on a body that is not in any of the
- * columns either arrow stands in.
+ * order inside a window, from one seat, on a body standing in a lane that
+ * neither arrow is anywhere near.
  *
  * The second is what a **wrong** move costs. Every other creature answers a
  * mistake by simply not dying; this one takes the hull, on the owner's own
@@ -97,8 +97,10 @@ describe("the gesture", () => {
     // A red choir becomes a slick, because `livingKindForColor` is the one
     // copy of the colour-to-silhouette pairing and nothing authors the target.
     expect(body.kind).toBe("slick");
-    // And it lands in the **middle** of the three columns it hung across.
-    expect(body.col).toBe(3);
+    // And it stays in the lane it arrived in. The body is one tile wide the
+    // whole time, so the column player 2 was given is the one that answers —
+    // a merge that moved the lane would expire a number already said aloud.
+    expect(body.col).toBe(2);
     expect(events.filter((e) => e.type === "choirMerge")).toHaveLength(1);
     expect(world.score).toBe(CFG.scoreChoirMerge);
     // The gesture is spent: nothing is left armed to be finished twice.
@@ -121,7 +123,7 @@ describe("the gesture", () => {
   it("reaches every membrane on the field at once, having no column to be in", () => {
     const { world } = run([choir(0, "red"), choir(4, "cyan")], TPB * 2, [shake(ON_FIELD)]);
     expect(world.creatures.map((c) => c.kind)).toEqual(["slick", "bulb"]);
-    expect(world.creatures.map((c) => c.col)).toEqual([1, 5]);
+    expect(world.creatures.map((c) => c.col)).toEqual([0, 4]);
   });
 });
 
@@ -133,7 +135,7 @@ describe("what a wrong move costs", () => {
     const { world, events } = run([choir(2, "red")], ticks, pull(ON_FIELD, "choirLeft", -FAR));
     expect(events.filter((e) => e.type === "choirSing")).toHaveLength(1);
     expect(world.hullMilli).toBeLessThan(full);
-    // Still three dots: a lapse costs the hull and never opens anything.
+    // Still a membrane: a lapse costs the hull and never opens anything.
     expect(choirIsDots(only(world))).toBe(true);
     expect(choirArmed(world)).toBeNull();
   });
@@ -160,8 +162,8 @@ describe("what a wrong move costs", () => {
 });
 
 describe("the body it becomes", () => {
-  it("refuses every shot while it is still three dots", () => {
-    const inputs = [aim(2, 3), fire(ON_FIELD, "red"), fire(TPB * 2, "cyan")];
+  it("refuses every shot while it is still a membrane", () => {
+    const inputs = [aim(2, 2), fire(ON_FIELD, "red"), fire(TPB * 2, "cyan")];
     const { world, events } = run([choir(2, "red")], TPB * 4, inputs);
     expect(choirIsDots(only(world))).toBe(true);
     expect(events.some((e) => e.type === "reject")).toBe(true);
@@ -173,7 +175,7 @@ describe("the body it becomes", () => {
 
   it("dies to the matching cannon once it has drawn together", () => {
     const inputs = [
-      aim(2, 3),
+      aim(2, 2),
       ...pull(ON_FIELD, "choirLeft", -FAR),
       ...pull(TPB * 2, "choirRight", FAR),
       fire(TPB * 2 + 4, "red"),

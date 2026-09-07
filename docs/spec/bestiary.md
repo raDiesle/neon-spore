@@ -84,9 +84,10 @@ in `cannon` is what shows the panel. Both rows say the same thing: `special`
 is where a body goes when something else on the field put it there.
 
 **THE CHOIR is in `cannon` and its whole answer is not**, which is the sharpest
-reading this table has of what a category is for. A membrane is opened by a
-gesture on neither panel — the phone shaken, or two arrows carried off the
-edges of the field — and then the body it becomes is shot like any other. The
+reading this table has of what a category is for. A pair of bodies in one
+membrane is opened by a gesture on neither panel — the phone shaken, or two
+arrows carried off the edges of the field — and then the body they become is
+shot like any other. The
 row says `aim` because `aim` is what the *wave's panel* has to be able to
 answer; the gesture is not a `ControlGroup` and never will be, for the reason
 THE MAGNET's hand is not one. So a category names what the panel owes, not

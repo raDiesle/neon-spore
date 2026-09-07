@@ -143,18 +143,18 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 - **Files:** `packages/render/src/choir.ts`, `packages/render/src/effects-body.ts`,
   `packages/render/src/effects-ingest.ts`
 
-The moment three dots become one body is the whole creature, and on screen it is
-one frame of grey membrane followed by one frame of a slick with a burst of
-sparks over it. THE CLASP has the same shape of moment and a whole file for it
+The moment two bodies become one is the whole creature, and on screen it is one
+frame of grey membrane followed by one frame of a slick with a burst of sparks
+over it. THE CLASP has the same shape of moment and a whole file for it
 (`clasp-break.ts`, drawn around a body that is still falling); THE RIND has
 `rind-shed.ts`. This has neither, and the reason is only that the sim half was
 the work.
 
-What it wants is the film **closing**: the three swellings drawn pulling toward
-the middle lane over a few tenths of a second while the outline stays one
-contour, and the colour arriving into it rather than replacing it. `choirDotAt`
-is already the one copy of where a dot stands, so the transient is that function
-sampled toward a common centre; `BodyTransients` in `effects-body.ts` is where
+What it wants is the film **closing**: the two bodies drawn pulling into each
+other over a few tenths of a second while the film stays one skin, and the
+colour arriving into it rather than replacing it. `choirVoiceAt` is already the
+one copy of where a body stands, so the transient is that function with its
+orbit driven to nought; `BodyTransients` in `effects-body.ts` is where
 it belongs, because it outlives its frame and is about one body by id — which is
 exactly why `choirMerge` carries an `id`.
 

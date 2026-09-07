@@ -198,7 +198,7 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     // answer is the body that comes out, which is a slick or a bulb, which is
     // the cannon. THE MAGNET's row makes the same argument about a hand.
     controls: ["aim"],
-    // No colour of its own while it is three dots: the membrane is grey and
+    // No colour of its own while it is two bodies: the membrane is grey and
     // nothing about it says which trigger will be right. The colour arrives
     // *with the merge*, from the wave, which is the one entry in this table
     // where `authorsColor` describes a colour the pair cannot see yet.
@@ -211,7 +211,7 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     // somebody has to say when the shaking starts.
     radar: "p1",
     blurb:
-      "Three dots hung in one membrane across three lanes, and no shot reaches any of them. Shake the phone — or carry the two arrows at the edges of the field outward, one and then the other inside two beats — and they draw together into a slick or a bulb in the middle lane, in a colour they did not have while they were apart. Miss the window and it sings, and the hull pays for the chord.",
+      "Two rounded bodies leaning on each other inside one soap-film membrane, in one lane, and no shot reaches either of them. Shake the phone — or carry the two arrows at the edges of the field outward, one and then the other inside two beats — and they draw together into a single slick or bulb in the same lane, in a colour they did not have while they were apart. Miss the window and it sings, and the hull pays for the chord.",
   },
   crawler: {
     kind: "crawler",

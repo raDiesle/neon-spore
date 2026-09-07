@@ -161,9 +161,9 @@ export const WAVES_ACT_7B: Wave[] = [
     name: "THE CHOIR",
     sentence: "The one where the half-made gesture is worse than none at all.",
     guide: {
-      both: "Three dots in one grey membrane, across three lanes. Nothing you can fire reaches any of them. What opens it is not on either panel: shake the phone, or carry the two big arrows at the edges of the field outward — one, then the other, inside two beats. They draw together into a slick or a bulb, and only then is there anything to shoot.",
+      both: "Two rounded bodies in one grey membrane, sharing a lane. Nothing you can fire reaches either of them. What opens it is not on either panel: shake the phone, or carry the two big arrows at the edges of the field outward — one, then the other, inside two beats. They draw together into one slick or bulb, and only then is there anything to shoot.",
       p1: "Yours, and it is not a button. Shake the phone; if it will not, carry the left arrow off the left edge and the right one off the right, inside two beats. Stop halfway and it sings — the hull pays. Say when you start.",
-      p2: "You cannot open it and a shot at a membrane is spent on nothing. Wait for the dots to come together, then fire the colour it turned, up the middle lane of the three — the only one it is in now.",
+      p2: "You cannot open it and a shot at a membrane is spent on nothing. Wait for the two to come together, then fire the colour it turned, up the lane it has been in the whole time.",
       scene: "theChoir",
     },
     entries: [

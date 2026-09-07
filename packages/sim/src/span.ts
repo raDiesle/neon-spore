@@ -1,4 +1,3 @@
-import { CHOIR_COLS } from "./choir.js";
 import type { CreatureKind } from "./creature-kinds.js";
 import { SHELL_COLS } from "./shell.js";
 import type { Creature } from "./types.js";
@@ -59,12 +58,6 @@ export function colSpan(kind: CreatureKind): number {
   // a width set here and a count set there could disagree and leave a column
   // with nothing in front of it -- or a piece with no column to be shot in.
   if (kind === "shell") return SHELL_COLS;
-  // THE CHOIR's width is its own config field, because it is the number of
-  // *dots* as well as the number of columns: the membrane hangs one over each
-  // lane, so a width set here and a count set there could disagree and leave a
-  // dot standing over nothing. It is the same argument THE SHELL's line above
-  // makes, arrived at from the picture rather than from the pieces.
-  if (kind === "choir") return CHOIR_COLS;
   // THE CAROM is two as well, and it is the torch's number arrived at from
   // the other side: a torch is wide because it is twice a rock, and a carom is
   // wide because it has to be *seen* crossing four lanes a beat. A one-tile

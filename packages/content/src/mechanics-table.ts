@@ -195,7 +195,7 @@ export const MECHANICS = {
     waveNames: true,
   },
   choir: {
-    what: "Three dots hung across three lanes in one soap-film membrane, grey and carrying no colour at all. Nothing reaches them: a bolt in either colour is spent on the film. What opens it is a gesture neither panel has — the pilot shakes the phone, or, where a phone cannot report being shaken, carries the two arrows standing against the walls of the field outward, one and then the other, inside two beats. The dots draw together into a slick or a bulb in the middle lane, in a colour they did not have while they were apart, and from there the navigator finishes it. Miss the window, or carry an arrow inward, and it sings: the hull pays for the chord and the gesture starts again.",
+    what: "Two rounded bodies leaning on each other inside one soap-film membrane, sharing a lane, grey and carrying no colour at all. Nothing reaches them: a bolt in either colour is spent on the film. What opens it is a gesture neither panel has — the pilot shakes the phone, or, where a phone cannot report being shaken, carries the two arrows standing against the walls of the field outward, one and then the other, inside two beats. The two draw together into a single slick or bulb in the same lane, in a colour they did not have while they were apart, and from there the navigator finishes it. Miss the window, or carry an arrow inward, and it sings: the hull pays for the chord and the gesture starts again.",
     reach: "spawn",
     // A wave names this kind and gives it a colour, the way it does for a
     // clasp: the silhouette is the membrane's and the colour is the body it

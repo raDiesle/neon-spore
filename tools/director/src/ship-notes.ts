@@ -27,15 +27,15 @@ import type { GroupName } from "./ship-groups.js";
  * `SimEvent`.
  */
 export const GROUP_NOTE: Record<GroupName, string> = {
-  "THE CHOIR — three dots opened by shaking the phone":
-    "Three dots hung across three lanes in one grey membrane, and no shot " +
-    "reaches any of them. What opens it is on neither panel: player 1 shakes " +
-    "the device, or — where a device cannot report a shake, which is a " +
-    "question no browser answers reliably — carries the two big arrows " +
-    "standing against the walls of the field outward, one and then the other, " +
-    "inside choirWindowBeats. The dots draw together into a slick or a bulb " +
-    "in the middle lane, in a colour they did not have while they were apart, " +
-    "and player 2 finishes it. Miss the window, or carry an arrow inward, and " +
+  "THE CHOIR — two bodies opened by shaking the phone":
+    "Two rounded bodies leaning on each other inside one grey membrane, in " +
+    "one lane, and no shot reaches either of them. What opens it is on " +
+    "neither panel: player 1 shakes the device, or — where a device cannot " +
+    "report a shake, which is a question no browser answers reliably — " +
+    "carries the two big arrows standing against the walls of the field " +
+    "outward, one and then the other, inside choirWindowBeats. The two draw " +
+    "together into a single slick or bulb in the same lane, in a colour they " +
+    "did not have while they were apart, and player 2 finishes it. Miss the window, or carry an arrow inward, and " +
     "it sings: damageChoirSong off the hull, and the gesture starts again. " +
     "The whole screen shakes while the window is open and shakes harder on " +
     "the merge. See choir.ts and choir-gesture.ts.",

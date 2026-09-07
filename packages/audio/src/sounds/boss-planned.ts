@@ -43,7 +43,7 @@ export const BOSS_PLANNED_SOUNDS: SoundDef[] = [
     blurb: "Many voices on one note, and one of them wrong.",
     status: "bound",
     // Written for a boss that does not exist and spent on the creature that
-    // came first. THE CHOIR is an arrival now — three dots in a membrane — and
+    // came first. THE CHOIR is an arrival now — two bodies in a membrane — and
     // this is what it does when the pilot's gesture lapses: it sings, and the
     // hull pays for the chord (`bind-choir.ts`). The act-40 slot still holds
     // the name, and a boss built into it inherits its own voice.

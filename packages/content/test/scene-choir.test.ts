@@ -42,7 +42,7 @@ const SCENE = {
 const CFG = { ...DEFAULT_CONFIG, bpm: SCENE.bpm, briefings: false, hullRegenPerSecond: 0 };
 
 interface Played {
-  /** Whether a membrane was still three dots, per tick. */
+  /** Whether a membrane was still unopened, per tick. */
   dots: boolean[];
   /** Which arrow was standing out, per tick. */
   armed: (number | null)[];
@@ -82,7 +82,7 @@ describe("a rehearsal that shakes the device", () => {
     const shaken = play([{ tick: 90, shake: true }]);
     expect(shaken.dots[89], "the membrane was already gone before the shake").toBe(true);
     expect(merged(shaken), "the shake did nothing").toBe(true);
-    expect(shaken.dots[shaken.dots.length - 1], "it is still three dots").toBe(false);
+    expect(shaken.dots[shaken.dots.length - 1], "it is still a membrane").toBe(false);
   });
 
   it("is the pilot's, and the film does not say so", () => {

@@ -53,7 +53,7 @@ export class ChoirQuake {
     this.strike(ARM_AMPLITUDE);
   }
 
-  /** Both arrows are in, or the phone was shaken, and the dots draw together.
+  /** Both arrows are in, or the phone was shaken, and the two draw together.
    * The larger of the two heights, which is the escalation the owner asked
    * for: it shakes, and then it shakes more. */
   merge(): void {

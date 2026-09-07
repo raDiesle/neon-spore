@@ -1,5 +1,4 @@
 import { choirIsDots, type World } from "@neon-spore/sim";
-import { choirVoiceAt } from "./choir.js";
 import { creatureCenter } from "./creature-place.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -22,7 +21,7 @@ import { showsCannon } from "./view-role.js";
  * being taught four different pictures for one idea, so the corner brackets
  * are now the shared word for *an instrument has picked this body out and
  * cannot tell you the rest*. That is exactly true here — the machine has found
- * three dots and has nothing to say about which trigger answers them, because
+ * a membrane and has nothing to say about which trigger answers it, because
  * none does yet.
  *
  * **Rock grey, and never an ammunition colour.** Everything else about this
@@ -37,18 +36,17 @@ import { showsCannon } from "./view-role.js";
  */
 
 /**
- * How far the frame reaches from the body's centre, in tiles: across the whole
- * membrane, and a little over half a tile above and below it.
+ * How far the frame reaches from the body's centre, in tiles: a little wider
+ * than the membrane itself, in the one lane it stands in.
  *
- * **Around the whole thing and not around one dot**, which is the correction a
- * first frame of this earned. A lock the size of one swelling reads as an
- * instrument that has picked out *that dot* — which is exactly the sentence
- * this creature must not say, because there is no dot the pair can act on and
- * no lane among the three that is more the answer than the others. The
- * instruction is about the body, so the frame is the body's.
+ * **Around the whole thing and not around one of the two**, which is the
+ * correction a first frame of this earned. A lock the size of one swelling
+ * reads as an instrument that has picked *that* one out, and neither of them
+ * is the answer on its own — the instruction is about the body, so the frame
+ * is the body's.
  */
-const FRAME_W = 1.45;
-const FRAME_H = 0.68;
+const FRAME_W = 0.72;
+const FRAME_H = 0.66;
 
 export function drawChoirPrompt(
   ctx: CanvasRenderingContext2D,
@@ -61,10 +59,10 @@ export function drawChoirPrompt(
   for (const c of world.creatures) {
     if (!choirIsDots(c)) continue;
     const { x, y } = creatureCenter(l, c, beatPhase);
-    // Centred on the **middle voice**, which breathes with the other two —
-    // `choirVoiceAt` is the one copy of where a voice stands, so the frame
-    // cannot come adrift from the body it is around.
-    const dot = choirVoiceAt(l, x, y, 1, time);
+    // On the tile's own centre, which is where the pair orbits: the two bodies
+    // lean about it and neither of them is the middle of anything, so a frame
+    // hung off one would swing with that one alone.
+    const dot = { x, y };
     const halfW = l.tile * FRAME_W;
     const halfH = l.tile * FRAME_H;
     drawTargetLock(ctx, dot.x, dot.y, halfW, halfH, PALETTE.rock, time, 0.85, c.id);

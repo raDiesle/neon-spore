@@ -158,7 +158,7 @@ export const TALKER = {
   coil: "p1",
   // THE CHOIR, and the first row here where what one seat has is not a *fact*
   // the other lacks but a **gesture** the other has not got. Both screens draw
-  // the same three dots and the same grey membrane; only the pilot's carries
+  // the same pair and the same grey membrane; only the pilot's carries
   // the arrows, and only the pilot's phone is the one being shaken. The
   // navigator is holding both triggers over a body nothing can shoot yet, so
   // the one thing they need to hear is that it is about to become one — which

@@ -7,7 +7,7 @@ import type { GuideScene } from "../scene-types.js";
  * shipped with one. Every other guide describes something a pair can find on
  * their own screen — a button, a strip, a cord hanging off a body. This one has
  * to teach a hand *shaking the device*, and a pair who do not read the words
- * carefully sit and watch three dots reach the hull with both thumbs on
+ * carefully sit and watch a membrane reach the hull with both thumbs on
  * controls that cannot touch them.
  *
  * **Two gestures, in that order, and they are not alternatives to a reader.**
@@ -36,9 +36,9 @@ import type { GuideScene } from "../scene-types.js";
  * **The cannon goes under it on the pilot's page, before the merge is shot.**
  * THE LID's film makes the same move for the same reason: firing is the
  * navigator's and aiming is not, so a page that showed only the shot would
- * teach half an order. It is `atBody` rather than a column, because the merged
- * body lands in the *middle* of the three lanes — column 4 on the field the
- * game ships, which is one of the four `mapCol` cannot reach (`sim/scene-aim.ts`).
+ * teach half an order. It is `atBody` rather than a column, which is
+ * what keeps this page right whatever lane the wave author put the membrane in
+ * (`sim/scene-aim.ts`).
  *
  * **The last page is the half-made gesture.** One arrow carried, the window
  * shut, and the thing sings: the wave's own sentence is *the one where the
@@ -60,7 +60,7 @@ export const THE_CHOIR: GuideScene = {
   ],
   acts: [
     { tick: 90, shake: true },
-    // Under the middle of the three lanes, where the merge lands.
+    // Under the membrane's own lane, which is where the merge stays.
     { tick: 240, control: "cannon", col: 2, atBody: true },
     { tick: 420, control: "fireRed" },
     // The two trips. Armed on the last message of the first carry and finished

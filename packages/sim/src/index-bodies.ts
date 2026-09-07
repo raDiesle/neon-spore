@@ -17,7 +17,7 @@
  */
 
 export { type CaromDir, caromBecomes, caromHeading, caromImpactDamage } from "./carom.js";
-export { CHOIR_COLS, choirBecomes, choirIsDots, choirMidCol, choirOnField } from "./choir.js";
+export { choirBecomes, choirIsDots, choirOnField } from "./choir.js";
 // THE CHOIR's hand, and the one row in this file that is not a reading of a
 // body: the arrows and the shake are a *control*, so render/ has to know which
 // arrow is standing out in order to draw the other one as the next thing to
