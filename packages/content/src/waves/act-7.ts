@@ -181,9 +181,9 @@ export const WAVES_ACT_7: Wave[] = [
     name: "THE COIL",
     sentence: "The one where the trigger waits for the lane above it to clear.",
     guide: {
-      both: "A rock inside a dome of its own. It comes in at the right wall and crosses the field to the left instead of falling, sinking at every wall it turns at, and nothing touches it while the dome is on. The plate takes a dome off the instant the two are in one column with the trigger open — and what comes out runs for the wall furthest from the plate and lands there, too far off to turn. Opening one throws its charge at another dome still standing, and that one opens too.",
+      both: "A rock inside a dome of its own. It comes in at the right wall and crosses the field to the left instead of falling, sinking at every wall it turns at, and nothing touches it while the dome is on. The plate takes a dome off the instant the two are in one column with the trigger open — and what comes out runs for the wall furthest from the plate and lands there, too far off to turn. The plate has to see it: a rock falling in the lane between them takes the whole reach, and while one is under a dome nothing happens at all. Opening one throws its charge at another dome still standing, and that one opens too.",
       p1: "The trigger is the only thing here you can get wrong. Before you press, ask what is over her column: a dome she stands under opens with the rock, and what it leaves is at the far wall. The charge is yours to call.",
-      p2: "The plate is yours and the domes are on your screen. Say your column and say what is crossing it — how many beats until it is clear. They cannot press while a dome is on you, so the count is the whole sentence.",
+      p2: "The plate is yours and the domes are on your screen. Say your column and the count until it is clear: they cannot press while a dome is on you, and nothing opens at all while a rock is between the two of you.",
     },
     entries: [
       { beat: 5, col: 2, kind: "meteor", color: null, size: 2 },

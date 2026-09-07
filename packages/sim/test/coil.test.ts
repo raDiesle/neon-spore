@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { coilStruck } from "../src/coil.js";
-import { coilCharged, coilHeading, coilIsDomed } from "../src/coil-state.js";
+import { coilCharged, coilHeading, coilIsDomed, coilWardReaches } from "../src/coil-state.js";
 import { DEFAULT_CONFIG, hullRow, ticksPerBeat } from "../src/config.js";
 import { hashWorld } from "../src/hash.js";
 import { spanOf } from "../src/span.js";
@@ -220,6 +220,101 @@ describe("the ward opens a dome and what is left is a torch", () => {
   it("pays scoreCoilBreak for it", () => {
     const { world } = run([coil(0, 8)], TPB * 2 - 1, [shieldTo(4, 8), guard(TPB)]);
     expect(world.score).toBe(CFG.scoreCoilBreak);
+  });
+});
+
+describe("the plate has to see the dome to open it", () => {
+  /**
+   * The owner's rule, in his own words: *"when the cannon vertical tile has
+   * not seen the full width of the coil"*. The plate answers a dome by
+   * reaching up its own column, and a rock crossing the lane under one takes
+   * the whole reach — so the dome is not opened, not lit and not touched, and
+   * the pair watches nothing happen. It is what THE COIL's own sentence has
+   * said since the day the wave was written: *the one where the trigger waits
+   * for the lane above it to clear*.
+   *
+   * The arrangement is the same in all four: a coil set off from column 8
+   * crosses one lane a beat, so it is standing in column 6 on the third beat
+   * and nowhere near it on the fourth. The plate is parked there for the whole
+   * run and the trigger is held down, which leaves the lane below as the only
+   * thing that differs between them.
+   */
+  const held = (ticks: number): TimedCommand[] => Array.from({ length: ticks }, (_, t) => guard(t));
+  /** Long enough to carry the coil into column 6 and out the other side. */
+  const PASS = TPB * 4;
+  /** The one dome still standing, so a test asserts about a body rather than
+   * about `undefined` slipping through a `&&`. */
+  const domed = (world: World): Creature => {
+    const c = world.creatures.find(coilIsDomed);
+    if (c === undefined) throw new Error("no dome is left standing");
+    return c;
+  };
+
+  it("opens one with nothing under it, which is the run the rest are read against", () => {
+    const { events } = run([coil(0, 8)], PASS, [shieldTo(0, 6), ...held(PASS)]);
+    expect(events.some((e) => e.type === "coilBreak")).toBe(true);
+  });
+
+  it("leaves it alone while a rock is falling in the lane below it", () => {
+    const rock: SpawnEntry = { beat: 0, col: 6, kind: "meteor", color: null };
+    const { world, events } = run([coil(0, 8), rock], PASS, [shieldTo(0, 6), ...held(PASS)]);
+    expect(events.some((e) => e.type === "coilBreak")).toBe(false);
+    expect(world.creatures.some(coilIsDomed)).toBe(true);
+  });
+
+  it("is stopped by the second column of a two-tile rock as much as by the first", () => {
+    // `occupiesCol` and not a column comparison: a rock authored at column 5
+    // with a width of two is standing in column 6 as well, and a reach that
+    // only ever looked at `col` would go straight through half of every big
+    // rock in the game.
+    const wide: SpawnEntry = { beat: 0, col: 5, kind: "meteor", color: null, span: 2 };
+    const { events } = run([coil(0, 8), wide], PASS, [shieldTo(0, 6), ...held(PASS)]);
+    expect(events.some((e) => e.type === "coilBreak")).toBe(false);
+  });
+
+  it("opens it on a later pass, once that lane has cleared", () => {
+    // A delay and not an immunity, which is the difference between a rule the
+    // pair can plan around and a creature they cannot answer. The rock is
+    // warded away at the hull long before the coil turns at the left wall and
+    // works its way back across to column 6.
+    const rock: SpawnEntry = { beat: 0, col: 6, kind: "meteor", color: null };
+    const long = TPB * 20;
+    const { events } = run([coil(0, 8), rock], long, [shieldTo(0, 6), ...held(long)]);
+    expect(events.some((e) => e.type === "coilBreak")).toBe(true);
+  });
+
+  it("counts only what is below it, never what is beside it on its own row", () => {
+    // A body on the coil's own row is beside the dome rather than in front of
+    // it. The rock arrives on the beat the coil steps into column 6 — arrivals
+    // are spawned in `onBeat` and the ward is asked after it — so the two
+    // stand on row 0 together and the reach is clear.
+    const beside: SpawnEntry = { beat: 2, col: 6, kind: "meteor", color: null };
+    const world = createWorld({ ...CFG }, 7, [coil(0, 8), beside]);
+    for (let t = 0; t < TPB * 3; t++) step(world, t === 0 ? [shieldTo(0, 6)] : []);
+    const dome = domed(world);
+    const rock = world.creatures.find((c) => !coilIsDomed(c));
+    expect(dome.col).toBe(6);
+    // The arrangement the assertion below is about, stated rather than assumed.
+    expect(rock?.col).toBe(6);
+    expect(rock?.row).toBe(dome.row);
+    expect(coilWardReaches(world, dome)).toBe(true);
+    const { events } = run([coil(0, 8), beside], PASS, [shieldTo(0, 6), ...held(PASS)]);
+    expect(events.some((e) => e.type === "coilBreak")).toBe(true);
+  });
+
+  it("answers the ward and the dome's own highlight with one function", () => {
+    // `coilWardReaches` is what render draws the resonance from as well
+    // (`render/coil.ts`), so a dome that lights is a dome that opens. The two
+    // being one rule is the whole reason the reading is exported at all.
+    const rock: SpawnEntry = { beat: 0, col: 6, kind: "meteor", color: null };
+    const world = createWorld({ ...CFG }, 7, [coil(0, 8), rock]);
+    for (let t = 0; t < TPB * 3; t++) step(world, t === 0 ? [shieldTo(0, 6)] : []);
+    const dome = domed(world);
+    expect(dome.col).toBe(6);
+    expect(coilWardReaches(world, dome)).toBe(false);
+    // Take the rock out from under it and the same body answers the other way.
+    world.creatures = world.creatures.filter(coilIsDomed);
+    expect(coilWardReaches(world, dome)).toBe(true);
   });
 });
 

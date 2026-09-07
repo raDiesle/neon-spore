@@ -1,5 +1,6 @@
 import type { SimConfig } from "./config.js";
 import type { CrossDir } from "./cross.js";
+import { occupiesCol } from "./span.js";
 import type { Creature } from "./types.js";
 import type { World } from "./world.js";
 
@@ -93,4 +94,42 @@ export function coilChargeAge(world: World, c: Creature): number {
 /** Whether the charge has arrived and this dome comes open on this beat. */
 export function coilDue(cfg: SimConfig, world: World, c: Creature): boolean {
   return coilCharged(c) && coilChargeAge(world, c) >= cfg.coilJumpBeats;
+}
+
+/**
+ * **Whether the ship's plate actually reaches this dome.** The one rule the
+ * ward is asked, and the one the dome's own highlight is drawn from.
+ *
+ * Standing in the column is not enough. The plate answers a dome by reaching
+ * *up its own column*, and a body between the two is in the way: a rock — one
+ * tile or two — crossing the lane under a coil takes the whole of that reach,
+ * so the dome is not opened, not lit and not touched, and the pair sees
+ * nothing happen at all. That is the owner's rule in his own words, *"when the
+ * cannon vertical tile has not seen the full width of the coil"*, and THE
+ * COIL's own sentence reads as it word for word: *the one where the trigger
+ * waits for the lane above it to clear*.
+ *
+ * **Below and not merely in the column**, because the reach comes off the ship
+ * — rows count downwards, so anything the coil is standing above is between it
+ * and the hull and anything above it is behind it. A body on the coil's own
+ * row is beside it rather than in front of it and blocks nothing.
+ *
+ * **Any body, and no exception for another dome.** A coil in the same column
+ * lower down shadows the ones over it, which is the creature rather than a
+ * side effect: the plate opens the nearest one and the column clears from the
+ * bottom up, one beat at a time.
+ *
+ * Call this and never `occupiesCol(c, world.shieldCol)` by hand. The ward and
+ * the highlight are two readings of one rule — a second copy is a dome that
+ * lights and does not open, which is exactly the defect this fixes seen from
+ * the other side. `copies-table.ts` holds a row for it.
+ */
+export function coilWardReaches(world: World, c: Creature): boolean {
+  if (!occupiesCol(c, world.shieldCol)) return false;
+  for (const other of world.creatures) {
+    if (other.id === c.id) continue;
+    if (other.row <= c.row) continue;
+    if (occupiesCol(other, world.shieldCol)) return false;
+  }
+  return true;
 }

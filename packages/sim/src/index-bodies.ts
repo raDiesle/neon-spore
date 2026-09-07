@@ -27,4 +27,5 @@ export {
   coilDue,
   coilHeading,
   coilIsDomed,
+  coilWardReaches,
 } from "./coil-state.js";

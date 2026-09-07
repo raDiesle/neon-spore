@@ -1,5 +1,11 @@
-import { type Creature, coilChargeAge, type SimConfig, type World } from "@neon-spore/sim";
-import { CLASP_RADIUS_MUL, claspResonance, drawClaspShield } from "./clasp.js";
+import {
+  type Creature,
+  coilChargeAge,
+  coilWardReaches,
+  type SimConfig,
+  type World,
+} from "@neon-spore/sim";
+import { CLASP_RADIUS_MUL, drawClaspShield } from "./clasp.js";
 import { hazed } from "./depth.js";
 import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
@@ -76,12 +82,20 @@ export function coilCharge(cfg: SimConfig, world: World, c: Creature, beatPhase:
  * The dome, over a rock that is already drawn. `charge` is `coilCharge` on the
  * screen that gets it and zero on the one that does not.
  *
- * `lit` is the louder of two things: the ship's own plate standing in this
- * column, which is the resonance a clasp already has and which **both** screens
- * show — it is a fact about where the plate is, and the navigator is the one
- * who put it there — and the charge, which only the pilot's screen ever passes
- * in. So the two seats see the same dome answer the same plate, and only one
- * of them sees it about to fail.
+ * `lit` is the louder of two things: the ship's own plate answering this dome,
+ * which **both** screens show — it is a fact about where the plate is, and the
+ * navigator is the one who put it there — and the charge, which only the
+ * pilot's screen ever passes in. So the two seats see the same dome answer the
+ * same plate, and only one of them sees it about to fail.
+ *
+ * **`coilWardReaches` and not `claspResonance`**, which is the whole of the
+ * difference between the two bubbles: a clasp is answered by the column alone,
+ * and a dome is answered by the column *and* a clear lane below it. A rock
+ * crossing under the coil takes the reach, and a dome that lit anyway would be
+ * the picture promising an opening the rule is not going to give — the pair
+ * would hold a lane on the strength of it and watch nothing happen. It is the
+ * simulation's own rule called rather than a second copy drawn from the
+ * shield's column (`copies-table.ts` holds the row).
  */
 export function drawCoilDome(
   ctx: CanvasRenderingContext2D,
@@ -95,7 +109,7 @@ export function drawCoilDome(
   charge: number,
   image: CanvasImageSource | null,
 ): void {
-  const lit = Math.max(claspResonance(world.shieldCol, c.col), charge);
+  const lit = Math.max(coilWardReaches(world, c) ? 1 : 0, charge);
   drawClaspShield(ctx, l, world.cfg, x, y, time, near, lit, image);
   drawStuds(ctx, l, world.cfg, c, x, y, time, near, charge);
 }

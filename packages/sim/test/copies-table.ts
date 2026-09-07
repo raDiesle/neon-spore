@@ -124,6 +124,18 @@ export const COPIES: Copy[] = [
     strip: false,
   },
   {
+    // Whether the ship's plate actually reaches a dome: its column, *and*
+    // nothing standing lower in that column between the two. The ward asks it
+    // and so does the dome's own highlight, and the two have to be one rule —
+    // a second copy is a dome that lights and does not open, which is the
+    // defect this was written to fix seen from the other side. The shape
+    // caught is the scan itself: a row test against the coil's own, and a
+    // column test within a line or two of it.
+    call: "coilWardReaches",
+    owner: "packages/sim/src/coil-state.ts",
+    pattern: /row\s*<=\s*c\s*\.\s*row[\s\S]{0,120}occupiesCol\s*\(/,
+  },
+  {
     // The disguise, and the one rule in this table whose second copy is not a
     // drift but a *tell*. A lure is a full-size slick or bulb in every pixel
     // player 1 owns; every appearance derived from a kind — contour,

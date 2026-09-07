@@ -1,10 +1,10 @@
 import { markMoment } from "./balance.js";
-import { coilCharged, coilDue, coilHeading, coilIsDomed } from "./coil-state.js";
+import { coilCharged, coilDue, coilHeading, coilIsDomed, coilWardReaches } from "./coil-state.js";
 import { hullRow, type SimConfig } from "./config.js";
 import { crossField } from "./cross.js";
 import { guardArmed } from "./hull-guard.js";
 import { nextInt } from "./rng.js";
-import { occupiesCol, spanOf } from "./span.js";
+import { spanOf } from "./span.js";
 import type { Creature } from "./types.js";
 import type { World } from "./world.js";
 
@@ -27,6 +27,14 @@ import type { World } from "./world.js";
  * the trigger arrives — a shield is a column and not a plate on one row
  * (`breakClaspsInColumn` says the same) — so what the pair agrees is *stand in
  * four and hold*, and then they both watch it come true.
+ *
+ * **But the plate reaches up its column, and a body in the way stops it.** A
+ * rock crossing the lane under a dome takes the whole reach, so the dome is
+ * not opened, not lit and not touched until the lane below it is clear
+ * (`coilWardReaches`). THE COIL's own sentence reads as it word for word —
+ * *the one where the trigger waits for the lane above it to clear* — and it is
+ * what turns "stand in four and hold" into a thing with an order: the lane
+ * below, and then the dome.
  *
  * **And a dome does not go out quietly.** The charge it was holding jumps to
  * one other coil still standing, chosen from the seeded stream, and
@@ -181,18 +189,26 @@ export function coilStruck(world: World, hit: Creature): void {
  * coil never reaches anything. The torch it leaves behind is counted there
  * like any other rock, one beat later.
  *
- * The loop reads the array while `popCoil` writes to it, which is safe and
- * meant: nothing is added or removed, and a coil the chain lights *inside this
- * column* is opened by the ward on the same pass rather than waiting three
- * beats for a charge that had nowhere better to go.
+ * **And the plate has to see it.** `coilWardReaches` and not a column test:
+ * a body standing lower in the same column is between the plate and the dome,
+ * and a reach that went through it would be a rock the pair are watching sit
+ * in the lane while the thing behind it opens anyway.
+ *
+ * The list is taken **before** the first dome comes off, and that is the whole
+ * of what "between" means here — the field as it stood when the ward was
+ * asked. Read live instead, a coil shadowed by one lower down would find its
+ * shadow gone mid-loop and open on the same tick, which is a rule that would
+ * depend on the order `world.creatures` happens to be in. It clears from the
+ * bottom up, a beat a dome, while the window stays open.
+ *
+ * Nothing is added to or removed from the array, so a coil the chain lights
+ * *inside this column* is still opened by the ward on the same pass rather
+ * than waiting three beats for a charge that had nowhere better to go.
  */
 export function wardCoils(world: World): void {
   if (!guardArmed(world)) return;
-  for (const c of world.creatures) {
-    if (!coilIsDomed(c)) continue;
-    if (!occupiesCol(c, world.shieldCol)) continue;
-    popCoil(world, c, true);
-  }
+  const reached = world.creatures.filter((c) => coilIsDomed(c) && coilWardReaches(world, c));
+  for (const c of reached) popCoil(world, c, true);
 }
 
 /**
