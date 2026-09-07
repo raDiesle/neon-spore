@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-07 · bce9a9c — THE CLAW is the ship's own hand, and a key belongs to a panel
+
+Two corrections from the owner, and they are the same one twice: a thing the pair uses should already be in front of them.
+
 ## 2026-09-07 · 2feb7111 — A coil's dome is only opened when the plate can see it
 
 THE COIL's ward now reaches up the shield's column and stops at the first body in the way. A rock crossing the lane below a dome — one tile or two — takes the whole reach, so the dome is not opened, not lit and not touched, and the pair watches nothing happen at all. It is the owner's rule in his own words, "when the cannon vertical tile has not seen the full width of the coil", and THE COIL's own sentence reads as it word for word: the one where the trigger waits for the lane above it to clear.
