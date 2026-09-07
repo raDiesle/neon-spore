@@ -294,6 +294,12 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-beatbox.ts` | THE BEATBOX's numbers: how many beats one asks for, how near the beat a tap has to land |
 | `packages/sim/src/creature-state-beatbox.ts` | **THE BEATBOX's three fields**, and the whole of what one box remembers: how many beats it is asking for |
 | `packages/sim/src/events-beatbox.ts` | **What THE BEATBOX does**, as events: a tap landing on the beat |
+| `packages/sim/src/balloon-pull.ts` | **The two hands on THE BALLOON**, which is the half of that creature nothing else in this game has |
+| `packages/sim/src/balloon.ts` | THE BALLOON: the first body in this game that does not come down |
+| `packages/sim/src/config-balloon.ts` | THE BALLOON's numbers: how long one swells before it moves, how fast it climbs |
+| `packages/sim/src/creature-state-balloon.ts` | **THE BALLOON's six**, and the seventh group carried out of `creature-state.ts` along the seam that file's… |
+| `packages/sim/src/drag-targets.ts` | **Every thing on this field a hand may take hold of**, as a closed list of names |
+| `packages/sim/src/events-balloon.ts` | **THE BALLOON's three**: one given, one popped, one gone off at the top |
 
 ### packages/content
 
@@ -414,6 +420,9 @@ place — the generator keeps whatever is there.
 | `packages/content/src/mechanics-beatbox.ts` | THE BEATBOX's row, cut out of `mechanics-table.ts` when it took that file past its 250-line limit |
 | `packages/content/src/silhouettes-beatbox.ts` | Beatbox: a rounded cabinet, and the one body on this roster whose contour is *architecture* rather than an… |
 | `packages/content/src/waves/act-8.ts` | Act eight, opened for THE BEATBOX rather than for a chapter |
+| `packages/content/src/balloon-shape.ts` | THE BALLOON's contour: a skin with a knot under it, and the fifth family of contour in this package |
+| `packages/content/src/creatures-handed.ts` | **The bodies answered by hands alone**, and today there is one of them |
+| `packages/content/src/mechanics-handed.ts` | The keys of the table below, checked against the roster |
 
 ### packages/render
 
@@ -736,6 +745,10 @@ place — the generator keeps whatever is there.
 | `packages/render/src/beatbox-wave.ts` | **The wave of sound a miscounted box sends at the ship**, and the picture this creature is named for |
 | `packages/render/src/beatbox.ts` | **How big a soundbox is drawn this instant**, which is the whole of what this creature says |
 | `packages/render/src/creature-body-worn.ts` | **The two body draws that read their own record rather than calling a draw function directly** |
+| `packages/render/src/balloon-handles.ts` | **THE BALLOON's two handles**: the one thing on this field that two people take hold of at the same time |
+| `packages/render/src/balloon.ts` | THE BALLOON, drawn — a skin with a knot under it, filling where it appears, leaning the way it climbs |
+| `packages/render/src/creature-body-in.ts` | **What a body draw is handed.** Cut out of `creature-body.ts` when THE BALLOON's row took that file over its… |
+| `packages/render/src/handle-place.ts` | **Where a handle is standing**, as against where a finger may grab it |
 
 ### packages/net
 
@@ -789,6 +802,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-choir.ts` | THE CHOIR's three, in a file of its own |
 | `packages/audio/src/mixer-pulse.ts` | THE PULSE's song, played off the simulation's own clock |
 | `packages/audio/src/bind-beatbox.ts` | THE BEATBOX's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
+| `packages/audio/src/bind-balloon.ts` | THE BALLOON's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
 
 ### apps/game
 
@@ -1261,5 +1275,8 @@ place — the generator keeps whatever is there.
 | `tools/director/src/versus-diff.ts` | How two pictures of the same frame are compared — the pixel arithmetic behind `versus-seat.ts` |
 | `tools/hooks/after-svg-edit.ts` | A drawn picture is the one thing a session cannot check by reading it back |
 | `tools/director/src/skins/glass.ts` | GLASS — a body you see *into*, rather than one with things drawn on it |
+| `tools/director/src/entry-fields-balloon.ts` | **THE BALLOON's one authored fact**: how fast it climbs |
+| `tools/director/src/field-controls-balloon.ts` | THE BALLOON's two handles, in a file of their own |
+| `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 
 <!-- index:code:end -->

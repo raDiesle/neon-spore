@@ -113,11 +113,9 @@ export interface SimConfig
    * How long a seat has to hold at the ready gate before its circle says READY
    * and the wave may start, in milliseconds. Milliseconds here and ticks in
    * the world: `readyHoldTicks` converts it once, so the rule two devices have
-   * to agree on is an integer count of ticks (`briefing.ts`).
-   *
-   * It is not one of the pair's switches and needs no `PAIR_ON`: `briefings`
-   * already gates the whole opening, so under `DEFAULT_CONFIG` there is never
-   * a circle for this number to describe.
+   * to agree on is an integer count of ticks (`briefing.ts`). Not one of the
+   * pair's switches and needs no `PAIR_ON` — `briefings` already gates the
+   * whole opening, so under `DEFAULT_CONFIG` there is never a circle for it.
    */
   readyHoldMs: number;
   /**
@@ -137,13 +135,10 @@ export interface SimConfig
   /**
    * How far a hand has to carry a body it is holding before it steps a column,
    * in thousandths of a tile — the whole of THE PUSH as a distance
-   * (`grip-push.ts`).
-   *
-   * A whole tile, so the finger and the body travel the same ground: carry it
-   * a column's width and the column is what it moves, which leaves the body
-   * still under the finger afterwards and the gesture able to be repeated
-   * without lifting. Anything shorter and a thumb resting on a rock to slow it
-   * would push the rock about while its owner was only trying to hold on.
+   * (`grip-push.ts`). A whole tile, so the finger and the body travel the
+   * same ground: carry it a column's width and the column is what it moves,
+   * leaving the body still under the finger afterwards. Anything shorter and
+   * a thumb resting on a rock to slow it would push the rock about.
    */
   gripPushMilli: number;
   /**

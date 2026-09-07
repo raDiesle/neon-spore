@@ -207,36 +207,30 @@ export type CreatureKind =
    * A soundbox that swells on every beat, and the first body in this game
    * answered by **when** a finger lands rather than by what is under it. It
    * asks for a number of beats; player 2 taps the body itself, once a beat, on
-   * the beat, and the run is committed by *stopping* rather than by finishing.
-   * The number is drawn on player 1's screen and on nobody else's — so what
-   * crosses the room is the plainest sentence this game has after THE GHOST's
-   * column, and the seat that can read it is the seat with no thumb on the
-   * body. Right and it is silenced; wrong and it fires a wave of sound at the
-   * hull and keeps falling. `Creature.beatboxWant`, `beatboxHits` and
-   * `beatboxBeat` are the whole of its state; `beatbox.ts` is what one is and
-   * `beatbox-round.ts` what happens to one.
+   * the beat, and commits the run by *stopping* rather than finishing. The
+   * number is drawn on player 1's screen alone, so the seat that can read it
+   * is the seat with no thumb on the body. Right and it is silenced; wrong
+   * and it fires a wave of sound at the hull and keeps falling.
+   * `Creature.beatboxWant`, `beatboxHits` and `beatboxBeat` are its state;
+   * `beatbox.ts` is what one is and `beatbox-round.ts` what happens to one.
    */
   | "beatbox"
   /**
-   * The first body that does not come down at all, and the first that neither
-   * control can touch. It appears out of nothing one row above the ship,
-   * swells into the field for `balloonSwellBeats`, and then **climbs** — a row
-   * up and a column across every beat, turning at the side walls — until it
-   * reaches the top, where it bursts and the hull pays for it wherever the
-   * ship happens to be.
+   * The first body that does not come down at all, and the first that
+   * neither control can touch. It appears out of nothing one row above the
+   * ship, swells into the field, and then **climbs** — a row up and a column
+   * across every beat, turning at the side walls — until it reaches the top,
+   * where it bursts and the hull pays for it wherever the ship happens to be.
    *
    * Nothing on either panel reaches it. What does is **two hands at once**:
-   * the pilot takes the handle on its left and carries it left, the navigator
-   * takes the one on its right and carries it right, and while both are taut
-   * the skin gives. The first rub splits it into two smaller balloons that
-   * hold still for a beat or two and then climb on; the second pops each of
-   * them, and a popped balloon costs the ship nothing.
-   *
-   * So what the pair has to say out loud is **which one, now** — the one thing
-   * a field of several rising bodies cannot answer for them. `balloon.ts` is
-   * the body and `balloon-pull.ts` the two hands; `Creature.balloonSplits`,
-   * `balloonBeat`, `balloonDir`, `balloonRise` and the two pulls are the whole
-   * of its state.
+   * the pilot carries the handle on its left leftward, the navigator the one
+   * on its right rightward, and while both are taut the skin gives. The
+   * first rub splits it into two smaller balloons that climb on again; the
+   * second pops each of them for nothing — so what the pair has to say out
+   * loud is **which one, now**, the one thing several rising bodies cannot
+   * answer for them. `balloon.ts` is the body and `balloon-pull.ts` the two
+   * hands; `Creature.balloonSplits`, `balloonBeat`, `balloonDir`,
+   * `balloonRise` and the two pulls are the whole of its state.
    */
   | "balloon"
   // **The five that are more than one body**, each answered a member or a

@@ -1,14 +1,9 @@
-import {
-  type CreatureKind,
-  colourArmourLeft,
-  isMeteorKind,
-  recoilTurn,
-} from "@neon-spore/sim";
+import { type CreatureKind, colourArmourLeft, isMeteorKind, recoilTurn } from "@neon-spore/sim";
 import { drawBalloon } from "./balloon.js";
 import { beatboxSwell } from "./beatbox.js";
 import { drawChoir } from "./choir.js";
-import { drawMagnetBody, drawStrandBody } from "./creature-body-worn.js";
 import type { Body } from "./creature-body-in.js";
+import { drawMagnetBody, drawStrandBody } from "./creature-body-worn.js";
 import { drawGhost, showsGhostBody } from "./ghost.js";
 import { drawLid } from "./lid.js";
 import { drawLiving } from "./living-draw.js";

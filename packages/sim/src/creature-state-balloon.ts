@@ -1,7 +1,7 @@
 import type { CrossDir } from "./cross.js";
 
 /**
- * **THE BALLOON's six**, and the seventh group carried out of
+ * **THE BALLOON's six**, and the eighth group carried out of
  * `creature-state.ts` along the seam that file's own header describes.
  *
  * What holds them together is that they are the whole of one creature: where

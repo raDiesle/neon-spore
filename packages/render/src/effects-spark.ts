@@ -146,51 +146,42 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
       return at(l, e.col, e.row, 10, PALETTE.ember);
 
     // A carom's crust coming apart, in the **rock's** colour and not the
-    // body's — `recoilBounce`'s argument arrived at from the other side. There
-    // the body survived and the picture must not say a kill; here the body is
-    // gone and the picture must not say the *column* is. A red or cyan shower
-    // is what this game spends on a lane closing, and the lane has not closed:
-    // a rock is standing in it and somebody has to ward it. So the particles
-    // are the shell's, and there are as many of them as a `shellBare` gets,
-    // because it is the same moment — a covering coming off, at the size of
-    // the thing it came off (`e.span`).
+    // body's — `recoilBounce`'s argument from the other side. The body is
+    // gone and the picture must not say the *column* is: a rock still stands
+    // in the lane and somebody has to ward it. So the particles are the
+    // shell's, as many as a `shellBare` gets — the same moment, a covering
+    // coming off, at the size of the thing it came off (`e.span`).
     case "caromCrack":
       return at(l, e.col, e.row, 20, PALETTE.rock);
 
     // A plate off THE VOLLEY, in the **shield's** colour rather than the
-    // shell's — `caromCrack`'s argument arrived at from the third side. There
-    // the shell came off and what mattered was that the lane had not closed;
-    // here the shell has come off *and* the lane has not closed, and the one
-    // thing worth saying is which control just did the work. So the sparks are
-    // the dome's, thrown where the body met it, and the shell's own material
-    // is spent on the burst below.
+    // shell's — `caromCrack`'s argument from the third side: the shell is off
+    // and the lane has not closed, and the one thing worth saying is which
+    // control did the work. So the sparks are the dome's, thrown where the
+    // body met it, and the shell's own material is spent on the burst below.
     case "volleyReturn":
       return at(l, e.col, e.row, 14, PALETTE.shieldRim);
 
     // And the shell itself, coming apart in mid-air. The rock's colour and a
-    // `caromCrack`'s worth of it, because it is the same moment at the same
-    // size — a covering leaving a body that goes on falling. The ordinary
-    // colours are deliberately not spent here: nothing died, and a red or cyan
-    // shower is what this game pays for a lane closing.
+    // `caromCrack`'s worth of it — the same moment at the same size, a
+    // covering leaving a body that goes on falling. Not the ordinary colours:
+    // nothing died, and a red or cyan shower is what this game pays for a
+    // lane closing.
     case "volleyHatch":
       return at(l, e.col, e.row, 20, PALETTE.rock);
 
-    // A wrong colour into a cloud. Grey, and fewer particles than a `reject`,
-    // because the shot did not bounce off anything — it went in and the
-    // weather shut over it (`impact.absorb` is the ear's half of the same
-    // sentence). The red cloud that follows is not a burst at all: it is
-    // world state for two seconds, read fresh every frame off
-    // `veilStruckTick` in `veil.ts`.
+    // A wrong colour into a cloud. Grey, and fewer particles than a `reject`:
+    // the shot did not bounce off anything, it went in and the weather shut
+    // over it (`impact.absorb`). The red cloud after is not a burst at all —
+    // it is world state for two seconds, read off `veilStruckTick` in `veil.ts`.
     case "veilRebuff":
       return at(l, e.col, e.row, 4, PALETTE.sparkDim);
 
     // THE FENCE going over the ship. The wall does not touch anything — that
-    // is the whole of a pass — but the current earths itself around the dome
-    // on the way through, so the burst is the shield's own colour and it is
-    // thrown at the shield's own column rather than at the body's. A big one:
-    // it is the beat the pair finds out whether the number that crossed the
-    // room was the right one, and until this instant neither of them can see
-    // that it was.
+    // is the whole of a pass — but the current earths around the dome on the
+    // way through, so the burst is the shield's colour, thrown at the shield's
+    // own column. A big one: it is the beat the pair learns whether the number
+    // that crossed the room was the right one.
     case "fencePass":
       return at(l, e.col, e.row, 20, PALETTE.shieldRim);
 
@@ -230,9 +221,8 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "choirSing":
       return at(l, e.col, e.row, 18, PALETTE.rock);
 
-    // THE BEATBOX's three: a tap's small white receipt, the box going quiet in
-    // white and wide, and the discharge in rock grey on `choirSing`'s terms —
-    // a box has no colour, so none of the three may borrow red or cyan.
+    // THE BEATBOX's three: a tap's white receipt, the box quiet in white and
+    // wide, and the discharge in rock grey — a box has no colour of its own.
     case "beatboxTap":
       return at(l, e.col, e.row, 6, PALETTE.text);
     case "beatboxSilent":
@@ -240,17 +230,14 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "beatboxWave":
       return at(l, e.col, e.row, 12, PALETTE.rock);
 
-    // A balloon given. Rock grey and narrow, so it reads as *the thing came
-    // apart* rather than as anything landing: a balloon carries no colour, and
-    // grey is what this game already means by a body no shot reaches.
+    // A balloon given: rock grey and narrow, since a balloon carries no colour.
     case "balloonSplit":
       return at(l, e.col, e.row, 12, PALETTE.rock);
 
-    // One that got to the top: wide, in the pod's amber, an explosion rather
-    // than a kill (the hull damage is drawn at the ship, `sim/balloon.ts`).
+    // One that reached the top: wide, in the pod's amber (hull damage lands at
+    // the ship, `sim/balloon.ts`).
     case "balloonBurst":
       return at(l, e.col, e.row, 26, PALETTE.pod);
-
 
     default:
       return assertNever(e);

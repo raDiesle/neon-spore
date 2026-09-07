@@ -28,16 +28,14 @@ import type { GroupName } from "./ship-groups.js";
  */
 export const GROUP_NOTE: Record<GroupName, string> = {
   "THE BEATBOX — a soundbox counted out on the beat":
-    "A rounded soundbox that swells on every beat and asks for a number of " +
-    "them. No shot touches it. Player 2 taps the body itself, once a beat, " +
-    "on the beat, within beatboxWindowMs either side — and the run is " +
-    "committed by *stopping*, so the first beat that goes by untapped is the " +
-    "beat the count is judged on. Only player 1 is drawn the number; player " +
-    "2 sees a tally of their own taps and no target. Right and the box goes " +
-    "quiet; wrong, over or under, and it puts damageBeatboxWave through the " +
-    "hull and keeps falling, which is another run for whatever height is " +
-    "left. beatboxBeats is only what a box gets when a wave names no count — " +
-    "the count is authored per arrival.",
+    "A rounded soundbox that swells on every beat and asks for a number of them. " +
+    "No shot touches it. Player 2 taps the body itself, once a beat, on the beat, " +
+    "within beatboxWindowMs either side, and commits the run by *stopping* — the " +
+    "first beat that goes by untapped is the beat the count is judged on. Only " +
+    "player 1 is drawn the number; player 2 sees a tally of their own taps and no " +
+    "target. Right and the box goes quiet; wrong, over or under, and it puts " +
+    "damageBeatboxWave through the hull and keeps falling for another try. " +
+    "beatboxBeats is only the default — the count is authored per arrival.",
   "THE CHOIR — two bodies opened by shaking the phone":
     "Two grey balls standing apart in one lane, and no shot reaches either " +
     "of them. What opens them is on neither panel, and it is two moves " +
@@ -52,18 +50,12 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "The whole screen shakes while the window is open and shakes harder on " +
     "the merge. See choir.ts and choir-gesture.ts.",
   "THE BALLOON — a body that goes up, opened by two hands at once":
-    "It appears out of nothing one row above the ship, swells there for " +
-    "balloonSwellBeats, then climbs — balloonRiseRows up and the same number " +
-    "of lanes across every beat, turning at the side walls. Reach the top and " +
-    "it bursts: damageBalloonBurst off the hull, wherever the ship happens to " +
-    "be standing. No shot touches it in any colour. What answers it is two " +
-    "hands at once — player 1 carries the handle on its left leftward and " +
-    "player 2 the one on its right rightward, both past balloonTautMilli at " +
-    "the same instant. The first time the skin gives it splits into two " +
-    "smaller ones that swell again before climbing on; the second pops them " +
-    "for nothing. A wave usually sends several, so the sentence the pair has " +
-    "to say is which one — and SPEED under the map is how long they have to " +
-    "say it in.",
+    "It appears out of nothing one row above the ship, swells, then climbs balloonRiseRows up and " +
+    "across every beat, turning at the walls, and bursts at the top for damageBalloonBurst off the " +
+    "hull. No shot touches it. Two hands answer it at once, both past balloonTautMilli together — " +
+    "player 1 the left handle leftward, player 2 the right one rightward. The first give splits it " +
+    "into two smaller ones that swell again before climbing on; the second pops for nothing, and " +
+    "SPEED under the map is how long the pair has to say which one of several a wave usually sends.",
 
   "THE LID — an armoured eye held open by a hand":
     "An armoured eye with a cord hanging off it. Player 1 takes the cord and " +
