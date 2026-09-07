@@ -238,3 +238,31 @@ Give the guide capture a clock it can drive — a test handle that steps
 `SceneRun` by a named number of ticks, the way `advance` steps the field — and
 make `--stride` on an `--opening guide` capture mean those ticks. Then a strip
 of a rehearsal is a strip of the film rather than of one frame of it.
+
+## Say how to open a worktree's director in a browser, port and all
+
+- **Found:** 2026-09-07, claude/map-editor-brush-ux-5fce95
+- **Files:** `docs/working-with-claude.md`, `.claude/launch.json`, `tools/ports.ts`
+
+`CLAUDE.md` says a worktree must launch its servers *by absolute path*, because
+`.claude/launch.json` carries no `cwd` and a named entry starts the **main**
+checkout's server with nothing erroring. What it does not say is how to get the
+port, and that is the half that costs the turns: the director's four entries in
+`.claude/launch.json` are all fixed at 4174 or `autoPort`, and a worktree does
+not use 4174 — `claimPort` hands it a number derived from its own path inside
+`DIRECTOR_BAND`. A session that wants to look at the director it is editing has
+to work out that number, hand-write a fifth launch entry carrying it and an
+absolute `--cwd`, use it, and remember to put the file back before committing.
+That happened twice in one afternoon and cost two turns each time, and the file
+is tracked, so a forgotten revert lands a lane-specific entry on `main`.
+
+Two lines of `docs/working-with-claude.md` would end it: the one-liner that
+prints the number —
+
+    bun -e 'import{derivePort,DIRECTOR_BAND}from"./tools/ports.js";console.log(derivePort(DIRECTOR_BAND,process.cwd()))'
+
+— and the shape of the throwaway entry it goes into, with the instruction to
+`git checkout .claude/launch.json` afterwards. Better still if `tools/ports.ts`
+grew a tiny CLI (`bun run port director`) so the incantation is a command
+rather than a paste, and `CLAUDE.md`'s "launch by absolute path" sentence
+pointed at it.
