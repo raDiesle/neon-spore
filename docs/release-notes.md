@@ -9,6 +9,18 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-07 · 89fa1cff — THE CROSSING: a rock that always lands on a wall
+
+The wave the crossing route was built for, and the mechanic row that makes it one. A plain rock comes over a side wall instead of the top and walks a row two lanes a beat; it only sinks when it turns and it only turns at a wall, so it reaches the hull standing on the left edge or the right one and nowhere between. Which of the two follows from the row it came in on, and working that out is a whole crossing's worth of talking with nothing else to do.
+
+## 2026-09-07 · a1c67330 — A brush stays lit, the map paints under a drag, and a cell's every field is above it
+
+Three complaints about the map editor, answered together.
+
+## 2026-09-07 · 24809dbd — A rock can be sent across the field instead of down a column
+
+A wave can now author any plain rock — the five tiers and the torch — onto a crossing: it enters at one of the two side walls rather than at the top, on the row the wave names, already travelling, and walks that row turning at each wall and sinking two rows every time it turns. So the column the pair agreed on expires every beat until it lands, and it does land: the drop at each turn is what carries it to the hull, so the wave still ends the way every other one does.
+
 ## 2026-09-07 · cbb6894b — THE COIL gets a rehearsal for the fault and the lane
 
 The wave carries the shield malfunction, and that is the combination the creature needs: the shield is armed on every beat with nobody pressing anything, so the plate is a place rather than a press. Together with the ward reaching only as far as it can see, that gives a wave whose central rule is a rule about nothing happening — which is exactly what a pair cannot be told in prose.
