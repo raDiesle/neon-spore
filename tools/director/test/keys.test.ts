@@ -1,6 +1,7 @@
 import { describe, expect, test } from "bun:test";
+import { controlSet } from "@neon-spore/content";
 import { bindKeyHelp } from "../src/key-help.js";
-import { KEY_BINDINGS } from "../src/keys.js";
+import { keyBindings } from "../src/keys.js";
 import { pointerSeat } from "../src/stage-touch.js";
 
 /**
@@ -29,11 +30,12 @@ describe("pointerSeat", () => {
 /**
  * THE KEYBINDINGS, SHOWN RATHER THAN REMEMBERED.
  *
- * `key-help.ts` renders `KEY_BINDINGS` rather than a second hand-written
- * list, so this proves the read side of that contract: every key `keys.ts`
- * knows about actually reaches the modal's own markup, grouped by whose hand
- * it is. A stub `document`, in the same shape `transport.test.ts` already
- * uses for `pair-panel.ts` — this repo's test runner carries no real DOM.
+ * `key-help.ts` renders `keyBindings(set)` — which is `deskKeys`, the game's
+ * own table — rather than a second hand-written list, so this proves the read
+ * side of that contract: every key the panel on the stage answers reaches the
+ * modal's own markup, grouped by whose hand it is. A stub `document`, in the
+ * same shape `transport.test.ts` already uses for `pair-panel.ts` — this repo's
+ * test runner carries no real DOM.
  */
 
 type Listener = () => void;
@@ -78,19 +80,40 @@ function stubDocument() {
   return { button, modal, body };
 }
 
+const DEFAULT = controlSet("default");
+
 describe("the keybindings modal", () => {
-  test("its list is derived from KEY_BINDINGS, one row per key", () => {
-    const { body } = stubDocument();
-    bindKeyHelp();
-    for (const binding of KEY_BINDINGS) {
+  test("its list is derived from the panel on the stage, one row per control", () => {
+    const { body, button } = stubDocument();
+    bindKeyHelp(() => DEFAULT);
+    button.click();
+    for (const binding of keyBindings(DEFAULT)) {
       expect(body.innerHTML).toContain(binding.key);
       expect(body.innerHTML).toContain(binding.does);
     }
   });
 
+  /**
+   * The whole point of asking the panel rather than a table: a wave played on
+   * THE CLAW has an arm and a mouth where the standard panel has a cannon and
+   * a maw, and the modal has to say so. It is rebuilt on open rather than at
+   * bind time, because the rail's picker moves under it.
+   */
+  test("follows the wave, so two panels give two lists", () => {
+    const { body, button } = stubDocument();
+    let set = DEFAULT;
+    bindKeyHelp(() => set);
+    button.click();
+    const standard = body.innerHTML;
+    set = controlSet("claw");
+    button.click();
+    expect(body.innerHTML).not.toBe(standard);
+    for (const binding of keyBindings(set)) expect(body.innerHTML).toContain(binding.does);
+  });
+
   test("opens on its button and closes on its own close button", () => {
     const { button, modal } = stubDocument();
-    bindKeyHelp();
+    bindKeyHelp(() => DEFAULT);
     expect(modal.classList.contains("on")).toBe(false);
 
     button.click();
@@ -103,8 +126,22 @@ describe("the keybindings modal", () => {
   // "For the time being" — grouped by seat, so a player 2 mystery like `G`
   // reads as an answer the moment the modal opens.
   test("groups by seat: G names player 2 by name, not by code alone", () => {
-    const grip = KEY_BINDINGS.find((b) => b.code === "KeyG");
+    const grip = keyBindings(DEFAULT).find((b) => b.code === "KeyG");
     expect(grip?.seat).toBe(2);
     expect(grip?.does).toContain("grab");
+  });
+
+  /**
+   * The drift this whole change was about: the director's hand-typed table had
+   * THE GAUGE on Z/X/C and THE FLEET on U/H/N/K, and had nothing at all for
+   * THE CLAW, PINBALL or SNAKE. Every panel now answers something, on the
+   * game's own letters.
+   */
+  test("every panel the game plays has a keyboard here", () => {
+    for (const id of ["default", "claw", "gauge", "fleet", "pinball", "snake"] as const) {
+      const rows = keyBindings(controlSet(id));
+      expect(rows.length, id).toBeGreaterThan(2);
+      for (const row of rows) expect(row.key, id).not.toBe("");
+    }
   });
 });

@@ -81,6 +81,7 @@ export {
   deskKey,
   deskKeys,
   deskSlideKeys,
+  keyLabel,
 } from "./keys-desk.js";
 export { LID, type LidSilhouette, lidOutline, lidPath } from "./lid-shape.js";
 export { KEY, LIGHT_HALF, type LightHalf } from "./light.js";

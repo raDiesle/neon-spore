@@ -194,6 +194,19 @@ export function deskKey(set: ControlSet, code: string): DeskKey | undefined {
 }
 
 /**
+ * The letter on the key, for anything that shows a keyboard to a person.
+ *
+ * `KeyboardEvent.code` is not a label — nobody has "KeyA" written on a key —
+ * and the menu's panel list and the director's help modal both had to turn one
+ * into the other. Here rather than in either of them, because two copies of
+ * "what is written on this key" is the shape of thing that drifts the first
+ * time a panel puts something on a key that is neither a letter nor an arrow.
+ */
+export function keyLabel(code: string): string {
+  return code.replace("Key", "").replace("Arrow", "").toUpperCase();
+}
+
+/**
  * Every key of one seat's sideways pair that this panel answers, both
  * directions of a strip included.
  *

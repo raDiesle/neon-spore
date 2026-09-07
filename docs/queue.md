@@ -163,36 +163,6 @@ it makes an unrelated package the place scratch files live, and nothing sweeps
 them up.
 
 
-## The director's keyboard is a hand-typed copy of a table it could now call
-
-- **Found:** 2026-09-07, claude/queue-status-check-kydfx5
-- **Files:** `tools/director/src/keys.ts`, `tools/director/src/key-help.ts`, `tools/director/src/stage.ts`
-
-`apps/game`'s keyboard no longer knows a letter per control: a key is a seat
-and a slot on the wave's panel, and `packages/content/src/keys-desk.ts` is the
-one table that answers which. The director still carries the old arrangement
-typed out by hand — `KEY_BINDINGS` plus a `switch` that is a second copy of it
-— with THE GAUGE on Z/X/C and THE FLEET on U/H/N/K, and nothing at all for THE
-CLAW, PINBALL or SNAKE. Its own header says the two are typed out twice and
-that the game is right when they disagree; they disagree now.
-
-The header's reason for the copy is gone: it says `apps/game` is an
-application a tool may not reach into, and that was true when the answer lived
-there. It lives in `@neon-spore/content` now, which `tools/director` already
-depends on.
-
-Replace both the table and the `switch` with `deskKey(set, code)` and
-`controlPress`, the way `apps/game/src/keys.ts` does. `bindKeys` has to be
-handed the panel — `controls: () => ControlSet`, read fresh, because the
-director edits a draft list and `controlSetForWave` would answer about
-whatever was last saved (`ViewState.controls` says why in as many words). The
-stage knows which wave it is standing on and is the caller. `KEY_BINDINGS`
-becomes `deskKeys(set)` read through the same call, so `key-help.ts` prints
-the keys of the panel actually on the stage rather than a fixed list; A/D
-carrying both seats and G taking hold of a body stay where they are, because
-neither is a control on any panel.
-
-
 ## `bun run frames --opening guide` cannot photograph a page past its first moment
 
 - **Found:** 2026-09-07, claude/strand-enemy-visuals-26ba40
@@ -286,3 +256,54 @@ is already the one copy of where a dot stands, so the transient is that function
 sampled toward a common centre; `BodyTransients` in `effects-body.ts` is where
 it belongs, because it outlives its frame and is about one body by id — which is
 exactly why `choirMerge` carries an `id`.
+
+## "A carries both seats" is written twice, in two rigs
+
+- **Found:** 2026-09-07, claude/queued-items-rer0av
+- **Files:** `apps/game/src/keys-slide.ts`, `tools/director/src/keys.ts`
+
+Both desk keyboards now read the same table for *what a key means* — `deskKey`
+and `controlPress` — and both then apply the same convenience on top of it by
+hand: player 1's sideways pair steps player 1's strip and carries player 2's
+along with it, and J/L move player 2's alone. `stepStrip` and `stepAll` in
+`keys-slide.ts` and the pair of the same names in the director's `keys.ts` are
+the same eight lines, and the rule they carry — *which seats one key moves* —
+is exactly the kind that drifts: the director had a version of it that had gone
+stale for months before this pair was made to agree.
+
+The reason there are two is where the first one lives. `bindSliding` is under
+`apps/game`, which is an application a tool may not import, and it also carries
+a repeat timer counted in sim ticks that the director has no use for. So the
+seam is between the two halves rather than around them: the *which seats*
+answer is content — it is about panels and slots, like everything else in
+`keys-desk.ts` — and the *how long the key is held* answer is each rig's own.
+
+Move the first half into `packages/content/src/keys-desk.ts` as one function
+taking a `DeskKey` and answering the keys the press moves, both seats included,
+and have `keys-slide.ts` and the director call it for the list and keep their
+own stepping. `content/test/keys-desk.test.ts` is where it is proved; the
+alternative — moving `bindSliding` whole — puts a repeat timer in a package
+whose job is data, and is worse.
+
+## `CLAUDE.md` is within about a hundred characters of its ceiling
+
+- **Found:** 2026-09-07, claude/queued-items-rer0av
+- **Files:** `CLAUDE.md`, `tools/test/claude-md.test.ts`, `docs/`
+
+`tools/test/claude-md.test.ts` caps the file at 22,000 characters and it stands
+at roughly 21,880. That is under a line of the Commands block, so the next lane
+that adds a rule, a command or a sentence goes red on a check that has nothing
+to do with what it changed — and the message says to move reasoning into
+`docs/`, which is a job nobody has budgeted for in the middle of something else.
+This lane hit it: `bun run port` could be named in the prose only by tightening
+the sentence around it, and the Commands block still does not list it.
+
+The fix is the one the ceiling exists to force, done deliberately rather than
+under a red check. `## Verifying in a browser`, `## Measuring what a frame
+costs` and `## Delegating implementation` are each a rule and then its argument,
+and each already names the document holding the argument
+(`docs/working-with-claude.md`, `docs/performance.md`,
+`docs/delegation-cost.md`) — so the paragraphs after the first sentence of each
+have somewhere to go that a session reaches in one hop. Two of the three would
+buy back a thousand characters. Add `bun run port` to the Commands block in the
+same commit, since it is the line this lane could not afford.

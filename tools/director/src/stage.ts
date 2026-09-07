@@ -69,10 +69,6 @@ export function bindStage(
   if (!canvas) throw new Error("canvas #stage missing");
 
   const renderer = new Canvas2DRenderer(canvas);
-  const keys: Keys = bindKeys(
-    () => cfg.cols,
-    () => world.creatures,
-  );
   let world: World = createWorld(cfg, store.index);
   let role: ViewRole = "test";
   let running = true;
@@ -93,6 +89,11 @@ export function bindStage(
   // panel comes from the wave's own `controls` field, the one `rail.ts`'s picker
   // writes, never an index. Read fresh, since the picker changes it under us.
   const currentControlSet = () => controlSet(currentWave(store)?.controls);
+  // The keyboard is that panel too: a key is a seat and a slot on it, and the
+  // stage is the one panel that knows which wave it is standing on
+  // (`keys.ts`). Handed the call rather than the set, for the same reason
+  // everything else on this line is.
+  const keys: Keys = bindKeys(cfg, () => world.creatures, currentControlSet);
   // Every round draws slabs, which `touchDown` cannot answer (`stage-rounds.ts`).
   bindStageRounds({
     canvas,
@@ -208,7 +209,7 @@ export function bindStage(
       role = r;
     },
   });
-  bindKeyHelp();
+  bindKeyHelp(currentControlSet);
 
   const play = (): void => {
     running = true;

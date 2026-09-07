@@ -4,6 +4,7 @@ import {
   type ControlSet,
   deskKeys,
   heldBack,
+  keyLabel,
   panelForm,
   setControls,
 } from "@neon-spore/content";
@@ -215,7 +216,7 @@ function panelBlock(set: ControlSet): HTMLElement {
 function deskLabel(set: ControlSet, c: ControlDef): string {
   const codes = deskKeys(set)
     .filter((k) => k.control === c.id)
-    .map((k) => k.code.replace("Key", "").replace("Arrow", "").toUpperCase());
+    .map((k) => keyLabel(k.code));
   return codes.join(" / ");
 }
 
