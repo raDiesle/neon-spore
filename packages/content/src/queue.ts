@@ -120,18 +120,15 @@ export function queueFromWave(wave: Pick<Wave, "entries">, cols: number): SpawnE
       // apart from the solid walls that now arrive answerable.
       ...(cracksRed?.length ? { cracksRed } : {}),
       ...(cracksCyan?.length ? { cracksCyan } : {}),
-      // Which way a rock crosses the field and the row it crosses along, on
-      // the terms every optional field above is written on: only when the wave
-      // asked for one, so a rock that falls carries neither and produces the
-      // identical queue. The row is a row and never goes through `mapCol` —
-      // that function remaps *columns*, and a field is remapped across, never
-      // down.
-      // How fast a balloon climbs, on the same terms: only when the wave asked
-      // for something other than the shipped speed, so one left alone carries
-      // no field at all and `balloonRiseRows` is the one place that default is
-      // read. A count of rows and never a column, so `mapCol` has nothing to
-      // say about it.
+      // How fast a balloon climbs, on the same terms every optional field above
+      // is written on — a count of rows, never a column, so `mapCol` has
+      // nothing to say about it. `balloonRiseRows` is the one place the
+      // default is read.
       ...(e.rise === undefined ? {} : { rise: e.rise }),
+      // Which way a rock crosses the field and the row it crosses along: only
+      // when the wave asked for one, so a rock that falls carries neither. The
+      // row is a row and never goes through `mapCol` — that function remaps
+      // *columns*, and a field is remapped across, never down.
       ...(e.cross === undefined ? {} : { cross: e.cross }),
       ...(e.row === undefined ? {} : { row: e.row }),
     });

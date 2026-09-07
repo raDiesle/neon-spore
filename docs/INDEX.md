@@ -289,6 +289,12 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/pulse-open.ts` | Opening a stage, and opening the round — the two places a `PulseState` is written from nothing |
 | `packages/sim/src/lance-burn.ts` | **THE LANCE going off**: the lobe coming full, and the column burning on that tick |
 | `packages/sim/src/shot-reach.ts` | **What a shot meets on a stretch of a column**, and the one place that question is answered |
+| `packages/sim/src/balloon-pull.ts` | **The two hands on THE BALLOON**, which is the half of that creature nothing else in this game has |
+| `packages/sim/src/balloon.ts` | THE BALLOON: the first body in this game that does not come down |
+| `packages/sim/src/config-balloon.ts` | THE BALLOON's numbers: how long one swells before it moves, how fast it climbs |
+| `packages/sim/src/creature-state-balloon.ts` | THE BALLOON's six fields — where it goes, how long it has filled, and what each hand has done |
+| `packages/sim/src/drag-targets.ts` | **Every thing on this field a hand may take hold of**, as a closed list of names |
+| `packages/sim/src/events-balloon.ts` | **THE BALLOON's three**: one given, one popped, one gone off at the top |
 
 ### packages/content
 
@@ -405,6 +411,9 @@ place — the generator keeps whatever is there.
 | `packages/content/src/metaball-spread.ts` | spreading a fixed number of points across a subject that may be in pieces — the shape sheet's need, not the game's |
 | `packages/content/src/metaball.ts` | the outline of a metaball field, as however many closed loops it has — what SYMBIOSIS and THE CHOIR are drawn with |
 | `packages/content/src/scene-drag.ts` | **A hand carrying a handle**, turned into the stream of `drag` messages a rehearsal's runner sends — how far |
+| `packages/content/src/balloon-shape.ts` | THE BALLOON's contour: a skin with a knot under it, and the fifth family of contour in this package |
+| `packages/content/src/creatures-handed.ts` | **The bodies answered by hands alone**, and today there is one of them |
+| `packages/content/src/mechanics-handed.ts` | the one-line sentence for the bodies answered by hands alone — THE BALLOON's |
 
 ### packages/render
 
@@ -722,6 +731,10 @@ place — the generator keeps whatever is there.
 | `packages/render/src/pulse-body.ts` | One arrival falling down a lane, and the two ways of drawing one that cannot be read |
 | `packages/render/src/choir-shape.ts` | where THE CHOIR's two bodies stand and the skin traced over them — the shape half, with no light or colour in it |
 | `packages/render/src/action-face.ts` | Player 1's action buttons, showing the ship doing the thing instead of spelling its name |
+| `packages/render/src/balloon-handles.ts` | **THE BALLOON's two handles**: the one thing on this field that two people take hold of at the same time |
+| `packages/render/src/balloon.ts` | THE BALLOON, drawn: a skin with a knot, filling as it enters and giving on whichever side is pulled |
+| `packages/render/src/creature-body-in.ts` | what a body draw is handed — the `Body` a draw path reads, as a shape |
+| `packages/render/src/handle-place.ts` | **Where a handle is standing**, as against where a finger may grab it |
 
 ### packages/net
 
@@ -774,6 +787,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-veil.ts` | THE VEIL's three, as sounds |
 | `packages/audio/src/bind-choir.ts` | THE CHOIR's three, in a file of its own |
 | `packages/audio/src/mixer-pulse.ts` | THE PULSE's song, played off the simulation's own clock |
+| `packages/audio/src/bind-balloon.ts` | THE BALLOON's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
 
 ### apps/game
 
@@ -1245,5 +1259,8 @@ place — the generator keeps whatever is there.
 | `tools/director/src/versus-crop.ts` | One side of a VERSUS pair: a whole phone, drawn, shown through the window its pose's own `crop` cuts in it |
 | `tools/director/src/versus-diff.ts` | How two pictures of the same frame are compared — the pixel arithmetic behind `versus-seat.ts` |
 | `tools/hooks/after-svg-edit.ts` | A drawn picture is the one thing a session cannot check by reading it back |
+| `tools/director/src/entry-fields-balloon.ts` | **THE BALLOON's one authored fact**: how fast it climbs |
+| `tools/director/src/field-controls-balloon.ts` | THE BALLOON's two handles, in a file of their own |
+| `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 
 <!-- index:code:end -->
