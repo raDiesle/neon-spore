@@ -13,6 +13,8 @@
  *   --hold mazeString=1400          THE MAZE's wheel, most of a turn
  *   --hold lidString=800,id=3       THE LID: which cord, and how far
  *   --hold choirLeft=-2000          THE CHOIR: the left arrow carried outward
+ *   --hold balloonLeft=-1600,id=1   THE BALLOON: the pilot's hand on body 1
+ *   --hold balloonRight=1600,id=1   and the navigator's on the same one
  *
  * THE CHOIR's two are the only handles here whose **sign** is the whole of the
  * gesture rather than a direction the picture happens to take: the left arrow
@@ -81,7 +83,24 @@ export function parseHold(value: string): { player: 1 | 2; command: Record<strin
     return [{ player: 2, command: { kind: "prime", on: true, color } }];
   }
 
-  const DRAGS = ["mazeString", "wardenTether", "lidString", "choirLeft", "choirRight"];
+  // THE BALLOON's two are the first here that are **not both the pilot's**:
+  // the left handle is player 1's and the right is player 2's, which is the
+  // whole of that creature's coupling (`sim/balloon-pull.ts`). So a hold
+  // carries the seat as well as the target, and a capture can stand a frame
+  // with one hand on a body or with both.
+  const SEAT: Record<string, 1 | 2> = { balloonRight: 2 };
+  // And they take an `id` for THE LID's reason: a wave puts several on the
+  // field at once on purpose.
+  const NEEDS_ID = ["lidString", "balloonLeft", "balloonRight"];
+  const DRAGS = [
+    "mazeString",
+    "wardenTether",
+    "lidString",
+    "choirLeft",
+    "choirRight",
+    "balloonLeft",
+    "balloonRight",
+  ];
   if (!DRAGS.includes(target)) {
     throw new Error(`--hold ${value}: unknown control. One of prime=red|cyan, ${DRAGS.join(", ")}`);
   }
@@ -89,13 +108,13 @@ export function parseHold(value: string): { player: 1 | 2; command: Record<strin
   if (!Number.isFinite(fromMilli)) {
     throw new Error(`--hold ${value}: the distance is thousandths of a tile, as a number`);
   }
-  if (target === "lidString" && id === undefined) {
+  if (NEEDS_ID.includes(target) && id === undefined) {
     throw new Error(
-      "--hold lidString: say which cord with id=N — a wave may have three lids on it at once",
+      `--hold ${target}: say which one with id=N — a wave may have three on it at once`,
     );
   }
-  if (target !== "lidString" && id !== undefined) {
-    throw new Error(`--hold ${value}: only lidString takes an id; there is one of every other`);
+  if (!NEEDS_ID.includes(target) && id !== undefined) {
+    throw new Error(`--hold ${value}: only a handle that hangs off a body takes an id`);
   }
   const grab: Record<string, unknown> = { kind: "drag", target, on: true, fromMilli: 0 };
   const command: Record<string, unknown> = { kind: "drag", target, on: true, fromMilli };
@@ -107,8 +126,9 @@ export function parseHold(value: string): { player: 1 | 2; command: Record<strin
     grab.id = id;
     command.id = id;
   }
+  const player = SEAT[target] ?? 1;
   return [
-    { player: 1, command: grab },
-    { player: 1, command },
+    { player, command: grab },
+    { player, command },
   ];
 }
