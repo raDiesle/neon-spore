@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-07 · 7aaab5e — THE BEATBOX: a soundbox answered by when a thumb lands, not by what is under it
+
+A new arrival, and the first body in this game where a mistake is an absence rather than an action. A rounded cabinet swells on every beat and asks for a number of them, drawn on player 1's screen alone; player 2 taps the body itself, once a beat, on the beat, and commits the run by taking the thumb away on the right one. The first beat that goes by untapped is the beat the count is judged on, so an extra tap is exactly as wrong as a missing one. Get it right and the box goes quiet; get it wrong, over or under, and it puts a wave of sound through the hull and keeps falling for another try. It carries no colour and refuses every shot — the answer is the beat, not the trigger.
+
 ## 2026-09-07 · 98ad2038 — The craft half of the SVG loop, and GLASS as its first specimen
 
 `svg-look` could say what to look for and could not say how to make anything. This adds the half that produces detail, translated out of `upbrew-tech/svg-creator-skill` rather than adopted: each recipe is either already implemented here, in which case the skill says call it, or genuinely missing, in which case it says so.
