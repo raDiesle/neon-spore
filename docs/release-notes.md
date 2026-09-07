@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-07 · 17279bba — THE CHOIR's two stay two until the gesture
+
+The pair went on joining before anything had been shaken, and the owner said so three times running. The cause was not the separation figure — it was the *orbit*.
+
 ## 2026-09-07 · cfcf2ebd — THE CHOIR: two shakes, a glow that builds, and the colour bleeding in
 
 Four things the owner asked for, and the first reverses an answer of his own.
