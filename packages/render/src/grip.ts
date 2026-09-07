@@ -1,10 +1,4 @@
-import {
-  carryIsReady,
-  gripsCreature,
-  type HandMeans,
-  handMeans,
-  type World,
-} from "@neon-spore/sim";
+import { gripsCreature, type HandMeans, handMeans, type World } from "@neon-spore/sim";
 import { creatureCenter, creatureRadius } from "./creature-place.js";
 import { halo } from "./glow.js";
 import { drawCarryArrows } from "./grip-arrows.js";
@@ -76,11 +70,7 @@ export function drawGrips(
     // Two hands pull harder, and the picture says so before the numbers do.
     const weight = p1 && p2 ? 1 : 0.62;
     if (means === "brake") drawBeam(ctx, l, x, y, time, weight);
-    // Through the record rather than the function, so a candidate ring can be
-    // patched in beside the shipped one (`tools/versus`). `carryIsReady` is
-    // the rule asked rather than re-derived — the beat a body was last carried
-    // on is the simulation's arithmetic and belongs to it (`sim/grip-push.ts`).
-    GRIP_LOOK.ring(ctx, x, y, r, time, weight, carryIsReady(world, c));
+    drawRing(ctx, x, y, r, time, weight);
     // The two lanes out, and only a braked body has any: an aim does not move
     // what it is pointed at (`grip-arrows.ts`).
     if (means === "brake") drawCarryArrows(ctx, l, world, c, x, y, r, time);
@@ -134,37 +124,17 @@ function drawBeam(
   }
 }
 
-/**
- * **What a held body wears**, as a record rather than a call.
- *
- * One field today, and it is a record for the reason `ACTION_LOOK` next door in
- * `controls.ts` is: a look the game already draws has nowhere for a second
- * answer to sit unless the drawing is reachable as a value, and the only way to
- * choose between two rings is to see both at 26 px and at tempo
- * (`docs/versus.md`). `drawGrips` reads this on every call, which is what makes
- * a patch honest.
- */
-export interface GripLook {
-  ring(
-    ctx: CanvasRenderingContext2D,
-    x: number,
-    y: number,
-    r: number,
-    time: number,
-    weight: number,
-    ready: boolean,
-  ): void;
-}
-
-export const GRIP_LOOK: GripLook = { ring: drawRing };
-
 /** Four arcs turning around the silhouette — a hand closed on it, not a target
  * reticle: the creature is being held, not aimed at.
  *
- * `ready` says whether a hand may carry this body a column yet, and the shipped
- * ring **does not use it**: the pause is a beat long and nothing on the field
- * has ever said anything about it. That is the left-hand side of the question
- * `tools/versus/candidates/grip-pause` asks. */
+ * **The ring says nothing about the beat of quiet after a carry, and does not
+ * need to.** A body pushed a column cannot be pushed again for
+ * `gripPushPauseBeats` (`sim/grip-push.ts`), and the field already says so
+ * where it is loudest: the two carry arrows are drawn only while the body may
+ * be carried (`grip-arrows.ts`), so they go out for the pause and come back
+ * with it. A ring that stopped turning for those beats was offered beside this
+ * one and withdrawn — it is a second, quieter statement of the same fact, and
+ * a ring at rest reads as a hand *let go* while the beam is still pulling. */
 function drawRing(
   ctx: CanvasRenderingContext2D,
   x: number,
@@ -172,7 +142,6 @@ function drawRing(
   r: number,
   time: number,
   weight: number,
-  _ready: boolean,
 ): void {
   const spin = time * 1.6;
   const gap = 0.42;

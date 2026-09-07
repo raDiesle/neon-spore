@@ -5,7 +5,6 @@ import { MAGNET_HOOKED } from "./creature-magnet/hooked/index.js";
 import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
 import { STRAND_MUTE } from "./creature-strand/mute/index.js";
 import { STRAND_SEALED } from "./creature-strand/sealed/index.js";
-import { GRIP_LATCH } from "./grip-pause/latch/index.js";
 import { PANEL_EMBLEM } from "./panel-action/emblem/index.js";
 // endregion
 
@@ -32,6 +31,19 @@ import { PANEL_EMBLEM } from "./panel-action/emblem/index.js";
  * (`packages/render/src/seat-skin.ts`). A question with a shipped answer is not
  * a question, so the directory went with the entry.
  *
+ * `grip:ring-pause` left without a vote, because the question it asked had
+ * already been answered somewhere else on the same frame. It asked how the
+ * field should say that a body just carried a column cannot be carried again
+ * for a beat, and its premise was that nothing said so. Something does: the
+ * two white carry arrows beside the body are drawn only while
+ * `carryIsReady` (`grip-arrows.ts`), so they go out for the length of the
+ * pause and come back with it. `latch`, which stopped the ring turning for
+ * those same beats, was a second and much quieter statement of a fact the
+ * arrows already make loudly — and a stopped ring reads as a hand *let go*
+ * while the beam is still pulling, which is the one thing the grip's picture
+ * must not say. The owner could not see the difference on the pair; magnified
+ * six times it is there and on a phone it is not.
+ *
  * `crawler:pulse` left the same way, and by the answer a vote is *most* worth
  * having: the owner looked at the pair and could not tell which side was
  * stepped. That is not a tie. The slot asked whether a quantised contraction
@@ -48,5 +60,4 @@ export const VARIANTS: Variant[] = [
   STRAND_SEALED,
   STRAND_MUTE,
   PANEL_EMBLEM,
-  GRIP_LATCH,
 ];

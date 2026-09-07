@@ -135,8 +135,8 @@ const STRAND_POSE: Pose = {
 /**
  * A hand on a body, and that hand carrying it one column across. The push
  * sets `pushBeat`, and `carryIsReady` is false for `gripPushPauseBeats` after
- * it — the flag the shipped ring ignores and the `latch` candidate stops its
- * arcs on.
+ * it — which is why the two carry arrows are off the body here: they are drawn
+ * only while it may be carried again (`render/grip-arrows.ts`).
  *
  * `drag` has no helper in `pose-kit.ts` because this is the only pose that
  * needs one: the command carries cumulative thousandths of a tile from the
@@ -144,7 +144,7 @@ const STRAND_POSE: Pose = {
  */
 const GRIP_POSE: Pose = {
   name: "GRIP · THE PUSH PAUSE",
-  note: "A hand held on a falling rock, and that hand shoving it one column sideways. A body that has just been pushed cannot be pushed again for a beat, and the ring around it is the only place that pause is ever shown — which is what the grip:ring-pause slot is a second answer to.",
+  note: "A hand held on a falling rock, and that hand shoving it one column sideways. A body that has just been pushed cannot be pushed again for a beat, and the field says so by taking the two carry arrows away for as long as the pause lasts.",
   crop: "tile",
   span: 5,
   at: firstOfKind("meteor"),

@@ -73,11 +73,6 @@ describe("poseForSlot", () => {
     expect((bullet?.row ?? 0) - (rock?.row ?? 0)).toBeLessThanOrEqual(2);
   });
 
-  test("the grip pose has actually pushed the body, which is what its ring is about", () => {
-    const world = poseForSlot("grip:ring-pause").build();
-    expect(world.creatures[0]?.pushBeat).toBeDefined();
-  });
-
   test("the band pose draws a wave whose control set carries both action faces", () => {
     const world = poseForSlot("panel:action-face").build();
     const set = controlSetForWave(world.wave);
