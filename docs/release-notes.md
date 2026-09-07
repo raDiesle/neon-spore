@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-07 · eb1091e3 — A VERSUS candidate page that scrolls, cut to the part being voted on
+
+GUARD and INTAKE were on screen and unreachable. `versus.html` reuses `director-shell.css`, which pins `body` to the window with `overflow: hidden` — right for the editor, where a fixed topbar sits over an inner scrolling pane, and a hard clip on a page that has no inner pane. The two buttons live 130 px from the bottom of an 820 px phone, so on any normal window they were below the cut with no wheel, key or bar reaching them, and the page looked like two identical empty fields. The page scrolls.
+
 ## 2026-09-07 · 1ae527f4 — THE CHOIR: two balls, then the closing, then the colour
 
 Three things the owner asked for that this creature did not do. It stood as one shape with a waist rather than as two separate balls; the merge happened between two frames instead of playing; and the colour was on the body from the instant the gesture landed rather than arriving when the two became one.
