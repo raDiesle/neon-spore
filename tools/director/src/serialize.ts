@@ -117,6 +117,13 @@ function serializeEntry(entry: WaveEntry): string {
   // and `cycleFenceCrack` never writes one.
   if (entry.cracksRed !== undefined) parts.push(`cracksRed: [${entry.cracksRed.join(", ")}]`);
   if (entry.cracksCyan !== undefined) parts.push(`cracksCyan: [${entry.cracksCyan.join(", ")}]`);
+  // Which way a rock crosses the field, and the row it crosses along. Written
+  // only when the author set them, so every rock that falls comes back out of
+  // the editor as the three fields it went in with — the rule the paragraph
+  // above this function is about, and the one `wears` and `gaps` were each
+  // lost to once.
+  if (entry.cross !== undefined) parts.push(`cross: ${entry.cross}`);
+  if (entry.row !== undefined) parts.push(`row: ${entry.row}`);
   return `{ ${parts.join(", ")} }`;
 }
 

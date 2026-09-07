@@ -228,6 +228,19 @@ button.brush > div {
    what "this is where the eye goes" already means here (`button.on`,
    the selected cell, the beat now playing); a brush no wave carries
    dims to the same 0.35 every refused button in the director uses. */
+/* The armed brush. It stays lit because the next click is on the map
+   (`palette.ts`), so it has to read at a glance from the other side of the
+   column — a border alone was not enough against the pictures beside it. */
+button.brush.on,
+#brushErase.on {
+  border-color: var(--gold);
+  color: var(--ink);
+  background: #1c1533;
+  box-shadow: 0 0 0 1px var(--gold);
+}
+button.brush.on .name {
+  color: var(--gold);
+}
 #brushes.jump button.brush.can-jump {
   border-color: var(--gold);
   color: var(--ink);

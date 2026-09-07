@@ -1,6 +1,9 @@
 import type { Wave } from "@neon-spore/content";
+import type { SimConfig } from "@neon-spore/sim";
 import { brushArtImage } from "./brush-art.js";
 import { cellConfig } from "./cell-config.js";
+import { podConfig } from "./cell-config-pod.js";
+import { labelled } from "./cell-config-rows.js";
 import type { Selection } from "./selection.js";
 import { silhouette } from "./silhouette.js";
 import {
@@ -49,6 +52,9 @@ export interface CellPanel {
 export interface CellPanelOptions {
   store: Store;
   selection: Selection;
+  /** The shipped numbers, live: a pod's row and its crossing speed are both
+   * bounded by them, and the tuning sheet may have moved either. */
+  cfg(): SimConfig;
   /** A wave changed shape: redraw everything that draws it. */
   onEdit(): void;
 }
@@ -58,7 +64,7 @@ export interface CellPanelOptions {
  * shown at a glance. */
 const HOLDS_PX = 26;
 
-export function bindCellPanel({ store, selection, onEdit }: CellPanelOptions): CellPanel {
+export function bindCellPanel({ store, selection, cfg, onEdit }: CellPanelOptions): CellPanel {
   const root = document.getElementById("cellPanel");
 
   const render = (): void => {
@@ -84,6 +90,26 @@ export function bindCellPanel({ store, selection, onEdit }: CellPanelOptions): C
           })
         : null;
     if (config) root.appendChild(config);
+    // And what the *pod* in this cell is: the row it hangs at, whether it
+    // crosses, and how fast. Its three fields used to be a line in a list under
+    // the map — the one thing in this editor configured by finding it in a list
+    // rather than by pointing at it — and the owner asked for them up here with
+    // everything else (`cell-config-pod.ts`).
+    const pod = wave && at ? podAt(wave, at.beat, at.col) : undefined;
+    if (pod) {
+      root.appendChild(
+        podConfig({
+          pod,
+          cfg: cfg(),
+          labelled,
+          onEdit: () => {
+            store.dirty = true;
+            onEdit();
+            render();
+          },
+        }),
+      );
+    }
     root.appendChild(actions(wave, at));
   };
 

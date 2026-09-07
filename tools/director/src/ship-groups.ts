@@ -50,6 +50,7 @@ export type GroupName =
   | "THE VOLLEY — a rock you have to hit back three times"
   | "THE FENCE — a live line with a way through it"
   | "THE VEER — a rock that changes lane on the way down"
+  | "A CROSSING ROCK — a route any rock can be put on"
   | "THE STRAND — beads on a thread, shot in order"
   | "THE CRAWLER — a worm that walks the ship instead of falling"
   | "THE GYRE — six bodies on a turning rim"
@@ -93,6 +94,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE FENCE — a live line with a way through it",
   "THE MALFUNCTION — a control that acts by itself",
   "THE VEER — a rock that changes lane on the way down",
+  "A CROSSING ROCK — a route any rock can be put on",
   "THE STRAND — beads on a thread, shot in order",
   "THE CRAWLER — a worm that walks the ship instead of falling",
   "THE GYRE — six bodies on a turning rim",

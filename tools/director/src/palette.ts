@@ -1,6 +1,7 @@
 import { brushArtImage } from "./brush-art.js";
 import { readClosedCategories, writeClosedCategories } from "./brush-category.js";
 import { bindBrushCard } from "./brush-tooltip.js";
+import type { Held } from "./held.js";
 import type { Selection } from "./selection.js";
 import { silhouette } from "./silhouette.js";
 import { BRUSH_GROUPS, BRUSHES, type Brush } from "./state.js";
@@ -12,6 +13,9 @@ export interface Palette {
 export interface PaletteOptions {
   /** Which cell a brush click paints. */
   selection: Selection;
+  /** The armed brush — what a click on this palette leaves behind, and what
+   * the map spends on the next cell it is given (`held.ts`). */
+  held: Held;
   /** Brushes the current wave has no use for — a boss wave has no use for the
    * three that place a living creature or a rock. Hiding the button is the
    * visible half of the guard; `paint` in state.ts holds the other half, so a
@@ -71,17 +75,24 @@ function bindJumpCue(brushBar: HTMLElement): void {
  * the buttons are as small as a 26px picture and a name allow, so the whole
  * column is content-width.
  *
- * **A brush is not held.** Clicking one paints the tile already selected on
- * the map and stops there — the button never stays lit, and nothing lingers
- * to paint a second cell by accident. Selecting is the map's job (a click on
- * a cell, `grid.ts`) and painting is the palette's; a wave author points at a
- * tile, then names what goes in it, and that naming is exactly how the panel
- * beside the map is reached for whatever was already there — select first,
- * and its options are already on screen, no separate "pick this thing" step
- * required.
+ * **A brush is held now, and that is a change the owner asked for.** It used
+ * not to be: clicking one painted the tile already selected on the map and
+ * stopped there, the button never stayed lit, and the order was always *tile
+ * first, brush second*. That order still works and is still the way to reach a
+ * cell's own options — click the cell, and the panel above the map is already
+ * showing what is in it. What is new is the other order. **A click arms the
+ * brush and lights the button**, because the next click is on the map: the
+ * cells it lands on take that brush, and a drag across them takes a stroke of
+ * it (`grid-gestures.ts`). Clicking the lit brush again puts it down.
+ *
+ * **And a brush can be dragged onto a cell**, which is the same sentence said
+ * with the pointer held. Nothing is armed by a drag: it lands where it was
+ * dropped and the palette goes back to whatever it was holding, so a single
+ * arrival is one gesture rather than arm-place-disarm.
  */
 export function bindPalette({
   selection,
+  held,
   hidden,
   onPaint,
   canJump,
@@ -97,16 +108,36 @@ export function bindPalette({
   const erase = document.getElementById("brushErase");
   if (erase) {
     erase.title = BRUSHES.find((b) => b.brush === "erase")?.note ?? "";
-    erase.addEventListener("click", () => {
-      if (!selection.at()) return;
-      onPaint("erase");
-    });
+    // Armed like any other brush, so a run of corrections is a stroke rather
+    // than a trip to the palette each time — and painted straight away where a
+    // cell is already selected, which is what the button has always done.
+    erase.addEventListener("click", () => press("erase"));
+    bindBrushDrag(erase, "erase", held);
   }
+
+  /**
+   * What a click on a brush means. Two things at once, in this order: whatever
+   * cell is already selected takes the brush, and the brush stays lit for the
+   * cells that come next. The lit brush clicked again is put down instead —
+   * one gesture out of the mode, and the only one there could be.
+   */
+  const press = (brush: Brush): void => {
+    if (held.brush() === brush) {
+      held.hold(null);
+      return;
+    }
+    held.hold(brush);
+    if (selection.at()) onPaint(brush);
+  };
 
   const brushButton = (b: (typeof BRUSHES)[number]): HTMLElement => {
     const button = document.createElement("button");
     button.type = "button";
-    button.className = canJump(b.brush) ? "brush can-jump" : "brush";
+    const classes = ["brush"];
+    if (canJump(b.brush)) classes.push("can-jump");
+    if (held.brush() === b.brush) classes.push("on");
+    button.className = classes.join(" ");
+    bindBrushDrag(button, b.brush, held);
     // The picture at a size worth looking at, the wave it first arrives in
     // and the brush's own sentence — on a card that opens under the pointer
     // (`brush-tooltip.ts`), so hovering says all three whether or not SHOW
@@ -141,13 +172,16 @@ export function bindPalette({
         if (canJump(b.brush)) onJump(b.brush);
         return;
       }
-      if (!selection.at()) return;
-      onPaint(b.brush);
+      press(b.brush);
     });
     return button;
   };
 
   const render = (): void => {
+    // ERASE is static markup outside the list below, so its lit state is set
+    // here rather than built with it — it is armed like any other brush and
+    // has to say so the same way.
+    erase?.classList.toggle("on", held.brush() === "erase");
     if (!brushBar) return;
     const hide = hidden();
 
@@ -191,4 +225,21 @@ export function bindPalette({
 
   render();
   return { render };
+}
+
+/**
+ * A brush that can be dragged onto the map. The payload is a value in `held`
+ * rather than in `DataTransfer` for the reason that module gives: a drop target
+ * has to decide during `dragover` whether it wants the thing, and `getData` is
+ * unreadable there. The `setData` below is only so the pointer shows a drag at
+ * all.
+ */
+function bindBrushDrag(button: HTMLElement, brush: Brush, held: Held): void {
+  button.draggable = true;
+  button.addEventListener("dragstart", (e) => {
+    held.drag({ kind: "brush", brush });
+    e.dataTransfer?.setData("text/plain", brush);
+    if (e.dataTransfer) e.dataTransfer.effectAllowed = "copy";
+  });
+  button.addEventListener("dragend", () => held.drag(null));
 }

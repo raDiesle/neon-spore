@@ -61,10 +61,26 @@
 }
 /* The selected cell. Gold, and a ring rather than a border colour, so it
    reads on top of `.now` — the marked beat and the selected cell are two
-   different questions and are regularly the same cell. */
+   different questions and are regularly the same cell. Two rings rather than
+   one: the owner asked for a clicked tile to be unmistakably the active one,
+   and a single hairline was losing against `.now`'s own lit border on the
+   beat the transport happened to be standing on. */
 #grid .cell.sel {
   border-color: var(--gold);
-  box-shadow: 0 0 0 1px var(--gold);
+  box-shadow:
+    0 0 0 2px var(--gold),
+    0 0 8px rgba(240, 190, 90, 0.35);
+}
+/* A brush is armed: the map places rather than points, and the cursor is the
+   only place that can be said without a label (`grid-gestures.ts`). */
+#grid.armed .cell {
+  cursor: crosshair;
+}
+/* Under a drag that this cell would accept — a brush out of the palette, or
+   another cell's contents on their way here. */
+#grid .cell.over {
+  border-color: #2fe0f0;
+  box-shadow: 0 0 0 2px #2fe0f0;
 }
 #grid .cell .pod {
   position: absolute;
@@ -230,26 +246,4 @@
 .cell-actions button {
   font-size: 9px;
   padding: 4px 9px;
-}
-
-#podList {
-  margin-top: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.pod-row {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 10px;
-  color: var(--dim);
-}
-.pod-row img.pod-art {
-  /* Never shrunk: a narrow map column squeezes the fields beside it rather
-     than the drawing that says which power-up the row is about. */
-  flex: none;
-}
-.pod-row input {
-  width: 46px;
 }

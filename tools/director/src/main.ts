@@ -2,6 +2,7 @@ import { WAVES } from "@neon-spore/content";
 import { DEFAULT_CONFIG, type SimConfig } from "@neon-spore/sim";
 import { bindBacklog } from "./backlog-page.js";
 import { type BossPanel, bindBossPanel } from "./boss.js";
+import { bindBrushHints } from "./brush-hints.js";
 import { jumpWaveIndex } from "./brush-wave.js";
 import { bindCellPanel, type CellPanel } from "./cell-panel.js";
 import { initColumnResize } from "./column-resize.js";
@@ -10,6 +11,7 @@ import { bindControlSetsTab } from "./controlsets-page.js";
 import { bindDemoPanel } from "./demo-panel.js";
 import { bindGrid, type GridPanel } from "./grid.js";
 import { bindGuidesTab } from "./guide-sheet.js";
+import { makeHeld } from "./held.js";
 import { initMobileMenu } from "./mobile-menu.js";
 import { bindNotes } from "./notes-page.js";
 import { bindPairPanel } from "./pair-panel.js";
@@ -75,8 +77,12 @@ let grid: GridPanel | null = null;
 const stage = bindStage(store, cfg, (beat) => grid?.mark(beat));
 // Which cell of the map is under the author's attention — see `selection.ts`.
 const selection = makeSelection();
+// And which brush the author is carrying, if any — the palette lights it and
+// the map spends it (`held.ts`).
+const held = makeHeld();
 const palette = bindPalette({
   selection,
+  held,
   hidden: hiddenBrushes,
   onPaint: paintSelected,
   canJump: (brush) => jumpWaveIndex(store.waves, brush) !== undefined,
@@ -88,9 +94,17 @@ grid = bindGrid(
   onShape,
   (beat) => stage.seek(beat),
   selection,
+  held,
 );
+// Arming a brush changes what a click on the map *does*, so the map is rebuilt
+// with it: a cell that can be picked up while nothing is held is a cell that
+// paints while something is (`grid-gestures.ts`).
+held.watch(() => {
+  palette.render();
+  grid?.render();
+});
 // The panel under the map: what the selected cell holds — see `cell-panel.ts`.
-const cells: CellPanel = bindCellPanel({ store, selection, onEdit: onShape });
+const cells: CellPanel = bindCellPanel({ store, selection, cfg: () => cfg, onEdit: onShape });
 const boss: BossPanel = bindBossPanel(store, onShape);
 const rail = bindRail(store, refreshAll, onProse);
 bindTuning(cfg, () => {
@@ -128,24 +142,7 @@ bindDemoPanel(
 bindGuidesTab();
 bindSpecTab();
 
-// `.hint` text defaults to hidden — the name is usually enough, and the full blurb is one click away in CREATURES. Persisted like the tuning presets.
-const BRUSH_HINTS_KEY = "neon-spore-director-brush-hints";
-
-function bindBrushHints(): void {
-  const brushes = document.getElementById("brushes");
-  const toggle = document.getElementById("brushHintToggle");
-  let show = window.localStorage.getItem(BRUSH_HINTS_KEY) === "1";
-  const apply = (): void => {
-    brushes?.classList.toggle("hide-hints", !show);
-    if (toggle) toggle.textContent = show ? "HIDE DESCRIPTIONS" : "SHOW DESCRIPTIONS";
-  };
-  apply();
-  toggle?.addEventListener("click", () => {
-    show = !show;
-    window.localStorage.setItem(BRUSH_HINTS_KEY, show ? "1" : "0");
-    apply();
-  });
-}
+// The palette's descriptions, on or off, remembered — see `brush-hints.ts`.
 bindBrushHints();
 
 // Paint the selected cell with a brush — a no-op with nothing selected.

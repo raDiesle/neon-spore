@@ -10,6 +10,7 @@ import {
   podAt,
   podBrushOf,
 } from "./query.js";
+import type { Cell } from "./selection.js";
 
 /**
  * The edits: what a click does to a wave, and what takes it back.
@@ -59,6 +60,40 @@ export function paint(wave: Wave, beat: number, col: number, brush: Brush): void
   removeEntry(wave, beat, col);
   wave.entries.push(makeEntry(beat, col, brush));
   sortEntries(wave);
+}
+
+/**
+ * **Move whatever is in one cell into another**, entry and pod together, and
+ * whatever was already in the destination is gone.
+ *
+ * The verb a drag across the map spends (`grid-gestures.ts`). It is here and
+ * not built out of `paint` and `eraseAt` at the call site for the reason those
+ * two are here at all: a move keeps the *configuration* hanging off an entry —
+ * a rock's route and row, a wall's gaps, the body behind a shell — and a
+ * rebuild from the brush would throw every one of them away and hand back a
+ * default. So the entry itself is carried, and only its beat and column
+ * change.
+ *
+ * A move onto the cell it started in is not an edit and is refused here, so no
+ * caller has to remember: the drop target already asks the same question to
+ * decide whether it wants the drag, and the two would be free to disagree.
+ */
+export function moveCell(wave: Wave, from: Cell, to: Cell): void {
+  if (from.beat === to.beat && from.col === to.col) return;
+  const entry = entryAt(wave, from.beat, from.col);
+  const pod = podAt(wave, from.beat, from.col);
+  if (!entry && !pod) return;
+  eraseAt(wave, to.beat, to.col);
+  if (entry) {
+    entry.beat = to.beat;
+    entry.col = to.col;
+    sortEntries(wave);
+  }
+  if (pod) {
+    pod.beat = to.beat;
+    pod.col = to.col;
+    wave.pods = (wave.pods ?? []).sort(byBeatThenCol);
+  }
 }
 
 /**

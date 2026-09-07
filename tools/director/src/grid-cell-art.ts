@@ -1,7 +1,6 @@
 import type { Wave } from "@neon-spore/content";
 import type { PodEntry } from "@neon-spore/sim";
 import { brushArtImage } from "./brush-art.js";
-import { podGlyph } from "./grid-pods.js";
 import { silhouette } from "./silhouette.js";
 import { BRUSHES, type Brush, brushOf, entryAt, podAt, podBrushOf } from "./state.js";
 
@@ -11,7 +10,7 @@ import { BRUSHES, type Brush, brushOf, entryAt, podAt, podBrushOf } from "./stat
  *
  * Split out of `grid.ts` when the pod stopped being a glyph and started being
  * a picture, which took that file over the line limit. The seam is the same
- * one `grid-pods.ts` was cut along — next door is the cells and the gestures
+ * one `grid-note.ts` was cut along — next door is the cells and the gestures
  * on them, and nothing here answers a click, holds a selection or knows what a
  * beat is.
  *
@@ -56,9 +55,10 @@ function creatureArt(brush: Brush): Element | null {
  * The pod: its picture, and the row it hangs on.
  *
  * The row is the one thing no picture of a pod can carry — it is where in the
- * *field* the thing hangs, and the map's vertical axis is time
- * (`grid-pods.ts`) — so it stays a number in the corner. The glyph comes back
- * only when the frame could not be built at all.
+ * *field* the thing hangs, and the map's vertical axis is time — so it stays a
+ * number in the corner, and the panel above the map is where it is changed
+ * (`cell-config-pod.ts`). The glyph comes back only when the frame could not
+ * be built at all.
  */
 function drawPod(button: HTMLElement, pod: PodEntry, beside: boolean): void {
   const brush = podBrushOf(pod);
@@ -76,4 +76,22 @@ function drawPod(button: HTMLElement, pod: PodEntry, beside: boolean): void {
   const spec = BRUSHES.find((x) => x.brush === brush);
   if (spec) mark.style.color = spec.stroke;
   button.appendChild(mark);
+}
+
+/**
+ * The mark a pod falls back to when its picture could not be built.
+ *
+ * It lived beside the list of pods under the map until that list went away
+ * (`grid-note.ts`), and this is the only place left that needs it: a cell is
+ * where a pod is now both drawn and pointed at.
+ */
+function podGlyph(brush: Brush): string {
+  switch (brush) {
+    case "purge":
+      return "✦";
+    case "ward":
+      return "◎";
+    default:
+      return "◇";
+  }
 }

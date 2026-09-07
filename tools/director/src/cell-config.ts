@@ -1,10 +1,17 @@
 import type { WaveEntry } from "@neon-spore/content";
-import { CRAWLER_SIDES, type CrawlerSide, type GhostPath, type RockSize } from "@neon-spore/sim";
+import {
+  CRAWLER_SIDES,
+  type CrawlerSide,
+  type GhostPath,
+  type RockCross,
+  type RockSize,
+} from "@neon-spore/sim";
 import { fenceCracksRow, fenceGapsRow } from "./cell-config-gaps.js";
 import {
   beadLabel,
   bodyRow,
   choiceRow,
+  crossLabel,
   labelled,
   pathLabel,
   sideLabel,
@@ -22,12 +29,17 @@ import {
   hasBeadCount,
   hasCrawlerFields,
   hasGhostPath,
+  hasRockCross,
   hasRockWidth,
   isTieredRock,
   METEOR_SIZES,
   METEOR_SPEEDS,
   meteorSize,
   meteorSpeed,
+  ROCK_CROSS_ROWS,
+  ROCK_CROSSINGS,
+  rockCrossOf,
+  rockRowOf,
   STRAND_COUNTS,
   setBeadCount,
   setCrawlerCount,
@@ -35,6 +47,8 @@ import {
   setGhostPath,
   setMeteorSize,
   setMeteorSpeed,
+  setRockCross,
+  setRockRow,
 } from "./entry-fields.js";
 import { hasFenceGaps } from "./entry-fields-fence.js";
 
@@ -97,6 +111,32 @@ export function cellConfig({ entry, onEdit }: CellConfigOptions): HTMLElement | 
         onEdit();
       }),
     );
+  }
+  // The route, and the row it is taken along. The owner asked for a rock that
+  // comes over a wall instead of down a column, and it is two rows here rather
+  // than two more brushes for `WaveEntry.cross`'s reason: the pair says the
+  // same sentence about a crossing rock and a falling one, and what changes is
+  // how long the column stays true.
+  //
+  // The ROW row is only drawn once a route is chosen. A rock that falls has no
+  // row to be authored at — it enters at the top like everything else — and a
+  // row offered on one would be a number the field never reads.
+  if (hasRockCross(e)) {
+    const cross = rockCrossOf(e);
+    rows.push(
+      choiceRow("ROUTE", ROCK_CROSSINGS, cross, crossLabel, (next: RockCross | null) => {
+        setRockCross(e, next);
+        onEdit();
+      }),
+    );
+    if (cross !== null) {
+      rows.push(
+        choiceRow("ROW", ROCK_CROSS_ROWS, rockRowOf(e), beadLabel, (row: number) => {
+          setRockRow(e, row);
+          onEdit();
+        }),
+      );
+    }
   }
   if (authorsBody(e)) {
     rows.push(bodyRow(e, onEdit));

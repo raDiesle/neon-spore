@@ -1,8 +1,19 @@
 import type { WaveEntry } from "@neon-spore/content";
-import { colSpan, isMeteorKind, METEOR_TIER_KINDS, type RockSize } from "@neon-spore/sim";
+import {
+  colSpan,
+  DEFAULT_CONFIG,
+  hullRow,
+  isMeteorKind,
+  METEOR_TIER_KINDS,
+  type RockCross,
+  type RockSize,
+  rockMayCross,
+} from "@neon-spore/sim";
 
 /**
- * **A rock's two numbers**: how fast it falls and how wide it arrives.
+ * **A rock's own facts**: how fast it falls, how wide it arrives, and — since
+ * the owner asked for a rock that comes over a wall — which way it crosses the
+ * field and which row it crosses along.
  *
  * Cut out of `entry-fields.ts` when THE CRAWLER's two took that file over its
  * 250-line limit, and along a seam that file's own header describes: these
@@ -95,4 +106,64 @@ export function meteorSize(entry: WaveEntry): RockSize {
  */
 export function setMeteorSize(entry: WaveEntry, size: RockSize): void {
   entry.size = size === colSpan(entry.kind ?? "meteor") ? undefined : size;
+}
+
+/**
+ * The three routes a rock may be authored onto: it falls down the column it
+ * was painted in, or it comes over one of the two walls and walks a row.
+ *
+ * `null` for the fall rather than a fourth value, because "no route" is what
+ * the wave file actually says — a rock that falls carries no `cross` field at
+ * all (`WaveEntry.cross`), so every rock authored before crossing existed
+ * serialises byte for byte as it did.
+ */
+export const ROCK_CROSSINGS: readonly (RockCross | null)[] = [null, -1, 1];
+
+/**
+ * Whether this entry's **route** is the author's to set — the same five tiers
+ * and the torch that have a width, asked of the simulation rather than listed
+ * again here (`rockMayCross`). THE VEER is out for the reason it is out of
+ * `hasRockWidth`: its kind is what makes it step sideways, and a body on two
+ * rules at once is what `own-step.ts` exists to prevent.
+ */
+export function hasRockCross(entry: WaveEntry): boolean {
+  return entry.kind !== undefined && rockMayCross(entry.kind);
+}
+
+/** Which way this rock crosses, or null for one that falls. */
+export function rockCrossOf(entry: WaveEntry): RockCross | null {
+  return entry.cross ?? null;
+}
+
+/**
+ * Set the route. The fall is written as *no* field rather than as a zero, the
+ * arrangement `setMeteorSize` makes with a rock left at its ordinary width —
+ * and the row goes with it, because a row means nothing on a rock that is not
+ * crossing and a wave file carrying one would be a wave file that changed the
+ * day somebody clicked.
+ */
+export function setRockCross(entry: WaveEntry, cross: RockCross | null): void {
+  entry.cross = cross ?? undefined;
+  if (cross === null) entry.row = undefined;
+}
+
+/** The rows a crossing rock may be authored onto: every row above the hull.
+ * Read off the shipped field rather than typed out, so the panel cannot offer
+ * a row the field does not have. */
+export const ROCK_CROSS_ROWS: readonly number[] = Array.from(
+  { length: hullRow(DEFAULT_CONFIG) },
+  (_, i) => i,
+);
+
+/** The row this rock walks along. Unset means the top row, which is what
+ * absent means downstream (`rockCrossRow`). */
+export function rockRowOf(entry: WaveEntry): number {
+  return entry.row ?? 0;
+}
+
+/** Set the row. Nought is written as *no* field, `setRockCross`' arrangement
+ * one level down: the top row is what a rock told to cross and given no row
+ * already does. */
+export function setRockRow(entry: WaveEntry, row: number): void {
+  entry.row = row === 0 ? undefined : row;
 }

@@ -218,6 +218,7 @@ export {
   toggleFenceGap,
 } from "./entry-fields-fence.js";
 export {
+  hasRockCross,
   hasRockWidth,
   isTieredRock,
   METEOR_SIZES,
@@ -225,6 +226,12 @@ export {
   type MeteorSpeed,
   meteorSize,
   meteorSpeed,
+  ROCK_CROSS_ROWS,
+  ROCK_CROSSINGS,
+  rockCrossOf,
+  rockRowOf,
   setMeteorSize,
   setMeteorSpeed,
+  setRockCross,
+  setRockRow,
 } from "./entry-fields-rock.js";

@@ -1,20 +1,20 @@
 import { AUTHORED_COLS, mapCol, type Wave } from "@neon-spore/content";
 import type { SimConfig } from "@neon-spore/sim";
+import type { Brush } from "./brushes.js";
 import { fillCell } from "./grid-cell-art.js";
-import { bindGridPods } from "./grid-pods.js";
-import type { Selection } from "./selection.js";
-import { beatCount, currentWave, eraseAt, type Store } from "./state.js";
-
-/**
- * How long a press has to be held before it empties the cell under it. The
- * gesture exists for the phone, where there is no `Delete` key and DELETE
- * under the map costs a trip there and back for a single correction.
- *
- * Long enough not to fire on a tap somebody meant as a paint stroke, short
- * enough to be discovered by accident — which is the only way anybody ever
- * finds a long press.
- */
-const HOLD_TO_ERASE_MS = 500;
+import { bindCellGestures, watchStrokeEnd } from "./grid-gestures.js";
+import { bindGridNote } from "./grid-note.js";
+import type { Held } from "./held.js";
+import type { Cell, Selection } from "./selection.js";
+import {
+  beatCount,
+  cellIsEmpty,
+  currentWave,
+  eraseAt,
+  moveCell,
+  paint,
+  type Store,
+} from "./state.js";
 
 /**
  * The beat grid: beats down, the seven authored columns across.
@@ -24,8 +24,9 @@ const HOLD_TO_ERASE_MS = 500;
  * eleven would let you place a creature in a column that no authored wave can
  * express, and the remap would silently move it.
  *
- * What a cell *draws* is `grid-cell-art.ts`, and what sits under the map is
- * `grid-pods.ts`; this file is the cells themselves and the gestures on them.
+ * What a cell *draws* is `grid-cell-art.ts`, what a hand *does* to one is
+ * `grid-gestures.ts`, and what sits under the map is `grid-note.ts`; this file
+ * is the map itself — the labels, the columns and the beats.
  */
 export interface GridPanel {
   render(): void;
@@ -38,11 +39,12 @@ export function bindGrid(
   onEdit: () => void,
   onSeek: (beat: number) => void,
   selection: Selection,
+  held: Held,
 ): GridPanel {
   const grid = document.getElementById("grid");
-  // The pod list and the wave's arithmetic — under the map, about the wave
-  // rather than about a cell. See `grid-pods.ts`.
-  const pods = bindGridPods(store, cfg, onEdit);
+  // The wave's own arithmetic — under the map, about the wave rather than
+  // about a cell. See `grid-note.ts`.
+  const note = bindGridNote(store, cfg);
   let markedBeat = 0;
 
   /**
@@ -51,10 +53,36 @@ export function bindGrid(
    * `eraseAt` — one verb, four ways in (`cell-panel.ts`).
    */
   const eraseSelected = (): void => {
-    const wave = currentWave(store);
     const at = selection.at();
-    if (!wave || !at) return;
-    eraseAt(wave, at.beat, at.col);
+    if (at) eraseCell(at);
+  };
+
+  /** The four verbs a cell's gestures spend, in one place: each marks the wave
+   * dirty and settles everything an edit touches, so no gesture has to
+   * remember to (`grid-gestures.ts`). */
+  const eraseCell = (cell: Cell): void => {
+    const wave = currentWave(store);
+    if (!wave) return;
+    eraseAt(wave, cell.beat, cell.col);
+    store.dirty = true;
+    onEdit();
+  };
+  const paintCell = (cell: Cell, brush: Brush): void => {
+    const wave = currentWave(store);
+    if (!wave) return;
+    // Selected first, so the panel above the map is already pointing at the
+    // cell by the time the edit redraws it — a stroke leaves the last cell it
+    // crossed under the author's attention, which is where they are looking.
+    selection.set(cell);
+    paint(wave, cell.beat, cell.col, brush);
+    store.dirty = true;
+    onEdit();
+  };
+  const moveInto = (from: Cell, to: Cell): void => {
+    const wave = currentWave(store);
+    if (!wave) return;
+    moveCell(wave, from, to);
+    selection.set(to);
     store.dirty = true;
     onEdit();
   };
@@ -78,6 +106,10 @@ export function bindGrid(
     grid.replaceChildren();
     if (!wave) return;
 
+    // The whole map says which mode it is in. A brush is armed, so a click
+    // places rather than points and a drag paints a stroke — and the cursor is
+    // the only place that can be said without a label (`director-map.css`).
+    grid.classList.toggle("armed", held.brush() !== null);
     grid.style.gridTemplateColumns = `24px repeat(${AUTHORED_COLS}, 32px)`;
     grid.appendChild(label("head", ""));
     for (let c = 0; c < AUTHORED_COLS; c++) {
@@ -120,40 +152,18 @@ export function bindGrid(
 
     fillCell(button, wave, b, c);
 
-    // A press held down empties the cell, and cancels the click that would
-    // otherwise have painted over it on release. `held` is what carries that
-    // refusal from the timer to the click listener — the two are different
-    // events on the same button, and there is nothing else they share.
-    let held = false;
-    let timer: ReturnType<typeof setTimeout> | undefined;
-    const startHold = (): void => {
-      held = false;
-      timer = setTimeout(() => {
-        held = true;
-        selection.set({ beat: b, col: c });
-        eraseSelected();
-      }, HOLD_TO_ERASE_MS);
-    };
-    const endHold = (): void => {
-      if (timer !== undefined) clearTimeout(timer);
-      timer = undefined;
-    };
-    button.addEventListener("pointerdown", startHold);
-    button.addEventListener("pointerup", endHold);
-    button.addEventListener("pointercancel", endHold);
-    // A finger that slid off the cell it started on never meant to hold it.
-    button.addEventListener("pointerleave", endHold);
-
-    button.addEventListener("click", () => {
-      if (held) {
-        held = false;
-        return;
-      }
-      // Selects and nothing more — painting is the palette's job now
-      // (`palette.ts`). A click here is how a tile is pointed at, whether
-      // that is to place something in it or to see what is already there.
-      selection.set({ beat: b, col: c });
-    });
+    bindCellGestures(
+      button,
+      { beat: b, col: c },
+      {
+        held,
+        select: (cell) => selection.set(cell),
+        paint: paintCell,
+        erase: eraseCell,
+        move: moveInto,
+        isEmpty: (cell) => cellIsEmpty(wave, cell.beat, cell.col),
+      },
+    );
     return button;
   };
 
@@ -170,9 +180,11 @@ export function bindGrid(
 
   const render = (): void => {
     renderGrid();
-    pods.render();
+    note.render();
   };
 
+  // Ends a stroke wherever the button came up, including outside the grid.
+  watchStrokeEnd();
   render();
   return { render, mark };
 }

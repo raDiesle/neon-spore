@@ -11,7 +11,7 @@ export { BRUSHES, ROCK_BRUSHES } from "./brushes.js";
  * the name every panel already imports, and which of the three files a function
  * happens to live in is not a fact any of them should have to know.
  */
-export { byBeatThenCol, cellIsEmpty, eraseAt, paint } from "./paint.js";
+export { byBeatThenCol, cellIsEmpty, eraseAt, moveCell, paint } from "./paint.js";
 export {
   beatCount,
   brushOf,

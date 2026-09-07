@@ -1,6 +1,6 @@
 import type { WaveEntry } from "@neon-spore/content";
 import { PALETTE } from "@neon-spore/render";
-import type { CrawlerSide, GhostPath, RockSize } from "@neon-spore/sim";
+import type { CrawlerSide, GhostPath, RockCross, RockSize } from "@neon-spore/sim";
 import { BODY_KINDS, bodyOf, colorForBody, type MeteorSpeed, setBody } from "./entry-fields.js";
 import { silhouette } from "./silhouette.js";
 
@@ -42,6 +42,20 @@ export function beadLabel(beads: number): string {
 /** Which wall a worm comes over, said the way the wave's guide says it. */
 export function sideLabel(side: CrawlerSide): string {
   return side === "left" ? "LEFT" : "RIGHT";
+}
+
+/**
+ * The route a rock takes, said as the picture of it: it falls down the column
+ * it was painted in, or it comes over one of the two walls and walks a row.
+ *
+ * The arrows are the pod's own labels (`cell-config-pod.ts`), and deliberately
+ * so — a pod that crosses and a rock that crosses do the same thing to the
+ * field, and an author who has learnt one row should not have to learn a
+ * second vocabulary for the other.
+ */
+export function crossLabel(cross: RockCross | null): string {
+  if (cross === null) return "FALLS";
+  return cross === -1 ? "◀ CROSSES" : "CROSSES ▶";
 }
 
 /** One tile or the 2x2 square. The number is the width in tiles, so the label

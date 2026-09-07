@@ -904,7 +904,6 @@ place — the generator keeps whatever is there.
 | `tools/director/src/glows/swarm.ts` | One soft cloud under the whole figure, rather than a halo per body |
 | `tools/director/src/glows/trail.ts` | A luminous tail that lingers behind the body as it moves |
 | `tools/director/src/glows/types.ts` | What a glow is, and what it is told |
-| `tools/director/src/grid-pods.ts` | The two things under the map that are about the wave rather than about one cell: the list of pods |
 | `tools/director/src/guide-fields.ts` | The GUIDE section `rail.ts` shows directly under SENTENCE: the three lines a wave's guide is made of |
 | `tools/director/src/guide-gallery.ts` | Every guide in the game, drawn in both roles side by side |
 | `tools/director/src/guide-order.ts` | How one wave opens, drawn in order: the introduction, then its guide |
@@ -1187,5 +1186,10 @@ place — the generator keeps whatever is there.
 | `tools/director/src/cell-config-rows.ts` |  |
 | `tools/director/src/grid-cell-art.ts` | What one cell of the map draws: the creature that arrives on that beat, and the pod that hangs in that column |
 | `tools/director/src/rail-filter.ts` | The filter over the wave list: one field above it, matching a wave's prose and everything it sends |
+| `tools/director/src/cell-config-pod.ts` | The rows under the selected cell that configure the **pod** in it: the row it hangs at |
+| `tools/director/src/grid-note.ts` | The line of arithmetic under the map: how many entries and pods the wave carries, how long it runs |
+| `tools/director/src/grid-gestures.ts` | **Everything a hand can do to one cell of the map**: point at it, paint it, drag a stroke across it |
+| `tools/director/src/held.ts` | **What the author is carrying**: the brush that is armed, and — while a drag is in the air |
+| `tools/director/src/brush-hints.ts` | SHOW DESCRIPTIONS: whether each brush in the palette carries its sentence |
 
 <!-- index:code:end -->
