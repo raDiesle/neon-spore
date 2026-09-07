@@ -1,4 +1,4 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { controlSet } from "@neon-spore/content";
 import {
   createWorld,
@@ -14,7 +14,21 @@ import { linkCenter, RIDE } from "../src/crawler-place.js";
 import { frame, type HullMood, type LobePositions, surfaceSampler } from "../src/hull-frame.js";
 import type { ViewRole } from "../src/layout.js";
 import { computeLayout } from "../src/layout.js";
-import { CFG, installCanvasGlobals, ROLES, runFrames, VIEWPORT } from "./frame-harness.js";
+import {
+  CFG,
+  FRAME_TIMEOUT_MS,
+  installCanvasGlobals,
+  ROLES,
+  runFrames,
+  VIEWPORT,
+} from "./frame-harness.js";
+
+// The cap this file runs under. Asked for here rather than inherited: bun
+// applies `setDefaultTimeout` to the file the call is in, and the harness is
+// evaluated once, so a call left there reaches only whichever frame test
+// imported it first (`frame-harness.ts`). This file is the one that found out,
+// at 5017 ms inside a check it passes in 4.4 s on its own.
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * THE CRAWLER, drawn: a run of links along the ship's own row, the marks over

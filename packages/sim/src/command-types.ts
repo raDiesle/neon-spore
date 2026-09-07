@@ -1,4 +1,5 @@
 import type { RoundCommand } from "./command-round.js";
+import type { DragTarget } from "./drag-targets.js";
 import type { Color } from "./types.js";
 
 export { SNAKE_TURNS, type SnakeTurn } from "./command-round.js";
@@ -144,52 +145,14 @@ export type Command =
   // And the rounds' own, next door — see `command-round.ts`.
   | RoundCommand;
 
-/** The draggable elements: one name per thing a hand may take hold of. A closed
- * list rather than a creature id, because THE MAZE's string is not a creature —
- * a drag that could only name one could not reach the first thing that wanted
- * it, and THE WARDEN's rope is one that is. THE LID's cord is the third, and
- * the first that is *many*: the target says what kind of handle this is and
- * `id` above says which body it hangs off. */
-export type DragTarget =
-  | "mazeString"
-  | "wardenTether"
-  | "lidString"
-  | "gripBody"
-  | "choirLeft"
-  | "choirRight"
-  | "balloonLeft"
-  | "balloonRight";
-
-/**
- * `choirLeft` and `choirRight` are the fifth and sixth, and the first pair
- * that is one gesture in two places: the two arrows standing against the walls
- * of the field while a membrane is up (`choir-gesture.ts`). Two names rather
- * than one target and a side, for the reason `id` is absent on `mazeString` —
- * there is exactly one of each, so each has exactly one name, and a side
- * carried beside a shared name would be a second, weaker way of saying which
- * arrow the hand is on.
- */
-
-/**
- * `balloonLeft` and `balloonRight` are the seventh and eighth, and the first
- * pair that is one gesture in two **seats**. THE CHOIR's two arrows are one
- * hand making one gesture twice; these are two hands making one gesture once,
- * and which seat may send which is the whole of the coupling — the pilot has
- * the left of every balloon and the navigator the right, always
- * (`balloonHeard`). They carry `id` for THE LID's reason with more riding on
- * it: a wave puts several on the field at once on purpose, and *which one*
- * is the sentence this creature exists to make the pair say.
- */
-
-/**
- * `gripBody` is the fourth and the first that is not a handle at all: it is
- * **the body the grip is already holding**, carried sideways. The hold that
- * sends it is a `grip` rather than a `drag` (`render/touch-hold.ts`) — one
- * hold, two gestures, exactly as a press on the cannon that slides it and a
- * lift that opens the maw are one hold and two controls. `id` says which body,
- * for THE LID's reason: a wave may have several on the field and either seat
- * may have a hand on a different one.
- */
+// **The closed list of things a hand may take hold of** — `DragTarget`, and
+// the paragraph each of its eight names has earned — is `drag-targets.ts` next
+// door, cut out when THE BALLOON's pair took this file over its 250-line
+// limit. The seam is the one this file's own header draws one level down: a
+// `Command` is the shape of a press, and that is the vocabulary one arm of it
+// is written in. Re-exported here, so nothing that reaches for a `DragTarget`
+// through this file had to move.
+export type { DragTarget } from "./drag-targets.js";
 
 export interface TimedCommand {
   /** Simulation tick the command takes effect on. */

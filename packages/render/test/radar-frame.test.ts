@@ -1,9 +1,15 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { createWorld, type SpawnEntry } from "@neon-spore/sim";
 import { drawRadar } from "../src/field.js";
 import { computeLayout, tileCY, type ViewRole } from "../src/layout.js";
 import { radarBlips } from "../src/radar-blip.js";
-import { CFG, installCanvasGlobals, stubCanvas } from "./frame-harness.js";
+import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./frame-harness.js";
+
+// The cap this file runs under. Asked for here rather than inherited: bun
+// applies `setDefaultTimeout` to the file the call is in, and the harness is
+// evaluated once, so a call left there reaches only whichever frame test
+// imported it first (`frame-harness.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * Radar ownership crosses the controls: p1 reads rocks, p2 reads the living.

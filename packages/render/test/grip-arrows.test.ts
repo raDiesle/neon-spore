@@ -1,10 +1,16 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { createWorld, type SpawnEntry, step, ticksPerBeat, type World } from "@neon-spore/sim";
 import { creatureCenter } from "../src/creature-place.js";
 import { drawCarryArrows } from "../src/grip-arrows.js";
 import { computeLayout } from "../src/layout.js";
 import { stubCanvas } from "./canvas-stub.js";
-import { CFG, installCanvasGlobals, VIEWPORT } from "./frame-harness.js";
+import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, VIEWPORT } from "./frame-harness.js";
+
+// The cap this file runs under. Asked for here rather than inherited: bun
+// applies `setDefaultTimeout` to the file the call is in, and the harness is
+// evaluated once, so a call left there reaches only whichever frame test
+// imported it first (`frame-harness.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * The two arrows beside a held rock, and the two things they have to say that

@@ -1,17 +1,15 @@
 import {
   beadIsActive,
   beadIsSpent,
-  type Creature,
   type CreatureKind,
   colourArmourLeft,
   isMeteorKind,
   recoilTurn,
-  type World,
 } from "@neon-spore/sim";
 import { drawBalloon } from "./balloon.js";
 import { drawChoir } from "./choir.js";
+import type { Body } from "./creature-body-in.js";
 import { drawGhost, showsGhostBody } from "./ghost.js";
-import type { Layout } from "./layout.js";
 import { drawLid } from "./lid.js";
 import { drawLiving } from "./living-draw.js";
 import { MAGNET_LOOK } from "./magnet.js";
@@ -42,23 +40,12 @@ import { drawWisp, showsWisp, wispJump } from "./wisp.js";
  * because they are additions rather than choices.
  */
 
-/** Everything a body draw may need, so one table can hold all of them. */
-export type Body = {
-  ctx: CanvasRenderingContext2D;
-  l: Layout;
-  world: World;
-  c: Creature;
-  /** The body's centre on screen, already placed by rim or by column. */
-  x: number;
-  y: number;
-  time: number;
-  /** The pose clock, in beats: `world.beat + beatPhase`. */
-  beats: number;
-  beatPhase: number;
-  near: number;
-  /** How long each body has been reading as blocked, by creature id. */
-  blocked: ReadonlyMap<number, number>;
-};
+// **What a body draw is handed** — the `Body` type — is `creature-body-in.ts`
+// next door, cut out when THE BALLOON's row took this file over its 250-line
+// limit. The seam is `touch-field.ts`' exactly: that is a *shape*, and this is
+// the decision procedure that reads one. Re-exported below, so nothing that
+// already reached for a `Body` through this file had to move.
+export type { Body } from "./creature-body-in.js";
 
 type BodyDraw = (b: Body) => void;
 
@@ -233,12 +220,8 @@ const EXCLUSIVE: ReadonlyMap<CreatureKind, BodyDraw> = new Map<CreatureKind, Bod
   // rather than loose arguments so this stays a row instead of a wrapper —
   // `MAGNET_LOOK.body` next door already reads its own record the same way.
   ["choir", drawChoir],
-  // A skin with a knot under it, and the one body in the game whose *shape*
-  // changes while it is played: two hands stretch it towards opposite walls,
-  // so `living-look.ts` answers `null` and `drawLiving` would ask for a radial
-  // contour that grows evenly — which is the picture of a body filling, and
-  // filling is the other thing this one does. `drawBalloon` takes a `Body` for
-  // `drawChoir`'s reason, so this stays a row rather than a wrapper.
+  // A skin two hands change the shape of, which is why `living-look.ts`
+  // answers `null` for it and `drawLiving` cannot have it (`balloon.ts`).
   ["balloon", drawBalloon],
 ]);
 

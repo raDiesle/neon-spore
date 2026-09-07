@@ -33,8 +33,8 @@ import type { World } from "./world.js";
  * That is also why it grows and the other half does not. Every creature added
  * to the bestiary since THE LURE has wanted a field of its own on the beat it
  * enters, and each is one spread line here (`dartOnSpawn`, `veilOnSpawn`,
- * `ghostOnSpawn`, `echoOnSpawn`, `rindOnSpawn`, `recoilOnSpawn`, `gyreOnSpawn`) — a list, in a
- * file that is a list, rather than more lines inside a loop that is a rule.
+ * `ghostOnSpawn`, `echoOnSpawn`, `rindOnSpawn`, `recoilOnSpawn`, `gyreOnSpawn`,
+ * `balloonOnSpawn`) — a list, in a file that is a list.
  */
 
 /**
@@ -73,11 +73,10 @@ export function spawnArrivals(world: World): void {
       across === undefined
         ? clampSpanCol(entry.col, world.cfg.cols, span)
         : rockEntryCol(world.cfg.cols, span, across);
-    // **THE BALLOON is the one arrival that does not enter at the top**, and
-    // it does not glide in from anywhere either: it appears out of nothing one
-    // row above the ship and swells there (`balloonEntryRow`). So its row and
-    // both `from` fields are settled here, beside the crossing rock's, rather
-    // than by the fall every other body enters on.
+    // **THE BALLOON is the one arrival that does not enter at the top**, and it
+    // glides in from nowhere either: it appears one row above the ship and
+    // swells there (`balloonEntryRow`), so its row and both `from` fields are
+    // settled here beside the crossing rock's.
     const rises = entry.kind === "balloon";
     const row = rises
       ? balloonEntryRow(world.cfg)
@@ -85,8 +84,7 @@ export function spawnArrivals(world: World): void {
         ? 0
         : rockCrossRowFor(world.cfg, entry.row);
     // Said once, at the top of the field, so player 2's ear has the column
-    // before the eye has found the ring. A hit should always be player 2's
-    // haste and never player 2's surprise.
+    // before the eye has found the ring — haste, never surprise.
     if (entry.kind === "lure") world.events.push({ type: "lureSeen", col });
     world.creatures.push({
       id: world.nextId++,
@@ -215,12 +213,9 @@ export function spawnArrivals(world: World): void {
       // (`own-step.ts`), and a stale entry must not be able to buy one.
       ...(across === undefined ? {} : rockCrossOnSpawn(across, row)),
       // How many times THE BALLOON still comes apart, the beat its swell is
-      // counted from, which way its diagonal leans and how fast it climbs —
-      // absent on every other kind, so a body that never rises carries none of
-      // it and every wave written before this creature is byte-for-byte the
-      // same world. Derived from the column and the field's width rather than
-      // rolled, for `caromOnSpawn`'s reason: both screens see the heading from
-      // the first frame, and what the pair has to agree is which one to take.
+      // counted from, which way it leans and how fast it climbs — absent on
+      // every other kind, so a wave written before it is the same world. The
+      // heading is derived rather than rolled, for `caromOnSpawn`'s reason.
       ...(rises ? balloonOnSpawn(world.cfg, world.beat, col, span, entry.rise) : {}),
     });
     // A gyre is the one arrival that brings bodies with it: six on its rim,
