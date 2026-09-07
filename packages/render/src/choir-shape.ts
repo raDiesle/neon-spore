@@ -28,24 +28,31 @@ export const VOICES = 2;
  * a multiple of a body's own radius, not as a share of a tile: SYMBIOSIS runs
  * from 0.3 to 2.4 radii, and above about 2.2 a metaball genuinely parts.
  *
- * These run from **3.0 to 3.4 radii apart, which is two separate balls**, and
- * the floor is arithmetic rather than taste: with an `r² / d²` field at a
- * threshold of 1, the point halfway between two bodies falls outside the skin
- * at exactly `2√2 ≈ 2.83` radii. Under that they are one shape with a waist;
- * over it the trace returns two rings and the pair is two bodies.
+ * These run from **3.5 to 4.0 radii apart, which is two separate balls with
+ * clear space between them**, and the floor is arithmetic rather than taste:
+ * with an `r² / d²` field at a threshold of 1, the point halfway between two
+ * bodies falls outside the skin at exactly `2√2 ≈ 2.83` radii. Under that they
+ * are one shape with a waist; over it the trace returns two rings.
+ *
+ * **The margin is the whole point of the number.** A draft of this file ran
+ * 2.85 to 3.58 — a floor barely half a percent clear of the threshold — and
+ * the owner watched the two join before he had shaken anything. Half a percent
+ * is nothing against the 5% breath in a body's own radius below, and nothing
+ * at all against a grid that walks 22 cells: marching squares bridges a gap
+ * thinner than a cell whether the field parted or not. At 3.5 the field
+ * halfway between them reads 0.66, which is a gap an eye can see and no
+ * rounding can close.
  *
  * **Two, and never joined, until the gesture.** The owner asked for
- * SYMBIOSIS's *last* state — the parted one — and three drafts of this file
- * shipped a joined pair or an oval because the number was guessed rather than
- * worked out. What closes them is `close`, and only that: *two become one, not
- * one becomes two*, so an idle body that drifted shut on its own would be
- * doing the pair's work for them and then undoing it.
+ * SYMBIOSIS's *last* state — the parted one — four times, and every draft that
+ * missed it missed by guessing this number instead of working it out. What
+ * closes them is `close`, and only that.
  */
-const ORBIT = 0.34;
-const FLOOR = 0.88;
+const ORBIT = 0.36;
+const FLOOR = 0.87;
 /** A body's radius, as a share of a tile. Two of these at `ORBIT` reach a
- * tile across at their widest, which is the lane they stand in. */
-const VOICE = 0.2;
+ * little over a tile across at their widest, which is the lane they stand in. */
+const VOICE = 0.18;
 /** Seconds for one breathe-wide-and-back, and for one turn of the pair about
  * its own centre. Slow, and prime against each other so the picture never
  * repeats on a count an eye can follow. */
@@ -84,9 +91,14 @@ export function choirVoiceAt(
   const a = (i / VOICES) * Math.PI * 2 + (time / TURN) * Math.PI * 2;
   return {
     x: x + Math.cos(a) * apart,
-    // Flattened, the way a cluster's own field is: the pair reads as leaning
-    // rather than as one body stacked on another.
-    y: y + Math.sin(a) * apart * 0.7,
+    // **A circle and not an ellipse**, which is the fix for the last thing the
+    // owner caught. `cluster` flattens its own orbit to 0.7 and can afford to:
+    // it parts and re-joins on a cycle, so a separation that dips as the pair
+    // turns upright changes nothing about what it is showing. Here the pair
+    // must be *two* at every angle, and 0.7 of 3.5 radii is 2.45 — under the
+    // 2.83 the field joins at. So the two joined on their own every time the
+    // turn brought them vertical, which is exactly what he was watching.
+    y: y + Math.sin(a) * apart,
     r: l.tile * VOICE * (1 + 0.05 * Math.sin(time * 1.4 + i * 2.3)),
   };
 }
@@ -112,13 +124,7 @@ export function choirVoiceAt(
  * changed (`choir-merge.ts`). One copy of what this membrane is, two things
  * that draw it.
  */
-export function choirMembranePath(
-  l: Layout,
-  x: number,
-  y: number,
-  time: number,
-  close = 0,
-): Path2D {
+export function choirLoops(l: Layout, x: number, y: number, time: number, close = 0): Point[][] {
   const centres: { x: number; y: number; r: number }[] = [];
   for (let i = 0; i < VOICES; i++) centres.push(choirVoiceAt(l, x, y, i, time, close));
   const field = (fx: number, fy: number): number => {
@@ -140,8 +146,29 @@ export function choirMembranePath(
     x1: Math.max(...xs) + pad,
     y1: Math.max(...ys) + pad,
   };
+  return isoLoops(field, box, 1, RES);
+}
+
+/**
+ * The same trace as a path, which is what a canvas wants.
+ *
+ * Split from `choirLoops` above so a test can count the rings without a
+ * canvas: **two while the pair is a pair, one once the gesture has closed
+ * them**, which is the one thing about this creature that has been got wrong
+ * in four separate drafts. `packages/render/test/choir-parted.test.ts` walks a
+ * whole drift cycle and fails on a frame where the two have joined on their
+ * own — the guard the arithmetic above deserves, since the arithmetic is what
+ * kept being guessed.
+ */
+export function choirMembranePath(
+  l: Layout,
+  x: number,
+  y: number,
+  time: number,
+  close = 0,
+): Path2D {
   const path = new Path2D();
-  for (const loop of isoLoops(field, box, 1, RES)) {
+  for (const loop of choirLoops(l, x, y, time, close)) {
     path.addPath(splinePath(resample(loop, 40) as Point[], true));
   }
   return path;
