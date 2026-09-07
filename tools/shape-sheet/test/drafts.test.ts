@@ -248,9 +248,8 @@ describe("the spare motions", () => {
 /**
  * The drafts whose idea is the separation itself.
  *
- * Symbiosis is vulnerable only while its two bodies are apart, The Choir is
- * three voices that merge on the beat they are hit, and the Colony's whole
- * behaviour is spreading. A picture that can only thin to a waist cannot show
+ * Symbiosis is vulnerable only while its two bodies are apart, the Herald
+ * arrives as two and the Colony's whole behaviour is spreading. A picture that can only thin to a waist cannot show
  * any of that, and for a while none of them could: the contour was marched
  * radially from the centre, which has one answer per angle and so has one
  * outline. This is the claim the change was made for, checked rather than
@@ -265,7 +264,6 @@ describe("the clusters that have to come apart", () => {
     ["HERALD", 2],
     ["SYMBIOSIS", 2],
     ["COLONY", 5],
-    ["THE CHOIR", 3],
   ];
 
   const loopsOver = (name: string): number => {

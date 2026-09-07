@@ -55,6 +55,7 @@ export type GroupName =
   | "THE CRAWLER — a worm that walks the ship instead of falling"
   | "THE GYRE — six bodies on a turning rim"
   | "THE LID — an armoured eye held open by a hand"
+  | "THE CHOIR — three dots opened by shaking the phone"
   | "THE MALFUNCTION — a control that acts by itself"
   | "SCORE"
   | "WARDEN"
@@ -99,6 +100,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE CRAWLER — a worm that walks the ship instead of falling",
   "THE GYRE — six bodies on a turning rim",
   "THE LID — an armoured eye held open by a hand",
+  "THE CHOIR — three dots opened by shaking the phone",
   "SCORE",
   "WARDEN",
   "VANE",

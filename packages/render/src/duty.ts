@@ -106,6 +106,13 @@ const DUTY_WORD = {
   // the whole of what is missing, here the number is easy and the **order** is
   // what nobody else has.
   coil: { p1: "NEXT" },
+  // THE CHOIR, and the one word in this table that is an **instruction to the
+  // seat reading it** rather than a thing that seat has to pass on. The pilot
+  // is the only one who can shake the phone or carry the arrows, and until
+  // they do there is nothing on the field either of them can act on — so the
+  // word under the dial is the gesture itself, and what the navigator reads
+  // off their own dark dial is that the pilot has been asked for it.
+  choir: { p1: "SHAKE" },
 } as const satisfies Record<CreatureKind, { p1?: string; p2?: string } | null>;
 
 /** Whether a kind counts as active for this word, including the one kind

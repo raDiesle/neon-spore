@@ -239,6 +239,8 @@ describe("the fingerprint covers the world", () => {
         "cannonCol",
         "cfg",
         "charge",
+        "choirArm",
+        "choirArmTick",
         "creatures",
         "events",
         "guard",

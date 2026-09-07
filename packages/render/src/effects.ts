@@ -1,5 +1,6 @@
 import type { SimConfig, SimEvent, World } from "@neon-spore/sim";
 import { Arrivals } from "./arrivals.js";
+import { ChoirQuake } from "./choir-quake.js";
 import { CoordGrid } from "./coord-grid.js";
 import { CrawlerFx } from "./crawler-fx.js";
 import { DeflectFx } from "./deflect.js";
@@ -100,6 +101,10 @@ export class Effects {
    * (`reset`).
    */
   readonly coordGrid = new CoordGrid();
+  /** THE CHOIR's earthquake — the one transient that moves the *picture*
+   * rather than something in it. Public because it is applied where the stage
+   * is placed (`canvas2d.ts`), and here because it outlives a frame. */
+  readonly quake = new ChoirQuake();
 
   /** Per-creature grey flash after a wrong-colour hit, keyed by creature id. */
   get blocked(): ReadonlyMap<number, number> {
@@ -163,6 +168,7 @@ export class Effects {
         deflectFx: this.deflectFx,
         ship: this.ship,
         crawler: this.crawler,
+        quake: this.quake,
         blockedUntil: this.blockedUntil,
         burst: (x, y, n, hex) => this.sparks.burst(x, y, n, hex),
       });
@@ -189,6 +195,7 @@ export class Effects {
     this.crawler.update(dt);
     this.spriteBursts.update(dt);
     this.ghostTrail.update(dt);
+    this.quake.update(dt);
     // A salvo's particles are thrown from here on the frame it lands, not from
     // `burstFor` on the frame the event arrived — a second and a quarter
     // earlier (`fleet-fx.ts`).
@@ -233,6 +240,7 @@ export class Effects {
     this.coordGrid.clear();
     this.ghostTrail.clear();
     this.opening.reset();
+    this.quake.clear();
   }
 
   /** The word itself, over the hull — DEFLECTED, or a pod's one-word receipt. */

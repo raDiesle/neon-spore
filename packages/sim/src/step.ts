@@ -1,6 +1,7 @@
 import { beatMetronome, onBeat } from "./beat.js";
 import { briefHeard, briefingHolds, guideStepHeard, stepReady } from "./briefing.js";
 import { advanceBullets, releaseShot } from "./bullets.js";
+import { choirArrowHeard, stepChoirWindow } from "./choir-gesture.js";
 import { wardCoils } from "./coil.js";
 import { applyCommand } from "./commands.js";
 import { ticksPerBeat } from "./config.js";
@@ -134,6 +135,11 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // `carryGrips`, because a body may only ever stand on a tile centre
   // (`grip-push.ts`).
   for (const c of commands) gripPushHeard(world, c.player, c.command);
+  // THE CHOIR's two arrows, read on the tick with the other four hands for
+  // their reason: how far the pilot has carried one is never stale, and the
+  // window between the two of them is counted in ticks (`choir-gesture.ts`).
+  for (const c of commands) choirArrowHeard(world, c.player, c.command);
+  stepChoirWindow(world);
   // THE FLEET's sights and its salvo, read on the tick for the third time and
   // the same reason: a square the pair just named out loud is answered now,
   // not on the next beat. Its clock is the one thing about it that is on the

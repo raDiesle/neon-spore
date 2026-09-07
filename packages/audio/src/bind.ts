@@ -14,6 +14,7 @@
 import type { SimEvent } from "@neon-spore/sim";
 import { breachCue } from "./bind-breach.js";
 import { caromCue } from "./bind-carom.js";
+import { choirCue } from "./bind-choir.js";
 import { coilCue } from "./bind-coil.js";
 import { crawlerCue } from "./bind-crawler.js";
 import { creatureCue } from "./bind-creatures.js";
@@ -222,6 +223,12 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "coilBreak":
     case "coilJump":
       return coilCue(e, cols, rows);
+    // THE CHOIR's three, in `bind-choir.ts` — the first group here about the
+    // pilot's **hands** rather than a shot meeting a body. Named, not defaulted.
+    case "choirArm":
+    case "choirMerge":
+    case "choirSing":
+      return choirCue(e, cols, rows);
     // THE CAROM's four, in `bind-carom.ts` — one arrival taken apart, cut out
     // of `bind-creatures.ts` the way `events-carom.ts` is cut out of
     // `events-creature.ts`. Named here rather than reached through a default,

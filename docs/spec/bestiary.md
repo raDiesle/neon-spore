@@ -63,7 +63,7 @@ table in a document cannot be wrong in a way a compiler notices.
 
 | Category | Answered by | Members today |
 |---|---|---|
-| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand`, `magnet` |
+| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand`, `magnet`, `choir` |
 | `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch`, `veer`, `coil` |
 | `mixed` | `aim` and `guard` | `queen`, `warden`, `clasp`, `carom`, `volley`, `crawler`, `fence` |
 | `special` | neither | `tether`, `mount`, `chute` |
@@ -82,6 +82,15 @@ is answered by `aim` like one — but it is not a body a wave places, it is a
 body a wheel brings, so it carries no control group and the `gyre` beside it
 in `cannon` is what shows the panel. Both rows say the same thing: `special`
 is where a body goes when something else on the field put it there.
+
+**THE CHOIR is in `cannon` and its whole answer is not**, which is the sharpest
+reading this table has of what a category is for. A membrane is opened by a
+gesture on neither panel — the phone shaken, or two arrows carried off the
+edges of the field — and then the body it becomes is shot like any other. The
+row says `aim` because `aim` is what the *wave's panel* has to be able to
+answer; the gesture is not a `ControlGroup` and never will be, for the reason
+THE MAGNET's hand is not one. So a category names what the panel owes, not
+everything the pair has to do.
 
 It stays a different axis from `radar`: *The Silent* and *The Jammer* (10.2)
 are unusual in what they tell a radar strip, not in what a player does about

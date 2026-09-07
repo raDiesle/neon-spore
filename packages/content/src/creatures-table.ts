@@ -189,6 +189,30 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     blurb:
       "A horseshoe on two poles, one red and one cyan, with an armoured plate slung under it on a staff. A shot up its own column meets the plate and is reflected straight back down. The only bolt that reaches a pole is one arriving sideways — so player 1 stands the cannon *off* the column and holds the body, and the shot climbs, turns level with it and comes in across. The side it arrives from is the pole it meets, and the pole it meets is the trigger that kills it.",
   },
+  choir: {
+    kind: "choir",
+    // **Aim only, and the whole creature is stated by what is *not* here.**
+    // A membrane is opened by a gesture that is not on either panel — the
+    // device shaken, or two arrows carried off the edges of the field — and a
+    // gesture is not a `ControlGroup`. What the wave's panel must be able to
+    // answer is the body that comes out, which is a slick or a bulb, which is
+    // the cannon. THE MAGNET's row makes the same argument about a hand.
+    controls: ["aim"],
+    // No colour of its own while it is three dots: the membrane is grey and
+    // nothing about it says which trigger will be right. The colour arrives
+    // *with the merge*, from the wave, which is the one entry in this table
+    // where `authorsColor` describes a colour the pair cannot see yet.
+    color: null,
+    authorsColor: true,
+    // **The pilot's strip**, and the rule crossing the controls once more
+    // rather than an exception to it: the seat warned is the seat that has to
+    // put both hands on the glass, and the seat holding both triggers is told
+    // nothing until the body is a body. Whichever way round they work it out,
+    // somebody has to say when the shaking starts.
+    radar: "p1",
+    blurb:
+      "Three dots hung in one membrane across three lanes, and no shot reaches any of them. Shake the phone — or carry the two arrows at the edges of the field outward, one and then the other inside two beats — and they draw together into a slick or a bulb in the middle lane, in a colour they did not have while they were apart. Miss the window and it sings, and the hull pays for the chord.",
+  },
   crawler: {
     kind: "crawler",
     // **Both**, and the only kind where the two are not two halves of one

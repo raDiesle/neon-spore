@@ -206,6 +206,10 @@ export const NO_SUBJECT: Record<string, string> = {
   "boss.fleetSunk": "the same hull, going under. Same argument.",
   "impact.graze":
     "THE FENCE going over the ship. What the picture would have to be is a wall the width of the field passing a dome that is standing in one of its gaps — a line and an absence, neither of which is a body, which is why the shape sheet has no FENCE card either.",
+  "boss.choir":
+    "THE CHOIR singing. What sings is three dots in a membrane, and the sheet has no CHOIR card for the reason living-look.ts gives it no contour: it is not one body yet, so there is no silhouette of it to stand here. The moment the pilot's gesture lands it becomes a slick or a bulb, and both of those already have cards.",
+  "signal.announce":
+    "the first of THE CHOIR's two arrows going out. The subject is a gesture — a hand carrying a handle off the edge of the field — and there is no body anywhere in it; what the sound marks is that the pilot has started something and has two beats to finish.",
   "boss.fleetDown":
     "the last of them. What this marks is a chart with nothing left on it, which is an absence like ui.waveClear rather than a thing standing anywhere.",
 };

@@ -208,6 +208,15 @@ export const MECHANICS = {
     // the body (`segmentColor`) rather than from anything an author writes.
     waveNames: true,
   },
+  choir: {
+    what: "Three dots hung across three lanes in one soap-film membrane, grey and carrying no colour at all. Nothing reaches them: a bolt in either colour is spent on the film. What opens it is a gesture neither panel has — the pilot shakes the phone, or, where a phone cannot report being shaken, carries the two arrows standing against the walls of the field outward, one and then the other, inside two beats. The dots draw together into a slick or a bulb in the middle lane, in a colour they did not have while they were apart, and from there the navigator finishes it. Miss the window, or carry an arrow inward, and it sings: the hull pays for the chord and the gesture starts again.",
+    reach: "spawn",
+    // A wave names this kind and gives it a colour, the way it does for a
+    // clasp: the silhouette is the membrane's and the colour is the body it
+    // draws together into, so neither can be worked out from the other — and
+    // here the colour is the one thing that is not on the field yet at all.
+    waveNames: true,
+  },
   fence: {
     what: "A live wire across the whole field with gaps burnt through it, coming down twice as fast as anything else. The trigger does nothing — the shield does not stop it, it goes through it. The ship lives if the dome is standing in a gap when the wire arrives, and only the pilot can see where the wave's own gaps are. A wall may also carry cracks — a column and an ammunition colour each, drawn on the pilot's screen — and a bolt arriving on one in that colour opens the wire there for good. That is the only place any shot goes through, so a wire with no gaps at all is answered by the pilot saying a column and a colour and the navigator loading it and firing.",
     reach: "spawn",

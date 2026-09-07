@@ -27,7 +27,7 @@ export interface ClusterOpts {
  * march has one answer per angle and so can only ever return one ring, which
  * is why this used to thin to a waist and stop. Traced on a grid, the bodies
  * separate when the field between them says they have, into as many loops as
- * there are bodies, and merge back the same way. Symbiosis and The Choir both
+ * there are bodies, and merge back the same way. Symbiosis and the Colony both
  * hang their mechanic on that instant being visible.
  *
  * The bodies breathe slightly out of step with each other, which is what keeps

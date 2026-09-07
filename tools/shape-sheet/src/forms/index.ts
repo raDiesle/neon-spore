@@ -3,8 +3,8 @@
  *
  * `subjects.ts` can build two kinds of shape: a lobed blob and a faceted
  * crystal, because those are the two the game draws. Several of the ideas in
- * `docs/spec/ideas.md` are not describable as either — THE CHOIR is three
- * bodies that merge, THE WEIGHT hangs off a stalk, THE CONDUCTOR is an arm
+ * `docs/spec/ideas.md` are not describable as either — SYMBIOSIS is two
+ * bodies that part, THE WEIGHT hangs off a stalk, THE CONDUCTOR is an arm
  * rather than a body — and a draft drawn as "a blob, but imagine it merging"
  * is not a draft of anything.
  *

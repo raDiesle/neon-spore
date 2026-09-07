@@ -174,6 +174,13 @@ export function bindKeys({
       case "Period":
         for (const p of grip.carry(1)) send(p.player, p.command);
         break;
+      // THE CHOIR's shake, at a desk, where nothing can be shaken. It is one
+      // of the four kinds no panel may refuse (`control-sets-keys.ts`), so it
+      // needs no set to carry it — and on a field with no membrane on it the
+      // simulation does nothing with it (`choirShaken`).
+      case "KeyK":
+        send(1, { kind: "shake" });
+        break;
       case "KeyP":
         onPauseToggle();
         break;

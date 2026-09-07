@@ -34,6 +34,12 @@ export const INGEST_SILENT = [
   "plate",
   "lureVanished",
   "claspBreak",
+  // THE CHOIR singing. The burst is thrown by `burstFor` above and the hull
+  // damage rides on the `breach` beside it on the same tick, which is what
+  // `ingestBreach` already remembers. Nothing about the chord itself outlives
+  // its frame: the two events that *do* start a clock here are `choirArm` and
+  // `choirMerge`, and both are in the switch next door.
+  "choirSing",
   "veilTorn",
   // A layer off THE RIND: the burst is thrown by `burstFor` above, and the
   // skin it came off in is `rind-shed.ts`, ingested with the rest of

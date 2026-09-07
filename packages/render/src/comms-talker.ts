@@ -156,4 +156,12 @@ export const TALKER = {
   // seat that can put the plate there. Four beats between the bolt leaving and
   // the rock landing is one call, not a sentence.
   coil: "p1",
+  // THE CHOIR, and the first row here where what one seat has is not a *fact*
+  // the other lacks but a **gesture** the other has not got. Both screens draw
+  // the same three dots and the same grey membrane; only the pilot's carries
+  // the arrows, and only the pilot's phone is the one being shaken. The
+  // navigator is holding both triggers over a body nothing can shoot yet, so
+  // the one thing they need to hear is that it is about to become one — which
+  // is this table's own sentence said about a hand instead of a picture.
+  choir: "p1",
 } as const satisfies Record<CreatureKind, Talker | null>;

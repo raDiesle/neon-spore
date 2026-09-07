@@ -163,12 +163,17 @@ describe("a rock's width", () => {
 describe("the kinds whose colour a wave authors", () => {
   const bodied = (Object.keys(CREATURES) as CreatureKind[]).filter(authorsBodyColor);
 
-  test("is exactly the thirteen", () => {
+  test("is exactly the fourteen", () => {
     // The lure's disguise, the throb's coloured half, the shell's core, the
     // clasp's prisoner, the dart's colour, the ghost's, the echo's, the
     // rind's, the lid's lens, the recoil's first body, the carom's prisoner,
-    // the volley's and the head of the strand — thirteen bodies whose colour
-    // is a fact about one arrival rather than about the kind. The recoil's is
+    // the volley's, the head of the strand and the choir's merged body —
+    // fourteen bodies whose colour is a fact about one arrival rather than
+    // about the kind. THE CHOIR's is the one nobody can *see*: every other
+    // colour here is on the field from the moment the body arrives, and this
+    // one does not exist until the pilot's gesture lands (`mergeChoirs`), so
+    // what an author writes is what the pair will be told rather than what
+    // they are looking at. The recoil's is
     // the shortest-lived of them: an author writes which
     // trigger answers it *first*, and every bounce turns it over from there
     // (`recoilStruck`). The carom's is the opposite — it never changes and
@@ -194,6 +199,7 @@ describe("the kinds whose colour a wave authors", () => {
         "carom",
         "volley",
         "strand",
+        "choir",
       ]),
     );
   });

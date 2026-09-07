@@ -6,7 +6,7 @@ import type { Scene } from "../scene.js";
  * A boss card is the one that lies hardest. Every one of these is described in
  * the spec by how much of the field it takes — five columns, seven columns,
  * the whole top — and a card crops that away and shows a nicely fitted blob.
- * The Choir's parting, the Codex's scrolling key and the Conductor's sweep are
+ * THE WEIGHT's stalk, the Codex's scrolling key and the Conductor's sweep are
  * all claims about *width*, and the only way to check a claim about width is
  * to draw the thing as wide as it says it is, above a hull the same picture is
  * drawing to scale.
@@ -23,13 +23,6 @@ import type { Scene } from "../scene.js";
  * screen a line from the rim to the hull actually crosses.
  */
 export const BOSS_SCENES: Scene[] = [
-  {
-    suggests: "THE CHOIR",
-    role: "p1",
-    claim:
-      "whether a parting reads at boss size, which is the argument for building this before the Symbiosis: the same form, five columns wide instead of one",
-    bodies: [{ shape: "THE CHOIR", col: 3, row: 3, span: 5 }],
-  },
   /**
    * THE WEIGHT, state by state.
    *

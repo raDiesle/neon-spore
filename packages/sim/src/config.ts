@@ -1,5 +1,6 @@
 import { BOSS_DEFAULTS, type BossConfig } from "./config-boss.js";
 import { CAROM_DEFAULTS, type CaromConfig } from "./config-carom.js";
+import { CHOIR_DEFAULTS, type ChoirConfig } from "./config-choir.js";
 import { CLAW_DEFAULTS, type ClawConfig } from "./config-claw.js";
 import { COIL_DEFAULTS, type CoilConfig } from "./config-coil.js";
 import { CRAWLER_DEFAULTS, type CrawlerConfig } from "./config-crawler.js";
@@ -25,6 +26,7 @@ import { VOLLEY_DEFAULTS, type VolleyConfig } from "./config-volley.js";
 
 export { BOSS_DEFAULTS, type BossConfig } from "./config-boss.js";
 export { CAROM_DEFAULTS, type CaromConfig } from "./config-carom.js";
+export { CHOIR_DEFAULTS, type ChoirConfig } from "./config-choir.js";
 export { CLAW_DEFAULTS, type ClawConfig } from "./config-claw.js";
 export { COIL_DEFAULTS, type CoilConfig } from "./config-coil.js";
 export { CRAWLER_DEFAULTS, type CrawlerConfig } from "./config-crawler.js";
@@ -56,6 +58,7 @@ export interface SimConfig
   extends CoilConfig,
     BossConfig,
     CaromConfig,
+    ChoirConfig,
     ClawConfig,
     CrawlerConfig,
     CreatureConfig,
@@ -185,6 +188,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   ...COIL_DEFAULTS,
   ...BOSS_DEFAULTS,
   ...CAROM_DEFAULTS,
+  ...CHOIR_DEFAULTS,
   ...CRAWLER_DEFAULTS,
   ...STRAND_DEFAULTS,
   ...VEER_DEFAULTS,

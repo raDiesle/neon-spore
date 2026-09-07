@@ -178,6 +178,23 @@ export type Command =
       fromYMilli?: number;
       id?: number;
     }
+  /**
+   * THE CHOIR's shake, and the only command in this game that is not a thumb
+   * on anything: the *device* was picked up and shaken, and the membrane draws
+   * together (`choir-gesture.ts`).
+   *
+   * It carries nothing at all, for `reach`'s reason and one more of its own.
+   * There is no column — a shake has no place to be — and no strength either:
+   * whether a phone moved enough to count is decided where the accelerometer
+   * is read, because that is the only side of the wire that has the numbers,
+   * and a threshold crossed on one device is a fact the other must simply be
+   * told rather than re-derive from a reading it never saw.
+   *
+   * The two arrows that stand in for it where no device reports a shake are
+   * **not** this command: they are `drag`s at `choirLeft` and `choirRight`,
+   * because they are a hand carrying something and not a press.
+   */
+  | { kind: "shake" }
   | { kind: "restart" };
 
 /** The draggable elements: one name per thing a hand may take hold of. A closed
@@ -186,7 +203,23 @@ export type Command =
  * it, and THE WARDEN's rope is one that is. THE LID's cord is the third, and
  * the first that is *many*: the target says what kind of handle this is and
  * `id` above says which body it hangs off. */
-export type DragTarget = "mazeString" | "wardenTether" | "lidString" | "gripBody";
+export type DragTarget =
+  | "mazeString"
+  | "wardenTether"
+  | "lidString"
+  | "gripBody"
+  | "choirLeft"
+  | "choirRight";
+
+/**
+ * `choirLeft` and `choirRight` are the fifth and sixth, and the first pair
+ * that is one gesture in two places: the two arrows standing against the walls
+ * of the field while a membrane is up (`choir-gesture.ts`). Two names rather
+ * than one target and a side, for the reason `id` is absent on `mazeString` —
+ * there is exactly one of each, so each has exactly one name, and a side
+ * carried beside a shared name would be a second, weaker way of saying which
+ * arrow the hand is on.
+ */
 
 /**
  * `gripBody` is the fourth and the first that is not a handle at all: it is

@@ -8,6 +8,7 @@ import {
   recoilTurn,
   type World,
 } from "@neon-spore/sim";
+import { drawChoir } from "./choir.js";
 import { drawGhost, showsGhostBody } from "./ghost.js";
 import type { Layout } from "./layout.js";
 import { drawLid } from "./lid.js";
@@ -225,6 +226,12 @@ const EXCLUSIVE: ReadonlyMap<CreatureKind, BodyDraw> = new Map<CreatureKind, Bod
   ["lid", drawLidBody],
   ["strand", drawStrandBody],
   ["magnet", drawMagnetBody],
+  // Three dots in a membrane, and the one body with no blob contour because it
+  // is not one body yet: `living-look.ts` answers `null`, so `drawLiving`
+  // would ask for a silhouette that does not exist. `drawChoir` takes a `Body`
+  // rather than loose arguments so this stays a row instead of a wrapper —
+  // `MAGNET_LOOK.body` next door already reads its own record the same way.
+  ["choir", drawChoir],
 ]);
 
 /**

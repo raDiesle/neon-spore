@@ -101,6 +101,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   purge: { wave: "thePurge" },
   ward: { wave: "theWard" },
   clasp: { wave: "theClasp" },
+  choir: { wave: "theChoir" },
   dart: { wave: "theDart" },
   veil: { wave: "theVeil" },
   lid: { wave: "theLid" },

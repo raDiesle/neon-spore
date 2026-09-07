@@ -311,3 +311,50 @@ the boss panel set it (and the wave picker clear it), and delete the ordering
 comment in `main.ts` that the current arrangement needs. A director test that
 rebuilds the stage and asserts `world.boss.round` still matches the panel is
 what proves it.
+
+## Give THE CHOIR a rehearsal, and teach the scene runner a gesture
+
+- **Found:** 2026-09-07, claude/choir-enemy-shake-swipe-08eaf0
+- **Files:** `packages/content/src/scenes/`, `packages/content/src/scenes.ts`,
+  `packages/content/src/scene-step-types.ts`, `packages/sim/src/scene-aim.ts`,
+  `packages/render/src/caption-anchor.ts`
+
+THE CHOIR shipped with a **prose** guide — the three lines, the ready gate, and
+nothing that moves — and it is the wave in the game that can least afford one.
+Every other guide describes something a pair can find on their own panel; this
+one has to teach a gesture that is on no panel at all, and a pair who do not
+read the words carefully will sit and watch three dots reach the hull.
+
+A rehearsal needs one thing the scene runner has not got: a way to author the
+two arrows. `SceneAct`'s drag takes a `DragTarget`, and `scene-aim.ts` resolves
+`lidString`'s body by column at the moment the hand goes down — `choirLeft` and
+`choirRight` are fixtures with no body and no column, so they need the simpler
+path a maze string already has, plus a caption anchor of their own (the two
+arrows are not `{ at: "held" }`, which points at a handle that has travelled).
+The shake needs no act at all: it is one press-shaped command with nothing on
+it, so a `{ tick, shake: true }` act is a line in the runner.
+
+Three or four pages, and the seat split is unusually easy: the pilot's pages
+are the gesture, the navigator's is holding fire until the colour exists, and
+the shared last page is the chord and what it costs the hull.
+
+## Draw THE CHOIR's merge, which today is a burst and nothing else
+
+- **Found:** 2026-09-07, claude/choir-enemy-shake-swipe-08eaf0
+- **Files:** `packages/render/src/choir.ts`, `packages/render/src/effects-body.ts`,
+  `packages/render/src/effects-ingest.ts`
+
+The moment three dots become one body is the whole creature, and on screen it is
+one frame of grey membrane followed by one frame of a slick with a burst of
+sparks over it. THE CLASP has the same shape of moment and a whole file for it
+(`clasp-break.ts`, drawn around a body that is still falling); THE RIND has
+`rind-shed.ts`. This has neither, and the reason is only that the sim half was
+the work.
+
+What it wants is the film **closing**: the three swellings drawn pulling toward
+the middle lane over a few tenths of a second while the outline stays one
+contour, and the colour arriving into it rather than replacing it. `choirDotAt`
+is already the one copy of where a dot stands, so the transient is that function
+sampled toward a common centre; `BodyTransients` in `effects-body.ts` is where
+it belongs, because it outlives its frame and is about one body by id — which is
+exactly why `choirMerge` carries an `id`.

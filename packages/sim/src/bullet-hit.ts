@@ -6,6 +6,7 @@ import { resolveQueen, resolveWarden } from "./bullet-hit-boss.js";
 // the one body there is no right shot at (`bullet-hit-lure.ts`).
 import { resolveLure } from "./bullet-hit-lure.js";
 import { caromStruck } from "./carom.js";
+import { choirIsDots, choirStruck } from "./choir.js";
 import { chuteIsOpen, chuteStruck } from "./chute.js";
 import { claspIsShielded, claspStruck } from "./clasp.js";
 import { coilStruck } from "./coil.js";
@@ -80,6 +81,13 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
   }
   if (claspIsShielded(hit)) {
     claspStruck(world, hit);
+    return false;
+  }
+  // Three dots in a membrane, and the clasp's answer one creature on: nothing
+  // a shot carries gets in until the pilot has made the gesture, so there is
+  // no colour test here and no chipping branch (`choir.ts`).
+  if (choirIsDots(hit)) {
+    choirStruck(world, hit);
     return false;
   }
   // A dome over a rock, and the clasp's answer word for word (`coil.ts`).

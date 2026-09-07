@@ -26,6 +26,7 @@ import { runPerfPage } from "./perf-page.js";
 import { bindPinball } from "./pinball.js";
 import { bindRasterBurst } from "./raster.js";
 import { createRunState } from "./run-state.js";
+import { bindShake } from "./shake.js";
 import { bindShell } from "./shell.js";
 import { bindSnake } from "./snake.js";
 import { bindTestControls } from "./testing.js";
@@ -141,6 +142,13 @@ const {
   onWaveStep: (delta) => jumpToWave(world.wave + delta),
   onGuideReplay: () => renderer.replayGuide(),
 });
+
+// THE CHOIR's own control, and the only input in the game that is not a finger
+// on the glass. It is bound unconditionally and never behind a capability
+// check — there is no reliable way to ask a browser whether a shake can be
+// reported, so the game offers this *and* the two arrows on the field and lets
+// the pilot use whichever their phone answers (`shake.ts`).
+bindShake(buffer);
 
 const brief = bindBriefing({
   canvas,

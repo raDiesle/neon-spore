@@ -89,7 +89,13 @@ export class Canvas2DRenderer implements Renderer {
     ctx.beginPath();
     ctx.rect(stage.left, stage.top, stage.width, stage.height);
     ctx.clip();
-    ctx.translate(stage.left, stage.top);
+    // **THE CHOIR's earthquake**, applied inside the clip and above every pass,
+    // because the owner asked for the full screen: field, ship, band, HUD and
+    // sirens travel together, and the clip keeps the shake off the letterbox.
+    // The magnitude is last frame's — ingest and update both run below — which
+    // is one frame of lag on a quake lasting a second (`choir-quake.ts`).
+    const quake = this.held.effects.quake.offset(view.time);
+    ctx.translate(stage.left + quake.x, stage.top + quake.y);
 
     // Before anything eases or ingests: a wave that just (re)started leaves
     // none of last run's state meaning anything, and this frame is already

@@ -160,6 +160,14 @@ const LIVING_LOOK = {
   // exactly as THE CLASP's is. A silhouette here would be a second answer to a
   // question a rock has already answered.
   coil: null,
+  // THE CHOIR, and a `null` of a shape this table has not had before: it is
+  // not one body drawn small, large, or under something — it is *three*, hung
+  // across three lanes in one film, and a silhouette here would be a single
+  // contour for a thing whose whole picture is that it is not single yet.
+  // `render/choir.ts` draws the dots and the membrane between them; the moment
+  // the pilot's gesture lands the kind changes and the ordinary slick or bulb
+  // takes over, contour, motion and all.
+  choir: null,
 } as const satisfies Record<CreatureKind, { shape: CreatureSilhouette; motion: OwnMotion } | null>;
 
 /**

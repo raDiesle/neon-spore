@@ -1,5 +1,6 @@
 import type { SimEvent } from "@neon-spore/sim";
 import type { Arrivals } from "./arrivals.js";
+import type { ChoirQuake } from "./choir-quake.js";
 import type { CrawlerFx } from "./crawler-fx.js";
 import type { DeflectFx } from "./deflect.js";
 import { ingestBreach, ingestDeflect } from "./effects-breach.js";
@@ -30,6 +31,7 @@ export interface IngestOneCtx {
   deflectFx: DeflectFx;
   ship: ShipMoods;
   crawler: CrawlerFx;
+  quake: ChoirQuake;
   blockedUntil: Map<number, number>;
   burst: (x: number, y: number, n: number, hex: string) => void;
 }
@@ -126,6 +128,16 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
       // deliberately not — the body is still standing there, climbing, and
       // would be drawn twice (`sim/ward.ts`).
       ctx.ship.deflected();
+      break;
+    // THE CHOIR's two heights of earthquake. The arm is the smaller and the
+    // merge the larger, which is the escalation the owner asked for: the field
+    // shakes when the first arrow goes out and shakes more when the dots draw
+    // together (`choir-quake.ts`).
+    case "choirArm":
+      ctx.quake.arm();
+      break;
+    case "choirMerge":
+      ctx.quake.merge();
       break;
     case "deflect":
       ingestDeflect(e, ctx.l, ctx.time, ctx.beatSeconds, {

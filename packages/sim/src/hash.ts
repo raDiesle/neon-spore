@@ -71,6 +71,12 @@ export function hashWorld(world: World): number {
   push(world.reachCol);
   push(world.reachMilli);
   push(world.reachHeld);
+  // THE CHOIR's half-made gesture. Two devices that disagree about which
+  // arrow is out, or about the tick its window shuts on, disagree about
+  // whether the next pull merges a body or makes it sing — and therefore about
+  // what the hull is worth a beat later (`choir-gesture.ts`).
+  push(world.choirArm);
+  push(world.choirArmTick);
   push(world.wardUntilTick);
   push(world.lastFireTick);
   // The wave's fault. It is script — handed in by `startWave` the way the

@@ -79,6 +79,17 @@ export interface World {
    * itself for `FleetState.sunkBeat`'s reason: the list is the truth and a
    * second reference to a member of it is a second truth. */
   reachHeld: number;
+  /**
+   * THE CHOIR's half-made gesture: which of the two arrows the pilot has
+   * carried outward, `0` while neither is (`NO_CHOIR_ARM`). It is ship state
+   * beside `guardTick` rather than a field of any one body, because a hand
+   * belongs to a seat and a wave may put two membranes on the field at once
+   * (`choir-gesture.ts`).
+   */
+  choirArm: -1 | 0 | 1;
+  /** The tick that arm's window shuts on. Past it with only one arrow out,
+   * the thing sings and the hull pays (`stepChoirWindow`). */
+  choirArmTick: number;
   /** Last tick the shield still counts as armed without a trigger, set by a `ward` pod. */
   wardUntilTick: number;
   lastFireTick: number;
@@ -189,6 +200,8 @@ export function createWorld(
     reachCol: mid,
     reachMilli: 0,
     reachHeld: 0,
+    choirArm: 0,
+    choirArmTick: 0,
     wardUntilTick: -1_000_000,
     lastFireTick: -1_000_000,
     gripP1: NO_GRIP,

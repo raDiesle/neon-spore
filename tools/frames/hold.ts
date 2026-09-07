@@ -11,6 +11,12 @@
  *   --hold wardenTether=0,y=7000    the same rope, carried straight down
  *   --hold mazeString=1400          THE MAZE's wheel, most of a turn
  *   --hold lidString=800,id=3       THE LID: which cord, and how far
+ *   --hold choirLeft=-2000          THE CHOIR: the left arrow carried outward
+ *
+ * THE CHOIR's two are the only handles here whose **sign** is the whole of the
+ * gesture rather than a direction the picture happens to take: the left arrow
+ * counts only when it is carried left, so a negative distance is the correct
+ * one and a positive one makes the thing sing (`sim/choir-gesture.ts`).
  *
  * The distance is in **thousandths of a tile**, which is what a `drag` carries
  * on the wire — two phones of different widths share no pixel and do share a
@@ -66,7 +72,7 @@ export function parseHold(value: string): { player: 1 | 2; command: Record<strin
     return [{ player: 1, command: { kind: "prime", on: true } }];
   }
 
-  const DRAGS = ["mazeString", "wardenTether", "lidString"];
+  const DRAGS = ["mazeString", "wardenTether", "lidString", "choirLeft", "choirRight"];
   if (!DRAGS.includes(target)) {
     throw new Error(`--hold ${value}: unknown control. One of prime, ${DRAGS.join(", ")}`);
   }

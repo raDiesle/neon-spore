@@ -308,14 +308,6 @@ Each names the slot it would fit.
   whether the pair *lets* it fall past the line or *drags* it there, since a
   hand is a brake today and the second reading asks for a gesture the game does
   not have
-- **THE CHOIR** — warding turned into a weapon. Three small bodies suspended in
-  one soap-film membrane, drifting apart and snapping back into a single merged
-  contour when they sing in unison. Immune to shots: it takes damage only when
-  the navigator's shot **lands on the same beat** the pilot hits the guard
-  trigger — the built warding coupling ("column four, I trigger on the three")
-  pointed upward instead of down. The Whisperer's pillar
-  ([bestiary](bestiary.md#102-newly-accepted)) at boss scale, and the one idea
-  here that needs no new rule at all. Slot: The Choir (40)
 - **THE CODEX** — it rewrites what a colour means. A slab-bodied thing whose
   skin carries a scrolling glyph pattern, the Glyph creature grown up. It swaps
   what red and cyan *do* for one player without telling them, and the current

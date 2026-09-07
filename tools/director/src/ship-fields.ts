@@ -120,6 +120,13 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   volleyRiseRows: "THE VOLLEY — a rock you have to hit back three times",
   volleyRiseBeats: "THE VOLLEY — a rock you have to hit back three times",
   scoreVolleyReturn: "SCORE",
+  // THE CHOIR's four. `choirCols` is deliberately not among them: how many
+  // dots a membrane hangs is a constant in `sim/choir.ts` rather than a dial,
+  // because it is the number of columns as well as the number of dots.
+  choirPullMilli: "THE CHOIR — three dots opened by shaking the phone",
+  choirWindowBeats: "THE CHOIR — three dots opened by shaking the phone",
+  damageChoirSong: "THE CHOIR — three dots opened by shaking the phone",
+  scoreChoirMerge: "SCORE",
   recoilBounces: "THE RECOIL — a shot that sends it the wrong way",
   recoilRows: "THE RECOIL — a shot that sends it the wrong way",
   scoreRecoilBounce: "SCORE",

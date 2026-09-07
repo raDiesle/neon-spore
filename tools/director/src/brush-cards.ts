@@ -101,6 +101,14 @@ export function cardSubjects(kind: CreatureKind): string[] {
   // over it is a membrane, which is no more a silhouette than a clasp's is. A
   // card asking for "COIL" would draw a blank.
   if (kind === "coil") return ["METEOR"];
+  // And THE CHOIR draws **no card**, for THE FENCE's reason arrived at from
+  // the other side: a wall has no contour because it is one line across every
+  // column, and a membrane has none because it is *three* bodies in a film —
+  // `living-look.ts` says the same thing with the same `null`. A card asking
+  // for "CHOIR" would draw a blank. What tells this brush apart in the strip
+  // is its colour and its note, and once it is on the field the only thing
+  // worth knowing about it is the gesture, which no silhouette shows.
+  if (kind === "choir") return [];
   return [kind.toUpperCase()];
 }
 
@@ -137,6 +145,7 @@ export const SHORT_NOTE: Partial<Record<CreatureKind, string>> = {
   throb: "red one side, cyan the other, turning as it falls",
   shell: "shoot the armour away first",
   clasp: "ward it, then shoot",
+  choir: "shake the phone or swipe both arrows out, then shoot",
   dart: "steps sideways; only p2 sees which way next",
   veil: "p2 does not see what is inside",
   wisp: "p1 cannot see it; hops tiles and never falls",

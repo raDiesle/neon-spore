@@ -209,6 +209,23 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "magnetPlate":
       return at(l, e.col, e.row, 7, PALETTE.rock);
 
+    // THE CHOIR drawing together. `claspBreak`'s burst word for word and for
+    // its reason — a covering coming off a body that goes on falling — except
+    // that this one is thrown in the colour the body has *just* acquired
+    // rather than in the covering's. Nothing was uncovered here: the colour
+    // did not exist a frame ago, and this is the moment the pair finally learn
+    // which trigger to load, so the burst is what tells them.
+    case "choirMerge":
+      return at(l, e.col, e.row, 14, e.color === "red" ? PALETTE.red : PALETTE.cyan);
+
+    // And the chord. Rock grey and wide, so it reads as the membrane doing
+    // something rather than as anything landing: it is deliberately not a
+    // `destroy`'s colour and not a `reject`'s tightness — the pair fumbled a
+    // gesture, and the hull damage riding on the `breach` beside it is where
+    // the cost is drawn (`sim/choir.ts`).
+    case "choirSing":
+      return at(l, e.col, e.row, 18, PALETTE.rock);
+
     default:
       return assertNever(e);
   }

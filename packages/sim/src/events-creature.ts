@@ -1,4 +1,5 @@
 import type { CaromEvent } from "./events-carom.js";
+import type { ChoirEvent } from "./events-choir.js";
 import type { CoilEvent } from "./events-coil.js";
 import type { CrawlerEvent } from "./events-crawler.js";
 import type { FenceEvent } from "./events-fence.js";
@@ -209,10 +210,15 @@ export type CreatureEvent =
   | MagnetEvent
   // And THE COIL's two, on the same terms as the five above (`events-coil.ts`).
   | CoilEvent
+  // And THE CHOIR's three, on the same terms and cut out for the same reason
+  // (`events-choir.ts`) — the first group in this list that is about the
+  // pilot's hands rather than about something meeting a body.
+  | ChoirEvent
   | StrandEvent;
 
 export type { CaromEvent } from "./events-carom.js";
 // Re-exported so nothing that reaches for one through this file has to move.
+export type { ChoirEvent } from "./events-choir.js";
 export type { CoilEvent } from "./events-coil.js";
 export type { CrawlerEvent } from "./events-crawler.js";
 export type { FenceEvent } from "./events-fence.js";

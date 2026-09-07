@@ -41,8 +41,13 @@ export const BOSS_PLANNED_SOUNDS: SoundDef[] = [
     id: "boss.choir",
     family: "boss",
     blurb: "Many voices on one note, and one of them wrong.",
-    status: "spare",
-    use: "The Choir, act 40.",
+    status: "bound",
+    // Written for a boss that does not exist and spent on the creature that
+    // came first. THE CHOIR is an arrival now — three dots in a membrane — and
+    // this is what it does when the pilot's gesture lapses: it sings, and the
+    // hull pays for the chord (`bind-choir.ts`). The act-40 slot still holds
+    // the name, and a boss built into it inherits its own voice.
+    use: "THE CHOIR singing: a window lapsed, or an arrow carried inward.",
     level: 0.34,
     layers: [
       spore(90, 1.2, 0.35, 20),

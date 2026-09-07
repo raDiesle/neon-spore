@@ -7,6 +7,7 @@ import {
   type World,
   wardenHandleMilli,
 } from "@neon-spore/sim";
+import { choirArrowCircle, showsChoirArrows } from "./choir-arrows.js";
 import { fieldPoint, handleRadius } from "./handle-draw.js";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
 import { lidCordCircle } from "./lid-string.js";
@@ -43,8 +44,41 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
   return (
     mazeStringUnder(l, x, y, field) ??
     wardenRopeUnder(l, x, y, field) ??
-    lidCordUnder(l, x, y, field)
+    lidCordUnder(l, x, y, field) ??
+    choirArrowUnder(l, x, y, field)
   );
+}
+
+/**
+ * THE CHOIR's two arrows, and only the pilot's for the fourth time and the
+ * same reason: player 2 is the seat that fires and carries both colours, so a
+ * membrane either of them could open would be a creature one phone could play.
+ *
+ * The **last** handle asked, and the ordering is deliberate. These two sit
+ * against the walls of the field, where nothing else in the game is drawn and
+ * where a body could still be falling behind one — so a thumb that finds an
+ * arrow was reaching for an arrow, and a thumb that misses one falls through
+ * to whatever is behind it exactly as it would if no membrane were up.
+ *
+ * Their resting circle *is* their grab circle: an arrow does not travel, it is
+ * a switch a hand throws, and the whole gesture is how far the hand has come
+ * from where it took hold (`choirArrowHeard`).
+ *
+ * `showsChoirArrows` is the one gate, shared with the drawing, so an arrow
+ * can never be answered where none was drawn.
+ */
+function choirArrowUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
+  if (field.seat !== 1 || !showsChoirArrows(l, field.creatures)) return null;
+  for (const side of [-1, 1] as const) {
+    if (!hitCircle(choirArrowCircle(l, side), x, y)) continue;
+    const target = side === -1 ? "choirLeft" : "choirRight";
+    return {
+      player: 1,
+      command: { kind: "drag", target, on: true, fromMilli: 0, fromYMilli: 0 },
+      hold: { kind: "drag", target, player: 1, originX: x, originY: y },
+    };
+  }
+  return null;
 }
 
 /**

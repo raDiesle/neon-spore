@@ -72,6 +72,8 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     case "wardenTether":
     case "lidString":
     case "gripBody":
+    case "choirLeft":
+    case "choirRight":
       return target;
     default:
       return assertNever(target);

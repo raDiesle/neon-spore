@@ -76,8 +76,8 @@ export const SIGNAL_SOUNDS: SoundDef[] = [
     id: "signal.announce",
     family: "signal",
     blurb: "An announcement leaving one device: a short rising call.",
-    status: "spare",
-    use: "Announcing (couplings.md 3), on the sending side.",
+    status: "bound",
+    use: "THE CHOIR's first arrow: the pilot has started the gesture and has two beats to finish it (`bind-choir.ts`).",
     level: 0.3,
     layers: [
       { source: "sine", freq: 3600, toFreq: 5400, gain: 0.3, attack: 0.02, release: 0.16 },

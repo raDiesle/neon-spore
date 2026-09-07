@@ -18,11 +18,11 @@ import type { ControlSet } from "./control-sets.js";
  * a second list here is exactly the drift `purity.test.ts` keeps a table
  * against.
  *
- * **Four kinds are never a panel's to refuse**, and each is off the panel for
+ * **Six kinds are never a panel's to refuse**, and each is off the panel for
  * its own reason: `restart` and the two guide verbs are the *host* talking to
- * a run rather than a seat talking to a ship, and `grip` is a hand on the
- * field, which is the one command that was never half of the split
- * (`sim/command-types.ts`).
+ * a run rather than a seat talking to a ship, `grip` and `drag` are a hand on
+ * the field rather than on a button, and `shake` is the *device* being moved,
+ * which no panel could carry at all (`sim/command-types.ts`).
  */
 export function panelSends(set: ControlSet, kind: Command["kind"]): boolean {
   if (OFF_PANEL.has(kind)) return true;
@@ -38,7 +38,12 @@ const OFF_PANEL: ReadonlySet<Command["kind"]> = new Set([
   "guideStep",
   "grip",
   // A drag is a hand on something the *field* is carrying — a maze string, a
-  // warden's rope, a lid's cord, a body being pushed — and none of them is a
-  // button on any panel (`DragTarget`).
+  // warden's rope, a lid's cord, a body being pushed, THE CHOIR's two arrows —
+  // and none of them is a button on any panel (`DragTarget`).
   "drag",
+  // And the shake, which is not a hand on anything at all: it is the *device*
+  // being moved. There is no panel it could be on, so there is no panel that
+  // may refuse it — and a field with no membrane on it does nothing with one
+  // either way (`sim/choir-gesture.ts`).
+  "shake",
 ]);

@@ -184,6 +184,24 @@ export type CreatureKind =
    * the whole of its state — how many changes are left is the row it is on.
    */
   | "veer"
+  /**
+   * Three dots hung in one soap-film membrane across three columns, and the
+   * first body **no shot can reach at all** until a gesture that is not a
+   * button has been made. Player 1 shakes the phone — or, where no phone can
+   * report a shake, carries the two arrows at the edges of the field outward
+   * one after the other inside `choirWindowBeats` — and the dots draw together
+   * into an ordinary slick or a bulb in the middle column, in a colour they
+   * did not have while they were apart. From there it is answered by the
+   * ordinary rule and player 2's cannon.
+   *
+   * The kind *is* the state, THE CLASP's arrangement one creature on: there is
+   * no `merged` flag, because a body with two truths about it is a fingerprint
+   * that agrees with itself while the two devices disagree. What is on the
+   * world rather than on the body is the half-made gesture — `choirArm` and
+   * `choirArmTick` — because a hand is the pilot's and not any one membrane's.
+   * `choir.ts` is the whole of it.
+   */
+  | "choir"
   // **The five that are more than one body**, each answered a member or a
   // column at a time rather than as a single arrival: a thread of beads, a
   // worm of links, a wire across the field, an arch with two poles, a chain of

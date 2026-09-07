@@ -1,6 +1,8 @@
 import type { World } from "@neon-spore/sim";
 import { drawBoss } from "./boss-draw.js";
 import { drawBullets } from "./bullets.js";
+import { drawChoirArrows } from "./choir-arrows.js";
+import { drawChoirPrompt } from "./choir-prompt.js";
 import { drawCrawlers } from "./crawler.js";
 import { drawCreatures } from "./creatures.js";
 import { drawDartGuides } from "./dart-path.js";
@@ -154,6 +156,17 @@ export function drawBodies(
   // that is not drawn the ghost. Under everything the ship does and over the
   // grid, so the pilot reads it as a row of the field.
   drawGhostRows(ctx, l, world, view.beatPhase, view.time);
+  // THE CHOIR's instruction, over the membrane and on the pilot's screen only.
+  // Here with the half-pictures because that is what it is — one seat is being
+  // told something the other is not — with the difference that what it names
+  // is a *gesture* rather than a fact (`choir-prompt.ts`).
+  drawChoirPrompt(ctx, l, world, view.beatPhase, view.time);
+  // And the two arrows the same gesture can be made with on a device that
+  // cannot report a shake. Against the walls of the field rather than over any
+  // body, so they go down with the field pass and not with the panel: they are
+  // handles, and every handle in this game hangs over the field
+  // (`choir-arrows.ts`, `handles.ts`).
+  drawChoirArrows(ctx, l, world, view.time);
   // Over the creatures, under everything the ship does: a hand on something
   // is not an effect this file owns — it is world state, read fresh.
   drawGrips(ctx, l, world, view.beatPhase, view.time);

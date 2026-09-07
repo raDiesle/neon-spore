@@ -120,7 +120,17 @@ describe("buildBacklog", () => {
 
     // A boss idea sits with the act order rather than among the creatures:
     // it is a whole encounter waiting for a slot, not a thing that falls.
-    expect(names(backlog.bosses)).toContain("THE CHOIR");
+    expect(names(backlog.bosses)).toContain("THE CODEX");
+    expect(names(backlog.bestiary)).not.toContain("THE CODEX");
+
+    // THE CHOIR is off the page entirely, and it left the way THE GAUGE and
+    // SNAKE did: its bullet was cut once the thing existed, because an entry
+    // describing something shipped in the future tense is a page that lies to
+    // whoever reads it next. It is a creature now rather than the boss the
+    // bullet imagined — three dots in a membrane, opened by shaking the phone
+    // — and it is in the bestiary like any other arrival. The act-40 slot
+    // still carries the name for a boss built on it later.
+    expect(names(backlog.bosses)).not.toContain("THE CHOIR");
     expect(names(backlog.bestiary)).not.toContain("THE CHOIR");
 
     // And in exactly one of them — a name in two sections is a name that gets

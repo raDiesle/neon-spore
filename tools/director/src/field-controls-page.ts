@@ -154,6 +154,38 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
     sends: ["drag"],
   },
   {
+    name: "THE CHOIR'S LEFT ARROW",
+    where: "against the left wall of the field, while a membrane is up",
+    seat: "player 1 — the pilot makes the gesture, player 2 finishes the body",
+    gesture: "grab and drag",
+    does:
+      "Carried outward — leftward, over the wall it stands against — it opens " +
+      "a two-beat window and the whole screen starts shaking. Carried inward " +
+      "it is wrong, and the thing sings: the hull pays for the chord. It is " +
+      "the alternative to shaking the phone, drawn always rather than behind " +
+      "a check, because no browser can be asked reliably whether a shake is " +
+      "available (sim/choir-gesture.ts, render/choir-arrows.ts).",
+    source: "touch.ts — choirArrowUnder() under handleUnder()",
+    holdKind: "drag",
+    dragTarget: "choirLeft",
+    sends: ["drag"],
+  },
+  {
+    name: "THE CHOIR'S RIGHT ARROW",
+    where: "against the right wall of the field, while a membrane is up",
+    seat: "player 1 — the pilot makes the gesture, player 2 finishes the body",
+    gesture: "grab and drag",
+    does:
+      "The same control at the other wall, and the second half of one " +
+      "gesture: carried outward inside the window the first one opened, the " +
+      "dots draw together into a slick or a bulb. Two pulls on the same side " +
+      "is one gesture done twice and opens nothing (sim/choir-gesture.ts).",
+    source: "touch.ts — choirArrowUnder() under handleUnder()",
+    holdKind: "drag",
+    dragTarget: "choirRight",
+    sends: ["drag"],
+  },
+  {
     name: "THE GUIDE'S HOLD",
     where: "anywhere on the screen, while a guide or the ready gate is up",
     seat: "both, independently — each seat fills its own circle",

@@ -1,6 +1,6 @@
 import type { CatalogueEntry } from "../catalogue.js";
-import { arm, bloom, cluster, glyphed, mawed, sac } from "../forms/index.js";
-import { HEAVE, SHIVER, SWELL, TOLL, TURN } from "../motions.js";
+import { arm, bloom, glyphed, mawed, sac } from "../forms/index.js";
+import { HEAVE, SWELL, TOLL, TURN } from "../motions.js";
 
 /**
  * Draft bosses: four encounters nobody has designed yet.
@@ -53,21 +53,6 @@ export const BOSS_DRAFTS: CatalogueEntry[] = [
     suggests: "THE WEIGHT",
     owner:
       "the only boss that descends continuously, so its shape has to say heavy before it has moved: mass pulled to the bottom, a narrow top where the stalk takes the load, and a lift that comes fast and falls back slowly",
-  },
-  {
-    subject: cluster("THE CHOIR", "three bodies in one film, apart and then one", {
-      bodies: 3,
-      radius: 34,
-      spread: 3.0,
-      period: 6,
-      floor: 0.08,
-    }),
-    motion: SHIVER,
-    status: "draft",
-    slot: "boss",
-    suggests: "THE CHOIR",
-    owner:
-      "it takes damage only on the beat the two players act together, and the shape says so without a word: the three bodies merge into one contour and part again, and the merged instant is short and unmistakable",
   },
   {
     subject: glyphed("THE CODEX", "a slab whose rim scrolls a key", 96, 54, 13, 1.4),

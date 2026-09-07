@@ -1,4 +1,5 @@
 import { fire } from "./bullets.js";
+import { choirShaken } from "./choir-gesture.js";
 import { closeGauge } from "./gauge-round.js";
 import { gripsCreature, setGrip } from "./grip.js";
 import { armShield } from "./hull-guard.js";
@@ -102,6 +103,12 @@ export function applyCommand(world: World, timed: TimedCommand): void {
       // malfunction arms it on the beat with nobody pressing anything and the
       // two paths must not drift (`armShield` in `hull-guard.ts`).
       armShield(world);
+      break;
+    case "shake":
+      // THE CHOIR, and the only command in the game that is not a thumb on
+      // anything. It reaches every membrane on the field at once, because a
+      // shake has no column to be in (`choir-gesture.ts`).
+      choirShaken(world);
       break;
     case "reach":
       // The arm, on THE CLAW's panel. It is an ordinary ship control and not a

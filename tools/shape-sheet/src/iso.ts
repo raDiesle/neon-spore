@@ -9,7 +9,7 @@ import type { Bounds } from "./metrics.js";
  * it is exact while the shape stays star-shaped about its middle — and it can
  * only ever return *one* outline, because one angle has one answer. So a
  * cluster could thin to a waist and never part, which is precisely the moment
- * Symbiosis and The Choir are built on: both hang their whole mechanic on
+ * Symbiosis and the Colony are built on: both hang their whole mechanic on
  * bodies visibly separating, and neither could be judged from a picture that
  * cannot show it.
  *

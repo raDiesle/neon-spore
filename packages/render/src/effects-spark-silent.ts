@@ -34,6 +34,10 @@ export const SILENT = [
   // carry should also throw something is a look and the owner's to choose
   // (`docs/looks.md`), so nothing is invented here.
   "carry",
+  // THE CHOIR's first arrow going out. The whole screen starts shaking on this
+  // event (`choir-quake.ts`), and particles thrown on top of an earthquake are
+  // particles nobody can see.
+  "choirArm",
   // A cloud coming apart and the body inside it showing: `veil-tear.ts` draws
   // the whole of it, and the ordinary `destroy` that rides beside it on the
   // same tick is what throws the particles.
