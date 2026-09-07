@@ -1,6 +1,6 @@
 import { beatMetronome, onBeat } from "./beat.js";
 import { briefHeard, briefingHolds, guideStepHeard, stepReady } from "./briefing.js";
-import { advanceBullets, releaseLance, releaseShot } from "./bullets.js";
+import { advanceBullets, releaseShot } from "./bullets.js";
 import { stepChoirFuse } from "./choir.js";
 import { choirArrowHeard, stepChoirWindow } from "./choir-gesture.js";
 import { wardCoils } from "./coil.js";
@@ -11,6 +11,8 @@ import { gaugeHolds, gaugeRoundHeard, stepGaugeRound } from "./gauge-round.js";
 import { dropLostGrips } from "./grip.js";
 import { gripPushHeard } from "./grip-push.js";
 import { regenerateHull } from "./hull.js";
+import { stepBeam } from "./lance.js";
+import { releaseLance } from "./lance-burn.js";
 import { lidHeard } from "./lid.js";
 import { stepMalfunction } from "./malfunction.js";
 import { mazeStringHeard, stepMazeTurn } from "./maze-controls.js";
@@ -175,6 +177,9 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   releaseShot(world);
 
   world.tick += 1;
+  // The beam standing from the last one goes out first, so a column that was
+  // burnt a beat ago is clear before this tick can light it again.
+  stepBeam(world);
   // Before the beat and before the shots: the lobe fills on the tick counter,
   // so the tick it comes full on is this one, whatever else happens next.
   releaseLance(world);

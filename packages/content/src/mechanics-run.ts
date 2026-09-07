@@ -28,7 +28,7 @@ export const RUN_MECHANICS = {
     switch: { field: "shotChargeBeats", off: 0 },
   },
   lance: {
-    what: "Player 2 holds a colour instead of tapping it and the cannon lobe fills, for as long as player 1 keeps the cannon still. At the top of the fill it fires itself: a lance, slower, straight through every body of that colour in the column. A lift before the top is the ordinary shot, and what was in the lobe is lost.",
+    what: "Player 2 holds a colour instead of tapping it and the cannon lobe fills, for as long as player 1 keeps the cannon still. At the top of the fill the beam burns the column: every body of that colour standing in it goes at once, and the beam stays where it reached for a beat. Nothing travels. A lift before the top is the ordinary shot, and what was in the lobe is lost.",
     reach: "run",
   },
   grip: {

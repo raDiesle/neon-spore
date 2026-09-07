@@ -78,10 +78,12 @@ because player 2 had to shoot the pod loose in the first place. Window: **800 ms
 **Lance.** Not an action of its own and not a button: the two colours are
 *held* as well as tapped, and a thumb that stays on one fills the cannon lobe
 over `lancePrimeBeats` while player 1 keeps the cannon still. At the top of the
-fill it goes by itself. Moving the cannon or opening the maw drops the fill
-back to nothing without taking the shot the lift is owed; lifting early fires
-that shot and spends the fill. See [couplings](couplings.md) 2 — it is marking,
-re-grounded on the column and then on the trigger.
+fill the beam burns the column and stands in it for `lanceBeamBeats` —
+everything of that colour goes at once, and nothing leaves the ship. Moving the
+cannon or opening the maw drops the fill back to nothing without taking the
+shot the lift is owed; lifting early fires that shot and spends the fill. See
+[couplings](couplings.md) 2 — it is marking, re-grounded on the column and then
+on the trigger.
 
 **The other hand.** Both screens draw the same world, so a presence in it is
 not split — the same rule that keeps the mark itself unsplit (5.2). A thumb

@@ -8,7 +8,7 @@ import type { Color } from "./types.js";
  * cut on: `types.ts` is the shapes a world is made of, and it grows in exactly
  * one place — the creature, which has gained a field for nearly every kind
  * added to the bestiary since THE DART. A bullet has gained one in that whole
- * time (`pierced`, with THE LANCE) and is scrolled past every time somebody
+ * time (`lance`, with THE LANCE) and is scrolled past every time somebody
  * opens the file to add another creature field, which makes it the right half
  * to move.
  *
@@ -31,8 +31,6 @@ export interface Bullet {
    * air arms the *next* one (`lance.ts`).
    */
   lance: boolean;
-  /** Bodies this shot has already gone through. 0 for everything but a lance. */
-  pierced: number;
   /**
    * How far across its own column the shot has been carried, in thousandths of
    * a tile, signed and never past half a tile either way — a shot that reaches

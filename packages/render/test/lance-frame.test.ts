@@ -4,10 +4,11 @@ import type { ViewRole } from "../src/layout.js";
 import { CFG, installCanvasGlobals, ROLES, runFrames } from "./frame-harness.js";
 
 /**
- * A lobe filling, coming full and going out as a lance by itself. The beam in
- * the column, the ring closing round the colour button, the shot in flight and
- * the wash it throws over the whole stage are the four things THE LANCE adds to
- * a frame, and none of them is reached by a run with no commands in it.
+ * A lobe filling, coming full and burning the column by itself. The beam
+ * gathering, the ring closing round the colour button, the beam standing
+ * afterwards and the wash it throws over the whole stage are the four things
+ * THE LANCE adds to a frame, and none of them is reached by a run with no
+ * commands in it.
  */
 
 beforeAll(installCanvasGlobals);
@@ -47,10 +48,12 @@ describe("the lance", () => {
     });
   }
 
-  it("actually got as far as a lance in flight", () => {
+  it("actually got as far as a column burning", () => {
     // Otherwise the three drawing tests above are a run with an empty lobe in
-    // it, and would stay green if the lance never left.
+    // it, and would stay green if the lance never went off.
     const { world } = lanceFrames("test", ticksPerBeat(CFG) * 4);
-    expect(world.bullets.some((b) => b.lance)).toBe(true);
+    expect(world.beam).not.toBeNull();
+    // And nothing travelled: the beam is the weapon (`sim/lance.ts`).
+    expect(world.bullets).toHaveLength(0);
   });
 });

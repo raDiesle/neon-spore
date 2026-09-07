@@ -168,7 +168,6 @@ function bolt(body: Creature, color: "red" | "cyan"): Bullet {
     subMilli: 0,
     color,
     lance: false,
-    pierced: 0,
     driftMilli: 0,
     aimMilli: 0,
   };
@@ -361,7 +360,6 @@ describe("the body it throws out", () => {
       subMilli: 0,
       color: "red",
       lance: false,
-      pierced: 0,
       driftMilli: 0,
       aimMilli: 0,
     };

@@ -65,7 +65,6 @@ export interface ShotCharge {
   /** Ticks left before it goes. Zero means this tick. */
   left: number;
   color: Color;
-  lance: boolean;
 }
 
 /**
@@ -115,9 +114,9 @@ export function laying(world: World): boolean {
  * charge already in the lobe keeps the departure it was promised even if the
  * tuning slider moves `shotChargeBeats` underneath it.
  */
-export function layShot(world: World, color: Color, lance: boolean): void {
+export function layShot(world: World, color: Color): void {
   const left = chargeDueTick(world.cfg, world.tick) - world.tick;
-  world.charge = { left, color, lance };
+  world.charge = { left, color };
 }
 
 /**

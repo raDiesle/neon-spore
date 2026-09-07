@@ -1,13 +1,11 @@
 import { resolve } from "./bullet-hit.js";
-import { hullRow, type SimConfig, ticksPerBeat } from "./config.js";
-import { fenceIsOpen } from "./fence.js";
-import { lanceReady, primeColor, spendPrime } from "./lance.js";
+import { hullRow, ticksPerBeat } from "./config.js";
 import { steerShot } from "./lock.js";
-import { bulletMilli, creatureLane, creatureMilli } from "./mid-beat.js";
+import { bulletMilli, creatureMilli } from "./mid-beat.js";
 import { firstPodAlong, freePod } from "./pods.js";
-import { queenOccupiesCol } from "./queen-mark.js";
 import { chargeDue, chargePartTicks, endCharge, laying, layShot } from "./shot-charge.js";
-import { type Bullet, type Color, type Creature, occupiesLane, spanOf } from "./types.js";
+import { firstAlong } from "./shot-reach.js";
+import type { Bullet, Color } from "./types.js";
 import { vaneStruck } from "./vane.js";
 import { MILLI, type World } from "./world.js";
 
@@ -36,36 +34,8 @@ export function fire(world: World, color: Color): void {
   // the hold fills the lobe and the lobe fires itself at the top of the fill
   // (`releaseLance`), so the two weapons no longer share a moment and a tap
   // can never come out as the wrong one (`lance.ts`).
-  if (chargePartTicks(world.cfg) === 0) launch(world, color, false);
-  else layShot(world, color, false);
-}
-
-/**
- * The lobe full, and the lance leaving on that very tick.
- *
- * **It fires itself.** There is no press to spend it — the owner's answer on
- * 7 September 2026 was that the hold is the whole gesture, so the shot goes
- * the instant the fill reaches the top and the thumb resting on the button
- * afterwards does nothing at all (`Prime.spent`).
- *
- * It is launched rather than laid. The wind-up at the muzzle is a tell bought
- * for the half beat an ordinary press waits (`shot-charge.ts`), and this shot
- * has already announced itself for three beats as a beam climbing the column
- * on both screens — there is nothing left for a wind-up to tell anybody.
- *
- * `lanceFull` still goes out beside the `fire` event, and it is not a
- * duplicate: it is the one row of the information split that is not split at
- * all (docs/spec/systems.md 5.2), and audio/ has bound the moment since the
- * day the lance had a button of its own.
- */
-export function releaseLance(world: World): void {
-  if (world.over || !lanceReady(world)) return;
-  const color = primeColor(world);
-  if (color === null) return;
-  spendPrime(world);
-  world.lastFireTick = world.tick;
-  world.events.push({ type: "lanceFull", col: world.cannonCol });
-  launch(world, color, true);
+  if (chargePartTicks(world.cfg) === 0) launch(world, color);
+  else layShot(world, color);
 }
 
 /**
@@ -74,22 +44,21 @@ export function releaseLance(world: World): void {
  * the muzzle, and the muzzle is wherever player 1 is holding it
  * (`shot-charge.ts`).
  */
-function launch(world: World, color: Color, lance: boolean): void {
+function launch(world: World, color: Color): void {
   world.bullets.push({
     id: world.nextId++,
     col: world.cannonCol,
     row: hullRow(world.cfg) - 1,
     subMilli: 0,
     color,
-    lance,
-    pierced: 0,
+    lance: false,
     // Straight up and dead centre of the column, always. A shot is not aimed
     // when it is fired — it is aimed every tick it is in the air, by whatever
     // player 1's hand is on at the time (`lock.ts`).
     driftMilli: 0,
     aimMilli: 0,
   });
-  world.events.push({ type: "fire", col: world.cannonCol, color, lance });
+  world.events.push({ type: "fire", col: world.cannonCol, color, lance: false });
 }
 
 /**
@@ -102,15 +71,7 @@ export function releaseShot(world: World): void {
   const shot = world.charge;
   if (!chargeDue(world) || shot === null) return;
   endCharge(world);
-  launch(world, shot.color, shot.lance);
-}
-
-/**
- * How fast this shot travels, in tiles per beat. The only difference a lance
- * makes to its own flight — everything else about the sweep is shared.
- */
-function tilesPerBeat(cfg: SimConfig, b: Bullet): number {
-  return b.lance ? cfg.lanceTilesPerBeat : cfg.bulletTilesPerBeat;
+  launch(world, shot.color);
 }
 
 export function advanceBullets(world: World): void {
@@ -123,15 +84,14 @@ export function advanceBullets(world: World): void {
  * One tick of one shot, from where it stands to where it would be. False when
  * the shot is spent and does not survive the tick.
  *
- * The loop is the lance: an ordinary shot resolves at most one body and is
- * gone, but a lance that goes through one carries on along the *same* sweep,
- * because two bodies a tile apart can both sit inside a single tick of travel
- * and a lance that only ever took the lowest of them would need three ticks to
- * do what it does in one. Each turn of the loop either ends the shot or
- * removes a creature from the field, so it cannot run forever.
+ * The loop is inherited from the lance and is kept because `resolve` decides
+ * whether a shot goes on: every bullet that travels is an ordinary one now and
+ * stops at the first body it meets, so the loop turns once. `burnColumn` above
+ * is the one caller that goes round it, and it does so over the whole column
+ * rather than over a tick's worth of travel.
  */
 function sweep(world: World, b: Bullet): boolean {
-  const stepMilli = Math.round((tilesPerBeat(world.cfg, b) * MILLI) / ticksPerBeat(world.cfg));
+  const stepMilli = Math.round((world.cfg.bulletTilesPerBeat * MILLI) / ticksPerBeat(world.cfg));
   // Sideways first, then along the column it has arrived in. The order is the
   // whole of why a locked shot connects: `firstAlong` below tests one column,
   // and on the tick the bolt reaches the body it has to already be in the lane
@@ -176,62 +136,4 @@ function sweep(world: World, b: Bullet): boolean {
   b.row = Math.ceil(to / MILLI);
   b.subMilli = b.row * MILLI - to;
   return true;
-}
-
-/**
- * The first creature the swept segment `from..to` touches, or undefined.
- *
- * Every creature carries an invisible box, `spanOf` columns wide and
- * `hitHeightMilli` tall, centred on it. Shots only ever travel straight up the
- * middle of a column, so the column is the whole of the horizontal test and
- * the shape of the creature never enters into it — a lobe that leans out of
- * its column is drawing, not hitbox.
- *
- * That box is placed by `creatureLane` rather than by `c.col`, for the reason
- * `creatureMilli` is not `c.row`: a body part-way through a move is part-way
- * through it in both axes, and the eye judges a hit by where the thing is
- * drawn.
- *
- * The queen is the one exception: her own column carries nothing, and the
- * two columns that do (`queenOccupiesCol`) are not a span either — nothing
- * stands in the tile between them. `occupiesCol`/`colSpan` cannot be asked
- * to describe that, so she gets her own column test instead of the shared one.
- */
-function firstAlong(world: World, b: Bullet, from: number, to: number): Creature | undefined {
-  const half = Math.round(world.cfg.hitHeightMilli / 2);
-  let best: Creature | undefined;
-  let bestMilli = 0;
-  for (const c of world.creatures) {
-    // A tether is not shootable, and it does not stop a shot either: it is a
-    // line hanging in a column the pair still has to fire up. It is answered
-    // by a hand and by nothing else (docs/spec/bosses.md 11.4).
-    if (c.kind === "tether") continue;
-    // Nor is THE GYRE's hub, for the same two reasons at once: there is
-    // nothing on it to shoot, and the tile at the middle of a wheel is empty —
-    // what a shot meets in those columns is a mount or nothing (`gyre.ts`). A
-    // hub that stopped bolts would put a wall across five columns of the
-    // field with no body anywhere in it.
-    if (c.kind === "gyre") continue;
-    // THE FENCE stops a bolt in every column it is still **shut** in, and in
-    // none of the ones it is open in: a hole is a hole, so a shot fired up a
-    // way through reaches whatever is above it rather than dying on a gap the
-    // pair had already made. `fenceIsOpen` is the rule and it takes the burnt
-    // columns as well as the authored ones, so the second shot up a column the
-    // first one cut is not wasted (`fence.ts`).
-    if (c.kind === "fence" && fenceIsOpen(c, b.col)) continue;
-    const inCol =
-      c.kind === "queen"
-        ? queenOccupiesCol(c.col, b.col)
-        : occupiesLane(creatureLane(world, c), spanOf(c), b.col);
-    if (!inCol) continue;
-    const pos = creatureMilli(world, c);
-    if (pos - half > from || pos + half < to) continue;
-    // Several boxes can overlap the sweep; the shot stops at the lowest one,
-    // the one it reaches first.
-    if (!best || pos > bestMilli) {
-      best = c;
-      bestMilli = pos;
-    }
-  }
-  return best;
 }

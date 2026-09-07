@@ -98,13 +98,21 @@ export function hashWorld(world: World): number {
   // The shot that has been pressed and has not left yet. In for the reason a
   // bullet is: two devices that disagree about whether a shot exists have
   // desynced, and a charge is a shot that exists everywhere except on the
-  // field. Its colour and its lance only when there is one, the same way an
-  // boss's fields are pushed only when there is one.
+  // field. Its colour only when there is one, the same way a boss's fields are
+  // pushed only when there is one.
   const shot = world.charge;
   push(shot === null ? -1 : shot.left);
-  if (shot !== null) {
-    push(shot.color === "red" ? 1 : 2);
-    push(shot.lance ? 1 : 0);
+  if (shot !== null) push(shot.color === "red" ? 1 : 2);
+  // The beam standing in a column after THE LANCE has burnt it. Nothing about
+  // it is decided after the tick it is lit, but two devices that disagree
+  // about where it is or how long it has left are two devices drawing
+  // different fields (`lance.ts`).
+  const beam = world.beam;
+  push(beam === null ? -1 : beam.col);
+  if (beam !== null) {
+    push(beam.color === "red" ? 1 : 2);
+    push(beam.left);
+    push(beam.topMilli);
   }
   push(world.hullMilli);
   push(world.rng.state);
@@ -174,7 +182,6 @@ export function hashWorld(world: World): number {
     // shot one tick later.
     push(b.color === "red" ? 1 : 2);
     push(b.lance ? 1 : 0);
-    push(b.pierced);
     // Where it is across its column and which way it is going. Both are the
     // steering THE LOCK does (`lock.ts`), and neither is decoration: the drift
     // decides which lane the next tick's sweep tests, so two devices that

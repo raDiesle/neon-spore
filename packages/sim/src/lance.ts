@@ -22,9 +22,17 @@ import { MILLI, type World } from "./world.js";
  *
  * **The cost is the hold and nothing else.** Three beats of thumb is six
  * ordinary shots not fired, which is the whole price — the owner's own answer
- * on 7 September 2026. What it buys is a *line* of its own colour, which is
- * the only thing a column can hold that an ordinary shot has to be fired at
- * one body at a time.
+ * on 7 September 2026. What it buys is the *column*, in that colour: every
+ * body of it standing there, however many, where an ordinary shot has to be
+ * fired at one at a time.
+ *
+ * **The beam is the weapon, and nothing travels.** It used to fire a slow bolt
+ * that passed through three bodies on its way up; the owner watched the fill
+ * and said the beam itself is the thing that kills. So at the top of the fill
+ * the column burns on that tick — a rock or a wrong colour still stops it
+ * where it stands — and the beam holds where it reached for `lanceBeamBeats`
+ * before it goes. That is also the field's own rule kept rather than bent:
+ * nothing the players control travels.
  *
  * **The cannon still has to stand still, and that is the coupling that
  * survived.** The mark is on a column, so a cannon that leaves the column it
@@ -139,4 +147,40 @@ export function lanceReady(world: World): boolean {
  */
 export function spendPrime(world: World): void {
   if (world.prime !== null) world.prime.spent = true;
+}
+
+/**
+ * The beam standing in a column after it has burnt it.
+ *
+ * World state rather than the renderer's, for the reason a bullet in flight
+ * was: two devices that disagree about whether a column is on fire have
+ * desynced. It carries no rule of its own — the burning is over on the tick it
+ * starts (`burnColumn` in `bullets.ts`) — but it is the picture both players
+ * read, and a picture kept on one frame rate would run at two speeds.
+ */
+export interface LanceBeam {
+  col: number;
+  color: Color;
+  /** Ticks it still stands. Zero means this is its last one. */
+  left: number;
+  /**
+   * How far up the column it reached, in thousandths of a tile from the top of
+   * the field — the position of whatever stopped it, or 0 for a column it
+   * burnt the whole way. Drawn, so the beam ends at the rock that blocked it
+   * rather than pretending to have gone through.
+   */
+  topMilli: number;
+}
+
+/** Ticks the beam stands for. At least one, so it is always seen. */
+export function beamTicks(cfg: SimConfig): number {
+  return Math.max(1, Math.round(cfg.lanceBeamBeats * ticksPerBeat(cfg)));
+}
+
+/** Count this tick off the beam, and put it out when it is done. */
+export function stepBeam(world: World): void {
+  const beam = world.beam;
+  if (beam === null) return;
+  if (beam.left > 0) beam.left -= 1;
+  else world.beam = null;
 }

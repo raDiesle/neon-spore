@@ -215,11 +215,12 @@ describe("the column it comes out of", () => {
 describe("the lance, which does not go through the grid at all", () => {
   const FILL = CFG.lancePrimeBeats * TPB;
 
-  it("leaves on the tick the lobe fills, not on the next point of the grid", () => {
+  it("lights on the tick the lobe fills, not on the next point of the grid", () => {
     // An ordinary press waits for a grid point so player 1 can watch the
     // cannon work. A lance has announced itself for three beats as a beam
     // climbing the column, so there is nothing left for a wind-up to tell
-    // anybody — it is launched rather than laid (`bullets.ts`).
+    // anybody — and there is no bolt to lay either: the beam burns the column
+    // where it stands (`bullets.ts`'s `burnColumn`).
     const w = world();
     const seen = play(w, FILL + 3, [aim(0, COL), prime(1, true)]);
     const shot = fired(seen)[0];
@@ -227,14 +228,16 @@ describe("the lance, which does not go through the grid at all", () => {
     // The step that carries the tick counter from `FILL` to `FILL + 1`.
     expect(shot?.tick).toBe(FILL);
     expect(laying(w)).toBe(false);
-    expect(w.bullets).toHaveLength(1);
+    expect(w.bullets).toHaveLength(0);
+    expect(w.beam).not.toBeNull();
   });
 
-  it("comes out of the column the cannon is standing in when it goes", () => {
+  it("burns the column the cannon is standing in when it goes", () => {
     const w = world();
     const seen = play(w, FILL + 3, [aim(0, COL), prime(1, true), aim(FILL - 5, COL)]);
     const shot = fired(seen)[0]?.event;
     expect(shot?.type === "fire" && shot.col).toBe(COL);
+    expect(w.beam?.col).toBe(COL);
     expect(lanceReady(w)).toBe(false);
   });
 

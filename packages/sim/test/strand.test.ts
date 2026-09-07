@@ -84,7 +84,6 @@ const bolt = (col: number, color: Color, lance = false): Bullet => ({
   subMilli: 0,
   color,
   lance,
-  pierced: 0,
   driftMilli: 0,
   aimMilli: 0,
 });

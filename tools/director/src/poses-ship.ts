@@ -69,7 +69,7 @@ const CONTROLS: Pose[] = [
   },
   {
     name: "LANCE · FULL",
-    note: "The top of the fill, and the lance going by itself — nothing is pressed to send it. The whole screen takes the ammunition colour on the tick it leaves.",
+    note: "The top of the fill, and the column burning by itself — nothing is pressed to send it, and nothing leaves the ship. The whole screen takes the ammunition colour on the tick it lights.",
     crop: "full",
     build: () => {
       const w = fresh();
@@ -81,11 +81,11 @@ const CONTROLS: Pose[] = [
   },
 ];
 
-/** A lance is in the air. The lobe fires itself at the top of the fill, so
+/** The column is burning. The lobe fires itself at the top of the fill, so
  * `lanceReady` is true for exactly one tick inside one step and can never be
- * seen from outside it — the bullet is the observable (`sim/lance.ts`). */
+ * seen from outside it — the beam is the observable (`sim/lance.ts`). */
 function lanceGone(w: World): boolean {
-  return w.bullets.some((b) => b.lance);
+  return w.beam !== null;
 }
 
 export const CONTROL_POSES = CONTROLS;

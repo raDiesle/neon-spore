@@ -33,10 +33,17 @@ the **column**, and what locks is the cannon lobe itself.
 2026, and with it the panel that carried it: the fill is on the trigger, so
 player 2 **holds** red or cyan instead of tapping it and the cannon lobe fills
 over `lancePrimeBeats` — for as long as her thumb stays down **and player 1
-keeps the cannon still**. At the top of the fill the shot goes by itself: a
-lance in the colour that was held, at half speed, through up to `lancePierce`
-bodies of that colour. A thumb that lifts early fires the ordinary shot instead
-and the fill is gone.
+keeps the cannon still**. A thumb that lifts early fires the ordinary shot
+instead and the fill is gone.
+
+**And there is no lance shot either.** At the top of the fill the *beam* is the
+weapon: the whole column burns on that tick, in the colour that was held, and
+every body of it standing there goes at once however many there are. The beam
+stays where it reached for `lanceBeamBeats` and then goes out. A rock or a
+wrong colour still stops it, and the beam visibly ends there. That was the
+owner's second correction the same day — he watched the fill and said the beam
+itself is what destroys — and it puts the mechanic back inside the field's own
+rule: nothing the players control travels.
 
 **Each player has their own, differently shaped part, as warding does.** One
 holds a colour down and gets nothing for three beats; the other has to keep a
@@ -52,10 +59,11 @@ again, and the lift still fires the bolt it was always owed. Player 1 moves the
 cannon on every wave in the game, and a trigger whose shots vanished when he
 did would be a broken trigger rather than a coupling.
 
-In the code: `packages/sim/src/lance.ts`, drawn by `packages/render/src/lance.ts`
-(the beam gathering in the column), `packages/render/src/lance-beam.ts` (the
-shot itself) and `packages/render/src/lance-flash.ts` (the whole screen taking
-the ammunition's colour as it leaves).
+In the code: `packages/sim/src/lance.ts` for the hold and the beam's own state,
+`packages/sim/src/lance-burn.ts` for the column going up, drawn by
+`packages/render/src/lance.ts` in both its states and
+`packages/render/src/lance-flash.ts` for the whole screen taking the
+ammunition's colour on the tick it lights.
 
 **Still open.** The bulb's "mark, then colour" role ([bestiary](bestiary.md))
 and "keeping watch" ([assists](assists.md)) were written against the beam and

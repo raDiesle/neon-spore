@@ -555,6 +555,27 @@ time, picked up the way the game's other power-ups already are.
   carrying one; what kind of pod grants it, since nothing today changes what
   the cannon fires; how long it lasts, and what a spread shot already in
   flight does when it expires
+- **The drill** — the lance as a thing that *travels*, which is what it was for
+  a day. It was built on 7 September 2026 and taken out again the same day: a
+  full lobe fired a slow bolt at half the cannon's speed that passed through
+  every body of its own colour on its way up the column, drawn as a ribbon
+  three and a half tiles long whose two edges wavered in opposite phases so it
+  swelled and pinched along its length, with three nodules riding inside it and
+  a white filament down the middle. The owner watched the fill and decided the
+  *beam* is the weapon instead — so the column burns on the tick the lobe fills
+  and nothing leaves the ship, which is also the field's own rule
+  (CLAUDE.md: nothing the players control travels).
+  What the travelling version had that the beam does not: **a shot in the air
+  is a thing that can still be answered**. Two beats of flight is two beats in
+  which a body steps out of the column, a fence closes over it, or a wall of
+  rocks lands in front of it — none of which the beam can ever be too late for,
+  because it is never early. Unworked out: whether that belongs to a *different*
+  weapon rather than to the lance, since a pair that has held a colour for three
+  beats has earned certainty and a shot that can be dodged out of takes it back;
+  what would grant it, since the lance is not a pickup; and whether the ribbon
+  reads at all against the beam standing in the same column, which is the one
+  thing that cannot be argued and has to be seen — `git show` the commit that
+  removed it (`packages/render/src/lance-beam.ts`) for the drawing.
 
 ### Rounds
 

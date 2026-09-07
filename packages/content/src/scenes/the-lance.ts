@@ -6,16 +6,15 @@ import type { GuideScene } from "../scene-types.js";
  * The wave adds no button at all. What it teaches is that **the colour is
  * held**: player 2 keeps her thumb on the lobe instead of tapping it, the
  * cannon lobe fills for as long as player 1 keeps the cannon still, and at the
- * top of the fill the shot goes by itself — slower, and straight through every
- * body of that colour rather than stopping at the first
- * (`packages/sim/src/lance.ts`).
+ * top of the fill the beam *is* the weapon: the whole column burns at once, in
+ * that colour, and nothing leaves the ship (`packages/sim/src/lance.ts`).
  *
  * **The film is about a thumb that does nothing**, which is the one thing a
  * still picture cannot show and the whole reason this wave has a rehearsal.
  * Four pages. He gets under the column first, because sliding a column
  * afterwards drops the fill back to nothing; then she holds, and the lobe
  * closes round the button while the beam climbs the column on both screens;
- * then it fires itself and takes all three.
+ * then the beam reaches the top and burns everything standing in it.
  *
  * The thumb goes down and never comes up. `lancePrimeBeats` is three, so the
  * lobe is full a hundred and eighty ticks later and the film ends with the
@@ -56,7 +55,7 @@ export const THE_LANCE: GuideScene = {
     {
       tick: 830,
       seat: 1,
-      text: "ONE SHOT TAKES ALL THREE",
+      text: "THE BEAM TAKES ALL THREE",
       anchor: { at: "body" },
     },
   ],

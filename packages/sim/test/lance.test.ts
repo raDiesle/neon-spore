@@ -87,6 +87,18 @@ const hold = (color: "red" | "cyan" = "red"): TimedCommand[] => [
 
 /** The tick a hold started on tick 1 fires its lance on. */
 const GOES = FILL + 1;
+/** Ticks the beam stands in the column afterwards. */
+const BEAM = CFG.lanceBeamBeats * TPB;
+
+/**
+ * The same hold, started `beats` in — for a column that has to be *standing*
+ * before it is burnt. A body on the beat it arrives is still stepping in from
+ * above the top row and is not on the field yet, exactly as it is not for an
+ * ordinary shot (`firstAlong`), so a stack tested the instant it is dealt out
+ * would be a stack the beam is right to miss the top of.
+ */
+const holdAfter = (beats: number): TimedCommand[] => [aim(0, COL), prime(beats * TPB, true, "red")];
+const goesAfter = (beats: number): number => beats * TPB + FILL + 1;
 
 /** A column of `n` bodies of one colour, one beat apart, so they stack. */
 const stack = (n: number, kind: "slick" | "bulb" = "slick"): SpawnEntry[] =>
@@ -209,12 +221,23 @@ describe("what empties the lobe", () => {
 });
 
 describe("the shot the hold sends", () => {
-  it("is a lance, out of the column the cannon was standing in", () => {
+  it("is a beam standing in the column, and nothing leaves the ship", () => {
     const w = world();
     const fired = play(w, GOES, hold()).filter((e) => e.type === "fire");
     expect(fired[0]).toMatchObject({ type: "fire", col: COL, lance: true });
-    expect(w.bullets[0]?.lance).toBe(true);
+    // The whole of the difference from the shot this used to be: there is no
+    // bullet anywhere, because the beam *is* the weapon (`lance.ts`).
+    expect(w.bullets).toHaveLength(0);
+    expect(w.beam).toMatchObject({ col: COL, color: "red" });
     expect(priming(w)).toBe(false);
+  });
+
+  it("stands for lanceBeamBeats and then goes out", () => {
+    const w = world();
+    play(w, GOES + BEAM, hold());
+    expect(w.beam).not.toBeNull();
+    play(w, GOES + BEAM + 2);
+    expect(w.beam).toBeNull();
   });
 
   it("is an ordinary shot when the thumb comes up early", () => {
@@ -231,35 +254,37 @@ describe("the shot the hold sends", () => {
     expect(seen.filter((e) => e.type === "fire")[0]).toMatchObject({ lance: false });
   });
 
-  it("travels slower than an ordinary shot, which is what it is traded for", () => {
-    const at = (w: ReturnType<typeof world>) => {
-      const b = w.bullets[0];
-      if (!b) throw new Error("the shot is gone");
-      return b.row - b.subMilli / 1000;
-    };
-    // Half a beat only: an ordinary shot crosses the whole field in one, and
-    // a shot that has left the top of it has no position left to compare.
-    const plain = world();
-    play(plain, TPB / 2, [shoot(0)]);
-    const lance = world();
-    play(lance, GOES + TPB / 2, hold());
-    // Same start row, so more of the field left means it has come less far.
-    expect(at(lance)).toBeGreaterThan(at(plain));
+  it("reaches the top of an empty column on the tick it lights", () => {
+    // An ordinary shot takes a beat and a bit to cross the field. This one has
+    // no travel at all — `topMilli` 0 is the top of the grid, on the same tick
+    // the lobe came full.
+    const w = world();
+    play(w, GOES, hold());
+    expect(w.beam?.topMilli).toBe(0);
   });
 });
 
 describe("what a lance does to a column", () => {
-  it("goes through lancePierce bodies of its own colour and no more", () => {
-    const w = world(stack(CFG.lancePierce + 1));
-    const seen = play(w, GOES + TPB * 12, hold());
-    expect(destroys(seen)).toHaveLength(CFG.lancePierce);
-    expect(w.creatures).toHaveLength(1);
+  it("takes every body of its own colour in the column, however many", () => {
+    // The owner took the three-body limit off on 7 September 2026 when the
+    // beam became the weapon: what a hold buys is the column. Five, which is
+    // two more than the limit that used to be there.
+    const w = world(stack(5));
+    const seen = play(w, goesAfter(5) + 2, holdAfter(5));
+    expect(destroys(seen)).toHaveLength(5);
+    expect(w.creatures).toHaveLength(0);
+  });
+
+  it("and takes them on the tick it lights, not over the beats it would fly", () => {
+    const w = world(stack(4));
+    const seen = play(w, goesAfter(5), holdAfter(5));
+    expect(destroys(seen)).toHaveLength(4);
   });
 
   it("where an ordinary shot takes exactly one", () => {
     // The same column, the same stack and the same moment — everything but
     // the thumb that was held.
-    const w = world(stack(CFG.lancePierce + 1));
+    const w = world(stack(4));
     const seen = play(w, GOES + TPB * 12, [aim(0, COL), shoot(GOES)]);
     expect(destroys(seen)).toHaveLength(1);
   });
@@ -269,7 +294,7 @@ describe("what a lance does to a column", () => {
       { beat: 0, col: COL, kind: "meteor", color: null },
       ...stack(2).map((e) => ({ ...e, beat: e.beat + 2 })),
     ]);
-    const seen = play(w, GOES + TPB * 8, hold());
+    const seen = play(w, GOES + 2, hold());
     expect(destroys(seen)).toHaveLength(0);
     expect(seen.filter((e) => e.type === "hole")).toHaveLength(1);
     expect(w.creatures.find((c) => c.kind === "meteor")?.holes).toBe(1);
@@ -280,17 +305,17 @@ describe("what a lance does to a column", () => {
       { beat: 0, col: COL, kind: "bulb", color: "cyan" },
       ...stack(2).map((e) => ({ ...e, beat: e.beat + 2 })),
     ]);
-    const seen = play(w, GOES + TPB * 8, hold());
+    const seen = play(w, GOES + 2, hold());
     expect(destroys(seen)).toHaveLength(0);
     expect(seen.filter((e) => e.type === "reject")).toHaveLength(1);
     expect(w.balance.colorMisses).toBe(1);
   });
 
   it("counts every body it takes as its own joint moment", () => {
-    const w = world(stack(CFG.lancePierce));
-    play(w, GOES + TPB * 12, hold());
-    expect(w.balance.colorHits).toBe(CFG.lancePierce);
-    expect(w.score).toBeGreaterThanOrEqual(CFG.scoreDestroy * CFG.lancePierce);
+    const w = world(stack(3));
+    play(w, goesAfter(4) + 2, holdAfter(4));
+    expect(w.balance.colorHits).toBe(3);
+    expect(w.score).toBeGreaterThanOrEqual(CFG.scoreDestroy * 3);
   });
 });
 
@@ -315,13 +340,13 @@ describe("two devices", () => {
     expect(hashWorld(a)).not.toBe(hashWorld(b));
   });
 
-  it("cannot disagree about a shot being a lance either", () => {
+  it("cannot disagree about a column that is burning either", () => {
     const a = world();
     play(a, GOES, hold());
     const b = world();
     play(b, GOES, [aim(0, COL), shoot(GOES - 1)]);
-    expect(a.bullets[0]?.lance).toBe(true);
-    expect(b.bullets[0]?.lance).toBe(false);
+    expect(a.beam).not.toBeNull();
+    expect(b.beam).toBeNull();
     expect(hashWorld(a)).not.toBe(hashWorld(b));
   });
 });

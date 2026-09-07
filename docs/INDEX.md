@@ -287,6 +287,8 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/pulse-round.ts` | THE PULSE's clock: the count-in, the song, and the one way the hull pays |
 | `packages/sim/src/pulse.ts` | THE PULSE: the same song on two screens, and neither of you can read all of it |
 | `packages/sim/src/pulse-open.ts` | Opening a stage, and opening the round — the two places a `PulseState` is written from nothing |
+| `packages/sim/src/lance-burn.ts` | **THE LANCE going off**: the lobe coming full, and the column burning on that tick |
+| `packages/sim/src/shot-reach.ts` | **What a shot meets on a stretch of a column**, and the one place that question is answered |
 
 ### packages/content
 
@@ -714,7 +716,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/pulse-button.ts` | THE PULSE's four lanes, as a face on one of the band's own lobes |
 | `packages/render/src/pulse-drop.ts` | An arrow nobody answered falls into the ship |
 | `packages/render/src/pulse-shape.ts` | What falls down each of THE PULSE's four lanes, and what colour it is |
-| `packages/render/src/lance-beam.ts` | A lance in flight: not a dot with a tail behind it, but a length of the column that is briefly alive |
+| `packages/render/src/pulse-shape.ts` | What an arrow in THE PULSE is made of: its hue, its heading and its contour |
 | `packages/render/src/lance-flash.ts` | The whole screen going white, then the ammunition colour, then nothing |
 | `packages/render/src/body-mark.ts` | One living body, at a size, with no world around it |
 | `packages/render/src/pulse-body.ts` | One arrival falling down a lane, and the two ways of drawing one that cannot be read |

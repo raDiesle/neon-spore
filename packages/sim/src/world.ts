@@ -4,7 +4,7 @@ import { type Briefings, newBriefings } from "./briefing.js";
 import { midCol, type SimConfig, ticksPerBeat } from "./config.js";
 import { NO_GRIP } from "./grip.js";
 import type { GripPush } from "./grip-push.js";
-import type { Prime } from "./lance.js";
+import type { LanceBeam, Prime } from "./lance.js";
 import type { Malfunction } from "./malfunction.js";
 import { createRng, type Rng } from "./rng.js";
 import type { ShotCharge } from "./shot-charge.js";
@@ -132,6 +132,12 @@ export interface World {
    */
   charge: ShotCharge | null;
   /**
+   * The beam THE LANCE leaves standing in a column after it has burnt it, or
+   * null. World state for the charge's reason: two devices that disagree about
+   * whether a column is on fire have desynced. Ask `lance.ts`.
+   */
+  beam: LanceBeam | null;
+  /**
    * The fault this wave is played under, or null for every wave that is played
    * straight. Installed by `startWave` from the wave's own field, exactly the
    * way a boss is, and never written again while the wave runs.
@@ -211,6 +217,7 @@ export function createWorld(
     pushP2: null,
     prime: null,
     charge: null,
+    beam: null,
     malfunction: null,
     creatures: [],
     bullets: [],

@@ -25,17 +25,20 @@ export interface ShotConfig {
    */
   lancePrimeBeats: number;
   /**
-   * Bodies one lance takes before it is spent. The "up to 3 segments in a
-   * line" of the drill in docs/spec/systems.md 5.5. Only living bodies of the
-   * shot's own colour are counted — a rock stops it whatever is left.
+   * How long the beam stands in the column after it has burnt it, in beats.
+   *
+   * **The lance is not a shot any more.** It used to be a slow bolt that
+   * travelled and passed through up to `lancePierce` bodies; the owner watched
+   * the fill and said the beam *is* the weapon, so at the top of the fill the
+   * whole column burns at once and the beam stays where it is for this long
+   * before it goes. Nothing travels, which is also what the field asks for
+   * (CLAUDE.md: nothing the players control travels).
+   *
+   * One beat, so it is a thing both players see happen against the clock they
+   * share rather than a flash one of them may have blinked through. It buys no
+   * time and costs none: the burning is over on the tick it starts.
    */
-  lancePierce: number;
-  /**
-   * Lance speed, in tiles per beat. Deliberately below `bulletTilesPerBeat`:
-   * the drill in 5.5 is the slower weapon, and a lance that arrived as fast as
-   * an ordinary shot would be a pure upgrade rather than a trade.
-   */
-  lanceTilesPerBeat: number;
+  lanceBeamBeats: number;
   /** Minimum gap between shots, in beats. */
   fireEveryBeats: number;
   /**
@@ -95,8 +98,7 @@ export interface ShotConfig {
 export const SHOT_DEFAULTS: ShotConfig = {
   bulletTilesPerBeat: 12,
   lancePrimeBeats: 3,
-  lancePierce: 3,
-  lanceTilesPerBeat: 6,
+  lanceBeamBeats: 1,
   fireEveryBeats: 0.5,
   colourArmourMs: 700,
   shotChargeBeats: 0,

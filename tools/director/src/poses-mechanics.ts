@@ -114,15 +114,14 @@ const MECHANICS: Pose[] = [
     },
   },
   {
-    name: "LANCE · IN FLIGHT",
-    note: "The same column at half the speed, drawn as a ribbon rather than a dot with a tail — the ammunition's own colour, with nodules riding inside it. It passes through bodies of its own colour and stops at anything else.",
-    crop: "tile",
-    at: (w) => ({ col: w.bullets[0]?.col ?? COL, row: w.bullets[0]?.row ?? 8 }),
+    name: "LANCE · BURNING",
+    note: "The beam standing in the column it has just burnt, in the ammunition's own colour with white at its core. Nothing travels: every body of that colour in the column went on the tick it lit, and it stops where a rock or a wrong colour stopped it.",
+    crop: "full",
     build: () => {
       const w = fresh();
       run(w, TPB, [aim(0, COL), prime(1, true)]);
-      until(w, "a lance in the air", (x) => x.bullets.some((b) => b.lance));
-      run(w, 40);
+      until(w, "a column burning", (x) => x.beam !== null);
+      run(w, 20);
       return w;
     },
   },

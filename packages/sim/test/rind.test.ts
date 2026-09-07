@@ -175,7 +175,6 @@ describe("what a shot does", () => {
       subMilli: 0,
       color: "red",
       lance: true,
-      pierced: 0,
       driftMilli: 0,
       aimMilli: 0,
     });

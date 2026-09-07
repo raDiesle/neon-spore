@@ -59,9 +59,11 @@ export function startWave(
   world.creatures = [];
   world.bullets = [];
   clearGrips(world);
-  // Nothing held and nothing charged — the second a field now (`shot-charge.ts`).
+  // Nothing held, nothing charged and no column still burning — all three are
+  // fields now (`shot-charge.ts`, `lance.ts`).
   endPrime(world);
   world.charge = null;
+  world.beam = null;
   world.pods = [];
   world.guardTick = -1_000_000;
   world.intakeTick = -1_000_000;

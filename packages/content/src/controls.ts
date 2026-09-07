@@ -156,7 +156,7 @@ export const CONTROLS: readonly ControlDef[] = [
     player: 2,
     form: "lobe",
     label: "RED",
-    does: "Tap and it fires red up whichever column player 1 is standing in. Hold it and the cannon lobe fills instead, and a lance goes at the top of the fill — red through every red body in the column (`sim/lance.ts`).",
+    does: "Tap and it fires red up whichever column player 1 is standing in. Hold it and the cannon lobe fills instead, and at the top of the fill the beam burns the column — every red body standing in it, at once (`sim/lance.ts`).",
     ship: "cannon",
   },
   {
@@ -164,7 +164,7 @@ export const CONTROLS: readonly ControlDef[] = [
     player: 2,
     form: "lobe",
     label: "CYAN",
-    does: "Tap and it fires cyan up whichever column player 1 is standing in. Hold it and the cannon lobe fills instead, and a lance goes at the top of the fill — cyan through every cyan body in the column (`sim/lance.ts`).",
+    does: "Tap and it fires cyan up whichever column player 1 is standing in. Hold it and the cannon lobe fills instead, and at the top of the fill the beam burns the column — every cyan body standing in it, at once (`sim/lance.ts`).",
     ship: "cannon",
   },
   ...ROUND_CONTROLS,

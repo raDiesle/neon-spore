@@ -46,6 +46,9 @@ export function applyCommand(world: World, timed: TimedCommand): void {
     // and the host does not answer `needWave` on the same tick it is asked, so
     // there are ticks in between for a charge to go out into (`shot-charge.ts`).
     endCharge(world);
+    // And the column a lance was still burning, for the same reason: a run
+    // being left is not a run with a beam standing in it (`lance.ts`).
+    world.beam = null;
     // And the three rounds that take the whole picture, for the third time
     // the same argument: a run being left is not a run standing at a dial, in
     // an arena or over a table. Only those three — every other boss goes when

@@ -1,6 +1,6 @@
 import { DEFAULT_CONFIG } from "../src/config.js";
 import { BOSS_KINDS, type BossEntry } from "../src/entries.js";
-import type { Prime } from "../src/lance.js";
+import type { LanceBeam, Prime } from "../src/lance.js";
 import { mazeWheel } from "../src/maze-solve.js";
 import type { MazeWheel } from "../src/maze-wheel.js";
 import type { ShotCharge } from "../src/shot-charge.js";
@@ -90,7 +90,6 @@ const bullet = (): Required<Bullet> => ({
   subMilli: 500,
   color: "cyan",
   lance: true,
-  pierced: 2,
   driftMilli: -180,
   aimMilli: 420,
 });
@@ -107,9 +106,11 @@ const pod = (): Required<Pod> => ({
 
 const scar = (): Required<Scar> => ({ col: 4, beat: 9, kind: "meteor", span: 2 });
 
-const charge = (): Required<ShotCharge> => ({ left: 5, color: "red", lance: true });
+const charge = (): Required<ShotCharge> => ({ left: 5, color: "red" });
 
 const prime = (): Required<Prime> => ({ tick: 19, color: "cyan", spent: false });
+
+const beam = (): Required<LanceBeam> => ({ col: 6, color: "red", left: 40, topMilli: 7200 });
 
 /**
  * A wheel of the shape `installMaze` copies: two rings, two gaps in the rim,
@@ -219,6 +220,7 @@ export function populatedWorld(bossKind: BossEntry["kind"]): World {
   world.pushP2 = { milli: -2300, cols: -2 };
   world.prime = prime();
   world.charge = charge();
+  world.beam = beam();
   // A cannon fault rather than a shield one, because it is the arm that
   // carries a second field: the walk can only mutate what is there, so the
   // union's larger member is the one that covers both.

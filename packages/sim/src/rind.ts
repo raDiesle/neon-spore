@@ -121,6 +121,5 @@ export function rindStruck(world: World, b: Bullet, hit: Creature): boolean {
   world.score += world.cfg.scoreDestroy;
   world.events.push({ type: "destroy", col: hit.col, row: hit.row, color: b.color });
   removeCreature(world, hit.id);
-  b.pierced += 1;
-  return b.lance && b.pierced < world.cfg.lancePierce;
+  return b.lance;
 }

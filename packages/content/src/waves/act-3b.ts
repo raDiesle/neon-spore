@@ -52,9 +52,9 @@ export const WAVES_ACT_3B: Wave[] = [
     sentence:
       "The one where three of the same colour arrive in one column and one shot takes all three.",
     guide: {
-      both: "The panel is the one you have always had. What is new is that the colours are held as well as tapped: a thumb that stays on one fills the cannon lobe, and at the top of the fill it fires itself — slower, and straight through every body of that colour standing in the column.",
+      both: "The panel is the one you have always had. What is new is that the colours are held as well as tapped: a thumb that stays on one fills the cannon lobe, and at the top of the fill the beam burns the whole column — every body of that colour standing in it, at once. Nothing is fired and nothing travels.",
       p1: "Get under the column and then do not move. The lobe fills while the cannon stands still, and sliding a column drops the fill back to nothing.",
-      p2: "Hold the colour they are all in instead of tapping it, and keep holding until it goes. Let go early and it is an ordinary shot and takes one.",
+      p2: "Hold the colour they are all in instead of tapping it, and keep holding until the column lights. Let go early and it is an ordinary shot and takes one.",
       scene: "theLance",
     },
     entries: [

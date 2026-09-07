@@ -227,7 +227,6 @@ describe("what a shot does", () => {
       subMilli: 0,
       color,
       lance: true,
-      pierced: 0,
       driftMilli: 0,
       aimMilli: 0,
     });
@@ -321,7 +320,6 @@ describe("the colour turning over", () => {
         subMilli: 0,
         color: "red",
         lance: false,
-        pierced: 0,
         driftMilli: 0,
         aimMilli: 0,
       },

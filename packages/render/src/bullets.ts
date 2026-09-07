@@ -1,6 +1,5 @@
 import type { Bullet } from "@neon-spore/sim";
 import { halo } from "./glow.js";
-import { beamAxis, beamHead, drawLanceBeam } from "./lance-beam.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -75,18 +74,10 @@ export function drawBullets(
   bullets: readonly Bullet[],
 ): void {
   for (const b of bullets) {
-    // **A lance is not a shot with different numbers.** It is drawn by
-    // `lance-beam.ts` as a ribbon of its own — the owner asked for it to be
-    // spectacular and in the ammunition's colour, and neither is a thing a
-    // record of five numbers can be. Keeping it out of `ShotLook` also keeps
-    // the `cannon:shot` slot honest: a vote on how an ordinary bolt reads must
-    // not quietly move the object it has to be told apart from.
-    if (b.lance) {
-      const [hx, hy] = beamHead(l, b);
-      const [ax, ay] = beamAxis(b);
-      drawLanceBeam(ctx, l, b, hx, hy, ax, ay);
-      continue;
-    }
+    // **Every bullet on the field is an ordinary one.** A lance does not
+    // travel: the beam standing in the column *is* the weapon and it resolves
+    // that column on the tick it lights (`lance.ts`), so there is nothing for
+    // a second look to be about here.
     const look = SHOT_LOOK;
     const hex = b.color === "red" ? PALETTE.red : PALETTE.cyan;
     const frac = b.subMilli / 1000;

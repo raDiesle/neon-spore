@@ -337,22 +337,24 @@ This is the only tail in the game that is a plain hard line, which is why
 `STREAK` is on the TAIL axis — the question it asks is whether the thing that
 works for a point works for a body.
 
-**A lance is not this at all** (`packages/render/src/lance-beam.ts`). It is a
-ribbon three and a half tiles long whose two edges waver in opposite phases, so
-it swells and pinches along its length; three nodules ride inside it, and the
-head carries a white filament, a halo and a ring of the cannon's own colour.
-The wave is a function of where the shot *is* — `row` and `subMilli`, which
-both devices agree about to the thousandth — so the ripple travels because the
-shot travels and no clock is involved. It was asked for by name on 7 September
-2026: *make the beam shot of lance more spectaculous, in the colour of the
-cannon shot*.
+**A lance is not a bullet at all** (`packages/render/src/lance.ts`). It is one
+shaft of light in the cannon's column, drawn in two states by one routine so
+the thing that burns is visibly the thing the fill made: white at the core, the
+ammunition colour at its edges, with a crackle down it seeded on the tick so it
+shivers at the simulation's rate rather than the frame rate. Filling, it grows
+out of the muzzle and widens — cubed, so almost all of the growth is in the
+last beat. Burning, it stands at its widest for `lanceBeamBeats`, ending at
+whatever stopped it.
 
-Two more looks arrived with it, and neither replaces anything:
-`packages/render/src/lance.ts` draws the fill as a beam growing out of the
-muzzle — white at the core, the ammunition colour at its edges, widening as it
-fills — in place of the two white brackets that used to climb the column; and
-`packages/render/src/lance-flash.ts` washes the whole stage in the ammunition
-colour on the tick the shot leaves.
+The owner asked for the fill by name on 7 September 2026 — *improve the bar
+indicator to show a small beam like in independence day, which grows bigger and
+bigger, in white mixed with colour of cannon* — and then, watching it, for the
+beam to *be* the weapon and stay a beat longer. `packages/render/src/lance-flash.ts`
+washes the whole stage in the ammunition colour on the tick it lights, tuned
+down from a whiteout that hid the field for most of a second.
+
+The travelling ribbon that was the lance for one day is parked on NOT BUILT YET
+→ MECHANICS, under WEAPON IDEAS.
 
 ## Where this is decided from now on
 

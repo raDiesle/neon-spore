@@ -184,8 +184,7 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   // ShotConfig
   bulletTilesPerBeat: "AIM — colour and column",
   lancePrimeBeats: "LANCE — a column marked, then spent",
-  lancePierce: "LANCE — a column marked, then spent",
-  lanceTilesPerBeat: "LANCE — a column marked, then spent",
+  lanceBeamBeats: "LANCE — a column marked, then spent",
   fireEveryBeats: "AIM — colour and column",
   shotChargeBeats: "AIM — colour and column",
   colourArmourMs: "AIM — colour and column",

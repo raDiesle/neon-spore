@@ -39,13 +39,15 @@ import type { World } from "./world.js";
 
 /**
  * Spend the bullet on the creature it met. True when the shot goes on — only
- * ever a lance, and only through a body it destroyed, and only while it has
- * `lancePierce` bodies left in it.
+ * ever the beam THE LANCE burns a column with, and only through a body it
+ * destroyed.
  *
  * A lance is not a licence: a rock still stops it, a wrong colour still stops
- * it, and the queen still takes exactly one petal. What it buys is a *line* of
- * its own colour, which is the only thing the column can hold that an ordinary
- * shot has to be fired at one body at a time.
+ * it, and the queen still takes exactly one petal. What it buys is the whole
+ * *column* in its own colour, which is the one thing a column can hold that an
+ * ordinary shot has to be fired at one body at a time. There is no count on it
+ * any more — the owner took the three-body limit off on 7 September 2026 when
+ * the beam became the weapon.
  */
 export function resolve(world: World, b: Bullet, hit: Creature): boolean {
   if (isWardable(hit.kind)) {
@@ -202,6 +204,5 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
   world.score += world.cfg.scoreDestroy;
   world.events.push({ type: "destroy", col: hit.col, row: hit.row, color: hit.color });
   removeCreature(world, hit.id);
-  b.pierced += 1;
-  return b.lance && b.pierced < world.cfg.lancePierce;
+  return b.lance;
 }

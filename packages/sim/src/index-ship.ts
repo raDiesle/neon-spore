@@ -28,6 +28,8 @@ export { type HandMeans, handMeans } from "./hand.js";
 export { isqrt, type PullVec, tileCentreMilli } from "./handle-pull.js";
 export { guardArmed, hullPercent, ticksSinceGuard } from "./hull.js";
 export {
+  beamTicks,
+  type LanceBeam,
   lanceReady,
   type Prime,
   primeChargeMilli,

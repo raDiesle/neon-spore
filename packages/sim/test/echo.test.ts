@@ -244,7 +244,6 @@ describe("what a shot is worth", () => {
     subMilli: 0,
     color,
     lance: false,
-    pierced: 0,
     driftMilli: 0,
     aimMilli: 0,
   });
