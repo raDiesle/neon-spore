@@ -8,8 +8,8 @@ import { frame, surfaceSampler } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawPulseDrops } from "./pulse-drop.js";
-import { drawArrows, drawReceptors } from "./pulse-fall.js";
-import { drawPulseLanes, drawPulseLine, type PulseField, pulseField } from "./pulse-lane.js";
+import { drawArrivals, drawSockets } from "./pulse-fall.js";
+import { type PulseField, pulseField } from "./pulse-lane.js";
 import { drawPulseMeter, drawPulseTally, drawPulseVerdict } from "./pulse-meter.js";
 import type { ViewState } from "./renderer.js";
 import { seatSkin } from "./seat-skin.js";
@@ -31,19 +31,27 @@ import { drawShipAir } from "./ship-air.js";
  * that threw them away made the last boss of the act look like a different
  * game.
  *
- * So: four lanes fall through the space the grid would be, onto a line above
- * the hull, and the four buttons are lobes in the band's own sockets
- * (`pulse-button.ts`). **An arrow nobody answered goes past the line and into
- * the ship** (`pulse-drop.ts`), which is the other half of what he asked for —
- * a dropped arrow used to stop being drawn and take a number down with it.
+ * So: four lanes fall through the space the grid would be, into four sockets
+ * cut half into the hull, and the four buttons are lobes in the band's own
+ * sockets (`pulse-button.ts`). **A body nobody answered goes past its socket
+ * and into the ship** (`pulse-drop.ts`), which is the other half of what he
+ * asked for — a dropped one used to stop being drawn and take a number down
+ * with it.
+ *
+ * **What falls is the game's own bodies**, not the arcade's four arrows: a
+ * slick, a bulb, a meteor and a pod, drawn by the drawings the field already
+ * uses (`pulse-shape.ts`). That was his second pass over this round, and it
+ * carries all the way down into the simulation — the four lanes are *named*
+ * for them, so what the pair say out loud is the vocabulary they have had
+ * since wave one.
  *
  * **Each screen draws its own chart.** The two seats are playing the same
- * notes, but an arrow leaves a screen the moment *that* seat has resolved it —
+ * notes, but an arrival leaves a screen the moment *that* seat has resolved it —
  * so a player who is a bar behind sees a bar they are behind on, which is the
  * only honest picture. What the two screens genuinely disagree about is the
- * veil: an arrow this seat cannot read falls in the middle with its heading
- * cycling, and the same arrow on the other screen falls in its lane wearing a
- * light (`pulse-arrow.ts`).
+ * veil: one this seat cannot read falls in the middle as a bare silhouette
+ * cycling through all four, and the same one on the other screen falls in its
+ * lane wearing a light (`pulse-body.ts`).
  *
  * **The partner is on the screen and their misses are the reason.** The strip
  * under the line carries the other seat's last judgement and their run, and it
@@ -52,7 +60,7 @@ import { drawShipAir } from "./ship-air.js";
  * because of them.
  *
  * This file composes the screen. What is *falling* down it is `pulse-fall.ts`,
- * what happens to the ones that land is `pulse-drop.ts`.
+ * what happens to the ones nobody caught is `pulse-drop.ts`.
  */
 
 /** How long a judgement word stands before it fades, in ticks. */
@@ -94,16 +102,24 @@ export function drawPulseRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
   const set = view.controls === undefined ? controlSetForWave(world.wave) : view.controls;
   const seat: 1 | 2 = view.role === "p2" ? 2 : 1;
   const other: 1 | 2 = seat === 1 ? 2 : 1;
-  const field = pulseField(l, set, view.role);
   const skin = seatSkin(view.role);
+
+  // **The membrane first, because the lanes hang off it.** The placeholders
+  // are sunk into the ship, so where a lane *ends* is a question about the
+  // hull's own skin — one `frame()` built here and handed to the layout, the
+  // hull pass and the drops alike, so all three agree about where the ship is
+  // this tick (`canvas2d.ts` makes the same bargain for the same reason).
+  const { at, mood } = stillPose(view);
+  const f = frame(l, view.time, mood, at);
+  const field = pulseField(l, set, view.role, surfaceSampler(f));
 
   // The field's own ground, not a flat fill: the round sits in the same water
   // the ship always sits in, which is most of what "integrated" turned out to
-  // mean. No grid and no radar — those *are* the field, and the four lanes are
-  // what stands in their place.
+  // mean. No grid and no radar — those *are* the field — and no lane wells
+  // either, because the owner asked for the real background to be seen rather
+  // than striped (`pulse-lane.ts`).
   drawBackground(ctx, l, world.wave, view.time);
   drawShipAir(ctx, l, view.time, skin);
-  drawPulseLanes(ctx, field, view.time);
 
   ctx.textAlign = "center";
   drawTitle(ctx, l, boss);
@@ -111,14 +127,8 @@ export function drawPulseRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
   drawPulseTally(ctx, l, boss, seat);
 
   if (boss.phase === "count") drawCount(ctx, l, view, boss);
-  if (boss.phase === "play" || boss.phase === "count") drawArrows(ctx, view, boss, field, seat);
+  if (boss.phase === "play" || boss.phase === "count") drawArrivals(ctx, view, boss, field, seat);
 
-  // The ship, under the line and over the lanes. One membrane built here and
-  // handed to both the hull and the drops, so an arrow lands on the skin the
-  // eye is looking at rather than on a second one a fraction of a tick away
-  // (`canvas2d.ts` makes the same bargain for the same reason).
-  const { at, mood } = stillPose(view);
-  const f = frame(l, view.time, mood, at);
   drawHull(
     ctx,
     l,
@@ -133,11 +143,11 @@ export function drawPulseRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
     { x: 0, y: 0 },
     f,
   );
-  drawPulseDrops(ctx, l, view, boss, field, seat, surfaceSampler(f));
+  drawPulseDrops(ctx, l, view, boss, field, seat);
 
-  // Over the ship: the interface the round is actually played on.
-  drawPulseLine(ctx, field, view.beatPhase);
-  drawReceptors(ctx, view, boss, field, seat);
+  // Over the ship: the four sockets cut into it, which are the whole of the
+  // interface this round is played against.
+  drawSockets(ctx, view, boss, field, seat);
   drawWord(ctx, l, field, view, boss, seat, other);
 
   drawBand(ctx, l, world, false, false, view.time, view.controls);

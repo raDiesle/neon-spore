@@ -1,32 +1,33 @@
-import {
-  type PulseState,
-  pulseLaneIndex,
-  pulseNoteAt,
-  pulseNoteTick,
-  pulseVeiled,
-} from "@neon-spore/sim";
+import { type PulseState, pulseNoteTick } from "@neon-spore/sim";
 import { halo } from "./glow.js";
-import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { drawPulseArrow } from "./pulse-arrow.js";
+import { drawPulseArrival } from "./pulse-body.js";
+import { arrivalBox, bodyRadius } from "./pulse-fall.js";
 import type { PulseField } from "./pulse-lane.js";
 import { pulseLaneColor, pulseLaneRim } from "./pulse-shape.js";
 import type { ViewState } from "./renderer.js";
 
 /**
- * An arrow nobody answered falls into the ship.
+ * A body nobody answered falls into the ship.
  *
  * The owner asked for it in one line — *let the arrows who were incorrect, not
  * in time, fall inside the ship like meteors do* — and it is the thing that
- * turns a drained bar into a picture. Until this, a dropped arrow simply
- * stopped being drawn and a number somewhere went down; now it goes past the
- * line at the speed it was already falling, buries its point in the hull and
- * burns out there. **The arrow itself**, keeping its lane's colour the whole
- * way: an impact in this game is drawn in the colour of the thing that made
- * it, never a generic damage red.
+ * turns a drained bar into a picture. Until this, a dropped one simply stopped
+ * being drawn and a number somewhere went down; now it goes past its socket at
+ * the speed it was already falling, sinks through the skin, and leaves a mark
+ * in its own colour. **An impact is drawn in the colour of the thing that made
+ * it**, never a generic damage red — the rule the rest of the game already
+ * follows.
  *
- * **It costs the hull nothing, and that is the owner's call.** The shared
+ * **A meteor is what this was written for and a pod is the awkward one.** Three
+ * of the four are things that should never have reached the hull, so a crater
+ * is the honest mark. A pod is a *gift* the pair failed to catch, and a pod
+ * that punched a hole in the ship would be teaching the opposite of every wave
+ * it appears on. The owner was asked and chose: it **smashes** — the same
+ * drain, drawn as a spill spreading on the skin rather than a pit in it.
+ *
+ * **It costs the hull nothing, and that is the owner's call too.** The shared
  * meter is still the accounting — empty it and the ship pays
  * (`sim/pulse-round.ts`) — so nothing here reaches the simulation, and the
  * round is exactly as hard as it was.
@@ -43,9 +44,9 @@ import type { ViewState } from "./renderer.js";
 /** How long a drop is on the screen after it expires, in ticks. About a beat. */
 const LIFE = 70;
 
-/** How much of the fade is spent still falling, at most. The rest is burning
- * out in the skin: a drop that faded to nothing mid-air would read as an arrow
- * this seat got away with. */
+/** How much of a drop's life is spent at full strength before it starts going
+ * out. The rest is the mark fading: a drop that faded to nothing mid-air would
+ * read as a body this seat got away with. */
 const FADE_FROM = 0.55;
 
 export function drawPulseDrops(
@@ -55,13 +56,12 @@ export function drawPulseDrops(
   boss: PulseState,
   field: PulseField,
   seat: 1 | 2,
-  skinAt: SurfaceY,
 ): void {
   const cfg = view.world.cfg;
   const tick = view.world.tick;
   const judged = seat === 1 ? boss.judged1 : boss.judged2;
   const from = seat === 1 ? boss.from1 : boss.from2;
-  const r = Math.min(field.lanes[0]?.w ?? 40, 72) * 0.42;
+  const r = bodyRadius(field);
   // Backwards from the cursor: everything below it is resolved, and the notes
   // are in step order, so the walk stops at the first one too old to show.
   for (let i = from - 1; i >= 0; i--) {
@@ -69,69 +69,61 @@ export function drawPulseDrops(
     if (note === undefined) continue;
     // The tick `pulseExpire` gives up on it: one past the end of its own
     // window. Called out of the chart's own two numbers rather than guessed —
-    // a drop that started a tick early would start above the line.
+    // a drop that started a tick early would start above its socket.
     const gone = pulseNoteTick(cfg, boss.startTick, note) + cfg.pulseGoodTicks + 1;
     const age = tick - gone;
     if (age > LIFE) break;
     if (judged[i] !== 3 || age < 0) continue;
+    const box = arrivalBox(field, note, seat);
+    if (box === undefined) continue;
 
-    const veiled = pulseVeiled(note, seat);
-    const x = veiled
-      ? (field.lanes[1]?.x ?? 0) / 2 + (field.lanes[2]?.x ?? 0) / 2
-      : (field.lanes[pulseLaneIndex(note.lane)]?.x ?? 0);
-    // The same fall it was already making, continued: `pulseNoteAt` keeps
-    // counting past the line on purpose, so the arrow does not change speed at
-    // the moment nobody pressed it.
-    const at = pulseNoteAt(cfg, boss.startTick, note, tick);
-    const y = field.topY + (field.lineY - field.topY) * at;
-    const skin = skinAt(x);
-    // **It goes *into* the ship rather than resting on it**, which is the
-    // owner's own word for what should happen. The fall is never clamped: the
-    // arrow keeps coming at the speed it always had, and the part of it below
-    // the skin is simply not drawn — so what the eye sees is a body being
-    // swallowed by the hull rather than one parked on the surface. Nothing
-    // else in the game can do this: a rock is round and sits in the hole it
-    // made (`rock-impact.ts`), and an arrow has a point.
-    const struck = y + r >= skin;
-    if (y - r > skin) continue;
+    // **It sinks from the socket it was resting in**, at the speed it fell at,
+    // so the moment nobody dealt with it is the moment it goes through. The
+    // part of the body below the skin is simply not drawn, and what the eye
+    // sees is a thing being swallowed by the hull rather than one parked on
+    // the surface — the owner's own word for what should happen.
+    const speed = (box.landY - field.topY) / Math.max(1, cfg.pulseLeadTicks);
+    const y = box.landY + age * speed;
+    if (y - r > box.landY) continue;
     const life = age / LIFE;
     const fade = life < FADE_FROM ? 1 : Math.max(0, 1 - (life - FADE_FROM) / (1 - FADE_FROM));
 
     ctx.save();
-    if (struck) {
-      ctx.beginPath();
-      ctx.rect(0, 0, l.width, skin);
-      ctx.clip();
-    }
+    ctx.beginPath();
+    ctx.rect(0, 0, l.width, box.landY);
+    ctx.clip();
     ctx.globalAlpha = fade;
-    drawPulseArrow(ctx, {
-      x,
+    drawPulseArrival(ctx, {
+      x: box.x,
       y,
       r,
       lane: note.lane,
+      seed: i,
       time: view.time,
       near: 1,
-      // Whatever it was on the way down it is legible now: an arrow that hit
-      // the ship has stopped being a question.
+      // Whatever it was on the way down it is legible now: a body that hit the
+      // ship has stopped being a question.
       veiled: false,
     });
     ctx.restore();
-    if (struck) burn(ctx, x, skin, r, note.lane, fade);
+    mark(ctx, box.x, box.landY, r, note.lane, fade);
   }
 }
 
 /**
- * Where it went in: the hull scorched in the arrow's own colour, and the light
- * of it going out.
+ * Where it went in: the hull marked in the body's own colour, and the light of
+ * the impact going out.
  *
- * Two marks and neither of them is a ring. The hot one is the light the
- * impact throws, in the lane's rim colour, and under it a dark bloom sitting
- * *on* the skin that the hull's own sheen shows through — which is what makes
- * it read as the ship being marked rather than as a sticker on it. Both fade
- * with the arrow, because the owner asked for the fall and the damage, not for
- * a hull that collects a hundred permanent holes over a minute of music.
+ * Two marks and neither of them is a ring. The hot one is the light the impact
+ * throws, in the body's rim colour; under it a bloom sitting *on* the skin
+ * that the hull's own sheen shows through, which is what makes it read as the
+ * ship being marked rather than as a sticker on it. A **pod spills** instead —
+ * wider, flatter and with no dark core, because nothing was driven into
+ * anything: a lamp broke open on the plating and ran. Both fade with the body,
+ * because the owner asked for the fall and the damage, not for a hull that
+ * collects a hundred permanent holes over a minute of music.
  */
-function burn(
+function mark(
   ctx: CanvasRenderingContext2D,
   x: number,
   skin: number,
@@ -139,15 +131,18 @@ function burn(
   lane: Parameters<typeof pulseLaneColor>[0],
   fade: number,
 ): void {
-  const scorch = ctx.createRadialGradient(x, skin, 0, x, skin, r * 1.5);
-  scorch.addColorStop(0, PALETTE.background);
-  scorch.addColorStop(0.55, `${pulseLaneColor(lane)}55`);
-  scorch.addColorStop(1, `${pulseLaneColor(lane)}00`);
+  const spill = lane === "pod";
+  const rx = r * (spill ? 2.4 : 1.5);
+  const ry = r * (spill ? 0.42 : 0.7);
+  const wash = ctx.createRadialGradient(x, skin, 0, x, skin, rx);
+  wash.addColorStop(0, spill ? pulseLaneRim(lane) : PALETTE.background);
+  wash.addColorStop(0.55, `${pulseLaneColor(lane)}55`);
+  wash.addColorStop(1, `${pulseLaneColor(lane)}00`);
   ctx.save();
-  ctx.globalAlpha = 0.7 * fade;
-  ctx.fillStyle = scorch;
+  ctx.globalAlpha = (spill ? 0.55 : 0.7) * fade;
+  ctx.fillStyle = wash;
   ctx.beginPath();
-  ctx.ellipse(x, skin, r * 1.5, r * 0.7, 0, 0, Math.PI * 2);
+  ctx.ellipse(x, skin, rx, ry, 0, 0, Math.PI * 2);
   ctx.fill();
   ctx.restore();
   halo(ctx, x, skin, r * 2.2, pulseLaneRim(lane), 0.5 * fade);

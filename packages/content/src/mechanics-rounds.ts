@@ -33,7 +33,7 @@ export const ROUND_MECHANICS = {
     reach: "spawn",
   },
   pulse: {
-    what: "Four lanes of arrows fall onto four buttons and both of you have the same four, against one chart. Some arrows arrive on one screen with the direction taken off them and readable only on the other, so a bar of a song is a bar of being told what to press. A missed arrow costs that seat's meter; either meter emptied and the hull pays.",
+    what: "Slicks, bulbs, rocks and pods fall down four lanes into four sockets cut into the hull, and both of you have the same four buttons, against one chart. Some arrive on one screen as a grey shape cycling through all four, readable only on the other, so a bar of a song is a bar of being told what to press. Anything nobody presses sinks into the ship and drains the shared meter; empty it and the hull pays.",
     reach: "spawn",
   },
 } as const satisfies Record<string, Mechanic>;

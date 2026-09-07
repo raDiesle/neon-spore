@@ -131,22 +131,18 @@ export function controlPress(id: ControlId, col = 0): ControlPress {
      * because the round does not care which thumb a press came from — both
      * play the same chart (`sim/pulse-controls.ts`).
      */
-    case "pulse1Left":
-      return { down: { kind: "pulseStep", lane: "left" } };
-    case "pulse1Down":
-      return { down: { kind: "pulseStep", lane: "down" } };
-    case "pulse1Up":
-      return { down: { kind: "pulseStep", lane: "up" } };
-    case "pulse1Right":
-      return { down: { kind: "pulseStep", lane: "right" } };
-    case "pulse2Left":
-      return { down: { kind: "pulseStep", lane: "left" } };
-    case "pulse2Down":
-      return { down: { kind: "pulseStep", lane: "down" } };
-    case "pulse2Up":
-      return { down: { kind: "pulseStep", lane: "up" } };
-    case "pulse2Right":
-      return { down: { kind: "pulseStep", lane: "right" } };
+    case "pulse1Slick":
+    case "pulse2Slick":
+      return { down: { kind: "pulseStep", lane: "slick" } };
+    case "pulse1Bulb":
+    case "pulse2Bulb":
+      return { down: { kind: "pulseStep", lane: "bulb" } };
+    case "pulse1Meteor":
+    case "pulse2Meteor":
+      return { down: { kind: "pulseStep", lane: "meteor" } };
+    case "pulse1Pod":
+    case "pulse2Pod":
+      return { down: { kind: "pulseStep", lane: "pod" } };
     case "pinLatch":
       return { down: { kind: "latch" } };
     case "pinLaunch":

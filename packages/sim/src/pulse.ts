@@ -9,10 +9,10 @@
  * the round costs no teaching and every beat of it can be spent on the part
  * that is ours.
  *
- * **The part that is ours is the veil.** Every so often an arrow arrives on
- * one seat's screen with its direction taken off it — it falls between the
- * lanes, cycling through all four, and it cannot be read. On the *other*
- * seat's screen the same arrow falls in its true lane wearing a call mark.
+ * **The part that is ours is the veil.** Every so often an arrival lands on
+ * one seat's screen with its body taken off it — it falls between the lanes,
+ * cycling through all four, and it cannot be read. On the *other* seat's
+ * screen the same one falls in its true lane wearing a call mark.
  * Both of them still have to hit it. So the round is not two people playing
  * the same game beside each other: it is two people each holding a fifth of
  * the other's chart, saying "LEFT — now" into a fixed grid that will not wait.
@@ -38,11 +38,25 @@
 
 /**
  * The four lanes, in the order they are drawn and in the order the panel puts
- * them under a thumb: left, down, up, right. That is the arcade's order and
- * not an opinion — a pair who reach for it will reach for it in this order,
- * and the index is what goes on the wire and into the fingerprint.
+ * them under a thumb. The index is what goes on the wire and into the
+ * fingerprint, so the order is fixed once and never sorted.
+ *
+ * **They are the game's own bodies and not the arcade's four arrows**, and
+ * that is the owner's decision on 7 September 2026. The round shipped as Dance
+ * Dance Revolution unmodified, with LEFT DOWN UP RIGHT, on the argument that a
+ * pair who have played one need no teaching; he replaced the arrows with a
+ * slick, a bulb, a meteor and a pod, and the names had to follow the pictures
+ * all the way down here. A lane called `left` under a slick would be a
+ * direction nothing on the screen points in, and every file in the round would
+ * go on repeating it.
+ *
+ * What it buys is bigger than tidiness. The veil is the round — one seat
+ * cannot read an arrival and the other has to say what it is — and the word
+ * they say is now a word the pair have been using since wave one. "BULB — now"
+ * is the game's vocabulary; "LEFT — now" was a second one learnt for ninety
+ * seconds.
  */
-export const PULSE_LANES = ["left", "down", "up", "right"] as const;
+export const PULSE_LANES = ["slick", "bulb", "meteor", "pod"] as const;
 export type PulseLane = (typeof PULSE_LANES)[number];
 
 /** How a press or an expiry was judged. The index is what the fingerprint holds. */

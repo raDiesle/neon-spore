@@ -6,12 +6,12 @@ import { pulseBarSteps, pulseBars } from "./pulse-steps.js";
  *
  * **COLD START is the round's first stage and its whole teaching.** It is
  * twenty-four bars, one minute, and it is built the way an arcade's first
- * stage is: the pattern arrives before the speed does. Two bars of one arrow
+ * stage is: the pattern arrives before the speed does. Two bars of one body
  * every two beats, then one a beat, then pairs, and then a note every other
  * step — which at three steps to a beat is three against two, and is the first
  * thing in it that sounds alien rather than square.
  *
- * **There are four veiled arrows in the whole minute, and that is the number
+ * **There are four veiled arrivals in the whole minute, and that is the number
  * the owner asked for.** An earlier draft had nineteen of them, including two
  * bars where one seat was blind from end to end, and it made the round about
  * being read to rather than about playing. Four is a spice: bars 7 and 18 hide
@@ -33,46 +33,46 @@ import { pulseBarSteps, pulseBars } from "./pulse-steps.js";
 
 /** Twenty-four bars. Three steps to a beat, so a bar is twelve of them. */
 const COLD_START_BARS = [
-  // One arrow every two beats. Nothing to do but find the buttons.
-  "L  .  .   .  .  .   R  .  .   .  .  .",
-  "L  .  .   .  .  .   R  .  .   .  .  .",
+  // One body every two beats. Nothing to do but find the buttons.
+  "S  .  .   .  .  .   P  .  .   .  .  .",
+  "S  .  .   .  .  .   P  .  .   .  .  .",
   // One a beat, and the four lanes have all been used by the end of it.
-  "D  .  .   U  .  .   D  .  .   U  .  .",
-  "L  .  .   R  .  .   D  .  .   U  .  .",
+  "B  .  .   M  .  .   B  .  .   M  .  .",
+  "S  .  .   P  .  .   B  .  .   M  .  .",
   // Pairs, so a hand learns to stay where it is.
-  "L  .  .   L  .  .   D  .  .   D  .  .",
-  "U  .  .   U  .  .   R  .  .   R  .  .",
-  // The first veiled arrow, and everything around it is a bar the pair have
+  "S  .  .   S  .  .   B  .  .   B  .  .",
+  "M  .  .   M  .  .   P  .  .   P  .  .",
+  // The first veiled arrival, and everything around it is a bar the pair have
   // already played twice. One word, in a bar with room for it.
-  "L  .  .   D1 .  .   U  .  .   R  .  .",
-  "L  .  .   D  .  .   U  .  .   R  .  .",
+  "S  .  .   B1 .  .   M  .  .   P  .  .",
+  "S  .  .   B  .  .   M  .  .   P  .  .",
   // Every other step: three notes against two beats, which is the first thing
   // in the stage that does not sit square on the click.
-  "L  .  D   .  U  .   R  .  U   .  D  .",
-  "L  .  D   .  U  .   R  .  U   .  D  .",
-  "L  .  .   D  .  .   U  .  .   R  .  .",
-  // Four consecutive steps, twice, and the second run has a veiled arrow in
+  "S  .  B   .  M  .   P  .  M   .  B  .",
+  "S  .  B   .  M  .   P  .  M   .  B  .",
+  "S  .  .   B  .  .   M  .  .   P  .  .",
+  // Four consecutive steps, twice, and the second run has a veiled one in
   // the middle of it — the hard version of the call, because the naming has to
   // happen a bar early.
-  "L  D  U   R  .  .   L  D  U2  R  .  .",
+  "S  B  M   P  .  .   S  B  M2  P  .  .",
   // The cross-rhythm again and then turned round, which is the same bar
   // read backwards and is meant to be heard as one.
-  "L  .  D   .  U  .   R  .  D   .  U  .",
-  "R  .  U   .  D  .   L  .  U   .  D  .",
-  "L  .  .   R  .  .   D  .  .   U  .  .",
+  "S  .  B   .  M  .   P  .  B   .  M  .",
+  "P  .  M   .  B  .   S  .  M   .  B  .",
+  "S  .  .   P  .  .   B  .  .   M  .  .",
   // The first jump, and a whole beat either side of it to find two thumbs.
-  "LR .  .   .  .  .   DU .  .   .  .  .",
-  "L  .  D   .  U  .   R  .  L   .  D  .",
-  "U  .  R   .  L1 .   D  .  U   .  R  .",
-  "L  D  .   U  R  .   L  D  .   U  R  .",
-  "D  .  .   U  .  .   D  .  .   U  .  .",
+  "SP .  .   .  .  .   BM .  .   .  .  .",
+  "S  .  B   .  M  .   P  .  S   .  B  .",
+  "M  .  P   .  S1 .   B  .  M   .  P  .",
+  "S  B  .   M  P  .   S  B  .   M  P  .",
+  "B  .  .   M  .  .   B  .  .   M  .  .",
   // The way out: square again, so the stage ends on something countable.
-  "L  .  .   R  .  .   L  .  .   R  .  .",
-  "D  .  .   U2 .  .   D  .  .   U  .  .",
+  "S  .  .   P  .  .   S  .  .   P  .  .",
+  "B  .  .   M2 .  .   B  .  .   M  .  .",
   // Eight straight steps — the fastest thing in the stage, and readable by
   // both of them, because a run nobody can see is not a run, it is a guess.
-  "L  D  U   R  L  D   U  R  .   .  .  .",
-  "LR .  .   .  .  .   .  .  .   .  .  .",
+  "S  B  M   P  S  B   M  P  .   .  .  .",
+  "SP .  .   .  .  .   .  .  .   .  .  .",
 ];
 export const COLD_START: PulseStage = {
   name: "COLD START",

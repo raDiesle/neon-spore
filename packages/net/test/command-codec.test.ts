@@ -41,7 +41,7 @@ const ACCEPTED: Command[] = [
   { kind: "aim", dcol: 1, drow: 0 },
   { kind: "salvo" },
   // THE PULSE's one verb, and the only one both seats send.
-  { kind: "pulseStep", lane: "up" },
+  { kind: "pulseStep", lane: "meteor" },
 ];
 
 /**

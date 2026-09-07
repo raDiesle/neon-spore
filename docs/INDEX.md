@@ -707,16 +707,17 @@ place — the generator keeps whatever is there.
 | `packages/render/src/choir.ts` | THE CHOIR as it stands before the pilot's gesture |
 | `packages/render/src/maze-drips.ts` | The half of a refused shot that lands on the ship: a pool across the top of the hull |
 | `packages/render/src/maze-spill.ts` | What a shot the heart refuses throws back, and how far it gets |
-| `packages/render/src/pulse-arrow.ts` | One arrow, and the two ways of drawing one that cannot be read |
 | `packages/render/src/pulse-fall.ts` | The arrows themselves: what is falling, what is standing on the line |
 | `packages/render/src/pulse-lane.ts` | Where THE PULSE's four lanes are, and where the line across them is |
 | `packages/render/src/pulse-meter.ts` | The one meter, the tally under it, and the verdict |
 | `packages/render/src/pulse-round.ts` | THE PULSE over the whole stage |
 | `packages/render/src/pulse-button.ts` | THE PULSE's four lanes, as a face on one of the band's own lobes |
 | `packages/render/src/pulse-drop.ts` | An arrow nobody answered falls into the ship |
-| `packages/render/src/pulse-shape.ts` | What an arrow in THE PULSE is made of: its hue, its heading and its contour |
+| `packages/render/src/pulse-shape.ts` | What falls down each of THE PULSE's four lanes, and what colour it is |
 | `packages/render/src/lance-beam.ts` | A lance in flight: not a dot with a tail behind it, but a length of the column that is briefly alive |
 | `packages/render/src/lance-flash.ts` | The whole screen going white, then the ammunition colour, then nothing |
+| `packages/render/src/body-mark.ts` | One living body, at a size, with no world around it |
+| `packages/render/src/pulse-body.ts` | One arrival falling down a lane, and the two ways of drawing one that cannot be read |
 
 ### packages/net
 

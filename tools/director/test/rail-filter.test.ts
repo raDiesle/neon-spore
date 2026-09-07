@@ -124,9 +124,14 @@ describe("waveMatches", () => {
   });
 
   test("a power-up's name finds the waves that hang one", () => {
-    const withPods = WAVES.map((w) => (w.pods ?? []).length > 0);
+    // Or that talk about one, which is the same allowance the shell test above
+    // makes and for the same reason: a guide that names a pod is a wave an
+    // author searching for pods wants back. THE PULSE is why this is written
+    // out rather than assumed — one of its four lanes *is* a pod, so its guide
+    // says the word without a single pod hanging over the field.
+    const wanted = WAVES.map((w) => (w.pods ?? []).length > 0 || prose(w).includes("pod"));
     const found = WAVES.map((_, i) => waveMatches(WAVES, i, "pod"));
-    expect(found).toEqual(withPods);
+    expect(found).toEqual(wanted);
   });
 
   test("several terms all have to match", () => {

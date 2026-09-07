@@ -1,3 +1,4 @@
+import type { PulseLane } from "@neon-spore/sim";
 import { controlPress } from "./control-command.js";
 import { type ControlSet, layoutSet, setControls } from "./control-sets.js";
 import type { ControlId } from "./controls.js";
@@ -80,23 +81,24 @@ const SEAT_KEYS: Record<1 | 2, { slide: readonly [string, string]; press: readon
 };
 
 /**
- * A seat's whole four-way, for a panel that gives *both* seats four
- * directions — which so far is THE PULSE and nothing else.
+ * A seat's own four, for a panel that gives *both* seats four of something —
+ * which so far is THE PULSE and nothing else.
  *
  * `ARROWS` below is one four-way shared by whichever seat's panel has one, and
  * that was enough while only one seat at a time could have it. This round
- * hands the same four buttons to both, so each needs a four-way of its own:
- * player 1 takes WASD around the slide pair his hand is already on, and player
- * 2 keeps the arrow keys.
+ * hands the same four to both: player 1 takes WASD around the slide pair his
+ * hand is already on, player 2 keeps the arrows.
+ * **Keyed by the lane's own name** rather than by a direction — those lanes
+ * are the game's own bodies now — and each keeps the key its arrow had.
  */
-const SEAT_WAYS: Record<1 | 2, Record<Way, string>> = {
-  1: { left: "KeyA", right: "KeyD", up: "KeyW", down: "KeyS" },
-  2: { left: "ArrowLeft", right: "ArrowRight", up: "ArrowUp", down: "ArrowDown" },
+const SEAT_WAYS: Record<1 | 2, Record<PulseLane, string>> = {
+  1: { slick: "KeyA", bulb: "KeyS", meteor: "KeyW", pod: "KeyD" },
+  2: { slick: "ArrowLeft", bulb: "ArrowDown", meteor: "ArrowUp", pod: "ArrowRight" },
 };
 
 /** A direction a control names, or `"column"` for a strip, which names none. */
 type Way = "left" | "right" | "up" | "down";
-type Aim = Way | "column" | null;
+type Aim = Way | PulseLane | "column" | null;
 
 /** The four-way, for whichever seat's panel carries one — a chart's sights,
  * a snake's two turns. Never a seat's own: only one panel at a time has it. */
@@ -199,11 +201,11 @@ export function deskKeys(set: ControlSet): readonly DeskKey[] {
         continue;
       }
       if (onSeatWays(def.id)) {
-        keys.push({ code: SEAT_WAYS[player][aim], player, control: def.id });
+        keys.push({ code: SEAT_WAYS[player][aim as PulseLane], player, control: def.id });
         continue;
       }
       if (onArrows(def.id)) {
-        keys.push({ code: ARROWS[aim], player, control: def.id });
+        keys.push({ code: ARROWS[aim as Way], player, control: def.id });
         continue;
       }
       // A sideways control that names its own direction — a valve, a bucket —

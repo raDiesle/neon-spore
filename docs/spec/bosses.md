@@ -827,20 +827,28 @@ can answer any of them.
 > can see.
 
 A seventh boss, and the first one lifted whole from a game everybody has
-already played. Four lanes of arrows fall down the screen onto a line of empty
-ones at the bottom, both seats have the same four buttons, and both press
-against the same chart at the same moment. That much is Dance Dance Revolution
-and it is deliberately unmodified — a pair who have ever seen one need no
-teaching at all, so every beat of the round can be spent on the part that is
-ours.
+already played. Four lanes fall down the screen into four sockets at the
+bottom, both seats have the same four buttons, and both press against the same
+chart at the same moment. That much is Dance Dance Revolution and it is
+deliberately unmodified — a pair who have ever seen one need no teaching at
+all, so every beat of the round can be spent on the part that is ours.
 
-**The part that is ours is the veil.** Every so often an arrow arrives on one
-seat's screen with its direction taken off it: it falls between the lanes with
-its heading cycling through all four, unreadable, and on the *other* seat's
-screen the same arrow falls in its true lane wearing a light. Both of them
-still have to press it. So the round is not two people playing the same game
-beside each other — it is two people each holding a handful of the other's
-chart, saying "LEFT — now" into a grid that will not wait.
+**What falls is the game's own bodies, and it was arrows.** A slick, a bulb, a
+meteor and a pod come down the four lanes, each drawn by the drawing the field
+already uses. The owner replaced the arcade's four arrows with them, and the
+names followed the pictures all the way into the simulation: `PulseLane` is
+`slick | bulb | meteor | pod`, the chart is written in `S B M P`, and the eight
+buttons are `pulse1Slick` and its seven siblings. What that buys is bigger than
+tidiness — the veil below is a round about **saying a word out loud**, and the
+word is now one the pair have been using since wave one.
+
+**The part that is ours is the veil.** Every so often an arrival lands on one
+seat's screen with its body taken off it: it falls between the lanes as a bare
+grey silhouette cycling through all four, unreadable, and on the *other* seat's
+screen the same one falls in its true lane wearing a light. Both of them still
+have to press it. So the round is not two people playing the same game beside
+each other — it is two people each holding a handful of the other's chart,
+saying "BULB — now" into a grid that will not wait.
 
 That is what makes it a round rather than a mini-game bolted on. A round's
 third condition is that neither player can play it alone
@@ -850,7 +858,7 @@ changing a single button**. It is the same shape THE VEIL and THE GHOST already
 have on the field, arriving in a round for the first time.
 
 **Four in a minute, and that number was argued.** The first draft veiled
-nineteen arrows of a hundred and fourteen, including two bars where one seat
+nineteen arrivals of a hundred and fourteen, including two bars where one seat
 was blind end to end. The owner cut it to a spice: four, spread across
 twenty-four bars, each landing in a bar the pair have already played once, so
 the call is the only new thing in it. A round where being read to is the whole
@@ -858,11 +866,11 @@ activity is a round where nobody is playing.
 
 **One meter, and both of you fill it.** DDR gives each cabinet a groove gauge;
 this gives the pair one bar between them, fed by every hit either of them lands
-and drained by every arrow either of them drops. That was the owner's call over
+and drained by everything either of them drops. That was the owner's call over
 two meters side by side, and the reason is what a falling bar means: two bars
 are *mine* and *theirs*, and one bar is **ours**. The cost is real and was
 accepted — one of you can carry the other for a while — and it is bought back
-by the fact that every arrow has to be hit twice, so a seat that stops pressing
+by the fact that every body has to be hit twice, so a seat that stops pressing
 halves the fill and doubles the drain inside a bar. Empty it and the round is
 over and the hull pays `damagePulse`.
 
@@ -874,37 +882,50 @@ whose two devices disagree about when a note was. Three steps to a beat at 96
 BPM is 288 steps a minute, the same grid as straight eighths at 144: fast, and
 reachable with one thumb.
 
-**The song is the chart.** There is no backing track and no theme: an arrow
-crossing the line plays its lane's note, the grid plays a kick and a sub under
+**The song is the chart.** There is no backing track and no theme: a body
+reaching its socket plays its lane's note, the grid plays a kick and a sub under
 it, and every one of those is fired off the simulation's own tick clock
 (`packages/audio/src/mixer-pulse.ts`). The alternative was a piece from
 `packages/audio/src/music/`, and it was rejected on drift — that player
-schedules against the browser's audio clock while the arrows fall on the tick
+schedules against the browser's audio clock while the bodies fall on the tick
 clock, and a minute of that on a slow phone is a song that has walked away from
-its own chart. The four lanes are a minor-seventh spread, so a bar of arrows is
-a melody and a jump is an interval.
+its own chart. The four lanes are a minor-seventh spread, so a bar of
+them is a melody and a jump is an interval.
 
 **The ship is on the screen and the panel is the band.** It did not ship that
 way: the round replaced the whole picture, on the rule the first three rounds
 set — the field is *gone*. The owner looked at it and asked for the opposite:
 *more integrated, how a regular game with control panel looks — to see the ship
 and its controls, and buttons in the same style as the default set.* So the
-hull is drawn under the lanes, the HUD is over them, and the four buttons are
-**lobes in the band's own sockets** rather than a slab panel of the round's
-own — the same grown contour, wet socket, gloss and slime every other button in
-the game stands in, each carrying the arrow of its lane. The rule survives it:
-what a round takes away is the *field*, and the hull and the panel are not the
-field ([interludes](interludes.md)).
+hull is drawn under the lanes, the HUD is over them, the field's own backdrop
+is behind them with nothing painted across it, and the four buttons are **lobes
+in the band's own sockets** rather than a slab panel of the round's own — the
+same grown contour, wet socket, gloss and slime every other button in the game
+stands in, each wearing the body of its lane. The rule survives it: what a
+round takes away is the *field*, and the hull and the panel are not the field
+([interludes](interludes.md)).
 
-**An arrow nobody answered falls into the ship.** The owner asked for that in
-the same breath — *let the arrows who were incorrect, not in time, fall inside
-the ship like meteors do* — and it is what turns a drained bar into a picture.
-A dropped arrow used to stop being drawn while a number went down somewhere;
-now it goes past the line at the speed it was already falling, sinks into the
-hull, and burns out there in its own lane's colour. It costs the hull nothing:
+**The sockets are cut into the hull.** There is no judgement line across the
+screen: the four placeholders sit half inside the ship, the way a crater does,
+riding the membrane's own breathing — which is the owner's picture and also the
+rule the rest of the game resolves collisions by, a body answered on the beat
+it is drawn touching. A body reaches its socket on its due tick and **rests
+there** for the grace period, because one that went on sliding through the hull
+while it was still hittable was out of sight underneath the ship by the time
+anybody called it a miss.
+
+**And then it goes through.** The owner asked for that in the same breath —
+*let the arrows who were incorrect, not in time, fall inside the ship like
+meteors do* — and it is what turns a drained bar into a picture. A dropped body
+used to stop being drawn while a number went down somewhere; now it sinks out
+of its socket at the speed it fell at, the part below the skin simply not
+drawn, and leaves a mark in its own colour. A **pod spills** rather than
+cratering: it is a gift the pair failed to catch, not a thing that should ever
+have reached the hull, and a pod punching a hole in the ship would teach the
+opposite of every wave it appears on. It costs the hull nothing either way —
 the meter is still the accounting, which was the owner's answer when he was
-asked. It is drawn from the world alone — the tick a note expires on is fixed
-by the chart — so it holds no state and two devices cannot disagree about it
+asked. It is drawn from the world alone, the tick a note expires on being fixed
+by the chart, so it holds no state and two devices cannot disagree about it
 (`packages/render/src/pulse-drop.ts`).
 
 **Where it lives.** The round is `packages/sim/src/pulse.ts`, its clock
@@ -912,7 +933,9 @@ by the chart — so it holds no state and two devices cannot disagree about it
 `pulse-controls.ts`; its numbers are `config-pulse.ts` and its panel is the
 `pulse` control set — eight lobes, four to a seat, and the first panel in the
 game that is the same in both. The picture is seven files under
-`packages/render/src/pulse-*.ts`. Its stages are
+`packages/render/src/pulse-*.ts`, none of which paints a body of its own:
+`pulse-shape.ts` calls the field's drawings through `body-mark.ts`,
+`meteor.ts` and `pods.ts`. Its stages are
 `packages/content/src/pulse-stages.ts`, **written as bars of text** rather than
 as a list of `{ step, lane }`, because the only thing that matters about a
 chart is the shape of the rhythm and two hundred objects hide it. Its wave is
@@ -921,5 +944,5 @@ chart is the shape of the rhythm and two hundred objects hide it. Its wave is
 What has **not** been looked at by a human is everything about the feel: whether
 a hundred and sixty-seven milliseconds of scroll is enough warning on a phone,
 whether the two judging windows are generous or slack under a thumb on glass,
-and whether four veiled arrows in a minute is a spice or a rounding error. All
+and whether four veiled arrivals in a minute is a spice or a rounding error. All
 three are questions about an eye and a hand, and no test can answer any of them.

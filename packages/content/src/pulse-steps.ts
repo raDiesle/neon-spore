@@ -12,15 +12,20 @@ import { DEFAULT_CONFIG, type PulseLane, type PulseNote, ticksPerBeat } from "@n
  * from across the room.
  *
  * ```
- * "L  .  .   D  .  .   U  .  .   R  .  ."   one arrow on each beat
- * "L  .  D   .  U  .   R  .  L   .  D  ."   one every other step: three against two
- * "L1 .  .   R  .  .   D2 .  .   U  .  ."   the first is player 1's to be told
+ * "S  .  .   B  .  .   M  .  .   P  .  ."   one body on each beat
+ * "S  .  B   .  M  .   P  .  S   .  B  ."   one every other step: three against two
+ * "S1 .  .   P  .  .   B2 .  .   M  .  ."   the first is player 1's to be told
  * ```
  *
- * A token is one or more lanes — `L` left, `D` down, `U` up, `R` right — and
- * two on one token is a jump, both to be pressed on the same step. A trailing
- * `1` or `2` is the **veil**: the seat that cannot read it and has to be told
- * (`PulseNote.veil`). `.` is a rest.
+ * A token is one or more lanes — `S` slick, `B` bulb, `M` meteor, `P` pod —
+ * and two on one token is a jump, both to be pressed on the same step. A
+ * trailing `1` or `2` is the **veil**: the seat that cannot read it and has to
+ * be told (`PulseNote.veil`). `.` is a rest.
+ *
+ * The letters were `L D U R` while the four lanes were the arcade's four
+ * arrows. The owner replaced the arrows with the game's own bodies, and a
+ * notation naming directions nothing points in would have been the last place
+ * the old round survived.
  *
  * This is content and it is data; the reader is here rather than in `sim`
  * because a chart is authored, and nothing the simulation runs ever sees a
@@ -41,14 +46,14 @@ export const PULSE_STEPS_PER_BEAT = ticksPerBeat(DEFAULT_CONFIG) / DEFAULT_CONFI
 /** Steps in a bar. Four beats, like every other bar in this game. */
 export const PULSE_BAR_STEPS = PULSE_STEPS_PER_BEAT * 4;
 
-const LANE_OF: Record<string, PulseLane> = { L: "left", D: "down", U: "up", R: "right" };
+const LANE_OF: Record<string, PulseLane> = { S: "slick", B: "bulb", M: "meteor", P: "pod" };
 
 /**
  * The bars, read into notes in order.
  *
  * It throws rather than skipping, and on the two things that are typing
  * mistakes rather than choices: a bar of the wrong length silently shifts
- * everything after it, and an unknown letter silently drops an arrow. Both
+ * everything after it, and an unknown letter silently drops a body. Both
  * read on the screen as the round being broken.
  */
 export function pulseBars(bars: readonly string[]): PulseNote[] {

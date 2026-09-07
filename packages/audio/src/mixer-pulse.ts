@@ -15,12 +15,12 @@ import type { Memory } from "./memory.js";
  * frame's world to the last one's, which is the same mechanism the click track
  * has used since the game had one. The owner chose it over a backing theme,
  * and the reason is drift — `MusicPlayer` schedules against the browser's
- * audio clock while the arrows fall on the tick clock, and a minute of that on
+ * audio clock while the bodies fall on the tick clock, and a minute of that on
  * a slow phone is a song that has walked away from its own chart.
  *
  * **What it plays, in three layers.** A kick on every beat and a thin tick on
  * the two steps between (three to a beat is the grid, `config-pulse.ts`); a
- * sub on the first and the middle of each bar; and the arrow's own lane voice
+ * sub on the first and the middle of each bar; and each body's own lane voice
  * at the moment it crosses the line, whether anybody hit it or not — because
  * the song is the chart and a missed note is still a note in the tune.
  *
@@ -38,7 +38,7 @@ export type Play = (id: string, pan?: number) => void;
 
 /** Where in the stereo field each lane sits, left to right. */
 const LANE_PAN = [-0.5, -0.17, 0.17, 0.5];
-const LANE_SOUND = ["boss.pulseLeft", "boss.pulseDown", "boss.pulseUp", "boss.pulseRight"];
+const LANE_SOUND = ["boss.pulseSlick", "boss.pulseBulb", "boss.pulseMeteor", "boss.pulsePod"];
 
 export function soundPulse(world: World, first: boolean, m: Memory, play: Play): void {
   const boss = world.boss;
@@ -72,7 +72,7 @@ export function soundPulse(world: World, first: boolean, m: Memory, play: Play):
   }
   if (boss.phase === "play" || boss.phase === "count") {
     bed(world, boss, m, play);
-    arrows(world, boss, m, play);
+    arrivals(world, boss, m, play);
   }
   judgements(boss, m, play);
 }
@@ -104,14 +104,14 @@ function bed(world: World, boss: PulseState, m: Memory, play: Play): void {
 }
 
 /**
- * The chart itself: each arrow's lane voice as it crosses the line, and a
+ * The chart itself: each body's lane voice as it reaches its socket, and a
  * swallowed warning tone the moment a veiled one *enters* the top.
  *
  * The warning is on both devices rather than only on the blind seat's, and
  * that is deliberate: the pair are being told a call is coming, and the seat
  * who has to make it needs the warning as much as the seat who cannot see.
  */
-function arrows(world: World, boss: PulseState, m: Memory, play: Play): void {
+function arrivals(world: World, boss: PulseState, m: Memory, play: Play): void {
   const cfg = world.cfg;
   while (m.pulseWarned < boss.notes.length) {
     const note = boss.notes[m.pulseWarned];

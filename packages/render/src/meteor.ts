@@ -23,9 +23,30 @@ export function drawMeteor(
   y: number,
   time: number,
 ): void {
-  const r = rockRadius(l, spanOf(c));
   const spin = (c.id % 13) * 0.48;
   const wobble = Math.sin(time * 1.1 + spin) * l.tile * 0.06;
+  drawRockBody(ctx, x + wobble, y, rockRadius(l, spanOf(c)), time, c.id, c.holes);
+}
+
+/**
+ * The rock itself, at a place and a size somebody else chose.
+ *
+ * Split out of `drawMeteor` so a rock can be drawn where there is no
+ * `Creature` and no `Layout` row to be in — THE PULSE's meteor lane, where one
+ * falls down a chart rather than down a column, and the button under it, which
+ * wears the same stone. `seed` stands in for the creature id: it is what
+ * places the pits and starts the spin, and both devices agree on it because it
+ * is a number out of the simulation either way.
+ */
+export function drawRockBody(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  r: number,
+  time: number,
+  seed: number,
+  holes: number,
+): void {
   const d = crystalPath(
     0,
     0,
@@ -39,9 +60,9 @@ export function drawMeteor(
   );
   const path = new Path2D(d);
 
-  const turn = spin + time * 0.12;
+  const turn = (seed % 13) * 0.48 + time * 0.12;
   ctx.save();
-  ctx.translate(x + wobble, y);
+  ctx.translate(x, y);
 
   // The body and its holes turn with the rock; a shell around it does not.
   // Anything glued to a spinning stone reads as painted on, and a field is
@@ -50,9 +71,9 @@ export function drawMeteor(
   ctx.rotate(turn);
   METEOR_LOOK.body(ctx, path, r, turn, time);
   const { dx, dy } = keyAxis(turn);
-  for (let k = 0; k < c.holes; k++) {
-    const a = ((k * 2.399) % (Math.PI * 2)) + (c.id % 5) * 0.4;
-    const dist = 0.3 + ((k * 7 + c.id) % 10) / 28;
+  for (let k = 0; k < holes; k++) {
+    const a = ((k * 2.399) % (Math.PI * 2)) + (seed % 5) * 0.4;
+    const dist = 0.3 + ((k * 7 + seed) % 10) / 28;
     METEOR_LOOK.pit(ctx, Math.cos(a) * r * dist, Math.sin(a) * r * dist, r * 0.16, dx, dy);
   }
   ctx.restore();
@@ -60,5 +81,5 @@ export function drawMeteor(
   METEOR_LOOK.shell?.(ctx, r, time);
   ctx.restore();
 
-  halo(ctx, x + wobble, y, r * METEOR_LOOK.haloMul, METEOR_LOOK.haloColor, METEOR_LOOK.haloAlpha);
+  halo(ctx, x, y, r * METEOR_LOOK.haloMul, METEOR_LOOK.haloColor, METEOR_LOOK.haloAlpha);
 }

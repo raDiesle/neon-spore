@@ -55,9 +55,11 @@ Three things make it one, and all three are required:
    different game. So a round may keep the ship and the panel — they are what
    the pair are holding, not what the pair are reading — and what it may never
    keep is the eleven columns, the bodies falling down them, and the vocabulary
-   that hangs on both. THE PULSE keeps the hull, the band and the HUD; it has
-   no grid, no radar and no creature, and an arrow that nobody answers falls
-   into the ship the way a rock does.
+   that hangs on both. THE PULSE keeps the hull, the band, the HUD and the
+   backdrop; it has no grid, no radar and no wave of creatures. What falls down
+   it *is* the game's own bodies — a slick, a bulb, a meteor and a pod — into
+   four sockets cut into the hull, and one nobody answers sinks through the
+   ship the way a rock does.
 2. **Neither player can play it alone.** Each holds half the information or
    half the verbs, and the round does not resolve without both. This is filter
    6 in [transfers-hazelight](transfers-hazelight.md#the-filter) and it is the

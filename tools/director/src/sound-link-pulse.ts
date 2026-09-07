@@ -17,11 +17,11 @@
  * is, and the shared half of the reason is here.
  */
 export const PULSE_NO_SUBJECT: Record<string, string> = {
-  "boss.pulseLeft": "an arrow crossing the line in the left lane. A moment in a song, not a body.",
-  "boss.pulseDown": "an arrow crossing the line one lane over. The same moment in the same song.",
-  "boss.pulseUp":
+  "boss.pulseSlick": "an arrow crossing the line in the left lane. A moment in a song, not a body.",
+  "boss.pulseBulb": "an arrow crossing the line one lane over. The same moment in the same song.",
+  "boss.pulseMeteor":
     "and the third lane. Nothing about it is a body either — a lane is a place on a screen.",
-  "boss.pulseRight":
+  "boss.pulsePod":
     "and the fourth. Four sounds, one argument: a song is made of moments, not of creatures.",
   "boss.pulseKick": "the first step of a beat. The grid the arrows are laid on has no body either.",
   "boss.pulseBass":

@@ -69,14 +69,33 @@ function drawMoored(
   t: number,
   kind: PodKind,
 ): void {
-  const r = l.tile * POD_TILES;
-  const scale = r / Math.max(POD.rx, POD.ry);
   const bob = Math.sin(t * 1.1) * l.tile * 0.07;
+  drawPodBody(ctx, x, y + bob, l.tile * POD_TILES, t, kind);
+}
+
+/**
+ * The pod itself, at a place and a size somebody else chose — the moored
+ * drawing with the bob and the field taken out of it.
+ *
+ * Split out so a pod can be drawn where there is no `Pod` and no column to
+ * hang in: THE PULSE's fourth lane, where one falls down a chart, and the
+ * button under it, which wears the same lamp. The pulse, the lean and the halo
+ * stay here, because they are what a pod *is* rather than where it is.
+ */
+export function drawPodBody(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  r: number,
+  t: number,
+  kind: PodKind,
+): void {
+  const scale = r / Math.max(POD.rx, POD.ry);
   const pulse = 0.5 + 0.5 * Math.sin(t * 2.4);
   const path = podPath(t);
 
   ctx.save();
-  ctx.translate(x, y + bob);
+  ctx.translate(x, y);
   ctx.rotate(Math.sin(t * 0.6) * 0.08);
   ctx.scale(scale, scale);
   ctx.fillStyle = PALETTE.podDark;
@@ -85,7 +104,7 @@ function drawMoored(
   core(ctx, 0.55 + 0.45 * pulse, kind);
   ctx.restore();
 
-  halo(ctx, x, y + bob, r * (2.1 + 0.3 * pulse), PALETTE.pod, 0.14 + 0.1 * pulse);
+  halo(ctx, x, y, r * (2.1 + 0.3 * pulse), PALETTE.pod, 0.14 + 0.1 * pulse);
 }
 
 /** Loose: tumbling, flickering, trailing what it is losing. */

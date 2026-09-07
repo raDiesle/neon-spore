@@ -180,9 +180,9 @@ export const WAVES_ACT_7B: Wave[] = [
     name: "THE PULSE",
     sentence: "The one where you both play the same song and neither of you can read all of it.",
     guide: {
-      both: "Four lanes of arrows fall onto four buttons, and both of you have the same four. Hit every arrow as it crosses the line. Some of them arrive on your screen with the direction stripped off — those are the ones your partner can see and you cannot.",
-      p1: "A blank arrow between the lanes is yours to press and theirs to name. Keep pressing on the beat rather than waiting to be sure — a late one still counts, a skipped one never does.",
-      p2: "The same is true of you, one bar later. When an arrow on your screen is marked CALL, that is the one they are blind to — say the direction early and say it once, because the window is a sixth of a second wide.",
+      both: "Slicks, bulbs, rocks and pods fall into four sockets in the hull, and both of you have the same four buttons. Press each one as it lands. Some arrive on your screen as a grey shape you cannot name — those are the ones your partner can read and you cannot.",
+      p1: "A shape between the lanes, cycling, is yours to press and theirs to name. Press on the beat rather than waiting to be sure — a late one counts, and anything you skip goes through the hull.",
+      p2: "The same is true of you, one bar later. When something on your screen is marked CALL, that is the one they are blind to — say what it is early and say it once, because the window is a sixth of a second wide.",
     },
     entries: [],
     boss: { kind: "pulse", stages: PULSE_STAGES },

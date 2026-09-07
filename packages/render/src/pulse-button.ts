@@ -13,9 +13,8 @@ import {
 import { halo } from "./glow.js";
 import type { Circle } from "./layout.js";
 import { paintLobe } from "./lobe-shell.js";
-import { PALETTE, STROKE } from "./palette.js";
-import { drawPulseArrowMark } from "./pulse-arrow.js";
-import { pulseLaneColor, pulseLaneRim } from "./pulse-shape.js";
+import { STROKE } from "./palette.js";
+import { drawPulseBody, pulseLaneColor } from "./pulse-shape.js";
 import type { SeatSkin } from "./seat-skin.js";
 
 /**
@@ -27,30 +26,31 @@ import type { SeatSkin } from "./seat-skin.js";
  * on the screen and the buttons in the same style as the default set. So a
  * lane is a `lobe` like every other button in this game, standing in the
  * socket `band-control.ts` puts every control in, and this file draws only
- * what is *on* its face. The socket, the gloss and the tissue around it are
+ * what is *on* its face — which is the lane's own body, so a thumb and a thing
+ * falling towards it are one picture. The socket, the gloss and the tissue around it are
  * not this file's business and never were.
  *
  * **It is lit by what is coming, and that is the design.** A rhythm game's
- * buttons are dead until a thumb lands; these swell as their arrow approaches,
+ * buttons are dead until a thumb lands; these swell as their own body approaches,
  * so a player glancing down at their hands still knows what is about to
  * happen. It costs nothing — the number is already on the screen above — and
  * it is what makes the panel part of the picture instead of furniture under
  * it.
  *
- * **A veiled arrow lights nothing.** The button it belongs to is exactly what
+ * **A veiled arrival lights nothing.** The button it belongs to is exactly what
  * this seat is not being told, and a socket that glowed for it would hand back
  * the half of the chart the round took away.
  */
 
 /** Which seat and which lane a control id is, or null for anything else. */
-const LOBE_ID = /^pulse([12])(Left|Down|Up|Right)$/;
+const LOBE_ID = /^pulse([12])(Slick|Bulb|Meteor|Pod)$/;
 
 export function pulseLobeOf(id: ControlId): { seat: 1 | 2; lane: PulseLane } | null {
   const match = LOBE_ID.exec(id);
   if (match === null) return null;
   return {
     seat: match[1] === "2" ? 2 : 1,
-    lane: (match[2] ?? "Left").toLowerCase() as PulseLane,
+    lane: (match[2] ?? "Slick").toLowerCase() as PulseLane,
   };
 }
 
@@ -102,7 +102,7 @@ function pressed(boss: PulseState, world: World, seat: 1 | 2, lane: number): num
  * read the same `bandLobes` call, and a button answered but not drawn is the
  * same defect as a button drawn but not answered (`slabs.ts` says it at
  * length). A wave played on this panel with no PULSE behind it — the director
- * looking at the set — gets the four arrows resting.
+ * looking at the set — gets the four bodies resting.
  */
 export function drawPulseLobe(
   ctx: CanvasRenderingContext2D,
@@ -123,8 +123,8 @@ export function drawPulseLobe(
 
   ctx.save();
   // The body: the panel's own dead flesh at rest, going to the lane's colour
-  // as its arrow arrives. Not the colour outright — a button that was always
-  // lit would say nothing when something was actually coming.
+  // as its own body arrives. Not the colour outright — a button that was
+  // always lit would say nothing when something was actually coming.
   ctx.fillStyle = swell > 0.5 ? color : skin.dead[swell > 0.02 ? 0 : 1];
   ctx.globalAlpha = 0.55 + 0.45 * swell;
   ctx.strokeStyle = color;
@@ -133,15 +133,11 @@ export function drawPulseLobe(
   ctx.globalAlpha = 1;
   ctx.restore();
 
-  drawPulseArrowMark(
-    ctx,
-    x,
-    y,
-    r * 0.62,
-    it.lane,
-    swell > 0.5 ? PALETTE.text : pulseLaneRim(it.lane),
-    0.7 + 0.3 * swell,
-  );
+  // The button wears the body its lane answers, drawn the way the field draws
+  // it — the arrangement player 2's fire buttons already have, and for the same
+  // reason: the button shows what the press is *for*, so nothing has to be
+  // translated between the thing falling and the thing under a thumb.
+  drawPulseBody(ctx, x, y, r * 0.58, it.lane, world.tick / 60, index);
   if (swell > 0.02) halo(ctx, x, y, r * 1.9, color, 0.2 + 0.5 * swell);
 }
 

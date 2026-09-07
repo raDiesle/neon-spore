@@ -6,16 +6,16 @@ import type { SoundDef } from "../types.js";
  *
  * **The chart is the song and there is no recording under it.** That was the
  * owner's choice between three, and it is the one that costs nothing and
- * cannot drift: an arrow arriving plays its lane's voice, the grid plays a
+ * cannot drift: a body arriving plays its lane's voice, the grid plays a
  * kick and a bass under it, and every one of those is fired from the
  * simulation's own tick clock (`mixer-pulse.ts`). A backing track would run on
- * the browser's audio clock while the arrows ran on the tick clock, and over a
+ * the browser's audio clock while the bodies ran on the tick clock, and over a
  * minute on a slow phone the two would part company — which in a rhythm game
  * is not a blemish, it is the game being wrong.
  *
  * **Four lane voices, one per direction, and they are a chord.** Left, down,
  * up, right are a minor-seventh spread — 220, 262, 330, 392 Hz — so a bar of
- * arrows is a melody rather than four unrelated beeps, and a jump is an
+ * bodies is a melody rather than four unrelated beeps, and a jump is an
  * interval. They are short and plucked, well under the 0.16 s the band budget
  * allows a single sound, because a hundred of them go past in a minute
  * (`band.ts`).
@@ -33,38 +33,38 @@ import type { SoundDef } from "../types.js";
  */
 export const PULSE_SOUNDS: SoundDef[] = [
   {
-    id: "boss.pulseLeft",
+    id: "boss.pulseSlick",
     family: "boss",
     blurb: "A plucked low string, dry, with a breath of air off it.",
     status: "bound",
-    use: "An arrow arriving in the left lane. The root of the chord.",
+    use: "A slick arriving in its lane. The root of the chord.",
     level: 0.3,
     layers: [spore(220, 0.16, 0.3, 18), soft(0.4, glint(2200, 0.05))],
   },
   {
-    id: "boss.pulseDown",
+    id: "boss.pulseBulb",
     family: "boss",
     blurb: "The same pluck a minor third up, a little rounder.",
     status: "bound",
-    use: "An arrow arriving in the down lane.",
+    use: "A bulb arriving in its lane.",
     level: 0.3,
     layers: [spore(262, 0.15, 0.3, 18), soft(0.4, glint(2620, 0.05))],
   },
   {
-    id: "boss.pulseUp",
+    id: "boss.pulseMeteor",
     family: "boss",
     blurb: "The fifth, and the brightest of the four.",
     status: "bound",
-    use: "An arrow arriving in the up lane.",
+    use: "A meteor arriving in its lane.",
     level: 0.3,
     layers: [spore(330, 0.14, 0.3, 18), soft(0.45, glint(3300, 0.05))],
   },
   {
-    id: "boss.pulseRight",
+    id: "boss.pulsePod",
     family: "boss",
     blurb: "The seventh: the one that wants to move somewhere.",
     status: "bound",
-    use: "An arrow arriving in the right lane.",
+    use: "A pod arriving in its lane.",
     level: 0.3,
     layers: [spore(392, 0.13, 0.3, 18), soft(0.45, glint(3920, 0.05))],
   },
@@ -98,7 +98,7 @@ export const PULSE_SOUNDS: SoundDef[] = [
   {
     id: "boss.pulseHit",
     family: "boss",
-    blurb: "A short bright ring over the arrow's own note. A thumb on time.",
+    blurb: "A short bright ring over the body's own note. A thumb on time.",
     status: "bound",
     use: "A clean hit, either seat.",
     level: 0.24,
@@ -109,7 +109,7 @@ export const PULSE_SOUNDS: SoundDef[] = [
     family: "boss",
     blurb: "The song coming apart for a moment: a detuned scrape under a dull knock.",
     status: "bound",
-    use: "An arrow either seat ran out of time on, and a press at nothing.",
+    use: "A body either seat ran out of time on, and a press at nothing.",
     level: 0.34,
     layers: [
       metal(148, 0.2, 0.34, 300),
@@ -121,7 +121,7 @@ export const PULSE_SOUNDS: SoundDef[] = [
     family: "boss",
     blurb: "A swallowed, wobbling tone with no pitch you could name.",
     status: "bound",
-    use: "A veiled arrow entering the top of the lanes. Both devices play it: the seat who has to make the call needs the warning as much as the seat who cannot see.",
+    use: "A veiled arrival entering the top of the lanes. Both devices play it: the seat who has to make the call needs the warning as much as the seat who cannot see.",
     level: 0.26,
     layers: [spore(196, 0.22, 0.3, 120), soft(0.5, air(1200, 600, 0.2, 0.12, 1.6))],
   },

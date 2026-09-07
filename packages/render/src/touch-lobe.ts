@@ -56,14 +56,14 @@ export function lobeMeans(id: ControlId): { command: Command; hold: Hold | null 
     // them is held — a rhythm is a sequence of instants, and a control that
     // did anything on release would put a second event a hundred milliseconds
     // after the one the pair meant (`sim/pulse-round.ts`).
-    case "pulse1Left":
-    case "pulse1Down":
-    case "pulse1Up":
-    case "pulse1Right":
-    case "pulse2Left":
-    case "pulse2Down":
-    case "pulse2Up":
-    case "pulse2Right":
+    case "pulse1Slick":
+    case "pulse1Bulb":
+    case "pulse1Meteor":
+    case "pulse1Pod":
+    case "pulse2Slick":
+    case "pulse2Bulb":
+    case "pulse2Meteor":
+    case "pulse2Pod":
       return { command: controlPress(id).down, hold: null };
     case "cannon":
     case "shield":

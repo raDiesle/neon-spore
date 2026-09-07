@@ -1,8 +1,6 @@
-import { livingPath, livingSilhouette } from "@neon-spore/content";
 import { type Color, livingKindForColor } from "@neon-spore/sim";
-import { bakedCache } from "./baked.js";
-import { drawDetails } from "./creature-detail.js";
-import { halo, strokeGlow } from "./glow.js";
+import { drawLivingMark } from "./body-mark.js";
+import { halo } from "./glow.js";
 import { mixHex, rgba } from "./hex.js";
 import { lobeBlob, paintLobe } from "./lobe-shell.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -31,25 +29,6 @@ import { P1_SKIN, type SeatSkin } from "./seat-skin.js";
  */
 
 /**
- * The silhouette inside a fire button, kept rather than rebuilt.
- *
- * Every argument is a constant of the colour — the shape comes from
- * `livingSilhouette(livingKindForColor(color))` and the path is drawn at the
- * origin, scaled by the transform — so the string and the `Path2D` were the
- * same two objects rebuilt twice a frame on player 2's seat, for as long as
- * the game has run. Keyed on the colour, of which there are two.
- */
-const FIRE_BLOBS = bakedCache<Color, Path2D>();
-
-function fireBlob(color: Color, shape: ReturnType<typeof livingSilhouette>): Path2D {
-  const held = FIRE_BLOBS.get(color);
-  if (held !== undefined) return held;
-  const made = new Path2D(livingPath(shape, 0));
-  FIRE_BLOBS.set(color, made);
-  return made;
-}
-
-/**
  * One of player 2's fire buttons: the creature that colour resonates, drawn the
  * way the field draws it, standing on a lobe of the panel's own flesh.
  *
@@ -70,10 +49,9 @@ function fireBlob(color: Color, shape: ReturnType<typeof livingSilhouette>): Pat
  * instrument laid over a stencil, and over a lit body it is a cage.
  *
  * Every appearance below is the field's, called rather than copied —
- * `livingKindForColor` for which creature answers this colour,
- * `livingSilhouette` for its contour, `drawDetails` for what is inside it. A
- * second spelling of any of the three is a button that drifts off the body it
- * is about (`living-draw.ts`).
+ * `livingKindForColor` for which creature answers this colour, and
+ * `drawLivingMark` for the body itself. A second spelling of either is a
+ * button that drifts off the body it is about (`body-mark.ts`).
  */
 export function drawFireButton(
   ctx: CanvasRenderingContext2D,
@@ -95,7 +73,6 @@ export function drawFireButton(
   // The button wears the creature its ammunition answers — through the
   // one mapping that owns it, never a second copy of the pairing.
   const kind = livingKindForColor(color);
-  const shape = livingSilhouette(kind);
 
   // The colour still reaches the eye from outside the button: the halo round
   // it and the line round its contour are what say red or cyan at a glance,
@@ -105,19 +82,7 @@ export function drawFireButton(
   ctx.strokeStyle = hex;
   ctx.lineWidth = STROKE.outline + 0.4;
   paintLobe(ctx, x, y, r, "both");
-
-  const s = (r * 0.6) / Math.max(shape.rx, shape.ry);
-  const blob = fireBlob(color, shape);
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.scale(s, s);
-  ctx.fillStyle = dark;
-  ctx.fill(blob);
-  // The pen is scaled by the transform, so the width is divided back out —
-  // the same arithmetic `drawLiving` does around its own body.
-  strokeGlow(ctx, blob, hex, Math.max(1, r * 0.09) / s, 1);
-  drawDetails(ctx, kind === "bulb", shape.rx, shape.ry, rim);
-  ctx.restore();
+  drawLivingMark(ctx, x, y, r * 0.6, kind, { hex, rim, dark });
 
   if (fill <= 0) return;
   // The fill, closing clockwise from the top: a hold has a length and a tap
