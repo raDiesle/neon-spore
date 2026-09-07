@@ -42,7 +42,7 @@ export function drawArrows(
   const judged = seat === 1 ? boss.judged1 : boss.judged2;
   const from = seat === 1 ? boss.from1 : boss.from2;
   const tick = view.world.tick;
-  const r = Math.min(field.lanes[0]?.w ?? 40, 64) * 0.34;
+  const r = Math.min(field.lanes[0]?.w ?? 40, 72) * 0.42;
   for (let i = from; i < boss.notes.length; i++) {
     const note = boss.notes[i];
     if (note === undefined) continue;
@@ -82,7 +82,7 @@ export function drawReceptors(
   const lastLane = seat === 1 ? boss.lastLane1 : boss.lastLane2;
   const age = lastTick < 0 ? 1 : (view.world.tick - lastTick) / FADE_TICKS;
   const fade = Math.max(0, 1 - age);
-  const r = Math.min(field.lanes[0]?.w ?? 40, 64) * 0.32;
+  const r = Math.min(field.lanes[0]?.w ?? 40, 72) * 0.4;
   PULSE_LANES.forEach((lane, i) => {
     const box = field.lanes[i];
     if (box === undefined) return;

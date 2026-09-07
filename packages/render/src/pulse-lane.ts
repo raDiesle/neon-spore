@@ -55,7 +55,7 @@ export function pulseField(l: Layout, set: ControlSet, role: ViewRole): PulseFie
     // A hand's width above the buttons: an arrow judged *on* a thumb is an
     // arrow nobody can see arrive.
     lineY: l.bandTop - Math.max(28, l.playHeight * 0.09),
-    topY: l.playHeight * 0.16,
+    topY: l.playHeight * 0.22,
     lanes,
   };
 }

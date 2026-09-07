@@ -59,7 +59,15 @@ export function drawPulseMeter(
   if (at > 0.01) halo(ctx, x + w * at, y + h / 2, h * 1.6, color, at < 0.25 ? 0.8 : 0.5);
 }
 
-/** What the pair have done so far, in the smallest words that carry it. */
+/**
+ * What the pair have done so far, in the smallest words that carry it.
+ *
+ * **Under the meter and not along the bottom**, which is where every other
+ * round in the game puts its tally: down there it sits exactly where the
+ * receptors are and an arrow landing writes over it. The top of this screen is
+ * the only quiet strip on it — the arrows enter below the meter and everything
+ * else happens at the line.
+ */
 export function drawPulseTally(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -68,7 +76,7 @@ export function drawPulseTally(
 ): void {
   const combo = seat === 1 ? boss.combo1 : boss.combo2;
   const left = boss.notes.length - (seat === 1 ? boss.from1 : boss.from2);
-  const y = l.playHeight * 0.975;
+  const y = l.playHeight * 0.185;
   ctx.font = '13px "Courier New",monospace';
   ctx.fillStyle = PALETTE.dim;
   ctx.textAlign = "left";

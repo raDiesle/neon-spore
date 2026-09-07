@@ -146,13 +146,26 @@ export function closePulse(world: World): void {
 }
 
 /**
- * One control, as the round heard it. Nothing reaches it outside `play`: the
- * count is for reading a screen that has just stopped being the field and the
- * verdict for looking at one.
+ * One control, as the round heard it.
+ *
+ * **The count-in answers a thumb and the other rounds’ lead-ins do not**, and
+ * that difference is a defect this round shipped with for an afternoon. THE
+ * GAUGE and PINBALL refuse everything before `play` because their lead-in is
+ * for *reading a screen that has just stopped being the field* — nothing is
+ * happening in it. Here the arrows are already falling through the count: step
+ * 0 is due on the very tick the phase turns over, and `step` reads commands
+ * *before* it runs this round, so a thumb landing on that tick found a round
+ * still counting and was dropped. The first arrow of every stage could only be
+ * hit late, and only for the second half of its window.
+ *
+ * A press during the count with nothing near it is still a stray and still
+ * costs, which is the same rule as anywhere else in the song — mashing through
+ * a count-in is mashing.
  */
 export function pulseRoundHeard(world: World, player: 1 | 2, command: Command): void {
   const state = pulseRound(world);
-  if (state === null || state.phase !== "play") return;
+  if (state === null) return;
+  if (state.phase !== "play" && state.phase !== "count") return;
   pulseHeard(world, state, player, command);
 }
 

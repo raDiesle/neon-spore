@@ -28,6 +28,7 @@ import type { PressSpec } from "./spec.js";
  *
  *   --press 60:1:cannonCol=3,64:2:fire=red     put the cannon on column 3, fire red
  *   --press 40:1:guard                          the guard trigger, at tick 40
+ *   --press 300:1:pulseStep=up,300:2:pulseStep=up   THE PULSE: both seats, one arrow
  *   --press 0:1:intake,30:2:fire=cyan           the maw open from the start
  *   --press 20:2:aim=left,40:2:aim=up,90:1:salvo   THE FLEET: walk, then lob
  *   --press 60:1:cannonCol=5,90:1:reach,240:2:mawTake   THE CLAW: slide, reach, swallow
@@ -81,7 +82,18 @@ const SEAT_OF: Record<string, 1 | 2 | "either"> = {
   // and it takes no value, so it falls through to the bare-kind branch below
   // with `guard` and `reach` (`sim/choir-gesture.ts`).
   shake: 1,
+  // THE PULSE's one verb, and the only entry here that is genuinely either
+  // seat's rather than either seat's by exception: both panels carry the same
+  // four lanes and the round does not care which thumb a press came from
+  // (`sim/pulse-controls.ts`). Without it this round could not be photographed
+  // at its own subject — the veiled arrow arrives in bar 7 and a capture with
+  // no presses in it has already lost the stage by bar 4.
+  pulseStep: "either",
 };
+
+/** The four lanes THE PULSE's arrows come down, as the words a person says —
+ * which are the lane names themselves, so this is a guard rather than a map. */
+const PULSE_LANES_BY_WORD = new Set(["left", "down", "up", "right"]);
 
 /** Which way an `aim` steps, as the four words a person would say. */
 const AIM_STEPS: Record<string, { dcol: -1 | 0 | 1; drow: -1 | 0 | 1 }> = {
@@ -205,6 +217,13 @@ function commandFor(
         );
       }
       return { kind, ...step };
+    }
+    case "pulseStep": {
+      const lane = needs();
+      if (!PULSE_LANES_BY_WORD.has(lane)) {
+        throw new Error(`--press ${whole}: "${one}" — a lane is left, down, up or right`);
+      }
+      return { kind, lane };
     }
     case "mawTake":
       // The same command the ship's own maw sends; only the seat differs, and
