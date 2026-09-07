@@ -69,7 +69,7 @@ const firstOfKind =
  */
 const CRAWLER_POSE: Pose = {
   name: "CRAWLER · WALKING",
-  note: "Six links along the row above the hull, each squeezing a fraction of a beat behind the one in front. The pulse is what makes the chain read as one animal rather than six rocks in a line — it is the whole subject of the crawler:pulse slot, and it cannot be judged on a field with no crawler on it.",
+  note: "Six links along the row above the hull, each squeezing a fraction of a beat behind the one in front. The pulse is what makes the chain read as one animal rather than six rocks in a line — it was the whole subject of the crawler:pulse slot, and nothing about a worm can be judged on a field with no crawler on it.",
   crop: "ship",
   build: () => {
     const entry: SpawnEntry = {

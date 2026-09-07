@@ -265,3 +265,23 @@ Add an optional `leadTicks` to `ViewState`, default 0, subtract it inside
 link's `delay` when there is a link and 0 when there is not. A unit test can
 prove the arithmetic: at `leadTicks = 12`, an arrow whose judged tick is T is
 drawn on the line at tick T − 12.
+
+## `bun run index` appends a new row instead of filing it beside its siblings
+
+- **Found:** 2026-09-07, claude/crawler-pulse-stepped-comparison-7b9280
+- **Files:** `tools/index/`, `docs/INDEX.md`
+
+Splitting `packages/render/src/crawler.ts` produced `crawler-ring.ts`, and
+`bun run index` wrote its row at line 712 — the bottom of the render section,
+seventy lines below `crawler.ts` and `crawler-skin.ts`, which are the two files
+a reader looking it up would be reading. The row had to be moved by hand, and
+the completeness test passed either way, so nothing catches it: every future
+session that adds a file pays the same minute, and one that does not notice
+leaves the map a little less useful than it was.
+
+The generator already knows a row's path. It should insert a new row next to
+the longest shared path prefix among the rows already there — for
+`packages/render/src/crawler-ring.ts` that is `crawler.ts` and
+`crawler-skin.ts` — rather than appending to the end of its section, and
+`tools/index/test/` should hold a case that adds a file with an obvious
+neighbour and asserts it lands beside it.

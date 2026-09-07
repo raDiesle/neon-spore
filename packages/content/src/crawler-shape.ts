@@ -102,18 +102,61 @@ export function crawlerOutline(
 }
 
 /**
+ * How many positions the contraction wave stands in, over one cycle of it.
+ *
+ * **This is the answer to the `crawler:pulse` slot, and it is sixteen.** The
+ * wave used to be a continuous sine of the shared clock, which is a value no
+ * two frames agree about — so every ring of every worm rebuilt its own contour
+ * every frame, 2.6 us each and 23 us a frame for a nine-ring worm. The
+ * question a vote answered was whether quantising it reads as a living
+ * contraction or as a body ticking, and the owner's answer at the pair was
+ * that he could not see which side was which.
+ *
+ * He could not, and the arithmetic says why. Rounding the phase to a
+ * sixteenth moves the squeeze by at most 0.195, which at `pulse` 0.14 and a
+ * tile of 35 px is **0.9 px of contour at the widest and 0.4 px at the
+ * tallest** — under the pixel `.claude/skills/render-perf` calls the line
+ * between imperceptible and visible. Sixteen was offered against thirty-two
+ * for exactly this: half the step, and half the saving. Nobody can see the
+ * whole step, so there is nothing to buy with the half.
+ *
+ * `depth.ts`' `HAZE_STEPS` is the same bargain on a colour, for the same
+ * reason: a value that varies continuously with the clock is a value that
+ * cannot be baked.
+ */
+export const PULSE_STEPS = 16;
+
+/**
  * The contraction wave, and **a record rather than a bare function** so a
- * second answer to it has somewhere to live.
+ * second answer to it had somewhere to live.
  *
  * `tools/versus` offers a candidate look by overwriting fields on records the
  * game already exports, held for the length of one `draw()`. A bare export
  * cannot be overwritten, and the alternative is a branch — which cannot sit
  * beside the thing it is arguing with at 26 px and at tempo (`docs/versus.md`).
- * The open question here is whether the pulse may be *stepped*: a contour that
- * only ever stands in one of a fixed number of positions is one a renderer can
- * cache, and every ring of every worm currently rebuilds its own every frame.
+ * The record stays now the slot is closed: it cost nothing to keep, and the
+ * next question about this wave will want it.
  */
 export const CRAWLER_PULSE = {
+  /**
+   * Which of `PULSE_STEPS` positions the segment stands in — an integer, and
+   * **the key a renderer caches a contour under**.
+   *
+   * Wrapped into `0..PULSE_STEPS-1`, so it is a key and not a running count:
+   * the clock climbs all wave and a cache keyed on an unwrapped step would
+   * hold a path per beat and never stop growing.
+   *
+   * It is here rather than in render/ so that the step and the squeeze are one
+   * rule and not two: a cache keyed on a step index worked out next door would
+   * be a second copy of where the wave stands, and it would drift the first
+   * time either changed (`CLAUDE.md`, the rules that are called rather than
+   * re-derived).
+   */
+  stepAt(beats: number, order: number, perLink = 0.22): number {
+    const step = Math.round((beats / 2 - order * perLink) * PULSE_STEPS);
+    return ((step % PULSE_STEPS) + PULSE_STEPS) % PULSE_STEPS;
+  },
+
   /**
    * Where the segment stands in the wave of contraction, −1 to 1, from the
    * shared clock and its place along the body.
@@ -125,7 +168,13 @@ export const CRAWLER_PULSE = {
    * same shape the field does, which is the whole reason this file exists.
    */
   squeezeAt(beats: number, order: number, perLink = 0.22): number {
-    return Math.sin((beats / 2 - order * perLink) * Math.PI * 2);
+    return this.squeezeOf(this.stepAt(beats, order, perLink));
+  },
+
+  /** The squeeze a step stands at — the half of the wave a cached contour is
+   * rebuilt from, once the step has said the contour is not held. */
+  squeezeOf(step: number): number {
+    return Math.sin((step / PULSE_STEPS) * Math.PI * 2);
   },
 };
 

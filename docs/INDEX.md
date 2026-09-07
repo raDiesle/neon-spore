@@ -663,6 +663,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/throb.ts` | the plating over a throb's armoured half — the green that means a shot does nothing |
 | `packages/render/src/crawler-fx.ts` | THE CRAWLER's three transients — the burst ring's splash, the swept lane, the burrow's mound |
 | `packages/render/src/crawler.ts` | THE CRAWLER, drawn — a maggot lying along the ship's surface, its rings overlapping |
+| `packages/render/src/crawler-ring.ts` | **One ring of a maggot, as a shape** — the three sets of proportions the parts of a worm are drawn at |
 | `packages/render/src/crawler-skin.ts` | **The wet on a maggot, and the little on its face** |
 | `packages/render/src/living-frame.ts` | Where a living body is standing this frame, and the transform that puts a pen in its own local units |
 | `packages/render/src/strand-thread.ts` | Which beads of THE STRAND are on one thread, and in what order along it |

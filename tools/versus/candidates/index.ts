@@ -1,8 +1,6 @@
 import type { Variant } from "../variant.js";
 // region: candidates
 import { SHOT_STREAK } from "./cannon-shot/streak/index.js";
-import { CRAWLER_FINE } from "./crawler-pulse/fine/index.js";
-import { CRAWLER_STEPPED } from "./crawler-pulse/stepped/index.js";
 import { MAGNET_HOOKED } from "./creature-magnet/hooked/index.js";
 import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
 import { STRAND_MUTE } from "./creature-strand/mute/index.js";
@@ -33,11 +31,18 @@ import { PANEL_EMBLEM } from "./panel-action/emblem/index.js";
  * so the pair can tell whose screen they are looking at without reading a word
  * (`packages/render/src/seat-skin.ts`). A question with a shipped answer is not
  * a question, so the directory went with the entry.
+ *
+ * `crawler:pulse` left the same way, and by the answer a vote is *most* worth
+ * having: the owner looked at the pair and could not tell which side was
+ * stepped. That is not a tie. The slot asked whether a quantised contraction
+ * reads as a body ticking, the eye said no, and the cheaper of the two
+ * candidates shipped — sixteen positions, and a contour a renderer bakes once
+ * instead of nine times a frame (`packages/content/src/crawler-shape.ts`).
+ * `fine` went with it: it existed only to buy back half a step nobody could
+ * see the whole of.
  */
 export const VARIANTS: Variant[] = [
   SHOT_STREAK,
-  CRAWLER_STEPPED,
-  CRAWLER_FINE,
   METEOR_FORGE,
   MAGNET_HOOKED,
   STRAND_SEALED,

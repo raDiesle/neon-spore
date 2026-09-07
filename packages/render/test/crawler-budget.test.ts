@@ -22,13 +22,21 @@ import { CFG, installCanvasGlobals, runFrames } from "./frame-harness.js";
  * every ring (`crawler-skin.ts`), which is where the *alive* comes from and is
  * the dearest thing on this body.
  *
- * The Path2D count is the row worth watching, and it does **not** come down on
- * the second frame the way the panel's sheet beside it does: every ring builds
- * its contour afresh, because the squeeze that shapes it is a continuous clock
- * and there is no key to cache one under. What the ring no longer pays is the
- * round trip through text — `crawlerPoints` hands its outline to
- * `spline.ts`, which writes the curve into the `Path2D` as numbers instead of
- * formatting an SVG string for a parser to read back.
+ * The Path2D count is the row worth watching, and **it comes down on the
+ * second frame now**, which for most of this file's life it did not. The
+ * squeeze that shapes a ring used to be a continuous sine of the shared clock
+ * — a value no two frames agree about, so there was no key to cache a contour
+ * under and every ring rebuilt its own every frame. The `crawler:pulse` slot
+ * put that to a vote, the owner could not tell the stepped side from the
+ * gliding one, and sixteen positions shipped: a ring's contour is now baked
+ * per tile, part, heading and step (`crawler-ring.ts`). Four of the five
+ * links are free by the second frame, and the row fell from 36 to 32 on both
+ * seats. The first frame is unchanged, because a cold cache bakes what it is
+ * asked for.
+ *
+ * The ring also no longer pays the round trip through text — `crawlerPoints`
+ * hands its outline to `spline.ts`, which writes the curve into the `Path2D`
+ * as numbers instead of formatting an SVG string for a parser to read back.
  *
  * **The marks cost twenty strokes and nine saves, and both were paid on
  * purpose** (`crawler-marks.ts`). `strokeGlow` is four strokes, so a crosshair
@@ -53,11 +61,11 @@ type Budget = Partial<
 const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
   p1: [
     { fillRect: 66, stroke: 60, fill: 41, clip: 10, save: 32, "new Path2D": 50, fillText: 4 },
-    { fillRect: 66, stroke: 62, fill: 41, clip: 10, save: 32, "new Path2D": 36, fillText: 4 },
+    { fillRect: 66, stroke: 62, fill: 41, clip: 10, save: 32, "new Path2D": 32, fillText: 4 },
   ],
   p2: [
     { fillRect: 66, stroke: 68, fill: 47, clip: 10, save: 34, "new Path2D": 52, fillText: 2 },
-    { fillRect: 66, stroke: 70, fill: 47, clip: 10, save: 34, "new Path2D": 36, fillText: 2 },
+    { fillRect: 66, stroke: 70, fill: 47, clip: 10, save: 34, "new Path2D": 32, fillText: 2 },
   ],
 };
 

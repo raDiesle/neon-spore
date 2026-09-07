@@ -43,6 +43,7 @@ export {
   crawlerOutline,
   crawlerPath,
   crawlerPoints,
+  PULSE_STEPS,
 } from "./crawler-shape.js";
 export {
   authorsBodyColor,

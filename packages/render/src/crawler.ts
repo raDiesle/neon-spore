@@ -1,4 +1,4 @@
-import { CRAWLER, CRAWLER_PULSE, crawlerPoints } from "@neon-spore/content";
+import { CRAWLER, CRAWLER_PULSE } from "@neon-spore/content";
 import {
   type Color,
   type Creature,
@@ -10,6 +10,7 @@ import {
 } from "@neon-spore/sim";
 import { drawLinkMarks } from "./crawler-marks.js";
 import { linkCenter, linkScale } from "./crawler-place.js";
+import { type PartKey, ringPart, ringPath, UNIT } from "./crawler-ring.js";
 import { drawFace, drawSlime } from "./crawler-skin.js";
 import { drawnCol, hazed, nearness } from "./depth.js";
 import { strokeGlow } from "./glow.js";
@@ -17,7 +18,6 @@ import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { PLATE, PLATE_RIM } from "./shell-plate.js";
-import { splinePath } from "./spline.js";
 
 /**
  * THE CRAWLER, drawn — a maggot lying along the ship's surface, its rings
@@ -53,23 +53,6 @@ import { splinePath } from "./spline.js";
  * Both screens draw all of it. Nothing about a crawler is withheld from either
  * seat — what they cannot see is each other's thumbs (`comms.ts`).
  */
-
-/** How big a ring draws, as a share of the tile. `CRAWLER`'s figures are in
- * hundredths of a tile, so this is the whole conversion. */
-const UNIT = 0.01;
-
-/**
- * The head: **shorter and taller** than a ring, not simply bigger.
- *
- * A maggot's head is a rounded cap, and scaling a ring up gave a long
- * teardrop with a snout on it — the taper that reads as *this way round* on a
- * body ring reads as a beak on the one at the front. So the head keeps its own
- * proportions and almost none of the taper, and what says which way it faces
- * is the face.
- */
-const HEAD = { rx: 0.66, ry: 1.34, taper: 0.05 };
-/** And the tail, which is the same ring drawn smaller and tucked. */
-const TAIL = { rx: 0.86, ry: 0.78, taper: 1 };
 
 /**
  * A plate: dead material with a hard lit edge, exactly the grey a shell and a
@@ -125,28 +108,29 @@ function drawLink(
   const { x, y } = linkCenter(l, c, beatPhase, surfaceY);
   const near = nearness(l, world.cfg.rows - 2);
   const k = linkScale(world, l);
+  // The ring is drawn at the origin and put on its column by the transform,
+  // which is what lets its contour be baked (`ringPath`). The linear part is
+  // the same `scale(k, k)` this always was, so nothing about the depth or the
+  // line widths moves.
   ctx.save();
   ctx.translate(x, y);
   ctx.scale(k, k);
-  ctx.translate(-x, -y);
   const dir = crawlerHeading(c);
   const end = linkIsEnd(world, c);
   const head = end && linkOrder(c) === 0;
   const flat = linkInk(c.color);
   const fill = hazed(world.cfg, flat.fill, near);
   const rim = hazed(world.cfg, flat.rim, near);
-  const squeeze = CRAWLER_PULSE.squeezeAt(beats, linkOrder(c));
-  const part = head ? HEAD : end ? TAIL : { rx: 1, ry: 1, taper: 1 };
+  const step = CRAWLER_PULSE.stepAt(beats, linkOrder(c));
+  const squeeze = CRAWLER_PULSE.squeezeOf(step);
+  const which: PartKey = head ? "h" : end ? "t" : "b";
+  const part = ringPart(which);
   const rx = l.tile * CRAWLER.rx * UNIT * part.rx;
   const ry = l.tile * CRAWLER.ry * UNIT * part.ry;
-  const taper = CRAWLER.taper * part.taper;
-  // Points into a `Path2D`, never the string form: nine rings a frame, each
-  // one rebuilt every frame because the squeeze is a continuous clock
-  // (`spline.ts`).
-  const body = splinePath(crawlerPoints(x, y, rx, ry, taper, CRAWLER.pulse, squeeze, dir), true);
+  const body = ringPath(l.tile, which, dir, step);
   ctx.fillStyle = fill;
   ctx.fill(body);
-  drawSlime(ctx, body, x, y, rx * (1 - CRAWLER.pulse * squeeze), ry, dir, squeeze);
+  drawSlime(ctx, body, 0, 0, rx * (1 - CRAWLER.pulse * squeeze), ry, dir, squeeze);
   // A living ring throws light and a dead one does not, which is the fastest
   // read on the field: the plates the shield owes are the dark places along a
   // lit animal, and the two ends are darker again.
@@ -157,7 +141,7 @@ function drawLink(
   } else {
     strokeGlow(ctx, body, rim, STROKE.outline);
   }
-  if (head) drawFace(ctx, x, y, rx, ry, dir, squeeze);
+  if (head) drawFace(ctx, 0, 0, rx, ry, dir, squeeze);
   ctx.restore();
 }
 
