@@ -242,6 +242,8 @@ const handle = installTestingHandle({
   progression,
   collect: frames.collect,
   paint: frames.paint,
+  replayGuide: () => renderer.replayGuide(),
+  guideFinished: () => renderer.guideFinished,
   launching: () => renderer.launching,
 });
 

@@ -96,6 +96,12 @@ export class RenderState {
     this.guide.replay();
   }
 
+  /** Whether the rehearsal's page has played out and is standing on its last
+   * frame — the one state a camera has to know and an eye can see for itself. */
+  get guideFinished(): boolean {
+    return this.guide.finished;
+  }
+
   /**
    * Whether the wave on screen has just (re)started, so everything transient
    * here belongs to a run that no longer exists (`Effects.reset` says what

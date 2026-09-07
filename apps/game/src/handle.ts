@@ -27,6 +27,11 @@ export interface HandleParts {
   /** Where a frame's events are collected for the next `paint`. */
   collect: (events: readonly SimEvent[]) => void;
   paint: (dt: number) => void;
+  /** This page of a rehearsal again, from its first tick. The renderer's, since
+   * a film's clock is render state and the two devices have one each. */
+  replayGuide: () => void;
+  /** Whether that page has played out and is standing on its last frame. */
+  guideFinished: () => boolean;
   /** Whether the wave is still arriving — a frame-clock animation over the
    * whole field, which a caller stepping ticks can neither see nor wait out. */
   launching: () => boolean;
@@ -104,7 +109,47 @@ export function installTestingHandle(parts: HandleParts): PerfHandle {
         }
       }
     },
-    paint: () => parts.paint(1 / 60),
+    /**
+     * One frame, and **how much time it is worth**.
+     *
+     * The default is a sixtieth, which is what every caller wanted while the
+     * only things on the frame clock were fades and shimmer: paint enough of
+     * them and the words arrive. A **rehearsal** is different in kind — it is
+     * a run of the simulation drawn off this same clock, one tick per
+     * `dt * tickHz` (`render/guide-play.ts`) — so a caller photographing a
+     * film needs to say how far to move it, in the film's own ticks, rather
+     * than count sixtieths and hope.
+     *
+     * It is also the difference between a strip of a page and four pictures of
+     * its last frame. A page plays once and then *holds*, and a settle counted
+     * in sixtieths ran a whole second of film before the first photograph — so
+     * `--opening guide --frames 6 --stride 30` came back as six copies of
+     * whatever the page ended on. With a dt and `replayGuide` below, a strip is
+     * taken from the page's own first tick, which is the film.
+     */
+    paint: (dt = 1 / 60) => parts.paint(dt),
+    /**
+     * This page of the rehearsal again, from its first tick — the middle
+     * button on the guide's own bar (`render/guide-nav.ts`).
+     *
+     * A page that has played out stands on its last frame and nothing on the
+     * frame clock moves it, so this is the only way back to a known point in a
+     * film. `SceneRun.restart` rebuilds the rehearsal's world and runs the
+     * ticks before this page silently, which is why what it opens on is what
+     * those ticks really left rather than a pose built to look like one.
+     */
+    replayGuide: parts.replayGuide,
+    /**
+     * Whether the page showing has played out and is holding on its last
+     * frame.
+     *
+     * The one thing about a film a camera cannot see and an eye can. A held
+     * page is the same picture however many frames are taken of it, so a tool
+     * asked for a strip has no way to tell "the film is over" from "this page
+     * is a still" — and the answer decides whether what it wrote is a strip or
+     * six copies of one frame (`tools/frames/run.ts`).
+     */
+    guideFinished: parts.guideFinished,
     /**
      * Whether the wave is still arriving.
      *

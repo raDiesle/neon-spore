@@ -43,9 +43,15 @@
  * `--opening` stands in the wave's opening instead of running past it, which
  * every capture before it did unconditionally. A wave opens on its **guide**
  * and its introduction stands behind that, so `intro` on a guided wave crosses
- * the ready gate on the way (`opening.ts`). On `guide`, `--frames` and
- * `--stride` count **painted frames**: a rehearsal is drawn rather than
- * stepped, so a strip counted in ticks would be one picture over and over.
+ * the ready gate on the way (`opening.ts`). On `guide`, `--ticks` and
+ * `--stride` are the **rehearsal's** own ticks — how far into the page the
+ * first picture is taken, and how far apart the rest are — because a film is a
+ * run drawn off the frame clock rather than stepped by the world's. The page is
+ * replayed to its first tick before the strip, since a page plays once and then
+ * holds on its last frame; without that a capture came back as six copies of
+ * whatever the page ended on, and the moment a film was *about* was the one
+ * moment a session could not send the owner. A strip that is still all one
+ * picture says `held:` and names the two numbers that would fix it.
  *
  * `--settle N` paints N frames **without stepping the world**, before each
  * picture: the two clocks are separate, so anything living in painted seconds
@@ -184,10 +190,11 @@ async function main(): Promise<void> {
   const start = Date.now();
   if (here) {
     await mkdir(out, { recursive: true });
-    const { paths } = await captureHere(spec, join(out, "frame"));
+    const { paths, heldPage } = await captureHere(spec, join(out, "frame"));
     const seconds = Math.round((Date.now() - start) / 1000);
     console.log(`wrote ${paths.length} frame(s) to ${out} in ${seconds}s`);
     for (const p of paths) console.log(`  ${p}`);
+    warnHeldPage(spec, heldPage);
     return;
   }
 
@@ -218,9 +225,33 @@ async function main(): Promise<void> {
 
     console.log(`wrote ${written.length} frame(s) to ${out} in ${seconds}s`);
     for (const p of written) console.log(`  ${p}`);
+    warnHeldPage(spec, after.heldPage);
   } finally {
     await rm(scratchOut, { recursive: true, force: true }).catch(() => {});
   }
+}
+
+/**
+ * A strip taken from past the end of a page of film.
+ *
+ * A page plays once and then holds on its last frame, so a first picture asked
+ * for beyond its end gets that frame and every stride after it gets it again.
+ * The capture cannot refuse — one still of a page is a perfectly good picture —
+ * so this says it, and says the number that would fix it. It is the failure the
+ * guide clock was rebuilt to end, and a silent version of it would be the same
+ * trap wearing the new fix as a disguise.
+ *
+ * The page is asked rather than the pictures compared: the light behind the
+ * field moves on its own clock, so two photographs of a held page differ in
+ * every pixel that is not the film.
+ */
+function warnHeldPage(spec: FrameSpec, heldPage: boolean | undefined): void {
+  if (!heldPage || (spec.frames ?? 1) < 2) return;
+  console.log(
+    "held: this page had already played out when the first picture was taken, so every " +
+      `frame is its last one. Lower --ticks (${spec.ticks ?? 0}) to land inside the page, ` +
+      "or --guide-page one that runs longer.",
+  );
 }
 
 if (import.meta.main)

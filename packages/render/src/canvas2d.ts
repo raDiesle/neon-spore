@@ -42,6 +42,9 @@ export class Canvas2DRenderer implements Renderer {
   replayGuide(): void {
     this.held.replayGuide();
   }
+  get guideFinished(): boolean {
+    return this.held.guideFinished;
+  }
 
   resize(viewport: Viewport): void {
     this.viewport = viewport;

@@ -145,9 +145,13 @@ export interface FrameSpec {
    * loops for a second and a half (`docs/spec/briefings.md` §3.2), and the
    * lane that built it had to write a throwaway Playwright script to see it.
    *
-   * `"guide"` also moves `frames` and `strideTicks` onto the **frame** clock:
-   * a rehearsal is drawn by `paint`, not stepped by the simulation, so a strip
-   * counted in ticks would be the same picture six times over.
+   * `"guide"` also moves `ticks` and `strideTicks` onto the **rehearsal's** own
+   * clock. A film is a run of the simulation drawn off the frame clock rather
+   * than stepped by the world's, so the numbers still mean ticks — they are
+   * just the film's, painted one at a time (`render/guide-play.ts`). The page
+   * is replayed to its first tick before a strip is taken, because a page
+   * plays once and then holds on its last frame: without that, a capture came
+   * back as six copies of whatever the page ended on.
    */
   opening?: OpeningStop;
 }
@@ -199,6 +203,10 @@ declare global {
         creatures: readonly { id?: number; row?: number }[];
         /** The simulation's own clock, which `--settle` must not move. */
         tick: number;
+        /** Optional for the usual reason — a build older than this reading has
+         * one and does not expose it, so a caller falls back to the shipped
+         * 120 rather than failing. A rehearsal's ticks are counted in it. */
+        cfg?: { tickHz: number };
       };
       jumpToWave(wave: number): void;
       dismissBriefing(): void;
@@ -216,7 +224,22 @@ declare global {
        * than failing as an undefined call somewhere in the page. */
       send?(player: 1 | 2, command: unknown): void;
       advance(ticks: number): void;
-      paint(): void;
+      /**
+       * `dt` is how much time this frame is worth, and it is optional twice
+       * over: a build from before it existed ignores the argument and paints a
+       * sixtieth, which is what every caller but a rehearsal's wanted.
+       */
+      paint(dt?: number): void;
+      /**
+       * This page of a rehearsal again, from its first tick. Missing on a build
+       * from before it was exposed, so `--opening guide` says so by name rather
+       * than failing as an undefined call somewhere in the page.
+       */
+      replayGuide?(): void;
+      /** Whether that page has played out and is holding on its last frame.
+       * Missing on a build from before it was exposed, where "cannot tell" is
+       * the honest answer and no warning is printed. */
+      guideFinished?(): boolean;
       /**
        * Whether the wave is still arriving. Missing on a build from before it
        * was exposed — which includes builds that *have* the rings, so

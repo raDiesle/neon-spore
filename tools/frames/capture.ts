@@ -44,6 +44,16 @@ export interface CaptureResult {
    * difference there was, or frame one that a reader would have found anyway.
    */
   whole: string[];
+  /**
+   * Whether a rehearsal's page had already played out when the first picture
+   * was taken — so every frame after it is the same one.
+   *
+   * `undefined` on anything but `--opening guide`, and on a build too old to
+   * answer. A digest comparison cannot stand in for it: the light behind the
+   * field moves on its own clock, so two photographs of a held page differ in
+   * every pixel that is not the film.
+   */
+  heldPage?: boolean;
 }
 
 /** Painted frames spent settling a wave's opening before the frame that is
@@ -88,24 +98,32 @@ export async function captureFrames(
     /**
      * What `ticks` and `strideTicks` actually move.
      *
-     * A wave is stepped by the simulation and a **rehearsal is not**: the
-     * guide's loop is drawn by `paint` off the frame clock, so a strip of it
-     * counted in ticks would be one picture repeated. On the guide, then, the
-     * two numbers count painted frames — the same numbers the caller wrote,
-     * against the only clock the thing in front of the camera runs on.
+     * A wave is stepped by the simulation and a **rehearsal is not**: a film is
+     * a run drawn off the *frame* clock, one tick per `dt * tickHz`
+     * (`render/guide-play.ts`). So on the guide the numbers still mean ticks —
+     * the film's — and each one is a painted frame worth exactly one of them.
+     *
+     * It used to paint a plain sixtieth per count, which moved the film by two
+     * ticks a frame and made `--stride` mean nothing anybody could work out.
+     * Worse, it could not move a film at all once the page had played: a page
+     * holds on its last frame, and `SETTLE_FRAMES` below ran a whole second of
+     * it before the first photograph. `--frames 6 --stride 30` came back as six
+     * copies of the last frame, and the moment a film was *about* was the one
+     * moment a session could not send the owner.
      */
     const paintDriven = spec.opening === "guide";
+    const tickHz = await page.evaluate(() => window.neonSpore?.world.cfg?.tickHz ?? 120);
     const advance = async (n: number): Promise<void> => {
       await page.evaluate(
-        ([count, byFrame]) => {
+        ([count, byFrame, hz]) => {
           const ns = window.neonSpore;
           if (!ns) throw new Error("window.neonSpore missing mid-capture");
           for (let i = 0; i < (count as number); i++) {
-            if (byFrame) ns.paint();
+            if (byFrame) ns.paint(1 / (hz as number));
             else ns.advance(1);
           }
         },
-        [n, paintDriven] as [number, boolean],
+        [n, paintDriven, tickHz] as [number, boolean, number],
       );
     };
 
@@ -161,8 +179,31 @@ export async function captureFrames(
       }, SETTLE_FRAMES);
     }
 
+    // **And then back to the page's first tick.** The settle above is about the
+    // opening's *words*, which arrive over painted frames — but on a guide the
+    // same sixty frames are a whole second of film, and a page that reaches its
+    // last tick holds there for good. `replayGuide` is the guide's own middle
+    // button: it rebuilds the rehearsal and runs the ticks before this page
+    // silently, so what the strip starts from is where those ticks really left
+    // it. The caption stays where the settle put it.
+    if (paintDriven) {
+      await page.evaluate(() => {
+        const ns = window.neonSpore;
+        if (!ns) throw new Error("window.neonSpore missing before a rehearsal");
+        if (!ns.replayGuide) {
+          throw new Error(
+            "this build has no window.neonSpore.replayGuide — --opening guide needs a commit " +
+              "at or after the one that added it, or the strip is six copies of the page's " +
+              "last frame",
+          );
+        }
+        ns.replayGuide();
+      });
+    }
+
     const paths: string[] = [];
     const whole: string[] = [];
+    let heldPage: boolean | undefined;
     for (let i = 0; i < frames; i++) {
       const advanceBy = i === 0 ? spec.ticks : strideTicks;
       if (i === 0 && spec.press) {
@@ -207,6 +248,13 @@ export async function captureFrames(
         window.neonSpore?.paint();
       });
 
+      // Asked at the first picture and nowhere else: a strip that *ends* on a
+      // page's last frame is a strip of the whole page, which is right, and
+      // one that starts there is six copies of it.
+      if (i === 0 && paintDriven) {
+        heldPage = await page.evaluate(() => window.neonSpore?.guideFinished?.());
+      }
+
       if (pageErrors.length > 0) {
         throw new Error(`page threw while driving the loop: ${pageErrors[0]}`);
       }
@@ -229,7 +277,7 @@ export async function captureFrames(
       }
       paths.push(path);
     }
-    return { paths, whole };
+    return { paths, whole, heldPage };
   } finally {
     // A lent browser is the caller's to close; the tab this capture opened in
     // it is not, and a file that leaked one per capture would be back where it

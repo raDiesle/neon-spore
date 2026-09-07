@@ -137,29 +137,6 @@ Why the short label is what fits today, and what each of the three costs.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
-## `bun run frames --opening guide` cannot photograph a page past its first moment
-
-- **Found:** 2026-09-07, claude/strand-enemy-visuals-26ba40
-- **Files:** `tools/frames/opening-hold.ts`, `tools/frames/capture.ts`, `tools/frames/run.ts`
-
-`run.ts` says that on `--opening guide`, `--frames` and `--stride` count painted
-frames because "a rehearsal is drawn rather than stepped". In practice they do
-not advance it: `--frames 6 --stride 30` on THE COIL's rehearsal returns six
-pictures of the same instant, and so does `--settle 135`. A rehearsal's clock is
-wall time (`SceneRun` is driven by the paint loop), and the capture paints with
-a clock that does not move, so a page can only ever be photographed at the tick
-`restart` leaves it on.
-
-The consequence is that the moment a film is *about* is the one moment a session
-cannot send the owner. THE COIL's third page turns on a dome opening about a
-second in; the only proof available was a simulation dump, which is exactly what
-`CLAUDE.md` says not to send instead of a frame.
-
-Give the guide capture a clock it can drive — a test handle that steps
-`SceneRun` by a named number of ticks, the way `advance` steps the field — and
-make `--stride` on an `--opening guide` capture mean those ticks. Then a strip
-of a rehearsal is a strip of the film rather than of one frame of it.
-
 ## Give THE CHOIR a rehearsal, and teach the scene runner a gesture
 
 - **Found:** 2026-09-07, claude/choir-enemy-shake-swipe-08eaf0

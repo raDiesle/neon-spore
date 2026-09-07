@@ -92,6 +92,19 @@ export class GuideStage {
     if (this.play.replayPage()) this.resetSeats();
   }
 
+  /**
+   * Whether the page showing has played out and is standing on its last frame.
+   *
+   * Nothing on screen needs it — the film simply stops — but a *camera* does:
+   * a page holds for good, so a strip asked for from past its end is the same
+   * picture however many frames are taken, and the tool taking one has no other
+   * way to tell that from a page that happens to be still
+   * (`tools/frames/capture.ts`).
+   */
+  get finished(): boolean {
+    return this.play.finished;
+  }
+
   private resetSeats(): void {
     for (const s of this.seats) s.reset();
   }
