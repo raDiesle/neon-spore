@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-07 · fe2a2a80 — Four commands the wire was silently dropping
+
+`decodeCommand` rejects an unrecognised `kind` outright, and its list of accepted examples was hand-kept with nothing checking it against the union. So a command added to `sim` and not to that switch is not a build error — it is silence: the press works on the phone it was made on and reaches the other device as nothing at all, while both halves type-check and pass their own tests. THE CHOIR's `shake` and its two arrows went in that way and were caught by reading rather than by running.
+
+## 2026-09-07 · 6878b31f — THE CHOIR: three dots opened by shaking the phone
+
+A new arrival, and the first body in this game that no button can reach. Three dots hang across three lanes in one grey soap-film membrane and nothing a cannon carries gets in. What opens it is a gesture on neither panel: player 1 shakes the device, and the dots draw together into a slick or a bulb in the middle lane, in a colour they did not have while they were apart, which player 2 then has to finish. Miss and it sings — the hull pays for the chord. `sim/choir.ts` is the body and `choir-gesture.ts` the hand.
+
 ## 2026-09-07 · 28103517 — THE MAZE gets a clock, and the drum falls on the ship when it runs out
 
 Three things the owner asked for, all on THE MAZE. Picking a STAGE in the director's boss panel now stands the field on that sheet instead of leaving it on the first: the click goes through `setBossRound`, the fight's own way into a round, so what the stage plays is the round the pair would have reached.
