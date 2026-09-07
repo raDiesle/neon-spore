@@ -15,19 +15,17 @@ import { bindAudio } from "./audio.js";
 import { bindBriefing } from "./briefing.js";
 import { openDemonstration } from "./demo-menu.js";
 import { startFrames } from "./frame.js";
-import { bindGauge } from "./gauge.js";
 import { bindTesting } from "./handle.js";
 import { bindHaptics } from "./haptics.js";
 import { bindControls, InputBuffer } from "./input.js";
 import { interpolationRequested } from "./interpolate.js";
 import { bindIntro } from "./intro.js";
 import { menuIdleHz } from "./menu-idle.js";
-import { bindPinball } from "./pinball.js";
 import { bindRasterBurst } from "./raster.js";
+import { bindRounds } from "./rounds.js";
 import { createRunState } from "./run-state.js";
 import { bindShake } from "./shake.js";
 import { bindShell } from "./shell.js";
-import { bindSnake } from "./snake.js";
 import { bindTestControls } from "./testing.js";
 import { bindViewSwitch } from "./view.js";
 import { bindViewport } from "./viewport.js";
@@ -158,14 +156,9 @@ const brief = bindBriefing({
   role: () => view.role(),
   replay: () => renderer.replayGuide(),
 });
-// THE GAUGE brings its own controls, on its own listener — neither player's
-// band is the answer, and the two seats differ (`gauge.ts`, interludes.md).
-bindGauge({ canvas, buffer, world, layout, inStage, role: () => view.role() });
-// SNAKE brings its own six, on its own listener, for the same reason
-// (`snake.ts`). Neither round's listener can fire while the other is up: the
-// simulation only holds one boss at a time and each asks whether it is theirs.
-bindSnake({ canvas, buffer, world, layout, inStage, role: () => view.role() });
-bindPinball({ canvas, buffer, world, layout, inStage, role: () => view.role() });
+// Every round that is not the field brings its own buttons, on its own
+// listener — neither player's band is the answer (`rounds.ts`).
+bindRounds({ canvas, buffer, world, layout, inStage, role: () => view.role() });
 const testPanel = bindTestControls({ world, jumpToWave, run });
 
 /**

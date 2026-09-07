@@ -59,6 +59,10 @@ export function serializeBoss(boss: BossEntry): string {
   // `packages/content/src/pinball-rounds.ts`, and a picture written back out
   // as a list of coordinates would be a board nobody could read again.
   if (boss.kind === "pinball") return '{ kind: "pinball", rounds: PINBALL_ROUNDS }';
+  // THE PULSE the same, and most of all: a chart is bars of text and a bar
+  // read back out as a list of `{ step, lane }` is a rhythm nobody could see
+  // (`packages/content/src/pulse-stages.ts`).
+  if (boss.kind === "pulse") return '{ kind: "pulse", stages: PULSE_STAGES }';
   // The rounds go one per line: a sequence is read down the page, and putting
   // several on one line is how a diff of a boss stops being reviewable.
   const rounds = boss.rounds.map((r) => `        [${r.map((s) => `"${s}"`).join(", ")}],`);

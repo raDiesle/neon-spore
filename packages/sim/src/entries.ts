@@ -197,6 +197,7 @@ export {
   type MazeEntry,
   type MirrorEntry,
   type PinballEntry,
+  type PulseEntry,
   type QueenEntry,
   type SnakeEntry,
   type VaneEntry,

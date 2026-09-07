@@ -1,6 +1,7 @@
 import type { FleetShip } from "./fleet-board.js";
 import type { MazeWheel } from "./maze-wheel.js";
 import type { PinballRound } from "./pinball.js";
+import type { PulseStage } from "./pulse.js";
 import type { MirrorStep } from "./simon.js";
 import type { SnakeRound } from "./snake.js";
 
@@ -140,6 +141,21 @@ export interface PinballEntry {
   rounds: PinballRound[];
 }
 
+/**
+ * What a wave authors when it wants THE PULSE: the stages, in order.
+ *
+ * The chart *is* the fight — which arrows come, in what order, and which of
+ * them arrive on one seat's screen with the direction taken off them — so it
+ * is authored, the way THE MIRROR's sequences are, and `pulseFault` says
+ * whether what was written is a song at all. Everything about how a press is
+ * judged is tuning (`config-pulse.ts`): a stage whose timing window was
+ * authored per chart would be several different games with one name.
+ */
+export interface PulseEntry {
+  kind: "pulse";
+  stages: PulseStage[];
+}
+
 /** The boss counterpart of `PodEntry`: whichever boss a wave carries. */
 export type BossEntry =
   | QueenEntry
@@ -150,7 +166,8 @@ export type BossEntry =
   | GaugeEntry
   | FleetEntry
   | SnakeEntry
-  | PinballEntry;
+  | PinballEntry
+  | PulseEntry;
 
 /**
  * Whether this boss *is* the wave, or only bends what the wave sends.
@@ -183,4 +200,5 @@ export const BOSS_KINDS: readonly BossEntry["kind"][] = [
   "fleet",
   "snake",
   "pinball",
+  "pulse",
 ];

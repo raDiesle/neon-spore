@@ -13,6 +13,13 @@ import type { ControlDef } from "./controls.js";
  *
  * `CONTROLS` spreads this in place, so nothing that reads the vocabulary had
  * to learn there are two files.
+ *
+ * **THE PULSE's eight are the one place a control is written twice**, once for
+ * each seat, and it is not a mistake in the model. A `ControlDef` belongs to a
+ * seat — that is what makes a panel two halves — and this is the first round
+ * where both halves are the same four buttons. The alternative was a control
+ * that belongs to *both*, which would be a third value on a field that is
+ * `1 | 2` in forty places, to save writing four labels out twice.
  */
 export const ROUND_CONTROLS: readonly ControlDef[] = [
   {
@@ -98,6 +105,62 @@ export const ROUND_CONTROLS: readonly ControlDef[] = [
     form: "slab",
     label: "MAW",
     does: "Opens the mouth for a moment. A point driven over with it shut starts the round again.",
+  },
+  {
+    id: "pulse1Left",
+    player: 1,
+    form: "slab",
+    label: "◀",
+    does: "Player 1's left lane in THE PULSE. Both seats carry all four, and both press the same chart.",
+  },
+  {
+    id: "pulse1Down",
+    player: 1,
+    form: "slab",
+    label: "▼",
+    does: "Player 1's down lane in THE PULSE. Both seats carry all four, and both press the same chart.",
+  },
+  {
+    id: "pulse1Up",
+    player: 1,
+    form: "slab",
+    label: "▲",
+    does: "Player 1's up lane in THE PULSE. Both seats carry all four, and both press the same chart.",
+  },
+  {
+    id: "pulse1Right",
+    player: 1,
+    form: "slab",
+    label: "▶",
+    does: "Player 1's right lane in THE PULSE. Both seats carry all four, and both press the same chart.",
+  },
+  {
+    id: "pulse2Left",
+    player: 2,
+    form: "slab",
+    label: "◀",
+    does: "Player 2's left lane in THE PULSE. Both seats carry all four, and both press the same chart.",
+  },
+  {
+    id: "pulse2Down",
+    player: 2,
+    form: "slab",
+    label: "▼",
+    does: "Player 2's down lane in THE PULSE. Both seats carry all four, and both press the same chart.",
+  },
+  {
+    id: "pulse2Up",
+    player: 2,
+    form: "slab",
+    label: "▲",
+    does: "Player 2's up lane in THE PULSE. Both seats carry all four, and both press the same chart.",
+  },
+  {
+    id: "pulse2Right",
+    player: 2,
+    form: "slab",
+    label: "▶",
+    does: "Player 2's right lane in THE PULSE. Both seats carry all four, and both press the same chart.",
   },
   {
     id: "pinLeft",

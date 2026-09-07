@@ -16,6 +16,7 @@ import { stepMalfunction } from "./malfunction.js";
 import { mazeStringHeard, stepMazeTurn } from "./maze-controls.js";
 import { pinballHolds, pinballRoundHeard, stepPinballRound } from "./pinball-round.js";
 import { advancePods } from "./pods.js";
+import { pulseHolds, pulseRoundHeard, stepPulseRound } from "./pulse-round.js";
 import { stepReach } from "./reach.js";
 import { snakeHolds, snakeRoundHeard, stepSnakeRound } from "./snake-round.js";
 import type { TimedCommand } from "./types.js";
@@ -105,6 +106,23 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
     world.tick += 1;
     if (world.tick % ticksPerBeat(world.cfg) === 0) beatMetronome(world);
     stepPinballRound(world);
+    // A round that has run its course ends its wave from here: there is no
+    // field to be empty, and its picture holds until the next wave arrives.
+    endSpentRound(world);
+    return;
+  }
+  // THE PULSE has it fourth, and the tick matters here for the reason turned
+  // inside out: PINBALL steps on the tick because a body moves on it, and this
+  // one because *when a thumb landed* is the whole round — judged on the beat
+  // it would be judged to within six hundred milliseconds (`pulse-round.ts`).
+  if (pulseHolds(world)) {
+    for (const c of commands) {
+      if (c.command.kind === "restart") applyCommand(world, c);
+      else pulseRoundHeard(world, c.player, c.command);
+    }
+    world.tick += 1;
+    if (world.tick % ticksPerBeat(world.cfg) === 0) beatMetronome(world);
+    stepPulseRound(world);
     // A round that has run its course ends its wave from here: there is no
     // field to be empty, and its picture holds until the next wave arrives.
     endSpentRound(world);

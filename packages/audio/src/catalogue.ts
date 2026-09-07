@@ -25,6 +25,7 @@ import { MIRROR_SOUNDS } from "./sounds/mirror.js";
 import { MIRROR_ROUND_SOUNDS } from "./sounds/mirror-round.js";
 import { MOTION_SOUNDS } from "./sounds/motion.js";
 import { POD_SOUNDS } from "./sounds/pod.js";
+import { PULSE_SOUNDS } from "./sounds/pulse.js";
 import { SHIP_SOUNDS } from "./sounds/ship.js";
 import { SIGNAL_SOUNDS } from "./sounds/signal.js";
 import { SWARM_SOUNDS } from "./sounds/swarm.js";
@@ -41,6 +42,7 @@ export const CATALOGUE: readonly SoundDef[] = [
   ...BOSS_SOUNDS,
   ...BOSS_PLANNED_SOUNDS,
   ...FLEET_SOUNDS,
+  ...PULSE_SOUNDS,
   ...MIRROR_SOUNDS,
   ...MIRROR_ROUND_SOUNDS,
   ...UI_SOUNDS,

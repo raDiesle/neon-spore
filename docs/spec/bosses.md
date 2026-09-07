@@ -1,10 +1,12 @@
 # Bosses
 
-> **Status: five built.** The Bulb Queen, THE MIRROR, The Warden, THE VANE and
-> THE FLEET are in the game — THE VANE holding The Conductor's slot, and THE
-> FLEET holding none of them. Of the remaining seven names none are. Two of
-> them are worked out on this page and neither is buildable today: The Vessel
-> waits on a second device and The Mother on destruction tracking.
+> **Status: five of the eleven names, and four more that hold none of them.**
+> The Bulb Queen, THE MIRROR, The Warden and THE VANE are in the game — THE
+> VANE holding The Conductor's slot — and so are THE FLEET, THE GAUGE, SNAKE,
+> PINBALL and THE PULSE, none of which is on the list below. Of the remaining
+> seven names none are built. Two are worked out on this page and neither is
+> buildable today: The Vessel waits on a second device and The Mother on
+> destruction tracking.
 
 Order, following [the act structure](wave-design.md#84-the-ten-pillars-as-an-act-structure--not-built):
 
@@ -818,3 +820,83 @@ What has **not** been looked at by a human is the feel: whether
 a half seconds of sweep is patient or tedious, and whether pegs or blocks are
 the better board. All three are questions about an eye and a hand, and no test
 can answer any of them.
+
+## 11.8 THE PULSE — the same song, and neither of you can read all of it
+
+> The one where you both play the same chart and part of it only the other one
+> can see.
+
+A seventh boss, and the first one lifted whole from a game everybody has
+already played. Four lanes of arrows fall down the screen onto a line of empty
+ones at the bottom, both seats have the same four buttons, and both press
+against the same chart at the same moment. That much is Dance Dance Revolution
+and it is deliberately unmodified — a pair who have ever seen one need no
+teaching at all, so every beat of the round can be spent on the part that is
+ours.
+
+**The part that is ours is the veil.** Every so often an arrow arrives on one
+seat's screen with its direction taken off it: it falls between the lanes with
+its heading cycling through all four, unreadable, and on the *other* seat's
+screen the same arrow falls in its true lane wearing a light. Both of them
+still have to press it. So the round is not two people playing the same game
+beside each other — it is two people each holding a handful of the other's
+chart, saying "LEFT — now" into a grid that will not wait.
+
+That is what makes it a round rather than a mini-game bolted on. A round's
+third condition is that neither player can play it alone
+([interludes](interludes.md)), and every rhythm game ever written fails it;
+this one fails it too, until the veil, and passes it afterwards **without
+changing a single button**. It is the same shape THE VEIL and THE GHOST already
+have on the field, arriving in a round for the first time.
+
+**Four in a minute, and that number was argued.** The first draft veiled
+nineteen arrows of a hundred and fourteen, including two bars where one seat
+was blind end to end. The owner cut it to a spice: four, spread across
+twenty-four bars, each landing in a bar the pair have already played once, so
+the call is the only new thing in it. A round where being read to is the whole
+activity is a round where nobody is playing.
+
+**One meter, and both of you fill it.** DDR gives each cabinet a groove gauge;
+this gives the pair one bar between them, fed by every hit either of them lands
+and drained by every arrow either of them drops. That was the owner's call over
+two meters side by side, and the reason is what a falling bar means: two bars
+are *mine* and *theirs*, and one bar is **ours**. The cost is real and was
+accepted — one of you can carry the other for a while — and it is bought back
+by the fact that every arrow has to be hit twice, so a seat that stops pressing
+halves the fill and doubles the drain inside a bar. Empty it and the round is
+over and the hull pays `damagePulse`.
+
+**The grid is 25 ticks and that is not a taste.** A beat is 75 ticks at the
+shipped tempo, and 75 is 3 × 25 — so a step is a third of a beat, three of them
+fit in one, and the game's own click lands on every third. Half a beat is 37.5
+ticks, which is not a tick, and a rhythm game whose grid rounds is a rhythm game
+whose two devices disagree about when a note was. Three steps to a beat at 96
+BPM is 288 steps a minute, the same grid as straight eighths at 144: fast, and
+reachable with one thumb.
+
+**The song is the chart.** There is no backing track and no theme: an arrow
+crossing the line plays its lane's note, the grid plays a kick and a sub under
+it, and every one of those is fired off the simulation's own tick clock
+(`packages/audio/src/mixer-pulse.ts`). The alternative was a piece from
+`packages/audio/src/music/`, and it was rejected on drift — that player
+schedules against the browser's audio clock while the arrows fall on the tick
+clock, and a minute of that on a slow phone is a song that has walked away from
+its own chart. The four lanes are a minor-seventh spread, so a bar of arrows is
+a melody and a jump is an interval.
+
+**Where it lives.** The round is `packages/sim/src/pulse.ts`, its clock
+`pulse-round.ts`, its chart arithmetic `pulse-chart.ts` and its one verb
+`pulse-controls.ts`; its numbers are `config-pulse.ts` and its panel is the
+`pulse` control set — eight slabs, four to a seat, and the first panel in the
+game that is the same in both. The picture is five files under
+`packages/render/src/pulse-*.ts`. Its stages are
+`packages/content/src/pulse-stages.ts`, **written as bars of text** rather than
+as a list of `{ step, lane }`, because the only thing that matters about a
+chart is the shape of the rhythm and two hundred objects hide it. Its wave is
+`THE PULSE` and its sentence is the epigraph.
+
+What has **not** been looked at by a human is everything about the feel: whether
+a hundred and sixty-seven milliseconds of scroll is enough warning on a phone,
+whether the two judging windows are generous or slack under a thumb on glass,
+and whether four veiled arrows in a minute is a spice or a rounding error. All
+three are questions about an eye and a hand, and no test can answer any of them.

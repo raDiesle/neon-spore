@@ -106,6 +106,7 @@ export function stepBoss(world: World): void {
   // while any of them stands — so the branch is here to say that out loud
   // rather than to do anything.
   if (boss.kind === "gauge" || boss.kind === "snake" || boss.kind === "pinball") return;
+  if (boss.kind === "pulse") return;
   if (boss.scratch.length === 0) boss.scratch = [0, 1];
 
   const queen = world.creatures.find((c) => c.id === boss.creatureId);

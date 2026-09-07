@@ -1,6 +1,6 @@
 # Rounds that are not the field
 
-> **Status: two are built and both are boss waves.** THE GAUGE is
+> **Status: four are built and all four are boss waves.** THE GAUGE is
 > `packages/sim/src/gauge.ts` (the dial) and `packages/sim/src/gauge-round.ts`
 > (its clock), its picture is `packages/render/src/gauge.ts` and
 > `gauge-round.ts`, and it is reached by one line in `waves.ts`:
@@ -9,7 +9,13 @@
 > `snake-round.ts`, and it is reached the same way — `boss: { kind: "snake",
 > rounds: SNAKE_ROUNDS }`, with the arenas authored in
 > `packages/content/src/snake-rounds.ts` and edited on the wave itself in the
-> director. The other ten candidates are in
+> director. PINBALL and THE PULSE are the third and fourth, built the same way
+> — `boss: { kind: "pinball", rounds: PINBALL_ROUNDS }` and
+> `boss: { kind: "pulse", stages: PULSE_STAGES }` — and THE PULSE is the first
+> whose *panel is the same in both seats*, which is not an exception to
+> condition 2 below but a different answer to it: the verbs are shared and the
+> split is in what each screen can read (`docs/spec/bosses.md` 11.8). The other
+> eight candidates are in
 > [the idea store](ideas.md#interludes); where they came from is
 > [transfers-hazelight](transfers-hazelight.md). One thing in the game already
 > had this shape without being called it —

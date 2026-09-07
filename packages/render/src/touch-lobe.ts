@@ -61,6 +61,16 @@ export function lobeMeans(id: ControlId): { command: Command; hold: Hold | null 
     case "pinRight":
     case "pinLatch":
     case "pinLaunch":
+    // THE PULSE's eight, for the same reason once more: a slab is a panel and
+    // never a swelling on a hull that this round does not draw.
+    case "pulse1Left":
+    case "pulse1Down":
+    case "pulse1Up":
+    case "pulse1Right":
+    case "pulse2Left":
+    case "pulse2Down":
+    case "pulse2Up":
+    case "pulse2Right":
       return null;
     default:
       return assertNever(id);

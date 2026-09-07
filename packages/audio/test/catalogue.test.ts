@@ -122,6 +122,7 @@ const WIRING = [
   "packages/audio/src/bind-breach.ts",
   "packages/audio/src/mixer.ts",
   "packages/audio/src/mixer-boss.ts",
+  "packages/audio/src/mixer-pulse.ts",
 ];
 
 /**

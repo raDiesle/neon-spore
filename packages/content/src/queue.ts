@@ -209,6 +209,19 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
       rounds: boss.rounds.map((r) => ({ beats: r.beats, pieces: r.pieces.map((p) => ({ ...p })) })),
     };
   }
+  // THE PULSE has four lanes instead of a field, and a lane is not a column:
+  // there are always four of them however wide the grid is, so a chart passes
+  // through with nothing remapped either.
+  if (boss.kind === "pulse") {
+    return {
+      ...boss,
+      stages: boss.stages.map((s) => ({
+        name: s.name,
+        steps: s.steps,
+        notes: s.notes.map((n) => ({ ...n })),
+      })),
+    };
+  }
   return { ...boss, col: mapCol(boss.col, cols) };
 }
 

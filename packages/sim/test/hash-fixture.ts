@@ -143,6 +143,23 @@ export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {
       { col: 7, row: 5, len: 3, dir: "v" },
     ],
   },
+  // Two bars of a chart, one veiled each way, so both halves of the seat
+  // split have something in them the fingerprint has to notice.
+  pulse: {
+    kind: "pulse",
+    stages: [
+      {
+        name: "FIXTURE",
+        steps: 24,
+        notes: [
+          { step: 0, lane: "left" },
+          { step: 3, lane: "down", veil: 1 },
+          { step: 6, lane: "up", veil: 2 },
+          { step: 9, lane: "right" },
+        ],
+      },
+    ],
+  },
   pinball: {
     kind: "pinball",
     rounds: [
@@ -367,6 +384,29 @@ function patchBoss(world: World): void {
     // One of each spent, so both lists can prove their own length is hashed.
     boss.struck = [0];
     boss.taken = [0];
+  }
+  if (boss.kind === "pulse") {
+    boss.phase = "play";
+    boss.phaseBeat = 4;
+    boss.openBeat = 3;
+    boss.passed = true;
+    boss.startTick = 900;
+    // Both seats, and deliberately not the same: a fingerprint that folded
+    // them together would say nothing when the two devices disagreed about
+    // which of the pair had just missed.
+    boss.judged1 = boss.notes.map((_, i) => (i === 0 ? 1 : 0));
+    boss.judged2 = boss.notes.map((_, i) => (i === 1 ? 3 : 0));
+    boss.from1 = 1;
+    boss.from2 = 2;
+    boss.meter = 640;
+    boss.combo1 = 3;
+    boss.combo2 = 0;
+    boss.last1 = 1;
+    boss.last2 = 3;
+    boss.lastTick1 = 910;
+    boss.lastTick2 = 935;
+    boss.lastLane1 = 0;
+    boss.lastLane2 = 1;
   }
   if (boss.kind === "mirror") {
     boss.round = 1;

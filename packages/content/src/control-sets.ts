@@ -79,6 +79,7 @@ export type ControlSetId =
   | "fleet"
   | "snake"
   | "pinball"
+  | "pulse"
   | "claw";
 
 export interface ControlSet {
@@ -107,6 +108,19 @@ export interface ControlSet {
    * which panel it is a *picture of*, so the picture lines up.
    */
   reduces?: ControlSetId;
+  /**
+   * How many slabs stand side by side before the next ones go underneath, for
+   * a panel that needs a particular shape rather than the default three.
+   *
+   * THE PULSE is the reason it exists and it is not a taste: its four buttons
+   * are the four *lanes*, and the arrows falling down the screen have to come
+   * down onto them. Wrapped two and two — which is what a four-button panel
+   * gets by default — the lanes would meet the buttons in a different order
+   * every other row, and the round would be unreadable rather than merely
+   * cramped. Absent everywhere else, and `slabPanel` falls back to its own
+   * number, so no existing panel moved by a pixel.
+   */
+  slabsPerRow?: number;
 }
 
 /**

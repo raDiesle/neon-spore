@@ -111,6 +111,28 @@ export function controlPress(id: ControlId, col = 0): ControlPress {
         down: { kind: "slide", on: true, dir: 1 },
         up: { kind: "slide", on: false, dir: 1 },
       };
+    /**
+     * THE PULSE's eight, and they send four things between them: a lane, from
+     * either seat. The seat is in the *control* and never in the command,
+     * because the round does not care which thumb a press came from — both
+     * play the same chart (`sim/pulse-controls.ts`).
+     */
+    case "pulse1Left":
+      return { down: { kind: "pulseStep", lane: "left" } };
+    case "pulse1Down":
+      return { down: { kind: "pulseStep", lane: "down" } };
+    case "pulse1Up":
+      return { down: { kind: "pulseStep", lane: "up" } };
+    case "pulse1Right":
+      return { down: { kind: "pulseStep", lane: "right" } };
+    case "pulse2Left":
+      return { down: { kind: "pulseStep", lane: "left" } };
+    case "pulse2Down":
+      return { down: { kind: "pulseStep", lane: "down" } };
+    case "pulse2Up":
+      return { down: { kind: "pulseStep", lane: "up" } };
+    case "pulse2Right":
+      return { down: { kind: "pulseStep", lane: "right" } };
     case "pinLatch":
       return { down: { kind: "latch" } };
     case "pinLaunch":

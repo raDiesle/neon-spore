@@ -49,6 +49,11 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "done in an order. Nothing about it is hidden from either screen — what " +
     "the pair has to agree on is when. See lid.ts.",
 
+  "THE PULSE — the same song on two screens":
+    "Four lanes of arrows onto four buttons, and both seats have the same four. " +
+    "The two windows say how forgiving a thumb on glass is; the meter numbers say " +
+    "how many misses a stage survives. The chart itself is not here — it is bars of " +
+    "text in packages/content/src/pulse-stages.ts.",
   "PINBALL — a table the ship is the bucket of":
     "The third built round, and the first body in the game under an " +
     "acceleration. The ship folds into a bucket that is both the gun and the " +

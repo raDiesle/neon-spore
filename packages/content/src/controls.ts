@@ -42,6 +42,16 @@ export type ControlId =
   | "pinRight"
   | "pinLatch"
   | "pinLaunch"
+  // THE PULSE's four lanes, twice: it is the first panel that is the same in
+  // both seats, and a `ControlDef` belongs to a seat (`controls-round.ts`).
+  | "pulse1Left"
+  | "pulse1Down"
+  | "pulse1Up"
+  | "pulse1Right"
+  | "pulse2Left"
+  | "pulse2Down"
+  | "pulse2Up"
+  | "pulse2Right"
   | "reach"
   | "mawTake";
 

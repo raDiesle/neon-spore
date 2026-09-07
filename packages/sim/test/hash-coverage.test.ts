@@ -8,6 +8,7 @@ import { MAZE_PHASES } from "../src/maze.js";
 import { MAZE_REASONS } from "../src/maze-verdict.js";
 import { PIN_SHOTS, PINBALL_PHASES } from "../src/pinball.js";
 import { PIN_PIECE_KINDS } from "../src/pinball-contact.js";
+import { PULSE_LANES, PULSE_PHASES } from "../src/pulse.js";
 import { MIRROR_PHASES, MIRROR_STEPS } from "../src/simon.js";
 import { SNAKE_PHASES } from "../src/snake.js";
 import { POD_KINDS } from "../src/types.js";
@@ -82,19 +83,34 @@ const FAMILIES: readonly (readonly string[])[] = [
   FLEET_DIRS,
   SNAKE_PHASES,
   PINBALL_PHASES,
+  PULSE_LANES,
+  PULSE_PHASES,
   PIN_SHOTS,
   PIN_PIECE_KINDS,
+  PULSE_LANES,
+  PULSE_PHASES,
   MALFUNCTION_KINDS,
   MALFUNCTION_COLORS,
 ];
 
+/**
+ * A different value for a string leaf.
+ *
+ * A word out of a closed list becomes another word out of the same list, which
+ * is what a device could actually disagree about. **A string that belongs to
+ * no list gets a character on the end instead** — THE PULSE's stage names are
+ * the first free-form text in the world, and the alternative was a family of
+ * two invented titles, which would be a list nobody ever reads pretending to
+ * be a vocabulary. The fallback only widens what this test covers: before it,
+ * a string in no family failed here rather than being checked.
+ */
 function otherValue(value: string): string | null {
   for (const family of FAMILIES) {
     if (!family.includes(value)) continue;
     const other = family.find((v) => v !== value);
     if (other !== undefined) return other;
   }
-  return null;
+  return `${value}.`;
 }
 
 interface Leaf {

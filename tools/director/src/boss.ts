@@ -124,6 +124,21 @@ export function bindBossPanel(
       if (isCreaturePlacementBlocked(wave)) panel.appendChild(placementNote());
       return;
     }
+    // THE PULSE's charts are authored as bars of text in
+    // `packages/content/src/pulse-stages.ts`, and a step-file is the one thing
+    // in this game that is *already* a picture — turning it into a grid of
+    // buttons here would make it harder to read, not easier. So the panel says
+    // where the song is and gets out of the way.
+    if (wave.boss.kind === "pulse") {
+      const note = document.createElement("p");
+      note.className = "note";
+      note.textContent =
+        `${wave.boss.stages.length} stage(s), authored as bars of text in ` +
+        "packages/content/src/pulse-stages.ts. A bar is a line: L D U R are the " +
+        "lanes, . is a rest, and a trailing 1 or 2 is the seat that cannot read it.";
+      panel.appendChild(note);
+      return;
+    }
     const boss = wave.boss;
     // THE GAUGE has nothing to author: no column, no health, no rounds. Its
     // whole difficulty is `config-gauge.ts`, which is the SHIP card's, not

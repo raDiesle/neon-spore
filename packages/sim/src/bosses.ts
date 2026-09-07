@@ -21,6 +21,7 @@ export {
   type FleetEntry,
   type GaugeEntry,
   type PinballEntry,
+  type PulseEntry,
   type SnakeEntry,
   type VaneEntry,
   type WardenEntry,
@@ -158,6 +159,35 @@ export {
   pinballHolds,
   pinballRound,
 } from "./pinball-round.js";
+export {
+  PULSE_COUNT_BEATS,
+  PULSE_JUDGES,
+  PULSE_LANES,
+  PULSE_PHASES,
+  type PulseJudge,
+  type PulseLane,
+  type PulseNote,
+  type PulsePhase,
+  type PulseStage,
+  type PulseState,
+} from "./pulse.js";
+export {
+  pulseAim,
+  pulseCalls,
+  pulseEndTick,
+  pulseFault,
+  pulseLaneIndex,
+  pulseNoteAt,
+  pulseNoteTick,
+  pulseVeiled,
+} from "./pulse-chart.js";
+export { pulseCurrent } from "./pulse-open.js";
+export {
+  closePulse,
+  PULSE_VERDICT_BEATS,
+  pulseHolds,
+  pulseRound,
+} from "./pulse-round.js";
 export { queenMarkCol, queenOccupiesCol, ROCK_CYCLE } from "./queen-mark.js";
 export {
   fireStep,

@@ -97,6 +97,24 @@ export const CONTROL_SETS: readonly ControlSet[] = [
     controls: ["pinLeft", "pinLatch", "pinRight", "pinLaunch"],
   },
   {
+    id: "pulse",
+    name: "THE PULSE",
+    why: "The first panel that is the same in both seats: four lanes each, against one chart neither of you can read all of.",
+    controls: [
+      "pulse1Left",
+      "pulse1Down",
+      "pulse1Up",
+      "pulse1Right",
+      "pulse2Left",
+      "pulse2Down",
+      "pulse2Up",
+      "pulse2Right",
+    ],
+    // Four across, because they are the four lanes and the arrows come down
+    // onto them (`ControlSet.slabsPerRow`).
+    slabsPerRow: 4,
+  },
+  {
     id: "claw",
     name: "THE CLAW",
     why: "The gun is a hand: player 1 slides it and reaches up a column, and the mouth moves to player 2, so nothing is caught by one person alone.",

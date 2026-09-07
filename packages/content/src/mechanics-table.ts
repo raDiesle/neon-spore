@@ -1,5 +1,6 @@
 import type { Mechanic, MechanicId } from "./mechanics.js";
 import { ROCK_MECHANICS } from "./mechanics-rocks.js";
+import { ROUND_MECHANICS } from "./mechanics-rounds.js";
 import { RUN_MECHANICS } from "./mechanics-run.js";
 import { SPLIT_MECHANICS } from "./mechanics-split.js";
 import { WAVE_MECHANICS } from "./mechanics-wave.js";
@@ -184,22 +185,7 @@ export const MECHANICS = {
     // be authoring a body with no answer.
     waveNames: true,
   },
-  gauge: {
-    what: "One needle and two marks, and the field does not come back until the needle has been held between them five times.",
-    reach: "spawn",
-  },
-  fleet: {
-    what: "A chart of squares with ships hidden in it. Only one of you is shown where they are, and only the other one can move the sights.",
-    reach: "spawn",
-  },
-  snake: {
-    what: "The ship shrinks into a snake that never stops. One of you turns it a quarter turn at a time and is shown only the body and the meteors; the other has a shot and a mouth and is shown everything else.",
-    reach: "spawn",
-  },
-  pinball: {
-    what: "The ship folds into a bucket that is both the gun and the glove. One of you slides it and stops the aiming needle, the other picks the strength off a bar and fires — and then the same bucket has to be under the ball when it comes back down.",
-    reach: "spawn",
-  },
+  ...ROUND_MECHANICS,
   crawler: {
     what: "A maggot that comes over a side wall and walks the ship's surface instead of falling on it, a column every other beat, costing the hull nothing while it walks. Every ring of it comes off: the segments run red, cyan, plate, red, cyan, plate, and the head and the tail are plates too — a colour wants the matching cannon under it, a plate wants the shield. Each ring wears a crosshair, and the ones the dome is owed wear its mark above them. Every ring taken off snaps the body together behind it. Take the last one and the ship sweeps the lane clean; let it reach the far wall and it eats its way in.",
     reach: "spawn",

@@ -235,3 +235,33 @@ with the bare form keeping today's meaning (after the wave's ticks, with
 tested on its own; holds would join that list rather than getting a second
 one. `tools/frames/test/` holds the ordering, so the proof is a case there
 plus a `--press`/`--hold` pair whose recorded order is the one written.
+
+## THE PULSE judges a press ~100 ms late on two devices
+
+- **Found:** 2026-09-07, claude/ddr-boss-concept-57c9c8
+- **Files:** `packages/sim/src/config-pulse.ts`, `packages/render/src/pulse-fall.ts`,
+  `packages/render/src/renderer.ts`, `apps/game/src/main.ts`, `packages/net/src/delay.ts`
+
+Delayed lockstep schedules every press `delayTicks` into the future — 12 ticks
+at the default, a tenth of a second (`packages/net/src/lockstep.ts`). Every
+other control in the game shrugs that off: a cannon a tenth of a second late is
+a cannon in the right column. THE PULSE cannot, because the whole round is
+*when a thumb landed*: the clean window is 8 ticks and the outer one 18, so on
+two devices a player pressing exactly on the line is judged 12 ticks late —
+past PERFECT every time and past GOOD on a link that measured worse. Solo on
+one device the delay is nought and the round is judged correctly, which is why
+nothing about this shows up in `bun test` or in the frame test.
+
+The fix is a **render-side lead** and not a simulation change: draw each arrow
+reaching the line `delayTicks` *before* its judged tick, so a thumb landing on
+the picture produces a command landing on the note. It has to come from the
+device's own current delay rather than from `cfg.inputDelayTicks`, because
+`InputDelay` moves it as the link is measured and the two devices never agree
+on it (`packages/net/src/delay.ts` says so in its header) — which is exactly
+why it is safe: it is a fact about one pair of eyes, like `ViewState.hand`.
+
+Add an optional `leadTicks` to `ViewState`, default 0, subtract it inside
+`pulseNoteAt`'s caller in `pulse-fall.ts`, and have `main.ts` feed it from the
+link's `delay` when there is a link and 0 when there is not. A unit test can
+prove the arithmetic: at `leadTicks = 12`, an arrow whose judged tick is T is
+drawn on the line at tick T − 12.

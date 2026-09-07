@@ -30,6 +30,17 @@ export interface Memory {
   alarmBeat: number;
   /** The beat `ship.gripStrain` last sounded on. */
   strainBeat: number;
+  /** THE PULSE's own five, and every one of them is a cursor into a chart:
+   * the last step of the grid that has been played, how far the lane voices
+   * and the veil warnings have got, and the tick each seat's last judgement
+   * happened on (`mixer-pulse.ts`). */
+  pulseStep: number;
+  pulseSung: number;
+  pulseWarned: number;
+  pulseLast1: number;
+  pulseLast2: number;
+  /** Which part of the round is running, so the two verdicts sound once. */
+  pulsePhase: string;
   guardArmed: boolean;
   intakeOpen: boolean;
   over: boolean;
@@ -51,6 +62,12 @@ export function blankMemory(): Memory {
     creatures: 0,
     alarmBeat: -1,
     strainBeat: -1,
+    pulseStep: -1,
+    pulseSung: 0,
+    pulseWarned: 0,
+    pulseLast1: -1,
+    pulseLast2: -1,
+    pulsePhase: "",
     guardArmed: false,
     intakeOpen: false,
     over: false,

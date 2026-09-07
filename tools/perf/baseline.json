@@ -624,6 +624,22 @@
       "mean": 3.05,
       "p90": 3.48,
       "jitter": 0.138
+    },
+    {
+      "id": "pulse",
+      "wave": 57,
+      "name": "THE PULSE",
+      "bodies": 0,
+      "arrivals": "0:741638a5",
+      "typical": 0.7,
+      "mean": 0.74,
+      "p90": 0.97,
+      "jitter": 0.207,
+      "mergedFrom": {
+        "measuredAt": "2026-09-07",
+        "commit": "cac732e3cfb181d8a8feec33cde315a944c9ebbc",
+        "scale": 0.98
+      }
     }
   ]
 }

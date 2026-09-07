@@ -1,3 +1,4 @@
+import { PULSE_STAGES } from "../pulse-stages.js";
 import type { Wave } from "../wave-types.js";
 
 /**
@@ -173,5 +174,18 @@ export const WAVES_ACT_7B: Wave[] = [
       { beat: 30, col: 1, kind: "meteor", color: null },
       { beat: 34, col: 1, kind: "choir", color: "red" },
     ],
+  },
+  {
+    id: "pulse",
+    name: "THE PULSE",
+    sentence: "The one where you both play the same song and neither of you can read all of it.",
+    guide: {
+      both: "Four lanes of arrows fall onto four buttons, and both of you have the same four. Hit every arrow as it crosses the line. Some of them arrive on your screen with the direction stripped off — those are the ones your partner can see and you cannot.",
+      p1: "A blank arrow between the lanes is yours to press and theirs to name. Keep pressing on the beat rather than waiting to be sure — a late one still counts, a skipped one never does.",
+      p2: "The same is true of you, one bar later. When an arrow on your screen is marked CALL, that is the one they are blind to — say the direction early and say it once, because the window is a sixth of a second wide.",
+    },
+    entries: [],
+    boss: { kind: "pulse", stages: PULSE_STAGES },
+    controls: "pulse",
   },
 ];

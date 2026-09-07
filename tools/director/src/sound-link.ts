@@ -13,6 +13,7 @@
 
 import type { SoundDef } from "@neon-spore/audio";
 import type { MirrorStep } from "@neon-spore/sim";
+import { PULSE_NO_SUBJECT } from "./sound-link-pulse.js";
 
 /** A contour by its `shape-sheet` name, or one of the six controls. */
 export type Subject =
@@ -212,6 +213,9 @@ export const NO_SUBJECT: Record<string, string> = {
     "the first of THE CHOIR's two arrows going out. The subject is a gesture — a hand carrying a handle off the edge of the field — and there is no body anywhere in it; what the sound marks is that the pilot has started something and has two beats to finish.",
   "boss.fleetDown":
     "the last of them. What this marks is a chart with nothing left on it, which is an absence like ui.waveClear rather than a thing standing anywhere.",
+  // THE PULSE's twelve, which are next door: a song has no bodies in it at all
+  // (`sound-link-pulse.ts`).
+  ...PULSE_NO_SUBJECT,
 };
 
 export function subjectFor(def: SoundDef): Subject {

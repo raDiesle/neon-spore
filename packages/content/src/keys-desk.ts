@@ -79,6 +79,21 @@ const SEAT_KEYS: Record<1 | 2, { slide: readonly [string, string]; press: readon
   2: { slide: ["KeyJ", "KeyL"], press: ["KeyQ", "KeyE"] },
 };
 
+/**
+ * A seat's whole four-way, for a panel that gives *both* seats four
+ * directions — which so far is THE PULSE and nothing else.
+ *
+ * `ARROWS` below is one four-way shared by whichever seat's panel has one, and
+ * that was enough while only one seat at a time could have it. This round
+ * hands the same four buttons to both, so each needs a four-way of its own:
+ * player 1 takes WASD around the slide pair his hand is already on, and player
+ * 2 keeps the arrow keys.
+ */
+const SEAT_WAYS: Record<1 | 2, Record<Way, string>> = {
+  1: { left: "KeyA", right: "KeyD", up: "KeyW", down: "KeyS" },
+  2: { left: "ArrowLeft", right: "ArrowRight", up: "ArrowUp", down: "ArrowDown" },
+};
+
 /** A direction a control names, or `"column"` for a strip, which names none. */
 type Way = "left" | "right" | "up" | "down";
 type Aim = Way | "column" | null;
@@ -112,6 +127,8 @@ function aimOf(id: ControlId): Aim {
       return down.dir < 0 ? "left" : "right";
     case "snakeTurn":
       return down.dir;
+    case "pulseStep":
+      return down.lane;
     case "aim":
       if (down.dcol !== 0) return down.dcol < 0 ? "left" : "right";
       if (down.drow !== 0) return down.drow < 0 ? "up" : "down";
@@ -134,6 +151,13 @@ function aimOf(id: ControlId): Aim {
 function onArrows(id: ControlId): boolean {
   const { kind } = controlPress(id).down;
   return kind === "aim" || kind === "snakeTurn";
+}
+
+/** Whether this control is one of a seat's *own* four-way — THE PULSE's lanes,
+ * which both seats have all four of and which therefore cannot share one set
+ * of arrow keys (`SEAT_WAYS`). */
+function onSeatWays(id: ControlId): boolean {
+  return controlPress(id).down.kind === "pulseStep";
 }
 
 /**
@@ -172,6 +196,10 @@ export function deskKeys(set: ControlSet): readonly DeskKey[] {
       if (aim === null) {
         const code = SEAT_KEYS[player].press[press++];
         if (code !== undefined) keys.push({ code, player, control: def.id });
+        continue;
+      }
+      if (onSeatWays(def.id)) {
+        keys.push({ code: SEAT_WAYS[player][aim], player, control: def.id });
         continue;
       }
       if (onArrows(def.id)) {

@@ -40,6 +40,8 @@ const ACCEPTED: Command[] = [
   { kind: "guideStep", back: true },
   { kind: "aim", dcol: 1, drow: 0 },
   { kind: "salvo" },
+  // THE PULSE's one verb, and the only one both seats send.
+  { kind: "pulseStep", lane: "up" },
 ];
 
 /**
@@ -75,6 +77,7 @@ const EVERY_KIND: Record<Command["kind"], true> = {
   aim: true,
   salvo: true,
   snakeTurn: true,
+  pulseStep: true,
   snakeFire: true,
   snakeMaw: true,
   slide: true,

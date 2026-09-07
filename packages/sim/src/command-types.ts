@@ -1,4 +1,7 @@
+import type { RoundCommand } from "./command-round.js";
 import type { Color } from "./types.js";
+
+export { SNAKE_TURNS, type SnakeTurn } from "./command-round.js";
 
 /**
  * What a press *is*, as a flat union — so that a replay is a list of these and
@@ -68,71 +71,6 @@ export type Command =
    */
   | { kind: "guideStep"; back?: boolean }
   /**
-   * THE GAUGE's own controls, and the reason they are here rather than
-   * reusing the ship's: a round that is not the field has its own verbs, and a
-   * pair told to "fire" at a dial would be learning that the words mean
-   * whatever the screen currently needs (`docs/spec/interludes.md`).
-   *
-   * `valve` is player 1's, held rather than pressed — `dir` is which way it
-   * pushes and `on` ends it, the same contract `prime` has. `call` is player
-   * 2's, and it is the only thing in THE GAUGE that can be wrong. Which seat
-   * may send which is checked in `gauge.ts`, not here: the command is what was
-   * pressed, and whose press counts is the round's rule.
-   */
-  | { kind: "valve"; on: boolean; dir: -1 | 1 }
-  | { kind: "call" }
-  /**
-   * THE FLEET's two verbs, and the same argument `valve` and `call` make one
-   * more time: a round that is not the ordinary field has its own words, and a
-   * pair told to "fire" at a chart would be learning that the words mean
-   * whatever the screen currently needs.
-   *
-   * `aim` is player 2's, one square a press — a *step* and not a place, which
-   * is the whole of why the fight is a conversation. An absolute control names
-   * a square, and a seat that could name one would not need to be told which
-   * one; a step can only be counted, and counting is a thing two people do out
-   * loud. `dcol` and `drow` are each -1, 0 or 1, and no button on the panel
-   * sends both at once.
-   *
-   * `salvo` is player 1's, and it is the only thing in the round that can be
-   * wrong. Which seat may send which is checked in `fleet.ts`, not here: the
-   * command is what was pressed, and whose press counts is the round's rule.
-   */
-  | { kind: "aim"; dcol: -1 | 0 | 1; drow: -1 | 0 | 1 }
-  | { kind: "salvo" }
-  /**
-   * SNAKE's own three, and the same argument one round along: a round that is
-   * not the field has its own verbs.
-   *
-   * `snakeTurn` is player 2's and it is **relative** — a quarter turn from
-   * wherever the body is already pointing, which is the one thing that can be
-   * said out loud without either of them naming a place. `snakeFire` and
-   * `snakeMaw` are player 1's: a shot straight out of the head, and the mouth
-   * open for a moment. Which seat may send which is checked in
-   * `snake-controls.ts`, not here.
-   */
-  | { kind: "snakeTurn"; dir: SnakeTurn }
-  | { kind: "snakeFire" }
-  | { kind: "snakeMaw" }
-  /**
-   * PINBALL's three, and the same argument one round further on: a round that
-   * is not the field has its own verbs.
-   *
-   * `slide` is player 1's bucket, held rather than pressed — `valve`'s exact
-   * contract, because it is `valve`'s exact gesture: a thing that has to be
-   * *placed* under a falling ball cannot be stepped, and a pair counting
-   * presses at a ball in the air would be two people doing arithmetic instead
-   * of talking. `latch` is player 1's too and stops the sweeping needle.
-   *
-   * `launch` is player 2's, and it fires on the power bar. It used to mean a
-   * second thing before that — opening the sweep — and did not survive being
-   * looked at: the needle was already walking when it arrived
-   * (`pinball-controls.ts`).
-   */
-  | { kind: "slide"; on: boolean; dir: -1 | 1 }
-  | { kind: "latch" }
-  | { kind: "launch" }
-  /**
    * A hand that grabbed something and moved: the second gesture, beside the
    * press-and-hold that only slows a fall (`grip.ts`). `on` is the hold, the
    * contract `prime` and `valve` have — true for the grab and every move after
@@ -195,7 +133,9 @@ export type Command =
    * because they are a hand carrying something and not a press.
    */
   | { kind: "shake" }
-  | { kind: "restart" };
+  | { kind: "restart" }
+  // And the rounds' own, next door — see `command-round.ts`.
+  | RoundCommand;
 
 /** The draggable elements: one name per thing a hand may take hold of. A closed
  * list rather than a creature id, because THE MAZE's string is not a creature —
@@ -230,15 +170,6 @@ export type DragTarget =
  * for THE LID's reason: a wave may have several on the field and either seat
  * may have a hand on a different one.
  */
-
-/**
- * The two ways SNAKE's body can be turned, and they are quarter turns rather
- * than headings: "left" means a quarter turn anticlockwise from wherever it is
- * already going. A closed list of words, so a frame on the wire says what was
- * pressed (`snake-controls.ts` is where a press becomes a heading).
- */
-export const SNAKE_TURNS = ["left", "right"] as const;
-export type SnakeTurn = (typeof SNAKE_TURNS)[number];
 
 export interface TimedCommand {
   /** Simulation tick the command takes effect on. */

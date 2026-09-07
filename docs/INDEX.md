@@ -279,6 +279,14 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/choir.ts` | THE CHOIR: three dots in one membrane, and the first body in this game that **no button can reach** |
 | `packages/sim/src/config-choir.ts` | THE CHOIR's numbers: how far a hand has to carry an arrow, how long the pair has between the two of them |
 | `packages/sim/src/events-choir.ts` | **THE CHOIR's three**: an arrow out, both in, and the window gone |
+| `packages/sim/src/command-round.ts` | **The rounds' own verbs**, as their half of the `Command` union |
+| `packages/sim/src/config-pulse.ts` | THE PULSE's numbers — the step grid, the two windows a press is judged in |
+| `packages/sim/src/pulse-chart.ts` | THE PULSE's chart, as arithmetic: where a note is in time, which note a press is aimed at |
+| `packages/sim/src/pulse-controls.ts` | The four verbs of the round — and the first round in the game where both seats have all of them |
+| `packages/sim/src/pulse-hash.ts` | What THE PULSE puts into `hashWorld`, and nothing else |
+| `packages/sim/src/pulse-round.ts` | THE PULSE's clock: the count-in, the song, and the one way the hull pays |
+| `packages/sim/src/pulse.ts` | THE PULSE: the same song on two screens, and neither of you can read all of it |
+| `packages/sim/src/pulse-open.ts` | Opening a stage, and opening the round — the two places a `PulseState` is written from nothing |
 
 ### packages/content
 
@@ -389,6 +397,9 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-coil.ts` | THE COIL's rehearsal: the shield is stuck open, and the plate is what opens the dome |
 | `packages/content/src/keys-desk.ts` | **The desk keyboard is a panel too**, and this is where a key finds out what it means |
 | `packages/content/src/scenes/the-choir.ts` | THE CHOIR's rehearsal: the one gesture that is on no panel at all |
+| `packages/content/src/pulse-stages.ts` | THE PULSE's stages — the charts, and so far there is one of them |
+| `packages/content/src/pulse-steps.ts` | A chart, written as bars of text, and the reader that turns one into notes |
+| `packages/content/src/mechanics-rounds.ts` | The rounds that are not the field, as mechanic rows |
 
 ### packages/render
 
@@ -692,6 +703,12 @@ place — the generator keeps whatever is there.
 | `packages/render/src/choir.ts` | THE CHOIR as it stands before the pilot's gesture |
 | `packages/render/src/maze-drips.ts` | The half of a refused shot that lands on the ship: a pool across the top of the hull |
 | `packages/render/src/maze-spill.ts` | What a shot the heart refuses throws back, and how far it gets |
+| `packages/render/src/pulse-arrow.ts` | One arrow, and the two ways of drawing one that cannot be read |
+| `packages/render/src/pulse-fall.ts` | The arrows themselves: what is falling, what is standing on the line |
+| `packages/render/src/pulse-lane.ts` | Where THE PULSE's four lanes are, and where the line across them is |
+| `packages/render/src/pulse-meter.ts` | The one meter, the tally under it, and the verdict |
+| `packages/render/src/pulse-panel.ts` | THE PULSE's four buttons, drawn as sockets rather than as plates |
+| `packages/render/src/pulse-round.ts` | THE PULSE over the whole stage |
 
 ### packages/net
 
@@ -743,6 +760,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-cue.ts` | **What one sound-to-be is**: an id out of the catalogue, where it sits in the stereo field |
 | `packages/audio/src/bind-veil.ts` | THE VEIL's three, as sounds |
 | `packages/audio/src/bind-choir.ts` | THE CHOIR's three, in a file of its own |
+| `packages/audio/src/mixer-pulse.ts` | THE PULSE's song, played off the simulation's own clock |
 
 ### apps/game
 
@@ -812,6 +830,8 @@ place — the generator keeps whatever is there.
 | `apps/game/src/keys-grip.ts` | what the desk rig's grip key takes hold of, and how it carries it |
 | `apps/game/src/keys-slide.ts` | The desk keys that slide a swelling, and keep sliding while held |
 | `apps/game/src/shake.ts` | the device being shaken, which is THE CHOIR's control and the only input that is not a finger on the glass |
+| `apps/game/src/pulse.ts` | The host's half of THE PULSE: eight thumbs on eight buttons |
+| `apps/game/src/rounds.ts` | Every round that is not the field, bound to the canvas at once |
 
 ### apps/server
 
@@ -1214,5 +1234,8 @@ place — the generator keeps whatever is there.
 | `tools/probe/world.ts` | A world, stood up and stepped, for a question that only a running one answers |
 | `tools/director/src/stage-panel.ts` | **What the stage panel is, as a contract**, and nothing about how it is driven |
 | `tools/frames/guide-film.ts` | **Driving a rehearsal**, which is a clock of its own and not the world's |
+| `tools/director/src/ship-fields-round.ts` | The rounds' own dials, sorted into their cards |
+| `tools/director/src/stage-pulse.ts` | THE PULSE'S EIGHT SLABS, ANSWERED BY THE DIRECTOR'S MOUSE |
+| `tools/director/src/sound-link-pulse.ts` | Why none of THE PULSE's twelve sounds has a picture |
 
 <!-- index:code:end -->

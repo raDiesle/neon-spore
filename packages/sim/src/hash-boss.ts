@@ -4,6 +4,7 @@ import { FLEET_DIRS } from "./fleet-board.js";
 import { GAUGE_PHASES } from "./gauge.js";
 import { mazeHashParts } from "./maze-hash.js";
 import { pinballHashParts } from "./pinball-board.js";
+import { pulseHashParts } from "./pulse-hash.js";
 import { MIRROR_PHASES, MIRROR_STEPS } from "./simon.js";
 import { snakeHashParts } from "./snake-hash.js";
 
@@ -152,6 +153,12 @@ export function bossHashParts(boss: BossState | null): number[] {
   // loop in here is a field two devices could disagree about silently.
   if (boss !== null && boss.kind === "pinball") {
     for (const n of pinballHashParts(boss)) push(n);
+  }
+  // THE PULSE, the same way and for the same reason — with the addition that
+  // its state is two mirrored halves, and `pulse-hash.ts` is what stops one of
+  // them being forgotten (`pulseHashParts`).
+  if (boss !== null && boss.kind === "pulse") {
+    for (const n of pulseHashParts(boss)) push(n);
   }
   if (boss !== null && boss.kind === "mirror") {
     // Every sequence, not only the one being played. They are authored, which

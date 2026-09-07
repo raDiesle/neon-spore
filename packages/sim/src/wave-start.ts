@@ -10,6 +10,7 @@ import type { Malfunction } from "./malfunction.js";
 import { installMaze } from "./maze-round.js";
 import { installMirror } from "./mirror.js";
 import { installPinball } from "./pinball-round.js";
+import { installPulse } from "./pulse-round.js";
 import { NO_SHELL } from "./shell.js";
 import { installSnake } from "./snake-round.js";
 import { WARDEN_COLS } from "./types.js";
@@ -96,6 +97,11 @@ export function startWave(
     // ship is in it as the bucket, so no body of this boss is on the field for
     // the fall loop, the hull or a hand to find.
     world.boss = installPinball(world, boss.rounds);
+  } else if (boss?.kind === "pulse") {
+    // The same nothing a third time: four lanes of falling arrows are the
+    // round's own picture and the ship is not in it at all, so there is no
+    // body here for the fall loop, the hull or a hand to find.
+    world.boss = installPulse(world, boss.stages);
   } else if (boss?.kind === "mirror") {
     world.boss = installMirror(world, boss.rounds);
   } else if (boss?.kind === "maze") {

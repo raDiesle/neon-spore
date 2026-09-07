@@ -53,7 +53,12 @@ export function progressWave(world: World): void {
 export function roundSpent(world: World): boolean {
   const boss = world.boss;
   if (boss === null) return false;
-  if (boss.kind !== "gauge" && boss.kind !== "snake" && boss.kind !== "pinball") return false;
+  const round =
+    boss.kind === "gauge" ||
+    boss.kind === "snake" ||
+    boss.kind === "pinball" ||
+    boss.kind === "pulse";
+  if (!round) return false;
   return boss.phase === "spent";
 }
 

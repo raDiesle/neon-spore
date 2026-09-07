@@ -1,4 +1,10 @@
-import { type Color, type Command, type DragTarget, SNAKE_TURNS } from "@neon-spore/sim";
+import {
+  type Color,
+  type Command,
+  type DragTarget,
+  PULSE_LANES,
+  SNAKE_TURNS,
+} from "@neon-spore/sim";
 
 /**
  * Every `Command` variant, checked field by field, before it ever reaches a
@@ -35,9 +41,13 @@ const isDragTarget = (x: unknown): x is DragTarget =>
  * here would be a list that could fall behind the round it steers.
  */
 type SnakeTurn = (typeof SNAKE_TURNS)[number];
+type PulseLane = (typeof PULSE_LANES)[number];
 
 const isSnakeTurn = (x: unknown): x is SnakeTurn =>
   typeof x === "string" && (SNAKE_TURNS as readonly string[]).includes(x);
+
+const isPulseLane = (x: unknown): x is PulseLane =>
+  typeof x === "string" && (PULSE_LANES as readonly string[]).includes(x);
 
 /**
  * How far a hand has carried a handle, in thousandths of a tile. Signed, and
@@ -149,6 +159,11 @@ export function decodeCommand(x: unknown): Command | null {
       return { kind: "snakeFire" };
     case "snakeMaw":
       return { kind: "snakeMaw" };
+    // THE PULSE's one verb. The lane is checked against the list rather than
+    // taken as a number, for `snakeTurn`'s reason: a peer that sent an index
+    // out of range would land a press in a lane that is not on the screen.
+    case "pulseStep":
+      return isPulseLane(c.lane) ? { kind: "pulseStep", lane: c.lane } : null;
     // `fromMilli` is a **displacement**, so it is signed: a hand that carried
     // a handle to the left reports a negative number, and `isNonNegInt` here
     // dropped exactly those frames — a pull that worked on one device and

@@ -38,6 +38,7 @@ export type GroupName =
   | "THE GAUGE — a round with no field in it"
   | "SNAKE — a round the ship is the body of"
   | "PINBALL — a table the ship is the bucket of"
+  | "THE PULSE — the same song on two screens"
   | "THROB — red one side, cyan the other, turning"
   | "THE LURE — a body only one of you can see through"
   | "THE VEIL — a cloud only one of you can see into"
@@ -82,6 +83,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE GAUGE — a round with no field in it",
   "SNAKE — a round the ship is the body of",
   "PINBALL — a table the ship is the bucket of",
+  "THE PULSE — the same song on two screens",
   "THROB — red one side, cyan the other, turning",
   "THE LURE — a body only one of you can see through",
   "THE VEIL — a cloud only one of you can see into",
@@ -133,6 +135,7 @@ export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
   "THE FLEET — a chart only one of you can read",
   "SNAKE — a round the ship is the body of",
   "PINBALL — a table the ship is the bucket of",
+  "THE PULSE — the same song on two screens",
 ]);
 
 /** The ship's own dials — the same on every wave, and one click away on the topbar. */
@@ -146,6 +149,7 @@ export const SHIP_GROUPS: GroupName[] = GROUP_ORDER.filter((g) => !WAVE_ONLY_GRO
  */
 export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
   pinball: "PINBALL — a table the ship is the bucket of",
+  pulse: "THE PULSE — the same song on two screens",
   queen: "QUEEN",
   warden: "WARDEN",
   mirror: "MIRROR",

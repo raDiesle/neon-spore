@@ -21,6 +21,7 @@ import { sound } from "./catalogue.js";
 import { Engine } from "./engine.js";
 import { blankMemory } from "./memory.js";
 import { soundBoss } from "./mixer-boss.js";
+import { soundPulse } from "./mixer-pulse.js";
 
 /** The hull is in trouble below a quarter of it, in thousandths. */
 const QUARTER = 25_000;
@@ -174,6 +175,9 @@ export class Mixer {
     m.over = world.over;
 
     soundBoss(world, cols, first, this.mem, (id, pan) => this.play(id, pan));
+    // THE PULSE is the one round that makes a sound on a schedule rather than
+    // because something happened — the chart is the song (`mixer-pulse.ts`).
+    soundPulse(world, first, this.mem, (id, pan) => this.play(id, pan));
     this.soundWave(world, first);
   }
 
