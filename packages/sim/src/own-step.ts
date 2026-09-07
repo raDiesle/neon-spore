@@ -4,6 +4,7 @@ import { stepCoil } from "./coil.js";
 import { stepDart } from "./dart.js";
 import { ghostCrosses, stepGhostAcross } from "./ghost.js";
 import { stepGyre } from "./gyre.js";
+import { rockCrosses, stepRockAcross } from "./rock-cross.js";
 import { slowStep } from "./slow-fall.js";
 import type { Creature } from "./types.js";
 import { stepVolley, volleyIsClimbing } from "./volley.js";
@@ -101,6 +102,15 @@ export function steppedInsteadOfFalling(world: World, c: Creature): boolean {
   // body that both walked and fell would be moving in two directions at once.
   if (ghostCrosses(c)) {
     stepGhostAcross(world, c);
+    return true;
+  }
+  // A rock the wave authored onto a crossing walks a row, turns at the walls
+  // and sinks only there (`stepRockAcross`) — the fall in is inside it too. A
+  // condition on a body rather than on a kind, like the two above it: any
+  // plain rock may be given the path, and one that both walked and fell would
+  // be sinking a row a beat down a field it is drawn crossing.
+  if (rockCrosses(c)) {
+    stepRockAcross(world, c);
     return true;
   }
   // The two bodies that come down slower than a tile a beat, and what each

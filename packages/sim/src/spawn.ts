@@ -9,6 +9,7 @@ import { ghostOnSpawn } from "./ghost.js";
 import { gyreOnSpawn, mountsFor } from "./gyre.js";
 import { recoilOnSpawn } from "./recoil.js";
 import { rindOnSpawn } from "./rind.js";
+import { rockCrossOnSpawn, rockEntryCol, rockMayCross } from "./rock-cross.js";
 import { shellOnSpawn } from "./shell.js";
 import { stringStrand } from "./strand-spawn.js";
 import { clampSpanCol, colSpan, fallTilesPerBeat, spawnSpan } from "./types.js";
@@ -61,7 +62,17 @@ export function spawnArrivals(world: World): void {
     // every later reader — the shield's column test, the shot that passes
     // through, the fingerprint — asks `spanOf` about it like anything else.
     const span = spawnSpan(world.cfg.cols, entry);
-    const col = clampSpanCol(entry.col, world.cfg.cols, span);
+    // A rock the wave sent **across** does not come in at the top and does not
+    // come in where it was painted: it enters at the wall it walks away from,
+    // in the row the wave named, already travelling (`rock-cross.ts`). So the
+    // place is settled here rather than below, and every other arrival keeps
+    // the column it was authored in and the row nought it has always had.
+    const across = entry.cross !== undefined && rockMayCross(entry.kind) ? entry.cross : undefined;
+    const col =
+      across === undefined
+        ? clampSpanCol(entry.col, world.cfg.cols, span)
+        : rockEntryCol(world.cfg.cols, span, across);
+    const row = across === undefined ? 0 : Math.max(0, entry.row ?? 0);
     // Said once, at the top of the field, so player 2's ear has the column
     // before the eye has found the ring. A hit should always be player 2's
     // haste and never player 2's surprise.
@@ -70,15 +81,20 @@ export function spawnArrivals(world: World): void {
       id: world.nextId++,
       kind: entry.kind,
       col,
-      row: 0,
+      row,
       // Glide onto the field at the kind's own speed, not a flat one tile —
       // a torch (`fallTilesPerBeat` far above 1) that crept in for its first
       // beat and only then jumped to full speed read as a stutter, not a fall.
       // A dart takes the default one tile and is right to: its two-row stride
       // is what it does *after* it has arrived, and entering on it would put
       // the first diagonal off the top of the field where nobody sees it.
-      fromRow: -fallTilesPerBeat(entry.kind),
-      fromCol: col,
+      //
+      // A crossing rock glides in **sideways** instead, out of the wall it
+      // entered at: it has no fall to be drawn making, and a body that slid
+      // down from off the top edge into the middle of the field would be a
+      // picture of the arrival it deliberately is not.
+      fromRow: across === undefined ? -fallTilesPerBeat(entry.kind) : row,
+      fromCol: across === undefined ? col : col - across * span,
       color: entry.color,
       // Only when the wave asked for something other than the kind's own
       // width: `spanOf` falls back to `colSpan`, so an unsized arrival carries
@@ -180,6 +196,13 @@ export function spawnArrivals(world: World): void {
       // every other kind, so a rock that holds its lane carries no field at
       // all and every wave written before this creature is the same world.
       ...(entry.kind === "veer" ? veerOnSpawn(world, col) : {}),
+      // Which way a rock crosses the field, and the row it crosses along —
+      // absent on a rock that falls, so every wave written before crossing
+      // existed is byte-for-byte the same world. `rockMayCross` is asked here
+      // rather than trusted from the wave: a route on a body that already
+      // moves by a rule of its own would be a body stepped twice in one beat
+      // (`own-step.ts`), and a stale entry must not be able to buy one.
+      ...(across === undefined ? {} : rockCrossOnSpawn(across, row)),
     });
     // A gyre is the one arrival that brings bodies with it: six on its rim,
     // alternating, built from the hub that was just pushed so that they are

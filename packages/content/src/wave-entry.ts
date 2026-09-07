@@ -1,4 +1,4 @@
-import type { Color, CrawlerSide, GhostPath, RockSize } from "@neon-spore/sim";
+import type { Color, CrawlerSide, GhostPath, RockCross, RockSize } from "@neon-spore/sim";
 import type { WaveKind } from "./mechanics.js";
 
 /**
@@ -174,4 +174,30 @@ export interface WaveEntry {
    */
   cracksRed?: number[];
   cracksCyan?: number[];
+  /**
+   * Which way this **rock** crosses the field instead of falling down its
+   * lane: `-1` to the left, `1` to the right, absent for a rock that holds the
+   * column it was painted in. Meaningless on every kind that already moves by
+   * a rule of its own, and `rockMayCross` is the list of kinds that may take
+   * one.
+   *
+   * **A field and not a kind per route**, the asymmetry `size` argues for said
+   * about where a rock goes: a rock crossing row four and a rock coming
+   * straight down are not two creatures — the pair says exactly the same
+   * sentence about both, a column out loud, and the shield stands in it — and
+   * what changes is how long that column stays the right one. Five tiers
+   * crossed with three routes would be fifteen entries in the bestiary to
+   * express one fact (`sim/rock-cross.ts`).
+   */
+  cross?: RockCross;
+  /**
+   * The row a crossing rock walks along, which is also the row it falls to
+   * before it starts. Absent means the top of the field, and it says nothing
+   * about a rock that does not cross.
+   *
+   * The one coordinate the director's map cannot show — that map is beats down
+   * and columns across — so it is asked for in the panel above the map, beside
+   * the same two fields a pod has had since THE CLAW (`PodEntry.row`).
+   */
+  row?: number;
 }

@@ -77,6 +77,8 @@ const creature = (): Required<Creature> => ({
   fenceCracksCyan: 0b10000,
   coilDir: 1,
   coilLit: 3,
+  rockDir: -1,
+  rockRow: 4,
 });
 
 const bullet = (): Required<Bullet> => ({

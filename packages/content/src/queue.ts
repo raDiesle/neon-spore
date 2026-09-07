@@ -120,6 +120,14 @@ export function queueFromWave(wave: Pick<Wave, "entries">, cols: number): SpawnE
       // apart from the solid walls that now arrive answerable.
       ...(cracksRed?.length ? { cracksRed } : {}),
       ...(cracksCyan?.length ? { cracksCyan } : {}),
+      // Which way a rock crosses the field and the row it crosses along, on
+      // the terms every optional field above is written on: only when the wave
+      // asked for one, so a rock that falls carries neither and produces the
+      // identical queue. The row is a row and never goes through `mapCol` —
+      // that function remaps *columns*, and a field is remapped across, never
+      // down.
+      ...(e.cross === undefined ? {} : { cross: e.cross }),
+      ...(e.row === undefined ? {} : { row: e.row }),
     });
   }
   return queue.sort((a, b) => a.beat - b.beat);

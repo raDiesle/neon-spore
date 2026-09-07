@@ -124,6 +124,32 @@ export interface SpawnEntry {
    */
   cracksRed?: number[];
   cracksCyan?: number[];
+  /**
+   * Which way this **rock** crosses the field instead of holding its lane, and
+   * absent on a rock that falls — which is every rock authored before crossing
+   * existed, so every one of those is byte-for-byte the same world.
+   *
+   * Meaningless on any kind that already moves by a rule of its own;
+   * `rockMayCross` is which kinds may be given one, and it is asked at the
+   * moment an arrival becomes a body (`spawn.ts`) rather than restated here.
+   *
+   * Authored rather than derived, for `wears`' reason: which way a rock sets
+   * off is the whole of what the wave is saying about it, and a heading read
+   * off the column would make two identical arrivals two different creatures
+   * for a reason the author never wrote down.
+   */
+  cross?: -1 | 1;
+  /**
+   * The row a crossing rock walks along, which is also the row it stops
+   * falling at. Absent means the top of the field, and it is meaningless on a
+   * rock that does not cross.
+   *
+   * A row on the arrival is the arrangement `PodEntry.row` already has, and
+   * for the same reason: the director's map is beats down and columns across,
+   * so where in the *field* something sits is the one coordinate that map
+   * cannot show and the panel has to ask for.
+   */
+  row?: number;
 }
 
 /**

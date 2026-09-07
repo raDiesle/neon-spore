@@ -94,6 +94,17 @@ export {
 export { magnetPoleColor } from "./magnet.js";
 export { recoilBouncesLeft, recoilRow, recoilTurn } from "./recoil.js";
 export { rindLayersLeft } from "./rind.js";
+// A crossing rock: a *path* a wave puts a plain rock on rather than a kind
+// in the bestiary, so what goes out is which kinds may take one and how one
+// is read back. The step and the spawn are the simulation's own.
+export {
+  type RockCross,
+  rockCrosses,
+  rockCrossRow,
+  rockEntryCol,
+  rockHeading,
+  rockMayCross,
+} from "./rock-cross.js";
 export {
   NO_SHELL,
   SHELL_COLS,

@@ -124,7 +124,7 @@ export function drawRadar(ctx: CanvasRenderingContext2D, l: Layout, world: World
   // The walk, the gate and the geometry are `radar-blip.ts`'s — a guide's
   // caption points at a blip and had to ask the same four questions.
   for (const blip of radarBlips(l, world)) {
-    const { entry: q, x, y, s, span, alpha: a, inBeats } = blip;
+    const { entry: q, x, y, s, span, alpha: a, inBeats, cross } = blip;
     // A veil borrows no colour, and this is the one place it could have. Its
     // queue entry carries none — the body inside is rolled when it enters the
     // field — so the ternary below would have fallen through to cyan and made
@@ -140,7 +140,33 @@ export function drawRadar(ctx: CanvasRenderingContext2D, l: Layout, world: World
             ? PALETTE.red
             : PALETTE.cyan;
 
-    if (span > 1) {
+    if (cross !== undefined) {
+      // A body that comes over a wall rather than down a column: the mark
+      // points the way it will travel, and it sits at the wall it will come
+      // over. The two other blips answer *which column* with their place; this
+      // one has no column to answer with until it is on the field, so what it
+      // announces is the side — which is the whole of what the pair can say to
+      // each other before it appears (`radar-blip.ts`).
+      const pulse = 0.75 + 0.25 * Math.sin(time * 6);
+      const long = s * 1.5 * (span > 1 ? 1.35 : 1);
+      ctx.globalAlpha = a * pulse;
+      ctx.fillStyle = hex;
+      ctx.beginPath();
+      ctx.moveTo(x + cross * long, y);
+      ctx.lineTo(x - cross * long * 0.35, y - s * 0.9);
+      ctx.lineTo(x - cross * long * 0.35, y + s * 0.9);
+      ctx.closePath();
+      ctx.fill();
+      // The tail, so the arrow reads as something travelling rather than as a
+      // wedge pointing at the wall it is standing on.
+      ctx.globalAlpha = a * pulse * 0.55;
+      ctx.fillRect(
+        Math.min(x - cross * long, x - cross * long * 0.35),
+        y - s * 0.28,
+        long * 0.65,
+        s * 0.56,
+      );
+    } else if (span > 1) {
       // As wide as the shape it warns about, and pulsing — the blip on the
       // strip that is never mistaken for a single-tile rock.
       const pulse = 0.7 + 0.3 * Math.sin(time * 6);

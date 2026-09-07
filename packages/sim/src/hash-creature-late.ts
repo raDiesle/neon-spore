@@ -139,5 +139,15 @@ export function lateHashParts(c: Creature): number[] {
   // yet" are never the same pair of numbers in the fingerprint.
   out.push(c.coilDir ?? 0);
   out.push(c.coilLit ?? -1);
+  // A crossing rock's two. The heading decides which column the body reaches
+  // on the next beat and which wall it sinks at, and the row decides *when the
+  // crossing starts at all* — so two devices that disagree about either are
+  // two devices with one rock over two lanes, and one of them holds the shield
+  // in a column nothing arrives in. `0` for a heading, which no crossing rock
+  // can carry, and `-1` for the row, which no row can be — so "falls like any
+  // other rock" and "walking left along the top row" are never the same pair
+  // of numbers in the fingerprint.
+  out.push(c.rockDir ?? 0);
+  out.push(c.rockRow ?? -1);
   return out;
 }

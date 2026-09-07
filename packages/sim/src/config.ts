@@ -15,6 +15,7 @@ import type { PairConfig } from "./config-pair.js";
 import { PINBALL_DEFAULTS, type PinballConfig } from "./config-pinball.js";
 import { POD_DEFAULTS, type PodConfig } from "./config-pod.js";
 import { RECOIL_DEFAULTS, type RecoilConfig } from "./config-recoil.js";
+import { ROCK_CROSS_DEFAULTS, type RockCrossConfig } from "./config-rock-cross.js";
 import { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
 import { SNAKE_DEFAULTS, type SnakeConfig } from "./config-snake.js";
 import { STRAND_DEFAULTS, type StrandConfig } from "./config-strand.js";
@@ -39,6 +40,7 @@ export { PAIR_ON, type PairConfig } from "./config-pair.js";
 export { PINBALL_DEFAULTS, type PinballConfig } from "./config-pinball.js";
 export { POD_DEFAULTS, type PodConfig } from "./config-pod.js";
 export { RECOIL_DEFAULTS, type RecoilConfig } from "./config-recoil.js";
+export { ROCK_CROSS_DEFAULTS, type RockCrossConfig } from "./config-rock-cross.js";
 export { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
 export { SNAKE_DEFAULTS, type SnakeConfig } from "./config-snake.js";
 export { STRAND_DEFAULTS, type StrandConfig } from "./config-strand.js";
@@ -61,6 +63,7 @@ export interface SimConfig
     FleetConfig,
     GaugeConfig,
     GhostConfig,
+    RockCrossConfig,
     FenceConfig,
     GyreConfig,
     MalfunctionConfig,
@@ -195,6 +198,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   ...FENCE_DEFAULTS,
   ...GYRE_DEFAULTS,
   ...RECOIL_DEFAULTS,
+  ...ROCK_CROSS_DEFAULTS,
   ...PINBALL_DEFAULTS,
   ...POD_DEFAULTS,
   ...SHOT_DEFAULTS,

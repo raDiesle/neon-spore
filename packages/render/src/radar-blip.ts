@@ -1,5 +1,13 @@
 import { showsRadar } from "@neon-spore/content";
-import { bodyCenterCol, type SpawnEntry, spanOf, type World } from "@neon-spore/sim";
+import {
+  bodyCenterCol,
+  type RockCross,
+  rockEntryCol,
+  rockMayCross,
+  type SpawnEntry,
+  spanOf,
+  type World,
+} from "@neon-spore/sim";
 import { type Layout, tileCX } from "./layout.js";
 
 /**
@@ -30,6 +38,18 @@ export interface RadarBlip {
   s: number;
   span: number;
   alpha: number;
+  /**
+   * Which way this arrival will travel across the field, or nothing at all for
+   * the arrivals that come down.
+   *
+   * The strip has always answered *how soon* with height and *which column*
+   * with place, and both of those are wrong for a body that enters at a wall:
+   * it has no column to be announced in, and the one thing the pair needs
+   * before it appears is **which side**. So a crossing blip is placed at the
+   * wall it will come over and drawn as an arrow pointing the way it is going
+   * (`field.ts`), and the height still says how soon.
+   */
+  cross?: RockCross;
 }
 
 /** Every blip this screen carries, soonest first — the queue's own order. */
@@ -41,20 +61,34 @@ export function radarBlips(l: Layout, world: World): RadarBlip[] {
     if (!showsRadar(l.role, q.kind)) continue;
     const inBeats = q.beat - (world.waveBeat - 1);
     if (inBeats < 0 || inBeats > lead) continue;
+    // A rock the wave sent across enters at a wall rather than in the column
+    // it was authored in (`sim/rock-cross.ts`), so the blip goes where the
+    // body will actually appear. `rockMayCross` is asked rather than trusted,
+    // exactly as the spawn asks it: a route on a kind that already moves by a
+    // rule of its own is a route the field refuses, and a strip announcing one
+    // would be announcing a side nothing comes over.
+    const across = q.cross !== undefined && rockMayCross(q.kind) ? q.cross : undefined;
+    const span = spanOf(q);
     out.push({
       entry: q,
       inBeats,
       // `q.col` is a wide kind's leftmost column (`spanCenterCol` in
       // sim/types.ts) — the blip itself is drawn at the visual centre.
-      x: tileCX(l, bodyCenterCol(q, q.col)),
+      x: tileCX(
+        l,
+        across === undefined
+          ? bodyCenterCol(q, q.col)
+          : bodyCenterCol(q, rockEntryCol(world.cfg.cols, span, across)),
+      ),
       y: l.gridTop - 7 - inBeats * ((l.radarHeight - 12) / lead),
       s: 5 + 4 * (1 - inBeats / (lead + 1)),
       // How wide the thing being warned about actually is. Asked of the entry
       // rather than of its kind: the torch is no longer the only two-tile
       // rock, and a blip drawn one tile wide over a rock that covers two is a
       // warning that names the wrong number of columns out loud.
-      span: spanOf(q),
+      span,
       alpha: Math.max(0.18, 1 - inBeats / (lead + 1)),
+      ...(across === undefined ? {} : { cross: across }),
     });
   }
   return out;

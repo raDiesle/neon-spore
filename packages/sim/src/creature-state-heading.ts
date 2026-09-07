@@ -2,6 +2,7 @@ import type { CaromDir } from "./carom.js";
 import type { CoilDir } from "./coil-state.js";
 import type { DartDir } from "./dart.js";
 import type { GhostDir } from "./ghost.js";
+import type { RockCross } from "./rock-cross.js";
 
 /**
  * **The four kinds that carry a heading**: THE DART's two sides and the beat
@@ -92,4 +93,20 @@ export interface HeadingState {
    */
   coilDir?: CoilDir;
   coilLit?: number;
+  /**
+   * **A plain rock's crossing**, and the one pair of fields here that belongs
+   * to a *path* rather than to a kind. `rockDir` is which way along its row
+   * this rock is walking (`-1` left, `1` right) and its presence is the path
+   * itself — absent means the rock falls and holds its lane, which is every
+   * rock authored before crossing existed. `rockRow` is the row it walks
+   * along, which is also the row it stops falling at.
+   *
+   * Read them through `rockCrosses`, `rockHeading` and `rockCrossRow`, never
+   * directly (`rock-cross.ts`): the column the shield has to cover, the wall
+   * the body is heading for and the beat it starts turning at are readings of
+   * these two numbers, and a second copy of either fallback is how the picture
+   * and the step come to disagree about which lane the pair should be in.
+   */
+  rockDir?: RockCross;
+  rockRow?: number;
 }
