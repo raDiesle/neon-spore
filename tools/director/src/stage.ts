@@ -5,7 +5,6 @@ import {
   mazeRound,
   type SimConfig,
   type SimEvent,
-  setBossRound,
   step,
   ticksPerBeat,
   type World,
@@ -39,7 +38,7 @@ export interface StagePanel {
    * needs, since the transport keeps whatever it was last left at. */
   play(): void;
   /**
-   * Stand the boss on a numbered round and let it run.
+   * Stand the boss on a numbered round and **hold it there**.
    *
    * A round-played boss opens on its first round and the only thing that moves
    * it on is *winning*, which nobody does while judging a sheet — so picking
@@ -48,8 +47,28 @@ export interface StagePanel {
    * a round, so what the stage plays is the round the pair would have reached
    * (`sim/boss-round.ts`). Says nothing for a boss that is not played in
    * rounds; the panels that offer the choice are the ones that have them.
+   *
+   * **It is a wanted round rather than one click's doing**, and that is the
+   * whole of the fix. It used to be applied once, to the world a rebuild had
+   * just stood up, which worked only because the click ran `onEdit` first —
+   * so *anything else* that rebuilt the stage put the fight back on round 0
+   * while the tab still read STAGE 4. A tuning slider, a pair switch, a jump
+   * to another wave and back: the panel then named a sheet the field was not
+   * playing, which is exactly the disagreement this was made to end. `rebuild`
+   * re-applies it, so the two cannot come apart again.
    */
   openRound(round: number): void;
+  /**
+   * Let the field go back to opening on its first round.
+   *
+   * The wave picker's, because a round belongs to the boss that was being
+   * judged: standing a different wave's fight on the fourth sheet of the last
+   * one is the same disagreement with the numbers swapped.
+   */
+  closeRound(): void;
+  /** The round the field is being held on, for the panel that offers the
+   * choice to mark — one answer, read rather than kept twice. */
+  round(): number;
   /** The beat the field is holding, for a placement to land on. */
   beat(): number;
   /**
@@ -128,9 +147,19 @@ export function bindStage(
     replay: () => renderer.replayGuide(),
   });
 
+  /**
+   * The round a panel is holding the fight on, re-applied to every world this
+   * stage builds. Zero is the fight's own opening round, which is what a boss
+   * with no panel and every wave with no boss wants.
+   */
+  let wantedRound = 0;
+
   // A fresh world every time, built from the draft — `stage-world.ts` has why.
   const rebuild = (): void => {
-    world = buildStageWorld(store, cfg);
+    // The round goes in with the build rather than after it: a world standing
+    // on the wrong sheet is a world the panel is already lying about, and the
+    // two used to be two statements a caller had to put in the right order.
+    world = buildStageWorld(store, cfg, wantedRound);
     lastBeat = 0;
     onBeat(0);
     afterRun.paint(); // a fresh world is never over
@@ -216,13 +245,16 @@ export function bindStage(
     paintPlay();
   };
 
-  // The round is opened on the world that is standing, not on a fresh one: the
-  // caller has just been through `rebuild` (a boss panel edits through
-  // `onShape`), so a second world here would be a run thrown away unwatched.
+  // Written down first and stood up second, so the caller needs no ordering of
+  // its own — `rebuild` is what puts the fight on it, here and everywhere else.
   const openRound = (round: number): void => {
-    setBossRound(world, round);
-    afterRun.paint();
+    wantedRound = round;
+    rebuild();
     play();
+  };
+
+  const closeRound = (): void => {
+    wantedRound = 0;
   };
 
   const seek = (beat: number): void => {
@@ -244,5 +276,14 @@ export function bindStage(
     paint: () => paint(1 / 60),
   });
 
-  return { rebuild, seek, play, openRound, beat: () => lastBeat, world: () => world };
+  return {
+    rebuild,
+    seek,
+    play,
+    openRound,
+    closeRound,
+    round: () => wantedRound,
+    beat: () => lastBeat,
+    world: () => world,
+  };
 }

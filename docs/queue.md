@@ -186,30 +186,6 @@ Give the guide capture a clock it can drive — a test handle that steps
 make `--stride` on an `--opening guide` capture mean those ticks. Then a strip
 of a rehearsal is a strip of the film rather than of one frame of it.
 
-## The director's STAGE tab and the field disagree after any other edit
-
-- **Found:** 2026-09-07, claude/maze-director-wave-boss-d85812
-- **Files:** `tools/director/src/maze-editor.ts`, `tools/director/src/stage.ts`,
-  `tools/director/src/boss.ts`, `tools/director/test/`
-
-Picking STAGE 4 in THE MAZE's boss panel now stands the field on the fourth
-sheet: the click runs `onEdit` (which rebuilds the world at round 0) and then
-`stage.openRound(3)` on the world that rebuild has just stood up. The order is
-the whole of why it works, and it is also the hole. `OPEN` lives at module
-scope in `maze-editor.ts` the way SNAKE's round does, so **anything else that
-rebuilds the stage puts the fight back on round 0 while the tab still reads
-STAGE 4** — a tuning slider, a pair switch, a jump away to another wave and
-back. The panel then names a sheet the field is not playing, which is exactly
-the disagreement this change was made to end.
-
-The fix is to make the panel's open round a thing `rebuild` re-applies rather
-than a thing one click applies once: give `StagePanel` a wanted round that
-`bindStage`'s `rebuild` hands to `setBossRound` after it builds the world, have
-the boss panel set it (and the wave picker clear it), and delete the ordering
-comment in `main.ts` that the current arrangement needs. A director test that
-rebuilds the stage and asserts `world.boss.round` still matches the panel is
-what proves it.
-
 ## Give THE CHOIR a rehearsal, and teach the scene runner a gesture
 
 - **Found:** 2026-09-07, claude/choir-enemy-shake-swipe-08eaf0

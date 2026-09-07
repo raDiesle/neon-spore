@@ -26,6 +26,9 @@ export class FakeEl {
   textContent = "";
   /** A textarea's or input's own content — the vote box reads one. */
   value = "";
+  /** A canvas's own two, set before anything is drawn on it. */
+  width = 0;
+  height = 0;
   type = "";
   disabled = false;
   private readonly clicks: Array<() => void> = [];
@@ -71,6 +74,17 @@ export class FakeEl {
   replaceChildren(...nodes: FakeEl[]): void {
     this.children.length = 0;
     this.children.push(...nodes);
+  }
+
+  /**
+   * No drawing context, which is what a runner with no canvas has and what
+   * every panel here already handles: each one checks for `null` and hands
+   * back the bare element. So a panel's *wiring* — which stage is marked, what
+   * a click calls — is testable, and its picture is not, which is the right
+   * split: a picture is judged by an eye (`tools/shape-sheet`).
+   */
+  getContext(): null {
+    return null;
   }
 
   /** Every descendant, self excluded — what an assertion about a rendered list reads. */

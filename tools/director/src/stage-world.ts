@@ -1,5 +1,5 @@
 import { bossFromWave, guideSteps, podsFromWave, queueFromWave } from "@neon-spore/content";
-import { createWorld, type SimConfig, startWave, type World } from "@neon-spore/sim";
+import { createWorld, type SimConfig, setBossRound, startWave, type World } from "@neon-spore/sim";
 import { currentWave, type Store } from "./state.js";
 
 /**
@@ -17,8 +17,16 @@ import { currentWave, type Store } from "./state.js";
  * `↺ WAVE` asks "what would a pair who has met nothing see", never "what has
  * this run already taught" — which is also why editing wave 9 alone can show a
  * card wave 2 already raised: no `met` bitmask carries forward.
+ *
+ * **And on the round the panel is holding it**, which is the one thing about a
+ * fresh run that a rebuild must not forget. A boss played in rounds opens on
+ * its first and the only thing that moves it on is winning, so a stage rebuilt
+ * for any other reason — a tuning slider, a pair switch — would drop back to
+ * round 0 under a tab still reading STAGE 4. Applied here rather than by the
+ * caller, because "a world was just built" and "the round is on it" are one
+ * fact and were two statements in the wrong order once already.
  */
-export function buildStageWorld(store: Store, cfg: SimConfig): World {
+export function buildStageWorld(store: Store, cfg: SimConfig, round = 0): World {
   const wave = currentWave(store);
   const world = createWorld(cfg, store.index);
   if (!wave) return world;
@@ -34,5 +42,9 @@ export function buildStageWorld(store: Store, cfg: SimConfig): World {
     guideSteps(wave.guide),
     wave.malfunction ?? null,
   );
+  // `setBossRound` is the fight's own way in, so what the stage plays is the
+  // round a pair would have reached rather than a field with a number written
+  // on it (`sim/boss-round.ts`). Zero is the opening round and needs nothing.
+  if (round > 0) setBossRound(world, round);
   return world;
 }

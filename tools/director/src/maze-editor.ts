@@ -31,23 +31,30 @@ import { button, el } from "./dom.js";
  * the drum on paper; the stage next to it is the drum turning, and the two
  * used to disagree — the tab moved and the field stayed on stage 1, because a
  * boss played in rounds opens on its first and the only thing that moves it on
- * is winning. Choosing STAGE 4 now stands the fight on the fourth wheel
- * through `setBossRound`, the fight's own way into a round, and lets it run.
+ * is winning. Choosing STAGE 4 stands the fight on the fourth wheel through
+ * `setBossRound`, the fight's own way into a round, and lets it run.
+ *
+ * **Which stage is open is the field's answer, not this file's.** It was a
+ * module-scope `OPEN` here, the way SNAKE's round is, and one click set both
+ * halves in an order that had to be right — so anything else that rebuilt the
+ * stage put the fight back on round 0 while these buttons still said STAGE 4.
+ * The stage holds a wanted round now and re-applies it to every world it
+ * builds (`stage.ts`), and this reads it. Two things that must agree, and one
+ * place the answer lives.
  */
 
 /** The drum, drawn as big as the panel comfortably takes. */
 const SIZE = 260;
 
-/** Which stage is open, kept across re-renders the way SNAKE's rounds are. */
-let OPEN = 0;
-
 export function renderMazeEditor(
   panel: HTMLElement,
   onEdit: () => void,
   onStage: (round: number) => void,
+  /** The round the field is being held on — `StagePanel.round`. */
+  round: () => number,
 ): void {
   const stages = MAZE_ROUNDS;
-  const at = Math.min(OPEN, Math.max(0, stages.length - 1));
+  const at = Math.min(round(), Math.max(0, stages.length - 1));
   const wheel = stages[at];
 
   panel.appendChild(
@@ -67,11 +74,11 @@ export function renderMazeEditor(
   stages.forEach((_, i) => {
     const tab = button(`STAGE ${i + 1}`, i === at ? "snake-tab on" : "snake-tab");
     tab.addEventListener("click", () => {
-      OPEN = i;
-      // The panel first — `onEdit` redraws it and starts the wave over — and
-      // then the round, on the world that rebuild has just stood up.
-      onEdit();
+      // The round first, because it is what both halves are read off: `onStage`
+      // writes it down and stands the field on it, and `onEdit` redraws these
+      // buttons from the same answer. Neither order is load-bearing any more.
       onStage(i);
+      onEdit();
     });
     bar.appendChild(tab);
   });

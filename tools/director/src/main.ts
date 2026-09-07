@@ -106,9 +106,14 @@ held.watch(() => {
 // The panel under the map: what the selected cell holds — see `cell-panel.ts`.
 const cells: CellPanel = bindCellPanel({ store, selection, cfg: () => cfg, onEdit: onShape });
 // The boss panel edits a wave through `onShape` like every other panel, and
-// picks a *round* through `stage.openRound` — after `onShape` has rebuilt the
-// world, or the round would be opened on a run that is about to be thrown away.
-const boss: BossPanel = bindBossPanel(store, onShape, (round) => stage.openRound(round));
+// picks a *round* through `stage.openRound`, which the stage then holds and
+// re-applies to every world it builds — so nothing here depends on an order.
+const boss: BossPanel = bindBossPanel(
+  store,
+  onShape,
+  (round) => stage.openRound(round),
+  () => stage.round(),
+);
 const rail = bindRail(store, refreshAll, onProse);
 bindTuning(cfg, () => {
   grid.render();
@@ -202,6 +207,10 @@ function refreshAll(): void {
   // A different wave: beat 4 column 2 is a different cell now, and pointing the
   // panel at whatever happens to be there would be a selection nobody made.
   selection.set(null);
+  // And a round belongs to the boss it was picked for — before `boss.render`,
+  // which marks the tab, and before the rebuild that would stand this wave's
+  // fight on the last one's fourth sheet.
+  stage.closeRound();
   rail.render();
   grid?.render();
   boss.render();

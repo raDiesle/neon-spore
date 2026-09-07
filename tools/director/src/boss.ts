@@ -35,12 +35,15 @@ export interface BossPanel {
  * `onStage` is how a panel that offers a *round* puts the field on it: THE
  * MAZE's five sheets are chosen here and played next door, and until this
  * existed the choice moved the picture on the left and left the drum on the
- * right where it was.
+ * right where it was. `round` is the other direction of the same wire — which
+ * sheet the field is being held on — so a panel marks the stage that is
+ * actually playing rather than the last one somebody clicked here.
  */
 export function bindBossPanel(
   store: Store,
   onEdit: () => void,
   onStage: (round: number) => void,
+  round: () => number,
 ): BossPanel {
   const panel = document.getElementById("bossPanel");
 
@@ -80,7 +83,7 @@ export function bindBossPanel(
     // actually needs, the fifth stage being four stages of play away
     // (`maze-editor.ts`).
     if (wave.boss.kind === "maze") {
-      renderMazeEditor(panel, onEdit, onStage);
+      renderMazeEditor(panel, onEdit, onStage, round);
       if (isCreaturePlacementBlocked(wave)) panel.appendChild(placementNote());
       return;
     }
