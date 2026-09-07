@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-07 · 9b542e4d — A crossing rock leaves at the far side, and its arrow waits on the row
+
+Two corrections from the owner, and between them they change what the creature is.
+
 ## 2026-09-07 · fac18a1d — Queue: say how to open a worktree's director in a browser
 
 Twice this afternoon, looking at the director in the tree being edited meant working out its derived port by hand, writing a throwaway fifth entry into the tracked `.claude/launch.json` with an absolute `--cwd`, and remembering to put that file back. `CLAUDE.md` says to launch by absolute path and stops there; the port is the half that costs the turns.
