@@ -9,6 +9,18 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-07 · cbb6894b — THE COIL gets a rehearsal for the fault and the lane
+
+The wave carries the shield malfunction, and that is the combination the creature needs: the shield is armed on every beat with nobody pressing anything, so the plate is a place rather than a press. Together with the ward reaching only as far as it can see, that gives a wave whose central rule is a rule about nothing happening — which is exactly what a pair cannot be told in prose.
+
+## 2026-09-07 · c35403c0 — Queue the guide capture that cannot photograph a page past its first frame
+
+bun run frames --opening guide returns the same instant however many painted frames are asked for, so the moment a rehearsal is about is the one moment a session cannot send the owner.
+
+## 2026-09-07 · ed5c58ff — THE STRAND's locked beads go grey instead of wearing a cage
+
+The ring of grey plates around every bead a shot could not answer is gone from both screens. In its place, on the navigator's screen only, a bead that is not the one under the arrow is the reel *stopped* and drawn as a grey outline — which is exactly the look a wrong colour leaves on an ordinary body, and already means *nothing reaches this*. Only the lit bead still rolls, so which one is live is said by the body as well as by the mark. The pilot's screen keeps its ordinary slicks and bulbs with nothing added: a grey bead there would name the answer they are not allowed to know.
+
 ## 2026-09-07 · bce9a9c — THE CLAW is the ship's own hand, and a key belongs to a panel
 
 Two corrections from the owner, and they are the same one twice: a thing the pair uses should already be in front of them.
