@@ -1191,5 +1191,6 @@ place — the generator keeps whatever is there.
 | `tools/director/src/grid-gestures.ts` | **Everything a hand can do to one cell of the map**: point at it, paint it, drag a stroke across it |
 | `tools/director/src/held.ts` | **What the author is carrying**: the brush that is armed, and — while a drag is in the air |
 | `tools/director/src/brush-hints.ts` | SHOW DESCRIPTIONS: whether each brush in the palette carries its sentence |
+| `tools/director/src/scene-marks.ts` | The marks: everything a scene draws that is not a body |
 
 <!-- index:code:end -->

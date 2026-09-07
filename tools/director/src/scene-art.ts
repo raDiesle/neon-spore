@@ -191,50 +191,9 @@ function label(ctx: CanvasRenderingContext2D, x: number, y: number, text: string
 }
 
 /**
- * The marks: a tether down a column, a scar at one, a lane called out.
- *
- * Drawn once with the frame rather than every animation frame — none of them
- * is a body and none of them has an own-motion, and a static line redrawn
- * sixty times a second is sixty copies of the same picture.
+ * The marks live next door, in `scene-marks.ts`. They are re-exported here
+ * because every caller reached for one through this file before THE WEIGHT's
+ * two new kinds took it over the ceiling, and a split is not a reason to make
+ * five imports move.
  */
-export function drawMarks(
-  ctx: CanvasRenderingContext2D,
-  scene: Scene,
-  l: Layout,
-  toCard: (x: number, y: number) => { x: number; y: number },
-  cardScale: number,
-  dpr: number,
-): void {
-  ctx.save();
-  ctx.scale(dpr, dpr);
-  for (const mark of scene.marks ?? []) {
-    if (mark.kind === "lane") {
-      const span = mark.span ?? 1;
-      const a = toCard(tileCX(l, mark.col) - l.tile / 2, tileCY(l, 0) - l.tile / 2);
-      const b = toCard(tileCX(l, mark.col + span - 1) + l.tile / 2, tileCY(l, l.rows - 1));
-      ctx.fillStyle = "rgba(242,233,220,.06)";
-      ctx.fillRect(a.x, a.y, b.x - a.x, b.y - a.y);
-      continue;
-    }
-    if (mark.kind === "tether") {
-      const a = toCard(tileCX(l, mark.col), tileCY(l, mark.fromRow));
-      const b = toCard(tileCX(l, mark.col), tileCY(l, mark.toRow));
-      const line = new Path2D();
-      line.moveTo(a.x, a.y);
-      line.lineTo(b.x, b.y);
-      strokeGlow(ctx, line, PALETTE.text, 1.6 * cardScale, 0.7);
-      continue;
-    }
-    // A scar: a chevron cut into the hull row, in the colour damage already
-    // has. Not `scars.ts` — that draws a scar the simulation is carrying, and
-    // this one is a claim about a field nobody has played.
-    const at = toCard(tileCX(l, mark.col), tileCY(l, l.rows - 1));
-    const w = (l.tile * cardScale) / 2;
-    const cut = new Path2D();
-    cut.moveTo(at.x - w, at.y - w * 0.5);
-    cut.lineTo(at.x, at.y + w * 0.6);
-    cut.lineTo(at.x + w, at.y - w * 0.5);
-    strokeGlow(ctx, cut, PALETTE.ember, 1.6 * cardScale, 0.9);
-  }
-  ctx.restore();
-}
+export { drawMarks } from "./scene-marks.js";

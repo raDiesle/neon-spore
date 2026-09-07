@@ -98,10 +98,12 @@ export interface SceneSpawn {
 /**
  * The small vocabulary of things a scene may draw that are not bodies.
  *
- * Deliberately three. A mark is a licence to draw anything, and a catalogue
+ * Deliberately small. A mark is a licence to draw anything, and a catalogue
  * with an open-ended one stops being a catalogue and becomes a drawing
  * program — so a new kind gets added when a mechanic cannot be said without
- * it, and not before.
+ * it, and not before. Three of the five were enough for a year; the last two
+ * were both added by one boss, and the note on each says which sentence of
+ * THE WEIGHT could not be drawn without it.
  */
 export type SceneMark =
   /** A line down a column: the Warden's tether, the Weight's stalk. */
@@ -109,7 +111,31 @@ export type SceneMark =
   /** Damage already taken, at a column. What the Notch steers for. */
   | { kind: "scar"; col: number; note: string }
   /** A lane called out, because the mechanic is about *which* one. */
-  | { kind: "lane"; col: number; span?: number; note: string };
+  | { kind: "lane"; col: number; span?: number; note: string }
+  /**
+   * A hand closed on something, at the tile it has hold of.
+   *
+   * The fourth kind, and THE WEIGHT is why: its whole mechanic is *whose hand
+   * is where*, and a picture of it without hands is a picture of a sac
+   * hanging. Every other scene can leave a hand out because in every other
+   * scene a hand is one option among several; here it is the only thing that
+   * touches the boss at all, and the sentence "two hands stop it dead, and two
+   * hands is nobody firing" cannot be drawn without drawing both of them.
+   *
+   * `player` because the two seats hold different controls, and which of them
+   * has a hand on the boss is exactly what the other one has to be told.
+   */
+  | { kind: "hand"; col: number; row: number; player: 1 | 2; note: string }
+  /**
+   * A depth across the whole field, rather than a column down it.
+   *
+   * The fifth, and THE WEIGHT is why again: it is the only body in the game
+   * whose state depends on *how far down it has got*, so the threshold is a
+   * row and no mark in the vocabulary was horizontal. A `tether` is the same
+   * line turned ninety degrees and would say "this hangs in column five",
+   * which is the opposite claim.
+   */
+  | { kind: "line"; row: number; note: string };
 
 /** Which part of the phone the picture is cut out of. `pose-art` does the cutting. */
 export type SceneCrop = "full" | "field" | "ship";

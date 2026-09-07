@@ -30,13 +30,88 @@ export const BOSS_SCENES: Scene[] = [
       "whether a parting reads at boss size, which is the argument for building this before the Symbiosis: the same form, five columns wide instead of one",
     bodies: [{ shape: "THE CHOIR", col: 3, row: 3, span: 5 }],
   },
+  /**
+   * THE WEIGHT, state by state.
+   *
+   * Five pictures rather than one, and it is the only concept on this page
+   * that gets them. Every other draft here is a *shape* question — does a
+   * parting read at boss size, is a plate one column wide — and one frame
+   * answers a question like that. This one is a **cycle**: the boss has no
+   * attack, no pattern and no phase, and the whole encounter is the rhythm of
+   * two hands going on and coming off. A single frame of that is a sac
+   * hanging in the middle of a field, which is a picture of the one moment in
+   * the fight where nothing is being decided.
+   *
+   * They are in the order the fight runs in and each one is the state the one
+   * before it forces, so the sequence is the argument: sinking costs nothing
+   * and wins nothing, holding costs everything and wins nothing, and the only
+   * thing that wins is the state the pair least wants to be in.
+   * `docs/spec/transfers-bosses.md` is the prose; these are the pictures it
+   * refers to.
+   */
   {
     suggests: "THE WEIGHT",
     role: "p1",
     claim:
-      "the only boss that descends continuously, drawn where it has got to — the stalk above it is the line two hands have to hold, and holding is nobody firing",
-    bodies: [{ shape: "THE WEIGHT", col: 4, row: 8, span: 3 }],
-    marks: [{ kind: "tether", col: 5, fromRow: 0, toRow: 7, note: "the stalk it hangs from" }],
+      "**1 · SINKING.** Nobody has a hand on it, so it comes down a row a beat and there is nothing on it to shoot — the stalk pays out above it and the cannon and the shield are both free and both useless. The clock in this fight is the boss.",
+    bodies: [{ shape: "THE WEIGHT", col: 4, row: 4, span: 3 }],
+    marks: [{ kind: "tether", col: 5, fromRow: 0, toRow: 3, note: "the stalk it hangs from" }],
+  },
+  {
+    suggests: "THE WEIGHT",
+    role: "p1",
+    claim:
+      "**2 · HELD.** Two hands stop it dead — and two hands on the boss is nobody on the cannon and nobody on the shield. This is the safest the field ever looks and no part of it is progress: hold forever and the fight never ends.",
+    bodies: [{ shape: "THE WEIGHT", col: 4, row: 7, span: 3 }],
+    marks: [
+      { kind: "tether", col: 5, fromRow: 0, toRow: 6, note: "the stalk, taut along the pull" },
+      { kind: "hand", col: 4, row: 7, player: 1, note: "the pilot's hand" },
+      { kind: "hand", col: 6, row: 7, player: 2, note: "the navigator's hand" },
+    ],
+  },
+  {
+    suggests: "THE WEIGHT",
+    role: "p1",
+    claim:
+      "**3 · BALLAST.** Held, it sheds rocks — real ones, the game's own, indestructible and needing the shield. So the price of holding is charged in the one currency the hold has taken away, and it comes due the beat a hand lets go.",
+    bodies: [{ shape: "THE WEIGHT", col: 4, row: 6, span: 3 }],
+    spawns: [
+      { what: "meteor", col: 3, row: 10 },
+      { what: "meteor", col: 8, row: 12 },
+    ],
+    marks: [
+      { kind: "tether", col: 5, fromRow: 0, toRow: 5, note: "the stalk" },
+      { kind: "hand", col: 4, row: 6, player: 1, note: "the pilot's hand" },
+      { kind: "hand", col: 6, row: 6, player: 2, note: "the navigator's hand" },
+    ],
+  },
+  {
+    suggests: "THE WEIGHT",
+    role: "p1",
+    claim:
+      "**4 · OPEN.** Below the line the seam at its narrow top parts, and for the first time there is something to shoot — one column, four rows above the hull, and the hand that takes the shot is a hand that was holding it up.",
+    bodies: [{ shape: "THE WEIGHT", col: 4, row: 11, span: 3 }],
+    marks: [
+      { kind: "line", row: 10, note: "the line the seam opens below" },
+      { kind: "lane", col: 5, note: "the column the shot has to go up" },
+      { kind: "tether", col: 5, fromRow: 0, toRow: 10, note: "the stalk" },
+      { kind: "hand", col: 4, row: 11, player: 1, note: "one hand still on it" },
+    ],
+  },
+  {
+    suggests: "THE WEIGHT",
+    role: "p1",
+    claim:
+      "**5 · HEAVE.** Hit, it lifts fast and settles back slowly, the seam shuts and the cycle restarts higher up — with the ballast it shed on the way down still falling. The ghost is where it was standing when the shot went in.",
+    bodies: [
+      { shape: "THE WEIGHT", col: 4, row: 4, span: 3 },
+      { shape: "THE WEIGHT", col: 4, row: 11, span: 3, ghost: true, label: "where it was hit" },
+    ],
+    spawns: [{ what: "meteor", col: 8, row: 13 }],
+    marks: [
+      { kind: "tether", col: 5, fromRow: 0, toRow: 3, note: "the stalk, slack again" },
+      { kind: "line", row: 10, note: "the line, back above it" },
+    ],
   },
   {
     suggests: "THE CODEX",

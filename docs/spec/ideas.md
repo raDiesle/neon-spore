@@ -300,8 +300,14 @@ Each names the slot it would fit.
   held, so holding is never free. The whole fight is the rhythm of hands on and
   off, negotiated out loud. Its animation — the contour deforming toward the
   finger, the skin going taut and bright along the line of pull — was taken for
-  the Warden's tether, so what is left here is the mechanic. Slot: The Heart
-  (60), whose pillar it fits better than a pulse would
+  the Warden's tether, so what is left here is the mechanic. Worked out as a
+  five-state cycle, with a picture of each state, in
+  [transfers-bosses](transfers-bosses.md#the-weight--the-boss-you-have-to-let-fall):
+  sinking, held, shedding ballast, open below the line, heaving back up. Slot:
+  The Heart (60), whose pillar it fits better than a pulse would. Unworked out:
+  whether the pair *lets* it fall past the line or *drags* it there, since a
+  hand is a brake today and the second reading asks for a gesture the game does
+  not have
 - **THE CHOIR** — warding turned into a weapon. Three small bodies suspended in
   one soap-film membrane, drifting apart and snapping back into a single merged
   contour when they sing in unison. Immune to shots: it takes damage only when

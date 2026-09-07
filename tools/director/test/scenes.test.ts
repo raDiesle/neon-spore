@@ -67,8 +67,20 @@ describe("a mechanic drawn on the field", () => {
         expect(b.row).toBeLessThanOrEqual(last);
       }
       for (const m of scene.marks ?? []) {
+        // A depth is the one mark with no column — it crosses all of them —
+        // so it is checked against the rows instead. Every other kind names a
+        // column, and a hand names both.
+        if (m.kind === "line") {
+          expect(m.row).toBeGreaterThanOrEqual(0);
+          expect(m.row).toBeLessThanOrEqual(last);
+          continue;
+        }
         expect(m.col).toBeGreaterThanOrEqual(0);
         expect(m.col).toBeLessThanOrEqual(DEFAULT_CONFIG.cols - 1);
+        if (m.kind === "hand") {
+          expect(m.row).toBeGreaterThanOrEqual(0);
+          expect(m.row).toBeLessThanOrEqual(last);
+        }
       }
     }
   });

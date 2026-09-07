@@ -266,3 +266,24 @@ prints the number —
 grew a tiny CLI (`bun run port director`) so the incantation is a command
 rather than a paste, and `CLAUDE.md`'s "launch by absolute path" sentence
 pointed at it.
+
+
+## A scene body's label lands inside the body when the body is wider than a lane
+
+- **Found:** 2026-09-07, claude/the-weight-boss-states-w8bha3
+- **Files:** `tools/director/src/scene-art.ts`
+
+`drawOverlay` puts a `SceneBody.label` at `centre.y + tile * 0.5`, which is
+half a lane below the middle — right for a creature, which draws `tile * 0.4`
+across, and inside the outline for anything wider. THE WEIGHT's states are
+three lanes wide, so the label meant to name the seam was printed across the
+sac's own contour and had to be dropped from the scene to get a readable
+picture; THE TITHE, THE CAIRN and THE CODEX are seven lanes and would be worse
+if any of them ever used one.
+
+The offset should come off the body's drawn half-height rather than off the
+tile — `placeBodies` already knows `scale` and the contour's bounds, so the
+number is there and is not being asked for. Put the label clear of the bottom
+of what was actually drawn, and give the scene that lost its label
+(`scenes/bosses.ts`, THE WEIGHT · OPEN) it back in the same commit, since that
+is the case that proves it.

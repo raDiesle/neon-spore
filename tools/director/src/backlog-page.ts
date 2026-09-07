@@ -66,6 +66,12 @@ function renderEntry(item: BacklogEntry, reading = false): HTMLElement {
   // than a concept's name — so nothing is ever drawn at it, and seventy-five
   // question marks down the left margin say nothing seventy-five times.
   if (item.name) {
+    // The concept's own name, on the row, so a terminal can reach one entry:
+    // `bun run shot` presses a CSS selector and a page of a hundred identical
+    // `.plan` rows had nothing to tell two of them apart, so a picture of one
+    // idea's scene meant counting `details` elements and hoping. Nothing in
+    // the page reads it — it is a handle for the outside.
+    div.dataset.concept = item.name;
     if (!reading || hasConceptArt(item.name)) head.appendChild(conceptArt(item.name));
     const name = document.createElement("span");
     name.className = "name";

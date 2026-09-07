@@ -27,7 +27,11 @@ export function onTheField(name: string): HTMLElement | null {
   if (scenes.length === 0) return null;
 
   const box = document.createElement("details");
-  box.className = "more";
+  // `more scenes-box`: the second class is what tells this expander apart from
+  // the FULL TEXT one beside it, which `markdown.ts` also builds as
+  // `details.more`. A selector that could not choose between them photographed
+  // the wrong box (`bun run shot`).
+  box.className = "more scenes-box";
   const summary = document.createElement("summary");
   summary.textContent =
     scenes.length === 1

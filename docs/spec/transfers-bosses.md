@@ -74,7 +74,10 @@ second and third boss and it leaves a whole question unasked.
   feels like: something sinks unless a hand is on it, and a hand on it is a
   hand off everything else. Of the three parked encounters it is the one whose
   mechanic needs no new machinery at all; only its animation was spent
-  elsewhere, on the Warden's tether.
+  elsewhere, on the Warden's tether. Written out state by state
+  [below](#the-weight--the-boss-you-have-to-let-fall), and drawn there — it is
+  a cycle rather than a shape, so it is the one draft on this page with five
+  pictures instead of one.
 - **THE CHOIR** — the Whisperer's pillar at boss scale, and it needs no new
   rule. It was blocked on a drawing problem and is not any more: `cluster` is
   traced on a grid now instead of marched out from the centroid, so three
@@ -170,6 +173,84 @@ has ever run belongs.
 **Unworked out:** whether an arm that reaches the whole field in its last phase
 folds *too* far to be predicted at all, or whether that is the ending it wants
 — see 11.5.
+
+### THE WEIGHT — the boss you have to let fall
+
+**The shape.** Drawn, as `sac`: a blob with its mass pulled to the bottom,
+narrow at the top where the stalk takes the load. `HEAVE` for the motion — a
+lift that comes fast and falls back slowly, which is what a heavy thing does
+when something under it gives. Nothing about the drawing is new; it was made
+when the idea was first written down, and the animation the idea asked for —
+the contour deforming toward the finger, the skin going taut and bright along
+the line of pull — was spent on the Warden's tether and is built.
+
+**The mechanic, in one sentence.** *It comes down whatever you do, hands are
+the only thing that slows it, and the one part of it you can shoot is only
+there once it has come down further than you want it.*
+
+**The five states, and why there are five.** Every other draft on this page is
+a question about a shape and one picture answers it. This one has no attack, no
+pattern and no phases: the encounter *is* the cycle, so it is drawn as a cycle,
+five frames in the order the fight runs in. They are on the field, under
+`⌖ ON THE FIELD` beside this entry in the director, and
+`tools/shape-sheet/src/scenes/bosses.ts` is where they are written.
+
+1. **SINKING.** No hand on it. It descends a row a beat, the stalk paying out
+   above it, and there is nothing on it that a shot can touch. Both players
+   have their own controls and neither control does anything to the boss. This
+   is the state the fight is in whenever the pair is doing anything else, and
+   the clock in it is the boss itself.
+2. **HELD.** Two hands stop it dead. The stalk goes taut, the skin brightens
+   along the line of pull, and the descent is exactly zero — and two hands on
+   the boss is nobody on the cannon and nobody on the shield. It is the safest
+   the field ever looks, and none of it is progress: a pair that holds forever
+   never finishes.
+3. **BALLAST.** Held, it sheds rocks. Real ones, the game's own — indestructible,
+   answerable only with the shield, and the shield needs a hand. So holding is
+   charged for in the one currency holding has taken away, and the bill is
+   presented on the beat a hand lets go. This is what stops the fight being a
+   staring contest, and it is the reason the mechanic needs no new machinery:
+   a rock falling out of a body is a spawn.
+4. **OPEN.** Below a line, the seam at its narrow top parts and there is
+   something to shoot — one column of it, a few rows above the hull. The hand
+   that takes the shot is a hand that was holding it up, so the boss starts
+   sinking again on the same beat the shot becomes possible, from the lowest
+   it has ever been. **The only way to win is to be in the state you least
+   want to be in.**
+5. **HEAVE.** Hit, it lifts fast and settles back slowly, the seam shuts, and
+   the cycle restarts higher up — with the ballast it shed on the way down
+   still falling. What the pair bought with the shot is *height*, which is
+   time, which is the only thing this boss ever costs or gives.
+
+**What it asks the pair, which is the point.** Every sentence in this fight is
+about a hand: whose is on it, whose is coming off, and on which beat. It is the
+one boss whose whole vocabulary is the two words the pair already has — *on*
+and *off* — and the only difficulty is that both of them are wrong most of the
+time. **When to stop holding**, said out loud, repeatedly, by two people who
+can each see only half of what makes the answer.
+
+**Slot:** The Heart (60) — and THE CAIRN wants it too. They are the same
+pillar, *hands and the price of a hand*, and both should not be built; the
+argument can now be had by looking, since both are drawn.
+
+**Unworked out.** Three, and the first is the load-bearing one.
+
+- **Which direction the line is crossed in.** The original sentence says the
+  weak point opens once the boss has been "dragged below a line", and a hand in
+  this game is a *brake* on a falling body (`sim/hand.ts`), so nothing the pair
+  holds can be pulled downward. The five states above read it the way that
+  makes the fight work — the pair **lets** it fall past the line and takes the
+  shot from the worst position on the field — but the other reading is a real
+  design: a hand that pulls as well as holds, and a boss you drag down onto
+  your own hull on purpose. That is a new gesture, and it belongs to whoever
+  builds this.
+- **What the seam is, in the silhouette.** A colour cannot say it — the sheet
+  has none — so the opening has to be geometry, the way THE TITHE's live plate
+  *reaches* rather than lights. The `sac` contour is drawn shut and nobody has
+  drawn it open.
+- **What a hand costs at boss scale.** A grip is one creature today. Two hands
+  on one body five columns wide is a size the gesture has never been asked for,
+  and whether the ring reads at that size is a `bun run shapes` question.
 
 ### THE TITHE — it always takes something; you choose what
 
