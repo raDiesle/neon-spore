@@ -170,10 +170,17 @@ describe("bindings", () => {
     expect(Object.keys(SAMPLES).sort()).toEqual((await eventTypes()).sort());
   });
 
-  it("names a sound that exists for every event but the one that is bookkeeping", () => {
+  // `needWave` is bookkeeping between the host and the sim, with no moment on
+  // the field to make a sound about. `choirMerge` is the second and only other
+  // deliberate silence: the gesture landing is not yet the body opening, the
+  // screen is already shaking from the arrow that started it, and a third
+  // sound on top would say the same thing three ways (`bind-choir.ts`).
+  const SILENT_BY_DESIGN = new Set(["needWave", "choirMerge"]);
+
+  it("names a sound that exists for every event but the ones that are silent by design", () => {
     for (const [type, e] of Object.entries(SAMPLES)) {
       const cue = cueFor(e, 7, 12);
-      if (type === "needWave") {
+      if (SILENT_BY_DESIGN.has(type)) {
         expect(cue).toBeNull();
         continue;
       }

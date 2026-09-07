@@ -212,10 +212,9 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "magnetPlate":
     case "magnetBreak":
       return creatureCue(e, cols, rows);
-    // The groups below each live in a `bind-*.ts` of their own, cut out the way
-    // their events were cut out of `events-creature.ts`. Every one of them is
-    // **named here rather than reached through a default**: the exhaustiveness
-    // is what makes a new event a compile error instead of a silence.
+    // Each group below lives in its own `bind-*.ts`, cut out the way its
+    // events were cut out of `events-creature.ts`, and **named here rather
+    // than reached through a default** — a new event is a compile error.
     case "coilBreak":
     case "coilJump":
       return coilCue(e, cols, rows);

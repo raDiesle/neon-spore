@@ -246,9 +246,8 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "balloonSplit":
       return at(l, e.col, e.row, 12, PALETTE.rock);
 
-    // And one that got to the top. Wide, and in the pod's amber because it is
-    // an explosion rather than a kill — the hull damage riding on the `breach`
-    // beside it is drawn at the ship, a whole field away (`sim/balloon.ts`).
+    // One that got to the top: wide, in the pod's amber, an explosion rather
+    // than a kill (the hull damage is drawn at the ship, `sim/balloon.ts`).
     case "balloonBurst":
       return at(l, e.col, e.row, 26, PALETTE.pod);
 
