@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-07 · cfcf2ebd — THE CHOIR: two shakes, a glow that builds, and the colour bleeding in
+
+Four things the owner asked for, and the first reverses an answer of his own.
+
 ## 2026-09-07 · f2e910d0 — THE PULSE drops slicks, bulbs, rocks and pods into four craters in the hull
 
 Three things the owner asked for in one message, and the first of them is the one that reaches furthest.
