@@ -2,6 +2,7 @@ import { blobPath } from "@neon-spore/content";
 import { type MazeState, mazeHeartColor } from "@neon-spore/sim";
 import { halo, strokeGlow } from "./glow.js";
 import { drawMazeBlood } from "./maze-blood.js";
+import { drawMazeClock, type MazeSkin, mazeClockRun } from "./maze-timer.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /**
@@ -34,6 +35,10 @@ import { PALETTE, STROKE } from "./palette.js";
  * light leaves it, and blood goes out across the floor of the room and stays
  * there — through the next round and the one after, because the drum is
  * replaced and the heart is not (`maze-blood.ts`).
+ *
+ * **The round's clock is worn on its outside**, as the contour filling round
+ * in red (`maze-timer.ts`) — on the one body both screens are already looking
+ * at, rather than on a bar at the edge of the field.
  *
  * **The colour switches every round**, between the two the field already
  * carries: a slick's red and a bulb's cyan. It is not decoration — it is the
@@ -107,6 +112,13 @@ const FASTEST = 1.15;
 
 /** Beats a hit's own burst lasts — the flare, the recoil and the throw. */
 const WOUND = 1.6;
+
+/** The muscle's contour as the numbers it is made of. One place for them, so
+ * the skin and the clock drawn round it can never be two different bodies. */
+function skinOf(body: number, t: number): MazeSkin {
+  const shape = { lobes: LOBES, depth: LOBE_DEPTH, wobble: SKIN_WOBBLE, seed: 11 };
+  return { rx: body, ry: body * 0.92, t, ...shape };
+}
 
 /**
  * The heart in the middle of the drum. `r` is the room it has — the radius of
@@ -185,8 +197,9 @@ export function drawMazeHeart(
   ctx.save();
   ctx.translate(cx, cy);
   ctx.rotate(Math.PI / 2);
+  const s = skinOf(body, time);
   const skin = new Path2D(
-    blobPath(0, 0, body, body * 0.92, LOBES, LOBE_DEPTH, SKIN_WOBBLE, time, 11, SKIN_POINTS),
+    blobPath(0, 0, s.rx, s.ry, s.lobes, s.depth, s.wobble, s.t, s.seed, SKIN_POINTS),
   );
 
   // Fluid filled *into* the skin rather than into a circle behind it: a
@@ -213,6 +226,10 @@ export function drawMazeHeart(
   ctx.ellipse(-body * 0.06, 0, body * 0.34, body * 0.24, 0.5, 0, Math.PI * 2);
   ctx.fill();
   ctx.globalAlpha = 1;
+
+  // The clock, on the same contour and in the same frame, so it wears the
+  // muscle's own lobes and swells with it (`maze-timer.ts`).
+  drawMazeClock(ctx, s, mazeClockRun(m, beat, beatPhase));
   ctx.restore();
 
   // The wound itself: a ring of the heart's own light leaving it, once, wide

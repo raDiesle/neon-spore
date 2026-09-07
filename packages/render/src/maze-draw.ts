@@ -1,7 +1,7 @@
 import { type MazeState, mazeCircleMilli, mazeCurrent, type SimConfig } from "@neon-spore/sim";
 import type { Layout, ViewRole } from "./layout.js";
 import { drawMazeDoors } from "./maze-door.js";
-import { mazeFall } from "./maze-fall.js";
+import { mazeCrash, mazeFall } from "./maze-fall.js";
 import { drawMazeHeart } from "./maze-heart.js";
 import { drawMazeShot } from "./maze-shot.js";
 import { drawMazeStages } from "./maze-stage.js";
@@ -36,6 +36,11 @@ import { drawMazeWalls, mazeDrum } from "./maze-walls.js";
  * not. The ways in stop being drawn the moment it starts — there are no doors
  * in a wall that is coming down.
  *
+ * **A clock run out takes it apart over the ship instead.** The same pieces,
+ * falling rather than drifting, and they come to rest on the hull on the beat
+ * it is broken (`sim/maze-verdict.ts`). The heart stays where it is either
+ * way: the maze is what fell, and the boss is not the maze.
+ *
  * Where the wheel stands, which column the gap has taken, how wide the drum is
  * and which way the shot turns are all read out of `sim` rather than worked
  * out again — a picture that lit a column the shot does not go up would be the
@@ -56,7 +61,8 @@ export function drawMaze(
   if (wheel === null) return;
   const drum = mazeDrum(l, cfg);
   const fall = mazeFall(m, beat, beatPhase);
-  drawMazeWalls(ctx, drum, wheel, m.angleMilli, fall);
+  const crash = mazeCrash(m, beat, beatPhase);
+  drawMazeWalls(ctx, drum, wheel, m.angleMilli, { fall, crash, hullY: l.hullY });
   // What is at the end of the walk, drawn before the trail and the shot so
   // both of them arrive *on* it rather than behind it.
   drawMazeHeart(

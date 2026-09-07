@@ -680,6 +680,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/grip-arrows.ts` | THE PUSH, said before it happens: the two white arrows beside a held rock, and the beat they go out for |
 | `packages/render/src/effects-ship.ts` | the ship's own clocks: the swallow, the fire opening, the deflection flash, the queen's shudder |
 | `packages/render/src/strand-still.ts` | One live bead on the navigator's screen that **no shot can answer this instant**: the reel stopped |
+| `packages/render/src/maze-timer.ts` | THE MAZE's clock, drawn on the outside of the heart |
 
 ### packages/net
 
@@ -1192,5 +1193,6 @@ place — the generator keeps whatever is there.
 | `tools/director/src/held.ts` | **What the author is carrying**: the brush that is armed, and — while a drag is in the air |
 | `tools/director/src/brush-hints.ts` | SHOW DESCRIPTIONS: whether each brush in the palette carries its sentence |
 | `tools/director/src/scene-marks.ts` | The marks: everything a scene draws that is not a body |
+| `tools/director/src/stage-world.ts` | A fresh run of the wave being edited, stood up the way the game stands one up |
 
 <!-- index:code:end -->

@@ -1,17 +1,11 @@
-import {
-  bossFromWave,
-  controlSet,
-  guideSteps,
-  podsFromWave,
-  queueFromWave,
-} from "@neon-spore/content";
+import { controlSet } from "@neon-spore/content";
 import { Canvas2DRenderer, type ViewRole } from "@neon-spore/render";
 import {
   createWorld,
   mazeRound,
   type SimConfig,
   type SimEvent,
-  startWave,
+  setBossRound,
   step,
   ticksPerBeat,
   type World,
@@ -25,6 +19,7 @@ import { stageGeometry } from "./stage-point.js";
 import { bindStageRounds } from "./stage-rounds.js";
 import { bindStageTouch, pointerSeat } from "./stage-touch.js";
 import { bindStageTransport } from "./stage-transport.js";
+import { buildStageWorld } from "./stage-world.js";
 import { currentWave, type Store } from "./state.js";
 
 /**
@@ -43,6 +38,18 @@ export interface StagePanel {
   /** Let the field run from where it is — what a wave opened to be *watched*
    * needs, since the transport keeps whatever it was last left at. */
   play(): void;
+  /**
+   * Stand the boss on a numbered round and let it run.
+   *
+   * A round-played boss opens on its first round and the only thing that moves
+   * it on is *winning*, which nobody does while judging a sheet — so picking
+   * STAGE 4 in the boss panel used to redraw the panel and leave the field on
+   * stage 1. It goes through `setBossRound`, which is the fight's own way into
+   * a round, so what the stage plays is the round the pair would have reached
+   * (`sim/boss-round.ts`). Says nothing for a boss that is not played in
+   * rounds; the panels that offer the choice are the ones that have them.
+   */
+  openRound(round: number): void;
   /** The beat the field is holding, for a placement to land on. */
   beat(): number;
   /**
@@ -120,27 +127,9 @@ export function bindStage(
     replay: () => renderer.replayGuide(),
   });
 
-  // `createWorld` always returns a fresh `Briefings` (`met: 0`), and `rebuild`
-  // throws the old `world` away rather than reusing it — so every `↺ WAVE`
-  // asks "what would a pair who has met nothing see", never "what has this
-  // run already taught", which is also why editing wave 9 alone can show a
-  // card wave 2 already raised: no `met` bitmask carries forward.
+  // A fresh world every time, built from the draft — `stage-world.ts` has why.
   const rebuild = (): void => {
-    const wave = currentWave(store);
-    world = createWorld(cfg, store.index);
-    if (!wave) return;
-    startWave(
-      world,
-      store.index,
-      queueFromWave(wave, cfg.cols),
-      podsFromWave(wave, cfg.cols),
-      bossFromWave(wave, cfg.cols),
-      wave.guide !== undefined,
-      // How many pages that guide is read in, and the fault the wave carries.
-      // Both come off the wave being *edited*, so neither waits for a save.
-      guideSteps(wave.guide),
-      wave.malfunction ?? null,
-    );
+    world = buildStageWorld(store, cfg);
     lastBeat = 0;
     onBeat(0);
     afterRun.paint(); // a fresh world is never over
@@ -226,6 +215,15 @@ export function bindStage(
     paintPlay();
   };
 
+  // The round is opened on the world that is standing, not on a fresh one: the
+  // caller has just been through `rebuild` (a boss panel edits through
+  // `onShape`), so a second world here would be a run thrown away unwatched.
+  const openRound = (round: number): void => {
+    setBossRound(world, round);
+    afterRun.paint();
+    play();
+  };
+
   const seek = (beat: number): void => {
     rebuild();
     const ticks = beat * ticksPerBeat(cfg);
@@ -245,5 +243,5 @@ export function bindStage(
     paint: () => paint(1 / 60),
   });
 
-  return { rebuild, seek, play, beat: () => lastBeat, world: () => world };
+  return { rebuild, seek, play, openRound, beat: () => lastBeat, world: () => world };
 }

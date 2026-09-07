@@ -1,5 +1,7 @@
 import { breachHull } from "./hull.js";
+import { mazeBottomCol } from "./maze.js";
 import { enterMazePhase, type MazeState } from "./maze-round.js";
+import type { CreatureKind } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
 /**
@@ -23,14 +25,42 @@ import { MILLI, type World } from "./world.js";
 export const MAZE_REASONS = ["mouth", "color", "silence"] as const;
 export type MazeVerdictReason = (typeof MAZE_REASONS)[number];
 
-/** A dead end, or nothing at all. Out of the column it went up. */
+/**
+ * The kind the drum's own wreckage is filed under, and it is deliberately not
+ * a rock.
+ *
+ * `breachHull` hands render/ a `kind`, and the only question render/ ever asks
+ * it is whether to wait for a falling rock before bursting and cracking
+ * (`effects-breach.ts`, `scars.ts`). A rock replayed on top of this one would
+ * be **two arrivals for one failure**: the maze is already the thing falling,
+ * drawn coming down the field by `render/maze-fall.ts`, and a meteor dropping
+ * through it is exactly the picture the owner asked to be rid of. So the
+ * breach is filed under the broken wheel it is — a `gyre` is the hub of a
+ * turning wheel, which is the nearest thing on the roster to a drum in pieces
+ * — and render/ bursts and cracks the hull on the beat this is called.
+ */
+const MAZE_WRECK: CreatureKind = "gyre";
+
+/**
+ * A dead end, the wrong colour, or nothing at all.
+ *
+ * The first two are paid for here, out of the column the shot went up. **The
+ * clock running out is not**: the drum comes down on the ship for that one,
+ * and a fall is paid for when it lands rather than when it lets go
+ * (`mazeSettle` below, and `a body is resolved when it is seen to touch`). The
+ * column it lands in is the one the drum *stands over* rather than wherever
+ * the cannon happened to be parked, because that is where the mass is.
+ */
 export function mazeWrong(world: World, m: MazeState, reason: MazeVerdictReason): void {
-  const col = m.lockedCol < 0 ? world.cannonCol : m.lockedCol;
+  const aimed = m.lockedCol < 0 ? world.cannonCol : m.lockedCol;
+  const col = reason === "silence" ? mazeBottomCol(world.cfg) : aimed;
   m.verdict = -1;
   m.verdictCol = col;
   m.lost = reason;
   enterMazePhase(m, "verdict", world.beat);
-  breachHull(world, col, "meteorFastest", world.cfg.mazeRow, world.cfg.damageMaze);
+  if (reason !== "silence") {
+    breachHull(world, col, "meteorFastest", world.cfg.mazeRow, world.cfg.damageMaze);
+  }
   world.events.push({ type: "mazeVerdict", right: false, col, reason });
 }
 
@@ -68,12 +98,28 @@ export function mazeRight(world: World, m: MazeState): void {
  * stays lost, and the blood stays on the floor (`render/maze-blood.ts`), so
  * the fight never goes backwards even when a stage does.
  *
+ * **The clock running out takes the drum with it too, and the ship wears it.**
+ * A dead end breaks the drum *over* the ship and the pieces drift off; a
+ * silence brings the whole thing **down on the hull**, and the owner asked for
+ * exactly that in place of the meteor that used to fall for it. So this is
+ * where that failure is paid for and not `mazeWrong` three beats earlier: the
+ * pieces are drawn arriving at the hull across the verdict
+ * (`render/maze-fall.ts`) and the hull is broken on the beat they get there,
+ * which is the rule every other arrival on this field already follows. The
+ * stage is then built again from the top, because a drum that landed on the
+ * ship is not standing where it was.
+ *
  * **Anything else goes straight back to reading the same wheel**, standing
  * exactly where it was left. A shot refused at the heart for its colour never
  * touched the walls, so there is nothing for them to be shaken by.
  */
 export function mazeSettle(world: World, m: MazeState): void {
   if (m.verdict !== 1) {
+    if (m.lost === "silence") {
+      breachHull(world, m.verdictCol, MAZE_WRECK, world.cfg.mazeRow, world.cfg.damageMaze);
+      enterMazePhase(m, "lead", world.beat);
+      return;
+    }
     if (m.lost === "mouth") {
       enterMazePhase(m, "lead", world.beat);
       return;

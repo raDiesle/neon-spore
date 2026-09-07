@@ -1,6 +1,12 @@
 import { expect, test } from "bun:test";
-import { step } from "../src/index.js";
-import { MAZE_LEAD_BEATS, MAZE_TRAVEL_BEATS, mazeReadBeats } from "../src/maze-clock.js";
+import { type CreatureKind, isWardable, step } from "../src/index.js";
+import { mazeBottomCol } from "../src/maze.js";
+import {
+  MAZE_LEAD_BEATS,
+  MAZE_TRAVEL_BEATS,
+  MAZE_VERDICT_BEATS,
+  mazeReadBeats,
+} from "../src/maze-clock.js";
 import { mazeHeartColor } from "../src/maze-round.js";
 import { mazeCoreEntrance } from "../src/maze-wheel.js";
 import {
@@ -97,7 +103,17 @@ test("a dead end costs the hull and takes the whole stage with it", () => {
   expect(mazeOf(world).phase).toBe("read");
 });
 
-test("saying nothing at all costs the same as a dead end", () => {
+/**
+ * The clock is the third way to lose, and the drum is what falls for it.
+ *
+ * Nothing is charged on the beat the clock stops: the maze comes apart over
+ * the ship across the verdict and the hull is broken when the pieces land,
+ * which is the beat the picture has them touching it (`render/maze-fall.ts`).
+ * So the hull is whole for the whole of the verdict and short by the end of
+ * it — and the stage is built again from the top, because a drum that came
+ * down on the ship is not standing where it was.
+ */
+test("a clock run out brings the drum down on the ship", () => {
   const world = install();
   untilReading(world);
   const before = world.hullMilli;
@@ -105,7 +121,28 @@ test("saying nothing at all costs the same as a dead end", () => {
   const verdict = seen.filter((e) => e.type === "mazeVerdict");
   expect(verdict).toHaveLength(1);
   expect(verdict[0]).toMatchObject({ right: false, reason: "silence" });
+  // It lands in the column the drum stands over, not wherever the cannon was.
+  expect(verdict[0]).toMatchObject({ col: mazeBottomCol(CFG) });
+  // Nothing yet: the pieces are still in the air.
+  expect(world.hullMilli).toBe(before);
+  expect(seen.filter((e) => e.type === "breach")).toHaveLength(0);
+
+  const landing = past(world, "verdict", TPB * (MAZE_VERDICT_BEATS + 4));
+  const breach = landing.filter((e) => e.type === "breach");
+  expect(breach).toHaveLength(1);
+  expect(breach[0]).toMatchObject({ col: mazeBottomCol(CFG) });
+  // And not as a rock: a meteor replayed on top of the falling drum would be
+  // two arrivals for one failure (`sim/maze-verdict.ts`).
+  expect(isWardable((breach[0] as { kind: CreatureKind }).kind)).toBe(false);
   expect(before - world.hullMilli).toBe(CFG.damageMaze * 1000);
+
+  // The same stage over again, back at its opening angle with nothing ruled
+  // out — and the boss no better off for it.
+  expect(mazeOf(world).phase).toBe("lead");
+  expect(mazeOf(world).round).toBe(0);
+  expect(mazeOf(world).tried).toEqual([]);
+  expect(mazeOf(world).angleMilli).toBe(WHEELS[0]!.startMilli);
+  expect(mazeOf(world).hullMilli).toBe(100_000);
 });
 
 /**

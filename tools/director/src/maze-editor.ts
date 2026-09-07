@@ -26,6 +26,13 @@ import { button, el } from "./dom.js";
  * underneath. That is the whole reason an author opens this: to see at a glance
  * that a stage has one way through and four proper dead ends rather than four
  * cupboards.
+ *
+ * **Picking a stage puts the field on it.** The sheet beside the buttons is
+ * the drum on paper; the stage next to it is the drum turning, and the two
+ * used to disagree — the tab moved and the field stayed on stage 1, because a
+ * boss played in rounds opens on its first and the only thing that moves it on
+ * is winning. Choosing STAGE 4 now stands the fight on the fourth wheel
+ * through `setBossRound`, the fight's own way into a round, and lets it run.
  */
 
 /** The drum, drawn as big as the panel comfortably takes. */
@@ -34,7 +41,11 @@ const SIZE = 260;
 /** Which stage is open, kept across re-renders the way SNAKE's rounds are. */
 let OPEN = 0;
 
-export function renderMazeEditor(panel: HTMLElement, onEdit: () => void): void {
+export function renderMazeEditor(
+  panel: HTMLElement,
+  onEdit: () => void,
+  onStage: (round: number) => void,
+): void {
   const stages = MAZE_ROUNDS;
   const at = Math.min(OPEN, Math.max(0, stages.length - 1));
   const wheel = stages[at];
@@ -57,7 +68,10 @@ export function renderMazeEditor(panel: HTMLElement, onEdit: () => void): void {
     const tab = button(`STAGE ${i + 1}`, i === at ? "snake-tab on" : "snake-tab");
     tab.addEventListener("click", () => {
       OPEN = i;
+      // The panel first — `onEdit` redraws it and starts the wave over — and
+      // then the round, on the world that rebuild has just stood up.
       onEdit();
+      onStage(i);
     });
     bar.appendChild(tab);
   });

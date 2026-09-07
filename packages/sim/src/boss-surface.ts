@@ -65,6 +65,7 @@ export {
   mazeHeartShot,
   mazeRadiusMilli,
   mazeReachesCore,
+  mazeReadBeats,
   mazeRingMilli,
   mazeRound,
   mazeSolveRoute,

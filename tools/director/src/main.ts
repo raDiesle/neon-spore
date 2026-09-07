@@ -105,7 +105,10 @@ held.watch(() => {
 });
 // The panel under the map: what the selected cell holds — see `cell-panel.ts`.
 const cells: CellPanel = bindCellPanel({ store, selection, cfg: () => cfg, onEdit: onShape });
-const boss: BossPanel = bindBossPanel(store, onShape);
+// The boss panel edits a wave through `onShape` like every other panel, and
+// picks a *round* through `stage.openRound` — after `onShape` has rebuilt the
+// world, or the round would be opened on a run that is about to be thrown away.
+const boss: BossPanel = bindBossPanel(store, onShape, (round) => stage.openRound(round));
 const rail = bindRail(store, refreshAll, onProse);
 bindTuning(cfg, () => {
   grid.render();
