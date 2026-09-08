@@ -204,6 +204,19 @@ export {
   TORCH,
 } from "./silhouettes.js";
 export { SNAKE_ROUNDS } from "./snake-rounds.js";
+// A mark placed on a surface rather than laid on a picture: the projection
+// the director's skins and the game's renderer both read, so one turn cannot
+// mean two things.
+export {
+  type Facet,
+  facet,
+  LAT_LIMIT,
+  limbX,
+  type Pin,
+  pin,
+  surfaceDim,
+  surfaceLit,
+} from "./surface.js";
 // THE VEER's rider, as figures and as loops — one description of the clown for
 // the game that draws it in colour and the palette that draws it as a contour.
 export {

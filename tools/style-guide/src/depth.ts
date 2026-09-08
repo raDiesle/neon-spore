@@ -1,4 +1,4 @@
-import { BULB, livingPath } from "@neon-spore/content";
+import { BULB, facet, livingPath, pin } from "@neon-spore/content";
 import { PALETTE, STROKE } from "@neon-spore/render";
 import { label, panel, r } from "./page.js";
 
@@ -47,15 +47,20 @@ export function posed(theta: number): string {
   return `${shell(sx)}${marks.join("")}`;
 }
 
-/** A turn: each feature at its own longitude, so half of them are behind. */
+/**
+ * A turn: each feature at its own longitude, so half of them are behind.
+ *
+ * Through `packages/content`'s `facet`, which is the projection the director's
+ * skins and the renderer both read. This panel is an argument *about* that
+ * line, so a private copy of it here would be a diagram that could stop
+ * agreeing with the thing it is arguing for.
+ */
 export function placed(theta: number): string {
+  const reach = REACH * (SIZE / 2);
   const marks: string[] = [];
   for (let i = 0; i < MARKS; i++) {
-    const lon = (i / MARKS) * Math.PI * 2 + theta;
-    const lat = Math.sin(i * 1.7) * 0.5;
-    const x = Math.cos(lat) * Math.sin(lon);
-    const y = Math.sin(lat);
-    marks.push(dot(x * REACH * (SIZE / 2), y * REACH * (SIZE / 2), Math.cos(lon) > 0));
+    const f = facet(pin((i / MARKS) * Math.PI * 2, Math.sin(i * 1.7) * 0.5, reach), theta);
+    marks.push(dot(f.x, f.y, f.near));
   }
   return `${shell(1)}${marks.join("")}`;
 }

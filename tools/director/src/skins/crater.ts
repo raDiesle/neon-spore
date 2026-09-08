@@ -1,3 +1,4 @@
+import { LAT_LIMIT } from "@neon-spore/content";
 import { contactPass, KEY, rimLightPass, specularPass, terminatorPass } from "./light.js";
 import { type Mounted, mount, spin, stops } from "./mounted.js";
 import { auraPass, clipGroup, fillPass, rimPass } from "./parts.js";
@@ -44,7 +45,6 @@ const WALL = "#C2CFE8";
 const LIP = "#FFF2DC";
 
 const CRATERS = 13;
-const LAT_LIMIT = 0.82;
 
 /**
  * A gradient across a crater along the key axis, in the bowl's own bounding

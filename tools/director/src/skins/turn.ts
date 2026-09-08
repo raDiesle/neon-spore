@@ -1,3 +1,4 @@
+import { LAT_LIMIT } from "@neon-spore/content";
 import { contactPass, rimLightPass, specularPass, terminatorPass } from "./light.js";
 import { type Mounted, mount, spin, stops } from "./mounted.js";
 import { auraPass, clipGroup, fillPass, rimPass } from "./parts.js";
@@ -41,9 +42,6 @@ export function turnAngle(t: number): number {
  * is — and the patches keep the body from looking machined. */
 const BANDS = 3;
 const PATCHES = 12;
-/** Latitudes are kept off the poles: a patch at `cos(lat) ≈ 0` is a horizontal
- * hairline whatever the rotation does, and reads as a scratch. */
-const LAT_LIMIT = 0.82;
 
 function shade(ctx: SkinContext, id: string, radial: boolean): string {
   const grad = document.createElementNS(SVG, radial ? "radialGradient" : "linearGradient");

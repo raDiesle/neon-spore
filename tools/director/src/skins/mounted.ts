@@ -1,55 +1,20 @@
-import { KEY } from "./light.js";
+import { LAT_LIMIT, limbX, pin, surfaceDim, surfaceLit } from "@neon-spore/content";
 import { SVG } from "./types.js";
 
 /**
- * The projection every turning skin shares, in one place.
+ * WHAT HANGS SVG ON THE PROJECTION.
  *
- * A feature sits at a fixed longitude `lon` and latitude `lat` on a ball of
- * radius `reach`; the body's rotation about its vertical axis is `θ`, so its
- * apparent longitude is `α = lon + θ` and it projects to
+ * The projection is `packages/content`'s `surface.ts` — where a feature at a
+ * longitude and latitude lands, how the tangent plane foreshortens it, and how
+ * it is shaded by its own normal against `KEY`. It moved there because
+ * `packages/render` needs the same line and may not import `tools/`, and that
+ * file's header carries the whole argument, the 22.9 : 1 included.
  *
- *     x = reach·cos(lat)·sin(α)      y = reach·sin(lat)
- *
- * with the far hemisphere — `cos α ≤ 0` — simply not drawn. Differentiating
- * that one line gives the two things the eye reads. **Width:** `dx/dλ =
- * reach·cos(lat)·cos α`, so a patch is full width facing the viewer and nothing
- * at all at the silhouette — it narrows to zero rather than being clipped by an
- * edge, which is the difference between a feature on a surface and a sticker on
- * a disc. **Speed:** `dx/dt` carries the same cosine, so a body at constant
- * angular speed crosses fast through the middle and crawls at the limb.
- *
- * The `scale(cos α, cos lat)` those give is the tangent plane's own map, so it
- * is right for a feature of **any shape and not only for a dot**: geometry
- * drawn about its own origin in tangent coordinates — east right, south down —
- * foreshortens across its width *and* swings its long axis toward the vertical
- * as the limb approaches, because that is what an anisotropic scale does to a
- * direction. Lay features out in picture coordinates and squash the picture
- * instead and you get the first half only, which reads as a sticker shrinking.
- * A feature too large for one tangent plane wants `spinPlates`.
- *
- * The light does not turn. `KEY` is fixed for the page and each feature is
- * shaded by its own normal against it, so the lit shoulder stays put while the
- * surface travels under it — the second half of the read, and
- * `docs/dimensional.md` is the argument that neither half works alone.
+ * What is left here is the SVG half: a group per feature, two attributes a
+ * frame, `display` written only on the crossing, and no allocation in the loop
+ * — a scatter carries hundreds of these, so `spin` reads a `Pin`'s fields
+ * directly rather than taking a `Facet` per feature per frame.
  */
-
-/** How far in front of the body the key light stands. `KEY` is a screen
- * direction with no depth, and without a `z` every feature on the meridian
- * facing us would sit exactly at the terminator and the disc read half dark. */
-const KEY_Z = 0.5;
-const KEY_LEN = Math.hypot(1, KEY_Z);
-const LX = KEY.x / KEY_LEN;
-const LY = KEY.y / KEY_LEN;
-const LZ = KEY_Z / KEY_LEN;
-
-/** Latitudes are kept off the poles: a patch at `cos(lat) ≈ 0` is a horizontal
- * hairline whatever the rotation does, and reads as a scratch. */
-export const LAT_LIMIT = 0.82;
-
-/** The lambert term for a surface point, clamped at the terminator. */
-function lit(cosLat: number, sinLat: number, sinA: number, cosA: number): number {
-  return Math.max(0, cosLat * sinA * LX + sinLat * LY + cosLat * cosA * LZ);
-}
 
 /** Show or hide, writing only on the transition, so a card whose back half is
  * quiet writes nothing for it. Answers whether the caller should go on. */
@@ -87,9 +52,7 @@ export function mount(
   reach: number,
   dim: number,
 ): Mounted {
-  const cosLat = Math.cos(lat);
-  const sinLat = Math.sin(lat);
-  return { el, lon, cosLat, sinLat, k: reach * cosLat, cy: reach * sinLat, dim, shown: true };
+  return { el, ...pin(lon, lat, reach), dim, shown: true };
 }
 
 /**
@@ -109,7 +72,10 @@ export function spin(list: readonly Mounted[], theta: number): void {
       `translate(${(m.k * s).toFixed(2)} ${m.cy.toFixed(2)}) scale(${c.toFixed(4)} ${m.cosLat.toFixed(4)})`,
     );
     if (m.dim >= 1) continue;
-    m.el.setAttribute("opacity", (m.dim + (1 - m.dim) * lit(m.cosLat, m.sinLat, s, c)).toFixed(3));
+    m.el.setAttribute(
+      "opacity",
+      surfaceDim(m.dim, surfaceLit(m.cosLat, m.sinLat, s, c)).toFixed(3),
+    );
   }
 }
 
@@ -177,14 +143,14 @@ export function spinPlates(list: readonly Plate[], theta: number): void {
       const sinA = Math.sin(a);
       if (cosA > 0) near = true;
       const k = p.k[i]!;
-      const x = cosA > 0 ? k * sinA : sinA >= 0 ? k : -k;
+      const x = limbX(k, sinA, cosA);
       d += `${i === 0 ? "M" : "L"}${x.toFixed(2)} ${p.cy[i]!.toFixed(2)}`;
     }
     if (!toggle(p, near)) continue;
     p.el.setAttribute("d", `${d}Z`);
     const a = p.cLon + theta;
-    const lam = lit(p.cosLat, p.sinLat, Math.sin(a), Math.cos(a));
-    p.el.setAttribute("opacity", (p.dim + (1 - p.dim) * lam).toFixed(3));
+    const lam = surfaceLit(p.cosLat, p.sinLat, Math.sin(a), Math.cos(a));
+    p.el.setAttribute("opacity", surfaceDim(p.dim, lam).toFixed(3));
   }
 }
 

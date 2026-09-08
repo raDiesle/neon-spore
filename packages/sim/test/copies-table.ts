@@ -487,6 +487,18 @@ export const COPIES: Copy[] = [
     also: ["tools/raster/src/burst-art.ts"],
   },
   {
+    // How near the poles a mark may sit. Three skins declared it privately —
+    // `mounted.ts`, `turn.ts` and `crater.ts`, with the same comment copied
+    // beside each — before the projection moved into `content` and gave it a
+    // home. Every reader is scattering features onto the same ball, so a
+    // fourth private copy is a page where one skin's marks reach a latitude
+    // the others refuse.
+    call: "LAT_LIMIT",
+    owner: "packages/content/src/surface.ts",
+    pattern: /LAT_LIMIT\s*=\s*0\.82/,
+    strip: false,
+  },
+  {
     // The one easing curve. Five copies, three of them trusting the caller to
     // have clamped and two clamping themselves — the difference between them
     // being invisible until a value arrives out of range.

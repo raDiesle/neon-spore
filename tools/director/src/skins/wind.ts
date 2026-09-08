@@ -1,6 +1,6 @@
-import { longAxis } from "@neon-spore/content";
+import { LAT_LIMIT, longAxis } from "@neon-spore/content";
 import { contactPass, rimLightPass, specularPass, terminatorPass } from "./light.js";
-import { LAT_LIMIT, type Mounted, mount, spin, stops } from "./mounted.js";
+import { type Mounted, mount, spin, stops } from "./mounted.js";
 import { auraPass, clipGroup, fillPass, rimPass } from "./parts.js";
 import { streamFor } from "./seed.js";
 import { turnAngle } from "./turn.js";
