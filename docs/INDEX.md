@@ -785,6 +785,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/pinball-button.ts` | PINBALL's two presses, as faces on the band's own lobes |
 | `packages/render/src/beatbox-air.ts` | **The air a soundbox is moving**, which is the half of this creature that has no number in it at all |
 | `packages/render/src/hull-light.ts` | who lights the ship, as a record — the shipped `litBox` reached through a seam a second answer can be held against |
+| `packages/render/src/splash-trail.ts` | **Slime off the end of a mouse** — the ink a desk's pointer leaves, as blobs that swell, sag and add up |
 
 ### packages/net
 
@@ -909,6 +910,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/shake.ts` | the device being shaken, which is THE CHOIR's control and the only input that is not a finger on the glass |
 | `apps/game/src/rounds.ts` | Every round that is not the field, bound to the canvas at once |
 | `apps/game/src/keys-crank.ts` | The desk key that turns THE CLAW's crank, which no key can do by itself |
+| `apps/game/src/trail.ts` | The surface the mouse's ink is drawn on, over every sheet, and nothing at all on a phone |
 
 ### apps/server
 

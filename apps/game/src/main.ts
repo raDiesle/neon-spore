@@ -27,6 +27,7 @@ import { createRunState } from "./run-state.js";
 import { bindShake } from "./shake.js";
 import { bindShell } from "./shell.js";
 import { bindTestControls } from "./testing.js";
+import { bindSplashTrail } from "./trail.js";
 import { bindViewSwitch } from "./view.js";
 import { bindViewport } from "./viewport.js";
 import { createWaveProgression } from "./waves.js";
@@ -191,6 +192,8 @@ const link = bindShell({
 
 // The baked burst, behind `?raster=1` — `raster.ts` and `docs/raster.md`.
 void bindRasterBurst(renderer.sprites, location.href);
+// Ink off the end of a mouse, and nothing at all on a phone (`trail.ts`).
+bindSplashTrail();
 
 /**
  * Beat zero. Both devices land here within a few milliseconds of each other,

@@ -802,3 +802,41 @@ its port where a second command can read it** — the marker file `preview`
 already answers `/__preview` with, or a line in the tree's own scratch — so
 `bun run port` can report what is running rather than what would be tried. The
 proof is `bun run port` naming 58200 while a `dev:once` from the same tree is up.
+
+## `bun run preview` stops on its own after about half a minute
+
+- **Found:** 2026-09-08, claude/game-mouse-hover-effect
+- **Files:** `apps/game/preview.ts`, `apps/game/package.json`
+
+The agent's own server exits with code 0 roughly thirty to forty seconds after
+it is started, without being asked to. This lane hit it three times in one
+sitting: a picture was taken, a source file was edited, and the next request to
+`http://localhost:4173/` failed to connect — `curl` gave exit 7 and the browser
+reported the navigation as denied, which reads as a permission problem rather
+than as nothing listening. The workaround was to start it again for every
+picture, and it costs a launch and a rebuild each time.
+
+Nothing in `CLAUDE.md` says the preview is short-lived, and the two obvious
+readings are opposite: either the server is meant to hold the port until it is
+stopped and something is killing it, or it is meant to be one-shot and the
+usage text should say so. Find out which, and then either keep the process
+alive until `preview_stop` or say plainly, in the startup line, how long it
+will answer for.
+
+## `apps/game/src/main.ts` is exactly at the 250-line ceiling
+
+- **Found:** 2026-09-08, claude/game-mouse-hover-effect
+- **Files:** `apps/game/src/main.ts`, `apps/game/src/shell.ts`
+
+Binding the mouse trail took three lines and put this file on 250 exactly, and
+`packages/sim/test/limits.test.ts` fails at 251 — so the next binding anybody
+adds here breaks the build, and whoever adds it pays for a split they did not
+come to do. Two lines of it had to be shaved off a comment that was earning
+them, which is the wrong trade and is the sign this is due now.
+
+The file is already two halves that share nothing but the world: everything
+above `startTogether` is *what the app is made of* — the world, the renderer,
+the audio, the input, the link — and everything below is the loop and the test
+rig. `shell.ts` is the precedent for lifting a knot of bindings out whole. Take
+either half into a file of its own and leave `main.ts` as the assembly, so the
+next thing that has to be bound has somewhere to go.
