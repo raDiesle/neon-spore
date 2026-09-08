@@ -13,9 +13,10 @@ import { colorTrio, turnedTrio } from "./creature-tint.js";
 import { dartFlip, dartLean } from "./dart.js";
 import { hazed } from "./depth.js";
 import { drawEchoSeam, echoStrain } from "./echo.js";
-import { halo, strokeGlow } from "./glow.js";
+import { halo } from "./glow.js";
 import { mixHex } from "./hex.js";
 import type { Layout } from "./layout.js";
+import { LIVING_SKIN } from "./living-skin.js";
 import { drawLureVent, lureHolePath, lureVented } from "./lure-hole.js";
 import { PALETTE } from "./palette.js";
 import { splinePath } from "./spline.js";
@@ -161,9 +162,19 @@ export function drawLiving(
     ctx.lineWidth = 2 / scale;
     ctx.stroke(path);
   } else {
-    ctx.fillStyle = dark;
-    ctx.fill(path, rule);
-    strokeGlow(ctx, path, hex, Math.max(1, r * 0.1) / scale, 1);
+    // The material, through a record rather than inline, so a second answer
+    // to *what a body is made of* can be drawn beside this one at the size it
+    // ships at (`living-skin.ts`, `docs/versus.md`).
+    LIVING_SKIN.paint(ctx, path, rule, {
+      hex,
+      rim,
+      dark,
+      r,
+      scale,
+      rx: shape.rx,
+      ry: shape.ry,
+      rot,
+    });
     // Clipped to the body-minus-hole when there is a hole: an interior detail
     // painted across the opening would fill in the one thing the opening says.
     if (vent) {
