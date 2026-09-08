@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-08 · 4a6f3bc8 — THE TELL: rock, paper, scissors against a boss that shows its hand
+
+A boss worked out in bosses.md 11.9, on the owner's design and answering the two questions he put with it. A ring is balanced only where every throw beats as many as it loses to, so the count of throws is always odd — three, five, seven, never four — which means the panel does not lose a button: RED and CYAN are both BOLT, and the colour the boss wears decides whether a bolt lands. The ring itself is the game's own physics, PLATE over BOLT over MAW over PLATE, so two of its three arrows need no teaching. What keeps a round of chance from being decided by chance is that the boss shows what it is about to throw and each seat sees half of the tell — player 1 the lobe that fills, player 2 the colour — and that for the opening rungs it answers the pair's last throw rather than drawing from a bag. The ladder is seeded once and not re-drawn on a restart, so starting again is the fifteen seconds the pair already knows.
+
 ## 2026-09-08 · 1a729ea — A cloud session skips the performance run
 
 The owner settled it in one sentence — *skip perf check for cloud instances* — after a lane spent twenty minutes discovering the problem: a narrow run that takes about 25 seconds on his machine was killed twice on a cloud runner, at 400 and at 580 seconds, having printed nothing either time. The box is slow rather than broken, and that is the point: a measurement taken there is a number about the runner and not about the game.
