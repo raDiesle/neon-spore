@@ -523,6 +523,7 @@ one — a scratch file belongs somewhere it is expected to be deleted from.
 ## `bun run frames` cannot turn THE CLAW's crank
 
 - **Found:** 2026-09-08, claude/claw-crank-winder-control-xzuf4h
+- **Taken:** 2026-09-08, claude/queue-bun-run-frames-cannot-turn-the-claws-crank
 - **Files:** `tools/frames/press.ts`, `tools/frames/run.ts`
 
 `--press` sends one command at a tick, and every control in the game is
