@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-08 · 7a2e96a — The crank says turn me, and breathes while it waits
+
+The winder landed reading as a button with a mark on it: a groove, a bar and a knob, all in the panel's own violet at the size a lobe actually is. The owner asked for the two things that fix it — *a bigger white circle inside where to rotate, and glowing in pulsing when unused* — and they are the same problem from two sides. The circle is the instruction: it is the path a finger travels, so it is now the widest, whitest thing on the button and the handle riding it is only where to start. The pulse is the invitation: while the arm is hanging up there and `world.crankAtMilli` says nobody is reporting a bearing, the halo and the white circle breathe on a slow one-and-a-half-second cycle, and both stand still the moment somebody starts turning.
+
 ## 2026-09-08 · 9fe0e3d — THE CLAW's arm is wound home on a crank
 
 The panel's press was half a control: REACH sent the arm up a column and it came back on its own with whatever it had closed on, so the pair spent one button and then watched it work. The way back is a gesture now. A fourth button on player 1's half is a winder, and a finger going round and round inside it brings the rope in four tiles a turn — the arm hangs exactly where it stopped for as long as nobody turns it, and the strip stays dead the whole time, so he is winding while she reads the field out to him.
