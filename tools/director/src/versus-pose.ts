@@ -60,6 +60,10 @@ const SLOT_POSE: Record<string, string> = {
   "creature:magnet": "MAGNET · A SHOT TURNED AWAY",
   "creature:strand": "STRAND · THE NAVIGATOR'S BEAD",
   "crawler:pulse": "CRAWLER · WALKING",
+  // The one slot here that is not about a single creature: a skin is the
+  // material every blob in the game is made of, so its pose puts four kinds
+  // on the field at once rather than asking the question a fifth of the way.
+  "creature:skin": "BODIES · FOUR KINDS AT ONCE",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */
