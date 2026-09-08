@@ -151,7 +151,7 @@ export function bindKeys({
     // The crank before the panel's own answer: this key is a control like any
     // other, and what it sends while it is held is the half `panelKey` has no
     // way to say (`keys-crank.ts`).
-    if (cranking.down(e.code)) return;
+    if (cranking.down(e.code, e.shiftKey)) return;
     if (panelKey(e.code)) return;
     switch (e.code) {
       // Red *and* a guard, in one press. Not a button on any panel: it is one

@@ -79,17 +79,49 @@ describe("a hand on the crank", () => {
     expect(was - world.reachMilli).toBe(100 * CFG.windTilesPerTurn);
   });
 
-  it("is a ratchet: turning it back does nothing at all", () => {
+  it("pays the rope back out when it is turned the other way", () => {
     const world = hanging();
-    step(world, [turn(500)]);
+    // Down a little first: an arm at the ceiling has no rope left to pay.
+    step(world, [turn(0)]);
+    step(world, [turn(300)]);
     const was = world.reachMilli;
-    step(world, [turn(400)]);
+    step(world, [turn(200)]);
+    expect(world.reachMilli - was).toBe(100 * CFG.windTilesPerTurn);
+    // And the hand is still where it now is, so turning forwards from there
+    // winds in from *there*.
+    expect(world.crankAtMilli).toBe(200);
+    const out = world.reachMilli;
+    step(world, [turn(250)]);
+    expect(out - world.reachMilli).toBe(50 * CFG.windTilesPerTurn);
+  });
+
+  it("stops at the top of the field however long the hand keeps paying out", () => {
+    const world = hanging();
+    const ceiling = world.reachMilli;
+    let at = 0;
+    step(world, [turn(at)]);
+    for (let i = 0; i < TPB * 4; i++) {
+      at = (at - STEP + CRANK_TURN) % CRANK_TURN;
+      step(world, [turn(at)]);
+    }
+    expect(world.reachMilli).toBe(ceiling);
+  });
+
+  it("raises the arm off the hull with no press at all", () => {
+    const world = open();
+    expect(reachOut(world)).toBe(false);
+    expect(crankBites(world)).toBe(true);
+    world.cannonCol = 2;
+    step(world, [turn(0)]);
+    step(world, [turn(CRANK_TURN - 200)]);
+    expect(reachOut(world)).toBe(true);
+    // Hanging, not climbing: nothing carries it on when the hand stops.
+    expect(world.reachDir).toBe(-1);
+    expect(world.reachCol).toBe(2);
+    expect(world.reachMilli).toBe(200 * CFG.windTilesPerTurn);
+    const was = world.reachMilli;
+    for (let i = 0; i < TPB * 2; i++) step(world, []);
     expect(world.reachMilli).toBe(was);
-    // And the hand is still where it now is, so carrying on forwards from
-    // there winds from *there* rather than from where it started.
-    expect(world.crankAtMilli).toBe(400);
-    step(world, [turn(450)]);
-    expect(was - world.reachMilli).toBe(50 * CFG.windTilesPerTurn);
   });
 
   it("forgets its reference when the hand comes off", () => {

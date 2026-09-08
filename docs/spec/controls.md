@@ -248,10 +248,19 @@ player 2 reads the field to him.
 What a hand on the crank says is its **bearing**, in thousandths of a turn
 clockwise from the top, and the simulation turns the step between two bearings
 into rope. It is absolute the way a column is: the next one supersedes the
-last, so a message lost on a bad line costs nothing. It is a ratchet — turning
-back does nothing rather than paying the rope out — and a rig with no finger
-(the desk keyboard, a rehearsal, a frame test) turns it at `windPerTickMilli`,
-which is the speed the arm used to come home at by itself.
+last, so a message lost on a bad line costs nothing. A rig with no finger (the
+desk keyboard, a rehearsal, a frame test) turns it at `windPerTickMilli`, which
+is the speed the arm used to come home at by itself; at a desk the crank's key
+alone winds in and shift with it turns the other way.
+
+**And it turns both ways.** Clockwise winds the rope in; anticlockwise pays it
+out and the arm goes back **up**, at whatever rate the thumb turns, closing on
+whatever it meets exactly as the press's own climb does. So the arm can be
+walked off the hull by hand with no press at all — slower than a press by
+three, and stoppable — and a pod that crossed the column while it hung there is
+reachable by turning the other way. Two limits: an arm carrying a pod may only
+be wound *in*, so a catch is as committed as a press, and a finger on the crank
+does nothing at all while the arm is still climbing under its own power.
 
 **The mouth moves to player 2.** `SUCK` is on her half instead of his, so a
 power-up the arm brings down to the hull is caught only if she is open when it
@@ -261,8 +270,8 @@ SALVAGE, and none of the machinery is new.
 
 **A rock is answered by reaching into it.** There is no trigger and no dome on
 this panel, so the arm is the only answer to a body, and it is a real one: what
-it closes on is crushed and the hull pays `damageReach`, which is less than the
-same rock costs by landing. That is why `groupsCoveredBy` counts `reach` as
+it closes on is dropped, and comes down at the torch's speed to cost the hull
+whatever the body itself costs. That is why `groupsCoveredBy` counts `reach` as
 covering the `guard` group — the group asks *can this panel answer a rock at
 all*, and this one can, worse than a dome and on purpose.
 

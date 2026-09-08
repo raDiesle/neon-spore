@@ -49,6 +49,18 @@ export function reachMilliPerTick(cfg: SimConfig): number {
   return Math.max(1, Math.round((cfg.reachTilesPerBeat * MILLI) / ticksPerBeat(cfg)));
 }
 
+/**
+ * All the rope there is: the arm at the top of the field, in thousandths.
+ *
+ * The ceiling the automatic climb turns round at, and the ceiling a hand
+ * paying rope out on the crank stops at (`crank.ts`). Asked for by both rather
+ * than written twice, because a field that grew a row would otherwise leave
+ * one of them reaching a row further than the other.
+ */
+export function reachMaxMilli(cfg: SimConfig): number {
+  return hullRow(cfg) * MILLI;
+}
+
 /** Whether the arm is out at all — the one question the picture and the rules
  * both ask, so neither writes `reachDir !== 0` for itself. */
 export function reachOut(world: World): boolean {
@@ -99,11 +111,11 @@ export function stepReach(world: World): void {
     // stopping there: an arm parked at the ceiling would be a control the pair
     // had spent with nothing to show and no way to get it back.
     if (reachTipMilli(world) <= 0) {
-      world.reachMilli = hullRow(world.cfg) * MILLI;
+      world.reachMilli = reachMaxMilli(world.cfg);
       world.reachDir = -1;
       return;
     }
-    strike(world);
+    strikeReach(world);
     return;
   }
 
@@ -158,8 +170,15 @@ function carry(world: World): void {
  * A pod first and a body second, and the order is not arbitrary: a pod and a
  * rock can occupy one tile only while one of them is arriving, and a claw that
  * chose the rock there would punish a pair for being exactly right.
+ *
+ * **Called by both climbs.** The automatic one above, and the hand-driven one
+ * a finger pays out on the crank (`crank.ts`) — a tip that has moved into
+ * something closes on it, and it makes no difference to the thing in the tile
+ * whether the rope came off the drum by itself or under a thumb. That is why
+ * this is exported rather than private: an arm raised by hand that slid past a
+ * rock would make the crank the safe way up and the press pointless.
  */
-function strike(world: World): void {
+export function strikeReach(world: World): void {
   const tip = reachTipMilli(world);
   const row = Math.round(tip / MILLI);
 

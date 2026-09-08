@@ -142,7 +142,7 @@ export const CONTROLS: readonly ControlDef[] = [
     player: 1,
     form: "lobe",
     label: "WIND",
-    does: "The winder. The arm does not come home by itself — a finger going round and round inside this brings the rope in, turn by turn, with whatever the hand is carrying (`sim/crank.ts`).",
+    does: "The winder, and it turns both ways. The arm does not come home by itself — a finger going round and round inside this brings the rope in, turn by turn, with whatever the hand is carrying. Turned the other way it pays the rope out and the arm goes back up, closing on whatever it meets, so the claw can be walked off the hull by hand as well as sent by a press (`sim/crank.ts`).",
   },
   {
     id: "mawTake",

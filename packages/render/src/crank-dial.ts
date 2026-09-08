@@ -1,4 +1,11 @@
-import { CRANK_TURN, crankBites, crankTurnedMilli, NO_CRANK, type World } from "@neon-spore/sim";
+import {
+  CRANK_TURN,
+  crankBites,
+  crankTurnedMilli,
+  crankWinds,
+  NO_CRANK,
+  type World,
+} from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import type { Circle } from "./layout.js";
 import { paintLobe } from "./lobe-shell.js";
@@ -24,11 +31,12 @@ import type { SeatSkin } from "./seat-skin.js";
  * moment the arm is home. Nothing here is remembered between frames, so a
  * restart cannot carry a half-turned crank into the next run.
  *
- * **It is lit only while it bites.** A crank with the arm at home turns
- * nothing (`crankBites`), and a lit control that answers nothing is the one
- * thing a panel must not do — so it sits in the seat's dead flesh until the
- * arm is out and on its way back, and then it is the brightest thing in
- * player 1's half.
+ * **It is lit only while it bites.** A lit control that answers nothing is the
+ * one thing a panel must not do, so it sits in the seat's dead flesh whenever
+ * a finger on it would turn nothing (`crankBites`) — which is the arm's
+ * automatic climb, and that alone: the crank goes both ways now, so a hand can
+ * wind a hanging arm home *and* raise one off the hull, and it is lit for
+ * both.
  *
  * **And while it bites with nobody on it, it breathes.** The owner asked for
  * exactly that — *a bigger white circle inside where to rotate, and glowing in
@@ -66,7 +74,7 @@ export function drawCrankDial(
   const live = crankBites(world);
   // Live and nobody reporting a bearing: the arm is hanging up there waiting
   // for a hand. That is what breathes (`sim/crank.ts`).
-  const waiting = live && world.crankAtMilli === NO_CRANK;
+  const waiting = crankWinds(world) && world.crankAtMilli === NO_CRANK;
   const breath = waiting ? 0.5 + 0.5 * Math.sin((time / BREATH) * Math.PI * 2) : 0;
   const hex = live ? PALETTE.hull : skin.dead[0];
   // Clockwise from the top, which is the way the hand winds — the drum's own

@@ -16,6 +16,7 @@
 export {
   crankBites,
   crankTurnedMilli,
+  crankWinds,
   NO_CRANK,
   TURN as CRANK_TURN,
   windPerTickMilli,

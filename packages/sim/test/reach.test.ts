@@ -130,7 +130,29 @@ describe("the arm", () => {
   });
 });
 
+/** The same, turned the other way round the circle: the crank paying rope out
+ * and the arm going up under a thumb (`sim/crank.ts`). */
+function unwind(world: World, n: number): void {
+  let at = 0;
+  for (let i = 0; i < n; i++) {
+    step(world, [press(1, { kind: "drag", target: "crank", on: true, fromMilli: at })]);
+    at = (at - windPerTickMilli(CFG) + CRANK_TURN) % CRANK_TURN;
+  }
+}
+
 describe("what it closes on", () => {
+  it("drops a body the crank raised it into, exactly as a press would", () => {
+    const world = open([{ beat: 0, col: 4, kind: "meteor", color: null }]);
+    ticks(world, TPB * 2);
+    const rock = world.creatures[0];
+    expect(rock, "the wave sent a rock").toBeDefined();
+    ticks(world, 1, [press(1, { kind: "cannonCol", col: rock?.col ?? 0 })]);
+    // No press at all: the arm is walked off the hull by hand.
+    unwind(world, TPB * 6);
+    expect(reachOut(world)).toBe(true);
+    expect(rock?.dropped).toBe(true);
+  });
+
   it("crushes a body and charges the hull less than the body would have", () => {
     const world = open([{ beat: 0, col: 4, kind: "meteor", color: null }]);
     ticks(world, TPB * 2);
