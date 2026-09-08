@@ -89,8 +89,8 @@ export const CONTROL_SETS: readonly ControlSet[] = [
   {
     id: "pinball",
     name: "PINBALL",
-    why: "Three slabs against one: the seat that holds the bucket also stops the needle, and the seat that does not hold it is the only one that can fire.",
-    controls: ["pinLeft", "pinLatch", "pinRight", "pinLaunch"],
+    why: "The ship's own strip against one button: the seat that slides the cannon also stops the needle, and the seat that cannot move it is the only one that can fire.",
+    controls: ["cannon", "pinLatch", "pinLaunch"],
   },
   {
     id: "pulse",

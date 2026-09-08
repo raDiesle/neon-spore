@@ -675,7 +675,7 @@ answer it.
 
 ## 11.7 PINBALL — the thing you fire from is the thing you catch it with
 
-> The one where the bucket is both the gun and the glove.
+> The one where the cannon is both the gun and the glove.
 
 A sixth boss, and the first body in this game under an **acceleration**. Every
 other thing that has ever moved here steps: a creature falls a row on the beat,
@@ -684,14 +684,27 @@ on a table does none of that — it is a position and a velocity, integrated
 every tick, and where it goes next is arithmetic nobody authored. That is the
 whole reason to build it, and it is also the whole risk.
 
-**One ball, out of the bucket and back into it.** The ship folds into a bucket
-at the floor of a tall table. A shot is fired upward out of that bucket, falls
-back down through a field of pegs and blocks, and the *same bucket* has to be
-under it when it lands or the hull pays `damagePinballDrop`. Peggle has a
-catcher and a separate cannon; here they are one object, and the doubling is
-the design: **where you fire from is where you must not be a second later**.
-The seat holding the bucket spends every shot undoing the position they took to
-aim it.
+**One ball, out of the cannon and back into it.** A tall table stands over the
+ship, from the top of the play area down to the hull's own surface. A shot is
+fired upward out of the **cannon**, falls back down through a field of pegs and
+blocks, and the *same cannon* has to be under it when it lands or the hull pays
+`damagePinballDrop`. Peggle has a catcher and a separate cannon; here they are
+one object, and the doubling is the design: **where you fire from is where you
+must not be a second later**. The seat holding the cannon spends every shot
+undoing the position they took to aim it.
+
+**The ship, the band and the background stay**, and that is the owner's second
+pass over this round rather than how it shipped. It arrived on THE GAUGE's rule
+— the field gone, a table in a violet case over a flat fill, four slabs where
+the panel would be — and he asked for the opposite, in the words he had already
+used on THE PULSE: *the game area field must look like default game play with
+the ship, and control set area.* What a round takes away is the **field**, the
+bodies falling down eleven columns; the hull and the panel are not the field.
+So the table is those eleven columns at the field's own tile, the catcher is
+the ship's own cannon, and it is moved by the **ordinary strip at the ordinary
+speed** — absolute, snapping to a column, arriving the tick the thumb lands.
+The two slabs that used to push a bucket a thousandth of a tile at a time are
+gone, and the round's own panel is two lobes in the band's own sockets.
 
 **Two presses, alternating seats, in one order.** A needle walks across the arc
 from the moment a shot resets and player 1 stops it with SET; the power bar
@@ -741,13 +754,23 @@ That was the owner's decision, made against the recommendation, and it is
 recorded here rather than smoothed over: the coupling is in the verbs alone.
 `showsPinPieces` in `packages/render/src/pinball-round.ts` is written as a role
 predicate anyway, so the seam is one line — if the aim turns out to be too easy
-to agree on, the seat holding the bucket keeps the board and the seat opening
+to agree on, the seat holding the cannon keeps the board and the seat opening
 the sweep is talked onto it, which is THE FLEET's split exactly.
 
 **Only the lit pieces have to go.** Peggle's orange rule. A board is a picture
 of pegs and blocks, a handful of them marked, and the rest is scenery that
 still bounces and still vanishes. Without it the round runs until the last peg
 in a corner happens to be struck, which is a length nobody authored.
+
+**A target is a pod and a piece in the way is a meteor**, and the difference is
+in the simulation as well as in the picture: a target peg is half as wide again
+as a plain one, a target block is deeper. The owner asked for the pieces worth
+collecting to be attractive and the rest to be dull, and a target drawn larger
+than the box it collides with would be a board that lies about where the ball
+goes — so the piece grows rather than the drawing. Taking one throws a ring
+across the table, spikes out of the piece and a wash of the pod's own amber, on
+the same instruction: it is the loudest thing in the round because it is the
+only thing in the round that ends it.
 
 **A struck piece lights now and goes when the shot ends**, which is a physics
 decision before it is a scoring one. A piece that vanished under the ball would
@@ -790,10 +813,13 @@ round.
 ### What it costs the pair, and where it lives
 
 Nothing PINBALL does can reach the hull except the pair's own two failures. A
-ball that misses the bucket takes `damagePinballDrop` off it **in the column it
+ball that misses the cannon takes `damagePinballDrop` off it **in the column it
 fell past** — the table is the field's own width, so the scar is still on that
 side when the field comes back, which is the one thing this round says in the
-field's vocabulary. Running out of `beats` takes `damagePinball` in the middle
+field's vocabulary. It is drawn as a hit, too: a blast in the ball's own steel
+where it struck the skin, and the charge running over the whole hull that THE
+FENCE's wall already throws — the owner asked for that in one sentence, and
+before it a dropped ball simply stopped being drawn. Running out of `beats` takes `damagePinball` in the middle
 column, which is the call THE GAUGE, SNAKE, THE MAZE and THE FLEET all make. A
 ball that came to rest on top of a block costs nothing at all: it times out
 after `pinballFlightBeats` and is given back, because a stuck ball is not a

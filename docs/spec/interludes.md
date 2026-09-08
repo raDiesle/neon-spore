@@ -60,6 +60,17 @@ Three things make it one, and all three are required:
    it *is* the game's own bodies — a slick, a bulb, a meteor and a pod — into
    four sockets cut into the hull, and one nobody answers sinks through the
    ship the way a rock does.
+
+   **PINBALL followed it, and went one step further.** The owner asked for the
+   same thing there — *the game area field must look like default game play with
+   the ship, and the control set area* — and on that round the ship is not only
+   present, it is the mechanism: the thing the ball is fired from and caught with
+   is the **cannon**, slid by the ordinary strip at the ordinary speed. The
+   table stands in the space the grid would be and is eleven columns wide, so
+   the pair may say a column out loud — which is as close to the field's
+   vocabulary as a round is allowed to come, and it is close because the ship is
+   there rather than because the grid is. There is still no grid, no radar and
+   nothing falling down a column on the beat.
 2. **Neither player can play it alone.** Each holds half the information or
    half the verbs, and the round does not resolve without both. This is filter
    6 in [transfers-hazelight](transfers-hazelight.md#the-filter) and it is the

@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import type { ControlSet } from "@neon-spore/content";
-import { buildBoss, buildQueue, controlSet } from "@neon-spore/content";
+import { buildBoss, buildQueue, control, controlSet } from "@neon-spore/content";
 import {
   createWorld,
   PINBALL_MORPH_BEATS,
@@ -28,12 +28,12 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 /**
  * PINBALL over the whole stage, played rather than watched.
  *
- * A round replaces the picture, so no frame of the field ever reaches a line
- * of it — and a table nobody presses anything on is a sweep that walks for
- * half a minute and a ball that never leaves. The two verbs are pressed in the
- * order the round demands (latch the needle, launch on the bar), and the
- * bucket is slid under whatever comes down, so the aim fan, the power bar, a
- * ball in flight, a lit piece and the bucket in motion are all drawn.
+ * A round replaces the field, so no creature ever reaches a line of it — and a
+ * table nobody presses anything on is a sweep that walks for half a minute and
+ * a ball that never leaves. The two verbs are pressed in the order the round
+ * demands (latch the needle, launch on the bar), and the cannon is slid on the
+ * ship's own strip while a ball is down, so the aim fan, the power bar, a ball
+ * in flight, a lit piece and a moving cannon are all drawn.
  */
 
 beforeAll(installCanvasGlobals);
@@ -84,10 +84,14 @@ function pinballFrames(role: ViewRole, ticks: number, controls?: ControlSet, lab
           } else if (p.shot === "power" && tick % 7 === 0) {
             commands.push({ tick, player: 2, command: { kind: "launch" } });
           }
-          // And the bucket walks under it, which is the only control that
-          // answers while a ball is in the air.
-          if (p.shot === "flight" && p.slideDir === 0) {
-            commands.push({ tick, player: 1, command: { kind: "slide", on: true, dir: 1 } });
+          // And the cannon walks under it on the ship's own strip, which is
+          // the only control that answers while a ball is in the air.
+          if (p.shot === "flight" && tick % 11 === 0) {
+            commands.push({
+              tick,
+              player: 1,
+              command: { kind: "cannonCol", col: (w.cannonCol + 1) % w.cfg.cols },
+            });
           }
         }
       }
@@ -115,15 +119,23 @@ describe("PINBALL draws on all three screens", () => {
   it("draws the panel it was handed, not the one the wave index names", () => {
     // The director plays a *draft* wave: `world.wave` indexes the shipped
     // `WAVES` and says PINBALL, while the picker has written some other set
-    // onto the draft and `stage-pinball.ts` hit-tests against that one.
+    // onto the draft and the game's own `touchDown` hit-tests against that one.
     // Buttons drawn where nothing answers them is the failure
     // `test/stage-rounds.test.ts` exists to prevent, arriving through the
     // drawing side.
-    const labels: string[] = [];
+    //
+    // The shield's strip is the tell: PINBALL's own panel carries the cannon
+    // and nothing else, so a screen that draws player 2's channel is a screen
+    // drawing the set it was given.
     const ticks = ticksPerBeat(CFG) * (PINBALL_MORPH_BEATS + 4);
-    pinballFrames("test", ticks, controlSet("snake"), labels);
-    expect(labels).toContain("MAW");
-    expect(labels).not.toContain("SET");
+    const shield = control("shield").label;
+    const handed: string[] = [];
+    pinballFrames("test", ticks, controlSet("default"), handed);
+    const own: string[] = [];
+    pinballFrames("test", ticks, undefined, own);
+    expect(handed).toContain(shield);
+    expect(own).not.toContain(shield);
+    expect(own).toContain(control("cannon").label);
   });
 
   it("really launched a ball and knocked something out, or the frames proved nothing", () => {

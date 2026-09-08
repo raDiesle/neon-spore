@@ -230,6 +230,7 @@ export const DEFAULT_CONFIG: SimConfig = {
 };
 
 export {
+  clampCol,
   hullRow,
   midCol,
   msToTicks,

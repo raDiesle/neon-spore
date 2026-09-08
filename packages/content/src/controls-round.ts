@@ -19,6 +19,14 @@ import type { ControlDef } from "./controls.js";
  * take the field away; what it is not free to do is invent a second kind of
  * button while it is there.
  *
+ * **PINBALL's two are lobes for the same reason, and it went further.** The
+ * owner asked for that round to wear the game's own furniture as well, and the
+ * thing it fires from turned out to be the ship's cannon rather than a bucket
+ * invented for it — so the two slabs that used to slide a bucket are gone and
+ * the round is played on the band's own cannon strip, at the strip's own speed.
+ * What is left here is the pair of presses that are genuinely the round's: the
+ * needle stopped, and the shot fired.
+ *
  * `CONTROLS` spreads this in place, so nothing that reads the vocabulary had
  * to learn there are two files.
  *
@@ -171,30 +179,16 @@ export const ROUND_CONTROLS: readonly ControlDef[] = [
     does: "Player 2's pod lane in THE PULSE. Both seats carry all four, and both press the same chart.",
   },
   {
-    id: "pinLeft",
-    player: 1,
-    form: "slab",
-    label: "◀",
-    does: "Slides the bucket left. Held, not pressed — a thing that has to be under a falling ball cannot be stepped.",
-  },
-  {
-    id: "pinRight",
-    player: 1,
-    form: "slab",
-    label: "▶",
-    does: "Slides the bucket right, the same way.",
-  },
-  {
     id: "pinLatch",
     player: 1,
-    form: "slab",
+    form: "lobe",
     label: "SET",
     does: "Stops the sweeping needle where it stands, and the strength bar starts on the same press.",
   },
   {
     id: "pinLaunch",
     player: 2,
-    form: "slab",
+    form: "lobe",
     label: "FIRE",
     does: "Fires, at whatever strength the bar is at that moment. It answers only once the needle has been stopped, which is the half of a shot that is not player 2's.",
   },

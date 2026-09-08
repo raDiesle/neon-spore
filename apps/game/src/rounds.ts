@@ -2,7 +2,6 @@ import type { Layout, ViewRole } from "@neon-spore/render";
 import type { World } from "@neon-spore/sim";
 import { bindGauge } from "./gauge.js";
 import type { InputBuffer } from "./input.js";
-import { bindPinball } from "./pinball.js";
 import { bindSnake } from "./snake.js";
 
 /**
@@ -17,6 +16,9 @@ import { bindSnake } from "./snake.js";
  * **A round on the band needs nothing here**, and THE PULSE is the first:
  * its four lanes are lobes in the panel the pair already hold, so `touchDown`
  * answers them like every other button in the game (`render/touch-lobe.ts`).
+ * PINBALL was the second and it arrived here by *leaving*: its two presses are
+ * lobes now and the thing that used to be slid by two more is the ship's own
+ * cannon strip, so the listener it had was deleted rather than kept.
  *
  * It is `tools/director/src/stage-rounds.ts` on this side of the fence, and it
  * arrived for the same reason: the fourth round was the one that made four
@@ -37,5 +39,4 @@ export interface RoundBindings {
 export function bindRounds(handle: RoundBindings): void {
   bindGauge(handle);
   bindSnake(handle);
-  bindPinball(handle);
 }

@@ -11,6 +11,7 @@ import type { Circle, Layout } from "./layout.js";
 import { drawLobeGloss, drawLobeSocket } from "./lobe-shell.js";
 import { drawFaultOver } from "./malfunction-look.js";
 import { PALETTE } from "./palette.js";
+import { drawPinLobe, pinLobeOf } from "./pinball-button.js";
 import { drawPulseLobe, pulseLobeOf } from "./pulse-button.js";
 import { type SeatSkin, seatSkin } from "./seat-skin.js";
 
@@ -117,6 +118,14 @@ function drawFace(
   // (`pulse-button.ts`).
   if (pulseLobeOf(c.id) !== null) {
     drawPulseLobe(ctx, circle, c.id, world, skin);
+    return;
+  }
+  // PINBALL's two, on the band for the same reason and after the same request:
+  // the needle player 1 stops, and the shot player 2 takes off the bar
+  // (`pinball-button.ts`).
+  const pin = pinLobeOf(c.id);
+  if (pin !== null) {
+    drawPinLobe(ctx, circle, pin, world, skin);
     return;
   }
   // THE FLEET's five. The arrows are one picture with a direction, so they

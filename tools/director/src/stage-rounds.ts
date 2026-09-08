@@ -1,5 +1,4 @@
 import { bindStageGauge, type StageGauge } from "./stage-gauge.js";
-import { bindStagePinball, type StagePinball } from "./stage-pinball.js";
 import { bindStageSnake, type StageSnake } from "./stage-snake.js";
 
 /**
@@ -20,13 +19,16 @@ import { bindStageSnake, type StageSnake } from "./stage-snake.js";
  * **A round left out of this function is a round nobody can test**, and that
  * has now happened twice: THE GAUGE shipped without a listener and the owner
  * reported it as "i cannot test the gauge", and PINBALL shipped without one
- * and the owner reported that FIRE and SET did nothing. Both files carry a
+ * and the owner reported that FIRE and SET did nothing. Both files carried a
  * warning about it, and a warning is what failed. `test/stage-rounds.test.ts`
  * is the guard that replaced them — it walks every slab of every control set
  * and fails on one no listener here answers.
+ *
+ * PINBALL is no longer among them: its panel is the band now, so its listener
+ * was deleted rather than kept, and the guard simply finds no slab to ask
+ * about.
  */
-export function bindStageRounds(handle: StageGauge & StagePinball & StageSnake): void {
+export function bindStageRounds(handle: StageGauge & StageSnake): void {
   bindStageGauge(handle);
   bindStageSnake(handle);
-  bindStagePinball(handle);
 }

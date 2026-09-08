@@ -62,3 +62,17 @@ export function hullRow(cfg: SimConfig): number {
 export function midCol(cfg: SimConfig): number {
   return Math.floor(cfg.cols / 2);
 }
+
+/**
+ * A column asked for, brought onto the field.
+ *
+ * Here rather than beside its first caller because two of them now need it and
+ * they are on opposite sides of an import: the strip's own command
+ * (`commands.ts`) and PINBALL, whose cannon is moved by that same strip while
+ * the round holds the world (`pinball-controls.ts`). A second copy of the
+ * rounding is a device that disagrees with the other one about which column a
+ * thumb landed in.
+ */
+export function clampCol(cfg: SimConfig, col: number): number {
+  return Math.max(0, Math.min(cfg.cols - 1, Math.round(col)));
+}

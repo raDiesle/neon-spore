@@ -32,7 +32,6 @@ export {
 } from "./gauge-round.js";
 
 export {
-  launchBall,
   PIN_SHOTS,
   PINBALL_PHASES,
   type PinballPhase,
@@ -40,13 +39,11 @@ export {
   type PinballState,
   type PinShot,
   pinballCurrent,
-  pinRestingBall,
   pinTargetsLeft,
 } from "./pinball.js";
-
 export {
   pinballFault,
-  pinClampBucket,
+  pinCannonMilli,
   pinFieldCol,
   pinHeightMilli,
   pinLaunchVelocity,
@@ -55,7 +52,6 @@ export {
   pinSweep,
   pinWidthMilli,
 } from "./pinball-board.js";
-
 export {
   hitPiece,
   isqrt,
@@ -65,9 +61,7 @@ export {
   type PinPiece,
   type PinPieceKind,
 } from "./pinball-contact.js";
-
 export { type PinPhysics, stepBall } from "./pinball-physics.js";
-
 export {
   closePinball,
   PINBALL_MORPH_BEATS,
@@ -75,6 +69,7 @@ export {
   pinballHolds,
   pinballRound,
 } from "./pinball-round.js";
+export { launchBall, pinRestingBall, resetShot } from "./pinball-shot.js";
 
 export {
   PULSE_COUNT_BEATS,

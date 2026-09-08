@@ -37,8 +37,6 @@ export type ControlId =
   | "snakeRight"
   | "snakeFire"
   | "snakeMaw"
-  | "pinLeft"
-  | "pinRight"
   | "pinLatch"
   | "pinLaunch"
   // THE PULSE's four lanes, twice: it is the first panel that is the same in

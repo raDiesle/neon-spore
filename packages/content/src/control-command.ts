@@ -137,18 +137,6 @@ export function controlPress(id: ControlId, col = 0): ControlPress {
       return { down: { kind: "snakeFire" } };
     case "snakeMaw":
       return { down: { kind: "snakeMaw" } };
-    // PINBALL. The bucket's two are held for the same reason the valve is: the
-    // thing moves for as long as the thumb is on it.
-    case "pinLeft":
-      return {
-        down: { kind: "slide", on: true, dir: -1 },
-        up: { kind: "slide", on: false, dir: -1 },
-      };
-    case "pinRight":
-      return {
-        down: { kind: "slide", on: true, dir: 1 },
-        up: { kind: "slide", on: false, dir: 1 },
-      };
     /**
      * THE PULSE's eight, and they send four things between them: a lane, from
      * either seat. The seat is in the *control* and never in the command,
@@ -167,6 +155,9 @@ export function controlPress(id: ControlId, col = 0): ControlPress {
     case "pulse1Pod":
     case "pulse2Pod":
       return { down: { kind: "pulseStep", lane: "pod" } };
+    // PINBALL's two. What used to slide its bucket is the ship's own cannon
+    // strip now, so the round adds no third and fourth press of its own: these
+    // are the needle stopped and the shot fired.
     case "pinLatch":
       return { down: { kind: "latch" } };
     case "pinLaunch":

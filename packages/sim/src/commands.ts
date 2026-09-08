@@ -1,6 +1,7 @@
 import { beatboxTapped } from "./beatbox-round.js";
 import { fire } from "./bullets.js";
 import { choirShaken } from "./choir-gesture.js";
+import { clampCol } from "./config-derived.js";
 import { closeGauge } from "./gauge-round.js";
 import { gripsCreature, setGrip } from "./grip.js";
 import { armShield } from "./hull-guard.js";
@@ -79,7 +80,7 @@ export function applyCommand(world: World, timed: TimedCommand): void {
       // nothing because there is nothing it could do until the arm is home.
       if (reachOut(world)) break;
       const from = world.cannonCol;
-      world.cannonCol = clampCol(world, c.col);
+      world.cannonCol = clampCol(world.cfg, c.col);
       if (world.cannonCol !== from) {
         mirrorHeard(world, world.cannonCol > from ? "cannonRight" : "cannonLeft");
         // The mark is on a column. A cannon that leaves the column it was
@@ -96,7 +97,7 @@ export function applyCommand(world: World, timed: TimedCommand): void {
       break;
     }
     case "shieldCol": {
-      const to = clampCol(world, c.col);
+      const to = clampCol(world.cfg, c.col);
       // Only when it really moves. The control is held, not tapped, so a seat
       // pressing a column it is already in — or leaning against the wall the
       // clamp stops them at — would otherwise reset the standing clock every
@@ -216,8 +217,4 @@ function firePress(world: World, color: Color): void {
   if (mazeHeard(world, color)) {
     world.bullets = world.bullets.filter((b) => b.id < before);
   }
-}
-
-function clampCol(world: World, col: number): number {
-  return Math.max(0, Math.min(world.cfg.cols - 1, Math.round(col)));
 }

@@ -86,6 +86,14 @@ export function lobeMeans(
     case "pulse2Bulb":
     case "pulse2Meteor":
     case "pulse2Pod":
+    // PINBALL's two, on the band for THE PULSE's reason — the owner asked for
+    // that round to be the game it is part of. Neither is held: SET stops a
+    // needle on the tick it arrives and FIRE is a strength taken off a bar at
+    // one moment, and a thumb that stayed on either would be asking for a
+    // second one (`sim/pinball-controls.ts`). What used to slide its bucket is
+    // the ship's own cannon strip, answered above like any other wave's.
+    case "pinLatch":
+    case "pinLaunch":
       return { command: controlPress(id).down, hold: null };
     case "cannon":
     case "shield":
@@ -96,12 +104,6 @@ export function lobeMeans(
     case "snakeRight":
     case "snakeFire":
     case "snakeMaw":
-    // PINBALL's four, read by their own listener in `apps/game` — the bucket's
-    // two are *held*, which no lobe is, so they could not be answered here.
-    case "pinLeft":
-    case "pinRight":
-    case "pinLatch":
-    case "pinLaunch":
       return null;
     default:
       return assertNever(id);

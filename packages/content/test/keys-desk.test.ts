@@ -98,7 +98,7 @@ describe("one key, several meanings", () => {
     expect(deskKey(controlSet("gauge"), "KeyA")?.control).toBe("gaugeLeft");
     expect(deskKey(controlSet("gauge"), "KeyD")?.control).toBe("gaugeRight");
     expect(deskKey(controlSet("gauge"), "KeyD")?.step).toBeUndefined();
-    expect(deskKey(controlSet("pinball"), "KeyA")?.control).toBe("pinLeft");
+    expect(deskKey(controlSet("pinball"), "KeyA")?.control).toBe("cannon");
   });
 
   it("gives the arrows to a panel that walks something across the field", () => {

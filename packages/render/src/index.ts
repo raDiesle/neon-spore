@@ -34,10 +34,10 @@ export {
 export { drawMazeWalls, mazeCanvasAngle, mazeRimHalfGapMilli } from "./maze-walls.js";
 export { LAUNCH_LIFE, SETTLED_AGE } from "./opening-fx.js";
 export { PALETTE, STROKE } from "./palette.js";
-export { drawPinBucket, drawPinLoaded } from "./pinball-bucket.js";
+export { drawPinBlast, drawPinTake } from "./pinball-blast.js";
 export { drawPinPieces } from "./pinball-piece.js";
-export { drawPinballRound, pinMorph01, showsPinPieces } from "./pinball-round.js";
-export { drawPinBall, drawPinCase, pinAt, pinTable, type Table } from "./pinball-table.js";
+export { drawPinballRound, showsPinPieces } from "./pinball-round.js";
+export { drawPinBall, drawPinWalls, pinAt, pinTable, type Table } from "./pinball-table.js";
 export { detectRasterCaps, type RasterCaps } from "./raster-caps.js";
 export { loadAtlas } from "./raster-load.js";
 export { drawReachArm } from "./reach-arm.js";

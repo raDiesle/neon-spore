@@ -1,22 +1,24 @@
-import {
-  pinClampBucket,
-  pinHeightMilli,
-  pinLaunchVelocity,
-  pinWidthMilli,
-} from "./pinball-board.js";
 import type { PinBall, PinPiece } from "./pinball-contact.js";
 import type { World } from "./world.js";
 
 /**
- * PINBALL: the ship folds into a bucket, and the bucket is both the gun and
- * the glove.
+ * PINBALL: the ship's cannon is both the gun and the glove.
  *
- * One ball, fired upward out of the bucket, falling back down through a table
- * of pegs and blocks — and the same bucket has to be under it when it comes
+ * One ball, fired upward out of the cannon, falling back down through a table
+ * of pegs and blocks — and the same cannon has to be under it when it comes
  * back or the hull pays. That doubling is the whole design and it is what
  * makes a Peggle table into a round for two people: where you fire *from* is
- * where you must not be a second later, so the seat holding the bucket is
+ * where you must not be a second later, so the seat holding the cannon is
  * spending the shot undoing the position they took to aim it.
+ *
+ * **The ship stays a ship, and that is the owner's correction.** It used to
+ * fold into a bucket — a shape invented for this round, slid by two slabs of
+ * its own, on a table in a violet case with the field thrown away. He asked for
+ * the round to look like the game it is part of: the hull on the screen, the
+ * band under it, the real background behind it, and the cannon moved by the
+ * strip at the strip's own speed. So there is no bucket and no position of its
+ * own here; `world.cannonCol` is where the catcher is, and it is the field's
+ * own vocabulary the pair talk in — columns.
  *
  * **The two presses.** The needle walks the arc from the moment a shot resets
  * and player 1 latches it; a power bar then grows and shrinks and player 2
@@ -40,13 +42,13 @@ import type { World } from "./world.js";
  * `pinball-round.ts` breaks it on a dropped ball and on the clock.
  *
  * This file is the state. The table's arithmetic is `pinball-board.ts`, the
- * ball itself is `pinball-physics.ts`, the three verbs are
- * `pinball-controls.ts`, and the clock the whole thing hangs off is
- * `pinball-round.ts`.
+ * ball itself is `pinball-physics.ts`, one shot of it is `pinball-shot.ts`,
+ * the verbs are `pinball-controls.ts`, and the clock the whole thing hangs off
+ * is `pinball-round.ts`.
  */
 
 /**
- * The parts of the round. `morph` is the ship becoming the bucket, which
+ * The parts of the round. `morph` is the table arriving over the field, which
  * is a picture rather than a rule and is exactly why it is a phase: the pair
  * needs beats to read a screen that has stopped being the field. SNAKE's
  * argument, and the beat counts beside it are constants in `pinball-round.ts`
@@ -72,7 +74,7 @@ export type PinShot = (typeof PIN_SHOTS)[number];
  * One round of the round, authored rather than tuned.
  *
  * The board *is* the fight — where the targets are, what stands between them
- * and the bucket, whether there is a lane down the middle — so it is the thing
+ * and the cannon, whether there is a lane down the middle — so it is the thing
  * authored, exactly as THE FLEET's placement is. How long there is beside it,
  * because a board and a clock are the only two numbers that change between one
  * of these and the next.
@@ -127,20 +129,37 @@ export interface PinballState {
   /** The power bar, 0 to 1000. */
   powerMilli: number;
   powerDir: -1 | 1;
-  /** Where the bucket stands, in thousandths of a tile across the table. */
-  bucketMilli: number;
-  /** Which way a held slab is pushing it: -1, 0 or 1. */
-  slideDir: -1 | 0 | 1;
   /** The ball. Meaningless unless `shot` is `flight`. */
   ball: PinBall;
   /** `world.beat` the current flight began, for the stuck-ball clock. */
   flightBeat: number;
-  /** Balls that missed the bucket. Each one cost the hull. */
+  /** Balls the cannon was not under. Each one cost the hull. */
   drops: number;
   /** `world.beat` of the last one, so the picture can flinch. -1 before the first. */
   dropBeat: number;
+  /**
+   * Where across the table the last one came down, in thousandths of a tile.
+   *
+   * Kept because the blast is drawn where the ball actually struck the hull and
+   * not in the middle of it: damage is drawn where it landed, and by the time
+   * the picture is drawn the ball has been put back on the cannon.
+   */
+  dropXMilli: number;
   /** `world.beat` of the last catch, for the same reason. */
   catchBeat: number;
+  /**
+   * `world.tick` a **target** was last struck, and where it stood.
+   *
+   * A tick rather than a beat, because what is drawn off it is the one big
+   * moment of the round — a target taken — and a beat is 75 ticks, which is
+   * most of a second of not knowing whether the press landed. -1 before the
+   * first one of the run.
+   */
+  hitTick: number;
+  hitXMilli: number;
+  hitYMilli: number;
+  /** How many targets this one shot has taken, counting the one above. */
+  hitRun: number;
 }
 
 export function openPinball(world: World, rounds: readonly PinballRound[]): PinballState {
@@ -164,13 +183,16 @@ export function openPinball(world: World, rounds: readonly PinballRound[]): Pinb
     angleDir: 1,
     powerMilli: 0,
     powerDir: 1,
-    bucketMilli: pinClampBucket(world.cfg, Math.trunc(pinWidthMilli(world.cfg) / 2)),
-    slideDir: 0,
     ball: { xMilli: 0, yMilli: 0, vxMilli: 0, vyMilli: 0 },
     flightBeat: world.beat,
     drops: 0,
     dropBeat: -1,
+    dropXMilli: 0,
     catchBeat: -1,
+    hitTick: -1,
+    hitXMilli: 0,
+    hitYMilli: 0,
+    hitRun: 0,
   };
   loadBoard(state);
   return state;
@@ -198,45 +220,4 @@ export function pinTargetsLeft(state: PinballState): number {
     if (state.alive[i] === true && state.pieces[i]?.target === true) left += 1;
   }
   return left;
-}
-
-/**
- * The shot back to the start of its own loop: needle at one end, bar empty,
- * nothing lit. The bucket is deliberately left where it stands — it is the one
- * thing the pair has been steering and putting it back would undo a decision
- * they had already made out loud.
- */
-export function resetShot(state: PinballState): void {
-  state.shot = "aim";
-  state.angleDir = 1;
-  state.powerMilli = 0;
-  state.powerDir = 1;
-  state.lit = [];
-}
-
-/** Where the ball sits waiting, which is the mouth of the bucket. */
-export function pinRestingBall(world: World, state: PinballState): PinBall {
-  return {
-    xMilli: state.bucketMilli,
-    yMilli: pinHeightMilli(world.cfg) - world.cfg.pinballBucketMilli,
-    vxMilli: 0,
-    vyMilli: 0,
-  };
-}
-
-/**
- * Fire what the two seats have agreed on.
- *
- * Here rather than in `pinball-round.ts` so that `pinball-controls.ts` reaches
- * one file for it: the round imports the controls to hand a press on, and a
- * controls file that imported the round back would close a cycle over the one
- * function both of them need.
- */
-export function launchBall(world: World, state: PinballState): void {
-  const v = pinLaunchVelocity(world.cfg, state.angleMilli, state.powerMilli);
-  state.ball = pinRestingBall(world, state);
-  state.ball.vxMilli = v.vxMilli;
-  state.ball.vyMilli = v.vyMilli;
-  state.shot = "flight";
-  state.flightBeat = world.beat;
 }

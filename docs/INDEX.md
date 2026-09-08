@@ -312,6 +312,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/bosses-round.ts` | The rounds, as their half of the boss barrel |
 | `packages/sim/src/config-rounds.ts` | The rounds' numbers, as one block of `SimConfig` |
 | `packages/sim/src/step-round.ts` | The rounds' own tick, and the one thing all five of them have in common |
+| `packages/sim/src/pinball-shot.ts` | One shot of PINBALL: where the ball waits, what firing it does, and putting the loop back to the start |
 
 ### packages/content
 
@@ -603,7 +604,6 @@ place — the generator keeps whatever is there.
 | `packages/render/src/gyre-place.ts` | you are asking where a gyre's hub, rim or mounts are drawn between beats — the arc, the ease and the jam |
 | `packages/render/src/touch-field.ts` | you are adding something a hit test needs to know about the wave or the world — the shape `touch.ts` reads |
 | `packages/render/src/pinball-aim.ts` | you are changing what PINBALL's aim shows — the real flight path out of the bucket, and the strength bar beside the table |
-| `packages/render/src/pinball-bucket.ts` | you are drawing PINBALL's bucket — the ship's own skin in another shape, and the ball waiting in its mouth |
 | `packages/render/src/pinball-piece.ts` | you are drawing what stands on PINBALL's table — a peg as a living cell, a block as a slab of the same tissue |
 | `packages/render/src/snake-skin.ts` | What the body is made of: its contour, its light and its scales |
 | `packages/render/src/snake-mouth.ts` | What is in the mouth: the space itself, the fangs hung in it, and the tongue |
@@ -780,6 +780,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/magnet-look.ts` | THE ONE RECORD A CANDIDATE MAGNET LOOK PATCHES |
 | `packages/render/src/balloon-alive.ts` | **What makes THE BALLOON alien**: the film that travels over its skin |
 | `packages/render/src/pulse-wash.ts` | **The whole ship lit, by the one body that got past.** A body answered too late is not answered |
+| `packages/render/src/pinball-blast.ts` | PINBALL's two loud moments: a ball that hit the ship, and a target taken |
+| `packages/render/src/pinball-button.ts` | PINBALL's two presses, as faces on the band's own lobes |
 
 ### packages/net
 
@@ -860,7 +862,6 @@ place — the generator keeps whatever is there.
 | `apps/game/src/raster.ts` | the baked burst, in the real game, behind a flag |
 | `apps/game/src/view.ts` | the view switch, always on screen |
 | `apps/game/src/snake.ts` | The host's half of SNAKE: the four thumbs that play it |
-| `apps/game/src/pinball.ts` | The host's half of PINBALL: the four thumbs that play it |
 | `apps/game/src/install.ts` | The home-screen shortcut, and the service worker that makes one possible |
 | `apps/game/src/link-run.ts` | Beats between fingerprint exchanges |
 | `apps/game/src/link-socket.ts` | Milliseconds before a socket that went away is reached for again |
@@ -1112,7 +1113,6 @@ place — the generator keeps whatever is there.
 | `tools/director/src/stage-gauge.ts` | A ROUND THAT IS NOT THE FIELD ANSWERS A MOUSE |
 | `tools/director/src/stage-handle.ts` | The handle headless checks drive the stage through |
 | `tools/director/src/stage-loop.ts` | The stage's clock: a fixed-timestep loop of its own rather than the game's |
-| `tools/director/src/stage-pinball.ts` | PINBALL'S SLABS, ANSWERED BY THE DIRECTOR'S MOUSE |
 | `tools/director/src/stage-rounds.ts` | Every round that is not the field, bound to the director's canvas at once |
 | `tools/director/src/stage-snake.ts` | SNAKE'S SLABS, ANSWERED BY THE DIRECTOR'S MOUSE |
 | `tools/director/src/stage-transport.ts` | The buttons under the field: `⏸`/`▶`, `↺ WAVE` and the three role switches |
@@ -1324,5 +1324,6 @@ place — the generator keeps whatever is there.
 | `tools/director/src/style-colour.ts` | The colour half of the STYLE page: every swatch in `PALETTE`, filed under the rule it belongs to |
 | `tools/director/src/style-form.ts` | The form half of the STYLE page: how a body is drawn, how big it ships, what makes one nameable |
 | `tools/director/src/style-page.ts` | DOCUMENTATION → STYLE: the whole visual language on one page, drawn live |
+| `tools/frames/press-command.ts` | What one `--press` actually sends, once the line has been taken apart |
 
 <!-- index:code:end -->

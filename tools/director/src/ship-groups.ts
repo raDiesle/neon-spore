@@ -37,7 +37,7 @@ export type GroupName =
   | "OPENING — the introduction, the guide and the ready gate"
   | "THE GAUGE — a round with no field in it"
   | "SNAKE — a round the ship is the body of"
-  | "PINBALL — a table the ship is the bucket of"
+  | "PINBALL — a table the ship's cannon fires up into"
   | "THE PULSE — the same song on two screens"
   | "THE TELL — rock, paper, scissors with half a tell each"
   | "THROB — red one side, cyan the other, turning"
@@ -85,7 +85,7 @@ export const GROUP_ORDER: GroupName[] = [
   "OPENING — the introduction, the guide and the ready gate",
   "THE GAUGE — a round with no field in it",
   "SNAKE — a round the ship is the body of",
-  "PINBALL — a table the ship is the bucket of",
+  "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
   "THE TELL — rock, paper, scissors with half a tell each",
   "THROB — red one side, cyan the other, turning",
@@ -140,7 +140,7 @@ export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
   "THE GAUGE — a round with no field in it",
   "THE FLEET — a chart only one of you can read",
   "SNAKE — a round the ship is the body of",
-  "PINBALL — a table the ship is the bucket of",
+  "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
   "THE TELL — rock, paper, scissors with half a tell each",
 ]);
@@ -155,7 +155,7 @@ export const SHIP_GROUPS: GroupName[] = GROUP_ORDER.filter((g) => !WAVE_ONLY_GRO
  * the ship, which is the split the SHIP-column brief asked for.
  */
 export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
-  pinball: "PINBALL — a table the ship is the bucket of",
+  pinball: "PINBALL — a table the ship's cannon fires up into",
   pulse: "THE PULSE — the same song on two screens",
   tell: "THE TELL — rock, paper, scissors with half a tell each",
   queen: "QUEEN",

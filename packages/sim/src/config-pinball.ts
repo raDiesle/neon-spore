@@ -62,10 +62,14 @@ export interface PinballConfig {
   pinballNeedleMilli: number;
   /** How far the power bar travels each tick, in thousandths. */
   pinballPowerMilli: number;
-  /** How far a held slab slides the bucket each tick, in thousandths of a tile. */
-  pinballSlideMilli: number;
-  /** Half the bucket's mouth, in thousandths of a tile. What a catch is. */
-  pinballBucketMilli: number;
+  /**
+   * Half the cannon's catch, in thousandths of a tile.
+   *
+   * It is also how high above the floor a ball rests and how deep the clear
+   * lane above the ship is, which is why it is one number rather than three:
+   * the mouth a ball comes out of is the mouth it has to come back into.
+   */
+  pinballCatchMilli: number;
   /** Beats one shot may stay in the air before the table gives it back. */
   pinballFlightBeats: number;
   /** What running out of time takes off the hull, in whole points. */
@@ -119,8 +123,7 @@ export const PINBALL_DEFAULTS: PinballConfig = {
   // A hundred and twenty-five ticks to full and as many back, so the bar's
   // whole cycle is 2.1 s — the short end of a spoken exchange, deliberately.
   pinballPowerMilli: 8,
-  pinballSlideMilli: 22,
-  pinballBucketMilli: 620,
+  pinballCatchMilli: 620,
   pinballFlightBeats: 24,
   // THE GAUGE's twenty, for the same event and defended no further.
   damagePinball: 20,

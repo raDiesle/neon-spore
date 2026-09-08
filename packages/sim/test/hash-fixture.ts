@@ -369,13 +369,16 @@ function patchBoss(world: World): void {
     boss.angleDir = -1;
     boss.powerMilli = 640;
     boss.powerDir = -1;
-    boss.bucketMilli = 4300;
-    boss.slideDir = 1;
     boss.ball = { xMilli: 5100, yMilli: 9200, vxMilli: -70, vyMilli: 130 };
     boss.flightBeat = 6;
     boss.drops = 1;
     boss.dropBeat = 5;
+    boss.dropXMilli = 4300;
     boss.catchBeat = 4;
+    boss.hitTick = 320;
+    boss.hitXMilli = 5500;
+    boss.hitYMilli = 3500;
+    boss.hitRun = 2;
     boss.alive = boss.pieces.map((_, i) => i !== 0);
     boss.lit = [1];
   }

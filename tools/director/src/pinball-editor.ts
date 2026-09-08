@@ -55,7 +55,7 @@ export function renderPinballEditor(
     el(
       "p",
       "note",
-      "The ship folds into a bucket that fires the ball and has to catch it " +
+      "The ship's cannon fires the ball and has to catch it " +
         "again. Press a cell to walk it through empty, peg, target peg, block, " +
         "target block. Only the target pieces have to go for a board to be " +
         "cleared — the rest is scenery that still bounces.",

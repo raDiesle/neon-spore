@@ -1,23 +1,31 @@
 import type { PinballState, SimConfig } from "@neon-spore/sim";
-import { halo, strokeGlow } from "./glow.js";
+import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
 /**
- * PINBALL's table: where it sits on the stage, and the case it is played
- * inside.
+ * PINBALL's table: where it sits on the stage, and the ball that travels it.
  *
- * **The frame is thick on purpose.** A round is drawn out of slabs and glyphs
- * rather than blobs (`docs/spec/interludes.md`), and this is the one boss
- * where the pair spend ninety seconds watching something bounce *off the
- * edges* — a hairline border would be a wall the eye has to infer from the
- * ball's behaviour. So the table is a case with a real bezel and a lit inner
- * lip, and the playfield sits inside it the way a pinball table sits in its
- * cabinet.
+ * **There is no case any more, and that is the whole of this file's history.**
+ * The table used to stand in a thick violet cabinet with a lit inner lip,
+ * centred in 88% of the stage so a power bar had a gutter to live in. The owner
+ * looked at it and asked for the opposite: *remove this purple borders, and
+ * make the game area the full available size*. He is right. A bezel is a second
+ * frame drawn inside the one the phone already has, and every pixel it takes is
+ * a pixel of the board the pair are arguing about.
  *
- * What stands *on* the table is `pinball-piece.ts`, the bucket at the floor of
- * it is `pinball-bucket.ts`, and the line out of that bucket is
- * `pinball-aim.ts`. This file is the box and the ball.
+ * So the table is exactly the field: the same eleven columns, at the same tile,
+ * starting where the grid starts and **ending on the hull's own surface**. The
+ * walls a ball banks off are the walls the ship has always had, the floor is
+ * the ship, and there is nothing between them to draw. That the two fit without
+ * a remainder is not luck — `pinballCols` is `cols` and `pinballRows` is one
+ * less than `rows`, which is the hull's row — but it is not assumed either:
+ * the tile below is the smaller of the two fits, so a config that pulled them
+ * apart shrinks the table rather than pushing it off the screen.
+ *
+ * What stands *on* the table is `pinball-piece.ts`, the line out of the cannon
+ * is `pinball-aim.ts`, and what happens when a ball is missed is
+ * `pinball-blast.ts`. This file is the frame and the ball.
  *
  * Stateless like every other draw: everything is read off the world, so
  * nothing outlives a frame and `Effects.reset` has none of it to lose.
@@ -32,33 +40,19 @@ export interface Table {
   rows: number;
 }
 
-/** How thick the cabinet is, as a share of a tile. */
-const BEZEL_TILES = 0.42;
-
 /**
- * The table, centred in the play half and leaving room for its own case. Whole
- * pixels are not asked for — nothing on this table is counted along, which is
- * exactly what makes it different from SNAKE's arena next door.
+ * The table, over the field it has replaced.
  *
- * **The width is 0.88 of the stage and not 0.94**, which is the gutter the
- * power bar stands in (`pinball-aim.ts`). A bar drawn over the playfield would
- * be a dial on top of the board it is about; a table narrow enough to have a
- * margin can put it beside one.
+ * The floor is pinned to `l.hullY` — the row a creature dies on, and therefore
+ * the line the ship's skin is drawn along. A ball that reaches the bottom of
+ * this table has reached the ship, which is what the round says happens.
  */
 export function pinTable(l: Layout, cfg: SimConfig): Table {
-  const bezel = 2 * BEZEL_TILES;
-  const tile = Math.max(
-    1,
-    Math.min(
-      (l.width * 0.88) / (cfg.pinballCols + bezel),
-      (l.playHeight * 0.78) / (cfg.pinballRows + bezel),
-    ),
-  );
-  const w = tile * cfg.pinballCols;
-  const h = tile * cfg.pinballRows;
+  const height = Math.max(1, l.hullY - l.gridTop);
+  const tile = Math.max(1, Math.min(l.gridWidth / cfg.pinballCols, height / cfg.pinballRows));
   return {
-    x: (l.width - w) / 2,
-    y: l.playHeight * 0.56 - h / 2,
+    x: l.gridLeft + (l.gridWidth - tile * cfg.pinballCols) / 2,
+    y: l.hullY - tile * cfg.pinballRows,
     tile,
     cols: cfg.pinballCols,
     rows: cfg.pinballRows,
@@ -71,42 +65,31 @@ export function pinAt(t: Table, xMilli: number, yMilli: number): { x: number; y:
 }
 
 /**
- * The cabinet: a heavy bezel with a lit inner lip, and the floor drawn as a
- * broken line because it is the one edge that is not a wall.
+ * The two side walls, as the faintest possible line.
+ *
+ * Not a frame: the ball genuinely bounces off the edges of the field and the
+ * eye has to be told that once, before the first bank rather than after it. A
+ * hairline in the grid's own colour is as much as that costs — the ceiling gets
+ * one too, and the floor gets none, because the floor is the ship and the ship
+ * is drawn.
  */
-export function drawPinCase(ctx: CanvasRenderingContext2D, t: Table): void {
+export function drawPinWalls(ctx: CanvasRenderingContext2D, t: Table): void {
   const w = t.tile * t.cols;
   const h = t.tile * t.rows;
-  const bezel = t.tile * BEZEL_TILES;
-
-  ctx.fillStyle = PALETTE.background;
-  ctx.fillRect(t.x - bezel, t.y - bezel, w + bezel * 2, h + bezel * 2);
-  ctx.strokeStyle = PALETTE.hull;
-  ctx.lineWidth = bezel;
-  ctx.strokeRect(t.x - bezel / 2, t.y - bezel / 2, w + bezel, h + bezel);
-  // Three sides only. The floor is the way out and the eye should be told so
-  // before the first ball goes down it rather than after. The lip carries the
-  // hull's own glow, so the wall the ball banks off is a lit edge rather than
-  // a hairline.
-  const lip = new Path2D();
-  lip.moveTo(t.x, t.y + h);
-  lip.lineTo(t.x, t.y);
-  lip.lineTo(t.x + w, t.y);
-  lip.lineTo(t.x + w, t.y + h);
   ctx.save();
-  strokeGlow(ctx, lip, PALETTE.hullRim, Math.max(1, t.tile * 0.05), 0.7);
-  ctx.restore();
-  ctx.setLineDash([t.tile * 0.28, t.tile * 0.28]);
-  ctx.strokeStyle = PALETTE.dim;
-  ctx.lineWidth = Math.max(1, t.tile * 0.05);
+  ctx.strokeStyle = PALETTE.grid;
+  ctx.lineWidth = Math.max(1, t.tile * 0.03);
+  ctx.globalAlpha = 0.65;
   ctx.beginPath();
-  ctx.moveTo(t.x, t.y + h);
-  ctx.lineTo(t.x + w, t.y + h);
+  ctx.moveTo(t.x + 0.5, t.y + h);
+  ctx.lineTo(t.x + 0.5, t.y);
+  ctx.lineTo(t.x + w - 0.5, t.y);
+  ctx.lineTo(t.x + w - 0.5, t.y + h);
   ctx.stroke();
-  ctx.setLineDash([]);
+  ctx.restore();
 }
 
-/** The ball. Steel, and the only round thing here that is not a cell. */
+/** The ball. Steel, and the only round thing here that is not a body. */
 export function drawPinBall(
   ctx: CanvasRenderingContext2D,
   t: Table,
@@ -115,18 +98,46 @@ export function drawPinBall(
 ): void {
   const r = (ballMilli * t.tile) / 1000;
   const at = pinAt(t, state.ball.xMilli, state.ball.yMilli);
-  halo(ctx, at.x, at.y, r * 2.4, PALETTE.text, 0.35);
+  drawBall(ctx, t, at.x, at.y, r, 0.35);
+}
+
+/**
+ * The ball waiting in the muzzle, between shots.
+ *
+ * Drawn at all because the round's whole sentence is that the thing you fire
+ * from is the thing you catch with, and a cannon with nothing in it while the
+ * pair argue about an angle says the opposite.
+ */
+export function drawPinResting(
+  ctx: CanvasRenderingContext2D,
+  t: Table,
+  x: number,
+  y: number,
+  ballMilli: number,
+): void {
+  drawBall(ctx, t, x, y, (ballMilli * t.tile) / 1000, 0.28);
+}
+
+function drawBall(
+  ctx: CanvasRenderingContext2D,
+  t: Table,
+  x: number,
+  y: number,
+  r: number,
+  glow: number,
+): void {
+  halo(ctx, x, y, r * 2.4, PALETTE.text, glow);
   ctx.fillStyle = PALETTE.rock;
   ctx.strokeStyle = PALETTE.text;
   ctx.lineWidth = Math.max(1, t.tile * 0.04);
   ctx.beginPath();
-  ctx.arc(at.x, at.y, r, 0, Math.PI * 2);
+  ctx.arc(x, y, r, 0, Math.PI * 2);
   ctx.fill();
   ctx.stroke();
   ctx.fillStyle = PALETTE.text;
   ctx.globalAlpha = 0.75;
   ctx.beginPath();
-  ctx.arc(at.x - r * 0.32, at.y - r * 0.36, r * 0.3, 0, Math.PI * 2);
+  ctx.arc(x - r * 0.32, y - r * 0.36, r * 0.3, 0, Math.PI * 2);
   ctx.fill();
   ctx.globalAlpha = 1;
 }

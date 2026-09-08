@@ -31,15 +31,7 @@ describe("what a control says", () => {
     // control gaining an `up` is a press somebody has quietly turned into a
     // hold, and the panel drawing it would not know.
     const held = CONTROLS.filter((c) => controlHeld(c.id)).map((c) => c.id);
-    expect(held.sort()).toEqual([
-      "crank",
-      "fireCyan",
-      "fireRed",
-      "gaugeLeft",
-      "gaugeRight",
-      "pinLeft",
-      "pinRight",
-    ]);
+    expect(held.sort()).toEqual(["crank", "fireCyan", "fireRed", "gaugeLeft", "gaugeRight"]);
     for (const id of held) {
       expect(controlHold(id).up.kind, `${id}'s release sends nothing`).toBeTruthy();
     }

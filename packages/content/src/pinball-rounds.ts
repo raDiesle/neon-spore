@@ -48,14 +48,29 @@ const PIN_TOP_TILES = 1.5;
  * the grid it paints, so an author cannot draw a board the game would reject.
  */
 export function pinBoardRows(cfg: SimConfig = DEFAULT_CONFIG): number {
-  const floor = cfg.pinballRows - (cfg.pinballBucketMilli * 2) / 1000;
-  return Math.max(1, Math.floor(floor - PIN_TOP_TILES - 0.5 - BLOCK_H_MILLI / 1000) + 1);
+  const floor = cfg.pinballRows - (cfg.pinballCatchMilli * 2) / 1000;
+  const deepest = Math.max(TARGET_PEG_MILLI, BLOCK_H_MILLI, TARGET_BLOCK_H_MILLI);
+  return Math.max(1, Math.floor(floor - PIN_TOP_TILES - 0.5 - deepest / 1000) + 1);
 }
 
-/** A peg's radius and a block's half-extents, in thousandths of a tile. */
+/**
+ * A peg's radius and a block's half-extents, in thousandths of a tile.
+ *
+ * **A target is bigger than a piece that is in the way**, and it is bigger in
+ * the simulation rather than only in the picture. The owner asked for the
+ * pieces that must be collected to be more attractive and the rest to be duller
+ * — and a target drawn half again as large as the box it collides with is a
+ * board that lies about where the ball goes. So the *piece* grows: a target peg
+ * is half as wide again as a plain one and a target block is deeper, which
+ * makes the thing worth hitting genuinely easier to hit. Both stay clear of
+ * their neighbours on the one-tile grid (0.3 + 0.2 is well under 1) and both
+ * stay above `PIN_THIN_MILLI`, so no board becomes one a ball can step through.
+ */
 const PEG_MILLI = 200;
+const TARGET_PEG_MILLI = 300;
 const BLOCK_W_MILLI = 440;
 const BLOCK_H_MILLI = 150;
+const TARGET_BLOCK_H_MILLI = 240;
 
 /**
  * One board out of its picture. Row `r`, column `c` becomes the centre of tile
@@ -80,17 +95,24 @@ export function pinBoard(picture: string): PinPiece[] {
       const peg = mark === "o" || mark === "O";
       const block = mark === "=" || mark === "#";
       if (!peg && !block) throw new Error(`a pinball board has no mark "${mark}" in it`);
+      const target = mark === "O" || mark === "#";
       pieces.push({
         kind: peg ? "peg" : "block",
         xMilli: c * 1000 + 500,
         yMilli: Math.round((r + PIN_TOP_TILES + 0.5) * 1000),
-        wMilli: peg ? PEG_MILLI : BLOCK_W_MILLI,
-        hMilli: peg ? PEG_MILLI : BLOCK_H_MILLI,
-        target: mark === "O" || mark === "#",
+        wMilli: peg ? (target ? TARGET_PEG_MILLI : PEG_MILLI) : BLOCK_W_MILLI,
+        hMilli: peg
+          ? target
+            ? TARGET_PEG_MILLI
+            : PEG_MILLI
+          : target
+            ? TARGET_BLOCK_H_MILLI
+            : BLOCK_H_MILLI,
+        target,
       });
     }
   }
-  if (PEG_MILLI < PIN_THIN_MILLI || BLOCK_H_MILLI < PIN_THIN_MILLI) {
+  if (Math.min(PEG_MILLI, TARGET_PEG_MILLI, BLOCK_H_MILLI, TARGET_BLOCK_H_MILLI) < PIN_THIN_MILLI) {
     throw new Error("a pinball piece thinner than a ball can be stopped by");
   }
   return pieces;

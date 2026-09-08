@@ -38,13 +38,18 @@ export function pinPhysics(cfg: SimConfig): PinPhysics {
 }
 
 /**
- * Where the bucket may stand, so its mouth is never half off the table. The
- * launch comes out of the middle of that mouth, which is why the ball can
- * never start inside a wall.
+ * Where the cannon stands, on the table, from the column it stands in on the
+ * ship.
+ *
+ * **The table is the field's own width**, and both are eleven — but the round
+ * is authored against `pinballCols` and the hull against `cols`, so the two are
+ * mapped rather than assumed equal. Written down once here, called by everything
+ * that needs it: the resting ball, the catch and the picture.
  */
-export function pinClampBucket(cfg: SimConfig, xMilli: number): number {
-  const half = cfg.pinballBucketMilli;
-  return Math.max(half, Math.min(pinWidthMilli(cfg) - half, xMilli));
+export function pinCannonMilli(cfg: SimConfig, col: number): number {
+  const cols = Math.max(1, cfg.cols);
+  const clamped = Math.max(0, Math.min(cols - 1, col));
+  return Math.trunc(((clamped * 2 + 1) * pinWidthMilli(cfg)) / (cols * 2));
 }
 
 /**
@@ -77,12 +82,12 @@ export function pinballFault(pieces: readonly PinPiece[], cfg: SimConfig): strin
     if (piece.xMilli - halfX < 0 || piece.xMilli + halfX > w) return "a piece off the side";
     if (piece.yMilli - halfY < 0 || piece.yMilli + halfY > h) return "a piece off the top or floor";
   }
-  // The launch lane: a piece sitting on the bucket would be hit before the
+  // The launch lane: a piece sitting on the cannon would be hit before the
   // ball had left, which reads as a shot that did not happen.
-  const floor = h - cfg.pinballBucketMilli * 2;
+  const floor = h - cfg.pinballCatchMilli * 2;
   for (const piece of pieces) {
     const halfY = piece.kind === "peg" ? piece.wMilli : piece.hMilli;
-    if (piece.yMilli + halfY > floor) return "a piece in the bucket's own lane";
+    if (piece.yMilli + halfY > floor) return "a piece in the cannon's own lane";
   }
   return null;
 }
@@ -204,8 +209,6 @@ export function pinballHashParts(boss: PinballState): number[] {
   out.push(boss.angleDir);
   out.push(boss.powerMilli);
   out.push(boss.powerDir);
-  out.push(boss.bucketMilli);
-  out.push(boss.slideDir);
   out.push(boss.ball.xMilli);
   out.push(boss.ball.yMilli);
   out.push(boss.ball.vxMilli);
@@ -213,7 +216,12 @@ export function pinballHashParts(boss: PinballState): number[] {
   out.push(boss.flightBeat);
   out.push(boss.drops);
   out.push(boss.dropBeat);
+  out.push(boss.dropXMilli);
   out.push(boss.catchBeat);
+  out.push(boss.hitTick);
+  out.push(boss.hitXMilli);
+  out.push(boss.hitYMilli);
+  out.push(boss.hitRun);
   for (const n of pinPieceParts(boss.pieces)) out.push(n);
   for (const up of boss.alive) out.push(up ? 1 : 0);
   out.push(boss.lit.length);

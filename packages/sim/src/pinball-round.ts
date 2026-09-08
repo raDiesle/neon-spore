@@ -8,11 +8,18 @@ import {
   type PinballState,
   pinballCurrent,
   pinTargetsLeft,
-  resetShot,
 } from "./pinball.js";
-import { pinFieldCol, pinHeightMilli, pinPhysics, pinPower, pinSweep } from "./pinball-board.js";
+import {
+  pinCannonMilli,
+  pinFieldCol,
+  pinHeightMilli,
+  pinPhysics,
+  pinPower,
+  pinSweep,
+} from "./pinball-board.js";
 import { pinballHeard } from "./pinball-controls.js";
 import { stepBall } from "./pinball-physics.js";
+import { resetShot } from "./pinball-shot.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -34,12 +41,18 @@ import type { World } from "./world.js";
  * table. So `step` returns into here and the table runs at 120 Hz, which is
  * also the only rate at which the bounce reads as a bounce.
  *
+ * **The cannon is the ship's own and is not stepped here.** It used to be a
+ * bucket this file slid a thousandth of a tile per tick; the strip writes
+ * `world.cannonCol` outright now, at the speed every other wave moves at, so
+ * there is nothing left for the tick to do about where the catcher is
+ * (`pinball-controls.ts`).
+ *
  * **The clock is a boundary and not a metronome.** `pinballFlightBeats` is the
  * only beat-shaped rule inside a shot, and it exists to end a ball that has
  * come to rest on top of a block rather than to pace anything.
  */
 
-/** Beats the ship spends folding into the bucket. SNAKE's morph, same length. */
+/** Beats the table spends arriving over the field. SNAKE's morph, same length. */
 export const PINBALL_MORPH_BEATS = 6;
 
 /** Beats the result stands before the wave gives way to the next one. */
@@ -83,7 +96,6 @@ export function stepPinballRound(world: World): void {
     return;
   }
 
-  slideBucket(world, state);
   if (state.shot === "aim") {
     const swept = pinSweep(world.cfg, state.angleMilli, state.angleDir);
     state.angleMilli = swept.angleMilli;
@@ -109,15 +121,6 @@ export function stepPinballRound(world: World): void {
   }
 }
 
-/** The bucket, moved by whichever slab is being held. */
-function slideBucket(world: World, state: PinballState): void {
-  if (state.slideDir === 0) return;
-  const half = world.cfg.pinballBucketMilli;
-  const width = world.cfg.pinballCols * 1000;
-  const next = state.bucketMilli + state.slideDir * world.cfg.pinballSlideMilli;
-  state.bucketMilli = Math.max(half, Math.min(width - half, next));
-}
-
 /**
  * One tick of a ball in the air: step it, light what it touched, and see
  * whether it is still on the table.
@@ -125,7 +128,17 @@ function slideBucket(world: World, state: PinballState): void {
 function flyBall(world: World, state: PinballState): void {
   const struck = stepBall(state.ball, state.pieces, state.alive, pinPhysics(world.cfg));
   for (const i of struck) {
-    if (!state.lit.includes(i)) state.lit.push(i);
+    if (state.lit.includes(i)) continue;
+    state.lit.push(i);
+    // A **target** taken is the one moment of the round worth shouting about,
+    // so where and when it happened is remembered for the picture to answer.
+    // A plain piece is not: it lights, it goes, and nothing marks it.
+    const piece = state.pieces[i];
+    if (piece?.target !== true) continue;
+    state.hitTick = world.tick;
+    state.hitXMilli = piece.xMilli;
+    state.hitYMilli = piece.yMilli;
+    state.hitRun += 1;
   }
   const floor = pinHeightMilli(world.cfg);
   const stuck = world.beat - state.flightBeat >= world.cfg.pinballFlightBeats;
@@ -138,12 +151,16 @@ function flyBall(world: World, state: PinballState): void {
   // costs nothing: the pair is given it back and the round's own clock is the
   // only thing that was spent.
   if (!stuck) {
-    const half = world.cfg.pinballBucketMilli;
-    const caught = Math.abs(state.ball.xMilli - state.bucketMilli) <= half;
+    const half = world.cfg.pinballCatchMilli;
+    const mouth = pinCannonMilli(world.cfg, world.cannonCol);
+    const caught = Math.abs(state.ball.xMilli - mouth) <= half;
     if (caught) state.catchBeat = world.beat;
     else {
       state.drops += 1;
       state.dropBeat = world.beat;
+      // Where it came down, kept for the blast: the hull is struck at the
+      // place the ball actually arrived and not in the middle of the ship.
+      state.dropXMilli = state.ball.xMilli;
       spendHull(world, world.cfg.damagePinballDrop, pinFieldCol(world.cfg, state.ball.xMilli));
     }
   }

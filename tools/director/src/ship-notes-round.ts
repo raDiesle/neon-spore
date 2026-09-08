@@ -36,14 +36,15 @@ export const ROUND_NOTES = {
     "hull. The arenas are a map per round, edited on the wave that carries it " +
     "and stored in packages/content/src/snake-rounds.ts. See snake.ts, " +
     "snake-move.ts.",
-  "PINBALL — a table the ship is the bucket of":
+  "PINBALL — a table the ship's cannon fires up into":
     "The third built round, and the first body in the game under an " +
-    "acceleration. The ship folds into a bucket that is both the gun and the " +
-    "glove: player 2 opens the aiming sweep and picks the strength, player 1 " +
-    "slides the bucket and stops the needle — and then the same bucket has to " +
-    "be under the ball when it falls back. A dropped ball costs the hull where " +
-    "it fell; the clock running out costs it more. The ball is stepped on the " +
-    "tick in thousandths of a tile, so every number here is per tick.",
+    "acceleration. The ship stays a ship and its cannon is both the gun and " +
+    "the glove: player 1 slides the cannon on the ordinary strip and stops the " +
+    "needle, player 2 picks the strength and fires — and then the same cannon " +
+    "has to be under the ball when it falls back. A dropped ball costs the " +
+    "hull where it fell; the clock running out costs it more. The ball is " +
+    "stepped on the tick in thousandths of a tile, so every number here is " +
+    "per tick.",
 
   "THE PULSE — the same song on two screens":
     "Four lanes of arrows onto four buttons, and both seats have the same four. " +

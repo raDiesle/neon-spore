@@ -1,53 +1,49 @@
-import { blobPath, LIGHT_HALF } from "@neon-spore/content";
 import type { PinballState, PinPiece } from "@neon-spore/sim";
-import { halo, strokeGlow } from "./glow.js";
-import { litRound } from "./key-light.js";
+import { halo } from "./glow.js";
+import { drawRockBody } from "./meteor.js";
 import { PALETTE } from "./palette.js";
 import type { Table } from "./pinball-table.js";
 import { pinAt } from "./pinball-table.js";
+import { drawPodBody } from "./pods.js";
 
 /**
- * What stands on PINBALL's table, drawn as something alive.
+ * What stands on PINBALL's table, drawn as things the pair already know.
  *
- * The pieces were circles and rounded boxes with one highlight each: correct,
- * legible, and the only screen in the game where nothing breathed. This round
- * is not the field and it is still the same game — so a peg is a **cell**, a
- * closed contour with lobes on it (`blobPath`, the same call every creature on
- * the field is drawn through), lit from inside and haloed from outside, and a
- * block is a slab of the same tissue stretched flat.
+ * **The two kinds have to look nothing like each other**, and that is the
+ * owner's instruction rather than a taste: *the required stones to collect must
+ * look visually more attractive, and stones which are not required more boring,
+ * like meteors.* Only targets end a round (Peggle's orange rule), so the board
+ * is really two boards laid over each other — the one that matters and the one
+ * that is in the way — and a table where both were the same blob asked the pair
+ * to read a colour at a glance instead of a shape.
  *
- * **The colours are the ones the game already owns.** Plain pieces are the
- * shield's cyan, targets are `pod` amber — which is what this game has always
- * meant by "here, this is the thing" — and a piece the ball has touched this
- * shot burns to `good` green until the shot ends and it goes. Nothing here
- * invents a colour; what is new is that each of them now has a dark core and a
- * bright skin instead of one flat fill, which is the hull's own recipe
- * (`hull.ts`: dark where it is thick, bright at the skin).
+ * So they are drawn by the game's own two answers to exactly that question. A
+ * piece that is in the way is a **meteor** (`drawRockBody`): grey, faceted,
+ * spinning slowly, dead — the thing this game has always meant by "you cannot
+ * do anything with this". A piece that must go is a **pod** (`drawPodBody`):
+ * amber, breathing, haloed — the thing it has always meant by "go and get
+ * this". Neither is invented here and neither can drift, because both are the
+ * calls the field makes.
  *
- * **The wobble runs on wall-clock time and the seed comes off the board
- * index**, so a table of forty cells is forty different creatures rather than
- * one shape stamped forty times — and none of it reaches the simulation, which
- * is why a wobble is allowed to be a float at all.
+ * **A block is the same two bodies stretched.** The physics box is wide and
+ * flat, so a rock is squashed into it and a target block is a *chain* of pods
+ * across it — overlapping, so it reads as one mass rather than as three beads
+ * on a shelf.
+ *
+ * **What the shot has already touched burns.** A hit piece stays standing until
+ * the ball is done (`PinballState.lit`, and it is a physics decision before it
+ * is a scoring one), so it is drawn lit rather than gone: the body it always
+ * was, with the take's own light over it.
  */
 
-/** Body, skin and halo for one state a piece can be in. */
-interface Coat {
-  core: string;
-  body: string;
-  rim: string;
-}
+/** Which pod a target wears. One kind for the whole table: the mark at a pod's
+ * centre says which of the three it is, and on this board there is nothing for
+ * that distinction to mean. */
+const POD_KIND = "mend" as const;
 
-const PLAIN: Coat = { core: PALETTE.cyanDark, body: PALETTE.shield, rim: PALETTE.shieldRim };
-const TARGET: Coat = { core: PALETTE.podDark, body: PALETTE.pod, rim: PALETTE.podRim };
-const LIT: Coat = { core: "#06301C", body: PALETTE.good, rim: PALETTE.goodRim };
-
-/** How far a cell's contour departs from a circle, and how fast it breathes. */
-const LOBE_DEPTH = 0.11;
-const WOBBLE = 0.06;
-
-function coat(piece: PinPiece, lit: boolean): Coat {
-  return lit ? LIT : piece.target ? TARGET : PLAIN;
-}
+/** How much bigger a target is drawn than the box it collides with. A pod that
+ * exactly filled its own radius read as smaller than the rock beside it. */
+const POD_MUL = 1.18;
 
 /** Everything still standing, with what this shot has touched burning. */
 export function drawPinPieces(
@@ -72,96 +68,94 @@ function drawPiece(
   seed: number,
 ): void {
   const at = pinAt(t, piece.xMilli, piece.yMilli);
-  const c = coat(piece, lit);
-  // A target pulses and a plain piece does not: the one thing that has to be
-  // findable across a crowded board is the thing the round is about.
-  const pulse = piece.target || lit ? 0.5 + 0.5 * Math.sin(time * 2.4 + seed) : 0;
-  if (piece.kind === "peg") {
-    drawCell(ctx, t, at.x, at.y, (piece.wMilli * t.tile) / 1000, c, time, seed, pulse);
-    return;
-  }
-  drawSlab(
-    ctx,
-    t,
-    at.x,
-    at.y,
-    (piece.wMilli * t.tile) / 1000,
-    (piece.hMilli * t.tile) / 1000,
-    c,
-    time,
-    seed,
-    pulse,
-  );
+  const halfW = (piece.wMilli * t.tile) / 1000;
+  const halfH = ((piece.kind === "peg" ? piece.wMilli : piece.hMilli) * t.tile) / 1000;
+  if (piece.target) drawTarget(ctx, at.x, at.y, halfW, halfH, piece.kind, time, seed);
+  else drawDull(ctx, at.x, at.y, halfW, halfH, time, seed);
+  if (lit) drawTaken(ctx, at.x, at.y, Math.max(halfW, halfH), time);
 }
 
 /**
- * One cell. Halo, membrane, key light, rim — in that order, because the halo
- * is behind the body and the rim light lies on the silhouette, which is what
- * `hull.ts` does over the ship and `creatures.ts` over everything on the field.
+ * A piece that does not have to go: a rock, and nothing else.
+ *
+ * No halo of its own beyond the stone's, no pulse and no beat — the whole
+ * instruction is that it is *boring*, and a rock is the game's word for that.
+ * `holes: 0`, because nothing has shot it.
  */
-function drawCell(
+function drawDull(
   ctx: CanvasRenderingContext2D,
-  t: Table,
-  x: number,
-  y: number,
-  r: number,
-  c: Coat,
-  time: number,
-  seed: number,
-  pulse: number,
-): void {
-  halo(ctx, x, y, r * 2.1, c.body, 0.16 + 0.22 * pulse);
-  const path = new Path2D(blobPath(x, y, r, r, 3, LOBE_DEPTH, WOBBLE, time, seed, 24));
-  const skin = ctx.createRadialGradient(x - r * 0.3, y - r * 0.34, r * 0.1, x, y, r * 1.05);
-  skin.addColorStop(0, c.rim);
-  skin.addColorStop(0.42, c.body);
-  skin.addColorStop(1, c.core);
-  ctx.fillStyle = skin;
-  ctx.fill(path);
-  litRound(ctx, x, y, r, LIGHT_HALF.creature);
-  ctx.save();
-  strokeGlow(ctx, path, c.rim, Math.max(1, t.tile * 0.045), 0.6 + 0.5 * pulse);
-  ctx.restore();
-  // The nucleus. It is what makes a field of these read as bodies rather than
-  // as beads, and on a target it is the thing that beats.
-  ctx.save();
-  ctx.globalAlpha = 0.45 + 0.4 * pulse;
-  ctx.fillStyle = c.rim;
-  ctx.beginPath();
-  ctx.arc(x, y, r * (0.2 + 0.1 * pulse), 0, Math.PI * 2);
-  ctx.fill();
-  ctx.restore();
-}
-
-/** The same tissue stretched flat: a wall of it, with a lit ridge along the top. */
-function drawSlab(
-  ctx: CanvasRenderingContext2D,
-  t: Table,
   x: number,
   y: number,
   halfW: number,
   halfH: number,
-  c: Coat,
   time: number,
   seed: number,
-  pulse: number,
 ): void {
-  halo(ctx, x, y, Math.max(halfW, halfH) * 1.8, c.body, 0.12 + 0.18 * pulse);
-  const path = new Path2D(blobPath(x, y, halfW, halfH, 4, 0.06, 0.03, time, seed + 7, 28));
-  const skin = ctx.createLinearGradient(x, y - halfH, x, y + halfH);
-  skin.addColorStop(0, c.rim);
-  skin.addColorStop(0.35, c.body);
-  skin.addColorStop(1, c.core);
-  ctx.fillStyle = skin;
-  ctx.fill(path);
+  const r = Math.min(halfW, halfH);
   ctx.save();
-  strokeGlow(ctx, path, c.rim, Math.max(1, t.tile * 0.04), 0.5 + 0.5 * pulse);
+  ctx.translate(x, y);
+  // A block is the same stone pulled wide. Scaled rather than redrawn, so a
+  // wall and a peg are visibly the same material.
+  if (halfW !== halfH) ctx.scale(halfW / r, halfH / r);
+  drawRockBody(ctx, 0, 0, r, time + seed * 0.7, seed * 7 + 3, 0);
   ctx.restore();
+}
+
+/**
+ * A piece that must go: a pod, breathing, in the amber this game reserves for
+ * the thing you are meant to want.
+ *
+ * The seed is added to the clock rather than to a phase, because a pod's whole
+ * animation runs off one `t` — so a table of five targets is five pods out of
+ * step with each other and not one shape beating five times at once.
+ */
+function drawTarget(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  halfW: number,
+  halfH: number,
+  kind: PinPiece["kind"],
+  time: number,
+  seed: number,
+): void {
+  const t = time + seed * 0.31;
+  if (kind === "peg") {
+    drawPodBody(ctx, x, y, halfW * POD_MUL, t, POD_KIND);
+    return;
+  }
+  // A target block: a chain of pods across it, spaced closer than their own
+  // width so the row reads as one body rather than as beads on a shelf.
+  const r = halfH * POD_MUL;
+  const count = Math.max(2, Math.round(halfW / Math.max(1, halfH * 0.9)));
+  for (let i = 0; i < count; i++) {
+    const at = count === 1 ? 0 : -1 + (2 * i) / (count - 1);
+    drawPodBody(ctx, x + at * (halfW - r * 0.5), y, r, t + i * 0.4, POD_KIND);
+  }
+}
+
+/**
+ * The light on something this shot has already taken.
+ *
+ * It is still standing — the ball has to be able to bounce off it again — so
+ * this is a coat over the body rather than a body of its own: the green the
+ * game uses for a thing that went right, pulsing fast enough to read as *just
+ * now* rather than as a state.
+ */
+function drawTaken(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  r: number,
+  time: number,
+): void {
+  const beat = 0.55 + 0.45 * Math.sin(time * 9);
+  halo(ctx, x, y, r * (2.4 + 0.6 * beat), PALETTE.good, 0.3 + 0.3 * beat);
   ctx.save();
-  ctx.globalAlpha = 0.4;
-  ctx.fillStyle = c.rim;
+  ctx.globalAlpha = 0.35 + 0.35 * beat;
+  ctx.fillStyle = PALETTE.goodRim;
   ctx.beginPath();
-  ctx.ellipse(x, y - halfH * 0.35, halfW * 0.72, halfH * 0.2, 0, 0, Math.PI * 2);
+  ctx.arc(x, y, r * 0.55, 0, Math.PI * 2);
   ctx.fill();
   ctx.restore();
 }
