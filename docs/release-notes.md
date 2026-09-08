@@ -9,6 +9,26 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-08 · 582755f — Queue: the rate picker would fix a photographed candidate, and shot cannot reach it
+
+An event-shaped VERSUS slot burns for one beat out of a two-second replay, so two frames in three have nothing on them to judge. Finding one for `creature:dart` cost about thirty-five shots swept across `--wait` and then ranked by PNG file size, on the reasoning that the frame with a flame on it compresses worst. It worked, and it is not a technique anybody should have to invent twice.
+
+## 2026-09-08 · da4efa7 — A second answer for the rim a throb's turn is read off
+
+A throb's rim is an instrument rather than decoration. The creature is which half is pointing at the cannon, a ball is the one shape whose rotation cannot be seen, and the six clubs carry both readings the pair needs off it — a bearing, and a count they say out loud as "three cyan ones left".
+
+## 2026-09-08 · fd6c9b6 — Two answers for what a dart's thrust looks like
+
+The shipped plume is a filled triangle whose base is against the body and whose apex is a tile away in the dark. That is the profile of a beam: widest where it starts, hard-edged, coming to a point — which is what every aimed thing in this game looks like, and the one thing a dart must not be confused with. It is not shooting; it is being thrown.
+
+## 2026-09-08 · be21082 — A pose for a dart on its run, and four bodies that stop standing on each other
+
+`BODIES · FOUR KINDS AT ONCE` put a dart at column 6 and a throb at 8. A dart does not hold its lane: every other beat it takes two whole columns to one side, so inside the first replay it walked onto the throb and the two bodies that pose exists to tell apart were drawn on top of each other. The standing bodies are on odd columns now and the dart on an even one, which no roll of its own can undo.
+
+## 2026-09-08 · 5a6c9c9 — Lift what a dart's thrust looks like into a record
+
+A dart carries one mark on both screens — the flame behind it on the beat it is thrown — and `creatures.ts` reached `drawDartJet` by name, so there was nowhere for a second answer to it to sit. A plume is a look, and CLAUDE.md says a look is offered rather than replaced. `DART_LOOK.jet` is that seam.
+
 ## 2026-09-08 · 325a86d — Queue: a contour candidate cannot be measured before it is voted on
 
 Opening `creature:slick` and `creature:bulb` this afternoon, neither of the two questions this repo insists on about a silhouette could be asked of either candidate. `bun run shapes:report` measures records in `packages/content`, and a candidate is not one — it is fields held for the length of one `draw()`. So "does it survive its own drawn size" and "does nameability still separate it" are unanswerable until after adoption, which is backwards: they are the cheap disqualifiers `docs/art-review.md` puts first, and the vote is the expensive step they exist to save.
