@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-08 · f6b10673 — PARTY GAMES gets a tab, and a round still never comes back
+
+Two answers from the owner, and the queue entries that were waiting on them. `docs/party-games.md` — the third study of games that are not this one — is read on NOT BUILT YET beside the rounds it feeds, as a second entry in `DOC_ROUTES` and a second caller of `whole-doc.ts`, which were both written for exactly this. And a round is met once: the case for a harder return in a later act was put and turned down, so `docs/spec/interludes.md` now says the sentence is absolute and why, and nobody has to raise it a third time.
+
 ## 2026-09-08 · 490ae4fa — Queue: landing stops on an INDEX.md conflict it could regenerate
 
 Landing PINBALL took three attempts, each refused with `conflicts in docs/INDEX.md` and each resolved by the same five commands. The file is generated and CLAUDE.md already says to resolve a generated file by running its command; a rule executed by hand is a tool that has not been written.
