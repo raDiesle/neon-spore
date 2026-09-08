@@ -688,6 +688,27 @@ size instead of a strip of both cropped down to nothing.
 an unknown value falls through to the running pair rather than to a blank
 page, and a frozen pair is byte-identical across two builds of the same world.
 
+**Paid again on 2026-09-08, and worse, by the same lane.** `creature:dart` is
+an event-shaped slot: the thrust burns for one beat out of a two-second
+replay, so roughly two frames in three have nothing on them to judge. Finding
+one cost about thirty-five shots swept across `--wait` and then **ranked by
+PNG file size**, on the reasoning that the frame with a flame on it compresses
+worst. That worked and it is not a technique anybody should have to invent
+twice.
+
+There is a second lever already on the page and it is out of reach. The pair's
+own rate picker at 0.25× stretches that one beat past the whole replay window,
+so *every* frame would carry the flame and no freeze route would be needed for
+this case at all — but it is a `<select>`, and `bun run shot` can press a
+button (`--click`), fill an input (`--type`, which is `locator.fill` and
+throws on a select) and nothing else. The flag is one line of
+`locator.selectOption`; what stops it is that `tools/frames/shot.ts` is at 249
+lines, so it wants the split first — the seam is *reaching a state* (`--open`,
+`--tab`, `--inner`, `--click`, `--type`, `--hold`) against *taking the
+picture* (the locator, the crop, the write). Do that split, add `--select
+<selector>=<value>`, and this entry's freeze route becomes the answer for
+poses that have no rate to slow rather than the answer for all of them.
+
 ## A contour candidate cannot be measured before it is voted on
 
 - **Found:** 2026-09-08, claude/visual-system-style-guide-rdti4j
