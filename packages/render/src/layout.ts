@@ -12,6 +12,8 @@ export {
   showsQueenHint,
   showsQueenShape,
   showsShield,
+  showsTellColor,
+  showsTellHand,
   type ViewRole,
 } from "./view-role.js";
 

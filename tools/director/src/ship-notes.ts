@@ -1,4 +1,5 @@
 import type { GroupName } from "./ship-groups.js";
+import { ROUND_NOTES } from "./ship-notes-round.js";
 
 /**
  * The paragraph under each card's heading, and nothing else.
@@ -17,6 +18,12 @@ import type { GroupName } from "./ship-groups.js";
  * the union next door and left without a paragraph here is a compile error,
  * exactly as a `SimConfig` field left out of `FIELD_GROUP` is — the same guard
  * one step along the same chain.
+ *
+ * **The rounds are next door**, in `ship-notes-round.ts`, spread in below —
+ * the seam `ship-fields-round.ts` already cut for exactly the same growth and
+ * for the same reason: a round is a whole second game with its own picture and
+ * its own numbers, and there are nine more of them designed. Everything left
+ * here is a dial on the field.
  *
  * Re-exported from `ship-groups.ts`, so nothing that already reaches for
  * `GROUP_NOTE` through that file had to move.
@@ -66,20 +73,6 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "done in an order. Nothing about it is hidden from either screen — what " +
     "the pair has to agree on is when. See lid.ts.",
 
-  "THE PULSE — the same song on two screens":
-    "Four lanes of arrows onto four buttons, and both seats have the same four. " +
-    "The two windows say how forgiving a thumb on glass is; the meter numbers say " +
-    "how many misses a stage survives. The chart itself is not here — it is bars of " +
-    "text in packages/content/src/pulse-stages.ts.",
-  "PINBALL — a table the ship is the bucket of":
-    "The third built round, and the first body in the game under an " +
-    "acceleration. The ship folds into a bucket that is both the gun and the " +
-    "glove: player 2 opens the aiming sweep and picks the strength, player 1 " +
-    "slides the bucket and stops the needle — and then the same bucket has to " +
-    "be under the ball when it falls back. A dropped ball costs the hull where " +
-    "it fell; the clock running out costs it more. The ball is stepped on the " +
-    "tick in thousandths of a tile, so every number here is per tick.",
-
   "THE GYRE — six bodies on a turning rim":
     "A wheel with six bodies bolted round its rim, alternating red and cyan. " +
     "It falls to the middle of the field and then walks a diamond there, " +
@@ -88,20 +81,6 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "beat, so the pair name a moment rather than a place — and player 1's maw " +
     "slows the turn for a few beats, from wherever the cannon is. See gyre.ts, " +
     "gyre-rim.ts.",
-  "SNAKE — a round the ship is the body of":
-    "The other built round, and the first control that moves something. The " +
-    "ship shrinks into a snake that never stops: player 2 turns it a quarter " +
-    "turn at a time and is shown nothing standing in the arena, player 1 has a " +
-    "shot and a mouth and cannot steer. Shoot every enemy and swallow every " +
-    "point and the round is won; touch an enemy, take a point with the mouth " +
-    "shut, hit a wall or your own back, and it starts over for a few points of " +
-    "hull. The arenas are a map per round, edited on the wave that carries it " +
-    "and stored in packages/content/src/snake-rounds.ts. See snake.ts, " +
-    "snake-move.ts.",
-  MAZE:
-    "A wheel of rings behind the ship, with ways in round its rim. Player 1 turns " +
-    "it and clicks a way in onto a column; player 2 fires. Both screens see the " +
-    "same light — the wheel is authored in packages/content/src/maze-rounds.ts.",
   "AIM — colour and column":
     "Player 2 fires the colour, player 1 holds the column. Both or nothing.",
   "GUARD — the shared defence":
@@ -130,16 +109,6 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "carries one, and that guide ends on two circles the pair hold until both " +
     "say READY. THE FORK used to be a second gate in the gap beside this one; " +
     "it retired into this one. See briefing.ts.",
-  "THE GAUGE — a round with no field in it":
-    "A boss wave with no field under it — off for the same reason as the one " +
-    "above, since a headless caller has no second thumb to answer it with. On, " +
-    "the gaps between acts may carry a round that is not the field: a needle " +
-    "walked by drift and corrected by a valve. See gauge.ts, gauge-round.ts.",
-  "THE FLEET — a chart only one of you can read":
-    "A lattice of squares with ships hidden in it. Player 1 sees every hull and " +
-    "holds the only trigger; player 2 walks the sights a square at a time and is " +
-    "shown nothing but water. The clock is the whole of the danger — running out " +
-    "of it breaks the hull. See fleet.ts, config-fleet.ts.",
   "THROB — red one side, cyan the other, turning":
     "A Throb answers whichever of its two colours is the half pointing at the " +
     "cannon, and books the other one as a colour miss.",
@@ -247,4 +216,9 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "Real numbers — a lockstep buffer, a hit-test tolerance, a screen share — " +
     "but not something a person watching a wave decides by. Shown so nothing " +
     "in SimConfig is silently absent, not because it wants a slider.",
+  MAZE:
+    "A wheel of rings behind the ship, with ways in round its rim. Player 1 turns " +
+    "it and clicks a way in onto a column; player 2 fires. Both screens see the " +
+    "same light — the wheel is authored in packages/content/src/maze-rounds.ts.",
+  ...ROUND_NOTES,
 };

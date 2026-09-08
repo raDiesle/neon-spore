@@ -677,6 +677,22 @@
         "commit": "eac78daeea0c50b051157a886915bd983f290dd4",
         "scale": 0.34
       }
+    },
+    {
+      "id": "theTell",
+      "wave": 60,
+      "name": "THE TELL",
+      "bodies": 0,
+      "arrivals": "0:741638a5",
+      "typical": 1.35,
+      "mean": 1.41,
+      "p90": 1.79,
+      "jitter": 0.18,
+      "mergedFrom": {
+        "measuredAt": "2026-09-08",
+        "commit": "f68ecb2e71e4983d283136b47ff495103670d471",
+        "scale": 0.26
+      }
     }
   ]
 }

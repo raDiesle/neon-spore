@@ -65,4 +65,8 @@ export const ROUND_FIELD_GROUP = {
   pulseMissMilli: "THE PULSE — the same song on two screens",
   pulseStrayMilli: "THE PULSE — the same song on two screens",
   damagePulse: "THE PULSE — the same song on two screens",
+  // TellConfig — two numbers, because everything else about the ladder is
+  // authored per rung rather than tuned here (`config-tell.ts`).
+  damageTell: "THE TELL — rock, paper, scissors with half a tell each",
+  damageTellRepeat: "THE TELL — rock, paper, scissors with half a tell each",
 } satisfies Record<string, GroupName>;

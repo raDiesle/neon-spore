@@ -4,6 +4,7 @@ import type { PinballRound } from "./pinball.js";
 import type { PulseStage } from "./pulse.js";
 import type { MirrorStep } from "./simon.js";
 import type { SnakeRound } from "./snake.js";
+import type { TellRung } from "./tell.js";
 
 /**
  * **What a wave authors when it wants a boss** — nine shapes, the union of
@@ -156,6 +157,28 @@ export interface PulseEntry {
   stages: PulseStage[];
 }
 
+/**
+ * What a wave authors when it wants THE TELL: the ladder, and how long the
+ * pair has to climb it.
+ *
+ * The ladder *is* the fight — how long each window is, which rungs feint, and
+ * which of them answer the pair's last throw instead of drawing one — so it is
+ * authored, the way THE MIRROR's sequences are. What is deliberately **not**
+ * authored is which throw the boss makes: that is the Rng's, or on an
+ * answering rung nobody's at all (`tell-rules.ts`). A rung whose throw was
+ * written down would be a rung with a right answer printed under it.
+ *
+ * `beats` is the whole ladder's clock, not one rung's. Running it out is the
+ * only way the round ends without the pair having climbed it, and it costs
+ * `damageTell`; a rung lost along the way costs `damageTellRepeat` and puts
+ * them back at the foot of the same ladder.
+ */
+export interface TellEntry {
+  kind: "tell";
+  rungs: TellRung[];
+  beats: number;
+}
+
 /** The boss counterpart of `PodEntry`: whichever boss a wave carries. */
 export type BossEntry =
   | QueenEntry
@@ -167,7 +190,8 @@ export type BossEntry =
   | FleetEntry
   | SnakeEntry
   | PinballEntry
-  | PulseEntry;
+  | PulseEntry
+  | TellEntry;
 
 /**
  * Whether this boss *is* the wave, or only bends what the wave sends.
@@ -201,4 +225,5 @@ export const BOSS_KINDS: readonly BossEntry["kind"][] = [
   "snake",
   "pinball",
   "pulse",
+  "tell",
 ];

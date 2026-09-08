@@ -302,6 +302,14 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/drag-targets.ts` | **Every thing on this field a hand may take hold of**, as a closed list of names |
 | `packages/sim/src/events-balloon.ts` | **THE BALLOON's three**: one given, one popped, one gone off at the top |
 | `packages/sim/src/crank.ts` | THE CLAW's crank: the arm is **wound** home by a finger going round, and a bearing becomes rope |
+| `packages/sim/src/config-tell.ts` | THE TELL's numbers, which are two: what a lost rung costs and what running the ladder's clock out costs… |
+| `packages/sim/src/tell-hash.ts` | What THE TELL puts into `hashWorld`, and nothing else |
+| `packages/sim/src/tell-round.ts` | THE TELL's clock: the lead-in, the ladder, and the two ways the hull pays |
+| `packages/sim/src/tell-rules.ts` | The ring, and who wins an exchange |
+| `packages/sim/src/tell.ts` | THE TELL: rock, paper, scissors against a boss that shows you its hand |
+| `packages/sim/src/bosses-round.ts` | The rounds, as their half of the boss barrel |
+| `packages/sim/src/config-rounds.ts` | The rounds' numbers, as one block of `SimConfig` |
+| `packages/sim/src/step-round.ts` | The rounds' own tick, and the one thing all five of them have in common |
 
 ### packages/content
 
@@ -425,6 +433,8 @@ place — the generator keeps whatever is there.
 | `packages/content/src/balloon-shape.ts` | THE BALLOON's contour: a skin with a knot under it, and the fifth family of contour in this package |
 | `packages/content/src/creatures-handed.ts` | **The bodies answered by hands alone**, and today there is one of them |
 | `packages/content/src/mechanics-handed.ts` | The keys of the table below, checked against the roster |
+| `packages/content/src/tell-rungs.ts` | THE TELL's ladder: five rungs, and what makes each of them a different question |
+| `packages/content/src/queue-boss.ts` | A wave's boss, remapped onto the field the pair is actually playing |
 
 ### packages/render
 
@@ -753,6 +763,10 @@ place — the generator keeps whatever is there.
 | `packages/render/src/handle-place.ts` | **Where a handle is standing**, as against where a finger may grab it |
 | `packages/render/src/crank-dial.ts` | THE CLAW's crank, drawn: the winder that brings the arm home |
 | `packages/render/src/touch-drag.ts` | What a hand that already has hold of something says when it moves — a handle carried, a crank turned |
+| `packages/render/src/tell-body.ts` | THE TELL's body: a blob at the top of the field with the ring on its skin |
+| `packages/render/src/tell-ring.ts` | The ring, drawn on the boss's own body — three nodes and the three arrows between them |
+| `packages/render/src/tell-round.ts` | THE TELL over the whole stage |
+| `packages/render/src/tell-scene.ts` | The reveal: nine little scenes, one per ordered pair of throws |
 
 ### packages/net
 
@@ -1283,5 +1297,6 @@ place — the generator keeps whatever is there.
 | `tools/director/src/entry-fields-balloon.ts` | **THE BALLOON's one authored fact**: how fast it climbs |
 | `tools/director/src/field-controls-balloon.ts` | THE BALLOON's two handles, in a file of their own |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
+| `tools/director/src/ship-notes-round.ts` | The paragraph under each **round's** card |
 
 <!-- index:code:end -->

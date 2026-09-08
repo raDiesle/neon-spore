@@ -4,11 +4,11 @@
 > The Bulb Queen, THE MIRROR, The Warden and THE VANE are in the game — THE
 > VANE holding The Conductor's slot — and so are THE FLEET, THE GAUGE, SNAKE,
 > PINBALL and THE PULSE, none of which is on the list below. Of the remaining
-> seven names none are built. Three are worked out on this page and one of the
-> three is buildable today: The Vessel waits on a second device and The Mother
-> on destruction tracking, and **THE TELL** (11.9) waits on nothing — it is a
-> round on the standard panel, asked for by the owner and worked out here, and
-> it holds no slot in the order below yet.
+> seven names none are built. Two more are worked out on this page and neither
+> is buildable today: The Vessel waits on a second device and The Mother on
+> destruction tracking. **THE TELL** (11.9) is built and is a thirteenth,
+> outside the order below — asked for by the owner, designed on this page and
+> shipped on wave 60 in the same sitting.
 
 Order, following [the act structure](wave-design.md#84-the-ten-pillars-as-an-act-structure--not-built):
 
@@ -1075,26 +1075,78 @@ the three ties are the bonk.
 the hull, the scars, the cannon, the plate, the backdrop and the HUD, and the
 boss holds the top rows the way every boss does. That is THE PULSE's answer to
 a round's first condition carried one step further, and it is what the owner
-asked for. What it does not keep is the eleven columns and the bodies coming
-down them: nothing falls, no column is named, and neither the hull nor the boss
-moves sideways all round, so the no-travel rule is not even in the room
-(`docs/decisions.md` #21). Whether the empty grid is drawn faint behind it is
-the one place the owner's wish and the first condition touch, and it is his.
+asked for. What it does not keep is the bodies coming down the columns: nothing
+falls, no column is named, and neither the hull nor the boss moves sideways all
+round, so the no-travel rule is not even in the room (`docs/decisions.md` #21).
 
-**What it would cost** is exactly what [interludes](interludes.md) says a round
-costs and no more: one `boss: { kind: "tell", rungs: … }` entry in `waves.ts`,
-`packages/sim/src/tell.ts` and `tell-round.ts`, `config-tell.ts`, one
-`ControlSet` of four slabs in `control-sets.ts`, `packages/render/src/tell.ts`
-for the ring and the boss and `tell-scenes.ts` for the nine, and one briefing
-row. The throws are three integers, the ladder is an array of them, and every
-field of it is in `hashWorld` under the boss tag.
+**The lattice is drawn and the coordinates are not**, which is the owner's
+answer to the one place his wish and the first condition touch. He was given
+three — the grid faint with no numbers on it, no grid at all, or the grid
+exactly as a wave draws it — and took the first. The reasoning he was given for
+it holds: the room the pair is standing in should be the room they know, and a
+lattice carrying coordinates would be inviting them to say "column four" in a
+round where the phrase means nothing. `render/tell-round.ts` draws it at just
+over half strength with `drawGrid`'s coordinate argument at nought.
 
-Slot: a middle one, and no earlier than the wave where the pair holds all four
-buttons — The Choir (40) if the creature of that name leaves the slot free, The
-Codex (80) otherwise. Still open: whether both seats pressing inside the same
-window loses the rung or takes the first press, where losing it is what makes
-the pair talk and is one edit from merely mean; whether a bolt of the wrong
-colour is a stand-off or a loss; how many rungs the boss answers the last throw
-for; and whether the ring's three glyphs are new drawings or the control glyphs
+**What it cost** is what [interludes](interludes.md) says a round costs, and
+the forecast held: `packages/sim/src/tell.ts` (the state), `tell-rules.ts` (the
+ring, pure over its arguments), `tell-round.ts` (the clock), `tell-hash.ts` and
+`config-tell.ts`; `packages/content/src/tell-rungs.ts` for the ladder and one
+entry in `control-sets-table.ts` for the panel; and
+`packages/render/src/tell-ring.ts`, `tell-body.ts`, `tell-scene.ts` and
+`tell-round.ts` for the picture. Every field of it is in `hashWorld` under the
+boss tag, and `packages/sim/test/tell.test.ts` holds the ring, the seat split,
+the ladder and the fingerprint.
+
+**The panel is a reduction of the standard one**, which is the part that cost
+nothing at all: `{ id: "tell", reduces: "default", controls: ["guard",
+"intake", "fireRed", "fireCyan"] }`. No new `ControlDef`, no new `Command`, no
+slab. `reduces` is what the numbered STANDARDs use to hold a button on the
+pixel it will keep for the rest of the game, and here it holds all four exactly
+where the pair last held them and leaves both strips empty. Every round before
+this needed verbs of its own; this one is the first where reusing the ship's is
+not a shortcut but the encounter itself.
+
+**It was the fifth round, and the fifth copy of one branch.** `step.ts` carried
+THE GAUGE, SNAKE, PINBALL and THE PULSE as four hand-written early returns
+differing in three identifiers; this one would have been a fifth and nine more
+are designed, so they are a table in `packages/sim/src/step-round.ts` now. Four
+other files were sitting exactly on the 250-line ceiling and paying for it —
+`config.ts`, `bosses.ts`, `queue.ts` and the director's `ship-notes.ts` — and
+each was split along the seam this repository has now cut five times for the
+same growth: the rounds are the half that grows.
+
+**The three rules the owner settled**, on 8 September 2026, each between named
+options and each now in the code:
+
+- **Both seats pressing inside the same window loses the rung.** Not a race
+  won by the first thumb: the ship throws once, so who is throwing has to be
+  said out loud before either of them presses, and a first-past-the-post rule
+  would make the round a thing two thumbs do instead of a thing two people say.
+  `tellRoundHeard` cancels the throw outright; the same seat pressing twice is
+  a stutter and changes nothing.
+- **A bolt in the wrong colour turns a win into a stand-off and leaves a loss
+  a loss.** The colour can never help. The alternative — wrong colour always
+  loses — was refused because it makes player 2's half of the tell the only
+  mistake that counts; this version makes it a second chance to be right rather
+  than a second way to be wrong. Were a wrong colour to *excuse* a loss instead,
+  throwing the wrong one into PLATE would be better than throwing the right one,
+  which is the reading `tellResolve` exists to rule out.
+- **The lattice is drawn faint, without coordinates**, as above.
+
+Slot: it is on wave 60, at the end of act eight, which is where a new wave lands
+rather than a pillar it was designed for. The act order still has The Choir (40)
+and The Codex (80) open and either would take it.
+
+**What is not built**, and it is one thing: the ladder's last rung was designed
+as *three throws on three consecutive beats, all shown outright* — a rung with
+no guess in it at all, where the difficulty is the pair saying three words in
+four seconds without talking over each other. Every rung the code has asks for
+one throw. It is a second mode inside the round rather than a number, and it is
+in `docs/queue.md` rather than half-built here.
+
+Still open: how many rungs the boss answers the last throw for, which is the
+difficulty curve in one integer and is `tell-rungs.ts`'s to turn; and whether
+the ring's three glyphs should become the control glyphs
 `packages/render/src/simon-glyph.ts` already holds, which cover SHIELD and SUCK
-and have nothing for a bolt.
+and have nothing for a bolt — `tell-ring.ts` draws its own three for now.

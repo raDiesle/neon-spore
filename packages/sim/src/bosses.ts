@@ -1,5 +1,5 @@
 /**
- * The seven bosses, as one barrel.
+ * The bosses, as one barrel — the ones played on the field.
  *
  * Split out of `index.ts` when THE FLEET pushed that file past its 250-line
  * limit, and along the seam `hash.ts` and `hash-boss.ts` already cut: what is
@@ -15,6 +15,8 @@
 
 export { clampQueenCol, QUEEN_FLANK_TILES, queenHalfCols, queenTorchCol } from "./boss.js";
 export type { BossState, FleetState, QueenState, VaneState, WardenState } from "./boss-state.js";
+// The six rounds are next door and re-exported whole (`bosses-round.ts`).
+export * from "./bosses-round.js";
 export {
   BOSS_KINDS,
   bossFillsWave,
@@ -23,6 +25,7 @@ export {
   type PinballEntry,
   type PulseEntry,
   type SnakeEntry,
+  type TellEntry,
   type VaneEntry,
   type WardenEntry,
 } from "./entries.js";
@@ -54,22 +57,6 @@ export {
   shipRow,
   shipSunk,
 } from "./fleet-board.js";
-export {
-  GAUGE_FULL,
-  GAUGE_PHASES,
-  type GaugePhase,
-  type GaugeState,
-  gaugeSeated,
-} from "./gauge.js";
-export {
-  closeGauge,
-  GAUGE_LEAD_BEATS,
-  GAUGE_VERDICT_BEATS,
-  gaugeBeats,
-  gaugeHolds,
-  gaugeRound,
-  gaugeRoundHeard,
-} from "./gauge-round.js";
 export {
   MAZE_PHASES,
   MAZE_TURN,
@@ -119,75 +106,6 @@ export {
   mazeSweep,
 } from "./maze-wheel.js";
 export { mirrorHoldsControls } from "./mirror.js";
-export {
-  launchBall,
-  PIN_SHOTS,
-  PINBALL_PHASES,
-  type PinballPhase,
-  type PinballRound,
-  type PinballState,
-  type PinShot,
-  pinballCurrent,
-  pinRestingBall,
-  pinTargetsLeft,
-} from "./pinball.js";
-export {
-  pinballFault,
-  pinClampBucket,
-  pinFieldCol,
-  pinHeightMilli,
-  pinLaunchVelocity,
-  pinPhysics,
-  pinPower,
-  pinSweep,
-  pinWidthMilli,
-} from "./pinball-board.js";
-export {
-  hitPiece,
-  isqrt,
-  PIN_PIECE_KINDS,
-  PIN_THIN_MILLI,
-  type PinBall,
-  type PinPiece,
-  type PinPieceKind,
-} from "./pinball-contact.js";
-export { type PinPhysics, stepBall } from "./pinball-physics.js";
-export {
-  closePinball,
-  PINBALL_MORPH_BEATS,
-  PINBALL_VERDICT_BEATS,
-  pinballHolds,
-  pinballRound,
-} from "./pinball-round.js";
-export {
-  PULSE_COUNT_BEATS,
-  PULSE_JUDGES,
-  PULSE_LANES,
-  PULSE_PHASES,
-  type PulseJudge,
-  type PulseLane,
-  type PulseNote,
-  type PulsePhase,
-  type PulseStage,
-  type PulseState,
-} from "./pulse.js";
-export {
-  pulseAim,
-  pulseCalls,
-  pulseEndTick,
-  pulseFault,
-  pulseLaneIndex,
-  pulseNoteAt,
-  pulseNoteTick,
-  pulseVeiled,
-} from "./pulse-chart.js";
-export { pulseCurrent } from "./pulse-open.js";
-export {
-  closePulse,
-  PULSE_VERDICT_BEATS,
-  pulseHolds,
-  pulseRound,
-} from "./pulse-round.js";
 export { queenMarkCol, queenOccupiesCol, ROCK_CYCLE } from "./queen-mark.js";
 export {
   fireStep,
@@ -201,14 +119,6 @@ export {
   type MirrorVerdictReason,
   mirrorListenBeats,
 } from "./simon.js";
-export {
-  SNAKE_PHASES,
-  type SnakePhase,
-  type SnakeRound,
-  type SnakeState,
-  type SnakeTile,
-} from "./snake.js";
-export { SNAKE_MORPH_BEATS, SNAKE_VERDICT_BEATS, snakeHolds, snakeRound } from "./snake-round.js";
 export { vaneOpen } from "./vane.js";
 export {
   VANE_CYCLE,

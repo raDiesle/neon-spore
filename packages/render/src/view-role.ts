@@ -42,3 +42,17 @@ export const showsQueenShape = (role: ViewRole): boolean => role !== "p2";
  * (`fleet-hulls.ts`).
  */
 export const showsFleetHulls = (role: ViewRole): boolean => role !== "p2";
+/**
+ * THE TELL's hand — which of the boss's three lobes is filling, and so what it
+ * is about to throw. The pilot's, and it is deliberately the half he cannot
+ * act on: SHIELD and SUCK are his, so he can see what to beat and can never
+ * throw the bolt (`sim/tell.ts`).
+ */
+export const showsTellHand = (role: ViewRole): boolean => role !== "p2";
+/**
+ * And the colour it is wearing, which decides whether a bolt lands. The
+ * navigator's, the same half as the two colours she holds — so she is the only
+ * one who can throw a bolt and the only one who knows which bolt to throw,
+ * and she cannot see whether a bolt is the right throw at all.
+ */
+export const showsTellColor = (role: ViewRole): boolean => role !== "p1";

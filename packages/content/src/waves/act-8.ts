@@ -1,3 +1,4 @@
+import { TELL_BEATS, TELL_RUNGS } from "../tell-rungs.js";
 import type { Wave } from "../wave-types.js";
 
 /**
@@ -81,5 +82,19 @@ export const WAVES_ACT_8: Wave[] = [
       { beat: 42, col: 5, kind: "beatbox", color: null, beats: 3 },
       { beat: 46, col: 6, color: "cyan" },
     ],
+  },
+  {
+    id: "theTell",
+    name: "THE TELL",
+    sentence:
+      "The one where it shows you what it is about to throw and only one of you can see it.",
+    guide: {
+      both: "A body at the top of the field, and one throw each exchange. The plate beats a bolt. A bolt beats an open mouth. An open mouth beats the plate — it drinks the charge. The ring is drawn on the boss itself, so it is on the screen the whole time. It draws breath, you throw, and you both open at once. Win five in a row; lose one and you start again.",
+      p1: "SHIELD and SUCK are yours: the plate and the mouth are your only throws. The lobe it fills shows on your screen alone — that is what it will throw. Say who is throwing: two thumbs at once and the ship throws nothing.",
+      p2: "The bolt is yours and it is your only throw. The colour it wears is on your screen alone; a bolt in that colour lands and the other bounces off. What it will throw, only they can see.",
+    },
+    entries: [],
+    boss: { kind: "tell", rungs: TELL_RUNGS, beats: TELL_BEATS },
+    controls: "tell",
   },
 ];

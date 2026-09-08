@@ -14,6 +14,7 @@ import { installPinball } from "./pinball-round.js";
 import { installPulse } from "./pulse-round.js";
 import { NO_SHELL } from "./shell.js";
 import { installSnake } from "./snake-round.js";
+import { installTell } from "./tell-round.js";
 import { WARDEN_COLS } from "./types.js";
 import { installVane } from "./vane.js";
 import { NO_TETHER } from "./warden-cycle.js";
@@ -109,6 +110,13 @@ export function startWave(
     // round's own picture and the ship is not in it at all, so there is no
     // body here for the fall loop, the hull or a hand to find.
     world.boss = installPulse(world, boss.stages);
+  } else if (boss?.kind === "tell") {
+    // A body at the top and a ship at the bottom, and neither of them on the
+    // grid: the boss is drawn where a boss is always drawn and nothing about
+    // it is a creature, so there is nothing here for the fall loop, the hull
+    // or a hand to find. The ship's own hull is at stake underneath it, which
+    // is every round's rule (`docs/spec/interludes.md`).
+    world.boss = installTell(world, boss.rungs, boss.beats);
   } else if (boss?.kind === "mirror") {
     world.boss = installMirror(world, boss.rounds);
   } else if (boss?.kind === "maze") {

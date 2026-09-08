@@ -1,5 +1,5 @@
 import { balloonHeard, rubBalloons } from "./balloon-pull.js";
-import { beatMetronome, onBeat } from "./beat.js";
+import { onBeat } from "./beat.js";
 import { briefHeard, briefingHolds, guideStepHeard, stepReady } from "./briefing.js";
 import { advanceBullets, releaseShot } from "./bullets.js";
 import { stepChoirFuse } from "./choir.js";
@@ -9,7 +9,6 @@ import { applyCommand } from "./commands.js";
 import { ticksPerBeat } from "./config.js";
 import { crankHeard } from "./crank.js";
 import { fleetHeard } from "./fleet.js";
-import { gaugeHolds, gaugeRoundHeard, stepGaugeRound } from "./gauge-round.js";
 import { dropLostGrips } from "./grip.js";
 import { gripPushHeard } from "./grip-push.js";
 import { regenerateHull } from "./hull.js";
@@ -18,14 +17,12 @@ import { releaseLance } from "./lance-burn.js";
 import { lidHeard } from "./lid.js";
 import { stepMalfunction } from "./malfunction.js";
 import { mazeStringHeard, stepMazeTurn } from "./maze-controls.js";
-import { pinballHolds, pinballRoundHeard, stepPinballRound } from "./pinball-round.js";
 import { advancePods } from "./pods.js";
-import { pulseHolds, pulseRoundHeard, stepPulseRound } from "./pulse-round.js";
 import { stepReach } from "./reach.js";
-import { snakeHolds, snakeRoundHeard, stepSnakeRound } from "./snake-round.js";
+import { stepRound } from "./step-round.js";
 import type { TimedCommand } from "./types.js";
 import { stepWardenTether, wardenTetherHeard } from "./warden-rope.js";
-import { endSpentRound, progressWave } from "./wave-end.js";
+import { progressWave } from "./wave-end.js";
 import type { World } from "./world.js";
 
 /** Advance exactly one tick. The only way the world ever changes. */
@@ -56,82 +53,11 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
     stepReady(world);
     return;
   }
-  // THE GAUGE has the world: no spawn, no fall, no shot, no hull resolved.
-  // "The field is gone" as an early return rather than a coat of paint
-  // (`gauge-round.ts`). Two things still get through — `restart`, so a run is
-  // leavable from anywhere, and the metronome, because the beat is the game's
-  // heartbeat and the round's own drift hangs off it.
-  //
-  // It is the one boss that gets its tick here rather than its beat in
-  // `stepBoss`: the needle answers a held valve on the tick, and a wave whose
-  // whole picture is the round has no field for `onBeat` to advance.
-  if (gaugeHolds(world)) {
-    for (const c of commands) {
-      if (c.command.kind === "restart") applyCommand(world, c);
-      else gaugeRoundHeard(world, c.player, c.command);
-    }
-    world.tick += 1;
-    if (world.tick % ticksPerBeat(world.cfg) === 0) beatMetronome(world);
-    stepGaugeRound(world);
-    // A round that has run its course ends its wave from here: there is no
-    // field to be empty, and its picture holds until the next wave arrives.
-    endSpentRound(world);
-    return;
-  }
-  // SNAKE has it instead, and the branch is the same shape for the same
-  // reasons — the field is gone as an early return, the metronome keeps
-  // running, and the body answers a thumb on the *tick* rather than on the
-  // beat (`snake-round.ts`). Two branches rather than one that asks which
-  // round is up: the two rounds share a shape and not a verb, and a shared
-  // branch would have to switch on the boss twice to know whose press it was.
-  if (snakeHolds(world)) {
-    for (const c of commands) {
-      if (c.command.kind === "restart") applyCommand(world, c);
-      else snakeRoundHeard(world, c.player, c.command);
-    }
-    world.tick += 1;
-    if (world.tick % ticksPerBeat(world.cfg) === 0) beatMetronome(world);
-    stepSnakeRound(world);
-    // A round that has run its course ends its wave from here: there is no
-    // field to be empty, and its picture holds until the next wave arrives.
-    endSpentRound(world);
-    return;
-  }
-  // PINBALL has it third, and the branch is the same shape once more. What is
-  // different is why the tick matters here: the other two rounds answer a
-  // thumb on the tick, and this one *integrates a body* on it — a beat is 75
-  // ticks and a ball stepped at that rate would pass through the table
-  // (`pinball-round.ts`).
-  if (pinballHolds(world)) {
-    for (const c of commands) {
-      if (c.command.kind === "restart") applyCommand(world, c);
-      else pinballRoundHeard(world, c.player, c.command);
-    }
-    world.tick += 1;
-    if (world.tick % ticksPerBeat(world.cfg) === 0) beatMetronome(world);
-    stepPinballRound(world);
-    // A round that has run its course ends its wave from here: there is no
-    // field to be empty, and its picture holds until the next wave arrives.
-    endSpentRound(world);
-    return;
-  }
-  // THE PULSE has it fourth, and the tick matters here for the reason turned
-  // inside out: PINBALL steps on the tick because a body moves on it, and this
-  // one because *when a thumb landed* is the whole round — judged on the beat
-  // it would be judged to within six hundred milliseconds (`pulse-round.ts`).
-  if (pulseHolds(world)) {
-    for (const c of commands) {
-      if (c.command.kind === "restart") applyCommand(world, c);
-      else pulseRoundHeard(world, c.player, c.command);
-    }
-    world.tick += 1;
-    if (world.tick % ticksPerBeat(world.cfg) === 0) beatMetronome(world);
-    stepPulseRound(world);
-    // A round that has run its course ends its wave from here: there is no
-    // field to be empty, and its picture holds until the next wave arrives.
-    endSpentRound(world);
-    return;
-  }
+  // A round has the world: no spawn, no fall, no shot, no hull resolved.
+  // "The field is gone" as an early return rather than a coat of paint, and
+  // five of them now share the shape — which round is up, whose press it is,
+  // and what its own tick does are a table in `step-round.ts`.
+  if (stepRound(world, commands)) return;
   // Commands are read even when the hull is through — otherwise `restart`
   // could never arrive and the game would be stuck on its own end screen.
   for (const c of commands) applyCommand(world, c);

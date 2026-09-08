@@ -174,6 +174,13 @@ export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {
       },
     ],
   },
+  // A ladder with a feint on it and a rung that answers, so both authored
+  // flags have something for the walk to notice.
+  tell: {
+    kind: "tell",
+    rungs: [{ beats: 4 }, { beats: 3, answers: true }, { beats: 2, feint: true }],
+    beats: 90,
+  },
   pinball: {
     kind: "pinball",
     rounds: [
@@ -422,6 +429,28 @@ function patchBoss(world: World): void {
     boss.lastTick2 = 935;
     boss.lastLane1 = 0;
     boss.lastLane2 = 1;
+  }
+  if (boss.kind === "tell") {
+    boss.phase = "tell";
+    boss.phaseBeat = 6;
+    boss.openBeat = 2;
+    boss.passed = true;
+    boss.rung = 1;
+    boss.lost = 2;
+    boss.shorten = 1;
+    // The throw nobody can see until the reveal, deliberately not the one the
+    // tell is showing: a fingerprint that folded the two together would say
+    // nothing about the one field that decides a rung (`tell-hash.ts`).
+    boss.bossThrow = 2;
+    boss.bossShown = 0;
+    boss.bossColor = 2;
+    boss.thrown = 1;
+    boss.thrownColor = 0;
+    boss.thrownBy = 1;
+    boss.fumbled = true;
+    boss.thrownTick = 640;
+    boss.outcome = 3;
+    boss.lastThrow = 0;
   }
   if (boss.kind === "mirror") {
     boss.round = 1;

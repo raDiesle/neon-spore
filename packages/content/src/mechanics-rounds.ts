@@ -36,4 +36,8 @@ export const ROUND_MECHANICS = {
     what: "Slicks, bulbs, rocks and pods fall down four lanes into four sockets cut into the hull, and both of you have the same four buttons, against one chart. Some arrive on one screen as a grey shape cycling through all four, readable only on the other, so a bar of a song is a bar of being told what to press. Anything nobody presses sinks into the ship and drains the shared meter; empty it and the hull pays.",
     reach: "spawn",
   },
+  tell: {
+    what: "Rock, paper, scissors against a body at the top of the field, on the panel the pair already holds. The plate beats a bolt, a bolt beats an open mouth, and an open mouth beats the plate. The boss shows what it is about to throw — the lobe it is filling on one screen, the colour it is wearing on the other — and the ship throws once, so who is throwing has to be said out loud. Lose a rung and the ladder starts again.",
+    reach: "spawn",
+  },
 } as const satisfies Record<string, Mechanic>;

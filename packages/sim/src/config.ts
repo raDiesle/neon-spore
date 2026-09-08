@@ -9,19 +9,15 @@ import { CRAWLER_DEFAULTS, type CrawlerConfig } from "./config-crawler.js";
 import { CREATURE_SCORE_DEFAULTS, type CreatureScoreConfig } from "./config-creature-scores.js";
 import { CREATURE_DEFAULTS, type CreatureConfig } from "./config-creatures.js";
 import { FENCE_DEFAULTS, type FenceConfig } from "./config-fence.js";
-import { FLEET_DEFAULTS, type FleetConfig } from "./config-fleet.js";
-import { GAUGE_DEFAULTS, type GaugeConfig } from "./config-gauge.js";
 import { GHOST_DEFAULTS, type GhostConfig } from "./config-ghost.js";
 import { GYRE_DEFAULTS, type GyreConfig } from "./config-gyre.js";
 import { MALFUNCTION_DEFAULTS, type MalfunctionConfig } from "./config-malfunction.js";
 import type { PairConfig } from "./config-pair.js";
-import { PINBALL_DEFAULTS, type PinballConfig } from "./config-pinball.js";
 import { POD_DEFAULTS, type PodConfig } from "./config-pod.js";
-import { PULSE_DEFAULTS, type PulseConfig } from "./config-pulse.js";
 import { RECOIL_DEFAULTS, type RecoilConfig } from "./config-recoil.js";
 import { ROCK_CROSS_DEFAULTS, type RockCrossConfig } from "./config-rock-cross.js";
+import { ROUND_DEFAULTS, type RoundConfig } from "./config-rounds.js";
 import { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
-import { SNAKE_DEFAULTS, type SnakeConfig } from "./config-snake.js";
 import { STRAND_DEFAULTS, type StrandConfig } from "./config-strand.js";
 import { VEER_DEFAULTS, type VeerConfig } from "./config-veer.js";
 import { VIEW_DEFAULTS, type ViewConfig } from "./config-view.js";
@@ -38,19 +34,20 @@ export { CRAWLER_DEFAULTS, type CrawlerConfig } from "./config-crawler.js";
 export { CREATURE_SCORE_DEFAULTS, type CreatureScoreConfig } from "./config-creature-scores.js";
 export { CREATURE_DEFAULTS, type CreatureConfig } from "./config-creatures.js";
 export { FENCE_DEFAULTS, type FenceConfig } from "./config-fence.js";
-export { FLEET_DEFAULTS, FLEET_SHELL_BEATS, type FleetConfig } from "./config-fleet.js";
-export { GAUGE_DEFAULTS, type GaugeConfig } from "./config-gauge.js";
 export { GHOST_DEFAULTS, type GhostConfig } from "./config-ghost.js";
 export { GYRE_DEFAULTS, type GyreConfig } from "./config-gyre.js";
 export { MALFUNCTION_DEFAULTS, type MalfunctionConfig } from "./config-malfunction.js";
 export { PAIR_ON, type PairConfig } from "./config-pair.js";
-export { PINBALL_DEFAULTS, type PinballConfig } from "./config-pinball.js";
 export { POD_DEFAULTS, type PodConfig } from "./config-pod.js";
-export { PULSE_DEFAULTS, type PulseConfig } from "./config-pulse.js";
 export { RECOIL_DEFAULTS, type RecoilConfig } from "./config-recoil.js";
 export { ROCK_CROSS_DEFAULTS, type RockCrossConfig } from "./config-rock-cross.js";
+// The rounds are one block now, and only the block is re-exported here: the
+// six sets behind it are reached through `config-rounds.ts` itself, which is
+// where a seventh will be added. Nothing outside this package ever asked for
+// one by name — `FLEET_SHELL_BEATS` is the exception, and `bind-fleet.ts`
+// needs it to delay a splash.
+export { FLEET_SHELL_BEATS, ROUND_DEFAULTS, type RoundConfig } from "./config-rounds.js";
 export { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
-export { SNAKE_DEFAULTS, type SnakeConfig } from "./config-snake.js";
 export { STRAND_DEFAULTS, type StrandConfig } from "./config-strand.js";
 export { VEER_DEFAULTS, type VeerConfig } from "./config-veer.js";
 export { VIEW_DEFAULTS, type ViewConfig } from "./config-view.js";
@@ -71,20 +68,16 @@ export interface SimConfig
     CrawlerConfig,
     CreatureConfig,
     CreatureScoreConfig,
-    FleetConfig,
-    GaugeConfig,
     GhostConfig,
     RockCrossConfig,
     FenceConfig,
     GyreConfig,
     MalfunctionConfig,
     PairConfig,
-    PinballConfig,
-    PulseConfig,
     PodConfig,
+    RoundConfig,
     RecoilConfig,
     ShotConfig,
-    SnakeConfig,
     StrandConfig,
     VeerConfig,
     ViewConfig,
@@ -202,18 +195,14 @@ export const DEFAULT_CONFIG: SimConfig = {
   ...CREATURE_DEFAULTS,
   ...CREATURE_SCORE_DEFAULTS,
   ...CLAW_DEFAULTS,
-  ...FLEET_DEFAULTS,
-  ...GAUGE_DEFAULTS,
   ...GHOST_DEFAULTS,
   ...FENCE_DEFAULTS,
   ...GYRE_DEFAULTS,
   ...RECOIL_DEFAULTS,
   ...ROCK_CROSS_DEFAULTS,
-  ...PINBALL_DEFAULTS,
-  ...PULSE_DEFAULTS,
   ...POD_DEFAULTS,
+  ...ROUND_DEFAULTS,
   ...SHOT_DEFAULTS,
-  ...SNAKE_DEFAULTS,
   cols: 11,
   rows: 15,
   bpm: 96,

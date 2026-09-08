@@ -3,6 +3,7 @@ import { mirrorOpenRound } from "./mirror-round.js";
 import { pinballOpenRound } from "./pinball-round.js";
 import { pulseOpenStage } from "./pulse-round.js";
 import { snakeOpenRound } from "./snake-open.js";
+import { tellOpenRung } from "./tell-round.js";
 import type { World } from "./world.js";
 
 /**
@@ -48,6 +49,9 @@ export function setBossRound(world: World, round: number): boolean {
       return true;
     case "pulse":
       pulseOpenStage(world, boss, round);
+      return true;
+    case "tell":
+      tellOpenRung(world, boss, round);
       return true;
     default:
       return false;

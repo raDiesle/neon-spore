@@ -599,3 +599,57 @@ Also worth deciding while somebody is in there: whether landing from a clone
 with no worktrees should push a branch at all. The hand-off is `main`
 (`CLAUDE.md`, Git), the branch was pushed only so the turn had somewhere to
 report from, and a branch never pushed is a branch nothing has to delete.
+## THE TELL's last rung was designed as three throws and ships as one
+
+- **Found:** 2026-09-08, claude/rock-paper-scissors-boss-sn9ful
+- **Files:** `packages/sim/src/tell.ts`, `packages/sim/src/tell-round.ts`,
+  `packages/content/src/tell-rungs.ts`, `packages/render/src/tell-body.ts`
+
+`docs/spec/bosses.md` 11.9 ends the ladder on a rung with **no guess in it at
+all**: three throws on three consecutive beats, every one of them shown
+outright, no feint. Nothing about it is a reading test — it is the pair finding
+out whether it can say three words in four seconds without talking over itself,
+and it is there because a ladder that ends on a coin toss ends on somebody
+else's decision.
+
+What shipped asks for one throw a rung. `TellRung` has `beats`, `feint` and
+`answers`, and the fifth rung is `{ beats: 2, feint: true }` — a hard rung, and
+the same kind of hard as the fourth.
+
+It is a second mode inside the round rather than a number, which is why it was
+left rather than half-built: a rung of three would need a list of boss throws
+instead of one `bossThrow`, a list of the ship's instead of one `thrown`, and a
+reveal that plays three scenes in a row rather than one. The seam is `openRung`
+and `reveal` in `tell-round.ts`, which already do exactly this once. Add
+`throws?: number` to `TellRung`, let the two `number` fields become the first
+entry of a fixed-length array when it is set, and the picture follows — the
+ring already draws one node lit at a time and would light them in turn.
+
+## THE TELL's baseline row was measured on a busy container
+
+- **Found:** 2026-09-08, claude/rock-paper-scissors-boss-sn9ful
+- **Files:** `tools/perf/baseline.json`
+
+`CLAUDE.md` says a cloud session skips the performance run. This one could not:
+adding a wave adds a row `tools/perf/test/baseline.test.ts` requires, and the
+test is what keeps the baseline from comparing today against a game that no
+longer exists — so `bun run perf --wave "THE TELL" --save` was run rather than
+the row being invented.
+
+It came back honest and flagged. THE TELL measures 5.43 ms raw and merges at
+1.35 ms on the baseline's footing, which is 33% of a 60 Hz frame and the
+cheapest wave in the run — plausible for a round with no bodies on the field.
+But the whole run moved +256% against the baseline and **THE WISP, a reference
+wave, came back flagged at 114% of a frame**, which `docs/performance.md` says
+means the machine was busy and the run says nothing. The scaling that produced
+1.35 was read off those same references.
+
+So the row is a placeholder with a real measurement in it rather than a
+measurement to trust. Re-take it on the owner's own machine —
+`bun run perf --wave "THE TELL" --save` — and this entry goes.
+
+**And the general case is the interesting half**: a cloud session adding a wave
+cannot pass `bun run check` without running perf, and running perf there is
+what `CLAUDE.md` tells it not to do. Either the baseline test should tolerate a
+row marked unmeasured, or `CLAUDE.md`'s rule needs the exception written into
+it. That is the owner's call and this entry is where it is waiting.
