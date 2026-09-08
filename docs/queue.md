@@ -225,6 +225,7 @@ for exactly where it cannot find them.
 ## `bun run frames` cannot photograph THE MAZE's own answer
 
 - **Found:** 2026-09-07, claude/maze-director-wave-boss-d85812
+- **Taken:** 2026-09-08, claude/queue-bun-run-frames-cannot-photograph-the-mazes-own-a
 - **Files:** `tools/frames/capture.ts`, `tools/frames/run.ts`, `tools/frames/spec.ts`,
   `tools/frames/test/`
 
