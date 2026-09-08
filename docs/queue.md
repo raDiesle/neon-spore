@@ -829,6 +829,7 @@ every round's row moves.
 ## `bun run frames --ticks N` is not `world.tick` N, and nothing says so
 
 - **Found:** 2026-09-08, claude/pulse-boss-tuning-1af6df
+- **Taken:** 2026-09-08, claude/queue-bun-run-frames-ticks-n-is-not-world-tick-n-and-n
 - **Files:** `tools/frames/capture.ts`, `tools/frames/run.ts`, `tools/frames/test/`
 
 `--ticks` counts `window.neonSpore.advance(1)` calls made *after* the wave is
