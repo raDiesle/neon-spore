@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-08 · b29aafd — A visual system with one entry point, and a sheet drawn from the values
+
+The visual language was real and complete and spread across ten documents: identity in spec/graphics.md, the nameability law in alive.md, colour as argument-per-hue in palette.ts, light in skins/light.ts, the depth ceiling in dimensional.md, the format question already answered twice in raster.md. Two and a half thousand lines, no top, and no picture of any of it. So a session asking what the game looks like either read all of it or guessed, and a colour added to the palette was placed against whichever comments it happened to open.
+
 ## 2026-09-08 · 9d7cb57f — THE TELL: rock, paper, scissors against a boss that shows its hand
 
 The fifth round and the first that keeps the ship's own verbs. Three throws on the standard four buttons — RED and CYAN are both BOLT, and the colour the boss wears decides whether a bolt lands — because a ring is balanced only where the count of throws is odd, so four throws cannot exist and no button had to be taken away. The ring is the game's own physics: the plate stops a bolt, a bolt goes down an open mouth, and a mouth drinks the plate's charge, so two of its three arrows need no teaching.
