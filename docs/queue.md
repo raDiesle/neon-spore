@@ -784,6 +784,7 @@ pair.
 ## `bun run frames` cannot turn a crank, so THE CLAW cannot be shown in use
 
 - **Found:** 2026-09-08, claude/claw-pull-anticlockwise-506b76
+- **Taken:** 2026-09-08, claude/queue-bun-run-frames-cannot-turn-a-crank-so-the-claw-c
 - **Files:** `tools/frames/spec.ts`, `tools/frames/hold.ts`, `tools/frames/press.ts`, `tools/frames/capture.ts`
 
 `--hold` sends a thumb that stays down and `--press` sends a verb at a tick.
