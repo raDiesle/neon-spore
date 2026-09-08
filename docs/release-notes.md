@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-08 · 1a729ea — A cloud session skips the performance run
+
+The owner settled it in one sentence — *skip perf check for cloud instances* — after a lane spent twenty minutes discovering the problem: a narrow run that takes about 25 seconds on his machine was killed twice on a cloud runner, at 400 and at 580 seconds, having printed nothing either time. The box is slow rather than broken, and that is the point: a measurement taken there is a number about the runner and not about the game.
+
 ## 2026-09-08 · d15e2c0 — Queue: bun run perf never finishes in a cloud session
 
 Killed twice on this runner, at 400 s and 580 s, with nothing printed either time, against the 25 seconds `docs/performance.md` promises a narrow run. The lane that found it added a drawing to the band and could not measure it, so the number the rules ask for is missing and nothing says whether the tool is slow or stuck.
