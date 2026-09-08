@@ -169,15 +169,20 @@ export function regenerate(p: Prompt): string[] {
     "**3. REGENERATE WHAT IS DERIVED FROM THEM.**",
     "",
     "        bun run shapes",
+    "        bun run style-guide",
     "",
     wrap(
-      "`tools/shape-sheet/shape-sheet.svg` and " +
-        "`tools/shape-sheet/motion-sheet.svg` are committed files built from " +
-        "the records step 1 just changed, and nothing in `bun run check` would " +
-        "notice one of them becoming a lie. A derived artefact that is " +
-        "committed goes stale in silence, so run this and stage whatever it " +
-        "rewrites. If it rewrites nothing, stage nothing — that is a correct " +
-        "outcome, not a failure.",
+      "`tools/shape-sheet/shape-sheet.svg`, " +
+        "`tools/shape-sheet/motion-sheet.svg` and " +
+        "`docs/reference/style-guide.svg` are committed files built from the " +
+        "records step 1 just changed. The first two go stale in silence — " +
+        "nothing in `bun run check` would notice one of them becoming a lie. " +
+        "The third fails loudly instead, because " +
+        "`tools/style-guide/test/style-guide.test.ts` diffs the committed " +
+        "picture against the code that draws it, so a contour adopted without " +
+        "this command is a red test rather than a quiet one. Run both and " +
+        "stage whatever they rewrite. If one rewrites nothing, stage nothing " +
+        "for it — that is a correct outcome, not a failure.",
     ),
     "",
   ];

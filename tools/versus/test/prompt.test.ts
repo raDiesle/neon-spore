@@ -257,6 +257,17 @@ describe("what the patched files decide", () => {
     expect(adoptHull).toContain("bun run check");
   });
 
+  it("a content-targeting patch also carries the style guide's own sheet", () => {
+    // `docs/reference/style-guide.svg` is drawn from the same silhouettes and
+    // is the one derived picture `bun run check` *does* notice, because
+    // `tools/style-guide/test/style-guide.test.ts` diffs it against the code.
+    // A contour adopted without this command is a red test in a session that
+    // has already voted, which is the worst moment to find it.
+    expect(adopt).toContain("bun run style-guide");
+    expect(adopt).toContain("docs/reference/style-guide.svg");
+    expect(adoptHull).not.toContain("bun run style-guide");
+  });
+
   it("a one-file, one-record slot reads as one and not as `1`", () => {
     expect(adoptHull).toContain("**1. ADOPT `warm`.** One file, under `packages/render/src`");
     expect(adoptHull).toContain('git grep -n "\\bOWN_SKIN\\b" -- packages apps tools');
