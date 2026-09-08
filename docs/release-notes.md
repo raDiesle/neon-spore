@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-08 · 12da9fc2 — THE PULSE opens four times slower, holds its word, and lights the whole ship
+
+COLD START spent its first three bars getting to one body a beat and its ninth on a cross-rhythm; the owner asked for a much slower start and the tempo could not give him one, because the grid is three steps to the game's own 96 BPM beat and that beat belongs to every wave. So the chart carries it: thirty-two bars instead of twenty-four, four of them introducing the four bodies one at a time with a whole bar of quiet around each, nothing off the beat until bar twenty-one, and the ending as fast as it ever was. The four veiled arrivals and the two jumps are where they were in the shape, moved down the longer ramp.
+
 ## 2026-09-08 · 65a22e63 — Queue: a capture cannot turn a crank, so THE CLAW is unphotographable in use
 
 ## 2026-09-08 · 95aa9583 — The claw's crank turns both ways, and the arm goes up under a thumb
