@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-08 · b7258b54 — Queue: a cloud session cannot delete the branch it just landed
+
+`bun run land` deletes the lane's branch locally and the delete-push to `origin` is refused with HTTP 403 by the git proxy a cloud session runs behind — three times, with backoff, and `git push origin :refs/heads/<branch>` gives the same. An ordinary push of that branch had gone through minutes earlier, so it is the deletion that is denied.
+
 ## 2026-09-08 · 57798ce8 — Read two party games for the round that is not the field
 
 Mario Party and Rayman Raving Rabbids, read against the seven filters the way `docs/borrowed.md` read Hazelight's two and `docs/tower-defence.md` read the genre our field already is. The finding is that a party minigame's transferable half is never the minigame: four people share one television, so nearly every one of them is a round one player could do alone while the other watched, which is filter 6. What crosses is the archetype underneath — the shape of the sixty seconds — and there are about eight of those in two hundred minigames.
