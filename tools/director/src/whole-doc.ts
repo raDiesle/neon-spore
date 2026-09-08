@@ -1,5 +1,6 @@
 /**
- * The tab that renders one document whole — BORROWED (`docs/borrowed.md`).
+ * The tabs that render one document whole — BORROWED (`docs/borrowed.md`)
+ * and PARTY GAMES (`docs/party-games.md`).
  *
  * Every other tab on this sheet parses a document into named entries with a
  * badge, because every other tab is a list of *this game's* things. This one
@@ -9,9 +10,9 @@
  * markdown is rendered as written, the way `spec.ts` shows a spec file
  * verbatim rather than as rows.
  *
- * It is written for more than one caller and kept that way — TOWER DEFENCE and
- * CLAUDE VS CHATGPT were the other two until the owner took them off the
- * sheet, and the next whole document is a container id and a route.
+ * It has two callers, and had four: TOWER DEFENCE and CLAUDE VS CHATGPT were
+ * tabs here until the owner took them off the sheet. The next whole document
+ * is still a container id and a route.
  */
 
 import { renderMarkdown } from "./markdown.js";

@@ -39,6 +39,14 @@ in which the field is gone and nothing falls. It has a beginning, one rule,
 four or five repetitions of that rule, and an end. It is over in about ninety
 seconds. Nothing it teaches is used again.
 
+That last sentence is absolute, and was asked about and left standing on
+8 September 2026. Reading the party games raised the case for a return —
+a round met in act 2 coming back in act 7 with its clock turned is the one
+place a pair could find out they are *good* at something, and it costs a row
+in `waves.ts` and a number in `SimConfig`. The owner said never repeat: eleven
+rounds, eleven acts, each thrown away. A run is about the field getting harder,
+and a round is a break from it. Do not propose a second meeting again.
+
 Three things make it one, and all three are required:
 
 1. **The field is gone.** Not decorated, not re-skinned, not paused behind a

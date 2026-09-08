@@ -192,6 +192,7 @@ async function load(): Promise<void> {
   fill("backlogMechanics", backlog.mechanics);
   fill("backlogDesigns", backlog.designs);
   void renderWholeDoc("borrowedDoc", "/api/borrowed");
+  void renderWholeDoc("partyGamesDoc", "/api/party-games");
   renderHolders();
   loaded = true;
 }
