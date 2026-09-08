@@ -1,4 +1,4 @@
-import { CRANK_TURN, crankBites, crankTurnedMilli, type World } from "@neon-spore/sim";
+import { CRANK_TURN, crankBites, crankTurnedMilli, NO_CRANK, type World } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import type { Circle } from "./layout.js";
 import { paintLobe } from "./lobe-shell.js";
@@ -29,41 +29,63 @@ import type { SeatSkin } from "./seat-skin.js";
  * thing a panel must not do — so it sits in the seat's dead flesh until the
  * arm is out and on its way back, and then it is the brightest thing in
  * player 1's half.
+ *
+ * **And while it bites with nobody on it, it breathes.** The owner asked for
+ * exactly that — *a bigger white circle inside where to rotate, and glowing in
+ * pulsing when unused* — and both halves are the same problem: a pair meeting
+ * this panel for the first time has to see that the button is a *path* rather
+ * than a target, and then be told that the path is waiting. The circle is the
+ * white one a finger traces; the pulse runs only while `world.crankAtMilli`
+ * says no hand is reporting a bearing, so it stops the moment somebody starts
+ * turning and comes back if they stop.
  */
 
 /** Where the handle rides, as a share of the button's radius. Far enough out
  * that a finger has a circle to travel, inside enough that the whole path is
  * in the hit region a thumb is answered in (`hitCircle`). */
-const HANDLE_AT = 0.6;
+const HANDLE_AT = 0.62;
 /** And how big the knob on the end of it is, as the same share. */
 const KNOB_R = 0.19;
 /** How much of the groove is lit behind the handle, in radians. */
 const TRAIL = 0.9;
+/** How long one breath of a crank nobody is turning takes, in seconds. Slow:
+ * it is an invitation rather than an alarm, and the panel already has a beat
+ * of its own running under it. */
+const BREATH = 1.6;
 
 export function drawCrankDial(
   ctx: CanvasRenderingContext2D,
   circle: Circle,
   world: World,
   skin: SeatSkin,
+  /** Seconds since the page opened, for the breath. Nought is a still frame,
+   * which is what every test and every still capture hands it. */
+  time = 0,
 ): void {
   const { x, y, r } = circle;
   const live = crankBites(world);
+  // Live and nobody reporting a bearing: the arm is hanging up there waiting
+  // for a hand. That is what breathes (`sim/crank.ts`).
+  const waiting = live && world.crankAtMilli === NO_CRANK;
+  const breath = waiting ? 0.5 + 0.5 * Math.sin((time / BREATH) * Math.PI * 2) : 0;
   const hex = live ? PALETTE.hull : skin.dead[0];
   // Clockwise from the top, which is the way the hand winds — the drum's own
   // angle, in the one place it becomes radians.
   const turn = (crankTurnedMilli(world) / CRANK_TURN) * Math.PI * 2;
 
-  if (live) halo(ctx, x, y, r * 1.9, PALETTE.hull, 0.45);
+  if (live) halo(ctx, x, y, r * (1.9 + 0.5 * breath), PALETTE.hull, 0.4 + 0.35 * breath);
   ctx.fillStyle = skin.face;
   ctx.strokeStyle = hex;
   ctx.lineWidth = 2;
   paintLobe(ctx, x, y, r, "both");
 
-  // The groove the handle rides in: the circle the finger is being asked to
-  // travel, cut into the face rather than laid on top of it.
-  ctx.strokeStyle = live ? PALETTE.hull : skin.dead[1];
-  ctx.globalAlpha = live ? 0.8 : 0.4;
-  ctx.lineWidth = Math.max(1.5, r * 0.08);
+  // **The circle a finger is being asked to travel**, white and wide enough to
+  // be the first thing seen on the button: it is the instruction, and the
+  // handle riding it is only where to start. It breathes while nothing is
+  // turning it and stands steady the moment something is.
+  ctx.strokeStyle = live ? PALETTE.hullRim : skin.dead[1];
+  ctx.globalAlpha = live ? 0.55 + 0.4 * breath : 0.4;
+  ctx.lineWidth = Math.max(2, r * 0.13);
   ctx.beginPath();
   ctx.arc(x, y, r * HANDLE_AT, 0, Math.PI * 2);
   ctx.stroke();
@@ -78,8 +100,8 @@ export function drawCrankDial(
   // the other way is not a mistake with a cost, it simply does nothing, which
   // is worse to find out by trying (`sim/crank.ts`).
   if (live) {
-    ctx.strokeStyle = PALETTE.hullRim;
-    ctx.globalAlpha = 0.5;
+    ctx.strokeStyle = PALETTE.hull;
+    ctx.globalAlpha = 0.85;
     ctx.lineWidth = Math.max(1.5, r * 0.08);
     ctx.beginPath();
     // Screen angles run from the x axis and the drum's run from the top, so
@@ -111,7 +133,7 @@ export function drawCrankDial(
   ctx.strokeStyle = hex;
   ctx.lineWidth = 1.5;
   paintLobe(ctx, x, y, r * 0.11, "both");
-  if (live) halo(ctx, hx, hy, r, PALETTE.hullRim, 0.55);
+  if (live) halo(ctx, hx, hy, r * (1 + 0.3 * breath), PALETTE.hullRim, 0.5 + 0.3 * breath);
   ctx.fillStyle = live ? PALETTE.hullRim : skin.dead[1];
   ctx.strokeStyle = hex;
   ctx.lineWidth = 1.5;

@@ -48,7 +48,7 @@ export function drawLobe(
   const { x, y, r } = circle;
   const skin = seatSkin(l.role);
   drawLobeSocket(ctx, x, y, r, l.dpr, skin.lip);
-  drawFace(ctx, circle, c, world, armed, open, skin);
+  drawFace(ctx, circle, c, world, armed, open, skin, time);
   // A control this wave's fault has taken over is drawn and then drawn broken,
   // over the top of its own face — the panel keeps every button where it was
   // and the damage is what is new (`malfunction-look.ts`). It runs for the
@@ -68,6 +68,9 @@ function drawFace(
   armed: boolean,
   open: boolean,
   skin: SeatSkin,
+  /** The frame clock, in seconds. One control reads it: a crank nobody is
+   * turning breathes (`crank-dial.ts`). */
+  time: number,
 ): void {
   const { x, y, r } = circle;
   // The first two are lit for exactly as long as their window is open, so
@@ -96,7 +99,7 @@ function drawFace(
   // rather than pressed — a handle standing off the middle of it, coming round
   // as the rope comes in (`crank-dial.ts`).
   if (c.id === "crank") {
-    drawCrankDial(ctx, circle, world, skin);
+    drawCrankDial(ctx, circle, world, skin, time);
     return;
   }
   // The maw, and on THE CLAW's panel it is `mawTake` on the other seat — the
