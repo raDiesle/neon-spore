@@ -2,10 +2,9 @@ import type { ClubbedRim } from "./body-path.js";
 
 /**
  * Creature parameters: lobes, depth and wobble for the shape, `rx` and `ry` for
- * the aspect. Most were tuned in `legacy/style-guide.html` and transcribed here
- * as data; the ones that were not say where they came from.
+ * the aspect. Most were tuned in `legacy/style-guide.html`; the ones that were
+ * not say where they came from.
  */
-
 export interface CreatureSilhouette {
   lobes: number;
   depth: number;
@@ -27,17 +26,18 @@ export interface CreatureSilhouette {
 /**
  * Slick: two broad lobes on the long axis joined at a deep waist — two sacs
  * holding on to each other, where `seed` 2.0 and `depth` 0.38 drew a bean with
- * its lobes across the body. `ry` went 34 to 42 in the same move, so the aspect
- * stops matching the dart's almost exactly. Swallows as it travels
- * (`motions-event.ts`). `creature:slick` / `pinch` on VERSUS, taken in on
- * 8 September 2026.
+ * its lobes across the body. `ry` went 34 to 48 in the same move, because a
+ * waist this deep is cut out of the *height*: the pinch alone left the body on
+ * the 20-26 px drawn floor, and 48 puts it at 24.4-28.0 with an aspect of 2.3
+ * rather than 2.8 : 1. Swallows as it travels (`motions-event.ts`).
+ * `creature:slick` / `pinch`, taken in 8 Sept 2026.
  */
 export const SLICK: CreatureSilhouette = {
   lobes: 2,
   depth: 0.52,
   wobble: 0.045,
   rx: 68,
-  ry: 42,
+  ry: 48,
   seed: 0,
 };
 
