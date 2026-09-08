@@ -441,3 +441,27 @@ until the arm is home or the capture ends. The rate is the simulation's and is
 asked for rather than chosen, exactly as `content/src/scene-drag.ts`'s
 `crankCommands` asks for it — this is the third caller of that same rule, and
 the second one wrote nothing new to get it.
+
+## `bun run land` refuses in a cloud session, because the clone is shallow
+
+- **Found:** 2026-09-08, claude/rock-paper-scissors-boss-sn9ful
+- **Files:** `tools/land/run.ts`, `docs/cloud-session.md`
+
+A cloud session's checkout is a **shallow** clone. `git fetch origin main`
+brings a second shallow segment down rather than joining the first, so `main`
+and `origin/main` have no ancestor git can see between them: `git merge-base`
+answers nothing at all, and `git rev-list --count` reports each as ahead of the
+other by the depth of the graft — fifty and fifty in this session, on a branch
+whose own base *was* `origin/main`. `land`'s trunk guard reads that as
+`origin/main has 50 commits main has not` and refuses, and nothing fixes it
+from inside the guard's own advice: there is no fast-forward to take, because
+the two segments are not one history.
+
+`git fetch --unshallow origin` fixes it outright — after it the same two counts
+were 89 behind and 0 ahead, `git merge --ff-only origin/main` went through, and
+the landing did too. So the work is: `land` asks
+`git rev-parse --is-shallow-repository` before it compares anything, and either
+unshallows or says *that* instead of a count nobody can act on; and
+`docs/cloud-session.md` says it beside the two host variables, because
+`CLAUDE.md` tells a cloud session to land every turn and every one of them
+walks into this on the way.
