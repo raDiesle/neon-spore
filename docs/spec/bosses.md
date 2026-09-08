@@ -4,9 +4,11 @@
 > The Bulb Queen, THE MIRROR, The Warden and THE VANE are in the game — THE
 > VANE holding The Conductor's slot — and so are THE FLEET, THE GAUGE, SNAKE,
 > PINBALL and THE PULSE, none of which is on the list below. Of the remaining
-> seven names none are built. Two are worked out on this page and neither is
-> buildable today: The Vessel waits on a second device and The Mother on
-> destruction tracking.
+> seven names none are built. Three are worked out on this page and one of the
+> three is buildable today: The Vessel waits on a second device and The Mother
+> on destruction tracking, and **THE TELL** (11.9) waits on nothing — it is a
+> round on the standard panel, asked for by the owner and worked out here, and
+> it holds no slot in the order below yet.
 
 Order, following [the act structure](wave-design.md#84-the-ten-pillars-as-an-act-structure--not-built):
 
@@ -946,3 +948,153 @@ a hundred and sixty-seven milliseconds of scroll is enough warning on a phone,
 whether the two judging windows are generous or slack under a thumb on glass,
 and whether four veiled arrivals in a minute is a spice or a rounding error. All
 three are questions about an eye and a hand, and no test can answer any of them.
+
+## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen
+
+> The one where the boss shows you what it is about to throw, and only one of
+> you can see it.
+
+Asked for by the owner on 8 September 2026, with most of it already decided in
+the asking: a boss at the top of the field that reveals at the same moment the
+pair does, a rule table that is on the screen the whole time, several rungs, a
+lost rung starting the ladder again, and a field that looks like the field.
+What was put to this page were two questions — how many throws a ring can hold,
+and how a round of chance is kept from being decided by chance. The answers are
+below and neither of them is a matter of taste.
+
+**The ring is the game's own physics, so two thirds of it needs no teaching.**
+Three throws: BOLT, PLATE, MAW.
+
+| Throw | Beats | Because |
+|---|---|---|
+| PLATE | BOLT | it is what a plate has done in every wave since the first |
+| BOLT | MAW | a mouth open when a bolt arrives swallows it |
+| MAW | PLATE | a plate is a charge, and the maw is the cannon lobe turned inside out — `intake` already empties a lance fill (`packages/sim/src/lance.ts`) |
+
+A pair walks in already knowing the first arrow and guessing the second. Only
+the third has to be shown, and it is shown once, by being done to them.
+
+**Three, five or seven, and never four.** A ring is balanced only where every
+throw beats exactly as many as it loses to — anything else is a throw that is
+simply better, and a throw that is simply better is the only throw. With `n`
+throws each beating `k` and losing to `k`, every throw meets `n - 1` others and
+`n - 1 = 2k`, so **`n` is odd**. Four throws cannot be balanced and neither can
+six. Five is possible and is refused here for the screen rather than for the
+maths: five throws is ten arrows, and ten arrows is a diagram somebody reads
+instead of a rule somebody knows.
+
+**So nothing comes off the panel.** The owner's own proposal was that three
+throws would mean dropping a button, the shield for instance; it would cost the
+ring its best arrow and leave two throws, which is not a ring. The panel is the
+standard set drawn as slabs — the same four labels the pair has held all game —
+and the fourth button is not spare, because **RED and CYAN are both BOLT**. The
+boss wears one of the two colours on its skin, a bolt in the boss's colour
+lands, and a bolt in the other one splashes off and the exchange is a
+stand-off, even where BOLT would have won. That is colour armour
+([systems](systems.md)) asked as a question instead of as a filter, and it is
+what makes player 2's two buttons two decisions rather than one drawn twice.
+
+**One ship, one throw, two seats.** The standard split is untouched and it does
+the whole of the work: player 1 holds SHIELD and SUCK, so he throws PLATE and
+MAW and can never throw BOLT; player 2 holds the two colours, so she throws
+BOLT and nothing else. Which of them is throwing has to be said out loud before
+either presses, because the ship throws once. That is a round's third condition
+([interludes](interludes.md)) satisfied by the panel the game already has,
+without a verb being invented for it.
+
+**The tell is what stops it being a coin toss, and it is split in half.** Every
+rung the boss draws breath for `tellBeats` and shows what it is about to throw:
+one of its three lobes fills. That fill is drawn **on player 1's screen only**.
+The colour it is wearing is drawn **on player 2's screen only**. Neither half
+is a decision — he can see what to beat and cannot throw a bolt, she can throw
+the bolt and cannot see whether a bolt is the right throw at all. Every rung is
+two sentences and one thumb, and the only thing the `Rng` decides is which
+sentence the pair has to say.
+
+**The boss is not drawing out of a bag, it is answering you**, and this is the
+larger half of the same answer. For the opening rungs it throws whatever would
+have beaten the pair's *last* throw — so a pair that notices can steer it: throw
+MAW, and the next thing it throws is BOLT, so throw PLATE. The tell then
+confirms something they had already worked out rather than being the only
+information in the round, and a pair is rewarded for holding a model of its
+opponent, which is what this game is about when two people play it in a bar.
+How many rungs it answers for before it starts mixing is the difficulty curve
+in one integer.
+
+**Five rungs, and a lost rung starts the ladder again.** That is the owner's
+rule and it is the one thing here that needs no argument; what needs an
+argument is why starting again is bearable. The ladder is drawn from the seeded
+`Rng` **once**, when the round opens, and is not drawn again on a restart:
+rungs one to three are the same throws in the same order, so a pair that died
+on rung four comes back through what it already knows in fifteen seconds. It
+costs nothing, because the round is deterministic anyway, and the repetition is
+the reward for having learnt it rather than a tax for having failed. A lost
+rung takes `damageThrowRepeat` off the hull and running the round's clock out
+takes `damageThrow` — SNAKE's two numbers for SNAKE's reason
+([interludes](interludes.md)).
+
+**It gets harder three ways and none of them is luck.** The window shortens
+down the ladder — `tellBeats` at 4, 4, 3, 3, 2 — so the sentence has to get
+shorter, which is the thing a pair actually improves at. From rung four the
+boss **feints**: the fill starts on one lobe and moves to another on the last
+beat, and a feinting boss always shivers first, one beat of the contour going
+tight, so a pair that knows the tell can still be right and a pair that called
+early is wrong for a reason it can name. And the last rung has no guess in it
+at all — three throws on three consecutive beats, every one of them shown
+outright, no feint: the pair finding out whether it can say three words in four
+seconds without talking over itself. A ladder that ends on a coin toss ends on
+somebody else's decision.
+
+**A tie is a bonk, not a re-roll.** The two shapes meet in the middle of the
+field, bounce back wobbling, the rung stands where it was — and the next tell
+is one beat shorter. Mirroring the boss is survivable twice and not three
+times, and no beat of the round is spent on nothing having happened.
+
+**The rules are drawn on the boss, which is why they can always be on screen.**
+Three lobes in a triangle with the three arrows between them: the boss *is* the
+rule table, so it takes no strip of a portrait phone away from the field, and
+the lobe that fills during a tell is one of the ring's own nodes. The instant a
+seat locks, the node for the ship's throw lights **on both screens** — the ship
+has committed and both of them can see to what, which is the owner's second
+sentence about visibility and is also the only way the seat that did not throw
+finds out what its partner did. The boss's node stays dark until the reveal,
+and both nodes light on the same beat.
+
+**Nine little scenes, and not one new noun.** PLATE beating BOLT is the bolt
+crossing the gap and bursting on a plate that snaps up and rings
+(`packages/render/src/hull-shock.ts`, played as a win instead of a hit). BOLT
+beating MAW is the bolt going straight down an open mouth: the boss swells like
+a balloon, holds a beat with every lobe stiff, and vents sparks out of every
+notch at once. MAW beating PLATE is the boss's plate peeling off its own skin
+and going down our mouth in one long slurp, and the boss patting the bare patch
+where it was. The three losses are the same three scenes with the ship and the
+boss swapped — which is how the ring is taught, by having it done to you — and
+the three ties are the bonk.
+
+**The field looks like the field, and this is where that is settled.** It keeps
+the hull, the scars, the cannon, the plate, the backdrop and the HUD, and the
+boss holds the top rows the way every boss does. That is THE PULSE's answer to
+a round's first condition carried one step further, and it is what the owner
+asked for. What it does not keep is the eleven columns and the bodies coming
+down them: nothing falls, no column is named, and neither the hull nor the boss
+moves sideways all round, so the no-travel rule is not even in the room
+(`docs/decisions.md` #21). Whether the empty grid is drawn faint behind it is
+the one place the owner's wish and the first condition touch, and it is his.
+
+**What it would cost** is exactly what [interludes](interludes.md) says a round
+costs and no more: one `boss: { kind: "tell", rungs: … }` entry in `waves.ts`,
+`packages/sim/src/tell.ts` and `tell-round.ts`, `config-tell.ts`, one
+`ControlSet` of four slabs in `control-sets.ts`, `packages/render/src/tell.ts`
+for the ring and the boss and `tell-scenes.ts` for the nine, and one briefing
+row. The throws are three integers, the ladder is an array of them, and every
+field of it is in `hashWorld` under the boss tag.
+
+Slot: a middle one, and no earlier than the wave where the pair holds all four
+buttons — The Choir (40) if the creature of that name leaves the slot free, The
+Codex (80) otherwise. Still open: whether both seats pressing inside the same
+window loses the rung or takes the first press, where losing it is what makes
+the pair talk and is one edit from merely mean; whether a bolt of the wrong
+colour is a stand-off or a loss; how many rungs the boss answers the last throw
+for; and whether the ring's three glyphs are new drawings or the control glyphs
+`packages/render/src/simon-glyph.ts` already holds, which cover SHIELD and SUCK
+and have nothing for a bolt.

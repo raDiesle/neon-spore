@@ -579,11 +579,14 @@ time, picked up the way the game's other power-ups already are.
 
 ### Rounds
 
-Ten short rounds that are not the field: their own rules, their own
+Nine short rounds that are not the field: their own rules, their own
 controls, their own picture, over in about ninety seconds, and nothing they
 teach is used again. Twelve were written; two of them are built and have left
-this list. The category comes from reading Hazelight's two co-op
-games — see [transfers-hazelight](transfers-hazelight.md) — and what a
+this list. A thirteenth — THE TELL — was argued out far enough in one sitting
+to be a section rather than a bullet, so it is
+[bosses](bosses.md#119-the-tell--rock-paper-scissors-and-half-the-tell-on-each-screen)
+11.9 and is not repeated here. The category comes from reading Hazelight's two
+co-op games — see [transfers-hazelight](transfers-hazelight.md) — and what a
 round is allowed to be is [interludes](interludes.md). THE MIRROR
 ([bosses](bosses.md) 11.4) is the one the game already had without calling it
 that.
