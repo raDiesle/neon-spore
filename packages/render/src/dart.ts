@@ -1,6 +1,5 @@
 import { type Creature, dartHeading } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
-import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -99,70 +98,6 @@ export function dartHex(c: Creature): string {
  */
 export function dartFlip(c: Creature): number {
   return dartHeading(c) < 0 ? -1 : 1;
-}
-
-/**
- * The plume, behind the body along the diagonal it is travelling — up and
- * away from the side it is heading for. Drawn before the body so the contour
- * sits on top of its own exhaust rather than inside it.
- *
- * In the body's own colour, brightening at the root: a jet has to be plainly
- * the same object as the thing it is pushing, or the field grows a second kind
- * of light nobody has a word for. Big enough to be seen at a tile that is
- * thirty-odd pixels wide on a phone, which is the size that decides it — the
- * first version of this was a string of small halos, correct in every value
- * and invisible in the only frame that counts.
- */
-export function drawDartJet(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  c: Creature,
-  x: number,
-  y: number,
-  beatPhase: number,
-): void {
-  const heat = dartThrust(c, beatPhase);
-  if (heat <= 0.01) return;
-  const dir = dartHeading(c);
-  const r = l.tile * 0.4;
-  const hex = dartHex(c);
-  // The travel vector spends one column for every row (`DART_COLS` and
-  // `DART_ROWS` are equal), so the exhaust runs at 45 degrees back up the
-  // other way. Written as the unit diagonal rather than read off those two
-  // constants: this is a direction, and they are a distance.
-  const bx = -dir * Math.SQRT1_2;
-  const by = -Math.SQRT1_2;
-  // Across the plume, for the flame's own width.
-  const px = -by;
-  const py = bx;
-  const reach = r * (0.9 + 2.1 * heat);
-  const wide = r * 0.5;
-
-  ctx.save();
-  ctx.globalCompositeOperation = "lighter";
-  // The flame: a tongue from the tail of the body to a point behind it. Filled
-  // rather than stroked, so it reads as something being thrown out rather than
-  // as an outline being dragged.
-  ctx.globalAlpha = 0.42 * heat;
-  ctx.fillStyle = hex;
-  ctx.beginPath();
-  ctx.moveTo(x + px * wide, y + py * wide);
-  ctx.lineTo(x + bx * reach, y + by * reach);
-  ctx.lineTo(x - px * wide, y - py * wide);
-  ctx.closePath();
-  ctx.fill();
-  ctx.globalCompositeOperation = "source-over";
-  ctx.restore();
-
-  // Three soft balls along it, shrinking with distance — the same vocabulary
-  // the pod wreck's trail and every other glow in the field is drawn in.
-  for (let k = 1; k <= 3; k++) {
-    const along = (reach * k) / 3.2;
-    halo(ctx, x + bx * along, y + by * along, r * (0.62 - k * 0.11), hex, heat * (0.7 - k * 0.14));
-  }
-  // The root, right at the tail and near-white: the hottest part of a flame is
-  // where it leaves the thing it is pushing.
-  halo(ctx, x + bx * r * 0.35, y + by * r * 0.35, r * 0.34 * heat, PALETTE.sparkDim, heat * 0.9);
 }
 
 /**

@@ -121,6 +121,7 @@ export { type Bounds, type Field, isoLoops, perimeter, resample } from "./metaba
 export { resampleAll } from "./metaball-spread.js";
 export {
   type Beats,
+  BLOOM,
   beats,
   beatsFromSeconds,
   bodyPhase,
@@ -131,11 +132,13 @@ export {
   type Pose,
   poseClock,
   REST,
+  SWALLOW,
+  // The three the game stopped drawing. Exported so the shape sheet can put
+  // each back beside the motion that replaced it — SWAY · PUMP and TILT ·
+  // RIPPLE on the SHAPES tab's motion axis, TREMBLE on the retired-shapes page
+  // beside the contour it was written for (`tools/shape-sheet/src/retired.ts`).
   SWAY_PUMP,
   TILT_RIPPLE,
-  // Spare since the runt was retired for THE LURE. Exported so the shape
-  // sheet's own retired-shapes page can put it back beside the contour it was
-  // written for (`tools/shape-sheet/src/retired.ts`).
   TREMBLE,
 } from "./own-motion.js";
 export {

@@ -188,27 +188,44 @@ const BAND_POSE: Pose = {
 };
 
 /**
- * A rock already argued with, and one more bolt still in the air when the
- * pair takes the world over — so the crater opens on screen rather than
- * inside `build`, which is where the old `METEOR · CRATERED` spent every one
- * of its four.
+ * How far under the rock the bolt is when the pair is handed the world.
+ *
+ * Eleven rows and not two, and the number is a *duration*: a bolt covers twelve
+ * tiles a beat, so two rows is a sixth of a beat — about a tenth of a second,
+ * which is not long enough for anybody to see what an unmarked rock looks
+ * like, and it is why nobody ever had. Eleven is nearly a whole beat of clean
+ * rock before the first crater opens.
+ */
+const UNHIT_ROWS = 11;
+
+/**
+ * An untouched rock with the first bolt still in the air when the pair takes
+ * the world over, so every crater it ever has opens on screen.
+ *
+ * It handed over with three craters already cut until 8 September 2026, and
+ * the owner asked what the rock looks like before anything has hit it — which
+ * turned out to be a question the pose could not answer at all, because the
+ * pair had never once seen this creature in the state it spends most of its
+ * life in. The fourth crater opening was the whole picture. It is the first
+ * one now, and the three that follow arrive on the replay clock, so the state
+ * a rock arrives on the field in is the state the page opens on.
  */
 const METEOR_HIT_POSE: Pose = {
   name: "METEOR · A SHOT ARRIVING",
-  note: "A rock that has already taken three shots, with a fourth still climbing towards it. Shooting a rock does not shrink it, slow it or break it — it only leaves craters. The craters are how the game says so.",
-  lookAt: "the craters on the face of the rock, as the next shot lands",
+  note: "An unmarked rock with a shot still climbing towards it. Shooting a rock does not shrink it, slow it or break it — it only leaves craters. The craters are how the game says so, and here you watch the first one open.",
+  lookAt: "the face of the rock before anything has hit it, and the crater the next shot opens",
   crop: "tile",
   at: firstOfKind("meteor"),
   cadenceSeconds: EVENT_CADENCE_SECONDS,
   build: () => {
     const w = fresh([rock(COL)]);
-    const cmds: TimedCommand[] = [aim(0, COL)];
-    for (let i = 0; i < 3; i++) cmds.push(shoot(TPB + i * TPB, "red"));
-    runUntil(w, "a cratered rock", cmds, (x) => (x.creatures[0]?.holes ?? 0) >= 3);
-    runUntil(w, "a bolt two tiles under the rock", [shoot(w.tick + 2, "red")], (x) => {
+    // The cannon is lined up and nothing has been fired: `holes` is still 0
+    // when the pair is handed the world, which is the whole change.
+    const cmds: TimedCommand[] = [aim(0, COL), shoot(TPB, "red")];
+    runUntil(w, "a bolt eleven tiles under the rock", cmds, (x) => {
       const b = x.bullets[0];
       const c = x.creatures[0];
-      return b !== undefined && c !== undefined && b.row - c.row <= 2;
+      return b !== undefined && c !== undefined && b.row - c.row <= UNHIT_ROWS;
     });
     return w;
   },

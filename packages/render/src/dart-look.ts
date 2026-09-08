@@ -1,23 +1,38 @@
 import type { Creature } from "@neon-spore/sim";
-import { drawDartJet } from "./dart.js";
+import { torchJet } from "./dart-torch.js";
 import type { Layout } from "./layout.js";
 
 /**
  * WHAT A DART'S THRUST LOOKS LIKE, as a record rather than as the body of one
  * function.
  *
- * `drawDartJet` was reached by name from `creatures.ts`, which made the one
- * mark this creature carries on *both* screens unarguable: a plume is a look,
- * a look is offered rather than replaced (CLAUDE.md), and there was nowhere
- * for a second answer to it to sit. This is the seam — `METEOR_LOOK`'s and
+ * The plume was reached by name from `creatures.ts`, which made the one mark
+ * this creature carries on *both* screens unarguable: a plume is a look, a
+ * look is offered rather than replaced (CLAUDE.md), and there was nowhere for
+ * a second answer to it to sit. This is the seam — `METEOR_LOOK`'s and
  * `DEFLECT_LOOK`'s, in a file of its own for the reason theirs are: `dart.ts`
- * is at the line ceiling and holds the lean, the flip, the heat and the
- * navigator's arrow, none of which is a layer of the exhaust.
+ * holds the lean, the flip, the heat and the navigator's arrow, none of which
+ * is a layer of the exhaust.
  *
- * Nothing here changes a pixel. `creatures.ts` calls this in the place and the
- * transform it called `drawDartJet` in, and `DART_LOOK.jet` **is**
- * `drawDartJet`. It is the same flame; it is now a flame somebody can offer
- * another answer to.
+ * **The second answer won.** What the game drew was a filled triangle with its
+ * base against the body and its apex a tile away — the profile of a *beam*,
+ * widest where it starts and coming to a point, which is what a lance and
+ * every aimed thing in this game looks like and the one thing a dart's thrust
+ * must not be confused with. A dart is not shooting; it is being thrown.
+ * `torchJet` (`dart-torch.ts`) turns the two ends round: the flame leaves the
+ * tail narrow, opens into a belly a third of the way back, and frays out into
+ * a gradient that reaches nothing before the shape closes, so what ends the
+ * flame is the flame running out.
+ *
+ * **The rule is untouched, and that is the discipline of it.** The heat comes
+ * from `dartThrust`, the direction from `dartHeading`, and the length from the
+ * same `0.9 + 2.1 · heat` the triangle used. Everything that changed is a
+ * width or an alpha.
+ *
+ * The triangle is not gone, it is rehoused: PLUME on the SHAPES tab's TAIL
+ * axis (`tools/director/src/tails/plume.ts`) is that exact shape, so a look
+ * the game stopped drawing can still be looked at beside the five other things
+ * a falling body can leave behind it.
  */
 export interface DartLook {
   /**
@@ -37,6 +52,6 @@ export interface DartLook {
   ): void;
 }
 
-/** The shipped thrust: a filled tongue back along the diagonal, three soft
- * balls down it and a near-white root. `dart.ts` holds the arithmetic. */
-export const DART_LOOK: DartLook = { jet: drawDartJet };
+/** The shipped thrust: a flame that leaves the tail narrow, bellies out and
+ * frays into nothing. `dart-torch.ts` holds the arithmetic. */
+export const DART_LOOK: DartLook = { jet: torchJet };

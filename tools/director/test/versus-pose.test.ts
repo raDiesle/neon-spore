@@ -62,16 +62,26 @@ describe("poseForSlot", () => {
     }
   });
 
-  test("the meteor is handed over with a bolt still in the air", () => {
-    // The defect: `METEOR · CRATERED` spent all four shots inside `build`, so
-    // the pair opened on a rock that was already full of holes and never saw
-    // one open. A candidate for how a crater opens had nothing to show.
+  test("the meteor is handed over unmarked, with a bolt still in the air", () => {
+    // The defect this began as: `METEOR · CRATERED` spent all four shots
+    // inside `build`, so the pair opened on a rock already full of holes and
+    // never saw one open. The fix left three of them inside `build` and only
+    // the fourth on screen, which the owner met on 8 September 2026 with the
+    // obvious question — what does the rock look like before anything hits it.
+    // Nothing is fired inside `build` now: `holes` is 0 at hand-over and every
+    // crater this rock ever has opens where somebody can see it.
     const world = poseForSlot("creature:meteor").build();
     const bullet = world.bullets[0];
     const rock = world.creatures[0];
     expect(bullet).toBeDefined();
-    expect(rock?.holes ?? 0).toBeGreaterThanOrEqual(3);
-    expect((bullet?.row ?? 0) - (rock?.row ?? 0)).toBeLessThanOrEqual(2);
+    expect(rock?.holes ?? 0).toBe(0);
+    // Eleven rows and not two: a bolt covers twelve tiles a beat, so two rows
+    // of separation is a tenth of a second and nobody sees the clean rock at
+    // all. This is the assertion that the *unmarked* state is on screen long
+    // enough to be looked at.
+    const gap = (bullet?.row ?? 0) - (rock?.row ?? 0);
+    expect(gap).toBeLessThanOrEqual(11);
+    expect(gap).toBeGreaterThan(6);
   });
 
   /**

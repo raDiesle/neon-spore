@@ -437,6 +437,8 @@ place — the generator keeps whatever is there.
 | `packages/content/src/mechanics-handed.ts` | The keys of the table below, checked against the roster |
 | `packages/content/src/tell-rungs.ts` | THE TELL's ladder: five rungs, and what makes each of them a different question |
 | `packages/content/src/queue-boss.ts` | A wave's boss, remapped onto the field the pair is actually playing |
+| `packages/content/src/motions-event.ts` | The two motions that are events rather than idles |
+| `packages/content/src/motions-retired.ts` | The motions nothing in the game carries any more |
 | `packages/content/src/balloon-parts.ts` | **What is alive inside THE BALLOON**, and hanging under it: veins, a ring of lit beads |
 
 ### packages/render
@@ -772,8 +774,12 @@ place — the generator keeps whatever is there.
 | `packages/render/src/tell-ring.ts` | The ring, drawn on the boss's own body — three nodes and the three arrows between them |
 | `packages/render/src/tell-round.ts` | THE TELL over the whole stage |
 | `packages/render/src/tell-scene.ts` | The reveal: nine little scenes, one per ordered pair of throws |
-| `packages/render/src/pulse-wash.ts` | The whole ship lit in a late body's own colour, for half a second after it sinks in |
+| `packages/render/src/dart-torch.ts` | WHAT A DART'S THRUST IS DRAWN AS, in a file of its own beside `dart-look.ts` |
+| `packages/render/src/magnet-coil.ts` | WHAT THE MAGNET IS DRAWN AS: a solid horseshoe, poles lit from their tips |
+| `packages/render/src/magnet-lanes.ts` | Where an intake lane starts and ends, in body radii from the centre |
+| `packages/render/src/magnet-look.ts` | THE ONE RECORD A CANDIDATE MAGNET LOOK PATCHES |
 | `packages/render/src/balloon-alive.ts` | **What makes THE BALLOON alien**: the film that travels over its skin |
+| `packages/render/src/pulse-wash.ts` | **The whole ship lit, by the one body that got past.** A body answered too late is not answered |
 
 ### packages/net
 
@@ -1312,6 +1318,8 @@ place — the generator keeps whatever is there.
 | `tools/style-guide/src/main.ts` | `bun run style-guide` — the specimen sheet for `docs/style-guide.md` |
 | `tools/style-guide/src/page.ts` | Page furniture for the style-guide specimen sheet |
 | `tools/style-guide/src/depth.ts` | the posed body beside the placed one, through half a turn — why an affine can never bring a mark out from behind |
+| `tools/director/src/tails/plume.ts` | A filled tongue back along the body's own axis, three soft balls down it and a near-white root |
+| `tools/director/src/tails/wake.ts` | Four short bars lying **across** the line behind the body, shrinking and fading with age |
 | `tools/director/src/stage-balloon-both.ts` | **Both of THE BALLOON's handles off one mouse**, and only under TEST |
 
 <!-- index:code:end -->

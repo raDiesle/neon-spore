@@ -1,9 +1,8 @@
-import type { MagnetShape } from "../../../../../packages/content/src/index.js";
-import { strokeGlow } from "../../../../../packages/render/src/glow.js";
-import type { MagnetDraw } from "../../../../../packages/render/src/magnet.js";
-import { PALETTE, STROKE } from "../../../../../packages/render/src/palette.js";
-import { magnetPoleColor } from "../../../../../packages/sim/src/magnet.js";
-import { poleTip } from "./geometry.js";
+import type { MagnetShape } from "@neon-spore/content";
+import { magnetPoleColor } from "@neon-spore/sim";
+import { strokeGlow } from "./glow.js";
+import { type MagnetDraw, poleTip } from "./magnet.js";
+import { PALETTE, STROKE } from "./palette.js";
 
 /** Where an intake lane starts and ends, in body radii from the centre. It
  * reaches past the arch on both sides — that overhang is most of what makes a
@@ -13,11 +12,14 @@ const LANE_OUT = 1.66;
 const LANE_IN = 1.02;
 
 /**
- * The two intake lanes: the one thing here that is not on the shipped body.
+ * The two intake lanes, and the only mark on this creature that is not part of
+ * its own contour.
  *
  * `sim/magnet.ts` says a shot reaches a pole only if it arrived **sideways**,
- * and today's picture never says the word: it has an opening at the *bottom*,
- * which is the one bearing the rule refuses. So each pole gets a level rail
+ * and the picture never used to say the word: the one opening it has is at the
+ * *bottom*, which is the single bearing the rule refuses. The pair learned
+ * "not from underneath" by losing a shot to the plate and then had to be told
+ * the rest out loud. So each pole gets a level rail
  * running out past the arch in its own colour, with two chevrons on it
  * pointing in — *from your left, red*, drawn.
  *

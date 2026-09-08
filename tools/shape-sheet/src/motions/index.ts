@@ -1,4 +1,4 @@
-import type { OwnMotion } from "@neon-spore/content";
+import { type OwnMotion, SWAY_PUMP, TILT_RIPPLE } from "@neon-spore/content";
 import { RECOIL, SETTLE, TUMBLE, WIND } from "./borrowed.js";
 import { APPROACH, CRAWL, PITCH, TURN_IN_DEPTH } from "./depth.js";
 import {
@@ -44,7 +44,16 @@ export {
 };
 
 /**
- * The spare motions: ways a body can move that nothing in the game moves yet.
+ * The spare motions: ways a body can move that nothing in the game moves.
+ *
+ * "Yet" was true until 8 September 2026, when the slick's TILT · RIPPLE and
+ * the bulb's SWAY · PUMP were retired for SWALLOW and BLOOM — so the list now
+ * holds two of a second kind, a motion the game *stopped* moving with. They
+ * are here rather than deleted for CLAUDE.md's reason: a look that is taken
+ * out is kept where it can be seen, and the only place a motion can be seen is
+ * on a body, on a clock, beside the one that replaced it. They are imported
+ * from `@neon-spore/content` and never copied, so what animates here is the
+ * record itself and cannot drift from the day it shipped.
  *
  * This was one file until it reached the 250-line ceiling. It is now the
  * registry, and the motions themselves are grouped the way `drafts/` groups
@@ -100,4 +109,10 @@ export const MOTIONS: OwnMotion[] = [
   CANT,
   PITCH,
   SAG,
+  // Last, and the only two here that are retired rather than unspent: the
+  // slick's and the bulb's own motions until SWALLOW and BLOOM replaced them.
+  // At the end rather than beside their kin, because a reader browsing for a
+  // motion to spend wants the unspent ones first.
+  TILT_RIPPLE,
+  SWAY_PUMP,
 ];

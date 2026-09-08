@@ -2,14 +2,17 @@ import { SVG } from "../skins/types.js";
 import { radialFade, type Tail } from "./types.js";
 
 /**
- * A soft plume widening away above the body.
+ * A soft plume widening away above the body — **what every living body wears
+ * in the game today.**
  *
- * The only value on the axis that gets **wider** as it goes, and that is the
- * whole proposal. Every other tail here narrows away — the shipped wedge, the
+ * The only value on the axis that gets **wider** as it goes, and that was the
+ * whole proposal until the owner took it into the game on 8 September 2026
+ * (`packages/render/src/creature-detail.ts`, `drawMotionTrail`). It is the
+ * control now, and everything else here has to beat it. Every other tail here narrows away — the shipped wedge, the
  * ribbon, the streak — because they are all drawing the *path* a thing took. A
  * plume is not a path, it is what the path did to the air, and it spreads.
  *
- * The reason to try it on this bestiary is that a slick and a bulb are wet
+ * The reason it won on this bestiary is that a slick and a bulb are wet
  * things. A hard tapering streak says metal or fire; a plume that swells and
  * dissipates says something is leaking, which for a body made of lobes and
  * membrane may be the more honest reading.
@@ -25,8 +28,9 @@ const REACH = 1.8;
 export const SMOKE: Tail<"smoke"> = {
   id: "smoke",
   label: "SMOKE",
-  hint: "a plume that widens and dissipates — the only tail here that spreads instead of tapering",
+  hint: "a plume that widens and dissipates — what a falling body wears in the game today",
   reachUp: REACH,
+  shipped: "every living body — creature-detail.ts, drawMotionTrail",
   build(ctx) {
     const paint = radialFade(ctx, "smoke", [
       ["0%", "0.34"],

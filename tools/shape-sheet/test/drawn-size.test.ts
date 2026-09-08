@@ -72,6 +72,11 @@ const SQUARE = CATALOGUE.filter((e) => !isWide(e));
 
 describe("drawn size against the 20-26 px floor", () => {
   it("has the 92 square cards the catalogue now holds", () => {
+    // Two changes on 8 September 2026 that cancelled out. SLICK left: its
+    // lobes went onto its long axis, and `depth` 0.52 with an apex at 0° and
+    // another at 180° stretches the contour to 209 x 60 where the bean it drew
+    // before came out near square, so it is measured as a wide card now.
+    // THROB · CROWN arrived in its place (`drafts/offered.ts`).
     expect(SQUARE.length).toBe(92);
   });
 
@@ -99,16 +104,28 @@ describe("drawn size against the 20-26 px floor", () => {
       if (d.long < FLOOR_HI) under26++;
       if (d.long < FLOOR_LO) under20++;
     }
+    // 54 and 22 until 8 September 2026, and 54 again by two moves in opposite
+    // directions: SLICK is a wide card now and is not in this set at all, and
+    // THROB · CROWN is a new square one that lands under the same ceiling.
+    // The lower tally moved by one each way too: BULB's six deeper lobes lift
+    // it from 16 px to 23, which clears 20 without clearing 26, and THROB ·
+    // CROWN — six small caps on long stalks round a small core — lands under
+    // it. A rim that reaches is a wide box fitted to a narrow body.
     expect(under26).toBe(54);
-    expect(under20).toBe(22);
+    expect(under20).toBe(21);
   });
 
-  it("puts the Bulb at about the 16 px the paired-cards lane read off it", () => {
+  it("puts the Bulb at about 23 px, up from the 16 the paired-cards lane read", () => {
+    // The bulb went to six lobes at `depth` 0.24 on 8 September 2026. Deeper
+    // scallops are a wider contour, and `shapeFigure` fits a contour to the
+    // frame rather than to the body inside it — so the drawn body comes out
+    // half again bigger at the halved width than the nine shallow lobes did.
+    // Still under the 26 px floor there, which is the finding this file keeps.
     const bulb = SQUARE.find((e) => e.subject.name === "BULB");
     expect(bulb).toBeDefined();
     const d = drawnSize(bulb!, 92, 46);
-    expect(d.long).toBeGreaterThan(15);
-    expect(d.long).toBeLessThan(17);
+    expect(d.long).toBeGreaterThan(22);
+    expect(d.long).toBeLessThan(24);
   });
 
   it("never reports a short axis longer than the long one", () => {

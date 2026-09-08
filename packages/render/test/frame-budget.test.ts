@@ -58,7 +58,20 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * every run after it was handed one free: p1's row carried fourteen
  * `new Path2D` that p2's did not, at the same size, and reordering the two
  * seats would have failed the test for a reason that had nothing to do with
- * the frame.
+ * the frame. *
+ * **Every row moved again on 8 September 2026, and two changes to one body
+ * moved them all.** A living body's skin became flesh under the key light
+ * (`src/living-skin.ts`) and the trail behind it became a plume
+ * (`src/creature-detail.ts`), so each of the three creatures on this scene now
+ * costs one more `clip`, one more `stroke`, two more `save` and four more
+ * `drawImage`, and one fewer `fill`.
+ *
+ * **`createRadialGradient` did not move, and that was the point.** Both of
+ * those looks want a soft radial falloff, and both take it from `haloSprite`'s
+ * cache rather than building a gradient — a gradient per body per frame is
+ * fifteen of them on THE ECHO, which is the shape of every performance
+ * complaint in this repository. The trade is `drawImage`, which is a blit of
+ * something already drawn.
  */
 
 type Budget = Partial<
@@ -94,11 +107,11 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // (`action-face.ts`). They replaced two `fillText` calls, which is the
       // whole of the trade the owner chose — the word cost almost nothing and
       // could not be drawn at a sequence glyph's size at all.
-      stroke: 50,
+      stroke: 53,
       fill: 26,
-      clip: 5,
-      save: 25,
-      drawImage: 26,
+      clip: 8,
+      save: 31,
+      drawImage: 38,
       createLinearGradient: 14,
       createRadialGradient: 3,
       // Fourteen of these are the panel's own sheet, painted here and only
@@ -113,11 +126,11 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
     },
     {
       fillRect: 65,
-      stroke: 52,
+      stroke: 55,
       fill: 26,
-      clip: 5,
-      save: 25,
-      drawImage: 26,
+      clip: 8,
+      save: 31,
+      drawImage: 38,
       // Down from frame 0: the layout-only gradients (`gradient-slot.ts`'s
       // sites in field.ts and backdrop.ts, key-light.ts's own slot, and the
       // channels' three in band-control.ts) are cache hits from the second
@@ -136,16 +149,16 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // contour plus `strokeGlow`'s four passes round the creature inside it,
       // which is how the field draws that body and the whole of what the owner
       // asked for (`controls.ts`).
-      stroke: 48,
+      stroke: 51,
       // Three more, and all three are `drawDetails`: the bulb's one core and
       // the slick's two, drawn on the buttons now that the silhouettes are
       // bodies rather than stencils.
       fill: 31,
-      clip: 5,
+      clip: 8,
       // Two fewer: a fire button's face is one `paintLobe` doing fill and
       // stroke together where it used to be a fill and then a crosshair.
-      save: 25,
-      drawImage: 25,
+      save: 31,
+      drawImage: 37,
       createLinearGradient: 14,
       createRadialGradient: 3,
       // Two more than p1's frame 0: the sheet, and the fire buttons'
@@ -155,11 +168,11 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
     },
     {
       fillRect: 65,
-      stroke: 50,
+      stroke: 53,
       fill: 31,
-      clip: 5,
-      save: 25,
-      drawImage: 25,
+      clip: 8,
+      save: 31,
+      drawImage: 37,
       createLinearGradient: 5,
       createRadialGradient: 1,
       // Back level with p1's second frame, and the two it came down by are the

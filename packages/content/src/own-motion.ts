@@ -146,7 +146,11 @@ export function poseClock(id: number, beat: number): Beats {
 // creatures. Re-exported here for the same reason as the records above it:
 // nothing that already reached for it through this file had to move.
 export { livingMotion } from "./living-look.js";
+export { FLICKER, HOLD, POISE, RUMBLE } from "./motions.js";
 // The motions themselves live next door — see `motions.ts` for the seam. Every
 // one is re-exported here so that a reader who already says
 // `livingMotion` from `own-motion.ts` still can.
-export { FLICKER, HOLD, POISE, RUMBLE, SWAY_PUMP, TILT_RIPPLE, TREMBLE } from "./motions.js";
+export { BLOOM, SWALLOW } from "./motions-event.js";
+// The three nothing is drawn with any more. They are still exported, because a
+// retired motion nobody can import is a retired motion nobody can put back.
+export { SWAY_PUMP, TILT_RIPPLE, TREMBLE } from "./motions-retired.js";

@@ -37,10 +37,10 @@ looking at a number.
 
 | Pass | What | Numbers |
 |---|---|---|
-| fill | flat dark body | the creature's `dark` |
+| **skin** | `LIVING_SKIN.paint` (`living-skin.ts`) — flesh, a bevel inside the contour, the key light over both, a sheen | fill is `mixHex(dark, hex, 0.42)`; bevel is `rim` at alpha `0.32`, width `0.15` of the contour's reach, stroked **before** the light; `litRound` at the shipped `KEY` with the transform's rotation undone; sheen is `haloSprite(hex, 0.8·reach)` at alpha `0.2`, `lighter`, `0.34·reach` above centre |
 | **glow** | `strokeGlow` — the same path stroked repeatedly, widest and faintest first, additively | 3 passes (`STROKE.glowPasses`), spread 5 (`STROKE.glowSpread`), alpha `0.1 / i`, composite `lighter`, then the crisp outline at `max(1, r * 0.1)` |
 | detail | `drawDetails` — see below | inner drawing thinner than the outline |
-| **tail** | `drawMotionTrail` — two halos strung *upward* | at `0.73r` and `0.61r` (`r * (0.85 - k * 0.12)` for k = 1, 2), a quarter tile apart, alpha `(1 - k/5) * 0.4 * 0.5`, slid sideways by `sin(t*3 + k) * tile * 0.05 * k` |
+| **tail** | `drawMotionTrail` — three halo sprites strung *upward*, widening and fading | at `(0.55 + 0.3k)r` wide by `(0.5 + 0.22k)r` tall for k = 1, 2, 3, `0.6k/3` tiles apart, alpha `(1 - k/4) * 0.22`, `lighter`, slid sideways by `sin(t*0.9 - 0.6k) * 0.3kr` |
 | **glow** | one halo around the whole body | `1.9r`, alpha `0.16` |
 
 `strokeGlow` exists to avoid `ctx.shadowBlur`, which `glow.ts` names as the
@@ -54,12 +54,20 @@ else.** A slick gets two dots at `(±0.12rx, 0.2ry)`, radius `0.07ry`. A bulb
 gets one core dot at `(0, 0.3ry)`, radius `0.09ry`, and nothing else. Same
 glow, same halo, same trail.
 
-The tail is worth a second look while it is written down: **two steps of a
-quarter tile is less than one body-height of trail**, and it is made of the
-same halo sprite the body already wears. So it says *this thing glows* a second
-time rather than *this thing is moving*. That is the honest reading of the
-shipped look, and it is why the TAIL axis has five proposals standing against
-it.
+**Two of these changed on 8 September 2026**, and both came off a page that
+had been arguing about them. The skin was a flat fill of the body's own deep —
+`#190F2C` against a `#07060F` field, so a creature was materially a hole in
+space with a neon line round it — and `creature:skin` / `lit` won that slot on
+VERSUS. The tail was two halos strung a quarter tile apart, which is less than
+one body-height of trail and is made of the same sprite the body already
+wears, so it said *this thing glows* a second time rather than *this thing is
+moving*; SMOKE on the SHAPES tab's TAIL axis is the plume that replaced it, and
+HALOES is still on that axis as a proposal, which is where a look that is taken
+out is kept.
+
+The one thing neither change spends is a gradient. Both want a soft radial
+falloff and both take it from `haloSprite`'s cache, because this code runs once
+per body per frame and THE ECHO puts nineteen bodies on one field.
 
 ## Throb
 

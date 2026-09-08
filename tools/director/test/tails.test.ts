@@ -38,11 +38,13 @@ describe("the tail registry", () => {
   });
 
   it("keeps both shipped looks on the axis", () => {
-    // HALOES is what a slick and a bulb wear, WEDGE is what a torch wears.
-    // They are the controls. An axis of six proposals and no baseline is an
-    // axis that proposes replacing something nobody has looked at.
+    // SMOKE is what every living body wears, WEDGE is what a torch wears.
+    // They are the controls. An axis of proposals and no baseline is an axis
+    // that proposes replacing something nobody has looked at. It was HALOES
+    // and WEDGE until 8 September 2026, when SMOKE won the first of those two
+    // slots and HALOES stayed on as a proposal.
     const shipped = TAILS.filter((t) => t.shipped);
-    expect(shipped.map((t) => t.id).sort()).toEqual(["haloes", "wedge"]);
+    expect(shipped.map((t) => t.id).sort()).toEqual(["smoke", "wedge"]);
     // And each names where, because "shipped" with no address is a claim
     // nobody can check against the renderer.
     for (const t of shipped) expect(t.shipped, t.id).toContain(".ts");

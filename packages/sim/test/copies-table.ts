@@ -168,8 +168,15 @@ export const COPIES: Copy[] = [
     // the seconds-era 1.9 and 1.35 divided by 1.6: the pose clock moved off
     // `performance.now()` and onto `world.beat`, so that two phones stop
     // drawing the same creature at different points in its cycle.
+    //
+    // The owner is `motions-retired.ts` and not `motions.ts`, because the two
+    // records these numbers belong to — the bulb's SWAY · PUMP and the slick's
+    // TILT · RIPPLE — were retired on 8 September 2026 for BLOOM and SWALLOW,
+    // and moved to that file with the rest of what the game no longer draws. A
+    // retired motion is still a motion something could copy, and it is still
+    // reached through `livingMotion` by anything that puts one back.
     call: "livingMotion",
-    owner: "packages/content/src/motions.ts",
+    owner: "packages/content/src/motions-retired.ts",
     pattern: /\bt\s*\*\s*1\.1875\b|\bt\s*\*\s*0\.84375\b/,
     strip: false,
   },

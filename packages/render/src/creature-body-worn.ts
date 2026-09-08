@@ -1,7 +1,7 @@
 import { beadIsActive, beadIsSpent } from "@neon-spore/sim";
 import type { Body } from "./creature-body.js";
 import { drawLivingBody } from "./creature-body.js";
-import { MAGNET_LOOK } from "./magnet.js";
+import { MAGNET_LOOK } from "./magnet-look.js";
 import { showsBeadColor } from "./strand.js";
 import { drawRaisin, STRAND_LOOK } from "./strand-bead.js";
 import { drawStillBead } from "./strand-still.js";

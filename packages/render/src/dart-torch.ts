@@ -1,17 +1,22 @@
-import { dartHex, dartThrust } from "../../../../../packages/render/src/dart.js";
-import { halo } from "../../../../../packages/render/src/glow.js";
-import type { Layout } from "../../../../../packages/render/src/layout.js";
-import { rgba } from "../../../../../packages/render/src/meteor-look.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
-import { type Creature, dartHeading } from "../../../../../packages/sim/src/index.js";
+import { type Creature, dartHeading } from "@neon-spore/sim";
+import { dartHex, dartThrust } from "./dart.js";
+import { halo } from "./glow.js";
+import { rgba } from "./hex.js";
+import type { Layout } from "./layout.js";
+import { PALETTE } from "./palette.js";
 
 /**
- * The paint TORCH is made of, kept out of `index.ts` so that file stays the
- * argument for the candidate rather than a wall of canvas calls.
+ * WHAT A DART'S THRUST IS DRAWN AS, in a file of its own beside `dart-look.ts`.
  *
- * Nothing here caches a frame, for the reason `forge/paint.ts` gives: a
- * candidate lives inside two renderers stepping one world, and a module-level
- * cache would be state shared between the two sides of the pair.
+ * The record is next door and this is what it points at. It arrived as
+ * `creature:dart` / `torch` on VERSUS and the owner took it into the game on
+ * 8 September 2026; the plume it replaced is on the SHAPES tab's TAIL axis as
+ * PLUME (`tools/director/src/tails/plume.ts`), which is where a mark a body
+ * leaves behind it belongs now that there is somewhere to put one.
+ *
+ * A file of its own rather than more of `dart.ts`, for that file's own reason:
+ * it holds the lean, the flip, the heat and the navigator's arrow, and none of
+ * those is a layer of the exhaust.
  */
 
 /** Half-width where the flame leaves the body, as a share of the body radius.

@@ -1,5 +1,6 @@
 import type { CreatureKind } from "@neon-spore/sim";
-import { FLICKER, HOLD, POISE, RUMBLE, SWAY_PUMP, TILT_RIPPLE } from "./motions.js";
+import { FLICKER, HOLD, POISE, RUMBLE } from "./motions.js";
+import { BLOOM, SWALLOW } from "./motions-event.js";
 import type { OwnMotion } from "./own-motion.js";
 import { BEATBOX, BULB, type CreatureSilhouette, DART, SLICK, THROB, WISP } from "./silhouettes.js";
 
@@ -37,8 +38,8 @@ import { BEATBOX, BULB, type CreatureSilhouette, DART, SLICK, THROB, WISP } from
  * would be a tell.
  */
 const LIVING_LOOK = {
-  slick: { shape: SLICK, motion: TILT_RIPPLE },
-  bulb: { shape: BULB, motion: SWAY_PUMP },
+  slick: { shape: SLICK, motion: SWALLOW },
+  bulb: { shape: BULB, motion: BLOOM },
   throb: { shape: THROB, motion: HOLD },
   dart: { shape: DART, motion: POISE },
   wisp: { shape: WISP, motion: FLICKER },

@@ -1,5 +1,11 @@
 import { describe, expect, it } from "bun:test";
-import { type Beats, livingSilhouette, type Pose, rimCount, SWAY_PUMP } from "@neon-spore/content";
+import {
+  type Beats,
+  livingMotion,
+  livingSilhouette,
+  type Pose,
+  rimCount,
+} from "@neon-spore/content";
 import { confusable, nameability } from "../src/nameability.js";
 import { livingKinds } from "../src/subjects.js";
 
@@ -77,24 +83,37 @@ describe("nameability", () => {
    * The gate refuses what it is for, rather than merely passing.
    *
    * A check that is green and could not go red is a check nobody has tested.
-   * This opens exactly one amplitude — SWAY_PUMP's pump, the bulb's whole
-   * squash — by a tenth, and the bulb walks into the wisp.
    *
-   * The widening is a *factor on the real motion*, never a retyped copy of it:
-   * `purity.test.ts` already has a row for `livingMotion` precisely because a
-   * second copy of a sway drifts, and a gate that guards amplitudes by
-   * transcribing them would be guarding last week's.
+   * **It used to open the bulb's pump by a tenth and watch it walk into the
+   * wisp, and it cannot any more.** The bulb's motion is BLOOM now
+   * (`packages/content/src/motions.ts`), and BLOOM inflates: `sx` and `sy` are
+   * the same number, so opening it makes the body bigger and never changes its
+   * shape — and `dominantHarmonic` only moves when a non-uniform scale puts
+   * energy into the second harmonic. There is no factor on a uniform swell
+   * that reaches the gate at all.
+   *
+   * So the perturbation turns the swell into a **squeeze** of the same
+   * amplitude and opens that. At three times over, the ellipse in the profile
+   * outweighs the six lobes, the bulb's lobe span stretches down to 2, and it
+   * covers the wisp's 5. Twice over is not enough, which is what makes this a
+   * boundary and not an assertion that a big enough number breaks anything.
+   *
+   * The amplitude is still read off the live record and never retyped:
+   * `purity.test.ts` has a row for `livingMotion` precisely because a second
+   * copy of a sway drifts, and a gate guarding amplitudes by transcribing them
+   * would be guarding last week's.
    */
-  it("goes red when the bulb's pump is opened a tenth past where it stands", () => {
-    const wider =
+  it("goes red when the bulb's swell is turned into a squeeze and opened three times", () => {
+    const squeezed =
       (factor: number) =>
       (t: Beats): Pose => {
-        const p = SWAY_PUMP.poseAt(t);
-        return { ...p, sx: 1 + (p.sx - 1) * factor, sy: 1 + (p.sy - 1) * factor };
+        const p = livingMotion("bulb").poseAt(t);
+        const amount = (p.sx - 1) * factor;
+        return { ...p, sx: 1 + amount, sy: 1 - amount };
       };
     const wisp = axes.get("wisp")!;
-    expect(confusable(nameability("bulb", wider(1)), wisp)).toBe(false);
-    expect(confusable(nameability("bulb", wider(1.1)), wisp)).toBe(true);
+    expect(confusable(nameability("bulb", squeezed(2)), wisp)).toBe(false);
+    expect(confusable(nameability("bulb", squeezed(3)), wisp)).toBe(true);
   });
 });
 

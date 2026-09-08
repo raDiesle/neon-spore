@@ -340,11 +340,12 @@ usually true. Second, why `bun test` exited 0 with a failure in it; if that is
 a wrapper in `package.json` swallowing the status, the wrapper is the bug and
 every green check taken through it since is worth less than it looked.
 
-## Four files sit exactly on the 250-line ceiling and pay a tax on every edit
+## Five files sit exactly on the 250-line ceiling and pay a tax on every edit
 
 - **Found:** 2026-09-07, claude/cannon-streak-shot-38da84
 - **Files:** `packages/render/src/canvas2d.ts`, `packages/render/src/effects.ts`,
-  `tools/director/src/pose-kit.ts`, `tools/frames/press.ts`
+  `tools/director/src/pose-kit.ts`, `tools/frames/press.ts`,
+  `packages/content/src/silhouettes.ts`
 
 Each of these is at 250 lines to the line, so *any* change to one costs a round
 of reflowing a comment somewhere else in it before `limits.test.ts` goes green
@@ -355,12 +356,21 @@ room for one word. `render-state.ts` already exists because `effects.ts` had
 nothing left to give (its own header says so), which is the shape of the answer
 rather than a reason to keep shaving.
 
+`silhouettes.ts` joined them on 8 September 2026 and it is the clearest case of
+the tax: two creatures changed shape, and the note explaining *why* each one
+changed had to be cut three times, the last of them by a single line, so what is
+committed is shorter than what the change deserves.
+
 Split each on a seam it already has a heading at, the way `scene-script.ts` was
 cut into `scene-drag.ts` in this lane: `effects.ts` divides into what it *owns*
 and what it *draws*; `canvas2d.ts` into `resize`/layout and the frame itself;
 `pose-kit.ts` into the world builders and the command shorthands; `press.ts`
-into the parser and the per-control table. `bun run check` proves it — nothing
-in any of them is behaviour.
+into the parser and the per-control table. `silhouettes.ts` has one the code
+already takes: THE THROB is the only body whose contour is **walked** rather
+than sampled by angle (`clubs`, and the branch in `body-path.ts`'s
+`livingPath`), so it and its rim go in a file of their own and the radius-only
+bodies stay. `bun run check` proves all five — nothing in any of them is
+behaviour.
 
 ## `bun run perf` never exercises a held control, so a new one is unmeasured
 
@@ -827,3 +837,40 @@ settled and step the difference, refusing a number already passed — or keep th
 current meaning and print the tick each frame was actually taken at, in the line
 that already names the file. The first is better and is one subtraction; the
 second is a fallback if some caller depends on the relative count.
+
+## `rgba` is written out twice, in `hex.ts` and in `meteor-look.ts`
+
+- **Found:** 2026-09-08, claude/creature-assets-reorganize-4c9944
+- **Files:** `packages/render/src/hex.ts`, `packages/render/src/meteor-look.ts`
+
+`hex.ts` exports `rgba(hex, alpha)` and ten files import it from there.
+`meteor-look.ts` exports a second one, byte for byte the same arithmetic, and
+the VERSUS candidates written against the meteor took theirs from *that* one —
+so a candidate ported into the game arrives importing a colour helper from a
+file about rocks, which is the sort of import a later reader spends a minute on.
+It cost this lane exactly that minute.
+
+Delete the copy in `meteor-look.ts`, import `rgba` from `./hex.js` there, and
+fix the two remaining call sites in `tools/versus/candidates/` to do the same.
+`bun run check` is the whole proof: it is one function with one behaviour and
+the types are identical.
+
+## `docs/versus.md`'s worked examples quote values the code no longer has
+
+- **Found:** 2026-09-08, claude/creature-assets-reorganize-4c9944
+- **Files:** `docs/versus.md`
+
+The document teaches the mechanism through a worked slot, and every number in
+that worked slot is stale. It says BULB is `lobes: 9, depth: 0.1, wobble: 0.055`
+and SLICK is `lobes: 2, depth: 0.38, wobble: 0.02`; the file says 6 / 0.24 and 2
+/ 0.52 / 0.045 as of 8 September 2026, and `depth: 0.1` and `wobble: 0.02` were
+already wrong before that. It also tells a session to `git grep` for `SWAY_PUMP`
+in `own-motion.ts`, which re-exports it from `motions-retired.ts` now.
+
+A reader cannot tell which parts of the example are the mechanism and which are
+a snapshot, and the ones that are a snapshot are the ones that look most like
+instructions. Rewrite the worked slot against whatever the tree says on the day,
+and say in one line that the numbers are a photograph — or, better, quote no
+value the code owns and name the record instead, which is the rule the mechanism
+itself is built on (`variant.ts` reads `currentValues` off the live object
+rather than storing them).

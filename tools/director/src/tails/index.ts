@@ -1,9 +1,11 @@
 import type { SkinContext } from "../skins/types.js";
 import { EMBERS } from "./embers.js";
 import { HALOES } from "./haloes.js";
+import { PLUME } from "./plume.js";
 import { RIBBON } from "./ribbon.js";
 import { SMOKE } from "./smoke.js";
 import { STREAK } from "./streak.js";
+import { WAKE } from "./wake.js";
 import { WEDGE } from "./wedge.js";
 
 /**
@@ -14,13 +16,24 @@ import { WEDGE } from "./wedge.js";
  * creature in this game falls down a column, that is the only motion the field
  * has, and no card on this page had ever shown it.
  *
- * ## Two of these are the game
+ * ## Two of these are the game, and two of them used to be
  *
- * `HALOES` is what a slick and a bulb wear today; `WEDGE` is what a torch
+ * `SMOKE` is what every living body wears today; `WEDGE` is what a torch
  * wears. They carry `shipped`, the switcher marks them, and they are on the
  * axis **as controls**. A proposal judged against a memory of the shipped look
  * wins every time — CLAUDE.md's *a look is offered, never replaced* only means
  * something if the thing being offered against is on the same row.
+ *
+ * `HALOES` and `PLUME` are the other half of that rule. Both were the game
+ * until 8 September 2026 — the halos behind a slick and a bulb, and the hard
+ * tongue behind a dart — and both lost to something the owner picked instead.
+ * A look that is taken out is kept where it can be seen, and this is where a
+ * mark left behind a body is seen.
+ *
+ * `WAKE` came from somewhere else again: it was a VERSUS candidate for the
+ * dart alone, and it is here because what it actually proposes — rungs rather
+ * than a ribbon — is a claim about every falling body and not about one
+ * creature.
  *
  * `docs/shipped-looks.md` is the long version: what the renderer actually
  * draws for each creature, effect by effect.
@@ -31,7 +44,7 @@ import { WEDGE } from "./wedge.js";
  * very nearly what a burning rock ought to look like. Order is this array's,
  * drawn back to front: the broad soft things first, the hard ones over them.
  */
-export const TAILS = [SMOKE, WEDGE, RIBBON, HALOES, STREAK, EMBERS] as const;
+export const TAILS = [SMOKE, WEDGE, RIBBON, HALOES, PLUME, WAKE, STREAK, EMBERS] as const;
 
 /** The id of a tail that exists, derived from the registry and never typed. */
 export type TailId = (typeof TAILS)[number]["id"];

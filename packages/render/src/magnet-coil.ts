@@ -1,50 +1,44 @@
-import { MAGNET_SHAPE, type MagnetShape } from "../../../../../packages/content/src/index.js";
-import { livingBodyMul } from "../../../../../packages/render/src/creature-place.js";
-import { hazed } from "../../../../../packages/render/src/depth.js";
-import { halo, strokeGlow } from "../../../../../packages/render/src/glow.js";
-import { mixHex } from "../../../../../packages/render/src/hex.js";
-import { litBox, litRound } from "../../../../../packages/render/src/key-light.js";
+import { MAGNET_SHAPE, type MagnetShape } from "@neon-spore/content";
+import { magnetPoleColor } from "@neon-spore/sim";
+import { livingBodyMul } from "./creature-place.js";
+import { hazed } from "./depth.js";
+import { halo, strokeGlow } from "./glow.js";
+import { mixHex } from "./hex.js";
+import { litBox, litRound } from "./key-light.js";
 import {
+  HANG,
+  HANG_BEATS,
+  HANG_SPREAD,
   type MagnetDraw,
   magnetArchPath,
   magnetPlatePath,
   magnetPolePath,
   magnetSlabPath,
-} from "../../../../../packages/render/src/magnet.js";
-import { PALETTE, STROKE } from "../../../../../packages/render/src/palette.js";
-import { magnetPoleColor } from "../../../../../packages/sim/src/magnet.js";
-import { poleTip, TURN } from "./geometry.js";
-import { lanes } from "./lanes.js";
+  poleTip,
+  TURN,
+} from "./magnet.js";
+import { lanes } from "./magnet-lanes.js";
+import { PALETTE, STROKE } from "./palette.js";
 
 /**
- * The paint COIL is made of, kept out of `index.ts` so that file stays the
- * argument for the candidate rather than a wall of canvas calls — the split
- * `creature-meteor/forge` uses, for the same reason.
+ * WHAT THE MAGNET IS DRAWN AS: a solid horseshoe, poles lit from their tips,
+ * and a chevron lane at each side saying the way in is across and not up.
  *
- * **Every path here is the shipped one.** `magnetArchPath`, `magnetPolePath`,
- * `magnetPlatePath` and `magnetSlabPath` are imported rather than redrawn,
- * because `magnetOutline` in `packages/content` is the silhouette the shape
- * sheet judges and the nameability gate reads, and a candidate that moved the
- * contour without moving that function would be a picture disagreeing with
- * the one file allowed to say what this body's shape is. What is argued here
- * is the light on it, what the poles do, and one thing drawn beside it.
+ * It arrived as `creature:magnet` / `coil` on VERSUS and the owner took it
+ * into the game on 8 September 2026. What it replaced was three flat greys and
+ * two wedges of colour — a body that stated two thirds of its own rule and
+ * left the hardest clause, that a shot only gets in **sideways**, to be
+ * learned by losing a shot to the plate.
  *
- * Nothing caches a frame: a pair is two renderers stepping one world, and a
- * module-level cache here would be state shared between its two sides.
+ * **Every path here is the geometry next door.** `magnetArchPath`, `magnetPolePath`,
+ * `magnetPlatePath` and `magnetSlabPath` come from `magnet.ts` rather than
+ * being redrawn here, because `magnetOutline` in `packages/content` is the
+ * silhouette the shape sheet judges and the nameability gate reads, and a
+ * picture that moved the contour without moving that function would disagree
+ * with the one file allowed to say what this body's shape is. What this file
+ * decides is the light on it, what the poles do, and one thing drawn beside
+ * it.
  */
-
-/**
- * The hang, copied from `magnet.ts` on purpose.
- *
- * `HANG`, `HANG_BEATS` and the `0.37` spread are module-private there, so a
- * candidate cannot call them — and it must not *differ* from them either: the
- * two sides of the pair have to hang at the same angle on the same tick or the
- * vote is partly about a body leaning, which is not what this slot asks. So
- * they are here, spelled the same, and this comment is the reason.
- */
-const HANG = 0.05;
-const HANG_BEATS = 2.7;
-const HANG_SPREAD = 0.37;
 
 /**
  * A machined edge, all the way round, drawn **inside** the clip.

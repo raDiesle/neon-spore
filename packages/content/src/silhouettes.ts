@@ -1,12 +1,9 @@
 import type { ClubbedRim } from "./body-path.js";
 
 /**
- * Creature and hull parameters for the raster game. These are tuned in
- * legacy/style-guide.html and transcribed here as data.
- *
- * Each creature is defined by lobes, depth, and wobble (shape), plus rx, ry
- * (aspect ratio). The hull shares these shape parameters and adds a cannon,
- * which is itself a bump on the hull contour.
+ * Creature parameters: lobes, depth and wobble for the shape, `rx` and `ry` for
+ * the aspect. Most were tuned in `legacy/style-guide.html` and transcribed here
+ * as data; the ones that were not say where they came from.
  */
 
 export interface CreatureSilhouette {
@@ -27,20 +24,32 @@ export interface CreatureSilhouette {
   clubs?: ClubbedRim;
 }
 
-/** Slick: two broad lobes, wide and flat. Tilts and ripples as it travels. */
+/**
+ * Slick: two broad lobes on the long axis joined at a deep waist — two sacs
+ * holding on to each other, where `seed` 2.0 and `depth` 0.38 drew a bean with
+ * its lobes across the body. `ry` went 34 to 42 in the same move, so the aspect
+ * stops matching the dart's almost exactly. Swallows as it travels
+ * (`motions-event.ts`). `creature:slick` / `pinch` on VERSUS, taken in on
+ * 8 September 2026.
+ */
 export const SLICK: CreatureSilhouette = {
   lobes: 2,
-  depth: 0.38,
+  depth: 0.52,
   wobble: 0.045,
   rx: 68,
-  ry: 34,
-  seed: 2.0,
+  ry: 42,
+  seed: 0,
 };
 
-/** Bulb: many fine lobes around a round body. Pumps and sways. */
+/**
+ * Bulb: six lobes deep enough to be counted, on a perfectly round body — nine
+ * at `depth` 0.13 was a rim moving seven pixels, a texture and not a count. Six
+ * is free on the one axis `nameability.ts` measures, and it is the shape a
+ * *spore* has. Fills and vents. `creature:bulb` / `six`, taken in 8 Sept 2026.
+ */
 export const BULB: CreatureSilhouette = {
-  lobes: 9,
-  depth: 0.13,
+  lobes: 6,
+  depth: 0.24,
   wobble: 0.055,
   rx: 52,
   ry: 52,
