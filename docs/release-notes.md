@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-08 · 9fc6231c — THE BALLOON wears an oil slick, at twice the size, and one mouse pulls both handles
+
+The owner asked for this body to be cooler, more alien, a nicer colour and twice as big, and for the stage to let one pointer make a gesture that needs two. It is grey no longer: the skin carries a film that travels round it — blue-violet at 245 degrees through a magenta at 290 to a rose at 320 and back — so there is still no hue standing still on it to load a trigger for, which is the argument the creature was built grey on. Under the skin three veins fork up out of the knot, three lit beads hold an orbit just clear of the rim, and five threads drag below it as it climbs. The three forms are the shape sheet's own VEIN, NODE-RING and TRAIL, written into this creature's own box. Both sizes double, so a split half is now exactly the size a whole balloon used to be, and the handles move out to 1.15 of a tile because at 900 the rings would have been drawn inside the skin they hang off.
+
 ## 2026-09-08 · 12da9fc2 — THE PULSE opens four times slower, holds its word, and lights the whole ship
 
 COLD START spent its first three bars getting to one body a beat and its ninth on a cross-rhythm; the owner asked for a much slower start and the tempo could not give him one, because the grid is three steps to the game's own 96 BPM beat and that beat belongs to every wave. So the chart carries it: thirty-two bars instead of twenty-four, four of them introducing the four bodies one at a time with a whole bar of quiet around each, nothing off the beat until bar twenty-one, and the ending as fast as it ever was. The four veiled arrivals and the two jumps are where they were in the shape, moved down the longer ramp.
