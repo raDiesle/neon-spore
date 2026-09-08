@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-08 · 65a22e63 — Queue: a capture cannot turn a crank, so THE CLAW is unphotographable in use
+
+## 2026-09-08 · 95aa9583 — The claw's crank turns both ways, and the arm goes up under a thumb
+
+Anticlockwise pays the rope out instead of doing nothing. The arm goes back up at whatever rate the finger turns and closes on the first thing it meets, by `strikeReach` — the press's own rule, so a hand-driven climb is no safer than a committed one and a rock in the lane still costs. It leaves the hull with no press at all, on the column the strip is standing in, hanging rather than climbing, so nothing carries it on when the hand stops. Two limits, both the owner's: an arm carrying a pod may only be wound in, and a finger does nothing while the arm is still going up under its own power.
+
 ## 2026-09-08 · 582755f — Queue: the rate picker would fix a photographed candidate, and shot cannot reach it
 
 An event-shaped VERSUS slot burns for one beat out of a two-second replay, so two frames in three have nothing on them to judge. Finding one for `creature:dart` cost about thirty-five shots swept across `--wait` and then ranked by PNG file size, on the reasoning that the frame with a flame on it compresses worst. It worked, and it is not a technique anybody should have to invent twice.
