@@ -2,11 +2,14 @@ import type { Variant } from "../variant.js";
 // region: candidates
 import { SHOT_STREAK } from "./cannon-shot/streak/index.js";
 import { BULB_SIX } from "./creature-bulb/six/index.js";
+import { DART_TORCH } from "./creature-dart/torch/index.js";
+import { DART_WAKE } from "./creature-dart/wake/index.js";
 import { MAGNET_COIL } from "./creature-magnet/coil/index.js";
 import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
 import { SKIN_LIT } from "./creature-skin/lit/index.js";
 import { SKIN_VEIL } from "./creature-skin/veil/index.js";
 import { SLICK_PINCH } from "./creature-slick/pinch/index.js";
+import { THROB_CROWN } from "./creature-throb/crown/index.js";
 // endregion
 
 /**
@@ -81,4 +84,7 @@ export const VARIANTS: Variant[] = [
   SKIN_VEIL,
   SLICK_PINCH,
   BULB_SIX,
+  DART_TORCH,
+  DART_WAKE,
+  THROB_CROWN,
 ];
