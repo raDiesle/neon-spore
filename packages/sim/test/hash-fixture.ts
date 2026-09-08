@@ -84,6 +84,8 @@ const creature = (): Required<Creature> => ({
   beatboxWant: 3,
   beatboxHits: 2,
   beatboxBeat: 9,
+  beatboxTick: 561,
+  beatboxWrong: 480,
   balloonSplits: 1,
   balloonBeat: 6,
   balloonDir: -1,

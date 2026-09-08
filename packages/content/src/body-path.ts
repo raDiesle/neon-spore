@@ -44,10 +44,48 @@ export interface ClubbedRim {
   neck: number;
   /** How much reach and cap size differ club to club, 0..1. */
   vary?: number;
+  /**
+   * How far the **last** club has come out, 0..1, for a rim that grows one
+   * club at a time. Absent means every club is out, which is every body that
+   * wears a fixed rim.
+   *
+   * THE BEATBOX is why it exists: a box grows an arm on every beat a thumb
+   * counted, and an arm that appeared at full size on the frame after the
+   * press would be the one receipt the navigator gets arriving as a pop rather
+   * than as a thing their thumb did. Only the last club, because only one is
+   * ever new — the rim is walked in order, so the newest club is the one at
+   * the end of it.
+   *
+   * It scales the club's reach and its cap together, so a half-grown arm is a
+   * small ball close to the rim rather than a full-sized ball on a short
+   * stalk. The floor is inside `clubbedPoints`: a cap of nought has no angle
+   * for the neck to meet it at, and the walk would come apart on the frame of
+   * the press.
+   */
+  newest?: number;
 }
 
-/** Samples along the body between two clubs. */
+/**
+ * Samples along the body between two clubs, at the fewest.
+ *
+ * Seven was the whole of it while six clubs was the only rim in the game: six
+ * gaps of sixty degrees, forty-two samples round the body, and a contour as
+ * smooth as the sampled one beside it. THE BEATBOX grows its rim one club at a
+ * time, and at one club the *gap* is a whole turn — seven samples across three
+ * hundred and sixty degrees, which drew a four-lobed box as a plain bag. The
+ * lobes came back as clubs were added, so a body that is meant to be the same
+ * box with more arms on it was a different silhouette at every count.
+ *
+ * So it is a floor and `BODY_PER_RADIAN` is the rest: a gap is sampled at a
+ * fixed angular density however wide it is. At six clubs the density asks for
+ * four and the floor still wins, so THE THROB's outline is untouched to the
+ * point.
+ */
 const BODY_STEPS = 7;
+/** Samples per radian of gap, which is what makes the density a fact about the
+ * arc rather than about how many clubs happen to be standing on it. Roughly a
+ * sample every ten degrees, the same as `livingPoints`' own default walk. */
+const BODY_PER_RADIAN = 6;
 /** Samples around one cap. Few enough to be cheap, many enough to be round. */
 const CAP_STEPS = 22;
 /**
@@ -74,8 +112,19 @@ function jitter(rim: ClubbedRim, seed: number, i: number): { reach: number; cap:
   const a = Math.sin(i * 2.399 + seed);
   const b = Math.sin(i * 4.113 + seed * 1.7);
   const cap = rim.cap * (1 + b * vary * 0.9);
-  return { reach: Math.max(rim.reach * (1 + a * vary), cap), cap };
+  const out = { reach: Math.max(rim.reach * (1 + a * vary), cap), cap };
+  // The last club on a rim that grows one at a time, part of the way out. The
+  // floor is not a taste: a cap of nought leaves `atCap` below with no angle
+  // to meet the neck at, and the walk comes apart on exactly the frame the
+  // press happened (`ClubbedRim.newest`).
+  if (rim.newest === undefined || i !== rim.clubs - 1) return out;
+  const g = Math.max(NEWEST_FLOOR, Math.min(1, rim.newest));
+  return { reach: out.reach * g, cap: out.cap * g };
 }
+
+/** The smallest a growing club may be drawn at: a bud on the rim rather than
+ * nothing. Under this the neck has no cap to meet. */
+const NEWEST_FLOOR = 0.12;
 
 /**
  * The outline of a body wearing clubs, **walked** rather than sampled by angle.
@@ -124,8 +173,9 @@ export function clubbedPoints(shape: CreatureSilhouette, rim: ClubbedRim, t: num
     // The body, from the previous club's far side to this one's near side.
     const from = axis - step + atBody;
     const to = axis - atBody;
-    for (let k = 0; k <= BODY_STEPS; k++) {
-      pts.push(bodyAt(from + ((to - from) * k) / BODY_STEPS));
+    const steps = Math.max(BODY_STEPS, Math.ceil((to - from) * BODY_PER_RADIAN));
+    for (let k = 0; k <= steps; k++) {
+      pts.push(bodyAt(from + ((to - from) * k) / steps));
     }
 
     const out = 1 + j.reach * breath;

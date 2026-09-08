@@ -43,6 +43,7 @@ const BY_ID: Record<string, Subject> = {
   // same soundbox, and the sheet has one card for it.
   "creature.throbSwell": shape("BEATBOX"),
   "beat.drift": shape("BEATBOX"),
+  "beat.wrong": shape("BEATBOX"),
   "beat.lock": shape("BEATBOX"),
   "ship.cannonStep": control("cannonRight"),
   "ship.cannonEdge": control("cannonLeft"),

@@ -24,7 +24,7 @@ const AIM_STEPS: Record<string, { dcol: -1 | 0 | 1; drow: -1 | 0 | 1 }> = {
 };
 
 /**
- * **The two words a grip may name instead of a number.**
+ * **The two words a grip or a tap may name instead of a number.**
  *
  * An id is dealt by `world.nextId` as bodies arrive, and a caller outside the
  * page cannot know what it has reached: a jumped-to wave starts counting from
@@ -71,11 +71,12 @@ export function commandFor(
       }
       return { kind, color };
     }
-    case "grip": {
+    case "grip":
+    case "tap": {
       const id = Number(needs());
       if (!Number.isInteger(id)) {
         throw new Error(
-          `--press ${whole}: "${one}" — grip takes a creature's id, or ` +
+          `--press ${whole}: "${one}" — ${kind} takes a creature's id, or ` +
             `${Object.keys(PICKS).join(" or ")} to have the page choose one`,
         );
       }

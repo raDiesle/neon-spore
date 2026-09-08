@@ -9,6 +9,7 @@ import {
   type SimConfig,
   spanOf,
 } from "@neon-spore/sim";
+import { beatboxBodyMul } from "./beatbox.js";
 import { depthScale, drawnCol, drawnRow } from "./depth.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { rockRadius } from "./torch.js";
@@ -90,6 +91,13 @@ export function contourClock(id: number, time: number): number {
 export function livingBodyMul(c: Creature): number {
   if (c.kind === "echo") return ECHO_BODY_MUL;
   if (c.kind === "rind") return 1 + rindLayersLeft(c) * RIND_LAYER_MUL;
+  // THE BEATBOX is the third, and it is THE RIND's argument run the other way:
+  // a rind starts large and steps down as it is shot, a box starts small and
+  // steps *up* as the pair gets beats right. Both are the same kind of fact —
+  // a size that is a readout of the body's own state and holds for a whole
+  // frame — which is what separates them from the swell, a picture that
+  // changes several times a beat and must not move a hit test (`beatbox.ts`).
+  if (c.kind === "beatbox") return beatboxBodyMul(c);
   return 1;
 }
 

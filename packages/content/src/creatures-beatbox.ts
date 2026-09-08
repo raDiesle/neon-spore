@@ -33,11 +33,11 @@ export const BEATBOX_CREATURE: CreatureDef = {
   // **The pilot's strip**, and the rule crossing the controls once more
   // rather than an exception to it. The count is drawn on the pilot's screen
   // and the pilot has no thumb that reaches a box; the navigator holds the
-  // only thumb and is shown a tally of their own taps and never a target. So
+  // only thumb and is shown a frame with the number missing out of it. So
   // the seat that is warned is the seat that has to *say* something, which is
   // the same shape THE MAGNET and THE CHOIR already have — with the
   // difference that here what is said is a bare number.
   radar: "p1",
   blurb:
-    "A rounded soundbox that swells on every beat and asks for a number of them. Nothing the cannon carries touches it. Player 2 taps the body itself, once a beat, on the beat, and the run is committed by *stopping* — the first beat that goes by untapped is the beat it is judged on. The number is drawn on player 1's screen and on nobody else's. Right and it goes quiet; wrong and it puts a wave of sound through the hull and keeps falling for another try.",
+    "A small rounded soundbox that comes down at half the speed of everything else, swelling on every beat and pushing rings of air out of itself. Nothing the cannon carries touches it. Player 2 taps the body, once a beat, on the beat: every beat that lands grows an arm out of its rim and the box gets a little bigger, so the run is readable off the body itself. It is committed by *stopping* — the moment a beat's window shuts untapped it is judged, and one tap too many is judged on the spot. The number is drawn on player 1's screen and on nobody else's. Right and it goes quiet; wrong and it goes red and puts a wave of sound down the field into the hull, and keeps falling for another try.",
 };

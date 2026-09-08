@@ -39,6 +39,24 @@ export interface BeatboxConfig {
    */
   beatboxWindowMs: number;
   /**
+   * Beats between the steps a box takes down the field. Two: half the speed of
+   * everything else that falls, and the owner asked for it in those words.
+   *
+   * A box is the one body answered by a *run* rather than by a press, and a run
+   * costs as many beats as the count it is asking for plus the one the pair
+   * spends stopping. At a tile a beat a box authored with four beats in the
+   * lower half of the field could be asking for more beats than it has left,
+   * which is a body the pair is shown and cannot answer. Halving the fall
+   * doubles what every count is worth in height, and it costs nothing else:
+   * `beatboxOnSpawn` still clamps the count, so this widens the room inside
+   * that clamp rather than moving it.
+   *
+   * It is spent through `slowStep` and THE ECHO's own `echoFalls` shape — the
+   * beats a box does not take are beats it simply does not move, because the
+   * simulation stores integers and there is no half a tile for it to stand on.
+   */
+  beatboxFallBeats: number;
+  /**
    * What the wave of sound costs the hull when a run locks in on the wrong
    * count. Below `damageCreature`, on `damageChoirSong`'s terms and for its
    * reason: a body that reached the ship has beaten the pair and a miscounted
@@ -59,6 +77,7 @@ export interface BeatboxConfig {
 export const BEATBOX_DEFAULTS: BeatboxConfig = {
   beatboxBeats: 3,
   beatboxWindowMs: 200,
+  beatboxFallBeats: 2,
   damageBeatboxWave: 8,
   scoreBeatboxSilence: 120,
 };

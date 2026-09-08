@@ -1,3 +1,4 @@
+import { beatboxFalls } from "./beatbox.js";
 import { echoFalls } from "./echo.js";
 import { stepStrand } from "./strand-round.js";
 import type { Creature } from "./types.js";
@@ -15,7 +16,7 @@ import type { World } from "./world.js";
  * nothing on the rest; THE STRAND takes half the beats and spends the others
  * undulating, which is one movement drawn as two.
  *
- * One call rather than two, because `beat.ts` asks one question of a body —
+ * One call rather than three, because `beat.ts` asks one question of a body —
  * *have you already moved this beat* — and a second `if` in that loop is a
  * second place the answer can be forgotten.
  */
@@ -30,6 +31,14 @@ export function slowStep(world: World, c: Creature): boolean {
   // Half as fast and nothing else: on the beats it does not take there is no
   // fraction of a tile for it to move, because the simulation stores integers.
   if (c.kind === "echo") return !echoFalls(world.cfg, world.beat);
+  // THE BEATBOX, at the same half speed and for a different reason: an echo is
+  // slow because a body that divides has to be seen dividing, and a box is slow
+  // because a *run* costs beats. The count it is asking for plus the beat the
+  // pair spends stopping is the height it needs, and the owner asked for the
+  // fall to be halved so a box authored low on the field is still a body the
+  // pair can answer rather than one they are shown and cannot
+  // (`config-beatbox.ts`).
+  if (c.kind === "beatbox") return !beatboxFalls(world.cfg, world.beat);
   // Half as fast *and* a wave: every bead trades places with the rank it is not
   // in, every beat, and steps down on the beats the thread takes one.
   if (c.kind === "strand") {

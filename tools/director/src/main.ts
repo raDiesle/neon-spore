@@ -43,11 +43,13 @@ import { bindWaveIo } from "./waves-io.js";
 
 // The director: one screen where a wave is placed, played and judged — not
 // the game, and the stage runs the shipping renderer through `computeStage`.
-// The hull holds while a wave is judged; `briefings` stays at `DEFAULT_CONFIG`'s
-// own default (off, for determinism and shape sheets — see `config-pair.ts`),
-// so the stage opens straight on the wave. `#briefToggle` (`pair-panel.ts`)
-// turns it on per session for whoever is judging a wave's opening card.
-const cfg: SimConfig = { ...DEFAULT_CONFIG, hullInvulnerable: true };
+// **The hull breaks here.** It used to hold while a wave was judged, and the
+// owner asked for that off: a wave of sound going through the ship with the bar
+// unmoved is a defence that cannot be judged, which is what this screen is for.
+// `briefings` stays at `DEFAULT_CONFIG`'s own default (off, for determinism and
+// shape sheets — see `config-pair.ts`), so the stage opens straight on the wave.
+// `#briefToggle` (`pair-panel.ts`) turns it on for whoever is judging one.
+const cfg: SimConfig = { ...DEFAULT_CONFIG };
 
 // Every column of `<main>` gets a collapse handle (`columns.ts`) and a drag
 // grip on its right edge (`column-resize.ts`, after initColumns, which decides

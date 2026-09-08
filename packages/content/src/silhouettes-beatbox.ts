@@ -47,3 +47,45 @@ export const BEATBOX: CreatureSilhouette = {
   ry: 48,
   seed: Math.PI,
 };
+
+/**
+ * **The arms a box has grown**, as the same rim of balls on stalks THE THROB
+ * wears.
+ *
+ * The owner asked for this by name: the box starts rounded, and every beat the
+ * navigator taps correctly it *grows an arm*, still part of the body the way
+ * the cannon is part of the hull. `ClubbedRim` is exactly that construction
+ * and it already ships — the contour is **walked** out of the body, up one
+ * side of a neck, round the cap and back down the other, so what comes out is
+ * one closed outline and the arm is the same mass as the box rather than a
+ * shape drawn beside it (`body-path.ts`). Nothing here is new geometry; it is
+ * THE POMMEL's walk given a count that changes.
+ *
+ * `null` for a box nobody has touched, which is the whole of "starts rounded":
+ * with no rim the contour falls back to the four shallow lobes above, and the
+ * pair sees a plain rounded cabinet.
+ *
+ * The numbers are a tuning of the same walk rather than a second opinion about
+ * it, and they sit at the other end of it from the throb's. `reach` is nearly
+ * four times its 0.26 and `cap` is under its 0.36, because these are *arms* and
+ * a throb's are knobs: a short stalk under a big ball reads as a lumpy body,
+ * and an arm has to be countable at forty pixels from across a room. `neck` is
+ * thinner for the same reason — a stalk as wide as its cap is a lobe.
+ *
+ * `vary` is nought and it is the one figure that is not a tuning. A throb's rim
+ * is uneven so six knobs read as alive; here every arm stands for one beat the
+ * pair got right, and arms of visibly different sizes would be saying something
+ * about those beats that is not true. They are still not quite equal, and that
+ * is the body rather than the rim: a cap is sized against the radius *under*
+ * it, and this contour is wider than it is tall, so an arm out of a side is
+ * larger than one out of the top. Evening that out would mean sizing caps
+ * against an average radius, which is the thing `ClubbedRim.reach` is
+ * documented as refusing — half the caps would sit inside the rim.
+ */
+export function beatboxArms(hits: number, grown: number): CreatureSilhouette {
+  if (hits <= 0) return BEATBOX;
+  return {
+    ...BEATBOX,
+    clubs: { clubs: hits, reach: 0.95, cap: 0.32, neck: 0.34, vary: 0, newest: grown },
+  };
+}

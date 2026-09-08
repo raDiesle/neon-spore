@@ -1,6 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import {
   beatboxBeatFor,
+  beatboxDeadline,
   beatboxHitsMade,
   beatboxIsBox,
   beatboxWanted,
@@ -27,10 +28,13 @@ import {
  * here, including the boundary the config has to stay inside for the question
  * to have one answer at all.
  *
- * The second is that a run is committed by **stopping**. Every other creature
- * is answered by doing something; this one is answered by doing something and
- * then not doing it, and there are two doors into that — the pair stops, or
- * they come back a beat too late. Both are below.
+ * The second is that a run is committed by **stopping**, and that both ways of
+ * getting it wrong are answered *at once* rather than on the next beat. Every
+ * other creature is answered by doing something; this one is answered by doing
+ * something and then not doing it. A run that stops short is judged the instant
+ * the beat it skipped closes; a run that goes one tap too far is judged on that
+ * tap. Both moments are asserted below to the tick, because a beat's grace is
+ * exactly what was taken out of them.
  *
  * The third is what a **wrong** count costs. Getting it wrong is not simply
  * failing to kill the thing: the hull pays, and the body stays on the field
@@ -157,6 +161,17 @@ describe("a box on the field", () => {
   });
 });
 
+describe("how fast a box comes down", () => {
+  it("takes a tile every other beat, which is half of everything else", () => {
+    // Six beats of falling. A slick would be six rows down the field; a box is
+    // three. Read off the body rather than off the config, so a change to
+    // `beatboxFallBeats` that did not reach `slowStep` fails here.
+    const start = run([box(3, 3)], at(1) + 1).world;
+    const later = run([box(3, 3)], at(7) + 1).world;
+    expect(only(later).row - only(start).row).toBe(3);
+  });
+});
+
 describe("a run", () => {
   it("is committed by stopping, and the right count silences the box", () => {
     // Three taps on beats 1, 2 and 3, then nothing. Beat 4 goes by with the
@@ -199,6 +214,68 @@ describe("a run", () => {
     expect(events.filter((e) => e.type === "beatboxWave")).toHaveLength(1);
     // Still there, and counting again from the tap that broke the old run.
     expect(beatboxHitsMade(only(world))).toBe(1);
+  });
+});
+
+describe("a mistake is answered at once", () => {
+  const full = 100 * MILLI;
+
+  it("judges a skipped beat when that beat's window shuts, not a beat later", () => {
+    // Two taps against a box asking for three, and then nothing. The run is
+    // over the moment beat 3's window closes — one tick past the deadline —
+    // and it must not still be open on the tick before it.
+    const world = createWorld({ ...NO_REGEN }, 0, [box(3, 3)]);
+    const inputs = new Map(runOf(1, 2).map((i) => [i.tick, [i]]));
+    const deadline = at(3) + beatboxWindowTicks(CFG);
+    let fired = -1;
+    for (let t = 0; t < at(6); t++) {
+      step(world, inputs.get(t) ?? []);
+      if (fired < 0 && world.events.some((e) => e.type === "beatboxWave")) fired = world.tick;
+    }
+    // The deadline the reading names, and the tick the discharge actually
+    // landed on, are the same moment — not the same *beat*, the same tick.
+    expect(deadline).toBe(at(3) + beatboxWindowTicks(CFG));
+    expect(fired).toBe(deadline + 1);
+    // And that is well inside beat 3, rather than at beat 4 where a whole
+    // beat of grace would have put it.
+    expect(fired).toBeLessThan(at(4));
+  });
+
+  it("names the deadline off the beat the last tap was for", () => {
+    const { world } = run([box(3, 4)], at(2) + 1, runOf(1, 2));
+    expect(beatboxDeadline(CFG, only(world))).toBe(at(3) + beatboxWindowTicks(CFG));
+  });
+
+  it("charges one tap too many on that tap, and does not count it", () => {
+    // A box asking for two, tapped three times. The third is refused as a run
+    // rather than folded into one: the discharge is on beat 3 itself, and the
+    // count on the event is the two that were right.
+    const { world, events } = run([box(3, 2)], at(3) + 1, runOf(1, 3), NO_REGEN);
+    const wave = events.find((e) => e.type === "beatboxWave");
+    expect(wave).toBeDefined();
+    expect(wave?.hits).toBe(2);
+    expect(world.hullMilli).toBe(full - CFG.damageBeatboxWave * MILLI);
+    // The run is wiped rather than left standing at one: the tap that broke it
+    // is not the first tap of a new run.
+    expect(beatboxHitsMade(only(world))).toBe(0);
+  });
+
+  it("stamps the tick a discharge happened on, for the red render draws", () => {
+    const { world } = run([box(3, 2)], at(3) + 1, runOf(1, 3), NO_REGEN);
+    expect(only(world).beatboxWrong).toBe(at(3));
+    // And the tap's own tick is cleared with the run it belonged to.
+    expect(only(world).beatboxTick).toBeUndefined();
+  });
+
+  it("stamps the tick a counted tap arrived on, which is not the beat", () => {
+    // A thumb a few ticks early is credited to the beat it was reaching for
+    // and stamped with the tick it actually landed on — the two are different
+    // numbers, and the picture is timed from the second.
+    const early = at(2) - 3;
+    const { world } = run([box(3, 3)], at(2) + 1, [tap(early, FIRST)]);
+    const c = only(world);
+    expect(c.beatboxBeat).toBe(2);
+    expect(c.beatboxTick).toBe(early);
   });
 });
 

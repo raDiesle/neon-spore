@@ -63,18 +63,64 @@ export const BEAT_SOUNDS: SoundDef[] = [
     id: "beat.drift",
     family: "beat",
     blurb: "The click with its low body detuned flat, dragging behind itself.",
-    status: "bound",
-    // Written for the beat-breaker and spent on the creature that got here
-    // first, on `boss.choir`'s terms exactly. A miscounted run on THE BEATBOX
-    // is precisely this sound's own blurb — the global beat is still right and
-    // this is not on it (`bind-beatbox.ts`). The beat-breaker keeps `beat.half`
-    // and `creature.beatBreaker`, which are the two that are about an *offset*
-    // rather than about a count coming apart.
-    use: "THE BEATBOX discharging: a run committed on the wrong count.",
+    status: "spare",
+    // Written for the beat-breaker, spent on THE BEATBOX's discharge for a
+    // while, and handed back. It is a *drift* — the global beat is still right
+    // and this is not on it — and the owner asked for a discharge to be a
+    // plain error rather than a shade of late, which is `beat.wrong` below.
+    // The beat-breaker also keeps `beat.half` and `creature.beatBreaker`.
+    use: "A wave whose clock is deliberately off the shared beat.",
     level: 0.32,
     layers: [
       tick(0.45, 0, 4600),
       { source: "sine", freq: 84, toFreq: 74, gain: 0.5, attack: 0.004, release: 0.1 },
+    ],
+  },
+  {
+    id: "beat.wrong",
+    family: "beat",
+    blurb: "A flat two-note buzz falling a semitone, under a bitten-off click.",
+    status: "bound",
+    // **A buzzer, not a shade of late.** The owner asked for it by name — *a
+    // sound of error* — after a miscount had been sounding as `beat.drift`,
+    // which is a click dragging behind itself. That is a good sound for a
+    // clock that is off and a bad one for a mistake: it says *not quite*
+    // where what happened is *no*. Two square bodies a semitone apart, falling
+    // together, is the shape every machine in the world uses to refuse
+    // something, and this is the one moment in the game that wants it.
+    //
+    // Under the beat's own click in level so it never masks the metronome the
+    // pair is counting on — a wrong answer that drowns the question would take
+    // the next run with it — and short, because the `breach` beside it is
+    // already playing what the mistake cost.
+    use: "THE BEATBOX discharging: a run committed on the wrong count.",
+    // Both bodies are squares under a lowpass, and the filter is not a
+    // flourish: a square is its fundamental plus everything above it, so an
+    // open one at 196 Hz reaches a kilohertz into the voice and `judgeBand`
+    // refuses it. Cut at 270 the harmonics that make it a buzz rather than a
+    // hum are the two under the band, which is exactly the fat, flat, wrong
+    // sound wanted and none of the part that would sit on a sentence.
+    level: 0.4,
+    layers: [
+      tick(0.4, 0, 4600),
+      {
+        source: "square",
+        freq: 196,
+        toFreq: 185,
+        gain: 0.34,
+        attack: 0.004,
+        release: 0.16,
+        filter: { type: "lowpass", freq: 270, q: 0.7 },
+      },
+      {
+        source: "square",
+        freq: 131,
+        toFreq: 123,
+        gain: 0.4,
+        attack: 0.004,
+        release: 0.22,
+        filter: { type: "lowpass", freq: 270, q: 0.7 },
+      },
     ],
   },
   {

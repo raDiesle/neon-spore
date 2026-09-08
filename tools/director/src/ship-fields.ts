@@ -136,6 +136,7 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   // costs — a box's own count is authored per arrival (`WaveEntry.beats`).
   beatboxBeats: "THE BEATBOX — a soundbox counted out on the beat",
   beatboxWindowMs: "THE BEATBOX — a soundbox counted out on the beat",
+  beatboxFallBeats: "THE BEATBOX — a soundbox counted out on the beat",
   damageBeatboxWave: "THE BEATBOX — a soundbox counted out on the beat",
   scoreBeatboxSilence: "SCORE",
   // THE BALLOON's eight, next door in `ship-fields-balloon.ts` — the cut this

@@ -170,6 +170,14 @@ export function lateHashParts(c: Creature): number[] {
   out.push(c.beatboxWant ?? -1);
   out.push(c.beatboxHits ?? -1);
   out.push(c.beatboxBeat ?? -2);
+  // And the two ticks the picture is timed from: the thumb that counted, and
+  // the discharge. Neither decides anything about a run, and both are in here
+  // anyway — a field a rule does not read is still a field two devices can
+  // disagree about, and rule 4 admits no exceptions that are not named in
+  // `hash.ts`. `-1` for the same reason as the three above: no tick is
+  // negative, so absent and present can never be the same number.
+  out.push(c.beatboxTick ?? -1);
+  out.push(c.beatboxWrong ?? -1);
   // THE BALLOON's six, and the loudest group in this list. The heading and the
   // speed decide which tile it reaches next; the beat it came into being
   // decides whether it is climbing at all yet; the count decides whether the

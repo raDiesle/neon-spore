@@ -58,8 +58,9 @@ export function beatboxHitsMade(c: Creature): number {
 }
 
 /** Whether a run is under way at all: one tap has landed and the box is now
- * counting. What `beatboxLapsed` is asked about, and what render draws a
- * tally for. */
+ * counting. What `beatboxLapsed` is asked about, and what render drives the
+ * box's own air off — an untouched box idles and one in a run pushes harder
+ * (`render/beatbox-air.ts`). */
 export function beatboxRunOpen(c: Creature): boolean {
   return beatboxHitsMade(c) > 0;
 }
@@ -95,22 +96,89 @@ export function beatboxBeatFor(world: World): number | null {
 }
 
 /**
- * **Whether a run that was going is over**, asked about a given beat.
+ * **Whether a run that was going is over**, asked of the tick the world is
+ * standing on.
+ *
+ * It used to be asked of a *beat*, with a whole beat of grace after the one a
+ * tap was expected on, and the owner's report is the reason it no longer is:
+ * *when one beat was skipped I should immediately react, not on the beat
+ * after, its too late*. A run that skips a beat is now settled the instant
+ * that beat's window shuts — a fifth of a second past the boundary — rather
+ * than at the next boundary a whole beat later.
+ *
+ * The deadline is `beatboxDeadline` below and it is a tick, which is what
+ * makes the reaction land inside a beat at all: a beat is the coarsest thing
+ * this simulation counts, so anything answered on one can only ever be a beat
+ * late. Nothing about the *window* moved — a thumb still has
+ * `beatboxWindowTicks` either side of the beat it is reaching for — only the
+ * moment the game stops waiting for it.
  *
  * One predicate for the two doors a run can be committed through, and one is
- * exactly why it is a predicate: the beat loop asks it of the beat that has
- * just begun, and a tap asks it of the beat the tap is for. A run that skipped
- * a beat and was then tapped again would otherwise sail past the loop's check,
- * because by the time the loop looks the body already carries the *newer*
- * beat.
- *
- * `+ 1` and not `+ 0` is a whole beat of grace, and it has to be: the window
- * around beat `b` closes `beatboxWindowTicks` *after* the boundary, so a check
- * at beat `b` itself would commit the run while the thumb still had a real
- * chance to land. At `b + 1` the window has certainly shut.
+ * exactly why it is a predicate: `step` asks it of every box on every tick,
+ * and a tap asks it of the body it landed on. The second is now the rarer
+ * path — the tick loop has almost always settled the run before a late thumb
+ * arrives — and it is kept because a tap and a settle inside one tick must
+ * still resolve in that order.
  */
-export function beatboxLapsed(c: Creature, beat: number): boolean {
-  return beatboxRunOpen(c) && beat > (c.beatboxBeat ?? beat) + 1;
+export function beatboxDeadline(cfg: SimConfig, c: Creature): number | null {
+  if (!beatboxRunOpen(c) || c.beatboxTick === undefined) return null;
+  const tpb = ticksPerBeat(cfg);
+  // **The boundary the last tap answered, recovered from the tick it landed
+  // on** — and deliberately not from `beatboxBeat`, which is what the first
+  // version of this did.
+  //
+  // `world.beat` is a *label* rather than a position on the tick line: it is
+  // incremented by `beatMetronome` and a run of the game can leave it a whole
+  // beat away from `tick / ticksPerBeat` (it does, live, and the offset then
+  // stands for the rest of the run). Multiplying it back into ticks was
+  // therefore a deadline in the wrong place, and it settled runs a beat early
+  // — a mistake nothing in the picture would have explained to a player.
+  //
+  // Rounding is exact rather than approximate: a tap lands inside
+  // `beatboxWindowTicks` of a boundary, and that window is held to under half
+  // a beat by the config's own test, so the nearest multiple of `tpb` *is* the
+  // boundary it was reaching for, early tap or late.
+  const boundary = Math.round(c.beatboxTick / tpb) * tpb;
+  // One beat further on, plus the far edge of that beat's window: the last
+  // tick a thumb could still have landed on and counted.
+  return boundary + tpb + beatboxWindowTicks(cfg);
+}
+
+export function beatboxLapsed(world: World, c: Creature): boolean {
+  const deadline = beatboxDeadline(world.cfg, c);
+  return deadline !== null && world.tick > deadline;
+}
+
+/**
+ * **Whether one more tap would take this run past what the box asked for.**
+ *
+ * Asked before a tap is counted rather than after, because an over-count is
+ * now answered on the tap itself — the owner asked for *when player hits more
+ * than required beats, it should also immediately show red and damages the
+ * ship*. Waiting for the run to be committed by stopping would have put a
+ * whole beat between the thumb that was wrong and the thing that said so, and
+ * on a creature whose entire subject is *when* a press landed that is the one
+ * delay it cannot afford.
+ *
+ * A box asking for nothing overshoots on its first tap, which is the same
+ * refusal `beatboxCorrect` makes for the same malformed body: nothing is ever
+ * silenced for free.
+ */
+export function beatboxOvershoots(c: Creature): boolean {
+  return beatboxHitsMade(c) + 1 > beatboxWanted(c);
+}
+
+/**
+ * **Whether a box takes a step down the field on this beat.**
+ *
+ * A box comes down at half the speed of everything else that falls, and the
+ * beats it does not take are beats it simply does not move: the simulation
+ * stores integers, so there is no half a tile for it to stand on. THE ECHO's
+ * `echoFalls` is the same shape for the same reason, and `slowStep` is where
+ * both are spent (`slow-fall.ts`).
+ */
+export function beatboxFalls(cfg: SimConfig, beat: number): boolean {
+  return beat % cfg.beatboxFallBeats === 0;
 }
 
 /** Whether the run standing on this box answers what it asked for. A box
@@ -119,6 +187,26 @@ export function beatboxLapsed(c: Creature, beat: number): boolean {
 export function beatboxCorrect(c: Creature): boolean {
   const want = beatboxWanted(c);
   return want > 0 && beatboxHitsMade(c) === want;
+}
+
+/**
+ * **How long ago the last counting thumb landed**, in ticks, or null for a box
+ * nobody has touched.
+ *
+ * Here rather than at the draw site because three pictures are timed from it —
+ * the glow under the thumb, the green ring going out of the body, and the arm
+ * growing out of the rim — and three copies of `world.tick - c.beatboxTick`
+ * is three places that can disagree about when a press happened. The purity
+ * test carries a row for exactly this shape (`packages/sim/test/purity.test.ts`).
+ */
+export function beatboxTapAge(world: World, c: Creature): number | null {
+  return c.beatboxTick === undefined ? null : world.tick - c.beatboxTick;
+}
+
+/** The same reading for the last discharge: how long the body has been lit
+ * red, in ticks, or null for a box that has never come apart. */
+export function beatboxWrongAge(world: World, c: Creature): number | null {
+  return c.beatboxWrong === undefined ? null : world.tick - c.beatboxWrong;
 }
 
 /**

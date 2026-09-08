@@ -185,6 +185,7 @@ export {
 } from "./shapes.js";
 export {
   BULB,
+  beatboxArms,
   CANNON_LOBE,
   CHOIR,
   type CreatureSilhouette,

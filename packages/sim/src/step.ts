@@ -1,5 +1,6 @@
 import { balloonHeard, rubBalloons } from "./balloon-pull.js";
 import { onBeat } from "./beat.js";
+import { settleSpentBeatboxes } from "./beatbox-round.js";
 import { briefHeard, briefingHolds, guideStepHeard, stepReady } from "./briefing.js";
 import { advanceBullets, releaseShot } from "./bullets.js";
 import { stepChoirFuse } from "./choir.js";
@@ -137,6 +138,20 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
     // both of these doors to a thumb (`malfunction.ts`).
     stepMalfunction(world);
   }
+  // **Every soundbox whose run has stopped, judged on the tick rather than on
+  // the beat.** A run that skipped a beat is over the moment that beat's
+  // window shuts, a fifth of a second past the boundary, and the owner's
+  // report is the whole reason this call is here rather than only inside
+  // `onBeat`: an answer given at the next boundary is a whole beat late, and
+  // on this creature a beat late is an answer about a different beat
+  // (`beatbox-round.ts`).
+  //
+  // After the beat above rather than before it, so a box that settles on the
+  // same tick it also steps a row is settled where the pair watched it land.
+  // `onBeat` still calls it too, and that call is not redundant: it runs
+  // *between* the fall and `resolveHull`, so a box the pair got right on its
+  // last beat is silenced rather than charged to the hull.
+  settleSpentBeatboxes(world);
   // The dome under the plate, on the tick and not on the press. Here rather
   // than in `armShield` because the shield opens a coil by *standing* under
   // it: a plate carried into a coil's column while the window is still open

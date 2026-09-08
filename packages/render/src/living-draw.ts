@@ -1,3 +1,4 @@
+import type { CreatureSilhouette } from "@neon-spore/content";
 import { livingMotion, livingPoints, livingSilhouette, poseClock } from "@neon-spore/content";
 import {
   type Creature,
@@ -57,6 +58,25 @@ export function drawLiving(
    * land or miss depending on where in the beat it arrived.
    */
   swell = 1,
+  /**
+   * A contour to draw this body with instead of the one its kind implies.
+   * Unset for everything but THE BEATBOX, whose rim grows an arm on every beat
+   * a thumb counted — so the contour is a fact about *this body right now*
+   * rather than about its kind, and `livingSilhouette` cannot answer it
+   * (`content/silhouettes-beatbox.ts`). An override rather than a draw path of
+   * its own, because everything else about a box is an ordinary blob and a
+   * second path would be a second copy of all of it.
+   */
+  shapeOver?: CreatureSilhouette,
+  /**
+   * How far this body is lit as **wrong**, 0..1 — the whole skin carried
+   * towards red and back again. Nought for every body but a soundbox whose run
+   * has just come apart, which the owner asked for in those words. A fraction
+   * rather than a flag so it fades out, which is what keeps it an alarm rather
+   * than a colour: a body that snapped to solid red and stayed there would be
+   * saying *load red*, the one sentence no box may say (`creatures-beatbox.ts`).
+   */
+  alarm = 0,
 ): void {
   // **Not `c.kind`.** A lure is drawn as the body it wears — the contour, the
   // own-motion, the interior, the size, all of it — and this is the line that
@@ -66,7 +86,7 @@ export function drawLiving(
   // row on it: one site left asking `c.kind` and player 1 has a tell.
   const look = wornKind(c);
   const isBulb = look === "bulb";
-  const shape = livingSilhouette(look);
+  const shape = shapeOver ?? livingSilhouette(look);
   // A body may carry no colour at all — the red/cyan ternary below would
   // otherwise read a null colour as cyan, painting a decoy in one of the two
   // ammunition colours.
@@ -85,9 +105,15 @@ export function drawLiving(
   // eye there. `turnedTrio` owns the crossing, because the cage around a
   // recoil is lit in the same colour on the same frame (`recoil.ts`).
   const tint = turnedTrio(neutral ? null : c.color, turn);
-  const rim = haze(tint.rim);
-  const hex = haze(tint.hex);
-  const dark = haze(tint.dark);
+  // And the alarm, carried over the top of whatever the body's own colour is.
+  // A mix rather than a replacement: it fades in and out, so what the pair
+  // reads is *something just went wrong here* rather than a body that has
+  // changed which trigger answers it (`alarm`).
+  const alert = colorTrio("red");
+  const lit = (h: string, to: string): string => haze(alarm > 0 ? mixHex(h, to, alarm) : h);
+  const rim = lit(tint.rim, alert.rim);
+  const hex = lit(tint.hex, alert.hex);
+  const dark = lit(tint.dark, alert.dark);
 
   // The contour wobble is still on the wall clock, which the pose no longer
   // is: `blobPath` is sampled in seconds by every shape tool too, and its

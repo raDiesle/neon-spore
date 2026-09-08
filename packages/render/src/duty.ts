@@ -115,10 +115,17 @@ const DUTY_WORD = {
   choir: { p1: "SHAKE" },
   // THE BEATBOX. The pilot is the only seat the count is drawn on and the
   // navigator is the only one who can tap it out, so the word is the thing
-  // being asked for and nothing else. BEATS rather than COUNT, because what
-  // the navigator has to hear is a number *of beats* — COUNT would read as an
-  // instruction to count something they can already see.
-  beatbox: { p1: "BEATS" },
+  // being asked for and nothing else.
+  //
+  // It said BEATS and the owner asked for the whole phrase. The short form
+  // was a word the pilot had to *interpret* before they could say anything —
+  // BEATS on its own is a subject, not an instruction — and the navigator's
+  // own frame now reads CLICK X TIMES (`beatbox-marks.ts`), so the two halves
+  // are one sentence with the number missing from one end of it. This is the
+  // longest word in this table after THE FENCE's, and it is long for THE
+  // FENCE's reason: the siren has room, and a seat reading it is holding
+  // nothing it could act on alone.
+  beatbox: { p1: "NUMBER OF BEATS" },
   // THE BALLOON, and the only row here that gives **both** seats a word — and
   // the same kind of word THE CHOIR's is, an instruction to the seat reading
   // it rather than a fact to pass on. Neither hand does anything alone, so

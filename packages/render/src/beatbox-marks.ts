@@ -1,4 +1,4 @@
-import { beatboxHitsMade, beatboxIsBox, beatboxWanted, type World } from "@neon-spore/sim";
+import { beatboxIsBox, beatboxWanted, type World } from "@neon-spore/sim";
 import { beatboxSwell } from "./beatbox.js";
 import { creatureCenter, creatureRadius } from "./creature-place.js";
 import type { Layout } from "./layout.js";
@@ -7,33 +7,43 @@ import { drawTargetLock } from "./target-lock.js";
 
 /**
  * THE BEATBOX's two half-pictures: the **count** over the box on player 1's
- * screen, and the navigator's own running **tally** on player 2's.
+ * screen, and the frame that says *there is a count and it is not yours* on
+ * player 2's.
  *
  * THE VEER's arrangement (`veer-marks.ts`) with the sharpest split in the file
  * so far, because here the two screens are not being shown more and less of
- * one thing — they are shown two different numbers.
+ * one thing — one of them is shown a number and the other is shown that a
+ * number exists.
  *
  * **Player 1 gets the target.** A numeral above the body, full weight, in the
- * field's own grey, with that many pips under it: *this one wants three*. The
- * pilot has no thumb that reaches a box, so the number is worth nothing to
- * them except as a thing to say out loud, which is the creature.
+ * field's own grey: *this one wants three*. The pilot has no thumb that
+ * reaches a box, so the number is worth nothing to them except as a thing to
+ * say out loud, which is the creature.
  *
- * **Player 2 gets the receipt.** The same row of pips, but only as many as
- * their own taps have lit — no numeral, no empty slots, and therefore no way
- * to work out where the row ends. A row of three lit pips says *you are three
- * in*; it never says *and three is the answer*. Empty slots would give the
- * count away at a glance, which is why the pips are drawn one at a time from
- * the middle outward rather than into a fixed frame.
+ * **Player 2 gets a frame and an instruction with a hole in it.** A target
+ * lock around the body — `dart-query.ts`'s vocabulary reused rather than
+ * reinvented, so a pair who have met a dart or a veer already know that a
+ * frame like this means *an instrument has found this and cannot tell you the
+ * rest* — and under it, CLICK X TIMES. The X is an X and stays one. It is the
+ * only words in this game written under a body rather than under the siren
+ * (`duty.ts`), and it earns that by being the one creature where the seat with
+ * the thumb needs to be told the *shape* of the answer while being told none
+ * of it: a navigator meeting their first box has no way to guess that the
+ * gesture is a run of presses rather than one.
  *
- * And a target lock around the body, which is `dart-query.ts`'s vocabulary
- * reused rather than reinvented: a pair who have met a dart or a veer already
- * know that a frame like this means *an instrument has found this and cannot
- * tell you the rest*, and here that is exactly true.
+ * **The tally is gone from both screens, and that is where the arms came
+ * from.** Both seats used to carry a row of pips — the pilot's showing the
+ * target with the run lit inside it, the navigator's showing only their own
+ * taps. The owner asked for the count to stop being a number floating over the
+ * body and start being something the body *does*, so every beat that lands now
+ * grows an arm out of the rim instead (`content/silhouettes-beatbox.ts`). It
+ * reads at a glance from further away than a pip ever did, it cannot leak the
+ * target because an arm only ever stands for a beat already spent, and it puts
+ * the receipt on the thing the thumb is actually touching.
  *
  * Both marks stand over the box for its whole fall. There is nothing to gate
  * on — a box is asking for the same number on the beat it arrives and on the
- * beat it lands, and the pips are the pair's only account of a run that is
- * still open.
+ * beat it lands.
  */
 
 /** Whether this screen carries the count. Player 2 never does — that is the
@@ -44,48 +54,21 @@ export function showsBeatboxCount(l: Layout): boolean {
   return l.role !== "p2";
 }
 
-/** How far above the body the pips sit, in body radii — clear of the swell at
- * its largest, so a box on the beat never grows into its own marks. */
-const PIP_LIFT = 1.75;
-/** And the numeral, above the pips. */
-const NUMBER_LIFT = 2.9;
-/** Pip radius and spacing, in body radii. */
-const PIP_R = 0.14;
-const PIP_GAP = 0.44;
+/** How far above the body the numeral sits, in body radii — clear of the
+ * swell at its largest and of the longest arm, so a box on the beat never
+ * grows into its own marks. */
+const NUMBER_LIFT = 2.6;
+/** And how far below the body the navigator's line sits. Under rather than
+ * over, so the two screens' marks are never in the same place: a rig showing
+ * both at once has to be readable as two seats' worth of picture. */
+const WORDS_DROP = 2.5;
 /** The frame's half-extent, in body radii: the square a lure, a dart and a
  * veer all wear, because four markings that mean *picked out* have to be one
  * size. */
 const BOX_MUL = 1.6;
-
-/** The row of pips, centred over the body. `lit` of `shown` are filled; the
- * rest are drawn as outlines, and player 2 is handed `shown === lit` so no
- * outline ever appears on that screen. */
-function drawPips(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  r: number,
-  shown: number,
-  lit: number,
-): void {
-  if (shown <= 0) return;
-  const gap = r * PIP_GAP;
-  const left = x - ((shown - 1) * gap) / 2;
-  ctx.save();
-  ctx.lineWidth = Math.max(1, r * 0.06);
-  for (let i = 0; i < shown; i++) {
-    ctx.beginPath();
-    ctx.arc(left + i * gap, y, r * PIP_R, 0, Math.PI * 2);
-    if (i < lit) {
-      ctx.fillStyle = PALETTE.text;
-      ctx.fill();
-    } else {
-      ctx.strokeStyle = PALETTE.dim;
-      ctx.stroke();
-    }
-  }
-  ctx.restore();
-}
+/** The navigator's line, and how near the edge of the screen it may come. */
+const WORDS = "CLICK X TIMES";
+const WORDS_PAD = 8;
 
 /**
  * The count itself, in the small monospace `coord-grid.ts` uses for its own
@@ -110,6 +93,38 @@ function drawCount(
   ctx.restore();
 }
 
+/**
+ * The navigator's line, under the frame. Smaller than the pilot's numeral and
+ * dimmer, because it never changes: it is a standing instruction about how
+ * this body is answered, not a reading off the field.
+ */
+function drawWords(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  x: number,
+  y: number,
+  r: number,
+): void {
+  const size = Math.max(8, Math.min(11, r * 0.5));
+  ctx.save();
+  ctx.font = `bold ${Math.round(size)}px "Courier New",monospace`;
+  ctx.fillStyle = PALETTE.dim;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  // Held inside the screen rather than centred on the body come what may, the
+  // same clamp and for the same reason the siren's own word has: a box in the
+  // outermost column is thirteen characters wide and half of them ran off the
+  // edge of the phone, which is the one thing an instruction must not do
+  // (`siren.ts`). The frame above it still says which body the line is about.
+  const half = ctx.measureText(WORDS).width / 2;
+  ctx.fillText(
+    WORDS,
+    Math.min(Math.max(x, half + WORDS_PAD), l.width - half - WORDS_PAD),
+    y + r * WORDS_DROP,
+  );
+  ctx.restore();
+}
+
 export function drawBeatboxMarks(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -125,21 +140,10 @@ export function drawBeatboxMarks(
     // The body's drawn radius, swell and all, so the marks stand clear of the
     // box at its largest rather than being swallowed by it on every beat.
     const r = creatureRadius(l, c, beatPhase, world.cfg) * beatboxSwell(c, world.beat, beatPhase);
-    const hits = beatboxHitsMade(c);
-    const above = y - r * PIP_LIFT;
-    if (tell) {
-      const want = beatboxWanted(c);
-      drawCount(ctx, x, y, r, want);
-      // Every slot, with the run lit inside it: the pilot is the one seat that
-      // can see both numbers at once, which is what lets them say *one more*
-      // rather than only *three* — the useful sentence late in a run.
-      drawPips(ctx, x, above, r, Math.max(want, hits), hits);
-      continue;
-    }
-    // The navigator's own taps and nothing else. `hits` twice, so `drawPips`
-    // has no empty slot to draw: an outline here would be the count leaking
-    // onto the one screen that must not have it.
-    drawPips(ctx, x, above, r, hits, hits);
+    if (tell) drawCount(ctx, x, y, r, beatboxWanted(c));
+    // The rig gets both, because `test` is the two seats on one screen.
+    if (tell && l.role !== "test") continue;
     drawTargetLock(ctx, x, y, r * BOX_MUL, r * BOX_MUL, PALETTE.text, time, 0.9, c.id);
+    drawWords(ctx, l, x, y, r);
   }
 }

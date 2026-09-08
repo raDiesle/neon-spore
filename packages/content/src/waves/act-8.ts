@@ -28,7 +28,7 @@ import type { Wave } from "../wave-types.js";
  * The split is the plainest in the game after THE GHOST's column, and it is
  * the crossing rule rather than an exception to it: the count is on the
  * **pilot's** strip and on the pilot's body, and the pilot has no thumb that
- * reaches a box. The navigator has the only thumb and is shown a tally of
+ * reaches a box. The navigator has the only thumb and is shown a frame with
  * their own taps and nothing else — so they can always see how far into a run
  * they are and never where it has to stop. One digit, said once, early.
  *
@@ -71,7 +71,7 @@ export const WAVES_ACT_8: Wave[] = [
     guide: {
       both: "A soundbox that swells on every beat and asks for a number of them. Nothing you can fire touches it. It is answered by tapping the body itself, once a beat, on the beat — and the run is finished by stopping: the first beat that goes by untapped is the beat it is judged on. Right and it goes quiet. Wrong and it puts a wave of sound through the hull and keeps coming.",
       p1: "The number is over the box on your screen and on nobody else's. Say it early and say it once — they cannot see it, and by the time they have started tapping it is too late to hear it.",
-      p2: "Your thumb, on the body, on the beat — you are the only one who can. Count what they gave you and take the thumb off: extra is as wrong as missing, and the tally under the box is your own taps, never the target.",
+      p2: "Your thumb, on the body, on the beat — you are the only one who can. Every beat that lands grows an arm on it. Take the thumb off on their number: extra is as wrong as missing, and it goes red the moment either happens.",
     },
     entries: [
       { beat: 0, col: 3, kind: "beatbox", color: null, beats: 2 },

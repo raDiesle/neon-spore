@@ -156,7 +156,12 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
     // alone (`effects-spark.ts`) — they are a flash and nothing that outlives
     // its own frame.
     case "beatboxWave":
-      ctx.beatboxWaves.cast(tileCX(ctx.l, e.col), tileCY(ctx.l, e.row));
+      // Aimed at the hull row rather than given a fixed reach, because a box
+      // discharges anywhere between the top of the field and the plating: a
+      // wave that always travelled the same distance would overshoot the ship
+      // from low down and stop short from high up, and the owner asked for it
+      // to go the whole way every time (`beatbox-wave.ts`).
+      ctx.beatboxWaves.cast(tileCX(ctx.l, e.col), tileCY(ctx.l, e.row), ctx.l.hullY);
       break;
     default:
       assertNever(e);

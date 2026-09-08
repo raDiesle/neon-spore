@@ -18,8 +18,8 @@
 export type BeatboxEvent =
   /**
    * A tap landed inside the beat's window and the run is one longer. `hits` is
-   * how many have landed — the navigator's own tally, which is what render
-   * draws over the box on that screen and what the ear steps in pitch.
+   * how many have landed — the navigator's own count, which is how many arms
+   * render grows out of the box and what the ear steps in pitch.
    *
    * `id` is the body, for `claspBreak`'s reason: the box is **still falling**,
    * so the swell drawn around it has to be redrawn wherever it is on every

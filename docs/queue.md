@@ -137,6 +137,38 @@ Why the short label is what fits today, and what each of the three costs.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
+## `world.beat` is not `world.tick / ticksPerBeat`, and nothing says so
+
+- **Found:** 2026-09-08, claude/beatbox-enemy-visuals-462bcf
+- **Files:** `packages/sim/src/step.ts`, `packages/sim/src/beat.ts`, `tools/director/src/stage.ts`, `tools/frames/press.ts`
+
+A wave's opening holds the field, and the hold in `step` runs `world.tick += 1`
+and returns **before** `onBeat` — so every opening a run passes adds ticks with
+no beat under them, and `world.beat` falls permanently behind `world.tick /
+ticksPerBeat(cfg)` for the rest of that run. Measured in the shipping build on
+8 September 2026: after a fresh load and three hundred ticks of wave 59,
+`world.tick` was 300 and `world.beat` was 0.
+
+Nothing is wrong with the *boundaries* — `onBeat` still fires on multiples of
+`ticksPerBeat`, so the beat still lands where the ear expects it. What is wrong
+is that `world.beat` is a **label** and reads like a position, and multiplying
+one back into ticks is silently a different moment. THE BEATBOX's own deadline
+was written that way first and settled every run a beat early;
+`beatboxDeadline` now recovers the boundary by rounding the tap's tick to the
+nearest multiple of `ticksPerBeat` instead, and says why in a paragraph. Two
+other sites do the same multiplication and should be looked at with this in
+hand: `tools/director/src/stage.ts`'s `seek`, which is a rig and probably fine
+because it seeks from a rebuilt world, and `tools/frames/press.ts`, whose
+`--press TICK` axis a caller naturally reads as beats — a press written on a
+boundary is off it by however long the opening held, which is why the first
+capture of a soundbox in this lane came back with no run on it at all.
+
+The work: give `packages/sim` one exported reading for *the tick a beat began
+on* (or for the phase of the current tick), use it at every site that converts
+between the two, and put a paragraph on `world.beat` in `world.ts` saying it is
+a label and not a position. A test that runs a wave with an opening and asserts
+the two counters disagree is what keeps it true.
+
 ## "A carries both seats" is written twice, in two rigs
 
 - **Found:** 2026-09-07, claude/queued-items-rer0av

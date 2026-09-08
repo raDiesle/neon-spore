@@ -36,9 +36,13 @@ mountBuildStamp();
 const canvas = document.getElementById("stage") as HTMLCanvasElement | null;
 if (!canvas) throw new Error("canvas #stage missing");
 
-// The hull holds by default here, and only here: this is the test build, and a
-// wave that is being looked at should be allowed to finish. The switch is in
-// the test panel; `packages/sim` still ships with the hull breakable.
+// **The hull breaks here like it does anywhere else.** It used to be held by
+// default in this build so a wave being looked at could finish, and the owner
+// asked for that off — it made the one thing a player is meant to feel
+// invisible: a wave of sound went through the ship and the bar did not move,
+// so a mistake read as nothing having happened. The switch is still in the
+// test panel for whoever wants to sit and watch a wave, off until it is asked
+// for.
 // `PAIR_ON` is the other switch: the wave opening, on here and off by
 // default, because it wants two people. See `config-pair.ts`.
 //
@@ -48,7 +52,7 @@ if (!canvas) throw new Error("canvas #stage missing");
 // window the mouth's own sequence needs to read in (`cannon-maw.ts`). Shorten
 // it on the director's TUNING → PAIR slider rather than here. Off in
 // `DEFAULT_CONFIG` so every replay keeps its timing exact.
-const cfg = { ...DEFAULT_CONFIG, ...PAIR_ON, hullInvulnerable: true, shotChargeBeats: 0.5 };
+const cfg = { ...DEFAULT_CONFIG, ...PAIR_ON, shotChargeBeats: 0.5 };
 const world = createWorld(cfg, 0, buildQueue(0, cfg.cols), buildPods(0, cfg.cols));
 const renderer = new Canvas2DRenderer(canvas);
 // The same context the renderer draws through: a second `getContext` on one

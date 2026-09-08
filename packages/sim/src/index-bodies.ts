@@ -48,8 +48,10 @@ export {
   beatboxHitsMade,
   beatboxIsBox,
   beatboxRunOpen,
+  beatboxTapAge,
   beatboxWanted,
   beatboxWindowTicks,
+  beatboxWrongAge,
 } from "./beatbox.js";
 export { type CaromDir, caromBecomes, caromHeading, caromImpactDamage } from "./carom.js";
 export {

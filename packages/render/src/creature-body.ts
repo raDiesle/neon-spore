@@ -1,9 +1,18 @@
-import { type CreatureKind, colourArmourLeft, isMeteorKind, recoilTurn } from "@neon-spore/sim";
+import { beatboxArms, type CreatureSilhouette } from "@neon-spore/content";
+import {
+  beatboxHitsMade,
+  type CreatureKind,
+  colourArmourLeft,
+  isMeteorKind,
+  recoilTurn,
+} from "@neon-spore/sim";
 import { drawBalloon } from "./balloon.js";
-import { beatboxSwell } from "./beatbox.js";
+import { beatboxArmGrown, beatboxSwell, beatboxWrongThrough } from "./beatbox.js";
+import { drawBeatboxAir } from "./beatbox-air.js";
 import { drawChoir } from "./choir.js";
 import type { Body } from "./creature-body-in.js";
 import { drawMagnetBody, drawStrandBody } from "./creature-body-worn.js";
+import { livingBodyMul } from "./creature-place.js";
 import { drawGhost, showsGhostBody } from "./ghost.js";
 import { drawLid } from "./lid.js";
 import { drawLiving } from "./living-draw.js";
@@ -110,22 +119,37 @@ function drawLidBody({ ctx, l, world, c, x, y, time, beats, near }: Body): void 
  * back. `showsVeilCore` and `showsVolleyCore` are the two copies of that gate.
  */
 /**
- * A soundbox, and the one body in this table that takes the **ordinary** blob
- * draw and is listed anyway.
+ * A soundbox: the air it is moving, and then the body itself with however many
+ * arms the run standing on it has grown.
  *
- * What is different about it is not its contour — four shallow lobes on a
- * nearly square body, which `living-look.ts` answers for like any other — but
- * its *size*, which changes several times a beat: a pulse on every beat and a
- * much bigger one on a beat a thumb landed (`beatbox.ts`). That is the whole
- * of what this creature says, and it is passed to `drawLiving` as a swell
- * rather than being folded into `livingBodyMul`, which is the size a thumb is
- * hit-tested against and must not move inside a beat.
+ * It takes the ordinary blob draw and is listed here anyway, because three
+ * things about it are decided per *body* rather than per kind and none of them
+ * can be answered by a lookup on a silhouette.
+ *
+ * - The **swell**, which changes several times a beat: a pulse on every beat
+ *   and a much bigger one on a beat a thumb landed (`beatbox.ts`). It is
+ *   passed as a swell rather than folded into `livingBodyMul`, which is the
+ *   size a thumb is hit-tested against and must not move inside a beat.
+ * - The **arms**, one per beat the pair got right, walked out of the body's
+ *   own rim so each is the same mass as the box rather than a shape drawn
+ *   beside it (`content/silhouettes-beatbox.ts`).
+ * - The **alarm**, for the two beats after a run comes apart.
+ *
+ * The air goes down first and under everything, so the rings leave from behind
+ * the body rather than across it (`beatbox-air.ts`).
  */
 function drawBeatboxBody(b: Body): void {
-  drawLivingBody(b, beatboxSwell(b.c, b.world.beat, b.beatPhase));
+  const swell = beatboxSwell(b.c, b.world.beat, b.beatPhase);
+  const r = b.l.tile * 0.4 * livingBodyMul(b.c) * swell;
+  drawBeatboxAir(b.ctx, b.world, b.c, b.x, b.y, r, b.beatPhase);
+  const shape = beatboxArms(beatboxHitsMade(b.c), beatboxArmGrown(b.world, b.c));
+  // The alarm eases *out* rather than in: it is loudest on the frame the run
+  // came apart, which is the frame the pair is looking for an answer on.
+  const wrong = beatboxWrongThrough(b.world, b.c);
+  drawLivingBody(b, swell, shape, wrong === null ? 0 : (1 - wrong) ** 0.7);
 }
 
-export function drawLivingBody(b: Body, swell = 1): void {
+export function drawLivingBody(b: Body, swell = 1, shape?: CreatureSilhouette, alarm = 0): void {
   const { ctx, l, world, c, x, y, time, beats, beatPhase, near } = b;
   if (c.kind === "veil" && !showsVeilCore(l)) return;
   if (!showsVolleyCore(world.cfg, c)) return;
@@ -148,6 +172,8 @@ export function drawLivingBody(b: Body, swell = 1): void {
     near,
     recoilTurn(c, beatPhase),
     swell,
+    shape,
+    alarm,
   );
 }
 

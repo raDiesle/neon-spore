@@ -95,9 +95,10 @@ export function bindTestControls({ world, jumpToWave, run }: TestBindings): Test
     });
   }
 
-  // Infinite hull. On by default in this build (see main.ts) — a wave that is
-  // being watched should reach its end even when the defence is missed, and the
-  // damage is still drawn, so what was missed stays visible.
+  // Infinite hull. **Off** by default now (see main.ts): the owner asked for
+  // the hull to break in this build like it does anywhere else, because a
+  // mistake that costs nothing visible reads as no mistake at all. It stays
+  // here as a switch for whoever wants to sit and watch a wave to its end.
   const godBox = el("godMode") as HTMLInputElement | null;
   if (godBox) {
     godBox.checked = world.cfg.hullInvulnerable;
