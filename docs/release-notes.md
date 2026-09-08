@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-08 · 4c653711 — A tap waits for the beat, so a soundbox can be photographed at all
+
+`--press` walks a tick line that does not start on a beat: clearing a wave's opening advances until it lets go, so tick nought is wherever that finished. Every other press is answered by what is under it and did not care. A tap is answered by *when* it arrived, so one written on a boundary landed between two of them and was refused in silence — the frame came back with a plain rounded box on it and nothing to say why.
+
+## 2026-09-08 · a234d3af — THE BEATBOX grows arms, pushes air, and answers a mistake on the beat it happened
+
+The soundbox was a rounded body with a row of pips over it and a whole beat of grace on every mistake. The owner asked for the count to become something the body *does*, for the two ways of getting it wrong to be answered when they happen, and for the wave of sound to actually reach the ship. All of that.
+
 ## 2026-09-08 · 083c68f6 — PINBALL is played on the ship, and the cannon is the gun and the glove
 
 The round threw the game away to draw itself: a table in a thick violet case over a flat fill, a bucket invented for it, four flat plates where the panel should be. The owner asked for the opposite — the game area must look like default play, with the ship and the control set area — so the field's furniture comes back and the round keeps only what a round takes, the eleven columns of falling bodies.
