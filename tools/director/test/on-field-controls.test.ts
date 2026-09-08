@@ -67,8 +67,16 @@ function documentedHoldKind(kind: Hold["kind"]): "panel" | "field" {
   }
 }
 
+/**
+ * `crank` is the one target that is **not on the field**: it is a lobe on THE
+ * CLAW's panel, turned rather than pressed, and `packages/content/controls.ts`
+ * describes it with the other buttons. It is named here for `"held"`'s reason
+ * one switch up — to keep this exhaustive, so a target invented tomorrow still
+ * fails to compile — and not given a `FIELD_CONTROLS` entry.
+ */
 function documentedDragTarget(target: DragTarget): DragTarget {
   switch (target) {
+    case "crank":
     case "mazeString":
     case "wardenTether":
     case "lidString":

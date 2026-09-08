@@ -23,6 +23,12 @@ import type { ControlSet } from "./control-sets.js";
  * a run rather than a seat talking to a ship, `grip` and `drag` are a hand on
  * the field rather than on a button, and `shake` is the *device* being moved,
  * which no panel could carry at all (`sim/command-types.ts`).
+ *
+ * `drag` has one exception inside it now — THE CLAW's crank is a `drag` sent
+ * by a *button* — and it stays on the list anyway. The gate is about what a
+ * key may say, and the only thing that turns a crank is a hand on one: a
+ * bearing arriving on a panel with no crank finds an arm that is not out and
+ * winds nothing (`sim/crank.ts`).
  */
 export function panelSends(set: ControlSet, kind: Command["kind"]): boolean {
   if (OFF_PANEL.has(kind)) return true;

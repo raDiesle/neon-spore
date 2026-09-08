@@ -102,6 +102,17 @@ export type Hold =
        */
       only?: Color;
     }
+  /**
+   * A hand on something it has hold of, and the point it needs to keep
+   * meaning something: **where it grabbed**, for a handle that is carried.
+   *
+   * THE CLAW's crank is the exception and it is the same field doing the same
+   * job — the origin is the button's own **centre** there, because a crank is
+   * not carried anywhere and what a move has to report is where round that
+   * middle the finger now is (`touch-drag.ts`). A crank is a lobe on the band
+   * rather than a handle on the field, so nothing else about this hold
+   * changes: the lift is the ordinary drag's lift.
+   */
   | {
       kind: "drag";
       target: DragTarget;

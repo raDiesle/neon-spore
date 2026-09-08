@@ -1,4 +1,4 @@
-import type { Command } from "@neon-spore/sim";
+import { type Command, NO_CRANK } from "@neon-spore/sim";
 import type { ControlId } from "./controls.js";
 
 /**
@@ -19,10 +19,15 @@ import type { ControlId } from "./controls.js";
  * `content` already depends on `sim`; the direction stays what it always was.
  *
  * **A held control says two things.** `up` is what letting go sends, and it is
- * present on exactly the six that are held: the two colours, the gauge's two
- * valve slabs and the bucket's two. Everything else is over the moment it
- * happens, and `up` is absent rather than a no-op, so a caller can tell a hold
- * from a press without a list of its own.
+ * present on exactly the seven that are held: the two colours, the gauge's two
+ * valve slabs, the bucket's two, and THE CLAW's crank. Everything else is over
+ * the moment it happens, and `up` is absent rather than a no-op, so a caller
+ * can tell a hold from a press without a list of its own.
+ *
+ * The crank is the seventh and the odd one, because a thumb stays on it and
+ * *neither* of its two commands does anything on its own: what winds the rope
+ * is the bearings in between, and `controlTurns` below is how a rig asks
+ * whether a control is one of those.
  *
  * The two colours joined that list on 7 September 2026, when the owner took
  * the lance's own button off the panel and put the fill on the trigger. It is
@@ -76,6 +81,25 @@ export function controlPress(id: ControlId, col = 0): ControlPress {
     // so there is nothing to hold and nothing to let go of (`sim/reach.ts`).
     case "reach":
       return { down: { kind: "reach" } };
+    /**
+     * The winder, and the one control in the game that is neither a press nor
+     * a hold but a **turn**. What it says is a `drag`, because that is what a
+     * hand carrying something says — and what it carries is its own bearing
+     * round the crank rather than a distance from where it grabbed, which is
+     * the whole of `sim/crank.ts`'s argument.
+     *
+     * Both halves here carry `NO_CRANK` and neither of them winds anything: a
+     * hand going on has no reference yet and a hand coming off has none any
+     * more. The rope moves on the bearings in between, which only a device
+     * with the crank's own centre under a finger can send (`render/touch.ts`)
+     * — or a rig turning it on somebody's behalf, at a desk or in a rehearsal
+     * (`windPerTickMilli`).
+     */
+    case "crank":
+      return {
+        down: { kind: "drag", target: "crank", on: true, fromMilli: NO_CRANK },
+        up: { kind: "drag", target: "crank", on: false, fromMilli: NO_CRANK },
+      };
     // THE GAUGE. The two valve slabs are held — the needle travels for as long
     // as the thumb stays — and the call is one press by the other seat.
     case "gaugeLeft":
@@ -154,6 +178,24 @@ export function controlPress(id: ControlId, col = 0): ControlPress {
  * than listed again: a control gains a hold by gaining an `up`. */
 export function controlHeld(id: ControlId): boolean {
   return controlPress(id).up !== undefined;
+}
+
+/**
+ * Whether this control is one a finger **turns** — THE CLAW's crank, and
+ * nothing else so far.
+ *
+ * It is the question every rig with no finger has to ask. A phone sends
+ * bearings because it has the crank's centre under a thumb; a desk keyboard, a
+ * rehearsal's ghost hand and a frame test have no circle at all, so each turns
+ * the crank on somebody's behalf at `windPerTickMilli` — and each of them
+ * needs to know which control that is without naming it. Derived from what the
+ * control says rather than listed, for this file's own reason: a second list
+ * of "which button is a crank" is a list that can disagree with the table
+ * above it.
+ */
+export function controlTurns(id: ControlId): boolean {
+  const { down } = controlPress(id);
+  return down.kind === "drag" && down.target === "crank";
 }
 
 /**

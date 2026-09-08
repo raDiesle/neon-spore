@@ -110,7 +110,7 @@ export const CONTROL_SETS: readonly ControlSet[] = [
   {
     id: "claw",
     name: "THE CLAW",
-    why: "The gun is a hand: player 1 slides it and reaches up a column, and the mouth moves to player 2, so nothing is caught by one person alone.",
-    controls: ["cannon", "reach", "mawTake"],
+    why: "The gun is a hand: player 1 slides it, reaches up a column and winds it home again, and the mouth moves to player 2, so nothing is caught by one person alone.",
+    controls: ["cannon", "reach", "crank", "mawTake"],
   },
 ];

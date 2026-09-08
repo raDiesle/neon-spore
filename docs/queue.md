@@ -401,3 +401,43 @@ switches and the split five are out; what is left is one long undifferentiated
 run. Move the four bosses' rows, or the six worn bodies', into a file of their
 own and name them in place the way the existing groups are — key order is read
 by `MECHANIC_IDS` and walked by the bestiary, so nothing may be reordered.
+
+## A scratch script cannot import `@neon-spore/*` from the repository root
+
+- **Found:** 2026-09-08, claude/claw-crank-winder-control-xzuf4h
+- **Files:** `package.json`, `tools/` (wherever the answer lands)
+
+A lane checking a rehearsal's timing wrote twenty lines against
+`sceneScript` and `SceneRun`, put them in a file at the root, and bun could
+not resolve `@neon-spore/content` from there: the workspace links exist under
+each package's own `node_modules` and there is nothing at the top. The lane
+worked around it by dropping the file into `tools/director/`, which resolves
+everything — and then had to remember to delete it out of a package it does
+not own.
+
+It costs a few minutes and a wrong turn every time somebody wants to *ask the
+simulation a question* rather than assert one, which is a thing that happens
+in every lane that touches a scene, a wave or a boss. Two ways out, either is
+fine: a root `node_modules/@neon-spore` link created by the install, or a
+`tools/scratch/` with a package of its own that depends on all five packages
+and is gitignored except for its `package.json`. The second is the honest
+one — a scratch file belongs somewhere it is expected to be deleted from.
+
+## `bun run frames` cannot turn THE CLAW's crank
+
+- **Found:** 2026-09-08, claude/claw-crank-winder-control-xzuf4h
+- **Files:** `tools/frames/press.ts`, `tools/frames/run.ts`
+
+`--press` sends one command at a tick, and every control in the game is
+photographable that way except the crank: what winds the arm home is a
+*stream* of bearings, a few dozen of them, and one `drag` at `crank` on its
+own is only a hand going on (`packages/sim/src/crank.ts`). So the lane that
+built the winder could photograph the arm hanging and could not photograph it
+coming down — the picture of the one thing the control does.
+
+`--press 200:1:crank` should expand into the same stream the desk keyboard and
+a rehearsal already send: `windPerTickMilli(cfg)` a tick from the named one,
+until the arm is home or the capture ends. The rate is the simulation's and is
+asked for rather than chosen, exactly as `content/src/scene-drag.ts`'s
+`crankCommands` asks for it — this is the third caller of that same rule, and
+the second one wrote nothing new to get it.

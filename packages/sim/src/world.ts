@@ -2,6 +2,7 @@ import { emptyRunStats, type RunStats } from "./balance.js";
 import type { BossState } from "./boss-state.js";
 import { type Briefings, newBriefings } from "./briefing.js";
 import { midCol, type SimConfig, ticksPerBeat } from "./config.js";
+import { NO_CRANK } from "./crank.js";
 import { NO_GRIP } from "./grip.js";
 import type { GripPush } from "./grip-push.js";
 import type { LanceBeam, Prime } from "./lance.js";
@@ -62,13 +63,11 @@ export interface World {
   guardTick: number;
   /** Tick of the most recent maw opening by player 1. */
   intakeTick: number;
-  /**
-   * THE CLAW's arm, which is what player 1's swelling is on the `claw` panel:
+  /** THE CLAW's arm, which is what player 1's swelling is on the `claw` panel:
    * `0` at rest on the hull, `1` reaching up its column, `-1` coming back
-   * (`reach.ts`). Four fields rather than one struct because they are ship
-   * state like `cannonCol` beside them — the arm is not a boss and not a
-   * round, it is the gun replaced by a hand.
-   */
+   * (`reach.ts`). Five loose fields, the crank's own included, rather than one
+   * struct: they are ship state like `cannonCol` beside them — the arm is not
+   * a boss and not a round, it is the gun replaced by a hand. */
   reachDir: -1 | 0 | 1;
   /** The column it went up, held while it is out so that sliding the strip
    * under a travelling arm cannot bend it. */
@@ -79,6 +78,11 @@ export interface World {
    * itself for `FleetState.sunkBeat`'s reason: the list is the truth and a
    * second reference to a member of it is a second truth. */
   reachHeld: number;
+  /** Where round the crank player 1's finger last reported itself, in
+   * thousandths of a turn, or `NO_CRANK` for a crank nobody is touching. The
+   * *reference* the next bearing is a step from, never a total — the rope the
+   * winding moves is `reachMilli` above (`crank.ts`). */
+  crankAtMilli: number;
   /**
    * THE CHOIR's half-made gesture: which of the two arrows the pilot has
    * carried outward, `2` for a phone shaken once, `0` while nothing has been
@@ -207,6 +211,7 @@ export function createWorld(
     reachCol: mid,
     reachMilli: 0,
     reachHeld: 0,
+    crankAtMilli: NO_CRANK,
     choirArm: 0,
     choirArmTick: 0,
     wardUntilTick: -1_000_000,

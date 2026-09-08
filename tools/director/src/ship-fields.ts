@@ -205,6 +205,7 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   // ClawConfig
   reachTilesPerBeat: "THE CLAW — the cannon replaced by an arm",
   damageReach: "THE CLAW — the cannon replaced by an arm",
+  windTilesPerTurn: "THE CLAW — the cannon replaced by an arm",
   scoreReachCatch: "SCORE",
   fleetRows: "THE FLEET — a chart only one of you can read",
   fleetRoundBeats: "THE FLEET — a chart only one of you can read",

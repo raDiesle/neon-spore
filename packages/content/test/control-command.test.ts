@@ -1,5 +1,12 @@
 import { describe, expect, it } from "bun:test";
-import { CONTROL_SETS, CONTROLS, controlHeld, controlHold, controlPress } from "../src/index.js";
+import {
+  CONTROL_SETS,
+  CONTROLS,
+  controlHeld,
+  controlHold,
+  controlPress,
+  controlTurns,
+} from "../src/index.js";
 
 /**
  * What a control says is one table now, and this is what keeps it one.
@@ -19,11 +26,13 @@ describe("what a control says", () => {
   });
 
   it("gives a release to exactly the controls a thumb stays on", () => {
-    // The two colours, the gauge's two valve slabs and the bucket's two. Any
-    // other control gaining an `up` is a press somebody has quietly turned
-    // into a hold, and the panel drawing it would not know.
+    // The two colours, the gauge's two valve slabs, the bucket's two, and THE
+    // CLAW's crank — a thumb stays on that one too, going round it. Any other
+    // control gaining an `up` is a press somebody has quietly turned into a
+    // hold, and the panel drawing it would not know.
     const held = CONTROLS.filter((c) => controlHeld(c.id)).map((c) => c.id);
     expect(held.sort()).toEqual([
+      "crank",
       "fireCyan",
       "fireRed",
       "gaugeLeft",
@@ -34,6 +43,14 @@ describe("what a control says", () => {
     for (const id of held) {
       expect(controlHold(id).up.kind, `${id}'s release sends nothing`).toBeTruthy();
     }
+  });
+
+  it("names the crank as the one control that is turned", () => {
+    // And nothing else is: a rig with no finger asks this to find the key it
+    // has to turn on somebody's behalf, and a second control answering it
+    // would be a second thing that rig silently started winding.
+    const turned = CONTROLS.filter((c) => controlTurns(c.id)).map((c) => c.id);
+    expect(turned).toEqual(["crank"]);
   });
 
   it("refuses to give a release to a control that is only ever pressed", () => {

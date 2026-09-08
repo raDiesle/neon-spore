@@ -1,4 +1,4 @@
-import { hullRow, ticksPerBeat } from "./config.js";
+import { hullRow, type SimConfig, ticksPerBeat } from "./config.js";
 import { freePod } from "./pods.js";
 import { MILLI, type World } from "./world.js";
 
@@ -11,11 +11,13 @@ import { MILLI, type World } from "./world.js";
  * is an arm, it slides on the same strip and stands in the same
  * `world.cannonCol`, and one press sends it up the column it is standing in.
  *
- * **Out and back, closing on the first thing it meets.** Nothing recalls it,
- * so the press is a commitment for as long as `reachTilesPerBeat` takes to
- * cross the field twice — and the thing it meets is whatever happens to be in
- * that column by the time the tip gets there, not whatever was in it when
- * somebody said so. That gap is the whole of the panel.
+ * **Out on its own, closing on the first thing it meets, and wound back by
+ * hand.** Nothing recalls it, so the press is a commitment: the arm goes up at
+ * `reachTilesPerBeat` and the thing it meets is whatever happens to be in that
+ * column by the time the tip gets there, not whatever was in it when somebody
+ * said so. That gap is half the panel. The other half is the way back — the
+ * arm hangs where it stopped until player 1 winds the rope in on the crank,
+ * turn after turn (`crank.ts`), so what a press costs is not a wait but work.
  *
  * **A pod is what it is for, and a body is what it must not touch.** A pod is
  * carried home and let go at the hull, where it falls the last of the way and
@@ -34,9 +36,17 @@ import { MILLI, type World } from "./world.js";
 /** The arm at rest, on the hull, holding nothing. Every wave starts here. */
 export const ARM_HOME = 0;
 
-/** How far the arm moves in a tick, in thousandths of a tile. */
-export function reachMilliPerTick(world: World): number {
-  return Math.max(1, Math.round((world.cfg.reachTilesPerBeat * MILLI) / ticksPerBeat(world.cfg)));
+/**
+ * How far the arm moves **outward** in a tick, in thousandths of a tile.
+ *
+ * Outward only since the crank: the way back is wound by hand and is worth
+ * whatever the thumb turns (`crank.ts`). It takes a config rather than a world
+ * because the desk keyboard, which has no world in front of it, turns the
+ * crank at exactly this rate and asks for the number here rather than spelling
+ * it out again (`windPerTickMilli`).
+ */
+export function reachMilliPerTick(cfg: SimConfig): number {
+  return Math.max(1, Math.round((cfg.reachTilesPerBeat * MILLI) / ticksPerBeat(cfg)));
 }
 
 /** Whether the arm is out at all — the one question the picture and the rules
@@ -82,10 +92,9 @@ export function reachHeard(world: World): void {
  */
 export function stepReach(world: World): void {
   if (!reachOut(world)) return;
-  const step = reachMilliPerTick(world);
 
   if (world.reachDir > 0) {
-    world.reachMilli += step;
+    world.reachMilli += reachMilliPerTick(world.cfg);
     // The top of the field, and nothing found. It turns round rather than
     // stopping there: an arm parked at the ceiling would be a control the pair
     // had spent with nothing to show and no way to get it back.
@@ -98,7 +107,13 @@ export function stepReach(world: World): void {
     return;
   }
 
-  world.reachMilli -= step;
+  // **Nothing brings it down but the crank.** The arm used to come back at its
+  // own speed, which made the panel one button and a wait; the rope is wound
+  // in by a finger going round and round the crank on player 1's half of the
+  // band, and this tick moves it not at all (`crank.ts`). What is left here is
+  // the two things that are still the tick's: whatever it is carrying is kept
+  // under the hand, and an arm that has been wound all the way home lets go.
+  //
   // **Whatever it is carrying comes down with it, every tick.** The pod used
   // to be left where it was grabbed and put at the hull in one move when the
   // arm got home, which drew as a thing teleporting rather than being carried

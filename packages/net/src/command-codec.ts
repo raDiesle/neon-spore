@@ -29,6 +29,7 @@ const DRAG_TARGETS: readonly DragTarget[] = [
   "choirRight",
   "balloonLeft",
   "balloonRight",
+  "crank",
 ];
 
 const isColor = (x: unknown): x is Color =>
@@ -177,6 +178,13 @@ export function decodeCommand(x: unknown): Command | null {
     // dropped exactly those frames — a pull that worked on one device and
     // never crossed the wire. `isPull` is the bound instead, and it is a
     // magnitude bound rather than a floor.
+    //
+    // **`crank` is the one target whose `fromMilli` is not a displacement at
+    // all**: it is a bearing round a circle, in thousandths of a turn, or
+    // `NO_CRANK` for a hand going on or coming off (`sim/crank.ts`). Nothing
+    // here has to know that — a signed whole number inside the magnitude bound
+    // is exactly what both readings are, and the simulation is where a bearing
+    // becomes rope. This wire carries what was said, not what it means.
     //
     // `id` is present only for a target that is a creature (THE LID's cord),
     // and optional for the two that are fixtures, so a peer on an older build

@@ -7,6 +7,7 @@ import { choirArrowHeard, stepChoirWindow } from "./choir-gesture.js";
 import { wardCoils } from "./coil.js";
 import { applyCommand } from "./commands.js";
 import { ticksPerBeat } from "./config.js";
+import { crankHeard } from "./crank.js";
 import { fleetHeard } from "./fleet.js";
 import { gaugeHolds, gaugeRoundHeard, stepGaugeRound } from "./gauge-round.js";
 import { dropLostGrips } from "./grip.js";
@@ -156,6 +157,13 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // `carryGrips`, because a body may only ever stand on a tile centre
   // (`grip-push.ts`).
   for (const c of commands) gripPushHeard(world, c.player, c.command);
+  // THE CLAW's crank, read on the tick with the hands on the field and for
+  // their reason: what winds the rope is the step from one bearing to the
+  // next, and a turn answered on the beat would come down in seventy-five-tick
+  // lurches under a finger that is going round smoothly (`crank.ts`). It is
+  // the one `drag` in the game that is a hand on a *control* rather than on
+  // something the field is carrying.
+  for (const c of commands) crankHeard(world, c.player, c.command);
   // THE CHOIR's two arrows, read on the tick with the other four hands for
   // their reason: how far the pilot has carried one is never stale, and the
   // window between the two of them is counted in ticks (`choir-gesture.ts`).

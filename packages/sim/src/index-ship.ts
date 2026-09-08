@@ -14,6 +14,13 @@
  */
 
 export {
+  crankBites,
+  crankTurnedMilli,
+  NO_CRANK,
+  TURN as CRANK_TURN,
+  windPerTickMilli,
+} from "./crank.js";
+export {
   gripBrakes,
   gripCount,
   gripsCreature,

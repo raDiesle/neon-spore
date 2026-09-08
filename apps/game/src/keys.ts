@@ -2,6 +2,7 @@ import { type ControlSet, controlPress, deskKey, panelSends } from "@neon-spore/
 import type { Layout } from "@neon-spore/render";
 import { type Command, type Creature, midCol, type SimConfig } from "@neon-spore/sim";
 import type { InputBuffer } from "./input.js";
+import { bindCranking } from "./keys-crank.js";
 import { deskGrip } from "./keys-grip.js";
 import { guideKeyDown } from "./keys-guide.js";
 import { bindSliding } from "./keys-slide.js";
@@ -107,6 +108,9 @@ export function bindKeys({
   /** The two keys under each hand that carry something sideways, and nothing
    * else in this file has to know they have a timer (`keys-slide.ts`). */
   const sliding = bindSliding(layout, midCol(cfg), send, controls);
+  /** And the one key that *turns* something for as long as it is held, which
+   * no key can do by itself (`keys-crank.ts`). */
+  const cranking = bindCranking(cfg, send, controls);
 
   /** Whatever this key means to a wave's guide, if one is up. `false` when it
    * meant nothing there and the key is still the ship's (`keys-guide.ts`). */
@@ -144,6 +148,10 @@ export function bindKeys({
     // pages (`keys-guide.ts`).
     if (guideKey(e.code)) return;
     if (sliding.down(e.code)) return;
+    // The crank before the panel's own answer: this key is a control like any
+    // other, and what it sends while it is held is the half `panelKey` has no
+    // way to say (`keys-crank.ts`).
+    if (cranking.down(e.code)) return;
     if (panelKey(e.code)) return;
     switch (e.code) {
       // Red *and* a guard, in one press. Not a button on any panel: it is one
@@ -216,6 +224,7 @@ export function bindKeys({
     if (e.code === "Space" || e.code === "KeyG") send(2, off);
     if (e.code === "KeyG") for (const p of grip.release()) send(p.player, p.command);
     if (sliding.up(e.code)) return;
+    if (cranking.up(e.code)) return;
     // And whatever this panel puts on this key, let go — present on exactly
     // the controls a thumb stays on (`content/src/control-command.ts`).
     const key = deskKey(controls(), e.code);
@@ -223,6 +232,10 @@ export function bindKeys({
     if (key !== undefined && release !== undefined) send(key.player, release);
   });
 
-  /** Called once per sim tick to advance held-key repeats. */
-  return sliding.tick;
+  /** Called once per sim tick to advance held-key repeats — a strip stepping
+   * again, and the crank a notch further round. */
+  return () => {
+    sliding.tick();
+    cranking.tick();
+  };
 }

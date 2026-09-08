@@ -1,8 +1,8 @@
 import type { Command, SceneCommand, SceneScript, SimConfig } from "@neon-spore/sim";
-import { controlHold, controlPress } from "./control-command.js";
+import { controlHold, controlPress, controlTurns } from "./control-command.js";
 import { type ControlId, control } from "./controls.js";
 import { bossFromWave, mapCol, podsFromWave, queueFromWave } from "./queue.js";
-import { dragCommands } from "./scene-drag.js";
+import { crankCommands, dragCommands } from "./scene-drag.js";
 import type { SceneAct } from "./scene-types.js";
 import { guideScene, type SceneId } from "./scenes.js";
 
@@ -37,6 +37,12 @@ export function sceneCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
   if (act.shake) return [{ tick: act.tick, player: 1, command: { kind: "shake" } }];
   const id = controlOf(act);
   const def = control(id);
+  // A control that is **turned** — the crank, and nothing else. It is an
+  // ordinary act on an ordinary control, so the ghost hand finds it where it
+  // finds every other press; what it says is a stream rather than a press and
+  // a release, because the rope comes in on the bearings in between
+  // (`scene-drag.ts`).
+  if (controlTurns(id)) return crankCommands(act, def.player, cfg);
   const down: SceneCommand = {
     tick: act.tick,
     player: def.player,

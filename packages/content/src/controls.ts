@@ -52,6 +52,7 @@ export type ControlId =
   | "pulse2Meteor"
   | "pulse2Pod"
   | "reach"
+  | "crank"
   | "mawTake";
 
 /**
@@ -135,6 +136,13 @@ export const CONTROLS: readonly ControlDef[] = [
     label: "REACH",
     does: "Sends the arm up the column the strip is standing in. It closes on the first thing it meets and comes back — a pod is carried down for the other seat's mouth, a body is crushed and the hull pays for it.",
     ship: "cannon",
+  },
+  {
+    id: "crank",
+    player: 1,
+    form: "lobe",
+    label: "WIND",
+    does: "The winder. The arm does not come home by itself — a finger going round and round inside this brings the rope in, turn by turn, with whatever the hand is carrying (`sim/crank.ts`).",
   },
   {
     id: "mawTake",

@@ -3,6 +3,7 @@ import { controlBroken } from "@neon-spore/content";
 import { reachOut, type World } from "@neon-spore/sim";
 import { drawActionButton, drawFireButton } from "./controls.js";
 import { drawAimButton, drawSalvoButton } from "./controls-fleet.js";
+import { drawCrankDial } from "./crank-dial.js";
 import { halo } from "./glow.js";
 import { guardLapse } from "./guard-lapse.js";
 import { lanceFillFor } from "./lance.js";
@@ -89,6 +90,13 @@ function drawFace(
   // (`sim/reach.ts`). The ship's own violet: it is the ship reaching.
   if (c.id === "reach") {
     drawActionButton(ctx, x, y, r, reachOut(world), PALETTE.hull, "#150A22", "reach", skin.dead[0]);
+    return;
+  }
+  // THE CLAW's crank, which is the one control on the band that is *turned*
+  // rather than pressed — a handle standing off the middle of it, coming round
+  // as the rope comes in (`crank-dial.ts`).
+  if (c.id === "crank") {
+    drawCrankDial(ctx, circle, world, skin);
     return;
   }
   // The maw, and on THE CLAW's panel it is `mawTake` on the other seat — the

@@ -1,5 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import {
+  CRANK_TURN,
+  crankBites,
   createWorld,
   DEFAULT_CONFIG,
   hashWorld,
@@ -16,6 +18,7 @@ import {
   type TimedCommand,
   ticksPerBeat,
   type World,
+  windPerTickMilli,
 } from "../src/index.js";
 
 /**
@@ -56,6 +59,24 @@ const press = (player: 1 | 2, command: TimedCommand["command"]): TimedCommand =>
   command,
 });
 
+/**
+ * The crank turned for `n` ticks, one bearing a tick, at the rate a hand that
+ * is not a hand turns at (`windPerTickMilli`).
+ *
+ * Every one of these files' rigs needs it now: the arm hangs where it stopped
+ * until somebody winds it, so a test that pressed REACH and stepped would be
+ * testing an arm that never comes back. It steps the world as it goes, which
+ * is what a finger does — the bearings are only worth anything one after
+ * another.
+ */
+function wind(world: World, n: number): void {
+  let at = 0;
+  for (let i = 0; i < n; i++) {
+    step(world, [press(1, { kind: "drag", target: "crank", on: true, fromMilli: at })]);
+    at = (at + windPerTickMilli(CFG)) % CRANK_TURN;
+  }
+}
+
 describe("the arm", () => {
   it("goes up the column the strip is standing in", () => {
     const world = open();
@@ -78,11 +99,21 @@ describe("the arm", () => {
     expect(world.reachMilli).toBeGreaterThan(was);
   });
 
-  it("comes home again with nothing in the way", () => {
+  it("hangs where it stopped until the crank brings it in", () => {
     const world = open();
     ticks(world, 1, [press(1, { kind: "reach" })]);
-    // Twice the field's height at the arm's own speed, and a beat over.
+    // Twice the field's height at the arm's own speed, and a beat over: it
+    // has long since turned round at the top, and nothing has wound it.
     ticks(world, TPB * 8);
+    expect(reachOut(world)).toBe(true);
+    expect(crankBites(world)).toBe(true);
+    const hanging = world.reachMilli;
+    expect(hanging).toBeGreaterThan(0);
+    // And it is still there a wave later with nobody's hand on the crank.
+    ticks(world, TPB * 8);
+    expect(world.reachMilli).toBe(hanging);
+    // Wound, it comes down and it is home.
+    wind(world, TPB * 4);
     expect(reachOut(world)).toBe(false);
     expect(world.reachMilli).toBe(0);
   });
@@ -108,7 +139,8 @@ describe("what it closes on", () => {
     ticks(world, 1, [press(1, { kind: "cannonCol", col: rock?.col ?? 0 })]);
     const hull = hullPercent(world);
     ticks(world, 1, [press(1, { kind: "reach" })]);
-    ticks(world, TPB * 8);
+    ticks(world, TPB * 4);
+    wind(world, TPB * 4);
     expect(world.creatures).toHaveLength(0);
     const paid = hull - hullPercent(world);
     // And it left a scar where the hand closed, so the price is on the ship
@@ -131,9 +163,17 @@ describe("what it closes on", () => {
     // a beat later it has already arrived at a mouth that was never opened.
     let held = false;
     let looseAtHome = false;
+    let at = 0;
     for (let i = 0; i < TPB * 8; i++) {
       const wasOut = reachOut(world);
-      step(world, []);
+      // The hand on the crank from the tick the arm turns round, which is the
+      // only thing that brings it back down (`crank.ts`).
+      const turn: TimedCommand[] =
+        world.reachDir < 0
+          ? [press(1, { kind: "drag", target: "crank", on: true, fromMilli: at })]
+          : [];
+      at = (at + windPerTickMilli(CFG)) % CRANK_TURN;
+      step(world, turn);
       if (world.reachHeld !== 0) held = true;
       if (wasOut && !reachOut(world)) looseAtHome = world.pods[0]?.loose === true;
     }
@@ -148,8 +188,14 @@ describe("what it closes on", () => {
     ticks(world, 1, [press(1, { kind: "reach" })]);
     // Player 2's mouth, held open through the arrival. The command is the
     // ship's own `intake`; only the panel it sits on differs.
+    let at = 0;
     for (let i = 0; i < TPB * 12; i++) {
-      step(world, i % 20 === 0 ? [press(2, { kind: "intake" })] : []);
+      const commands: TimedCommand[] = i % 20 === 0 ? [press(2, { kind: "intake" })] : [];
+      if (world.reachDir < 0) {
+        commands.push(press(1, { kind: "drag", target: "crank", on: true, fromMilli: at }));
+        at = (at + windPerTickMilli(CFG)) % CRANK_TURN;
+      }
+      step(world, commands);
     }
     expect(mawOpen(world)).toBe(true);
     expect(world.balance.podsTaken).toBeGreaterThan(0);

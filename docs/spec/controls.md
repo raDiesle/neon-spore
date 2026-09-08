@@ -232,11 +232,26 @@ two screens is allowed to draw.
 **Player 1's swelling is an arm.** It slides on the same strip and stands in
 the same `world.cannonCol` the cannon always did — that is why the strip needs
 no new control and why "column four" means what it has always meant. `REACH`
-sends it up the column it is standing in, it closes on the first thing it
-meets, and it comes back. Nothing recalls it: the press is committed for the
-length of its own travel, which at `reachTilesPerBeat` is about three seconds
-out and back, so the sentence that sends it has to be finished before it leaves
-(`packages/sim/src/reach.ts`).
+sends it up the column it is standing in, and it closes on the first thing it
+meets. Nothing recalls it: the press is committed, and at `reachTilesPerBeat`
+the climb alone is about a second and a half, so the sentence that sends it has
+to be finished before it leaves (`packages/sim/src/reach.ts`).
+
+**And it does not come back on its own — it is wound back.** `WIND` is the
+fourth button on the panel and the one control in the game that is *turned*: a
+finger going round and round inside it brings the rope in, `windTilesPerTurn`
+of it a turn, and the arm hangs exactly where it stopped for as long as nobody
+does (`packages/sim/src/crank.ts`). So a press costs work rather than a wait,
+and the strip is dead the whole time it is out — player 1 is winding while
+player 2 reads the field to him.
+
+What a hand on the crank says is its **bearing**, in thousandths of a turn
+clockwise from the top, and the simulation turns the step between two bearings
+into rope. It is absolute the way a column is: the next one supersedes the
+last, so a message lost on a bad line costs nothing. It is a ratchet — turning
+back does nothing rather than paying the rope out — and a rig with no finger
+(the desk keyboard, a rehearsal, a frame test) turns it at `windPerTickMilli`,
+which is the speed the arm used to come home at by itself.
 
 **The mouth moves to player 2.** `SUCK` is on her half instead of his, so a
 power-up the arm brings down to the hull is caught only if she is open when it

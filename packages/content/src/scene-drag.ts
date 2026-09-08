@@ -1,4 +1,11 @@
-import type { DragTarget, SceneCommand, SimConfig } from "@neon-spore/sim";
+import {
+  CRANK_TURN,
+  type DragTarget,
+  NO_CRANK,
+  type SceneCommand,
+  type SimConfig,
+  windPerTickMilli,
+} from "@neon-spore/sim";
 import { actCol } from "./scene-script.js";
 import type { SceneAct } from "./scene-types.js";
 
@@ -125,3 +132,49 @@ function carry(target: DragTarget, milli: number): { fromMilli: number; fromYMil
     ? { fromMilli: 0, fromYMilli: milli }
     : { fromMilli: milli, fromYMilli: 0 };
 }
+
+/**
+ * A hand **turning** rather than carrying: THE CLAW's crank, wound for as long
+ * as the act lasts.
+ *
+ * The film has no finger, so the rehearsal turns the crank on the ghost hand's
+ * behalf, at `windPerTickMilli` — the same rate the desk keyboard turns it at,
+ * asked for in both places rather than chosen twice (`sim/crank.ts`). What
+ * comes out is the grab, a bearing every few ticks, and the hand coming off.
+ *
+ * It is authored as an ordinary press on the crank (`{ tick, control: "crank",
+ * until }`) rather than as a `drag`, and that is deliberate: the ghost hand is
+ * placed from `act.control` (`render/guide-thumb.ts`), so a film that authored
+ * this as a handle would wind the arm home with no hand anywhere on the
+ * screen — a page about a gesture, showing nobody making it.
+ */
+export function crankCommands(act: SceneAct, player: 1 | 2, cfg: SimConfig): SceneCommand[] {
+  const until = act.until ?? act.tick + SAMPLE_TICKS;
+  const grab = { kind: "drag", target: "crank", on: true, fromMilli: NO_CRANK } as const;
+  const out: SceneCommand[] = [{ tick: act.tick, player, command: grab }];
+  const step = windPerTickMilli(cfg) * SAMPLE_TICKS;
+  let at = 0;
+  for (let tick = act.tick; tick <= until; tick += SAMPLE_TICKS) {
+    out.push({
+      tick,
+      player,
+      command: { kind: "drag", target: "crank", on: true, fromMilli: at },
+    });
+    at = (at + step) % CRANK_TURN;
+  }
+  out.push({
+    tick: until,
+    player,
+    command: { kind: "drag", target: "crank", on: false, fromMilli: NO_CRANK },
+  });
+  return out;
+}
+
+/**
+ * How often the film reports where the hand has got to, in ticks.
+ *
+ * Few enough that one sample is nowhere near the half turn the ratchet reads
+ * as a hand jumping backwards (`sim/crank.ts`), and enough of them that the
+ * arm comes down smoothly rather than in steps a pair can count.
+ */
+const SAMPLE_TICKS = 6;

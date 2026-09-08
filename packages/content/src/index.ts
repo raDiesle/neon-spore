@@ -11,6 +11,7 @@ export {
   controlHeld,
   controlHold,
   controlPress,
+  controlTurns,
 } from "./control-command.js";
 export { controlBroken, panelSlots } from "./control-fault.js";
 export {

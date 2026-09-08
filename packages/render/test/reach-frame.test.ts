@@ -1,12 +1,14 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildPods, buildQueue } from "@neon-spore/content";
 import {
+  CRANK_TURN,
   createWorld,
   hullRow,
   startWave,
   step,
   type TimedCommand,
   ticksPerBeat,
+  windPerTickMilli,
 } from "@neon-spore/sim";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { drawReachArm } from "../src/reach-arm.js";
@@ -48,6 +50,12 @@ function clawFrames(role: ViewRole, ticks: number) {
   const index = clawWave();
   startWave(world, index, buildQueue(index, CFG.cols), buildPods(index, CFG.cols));
   const seen = { out: false, home: false, held: false };
+  // Where the rig's finger is round the crank. The arm does not come home by
+  // itself any more — it is wound in, and a rig that only pressed REACH would
+  // draw one frame of a hand going up and then nothing else forever
+  // (`sim/crank.ts`). `windPerTickMilli` is the rate a hand that is not a hand
+  // turns at, asked for rather than invented here.
+  let bearing = 0;
 
   const frames = runFrames(world, role, ticks, {
     onTick: (tick, w) => {
@@ -75,6 +83,17 @@ function clawFrames(role: ViewRole, ticks: number) {
         } else {
           commands.push({ tick, player: 1, command: { kind: "reach" } });
         }
+      }
+      // The winding, every tick the arm is on its way back: a bearing round
+      // the crank, a little further on each time. The first one only says
+      // where the finger started; the rope comes in on the ones after it.
+      if (w.reachDir < 0) {
+        commands.push({
+          tick,
+          player: 1,
+          command: { kind: "drag", target: "crank", on: true, fromMilli: bearing },
+        });
+        bearing = (bearing + windPerTickMilli(CFG)) % CRANK_TURN;
       }
       // And the other seat's mouth, on the beat, so a pod brought down is met.
       if (w.tick % ticksPerBeat(CFG) === 0) {

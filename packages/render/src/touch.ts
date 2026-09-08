@@ -1,5 +1,4 @@
 import { type ControlSet, controlPress, type Point, setHas } from "@neon-spore/content";
-import type { Command } from "@neon-spore/sim";
 import { NO_GRIP } from "@neon-spore/sim";
 import { beatboxUnder } from "./beatbox-tap.js";
 import { creatureAt } from "./creature-place.js";
@@ -12,6 +11,7 @@ import { bandLobes, colFromX, hitCircle, type Layout, showsCannon, showsShield }
 export type { Field } from "./touch-field.js";
 export type { Hold, Touch } from "./touch-hold.js";
 
+import { crankTurn, dragging } from "./touch-drag.js";
 import type { Field } from "./touch-field.js";
 import type { Hold, Touch } from "./touch-hold.js";
 import { lobeMeans } from "./touch-lobe.js";
@@ -116,7 +116,7 @@ export function touchDown(l: Layout, x: number, y: number, field: Field): Touch 
 function lobeUnder(l: Layout, set: ControlSet, player: 1 | 2, x: number, y: number): Touch | null {
   for (const lobe of bandLobes(l, set, player)) {
     if (!hitCircle(lobe.circle, x, y)) continue;
-    const said = lobeMeans(lobe.control.id);
+    const said = lobeMeans(lobe.control.id, lobe.circle);
     if (said) return { player: lobe.control.player, ...said };
   }
   return null;
@@ -128,7 +128,9 @@ function lobeUnder(l: Layout, set: ControlSet, player: 1 | 2, x: number, y: numb
  * The strips are **absolute**: the finger's x is a column and where the press
  * began does not matter. A drag is a **displacement**, and this is the last
  * place a pixel is legal, so it becomes thousandths of a tile before it goes
- * anywhere — the tile being the only length two phones share.
+ * anywhere — the tile being the only length two phones share. A crank is the
+ * exception that proves both halves: it is absolute like a strip and it is
+ * measured in thousandths of a *turn* (`touch-drag.ts`).
  *
  * **A grip answers now**, and it answers as a displacement like any other
  * drag. A hand on something falling used to only slow it; carried sideways it
@@ -158,6 +160,9 @@ export function touchMove(l: Layout, hold: Hold, x: number, y: number): Touch | 
     return { player: hold.player, command: drag, hold };
   }
   if (hold.kind === "drag") {
+    // **The crank is not carried anywhere, it is turned**, and what a turn
+    // reports is an angle rather than a distance (`touch-drag.ts`).
+    if (hold.target === "crank") return crankTurn(hold, x, y);
     // Both axes now: the owner asked for a handle to be carriable any way at
     // all, so what a move reports is a displacement rather than a distance
     // across. Where it is allowed to end up is the simulation's
@@ -174,32 +179,6 @@ export function touchMove(l: Layout, hold: Hold, x: number, y: number): Touch | 
     };
   }
   return null;
-}
-
-/**
- * One `drag` message for a hold that is already under way.
- *
- * The `id` rides along only for a handle that hangs off a creature, and it is
- * carried from the press because that is the one moment anything knew which
- * body it was. Written once and called twice: a move and a lift say the same
- * thing about *which* handle, and two spellings of that is how a lift comes to
- * let go of a different cord than the one the hand was on.
- */
-function dragging(
-  hold: Extract<Hold, { kind: "drag" }>,
-  fromMilli: number,
-  fromYMilli: number,
-  on: boolean,
-): Command {
-  const { target, id } = hold;
-  return {
-    kind: "drag",
-    target,
-    on,
-    fromMilli,
-    fromYMilli,
-    ...(id === undefined ? {} : { id }),
-  };
 }
 
 /**

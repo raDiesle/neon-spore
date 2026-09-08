@@ -1,5 +1,6 @@
 import { type ControlId, controlPress } from "@neon-spore/content";
 import type { Command } from "@neon-spore/sim";
+import type { Circle } from "./layout.js";
 import { assertNever } from "./never.js";
 import type { Hold } from "./touch.js";
 
@@ -21,7 +22,16 @@ import type { Hold } from "./touch.js";
  * instead. All of them say so here rather than falling through a `default`
  * that could not tell "decided" from "forgotten" apart from a real lobe.
  */
-export function lobeMeans(id: ControlId): { command: Command; hold: Hold | null } | null {
+export function lobeMeans(
+  id: ControlId,
+  /**
+   * Where this button *is* — needed by exactly one control, and it is the
+   * reason this argument exists at all: a crank is turned about its own
+   * middle, so what the hold has to carry is that middle rather than the point
+   * the finger landed on (`touchMove`). Every other lobe ignores it.
+   */
+  circle: Circle,
+): { command: Command; hold: Hold | null } | null {
   switch (id) {
     case "guard":
     case "intake":
@@ -31,6 +41,18 @@ export function lobeMeans(id: ControlId): { command: Command; hold: Hold | null 
     case "reach":
     case "mawTake":
       return { command: controlPress(id).down, hold: null };
+    // **The crank is turned, not pressed.** The press says only that a hand
+    // has gone on and carries no bearing with it, because the first sample is
+    // a starting point and a grab that claimed to be at the top of the circle
+    // would wind rope the finger never travelled (`sim/crank.ts`). What the
+    // hold carries is the button's own centre: every move after this reports
+    // where round *that* the finger now is, and the origin a drag usually
+    // keeps — where the hand grabbed — is worth nothing to a circle.
+    case "crank":
+      return {
+        command: controlPress(id).down,
+        hold: { kind: "drag", target: "crank", player: 1, originX: circle.x, originY: circle.y },
+      };
     // **The two colours are held.** The press says only that a thumb is there;
     // the lift is the ordinary shot, and a thumb that stays fills the cannon
     // lobe and fires a lance by itself (`sim/lance.ts`). The hold carries the

@@ -77,7 +77,10 @@ describe("one key, several meanings", () => {
     // A key means whatever landed in its slot, and a slot a panel leaves empty
     // says nothing rather than reaching for the control next to it.
     expect(deskKey(controlSet("default"), "KeyS")?.control).toBe("intake");
-    expect(deskKey(controlSet("claw"), "KeyS")).toBeUndefined();
+    // THE CLAW has no maw on player 1's half at all — its second press key is
+    // the crank, which is a control like any other and takes the slot the maw
+    // would have had.
+    expect(deskKey(controlSet("claw"), "KeyS")?.control).toBe("crank");
   });
 
   it("gives player 1's first press key to whatever the panel puts there", () => {
@@ -114,6 +117,8 @@ describe("one key, several meanings", () => {
     // moves with it rather than a letter being invented for it.
     const claw = controlSet("claw");
     expect(deskKey(claw, "KeyQ")).toEqual({ code: "KeyQ", player: 2, control: "mawTake" });
-    expect(deskKey(claw, "KeyS")).toBeUndefined();
+    // Player 1's own second key is the crank, not the mouth: the mouth moved
+    // seats and the key moved with it.
+    expect(deskKey(claw, "KeyS")?.control).toBe("crank");
   });
 });

@@ -1,6 +1,7 @@
 import { clampQueenCol, initialDropSide } from "./boss.js";
 import { openWave } from "./briefing.js";
 import { midCol } from "./config.js";
+import { NO_CRANK } from "./crank.js";
 import type { WardenEntry } from "./entries.js";
 import { installFleet } from "./fleet.js";
 import { installGauge } from "./gauge-round.js";
@@ -76,6 +77,10 @@ export function startWave(
   // The arm home and empty. A wave that inherited one halfway up a column
   // would open with a hand reaching for something the last wave had.
   world.reachDir = 0;
+  // And nobody's hand on the crank: a bearing kept across a wave would wind
+  // the first sample of the next one against a finger that has gone
+  // (`crank.ts`).
+  world.crankAtMilli = NO_CRANK;
   world.reachCol = mid;
   world.reachMilli = 0;
   world.reachHeld = 0;

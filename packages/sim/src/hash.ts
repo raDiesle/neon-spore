@@ -78,6 +78,11 @@ export function hashWorld(world: World): number {
   push(world.reachCol);
   push(world.reachMilli);
   push(world.reachHeld);
+  // And the hand on the crank. It is only a reference bearing, but the *step*
+  // to the next one is rope, so two devices that disagree about where the
+  // finger last was disagree about how far the arm came down for the sample
+  // after it (`crank.ts`).
+  push(world.crankAtMilli);
   // THE CHOIR's half-made gesture. Two devices that disagree about which
   // arrow is out, or about the tick its window shuts on, disagree about
   // whether the next pull merges a body or makes it sing — and therefore about

@@ -300,6 +300,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/creature-state-balloon.ts` | **THE BALLOON's six**, and the seventh group carried out of `creature-state.ts` along the seam that file's… |
 | `packages/sim/src/drag-targets.ts` | **Every thing on this field a hand may take hold of**, as a closed list of names |
 | `packages/sim/src/events-balloon.ts` | **THE BALLOON's three**: one given, one popped, one gone off at the top |
+| `packages/sim/src/crank.ts` | THE CLAW's crank: the arm is **wound** home by a finger going round, and a bearing becomes rope |
 
 ### packages/content
 
@@ -749,6 +750,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/balloon.ts` | THE BALLOON, drawn — a skin with a knot under it, filling where it appears, leaning the way it climbs |
 | `packages/render/src/creature-body-in.ts` | **What a body draw is handed.** Cut out of `creature-body.ts` when THE BALLOON's row took that file over its… |
 | `packages/render/src/handle-place.ts` | **Where a handle is standing**, as against where a finger may grab it |
+| `packages/render/src/crank-dial.ts` | THE CLAW's crank, drawn: the winder that brings the arm home |
+| `packages/render/src/touch-drag.ts` | What a hand that already has hold of something says when it moves — a handle carried, a crank turned |
 
 ### packages/net
 
@@ -873,6 +876,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/keys-slide.ts` | The desk keys that slide a swelling, and keep sliding while held |
 | `apps/game/src/shake.ts` | the device being shaken, which is THE CHOIR's control and the only input that is not a finger on the glass |
 | `apps/game/src/rounds.ts` | Every round that is not the field, bound to the canvas at once |
+| `apps/game/src/keys-crank.ts` | The desk key that turns THE CLAW's crank, which no key can do by itself |
 
 ### apps/server
 

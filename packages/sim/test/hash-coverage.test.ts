@@ -253,6 +253,7 @@ describe("the fingerprint covers the world", () => {
         "brief",
         "bullets",
         "cannonCol",
+        "crankAtMilli",
         "cfg",
         "beam",
         "charge",

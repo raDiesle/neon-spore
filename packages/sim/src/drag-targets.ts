@@ -27,7 +27,8 @@ export type DragTarget =
   | "choirLeft"
   | "choirRight"
   | "balloonLeft"
-  | "balloonRight";
+  | "balloonRight"
+  | "crank";
 
 /**
  * `choirLeft` and `choirRight` are the fifth and sixth, and the first pair
@@ -48,6 +49,19 @@ export type DragTarget =
  * (`balloonHeard`). They carry `id` for THE LID's reason with more riding on
  * it: a wave puts several on the field at once on purpose, and *which one*
  * is the sentence this creature exists to make the pair say.
+ */
+
+/**
+ * `crank` is the ninth, and the only one that is **not on the field at all**:
+ * it is a control on player 1's half of the band, turned rather than pressed,
+ * and what it winds is THE CLAW's arm back down its column (`crank.ts`).
+ *
+ * It carries no `id` — there is one crank and it is a fixture of the panel —
+ * and it is the one target whose `fromMilli` is not a distance. A hand going
+ * round a circle is back where it grabbed once a turn, so what it reports is
+ * its **bearing**, in thousandths of a turn clockwise from the top, and the
+ * simulation turns the step between two of them into rope. The reasoning, at
+ * length, is in `crank.ts`'s own header.
  */
 
 /**
