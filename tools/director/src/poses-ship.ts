@@ -36,6 +36,28 @@ const CONTROLS: Pose[] = [
     },
   },
   {
+    /**
+     * Both swellings up and nothing falling — the state `ship:light` is voted
+     * on, and the reason it is not `HULL · AT REST`: one lobe in the middle
+     * answers only the easy half of whether a light says the ship is round.
+     * Two, far enough apart to be read separately, ask it of each swelling and
+     * of the flat between them. Nothing is fired, because a muzzle flash is the
+     * brightest thing on the screen and would decide a vote about a wash.
+     */
+    name: "HULL · BOTH LOBES UP",
+    note: "The cannon swelling left of centre and the shield swelling right of it, with nothing falling and nothing pressed. The membrane runs the whole width of the field between them and past them both.",
+    lookAt:
+      "the light across the whole width of the hull — whether each swelling reads as a dome, and where the surface turns away toward the right edge",
+    crop: "ship",
+    build: () => {
+      const w = fresh();
+      // Three beats, not two: both lobes ease rather than snap, and a world
+      // handed over on the tick of the command shows two dents.
+      run(w, TPB * 3, [aim(0, COL - 2), ward(0, COL + 2)]);
+      return w;
+    },
+  },
+  {
     name: "SHIELD · ARMED",
     note: "Player 2 put it in a column, player 1 triggered it. Passive it does nothing at all — this pose is the whole of what the trigger buys, and it lasts guardWindowMs.",
     crop: "ship",

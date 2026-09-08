@@ -47,6 +47,11 @@ import { POSE_GROUPS } from "./poses.js";
  * `cadenceSeconds` in `poses-mechanics.ts`.
  */
 const SLOT_POSE: Record<string, string> = {
+  // The ship's own light is judged on the ship with nothing in front of it.
+  // `ship:hull-skin` took the default while it was open, and that was right
+  // for a colour and wrong for this: a body falling past the hull is the one
+  // thing brighter than the wash being voted on.
+  "ship:light": "HULL · BOTH LOBES UP",
   "cannon:shot": "SHOT · BEING LAID",
   "cannon:mouth": "SHOT · BEING LAID",
   "shield:ward": "WARD · DEFLECTED",

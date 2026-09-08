@@ -206,10 +206,12 @@ limb, against **22.9 : 1** for a real turn. That is not a weakened asymmetry, it
 is the absence of one, and no amount of tuning a pose will produce a reveal.
 
 **The reveal needs per-feature placement, and that already exists.**
-`tools/director/src/skins/turn.ts` puts every surface feature at
+`packages/content/src/surface.ts` puts every surface feature at
 `x = reach · cos(lat) · sin(lon + θ)` every frame, which is what gets 22.9 : 1
-and what makes a mark at the edge slow, crowd against the limb and go. So the
-rule is:
+and what makes a mark at the edge slow, crowd against the limb and go. It is in
+`content` so the director's skins and the renderer both reach it: `pin` once,
+`facet` per frame, `surfaceLit` for the shading, and **never a copy** — four of
+those accumulated before it had a home. So the rule is:
 
 > **A body's silhouette is posed; its surface is placed.** The contour may be
 > squashed and leaned by an affine. Anything *on* the surface — a pore, a vein,
@@ -242,6 +244,13 @@ So the order of work this direction implies: put the reveal on a card first,
 under the light, beside the motion it answers; clear the nameability gate; and
 only then ask it of anything at 26 px. `docs/dimensional.md` has the
 measurements and says where to stand to look at both halves.
+
+**None of this is judged by eye.** `bun run shapes:cues` prints the three cues
+as text — the two periods, the asymmetry, and whether anything is revealed —
+with a placed surface as the last row for every posed one to be read against;
+`tools/shape-sheet/test/depth-cues.test.ts` holds this page's own figures, so a
+motion that stops turning fails a test rather than a review. The procedure, and
+what is dangerous where, is `.claude/skills/depth`.
 
 ## Motion
 

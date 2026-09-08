@@ -441,6 +441,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/motions-event.ts` | The two motions that are events rather than idles |
 | `packages/content/src/motions-retired.ts` | The motions nothing in the game carries any more |
 | `packages/content/src/balloon-parts.ts` | **What is alive inside THE BALLOON**, and hanging under it: veins, a ring of lit beads |
+| `packages/content/src/surface.ts` | where a mark placed at a longitude and latitude lands, how the tangent plane foreshortens it, and its own normal against `KEY` |
 
 ### packages/render
 
@@ -783,6 +784,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/pinball-blast.ts` | PINBALL's two loud moments: a ball that hit the ship, and a target taken |
 | `packages/render/src/pinball-button.ts` | PINBALL's two presses, as faces on the band's own lobes |
 | `packages/render/src/beatbox-air.ts` | **The air a soundbox is moving**, which is the half of this creature that has no number in it at all |
+| `packages/render/src/hull-light.ts` | who lights the ship, as a record — the shipped `litBox` reached through a seam a second answer can be held against |
 
 ### packages/net
 
@@ -1326,5 +1328,8 @@ place — the generator keeps whatever is there.
 | `tools/director/src/style-form.ts` | The form half of the STYLE page: how a body is drawn, how big it ships, what makes one nameable |
 | `tools/director/src/style-page.ts` | DOCUMENTATION → STYLE: the whole visual language on one page, drawn live |
 | `tools/frames/press-command.ts` | What one `--press` actually sends, once the line has been taken apart |
+| `tools/hooks/after-depth-edit.ts` | a depth claim is the drawing mistake that looks like a success — names the projection to call and the cues to check |
+| `tools/shape-sheet/src/cues.ts` | `bun run shapes:cues` — the motion half of `report.ts`, with a placed surface as its last row |
+| `tools/shape-sheet/src/depth-cues.ts` | the numbers for motion: drawn aspect, the period count on width and sway, how far a cycle is from mirroring itself, and whether anything is revealed |
 
 <!-- index:code:end -->

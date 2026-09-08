@@ -217,10 +217,13 @@ and each already names the document holding the argument
 (`docs/working-with-claude.md`, `docs/performance.md`,
 `docs/delegation-cost.md`) — so the paragraphs after the first sentence of each
 have somewhere to go that a session reaches in one hop. Two of the three would
-buy back a thousand characters. Add `bun run port`, `bun run probe` and
-`bun run style-guide` to the Commands block in the same commit: all three are
-lines their lanes could not afford, and all three are commands a session looks
-for exactly where it cannot find them.
+buy back a thousand characters. Add `bun run port`, `bun run probe`,
+`bun run style-guide` and `bun run shapes:cues` to the Commands block in the
+same commit: all four are lines their lanes could not afford, and all four are
+commands a session looks for exactly where it cannot find them.
+`shapes:cues` is the motion half of `shapes:report` and was added on
+8 September 2026 by a lane that could only document it in
+`.claude/skills/depth` and `docs/style-guide.md`, for this reason.
 
 ## `bun run frames` cannot photograph THE MAZE's own answer
 
