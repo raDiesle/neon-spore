@@ -1,7 +1,8 @@
-import type { SpawnEntry, TimedCommand, World } from "@neon-spore/sim";
+import type { SpawnEntry, TimedCommand } from "@neon-spore/sim";
 import {
   aim,
   EVENT_CADENCE_SECONDS,
+  firstOfKind,
   fresh,
   hold,
   type Pose,
@@ -12,7 +13,7 @@ import {
   shoot,
   POSE_TPB as TPB,
 } from "./pose-kit.js";
-import { BODIES_POSE } from "./poses-bodies.js";
+import { BODIES_POSE, DART_RUN_POSE } from "./poses-bodies.js";
 
 /**
  * The states a candidate look is judged on — one per slot that had none.
@@ -52,15 +53,6 @@ const COL = 5;
  * a band with nothing on it.
  */
 const WAVE_WITH_BOTH_FACES = 13;
-
-/** Where a `tile` crop is centred: the first body of the kind the pose is
- * named after, read off the posed world rather than guessed. */
-const firstOfKind =
-  (kind: string) =>
-  (w: World): { col: number; row: number } => {
-    const c = w.creatures.find((x) => x.kind === kind) ?? w.creatures[0];
-    return c ? { col: c.col, row: c.row } : { col: COL, row: 7 };
-  };
 
 /**
  * A worm, long enough that its links are visibly out of step with each other.
@@ -230,6 +222,7 @@ export const VERSUS_POSES: Pose[] = [
   BAND_POSE,
   METEOR_HIT_POSE,
   BODIES_POSE,
+  DART_RUN_POSE,
 ];
 
 export const VERSUS_GROUP: PoseGroup = {

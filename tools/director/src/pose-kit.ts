@@ -65,6 +65,22 @@ export const living = (color: Color, col: number, beat = 0): SpawnEntry => ({
   color,
 });
 
+/**
+ * Where a `tile` crop is centred: the first body of the kind the pose is named
+ * after, read off the posed world rather than guessed.
+ *
+ * Here rather than in one of the pose files because two of them want it —
+ * `poses-versus.ts` centres on a magnet, a rock and a strand, `poses-bodies.ts`
+ * on a dart — and a second copy of "find the body this picture is about" is
+ * how one sheet ends up centred on a creature the caption is not describing.
+ */
+export const firstOfKind =
+  (kind: string) =>
+  (w: World): { col: number; row: number } => {
+    const c = w.creatures.find((x) => x.kind === kind) ?? w.creatures[0];
+    return c ? { col: c.col, row: c.row } : { col: 5, row: 7 };
+  };
+
 /** A rock to spawn. It carries no colour, which is the whole of what it is. */
 export const rock = (col: number, kind: SpawnEntry["kind"] = "meteor", beat = 0): SpawnEntry => ({
   beat,
