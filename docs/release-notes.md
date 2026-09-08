@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-08 · 490ae4fa — Queue: landing stops on an INDEX.md conflict it could regenerate
+
+Landing PINBALL took three attempts, each refused with `conflicts in docs/INDEX.md` and each resolved by the same five commands. The file is generated and CLAUDE.md already says to resolve a generated file by running its command; a rule executed by hand is a tool that has not been written.
+
 ## 2026-09-08 · 4c653711 — A tap waits for the beat, so a soundbox can be photographed at all
 
 `--press` walks a tick line that does not start on a beat: clearing a wave's opening advances until it lets go, so tick nought is wherever that finished. Every other press is answered by what is under it and did not care. A tap is answered by *when* it arrived, so one written on a boundary landed between two of them and was refused in silence — the frame came back with a plain rounded box on it and nothing to say why.
