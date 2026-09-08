@@ -887,6 +887,7 @@ rather than storing them).
 ## `bun run shot` returns a blank page below the fold
 
 - **Found:** 2026-09-08, claude/styleguide-visual-elements
+- **Taken:** 2026-09-08, claude/queue-bun-run-shot-returns-a-blank-page-below-the-fold
 - **Files:** `tools/frames/shot.ts`, `tools/frames/capture.ts`
 
 Photographing an element taller than the viewport, inside one of the director's
