@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-08 · 57798ce8 — Read two party games for the round that is not the field
+
+Mario Party and Rayman Raving Rabbids, read against the seven filters the way `docs/borrowed.md` read Hazelight's two and `docs/tower-defence.md` read the genre our field already is. The finding is that a party minigame's transferable half is never the minigame: four people share one television, so nearly every one of them is a round one player could do alone while the other watched, which is filter 6. What crosses is the archetype underneath — the shape of the sixty seconds — and there are about eight of those in two hundred minigames.
+
 ## 2026-09-08 · 6ea985d3 — Queue: bun run land refuses in a cloud session's shallow clone
 
 A cloud clone is shallow, so a fetch brings a second shallow segment rather than joining the first and `main` and `origin/main` end up with no ancestor git can see between them — each counted as ahead of the other by the depth of the graft. `land`'s trunk guard reads that as a trunk that has moved and refuses. `git fetch --unshallow origin` clears it; the entry says where the check belongs and what to say instead of a count nobody can act on.
