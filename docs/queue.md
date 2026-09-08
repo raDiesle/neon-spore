@@ -874,3 +874,24 @@ and say in one line that the numbers are a photograph — or, better, quote no
 value the code owns and name the record instead, which is the rule the mechanism
 itself is built on (`variant.ts` reads `currentValues` off the live object
 rather than storing them).
+
+## `bun run shot` returns a blank page below the fold
+
+- **Found:** 2026-09-08, claude/styleguide-visual-elements
+- **Files:** `tools/frames/shot.ts`, `tools/frames/capture.ts`
+
+Photographing an element taller than the viewport, inside one of the director's
+scrolling sheets, gives the top of it and then black — the STYLE tab's colour
+section came back with three of its six groups drawn and the rest an empty
+rectangle the height of the missing content, and a second attempt with a longer
+`--wait` returned the same picture, so it is not a settling problem. Raising
+`--size` until the whole element fits the viewport is the workaround this lane
+used (`--size 1240x1700` for a 1600 px section), and it is not discoverable: the
+first shot looks like a page that failed to render rather than a shot that
+failed to take.
+
+Either scroll the container so each band of the element is painted before it is
+captured, or grow the viewport to the element's own height before shooting and
+put it back afterwards — the second is a few lines and needs no knowledge of
+which container scrolls. A note in the usage text is not enough on its own,
+because the failure produces a plausible-looking picture.

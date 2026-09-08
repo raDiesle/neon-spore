@@ -54,19 +54,19 @@ export function colourPanel(y: number): string {
 }
 
 export const DIAL_HEIGHT = 450;
-const RADIUS = 126;
+export const DIAL_RADIUS = 126;
 
 /**
- * The placement rule as a picture: every body hue on one dial, so the gap a
- * new colour has to land in is a thing you can see rather than a number you
- * have to trust. This is the panel that answers "where does the next hue go".
+ * The dots themselves, around a circle of `radius` at `cx, cy`.
+ *
+ * Separate from the panel because the director draws the same dial on its own
+ * STYLE page, at its own size and with no sheet around it. One copy of where a
+ * hue lands, two places it is shown.
  */
-export function dialPanel(y: number): string {
+export function dialMarks(cx: number, cy: number, radius: number): string {
   const all = PALETTE as unknown as Swatches;
-  const cx = WIDTH / 2;
-  const cy = y + 120 + RADIUS;
   const dots: string[] = [
-    `    <circle cx="${r(cx)}" cy="${r(cy)}" r="${RADIUS}" fill="none" stroke="${PALETTE.grid}"/>`,
+    `    <circle cx="${r(cx)}" cy="${r(cy)}" r="${radius}" fill="none" stroke="${PALETTE.grid}"/>`,
   ];
   const placed: number[] = [];
   const sorted = [...DIAL].sort((a, b) => hsl(all[a] ?? "#000000").h - hsl(all[b] ?? "#000000").h);
@@ -80,18 +80,27 @@ export function dialPanel(y: number): string {
     const a = (h * Math.PI) / 180;
     const dx = Math.cos(a);
     const dy = Math.sin(a);
-    const out = RADIUS + (crowded ? 72 : 16);
+    const out = radius + (crowded ? 72 : 16);
     const anchor = dx > 0.25 ? "start" : dx < -0.25 ? "end" : "middle";
-    dots.push(`    <line x1="${r(cx + dx * (RADIUS - 14))}" y1="${r(cy + dy * (RADIUS - 14))}"
-          x2="${r(cx + dx * RADIUS)}" y2="${r(cy + dy * RADIUS)}" stroke="${hex}" stroke-width="2"/>
-    <circle cx="${r(cx + dx * RADIUS)}" cy="${r(cy + dy * RADIUS)}" r="7" fill="${hex}"/>
+    dots.push(`    <line x1="${r(cx + dx * (radius - 14))}" y1="${r(cy + dy * (radius - 14))}"
+          x2="${r(cx + dx * radius)}" y2="${r(cy + dy * radius)}" stroke="${hex}" stroke-width="2"/>
+    <circle cx="${r(cx + dx * radius)}" cy="${r(cy + dy * radius)}" r="7" fill="${hex}"/>
     ${label(cx + dx * out, cy + dy * out + 3, `${key} ${Math.round(h)}°`, 8, PALETTE.text, anchor)}
-    ${crowded ? `<line x1="${r(cx + dx * (RADIUS + 10))}" y1="${r(cy + dy * (RADIUS + 10))}" x2="${r(cx + dx * (out - 4))}" y2="${r(cy + dy * (out - 4))}" stroke="${PALETTE.grid}"/>` : ""}`);
+    ${crowded ? `<line x1="${r(cx + dx * (radius + 10))}" y1="${r(cy + dy * (radius + 10))}" x2="${r(cx + dx * (out - 4))}" y2="${r(cy + dy * (out - 4))}" stroke="${PALETTE.grid}"/>` : ""}`);
   }
+  return dots.join("\n");
+}
+
+/**
+ * The placement rule as a picture: every body hue on one dial, so the gap a
+ * new colour has to land in is a thing you can see rather than a number you
+ * have to trust. This is the panel that answers "where does the next hue go".
+ */
+export function dialPanel(y: number): string {
   return panel(
     y,
     "HUE PLACEMENT · a new colour goes in a gap",
     "the twelve body hues at their measured angles. A hue touching a neighbour is one the pair says the wrong word for.",
-    dots.join("\n"),
+    dialMarks(WIDTH / 2, y + 120 + DIAL_RADIUS, DIAL_RADIUS),
   );
 }

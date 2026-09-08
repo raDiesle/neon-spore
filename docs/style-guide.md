@@ -13,7 +13,10 @@ half thousand spread across `alive.md`, `glow.md`, `parts.md`, `skins.md`,
 
 The picture that goes with it is `docs/reference/style-guide.svg`, written by
 `bun run style-guide` out of `PALETTE`, `STROKE` and `silhouettes.ts`, so it
-cannot drift from what the game draws.
+cannot drift from what the game draws. The director's DOCUMENTATION sheet has
+the same specimens on its STYLE tab, built live at open time out of the same
+values — the one to open when you want a hex rather than a printable page,
+since a swatch there is clicked and copied.
 
 ## The identity
 

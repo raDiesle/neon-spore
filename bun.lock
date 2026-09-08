@@ -79,6 +79,7 @@
         "@neon-spore/render": "workspace:*",
         "@neon-spore/shape-sheet": "workspace:*",
         "@neon-spore/sim": "workspace:*",
+        "@neon-spore/style-guide": "workspace:*",
       },
     },
     "tools/frames": {

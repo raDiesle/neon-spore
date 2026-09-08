@@ -14,11 +14,14 @@ import { label, panel, r } from "./page.js";
  * far marks against the limb and takes them away.
  */
 
-const STEPS = 5;
+export const DEPTH_STEPS = 5;
+const STEPS = DEPTH_STEPS;
 const MARKS = 8;
 /** How far a surface feature stands from the middle, as a fraction of the body. */
 const REACH = 0.72;
-const SIZE = 96;
+/** The drawn extent of a specimen, so a caller can size its own frame. */
+export const DEPTH_SIZE = 96;
+const SIZE = DEPTH_SIZE;
 
 function dot(x: number, y: number, front: boolean): string {
   // Behind the limb is not drawn at all: that is the whole of the reveal, and
@@ -34,7 +37,7 @@ function shell(scaleX: number): string {
 }
 
 /** An affine: one `sx`, and every mark on the body moves at very nearly one rate. */
-function posed(theta: number): string {
+export function posed(theta: number): string {
   const sx = Math.cos(theta) * 0.35 + 0.65;
   const marks: string[] = [];
   for (let i = 0; i < MARKS; i++) {
@@ -45,7 +48,7 @@ function posed(theta: number): string {
 }
 
 /** A turn: each feature at its own longitude, so half of them are behind. */
-function placed(theta: number): string {
+export function placed(theta: number): string {
   const marks: string[] = [];
   for (let i = 0; i < MARKS; i++) {
     const lon = (i / MARKS) * Math.PI * 2 + theta;

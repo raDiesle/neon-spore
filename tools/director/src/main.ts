@@ -34,6 +34,7 @@ import {
   type Store,
 } from "./state.js";
 import { bindStates, closeMechanicsSheet } from "./states-page.js";
+import { bindStyleTab } from "./style-page.js";
 import { initSubcols } from "./subcols.js";
 import { bindExpanders, bindTabs } from "./tabs.js";
 import { bindTuning } from "./tuning.js";
@@ -143,12 +144,13 @@ bindDemoPanel(
   },
   closeMechanicsSheet,
 );
-// GUIDES and SPEC joined DOCUMENTATION as tabs — see `guide-sheet.ts` and
-// `spec.ts`. Both bound before `bindStates` below, the same ordering
-// `bindDemoPanel` uses, so a restore straight to either finds its listener
-// already wired.
+// DOCUMENTATION's lazy rooms, all bound before `bindStates` below: that call
+// replays the place's inner tab as a real click, so a room bound after it
+// restores to a blank page. CONTROLS was, and did.
 bindGuidesTab();
 bindSpecTab();
+bindStyleTab();
+bindControlSetsTab();
 
 // The palette's descriptions, on or off, remembered — see `brush-hints.ts`.
 bindBrushHints();
@@ -242,7 +244,6 @@ bindBacklog();
 bindNotes();
 bindStates();
 bindSoundPage();
-bindControlSetsTab();
 bindExpanders();
 
 void io.load();

@@ -1,0 +1,122 @@
+/**
+ * DOCUMENTATION → STYLE. Specimens on the game's own ground: every frame here
+ * is drawn with the field's colours, so the page behind them has to be the
+ * field's background rather than the director's panel, or a body's aura is
+ * read against a colour the game never puts behind it.
+ */
+
+#mech-style .sg-section {
+  border-top: 1px solid var(--line);
+  padding: 18px 0 10px;
+}
+#mech-style .sg-section h2 {
+  color: var(--gold);
+  letter-spacing: 3px;
+  font-size: 12px;
+  margin: 0 0 6px;
+}
+#mech-style .sg-section > .note {
+  max-width: 760px;
+  margin: 0 0 14px;
+}
+#mech-style .sg-family {
+  margin: 0 0 18px;
+}
+#mech-style .sg-family h3 {
+  color: var(--cyan);
+  letter-spacing: 2px;
+  font-size: 11px;
+  margin: 0 0 3px;
+}
+#mech-style .sg-rule {
+  color: var(--dim);
+  font-size: 10px;
+  max-width: 760px;
+  margin: 0 0 8px;
+}
+#mech-style .sg-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+#mech-style .swatch {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 96px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+#mech-style .swatch .chip {
+  display: block;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+#mech-style .swatch:hover .chip {
+  border-color: var(--ink);
+}
+#mech-style .swatch .key {
+  font-size: 10px;
+  /* `claspShieldDeep` is fifteen characters in a 96px cell. Wrapping it is the
+     only option that keeps the key readable: shrinking the type further makes
+     a hex unreadable, and a wider cell puts four swatches on a row. */
+  overflow-wrap: anywhere;
+}
+#mech-style .swatch .hex {
+  font-size: 9px;
+  overflow-wrap: anywhere;
+  color: var(--dim);
+}
+#mech-style .swatch.is-copied .hex {
+  color: var(--green);
+}
+#mech-style .sg-dial,
+#mech-style .sg-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 18px;
+}
+#mech-style .sg-turn {
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+#mech-style .sg-rowname {
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+}
+#mech-style .sg-rowname b {
+  color: var(--cyan);
+  letter-spacing: 2px;
+  font-size: 10px;
+}
+#mech-style .sg-rowname span {
+  color: var(--dim);
+  font-size: 9px;
+}
+#mech-style .sg-cell {
+  text-align: center;
+}
+#mech-style .sg-spec {
+  display: block;
+  margin: 0 auto;
+}
+#mech-style .sg-caption {
+  margin-top: 4px;
+  font-size: 10px;
+}
+#mech-style .sg-sub {
+  font-size: 9px;
+  color: var(--dim);
+}
+#mech-style .sg-cell.is-dim .sg-caption {
+  color: var(--dim);
+}

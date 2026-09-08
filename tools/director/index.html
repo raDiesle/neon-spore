@@ -9,7 +9,7 @@
          unreachable on a real phone. -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Neon Spore — Director</title>
-    <!-- One sheet, in seventeen files. Cutting the <style> block out of this
+    <!-- One sheet, in eighteen files. Cutting the <style> block out of this
          page and letting Biome format it left 2 985 lines in one file, twelve
          times the ceiling every other file here keeps; the sheet's own section
          comments already fell on the page's seams, so those are the seams.
@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="./src/director-boss.css" />
     <link rel="stylesheet" href="./src/director-rounds.css" />
     <link rel="stylesheet" href="./src/director-controls.css" />
+    <link rel="stylesheet" href="./src/director-styleguide.css" />
     <link rel="stylesheet" href="./src/director-phone.css" />
   </head>
   <body>
@@ -287,8 +288,9 @@
         <span class="sub">
           reference: what a control set contains, what the ship's dials are,
           what a mechanic looks like demonstrated, every state the game can be
-          held in, every guide a wave carries, and the design spec itself —
-          and TUNING, the one live control kept alongside them
+          held in, every colour and shape the game is drawn with, every guide a
+          wave carries, and the design spec itself — and TUNING, the one live
+          control kept alongside them
         </span>
         <a id="mainMenuLink" class="linkbtn" href="/game?menu=1" target="_blank" rel="noreferrer"
           >▶ MAIN MENU</a
@@ -299,6 +301,7 @@
         <button type="button" data-tab="states" class="on">STATES</button>
         <button type="button" data-tab="controlsets">CONTROLS</button>
         <button type="button" data-tab="ship">SHIP</button>
+        <button type="button" data-tab="style">STYLE</button>
         <button type="button" data-tab="demos">DEMOS</button>
         <button type="button" data-tab="tuning">TUNING</button>
         <button type="button" data-tab="guides">GUIDES</button>
@@ -418,6 +421,22 @@
           </p>
           <button type="button" class="expand" data-expand="#specFiles">EXPAND ALL</button>
           <div id="specFiles"></div>
+        </div>
+        <div class="sheetpage" id="mech-style">
+          <p class="pagewhat">
+            What the game is drawn with. Every colour it uses, grouped by what
+            the group is for, with the hex under each one — click a swatch to
+            copy it. Below that: the wheel showing which hues are already taken
+            and where a free gap is, the four passes that make up one creature,
+            the size a creature is actually seen at, the five shapes and what
+            keeps them apart, and why a surface is turned rather than squashed.
+            All of it is drawn here and now from the same values the field
+            draws with, so nothing on this page can be out of date. The written
+            version is docs/style-guide.md; the same specimens as one printable
+            sheet are docs/reference/style-guide.svg, from `bun run
+            style-guide`.
+          </p>
+          <div id="styleBody"></div>
         </div>
       </div>
     </div>

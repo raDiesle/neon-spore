@@ -7,7 +7,11 @@
   "types": "./src/main.ts",
   "exports": {
     ".": "./src/main.ts",
-    "./page.js": "./src/page.ts"
+    "./page.js": "./src/page.ts",
+    "./families.js": "./src/families.ts",
+    "./colour.js": "./src/colour.ts",
+    "./form.js": "./src/form.ts",
+    "./depth.js": "./src/depth.ts"
   },
   "scripts": {
     "build": "bun run ./src/main.ts"

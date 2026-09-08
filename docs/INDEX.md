@@ -1321,5 +1321,8 @@ place — the generator keeps whatever is there.
 | `tools/director/src/tails/plume.ts` | A filled tongue back along the body's own axis, three soft balls down it and a near-white root |
 | `tools/director/src/tails/wake.ts` | Four short bars lying **across** the line behind the body, shrinking and fading with age |
 | `tools/director/src/stage-balloon-both.ts` | **Both of THE BALLOON's handles off one mouse**, and only under TEST |
+| `tools/director/src/style-colour.ts` | The colour half of the STYLE page: every swatch in `PALETTE`, filed under the rule it belongs to |
+| `tools/director/src/style-form.ts` | The form half of the STYLE page: how a body is drawn, how big it ships, what makes one nameable |
+| `tools/director/src/style-page.ts` | DOCUMENTATION → STYLE: the whole visual language on one page, drawn live |
 
 <!-- index:code:end -->
