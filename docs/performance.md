@@ -22,6 +22,15 @@ bun run perf --save               # write a full sweep back as the new baseline
 bun run perf --wave 46 --save     # merge that one wave into the baseline
 ```
 
+**Not in a cloud session.** A narrow run that takes about 25 seconds on the
+owner's machine was killed twice on a cloud runner — at 400 and at 580 seconds,
+with nothing printed either time — and the owner settled it on 8 September
+2026: a session started from the phone skips this, lands the shape unmeasured
+and names `bun run perf` in its unverified list. The number that matters is the
+one taken on a machine somebody is holding, and a number taken on a runner slow
+enough to be killed by its own timeout is not that number
+(`docs/cloud-session.md`).
+
 **Measure the waves the new thing appears in, not the whole game.** That is the
 owner's instruction and it is also the cheaper truth: a change to one creature
 cannot make a wave that creature never enters slower. The full sweep exists for

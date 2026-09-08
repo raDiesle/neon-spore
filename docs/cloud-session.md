@@ -56,14 +56,25 @@ because it turns "not looked at" into "looked fine". If it turns out wrong,
 `main` takes the fix as its own commit; the history is linear and stays that
 way.
 
+**It does not measure a frame.** `bun run perf` is the one command in
+`CLAUDE.md` a cloud session is told to skip outright, and the owner said so on
+8 September 2026 after a lane spent twenty minutes finding out why: a narrow
+run that takes about 25 seconds on the owner's machine was killed twice on a
+cloud runner, at 400 and at 580 seconds, having printed nothing either time.
+The box is slow rather than broken — it runs the whole test suite in 260 s —
+but a measurement taken there would be a number about the runner, not about
+the game, and waiting for one costs a turn. So a lane that adds a shape or an
+animation in a cloud session lands it unmeasured and names `bun run perf` in
+its unverified list, for the machine that can take the number properly.
+
 **It cannot verify everything, and has to say which parts — in the report.**
 The sandbox has no wrangler, no `bun run delegate`, and no network access it
 did not arrange. It does have a headless Chromium, so a page can be opened,
 driven and screenshotted — what it cannot do is *look*, and those are
 different things: a green screenshot check says the DOM is there, not that the
 motion reads. `bun test` and the typecheck are the parts that hold unaided.
-Anything that would have needed `bun run relay:check`, a human eye on a shape
-sheet, or a wave watched at tempo is *unverified*, and the report says so in
+Anything that would have needed `bun run relay:check`, `bun run perf`, a human
+eye on a shape sheet, or a wave watched at tempo is *unverified*, and the report says so in
 that word rather than offering a green check that covered less than usual. A
 wave whose timing was never watched is not finished, it is written — landed,
 now, but still written.

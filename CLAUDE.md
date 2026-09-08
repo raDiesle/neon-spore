@@ -107,8 +107,8 @@ A session started from a phone clones `origin` and never sees this checkout.
   so. Mid-task work is not committed and therefore cannot land.
 - **It says which parts it could not verify, in the report, in that word.**
   `bun test` and the typecheck hold unaided; anything needing a wave watched at
-  tempo, a shape sheet seen by an eye, or `bun run relay:check` is *unverified*
-  and the report names it as a list of what to open.
+  tempo, a shape sheet seen by an eye, `bun run perf` or `bun run relay:check`
+  is *unverified* and the report names it as a list of what to open.
 - **Its servers need a host**: `PREVIEW_HOST=127.0.0.1`, `DIRECTOR_HOST=127.0.0.1`.
   Without it Bun reports `EADDRINUSE`, which is the wrong cause.
 - **Two at once is the ceiling**, on different packages, each naming its branch
@@ -310,9 +310,10 @@ rediscover: `docs/working-with-claude.md`.
 
 ## Measuring what a frame costs
 
-**A new shape or a new animation gets a performance run; an ordinary change does
-not.** **Measure the waves the new thing appears in and nothing else** — the
-whole game is swept only when a baseline is being taken.
+**A new shape or a new animation gets a performance run; an ordinary change
+does not, and neither does a cloud session — it never finishes there.**
+**Measure the waves the new thing appears in and nothing else** — the whole
+game is swept only when a baseline is being taken.
 
 ```
 bun run perf --wave "THE GRATE"   # the waves a change touched, at their busiest tick
