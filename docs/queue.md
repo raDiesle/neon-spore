@@ -533,6 +533,7 @@ explain the absence.
 ## A third study of other games has nowhere to be read but the repository
 
 - **Found:** 2026-09-08, claude/party-minigames-research-udjn67
+- **Taken:** 2026-09-08, claude/queue-a-third-study-of-other-games-has-nowhere-to-be-r
 - **Files:** `tools/director/src/docs-api.ts`, `tools/director/src/backlog-page.ts`, `tools/director/src/backlog-tabs.ts`, `docs/party-games.md`
 - **Asks:** Should `docs/party-games.md` get a tab on NOT BUILT YET, fold into BORROWED, or stay a file like `docs/tower-defence.md`?
 
