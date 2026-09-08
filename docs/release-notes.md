@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-08 · 083c68f6 — PINBALL is played on the ship, and the cannon is the gun and the glove
+
+The round threw the game away to draw itself: a table in a thick violet case over a flat fill, a bucket invented for it, four flat plates where the panel should be. The owner asked for the opposite — the game area must look like default play, with the ship and the control set area — so the field's furniture comes back and the round keeps only what a round takes, the eleven columns of falling bodies.
+
 ## 2026-09-08 · 807056c6 — The visual system gets a room in the director, drawn from the palette
 
 DOCUMENTATION → STYLE: every colour the game draws with, grouped by the rule it belongs to, with its hex and hue angle under it and a click that copies the hex; then the hue wheel that says where a new colour may go, the four passes that draw one body and the light going out when it is shot in the wrong colour, the size ladder down to the 11 px where nothing survives, the five silhouettes with what keeps them apart, and the turn against the squash.
