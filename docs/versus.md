@@ -9,6 +9,25 @@ The thing it exists for is a question a still cannot answer and a card-sized
 render cannot answer either: **does this read at 26 px, and does it read at
 tempo.** Everything below is arranged around not lying about that.
 
+## A candidate is static by default — 8 September 2026
+
+**The owner's rule, and it narrows what follows rather than contradicting it.**
+A candidate look is offered as a **still picture or an SVG in a fixed state**,
+and it animates only when motion is the thing being judged.
+
+This file argues at length that the question a still cannot answer is *does it
+read at 26 px and at tempo*, and that argument stands — for the looks it is
+about. Timing, phase offset, overshoot, a landing in unison, whether a body
+survives at speed: those get the animated pair, and nothing less will do. A
+colour, a contour, a material, an interior treatment, an icon or a piece of
+furniture does not, and opening an animated slot for one spends the expensive
+mechanism on a question a picture settles — and settles somewhere the owner can
+look at it on a phone, with no game running.
+
+What stays forbidden either way is **a still judged against something that
+moves**, which is the defect proposal 3 is rejected over below. Both sides
+animate, or neither does.
+
 ## The decision
 
 Build **VERSUS** (proposal 1): a candidate look is a set of field assignments patched onto records `packages/content` and `packages/render` already export, living in `tools/versus/`, which nothing in the game's import graph names. The director grows a VERSUS tab on the backlog sheet that steps **one** `World` and draws it twice in the same frame through two `Canvas2DRenderer`s at 380 × 820 CSS pixels uncapped — left is what the game draws, right is the same code with the patch applied around `draw()` and restored in a `finally` — so the only thing that can differ on screen is the patch. `Math.random` is seeded to the same value for each side of a frame, because `sparks.ts` and `deflect.ts` randomise four values per spawn each and without it two identical looks draw different pixels. A vote presses one of two buttons, `KEEP CURRENT` or `ADOPT <the one on the right>`, and writes nothing anywhere: it builds a prompt from the registry plus the current values read off the live records *before* the patch is applied, puts it on the clipboard, and renders it into a selected `<textarea>` you can read before you paste it. Three verified corrections to the proposal as submitted: `tools/versus/` is a **plain directory** with a `test/` beside it, exactly like `tools/checks`, `tools/burn`, `tools/handoff` and `tools/land` — not a workspace package, so no `bun install` and no `package.json`, and `tsconfig.json` already includes `tools/**/*.ts` so it is typechecked and linted for free; the prompt builder lives in `tools/versus/prompt.ts` rather than the director, because it is pure string work that deserves a test with no DOM in it; and there is **no** `GET /api/versus` — the head sha and the dirty flag become two fields on the `ChecksView` the director already fetches from `/api/checks`. The emitted prompt gains three things proposal 1 did not have and needed: `bun run shapes` plus the two committed SVGs in the staging list whenever a patched target lives in `packages/content` (I confirmed `tools/shape-sheet/shape-sheet.svg` is committed and contains the literal string `9 lobes` for BULB, so adopting a bulb candidate without it leaves a committed lie that `bun run check` cannot see), a `git grep` for every reader of each patched symbol emitted **with no predicted answer**, and a candidate that is a directory removed by `git rm -r` rather than a file.

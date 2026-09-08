@@ -7,6 +7,10 @@
 
 **Organic, graceful, neon.** No pixel art, no retro.
 
+> This is the design intent for the drawing itself. The whole visual language —
+> identity, shape, materials, colour, light, motion, and which format is which —
+> is consolidated in `docs/style-guide.md`, with a generated specimen sheet.
+
 - Line weight 1.2–1.8 px at 26 px object size, interior lines 0.6–0.9 px
 - No filled body — a dark fill at 10–20 % opacity
 - Glow through a soft aura around the line, not through thick lines

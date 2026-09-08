@@ -185,9 +185,10 @@ and each already names the document holding the argument
 (`docs/working-with-claude.md`, `docs/performance.md`,
 `docs/delegation-cost.md`) — so the paragraphs after the first sentence of each
 have somewhere to go that a session reaches in one hop. Two of the three would
-buy back a thousand characters. Add `bun run port` and `bun run probe` to the
-Commands block in the same commit: both are lines this lane could not afford,
-and both are commands a session looks for exactly where it cannot find them.
+buy back a thousand characters. Add `bun run port`, `bun run probe` and
+`bun run style-guide` to the Commands block in the same commit: all three are
+lines their lanes could not afford, and all three are commands a session looks
+for exactly where it cannot find them.
 
 ## `bun run frames` cannot photograph THE MAZE's own answer
 

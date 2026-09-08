@@ -78,7 +78,9 @@ three rounds, and stop — the returns fall off and the cost does not.
 **A reference in the conversation is the density to meet.** If the owner has
 attached an SVG, count what it actually contains before drawing beside it.
 
-`.claude/skills/svg-look` holds the loop and the craft.
+`.claude/skills/svg-look` holds the loop and the craft; `docs/style-guide.md`
+holds what the picture has to be a picture *of*, and `docs/art-review.md` the
+checklist to run before offering one.
 `tools/hooks/after-svg-edit.ts` says so at the moment a drawing file is edited,
 once per file per session, and it cannot tell a picture from an explanatory
 diagram — a diagram is exempt and plain is right for it. The skill's own

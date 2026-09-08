@@ -175,6 +175,14 @@
         "@neon-spore/sim": "workspace:*",
       },
     },
+    "tools/style-guide": {
+      "name": "@neon-spore/style-guide",
+      "version": "0.0.0",
+      "dependencies": {
+        "@neon-spore/content": "workspace:*",
+        "@neon-spore/render": "workspace:*",
+      },
+    },
   },
   "packages": {
     "@biomejs/biome": ["@biomejs/biome@2.5.10", "", { "optionalDependencies": { "@biomejs/cli-darwin-arm64": "2.5.10", "@biomejs/cli-darwin-x64": "2.5.10", "@biomejs/cli-linux-arm64": "2.5.10", "@biomejs/cli-linux-arm64-musl": "2.5.10", "@biomejs/cli-linux-x64": "2.5.10", "@biomejs/cli-linux-x64-musl": "2.5.10", "@biomejs/cli-win32-arm64": "2.5.10", "@biomejs/cli-win32-x64": "2.5.10" }, "bin": { "biome": "bin/biome" } }, "sha512-WRKXARA3kTuiV5sxqTpobJ/I0MVd4vk3pOL6wnp5az4LntFIhWTj1RWZq3DI9PCEN3lXcqy7p5aqUHzvq8AXyQ=="],
@@ -368,6 +376,8 @@
     "@neon-spore/shape-sheet": ["@neon-spore/shape-sheet@workspace:tools/shape-sheet"],
 
     "@neon-spore/sim": ["@neon-spore/sim@workspace:packages/sim"],
+
+    "@neon-spore/style-guide": ["@neon-spore/style-guide@workspace:tools/style-guide"],
 
     "@poppinss/colors": ["@poppinss/colors@4.1.6", "", { "dependencies": { "kleur": "^4.1.5" } }, "sha512-H9xkIdFswbS8n1d6vmRd8+c10t2Qe+rZITbbDHHkQixH5+2x1FDGmi/0K+WgWiqQFKPSlIYB7jlH6Kpfn6Fleg=="],
 

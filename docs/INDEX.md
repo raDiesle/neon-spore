@@ -18,6 +18,8 @@ file, and a count has to agree with what the file's own header counts.
 | `docs/git-and-landing.md` | a landing surprised you, or you want to argue with a Git rule in CLAUDE.md |
 | `docs/cloud-session.md` | you are a session started from the phone, or you are changing what one may do |
 | `docs/looks.md` | you are about to change something a player would see in a frame |
+| `docs/style-guide.md` | you want the whole visual language on one screen — identity, shape, colour, light, motion, what a physics round needs of an asset, and which format is which. The top of the visual tree, with `docs/reference/style-guide.svg` beside it |
+| `docs/art-review.md` | you are about to propose anything a player would see, and want the checklist those rules turn into |
 | `docs/architecture.md` | you touch the sim/render boundary, determinism or the tick |
 | `docs/working-with-claude.md` | you are setting up a session, a skill or a hook |
 | `docs/choosing-a-model.md` | you are writing a prompt and picking a model and a thinking effort |
@@ -1298,5 +1300,11 @@ place — the generator keeps whatever is there.
 | `tools/director/src/field-controls-balloon.ts` | THE BALLOON's two handles, in a file of their own |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-notes-round.ts` | The paragraph under each **round's** card |
+| `tools/style-guide/src/colour.ts` | the swatch grid and the hue dial — every colour under its rule, and the twelve body hues at their measured angles |
+| `tools/style-guide/src/families.ts` | Every swatch in `PALETTE`, filed under the rule it belongs to |
+| `tools/style-guide/src/form.ts` | the drawn panels: the stroke build-up, the size ladder down to 11 px, and the five living silhouettes |
+| `tools/style-guide/src/main.ts` | `bun run style-guide` — the specimen sheet for `docs/style-guide.md` |
+| `tools/style-guide/src/page.ts` | Page furniture for the style-guide specimen sheet |
+| `tools/style-guide/src/depth.ts` | the posed body beside the placed one, through half a turn — why an affine can never bring a mark out from behind |
 
 <!-- index:code:end -->

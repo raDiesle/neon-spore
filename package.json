@@ -57,7 +57,8 @@
     "shapes:swim": "bun run --cwd tools/shape-sheet swim",
     "shapes:report": "bun run --cwd tools/shape-sheet report",
     "shapes:page": "bun run --cwd tools/director shapes-page",
-    "shapes:still": "bun run --cwd tools/director shapes-still"
+    "shapes:still": "bun run --cwd tools/director shapes-still",
+    "style-guide": "bun run --cwd tools/style-guide build"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.10",

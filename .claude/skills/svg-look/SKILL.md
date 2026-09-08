@@ -35,6 +35,11 @@ is what a finished interior looks like here; `bun run shapes:parts` prints
 every secondary form on one sheet. Build from those rather than inventing —
 that rule has its own note in `CLAUDE.md`.
 
+**Run `docs/art-review.md` before the first round and after the last.** The
+loop below catches what is *wrong with the drawing*; the checklist catches what
+is wrong with the *asset* — a shape that reads beautifully and belongs to a
+different game. `docs/style-guide.md` is what both are checking against.
+
 ## The loop
 
 Three rounds, and the first two cost no image at all.
