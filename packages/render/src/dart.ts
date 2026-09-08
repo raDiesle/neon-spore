@@ -67,8 +67,14 @@ export function dartLean(c: Creature, beatPhase: number): number {
  * the launch has a moment of warning rather than arriving out of a still body
  * — and it is small enough that what it announces is "now", never "which
  * way", which is the arrow's word.
+ *
+ * Exported for one reader and one reason: `DART_LOOK.jet` is a record field
+ * now (`dart-look.ts`), so a second answer to the flame is a function written
+ * somewhere else — and a flame that re-derived this curve would burn on a
+ * clock the creature is not on. The heat is the creature's; only the picture
+ * of it is arguable.
  */
-function dartThrust(c: Creature, beatPhase: number): number {
+export function dartThrust(c: Creature, beatPhase: number): number {
   const p = Math.max(0, Math.min(1, beatPhase));
   if (c.dartFloat) return p < 0.8 ? 0 : ((p - 0.8) / 0.2) * 0.22;
   return (1 - p) ** 1.4;

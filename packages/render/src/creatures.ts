@@ -6,7 +6,7 @@ import { claspResonance, drawClaspShield } from "./clasp.js";
 import { coilCharge, drawCoilDome, showsCoilCharge } from "./coil.js";
 import { bodyDraw } from "./creature-body.js";
 import { creatureCenter } from "./creature-place.js";
-import { drawDartJet } from "./dart.js";
+import { DART_LOOK } from "./dart-look.js";
 import { byDepth, depthScale, drawnRow, nearness } from "./depth.js";
 import { mountPlace } from "./gyre-place.js";
 import type { Layout } from "./layout.js";
@@ -104,7 +104,7 @@ export function drawCreatures(
     // Under the body it is pushing, so the contour sits on its own exhaust
     // rather than inside it. Inside the perspective transform with everything
     // else, so a jet at the bottom of the field grows the way its body does.
-    if (c.kind === "dart") drawDartJet(ctx, l, c, x, y, beatPhase);
+    if (c.kind === "dart") DART_LOOK.jet(ctx, l, c, x, y, beatPhase);
     // **The one body draw, chosen by a table** (`creature-body.ts`). It used to
     // be an `if / else if` chain here, and adding THE VEER put a plain `if`
     // between two of its rungs: every kind after the cut fell through to

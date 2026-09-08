@@ -487,6 +487,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/comms.ts` | Which arrivals make the two of them talk, and which way round |
 | `packages/render/src/craters.ts` | A rock's own mark: not the whole rock's silhouette, only the sliver of it that was ever inside the skin |
 | `packages/render/src/creature-detail.ts` | Core and trailing filaments |
+| `packages/render/src/dart-look.ts` | WHAT A DART'S THRUST LOOKS LIKE, as a record rather than as the body of one function |
 | `packages/render/src/dart-path.ts` | Where a dart is going, drawn for the seat that is allowed to know: two dotted legs and a hollow body standing |
 | `packages/render/src/dart.ts` | Everything about a dart that is a picture rather than a rule: the lean that says where it is going, the jet |
 | `packages/render/src/deflect-look.ts` | How a catch reads, as a record rather than as numbers typed into the draw call |
