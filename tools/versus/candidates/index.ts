@@ -1,9 +1,11 @@
 import type { Variant } from "../variant.js";
 // region: candidates
 import { SHOT_STREAK } from "./cannon-shot/streak/index.js";
+import { BULB_SIX } from "./creature-bulb/six/index.js";
 import { MAGNET_COIL } from "./creature-magnet/coil/index.js";
 import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
 import { SKIN_LIT } from "./creature-skin/lit/index.js";
+import { SLICK_PINCH } from "./creature-slick/pinch/index.js";
 // endregion
 
 /**
@@ -70,4 +72,11 @@ import { SKIN_LIT } from "./creature-skin/lit/index.js";
  * `fine` went with it: it existed only to buy back half a step nobody could
  * see the whole of.
  */
-export const VARIANTS: Variant[] = [SHOT_STREAK, METEOR_FORGE, MAGNET_COIL, SKIN_LIT];
+export const VARIANTS: Variant[] = [
+  SHOT_STREAK,
+  METEOR_FORGE,
+  MAGNET_COIL,
+  SKIN_LIT,
+  SLICK_PINCH,
+  BULB_SIX,
+];

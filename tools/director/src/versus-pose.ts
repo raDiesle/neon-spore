@@ -64,6 +64,11 @@ const SLOT_POSE: Record<string, string> = {
   // material every blob in the game is made of, so its pose puts four kinds
   // on the field at once rather than asking the question a fifth of the way.
   "creature:skin": "BODIES · FOUR KINDS AT ONCE",
+  // And the two silhouette slots, on the same pose for a different reason: a
+  // contour is judged against the bodies it could be mistaken for, and this is
+  // the only pose that puts four of them on one frame.
+  "creature:slick": "BODIES · FOUR KINDS AT ONCE",
+  "creature:bulb": "BODIES · FOUR KINDS AT ONCE",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */
