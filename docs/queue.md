@@ -565,6 +565,7 @@ NOT BUILT YET sheet either way, because `ideas.md` is what its BOSSES tab reads.
 ## May a round come back, or is one meeting all a pair ever gets
 
 - **Found:** 2026-09-08, claude/party-minigames-research-udjn67
+- **Taken:** 2026-09-08, claude/queue-may-a-round-come-back-or-is-one-meeting-all-a-pa
 - **Files:** `docs/spec/interludes.md`, `packages/content/src/waves.ts`
 - **Asks:** May a round return once in a later act with one number turned, or is "nothing it teaches is used again" absolute?
 
