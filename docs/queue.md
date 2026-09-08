@@ -554,3 +554,48 @@ the owner's rather than a lane's.
 - **Repeat only what was failed.** The pair meets again the round that broke
   their hull. Reads as a rematch and needs a field on `World` that survives a
   wave, which is the only one of the three that is not free.
+
+## A cloud session cannot delete the branch it just landed
+
+- **Found:** 2026-09-08, claude/party-minigames-research-udjn67
+- **Files:** `tools/land/run.ts`, `docs/cloud-session.md`
+
+`bun run land` "deletes the branch and sweeps spent worktrees", and locally it
+does. The branch on `origin` is a different matter from a cloud session: the
+delete-push is refused by the git proxy the session runs behind.
+
+```
+$ git push origin --delete claude/party-minigames-research-udjn67
+warning: push negotiation failed; proceeding anyway with push
+error: RPC failed; HTTP 403 curl 22 The requested URL returned error: 403
+send-pack: unexpected disconnect while reading sideband packet
+fatal: the remote end hung up unexpectedly
+Everything up-to-date
+```
+
+Three attempts with backoff, and `git push origin :refs/heads/<branch>` gives
+the same 403 — an ordinary push of the same branch had gone through minutes
+earlier, so it is the *deletion* the proxy denies rather than the repository or
+the credential. `Everything up-to-date` on the last line is `git` reporting the
+other half of the same command and is not a success.
+
+So every cloud landing leaves its branch standing on `origin`, and after enough
+of them `git ls-remote --heads origin` is mostly graveyard —
+`claude/queued-items-rer0av`, `claude/rock-paper-scissors-boss-sn9ful` and
+`claude/the-weight-boss-states-w8bha3` were already there when this one looked.
+Nothing is broken by it: the commits are on `main` and `CLAUDE.md` says a
+landed branch is never revived. What it costs is that the branch list stops
+being a list of live work.
+
+The work: `land` should notice it is in a cloud session, try the delete once,
+and on a 403 say *the branch stays on origin, delete it in GitHub* rather than
+printing a stack of git's own noise after a successful landing — the landing
+did work and the last four lines currently read as though it had not. Then
+`docs/cloud-session.md` says it beside the two host variables, next to the
+shallow-clone entry, because the two are hit in the same minute of the same
+turn.
+
+Also worth deciding while somebody is in there: whether landing from a clone
+with no worktrees should push a branch at all. The hand-off is `main`
+(`CLAUDE.md`, Git), the branch was pushed only so the turn had somewhere to
+report from, and a branch never pushed is a branch nothing has to delete.
