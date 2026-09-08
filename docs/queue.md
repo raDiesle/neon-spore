@@ -252,6 +252,7 @@ plus a `--press`/`--hold` pair whose recorded order is the one written.
 ## `bun run frames` takes one `--hold`, so no two-hand gesture is photographable
 
 - **Found:** 2026-09-08, claude/balloon-test-view-improvements-49f65f
+- **Taken:** 2026-09-08, claude/queue-bun-run-frames-takes-one-hold-so-no-two-hand-ges
 - **Files:** `tools/frames/run.ts`, `tools/frames/hold.ts`, `tools/frames/capture.ts`,
   `tools/frames/test/`
 
