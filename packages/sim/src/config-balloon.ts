@@ -59,6 +59,13 @@ export interface BalloonConfig {
    * Thousandths of a tile from a balloon's own centre to where each of its two
    * handles rests. The one place it is said, so the circle a finger is
    * answered at and the circle the picture draws cannot disagree.
+   *
+   * It has to clear the body, and the body has doubled: a full balloon is
+   * `0.88` of a tile in half-height and `0.82` of that across, so its skin
+   * reaches `0.72` of a tile out from the centre and a handle is `0.3` more
+   * (`handleRadiusMilli`). At the old `900` the ring would have been drawn
+   * inside the skin it hangs off — a control you cannot see the edge of is a
+   * control nobody grabs.
    */
   balloonHandleMilli: number;
   /**
@@ -88,7 +95,7 @@ export const BALLOON_DEFAULTS: BalloonConfig = {
   balloonRiseRows: 1,
   balloonSplits: 1,
   balloonTautMilli: 1200,
-  balloonHandleMilli: 900,
+  balloonHandleMilli: 1150,
   damageBalloonBurst: 16,
   scoreBalloonRub: 120,
   scoreBalloonPop: 100,

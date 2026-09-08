@@ -11,6 +11,7 @@ import {
   type ViewRole,
 } from "@neon-spore/render";
 import { briefingHolds, type Command, type World } from "@neon-spore/sim";
+import { balloonBothHands } from "./stage-balloon-both.js";
 import { openingPress } from "./stage-opening.js";
 import type { StagePoint } from "./stage-point.js";
 
@@ -111,6 +112,19 @@ export function bindStageTouch({
   replay,
 }: StageTouch): StageHand {
   const holding = new Map<number, Hold>();
+  /**
+   * Every command this stage sends, and the second seat's copy of it where
+   * there is one. The only thing that has one is THE BALLOON's pair of handles
+   * under TEST, where the desk's single mouse speaks for both hands
+   * (`stage-balloon-both.ts`) — everything else goes through unchanged, so a
+   * control that behaves differently here than on a phone is impossible except
+   * where this file says so out loud.
+   */
+  const send = (player: 1 | 2, command: Command): void => {
+    push(player, command);
+    const both = balloonBothHands(role(), player, command);
+    if (both) push(both.player, both.command);
+  };
   let hand: ShipHand | undefined;
   let pointer: { x: number; y: number } | undefined;
   const setHand = (h: ShipHand | null): void => {
@@ -154,7 +168,7 @@ export function bindStageTouch({
     // Null for the one press that takes hold of something and says nothing
     // yet: player 2's thumb on the muzzle, decided on the lift
     // (`render/touch-ship.ts`).
-    if (t.command) push(t.player, t.command);
+    if (t.command) send(t.player, t.command);
   });
   canvas.addEventListener("pointerleave", () => {
     pointer = undefined;
@@ -175,7 +189,7 @@ export function bindStageTouch({
     }
     setHand(shipHand(layout(), hold, p.x, p.y, true));
     const t = touchMove(layout(), hold, p.x, p.y);
-    if (t?.command) push(t.player, t.command);
+    if (t?.command) send(t.player, t.command);
   });
   // On the window, not the canvas: a thumb that leaves the picture still has
   // to let go of what it was holding.
@@ -190,7 +204,7 @@ export function bindStageTouch({
     holding.delete(e.pointerId);
     setHand(null);
     const t = touchUp(layout(), hold, field(), at(e));
-    if (t?.command) push(t.player, t.command);
+    if (t?.command) send(t.player, t.command);
   };
   window.addEventListener("pointerup", lift);
   window.addEventListener("pointercancel", lift);

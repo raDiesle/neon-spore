@@ -57,6 +57,11 @@ export const FAMILIES: Family[] = [
     ],
   },
   {
+    name: "THE FILM",
+    rule: "not a colour but a sweep: THE BALLOON's skin runs 245°–290°–320° and back, so no hue on it ever holds still long enough to be named.",
+    keys: ["sheenCold", "sheenMid", "sheenWarm", "sheenRim", "sheenDeep"],
+  },
+  {
     name: "DEAD MATTER",
     rule: "colder and bluer than the dark, at 224°. The rock is immune because it does not live, and it throws no light.",
     keys: ["rock", "rockDark"],
@@ -92,9 +97,16 @@ export function hsl(hex: string): { h: number; s: number; l: number } {
  * rule is about. A rim is the same hue paler and a deep is the same hue darker,
  * so plotting all three would put a cluster of three dots where the rule sees
  * one hue — and the gap between two hues is the whole of what the dial shows.
+ *
+ * The film's three are on it even though no body is any of them, and that is
+ * the point of putting them there: they show where THE BALLOON's skin passes,
+ * so the next hue is not chosen into a gap a travelling band already crosses.
  */
 export const DIAL: string[] = [
   "red",
+  "sheenCold",
+  "sheenMid",
+  "sheenWarm",
   "ember",
   "pod",
   "venom",

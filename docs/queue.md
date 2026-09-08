@@ -216,6 +216,28 @@ tested on its own; holds would join that list rather than getting a second
 one. `tools/frames/test/` holds the ordering, so the proof is a case there
 plus a `--press`/`--hold` pair whose recorded order is the one written.
 
+## `bun run frames` takes one `--hold`, so no two-hand gesture is photographable
+
+- **Found:** 2026-09-08, claude/balloon-test-view-improvements-49f65f
+- **Files:** `tools/frames/run.ts`, `tools/frames/hold.ts`, `tools/frames/capture.ts`,
+  `tools/frames/test/`
+
+`run.ts` reads `--hold` with `argv.indexOf("--hold")` and takes the one value
+after it, so a second `--hold` on the line is silently ignored. THE BALLOON is
+the one creature whose whole gesture is **two hands at once** — the skin gives
+only while both sides are taut on the same body (`sim/balloon-pull.ts`) — and
+`hold.ts`'s own header advertises `balloonLeft` and `balloonRight` as a pair.
+Neither the stretched-both-ways skin nor the split it causes can be
+photographed, so the lane that doubled this body's size and gave it a new skin
+could only show one hand pulling and had to argue the other half in words.
+
+The fix is to let the flag repeat: collect every `--hold` in argument order and
+concatenate the command lists `parseHold` already returns, rather than reading
+one index. `capture.ts` takes `hold` as a list already, so nothing downstream
+changes. The proof is a case in `tools/frames/test/` that passes two `--hold`
+values and expects both handles' commands, plus a frame of THE BALLOON with
+both sides taut.
+
 ## THE PULSE judges a press ~100 ms late on two devices
 
 - **Found:** 2026-09-07, claude/ddr-boss-concept-57c9c8

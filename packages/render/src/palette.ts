@@ -111,6 +111,34 @@ export const PALETTE = {
    */
   clownNose: "#FF4FD8",
   clownNoseRim: "#FFC2F2",
+  /**
+   * THE BALLOON's film, and the one entry in this palette that is **three
+   * hues rather than one** — asked for by name, in those words: a nicer
+   * colour, and more alien.
+   *
+   * Every other creature here is a colour, and that is exactly what a balloon
+   * may not be. A body carrying an ammunition hue is a body somebody loads a
+   * trigger for, and nothing can be fired at this one at all (`sim/balloon.ts`
+   * — a bolt is spent on the skin); grey was the old answer to that and it
+   * said *nothing to report* about the one arrival two people have to name out
+   * loud. So the film is an oil slick: a band of colour that travels round the
+   * body and never settles, sweeping the blue-violet at 245 degrees through a
+   * magenta at 290 to a rose at 320. **No single hue holds still on it**, which
+   * is the whole of why it still cannot be read as "load this" — there is
+   * nothing to say.
+   *
+   * The sweep passes near `arc` at the cold end and `clownNose` at the warm
+   * one, and that is accepted rather than dodged: those two are a wall of
+   * current across the field and a nose a few pixels wide, and neither is ever
+   * a moving band on a body up the field. `sheenDeep` is the ground the film
+   * lies on — a near-black violet, so the silhouette holds against the
+   * background the way `docs/alive.md` asks a fill to.
+   */
+  sheenCold: "#5A4BFF",
+  sheenMid: "#E04BFF",
+  sheenWarm: "#FF57C8",
+  sheenRim: "#F3DEFF",
+  sheenDeep: "#150E30",
   sparkDim: "#8B85AB",
   /**
    * THE WISP's middle band, and the one hue in this palette that is not a

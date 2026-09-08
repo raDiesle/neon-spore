@@ -41,7 +41,11 @@ export const BALLOON_CONTROLS: readonly FieldControlDef[] = [
       "see the other's hand arrive — the moment they are both taut is a " +
       "moment neither of them can feel — but only your own answers your " +
       "thumb. A wave sends several balloons at once on purpose, so the thing " +
-      "that has to be said out loud is which one (sim/balloon-pull.ts).",
+      "that has to be said out loud is which one (sim/balloon-pull.ts). " +
+      "On the stage under TEST, and only there, one mouse works both: a drag " +
+      "on either handle carries the other one the same distance the opposite " +
+      "way, so a desk with one pointer can still watch a balloon give " +
+      "(stage-balloon-both.ts).",
     source: "touch.ts — balloonHandleUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "balloonRight",

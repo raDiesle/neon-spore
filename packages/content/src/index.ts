@@ -1,3 +1,10 @@
+export {
+  BALLOON_PARTS,
+  type BalloonNode,
+  balloonNodes,
+  balloonThreadPath,
+  balloonVeinPath,
+} from "./balloon-parts.js";
 export { BALLOON, balloonKnot, balloonOutline, balloonPath } from "./balloon-shape.js";
 export {
   type ClubbedRim,
