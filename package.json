@@ -53,6 +53,7 @@
     "format": "biome check --write .",
     "check": "bun run typecheck && bun run lint && bun test",
     "shapes": "bun run --cwd tools/shape-sheet sheets",
+    "shapes:cues": "bun run --cwd tools/shape-sheet cues",
     "shapes:parts": "bun run --cwd tools/shape-sheet parts",
     "shapes:swim": "bun run --cwd tools/shape-sheet swim",
     "shapes:report": "bun run --cwd tools/shape-sheet report",

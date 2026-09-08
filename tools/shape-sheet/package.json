@@ -10,6 +10,7 @@
   },
   "scripts": {
     "build": "bun run ./src/main.ts",
+    "cues": "bun run ./src/cues.ts",
     "motion": "bun run ./src/motion.ts",
     "report": "bun run ./src/report.ts",
     "sheets": "bun run ./src/main.ts && bun run ./src/motion.ts && bun run ./src/parts-sheet.ts",
