@@ -203,6 +203,10 @@ declare global {
         creatures: readonly { id?: number; row?: number }[];
         /** The simulation's own clock, which `--settle` must not move. */
         tick: number;
+        /** The beat counter, which a tap waits for: it is **not** `tick /
+         * ticksPerBeat`, because a wave's opening advances one and not the
+         * other (`capture.ts`'s `toBeat`, and `docs/queue.md`). */
+        beat: number;
         /** A rehearsal's ticks are counted in it. Optional for the usual
          * reason: a caller falls back to the shipped 120 rather than failing. */
         cfg?: { tickHz: number };

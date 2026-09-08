@@ -53,17 +53,14 @@ export interface CaptureResult {
 }
 
 /** Half a second at 60Hz: THE LID's plates are fully parted by then and THE
- * LANCE's lobe is well into filling, so the picture shows the hold rather than
- * the instant it began. */
+ * LANCE's lobe well into filling, so a picture shows the hold. */
 const DEFAULT_HOLD_TICKS = 30;
 
 /**
  * Drive one preview to an agreed frame (or a strip of them) and screenshot
  * `#stage`, the canvas the game and the director both draw the field into.
- *
- * `baseUrl` is a running `bun run preview`-shaped server — the caller starts
- * it and owns its lifetime. This function only opens one tab, drives it and
- * closes the browser; it never touches a port or a process.
+ * `baseUrl` is a running `bun run preview`-shaped server whose lifetime the
+ * caller owns; this opens one tab, drives it and closes the browser.
  */
 export async function captureFrames(
   baseUrl: string,
@@ -75,10 +72,8 @@ export async function captureFrames(
   const strideTicks = spec.strideTicks ?? 6;
   if (frames < 1) throw new Error("frames must be at least 1");
 
-  // A browser of its own unless the caller lent one. `bun run frames` takes
-  // one capture per worktree and wants the launch; a *test file* taking six
-  // wants one browser, because the launch is the only cost here that is
-  // neither measured nor bounded — see `tools/frames/test/opening.test.ts`.
+  // A browser of its own unless the caller lent one: one capture wants the
+  // launch, a test file taking six wants one browser (`test/opening.test.ts`).
   const browser = shared ?? (await launchBrowser());
   let opened: Page | null = null;
   try {
@@ -105,16 +100,34 @@ export async function captureFrames(
       );
     };
 
+    /** Advance to the next beat. The beat *counter* and not the tick one: they
+     * are not the same axis, an opening advancing one and not the other
+     * (`docs/queue.md`). */
+    const toBeat = async (): Promise<void> => {
+      const beat = (): Promise<number> => page.evaluate(() => window.neonSpore?.world.beat ?? 0);
+      const was = await beat();
+      for (let i = 0; i < 200; i++) {
+        if ((await beat()) !== was) return;
+        await advance(1);
+      }
+      throw new Error("--press tap: no beat arrived in two hundred ticks");
+    };
+
     /**
-     * Send one press into the page, refusing a build too old to take it.
-     *
-     * A `pick`ed press has its id filled in **here**, where the field can be
+     * Send one press into the page, refusing a build too old to take it. A
+     * `pick`ed press has its id filled in **here**, where the field can be
      * seen: `world.nextId` is dealt as bodies arrive and a caller outside the
      * page has no way to know what it has reached, so a grip written as a
-     * number was a guess that is dropped in silence when it is wrong
-     * (`PICKS` in `press.ts`).
+     * number was a guess dropped in silence when it is wrong (`PICKS` in
+     * `press.ts`).
      */
     const press = async (one: PressSpec): Promise<void> => {
+      // **A tap waits for the beat**, so its tick means *the beat at or after
+      // this one*. Every other press is answered by what is under it; this one
+      // by when it arrived — and the tick line a capture walks does not start
+      // on a beat, since clearing the opening leaves it wherever it finished,
+      // so a tap written on a boundary landed between two and was refused.
+      if (one.command.kind === "tap") await toBeat();
       await page.evaluate((sent) => {
         const ns = window.neonSpore;
         if (!ns) throw new Error("window.neonSpore missing before a press");
