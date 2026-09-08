@@ -15,7 +15,23 @@ import type { OpeningStop } from "./opening.js";
 export interface FrameSpec {
   /** 0-based wave index, the same number `jumpToWave` already takes. */
   wave: number;
-  /** Ticks to advance, from the wave's own start, before the first capture. */
+  /**
+   * **The `world.tick` the first picture is taken at**, absolute.
+   *
+   * It used to be a count of `advance` calls made *after* the wave was jumped
+   * to and its opening dismissed, and those steps cost ticks of their own: on
+   * THE PULSE, `--ticks 329` photographed `world.tick` 379. Nothing said so,
+   * so a capture aimed at a window computed from the simulation — an effect
+   * that lives seventy ticks, a note that expires on a tick a chart fixes —
+   * landed fifty ticks late and showed nothing, and one lane lost six captures
+   * to it before drawing `world.tick` onto the frame to find the offset.
+   *
+   * So the flag means what a reader assumes: the opening's own cost is read
+   * back and subtracted, `press` ticks are on the same absolute axis, and a
+   * number the wave has already passed is refused rather than clamped. On
+   * `opening: "guide"` it stays relative, because the clock in front of the
+   * camera there is the rehearsal's own and not the world's.
+   */
   ticks: number;
   /**
    * A strip rather than a still, for a check about motion. 1 is a single
@@ -72,14 +88,15 @@ export interface FrameSpec {
    * filling — and short enough not to be a different moment of the wave. */
   holdTicks?: number;
   /**
-   * Presses sent at named ticks on the way to `ticks`, in order.
+   * Presses sent at named `world.tick`s on the way to `ticks`, in order.
    *
    * `hold` is a thumb that stays down; this is the other half — the verbs that
    * happen and are over, of which the important one is a *shot*. Every effect
    * that exists only because a bullet met a body was unphotographable without
-   * it. Each press names its own tick, counted from the wave's start on the
-   * same axis as `ticks`, because a shot has to land while the target is on
-   * the field. A press at or before tick 0 goes in before the first advance;
+   * it. Each press names its own tick, on the same absolute axis as
+   * `ticks`, because a shot has to land while the target is on the field. A
+   * press at or before the tick the opening left off on goes in before the
+   * first advance, which is what `0:1:intake` has always meant;
    * one past `ticks` is refused rather than silently dropped.
    */
   press?: PressSpec[];
@@ -179,70 +196,7 @@ export interface PressSpec extends HoldSpec {
   tick: number;
 }
 
-declare global {
-  interface Window {
-    neonSpore?: {
-      // Both fields are optional: `bun run frames <sha>` drives a commit and
-      // its own parent through this same evaluated function, and `phase`
-      // replaced `due` in the commit that added the introduction
-      // (`f6be23b`). A parent checked out from before that lands on the
-      // older shape, so this has to recognise either rather than assume the
-      // one the current tree happens to have.
-      // `steps` is optional for its own reason: a build from before the guide
-      // had pages has no such field, and 0 is exactly what it means there.
-      // `wave` and `creatures` are what `tools/perf` reads to find the tick a
-      // wave carries the most bodies. Both have been on `World` since long
-      // before either tool existed, so neither is optional the way `brief`'s
-      // two shapes are.
-      world: {
-        brief: { phase?: number; steps?: number; due?: readonly unknown[] };
-        wave: number;
-        /** `tools/perf` counts these; a `pick`ed press reads the two fields it
-         * chooses by, and both are optional so a build older than either still
-         * types (`tools/frames/press.ts`). */
-        creatures: readonly { id?: number; row?: number }[];
-        /** The simulation's own clock, which `--settle` must not move. */
-        tick: number;
-        /** The beat counter, which a tap waits for: it is **not** `tick /
-         * ticksPerBeat`, because a wave's opening advances one and not the
-         * other (`capture.ts`'s `toBeat`, and `docs/queue.md`). */
-        beat: number;
-        /** A rehearsal's ticks are counted in it. Optional for the usual
-         * reason: a caller falls back to the shipped 120 rather than failing. */
-        cfg?: { tickHz: number };
-      };
-      jumpToWave(wave: number): void;
-      dismissBriefing(): void;
-      /** Missing on a build from before the introduction existed. */
-      advanceOpening?(seconds: number): void;
-      /**
-       * Stand the installed boss on a numbered round. Missing on a build from
-       * before it existed — which is every parent of the commit that added it,
-       * so `--boss-round` says so by name rather than failing as an undefined
-       * call somewhere in the page.
-       */
-      bossRound?(round: number): boolean;
-      /** Missing on a build from before `--hold` existed — which is every
-       * parent of the commit that added it, so `--hold` says so by name rather
-       * than failing as an undefined call somewhere in the page. */
-      send?(player: 1 | 2, command: unknown): void;
-      advance(ticks: number): void;
-      /** `dt` is what this frame is worth. Optional twice over: a build from
-       * before it existed ignores the argument and paints a sixtieth, which is
-       * what every caller but a rehearsal's wanted. */
-      paint(dt?: number): void;
-      /** This page of a rehearsal again, from its first tick, and whether it
-       * has played out and is holding on its last frame. Both missing on a
-       * build from before they were exposed, so `--opening guide` says so by
-       * name rather than failing as an undefined call inside the page. */
-      replayGuide?(): void;
-      guideFinished?(): boolean;
-      /**
-       * Whether the wave is still arriving. Missing on a build from before it
-       * was exposed — which includes builds that *have* the rings, so
-       * `settleLaunch` paints a fixed count there rather than asking.
-       */
-      launching?(): boolean;
-    };
-  }
-}
+// The handle itself — every field of `window.neonSpore` a capture reaches
+// for, and why each of them is optional. Imported for its side effect: a
+// `declare global` only applies where the module is loaded.
+import "./page-handle.js";

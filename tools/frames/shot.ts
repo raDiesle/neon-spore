@@ -33,6 +33,8 @@
 
 import { closeBrowser, launchBrowser } from "./capture.js";
 import { clipFor, parseAt } from "./crop.js";
+import { usage } from "./shot-usage.js";
+import { withHeightFor } from "./tall.js";
 
 const args = process.argv.slice(2);
 const flag = (name: string): string | undefined => {
@@ -42,23 +44,7 @@ const flag = (name: string): string | undefined => {
 const positional = args.filter((a, i) => !a.startsWith("--") && !args[i - 1]?.startsWith("--"));
 const [selector, out] = positional;
 
-if (!selector || !out) {
-  console.error(
-    'usage: bun run shot <#selector> <out.png> [--open "≡ RELEASE NOTES"] [--tab SHAPES] [--wait 2500]',
-  );
-  console.error('       --click is a CSS selector pressed first, e.g. ".cell:has(img)"');
-  console.error("       --nth is which of its matches to press, counting from 1");
-  console.error('       --inner is a tab inside the sheet --open just opened, e.g. "SPEC"');
-  console.error('       --path is what the port is asked for, e.g. "/?play=1" — the field itself');
-  console.error("       --size is a viewport, e.g. 390x844 — a phone, for something a phone shows");
-  console.error("       --open is a header button to press first, for a sheet that starts hidden");
-  console.error("       --tab is a NOT BUILT YET tab name; omit it for the main screen");
-  console.error("       --at is a rectangle inside it, x,y,w,h in its own CSS pixels");
-  console.error('       --type fills a field first, e.g. "#waveFilter=boss"');
-  console.error("       --wait is milliseconds to settle before the shot, for an animation");
-  console.error("       --hold is a modifier key held down for the shot, e.g. Control");
-  process.exit(1);
-}
+if (!selector || !out) usage();
 
 const tab = flag("tab");
 /**
@@ -241,7 +227,11 @@ try {
     if (!box) throw new Error(`${selector} has no box to crop out of`);
     await page.screenshot({ path: out, clip: clipFor(box, at) });
   } else {
-    await target.first().screenshot({ path: out });
+    // The whole of it, however tall: an element past the fold is painted black
+    // below the window unless the window is grown to fit it first (`tall.ts`).
+    await withHeightFor(page, target.first(), vw || 1240, vh || 900, async () => {
+      await target.first().screenshot({ path: out });
+    });
   }
   console.log(`wrote ${out}`);
 } finally {

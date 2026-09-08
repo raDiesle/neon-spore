@@ -1,3 +1,4 @@
+import { crankPresses, parseTurns } from "./crank.js";
 import { commandFor } from "./press-command.js";
 import type { PressSpec } from "./spec.js";
 
@@ -34,6 +35,7 @@ import type { PressSpec } from "./spec.js";
  *   --press 20:2:aim=left,40:2:aim=up,90:1:salvo   THE FLEET: walk, then lob
  *   --press 60:1:cannonCol=5,90:1:reach,240:2:mawTake   THE CLAW: slide, reach, swallow
  *   --press 60:2:tap=lowest,120:2:tap=lowest   THE BEATBOX: a run, a beat apart
+ *   --press 90:1:reach,240:1:crank=2            THE CLAW: send the arm up, wind it home
  *
  * THE FLEET's two are here for the reason the rest are: its shell is now drawn
  * arcing over the chart, its burst and its sinking are pictures nothing else in
@@ -106,6 +108,10 @@ const SEAT_OF: Record<string, 1 | 2 | "either"> = {
   // is `cannonCol` above, because on this round it is the ordinary strip.
   latch: 1,
   launch: 2,
+  // THE CLAW's crank, the pilot's. Unlike every other entry here it is not one
+  // command: what winds rope is a stream of bearings, and `crank.ts` expands
+  // one press into the run the desk keyboard and a rehearsal already send.
+  crank: 1,
 };
 
 export const PICKS: Record<string, "first" | "lowest"> = { first: "first", lowest: "lowest" };
@@ -115,7 +121,7 @@ export function parsePress(value: string): PressSpec[] {
     .split(",")
     .map((one) => one.trim())
     .filter(Boolean)
-    .map((one) => parseOnePress(one, value));
+    .flatMap((one) => parseOnePress(one, value));
   if (presses.length === 0) {
     throw new Error(`--press ${value}: nothing to press. See tools/frames/hold.ts for the shape`);
   }
@@ -124,7 +130,7 @@ export function parsePress(value: string): PressSpec[] {
   return presses.sort((a, b) => a.tick - b.tick);
 }
 
-function parseOnePress(one: string, whole: string): PressSpec {
+function parseOnePress(one: string, whole: string): PressSpec[] {
   const [tickText = "", playerText = "", rest = ""] = one.split(":");
   const tick = Number(tickText);
   if (!Number.isInteger(tick) || tick < 0) {
@@ -148,10 +154,13 @@ function parseOnePress(one: string, whole: string): PressSpec {
         "is one the round refuses, so the frame would come back empty with nothing said",
     );
   }
+  // The one control that is a stream rather than a command, and the only place
+  // this function answers with more than one press (`crank.ts`).
+  if (kind === "crank") return crankPresses(tick, player, parseTurns(argument, one, whole));
   const pick =
     (kind === "grip" || kind === "tap") && argument !== undefined ? PICKS[argument] : undefined;
   // The id is filled in by the page, so the command carries a placeholder here
   // rather than a number anybody could mistake for a choice.
-  if (pick) return { tick, player, command: { kind, id: 0 }, pick };
-  return { tick, player, command: commandFor(kind, argument, one, whole) };
+  if (pick) return [{ tick, player, command: { kind, id: 0 }, pick }];
+  return [{ tick, player, command: commandFor(kind, argument, one, whole) }];
 }

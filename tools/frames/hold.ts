@@ -1,3 +1,5 @@
+import type { HoldSpec } from "./spec.js";
+
 /**
  * `--hold` on the command line: the one thing this tool could not photograph.
  *
@@ -48,7 +50,7 @@
  * Neither is a flag: a seat argument here would be a way to send a press the
  * round would refuse.
  */
-export function parseHold(value: string): { player: 1 | 2; command: Record<string, unknown> }[] {
+export function parseHold(value: string): HoldSpec[] {
   const parts = value.split(",");
   const [name = "", ...rest] = parts;
   const [target = "", milliText] = name.split("=");
@@ -116,8 +118,8 @@ export function parseHold(value: string): { player: 1 | 2; command: Record<strin
   if (!NEEDS_ID.includes(target) && id !== undefined) {
     throw new Error(`--hold ${value}: only a handle that hangs off a body takes an id`);
   }
-  const grab: Record<string, unknown> = { kind: "drag", target, on: true, fromMilli: 0 };
-  const command: Record<string, unknown> = { kind: "drag", target, on: true, fromMilli };
+  const grab: HoldSpec["command"] = { kind: "drag", target, on: true, fromMilli: 0 };
+  const command: HoldSpec["command"] = { kind: "drag", target, on: true, fromMilli };
   if (yMilli !== undefined) {
     grab.fromYMilli = 0;
     command.fromYMilli = yMilli;
@@ -131,4 +133,34 @@ export function parseHold(value: string): { player: 1 | 2; command: Record<strin
     { player, command: grab },
     { player, command },
   ];
+}
+
+/**
+ * One `--hold` value, and **when** the thumb goes on.
+ *
+ * `--hold` used to mean one thing only: after the wave's own ticks, with
+ * `holdTicks` of its own to show in. That is right for a picture *of* a hold
+ * and wrong for every gesture that is two verbs in order — answering THE MAZE
+ * is the pilot turning the wheel until a way in clicks onto a column and only
+ * *then* the navigator firing at it, and with the hold pinned to the end of
+ * the run a shot could only ever be fired at a wheel that had not turned.
+ *
+ * So a hold may name a tick with `@`, and one that does joins the same sorted
+ * tick line `--press` walks (`press-plan.ts`) instead of getting a second one:
+ *
+ *   --hold mazeString=1400@240 --press 300:2:fire=cyan
+ *
+ * The bare form keeps its old meaning exactly, because it is the right one for
+ * the four handles this flag was written for and every existing caller writes
+ * it. The `@` is read off the end of the whole value rather than off the
+ * target, so it sits after the parts a handle takes: `wardenTether=0,y=7000@60`.
+ */
+export function parseHoldFlag(value: string): { tick?: number; commands: HoldSpec[] } {
+  const at = value.lastIndexOf("@");
+  if (at === -1) return { commands: parseHold(value) };
+  const tick = Number(value.slice(at + 1));
+  if (!Number.isInteger(tick) || tick < 0) {
+    throw new Error(`--hold ${value}: the tick after @ is a whole number of ticks, from 0`);
+  }
+  return { tick, commands: parseHold(value.slice(0, at)) };
 }

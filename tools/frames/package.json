@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@neon-spore/content": "workspace:*"
+    "@neon-spore/content": "workspace:*",
+    "@neon-spore/sim": "workspace:*"
   },
   "devDependencies": {
     "playwright-core": "^1.62.1"

@@ -225,56 +225,6 @@ commands a session looks for exactly where it cannot find them.
 8 September 2026 by a lane that could only document it in
 `.claude/skills/depth` and `docs/style-guide.md`, for this reason.
 
-## `bun run frames` cannot photograph THE MAZE's own answer
-
-- **Found:** 2026-09-07, claude/maze-director-wave-boss-d85812
-- **Taken:** 2026-09-08, claude/queue-bun-run-frames-cannot-photograph-the-mazes-own-a
-- **Files:** `tools/frames/capture.ts`, `tools/frames/run.ts`, `tools/frames/spec.ts`,
-  `tools/frames/test/`
-
-Answering THE MAZE is two verbs in order: the pilot pulls the string until a
-way in clicks onto a column, and only then may the navigator slide the cannon
-there and fire. `--hold mazeString=…` is the only way to turn the wheel and
-`--press …:2:fire=…` the only way to shoot, and `capture.ts` runs **every press
-first and the hold afterwards** (the hold gets `holdTicks` of its own at the
-end, so a hand takes hold of a body that has already arrived). So a shot can
-only ever be fired at a wheel that has not turned, and the whole second half of
-this boss — a shot in a corridor, a dead end, a colour the heart refuses —
-cannot be photographed at all. A lane that changed what a refused shot looks
-like had to start `bun run preview`, open the page and drive `window.neonSpore`
-by hand in a browser to see its own change.
-
-The fix is to let a hold take a tick like a press does, so the two share one
-ordered line: `--hold mazeString=1400@240` alongside `--press 300:2:fire=cyan`,
-with the bare form keeping today's meaning (after the wave's ticks, with
-`holdTicks` to show in). `pressPlan` already walks a sorted tick line and is
-tested on its own; holds would join that list rather than getting a second
-one. `tools/frames/test/` holds the ordering, so the proof is a case there
-plus a `--press`/`--hold` pair whose recorded order is the one written.
-
-## `bun run frames` takes one `--hold`, so no two-hand gesture is photographable
-
-- **Found:** 2026-09-08, claude/balloon-test-view-improvements-49f65f
-- **Taken:** 2026-09-08, claude/queue-bun-run-frames-takes-one-hold-so-no-two-hand-ges
-- **Files:** `tools/frames/run.ts`, `tools/frames/hold.ts`, `tools/frames/capture.ts`,
-  `tools/frames/test/`
-
-`run.ts` reads `--hold` with `argv.indexOf("--hold")` and takes the one value
-after it, so a second `--hold` on the line is silently ignored. THE BALLOON is
-the one creature whose whole gesture is **two hands at once** — the skin gives
-only while both sides are taut on the same body (`sim/balloon-pull.ts`) — and
-`hold.ts`'s own header advertises `balloonLeft` and `balloonRight` as a pair.
-Neither the stretched-both-ways skin nor the split it causes can be
-photographed, so the lane that doubled this body's size and gave it a new skin
-could only show one hand pulling and had to argue the other half in words.
-
-The fix is to let the flag repeat: collect every `--hold` in argument order and
-concatenate the command lists `parseHold` already returns, rather than reading
-one index. `capture.ts` takes `hold` as a list already, so nothing downstream
-changes. The proof is a case in `tools/frames/test/` that passes two `--hold`
-values and expects both handles' commands, plus a frame of THE BALLOON with
-both sides taut.
-
 ## THE PULSE judges a press ~100 ms late on two devices
 
 - **Found:** 2026-09-07, claude/ddr-boss-concept-57c9c8
@@ -523,26 +473,6 @@ fine: a root `node_modules/@neon-spore` link created by the install, or a
 and is gitignored except for its `package.json`. The second is the honest
 one — a scratch file belongs somewhere it is expected to be deleted from.
 
-## `bun run frames` cannot turn THE CLAW's crank
-
-- **Found:** 2026-09-08, claude/claw-crank-winder-control-xzuf4h
-- **Taken:** 2026-09-08, claude/queue-bun-run-frames-cannot-turn-the-claws-crank
-- **Files:** `tools/frames/press.ts`, `tools/frames/run.ts`
-
-`--press` sends one command at a tick, and every control in the game is
-photographable that way except the crank: what winds the arm home is a
-*stream* of bearings, a few dozen of them, and one `drag` at `crank` on its
-own is only a hand going on (`packages/sim/src/crank.ts`). So the lane that
-built the winder could photograph the arm hanging and could not photograph it
-coming down — the picture of the one thing the control does.
-
-`--press 200:1:crank` should expand into the same stream the desk keyboard and
-a rehearsal already send: `windPerTickMilli(cfg)` a tick from the named one,
-until the arm is home or the capture ends. The rate is the simulation's and is
-asked for rather than chosen, exactly as `content/src/scene-drag.ts`'s
-`crankCommands` asks for it — this is the third caller of that same rule, and
-the second one wrote nothing new to get it.
-
 ## `bun run land` refuses in a cloud session, because the clone is shallow
 
 - **Found:** 2026-09-08, claude/rock-paper-scissors-boss-sn9ful
@@ -784,29 +714,6 @@ draft. `tools/shape-sheet/test/` is the guard: every contour candidate open in
 patched shape falls under the drawn-size floor fails there rather than at the
 pair.
 
-## `bun run frames` cannot turn a crank, so THE CLAW cannot be shown in use
-
-- **Found:** 2026-09-08, claude/claw-pull-anticlockwise-506b76
-- **Taken:** 2026-09-08, claude/queue-bun-run-frames-cannot-turn-a-crank-so-the-claw-c
-- **Files:** `tools/frames/spec.ts`, `tools/frames/hold.ts`, `tools/frames/press.ts`, `tools/frames/capture.ts`
-
-`--hold` sends a thumb that stays down and `--press` sends a verb at a tick.
-The crank is neither: what it says is a *bearing*, and what winds rope is the
-step between two of them (`packages/sim/src/crank.ts`), so a capture of the
-arm on its way up or down under a hand is impossible with either flag. The
-lane that made the crank turn both ways could send the owner the panel at rest
-and nothing else — no arm hanging, no arm being raised by a thumb, which is
-the whole of what changed.
-
-Add a third verb beside those two: a turn, written the way `--hold` writes its
-own, `--crank TURNS` — how many turns of the drum, negative for anticlockwise
-— sent as one `drag` a tick at `windPerTickMilli`, exactly as
-`apps/game/src/keys-crank.ts` already does for the desk keyboard. Ask that
-file for the rate rather than spelling it out, and start the bearings from
-nought the way it does, so a lost reference cannot wind rope nobody travelled.
-`tools/frames/test/` is the guard: a spec with a turn on it reaches the page
-as that many bearings, and a negative one comes out the other way round.
-
 ## `bun run perf` measures every boss round at its lead-in and never at its song
 
 - **Found:** 2026-09-08, claude/pulse-boss-tuning-1af6df
@@ -828,27 +735,6 @@ table that will go stale. The other option is to keep it kind-agnostic and step
 a round to a fixed fraction of its own length, which is one number and wrong for
 none of them. Take a fresh baseline with `bun run perf --save` afterwards, since
 every round's row moves.
-
-## `bun run frames --ticks N` is not `world.tick` N, and nothing says so
-
-- **Found:** 2026-09-08, claude/pulse-boss-tuning-1af6df
-- **Taken:** 2026-09-08, claude/queue-bun-run-frames-ticks-n-is-not-world-tick-n-and-n
-- **Files:** `tools/frames/capture.ts`, `tools/frames/run.ts`, `tools/frames/test/`
-
-`--ticks` counts `window.neonSpore.advance(1)` calls made *after* the wave is
-jumped to and its briefing dismissed, and those steps cost ticks of their own:
-on THE PULSE, `--ticks 329` photographs `world.tick` 379. Nothing in `--help`
-or in the header says it, so a capture aimed at a window computed from the
-simulation — an effect that lives seventy ticks, a note that expires on a tick
-a chart fixes — lands fifty ticks late and shows nothing. This session lost six
-captures to it and found the offset only by drawing `world.tick` onto the frame.
-
-What to do: make the flag mean what a reader will assume. Either advance to the
-*absolute* `world.tick` asked for — read `ns.world.tick` after the opening is
-settled and step the difference, refusing a number already passed — or keep the
-current meaning and print the tick each frame was actually taken at, in the line
-that already names the file. The first is better and is one subtraction; the
-second is a fallback if some caller depends on the relative count.
 
 ## `rgba` is written out twice, in `hex.ts` and in `meteor-look.ts`
 
@@ -887,24 +773,32 @@ value the code owns and name the record instead, which is the rule the mechanism
 itself is built on (`variant.ts` reads `currentValues` off the live object
 rather than storing them).
 
-## `bun run shot` returns a blank page below the fold
+## `bun run port` names a director port `bun run dev:once` does not take
 
-- **Found:** 2026-09-08, claude/styleguide-visual-elements
-- **Taken:** 2026-09-08, claude/queue-bun-run-shot-returns-a-blank-page-below-the-fold
-- **Files:** `tools/frames/shot.ts`, `tools/frames/capture.ts`
+- **Found:** 2026-09-08, claude/frames-drive-controls-q4
+- **Files:** `tools/port.ts`, `tools/dev/supervise.ts`, `tools/frames/shot.ts`
 
-Photographing an element taller than the viewport, inside one of the director's
-scrolling sheets, gives the top of it and then black — the STYLE tab's colour
-section came back with three of its six groups drawn and the rest an empty
-rectangle the height of the missing content, and a second attempt with a longer
-`--wait` returned the same picture, so it is not a settling problem. Raising
-`--size` until the whole element fits the viewport is the workaround this lane
-used (`--size 1240x1700` for a 1600 px section), and it is not discoverable: the
-first shot looks like a page that failed to render rather than a shot that
-failed to take.
+`bun run port` in a worktree answers `director 4174 http://localhost:4174`, and
+`bun run dev:once` in that same worktree serves on **58200** — a port nobody
+asked for and nothing predicts, because `dev:once` runs with `DIRECTOR_PORT=0`
+and lets the operating system pick. Both statements are true and only one of
+them is about the server that is actually running, so a session that starts
+`dev:once` and then reaches for the number `bun run port` gave it gets
+`curl: (7)` on three candidates in a row and concludes the server failed to
+start. This one did, twice, before reading the log.
 
-Either scroll the container so each band of the element is painted before it is
-captured, or grow the viewport to the element's own height before shooting and
-put it back afterwards — the second is a few lines and needs no knowledge of
-which container scrolls. A note in the usage text is not enough on its own,
-because the failure produces a plausible-looking picture.
+It is worse than a wrong number because of where the right one is: the port is
+printed **once**, by the supervisor, on its own stdout. A session that pipes
+`bun run dev:once` into anything — `| head -30`, which is the obvious way to
+read a startup line without hanging on a server — gets nothing at all, so the
+first attempt looked like a server that started and printed nothing and served
+nothing. `bun run shot` then defaults to `--port 4174` and finds no page.
+
+Two halves, and both are small. **Say the free-port case in `bun run port`**:
+the director line should name `dev:once`'s behaviour rather than a number that
+only holds for `bun run dev`, because the two commands take different ports and
+the listing reads as though they take the same one. And **have `dev:once` write
+its port where a second command can read it** — the marker file `preview`
+already answers `/__preview` with, or a line in the tree's own scratch — so
+`bun run port` can report what is running rather than what would be tried. The
+proof is `bun run port` naming 58200 while a `dev:once` from the same tree is up.

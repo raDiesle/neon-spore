@@ -1331,5 +1331,12 @@ place — the generator keeps whatever is there.
 | `tools/hooks/after-depth-edit.ts` | a depth claim is the drawing mistake that looks like a success — names the projection to call and the cues to check |
 | `tools/shape-sheet/src/cues.ts` | `bun run shapes:cues` — the motion half of `report.ts`, with a placed surface as its last row |
 | `tools/shape-sheet/src/depth-cues.ts` | the numbers for motion: drawn aspect, the period count on width and sway, how far a cycle is from mirroring itself, and whether anything is revealed |
+| `tools/frames/crank.ts` | A turn of THE CLAW's crank, expanded from one `--press` into the stream of bearings that winds rope |
+| `tools/frames/drive.ts` | The three verbs a capture drives the page with, and the rule each of them carries |
+| `tools/frames/flags.ts` | Every `--hold` on the command line rather than the first, and the one tick line the ticked ones join |
+| `tools/frames/page-handle.ts` | The handle `window.neonSpore` installs, as this tool sees it — every field, and the build that added it |
+| `tools/frames/report.ts` | What a finished capture prints, including the `world.tick` each frame was actually taken at |
+| `tools/frames/shot-usage.ts` | What `bun run shot` prints when it is called with nothing to photograph |
+| `tools/frames/tall.ts` | An element taller than the window, photographed whole rather than black below the fold |
 
 <!-- index:code:end -->

@@ -3,11 +3,12 @@ import { dirname } from "node:path";
 import type { Browser, Page } from "playwright-core";
 import { closeBrowser, launchBrowser } from "./browser.js";
 import { clipFor } from "./crop.js";
+import { makeDriver } from "./drive.js";
 import { filmHeld, filmTickHz } from "./guide-film.js";
 import { settleOpening } from "./opening-hold.js";
 import { openStage } from "./page.js";
 import { pressPlan } from "./press-plan.js";
-import type { FrameSpec, PressSpec } from "./spec.js";
+import type { FrameSpec } from "./spec.js";
 
 /**
  * One picture, or a short strip of them, off the running game — driven the
@@ -46,6 +47,16 @@ export interface CaptureResult {
    * difference there was, or frame one that a reader would have found anyway.
    */
   whole: string[];
+  /**
+   * The `world.tick` each frame was actually taken at, one per path.
+   *
+   * Printed beside the filename, because a reader who has to work out which
+   * tick they are looking at will work it out wrong: `--ticks` is absolute now
+   * and a strip's own steps are not, so the second frame of a strip is a tick
+   * nobody wrote anywhere. Empty on `--opening guide`, where the clock in
+   * front of the camera is the film's rather than the world's.
+   */
+  atTick: number[];
   /** Whether a rehearsal's page had already played out when the first picture
    * was taken, so every frame after it is the same one (`guide-film.ts`).
    * `undefined` on anything but `--opening guide`. */
@@ -86,94 +97,47 @@ export async function captureFrames(
     // it is `undefined` and a stepped world (`guide-film.ts`).
     const paintDriven = spec.opening === "guide";
     const filmDt = paintDriven ? 1 / (await filmTickHz(page)) : undefined;
-    const advance = async (n: number): Promise<void> => {
-      await page.evaluate(
-        ([count, dt]) => {
-          const ns = window.neonSpore;
-          if (!ns) throw new Error("window.neonSpore missing mid-capture");
-          for (let i = 0; i < (count as number); i++) {
-            if (dt === undefined) ns.advance(1);
-            else ns.paint(dt as number);
-          }
-        },
-        [n, filmDt] as [number, number | undefined],
-      );
-    };
-
-    /** Advance to the next beat. The beat *counter* and not the tick one: they
-     * are not the same axis, an opening advancing one and not the other
-     * (`docs/queue.md`). */
-    const toBeat = async (): Promise<void> => {
-      const beat = (): Promise<number> => page.evaluate(() => window.neonSpore?.world.beat ?? 0);
-      const was = await beat();
-      for (let i = 0; i < 200; i++) {
-        if ((await beat()) !== was) return;
-        await advance(1);
-      }
-      throw new Error("--press tap: no beat arrived in two hundred ticks");
-    };
-
-    /**
-     * Send one press into the page, refusing a build too old to take it. A
-     * `pick`ed press has its id filled in **here**, where the field can be
-     * seen: `world.nextId` is dealt as bodies arrive and a caller outside the
-     * page has no way to know what it has reached, so a grip written as a
-     * number was a guess dropped in silence when it is wrong (`PICKS` in
-     * `press.ts`).
-     */
-    const press = async (one: PressSpec): Promise<void> => {
-      // **A tap waits for the beat**, so its tick means *the beat at or after
-      // this one*. Every other press is answered by what is under it; this one
-      // by when it arrived — and the tick line a capture walks does not start
-      // on a beat, since clearing the opening leaves it wherever it finished,
-      // so a tap written on a boundary landed between two and was refused.
-      if (one.command.kind === "tap") await toBeat();
-      await page.evaluate((sent) => {
-        const ns = window.neonSpore;
-        if (!ns) throw new Error("window.neonSpore missing before a press");
-        if (!ns.send) {
-          throw new Error(
-            "this build has no window.neonSpore.send — --press needs a commit at or after the " +
-              "one that added it, and a before/after pair cannot press anything on its parent",
-          );
-        }
-        let command = sent.command;
-        if (sent.pick) {
-          const bodies = ns.world.creatures.filter((c) => typeof c.id === "number");
-          const chosen =
-            sent.pick === "first"
-              ? bodies[0]
-              : bodies.reduce<(typeof bodies)[number] | undefined>(
-                  (best, c) => (best === undefined || (c.row ?? -1) > (best.row ?? -1) ? c : best),
-                  undefined,
-                );
-          if (!chosen) {
-            throw new Error(
-              `--press ${sent.pick}: the field is empty at tick ${ns.world.tick}. A body has to ` +
-                "have arrived before a hand can take hold of it — press later, or --ticks further in",
-            );
-          }
-          command = { ...command, id: chosen.id };
-        }
-        ns.send(sent.player, command);
-      }, one);
-    };
+    const { advance, press, tick } = makeDriver(page, filmDt);
 
     // The opening's words let arrive, and a film wound back to the first tick
     // of its page afterwards (`opening-hold.ts`).
     if (spec.opening) await settleOpening(page, paintDriven);
 
+    // **`--ticks` is `world.tick`, not a count of `advance` calls.** Jumping
+    // to a wave and clearing its opening cost ticks of their own — fifty of
+    // them on THE PULSE — so `--ticks 329` used to photograph tick 379, and a
+    // capture aimed at a window computed from the simulation (an effect that
+    // lives seventy ticks, a note that expires on a tick a chart fixes) landed
+    // fifty ticks late and showed nothing. Nothing in the flag said so, and
+    // one lane lost six captures to it. So the count is read back here and
+    // subtracted, and every press is on that same absolute axis.
+    //
+    // A rehearsal is the exception and keeps the relative count: its ticks are
+    // the *film's*, painted one at a time off a clock the world's `tick` is
+    // not on at all (`guide-film.ts`).
+    const startTick = paintDriven ? 0 : await tick();
+    if (spec.ticks < startTick) {
+      throw new Error(
+        `--ticks ${spec.ticks}: the wave's opening already leaves world.tick at ${startTick}, ` +
+          "and a capture cannot go back. --ticks is an absolute tick, so ask for a later one",
+      );
+    }
+    // Clamped rather than refused: `--press 0:1:intake` is the documented way
+    // to say "from the start", and the start is wherever the opening left off.
+    const press0 = spec.press?.map((one) => ({ ...one, tick: Math.max(0, one.tick - startTick) }));
+
     const paths: string[] = [];
     const whole: string[] = [];
+    const atTick: number[] = [];
     let heldPage: boolean | undefined;
     for (let i = 0; i < frames; i++) {
-      const advanceBy = i === 0 ? spec.ticks : strideTicks;
-      if (i === 0 && spec.press) {
+      const advanceBy = i === 0 ? spec.ticks - startTick : strideTicks;
+      if (i === 0 && press0) {
         // The presses walk the same tick line the first advance does, so a
         // shot lands while its target is on the field rather than at whatever
         // tick the wave happens to have reached. The tick each one is heard
         // on — and the rule that one has to *run* after it — is `pressPlan`.
-        for (const step of pressPlan(spec.press, advanceBy)) {
+        for (const step of pressPlan(press0, advanceBy)) {
           if (step.advance > 0) await advance(step.advance);
           if (step.press) await press(step.press);
         }
@@ -237,8 +201,9 @@ export async function captureFrames(
         await Bun.write(path, shot);
       }
       paths.push(path);
+      if (!paintDriven) atTick.push(await tick());
     }
-    return { paths, whole, heldPage };
+    return { paths, whole, atTick, heldPage };
   } finally {
     // A lent browser is the caller's to close; the tab this capture opened in
     // it is not, and a file that leaked one per capture would be back where it

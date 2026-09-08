@@ -22,10 +22,12 @@
  *   bun run frames . --wave 19 --boss-round 3    this tree, once, with no pair
  *   bun run frames <sha> --wave 21               wave 21, matching the HUD's W21
  *   bun run frames <sha> --wave "THE SHELL"        a wave by name — what a person has in hand
- *   bun run frames <sha> --wave 21 --ticks 240   a different point in the wave
+ *   bun run frames <sha> --wave 21 --ticks 240   an absolute world.tick, not a count of steps
  *   bun run frames <sha> --wave 21 --frames 6 --stride 4   a short strip, for motion
  *   bun run frames <sha> --wave 21 --seat p1    one player's screen, not the rig's
  *   bun run frames <sha> --wave 20 --hold wardenTether=0,y=7000  a thumb on a cord
+ *   bun run frames <sha> --wave 21 --hold balloonLeft=-1600,id=1 --hold balloonRight=1600,id=1   both hands
+ *   bun run frames <sha> --wave 19 --hold mazeString=1400@240 --press 300:2:fire=cyan   turn, then shoot
  *   bun run frames <sha> --wave 21 --press 60:1:cannonCol=3,64:2:fire=red   a shot, or 90:1:salvo
  *   bun run frames <sha> --wave 21 --press 60:1:grip=lowest   a hand on the body nearest the hull
  *   bun run frames <sha> --wave 21 --settle 8 --frames 6 --stride 0   a burst, as a strip
@@ -75,10 +77,11 @@ import { mkdir, rm } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import type { FrameSpec } from "./capture.js";
 import { parseAt, sameFrames } from "./crop.js";
+import { collectHolds, tickLine } from "./flags.js";
 import { heldPageNote } from "./guide-film.js";
-import { parseHold } from "./hold.js";
 import { parseOpening } from "./opening.js";
 import { parsePress } from "./press.js";
+import { say, tickNote } from "./report.js";
 import { scratchDir } from "./scratch.js";
 import { captureAt, captureHere, git, root } from "./serve.js";
 import { resolveWaveFlag, waveNamesAt, waveNamesHere } from "./wave.js";
@@ -89,7 +92,8 @@ async function main(): Promise<void> {
   if (!sha || sha.startsWith("--")) {
     throw new Error(
       'usage: bun run frames <sha>|. --wave N|"NAME" [--ticks N] [--seat p1|p2|test] ' +
-        "[--hold prime|mazeString=N|wardenTether=N[,y=N]|lidString=N,id=N] [--hold-ticks N] " +
+        "[--hold prime|mazeString=N|wardenTether=N[,y=N]|lidString=N,id=N][@TICK] (repeatable) " +
+        "[--hold-ticks N] " +
         "[--settle N] [--at x,y,w,h] [--zoom N] [--boss-round N] " +
         "[--press TICK:SEAT:control=value,…] [--opening intro|guide] [--out DIR]",
     );
@@ -103,10 +107,14 @@ async function main(): Promise<void> {
   if (seat !== undefined && seat !== "p1" && seat !== "p2" && seat !== "test") {
     throw new Error(`--seat ${seat}: one of p1, p2 or test`);
   }
-  const holdFlag = argv.indexOf("--hold");
-  const hold = holdFlag === -1 ? undefined : parseHold(argv[holdFlag + 1] ?? "");
+  // Every `--hold`, not the first: two hands on one body is a gesture this
+  // field has (`flags.ts`). A value carrying `@TICK` comes back as a press
+  // instead, so the wheel can be turned before the shot rather than after it.
+  const { hold, pressed } = collectHolds(argv);
   const pressFlag = argv.indexOf("--press");
-  const press = pressFlag === -1 ? undefined : parsePress(argv[pressFlag + 1] ?? "");
+  const parsed = pressFlag === -1 ? [] : parsePress(argv[pressFlag + 1] ?? "");
+  const line = tickLine(parsed, pressed);
+  const press = line.length > 0 ? line : undefined;
   const atFlag = argv.indexOf("--at");
   const at = atFlag === -1 ? undefined : parseAt(argv[atFlag + 1] ?? "");
   const openingFlag = argv.indexOf("--opening");
@@ -156,7 +164,7 @@ async function main(): Promise<void> {
     // `--frames` and `--stride` next to each other.
     strideTicks: flag("stride", 4),
     seat,
-    hold: hold as FrameSpec["hold"],
+    hold,
     holdTicks: flag("hold-ticks", 30),
     // Zero by default, which is what every capture before this flag existed
     // did: one painted frame per photograph, and nothing that lives in painted
@@ -187,10 +195,12 @@ async function main(): Promise<void> {
   const start = Date.now();
   if (here) {
     await mkdir(out, { recursive: true });
-    const { paths, heldPage } = await captureHere(spec, join(out, "frame"));
+    const { paths, atTick, heldPage } = await captureHere(spec, join(out, "frame"));
     const seconds = Math.round((Date.now() - start) / 1000);
     console.log(`wrote ${paths.length} frame(s) to ${out} in ${seconds}s`);
-    for (const p of paths) console.log(`  ${p}`);
+    paths.forEach((p, i) => {
+      console.log(`  ${p}${tickNote(atTick[i])}`);
+    });
     say(heldPageNote(spec, heldPage));
     return;
   }
@@ -221,17 +231,14 @@ async function main(): Promise<void> {
     }
 
     console.log(`wrote ${written.length} frame(s) to ${out} in ${seconds}s`);
-    for (const p of written) console.log(`  ${p}`);
+    const both = [...before.atTick, ...after.atTick];
+    written.forEach((p, i) => {
+      console.log(`  ${p}${tickNote(both[i])}`);
+    });
     say(heldPageNote(spec, after.heldPage));
   } finally {
     await rm(scratchOut, { recursive: true, force: true }).catch(() => {});
   }
-}
-
-/** A note, when there is one. `heldPageNote` answers null for the ordinary
- * case, which is every capture that is not a strip of a rehearsal. */
-function say(note: string | null): void {
-  if (note) console.log(note);
 }
 
 if (import.meta.main)
