@@ -21,12 +21,17 @@
  *
  *   bun tools/dev/supervise.ts <command> [args…]
  *
+ * A git operation that also rewrote `bun.lock` brought dependencies with it,
+ * so the restart is preceded by `bun install`: without it the fresh server
+ * bundles a correct import against the `node_modules` of the revision before
+ * and reports it as unresolvable.
+ *
  * Set `NO_DEV_RESTART=1` to run the child bare, with the watcher off.
  */
 
 import { watch } from "node:fs";
 import { freePort } from "../ports.js";
-import { gitDirOf, isTreeMove, locked } from "./tree-moves.js";
+import { gitDirOf, isTreeMove, locked, lockStamp } from "./tree-moves.js";
 
 const root = Bun.fileURLToPath(new URL("../../", import.meta.url));
 const argv = process.argv.slice(2);
@@ -57,6 +62,28 @@ const QUIET_MS = Number(process.env.DEV_RESTART_QUIET_MS ?? 800);
 
 function spawn(): Bun.Subprocess {
   return Bun.spawn(argv, { cwd: root, env, stdio: ["inherit", "inherit", "inherit"] });
+}
+
+/** What `bun.lock` looked like the last time the tree was known to be installed. */
+let installed = lockStamp(root);
+
+/**
+ * Bring `node_modules` up to the lockfile, when and only when the lockfile has
+ * moved since the last time this asked. An install that has nothing to do is
+ * quick, but it is not free, and a person editing one file should never see
+ * one.
+ */
+async function reinstall(): Promise<void> {
+  const stamp = lockStamp(root);
+  if (stamp === undefined || stamp === installed) return;
+  console.log("the lockfile moved — installing, so the bundle is not built against the old tree");
+  const install = Bun.spawn(["bun", "install"], {
+    cwd: root,
+    env,
+    stdio: ["inherit", "inherit", "inherit"],
+  });
+  await install.exited;
+  installed = lockStamp(root);
 }
 
 let child = spawn();
@@ -107,5 +134,6 @@ while (true) {
   // human's Ctrl-C reaching it first. The supervisor has nothing to add.
   if (!restarting) process.exit(code);
   restarting = false;
+  await reinstall();
   child = spawn();
 }

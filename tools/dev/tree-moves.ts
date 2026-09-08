@@ -76,3 +76,28 @@ export function locked(gitDir: string): boolean {
     return false;
   }
 }
+
+/**
+ * A fingerprint of the lockfile, or `undefined` when there is none to read.
+ *
+ * A merge, a rebase or a checkout can bring a *dependency* with it — a new
+ * workspace package, or a version nobody here has ever downloaded. The
+ * restart above hands the server a clean start, and the clean start then fails
+ * to resolve an import that is perfectly correct, because `node_modules` is
+ * still the tree from before. That is what happened on 8 September 2026 when
+ * `tools/style-guide` arrived and `bun run dev` answered with four "Could not
+ * resolve" errors against the director; the cure was `bun install`, and
+ * finding that out cost a session.
+ *
+ * Size and modification time are enough to notice: nothing rewrites a
+ * lockfile without changing one of them, and being wrong in the cautious
+ * direction costs a few hundred milliseconds of a no-op install.
+ */
+export function lockStamp(root: string): string | undefined {
+  try {
+    const s = statSync(`${root.replaceAll("\\", "/").replace(/\/+$/, "")}/bun.lock`);
+    return `${s.size}:${s.mtimeMs}`;
+  } catch {
+    return undefined;
+  }
+}
