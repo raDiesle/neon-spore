@@ -307,6 +307,36 @@ arrows falling (`pulse-fall.ts`), the arrows dropping into the ship
 three have to take the same lead or the picture will disagree with itself — an
 arrow drawn on the line while the button under it is still dark.
 
+## `bun run land` stops on a `docs/INDEX.md` conflict it could resolve itself
+
+- **Found:** 2026-09-08, claude/pinball-boss-ui-polish-f6c35e
+- **Files:** `tools/land/`, `tools/index/`, `docs/INDEX.md`
+
+`docs/INDEX.md` is generated, and every lane that adds, splits or deletes a file
+writes a row into it — so two lanes landing on the same day conflict there
+almost every time. Landing the PINBALL round took three attempts: `bun run land`
+refused with `conflicts in docs/INDEX.md`, backed the rebase out and moved
+nothing, twice in a row, because another lane landed in between each try. Each
+attempt cost a manual `git rebase main`, `git checkout main -- docs/INDEX.md`,
+`bun run index`, `git add`, `git rebase --continue` — five commands whose result
+is entirely determined by the tree, and a full `bun run check` afterwards.
+
+The resolution is mechanical and `CLAUDE.md` already states it as a rule:
+*resolve a generated file by running its command*. A rule a person executes by
+hand five commands at a time is a tool that has not been written. When the only
+conflicted paths are generated ones, `tools/land` should take `main`'s copy,
+re-run the generator, stage the result and continue the rebase, saying in its
+own output that it did so — and refuse as it does today the moment a conflict
+touches anything else. `tools/land/test/` should hold a case that stages two
+branches which both append a row and asserts the landing goes through with the
+regenerated file.
+
+There is a second half worth deciding at the same time: `docs/queue.md` and
+`docs/release-notes.md` conflict for the same reason and already have a written
+rule of their own (take `origin`'s copy whole and re-append your own entry).
+That one is not derivable from a generator, so it is a different fix; do not
+fold them together without saying which is which.
+
 ## `bun run index` appends a new row instead of filing it beside its siblings
 
 - **Found:** 2026-09-07, claude/crawler-pulse-stepped-comparison-7b9280
