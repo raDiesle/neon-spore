@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-08 · 325a86d — Queue: a contour candidate cannot be measured before it is voted on
+
+Opening `creature:slick` and `creature:bulb` this afternoon, neither of the two questions this repo insists on about a silhouette could be asked of either candidate. `bun run shapes:report` measures records in `packages/content`, and a candidate is not one — it is fields held for the length of one `draw()`. So "does it survive its own drawn size" and "does nameability still separate it" are unanswerable until after adoption, which is backwards: they are the cheap disqualifiers `docs/art-review.md` puts first, and the vote is the expensive step they exist to save.
+
 ## 2026-09-08 · 4423265 — Split two files back under the ceiling, and stop re-deriving a bestiary rule
 
 Three things `bun run check` caught on the whole suite that the narrow runs did not.
