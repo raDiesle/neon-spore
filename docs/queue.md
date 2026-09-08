@@ -741,3 +741,25 @@ draft. `tools/shape-sheet/test/` is the guard: every contour candidate open in
 `tools/versus/candidates/index.ts` appears on the sheet, and a candidate whose
 patched shape falls under the drawn-size floor fails there rather than at the
 pair.
+
+## `bun run frames` cannot turn a crank, so THE CLAW cannot be shown in use
+
+- **Found:** 2026-09-08, claude/claw-pull-anticlockwise-506b76
+- **Files:** `tools/frames/spec.ts`, `tools/frames/hold.ts`, `tools/frames/press.ts`, `tools/frames/capture.ts`
+
+`--hold` sends a thumb that stays down and `--press` sends a verb at a tick.
+The crank is neither: what it says is a *bearing*, and what winds rope is the
+step between two of them (`packages/sim/src/crank.ts`), so a capture of the
+arm on its way up or down under a hand is impossible with either flag. The
+lane that made the crank turn both ways could send the owner the panel at rest
+and nothing else — no arm hanging, no arm being raised by a thumb, which is
+the whole of what changed.
+
+Add a third verb beside those two: a turn, written the way `--hold` writes its
+own, `--crank TURNS` — how many turns of the drum, negative for anticlockwise
+— sent as one `drag` a tick at `windPerTickMilli`, exactly as
+`apps/game/src/keys-crank.ts` already does for the desk keyboard. Ask that
+file for the rate rather than spelling it out, and start the bearings from
+nought the way it does, so a lost reference cannot wind rope nobody travelled.
+`tools/frames/test/` is the guard: a spec with a turn on it reaches the page
+as that many bearings, and a negative one comes out the other way round.
