@@ -9,6 +9,26 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-08 · b23c70f6 — The depth rule becomes a skill and a hook, so a session meets it before it guesses
+
+A depth claim is the one drawing mistake that looks like a success. A session asked to make something read solid can see that a body changing width looks rounder, so it reaches for an `sx` cosine — and that is wrong every time, at 1.10 : 1 against a real turn's 22.9 : 1, with no tuning that closes the gap because an affine scales the picture about one centre by definition. The rule that would have stopped it was two paragraphs deep in `docs/style-guide.md`.
+
+## 2026-09-08 · c359916e — A cache keyed on something that moves fails a test instead of filling a phone
+
+The way to draw something expensive cheaply here is to bake it once into a sprite and blit it, keyed on values that have been quantised — `glow.ts` on `${colour}@${radius}`, `key-light.ts` on a radius in fours and a spin in twenty-fourths, `sheen.ts` on a rounded bloom radius, `depth.ts` on six steps of haze. Every one of those files says in its own words why the rounding is there, and none of them was checked.
+
+## 2026-09-08 · 63b18983 — Numbers for motion, the way shapes:report is numbers for shape
+
+A session writing an animation cannot watch it. `shapes:report` already spares it a picture for everything static, and there was no equivalent for anything that moves — so every question about timing went to a render or to a guess, which is the ceiling `.claude/skills/svg-look` describes for stills.
+
+## 2026-09-08 · f0af8bc3 — A second answer to the ship's light, lit by the surface it has rather than its box
+
+`drawHull` called `litBox` directly, so the one pass that decides whether the largest thing on the screen reads as a solid had nowhere for another answer to sit. `hull-light.ts` is that seam and nothing else — the shipped light is `litBox`, unchanged, reached through a record the way a creature's material is reached through `LIVING_SKIN`. It is handed the membrane as well as the box, because a light that follows a contour would otherwise have to guess where the surface is, and guessing it is the straight lower edge `sheen.ts` warns about.
+
+## 2026-09-08 · d9e1a3be — The projection a mark is placed by moves into content, where the game can read it
+
+`tools/director/src/skins/mounted.ts` held the one line in this repository that produces a reveal — a feature at a longitude and latitude, carried round a limb at 22.9 : 1 where an affine pose manages 1.10 : 1 — and `packages/render` could never call it, because render may not import `tools/`. So a canvas that wanted a surface had to re-derive it, which is how `tools/style-guide/src/depth.ts` came to hold a fourth copy of the formula in the panel that argues for it.
+
 ## 2026-09-08 · f6b10673 — PARTY GAMES gets a tab, and a round still never comes back
 
 Two answers from the owner, and the queue entries that were waiting on them. `docs/party-games.md` — the third study of games that are not this one — is read on NOT BUILT YET beside the rounds it feeds, as a second entry in `DOC_ROUTES` and a second caller of `whole-doc.ts`, which were both written for exactly this. And a round is met once: the case for a harder return in a later act was put and turned down, so `docs/spec/interludes.md` now says the sentence is absolute and why, and nobody has to raise it a third time.
