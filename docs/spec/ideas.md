@@ -579,11 +579,16 @@ time, picked up the way the game's other power-ups already are.
 
 ### Rounds
 
-Nine short rounds that are not the field: their own rules, their own
+Fifteen short rounds that are not the field: their own rules, their own
 controls, their own picture, over in about ninety seconds, and nothing they
-teach is used again. Twelve were written; two of them are built and have left
-this list. A thirteenth — THE TELL — was argued out far enough in one sitting
-to be a section rather than a bullet, so it is
+teach is used again. Twelve were written first; two of them are built and have
+left this list, and a third turned out to be a control set instead — THE CLAW,
+below. Six more arrived in September 2026 out of a study of two party games,
+Mario Party and Rayman Raving Rabbids, read in
+[party games](../party-games.md): a party minigame's transferable half is never
+the minigame, it is the *shape of its sixty seconds*, and there are about eight
+of those in two hundred. A thirteenth of the originals — THE TELL — was argued
+out far enough in one sitting to be a section rather than a bullet, so it is
 [bosses](bosses.md#119-the-tell--rock-paper-scissors-and-half-the-tell-on-each-screen)
 11.9 and is not repeated here. The category comes from reading Hazelight's two
 co-op games — see [transfers-hazelight](transfers-hazelight.md) — and what a
@@ -666,7 +671,13 @@ is worth more than a better one that is waiting on it.
   and the navigator's, never the same one twice — so a phrase can only be
   played by two people taking turns inside a bar. Each device shows only its
   own half, which means the handover is announced, out loud, in a channel the
-  sound was designed not to occupy. **No relaxation needed.** Unworked out:
+  sound was designed not to occupy. The Rabbids' dance battles say how to
+  *place* those halves rather than merely split them: there the bodies arrive
+  from both sides of the stage on the beat, and each hand answers its own side
+  ([party games](../party-games.md)). Two hands is two players, so give each
+  seat a **side** instead of alternate notes and the handover stops being a
+  queue and becomes a cue each of them gives the other. **No relaxation
+  needed.** Unworked out:
   whether a phrase is authored or generated, where authored is the only version
   that can be *good*; what a wrong note does, since silence is a poor answer and
   a buzzer is a sound in the speech band; whether 625 ms per beat
@@ -747,6 +758,97 @@ is worth more than a better one that is waiting on it.
   answering before the drawing starts; whether both devices flip or only one,
   where only one is The Flip ([ideas](ideas.md), Mechanics) wearing a different
   hat; whether the radar strip survives a polar field at all
+
+- **THE FUSE** — five valves on one bomb, and the evidence is on the wrong
+  phone. One valve is live this round. Only the pilot can hold a valve down,
+  and only the navigator can read the pressure needle that answers while it is
+  held: a valve held through one beat and released before the next is dead, and
+  one held into the next beat goes off. It is Mario Party's Bowser's Big Blast
+  with the elimination taken out and an information split put in its place —
+  which is the whole trick, because the party version is luck and this one is
+  deduction, the pair narrowing five down to one out loud. **No relaxation
+  needed** — nothing moves at all. Unworked out: whether the tell is a number
+  or a needle, where a number is sayable straight off and a picture makes the
+  pair invent a vocabulary in ninety seconds — the better round and the harder
+  card; whether a wrong valve costs the hull or costs the round; whether
+  five becomes four becomes three the way the party game escalates, which may be
+  one round too many for ninety seconds; whether the live valve is redrawn from
+  the seeded `Rng` each time or is fixed and merely unknown, which is the
+  difference between a deduction and a memory
+- **THE DIVIDE** — the one round the pair loses by agreeing. Six sockets, and on
+  every beat each of you fills one; two hands in the same socket voids the beat
+  and neither of you sees the other's choice until it resolves. So the round is
+  two people partitioning six things between them with no shared screen, and the
+  protocol — odds and evens, you climb and I descend — is theirs to invent and
+  then to hold under a clock. It is Mario Party's Look Away
+  inverted ([party games](../party-games.md)), and it is **THE ACCORD**'s exact
+  opposite:
+  one round is about meeting in the middle and this one is about staying out of
+  each other's way, so the two want to sit at either end of a run rather than
+  next to each other. **No relaxation needed.** Unworked out: whether a
+  collision costs a beat or the hull; whether the sockets are relabelled between
+  beats, which is what stops one protocol agreed in the first four seconds from
+  carrying the whole round and is probably the entire difficulty; whether it is
+  six sockets or eleven, where eleven borrows the field's own count and is
+  precisely what a round may not do ([interludes](interludes.md))
+- **THE CRANK** — one pump, two handles, and it only turns if you take turns. Each
+  seat has a single slab, a press on the beat after the other's press advances
+  the pump, and two presses on the same beat stall it and it slips back. What
+  makes it a round rather than a metronome is that the alternation is not always
+  one-and-one: it runs one-one, then two-one, then one-two, and only the
+  navigator is told which — so the pilot is pressing an instruction rather than
+  a rhythm. It is Mario Party's Handcar Havoc and Dungeon Dash, which are the
+  only party archetype that is *structurally* two-handed rather than two people
+  doing one job twice. **No relaxation needed** — the pump turns, nobody
+  travels. Unworked out: whether a stall costs progress or hull; whether the
+  pattern is announced a bar ahead or on the bar, where ahead is a sentence and
+  on the bar is a reflex and disqualifies the round outright; what the pump is
+  pumping, which is the only part of this entry that is fiction rather than
+  mechanism and still has to carry the one-sentence card
+- **THE SLING** — one of you winds it and the other one says when. A launcher on
+  the hull, wound rather than aimed: the pilot holds a slab, the charge climbs
+  one step per beat, and nothing but the winding is on that screen. The navigator alone
+  sees the target and how far off it is, and has no slab at all. Release on the
+  called beat and it lands. It is the Rabbids' cow toss with the eye and the arm
+  on different phones, and it is the smallest thing in this group that is
+  recognisably this game — a cannon, a charge and a call. **No relaxation
+  needed**; the shot travels, which is what a shot has always done here.
+  Unworked out: whether overwinding fails or merely overshoots, where
+  overshooting is the better round and needs a second number; whether the target
+  moves, which turns arithmetic into aim and probably into a reflex; what unit
+  the navigator calls a distance in, since "column four" does not exist in a
+  round with no columns and a new unit is a vocabulary lesson in front of a
+  ninety-second game
+- **THE THROTTLE** — one instrument panel, cut in half between two people. A car
+  on a rail, a throttle slab held by the pilot, and a needle that is the only
+  thing the pilot can see. The navigator sees the track ahead — the corners
+  arriving one per beat, each with a speed it can be taken at — and nothing
+  about how fast the car is going. Above the corner's number it comes off;
+  under it the clock runs out. It is Mario Party's Slot Car Derby read as an
+  information split instead of as a race, and it is the purest *you read, I
+  hold* in the store. The car travels and **that is covered**: a round with no
+  columns is outside the rule ([`docs/decisions.md` #21](../decisions.md)), the
+  same way THE CLAW's rail was. Unworked out: whether the corners are authored
+  or drawn from the seeded `Rng`, where only the authored version can have a
+  shape — three tightening corners is a sentence and a random sequence is a
+  list; how many speeds the needle has, since eleven positions is the field's
+  own count wearing a dial; whether the pilot sees one corner too, which would
+  make it a duet rather than a dictation and is probably worse
+- **THE FLOOR** — the tile is called to the seat that cannot brace it. Seven
+  tiles in a ring; on every beat one of them is named. The navigator is told
+  which, one beat early, and can do nothing about it. The pilot can brace
+  exactly one tile per beat and is told nothing. Brace the named one and the
+  ring holds; brace another and the floor takes a chip out of the hull. It is
+  Hexagon Heat and Mushroom Mix-Up with the running taken out, because in this
+  game nobody runs — and seven rather than eleven on purpose, since a round may
+  not borrow the field's count. **No relaxation needed** — the tiles sink, the
+  pair does not. Unworked out: whether the lead is one beat or two, which given
+  a 0.5–2 s voice delay ([latency](latency.md)) is the whole round and is the
+  one number nobody can find without playing it; whether the calling speeds up,
+  which is the party game's own escalation and the fastest way to turn this into
+  the reflex round the category refuses; whether the seven are named by colour,
+  by glyph or by position, where position needs a vocabulary and the other two
+  need a legend
 
 ## Deliberately deferred
 

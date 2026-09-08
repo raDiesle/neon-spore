@@ -465,3 +465,92 @@ unshallows or says *that* instead of a count nobody can act on; and
 `docs/cloud-session.md` says it beside the two host variables, because
 `CLAUDE.md` tells a cloud session to land every turn and every one of them
 walks into this on the way.
+
+## `docs/party-games.md` links to nine screenshots it could not embed
+
+- **Found:** 2026-09-08, claude/party-minigames-research-udjn67
+- **Files:** `docs/party-games.md`
+
+`docs/tower-defence.md` sets the house rule for a study of other games: the art
+is not ours and the repository is public, so a picture is written as
+`![a sentence saying what it shows](https://…)` and **linked**, never copied in.
+`packages/…` never sees it; `tools/director/src/markdown.ts` renders it and
+honours `https://` only.
+
+The party-games study could not follow it. Every host those links would point
+at is refused by the network policy a cloud session runs under —
+`www.mariowiki.com`, `mario.fandom.com`, `rabbids.fandom.com`,
+`raving-rabbids.fandom.com`, `raymanpc.com`, `en.wikipedia.org` and
+`static.wikia.nocookie.net` all answered `connect_rejected`, through `curl` and
+through the fetch tool alike. Writing an `![…](…)` from memory would have put
+nine unchecked URLs in a public file, so each row carries a **link to the wiki
+page that holds its screenshot** instead, and the page says so in *What the
+pictures are, and are not*.
+
+The work: from a session that can reach those hosts, open the eleven pages
+listed under *Sources* and in the two tables, take the direct image URL for each
+minigame's screenshot, and rewrite the rows as linked images with a caption
+written as a sentence — the way `docs/tower-defence.md` does throughout, so that
+a failed load still says what it showed. The rows most worth a picture are
+Torpedo Targets, Bowser's Big Blast, Hexagon Heat, Look Away and the Rabbids
+dance battle; the refused rows need none. Then delete the *What the pictures
+are, and are not* section's second and third paragraphs, which exist only to
+explain the absence.
+
+## A third study of other games has nowhere to be read but the repository
+
+- **Found:** 2026-09-08, claude/party-minigames-research-udjn67
+- **Files:** `tools/director/src/docs-api.ts`, `tools/director/src/backlog-page.ts`, `tools/director/src/backlog-tabs.ts`, `docs/party-games.md`
+- **Asks:** Should `docs/party-games.md` get a tab on NOT BUILT YET, fold into BORROWED, or stay a file like `docs/tower-defence.md`?
+
+`DOC_ROUTES` in `docs-api.ts` is a one-entry table with a comment saying the
+next study is one line in it, and `whole-doc.ts` is written for more than one
+caller for the same reason — so a `PARTY GAMES` tab beside `BORROWED` is a
+route, a container id and a rail entry, an hour at most. What stops a session
+doing it unasked is that both files also record the owner taking `TOWER DEFENCE`
+and `CLAUDE VS CHATGPT` *off* that rail, which is a preference about how many
+studies belong on a sheet headed NOT BUILT YET, and this is the third study.
+
+Three answers, and each costs something different:
+
+- **A tab of its own.** The study is read where the rounds it feeds are read.
+  Costs a fourth study-shaped tab on a sheet the owner has already thinned once.
+- **Fold it into `docs/borrowed.md`.** No new route, and the existing BORROWED
+  tab carries it. Costs the split that makes those pages readable — borrowed is
+  about two people operating one machine, party games are about the shape of
+  sixty seconds — and takes `borrowed.md` from 137 lines to about 330, past the
+  ~250 ceiling.
+- **Leave it a file.** What `docs/tower-defence.md` does today: cited from
+  `borrowed.md`, read in the repository, invisible in the director. Costs
+  nothing and means the owner meets the six rounds only through
+  `docs/spec/ideas.md`, where they already are.
+
+Nothing is blocked on the answer except the tab; the six rounds are on the
+NOT BUILT YET sheet either way, because `ideas.md` is what its BOSSES tab reads.
+
+## May a round come back, or is one meeting all a pair ever gets
+
+- **Found:** 2026-09-08, claude/party-minigames-research-udjn67
+- **Files:** `docs/spec/interludes.md`, `packages/content/src/waves.ts`
+- **Asks:** May a round return once in a later act with one number turned, or is "nothing it teaches is used again" absolute?
+
+`docs/spec/interludes.md` says a round has "a beginning, one rule, four or five
+repetitions of that rule, and an end… Nothing it teaches is used again", and
+every round built so far honours it. Reading the two party games against that
+sentence is what raised the question: both repeat their minigames on purpose,
+and the second meeting is where a pair finds out they are *good* at something —
+which is the one feeling a run of eleven single-shot rounds cannot produce.
+
+It is cheap to allow and not cheap to undo. A round is a `boss:` entry in
+`waves.ts` and its difficulty is `SimConfig`, so a second appearance is one row
+and one number; what it changes is what a round *is* for, and that sentence is
+the owner's rather than a lane's.
+
+- **Never repeat.** Today's rule. Eleven rounds, eleven acts, each thrown away.
+  The run stays about the field getting harder and a round stays a break.
+- **Repeat once, later, harder.** A round the pair met in act 2 returns in act 7
+  with `damage<Round>` or its clock turned. Costs a row per return and an
+  authoring rule about how far apart the two may sit.
+- **Repeat only what was failed.** The pair meets again the round that broke
+  their hull. Reads as a rematch and needs a field on `World` that survives a
+  wave, which is the only one of the three that is not free.

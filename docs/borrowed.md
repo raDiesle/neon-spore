@@ -10,6 +10,15 @@ neither able to do the other's half. Everything below was read from public
 wikis and walkthroughs; nothing was played to write it, and the mapping column
 is the part that is ours.
 
+**Two more studies were written the same way and live beside this one.**
+`docs/tower-defence.md` reads the genre our *field* already is — things coming
+down lanes at a fixed thing that shoots back — and comes back with almost
+everything, so its useful work is saying which rows we already have.
+`docs/party-games.md` reads Mario Party and Rayman Raving Rabbids for the
+*round*, and comes back with six: a party minigame's transferable half is never
+the minigame but the shape of its sixty seconds. Between the three, this page is
+the one about **two people operating one machine**, and it stays that.
+
 ## The one sentence that decides almost every row
 
 Both games are third-person platformers. Their unit of play is *a character
