@@ -13,6 +13,8 @@ import {
 } from "../../../../../packages/render/src/magnet.js";
 import { PALETTE, STROKE } from "../../../../../packages/render/src/palette.js";
 import { magnetPoleColor } from "../../../../../packages/sim/src/magnet.js";
+import { poleTip, TURN } from "./geometry.js";
+import { lanes } from "./lanes.js";
 
 /**
  * The paint COIL is made of, kept out of `index.ts` so that file stays the
@@ -31,10 +33,6 @@ import { magnetPoleColor } from "../../../../../packages/sim/src/magnet.js";
  * module-level cache here would be state shared between its two sides.
  */
 
-/** A whole turn and straight down, the bearings `magnet.ts` measures from. */
-const TURN = Math.PI * 2;
-const DOWN = Math.PI / 2;
-
 /**
  * The hang, copied from `magnet.ts` on purpose.
  *
@@ -47,13 +45,6 @@ const DOWN = Math.PI / 2;
 const HANG = 0.05;
 const HANG_BEATS = 2.7;
 const HANG_SPREAD = 0.37;
-
-/** Where an intake lane starts and ends, in body radii from the centre. It
- * reaches past the arch on both sides — that overhang is most of what makes a
- * twenty-eight-pixel body readable, because it is drawn size the contour is
- * not allowed to spend. */
-const LANE_OUT = 1.66;
-const LANE_IN = 1.02;
 
 /**
  * A machined edge, all the way round, drawn **inside** the clip.
@@ -77,13 +68,6 @@ function bevel(
   ctx.lineWidth = Math.max(1.5, r * 0.11);
   ctx.stroke(path);
   ctx.globalAlpha = 1;
-}
-
-/** The tip of one pole, in body-local pixels — where its light hangs. */
-function poleTip(r: number, left: boolean, s: MagnetShape): { x: number; y: number } {
-  const a = DOWN + (left ? 1 : -1) * s.gapTurn * TURN;
-  const mid = r * (s.outer + s.inner) * 0.5;
-  return { x: Math.cos(a) * mid, y: Math.sin(a) * mid };
 }
 
 /**
@@ -246,47 +230,4 @@ function pole(
   // part of this body that carries a word somebody has to say out loud, and at
   // the size it is drawn the glow is more of that reading than the wedge is.
   halo(ctx, tip.x, tip.y, r * 1.05, hex, 0.62);
-}
-
-/**
- * The two intake lanes: the one thing here that is not on the shipped body.
- *
- * `sim/magnet.ts` says a shot reaches a pole only if it arrived **sideways**,
- * and today's picture never says the word: it has an opening at the *bottom*,
- * which is the one bearing the rule refuses. So each pole gets a level rail
- * running out past the arch in its own colour, with two chevrons on it
- * pointing in — *from your left, red*, drawn.
- *
- * They are chevrons and not bolts on purpose. A bullet in this game is a
- * bright head with a tail behind it (`bullets.ts`); a hollow V on a thin rail
- * has no head, so a lane cannot be misread as a shot already arriving. And
- * they are drawn before the hang, level: the lane is the bolt's path, and a
- * path does not lean because the body hanging on it does.
- */
-function lanes(d: MagnetDraw, r: number, s: MagnetShape, haze: (h: string) => string): void {
-  const { ctx, c } = d;
-  for (const left of [true, false]) {
-    const color = magnetPoleColor(c, left);
-    if (color === null) continue;
-    const hex = haze(color === "red" ? PALETTE.red : PALETTE.cyan);
-    // Travel, as a sign: the left pole's lane runs to the right, and its far
-    // end is the side the shot is coming from.
-    const t = left ? 1 : -1;
-    const { y } = poleTip(r, left, s);
-    const from = -t * r * LANE_OUT;
-    const to = -t * r * LANE_IN;
-    const rail = new Path2D();
-    rail.moveTo(from, y);
-    rail.lineTo(to, y);
-    strokeGlow(ctx, rail, hex, STROKE.inner, 0.5);
-    const arm = r * 0.17;
-    for (let i = 0; i < 2; i++) {
-      const at = from + (to - from) * (0.34 + i * 0.36);
-      const v = new Path2D();
-      v.moveTo(at - t * arm, y - arm);
-      v.lineTo(at, y);
-      v.lineTo(at - t * arm, y + arm);
-      strokeGlow(ctx, v, hex, STROKE.inner, 0.75);
-    }
-  }
 }

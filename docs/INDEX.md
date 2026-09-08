@@ -567,6 +567,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/snake-draw.ts` | SNAKE's arena, and everything standing on a tile of it |
 | `packages/render/src/snake-round.ts` | SNAKE over the whole stage |
 | `packages/render/src/living-draw.ts` | one lobed body, filled and lit — the draw path every blob creature takes, and the Throb's two sizes |
+| `packages/render/src/living-skin.ts` | What a living body is *made of*, as a record rather than as three lines in the middle of `drawLiving` |
 | `packages/render/src/snake-morph.ts` | The ship becoming the snake, and it is the real ship |
 | `packages/render/src/echo.ts` | the seam and the strain — what tells the pair a body is about to come apart, and which way |
 | `packages/render/src/pinball-round.ts` | PINBALL over the whole stage |
@@ -1264,6 +1265,7 @@ place — the generator keeps whatever is there.
 | `tools/shape-sheet/src/veer-subject.ts` | **THE VEER**: the meteor with its rider on it, the one card made of a shape already on the sheet plus something over the top |
 | `tools/shape-sheet/src/rock-subjects.ts` | Everything on this sheet that is faceted rather than grown: the builder that draws a crystal |
 | `tools/director/src/poses-versus.ts` | The states a candidate look is judged on — one per slot that had none |
+| `tools/director/src/poses-bodies.ts` | The pose a candidate for a *body* is judged on, as opposed to one for a mechanism firing |
 | `tools/director/src/versus-app.ts` | `versus.html` — the page a VERSUS door opens into, and the whole of its routing |
 | `tools/director/src/versus-one.ts` | One candidate, alone, on a page of its own — the live half of VERSUS |
 | `tools/director/src/versus-open.ts` | Where a look opens, and how a page links to it |

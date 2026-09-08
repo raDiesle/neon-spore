@@ -12,6 +12,7 @@ import {
   shoot,
   POSE_TPB as TPB,
 } from "./pose-kit.js";
+import { BODIES_POSE } from "./poses-bodies.js";
 
 /**
  * The states a candidate look is judged on — one per slot that had none.
@@ -217,46 +218,6 @@ const METEOR_HIT_POSE: Pose = {
       const c = x.creatures[0];
       return b !== undefined && c !== undefined && b.row - c.row <= 2;
     });
-    return w;
-  },
-};
-
-/**
- * Four bodies of four kinds standing together, which is what a candidate for
- * the *skin* has to be judged on.
- *
- * Every other pose in this file is one creature doing one thing, because every
- * other slot is about one creature. `creature:skin` patches the material
- * `drawLiving` gives to every blob in the game at once — slick, bulb, throb,
- * dart, wisp, choir and every lure wearing one of them — so a pose with one
- * body on it would answer a fifth of the question. Two colours and two
- * proportions, flat and round, so the one thing the pair reads off a body at
- * twenty-six pixels is on screen four ways at the same instant.
- *
- * It carries `cadenceSeconds` even though a skin is continuous, and the reason
- * is the field rather than the look: bodies **fall**. Left running, this pose
- * spends half its time as an empty field and the other half as four bodies
- * breaking up against the hull, which is a picture of a wave ending rather
- * than of a material. The two-second replay holds them where they can be
- * looked at.
- */
-const BODIES_POSE: Pose = {
-  name: "BODIES · FOUR KINDS AT ONCE",
-  note: "A slick, a bulb, a dart and a throb standing on the field at once, two of them red and two cyan. Nothing is happening to any of them: what is being compared is what they are made of, on every frame, and four kinds at once is the only way to see whether one material serves all of them.",
-  lookAt:
-    "the inside of the four bodies — whether each reads as a solid thing under a light or as a shape cut out of the background",
-  crop: "field",
-  build: () => {
-    const w = fresh([
-      { beat: 0, col: 2, kind: "slick", color: "red" },
-      { beat: 0, col: 4, kind: "bulb", color: "cyan" },
-      { beat: 0, col: 6, kind: "dart", color: "red" },
-      { beat: 0, col: 8, kind: "throb", color: "cyan" },
-    ]);
-    // Long enough that all four have left the top row and are on the field
-    // proper, and that their own-motions are out of phase with each other —
-    // and short enough that two seconds of replay never reaches the hull.
-    run(w, TPB * 4);
     return w;
   },
 };
