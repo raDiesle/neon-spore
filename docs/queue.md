@@ -441,3 +441,24 @@ until the arm is home or the capture ends. The rate is the simulation's and is
 asked for rather than chosen, exactly as `content/src/scene-drag.ts`'s
 `crankCommands` asks for it — this is the third caller of that same rule, and
 the second one wrote nothing new to get it.
+
+## `bun run perf` never finishes in a cloud session
+
+- **Found:** 2026-09-08, claude/crank-dial-visible
+- **Files:** `tools/perf/run.ts`, `docs/performance.md`, `docs/cloud-session.md`
+
+`bun run perf --wave "THE CLAW"` was killed twice on a cloud runner, at 400 s
+and again at 580 s, with nothing on stdout either time — `docs/performance.md`
+puts a narrow run at about 25 seconds. The same box runs the whole test suite
+in 260 s, so it is slow rather than broken, but a lane that adds a shape there
+cannot get the number the rules ask it for and has no way to tell a hung run
+from a slow one while it waits.
+
+Find out which it is: run it with the sweep's own reporting turned up, and if
+it is only slowness, say so in `docs/cloud-session.md` beside the two servers'
+`HOST` variables — a cloud session should be told to skip it and name it
+unverified rather than spend twenty minutes discovering that. If it hangs on
+something a headless container has not got, that is the bug and the tool
+should say what it is waiting for. Either way it wants a progress line per
+wave: a tool with a three-minute silent stretch is one nobody can wait on with
+any confidence.
