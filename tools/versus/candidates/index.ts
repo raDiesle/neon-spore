@@ -1,6 +1,7 @@
 import type { Variant } from "../variant.js";
 // region: candidates
 import { SHOT_STREAK } from "./cannon-shot/streak/index.js";
+import { MAGNET_COIL } from "./creature-magnet/coil/index.js";
 import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
 // endregion
 
@@ -68,4 +69,4 @@ import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
  * `fine` went with it: it existed only to buy back half a step nobody could
  * see the whole of.
  */
-export const VARIANTS: Variant[] = [SHOT_STREAK, METEOR_FORGE];
+export const VARIANTS: Variant[] = [SHOT_STREAK, METEOR_FORGE, MAGNET_COIL];
