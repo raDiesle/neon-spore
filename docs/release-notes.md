@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-08 · 807056c6 — The visual system gets a room in the director, drawn from the palette
+
+DOCUMENTATION → STYLE: every colour the game draws with, grouped by the rule it belongs to, with its hex and hue angle under it and a click that copies the hex; then the hue wheel that says where a new colour may go, the four passes that draw one body and the light going out when it is shot in the wrong colour, the size ladder down to the 11 px where nothing survives, the five silhouettes with what keeps them apart, and the turn against the squash.
+
 ## 2026-09-08 · 8aa2f4d3 — The slick is 68 x 48, because a waist this deep is cut out of the height
 
 The pinch put the slick's two lobes on its long axis and the waist squarely between them, and the waist is taken off the *short* axis: `bun run shapes:report` had the body at 208.8 x 60.4 drawn, 22.8-26.6 px at the card size, which is sitting on `docs/spec/graphics.md`'s 20-26 floor — the exact failure the candidate's own note warned about, that a deeper waist on a flatter ellipse falls under it.
