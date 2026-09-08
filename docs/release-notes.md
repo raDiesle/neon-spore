@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-08 · 6ea985d3 — Queue: bun run land refuses in a cloud session's shallow clone
+
+A cloud clone is shallow, so a fetch brings a second shallow segment rather than joining the first and `main` and `origin/main` end up with no ancestor git can see between them — each counted as ahead of the other by the depth of the graft. `land`'s trunk guard reads that as a trunk that has moved and refuses. `git fetch --unshallow origin` clears it; the entry says where the check belongs and what to say instead of a count nobody can act on.
+
 ## 2026-09-08 · 4a6f3bc8 — THE TELL: rock, paper, scissors against a boss that shows its hand
 
 A boss worked out in bosses.md 11.9, on the owner's design and answering the two questions he put with it. A ring is balanced only where every throw beats as many as it loses to, so the count of throws is always odd — three, five, seven, never four — which means the panel does not lose a button: RED and CYAN are both BOLT, and the colour the boss wears decides whether a bolt lands. The ring itself is the game's own physics, PLATE over BOLT over MAW over PLATE, so two of its three arrows need no teaching. What keeps a round of chance from being decided by chance is that the boss shows what it is about to throw and each seat sees half of the tell — player 1 the lobe that fills, player 2 the colour — and that for the opening rungs it answers the pair's last throw rather than drawing from a bag. The ladder is seeded once and not re-drawn on a restart, so starting again is the fifteen seconds the pair already knows.
