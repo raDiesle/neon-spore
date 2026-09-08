@@ -771,6 +771,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/tell-ring.ts` | The ring, drawn on the boss's own body — three nodes and the three arrows between them |
 | `packages/render/src/tell-round.ts` | THE TELL over the whole stage |
 | `packages/render/src/tell-scene.ts` | The reveal: nine little scenes, one per ordered pair of throws |
+| `packages/render/src/pulse-wash.ts` | The whole ship lit in a late body's own colour, for half a second after it sinks in |
 
 ### packages/net
 

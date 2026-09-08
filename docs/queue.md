@@ -763,3 +763,45 @@ file for the rate rather than spelling it out, and start the bearings from
 nought the way it does, so a lost reference cannot wind rope nobody travelled.
 `tools/frames/test/` is the guard: a spec with a turn on it reaches the page
 as that many bearings, and a negative one comes out the other way round.
+
+## `bun run perf` measures every boss round at its lead-in and never at its song
+
+- **Found:** 2026-09-08, claude/pulse-boss-tuning-1af6df
+- **Files:** `tools/perf/measure.ts`, `tools/perf/sweep-timing.ts`, `tools/perf/test/`
+
+`measure.ts` steps a wave to its **busiest tick**, and it decides which one that
+is by counting `world.creatures`. A boss round has no creatures — THE PULSE,
+THE GAUGE, PINBALL, SNAKE and THE MAZE all keep their picture in `world.boss` —
+so `best` never improves on tick 0, `peak.tick` stays 0, and every round in the
+sweep is photographed during its count-in, before a single body is on the
+screen. THE PULSE's baseline entry is 0.70 ms for exactly that reason, which is
+the cost of a hull and a title and none of the round.
+
+What to do: give the search a second measure of how busy a tick is, so a world
+with a `boss` on it is stepped to the tick that round is actually drawing at.
+The cheap one is the count of things the round itself holds — `boss.notes` still
+falling for THE PULSE, `boss.balls` for PINBALL — but a per-kind reader is a
+table that will go stale. The other option is to keep it kind-agnostic and step
+a round to a fixed fraction of its own length, which is one number and wrong for
+none of them. Take a fresh baseline with `bun run perf --save` afterwards, since
+every round's row moves.
+
+## `bun run frames --ticks N` is not `world.tick` N, and nothing says so
+
+- **Found:** 2026-09-08, claude/pulse-boss-tuning-1af6df
+- **Files:** `tools/frames/capture.ts`, `tools/frames/run.ts`, `tools/frames/test/`
+
+`--ticks` counts `window.neonSpore.advance(1)` calls made *after* the wave is
+jumped to and its briefing dismissed, and those steps cost ticks of their own:
+on THE PULSE, `--ticks 329` photographs `world.tick` 379. Nothing in `--help`
+or in the header says it, so a capture aimed at a window computed from the
+simulation — an effect that lives seventy ticks, a note that expires on a tick
+a chart fixes — lands fifty ticks late and shows nothing. This session lost six
+captures to it and found the offset only by drawing `world.tick` onto the frame.
+
+What to do: make the flag mean what a reader will assume. Either advance to the
+*absolute* `world.tick` asked for — read `ns.world.tick` after the opening is
+settled and step the difference, refusing a number already passed — or keep the
+current meaning and print the tick each frame was actually taken at, in the line
+that already names the file. The first is better and is one subtraction; the
+second is a fallback if some caller depends on the relative count.

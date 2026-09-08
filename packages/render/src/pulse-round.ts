@@ -11,6 +11,7 @@ import { drawPulseDrops } from "./pulse-drop.js";
 import { drawArrivals, drawSockets } from "./pulse-fall.js";
 import { type PulseField, pulseField } from "./pulse-lane.js";
 import { drawPulseMeter, drawPulseTally, drawPulseVerdict } from "./pulse-meter.js";
+import { drawPulseWash, pulseWash } from "./pulse-wash.js";
 import type { ViewState } from "./renderer.js";
 import { seatSkin } from "./seat-skin.js";
 import { drawShipAir } from "./ship-air.js";
@@ -63,8 +64,20 @@ import { drawShipAir } from "./ship-air.js";
  * what happens to the ones nobody caught is `pulse-drop.ts`.
  */
 
-/** How long a judgement word stands before it fades, in ticks. */
-const WORD_TICKS = 45;
+/**
+ * How long a judgement word stands, in ticks: full strength for the first
+ * number and then going out over the second.
+ *
+ * **It held for a third of a second and the owner could not read it.** A word
+ * that begins fading on the frame it appears is a word the eye catches the
+ * shape of and never the letters, and PERFECT and MISS are five letters apart
+ * at a glance. So it is a hold and then a fade rather than one long fade: a
+ * second at full, half a second going out, which at the shipped tick rate is a
+ * word that can actually be read between two arrivals a beat apart. A newer
+ * judgement replaces it whichever it is, so nothing here stacks up.
+ */
+const WORD_HOLD = 120;
+const WORD_FADE = 60;
 
 /** The words, indexed by `PULSE_JUDGES`. */
 const WORDS = ["", "PERFECT", "GOOD", "MISS", "—"];
@@ -143,6 +156,9 @@ export function drawPulseRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
     { x: 0, y: 0 },
     f,
   );
+  // Over the hull and under what is still falling: the whole ship carrying the
+  // colour of a body that got past its socket (`pulse-wash.ts`).
+  drawPulseWash(ctx, l, surfaceSampler(f), pulseWash(cfg, boss, seat, world.tick));
   drawPulseDrops(ctx, l, view, boss, field, seat);
 
   // Over the ship: the four sockets cut into it, which are the whole of the
@@ -211,7 +227,8 @@ function say(
   const at = who === 1 ? boss.lastTick1 : boss.lastTick2;
   const combo = who === 1 ? boss.combo1 : boss.combo2;
   if (at < 0 || last === 0) return;
-  const fade = Math.max(0, 1 - (view.world.tick - at) / WORD_TICKS);
+  const age = view.world.tick - at;
+  const fade = age <= WORD_HOLD ? 1 : Math.max(0, 1 - (age - WORD_HOLD) / WORD_FADE);
   if (fade <= 0) return;
   ctx.globalAlpha = fade;
   ctx.fillStyle = WORD_COLORS[last] ?? PALETTE.dim;
