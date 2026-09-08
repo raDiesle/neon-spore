@@ -9,6 +9,34 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-08 · 4423265 — Split two files back under the ceiling, and stop re-deriving a bestiary rule
+
+Three things `bun run check` caught on the whole suite that the narrow runs did not.
+
+## 2026-09-08 · d8cfdc3 — A vote on a contour has to regenerate the style guide's sheet too
+
+Step 3 of the emitted prompt named `bun run shapes` and the two shape-sheet SVGs, and said nothing in `bun run check` would notice one of them going stale. That was true when it was written and stopped being true last week: `docs/reference/style-guide.svg` is drawn from the same silhouettes, and `tools/style-guide/test/style-guide.test.ts` diffs the committed picture against the code that draws it.
+
+## 2026-09-08 · e7bf5da — A second answer in the skin slot, and the friction that photographing one cost
+
+`creature:skin` / `veil` is the opposite argument to `lit` rather than a weaker version of it. LIT says a creature should be a solid under a light and fills it with flesh to get one. VEIL says the near-background deep is right — it is where the neon reads from, it is what `hazed` spends distance against, and it is why eleven columns of bodies do not turn the field into a lamp — and that what is missing is a membrane with a wall, not a filled middle. So the fill is untouched and the body's colour bleeds inward from the contour, with the band's centre pushed toward `KEY`: thin where the surface faces the light, thick where it turns away, which is the whole three-dimensional claim in one number. A slot with two answers in it is a vote rather than a keep-or-adopt.
+
+## 2026-09-08 · fbd9b31 — Second answers for the two bodies the pair names most
+
+`creature:slick` / `pinch` and `creature:bulb` / `six`. Both are contour candidates on `packages/content`'s own records, reached the way the drawing code reaches them — through `livingSilhouette`, not by naming the export.
+
+## 2026-09-08 · 9c07629 — A second answer for what every enemy is made of
+
+`creature:skin` / `lit`. The shipped deep is very nearly the background — `redDark` is #190F2C against a #07060F field — so a creature is, materially, a hole in space with a neon line round the edge. That is where the neon half of the game's identity comes from and it has never had a second answer beside it.
+
+## 2026-09-08 · c013f1e — Lift what a living body is made of into a record
+
+Every blob in the game — slick, bulb, throb, dart, wisp, choir, and every lure wearing one of them — is filled with its own deep and given a glowing rim in its own colour. That material was three lines in the middle of `drawLiving`, so the bodies the pair looks at for the whole game had exactly one skin and nowhere for a second answer to sit.
+
+## 2026-09-08 · ed5d9f9 — A second answer for THE MAGNET: the way in gets a direction drawn on it
+
+`creature:magnet` / `coil`. The shipped magnet states two thirds of its own rule — there is a plate underneath, and the way in has a colour — and never states the third and hardest clause, that a shot only gets in sideways. The one opening it does draw is at the bottom, which is the single bearing `magnetLetsThrough` refuses.
+
 ## 2026-09-08 · b29aafd — A visual system with one entry point, and a sheet drawn from the values
 
 The visual language was real and complete and spread across ten documents: identity in spec/graphics.md, the nameability law in alive.md, colour as argument-per-hue in palette.ts, light in skins/light.ts, the depth ceiling in dimensional.md, the format question already answered twice in raster.md. Two and a half thousand lines, no top, and no picture of any of it. So a session asking what the game looks like either read all of it or guessed, and a colour added to the palette was placed against whichever comments it happened to open.
