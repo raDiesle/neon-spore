@@ -654,3 +654,36 @@ cannot pass `bun run check` without running perf, and running perf there is
 what `CLAUDE.md` tells it not to do. Either the baseline test should tolerate a
 row marked unmeasured, or `CLAUDE.md`'s rule needs the exception written into
 it. That is the owner's call and this entry is where it is waiting.
+
+## Photographing a VERSUS candidate is a guessing game
+
+- **Found:** 2026-09-08, claude/visual-system-style-guide-rdti4j
+- **Files:** `tools/director/src/versus-app.ts`, `tools/director/src/versus-one.ts`, `tools/frames/shot.ts`
+
+`CLAUDE.md` says to send the owner a picture of a look, and `bun run shot`
+photographs the director. Neither reaches a VERSUS pair reliably. A pose that
+carries `cadenceSeconds` rebuilds its world on its own two-second clock, so
+what is on the frame when the shot lands depends on when the browser started
+and how long the bundle took — four candidate pictures this lane needed cost a
+sweep of six `--wait` values each, and half of those came back as an empty
+field or as a wave breaking up against the hull. The crop rectangle is guessed
+the same way: `--at` is in the element's own CSS pixels, so the coordinates
+were read off a PNG with `struct.unpack` and adjusted by eye, per candidate,
+and again whenever the pose moved.
+
+Both halves are one missing flag. `versus.html` already routes on its query
+string (`?slot=…&name=…`) and `renderCandidate` already knows how to hold a
+frame — `pair.freeze()` is what a `screenshot` candidate calls, and unlike
+`setRunning(false)` it leaves no `hud.ts` "PAUSED" caption. Add
+`&freeze=<seconds>` to that route: the page steps to that point and stops, so
+one `bun run shot` at any `--wait` past the settle gives the same picture
+every time, and the value can be chosen from what the pose actually does
+rather than from what the browser happened to be doing.
+
+Worth a second flag beside it, since the same sweep paid for it twice:
+`&only=candidate` or `&only=current`, so a picture can be one side at true
+size instead of a strip of both cropped down to nothing.
+
+`tools/director/test/versus-freeze.test.ts` is the guard — the route parses,
+an unknown value falls through to the running pair rather than to a blank
+page, and a frozen pair is byte-identical across two builds of the same world.

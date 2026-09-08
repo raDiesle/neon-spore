@@ -5,6 +5,7 @@ import { BULB_SIX } from "./creature-bulb/six/index.js";
 import { MAGNET_COIL } from "./creature-magnet/coil/index.js";
 import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
 import { SKIN_LIT } from "./creature-skin/lit/index.js";
+import { SKIN_VEIL } from "./creature-skin/veil/index.js";
 import { SLICK_PINCH } from "./creature-slick/pinch/index.js";
 // endregion
 
@@ -77,6 +78,7 @@ export const VARIANTS: Variant[] = [
   METEOR_FORGE,
   MAGNET_COIL,
   SKIN_LIT,
+  SKIN_VEIL,
   SLICK_PINCH,
   BULB_SIX,
 ];
