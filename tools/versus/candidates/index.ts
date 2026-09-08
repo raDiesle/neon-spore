@@ -2,6 +2,7 @@ import type { Variant } from "../variant.js";
 // region: candidates
 import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
 import { SKIN_VEIL } from "./creature-skin/veil/index.js";
+import { SHIP_BARREL } from "./ship-light/barrel/index.js";
 // endregion
 
 /**
@@ -74,4 +75,4 @@ import { SKIN_VEIL } from "./creature-skin/veil/index.js";
  * asks *which of these two*, and a look nobody is ready to choose between is
  * better kept where it can be browsed than kept as a question nobody answers.
  */
-export const VARIANTS: Variant[] = [METEOR_FORGE, SKIN_VEIL];
+export const VARIANTS: Variant[] = [METEOR_FORGE, SKIN_VEIL, SHIP_BARREL];

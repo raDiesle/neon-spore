@@ -12,7 +12,7 @@ import {
   skin,
   surface,
 } from "./hull-frame.js";
-import { litBox } from "./key-light.js";
+import { HULL_LIGHT } from "./hull-light.js";
 import type { Layout } from "./layout.js";
 import { drawCharge, drawChew, drawInhale } from "./maw.js";
 import { drawMuzzle } from "./muzzle.js";
@@ -182,7 +182,15 @@ export function drawHull(
   // lies on the silhouette and the outline *is* the silhouette here. The
   // direction is `@neon-spore/content`'s `KEY`, the one constant the director's
   // skins and this renderer both read; nothing in this file names an angle.
-  litBox(ctx, filled, l.gridLeft, top, l.gridWidth, bottom - top, LIGHT_HALF.hull);
+  HULL_LIGHT.lit(ctx, {
+    region: filled,
+    body,
+    x: l.gridLeft,
+    y: top,
+    w: l.gridWidth,
+    h: bottom - top,
+    half: LIGHT_HALF.hull,
+  });
   // Every crater's geometry, whether or not its hole is open yet — a crack's
   // *position* (`scars.ts`'s `crackOrigin`) reads this unconditional list, so
   // it never moves once drawn. The rim goes round every OPEN crater, not
