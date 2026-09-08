@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-08 · 8aa2f4d3 — The slick is 68 x 48, because a waist this deep is cut out of the height
+
+The pinch put the slick's two lobes on its long axis and the waist squarely between them, and the waist is taken off the *short* axis: `bun run shapes:report` had the body at 208.8 x 60.4 drawn, 22.8-26.6 px at the card size, which is sitting on `docs/spec/graphics.md`'s 20-26 floor — the exact failure the candidate's own note warned about, that a deeper waist on a flatter ellipse falls under it.
+
+## 2026-09-08 · ca9cb89b — Seven answers taken off VERSUS, six of them into the game
+
+The owner read the whole ALTERNATIVES page and emptied most of it in one sitting. Six candidates are now what the game draws and there is no second answer to any of them: the magnet is a solid horseshoe with poles lit from their tips and a chevron lane at each side saying the way in is across rather than up (`magnet-coil.ts`); a living body is flesh under the key light instead of a hole in space with a neon line round it (`living-skin.ts`); the slick's two lobes are on its long axis with the waist cut deep enough to read as a join, and a little taller so its aspect stops matching the dart's; the bulb wears six lobes deep enough to be counted instead of nine shallow enough to be a texture; and a dart's thrust is a flame that leaves the tail narrow, bellies out and frays into nothing, where it was a hard-edged spike pointing away (`dart-torch.ts`). The seventh, `cannon:shot` / `streak`, was cut.
+
 ## 2026-09-08 · 9fc6231c — THE BALLOON wears an oil slick, at twice the size, and one mouse pulls both handles
 
 The owner asked for this body to be cooler, more alien, a nicer colour and twice as big, and for the stage to let one pointer make a gesture that needs two. It is grey no longer: the skin carries a film that travels round it — blue-violet at 245 degrees through a magenta at 290 to a rose at 320 and back — so there is still no hue standing still on it to load a trigger for, which is the argument the creature was built grey on. Under the skin three veins fork up out of the knot, three lit beads hold an orbit just clear of the rim, and five threads drag below it as it climbs. The three forms are the shape sheet's own VEIN, NODE-RING and TRAIL, written into this creature's own box. Both sizes double, so a split half is now exactly the size a whole balloon used to be, and the handles move out to 1.15 of a tile because at 900 the rings would have been drawn inside the skin they hang off.
