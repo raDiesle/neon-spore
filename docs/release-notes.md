@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 9b78af27 — Five answers to what is inside a slick
+
+The slick is on more waves than anything else in the game and the whole of its interior was two dots, in the rim colour, at a fixed place — the least detailed thing on the frame the pair reads most. There was nowhere a second answer could sit, so this cuts the seam and then opens the question.
+
 ## 2026-09-09 · 84e38d0b — Adopt writes late fields first, and says what to do when it will not
 
 Two things a smoke test found by running the command against a real slot rather than a fixture.
