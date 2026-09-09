@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 22018c94 — A VERSUS candidate is photographed, not hunted
+
+Taking a picture of a live pair was a lottery: a pose with a cadence rebuilds its world on its own clock, so four pictures cost six `--wait` values each and half came back an empty field. `creature:dart` was worse — a thrust burning for one beat of a two-second replay took about thirty-five shots ranked by PNG file size, on the reasoning that the frame with a flame on it compresses worst.
+
 ## 2026-09-09 · 68e8055b — One place converts between a tick and a beat
 
 `world.beat` is a label rather than a position: a wave's opening holds the field with `world.tick += 1` and an early return before `onBeat`, so every opening a run passes adds ticks with no beat under them and the counter falls permanently behind `tick / ticksPerBeat` for the rest of that run. Nothing said so, and THE BEATBOX had already settled every run a beat early because of it.
