@@ -226,6 +226,7 @@ it. That is the owner's call and this entry is where it is waiting.
 ## A contour candidate cannot be measured before it is voted on
 
 - **Found:** 2026-09-08, claude/visual-system-style-guide-rdti4j
+- **Taken:** 2026-09-09, claude/queue-a-contour-candidate-cannot-be-measured-before-it
 - **Files:** `tools/shape-sheet/src/drafts/index.ts`, `tools/versus/variant.ts`, `tools/shape-sheet/src/nameability.ts`
 
 `creature:slick` / `pinch` and `creature:bulb` / `six` patch a
