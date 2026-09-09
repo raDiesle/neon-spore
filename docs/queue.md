@@ -314,6 +314,7 @@ explain the absence.
 ## A cloud session cannot delete the branch it just landed
 
 - **Found:** 2026-09-08, claude/party-minigames-research-udjn67
+- **Taken:** 2026-09-09, claude/queue-a-cloud-session-cannot-delete-the-branch-it-just
 - **Files:** `tools/land/run.ts`, `docs/cloud-session.md`
 
 `bun run land` "deletes the branch and sweeps spent worktrees", and locally it
