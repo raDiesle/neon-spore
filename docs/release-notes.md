@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 2a07cb1a — Correct the three new candidates against their own frames
+
+`bun run versus:shot` on each of the three, cropped to the body, before anything else — which is what that command is for, and all three were wrong in a way `bun run check` cannot see.
+
+## 2026-09-09 · eade865f — A second answer in each of the three one-candidate slots
+
+`shell:plate`, `eye:iris` and `ghost:tears` were each opened with a single candidate, and a slot with one answer in it cannot say how that answer loses. Each now has a second that is an argument rather than a setting — the same question answered with the opposite instrument, so the pair can watch for two different failures instead of deciding whether they like one picture.
+
 ## 2026-09-09 · 2124291a — Pin Bun at 1.4.2, which is the one we use
 
 The previous commit resolved the disagreement between `.bun-version` and the session-start hook downward: it measured that `apps/server` is green on 1.4.0 and that a frozen install on it leaves the lockfile alone, and lowered the hook to match the file. The owner settled it the other way on 9 September 2026 — **1.4.2** — so the file is raised to meet the hook.
