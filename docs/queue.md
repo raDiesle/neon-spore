@@ -193,6 +193,7 @@ takes the two pictures for the owner to choose between.
 ## THE MAGNET and THE JAM teach with words and no rehearsal
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Taken:** 2026-09-09, claude/queue-the-magnet-and-the-jam-teach-with-words-and-no-r
 - **Files:** `packages/content/src/waves/act-7.ts`,
   `packages/content/src/scenes.ts`, `packages/content/src/scenes/`
 
