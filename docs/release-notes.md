@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · d0620cb3 — A spec section keeps the sub-headings inside it
+
+`sectionNamed` broke out of a section on any line opening with two hashes, which is every `###` as well as the next `##`. Every caller it had read a section of prose, tables and lists, so nothing was wrong until `## 10.5 In plain words` arrived, whose entries are all `###`: that section came back as the two or three lines before the first one, silently and with no error to notice. The boundary is `/^##(?!#)/` now.
+
 ## 2026-09-09 · 0279cc5f — Turn both candidates up until a still can tell them apart
 
 Each was drawn, photographed and corrected, which is the loop `svg-look` asks for and the one thing a typecheck cannot do. KILN's embers were pale scratches on a light-grey stone: eighteen rather than fourteen, further off the skin so the far ones clear the crystal's lobes, half again as long, and a hot core in the middle of the ramp instead of a soft shoulder. ANVIL was *duller* than the fill it replaces, which is the one outcome a shading pass may not have — the shipped ramp runs between two darks, so a lambert read across them can only subtract. It gets a crest above the top of that ramp, in the rim's own hue carried toward white, and a lower floor under it, so the difference is the contrast inside the cloud rather than its average.
