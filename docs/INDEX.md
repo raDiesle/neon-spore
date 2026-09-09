@@ -1158,8 +1158,10 @@ place — the generator keeps whatever is there.
 | `tools/director/src/versus-hash.ts` | FNV-1a over every byte — not a cryptographic claim, only "did two renders match" |
 | `tools/director/src/versus-page.ts` | The ALTERNATIVES list: every open candidate as a door, and nothing drawn |
 | `tools/director/src/versus-pair.ts` | One phone pair, one world, one frame — the engine half of the ALTERNATIVES sheet |
+| `tools/director/src/versus-pair-freeze.ts` | Stopping a VERSUS pair on a moment somebody chose |
 | `tools/director/src/versus-pose.ts` | Which pose puts a slot's own animation on screen |
 | `tools/director/src/versus-seat.ts` | Whether a candidate needs the other seat drawn beside it — decided once, honestly, rather than guessed |
+| `tools/director/src/versus-shot.ts` | The two query parameters that make a VERSUS pair photographable |
 | `tools/director/src/versus-vote.ts` | The vote box: the reason field, the two buttons and the swap-guard banner |
 | `tools/director/src/wave-opening.ts` | What the wave being edited puts in front of a pair before it starts |
 | `tools/director/src/waves-commit.ts` | A save in the wave editor is a commit |
@@ -1368,6 +1370,7 @@ place — the generator keeps whatever is there.
 | `tools/frames/page-handle.ts` | The handle `window.neonSpore` installs, as this tool sees it — every field, and the build that added it |
 | `tools/frames/report.ts` | What a finished capture prints, including the `world.tick` each frame was actually taken at |
 | `tools/frames/shot-usage.ts` | What `bun run shot` prints when it is called with nothing to photograph |
+| `tools/frames/shot-state.ts` | Getting the page into the state that is worth photographing |
 | `tools/frames/tall.ts` | An element taller than the window, photographed whole rather than black below the fold |
 | `tools/director/src/stage-trail.ts` | THE MOUSE'S OWN INK, ON THE DIRECTOR'S FIELD |
 | `tools/check/installed.ts` | Whether this worktree's install is still the one the tree needs |

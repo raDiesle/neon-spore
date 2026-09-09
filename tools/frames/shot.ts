@@ -2,8 +2,8 @@
 
 /**
  * `bun run shot <#selector> <out.png> [--open "≡ RELEASE NOTES"] [--tab SHAPES]
- * [--inner SPEC] [--wait 2500] [--hold Control]` — photograph one element of
- * the running director.
+ * [--inner SPEC] [--wait 2500] [--hold Control] [--select ".versus-rate=0.25"]` —
+ * photograph one element of the running director.
  *
  * CLAUDE.md's *Showing the owner something* says to send a PNG and never a
  * path, and there were two tools for it: `bun run frames <sha>` for the game
@@ -33,6 +33,7 @@
 
 import { closeBrowser, launchBrowser } from "./capture.js";
 import { clipFor, parseAt } from "./crop.js";
+import { reachState, Unreachable } from "./shot-state.js";
 import { usage } from "./shot-usage.js";
 import { withHeightFor } from "./tall.js";
 
@@ -117,6 +118,17 @@ const at = flag("at") === undefined ? null : parseAt(flag("at") as string);
  * `fill` rather than `press`, because what the page listens for is `input`.
  */
 const typed = flag("type");
+/**
+ * `--select ".versus-rate=0.25"`, a picker to turn before the shot.
+ *
+ * `--type` is `locator.fill` and throws on a `<select>`, so a state that only a
+ * dropdown reaches was out of reach entirely. VERSUS's own rate picker is the
+ * one that paid for this: at 0.25× a thrust that burns for one beat of a
+ * two-second replay stretches past the whole window, so every frame carries it
+ * — and finding one frame that did had cost about thirty-five shots ranked by
+ * PNG file size.
+ */
+const select = flag("select");
 const url = `http://localhost:${port}${path}`;
 
 const browser = await launchBrowser();
@@ -127,70 +139,13 @@ try {
   });
   await page.goto(url, { waitUntil: "networkidle" });
 
-  // Every full-screen sheet starts `display: none` and is only built when its
-  // header button is pressed, so a selector inside one photographs nothing
-  // until it has been. `--open` presses any of them by label; `--tab` is the
-  // NOT BUILT YET case, which additionally has a tab strip inside it.
-  if (open) {
-    await page.getByRole("button", { name: open }).click();
-    await page.waitForTimeout(600);
+  try {
+    await reachState(page, { open, tab, inner, click, nth, type: typed, select, hold });
+  } catch (error) {
+    if (!(error instanceof Unreachable)) throw error;
+    console.error(error.message);
+    process.exit(error.code);
   }
-  if (tab) {
-    // Both waits are real: the sheet builds sixty animated figures and the tab
-    // it lands on rebuilds them again.
-    await page.getByRole("button", { name: "NOT BUILT YET" }).click();
-    await page.waitForTimeout(600);
-    await page.getByRole("button", { name: tab, exact: true }).click();
-  }
-  if (inner) {
-    // Pressed in the page rather than through Playwright's locator engine.
-    // An inner tab lives in a sheet that was `display: none` a moment ago, and
-    // both `click()` and `dispatchEvent()` on a role locator spent thirty
-    // seconds waiting for that to settle and then timed out — twice, on a
-    // strip of plain buttons wired to `click`. The visible one with that
-    // label is unambiguous, and pressing it is one line.
-    const pressed = await page.evaluate((label: string) => {
-      for (const b of document.querySelectorAll("button")) {
-        if (b.textContent?.trim() === label && b.offsetParent !== null) {
-          b.click();
-          return true;
-        }
-      }
-      return false;
-    }, inner);
-    if (!pressed) {
-      console.error(`no visible button reads ${inner} — is --open the right sheet?`);
-      process.exit(2);
-    }
-    await page.waitForTimeout(600);
-  }
-  if (click) {
-    const pressed = await page.evaluate(
-      ({ sel, at }: { sel: string; at: number }) => {
-        const el = document.querySelectorAll<HTMLElement>(sel)[at - 1];
-        if (!el) return false;
-        el.scrollIntoView({ block: "center", inline: "center" });
-        el.click();
-        return true;
-      },
-      { sel: click, at: nth },
-    );
-    if (!pressed) {
-      console.error(`no element ${nth} matches ${click} — nothing was pressed`);
-      process.exit(2);
-    }
-    await page.waitForTimeout(600);
-  }
-  if (typed) {
-    const split = typed.indexOf("=");
-    if (split < 1) {
-      console.error(`--type wants <selector>=<text>, got ${JSON.stringify(typed)}`);
-      process.exit(1);
-    }
-    await page.locator(typed.slice(0, split)).fill(typed.slice(split + 1));
-    await page.waitForTimeout(300);
-  }
-  if (hold) await page.keyboard.down(hold);
   await page.waitForTimeout(settle);
 
   const target = page.locator(selector);

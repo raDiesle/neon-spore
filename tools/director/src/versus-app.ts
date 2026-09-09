@@ -3,6 +3,7 @@ import { slots } from "../../versus/variant.js";
 import { el } from "./dom.js";
 import { bindKeepAlive } from "./keep-alive.js";
 import { renderCandidate } from "./versus-one.js";
+import { shotParams } from "./versus-shot.js";
 import { type Head, readHead } from "./versus-vote.js";
 
 /**
@@ -15,6 +16,12 @@ import { type Head, readHead } from "./versus-vote.js";
  * screen — a door that opens onto nothing is worse than a door that says it is
  * locked. `?page=animations` was the second destination until 7 September
  * 2026; it now falls through to the same message as any other stale link.
+ *
+ * Two flags ride on that route and exist for the camera rather than the eye:
+ * `&freeze=<seconds>` holds the replay at a chosen point and `&only=…` mounts
+ * one side at true size, so a picture of a candidate is the same picture every
+ * time (`versus-shot.ts`). Neither is a route: a value nothing recognises
+ * leaves the pair running.
  *
  * It is a page rather than a mode of the director for the reason the owner
  * gave: a comparison you opened should be the only thing the browser is
@@ -70,8 +77,9 @@ function routeCandidate(mount: HTMLElement, slot: string | null, name: string | 
   }
 
   document.title = `Neon Spore — ${found.slot} · ${candidate.name}`;
+  const shot = shotParams(params);
   const draw = (head: Head): void => {
-    mount.appendChild(renderCandidate(found, candidate, head));
+    mount.appendChild(renderCandidate(found, candidate, head, shot));
   };
   readHead()
     .then(draw)

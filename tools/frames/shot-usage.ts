@@ -19,6 +19,7 @@ export function usage(): never {
   console.error("       --tab is a NOT BUILT YET tab name; omit it for the main screen");
   console.error("       --at is a rectangle inside it, x,y,w,h in its own CSS pixels");
   console.error('       --type fills a field first, e.g. "#waveFilter=boss"');
+  console.error('       --select turns a <select> first, e.g. ".versus-rate=0.25"');
   console.error("       --wait is milliseconds to settle before the shot, for an animation");
   console.error("       --hold is a modifier key held down for the shot, e.g. Control");
   process.exit(1);

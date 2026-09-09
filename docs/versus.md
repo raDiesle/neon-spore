@@ -28,6 +28,47 @@ What stays forbidden either way is **a still judged against something that
 moves**, which is the defect proposal 3 is rejected over below. Both sides
 animate, or neither does.
 
+## Photographing one — 9 September 2026
+
+`CLAUDE.md` says to send the owner a picture, and taking one of a live pair was
+a lottery. A pose with a `cadenceSeconds` rebuilds its world on its own clock,
+so what was on the frame when `bun run shot` landed depended on when the browser
+started and how long the bundle took: four pictures cost six `--wait` values
+each, half of them an empty field or a wave already breaking against the hull.
+`creature:dart` was worse — its thrust burns for one beat of a two-second
+replay, so finding a usable frame took about thirty-five shots **ranked by PNG
+file size**, on the reasoning that the frame with a flame on it compresses
+worst.
+
+Three flags end that, and the first two ride on `versus.html`'s own query
+string:
+
+```
+bun run shot .versus-stage out.png --port <p>   --path "/versus.html?slot=creature:throb&name=globe&freeze=1.2&only=candidate"
+bun run shot .versus-stage out.png --port <p> --select ".versus-rate=0.25"   --path "/versus.html?slot=creature:dart&name=ember"
+```
+
+- **`freeze=<seconds>`** stops the pair after that many *simulated* seconds. It
+  is counted in the pair's own ticks and never off the wall, and while a freeze
+  is pending the loop runs one tick per animation frame at a fixed `dt` — so the
+  number of frames drawn before it lands is the number of ticks asked for and
+  nothing else. That is what makes the held frame **byte-identical across runs**,
+  which is the whole point: the moment is chosen from what the pose does rather
+  than from what the browser happened to be doing. `pair.freeze()` and not
+  `setRunning(false)`, so nothing wears a `hud.ts` "PAUSED" caption.
+- **`only=candidate`** or **`only=current`** mounts one side at true size,
+  instead of a strip of both cropped down to nothing. Both are still *built* —
+  the pair steps two worlds and compares them, and the settled banner is that
+  comparison.
+- **`--select ".versus-rate=0.25"`** turns the pair's own rate picker down.
+  Where a slow rate answers the question, it is better than a freeze: at 0.25×
+  an ember burning for one beat of a two-second replay stretches past the whole
+  window, so *every* frame carries it and no chosen moment is needed at all.
+
+An unrecognised value for either query flag leaves the pair running, which is
+the rule the whole page is written to — a stale camera setting must not be able
+to hide the candidate. `tools/director/test/versus-freeze.test.ts` is the guard.
+
 ## The decision
 
 Build **VERSUS** (proposal 1): a candidate look is a set of field assignments patched onto records `packages/content` and `packages/render` already export, living in `tools/versus/`, which nothing in the game's import graph names. The director grows a VERSUS tab on the backlog sheet that steps **one** `World` and draws it twice in the same frame through two `Canvas2DRenderer`s at 380 × 820 CSS pixels uncapped — left is what the game draws, right is the same code with the patch applied around `draw()` and restored in a `finally` — so the only thing that can differ on screen is the patch. `Math.random` is seeded to the same value for each side of a frame, because `sparks.ts` and `deflect.ts` randomise four values per spawn each and without it two identical looks draw different pixels. A vote presses one of two buttons, `KEEP CURRENT` or `ADOPT <the one on the right>`, and writes nothing anywhere: it builds a prompt from the registry plus the current values read off the live records *before* the patch is applied, puts it on the clipboard, and renders it into a selected `<textarea>` you can read before you paste it. Three verified corrections to the proposal as submitted: `tools/versus/` is a **plain directory** with a `test/` beside it, exactly like `tools/checks`, `tools/burn`, `tools/handoff` and `tools/land` — not a workspace package, so no `bun install` and no `package.json`, and `tsconfig.json` already includes `tools/**/*.ts` so it is typechecked and linted for free; the prompt builder lives in `tools/versus/prompt.ts` rather than the director, because it is pure string work that deserves a test with no DOM in it; and there is **no** `GET /api/versus` — the head sha and the dirty flag become two fields on the `ChecksView` the director already fetches from `/api/checks`. The emitted prompt gains three things proposal 1 did not have and needed: `bun run shapes` plus the two committed SVGs in the staging list whenever a patched target lives in `packages/content` (I confirmed `tools/shape-sheet/shape-sheet.svg` is committed and contains the literal string `9 lobes` for BULB, so adopting a bulb candidate without it leaves a committed lie that `bun run check` cannot see), a `git grep` for every reader of each patched symbol emitted **with no predicted answer**, and a candidate that is a directory removed by `git rm -r` rather than a file.

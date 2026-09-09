@@ -24,18 +24,35 @@ function toggle(label: string, on: (state: boolean) => void): HTMLButtonElement 
   return b;
 }
 
-function picker<T>(items: readonly T[], name: (x: T) => string, on: (x: T) => void, at = 0) {
+/**
+ * A `<select>` over a list, addressed by the **value** of the thing it picks
+ * rather than by its position.
+ *
+ * `String(item)` and not an index, because `bun run shot --select` matches a
+ * `<select>` by option value and `.versus-rate=0.25` is a sentence somebody can
+ * write down. The rate picker is the one that pays for it: at 0.25× a thrust
+ * burning for one beat of a two-second replay stretches past the whole window,
+ * so every frame carries it and a picture of it stops being a lottery.
+ */
+function picker<T>(
+  items: readonly T[],
+  name: (x: T) => string,
+  on: (x: T) => void,
+  at = 0,
+  hook = "",
+) {
   const sel = document.createElement("select");
-  items.forEach((item, i) => {
+  if (hook) sel.className = hook;
+  items.forEach((item) => {
     const opt = document.createElement("option");
-    opt.value = String(i);
+    opt.value = String(item);
     opt.textContent = name(item);
     sel.appendChild(opt);
   });
-  sel.value = String(at);
+  sel.value = String(items[at]);
   sel.addEventListener("change", () => {
-    const item = items[Number(sel.value)];
-    if (item) on(item);
+    const item = items.find((x) => String(x) === sel.value);
+    if (item !== undefined) on(item);
   });
   return sel;
 }
@@ -45,7 +62,7 @@ export function controlsBar(stage: HTMLElement, pair: Pair): HTMLElement[] {
   const bar = el("div", "versus-bar");
   bar.append(
     toggle("⏸", (paused) => pair.setRunning(!paused)),
-    picker(RATES, (r) => `${r}×`, pair.setRate, RATES.indexOf(1)),
+    picker(RATES, (r) => `${r}×`, pair.setRate, RATES.indexOf(1), "versus-rate"),
     toggle("BLINK", (on) => {
       stage.classList.toggle("is-blink", on);
       pair.setBlink(on);

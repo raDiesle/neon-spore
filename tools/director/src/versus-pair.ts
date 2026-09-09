@@ -7,6 +7,7 @@ import { cadenceElapsed, type Pose } from "./pose-kit.js";
 import { runStageLoop } from "./stage-loop.js";
 import { type CropSide, fitCrop, makeCropSide } from "./versus-crop.js";
 import { hashCanvas } from "./versus-hash.js";
+import { Freeze } from "./versus-pair-freeze.js";
 
 /**
  * One phone pair, one world, one frame — the engine half of the ALTERNATIVES sheet.
@@ -87,6 +88,8 @@ export interface PairOptions {
   /** Overrides `pose.role` — a pair is drawn for one named seat. */
   role: ViewRole;
   variant: Variant;
+  /** Stop after this many simulated seconds, for a camera (`versus-pair-freeze.ts`). */
+  freezeSeconds?: number | null;
 }
 
 /** Start the loop. Both canvases are drawn every frame, BLINK or not. */
@@ -102,7 +105,7 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
   // buttons, so a reader is not handed 670 px of empty field above them.
   const crop = poseCropRect(pose, world, role, { ...PAIR_PHONE, dpr: 1 });
   let running = true;
-  let frozen = false;
+  const freeze = new Freeze(opts.freezeSeconds, world.cfg.tickHz);
   let rate = 1;
   let blink = false;
   let showing: "left" | "right" = "left";
@@ -157,7 +160,7 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
     view.events = events;
     view.running = running;
 
-    const seed = frames + 1;
+    const seed = freeze.seed(frames);
     drawSide(left, false, seed);
     drawSide(right, true, seed);
 
@@ -169,7 +172,7 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
   };
 
   /** Whether the world is moving at all — the pause, and the freeze. */
-  const stepping = (): boolean => running && !frozen;
+  const stepping = (): boolean => running && !freeze.frozen;
 
   // `stage.ts`'s loop, called rather than copied. What this pair differed by
   // is the two hooks: a rate that scales real seconds into simulated ones, and
@@ -178,8 +181,14 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
     tickHz: () => world.cfg.tickHz,
     // `frozen` holds `dt` at 0 like `!running` does, but leaves `running` —
     // and so `view.running`, and so the pause overlay — untouched.
-    scale: (real) => (stepping() ? real * rate : 0),
+    // A pending freeze runs on the tick rather than the wall (`Freeze`).
+    scale: (real) => (freeze.pending ? 1 / world.cfg.tickHz : stepping() ? real * rate : 0),
     advance: () => {
+      // Own-motion's clock joins the simulated axis as the freeze lands.
+      if (!freeze.step()) {
+        clock = freeze.stepped / world.cfg.tickHz;
+        return;
+      }
       const next = advance(world, () => pose.build(), pose);
       if (next.world !== world) rebuiltTo(next.world);
       events = next.events;
@@ -230,7 +239,7 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
       hooks.onBlink("left");
     },
     freeze() {
-      frozen = true;
+      freeze.frozen = true;
     },
     stop() {
       loop.stop();

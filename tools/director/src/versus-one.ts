@@ -6,6 +6,7 @@ import { controlsBar } from "./versus-controls.js";
 import { startPair } from "./versus-pair.js";
 import { poseForSlot } from "./versus-pose.js";
 import { seatPlan } from "./versus-seat.js";
+import { LIVE, type ShotParams } from "./versus-shot.js";
 import { buildVoteBox, type Head } from "./versus-vote.js";
 
 /**
@@ -39,7 +40,12 @@ import { buildVoteBox, type Head } from "./versus-vote.js";
 
 /** The whole of one candidate: what it is, what it patches, what is on
  * screen, the phones, and the vote. */
-export function renderCandidate(slot: Slot, candidate: Variant, head: Head): HTMLElement {
+export function renderCandidate(
+  slot: Slot,
+  candidate: Variant,
+  head: Head,
+  shot: ShotParams = LIVE,
+): HTMLElement {
   const row = el("div", "versus-row");
   const pose = poseForSlot(slot.slot);
 
@@ -63,7 +69,7 @@ export function renderCandidate(slot: Slot, candidate: Variant, head: Head): HTM
   const screens = candidate.screenshot ? (["p1"] as const) : seatPlan(pose, candidate);
   const screensHost = el("div", "versus-screens");
   for (const role of screens) {
-    screensHost.appendChild(renderScreen(slot, pose, role, candidate, screens.length > 1));
+    screensHost.appendChild(renderScreen(slot, pose, role, candidate, screens.length > 1, shot));
   }
   row.append(screensHost);
 
@@ -81,6 +87,7 @@ function renderScreen(
   role: ViewRole,
   candidate: Variant,
   labelled: boolean,
+  shot: ShotParams,
 ): HTMLElement {
   const screen = el("div", "versus-screen");
   if (labelled) {
@@ -96,7 +103,7 @@ function renderScreen(
 
   const banner = el("div", "versus-banner");
   const pair = startPair(
-    { pose, role, variant: candidate },
+    { pose, role, variant: candidate, freezeSeconds: shot.freezeSeconds },
     {
       onSettled(identical) {
         banner.textContent = identical
@@ -126,7 +133,12 @@ function renderScreen(
   leftBox.appendChild(el("div", "versus-name", "CURRENT — what the game draws today"));
   rightBox.prepend(el("div", "versus-name", `${candidate.name.toUpperCase()} — the candidate`));
   leftBox.appendChild(pair.left);
-  stage.append(leftBox, rightBox, tag);
+  // `&only=…`: one side, at true size. Both are still *built* — the pair steps
+  // two worlds and compares them, and the settled banner is that comparison —
+  // so this changes what is mounted and nothing about what is measured.
+  if (shot.only === "candidate") stage.append(rightBox, tag);
+  else if (shot.only === "current") stage.append(leftBox, tag);
+  else stage.append(leftBox, rightBox, tag);
   screen.append(stage, ...controlsBar(stage, pair), banner);
   return screen;
 }
