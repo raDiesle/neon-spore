@@ -254,30 +254,6 @@ because a candidate cannot repaint a webp — or it is dead paint on every devic
 that ever loads, and `clasp-lattice.ts` is 134 lines of it. `raster-probe.ts`
 and `raster-caps.ts` are where the answer to "does a phone ever miss" lives.
 
-## The slot-to-creature map in `versus-pose.test.ts` is kept by hand
-
-- **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7
-- **Taken:** 2026-09-09, claude/queue-the-slot-to-creature-map-in-versus-pose-test-ts
-- **Files:** `tools/director/test/versus-pose.test.ts`
-
-`each creature slot's pose actually puts that creature on the field` is the
-guard for the owner's complaint that every slot showed a slick, and it reads
-from a literal `Record<string, string>` of four — now seven — slots. A slot
-missing from that object is not a failure and not a warning: it is simply not
-checked, so the guard covers whichever slots somebody remembered to add and
-silently exempts the rest. This lane added three rows to it by hand, which is
-the second time the same list has been extended by hand.
-
-Most of it derives. A slot is `area:thing`, and where the area is `creature` the
-thing **is** the `CreatureKind` for every slot on the page today — so the check
-can walk `slots(VARIANTS)`, take the ones whose prefix is `creature:` and assert
-the kind is on the field, with a small explicit table left for the ones that do
-not follow the rule (`crawler:pulse`, `crawler:skin`, `warden:plates`). Then a
-new creature slot is covered the moment it is registered. The test that proves
-it is the one already there, plus an assertion that the derived set is not
-empty — a derivation that quietly matches nothing is the same silence in a
-different place.
-
 ## THE GHOST's camouflage is laid out in picture space
 
 - **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7

@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { controlSetForWave, setHas } from "@neon-spore/content";
+import { CREATURES, controlSetForWave, setHas } from "@neon-spore/content";
 import { chargeMilli, laying, step } from "@neon-spore/sim";
 import { VARIANTS } from "../../versus/candidates/index.js";
 import { slots } from "../../versus/variant.js";
@@ -17,6 +17,48 @@ import { poseForSlot } from "../src/versus-pose.js";
  * together they mean a slot that regresses to the wrong pose fails here
  * rather than showing a silent nothing on the real page.
  */
+/**
+ * The creature a slot's pose has to put on the field, or `null` where the slot
+ * is not about one body.
+ *
+ * **Derived, because the hand-kept version exempted whatever nobody
+ * remembered.** This check began as a literal `Record` of four slots, and a
+ * slot missing from it was not a failure and not a warning — it was simply not
+ * checked, so the guard for the owner's complaint that every slot showed a
+ * slick covered whichever slots somebody had added and silently let the rest
+ * through. The list was extended by hand twice before it was written down.
+ *
+ * A slot is `area:thing`, and both halves are read: an area that names a body
+ * (`crawler:pulse`, `warden:plates`) is that body, and the area `creature`
+ * hands the question to the thing (`creature:meteor`). `CREATURES` is the
+ * roster and is keyed by every `CreatureKind`, so "is this a body" is asked of
+ * the bestiary rather than of a second list kept here.
+ */
+const NOT_ONE_BODY: Record<string, null> = {
+  // A skin every living body wears, and a break every living body comes apart
+  // into. Both are `creature:` slots whose second half is a *material* rather
+  // than a kind, so there is no one creature a pose could be asked for — and
+  // they are written here rather than left to fall through, because falling
+  // through is the defect this whole function replaces.
+  "creature:skin": null,
+  "creature:break": null,
+};
+
+function isKind(name: string): boolean {
+  return Object.hasOwn(CREATURES, name);
+}
+
+function subjectOf(slot: string): string | null {
+  if (Object.hasOwn(NOT_ONE_BODY, slot)) return null;
+  const [area, thing] = slot.split(":");
+  if (area !== undefined && isKind(area)) return area;
+  if (area !== "creature") return null;
+  // A `creature:` slot names its body in the second half, and one that does
+  // not has to say so above. Handing back the word unresolved is deliberate:
+  // no creature has that kind, so the assertion fails naming the slot.
+  return thing ?? null;
+}
+
 describe("poseForSlot", () => {
   test("every open slot resolves to a real pose that reaches its own state", () => {
     for (const slot of slots(VARIANTS)) {
@@ -47,19 +89,24 @@ describe("poseForSlot", () => {
   });
 
   test("each creature slot's pose actually puts that creature on the field", () => {
-    const kinds: Record<string, string> = {
-      "creature:meteor": "meteor",
-      "creature:magnet": "magnet",
-      "creature:strand": "strand",
-      "crawler:pulse": "crawler",
-    };
-    for (const [slot, kind] of Object.entries(kinds)) {
-      const world = poseForSlot(slot).build();
+    const checked: string[] = [];
+    for (const slot of slots(VARIANTS)) {
+      const kind = subjectOf(slot.slot);
+      if (kind === null) continue;
+      checked.push(slot.slot);
+      const pose = poseForSlot(slot.slot);
       expect(
-        world.creatures.some((c) => c.kind === kind),
-        `${slot} · ${poseForSlot(slot).name}`,
+        pose.build().creatures.some((c) => c.kind === kind),
+        `${slot.slot} · ${pose.name}`,
       ).toBe(true);
     }
+    // A derivation that quietly matches nothing is the same silence in a
+    // different place: the day `slots` or the naming changes shape, this line
+    // is what says so rather than a loop that ran zero times and passed.
+    expect(
+      checked.length,
+      "no open slot names a creature — say so out loud rather than pass empty",
+    ).toBeGreaterThan(0);
   });
 
   test("the meteor is handed over unmarked, with a bolt still in the air", () => {
