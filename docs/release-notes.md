@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · e3c272f4 — A landing rebuilds the file map instead of stopping on it
+
+Every lane that adds, splits or deletes a file writes a row into `docs/INDEX.md`, so two lanes landing on the same day conflict there almost every time — and the resolution was five hand-typed commands whose result the tree already decides. The replay now does it: the trunk's copy, regenerated against the tree the replay has built, and the lane's own rows written back over the derived ones so a line somebody wrote by hand is not replaced by a first sentence. A row both sides rewrote differently still stops the landing.
+
 ## 2026-09-09 · c3e0da34 — The blue is the beat itself, and a box going quiet is the loudest thing it does
 
 **The colour was on the window, not on the beat.** The owner reported that it *is not visible on the beat but some other time*, and the arithmetic says why: `beatboxWindowMs` is two hundred milliseconds **either side** of a beat, which at the shipped numbers is forty-nine ticks of a seventy-five-tick beat. The box was blue for two thirds of every beat, so what the eye read was the *gap* in the middle — a colour changing twice a beat at neither of the moments that matter. It is now a flash on the boundary that is over a third of a beat later, on the ring's own life, because the ring and the colour are one flash said twice.
