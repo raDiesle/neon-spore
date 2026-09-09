@@ -14,7 +14,6 @@ import { DART_BRAID } from "./creature-dart/braid/index.js";
 import { DART_SHOCK } from "./creature-dart/shock/index.js";
 import { DART_WAKE } from "./creature-dart/wake/index.js";
 import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
-import { SKIN_VEIL } from "./creature-skin/veil/index.js";
 import { SLICK_GUT } from "./creature-slick/gut/index.js";
 import { SLICK_LATTICE } from "./creature-slick/lattice/index.js";
 import { SLICK_ROE } from "./creature-slick/roe/index.js";
@@ -46,7 +45,6 @@ export const VARIANTS: Variant[] = [
   DART_SHOCK,
   DART_WAKE,
   METEOR_FORGE,
-  SKIN_VEIL,
   SLICK_GUT,
   SLICK_LATTICE,
   SLICK_ROE,

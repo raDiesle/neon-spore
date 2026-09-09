@@ -1180,6 +1180,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/skins/types.ts` | What a skin is, and what it is told |
 | `tools/director/src/skins/vein-pulse.ts` | VEIN again, with the strands breaking the surface and a pulse running out along them |
 | `tools/director/src/skins/vein.ts` | CORE with filaments under the skin, clipped to the body |
+| `tools/director/src/skins/veil.ts` | The body stays a hole, and the **membrane around it** is what has thickness |
 | `tools/director/src/skins/wind.ts` | WIND — the same turning body, but the phase varies along it |
 | `tools/director/src/snake-editor.ts` | SNAKE's arena, edited on the grid the pair will play it on |
 | `tools/director/src/spec.ts` | The SPEC tab of DOCUMENTATION: every file in `docs/spec/` verbatim, one expander each |
