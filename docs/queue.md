@@ -358,39 +358,6 @@ usually true. Second, why `bun test` exited 0 with a failure in it; if that is
 a wrapper in `package.json` swallowing the status, the wrapper is the bug and
 every green check taken through it since is worth less than it looked.
 
-## Five files sit exactly on the 250-line ceiling and pay a tax on every edit
-
-- **Found:** 2026-09-07, claude/cannon-streak-shot-38da84
-- **Taken:** 2026-09-09, claude/queue-five-files-sit-exactly-on-the-250-line-ceiling-a
-- **Files:** `packages/render/src/canvas2d.ts`, `packages/render/src/effects.ts`,
-  `tools/director/src/pose-kit.ts`, `tools/frames/press.ts`,
-  `packages/content/src/silhouettes.ts`
-
-Each of these is at 250 lines to the line, so *any* change to one costs a round
-of reflowing a comment somewhere else in it before `limits.test.ts` goes green
-again. That happened four times in one lane: adding a field to `Effects` cost a
-comment in `canvas2d.ts`, a one-line doc on `pose-kit.ts`'s `prime` had to be
-folded into the group comment above it, and `press.ts` lost a sentence to make
-room for one word. `render-state.ts` already exists because `effects.ts` had
-nothing left to give (its own header says so), which is the shape of the answer
-rather than a reason to keep shaving.
-
-`silhouettes.ts` joined them on 8 September 2026 and it is the clearest case of
-the tax: two creatures changed shape, and the note explaining *why* each one
-changed had to be cut three times, the last of them by a single line, so what is
-committed is shorter than what the change deserves.
-
-Split each on a seam it already has a heading at, the way `scene-script.ts` was
-cut into `scene-drag.ts` in this lane: `effects.ts` divides into what it *owns*
-and what it *draws*; `canvas2d.ts` into `resize`/layout and the frame itself;
-`pose-kit.ts` into the world builders and the command shorthands; `press.ts`
-into the parser and the per-control table. `silhouettes.ts` has one the code
-already takes: THE THROB is the only body whose contour is **walked** rather
-than sampled by angle (`clubs`, and the branch in `body-path.ts`'s
-`livingPath`), so it and its rim go in a file of their own and the radius-only
-bodies stay. `bun run check` proves all five — nothing in any of them is
-behaviour.
-
 ## `bun run perf` never exercises a held control, so a new one is unmeasured
 
 - **Found:** 2026-09-07, claude/cannon-streak-shot-38da84
