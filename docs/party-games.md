@@ -19,18 +19,18 @@ Nothing here is built. Nothing here is a decision. It is a shelf.
 
 ## What the pictures are, and are not
 
-**There are no pictures on this page, and that is a defect rather than a
-choice.** `docs/tower-defence.md` sets the house rule — art that is not ours is
-*linked*, never copied into a public repository — and this page was written in
-a cloud session whose network policy blocked every host those links would point
-at: `mariowiki.com`, both Fandom wikis, `raymanpc.com`, Wikipedia and
-`static.wikia.nocookie.net` all refused the connection. An `![…](…)` written
-from memory is a URL nobody checked, which is worse than none.
+`docs/tower-defence.md` sets the house rule and this page follows it: art that
+is not ours is **linked**, never copied into a public repository. Every picture
+below is an `![…](…)` pointing at the wiki that holds it, nothing is committed
+under `assets/`, and each alt text is a sentence saying what the picture shows
+— so a row that fails to load still says what it was showing, which is why the
+alt text is written as prose rather than as a label.
 
-So every row below carries a **link to the wiki page that holds its
-screenshot** instead. They are real URLs — a search engine returned them — and
-they were not opened. `docs/queue.md` carries the item to convert them into
-linked images from a session that can reach the hosts.
+Five rows carry one, and they are the five the verdict column marks `ROUND` or
+reads as outside confirmation of a decision already made. That is where a
+picture earns its place: a row refused needs no screenshot of the thing it was
+refused for. Every row still carries a link to its own wiki page as well, which
+is where the rest of the minigame is.
 
 ## The verdict column
 
@@ -90,6 +90,31 @@ harder — rather than *asymmetric*.
 | Bumper Balls, Tug o' War, Mecha-Marathon, the mashers | be faster or heavier than the other person | `NO` — competitive, and filter 4 asks a round to teach the pair something about *each other* |
 | Chance Time, the Item and Duel spaces, the board itself | a run of luck arranged so the loser can still win at the end | `NO` on the field, and see **What the format says** below — the board is the interesting half and it is not a minigame |
 
+![Torpedo Targets — the screen split into two horizontal panels, one for each seat, both looking down the same green cavern; each carries its own red-and-white bullseye reticle and its own count in the corner](https://mario.wiki.gallery/images/5/55/MP2_Torpedo_Targets.png)
+
+*Torpedo Targets. Two seats, one cavern, and neither panel is the whole
+picture — the split this field already runs on, arrived at by somebody else in
+1999.*
+
+![Bowser's Big Blast — five coloured plungers in a row on a table under a giant Bowser head, with the players standing around the table waiting to press one](https://mario.wiki.gallery/images/4/47/MP2_Bowsers_Big_Blast.png)
+
+*Bowser's Big Blast. The whole round is on the table: five things to press, one
+of which ends it, and one fewer left every time round. See **THE FUSE**.*
+
+![Look Away — one player's face across the top of the screen and the other three below it, a rainbow of note symbols marking the beat they all turn on, and a row of stars along the top scoring the round](https://mario.wiki.gallery/images/8/8c/Mario_wins_in_Look_away.png)
+
+*Look Away. Four faces and one instant, and the asymmetry is of information
+rather than of count — which is why it is the only 1-vs-3 game on this page
+that survives. Inverted, into a pair that must **not** match, it is a round
+nothing in the store has. See **THE DIVIDE**.*
+
+![Hexagon Heat — seven coloured hexagons floating over a drop with the players crowded onto the green one, and a figure on a ledge at the back who names the colour that stays](https://mario.wiki.gallery/images/2/2d/MP2_Hexagon_Heat.png)
+
+*Hexagon Heat. The naming and the standing are two different jobs, and the
+picture says so: one figure at the back calls a colour and everybody else has
+to be on it before the rest sink. Give the two halves to the two seats. See
+**THE FLOOR**.*
+
 **The 1-vs-3 category has nothing to say to us and it is worth saying why.**
 Its whole content is an *asymmetry of numbers*, and there are two of us; every
 one of them collapses to 1-vs-1, which is a duel. The one that survives —
@@ -113,6 +138,12 @@ refuses hardest.
 | Monster Tractors, Bunnies Can't Fly, the races | steer a thing through a course faster than three other things | `NO` — travel, and competitive |
 | Every "shake the remote as hard as you can" game | be more energetic than the other person for eight seconds | `NO` — a phone is not a Wii remote, and the whole design hangs off the beat rather than off effort |
 | The escalation structure: the same minigame returns on a later day, harder | a rule learnt once is charged interest later | `HULL` — see **What the format says**. It costs nothing and the store has no answer to it |
+
+![A Rayman Raving Rabbids dance battle — four dancers standing in red and blue rings on a beach at night, on lanes converging upward on a mirrorball, with two red arrows and two blue arrows arriving down them and a score bar for each team along the bottom](https://static.wikia.nocookie.net/ravingrabbids/images/c/cf/Dance_Battle_By_The_Sea_minigame.png/revision/latest?cb=20221009222021)
+
+*A dance battle. Two arrows red and two blue, arriving together down lanes that
+meet at the top: the colours are the split, and the beat is the thing both
+sides share. That is **THE DUET**'s argument in one frame.*
 
 **The Rabbids' real lesson is tonal and it is free.** Every minigame in the
 series is one joke, stated in its title, and the title is the whole briefing.

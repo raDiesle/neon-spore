@@ -137,38 +137,6 @@ Why the short label is what fits today, and what each of the three costs.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
-## `docs/party-games.md` links to nine screenshots it could not embed
-
-- **Found:** 2026-09-08, claude/party-minigames-research-udjn67
-- **Taken:** 2026-09-09, claude/queue-docs-party-games-md-links-to-nine-screenshots-it
-- **Files:** `docs/party-games.md`
-
-`docs/tower-defence.md` sets the house rule for a study of other games: the art
-is not ours and the repository is public, so a picture is written as
-`![a sentence saying what it shows](https://…)` and **linked**, never copied in.
-`packages/…` never sees it; `tools/director/src/markdown.ts` renders it and
-honours `https://` only.
-
-The party-games study could not follow it. Every host those links would point
-at is refused by the network policy a cloud session runs under —
-`www.mariowiki.com`, `mario.fandom.com`, `rabbids.fandom.com`,
-`raving-rabbids.fandom.com`, `raymanpc.com`, `en.wikipedia.org` and
-`static.wikia.nocookie.net` all answered `connect_rejected`, through `curl` and
-through the fetch tool alike. Writing an `![…](…)` from memory would have put
-nine unchecked URLs in a public file, so each row carries a **link to the wiki
-page that holds its screenshot** instead, and the page says so in *What the
-pictures are, and are not*.
-
-The work: from a session that can reach those hosts, open the eleven pages
-listed under *Sources* and in the two tables, take the direct image URL for each
-minigame's screenshot, and rewrite the rows as linked images with a caption
-written as a sentence — the way `docs/tower-defence.md` does throughout, so that
-a failed load still says what it showed. The rows most worth a picture are
-Torpedo Targets, Bowser's Big Blast, Hexagon Heat, Look Away and the Rabbids
-dance battle; the refused rows need none. Then delete the *What the pictures
-are, and are not* section's second and third paragraphs, which exist only to
-explain the absence.
-
 ## THE TELL's last rung was designed as three throws and ships as one
 
 - **Found:** 2026-09-08, claude/rock-paper-scissors-boss-sn9ful
