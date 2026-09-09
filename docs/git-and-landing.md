@@ -153,7 +153,9 @@ scripted union is right for append-only prose and wrong for everything else.
 **A file a command owns is resolved by running the command.** `docs/INDEX.md`
 was merged by hand and then had to be regenerated anyway; `bun run index` writes
 it from the tree, and `bun run index --check` says whether it drifted. The shape
-sheets are the same: `bun run shapes`.
+sheets are the same: `bun run shapes`. A rule a person executes by hand five
+commands at a time is a tool that has not been written, so the file map is no
+longer one of them — `bun run land` regenerates it itself, below.
 
 **`docs/queue.md` and `docs/release-notes.md` conflict on every concurrent
 landing.** They are append-only and every lane appends, so the conflict is
@@ -173,8 +175,22 @@ with itself. `tools/land/replay.ts` settles it during the replay —
 removed and appends the ones it filed, which is well defined because an entry is
 identified by its `##` heading. It refuses to guess: two sides that rewrote the
 same entry's body, or the same preamble, stop the landing the way they always
-did, and the guard above still runs afterwards. Nothing else is auto-resolved,
-and `docs/release-notes.md` still wants the recipe by hand.
+did, and the guard above still runs afterwards.
+
+**`docs/INDEX.md` is merged for you too, by being rebuilt.** Every lane that
+adds, splits or deletes a file writes a row into the map, so two lanes landing
+on the same day conflict there almost every time; landing the PINBALL round took
+three attempts, each one a hand-typed `git checkout main -- docs/INDEX.md`,
+`bun run index`, `git add`, `git rebase --continue`. The replay now does exactly
+that: the trunk's copy, regenerated against the tree the replay has already
+built, and then the lane's own rows written back over the derived ones so a line
+somebody wrote by hand is not quietly replaced by a first sentence
+(`tools/land/index-merge.ts`). A row both sides rewrote differently still stops
+the landing.
+
+Nothing else is auto-resolved, and `docs/release-notes.md` still wants the
+recipe by hand — it is append-only prose rather than a list with keys, so there
+is nothing to merge it *by*.
 
 
 ## Pushing the trunk, and how often

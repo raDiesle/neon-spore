@@ -1174,6 +1174,7 @@ place — the generator keeps whatever is there.
 | `tools/index/run.ts` | `bun run index` — completes `docs/INDEX.md`'s "## Code" table: every in-scope source file gets a row |
 | `tools/land/git.ts` | The two ways `land` talks to git — one that swallows failure into `""` for questions where "unknown" and… |
 | `tools/land/idle.ts` | How long a merged worktree is left standing, and how long it has been since anybody worked in one |
+| `tools/land/index-merge.ts` | Keeping a lane's own rows when `docs/INDEX.md` is resolved by regenerating it |
 | `tools/land/orphans.ts` | The litter left behind when a removal was trusted instead of verified |
 | `tools/land/run.ts` | `bun run land` — put this lane on the trunk, linearly, and leave nothing behind |
 | `tools/land/sweep.ts` | Everything that happens after the fast-forward and does not touch a ref: the release note |
@@ -1239,6 +1240,7 @@ place — the generator keeps whatever is there.
 | `tools/index/drift.ts` | Whether a row in `docs/INDEX.md` still describes the file it names |
 | `tools/index/sentence.ts` | **The one line a row carries**, read off the file's own header comment and cut to something a table can hold |
 | `tools/index/place.ts` | where a new row goes: beside the rows whose names it shares a beginning with |
+| `tools/index/generate.ts` | `docs/INDEX.md` as a function of a checkout |
 | `tools/land/claims.ts` | Which of the branches a landing finds merged are really queue claims |
 | `tools/director/src/waves-acts.ts` | The act files, and the save that writes a wave list back across them |
 | `tools/hooks/after-sim-edit.ts` | Determinism is the one thing a reviewer cannot see by looking |

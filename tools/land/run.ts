@@ -125,7 +125,7 @@ async function moveTrunk(): Promise<Landed[]> {
     }
     console.log(`  rebased  onto ${await git(["rev-parse", "--short", TRUNK], root)}`);
     for (const file of new Set(replayed.resolved)) {
-      console.log(`  merged   ${file} — the trunk's copy, less what this lane took out`);
+      console.log(`  merged   ${file} — the trunk's copy, carrying this lane's own edits`);
     }
     const back = await resurrectedAfter(root, queueBefore);
     if (back.length > 0) {

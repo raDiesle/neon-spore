@@ -13,59 +13,27 @@
  *
  * `bun run index --check` writes nothing and exits non-zero when the table
  * has drifted from the tree, which is what the test runs.
+ *
+ * The work itself is in `generate.ts`, because `tools/land` resolves a rebase
+ * conflict in the file map by asking the same question.
  */
 
-import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
-import { join, relative } from "node:path";
-import { filterScopeFiles, generateIndex, parseRows } from "./index.js";
+import { join } from "node:path";
+import { regenerate, writeIndex } from "./generate.js";
 
 const ROOT = join(import.meta.dirname, "..", "..");
-// `.claude` for the reason `tools/test/tree-walk.test.ts` gives: a worktree is
-// a full copy of the repository sitting inside the repository. This walk starts
-// at `packages`, `apps` and `tools` and so cannot reach one today; it is here so
-// that changing where it starts is not also a silent change to what it scans.
-const SKIP_DIRS = new Set([".claude", "node_modules", "dist", ".git"]);
-
-function walk(dir: string, out: string[]): void {
-  for (const entry of readdirSync(dir)) {
-    if (SKIP_DIRS.has(entry)) continue;
-    const full = join(dir, entry);
-    const st = statSync(full);
-    if (st.isDirectory()) walk(full, out);
-    else if (entry.endsWith(".ts")) out.push(full);
-  }
-}
-
-const all: string[] = [];
-for (const top of ["packages", "apps", "tools"]) {
-  walk(join(ROOT, top), all);
-}
-const relPaths = all.map((p) => relative(ROOT, p).split("\\").join("/"));
-const scope = filterScopeFiles(relPaths);
-
-const indexPath = join(ROOT, "docs", "INDEX.md");
-const current = readFileSync(indexPath, "utf8");
-const next = generateIndex(current, {
-  scope,
-  read: (relPath) => readFileSync(join(ROOT, relPath), "utf8"),
-  has: (relPath) => existsSync(join(ROOT, relPath)),
-});
-
-const was = new Set(parseRows(current).map((r) => r.path));
-const now = new Set(parseRows(next).map((r) => r.path));
-const added = [...now].filter((p) => !was.has(p));
-const dropped = [...was].filter((p) => !now.has(p));
 
 if (process.argv.includes("--check")) {
-  if (next !== current) {
-    console.error(`docs/INDEX.md has drifted from the tree (${scope.length} in-scope files).`);
+  const out = regenerate(ROOT);
+  if (out.text !== out.was) {
+    console.error(`docs/INDEX.md has drifted from the tree (${out.scope} in-scope files).`);
     console.error("Run `bun run index`; it adds and drops rows, and says which.");
     process.exit(1);
   }
-  console.log(`docs/INDEX.md: up to date, ${scope.length} in-scope files`);
+  console.log(`docs/INDEX.md: up to date, ${out.scope} in-scope files`);
 } else {
-  writeFileSync(indexPath, next);
-  console.log(`docs/INDEX.md: ${scope.length} in-scope files checked`);
-  for (const path of added) console.log(`  added    ${path} — write its line`);
-  for (const path of dropped) console.log(`  dropped  ${path} — no such file`);
+  const out = writeIndex(ROOT);
+  console.log(`docs/INDEX.md: ${out.scope} in-scope files checked`);
+  for (const path of out.added) console.log(`  added    ${path} — write its line`);
+  for (const path of out.dropped) console.log(`  dropped  ${path} — no such file`);
 }
