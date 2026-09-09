@@ -140,6 +140,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## `CLAUDE.md` is within about a hundred characters of its ceiling
 
 - **Found:** 2026-09-07, claude/queued-items-rer0av
+- **Taken:** 2026-09-09, claude/queue-claude-md-is-within-about-a-hundred-characters-o
 - **Files:** `CLAUDE.md`, `tools/test/claude-md.test.ts`, `docs/`
 
 `tools/test/claude-md.test.ts` caps the file at 22,000 characters and it stands
