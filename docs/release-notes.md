@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 7fcdf63a — SPALL is the game's crater, clipped to the ship and painted in its colour
+
+The owner said to build it in, and named two things wrong with it. Both are repaired here rather than offered as a second question, because neither is a matter of taste.
+
 ## 2026-09-09 · f6c96c99 — Drop a queue entry another lane had already written
 
 The worktree install trap this lane hit was queued the same day by claude/shell-plate-versus-page-d18721, in more detail and against the right file. Two entries for one finding is two sessions doing it.
