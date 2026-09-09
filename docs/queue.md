@@ -237,6 +237,7 @@ arrow drawn on the line while the button under it is still dark.
 ## `bun run check` blames the code when a worktree's install is stale
 
 - **Found:** 2026-09-07, claude/pulse-boss-visual-integration-0678e7
+- **Taken:** 2026-09-09, claude/queue-bun-run-check-blames-the-code-when-a-worktrees-i
 - **Files:** `tools/check/` (wherever `bun run check` is driven from), `package.json`
 
 A worktree installed before a workspace package existed has no `node_modules`
