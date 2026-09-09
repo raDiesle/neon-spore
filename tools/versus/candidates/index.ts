@@ -3,14 +3,17 @@ import { BREAK_SHATTER } from "./creature-break/shatter/index.js";
 // region: candidates
 import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
 import { SKIN_VEIL } from "./creature-skin/veil/index.js";
+import { EYE_GLAZE } from "./eye-iris/glaze/index.js";
 import { EYE_TURN } from "./eye-iris/turn/index.js";
 import { GHOST_LATITUDE } from "./ghost-tears/latitude/index.js";
+import { GHOST_SLIDE } from "./ghost-tears/slide/index.js";
 import { MAZE_RAIL } from "./maze-walls/rail/index.js";
 import { MAZE_WELL } from "./maze-walls/well/index.js";
 import { JOIN_BOTH } from "./panel-join/both/index.js";
 import { JOIN_ORGANS } from "./panel-join/organs/index.js";
 import { JOIN_ROOF } from "./panel-join/roof/index.js";
 import { SHELL_SLAB } from "./shell-plate/slab/index.js";
+import { SHELL_WORN } from "./shell-plate/worn/index.js";
 import { CRATER_SPALL } from "./ship-crater/spall/index.js";
 // endregion
 
@@ -47,8 +50,11 @@ export const VARIANTS: Variant[] = [
   BREAK_SHATTER,
   CRATER_SPALL,
   SHELL_SLAB,
+  SHELL_WORN,
   EYE_TURN,
+  EYE_GLAZE,
   GHOST_LATITUDE,
+  GHOST_SLIDE,
   MAZE_WELL,
   MAZE_RAIL,
 ];
