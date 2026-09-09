@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 2baed1ac — The unmeasured-baseline question has an answer, so it is a task
+
+THE TELL's row was measured on a busy container, and the fresh full baseline taken on the owner's machine on 9 September 2026 has replaced it along with every other row. What was left of that entry was the rule the collision exposed: a cloud session adding a wave cannot pass `bun run check` without running perf, and running perf is what `CLAUDE.md` tells it not to do.
+
 ## 2026-09-09 · e5015cf0 — A contour candidate is measured before the vote, not after it
 
 A candidate for a creature's outline is a set of fields held over a shipped record for the length of one `draw()`, so the two questions this project insists on about a silhouette could not be asked of one: does it survive its own drawn size, and is it still its own word beside its neighbours. Both are the cheap disqualifiers, and the vote is the expensive step they exist to save — so being unable to ask them until after the vote was precisely backwards.
