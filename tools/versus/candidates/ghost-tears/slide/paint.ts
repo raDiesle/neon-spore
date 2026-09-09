@@ -34,15 +34,15 @@ const DIM = 0.45;
  * and how much its temper adds. This is the number that protects a lane call —
  * every band is present across the whole body at every moment, so the mass of
  * the camouflage never leaves the middle however hard a band is thrown. */
-const STRIP = 0.07;
-const STRIP_RAGE = 0.13;
+const STRIP = 0.12;
+const STRIP_RAGE = 0.2;
 
 /** The lit patch: its floor, what the throw adds, and how far it reaches along
  * the strip as a share of the body's width. Narrow enough to be a patch and
  * wide enough that at 26 px it is not a scratch. */
-const PATCH = 0.16;
-const PATCH_RAGE = 0.46;
-const PATCH_W = 0.3;
+const PATCH = 0.26;
+const PATCH_RAGE = 0.6;
+const PATCH_W = 0.38;
 
 /** A gradient's stops, pushed in order and never backwards. `p` may sit at
  * either end of the strip once a band is fully thrown, and a stop behind the

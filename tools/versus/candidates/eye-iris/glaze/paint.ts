@@ -43,8 +43,8 @@ const DOME_R = 1.5;
 /** How much of the eye's own colour the lit side takes, and how much of the
  * background the far side does. The shade is the smaller of the two on
  * purpose: this is a wet eye catching a light, not a body half in the dark. */
-const DOME = 0.4;
-const SHADE = 0.34;
+const DOME = 0.3;
+const SHADE = 0.42;
 
 /** The wet point: where it sits along `KEY` as a share of the half-width, how
  * wide it is, and how bright. Tighter and nearer the rim than the dome, which

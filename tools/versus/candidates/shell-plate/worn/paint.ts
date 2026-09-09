@@ -124,7 +124,10 @@ export function worn(
  *
  * The dark is stroked with no clip, so half of it falls outside the contour
  * onto a background that is already the darkest thing on the field — which
- * costs nothing and saves a clip on a body that draws two of these.
+ * costs nothing and saves a clip on a body that draws two of these. It is
+ * deliberately narrower and weaker than the band under a plate: with no clip
+ * to hold it, a heavy stroke here washes inward over the body's own fill, and
+ * that fill is the colour the pair has to say out loud.
  */
 export function wornRim(
   ctx: CanvasRenderingContext2D,
@@ -135,10 +138,10 @@ export function wornRim(
 ): void {
   const lit = litFace(piece, ink.rot);
   const arc = bareArc(s, piece, t);
-  ctx.strokeStyle = rgba(PALETTE.background, DARK * 0.8 + DARK_UNLIT * (1 - lit));
-  ctx.lineWidth = ink.lineWidth * 2.6;
+  ctx.strokeStyle = rgba(PALETTE.background, DARK * 0.5 + DARK_UNLIT * 0.6 * (1 - lit));
+  ctx.lineWidth = ink.lineWidth * 1.8;
   ctx.stroke(arc);
-  ctx.strokeStyle = rgba(ink.rim, 0.7);
+  ctx.strokeStyle = rgba(ink.rim, 0.85);
   ctx.lineWidth = ink.lineWidth;
   ctx.stroke(arc);
 }
