@@ -140,7 +140,13 @@ export function chuteStruck(world: World, b: Bullet, hit: Creature): boolean {
     // answers that — never `livingKindForColor` spelled out again here.
     kind: chuteBecomes(hit),
   });
-  world.events.push({ type: "destroy", col: hit.col, row: hit.row, color: b.color });
+  world.events.push({
+    type: "destroy",
+    col: hit.col,
+    row: hit.row,
+    color: b.color,
+    kind: chuteBecomes(hit),
+  });
   removeCreature(world, hit.id);
   return b.lance;
 }

@@ -137,35 +137,6 @@ Why the short label is what fits today, and what each of the three costs.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
-## A `destroy` event does not say what died
-
-- **Found:** 2026-09-09, claude/procedural-destruction-visuals
-- **Taken:** 2026-09-09, claude/queue-a-destroy-event-does-not-say-what-died
-- **Files:** `packages/sim/src/events.ts`, `packages/render/src/effects-break.ts`,
-  `packages/render/src/effects-spark.ts`, `packages/sim/test/replay.test.ts`
-
-`{ type: "destroy"; col; row; color }` carries no `kind`, and until something
-wanted to draw the *shape* of what died that cost nothing: a burst of squares
-does not care. `effects-break.ts` does — it cuts the pieces of a broken body out
-of that body's own contour — and the only thing it can ask is
-`kindForColor(e.color)`, the bestiary's map from ammunition colour to body.
-
-For an ordinary kill that is exactly right: a red body is a slick and a cyan one
-is a bulb. A magnet, a throb, a recoil, an echo and a rind all emit the same
-plain `destroy`, so all five would break as a slick or a bulb — the wrong
-silhouette, at a size where the difference is visible.
-
-Add `kind: CreatureKind` to the event, filled from `wornKind(c)` and not `c.kind`
-(a lure is drawn as the body it wears right up to the beat it goes, and an event
-naming the real kind would put a tell on player one's screen the frame it dies).
-Then `effects-break.ts` reads it instead of the colour, and the fallback goes.
-Every consumer switches over the whole union already, so the compiler names the
-sites; `replay.test.ts` and the audio bindings are the two that will notice.
-
-The fracture engine is landed and `BREAK_LOOK.wedges` is 0, so nothing on the
-field draws the wrong shape today — this is owed before the `creature:break`
-candidate could ever be adopted.
-
 ## `docs/party-games.md` links to nine screenshots it could not embed
 
 - **Found:** 2026-09-08, claude/party-minigames-research-udjn67

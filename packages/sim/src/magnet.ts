@@ -1,4 +1,5 @@
 import { metColor, missedColor } from "./balance.js";
+import { wornKind } from "./creature-rules.js";
 import { removeCreature } from "./field.js";
 import { otherColor } from "./kinds.js";
 import type { Bullet, Color, Creature } from "./types.js";
@@ -109,7 +110,13 @@ export function magnetStruck(world: World, b: Bullet, hit: Creature): void {
   }
   metColor(world);
   world.score += world.cfg.scoreMagnetKill;
-  world.events.push({ type: "destroy", col: hit.col, row: hit.row, color: b.color });
+  world.events.push({
+    type: "destroy",
+    col: hit.col,
+    row: hit.row,
+    color: b.color,
+    kind: wornKind(hit),
+  });
   // Beside the kill rather than instead of it, on `veilTorn`'s terms: the kill
   // is a kill and gets the kill's burst, its sound and its score, and this is
   // the arch coming apart on top of it — which needs the side, because the two

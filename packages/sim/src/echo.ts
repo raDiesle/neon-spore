@@ -137,7 +137,13 @@ export function echoStruck(world: World, b: Bullet, hit: Creature): boolean {
 
   metColor(world);
   world.score += world.cfg.scoreEchoKill * echoBodies(hit);
-  world.events.push({ type: "destroy", col: hit.col, row: hit.row, color: b.color });
+  world.events.push({
+    type: "destroy",
+    col: hit.col,
+    row: hit.row,
+    color: b.color,
+    kind: echoBecomes(hit),
+  });
   removeCreature(world, hit.id);
   return b.lance;
 }

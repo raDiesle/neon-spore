@@ -1,4 +1,5 @@
 import { hullRow, type SimConfig } from "./config.js";
+import { wornKind } from "./creature-rules.js";
 import { removeCreature } from "./field.js";
 import { nextInt } from "./rng.js";
 import type { Bullet, Creature } from "./types.js";
@@ -197,7 +198,13 @@ function tileIndex(cfg: SimConfig, t: { col: number; row: number }): number {
  */
 export function wispStruck(world: World, b: Bullet, hit: Creature): void {
   world.score += world.cfg.scoreWispKill;
-  world.events.push({ type: "destroy", col: hit.col, row: hit.row, color: b.color });
+  world.events.push({
+    type: "destroy",
+    col: hit.col,
+    row: hit.row,
+    color: b.color,
+    kind: wornKind(hit),
+  });
   removeCreature(world, hit.id);
 }
 

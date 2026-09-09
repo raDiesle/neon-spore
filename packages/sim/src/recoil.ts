@@ -202,7 +202,13 @@ export function recoilStruck(world: World, b: Bullet, hit: Creature): boolean {
   // shot at a recoil is an ordinary shot at an ordinary body, and the pair has
   // to be able to feel that it is finally over.
   world.score += world.cfg.scoreDestroy;
-  world.events.push({ type: "destroy", col: hit.col, row: hit.row, color: b.color });
+  world.events.push({
+    type: "destroy",
+    col: hit.col,
+    row: hit.row,
+    color: b.color,
+    kind: recoilBecomes(hit),
+  });
   removeCreature(world, hit.id);
   return b.lance;
 }

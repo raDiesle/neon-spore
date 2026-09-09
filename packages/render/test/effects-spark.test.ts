@@ -45,7 +45,7 @@ describe("the lure hit's burst", () => {
 
   it("is a bigger burst than an ordinary kill, not a smaller one", () => {
     const lure = burstFor({ type: "lureHit", col: 2, row: 2, color: "red" }, L);
-    const destroyed = burstFor({ type: "destroy", col: 2, row: 2, color: "red" }, L);
+    const destroyed = burstFor({ type: "destroy", col: 2, row: 2, color: "red", kind: "slick" }, L);
     expect(lure?.n ?? 0).toBeGreaterThan(destroyed?.n ?? Infinity);
   });
 });

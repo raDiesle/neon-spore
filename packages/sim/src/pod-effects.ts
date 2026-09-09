@@ -1,4 +1,5 @@
 import { ticksPerBeat } from "./config.js";
+import { wornKind } from "./creature-rules.js";
 import { type Color, isMeteorKind } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
@@ -33,7 +34,13 @@ export function purge(world: World): void {
       world.events.push({ type: "hole", col: c.col, row: c.row });
       continue;
     }
-    world.events.push({ type: "destroy", col: c.col, row: c.row, color: c.color as Color });
+    world.events.push({
+      type: "destroy",
+      col: c.col,
+      row: c.row,
+      color: c.color as Color,
+      kind: wornKind(c),
+    });
     world.score += world.cfg.scoreDestroy;
   }
   world.creatures = [];

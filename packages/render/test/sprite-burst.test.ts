@@ -91,7 +91,7 @@ describe("a sprite burst with an atlas", () => {
 
 describe("a shot that killed what it hit", () => {
   const L = computeLayout({ width: 900, height: 1600, dpr: 2 }, DEFAULT_CONFIG, "test");
-  const DESTROY: SimEvent[] = [{ type: "destroy", col: 3, row: 4, color: "red" }];
+  const DESTROY: SimEvent[] = [{ type: "destroy", col: 3, row: 4, color: "red", kind: "slick" }];
 
   /**
    * The wiring, not the arithmetic: that `destroy` reaches `SpriteBursts` at

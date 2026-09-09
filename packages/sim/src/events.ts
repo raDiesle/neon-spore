@@ -24,7 +24,21 @@ export type SimEvent =
   | { type: "lanceFull"; col: number }
   /** A shot went out through a lobe that was not full yet, and took the fill with it. */
   | { type: "lanceSpilled"; col: number }
-  | { type: "destroy"; col: number; row: number; color: Color }
+  /**
+   * A body was destroyed. `kind` is what it was **drawn as** and not what it
+   * was — `wornKind`, never `c.kind` — because a lure is a full-size slick or
+   * bulb in every pixel player 1 owns right up to the beat it goes, and an
+   * event naming the real kind would put a tell on that screen the frame it
+   * dies.
+   *
+   * It carries the kind as well as the colour because the colour alone cannot
+   * say what died: red is a slick and cyan a bulb, which is right for an
+   * ordinary kill and wrong for every body that is neither. `effects-break.ts`
+   * cuts the pieces of a broken body out of that body's own contour, and a
+   * magnet cut into a slick's wedges is the wrong silhouette at a size where
+   * the difference is visible.
+   */
+  | { type: "destroy"; col: number; row: number; color: Color; kind: Creature["kind"] }
   | { type: "hole"; col: number; row: number }
   | { type: "reject"; col: number; row: number }
   | { type: "deflect"; col: number; span: number; kind: Creature["kind"]; fromRow: number }

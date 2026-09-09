@@ -229,6 +229,7 @@ describe("the duplicate guard", () => {
       col: 3,
       row: 4,
       color: "red" as const,
+      kind: "slick" as const,
     }));
     mixer.frame(world(), four);
     expect(played.map((p) => p.id)).toEqual([
@@ -243,7 +244,7 @@ describe("the duplicate guard", () => {
 
   it("starts counting again on the next frame", () => {
     const { mixer, ids } = recorder();
-    const one: SimEvent[] = [{ type: "destroy", col: 3, row: 4, color: "red" }];
+    const one: SimEvent[] = [{ type: "destroy", col: 3, row: 4, color: "red", kind: "slick" }];
     const w = world();
     mixer.frame(w, one);
     w.tick++;

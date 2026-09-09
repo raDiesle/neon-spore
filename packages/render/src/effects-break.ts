@@ -1,5 +1,5 @@
-import { kindForColor, livingPoints, livingSilhouette } from "@neon-spore/content";
-import type { Color, SimEvent } from "@neon-spore/sim";
+import { hasOwnBody, livingPoints, livingSilhouette } from "@neon-spore/content";
+import type { Color, CreatureKind, SimEvent } from "@neon-spore/sim";
 import { BREAK_LOOK } from "./break-look.js";
 import { contourClock, livingRadius, livingScale } from "./creature-place.js";
 import { colorTrio } from "./creature-tint.js";
@@ -13,21 +13,22 @@ import { type Layout, tileCX, tileCY } from "./layout.js";
  * which was already within twenty lines of the limit — and because what is
  * awkward here is worth writing down where somebody will read it.
  *
- * **The event does not say what died.** `destroy` carries a column, a row and a
- * colour and nothing else, so the contour is asked of `kindForColor` — the
- * bestiary's own map from ammunition colour to body, and the same call
- * `pose-kit.ts`'s `living` makes when it spawns one. For an ordinary kill that
- * is exactly right: a red body is a slick and a cyan one is a bulb. For a
- * magnet, a throb or a recoil going down it is the *wrong* silhouette — those
- * kinds emit the same plain `destroy` — so their pieces are cut from a slick's
- * outline instead of their own.
+ * **The event says what died, and that is the only thing asked.** `destroy`
+ * carries the kind the body was *drawn* as (`wornKind` in the simulation, so a
+ * lure arrives here as the slick or the bulb it was wearing), and the contour
+ * comes straight off it. It used to come off the colour instead — red is a
+ * slick and cyan a bulb — which is right for an ordinary kill and wrong for
+ * every body that is neither: a magnet cut into a slick's wedges is the wrong
+ * silhouette at a size where the difference is visible.
  *
- * That is a real defect and it is deliberately not papered over here. Fixing it
- * means the event carrying its kind, which is a change to `packages/sim` and to
- * everything that switches on the union; `docs/queue.md` carries it as its own
- * item. Until then this is honest at the size the pieces are drawn at — a body
- * is a tile and a half across and its fragments are a fifth of that — and the
- * candidate that offers this look says so in its own file.
+ * **A kind with no body of its own leaves no pieces.** THE MAGNET, THE GHOST,
+ * THE LID, THE CRAWLER, THE BALLOON, THE CHOIR and the rest are drawn by paths
+ * of their own rather than by a radial contour, so `livingSilhouette` has
+ * nothing to hand back for them and cutting them out of somebody else's
+ * outline is the defect above wearing a different coat. Drawing nothing is the
+ * honest answer until each of those bodies offers its own outline to be cut,
+ * and it costs nothing today: the shipped `BREAK_LOOK.wedges` is 0 and the
+ * field draws no debris at all.
  */
 
 /** Where the pieces come to rest: the ship's own skin line. A body is killed
@@ -37,9 +38,10 @@ export function breakBody(
   debris: Debris,
   l: Layout,
   time: number,
-  e: { col: number; row: number; color: Color },
+  e: { col: number; row: number; color: Color; kind: CreatureKind },
 ): void {
-  const shape = livingSilhouette(kindForColor(e.color));
+  if (!hasOwnBody(e.kind)) return;
+  const shape = livingSilhouette(e.kind);
   // No creature left to ask, so no `livingBodyMul`: a body that was small (an
   // echo) or large (a rind) breaks at the plain footprint. Both are rarer than
   // the ordinary kill and both are still the right *shape*.

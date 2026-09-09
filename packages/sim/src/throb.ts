@@ -1,5 +1,6 @@
 import { metColor, missedColor } from "./balance.js";
 import { type SimConfig, ticksPerBeat } from "./config.js";
+import { wornKind } from "./creature-rules.js";
 import { removeCreature } from "./field.js";
 import { otherColor } from "./kinds.js";
 import type { Bullet, Color, Creature } from "./types.js";
@@ -118,6 +119,12 @@ export function throbStruck(world: World, b: Bullet, hit: Creature): void {
   }
   metColor(world);
   world.score += world.cfg.scoreThrobHit;
-  world.events.push({ type: "destroy", col: hit.col, row: hit.row, color: b.color });
+  world.events.push({
+    type: "destroy",
+    col: hit.col,
+    row: hit.row,
+    color: b.color,
+    kind: wornKind(hit),
+  });
   removeCreature(world, hit.id);
 }

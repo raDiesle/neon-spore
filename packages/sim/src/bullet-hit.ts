@@ -15,6 +15,7 @@ import { coilStruck } from "./coil.js";
 import { coilIsDomed } from "./coil-state.js";
 import { colourIsArmoured } from "./colour-armour.js";
 import { linkStruck } from "./crawler-round.js";
+import { wornKind } from "./creature-rules.js";
 import { echoStruck } from "./echo.js";
 import { fenceStruck } from "./fence.js";
 import { removeCreature } from "./field.js";
@@ -219,7 +220,13 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
   // Matching ammunition resonates the light organ until it bursts.
   metColor(world);
   world.score += world.cfg.scoreDestroy;
-  world.events.push({ type: "destroy", col: hit.col, row: hit.row, color: hit.color });
+  world.events.push({
+    type: "destroy",
+    col: hit.col,
+    row: hit.row,
+    color: hit.color,
+    kind: wornKind(hit),
+  });
   removeCreature(world, hit.id);
   return b.lance;
 }

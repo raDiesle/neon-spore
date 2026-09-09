@@ -1,6 +1,7 @@
 import { markMoment } from "./balance.js";
 import { balloonSplitsLeft } from "./balloon.js";
 import { hullRow, type SimConfig } from "./config.js";
+import { wornKind } from "./creature-rules.js";
 import type { CrossDir } from "./cross.js";
 import { removeCreature } from "./field.js";
 import { clampSpanCol } from "./span.js";
@@ -172,8 +173,17 @@ function rubBalloon(world: World, c: Creature): void {
     // the field gets is the ordinary one and this file invents no picture of
     // its own (`chuteCut`'s arrangement). A balloon carries no colour, and
     // `destroy` wants one: cyan is what `lensPalette` and `ghostPalette`
-    // already answer for a body that has none, so the two agree.
-    world.events.push({ type: "destroy", col: c.col, row: c.row, color: "cyan" });
+    // already answer for a body that has none, so the two agree. The kind is
+    // the balloon's own and resolves to nothing to cut: a skin two hands
+    // stretched has no contour a fracture could follow, so it leaves no pieces
+    // (`render/effects-break.ts`).
+    world.events.push({
+      type: "destroy",
+      col: c.col,
+      row: c.row,
+      color: "cyan",
+      kind: wornKind(c),
+    });
     removeCreature(world, c.id);
     return;
   }

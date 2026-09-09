@@ -74,7 +74,7 @@ const SAMPLES: Record<string, SimEvent> = {
   fire: { type: "fire", col: 3, color: "red", lance: false },
   lanceFull: { type: "lanceFull", col: 3 },
   lanceSpilled: { type: "lanceSpilled", col: 3 },
-  destroy: { type: "destroy", col: 3, row: 4, color: "cyan" },
+  destroy: { type: "destroy", col: 3, row: 4, color: "cyan", kind: "bulb" },
   hole: { type: "hole", col: 2, row: 5 },
   reject: { type: "reject", col: 2, row: 5 },
   magnetPlate: { type: "magnetPlate", col: 2, row: 5, color: "cyan" },
@@ -212,12 +212,12 @@ describe("bindings", () => {
     expect(cueFor({ type: "fire", col: 0, color: "cyan", lance: false }, 7, 12)?.id).toBe(
       "ship.fireCyan",
     );
-    expect(cueFor({ type: "destroy", col: 0, row: 0, color: "red" }, 7, 12)?.id).toBe(
-      "impact.destroyRed",
-    );
-    expect(cueFor({ type: "destroy", col: 0, row: 0, color: "cyan" }, 7, 12)?.id).toBe(
-      "impact.destroyCyan",
-    );
+    expect(
+      cueFor({ type: "destroy", col: 0, row: 0, color: "red", kind: "slick" }, 7, 12)?.id,
+    ).toBe("impact.destroyRed");
+    expect(
+      cueFor({ type: "destroy", col: 0, row: 0, color: "cyan", kind: "bulb" }, 7, 12)?.id,
+    ).toBe("impact.destroyCyan");
   });
 
   it("accents every fourth beat and no other", () => {

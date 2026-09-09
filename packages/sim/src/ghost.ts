@@ -1,5 +1,6 @@
 import { metColor, missedColor } from "./balance.js";
 import type { SimConfig } from "./config.js";
+import { wornKind } from "./creature-rules.js";
 import { removeCreature } from "./field.js";
 import type { Bullet, Creature } from "./types.js";
 import type { World } from "./world.js";
@@ -197,7 +198,13 @@ export function ghostStruck(world: World, b: Bullet, hit: Creature): boolean {
   // same burst, same sound, same balance — and this is the escape that comes
   // off the top of it.
   world.events.push({ type: "ghostRelease", col: hit.col, row: hit.row, color: b.color });
-  world.events.push({ type: "destroy", col: hit.col, row: hit.row, color: b.color });
+  world.events.push({
+    type: "destroy",
+    col: hit.col,
+    row: hit.row,
+    color: b.color,
+    kind: wornKind(hit),
+  });
   removeCreature(world, hit.id);
   return b.lance;
 }

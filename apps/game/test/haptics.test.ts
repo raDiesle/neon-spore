@@ -42,7 +42,7 @@ describe("what earns a buzz", () => {
     const others: SimEvent[] = [
       { type: "beat", beat: 4 },
       { type: "waveStart", wave: 2 },
-      { type: "destroy", col: 1, row: 2, color: "red" },
+      { type: "destroy", col: 1, row: 2, color: "red", kind: "slick" },
       { type: "hole", col: 1, row: 2 },
       { type: "deflect", col: 1, span: 1, kind: "meteor", fromRow: 3 },
       { type: "podTaken", col: 1, kind: "mend" },

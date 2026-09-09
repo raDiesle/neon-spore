@@ -102,10 +102,13 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
       // below: this is a cannon shot that killed the thing it hit, and the
       // pair should not have to learn a second reading of that.
       ctx.spriteBursts.spawn(tileCX(ctx.l, e.col), tileCY(ctx.l, e.row), ctx.l.tile * 2.4);
-      // And the body itself, cut into the pieces it came apart into. Silent on
-      // the shipped field for the sprite's own reason — it is offered beside
-      // the burst, not in place of it (`effects-break.ts`).
-      breakBody(ctx.debris, ctx.l, ctx.time, e);
+      // And the body itself, on the same terms as `destroy` below, with the
+      // kind named here because a link's event does not carry one: what died
+      // is a segment of worm and nothing else it could be. THE CRAWLER is
+      // drawn by a path of its own rather than by a radial contour, so
+      // `breakBody` has no outline to cut and leaves it whole — which is the
+      // rule rather than a special case (`effects-break.ts`).
+      breakBody(ctx.debris, ctx.l, ctx.time, { ...e, kind: "crawler" });
       break;
     case "crawlerBeam":
       ctx.crawler.beam(e.col);

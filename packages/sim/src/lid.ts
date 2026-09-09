@@ -1,5 +1,6 @@
 import { metColor, missedColor } from "./balance.js";
 import type { SimConfig } from "./config.js";
+import { wornKind } from "./creature-rules.js";
 import { removeCreature } from "./field.js";
 import { clampPull, pullIsTaut, pullOpenMilli, tileCentreMilli } from "./handle-pull.js";
 import type { Bullet, Command, Creature } from "./types.js";
@@ -216,6 +217,12 @@ export function lidStruck(world: World, b: Bullet, hit: Creature): void {
   }
   metColor(world);
   world.score += world.cfg.scoreLidKill;
-  world.events.push({ type: "destroy", col: hit.col, row: hit.row, color: hit.color });
+  world.events.push({
+    type: "destroy",
+    col: hit.col,
+    row: hit.row,
+    color: hit.color,
+    kind: wornKind(hit),
+  });
   removeCreature(world, hit.id);
 }
