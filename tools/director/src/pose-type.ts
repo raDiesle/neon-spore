@@ -70,19 +70,46 @@ export interface Pose {
    * pose it is handed on that pose's own clock, so the next event pose
    * inherits the rhythm by setting this one field. Deliberately not
    * `waveRestBeats` — that beat count is timed for play, and a ward's own
-   * fall to the shield alone already dwarfs two seconds, while a shot's
+   * fall to the shield alone already dwarfs the replay clock, while a shot's
    * default rest lands under it. See `EVENT_CADENCE_SECONDS`.
    */
   cadenceSeconds?: number;
 }
 
 /**
- * The owner's number: *"the meteorite must repeatingly hit the shield with
- * around 2 seconds pause between"* — long enough that the eye re-reads the
- * unchanged field before the next impact, short enough to watch several
- * candidates without waiting. The pause is what makes the repeat legible.
+ * How long a replayed moment is given before the world is built again.
+ *
+ * It was two, and two was the owner's own number: *"the meteorite must
+ * repeatingly hit the shield with around 2 seconds pause between"* — a pause
+ * long enough that the eye re-reads the unchanged field before the next
+ * impact. That argument was about the **pause** and it still holds; what it
+ * got wrong was assuming the thing being paused between was over quickly.
+ *
+ * It is six now, at his word on 9 September 2026 — *"animation often is too
+ * short"*, said of the ALTERNATIVES page as a whole rather than of any one
+ * candidate. Two seconds is the whole loop, not the gap in it, so a look that
+ * takes a second and a half to play was being cut off almost as it landed:
+ * eighteen pieces of a body thrown, falling, landing on the hull and fading
+ * there is a second and a half of picture, and an eye that has to spend the
+ * first half of it working out what it is looking at never sees the end.
+ *
+ * **And the window is what grows, never the motion in it.** He said so in the
+ * same breath, which is why the number here moved and not one rate, life or
+ * duration in any look on the page: *"the animations before repeat must keep
+ * longer, i need longer see things happening, not slowing down — when
+ * something falls, i need to see it for longer distance before repeat."* A
+ * body slowed to fill a short window travels the same distance and is the
+ * same picture; six seconds is a body travelling three times as far. It is
+ * still well under `poses-surface.ts`'s `fallSeconds`, which is the whole
+ * drop down the field and is what a pose that is not an event holds for.
+ *
+ * **A pose that needs longer still says so**, by setting its own
+ * `cadenceSeconds`; this is only the number a pose gets for asking for the
+ * ordinary rhythm. And a pose that is not an event at all carries none —
+ * `poses-rounds.ts` and `poses-surface.ts` each argue that from their own
+ * side.
  */
-export const EVENT_CADENCE_SECONDS = 2;
+export const EVENT_CADENCE_SECONDS = 6;
 
 /** Whether a cadenced pose's own clock says it is time to replay from
  * scratch — the `>=` and the `undefined` guard, provable without a canvas.

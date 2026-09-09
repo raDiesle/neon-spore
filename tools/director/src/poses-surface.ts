@@ -23,9 +23,9 @@ import {
  * different questions.
  *
  * **The rhythm is the one thing these poses do differently, and it is the
- * whole reason they are here.** `EVENT_CADENCE_SECONDS` is two, which is the
- * owner's number for watching a thing happen and then happen again. A turning
- * surface replayed every two seconds is a surface that never finishes a turn,
+ * whole reason they are here.** `EVENT_CADENCE_SECONDS` is the number for
+ * watching a thing happen and then happen again. A turning
+ * surface replayed on that clock is a surface that never finishes a turn,
  * and the reveal — the far marks coming into view, which `docs/dimensional.md`
  * calls the one cue that is a difference in kind rather than of degree — is
  * precisely what a two-second window cuts off. So a pose here is held for as

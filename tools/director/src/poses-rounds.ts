@@ -22,8 +22,8 @@ import { fresh, type Pose, type PoseGroup, run, POSE_TPB as TPB } from "./pose-k
  * a line of paint was written, and it holds: the file below is short because
  * the answer was that no mechanism was missing.
  *
- * **A round is held, not replayed.** `EVENT_CADENCE_SECONDS` is two, which is
- * the owner's number for watching a thing happen and then happen again, and a
+ * **A round is held, not replayed.** `EVENT_CADENCE_SECONDS` is the number for
+ * watching a thing happen and then happen again, and a
  * round is not an event — it is a screen a pair reads for a minute, and the
  * question a candidate asks about one is whether it can be read at all. So
  * these carry no cadence and stand until the tab is closed, which is

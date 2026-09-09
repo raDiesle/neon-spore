@@ -16,6 +16,12 @@ import { advance } from "../src/versus-pair.js";
  * arithmetic without a canvas, mirroring the loop `startPair` actually runs:
  * step every tick through `advance`, and force a fresh `build()` once
  * `cadenceElapsed` says the pose's own clock has run out.
+ *
+ * The quote above is the *pause* he asked for and it is still the point; the
+ * number attached to it is not. He said of the page as a whole on 9 September
+ * 2026 that the animation was often too short, and two seconds turned out to
+ * be the whole loop rather than the gap in it. Nothing below reads a number of
+ * its own any more — see `EVENT_CADENCE_SECONDS`.
  */
 
 function findPose(name: string) {
@@ -63,21 +69,33 @@ describe("event-pose cadence", () => {
     expect(cadenceElapsed(cadenced, EVENT_CADENCE_SECONDS)).toBe(true);
   });
 
-  // Over a fixed 20-second window: a rock that only ever hit once, or a shot
-  // that fired every 1.2 seconds because `waveRestBeats` never agreed with
-  // the owner's number, both fail this the same way an eyeballed page would
-  // never have caught — a count that is too low, or gaps that are not ~2s.
-  test("WARD · DEFLECTED repeats roughly every two seconds, not every ten", () => {
-    const { impacts, gapsSeconds } = simulate("WARD · DEFLECTED", "deflect", 20);
-    expect(impacts).toBeGreaterThanOrEqual(8);
-    for (const g of gapsSeconds) expect(g).toBeGreaterThan(1.9);
-    for (const g of gapsSeconds) expect(g).toBeLessThan(2.2);
+  // Ten replays' worth of window, and every bound read off
+  // `EVENT_CADENCE_SECONDS` rather than typed. The clock moved from two
+  // seconds to four on 9 September 2026 and these were the only two
+  // assertions in the repository that had the old number written into them —
+  // a second copy of a tuning, which is exactly what `purity.test.ts`'s
+  // COPIES sweep exists to stop happening in shipped code and what a test has
+  // no more licence to do. What is actually being pinned is *that the moment
+  // comes round on the pose's own clock*: a rock that only ever hit once, or
+  // a shot firing on `waveRestBeats` instead, fails this however the constant
+  // is tuned.
+  const WINDOW = EVENT_CADENCE_SECONDS * 10;
+  const LEAST = 8;
+
+  function expectOnTheClock(gapsSeconds: readonly number[]): void {
+    for (const g of gapsSeconds) expect(g).toBeGreaterThan(EVENT_CADENCE_SECONDS - 0.1);
+    for (const g of gapsSeconds) expect(g).toBeLessThan(EVENT_CADENCE_SECONDS + 0.2);
+  }
+
+  test("WARD · DEFLECTED repeats on the event clock, not once every ten seconds", () => {
+    const { impacts, gapsSeconds } = simulate("WARD · DEFLECTED", "deflect", WINDOW);
+    expect(impacts).toBeGreaterThanOrEqual(LEAST);
+    expectOnTheClock(gapsSeconds);
   });
 
-  test("SHOT · BEING LAID repeats roughly every two seconds, not every second", () => {
-    const { impacts, gapsSeconds } = simulate("SHOT · BEING LAID", "fire", 20);
-    expect(impacts).toBeGreaterThanOrEqual(8);
-    for (const g of gapsSeconds) expect(g).toBeGreaterThan(1.9);
-    for (const g of gapsSeconds) expect(g).toBeLessThan(2.2);
+  test("SHOT · BEING LAID repeats on the event clock, not on its own wave rest", () => {
+    const { impacts, gapsSeconds } = simulate("SHOT · BEING LAID", "fire", WINDOW);
+    expect(impacts).toBeGreaterThanOrEqual(LEAST);
+    expectOnTheClock(gapsSeconds);
   });
 });
