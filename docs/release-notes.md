@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 79bf5620 — The eye gets a seam, and an iris that lies on a ball beside it
+
+One eye is drawn on two bodies — `lid.ts` and `warden-eye.ts` both call `drawEyeLens` — and it is the roundest thing in the game with no depth on it at all. The iris is concentric with the socket and every mark on it sits at a fixed screen offset, so an eye that was *looking somewhere* would be an eye whose whole picture had been slid sideways. Which is why it never looks anywhere: it opens and shuts, and that is all it does.
+
 ## 2026-09-09 · e0d5bd22 — A CRLF markdown file stops blaming its own content
 
 `bun run index` matched its anchor as `"## Code\n"` with `indexOf`, so a `docs/INDEX.md` whose lines ended `\r\n` threw *docs/INDEX.md has no '## Code' heading to anchor the generated table on* — false, about a heading right there in the file, and it cost a turn.
