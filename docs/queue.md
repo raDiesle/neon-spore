@@ -140,6 +140,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## THE TELL's last rung was designed as three throws and ships as one
 
 - **Found:** 2026-09-08, claude/rock-paper-scissors-boss-sn9ful
+- **Taken:** 2026-09-09, claude/queue-the-tells-last-rung-was-designed-as-three-throws
 - **Files:** `packages/sim/src/tell.ts`, `packages/sim/src/tell-round.ts`,
   `packages/content/src/tell-rungs.ts`, `packages/render/src/tell-body.ts`
 
