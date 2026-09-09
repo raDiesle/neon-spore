@@ -5,7 +5,16 @@
  * bun run shapes:still chamber                 every body under CHAMBER
  * bun run shapes:still chamber "THE POMMEL"    one body, large
  * bun run shapes:still all "THE POMMEL"        one body under every skin
+ * bun run shapes:still fill:roe "SLICK"        one body with ROE inside it
+ * bun run shapes:still fills "SLICK"           one body under every filling
  * ```
+ *
+ * The two `fill` forms came with the FILLING axis on 9 September 2026, and they
+ * were not optional: every value on that axis places marks on a turning surface,
+ * so the one question it exists to answer is whether they land where the
+ * projection says — and a picture is built by looking at it
+ * (`.claude/skills/svg-look`). A skin can be argued about in prose; a mark at a
+ * longitude cannot.
  *
  * The gap this closes: until now a skin could only be seen by starting the
  * director, opening the SHAPES tab and clicking a switcher, so the one question
@@ -26,6 +35,7 @@
 import { writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { CATALOGUE } from "@neon-spore/shape-sheet";
+import { FILLINGS, type FillingId } from "./src/fillings/index.js";
 import { skinStill, UNDRAWABLE } from "./src/skin-still.js";
 import { SKINS, type SkinId } from "./src/skins/index.js";
 
@@ -71,8 +81,9 @@ ${body}
 
 const [skinArg, nameArg] = process.argv.slice(2);
 if (!skinArg) {
-  console.error("usage: bun run shapes:still <skin|all> [SHAPE NAME]");
+  console.error("usage: bun run shapes:still <skin|all|fills|fill:ID> [SHAPE NAME]");
   console.error(`skins: ${SKINS.map((s) => s.id).join(", ")}`);
+  console.error(`fillings: ${FILLINGS.map((f) => f.id).join(", ")}`);
   process.exit(1);
 }
 
@@ -88,7 +99,34 @@ let cells: Cell[];
 let box: number;
 let title: string;
 
-if (skinArg === "all") {
+if (skinArg === "fills") {
+  // Every filling on one body, under the skin the axis defaults to. The row a
+  // reader would otherwise have to start the director to see.
+  const entry = entries[0];
+  if (!entry) process.exit(1);
+  box = MANY;
+  cells = [
+    { label: "NONE", svg: skinStill(entry, { skin: "membrane", box }) },
+    ...FILLINGS.map((f) => ({
+      label: f.shipped ? `${f.label} *` : f.label,
+      svg: skinStill(entry, { skin: "membrane", box, filling: f.id }),
+    })),
+  ];
+  title = `${entry.subject.name} — EVERY FILLING`;
+} else if (skinArg.startsWith("fill:")) {
+  const id = skinArg.slice("fill:".length);
+  const filling = FILLINGS.find((f) => f.id === id);
+  if (!filling) {
+    console.error(`no filling ${id} — have ${FILLINGS.map((f) => f.id).join(", ")}`);
+    process.exit(1);
+  }
+  box = entries.length === 1 ? ONE : MANY;
+  cells = entries.map((e) => ({
+    label: e.subject.name,
+    svg: skinStill(e, { skin: "membrane", box, filling: filling.id as FillingId }),
+  }));
+  title = `${filling.label} — ${entries.length === 1 ? entries[0]?.subject.name : `${entries.length} BODIES`}`;
+} else if (skinArg === "all") {
   const entry = entries[0];
   if (!entry) process.exit(1);
   box = MANY;

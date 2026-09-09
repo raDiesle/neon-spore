@@ -1,5 +1,6 @@
 import { type OwnMotion, REST } from "@neon-spore/content";
 import type { CatalogueEntry } from "@neon-spore/shape-sheet";
+import type { FillingId } from "./fillings/index.js";
 import { type GlowId, glowSpread } from "./glows/index.js";
 import { type HitId, hitSpread } from "./hits/index.js";
 import { figureLayout } from "./shape-fit.js";
@@ -111,6 +112,9 @@ export interface FigureOptions {
    * frame asymmetric.
    */
   tails?: readonly TailId[];
+  /** What the body has *in* it. One id and not a set: a body has one inside
+   * (`fillings/index.ts`). Nothing when unset, which is a real choice. */
+  filling?: FillingId;
   /** `padFor`, for the tail axis. */
   padForTails?: readonly TailId[];
 }
@@ -176,6 +180,7 @@ export function shapeFigure(entry: CatalogueEntry, opts: FigureOptions): SVGSVGE
     glows: opts.glows,
     hits: opts.hits,
     tails: opts.tails,
+    filling: opts.filling,
     shell,
   });
   frame.appendChild(body);

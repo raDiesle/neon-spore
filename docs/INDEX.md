@@ -1440,5 +1440,17 @@ place — the generator keeps whatever is there.
 | `tools/breaks/src/page.ts` | Page furniture for the break sheet |
 | `tools/breaks/src/sheet.ts` | Every break the bench knows, drawn across time |
 | `tools/breaks/src/subjects.ts` | The breaks this bench draws, and the one place a new one is added |
+| `tools/director/src/fillings/bloom.ts` | BLOOM — a nucleus that sends something out along its veins |
+| `tools/director/src/fillings/chambers.ts` | CHAMBERS — the lobes are rooms |
+| `tools/director/src/fillings/filament.ts` | FILAMENT — one thread wound round the inside |
+| `tools/director/src/fillings/gut.ts` | GUT — one tube, coiled, threaded through both sacs |
+| `tools/director/src/fillings/lattice.ts` | LATTICE — a rigid frame inside a soft body |
+| `tools/director/src/fillings/nucleus.ts` | NUCLEUS — one heavy thing loose in a shell |
+| `tools/director/src/fillings/parts.ts` | What every filling is built out of |
+| `tools/director/src/fillings/roe.ts` | ROE — the sacs are full of eggs |
+| `tools/director/src/fillings/sediment.ts` | SEDIMENT — something heavy has settled in the bottom of each sac |
+| `tools/director/src/fillings/spores.ts` | SPORES — the body is full, and it is a spore case |
+| `tools/director/src/fillings/types.ts` | What is *inside* a body, as against what its surface is made of |
+| `tools/director/src/fillings/vent.ts` | VENT — a mouth on the surface, opening and closing |
 
 <!-- index:code:end -->

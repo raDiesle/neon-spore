@@ -20,6 +20,7 @@
 import type { CatalogueEntry } from "@neon-spore/shape-sheet";
 import { shapeFigure } from "./shape-figure.js";
 import {
+  currentFilling,
   currentGlows,
   currentHits,
   currentLit,
@@ -56,5 +57,6 @@ export function picture(entry: CatalogueEntry, o: PictureOptions): Element {
     glows: currentGlows(),
     hits: currentHits(),
     tails: currentTails(),
+    filling: currentFilling(),
   });
 }

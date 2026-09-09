@@ -57,11 +57,13 @@
  */
 
 import { MOTIONS } from "@neon-spore/shape-sheet";
+import { FILLINGS } from "./fillings/index.js";
 import { GLOWS } from "./glows/index.js";
 import { HITS } from "./hits/index.js";
 import { grid } from "./shapes-grid.js";
 import { bodyPicker, pickedEntry } from "./shapes-picker.js";
 import {
+  currentFilling,
   currentGlows,
   currentHits,
   currentLit,
@@ -97,16 +99,17 @@ export function renderShapesAll(): void {
   const glows = currentGlows();
   const hits = currentHits();
   const tails = currentTails();
+  const filling = currentFilling();
 
   grid(
     "shapesAllSkins",
     entry,
-    SKINS.map((s) => ({ label: s.label, skin: s.id, lit, motion, glows, hits, tails })),
+    SKINS.map((s) => ({ label: s.label, skin: s.id, lit, motion, glows, hits, tails, filling })),
   );
   grid(
     "shapesAllMotions",
     entry,
-    MOTIONS.map((m) => ({ label: m.name, skin, lit, motion: m, glows, hits, tails })),
+    MOTIONS.map((m) => ({ label: m.name, skin, lit, motion: m, glows, hits, tails, filling })),
   );
   // NONE first and then one glow at a time, never the stack the bar is set to.
   // The other three grids hold their own axis against whatever the reader
@@ -124,7 +127,7 @@ export function renderShapesAll(): void {
   // effect.
   const padFor = GLOWS.map((g) => g.id);
   grid("shapesAllGlows", entry, [
-    { label: "NONE", skin, lit, motion, glows: [], padFor, hits, tails },
+    { label: "NONE", skin, lit, motion, glows: [], padFor, hits, tails, filling },
     ...GLOWS.map((g) => ({
       label: g.label,
       skin,
@@ -134,6 +137,7 @@ export function renderShapesAll(): void {
       padFor,
       hits,
       tails,
+      filling,
     })),
   ]);
   // One hit per cell, on the page-wide clock, so the whole row flinches
@@ -143,7 +147,7 @@ export function renderShapesAll(): void {
   // the row would be comparing frames.
   const hitPad = HITS.map((h) => h.id);
   grid("shapesAllHits", entry, [
-    { label: "NONE", skin, lit, motion, glows, hits: [], padForHits: hitPad, tails },
+    { label: "NONE", skin, lit, motion, glows, hits: [], padForHits: hitPad, tails, filling },
     ...HITS.map((h) => ({
       label: h.label,
       skin,
@@ -153,6 +157,26 @@ export function renderShapesAll(): void {
       hits: [h.id],
       padForHits: hitPad,
       tails,
+      filling,
+    })),
+  ]);
+  // The second grid whose cells are not all proposals: SPORES and BLOOM are
+  // what a bulb and a slick wear now, captioned so, and the rest are offers
+  // against them and against NONE. No padding table, unlike the three grids
+  // above — a filling is drawn *inside* the contour and clipped to it, so no
+  // cell here is any wider than the body itself.
+  grid("shapesAllFillings", entry, [
+    { label: "NONE", skin, lit, motion, glows, hits, tails, filling: undefined },
+    ...FILLINGS.map((f) => ({
+      label: f.label,
+      skin,
+      lit,
+      motion,
+      glows,
+      hits,
+      tails,
+      filling: f.id,
+      note: f.shipped ? "IN THE GAME" : undefined,
     })),
   ]);
   // The one grid whose cells are not all proposals: HALOES and WEDGE are what
@@ -162,7 +186,7 @@ export function renderShapesAll(): void {
     "shapesAllTails",
     entry,
     [
-      { label: "NONE", skin, lit, motion, glows, hits, tails: [], padForTails: tailPad },
+      { label: "NONE", skin, lit, motion, glows, hits, tails: [], padForTails: tailPad, filling },
       ...TAILS.map((x) => ({
         label: x.label,
         skin,
@@ -172,13 +196,14 @@ export function renderShapesAll(): void {
         hits,
         tails: [x.id],
         padForTails: tailPad,
+        filling,
         note: x.shipped ? "IN THE GAME" : undefined,
       })),
     ],
     TAIL_BOX,
   );
   grid("shapesAllLight", entry, [
-    { label: "LIT", skin, lit: true, motion, glows, hits, tails },
-    { label: "UNLIT", skin, lit: false, motion, glows, hits, tails },
+    { label: "LIT", skin, lit: true, motion, glows, hits, tails, filling },
+    { label: "UNLIT", skin, lit: false, motion, glows, hits, tails, filling },
   ]);
 }

@@ -1,3 +1,4 @@
+import { buildFilling, type FillingId } from "../fillings/index.js";
 import { buildGlows, type GlowId } from "../glows/index.js";
 import { buildHits, type HitId } from "../hits/index.js";
 import { buildTails, type TailId } from "../tails/index.js";
@@ -146,6 +147,13 @@ export function buildSkin(
     /** Which tails are on — what the body leaves behind as it falls. Built
      * first of everything, since a tail is unambiguously behind the body. */
     tails?: readonly TailId[];
+    /**
+     * What the body has **in** it, if anything. One id and not a set, unlike
+     * `glows` and like `skin`: a body has one inside. Built after the skin,
+     * because every value on that axis is under the wall it is inside of. See
+     * `fillings/index.ts`.
+     */
+    filling?: FillingId;
     /** The group wrapping everything drawn, which a hit that moves the whole
      * figure writes its transform onto. See `SkinContext.transform`. */
     shell?: SVGGElement;
@@ -180,6 +188,10 @@ export function buildSkin(
   const glows = opts.glows ?? [];
   buildGlows(glows, "under", ctx);
   (SKINS.find((s) => s.id === skin) ?? LINE).build(ctx);
+  // What is inside the body, over its wall and under the glow that is outside
+  // it. Nothing when nobody picked one, which is the common case and is a real
+  // choice rather than an empty state (`fillings/index.ts`).
+  buildFilling(opts.filling, ctx);
   buildGlows(glows, "over", ctx);
   // Last, and over everything: an impact is drawn in front of the body it
   // landed on, and its debris in front of that.

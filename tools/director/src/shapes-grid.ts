@@ -1,5 +1,6 @@
 import type { OwnMotion } from "@neon-spore/content";
 import type { CatalogueEntry } from "@neon-spore/shape-sheet";
+import type { FillingId } from "./fillings/index.js";
 import type { GlowId } from "./glows/index.js";
 import type { HitId } from "./hits/index.js";
 import { isWide, shapeFigure } from "./shape-figure.js";
@@ -44,6 +45,8 @@ export interface Cell {
   hits: readonly HitId[];
   /** The hit equivalent of `padFor`. Only the hit row sets it. */
   padForHits?: readonly HitId[];
+  /** What this cell has inside it, or nothing. One, not a set. */
+  filling?: FillingId;
   /** The tail stack this cell wears. */
   tails: readonly TailId[];
   /** The tail equivalent of `padFor`. Only the tail row sets it. */
@@ -68,6 +71,7 @@ function figureCell(box: number, width: number, stroke: string, entry: Catalogue
       padFor: c.padFor,
       hits: c.hits,
       padForHits: c.padForHits,
+      filling: c.filling,
       tails: c.tails,
       padForTails: c.padForTails,
     }),

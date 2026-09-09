@@ -24,6 +24,7 @@
 
 import type { OwnMotion } from "@neon-spore/content";
 import type { CatalogueEntry } from "@neon-spore/shape-sheet";
+import type { FillingId } from "./fillings/index.js";
 import type { GlowId } from "./glows/index.js";
 import type { HitId } from "./hits/index.js";
 import type { SkinId } from "./skins/index.js";
@@ -34,6 +35,16 @@ import type { TailId } from "./tails/index.js";
  * outline is the control and a control is switched *to*.
  */
 let skinA: SkinId = "membrane";
+
+/**
+ * What every card has **in** it, and `undefined` is a real value.
+ *
+ * NONE by default, and that is the honest starting point rather than a
+ * placeholder: most bodies in this game have never been drawn with anything
+ * inside them, so an empty body is the picture every value on the axis has to
+ * beat (`fillings/index.ts`).
+ */
+let fillingA: FillingId | undefined;
 
 /**
  * Whether the key light is on, for every card at once — orthogonal to the
@@ -111,6 +122,12 @@ export function currentMotion(): OwnMotion | undefined {
 /** Sets the whole page's skin. The only writer besides `controlBar` itself. */
 export function setSkin(id: SkinId): void {
   skinA = id;
+}
+export function currentFilling(): FillingId | undefined {
+  return fillingA;
+}
+export function setFilling(id: FillingId | undefined): void {
+  fillingA = id;
 }
 
 /** Flips the key light for the whole page. */

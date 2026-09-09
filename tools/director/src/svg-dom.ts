@@ -15,9 +15,11 @@
  *
  * **A shim rather than a dependency.** `checks-dom.test.ts` and
  * `markdown.test.ts` already stand up hand-rolled documents for the same
- * reason, and the surface a skin actually touches is four methods wide: the
+ * reason, and the surface a skin actually touches is five methods wide: the
  * grep that decided this found `createElementNS`, `setAttribute`,
- * `appendChild` and one `getAttribute`. A DOM library would be several
+ * `appendChild` and one `getAttribute`, and the FILLING axis added
+ * `removeAttribute` — a mark that goes round the back of a body is hidden and
+ * shown again, which is `mounted.ts`'s `toggle` and every value on that axis. A DOM library would be several
  * megabytes to serve four calls, and it would still not be the browser the
  * director runs in — so it would buy fidelity it cannot deliver while costing
  * an install on every clone.
@@ -48,6 +50,9 @@ export interface ShimElement {
   attrs: Map<string, string>;
   kids: ShimElement[];
   setAttribute(name: string, value: string): void;
+  /** Used by anything that hides a mark on the far side of a body and shows it
+   * again: `mounted.ts`'s `toggle`, and every value on the FILLING axis. */
+  removeAttribute(name: string): void;
   getAttribute(name: string): string | null;
   appendChild<T extends ShimElement>(kid: T): T;
 }
@@ -59,6 +64,9 @@ export function element(tag: string): ShimElement {
     kids: [],
     setAttribute(name, value) {
       self.attrs.set(name, String(value));
+    },
+    removeAttribute(name) {
+      self.attrs.delete(name);
     },
     getAttribute(name) {
       return self.attrs.get(name) ?? null;

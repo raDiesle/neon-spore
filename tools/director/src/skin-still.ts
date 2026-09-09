@@ -1,5 +1,6 @@
 import { REST } from "@neon-spore/content";
 import { type CatalogueEntry, contourAt } from "@neon-spore/shape-sheet";
+import type { FillingId } from "./fillings/index.js";
 import { type GlowId, glowSpread } from "./glows/index.js";
 import { figureLayout } from "./shape-fit.js";
 import { poseAtSecond, poseTransform } from "./shapes-motion.js";
@@ -45,6 +46,16 @@ export interface StillOptions {
    * a glowing still is framed exactly as the glowing card is.
    */
   glows?: readonly GlowId[];
+  /**
+   * What the body has in it, if anything — the SHAPES tab's seventh axis.
+   *
+   * Here for the same reason `glows` is, and the reason is sharper: a filling
+   * is *placed on a turning surface*, so the one question it exists to answer
+   * is whether the marks land where the projection says they do, and until this
+   * field existed nothing outside a browser could ask it. The axis is ten
+   * values and every one of them was written from a terminal.
+   */
+  filling?: FillingId;
   /** Draw the body at rest, ignoring its own-motion. The frame is unchanged. */
   still?: boolean;
 }
@@ -107,6 +118,7 @@ export function skinStill(entry: CatalogueEntry, opts: StillOptions): string {
         lit: o.lit,
         centre: layout.pivot,
         glows: o.glows,
+        filling: o.filling,
       },
     );
 
