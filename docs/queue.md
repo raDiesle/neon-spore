@@ -140,6 +140,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## `world.beat` is not `world.tick / ticksPerBeat`, and nothing says so
 
 - **Found:** 2026-09-08, claude/beatbox-enemy-visuals-462bcf
+- **Taken:** 2026-09-09, claude/queue-world-beat-is-not-world-tick-ticksperbeat-and-no
 - **Files:** `packages/sim/src/step.ts`, `packages/sim/src/beat.ts`, `tools/director/src/stage.ts`, `tools/frames/press.ts`
 
 A wave's opening holds the field, and the hold in `step` runs `world.tick += 1`
