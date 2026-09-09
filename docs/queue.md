@@ -385,6 +385,7 @@ of the baseline stays comparable.
 ## `mechanics-table.ts` is at its ceiling and pays for the next creature in prose
 
 - **Found:** 2026-09-07, claude/balloon-enemy-unit-tkbivj
+- **Taken:** 2026-09-09, claude/queue-mechanics-table-ts-is-at-its-ceiling-and-pays-fo
 - **Files:** `packages/content/src/mechanics-table.ts`,
   `packages/content/src/mechanics-handed.ts`,
   `packages/content/src/mechanics-split.ts`
