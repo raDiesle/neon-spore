@@ -150,6 +150,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## THE GHOST's camouflage is laid out in picture space
 
 - **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7
+- **Taken:** 2026-09-09, claude/queue-the-ghosts-camouflage-is-laid-out-in-picture-spa
 - **Files:** `packages/render/src/ghost.ts`, `packages/render/src/ghost-glitch.ts`,
   `tools/versus/candidates/`, `tools/director/src/poses-casing.ts`
 
