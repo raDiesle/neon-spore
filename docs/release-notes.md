@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 01c34686 — Act 7b's three words-only guides rehearse
+
+THE CROSSING, THE PULSE and THE BALLOON each open on prose. Each now names a `GuideScene`.
+
 ## 2026-09-09 · 8863412a — Act 7's two words-only guides rehearse
 
 THE MAGNET and THE JAM each open on prose. Each now names a `GuideScene`.
