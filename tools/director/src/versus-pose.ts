@@ -82,6 +82,11 @@ const SLOT_POSE: Record<string, string> = {
   // one named body and nothing else.
   "slick:shape": "BODIES · FOUR KINDS AT ONCE",
   "bulb:shape": "BODIES · FOUR KINDS AT ONCE",
+  // And the motion slot on the same pose again, which is `own-motion.ts`'s own
+  // argument put to the eye: two blobs with the same lobes read as different
+  // creatures because one swings and the other shivers, so a sway is judged
+  // beside the sways it has to be told apart from rather than alone.
+  "slick:motion": "BODIES · FOUR KINDS AT ONCE",
   // And back to one creature doing one thing, because a dart's thrust is one:
   // it burns on the beat the body is thrown and on no other, so the slot needs
   // a pose held on that tick and replayed (`poses-bodies.ts`).

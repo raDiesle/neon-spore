@@ -36,6 +36,9 @@ import { JOIN_ROOF } from "./panel-join/roof/index.js";
 import { SHELL_SLAB } from "./shell-plate/slab/index.js";
 import { SHELL_WORN } from "./shell-plate/worn/index.js";
 import { CRATER_SPALL } from "./ship-crater/spall/index.js";
+import { SLICK_BANK } from "./slick-motion/bank/index.js";
+import { SLICK_FLOAT } from "./slick-motion/float/index.js";
+import { SLICK_GLIDE } from "./slick-motion/glide/index.js";
 import { SLICK_CHAIN } from "./slick-shape/chain/index.js";
 import { SLICK_COMMA } from "./slick-shape/comma/index.js";
 import { SLICK_FRILL } from "./slick-shape/frill/index.js";
@@ -75,6 +78,9 @@ export const VARIANTS: Variant[] = [
   SHELL_SLAB,
   SHELL_WORN,
   CRATER_SPALL,
+  SLICK_BANK,
+  SLICK_FLOAT,
+  SLICK_GLIDE,
   SLICK_CHAIN,
   SLICK_COMMA,
   SLICK_FRILL,
