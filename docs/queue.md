@@ -275,3 +275,120 @@ new creature slot is covered the moment it is registered. The test that proves
 it is the one already there, plus an assertion that the derived set is not
 empty — a derivation that quietly matches nothing is the same silence in a
 different place.
+
+## THE GHOST's camouflage is laid out in picture space
+
+- **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7
+- **Files:** `packages/render/src/ghost.ts`, `packages/render/src/ghost-glitch.ts`,
+  `tools/versus/candidates/`, `tools/director/src/poses-casing.ts`
+
+`slabs(id, time, rage)` hands back horizontal bands with a `shift`, and
+`drawTears` fills each one as a rectangle across the body at `-GHOST.rx + shift
+* GHOST.rx`. Every mark on this creature is therefore decided by how far down
+the picture it is, which is the exact failure `docs/style-guide.md`'s Depth
+section names: a body's silhouette may be posed, and anything *on* its surface
+is placed. A ghost's whole subject is a surface coming apart, and it comes apart
+on a flat plane.
+
+There is no record to patch, so the work is a seam first — `ghost-look.ts` of
+`magnet-look.ts`'s kind, holding `tears` and nothing else, with the shipped
+`drawTears` moved through it and not one pixel changed — and then a candidate
+beside it. The candidate worth writing: the bands are strips of *latitude* on a
+turning body, so a tear that slides off one limb comes back at the other, and
+the fragments over the far side are drawn dim behind the interior gradient
+rather than clipped away. `packages/content/src/surface.ts` is the arithmetic
+and `limbX` is the call for an outline that spans more than one tangent plane.
+The pose is the part to be careful about: this body is drawn on player 2's
+screen only, so a pose has to hand the pair a seat that can see it — `WISP ·
+STANDING` in `poses-surface.ts` is the worked example of a one-seat pose.
+
+Watch the temper: `ghostRage` already drives how far a band shifts, so a turn
+must not become a second reading of the same number. The candidate's own file
+has to say which of the two the pair is being asked about.
+
+## THE SHELL's plating is a flat lid over a round body
+
+- **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7
+- **Files:** `packages/render/src/shell-plate.ts`, `packages/render/src/shell-draw.ts`,
+  `tools/versus/candidates/`
+
+`drawPlate` cuts the body's own contour in half, fills it in `PLATE` grey and
+lights three splits with the colour underneath. It is a good picture of the
+*rule* — armour over a body, opening where it cracks — and it is the one hard
+surface in the game with no highlight, no bevel and no thickness at all, sitting
+directly over a body that has both. Beside `warden:plates` / `bevel`, which this
+lane wrote, the shell is the obvious second subject: same question, smaller
+body, and a plate that is *shaped* to a contour rather than swept round a rim.
+
+The seam is a `shell-look.ts` holding `plate` and `bareRim` — both, because the
+grey edge a bared half keeps is the same material and a vote that moved one and
+not the other would be a body wearing two answers. Note before starting that
+`shell-plate.ts` is 224 lines and the ceiling is ~250, so the candidate's paint
+does not go in it and the record does not either.
+
+The candidate to write: the plate as a slab with an inner wall, its face shaded
+by its own normal against `KEY` — a plate over the left half faces up and left
+and takes nearly all of the light, the right half almost none — and a specular
+that stays put while the body sways underneath, which is the cue that says the
+armour is a hard thing and the body is not. `key-light.ts`'s `litRound` is the
+shipped light for a round body and it is cached; do not write a second one.
+`BODIES · FOUR KINDS AT ONCE` is the wrong pose (no shell on it) — a shell pose
+belongs in `poses-casing.ts` beside the three that are there, and it wants a
+body with one half chipped, because that state is half the picture.
+
+## The eye THE LID and THE WARDEN share is a disc
+
+- **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7
+- **Files:** `packages/render/src/eye.ts`, `packages/render/src/eye-iris.ts`,
+  `packages/render/src/eye-lens.ts`, `tools/versus/candidates/`
+
+One eye is drawn on two bodies — `lid.ts` and `warden-eye.ts` both call
+`drawEyeFluid`, `drawEyeFringe` and `drawEyeLens` — and it is the roundest thing
+in the game drawn with no depth on it at all: the iris is concentric with the
+socket and every mark on it is at a fixed screen offset, so an eye that is
+looking somewhere is an eye whose *whole picture* has been translated.
+
+A real eye is the textbook case for `surface.ts`: the iris is a disc placed at a
+longitude and latitude on a ball, foreshortened by `scale(sx, sy)` as it turns
+toward the edge, with the wet film's catchlight staying exactly where the light
+is while the iris travels under it. That contrast — a mark that moves and a
+highlight that does not — is the cheapest solid-looking thing there is, and this
+is one record on two of the biggest bodies in the game.
+
+Work it as a seam (`eye-look.ts`, holding `iris`) plus one candidate, and open
+the slot as `eye:iris` rather than as a creature's, because both bodies get it
+at once — say so in the candidate's own file, since a vote that improved a lid
+and spoiled a warden is a vote nobody can cast. `WARDEN · ARMOURED` in
+`poses-casing.ts` already puts one on screen; a lid pose has to be found or
+written. Check `warden-eye.ts`'s `HATCH` gating first: the lens is drawn only
+past an openness, and a candidate that ignored that would draw an iris through a
+shut door.
+
+## No interlude round has ever been offered a look
+
+- **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7
+- **Files:** `packages/render/src/maze-draw.ts`, `packages/render/src/pinball-table.ts`,
+  `packages/render/src/snake-draw.ts`, `tools/director/src/versus-pose.ts`
+
+Every VERSUS slot that has ever been opened is a creature, the ship, a control
+or a boss's armour — the field. The interludes are whole screens with their own
+walls, tables, ribbons and pieces, they are what a pair looks at for a minute at
+a time with nothing falling, and not one of them has ever had a second answer
+offered to anything it draws. That is not because they are finished; it is
+because `versus-pose.ts` maps a slot to a *field* pose and nobody has built one
+that hands the pair a round instead.
+
+The first half is the work: a pose that builds a world already inside an
+interlude, so the pair draws the round rather than the field. `poses-mechanics.ts`
+is the closest existing shape and none of its entries leave the field.
+`maze-stage.ts` and `pinball-round.ts` are where a round's own state is set up,
+and `bossCycles` in `tools/director/src/boss-cycles.ts` already reaches one for
+the sheets — read it before writing a pose by hand.
+
+The second half is one slot, chosen small so the mechanism is proved rather than
+argued about: THE MAZE's walls are the candidate this entry recommends, because
+`maze-walls.ts` draws circles with gaps cut in them and a corridor's *depth* —
+which wall is nearer — is a thing a player has to read at speed and the picture
+currently says nothing about. Do the pose first and check the pair actually
+draws a round before writing a line of paint; if it does not, that finding is
+worth more than the candidate and should replace this entry.
