@@ -259,6 +259,7 @@ pair.
 ## `sectionNamed` ends a spec section at the first `###` inside it
 
 - **Found:** 2026-09-09, claude/bosses-bestiary-explanations-957046
+- **Taken:** 2026-09-09, claude/queue-sectionnamed-ends-a-spec-section-at-the-first-in
 - **Files:** `tools/director/src/sections.ts`, `tools/director/src/plain-words.ts`,
   `tools/director/test/` (a new test beside `roster.test.ts`)
 
