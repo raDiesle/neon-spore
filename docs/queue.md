@@ -147,33 +147,27 @@ Why the short label is what fits today, and what each of the three costs.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
-## A frames capture test fails inside `bun run check` and passes on its own
+## `bun run queue done <n>` will remove an item somebody else is holding
 
-- **Found:** 2026-09-09, claude/queue-the-clasps-hand-painted-shield-has-never-been-dr
-- **Taken:** 2026-09-09, claude/queue-a-frames-capture-test-fails-inside-bun-run-check
-- **Files:** `tools/frames/test/opening.test.ts`
+- **Found:** 2026-09-09, claude/queued-items-a47ead
+- **Files:** `tools/queue/run.ts`, `tools/queue/test/queue.test.ts`
 
-`captureFrames past a wave's opening > takes the same picture of the same
-build twice` failed inside a full `bun run check` on 9 September 2026 —
-`twice.whole` differed from `once.whole` by one byte — and then passed twelve
-out of twelve, in 32 s, when the file was run alone a minute later. Nothing in
-that lane touched the capture path for a run with no flags set, so the fault
-is the check's own load rather than the code under test.
+The numbers come from the listing, and the listing renumbers every time an
+entry leaves it. A session draining two items in one sitting reads the list
+once, does the first, says `queue done 1`, does the second and says
+`queue done 2` — and 2 is now a third entry that moved up, claimed by another
+lane and half done in another worktree. That happened on 9 September 2026:
+`done 2` took out an `Asks:` entry a lane was standing in, and it was only
+noticed because the branch it tried to delete was checked out and refused.
+The recovery was `git checkout docs/queue.md`, which is a recovery the next
+session will not know to make.
 
-It is the shape of thing `frame-harness.ts`'s `FRAME_TIMEOUT_MS` comment
-already describes from the other side: a browser-driven test that is fine on
-its own and not fine beside seventy thousand others, and the cost is paid by
-the next session, which reads one red test on a green tree and re-runs the
-whole check to find out it was nothing.
-
-Find out what actually differs before changing anything — the assertion
-compares whole-frame bytes, so a one-byte difference is worth printing rather
-than guessing at. Two candidates to weigh once it is known: the capture is not
-waiting for something it thinks it is waiting for (a font, a decoded image, a
-first paint), in which case the wait is the fix and the comparison stays exact;
-or two PNG encodes of one identical frame are genuinely allowed to differ by a
-byte, in which case the assertion is comparing the wrong thing and should
-compare decoded pixels.
+The claim is already written down and is the thing to check: an entry carrying
+`- **Taken:** <date>, <branch>` may only be removed by a tree whose own
+`HEAD` is that branch, or by a session that names the title rather than the
+number. Refuse anything else by name — say which branch holds it — and leave a
+free entry removable as it is today. `bun run queue release` has the same
+exposure and wants the same guard.
 
 ## THE TORCH's veil is drawn at full strength — `VEIL` has never done anything
 

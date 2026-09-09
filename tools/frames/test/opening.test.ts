@@ -2,8 +2,9 @@ import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 import { rm } from "node:fs/promises";
 import { join } from "node:path";
 import type { Browser } from "playwright-core";
-import { captureFrames, closeBrowser, launchBrowser } from "../capture.js";
+import { type CaptureResult, captureFrames, closeBrowser, launchBrowser } from "../capture.js";
 import { clearOpening } from "../opening.js";
+import { pictureDiff, pictureDigest } from "../pixels.js";
 import { scratchDir, sweepScratch } from "../scratch.js";
 
 /**
@@ -249,7 +250,6 @@ describe("captureFrames past a wave's opening", () => {
   it(
     "writes the rectangle it was asked for, and digests the whole frame anyway",
     async () => {
-      const sha = (bytes: Uint8Array) => new Bun.CryptoHasher("sha256").update(bytes).digest("hex");
       const whole = await captureFrames(
         baseUrl,
         { wave: 0, ticks: 60 },
@@ -263,11 +263,13 @@ describe("captureFrames past a wave's opening", () => {
         browser,
       );
       // Uncropped, what was written *is* the whole frame, so the digest is the
-      // file's. Cropped, it is not — which is the whole point: the guard in
+      // picture that landed on disk. Cropped, it is not — which is the whole point: the guard in
       // `run.ts` has to be asking about the game rather than about the
       // rectangle somebody asked to look at.
-      expect(whole.whole[0]).toBe(sha(await Bun.file(whole.paths[0] as string).bytes()));
-      expect(cropped.whole[0]).not.toBe(sha(await Bun.file(cropped.paths[0] as string).bytes()));
+      expect(whole.whole[0]).toBe(pictureDigest(await Bun.file(whole.paths[0] as string).bytes()));
+      expect(cropped.whole[0]).not.toBe(
+        pictureDigest(await Bun.file(cropped.paths[0] as string).bytes()),
+      );
       const small = await Bun.file(cropped.paths[0] as string).bytes();
       const full = await Bun.file(whole.paths[0] as string).bytes();
       expect(small.byteLength).toBeGreaterThan(0);
@@ -327,6 +329,31 @@ describe("captureFrames past a wave's opening", () => {
   );
 
   /**
+   * **What differs between two captures of one build, said out loud.**
+   *
+   * `whole` is one digest a frame, so an assertion on it can only ever report
+   * that two runs disagreed — and this pair failed once inside a full
+   * `bun run check` and then passed twelve times on its own, which is exactly
+   * the case where the next session needs the answer and cannot get it by
+   * re-running. There is no crop here, so the file on disk is what was
+   * digested: the PNGs are read back and the difference is counted in pixels
+   * and placed on the frame (`png.ts`). A pair that comes back with nothing to
+   * say is two encodings of one picture, and the digest would already have
+   * treated them as equal.
+   */
+  async function shotDiff(a: CaptureResult, b: CaptureResult): Promise<string> {
+    if (a.whole.join() === b.whole.join()) return "";
+    const lines: string[] = [];
+    for (let i = 0; i < a.whole.length; i++) {
+      if (a.whole[i] === b.whole[i]) continue;
+      const one = await Bun.file(a.paths[i] as string).bytes();
+      const two = await Bun.file(b.paths[i] as string).bytes();
+      lines.push(`frame ${i}: ${pictureDiff(one, two)}`);
+    }
+    return lines.join("; ");
+  }
+
+  /**
    * **The same build twice is the same picture.**
    *
    * It was not, and that made `run.ts`'s `identical:` guard a comment: two
@@ -343,7 +370,7 @@ describe("captureFrames past a wave's opening", () => {
       const spec = { wave: 0, ticks: 90 } as const;
       const once = await captureFrames(baseUrl, spec, join(scratchOut, "once"), browser);
       const twice = await captureFrames(baseUrl, spec, join(scratchOut, "twice"), browser);
-      expect(twice.whole).toEqual(once.whole);
+      expect(await shotDiff(once, twice)).toBe("");
     },
     STARVED_MS,
   );
@@ -356,7 +383,7 @@ describe("captureFrames past a wave's opening", () => {
       const spec = { wave: 0, ticks: 60, frames: 3, strideTicks: 4, settle: 5 } as const;
       const once = await captureFrames(baseUrl, spec, join(scratchOut, "strip-a"), browser);
       const twice = await captureFrames(baseUrl, spec, join(scratchOut, "strip-b"), browser);
-      expect(twice.whole).toEqual(once.whole);
+      expect(await shotDiff(once, twice)).toBe("");
       expect(once.whole).toHaveLength(3);
     },
     STARVED_MS,

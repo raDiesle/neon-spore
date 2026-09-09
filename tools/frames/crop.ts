@@ -67,6 +67,10 @@ export function clipFor(stage: { x: number; y: number }, at: Crop): Crop {
  * by cutting the only one away. `bun run frames` refuses to write a pair that
  * is the same on both sides, and that refusal has to be about the game rather
  * than about the rectangle somebody asked to look at.
+ *
+ * And of the frame's *pixels* rather than of its file, because a PNG encoder
+ * is allowed to compress one picture two ways and on a loaded machine does
+ * (`png.ts`).
  */
 export function sameFrames(before: readonly string[], after: readonly string[]): boolean {
   return before.length === after.length && before.every((digest, i) => digest === after[i]);

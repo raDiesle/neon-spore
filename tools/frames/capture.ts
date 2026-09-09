@@ -7,6 +7,7 @@ import { makeDriver } from "./drive.js";
 import { filmHeld, filmTickHz } from "./guide-film.js";
 import { settleOpening } from "./opening-hold.js";
 import { openStage } from "./page.js";
+import { pictureDigest } from "./pixels.js";
 import { pressPlan } from "./press-plan.js";
 import type { FrameSpec } from "./spec.js";
 
@@ -39,7 +40,8 @@ export interface CaptureResult {
   /** One path per frame, in capture order. */
   paths: string[];
   /**
-   * A digest of the **whole** frame, one per path, whatever was written.
+   * A digest of the **whole** frame's pixels, one per path, whatever was
+   * written.
    *
    * `run.ts` refuses to write a before-and-after pair that is the same on both
    * sides, and that refusal has to be about the game rather than about the
@@ -191,8 +193,13 @@ export async function captureFrames(
       // whether the pair is worth writing. What lands on disk is the crop when
       // one was asked for, clipped out of the same instant rather than out of a
       // second capture (`crop.ts`).
+      //
+      // Of the *picture* and not of the file: a PNG encoder is free to
+      // compress one frame two ways, and on a loaded machine it does — which
+      // made two captures of one build disagree and the `identical:` guard a
+      // comment (`png.ts`).
       const shot = await page.locator("#stage").screenshot();
-      whole.push(new Bun.CryptoHasher("sha256").update(shot).digest("hex"));
+      whole.push(pictureDigest(shot));
       if (spec.at) {
         const box = await page.locator("#stage").boundingBox();
         if (!box) throw new Error("#stage has no box to crop out of");
