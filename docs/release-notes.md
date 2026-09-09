@@ -9,6 +9,18 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · f6c96c99 — Drop a queue entry another lane had already written
+
+The worktree install trap this lane hit was queued the same day by claude/shell-plate-versus-page-d18721, in more detail and against the right file. Two entries for one finding is two sessions doing it.
+
+## 2026-09-09 · d92fed5d — Queue the line that is still at the join, and the slime pendants
+
+The four new cards were built to close the step between the ship and the panel and the owner can still see a line. A column of pixels says why: the wash was tuned against the one x where the hull's belly is pale, and everywhere else it lands brighter than the ship above and the tissue below — a third surface between two, which is worse than the edge it replaced. The entry carries the measurements and the two ways out, and keeps his other option open as a slot of its own on the hull rather than folding it in.
+
+## 2026-09-09 · 386988aa — Four new answers to how the ship and the panel are one body
+
+The owner looked at `panel:ship-join` / `both` and said he liked the idea and not the drawing: the top left was not connected properly, the ship carries a strong gradient into a panel that has none, and the whole of what he wants is one alien ship where the buttons, the cannon and the veins that hold them are all grown together. FUSED is that card with all three answered; VESSEL, CAUL and SAC are three different answers to the same question, offered beside it.
+
 ## 2026-09-09 · 4e1469a1 — Three decisions queued: two VERSUS slots and THE BALLOON
 
 The owner answered `slick:motion` and `slick:shape` in chat and asked for four changes to THE BALLOON. Each is written up as a queue entry a fresh session can finish alone: BANK adopted with GLIDE and FLOAT moved to the shape sheet rather than deleted, `slick:shape` dropped with COMMA and REVERB moved the same way, and the balloon given a longer pull, a hold at full stretch, a slower climb and halves that part in two directions.
