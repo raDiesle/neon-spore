@@ -110,7 +110,8 @@ nine plumes on a mass of their own, all of it behind the stone.
 
 `creature:meteor` / `forge` and `creature:skin` / `veil` are what is left of
 that page, and they are open because he did not answer them rather than
-because he answered them slowly.
+because he answered them slowly. VEIL did not stay long: see the clearance
+below, where it left by moving.
 
 ## And one slot opened by an answer, the same day
 
@@ -253,3 +254,72 @@ while one is, and back in the middle once the body is bare — which makes the
 last plate coming off the moment the light gets out.
 
 The look rejected beside it was `worn`; both directories went with the slot.
+
+## The whole page read in one sitting, on 9 September 2026
+
+The largest clearance this arrangement has had, and the first in which the
+answer *move it* was used more than the answer *take it*. `shell:plate`
+directly above was decided the same day by a different lane and is not one of
+these seven. Seven slots left,
+in four different ways, and the four are worth naming because they are the
+whole vocabulary this page has.
+
+**Taken, and both halves of the pair.** `maze:walls` was two candidates
+written as deliberate opposites — WELL darkens the space between the sheet's
+lines and leaves every stroke alone, RAIL leaves the space alone and gives the
+radial walls a thickness — and each said in its own card that the two could
+not both be right about where a pair's eye should go on a turning drum. The
+owner took both. A floor with nothing standing on it is a stack of discs and a
+post with no floor under it is a mark floating on the field; together they are
+a room (`packages/render/src/maze-relief.ts`). `eye:iris` went the same way for
+the same reason: GLAZE was a ball made of light with the pupil held dead
+centre, TURN was an iris travelling on a surface with no wash under it, and
+each card argued the other's weakness honestly. They are the two halves of a
+surface rather than two answers to one question (`eye-ball.ts`).
+
+**Taken, one of a set.** `creature:break` / `shatter` — a killed body now comes
+apart into eighteen pieces of its own outline, where `BREAK_LOOK.wedges` was 0
+and the shipped answer was a dozen squares and nothing else. `creature:bulb` /
+`spores` and `creature:slick` / `bloom` — the two bodies on more waves than
+anything else in the game had three dots between them, and now have eleven
+spheres packed three shells deep and a nucleus with nine veins running out of
+it (`body-spores.ts`, `body-bloom.ts`).
+
+**Settled without a vote, because nobody could see the difference.**
+`ghost:tears` — he looked at LATITUDE and SLIDE and said he could not tell them
+apart, which is a real answer and not a failure to give one. The slot was
+decided on the two things that separate the pair where an eye could not:
+LATITUDE keeps the hard edge a torn signal is made of, and it costs exactly
+what the shipped look cost, where SLIDE built seven gradients a frame
+(`ghost-latitude.ts`).
+
+**Moved rather than decided, which is the answer this page learned to give.**
+Three slots left this way in one sitting, against one in the whole history
+before it. `bulb:shape`'s five outlines are entries in
+`tools/shape-sheet/src/drafts/offered.ts` — *keep the current bulb, but move
+the alternatives somewhere available on the shapes page* — and they are worth
+reading together because between them they cover the whole axis a round body
+has. `creature:skin` / `veil` is a value on the SHAPES tab's SKIN axis, where a
+claim about the wall of *every* body belongs rather than beside one creature.
+And the eight interiors that were not taken are a **new axis of their own**:
+he asked for it in those words — *maybe new category like filling* — and
+`tools/director/src/fillings/` is it, with the two that shipped standing on the
+row as controls.
+
+The lesson the page should keep from this is the one the moves teach. VERSUS
+asks *which of these two, this week*. A look nobody is ready to choose between,
+and a look whose claim is really about every body rather than one, are both
+better filed where they can be browsed — and the answer *move it* costs the
+owner one sentence where a vote costs him a decision he does not want to make.
+
+## And a general note about the page itself, the same day
+
+He said the animation was often too short, and then said what he meant: the
+loop before a repeat has to keep longer, so a falling body is seen travelling
+further before it starts again — **not slowed down to fill the window it has**.
+`EVENT_CADENCE_SECONDS` went from two to six and no rate, life or duration in
+any look on the page moved. `TORCH · THE FALL` was worse than the constant: it
+replayed on exactly the length of its own fall, and a torch crosses the whole
+field in three quarters of a second, so the rock left the top, hit the hull and
+was immediately back at the top with no gap anywhere in it. It sends three a
+beat apart now, and waits a fall's worth of empty field after the last lands.
