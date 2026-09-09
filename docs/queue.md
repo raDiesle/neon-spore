@@ -740,6 +740,7 @@ will answer for.
 ## `apps/game/src/main.ts` is exactly at the 250-line ceiling
 
 - **Found:** 2026-09-08, claude/game-mouse-hover-effect
+- **Taken:** 2026-09-09, claude/queue-apps-game-src-main-ts-is-exactly-at-the-250-line
 - **Files:** `apps/game/src/main.ts`, `apps/game/src/shell.ts`
 
 Binding the mouse trail took three lines and put this file on 250 exactly, and
