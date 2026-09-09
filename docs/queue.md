@@ -704,3 +704,30 @@ correction the owner has already made once.
 Prove it with `bun run check` and `bun run test:determinism`, and watch THE
 BALLOON at tempo: the slower climb and the hold are both timing, and neither
 is visible in a number.
+
+## A fresh worktree has no workspace links and `bun install` says "no changes"
+
+- **Found:** 2026-09-09, claude/versus-ship-visual-redesign-4ca99d
+- **Files:** `docs/working-with-claude.md`, `.claude/skills/lane/SKILL.md`, `tools/checks/`
+
+This worktree had a `node_modules` and no `@neon-spore/*` links anywhere in it:
+`packages/*/node_modules` and `tools/*/node_modules` were simply absent. The
+symptom is twenty `TS2307: Cannot find module '@neon-spore/render'` errors from
+`bunx tsc --noEmit` in files nobody has touched — `tools/breaks/src/page.ts`,
+`tools/perf/held.ts`, `tools/director/src/style-colour.ts` and the rest — which
+reads exactly like a broken tree and cost a session most of a turn to tell
+apart from one.
+
+`bun install` does not fix it. It reads the lockfile, decides the tree is
+satisfied and prints `Checked 76 installs across 151 packages (no changes)`,
+which is the worst possible answer: it is a refusal that looks like a
+confirmation. **`bun install --force` fixes it in a second.**
+
+`docs/working-with-claude.md` names a neighbouring trap — MSYS writing the
+workspace link with a POSIX target `tsc` cannot follow — and this is not that
+one: there was no link at all, and the shell it was run from made no
+difference. Two things to do, and both are small. Write this failure down
+beside the other one, so the next session recognises it instead of debugging
+it; and give `tools/checks/` something that asserts a worktree can resolve
+`@neon-spore/render` before a check reports twenty module errors as if they
+were the work's fault.
