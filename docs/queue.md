@@ -205,7 +205,6 @@ arrow drawn on the line while the button under it is still dark.
 ## `bun run perf` never exercises a held control, so a new one is unmeasured
 
 - **Found:** 2026-09-07, claude/cannon-streak-shot-38da84
-- **Taken:** 2026-09-09, claude/queue-bun-run-perf-never-exercises-a-held-control-so-a
 - **Files:** `tools/perf/measure.ts`, `tools/perf/waves.ts`,
   `packages/render/src/lance-beam.ts`, `packages/render/src/lance.ts`
 
