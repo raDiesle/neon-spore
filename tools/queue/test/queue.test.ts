@@ -11,7 +11,7 @@ import {
   unclaimed,
 } from "../claim.js";
 import { removeItem } from "../edit.js";
-import { order, parseItems, pick, problemsIn } from "../queue.js";
+import { match, order, parseItems, pick, problemsIn } from "../queue.js";
 
 const ROOT = join(import.meta.dirname, "..", "..", "..");
 
@@ -241,6 +241,11 @@ describe("pick", () => {
 
   it("refuses a title that is not there", () => {
     expect(() => pick(items, "nothing like this")).toThrow(/nothing in the queue/);
+  });
+
+  it("says which of the two ways it landed, which is what `done` is guarded by", () => {
+    expect(match(items, "1").how).toBe("number");
+    expect(match(items, "Split the wave").how).toBe("title");
   });
 });
 

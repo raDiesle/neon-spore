@@ -186,15 +186,33 @@ export function order(queue: readonly Item[], parked: readonly Item[]): Item[] {
   return [...parked, ...queue];
 }
 
+/**
+ * How the CLI named an item, which is not decoration: a position is read off a
+ * listing that renumbers every time an entry leaves it, so a number said out
+ * loud a minute ago may mean a different entry now. A title cannot drift that
+ * way, and `run.ts` lets one through a guard a number is refused by.
+ */
+export type How = "number" | "title";
+
+export interface Match {
+  readonly item: Item;
+  readonly how: How;
+}
+
 /** Resolves what the CLI was given: a 1-based position, or part of a title. */
 export function pick(items: readonly Item[], arg: string): Item {
+  return match(items, arg).item;
+}
+
+/** The same resolution, saying which of the two ways it landed. */
+export function match(items: readonly Item[], arg: string): Match {
   const n = Number(arg);
   const byPosition = Number.isInteger(n) && n >= 1 ? items[n - 1] : undefined;
-  if (byPosition) return byPosition;
+  if (byPosition) return { item: byPosition, how: "number" };
   const needle = arg.toLowerCase();
   const hits = items.filter((i) => i.title.toLowerCase().includes(needle));
   const only = hits[0];
-  if (hits.length === 1 && only) return only;
+  if (hits.length === 1 && only) return { item: only, how: "title" };
   if (hits.length === 0) throw new Error(`nothing in the queue matches ${JSON.stringify(arg)}`);
   throw new Error(
     `${JSON.stringify(arg)} matches ${hits.length} entries: ${hits.map((h) => h.title).join(" | ")}`,

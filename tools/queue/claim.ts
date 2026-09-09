@@ -81,6 +81,31 @@ export function claimOn(item: Item, refs: readonly string[]): string | undefined
   return item.taken || undefined;
 }
 
+/**
+ * Whether an item is somebody *else's*, said as the branch holding it.
+ *
+ * The number in a listing is not a name. It renumbers every time an entry
+ * leaves the file, so a session draining two items reads the list once, says
+ * `queue done 1`, and finds that 2 has become a third entry that moved up. That
+ * happened on 9 September 2026: `done 2` took out an `Asks:` entry another lane
+ * was standing in, and it was caught only because the branch it went on to
+ * delete was checked out and refused to go. The recovery was
+ * `git checkout docs/queue.md`, which the next session would not have known to
+ * make.
+ *
+ * So a claim is asked about before a number is obeyed. The two ways past it are
+ * the two that cannot be a stale number: the tree whose own `HEAD` is the claim
+ * — the session that took the item — and a caller who wrote the title out.
+ */
+export function heldElsewhere(
+  item: Item,
+  refs: readonly string[],
+  head: string,
+): string | undefined {
+  if (branchFor(item) === head) return undefined;
+  return claimOn(item, refs);
+}
+
 /** The items nobody has taken, in queue order. */
 export function unclaimed(items: readonly Item[], refs: readonly string[]): Item[] {
   return items.filter((i) => claimOn(i, refs) === undefined);

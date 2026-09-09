@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { claimOn, takenMark, unclaimed } from "../claim.js";
+import { branchFor, claimOn, heldElsewhere, takenMark, unclaimed } from "../claim.js";
 import { clearTaken, markTaken, removeItem } from "../edit.js";
 import { parseItems } from "../queue.js";
 
@@ -117,5 +117,23 @@ describe("draining a marked entry", () => {
     expect(parseItems(rest, "queue").map((i) => i.title)).toEqual([
       "Finish the wave editor's cell panel",
     ]);
+  });
+});
+
+describe("heldElsewhere", () => {
+  const held = parseItems(markTaken(ONE, TITLE, MARK), "queue")[0]!;
+  const free = parseItems(ONE, "queue")[0]!;
+  const claim = branchFor(held);
+
+  it("names the branch holding an item, which is what the refusal says aloud", () => {
+    expect(heldElsewhere(held, ["main"], "claude/some-other-lane")).toBe(MARK);
+  });
+
+  it("lets the tree standing on the claim through — it is the session that took it", () => {
+    expect(heldElsewhere(held, [claim], claim)).toBeUndefined();
+  });
+
+  it("leaves an item nobody holds removable, as it was before the guard", () => {
+    expect(heldElsewhere(free, ["main"], "claude/some-other-lane")).toBeUndefined();
   });
 });

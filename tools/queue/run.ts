@@ -17,15 +17,43 @@
  */
 
 import { readFileSync, writeFileSync } from "node:fs";
-import { branchFor, claimOn, promptFor, statusLines, statusOf, unclaimed } from "./claim.js";
+import {
+  branchFor,
+  claimOn,
+  heldElsewhere,
+  promptFor,
+  statusLines,
+  statusOf,
+  unclaimed,
+} from "./claim.js";
 import { clearTaken, removeItem } from "./edit.js";
-import { type Item, order, parseItems, pick, problemsIn } from "./queue.js";
-import { claim, drop, hasBranch, onTrunk, PATHS, refs } from "./repo.js";
+import { type How, type Item, match, order, parseItems, pick, problemsIn } from "./queue.js";
+import { claim, drop, hasBranch, headBranch, onTrunk, PATHS, refs } from "./repo.js";
 
 function load(): Item[] {
   const queue = parseItems(readFileSync(PATHS.queue, "utf8"), "queue");
   const parked = parseItems(readFileSync(PATHS.parked, "utf8"), "parked");
   return order(queue, parked);
+}
+
+/**
+ * A number is not a name. It is read off a listing that renumbers the moment an
+ * entry leaves the file, so `done 2` said after `done 1` means an entry nobody
+ * looked at — and on 9 September 2026 that took an `Asks:` item out from under
+ * a lane that was working it. An item somebody holds is therefore removable
+ * only by the tree standing on its claim, or by a caller who wrote the title
+ * out; anything else is refused here, by name and with the holder said aloud.
+ * A free entry is untouched by this and goes as it always did.
+ */
+function mine(item: Item, how: How, verb: string): void {
+  if (how === "title") return;
+  const held = heldElsewhere(item, known, headBranch());
+  if (!held) return;
+  throw new Error(
+    `${JSON.stringify(item.title)} is taken — ${held} — and a position is not a name: ` +
+      `the listing renumbers. Say it in words if you mean it: ` +
+      `bun run queue ${verb} ${JSON.stringify(item.title)}`,
+  );
 }
 
 const [command, arg] = process.argv.slice(2);
@@ -85,7 +113,8 @@ if (!command || command === "list") {
   console.log("`bun run queue done` when it is out of the file; that drops the claim.");
 } else if (command === "release") {
   if (!arg) throw new Error("usage: bun run queue release <n|title>");
-  const item = pick(items, arg);
+  const { item, how } = match(items, arg);
+  mine(item, how, "release");
   const branch = branchFor(item);
   // Nothing to give back is not a failure, and it is the common case now that a
   // claim can be swept out from under a session by another lane's landing: the
@@ -106,7 +135,8 @@ if (!command || command === "list") {
   }
 } else if (command === "done") {
   if (!arg) throw new Error("usage: bun run queue done <n|title>");
-  const item = pick(items, arg);
+  const { item, how } = match(items, arg);
+  mine(item, how, "done");
   const path = PATHS[item.source];
   writeFileSync(path, removeItem(readFileSync(path, "utf8"), item.title));
   console.log(`Removed from docs/${item.source}.md: ${item.title}`);

@@ -38,6 +38,12 @@ export function hasBranch(branch: string): boolean {
   return git("rev-parse", "--verify", "--quiet", `refs/heads/${branch}`).ok;
 }
 
+/** The branch this tree is standing on, or "" when it is on a detached HEAD. */
+export function headBranch(): string {
+  const r = git("rev-parse", "--abbrev-ref", "HEAD");
+  return r.ok && r.out !== "HEAD" ? r.out : "";
+}
+
 /** Every branch this checkout can see — its own and, if it has one, origin's. */
 export function refs(): string[] {
   const r = git("for-each-ref", "--format=%(refname:short)", "refs/heads", "refs/remotes/origin");

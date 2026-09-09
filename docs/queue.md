@@ -147,29 +147,6 @@ Why the short label is what fits today, and what each of the three costs.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
-## `bun run queue done <n>` will remove an item somebody else is holding
-
-- **Found:** 2026-09-09, claude/queued-items-a47ead
-- **Taken:** 2026-09-09, claude/queue-bun-run-queue-done-n-will-remove-an-item-somebod
-- **Files:** `tools/queue/run.ts`, `tools/queue/test/queue.test.ts`
-
-The numbers come from the listing, and the listing renumbers every time an
-entry leaves it. A session draining two items in one sitting reads the list
-once, does the first, says `queue done 1`, does the second and says
-`queue done 2` — and 2 is now a third entry that moved up, claimed by another
-lane and half done in another worktree. That happened on 9 September 2026:
-`done 2` took out an `Asks:` entry a lane was standing in, and it was only
-noticed because the branch it tried to delete was checked out and refused.
-The recovery was `git checkout docs/queue.md`, which is a recovery the next
-session will not know to make.
-
-The claim is already written down and is the thing to check: an entry carrying
-`- **Taken:** <date>, <branch>` may only be removed by a tree whose own
-`HEAD` is that branch, or by a session that names the title rather than the
-number. Refuse anything else by name — say which branch holds it — and leave a
-free entry removable as it is today. `bun run queue release` has the same
-exposure and wants the same guard.
-
 ## THE TORCH's veil is drawn at full strength — `VEIL` has never done anything
 
 - **Found:** 2026-09-09, claude/queue-the-wisp-and-bulb-queen-carry-a-measured-cost-fr
