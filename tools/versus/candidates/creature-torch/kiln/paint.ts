@@ -21,10 +21,10 @@ import type { TorchFlameDraw } from "../../../../../packages/render/src/torch-lo
  * have to answer for every meteor tier at once.
  */
 
-/** How many embers cling to the stone. Fourteen: about half are on the near
- * side at any instant, which is seven marks on a two-tile body — the density
+/** How many embers cling to the stone. Eighteen: about half are on the near
+ * side at any instant, which is nine marks on a two-tile body — the density
  * `docs/style-guide.md` calls a surface rather than a texture. */
-const EMBERS = 14;
+const EMBERS = 18;
 
 /**
  * How far out the fire sits, as a share of the stone's radius. Just past the
@@ -34,7 +34,7 @@ const EMBERS = 14;
  * costs nothing at all, because the thing doing the hiding is a rock that was
  * being drawn anyway.
  */
-const REACH = 1.05;
+const REACH = 1.12;
 
 /** Seconds for one turn of the fire about the stone's vertical axis. Four and
  * a half, against a fall that lasts about three: an ember crosses the face
@@ -49,8 +49,8 @@ const EMBER_FLOOR = 0.45;
 /** How long one tongue of flame is, along the surface, as a share of the
  * stone's radius — and how wide. Long and thin: a tongue lying flat on the
  * skin, not a dot stuck to it. */
-const TONGUE = 0.34;
-const TONGUE_WIDE = 0.13;
+const TONGUE = 0.5;
+const TONGUE_WIDE = 0.22;
 
 const GOLDEN = Math.PI * (3 - Math.sqrt(5));
 
@@ -93,9 +93,10 @@ function tongue(
   const long = r * TONGUE;
   const wide = r * TONGUE_WIDE;
   const g = ctx.createLinearGradient(-long / 2, 0, long / 2, 0);
-  g.addColorStop(0, rgba(PALETTE.emberRim, 0));
-  g.addColorStop(0.45, rgba(PALETTE.emberRim, 0.85 * heat));
-  g.addColorStop(0.7, rgba(PALETTE.ember, 0.7 * heat));
+  g.addColorStop(0, rgba(PALETTE.ember, 0));
+  g.addColorStop(0.3, rgba(PALETTE.ember, 0.55 * heat));
+  g.addColorStop(0.52, rgba(PALETTE.emberRim, heat));
+  g.addColorStop(0.78, rgba(PALETTE.ember, 0.75 * heat));
   g.addColorStop(1, rgba(PALETTE.ember, 0));
   ctx.fillStyle = g;
   ctx.beginPath();

@@ -32,17 +32,35 @@ const REACH = 0.58;
 
 /** How wide one heap is, in the same share. Wide enough that neighbours
  * overlap at every rotation — a cloud with a gap in it is two clouds. */
-const HEAP = 0.62;
+const HEAP = 0.7;
 
 /** How many beats one turn of the mass takes. Six, and on the **beat** rather
  * than the wall clock: the pair is already counting this body's morph, so its
  * weather turning on the same count gives them one clock instead of two. */
 const TURN_BEATS = 6;
 
+/**
+ * The crest a heap takes where it is square to the light — the one colour this
+ * candidate brings that the shipped fill does not have.
+ *
+ * The shipped ramp runs between two darks, so a lambert read across them can
+ * only ever make the cloud *duller* than it already is: the lit end has to
+ * stand somewhere above the top of that ramp or the argument is a shading pass
+ * that costs contrast. It is the contour's own edge colour rather than a new
+ * hue — `veil.ts`'s `EDGE`, which is what the rim outside these heaps is
+ * already drawn in — so a lit shoulder reads as the same weather catching the
+ * light rather than as a second material.
+ */
+const CREST = "#A79EE8";
+
+/** Where the ramp hands over from the dark pair to the crest. Past two-thirds,
+ * so only the shoulders genuinely facing the light take any of it. */
+const SHOULDER = 0.66;
+
 /** What is left of a heap's light where it has turned away. A cloud's shadow
  * side is dark and never black — `docs/style-guide.md` — and this is the floor
  * that keeps the far half of the mass a surface rather than a hole. */
-const DIM = 0.3;
+const DIM = 0.2;
 
 const GOLDEN = Math.PI * (3 - Math.sqrt(5));
 
@@ -92,7 +110,13 @@ export function anvil(d: VeilMassDraw): void {
       // turning as one rigid lump. Off the beat, like everything else here.
       const swell = 1 + 0.12 * Math.sin(beats * 1.3 + i * 1.9);
       const lit = surfaceDim(DIM, f.lit);
-      const hex = mixHex(d.bottom, d.top, lit);
+      // Two segments rather than one: dark to the fill's own top across most of
+      // the ramp, and on past it to the crest for the shoulders that are
+      // actually facing the light.
+      const hex =
+        lit <= SHOULDER
+          ? mixHex(d.bottom, d.top, lit / SHOULDER)
+          : mixHex(d.top, d.haze(CREST), (lit - SHOULDER) / (1 - SHOULDER));
       const rad = r * HEAP * swell;
       ctx.save();
       ctx.translate(f.x * r, f.y * r);
