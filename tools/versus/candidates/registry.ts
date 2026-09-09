@@ -11,7 +11,6 @@ import { BULB_CLOVER } from "./bulb-shape/clover/index.js";
 import { BULB_PEAR } from "./bulb-shape/pear/index.js";
 import { BULB_PEBBLE } from "./bulb-shape/pebble/index.js";
 import { BULB_SPIKE } from "./bulb-shape/spike/index.js";
-import { BREAK_SHATTER } from "./creature-break/shatter/index.js";
 import { BULB_CHAMBERS } from "./creature-bulb/chambers/index.js";
 import { BULB_FILAMENT } from "./creature-bulb/filament/index.js";
 import { BULB_NUCLEUS } from "./creature-bulb/nucleus/index.js";
@@ -53,7 +52,6 @@ export const VARIANTS: Variant[] = [
   BULB_PEAR,
   BULB_PEBBLE,
   BULB_SPIKE,
-  BREAK_SHATTER,
   BULB_CHAMBERS,
   BULB_FILAMENT,
   BULB_NUCLEUS,

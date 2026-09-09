@@ -10,15 +10,35 @@ import type { Fall } from "./shatter-fall.js";
  * one `draw()` and the call site never learns anything about it
  * (`docs/versus.md`).
  *
- * What is unusual here, and worth saying plainly rather than leaving for
- * somebody to work out: **the shipped value of `wedges` is 0, and the shipped
- * picture is therefore nothing.** Every other look record on this page carries
- * the game's own paint and a candidate argues with it. This one carries the
- * game's own *answer*, and the game's answer to "what does a body come apart
- * into" has always been "no pieces at all" — a dozen three-pixel squares thrown
- * from where it stood (`effects-spark.ts`) and not one fragment of the thing
- * that died. So the left-hand side of this pair is a real state of the game and
- * not an empty seam: it is what the field draws today, and it draws no debris.
+ * **`wedges` was 0 until 9 September 2026, and the shipped picture was
+ * therefore nothing.** The game's answer to "what does a body come apart into"
+ * had always been "no pieces at all" — a dozen three-pixel squares thrown from
+ * where it stood (`effects-spark.ts`) and not one fragment of the thing that
+ * died, so a slick and a bulb and a throb all came apart identically and none
+ * of them came apart into anything.
+ *
+ * `creature:break` / `shatter` argued that the pieces should be pieces *of that
+ * body*, and the owner took it. The fracture is cut from the same contour
+ * `livingPath` draws with (`shatter.ts`), so the pieces put back together are
+ * the body again with no gaps, and the cut faces — the surfaces that were
+ * *inside* it, which no player had ever seen — are dark where the rim is
+ * bright. Nine wedges cut again at half their reach is the tuning `bun run
+ * breaks` settles on: a shattered core and slabs of skin off the rim, the
+ * difference between a body quartered and a body that took a hit. Then they
+ * fall, land on the hull and fade there, which is the owner's own answer to
+ * whether a break may leave anything behind.
+ *
+ * **The sparks came down to two fifths in the same breath**, and `sparkScale`
+ * exists for exactly that: eighteen fragments *and* twelve squares is the old
+ * effect playing on top of the new one. What is left of the squares is the
+ * flash — the instant of the hit, which the fracture is too slow to carry.
+ *
+ * **What to watch for, because the candidate's own card named it.** The column
+ * has to stay readable. Two people calling columns to each other need a lane to
+ * be clear the moment it is clear, and this puts eighteen fragments in one for
+ * most of a second and then leaves them lying on the ship. Hesitation over
+ * whether something is still falling in a lane already cleared is this look,
+ * and no amount of fading fixes it — the debris *is* the claim.
  *
  * `Debris` reads this on the frame a body is destroyed and never again, so a
  * patch applied mid-flight does not retune pieces already in the air — which is
@@ -59,15 +79,15 @@ export interface BreakLook {
 }
 
 export const BREAK_LOOK: BreakLook = {
-  wedges: 0,
-  innerAt: 1,
-  speedTiles: 2.6,
-  spin: 5,
-  gravityTiles: 11,
-  life: 1.1,
-  fade: 0.45,
-  skid: 0.25,
-  sparkScale: 1,
+  wedges: 9,
+  innerAt: 0.5,
+  speedTiles: 1.2,
+  spin: 6,
+  gravityTiles: 14,
+  life: 1,
+  fade: 0.4,
+  skid: 0.3,
+  sparkScale: 0.4,
   paint: facet,
 };
 
