@@ -140,6 +140,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## `bun run land` conflicts on `docs/queue.md` every time a lane drains an item
 
 - **Found:** 2026-09-09, claude/queue-drain-2026-09-09b
+- **Taken:** 2026-09-09, claude/queue-bun-run-land-conflicts-on-docs-queue-md-every-ti
 - **Files:** `tools/queue/run.ts`, `tools/land/run.ts`
 
 `bun run queue take` writes its `Taken:` line **on `main`** and pushes, which is
