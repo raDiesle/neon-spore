@@ -174,6 +174,7 @@ tests go. Nothing about the captures changes, so `bun run check` proves it.
 ## A frames capture test fails inside `bun run check` and passes on its own
 
 - **Found:** 2026-09-09, claude/queue-the-clasps-hand-painted-shield-has-never-been-dr
+- **Taken:** 2026-09-09, claude/queue-a-frames-capture-test-fails-inside-bun-run-check
 - **Files:** `tools/frames/test/opening.test.ts`
 
 `captureFrames past a wave's opening > takes the same picture of the same
