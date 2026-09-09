@@ -9,6 +9,11 @@ import type { Variant } from "../variant.js";
 import { BREAK_SHATTER } from "./creature-break/shatter/index.js";
 import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
 import { SKIN_VEIL } from "./creature-skin/veil/index.js";
+import { SLICK_BLOOM } from "./creature-slick/bloom/index.js";
+import { SLICK_GUT } from "./creature-slick/gut/index.js";
+import { SLICK_LATTICE } from "./creature-slick/lattice/index.js";
+import { SLICK_ROE } from "./creature-slick/roe/index.js";
+import { SLICK_SEDIMENT } from "./creature-slick/sediment/index.js";
 import { EYE_GLAZE } from "./eye-iris/glaze/index.js";
 import { EYE_TURN } from "./eye-iris/turn/index.js";
 import { GHOST_LATITUDE } from "./ghost-tears/latitude/index.js";
@@ -28,6 +33,11 @@ export const VARIANTS: Variant[] = [
   BREAK_SHATTER,
   METEOR_FORGE,
   SKIN_VEIL,
+  SLICK_BLOOM,
+  SLICK_GUT,
+  SLICK_LATTICE,
+  SLICK_ROE,
+  SLICK_SEDIMENT,
   EYE_GLAZE,
   EYE_TURN,
   GHOST_LATITUDE,

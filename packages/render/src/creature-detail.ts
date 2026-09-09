@@ -1,28 +1,19 @@
+import { type Interior, interiorFor } from "./body-interior.js";
 import { haloSprite } from "./glow.js";
 import type { Layout } from "./layout.js";
 
-/** Core and trailing filaments. Inner drawing is thinner than the outline
- * (docs/spec/graphics.md). */
-export function drawDetails(
-  ctx: CanvasRenderingContext2D,
-  isBulb: boolean,
-  rx: number,
-  ry: number,
-  rim: string,
-): void {
-  ctx.fillStyle = rim;
-  if (isBulb) {
-    ctx.beginPath();
-    ctx.arc(0, ry * 0.3, ry * 0.09, 0, Math.PI * 2);
-    ctx.fill();
-    return;
-  }
-  ctx.beginPath();
-  ctx.arc(-rx * 0.12, ry * 0.2, ry * 0.07, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.beginPath();
-  ctx.arc(rx * 0.12, ry * 0.2, ry * 0.07, 0, Math.PI * 2);
-  ctx.fill();
+/**
+ * What this body has inside it, through the record for its kind.
+ *
+ * The marks themselves moved to `body-interior.ts` on 9 September 2026, where
+ * a second answer to them can sit: the slick and the bulb are on more waves
+ * than anything else and their whole interior was three dots. Nothing about
+ * what is drawn changed in that move. The kind is passed rather than an
+ * `isBulb`, because there are three records now and the third is every other
+ * blob's — a candidate on the slick must not quietly redraw a dart.
+ */
+export function drawDetails(ctx: CanvasRenderingContext2D, kind: string, p: Interior): void {
+  interiorFor(kind).paint(ctx, p);
 }
 
 /** How many puffs the plume is made of, how far the last one stands above the

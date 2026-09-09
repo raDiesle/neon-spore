@@ -517,40 +517,6 @@ where the band meets the hull, so this slot must not claim its fields —
 contour, the wet socket and the gloss: a flat plate with a stroke around it is
 the one thing the panel look is not.
 
-## THE SLICK is on more waves than anything else and has one look
-
-- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
-- **Taken:** 2026-09-09, claude/queue-the-slick-is-on-more-waves-than-anything-else-an
-- **Files:** `packages/render/src/creature-body.ts`,
-  `packages/render/src/living-skin.ts`, `packages/render/src/effects-body.ts`,
-  `packages/render/src/sparks.ts`, `tools/versus/candidates/`,
-  `tools/director/src/versus-pose.ts`
-
-The first body a pair ever sees and the one they see most: it is on more waves
-than anything else in the game, so it is the body where a better look is worth
-the most and a flat one costs the most. The owner asked on 9 September 2026 for
-**five candidates, each completely different from the others** — not five
-temperatures of one idea, but five answers a person could tell apart from
-across a room.
-
-Three things are being asked at once and they are one slot, because a player
-does not see them separately: the **body** (depth, interior, a light that says
-which way is up), the **motion** (a swim that reads as grown rather than
-tweened), and **what a hit looks like** — the moment a shot lands on it, which
-happens more often than any other event in the game and is currently a spark
-and a break shared with everything else.
-
-The work in front of the candidates is a seam. The slick has no `-look.ts`
-record of its own: it is drawn through the shared `LIVING_SKIN`, which the open
-`creature:skin` slot already patches, so `bun test` would refuse a second slot
-claiming those fields. Cut `slick-look.ts` out of `creature-body.ts` the way
-`meteor-look.ts` was cut — the fields the slick's own drawing reads, its motion
-and its hit among them — then open `creature:slick` on it. `.claude/skills/depth`
-has the projection to call rather than re-derive, and a look is assembled from
-the named parts in `tools/shape-sheet` rather than invented from nothing. Both
-sides animate: the motion and the hit are the half a still cannot answer. Pose
-in `versus-pose.ts` in the same commit.
-
 ## THE BULB is on more waves than anything else and has one look
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067

@@ -69,6 +69,16 @@ export function drawLivingMark(
   ctx.fillStyle = tint.dark;
   ctx.fill(blob);
   strokeGlow(ctx, blob, tint.hex, Math.max(1, r * 0.15) / s, 1);
-  drawDetails(ctx, kind === "bulb", shape.rx, shape.ry, tint.rim);
+  // A mark is a still picture of one body: no rotation to undo and no clock,
+  // so an interior with a light or a pulse in it draws its resting frame.
+  drawDetails(ctx, kind, {
+    hex: tint.hex,
+    rim: tint.rim,
+    dark: tint.dark,
+    rx: shape.rx,
+    ry: shape.ry,
+    rot: 0,
+    t: 0,
+  });
   ctx.restore();
 }

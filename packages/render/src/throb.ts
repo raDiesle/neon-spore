@@ -134,7 +134,17 @@ export function drawThrobHalf(h: ThrobHalf): void {
   // un-turned frame, because a core is a mark *on* the ball.
   ctx.rotate(-turn);
   ctx.scale(squash, 1);
-  drawDetails(ctx, isBulb, rx, ry, tint.rim);
+  // The blob this half wears, not `"throb"`: the far side of a throb is drawn
+  // as the body it is made of, interior included.
+  drawDetails(ctx, isBulb ? "bulb" : "slick", {
+    hex: tint.hex,
+    rim: tint.rim,
+    dark: tint.dark,
+    rx,
+    ry,
+    rot: 0,
+    t: 0,
+  });
   ctx.restore();
 
   // The cut itself — the boundary meridian, in the two colours mixed, which is
