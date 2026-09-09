@@ -1,4 +1,5 @@
 import {
+  DEFAULT_CONFIG,
   fallTilesPerBeat,
   SHELL_COLS,
   type SpawnEntry,
@@ -50,46 +51,79 @@ function shellPieces(c: { col: number; shell?: number }): number {
 }
 
 /**
- * One torch coming down a lane, replayed at the speed it actually falls.
+ * Torches coming down three lanes a beat apart, at the speed they actually fall.
  *
- * **It is the fastest thing in the field**, so a fall-length cadence would hold
- * an empty lane for most of every replay: the rate is derived off the kind
- * rather than typed, so a torch that is re-timed re-times its own pose too.
+ * **A torch crosses the whole field in three quarters of a second.** It is the
+ * fastest thing in the game by a long way — `fallTilesPerBeat` gives it
+ * thirteen tiles a beat, where a slick gets one — and every number below
+ * follows from that one fact rather than from taste.
+ *
+ * **It used to replay on exactly its own fall, which is a strobe.** The
+ * cadence was `fallSeconds() / fallTilesPerBeat("torch")` and that is 0.745
+ * seconds, so the rock left the top of the field, hit the hull, and was
+ * immediately back at the top again — the same three quarters of a second
+ * over and over with no gap anywhere in it. The owner looked at both
+ * candidates in this slot on 9 September 2026 and said of each, separately,
+ * *"i cant see different — let the animation take more time before repeat, i
+ * want to see it fall down longer."* Under a second of picture, restarting
+ * eight times every six seconds, is not long enough to read a flame on a
+ * stone, let alone to tell two of them apart.
+ *
+ * Two things fix it, and neither slows the body down, which he ruled out in
+ * the same breath. There are **three of them, one beat apart in three lanes**,
+ * so something is falling for two full seconds instead of for three quarters
+ * of one — each still a single torch at the size the field draws one, which is
+ * what the slot asks about (`versus-pose.ts`), and a wave that sends three is
+ * an ordinary wave. And the replay waits for **one more fall's worth of empty
+ * field** after the last of them lands, which is the pause `pose-type.ts`
+ * argues is the thing that makes a repeat legible at all.
+ *
+ * Every number is derived off the kind, so a torch that is re-timed re-times
+ * its own pose too.
  *
  * The whole field rather than a tile crop, for `poses-surface.ts`'s reason: a
  * crop is worked out once from the world as it is handed over, and a body this
  * fast is out of a three-tile window before the second frame.
  */
+/** Torches in the pose, and one beat between them. Three, because two leaves a
+ * hole in the middle of the window and four has the first one long gone before
+ * the last has been looked at. */
+const TORCHES = 3;
+/** The lanes they use, far enough apart that two flames never overlap. */
+const TORCH_COLS = [2, 5, 8];
+
+/** How long one torch takes to cross the field, in seconds. The pose's whole
+ * clock is built out of this and a beat. */
+function torchFallSeconds(): number {
+  return fallSeconds() / fallTilesPerBeat("torch");
+}
+
 const TORCH_POSE: Pose = {
   name: "TORCH · THE FALL",
-  note: "One torch, alone, coming down at the speed it ships at — a dead two-column rock with a ring of its old flame still on it, and the fastest thing the pair ever has to cover. It replays on the length of its own fall.",
+  note: "Three torches a beat apart in three lanes, each coming down at the speed it ships at — a dead two-column rock with a ring of its old flame still on it, and the fastest thing the pair ever has to cover. The lane is never empty until the last of them has landed.",
   lookAt: "the fire on the stone — where it sits, and whether any of it goes behind the rock",
   crop: "field",
-  cadenceSeconds: fallSeconds() / fallTilesPerBeat("torch"),
+  // The last one arrives `TORCHES - 1` beats after the hand-over and takes its
+  // own fall to land; then one more fall's worth of empty field, so the eye
+  // re-reads before the next three come.
+  cadenceSeconds: (TORCHES - 1) * (60 / DEFAULT_CONFIG.bpm) + 2 * torchFallSeconds(),
   build: () => {
-    const entry: SpawnEntry = { beat: 0, col: COL, kind: "torch", color: null };
-    const w = fresh([entry]);
-    // One beat, which on this body is already two rows: enough that it is clear
-    // of the top of the field and dragging its tail, and not so much that the
-    // hand-over is halfway down.
+    const w = fresh(
+      TORCH_COLS.slice(0, TORCHES).map((col, i) => ({
+        beat: i,
+        col,
+        kind: "torch" as const,
+        color: null,
+      })),
+    );
+    // One beat, which is when the first of them appears at the top of the
+    // field: a spawn listed for beat 0 arrives on the first beat boundary, not
+    // on tick 0. Handing over any earlier is handing over an empty field.
     run(w, TPB);
     return w;
   },
 };
 
-/**
- * One thundercloud falling with a body inside it, on both screens at once.
- *
- * **The two seats disagree about this creature and that is the creature.**
- * Player 1 can see into the cloud and player 2 cannot, so the pair draws the
- * two halves of the disguise one above the other and a candidate is answering
- * for both at the same time — a fill that reads well opaque and hides the
- * colour when it is see-through has failed at the only job the cloud has.
- *
- * No colour is fired at it, so nothing shuts it: `shut` is 0 for the whole
- * replay, which is the state this body spends its life in. The angry red a
- * wrong colour brings is a different picture and not the one being judged.
- */
 const VEIL_POSE: Pose = {
   name: "VEIL · CARRYING",
   note: "A thundercloud coming down a lane with a slick or a bulb inside it, morphing from one to the other on the beat. The lightning is the pair's metronome; player 1 can see the body through the weather and player 2 sees only the weather.",
