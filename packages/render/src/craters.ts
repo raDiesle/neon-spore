@@ -2,6 +2,7 @@ import { crystalRadiusMul, METEOR, type Point } from "@neon-spore/content";
 import { isWardable, type Scar, spanOf } from "@neon-spore/sim";
 import { type Crater, type CraterShape, centreY, cutY } from "./crater-geom.js";
 import { CRATER_LOOK } from "./crater-look.js";
+import type { HullSkin } from "./hull.js";
 import { type Layout, tileCX } from "./layout.js";
 import { rockRadius, torchRotation } from "./torch.js";
 
@@ -158,9 +159,37 @@ export function clipOutMouths(ctx: CanvasRenderingContext2D, l: Layout, list: Cr
  * The holes themselves, drawn after the cracks so the opaque fill covers
  * whatever a crack drew across that patch — the crack stays in the skin, not
  * inside the crater.
+ *
+ * `skin` is the ship's own, and it is passed rather than read off a palette
+ * because there are three ships: player one's violet, player two's amber and
+ * THE MIRROR's blood (`seat-skin.ts`, `MIRROR_SKIN`).
+ *
+ * **`body` is the ship's own filled contour, and every hole is clipped to it.**
+ * The membrane is a curve and a crater knows one point on it — the skin
+ * directly over its own middle — so a pit measuring its own reach off that one
+ * point paints material *above the surface* wherever the hull falls away to one
+ * side of the hole. The owner saw exactly that on 9 September 2026. It is
+ * answered here and not in the paint because it is a fact about the ship rather
+ * than a taste about damage: inside the membrane is the only place a hole in the
+ * membrane can be, and no later candidate can argue with it
+ * (`crater-look.ts`).
+ *
+ * Guarded on there being a hole at all, so an undamaged ship pays nothing: a
+ * clip is a counted op, and every wave budget in
+ * `packages/render/test/wave-budget.test.ts` is measured on a frame with no
+ * craters in it.
  */
-export function drawCraters(ctx: CanvasRenderingContext2D, list: Crater[]): void {
-  for (const c of list) CRATER_LOOK.pit(ctx, c);
+export function drawCraters(
+  ctx: CanvasRenderingContext2D,
+  list: Crater[],
+  skin: HullSkin,
+  body: Path2D,
+): void {
+  if (list.length === 0) return;
+  ctx.save();
+  ctx.clip(body);
+  for (const c of list) CRATER_LOOK.pit(ctx, c, skin);
+  ctx.restore();
 }
 
 export type { Crater } from "./crater-geom.js";

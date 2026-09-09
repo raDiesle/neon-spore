@@ -20,7 +20,8 @@ import { JOIN_ORGANS } from "./panel-join/organs/index.js";
 import { JOIN_ROOF } from "./panel-join/roof/index.js";
 import { JOIN_SAC } from "./panel-join/sac/index.js";
 import { JOIN_VESSEL } from "./panel-join/vessel/index.js";
-import { CRATER_SPALL } from "./ship-crater/spall/index.js";
+import { CRATER_GRIT } from "./ship-crater/grit/index.js";
+import { CRATER_SHARDS } from "./ship-crater/shards/index.js";
 import { SLICK_BANK } from "./slick-motion/bank/index.js";
 import { SLICK_FLOAT } from "./slick-motion/float/index.js";
 import { SLICK_GLIDE } from "./slick-motion/glide/index.js";
@@ -47,7 +48,8 @@ export const VARIANTS: Variant[] = [
   JOIN_ROOF,
   JOIN_SAC,
   JOIN_VESSEL,
-  CRATER_SPALL,
+  CRATER_GRIT,
+  CRATER_SHARDS,
   SLICK_BANK,
   SLICK_FLOAT,
   SLICK_GLIDE,

@@ -323,3 +323,34 @@ replayed on exactly the length of its own fall, and a torch crosses the whole
 field in three quarters of a second, so the rock left the top, hit the hull and
 was immediately back at the top with no gap anywhere in it. It sends three a
 beat apart now, and waits a fall's worth of empty field after the last lands.
+
+## `ship:crater` / `spall`, taken and repaired, on 9 September 2026
+
+The owner watched four rocks go through the hull on `BREACH · ROCKS COMING
+THROUGH` and said to build it into the game. It is `crater-spall.ts` and
+`crater-pit.ts` now: the membrane around a hole is cut into eleven plates whose
+inner edges are the hole's own rim, each pulled a little toward the pit and
+turned a degree or two out of true, so a hole in the skin is seen to have taken
+the skin with it.
+
+Two things were wrong with it and neither was a matter of taste, which is why
+they were repaired on the way in rather than offered as a second question.
+
+**It drew material above the ship.** The plates were clipped to a flat
+rectangle at the skin line over the hole's own middle, and the membrane is a
+curve — so wherever the surface fell away to one side, plates stood in the sky
+beside the ship. Every crater is clipped to the hull's own filled contour now
+(`hull.ts`), which puts the rule where it belongs: a look may paint as far up
+as it likes and the ship decides where it stops. Nothing a later crater
+candidate does can bring the defect back.
+
+**It was violet on both seats.** Player two's ship is amber and THE MIRROR's is
+blood, and the paint was written against `PALETTE.hull`. The hole's colours are
+read off the `HullSkin` the hull was drawn with now, so each of the three ships
+wears holes of its own. The one thing left alone is the hot hairline along the
+cut: that is the *rock's* heat and not the ship's, and it is the same on every
+screen for the reason ammunition is.
+
+The slot stays open, because the owner asked in the same breath whether the
+hole could be more detailed — smaller stone pieces still crumbling off the top
+of it. What is above is the shipped side of that question now.

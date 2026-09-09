@@ -1,5 +1,6 @@
 import type { Crater } from "./crater-geom.js";
 import { pit } from "./crater-pit.js";
+import type { HullSkin } from "./hull.js";
 
 /**
  * THE ONE RECORD A CANDIDATE **CRATER** PATCHES.
@@ -17,5 +18,19 @@ import { pit } from "./crater-pit.js";
  * by `clipOutMouths` to break the outline, so a look that changed it would be
  * changing where the damage *is* rather than what it looks like. A look may
  * argue about the picture inside the hole and about nothing else.
+ *
+ * **"Inside the hole" is enforced rather than asked for.** `hull.ts` clips
+ * every crater to the ship's own filled contour before it calls this, so a
+ * look cannot draw a plate, a grain or a lip above the surface however it
+ * measures — which is the defect the first candidate through here shipped
+ * with, and the reason a look is handed the membrane's *colours* and not its
+ * shape.
+ *
+ * The `HullSkin` is the seat's (`seat-skin.ts`), and taking it is not
+ * optional: player two's ship is amber and THE MIRROR's is blood, so a hole
+ * painted out of `PALETTE` is player one's violet on two ships that are not
+ * his.
  */
-export const CRATER_LOOK: { pit: (ctx: CanvasRenderingContext2D, c: Crater) => void } = { pit };
+export const CRATER_LOOK: {
+  pit: (ctx: CanvasRenderingContext2D, c: Crater, skin: HullSkin) => void;
+} = { pit };

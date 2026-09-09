@@ -521,7 +521,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/craters.ts` | A rock's own mark: not the whole rock's silhouette, only the sliver of it that was ever inside the skin |
 | `packages/render/src/crater-geom.ts` | What a crater *is*, and the two heights everything about one is measured against |
 | `packages/render/src/crater-look.ts` | THE ONE RECORD A CANDIDATE **CRATER** PATCHES |
-| `packages/render/src/crater-pit.ts` | The hole itself, as the game has always drawn it |
+| `packages/render/src/crater-pit.ts` | The hole itself: a bound and three layers — the lid, the plates, the dark of what is gone, and the seam |
+| `packages/render/src/crater-spall.ts` | The ring of plates a hole tears out of the skin around it, in the seat's own colours |
 | `packages/render/src/creature-detail.ts` | Core and trailing filaments |
 | `packages/render/src/dart-look.ts` | WHAT A DART'S THRUST LOOKS LIKE, as a record rather than as the body of one function |
 | `packages/render/src/dart-path.ts` | Where a dart is going, drawn for the seat that is allowed to know: two dotted legs and a hollow body standing |

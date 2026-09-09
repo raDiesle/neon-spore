@@ -191,9 +191,8 @@ export function drawHull(
     h: bottom - top,
     half: LIGHT_HALF.hull,
   });
-  // Every crater's geometry, whether or not its hole is open yet — a crack's
-  // *position* (`scars.ts`'s `crackOrigin`) reads this unconditional list, so
-  // it never moves once drawn. The rim goes round every OPEN crater, not
+  // Every crater's geometry, open or not — a crack's *position* (`scars.ts`'s
+  // `crackOrigin`) reads this unconditional list, so it never moves once drawn. The rim goes round every OPEN crater, not
   // over it: a hole in the skin that still has the ship's own bright outline
   // running across its mouth is not a hole, it is a stain. `craterVisible`
   // keeps an open crater — and so this gap in the rim — out of the picture
@@ -202,11 +201,11 @@ export function drawHull(
   const openCraters = allCraters.filter((c) => craterVisible(c.x));
   strokeHullRim(ctx, l, body, hullPercent, openCraters, skin_.rim);
 
-  // Cracks first, each rock's dent after: its opaque fill paints over
-  // whatever a crack drew across that patch, so the crack reads as staying
-  // in the skin around the crater rather than running into it. `crackArrived`
-  // is a rock's own arrival, not its crater opening — a crack belongs to the
-  // impact, and shows long before the hole itself is allowed to.
+  // Cracks first, each rock's dent after: its opaque fill paints over whatever
+  // a crack drew across that patch, so the crack reads as staying in the skin
+  // around the crater rather than running into it. `crackArrived` is a rock's
+  // own arrival, not its crater opening — a crack belongs to the impact, and
+  // shows long before the hole itself is allowed to.
   drawScars(
     ctx,
     l,
@@ -217,7 +216,8 @@ export function drawHull(
     allCraters,
     crackArrived,
   );
-  drawCraters(ctx, openCraters);
+  // `filled`: a hole is clipped to the ship, never a mark in the sky (craters.ts).
+  drawCraters(ctx, openCraters, skin_, filled);
   const on = (x: number) => surface(f, x);
   drawShieldRim(ctx, l, mood.armed, time, at, on, mood.resonance ?? 0);
   const tip = surface(f, f.cannonX);
