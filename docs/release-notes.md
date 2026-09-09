@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 6780a7e1 — Three enemies offered a surface instead of a coat of paint
+
+A worm, a throb and a membrane each get a VERSUS candidate written to the direction the owner named on 8 September: a body's silhouette is posed and its surface is *placed*, so a mark sits at a longitude and a latitude, is carried round by a turn, and is lit by a key that does not move. Each takes a creature the game already draws well and argues that what is missing is not more paint but a far side.
+
 ## 2026-09-09 · f588cf58 — bun run port says what is running, not only what would be tried
 
 `bun run dev:once` and `bun run preview:once` set their port variable to `0`, so neither candidate `bun run port` prints is theirs: 58200 in the session that filed this, on a tree whose listing said 4174. Both statements were true and only one was about a running server, so three `curl: (7)`s later the conclusion was that nothing had started. The right number is printed once, on the supervisor's own stdout, which a session reading it with `| head` never sees.
