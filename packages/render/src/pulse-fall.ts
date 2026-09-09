@@ -41,7 +41,13 @@ export function drawArrivals(
   const cfg = view.world.cfg;
   const judged = seat === 1 ? boss.judged1 : boss.judged2;
   const from = seat === 1 ? boss.from1 : boss.from2;
-  const tick = view.world.tick;
+  // **The chart is read ahead of the simulation by this device's own input
+  // delay** (`ViewState.leadTicks`), so a body reaches the line on the frame a
+  // thumb has to land to be judged on the beat. The four buttons under it take
+  // the same lead off the same field (`pulse-button.ts`); what becomes of a
+  // body nobody answered does not, and cannot — a miss is a verdict, and a
+  // verdict is a fact about the tick it was reached on (`pulse-drop.ts`).
+  const tick = view.world.tick + (view.leadTicks ?? 0);
   const r = bodyRadius(field);
   for (let i = from; i < boss.notes.length; i++) {
     const note = boss.notes[i];

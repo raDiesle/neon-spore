@@ -60,6 +60,11 @@ export function drawBand(
   open: boolean,
   time: number,
   controls?: ControlSet,
+  /** This device's own input delay, in ticks, for the one kind of face that
+   * has to be drawn ahead of the simulation to be pressed on time
+   * (`ViewState.leadTicks`, `pulse-button.ts`). 0 everywhere else, and 0 for
+   * every panel with no chart falling at it. */
+  lead = 0,
 ): void {
   // A boss can take the controls away (`mirrorHoldsControls`). When it has,
   // the band is drawn dead and says so: a control that quietly does nothing
@@ -94,8 +99,8 @@ export function drawBand(
   ctx.font = '9px "Courier New",monospace';
   ctx.textAlign = "center";
 
-  if (showsCannon(l.role)) drawHalf(ctx, l, world, set, 1, armed, open, time);
-  if (showsShield(l.role)) drawHalf(ctx, l, world, set, 2, armed, open, time);
+  if (showsCannon(l.role)) drawHalf(ctx, l, world, set, 1, armed, open, time, lead);
+  if (showsShield(l.role)) drawHalf(ctx, l, world, set, 2, armed, open, time, lead);
 
   ctx.restore();
   if (locked) drawLock(ctx, l);
@@ -132,6 +137,7 @@ function drawHalf(
   armed: boolean,
   open: boolean,
   time: number,
+  lead = 0,
 ): void {
   for (const c of setControls(set, player)) {
     if (c.form === "strip") drawStripFor(ctx, l, world, c);
@@ -140,7 +146,7 @@ function drawHalf(
   // layout, and `touchDown` asks it the same question with the same set — so
   // there is one answer to "where is this button", not two that have to agree.
   for (const lobe of bandLobes(l, set, player)) {
-    drawLobe(ctx, l, lobe.circle, lobe.control, world, armed, open, time);
+    drawLobe(ctx, l, lobe.circle, lobe.control, world, armed, open, time, lead);
   }
 }
 

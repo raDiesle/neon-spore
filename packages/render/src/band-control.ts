@@ -45,11 +45,16 @@ export function drawLobe(
   armed: boolean,
   open: boolean,
   time = 0,
+  /** This device's own input delay, in ticks, for the one kind of face that
+   * has to be drawn ahead of the simulation to be pressed on time
+   * (`ViewState.leadTicks`, `pulse-button.ts`). 0 everywhere else, and 0 for
+   * every panel with no chart falling at it. */
+  lead = 0,
 ): void {
   const { x, y, r } = circle;
   const skin = seatSkin(l.role);
   drawLobeSocket(ctx, x, y, r, l.dpr, skin.lip);
-  drawFace(ctx, circle, c, world, armed, open, skin, time);
+  drawFace(ctx, circle, c, world, armed, open, skin, time, lead);
   // A control this wave's fault has taken over is drawn and then drawn broken,
   // over the top of its own face — the panel keeps every button where it was
   // and the damage is what is new (`malfunction-look.ts`). It runs for the
@@ -72,6 +77,11 @@ function drawFace(
   /** The frame clock, in seconds. One control reads it: a crank nobody is
    * turning breathes (`crank-dial.ts`). */
   time: number,
+  /** This device's own input delay, in ticks, for the one kind of face that
+   * has to be drawn ahead of the simulation to be pressed on time
+   * (`ViewState.leadTicks`, `pulse-button.ts`). 0 everywhere else, and 0 for
+   * every panel with no chart falling at it. */
+  lead = 0,
 ): void {
   const { x, y, r } = circle;
   // The first two are lit for exactly as long as their window is open, so
@@ -117,7 +127,7 @@ function drawFace(
   // sockets as everything else and this branch is the whole of the difference
   // (`pulse-button.ts`).
   if (pulseLobeOf(c.id) !== null) {
-    drawPulseLobe(ctx, circle, c.id, world, skin);
+    drawPulseLobe(ctx, circle, c.id, world, skin, lead);
     return;
   }
   // PINBALL's two, on the band for the same reason and after the same request:

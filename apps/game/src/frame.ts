@@ -66,7 +66,12 @@ export interface FrameParts {
     checkpoint: () => void;
     frame: (ms: number) => void;
     tally: (wave: number, score: number) => void;
-    status: () => { names: Parameters<Canvas2DRenderer["draw"]>[0]["names"] };
+    status: () => {
+      names: Parameters<Canvas2DRenderer["draw"]>[0]["names"];
+      /** This device's input delay in ticks — the lead THE PULSE's chart is
+       * drawn at, and 0 whenever there is no other phone. */
+      delayTicks: number;
+    };
   };
   /** The wave's own clock and its event handler (`waves.ts`). */
   progression: { tickOpening: (seconds: number) => void; handle: (events: SimEvent[]) => void };
@@ -95,6 +100,7 @@ export function startFrames(p: FrameParts): Frames {
   const idle = createMenuIdle(p.menuIdle ?? null);
 
   const paint = (dt: number): void => {
+    const status = p.link.status();
     p.audio.frame(p.world, frameEvents);
     p.haptics.frame(frameEvents);
     p.renderer.draw({
@@ -112,7 +118,12 @@ export function startFrames(p: FrameParts): Frames {
       running: p.run.running(),
       hand: p.hand.current,
       pointer: p.pointer(),
-      names: p.link.status().names,
+      names: status.names,
+      // The one thing on this screen that has to be drawn ahead of the
+      // simulation: a chart judged on *when a thumb landed* cannot afford the
+      // tenth of a second delayed lockstep schedules a press into
+      // (`ViewState.leadTicks`). Solo it is 0 and nothing leads.
+      leadTicks: status.delayTicks,
     });
     // Over the frame rather than instead of it: the field goes on moving behind
     // the intro's pages, which is why they are drawn on this canvas at all.

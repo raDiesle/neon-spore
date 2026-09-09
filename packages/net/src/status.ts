@@ -88,6 +88,15 @@ export interface LinkStatus {
    */
   delayMs: number;
   /**
+   * The same lay counted in ticks, and 0 while there is no other seat. It is
+   * here beside `delayMs` rather than divided back out of it because one
+   * screen leads its own picture by exactly this many ticks — THE PULSE's
+   * chart, so that a thumb landing on the line produces a command landing on
+   * the note (`ViewState.leadTicks`) — and a number recovered from a rounded
+   * millisecond is a number that can be a tick out.
+   */
+  delayTicks: number;
+  /**
    * How long the run has been waiting on the other phone, in milliseconds, and
    * 0 whenever it is not. A stall is the one fault a player can *do* something
    * about — wait it out, or leave and come back later — and neither choice can
@@ -134,6 +143,7 @@ export const SOLO_STATUS: LinkStatus = {
   names: ["", ""],
   best: null,
   delayMs: 0,
+  delayTicks: 0,
   stalledMs: 0,
   awayMs: 0,
   desyncTick: null,

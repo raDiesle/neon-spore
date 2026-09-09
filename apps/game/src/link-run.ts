@@ -59,6 +59,13 @@ export interface Run {
   receive(message: ServerMessage): boolean;
   readonly slack: number;
   readonly delayMs: number;
+  /**
+   * The same lay in ticks rather than milliseconds, and 0 while there is no
+   * scheduler. One screen needs it as a count of ticks rather than as a
+   * duration: THE PULSE's chart is drawn this far ahead of the simulation, so
+   * a press on the line lands on the note (`ViewState.leadTicks`).
+   */
+  readonly delayTicks: number;
   readonly desyncTick: number | null;
   /**
    * Inputs the peer filed for a tick it had already promised to leave alone,
@@ -194,6 +201,10 @@ export function createRun(o: RunOptions): Run {
 
     get delayMs() {
       return lockstep ? Math.round(lockstep.delay * msPerTick) : 0;
+    },
+
+    get delayTicks() {
+      return lockstep?.delay ?? 0;
     },
 
     get desyncTick() {

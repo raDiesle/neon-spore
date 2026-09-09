@@ -66,19 +66,28 @@ const FADE_TICKS = 45;
  * `world.boss`, the clock is `world.tick` — so nothing has to be threaded down
  * through five signatures to reach a face.
  */
-export function pulseLaneLight(boss: PulseState, world: World, seat: 1 | 2): number[] {
+export function pulseLaneLight(
+  boss: PulseState,
+  world: World,
+  seat: 1 | 2,
+  /** This device's input delay, in ticks. The same lead the bodies fall on
+   * (`pulse-fall.ts`) — a button still dark under an arrow already on the line
+   * is the picture disagreeing with itself. */
+  lead = 0,
+): number[] {
   const out = [0, 0, 0, 0];
   if (boss.phase !== "play") return out;
   const cfg = world.cfg;
+  const tick = world.tick + lead;
   const judged = seat === 1 ? boss.judged1 : boss.judged2;
   const from = seat === 1 ? boss.from1 : boss.from2;
   for (let i = from; i < boss.notes.length; i++) {
     const note = boss.notes[i];
     if (note === undefined) continue;
-    if (pulseNoteTick(cfg, boss.startTick, note) - world.tick > cfg.pulseLeadTicks) break;
+    if (pulseNoteTick(cfg, boss.startTick, note) - tick > cfg.pulseLeadTicks) break;
     if (judged[i] !== 0) continue;
     if (pulseVeiled(note, seat)) continue;
-    const at = Math.max(0, Math.min(1, pulseNoteAt(cfg, boss.startTick, note, world.tick)));
+    const at = Math.max(0, Math.min(1, pulseNoteAt(cfg, boss.startTick, note, tick)));
     const lane = pulseLaneIndex(note.lane);
     out[lane] = Math.max(out[lane] ?? 0, at ** 3);
   }
@@ -110,13 +119,14 @@ export function drawPulseLobe(
   id: ControlId,
   world: World,
   skin: SeatSkin,
+  lead = 0,
 ): void {
   const it = pulseLobeOf(id);
   if (it === null) return;
   const { x, y, r } = circle;
   const index = pulseLaneIndex(it.lane);
   const boss = pulseRound(world);
-  const near = boss === null ? 0 : (pulseLaneLight(boss, world, it.seat)[index] ?? 0);
+  const near = boss === null ? 0 : (pulseLaneLight(boss, world, it.seat, lead)[index] ?? 0);
   const press = boss === null ? 0 : pressed(boss, world, it.seat, index);
   const swell = Math.max(near, press);
   const color = pulseLaneColor(it.lane);

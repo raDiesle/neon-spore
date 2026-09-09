@@ -94,6 +94,29 @@ export interface ViewState {
    * never was.
    */
   bare?: boolean;
+  /**
+   * How many ticks ahead of the simulation this device's picture of a *chart*
+   * should run, and 0 for anything with no link.
+   *
+   * Delayed lockstep schedules every press `delayTicks` into the future
+   * (`packages/net/src/lockstep.ts`), and every other control in the game
+   * shrugs that off: a cannon a tenth of a second late is a cannon in the
+   * right column. THE PULSE cannot, because the whole round is *when a thumb
+   * landed* — its clean window is eight ticks and the delay is twelve, so on
+   * two devices a player pressing exactly on the line was judged past PERFECT
+   * every time. Drawing the arrow reaching the line this many ticks early is
+   * what puts the press back on the note.
+   *
+   * **It is a fact about one pair of eyes, like `hand`.** `InputDelay` moves
+   * it as the link is measured and the two devices never agree on it, which is
+   * exactly why leading by it is safe: nothing here reaches the simulation, so
+   * two screens running different leads are still one game.
+   *
+   * The sound does not lead and must not — the song is on the true clock, and
+   * a picture ahead of it by the delay is what makes a press *to the picture*
+   * land on the beat the music played (`packages/audio/src/mixer-pulse.ts`).
+   */
+  leadTicks?: number;
 }
 
 /**

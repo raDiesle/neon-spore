@@ -139,7 +139,7 @@ export function drawOverlays(
   // field because it is about the pair rather than about anything standing in
   // a column (`siren.ts`).
   drawCommsSiren(ctx, l, world, view.time);
-  drawBand(ctx, l, world, isArmed, isOpen, view.time, view.controls);
+  drawBand(ctx, l, world, isArmed, isOpen, view.time, view.controls, view.leadTicks ?? 0);
   // Over the finished band: whichever control a desk's mouse is resting on.
   drawControlHover(ctx, l, view);
   drawOverlay(ctx, l, view);

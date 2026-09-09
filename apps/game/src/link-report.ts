@@ -52,6 +52,7 @@ export function report(p: ReportParts): LinkStatus {
     names: p.names,
     best: p.best,
     delayMs: p.run.delayMs,
+    delayTicks: p.run.delayTicks,
     stalledMs: p.run.stalledMs,
     awayMs: p.socket?.awayMs ?? 0,
     desyncTick: p.run.desyncTick,

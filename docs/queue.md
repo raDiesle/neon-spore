@@ -137,44 +137,6 @@ Why the short label is what fits today, and what each of the three costs.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
-## THE PULSE judges a press ~100 ms late on two devices
-
-- **Found:** 2026-09-07, claude/ddr-boss-concept-57c9c8
-- **Taken:** 2026-09-09, claude/queue-the-pulse-judges-a-press-100-ms-late-on-two-devi
-- **Files:** `packages/sim/src/config-pulse.ts`, `packages/render/src/pulse-fall.ts`,
-  `packages/render/src/pulse-drop.ts`, `packages/render/src/pulse-button.ts`,
-  `packages/render/src/renderer.ts`, `apps/game/src/main.ts`, `packages/net/src/delay.ts`
-
-Delayed lockstep schedules every press `delayTicks` into the future — 12 ticks
-at the default, a tenth of a second (`packages/net/src/lockstep.ts`). Every
-other control in the game shrugs that off: a cannon a tenth of a second late is
-a cannon in the right column. THE PULSE cannot, because the whole round is
-*when a thumb landed*: the clean window is 8 ticks and the outer one 18, so on
-two devices a player pressing exactly on the line is judged 12 ticks late —
-past PERFECT every time and past GOOD on a link that measured worse. Solo on
-one device the delay is nought and the round is judged correctly, which is why
-nothing about this shows up in `bun test` or in the frame test.
-
-The fix is a **render-side lead** and not a simulation change: draw each arrow
-reaching the line `delayTicks` *before* its judged tick, so a thumb landing on
-the picture produces a command landing on the note. It has to come from the
-device's own current delay rather than from `cfg.inputDelayTicks`, because
-`InputDelay` moves it as the link is measured and the two devices never agree
-on it (`packages/net/src/delay.ts` says so in its header) — which is exactly
-why it is safe: it is a fact about one pair of eyes, like `ViewState.hand`.
-
-Add an optional `leadTicks` to `ViewState`, default 0, subtract it inside
-`pulseNoteAt`'s caller in `pulse-fall.ts`, and have `main.ts` feed it from the
-link's `delay` when there is a link and 0 when there is not. A unit test can
-prove the arithmetic: at `leadTicks = 12`, an arrow whose judged tick is T is
-drawn on the line at tick T − 12.
-
-There are **three** callers of the chart's clock in render/ now, not one: the
-arrows falling (`pulse-fall.ts`), the arrows dropping into the ship
-(`pulse-drop.ts`) and the light on the four buttons (`pulse-button.ts`). All
-three have to take the same lead or the picture will disagree with itself — an
-arrow drawn on the line while the button under it is still dark.
-
 ## `bun run perf` never exercises a held control, so a new one is unmeasured
 
 - **Found:** 2026-09-07, claude/cannon-streak-shot-38da84

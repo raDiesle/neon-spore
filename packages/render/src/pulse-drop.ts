@@ -39,6 +39,15 @@ import type { ViewState } from "./renderer.js";
  * same fall — and it is also why a round that restarts cannot leave one
  * hanging in the air, which is the trap anything remembered across a frame
  * falls into here (`render-state.ts`).
+ *
+ * **And it is the one part of the round that does not take the picture's
+ * lead.** The arrows fall `ViewState.leadTicks` ahead of the simulation so a
+ * thumb landing on the line produces a command landing on the note
+ * (`pulse-fall.ts`), and a drop cannot: it starts on the tick a body was given
+ * up on, and *given up on* is a verdict this device only holds once the tick
+ * has run. So a body rests in its socket for the length of the lead on top of
+ * its own grace period, and then goes through — which is the honest picture,
+ * because for that stretch nobody has decided anything about it yet.
  */
 
 /** How long a drop is on the screen after it expires, in ticks. About a beat. */

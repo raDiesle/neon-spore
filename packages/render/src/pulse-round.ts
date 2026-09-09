@@ -166,7 +166,7 @@ export function drawPulseRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
   drawSockets(ctx, view, boss, field, seat);
   drawWord(ctx, l, field, view, boss, seat, other);
 
-  drawBand(ctx, l, world, false, false, view.time, view.controls);
+  drawBand(ctx, l, world, false, false, view.time, view.controls, view.leadTicks ?? 0);
   drawHud(ctx, l, view);
   ctx.textAlign = "center";
   if (boss.phase === "verdict" || boss.phase === "spent") drawPulseVerdict(ctx, l, boss);
