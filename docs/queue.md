@@ -454,6 +454,7 @@ every round's row moves.
 ## `bun run port` names a director port `bun run dev:once` does not take
 
 - **Found:** 2026-09-08, claude/frames-drive-controls-q4
+- **Taken:** 2026-09-09, claude/queue-bun-run-port-names-a-director-port-bun-run-dev-o
 - **Files:** `tools/port.ts`, `tools/dev/supervise.ts`, `tools/frames/shot.ts`
 
 `bun run port` in a worktree answers `director 4174 http://localhost:4174`, and
