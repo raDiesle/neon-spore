@@ -361,6 +361,7 @@ every green check taken through it since is worth less than it looked.
 ## Five files sit exactly on the 250-line ceiling and pay a tax on every edit
 
 - **Found:** 2026-09-07, claude/cannon-streak-shot-38da84
+- **Taken:** 2026-09-09, claude/queue-five-files-sit-exactly-on-the-250-line-ceiling-a
 - **Files:** `packages/render/src/canvas2d.ts`, `packages/render/src/effects.ts`,
   `tools/director/src/pose-kit.ts`, `tools/frames/press.ts`,
   `packages/content/src/silhouettes.ts`
