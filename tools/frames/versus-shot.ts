@@ -48,7 +48,8 @@ if (!slot || !name) {
   console.error("       --rate    the pair's own rate, e.g. 0.25 — better than a freeze");
   console.error("            when a slow replay is what shows the thing");
   console.error("       --zoom    the pair's magnifier, e.g. 2");
-  console.error("       --wait    milliseconds to settle before the shot");
+  console.error("       --wait    milliseconds to settle before the shot — by default about");
+  console.error("            twice --freeze, which is how long a pending freeze takes to land");
   console.error("       --at      a rectangle inside the picture, x,y,w,h, magnified");
   console.error("       --element which element to photograph; .versus-row for the whole");
   console.error("            candidate, notes and all. Default .versus-stage, the phones");
@@ -60,7 +61,22 @@ const freeze = flag("freeze");
 const only = flag("only");
 const rate = flag("rate");
 const zoom = flag("zoom");
-const wait = flag("wait") ?? "3000";
+/**
+ * How long to let the page run before the camera fires.
+ *
+ * **Derived from `--freeze` rather than fixed, because a pending freeze runs
+ * the pair one simulated tick per animation frame** (`versus-pair-freeze.ts`,
+ * reason 2). At 120 ticks a second and a browser drawing sixty frames a
+ * second, a freeze `n` seconds in needs about `2n` seconds of wall clock to
+ * arrive — so the old flat three seconds photographed anything past about one
+ * and a half seconds of simulated time *at* one and a half seconds, silently
+ * and with no error anywhere. Two shots of a four-second pose came back
+ * identical to a shot of a one-second one, which is how this was found.
+ *
+ * A second of headroom on top for the bundle and the first paint, and never
+ * less than the three seconds this always waited. `--wait` still overrides.
+ */
+const wait = flag("wait") ?? String(Math.max(3000, Math.ceil(Number(freeze ?? 0) * 2000) + 1000));
 /**
  * A rectangle inside the picture, magnified — `shot.ts`'s own `--at`, forwarded.
  *

@@ -27,10 +27,17 @@ import { spall } from "./paint.js";
  * contour reads as damage when nothing about it is moving, the engine is worth
  * more than one effect.
  *
- * **It is a still, and it should be.** A crater is cut once and is there for
- * the rest of the run; `docs/versus.md`'s rule of 8 September 2026 is that a
- * candidate animates only when motion is what is being judged, and nothing here
- * moves. The pose is `BREACH · A SCAR` and it carries no cadence.
+ * **It is watched rather than photographed, and the owner asked for that.** It
+ * opened as a still on the argument that a crater is cut once and then simply
+ * sits there, which is true of the hole and false of everything around it: a
+ * crater is *revealed*, by the rock rolling out of it a second and a half after
+ * it landed (`rock-drift.ts`), so the look does not exist on any frame until
+ * something has moved. And the way this candidate loses — a hull carrying
+ * several holes at once stops reading as one surface — cannot be seen on a
+ * picture of one hole at all. The pose is `BREACH · ROCKS COMING THROUGH`
+ * (`poses-damage.ts`): four rocks into four columns, one of them two tiles
+ * wide, replayed every seven and a half seconds, of which the last two are
+ * five holes across a hull with nothing moving on it.
  *
  * **How it can lose, and the pair should watch for exactly this.** *The hull
  * stops reading as one surface.* The membrane is what the whole field is read
@@ -65,8 +72,4 @@ export const CRATER_SPALL: Variant = {
       fields: { pit: spall },
     }),
   ],
-  // A crater is on every frame from the beat it is cut, and nothing about it
-  // moves, so a live pair would be two identical stills with a rate slider
-  // under them. One frozen picture is the honest instrument here.
-  screenshot: { freezeSeconds: 2.5 },
 };

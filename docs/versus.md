@@ -28,6 +28,21 @@ What stays forbidden either way is **a still judged against something that
 moves**, which is the defect proposal 3 is rejected over below. Both sides
 animate, or neither does.
 
+### A look that only exists after something moves is watched — 9 September 2026
+
+The owner asked for the crater slot to be shown as *"full animated sequence.
+several meteors from different horizontal places crashing into ship and then
+removing from there"*, and it sharpens the rule above rather than bending it.
+A hole in the hull is as static as a colour once it is there — but it is not
+there until a rock has landed in it and rolled back off (`rock-drift.ts`), so
+there is no frame of the game that carries the look until something has moved.
+Two questions decide it, and both have to answer yes for a still: **is this
+look on screen without an event**, and **is one instance of it the whole
+question**. A crater fails both — its own candidate says it will be decided by
+a hull wearing three or four holes at once — so `ship:crater` is judged live,
+on `BREACH · ROCKS COMING THROUGH`, and a candidate whose look is on every
+frame regardless still gets the picture.
+
 ## Photographing one — 9 September 2026
 
 `CLAUDE.md` says to send the owner a picture, and taking one of a live pair was

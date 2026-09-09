@@ -14,7 +14,7 @@ import {
   POSE_TPB as TPB,
 } from "./pose-kit.js";
 import { BODIES_POSE, DART_RUN_POSE, GHOST_POSE } from "./poses-bodies.js";
-import { BREAK_POSE, METEOR_HIT_POSE } from "./poses-damage.js";
+import { BREACH_ROCKS_POSE, BREAK_POSE, METEOR_HIT_POSE } from "./poses-damage.js";
 
 /**
  * The states a candidate look is judged on — one per slot that had none.
@@ -196,6 +196,7 @@ export const VERSUS_POSES: Pose[] = [
   BAND_POSE,
   METEOR_HIT_POSE,
   BREAK_POSE,
+  BREACH_ROCKS_POSE,
   BODIES_POSE,
   DART_RUN_POSE,
   GHOST_POSE,

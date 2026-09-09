@@ -133,12 +133,20 @@ const SLOT_POSE: Record<string, string> = {
   // whose subject is what happens *to* something rather than what it is made
   // of. A break is event-shaped in the sharpest way this map has met — the body
   // it is about stops existing halfway through — so its pose hands the world
-  // over with the bolt still in the air and replays on the two-second clock. A
-  // crater is the opposite and needs no clock at all: it is cut into the hull
-  // once and is still there at the end of the run, which is the whole of what
-  // the pair is being asked about.
+  // over with the bolt still in the air and replays on the two-second clock.
+  //
+  // A crater was mapped to the *still* `BREACH · A SCAR` the same day, on the
+  // argument that a hole is cut once and is then simply there. The owner asked
+  // for the sequence instead, and he was right about the picture: a crater is
+  // only *revealed* when the rock that made it rolls out of it, so a pose held
+  // on one scar shows the end of something nobody watched happen — and the one
+  // way this candidate can lose is a hull carrying several holes at once, which
+  // a picture of one hole cannot show at all. `BREACH · ROCKS COMING THROUGH`
+  // puts four rocks into four columns and carries the longest cadence on this
+  // page, because the last hole is not open until the last rock has left
+  // (`poses-damage.ts`).
   "creature:break": "BREAK · A BODY COMING APART",
-  "ship:crater": "BREACH · A SCAR",
+  "ship:crater": "BREACH · ROCKS COMING THROUGH",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */
