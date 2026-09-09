@@ -395,6 +395,7 @@ then put `CHOIR · TWO VOICES` and `THROB · TURNING` back on a tile crop.
 ## `packages/sim/src/world.ts` is at its 250-line ceiling exactly
 
 - **Found:** 2026-09-09, claude/queue-drain-2026-09-09e
+- **Taken:** 2026-09-09, claude/queue-packages-sim-src-world-ts-is-at-its-250-line-cei
 - **Files:** `packages/sim/src/world.ts`, `packages/sim/test/limits.test.ts`
 
 `World` is the one interface every other file in `sim` reads, and it is 250
