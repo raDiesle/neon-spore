@@ -1,7 +1,8 @@
 import { LIGHT_HALF } from "../../../../../packages/content/src/index.js";
 import { strokeGlow } from "../../../../../packages/render/src/glow.js";
+import { rgba } from "../../../../../packages/render/src/hex.js";
 import { litRound } from "../../../../../packages/render/src/key-light.js";
-import { keyAxis, rgba } from "../../../../../packages/render/src/meteor-look.js";
+import { keyAxis } from "../../../../../packages/render/src/meteor-look.js";
 
 /**
  * The paint FORGE is made of, kept out of `index.ts` so that file stays the

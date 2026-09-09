@@ -1,7 +1,7 @@
 import { KEY } from "../../../../../packages/content/src/index.js";
 import { strokeGlow } from "../../../../../packages/render/src/glow.js";
+import { rgba } from "../../../../../packages/render/src/hex.js";
 import type { BodyPaint } from "../../../../../packages/render/src/living-skin.js";
-import { rgba } from "../../../../../packages/render/src/meteor-look.js";
 
 /**
  * The paint VEIL is made of. Nothing here caches a frame, and nothing here

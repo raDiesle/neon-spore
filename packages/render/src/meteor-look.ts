@@ -1,4 +1,5 @@
 import { KEY, LIGHT_HALF } from "@neon-spore/content";
+import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import { PALETTE, STROKE } from "./palette.js";
 
@@ -62,12 +63,6 @@ export function keyAxis(spin: number): { dx: number; dy: number } {
   const c = Math.cos(-spin);
   const s = Math.sin(-spin);
   return { dx: KEY.x * c - KEY.y * s, dy: KEY.x * s + KEY.y * c };
-}
-
-/** `#rrggbb` plus an alpha, as a canvas can take directly in a gradient stop. */
-export function rgba(hex: string, alpha: number): string {
-  const n = Number.parseInt(hex.slice(1), 16);
-  return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${alpha.toFixed(3)})`;
 }
 
 /** The floor: dark on the side facing the light, the same reasoning
