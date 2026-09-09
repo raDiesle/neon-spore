@@ -140,6 +140,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## `docs/party-games.md` links to nine screenshots it could not embed
 
 - **Found:** 2026-09-08, claude/party-minigames-research-udjn67
+- **Taken:** 2026-09-09, claude/queue-docs-party-games-md-links-to-nine-screenshots-it
 - **Files:** `docs/party-games.md`
 
 `docs/tower-defence.md` sets the house rule for a study of other games: the art
