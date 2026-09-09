@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · daab8db3 — THE GHOST's camouflage comes apart on a body that turns
+
+`slabs` hands back seven horizontal bands with a `shift`, and each is filled as a rectangle straight across the body at `-GHOST.rx + shift * GHOST.rx`. Every mark on this creature is decided by how far down the picture it is, which is the exact failure `docs/style-guide.md`'s Depth section names — and a ghost's whole subject is a surface coming apart.
+
 ## 2026-09-09 · 79bf5620 — The eye gets a seam, and an iris that lies on a ball beside it
 
 One eye is drawn on two bodies — `lid.ts` and `warden-eye.ts` both call `drawEyeLens` — and it is the roundest thing in the game with no depth on it at all. The iris is concentric with the socket and every mark on it sits at a fixed screen offset, so an eye that was *looking somewhere* would be an eye whose whole picture had been slid sideways. Which is why it never looks anywhere: it opens and shuts, and that is all it does.
