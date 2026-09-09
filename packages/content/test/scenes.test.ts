@@ -1,6 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG, hullPercent, SceneRun, type SimEvent } from "@neon-spore/sim";
 import { type ControlId, control, controlHeld, controlSetForWave, setHas } from "../src/index.js";
+import { dragSeat } from "../src/scene-drag.js";
 import { sceneScript } from "../src/scene-script.js";
 import { SCENES, type SceneId, stepAt } from "../src/scenes.js";
 import { WAVES } from "../src/waves.js";
@@ -263,9 +264,13 @@ describe("the rehearsals a guide can show", () => {
       // than arriving (`scene-script.ts`). So the count is at least one each.
       expect(script.commands.length).toBeGreaterThanOrEqual(SCENES[id].acts.length);
       for (const act of SCENES[id].acts) {
-        // A drag and a shake are the pilot's and are not authored: the
-        // navigator carries both colours and fires (`scene-script.ts`).
-        const seat = act.grip ?? (act.drag || act.shake ? 1 : control(act.control!).player);
+        // A drag and a shake are not authored: a shake is the pilot's, and a
+        // handle's seat is read off the target — every one of them the
+        // pilot's but a balloon's right, which is the one handle the
+        // navigator holds (`scene-drag.ts`).
+        const seat =
+          act.grip ??
+          (act.drag ? dragSeat(act.drag) : act.shake ? 1 : control(act.control!).player);
         const sent = script.commands.filter((c) => c.tick === act.tick && c.player === seat);
         expect(sent.length, `${id}: nothing sent for the act at tick ${act.tick}`).toBeGreaterThan(
           0,

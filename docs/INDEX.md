@@ -376,6 +376,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-echo.ts` | THE ECHO's rehearsal: the slowest thing on the field is the one to take first |
 | `packages/content/src/scenes/the-ghost.ts` | THE GHOST's rehearsal: waiting to see it is the miss |
 | `packages/content/src/scenes/the-purge.ts` | THE PURGE's rehearsal: the field is cleared by swallowing, not by shooting |
+| `packages/content/src/scenes/the-pulse.ts` | THE PULSE's rehearsal: four buttons each, the same four |
 | `packages/content/src/scenes/the-ward.ts` | THE WARD's rehearsal: the shield answers a rock with nobody triggering it |
 | `packages/content/src/scenes/the-gyre.ts` | THE GYRE's rehearsal: the column you were told is the right one for a single beat |
 | `packages/content/src/scenes/the-recoil.ts` | THE RECOIL's rehearsal: your own shot is what makes the call wrong |
@@ -434,8 +435,10 @@ place — the generator keeps whatever is there.
 | `packages/content/src/control-aim.ts` | Which way a control points, and which rig of keys answers it |
 | `packages/content/src/scenes/the-choir.ts` | THE CHOIR's rehearsal: the one gesture that is on no panel at all |
 | `packages/content/src/scenes/the-crawler.ts` | THE CRAWLER's rehearsal: nothing is falling, and standing still loses it |
+| `packages/content/src/scenes/the-crossing.ts` | THE CROSSING's rehearsal: the lane you are aiming up is only yours until something walks across it |
 | `packages/content/src/scenes/the-strand.ts` | THE STRAND's rehearsal: two beads, and neither seat can name one alone |
 | `packages/content/src/scenes/the-jam.ts` | THE JAM's rehearsal: the trigger is gone and the aim is all that is left |
+| `packages/content/src/scenes/the-balloon.ts` | THE BALLOON's rehearsal: two hands on one body, or nothing at all |
 | `packages/content/src/pulse-stages.ts` | THE PULSE's stages — the charts, and so far there is one of them |
 | `packages/content/src/pulse-steps.ts` | A chart, written as bars of text, and the reader that turns one into notes |
 | `packages/content/src/mechanics-rounds.ts` | The rounds that are not the field, as mechanic rows |

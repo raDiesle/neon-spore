@@ -133,6 +133,36 @@ describe("what a drag act turns into", () => {
     expect(rope.every((c) => c.dragCol === undefined)).toBe(true);
   });
 
+  it("gives a balloon's right handle to the navigator, which is the creature", () => {
+    // The one handle that is not the pilot's. A balloon is one body with a
+    // handle on each side, and the skin gives only when both are taut at the
+    // same instant — so the two hands are on two phones, and `balloonHeard`
+    // refuses a side that is not the seat that sent it.
+    const left = sceneCommands({ tick: 10, drag: "balloonLeft", col: 2, until: 40 }, CFG);
+    const right = sceneCommands({ tick: 10, drag: "balloonRight", col: 2, until: 40 }, CFG);
+    expect(left.every((c) => c.player === 1)).toBe(true);
+    expect(right.every((c) => c.player === 2)).toBe(true);
+  });
+
+  it("carries a balloon's handles outward, along the axis they are pulled on", () => {
+    // Outward and sideways, the choir arrows' arrangement: the sign is the
+    // side, so a film says which handle and never how far. A handle carried
+    // *down* the way a cord is would be a hand nowhere near the skin.
+    const pulls = (target: "balloonLeft" | "balloonRight") =>
+      sceneCommands({ tick: 10, drag: target, col: 2, by: 30, until: 40 }, CFG)
+        .map((c) => (c.command.kind === "drag" ? c.command : null))
+        .filter((c) => c !== null);
+    for (const c of pulls("balloonLeft")) expect(c.fromYMilli ?? 0).toBe(0);
+    const far = pulls("balloonLeft").map((c) => c.fromMilli);
+    expect(Math.min(...far)).toBe(-CFG.balloonTautMilli);
+    expect(Math.max(...pulls("balloonRight").map((c) => c.fromMilli))).toBe(CFG.balloonTautMilli);
+  });
+
+  it("addresses a balloon by column too, because a wave sends six of them", () => {
+    const one = sceneCommands({ tick: 10, drag: "balloonRight", col: 2, until: 40 }, CFG);
+    expect(one.filter((c) => c.dragCol !== undefined).length).toBeGreaterThan(0);
+  });
+
   it("ends with the hand off, on the tick the film says", () => {
     const out = sceneCommands({ tick: 10, drag: "mazeString", until: 40 }, CFG);
     const last = out[out.length - 1];

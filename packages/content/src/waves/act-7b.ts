@@ -143,6 +143,7 @@ export const WAVES_ACT_7B: Wave[] = [
       both: "A rock that comes over a side wall instead of the top. It holds one row, crosses two lanes a beat and leaves at the far side — it never reaches the ship and nothing turns it away. What it does is stand in front of the cannon on its way past.",
       p1: "The arrow at the edge is yours alone: the row it will hold, the side it comes over, the way it will fly. Say the row and count it across — the lane you are aiming up is only yours until it arrives.",
       p2: "You see it once it is on the field and never before, and the trigger is still yours. Fire on their word: a bolt that meets a rock dies there, and the body above it goes on falling.",
+      scene: "theCrossing",
     },
     entries: [
       { beat: 0, col: 0, kind: "meteor", color: null, cross: 1, row: 5 },
@@ -183,6 +184,7 @@ export const WAVES_ACT_7B: Wave[] = [
       both: "Slicks, bulbs, rocks and pods fall into four sockets in the hull, and both of you have the same four buttons. Press each one as it lands. Some arrive on your screen as a grey shape you cannot name — those are the ones your partner can read and you cannot.",
       p1: "A shape between the lanes, cycling, is yours to press and theirs to name. Press on the beat rather than waiting to be sure — a late one counts, and anything you skip goes through the hull.",
       p2: "The same is true of you, one bar later. When something on your screen is marked CALL, that is the one they are blind to — say what it is early and say it once, because the window is a sixth of a second wide.",
+      scene: "thePulse",
     },
     entries: [],
     boss: { kind: "pulse", stages: PULSE_STAGES },
@@ -196,6 +198,7 @@ export const WAVES_ACT_7B: Wave[] = [
       both: "They come up out of nothing a lane above the ship, swell, and then climb — a row and a lane every beat, turning at the walls. Reach the top and one goes off and the hull pays for it. Nothing either of you can fire touches them. Each one has a handle on its left and a handle on its right: pull both at the same instant and the skin gives. The first time it splits in two; the second pops what is left, for nothing.",
       p1: "Left handles are yours, carried left. Name the one you are taking — its lane, and how high — before you take it: a pull on your own is a pull on nothing. Say when your hands are off the panel.",
       p2: "Right handles are yours, carried right. Say the one you are taking back before you take it, then hold until it gives. Your colours still have work to do, and the balloon nobody agreed on is the one that gets away.",
+      scene: "theBalloon",
     },
     entries: [
       { beat: 0, col: 2, kind: "balloon", color: null },

@@ -76,15 +76,19 @@ export interface SceneAct {
    * A hand on a **cord, a string or a rope** — the third gesture that is not a
    * press on a button, and the one that had no way of being written down.
    *
-   * All three are the pilot's: the navigator carries both colours and fires,
-   * so a handle either seat could reach would be a round one phone could play
-   * (`render/handles.ts` says it three times, once per handle). So the seat is
-   * read off the target rather than authored beside it, the way a press reads
-   * its seat off `ControlDef.player`.
+   * The seat is read off the target rather than authored beside it, the way a
+   * press reads its seat off `ControlDef.player` (`dragSeat`). Every handle is
+   * the pilot's but one: the navigator carries both colours and fires, so a
+   * handle either seat could reach would be a round one phone could play
+   * (`render/handles.ts` says it three times, once per handle). **A balloon's
+   * right handle is the exception, and it is the creature** — one body with a
+   * handle on each side and a hand from each phone, given only when both are
+   * taut at the same instant.
    *
-   * `col` says where the body is for `lidString`, which is the one handle that
-   * is *many* — a wave may send three lids down at once, and the cord names
-   * the body it hangs off by an id no author can know. It is the grip's
+   * `col` says where the body is for the handles that hang off an ordinary
+   * arrival — a lid's cord and a balloon's two — because those are the ones
+   * there may be *many* of: a wave sends three lids or six balloons, and a
+   * handle names the body it hangs off by an id no author can know. It is the grip's
    * arrangement exactly: the column is what an author can know, because it is
    * what they wrote the arrival in, and `SceneRun` fills the id in at the
    * moment the hand goes down. A maze has one string and a warden one rope, so

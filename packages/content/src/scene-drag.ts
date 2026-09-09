@@ -40,6 +40,12 @@ function tautMilli(target: DragTarget, cfg: SimConfig): number {
   // film would be written to do.
   if (target === "choirLeft") return -cfg.choirPullMilli;
   if (target === "choirRight") return cfg.choirPullMilli;
+  // A balloon's two handles are the arrows' arrangement again, with a body
+  // between them: each is carried **outward**, away from the skin, and taut is
+  // the stretch at which it gives (`sim/balloon-pull.ts`). The sign is the
+  // side, so a film says which handle and never how far.
+  if (target === "balloonLeft") return -cfg.balloonTautMilli;
+  if (target === "balloonRight") return cfg.balloonTautMilli;
   return cfg.mazeTurnMilli;
 }
 
@@ -63,7 +69,9 @@ function pullsDown(target: DragTarget): boolean {
     target !== "mazeString" &&
     target !== "gripBody" &&
     target !== "choirLeft" &&
-    target !== "choirRight"
+    target !== "choirRight" &&
+    target !== "balloonLeft" &&
+    target !== "balloonRight"
   );
 }
 
@@ -78,12 +86,37 @@ function pullsDown(target: DragTarget): boolean {
  * supersedes the last and a film that drops one heals itself
  * (`sim/command-types.ts`).
  *
- * The seat is the pilot's for all three targets and is not authored: the
- * navigator carries both colours and fires, so a handle either of them could
- * reach would be a round one phone could play (`render/handles.ts`).
+ * The seat is not authored, and for every handle but one it is the pilot's:
+ * the navigator carries both colours and fires, so a handle either of them
+ * could reach would be a round one phone could play (`render/handles.ts`).
+ * **A balloon's right handle is the exception and is the whole creature** —
+ * one body with a handle on each side, one hand from each phone, and the skin
+ * gives only when both are taut at the same instant (`sim/balloon-pull.ts`
+ * refuses a side that is not the seat that sent it). So the seat is read off
+ * the target here, the way a press reads its seat off `ControlDef.player`,
+ * rather than being a field a film could get wrong.
  */
+export function dragSeat(target: DragTarget): 1 | 2 {
+  return target === "balloonRight" ? 2 : 1;
+}
+
+/**
+ * Whether the runner has to find this handle's body at the moment the hand
+ * goes down.
+ *
+ * The two that hang off an ordinary arrival: a lid's cord and a balloon's two
+ * handles. A wave may send three of either down at once, so the grab has to
+ * say *which*, by an id no author can know — and the column is the thing they
+ * do know, because it is the thing they wrote the arrival in. A maze has one
+ * string and a warden one rope, so neither needs it.
+ */
+function byColumn(target: DragTarget): boolean {
+  return target === "lidString" || target === "balloonLeft" || target === "balloonRight";
+}
+
 export function dragCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
   const target = act.drag as DragTarget;
+  const player = dragSeat(target);
   const to = act.toMilli ?? tautMilli(target, cfg) * (act.dir ?? 1);
   const until = act.until ?? act.tick;
   // The carry and the letting go are two clocks, not one. A film about a lid
@@ -98,7 +131,7 @@ export function dragCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
     const at = act.tick + Math.round((span * i) / steps);
     out.push({
       tick: at,
-      player: 1,
+      player,
       command: {
         kind: "drag",
         target,
@@ -111,12 +144,12 @@ export function dragCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
       // A held body needs no column: it is named by the hand that is already
       // on it, which is the only address that survives the body being carried
       // out of the column it was found in (`sim/scene-aim.ts`).
-      ...(target === "lidString" ? { dragCol: actCol(act, cfg.cols) } : {}),
+      ...(byColumn(target) ? { dragCol: actCol(act, cfg.cols) } : {}),
     });
   }
   out.push({
     tick: until,
-    player: 1,
+    player,
     command: { kind: "drag", target, on: false, ...carry(target, 0) },
   });
   return out;

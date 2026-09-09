@@ -190,18 +190,6 @@ Whichever wins, `packages/render/test/wave-budget.test.ts`'s BULB QUEEN rows
 are the proof it changed nothing else, and `bun run frames . --wave 25 --at`
 takes the two pictures for the owner to choose between.
 
-## THE CROSSING, THE PULSE and THE BALLOON teach with words and no rehearsal
-
-- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
-- **Taken:** 2026-09-09, claude/queue-the-crossing-the-pulse-and-the-balloon-teach-wit
-- **Files:** `packages/content/src/waves/act-7b.ts`,
-  `packages/content/src/scenes.ts`, `packages/content/src/scenes/`
-
-Act 7b's three words-only guides. Give each a `GuideScene` with anchored steps
-and short captions, modelled on `scenes/the-rind.ts`, following
-`.claude/skills/new-tutorial`. THE PULSE and THE BALLOON are rounds with their
-own furniture, so their rehearsals show that furniture rather than the field.
-
 ## THE BEATBOX and THE TELL teach with words and no rehearsal
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
@@ -538,3 +526,26 @@ both read `rx` and `ry` today, and a form whose reach is not an ellipse needs
 those to keep answering something sensible — a bounding ellipse over the walked
 contour is the obvious answer and should be computed once rather than per
 frame.
+
+## The tutorial plate is drawn over a boss round's own header
+
+- **Found:** 2026-09-09, claude/queued-items-a47ead
+- **Files:** `packages/render/src/guide-plate.ts`,
+  `packages/render/src/guide-scene.ts`
+
+A rehearsal carries one plate top left — `TUTORIAL` over `PLAYER n · SCREEN`
+— and it is always there and never fades, which is what the owner asked for.
+A **boss round** draws a header of its own in the same band: THE PULSE puts
+its name, `REHEARSAL`, `RUN 3`, `STAGE 1/1` and `LEFT 2` across the top, and
+the plate sits on top of all of it. THE GAUGE, THE FLEET, PINBALL, SNAKE, THE
+MAZE and THE WARDEN each have a header there too, so every boss rehearsal in
+the game reads the same way: two things in one place, and neither legible.
+
+The plate is right and the header is right; what is missing is that a round's
+header has never had to make room for one. Either the round's header drops
+below the plate while a guide is showing, or the plate moves to the other
+corner on a round that has a header — the first keeps the plate where the
+owner put it, which is the reason to prefer it.
+
+`packages/render/test/frame.test.ts` draws every round, and a test that the
+two boxes do not overlap is the proof.

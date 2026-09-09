@@ -6,12 +6,14 @@ import { FIRST_STEP } from "./scenes/first-step.js";
 import { PINBALL } from "./scenes/pinball.js";
 import { SALVAGE } from "./scenes/salvage.js";
 import { SNAKE } from "./scenes/snake.js";
+import { THE_BALLOON } from "./scenes/the-balloon.js";
 import { THE_CAROM } from "./scenes/the-carom.js";
 import { THE_CHOIR } from "./scenes/the-choir.js";
 import { THE_CLASP } from "./scenes/the-clasp.js";
 import { THE_CLAW } from "./scenes/the-claw.js";
 import { THE_COIL } from "./scenes/the-coil.js";
 import { THE_CRAWLER } from "./scenes/the-crawler.js";
+import { THE_CROSSING } from "./scenes/the-crossing.js";
 import { THE_CUT } from "./scenes/the-cut.js";
 import { THE_DART } from "./scenes/the-dart.js";
 import { THE_ECHO } from "./scenes/the-echo.js";
@@ -29,6 +31,7 @@ import { THE_LURE } from "./scenes/the-lure.js";
 import { THE_MAGNET } from "./scenes/the-magnet.js";
 import { THE_MAZE } from "./scenes/the-maze.js";
 import { THE_MIRROR } from "./scenes/the-mirror.js";
+import { THE_PULSE } from "./scenes/the-pulse.js";
 import { THE_PURGE } from "./scenes/the-purge.js";
 import { THE_RECOIL } from "./scenes/the-recoil.js";
 import { THE_RIND } from "./scenes/the-rind.js";
@@ -113,7 +116,10 @@ export type SceneId =
   | "theStrand"
   | "theCrawler"
   | "theMagnet"
-  | "theJam";
+  | "theJam"
+  | "theCrossing"
+  | "thePulse"
+  | "theBalloon";
 
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
@@ -162,6 +168,9 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theCrawler: THE_CRAWLER,
   theMagnet: THE_MAGNET,
   theJam: THE_JAM,
+  theCrossing: THE_CROSSING,
+  thePulse: THE_PULSE,
+  theBalloon: THE_BALLOON,
 };
 
 export type { GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";
