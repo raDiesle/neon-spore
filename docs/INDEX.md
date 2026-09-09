@@ -1347,5 +1347,6 @@ place — the generator keeps whatever is there.
 | `tools/frames/report.ts` | What a finished capture prints, including the `world.tick` each frame was actually taken at |
 | `tools/frames/shot-usage.ts` | What `bun run shot` prints when it is called with nothing to photograph |
 | `tools/frames/tall.ts` | An element taller than the window, photographed whole rather than black below the fold |
+| `tools/director/src/stage-trail.ts` | THE MOUSE'S OWN INK, ON THE DIRECTOR'S FIELD |
 
 <!-- index:code:end -->

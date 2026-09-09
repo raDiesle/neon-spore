@@ -18,6 +18,7 @@ import type { StagePanel } from "./stage-panel.js";
 import { stageGeometry } from "./stage-point.js";
 import { bindStageRounds } from "./stage-rounds.js";
 import { bindStageTouch, pointerSeat } from "./stage-touch.js";
+import { bindStageTrail } from "./stage-trail.js";
 import { bindStageTransport } from "./stage-transport.js";
 import { buildStageWorld } from "./stage-world.js";
 import { currentWave, type Store } from "./state.js";
@@ -57,6 +58,9 @@ export function bindStage(
   // (`keys.ts`). Handed the call rather than the set, for the same reason
   // everything else on this line is.
   const keys: Keys = bindKeys(cfg, () => world.creatures, currentControlSet);
+  // Ink off the end of a mouse, over the field and nowhere else, and none of
+  // it on a phone (`stage-trail.ts`).
+  bindStageTrail(canvas);
   // Every round draws slabs, which `touchDown` cannot answer (`stage-rounds.ts`).
   bindStageRounds({
     canvas,
