@@ -1261,11 +1261,13 @@ place — the generator keeps whatever is there.
 | `tools/maze/carve.ts` | The walls of THE MAZE's grid: which of them are opened |
 | `tools/director/src/maze-editor.ts` | THE MAZE's five stages, walked through one at a time |
 | `tools/land/refusal.ts` | Why a push was refused, said in full — git's own words and where the trunk stands |
+| `tools/land/replay.ts` | The replay, and the one conflict it settles on its own |
 | `tools/frames/press.ts` | `--press`: the verbs a held thumb cannot reach |
 | `tools/frames/crop.ts` | Cropping and magnifying a captured frame, so a change the size of a creature can be seen |
 | `tools/frames/wave.ts` | Which wave `--wave` names, answered against the right commit's own list |
 | `tools/frames/opening-hold.ts` | Standing *in* a wave's opening, rather than getting past it |
 | `tools/land/queue-guard.ts` | A landing must not put back a queue entry another lane took out |
+| `tools/land/queue-merge.ts` | Merging `docs/queue.md` when a lane and the trunk both wrote to it |
 | `tools/hooks/session-start.ts` | Pin bun to a version new enough for this repo, in Claude Code on the web |
 | `tools/director/src/brush-poses-echo.ts` | THE ECHO's specimen, split out of `brush-poses.ts` when THE CAROM took that file over its 250-line limit |
 | `tools/land/state.ts` | the facts a landing is decided from, read off git — `run.ts` moves refs, `land.ts` decides |

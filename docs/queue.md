@@ -137,36 +137,6 @@ Why the short label is what fits today, and what each of the three costs.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
-## `bun run land` conflicts on `docs/queue.md` every time a lane drains an item
-
-- **Found:** 2026-09-09, claude/queue-drain-2026-09-09b
-- **Taken:** 2026-09-09, claude/queue-bun-run-land-conflicts-on-docs-queue-md-every-ti
-- **Files:** `tools/queue/run.ts`, `tools/land/run.ts`
-
-`bun run queue take` writes its `Taken:` line **on `main`** and pushes, which is
-the claim and is right. `bun run queue done` then removes the whole entry, and
-it removes it **in the lane's own worktree** — so the lane carries a commit that
-edits a file `main` has moved underneath it, and `bun run land` refuses to
-replay with `conflicts in docs/queue.md`. It is not an occasional clash between
-two lanes: it happens on **every** landing that drains an item, because the same
-tool wrote both sides.
-
-This lane hit it twice in one sitting and worked around it the same way both
-times: `git reset --hard HEAD~1`, `git rebase origin/main`, re-run
-`bun run queue done`, commit, land. That is four commands and a rebuilt commit
-message to get past a conflict nobody authored, and every future draining
-session pays it.
-
-Two candidate fixes, and the second looks right. `queue done` could write on
-`main` the way `take` does, so the removal never enters a lane at all — but the
-entry then leaves the list before the work that closed it has landed, and a
-crash in between loses the item. Better: **have `bun run land` resolve a
-`docs/queue.md` conflict itself**, the way the queue's sibling item asks it to
-for `docs/INDEX.md` — take `origin`'s copy and re-apply the lane's own removals
-by heading, which is a well-defined merge because an entry is identified by its
-`##` line. The proof is a lane that claims an item, does it, and lands in one
-`bun run land` with no manual rebase.
-
 ## `world.beat` is not `world.tick / ticksPerBeat`, and nothing says so
 
 - **Found:** 2026-09-08, claude/beatbox-enemy-visuals-462bcf

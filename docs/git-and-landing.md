@@ -164,6 +164,18 @@ is a known enough failure that `tools/land/queue-guard.ts` fails the landing
 when it happens, and it will not save you on the release notes, where the only
 symptom is somebody else's entry quietly coming back.
 
+**`docs/queue.md` is now merged for you, and only that file.** The conflict
+there was not even between two lanes: `bun run queue take` writes the `Taken:`
+line on the trunk and `bun run queue done` removes the whole entry in the lane,
+so *every* landing that drained an item stopped on a disagreement one tool had
+with itself. `tools/land/replay.ts` settles it during the replay —
+`tools/land/queue-merge.ts` takes the trunk's copy, drops the entries this lane
+removed and appends the ones it filed, which is well defined because an entry is
+identified by its `##` heading. It refuses to guess: two sides that rewrote the
+same entry's body, or the same preamble, stop the landing the way they always
+did, and the guard above still runs afterwards. Nothing else is auto-resolved,
+and `docs/release-notes.md` still wants the recipe by hand.
+
 
 ## Pushing the trunk, and how often
 

@@ -54,6 +54,7 @@ import { type Landing, plan, pushNow, SWEPT_NOTHING } from "./land.js";
 import { type Landed, LOG_FORMAT, parseLanded } from "./notes.js";
 import { queueSnapshots, refusal, resurrectedAfter } from "./queue-guard.js";
 import { trunkRaced } from "./race.js";
+import { replay } from "./replay.js";
 import { badge, describe } from "./say.js";
 import { readState } from "./state.js";
 import { sweep, writeNotes } from "./sweep.js";
@@ -114,17 +115,18 @@ async function moveTrunk(): Promise<Landed[]> {
       )
     : [];
   if (going.rebase) {
-    const proc = Bun.spawn(["git", "rebase", TRUNK], { cwd: root, stdout: "pipe", stderr: "pipe" });
-    const [err, code] = await Promise.all([new Response(proc.stderr).text(), proc.exited]);
-    if (code !== 0) {
-      const conflicted = await git(["diff", "--name-only", "--diff-filter=U"], root);
-      await git(["rebase", "--abort"], root);
+    const replayed = await replay(root, TRUNK);
+    if (!replayed.ok) {
       console.log(`✗ ${branch} does not replay onto ${TRUNK}; nothing was moved`);
-      if (conflicted) console.log(`  conflicts in ${conflicted.split("\n").join(", ")}`);
-      else console.log(`  ${err.trim().split("\n")[0] ?? ""}`);
+      if (replayed.conflicted.length > 0)
+        console.log(`  conflicts in ${replayed.conflicted.join(", ")}`);
+      else if (replayed.said) console.log(`  ${replayed.said}`);
       process.exit(1);
     }
     console.log(`  rebased  onto ${await git(["rev-parse", "--short", TRUNK], root)}`);
+    for (const file of new Set(replayed.resolved)) {
+      console.log(`  merged   ${file} — the trunk's copy, less what this lane took out`);
+    }
     const back = await resurrectedAfter(root, queueBefore);
     if (back.length > 0) {
       for (const line of refusal(TRUNK, back)) console.log(line);
