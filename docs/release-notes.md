@@ -9,6 +9,16 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 716e7cb9 — Two queue items out, and the landing friction that drained them in
+
+## 2026-09-09 · 5ede7ffb — The bosses and the worn bodies are named groups, not a run
+
+`mechanics-table.ts` was at its ceiling for the second time, and the last creature to arrive had to put its row next door and then reword a comment belonging to `WAVE_MECHANICS` to pay for the import — prose nobody meant to touch, edited to make room, which is the cost `docs/token-budget.md` names.
+
+## 2026-09-09 · 1b7aa5e8 — Every listener on the canvas is one knot with a name
+
+`main.ts` stood on 250 lines exactly, and `packages/sim/test/limits.test.ts` fails at 251 — so the next binding anybody added there broke the build, and the last one to arrive had to buy its three lines back off a comment that was earning them.
+
 ## 2026-09-09 · 09d31da3 — Four queue items out of the list
 
 ## 2026-09-09 · 591ebf13 — The VERSUS worked example is dated, so its numbers stop reading as instructions
