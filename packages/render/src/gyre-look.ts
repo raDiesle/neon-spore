@@ -39,7 +39,7 @@ export interface GyreLook {
   core(d: GyreCoreDraw): void;
 }
 
-/** The shipped organelle: an aura, a radial fluid clipped into a breathing
- * skin, a counter-turning dashed iris and a hard nucleus — all of it carried
- * round by one `rotate(flow)`. `gyre-core.ts` holds it. */
+/** The shipped organelle: an aura, a lit mass clipped into a breathing skin
+ * that turns, nine granules placed on it and carried round by `flow`, and one
+ * specular that does not move at all. `gyre-core.ts` holds it. */
 export const GYRE_LOOK: GyreLook = { core: drawGyreCore };

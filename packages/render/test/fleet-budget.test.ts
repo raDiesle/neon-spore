@@ -91,9 +91,12 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
   p1: {
     mid: {
       fillRect: 60,
-      stroke: 44,
+      // One more stroke and one more clip than before the hull's light became a
+      // barrel: `hull-barrel.ts` strokes the contour with a crown ramp, clipped
+      // to the body. Every row in this file carries the same two.
+      stroke: 45,
       fill: 35,
-      clip: 6,
+      clip: 7,
       save: 36,
       drawImage: 18,
       createLinearGradient: 7,
@@ -104,9 +107,9 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
     hit: {
       fillRect: 83,
       // Two more than mid: the shockwave ring and the fireball's own contour.
-      stroke: 46,
+      stroke: 47,
       fill: 33,
-      clip: 6,
+      clip: 7,
       // Eight more: the burst opens one per shard it turns, and the shards are
       // the only thing in this picture drawn in a frame of its own.
       save: 44,
@@ -126,9 +129,9 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       fillRect: 60,
       // Nine fewer than the pilot's: five hulls, their spines and their scars
       // are the whole of what this seat is not shown (`fleet-hulls.ts`).
-      stroke: 35,
+      stroke: 36,
       fill: 32,
-      clip: 6,
+      clip: 7,
       save: 31,
       drawImage: 19,
       createLinearGradient: 7,
@@ -138,9 +141,9 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
     },
     hit: {
       fillRect: 83,
-      stroke: 36,
+      stroke: 37,
       fill: 30,
-      clip: 6,
+      clip: 7,
       save: 39,
       drawImage: 22,
       createLinearGradient: 6,

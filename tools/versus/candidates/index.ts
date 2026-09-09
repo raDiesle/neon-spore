@@ -1,17 +1,7 @@
 import type { Variant } from "../variant.js";
-import { CRAWLER_PEARL } from "./crawler-skin/pearl/index.js";
 // region: candidates
-import { CHOIR_ORBS } from "./creature-choir/orbs/index.js";
-import { GYRE_YOLK } from "./creature-gyre/yolk/index.js";
 import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
 import { SKIN_VEIL } from "./creature-skin/veil/index.js";
-import { THROB_GLOBE } from "./creature-throb/globe/index.js";
-import { TORCH_KILN } from "./creature-torch/kiln/index.js";
-import { VEIL_ANVIL } from "./creature-veil/anvil/index.js";
-import { WISP_RING } from "./creature-wisp/ring/index.js";
-import { HULL_RIDGE } from "./ship-hull/ridge/index.js";
-import { SHIP_BARREL } from "./ship-light/barrel/index.js";
-import { WARDEN_BEVEL } from "./warden-plates/bevel/index.js";
 // endregion
 
 /**
@@ -84,90 +74,51 @@ import { WARDEN_BEVEL } from "./warden-plates/bevel/index.js";
  * asks *which of these two*, and a look nobody is ready to choose between is
  * better kept where it can be browsed than kept as a question nobody answers.
  *
- * ## Three about a surface, on 9 September 2026
+ * ## Ten answered in one sitting, on 9 September 2026
  *
- * `crawler:skin` / `pearl`, `creature:throb` / `globe` and `creature:choir` /
- * `orbs` are the first candidates written to the direction the owner named on
- * 8 September: **the graphics should look three-dimensional while staying 2D,
- * and a flying body should turn just enough that what was behind it comes into
- * view.** Each of the three takes a body the game already draws well and argues
- * that what is missing is not more paint but a *placed* surface — a mark at a
- * longitude and a latitude, carried round by a turn, under a light that does
- * not move (`docs/style-guide.md`'s Depth section, `packages/content/src/
- * surface.ts`).
+ * The owner read the page and emptied all but two of it, which is the largest
+ * clearance this arrangement has had. Nine were **taken into the game** and are
+ * now the only answer there is, and every one of them was written to the
+ * direction he named on 8 September: **the graphics should look
+ * three-dimensional while staying 2D, and a flying body should turn just enough
+ * that what was behind it comes into view.** Each takes a body the game already
+ * drew well and argues that what was missing was not more paint but a *placed*
+ * surface — a mark at a longitude and a latitude, carried round by a turn,
+ * under a light that does not move (`docs/style-guide.md`'s Depth section,
+ * `packages/content/src/surface.ts`).
  *
- * They are three rather than one because the rule is cheap on some bodies and
- * dangerous on others, and the only honest way to find the line is to put it on
- * three of them at the sizes they ship at. A worm's ring is forty pixels and
- * has a wave running down it already; a throb is the one body in the game that
- * *turns by rule*, so the cue costs nothing and the risk is to a readout the
- * pair fires against; a choir's voice is under a fifth of a tile, which is
- * where a placed mark stops being a mark. Each candidate's own file says how it
- * expects to lose, and none of the three answers for the others.
+ * `crawler:skin` / `pearl` is `crawler-skin.ts`'s `drawSlime`: every ring a
+ * ball with eight pores rolling backwards along the way the worm is going.
+ * `creature:throb` / `globe` is `throb.ts`: the seam as a meridian on a ball
+ * rather than a diameter on a coin. `creature:choir` / `orbs` is
+ * `choir-skin.ts`: two turning bubbles drawn in added light only, which hides
+ * less than the wash it replaced. `creature:wisp` / `ring` is
+ * `wisp-tentacles.ts`: eight streamers round the hem, half of them behind the
+ * bell. `creature:gyre` / `yolk` is `gyre-core.ts`: the organelle shaded in a
+ * frame the turn has been taken out of. `creature:veil` / `anvil` is
+ * `veil-mass.ts`: nine lit heaps inside the shipped outline. `warden:plates` /
+ * `bevel` is `warden-plates.ts`: each plate a slab with a wall and a lit edge.
  *
- * Each also needed a **seam** first, which is the price `docs/versus.md` names
- * and the reason the earliest slots were the ones that needed none:
- * `crawler-look.ts`, `throb-look.ts` and `choir-look.ts` are three new records
- * of `magnet-look.ts`'s kind, and the shipped paint went through them with not
- * one pixel moved.
+ * The two about the ship were taken **together**, and that is the point of
+ * them: `ship:hull-shape` / `ridge` is fourteen shallow lobes on `HULL`
+ * (`packages/content/src/ship-silhouettes.ts`) and `ship:light` / `barrel` is
+ * the cosine that lights them (`packages/render/src/hull-barrel.ts`). The owner
+ * had rejected the light and then said it might integrate with the shape; it
+ * does, and a ripple with a straight ramp across it is a pattern rather than a
+ * surface. Two candidates written for the same object turned out to be one
+ * answer.
  *
- * ## Two more bodies and a ship, the same day
+ * `creature:torch` / `kiln` was taken **and changed**, which is the one way out
+ * of this list nothing had used before. The owner wanted its fire *much bigger,
+ * more like a big fireball*, with the rock still a dark core inside it — so
+ * KILN's eighteen rolling tongues are the skin of `torch-fire.ts` and the ball
+ * around them is new: a heat halo, two shells turning against each other and
+ * nine plumes on a mass of their own, all of it behind the stone.
  *
- * `creature:wisp` / `ring` and `creature:gyre` / `yolk` carry the same argument
- * onto the two creatures that were **already exempt from falling**, which is
- * what makes them the best subjects on the roster for it: a wisp stands and
- * jumps rather than coming down a column, and a settled gyre stays, so both are
- * on screen for as long as anybody wants to look — and a surface that turns is
- * the one thing a two-second replay cannot show. `poses-surface.ts` holds both,
- * and they are the first poses on this page that need no cadence at all.
+ * ## Two that stayed
  *
- * `ship:hull-shape` / `ridge` is not about a surface and is here because the
- * owner asked for an alternative to the ship. It is the plainest kind of
- * candidate there is — three numbers on a record `packages/content` already
- * exports, no seam, no paint — and the largest change on the page: the hull's
- * radius function goes from two deep lobes to fourteen shallow ones, so the
- * membrane the whole field is read against ripples instead of swelling. It sits
- * on `HULL · BOTH LOBES UP` beside `ship:light`, which is the same object asked
- * a different question — where the light falls on it, against what shape it is. *
- * ## Three bodies nobody had offered a second answer to, on 9 September 2026
- *
- * `creature:torch` / `kiln`, `creature:veil` / `anvil` and `warden:plates` /
- * `bevel` are the first candidates for a rock, for the weather and for a boss.
- * Each of the three was picked for the same reason: the shipped look is good,
- * it has never had a rival, and what it is missing is the half of
- * `docs/style-guide.md`'s Depth rule about a *placed* surface. A torch's flame
- * is one ring in front of everything; a thundercloud's inside is one gradient
- * down the picture; a warden's armour is one stroke at one brightness the whole
- * way round.
- *
- * They are three rather than one because each spends the rule differently and
- * they can lose in different ways. The torch is the fastest body in the game
- * and gets the full argument — marks placed on a surface that turns, with the
- * rock itself hiding the far half, which is the reveal no pose can fake. The
- * cloud is *mostly interior*, so its depth has to come from heaps stacking
- * inside a silhouette that may not move at all. The warden takes the other
- * half deliberately and openly: a lit solid that does not turn, on the biggest
- * body in the game, because where its plates are is the only health bar the
- * pair has and may not be re-placed by a look.
- *
- * Two of the three needed a **seam** first, and the torch's is the first one on
- * this page that hands the caller's own paint back through the record:
- * `torch-look.ts` gives a candidate flame the stone as a field of the draw, so
- * a flame with a far side can put half of itself under an opaque rock.
- * `veil-look.ts` and `warden-look.ts` are two more of `magnet-look.ts`'s kind,
- * and the shipped paint went through all three with not one pixel moved.
+ * `creature:meteor` / `forge` and `creature:skin` / `veil` are what is left of
+ * that page, and they are open because he did not answer them rather than
+ * because he answered them slowly.
  */
-export const VARIANTS: Variant[] = [
-  METEOR_FORGE,
-  SKIN_VEIL,
-  SHIP_BARREL,
-  CRAWLER_PEARL,
-  THROB_GLOBE,
-  CHOIR_ORBS,
-  WISP_RING,
-  GYRE_YOLK,
-  HULL_RIDGE,
-  TORCH_KILN,
-  VEIL_ANVIL,
-  WARDEN_BEVEL,
-];
+export const VARIANTS: Variant[] = [METEOR_FORGE, SKIN_VEIL];

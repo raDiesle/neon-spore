@@ -47,11 +47,10 @@ import { POSE_GROUPS } from "./poses.js";
  * `cadenceSeconds` in `poses-mechanics.ts`.
  */
 const SLOT_POSE: Record<string, string> = {
-  // The ship's own light is judged on the ship with nothing in front of it.
-  // `ship:hull-skin` took the default while it was open, and that was right
-  // for a colour and wrong for this: a body falling past the hull is the one
-  // thing brighter than the wash being voted on.
-  "ship:light": "HULL · BOTH LOBES UP",
+  // The ship is judged on itself with a body falling past it, which is the one
+  // thing on the frame brighter than the membrane being looked at. `ship:light`
+  // and `ship:hull-shape` are both decided and gone; the mapping stays because
+  // the panel slots below ask about the same object.
   "cannon:shot": "SHOT · BEING LAID",
   "cannon:mouth": "SHOT · BEING LAID",
   "shield:ward": "WARD · DEFLECTED",
@@ -78,42 +77,10 @@ const SLOT_POSE: Record<string, string> = {
   // it burns on the beat the body is thrown and on no other, so the slot needs
   // a pose held on that tick and replayed (`poses-bodies.ts`).
   "creature:dart": "DART · THE RUN",
-  // Three added on 9 September 2026, all of them slots about a **surface**
-  // rather than about an event, and the last two needed poses of their own.
-  // A worm was already walking on a page and a candidate for its skin wants
-  // nothing else; but the two states below are held for as long as their body
-  // is on the field rather than replayed every two seconds, because a surface
-  // that turns needs longer than two seconds to finish turning
-  // (`poses-surface.ts`).
-  "crawler:skin": "CRAWLER · WALKING",
-  // A throb alone in a lane rather than beside the other three bodies. The
-  // contour slots take `BODIES` because a shape has to stay tellable from the
-  // shapes it could be mistaken for; this slot is about what the body's *turn*
-  // looks like, which is a thing to watch for five whole revolutions with
-  // nothing else moving on the frame.
-  "creature:throb": "THROB · TURNING",
-  "creature:choir": "CHOIR · TWO VOICES",
-  // Three more on 9 September, and the two creatures among them are the first
-  // poses here that need **no replay at all**: a wisp does not fall and a
-  // settled gyre does not leave, so both simply stay, which is the longest look
-  // at a turning surface this page can offer.
-  "creature:wisp": "WISP · STANDING",
-  "creature:gyre": "GYRE · TURNING",
-  // And the ship, on the pose `ship:light` already takes. Two slots on one
-  // pose is right rather than a shortcut: they are the two halves of one
-  // object — where the light falls on the hull, and what the hull is made of —
-  // and the only honest frame for either is the ship with a body falling past
-  // it, which is the one thing brighter than the membrane being judged.
-  "ship:hull-shape": "HULL · BOTH LOBES UP",
-  // Three bodies that had never been posed at all, and their states are in
-  // `poses-casing.ts`: a rock wearing fire, a body wearing weather and a boss
-  // wearing armour. The first two fall as fast as they ship and are replayed on
-  // the length of their own fall — a torch's is a third of a cloud's — and the
-  // third does not fall at all, because a warden is a fixture and stands there
-  // for the whole fight.
-  "creature:torch": "TORCH · THE FALL",
-  "creature:veil": "VEIL · CARRYING",
-  "warden:plates": "WARDEN · ARMOURED",
+  // Eight surface slots were mapped here on 9 September 2026 and all eight were
+  // answered the same day. Their poses stay in the gallery — a worm walking, a
+  // throb turning, a wisp standing, a warden armoured — because a pose is a
+  // picture of the game and outlives the question it was drawn for.
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

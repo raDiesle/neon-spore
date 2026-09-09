@@ -90,6 +90,12 @@ type Budget = Partial<
   >
 >;
 
+// **The hull's own light moved every row here on 9 September 2026.** `litBox`
+// ran the key ramp across the ship's box; `hull-barrel.ts` runs a cosine along
+// the membrane's own normal and strokes a crown along the contour, clipped to
+// it — so every frame in every budget file in this package carries one more
+// `clip`, one more `stroke` and, on a cold cache, one more gradient.
+//
 // Wave 2, stepped to its first tick with 3+ creatures on the field, a
 // phone-sized 390x844 dpr 3 stage — busy enough that every pass in
 // `frame-passes.ts` has something to draw. Each seat runs its own world, so
@@ -107,12 +113,12 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // (`action-face.ts`). They replaced two `fillText` calls, which is the
       // whole of the trade the owner chose — the word cost almost nothing and
       // could not be drawn at a sequence glyph's size at all.
-      stroke: 53,
+      stroke: 54,
       fill: 26,
-      clip: 8,
+      clip: 9,
       save: 31,
       drawImage: 38,
-      createLinearGradient: 14,
+      createLinearGradient: 15,
       createRadialGradient: 3,
       // Fourteen of these are the panel's own sheet, painted here and only
       // here: it depends on the size of the band and nothing else, so the
@@ -126,9 +132,9 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
     },
     {
       fillRect: 65,
-      stroke: 55,
+      stroke: 56,
       fill: 26,
-      clip: 8,
+      clip: 9,
       save: 31,
       drawImage: 38,
       // Down from frame 0: the layout-only gradients (`gradient-slot.ts`'s
@@ -149,17 +155,17 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // contour plus `strokeGlow`'s four passes round the creature inside it,
       // which is how the field draws that body and the whole of what the owner
       // asked for (`controls.ts`).
-      stroke: 51,
+      stroke: 52,
       // Three more, and all three are `drawDetails`: the bulb's one core and
       // the slick's two, drawn on the buttons now that the silhouettes are
       // bodies rather than stencils.
       fill: 31,
-      clip: 8,
+      clip: 9,
       // Two fewer: a fire button's face is one `paintLobe` doing fill and
       // stroke together where it used to be a fill and then a crosshair.
       save: 31,
       drawImage: 37,
-      createLinearGradient: 14,
+      createLinearGradient: 15,
       createRadialGradient: 3,
       // Two more than p1's frame 0: the sheet, and the fire buttons'
       // silhouettes, which are on this seat's panel alone.
@@ -168,9 +174,9 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
     },
     {
       fillRect: 65,
-      stroke: 53,
+      stroke: 54,
       fill: 31,
-      clip: 8,
+      clip: 9,
       save: 31,
       drawImage: 37,
       createLinearGradient: 5,
@@ -298,6 +304,15 @@ function rope(fromYMilli: number) {
   return { kind: "drag", target: "wardenTether", on: true, fromMilli: 0, fromYMilli } as const;
 }
 
+/**
+ * **BEVEL moved the warden's rows and nothing else's**, on 9 September 2026: a
+ * plate is a slab now rather than a stroked arc, so each of the nine is a wall,
+ * a face, a lit outer edge and a contact seam. `fill` went from 32 to 44 and
+ * `new Path2D` from 46 to 58 — two filled slabs a plate, against a stroke — and
+ * `stroke` moved by three, which is the specular the light does not reach on
+ * every plate plus the ship's own crown. THE LID is a different boss and takes
+ * only the ship's share.
+ */
 const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
   "THE WARDEN's eye": [
     {
@@ -318,34 +333,34 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // **Four of these are the iris**: the aperture ring and every spoke go
       // into one path stroked once, so this row does not move when the spoke
       // count does (`eye-iris.ts`).
-      stroke: 104,
+      stroke: 107,
       // Four more: the two patches of the wet film, the eyelids and their
       // pupils. Flat, whatever the openness.
-      fill: 32,
+      fill: 44,
       // Two more than the body's own: the film and the veins share a single
       // clip to it, and the lens opens one of its own so the lids can cut the
       // pupil instead of the pupil being sized to miss them (`eye-lens.ts`).
-      clip: 7,
+      clip: 8,
       save: 31,
       drawImage: 18,
-      createLinearGradient: 14,
+      createLinearGradient: 15,
       createRadialGradient: 3,
       // Fourteen of them the panel's sheet, as on every frame 0 here. Four are
       // the skin's, and there are four of them however much of it is showing.
       // One is the lids' folds, and it is one however far apart they stand.
-      "new Path2D": 46,
+      "new Path2D": 58,
       fillText: 2,
     },
     {
       fillRect: 65,
-      stroke: 106,
-      fill: 32,
-      clip: 7,
+      stroke: 109,
+      fill: 44,
+      clip: 8,
       save: 31,
       drawImage: 18,
       createLinearGradient: 5,
       createRadialGradient: 1,
-      "new Path2D": 28,
+      "new Path2D": 40,
       fillText: 2,
     },
   ],
@@ -359,23 +374,23 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // **Four of these are the iris**: the aperture ring and every spoke go
       // into one path stroked once, so this row does not move when the spoke
       // count does (`eye-iris.ts`).
-      stroke: 81,
+      stroke: 82,
       fill: 24,
       // The one op this body's share of the new lens costs: the clip the lids
       // cut the pupil through (`eye-lens.ts`).
-      clip: 7,
+      clip: 8,
       save: 29,
       drawImage: 18,
-      createLinearGradient: 14,
+      createLinearGradient: 15,
       createRadialGradient: 3,
       "new Path2D": 38,
       fillText: 2,
     },
     {
       fillRect: 67,
-      stroke: 83,
+      stroke: 84,
       fill: 24,
-      clip: 7,
+      clip: 8,
       save: 29,
       drawImage: 18,
       createLinearGradient: 5,

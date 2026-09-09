@@ -44,6 +44,19 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * hands its outline to `spline.ts`, which writes the curve into the `Path2D`
  * as numbers instead of formatting an SVG string for a parser to read back.
  *
+ * **PEARL moved every row of this table on 9 September 2026**, and it is the
+ * largest single move any of them has had. The wet on a ring is no longer three
+ * ellipses in picture coordinates but a ball: a baked terminator, eight pores
+ * placed at fixed longitudes of which about half are drawn, and one specular
+ * (`crawler-skin.ts`). `fill` went from 41 to 53 on the pilot and `save` from
+ * 34 to 56, which is four pores a ring across five rings, each in a transform
+ * of its own. `new Path2D` went the other way and **fell**, from 54 to 39: a
+ * pore is drawn with `beginPath` rather than allocated, and the three ellipses
+ * it replaced were three allocations a ring. The `clip` and one of the two
+ * strokes are the ship rather than the worm — `hull-barrel.ts` clips the
+ * membrane and strokes a crown along it, which every frame in every budget file
+ * now carries.
+ *
  * **The marks cost twenty strokes and nine saves, and both were paid on
  * purpose** (`crawler-marks.ts`). `strokeGlow` is four strokes, so a crosshair
  * per ring is four per ring — which is why the shield's dome is appended to
@@ -66,12 +79,12 @@ type Budget = Partial<
 
 const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
   p1: [
-    { fillRect: 65, stroke: 70, fill: 41, clip: 10, save: 34, "new Path2D": 54, fillText: 2 },
-    { fillRect: 65, stroke: 72, fill: 41, clip: 10, save: 34, "new Path2D": 32, fillText: 2 },
+    { fillRect: 65, stroke: 71, fill: 53, clip: 11, save: 56, "new Path2D": 39, fillText: 2 },
+    { fillRect: 65, stroke: 73, fill: 50, clip: 11, save: 53, "new Path2D": 17, fillText: 2 },
   ],
   p2: [
-    { fillRect: 65, stroke: 68, fill: 47, clip: 10, save: 34, "new Path2D": 52, fillText: 2 },
-    { fillRect: 65, stroke: 70, fill: 47, clip: 10, save: 34, "new Path2D": 32, fillText: 2 },
+    { fillRect: 65, stroke: 69, fill: 59, clip: 11, save: 56, "new Path2D": 37, fillText: 2 },
+    { fillRect: 65, stroke: 71, fill: 56, clip: 11, save: 53, "new Path2D": 17, fillText: 2 },
   ],
 };
 

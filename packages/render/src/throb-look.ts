@@ -48,6 +48,7 @@ export interface ThrobLook {
   half(h: ThrobHalf): void;
 }
 
-/** The shipped throb: the other colour laid over everything above a straight
- * seam, which the transform's own rotation carries round. `throb.ts` holds it. */
+/** The shipped throb: the far colour bounded by its own meridian, projected —
+ * an ellipse arc that swells to the body's full width and shuts to nothing,
+ * twice a turn. `throb.ts` holds it. */
 export const THROB_LOOK: ThrobLook = { half: drawThrobHalf };

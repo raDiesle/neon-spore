@@ -40,6 +40,7 @@ export interface ChoirLook {
   skin(d: ChoirDraw): void;
 }
 
-/** The shipped membrane: two halos under one translucent wash with a solid
- * rim, and nothing inside it at all. `choir-skin.ts` holds it. */
+/** The shipped membrane: two halos, two turning bubbles drawn in added light
+ * only, and the traced rim over them with no wash inside it. `choir-skin.ts`
+ * holds it. */
 export const CHOIR_LOOK: ChoirLook = { skin: film };

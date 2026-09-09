@@ -55,6 +55,7 @@ export interface CrawlerLook {
   face(d: CrawlerLinkDraw): void;
 }
 
-/** The shipped worm: a belly shadow, a specular along the top and a catchlight
- * that slides with the contraction. `crawler-skin.ts` holds the arithmetic. */
+/** The shipped worm: every ring a ball, with eight pores placed on it and
+ * carried round by a roll that runs backwards along the way it is going, under
+ * a light that stays put. `crawler-skin.ts` holds the arithmetic. */
 export const CRAWLER_LOOK: CrawlerLook = { slime: drawSlime, face: drawFace };

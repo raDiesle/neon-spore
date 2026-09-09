@@ -18,6 +18,7 @@ export interface WardenLook {
   plates(d: WardenPlatesDraw): void;
 }
 
-/** The shipped armour: one stroked arc per plate at `0.94 r`, with the shot
- * lane cut out of any that crosses it. `warden-plates.ts` holds it. */
+/** The shipped armour: one slab per plate — a wall, a shaded face, a lit outer
+ * edge and a contact seam — with the shot lane cut out of any that crosses it.
+ * `warden-plates.ts` holds it. */
 export const WARDEN_LOOK: WardenLook = { plates: drawPlates };

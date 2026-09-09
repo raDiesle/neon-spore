@@ -479,6 +479,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/torch-alarm.ts` | the role-aware banner and pulsing band a torch in the queue triggers |
 | `packages/render/src/torch-ember.ts` | THE TORCH's flame, such as it is left: a faint ring just outside the stone |
 | `packages/render/src/torch-look.ts` | THE ONE RECORD A CANDIDATE TORCH FLAME PATCHES |
+| `packages/render/src/torch-fire.ts` | THE TORCH's fire: a ball of flame with a rock at the heart of it |
+| `packages/render/src/torch-ball.ts` | THE BALL OF FIRE A TORCH FALLS INSIDE — everything outside the stone |
 | `packages/render/src/bullets.ts` | shots and their tails |
 | `packages/render/src/effects.ts` | every transient the field keeps past its frame, and where each one is kept |
 | `packages/render/src/effects-frame.ts` | **What `Effects` does with a frame**, as opposed to what it owns |
@@ -805,7 +807,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/pinball-blast.ts` | PINBALL's two loud moments: a ball that hit the ship, and a target taken |
 | `packages/render/src/pinball-button.ts` | PINBALL's two presses, as faces on the band's own lobes |
 | `packages/render/src/beatbox-air.ts` | **The air a soundbox is moving**, which is the half of this creature that has no number in it at all |
-| `packages/render/src/hull-light.ts` | who lights the ship, as a record — the shipped `litBox` reached through a seam a second answer can be held against |
+| `packages/render/src/hull-light.ts` | who lights the ship, as a record — the seam a candidate light is patched onto, and the one that won |
+| `packages/render/src/hull-barrel.ts` | THE SHIP LIT BY ITS OWN NORMAL, instead of by a straight ramp across its box |
 | `packages/render/src/splash-trail.ts` | **Slime off the end of a mouse** — the ink a desk's pointer leaves, as blobs that swell, sag and add up |
 | `packages/render/src/beatbox-count.ts` | **What the counter over a soundbox is saying**, as a shape rather than as a drawing — how many slots |
 | `packages/render/src/beatbox-silence.ts` | **A soundbox going quiet**, which is the one thing on this creature that goes right and until now was the… |

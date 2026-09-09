@@ -12,10 +12,14 @@ import { PALETTE, STROKE } from "./palette.js";
  * inside `torch.ts`.
  */
 
-/** The torch's flame, kept only as a faint ring just outside the rock's own
- * outline — a trace of it, not the flame itself. Exported for the bounce
- * (`deflect.ts`): a torch the shield turns away is still a torch, and the ring
- * is the one mark that says so once the tail is gone. */
+/** A faint ring just outside the rock's own outline.
+ *
+ * It was the whole of the torch's flame until the fireball landed
+ * (`torch-fire.ts`), and its one caller now is the bounce (`deflect.ts`): a
+ * torch the shield turns away is still a torch, and the ring is the one mark
+ * that says so once the tail is gone — a whole fireball on a rock already
+ * fading out of the field would be the loudest thing on the screen at the
+ * moment the pair has stopped needing to read it. */
 export function drawEmberRing(ctx: CanvasRenderingContext2D, r: number, time: number): void {
   const ringD = crystalPath(
     0,

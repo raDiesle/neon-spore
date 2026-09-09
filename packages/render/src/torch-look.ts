@@ -1,4 +1,4 @@
-import { drawEmberRing } from "./torch-ember.js";
+import { fireball } from "./torch-fire.js";
 
 /**
  * THE ONE RECORD A CANDIDATE TORCH FLAME PATCHES.
@@ -11,8 +11,9 @@ import { drawEmberRing } from "./torch-ember.js";
  * around the outside — which is the shipped answer already.
  *
  * So `stone()` is a field of the draw rather than something the caller does
- * afterwards. The shipped flame calls it exactly where `drawTorchRock` always
- * called it: after the ember ring, before the craters.
+ * afterwards. The shipped flame calls it in the middle of its own passes: the
+ * ball of fire and the far tongues go down first, then the stone over them,
+ * then the near tongues — and the craters after all of it, in `drawTorch`.
  */
 
 /**
@@ -24,7 +25,7 @@ export interface TorchFlameDraw {
   readonly ctx: CanvasRenderingContext2D;
   /** The stone's own radius in pixels — `rockRadius`, at the body's span. */
   readonly r: number;
-  /** The wall clock in seconds. The shipped ring turns its crystal on it. */
+  /** The wall clock in seconds. The fire rolls, boils and flickers on it. */
   readonly time: number;
   /**
    * The stone itself, painted where the flame decides. It is the same fill and
@@ -39,12 +40,7 @@ export interface TorchLook {
   flame(d: TorchFlameDraw): void;
 }
 
-/** The shipped flame: the faint ring outside the outline, then the stone over
- * it — the order `drawTorchRock` has always laid them in, so the contour the
- * eye reads is the rock's and not the ring's. */
-export const TORCH_LOOK: TorchLook = {
-  flame(d) {
-    drawEmberRing(d.ctx, d.r, d.time);
-    d.stone();
-  },
-};
+/** The shipped flame: a fireball with the rock opaque at the heart of it, and
+ * eighteen tongues rolling on the stone's own skin — the far half of them
+ * behind it. `torch-fire.ts` holds the paint. */
+export const TORCH_LOOK: TorchLook = { flame: fireball };

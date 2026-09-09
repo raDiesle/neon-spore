@@ -1,4 +1,4 @@
-import { overcast } from "./veil-mass.js";
+import { anvil } from "./veil-mass.js";
 
 /**
  * THE ONE RECORD A CANDIDATE THUNDERHEAD PATCHES.
@@ -46,6 +46,7 @@ export interface VeilLook {
   mass(d: VeilMassDraw): void;
 }
 
-/** The shipped thunderhead: one vertical gradient across the whole contour,
- * dark at the top and darker underneath. `veil-mass.ts` holds it. */
-export const VEIL_LOOK: VeilLook = { mass: overcast };
+/** The shipped thunderhead: nine lit heaps standing on a mass that turns once
+ * every six beats, inside the shipped outline — the near ones ride up over the
+ * far ones' shoulders and go away again. `veil-mass.ts` holds it. */
+export const VEIL_LOOK: VeilLook = { mass: anvil };

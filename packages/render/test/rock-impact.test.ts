@@ -1,7 +1,6 @@
 import { beforeAll, describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
 import { computeLayout, tileCY } from "../src/layout.js";
-import { PALETTE } from "../src/palette.js";
 import { RockImpactFx } from "../src/rock-impact.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
@@ -141,47 +140,36 @@ describe("RockImpactFx deflect arrival target", () => {
   });
 });
 
-/** Every colour the stub was asked to stroke in, in order. */
-function trackStrokes(ctx: ReturnType<typeof stubCanvas>["ctx"]): unknown[] {
-  const seen: unknown[] = [];
-  const desc = Object.getOwnPropertyDescriptor(
-    Object.getPrototypeOf(ctx),
-    "strokeStyle",
-  ) as PropertyDescriptor;
-  Object.defineProperty(ctx, "strokeStyle", {
-    configurable: true,
-    get: () => desc.get?.call(ctx),
-    set: (v: unknown) => {
-      seen.push(v);
-      desc.set?.call(ctx, v);
-    },
-  });
-  return seen;
-}
-
 /**
  * The owner's third report: *the meteor changes the colour of its border just
- * before it hits*. The last step of every rock's fall is replayed by this
- * file through `drawTorchRock`, and that body opens with the torch's ember
- * ring — so a plain grey meteor, drawn all the way down by `drawMeteor` with
- * no ring at all, grew an orange outline for its final moments. The ring
- * belongs to the one rock that carries a flame.
+ * before it hits*. The last step of every rock's fall is replayed by this file
+ * through `drawTorchRock`, and that body opens with the torch's fire — so a
+ * plain grey meteor, drawn all the way down by `drawMeteor` with no flame at
+ * all, grew an orange outline for its final moments. The fire belongs to the
+ * one rock that carries one.
+ *
+ * It is counted as **radial gradients** rather than as a stroke colour, and
+ * that is the fire itself moving under the test rather than the test changing
+ * its mind: the flame was one stroked ring until 9 September 2026 and is a
+ * fireball now — two lobed shells filled with radial ramps, plus a halo and
+ * nine plumes (`torch-fire.ts`). Nothing else in a replayed fall builds a
+ * radial gradient, so the count is still the presence of the flame and nothing
+ * else, and it survives the flame being repainted again.
  */
-describe("the ember ring in a replayed fall", () => {
-  const replay = (kind: "meteor" | "torch"): unknown[] => {
+describe("the fire in a replayed fall", () => {
+  const replay = (kind: "meteor" | "torch"): number => {
     const fx = new RockImpactFx();
     const { ctx } = stubCanvas();
-    const strokes = trackStrokes(ctx);
     fx.spawn(200, L, 0, BEAT_SECONDS, kind, 1, CFG.rows - 3, true, () => {});
     fx.draw(ctx as unknown as CanvasRenderingContext2D, L, 0, () => L.hullY);
-    return strokes;
+    return ctx.tally.get("createRadialGradient") ?? 0;
   };
 
   it("is not drawn around a plain meteor, which never has one on the field", () => {
-    expect(replay("meteor")).not.toContain(PALETTE.ember);
+    expect(replay("meteor")).toBe(0);
   });
 
   it("is still drawn around the torch, whose flame it is", () => {
-    expect(replay("torch")).toContain(PALETTE.ember);
+    expect(replay("torch")).toBeGreaterThan(0);
   });
 });

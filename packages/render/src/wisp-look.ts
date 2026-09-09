@@ -49,7 +49,7 @@ export interface WispLook {
   fringe(f: WispFringe): void;
 }
 
-/** The shipped fringe: five strands hung in a row across the hem, two thick and
- * three fine, each carrying its own share of the signal. `wisp-tentacles.ts`
- * holds the arithmetic. */
+/** The shipped fringe: eight strands rooted at fixed longitudes round the hem,
+ * half of them behind the bell, each carrying its own share of the signal.
+ * `wisp-tentacles.ts` holds the arithmetic. */
 export const WISP_LOOK: WispLook = { fringe: drawTentacles };

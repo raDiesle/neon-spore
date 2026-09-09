@@ -21,15 +21,33 @@ export interface HullSilhouette {
 }
 
 /**
- * The hull: an ellipse with two lobes, one wobble per second, and a cannon
- * bump. The cannon is not a separate object but a localized deformation of the
- * hull contour at a controllable angle. The shield is the same, narrower and
- * only visible when armed.
+ * The hull: an ellipse far wider than the screen with a **rippled** radius
+ * function on it, and a cannon bump. The cannon is not a separate object but a
+ * localized deformation of the hull contour at a controllable angle. The shield
+ * is the same, narrower and only visible when armed.
+ *
+ * **Fourteen shallow lobes and not two deep ones.** Only the arc around the
+ * ellipse's apex is ever in view, so two lobes at a depth of 0.4 put *most of
+ * one swell* on the screen: the ship read as a single smooth curve that
+ * happened to be higher on one side, and its surface said nothing about itself
+ * between the cannon bump and the shield bump. Everything a player read off the
+ * top of that ship was something standing on it. The owner took RIDGE out of
+ * VERSUS on 9 September 2026: the count is round the whole ellipse rather than
+ * across the screen, which is why it takes fourteen to put about three crests
+ * in front of the player, one every three or four columns — the scale the eye
+ * reads the field at, and the same closed-contour-with-lobes vocabulary every
+ * body in this game is drawn in (CLAUDE.md), applied at last to the one object
+ * that had been exempt from it.
+ *
+ * `CANNON_LOBE` and `SHIELD_LOBE` below did not move with it. The cannon still
+ * swells where the cannon is and the shield still lifts where the shield is, at
+ * the same width and the same height, so nothing a player aims with moved —
+ * what changed is the membrane they stand on.
  */
 export const HULL: HullSilhouette = {
-  lobes: 2,
-  depth: 0.4,
-  wobble: 0.065,
+  lobes: 14,
+  depth: 0.12,
+  wobble: 0.05,
   cannonRadius: 10,
   seed: 0.4,
 };

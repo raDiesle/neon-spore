@@ -1,5 +1,5 @@
 import type { LightHalf } from "@neon-spore/content";
-import { litBox } from "./key-light.js";
+import { barrel } from "./hull-barrel.js";
 
 /**
  * WHO LIGHTS THE SHIP, AS A RECORD.
@@ -7,17 +7,14 @@ import { litBox } from "./key-light.js";
  * `drawHull` called `litBox` directly, which meant the one pass that decides
  * whether the hull reads as a solid had nowhere for a second answer to sit —
  * the same gap `living-skin.ts` was written to close for a creature's material.
- * This is that seam and nothing else: the shipped light is `litBox`, unchanged,
- * and it is reached through a record so `tools/versus/` can hold another
- * against it at tempo instead of in a branch.
+ * This is that seam and nothing else, and it has already been worth having:
+ * `litBox` ran the key ramp along a straight line across a rectangle, which is
+ * right for a flat panel and is what the hull is not. A membrane bulging toward
+ * the viewer takes its light by its own normal, so the falloff across the field
+ * is a cosine of where the surface is pointing (`hull-barrel.ts`).
  *
- * **The argument the seam exists for.** `litBox` runs the key ramp along a
- * straight line across a rectangle. That is right for a flat panel and it is
- * what the hull is not: a membrane bulging toward the viewer takes its light by
- * its own normal, so the falloff across the field should be a cosine of where
- * the surface is pointing rather than a linear walk across a box.
  * `docs/style-guide.md`'s depth section is the direction, and
- * `packages/content/src/surface.ts` is the arithmetic either answer reads.
+ * `packages/content/src/surface.ts` is the arithmetic any answer reads.
  */
 
 /**
@@ -45,9 +42,6 @@ export interface HullLight {
   lit(ctx: CanvasRenderingContext2D, s: HullLit): void;
 }
 
-/** The shipped light: the key ramp along its axis across the hull's box. */
-export const HULL_LIGHT: HullLight = {
-  lit(ctx, s) {
-    litBox(ctx, s.region, s.x, s.y, s.w, s.h, s.half);
-  },
-};
+/** The shipped light: a cosine across 66° of a barrel with a terminator in it,
+ * and every lobe brighter at its crown. `hull-barrel.ts` holds it. */
+export const HULL_LIGHT: HullLight = { lit: barrel };

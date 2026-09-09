@@ -52,13 +52,6 @@ describe("poseForSlot", () => {
       "creature:magnet": "magnet",
       "creature:strand": "strand",
       "crawler:pulse": "crawler",
-      // The three casings, added with them: a pose that stopped putting the
-      // body on the field would leave a candidate flame, cloud or ring of
-      // plates being compared against nothing, and every other guard in this
-      // file would still pass.
-      "creature:torch": "torch",
-      "creature:veil": "veil",
-      "warden:plates": "warden",
     };
     for (const [slot, kind] of Object.entries(kinds)) {
       const world = poseForSlot(slot).build();
