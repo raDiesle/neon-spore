@@ -259,6 +259,7 @@ of the baseline stays comparable.
 ## `bun run land` refuses in a cloud session, because the clone is shallow
 
 - **Found:** 2026-09-08, claude/rock-paper-scissors-boss-sn9ful
+- **Taken:** 2026-09-09, claude/queue-bun-run-land-refuses-in-a-cloud-session-because
 - **Files:** `tools/land/run.ts`, `docs/cloud-session.md`
 
 A cloud session's checkout is a **shallow** clone. `git fetch origin main`
