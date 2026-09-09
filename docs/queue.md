@@ -374,6 +374,7 @@ worth more than the candidate and should replace this entry.
 ## Three of the four op-budget files cannot be remeasured without editing them
 
 - **Found:** 2026-09-09, claude/game-visual-assets-21ed8c
+- **Taken:** 2026-09-09, claude/queue-three-of-the-four-op-budget-files-cannot-be-reme
 - **Files:** `packages/render/test/crawler-budget.test.ts`,
   `packages/render/test/frame-budget.test.ts`,
   `packages/render/test/wave-budget.test.ts`,
