@@ -731,3 +731,69 @@ beside the other one, so the next session recognises it instead of debugging
 it; and give `tools/checks/` something that asserts a worktree can resolve
 `@neon-spore/render` before a check reports twenty module errors as if they
 were the work's fault.
+
+## The wash across the ship-and-panel join is a lit stripe, not a ramp
+
+- **Found:** 2026-09-09, claude/versus-ship-visual-redesign-4ca99d
+- **Files:** `tools/versus/candidates/panel-join/fused/tissue.ts`
+
+The owner looked at all four new `panel:ship-join` cards and said the thing they
+were built to fix is still there: *i still see a visual line so i see where ship
+top with gradient ends and the panel starts with the line in between. this line
+should be removed and there is no separation at all. all should look the same as
+its altogether.*
+
+He is right, and a column of pixels says what went wrong. `wash` in `tissue.ts`
+adds the seat's palest colour at 0.27 from `seamBottom` down, which was tuned
+against **one** x — the far left, where the hull's belly happens to read
+`rgb(98,81,148)`. Across the rest of the width the belly is much darker: at x=380
+of a 760-wide frame it is about `rgb(57,36,88)` and at x=700 about
+`rgb(45,25,72)`. The wash is the same strength everywhere, so under most of the
+ship it lands **brighter than the hull above it and brighter than the tissue
+below it** — measured at `rgb(144,112,193)` in a band roughly twelve CSS pixels
+deep that follows the contour. That band is the line he can see. It is not an
+edge between two surfaces any more; it is a third surface between them, which is
+worse.
+
+Two ways out, and the second is the one the rest of this repository argues for:
+
+- **Turn the wash down** until it no longer exceeds the darkest belly, and
+  accept that the left of the panel keeps a small step. One number, and it will
+  be wrong again the day `HULL` or `OWN_SKIN` is tuned.
+- **Sample the belly rather than assume it.** `hull-frame.ts`'s `skin(f, x)`
+  gives the ship's own surface point at any x and `hull.ts` computes its fill
+  ramp from the contour's highest point down to `hullBottom` — so the value the
+  hull ends on at a given x is derivable rather than guessable, and the wash can
+  match it per column instead of once for the whole width. That is a strip of
+  gradients or one gradient per sampled x, in the same shape `band-seam.ts`
+  already samples the contour in.
+
+The owner's other option is still open and is not this entry: he offered
+*either we reduce gradient or have gradient flowing into control panel*, and
+nothing has yet tried reducing the ship's own fall from crest to belly
+(`OWN_SKIN.body`, four stops, `packages/render/src/hull.ts`). That is a slot of
+its own on the hull and should be offered beside this, not folded into it.
+
+## The slime pendants have a flat top edge and straight sides
+
+- **Found:** 2026-09-09, claude/versus-ship-visual-redesign-4ca99d
+- **Files:** `packages/render/src/band-slime.ts`
+
+`pendant` draws each drip hanging off the membrane as a shape with a **ruled
+horizontal top** and two nearly straight tapering sides. At six times phone size
+it reads as a paper wedge stuck under the ship rather than as something viscous
+hanging off it, and the shipped panel has it as much as any candidate does — it
+is visible in a photograph of the current look, not only in the new ones.
+
+The owner was asked and said to queue it rather than have it repaired in the
+lane that found it. It is a repair and not an offer: `sheen.ts` states the rule
+this breaks — *a straight edge anywhere on this ship reads as a seam, and the
+membrane has no seams* — so it is CLAUDE.md's third exemption and goes straight
+onto the field with the exemption named in the commit.
+
+What to do: give the pendant a sampled width profile splined through, the way
+`tools/versus/candidates/panel-join/fused/paint.ts` builds a trunk, so the neck
+and the bulb are one curve; and start its top edge **above** `seamTop` so the
+chamber's own clip welds it to the membrane instead of a flat lid meeting the
+contour at one height. `packages/render/test/frame.test.ts` draws it, and the
+proof is a photograph of the join at four times size with no straight run in it.
