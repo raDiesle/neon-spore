@@ -169,35 +169,6 @@ between the two, and put a paragraph on `world.beat` in `world.ts` saying it is
 a label and not a position. A test that runs a wave with an opening and asserts
 the two counters disagree is what keeps it true.
 
-## "A carries both seats" is written twice, in two rigs
-
-- **Found:** 2026-09-07, claude/queued-items-rer0av
-- **Taken:** 2026-09-09, claude/queue-a-carries-both-seats-is-written-twice-in-two-rig
-- **Files:** `apps/game/src/keys-slide.ts`, `tools/director/src/keys.ts`
-
-Both desk keyboards now read the same table for *what a key means* — `deskKey`
-and `controlPress` — and both then apply the same convenience on top of it by
-hand: player 1's sideways pair steps player 1's strip and carries player 2's
-along with it, and J/L move player 2's alone. `stepStrip` and `stepAll` in
-`keys-slide.ts` and the pair of the same names in the director's `keys.ts` are
-the same eight lines, and the rule they carry — *which seats one key moves* —
-is exactly the kind that drifts: the director had a version of it that had gone
-stale for months before this pair was made to agree.
-
-The reason there are two is where the first one lives. `bindSliding` is under
-`apps/game`, which is an application a tool may not import, and it also carries
-a repeat timer counted in sim ticks that the director has no use for. So the
-seam is between the two halves rather than around them: the *which seats*
-answer is content — it is about panels and slots, like everything else in
-`keys-desk.ts` — and the *how long the key is held* answer is each rig's own.
-
-Move the first half into `packages/content/src/keys-desk.ts` as one function
-taking a `DeskKey` and answering the keys the press moves, both seats included,
-and have `keys-slide.ts` and the director call it for the list and keep their
-own stepping. `content/test/keys-desk.test.ts` is where it is proved; the
-alternative — moving `bindSliding` whole — puts a repeat timer in a package
-whose job is data, and is worse.
-
 ## `CLAUDE.md` is within about a hundred characters of its ceiling
 
 - **Found:** 2026-09-07, claude/queued-items-rer0av
@@ -410,28 +381,6 @@ optional list of `TimedCommand`s the measurement sends before its busiest tick,
 send them the way `capture.ts` does, and give THE LANCE a held colour so its row
 means something. The rows for waves with no commands are untouched, so the rest
 of the baseline stays comparable.
-
-## A handle's own word assumes every handle is the pilot's
-
-- **Found:** 2026-09-07, claude/balloon-enemy-unit-tkbivj
-- **Taken:** 2026-09-09, claude/queue-a-handles-own-word-assumes-every-handle-is-the-p
-- **Files:** `packages/render/src/handle-draw.ts`,
-  `packages/render/src/balloon-handles.ts`, `packages/render/src/lid-string.ts`,
-  `packages/render/src/tether.ts`, `packages/render/src/maze-string.ts`
-
-`drawHandleHint` writes `"PULL"` on the pilot's screen and `"PILOT'S"` on the
-navigator's, with the seat baked in as `role !== "p2"`. That was true of every
-handle in the game until THE BALLOON, which has one per seat — so
-`balloon-handles.ts` carries a `hint` of its own, four lines that say the same
-thing with the seat passed in and the direction named. Two copies of one word
-under two kinds of handle is exactly the drift `handle-draw.ts`' own header
-was written to stop.
-
-Give `drawHandleHint` the seat and the words as arguments — `{ seat, mine,
-theirs }` — and delete the balloon's copy. The three existing callers pass
-`{ seat: 1, mine: "PULL", theirs: "PILOT'S" }` and draw byte for byte what they
-draw today, which is what `bun run check` proves: nothing in `frame.test.ts` or
-`touch.test.ts` should move.
 
 ## `mechanics-table.ts` is at its ceiling and pays for the next creature in prose
 
@@ -737,45 +686,6 @@ table that will go stale. The other option is to keep it kind-agnostic and step
 a round to a fixed fraction of its own length, which is one number and wrong for
 none of them. Take a fresh baseline with `bun run perf --save` afterwards, since
 every round's row moves.
-
-## `rgba` is written out twice, in `hex.ts` and in `meteor-look.ts`
-
-- **Found:** 2026-09-08, claude/creature-assets-reorganize-4c9944
-- **Taken:** 2026-09-09, claude/queue-rgba-is-written-out-twice-in-hex-ts-and-in-meteo
-- **Files:** `packages/render/src/hex.ts`, `packages/render/src/meteor-look.ts`
-
-`hex.ts` exports `rgba(hex, alpha)` and ten files import it from there.
-`meteor-look.ts` exports a second one, byte for byte the same arithmetic, and
-the VERSUS candidates written against the meteor took theirs from *that* one —
-so a candidate ported into the game arrives importing a colour helper from a
-file about rocks, which is the sort of import a later reader spends a minute on.
-It cost this lane exactly that minute.
-
-Delete the copy in `meteor-look.ts`, import `rgba` from `./hex.js` there, and
-fix the two remaining call sites in `tools/versus/candidates/` to do the same.
-`bun run check` is the whole proof: it is one function with one behaviour and
-the types are identical.
-
-## `docs/versus.md`'s worked examples quote values the code no longer has
-
-- **Found:** 2026-09-08, claude/creature-assets-reorganize-4c9944
-- **Taken:** 2026-09-09, claude/queue-docs-versus-md-s-worked-examples-quote-values-th
-- **Files:** `docs/versus.md`
-
-The document teaches the mechanism through a worked slot, and every number in
-that worked slot is stale. It says BULB is `lobes: 9, depth: 0.1, wobble: 0.055`
-and SLICK is `lobes: 2, depth: 0.38, wobble: 0.02`; the file says 6 / 0.24 and 2
-/ 0.52 / 0.045 as of 8 September 2026, and `depth: 0.1` and `wobble: 0.02` were
-already wrong before that. It also tells a session to `git grep` for `SWAY_PUMP`
-in `own-motion.ts`, which re-exports it from `motions-retired.ts` now.
-
-A reader cannot tell which parts of the example are the mechanism and which are
-a snapshot, and the ones that are a snapshot are the ones that look most like
-instructions. Rewrite the worked slot against whatever the tree says on the day,
-and say in one line that the numbers are a photograph — or, better, quote no
-value the code owns and name the record instead, which is the rule the mechanism
-itself is built on (`variant.ts` reads `currentValues` off the live object
-rather than storing them).
 
 ## `bun run port` names a director port `bun run dev:once` does not take
 
