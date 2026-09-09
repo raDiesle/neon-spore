@@ -33,6 +33,12 @@ file and symbol, as prose the emitted prompt quotes into a staging list) and
 is the patch. It writes nothing: it builds a prompt and puts it on the
 clipboard, and a session adopts the winner and `git rm -r`s the whole slot.
 
+**What this page has already decided is `DECIDED.md` beside this file** — every
+slot that has been opened and how it left. Read it before opening one: two of
+the questions on it were asked, answered and then asked again in a better
+shape, and one look was taken and immediately changed, none of which the
+candidates still standing show.
+
 ## Writing one
 
     tools/versus/candidates/<slot-with-dashes>.<name>/index.ts

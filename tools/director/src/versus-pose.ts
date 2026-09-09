@@ -99,6 +99,11 @@ const SLOT_POSE: Record<string, string> = {
   // `WARDEN · ARMOURED` above shows the same record on the biggest fixture in
   // the game, and a pair voting on this should open both (`eye-look.ts`).
   "eye:iris": "LID · THE EYE OPEN",
+  // A crossing ghost, part-way through its temper: a falling one sits at rage
+  // nought and the camouflage barely moves, and after the last turn it comes
+  // off altogether. Drawn on player two's screen alone, which is the creature
+  // rather than an omission (`poses-bodies.ts`).
+  "ghost:tears": "GHOST · TORN",
   // Two about **damage**, on 9 September 2026, and the first slots on this page
   // whose subject is what happens *to* something rather than what it is made
   // of. A break is event-shaped in the sharpest way this map has met — the body

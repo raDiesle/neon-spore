@@ -147,37 +147,6 @@ Why the short label is what fits today, and what each of the three costs.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
-## THE GHOST's camouflage is laid out in picture space
-
-- **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7
-- **Taken:** 2026-09-09, claude/queue-the-ghosts-camouflage-is-laid-out-in-picture-spa
-- **Files:** `packages/render/src/ghost.ts`, `packages/render/src/ghost-glitch.ts`,
-  `tools/versus/candidates/`, `tools/director/src/poses-casing.ts`
-
-`slabs(id, time, rage)` hands back horizontal bands with a `shift`, and
-`drawTears` fills each one as a rectangle across the body at `-GHOST.rx + shift
-* GHOST.rx`. Every mark on this creature is therefore decided by how far down
-the picture it is, which is the exact failure `docs/style-guide.md`'s Depth
-section names: a body's silhouette may be posed, and anything *on* its surface
-is placed. A ghost's whole subject is a surface coming apart, and it comes apart
-on a flat plane.
-
-There is no record to patch, so the work is a seam first — `ghost-look.ts` of
-`magnet-look.ts`'s kind, holding `tears` and nothing else, with the shipped
-`drawTears` moved through it and not one pixel changed — and then a candidate
-beside it. The candidate worth writing: the bands are strips of *latitude* on a
-turning body, so a tear that slides off one limb comes back at the other, and
-the fragments over the far side are drawn dim behind the interior gradient
-rather than clipped away. `packages/content/src/surface.ts` is the arithmetic
-and `limbX` is the call for an outline that spans more than one tangent plane.
-The pose is the part to be careful about: this body is drawn on player 2's
-screen only, so a pose has to hand the pair a seat that can see it — `WISP ·
-STANDING` in `poses-surface.ts` is the worked example of a one-seat pose.
-
-Watch the temper: `ghostRage` already drives how far a band shifts, so a turn
-must not become a second reading of the same number. The candidate's own file
-has to say which of the two the pair is being asked about.
-
 ## No interlude round has ever been offered a look
 
 - **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7

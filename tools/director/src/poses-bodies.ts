@@ -1,3 +1,4 @@
+import { ghostRage } from "@neon-spore/sim";
 import {
   EVENT_CADENCE_SECONDS,
   firstOfKind,
@@ -114,6 +115,50 @@ export const DART_RUN_POSE: Pose = {
     // and the crop is centred wherever the roll sent it.
     const w = fresh([{ beat: 0, col: 5, kind: "dart", color: "red" }]);
     runUntil(w, "a dart on its run", [], (x) => x.creatures[0]?.dartFloat === false);
+    return w;
+  },
+};
+
+/**
+ * One ghost crossing, wearing the camouflage that is failing.
+ *
+ * **Only player two is ever shown one**, which is the creature rather than an
+ * omission — `WISP · STANDING`'s case, and it needs no machinery here: the pair
+ * draws both seats one above the other, so the row that matters is the lower
+ * one and player one's correct picture of an empty field is part of what this
+ * body is.
+ *
+ * Crossing rather than falling, because a falling ghost sits at `rage` nought
+ * and the disguise barely moves. It is handed over part-way through the temper
+ * and **before the last turn**, when the whole camouflage comes off and the
+ * body dives: what a look here is about is on screen for the crossing and gone
+ * after it.
+ *
+ * It lives on this page rather than with the surfaces next door for the reason
+ * `BODIES · FOUR KINDS AT ONCE` does — a slot about what a body is *made of* —
+ * and because `poses-surface.ts` is four lines under its ceiling.
+ */
+export const GHOST_POSE: Pose = {
+  name: "GHOST · TORN",
+  note: "One ghost crossing the field on player two's screen and nothing at all on player one's. It is wearing torn bands of itself thrown sideways against each other, with a few flung clear of the outline — the disguise it wears instead of being invisible, and it gets worse the further through its temper it is.",
+  lookAt:
+    "the bands inside the outline — whether they read as a surface coming apart or as slabs sliding across a flat picture",
+  crop: "field",
+  build: () => {
+    // `path: "across"` is what makes a ghost cross rather than fall
+    // (`sim/spawn.ts`), and it sets off away from the nearer wall — so the
+    // first column is where the long crossing starts.
+    const w = fresh([{ beat: 0, col: 1, kind: "ghost", color: "cyan", path: "across" }]);
+    // Two laps of three: far enough in that the temper has opened the throws
+    // up, and short of the third, on which the camouflage comes off altogether
+    // and the body dives.
+    runUntil(w, "a ghost part-way through its temper", [], (x) =>
+      x.creatures.some((c) => {
+        if (c.kind !== "ghost") return false;
+        const rage = ghostRage(x.cfg, c);
+        return rage > 0.3 && rage < 1;
+      }),
+    );
     return w;
   },
 };

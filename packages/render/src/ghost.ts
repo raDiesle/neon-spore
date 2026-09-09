@@ -12,6 +12,7 @@ import { contourClock } from "./creature-place.js";
 import { hazed } from "./depth.js";
 import { drawGhostEyes } from "./ghost-eyes.js";
 import { slabs } from "./ghost-glitch.js";
+import { GHOST_LOOK } from "./ghost-look.js";
 import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -119,7 +120,7 @@ export function drawGhost(
   ctx.fillStyle = glow;
   ctx.fill(body);
 
-  drawTears(ctx, body, c.id, time, rage, haze(rim));
+  GHOST_LOOK.tears({ ctx, body, id: c.id, time, rage, hex: haze(rim) });
 
   // The outline, solid — the same contour every other body in the game is
   // drawn with. It was dashed once, on the argument that a broken line reads
@@ -139,35 +140,6 @@ export function drawGhost(
   halo(ctx, x, y, r * 1.5, haze(hex), 0.14 + rage * 0.1);
   halo(ctx, x, y, r * 2.6, haze(rim), 0.06 + rage * 0.08);
   drawShards(ctx, c.id, time, rage, x, y, halfW, r, haze(rim));
-}
-
-/**
- * The tears inside the body: each band of the contour lit and shifted against
- * its neighbours. Clipped to the outline, so what moves is the *inside* of the
- * silhouette and the silhouette itself stays a shape player 2 can name.
- */
-function drawTears(
-  ctx: CanvasRenderingContext2D,
-  body: Path2D,
-  id: number,
-  time: number,
-  rage: number,
-  hex: string,
-): void {
-  ctx.save();
-  ctx.clip(body);
-  ctx.globalCompositeOperation = "lighter";
-  for (const s of slabs(id, time, rage)) {
-    ctx.globalAlpha = 0.1 + Math.abs(s.shift) * 0.5;
-    ctx.fillStyle = hex;
-    ctx.fillRect(
-      -GHOST.rx + s.shift * GHOST.rx,
-      s.top * GHOST.ry,
-      GHOST.rx * 2,
-      s.height * GHOST.ry * 0.6,
-    );
-  }
-  ctx.restore();
 }
 
 /**

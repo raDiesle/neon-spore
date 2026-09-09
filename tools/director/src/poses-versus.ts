@@ -13,7 +13,7 @@ import {
   shoot,
   POSE_TPB as TPB,
 } from "./pose-kit.js";
-import { BODIES_POSE, DART_RUN_POSE } from "./poses-bodies.js";
+import { BODIES_POSE, DART_RUN_POSE, GHOST_POSE } from "./poses-bodies.js";
 import { BREAK_POSE, METEOR_HIT_POSE } from "./poses-damage.js";
 
 /**
@@ -198,6 +198,7 @@ export const VERSUS_POSES: Pose[] = [
   BREAK_POSE,
   BODIES_POSE,
   DART_RUN_POSE,
+  GHOST_POSE,
 ];
 
 export const VERSUS_GROUP: PoseGroup = {
