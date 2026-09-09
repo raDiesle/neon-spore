@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-08 · 6442080a — Install when a git operation brought dependencies with it
+
+`bun run dev` restarts its hot server after a merge, a rebase or a checkout, because an incremental bundle built while git is still writing is half of each revision. The restart was not enough when the operation also carried a new dependency: the fresh server bundles a perfectly correct import against the `node_modules` of the revision before and reports it as unresolvable. That is what `tools/style-guide` did to the director — four "Could not resolve" errors against imports that were right, and `bun install` was the cure nobody was told about.
+
 ## 2026-09-08 · 1faa6265 — A mouse leaves slime on the glass
 
 A player at a desk drags the pointer and the game lays ink under it: a string of blobs out of `blobPath` that swell, sag and thin out, adding up where they overlap into one running mass rather than a line of beads. The colour turns as the hand travels, so a long sweep walks the rainbow and a flick stays one hue. It is on the menu, the room screen and the field alike, drawn on a surface of its own over every sheet and blended so it can only ever add light to a word underneath it. A phone builds none of it — `pointer: fine` decides, the same signal the key hint reads — and a desk that has asked for less motion gets none of it either.
