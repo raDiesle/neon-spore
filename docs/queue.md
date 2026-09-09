@@ -257,6 +257,7 @@ and `raster-caps.ts` are where the answer to "does a phone ever miss" lives.
 ## The slot-to-creature map in `versus-pose.test.ts` is kept by hand
 
 - **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7
+- **Taken:** 2026-09-09, claude/queue-the-slot-to-creature-map-in-versus-pose-test-ts
 - **Files:** `tools/director/test/versus-pose.test.ts`
 
 `each creature slot's pose actually puts that creature on the field` is the
