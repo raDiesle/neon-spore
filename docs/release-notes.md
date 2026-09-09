@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 072abfeb — The mouse's ink no longer sticks to the right edge and the bottom
+
+The trail was found standing still down the right-hand side of the director's field and along the bottom of it, on ink that no later frame could take off again. The cause is one line of arithmetic, and it is in every surface this repository sizes in device pixels and draws in CSS ones: the overlay sets `canvas.width = w * dpr` and then `setTransform(dpr, ...)`, so a `clearRect(0, 0, canvas.width, canvas.height)` is scaled like every other rectangle and asks for `w * dpr` *CSS* pixels. Above a ratio of one that merely wipes more than the surface. Below one — a desk zoomed out to 80% reports 0.8 — it wipes 64% of it, and the strip on the right and the band along the bottom keep whatever was last drawn there. The loop stops the moment the last blob dies, so what was outside the wipe stayed for the session.
+
 ## 2026-09-09 · 06467531 — Every unbuilt name says what it does, and the director can be read
 
 The NOT BUILT YET page was a list of names with a table cell under them — "facets, breaks into two halves — fast switching" — which tells a reader deciding what to build next nothing about who says what to whom or about what is actually missing. Every unbuilt creature and every name in the act order now carries four short lines in plain English: what it does, what player 1 does about it, what player 2 does about it, and what has to be decided before anybody starts. Where a design genuinely does not exist the line says so rather than inventing one, and TO FINISH IT is the list of questions instead.
