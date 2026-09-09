@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 8e5d69eb — A baseline row can say nobody has measured it
+
+`baseline.test.ts` wants one row per wave the game ships, which is what stops the baseline comparing today against a game that no longer exists. It collided with the rule that a cloud session does not run perf: a session that adds a wave adds a row the test requires, and the only way to fill it was the run that never finishes on a runner — killed twice at 400 and 580 seconds with nothing printed. The owner settled it on 9 September 2026: the test tolerates a row marked unmeasured, and `CLAUDE.md` is unchanged.
+
 ## 2026-09-09 · 50d1f779 — Every op-budget file can be remeasured without being edited
 
 `fleet-budget.test.ts` had a `MEASURE` switch: flip it, run the file, read the rows off the output, put them back. The other three carried headers telling a reader to do exactly that and had nothing to read — they assert, and they stop at the first row that moved. Remeasuring one meant hand-editing it to replace each `expect` with a `console.log`, running it, restoring the file from a copy and mapping printed rows back onto source lines by position. Eighty-two numbers moved in `wave-budget.test.ts` alone after one adopted look touched the ship.
