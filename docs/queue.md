@@ -137,28 +137,6 @@ Why the short label is what fits today, and what each of the three costs.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
-## `bun run perf` never exercises a held control, so a new one is unmeasured
-
-- **Found:** 2026-09-07, claude/cannon-streak-shot-38da84
-- **Taken:** 2026-09-09, claude/queue-bun-run-perf-never-exercises-a-held-control-so-a
-- **Files:** `tools/perf/measure.ts`, `tools/perf/waves.ts`,
-  `packages/render/src/lance-beam.ts`, `packages/render/src/lance.ts`
-
-The sweep plays each wave's arrivals with **no commands at all**, so anything a
-player has to press for is drawn zero times in it. THE LANCE gained three new
-draw paths on 7 September 2026 — a beam growing up the column while a colour is
-held, a ribbon with three nodules for the shot itself, and a full-stage wash
-when it leaves — and the wave's row in `baseline.json` measures none of them.
-The same hole covers the shield's dome, the maw, THE CLAW's arm and every
-round's own panel.
-
-`tools/frames` already knows how to hold a control through a run (`--hold`,
-`--press`), so the shape of the answer exists. Give a wave in `waves.ts` an
-optional list of `TimedCommand`s the measurement sends before its busiest tick,
-send them the way `capture.ts` does, and give THE LANCE a held colour so its row
-means something. The rows for waves with no commands are untouched, so the rest
-of the baseline stays comparable.
-
 ## `docs/party-games.md` links to nine screenshots it could not embed
 
 - **Found:** 2026-09-08, claude/party-minigames-research-udjn67
@@ -277,29 +255,6 @@ draft. `tools/shape-sheet/test/` is the guard: every contour candidate open in
 `tools/versus/candidates/index.ts` appears on the sheet, and a candidate whose
 patched shape falls under the drawn-size floor fails there rather than at the
 pair.
-
-## `bun run perf` measures every boss round at its lead-in and never at its song
-
-- **Found:** 2026-09-08, claude/pulse-boss-tuning-1af6df
-- **Taken:** 2026-09-09, claude/queue-bun-run-perf-measures-every-boss-round-at-its-le
-- **Files:** `tools/perf/measure.ts`, `tools/perf/sweep-timing.ts`, `tools/perf/test/`
-
-`measure.ts` steps a wave to its **busiest tick**, and it decides which one that
-is by counting `world.creatures`. A boss round has no creatures — THE PULSE,
-THE GAUGE, PINBALL, SNAKE and THE MAZE all keep their picture in `world.boss` —
-so `best` never improves on tick 0, `peak.tick` stays 0, and every round in the
-sweep is photographed during its count-in, before a single body is on the
-screen. THE PULSE's baseline entry is 0.70 ms for exactly that reason, which is
-the cost of a hull and a title and none of the round.
-
-What to do: give the search a second measure of how busy a tick is, so a world
-with a `boss` on it is stepped to the tick that round is actually drawing at.
-The cheap one is the count of things the round itself holds — `boss.notes` still
-falling for THE PULSE, `boss.balls` for PINBALL — but a per-kind reader is a
-table that will go stale. The other option is to keep it kind-agnostic and step
-a round to a fixed fraction of its own length, which is one number and wrong for
-none of them. Take a fresh baseline with `bun run perf --save` afterwards, since
-every round's row moves.
 
 ## `sectionNamed` ends a spec section at the first `###` inside it
 

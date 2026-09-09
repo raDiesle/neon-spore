@@ -34,6 +34,14 @@ declare global {
          * chooses by, and both are optional so a build older than either still
          * types (`tools/frames/press.ts`). */
         creatures: readonly { id?: number; row?: number }[];
+        /**
+         * The round in play, or nothing. `tools/perf` asks only whether there
+         * is one: a wave with a round on it keeps its whole picture here and
+         * puts no bodies on the field, so a body count cannot find its busiest
+         * tick (`BOSS_SONG_FRACTION`). Optional and unknown-shaped for that
+         * reason — nothing outside the page has any business reading into it.
+         */
+        boss?: unknown;
         /** The simulation's own clock, which `--settle` must not move. */
         tick: number;
         /** The beat counter, which a tap waits for: it is **not** `tick /

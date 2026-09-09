@@ -1,15 +1,14 @@
 import { WAVES } from "@neon-spore/content";
 import type { Page } from "playwright-core";
-import { clearOpening } from "../frames/opening.js";
 import { arrivalsOf } from "./arrivals.js";
 import type { WaveCost } from "./compare.js";
+import { heldFor } from "./held.js";
+import { holdControls, toPeak } from "./peak.js";
 import type { Sample } from "./sweep-timing.js";
 import {
   BATCH,
   BETWEEN_BATCHES_MS,
   FRAME_STEP_MS,
-  PEAK_SEARCH_STEP,
-  PEAK_SEARCH_TICKS,
   POSE_CLOCK_START,
   SAMPLES,
   summarise,
@@ -52,49 +51,6 @@ export async function calibrate(page: Page): Promise<number> {
     const ms = performance.now() - started + (x === Number.POSITIVE_INFINITY ? 1 : 0);
     return Math.round(iterations / ms);
   }, CALIBRATION_ITERATIONS);
-}
-
-/**
- * Put one wave on the field and step it to its busiest tick.
- *
- * The search is run twice over: once to find where the peak is, then the wave
- * is restarted and replayed to exactly that tick. Stopping at the peak the
- * first time round is not the same thing — the search has to run *past* it to
- * know it was a peak.
- */
-export async function toPeak(page: Page, waveIndex: number): Promise<number> {
-  const enter = async (): Promise<void> => {
-    await page.evaluate((w) => {
-      const ns = window.neonSpore;
-      if (!ns) throw new Error("window.neonSpore missing");
-      ns.jumpToWave(w);
-    }, waveIndex);
-    await clearOpening(page);
-  };
-
-  await enter();
-  const peak = await page.evaluate(
-    ([wave, limit, step]) => {
-      const ns = window.neonSpore;
-      if (!ns) throw new Error("window.neonSpore missing");
-      let best = { tick: 0, bodies: ns.world.creatures.length };
-      for (let t = step; t <= limit; t += step) {
-        ns.advance(step);
-        // The wave moved on; anything past here belongs to the next one.
-        if (ns.world.wave !== wave) break;
-        const bodies = ns.world.creatures.length;
-        if (bodies > best.bodies) best = { tick: t, bodies };
-      }
-      return best;
-    },
-    [waveIndex, PEAK_SEARCH_TICKS, PEAK_SEARCH_STEP] as const,
-  );
-
-  await enter();
-  if (peak.tick > 0) {
-    await page.evaluate((ticks) => window.neonSpore?.advance(ticks), peak.tick);
-  }
-  return peak.bodies;
 }
 
 /** A sample, and where the fake clock stood when it was taken. */
@@ -205,6 +161,7 @@ export async function sweep(
   let clock = POSE_CLOCK_START;
   for (const index of only) {
     const bodies = await toPeak(page, index);
+    await holdControls(page, heldFor(waveId(index)));
     const { typical, mean, p90, jitter, endedAt } = await timePaints(page, clock);
     clock = endedAt;
     const round = (v: number): number => Math.round(v * 100) / 100;

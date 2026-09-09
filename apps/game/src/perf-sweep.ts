@@ -6,6 +6,7 @@ import {
   PEAK_SEARCH_STEP,
   PEAK_SEARCH_TICKS,
   POSE_CLOCK_START,
+  peakTick,
   SAMPLES,
   type Sample,
   summarise,
@@ -32,7 +33,15 @@ import {
 
 /** The verbs a sweep drives the game by — `handle.ts`'s, narrowed to these. */
 export interface PerfHandle {
-  world: { wave: number; creatures: readonly unknown[]; brief: { phase?: number } };
+  world: {
+    wave: number;
+    creatures: readonly unknown[];
+    brief: { phase?: number };
+    /** The round in play, or nothing. Asked about and never read into: a wave
+     * with a round on it keeps its whole picture here and puts no bodies on the
+     * field, so a body count cannot find its busiest tick (`peakTick`). */
+    boss?: unknown;
+  };
   jumpToWave(wave: number): void;
   dismissBriefing(): void;
   advanceOpening(seconds: number): void;
@@ -81,24 +90,34 @@ function enter(ns: PerfHandle, wave: number): void {
 }
 
 /**
- * Step a wave to the tick it carries the most bodies.
+ * Step a wave to the tick it is measured at.
  *
  * Searched once and then replayed, as `measure.ts` does it: stopping at the
  * peak the first time round is not the same thing, because the search has to
  * run *past* a peak to know it was one.
+ *
+ * Which tick that is, is `peakTick`'s answer and not a second copy of it — the
+ * whole reason `sweep-timing.ts` exists is that the two sweeps must sample
+ * identically or their numbers are not comparable, and a boss round measured
+ * at its count-in here and inside its song over the wire would be exactly that
+ * failure.
  */
 function toPeak(ns: PerfHandle, wave: number): number {
   enter(ns, wave);
+  const round = ns.world.boss !== null && ns.world.boss !== undefined;
   let best = { tick: 0, bodies: ns.world.creatures.length };
+  let ran = 0;
   for (let t = PEAK_SEARCH_STEP; t <= PEAK_SEARCH_TICKS; t += PEAK_SEARCH_STEP) {
     ns.advance(PEAK_SEARCH_STEP);
     // The wave moved on; anything past here belongs to the next one.
     if (ns.world.wave !== wave) break;
+    ran = t;
     const bodies = ns.world.creatures.length;
     if (bodies > best.bodies) best = { tick: t, bodies };
   }
+  const at = peakTick({ ...best, round, ran });
   enter(ns, wave);
-  if (best.tick > 0) ns.advance(best.tick);
+  if (at > 0) ns.advance(at);
   return best.bodies;
 }
 

@@ -1326,6 +1326,8 @@ place — the generator keeps whatever is there.
 | `tools/queue/edit.ts` | Editing `docs/queue.md` and `docs/parked.md` in place: the claim written into an entry |
 | `tools/frames/press-plan.ts` | when each `--press` is sent, and the tick that must run after it |
 | `tools/perf/renumber.ts` | a merged baseline put back on today's wave numbers |
+| `tools/perf/held.ts` | WHAT A MEASUREMENT PRESSES, AND ON WHICH WAVE |
+| `tools/perf/peak.ts` | STANDING A WAVE WHERE IT IS MEASURED |
 | `tools/director/src/cell-config-rows.ts` |  |
 | `tools/director/src/grid-cell-art.ts` | What one cell of the map draws: the creature that arrives on that beat, and the pod that hangs in that column |
 | `tools/director/src/rail-filter.ts` | The filter over the wave list: one field above it, matching a wave's prose and everything it sends |

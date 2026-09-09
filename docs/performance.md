@@ -127,6 +127,22 @@ other question, and the two are not substitutes for one another.
   exactly that tick. This is the part that is easy to get wrong: a wave measured
   on its first frame, or after it has cleared, reports a number about an empty
   field.
+- **And a boss round is measured halfway through its own song**, because a round
+  puts nothing on the field at all — its whole picture is in `world.boss` — so a
+  body count never improves on tick 0 and every round in the sweep used to be
+  photographed during its count-in. Halfway is one number rather than a reader
+  per kind, which would go stale the next time a round is invented
+  (`BOSS_SONG_FRACTION`). It is why THE PULSE's row moved from 0.70 ms to 2.55
+  on the baseline of 9 September 2026, along with PINBALL's, SNAKE's, THE
+  MAZE's, THE MIRROR's and THE GAUGE's: none of those is a regression, they are
+  the first honest measurements those rounds have had.
+- **A wave that needs a thumb gets one.** The sweep plays arrivals and presses
+  nothing, so anything a player has to hold was drawn zero times in it — THE
+  LANCE's beam, its ribbon and the wash it leaves were all outside the row that
+  was supposed to measure them. A wave named in `tools/perf/held.ts` has its
+  commands sent at its busiest tick, through the same door a finger goes
+  through, and is measured half a second later. A wave not named there sends
+  nothing and its row is comparable straight across that change.
 - **Paced.** Paints are timed eight at a time with a pause between batches, so
   the GPU queue drains. One long tight loop measures Chrome's back-pressure
   instead and reports a 99th percentile around 200 ms, which is a fact about the

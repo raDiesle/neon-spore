@@ -82,6 +82,57 @@ export const FRAME_MS = 16.7;
 export const PEAK_SEARCH_TICKS = 2_400;
 export const PEAK_SEARCH_STEP = 15;
 
+/**
+ * How far into a **boss round** the sweep steps before it times anything, as a
+ * fraction of the round's own length.
+ *
+ * The busiest tick of an ordinary wave is the tick it carries the most bodies,
+ * and the search finds it by counting `world.creatures`. A boss round has
+ * none: THE PULSE, THE GAUGE, PINBALL, SNAKE and THE MAZE all keep their
+ * picture in `world.boss`, so the count never improved on tick 0 and every
+ * round in the sweep was photographed during its count-in, before a single
+ * body was on the screen. THE PULSE's baseline row was 0.70 ms for exactly
+ * that reason — a hull, a title, and none of the round.
+ *
+ * A fraction of the round's own length rather than a reader per kind. The
+ * cheap alternative was to count what each round holds — `boss.notes` for THE
+ * PULSE, `boss.balls` for PINBALL — and that is a table that goes stale the
+ * next time a round is invented, and stale in the direction of quietly
+ * measuring nothing again. Halfway through is one number and it is wrong for
+ * none of them: every round in this game is under way by its own midpoint,
+ * and none of them has finished.
+ */
+export const BOSS_SONG_FRACTION = 0.5;
+
+/** What the search through a wave found: where the bodies peaked, how many
+ * there were, whether a round was in play, and how long the wave ran before
+ * the sweep moved on. */
+export interface PeakSearch {
+  tick: number;
+  bodies: number;
+  round: boolean;
+  ran: number;
+}
+
+/**
+ * The tick a wave is actually measured at, given what the search found.
+ *
+ * Out here rather than inside the evaluated function so it can be held by a
+ * test: everything either side of it needs a browser, and this one decision is
+ * the whole of what went wrong with every boss round in the baseline.
+ *
+ * A round that put nothing on the field is stepped into its own song. A round
+ * that *did* deal bodies keeps the ordinary answer, because the count found
+ * one and a count is the better measure wherever there is one to take. The
+ * result is rounded to a whole `PEAK_SEARCH_STEP` for no reason but that the
+ * search itself only ever stood on those ticks, and a measurement taken
+ * between two of them is a measurement of a wave nothing else looked at.
+ */
+export function peakTick(found: PeakSearch): number {
+  if (!found.round || found.bodies > 0) return found.tick;
+  return Math.round((found.ran * BOSS_SONG_FRACTION) / PEAK_SEARCH_STEP) * PEAK_SEARCH_STEP;
+}
+
 /** What one wave's sample says, once the batches are in. */
 export interface Sample {
   typical: number;
