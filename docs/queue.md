@@ -147,36 +147,6 @@ Why the short label is what fits today, and what each of the three costs.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
-## No interlude round has ever been offered a look
-
-- **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7
-- **Taken:** 2026-09-09, claude/queue-no-interlude-round-has-ever-been-offered-a-look
-- **Files:** `packages/render/src/maze-draw.ts`, `packages/render/src/pinball-table.ts`,
-  `packages/render/src/snake-draw.ts`, `tools/director/src/versus-pose.ts`
-
-Every VERSUS slot that has ever been opened is a creature, the ship, a control
-or a boss's armour — the field. The interludes are whole screens with their own
-walls, tables, ribbons and pieces, they are what a pair looks at for a minute at
-a time with nothing falling, and not one of them has ever had a second answer
-offered to anything it draws. That is not because they are finished; it is
-because `versus-pose.ts` maps a slot to a *field* pose and nobody has built one
-that hands the pair a round instead.
-
-The first half is the work: a pose that builds a world already inside an
-interlude, so the pair draws the round rather than the field. `poses-mechanics.ts`
-is the closest existing shape and none of its entries leave the field.
-`maze-stage.ts` and `pinball-round.ts` are where a round's own state is set up,
-and `bossCycles` in `tools/director/src/boss-cycles.ts` already reaches one for
-the sheets — read it before writing a pose by hand.
-
-The second half is one slot, chosen small so the mechanism is proved rather than
-argued about: THE MAZE's walls are the candidate this entry recommends, because
-`maze-walls.ts` draws circles with gaps cut in them and a corridor's *depth* —
-which wall is nearer — is a thing a player has to read at speed and the picture
-currently says nothing about. Do the pose first and check the pair actually
-draws a round before writing a line of paint; if it does not, that finding is
-worth more than the candidate and should replace this entry.
-
 ## THE WISP and BULB QUEEN carry a measured cost from the adopted looks
 
 - **Found:** 2026-09-09, claude/game-visual-assets-21ed8c

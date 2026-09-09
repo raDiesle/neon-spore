@@ -5,6 +5,8 @@ import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
 import { SKIN_VEIL } from "./creature-skin/veil/index.js";
 import { EYE_TURN } from "./eye-iris/turn/index.js";
 import { GHOST_LATITUDE } from "./ghost-tears/latitude/index.js";
+import { MAZE_RAIL } from "./maze-walls/rail/index.js";
+import { MAZE_WELL } from "./maze-walls/well/index.js";
 import { JOIN_BOTH } from "./panel-join/both/index.js";
 import { JOIN_ORGANS } from "./panel-join/organs/index.js";
 import { JOIN_ROOF } from "./panel-join/roof/index.js";
@@ -47,4 +49,6 @@ export const VARIANTS: Variant[] = [
   SHELL_SLAB,
   EYE_TURN,
   GHOST_LATITUDE,
+  MAZE_WELL,
+  MAZE_RAIL,
 ];

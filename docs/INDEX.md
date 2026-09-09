@@ -782,6 +782,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/choir.ts` | THE CHOIR as it stands before the pilot's gesture |
 | `packages/render/src/maze-drips.ts` | The half of a refused shot that lands on the ship: a pool across the top of the hull |
 | `packages/render/src/maze-spill.ts` | What a shot the heart refuses throws back, and how far it gets |
+| `packages/render/src/maze-look.ts` | the one record a candidate MAZE patches — the drum standing still |
 | `packages/render/src/pulse-fall.ts` | The arrows themselves: what is falling, what is standing on the line |
 | `packages/render/src/pulse-lane.ts` | Where THE PULSE's four lanes are, and where the line across them is |
 | `packages/render/src/pulse-meter.ts` | The one meter, the tally under it, and the verdict |
@@ -1345,6 +1346,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/poses-bodies.ts` | The pose a candidate for a *body* is judged on, as opposed to one for a mechanism firing |
 | `tools/director/src/poses-casing.ts` | The states a candidate for what a body **wears** is judged on |
 | `tools/director/src/poses-damage.ts` | The two poses about **damage** — a rock being marked, and a body being destroyed |
+| `tools/director/src/poses-rounds.ts` | The states a candidate for an **interlude** is judged on |
 | `tools/director/src/versus-app.ts` | `versus.html` — the page a VERSUS door opens into, and the whole of its routing |
 | `tools/director/src/versus-one.ts` | One candidate, alone, on a page of its own — the live half of VERSUS |
 | `tools/director/src/versus-open.ts` | Where a look opens, and how a page links to it |

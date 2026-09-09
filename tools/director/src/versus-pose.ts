@@ -104,6 +104,11 @@ const SLOT_POSE: Record<string, string> = {
   // off altogether. Drawn on player two's screen alone, which is the creature
   // rather than an omission (`poses-bodies.ts`).
   "ghost:tears": "GHOST · TORN",
+  // The first slot here that is not the field at all. Every pose above puts a
+  // body, a control or a boss on the playing field; an interlude is a whole
+  // screen of its own, and until `poses-rounds.ts` there was no pose that
+  // handed the pair one — which is why no round had ever been offered a look.
+  "maze:walls": "MAZE · THE WHEEL TO READ",
   // Two about **damage**, on 9 September 2026, and the first slots on this page
   // whose subject is what happens *to* something rather than what it is made
   // of. A break is event-shaped in the sharpest way this map has met — the body

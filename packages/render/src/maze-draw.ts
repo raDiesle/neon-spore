@@ -3,11 +3,12 @@ import type { Layout, ViewRole } from "./layout.js";
 import { drawMazeDoors } from "./maze-door.js";
 import { mazeCrash, mazeFall } from "./maze-fall.js";
 import { drawMazeHeart, mazeHeartBlood } from "./maze-heart.js";
+import { MAZE_LOOK } from "./maze-look.js";
 import { drawMazeShot } from "./maze-shot.js";
 import { drawMazeSpill, mazeSpillAge } from "./maze-spill.js";
 import { drawMazeStages } from "./maze-stage.js";
 import { drawMazeString } from "./maze-string.js";
-import { drawMazeWalls, mazeDrum } from "./maze-walls.js";
+import { mazeDrum } from "./maze-walls.js";
 
 /**
  * THE MAZE's picture: a real maze of rings turning over the ship, with the one
@@ -68,7 +69,7 @@ export function drawMaze(
   const drum = mazeDrum(l, cfg);
   const fall = mazeFall(m, beat, beatPhase);
   const crash = mazeCrash(m, beat, beatPhase);
-  drawMazeWalls(ctx, drum, wheel, m.angleMilli, { fall, crash, hullY: l.hullY });
+  MAZE_LOOK.walls(ctx, drum, wheel, m.angleMilli, { fall, crash, hullY: l.hullY }, cfg);
   // What is at the end of the walk, drawn before the trail and the shot so
   // both of them arrive *on* it rather than behind it.
   drawMazeHeart(
