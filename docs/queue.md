@@ -413,6 +413,7 @@ of the baseline stays comparable.
 ## A handle's own word assumes every handle is the pilot's
 
 - **Found:** 2026-09-07, claude/balloon-enemy-unit-tkbivj
+- **Taken:** 2026-09-09, claude/queue-a-handles-own-word-assumes-every-handle-is-the-p
 - **Files:** `packages/render/src/handle-draw.ts`,
   `packages/render/src/balloon-handles.ts`, `packages/render/src/lid-string.ts`,
   `packages/render/src/tether.ts`, `packages/render/src/maze-string.ts`
