@@ -150,6 +150,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## `bun run queue done <n>` will remove an item somebody else is holding
 
 - **Found:** 2026-09-09, claude/queued-items-a47ead
+- **Taken:** 2026-09-09, claude/queue-bun-run-queue-done-n-will-remove-an-item-somebod
 - **Files:** `tools/queue/run.ts`, `tools/queue/test/queue.test.ts`
 
 The numbers come from the listing, and the listing renumbers every time an
