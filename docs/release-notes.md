@@ -9,6 +9,18 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 08e56390 — Queue the half of the shape collection a slot cannot reach
+
+A candidate on a shipped body patches six numbers, and most of the drafts are forms rather than blobs — a cluster of five under one skin cannot be spelled as a lobe count. `clubs` is the precedent for what the answer looks like.
+
+## 2026-09-09 · 2f6b4728 — Ten outlines for the two first bodies, and a rule about where a shape comes from
+
+The owner reopened both silhouettes — "you can change slick completely different shapes as well bulb, so many variants, just colour needs to stay" — so `slick:shape` and `bulb:shape` offer five answers each beside what ships. The slick gets a scalloped sheet, a one-lobed comma, four sacs in a chain, the REVERB draft's even edge and a nine-lobed fringe; the bulb gets eight deep arms, SMOKE's blurred edge, a four-lobed clover, a hanging pear and a twelve-lobed burr. Both slots reopen questions `DECIDED.md` records as answered on 8 September, which is his to do and is said in every candidate.
+
+## 2026-09-09 · acd1775e — Five answers to what is inside a bulb
+
+The same question as the slick's, on the other body the pair sees on nearly every wave, and five answers that disagree with each other rather than five settings of one.
+
 ## 2026-09-09 · 6e9f3cf7 — A number cannot remove an item somebody else is holding
 
 `bun run queue done <n>` obeyed a position read off a listing that renumbers every time an entry leaves it. A session draining two items in one sitting reads the list once, does the first, says `done 1`, does the second and says `done 2` — and 2 is a third entry that moved up. On 9 September 2026 that took an `Asks:` entry out from under a lane working it, and it was caught only because the branch it went on to delete was checked out and refused to go.
