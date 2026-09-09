@@ -132,12 +132,26 @@ export function proseBlocks(lines: string[]): ProseBlock[] {
   return blocks;
 }
 
-/** The lines under the first `##` heading containing `needle`, up to the next one. */
+/**
+ * The lines under the first `##` heading containing `needle`, up to the next
+ * `##` — **sub-headings inside it included**.
+ *
+ * It used to break out on any line opening with two hashes, which is every
+ * `###` as well as the next `##`, so a section built out of sub-headings came
+ * back as the two or three lines before the first one. Nothing was wrong for
+ * as long as every caller read a section of prose, tables and lists; the first
+ * one that did not — `## 10.5 In plain words`, whose entries are all `###` —
+ * wrote a private copy of this function with the right boundary in it, and a
+ * second copy of *where a section ends* is exactly the sort of re-derived rule
+ * `packages/sim/test/purity.test.ts` keeps a table against.
+ */
+const SECTION_END_RE = /^##(?!#)/;
+
 export function sectionNamed(text: string, needle: string): string[] {
   const lines: string[] = [];
   let inside = false;
   for (const line of text.split(/\r?\n/)) {
-    if (line.startsWith("##")) {
+    if (SECTION_END_RE.test(line)) {
       if (inside) break;
       if (line.includes(needle)) inside = true;
       continue;

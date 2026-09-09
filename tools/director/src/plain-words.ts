@@ -24,7 +24,7 @@
  * entry that needs a fifth row gets one by being typed.
  */
 
-import { normalizeName } from "./sections.js";
+import { normalizeName, sectionNamed } from "./sections.js";
 
 export interface PlainRow {
   /** The bold lead, without its colon — "What it does", "Player 1". */
@@ -36,35 +36,17 @@ export interface PlainRow {
 export type PlainWords = Map<string, PlainRow[]>;
 
 const NAME_RE = /^###\s+(.+?)\s*$/;
-/** A `##` heading and not a `###` one — the section this file reads is full of those. */
-const END_RE = /^##(?!#)/;
 const ROW_RE = /^-\s+\*\*([^*]+?):?\*\*\s*(.*)$/;
-const NEWLINE = /\r?\n/;
-
-/**
- * The lines under `## … In plain words`, up to the next `##`. Not
- * `sectionNamed`, which ends a section at any line opening with two hashes —
- * every entry here is a `###`, so that reader stops at the first one.
- */
-function sectionLines(text: string): string[] {
-  const lines: string[] = [];
-  let inside = false;
-  for (const line of text.split(NEWLINE)) {
-    if (END_RE.test(line)) {
-      if (inside) break;
-      inside = line.includes("In plain words");
-      continue;
-    }
-    if (inside) lines.push(line);
-  }
-  return lines;
-}
 
 export function parsePlainWords(text: string): PlainWords {
   const words: PlainWords = new Map();
   let rows: PlainRow[] | null = null;
 
-  for (const line of sectionLines(text)) {
+  // `sectionNamed` and not a reader of this file's own: it ends a section at
+  // the next `##` and carries every `###` inside it, which is what a section
+  // made entirely of sub-headings needs. It did not always, and the private
+  // copy that stood here is what the fix to it removed.
+  for (const line of sectionNamed(text, "In plain words")) {
     const name = line.match(NAME_RE);
     if (name) {
       rows = [];
