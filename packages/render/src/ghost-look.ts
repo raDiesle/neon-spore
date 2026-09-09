@@ -1,5 +1,6 @@
 import { GHOST } from "@neon-spore/content";
 import { slabs } from "./ghost-glitch.js";
+import { latitude } from "./ghost-latitude.js";
 
 /**
  * THE ONE RECORD A CANDIDATE **GHOST** PATCHES.
@@ -75,4 +76,17 @@ export interface GhostLook {
   readonly tears: (d: TearsDraw) => void;
 }
 
-export const GHOST_LOOK: GhostLook = { tears: drawTears };
+/**
+ * `ghost-latitude.ts` and not `drawTears`, since 9 September 2026.
+ *
+ * The owner could not tell `ghost:tears`'s two candidates apart, so the slot
+ * was settled rather than shown again, and LATITUDE won it on the two things
+ * that separate the pair where an eye could not: it keeps the hard edge a torn
+ * signal is made of, and it costs exactly what the shipped look cost.
+ *
+ * `drawTears` stays below, and it is not dead: it is what this record used to
+ * hold, it is what a future ghost candidate is offered *against*, and it is the
+ * one honest statement in the package of what the flat answer was. A seam whose
+ * shipped side has been deleted cannot show a pair anything.
+ */
+export const GHOST_LOOK: GhostLook = { tears: latitude };

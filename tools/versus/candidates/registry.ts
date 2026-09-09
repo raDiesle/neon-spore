@@ -27,8 +27,6 @@ import { SLICK_SEDIMENT } from "./creature-slick/sediment/index.js";
 import { TORCH_CROWN } from "./creature-torch/crown/index.js";
 import { TORCH_HOLLOW } from "./creature-torch/hollow/index.js";
 import { TORCH_KILN } from "./creature-torch/kiln/index.js";
-import { GHOST_LATITUDE } from "./ghost-tears/latitude/index.js";
-import { GHOST_SLIDE } from "./ghost-tears/slide/index.js";
 import { JOIN_BOTH } from "./panel-join/both/index.js";
 import { JOIN_ORGANS } from "./panel-join/organs/index.js";
 import { JOIN_ROOF } from "./panel-join/roof/index.js";
@@ -66,8 +64,6 @@ export const VARIANTS: Variant[] = [
   TORCH_CROWN,
   TORCH_HOLLOW,
   TORCH_KILN,
-  GHOST_LATITUDE,
-  GHOST_SLIDE,
   JOIN_BOTH,
   JOIN_ORGANS,
   JOIN_ROOF,

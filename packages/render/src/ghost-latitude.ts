@@ -1,9 +1,10 @@
-import { facet, GHOST, pin, surfaceDim } from "../../../../../packages/content/src/index.js";
-import { slabs } from "../../../../../packages/render/src/ghost-glitch.js";
-import type { TearsDraw } from "../../../../../packages/render/src/ghost-look.js";
+import { facet, GHOST, pin, surfaceDim } from "@neon-spore/content";
+import { slabs } from "./ghost-glitch.js";
+import type { TearsDraw } from "./ghost-look.js";
 
 /**
- * The paint LATITUDE is made of.
+ * THE GHOST's camouflage, coming apart on a **surface** rather than on a flat
+ * plane.
  *
  * `slabs` is called, not rewritten: how many bands there are, where each sits
  * and how far its temper has thrown it are three rules about *this creature*
@@ -12,6 +13,29 @@ import type { TearsDraw } from "../../../../../packages/render/src/ghost-look.js
  * picture, or a longitude on a body that is turning.
  *
  * The projection is `surface.ts`'s, called and never spelled out.
+ *
+ * ## How it was decided, which was not by a vote
+ *
+ * It was `ghost:tears` / `latitude` on the ALTERNATIVES page, against
+ * `ghost:tears` / `slide`. The owner looked at the pair on 9 September 2026 and
+ * said he could not see any difference between them — which is a real answer
+ * and not a failure to give one: a slot nobody can read is a slot that has to
+ * be settled and cleared rather than shown again.
+ *
+ * It was settled on the two things that separate them where the eye could not.
+ * **This one keeps the hard edge.** A ghost's whole job is to look like a
+ * signal coming apart, and the tearing is in the edge; SLIDE spent that on a
+ * gradient per band, and gentler is simply wrong for this body. And **this one
+ * costs nothing extra** — seven `fillRect`s, as the shipped look drew — where
+ * SLIDE built seven gradients a frame on a body that can be several to a wave,
+ * which its own card named as the thing to watch.
+ *
+ * What it takes on is the risk LATITUDE's card named and SLIDE's answered:
+ * player 2 has under a second to say which lane this body is in and is the only
+ * seat that can see it at all, so a camouflage whose brightest patch wanders
+ * from side to side can pull a column call off centre. If a lane starts being
+ * called wrong on this creature, that is this look and `PATCH` is the first
+ * number to try.
  */
 
 /** How far a band's own throw carries it round the body, in radians per unit
