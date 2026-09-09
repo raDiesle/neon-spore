@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · b7d00cf9 — A torch's fire places its marks without the transform stack
+
+BULB QUEEN was the one wave `bun run perf` still flagged, at +26% of the share it had and the worst frame in the game. It is not flagged any more, and nothing about the picture moved.
+
 ## 2026-09-09 · 5c7706fa — Wire up THE CLASP's hand-painted shield behind ?raster=1
 
 `drawClaspShield` has had two halves since the creature landed on 31 August 2026 — twenty hand-painted frames when an image is passed, and a procedural shell with `clasp-lattice.ts`'s honeycomb when it is not — and **nothing anywhere passed an image**. `drawCreatures` took a `claspImage` with a default of `null` and its one caller never handed it anything, on any commit. So half that file was code no device had ever run, and the committed 42 KB strip was paint nobody had ever seen.
