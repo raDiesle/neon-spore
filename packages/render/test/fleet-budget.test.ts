@@ -52,6 +52,19 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * Dump each measured row instead of asserting it, as the object literal the
  * table below holds — so a remeasurement is a run and a paste rather than an
  * hour of hand-editing (`budget-row.ts`). Never committed as `true`.
+ *
+ * **Two interiors moved every row here on 9 September 2026.** THE SLICK's two
+ * dots became a nucleus with nine veins and a bright running out along them,
+ * and THE BULB's one dot became eleven spheres packed three shells deep
+ * (`body-bloom.ts`, `body-spores.ts`). Both are on more waves than anything
+ * else in the game, so every scene in this package carries them.
+ *
+ * The rows moved by a fraction of what the two candidates cost as candidates.
+ * Drawn the way a tool draws one body, they were thirty-eight ops a slick and
+ * thirty-three a bulb; batched by quantised brightness — `eye-iris.ts`'s *one
+ * path and one stroke, not nine* — they are eight and five, and a spore is an
+ * ellipse rather than a circle under a transform, which is where its saves
+ * went.
  */
 const MEASURE = false;
 
@@ -96,7 +109,7 @@ type Budget = Partial<
 const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budget>>>> = {
   p1: {
     mid: {
-      fillRect: 60,
+      fillRect: 59,
       // One more stroke and one more clip than before the hull's light became a
       // barrel: `hull-barrel.ts` strokes the contour with a crown ramp, clipped
       // to the body. Every row in this file carries the same two.
@@ -111,7 +124,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       fillText: 25,
     },
     hit: {
-      fillRect: 83,
+      fillRect: 82,
       // Two more than mid: the shockwave ring and the fireball's own contour.
       stroke: 47,
       fill: 33,
@@ -132,7 +145,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
   },
   p2: {
     mid: {
-      fillRect: 60,
+      fillRect: 59,
       // Nine fewer than the pilot's: five hulls, their spines and their scars
       // are the whole of what this seat is not shown (`fleet-hulls.ts`).
       stroke: 36,
@@ -146,7 +159,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       fillText: 24,
     },
     hit: {
-      fillRect: 83,
+      fillRect: 82,
       stroke: 37,
       fill: 30,
       clip: 7,

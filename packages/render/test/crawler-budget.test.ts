@@ -85,6 +85,19 @@ type Budget = Partial<
  * Dump each measured row instead of asserting it, as the object literal the
  * table below holds — so a remeasurement is a run and a paste rather than an
  * hour of hand-editing (`budget-row.ts`). Never committed as `true`.
+ *
+ * **Two interiors moved every row here on 9 September 2026.** THE SLICK's two
+ * dots became a nucleus with nine veins and a bright running out along them,
+ * and THE BULB's one dot became eleven spheres packed three shells deep
+ * (`body-bloom.ts`, `body-spores.ts`). Both are on more waves than anything
+ * else in the game, so every scene in this package carries them.
+ *
+ * The rows moved by a fraction of what the two candidates cost as candidates.
+ * Drawn the way a tool draws one body, they were thirty-eight ops a slick and
+ * thirty-three a bulb; batched by quantised brightness — `eye-iris.ts`'s *one
+ * path and one stroke, not nine* — they are eight and five, and a spore is an
+ * ellipse rather than a circle under a transform, which is where its saves
+ * went.
  */
 const MEASURE = false;
 
@@ -94,8 +107,8 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
     { fillRect: 65, stroke: 73, fill: 50, clip: 11, save: 53, "new Path2D": 17, fillText: 2 },
   ],
   p2: [
-    { fillRect: 65, stroke: 69, fill: 59, clip: 11, save: 56, "new Path2D": 37, fillText: 2 },
-    { fillRect: 65, stroke: 71, fill: 56, clip: 11, save: 53, "new Path2D": 17, fillText: 2 },
+    { fillRect: 65, stroke: 75, fill: 61, clip: 11, save: 58, "new Path2D": 37, fillText: 2 },
+    { fillRect: 65, stroke: 77, fill: 58, clip: 11, save: 55, "new Path2D": 17, fillText: 2 },
   ],
 };
 

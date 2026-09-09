@@ -808,6 +808,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/lance-flash.ts` | The whole screen going white, then the ammunition colour, then nothing |
 | `packages/render/src/body-mark.ts` | One living body, at a size, with no world around it |
 | `packages/render/src/body-interior.ts` | **What a living body has inside it**: one record per kind, so the slick's two dots can be argued with |
+| `packages/render/src/body-bloom.ts` | THE SLICK's interior — a nucleus that sends something out along its veins |
+| `packages/render/src/body-spores.ts` | THE BULB's interior — the body is full, and it is a spore case |
 | `packages/render/src/pulse-body.ts` | One arrival falling down a lane, and the two ways of drawing one that cannot be read |
 | `packages/render/src/choir-shape.ts` | where THE CHOIR's two bodies stand and the skin traced over them — the shape half, with no light or colour in it |
 | `packages/render/src/choir-skin.ts` | **The light THE CHOIR throws and the film it wears** — the surface half of this creature |

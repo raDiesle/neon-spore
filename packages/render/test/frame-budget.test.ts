@@ -68,6 +68,16 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * costs one more `clip`, one more `stroke`, two more `save` and four more
  * `drawImage`, and one fewer `fill`.
  *
+ * **Two interiors moved every row again on 9 September 2026.** THE SLICK's two
+ * dots became a nucleus with nine veins and a bright running out along them,
+ * and THE BULB's one dot became eleven spheres packed three shells deep
+ * (`body-bloom.ts`, `body-spores.ts`). Both are on more waves than anything
+ * else in the game, so every scene in this file carries them. Drawn the way a
+ * tool draws one body they were thirty-eight ops a slick and thirty-three a
+ * bulb; batched by quantised brightness — `eye-iris.ts`'s *one path and one
+ * stroke, not nine* — they are eight and five, and a spore is an ellipse
+ * rather than a circle under a transform, which is where its saves went.
+ *
  * **`createRadialGradient` did not move, and that was the point.** Both of
  * those looks want a soft radial falloff, and both take it from `haloSprite`'s
  * cache rather than building a gradient — a gradient per body per frame is
@@ -122,10 +132,10 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // (`action-face.ts`). They replaced two `fillText` calls, which is the
       // whole of the trade the owner chose — the word cost almost nothing and
       // could not be drawn at a sequence glyph's size at all.
-      stroke: 54,
-      fill: 26,
+      stroke: 60,
+      fill: 28,
       clip: 9,
-      save: 31,
+      save: 34,
       drawImage: 38,
       createLinearGradient: 15,
       createRadialGradient: 3,
@@ -141,10 +151,10 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
     },
     {
       fillRect: 65,
-      stroke: 56,
-      fill: 26,
+      stroke: 62,
+      fill: 28,
       clip: 9,
-      save: 31,
+      save: 34,
       drawImage: 38,
       // Down from frame 0: the layout-only gradients (`gradient-slot.ts`'s
       // sites in field.ts and backdrop.ts, key-light.ts's own slot, and the
@@ -164,15 +174,15 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // contour plus `strokeGlow`'s four passes round the creature inside it,
       // which is how the field draws that body and the whole of what the owner
       // asked for (`controls.ts`).
-      stroke: 52,
+      stroke: 64,
       // Three more, and all three are `drawDetails`: the bulb's one core and
       // the slick's two, drawn on the buttons now that the silhouettes are
       // bodies rather than stencils.
-      fill: 31,
+      fill: 35,
       clip: 9,
       // Two fewer: a fire button's face is one `paintLobe` doing fill and
       // stroke together where it used to be a fill and then a crosshair.
-      save: 31,
+      save: 36,
       drawImage: 37,
       createLinearGradient: 15,
       createRadialGradient: 3,
@@ -183,10 +193,10 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
     },
     {
       fillRect: 65,
-      stroke: 54,
-      fill: 31,
+      stroke: 66,
+      fill: 35,
       clip: 9,
-      save: 31,
+      save: 36,
       drawImage: 37,
       createLinearGradient: 5,
       createRadialGradient: 1,

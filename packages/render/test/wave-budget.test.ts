@@ -46,6 +46,19 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * Dump each measured row instead of asserting it, as the object literal the
  * table below holds — so a remeasurement is a run and a paste rather than an
  * hour of hand-editing (`budget-row.ts`). Never committed as `true`.
+ *
+ * **Two interiors moved every row here on 9 September 2026.** THE SLICK's two
+ * dots became a nucleus with nine veins and a bright running out along them,
+ * and THE BULB's one dot became eleven spheres packed three shells deep
+ * (`body-bloom.ts`, `body-spores.ts`). Both are on more waves than anything
+ * else in the game, so every scene in this package carries them.
+ *
+ * The rows moved by a fraction of what the two candidates cost as candidates.
+ * Drawn the way a tool draws one body, they were thirty-eight ops a slick and
+ * thirty-three a bulb; batched by quantised brightness — `eye-iris.ts`'s *one
+ * path and one stroke, not nine* — they are eight and five, and a spore is an
+ * ellipse rather than a circle under a transform, which is where its saves
+ * went.
  */
 const MEASURE = false;
 
@@ -123,10 +136,10 @@ const SCENES: readonly Scene[] = [
       p1: [
         {
           fillRect: 73,
-          stroke: 68,
+          stroke: 74,
           fill: 31,
           clip: 8,
-          save: 35,
+          save: 37,
           drawImage: 33,
           createLinearGradient: 15,
           createRadialGradient: 3,
@@ -135,10 +148,10 @@ const SCENES: readonly Scene[] = [
         },
         {
           fillRect: 73,
-          stroke: 70,
+          stroke: 76,
           fill: 31,
           clip: 8,
-          save: 35,
+          save: 37,
           drawImage: 33,
           createLinearGradient: 5,
           createRadialGradient: 1,
@@ -149,10 +162,10 @@ const SCENES: readonly Scene[] = [
       p2: [
         {
           fillRect: 79,
-          stroke: 72,
-          fill: 54,
+          stroke: 84,
+          fill: 56,
           clip: 10,
-          save: 42,
+          save: 46,
           drawImage: 40,
           createLinearGradient: 15,
           createRadialGradient: 5,
@@ -161,10 +174,10 @@ const SCENES: readonly Scene[] = [
         },
         {
           fillRect: 79,
-          stroke: 74,
-          fill: 54,
+          stroke: 86,
+          fill: 56,
           clip: 10,
-          save: 42,
+          save: 46,
           drawImage: 40,
           createLinearGradient: 5,
           createRadialGradient: 3,
@@ -185,10 +198,10 @@ const SCENES: readonly Scene[] = [
       p1: [
         {
           fillRect: 261,
-          stroke: 67,
-          fill: 36,
+          stroke: 73,
+          fill: 38,
           clip: 9,
-          save: 40,
+          save: 42,
           drawImage: 36,
           createLinearGradient: 15,
           createRadialGradient: 3,
@@ -197,10 +210,10 @@ const SCENES: readonly Scene[] = [
         },
         {
           fillRect: 261,
-          stroke: 69,
-          fill: 36,
+          stroke: 75,
+          fill: 38,
           clip: 9,
-          save: 40,
+          save: 42,
           drawImage: 36,
           createLinearGradient: 5,
           createRadialGradient: 1,
@@ -211,10 +224,10 @@ const SCENES: readonly Scene[] = [
       p2: [
         {
           fillRect: 257,
-          stroke: 110,
-          fill: 59,
+          stroke: 122,
+          fill: 63,
           clip: 27,
-          save: 70,
+          save: 74,
           drawImage: 41,
           createLinearGradient: 17,
           createRadialGradient: 5,
@@ -223,10 +236,10 @@ const SCENES: readonly Scene[] = [
         },
         {
           fillRect: 257,
-          stroke: 112,
-          fill: 59,
+          stroke: 124,
+          fill: 63,
           clip: 27,
-          save: 70,
+          save: 74,
           drawImage: 41,
           createLinearGradient: 7,
           createRadialGradient: 3,
@@ -273,10 +286,10 @@ const SCENES: readonly Scene[] = [
       p2: [
         {
           fillRect: 73,
-          stroke: 65,
-          fill: 49,
+          stroke: 71,
+          fill: 51,
           clip: 6,
-          save: 37,
+          save: 39,
           drawImage: 99,
           createLinearGradient: 18,
           createRadialGradient: 5,
@@ -285,10 +298,10 @@ const SCENES: readonly Scene[] = [
         },
         {
           fillRect: 73,
-          stroke: 67,
-          fill: 49,
+          stroke: 73,
+          fill: 51,
           clip: 6,
-          save: 37,
+          save: 39,
           drawImage: 99,
           createLinearGradient: 8,
           createRadialGradient: 1,
@@ -309,10 +322,10 @@ const SCENES: readonly Scene[] = [
       p1: [
         {
           fillRect: 65,
-          stroke: 119,
-          fill: 55,
+          stroke: 147,
+          fill: 68,
           clip: 21,
-          save: 84,
+          save: 99,
           drawImage: 122,
           createLinearGradient: 15,
           createRadialGradient: 3,
@@ -321,10 +334,10 @@ const SCENES: readonly Scene[] = [
         },
         {
           fillRect: 65,
-          stroke: 121,
-          fill: 55,
+          stroke: 149,
+          fill: 67,
           clip: 21,
-          save: 84,
+          save: 99,
           drawImage: 122,
           createLinearGradient: 5,
           createRadialGradient: 1,
@@ -335,10 +348,10 @@ const SCENES: readonly Scene[] = [
       p2: [
         {
           fillRect: 65,
-          stroke: 117,
-          fill: 60,
+          stroke: 151,
+          fill: 75,
           clip: 21,
-          save: 84,
+          save: 101,
           drawImage: 121,
           createLinearGradient: 15,
           createRadialGradient: 3,
@@ -347,10 +360,10 @@ const SCENES: readonly Scene[] = [
         },
         {
           fillRect: 65,
-          stroke: 119,
-          fill: 60,
+          stroke: 153,
+          fill: 74,
           clip: 21,
-          save: 84,
+          save: 101,
           drawImage: 121,
           createLinearGradient: 5,
           createRadialGradient: 1,
@@ -370,10 +383,10 @@ const SCENES: readonly Scene[] = [
       p1: [
         {
           fillRect: 65,
-          stroke: 103,
-          fill: 78,
+          stroke: 133,
+          fill: 80,
           clip: 16,
-          save: 66,
+          save: 75,
           drawImage: 81,
           createLinearGradient: 16,
           createRadialGradient: 3,
@@ -382,10 +395,10 @@ const SCENES: readonly Scene[] = [
         },
         {
           fillRect: 65,
-          stroke: 105,
-          fill: 78,
+          stroke: 135,
+          fill: 80,
           clip: 16,
-          save: 66,
+          save: 75,
           drawImage: 81,
           createLinearGradient: 6,
           createRadialGradient: 1,
@@ -396,10 +409,10 @@ const SCENES: readonly Scene[] = [
       p2: [
         {
           fillRect: 65,
-          stroke: 101,
-          fill: 82,
+          stroke: 137,
+          fill: 86,
           clip: 16,
-          save: 66,
+          save: 77,
           drawImage: 80,
           createLinearGradient: 16,
           createRadialGradient: 3,
@@ -408,10 +421,10 @@ const SCENES: readonly Scene[] = [
         },
         {
           fillRect: 65,
-          stroke: 103,
-          fill: 82,
+          stroke: 139,
+          fill: 86,
           clip: 16,
-          save: 66,
+          save: 77,
           drawImage: 80,
           createLinearGradient: 6,
           createRadialGradient: 1,

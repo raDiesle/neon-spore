@@ -1,3 +1,6 @@
+import { bloom } from "./body-bloom.js";
+import { spores } from "./body-spores.js";
+
 /**
  * What is *inside* a living body, as a record per kind rather than as two
  * branches in the middle of `drawDetails`.
@@ -63,26 +66,33 @@ function twoCores(ctx: CanvasRenderingContext2D, p: Interior): void {
   ctx.fill();
 }
 
-function oneCore(ctx: CanvasRenderingContext2D, p: Interior): void {
-  ctx.fillStyle = p.rim;
-  ctx.beginPath();
-  ctx.arc(0, p.ry * 0.3, p.ry * 0.09, 0, Math.PI * 2);
-  ctx.fill();
-}
-
-/** THE SLICK's own interior — two cores, and the record a slick candidate patches. */
-export const SLICK_LOOK: BodyInterior = { paint: twoCores };
-
-/** THE BULB's own — one core. */
-export const BULB_LOOK: BodyInterior = { paint: oneCore };
+/**
+ * THE SLICK's own interior, and the record a slick candidate patches.
+ *
+ * It was `twoCores` — two dots — until 9 September 2026, when the owner took
+ * `creature:slick` / `bloom` into the game: a nucleus in each sac with nine
+ * veins running out of it and a bright travelling along them, over and over.
+ * `body-bloom.ts` has the argument.
+ */
+export const SLICK_LOOK: BodyInterior = { paint: bloom };
 
 /**
- * Every other blob's, and identical to the slick's today.
+ * THE BULB's own, and it took `creature:bulb` / `spores` on the same day: eleven
+ * spheres packed three shells deep, so the near ones are large and bright and
+ * the deep ones small and dim. It was one dot. `body-spores.ts`.
+ */
+export const BULB_LOOK: BodyInterior = { paint: spores };
+
+/**
+ * Every other blob's — two cores, and the only reader of `twoCores` now.
  *
  * It exists so that it can stop being identical without anybody deciding that
- * it should: a dart, a throb, an echo, a rind and every lure wearing one of
- * them all draw two cores because nothing has ever said what else they might
- * draw, and a slot about the slick is not a place to answer that for them.
+ * it should, and on 9 September 2026 that is exactly what happened from the
+ * other side: the slick took BLOOM and this did not follow it. A dart, a throb,
+ * an echo, a rind and every lure wearing one of them still draw two dots,
+ * because nothing has ever said what else they might draw and a decision about
+ * the slick is not a decision about them. That is the seam working rather than
+ * an omission — and it is also the next question this file will be asked.
  */
 export const BODY_LOOK: BodyInterior = { paint: twoCores };
 
