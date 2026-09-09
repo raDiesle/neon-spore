@@ -2,6 +2,7 @@ import { describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue, controlSet, WAVES } from "@neon-spore/content";
 import { createWorld, startWave, step, ticksPerBeat, type World } from "@neon-spore/sim";
 import type { ViewRole } from "../src/layout.js";
+import { budgetRow } from "./budget-row.js";
 import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, runFrames } from "./frame-harness.js";
 
 // The cap this file runs under. Asked for here rather than inherited: bun
@@ -68,6 +69,9 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  *
  * Every number is exact, measured after the change that earned it. If a
  * legitimate change raises one, remeasure and move that row — do not pad it.
+ * Set `MEASURE` to true and run this file: each row is printed as the object
+ * literal below, in the same order, so it goes back by being pasted rather
+ * than read off and retyped (`budget-row.ts`).
  */
 
 type Budget = Partial<
@@ -76,6 +80,13 @@ type Budget = Partial<
     number
   >
 >;
+
+/**
+ * Dump each measured row instead of asserting it, as the object literal the
+ * table below holds — so a remeasurement is a run and a paste rather than an
+ * hour of hand-editing (`budget-row.ts`). Never committed as `true`.
+ */
+const MEASURE = false;
 
 const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
   p1: [
@@ -125,16 +136,25 @@ describe("a whole worm's op count", () => {
         controls: controlSet("default"),
         onDrawn: (ctx, frame) => {
           const budget = rows[frame] as Budget;
-          for (const [key, max] of Object.entries(budget)) {
-            expect(ctx.tally.get(key) ?? 0, `${role} frame ${frame} ${key}`).toBeLessThanOrEqual(
-              max as number,
-            );
+          if (MEASURE) {
+            console.log(`  ${role} frame ${frame}`, budgetRow(ctx.tally, budget));
+          } else {
+            for (const [key, max] of Object.entries(budget)) {
+              expect(ctx.tally.get(key) ?? 0, `${role} frame ${frame} ${key}`).toBeLessThanOrEqual(
+                max as number,
+              );
+            }
           }
           ctx.tally.clear();
           measured++;
         },
       });
       expect(measured).toBe(rows.length);
+      // And the switch above is a switch for one run, never a commit: a file
+      // left in measure mode asserts nothing at all, which is the one way this
+      // convenience could quietly turn four budgets off (`fleet-budget.test.ts`
+      // has carried this line since it had the only switch).
+      expect(MEASURE, "MEASURE is left true").toBe(false);
     });
   }
 });

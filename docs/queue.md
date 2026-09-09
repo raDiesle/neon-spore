@@ -371,36 +371,6 @@ currently says nothing about. Do the pose first and check the pair actually
 draws a round before writing a line of paint; if it does not, that finding is
 worth more than the candidate and should replace this entry.
 
-## Three of the four op-budget files cannot be remeasured without editing them
-
-- **Found:** 2026-09-09, claude/game-visual-assets-21ed8c
-- **Taken:** 2026-09-09, claude/queue-three-of-the-four-op-budget-files-cannot-be-reme
-- **Files:** `packages/render/test/crawler-budget.test.ts`,
-  `packages/render/test/frame-budget.test.ts`,
-  `packages/render/test/wave-budget.test.ts`,
-  `packages/render/test/fleet-budget.test.ts`
-
-`fleet-budget.test.ts` carries a `const MEASURE = false;` switch: flip it, run
-the file, read the four objects off the output, put them back. The other three
-have no such thing, and their own headers tell a reader to "run this file and
-read the rows off the output" without saying how. There is nothing to read —
-they assert and stop at the first row that moved.
-
-This lane had to move 82 numbers in `wave-budget.test.ts` alone, after a look
-change that touched the ship and therefore every frame in every scene. Doing it
-meant hand-editing each file to replace its `expect` with a `console.log`,
-running it, restoring the file from a copy, and then mapping the printed rows
-back onto source lines by position — which is exactly the kind of work that is
-correct once and wrong the second time, and it will be needed again on the next
-look the owner adopts.
-
-Give the three the same `MEASURE` switch `fleet-budget.test.ts` already has, and
-print each row as the **object literal** rather than as loose lines, so the
-output can be pasted straight into the table. The saving is not the flag: it is
-that the printed shape and the source shape are the same shape, which is what
-made the fleet file's own remeasurement in this lane a thirty-second job and the
-other three an hour.
-
 ## THE WISP and BULB QUEEN carry a measured cost from the adopted looks
 
 - **Found:** 2026-09-09, claude/game-visual-assets-21ed8c

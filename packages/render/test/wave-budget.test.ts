@@ -1,5 +1,6 @@
 import { describe, expect, it, setDefaultTimeout } from "bun:test";
 import type { ViewRole } from "../src/layout.js";
+import { budgetRow } from "./budget-row.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, peakWorld, runFrames } from "./frame-harness.js";
 
 // The cap this file runs under. Asked for here rather than inherited: bun
@@ -34,8 +35,19 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  *
  * Every number is exact, measured after the change that earned it. If a
  * legitimate change to a scene raises one, remeasure that row and move it — do
- * not pad it.
+ * not pad it. Set `MEASURE` to true and run this file: each row is printed as
+ * the object literal the scenes below hold, in the same order, so it goes back
+ * by being pasted rather than read off and retyped (`budget-row.ts`). This is
+ * the file that made the case for it — one look change moved eighty-two of
+ * these numbers.
  */
+
+/**
+ * Dump each measured row instead of asserting it, as the object literal the
+ * table below holds — so a remeasurement is a run and a paste rather than an
+ * hour of hand-editing (`budget-row.ts`). Never committed as `true`.
+ */
+const MEASURE = false;
 
 type Budget = Partial<
   Record<
@@ -412,11 +424,15 @@ describe("the dearest frames' op counts", () => {
           onDrawn: (ctx, frame) => {
             const budget = rows[frame];
             if (!budget) return;
-            for (const [key, max] of Object.entries(budget)) {
-              expect(
-                ctx.tally.get(key) ?? 0,
-                `${scene.name} ${role} frame ${frame} ${key}`,
-              ).toBeLessThanOrEqual(max as number);
+            if (MEASURE) {
+              console.log(`  ${scene.id} ${role} frame ${frame}`, budgetRow(ctx.tally, budget));
+            } else {
+              for (const [key, max] of Object.entries(budget)) {
+                expect(
+                  ctx.tally.get(key) ?? 0,
+                  `${scene.name} ${role} frame ${frame} ${key}`,
+                ).toBeLessThanOrEqual(max as number);
+              }
             }
             // Zeroed between frames: each row is one frame's own count, and
             // the second is lower only because the first left the caches warm.
@@ -427,6 +443,11 @@ describe("the dearest frames' op counts", () => {
         // Both rows were actually weighed: a run that drew one frame would let
         // the second budget pass by never being asked.
         expect(measured).toBe(rows.length);
+        // And the switch above is a switch for one run, never a commit: a file
+        // left in measure mode asserts nothing at all, which is the one way this
+        // convenience could quietly turn four budgets off (`fleet-budget.test.ts`
+        // has carried this line since it had the only switch).
+        expect(MEASURE, "MEASURE is left true").toBe(false);
       });
     }
   }

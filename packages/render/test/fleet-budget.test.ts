@@ -10,6 +10,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { ViewRole } from "../src/layout.js";
+import { budgetRow } from "./budget-row.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -40,13 +41,18 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * flash, the shockwave, the fireball and its shards are all on screen at once.
  * Everything the boss draws the rest of the time is a subset of those.
  *
- * **The numbers are measured, not padded.** Set `MEASURE` to true, run this
- * file, and read the rows off the output; then put them back and pin them in
- * the same commit as the change that earned them. Lower them whenever a saving
- * lands.
+ * **The numbers are measured, not padded.** Set `MEASURE` to true and run this
+ * file: each row is printed as the object literal below, in the same order, so
+ * it goes back by being pasted rather than read off and retyped
+ * (`budget-row.ts`). Pin them in the same commit as the change that earned
+ * them, and lower them whenever a saving lands.
  */
 
-/** Dump the tally instead of asserting it. Never committed as `true`. */
+/**
+ * Dump each measured row instead of asserting it, as the object literal the
+ * table below holds — so a remeasurement is a run and a paste rather than an
+ * hour of hand-editing (`budget-row.ts`). Never committed as `true`.
+ */
 const MEASURE = false;
 
 const TPB = ticksPerBeat(CFG);
@@ -216,7 +222,7 @@ describe("THE FLEET's op count", () => {
       for (const at of ["mid", "hit"] as const) {
         const tally = worst[at] ?? new Map<string, number>();
         if (MEASURE) {
-          console.log(role, at, Object.fromEntries(tally));
+          console.log(`  ${role} ${at}`, budgetRow(tally, BUDGETS[role][at]));
           continue;
         }
         for (const [key, max] of Object.entries(BUDGETS[role][at])) {
