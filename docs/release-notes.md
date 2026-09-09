@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 5bca37b9 — The party-games study gets its five pictures
+
+The page was written in a cloud session whose network policy refused every host its screenshots live on, so each row carried a link to the wiki page holding the picture rather than the picture. Writing an `![…](…)` from memory would have put nine unchecked URLs in a public file, which is why it was left.
+
 ## 2026-09-09 · 8e5d69eb — A baseline row can say nobody has measured it
 
 `baseline.test.ts` wants one row per wave the game ships, which is what stops the baseline comparing today against a game that no longer exists. It collided with the rule that a cloud session does not run perf: a session that adds a wave adds a row the test requires, and the only way to fill it was the run that never finishes on a runner — killed twice at 400 and 580 seconds with nothing printed. The owner settled it on 9 September 2026: the test tolerates a row marked unmeasured, and `CLAUDE.md` is unchanged.
