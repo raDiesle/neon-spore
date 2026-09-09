@@ -22,18 +22,43 @@
  * never opens cannot fail the lint, whatever its line endings are. */
 const CHECKED = [".ts", ".tsx", ".js", ".jsx", ".json", ".css"];
 
+/**
+ * And markdown, which biome does **not** format and which several tools in
+ * this repository parse by matching on a newline.
+ *
+ * It is here for the same reason the list above is, arrived at from the other
+ * side. A CRLF `.ts` makes the lint print a whole file as a diff and name no
+ * cause; a CRLF `.md` passes every part of `bun run check` and then makes
+ * `bun run index` say *docs/INDEX.md has no "## Code" heading* — which is
+ * false, about a heading that is right there, and cost a turn on 9 September
+ * 2026. `tools/index` tolerates it now, and `tools/land`'s own release notes
+ * and `docs/queue.md` are parsed the same way by `notes.ts`, `queue-guard.ts`
+ * and `queue-merge.ts`.
+ *
+ * The class is the same class: a tracked file a Windows tool rewrote, on a
+ * repository whose `.gitattributes` asks for LF, found by the landing rather
+ * than by whatever breaks first and blames something else.
+ */
+const PARSED = [".md"];
+
 /** Paths biome is told to skip. `.claude/launch.json` is on this list because
  * the harness rewrites it, which is how the failure was found in the first
  * place — the exclusion is biome's, and this has to agree with it or it
  * refuses a landing over a file the lint would have passed. */
 const SKIPPED = ["node_modules/", "dist/", "legacy/", ".claude/launch.json"];
 
-export function biomeChecks(path: string): boolean {
+/**
+ * Whether anything in this repository would misread this file with the wrong
+ * line endings — biome for the code, and a newline-matching parser for the
+ * markdown biome never opens. Named for the question rather than for biome,
+ * because it stopped being only biome's on 9 September 2026.
+ */
+export function lineEndingsMatter(path: string): boolean {
   const at = path.replaceAll("\\", "/");
   if (SKIPPED.some((skip) => at === skip || at.startsWith(skip) || at.includes(`/${skip}`))) {
     return false;
   }
-  return CHECKED.some((ext) => at.endsWith(ext));
+  return CHECKED.some((ext) => at.endsWith(ext)) || PARSED.some((ext) => at.endsWith(ext));
 }
 
 /**
@@ -57,7 +82,7 @@ export function crlfOnDisk(listing: string): string[] {
       .find((field) => field.startsWith("w/"));
     if (worktree !== "w/crlf" && worktree !== "w/mixed") continue;
     const path = line.slice(tab + 1).trim();
-    if (biomeChecks(path)) found.push(path);
+    if (lineEndingsMatter(path)) found.push(path);
   }
   return found;
 }
@@ -69,7 +94,8 @@ export function crlfRefusal(paths: readonly string[], trunk: string): string[] {
     `✗ ${paths.length} tracked ${many} CRLF line endings on disk; ${trunk} was not moved`,
     ...paths.slice(0, 10).map((path) => `  ${path}`),
     ...(paths.length > 10 ? [`  and ${paths.length - 10} more`] : []),
-    "  the lint would report this as a formatter diff over the whole file, naming no cause",
-    "  run: bun run format",
+    "  a .ts reads as a formatter diff over the whole file, naming no cause; a .md",
+    "  passes the check and then makes a tool that parses it blame its own content",
+    "  run: bun run format, and for markdown rewrite the file with LF endings",
   ];
 }

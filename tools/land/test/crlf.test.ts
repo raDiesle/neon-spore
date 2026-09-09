@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { biomeChecks, crlfOnDisk, crlfRefusal } from "../crlf.js";
+import { crlfOnDisk, crlfRefusal, lineEndingsMatter } from "../crlf.js";
 
 /**
  * The landing failure that named a formatter instead of a line ending.
@@ -18,6 +18,22 @@ describe("crlfOnDisk", () => {
     expect(crlfOnDisk(LINE("crlf", "tools/land/run.ts"))).toEqual(["tools/land/run.ts"]);
   });
 
+  /**
+   * Markdown, which biome never opens and which `tools/index`, `tools/queue`
+   * and the release notes all parse by matching on a newline. It passed every
+   * part of `bun run check` and then made `bun run index` blame a heading that
+   * was there (`PARSED` in `crlf.ts`).
+   */
+  test("catches a markdown file biome would never have opened", () => {
+    expect(crlfOnDisk(LINE("crlf", "docs/INDEX.md"))).toEqual(["docs/INDEX.md"]);
+    expect(crlfOnDisk(LINE("crlf", "docs/queue.md"))).toEqual(["docs/queue.md"]);
+  });
+
+  test("and still leaves alone what nothing in this repository parses", () => {
+    expect(crlfOnDisk(LINE("crlf", "docs/style.png"))).toEqual([]);
+    expect(crlfOnDisk(LINE("crlf", "assets/raster/atlas.bin"))).toEqual([]);
+  });
+
   test("a mixed file counts too — biome rewrites it whole either way", () => {
     expect(crlfOnDisk(LINE("mixed", "apps/game/src/main.ts"))).toEqual(["apps/game/src/main.ts"]);
   });
@@ -30,13 +46,13 @@ describe("crlfOnDisk", () => {
     expect(crlfOnDisk(`i/crlf  w/lf     attr/ \tpackages/sim/src/step.ts`)).toEqual([]);
   });
 
-  test("a file biome never opens cannot fail its lint", () => {
+  test("a file nothing here parses is left out, whatever else is in the listing", () => {
     const listing = [
-      LINE("crlf", "docs/queue.md"),
       LINE("crlf", "assets/raster/atlas.bin"),
+      LINE("crlf", "docs/queue.md"),
       LINE("crlf", "packages/sim/src/step.ts"),
     ].join("\n");
-    expect(crlfOnDisk(listing)).toEqual(["packages/sim/src/step.ts"]);
+    expect(crlfOnDisk(listing)).toEqual(["docs/queue.md", "packages/sim/src/step.ts"]);
   });
 
   test("and neither can one biome is told to skip", () => {
@@ -50,17 +66,28 @@ describe("crlfOnDisk", () => {
   });
 });
 
-describe("biomeChecks", () => {
+describe("lineEndingsMatter", () => {
   test("the extensions biome.json includes", () => {
     for (const path of ["a.ts", "a.tsx", "a.js", "a.jsx", "a.json", "a.css"]) {
-      expect(biomeChecks(path)).toBe(true);
+      expect(lineEndingsMatter(path)).toBe(true);
     }
-    expect(biomeChecks("docs/notes.md")).toBe(false);
+  });
+
+  /** And markdown, which biome does not format and four tools here parse. */
+  test("and markdown, which biome does not format", () => {
+    expect(lineEndingsMatter("docs/notes.md")).toBe(true);
+    expect(lineEndingsMatter("docs/spec/bosses.md")).toBe(true);
+  });
+
+  test("and nothing else", () => {
+    for (const path of ["a.png", "a.webp", "a.bin", "a.txt", "a.svg"]) {
+      expect(lineEndingsMatter(path), path).toBe(false);
+    }
   });
 
   test("a Windows separator is the same path", () => {
-    expect(biomeChecks(String.raw`tools\land\run.ts`)).toBe(true);
-    expect(biomeChecks(String.raw`.claude\launch.json`)).toBe(false);
+    expect(lineEndingsMatter(String.raw`tools\land\run.ts`)).toBe(true);
+    expect(lineEndingsMatter(String.raw`.claude\launch.json`)).toBe(false);
   });
 });
 
@@ -76,6 +103,6 @@ describe("crlfRefusal", () => {
     const many = Array.from({ length: 14 }, (_, i) => `f${i}.ts`);
     const said = crlfRefusal(many, "main");
     expect(said.join("\n")).toContain("and 4 more");
-    expect(said.length).toBe(14);
+    expect(said.length).toBe(15);
   });
 });

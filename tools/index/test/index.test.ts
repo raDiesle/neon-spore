@@ -1,7 +1,14 @@
 import { describe, expect, test } from "bun:test";
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
-import { filterScopeFiles, generateIndex, parseRows, rowLives, type Tree } from "../index.js";
+import {
+  filterScopeFiles,
+  generateIndex,
+  normaliseEol,
+  parseRows,
+  rowLives,
+  type Tree,
+} from "../index.js";
 import { deriveHeaderSentence } from "../sentence.js";
 
 const ROOT = join(import.meta.dirname, "..", "..", "..");
@@ -28,10 +35,38 @@ function currentScope(): string[] {
   return filterScopeFiles(relPaths);
 }
 
+/** Spelled by code point rather than as an escape, so this file itself cannot
+ * be re-saved with the endings it is about and quietly stop testing them. */
+const CR = String.fromCharCode(13);
+const LF = String.fromCharCode(10);
+
 describe("docs/INDEX.md completeness", () => {
   const indexPath = join(ROOT, "docs", "INDEX.md");
-  const committed = readFileSync(indexPath, "utf8");
+  // Normalised on the way in, for the reason `normaliseEol` gives: the subject
+  // of this check is which rows the table holds, and a working tree whose
+  // markdown has CRLF endings is a different question — one `.gitattributes`
+  // already answers and `bun run index` repairs on its next run. Comparing raw
+  // text here would fail with "docs/INDEX.md is out of date", which is the
+  // wrong sentence about the right file.
+  const committed = normaliseEol(readFileSync(indexPath, "utf8"));
   const scope = currentScope();
+
+  /**
+   * The trap this tolerance was written for. A document that is byte for byte
+   * the committed one except for its line endings has to generate the same
+   * table — and, before this, threw "docs/INDEX.md has no '## Code' heading" at
+   * a reader looking straight at one.
+   */
+  test("reads a CRLF document and writes back the same LF table", () => {
+    const tree = {
+      scope,
+      read: (relPath: string) => readFileSync(join(ROOT, relPath), "utf8"),
+      has: (relPath: string) => existsSync(join(ROOT, relPath)),
+    };
+    const crlf = committed.replaceAll(LF, CR + LF);
+    expect(crlf).not.toBe(committed);
+    expect(generateIndex(crlf, tree)).toBe(generateIndex(committed, tree));
+  });
 
   test("generating from the committed file and the tree changes nothing", () => {
     const generated = generateIndex(committed, {

@@ -79,6 +79,29 @@ export function formatRow(path: string, text: string): string {
   return `| \`${path}\` | ${text} |`;
 }
 
+/**
+ * The document with its line endings settled before anything looks at it.
+ *
+ * **Every marker in this file ends in a newline**, and `indexOf` is exact — so
+ * a `docs/INDEX.md` whose lines end `\r\n` failed to find `## Code\n` and threw
+ * *docs/INDEX.md has no "## Code" heading*, which is false and sends a reader
+ * looking for a heading that is right there. It cost a turn on 9 September
+ * 2026, and it will keep happening: `.gitattributes` settles line endings for
+ * everything git touches, but **markdown is not formatted by biome**, so a CRLF
+ * `.md` in a working tree passes `bun run check` until a tool that matches on a
+ * newline breaks on it — and any session editing a document with a script that
+ * writes the platform newline puts one there.
+ *
+ * Normalising rather than refusing, because the file this writes back is LF
+ * either way: `.gitattributes` asks for LF, so a run over a CRLF document
+ * quietly repairs it, which is the outcome a refusal would have asked a person
+ * to produce by hand. What is left of the old error is now true — if it fires,
+ * the heading really is missing.
+ */
+export function normaliseEol(text: string): string {
+  return text.includes("\r\n") ? text.replaceAll("\r\n", "\n") : text;
+}
+
 /** Splits the document around the Code table so everything else passes through untouched. */
 export function splitDoc(text: string): {
   before: string;
@@ -151,7 +174,7 @@ export function rowLives(path: string, has: (relPath: string) => boolean): boole
  * exactly.
  */
 export function generateIndex(currentText: string, tree: Tree): string {
-  const { before, intro, body, after } = splitDoc(currentText);
+  const { before, intro, body, after } = splitDoc(normaliseEol(currentText));
   const existing = parseRows(body).filter((r) => rowLives(r.path, tree.has));
   const existingByPath = new Map(existing.map((r) => [r.path, r]));
   const dirPrefixes = existing.filter((r) => r.path.endsWith("/")).map((r) => r.path);

@@ -338,36 +338,3 @@ a place a candidate look can live after all — a `clasp-look.ts` seam over the
 shell and the lattice patches what a phone actually draws — so that slot is
 worth opening once this is settled, because a candidate written today and a
 raster branch switched on tomorrow would be two answers to one question.
-
-## A CRLF markdown file makes `bun run index` blame a missing heading
-
-- **Found:** 2026-09-09, claude/queue-the-shells-plating-is-a-flat-lid-over-a-round-bo
-- **Taken:** 2026-09-09, claude/queue-a-crlf-markdown-file-makes-bun-run-index-blame-a
-- **Files:** `tools/index/index.ts`, `tools/index/test/index.test.ts`
-
-`CODE_HEADING` is `"## Code
-"` and `splitDoc` looks for it with `indexOf`, so a
-`docs/INDEX.md` whose lines end `
-` throws *docs/INDEX.md has no '## Code'
-heading to anchor the generated table on* — which is false, and sends a reader
-looking for a heading that is right there. It cost a turn on 9 September 2026.
-
-The repository already settles line endings: `.gitattributes` says
-`* text=auto eol=lf`, and it says in its own comment that a contributor's git
-config disagreeing with it is what re-injected CRLF once before. What is new is
-that **markdown is not formatted by biome**, so nothing in `bun run check`
-notices a CRLF `.md` in the working tree until a tool that string-matches on
-`
-` breaks on it — and any session editing a document with a script that
-writes the platform newline puts one there.
-
-Two things, and the first is the one that matters. Make `splitDoc` tolerant:
-match the heading with a regex that accepts either ending, or normalise the
-text once on read. Then make the failure honest for whatever it cannot
-tolerate — a check that says *this file has CRLF line endings and
-`.gitattributes` asks for LF* is a message somebody can act on. A test with a
-CRLF fixture holds both.
-
-Worth a look while in there: `tools/land` and `tools/queue` also match on
-newline-terminated markers in `docs/queue.md` and `docs/release-notes.md`, and
-have the same exposure.
