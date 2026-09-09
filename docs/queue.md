@@ -739,6 +739,7 @@ every round's row moves.
 ## `rgba` is written out twice, in `hex.ts` and in `meteor-look.ts`
 
 - **Found:** 2026-09-08, claude/creature-assets-reorganize-4c9944
+- **Taken:** 2026-09-09, claude/queue-rgba-is-written-out-twice-in-hex-ts-and-in-meteo
 - **Files:** `packages/render/src/hex.ts`, `packages/render/src/meteor-look.ts`
 
 `hex.ts` exports `rgba(hex, alpha)` and ten files import it from there.
