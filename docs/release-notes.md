@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 4e1469a1 — Three decisions queued: two VERSUS slots and THE BALLOON
+
+The owner answered `slick:motion` and `slick:shape` in chat and asked for four changes to THE BALLOON. Each is written up as a queue entry a fresh session can finish alone: BANK adopted with GLIDE and FLOAT moved to the shape sheet rather than deleted, `slick:shape` dropped with COMMA and REVERB moved the same way, and the balloon given a longer pull, a hold at full stretch, a slower climb and halves that part in two directions.
+
 ## 2026-09-09 · 2a29a0c6 — What the page decided on 9 September 2026, written down
 
 The largest clearance VERSUS has had, and the first where the answer "move it" was used more often than "take it". Seven slots left in four ways, and the four are the whole vocabulary this page has: taken as a pair, taken as one of a set, settled without a vote because nobody could see the difference, and moved somewhere it can be browsed.
