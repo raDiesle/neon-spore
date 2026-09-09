@@ -42,13 +42,11 @@ import {
  * The bun this repo is pinned to, **read out of `.bun-version`** rather than
  * written here.
  *
- * It used to be a literal, `1.4.2`, documented as the lowest bun the lockfile
- * and the workerd tests were known to want — and `.bun-version` said `1.4.0`.
- * Both could not be right, and the number here was the wrong one: `apps/server`
- * is green on 1.4.0 and a frozen install on it reports no changes against a
- * `lockfileVersion: 2` lockfile, which is exactly what CI has been proving on
- * Linux every run, because CI installs from `.bun-version` and then runs the
- * whole suite.
+ * It used to be a literal, `1.4.2`, while `.bun-version` said `1.4.0`, and the
+ * two had no way of noticing each other. The owner settled which on 9 September
+ * 2026 — **1.4.2** — and the file was raised to meet the hook rather than the
+ * hook lowered to meet the file: a pin says which toolchain this repository is
+ * developed on, not the oldest one that still passes.
  *
  * So this is derived and there is no second number to raise. `.bun-version` is
  * the one file to edit; `package.json`, the workflow and now this all read it,

@@ -2,9 +2,9 @@
   "name": "neon-spore",
   "private": true,
   "version": "0.0.0",
-  "packageManager": "bun@1.4.0",
+  "packageManager": "bun@1.4.2",
   "engines": {
-    "bun": ">=1.4.0"
+    "bun": ">=1.4.2"
   },
   "type": "module",
   "workspaces": [

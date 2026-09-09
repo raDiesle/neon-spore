@@ -23,10 +23,10 @@ import { WANTED } from "../hooks/session-start.ts";
  *   Bun does not refuse to run on a mismatch and this test does not either.
  * - **`tools/hooks/session-start.ts`'s `WANTED`** is what the web image's bun
  *   is pinned *to*, and it is the reader that had already drifted: it held
- *   `1.4.2` as a literal while this file said `1.4.0`, documented as a floor
- *   nobody could re-derive. It reads `.bun-version` now, and the row below is
- *   what says the derivation still reaches this file — a hook moved to another
- *   directory would quietly fall back to its no-op and pin nothing.
+ *   `1.4.2` as a literal while this file said `1.4.0`. It reads `.bun-version`
+ *   now, and the row below is what says the derivation still reaches this
+ *   file — a hook moved to another directory would quietly fall back to its
+ *   no-op and pin nothing.
  *
  * **It does not fail on the Bun you happen to be running.** A version that is
  * merely different is a session's business to report, not a reason to stop it
@@ -38,8 +38,8 @@ import { WANTED } from "../hooks/session-start.ts";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 
-/** `1.4.0` — no `v`, no range, because two of the three readers take it
- * literally and a range would silently mean `latest` to one of them. */
+/** `1.4.2` — no `v`, no range, because two of the readers take it literally
+ * and a range would silently mean `latest` to one of them. */
 const EXACT = /^\d+\.\d+\.\d+$/;
 
 async function text(rel: string): Promise<string> {

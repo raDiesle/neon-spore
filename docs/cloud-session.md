@@ -159,8 +159,8 @@ session through `$CLAUDE_ENV_FILE`. The image's own Bun is left in place.
 It says so in one line on stderr, and there are only two:
 
 ```
-session-start: bun 1.3.11 is below 1.4.0; pinned /root/.cache/neon-spore-bun/bun ahead of it
-session-start: could not pin bun 1.4.0; leaving the image's 1.3.11
+session-start: bun 1.3.11 is below 1.4.2; pinned /root/.cache/neon-spore-bun/bun ahead of it
+session-start: could not pin bun 1.4.2; leaving the image's 1.3.11
 ```
 
 The first is the ordinary case and needs nothing. **The second is the only time
@@ -179,11 +179,12 @@ already was.
 **One version, and it is `.bun-version`.** That file is what the repository is
 tested against; `package.json` names it as its package manager, CI installs from
 it, the hook pins to it, and `tools/test/bun-version.test.ts` holds all four in
-step. The hook used to carry a number of its own — `1.4.2`, described as the
-lowest Bun the lockfile and the workerd tests were known to want, against a file
-saying `1.4.0` — and the file was right: `apps/server` is green on 1.4.0 and a
-frozen install on it reports no changes, which is what CI has been demonstrating
-on Linux every run. There is no second number to raise now.
+step. The hook used to carry a number of its own — `1.4.2`, against a file
+saying `1.4.0`, with no way for either to notice the other. The owner settled it
+on 9 September 2026 at **1.4.2**, and the file was raised to meet the hook
+rather than the hook lowered to meet the file: a pin says which toolchain this
+repository is developed on, not the oldest one that still passes. There is no
+second number to raise now.
 
 Nothing refuses to run on a mismatch, so a session on a different Bun is not
 stopped — but its green check is a result about a different runtime, and after
