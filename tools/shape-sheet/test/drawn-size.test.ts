@@ -123,7 +123,21 @@ describe("drawn size against the 20-26 px floor", () => {
     // candidate being a catalogue entry: an alternative outline that would be
     // under twenty-six pixels on a phone is counted here on the day it is
     // written, rather than found at the pair by somebody squinting.
-    expect(under26).toBe(56);
+    //
+    // **Four more later the same day, and the square count did not move at
+    // all.** The owner kept the shipped bulb and asked for `bulb:shape`'s five
+    // alternatives to live on this page instead, so the same five contours
+    // left `candidates.ts` and arrived in `drafts/offered.ts` — five cards out,
+    // five cards in, 102 either way. What changed is that a draft carries a
+    // *motion* and a contour candidate does not: `drawnSize` takes the union of
+    // a body's bounds over a cycle of its own-motion, so the same five outlines
+    // wearing the bulb's own BLOOM are fitted smaller than they were sitting
+    // still, and all five now land under the floor where one did. That is the
+    // measurement getting more honest rather than the shapes getting worse —
+    // a body on the field is never still — and it is the same effect this
+    // file's own header records from the other direction, when the wisp
+    // stopped spinning and grew.
+    expect(under26).toBe(60);
     expect(under20).toBe(21);
   });
 

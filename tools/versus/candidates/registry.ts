@@ -6,11 +6,6 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
-import { BULB_BURR } from "./bulb-shape/burr/index.js";
-import { BULB_CLOVER } from "./bulb-shape/clover/index.js";
-import { BULB_PEAR } from "./bulb-shape/pear/index.js";
-import { BULB_PEBBLE } from "./bulb-shape/pebble/index.js";
-import { BULB_SPIKE } from "./bulb-shape/spike/index.js";
 import { BULB_CHAMBERS } from "./creature-bulb/chambers/index.js";
 import { BULB_FILAMENT } from "./creature-bulb/filament/index.js";
 import { BULB_NUCLEUS } from "./creature-bulb/nucleus/index.js";
@@ -43,11 +38,6 @@ import { TORCH_BLOOM } from "./torch-veil/bloom/index.js";
 import { TORCH_FIFTH } from "./torch-veil/fifth/index.js";
 
 export const VARIANTS: Variant[] = [
-  BULB_BURR,
-  BULB_CLOVER,
-  BULB_PEAR,
-  BULB_PEBBLE,
-  BULB_SPIKE,
   BULB_CHAMBERS,
   BULB_FILAMENT,
   BULB_NUCLEUS,

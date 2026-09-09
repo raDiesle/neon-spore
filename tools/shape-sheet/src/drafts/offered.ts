@@ -1,6 +1,19 @@
+import { livingMotion } from "@neon-spore/content";
 import type { CatalogueEntry } from "../catalogue.js";
 import { clubbed } from "../forms/index.js";
 import { TURN } from "../motions.js";
+import { blob } from "../subjects.js";
+
+/**
+ * The bulb's own motion, worn by all five of its alternatives.
+ *
+ * Not a spare off `motions.ts`. The shipped BULB card carries what
+ * `livingMotion("bulb")` hands back, and a card beside it carrying something
+ * else would be two differences on one sheet when only one of them is the
+ * question. The outline is what is being read here; everything else is held
+ * still on purpose.
+ */
+const BULB_MOTION = livingMotion("bulb");
 
 /**
  * Second answers to bodies the game already draws.
@@ -24,6 +37,25 @@ import { TURN } from "../motions.js";
  * that has been accepted and not built, which is why the test insists every
  * one of them names something that exists. These are drawn at a body that is
  * already on the field, which has no idea-store bullet and never will.
+ *
+ * ## The bulb's five, on 9 September 2026
+ *
+ * The owner read `bulb:shape` — five whole outlines for the roundest body in
+ * the game, opened because he had asked for completely different shapes for
+ * both first bodies — and answered it in one sentence: *keep the current bulb,
+ * but move the alternatives somewhere available on the shapes page.* So the
+ * shipped six deep lobes stand, and this is where the other five went. It is
+ * the second time this file has been filled by that answer rather than by a
+ * vote, which is what it is for.
+ *
+ * They are worth browsing **together**, because between them they cover the
+ * whole axis a round body has: BURR is past counting on purpose, CLOVER is the
+ * largest count read without counting, SPIKE is the same idea sharpened until
+ * it is a hazard, PEBBLE is a body with no feature at all, and PEAR is the only
+ * one that changes the proportion rather than the count — which is the first
+ * thing `nameability.ts` measures. The shipped bulb sits between CLOVER and
+ * BURR, and that is easier to see with all five on one sheet than it ever was
+ * two at a time.
  */
 export const OFFERED_DRAFTS: CatalogueEntry[] = [
   {
@@ -44,5 +76,65 @@ export const OFFERED_DRAFTS: CatalogueEntry[] = [
     slot: "creature",
     owner:
       "nothing wears it: this is the throb's rim spent the other way, offered on VERSUS as `creature:throb` / `crown` and moved here on 8 September 2026 without a vote. A throb's rim is an instrument rather than decoration — the creature *is* which half is pointing at the cannon, and a ball is the one shape whose rotation cannot be seen, so six knobs were hung round it to give the turn a bearing and a count. The shipped rim is tuned the way an organic rim is: `reach` 0.26 keeps each cap close in, `cap` 0.36 makes it nearly as wide as the gap beside it, and `vary` 0.16 gives every club its own size, which is a good-looking body paid for out of both readings. This spends the same footprint the other way — a longer stalk, a smaller ball, an even ring — so the count is read rather than estimated and the bearing has a visible arm. What it risks is the objection `docs/alive.md` makes: six even knobs on an even ring is a machine, and this game already has a horseshoe and a cage for machinery. It carries TURN, which is the reading it exists for; only an eye at true size settles whether the neck survives 26 px",
+  },
+  {
+    subject: blob(
+      "BULB · CLOVER",
+      { lobes: 4, depth: 0.34, wobble: 0.045, rx: 52, ry: 52, seed: 1 },
+      "four deep lobes — the largest count read without counting",
+    ),
+    motion: BULB_MOTION,
+    status: "free",
+    slot: "creature",
+    owner:
+      "nothing wears it: offered on VERSUS as `bulb:shape` / `clover` and moved here on 9 September 2026 when the owner kept the shipped bulb and asked for the alternatives to live on this page. It argues that six is one too many — four deep lobes round a middle is the largest number a player reads at a glance without going one, two, three, and the whole reason the bulb carries lobes at all is that the count is what the pair says out loud. Deeper than the shipped shape, so each lobe is a thing rather than a scallop. What it risks is that four symmetrical arms is a cross, and a cross is furniture: the shape of a target, a compass, a joint, next to a field that already draws a bracket round a locked body",
+  },
+  {
+    subject: blob(
+      "BULB · BURR",
+      { lobes: 12, depth: 0.15, wobble: 0.05, rx: 52, ry: 52, seed: 1 },
+      "twelve small lobes, past counting on purpose",
+    ),
+    motion: BULB_MOTION,
+    status: "free",
+    slot: "creature",
+    owner:
+      "nothing wears it: `bulb:shape` / `burr`, moved here with the other four on 9 September 2026. It argues that the bulb should be recognised by its *edge quality* rather than by a number — twelve small lobes is not a count anybody will make, it is a burr, a seed head, a thing covered in something, and that is a description a player can give without having counted. It argues directly with what the shipped shape decided: nine shallow lobes was thrown out for being a texture rather than a count, and six was chosen because six can be counted. This says the premise was wrong, and that the way to make a texture work is to go further past counting rather than back from it. It loses the same way its ancestor did if the rim shimmers at 26 px on a contour already breathing on its own clock",
+  },
+  {
+    subject: blob(
+      "BULB · SPIKE",
+      { lobes: 8, depth: 0.38, wobble: 0.04, rx: 50, ry: 50, seed: 1 },
+      "eight deep arms with real gaps between them",
+    ),
+    motion: BULB_MOTION,
+    status: "free",
+    slot: "creature",
+    owner:
+      "nothing wears it: `bulb:shape` / `spike`, moved here with the other four on 9 September 2026. Eight lobes at nearly twice the shipped depth — a starfish rather than a spore, with real gaps between the arms instead of a scalloped rim. Eight is past counting on the fingers, deliberately: this body would be named by how sharp it is rather than by how many arms it has, and no shipped body carries eight. What it risks is that a star is a hazard — deep points are what the game draws on things that hurt, the fence's shards and a broken plate, and a body that looks armed is a body a pair hesitates over",
+  },
+  {
+    subject: blob(
+      "BULB · PEBBLE",
+      { lobes: 6, depth: 0.07, wobble: 0.17, rx: 54, ry: 50, seed: 7.4 },
+      "lobes so shallow they are barely there, under a wobble that blurs them",
+    ),
+    motion: BULB_MOTION,
+    status: "free",
+    slot: "creature",
+    owner:
+      "nothing wears it: `bulb:shape` / `pebble`, moved here with the other four on 9 September 2026. It argues that the bulb should be the body with *no feature at all* — lobes so shallow they are barely a departure from a circle, under a wobble larger than the lobes, so what a player sees is a soft round thing that breathes. Every other body on the field is trying to be recognised by a count or a point; this one would be recognised by having nothing to recognise. It is the opposite end of the slot from SPIKE and the two belong side by side, because the question underneath both is whether the first round body should be busy or plain. What it risks is that a circle is a rock: THE METEOR is the hard round thing at the same size, and with the lobes gone the difference rests entirely on the material and the colour",
+  },
+  {
+    subject: blob(
+      "BULB · PEAR",
+      { lobes: 1, depth: 0.28, wobble: 0.05, rx: 46, ry: 56, seed: Math.PI / 2 },
+      "one lobe on a body taller than it is wide — heavier at the bottom",
+    ),
+    motion: BULB_MOTION,
+    status: "free",
+    slot: "creature",
+    owner:
+      "nothing wears it: `bulb:shape` / `pear`, moved here with the other four on 9 September 2026. It argues that the bulb should stop being symmetrical — one lobe placed by a quarter-turn seed on a body taller than it is wide, a fruit hanging, with a fat end and a narrow one. Every other body in the game is either symmetrical about its long axis or pointed along it; this is the only shape that is simply heavier at the bottom, which is a thing a falling body can honestly be. It is also the only one of the five that changes the *proportion* rather than the count — 46 by 56 against the shipped 52 square — which is the axis `nameability.ts` measures first, and the reason to read it beside the other four rather than alone. What it risks is that tall is the slick's business turned ninety degrees: the two first bodies are told apart mostly by proportion, one long and one round, and a bulb with a proportion of its own spends that difference",
   },
 ];
