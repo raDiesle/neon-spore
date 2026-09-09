@@ -1,3 +1,4 @@
+import { beatPhaseTicks } from "./beat-clock.js";
 import { ticksPerBeat } from "./config.js";
 import type { Bullet, Creature } from "./types.js";
 import { MILLI, type World } from "./world.js";
@@ -35,7 +36,7 @@ export function bulletMilli(b: Bullet): number {
  */
 export function creatureMilli(world: World, c: Creature): number {
   const tpb = ticksPerBeat(world.cfg);
-  const phase = world.tick % tpb;
+  const phase = beatPhaseTicks(world.cfg, world.tick);
   return c.fromRow * MILLI + Math.round(((c.row - c.fromRow) * phase * MILLI) / tpb);
 }
 
@@ -67,6 +68,6 @@ export function creatureLane(world: World, c: Creature): number {
   const from = c.fromCol ?? c.col;
   if (from === c.col) return c.col;
   const tpb = ticksPerBeat(world.cfg);
-  const phase = world.tick % tpb;
+  const phase = beatPhaseTicks(world.cfg, world.tick);
   return from + Math.round(((c.col - from) * phase) / tpb);
 }

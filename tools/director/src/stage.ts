@@ -1,6 +1,7 @@
 import { controlSet } from "@neon-spore/content";
 import { Canvas2DRenderer, type ViewRole } from "@neon-spore/render";
 import {
+  beatPhase,
   createWorld,
   mazeRound,
   type SimConfig,
@@ -81,7 +82,7 @@ export function bindStage(
       // both lobes' columns (`render/touch-ship.ts`).
       cannonCol: world.cannonCol,
       shieldCol: world.shieldCol,
-      beatPhase: (world.tick % ticksPerBeat(cfg)) / ticksPerBeat(cfg),
+      beatPhase: beatPhase(cfg, world.tick),
       beat: world.beat,
       seat: pointerSeat(role),
       cfg,
@@ -147,10 +148,9 @@ export function bindStage(
   };
 
   const paint = (dt: number): void => {
-    const tpb = ticksPerBeat(cfg);
     renderer.draw({
       world,
-      beatPhase: (world.tick % tpb) / tpb,
+      beatPhase: beatPhase(cfg, world.tick),
       role,
       time: performance.now() / 1000,
       dt,

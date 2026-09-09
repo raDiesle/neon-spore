@@ -1,5 +1,5 @@
 import type { ViewRole, ViewState } from "@neon-spore/render";
-import { type SimEvent, step, ticksPerBeat, type World } from "@neon-spore/sim";
+import { beatPhase, type SimEvent, step, type World } from "@neon-spore/sim";
 import { seedRandom } from "../../versus/seed.js";
 import { type Applied, apply, restore, type Variant } from "../../versus/variant.js";
 import { poseCropRect } from "./pose-art.js";
@@ -150,9 +150,8 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
   };
 
   const paint = (dt: number): void => {
-    const tpb = ticksPerBeat(world.cfg);
     view.world = world;
-    view.beatPhase = (world.tick % tpb) / tpb;
+    view.beatPhase = beatPhase(world.cfg, world.tick);
     view.time = clock;
     view.dt = dt;
     view.events = events;

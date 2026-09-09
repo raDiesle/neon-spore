@@ -11,6 +11,13 @@
 
 export { type BalanceSheet, balanceSheet, share, type Tally } from "./balance.js";
 export { startWave } from "./beat.js";
+export {
+  beatPhase,
+  beatPhaseTicks,
+  beatStartTick,
+  isBeatTick,
+  nearestBeatTick,
+} from "./beat-clock.js";
 export { setBossRound } from "./boss-round.js";
 export {
   ackBriefing,

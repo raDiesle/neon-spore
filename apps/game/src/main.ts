@@ -1,6 +1,12 @@
 import { buildPods, buildQueue } from "@neon-spore/content";
 import { Canvas2DRenderer } from "@neon-spore/render";
-import { createWorld, DEFAULT_CONFIG, PAIR_ON, resetClock, ticksPerBeat } from "@neon-spore/sim";
+import {
+  createWorld,
+  DEFAULT_CONFIG,
+  PAIR_ON,
+  beatPhase as phaseOfBeat,
+  resetClock,
+} from "@neon-spore/sim";
 import { mountBuildStamp } from "../../../tools/build-stamp.js";
 import { bindAudio } from "./audio.js";
 import { openDemonstration } from "./demo-menu.js";
@@ -56,9 +62,8 @@ const audio = bindAudio(canvas, () => view.role());
 // The same frame's events the mixer gets, read for the two a hand should feel
 // rather than hear (`haptics.ts`). Off unless a player has asked for it.
 const haptics = bindHaptics();
-const tpb = ticksPerBeat(cfg);
 /** 0..1 within the beat. Both the picture and a finger on the field need it. */
-const beatPhase = (): number => (world.tick % tpb) / tpb;
+const beatPhase = (): number => phaseOfBeat(cfg, world.tick);
 
 const view = bindViewSwitch(() => {
   // Nothing to rebuild: the layout is derived per frame and per event.

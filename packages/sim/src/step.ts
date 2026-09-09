@@ -1,5 +1,6 @@
 import { balloonHeard, rubBalloons } from "./balloon-pull.js";
 import { onBeat } from "./beat.js";
+import { isBeatTick } from "./beat-clock.js";
 import { settleSpentBeatboxes } from "./beatbox-round.js";
 import { briefHeard, briefingHolds, guideStepHeard, stepReady } from "./briefing.js";
 import { advanceBullets, releaseShot } from "./bullets.js";
@@ -7,7 +8,6 @@ import { stepChoirFuse } from "./choir.js";
 import { choirArrowHeard, stepChoirWindow } from "./choir-gesture.js";
 import { wardCoils } from "./coil.js";
 import { applyCommand } from "./commands.js";
-import { ticksPerBeat } from "./config.js";
 import { crankHeard } from "./crank.js";
 import { fleetHeard } from "./fleet.js";
 import { dropLostGrips } from "./grip.js";
@@ -128,8 +128,7 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // Before the beat and before the shots: the lobe fills on the tick counter,
   // so the tick it comes full on is this one, whatever else happens next.
   releaseLance(world);
-  const tpb = ticksPerBeat(world.cfg);
-  if (world.tick % tpb === 0) {
+  if (isBeatTick(world.cfg, world.tick)) {
     onBeat(world);
     // A broken control acts on the beat, straight after the field has moved
     // under it — so the shot goes up the column the cannon is standing in

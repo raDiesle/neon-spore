@@ -7,7 +7,7 @@ import {
   type Viewport,
   type ViewRole,
 } from "@neon-spore/render";
-import { hullRow, type SimConfig, ticksPerBeat, type World } from "@neon-spore/sim";
+import { beatPhase, hullRow, type SimConfig, type World } from "@neon-spore/sim";
 import type { CropKind, Pose } from "./pose-kit.js";
 
 /**
@@ -178,10 +178,9 @@ export function frameWorld(
   const renderer = new Canvas2DRenderer(off);
   renderer.resize(PHONE);
 
-  const tpb = ticksPerBeat(cfg);
   const view = {
     world,
-    beatPhase: (world.tick % tpb) / tpb,
+    beatPhase: beatPhase(cfg, world.tick),
     role,
     time: world.tick / cfg.tickHz,
     running: true,

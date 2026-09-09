@@ -314,6 +314,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/step-round.ts` | The rounds' own tick, and the one thing all five of them have in common |
 | `packages/sim/src/pinball-shot.ts` | One shot of PINBALL: where the ball waits, what firing it does, and putting the loop back to the start |
 | `packages/sim/src/beatbox-picture.ts` | **THE BEATBOX's readings that decide nothing**: how long ago a thumb counted, how long ago one missed |
+| `packages/sim/src/beat-clock.ts` | Converting between the tick line and the beat, in the one place that may |
 
 ### packages/content
 

@@ -37,6 +37,16 @@ import type { PressSpec } from "./spec.js";
  *   --press 60:2:tap=lowest,120:2:tap=lowest   THE BEATBOX: a run, a beat apart
  *   --press 90:1:reach,240:1:crank=2            THE CLAW: send the arm up, wind it home
  *
+ * **The axis is ticks, and a tick is not a beat times `ticksPerBeat`.** It
+ * reads like one — "a run, a beat apart" above is 60 and 120 — and for a wave
+ * with an opening it is not: the opening holds the field while the tick counter
+ * keeps moving, so a press written on what looks like a boundary lands however
+ * many ticks the hold took *past* it. The first capture of a soundbox in the
+ * lane that found this came back with no run on it at all. Count from the
+ * capture rather than from the score: `tools/frames/opening-hold.ts` says how
+ * long the opening stands, and `packages/sim/src/beat-clock.ts` says why
+ * `world.beat` cannot be multiplied back.
+ *
  * THE FLEET's two are here for the reason the rest are: its shell is now drawn
  * arcing over the chart, its burst and its sinking are pictures nothing else in
  * the game draws, and none of the three can be reached without a thumb. The

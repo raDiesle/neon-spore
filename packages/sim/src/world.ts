@@ -39,6 +39,7 @@ export interface World {
   cfg: SimConfig;
   rng: Rng;
   tick: number;
+  // A label, not a position: never `beat * ticksPerBeat`. See `beat-clock.ts`.
   beat: number;
   nextId: number;
 

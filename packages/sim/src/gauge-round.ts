@@ -1,4 +1,5 @@
-import { midCol, ticksPerBeat } from "./config.js";
+import { isBeatTick } from "./beat-clock.js";
+import { midCol } from "./config.js";
 import type { GaugePhase, GaugeState } from "./gauge.js";
 import { gaugeHeard, openGauge, stepGauge } from "./gauge.js";
 import { breachHull } from "./hull.js";
@@ -107,7 +108,7 @@ export function stepGaugeRound(world: World): void {
     return;
   }
 
-  const onBeat = world.tick % ticksPerBeat(world.cfg) === 0;
+  const onBeat = isBeatTick(world.cfg, world.tick);
   const verdict = stepGauge(world, round, onBeat);
   if (verdict === null) return;
   round.passed = verdict;

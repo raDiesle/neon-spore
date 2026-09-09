@@ -507,4 +507,20 @@ export const COPIES: Copy[] = [
     pattern: /\*\s*\(\s*3\s*-\s*2\s*\*/,
     strip: false,
   },
+  {
+    // How far into a beat a tick is. Eight copies of `(tick % tpb) / tpb`
+    // across render, the app, the director and the stage, and the reason it
+    // matters is the neighbour it invites: `world.beat` is a *label*, so
+    // multiplying one back into ticks is a different moment, and THE BEATBOX
+    // settled every run a beat early before anybody noticed. One file owns the
+    // conversion in both directions now and takes ticks on every side of it.
+    //
+    // `interpolate.ts` owns the neighbouring rule: the same phase asked
+    // *between* ticks, with the frame's own alpha added before the modulo. It
+    // cannot be written without naming this one.
+    call: "beatPhase",
+    owner: "packages/sim/src/beat-clock.ts",
+    pattern: /%\s*(?:tpb|ticksPerBeat(?:\(\w*\))?)\s*\)?\s*\/\s*(?:tpb|ticksPerBeat(?:\(\w*\))?)/,
+    also: ["apps/game/src/interpolate.ts"],
+  },
 ];

@@ -1,3 +1,4 @@
+import { beatPhaseTicks, nearestBeatTick } from "./beat-clock.js";
 import { msToTicks, type SimConfig, ticksPerBeat } from "./config.js";
 import type { Creature } from "./types.js";
 import type { World } from "./world.js";
@@ -89,7 +90,7 @@ export function beatboxWindowTicks(cfg: SimConfig): number {
 export function beatboxBeatFor(world: World): number | null {
   const tpb = ticksPerBeat(world.cfg);
   const edge = beatboxWindowTicks(world.cfg);
-  const phase = world.tick % tpb;
+  const phase = beatPhaseTicks(world.cfg, world.tick);
   if (phase <= edge) return world.beat;
   if (tpb - phase <= edge) return world.beat + 1;
   return null;
@@ -138,7 +139,7 @@ export function beatboxDeadline(cfg: SimConfig, c: Creature): number | null {
   // `beatboxWindowTicks` of a boundary, and that window is held to under half
   // a beat by the config's own test, so the nearest multiple of `tpb` *is* the
   // boundary it was reaching for, early tap or late.
-  const boundary = Math.round(c.beatboxTick / tpb) * tpb;
+  const boundary = nearestBeatTick(cfg, c.beatboxTick);
   // One beat further on, plus the far edge of that beat's window: the last
   // tick a thumb could still have landed on and counted.
   return boundary + tpb + beatboxWindowTicks(cfg);

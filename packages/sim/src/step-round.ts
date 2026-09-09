@@ -1,6 +1,6 @@
 import { beatMetronome } from "./beat.js";
+import { isBeatTick } from "./beat-clock.js";
 import { applyCommand } from "./commands.js";
-import { ticksPerBeat } from "./config.js";
 import { gaugeHolds, gaugeRoundHeard, stepGaugeRound } from "./gauge-round.js";
 import { pinballHolds, pinballRoundHeard, stepPinballRound } from "./pinball-round.js";
 import { pulseHolds, pulseRoundHeard, stepPulseRound } from "./pulse-round.js";
@@ -92,7 +92,7 @@ export function stepRound(world: World, commands: readonly TimedCommand[]): bool
     else round.heard(world, c.player, c.command);
   }
   world.tick += 1;
-  if (world.tick % ticksPerBeat(world.cfg) === 0) beatMetronome(world);
+  if (isBeatTick(world.cfg, world.tick)) beatMetronome(world);
   round.step(world);
   endSpentRound(world);
   return true;

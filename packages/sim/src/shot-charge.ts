@@ -1,3 +1,4 @@
+import { beatStartTick } from "./beat-clock.js";
 import { type SimConfig, ticksPerBeat } from "./config.js";
 import type { Color } from "./types.js";
 import { MILLI, type World } from "./world.js";
@@ -98,7 +99,7 @@ export function chargeDueTick(cfg: SimConfig, tick: number): number {
   const tpb = ticksPerBeat(cfg);
   const part = chargePartTicks(cfg);
   if (part === 0) return tick;
-  const beatStart = Math.floor(tick / tpb) * tpb;
+  const beatStart = beatStartTick(cfg, tick);
   const into = tick - beatStart;
   const next = (Math.floor(into / part) + 1) * part;
   return beatStart + Math.min(next, tpb);

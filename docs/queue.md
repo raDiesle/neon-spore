@@ -137,39 +137,6 @@ Why the short label is what fits today, and what each of the three costs.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
-## `world.beat` is not `world.tick / ticksPerBeat`, and nothing says so
-
-- **Found:** 2026-09-08, claude/beatbox-enemy-visuals-462bcf
-- **Taken:** 2026-09-09, claude/queue-world-beat-is-not-world-tick-ticksperbeat-and-no
-- **Files:** `packages/sim/src/step.ts`, `packages/sim/src/beat.ts`, `tools/director/src/stage.ts`, `tools/frames/press.ts`
-
-A wave's opening holds the field, and the hold in `step` runs `world.tick += 1`
-and returns **before** `onBeat` — so every opening a run passes adds ticks with
-no beat under them, and `world.beat` falls permanently behind `world.tick /
-ticksPerBeat(cfg)` for the rest of that run. Measured in the shipping build on
-8 September 2026: after a fresh load and three hundred ticks of wave 59,
-`world.tick` was 300 and `world.beat` was 0.
-
-Nothing is wrong with the *boundaries* — `onBeat` still fires on multiples of
-`ticksPerBeat`, so the beat still lands where the ear expects it. What is wrong
-is that `world.beat` is a **label** and reads like a position, and multiplying
-one back into ticks is silently a different moment. THE BEATBOX's own deadline
-was written that way first and settled every run a beat early;
-`beatboxDeadline` now recovers the boundary by rounding the tap's tick to the
-nearest multiple of `ticksPerBeat` instead, and says why in a paragraph. Two
-other sites do the same multiplication and should be looked at with this in
-hand: `tools/director/src/stage.ts`'s `seek`, which is a rig and probably fine
-because it seeks from a rebuilt world, and `tools/frames/press.ts`, whose
-`--press TICK` axis a caller naturally reads as beats — a press written on a
-boundary is off it by however long the opening held, which is why the first
-capture of a soundbox in this lane came back with no run on it at all.
-
-The work: give `packages/sim` one exported reading for *the tick a beat began
-on* (or for the phase of the current tick), use it at every site that converts
-between the two, and put a paragraph on `world.beat` in `world.ts` saying it is
-a label and not a position. A test that runs a wave with an opening and asserts
-the two counters disagree is what keeps it true.
-
 ## `CLAUDE.md` is within about a hundred characters of its ceiling
 
 - **Found:** 2026-09-07, claude/queued-items-rer0av
@@ -511,3 +478,28 @@ that both sides must take the identical rectangle from the identical world, or
 the pair stops being an A/B. Prove it with a test that steps a `crop: "tile"`
 pose a whole fall and asserts the body's centre stays inside the rectangle,
 then put `CHOIR · TWO VOICES` and `THROB · TURNING` back on a tile crop.
+
+## `packages/sim/src/world.ts` is at its 250-line ceiling exactly
+
+- **Found:** 2026-09-09, claude/queue-drain-2026-09-09e
+- **Files:** `packages/sim/src/world.ts`, `packages/sim/test/limits.test.ts`
+
+`World` is the one interface every other file in `sim` reads, and it is 250
+lines with a limit of 250 — so **any** field, and any sentence explaining one,
+fails `limits.test.ts` before it can be committed. This lane wanted a paragraph
+on `world.beat` saying it is a label rather than a position, which is the exact
+kind of thing that file exists to carry, and had to leave a one-line pointer to
+`beat-clock.ts` instead.
+
+The fix is the one `CLAUDE.md` already states: split rather than grow. The
+natural line is the ship's own controls — `cannonCol`, `shieldCol`,
+`shieldSinceTick`, `guardTick`, `intakeTick`, the four `reach*` fields,
+`crankAtMilli`, `choirArm`, `choirArmTick`, `prime`, `charge`, `beam` — which
+are twenty-odd fields about a hull and its two hands, already commented as a
+group, and already served by `index-ship.ts` next door. `World` would then
+carry a `ship` of its own type, or extend an interface declared beside it; the
+second is the smaller change and keeps every `world.cannonCol` reader working.
+
+Whichever shape, `hash.ts` and `hash-coverage.test.ts` have to walk the moved
+fields exactly as they do now — rule 4 of `CLAUDE.md`, and the test is already
+there to prove it.

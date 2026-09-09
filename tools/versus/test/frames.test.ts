@@ -3,12 +3,7 @@ import { beats, type Pose } from "../../../packages/content/src/own-motion.js";
 import { buildQueue } from "../../../packages/content/src/queue.js";
 import { Canvas2DRenderer } from "../../../packages/render/src/canvas2d.js";
 import { installCanvasGlobals, stubCanvas } from "../../../packages/render/test/canvas-stub.js";
-import {
-  createWorld,
-  DEFAULT_CONFIG,
-  step,
-  ticksPerBeat,
-} from "../../../packages/sim/src/index.js";
+import { beatPhase, createWorld, DEFAULT_CONFIG, step } from "../../../packages/sim/src/index.js";
 import { poseForSlot } from "../../director/src/versus-pose.js";
 import { VARIANTS } from "../candidates/index.js";
 import { seedRandom } from "../seed.js";
@@ -49,13 +44,12 @@ function drawFrames(ticks: number): number {
   const renderer = new Canvas2DRenderer(canvas);
   renderer.resize({ width: 760, height: 1640, dpr: 2 });
 
-  const tpb = ticksPerBeat(CFG);
   for (let tick = 0; tick < ticks; tick++) {
     step(world, []);
     if (tick % 4 !== 0) continue;
     renderer.draw({
       world,
-      beatPhase: (world.tick % tpb) / tpb,
+      beatPhase: beatPhase(CFG, world.tick),
       role: "test",
       time: tick / CFG.tickHz,
       dt: 4 / CFG.tickHz,
@@ -118,13 +112,12 @@ function drawPose(slot: string, ticks: number): number {
   const renderer = new Canvas2DRenderer(canvas);
   renderer.resize({ width: 760, height: 1640, dpr: 2 });
 
-  const tpb = ticksPerBeat(world.cfg);
   for (let tick = 0; tick < ticks; tick++) {
     step(world, []);
     if (tick % 4 !== 0) continue;
     renderer.draw({
       world,
-      beatPhase: (world.tick % tpb) / tpb,
+      beatPhase: beatPhase(world.cfg, world.tick),
       role: "test",
       time: tick / world.cfg.tickHz,
       dt: 4 / world.cfg.tickHz,
