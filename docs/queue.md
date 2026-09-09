@@ -394,32 +394,6 @@ the pair stops being an A/B. Prove it with a test that steps a `crop: "tile"`
 pose a whole fall and asserts the body's centre stays inside the rectangle,
 then put `CHOIR · TWO VOICES` and `THROB · TURNING` back on a tile crop.
 
-## `packages/sim/src/world.ts` is at its 250-line ceiling exactly
-
-- **Found:** 2026-09-09, claude/queue-drain-2026-09-09e
-- **Taken:** 2026-09-09, claude/queue-packages-sim-src-world-ts-is-at-its-250-line-cei
-- **Files:** `packages/sim/src/world.ts`, `packages/sim/test/limits.test.ts`
-
-`World` is the one interface every other file in `sim` reads, and it is 250
-lines with a limit of 250 — so **any** field, and any sentence explaining one,
-fails `limits.test.ts` before it can be committed. This lane wanted a paragraph
-on `world.beat` saying it is a label rather than a position, which is the exact
-kind of thing that file exists to carry, and had to leave a one-line pointer to
-`beat-clock.ts` instead.
-
-The fix is the one `CLAUDE.md` already states: split rather than grow. The
-natural line is the ship's own controls — `cannonCol`, `shieldCol`,
-`shieldSinceTick`, `guardTick`, `intakeTick`, the four `reach*` fields,
-`crankAtMilli`, `choirArm`, `choirArmTick`, `prime`, `charge`, `beam` — which
-are twenty-odd fields about a hull and its two hands, already commented as a
-group, and already served by `index-ship.ts` next door. `World` would then
-carry a `ship` of its own type, or extend an interface declared beside it; the
-second is the smaller change and keeps every `world.cannonCol` reader working.
-
-Whichever shape, `hash.ts` and `hash-coverage.test.ts` have to walk the moved
-fields exactly as they do now — rule 4 of `CLAUDE.md`, and the test is already
-there to prove it.
-
 ## A VERSUS candidate can be too small to see, and nothing says so
 
 - **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7

@@ -97,6 +97,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/rng.ts` | the only permitted source of randomness |
 | `packages/sim/src/types.ts` | creatures, bullets, scars, commands |
 | `packages/sim/src/world.ts` | the `World` shape and `createWorld`; `step` itself lives in `step.ts` |
+| `packages/sim/src/world-ship.ts` | `ShipState`: the hull’s own fields of `World` — both hands, the arm, the crank, a shot |
 | `packages/sim/src/beat.ts` | the beat: spawning, gliding, the hull, the guard rule |
 | `packages/sim/src/commands.ts` | what a press does: the cannon, the shield, the trigger, the grip, the lance |
 | `packages/sim/src/grip.ts` | THE GRIP: a hand held on a rock, and how much it slows |
