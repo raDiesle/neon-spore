@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 8863412a — Act 7's two words-only guides rehearse
+
+THE MAGNET and THE JAM each open on prose. Each now names a `GuideScene`.
+
 ## 2026-09-09 · 9ff5fabd — Three fluid motions for the slick
 
 "I can imagine a very fluid animated slick could look cool, floating in all directions, but some more according to flying position." So `slick:motion` opens on SWALLOW, which is a good motion and a strictly sideways one: every part of it happens along the body's long axis.
