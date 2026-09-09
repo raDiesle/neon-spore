@@ -365,39 +365,6 @@ a round to a fixed fraction of its own length, which is one number and wrong for
 none of them. Take a fresh baseline with `bun run perf --save` afterwards, since
 every round's row moves.
 
-## Nothing photographs a VERSUS pair, so a candidate is written unseen
-
-- **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7
-- **Taken:** 2026-09-09, claude/queue-nothing-photographs-a-versus-pair-so-a-candidate
-- **Files:** `tools/frames/run.ts`, `tools/frames/serve.ts`, `package.json`,
-  `tools/versus/README.md`
-
-`bun run frames <sha>` photographs the **game** — it checks two trees out,
-builds each, serves them and drives `window.neonSpore`. A VERSUS candidate does
-not appear in the game by construction, so there is no command in this
-repository that produces a picture of the one page a candidate exists to be
-looked at on. A session writing one therefore has no way to see whether its
-paint draws what it thinks, and this lane found two real defects in a candidate
-that had already passed `bun run check` twice: the far half of a throb was
-filled over its own core marks, and its rim glow was clipped away at the
-contour. Both were obvious in the first frame and invisible to every test.
-
-The workaround was thirty lines of throwaway Playwright against
-`versus.html?slot=…&name=…` with the 2× control clicked and the two
-`.versus-crop` boxes measured for a clip rectangle — plus a `bun add -d
-playwright` at the root that had to be reverted, because the browser this
-repository already drives lives in `tools/frames/node_modules` as
-`playwright-core` and nothing outside that directory can reach it.
-
-What to build: `bun run versus:shot <slot> <name> [--wait ms] [--zoom 2]`,
-beside `tools/frames/shot.ts` and reusing its browser and its launcher, which
-starts the director on a free port, opens the pair, waits, and writes one PNG
-of both crops side by side. It is a picture of two phones and it settles what
-no test can: whether the candidate draws at all, and whether the thing it draws
-is the thing its own file claims. `docs/versus.md`'s "does this read at 26 px"
-still belongs to the owner and to two real phones — this is only the step
-before, which is *did the session write what it meant to*.
-
 ## A VERSUS pose cropped to a tile drifts off the body it is about
 
 - **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7

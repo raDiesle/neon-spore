@@ -1372,6 +1372,7 @@ place — the generator keeps whatever is there.
 | `tools/frames/shot-usage.ts` | What `bun run shot` prints when it is called with nothing to photograph |
 | `tools/frames/shot-state.ts` | Getting the page into the state that is worth photographing |
 | `tools/frames/tall.ts` | An element taller than the window, photographed whole rather than black below the fold |
+| `tools/frames/versus-shot.ts` | `bun run versus:shot` — one PNG of one VERSUS candidate |
 | `tools/director/src/stage-trail.ts` | THE MOUSE'S OWN INK, ON THE DIRECTOR'S FIELD |
 | `tools/check/installed.ts` | Whether this worktree's install is still the one the tree needs |
 | `tools/check/run.ts` | The preflight `bun run check` runs before the typecheck |

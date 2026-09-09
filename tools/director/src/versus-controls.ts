@@ -13,8 +13,11 @@ import type { Pair } from "./versus-pair.js";
 
 const RATES = [0.25, 0.5, 1, 2];
 
-function toggle(label: string, on: (state: boolean) => void): HTMLButtonElement {
+/** A button that remembers whether it is on. `hook` is a class `bun run shot
+ * --click` can name, for the ones a picture has to be taken through. */
+function toggle(label: string, on: (state: boolean) => void, hook = ""): HTMLButtonElement {
   const b = button(label);
+  if (hook) b.classList.add(hook);
   b.addEventListener("click", () => {
     const next = b.dataset.state !== "on";
     b.dataset.state = next ? "on" : "off";
@@ -67,7 +70,7 @@ export function controlsBar(stage: HTMLElement, pair: Pair): HTMLElement[] {
       stage.classList.toggle("is-blink", on);
       pair.setBlink(on);
     }),
-    toggle("2× — NOT TRUE SIZE", (on) => pair.setZoom(on ? 2 : 1)),
+    toggle("2× — NOT TRUE SIZE", (on) => pair.setZoom(on ? 2 : 1), "versus-zoom"),
   );
   const note = el(
     "p",

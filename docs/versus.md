@@ -69,6 +69,24 @@ An unrecognised value for either query flag leaves the pair running, which is
 the rule the whole page is written to — a stale camera setting must not be able
 to hide the candidate. `tools/director/test/versus-freeze.test.ts` is the guard.
 
+**`bun run versus:shot <slot> <name>` is all three in one command.** It starts
+the director on a free port, reads the port off its own startup line, opens the
+pair and writes the PNG, then stops the server:
+
+```
+bun run versus:shot creature:throb globe --freeze 1.2 --only candidate
+bun run versus:shot creature:dart ember --rate 0.25
+```
+
+It exists because a candidate does not appear in the game by construction, so
+`bun run frames` cannot reach one and a session writing a candidate had no way
+to see whether its paint drew what it thought. One lane found a throb whose far
+half was filled over its own core marks and whose rim glow was clipped at the
+contour — both obvious in the first frame, both invisible to `bun run check`
+twice over. It is the step *before* "does this read at 26 px", which still
+belongs to the owner and two real phones; this one only answers whether the
+session wrote what it meant to.
+
 ## The decision
 
 Build **VERSUS** (proposal 1): a candidate look is a set of field assignments patched onto records `packages/content` and `packages/render` already export, living in `tools/versus/`, which nothing in the game's import graph names. The director grows a VERSUS tab on the backlog sheet that steps **one** `World` and draws it twice in the same frame through two `Canvas2DRenderer`s at 380 × 820 CSS pixels uncapped — left is what the game draws, right is the same code with the patch applied around `draw()` and restored in a `finally` — so the only thing that can differ on screen is the patch. `Math.random` is seeded to the same value for each side of a frame, because `sparks.ts` and `deflect.ts` randomise four values per spawn each and without it two identical looks draw different pixels. A vote presses one of two buttons, `KEEP CURRENT` or `ADOPT <the one on the right>`, and writes nothing anywhere: it builds a prompt from the registry plus the current values read off the live records *before* the patch is applied, puts it on the clipboard, and renders it into a selected `<textarea>` you can read before you paste it. Three verified corrections to the proposal as submitted: `tools/versus/` is a **plain directory** with a `test/` beside it, exactly like `tools/checks`, `tools/burn`, `tools/handoff` and `tools/land` — not a workspace package, so no `bun install` and no `package.json`, and `tsconfig.json` already includes `tools/**/*.ts` so it is typechecked and linted for free; the prompt builder lives in `tools/versus/prompt.ts` rather than the director, because it is pure string work that deserves a test with no DOM in it; and there is **no** `GET /api/versus` — the head sha and the dirty flag become two fields on the `ChecksView` the director already fetches from `/api/checks`. The emitted prompt gains three things proposal 1 did not have and needed: `bun run shapes` plus the two committed SVGs in the staging list whenever a patched target lives in `packages/content` (I confirmed `tools/shape-sheet/shape-sheet.svg` is committed and contains the literal string `9 lobes` for BULB, so adopting a bulb candidate without it leaves a committed lie that `bun run check` cannot see), a `git grep` for every reader of each patched symbol emitted **with no predicted answer**, and a candidate that is a directory removed by `git rm -r` rather than a file.
