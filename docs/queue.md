@@ -194,34 +194,35 @@ and `reveal` in `tell-round.ts`, which already do exactly this once. Add
 entry of a fixed-length array when it is set, and the picture follows — the
 ring already draws one node lit at a time and would light them in turn.
 
-## THE TELL's baseline row was measured on a busy container
+## A baseline row can be marked unmeasured, and a cloud session writes one
 
 - **Found:** 2026-09-08, claude/rock-paper-scissors-boss-sn9ful
-- **Files:** `tools/perf/baseline.json`
+- **Files:** `tools/perf/baseline.json`, `tools/perf/test/baseline.test.ts`,
+  `tools/perf/compare.ts`, `tools/perf/say.ts`, `CLAUDE.md`
 
-`CLAUDE.md` says a cloud session skips the performance run. This one could not:
-adding a wave adds a row `tools/perf/test/baseline.test.ts` requires, and the
-test is what keeps the baseline from comparing today against a game that no
-longer exists — so `bun run perf --wave "THE TELL" --save` was run rather than
-the row being invented.
+**The measurement half of this entry is done.** THE TELL's row was taken on a
+busy container — the whole run moved +256% and THE WISP, a reference wave, came
+back flagged at 114% of a frame, which `docs/performance.md` says means the run
+says nothing. The full baseline was re-taken on the owner's own machine on
+9 September 2026 and every row in the file is now that run's, THE TELL's
+included. What is left is the rule the collision exposed.
 
-It came back honest and flagged. THE TELL measures 5.43 ms raw and merges at
-1.35 ms on the baseline's footing, which is 33% of a 60 Hz frame and the
-cheapest wave in the run — plausible for a round with no bodies on the field.
-But the whole run moved +256% against the baseline and **THE WISP, a reference
-wave, came back flagged at 114% of a frame**, which `docs/performance.md` says
-means the machine was busy and the run says nothing. The scaling that produced
-1.35 was read off those same references.
+**The collision.** A cloud session adding a wave cannot pass `bun run check`
+without running perf: adding a wave adds a row `baseline.test.ts` requires, and
+that test is what keeps the baseline from comparing today against a game that
+no longer exists. Running perf is what `CLAUDE.md` tells a cloud session not to
+do, because it never finishes honestly there.
 
-So the row is a placeholder with a real measurement in it rather than a
-measurement to trust. Re-take it on the owner's own machine —
-`bun run perf --wave "THE TELL" --save` — and this entry goes.
-
-**And the general case is the interesting half**: a cloud session adding a wave
-cannot pass `bun run check` without running perf, and running perf there is
-what `CLAUDE.md` tells it not to do. Either the baseline test should tolerate a
-row marked unmeasured, or `CLAUDE.md`'s rule needs the exception written into
-it. That is the owner's call and this entry is where it is waiting.
+**The owner decided on 9 September 2026: the test tolerates a row marked
+unmeasured, and `CLAUDE.md` is not touched.** So: give a baseline row an
+`unmeasured: true` (or figures of `null` — pick one and say why in the commit),
+have `baseline.test.ts` accept it as satisfying the row-per-wave rule, and have
+`compare.ts` and the printed table say `UNMEASURED` for it rather than
+computing a verdict against figures that are not there. A cloud session adding
+a wave writes that row and says so in its report; the next full
+`bun run perf --save` on the owner's machine fills it in and the marker goes.
+Do not let an unmeasured row count towards the run's own median — it is not a
+number.
 
 ## THE CLASP's bubble has no place a candidate look can live
 
