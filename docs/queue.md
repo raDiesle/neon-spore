@@ -187,6 +187,7 @@ did once and reverted.
 ## THE CLASP's hand-painted shield has never been drawn
 
 - **Found:** 2026-09-09, claude/queue-the-clasps-bubble-has-no-place-a-candidate-look
+- **Taken:** 2026-09-09, claude/queue-the-clasps-hand-painted-shield-has-never-been-dr
 - **Files:** `packages/render/src/clasp.ts`, `packages/render/src/creatures.ts`,
   `packages/render/src/frame-field.ts`, `apps/game/src/raster.ts`,
   `assets/raster/green-shield-strip.webp`
