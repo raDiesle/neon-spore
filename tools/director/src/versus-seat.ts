@@ -3,7 +3,7 @@ import { beatPhase } from "@neon-spore/sim";
 import { seedRandom } from "../../versus/seed.js";
 import { apply, restore, type Variant } from "../../versus/variant.js";
 import type { Pose } from "./pose-kit.js";
-import { bandTopPx, signature } from "./versus-diff.js";
+import { bandTopPx, signature, touchedShare } from "./versus-diff.js";
 import { advance } from "./versus-pair.js";
 
 /**
@@ -88,6 +88,16 @@ const SAMPLES = 24;
 interface Probe {
   hashes: string[];
   changed: boolean;
+  /**
+   * The most of the frame this patch ever moves at once, 0..1 — the largest
+   * `touchedShare` across the samples.
+   *
+   * The largest and not the average: a candidate whose whole answer is one
+   * transient is not a small candidate, it is a candidate that shows itself
+   * once, and averaging it over twenty-four samples would report it as
+   * invisible for the same reason `SAMPLES` exists in the first place.
+   */
+  share: number;
 }
 
 /** The patch's own difference from the shipped look, sampled across one loop
@@ -104,6 +114,7 @@ function diffSequence(pose: Pose, role: ViewRole, variant: Variant): Probe {
   let events = [...world.events];
   const view: ViewState = { world, beatPhase: 0, role, time: 0, dt: 1 / 60, events, running: true };
   const hashes: string[] = [];
+  let share = 0;
   let unchanged = "";
   try {
     for (let tick = 0; tick < SAMPLES * SAMPLE_EVERY; tick++) {
@@ -138,12 +149,15 @@ function diffSequence(pose: Pose, role: ViewRole, variant: Variant): Probe {
       const db = cb.getImageData(0, 0, width, height).data;
       if (unchanged === "") unchanged = signature(da, da, width, height, bandTop);
       hashes.push(signature(da, db, width, height, bandTop));
+      // The whole phone, band included: a candidate that only changes a
+      // button is still a candidate somebody has to be able to see.
+      share = Math.max(share, touchedShare(da, db, width, 0, height));
     }
   } finally {
     renderCurrent.dispose();
     renderCandidate.dispose();
   }
-  return { hashes, changed: hashes.some((h) => h !== unchanged) };
+  return { hashes, changed: hashes.some((h) => h !== unchanged), share };
 }
 
 function sameSequence(a: readonly string[], b: readonly string[]): boolean {
@@ -167,10 +181,30 @@ function sameSequence(a: readonly string[], b: readonly string[]): boolean {
  * Never empty: a candidate whose patch draws nothing anywhere still gets one
  * screen, where `onSettled`'s "THE SWAP DID NOT TAKE" banner is the honest
  * answer and a blank page is not.
+ *
+ * **And how much of the frame the patch moves comes back with them**, because
+ * the pass that answers the first two questions has already measured it and
+ * used to throw it away. A vote is the expensive step; a candidate nobody can
+ * see is the cheap disqualifier that should come first, and until this it had
+ * no way of being asked (`SEEN_FLOOR`, `versus-one.ts`).
  */
-export function seatPlan(pose: Pose, variant: Variant): readonly ViewRole[] {
+export interface SeatPlan {
+  roles: readonly ViewRole[];
+  /** The most of one phone this patch ever moves at once, 0..1. The louder of
+   * the two seats: a patch invisible on one screen and plain on the other is a
+   * patch worth looking at. */
+  share: number;
+}
+
+export function seatPlan(pose: Pose, variant: Variant): SeatPlan {
   const p1 = diffSequence(pose, "p1", variant);
   const p2 = diffSequence(pose, "p2", variant);
+  const share = Math.max(p1.share, p2.share);
+  const roles = seats(p1, p2);
+  return { roles, share };
+}
+
+function seats(p1: Probe, p2: Probe): readonly ViewRole[] {
   if (!p1.changed && !p2.changed) return ["p1"];
   if (!p2.changed) return ["p1"];
   if (!p1.changed) return ["p2"];

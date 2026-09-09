@@ -298,37 +298,3 @@ table that will go stale. The other option is to keep it kind-agnostic and step
 a round to a fixed fraction of its own length, which is one number and wrong for
 none of them. Take a fresh baseline with `bun run perf --save` afterwards, since
 every round's row moves.
-
-## A VERSUS candidate can be too small to see, and nothing says so
-
-- **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7
-- **Taken:** 2026-09-09, claude/queue-a-versus-candidate-can-be-too-small-to-see-and-n
-- **Files:** `tools/director/src/versus-seat.ts`, `tools/director/src/versus-diff.ts`,
-  `tools/director/src/versus-one.ts`, `tools/versus/test/distinct.test.ts`
-
-This lane wrote `ship:hull-body` / `carapace` — four new stops on each seat's
-`HullSkin.body`, compressing the hull's light into a crest — and every guard in
-the repository passed it. `distinct.test.ts` confirmed the values differ from
-the shipped record, `variants.test.ts` drew it on its own pose without the
-canvas objecting, and the page's own `onSettled` did not raise "THE SWAP DID
-NOT TAKE", because the two pictures genuinely are not identical. It was still
-worthless: the hull's membrane is a strip about thirty pixels tall on a 380 x
-820 phone, so a four-stop ramp change lands on a band too thin to read, and two
-screenshots of the pair are indistinguishable at a glance. It was cut and
-replaced with a contour candidate, which is visible from across the room.
-
-The machinery to catch this already exists and is thrown away. `seatPlan`
-builds a full difference-picture between the shipped frame and the candidate's,
-at both seats, across twenty-four samples — and then reduces it to a boolean
-(`changed`) and a hash. The same pass could report **how much** moved: the
-count of pixels past `signature`'s own threshold, as a share of the frame.
-
-What to build: carry that number out of `diffSequence`, and have `versus-one.ts`
-print it under the pair — "this patch moves 0.4% of the frame" — with a plain
-warning under some floor. Pick the floor by measuring the candidates that are
-open when the work is done rather than by guessing: `creature:choir` / `orbs`
-and `crawler:skin` / `pearl` are two that are clearly worth a vote, and the
-carapace ramp is recoverable from this entry's own commit history as the case
-that must fall under it. A test in `tools/director/test/` that asserts a
-deliberately tiny patch reports a small share and a real one reports a large
-one is what proves it.

@@ -49,6 +49,8 @@ if (!slot || !name) {
   console.error("            when a slow replay is what shows the thing");
   console.error("       --zoom    the pair's magnifier, e.g. 2");
   console.error("       --wait    milliseconds to settle before the shot");
+  console.error("       --element which element to photograph; .versus-row for the whole");
+  console.error("            candidate, notes and all. Default .versus-stage, the phones");
   process.exit(1);
 }
 
@@ -58,6 +60,16 @@ const only = flag("only");
 const rate = flag("rate");
 const zoom = flag("zoom");
 const wait = flag("wait") ?? "3000";
+/**
+ * Which element of the page the picture is of. The pair of phones by default,
+ * which is what a candidate is looked at as — but the page says things
+ * *around* them that a session sometimes has to see it say: the LOOK AT line,
+ * the patch list, and how much of the frame this candidate moves
+ * (`versus-one.ts`). `.versus-row` is the whole candidate. Without this the
+ * only way to photograph one was a throwaway copy of this file, which is the
+ * friction this file exists to have ended.
+ */
+const element = flag("element") ?? ".versus-stage";
 
 const query = new URLSearchParams({ slot, name });
 if (freeze !== undefined) query.set("freeze", freeze);
@@ -100,7 +112,7 @@ try {
   const args = [
     "run",
     "shot",
-    ".versus-stage",
+    element,
     file,
     "--port",
     director.port,

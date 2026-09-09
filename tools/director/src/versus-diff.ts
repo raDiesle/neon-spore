@@ -85,6 +85,82 @@ export function absDiffHash(
   return (h >>> 0).toString(16);
 }
 
+/**
+ * The least of a phone a candidate has to move to be worth a vote, as a share
+ * of the frame.
+ *
+ * Measured rather than chosen. Every candidate open on 9 September 2026, run
+ * through the page in a real browser at 380 x 820:
+ *
+ * ```
+ * ship:hull-shape / ridge    4.3%
+ * ship:light / barrel        1.8%
+ * crawler:skin / pearl       1.7%
+ * creature:skin / veil       0.5%
+ * creature:gyre / yolk       0.4%
+ * creature:meteor / forge    0.2%
+ * creature:throb / globe     0.2%
+ * creature:wisp / ring       0.1%
+ * creature:choir / orbs      0.071%   <- the quietest one plainly worth a vote
+ * ---------------------------------
+ * ship:hull-body / carapace  0.013%   <- the ramp that had to be cut
+ * ```
+ *
+ * The last row is the case this whole measure exists for: four new stops on a
+ * membrane thirty pixels tall, which every guard in the repository passed and
+ * which two screenshots of the pair could not tell apart. It was rebuilt for
+ * an afternoon to be measured and thrown away again. The floor sits in the
+ * gap, about twice the ramp and half the orbs — a creature is a small thing on
+ * a phone, so the numbers a real candidate makes are small too, and a floor
+ * set by intuition would have swallowed most of this list.
+ *
+ * Anything under it is *reported*, never refused. The page says so in plain
+ * words and the owner still decides, because a candidate can be quiet on
+ * purpose and this number cannot tell the difference.
+ */
+export const SEEN_FLOOR = 0.0003;
+
+/**
+ * How much of the frame a patch actually moves: the share of pixels, 0..1,
+ * that changed by more than `threshold` on any channel.
+ *
+ * The same pass `touchFootprintHash` makes, counted instead of hashed. The
+ * hash answers *did this differ from the other seat*, which every guard in the
+ * repository already asks; this answers *is there anything here to look at*,
+ * which none of them did. `ship:hull-body` / `carapace` is the case that found
+ * it — four new stops on a membrane about thirty pixels tall on a 380 x 820
+ * phone, so two screenshots of the pair were indistinguishable at a glance
+ * while `distinct.test.ts`, `variants.test.ts` and the page's own settled
+ * banner all passed it. A vote is the expensive step, and this is the cheap
+ * disqualifier `docs/art-review.md` puts before one.
+ */
+export function touchedShare(
+  a: Uint8ClampedArray,
+  b: Uint8ClampedArray,
+  width: number,
+  y0: number,
+  y1: number,
+  threshold = BAND_TOUCH_THRESHOLD,
+): number {
+  const rowBytes = width * 4;
+  const rows = Math.max(0, y1 - Math.max(0, y0));
+  if (rows === 0 || width === 0) return 0;
+  let touched = 0;
+  for (let y = Math.max(0, y0); y < y1; y++) {
+    const base = y * rowBytes;
+    for (let x = 0; x < width; x++) {
+      const p = base + x * 4;
+      for (let c = 0; c < 4; c++) {
+        if (Math.abs((a[p + c] ?? 0) - (b[p + c] ?? 0)) > threshold) {
+          touched++;
+          break;
+        }
+      }
+    }
+  }
+  return touched / (rows * width);
+}
+
 /** FNV-1a over a one-bit-per-pixel footprint of *which* pixels changed by
  * more than `threshold` on any channel, restricted to rows `[y0, y1)` —
  * where the patch touched something, not how far it moved a value. This is

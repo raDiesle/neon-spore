@@ -3,6 +3,7 @@ import { patchedFields, type Slot, type Variant } from "../../versus/variant.js"
 import { el } from "./dom.js";
 import type { Pose } from "./pose-kit.js";
 import { controlsBar } from "./versus-controls.js";
+import { SEEN_FLOOR } from "./versus-diff.js";
 import { startPair } from "./versus-pair.js";
 import { poseForSlot } from "./versus-pose.js";
 import { seatPlan } from "./versus-seat.js";
@@ -66,17 +67,50 @@ export function renderCandidate(
 
   // A screenshot candidate is always one seat, never both — the whole point
   // is a still picture documenting this answer, not a seat-by-seat compare.
-  const screens = candidate.screenshot ? (["p1"] as const) : seatPlan(pose, candidate);
+  const plan = candidate.screenshot ? null : seatPlan(pose, candidate);
+  const screens = plan?.roles ?? (["p1"] as const);
   const screensHost = el("div", "versus-screens");
   for (const role of screens) {
     screensHost.appendChild(renderScreen(slot, pose, role, candidate, screens.length > 1, shot));
   }
   row.append(screensHost);
+  if (plan !== null) row.appendChild(sizeNote(plan.share));
 
   const vote = buildVoteBox(slot, head);
   vote.setCandidate(candidate);
   row.appendChild(vote.root);
   return row;
+}
+
+/**
+ * How much of the phone this candidate moves, in one sentence under the pair.
+ *
+ * It is here because every guard in the repository can pass a candidate that
+ * nobody can see. `ship:hull-body` / `carapace` was four new stops on the
+ * hull's membrane — a strip about thirty pixels tall on a 380 x 820 phone —
+ * and `distinct.test.ts` confirmed the values differed, `variants.test.ts`
+ * drew it without complaint, and the page's own settled banner stayed quiet,
+ * because the two pictures genuinely were not identical. They were also
+ * indistinguishable at a glance, which is the only test that matters here.
+ *
+ * A warning and not a refusal: a candidate may be quiet on purpose, and the
+ * owner is the one who decides by looking. What the page owes him is the
+ * number and a plain sentence about it (`SEEN_FLOOR`).
+ */
+function sizeNote(share: number): HTMLElement {
+  // Two decimal places under a tenth of a percent, one above: a candidate
+  // this small is being read *because* it is small, and "0.0%" is a number
+  // that says nothing.
+  const said = `${(share * 100).toFixed(share < 0.001 ? 3 : 1)}%`;
+  const note = el("p", "versus-size", `THIS PATCH MOVES ${said} OF THE FRAME`);
+  if (share < SEEN_FLOOR) {
+    note.classList.add("thin");
+    note.textContent =
+      `THIS PATCH MOVES ${said} OF THE FRAME — that is under the floor a candidate ` +
+      "is normally visible at. Look before you vote: two screenshots of this pair may be " +
+      "indistinguishable at a glance.";
+  }
+  return note;
 }
 
 /** One screen at one seat: current-vs-candidate side by side, or — for a

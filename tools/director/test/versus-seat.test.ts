@@ -1,6 +1,12 @@
 import { describe, expect, test } from "bun:test";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
-import { absDiffHash, bandTopPx, touchFootprintHash } from "../src/versus-diff.js";
+import {
+  absDiffHash,
+  bandTopPx,
+  SEEN_FLOOR,
+  touchedShare,
+  touchFootprintHash,
+} from "../src/versus-diff.js";
 
 /**
  * `versus-seat.ts`'s pure arithmetic, exercised without a canvas — `bun
@@ -156,5 +162,58 @@ describe("touchFootprintHash — the one line this lane overturns", () => {
     const footprintP1 = touchFootprintHash(currentP1, candidateP1, WIDTH, BAND_TOP, ROWS, 10);
     const footprintP2 = touchFootprintHash(currentP2, candidateP2, WIDTH, BAND_TOP, ROWS, 10);
     expect(footprintP1).toBe(footprintP2);
+  });
+});
+
+/**
+ * How much of the frame a patch moves — the cheap disqualifier a vote is not
+ * worth without.
+ *
+ * `ship:hull-body` / `carapace` is the case: four new stops on a membrane
+ * about thirty pixels tall on a 380 x 820 phone, which `distinct.test.ts`
+ * passed on the values, `variants.test.ts` passed on the drawing, and the
+ * page's own settled banner passed because the two pictures genuinely are not
+ * identical. They were also indistinguishable at a glance, and nothing in the
+ * repository could say so. Rebuilt and measured, it moves 0.013% of the frame
+ * against `creature:choir` / `orbs`'s 0.071% — which is where `SEEN_FLOOR`
+ * comes from, and the two sides of the same gap are what this holds.
+ */
+describe("touchedShare", () => {
+  test("a patch that changes nothing moves nothing", () => {
+    const a = solid(10, 20, 30);
+    expect(touchedShare(a, a.slice(), WIDTH, 0, ROWS)).toBe(0);
+  });
+
+  test("a patch over the whole frame moves all of it", () => {
+    const a = solid(10, 20, 30);
+    const b = solid(200, 20, 30);
+    expect(touchedShare(a, b, WIDTH, 0, ROWS)).toBe(1);
+  });
+
+  test("a real patch reports a large share and a deliberately tiny one a small share", () => {
+    const current = solid(10, 20, 30);
+    // A candidate that repaints half the rows outright — a contour, a body, a
+    // lobe: the kind of answer worth two phones and a vote.
+    const real = current.slice();
+    for (let y = 0; y < ROWS / 2; y++) {
+      for (let x = 0; x < WIDTH; x++) real[(y * WIDTH + x) * 4] = 220;
+    }
+    // A candidate that nudges one pixel by a level or two — the carapace's
+    // shape of failure, and every value in it is a perfectly good colour.
+    const tiny = current.slice();
+    tiny[0] = 12;
+
+    const big = touchedShare(current, real, WIDTH, 0, ROWS);
+    const small = touchedShare(current, tiny, WIDTH, 0, ROWS);
+    expect(big).toBeGreaterThan(SEEN_FLOOR);
+    expect(small).toBeLessThan(SEEN_FLOOR);
+    expect(small).toBeLessThan(big);
+  });
+
+  test("the floor sits between the carapace that was cut and the quietest candidate kept", () => {
+    // The two measurements the constant was chosen from, as numbers rather
+    // than as a sentence in a comment nobody can run.
+    expect(SEEN_FLOOR).toBeGreaterThan(0.00013);
+    expect(SEEN_FLOOR).toBeLessThan(0.00071);
   });
 });
