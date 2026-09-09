@@ -443,6 +443,8 @@ place — the generator keeps whatever is there.
 | `packages/content/src/balloon-parts.ts` | **What is alive inside THE BALLOON**, and hanging under it: veins, a ring of lit beads |
 | `packages/content/src/surface.ts` | where a mark placed at a longitude and latitude lands, how the tangent plane foreshortens it, and its own normal against `KEY` |
 | `packages/content/src/control-aim.ts` | Which way a control points, and which rig of keys answers it |
+| `packages/content/src/mechanics-bosses.ts` | the four bosses, and the line the warden throws — a rule change each, not a body |
+| `packages/content/src/mechanics-worn.ts` | a slick or a bulb wearing something that has to come off first — one sentence said six ways |
 
 ### packages/render
 
@@ -912,6 +914,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/rounds.ts` | Every round that is not the field, bound to the canvas at once |
 | `apps/game/src/keys-crank.ts` | The desk key that turns THE CLAW's crank, which no key can do by itself |
 | `apps/game/src/trail.ts` | The surface the mouse's ink is drawn on, over every sheet, and nothing at all on a phone |
+| `apps/game/src/field-input.ts` | Everything a finger on the glass reaches: the field itself, a shake |
 
 ### apps/server
 

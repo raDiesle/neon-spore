@@ -1,11 +1,13 @@
 import type { Mechanic, MechanicId } from "./mechanics.js";
 import { BEATBOX_MECHANIC } from "./mechanics-beatbox.js";
+import { BOSS_MECHANICS } from "./mechanics-bosses.js";
 import { HANDED_MECHANICS } from "./mechanics-handed.js";
 import { ROCK_MECHANICS } from "./mechanics-rocks.js";
 import { ROUND_MECHANICS } from "./mechanics-rounds.js";
 import { RUN_MECHANICS } from "./mechanics-run.js";
 import { SPLIT_MECHANICS } from "./mechanics-split.js";
 import { WAVE_MECHANICS } from "./mechanics-wave.js";
+import { WORN_MECHANICS } from "./mechanics-worn.js";
 
 /**
  * The rows themselves, lifted out of `mechanics.ts` when that file crossed the
@@ -55,50 +57,15 @@ export const MECHANICS = {
     // trigger answers it, so neither can be worked out from the other.
     waveNames: true,
   },
-  rind: {
-    what: "A slick or a bulb three times the size of one. The matching colour takes a layer off rather than killing it, twice — the body is a size smaller each time — and only the third shot finishes it. Its size is how much is left.",
-    reach: "spawn",
-    // A wave names this kind and gives it a colour, the way it does for an
-    // echo: the silhouette is a slick's or a bulb's and the colour is which
-    // trigger answers it, so neither can be worked out from the other.
-    waveNames: true,
-  },
-  recoil: {
-    what: "A slick or a bulb in a sprung cage. The matching colour does not kill it: it throws the body two rows back up the field and a lane to one side neither of you can predict, and turns it over to the other colour on the way. Three times, with the cage visibly more broken each time, and only the fourth shot finishes it.",
-    reach: "spawn",
-    // A wave names this kind and gives it a colour, the way it does for a
-    // rind: the silhouette is a slick's or a bulb's, and the colour is which
-    // trigger answers it *first* — every bounce turns it over from there.
-    waveNames: true,
-  },
-  carom: {
-    what: "A slick or a bulb sealed inside a rock crust. It never falls — it comes in on a diagonal, four columns and two rows a beat, and turns at the side walls twice before it reaches the ship. The shield has nothing to say to it while the crust is on. The matching cannon cracks it open, and what drops out of the shell is a plain meteor coming down at a row a beat, which now has to be warded.",
-    reach: "spawn",
-    // A wave names this kind and gives it a colour, the way it does for a
-    // clasp: the silhouette is the crust's and the colour is the body sealed
-    // inside it, which is which cannon opens it, so neither can be worked out
-    // from the other.
-    waveNames: true,
-  },
-  chute: {
-    what: "The body that was sealed inside a carom, blown out of the hatch when the crust cracks. It is the only thing in the game that goes up: it climbs to the top of the field, opens a canopy there and comes back down at half the speed of a slick, still in its own colour. The matching cannon kills it exactly the way it kills a slick — but the rock it came out of is falling at the same time, and that one is the shield's.",
-    reach: "spawn",
-    // Thrown out by the crust cracking, the way the six on a rim are brought
-    // by their wheel — so a wave reaches this without naming it, and there is
-    // no wave anywhere that could name it (`addCarried`). Deliberately no
-    // `waveNames`: a chute with no carom above it would be a body that had
-    // been ejected from nothing.
-    carriedBy: "carom",
-  },
-  volley: {
-    what: "A rock with a slick or a bulb sealed in it, falling a tile a beat like any other. The shield does not destroy it: a ward hits it straight back up the field, six rows, taking one plate of shell with it — and it comes down the same lane again. Three wards, and at the top of the last climb the shell bursts in mid-air and what falls out is a plain body the cannon has to finish. Holding the lane for all three is the whole cost of one.",
-    reach: "spawn",
-    // A wave names this kind and gives it a colour, the way it does for a
-    // carom: the silhouette is the shell's and the colour is the body sealed
-    // inside it, which is which cannon finishes it once the shield is done, so
-    // neither can be worked out from the other.
-    waveNames: true,
-  },
+  // Five of the six **worn bodies** — a slick or a bulb inside something that
+  // has to come off first — next door in `mechanics-worn.ts`. Named one by one
+  // rather than spread, for `mechanics-split.ts`' reason: `MECHANIC_IDS` is read
+  // off this key order and the bestiary walks it.
+  rind: WORN_MECHANICS.rind,
+  recoil: WORN_MECHANICS.recoil,
+  carom: WORN_MECHANICS.carom,
+  chute: WORN_MECHANICS.chute,
+  volley: WORN_MECHANICS.volley,
   strand: {
     what: "Two to five slicks and bulbs threaded on one line, alternating red and cyan. It is eaten from its ends inward and only one bead can be shot at a time — one of the two ends, decided again after every shot. One of you is shown which that is and no colours; the other is shown the colours and no mark. A shot at the wrong one swells a dead bead back to life.",
     reach: "spawn",
@@ -139,27 +106,15 @@ export const MECHANICS = {
   // Spread in here rather than listed, at exactly the position they have
   // always held, so key order is untouched — `MECHANIC_IDS` is read off it.
   ...ROCK_MECHANICS,
-  queen: {
-    what: "Huge and armoured. Two marks under her middle, one real and one not. She opens for two beats, and every eight a torch drops out of one of her wings.",
-    reach: "spawn",
-  },
-  warden: {
-    what: "A ring five columns wide with a hole you can see the field through. It never moves, and it takes one of your two sliding controls at a time.",
-    reach: "spawn",
-  },
-  tether: {
-    what: "A line out of the rim onto one of your sliding controls. It cannot be shot and it cannot be warded.",
-    reach: "spawn",
-    carriedBy: "warden",
-  },
-  mirror: {
-    what: "The boss is your own ship. It performs a sequence of your own moves, then asks for the whole of it back.",
-    reach: "spawn",
-  },
-  maze: {
-    what: "A real maze of rings turns above the ship, with a heart in the middle. Turn a gap round onto the ship's own column, fire the colour the heart is beating in, and the shot crawls the corridors to it. Only one gap in a rim reaches the middle; a shot lost in one of the others brings the maze down and the stage begins again.",
-    reach: "spawn",
-  },
+  // The four bosses, and the line one of them throws — next door in
+  // `mechanics-bosses.ts`. Named one by one rather than spread, for
+  // `mechanics-split.ts`' reason: `MECHANIC_IDS` is read off this key order and
+  // the bestiary walks it, so a group spread in one place would reorder them.
+  queen: BOSS_MECHANICS.queen,
+  warden: BOSS_MECHANICS.warden,
+  tether: BOSS_MECHANICS.tether,
+  mirror: BOSS_MECHANICS.mirror,
+  maze: BOSS_MECHANICS.maze,
   vane: {
     what: "An arm sweeping the top of the field. Everything that comes in under it is folded about the column it is standing in — as far the other side of the arm as it came in.",
     reach: "spawn",
@@ -176,15 +131,8 @@ export const MECHANICS = {
     what: "This one holds the shield armed for six beats with no trigger at all.",
     reach: "spawn",
   },
-  clasp: {
-    what: "Shots bounce off it. The shield in its column, triggered, takes the shield off — and what is left is an ordinary slick or bulb that still has to be shot.",
-    reach: "spawn",
-    // A wave names this kind explicitly and gives it a colour, the way it
-    // does for a lure: the colour is the body *inside*, and it decides what
-    // the clasp becomes (`livingKindForColor`), so an entry without one would
-    // be authoring a body with no answer.
-    waveNames: true,
-  },
+  // The sixth worn body (`mechanics-worn.ts`), in the place it has always held.
+  clasp: WORN_MECHANICS.clasp,
   ...ROUND_MECHANICS,
   crawler: {
     what: "A maggot that comes over a side wall and walks the ship's surface instead of falling on it, a column every other beat, costing the hull nothing while it walks. Every ring of it comes off: the segments run red, cyan, plate, red, cyan, plate, and the head and the tail are plates too — a colour wants the matching cannon under it, a plate wants the shield. Each ring wears a crosshair, and the ones the dome is owed wear its mark above them. Every ring taken off snaps the body together behind it. Take the last one and the ship sweeps the lane clean; let it reach the far wall and it eats its way in.",
