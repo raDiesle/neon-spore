@@ -224,6 +224,7 @@ raster branch switched on tomorrow would be two answers to one question.
 ## Three slots opened on 9 September 2026 have one candidate each
 
 - **Found:** 2026-09-09, claude/bun-pin-1-4-2
+- **Taken:** 2026-09-09, claude/queue-three-slots-opened-on-9-september-2026-have-one
 - **Files:** `tools/versus/candidates/shell-plate/`,
   `tools/versus/candidates/eye-iris/`, `tools/versus/candidates/ghost-tears/`,
   `packages/render/src/shell-look.ts`, `packages/render/src/eye-look.ts`,
