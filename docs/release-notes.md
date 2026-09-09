@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 0279cc5f — Turn both candidates up until a still can tell them apart
+
+Each was drawn, photographed and corrected, which is the loop `svg-look` asks for and the one thing a typecheck cannot do. KILN's embers were pale scratches on a light-grey stone: eighteen rather than fourteen, further off the skin so the far ones clear the crystal's lobes, half again as long, and a hot core in the middle of the ramp instead of a soft shoulder. ANVIL was *duller* than the fill it replaces, which is the one outcome a shading pass may not have — the shipped ramp runs between two darks, so a lambert read across them can only subtract. It gets a crest above the top of that ramp, in the rim's own hue carried toward white, and a lower floor under it, so the difference is the contrast inside the cloud rather than its average.
+
+## 2026-09-09 · b28b1372 — Fire on a rock, weather with an inside, and armour with a thickness
+
+Three VERSUS candidates for three bodies nobody had ever offered a second answer to, and each takes a look that is good and flat and gives it the half of the Depth rule about a placed surface.
+
 ## 2026-09-09 · dafea2c2 — A boss round is measured inside its song, and a held control is measured at all
 
 Two holes in the same sweep, and both of them measured a wave that was not there. `measure.ts` finds a wave's busiest tick by counting `world.creatures`, and a boss round has none — THE PULSE, THE GAUGE, PINBALL, SNAKE, THE MAZE and THE MIRROR all keep their picture in `world.boss` — so the count never improved on tick 0 and every round in the baseline was photographed during its count-in. And the sweep presses nothing at all, so THE LANCE's beam, its ribbon and the wash it leaves were drawn zero times in the row that was supposed to weigh them.
