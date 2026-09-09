@@ -234,30 +234,6 @@ arrows falling (`pulse-fall.ts`), the arrows dropping into the ship
 three have to take the same lead or the picture will disagree with itself — an
 arrow drawn on the line while the button under it is still dark.
 
-## `bun run check` blames the code when a worktree's install is stale
-
-- **Found:** 2026-09-07, claude/pulse-boss-visual-integration-0678e7
-- **Taken:** 2026-09-09, claude/queue-bun-run-check-blames-the-code-when-a-worktrees-i
-- **Files:** `tools/check/` (wherever `bun run check` is driven from), `package.json`
-
-A worktree installed before a workspace package existed has no `node_modules`
-link for it, and the first thing that says so is `bunx tsc --noEmit` reporting
-`Cannot find module '@neon-spore/content'` in files nobody touched — eight
-errors in `tools/probe/` and `apps/server/`, all of them looking like a real
-break in the tree under test. The cure is one `bun install` in the worktree and
-the whole list goes away, but a session that does not already know that spends
-a turn reading code that was never wrong. CLAUDE.md warns that a fresh worktree
-needs its own install; it does not warn that an *existing* one goes stale the
-moment `main` gains a package, which is the case that actually bites.
-
-Add a preflight to `bun run check`: read the workspace globs out of the root
-`package.json`, and for each package directory that has a `package.json` with
-dependencies, fail before the typecheck with one line naming the package and
-saying `run bun install in this worktree`. It has to run before `tsc`, because
-the whole point is to replace `tsc`'s answer with the true one. Prove it by
-renaming one package's `node_modules` aside and checking the message, then
-putting it back.
-
 ## `bun run perf` never exercises a held control, so a new one is unmeasured
 
 - **Found:** 2026-09-07, claude/cannon-streak-shot-38da84

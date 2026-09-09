@@ -115,6 +115,17 @@ evidence about whichever tool produced it, and a link written by one shell for
 another is the same class of thing as a port answered by the wrong server.
 `CLAUDE.md` says *from a native shell* beside the install it already asks for.
 
+*Amended 2026-09-09:* and the question is now asked before `tsc` gets to answer
+it wrongly. `bun run check` opens with `tools/check/run.ts`, which walks the
+workspace globs and asks, for every edge of the dependency graph, whether the
+consumer's own `node_modules` has a link for it — that is where Bun puts one,
+not the repository root. A missing link is a line naming the package that needs
+it and the name it needs, and the check stops there. What it fixes is not the
+fresh worktree, which `CLAUDE.md` already covers, but the **existing** one: it
+was installed correctly, `main` then gained a package or an edge, and nothing
+said so until eight `Cannot find module` errors arrived in files the lane had
+never opened.
+
 *Amended 2026-09-05:* the other half of the same trap is the **index**, and
 `.gitattributes` cannot reach it. `eol=lf` governs what a checkout writes; a
 blob committed with carriage returns before the attribute landed stays CRLF,
