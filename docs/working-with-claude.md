@@ -78,6 +78,15 @@ dev server hands back `index.html` for every unknown path, so a 200 is not
 evidence of anything. `bun run preview:once` binds an OS-assigned free port for a
 throwaway check or a second worktree; several can run side by side.
 
+**The preview exits when nothing has asked it anything for ten minutes**, and
+its startup line says so. That window was thirty seconds, which is shorter than
+one turn: a lane took a picture, edited a file, asked for the page again and got
+`curl` exit 7 — reported by a browser as a navigation *denied*, so it reads as a
+permission problem rather than as nothing listening. Three times in one sitting,
+a launch and a rebuild each. Every request resets the clock, `PREVIEW_IDLE_MS`
+moves it, and the point of having one at all is that a leaked server dies
+without anybody remembering it.
+
 *Amended 2026-09-06:* three rules moved down here from `CLAUDE.md`, which had
 run out of room, and each of them is the same lesson as everything above.
 

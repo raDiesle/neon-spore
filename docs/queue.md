@@ -480,24 +480,3 @@ its port where a second command can read it** — the marker file `preview`
 already answers `/__preview` with, or a line in the tree's own scratch — so
 `bun run port` can report what is running rather than what would be tried. The
 proof is `bun run port` naming 58200 while a `dev:once` from the same tree is up.
-
-## `bun run preview` stops on its own after about half a minute
-
-- **Found:** 2026-09-08, claude/game-mouse-hover-effect
-- **Taken:** 2026-09-09, claude/queue-bun-run-preview-stops-on-its-own-after-about-hal
-- **Files:** `apps/game/preview.ts`, `apps/game/package.json`
-
-The agent's own server exits with code 0 roughly thirty to forty seconds after
-it is started, without being asked to. This lane hit it three times in one
-sitting: a picture was taken, a source file was edited, and the next request to
-`http://localhost:4173/` failed to connect — `curl` gave exit 7 and the browser
-reported the navigation as denied, which reads as a permission problem rather
-than as nothing listening. The workaround was to start it again for every
-picture, and it costs a launch and a rebuild each time.
-
-Nothing in `CLAUDE.md` says the preview is short-lived, and the two obvious
-readings are opposite: either the server is meant to hold the port until it is
-stopped and something is killing it, or it is meant to be one-shot and the
-usage text should say so. Find out which, and then either keep the process
-alive until `preview_stop` or say plainly, in the startup line, how long it
-will answer for.

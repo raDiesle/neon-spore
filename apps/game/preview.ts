@@ -14,6 +14,15 @@
 //     would take down a server another session is verifying against;
 //   * an idle preview exits on its own, so a leaked one dies without help.
 //
+// **The idle window is ten minutes, and the startup line says so.** It was
+// thirty seconds, which is shorter than one turn of work: a lane took a
+// picture, edited a source file, asked for the page again and got `curl` exit 7
+// — which the browser reports as a navigation being denied, so it reads as a
+// permission problem rather than as nothing listening. Three times in one
+// sitting, each costing a launch and a rebuild. Ten minutes still kills a
+// leaked server without anybody's help, and it outlives the edit-and-look cycle
+// the preview exists for. `PREVIEW_IDLE_MS` overrides it.
+//
 // Run it through `bun run preview`, which builds first.
 
 import { claimPort, treeKey } from "../../tools/ports.js";
@@ -27,7 +36,7 @@ const spec = SERVERS.preview;
 const marker = spec.marker;
 /** Which checkout this one serves. Two trees, two previews, two ports. */
 const treeId = treeKey(tree);
-const idleMs = Number(process.env.PREVIEW_IDLE_MS ?? 30 * 1000);
+const idleMs = Number(process.env.PREVIEW_IDLE_MS ?? 10 * 60 * 1000);
 
 // PREVIEW_PORT=0 asks the OS for a free port: there is nothing to reclaim and
 // nothing to collide with. That is the mode for a one-shot check, or for a
@@ -40,11 +49,15 @@ const port =
         process.exit(1);
       });
 
+/** How long it answers for with nothing asked of it, said the way a person reads it. */
+const idleWindow =
+  idleMs >= 60_000 ? `${Math.round(idleMs / 60_000)} min` : `${Math.round(idleMs / 1000)}s`;
+
 let idle: ReturnType<typeof setTimeout>;
 function resetIdle(): void {
   clearTimeout(idle);
   idle = setTimeout(() => {
-    console.log(`preview idle for ${Math.round(idleMs / 1000)}s — exiting.`);
+    console.log(`preview idle for ${idleWindow} — exiting. bun run preview starts another.`);
     process.exit(0);
   }, idleMs);
 }
@@ -90,6 +103,7 @@ const server = Bun.serve({
 resetIdle();
 console.log(`preview (built) on http://localhost:${server.port} — pid ${process.pid}`);
 console.log(`serving ${treeId}`);
+console.log(`answers until ${idleWindow} pass with no request — every request resets that`);
 
 for (const signal of ["SIGINT", "SIGTERM"] as const) {
   process.on(signal, () => {
