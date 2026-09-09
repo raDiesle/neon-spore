@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 5bd87d92 — SHIP:CRATER is watched rather than photographed
+
+The crater slot opened as a still on the argument that a hole is cut once and then simply sits there. That is true of the hole and false of everything around it: a crater is revealed by the rock rolling out of it a second later, so the look does not exist on any frame until something has moved — and the one way SPALL loses, a hull wearing several holes at once ceasing to read as one surface, cannot be seen on a picture of one hole.
+
 ## 2026-09-09 · 9a98716a — Act 8's two words-only guides rehearse
 
 THE BEATBOX and THE TELL each open on prose. Each now names a `GuideScene`, and the first of them needed a gesture the format did not have.
