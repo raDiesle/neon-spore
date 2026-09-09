@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 7715e2af — The preview answers for ten minutes and says so
+
+Its idle window was thirty seconds, which is shorter than one turn of work: a lane took a picture, edited a source file, asked for the page again and got `curl` exit 7 — which a browser reports as a navigation denied, so it reads as a permission problem rather than as nothing listening. Three times in one sitting, a launch and a rebuild each. Ten minutes still kills a leaked server without help, and the startup line now says how long the server will answer for instead of leaving it to be discovered.
+
 ## 2026-09-09 · 78709304 — A cloud landing deepens its clone and lets its branch go
 
 Two things a session started from a phone hits in the same minute. Its clone is shallow, so `git fetch origin main` brings a second segment down rather than joining the first: `merge-base` answers nothing and each side counts as ahead of the other by the depth of the graft, which the trunk guard reads as fifty commits of real work and refuses over. The landing now runs `git fetch --unshallow origin` before it counts anything, and says so either way.
