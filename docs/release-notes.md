@@ -9,6 +9,22 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 53e7cdae — Queue the two waves the adopted looks made dearer
+
+BULB QUEEN and THE WISP both report over their old share after ten looks came out of VERSUS. Neither is a defect — the worst frame in the game is 7.1 ms against 16.7 — but both have an obvious next move and neither was worth holding the looks for, so the entry says what to do and how to prove it.
+
+## 2026-09-09 · efff6538 — Take the wash out of the fireball
+
+Rendered and corrected against a real frame, which is the only way to settle this: `PALETTE.emberRim` is nearly white, and a wide band of it over a dark field took the whole ball to peach — a fire that had gone out and was still warm. Both ramps now carry one narrow stop of it and orange either side, so the shell reads as flame at its edge and a tongue as a hot core rather than a pale sausage four pixels across.
+
+## 2026-09-09 · 0d794f9c — Open panel:ship-join with three candidates, and take the scrim off VERSUS
+
+The owner asked for the control panel to look like part of the hull — *ship must more follow visual of control panel, or/and the way around* — and when the three ways of doing that were put to him he asked for all three as cards, to be looked at beside each other rather than handed one.
+
+## 2026-09-09 · 353572ec — Take ten looks out of VERSUS and into the game
+
+The owner read the whole page and answered all but two of it. Nine candidates are adopted as they stood and one was adopted and then made much larger.
+
 ## 2026-09-09 · 2baed1ac — The unmeasured-baseline question has an answer, so it is a task
 
 THE TELL's row was measured on a busy container, and the fresh full baseline taken on the owner's machine on 9 September 2026 has replaced it along with every other row. What was left of that entry was the rule the collision exposed: a cloud session adding a wave cannot pass `bun run check` without running perf, and running perf is what `CLAUDE.md` tells it not to do.
