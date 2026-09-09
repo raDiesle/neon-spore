@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 78709304 — A cloud landing deepens its clone and lets its branch go
+
+Two things a session started from a phone hits in the same minute. Its clone is shallow, so `git fetch origin main` brings a second segment down rather than joining the first: `merge-base` answers nothing and each side counts as ahead of the other by the depth of the graft, which the trunk guard reads as fifty commits of real work and refuses over. The landing now runs `git fetch --unshallow origin` before it counts anything, and says so either way.
+
 ## 2026-09-09 · 65e957dd — A probe reaches all five packages, not three
 
 The queue asked for somewhere a throwaway script could import `@neon-spore/*` from, and `tools/probe/` — which landed after the entry was written — is that place: the workspace links live under each package's own `node_modules`, so a file at the repository root resolves nothing however it is run, and a probe under `tools/probe/scratch/` resolves everything. What was left was its reach. It depended on `sim`, `content` and `render`, so a question about the wire or the sound catalogue was still a question with nowhere to live. It now depends on `net` and `audio` as well.
