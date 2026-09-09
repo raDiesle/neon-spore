@@ -72,6 +72,7 @@ export const WAVES_ACT_8: Wave[] = [
       both: "A soundbox that swells on every beat and asks for a number of them. Nothing you can fire touches it. It is answered by tapping the body itself, once a beat, on the beat — and the run is finished by stopping: the first beat that goes by untapped is the beat it is judged on. Right and it goes quiet. Wrong and it puts a wave of sound through the hull and keeps coming.",
       p1: "The number is over the box on your screen and on nobody else's. Say it early and say it once — they cannot see it, and by the time they have started tapping it is too late to hear it.",
       p2: "Your thumb, on the body, on the beat — you are the only one who can. Every beat that lands grows an arm on it. Take the thumb off on their number: extra is as wrong as missing, and it goes red the moment either happens.",
+      scene: "theBeatbox",
     },
     entries: [
       { beat: 0, col: 3, kind: "beatbox", color: null, beats: 2 },
@@ -92,6 +93,7 @@ export const WAVES_ACT_8: Wave[] = [
       both: "A body at the top of the field, and one throw each exchange. The plate beats a bolt. A bolt beats an open mouth. An open mouth beats the plate — it drinks the charge. The ring is drawn on the boss itself, so it is on the screen the whole time. It draws breath, you throw, and you both open at once. Win five in a row; lose one and you start again.",
       p1: "SHIELD and SUCK are yours: the plate and the mouth are your only throws. The lobe it fills shows on your screen alone — that is what it will throw. Say who is throwing: two thumbs at once and the ship throws nothing.",
       p2: "The bolt is yours and it is your only throw. The colour it wears is on your screen alone; a bolt in that colour lands and the other bounces off. What it will throw, only they can see.",
+      scene: "theTell",
     },
     entries: [],
     boss: { kind: "tell", rungs: TELL_RUNGS, beats: TELL_BEATS },

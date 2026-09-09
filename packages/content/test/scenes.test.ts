@@ -53,15 +53,16 @@ describe("the rehearsals a guide can show", () => {
   });
 
   it("gives every act exactly one gesture", () => {
-    // Four gestures are not presses on the panel: a finger held on the field,
-    // a hand carrying a cord, a string or a rope since THE LID's, and — since
-    // THE CHOIR's — the *device* being shaken, which is a hand nowhere at all.
-    // So an act carries exactly one of `control`, `grip`, `drag` and `shake`,
+    // Five gestures are not presses on the panel: a finger held on the field,
+    // a hand carrying a cord, a string or a rope since THE LID's, the *device*
+    // being shaken since THE CHOIR's, and — since THE BEATBOX's — a thumb on a
+    // body, which is the one press in the game that lands on the field. So an
+    // act carries exactly one of `control`, `grip`, `drag`, `shake` and `tap`,
     // never two and never none. `sceneCommands` throws on the empty case rather
     // than dropping it silently, and this is what keeps it from being thrown.
     for (const id of SCENE_IDS) {
       for (const act of SCENES[id].acts) {
-        const gestures = [act.control, act.grip, act.drag, act.shake].filter(
+        const gestures = [act.control, act.grip, act.drag, act.shake, act.tap].filter(
           (g) => g !== undefined,
         ).length;
         expect(gestures, `${id} has an act at tick ${act.tick} with ${gestures} gestures`).toBe(1);
@@ -89,6 +90,15 @@ describe("the rehearsals a guide can show", () => {
         // Both holds say where and both say when they let go. A hold with no
         // end is a hand still down on a world about to be rebuilt, and a hold
         // with no column is a hand on whatever happened to be underneath.
+        // A tap says where and never when it lets go: it is instant and
+        // complete on the press, so there is nothing to release.
+        if (act.tap) {
+          expect(act.col, `${id}: a tap at tick ${act.tick} has no column`).toBeGreaterThanOrEqual(
+            0,
+          );
+          expect(act.until, `${id}: a tap at tick ${act.tick} lets go`).toBeUndefined();
+          continue;
+        }
         if (act.grip === undefined && act.drag !== "lidString") {
           // And a hold on an ordinary control only makes sense on one a thumb
           // stays on — the lance, the gauge's two valve slabs and the bucket's
@@ -270,7 +280,16 @@ describe("the rehearsals a guide can show", () => {
         // navigator holds (`scene-drag.ts`).
         const seat =
           act.grip ??
-          (act.drag ? dragSeat(act.drag) : act.shake ? 1 : control(act.control!).player);
+          (act.drag
+            ? dragSeat(act.drag)
+            : act.shake
+              ? 1
+              : // A tap is the navigator's alone, which is the creature: the
+                // number is on the pilot's screen and the thumb on theirs
+                // (`sim/beatbox-round.ts`).
+                act.tap
+                ? 2
+                : control(act.control!).player);
         const sent = script.commands.filter((c) => c.tick === act.tick && c.player === seat);
         expect(sent.length, `${id}: nothing sent for the act at tick ${act.tick}`).toBeGreaterThan(
           0,

@@ -73,6 +73,23 @@ export interface SceneAct {
    */
   shake?: true;
   /**
+   * A **thumb on a body**, which is the fourth gesture that is not a press on
+   * a button and the only one that is a press at all.
+   *
+   * THE BEATBOX is answered by tapping the box itself, once a beat, on the
+   * beat (`sim/beatbox-round.ts`). The seat is not authored, for the reason a
+   * drag's is not: it is the navigator's alone, and that *is* the creature —
+   * the number of beats asked for is on the pilot's screen and the thumb is on
+   * the navigator's, so a pilot who could also tap would be a pilot who never
+   * has to say anything.
+   *
+   * The column is authored and the body is not, exactly as a grip's is: ids
+   * are dealt out by the simulation and a film is written before any world
+   * exists, so `SceneRun` finds what is standing there at the moment the thumb
+   * comes down.
+   */
+  tap?: true;
+  /**
    * A hand on a **cord, a string or a rope** — the third gesture that is not a
    * press on a button, and the one that had no way of being written down.
    *

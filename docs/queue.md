@@ -190,19 +190,6 @@ Whichever wins, `packages/render/test/wave-budget.test.ts`'s BULB QUEEN rows
 are the proof it changed nothing else, and `bun run frames . --wave 25 --at`
 takes the two pictures for the owner to choose between.
 
-## THE BEATBOX and THE TELL teach with words and no rehearsal
-
-- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
-- **Taken:** 2026-09-09, claude/queue-the-beatbox-and-the-tell-teach-with-words-and-no
-- **Files:** `packages/content/src/waves/act-8.ts`,
-  `packages/content/src/scenes.ts`, `packages/content/src/scenes/`
-
-Act 8's two words-only guides, and the last of the ten. Give each a
-`GuideScene` with anchored steps and short captions, modelled on
-`scenes/the-rind.ts`, following `.claude/skills/new-tutorial`. THE BEATBOX is a
-rhythm round, so its rehearsal has to run at tempo for the pages to mean
-anything.
-
 ## THE TORCH and THE DART have one look each and no second answer
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
@@ -550,3 +537,35 @@ owner put it, which is the reason to prefer it.
 
 `packages/render/test/frame.test.ts` draws every round, and a test that the
 two boxes do not overlap is the proof.
+
+## THE TELL's trigger does not reach the round from the panel
+
+- **Found:** 2026-09-09, claude/queued-items-a47ead
+- **Files:** `packages/sim/src/tell-round.ts`,
+  `packages/render/src/touch-lobe.ts`, `packages/content/src/scenes/the-tell.ts`
+
+The navigator's only throw in THE TELL is a bolt, and the round never hears
+one pressed on its own panel. `throwOf` accepts `{ kind: "fire" }`; a thumb on
+RED or CYAN sends `{ kind: "prime", on }` — the press starts the fill and the
+lift is the shot (`touch-lobe.ts`, and `control-command.ts` says the same) —
+and the only thing in the game that sends a bare `fire` is the swipe across the
+ship (`touch-ship.ts`) and the desk keyboard. So on a phone, playing the round
+the way its own band asks to be played, player 2 cannot throw at all: every
+exchange they are meant to answer is a stand-off, and the pair loses the rung
+without being told why.
+
+Two ways to close it, and the first is the one the rest of the game already
+argues for:
+
+- **Hear the lift.** `throwOf` takes `{ kind: "prime", on: false }` as the
+  bolt, in the colour that was held. That is the game's own rule — *the lift is
+  the shot* — and it costs the round nothing: a hold long enough to be a lance
+  has no field to fire into here.
+- **Send a `fire` from the round's own lobes.** `touch-lobe.ts` would have to
+  know which round is installed to decide, which is the coupling that file has
+  never had.
+
+The proof is a test in `packages/sim/test/` that plays one exchange with a
+`prime` pair from player 2 and expects the rung to be climbed, and the page it
+unblocks is the navigator's own throw in `scenes/the-tell.ts`, whose comment
+says what to add.

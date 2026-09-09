@@ -1,5 +1,5 @@
-import { control, type GuideScene } from "@neon-spore/content";
-import { gripsCreature, lidIsHeld, type World } from "@neon-spore/sim";
+import { actCol, control, type GuideScene } from "@neon-spore/content";
+import { type Creature, gripsCreature, lidIsHeld, occupiesCol, type World } from "@neon-spore/sim";
 import { creatureCenter, creatureRadius } from "./creature-place.js";
 import { handleCircle } from "./handles.js";
 import type { Layout } from "./layout.js";
@@ -78,6 +78,48 @@ export function fieldThumb(
     const at = shipCircle(l, world, act.control);
     if (!at) continue;
     return { x: at.x, y: at.y, press: tick >= act.tick && tick - act.tick < PRESS_TICKS };
+  }
+  return null;
+}
+
+/**
+ * And the fourth: a **thumb on a body**, which is the one press in this game
+ * that lands on the field.
+ *
+ * It is placed the way the grip's is and for the same reason — the world says
+ * which body is standing in the column the film named, and `creatureCenter`
+ * says where that body is being drawn, so the thumb lands on the box rather
+ * than at a place an author guessed. The difference from the grip is only that
+ * nothing is held: a tap is instant and complete on the press, so the hand is
+ * on screen for the same short flight the panel's own thumb gets and then goes.
+ *
+ * The navigator's alone, because the gesture is (`sim/beatbox-round.ts`).
+ */
+export function tapThumb(
+  l: Layout,
+  world: World,
+  scene: GuideScene,
+  tick: number,
+  seat: 1 | 2,
+  beatPhase: number,
+): { x: number; y: number; r: number } | null {
+  if (seat !== 2) return null;
+  for (const act of scene.acts) {
+    if (!act.tap || act.col === undefined) continue;
+    if (tick < act.tick - LEAD_TICKS || tick > act.tick + TRAIL_TICKS) continue;
+    // The same body the command lands on: the lowest in the column, which is
+    // `sim/scene-aim.ts`' rule, asked here rather than re-derived — a thumb
+    // over one box while another was tapped is exactly the drift a second copy
+    // of "which body" produces.
+    const col = actCol(act, world.cfg.cols);
+    let on: Creature | null = null;
+    for (const c of world.creatures) {
+      if (!occupiesCol(c, col)) continue;
+      if (!on || c.row > on.row) on = c;
+    }
+    if (!on) continue;
+    const at = creatureCenter(l, on, beatPhase);
+    return { x: at.x, y: at.y, r: creatureRadius(l, on, beatPhase, world.cfg) };
   }
   return null;
 }

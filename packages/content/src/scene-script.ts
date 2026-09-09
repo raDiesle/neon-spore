@@ -31,6 +31,15 @@ const TAP_TICKS = 6;
 
 export function sceneCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
   if (act.grip !== undefined) return gripCommands(act, cfg.cols);
+  // A thumb on a box: instant and complete on the press, so there is nothing
+  // to release. The navigator's, unauthored — `beatboxTapped` refuses any
+  // other seat — and the id is filled in by the runner from the column, the
+  // way a grip's is (`sim/scene-aim.ts`).
+  if (act.tap) {
+    return [
+      { tick: act.tick, player: 2, command: { kind: "tap", id: 0 }, tapCol: actCol(act, cfg.cols) },
+    ];
+  }
   if (act.drag !== undefined) return dragCommands(act, cfg);
   // The device shaken: one command carrying nothing, and nothing to let go of.
   // The pilot's, unauthored, exactly as a drag's seat is.

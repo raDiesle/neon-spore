@@ -42,6 +42,19 @@ export interface SceneCommand {
    */
   dragCol?: number;
   /**
+   * A **tap** on a body, found the same way a grip's is.
+   *
+   * THE BEATBOX is the one press in this game that lands on the field rather
+   * than on a control, and it names the box by an `id` — a wave may send
+   * several down at once and each is counting its own run. So it is the
+   * grip's bargain a third time: the author knows the column they wrote the
+   * arrival in, and the runner knows which body is standing there when the
+   * thumb comes down. A column with nothing in it sends the tap as written,
+   * which `beatboxTapped` finds nothing for and does nothing about — a film
+   * that mistimed its thumb looks mistimed.
+   */
+  tapCol?: number;
+  /**
    * A strip press whose column is **the body's**, found at the moment the
    * thumb goes down rather than written into the film.
    *
@@ -107,6 +120,10 @@ export function aimed(world: World, c: SceneCommand): Command {
     // rather than be quietly corrected into a column nobody chose.
     const body = arrivingFirst(world);
     return body === null ? c.command : { ...c.command, col: body.col };
+  }
+  if (c.tapCol !== undefined && c.command.kind === "tap") {
+    const on = lowestIn(world, c.tapCol);
+    return { kind: "tap", id: on?.id ?? NO_GRIP };
   }
   if (c.gripCol === undefined) return c.command;
   const held = lowestIn(world, c.gripCol);

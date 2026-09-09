@@ -7,6 +7,7 @@ import { PINBALL } from "./scenes/pinball.js";
 import { SALVAGE } from "./scenes/salvage.js";
 import { SNAKE } from "./scenes/snake.js";
 import { THE_BALLOON } from "./scenes/the-balloon.js";
+import { THE_BEATBOX } from "./scenes/the-beatbox.js";
 import { THE_CAROM } from "./scenes/the-carom.js";
 import { THE_CHOIR } from "./scenes/the-choir.js";
 import { THE_CLASP } from "./scenes/the-clasp.js";
@@ -37,6 +38,7 @@ import { THE_RECOIL } from "./scenes/the-recoil.js";
 import { THE_RIND } from "./scenes/the-rind.js";
 import { THE_ROCK } from "./scenes/the-rock.js";
 import { THE_STRAND } from "./scenes/the-strand.js";
+import { THE_TELL } from "./scenes/the-tell.js";
 import { THE_THIRD_SHOT } from "./scenes/the-third-shot.js";
 import { THE_THROB } from "./scenes/the-throb.js";
 import { THE_TORCH } from "./scenes/the-torch.js";
@@ -119,7 +121,9 @@ export type SceneId =
   | "theJam"
   | "theCrossing"
   | "thePulse"
-  | "theBalloon";
+  | "theBalloon"
+  | "theBeatbox"
+  | "theTell";
 
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
@@ -171,6 +175,8 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theCrossing: THE_CROSSING,
   thePulse: THE_PULSE,
   theBalloon: THE_BALLOON,
+  theBeatbox: THE_BEATBOX,
+  theTell: THE_TELL,
 };
 
 export type { GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";
