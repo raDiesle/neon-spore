@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 65e957dd — A probe reaches all five packages, not three
+
+The queue asked for somewhere a throwaway script could import `@neon-spore/*` from, and `tools/probe/` — which landed after the entry was written — is that place: the workspace links live under each package's own `node_modules`, so a file at the repository root resolves nothing however it is run, and a probe under `tools/probe/scratch/` resolves everything. What was left was its reach. It depended on `sim`, `content` and `render`, so a question about the wire or the sound catalogue was still a question with nowhere to live. It now depends on `net` and `audio` as well.
+
 ## 2026-09-09 · 7bca2560 — The check says a stale install before tsc blames the code
 
 A worktree installed before `main` gained a package has no link for it, and the first thing that says so is `tsc`, with eight `Cannot find module` errors in files the lane never opened — a turn spent reading code that was never wrong. `bun run check` now opens with a preflight that walks the workspace globs and asks, per edge of the dependency graph, whether the consumer's own `node_modules` carries the link. Bun puts one there rather than at the root, so the question is asked once per edge, which is also the only shape that notices a dependency added to a package that was already installed. Silent when the install is good; one line per missing link and a stop when it is not.
