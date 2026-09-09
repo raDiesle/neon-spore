@@ -150,6 +150,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## No interlude round has ever been offered a look
 
 - **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7
+- **Taken:** 2026-09-09, claude/queue-no-interlude-round-has-ever-been-offered-a-look
 - **Files:** `packages/render/src/maze-draw.ts`, `packages/render/src/pinball-table.ts`,
   `packages/render/src/snake-draw.ts`, `tools/director/src/versus-pose.ts`
 
