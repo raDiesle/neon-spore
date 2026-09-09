@@ -296,6 +296,7 @@ fold them together without saying which is which.
 ## `bun run index` appends a new row instead of filing it beside its siblings
 
 - **Found:** 2026-09-07, claude/crawler-pulse-stepped-comparison-7b9280
+- **Taken:** 2026-09-09, claude/queue-bun-run-index-appends-a-new-row-instead-of-filin
 - **Files:** `tools/index/`, `docs/INDEX.md`
 
 Splitting `packages/render/src/crawler.ts` produced `crawler-ring.ts`, and
