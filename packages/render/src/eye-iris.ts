@@ -89,19 +89,6 @@ export interface IrisDraw {
 }
 
 /**
- * The ring, the spokes and the pupil, in the eye's own colour, inside the
- * caller's clip.
- *
- * `pr` is the pupil's radius this instant — it breathes, and everything here is
- * measured off it, so the whole assembly breathes with the hole at its middle
- * rather than being a second thing on a second clock.
- */
-export function drawEyeIris(d: IrisDraw): void {
-  if (d.pr <= 0 || d.openness <= 0) return;
-  drawIrisMarks(d.ctx, d.cx, d.cy, d.pr, d.ink, d.openness, d.t);
-}
-
-/**
  * The assembly itself — the ring, the spokes and the hole — at a point.
  *
  * Split out of the function above so a candidate look can **move** it without

@@ -323,6 +323,15 @@ function rope(fromYMilli: number) {
 }
 
 /**
+ * **The eye became a ball on 9 September 2026, and it moved two numbers.** The
+ * owner asked for `eye:iris`'s two candidates combined rather than choosing
+ * between them, so what is inside an aperture is now a lit dome, an iris placed
+ * on it and travelling, and a wet point that stays where the light is
+ * (`eye-ball.ts`). That is three `save` and two `drawImage` per eye, and
+ * **nothing else** — in particular not one gradient, because both soft falloffs
+ * are sprites baked once and blitted, which is the trade this whole file exists
+ * to keep honest.
+ *
  * **BEVEL moved the warden's rows and nothing else's**, on 9 September 2026: a
  * plate is a slab now rather than a stroked arc, so each of the nine is a wall,
  * a face, a lit outer edge and a contact seam. `fill` went from 32 to 44 and
@@ -359,8 +368,14 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // clip to it, and the lens opens one of its own so the lids can cut the
       // pupil instead of the pupil being sized to miss them (`eye-lens.ts`).
       clip: 8,
-      save: 31,
-      drawImage: 18,
+      // Three of these are the ball: the dome, the iris on its own tangent
+      // plane, and the wet point, each in a frame of its own (`eye-ball.ts`).
+      save: 34,
+      // Two of these are the ball as well, and they are the whole of what it
+      // costs: the dome is a sprite baked once per colour and size, and the wet
+      // point is `halo`'s. Neither builds a gradient, which is why the two
+      // gradient rows below did not move at all.
+      drawImage: 20,
       createLinearGradient: 15,
       createRadialGradient: 3,
       // Fourteen of them the panel's sheet, as on every frame 0 here. Four are
@@ -374,8 +389,8 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       stroke: 109,
       fill: 44,
       clip: 8,
-      save: 31,
-      drawImage: 18,
+      save: 34,
+      drawImage: 20,
       createLinearGradient: 5,
       createRadialGradient: 1,
       "new Path2D": 40,
@@ -397,8 +412,8 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // The one op this body's share of the new lens costs: the clip the lids
       // cut the pupil through (`eye-lens.ts`).
       clip: 8,
-      save: 29,
-      drawImage: 18,
+      save: 32,
+      drawImage: 20,
       createLinearGradient: 15,
       createRadialGradient: 3,
       "new Path2D": 38,
@@ -409,8 +424,8 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       stroke: 84,
       fill: 24,
       clip: 8,
-      save: 29,
-      drawImage: 18,
+      save: 32,
+      drawImage: 20,
       createLinearGradient: 5,
       // The eye builds none of its own: the wash around it is a `halo` sprite
       // cached by colour and radius, and the one left is `key-light.ts`'s

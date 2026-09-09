@@ -734,6 +734,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/lure-blast.ts` | A LURE GOING UP, AND THE WHOLE SCREEN WITH IT |
 | `packages/render/src/eye-rim.ts` | **The eye's box, and the rim hung on it.** The third piece of one eye — `eye.ts` holds the wet parts |
 | `packages/render/src/eye-iris.ts` | **The machinery inside an eye**: an aperture ring around the pupil and a ring of spokes turning slowly… |
+| `packages/render/src/eye-ball.ts` | The inside of an eye as a **ball**: lit across its whole face |
 | `packages/render/src/fleet-clock.ts` | How long THE FLEET has left, as a bar and as a number |
 | `packages/render/src/fleet-fx.ts` | THE FLEET's one transient: a salvo between the muzzle and the square |
 | `packages/render/src/fleet-impact.ts` | What a shell does when it arrives: a rocket into a hull, or a column of water where there was nothing |

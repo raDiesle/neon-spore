@@ -1,4 +1,5 @@
-import { drawEyeIris, type IrisDraw } from "./eye-iris.js";
+import { drawEyeBall } from "./eye-ball.js";
+import type { IrisDraw } from "./eye-iris.js";
 
 /**
  * THE ONE RECORD A CANDIDATE **EYE** PATCHES.
@@ -23,4 +24,14 @@ export interface EyeLook {
   readonly iris: (d: IrisDraw) => void;
 }
 
-export const EYE_LOOK: EyeLook = { iris: drawEyeIris };
+/**
+ * `eye-ball.ts` and not `eye-iris.ts`, since 9 September 2026.
+ *
+ * The two candidates this record was cut for — `glaze` and `turn` — were the
+ * two halves of one disagreement about how to make an eye read as round, and
+ * the owner asked for them combined rather than choosing between them. So what
+ * ships is the dome, the iris travelling on the ball under it, and the wet
+ * point that stays where the light is. `eye-iris.ts` is still the *machinery*
+ * — the ring, the six spokes and the hole — drawn wherever the look puts it.
+ */
+export const EYE_LOOK: EyeLook = { iris: drawEyeBall };
