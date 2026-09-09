@@ -1195,7 +1195,6 @@ place — the generator keeps whatever is there.
 | `tools/director/src/versus-pose.ts` | Which pose puts a slot's own animation on screen |
 | `tools/director/src/versus-seat.ts` | Whether a candidate needs the other seat drawn beside it — decided once, honestly, rather than guessed |
 | `tools/director/src/versus-shot.ts` | The two query parameters that make a VERSUS pair photographable |
-| `tools/director/src/versus-vote.ts` | The vote box: the reason field, the two buttons and the swap-guard banner |
 | `tools/director/src/wave-opening.ts` | What the wave being edited puts in front of a pair before it starts |
 | `tools/director/src/waves-commit.ts` | A save in the wave editor is a commit |
 | `tools/director/src/whole-doc.ts` | The tabs that render one document whole — BORROWED (`docs/borrowed.md`) |
@@ -1270,14 +1269,16 @@ place — the generator keeps whatever is there.
 | `tools/shape-sheet/src/scenes/creatures.ts` | The creature ideas, placed on the field |
 | `tools/shape-sheet/src/svg.ts` | Cell geometry and page furniture, shared by the shape sheet and the motion sheet |
 | `tools/shape-sheet/src/swim-sheet.ts` | The swim sheet: one pulse cycle of every jelly, left to right |
-| `tools/versus/prompt.ts` | VERSUS — the text a vote puts on the clipboard, and the only thing it leaves |
-| `tools/versus/prompt-changes.ts` | One patch's `old -> new`, the half of a prompt a cold session checks against the files first |
-| `tools/versus/prompt-close.ts` | Steps 4 to 7 of a vote prompt: remove the slot, what not to do, check, commit |
-| `tools/versus/prompt-steps.ts` | Steps 0 to 3 of a vote prompt: the header, the refusal, the adoption, the readers |
-| `tools/versus/prompt-text.ts` | The text layout a vote prompt is set in: the wrapper, the rows, the words for small numbers |
 | `tools/versus/run.ts` | `bun run versus` — which slots are open, and what a vote on each one would reach |
+| `tools/versus/record-edit.ts` | Writing one candidate's field values into the shipped record, in the file |
+| `tools/versus/registry.ts` | The registry, derived from the directories rather than typed out |
+| `tools/versus/root.ts` | Where the repository is, from inside this directory |
 | `tools/versus/seed.ts` | One seeded random stream, so the only thing that can differ between the two sides of a VERSUS frame is the… |
+| `tools/versus/scaffold.ts` | `bun run versus new <slot> <name>` — the candidate, spelled out |
 | `tools/versus/variant.ts` | VERSUS — the place a second answer to an existing shape can live |
+| `tools/versus/decide.ts` | What happens after the owner has looked |
+| `tools/versus/list.ts` | `bun run versus` — which slots are open, and what deciding one would reach |
+| `tools/versus/text.ts` | How a value and a paragraph are spelled where VERSUS talks to a person |
 | `tools/index/drift.ts` | Whether a row in `docs/INDEX.md` still describes the file it names |
 | `tools/index/sentence.ts` | **The one line a row carries**, read off the file's own header comment and cut to something a table can hold |
 | `tools/index/place.ts` | where a new row goes: beside the rows whose names it shares a beginning with |

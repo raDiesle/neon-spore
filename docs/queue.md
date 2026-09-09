@@ -242,43 +242,6 @@ Whichever wins, `packages/render/test/wave-budget.test.ts`'s BULB QUEEN rows
 are the proof it changed nothing else, and `bun run frames . --wave 25 --at`
 takes the two pictures for the owner to choose between.
 
-## VERSUS costs a lane a long read to open a slot and a hand edit to adopt one
-
-- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
-- **Files:** `tools/versus/run.ts`, `tools/versus/candidates/index.ts`,
-  `tools/versus/prompt.ts`, `tools/versus/prompt-steps.ts`,
-  `tools/versus/prompt-close.ts`, `tools/versus/prompt-changes.ts`,
-  `tools/versus/prompt-text.ts`, `tools/versus/DECIDED.md`,
-  `tools/versus/README.md`, `tools/director/src/versus-pose.ts`
-
-Five things, and the first one settles the other four. **The owner decides in
-chat.** Asked on 9 September 2026 how an approved candidate should reach the
-game, he said he does not want a vote button and prefers to say directly which
-candidate to integrate and which to reject. So the page's whole job is to show
-the pair, and the vote button and the clipboard prompt behind it — `prompt.ts`
-and its four neighbours, some 670 lines — are machinery nobody will use. Take
-them out.
-
-What replaces them is a command that takes the name he said. **`bun run versus
-adopt <slot> <name>`**: read the winner's `where` and `fields`, write those
-values into the shipped record, remove every candidate directory in the slot,
-drop them from the registry and append the decision to `DECIDED.md`. It must
-refuse, printing what to do by hand, when a patched field holds a function — a
-`poseAt` cannot be written into a record mechanically and pretending otherwise
-is worse than not trying. **`bun run versus drop <slot> "<reason>"`** is the
-other half: the same removal with the reason recorded, for a slot he turns down.
-
-**`candidates/index.ts` is one array every lane edits**, so two sessions opening
-slots at once conflict on rebase inside a file neither of them is really
-changing — and this queue is about to hold a dozen such lanes. The
-`// region: candidates` markers are already in the file: generate the region
-with `bun run versus index` and fail a test when it is stale, the way
-`bun run index` does for `docs/INDEX.md`.
-
-**`bun run versus new <slot> <name>` scaffolds** the directory, the registry
-entry and a `versus-pose.ts` stub, so a lane spends its tokens on the look
-rather than on plumbing it has to read `README.md` in full to get right.
-
 ## THE VEER, THE STRAND and THE CRAWLER teach with words and no rehearsal
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
@@ -505,21 +468,6 @@ stroke, and with one it is a thing with a near side. `.claude/skills/depth`
 applies, and the tether's line to whatever it holds is drawn as a link rather
 than as two marks at its ends. Poses in `versus-pose.ts` in the same commit.
 
-## THE SLICK and THE BULB have no body of their own to patch
-
-- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
-- **Files:** `packages/render/src/living-skin.ts`,
-  `packages/render/src/creature-body.ts`, `tools/versus/candidates/`
-
-The first two bodies a pair ever sees, and the two with no look record: they
-are drawn through the shared `LIVING_SKIN`, which is what the open
-`creature:skin` slot already patches. So this item waits on that slot being
-decided, and then does one of two things — either the adopted skin is enough
-for both and this entry goes, or each gets a per-kind record cut out of
-`creature-body.ts` and a slot of its own with three candidates. Decide which by
-looking at the adopted skin on a slick and on a bulb, and say in the commit
-which it was. `.claude/skills/depth` applies either way.
-
 ## The player's ship has had one hull since the game started
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
@@ -568,3 +516,61 @@ where the band meets the hull, so this slot must not claim its fields —
 `bun run versus` says which those are. Any new furniture keeps the grown
 contour, the wet socket and the gloss: a flat plate with a stroke around it is
 the one thing the panel look is not.
+
+## THE SLICK is on more waves than anything else and has one look
+
+- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Files:** `packages/render/src/creature-body.ts`,
+  `packages/render/src/living-skin.ts`, `packages/render/src/effects-body.ts`,
+  `packages/render/src/sparks.ts`, `tools/versus/candidates/`,
+  `tools/director/src/versus-pose.ts`
+
+The first body a pair ever sees and the one they see most: it is on more waves
+than anything else in the game, so it is the body where a better look is worth
+the most and a flat one costs the most. The owner asked on 9 September 2026 for
+**five candidates, each completely different from the others** — not five
+temperatures of one idea, but five answers a person could tell apart from
+across a room.
+
+Three things are being asked at once and they are one slot, because a player
+does not see them separately: the **body** (depth, interior, a light that says
+which way is up), the **motion** (a swim that reads as grown rather than
+tweened), and **what a hit looks like** — the moment a shot lands on it, which
+happens more often than any other event in the game and is currently a spark
+and a break shared with everything else.
+
+The work in front of the candidates is a seam. The slick has no `-look.ts`
+record of its own: it is drawn through the shared `LIVING_SKIN`, which the open
+`creature:skin` slot already patches, so `bun test` would refuse a second slot
+claiming those fields. Cut `slick-look.ts` out of `creature-body.ts` the way
+`meteor-look.ts` was cut — the fields the slick's own drawing reads, its motion
+and its hit among them — then open `creature:slick` on it. `.claude/skills/depth`
+has the projection to call rather than re-derive, and a look is assembled from
+the named parts in `tools/shape-sheet` rather than invented from nothing. Both
+sides animate: the motion and the hit are the half a still cannot answer. Pose
+in `versus-pose.ts` in the same commit.
+
+## THE BULB is on more waves than anything else and has one look
+
+- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Files:** `packages/render/src/creature-body.ts`,
+  `packages/render/src/living-skin.ts`, `packages/render/src/effects-body.ts`,
+  `packages/render/src/sparks.ts`, `tools/versus/candidates/`,
+  `tools/director/src/versus-pose.ts`
+
+The slick's opposite number and the other body on nearly every wave. The owner
+asked on 9 September 2026 for **five candidates, each completely different** —
+five answers a person could tell apart at a glance, not five settings of one.
+
+One slot, three things in it, because a player sees them as one thing: the
+**body** and its depth, the **motion** — `own-motion.ts`'s own argument is that
+two blobs with the same lobes read as different creatures because one swings
+and the other shivers, and at 26 px that difference is most of what a player
+has — and **what a hit looks like** on it.
+
+Same seam as the slick's entry, and worth doing in a different lane so the two
+are answered separately: the bulb has no `-look.ts` record, it is drawn through
+the shared `LIVING_SKIN` that the open `creature:skin` slot patches, so cut
+`bulb-look.ts` out of `creature-body.ts` first and open `creature:bulb` on it.
+`.claude/skills/depth` applies, the shapes page is where the parts come from,
+and both sides animate. Pose in `versus-pose.ts` in the same commit.

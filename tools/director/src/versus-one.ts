@@ -8,7 +8,6 @@ import { startPair } from "./versus-pair.js";
 import { poseForSlot } from "./versus-pose.js";
 import { seatPlan } from "./versus-seat.js";
 import { LIVE, type ShotParams } from "./versus-shot.js";
-import { buildVoteBox, type Head } from "./versus-vote.js";
 
 /**
  * One candidate, alone, on a page of its own — the live half of VERSUS.
@@ -39,12 +38,19 @@ import { buildVoteBox, type Head } from "./versus-vote.js";
  * page always carries a second answer.
  */
 
-/** The whole of one candidate: what it is, what it patches, what is on
- * screen, the phones, and the vote. */
+/**
+ * The whole of one candidate: what it is, what it patches, what is on screen,
+ * and the phones.
+ *
+ * There was a vote box under the phones until 9 September 2026 — a reason
+ * field and two buttons that put an adoption prompt on the clipboard. The
+ * owner said he does not want one and prefers to name the winner in chat, so
+ * the page shows and no longer asks, and `bun run versus adopt` applies the
+ * name he says.
+ */
 export function renderCandidate(
   slot: Slot,
   candidate: Variant,
-  head: Head,
   shot: ShotParams = LIVE,
 ): HTMLElement {
   const row = el("div", "versus-row");
@@ -75,10 +81,6 @@ export function renderCandidate(
   }
   row.append(screensHost);
   if (plan !== null) row.appendChild(sizeNote(plan.share));
-
-  const vote = buildVoteBox(slot, head);
-  vote.setCandidate(candidate);
-  row.appendChild(vote.root);
   return row;
 }
 

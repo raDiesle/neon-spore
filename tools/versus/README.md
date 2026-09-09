@@ -11,7 +11,15 @@ names this directory, and no shipped file grows a flag, a branch or an optional
 argument to make a candidate possible. `docs/versus.md` is the design and the
 reasoning; this is how to use it.
 
-    bun run versus     which slots are open, and every reader of every record they patch
+    bun run versus                          which slots are open, and every reader
+                                            of every record they patch
+    bun run versus new <slot> <name>        the candidate, spelled out, with the
+                                            five rules that are not guessable
+    bun run versus index                    regenerate the registry from the
+                                            directories
+    bun run versus adopt <slot> <name> "…"  the owner's answer, written into the
+                                            shipped record; the slot then goes
+    bun run versus drop <slot> "…"          the slot closed with nothing taken
 
 ## The four words
 
@@ -28,10 +36,12 @@ entry would put a second copy of shipped values in a tool.
 file and symbol, as prose the emitted prompt quotes into a staging list) and
 `reached` (the route the drawing code takes to that record).
 
-**Vote** — two phones, one world, one frame, drawn twice at 380 × 820 uncapped,
-`Math.random` seeded the same on both sides so the only thing that can differ
-is the patch. It writes nothing: it builds a prompt and puts it on the
-clipboard, and a session adopts the winner and `git rm -r`s the whole slot.
+**Pair** — two phones, one world, one frame, drawn twice at 380 × 820
+uncapped, `Math.random` seeded the same on both sides so the only thing that
+can differ is the patch. The page shows and asks nothing: the owner looks at it
+and says in chat which answer he wants, and `bun run versus adopt` writes that
+one into the shipped record and takes the slot away. There was a vote button
+here until 9 September 2026 — he said he does not want one.
 
 **What this page has already decided is `DECIDED.md` beside this file** — every
 slot that has been opened and how it left. Read it before opening one: two of
@@ -63,8 +73,14 @@ export const HULL_WARM: Variant = {
 };
 ```
 
-Then one import and one array entry in `candidates/index.ts`, the way
-`tools/shape-sheet/src/drafts/index.ts` assembles DRAFTS.
+`bun run versus new <slot> <name>` prints that, filled in, with the five rules
+below beside it — reach for it rather than reading this file end to end.
+
+Then `bun run versus index`. **There is no array to add a line to**:
+`candidates/registry.ts` is generated from the directories, and
+`candidates/index.ts` re-exports it. It was an array, and every lane that
+opened a slot conflicted with every other lane on rebase in a file neither of
+them was really changing. A generated file is resolved by running its command.
 
 Five things worth knowing before the first one:
 
@@ -151,13 +167,30 @@ something the two phones never put on screen. It derives that list by grep and
 prints the command beside its output, with no predicted answer — a survey that
 asserted "nothing else reads this" turned out to be wrong about five files.
 
-An adopted slot is removed whole, the winner's directory included: its numbers
-live in `packages/content` or `packages/render` now, and a second copy of them
-in a tool is the drift this arrangement exists to prevent. A slot left undecided
-by the end of the session that opened it goes the same way: `git rm` the
-directories, and put the argument for it in the removing commit's message,
-where the history keeps it without anybody owing it an answer.
+**The owner says which one in chat, and one command carries it out.**
 
-`variant.ts`, `seed.ts`, `run.ts` and `candidates/index.ts` stay whether or not
-a slot is open. They are the seam, the way `Effects` stays whether or not
+    bun run versus adopt creature:torch flare "the seam reads at 26 px"
+    bun run versus drop  creature:torch "none of them beat what ships"
+
+`adopt` writes the winner's field values into the shipped record, removes every
+directory in the slot — the winner's included, because its numbers live in
+`packages/render` now and a second copy in a tool is the drift this arrangement
+exists to prevent — regenerates the registry and appends the answer to
+`DECIDED.md`. `drop` is the same with nothing written into the game, for a slot
+he turns down or one left undecided at the end of the session that opened it.
+
+**It refuses far more readily than it writes**, and a refusal changes no file at
+all. The value in the file has to be the value the live record holds, so a
+record somebody has edited since the candidate was written stops the adoption
+and names the field rather than reverting their work. A field it cannot find at
+the top level of the literal stops it too. And a **function** — a candidate
+`poseAt`, say — is refused outright: `toString` hands back what the transpiler
+made, not how the file spells it. Take those by hand and then `drop` the slot
+with a reason saying so.
+
+Afterwards, `bun run check`. The record moved and the tests that draw it have
+not been run.
+
+`variant.ts`, `seed.ts`, `run.ts`, `registry.ts` and `candidates/` stay whether
+or not a slot is open. They are the seam, the way `Effects` stays whether or not
 anything is exploding.

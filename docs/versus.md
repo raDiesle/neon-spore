@@ -87,7 +87,12 @@ twice over. It is the step *before* "does this read at 26 px", which still
 belongs to the owner and two real phones; this one only answers whether the
 session wrote what it meant to.
 
-## The decision
+## The decision — 27 August 2026
+
+What follows is the proposal as it was accepted, and two parts of it have since
+changed: a candidate is a still by default (8 September 2026), and there is no
+vote button and no clipboard prompt (9 September 2026, below). The rest of it
+is what the tool still is.
 
 Build **VERSUS** (proposal 1): a candidate look is a set of field assignments patched onto records `packages/content` and `packages/render` already export, living in `tools/versus/`, which nothing in the game's import graph names. The director grows a VERSUS tab on the backlog sheet that steps **one** `World` and draws it twice in the same frame through two `Canvas2DRenderer`s at 380 × 820 CSS pixels uncapped — left is what the game draws, right is the same code with the patch applied around `draw()` and restored in a `finally` — so the only thing that can differ on screen is the patch. `Math.random` is seeded to the same value for each side of a frame, because `sparks.ts` and `deflect.ts` randomise four values per spawn each and without it two identical looks draw different pixels. A vote presses one of two buttons, `KEEP CURRENT` or `ADOPT <the one on the right>`, and writes nothing anywhere: it builds a prompt from the registry plus the current values read off the live records *before* the patch is applied, puts it on the clipboard, and renders it into a selected `<textarea>` you can read before you paste it. Three verified corrections to the proposal as submitted: `tools/versus/` is a **plain directory** with a `test/` beside it, exactly like `tools/checks`, `tools/burn`, `tools/handoff` and `tools/land` — not a workspace package, so no `bun install` and no `package.json`, and `tsconfig.json` already includes `tools/**/*.ts` so it is typechecked and linted for free; the prompt builder lives in `tools/versus/prompt.ts` rather than the director, because it is pure string work that deserves a test with no DOM in it; and there is **no** `GET /api/versus` — the head sha and the dirty flag become two fields on the `ChecksView` the director already fetches from `/api/checks`. The emitted prompt gains three things proposal 1 did not have and needed: `bun run shapes` plus the two committed SVGs in the staging list whenever a patched target lives in `packages/content` (I confirmed `tools/shape-sheet/shape-sheet.svg` is committed and contains the literal string `9 lobes` for BULB, so adopting a bulb candidate without it leaves a committed lie that `bun run check` cannot see), a `git grep` for every reader of each patched symbol emitted **with no predicted answer**, and a candidate that is a directory removed by `git rm -r` rather than a file.
 
@@ -95,188 +100,53 @@ Build **VERSUS** (proposal 1): a candidate look is a set of field assignments pa
 
 VERSUS wins on the one thing the mechanism exists for. Proposal 3 is the most repo-fluent of the three and has the best-researched prompt, but its two stages cannot show two animated versions at phone size, and I checked both in the files it proposes to reuse unchanged: `tools/director/src/shape-figure.ts` computes `scale = Math.min((w - pad)/(b.x1-b.x0), (box - pad)/(b.y1-b.y0))` and fits every contour into a frame, so its card stage never draws anything at 26 px; and `tools/director/src/pose-art.ts`'s `frameWorld` draws `SETTLE = 40` frames, keeps one, and calls `renderer.dispose()`, so its field stage — the only honest-size one — puts a frozen incumbent beside a 60 fps tool-painted candidate. A moving thing beside a still thing is not an A/B of motion, and `own-motion.ts` says in its own docstring that at 26 px motion is most of what a player has. Proposal 2 dies three times over: `packages/render/alt/**` is outside every glob in `purity.test.ts`'s COPIES sweep (`packages/*/src/**`, `apps/*/src/**`, `tools/**`), so candidate draw code would sit in the one directory in the repo the re-derived-rules guard cannot see; `canvas2d.ts` is 245 lines and `effects.ts` is 241, so threading a `Looks` record through both forces splits in the two most load-bearing render files to serve a tool; and `packages/render/src/index.ts` exports none of the layer functions its sheet is made of. What I grafted, in order of value. **Proposal 3's `bun run shapes` step**, promoted from a sentence somebody remembers to a rule the builder applies: any patch whose `where.file` starts with `packages/content/` appends the command and the two SVG paths. That fixes proposal 1's one verified defect. **Proposal 3's grep, with the answer deleted** — its own prompt asserted "Nothing else reads METEOR" and I confirmed `craters.ts` (lines 125–127 and 188–192), `deflect.ts:85`, `torch.ts`, `creatures.ts` and `queen-figure.test.ts:82` all read it; emitting the command with no predicted result turns the fatal case into a working guard, and it costs one line. **Proposal 2's BLINK** — two canvases in perfect registration alternating at 1 Hz — because side by side is the weakest way to see a small difference and it is the headline mode; note that blink only works because proposal 1 seeded the random stream, so each proposal held one half of a working blink. **Proposal 2's two bundling invariants as tests** (every candidate in a slot patches the same target/field set; a target field appears in at most one open slot) and **proposal 2's expiry rule** (a slot undecided by the end of the session that opened it is `git rm`'d, its argument kept in the removing commit's message), which is the only real answer to silting anywhere in the three. **Proposal 3's reference-identity test**, generalised and made stronger: for every patch target, assert the game's own accessor hands back the identical object — `expect(livingSilhouette("bulb")).toBe(BULB)` — so the day somebody breaks the aliasing the monkeypatch rests on, `bun test` says so instead of the pair quietly drawing a lie. **Proposal 2's blast-radius line**, moved to where a filesystem exists: `bun run versus` prints each open slot with its derived reader list; the browser cannot derive it and should not pretend to. And **proposal 1's opening trailer** paired with proposal 3's dictated closing one, so a slot's whole life sat on one list rather than two. (That list was the `Check:` mechanic, since removed — a slot's life is now the vote and the release note it lands with. The rest of this paragraph stands.) Rejected, with reasons. A `looks-clock.ts` at 96 BPM: the pair steps a real `World`, which already has `cfg.bpm` and a beat, so the tempo question is answered natively — and the separate complaint that the Throb's swell cannot be judged in the tool built for judging swells is about the *shape sheet*, not this, so claiming it as answered here would be claiming something the pair does not do. The pair gets a rate multiplier and a pause, not a new clock file. Proposal 3's `localStorage` "leaning": it is a stored decision inside a design that argues for three paragraphs that nothing should be stored, and no code can enforce the distinction between a leaning and a vote. Proposal 2's seam in shipped code, on the grounds above. And a `POST` route or a votes file, which all three proposals independently refused. Two costs I am not glossing. `Object.assign` on a live module export is a monkeypatch: I checked that nothing in `packages/content/src` or `packages/render/src` calls `Object.freeze`, that `drawLiving` reads `shape.rx` per call, that `livingMotion(kind).poseAt(t)` is a per-frame method call, and that `apps/game/src/menu-view.ts:203` destructures BULB *inside* `draw` rather than at module scope — so it works today, and the identical-pixels guard turns the day it stops into a visible refusal rather than a picture that lies. And most of the interesting cases still need a lifting commit first: `drawDetails`'s `isBulb` branch is a hardcoded if/else, `layout.ts`'s two button arrays are literals, `Sparks.burst`'s physics is inline. That is the mechanism's real price and it is why the first three slots are deliberately the ones that need no lift at all.
 
-## The prompt a vote emits
+## Decided in chat — 9 September 2026
 
-A vote writes nothing. It builds this text, puts it on the clipboard, and
-renders it into a selected textarea so it can be read before it is pasted. The
-session that receives it adopts the winner and deletes the loser.
+**There is no vote button, and there is no prompt.** Asked how an approved
+candidate should reach the game, the owner answered that he does not need one:
+he prefers to say directly, in chat, what he wants integrated and what he wants
+rejected. That is how he works everywhere else on this project — he looks, and
+then he says one short thing — and a button was asking him to operate a tool
+where a sentence would do.
 
-This is the literal text `ADOPT bulb-deep` put on the clipboard for slot
-`creature:bulb` on 27 August 2026, with `bulb-fine` as the loser and the reason
-typed into the field before pressing.
+What it replaces is about a hundred and eighty lines of this file: a transcript
+of the text a vote put on the clipboard for `creature:bulb` on 27 August 2026,
+step by step, and the five differences a `KEEP CURRENT` made to it. That
+argument was right about what the *work* was — check the record has not moved,
+write the fields, remove the whole slot, record the answer — and wrong only
+about who should do it. Every one of those steps is mechanical, and each of
+them could go wrong quietly at the worst possible moment: the expensive half,
+somebody looking at two phones at 26 px and at tempo, is already spent by the
+time a session opens the file.
 
-**Read it for the shape and never for a number.** It is a transcript of one
-vote, and every value in it is a photograph of what `silhouettes.ts` and the
-bulb's own-motion said on that day — several of them were already wrong within
-a fortnight, and `SWAY_PUMP` is re-exported from `motions-retired.ts` now. That
-is not a defect in the transcript: **the mechanism stores no value at all.**
-`tools/versus/variant.ts` reads `currentValues` off the live record at the
-moment the button is pressed, which is exactly why a real emitted prompt is
-always current and why this frozen one is allowed not to be. The tree is the
-only place a number may be read from, and step 0 below is what a stale prompt
-runs into.
+So the steps are a command instead:
 
----
+    bun run versus adopt <slot> <name> "<why>"
+    bun run versus drop  <slot> "<why not>"
 
-Neon Spore, on `main`. Two candidate looks for the bulb were drawn side by side
-in the director's VERSUS tab — one world, one frame, animated, both sides
-through the shipping renderer at 380 x 820 CSS pixels, uncapped — and one was
-chosen by eye. Adopt the winner, remove every candidate in the slot, commit.
+`adopt` writes the winner's field values into the shipped record, removes every
+directory in the slot, regenerates the registry and appends the answer to
+`tools/versus/DECIDED.md`. `drop` is the same with nothing written into the
+game. What survives of the prompt is the part that was load-bearing: **the
+staleness refusal.** The value in the file has to be the value the live record
+holds right now, and a disagreement stops the adoption and names the field
+rather than guessing which of the two is newer — because a cold session cannot
+know, and guessing destroys work silently. `tools/versus/record-edit.ts` holds
+that, and its tests are the refusals rather than the writes.
 
-    slot    creature:bulb
-    won     bulb-deep  -  "six deeper lobes and a slower, wider sway"
-    lost    bulb-fine  -  "twelve shallow lobes, the pump doubled"
-    why     six deep lobes still read as lobes at 26 px; twelve fine ones were
-            a circle with a texture on it
-    voted   2026-08-27, against 2576c56, tree clean
+Two things it will not do, and says so. A **function** field — a candidate
+`poseAt` — is refused outright, because `toString` hands back what the
+transpiler made and not how the file spells it, so writing it would mean
+writing a lie into a record. And a field it cannot find at the top level of the
+literal is refused rather than written to a nested field of the same name.
+Both are taken by hand, and then the slot is closed with `drop` and a reason
+saying it was.
 
-**0. BEFORE ANYTHING ELSE.** Every change below is written `old -> new`. If a
-left-hand value is not what the file says right now, this prompt is stale — the
-record moved after the vote, or the candidate did. Stop, and say which value
-disagreed and what it says instead. Do not work out which is newer, do not
-adopt the spirit of it, and do not re-run the comparison yourself.
-
-**1. ADOPT `bulb-deep`.** Two files, both under `packages/content/src`, and
-these values are the whole of it.
-
-  (a) `silhouettes.ts`, `export const BULB: CreatureSilhouette`
-
-          lobes    9      ->  6
-          depth    0.1    ->  0.19
-          wobble   0.055  ->  0.07
-
-      `rx`, `ry` and `seed` do not change. The doc comment directly above BULB
-      is the file's claim about the shape, not decoration — read it, and if
-      this change makes any clause of it false, rewrite that clause. Do not
-      delete it, and do not leave it standing if it is now wrong.
-
-  (b) `own-motion.ts`, `export const SWAY_PUMP: OwnMotion` — replace the body
-      of `poseAt` with exactly this, which is what the right-hand phone was
-      drawing:
-
-          poseAt(t) {
-            const swing = Math.sin(t * 1.45);
-            const pump = Math.sin(t * 2.6);
-            return {
-              dx: swing * 0.21,
-              dy: 0,
-              rot: swing * 0.2,
-              sx: 1 + pump * 0.13,
-              sy: 1 - pump * 0.13,
-            };
-          },
-
-      `name` and `note` are not part of this change. Do with the note what you
-      did with the comment: "slow sway, faster pump, volume held" has to still
-      be true of the numbers above, and in particular the `sx`/`sy` pair has to
-      still be symmetric, because that symmetry is what "volume held" means.
-
-**2. FIND THE READERS THE VOTE DID NOT SHOW YOU.** Run both, and read the
-output rather than watching it exit:
-
-        git grep -n "\bBULB\b" -- packages apps tools
-        git grep -n "\bSWAY_PUMP\b" -- packages apps tools
-
-Every hit is a reader of a record this prompt just changed. The two files under
-step 1 are the ones it changed on purpose. For each of the others decide only
-this: does it draw the bulb somewhere the vote did not show — a menu, a sheet,
-a card, a test that pins a number? Name what you find, in the report and in
-step 7's commit body. Do not "fix" any of them, and do not add a second record so
-that one of them can keep the old numbers.
-
-**3. REGENERATE WHAT IS DERIVED FROM THEM.**
-
-        bun run shapes
-
-`tools/shape-sheet/shape-sheet.svg` and `tools/shape-sheet/motion-sheet.svg`
-are committed files built from these records, and the first of them currently
-contains the words "9 lobes". A derived artefact that is committed goes stale
-in silence, so run this and stage whatever it rewrites. If it rewrites nothing,
-stage nothing — that is a correct outcome, not a failure.
-
-**4. REMOVE THE SLOT.** All of it, the winner included. "Removed" means,
-exactly:
-
-        git rm -r tools/versus/candidates/creature-bulb.deep
-        git rm -r tools/versus/candidates/creature-bulb.fine
-
-— the whole directory each time, not the one file you can see, because a
-candidate may have grown a helper beside it. Then, in
-`tools/versus/candidates/index.ts`, delete the two `import` lines that named
-those directories and the two entries they contributed to the `VARIANTS` array.
-Nothing else in the repository refers to either directory; if the typecheck
-says otherwise, that is a real finding — report it, do not add an export to
-satisfy it.
-
-The winner's directory goes too. Its numbers live in `packages/content` now,
-and a second copy of them in the tool is the drift this whole arrangement
-exists to prevent.
-
-If `VARIANTS` ends up empty, leave it as an empty array and leave the file.
-`tools/versus/variant.ts`, `seed.ts`, `prompt.ts`, `run.ts` and
-`candidates/index.ts` all stay whether or not a slot is open — they are the
-seam, not scaffolding, the way `Effects` stays whether or not anything is
-exploding.
-
-**5. WHAT NOT TO DO.**
-
-- Do not touch `packages/sim`. Nothing here is visible to the simulation and
-  nothing here may become visible to it.
-- Do not add a variant flag, a second silhouette, a config field, an optional
-  argument or an `if` anywhere in `packages/render` or `packages/content`. The
-  game drew one bulb before this and draws one bulb after it. If you find
-  yourself typing the words `variant`, `candidate`, `current`, `deep` or `fine`
-  into either package, the instruction has been misread.
-- Do not touch `rx`, `ry`, `seed`, `sizeMul`, or `livingSilhouette` itself. The
-  obvious next thought after "deeper lobes" is "and a bit bigger", and size is
-  a different question that nobody voted on.
-
-**6. CHECK.**
-
-        bun run shapes:report
-        bun run check
-
-`shapes:report` prints BULB's geometry as numbers, and the bulb should come
-back measurably deeper-lobed and less round than before — read the output, do
-not just watch it exit 0. `bun run check` is the typecheck, biome and the full
-suite, including `packages/content/test/own-motion.test.ts`, which holds spec
-5.8's quarter-tile lane limit against the new `poseAt`, and
-`packages/render/test/frame.test.ts`, which draws whole frames through a canvas
-that refuses a NaN coordinate or an unparseable colour.
-
-**7. COMMIT,** on CLAUDE.md's four conditions. Stage only these paths:
-
-        packages/content/src/silhouettes.ts
-        packages/content/src/own-motion.ts
-        tools/versus/candidates/index.ts
-        tools/versus/candidates/creature-bulb.deep/     (deleted)
-        tools/versus/candidates/creature-bulb.fine/     (deleted)
-        tools/shape-sheet/shape-sheet.svg               (if step 3 rewrote it)
-        tools/shape-sheet/motion-sheet.svg              (if step 3 rewrote it)
-
-The subject is a sentence in this history's voice. The body carries the `why`
-line above verbatim and names what lost — that sentence is the only durable
-record of the decision, so do not compress it to "adopt bulb-deep".
-
-Readers step 2 turned up that the vote did not put on either phone are named
-in the commit body — for this record that is the title screen, which draws
-BULB's contour itself in `apps/game/src/menu-view.ts` and was never on screen.
-Name it in a sentence and move on: it is a place worth glancing at, not an
-obligation, and the release note carries the sentence forward on its own.
-
-How the bulb reads on the field is not named at all. That is what the vote
-was: at true size, at tempo, beside the thing it replaces.
-
----
-
-**`KEEP CURRENT` emits the same text with five differences and no others:**
-`won` reads `current — nothing changes in packages/content`; `lost` names every
-candidate in the slot; steps 1, 2, 3 and 6's `shapes:report` line are gone, and
-step 6 keeps `bun run check`; step 7 stages only `tools/versus/candidates/index.ts`
-and the deleted directories. Step 0, step 4 and
-step 5 are word for word the same. A keep is an adoption whose file list happens
-to be empty, and making it look like a different, easier kind of job is exactly
-how a decided slot survives on the sheet with a vote button still under it.
+The registry moved for the same reason the command exists. `candidates/index.ts`
+used to hold the array, and every lane that opened a slot added an import and a
+line to it — a rebase conflict between two sessions in a file neither of them
+was really changing. `candidates/registry.ts` is generated from the directories
+by `bun run versus index`, which is a conflict resolved by running a command.
 
 ## Where to point it first
 

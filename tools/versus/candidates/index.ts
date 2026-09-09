@@ -1,39 +1,44 @@
-import type { Variant } from "../variant.js";
-import { BREAK_SHATTER } from "./creature-break/shatter/index.js";
-// region: candidates
-import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
-import { SKIN_VEIL } from "./creature-skin/veil/index.js";
-import { EYE_GLAZE } from "./eye-iris/glaze/index.js";
-import { EYE_TURN } from "./eye-iris/turn/index.js";
-import { GHOST_LATITUDE } from "./ghost-tears/latitude/index.js";
-import { GHOST_SLIDE } from "./ghost-tears/slide/index.js";
-import { MAZE_RAIL } from "./maze-walls/rail/index.js";
-import { MAZE_WELL } from "./maze-walls/well/index.js";
-import { JOIN_BOTH } from "./panel-join/both/index.js";
-import { JOIN_ORGANS } from "./panel-join/organs/index.js";
-import { JOIN_ROOF } from "./panel-join/roof/index.js";
-import { SHELL_SLAB } from "./shell-plate/slab/index.js";
-import { SHELL_WORN } from "./shell-plate/worn/index.js";
-import { CRATER_SPALL } from "./ship-crater/spall/index.js";
-import { TORCH_BLOOM } from "./torch-veil/bloom/index.js";
-import { TORCH_FIFTH } from "./torch-veil/fifth/index.js";
-// endregion
-
 /**
- * Every candidate currently offered, in the order the pair should show them.
+ * VERSUS — the place a second answer to an existing shape can live.
  *
- * Assembled the way `tools/shape-sheet/src/drafts/index.ts` assembles DRAFTS —
- * one import per candidate, one array — for the same reason: adding an answer
- * is one directory and one line, and removing a decided slot is a `git rm -r`
- * and the same line back out again.
+ * A draft shape gets two cards on the SHAPES tab and turns on the same clock.
+ * A shape the game already draws got one, forever, because there was nowhere
+ * for the second answer to sit: it cannot go in `packages/content`, which is
+ * what ships, and it cannot go in a branch, because a branch cannot be beside
+ * the thing it is arguing with at 26 px and at tempo.
  *
- * The left-hand side of the pair is not in here. It is whatever the game draws
- * today, read off the live records, and giving it an entry would be a second
- * copy of shipped values in a tool.
+ * So a candidate look is a set of field assignments patched onto records the
+ * game already exports, held for the length of one `draw()` and put back in a
+ * `finally`. Nothing in the game's import graph names this directory. See
+ * `docs/versus.md` for the whole design, and `README.md` beside this file for
+ * how to write one.
  *
- * An empty array is a correct state, not a broken one: `variant.ts`, `seed.ts`,
- * `run.ts` and this file all stay whether or not a slot is open. They are the
- * seam, the way `Effects` stays whether or not anything is exploding.
+ * `tools/versus/` is a plain directory with a `test/` beside it, like
+ * `tools/checks`, `tools/burn` and `tools/land`. That is why every import of
+ * the game's own code here is a relative path into the package sources rather
+ * than `@neon-spore/render`: workspace links live in each package's own
+ * `node_modules`, so the bare specifier does not resolve from a directory that
+ * has no `package.json`, and adding one would cost a `bun install` in every
+ * fresh worktree forever. `tsconfig.json` already globs every TypeScript file
+ * under `tools`, so the relative form is typechecked and linted for free.
+ *
+ * **The list itself is next door and is generated.** `registry.ts` is written
+ * by `bun run versus index` from the directories under this one, and this file
+ * re-exports it. It was an array here, and every lane that opened a slot added
+ * an import and a line to it: fine with one lane open, a rebase conflict every
+ * time with several, in a file neither session was really changing. A
+ * generated file is resolved by running its command, which is a conflict
+ * nobody has to read. `test/registry.test.ts` fails when the file and the
+ * directories disagree.
+ *
+ * The left-hand side of the pair is in neither file. It is whatever the game
+ * draws today, read off the live records, and giving it an entry would be a
+ * second copy of shipped values in a tool.
+ *
+ * An empty registry is a correct state, not a broken one: `variant.ts`,
+ * `seed.ts`, `run.ts` and this file all stay whether or not a slot is open.
+ * They are the seam, the way `Effects` stays whether or not anything is
+ * exploding.
  *
  * **What this page has already decided is `../DECIDED.md`.** Every slot that
  * has been opened and how it left — taken into the game, cut, rehoused, or
@@ -43,22 +48,5 @@ import { TORCH_FIFTH } from "./torch-veil/fifth/index.js";
  * then asked again in a better shape, and one look was taken and immediately
  * changed, none of which the candidates still standing show.
  */
-export const VARIANTS: Variant[] = [
-  METEOR_FORGE,
-  SKIN_VEIL,
-  JOIN_ROOF,
-  JOIN_ORGANS,
-  JOIN_BOTH,
-  BREAK_SHATTER,
-  CRATER_SPALL,
-  SHELL_SLAB,
-  SHELL_WORN,
-  EYE_TURN,
-  EYE_GLAZE,
-  GHOST_LATITUDE,
-  GHOST_SLIDE,
-  TORCH_FIFTH,
-  TORCH_BLOOM,
-  MAZE_WELL,
-  MAZE_RAIL,
-];
+
+export { VARIANTS } from "./registry.js";

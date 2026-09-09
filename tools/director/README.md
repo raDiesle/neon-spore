@@ -427,8 +427,8 @@ bakes every *read* route the client already calls (`/api/waves`, from
 `/api/backlog`, `/api/borrowed`, `/api/spec`, `/api/notes`) into a plain
 file at the same path under `dist/api/`. A static host answering
 `GET /api/backlog` with a file looks identical to `server.ts` answering it
-with a handler, so none of `backlog-page.ts`, `spec.ts`, `whole-doc.ts` or
-`versus-vote.ts` needed to change.
+with a handler, so none of `backlog-page.ts`, `spec.ts` or `whole-doc.ts`
+needed to change.
 
 `PUT` and `POST` have no file to land on. Saving a wave is exactly the control
 a shipped build cannot offer — so `main.ts` hides `SAVE` and `▶ MAIN MENU`

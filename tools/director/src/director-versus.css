@@ -118,24 +118,11 @@
   letter-spacing: 3px;
   font-size: 0.875rem;
 }
-.versus-vote {
-  margin-top: 14px;
-  max-width: 620px;
-}
-.versus-vote textarea {
-  min-height: 52px;
-  resize: vertical;
-}
-.versus-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 8px;
-}
-.versus-cast {
-  color: var(--gold);
-  border-color: var(--gold);
-}
+/* The vote box that sat here — a reason field and two buttons that copied an
+   adoption prompt — went on 9 September 2026: the owner names the winner in
+   chat and `bun run versus adopt` applies it. The banner below stayed; it is
+   the page saying the swap did not take, which is a thing to look at rather
+   than a thing to press. */
 .versus-banner {
   display: none;
 }

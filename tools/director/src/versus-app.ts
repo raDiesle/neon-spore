@@ -4,7 +4,6 @@ import { el } from "./dom.js";
 import { bindKeepAlive } from "./keep-alive.js";
 import { renderCandidate } from "./versus-one.js";
 import { shotParams } from "./versus-shot.js";
-import { type Head, readHead } from "./versus-vote.js";
 
 /**
  * `versus.html` — the page a VERSUS door opens into, and the whole of its
@@ -77,11 +76,5 @@ function routeCandidate(mount: HTMLElement, slot: string | null, name: string | 
   }
 
   document.title = `Neon Spore — ${found.slot} · ${candidate.name}`;
-  const shot = shotParams(params);
-  const draw = (head: Head): void => {
-    mount.appendChild(renderCandidate(found, candidate, head, shot));
-  };
-  readHead()
-    .then(draw)
-    .catch(() => draw({ head: "unknown", dirty: true }));
+  mount.appendChild(renderCandidate(found, candidate, shotParams(params)));
 }

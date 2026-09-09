@@ -60,7 +60,7 @@ function isSilhouette(value: object): value is CreatureSilhouette {
 }
 
 /**
- * Every contour candidate open in `tools/versus/candidates/index.ts`.
+ * Every contour candidate open in `tools/versus/candidates/`.
  *
  * A candidate patching several records contributes one shape per contour it
  * patches, which is right rather than tidy: two outlines changed at once are

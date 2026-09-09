@@ -1,87 +1,71 @@
 #!/usr/bin/env bun
 
 /**
- * `bun run versus` — which slots are open, and what a vote on each one would
- * reach.
+ * `bun run versus` — what is open.
+ * `bun run versus new <slot> <name>` — the candidate, spelled out, and the
+ *   five things about writing one that are not guessable.
+ * `bun run versus index` — regenerate the registry from the directories.
+ * `bun run versus adopt <slot> <name> "<why>"` — the owner's answer, applied.
+ * `bun run versus drop <slot> "<why not>"` — the slot, closed with nothing taken.
  *
- * The pair itself is a browser: one `World`, stepped once, drawn twice, at
- * phone size and at tempo. This is the half a browser cannot do. A candidate
- * patches a record, and every *other* reader of that record draws something
- * the two phones never put on screen — five files read `METEOR`, and a vote
- * that showed neither of them is a vote cast blind. So the blast radius is
- * derived here, where a filesystem exists, by grep.
+ * The two that write are the ones worth explaining. Until 9 September 2026 a
+ * vote was cast on the page and put a prompt on the clipboard for a session to
+ * carry out by hand; the owner said he does not want a button and prefers to
+ * name the winner in chat, so what the tool owes him is not a way to record a
+ * decision but a way to *apply* one. `decide.ts` is that, and it refuses far
+ * more readily than it writes.
  *
- * With no predicted answer, deliberately. The command is printed beside its
- * output so it can be run again, and nothing here says "nothing else reads
- * this" — a survey that asserted exactly that turned out to be wrong about
- * five files.
+ * **Every command but `index` reaches the candidates lazily**, because `index`
+ * is the one that repairs the file the others import. A registry that names a
+ * directory somebody deleted is exactly when the command to regenerate it must
+ * still run, and a static import at the top of this file would have taken that
+ * away.
  */
 
-import { VARIANTS } from "./candidates/index.js";
-import { declaration, patchedFields, slots, type Where } from "./variant.js";
+import { writeRegistry } from "./registry.js";
+import { CANDIDATES } from "./root.js";
+import { scaffold } from "./scaffold.js";
+import { slots } from "./variant.js";
 
-const root = Bun.fileURLToPath(new URL("../../", import.meta.url));
+const [command, ...rest] = process.argv.slice(2);
 
-const open = slots(VARIANTS);
+function need(what: string, value: string | undefined, usage: string): string {
+  if (!value) throw new Error(`${usage}\n  (missing the ${what})`);
+  return value;
+}
 
-if (open.length === 0) {
-  console.log("no slots open.");
+async function open(): Promise<ReturnType<typeof slots>> {
+  return slots((await import("./candidates/index.js")).VARIANTS);
+}
+
+if (command === "index") {
+  const { changed, count } = writeRegistry(CANDIDATES);
+  const n = `${count} candidate${count === 1 ? "" : "s"}`;
   console.log(
-    "\n  A slot is a shape the game already draws and a second answer to it.\n" +
-      "  Write one under tools/versus/candidates/, register it in\n" +
-      "  candidates/index.ts, and the director's VERSUS tab will pair it\n" +
-      "  against what ships. tools/versus/README.md has the shape of one.",
+    changed
+      ? `candidates/registry.ts rewritten — ${n}.`
+      : `candidates/registry.ts already matches the directories — ${n}.`,
   );
-  process.exit(0);
-}
-
-console.log(`${open.length} ${open.length === 1 ? "slot" : "slots"} open:\n`);
-
-for (const { slot, candidates } of open) {
-  console.log(`  ${slot}`);
-  console.log(`    current  ${"—"} what the game draws today`);
-  for (const c of candidates) console.log(`    ${c.name.padEnd(8)} ${c.sentence}`);
-
-  // Every candidate in a slot patches the same records and the same fields —
-  // `test/variants.test.ts` refuses the registry otherwise — so the first one
-  // names the whole blast radius.
-  const first = candidates[0];
-  if (!first) continue;
-
-  console.log("");
-  for (const p of first.patches) {
-    console.log(`    patches  ${declaration(p.where)}`);
-    console.log(`             ${patchedFields(p).join(", ")}`);
-    const { command, files } = await readers(p.where);
-    console.log(`    readers  ${command}`);
-    if (files.length === 0) console.log("             (none — grep found nothing, which is odd)");
-    for (const f of files) console.log(`             ${f.hits.toString().padStart(3)}  ${f.file}`);
-    console.log("");
-  }
-
-  for (const c of candidates) console.log(`    remove   git rm -r ${c.dir}`);
-  console.log("");
-}
-
-console.log("  A vote is cast at the pair, not here: bun run dev, the VERSUS tab.");
-
-/** Every file that names this symbol, by git's own reckoning, with hit counts. */
-async function readers(where: Where): Promise<{
-  command: string;
-  files: { file: string; hits: number }[];
-}> {
-  const pattern = `\\b${where.symbol}\\b`;
-  const args = ["grep", "-n", pattern, "--", "packages", "apps", "tools"];
-  const command = `git grep -n "${pattern}" -- packages apps tools`;
-  const proc = Bun.spawn(["git", ...args], { cwd: root, stdout: "pipe", stderr: "pipe" });
-  const out = await new Response(proc.stdout).text();
-  await proc.exited;
-
-  const counts = new Map<string, number>();
-  for (const line of out.split("\n")) {
-    const file = line.slice(0, line.indexOf(":"));
-    if (!file) continue;
-    counts.set(file, (counts.get(file) ?? 0) + 1);
-  }
-  return { command, files: [...counts].map(([file, hits]) => ({ file, hits })) };
+} else if (!command || command === "list") {
+  const { listing } = await import("./list.js");
+  for (const line of await listing(await open())) console.log(line);
+} else if (command === "new") {
+  const usage = "usage: bun run versus new <slot> <name>";
+  const slot = need("slot", rest[0], usage);
+  const name = need("name", rest[1], usage);
+  const taken = (await open()).find((s) => s.slot === slot)?.candidates.map((c) => c.name) ?? [];
+  for (const line of scaffold(slot, name, taken)) console.log(line);
+} else if (command === "adopt") {
+  const usage = 'usage: bun run versus adopt <slot> <name> "<why>"';
+  const slot = need("slot", rest[0], usage);
+  const name = need("candidate", rest[1], usage);
+  const { adopt } = await import("./decide.js");
+  for (const line of adopt(slot, name, rest.slice(2).join(" "))) console.log(line);
+} else if (command === "drop") {
+  const usage = 'usage: bun run versus drop <slot> "<why not>"';
+  const slot = need("slot", rest[0], usage);
+  const { drop } = await import("./decide.js");
+  for (const line of drop(slot, rest.slice(1).join(" "))) console.log(line);
+} else {
+  throw new Error(`unknown command ${JSON.stringify(command)} — list | new | index | adopt | drop`);
 }
