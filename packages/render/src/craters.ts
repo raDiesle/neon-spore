@@ -1,5 +1,7 @@
-import { crystalPath, crystalRadiusMul, METEOR, type Point } from "@neon-spore/content";
+import { crystalRadiusMul, METEOR, type Point } from "@neon-spore/content";
 import { isWardable, type Scar, spanOf } from "@neon-spore/sim";
+import { type Crater, type CraterShape, centreY, cutY } from "./crater-geom.js";
+import { CRATER_LOOK } from "./crater-look.js";
 import { type Layout, tileCX } from "./layout.js";
 import { rockRadius, torchRotation } from "./torch.js";
 
@@ -19,48 +21,13 @@ import { rockRadius, torchRotation } from "./torch.js";
  * used by `hull.ts` before it strokes) — a rim carried on over the top of a
  * crater draws the ship as unbroken exactly where it broke, and no amount of
  * dark fill underneath undoes a bright line drawn over it.
+ *
+ * What a crater *is* moved to `crater-geom.ts` and what one *looks like* to
+ * `crater-pit.ts`, on the day the hole's paint became a record a candidate can
+ * patch (`crater-look.ts`). This file is where craters are *found*, which is
+ * the half nothing may argue with: the mouth it measures is read by `scars.ts`
+ * to start a crack on the rim and by `clipOutMouths` to break the outline.
  */
-export interface Crater {
-  /** Centre of the rock that made it — the pair's midpoint for a torch. */
-  x: number;
-  /** The skin line right above it — the crater's mouth sits on this. */
-  top: Point;
-  r: number;
-  rotation: number;
-  /** Which scarred columns this crater covers — two for a torch, one otherwise. */
-  cols: readonly number[];
-  /**
-   * Where the hole cuts the skin, left and right — `mouth`'s answer, kept.
-   *
-   * It is the crystal's own outline intersected with `cutY`, an eight-point
-   * rotated polygon walked edge by edge, and it depends on nothing but the
-   * four fields above it. Both `clipOutMouths` and `drawCraters` need it, so
-   * it used to be computed twice a frame for every crater on the hull.
-   */
-  left: number;
-  right: number;
-}
-
-/** A crater before its mouth has been measured — what `mouth` needs and no more. */
-type CraterShape = Omit<Crater, "left" | "right">;
-
-/**
- * How far above the skin line the fill and the rim gap both start, rather
- * than exactly at it. The rotated crystal's edge only reaches the true skin
- * line at a single point per side — a pixel row sampled exactly on that line
- * catches the shape mid-taper, not yet wide enough to cover the seam, and a
- * sliver of the hull's own bright fill shows through right at the top of the
- * hole. Starting the cut a few pixels higher, where the shape has already
- * widened, closes that seam; `Layout.tile` is never this small, so the bias
- * stays a fixed few pixels rather than a share of anything that could shrink
- * under it.
- */
-const LID = 3;
-
-/** Where the fill and the rim-gap measurements actually start — `LID` above the true skin line. */
-function cutY(c: CraterShape): number {
-  return c.top.y - LID;
-}
 
 /**
  * Every crater a rock has ever left, one per rock, purely as geometry — this
@@ -135,13 +102,6 @@ export function craters(l: Layout, scars: readonly Scar[], skinAt: (x: number) =
   return out;
 }
 
-/** The rock's centre while embedded: above the skin line by half its radius,
- * so only its bottom quarter-height ever crosses below the line. Shared with
- * `rock-impact.ts`'s stuck rock, which sits at exactly this height. */
-function centreY(c: CraterShape): number {
-  return c.top.y - c.r * 0.5;
-}
-
 /**
  * How wide the hole actually is where it cuts the skin: the crystal's own
  * outline intersected with `cutY`, not an estimate from the radius. The rim
@@ -200,47 +160,7 @@ export function clipOutMouths(ctx: CanvasRenderingContext2D, l: Layout, list: Cr
  * inside the crater.
  */
 export function drawCraters(ctx: CanvasRenderingContext2D, list: Crater[]): void {
-  for (const c of list) {
-    ctx.save();
-    // Everything above `cutY` is outside the ship — clip it away *before*
-    // rotating, in screen space, so the cut stays flat and level regardless
-    // of which way the rock itself is facing.
-    ctx.beginPath();
-    ctx.rect(c.x - c.r * 2, cutY(c), c.r * 4, c.r * 2 + LID);
-    ctx.clip();
-
-    ctx.translate(c.x, centreY(c));
-    ctx.rotate(c.rotation);
-    const d = crystalPath(
-      0,
-      0,
-      c.r,
-      c.r,
-      METEOR.sides,
-      METEOR.depth,
-      METEOR.wobble,
-      0,
-      METEOR.seed,
-    );
-    // Fill only — no outline. A stroke here reads as the rock's own material
-    // edge, the same light grey the ship's solid rock objects are rimmed in;
-    // a hole has no rim of its own material, only the dark of what is gone.
-    ctx.fillStyle = "#14101F";
-    ctx.fill(new Path2D(d));
-    ctx.restore();
-
-    // A hairline of the tail's old colour along the cut itself — the seam
-    // where the rock ended and the skin resumes, still a little hot. It runs
-    // the mouth's own width, so it reads as the lip of this hole.
-    const rim = ctx.createLinearGradient(c.left, c.top.y, c.right, c.top.y);
-    rim.addColorStop(0, "rgba(255,122,47,0)");
-    rim.addColorStop(0.5, "rgba(255,122,47,0.4)");
-    rim.addColorStop(1, "rgba(255,122,47,0)");
-    ctx.strokeStyle = rim;
-    ctx.lineWidth = 1.6;
-    ctx.beginPath();
-    ctx.moveTo(c.left, c.top.y);
-    ctx.lineTo(c.right, c.top.y);
-    ctx.stroke();
-  }
+  for (const c of list) CRATER_LOOK.pit(ctx, c);
 }
+
+export type { Crater } from "./crater-geom.js";

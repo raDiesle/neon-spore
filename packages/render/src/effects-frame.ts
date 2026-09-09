@@ -31,6 +31,7 @@ export function updateAll(e: Effects, dt: number, l: Layout): void {
   // a negative radius, which a real canvas refuses outright.
   if (!(dt > 0)) return;
   e.sparks.update(dt);
+  e.debris.update(dt);
   e.deflectFx.update(dt, l.tile);
   e.rockImpact.update(dt, l);
   for (const [id, t] of e.blockedUntil) {
@@ -67,6 +68,7 @@ export function drawAll(
 ): void {
   e.deflectFx.draw(ctx);
   e.sparks.draw(ctx);
+  e.debris.draw(ctx);
   e.bodies.draw(ctx, l, surfaceY);
   e.crawler.draw(ctx, l, surfaceY);
   e.spriteBursts.draw(ctx);
@@ -81,6 +83,7 @@ export function drawAll(
  * reuse — showing that beat's crack before its own rock ever lands. */
 export function resetAll(e: Effects): void {
   e.sparks.clear();
+  e.debris.clear();
   e.deflectFx.clear();
   e.rockImpact.clear();
   e.arrivals.clear();

@@ -9,7 +9,7 @@ import {
   wornKind,
 } from "@neon-spore/sim";
 import { drawDetails, drawMotionTrail } from "./creature-detail.js";
-import { contourClock, livingBodyMul } from "./creature-place.js";
+import { contourClock, livingBodyMul, livingRadius, livingScale } from "./creature-place.js";
 import { colorTrio, turnedTrio, type Wash } from "./creature-tint.js";
 import { dartFlip, dartLean } from "./dart.js";
 import { hazed } from "./depth.js";
@@ -127,8 +127,8 @@ export function drawLiving(
   // at a whole footprint per layer it still wears — and `livingBodyMul` is the
   // one copy of that, shared with `creatureRadius`, so the ring a thumb grips
   // and the body it is drawn around are one size.
-  const r = l.tile * 0.4 * livingBodyMul(c) * swell;
-  const scale = (r / Math.max(shape.rx, shape.ry)) * (shape.sizeMul ?? 1);
+  const r = livingRadius(l.tile, livingBodyMul(c) * swell);
+  const scale = livingScale(shape, r);
 
   // The sway itself is data, in `content/own-motion.ts`, so the shape tools
   // can animate a creature the way the game does instead of re-typing it.

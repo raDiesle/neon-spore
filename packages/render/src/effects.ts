@@ -5,8 +5,10 @@ import { BeatboxWaves } from "./beatbox-wave.js";
 import { ChoirQuake } from "./choir-quake.js";
 import { CoordGrid } from "./coord-grid.js";
 import { CrawlerFx } from "./crawler-fx.js";
+import { Debris } from "./debris.js";
 import { DeflectFx } from "./deflect.js";
 import { BodyTransients } from "./effects-body.js";
+import { breakSparks } from "./effects-break.js";
 import { drawAll, resetAll, updateAll } from "./effects-frame.js";
 import { ingestOne } from "./effects-ingest.js";
 import { ShipMoods } from "./effects-ship.js";
@@ -32,6 +34,17 @@ import { WardenFx } from "./warden-fx.js";
  */
 export class Effects {
   readonly sparks = new Sparks();
+  /**
+   * The pieces a broken body left, still in the air — the fracture half of an
+   * impact, where `sparks` is the flash half (`debris.ts`, `shatter.ts`).
+   *
+   * It draws nothing on the shipped field: `BREAK_LOOK.wedges` is 0, so every
+   * `break` returns on its first line. It is here because a VERSUS candidate
+   * cannot add a transient to this class — it can only patch a record — and a
+   * seam that exists only when something is using it is a seam nobody can
+   * offer an answer through (`docs/versus.md`).
+   */
+  readonly debris = new Debris();
   readonly deflectFx = new DeflectFx();
   /**
    * The last step of a rock's fall, replayed until it reaches the hull, and
@@ -150,7 +163,7 @@ export class Effects {
     this.bodies.ingest(events, l, cfg, beatSeconds, time);
     for (const e of events) {
       const spark = burstFor(e, l);
-      if (spark) this.sparks.burst(spark.x, spark.y, spark.n, spark.hex);
+      if (spark) this.sparks.burst(spark.x, spark.y, breakSparks(e, spark.n), spark.hex);
 
       // Everything past the burst table: `effects-ingest.ts`'s `ingestOne`,
       // split out on this file's own line count. Its switch is exhaustive
@@ -171,6 +184,7 @@ export class Effects {
         beatboxWaves: this.beatboxWaves,
         beatboxSilences: this.beatboxSilences,
         blockedUntil: this.blockedUntil,
+        debris: this.debris,
         burst: (x, y, n, hex) => this.sparks.burst(x, y, n, hex),
       });
     }

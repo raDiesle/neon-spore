@@ -1,6 +1,14 @@
+export { BREAK_LOOK, type BreakLook, fallFrom, fractureFrom } from "./break-look.js";
+export { edgeLit, faceHex, facet, type PiecePaint } from "./break-piece.js";
 export { drawWaveOpening } from "./briefing.js";
 export { Canvas2DRenderer } from "./canvas2d.js";
-export { creatureAt, creatureCenter, creatureRadius } from "./creature-place.js";
+export {
+  creatureAt,
+  creatureCenter,
+  creatureRadius,
+  livingRadius,
+  livingScale,
+} from "./creature-place.js";
 export { smoothstep } from "./ease.js";
 export {
   type Dial,
@@ -45,6 +53,8 @@ export { readyCircles } from "./ready-page.js";
 export type { Renderer, Viewport, ViewState } from "./renderer.js";
 export { hasSeatName, type SeatNames, seatName } from "./seat-name.js";
 export { P1_SKIN, P2_SKIN, type SeatSkin, seatSkin } from "./seat-skin.js";
+export { type Fracture, type Shard, shatter } from "./shatter.js";
+export { type Fall, type ShardPose, shardAt } from "./shatter-fall.js";
 export { drawStepGlyph, stepHex, stepLabel } from "./simon-glyph.js";
 export { hitSlab, type Slab, slabFor, slabPanel } from "./slabs.js";
 export { type Arena, showsSnakeBody, showsSnakeFood, snakeArena } from "./snake-draw.js";

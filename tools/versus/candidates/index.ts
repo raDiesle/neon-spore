@@ -1,10 +1,12 @@
 import type { Variant } from "../variant.js";
+import { BREAK_SHATTER } from "./creature-break/shatter/index.js";
 // region: candidates
 import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
 import { SKIN_VEIL } from "./creature-skin/veil/index.js";
 import { JOIN_BOTH } from "./panel-join/both/index.js";
 import { JOIN_ORGANS } from "./panel-join/organs/index.js";
 import { JOIN_ROOF } from "./panel-join/roof/index.js";
+import { CRATER_SPALL } from "./ship-crater/spall/index.js";
 // endregion
 
 /**
@@ -146,5 +148,37 @@ import { JOIN_ROOF } from "./panel-join/roof/index.js";
  * rather than one. Two fields, because there are two halves of one question:
  * what shape the ship's underside is, and what stands between it and a button.
  * The shipped paint went through both with not one pixel moved.
+ *
+ * ## Two about damage, on 9 September 2026
+ *
+ * `creature:break` / `shatter` and `ship:crater` / `spall` are the first
+ * candidates on this page whose subject is what happens **to** something rather
+ * than what it is made of, and they are the two halves of one engine:
+ * `packages/render/src/shatter.ts` cuts a closed contour into pieces that tile
+ * it exactly, and the two slots spend that the two ways there are. The break
+ * throws the pieces and lets them land; the crater keeps them where they are
+ * and pulls them into the hole. If a cut contour reads as damage both moving
+ * and standing still, the engine is worth more than either look.
+ *
+ * The break's seam is the only one on this page whose **shipped value is
+ * nothing**. `BREAK_LOOK.wedges` is 0 and `Debris` therefore draws no pieces at
+ * all, which is not an empty stub but the game's real answer: a body destroyed
+ * has always thrown a dozen squares and stopped being drawn. So the left-hand
+ * side of that pair is the field exactly as it is, and the question the slot
+ * asks is whether a kill should leave anything behind — a question the owner
+ * had already half-answered before either candidate was written, by saying that
+ * if it does, it falls and lands rather than hanging in the lane.
+ *
+ * `bun run breaks` is the bench both were tuned on: every tuning of the engine
+ * on one sheet, seven moments across, which is the one thing a running preview
+ * cannot show for an effect that is over in a second.
  */
-export const VARIANTS: Variant[] = [METEOR_FORGE, SKIN_VEIL, JOIN_ROOF, JOIN_ORGANS, JOIN_BOTH];
+export const VARIANTS: Variant[] = [
+  METEOR_FORGE,
+  SKIN_VEIL,
+  JOIN_ROOF,
+  JOIN_ORGANS,
+  JOIN_BOTH,
+  BREAK_SHATTER,
+  CRATER_SPALL,
+];

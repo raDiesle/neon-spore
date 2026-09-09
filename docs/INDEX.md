@@ -496,6 +496,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/backdrop.ts` | The field's back: two depths of drifting motes, a slow wash, and the horizon they sit in front of |
 | `packages/render/src/banner.ts` | The one-word receipt for what a pod just gave, and the colour it reads in |
 | `packages/render/src/briefing.ts` | How a wave opens, drawn: first its introduction, then its guide |
+| `packages/render/src/break-look.ts` | THE ONE RECORD A CANDIDATE **BREAK** PATCHES |
+| `packages/render/src/break-piece.ts` | How one piece of a broken body is painted |
 | `packages/render/src/cannon-maw.ts` | Laying the shot: `maw.ts` run backwards |
 | `packages/render/src/clasp-break.ts` | THE CLASP's shield failing |
 | `packages/render/src/clasp-lattice.ts` | The honeycomb inside THE CLASP's bubble |
@@ -504,6 +506,9 @@ place — the generator keeps whatever is there.
 | `packages/render/src/comms-glyphs.ts` | The three marks the whole game says "one of you can see this" with: an eye on the strip, a speech bubble over |
 | `packages/render/src/comms.ts` | Which arrivals make the two of them talk, and which way round |
 | `packages/render/src/craters.ts` | A rock's own mark: not the whole rock's silhouette, only the sliver of it that was ever inside the skin |
+| `packages/render/src/crater-geom.ts` | What a crater *is*, and the two heights everything about one is measured against |
+| `packages/render/src/crater-look.ts` | THE ONE RECORD A CANDIDATE **CRATER** PATCHES |
+| `packages/render/src/crater-pit.ts` | The hole itself, as the game has always drawn it |
 | `packages/render/src/creature-detail.ts` | Core and trailing filaments |
 | `packages/render/src/dart-look.ts` | WHAT A DART'S THRUST LOOKS LIKE, as a record rather than as the body of one function |
 | `packages/render/src/dart-path.ts` | Where a dart is going, drawn for the seat that is allowed to know: two dotted legs and a hollow body standing |
@@ -511,8 +516,10 @@ place — the generator keeps whatever is there.
 | `packages/render/src/deflect-look.ts` | How a catch reads, as a record rather than as numbers typed into the draw call |
 | `packages/render/src/deflect.ts` | Seconds into the press-and-release that opens every bounce (capped at `DEFLECT_LOOK.pressLife`); ordinary |
 | `packages/render/src/depth.ts` | THE FIELD HAS A NEAR EDGE AND A FAR ONE |
+| `packages/render/src/debris.ts` | The pieces a broken body left, still in the air |
 | `packages/render/src/effects-body.ts` | The transients that belong to **one body** and outlive it by less than a beat: a lure folding to a point, the |
 | `packages/render/src/effects-breach.ts` | What a breach looks like — the one event whose answer is not a burst at a point, because the thing that |
+| `packages/render/src/effects-break.ts` | Turning a `destroy` into a body coming apart |
 | `packages/render/src/effects-spark.ts` | The events whose whole visible answer is a handful of particles |
 | `packages/render/src/egg-contour.ts` | The cloaca's own shape, for one frame — split out of `cannon-maw.ts` so that file's `LAY_LOOK.draw` stays a |
 | `packages/render/src/egg-curve.ts` | The cannon's wind-up, as pure arithmetic — no canvas anywhere near it |
@@ -745,6 +752,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/fence-sweep.ts` | What the navigator gets instead of the doorways: a reading head crossing the wire |
 | `packages/render/src/fence-wire.ts` | What a stretch of live wire looks like, and how far above the ship it hangs |
 | `packages/render/src/shield-outage.ts` | The shield's line burnt out in places, which is what a wall costs instead of a scar |
+| `packages/render/src/shatter-fall.ts` | Where a piece is, some time after the body came apart |
+| `packages/render/src/shatter.ts` | Cutting a body into the pieces it came apart into |
 | `packages/render/src/magnet-bounce.ts` | A shot turned away by the plate under a magnet, coming back down |
 | `packages/render/src/fence-shards.ts` | The pieces of wall a bolt knocks out of a column it cuts |
 | `packages/render/src/fence-strike.ts` | A wall landing on the ship, remembered: the outage and the shock it leaves |
@@ -1328,6 +1337,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/poses-versus.ts` | The states a candidate look is judged on — one per slot that had none |
 | `tools/director/src/poses-bodies.ts` | The pose a candidate for a *body* is judged on, as opposed to one for a mechanism firing |
 | `tools/director/src/poses-casing.ts` | The states a candidate for what a body **wears** is judged on |
+| `tools/director/src/poses-damage.ts` | The two poses about **damage** — a rock being marked, and a body being destroyed |
 | `tools/director/src/versus-app.ts` | `versus.html` — the page a VERSUS door opens into, and the whole of its routing |
 | `tools/director/src/versus-one.ts` | One candidate, alone, on a page of its own — the live half of VERSUS |
 | `tools/director/src/versus-open.ts` | Where a look opens, and how a page links to it |
@@ -1395,5 +1405,9 @@ place — the generator keeps whatever is there.
 | `tools/director/src/stage-trail.ts` | THE MOUSE'S OWN INK, ON THE DIRECTOR'S FIELD |
 | `tools/check/installed.ts` | Whether this worktree's install is still the one the tree needs |
 | `tools/check/run.ts` | The preflight `bun run check` runs before the typecheck |
+| `tools/breaks/src/main.ts` | `bun run breaks` — every break the engine can make, drawn across time |
+| `tools/breaks/src/page.ts` | Page furniture for the break sheet |
+| `tools/breaks/src/sheet.ts` | Every break the bench knows, drawn across time |
+| `tools/breaks/src/subjects.ts` | The breaks this bench draws, and the one place a new one is added |
 
 <!-- index:code:end -->

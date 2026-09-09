@@ -87,6 +87,16 @@ const SLOT_POSE: Record<string, string> = {
   // pose is the one cut that carries both and nothing else is moving on it
   // (`poses-versus.ts`).
   "panel:ship-join": "SHIP · MEETING THE PANEL",
+  // Two about **damage**, on 9 September 2026, and the first slots on this page
+  // whose subject is what happens *to* something rather than what it is made
+  // of. A break is event-shaped in the sharpest way this map has met — the body
+  // it is about stops existing halfway through — so its pose hands the world
+  // over with the bolt still in the air and replays on the two-second clock. A
+  // crater is the opposite and needs no clock at all: it is cut into the hull
+  // once and is still there at the end of the run, which is the whole of what
+  // the pair is being asked about.
+  "creature:break": "BREAK · A BODY COMING APART",
+  "ship:crater": "BREACH · A SCAR",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

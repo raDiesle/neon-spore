@@ -60,7 +60,8 @@
     "shapes:report": "bun run --cwd tools/shape-sheet report",
     "shapes:page": "bun run --cwd tools/director shapes-page",
     "shapes:still": "bun run --cwd tools/director shapes-still",
-    "style-guide": "bun run --cwd tools/style-guide build"
+    "style-guide": "bun run --cwd tools/style-guide build",
+    "breaks": "bun run --cwd tools/breaks build"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.10",

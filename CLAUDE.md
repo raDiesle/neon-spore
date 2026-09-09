@@ -252,6 +252,8 @@ bun run maze           # the sheets THE MAZE is played on, drawn
 bun run shapes:parts   # every secondary form on one sheet — docs/parts.md
 bun run shapes:cues    # the motion half of shapes:report, as numbers not a picture
 bun run style-guide    # the specimen sheet for docs/style-guide.md, drawn from the palette
+bun run breaks         # every tuning of the fracture engine, across time, on one sheet
+                       # — the bench for a damage look (.claude/skills/destruction)
 bun run shapes:swim    # one pulse cycle of every body that swims, as a strip
 bun run icons          # regenerate the home-screen PNGs from apps/game/icon.svg
 bun run raster         # regenerate the baked assets under assets/raster/

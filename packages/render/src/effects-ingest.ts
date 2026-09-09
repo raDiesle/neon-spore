@@ -5,8 +5,10 @@ import type { BeatboxSilences } from "./beatbox-silence.js";
 import type { BeatboxWaves } from "./beatbox-wave.js";
 import type { ChoirQuake } from "./choir-quake.js";
 import type { CrawlerFx } from "./crawler-fx.js";
+import type { Debris } from "./debris.js";
 import type { DeflectFx } from "./deflect.js";
 import { ingestBreach, ingestDeflect } from "./effects-breach.js";
+import { breakBody } from "./effects-break.js";
 import { isIngestSilent } from "./effects-ingest-silent.js";
 import type { ShipMoods } from "./effects-ship.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
@@ -41,6 +43,9 @@ export interface IngestOneCtx {
    * (`beatbox-silence.ts`). */
   beatboxSilences: BeatboxSilences;
   blockedUntil: Map<number, number>;
+  /** The pieces a broken body leaves. Draws nothing until a candidate look
+   * asks for a fracture at all (`break-look.ts`). */
+  debris: Debris;
   burst: (x: number, y: number, n: number, hex: string) => void;
 }
 
@@ -97,6 +102,10 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
       // below: this is a cannon shot that killed the thing it hit, and the
       // pair should not have to learn a second reading of that.
       ctx.spriteBursts.spawn(tileCX(ctx.l, e.col), tileCY(ctx.l, e.row), ctx.l.tile * 2.4);
+      // And the body itself, cut into the pieces it came apart into. Silent on
+      // the shipped field for the sprite's own reason — it is offered beside
+      // the burst, not in place of it (`effects-break.ts`).
+      breakBody(ctx.debris, ctx.l, ctx.time, e);
       break;
     case "crawlerBeam":
       ctx.crawler.beam(e.col);
@@ -109,6 +118,10 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
       // thing it hit. The sparks still fly — the sprite is offered beside the
       // shipped burst, not in place of it.
       ctx.spriteBursts.spawn(tileCX(ctx.l, e.col), tileCY(ctx.l, e.row), ctx.l.tile * 2.4);
+      // And the body itself, cut into the pieces it came apart into. Silent on
+      // the shipped field for the sprite's own reason — it is offered beside
+      // the burst, not in place of it (`effects-break.ts`).
+      breakBody(ctx.debris, ctx.l, ctx.time, e);
       break;
     case "petal":
       ctx.ship.shudder();

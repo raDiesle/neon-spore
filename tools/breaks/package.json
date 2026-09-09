@@ -1,0 +1,21 @@
+{
+  "name": "@neon-spore/breaks",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/main.ts",
+  "types": "./src/main.ts",
+  "exports": {
+    ".": "./src/main.ts",
+    "./subjects.js": "./src/subjects.ts",
+    "./sheet.js": "./src/sheet.ts",
+    "./page.js": "./src/page.ts"
+  },
+  "scripts": {
+    "build": "bun run ./src/main.ts"
+  },
+  "dependencies": {
+    "@neon-spore/content": "workspace:*",
+    "@neon-spore/render": "workspace:*"
+  }
+}

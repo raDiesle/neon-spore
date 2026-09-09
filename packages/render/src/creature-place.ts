@@ -56,6 +56,32 @@ export function contourClock(id: number, time: number): number {
 }
 
 /**
+ * How wide a living body is drawn, in pixels, before distance is spent on it.
+ *
+ * Two fifths of a tile, and this is the only place that number is written. It
+ * was in three: `creatureRadius` here, the body's own draw in `living-draw.ts`,
+ * and — the day something wanted to draw the *pieces* of a body after it was
+ * gone (`debris.ts`) — nearly a fourth. A footprint spelled out at a second
+ * site is a body whose grip ring, whose paint and whose wreckage are three
+ * sizes the moment anybody tunes one of them.
+ */
+export function livingRadius(tile: number, mul: number): number {
+  return tile * 0.4 * mul;
+}
+
+/**
+ * Contour units to pixels for one silhouette at that radius — the other half
+ * of the same rule, and split from it because `living-draw.ts` needs the radius
+ * on its own as well (a halo, a trail and a line width are all measured in it).
+ */
+export function livingScale(
+  shape: { rx: number; ry: number; sizeMul?: number },
+  r: number,
+): number {
+  return (r / Math.max(shape.rx, shape.ry)) * (shape.sizeMul ?? 1);
+}
+
+/**
  * How much of a living body's usual footprint this one draws at.
  *
  * One for everything but the two kinds whose size *is* their silhouette. An
@@ -157,7 +183,9 @@ export function creatureRadius(
   beatPhase = 0,
   cfg: SimConfig = DEFAULT_CONFIG,
 ): number {
-  const flat = isMeteorKind(c.kind) ? rockRadius(l, spanOf(c)) : l.tile * 0.4 * livingBodyMul(c);
+  const flat = isMeteorKind(c.kind)
+    ? rockRadius(l, spanOf(c))
+    : livingRadius(l.tile, livingBodyMul(c));
   return flat * depthScale(cfg, l, drawnRow(c, beatPhase));
 }
 

@@ -49,6 +49,7 @@ if (!slot || !name) {
   console.error("            when a slow replay is what shows the thing");
   console.error("       --zoom    the pair's magnifier, e.g. 2");
   console.error("       --wait    milliseconds to settle before the shot");
+  console.error("       --at      a rectangle inside the picture, x,y,w,h, magnified");
   console.error("       --element which element to photograph; .versus-row for the whole");
   console.error("            candidate, notes and all. Default .versus-stage, the phones");
   process.exit(1);
@@ -60,6 +61,16 @@ const only = flag("only");
 const rate = flag("rate");
 const zoom = flag("zoom");
 const wait = flag("wait") ?? "3000";
+/**
+ * A rectangle inside the picture, magnified — `shot.ts`'s own `--at`, forwarded.
+ *
+ * It was not, and a candidate about something a *crater* wide could not be
+ * looked at from here at all: the pair is two phones side by side in one
+ * screenshot, so a hole in the hull arrives about twenty pixels across. The
+ * escape was to take the picture and crop it somewhere else, which is the
+ * friction this file exists to have ended (`crop.ts`).
+ */
+const at = flag("at");
 /**
  * Which element of the page the picture is of. The pair of phones by default,
  * which is what a candidate is looked at as — but the page says things
@@ -127,6 +138,7 @@ try {
   // The magnifier is a toggle rather than a picker, so it is pressed. `--zoom 2`
   // and `--zoom` mean the same thing; there is only one step.
   if (zoom !== undefined) args.push("--click", ".versus-zoom");
+  if (at !== undefined) args.push("--at", at);
   await run(["bun", ...args], root);
   console.log(`wrote ${file} — ${slot} · ${name}`);
 } finally {

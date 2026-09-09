@@ -150,6 +150,8 @@ const MECHANICS: Pose[] = [
   {
     name: "BREACH · A SCAR",
     note: "A rock reached the hull with the shield elsewhere. The break is at that column, it is permanent, and both players see it for the rest of the run.",
+    lookAt:
+      "the hole in the ship's skin, and the skin right around it — the crack running out of the rim",
     crop: "ship",
     build: () => {
       const w = fresh([ROCK]);
