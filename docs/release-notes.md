@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-08 · 1faa6265 — A mouse leaves slime on the glass
+
+A player at a desk drags the pointer and the game lays ink under it: a string of blobs out of `blobPath` that swell, sag and thin out, adding up where they overlap into one running mass rather than a line of beads. The colour turns as the hand travels, so a long sweep walks the rainbow and a flick stays one hue. It is on the menu, the room screen and the field alike, drawn on a surface of its own over every sheet and blended so it can only ever add light to a word underneath it. A phone builds none of it — `pointer: fine` decides, the same signal the key hint reads — and a desk that has asked for less motion gets none of it either.
+
 ## 2026-09-08 · b2368189 — `bun run frames` can drive the controls it could only watch
 
 Six queued findings, all of them the same shape: a lane built something and then could not photograph it. A capture could send one thumb, at the end, and one verb at a tick, and the tick it named was not the tick it got.
