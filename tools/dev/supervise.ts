@@ -31,6 +31,7 @@
 
 import { watch } from "node:fs";
 import { freePort } from "../ports.js";
+import { announce } from "../running.js";
 import { gitDirOf, isTreeMove, locked, lockStamp } from "./tree-moves.js";
 
 const root = Bun.fileURLToPath(new URL("../../", import.meta.url));
@@ -46,6 +47,10 @@ const env = { ...process.env };
 if (argv[0]?.startsWith("--pin=")) {
   const name = argv.shift()!.slice("--pin=".length);
   if (env[name] === "0" || env[name] === undefined) env[name] = String(await freePort());
+  // A port nobody can derive is a port nobody can find, and it is printed once
+  // — on a stdout a session reading it with `| head` never sees. Written down
+  // so `bun run port` can report what is running (`tools/running.ts`).
+  announce(root, name, Number(env[name]));
 }
 
 if (argv.length === 0) {

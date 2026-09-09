@@ -173,6 +173,20 @@ the port out of the server's own startup line, which prints the number and the
 tree together. The relay is the exception that proves it — wrangler answers no
 marker, so `claimPort` is no use and `relayPort` derives unconditionally.
 
+*Amended 2026-09-09:* **a `:once` server takes neither candidate**, and
+`bun run port` now says so and then says which. `bun run dev:once` and
+`bun run preview:once` set their port variable to `0`, meaning *any free port* —
+58200 in the session that filed this, on a tree whose listing said 4174. Both
+statements were true and only one of them was about a running server, so three
+`curl: (7)`s later the conclusion was that nothing had started. It is worse than
+a wrong number because of where the right one is: printed once, on the
+supervisor's own stdout, which a session reading it with `| head -30` never
+sees. So a server on a port nothing can derive writes the number and its pid
+into `.claude/tmp/` (`tools/running.ts`), removes it on the way out, and
+`bun run port` reports **what is running** in place of the two candidates. The
+pid is the liveness check: a server killed outright leaves its file behind, and
+naming a port nothing answers on is this same failure from the other side.
+
 *Amended 2026-09-07:* and there is a command for it now, because "read it off
 the startup line" answers a session that has already started a server and not
 one that has to write the number down *first*.

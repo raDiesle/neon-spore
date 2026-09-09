@@ -33,6 +33,7 @@ import {
   RELAY_BASE,
   relayPort,
 } from "./ports.js";
+import { running } from "./running.js";
 import { SERVERS, type ServerName } from "./servers.js";
 
 const ROOT = Bun.fileURLToPath(new URL("..", import.meta.url));
@@ -49,6 +50,18 @@ interface Answer {
 async function settle(name: ServerName): Promise<Answer> {
   const spec = SERVERS[name];
   const derived = derivePort(spec.band, ROOT);
+  // A `:once` server took whatever the OS had, so neither candidate below is
+  // its port and nothing here could work it out. It wrote the number down
+  // instead (`tools/running.ts`), and what is running beats what would be
+  // tried.
+  const live = running(ROOT, spec.env);
+  if (live) {
+    return {
+      name,
+      port: live.port,
+      note: `a :once ${name} from this tree is answering there — pid ${live.pid}`,
+    };
+  }
   const held = await holderOf({ ...spec, tree: ROOT }, spec.base);
   if (held === "other") {
     return {
@@ -78,6 +91,20 @@ async function settle(name: ServerName): Promise<Answer> {
 }
 
 /**
+ * The line that says neither candidate applies to a `:once` run.
+ *
+ * `bun run dev:once` and `bun run preview:once` set their port variable to `0`,
+ * which means *any free port*: 58200 in the session that filed this, on a tree
+ * whose listing said 4174. Both statements were true and only one was about a
+ * server, so three `curl: (7)`s later the conclusion was that nothing had
+ * started.
+ */
+function onceNote(name: ServerName): string {
+  const command = name === "director" ? "bun run dev:once" : "bun run preview:once";
+  return `          ${command} takes neither — it asks the OS for any free port, and this says which once it is up`;
+}
+
+/**
  * The relay is the one that really is derived unconditionally: wrangler answers
  * no marker, so there is nothing to settle with and no reason to probe.
  */
@@ -97,6 +124,9 @@ function print(a: Answer): void {
   console.log(`${a.name.padEnd(9)} ${String(a.port).padEnd(6)} http://localhost:${a.port}`);
   console.log(`          ${a.note}`);
   if (a.fallback !== undefined) console.log(`          the other candidate is ${a.fallback}`);
+  if (a.name === "director" || a.name === "preview") {
+    if (a.fallback !== undefined) console.log(onceNote(a.name));
+  }
 }
 
 const asked = process.argv[2];

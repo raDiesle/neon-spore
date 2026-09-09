@@ -1282,6 +1282,7 @@ place — the generator keeps whatever is there.
 | `tools/frames/scratch.ts` | The throwaway checkouts `bun run frames` works out of: made, used, and — the part that was missing |
 | `tools/land/crlf.ts` | The line endings on disk, asked before `bun run check` is asked anything |
 | `tools/retry.ts` | Removing something from disk and then *asking* whether it went — the policy |
+| `tools/running.ts` | Where a server that took an OS-assigned port writes the number down |
 | `tools/land/race.ts` | Whether some other lane landed while this one was in `bun run check` |
 | `tools/director/src/cell-config-gaps.ts` | THE GRATE's row under the map: one chip per column, lit where the wall is open |
 | `tools/perf/compare.ts` | What a performance run *is*, and what two of them say when held side by side |

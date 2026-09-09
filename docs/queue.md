@@ -450,34 +450,3 @@ table that will go stale. The other option is to keep it kind-agnostic and step
 a round to a fixed fraction of its own length, which is one number and wrong for
 none of them. Take a fresh baseline with `bun run perf --save` afterwards, since
 every round's row moves.
-
-## `bun run port` names a director port `bun run dev:once` does not take
-
-- **Found:** 2026-09-08, claude/frames-drive-controls-q4
-- **Taken:** 2026-09-09, claude/queue-bun-run-port-names-a-director-port-bun-run-dev-o
-- **Files:** `tools/port.ts`, `tools/dev/supervise.ts`, `tools/frames/shot.ts`
-
-`bun run port` in a worktree answers `director 4174 http://localhost:4174`, and
-`bun run dev:once` in that same worktree serves on **58200** — a port nobody
-asked for and nothing predicts, because `dev:once` runs with `DIRECTOR_PORT=0`
-and lets the operating system pick. Both statements are true and only one of
-them is about the server that is actually running, so a session that starts
-`dev:once` and then reaches for the number `bun run port` gave it gets
-`curl: (7)` on three candidates in a row and concludes the server failed to
-start. This one did, twice, before reading the log.
-
-It is worse than a wrong number because of where the right one is: the port is
-printed **once**, by the supervisor, on its own stdout. A session that pipes
-`bun run dev:once` into anything — `| head -30`, which is the obvious way to
-read a startup line without hanging on a server — gets nothing at all, so the
-first attempt looked like a server that started and printed nothing and served
-nothing. `bun run shot` then defaults to `--port 4174` and finds no page.
-
-Two halves, and both are small. **Say the free-port case in `bun run port`**:
-the director line should name `dev:once`'s behaviour rather than a number that
-only holds for `bun run dev`, because the two commands take different ports and
-the listing reads as though they take the same one. And **have `dev:once` write
-its port where a second command can read it** — the marker file `preview`
-already answers `/__preview` with, or a line in the tree's own scratch — so
-`bun run port` can report what is running rather than what would be tried. The
-proof is `bun run port` naming 58200 while a `dev:once` from the same tree is up.

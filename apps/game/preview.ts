@@ -26,6 +26,7 @@
 // Run it through `bun run preview`, which builds first.
 
 import { claimPort, treeKey } from "../../tools/ports.js";
+import { announce } from "../../tools/running.js";
 import { SERVERS } from "../../tools/servers.js";
 
 const tree = Bun.fileURLToPath(new URL("../../", import.meta.url));
@@ -99,6 +100,10 @@ const server = Bun.serve({
     return new Response("not found", { status: 404, headers: noCache });
   },
 });
+
+// PREVIEW_PORT=0 took whatever the OS had, which nothing can derive — so it is
+// written down for `bun run port` to report (`tools/running.ts`).
+if (port === 0 && server.port !== undefined) announce(tree, "PREVIEW_PORT", server.port);
 
 resetIdle();
 console.log(`preview (built) on http://localhost:${server.port} — pid ${process.pid}`);
