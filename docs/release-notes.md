@@ -9,6 +9,50 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 2a29a0c6 — What the page decided on 9 September 2026, written down
+
+The largest clearance VERSUS has had, and the first where the answer "move it" was used more often than "take it". Seven slots left in four ways, and the four are the whole vocabulary this page has: taken as a pair, taken as one of a set, settled without a vote because nobody could see the difference, and moved somewhere it can be browsed.
+
+## 2026-09-09 · 8e365045 — SHAPES grows a FILLING axis, and the eight interiors move onto it
+
+The owner read the eight interiors offered to the bulb and the slick, took one of each into the game, and said of the rest: "i like it a lot. i suggest to move to shapes page, maybe new category like filling." This is that category.
+
+## 2026-09-09 · cf02f35d — VEIL leaves the vote and joins the SKIN axis
+
+`creature:skin` / `veil` was offered against LIT — the flesh under a key light the owner took into the game on 8 September — and he moved it to the shapes page rather than deciding it. That is the right address for what it actually proposes. VERSUS asks *which of these two for this body*, and a wall on a translucent shell is a claim about every body in the game; the SKIN axis is the only page in the project where such a claim is put to all of them at once.
+
+## 2026-09-09 · 727dd5a5 — The bulb keeps its outline, and its five alternatives go to SHAPES
+
+`bulb:shape` offered five whole contours for the roundest body in the game. The owner answered it in one sentence: keep the current bulb, and move the alternatives somewhere available on the shapes page. So the shipped six deep lobes stand untouched, and CLOVER, BURR, SPIKE, PEBBLE and PEAR are entries in `drafts/offered.ts` — the seam that exists for exactly this, second answers to bodies the game already draws, filed where they can be browsed once nobody is going to vote on them.
+
+## 2026-09-09 · c893130a — THE GHOST tears on a surface, and the slot is settled rather than voted
+
+The owner looked at `ghost:tears`'s two candidates and said he could not see any difference between them. That is a real answer: a slot nobody can read is one to settle and clear, not to render again.
+
+## 2026-09-09 · 55d98777 — THE SLICK and THE BULB get an inside
+
+The two bodies on more waves than anything else in the game had three dots between them — one for a bulb, two for a slick, in the rim colour, at a fixed place. That was the least detailed thing on any frame the pair spends the most time reading, which is why `body-interior.ts` was cut as a seam and why five answers were offered to each.
+
+## 2026-09-09 · 1c0d3f75 — A killed body comes apart into pieces of itself
+
+`BREAK_LOOK.wedges` was 0, and that was not an empty stub — it was the game's real answer. A destroyed body threw a dozen three-pixel squares and stopped being drawn, so a slick and a bulb and a throb all came apart identically and none of them came apart into anything.
+
+## 2026-09-09 · 52a9c2bc — An eye becomes a ball: GLAZE and TURN taken together
+
+The two candidates in `eye:iris` were the two halves of one disagreement about what to spend to make an eye read as round. TURN spent motion — the iris pinned at a longitude and swept across the surface, squashing toward the limb and losing the light as it went. GLAZE spent nothing that moves — the iris left dead centre, the ball made entirely out of a wash and one wet point. Each card argued the other's weakness honestly: a light with no motion is a painted button, and a mark travelling with no light on it is a disc sliding about inside a flat hole. The owner asked for them combined, which is the answer neither could give on its own — the two cues are not alternatives, they are the two halves of a surface.
+
+## 2026-09-09 · 45697e4b — TORCH · THE FALL stops strobing and sends three
+
+The owner looked at both candidates in `torch:veil` and said of each, separately, that he could not see a difference and wanted the animation to take more time before repeating — he wanted to see it fall down longer.
+
+## 2026-09-09 · 37575cbb — THE MAZE gets floors and posts, both of the answers it was offered
+
+`maze:walls` / `well` and `maze:walls` / `rail` were written as deliberate opposites — one darkens the space between the sheet's lines and leaves every stroke alone, the other leaves the space alone and gives the radial walls a thickness — and each said in its own card that they could not both be right about where a pair's eye should go on a turning drum. The owner looked and took both, which is the answer neither argued for and is the better one: a floor with nothing standing on it is a stack of discs, and a post with no floor under it is a mark floating on the field. Together they are a room.
+
+## 2026-09-09 · 303d9f0e — A replayed moment on ALTERNATIVES runs for six seconds, not two
+
+The owner said the animation on the page was often too short, and then said what he meant by it: the loop before a repeat has to keep longer, so a falling body is seen travelling further before it starts again — not slowed down to fill the window it has.
+
 ## 2026-09-09 · 60b98ee0 — A shell's plate is a slab, and armour gives off no light
 
 SHELL:PLATE / SLAB into the game and WORN rejected, the owner's answer on the VERSUS page. A plate was the body's contour cut in half and filled in one flat grey — the one hard surface in the game with no thickness at all, over a body that has plenty. It is a slab now: a wall showing a hair of thickness down the unlit side, a face lit by its own outward normal so the two halves are two different greys, and a specular held where the key light is while the body sways under it.
