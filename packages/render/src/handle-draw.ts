@@ -183,11 +183,32 @@ export const HINT_SOFT: HintStyle = { fontTiles: 0.26, mine: 0.8, theirs: 0.4 };
  *
  * The pair cannot see each other's thumbs, so the one thing the picture cannot
  * say by itself is which of the two of them is supposed to reach for it — and
- * that is the whole coupling. Every handle on this field is the pilot's, so
- * player 2 is told whose hand it is rather than waiting for a turn that never
- * comes. It goes as soon as a hand lands: from then on the handle's own
- * position says it.
+ * that is the whole coupling. The seat that owns it reads its word brightly and
+ * the other seat reads the word said about it, rather than waiting for a turn
+ * that never comes. It goes as soon as a hand lands: from then on the handle's
+ * own position says it.
+ *
+ * **Whose it is, is an argument.** Every handle on this field was the pilot's
+ * until THE BALLOON, which has one per seat, and the seat was baked in here as
+ * `role !== "p2"` — so the balloon grew a four-line copy of this word with the
+ * seat passed in. `HandleWords` is that copy folded back: the three older
+ * callers pass `{ seat: 1, mine: "PULL", theirs: "PILOT'S" }` and draw byte for
+ * byte what they always drew.
  */
+export interface HandleWords {
+  /** Which of the two seats may pull this one. */
+  seat: 1 | 2;
+  /** What that seat reads. */
+  mine: string;
+  /** What the other seat reads. The balloon says the same thing to both,
+   * because its word names a direction rather than an owner. */
+  theirs: string;
+}
+
+/** The pilot's handle, said the way the three handles older than THE BALLOON
+ * say it. Named so a fourth one of the same kind does not spell it out again. */
+export const PILOT_HANDLE: HandleWords = { seat: 1, mine: "PULL", theirs: "PILOT'S" };
+
 export function drawHandleHint(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -195,14 +216,15 @@ export function drawHandleHint(
   x: number,
   y: number,
   style: HintStyle,
+  words: HandleWords = PILOT_HANDLE,
 ): void {
-  const mine = role !== "p2";
+  const mine = role === "test" || (role === "p1") === (words.seat === 1);
   ctx.save();
   ctx.font = `600 ${Math.round(l.tile * style.fontTiles)}px system-ui, sans-serif`;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   ctx.fillStyle = mine ? PALETTE.text : PALETTE.dim;
   ctx.globalAlpha = mine ? style.mine : style.theirs;
-  ctx.fillText(mine ? "PULL" : "PILOT'S", x, y);
+  ctx.fillText(mine ? words.mine : words.theirs, x, y);
   ctx.restore();
 }

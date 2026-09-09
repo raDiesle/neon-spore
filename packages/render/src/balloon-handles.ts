@@ -9,7 +9,7 @@ import {
 import { balloonRy } from "./balloon.js";
 import { creatureCenter } from "./creature-place.js";
 import { strokeGlow } from "./glow.js";
-import { drawHandleRing, handleRadius } from "./handle-draw.js";
+import { drawHandleHint, drawHandleRing, type HintStyle, handleRadius } from "./handle-draw.js";
 import type { Circle, Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 
@@ -139,32 +139,26 @@ function drawOne(
     pull,
     time,
   });
-  if (!held) hint(ctx, l, head, side, mine);
+  if (!held) hint(ctx, l, head, side);
 }
 
 /**
- * Which way this one has to go, and whose it is — and it is a hint of this
- * creature's own rather than `drawHandleHint`'s.
+ * Which way this one has to go, and whose it is.
  *
- * That one says "PULL" on the pilot's screen and "PILOT'S" on the navigator's,
- * because every handle it was written for is the pilot's. Here each seat has
- * one, so the word has to name the *direction* instead: the pair already knows
- * whose side is whose, and what a thumb needs told is that this control is
- * carried outward rather than pressed.
+ * `drawHandleHint`'s three older callers say "PULL" to the pilot and "PILOT'S"
+ * to the navigator, because every handle written before this one was the
+ * pilot's. Here each seat has one, so the word names the *direction* instead:
+ * the pair already knows whose side is whose, and what a thumb needs told is
+ * that this control is carried outward rather than pressed. Both seats read the
+ * same arrow — it is the brightness, not the word, that says whose it is.
  */
-function hint(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  head: Circle,
-  side: -1 | 1,
-  mine: boolean,
-): void {
-  ctx.save();
-  ctx.font = `600 ${Math.round(l.tile * 0.22)}px system-ui, sans-serif`;
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillStyle = mine ? PALETTE.text : PALETTE.dim;
-  ctx.globalAlpha = mine ? 0.8 : 0.35;
-  ctx.fillText(side === -1 ? "◀ PULL" : "PULL ▶", head.x, head.y + l.tile * 0.58);
-  ctx.restore();
+const HINT_BALLOON: HintStyle = { fontTiles: 0.22, mine: 0.8, theirs: 0.35 };
+
+function hint(ctx: CanvasRenderingContext2D, l: Layout, head: Circle, side: -1 | 1): void {
+  const word = side === -1 ? "◀ PULL" : "PULL ▶";
+  drawHandleHint(ctx, l, l.role, head.x, head.y + l.tile * 0.58, HINT_BALLOON, {
+    seat: balloonHandleSeat(side),
+    mine: word,
+    theirs: word,
+  });
 }
