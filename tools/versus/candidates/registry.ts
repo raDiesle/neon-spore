@@ -7,6 +7,11 @@
 
 import type { Variant } from "../variant.js";
 import { BREAK_SHATTER } from "./creature-break/shatter/index.js";
+import { BULB_CHAMBERS } from "./creature-bulb/chambers/index.js";
+import { BULB_FILAMENT } from "./creature-bulb/filament/index.js";
+import { BULB_NUCLEUS } from "./creature-bulb/nucleus/index.js";
+import { BULB_SPORES } from "./creature-bulb/spores/index.js";
+import { BULB_VENT } from "./creature-bulb/vent/index.js";
 import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
 import { SKIN_VEIL } from "./creature-skin/veil/index.js";
 import { SLICK_BLOOM } from "./creature-slick/bloom/index.js";
@@ -31,6 +36,11 @@ import { TORCH_FIFTH } from "./torch-veil/fifth/index.js";
 
 export const VARIANTS: Variant[] = [
   BREAK_SHATTER,
+  BULB_CHAMBERS,
+  BULB_FILAMENT,
+  BULB_NUCLEUS,
+  BULB_SPORES,
+  BULB_VENT,
   METEOR_FORGE,
   SKIN_VEIL,
   SLICK_BLOOM,

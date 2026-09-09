@@ -466,32 +466,6 @@ where the band meets the hull, so this slot must not claim its fields —
 contour, the wet socket and the gloss: a flat plate with a stroke around it is
 the one thing the panel look is not.
 
-## THE BULB is on more waves than anything else and has one look
-
-- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
-- **Taken:** 2026-09-09, claude/queue-the-bulb-is-on-more-waves-than-anything-else-and
-- **Files:** `packages/render/src/creature-body.ts`,
-  `packages/render/src/living-skin.ts`, `packages/render/src/effects-body.ts`,
-  `packages/render/src/sparks.ts`, `tools/versus/candidates/`,
-  `tools/director/src/versus-pose.ts`
-
-The slick's opposite number and the other body on nearly every wave. The owner
-asked on 9 September 2026 for **five candidates, each completely different** —
-five answers a person could tell apart at a glance, not five settings of one.
-
-One slot, three things in it, because a player sees them as one thing: the
-**body** and its depth, the **motion** — `own-motion.ts`'s own argument is that
-two blobs with the same lobes read as different creatures because one swings
-and the other shivers, and at 26 px that difference is most of what a player
-has — and **what a hit looks like** on it.
-
-Same seam as the slick's entry, and worth doing in a different lane so the two
-are answered separately: the bulb has no `-look.ts` record, it is drawn through
-the shared `LIVING_SKIN` that the open `creature:skin` slot patches, so cut
-`bulb-look.ts` out of `creature-body.ts` first and open `creature:bulb` on it.
-`.claude/skills/depth` applies, the shapes page is where the parts come from,
-and both sides animate. Pose in `versus-pose.ts` in the same commit.
-
 ## `versus adopt` refuses fourteen of the fifteen candidates standing
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
