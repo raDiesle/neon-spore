@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · a4fa5dc0 — A landing settles the queue conflict it wrote itself
+
+`bun run queue take` puts the `Taken:` line on the trunk and `bun run queue done` removes the whole entry in the lane, so every landing that drained an item stopped on a `docs/queue.md` conflict one tool had with itself — four commands and a rebuilt commit message to get past a disagreement nobody authored. The replay now merges that file entry by entry: the trunk's copy, less what this lane removed, plus what it filed. Two sides that rewrote the same entry or the same preamble still stop the landing, and the guard that catches a finished entry coming back still runs afterwards.
+
 ## 2026-09-09 · c232dcd2 — The ink keeps its size on a sheet and shrinks on the field
 
 The owner asked for both halves in one sentence: the trail as it is for menu navigation, and much smaller once the game is showing. The reason is what the pointer is doing in each place. On the menu, the room screen and the intro it is the only thing moving and the ink is the answer to it. On the field it crosses a picture two people are reading columns off, and ink at that size is weather over the thing they are talking about.
