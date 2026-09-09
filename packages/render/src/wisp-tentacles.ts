@@ -87,6 +87,13 @@ export function drawTentacles(f: WispFringe): void {
   const drag = -heading * rx * 0.55 * (dive * 0.7 + air * 0.35);
   const theta = (t / SPIN_SECONDS) * Math.PI * 2;
 
+  // The two colours the fringe is drawn in, hazed once rather than once a
+  // strand. `haze` is the caller's distance fade and both of its answers are
+  // constant across the loop, so eight calls a body a frame were seven copies
+  // of two strings.
+  const nearHex = haze(PALETTE.wispRim);
+  const farHex = haze(PALETTE.wisp);
+
   ctx.save();
   ctx.lineCap = "round";
   for (let i = 0; i < STRANDS; i++) {
@@ -117,7 +124,7 @@ export function drawTentacles(f: WispFringe): void {
     const hold =
       0.25 + 0.75 * Math.max(0, Math.min(1, 0.62 + strandWave(t, i) * 0.5 - noise * 0.5));
     const lit = surfaceDim(DIM, face);
-    ctx.strokeStyle = haze(near ? PALETTE.wispRim : PALETTE.wisp);
+    ctx.strokeStyle = near ? nearHex : farHex;
     ctx.lineWidth = ry * (near ? 0.09 : 0.06) * (EDGE_WEIGHT + (1 - EDGE_WEIGHT) * face);
     ctx.globalAlpha = (near ? 0.9 : 0.7) * hold * lit;
     ctx.beginPath();

@@ -98,6 +98,18 @@ interface Scene {
  * thirty-second of a turn; `drawImage` went 73 to 101 for the same reason, and
  * a blit of a cached canvas is the cheapest mark this renderer makes
  * (`torch-ball.ts`, `glow.ts`).
+ *
+ * **And then `save` fell 139 to 39, which is the whole of the second pass at
+ * it.** Every one of those hundred was bookkeeping around a blit that had
+ * already been made cheap: a plume and a tongue were each placed by `save`,
+ * `translate`, `scale`, draw, `restore`, and a plume's blit went through
+ * `halo`, which reads and writes `globalCompositeOperation` around itself so
+ * that any caller may use it. A translate and a scale about a blit's own
+ * centre are exactly a destination rectangle, so the rectangle is computed and
+ * the transform stack is left alone. Nothing else in the row moved, and
+ * nothing in the picture did: 8,952 blits across these two waves and both
+ * seats land on the same device-space corners at the same alpha under the same
+ * composite mode, before and after.
  */
 const SCENES: readonly Scene[] = [
   {
@@ -238,7 +250,7 @@ const SCENES: readonly Scene[] = [
           stroke: 75,
           fill: 46,
           clip: 6,
-          save: 139,
+          save: 39,
           drawImage: 101,
           createLinearGradient: 18,
           createRadialGradient: 5,
@@ -250,7 +262,7 @@ const SCENES: readonly Scene[] = [
           stroke: 77,
           fill: 46,
           clip: 6,
-          save: 139,
+          save: 39,
           drawImage: 101,
           createLinearGradient: 8,
           createRadialGradient: 1,
@@ -264,7 +276,7 @@ const SCENES: readonly Scene[] = [
           stroke: 65,
           fill: 49,
           clip: 6,
-          save: 137,
+          save: 37,
           drawImage: 99,
           createLinearGradient: 18,
           createRadialGradient: 5,
@@ -276,7 +288,7 @@ const SCENES: readonly Scene[] = [
           stroke: 67,
           fill: 49,
           clip: 6,
-          save: 137,
+          save: 37,
           drawImage: 99,
           createLinearGradient: 8,
           createRadialGradient: 1,

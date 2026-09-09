@@ -147,44 +147,6 @@ Why the short label is what fits today, and what each of the three costs.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
-## THE WISP and BULB QUEEN carry a measured cost from the adopted looks
-
-- **Found:** 2026-09-09, claude/game-visual-assets-21ed8c
-- **Taken:** 2026-09-09, claude/queue-the-wisp-and-bulb-queen-carry-a-measured-cost-fr
-- **Files:** `packages/render/src/wisp-tentacles.ts`,
-  `packages/render/src/torch-ball.ts`, `packages/render/src/torch-fire.ts`,
-  `tools/perf/baseline.json`
-
-Ten looks came out of VERSUS on 9 September 2026 and two waves report dearer
-against the 2026-09-09 baseline afterwards. `bun run perf` puts BULB QUEEN
-between +25% and +56% of the share it had depending on how busy the machine is,
-and THE WISP at about +21%. Neither is a defect: the worst frame in the game is
-between 5.7 and 7.1 ms against a 16.7 ms budget, and both costs are things the
-owner chose to look at.
-
-The queen's is six fireballs at once — a torch stands in each of her sockets —
-and it has already been through one pass: the shells are contours held per
-radius and per thirty-second of a turn, a tongue is a baked sprite under a
-`globalAlpha`, and that took the wave from +71% to where it is. What is left is
-eighteen tongue blits and eleven halo blits per rock, and the obvious next move
-is to bake the *whole ball* — halo, shells and plumes — as one sprite per radius
-and per phase, so a burning rock is one `drawImage` and the tongues alone stay
-live. Weigh that against the memory: a ball sprite is about 4.3 radii square,
-which is a quarter of a megabyte at a two-tile torch, so the phase count is the
-whole design and 16 may be enough where 32 is not affordable.
-
-THE WISP's is eight bezier strands where there were five, each stroked once
-(`wisp-tentacles.ts`). There is a cheaper shape available: the shipped fringe
-draws every strand into one `Path2D` and strokes it twice, and this one strokes
-per strand because each carries its own width and alpha. Grouping them into two
-or three buckets by weight would get most of it back.
-
-Prove it with `bun run perf --wave "BULB QUEEN" --wave "THE WISP"`, and read the
-five reference waves the narrow run carries before believing either number.
-Take a fresh full-sweep baseline with `--save` **only** once neither is flagged
-— a baseline saved on a busy machine is worse than a stale one, which this lane
-did once and reverted.
-
 ## `tools/frames/run.ts` stands on the 250-line ceiling exactly
 
 - **Found:** 2026-09-09, claude/queue-the-clasps-hand-painted-shield-has-never-been-dr
@@ -234,3 +196,45 @@ first paint), in which case the wait is the fix and the comparison stays exact;
 or two PNG encodes of one identical frame are genuinely allowed to differ by a
 byte, in which case the assertion is comparing the wrong thing and should
 compare decoded pixels.
+
+## THE TORCH's veil is drawn at full strength — `VEIL` has never done anything
+
+- **Found:** 2026-09-09, claude/queue-the-wisp-and-bulb-queen-carry-a-measured-cost-fr
+- **Files:** `packages/render/src/torch-fire.ts`,
+  `packages/render/src/torch-ball.ts`
+- **Asks:** Should the veil over the stone's face be the fifth of a plume the code always said it was, or is what has actually been shipping the right strength?
+
+`fireball` ends with a fourth pass — the nearest plumes again, faintly, over
+the rock's face, so the stone reads as being *inside* the fire rather than in
+front of it. It sets `ctx.globalAlpha = VEIL` (0.2) and calls `plumes(…,
+true)`. **`plumes` then overwrites that alpha rather than multiplying it**, once
+per plume, with the plume's own `(near ? 0.34 : 0.24) * heat` — it did so
+through `halo`, which assigns `globalAlpha` outright, and the pass that
+replaced `halo` with a direct blit kept the behaviour exactly so the speed
+change could be proved to draw the same thing.
+
+So the veil has been drawn at the same strength as the main plume pass since
+the day it was written, and the near plumes are laid down twice at full value.
+The comment beside `VEIL` says what was intended and what it costs to get it
+wrong: *"with it any louder, the craters stop being countable, and the craters
+are the only readout this body carries."* It is five times louder.
+
+This is not a tuning question and it is not quite a defect either, which is why
+it asks rather than states. The picture that has been on the field for the
+creature's whole life is the loud one, the owner has looked at THE TORCH and
+BULB QUEEN with it, and honouring the constant now would visibly lift the
+craters out of the fire on both. Two answers, and the work is three lines
+either way:
+
+- **Honour it.** `plumes` takes the caller's alpha as a multiplier — pass a
+  `strength` argument defaulting to 1 and multiply, so `ball` is unchanged and
+  the veil finally lands at a fifth. The stone gets darker and the craters get
+  easier to count, which is what the file says it wanted.
+- **Keep what ships.** Delete `VEIL` and the `globalAlpha` line, and say in the
+  comment that the veil is the near plumes at their own strength drawn twice.
+  A constant that does nothing is worse than no constant, whichever way the
+  look goes.
+
+Whichever wins, `packages/render/test/wave-budget.test.ts`'s BULB QUEEN rows
+are the proof it changed nothing else, and `bun run frames . --wave 25 --at`
+takes the two pictures for the owner to choose between.

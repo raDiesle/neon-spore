@@ -1,6 +1,6 @@
 import { blobPath, facet, LAT_LIMIT, pin, surfaceDim } from "@neon-spore/content";
 import { bakedCache } from "./baked.js";
-import { halo } from "./glow.js";
+import { haloSprite } from "./glow.js";
 import { rgba } from "./hex.js";
 import { PALETTE } from "./palette.js";
 
@@ -152,14 +152,32 @@ function shell(
 /**
  * The plumes, placed on a turning mass and blitted as one cached sprite each.
  *
- * `halo` rather than a gradient per plume, and that is what keeps a fire this
- * size free: the sprite is keyed on a colour and a rounded radius, both of
- * which are constant here, so nine plumes on any number of torches are one
- * canvas. The foreshortening is `ctx.scale` around the blit, so a plume going
- * round the limb still narrows the way everything else on a surface does.
+ * A cached sprite rather than a gradient per plume, and that is what keeps a
+ * fire this size free: `haloSprite` is keyed on a colour and a rounded radius,
+ * both of which are constant here, so nine plumes on any number of torches are
+ * one canvas.
+ *
+ * **The foreshortening is in the destination rectangle, not in a transform.**
+ * It used to be `save`, `translate`, `scale`, `halo`, `restore` per plume —
+ * ten canvas calls for one blit, nine times per torch, six torches in BULB
+ * QUEEN's sockets. A `translate` and a `scale` about a blit's own centre are
+ * exactly a destination rectangle of `w·sx` by `h·sy` centred on the same
+ * point, so the rectangle is computed instead and the mark lands on the same
+ * device pixels. A plume going round the limb still narrows the way everything
+ * else on a surface does; it is the same arithmetic, done here rather than by
+ * the context.
+ *
+ * `halo` is not called for the same reason: it reads and writes
+ * `globalCompositeOperation` around every blit so that any caller may use it,
+ * and every caller in this fire is already inside `lighter`. Six calls become
+ * two.
  *
  * `nearOnly` is the veil's own pass over the stone's face, where the far half
  * would be drawing the back of the fire on top of the rock.
+ *
+ * **The caller's `globalAlpha` is overwritten, not multiplied**, exactly as it
+ * was when this went through `halo` — `docs/queue.md` carries the entry about
+ * what that costs the veil.
  */
 export function plumes(
   ctx: CanvasRenderingContext2D,
@@ -168,18 +186,30 @@ export function plumes(
   time: number,
   nearOnly = false,
 ): void {
+  const sprite = haloSprite(PALETTE.ember, Math.max(2, Math.round(r * PLUME_SIZE)));
+  const size = sprite.width;
   for (let i = 0; i < PLUME_PINS.length; i++) {
     const p = PLUME_PINS[i];
     if (!p) continue;
     const f = facet(p, theta);
     if (nearOnly && !f.near) continue;
     const heat = flicker(i, time) * surfaceDim(EMBER_FLOOR, Math.abs(f.sx));
-    ctx.save();
-    ctx.translate(f.x * r, f.y * r);
-    ctx.scale(Math.max(0.2, Math.abs(f.sx)), f.sy);
-    halo(ctx, 0, 0, r * PLUME_SIZE, PALETTE.ember, (f.near ? 0.34 : 0.24) * heat);
-    ctx.restore();
+    const w = size * Math.max(0.2, Math.abs(f.sx));
+    const h = size * f.sy;
+    ctx.globalAlpha = (f.near ? 0.34 : 0.24) * heat;
+    ctx.drawImage(sprite, f.x * r - w / 2, f.y * r - h / 2, w, h);
   }
+  ctx.globalAlpha = 1;
+}
+
+/** One of the ball's two unforeshortened glows, blitted at its natural size.
+ * The caller holds `lighter`; this only sets the alpha and puts the sprite
+ * down. */
+function heat(ctx: CanvasRenderingContext2D, radius: number, color: string, alpha: number): void {
+  const sprite = haloSprite(color, Math.max(2, Math.round(radius)));
+  ctx.globalAlpha = alpha;
+  ctx.drawImage(sprite, -sprite.width / 2, -sprite.height / 2);
+  ctx.globalAlpha = 1;
 }
 
 /**
@@ -195,9 +225,12 @@ export function ball(ctx: CanvasRenderingContext2D, r: number, theta: number, ti
   ctx.save();
   ctx.globalCompositeOperation = "lighter";
   // The heat, widest and under everything. A fixed radius so it stays one
-  // cached sprite; what breathes is the alpha.
-  halo(ctx, 0, 0, r * BALL, PALETTE.ember, 0.26 * breath);
-  halo(ctx, 0, 0, r * SHELL_IN, PALETTE.emberRim, 0.14 * breath);
+  // cached sprite; what breathes is the alpha. Blitted rather than handed to
+  // `halo`, for `plumes`'s reason one function up: the composite mode is
+  // already `lighter` and setting it twice more per blit is four calls a torch
+  // that change nothing.
+  heat(ctx, r * BALL, PALETTE.ember, 0.26 * breath);
+  heat(ctx, r * SHELL_IN, PALETTE.emberRim, 0.14 * breath);
   shell(ctx, 0, r, SHELL_OUT, 7, 11, time * 0.088, breath);
   shell(ctx, 1, r, SHELL_IN, 5, 23, -time * 0.127, breath);
   plumes(ctx, r, theta, time);

@@ -1,4 +1,4 @@
-import { facet, LAT_LIMIT, pin, surfaceDim } from "@neon-spore/content";
+import { type Facet, facet, LAT_LIMIT, pin, surfaceDim } from "@neon-spore/content";
 import { bakedCache } from "./baked.js";
 import { rgba } from "./hex.js";
 import { PALETTE } from "./palette.js";
@@ -126,56 +126,76 @@ function tongueSprite(): HTMLCanvasElement {
 /**
  * One tongue lying on the stone's surface at a facet.
  *
- * Drawn about its own origin and foreshortened by `scale(sx, sy)`, which is the
- * tangent plane's own map: a tongue near the limb narrows across its width
- * *and* swings toward the vertical, because that is what an anisotropic scale
- * does to a direction. Laid out in picture coordinates and squashed as a
- * picture instead, it would read as a sticker shrinking.
+ * Foreshortened by the tangent plane's own map: a tongue near the limb narrows
+ * across its width *and* swings toward the vertical, because that is what an
+ * anisotropic scale does to a direction. Laid out in picture coordinates and
+ * squashed as a picture instead, it would read as a sticker shrinking.
+ *
+ * **The map is in the rectangle rather than in the context.** It used to be a
+ * `save`, a `translate`, a second `save`, a `scale` and two `restore`s per
+ * tongue — six canvas calls around one blit, eighteen times per torch, and a
+ * torch in each of BULB QUEEN's six sockets. A translate and a scale about a
+ * blit's own centre are exactly a destination rectangle of `long·sx` by
+ * `wide·sy` centred on the same point, so the rectangle is computed and the
+ * mark lands on the same device pixels. Nothing about the picture moves; what
+ * goes is the bookkeeping around it.
  */
 function tongue(
   ctx: CanvasRenderingContext2D,
+  sprite: CanvasImageSource,
   r: number,
+  cx: number,
+  cy: number,
   sx: number,
   sy: number,
   heat: number,
 ): void {
-  ctx.save();
-  ctx.scale(sx, sy);
+  const long = r * TONGUE * sx;
+  const wide = r * TONGUE_WIDE * sy;
   ctx.globalAlpha = heat;
-  const long = r * TONGUE;
-  const wide = r * TONGUE_WIDE;
-  ctx.drawImage(tongueSprite(), -long / 2, -wide / 2, long, wide);
-  ctx.restore();
+  ctx.drawImage(sprite, cx - long / 2, cy - wide / 2, long, wide);
 }
 
 /** The tongues on one hemisphere of the stone: the far half before the rock is
- * drawn, the near half after it. */
+ * drawn, the near half after it.
+ *
+ * The facets are handed in rather than worked out here, because both passes
+ * want the same eighteen and each used to compute all of them and throw half
+ * away — thirty-six `facet` calls and thirty-six objects per torch per frame
+ * for eighteen marks (`fireball`). */
 function skin(
   ctx: CanvasRenderingContext2D,
   r: number,
-  theta: number,
+  facets: readonly Facet[],
   time: number,
   want: boolean,
 ): void {
+  const sprite = tongueSprite();
   ctx.save();
   ctx.globalCompositeOperation = "lighter";
-  for (let i = 0; i < PINS.length; i++) {
-    const p = PINS[i];
-    if (!p) continue;
-    const f = facet(p, theta);
-    if (f.near !== want) continue;
+  for (let i = 0; i < facets.length; i++) {
+    const f = facets[i];
+    if (!f || f.near !== want) continue;
     const heat = flicker(i, time) * surfaceDim(EMBER_FLOOR, Math.abs(f.sx));
-    ctx.save();
     // The pins were placed on a ball of radius `REACH`, so a facet's own
     // coordinates are already in stone-radii and `r` is the only scale left.
-    ctx.translate(f.x * r, f.y * r);
+    //
     // `Math.abs`: a far facet's `sx` is the cosine of a longitude past the limb
-    // and so is negative, and a negative scale is a tongue drawn inside out.
+    // and so is negative, and a negative width is a tongue drawn inside out.
     // What the far pass wants from it is how edge-on the surface is, which is
     // its size.
-    tongue(ctx, r, Math.max(0.08, Math.abs(f.sx)), f.sy, want ? heat : heat * 0.7);
-    ctx.restore();
+    tongue(
+      ctx,
+      sprite,
+      r,
+      f.x * r,
+      f.y * r,
+      Math.max(0.08, Math.abs(f.sx)),
+      f.sy,
+      want ? heat : heat * 0.7,
+    );
   }
+  ctx.globalAlpha = 1;
   ctx.restore();
 }
 
@@ -192,11 +212,15 @@ function skin(
 export function fireball(d: TorchFlameDraw): void {
   const { ctx, r, time } = d;
   const theta = (time / SPIN_SECONDS) * Math.PI * 2;
+  // Once for both halves. The far pass and the near pass want the same
+  // eighteen facets and differ only in which of them they keep, so working
+  // them out twice was eighteen objects a torch that nothing ever read.
+  const facets = PINS.map((p) => facet(p, theta));
 
   ball(ctx, r, theta, time);
-  skin(ctx, r, theta, time, false);
+  skin(ctx, r, facets, time, false);
   d.stone();
-  skin(ctx, r, theta, time, true);
+  skin(ctx, r, facets, time, true);
 
   // The veil: the nearest plumes again, faintly, over the stone's face. Without
   // it the rock reads as standing in front of the fire rather than inside it;
