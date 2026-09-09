@@ -104,6 +104,12 @@ const SLOT_POSE: Record<string, string> = {
   // off altogether. Drawn on player two's screen alone, which is the creature
   // rather than an omission (`poses-bodies.ts`).
   "ghost:tears": "GHOST · TORN",
+  // The veil over a burning stone's face, and the pose is the creature alone
+  // rather than BULB QUEEN's six sockets: the question is what the rock's own
+  // face looks like through the fire, so what is wanted is one torch as big as
+  // the field ever draws one, falling at the speed it ships at
+  // (`poses-casing.ts`, `torch-veil.ts`).
+  "torch:veil": "TORCH · THE FALL",
   // The first slot here that is not the field at all. Every pose above puts a
   // body, a control or a boss on the playing field; an interlude is a whole
   // screen of its own, and until `poses-rounds.ts` there was no pose that

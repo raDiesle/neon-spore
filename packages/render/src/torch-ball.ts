@@ -176,8 +176,11 @@ function shell(
  * would be drawing the back of the fire on top of the rock.
  *
  * **The caller's `globalAlpha` is overwritten, not multiplied**, exactly as it
- * was when this went through `halo` — `docs/queue.md` carries the entry about
- * what that costs the veil.
+ * was when this went through `halo`. `strength` is the way to ask for less:
+ * the veil pass over the stone's face wanted a fifth of a plume and set
+ * `globalAlpha` to get it, which this silently threw away for the creature's
+ * whole life (`torch-veil.ts`). It defaults to one, so the ball's own pass is
+ * unchanged.
  */
 export function plumes(
   ctx: CanvasRenderingContext2D,
@@ -185,6 +188,7 @@ export function plumes(
   theta: number,
   time: number,
   nearOnly = false,
+  strength = 1,
 ): void {
   const sprite = haloSprite(PALETTE.ember, Math.max(2, Math.round(r * PLUME_SIZE)));
   const size = sprite.width;
@@ -196,7 +200,7 @@ export function plumes(
     const heat = flicker(i, time) * surfaceDim(EMBER_FLOOR, Math.abs(f.sx));
     const w = size * Math.max(0.2, Math.abs(f.sx));
     const h = size * f.sy;
-    ctx.globalAlpha = (f.near ? 0.34 : 0.24) * heat;
+    ctx.globalAlpha = (f.near ? 0.34 : 0.24) * heat * strength;
     ctx.drawImage(sprite, f.x * r - w / 2, f.y * r - h / 2, w, h);
   }
   ctx.globalAlpha = 1;

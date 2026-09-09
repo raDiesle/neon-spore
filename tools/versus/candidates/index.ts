@@ -15,6 +15,8 @@ import { JOIN_ROOF } from "./panel-join/roof/index.js";
 import { SHELL_SLAB } from "./shell-plate/slab/index.js";
 import { SHELL_WORN } from "./shell-plate/worn/index.js";
 import { CRATER_SPALL } from "./ship-crater/spall/index.js";
+import { TORCH_BLOOM } from "./torch-veil/bloom/index.js";
+import { TORCH_FIFTH } from "./torch-veil/fifth/index.js";
 // endregion
 
 /**
@@ -55,6 +57,8 @@ export const VARIANTS: Variant[] = [
   EYE_GLAZE,
   GHOST_LATITUDE,
   GHOST_SLIDE,
+  TORCH_FIFTH,
+  TORCH_BLOOM,
   MAZE_WELL,
   MAZE_RAIL,
 ];

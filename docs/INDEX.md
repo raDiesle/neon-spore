@@ -482,6 +482,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/torch-look.ts` | THE ONE RECORD A CANDIDATE TORCH FLAME PATCHES |
 | `packages/render/src/torch-fire.ts` | THE TORCH's fire: a ball of flame with a rock at the heart of it |
 | `packages/render/src/torch-ball.ts` | THE BALL OF FIRE A TORCH FALLS INSIDE — everything outside the stone |
+| `packages/render/src/torch-veil.ts` | THE ONE RECORD A CANDIDATE **VEIL** PATCHES |
 | `packages/render/src/bullets.ts` | shots and their tails |
 | `packages/render/src/effects.ts` | every transient the field keeps past its frame, and where each one is kept |
 | `packages/render/src/effects-frame.ts` | **What `Effects` does with a frame**, as opposed to what it owns |

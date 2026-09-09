@@ -2,8 +2,9 @@ import { type Facet, facet, LAT_LIMIT, pin, surfaceDim } from "@neon-spore/conte
 import { bakedCache } from "./baked.js";
 import { rgba } from "./hex.js";
 import { PALETTE } from "./palette.js";
-import { ball, EMBER_FLOOR, flicker, plumes } from "./torch-ball.js";
+import { ball, EMBER_FLOOR, flicker } from "./torch-ball.js";
 import type { TorchFlameDraw } from "./torch-look.js";
+import { TORCH_VEIL } from "./torch-veil.js";
 
 /**
  * THE TORCH's fire: a ball of flame with a rock at the heart of it.
@@ -50,12 +51,6 @@ const REACH = 1.12;
  * half, against a fall that lasts about three: a plume crosses the face once
  * while the pair is watching, which is a roll and not a strobe. */
 const SPIN_SECONDS = 4.5;
-
-/** How much of a near plume is drawn again over the stone's face. Low on
- * purpose — enough that the rock reads as being *inside* the fire rather than
- * behind it, little enough that it stays a dark mass and the craters stay
- * countable. */
-const VEIL = 0.2;
 
 /** How long one tongue of flame is, along the surface, as a share of the
  * stone's radius — and how wide. Long and thin: a tongue lying flat on the
@@ -203,11 +198,12 @@ function skin(
  * The fire, in four passes, and the order is the whole picture.
  *
  * The ball goes down first, then the far tongues on the stone's own skin, then
- * the stone itself over all of it, and only then the near tongues and a thin
- * veil of the nearest plumes across the face. What the pair sees is a rock
- * burning inside a fire rather than a rock with fire around it. That order is
- * the whole reason the seam hands the stone back as a field of the draw
- * (`torch-look.ts`).
+ * the stone itself over all of it, and only then the near tongues and a veil
+ * of the nearest plumes across the face. What the pair sees is a rock burning
+ * inside a fire rather than a rock with fire around it. That order is the
+ * whole reason the seam hands the stone back as a field of the draw
+ * (`torch-look.ts`), and the fourth pass is a seam of its own
+ * (`torch-veil.ts`).
  */
 export function fireball(d: TorchFlameDraw): void {
   const { ctx, r, time } = d;
@@ -222,13 +218,10 @@ export function fireball(d: TorchFlameDraw): void {
   d.stone();
   skin(ctx, r, facets, time, true);
 
-  // The veil: the nearest plumes again, faintly, over the stone's face. Without
-  // it the rock reads as standing in front of the fire rather than inside it;
-  // with it any louder, the craters stop being countable, and the craters are
-  // the only readout this body carries.
-  ctx.save();
-  ctx.globalCompositeOperation = "lighter";
-  ctx.globalAlpha = VEIL;
-  plumes(ctx, r, theta, time, true);
-  ctx.restore();
+  // And the veil, through the record a candidate patches: the nearest plumes
+  // again over the stone's face, so the rock reads as being *inside* the fire
+  // rather than in front of it. How loud that pass should be is the one
+  // question about this creature nobody has answered by looking, and
+  // `torch-veil.ts` is where it is asked.
+  TORCH_VEIL.draw({ ctx, r, theta, time });
 }
