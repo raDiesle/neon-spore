@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · c3e0da34 — The blue is the beat itself, and a box going quiet is the loudest thing it does
+
+**The colour was on the window, not on the beat.** The owner reported that it *is not visible on the beat but some other time*, and the arithmetic says why: `beatboxWindowMs` is two hundred milliseconds **either side** of a beat, which at the shipped numbers is forty-nine ticks of a seventy-five-tick beat. The box was blue for two thirds of every beat, so what the eye read was the *gap* in the middle — a colour changing twice a beat at neither of the moments that matter. It is now a flash on the boundary that is over a third of a beat later, on the ring's own life, because the ring and the colour are one flash said twice.
+
 ## 2026-09-09 · a4fa5dc0 — A landing settles the queue conflict it wrote itself
 
 `bun run queue take` puts the `Taken:` line on the trunk and `bun run queue done` removes the whole entry in the lane, so every landing that drained an item stopped on a `docs/queue.md` conflict one tool had with itself — four commands and a rebuilt commit message to get past a disagreement nobody authored. The replay now merges that file entry by entry: the trunk's copy, less what this lane removed, plus what it filed. Two sides that rewrote the same entry or the same preamble still stop the landing, and the guard that catches a finished entry coming back still runs afterwards.
