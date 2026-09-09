@@ -9,6 +9,18 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 84e38d0b — Adopt writes late fields first, and says what to do when it will not
+
+Two things a smoke test found by running the command against a real slot rather than a fixture.
+
+## 2026-09-09 · 4e13f341 — VERSUS is decided in chat and applied by a command
+
+Asked how an approved candidate should reach the game, the owner said he does not want a vote button and prefers to say directly which one to integrate and which to reject. So the page shows and no longer asks, and the half that was worth keeping is a command that takes the name he says.
+
+## 2026-09-09 · 8fa0c3d3 — Twenty-one items: the VERSUS lane kit, ten rehearsals, and a look per body
+
+The owner asked for the queue filled with the work that fills the VERSUS page, and for the workflow that page is judged through to be fixed first.
+
 ## 2026-09-09 · 74d220bf — The torch's veil becomes a question on the VERSUS page
 
 A burning rock's last pass lays the nearest plumes over the stone's own face, after the stone has gone down opaque, so the rock reads as being inside the fire rather than in front of it. `torch-fire.ts` set `globalAlpha` to a fifth before that pass and `plumes` overwrites the alpha per plume rather than multiplying it, so **the veil has been drawn at full strength since the day it was written** and the constant that said 0.2 never reached a pixel.
