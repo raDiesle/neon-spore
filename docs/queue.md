@@ -367,6 +367,7 @@ every round's row moves.
 ## A VERSUS pose cropped to a tile drifts off the body it is about
 
 - **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7
+- **Taken:** 2026-09-09, claude/queue-a-versus-pose-cropped-to-a-tile-drifts-off-the-b
 - **Files:** `tools/director/src/pose-art.ts`, `tools/director/src/versus-pair.ts`,
   `tools/director/src/poses-surface.ts`
 
