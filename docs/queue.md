@@ -187,6 +187,7 @@ did once and reverted.
 ## Two Bun versions disagree, and the cloud doc names neither
 
 - **Found:** 2026-09-09, main
+- **Taken:** 2026-09-09, claude/queue-two-bun-versions-disagree-and-the-cloud-doc-name
 - **Files:** `docs/cloud-session.md`, `.bun-version`, `package.json`,
   `tools/hooks/session-start.ts`, `tools/test/bun-version.test.ts`
 
