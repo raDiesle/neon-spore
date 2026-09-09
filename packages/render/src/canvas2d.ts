@@ -1,12 +1,10 @@
 import { guardArmed, mawOpen, ticksPerBeat, wispOnField } from "@neon-spore/sim";
-import { drawWaveOpening } from "./briefing.js";
+import { drawTakeover } from "./canvas2d-takeover.js";
 import { drawBodies, drawFieldBack, drawOverlays, drawShip } from "./frame-passes.js";
 import { frame, surfaceSampler } from "./hull-frame.js";
 import { computeLayout, computeStage, type Layout, type Stage } from "./layout.js";
-import { openingKey } from "./opening-fx.js";
 import { RenderState } from "./render-state.js";
 import type { Renderer, Viewport, ViewState } from "./renderer.js";
-import { ROUND_DRAWS } from "./round-draw.js";
 import type { SpriteBursts } from "./sprite-burst.js";
 
 /**
@@ -105,48 +103,10 @@ export class Canvas2DRenderer implements Renderer {
     // the new run's first. `restarted` forgets as it answers.
     this.held.restarted(world);
 
-    // The wave's guide is carrying a rehearsal, and the two mini-screens in it
-    // are the only thing on the stage worth a frame: the guide covers the
-    // field with a scrim anyway, and drawing a field nobody can see behind two
-    // that they can is the whole of what a second render per frame would cost.
-    // The opening's own clock, whether or not a rehearsal is up: the page
-    // number, the wave's name dropping in and the blobs a READY throws are all
-    // read off it, and none of them can be read off a world holding still.
-    this.held.effects.opening.update(view.dt, openingKey(world, view.role));
-    this.held.guide.update(world, view.dt, view.role);
-    if (this.held.guide.active) {
-      // Nothing under it painted the ground, so this does. The guide's own
-      // scrim is translucent, and translucent over nothing is the last frame.
-      ctx.fillStyle = "#05040B";
-      ctx.fillRect(0, 0, stage.width, stage.height);
-      drawWaveOpening(ctx, l, world, {
-        role: view.role,
-        scene: this.held.guide,
-        time: view.time,
-        fx: this.held.effects.opening,
-        names: view.names,
-        pointer: view.pointer,
-      });
-      ctx.restore();
-      return;
-    }
-
-    // A round takes the whole stage and this method ends here: the round's
-    // first condition is that the field is *gone* (`gauge-round.ts`), and the
-    // cheapest way to be sure of that is for none of the code below to run.
-    // `ROUND_DRAWS` is the list and says why it is a list. Each draws the
-    // wave's opening itself, last — without it the pair get a picture standing
-    // still with nothing saying why.
-    const round = ROUND_DRAWS[world.boss?.kind ?? ""];
-    if (round !== undefined) {
-      round(ctx, l, view);
-      drawWaveOpening(ctx, l, world, {
-        role: view.role,
-        time: view.time,
-        fx: this.held.effects.opening,
-        names: view.names,
-        pointer: view.pointer,
-      });
+    // The two frames that are not the field — the guide's rehearsal and a boss
+    // round — each take the whole stage and end the frame here
+    // (`canvas2d-takeover.ts`). The clocks they run go forward either way.
+    if (drawTakeover(ctx, l, view, this.held, stage)) {
       ctx.restore();
       return;
     }

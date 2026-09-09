@@ -445,6 +445,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/control-aim.ts` | Which way a control points, and which rig of keys answers it |
 | `packages/content/src/mechanics-bosses.ts` | the four bosses, and the line the warden throws — a rule change each, not a body |
 | `packages/content/src/mechanics-worn.ts` | a slick or a bulb wearing something that has to come off first — one sentence said six ways |
+| `packages/content/src/silhouettes-clubbed.ts` | The one body whose contour is **walked** |
 
 ### packages/render
 
@@ -789,6 +790,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/beatbox-air.ts` | **The air a soundbox is moving**, which is the half of this creature that has no number in it at all |
 | `packages/render/src/hull-light.ts` | who lights the ship, as a record — the shipped `litBox` reached through a seam a second answer can be held against |
 | `packages/render/src/splash-trail.ts` | **Slime off the end of a mouse** — the ink a desk's pointer leaves, as blobs that swell, sag and add up |
+| `packages/render/src/canvas2d-takeover.ts` | **The two frames that are not the field**, and the clocks that run whether or not one of them is up |
+| `packages/render/src/effects-frame.ts` | **What `Effects` does with a frame**, as opposed to what it owns |
 
 ### packages/net
 

@@ -6,6 +6,7 @@ import { CoordGrid } from "./coord-grid.js";
 import { CrawlerFx } from "./crawler-fx.js";
 import { DeflectFx } from "./deflect.js";
 import { BodyTransients } from "./effects-body.js";
+import { drawAll, resetAll, updateAll } from "./effects-frame.js";
 import { ingestOne } from "./effects-ingest.js";
 import { ShipMoods } from "./effects-ship.js";
 import { burstFor } from "./effects-spark.js";
@@ -29,8 +30,8 @@ import { WardenFx } from "./warden-fx.js";
  * it worked will never learn the timing.
  */
 export class Effects {
-  private sparks = new Sparks();
-  private deflectFx = new DeflectFx();
+  readonly sparks = new Sparks();
+  readonly deflectFx = new DeflectFx();
   /**
    * The last step of a rock's fall, replayed until it reaches the hull, and
    * the stuck-then-rolling rock afterwards. Public and drawn *over* the hull
@@ -38,7 +39,7 @@ export class Effects {
    * whether a rock still sits in its own crater (`craters.ts`).
    */
   readonly rockImpact = new RockImpactFx();
-  private blockedUntil = new Map<number, number>();
+  readonly blockedUntil = new Map<number, number>();
   /**
    * The ship's own clocks — the swallow, the fire opening, the deflection
    * flash and the queen's shudder, with the banner the last two write
@@ -49,10 +50,10 @@ export class Effects {
    * draws a scar's crack (`arrivals.ts`, `scars.ts`'s `arrived`). */
   readonly arrivals = new Arrivals();
   /** The transients that belong to one body — `effects-body.ts`. */
-  private bodies = new BodyTransients();
+  readonly bodies = new BodyTransients();
   /** THE CRAWLER's three: a burst ring's goo, the swept lane, the burrow's
    * banks — each outliving what it is about (`crawler-fx.ts`). */
-  private crawler = new CrawlerFx();
+  readonly crawler = new CrawlerFx();
   /**
    * THE MIRROR's own transients. Public: the boss is drawn as a whole ship
    * rather than as particles, and `canvas2d` reads `armed` and `intake` off
@@ -98,7 +99,7 @@ export class Effects {
    * than something in it, applied where the stage is placed (`choir-quake.ts`). */
   readonly quake = new ChoirQuake();
   /** THE BEATBOX's discharges, outliving their frame like everything above. */
-  private beatboxWaves = new BeatboxWaves();
+  readonly beatboxWaves = new BeatboxWaves();
 
   /** Per-creature grey flash after a wrong-colour hit, by creature id. */
   get blocked(): ReadonlyMap<number, number> {
@@ -170,37 +171,13 @@ export class Effects {
     }
   }
 
+  /** Every clock forward by `dt`, every transient drawn, and everything
+   * forgotten when a wave restarts — one subject and one file
+   * (`effects-frame.ts`). What is left here is what this class *owns*. */
   update(dt: number, l: Layout): void {
-    // Time does not run backwards and nor does a transient's age: every clock
-    // below is a `+= dt` read back as a phase, and a negative one puts a ring at
-    // a negative radius, which a real canvas refuses outright.
-    if (!(dt > 0)) return;
-    this.sparks.update(dt);
-    this.deflectFx.update(dt, l.tile);
-    this.rockImpact.update(dt, l);
-    for (const [id, t] of this.blockedUntil) {
-      const left = t - dt;
-      if (left <= 0) this.blockedUntil.delete(id);
-      else this.blockedUntil.set(id, left);
-    }
-    this.ship.update(dt);
-    this.mirror.update(dt);
-    this.warden.update(dt);
-    this.bodies.update(dt);
-    this.crawler.update(dt);
-    this.spriteBursts.update(dt);
-    this.ghostTrail.update(dt);
-    this.quake.update(dt);
-    this.beatboxWaves.update(dt);
-    // A salvo's particles are thrown from here on the frame it lands, not from
-    // `burstFor` on the frame the event arrived — a second and a quarter
-    // earlier (`fleet-fx.ts`).
-    this.fleet.update(dt, l, (x, y, n, hex) => this.sparks.burst(x, y, n, hex));
+    updateAll(this, dt, l);
   }
 
-  /** Drawn under the hull, so a deflected rock passes behind nothing. The world
-   * is here for the clasp transients alone — `drawOnBodies` says why — and
-   * `surfaceY` for THE CRAWLER's, about a body on the ship's own skin. */
   draw(
     ctx: CanvasRenderingContext2D,
     l: Layout,
@@ -208,37 +185,11 @@ export class Effects {
     beatPhase: number,
     surfaceY?: SurfaceY,
   ): void {
-    this.deflectFx.draw(ctx);
-    this.sparks.draw(ctx);
-    this.bodies.draw(ctx, l, surfaceY);
-    this.crawler.draw(ctx, l, surfaceY);
-    this.spriteBursts.draw(ctx);
-    this.beatboxWaves.draw(ctx, l);
-    this.bodies.drawOnBodies(ctx, l, world, beatPhase);
+    drawAll(this, ctx, l, world, beatPhase, surfaceY);
   }
 
-  /** Forget everything transient: a wave has (re)started and none of it
-   * belongs on screen now. Without this a rock from the run just abandoned
-   * latches an arrival (`arrivals.ts`) against a beat the new run is about to
-   * reuse — showing that beat's crack before its own rock ever lands. */
   reset(): void {
-    this.sparks.clear();
-    this.deflectFx.clear();
-    this.rockImpact.clear();
-    this.arrivals.clear();
-    this.blockedUntil.clear();
-    this.ship.clear();
-    this.mirror.clear();
-    this.warden.reset();
-    this.fleet.clear();
-    this.bodies.clear();
-    this.crawler.clear();
-    this.spriteBursts.clear();
-    this.coordGrid.clear();
-    this.ghostTrail.clear();
-    this.opening.reset();
-    this.quake.clear();
-    this.beatboxWaves.clear();
+    resetAll(this);
   }
 
   /** The word itself, over the hull — DEFLECTED, or a pod's one-word receipt. */

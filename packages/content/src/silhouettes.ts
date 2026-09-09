@@ -57,42 +57,6 @@ export const BULB: CreatureSilhouette = {
 };
 
 /**
- * Throb: a small round core wearing six balls on stalks, turning clockwise
- * with each half in one of the two ammunition colours (`throbTurnMilli` in
- * sim, `living-draw.ts` in render).
- *
- * **The clubs are the turn.** It was six soft lobes on a ball, and a ball is
- * the one shape whose rotation cannot be seen: the whole creature is *which
- * half is pointing at the cannon*, and a body that turns invisibly is a rule
- * with no picture. Six knobs on stalks read their own bearing at forty pixels
- * — and they read a count as well, so the pair can say *three cyan ones left*
- * rather than reaching for a clock angle neither of them can see.
- *
- * The core is nearly smooth on purpose — lobes under the clubs would be a
- * second rim arguing with the first — and `sizeMul` is here for the reason it
- * is on the Runt and for the opposite result. `drawLiving` scales
- * `max(rx, ry)` onto the fixed body radius every living kind draws at, and a
- * club reaches most of another radius past that, so a throb left at 1 would
- * arrive on the field a third wider than a bulb. 0.67 is the widest club this
- * rim can throw — `reach` and `cap` both at the top of their `vary`, on the
- * crest of a breath — brought back inside the bulb's own footprint, which
- * `packages/content/test/body-path.test.ts` is what holds it to.
- *
- * Walked out of `tools/shape-sheet/src/forms/clubbed.ts`, which drew THE
- * POMMEL with it — `docs/asset-catalogue.md` on what claiming a shape means.
- */
-export const THROB: CreatureSilhouette = {
-  lobes: 3,
-  depth: 0.06,
-  wobble: 0.05,
-  rx: 44,
-  ry: 44,
-  seed: 7.0,
-  sizeMul: 0.67,
-  clubs: { clubs: 6, reach: 0.26, cap: 0.36, neck: 0.46, vary: 0.16 },
-};
-
-/**
  * Dart: between the two bodies the pair already knows, because that is what
  * the owner asked for — "a little bit of Slick and Bulb" — and because the
  * creature is not a stranger to them, it is one of them that has learned to
@@ -243,6 +207,12 @@ export {
 // this file went over its limit. Re-exported here so nothing that already
 // reaches for it through this file has to move.
 export { BEATBOX, beatboxArms } from "./silhouettes-beatbox.js";
+// THE THROB is the one body in this family whose contour is **walked** rather
+// than sampled by angle — `clubs`, and the branch it takes in `body-path.ts`'
+// `livingPath` — so it and the rim it wears are `silhouettes-clubbed.ts` next
+// door, cut out when this file came back to its limit. Re-exported here so
+// nothing that already reaches for it through this file has to move.
+export { THROB } from "./silhouettes-clubbed.js";
 // The two contours in this family that are **not a body on the roster** — the
 // retired shell and the pod's capsule — are `silhouettes-spare.ts` next door,
 // cut out when THE BARB took this file over its limit. Re-exported here so
