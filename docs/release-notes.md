@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 93b55b99 — VERSUS says how much of the frame a candidate moves
+
+Every guard in the repository can pass a candidate nobody can see. `ship:hull-body` / `carapace` was four new stops on the hull's membrane — a strip about thirty pixels tall on a 380 x 820 phone: the values differed, the drawing was clean, the page's settled banner stayed quiet, and two screenshots of the pair were indistinguishable at a glance. The pass that decides how many seats a candidate needs had already measured the answer and was throwing it away, so it comes out now and the page prints it under the pair — THIS PATCH MOVES 0.071% OF THE FRAME — with a plain warning under the floor.
+
 ## 2026-09-09 · 0460f959 — THE PULSE's chart is drawn ahead of the delay it is judged behind
 
 Delayed lockstep schedules every press a tenth of a second into the future, and THE PULSE is the one round that cannot shrug that off: its clean window is eight ticks and the delay is twelve, so on two devices a player pressing exactly on the line was judged past PERFECT every time. The arrows and the four buttons under them are now drawn `ViewState.leadTicks` ahead of the simulation, so a thumb landing on the picture produces a command landing on the note.
