@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · ae1e03be — A capture is compared as a picture, not as a file
+
+`captureFrames` digested the PNG bytes, and two runs of one build inside a full `bun run check` came back different — then matched twelve times out of twelve when the file was run alone. A PNG is a compressed stream: the encoder picks a filter per scanline and a deflate layout, and nothing promises it picks the same ones on a machine that is being fought over. So `whole` is now a digest of the frame's pixels, which is the question both the test and `bun run frames`'s `identical:` guard meant to ask.
+
+## 2026-09-09 · bee68603 — Frames reads its command line in one place
+
+`run.ts` stood on the 250-line ceiling exactly, so the next flag anybody added would have failed `limits.test.ts` before it did anything. The reading and the validating of the argument vector move into `flags.ts` as one `parseFrameSpec(argv, waves)`, along the seam that file was already cut along: everything there turns strings into a `FrameSpec` and none of it opens a browser. What is left in `run.ts` is the usage block, the wave list — which belongs to the commit being photographed rather than to a flag — and the capture.
+
 ## 2026-09-09 · 9b78af27 — Five answers to what is inside a slick
 
 The slick is on more waves than anything else in the game and the whole of its interior was two dots, in the rim colour, at a fixed place — the least detailed thing on the frame the pair reads most. There was nowhere a second answer could sit, so this cuts the seam and then opens the question.
