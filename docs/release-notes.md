@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 6d67dcfa — One queue item out of the list
+
+## 2026-09-09 · 9d99febc — Three files off the 250-line ceiling, each on a seam it already had
+
+`canvas2d.ts` and `silhouettes.ts` stood at 250 to the line and `effects.ts` at 248, so any change to one cost a round of reflowing a comment elsewhere in it before `limits.test.ts` went green — four times in one lane, and the last of them cut a note explaining why a creature changed shape down by a single line.
+
 ## 2026-09-09 · 716e7cb9 — Two queue items out, and the landing friction that drained them in
 
 ## 2026-09-09 · 5ede7ffb — The bosses and the worn bodies are named groups, not a run
