@@ -2,9 +2,12 @@ import type { Variant } from "../variant.js";
 import { CRAWLER_PEARL } from "./crawler-skin/pearl/index.js";
 // region: candidates
 import { CHOIR_ORBS } from "./creature-choir/orbs/index.js";
+import { GYRE_YOLK } from "./creature-gyre/yolk/index.js";
 import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
 import { SKIN_VEIL } from "./creature-skin/veil/index.js";
 import { THROB_GLOBE } from "./creature-throb/globe/index.js";
+import { WISP_RING } from "./creature-wisp/ring/index.js";
+import { HULL_RIDGE } from "./ship-hull/ridge/index.js";
 import { SHIP_BARREL } from "./ship-light/barrel/index.js";
 // endregion
 
@@ -104,6 +107,25 @@ import { SHIP_BARREL } from "./ship-light/barrel/index.js";
  * `crawler-look.ts`, `throb-look.ts` and `choir-look.ts` are three new records
  * of `magnet-look.ts`'s kind, and the shipped paint went through them with not
  * one pixel moved.
+ *
+ * ## Two more bodies and a ship, the same day
+ *
+ * `creature:wisp` / `ring` and `creature:gyre` / `yolk` carry the same argument
+ * onto the two creatures that were **already exempt from falling**, which is
+ * what makes them the best subjects on the roster for it: a wisp stands and
+ * jumps rather than coming down a column, and a settled gyre stays, so both are
+ * on screen for as long as anybody wants to look — and a surface that turns is
+ * the one thing a two-second replay cannot show. `poses-surface.ts` holds both,
+ * and they are the first poses on this page that need no cadence at all.
+ *
+ * `ship:hull-shape` / `ridge` is not about a surface and is here because the
+ * owner asked for an alternative to the ship. It is the plainest kind of
+ * candidate there is — three numbers on a record `packages/content` already
+ * exports, no seam, no paint — and the largest change on the page: the hull's
+ * radius function goes from two deep lobes to fourteen shallow ones, so the
+ * membrane the whole field is read against ripples instead of swelling. It sits
+ * on `HULL · BOTH LOBES UP` beside `ship:light`, which is the same object asked
+ * a different question — where the light falls on it, against what shape it is.
  */
 export const VARIANTS: Variant[] = [
   METEOR_FORGE,
@@ -112,4 +134,7 @@ export const VARIANTS: Variant[] = [
   CRAWLER_PEARL,
   THROB_GLOBE,
   CHOIR_ORBS,
+  WISP_RING,
+  GYRE_YOLK,
+  HULL_RIDGE,
 ];

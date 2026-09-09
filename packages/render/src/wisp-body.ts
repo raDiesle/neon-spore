@@ -5,8 +5,8 @@ import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { WispJump } from "./wisp.js";
+import { WISP_LOOK } from "./wisp-look.js";
 import { drawBands, drawShards, wispBands } from "./wisp-static.js";
-import { drawTentacles } from "./wisp-tentacles.js";
 
 /**
  * THE WISP's body: a bell with streamers under it, which is to say a jellyfish.
@@ -103,7 +103,10 @@ export function drawWispBody(
   const bands = wispBands(c.id, time, noise);
   const lw = Math.max(1, r * 0.1) / scale;
 
-  drawTentacles(ctx, shape.rx, shape.ry, t, j, dive, air, heading, noise, haze);
+  // Through a record rather than by naming the paint, so a second answer to
+  // *what hangs off a bell* can be drawn beside this one at the size it ships
+  // at (`wisp-look.ts`, `docs/versus.md`).
+  WISP_LOOK.fringe({ ctx, rx: shape.rx, ry: shape.ry, t, j, dive, air, heading, noise, haze });
 
   // The bell: the silhouette's own contour, lifted so its hem clears the
   // streamers' roots rather than sitting in the middle of them, and drawn

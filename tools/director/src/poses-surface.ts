@@ -117,7 +117,65 @@ const THROB_POSE: Pose = {
   },
 };
 
-export const SURFACE_POSES: Pose[] = [CHOIR_POSE, THROB_POSE];
+/**
+ * A wisp standing on the field with nothing else on it.
+ *
+ * **It is the one body in this game that does not fall**, so it is also the one
+ * pose here that needs no replay at all: it stands, it jumps to another tile
+ * every `wispDwellBeats`, and it is still there when the pair has finished
+ * looking. That is exactly the state a fringe wants to be judged in — the jump
+ * is what the streamers read, and a surface needs every second it can get.
+ *
+ * **Only player two is shown one**, which is the creature rather than an
+ * omission (`showsWisp`). The pair draws both seats' screens one above the
+ * other, so the row that matters is the lower one; player one's is a correct
+ * picture of an empty field and is part of what this body *is*.
+ */
+const WISP_POSE: Pose = {
+  name: "WISP · STANDING",
+  note: "One wisp on an otherwise empty field. It never comes down a column: it stands, and every few beats it is somewhere else entirely — so the wave stays open until it is shot, and only player two is ever shown one.",
+  lookAt:
+    "what hangs under the bell — whether the streamers read as a fringe round it or as a comb across the front of it",
+  crop: "field",
+  build: () => {
+    const entry: SpawnEntry = { beat: 0, col: COL, kind: "wisp", color: "cyan" };
+    const w = fresh([entry]);
+    // Four beats, so it has made at least one jump and the streamers have been
+    // through a gather, a flight and a splash before anybody is looking.
+    run(w, TPB * 4);
+    return w;
+  },
+};
+
+/**
+ * One wheel, turning, with its six bodies on it.
+ *
+ * A gyre walks a diamond and sinks as it goes, and then it stays: at twenty
+ * beats it is still on the field with all six mounts up, which is what makes it
+ * the second pose here that can be held rather than replayed. The middle of it
+ * turns at the wheel's *true* rate while the rim ratchets, so the organelle a
+ * candidate argues about is the one part of this picture that never stops
+ * moving — and a candidate that claims a surface is turning needs to be watched
+ * turning for longer than two seconds.
+ */
+const GYRE_POSE: Pose = {
+  name: "GYRE · TURNING",
+  note: "A wheel of six bodies on a turning rim, with the organelle in the middle. The rim ratchets because bodies stand on tiles; the middle is free to turn at the wheel's true rate, which is why it is the readout a pair checks when they cannot tell whether the maw's pull landed.",
+  lookAt:
+    "the surface in the middle of the wheel — whether the swim reads as fluid inside something or as a pattern going round",
+  crop: "field",
+  build: () => {
+    const entry: SpawnEntry = { beat: 0, col: COL, kind: "gyre", color: null };
+    const w = fresh([entry]);
+    // Long enough that the wheel has sunk to where it settles and all six
+    // mounts are on the field — a wheel half off the top is a wheel with three
+    // bodies on it.
+    run(w, TPB * 12);
+    return w;
+  },
+};
+
+export const SURFACE_POSES: Pose[] = [CHOIR_POSE, THROB_POSE, WISP_POSE, GYRE_POSE];
 
 export const SURFACE_GROUP: PoseGroup = {
   title: "SURFACES",

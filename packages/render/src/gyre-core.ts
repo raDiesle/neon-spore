@@ -1,5 +1,6 @@
 import { blobPath } from "@neon-spore/content";
 import { halo, strokeGlow } from "./glow.js";
+import type { GyreCoreDraw } from "./gyre-look.js";
 import { STROKE } from "./palette.js";
 
 /**
@@ -51,22 +52,30 @@ const IRIS = 0.44;
 const NUCLEUS = 0.19;
 
 /**
+ * The organelle's own contour, about the origin and **not** turned — the caller
+ * turns it, because the turn is what the surface is doing and a path carries no
+ * transform.
+ *
+ * Exported so a candidate organelle can argue about what is *inside* the
+ * membrane without carrying a second copy of the four numbers that make the
+ * membrane: a lobe count re-typed in a tool is a second question smuggled into
+ * the first, and the sweep in `packages/sim/test/purity.test.ts` says so.
+ */
+export function gyreSkinPath(r: number, time: number): Path2D {
+  return new Path2D(blobPath(0, 0, r, r, LOBES, LOBE_DEPTH, SKIN_WOBBLE, time, 17, SKIN_POINTS));
+}
+
+/**
  * The core of one wheel. `tint` and `rim` are the wheel's two neon colours,
  * already hazed for the row it is standing on, and `pull` is 0..1 — the same
  * number the rim and the wind brighten with, so the three ends of one pull
  * cannot light on different frames.
+ *
+ * It takes a record rather than nine positional arguments because it is the
+ * field on `GYRE_LOOK` a candidate organelle is patched onto (`gyre-look.ts`).
  */
-export function drawGyreCore(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  r: number,
-  tint: string,
-  rim: string,
-  flow: number,
-  time: number,
-  pull: number,
-): void {
+export function drawGyreCore(d: GyreCoreDraw): void {
+  const { ctx, x, y, r, tint, rim, flow, time, pull } = d;
   ctx.save();
   ctx.globalCompositeOperation = "lighter";
 
@@ -83,9 +92,7 @@ export function drawGyreCore(
   ctx.translate(x, y);
   ctx.rotate(flow);
 
-  const skin = new Path2D(
-    blobPath(0, 0, r, r, LOBES, LOBE_DEPTH, SKIN_WOBBLE, time, 17, SKIN_POINTS),
-  );
+  const skin = gyreSkinPath(r, time);
 
   // The fluid, **filled into the skin** rather than into a circle behind it. A
   // gradient disc under a contour is a lamp with a lid on; the same gradient

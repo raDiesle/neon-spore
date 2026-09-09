@@ -596,6 +596,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/wisp-body.ts` | you are drawing the wisp's bell — its contour, its spectrum fill, its core, and how the jump squashes it |
 | `packages/render/src/wisp-ground.ts` | you are drawing what a jumping wisp leaves on the field — its pool of light, its dotted arc, the tile it will land on |
 | `packages/render/src/wisp-land.ts` | you are drawing the gather before a wisp leaves a tile or the shock that goes out when it lands on one |
+| `packages/render/src/wisp-look.ts` | THE ONE RECORD A CANDIDATE WISP FRINGE PATCHES |
 | `packages/render/src/wisp-tentacles.ts` | you are drawing the wisp's streamers — how they gather, trail and splash across a jump |
 | `packages/render/src/wisp-static.ts` | you are changing how a wisp comes through in bands — the interference that says one screen does not have it |
 | `packages/render/src/wisp-search.ts` | you are changing the box that blinks across the grid on the pilot's screen while a wisp is out — the seat that cannot see one |
@@ -611,6 +612,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/handle-draw.ts` | you are changing how a handle reads — the ring, the gauge, the rest mark, the sag and the word, shared by all three |
 | `packages/render/src/gyre-core.ts` | you are drawing the surface in the middle of a gyre wheel — the organelle, its fluid and its nucleus |
 | `packages/render/src/gyre-place.ts` | you are asking where a gyre's hub, rim or mounts are drawn between beats — the arc, the ease and the jam |
+| `packages/render/src/gyre-look.ts` | THE ONE RECORD A CANDIDATE GYRE CORE PATCHES |
 | `packages/render/src/touch-field.ts` | you are adding something a hit test needs to know about the wave or the world — the shape `touch.ts` reads |
 | `packages/render/src/pinball-aim.ts` | you are changing what PINBALL's aim shows — the real flight path out of the bucket, and the strength bar beside the table |
 | `packages/render/src/pinball-piece.ts` | you are drawing what stands on PINBALL's table — a peg as a living cell, a block as a slab of the same tissue |

@@ -1,5 +1,5 @@
 import { PALETTE } from "./palette.js";
-import type { WispJump } from "./wisp.js";
+import type { WispFringe } from "./wisp-look.js";
 
 /**
  * THE WISP's streamers — the half of the jellyfish that hangs.
@@ -40,19 +40,14 @@ const TENTACLES = 5;
  * two-frequency reading `wisp-static.ts` gives a band, so the whole picture is
  * one signal being received rather than a solid fringe under an unreliable
  * dome.
+ *
+ * It takes a record rather than ten positional arguments because it is the
+ * field on `WISP_LOOK` a candidate fringe is patched onto, and a second
+ * spelling of ten arguments is a second thing to keep in step
+ * (`wisp-look.ts`).
  */
-export function drawTentacles(
-  ctx: CanvasRenderingContext2D,
-  rx: number,
-  ry: number,
-  t: number,
-  j: WispJump,
-  dive: number,
-  air: number,
-  heading: number,
-  noise: number,
-  haze: (hex: string) => string,
-): void {
+export function drawTentacles(f: WispFringe): void {
+  const { ctx, rx, ry, t, j, dive, air, heading, noise, haze } = f;
   // Short when gathered, short when splashed, longest at the two ends of the
   // arc — a streamer is longest exactly when the body is moving hardest.
   const len = ry * (1.5 - j.crouch * 0.85 - j.land * 0.88 + dive * 0.6);
@@ -81,7 +76,8 @@ export function drawTentacles(
     // This strand's share of the signal. Never quite zero: a streamer that
     // vanished outright would take the fringe's *count* with it, and five is
     // part of what makes the body one word.
-    const hold = 0.25 + 0.75 * Math.max(0, Math.min(1, 0.62 + wave(t, i) * 0.5 - noise * 0.5));
+    const hold =
+      0.25 + 0.75 * Math.max(0, Math.min(1, 0.62 + strandWave(t, i) * 0.5 - noise * 0.5));
     ctx.strokeStyle = haze(middle ? PALETTE.wispRim : PALETTE.wisp);
     ctx.lineWidth = middle ? ry * 0.09 : ry * 0.06;
     ctx.globalAlpha = (middle ? 0.9 : 0.7) * hold;
@@ -103,8 +99,13 @@ export function drawTentacles(
 /** One strand's own two-frequency wobble, in −1 to 1. The same shape of answer
  * `wispBands` uses and deliberately not the same numbers: a fringe that faded
  * in step with the band above it would read as one shutter over the whole
- * body, which is a screen effect rather than a body. */
-function wave(t: number, i: number): number {
+ * body, which is a screen effect rather than a body.
+ *
+ * Exported because a candidate fringe wants the identical reading — a second
+ * copy of these four frequencies would be two fringes flickering differently
+ * on two phones being compared, which is the one thing a pair must not have
+ * (`purity.test.ts`'s COPIES sweep, and `docs/versus.md`). */
+export function strandWave(t: number, i: number): number {
   const k = i * 1.73 + 0.6;
   return Math.sin(t * 2.3 + k) * 0.55 + Math.sin(t * 4.1 + k * 1.9) * 0.45;
 }

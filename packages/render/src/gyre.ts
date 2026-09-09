@@ -8,7 +8,7 @@ import {
 } from "@neon-spore/sim";
 import { hazed, nearness } from "./depth.js";
 import { strokeGlow } from "./glow.js";
-import { drawGyreCore } from "./gyre-core.js";
+import { GYRE_LOOK } from "./gyre-look.js";
 import { gyreCenter, gyreCorners, gyreFlow } from "./gyre-place.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -222,9 +222,9 @@ function drawWheel(
 
   ctx.restore();
 
-  // The surface in the middle. Last of the armature and over the spokes, which
-  // is what makes the six read as growing out of it rather than crossing it.
-  drawGyreCore(ctx, x, y, reach * CORE, tint, rim, flow, time, pull);
+  // The surface in the middle, over the spokes so the six read as growing out
+  // of it — through a record, so a second organelle can be offered beside it.
+  GYRE_LOOK.core({ ctx, x, y, r: reach * CORE, tint, rim, flow, time, pull });
 
   // A mark pointing at the first slot. It turns with the rim because it is aimed
   // at the rim's own first corner rather than at an angle of its own — six

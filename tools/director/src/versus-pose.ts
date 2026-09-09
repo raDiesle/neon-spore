@@ -93,6 +93,18 @@ const SLOT_POSE: Record<string, string> = {
   // nothing else moving on the frame.
   "creature:throb": "THROB · TURNING",
   "creature:choir": "CHOIR · TWO VOICES",
+  // Three more on 9 September, and the two creatures among them are the first
+  // poses here that need **no replay at all**: a wisp does not fall and a
+  // settled gyre does not leave, so both simply stay, which is the longest look
+  // at a turning surface this page can offer.
+  "creature:wisp": "WISP · STANDING",
+  "creature:gyre": "GYRE · TURNING",
+  // And the ship, on the pose `ship:light` already takes. Two slots on one
+  // pose is right rather than a shortcut: they are the two halves of one
+  // object — where the light falls on the hull, and what the hull is made of —
+  // and the only honest frame for either is the ship with a body falling past
+  // it, which is the one thing brighter than the membrane being judged.
+  "ship:hull-shape": "HULL · BOTH LOBES UP",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */
