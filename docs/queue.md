@@ -422,3 +422,40 @@ output can be pasted straight into the table. The saving is not the flag: it is
 that the printed shape and the source shape are the same shape, which is what
 made the fleet file's own remeasurement in this lane a thirty-second job and the
 other three an hour.
+
+## THE WISP and BULB QUEEN carry a measured cost from the adopted looks
+
+- **Found:** 2026-09-09, claude/game-visual-assets-21ed8c
+- **Files:** `packages/render/src/wisp-tentacles.ts`,
+  `packages/render/src/torch-ball.ts`, `packages/render/src/torch-fire.ts`,
+  `tools/perf/baseline.json`
+
+Ten looks came out of VERSUS on 9 September 2026 and two waves report dearer
+against the 2026-09-09 baseline afterwards. `bun run perf` puts BULB QUEEN
+between +25% and +56% of the share it had depending on how busy the machine is,
+and THE WISP at about +21%. Neither is a defect: the worst frame in the game is
+between 5.7 and 7.1 ms against a 16.7 ms budget, and both costs are things the
+owner chose to look at.
+
+The queen's is six fireballs at once — a torch stands in each of her sockets —
+and it has already been through one pass: the shells are contours held per
+radius and per thirty-second of a turn, a tongue is a baked sprite under a
+`globalAlpha`, and that took the wave from +71% to where it is. What is left is
+eighteen tongue blits and eleven halo blits per rock, and the obvious next move
+is to bake the *whole ball* — halo, shells and plumes — as one sprite per radius
+and per phase, so a burning rock is one `drawImage` and the tongues alone stay
+live. Weigh that against the memory: a ball sprite is about 4.3 radii square,
+which is a quarter of a megabyte at a two-tile torch, so the phase count is the
+whole design and 16 may be enough where 32 is not affordable.
+
+THE WISP's is eight bezier strands where there were five, each stroked once
+(`wisp-tentacles.ts`). There is a cheaper shape available: the shipped fringe
+draws every strand into one `Path2D` and strokes it twice, and this one strokes
+per strand because each carries its own width and alpha. Grouping them into two
+or three buckets by weight would get most of it back.
+
+Prove it with `bun run perf --wave "BULB QUEEN" --wave "THE WISP"`, and read the
+five reference waves the narrow run carries before believing either number.
+Take a fresh full-sweep baseline with `--save` **only** once neither is flagged
+— a baseline saved on a busy machine is worse than a stale one, which this lane
+did once and reverted.
