@@ -368,6 +368,7 @@ every round's row moves.
 ## Nothing photographs a VERSUS pair, so a candidate is written unseen
 
 - **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7
+- **Taken:** 2026-09-09, claude/queue-nothing-photographs-a-versus-pair-so-a-candidate
 - **Files:** `tools/frames/run.ts`, `tools/frames/serve.ts`, `package.json`,
   `tools/versus/README.md`
 
