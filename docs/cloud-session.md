@@ -67,6 +67,12 @@ the game, and waiting for one costs a turn. So a lane that adds a shape or an
 animation in a cloud session lands it unmeasured and names `bun run perf` in
 its unverified list, for the machine that can take the number properly.
 
+A lane that adds a **wave** has one more step, because `baseline.test.ts` wants
+a row per wave and would otherwise send it to the run it has just been told to
+skip. `bun run perf --unmeasured` writes that row without opening a browser and
+without measuring anything; commit it, and say in the report that the wave went
+in unweighed. `docs/performance.md` has the whole of it.
+
 **It cannot verify everything, and has to say which parts — in the report.**
 The sandbox has no wrangler, no `bun run delegate`, and no network access it
 did not arrange. It does have a headless Chromium, so a page can be opened,

@@ -20,6 +20,7 @@ bun run perf                      # every wave — what a baseline is taken from
 bun run perf --throttle 6         # at low-end-mobile speed instead of mid-tier
 bun run perf --save               # write a full sweep back as the new baseline
 bun run perf --wave 46 --save     # merge that one wave into the baseline
+bun run perf --unmeasured         # give every unweighed wave a row, and measure nothing
 ```
 
 **Not in a cloud session.** A narrow run that takes about 25 seconds on the
@@ -30,6 +31,39 @@ and names `bun run perf` in its unverified list. The number that matters is the
 one taken on a machine somebody is holding, and a number taken on a runner slow
 enough to be killed by its own timeout is not that number
 (`docs/cloud-session.md`).
+
+## A wave nobody has weighed still gets a row
+
+`tools/perf/test/baseline.test.ts` requires one row per wave the game ships,
+and that rule is what stops the baseline comparing today against a game that no
+longer exists. It collides with the paragraph above: a session that **adds** a
+wave adds a row the test requires, and running perf to fill it is the one thing
+a cloud session is told not to do.
+
+The owner settled it on 9 September 2026 — **the test tolerates a row marked
+unmeasured**, and the rule above is unchanged. So:
+
+```
+bun run perf --unmeasured
+```
+
+opens no browser and measures nothing. It gives every wave the baseline has no
+row for a row saying exactly that, in play order and on today's numbers
+(`renumber`, so an inserted wave does not leave the file one out). The session
+commits it, `bun run check` passes, and the report names `bun run perf` in what
+it could not verify.
+
+Nothing then lets that row be forgotten. It counts towards no median — a zero
+in the median would move the verdict on every wave that *was* weighed — and
+every run prints `UNMEASURED` beside it with the command that fills it in,
+until somebody takes the figure on a machine they are holding. The next full
+`bun run perf --save` fills it and the marker goes.
+
+Why a flag and not figures of `null`: a nullable number runs through six
+arithmetic sites here and becomes `NaN` when one of them misses it, which has
+already cost this tool a run that called all thirty-eight waves `same` and
+reported that nothing had changed. `tools/perf/unmeasured.ts` carries the whole
+argument.
 
 **Measure the waves the new thing appears in, not the whole game.** That is the
 owner's instruction and it is also the cheaper truth: a change to one creature

@@ -33,6 +33,13 @@ export function printRun(waves: WaveCost[], carried: ReadonlySet<number>): void 
   console.log("");
   console.log(`  #  wave                  bodies     ms   p90   of a 60Hz frame`);
   for (const w of waves) {
+    // A row nobody has weighed prints its name and says so, rather than a bar
+    // of nothing and 0% of a frame — which is the one reading that would be
+    // read as "free" (`unmeasured.ts`).
+    if (w.unmeasured === true) {
+      console.log(`? ${String(w.wave).padStart(2)}  ${w.name.padEnd(20).slice(0, 20)}  UNMEASURED`);
+      continue;
+    }
     // A wave over budget is marked before a wave that is merely carried: the
     // budget is what the column is for, and a reference wave in trouble is
     // still a wave in trouble.
@@ -111,6 +118,10 @@ export function printComparison(before: Run, after: Run, carried: ReadonlySet<nu
   // A wave whose own sample was all over the place gets its milliseconds and
   // says so, rather than a `same` nothing could ever have moved past.
   const noisy = deltas.filter((d) => d.verdict === "noisy");
+  // Said out loud rather than left off the list: a wave with no figure on
+  // either side is a hole in the baseline, and the whole reason a hole is
+  // allowed is that somebody is meant to fill it (`unmeasured.ts`).
+  const blank = deltas.filter((d) => d.verdict === "unmeasured");
 
   // **A reference wave with a verdict is a broken run, not a finding.** Nothing
   // the lane did can have reached one — that is the whole reason they are
@@ -138,6 +149,12 @@ export function printComparison(before: Run, after: Run, carried: ReadonlySet<nu
     console.log(
       `  NOISY   ${String(d.wave).padStart(2)} ${d.name.padEnd(20)} its own sample was too ` +
         `unsteady to compare — ${d.before.toFixed(2)} -> ${d.after.toFixed(2)} ms, read them yourself`,
+    );
+  }
+  for (const d of blank) {
+    console.log(
+      `  UNMEASURED ${String(d.wave).padStart(2)} ${d.name.padEnd(20)} no figure on either side — ` +
+        `take one on a machine somebody is holding: bun run perf --wave "${d.name}" --save`,
     );
   }
   if (worse.length === 0 && fresh.length === 0) console.log("  nothing got dearer.");

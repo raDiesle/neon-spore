@@ -76,6 +76,28 @@ export const POSE_CLOCK_START = 0;
  * it, and the phone readout says what it is measuring against. */
 export const FRAME_MS = 16.7;
 
+/**
+ * How much of a 60 Hz frame a figure spends, as a percentage. Here rather than
+ * in `compare.ts` because the frame is here: both callers of that file read a
+ * cost as a share of one, and the phone's own readout has to say the same
+ * thing about the same number.
+ */
+export function budgetPct(ms: number): number {
+  return (ms / FRAME_MS) * 100;
+}
+
+/**
+ * The one-word reading of a wave's cost. `tight` starts at three quarters of
+ * the frame because a phone that is warm is already slower than the one that
+ * was measured, and a wave with a quarter of a frame spare has nowhere to go.
+ */
+export function verdictFor(ms: number): "fine" | "tight" | "over" {
+  const pct = budgetPct(ms);
+  if (pct >= 100) return "over";
+  if (pct >= 75) return "tight";
+  return "fine";
+}
+
 /** How far a wave is searched for its busiest moment, and in what steps. Six
  * hundred ticks is five seconds of play at 120 Hz, and 2 400 covers the
  * longest wave's arrivals without running past the end of a short one. */

@@ -1,6 +1,5 @@
 import { JITTER_UNUSABLE, NOISE_PCT, noiseFloorFor } from "./noise.js";
 import { keyOf, shapeOf } from "./shape.js";
-import { FRAME_MS } from "./sweep-timing.js";
 
 /**
  * What a performance run *is*, and what two of them say when held side by side.
@@ -17,9 +16,11 @@ import { FRAME_MS } from "./sweep-timing.js";
  * come through here rather than moving. */
 export { keyOf, medianMs, mergeInto, shapeOf } from "./shape.js";
 
-/** One 60 Hz frame. Every verdict in this file is a fraction of it, and the
- * phone readout measures against the same number (`sweep-timing.ts`). */
-export { FRAME_MS };
+/** One 60 Hz frame and the two readings taken as a fraction of it. The subject
+ * is `sweep-timing.ts`'s, which owns the frame and is what the phone's own
+ * readout measures against; every caller asks this file, so they come through
+ * here rather than moving. */
+export { budgetPct, FRAME_MS, verdictFor } from "./sweep-timing.js";
 
 /**
  * How much slower than the measuring machine the run pretends to be. 4 is what
@@ -96,6 +97,13 @@ export interface WaveCost {
    * and how far the arithmetic moved it.
    */
   mergedFrom?: { measuredAt: string; commit: string; scale: number };
+  /**
+   * On a row for a wave **nobody has measured**: it satisfies the
+   * one-row-per-wave rule and claims nothing else (`unmeasured.ts`). No median
+   * counts it and no comparison takes a verdict on it, so the figures above are
+   * placeholders nothing reads — this flag is asked first everywhere.
+   */
+  unmeasured?: true;
 }
 
 export interface Run {
@@ -127,7 +135,7 @@ export interface WaveDelta {
   changePct: number;
   /** What this wave had to clear to earn a verdict — `noiseFloorFor`. */
   floorPct: number;
-  verdict: "worse" | "better" | "same" | "new" | "noisy";
+  verdict: "worse" | "better" | "same" | "new" | "noisy" | "unmeasured";
 }
 
 /**
@@ -156,6 +164,21 @@ export interface WaveDelta {
  * — reporting `same` about a wave nothing could ever move past is the quiet
  * version of the same lie.
  */
+/** A row with no comparison in it: the figures as they stand and a verdict
+ * saying why none was taken. Two branches of `compareRuns` end here. */
+function noVerdict(w: WaveCost, before: number, verdict: WaveDelta["verdict"]): WaveDelta {
+  const at = w.unmeasured === true ? 0 : w.typical;
+  return {
+    wave: w.wave,
+    name: w.name,
+    before,
+    after: at,
+    changePct: 0,
+    floorPct: NOISE_PCT,
+    verdict,
+  };
+}
+
 export function compareRuns(before: Run, after: Run): WaveDelta[] {
   const was = new Map(before.waves.map((w) => [keyOf(w), w]));
   // **Like for like.** A narrow run's median is taken over the waves it
@@ -172,6 +195,12 @@ export function compareRuns(before: Run, after: Run): WaveDelta[] {
   const out: WaveDelta[] = [];
   for (const now of after.waves) {
     const then = was.get(keyOf(now));
+    // Not a regression and not a new wave: an absence. `new` would read as
+    // "here is this wave's first figure", and there is none (`unmeasured.ts`).
+    if (now.unmeasured === true || then?.unmeasured === true) {
+      out.push(noVerdict(now, 0, "unmeasured"));
+      continue;
+    }
     const thenShare = wasShape.get(keyOf(now));
     const nowShare = nowShape.get(keyOf(now));
     // `Number.isFinite` and not just a presence check: a baseline written
@@ -187,15 +216,7 @@ export function compareRuns(before: Run, after: Run): WaveDelta[] {
       Number.isFinite(nowShare) &&
       thenShare !== 0;
     if (!usable) {
-      out.push({
-        wave: now.wave,
-        name: now.name,
-        before: then?.typical ?? 0,
-        after: now.typical,
-        changePct: 0,
-        floorPct: NOISE_PCT,
-        verdict: "new",
-      });
+      out.push(noVerdict(now, then?.typical ?? 0, "new"));
       continue;
     }
     const changePct = ((nowShare - thenShare) / thenShare) * 100;
@@ -225,21 +246,4 @@ export function compareRuns(before: Run, after: Run): WaveDelta[] {
     });
   }
   return out.sort((a, b) => b.changePct - a.changePct);
-}
-
-/** How much of a 60 Hz frame a figure spends, as a percentage. */
-export function budgetPct(ms: number): number {
-  return (ms / FRAME_MS) * 100;
-}
-
-/**
- * The one-word reading of a wave's cost. `tight` starts at three quarters of
- * the frame because a phone that is warm is already slower than the one that
- * was measured, and a wave with a quarter of a frame spare has nowhere to go.
- */
-export function verdictFor(ms: number): "fine" | "tight" | "over" {
-  const pct = budgetPct(ms);
-  if (pct >= 100) return "over";
-  if (pct >= 75) return "tight";
-  return "fine";
 }

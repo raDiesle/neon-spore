@@ -2,9 +2,18 @@ import { describe, expect, it } from "bun:test";
 import { WAVES } from "@neon-spore/content";
 import { arrivalsOf } from "../arrivals.js";
 import baseline from "../baseline.json" with { type: "json" };
-import { FRAME_MS, medianMs, type Run, verdictFor, type WaveCost } from "../compare.js";
+import {
+  compareRuns,
+  FRAME_MS,
+  medianMs,
+  type Run,
+  verdictFor,
+  type WaveCost,
+} from "../compare.js";
 import { waveId, waveName } from "../measure.js";
 import { renumber } from "../renumber.js";
+import { isUnmeasured, shapeOf } from "../shape.js";
+import { fillUnmeasured, unmeasuredRow } from "../unmeasured.js";
 
 /**
  * `tools/perf/baseline.json` read as data rather than taken on trust.
@@ -67,7 +76,10 @@ describe("the checked-in baseline", () => {
    */
   it("measured the arrivals each wave sends today, wave by wave", () => {
     const stale = saved.waves
-      .filter((cost, index) => cost.arrivals !== arrivalsOf(index))
+      // A row nobody measured has nothing to be stale about — the field says
+      // what the wave sent *when this row was measured*, and no measurement
+      // was taken (`unmeasured.ts`).
+      .filter((cost, index) => !isUnmeasured(cost) && cost.arrivals !== arrivalsOf(index))
       .map((cost) => `${cost.wave} ${cost.name}`);
     // A baseline written before the field existed has no row that can answer,
     // and forty-seven re-measure lines is not advice. That one is a sweep.
@@ -88,9 +100,65 @@ describe("the checked-in baseline", () => {
   });
 
   it("is a game that fits in a frame — no wave over budget when it was taken", () => {
-    const over = saved.waves.filter((w: WaveCost) => verdictFor(w.p90) !== "fine");
+    const over = saved.waves.filter(
+      (w: WaveCost) => !isUnmeasured(w) && verdictFor(w.p90) !== "fine",
+    );
     expect(over.map((w: WaveCost) => `${w.name} ${w.p90}ms`)).toEqual([]);
     expect(medianMs(saved)).toBeLessThan(FRAME_MS / 2);
+  });
+});
+
+/**
+ * The row a session that cannot run perf writes, and the promise it makes: it
+ * satisfies the one-row-per-wave rule and it changes no figure taken about any
+ * other wave. The second half is the one worth a test — every verdict is a
+ * wave's share of its run's median, so a zero counted into that median would
+ * move the reading on every weighed wave in the file.
+ *
+ * **Nothing here fails on the shipped baseline carrying one**, and that is the
+ * point rather than an omission: a lane that adds a wave and cannot weigh it
+ * has to be able to land, or the rule sends it back to a run that never
+ * finishes where it is (`unmeasured.ts`). What says the row is still owed is
+ * the printed table, which prints UNMEASURED beside it on every run until
+ * somebody takes the figure.
+ */
+describe("a row nobody has measured", () => {
+  const saved = baseline as Run;
+
+  it("satisfies the one-row-per-wave rule the check is really about", () => {
+    const short = { ...saved, waves: saved.waves.slice(0, -1) };
+    const { run, added } = fillUnmeasured(short);
+    expect(added).toHaveLength(1);
+    expect(run.waves).toHaveLength(WAVES.length);
+    for (const [index, cost] of run.waves.entries()) {
+      expect(cost.wave, `wave ${index + 1} is in play order`).toBe(index + 1);
+      expect(cost.id, `wave ${index + 1}'s id`).toBe(waveId(index));
+    }
+  });
+
+  it("adds nothing to a baseline that already covers the game", () => {
+    const { run, added } = fillUnmeasured(saved);
+    expect(added).toEqual([]);
+    expect(run.waves).toHaveLength(saved.waves.length);
+  });
+
+  it("does not move the median, and so moves nobody else's verdict", () => {
+    const withOne = { ...saved, waves: [...saved.waves, unmeasuredRow(0)] };
+    expect(medianMs(withOne)).toBe(medianMs(saved));
+    expect(shapeOf(withOne)).toEqual(shapeOf(saved));
+  });
+
+  it("is compared as UNMEASURED rather than as a wave that got faster", () => {
+    const one = saved.waves[0] as WaveCost;
+    const blanked = { ...saved, waves: [unmeasuredRow(0), ...saved.waves.slice(1)] };
+    const deltas = compareRuns(blanked, saved);
+    const mine = deltas.find((d) => d.name === one.name);
+    expect(mine?.verdict).toBe("unmeasured");
+    // And every other wave still reads the same as it does against itself.
+    const others = compareRuns(saved, saved).filter((d) => d.name !== one.name);
+    for (const d of others) {
+      expect(deltas.find((x) => x.name === d.name)?.verdict, d.name).toBe(d.verdict);
+    }
   });
 });
 

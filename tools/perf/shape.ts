@@ -32,9 +32,25 @@ export function keyOf(w: WaveCost): string {
   return w.id ?? `#${w.wave}`;
 }
 
+/**
+ * Whether this row carries a measurement at all.
+ *
+ * A wave the game ships but nobody has weighed gets a row so that
+ * `baseline.test.ts`'s one-row-per-wave rule is satisfied, and that row's
+ * figures are zeroes standing in for numbers nobody took (`unmeasured.ts`).
+ * Every statistic in this file asks this before reading one: a zero counted
+ * into a median drags it toward the cheap end, and every wave's share is taken
+ * against that median, so one unweighed row would move the verdict on all
+ * forty-seven of the weighed ones.
+ */
+export function isUnmeasured(w: WaveCost): boolean {
+  return w.unmeasured === true;
+}
+
 function median(run: Run, of: (w: WaveCost) => number): number {
-  if (run.waves.length === 0) return 0;
-  const sorted = run.waves.map(of).sort((a, b) => a - b);
+  const rows = run.waves.filter((w) => !isUnmeasured(w));
+  if (rows.length === 0) return 0;
+  const sorted = rows.map(of).sort((a, b) => a - b);
   return sorted[Math.floor(sorted.length / 2)] as number;
 }
 
@@ -56,7 +72,9 @@ export function shapeOf(run: Run): Map<string, number> {
   const mid = median(run, (w) => w.typical);
   const out = new Map<string, number>();
   if (mid === 0) return out;
-  for (const w of run.waves) out.set(keyOf(w), w.typical / mid);
+  // An unweighed row gets no share rather than a share of nothing: `compareRuns`
+  // reads a missing one as a wave it cannot compare, which is what this is.
+  for (const w of run.waves) if (!isUnmeasured(w)) out.set(keyOf(w), w.typical / mid);
   return out;
 }
 
@@ -81,7 +99,9 @@ export function machineScale(
   run: Run,
   replacing: ReadonlySet<string>,
 ): number | null {
-  const was = new Map(baseline.waves.map((w) => [keyOf(w), w.typical]));
+  const was = new Map(
+    baseline.waves.filter((w) => !isUnmeasured(w)).map((w) => [keyOf(w), w.typical]),
+  );
   const ratios: number[] = [];
   for (const now of run.waves) {
     if (replacing.has(keyOf(now)) || !(now.typical > 0)) continue;
