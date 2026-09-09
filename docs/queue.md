@@ -302,6 +302,7 @@ every round's row moves.
 ## A VERSUS candidate can be too small to see, and nothing says so
 
 - **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7
+- **Taken:** 2026-09-09, claude/queue-a-versus-candidate-can-be-too-small-to-see-and-n
 - **Files:** `tools/director/src/versus-seat.ts`, `tools/director/src/versus-diff.ts`,
   `tools/director/src/versus-one.ts`, `tools/versus/test/distinct.test.ts`
 
