@@ -38,14 +38,14 @@ import { patch, type Variant } from "../../../variant.js";
  * have already cleared, that is this look, and no amount of fading fixes it —
  * the debris *is* the claim.
  *
- * **And one thing that is wrong on purpose, at this stage.** The `destroy`
- * event carries a colour and no kind, so the contour is asked of
- * `kindForColor`: a red kill breaks as a slick and a cyan one as a bulb. For
- * every ordinary kill that is exactly right. For a magnet, a throb or a recoil
- * — which all emit the same plain `destroy` — the pieces are cut from the wrong
- * silhouette. `docs/queue.md` carries the fix as its own item, and it is a
- * change to `packages/sim`; the pose this is judged on is a slick, so nobody is
- * being shown the defect and told it is the look.
+ * **The pieces are cut from the right body, and that took a change to the
+ * simulation.** `destroy` used to carry a colour and no kind, so the contour
+ * was asked of `kindForColor` — right for an ordinary kill, wrong for a magnet
+ * or a ghost or a lid, which all emit the same plain event and would have come
+ * apart as a slick. The event carries `kind` now, filled from what the body was
+ * *drawn* as, and a kind with no contour of its own leaves no pieces rather
+ * than borrowing somebody else's (`effects-break.ts`). The pose this is judged
+ * on is a slick either way, so nothing about the vote has moved.
  */
 export const BREAK_SHATTER: Variant = {
   slot: "creature:break",

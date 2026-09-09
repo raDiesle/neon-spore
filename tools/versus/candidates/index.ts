@@ -6,6 +6,7 @@ import { SKIN_VEIL } from "./creature-skin/veil/index.js";
 import { JOIN_BOTH } from "./panel-join/both/index.js";
 import { JOIN_ORGANS } from "./panel-join/organs/index.js";
 import { JOIN_ROOF } from "./panel-join/roof/index.js";
+import { SHELL_SLAB } from "./shell-plate/slab/index.js";
 import { CRATER_SPALL } from "./ship-crater/spall/index.js";
 // endregion
 
@@ -169,6 +170,29 @@ import { CRATER_SPALL } from "./ship-crater/spall/index.js";
  * had already half-answered before either candidate was written, by saying that
  * if it does, it falls and lands rather than hanging in the lane.
  *
+
+ * ## One about armour, on 9 September 2026
+ *
+ * `shell:plate` / `slab` is `warden:plates` / `bevel`'s question asked again on
+ * a smaller body. The boss's ring of armour was one arc stroked in grey at one
+ * brightness the whole way round until the owner took BEVEL into the game; THE
+ * SHELL's plating is the same picture on a body a tenth the size, and it is the
+ * one hard surface left in the game with no highlight, no bevel and no
+ * thickness at all — sitting directly over a body that has both.
+ *
+ * What is different, and what makes it worth asking twice rather than copying
+ * the answer across, is that a shell's plate is *shaped to a contour* instead
+ * of swept round a rim. So the light cannot come from where a plate is on a
+ * ring; it comes from which half of a body the plate is on, which means an
+ * intact shell is two different greys rather than one shape with a seam down
+ * it. That is the change the vote is really about.
+ *
+ * It needed a seam first, `packages/render/src/shell-look.ts`, and it is the
+ * first on this page with two fields that must move **together**: the grey edge
+ * a chipped half keeps is the same material as the plate beside it, and a look
+ * that moved one and not the other would put a body on the field wearing two
+ * answers.
+ *
  * `bun run breaks` is the bench both were tuned on: every tuning of the engine
  * on one sheet, seven moments across, which is the one thing a running preview
  * cannot show for an effect that is over in a second.
@@ -181,4 +205,5 @@ export const VARIANTS: Variant[] = [
   JOIN_BOTH,
   BREAK_SHATTER,
   CRATER_SPALL,
+  SHELL_SLAB,
 ];

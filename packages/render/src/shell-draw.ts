@@ -8,9 +8,11 @@ import {
 } from "@neon-spore/sim";
 import { hazed } from "./depth.js";
 import type { Layout } from "./layout.js";
-import { applyLivingFrame, livingFrame } from "./living-frame.js";
+import { applyLivingFrame, livingFrame, livingPose } from "./living-frame.js";
 import { PALETTE } from "./palette.js";
-import { crackSeed, drawBareRim, drawPlate, PLATE, PLATE_RIM } from "./shell-plate.js";
+import { crackSeed } from "./shell-cut.js";
+import { SHELL_LOOK } from "./shell-look.js";
+import { PLATE, PLATE_RIM } from "./shell-plate.js";
 
 /**
  * THE SHELL's plating: the picture the sim's own bitmask (`Creature.shell`)
@@ -100,6 +102,10 @@ function drawOne(
     rim: hazed(cfg, PLATE_RIM, near),
     light,
     lineWidth: Math.max(1, r * 0.09) / scale,
+    // The lean the own-motion is carrying this frame. Nothing the shipped
+    // plate draws reads it; a look that puts a light on the armour has to turn
+    // `KEY` back by it, or the highlight sways with the body (`PlateInk`).
+    rot: livingPose(c, beats).rot,
   };
 
   ctx.save();
@@ -112,8 +118,8 @@ function drawOne(
     // than as a body with a plate stuck to it. The pass never reaches here on
     // a bare body, which is what makes the rim leave with the last plate.
     if (shellHasPiece(c, c.col + piece))
-      drawPlate(ctx, shape, piece, crackSeed(c.id, piece), t, ink);
-    else drawBareRim(ctx, shape, piece, t, ink);
+      SHELL_LOOK.plate(ctx, shape, piece, crackSeed(c.id, piece), t, ink);
+    else SHELL_LOOK.bareRim(ctx, shape, piece, t, ink);
   }
 
   ctx.restore();

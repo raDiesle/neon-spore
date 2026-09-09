@@ -553,7 +553,9 @@ place — the generator keeps whatever is there.
 | `packages/render/src/scars.ts` | A breach stays, and it stays *in the skin* |
 | `packages/render/src/sheen.ts` | The light inside the membrane, and the film on top of it |
 | `packages/render/src/shell-draw.ts` | THE SHELL's plating: the picture the sim's own bitmask (`Creature.shell`) has no shape for |
-| `packages/render/src/shell-plate.ts` | One plate of THE SHELL's armour, as geometry |
+| `packages/render/src/shell-plate.ts` | WHAT A PLATE IS MADE OF — the paint over the geometry next door |
+| `packages/render/src/shell-cut.ts` | WHERE A PLATE SITS ON A BODY — THE SHELL's armour as geometry and nothing else |
+| `packages/render/src/shell-look.ts` | the one record a candidate SHELL patches |
 | `packages/render/src/shield-flash.ts` | The shield's ambient flashes: a soft bright patch popping briefly above the rim, at a random spot and a |
 | `packages/render/src/shield-spark.ts` | The shield's ambient arcs: a few thin discharges thrown outward from the rim, gone almost as soon as they |
 | `packages/render/src/shield.ts` | The shield, as a body rather than a plate |

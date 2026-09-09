@@ -2,6 +2,7 @@ import {
   type CreatureSilhouette,
   livingMotion,
   livingSilhouette,
+  type Pose,
   poseClock,
 } from "@neon-spore/content";
 import { type Creature, type SimConfig, wornKind } from "@neon-spore/sim";
@@ -68,6 +69,21 @@ export function livingFrame(l: Layout, c: Creature, beatPhase: number, time: num
 }
 
 /**
+ * The own-motion pose this body is wearing this frame — the same call
+ * `applyLivingFrame` makes, exported because a pass drawing *on* the body
+ * sometimes has to undo part of it.
+ *
+ * The one case so far is a light. `pose.rot` turns the body's local axes away
+ * from the screen's, so a mark meant to stay where the key light is has to be
+ * turned back by it, the way `creature-skin/veil`'s paint does — and a second
+ * copy of `livingMotion(wornKind(c)).poseAt(poseClock(c.id, beats))` beside the
+ * one below is exactly the drift this file exists to stop.
+ */
+export function livingPose(c: Creature, beats: number): Pose {
+  return livingMotion(wornKind(c)).poseAt(poseClock(c.id, beats));
+}
+
+/**
  * Put the context in the body's own local units: the depth envelope about the
  * body's centre, then the own-motion translate, rotate and squash. Exactly
  * what `drawLiving` applies to the same creature on the same frame, which is
@@ -86,7 +102,7 @@ export function applyLivingFrame(
   beatPhase: number,
 ): void {
   const k = depthScale(cfg, l, drawnRow(c, beatPhase));
-  const pose = livingMotion(wornKind(c)).poseAt(poseClock(c.id, beats));
+  const pose = livingPose(c, beats);
   ctx.translate(f.x, f.y);
   ctx.scale(k, k);
   ctx.translate(-f.x, -f.y);

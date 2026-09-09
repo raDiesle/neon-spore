@@ -87,6 +87,13 @@ const SLOT_POSE: Record<string, string> = {
   // pose is the one cut that carries both and nothing else is moving on it
   // (`poses-versus.ts`).
   "panel:ship-join": "SHIP · MEETING THE PANEL",
+  // Armour on a body rather than on a boss, and the pose is the *half-open*
+  // state on purpose: an intact shell is two plates that tile exactly, so a
+  // look about the material would be judged on a shape whose material is only
+  // visible at its rim, and a bare body has no armour left to judge. One plate
+  // on and one off is the state this creature spends its life in and the one
+  // where both halves of the answer stand side by side (`shell-look.ts`).
+  "shell:plate": "SHELL · ONE HALF OPEN",
   // Two about **damage**, on 9 September 2026, and the first slots on this page
   // whose subject is what happens *to* something rather than what it is made
   // of. A break is event-shaped in the sharpest way this map has met — the body

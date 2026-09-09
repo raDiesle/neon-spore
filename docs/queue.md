@@ -177,36 +177,6 @@ Watch the temper: `ghostRage` already drives how far a band shifts, so a turn
 must not become a second reading of the same number. The candidate's own file
 has to say which of the two the pair is being asked about.
 
-## THE SHELL's plating is a flat lid over a round body
-
-- **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7
-- **Files:** `packages/render/src/shell-plate.ts`, `packages/render/src/shell-draw.ts`,
-  `tools/versus/candidates/`
-
-`drawPlate` cuts the body's own contour in half, fills it in `PLATE` grey and
-lights three splits with the colour underneath. It is a good picture of the
-*rule* — armour over a body, opening where it cracks — and it is the one hard
-surface in the game with no highlight, no bevel and no thickness at all, sitting
-directly over a body that has both. Beside `warden:plates` / `bevel`, which this
-lane wrote, the shell is the obvious second subject: same question, smaller
-body, and a plate that is *shaped* to a contour rather than swept round a rim.
-
-The seam is a `shell-look.ts` holding `plate` and `bareRim` — both, because the
-grey edge a bared half keeps is the same material and a vote that moved one and
-not the other would be a body wearing two answers. Note before starting that
-`shell-plate.ts` is 224 lines and the ceiling is ~250, so the candidate's paint
-does not go in it and the record does not either.
-
-The candidate to write: the plate as a slab with an inner wall, its face shaded
-by its own normal against `KEY` — a plate over the left half faces up and left
-and takes nearly all of the light, the right half almost none — and a specular
-that stays put while the body sways underneath, which is the cue that says the
-armour is a hard thing and the body is not. `key-light.ts`'s `litRound` is the
-shipped light for a round body and it is cached; do not write a second one.
-`BODIES · FOUR KINDS AT ONCE` is the wrong pose (no shell on it) — a shell pose
-belongs in `poses-casing.ts` beside the three that are there, and it wants a
-body with one half chipped, because that state is half the picture.
-
 ## The eye THE LID and THE WARDEN share is a disc
 
 - **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7
@@ -368,3 +338,35 @@ a place a candidate look can live after all — a `clasp-look.ts` seam over the
 shell and the lattice patches what a phone actually draws — so that slot is
 worth opening once this is settled, because a candidate written today and a
 raster branch switched on tomorrow would be two answers to one question.
+
+## A CRLF markdown file makes `bun run index` blame a missing heading
+
+- **Found:** 2026-09-09, claude/queue-the-shells-plating-is-a-flat-lid-over-a-round-bo
+- **Files:** `tools/index/index.ts`, `tools/index/test/index.test.ts`
+
+`CODE_HEADING` is `"## Code
+"` and `splitDoc` looks for it with `indexOf`, so a
+`docs/INDEX.md` whose lines end `
+` throws *docs/INDEX.md has no '## Code'
+heading to anchor the generated table on* — which is false, and sends a reader
+looking for a heading that is right there. It cost a turn on 9 September 2026.
+
+The repository already settles line endings: `.gitattributes` says
+`* text=auto eol=lf`, and it says in its own comment that a contributor's git
+config disagreeing with it is what re-injected CRLF once before. What is new is
+that **markdown is not formatted by biome**, so nothing in `bun run check`
+notices a CRLF `.md` in the working tree until a tool that string-matches on
+`
+` breaks on it — and any session editing a document with a script that
+writes the platform newline puts one there.
+
+Two things, and the first is the one that matters. Make `splitDoc` tolerant:
+match the heading with a regex that accepts either ending, or normalise the
+text once on read. Then make the failure honest for whatever it cannot
+tolerate — a check that says *this file has CRLF line endings and
+`.gitattributes` asks for LF* is a message somebody can act on. A test with a
+CRLF fixture holds both.
+
+Worth a look while in there: `tools/land` and `tools/queue` also match on
+newline-terminated markers in `docs/queue.md` and `docs/release-notes.md`, and
+have the same exposure.

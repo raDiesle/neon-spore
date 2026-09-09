@@ -1,5 +1,21 @@
-import { fallTilesPerBeat, type SpawnEntry } from "@neon-spore/sim";
-import { fresh, type Pose, type PoseGroup, run, POSE_TPB as TPB, until } from "./pose-kit.js";
+import {
+  fallTilesPerBeat,
+  SHELL_COLS,
+  type SpawnEntry,
+  shellHasPiece,
+  shellIsBare,
+} from "@neon-spore/sim";
+import {
+  aim,
+  fresh,
+  type Pose,
+  type PoseGroup,
+  run,
+  runUntil,
+  shoot,
+  POSE_TPB as TPB,
+  until,
+} from "./pose-kit.js";
 import { fallSeconds } from "./poses-surface.js";
 
 /**
@@ -21,6 +37,17 @@ import { fallSeconds } from "./poses-surface.js";
  */
 
 const COL = 5;
+
+/** How many of a shell's halves still carry a plate. `shellHasPiece` is the
+ * simulation's own reading and this only counts what it answers, so a pose
+ * cannot come to disagree with the field about how far in a shot has got. */
+function shellPieces(c: { col: number; shell?: number }): number {
+  let n = 0;
+  for (let piece = 0; piece < SHELL_COLS; piece++) {
+    if (shellHasPiece(c as never, c.col + piece)) n++;
+  }
+  return n;
+}
 
 /**
  * One torch coming down a lane, replayed at the speed it actually falls.
@@ -109,7 +136,45 @@ const WARDEN_POSE: Pose = {
   },
 };
 
-export const CASING_POSES: Pose[] = [TORCH_POSE, VEIL_POSE, WARDEN_POSE];
+/**
+ * One shell coming down a lane with one half already chipped off.
+ *
+ * **One half, and that is the whole reason this pose exists.** An intact shell
+ * is two plates that tile exactly, so a candidate about the *material* would be
+ * judged on a shape with no material visible anywhere but its rim; and a bare
+ * body has no armour on it at all. The state in between is the one this
+ * creature spends most of its life in and the only one where the two answers
+ * stand side by side — a plate on one half, the grey edge it leaves on the
+ * other — which is exactly the pair a look has to get right at once
+ * (`shell-look.ts` on why both fields move together).
+ *
+ * It is reached by shooting, not by writing a bitmask: `Creature.shell` is the
+ * simulation's own and a pose that set it by hand would be a picture of a state
+ * the game cannot produce. Either colour chips a piece, so the shot is red and
+ * the wave authors red.
+ */
+const SHELL_POSE: Pose = {
+  name: "SHELL · ONE HALF OPEN",
+  note: "A slick inside plating a size too big for it, with one half already shot off. The half still wearing armour stands outside the body's own contour with the colour coming out of its cracks; the half that is open keeps the plate's grey edge along the body's own outline, so the thing still reads as one armoured body with one side opened.",
+  lookAt:
+    "the plate on the armoured half — whether it reads as a lid or as a thing with a thickness, and whether the two halves look like two objects",
+  crop: "field",
+  cadenceSeconds: fallSeconds(),
+  build: () => {
+    const entry: SpawnEntry = { beat: 0, col: COL, kind: "shell", color: "red" };
+    const w = fresh([entry]);
+    run(w, TPB);
+    runUntil(
+      w,
+      "a shell with one half chipped",
+      [aim(w.tick, COL), shoot(w.tick + TPB, "red")],
+      (x) => x.creatures.some((c) => c.kind === "shell" && !shellIsBare(c) && shellPieces(c) === 1),
+    );
+    return w;
+  },
+};
+
+export const CASING_POSES: Pose[] = [TORCH_POSE, VEIL_POSE, WARDEN_POSE, SHELL_POSE];
 
 export const CASING_GROUP: PoseGroup = {
   title: "CASINGS",
