@@ -140,6 +140,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## A `destroy` event does not say what died
 
 - **Found:** 2026-09-09, claude/procedural-destruction-visuals
+- **Taken:** 2026-09-09, claude/queue-a-destroy-event-does-not-say-what-died
 - **Files:** `packages/sim/src/events.ts`, `packages/render/src/effects-break.ts`,
   `packages/render/src/effects-spark.ts`, `packages/sim/test/replay.test.ts`
 
