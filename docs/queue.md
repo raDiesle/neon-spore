@@ -293,27 +293,6 @@ rule of their own (take `origin`'s copy whole and re-append your own entry).
 That one is not derivable from a generator, so it is a different fix; do not
 fold them together without saying which is which.
 
-## `bun run index` appends a new row instead of filing it beside its siblings
-
-- **Found:** 2026-09-07, claude/crawler-pulse-stepped-comparison-7b9280
-- **Taken:** 2026-09-09, claude/queue-bun-run-index-appends-a-new-row-instead-of-filin
-- **Files:** `tools/index/`, `docs/INDEX.md`
-
-Splitting `packages/render/src/crawler.ts` produced `crawler-ring.ts`, and
-`bun run index` wrote its row at line 712 — the bottom of the render section,
-seventy lines below `crawler.ts` and `crawler-skin.ts`, which are the two files
-a reader looking it up would be reading. The row had to be moved by hand, and
-the completeness test passed either way, so nothing catches it: every future
-session that adds a file pays the same minute, and one that does not notice
-leaves the map a little less useful than it was.
-
-The generator already knows a row's path. It should insert a new row next to
-the longest shared path prefix among the rows already there — for
-`packages/render/src/crawler-ring.ts` that is `crawler.ts` and
-`crawler-skin.ts` — rather than appending to the end of its section, and
-`tools/index/test/` should hold a case that adds a file with an obvious
-neighbour and asserts it lands beside it.
-
 ## `bun run check` blames the code when a worktree's install is stale
 
 - **Found:** 2026-09-07, claude/pulse-boss-visual-integration-0678e7
