@@ -172,6 +172,7 @@ the two counters disagree is what keeps it true.
 ## "A carries both seats" is written twice, in two rigs
 
 - **Found:** 2026-09-07, claude/queued-items-rer0av
+- **Taken:** 2026-09-09, claude/queue-a-carries-both-seats-is-written-twice-in-two-rig
 - **Files:** `apps/game/src/keys-slide.ts`, `tools/director/src/keys.ts`
 
 Both desk keyboards now read the same table for *what a key means* — `deskKey`
