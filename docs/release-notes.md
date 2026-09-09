@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 74d220bf — The torch's veil becomes a question on the VERSUS page
+
+A burning rock's last pass lays the nearest plumes over the stone's own face, after the stone has gone down opaque, so the rock reads as being inside the fire rather than in front of it. `torch-fire.ts` set `globalAlpha` to a fifth before that pass and `plumes` overwrites the alpha per plume rather than multiplying it, so **the veil has been drawn at full strength since the day it was written** and the constant that said 0.2 never reached a pixel.
+
 ## 2026-09-09 · b7d00cf9 — A torch's fire places its marks without the transform stack
 
 BULB QUEEN was the one wave `bun run perf` still flagged, at +26% of the share it had and the worst frame in the game. It is not flagged any more, and nothing about the picture moved.
