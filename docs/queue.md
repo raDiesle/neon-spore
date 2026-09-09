@@ -757,6 +757,7 @@ the types are identical.
 ## `docs/versus.md`'s worked examples quote values the code no longer has
 
 - **Found:** 2026-09-08, claude/creature-assets-reorganize-4c9944
+- **Taken:** 2026-09-09, claude/queue-docs-versus-md-s-worked-examples-quote-values-th
 - **Files:** `docs/versus.md`
 
 The document teaches the mechanism through a worked slot, and every number in
