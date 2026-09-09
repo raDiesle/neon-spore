@@ -1,30 +1,19 @@
-import { buildPods, buildQueue, controlSetForWave } from "@neon-spore/content";
+import { buildPods, buildQueue } from "@neon-spore/content";
 import { Canvas2DRenderer } from "@neon-spore/render";
-import {
-  briefingHolds,
-  createWorld,
-  DEFAULT_CONFIG,
-  guideHolds,
-  mazeRound,
-  PAIR_ON,
-  resetClock,
-  ticksPerBeat,
-} from "@neon-spore/sim";
+import { createWorld, DEFAULT_CONFIG, PAIR_ON, resetClock, ticksPerBeat } from "@neon-spore/sim";
 import { mountBuildStamp } from "../../../tools/build-stamp.js";
 import { bindAudio } from "./audio.js";
-import { bindBriefing } from "./briefing.js";
 import { openDemonstration } from "./demo-menu.js";
+import { bindFieldInput } from "./field-input.js";
 import { startFrames } from "./frame.js";
 import { bindTesting } from "./handle.js";
 import { bindHaptics } from "./haptics.js";
-import { bindControls, InputBuffer } from "./input.js";
+import { InputBuffer } from "./input.js";
 import { interpolationRequested } from "./interpolate.js";
 import { bindIntro } from "./intro.js";
 import { menuIdleHz } from "./menu-idle.js";
 import { bindRasterBurst } from "./raster.js";
-import { bindRounds } from "./rounds.js";
 import { createRunState } from "./run-state.js";
-import { bindShake } from "./shake.js";
 import { bindShell } from "./shell.js";
 import { bindTestControls } from "./testing.js";
 import { bindSplashTrail } from "./trail.js";
@@ -106,65 +95,26 @@ const intro = bindIntro({
 
 // `hand` is the ring round the swelling this phone's finger has hold of and
 // `pointer` is where a desk's mouse rests: written below, read by the frame.
+// Every listener on the canvas, as one knot — the field, a shake, the guide's
+// pages and a round's own buttons (`field-input.ts`).
 const {
   tick: tickKeys,
   hand,
   pointer,
-} = bindControls({
-  canvas,
-  buffer,
-  layout,
-  inStage,
-  isOver: () => world.over,
-  // The seat decides whose hand a finger on the field is. `test` is both
-  // halves on one screen, so it grips as player 1 and G grips as player 2.
-  player: () => (view.role() === "p2" ? 2 : 1),
-  cfg: world.cfg,
-  // THE MAZE's string is answered on the field like any other handle, so the
-  // hit test has to know whether a wheel is up (`render/touch.ts`).
-  maze: () => mazeRound(world),
-  // And THE WARDEN's rope, for the same reason: its handle is a control drawn
-  // on the field, and a hit test that did not know the boss was up would leave
-  // the pilot pressing something that answers nothing.
-  warden: () => (world.boss?.kind === "warden" ? world.boss : null),
-  // Which panel is up follows from the wave (`content/control-sets.ts`).
-  controls: () => controlSetForWave(world.wave),
-  malfunction: () => world.malfunction,
-  creatures: () => world.creatures,
-  // The ship answers a finger where it is drawn, not only on the strips below.
-  cannonCol: () => world.cannonCol,
-  shieldCol: () => world.shieldCol,
-  opening: () => briefingHolds(world),
-  beatPhase,
-  beat: () => world.beat,
-  // Space at the keyboard must not be able to do what a tap on the field
-  // already can't: put the introduction away before its timer does. See the
-  // guard in `keys.ts`.
-  guideHolds: () => guideHolds(world),
-  onPauseToggle: () => run.hold("hand", !run.held("hand")),
-  onWaveStep: (delta) => jumpToWave(world.wave + delta),
-  onGuideReplay: () => renderer.replayGuide(),
-});
-
-// THE CHOIR's own control, and the only input in the game that is not a finger
-// on the glass. It is bound unconditionally and never behind a capability
-// check — there is no reliable way to ask a browser whether a shake can be
-// reported, so the game offers this *and* the two arrows on the field and lets
-// the pilot use whichever their phone answers (`shake.ts`).
-bindShake(buffer);
-
-const brief = bindBriefing({
+  dismissBriefing,
+} = bindFieldInput({
   canvas,
   buffer,
   world,
+  run,
   layout,
   inStage,
   role: () => view.role(),
-  replay: () => renderer.replayGuide(),
+  beatPhase,
+  jumpToWave,
+  replayGuide: () => renderer.replayGuide(),
 });
-// Every round that is not the field brings its own buttons, on its own
-// listener — neither player's band is the answer (`rounds.ts`).
-bindRounds({ canvas, buffer, world, layout, inStage, role: () => view.role() });
+
 const testPanel = bindTestControls({ world, jumpToWave, run });
 
 /**
@@ -241,7 +191,7 @@ bindTesting(
     world,
     buffer,
     jumpToWave,
-    dismissBriefing: brief.dismiss,
+    dismissBriefing,
     progression,
     frames,
     renderer,
