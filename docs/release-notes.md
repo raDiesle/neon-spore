@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 7cd4ab1f — An interlude is offered a look, and it needed no mechanism
+
+Every VERSUS slot ever opened was a creature, the ship, a control or a boss's armour — the field. The interludes are whole screens with their own walls, tables, ribbons and pieces, they are what a pair looks at for a minute at a time with nothing falling, and not one of them had ever had a second answer offered to anything it draws. The entry's first half was to find out whether a pose could even hand the pair a round.
+
 ## 2026-09-09 · daab8db3 — THE GHOST's camouflage comes apart on a body that turns
 
 `slabs` hands back seven horizontal bands with a `shift`, and each is filled as a rectangle straight across the body at `-GHOST.rx + shift * GHOST.rx`. Every mark on this creature is decided by how far down the picture it is, which is the exact failure `docs/style-guide.md`'s Depth section names — and a ghost's whole subject is a surface coming apart.
