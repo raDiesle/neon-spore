@@ -150,6 +150,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## `tools/frames/run.ts` stands on the 250-line ceiling exactly
 
 - **Found:** 2026-09-09, claude/queue-the-clasps-hand-painted-shield-has-never-been-dr
+- **Taken:** 2026-09-09, claude/queue-tools-frames-run-ts-stands-on-the-250-line-ceili
 - **Files:** `tools/frames/run.ts`, `tools/frames/flags.ts`, `tools/frames/spec.ts`
 
 Adding `--raster` — three lines, one of them a comment — took the file to 251
