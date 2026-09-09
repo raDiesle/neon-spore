@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 0460f959 — THE PULSE's chart is drawn ahead of the delay it is judged behind
+
+Delayed lockstep schedules every press a tenth of a second into the future, and THE PULSE is the one round that cannot shrug that off: its clean window is eight ticks and the delay is twelve, so on two devices a player pressing exactly on the line was judged past PERFECT every time. The arrows and the four buttons under them are now drawn `ViewState.leadTicks` ahead of the simulation, so a thumb landing on the picture produces a command landing on the note.
+
 ## 2026-09-09 · 8310b75e — A field-cropped surface pose is not a regression
 
 Two poses landed on the trunk while the tile crop was being made to follow, and neither of them wants one: a wisp's jump between tiles is exactly what its fringe is read by, so a window holding it still would hide the thing being judged, and a gyre is a wheel wider than any tile crop. The follow test claimed every pose in the group was tile-cropped, which was never the promise — it now names the two that were widened and lost their magnification, so a later lane putting either back on `crop: "field"` still fails.
