@@ -1,8 +1,8 @@
 import { choirArmed, choirFusePhase } from "@neon-spore/sim";
-import { choirMembranePath, choirVoiceAt, VOICES } from "./choir-shape.js";
+import { CHOIR_LOOK } from "./choir-look.js";
+import { choirMembranePath } from "./choir-shape.js";
 import type { Body } from "./creature-body.js";
 import { hazed } from "./depth.js";
-import { halo } from "./glow.js";
 import { mixHex } from "./hex.js";
 import { PALETTE } from "./palette.js";
 
@@ -112,32 +112,18 @@ export function drawChoir(b: Body): void {
   const close = choirFusePhase(world, b.c);
   const { lit, tint } = choirGlow(b, close);
 
-  // The light the pair throws, under everything: a body that is there and
-  // cannot be reached still has to be seen coming — and, once the gesture has
-  // started, a body visibly working up to something. The halo grows and takes
-  // the colour with it, which is the reaction the owner asked to be able to
-  // see coming (`choirGlow`).
-  for (let i = 0; i < VOICES; i++) {
-    const v = choirVoiceAt(l, b.x, b.y, i, b.time, close);
-    // A breath on the wall clock while it is charged, so a pair holding inside
-    // the window reads as *waiting to go* rather than as simply brighter.
-    const beat = lit === 0 ? 0 : 0.85 + 0.15 * Math.sin(b.time * 7);
-    halo(ctx, v.x, v.y, v.r * (1.9 + lit * 1.5), haze(tint), (0.18 + lit * 0.5) * (beat || 1));
-  }
-
-  const path = choirMembranePath(l, b.x, b.y, b.time, close);
-  ctx.save();
-  // **A film and not a fill.** The owner's complaint about an earlier draft was
-  // that the body hid what was behind it, and a soap film is what this creature
-  // has been called since the first sketch — so the skin is a wash the grid,
-  // the beat flash and anything falling behind read straight through, and what
-  // is solid is the rim.
-  ctx.globalAlpha = 0.34 + lit * 0.22;
-  ctx.fillStyle = haze(tint);
-  ctx.fill(path);
-  ctx.globalAlpha = 1;
-  ctx.strokeStyle = haze(tint);
-  ctx.lineWidth = Math.max(1.4, l.tile * 0.055);
-  ctx.stroke(path);
-  ctx.restore();
+  // Through a record rather than by painting here, so a second answer to *what
+  // a soap film with two bodies in it is made of* can be drawn beside this one
+  // at the size it ships at (`choir-look.ts`, `docs/versus.md`).
+  CHOIR_LOOK.skin({
+    ctx,
+    l,
+    x: b.x,
+    y: b.y,
+    time: b.time,
+    close,
+    lit,
+    tint: haze(tint),
+    path: choirMembranePath(l, b.x, b.y, b.time, close),
+  });
 }

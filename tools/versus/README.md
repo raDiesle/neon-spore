@@ -110,14 +110,20 @@ slot is about — and the map from slot to pose is
 **A slot with no entry in that map falls through to a red slick falling**,
 which for five of the nine open slots meant a candidate was drawn twice beside
 a body it does not touch: two identical pictures, and a vote offered on a
-difference nobody could see. So a new slot writes its pose in
-`tools/director/src/poses-versus.ts` and names it in the map, in the same
-commit as the candidate. `tools/director/test/versus-pose.test.ts` fails on a
-slot that does not, which is the only thing keeping that from happening again.
+difference nobody could see. So a new slot writes its pose and names it in the
+map, in the same commit as the candidate.
+`tools/director/test/versus-pose.test.ts` fails on a slot that does not, which
+is the only thing keeping that from happening again.
 
-A pose whose whole difference lives in one instant — a shot arriving, a plate
-turning one away, a hand pushing a body — carries `cadenceSeconds` so the pair
-replays it every two seconds. A pose that is on screen the whole time does not.
+**Which file the pose goes in is the same question as which rhythm it wants.**
+`poses-versus.ts` holds the states where something *happens* — a shot arriving,
+a plate turning one away, a hand pushing a body — and every one of them carries
+`cadenceSeconds` so the pair replays it every two seconds. `poses-surface.ts`
+holds the states a *surface* is judged on, and those are held for as long as
+their body is on the field instead: a body that turns needs longer than two
+seconds to finish turning, and the reveal a placed surface exists for is
+exactly what a two-second window cuts off. A pose that is on screen the whole
+time and does not turn needs no rhythm at all and carries none.
 
 ## Deciding one
 

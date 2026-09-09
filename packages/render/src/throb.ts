@@ -1,5 +1,6 @@
 import { drawDetails } from "./creature-detail.js";
 import { strokeGlow } from "./glow.js";
+import type { ThrobHalf } from "./throb-look.js";
 
 /**
  * THE THROB's far half: the side of the body the cannon is *not* looking at,
@@ -28,17 +29,14 @@ import { strokeGlow } from "./glow.js";
  * Lay the other colour over the half of `body` above the seam. The context is
  * the body's own — turned, scaled and centred — so `lw` arrives already
  * divided by that scale, the way every other line inside a contour is.
+ *
+ * It takes a record rather than eight arguments because it is the field on
+ * `THROB_LOOK` a candidate look is patched onto, and that record carries one
+ * thing this paint never reads: how far the context has already been turned
+ * (`throb-look.ts`).
  */
-export function drawThrobHalf(
-  ctx: CanvasRenderingContext2D,
-  body: Path2D,
-  rx: number,
-  ry: number,
-  isBulb: boolean,
-  tint: { rim: string; hex: string; dark: string },
-  seamHue: string,
-  lw: number,
-): void {
+export function drawThrobHalf(h: ThrobHalf): void {
+  const { ctx, body, rx, ry, isBulb, tint, seamHue, lw } = h;
   const half = new Path2D();
   half.rect(-rx * 2, -ry * 2, rx * 4, ry * 2);
   ctx.save();

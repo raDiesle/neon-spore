@@ -21,7 +21,7 @@ import { LIVING_SKIN } from "./living-skin.js";
 import { drawLureVent, lureHolePath, lureVented } from "./lure-hole.js";
 import { PALETTE } from "./palette.js";
 import { splinePath } from "./spline.js";
-import { drawThrobHalf } from "./throb.js";
+import { THROB_LOOK } from "./throb-look.js";
 
 /**
  * One lobed body, filled and lit. Split out of `creatures.ts` when THE ECHO
@@ -220,16 +220,18 @@ export function drawLiving(
     // will accept is the colour the pair can see pointing at them.
     if (look === "throb" && c.color !== null) {
       const far = colorTrio(otherColor(c.color));
-      drawThrobHalf(
+      THROB_LOOK.half({
         ctx,
-        path,
-        shape.rx,
-        shape.ry,
+        body: path,
+        rx: shape.rx,
+        ry: shape.ry,
         isBulb,
-        { rim: haze(far.rim), hex: haze(far.hex), dark: haze(far.dark) },
-        haze(mixHex(tint.rim, far.rim, 0.5)),
-        Math.max(1, r * 0.1) / scale,
-      );
+        tint: { rim: haze(far.rim), hex: haze(far.hex), dark: haze(far.dark) },
+        seamHue: haze(mixHex(tint.rim, far.rim, 0.5)),
+        lw: Math.max(1, r * 0.1) / scale,
+        turn: spin,
+        rot,
+      });
     }
   }
   ctx.restore();

@@ -451,3 +451,63 @@ table that will go stale. The other option is to keep it kind-agnostic and step
 a round to a fixed fraction of its own length, which is one number and wrong for
 none of them. Take a fresh baseline with `bun run perf --save` afterwards, since
 every round's row moves.
+
+## Nothing photographs a VERSUS pair, so a candidate is written unseen
+
+- **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7
+- **Files:** `tools/frames/run.ts`, `tools/frames/serve.ts`, `package.json`,
+  `tools/versus/README.md`
+
+`bun run frames <sha>` photographs the **game** — it checks two trees out,
+builds each, serves them and drives `window.neonSpore`. A VERSUS candidate does
+not appear in the game by construction, so there is no command in this
+repository that produces a picture of the one page a candidate exists to be
+looked at on. A session writing one therefore has no way to see whether its
+paint draws what it thinks, and this lane found two real defects in a candidate
+that had already passed `bun run check` twice: the far half of a throb was
+filled over its own core marks, and its rim glow was clipped away at the
+contour. Both were obvious in the first frame and invisible to every test.
+
+The workaround was thirty lines of throwaway Playwright against
+`versus.html?slot=…&name=…` with the 2× control clicked and the two
+`.versus-crop` boxes measured for a clip rectangle — plus a `bun add -d
+playwright` at the root that had to be reverted, because the browser this
+repository already drives lives in `tools/frames/node_modules` as
+`playwright-core` and nothing outside that directory can reach it.
+
+What to build: `bun run versus:shot <slot> <name> [--wait ms] [--zoom 2]`,
+beside `tools/frames/shot.ts` and reusing its browser and its launcher, which
+starts the director on a free port, opens the pair, waits, and writes one PNG
+of both crops side by side. It is a picture of two phones and it settles what
+no test can: whether the candidate draws at all, and whether the thing it draws
+is the thing its own file claims. `docs/versus.md`'s "does this read at 26 px"
+still belongs to the owner and to two real phones — this is only the step
+before, which is *did the session write what it meant to*.
+
+## A VERSUS pose cropped to a tile drifts off the body it is about
+
+- **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7
+- **Files:** `tools/director/src/pose-art.ts`, `tools/director/src/versus-pair.ts`,
+  `tools/director/src/poses-surface.ts`
+
+`cropRect` is computed once, from the world as the pose hands it over, and the
+pair then steps that world for as long as the pose's `cadenceSeconds` allows.
+For every pose written before this lane that was fine: they all replay every two
+seconds, and a body falls a third of a tile in two seconds. A **surface** slot
+cannot use that rhythm — a body turning needs longer than two seconds to finish
+turning, and the reveal a placed surface exists for is exactly what a
+two-second window cuts off — so `CHOIR · TWO VOICES` and `THROB · TURNING` run
+for a whole fall, and a tile crop centred on where the body started is a window
+the body drops straight out of. Both were written with `crop: "tile"` and
+`at: firstOfKind(…)`, both showed an empty lane for eight of their ten seconds,
+and both had to be widened to `crop: "field"` — which is honest but costs the
+magnification a tile crop is *for*.
+
+What to do: let the crop follow. `versus-pair.ts` already calls `fitCrop` on
+every zoom change, and `Pose.at` is already a function of the world, so
+re-deriving the rectangle per frame when a pose carries `at` is a few lines in
+the paint loop rather than a new mechanism. The one thing to be careful of is
+that both sides must take the identical rectangle from the identical world, or
+the pair stops being an A/B. Prove it with a test that steps a `crop: "tile"`
+pose a whole fall and asserts the body's centre stays inside the rectangle,
+then put `CHOIR · TWO VOICES` and `THROB · TURNING` back on a tile crop.

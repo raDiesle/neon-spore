@@ -1,3 +1,5 @@
+import { CRAWLER } from "@neon-spore/content";
+import type { CrawlerLinkDraw } from "./crawler-look.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /**
@@ -17,17 +19,21 @@ import { PALETTE, STROKE } from "./palette.js";
  */
 /** The wet on one ring: a belly shadow, a specular along the top, and a
  * catchlight that slides with the contraction. Clipped to the ring, so the
- * three never reach past a contour the pair is reading a colour off. */
-export function drawSlime(
-  ctx: CanvasRenderingContext2D,
-  body: Path2D,
-  x: number,
-  y: number,
-  rx: number,
-  ry: number,
-  dir: number,
-  squeeze: number,
-): void {
+ * three never reach past a contour the pair is reading a colour off.
+ *
+ * It takes the whole ring record rather than eight loose numbers because it is
+ * a field on `CRAWLER_LOOK` and a candidate surface is patched onto that
+ * record — a second spelling of the arguments would be a second thing to keep
+ * in step (`crawler-look.ts`). The contraction narrows the ring **here**: it
+ * is a fact about the wet on a squeezing body rather than about the ring's
+ * size, and the face next door wants the unnarrowed radius. */
+export function drawSlime(d: CrawlerLinkDraw): void {
+  const { ctx, body, ry, dir, squeeze } = d;
+  const rx = d.rx * (1 - CRAWLER.pulse * squeeze);
+  // The ring's own centre. The caller has translated to it, so it is the
+  // origin — named rather than written as a nought eight times below.
+  const x = 0;
+  const y = 0;
   ctx.save();
   ctx.clip(body);
   // The belly. A soft dark band under the ring, so it sits on the ship rather
@@ -63,15 +69,10 @@ export function drawSlime(
  * end is alive and pointed at the far wall*, and a slot that says it eats. It
  * sat as a bare hole for a version and read as damage rather than as a face.
  */
-export function drawFace(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  rx: number,
-  ry: number,
-  dir: number,
-  bite: number,
-): void {
+export function drawFace(d: CrawlerLinkDraw): void {
+  const { ctx, rx, ry, dir, squeeze: bite } = d;
+  const x = 0;
+  const y = 0;
   const eye = new Path2D();
   eye.ellipse(x + dir * rx * 0.34, y - ry * 0.3, rx * 0.16, ry * 0.22, 0, 0, Math.PI * 2);
   ctx.fillStyle = PALETTE.background;

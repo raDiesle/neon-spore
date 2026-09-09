@@ -1,7 +1,10 @@
 import type { Variant } from "../variant.js";
+import { CRAWLER_PEARL } from "./crawler-skin/pearl/index.js";
 // region: candidates
+import { CHOIR_ORBS } from "./creature-choir/orbs/index.js";
 import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
 import { SKIN_VEIL } from "./creature-skin/veil/index.js";
+import { THROB_GLOBE } from "./creature-throb/globe/index.js";
 import { SHIP_BARREL } from "./ship-light/barrel/index.js";
 // endregion
 
@@ -74,5 +77,39 @@ import { SHIP_BARREL } from "./ship-light/barrel/index.js";
  * contour is measured against the bodies it could be mistaken for. VERSUS
  * asks *which of these two*, and a look nobody is ready to choose between is
  * better kept where it can be browsed than kept as a question nobody answers.
+ *
+ * ## Three about a surface, on 9 September 2026
+ *
+ * `crawler:skin` / `pearl`, `creature:throb` / `globe` and `creature:choir` /
+ * `orbs` are the first candidates written to the direction the owner named on
+ * 8 September: **the graphics should look three-dimensional while staying 2D,
+ * and a flying body should turn just enough that what was behind it comes into
+ * view.** Each of the three takes a body the game already draws well and argues
+ * that what is missing is not more paint but a *placed* surface — a mark at a
+ * longitude and a latitude, carried round by a turn, under a light that does
+ * not move (`docs/style-guide.md`'s Depth section, `packages/content/src/
+ * surface.ts`).
+ *
+ * They are three rather than one because the rule is cheap on some bodies and
+ * dangerous on others, and the only honest way to find the line is to put it on
+ * three of them at the sizes they ship at. A worm's ring is forty pixels and
+ * has a wave running down it already; a throb is the one body in the game that
+ * *turns by rule*, so the cue costs nothing and the risk is to a readout the
+ * pair fires against; a choir's voice is under a fifth of a tile, which is
+ * where a placed mark stops being a mark. Each candidate's own file says how it
+ * expects to lose, and none of the three answers for the others.
+ *
+ * Each also needed a **seam** first, which is the price `docs/versus.md` names
+ * and the reason the earliest slots were the ones that needed none:
+ * `crawler-look.ts`, `throb-look.ts` and `choir-look.ts` are three new records
+ * of `magnet-look.ts`'s kind, and the shipped paint went through them with not
+ * one pixel moved.
  */
-export const VARIANTS: Variant[] = [METEOR_FORGE, SKIN_VEIL, SHIP_BARREL];
+export const VARIANTS: Variant[] = [
+  METEOR_FORGE,
+  SKIN_VEIL,
+  SHIP_BARREL,
+  CRAWLER_PEARL,
+  THROB_GLOBE,
+  CHOIR_ORBS,
+];

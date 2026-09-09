@@ -74,14 +74,25 @@ const SLOT_POSE: Record<string, string> = {
   // the only pose that puts four of them on one frame.
   "creature:slick": "BODIES · FOUR KINDS AT ONCE",
   "creature:bulb": "BODIES · FOUR KINDS AT ONCE",
-  // A third on the same pose, and for the contour slots' reason rather than
-  // the skin's: a throb wearing a rim of clubs has to stay tellable from the
-  // bulb beside it, and this is the only pose that puts both on one frame.
-  "creature:throb": "BODIES · FOUR KINDS AT ONCE",
   // And back to one creature doing one thing, because a dart's thrust is one:
   // it burns on the beat the body is thrown and on no other, so the slot needs
   // a pose held on that tick and replayed (`poses-bodies.ts`).
   "creature:dart": "DART · THE RUN",
+  // Three added on 9 September 2026, all of them slots about a **surface**
+  // rather than about an event, and the last two needed poses of their own.
+  // A worm was already walking on a page and a candidate for its skin wants
+  // nothing else; but the two states below are held for as long as their body
+  // is on the field rather than replayed every two seconds, because a surface
+  // that turns needs longer than two seconds to finish turning
+  // (`poses-surface.ts`).
+  "crawler:skin": "CRAWLER · WALKING",
+  // A throb alone in a lane rather than beside the other three bodies. The
+  // contour slots take `BODIES` because a shape has to stay tellable from the
+  // shapes it could be mistaken for; this slot is about what the body's *turn*
+  // looks like, which is a thing to watch for five whole revolutions with
+  // nothing else moving on the frame.
+  "creature:throb": "THROB · TURNING",
+  "creature:choir": "CHOIR · TWO VOICES",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

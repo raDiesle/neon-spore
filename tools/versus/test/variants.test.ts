@@ -1,17 +1,6 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { describe, expect, it } from "bun:test";
 import { existsSync } from "node:fs";
-import { beats, type Pose } from "../../../packages/content/src/own-motion.js";
-import { buildQueue } from "../../../packages/content/src/queue.js";
-import { Canvas2DRenderer } from "../../../packages/render/src/canvas2d.js";
-import { installCanvasGlobals, stubCanvas } from "../../../packages/render/test/canvas-stub.js";
-import {
-  createWorld,
-  DEFAULT_CONFIG,
-  step,
-  ticksPerBeat,
-} from "../../../packages/sim/src/index.js";
 import { VARIANTS } from "../candidates/index.js";
-import { seedRandom } from "../seed.js";
 import { apply, patchedFields, restore, slots, type Variant } from "../variant.js";
 
 /**
@@ -20,21 +9,16 @@ import { apply, patchedFields, restore, slots, type Variant } from "../variant.j
  * looking at two phones at 26 px and at tempo — is already spent, and the only
  * thing left to do with the answer is throw it away. So everything a candidate
  * could get wrong that a machine can see is caught here, before a pair sees it.
+ *
+ * **The half that needs a canvas is next door.** `frames.test.ts` draws every
+ * candidate through the stub — twice, on wave 0 and on the pose its own slot is
+ * judged on — and it is a separate file because this one was at CLAUDE.md's
+ * line ceiling and because the two ask different questions: this is about a
+ * patch's *shape*, and needs no renderer at all; that is about what it *draws*,
+ * and needs the whole of one.
  */
 
 const ROOT = Bun.fileURLToPath(new URL("../../../", import.meta.url));
-const CFG = DEFAULT_CONFIG;
-
-/**
- * Spec 5.8: own-motion may not touch the lane. A creature that swayed half a
- * tile would sit over the column line, and the whole readability of the field
- * rests on a player being able to say "column four" and mean it. The number
- * `packages/content/test/own-motion.test.ts` holds the shipped motions to,
- * held here against the ones that have not shipped.
- */
-const LANE_LIMIT = 0.25;
-
-beforeAll(installCanvasGlobals);
 
 /** Every key a record carries right now, and what each one is. */
 function snapshot(target: object): Map<string, unknown> {
@@ -152,92 +136,6 @@ describe("a slot is one question", () => {
         }
       }
     }
-  });
-});
-
-/** One world, a few dozen frames, through the canvas that refuses what a real one refuses. */
-function drawFrames(ticks: number): number {
-  const world = createWorld(CFG, 7, buildQueue(0, CFG.cols));
-  const { canvas, ctx } = stubCanvas();
-  const renderer = new Canvas2DRenderer(canvas);
-  renderer.resize({ width: 760, height: 1640, dpr: 2 });
-
-  const tpb = ticksPerBeat(CFG);
-  for (let tick = 0; tick < ticks; tick++) {
-    step(world, []);
-    if (tick % 4 !== 0) continue;
-    renderer.draw({
-      world,
-      beatPhase: (world.tick % tpb) / tpb,
-      role: "test",
-      time: tick / CFG.tickHz,
-      dt: 4 / CFG.tickHz,
-      events: world.events.slice(),
-      running: true,
-    });
-  }
-  return ctx.calls;
-}
-
-describe("a candidate survives a whole frame", () => {
-  for (const v of VARIANTS) {
-    it(`${v.slot}/${v.name} draws without the canvas objecting`, () => {
-      const applied = apply(v);
-      const unseed = seedRandom(1);
-      try {
-        // An unparseable colour, a NaN coordinate, a negative radius: each is a
-        // crash or an invisible object in the game and nothing in a typecheck.
-        expect(drawFrames(240)).toBeGreaterThan(0);
-      } finally {
-        unseed();
-        restore(applied);
-      }
-    });
-  }
-
-  for (const v of VARIANTS) {
-    for (const p of v.patches) {
-      const replacement = (p.fields as Record<string, unknown>).poseAt;
-      if (typeof replacement !== "function") continue;
-      it(`${v.slot}/${v.name}: ${p.where.symbol}'s poseAt stays inside its column`, () => {
-        const poseAt = replacement as (t: number) => Pose;
-        for (let t = 0; t < 64; t += 0.01) {
-          const pose = poseAt(beats(t));
-          expect(Math.abs(pose.dx)).toBeLessThan(LANE_LIMIT);
-          expect(Math.abs(pose.dy)).toBeLessThan(LANE_LIMIT);
-          expect(pose.sx).toBeGreaterThan(0.5);
-          expect(pose.sy).toBeGreaterThan(0.5);
-          expect(pose.sx).toBeLessThan(2);
-          expect(pose.sy).toBeLessThan(2);
-        }
-      });
-    }
-  }
-});
-
-describe("the seeded stream", () => {
-  it("hands both sides of a frame the same numbers, all of them inside 0..1", () => {
-    const take = (seed: number) => {
-      const unseed = seedRandom(seed);
-      const out = Array.from({ length: 5000 }, () => Math.random());
-      unseed();
-      return out;
-    };
-    const a = take(4);
-    expect(a).toEqual(take(4));
-    expect(a).not.toEqual(take(5));
-    for (const n of a) {
-      expect(n).toBeGreaterThanOrEqual(0);
-      expect(n).toBeLessThan(1);
-    }
-  });
-
-  it("puts the real one back — a fake left installed makes every later frame lie", () => {
-    const real = Math.random;
-    const unseed = seedRandom(1);
-    expect(Math.random).not.toBe(real);
-    unseed();
-    expect(Math.random).toBe(real);
   });
 });
 

@@ -711,6 +711,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/strand-mark.ts` | THE STRAND's two marks: the bead that has to be shot next on the navigator's screen |
 | `packages/render/src/duty.ts` | The one word (or two) a seat owes the other while a split body is on the field |
 | `packages/render/src/throb.ts` | the plating over a throb's armoured half — the green that means a shot does nothing |
+| `packages/render/src/throb-look.ts` | THE ONE RECORD A CANDIDATE THROB LOOK PATCHES |
 | `packages/render/src/crawler-fx.ts` | THE CRAWLER's three transients — the burst ring's splash, the swept lane, the burrow's mound |
 | `packages/render/src/crawler.ts` | THE CRAWLER, drawn — a maggot lying along the ship's surface, its rings overlapping |
 | `packages/render/src/crawler-ring.ts` | **One ring of a maggot, as a shape** — the three sets of proportions the parts of a worm are drawn at |
@@ -719,6 +720,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/strand-thread.ts` | Which beads of THE STRAND are on one thread, and in what order along it |
 | `packages/render/src/crawler-marks.ts` | What each ring of THE CRAWLER is owed — a crosshair on every one, the shield's mark over the dome's |
 | `packages/render/src/crawler-place.ts` | Where a ring of THE CRAWLER actually sits on screen, and how much bigger it draws for being that near |
+| `packages/render/src/crawler-look.ts` | THE ONE RECORD A CANDIDATE CRAWLER SURFACE PATCHES |
 | `packages/render/src/fence-gate.ts` | The way through a fence, on the screen that is shown it |
 | `packages/render/src/fence.ts` | THE FENCE: a live line the width of the field, and the two different pictures of it the two screens carry |
 | `packages/render/src/spline.ts` | A contour, written into a `Path2D` as numbers |
@@ -766,6 +768,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/body-mark.ts` | One living body, at a size, with no world around it |
 | `packages/render/src/pulse-body.ts` | One arrival falling down a lane, and the two ways of drawing one that cannot be read |
 | `packages/render/src/choir-shape.ts` | where THE CHOIR's two bodies stand and the skin traced over them — the shape half, with no light or colour in it |
+| `packages/render/src/choir-skin.ts` | **The light THE CHOIR throws and the film it wears** — the surface half of this creature |
+| `packages/render/src/choir-look.ts` | THE ONE RECORD A CANDIDATE CHOIR SURFACE PATCHES |
 | `packages/render/src/action-face.ts` | Player 1's action buttons, showing the ship doing the thing instead of spelling its name |
 | `packages/render/src/beatbox-marks.ts` | THE BEATBOX's two half-pictures: the **count** over the box on player 1's screen |
 | `packages/render/src/beatbox-tap.ts` | **Player 2's thumb on a soundbox**, and the first press in this game that lands on a *body* and is over the… |
@@ -1072,6 +1076,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/poses-field.ts` | The states of the things a wave puts on the field: the creatures, and the two bosses that exist |
 | `tools/director/src/poses-mechanics.ts` | What those hands add up to on the field: a hand on something falling, a shot in the air |
 | `tools/director/src/poses-ship.ts` | What a player's own hands put the ship into |
+| `tools/director/src/poses-surface.ts` | The states a candidate for a **surface** is judged on |
 | `tools/director/src/poses.ts` | Every state the STATES sheet draws, in reading order |
 | `tools/director/src/query.ts` | What is in a wave: the questions, with no answer that changes anything |
 | `tools/director/src/rail.ts` | The wave list and the fields every wave must carry |

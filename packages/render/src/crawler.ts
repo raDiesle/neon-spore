@@ -8,10 +8,10 @@ import {
   type SimConfig,
   type World,
 } from "@neon-spore/sim";
+import { CRAWLER_LOOK, type CrawlerLinkDraw } from "./crawler-look.js";
 import { drawLinkMarks } from "./crawler-marks.js";
 import { linkCenter, linkScale } from "./crawler-place.js";
 import { type PartKey, ringPart, ringPath, UNIT } from "./crawler-ring.js";
-import { drawFace, drawSlime } from "./crawler-skin.js";
 import { drawnCol, hazed, nearness } from "./depth.js";
 import { strokeGlow } from "./glow.js";
 import type { SurfaceY } from "./hull-frame.js";
@@ -130,7 +130,11 @@ function drawLink(
   const body = ringPath(l.tile, which, dir, step);
   ctx.fillStyle = fill;
   ctx.fill(body);
-  drawSlime(ctx, body, 0, 0, rx * (1 - CRAWLER.pulse * squeeze), ry, dir, squeeze);
+  // Through a record rather than by naming the two paint functions, so a
+  // second answer to *what a worm's surface is made of* can be drawn beside
+  // this one at the size it ships at (`crawler-look.ts`, `docs/versus.md`).
+  const link: CrawlerLinkDraw = { ctx, body, rx, ry, dir, squeeze, beats, order: linkOrder(c) };
+  CRAWLER_LOOK.slime(link);
   // A living ring throws light and a dead one does not, which is the fastest
   // read on the field: the plates the shield owes are the dark places along a
   // lit animal, and the two ends are darker again.
@@ -141,7 +145,7 @@ function drawLink(
   } else {
     strokeGlow(ctx, body, rim, STROKE.outline);
   }
-  if (head) drawFace(ctx, 0, 0, rx, ry, dir, squeeze);
+  if (head) CRAWLER_LOOK.face(link);
   ctx.restore();
 }
 
