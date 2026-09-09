@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · c232dcd2 — The ink keeps its size on a sheet and shrinks on the field
+
+The owner asked for both halves in one sentence: the trail as it is for menu navigation, and much smaller once the game is showing. The reason is what the pointer is doing in each place. On the menu, the room screen and the intro it is the only thing moving and the ink is the answer to it. On the field it crosses a picture two people are reading columns off, and ink at that size is weather over the thing they are talking about.
+
 ## 2026-09-09 · 2d575bc9 — One queue item out of the list
 
 ## 2026-09-09 · 50177ea1 — A new row in the file map lands beside its siblings, not at the bottom
