@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 2632551f — One command photographs a VERSUS candidate
+
+A candidate does not appear in the game by construction, so `bun run frames` cannot reach one and a session writing a candidate had no way to see whether its paint drew what it thought. One lane found a throb whose far half was filled over its own core marks and whose rim glow was clipped at the contour — both obvious in the first frame, both invisible to `bun run check` twice over — and paid for it with thirty lines of throwaway Playwright and a root `bun add -d playwright` that had to be reverted.
+
 ## 2026-09-09 · 22018c94 — A VERSUS candidate is photographed, not hunted
 
 Taking a picture of a live pair was a lottery: a pose with a cadence rebuilds its world on its own clock, so four pictures cost six `--wait` values each and half came back an empty field. `creature:dart` was worse — a thrust burning for one beat of a two-second replay took about thirty-five shots ranked by PNG file size, on the reasoning that the frame with a flame on it compresses worst.
