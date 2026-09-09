@@ -1,4 +1,4 @@
-import { FIELD_TRAIL_SCALE, SplashTrail } from "@neon-spore/render";
+import { clearSurface, FIELD_TRAIL_SCALE, SplashTrail } from "@neon-spore/render";
 
 /**
  * THE MOUSE'S OWN INK, ON THE DIRECTOR'S FIELD.
@@ -100,7 +100,11 @@ export function bindStageTrail(stage: HTMLCanvasElement): StageTrail {
     last = now;
     place(stage.getBoundingClientRect());
     trail.update(dt);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // The whole surface, in device pixels, whatever ratio it was sized at —
+    // the wipe this replaced was scaled by the transform and stopped short
+    // of the right edge and the bottom on a zoomed-out desk, leaving ink
+    // stuck on the field for good (`render/surface-clear.ts`).
+    clearSurface(ctx);
     trail.draw(ctx);
     if (trail.idle) {
       running = false;

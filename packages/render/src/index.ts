@@ -53,6 +53,7 @@ export { FIELD_TRAIL_SCALE, neonHue } from "./splash-blob.js";
 export { SplashTrail } from "./splash-trail.js";
 export { BURST_SHEET, SpriteBursts, type SpriteSheet } from "./sprite-burst.js";
 export { type CanvasBox, pointOnStage } from "./stage-point.js";
+export { clearSurface } from "./surface-clear.js";
 // The torch's own rock, so a tool drafting what *holds* one can draw the real
 // thing rather than a stand-in (`tools/director/src/holders`). Drawing only —
 // it takes a radius and a time and reads no world.

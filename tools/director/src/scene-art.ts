@@ -1,5 +1,13 @@
 import { beatsFromSeconds, REST } from "@neon-spore/content";
-import { type Layout, PALETTE, STROKE, strokeGlow, tileCX, tileCY } from "@neon-spore/render";
+import {
+  clearSurface,
+  type Layout,
+  PALETTE,
+  STROKE,
+  strokeGlow,
+  tileCX,
+  tileCY,
+} from "@neon-spore/render";
 import {
   boundsOver,
   CATALOGUE,
@@ -183,9 +191,12 @@ export function drawOverlay(
   t: number,
   dpr: number,
 ): void {
+  // Before the scale, and in device pixels: a `clearRect` under a ratio
+  // below one covers less than the surface and leaves the last frame
+  // standing down the right edge (`render/surface-clear.ts`).
+  clearSurface(ctx);
   ctx.save();
   ctx.scale(dpr, dpr);
-  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   for (const p of placed) {
     // `t` is seconds, as it is everywhere a contour is sampled; a pose is
     // counted in beats, because the field's is (`content/own-motion.ts`).

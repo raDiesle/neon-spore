@@ -169,6 +169,11 @@ class StubImageData {
 }
 
 export class StubContext {
+  /** The element this context belongs to, as a real one has: a surface that
+   * clears itself reads its own device size off it (`surface-clear.ts`).
+   * `stubCanvas` fills it in; a bare `new StubContext()` gets a zero-sized
+   * stand-in rather than `undefined`. */
+  canvas: HTMLCanvasElement = { width: 0, height: 0 } as HTMLCanvasElement;
   private _fillStyle: unknown = "#000000";
   private _strokeStyle: unknown = "#000000";
   private _lineWidth = 1;
@@ -342,8 +347,12 @@ export class StubContext {
   rotate(...a: number[]): void {
     nums("rotate", a);
   }
+  /** Logged as well as checked, unlike `translate`/`scale`/`rotate`: a
+   * surface that wipes itself has to put the identity on first, and the log
+   * is the only place a test can see that it did (`surface-clear.test.ts`). */
   setTransform(...a: number[]): void {
     nums("setTransform", a);
+    this.mark("setTransform", undefined, a);
   }
 
   arc(x: number, y: number, r: number, from: number, to: number): void {
@@ -364,6 +373,14 @@ export class StubContext {
     nums("ellipse", [x, y, rx, ry, rotation, from, to]);
     if (rx < 0 || ry < 0) fail("ellipse", `radius ${rx < 0 ? rx : ry} is negative`);
     this.calls++;
+  }
+  /** The one call that must not be scaled by the transform on the context —
+   * `render/surface-clear.ts` says why, and `surface-clear.test.ts` reads the
+   * log this leaves to check that it was not. */
+  clearRect(...a: number[]): void {
+    nums("clearRect", a);
+    this.calls++;
+    this.mark("clearRect", undefined, a);
   }
   fillRect(...a: number[]): void {
     nums("fillRect", a);
@@ -441,6 +458,7 @@ export function stubCanvas(primary = true): { canvas: HTMLCanvasElement; ctx: St
     style: {},
     getContext: () => ctx,
   };
+  ctx.canvas = canvas as unknown as HTMLCanvasElement;
   return { canvas: canvas as unknown as HTMLCanvasElement, ctx };
 }
 

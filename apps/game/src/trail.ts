@@ -1,4 +1,4 @@
-import { FIELD_TRAIL_SCALE, SplashTrail } from "@neon-spore/render";
+import { clearSurface, FIELD_TRAIL_SCALE, SplashTrail } from "@neon-spore/render";
 
 /**
  * The mouse's own canvas.
@@ -110,7 +110,11 @@ export function bindSplashTrail(p: SplashTrailParts): SplashTrailBinding {
     const dt = Math.min(0.05, (now - last) / 1000);
     last = now;
     trail.update(dt);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // The whole surface, in device pixels — the transform on this context
+    // scales a `clearRect` like any other rectangle, and a desk zoomed out
+    // below 100% would leave ink standing where the wipe fell short
+    // (`render/surface-clear.ts`).
+    clearSurface(ctx);
     trail.draw(ctx);
     if (trail.idle) {
       running = false;
