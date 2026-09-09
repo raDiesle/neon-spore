@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 2d575bc9 — One queue item out of the list
+
+## 2026-09-09 · 50177ea1 — A new row in the file map lands beside its siblings, not at the bottom
+
+Splitting `crawler.ts` produced `crawler-ring.ts`, and `bun run index` wrote its row seventy lines below `crawler.ts` and `crawler-skin.ts` — the two rows anybody looking it up would have been reading. The completeness test passed either way, so nothing caught it, and every session that added a file paid the same minute moving the row by hand. This one paid it seven times before fixing it.
+
 ## 2026-09-09 · 36fdc9cc — One queue item out of the list
 
 ## 2026-09-09 · 2931e26f — A room test waits for the message it is about to read, not for 60 milliseconds
