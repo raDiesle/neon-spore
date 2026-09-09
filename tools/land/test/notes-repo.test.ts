@@ -3,8 +3,8 @@ import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import type { LandState } from "../land.js";
+import { writeNotes } from "../note-commit.js";
 import { type Landed, PREAMBLE } from "../notes.js";
-import { writeNotes } from "../sweep.js";
 
 /**
  * `writeNotes` against a repository shaped the way a clone is: one checkout,
@@ -22,6 +22,8 @@ import { writeNotes } from "../sweep.js";
  */
 
 let root = "";
+/** The lane's own commit, so an `--unverified` entry can name a real range. */
+let work = "";
 
 async function run(args: string[], cwd = root): Promise<void> {
   const proc = Bun.spawn(["git", ...args], { cwd, stdout: "pipe", stderr: "pipe" });
@@ -62,13 +64,19 @@ beforeAll(async () => {
   // path git already knows.
   await mkdir(join(root, "docs"));
   await writeFile(join(root, "docs", "release-notes.md"), PREAMBLE);
-  await run(["add", "readme.md", "docs/release-notes.md"]);
+  await writeFile(
+    join(root, "docs", "queue.md"),
+    `# Queue
+`,
+  );
+  await run(["add", "readme.md", "docs/release-notes.md", "docs/queue.md"]);
   await run(["commit", "-q", "-m", "first"]);
   // The lane, and the fast-forward `moveTrunk` does in a clone: the trunk is a
   // ref forced onto this HEAD, not a branch some other checkout moved.
   await run(["checkout", "-q", "-b", "lane"]);
   await writeFile(join(root, "readme.md"), "two\n");
   await run(["commit", "-q", "--only", "readme.md", "-m", "the work"]);
+  work = await capture(["rev-parse", "HEAD"]);
   await run(["branch", "--force", "main", "HEAD"]);
 });
 
@@ -91,5 +99,36 @@ describe("a release note in a clone with no worktrees", () => {
     // before it. A push of `main:main` would otherwise send everything except
     // the note it just wrote.
     expect(await capture(["rev-parse", "main"])).toBe(await capture(["rev-parse", "HEAD"]));
+  });
+});
+
+/**
+ * The `--unverified` entry, which is the same commit and a different file.
+ *
+ * Worth a repository rather than a string: what `unverified.test.ts` cannot
+ * reach is the `Files:` line, which is read off the landing itself with
+ * `git diff --name-only` so that an entry can never name a file the commits
+ * did not touch — and the `--only` naming two paths, which is what keeps the
+ * note and the entry one bookkeeping step instead of two.
+ */
+describe("what a landing could not check", () => {
+  test("goes into docs/queue.md, in the commit that carries the note", async () => {
+    const before = await capture(["rev-parse", "HEAD"]);
+    const landed: Landed[] = [{ ...LANDED[0]!, full: work, sha: work.slice(0, 7) }];
+
+    await writeNotes(cloneState(), landed, "main", root, [
+      "--unverified",
+      "THE GRATE's timing at tempo",
+    ]);
+
+    const queue = await Bun.file(join(root, "docs/queue.md")).text();
+    expect(queue).toContain("- THE GRATE's timing at tempo");
+    // Off the diff, not off the session: `readme.md` is what the lane changed.
+    expect(queue).toContain("`readme.md`");
+
+    const touched = await capture(["show", "--name-only", "--format=", "HEAD"]);
+    expect(touched).toContain("docs/release-notes.md");
+    expect(touched).toContain("docs/queue.md");
+    expect(await capture(["rev-parse", "HEAD^"])).toBe(before);
   });
 });

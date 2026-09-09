@@ -14,6 +14,7 @@
  *   bun run land --sweep         the cleanup a --keep landing deferred
  *   bun run land --push          send origin/main too, whatever the sweep did
  *   bun run land --no-push       land, and leave origin/main alone regardless
+ *   bun run land --unverified "<what>"   repeatable; queue what went unchecked
  *
  * The one thing it will not do is merge. If the fast-forward is not available
  * the landing is refused, because the alternative is a fork in a history that
@@ -51,6 +52,7 @@
 import { crlfOnDisk, crlfRefusal } from "./crlf.js";
 import { git, gitOrDie, runner } from "./git.js";
 import { type Landing, plan, pushNow, SWEPT_NOTHING } from "./land.js";
+import { writeNotes } from "./note-commit.js";
 import { type Landed, LOG_FORMAT, parseLanded } from "./notes.js";
 import { queueSnapshots, refusal, resurrectedAfter } from "./queue-guard.js";
 import { trunkRaced } from "./race.js";
@@ -58,7 +60,7 @@ import { deleteRemote, deletionLine } from "./remote-branch.js";
 import { replay } from "./replay.js";
 import { badge, describe } from "./say.js";
 import { readState } from "./state.js";
-import { sweep, writeNotes } from "./sweep.js";
+import { sweep } from "./sweep.js";
 
 const root = Bun.fileURLToPath(new URL("../../", import.meta.url));
 const argv = process.argv.slice(2);
@@ -210,7 +212,7 @@ async function moveTrunk(): Promise<Landed[]> {
 
 const landed = going.sweepOnly ? [] : await moveTrunk();
 
-await writeNotes(state, landed, TRUNK, root);
+await writeNotes(state, landed, TRUNK, root, argv);
 const cleanup = going.sweeps ? await sweep(state, root, TRUNK) : SWEPT_NOTHING;
 if (!going.sweeps) console.log(`  kept     ${branch} and every worktree — --keep swept nothing`);
 

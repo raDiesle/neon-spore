@@ -15,7 +15,8 @@
  * is optional, which is the only reason it will be read.
  *
  * Pure on purpose: the file's shape is the thing worth testing, and it should
- * not need a repository behind it. `run.ts` is the half that talks to git.
+ * not need a repository behind it. `note-commit.ts` is the half that talks to
+ * git.
  */
 
 /** The `git log` format `parseLanded` expects. Kept here so the two cannot drift. */

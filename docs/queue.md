@@ -13,6 +13,16 @@ same tax in minutes and in tokens. The test is one question: **could a fresh ses
 with `bun run check`?** Yes — it goes here, in the same commit as the work that
 found it, without asking first.
 
+**And a landing that could not check itself writes one, without being asked.**
+`bun run land --unverified "<what>"` puts an `## Unverified at <sha>:` entry
+here at the moment the trunk moves, and a cloud session uses it every time it
+lands something it could not look at — a wave never watched at tempo, a shape
+never seen to move, a frame cost the sandbox is too slow to take. It is an
+ordinary entry: claimed, opened on a machine that can look, and removed with
+`queue done`. `docs/cloud-session.md` has why the alternative — leaving it in a
+report that ends with the session — was the half of that arrangement that never
+worked.
+
 **And a topic that asks the owner something belongs here too**, on an
 `- **Asks:** <question>` line. That is a change the owner made on 6 September
 2026, and it reverses the paragraph this file used to carry. What it fixes is

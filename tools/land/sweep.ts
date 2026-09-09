@@ -1,19 +1,19 @@
 /**
- * Everything that happens after the fast-forward and does not touch a ref:
- * the release note, and the sweep of everything a landing leaves spent —
- * the lane's branch and its worktree once it has sat idle. The spent delegate
- * specs under `.claude/tmp` go too, from `specs.ts`.
+ * The sweep of everything a landing leaves spent — the lane's branch and its
+ * worktree once it has sat idle. The spent delegate specs under `.claude/tmp`
+ * go too, from `specs.ts`.
  *
  * Split out of `run.ts` because that file's job is deciding and moving refs;
- * this file's job is cleanup, and it was most of `run.ts`'s length.
+ * this file's job is cleanup, and it was most of `run.ts`'s length. The other
+ * thing that happens after the fast-forward — writing `docs/release-notes.md`
+ * and, when a session named one, the `--unverified` entry in `docs/queue.md` —
+ * is `note-commit.ts`, which left here for the same reason.
  */
 
-import { join } from "node:path";
 import { liveClaims, partitionMerged } from "./claims.js";
 import { git, gitOrDie } from "./git.js";
 import { idleDays, KEEP_DAYS } from "./idle.js";
 import { type Cleanup, type LandState, SWEPT_NOTHING } from "./land.js";
-import { type Landed, prepend } from "./notes.js";
 import { orphanWorktrees, removeOrphan } from "./orphans.js";
 import { sweepSpecs } from "./specs.js";
 import { removeWorktree } from "./worktree.js";
@@ -30,58 +30,6 @@ async function worktreesByBranch(root: string): Promise<Map<string, string>> {
     }
   }
   return held;
-}
-
-/**
- * The release note, written where the fact is known.
- *
- * It is a second commit on the trunk rather than an amendment to the lane's
- * own, and deliberately so: the tree `bun run check` went green on is the tree
- * that just landed, and editing a file into it afterwards would make the green
- * result a result about something else. A docs-only commit is the cheap half of
- * that trade.
- *
- * `git commit --only` names the path rather than `git add` + `git commit`,
- * so this touches exactly the file it wrote and nothing the trunk's own index
- * was already holding — an owner mid-`git add` on the trunk worktree does not
- * get their staged files swept into a commit they never asked for.
- *
- * Nothing is asked of the reader and nothing is asked of the session — the
- * entry is derived from the commit subject and its first paragraph, which the
- * commit already had to carry.
- *
- * **A clone with no worktrees is written the same way.** It used to print
- * `no release note — nothing has main checked out` and move on, which is the
- * shape every session started from a phone runs in (`docs/cloud-session.md`) —
- * so every landing that reached `origin/main` from one was a landing the notes
- * never heard about, and the commit message turned into a note is the only part
- * of a landing anybody sees twice. There is no *second* checkout to write into
- * there, but the session's own is the trunk's content already: `moveTrunk` has
- * just forced the trunk ref onto this HEAD. So the note is written here,
- * committed here, and the trunk is brought up to the commit that carries it.
- */
-export async function writeNotes(
-  state: LandState,
-  landed: Landed[],
-  TRUNK: string,
-  root: string,
-): Promise<void> {
-  if (landed.length === 0) return;
-  const tree = state.trunkTree || root;
-  const path = join(tree, "docs/release-notes.md");
-  const file = Bun.file(path);
-  const existing = (await file.exists()) ? await file.text() : "";
-  await Bun.write(path, prepend(existing, landed));
-  const what = landed.length === 1 ? "one landing" : `${landed.length} landings`;
-  await gitOrDie(
-    ["commit", "--only", "docs/release-notes.md", "-q", "-m", `Release notes for ${what}`],
-    tree,
-  );
-  // Only in a clone: the commit just made is on whatever this checkout is
-  // standing on, and the trunk is a ref beside it rather than the branch that
-  // moved. Where a worktree holds the trunk, that commit *was* the trunk's.
-  if (!state.trunkTree) await gitOrDie(["branch", "--force", TRUNK, "HEAD"], root);
-  console.log(`  noted    docs/release-notes.md — ${what}`);
 }
 
 /**

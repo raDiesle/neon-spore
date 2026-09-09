@@ -105,10 +105,14 @@ A session started from a phone clones `origin` and never sees this checkout.
   is already rebased onto the current `origin/main`, and `bun run check` is
   green on that rebased branch. If either fails, it pushes the branch and says
   so. Mid-task work is not committed and therefore cannot land.
-- **It says which parts it could not verify, in the report, in that word.**
-  `bun test` and the typecheck hold unaided; anything needing a wave watched at
-  tempo, a shape sheet seen by an eye, `bun run perf` or `bun run relay:check`
-  is *unverified* and the report names it as a list of what to open.
+- **It says which parts it could not verify, in the report, in that word —
+  and queues them.** `bun test` and the typecheck hold unaided; anything
+  needing a wave watched at tempo, a shape sheet seen by an eye, `bun run perf`
+  or `bun run relay:check` is *unverified*. The report names it as a list of
+  what to open, and `bun run land --unverified "<what>"` — repeatable — writes
+  the same list into `docs/queue.md`, so a session with a machine that can look
+  picks it up like any other item. A report ends when the session does; the
+  queue does not.
 - **Its servers need a host**: `PREVIEW_HOST=127.0.0.1`, `DIRECTOR_HOST=127.0.0.1`.
   Without it Bun reports `EADDRINUSE`, which is the wrong cause.
 - **Two at once is the ceiling**, on different packages, each naming its branch

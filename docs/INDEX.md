@@ -1009,6 +1009,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/orphans-panel.ts` | the ORPHANS sheet, painted red the moment the count leaves zero |
 | `tools/land/land.ts` | whether a lane can land on a linear trunk, and what that would do |
 | `tools/land/notes.ts` | a landed commit turned into a release note, and where it goes in the file |
+| `tools/land/note-commit.ts` | The two files a landing writes at the moment `main` moves, and the one commit that carries them |
 | `tools/land/worktree.ts` | removing a worktree on Windows, verified rather than trusted, and when |
 | `tools/director/src/notes.ts` | `docs/release-notes.md` parsed into entries, grouped by day |
 | `tools/director/src/notes-page.ts` | the RELEASE NOTES sheet — read-only, no buttons, no count |
@@ -1316,6 +1317,7 @@ place — the generator keeps whatever is there.
 | `tools/retry.ts` | Removing something from disk and then *asking* whether it went — the policy |
 | `tools/running.ts` | Where a server that took an OS-assigned port writes the number down |
 | `tools/land/race.ts` | Whether some other lane landed while this one was in `bun run check` |
+| `tools/land/unverified.ts` | what a landing could not check, turned into a queue entry a later session drains |
 | `tools/director/src/cell-config-gaps.ts` | THE GRATE's row under the map: one chip per column, lit where the wall is open |
 | `tools/perf/compare.ts` | What a performance run *is*, and what two of them say when held side by side |
 | `tools/perf/measure.ts` | One performance run, taken off a real browser driving the real bundle |

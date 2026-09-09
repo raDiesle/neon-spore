@@ -85,8 +85,26 @@ that word rather than offering a green check that covered less than usual. A
 wave whose timing was never watched is not finished, it is written — landed,
 now, but still written.
 
-**Say it once, in the report, and then let it go.** There used to be a second
-half to this: a `Check:` trailer on the commit, an outstanding list derived
+**Say it once, in the report, queue it, and then let it go.** The report is
+the sentence; the queue is what survives the session. A lane that could not
+watch a wave at tempo, could not see a shape move, or could not take a frame
+cost lands with `bun run land --unverified "<what>"` — repeatable, one per
+thing — and the landing writes a single `## Unverified at <sha>:` entry into
+`docs/queue.md` beside the technical findings. A session at a machine that can
+look claims it with `bun run queue next`, opens it, and removes it with
+`bun run queue done`.
+
+That is a reversal of what the rest of this section argues, made by the owner on
+9 September 2026, and it is a narrow one. The objection below is to a list the
+*owner* owes answers to, and it stands: `docs/release-notes.md` is still
+read-only, there is still no verdict to type back in, and no count of anything
+outstanding. What changed is the observation that a cloud session's report has
+two halves treated differently for no reason a reader could see — a technical
+finding got a list that drains, an unverified look got a sentence in a
+transcript — and both are the same thing, which is work nobody has started. An
+`Unverified` entry is cleared by another session, not by an answer.
+
+There used to be a second half to this: a `Check:` trailer on the commit, an outstanding list derived
 from those trailers, a ledger recording who had looked at what, and a sheet in
 the director with a verdict button on every row. It was accurate and it asked
 the owner for something on every visit, which is what finished it — a list you
