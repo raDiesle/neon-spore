@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 2124291a — Pin Bun at 1.4.2, which is the one we use
+
+The previous commit resolved the disagreement between `.bun-version` and the session-start hook downward: it measured that `apps/server` is green on 1.4.0 and that a frozen install on it leaves the lockfile alone, and lowered the hook to match the file. The owner settled it the other way on 9 September 2026 — **1.4.2** — so the file is raised to meet the hook.
+
 ## 2026-09-09 · c191f51d — The Bun this repo pins is said once, in .bun-version
 
 Two numbers disagreed. `.bun-version` said `1.4.0` and `tools/hooks/session-start.ts` held `WANTED = "1.4.2"` as a literal, documented as the lowest Bun the lockfile and the workerd tests were known to want. Both could not be right: either CI was installing a Bun below what the workerd suite needs, or the floor was set above anything that needs it.
