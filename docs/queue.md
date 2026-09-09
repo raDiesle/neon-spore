@@ -313,6 +313,7 @@ it. That is the owner's call and this entry is where it is waiting.
 ## Photographing a VERSUS candidate is a guessing game
 
 - **Found:** 2026-09-08, claude/visual-system-style-guide-rdti4j
+- **Taken:** 2026-09-09, claude/queue-photographing-a-versus-candidate-is-a-guessing-g
 - **Files:** `tools/director/src/versus-app.ts`, `tools/director/src/versus-one.ts`, `tools/frames/shot.ts`
 
 `CLAUDE.md` says to send the owner a picture of a look, and `bun run shot`
