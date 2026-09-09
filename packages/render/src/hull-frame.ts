@@ -108,10 +108,35 @@ export interface HullMood {
   layFlare?: EggFlare;
 }
 
-export function frame(l: Layout, time: number, mood: HullMood, at: LobePositions): HullFrame {
+/**
+ * THE HULL'S OWN CLOCK — the `t` its radius function wobbles on.
+ *
+ * A function rather than a literal at the one call site because a second thing
+ * now wants to ripple in step with the ship: the panel's roof, if the join
+ * candidate that makes it the hull's underside is adopted (`band-join.ts`). Two
+ * copies of `1.4` would be two ripples that agree today and drift the first
+ * time either is tuned, which is what `purity.test.ts`'s COPIES sweep is for.
+ */
+export function hullClock(time: number): number {
+  return time * 1.4;
+}
+
+/**
+ * The ellipse the hull is measured against, for one layout: where its centre
+ * is and how far it reaches.
+ *
+ * Exported for the same reason as `hullClock` — anything that wants to line a
+ * shape up with the ship's own crests has to ask the ship where they are, and
+ * `hullAngleAtX` needs exactly these two numbers.
+ */
+export function hullSpan(l: Layout): { cx: number; rx: number } {
   const rx = l.gridWidth;
+  return { cx: l.gridLeft + rx / 2, rx };
+}
+
+export function frame(l: Layout, time: number, mood: HullMood, at: LobePositions): HullFrame {
+  const { cx, rx } = hullSpan(l);
   const ry = l.tile * 1.6;
-  const cx = l.gridLeft + l.gridWidth / 2;
   const cy = l.hullY + ry;
   const toAngle = (x: number): number => hullAngleAtX(x, cx, rx);
 
@@ -136,7 +161,7 @@ export function frame(l: Layout, time: number, mood: HullMood, at: LobePositions
       lobe(SHIELD_LOBE, toAngle(x), l.tile, ry, rx, time, scale * seg.weight, seg.halfMul),
     );
   }
-  return { cx, cy, rx, ry, bumps: [cannon, ...skinBumps], skinBumps, cannonX, t: time * 1.4 };
+  return { cx, cy, rx, ry, bumps: [cannon, ...skinBumps], skinBumps, cannonX, t: hullClock(time) };
 }
 
 /** The membrane directly above a screen x. `bumps` selects which lobes count. */

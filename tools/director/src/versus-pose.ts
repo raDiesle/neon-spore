@@ -81,6 +81,12 @@ const SLOT_POSE: Record<string, string> = {
   // answered the same day. Their poses stay in the gallery — a worm walking, a
   // throb turning, a wisp standing, a warden armoured — because a pose is a
   // picture of the game and outlives the question it was drawn for.
+  //
+  // And one slot opened the same day, about the join between the ship and the
+  // panel under it. It is the first here whose subject is *two* objects, so its
+  // pose is the one cut that carries both and nothing else is moving on it
+  // (`poses-versus.ts`).
+  "panel:ship-join": "SHIP · MEETING THE PANEL",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

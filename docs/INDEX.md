@@ -679,6 +679,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/ship-air.ts` | THE AIR THE SHIP IS SITTING IN |
 | `packages/render/src/volley.ts` | THE VOLLEY's shell: the rock plating a slick or a bulb is sealed inside |
 | `packages/render/src/band-lobes.ts` | Where the round buttons on the band stand, for one seat and one panel |
+| `packages/render/src/band-join.ts` | THE ONE RECORD A CANDIDATE SHIP-AND-PANEL JOIN PATCHES |
 | `packages/render/src/volley-seams.ts` | **The pattern painted on THE VOLLEY's shell**: the four seams a basketball has |
 | `packages/render/src/meteor-look.ts` | WHAT A ROCK IS MADE OF, as a record rather than as the body of one function |
 | `packages/render/src/chute-cut.ts` | A chute shot down under its canopy: the canopy cut loose and the body dropping out from under it |

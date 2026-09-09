@@ -1,7 +1,8 @@
 import { openSmoothPath, type Point } from "@neon-spore/content";
+import { BAND_JOIN } from "./band-join.js";
 import { gradientSlot, slotGradient } from "./gradient-slot.js";
 import { rgba } from "./hex.js";
-import type { Layout } from "./layout.js";
+import type { Circle, Layout } from "./layout.js";
 import { P1_SKIN, type SeatSkin } from "./seat-skin.js";
 
 /**
@@ -14,9 +15,11 @@ import { P1_SKIN, type SeatSkin } from "./seat-skin.js";
  * The panel is under the same rule, because it is the same ship: this is the
  * underside of the hull, seen from inside, and the controls are organs of it.
  *
- * So the edge is a membrane — a slow contour that rises into the hull and
- * never falls below `bandTop`, so nothing under it is ever uncovered — with
- * slime hanging off it into the chamber. The owner asked for the slime by
+ * So the edge is a membrane — a contour that rises into the hull and never
+ * falls below the band it is allowed, so nothing under it is ever uncovered —
+ * with slime hanging off it into the chamber. What shape that contour takes is
+ * `band-join.ts`’s record, which is where a second answer to *how much the
+ * panel should look like the ship* lives. The owner asked for the slime by
  * name: *some slime from ship flowing down a little bit into the control set*.
  *
  * **The membrane is not drawn.** It had a lit rim along it — a glow pass and a
@@ -51,26 +54,27 @@ export function seamRise(l: Layout): number {
  */
 const CLIMB = 0.3;
 
-/** The underside of the ship at `x`, swinging either side of `bandTop`. */
-export function seamY(l: Layout, x: number, time: number): number {
-  const u = x / Math.max(1, l.width);
-  // Three periods and a slow drift on each: nothing in it repeats over a
-  // screen's width, which is what keeps it from reading as a wave pattern.
-  const swell =
-    Math.sin(u * 4.3 + time * 0.19) * 0.5 +
-    Math.sin(u * 9.7 - time * 0.31) * 0.28 +
-    Math.sin(u * 19.3 + 2.1 + time * 0.13) * 0.14 +
-    Math.sin(u * 1.7 + 1.1 - time * 0.09) * 0.36;
-  const at = Math.max(0, Math.min(1, 0.5 + swell / 2.2));
+/**
+ * The underside of the ship at `x`, swinging either side of `bandTop`.
+ *
+ * The *shape* of it is `BAND_JOIN.ceiling`'s, and the **clamp is here** rather
+ * than there: a candidate roof hands back how high it stands as a share, and
+ * this is the one place that turns a share into a y. That is what keeps the
+ * ship out of the chamber where the buttons are whatever a candidate answers,
+ * without every candidate having to remember the rule (`hullBottom`).
+ */
+export function seamY(l: Layout, x: number, time: number, lobes: readonly Circle[] = []): number {
+  const raw = BAND_JOIN.ceiling(l, x, time, lobes);
+  const at = Math.max(0, Math.min(1, Number.isFinite(raw) ? raw : 0.5));
   return l.bandTop + seamRise(l) * ((1 - at) * (1 - CLIMB) - at * CLIMB);
 }
 
-function seamPoints(l: Layout, time: number): Point[] {
+function seamPoints(l: Layout, time: number, lobes: readonly Circle[]): Point[] {
   const steps = 48;
   const pts: Point[] = [];
   for (let i = 0; i <= steps; i++) {
     const x = (l.width * i) / steps;
-    pts.push({ x, y: seamY(l, x, time) });
+    pts.push({ x, y: seamY(l, x, time, lobes) });
   }
   return pts;
 }
@@ -150,8 +154,8 @@ export function drawSeamFlesh(
  * It used to come back beside a second path for the rim to be stroked along;
  * the rim is gone, and a pair whose other half nothing asks for is a pair.
  */
-export function chamberPath(l: Layout, time: number): Path2D {
-  const spline = openSmoothPath(seamPoints(l, time));
+export function chamberPath(l: Layout, time: number, lobes: readonly Circle[] = []): Path2D {
+  const spline = openSmoothPath(seamPoints(l, time, lobes));
   const bottom = l.bandTop + l.bandHeight;
   return new Path2D(`${spline} L ${l.width} ${bottom} L 0 ${bottom} Z`);
 }

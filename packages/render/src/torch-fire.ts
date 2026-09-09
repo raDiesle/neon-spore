@@ -1,4 +1,5 @@
 import { facet, LAT_LIMIT, pin, surfaceDim } from "@neon-spore/content";
+import { bakedCache } from "./baked.js";
 import { rgba } from "./hex.js";
 import { PALETTE } from "./palette.js";
 import { ball, EMBER_FLOOR, flicker, plumes } from "./torch-ball.js";
@@ -76,7 +77,51 @@ const PINS = Array.from({ length: EMBERS }, (_, i) =>
 );
 
 /**
- * One tongue of flame lying on the stone's surface at a facet.
+ * How big the baked tongue is, in device pixels. It is blitted at whatever size
+ * a stone asks for, so this is only the resolution the ramp is drawn at — wide
+ * enough that a two-tile torch never sees the seams of it, small enough that
+ * the whole thing is one 8 KB canvas.
+ */
+const TONGUE_PX = 96;
+
+const tongues = bakedCache<number, HTMLCanvasElement>();
+
+/**
+ * One tongue of flame, baked once.
+ *
+ * Every stop of its ramp is the same alpha times the same heat, so a single
+ * sprite at full heat blitted under `globalAlpha` is the identical picture —
+ * which is what takes eighteen `createLinearGradient` calls per torch per frame
+ * down to eighteen blits of one canvas. That was the second half of the cost
+ * BULB QUEEN's sockets found (`torch-ball.ts`).
+ */
+function tongueSprite(): HTMLCanvasElement {
+  const held = tongues.get(TONGUE_PX);
+  if (held) return held;
+  const w = TONGUE_PX;
+  const h = Math.round(TONGUE_PX * (TONGUE_WIDE / TONGUE));
+  const c = document.createElement("canvas");
+  c.width = w;
+  c.height = h;
+  const g = c.getContext("2d");
+  if (g) {
+    const ramp = g.createLinearGradient(0, 0, w, 0);
+    ramp.addColorStop(0, rgba(PALETTE.ember, 0));
+    ramp.addColorStop(0.3, rgba(PALETTE.ember, 0.55));
+    ramp.addColorStop(0.52, rgba(PALETTE.emberRim, 1));
+    ramp.addColorStop(0.78, rgba(PALETTE.ember, 0.75));
+    ramp.addColorStop(1, rgba(PALETTE.ember, 0));
+    g.fillStyle = ramp;
+    g.beginPath();
+    g.ellipse(w / 2, h / 2, w / 2, h / 2, 0, 0, Math.PI * 2);
+    g.fill();
+  }
+  tongues.set(TONGUE_PX, c);
+  return c;
+}
+
+/**
+ * One tongue lying on the stone's surface at a facet.
  *
  * Drawn about its own origin and foreshortened by `scale(sx, sy)`, which is the
  * tangent plane's own map: a tongue near the limb narrows across its width
@@ -93,18 +138,10 @@ function tongue(
 ): void {
   ctx.save();
   ctx.scale(sx, sy);
+  ctx.globalAlpha = heat;
   const long = r * TONGUE;
   const wide = r * TONGUE_WIDE;
-  const g = ctx.createLinearGradient(-long / 2, 0, long / 2, 0);
-  g.addColorStop(0, rgba(PALETTE.ember, 0));
-  g.addColorStop(0.3, rgba(PALETTE.ember, 0.55 * heat));
-  g.addColorStop(0.52, rgba(PALETTE.emberRim, heat));
-  g.addColorStop(0.78, rgba(PALETTE.ember, 0.75 * heat));
-  g.addColorStop(1, rgba(PALETTE.ember, 0));
-  ctx.fillStyle = g;
-  ctx.beginPath();
-  ctx.ellipse(0, 0, long / 2, wide / 2, 0, 0, Math.PI * 2);
-  ctx.fill();
+  ctx.drawImage(tongueSprite(), -long / 2, -wide / 2, long, wide);
   ctx.restore();
 }
 
@@ -165,6 +202,6 @@ export function fireball(d: TorchFlameDraw): void {
   ctx.save();
   ctx.globalCompositeOperation = "lighter";
   ctx.globalAlpha = VEIL;
-  plumes(ctx, r, theta, time);
+  plumes(ctx, r, theta, time, true);
   ctx.restore();
 }

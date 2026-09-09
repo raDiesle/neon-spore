@@ -2,6 +2,9 @@ import type { Variant } from "../variant.js";
 // region: candidates
 import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
 import { SKIN_VEIL } from "./creature-skin/veil/index.js";
+import { JOIN_BOTH } from "./panel-join/both/index.js";
+import { JOIN_ORGANS } from "./panel-join/organs/index.js";
+import { JOIN_ROOF } from "./panel-join/roof/index.js";
 // endregion
 
 /**
@@ -120,5 +123,28 @@ import { SKIN_VEIL } from "./creature-skin/veil/index.js";
  * `creature:meteor` / `forge` and `creature:skin` / `veil` are what is left of
  * that page, and they are open because he did not answer them rather than
  * because he answered them slowly.
+ *
+ * ## And one slot opened by an answer, the same day
+ *
+ * `panel:ship-join` is the first slot on this page the owner *asked for*, and
+ * the first with three candidates in it rather than two. He wanted the control
+ * panel to look like part of the hull — *ship must more follow visual of
+ * control panel, or/and the way around* — and when the three ways of doing that
+ * were put to him he chose all three, as cards, so he could see them beside
+ * each other rather than be handed one.
+ *
+ * `roof` makes the panel's ceiling the hull's own ripple, read off the same
+ * radius function at the same x. `organs` grows every control out of the
+ * membrane as a trunk with a shoulder, a waist and a flare, where the shipped
+ * panel hangs a thread to it. `both` is the two at once, and it is a card of its
+ * own rather than a summary because the open question about them is whether
+ * they add up or fight in a strip the pair reads eleven columns of ammunition
+ * against.
+ *
+ * It needed a seam first, and the seam is `packages/render/src/band-join.ts`
+ * — the ninth of `magnet-look.ts`'s kind and the first about two objects
+ * rather than one. Two fields, because there are two halves of one question:
+ * what shape the ship's underside is, and what stands between it and a button.
+ * The shipped paint went through both with not one pixel moved.
  */
-export const VARIANTS: Variant[] = [METEOR_FORGE, SKIN_VEIL];
+export const VARIANTS: Variant[] = [METEOR_FORGE, SKIN_VEIL, JOIN_ROOF, JOIN_ORGANS, JOIN_BOTH];

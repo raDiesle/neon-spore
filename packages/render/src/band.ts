@@ -3,9 +3,10 @@ import { mirrorHoldsControls, type World } from "@neon-spore/sim";
 import { drawStripFor } from "./band-channel.js";
 import { drawLobe } from "./band-control.js";
 import { drawBandGround } from "./band-ground.js";
-import { chamberPath, drawSeamFlesh, drawSeamSpill, seamTop } from "./band-seam.js";
-import { drawDrips, drawFeeders } from "./band-slime.js";
-import { bandLobes, type Layout, showsCannon, showsShield } from "./layout.js";
+import { BAND_JOIN } from "./band-join.js";
+import { chamberPath, drawSeamFlesh, drawSeamSpill, seamTop, seamY } from "./band-seam.js";
+import { drawDrips } from "./band-slime.js";
+import { bandLobes, type Circle, type Layout, showsCannon, showsShield } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { seatSkin } from "./seat-skin.js";
 
@@ -80,7 +81,12 @@ export function drawBand(
   // own default, and this is a call to it, not a copy of it.
   const set = bandControlSet(controls, world.wave);
   const skin = seatSkin(l.role);
-  const chamber = chamberPath(l, time);
+  // Where every control on this screen stands, asked once and handed to both
+  // halves of the join: a roof that swells over a button and the thing that
+  // reaches down to it have to agree about where the button is, and two lists
+  // are two answers (`band-join.ts`).
+  const lobes = controlCircles(l, set);
+  const chamber = chamberPath(l, time, lobes);
   ctx.save();
   // The chamber, cut to the membrane above it — so the tissue is bounded by a
   // contour rather than by the top of a rectangle. Nothing traces that
@@ -92,9 +98,9 @@ export function drawBand(
   ctx.clip(chamber);
   drawBandGround(ctx, l, seamTop(l), skin);
   drawSeamSpill(ctx, l, skin);
-  drawFeeders(ctx, l, feeders(l, set), time, skin);
+  BAND_JOIN.attach({ ctx, l, lobes, time, skin, ceilingY: (x) => seamY(l, x, time, lobes) });
   ctx.restore();
-  drawDrips(ctx, l, time, skin);
+  drawDrips(ctx, l, time, skin, lobes);
 
   ctx.font = '9px "Courier New",monospace';
   ctx.textAlign = "center";
@@ -108,16 +114,14 @@ export function drawBand(
 }
 
 /**
- * Where a feeder from the membrane has to reach: every control this screen
- * carries, asked of the same `bandLobes` that draws and answers them, so a
- * tendril can never run to a button that is not there.
+ * Every control this screen carries, as the circle it is drawn in — asked of
+ * the same `bandLobes` that draws and answers them, so nothing the join grows
+ * can ever run to a button that is not there.
  */
-function feeders(l: Layout, set: ControlSet): { x: number; y: number }[] {
-  const out: { x: number; y: number }[] = [];
+function controlCircles(l: Layout, set: ControlSet): Circle[] {
+  const out: Circle[] = [];
   for (const player of [1, 2] as const) {
-    for (const lobe of bandLobes(l, set, player)) {
-      out.push({ x: lobe.circle.x, y: lobe.circle.y - lobe.circle.r * 1.1 });
-    }
+    for (const lobe of bandLobes(l, set, player)) out.push(lobe.circle);
   }
   return out;
 }

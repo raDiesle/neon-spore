@@ -36,9 +36,9 @@ const SETTLE = 40;
 /** How long each side is showing in BLINK, in seconds. One flip per second. */
 const BLINK_SECONDS = 1;
 export interface Pair {
-  /** Left is what the game draws today; right is the same code, patched.
-   * Each is the *crop window* (`pose-art.ts`'s `poseCropRect`) with the
-   * phone's canvas positioned inside it — not the canvas itself. */
+  /** Left is what the game draws today; right is the same code, patched. Each
+   * is the *crop window* (`pose-art.ts`'s `poseCropRect`) with the phone's
+   * canvas positioned inside it — not the canvas itself. */
   readonly left: HTMLElement;
   readonly right: HTMLElement;
   setRunning(on: boolean): void;
@@ -46,15 +46,14 @@ export interface Pair {
   /** CSS pixels per phone pixel: 1 is true size, 2 is a magnifier. */
   setZoom(n: number): void;
   setBlink(on: boolean): void;
-  /** Stop advancing for good, but keep repainting the same frame — a still
-   * with no `hud.ts` "PAUSED" overlay, unlike `setRunning(false)`. No `unfreeze`. */
+  /** Stop advancing for good, still repainting. `setRunning` can be undone. */
   freeze(): void;
   stop(): void;
 }
 
 export interface PairHooks {
-  /** `true` when the two sides came back byte-identical. Called once per
-   * settle, and again after every rebuild. */
+  /** `true` when the two sides came back byte-identical. Once per settle, and
+   * again after every rebuild. */
   onSettled(identical: boolean): void;
   /** Which side BLINK shows, so a corner tag can name it. */
   onBlink(side: "left" | "right"): void;
@@ -111,8 +110,8 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
   let showing: "left" | "right" = "left";
   // Seeded from the world `build()` handed back, not from `[]` — see `advance`.
   let events: SimEvent[] = [...world.events];
-  /** Own-motion's clock, advanced by the loop rather than read off the wall,
-   * so pausing freezes the wobble and the rate slows it. */
+  /** Own-motion's clock, advanced by the loop and not read off the wall, so
+   * pausing freezes the wobble and the rate slows it. */
   let clock = 0;
   let blinkAt = 0;
   let frames = 0;
@@ -135,7 +134,11 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
     time: 0,
     dt: 0,
     events,
-    running,
+    // **Always true, whether or not the pair is moving.** A stopped game gets
+    // PAUSED under a grey scrim (`hud.ts`) — right for a phone somebody put
+    // down, and here a wash over the very thing being compared, on a page where
+    // pausing is how a reader looks harder. Gone at the owner's word, 9 Sep 2026.
+    running: true,
   };
 
   /** One side, with the patch held for exactly the length of `draw` and put
@@ -160,7 +163,6 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
     view.time = clock;
     view.dt = dt;
     view.events = events;
-    view.running = running;
 
     const seed = freeze.seed(frames);
     drawSide(left, false, seed);
@@ -181,9 +183,8 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
   // a `paint` that also wants the real ones for the blink's own clock.
   const loop = runStageLoop({
     tickHz: () => world.cfg.tickHz,
-    // `frozen` holds `dt` at 0 like `!running` does, but leaves `running` —
-    // and so `view.running`, and so the pause overlay — untouched.
-    // A pending freeze runs on the tick rather than the wall (`Freeze`).
+    // `frozen` holds `dt` at 0 the way `!running` does, and neither reaches the
+    // drawing. A pending freeze runs on the tick, not the wall (`Freeze`).
     scale: (real) => (freeze.pending ? 1 / world.cfg.tickHz : stepping() ? real * rate : 0),
     advance: () => {
       // Own-motion's clock joins the simulated axis as the freeze lands.
@@ -201,8 +202,8 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
         // The one place a cadenced pose ever rebuilds.
         if (cadenceElapsed(pose, clock)) rebuiltTo(pose.build());
       } else {
-        // Not running, or frozen: replaying a non-empty `events` on every
-        // static tick would re-ingest a `fire` or `deflect` again and again.
+        // Not running, or frozen: a non-empty `events` replayed on every static
+        // tick would re-ingest a `fire` or a `deflect` again and again.
         events = [];
       }
       paint(dt);

@@ -2,23 +2,26 @@ import { hash01 } from "./backdrop.js";
 import { seamRise, seamTop, seamY } from "./band-seam.js";
 import { halo } from "./glow.js";
 import { rgba } from "./hex.js";
-import type { Layout } from "./layout.js";
+import type { Circle, Layout } from "./layout.js";
 import { P1_SKIN, type SeatSkin } from "./seat-skin.js";
 
 /**
- * WHAT RUNS OFF THE MEMBRANE, AND WHAT REACHES DOWN FROM IT.
+ * WHAT RUNS OFF THE MEMBRANE.
  *
- * Two answers to the same sentence of the owner's — *some slime from ship
- * flowing down a little bit into the control set*, and *fully integrated with
- * the ship graphics, like it is part of the ship*. Slime hangs off the seam
- * into the chamber; a feeder runs out of the seam to every control on the
- * panel, so nothing down here is sitting on the ship, everything is fed by it.
+ * The owner's own sentence — *some slime from ship flowing down a little bit
+ * into the control set*. Slime hangs off the seam into the chamber, so nothing
+ * down here is sitting on the ship.
  *
  * Split out of `band-seam.ts` when that file went over its limit, along the
  * line already in it: next door is the *edge* — where the membrane is and what
  * it is lit like — and this is what hangs off it. Both are pure functions of
  * `time`, which is what makes them restart-safe by construction rather than by
  * remembering to clear anything (`restart.test.ts`).
+ *
+ * **The other thing that used to be here has moved.** A feeder running from the
+ * membrane to each control is now one half of `band-join.ts`’s record, because
+ * it is exactly what a candidate arguing that the buttons are organs of the
+ * ship would replace; the paint went with it, unchanged.
  */
 
 /**
@@ -39,7 +42,7 @@ function dripCount(l: Layout): number {
   return Math.max(2, Math.min(4, Math.round(l.width / 130)));
 }
 
-function drips(l: Layout, time: number): Drip[] {
+function drips(l: Layout, time: number, lobes: readonly Circle[]): Drip[] {
   const n = dripCount(l);
   const reach = seamRise(l) * 3.6;
   const out: Drip[] = [];
@@ -55,7 +58,7 @@ function drips(l: Layout, time: number): Drip[] {
     const width = seamRise(l) * (0.13 + hash01(i * 83 + 19) * 0.13);
     out.push({
       x,
-      top: seamY(l, x, time),
+      top: seamY(l, x, time, lobes),
       width,
       length,
       bead: falls && u > 0.78 ? bead(u, length, width, l) : null,
@@ -95,8 +98,11 @@ export function drawDrips(
   l: Layout,
   time: number,
   skin: SeatSkin = P1_SKIN,
+  /** The controls, so a drip hangs off whatever roof the join has shaped over
+   * them rather than off a second copy of the shipped one. */
+  lobes: readonly Circle[] = [],
 ): void {
-  const all = drips(l, time);
+  const all = drips(l, time, lobes);
   const body = new Path2D();
   const beads = new Path2D();
   let deepest = l.bandTop;
@@ -143,48 +149,4 @@ function pendant(path: Path2D, d: Drip): void {
   path.bezierCurveTo(x + bulb, y + len * 0.95, x + bulb, y + len * 0.78, x + neck, waist);
   path.bezierCurveTo(x + neck, y + len * 0.32, x + w * 1.3, y + len * 0.18, x + w * 1.6, y - 1);
   path.closePath();
-}
-
-/**
- * A feeder running out of the membrane down to each control.
- *
- * This is the sentence the owner asked for — *like it is part of the ship* —
- * said in one line rather than in texture: nothing on this panel is placed on
- * it, everything on it is fed from the hull above. Where the controls are is
- * the caller's business (`band.ts` walks the wave's own set), so this is
- * handed the points and knows only how a tendril hangs.
- *
- * All of them in one path and one stroke, the same bargain the slime makes.
- */
-export function drawFeeders(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  targets: readonly { x: number; y: number }[],
-  time: number,
-  skin: SeatSkin = P1_SKIN,
-): void {
-  if (targets.length === 0) return;
-  const path = new Path2D();
-  for (const [i, t] of targets.entries()) {
-    const top = seamY(l, t.x, time);
-    // A lazy S rather than a straight drop, and each one leans its own way.
-    const lean = (hash01(i * 149 + 31) - 0.5) * l.width * 0.24;
-    const drift = Math.sin(time * 0.3 + i * 1.7) * l.tile * 0.12;
-    path.moveTo(t.x + drift * 0.3, top);
-    path.bezierCurveTo(
-      t.x + lean + drift,
-      top + (t.y - top) * 0.38,
-      t.x - lean + drift,
-      top + (t.y - top) * 0.72,
-      t.x,
-      t.y,
-    );
-  }
-  ctx.lineCap = "round";
-  ctx.strokeStyle = rgba(skin.flesh[1], 0.2);
-  ctx.lineWidth = Math.max(1.4, l.tile * 0.08);
-  ctx.stroke(path);
-  ctx.strokeStyle = rgba(skin.rim, 0.14);
-  ctx.lineWidth = Math.max(0.6, l.tile * 0.026);
-  ctx.stroke(path);
 }

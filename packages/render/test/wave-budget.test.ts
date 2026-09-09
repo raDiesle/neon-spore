@@ -75,6 +75,17 @@ interface Scene {
  * balls with pores on them, a gyre's core is a lit mass with granules in it, a
  * wisp hangs eight strands instead of five, and a torch burns inside a
  * fireball. Each row below was remeasured, not padded.
+ *
+ * **BULB QUEEN is the row worth reading, and it went the interesting way.** The
+ * queen keeps a torch in every socket, so a fireball on each of them is the
+ * dearest thing in this file — the first cut of it put that wave up 62% on
+ * `bun run perf`, which is what sent the paint back for its caches. What
+ * shipped trades *building* for *blitting*: `fill` fell 82 to 46 and
+ * `createLinearGradient` 54 to 18, because a tongue is one baked sprite under a
+ * `globalAlpha` and a shell is a contour held per radius and per
+ * thirty-second of a turn; `drawImage` went 73 to 101 for the same reason, and
+ * a blit of a cached canvas is the cheapest mark this renderer makes
+ * (`torch-ball.ts`, `glow.ts`).
  */
 const SCENES: readonly Scene[] = [
   {
@@ -213,25 +224,25 @@ const SCENES: readonly Scene[] = [
         {
           fillRect: 73,
           stroke: 75,
-          fill: 82,
+          fill: 46,
           clip: 6,
-          save: 147,
-          drawImage: 73,
-          createLinearGradient: 54,
-          createRadialGradient: 7,
-          "new Path2D": 35,
+          save: 139,
+          drawImage: 101,
+          createLinearGradient: 18,
+          createRadialGradient: 5,
+          "new Path2D": 33,
           fillText: 5,
         },
         {
           fillRect: 73,
           stroke: 77,
-          fill: 82,
+          fill: 46,
           clip: 6,
-          save: 147,
-          drawImage: 73,
-          createLinearGradient: 44,
-          createRadialGradient: 5,
-          "new Path2D": 17,
+          save: 139,
+          drawImage: 101,
+          createLinearGradient: 8,
+          createRadialGradient: 1,
+          "new Path2D": 13,
           fillText: 5,
         },
       ],
@@ -239,25 +250,25 @@ const SCENES: readonly Scene[] = [
         {
           fillRect: 73,
           stroke: 65,
-          fill: 85,
+          fill: 49,
           clip: 6,
-          save: 145,
-          drawImage: 71,
-          createLinearGradient: 54,
-          createRadialGradient: 7,
-          "new Path2D": 31,
+          save: 137,
+          drawImage: 99,
+          createLinearGradient: 18,
+          createRadialGradient: 5,
+          "new Path2D": 29,
           fillText: 5,
         },
         {
           fillRect: 73,
           stroke: 67,
-          fill: 85,
+          fill: 49,
           clip: 6,
-          save: 145,
-          drawImage: 71,
-          createLinearGradient: 44,
-          createRadialGradient: 5,
-          "new Path2D": 15,
+          save: 137,
+          drawImage: 99,
+          createLinearGradient: 8,
+          createRadialGradient: 1,
+          "new Path2D": 11,
           fillText: 5,
         },
       ],

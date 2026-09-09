@@ -11,6 +11,7 @@ import {
   until,
   ward,
 } from "./pose-kit.js";
+import { WAVE_WITH_BOTH_FACES } from "./poses-versus.js";
 
 /**
  * What a player's own hands put the ship into.
@@ -110,4 +111,30 @@ function lanceGone(w: World): boolean {
   return w.beam !== null;
 }
 
-export const CONTROL_POSES = CONTROLS;
+/**
+ * The ship and the panel under it, on a wave whose control set fills the band.
+ *
+ * `panel:ship-join` is about the join between two objects, so a card that
+ * showed either alone would be a vote taken on half the question: the roof is
+ * judged against the hull's own ripple a tile above it, and a trunk is judged
+ * against the button it grows into. `crop: "ship"` is the one cut that carries
+ * both — the hull, five tiles of field over it, and the whole band.
+ *
+ * Nothing falls and nothing is pressed. Both are deliberate: a body coming down
+ * the field is the brightest thing on the screen and would decide a vote about
+ * tissue, and a lit button is a button whose socket nobody is looking at.
+ */
+const JOIN_POSE: Pose = {
+  name: "SHIP · MEETING THE PANEL",
+  note: "The hull across the whole width with the control panel under it, on a wave whose set fills the band. Nothing is falling and nothing is pressed, so the only thing moving is the ship and the tissue it is made of.",
+  lookAt:
+    "the strip where the ship ends and the panel begins, and what runs from it down to each round button",
+  crop: "ship",
+  build: () => {
+    const w = fresh([], [], null, {}, WAVE_WITH_BOTH_FACES);
+    run(w, TPB * 3, [aim(0, COL - 2), ward(0, COL + 2)]);
+    return w;
+  },
+};
+
+export const CONTROL_POSES = [...CONTROLS, JOIN_POSE];

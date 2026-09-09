@@ -52,7 +52,7 @@ const COL = 5;
  * wave list that reordered under this fails there rather than quietly drawing
  * a band with nothing on it.
  */
-const WAVE_WITH_BOTH_FACES = 13;
+export const WAVE_WITH_BOTH_FACES = 13;
 
 /**
  * A worm, long enough that its links are visibly out of step with each other.
