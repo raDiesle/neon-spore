@@ -83,6 +83,18 @@ Five things worth knowing before the first one:
   literal is a second copy of a rule, and the sweep says so. The escape is a
   named local const with the reason beside it, never a weakened pattern in the
   sweep.
+- **Check the record is on the branch the shipping game takes.** Some draw
+  paths choose between a baked asset and a procedural one — `drawClaspShield`
+  is the example — and a candidate patching the half a phone does not run is a
+  slot whose difference nobody can see, which is the one failure this whole
+  arrangement exists to prevent. It cuts both ways: the clasp's *asset* branch
+  turned out to be the unreachable one, so the honeycomb a session skipped as
+  unreachable is in fact what the field draws every frame. Read the **call
+  site** rather than the file, and count the arguments — a parameter with a
+  default that nobody passes is how that branch went unrun since the day it
+  was written (`packages/render/src/clasp.ts`). Where the shipping half really
+  is an asset there is no honest slot at all, because a candidate cannot
+  repaint a webp.
 
 ## What the tests hold a candidate to
 

@@ -16,14 +16,24 @@ import { PALETTE } from "./palette.js";
  * transformation costs no pixels: when the ward lands, the thing that stops
  * being drawn is this, and what is left was already there.
  *
- * **Two ways to draw it, and the procedural one is the floor.** The
- * hand-painted frames in `assets/gallery/shield/green-shield/` are baked into
- * `assets/raster/green-shield-strip.webp` by `bun run raster:pack`, and
- * `install` hands them over once they have decoded. Until then — and forever,
- * on a host that cannot fetch it — the bubble below is drawn from a gradient
- * and an arc, and the creature works. Nothing here is behind a flag: an enemy
- * that is invisible unless an asset loaded is an enemy that kills the pair for
- * a network failure.
+ * **Two ways to draw it, and only one of them has ever run.** The hand-painted
+ * frames in `assets/gallery/shield/green-shield/` are baked into
+ * `assets/raster/green-shield-strip.webp` by `bun run raster:pack`, and the
+ * `image !== null` branch below draws them. **Nothing passes an image.**
+ * `drawCreatures`'s `claspImage` parameter defaults to `null` and its one
+ * caller — `frame-field.ts` — has never handed it anything, on any commit
+ * since this creature landed on 31 August 2026. So the procedural shell and
+ * `clasp-lattice.ts`'s honeycomb are not a floor: they are the picture, on
+ * every device, every frame.
+ *
+ * That matters twice. A candidate look for the lattice is a candidate for what
+ * the field actually draws, which is the opposite of what `docs/queue.md` said
+ * while this was unread; and the raster branch, `ClaspSheet` and the committed
+ * 42 KB strip are paint nobody has ever seen. `docs/queue.md` carries the item
+ * to either wire the strip up the way `apps/game/src/raster.ts` wires the
+ * burst — behind `?raster=1`, offered rather than swapped in — or take it out.
+ * Do not read the branch below as a fallback that fires on a bad network: the
+ * shell is what fires, always, and it is meant to.
  *
  * The green is the owner's decision, taken with the collision named: green is
  * otherwise reserved for a Simon round answered in full. See

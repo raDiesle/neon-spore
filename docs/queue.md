@@ -147,36 +147,6 @@ Why the short label is what fits today, and what each of the three costs.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
-## THE CLASP's bubble has no place a candidate look can live
-
-- **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7
-- **Files:** `packages/render/src/clasp.ts`, `packages/render/src/clasp-lattice.ts`,
-  `tools/versus/README.md`
-
-This lane went looking for bodies with no VERSUS slot and picked the clasp's
-honeycomb sphere first: `drawClaspLattice` is a warped hexagon grid that already
-argues it is a ball, and turning it into a *placed* surface — cells at real
-longitudes and latitudes, half of them round the back — is the same work
-`crawler:skin` / `pearl` did for a worm. It was dropped before a line was
-written, because of `drawClaspShield`'s first branch: when `image !== null` the
-hand-painted strip is drawn and **the whole procedural floor, lattice included,
-is skipped**. `assets/raster/green-shield-strip.webp` is committed and is what a
-phone loads, so the lattice is only ever seen when the raster fails — a
-candidate patching it would have been a slot whose difference nobody could see
-in the shipping game, which is precisely the defect the entry above this one is
-about.
-
-Two things to do, and they are independent. **Say it where the next session
-looks**: `clasp.ts`'s own doc comment describes the procedural path as "the
-floor" without saying it is unreachable with the assets loaded, and
-`tools/versus/README.md`'s "Writing one" section has no line about a record that
-sits behind an asset branch. **Then decide what the floor is for**: either it is
-a genuine fallback worth keeping — in which case a seam for it has to patch both
-halves or neither, and the honest slot is the *strip*, which VERSUS cannot offer
-because a candidate cannot repaint a webp — or it is dead paint on every device
-that ever loads, and `clasp-lattice.ts` is 134 lines of it. `raster-probe.ts`
-and `raster-caps.ts` are where the answer to "does a phone ever miss" lives.
-
 ## THE GHOST's camouflage is laid out in picture space
 
 - **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7
@@ -361,3 +331,40 @@ to match `.bun-version`; if it is red, raise `.bun-version` (and with it the two
 declarations the test holds in step) to 1.4.2. Then add the hook's constant to
 that test as a fourth reader, so the next raise cannot leave it behind — which
 is how the two numbers parted in the first place.
+
+## THE CLASP's hand-painted shield has never been drawn
+
+- **Found:** 2026-09-09, claude/queue-the-clasps-bubble-has-no-place-a-candidate-look
+- **Files:** `packages/render/src/clasp.ts`, `packages/render/src/creatures.ts`,
+  `packages/render/src/frame-field.ts`, `apps/game/src/raster.ts`,
+  `assets/raster/green-shield-strip.webp`
+
+`drawClaspShield` has two halves: the hand-painted frames when `image !== null`
+and a procedural shell with `clasp-lattice.ts`'s honeycomb when it is null.
+**Nothing has ever passed an image.** `drawCreatures` takes `claspImage` with a
+default of `null`, and its one caller — `frame-field.ts` — hands it six
+arguments, on every commit since THE CLASP landed on 31 August 2026. So the
+shell is what the field draws, always, and the raster branch, `ClaspSheet`,
+`CLASP_SHEET` and the committed 42 KB `green-shield-strip.webp` are paint
+nobody has ever seen.
+
+The doc comments claiming otherwise are corrected. What is left is the code.
+**Wire it up rather than delete it**, the way `apps/game/src/raster.ts` wires
+the baked burst: behind `?raster=1`, fetched only when the flag is set,
+`loadAtlas` resolving to `null` on a bad network, and the shell as it is today
+when it is off. That is CLAUDE.md's *a look is offered, never replaced* using
+the mechanism the repository already has for exactly this — and it is what lets
+the owner see the shield he commissioned beside the one that ships and say
+which he wants. The plumbing is a holder beside `RenderState.sprites` with an
+`install`, the image reaching `drawCreatures` through `frame-field.ts`, and a
+`bindRasterClasp` next to `bindRasterBurst` with the test that file already has.
+If the answer comes back that the frames are not wanted, the deletion is the
+branch, the two constants, the parameter and the asset — but delete nothing
+before he has looked at it.
+
+Two things that are **not** owed here. `clasp-lattice.ts` is not dead code and
+was never at risk: it is the shipping picture. And THE CLASP's bubble does have
+a place a candidate look can live after all — a `clasp-look.ts` seam over the
+shell and the lattice patches what a phone actually draws — so that slot is
+worth opening once this is settled, because a candidate written today and a
+raster branch switched on tomorrow would be two answers to one question.

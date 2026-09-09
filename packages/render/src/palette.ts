@@ -40,7 +40,9 @@ export const PALETTE = {
    * appears as a flash on the ship's own row, and this is the deep emerald of
    * the hand-painted frames in `assets/gallery/shield/green-shield/`, which
    * only ever appears wrapped around a body up the field. Nothing draws both
-   * at once.
+   * at once. The frames themselves are not what the field draws — this swatch
+   * is: `drawClaspShield`'s raster branch has never been reached, on any
+   * commit, and `clasp.ts` says why.
    */
   claspShield: "#43C455",
   claspShieldRim: "#B6F5C0",
