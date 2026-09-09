@@ -9,6 +9,22 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 8310b75e — A field-cropped surface pose is not a regression
+
+Two poses landed on the trunk while the tile crop was being made to follow, and neither of them wants one: a wisp's jump between tiles is exactly what its fringe is read by, so a window holding it still would hide the thing being judged, and a gyre is a wheel wider than any tile crop. The follow test claimed every pose in the group was tile-cropped, which was never the promise — it now names the two that were widened and lost their magnification, so a later lane putting either back on `crop: "field"` still fails.
+
+## 2026-09-09 · 78083391 — `CLAUDE.md` gets its headroom back, and four commands it was missing
+
+The file stood 49 characters under its 22,000 ceiling, so the next lane to add a rule would have gone red on a check about nothing it had changed — and the message would have told it to move reasoning into `docs/` in the middle of something else.
+
+## 2026-09-09 · 4e82b6ff — A tile crop follows the body it is centred on
+
+`cropRect` was worked out once, from the world as the pose handed it over, which was right for as long as every pose replayed every two seconds — a body falls a third of a tile in that time. `CHOIR · TWO VOICES` and `THROB · TURNING` run for a whole fall instead, dropped straight out of the window they started in, and both had to be widened to `crop: "field"` to be watchable at all.
+
+## 2026-09-09 · 747d68a2 — The ship's own fields leave `World` for a file beside it
+
+`world.ts` was 250 lines with a limit of 250, so any field and any sentence explaining one failed `limits.test.ts` before it could be committed. The twenty-odd fields about the hull and its two hands — both columns, the ticks a press is remembered by, THE CLAW's arm and its crank, THE CHOIR's gesture, the grips and carries, and the three stages of a shot — are now `ShipState` in `world-ship.ts`, which `World` extends rather than nests, so `world.cannonCol` reads where every reader already looks and `hash.ts` walks the same flat list. `world.ts` is 139 lines, and `beat` gets the paragraph it was owed saying it is a label rather than a position.
+
 ## 2026-09-09 · 7bf557ca — Two bodies that never fall, and a ship with a rippled skin
 
 Three more candidates on the VERSUS page, and the two creatures among them are the ones the page has been missing a way to look at: a wisp stands and jumps rather than coming down a column, and a settled gyre stays. Both are on screen for as long as anybody wants to look, which is exactly what a surface that turns needs and what a two-second replay cannot give it — so `WISP · STANDING` and `GYRE · TURNING` are the first poses here that carry no cadence at all.
