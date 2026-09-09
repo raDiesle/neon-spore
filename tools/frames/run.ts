@@ -76,16 +76,13 @@
  */
 import { mkdir, rm } from "node:fs/promises";
 import { dirname, join } from "node:path";
-import type { FrameSpec } from "./capture.js";
-import { parseAt, sameFrames } from "./crop.js";
-import { collectHolds, tickLine } from "./flags.js";
+import { sameFrames } from "./crop.js";
+import { parseFrameSpec } from "./flags.js";
 import { heldPageNote } from "./guide-film.js";
-import { parseOpening } from "./opening.js";
-import { parsePress } from "./press.js";
 import { say, tickNote } from "./report.js";
 import { scratchDir } from "./scratch.js";
 import { captureAt, captureHere, git, root } from "./serve.js";
-import { resolveWaveFlag, waveNamesAt, waveNamesHere } from "./wave.js";
+import { waveNamesAt, waveNamesHere } from "./wave.js";
 
 async function main(): Promise<void> {
   const argv = process.argv.slice(2);
@@ -99,28 +96,6 @@ async function main(): Promise<void> {
         "[--press TICK:SEAT:control=value,…] [--opening intro|guide] [--out DIR]",
     );
   }
-  const flag = (name: string, fallback: number): number => {
-    const i = argv.indexOf(`--${name}`);
-    return i === -1 ? fallback : Number(argv[i + 1]);
-  };
-  const seatFlag = argv.indexOf("--seat");
-  const seat = seatFlag === -1 ? undefined : argv[seatFlag + 1];
-  if (seat !== undefined && seat !== "p1" && seat !== "p2" && seat !== "test") {
-    throw new Error(`--seat ${seat}: one of p1, p2 or test`);
-  }
-  // Every `--hold`, not the first: two hands on one body is a gesture this
-  // field has (`flags.ts`). A value carrying `@TICK` comes back as a press
-  // instead, so the wheel can be turned before the shot rather than after it.
-  const { hold, pressed } = collectHolds(argv);
-  const pressFlag = argv.indexOf("--press");
-  const parsed = pressFlag === -1 ? [] : parsePress(argv[pressFlag + 1] ?? "");
-  const line = tickLine(parsed, pressed);
-  const press = line.length > 0 ? line : undefined;
-  const atFlag = argv.indexOf("--at");
-  const at = atFlag === -1 ? undefined : parseAt(argv[atFlag + 1] ?? "");
-  const openingFlag = argv.indexOf("--opening");
-  const opening = openingFlag === -1 ? undefined : parseOpening(argv[openingFlag + 1] ?? "");
-
   // `.` is the working tree: one picture of what is on disk, with no commit to
   // check out and no parent to compare it to. Every change to a *look* wants
   // the pair, so that stays the default and this is asked for by name — but a
@@ -129,9 +104,8 @@ async function main(): Promise<void> {
   // exactly the friction this tool exists to end.
   const here = sha === ".";
   const outFlag = argv.indexOf("--out");
-  const named =
+  const out =
     outFlag === -1 ? join(root, "docs/frames", here ? "working" : sha) : (argv[outFlag + 1] ?? "");
-  const out = named;
   if (!out) throw new Error("--out needs a directory");
 
   const parent = here ? "" : await git(["rev-parse", `${sha}^`]);
@@ -142,57 +116,10 @@ async function main(): Promise<void> {
   // the working tree *is* the tree in question.
   const historicalWaves = here ? await waveNamesHere() : await waveNamesAt(full);
 
-  const waveFlagIndex = argv.indexOf("--wave");
-  const waveValue = waveFlagIndex === -1 ? "" : (argv[waveFlagIndex + 1] ?? "");
-  if (!waveValue) {
-    throw new Error(
-      '--wave is required: --wave N (the number the HUD prints) or --wave "NAME". A frame of ' +
-        "the wrong wave proves nothing, so this tool will not pick one for you.",
-    );
-  }
-  const waveIndex = resolveWaveFlag(waveValue, historicalWaves);
+  const { spec, waveValue } = parseFrameSpec(argv, historicalWaves);
   console.log(
-    `wave: ${waveValue} → index ${waveIndex} (${historicalWaves[waveIndex]?.name ?? "beyond the authored waves"})`,
+    `wave: ${waveValue} → index ${spec.wave} (${historicalWaves[spec.wave]?.name ?? "beyond the authored waves"})`,
   );
-
-  const spec: FrameSpec = {
-    wave: waveIndex,
-    ticks: flag("ticks", 120),
-    frames: flag("frames", 1),
-    // On the guide these two are painted frames rather than ticks, and a
-    // rehearsal at 60Hz wants a wider step than a wave does — but the default
-    // stays one number, because a caller who wants a strip is already writing
-    // `--frames` and `--stride` next to each other.
-    strideTicks: flag("stride", 4),
-    seat,
-    raster: argv.includes("--raster"),
-    hold,
-    holdTicks: flag("hold-ticks", 30),
-    // Zero by default, which is what every capture before this flag existed
-    // did: one painted frame per photograph, and nothing that lives in painted
-    // seconds ever moving.
-    settle: flag("settle", 0),
-    at,
-    zoom: flag("zoom", 1),
-    // Undefined rather than 0, so a wave whose boss has no rounds is only
-    // refused when somebody actually asked for one.
-    ...(argv.includes("--boss-round") ? { bossRound: flag("boss-round", 0) } : {}),
-    press,
-    opening,
-    // Undefined rather than 0, so `--opening guide` on a film of one page is
-    // not refused for a flag nobody wrote.
-    ...(argv.includes("--guide-page") ? { guidePage: flag("guide-page", 0) } : {}),
-  };
-
-  // A press past the picture is a press nobody ever sees, and silently
-  // clamping it would produce a frame that looks like the shot missed.
-  const late = (press ?? []).find((one) => one.tick > spec.ticks);
-  if (late) {
-    throw new Error(
-      `--press: a press at tick ${late.tick} is after --ticks ${spec.ticks}, so the picture is ` +
-        "taken before it lands. Raise --ticks, or move the press earlier",
-    );
-  }
 
   const start = Date.now();
   if (here) {

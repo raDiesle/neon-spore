@@ -147,30 +147,6 @@ Why the short label is what fits today, and what each of the three costs.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
-## `tools/frames/run.ts` stands on the 250-line ceiling exactly
-
-- **Found:** 2026-09-09, claude/queue-the-clasps-hand-painted-shield-has-never-been-dr
-- **Taken:** 2026-09-09, claude/queue-tools-frames-run-ts-stands-on-the-250-line-ceili
-- **Files:** `tools/frames/run.ts`, `tools/frames/flags.ts`, `tools/frames/spec.ts`
-
-Adding `--raster` — three lines, one of them a comment — took the file to 251
-and `packages/sim/test/limits.test.ts` refused it. The comment came back out
-and it is at 250 now, which means **the next flag anybody adds fails the check
-before it does anything**, and that session will spend its first minutes
-finding out why rather than adding a flag.
-
-The seam is already drawn and half used: `tools/frames/flags.ts` holds
-`collectHolds` and `tickLine`, which are the two pieces of argument parsing
-that were long enough to be worth moving. What is left in `run.ts` is a
-`flag(name, fallback)` closure, an `indexOf` per flag, three validators and a
-forty-line `FrameSpec` literal. Move the reading and the validating of the
-argument vector into `flags.ts` as one `parseFrameSpec(argv, waves)` and leave
-`run.ts` as the usage block, the wave resolution and the capture — which is
-what its own doc comment says it is.
-
-`tools/frames/test/flags.test.ts` already exists and is where the new function's
-tests go. Nothing about the captures changes, so `bun run check` proves it.
-
 ## A frames capture test fails inside `bun run check` and passes on its own
 
 - **Found:** 2026-09-09, claude/queue-the-clasps-hand-painted-shield-has-never-been-dr
