@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-08 · b2368189 — `bun run frames` can drive the controls it could only watch
+
+Six queued findings, all of them the same shape: a lane built something and then could not photograph it. A capture could send one thumb, at the end, and one verb at a tick, and the tick it named was not the tick it got.
+
 ## 2026-09-08 · b23c70f6 — The depth rule becomes a skill and a hook, so a session meets it before it guesses
 
 A depth claim is the one drawing mistake that looks like a success. A session asked to make something read solid can see that a body changing width looks rounder, so it reaches for an `sx` cosine — and that is wrong every time, at 1.10 : 1 against a real turn's 22.9 : 1, with no tuning that closes the gap because an affine scales the picture about one centre by definition. The rule that would have stopped it was two paragraphs deep in `docs/style-guide.md`.
