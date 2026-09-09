@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 06467531 — Every unbuilt name says what it does, and the director can be read
+
+The NOT BUILT YET page was a list of names with a table cell under them — "facets, breaks into two halves — fast switching" — which tells a reader deciding what to build next nothing about who says what to whom or about what is actually missing. Every unbuilt creature and every name in the act order now carries four short lines in plain English: what it does, what player 1 does about it, what player 2 does about it, and what has to be decided before anybody starts. Where a design genuinely does not exist the line says so rather than inventing one, and TO FINISH IT is the list of questions instead.
+
 ## 2026-09-09 · 93b55b99 — VERSUS says how much of the frame a candidate moves
 
 Every guard in the repository can pass a candidate nobody can see. `ship:hull-body` / `carapace` was four new stops on the hull's membrane — a strip about thirty pixels tall on a 380 x 820 phone: the values differed, the drawing was clean, the page's settled banner stayed quiet, and two screenshots of the pair were indistinguishable at a glance. The pass that decides how many seats a candidate needs had already measured the answer and was throwing it away, so it comes out now and the page prints it under the pair — THIS PATCH MOVES 0.071% OF THE FRAME — with a plain warning under the floor.
