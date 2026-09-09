@@ -120,12 +120,16 @@ const DUTY_WORD = {
   // It said BEATS and the owner asked for the whole phrase. The short form
   // was a word the pilot had to *interpret* before they could say anything —
   // BEATS on its own is a subject, not an instruction — and the navigator's
-  // own frame now reads CLICK X TIMES (`beatbox-marks.ts`), so the two halves
-  // are one sentence with the number missing from one end of it. This is the
-  // longest word in this table after THE FENCE's, and it is long for THE
-  // FENCE's reason: the siren has room, and a seat reading it is holding
-  // nothing it could act on alone.
-  beatbox: { p1: "NUMBER OF BEATS" },
+  // own frame reads CLICK X TIMES TO BEAT (`beatbox-marks.ts`), so the two
+  // halves are one sentence with the number missing from one end of it.
+  //
+  // **Both seats, which the owner asked for**, and it is THE FENCE's row said
+  // about a number rather than a gap: the word is not the thing being withheld,
+  // it is the *name* of the thing being withheld, and the seat that cannot see
+  // it needs that name as much as the seat that can. The pilot reads NUMBER OF
+  // BEATS and says a digit; the navigator reads it and knows a digit is coming.
+  // Nothing leaks — the count is on one screen and stays there.
+  beatbox: { p1: "NUMBER OF BEATS", p2: "NUMBER OF BEATS" },
   // THE BALLOON, and the only row here that gives **both** seats a word — and
   // the same kind of word THE CHOIR's is, an instruction to the seat reading
   // it rather than a fact to pass on. Neither hand does anything alone, so

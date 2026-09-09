@@ -1,3 +1,5 @@
+import { beatboxDeadline, beatboxRunOpen } from "./beatbox.js";
+import type { SimConfig } from "./config.js";
 import type { Creature } from "./types.js";
 import type { World } from "./world.js";
 
@@ -22,6 +24,33 @@ import type { World } from "./world.js";
  * `beatbox.ts` re-exports all four, so nothing that already reached for one
  * through that file had to move.
  */
+
+/**
+ * **How far through its last waiting beat a run is**, 0 the moment the deadline
+ * comes into view and 1 at the deadline itself — or null when the box is not
+ * waiting on one.
+ *
+ * A run is committed by *stopping*, so between the last tap and the deadline
+ * there is a beat in which nothing is happening and the answer is already
+ * decided. Render needs to know how far into that beat the box is, because the
+ * one thing player 2 must not be told early is whether their count was right:
+ * the owner asked for the green row to arrive *only just before enemy will be
+ * destroyed*, so a confirmation that comes a whole beat ahead of the silencing
+ * is one they could still act on, and this creature would stop being a thing
+ * two people have to agree about.
+ *
+ * A fraction rather than a tick count so the threshold is render's, which is
+ * the split this whole file is cut along: how long a reveal lasts is a picture
+ * and how long a run lasts is a rule.
+ */
+export function beatboxWaitThrough(cfg: SimConfig, world: World, c: Creature): number | null {
+  if (!beatboxRunOpen(c)) return null;
+  const deadline = beatboxDeadline(cfg, c);
+  if (deadline === null || c.beatboxTick === undefined) return null;
+  const span = deadline - c.beatboxTick;
+  if (span <= 0) return null;
+  return Math.max(0, Math.min(1, (world.tick - c.beatboxTick) / span));
+}
 
 /** How long ago a thumb missed the beat on this box, in ticks, or null for one
  * nobody has missed. What the counter's red next-dot is timed from. */

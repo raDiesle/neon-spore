@@ -29,7 +29,9 @@ import { drawTargetLock } from "./target-lock.js";
  * around the body, which is `dart-query.ts`'s vocabulary reused rather than
  * reinvented, so a pair who have met a dart or a veer already know that a frame
  * like this means *an instrument has found this and cannot tell you the rest*.
- * And under it, CLICK X TIMES. The X is an X and stays one. It is the only
+ * And under it, CLICK X TIMES TO BEAT. The X is an X and stays one, and the
+ * last two words are the owner's — without them the line says how many presses
+ * and not *when*, which on this creature is the whole of it. It is the only
  * words in this game written under a body rather than under the siren
  * (`duty.ts`), and it earns that by being the one creature where the seat with
  * the thumb has to be told the *shape* of the answer while being told none of
@@ -74,7 +76,7 @@ const WORDS_DROP = 2.5;
  * all wear, because four markings that mean *picked out* have to be one size. */
 const BOX_MUL = 1.6;
 /** The navigator's line, and how near the edge of the screen it may come. */
-const WORDS = "CLICK X TIMES";
+const WORDS = "CLICK X TIMES TO BEAT";
 const WORDS_PAD = 8;
 
 /** What a filled dot is filled with, for each of the three things that can be

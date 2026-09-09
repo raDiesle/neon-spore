@@ -4,6 +4,7 @@ import {
   beatboxHitsMade,
   beatboxRunOpen,
   beatboxSpentRun,
+  beatboxWaitThrough,
   beatboxWanted,
 } from "@neon-spore/sim";
 import { beatboxMissThrough, beatboxWrongThrough } from "./beatbox.js";
@@ -36,6 +37,18 @@ import { beatboxMissThrough, beatboxWrongThrough } from "./beatbox.js";
  * ticks the simulation stamps (`creature-state-beatbox.ts`). Nothing is
  * remembered between frames, so there is nothing for `Effects.reset` to clear.
  */
+
+/**
+ * How far into its last waiting beat a run has to be before player 2's row goes
+ * green (`beatboxWaitThrough`).
+ *
+ * Nine tenths: at the shipped tempo that is a little under a tenth of a second
+ * before the box is silenced, which is long enough to be seen and far too short
+ * to be a instruction. The pilot's row is not gated at all — they are holding
+ * the number already, and telling them what they can read off their own screen
+ * costs nothing.
+ */
+const REVEAL_AT = 0.9;
 
 /** What a dot is filled with. `plain` is the field's own text colour, and the
  * other three are the three things that can happen to a run. */
@@ -103,8 +116,19 @@ export function beatboxCount(world: World, c: Creature, tell: boolean): BeatboxC
   // anything: the box goes quiet a fraction of a beat later, which says the
   // same thing louder. Nothing carries to the next box — the count is authored
   // per body (`beatboxOnSpawn`).
+  //
+  // **Player 2 is told last, and that is the owner's correction.** The green
+  // used to arrive on the frame the count became right, a whole beat before the
+  // box went — which handed the navigator the answer with time left to act on
+  // it, and a pair who can read *stop now* off their own screen do not have to
+  // agree about anything. So the seat that already knows the number gets it
+  // when it is true, and the seat that does not gets it in the last stretch
+  // before the body goes, when saying it out loud would be too late to matter.
   if (beatboxRunOpen(c) && beatboxCorrect(c)) {
-    return { shown: hits, lit: hits, hue: "good", missed: 0 };
+    const wait = beatboxWaitThrough(world.cfg, world, c);
+    if (tell || (wait !== null && wait >= REVEAL_AT)) {
+      return { shown: hits, lit: hits, hue: "good", missed: 0 };
+    }
   }
 
   // Otherwise the plain row, with the next slot red if a thumb has just landed

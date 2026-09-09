@@ -189,21 +189,6 @@ export function beatboxCorrect(c: Creature): boolean {
   return want > 0 && beatboxHitsMade(c) === want;
 }
 
-/**
- * **Whether a tap would count right now**, which is the whole of what the box
- * is lit blue for.
- *
- * The same reading `beatboxBeatFor` is, asked as a yes or no. It is a reading
- * rather than a second copy of the window because it is drawn: the owner asked
- * for the body to change colour on the beat and back again, *to indicate player
- * becomes active on beat*, and a picture of the window that was worked out at
- * the draw site would be a second opinion about when a press is live — which is
- * the one thing on this creature that must have exactly one answer.
- */
-export function beatboxWindowOpen(world: World): boolean {
-  return beatboxBeatFor(world) !== null;
-}
-
 // **The readings only the picture asks for** — how long ago a thumb counted,
 // how long ago one missed, how long ago the box came apart, and the run a
 // discharge took away — are `beatbox-picture.ts` next door, cut out when the
@@ -215,6 +200,7 @@ export {
   beatboxMissAge,
   beatboxSpentRun,
   beatboxTapAge,
+  beatboxWaitThrough,
   beatboxWrongAge,
 } from "./beatbox-picture.js";
 

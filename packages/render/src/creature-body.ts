@@ -7,8 +7,9 @@ import {
   recoilTurn,
 } from "@neon-spore/sim";
 import { drawBalloon } from "./balloon.js";
-import { beatboxArmGrown, beatboxSwell, beatboxWash } from "./beatbox.js";
+import { beatboxArmGrown, beatboxSwell } from "./beatbox.js";
 import { drawBeatboxAir } from "./beatbox-air.js";
+import { beatboxWash } from "./beatbox-wash.js";
 import { drawChoir } from "./choir.js";
 import type { Body } from "./creature-body-in.js";
 import { drawMagnetBody, drawStrandBody } from "./creature-body-worn.js";
@@ -144,7 +145,7 @@ function drawBeatboxBody(b: Body): void {
   const r = b.l.tile * 0.4 * livingBodyMul(b.c) * swell;
   drawBeatboxAir(b.ctx, b.world, b.c, b.x, b.y, r, b.beatPhase);
   const shape = beatboxArms(beatboxHitsMade(b.c), beatboxArmGrown(b.world, b.c));
-  drawLivingBody(b, swell, shape, beatboxWash(b.world, b.c));
+  drawLivingBody(b, swell, shape, beatboxWash(b.world, b.c, b.beatPhase));
 }
 
 export function drawLivingBody(b: Body, swell = 1, shape?: CreatureSilhouette, wash?: Wash): void {

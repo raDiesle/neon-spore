@@ -216,19 +216,20 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     // And the chord. Rock grey and wide, so it reads as the membrane doing
     // something rather than as anything landing: it is deliberately not a
     // `destroy`'s colour and not a `reject`'s tightness — the pair fumbled a
-    // gesture, and the hull damage riding on the `breach` beside it is where
-    // the cost is drawn (`sim/choir.ts`).
+    // gesture, and the hull damage on the `breach` beside it is where the cost
+    // is drawn (`sim/choir.ts`).
     case "choirSing":
       return at(l, e.col, e.row, 18, PALETTE.rock);
 
-    // THE BEATBOX's three: a tap's white receipt, the box quiet in white and
-    // wide, and the discharge in rock grey — a box has no colour of its own.
+    // THE BEATBOX's three: a tap's white receipt, the box quiet in the green
+    // that means a thing went right, and the discharge in the red of what it
+    // costs. The silencing is wide and rides over `beatbox-silence.ts`'s rings.
     case "beatboxTap":
       return at(l, e.col, e.row, 6, PALETTE.text);
     case "beatboxSilent":
-      return at(l, e.col, e.row, 16, PALETTE.text);
+      return at(l, e.col, e.row, 30, PALETTE.good);
     case "beatboxWave":
-      return at(l, e.col, e.row, 12, PALETTE.rock);
+      return at(l, e.col, e.row, 12, PALETTE.red);
 
     // A balloon given: rock grey and narrow, since a balloon carries no colour.
     case "balloonSplit":

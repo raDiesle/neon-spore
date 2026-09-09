@@ -1,5 +1,6 @@
 import type { SimConfig, SimEvent, World } from "@neon-spore/sim";
 import { Arrivals } from "./arrivals.js";
+import { BeatboxSilences } from "./beatbox-silence.js";
 import { BeatboxWaves } from "./beatbox-wave.js";
 import { ChoirQuake } from "./choir-quake.js";
 import { CoordGrid } from "./coord-grid.js";
@@ -100,6 +101,9 @@ export class Effects {
   readonly quake = new ChoirQuake();
   /** THE BEATBOX's discharges, outliving their frame like everything above. */
   readonly beatboxWaves = new BeatboxWaves();
+  /** And its silencings, which are the same picture with nowhere to go
+   * (`beatbox-silence.ts`). */
+  readonly beatboxSilences = new BeatboxSilences();
 
   /** Per-creature grey flash after a wrong-colour hit, by creature id. */
   get blocked(): ReadonlyMap<number, number> {
@@ -165,6 +169,7 @@ export class Effects {
         crawler: this.crawler,
         quake: this.quake,
         beatboxWaves: this.beatboxWaves,
+        beatboxSilences: this.beatboxSilences,
         blockedUntil: this.blockedUntil,
         burst: (x, y, n, hex) => this.sparks.burst(x, y, n, hex),
       });

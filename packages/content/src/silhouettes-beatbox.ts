@@ -28,10 +28,23 @@ import type { CreatureSilhouette } from "./silhouettes.js";
  * is a recognisable outline (a box) and not a number to be counted round an
  * edge. The pair says "box" and nobody has to count anything.
  *
- * `depth` at 0.22 is Wisp's figure and is there for Wisp's measured reason:
- * below about 0.2 the lobes stop being countable at all and the shape reads as
- * a plain circle on some frames, which for this body would lose the one thing
- * separating it from a bulb.
+ * **`depth` is 0.10 and it is deliberately below the countable floor.** It was
+ * 0.22 — Wisp's figure, chosen for Wisp's measured reason, that under about 0.2
+ * lobes stop being countable and the shape reads as a plain circle on some
+ * frames. That was the right number while the four lobes were the only thing
+ * this body had to say, and it is the wrong one now: the owner asked for the
+ * box to be *more circle like rounded, so we cannot identify the 4 raised so
+ * much*, and he is describing a body that has since grown a second and louder
+ * feature. What a pair counts on a soundbox is its **arms**, one per beat they
+ * got right (`beatboxArms`), and four permanent corners competing with a
+ * changing number of arms is two counts on one silhouette.
+ *
+ * So the lobes are a *squaring* now rather than a count: enough of a flat top
+ * and flat sides to keep the body reading as a cabinet standing on its base,
+ * and not enough to be mistaken for something to count. The shape it is nearest
+ * to at this depth is a bulb, and nothing separates the two by contour any
+ * more — which costs nothing, because a bulb is a body that is shot and a box
+ * is a body wearing a target lock, a numeral and a row of dots.
  *
  * Slightly wider than it is tall, which is a cabinet's proportion and also a
  * working difference from Bulb's exact 52 × 52. The **swelling** is not here:
@@ -41,7 +54,7 @@ import type { CreatureSilhouette } from "./silhouettes.js";
  */
 export const BEATBOX: CreatureSilhouette = {
   lobes: 4,
-  depth: 0.22,
+  depth: 0.1,
   wobble: 0.04,
   rx: 54,
   ry: 48,

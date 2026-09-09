@@ -1,5 +1,7 @@
 import type { SimEvent } from "@neon-spore/sim";
 import type { Arrivals } from "./arrivals.js";
+import { BEATBOX_PER_HIT_MUL, BEATBOX_START_MUL } from "./beatbox.js";
+import type { BeatboxSilences } from "./beatbox-silence.js";
 import type { BeatboxWaves } from "./beatbox-wave.js";
 import type { ChoirQuake } from "./choir-quake.js";
 import type { CrawlerFx } from "./crawler-fx.js";
@@ -35,6 +37,9 @@ export interface IngestOneCtx {
   quake: ChoirQuake;
   /** THE BEATBOX's discharge, travelling down the field (`beatbox-wave.ts`). */
   beatboxWaves: BeatboxWaves;
+  /** And a box going quiet, which is the same picture with nowhere to go
+   * (`beatbox-silence.ts`). */
+  beatboxSilences: BeatboxSilences;
   blockedUntil: Map<number, number>;
   burst: (x: number, y: number, n: number, hex: string) => void;
 }
@@ -155,6 +160,17 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
     // field at the ship. The two beside it are handled by the burst table
     // alone (`effects-spark.ts`) — they are a flash and nothing that outlives
     // its own frame.
+    // A run answered: the body's last act, and the loudest one it makes. The
+    // radius is the box's own footprint at the count it died on
+    // (`beatboxBodyMul`), so the rings leave the rim the pair was looking at
+    // rather than a size decided in the effect.
+    case "beatboxSilent":
+      ctx.beatboxSilences.cast(
+        tileCX(ctx.l, e.col),
+        tileCY(ctx.l, e.row),
+        ctx.l.tile * 0.4 * (BEATBOX_START_MUL + e.hits * BEATBOX_PER_HIT_MUL),
+      );
+      break;
     case "beatboxWave":
       // Aimed at the hull row rather than given a fixed reach, because a box
       // discharges anywhere between the top of the field and the plating: a

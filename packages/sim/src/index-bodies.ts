@@ -52,8 +52,8 @@ export {
   beatboxRunOpen,
   beatboxSpentRun,
   beatboxTapAge,
+  beatboxWaitThrough,
   beatboxWanted,
-  beatboxWindowOpen,
   beatboxWindowTicks,
   beatboxWrongAge,
 } from "./beatbox.js";

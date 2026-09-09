@@ -4,12 +4,9 @@ import {
   beatboxIsBox,
   beatboxMissAge,
   beatboxTapAge,
-  beatboxWindowOpen,
   beatboxWrongAge,
   ticksPerBeat,
 } from "@neon-spore/sim";
-import { colorTrio, type Wash } from "./creature-tint.js";
-import { PALETTE } from "./palette.js";
 
 /**
  * **What a soundbox is drawn as, this instant** — how big it is, how many arms
@@ -69,7 +66,7 @@ const DECAY = 1.6;
  * thing on the field — which reads as a boss rather than as a thing being
  * answered.
  */
-const START_MUL = 0.62;
+export const BEATBOX_START_MUL = 0.62;
 
 /**
  * And what one counted beat adds. Small on purpose: this is the *quiet* half
@@ -78,7 +75,7 @@ const START_MUL = 0.62;
  * over one, so the pair reads a long run as a thing that has grown into the
  * lane rather than as a body that suddenly changed size.
  */
-const PER_HIT_MUL = 0.14;
+export const BEATBOX_PER_HIT_MUL = 0.14;
 
 /**
  * How much of a beat an arm takes to come out of the rim. Half: fast enough
@@ -124,7 +121,7 @@ const MISS_BEATS = 0.55;
  */
 export function beatboxBodyMul(c: Creature): number {
   if (!beatboxIsBox(c)) return 1;
-  return START_MUL + beatboxHitsMade(c) * PER_HIT_MUL;
+  return BEATBOX_START_MUL + beatboxHitsMade(c) * BEATBOX_PER_HIT_MUL;
 }
 
 /**
@@ -191,39 +188,3 @@ export function beatboxArmGrown(world: World, c: Creature): number {
   if (age === null || age < 0) return 1;
   return Math.min(1, age / (ticksPerBeat(world.cfg) * ARM_GROW_BEATS));
 }
-
-/**
- * **What colour is laid over a soundbox, and how far.**
- *
- * Two states, and the order between them is the creature: a body that has just
- * come apart is red for two beats whatever the clock is doing, because the pair
- * has to be told what went wrong before they are told what they may do next.
- * Only a box with nothing wrong with it goes blue.
- *
- * **The blue is the window**, read straight off `beatboxWindowOpen` rather than
- * off the phase, so the colour a thumb is timed against and the moment the
- * simulation would accept one are one reading. The owner asked for it as
- * *change the colour on every beat, then switch back*, and the switch back is
- * the half that matters: a box that were blue throughout would say nothing.
- *
- * `PALETTE.arc` and not the shield's cyan — `arc` is the hard electric blue THE
- * FENCE's current wears, chosen there precisely because it is neither
- * ammunition colour and touches neither, which is what a body no bolt can
- * answer needs.
- *
- * The red eases *out* rather than in: it is loudest on the frame the run came
- * apart, the frame the pair is looking for an answer on. The blue does not ease
- * at all — a window is open or shut, and a colour that faded up would put its
- * brightest instant somewhere in the middle of one.
- */
-export function beatboxWash(world: World, c: Creature): Wash | undefined {
-  const wrong = beatboxWrongThrough(world, c);
-  if (wrong !== null) return { ...colorTrio("red"), amount: (1 - wrong) ** 0.7 };
-  if (!beatboxWindowOpen(world)) return undefined;
-  return { rim: PALETTE.arcRim, hex: PALETTE.arc, dark: PALETTE.grid, amount: WINDOW_WASH };
-}
-
-/** How far a box goes towards blue while a tap would count. Most of the way:
- * the whole of what it says is *now*, and a tint the pair has to look twice at
- * is one they will not time a thumb against. */
-const WINDOW_WASH = 0.8;

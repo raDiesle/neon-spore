@@ -47,6 +47,7 @@ export function updateAll(e: Effects, dt: number, l: Layout): void {
   e.ghostTrail.update(dt);
   e.quake.update(dt);
   e.beatboxWaves.update(dt);
+  e.beatboxSilences.update(dt);
   // A salvo's particles are thrown from here on the frame it lands, not from
   // `burstFor` on the frame the event arrived — a second and a quarter
   // earlier (`fleet-fx.ts`).
@@ -70,6 +71,7 @@ export function drawAll(
   e.crawler.draw(ctx, l, surfaceY);
   e.spriteBursts.draw(ctx);
   e.beatboxWaves.draw(ctx, l);
+  e.beatboxSilences.draw(ctx, l);
   e.bodies.drawOnBodies(ctx, l, world, beatPhase);
 }
 
@@ -95,4 +97,5 @@ export function resetAll(e: Effects): void {
   e.opening.reset();
   e.quake.clear();
   e.beatboxWaves.clear();
+  e.beatboxSilences.clear();
 }
