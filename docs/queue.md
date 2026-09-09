@@ -137,6 +137,35 @@ Why the short label is what fits today, and what each of the three costs.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
+## `bun run land` conflicts on `docs/queue.md` every time a lane drains an item
+
+- **Found:** 2026-09-09, claude/queue-drain-2026-09-09b
+- **Files:** `tools/queue/run.ts`, `tools/land/run.ts`
+
+`bun run queue take` writes its `Taken:` line **on `main`** and pushes, which is
+the claim and is right. `bun run queue done` then removes the whole entry, and
+it removes it **in the lane's own worktree** — so the lane carries a commit that
+edits a file `main` has moved underneath it, and `bun run land` refuses to
+replay with `conflicts in docs/queue.md`. It is not an occasional clash between
+two lanes: it happens on **every** landing that drains an item, because the same
+tool wrote both sides.
+
+This lane hit it twice in one sitting and worked around it the same way both
+times: `git reset --hard HEAD~1`, `git rebase origin/main`, re-run
+`bun run queue done`, commit, land. That is four commands and a rebuilt commit
+message to get past a conflict nobody authored, and every future draining
+session pays it.
+
+Two candidate fixes, and the second looks right. `queue done` could write on
+`main` the way `take` does, so the removal never enters a lane at all — but the
+entry then leaves the list before the work that closed it has landed, and a
+crash in between loses the item. Better: **have `bun run land` resolve a
+`docs/queue.md` conflict itself**, the way the queue's sibling item asks it to
+for `docs/INDEX.md` — take `origin`'s copy and re-apply the lane's own removals
+by heading, which is a well-defined merge because an entry is identified by its
+`##` line. The proof is a lane that claims an item, does it, and lands in one
+`bun run land` with no manual rebase.
+
 ## `world.beat` is not `world.tick / ticksPerBeat`, and nothing says so
 
 - **Found:** 2026-09-08, claude/beatbox-enemy-visuals-462bcf
@@ -381,28 +410,6 @@ optional list of `TimedCommand`s the measurement sends before its busiest tick,
 send them the way `capture.ts` does, and give THE LANCE a held colour so its row
 means something. The rows for waves with no commands are untouched, so the rest
 of the baseline stays comparable.
-
-## `mechanics-table.ts` is at its ceiling and pays for the next creature in prose
-
-- **Found:** 2026-09-07, claude/balloon-enemy-unit-tkbivj
-- **Taken:** 2026-09-09, claude/queue-mechanics-table-ts-is-at-its-ceiling-and-pays-fo
-- **Files:** `packages/content/src/mechanics-table.ts`,
-  `packages/content/src/mechanics-handed.ts`,
-  `packages/content/src/mechanics-split.ts`
-
-The file stood at 248 of its 250 lines when THE BALLOON arrived. Its row went
-next door into `mechanics-handed.ts`, which still costs an import and a spread
-— three lines for two — so the lane had to buy them back by rewording a comment
-belonging to `WAVE_MECHANICS`. That is the cost `docs/token-budget.md` names:
-prose nobody meant to touch, edited to make room, and the next creature pays it
-again with nothing left to trim.
-
-Cut it properly. `SPLIT_MECHANICS` is the precedent and the seam is already
-drawn in the table's own comments: the rocks, the run switches, the wave
-switches and the split five are out; what is left is one long undifferentiated
-run. Move the four bosses' rows, or the six worn bodies', into a file of their
-own and name them in place the way the existing groups are — key order is read
-by `MECHANIC_IDS` and walked by the bestiary, so nothing may be reordered.
 
 ## A scratch script cannot import `@neon-spore/*` from the repository root
 
@@ -737,22 +744,3 @@ stopped and something is killing it, or it is meant to be one-shot and the
 usage text should say so. Find out which, and then either keep the process
 alive until `preview_stop` or say plainly, in the startup line, how long it
 will answer for.
-
-## `apps/game/src/main.ts` is exactly at the 250-line ceiling
-
-- **Found:** 2026-09-08, claude/game-mouse-hover-effect
-- **Taken:** 2026-09-09, claude/queue-apps-game-src-main-ts-is-exactly-at-the-250-line
-- **Files:** `apps/game/src/main.ts`, `apps/game/src/shell.ts`
-
-Binding the mouse trail took three lines and put this file on 250 exactly, and
-`packages/sim/test/limits.test.ts` fails at 251 — so the next binding anybody
-adds here breaks the build, and whoever adds it pays for a split they did not
-come to do. Two lines of it had to be shaved off a comment that was earning
-them, which is the wrong trade and is the sign this is due now.
-
-The file is already two halves that share nothing but the world: everything
-above `startTogether` is *what the app is made of* — the world, the renderer,
-the audio, the input, the link — and everything below is the loop and the test
-rig. `shell.ts` is the precedent for lifting a knot of bindings out whole. Take
-either half into a file of its own and leave `main.ts` as the assembly, so the
-next thing that has to be bound has somewhere to go.
