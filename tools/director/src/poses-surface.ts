@@ -22,7 +22,7 @@ import { firstOfKind, fresh, type Pose, type PoseGroup, run, POSE_TPB as TPB } f
  * precisely what a two-second window cuts off. So a pose here is held for as
  * long as its body is on the field and replayed when it leaves.
  *
- * **Both are cropped to a tile, and the tile follows.** A crop used to be
+ * **The two that fall are cropped to a tile, and the tile follows.** A crop used to be
  * worked out once, from the world as it was handed over, which was right only
  * for a pose replayed every two seconds — a body falls a third of a tile in
  * that time. These fall for nine seconds, so both were written with
@@ -30,7 +30,10 @@ import { firstOfKind, fresh, type Pose, type PoseGroup, run, POSE_TPB as TPB } f
  * and both had to be widened to the whole field. `versus-crop.ts`'s
  * `CropWindow` re-derives the rectangle from the world each frame is drawn
  * from, so they are back on a tile: the magnification a surface is judged at,
- * held on the body for the whole fall.
+ * held on the body for the whole fall. The two below them stay on the whole
+ * field for reasons that are not about drift — a wisp's jump *is* what its
+ * fringe is read by, and a following window would hold it still; a gyre is a
+ * wheel wider than any tile crop.
  */
 
 const COL = 5;

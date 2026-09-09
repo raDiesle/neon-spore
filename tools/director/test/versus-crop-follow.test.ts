@@ -44,9 +44,19 @@ function bodyCentre(pose: Pose, world: World): { x: number; y: number } {
 const tilePoses = SURFACE_POSES.filter((p) => p.crop === "tile");
 
 describe("a tile crop follows the body it is about", () => {
-  test("the surface poses are cropped to a tile", () => {
-    expect(tilePoses.map((p) => p.name)).toEqual(SURFACE_POSES.map((p) => p.name));
-    for (const pose of tilePoses) expect(pose.at).toBeDefined();
+  /**
+   * The two that were widened are named, because that is the regression: a
+   * later lane putting either back on `crop: "field"` would otherwise pass
+   * this file by having nothing left in it to check. The rest of the group is
+   * not required to be tile-cropped — a gyre is five columns wide with its
+   * mounts counted, and a window fitted to one tile of it cuts off the wheel.
+   */
+  test("the two poses that were widened are back on a tile", () => {
+    for (const name of ["CHOIR · TWO VOICES", "THROB · TURNING"]) {
+      const pose = SURFACE_POSES.find((p) => p.name === name);
+      expect(pose?.crop, `${name} is not cropped to a tile`).toBe("tile");
+      expect(pose?.at, `${name} has no body to centre on`).toBeDefined();
+    }
   });
 
   for (const pose of tilePoses) {
