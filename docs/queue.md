@@ -197,6 +197,7 @@ ring already draws one node lit at a time and would light them in turn.
 ## A baseline row can be marked unmeasured, and a cloud session writes one
 
 - **Found:** 2026-09-08, claude/rock-paper-scissors-boss-sn9ful
+- **Taken:** 2026-09-09, claude/queue-a-baseline-row-can-be-marked-unmeasured-and-a-cl
 - **Files:** `tools/perf/baseline.json`, `tools/perf/test/baseline.test.ts`,
   `tools/perf/compare.ts`, `tools/perf/say.ts`, `CLAUDE.md`
 
