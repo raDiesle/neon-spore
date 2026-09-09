@@ -67,7 +67,10 @@ describe("CLAUDE.md", () => {
     const pkg = (await Bun.file(join(ROOT, "package.json")).json()) as {
       scripts: Record<string, string>;
     };
-    const named = [...text.matchAll(/bun run ([a-z][a-z0-9:]*)/g)].map((m) => m[1] ?? "");
+    // The hyphen is in the class because a script name may carry one, and
+    // without it `bun run style-guide` was read as `bun run style` — a script
+    // that does not exist, so the check failed on a command that does.
+    const named = [...text.matchAll(/bun run ([a-z][a-z0-9:-]*)/g)].map((m) => m[1] ?? "");
     expect(named.length).toBeGreaterThan(10);
     for (const script of new Set(named)) {
       expect(

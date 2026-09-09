@@ -137,35 +137,6 @@ Why the short label is what fits today, and what each of the three costs.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
-## `CLAUDE.md` is within about a hundred characters of its ceiling
-
-- **Found:** 2026-09-07, claude/queued-items-rer0av
-- **Taken:** 2026-09-09, claude/queue-claude-md-is-within-about-a-hundred-characters-o
-- **Files:** `CLAUDE.md`, `tools/test/claude-md.test.ts`, `docs/`
-
-`tools/test/claude-md.test.ts` caps the file at 22,000 characters and it stands
-at roughly 21,880. That is under a line of the Commands block, so the next lane
-that adds a rule, a command or a sentence goes red on a check that has nothing
-to do with what it changed — and the message says to move reasoning into
-`docs/`, which is a job nobody has budgeted for in the middle of something else.
-This lane hit it: `bun run port` could be named in the prose only by tightening
-the sentence around it, and the Commands block still does not list it.
-
-The fix is the one the ceiling exists to force, done deliberately rather than
-under a red check. `## Verifying in a browser`, `## Measuring what a frame
-costs` and `## Delegating implementation` are each a rule and then its argument,
-and each already names the document holding the argument
-(`docs/working-with-claude.md`, `docs/performance.md`,
-`docs/delegation-cost.md`) — so the paragraphs after the first sentence of each
-have somewhere to go that a session reaches in one hop. Two of the three would
-buy back a thousand characters. Add `bun run port`, `bun run probe`,
-`bun run style-guide` and `bun run shapes:cues` to the Commands block in the
-same commit: all four are lines their lanes could not afford, and all four are
-commands a session looks for exactly where it cannot find them.
-`shapes:cues` is the motion half of `shapes:report` and was added on
-8 September 2026 by a lane that could only document it in
-`.claude/skills/depth` and `docs/style-guide.md`, for this reason.
-
 ## THE PULSE judges a press ~100 ms late on two devices
 
 - **Found:** 2026-09-07, claude/ddr-boss-concept-57c9c8

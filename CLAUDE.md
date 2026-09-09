@@ -225,12 +225,12 @@ bun install            # once
 bun run dev            # the wave editor at 4174, hot reload — for a human
 bun run dev:once       # the same on a free port, beside one that is running
 bun run dev:game       # the game at localhost:3000, hot reload — for a human
-                       # all three restart themselves after a merge, rebase or
-                       # checkout — an incremental bundle built while git is
-                       # still writing is half of each revision and stays that
-                       # way (tools/dev/supervise.ts)
+                       # all three restart themselves after a git operation, so
+                       # a half-written bundle is never served (tools/dev/)
 bun run preview        # build, then serve dist/ on 4173 — how an agent verifies
 bun run preview:once   # same, on a free port that nobody else can be holding
+bun run port           # which port this tree's servers answer on, before one is started
+bun run probe          # run a scratch script against a live world — tools/probe/
 bun test               # everything
 bun run test:determinism
 bun run relay:check    # two headless devices against a running relay
@@ -250,6 +250,8 @@ bun run push           # send main to origin, on purpose rather than on landing
 bun run index          # regenerate the file map in docs/INDEX.md
 bun run maze           # the sheets THE MAZE is played on, drawn
 bun run shapes:parts   # every secondary form on one sheet — docs/parts.md
+bun run shapes:cues    # the motion half of shapes:report, as numbers not a picture
+bun run style-guide    # the specimen sheet for docs/style-guide.md, drawn from the palette
 bun run shapes:swim    # one pulse cycle of every body that swims, as a strip
 bun run icons          # regenerate the home-screen PNGs from apps/game/icon.svg
 bun run raster         # regenerate the baked assets under assets/raster/
@@ -261,70 +263,46 @@ bun run deploy:game    # build the game, then push the worker to Cloudflare
 ## Delegating implementation
 
 **Write it here, in as few turns as the work allows.** Delegation to the worker
-model is a deliberate choice for a particular shape of task, not the default: it
-was measured at 6.8 times the cost on 25 August 2026, and 91.5% of that was the
-session rather than the worker.
-
-Reach for `bun run delegate` when the spec is genuinely much smaller than the
-code — a uniform change across many files, a long mechanical file whose shape is
-decided, or a change you expect to need several failing rounds of `bun run
-check`. Not for a small edit, a test, a document, or anything whose spec would
-run as long as its code. Say in the report whether the work was delegated and
-why. `.claude/skills/delegate` has the procedure;
-`docs/delegation-cost.md` has the figures.
+model is a deliberate choice, not the default: it was measured at 6.8 times the
+cost. Reach for `bun run delegate` only when the spec is genuinely much smaller
+than the code — a uniform change across many files, a long mechanical file whose
+shape is decided, a change you expect to need several failing rounds of `bun run
+check` — never for a small edit, a test, a document, or anything whose spec would
+run as long as its code. Say in the report whether it was delegated.
 
 **Deciding never goes over, and neither does reviewing.** The interface, the
 constraint, the shape, which of two variants reads better, what is worth
 building at all — that is the work, and no spec can carry it.
 
-Friction in this arrangement is a bug in the task at hand, not a note for later.
-Fix it in the same turn.
+`.claude/skills/delegate` has the procedure and `docs/delegation-cost.md` the
+figures. Friction in this arrangement is a bug in the task at hand, not a note
+for later — fix it in the same turn.
 
 ## Verifying in a browser
 
-**`bun run preview`, never `bun run dev:game`.** It builds first (ten
-milliseconds) and serves the bundle that ships; `dev:game` is the human's server
-on 3000 and `preview` is the agent's on 4173.
-
-**Ask who answered before trusting a measurement.** A dev server returns
-`index.html` for any path, so a 200 proves nothing:
-
-```
-curl -s http://localhost:4173/__preview
-```
-
-Only the preview answers `{"app":"neon-spore-preview",...}`, and it names the
-checkout it serves in `tree`. If that tree is not the one under test, the number
-came off the wrong server. **`bun run port` says which port a server
-here takes; its startup line says which it took.** In a worktree **launch by
-absolute path**: `.claude/launch.json` carries no `cwd`, so it starts the
-*main* checkout's server and nothing errors.
+**`bun run preview`, never `bun run dev:game`.** It builds first and serves the
+bundle that ships, on 4173; `dev:game` is the human's hot server on 3000.
+**Ask who answered before trusting anything you measure** — only the preview
+answers `curl -s http://localhost:4173/__preview`, and it names the checkout it
+serves in `tree`. In a worktree launch by absolute path: `.claude/launch.json`
+carries no `cwd`, so it starts the *main* checkout and nothing errors.
 
 `?play=1` opens on the field rather than the menu, which is what `tools/frames`
-drives. `bun run preview:once` takes a free port for a throwaway check. Never
-start a server with a backgrounded shell command, and never install a service
-worker on a local address — `?pwa=1` is for testing the install itself.
-
-Each of those is a trap something walked into, and each costs a turn to
+drives. Never start a server with a backgrounded shell command, and never
+install a service worker on a local address (`?pwa=1` tests the install
+itself). Each of those is a trap something walked into, and each costs a turn to
 rediscover: `docs/working-with-claude.md`.
 
 ## Measuring what a frame costs
 
 **A new shape or a new animation gets a performance run; an ordinary change
 does not, and neither does a cloud session — it never finishes there.**
-**Measure the waves the new thing appears in and nothing else** — the whole
-game is swept only when a baseline is being taken.
+**Measure the waves the new thing appears in and nothing else** —
+`bun run perf --wave "THE GRATE"`. The whole game is swept only when a baseline
+is being taken: bare `bun run perf`, kept with `--save`.
 
-```
-bun run perf --wave "THE GRATE"   # the waves a change touched, at their busiest tick
-bun run perf                      # all of them — what a baseline is taken from
-bun run perf --save               # keep a full sweep as the new baseline
-```
-
-A narrow run carries five reference waves so it still has a median of its own,
-and takes about 25 seconds against the sweep's three minutes. **If one of those
-five is flagged, the machine was busy and the run says nothing** — no lane
-touches a reference wave. **Never `--save` to make a regression stop being
+**If one of the five reference waves a narrow run carries is flagged, the
+machine was busy and the run says nothing** — no lane touches one. **Never `--save` to make a regression stop being
 reported.** It does not replace `frame-budget.test.ts`: an op is not a
 millisecond. `docs/performance.md`.
 
