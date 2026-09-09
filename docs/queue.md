@@ -574,3 +574,133 @@ cannot see `@neon-spore/*`, beside the MSYS-link trap it already carries. And
 `bun run check` should fail early with that sentence rather than through
 `tsc` — `tools/check/run.ts` already runs before the typecheck, and one
 `existsSync` on `node_modules/@neon-spore` is the whole test.
+
+## Close `slick:motion`: adopt BANK, GLIDE and FLOAT to the shape sheet
+
+- **Found:** 2026-09-09, claude/slick-content-organization-17beb0
+- **Files:** `tools/versus/candidates/slick-motion/`, `tools/versus/DECIDED.md`,
+  `packages/content/src/motions-event.ts`, `tools/shape-sheet/src/motions/`,
+  `tools/shape-sheet/src/drafts/offered.ts`
+
+The owner answered this slot in chat on 9 September 2026: **BANK is applied to
+the game**, and **GLIDE and FLOAT are neither adopted nor thrown away — they
+move to the shape sheet**. Two halves, and the order matters, because
+`bun run versus adopt` removes every directory in the slot: **move the two
+losers out first, then adopt.**
+
+BANK reads the slick's roll off the derivative of its own drift and stretches
+the body along its travel, which is the owner's "floating in all directions but
+some more according to flying position" answered as attitude rather than as a
+position on the field. `bun run versus adopt slick:motion bank "<why>"` writes
+its field values into the shipped record and appends the entry to
+`tools/versus/DECIDED.md`; do not write either by hand.
+
+GLIDE (a push, a coast and a new heading every 2.1 beats) and FLOAT (two slow
+drifts on periods with no common multiple, no event in it at all) are motions
+with nothing on the field wearing them, which is what the spare-motions
+registry under `tools/shape-sheet/src/motions/` is for. Give each one an entry
+there, then hang them off `OFFERED_DRAFTS` in
+`tools/shape-sheet/src/drafts/offered.ts` on the slick's own subject, status
+`free`, with the owner line saying they were offered against SWALLOW and left
+unspent — `offered.ts`'s own preamble is the precedent and says how to word it.
+Carry each one's docstring across: the argument and the *how it can lose*
+paragraph are the whole value of the thing, and a moved shape with no note is a
+picture nobody can weigh.
+
+Prove it with `bun run check` plus `bun run shapes` and `bun run shapes:cues`,
+and stage the regenerated sheets with the change.
+
+## Close `slick:shape` with nothing taken: COMMA and REVERB to the shape sheet
+
+- **Found:** 2026-09-09, claude/slick-content-organization-17beb0
+- **Files:** `tools/versus/candidates/slick-shape/`, `tools/versus/DECIDED.md`,
+  `tools/shape-sheet/src/drafts/offered.ts`
+
+The owner answered this slot in chat on 9 September 2026 and took none of the
+five. **RAY, FRILL and CHAIN are rejected** — they go with the slot and their
+argument survives only in the removing commit's message, which is the rule
+`docs/versus.md` sets for a candidate nobody took. **COMMA and REVERB are
+kept as pictures**: they move to the shape sheet rather than being deleted.
+
+Order again: move the two out **before** `bun run versus drop slick:shape
+"<why not>"`, because the drop takes the whole directory with it. The drop is
+what writes `DECIDED.md`; do not write that file by hand.
+
+COMMA is one deep lobe and a drawn-out tail — a body with a head end — and
+REVERB is the REVERB draft's even three-lobed edge stretched onto the slick's
+footprint. Both become `OFFERED_DRAFTS` entries in
+`tools/shape-sheet/src/drafts/offered.ts`, status `free`, following the THROB ·
+CROWN entry already there, with the owner line saying each was offered against
+the shipped slick and not taken. Keep both docstrings, the *how it can lose*
+paragraph included: COMMA's is that THE DART already owns a point, REVERB's is
+that plain reads as unfinished, and those are the sentences that will decide
+them if they are ever picked up again.
+
+Prove it with `bun run check` and `bun run shapes`, staging the regenerated
+sheets.
+
+## THE BALLOON: a longer pull, a hold at full stretch, slower, and halves that part
+
+- **Found:** 2026-09-09, claude/slick-content-organization-17beb0
+- **Files:** `packages/sim/src/config-balloon.ts`, `packages/sim/src/balloon.ts`,
+  `packages/sim/src/balloon-pull.ts`, `packages/sim/src/creature-state-balloon.ts`,
+  `packages/sim/src/hash-creature-late.ts`, `packages/render/src/` (the balloon skin),
+  `packages/content/src/scenes/the-balloon.ts`
+
+Four changes the owner asked for by name on 9 September 2026, which is the
+first of the three exemptions in `CLAUDE.md`'s look rule — this goes onto the
+field rather than to VERSUS, and the commit says so. Every number below is the
+session's to pick; what is fixed is the direction of each one.
+
+**The pull is longer.** `balloonTautMilli` is 1200 thousandths, a little over a
+tile, and the owner wants a hand to carry a handle further before that side
+counts as pulled. Raise it, and check the consequence the field constrains:
+`balloonHandleMilli` is where the handle is *drawn*, and a taut distance that
+puts a finger past the edge of the screen from a body in an outer column is a
+control one seat cannot complete. Say in the docstring what the new figure is
+in tiles and what bounded it.
+
+**The skin holds at full stretch before it goes.** Today both sides taut on one
+tick rubs on that tick. Add a hold — a new `balloonHoldBeats` in
+`config-balloon.ts` — so a balloon pulled to its limit stays there, visibly at
+maximum stretch, for a short beat before it splits or pops. Two things it buys:
+the pair sees that they did the thing together, and the split reads as a
+consequence rather than as a disappearance. The stretch readout
+`balloonSideTaut`/the 0..1000 give already exists in `balloon-pull.ts` and is
+what the skin is drawn from, so the hold is a state to sit in at 1000 rather
+than a new picture. It is a new `Creature` field, so it needs its
+`hash-creature-late.ts` row and `hash-coverage.test.ts` will say so if it is
+missed.
+
+**They are much slower.** `balloonRiseRows` is 1, a slick's speed read upward,
+and thirteen rows is about nine seconds. Cut it, and mind the two things that
+number was holding: a wave may author its own (`WaveEntry.rise`), and the
+comment in `config-balloon.ts` explains that the crossing is a diagonal because
+the rise and the sideways step are *the same number* — a fractional rise has to
+keep that or the path stops being a diagonal.
+
+**The two halves part.** `rubBalloon` in `balloon-pull.ts` already sends one
+half left and one right; the owner wants them to differ vertically too — one
+climbing and one descending, so a split is two bodies going visibly different
+ways rather than two doing the same thing a column apart. `stepBalloon` does
+`c.row -= rise`, so the sign of the rise is the whole of it; the descending
+half needs its own field beside `balloonRise` (hashed, as above). **A
+descending half bursts on the ship's row for the full `damageBalloonBurst`**,
+the same as a climbing one at the top — the owner decided that on 9 September:
+both ends of the field punish a half left alone, so the pair still has to
+answer both. Route it through `burstBalloon`, which already exists and already
+uses `breachUnscarred` rather than `breachHull` — nothing struck the ship, so
+no scar. When the body is against a wall and one half cannot go outward, keep
+the vertical split and send both halves the same way sideways: one up and one
+down, both inward. `clampSpanCol` is already the clamp.
+
+**The wave's guide is reworked in the same lane** — the owner asked for that
+too. `packages/content/src/scenes/the-balloon.ts` teaches a pull that is now
+further, a hold that did not exist, and a split that now goes two ways; a guide
+that rehearses the old shape is a guide that lies. Read
+`.claude/skills/new-tutorial` before touching it — every rule in there is a
+correction the owner has already made once.
+
+Prove it with `bun run check` and `bun run test:determinism`, and watch THE
+BALLOON at tempo: the slower climb and the hold are both timing, and neither
+is visible in a number.
