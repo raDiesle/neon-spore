@@ -25,6 +25,7 @@
  *   bun run frames <sha> --wave 21 --ticks 240   an absolute world.tick, not a count of steps
  *   bun run frames <sha> --wave 21 --frames 6 --stride 4   a short strip, for motion
  *   bun run frames <sha> --wave 21 --seat p1    one player's screen, not the rig's
+ *   bun run frames . --wave "THE CLASP" --raster   the baked looks, which are off by default
  *   bun run frames <sha> --wave 20 --hold wardenTether=0,y=7000  a thumb on a cord
  *   bun run frames <sha> --wave 21 --hold balloonLeft=-1600,id=1 --hold balloonRight=1600,id=1   both hands
  *   bun run frames <sha> --wave 19 --hold mazeString=1400@240 --press 300:2:fire=cyan   turn, then shoot
@@ -94,7 +95,7 @@ async function main(): Promise<void> {
       'usage: bun run frames <sha>|. --wave N|"NAME" [--ticks N] [--seat p1|p2|test] ' +
         "[--hold prime|mazeString=N|wardenTether=N[,y=N]|lidString=N,id=N][@TICK] (repeatable) " +
         "[--hold-ticks N] " +
-        "[--settle N] [--at x,y,w,h] [--zoom N] [--boss-round N] " +
+        "[--settle N] [--at x,y,w,h] [--zoom N] [--boss-round N] [--raster] " +
         "[--press TICK:SEAT:control=value,…] [--opening intro|guide] [--out DIR]",
     );
   }
@@ -164,6 +165,7 @@ async function main(): Promise<void> {
     // `--frames` and `--stride` next to each other.
     strideTicks: flag("stride", 4),
     seat,
+    raster: argv.includes("--raster"),
     hold,
     holdTicks: flag("hold-ticks", 30),
     // Zero by default, which is what every capture before this flag existed

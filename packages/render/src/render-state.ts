@@ -1,4 +1,5 @@
 import type { SimEvent, World } from "@neon-spore/sim";
+import type { ClaspFrames } from "./clasp-frames.js";
 import { Effects } from "./effects.js";
 import { FenceShards } from "./fence-shards.js";
 import { FenceStrike } from "./fence-strike.js";
@@ -85,6 +86,17 @@ export class RenderState {
    */
   get sprites(): SpriteBursts {
     return this.effects.spriteBursts;
+  }
+
+  /**
+   * THE CLASP's hand-painted shield, for a host that wants to install the
+   * strip. Exposed for `sprites`'s reason and no other: the one thing a host
+   * may change about a renderer is the one thing it can see, and which of the
+   * two shields a device draws is the host's decision rather than this
+   * package's (`clasp-frames.ts`).
+   */
+  get claspShield(): ClaspFrames {
+    return this.effects.claspFrames;
   }
 
   /**

@@ -90,6 +90,8 @@ problem. One `<img src>` and it animates, with no loop, no `dt`, no code.
 | `packages/render/src/sprite-burst.ts` | `SpriteBursts` — the tick-driven atlas player |
 | `packages/render/src/raster-caps.ts` | what the browser in front of us can do |
 | `packages/render/src/raster-load.ts` | `loadAtlas`, preferring `createImageBitmap` |
+| `packages/render/src/clasp-frames.ts` | `ClaspFrames` — the strip THE CLASP's shield is painted from |
+| `apps/game/src/raster.ts` | `bindRasterBurst` and `bindRasterClasp` — the flag, and what it installs |
 
 **No dependency was added.** Both encoders are container arithmetic: an APNG
 is a PNG with three more chunk types, an animated WebP is a RIFF file with an
@@ -297,6 +299,40 @@ nothing is fetched at all. In the renderer:
 ```ts
 renderer.sprites.install(await loadAtlas(url));   // the host decides
 ```
+
+### The second strip, and the year it spent unreachable
+
+`green-shield-strip.webp` — twenty hand-painted frames of THE CLASP's bubble,
+42 kB, baked by `bun run raster:pack` on 31 August 2026 — went the whole first
+year of that creature's life without being drawn once. `drawClaspShield` had
+both halves from the start, the frames when an image is passed and a procedural
+shell when it is not, and **nothing anywhere passed an image**: `drawCreatures`
+took a `claspImage` with a default of `null` and its one caller never handed it
+anything. The shell was the picture on every device, every frame, and the
+committed strip was paint nobody had seen.
+
+It goes through the same gate as the burst now, and behind the same flag:
+
+```ts
+renderer.claspShield.install(await loadAtlas(url));   // the host decides
+```
+
+`ClaspFrames` (`packages/render/src/clasp-frames.ts`) holds the strip on
+`Effects` beside `SpriteBursts`, `frame-field.ts` passes
+`effects.claspFrames.image` down to `drawCreatures`, and `bindRasterClasp` in
+`apps/game/src/raster.ts` installs it only when `?raster=1` is set. One flag
+turns both offered looks on, which is what somebody comparing them wants.
+
+The two assertions this rests on are in
+`packages/render/test/clasp-frame.test.ts`: with no strip installed the field
+blits it zero times, and with one installed the frames reach the canvas. The
+second of those is the first time that branch has ever run.
+
+**What is still open** is the same thing as for the burst and it is the owner's
+alone: whether a painted orb belongs on a body whose colour player 2 has to
+read *through* it. Open the game at `?raster=1`, put a clasp on the field, and
+compare it with `clasp-lattice.ts`'s honeycomb — which is what ships, and stays
+shipping until he says otherwise.
 
 `Effects` hangs it on the `destroy` event — a cannon shot that killed what it
 hit — beside the sparks that already shipped, not instead of them. Everything

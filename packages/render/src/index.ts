@@ -2,6 +2,7 @@ export { BREAK_LOOK, type BreakLook, fallFrom, fractureFrom } from "./break-look
 export { edgeLit, faceHex, facet, type PiecePaint } from "./break-piece.js";
 export { drawWaveOpening } from "./briefing.js";
 export { Canvas2DRenderer } from "./canvas2d.js";
+export { ClaspFrames } from "./clasp-frames.js";
 export {
   creatureAt,
   creatureCenter,

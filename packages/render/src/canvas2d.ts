@@ -1,5 +1,6 @@
 import { guardArmed, mawOpen, ticksPerBeat, wispOnField } from "@neon-spore/sim";
 import { drawTakeover } from "./canvas2d-takeover.js";
+import type { ClaspFrames } from "./clasp-frames.js";
 import { drawBodies, drawFieldBack, drawOverlays, drawShip } from "./frame-passes.js";
 import { frame, surfaceSampler } from "./hull-frame.js";
 import { computeLayout, computeStage, type Layout, type Stage } from "./layout.js";
@@ -28,11 +29,15 @@ export class Canvas2DRenderer implements Renderer {
     this.ctx = ctx;
   }
 
-  /** What a host may reach: the atlas a baked burst is installed into, the film
-   * REPLAY plays again and whether it has played out, and whether the wave is
-   * still arriving. State rather than drawing, so every one is `held`'s. */
+  /** What a host may reach: the two atlases a baked look is installed into,
+   * the film REPLAY plays again and whether it has played out, and whether the
+   * wave is still arriving. State rather than drawing, so every one is
+   * `held`'s. */
   get sprites(): SpriteBursts {
     return this.held.sprites;
+  }
+  get claspShield(): ClaspFrames {
+    return this.held.claspShield;
   }
   get launching(): boolean {
     return this.held.launching;

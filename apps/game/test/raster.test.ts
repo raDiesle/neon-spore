@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { bindRasterBurst, rasterRequested } from "../src/raster.js";
+import { bindRasterBurst, bindRasterClasp, rasterRequested } from "../src/raster.js";
 
 /**
  * The flag, and what it decides.
@@ -32,6 +32,25 @@ describe("the raster flag", () => {
       },
     };
     expect(await bindRasterBurst(host, "http://game.invalid/")).toBe("off");
+    expect(installs).toBe(0);
+  });
+
+  /**
+   * THE CLASP's shield goes through the same gate, and this is the assertion
+   * that matters for it: the hand-painted strip spent a year unreachable
+   * because nothing passed an image, and the fix must not swing the other way
+   * and swap the shell out for everybody. Off means no fetch, no install, and
+   * `clasp.ts`'s procedural branch — which is what the game ships.
+   */
+  it("leaves THE CLASP's shield alone unless the flag is set", async () => {
+    let installs = 0;
+    const host = {
+      install(): void {
+        installs++;
+      },
+    };
+    expect(await bindRasterClasp(host, "http://game.invalid/")).toBe("off");
+    expect(await bindRasterClasp(host, "http://game.invalid/?raster=0")).toBe("off");
     expect(installs).toBe(0);
   });
 });

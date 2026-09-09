@@ -55,6 +55,19 @@ export interface FrameSpec {
    */
   seat?: "p1" | "p2" | "test";
   /**
+   * Open the page with `?raster=1`, so the baked looks the game keeps behind
+   * that flag are fetched and installed — the burst over a destroyed creature
+   * and THE CLASP's hand-painted shield (`apps/game/src/raster.ts`).
+   *
+   * It exists because those looks were unphotographable. CLAUDE.md's rule is
+   * to send the owner the frame rather than ask him to open anything, and the
+   * one thing an offered look needs is a picture of it beside the shipped one;
+   * without this the only way to see either was to type the flag into a
+   * browser by hand, which is exactly what this tool exists to have ended.
+   * Off by default, so every capture ever taken means the same thing it did.
+   */
+  raster?: boolean;
+  /**
    * How many pages into the rehearsal to stand, counted from the first — `1`
    * is the second page. Only with `opening: "guide"`.
    *

@@ -184,40 +184,52 @@ Take a fresh full-sweep baseline with `--save` **only** once neither is flagged
 — a baseline saved on a busy machine is worse than a stale one, which this lane
 did once and reverted.
 
-## THE CLASP's hand-painted shield has never been drawn
+## `tools/frames/run.ts` stands on the 250-line ceiling exactly
 
-- **Found:** 2026-09-09, claude/queue-the-clasps-bubble-has-no-place-a-candidate-look
-- **Taken:** 2026-09-09, claude/queue-the-clasps-hand-painted-shield-has-never-been-dr
-- **Files:** `packages/render/src/clasp.ts`, `packages/render/src/creatures.ts`,
-  `packages/render/src/frame-field.ts`, `apps/game/src/raster.ts`,
-  `assets/raster/green-shield-strip.webp`
+- **Found:** 2026-09-09, claude/queue-the-clasps-hand-painted-shield-has-never-been-dr
+- **Files:** `tools/frames/run.ts`, `tools/frames/flags.ts`, `tools/frames/spec.ts`
 
-`drawClaspShield` has two halves: the hand-painted frames when `image !== null`
-and a procedural shell with `clasp-lattice.ts`'s honeycomb when it is null.
-**Nothing has ever passed an image.** `drawCreatures` takes `claspImage` with a
-default of `null`, and its one caller — `frame-field.ts` — hands it six
-arguments, on every commit since THE CLASP landed on 31 August 2026. So the
-shell is what the field draws, always, and the raster branch, `ClaspSheet`,
-`CLASP_SHEET` and the committed 42 KB `green-shield-strip.webp` are paint
-nobody has ever seen.
+Adding `--raster` — three lines, one of them a comment — took the file to 251
+and `packages/sim/test/limits.test.ts` refused it. The comment came back out
+and it is at 250 now, which means **the next flag anybody adds fails the check
+before it does anything**, and that session will spend its first minutes
+finding out why rather than adding a flag.
 
-The doc comments claiming otherwise are corrected. What is left is the code.
-**Wire it up rather than delete it**, the way `apps/game/src/raster.ts` wires
-the baked burst: behind `?raster=1`, fetched only when the flag is set,
-`loadAtlas` resolving to `null` on a bad network, and the shell as it is today
-when it is off. That is CLAUDE.md's *a look is offered, never replaced* using
-the mechanism the repository already has for exactly this — and it is what lets
-the owner see the shield he commissioned beside the one that ships and say
-which he wants. The plumbing is a holder beside `RenderState.sprites` with an
-`install`, the image reaching `drawCreatures` through `frame-field.ts`, and a
-`bindRasterClasp` next to `bindRasterBurst` with the test that file already has.
-If the answer comes back that the frames are not wanted, the deletion is the
-branch, the two constants, the parameter and the asset — but delete nothing
-before he has looked at it.
+The seam is already drawn and half used: `tools/frames/flags.ts` holds
+`collectHolds` and `tickLine`, which are the two pieces of argument parsing
+that were long enough to be worth moving. What is left in `run.ts` is a
+`flag(name, fallback)` closure, an `indexOf` per flag, three validators and a
+forty-line `FrameSpec` literal. Move the reading and the validating of the
+argument vector into `flags.ts` as one `parseFrameSpec(argv, waves)` and leave
+`run.ts` as the usage block, the wave resolution and the capture — which is
+what its own doc comment says it is.
 
-Two things that are **not** owed here. `clasp-lattice.ts` is not dead code and
-was never at risk: it is the shipping picture. And THE CLASP's bubble does have
-a place a candidate look can live after all — a `clasp-look.ts` seam over the
-shell and the lattice patches what a phone actually draws — so that slot is
-worth opening once this is settled, because a candidate written today and a
-raster branch switched on tomorrow would be two answers to one question.
+`tools/frames/test/flags.test.ts` already exists and is where the new function's
+tests go. Nothing about the captures changes, so `bun run check` proves it.
+
+## A frames capture test fails inside `bun run check` and passes on its own
+
+- **Found:** 2026-09-09, claude/queue-the-clasps-hand-painted-shield-has-never-been-dr
+- **Files:** `tools/frames/test/opening.test.ts`
+
+`captureFrames past a wave's opening > takes the same picture of the same
+build twice` failed inside a full `bun run check` on 9 September 2026 —
+`twice.whole` differed from `once.whole` by one byte — and then passed twelve
+out of twelve, in 32 s, when the file was run alone a minute later. Nothing in
+that lane touched the capture path for a run with no flags set, so the fault
+is the check's own load rather than the code under test.
+
+It is the shape of thing `frame-harness.ts`'s `FRAME_TIMEOUT_MS` comment
+already describes from the other side: a browser-driven test that is fine on
+its own and not fine beside seventy thousand others, and the cost is paid by
+the next session, which reads one red test on a green tree and re-runs the
+whole check to find out it was nothing.
+
+Find out what actually differs before changing anything — the assertion
+compares whole-frame bytes, so a one-byte difference is worth printing rather
+than guessing at. Two candidates to weigh once it is known: the capture is not
+waiting for something it thinks it is waiting for (a font, a decoded image, a
+first paint), in which case the wait is the fix and the comparison stays exact;
+or two PNG encodes of one identical frame are genuinely allowed to differ by a
+byte, in which case the assertion is comparing the wrong thing and should
+compare decoded pixels.

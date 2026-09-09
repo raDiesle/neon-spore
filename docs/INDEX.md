@@ -503,6 +503,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/clasp-break.ts` | THE CLASP's shield failing |
 | `packages/render/src/clasp-lattice.ts` | The honeycomb inside THE CLASP's bubble |
 | `packages/render/src/clasp-strike.ts` | The ward reaching up the column and taking a clasp's shield off it |
+| `packages/render/src/clasp-frames.ts` | THE CLASP's hand-painted shield, held for a host that wants to offer it |
 | `packages/render/src/clasp.ts` | THE CLASP's shield: the bubble a slick or a bulb falls inside, and the way it comes apart when the ward opens |
 | `packages/render/src/comms-glyphs.ts` | The three marks the whole game says "one of you can see this" with: an eye on the strip, a speech bubble over |
 | `packages/render/src/comms.ts` | Which arrivals make the two of them talk, and which way round |

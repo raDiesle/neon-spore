@@ -16,24 +16,23 @@ import { PALETTE } from "./palette.js";
  * transformation costs no pixels: when the ward lands, the thing that stops
  * being drawn is this, and what is left was already there.
  *
- * **Two ways to draw it, and only one of them has ever run.** The hand-painted
- * frames in `assets/gallery/shield/green-shield/` are baked into
+ * **Two ways to draw it, and the shell is still the one the game ships.** The
+ * hand-painted frames in `assets/gallery/shield/green-shield/` are baked into
  * `assets/raster/green-shield-strip.webp` by `bun run raster:pack`, and the
- * `image !== null` branch below draws them. **Nothing passes an image.**
- * `drawCreatures`'s `claspImage` parameter defaults to `null` and its one
- * caller — `frame-field.ts` — has never handed it anything, on any commit
- * since this creature landed on 31 August 2026. So the procedural shell and
- * `clasp-lattice.ts`'s honeycomb are not a floor: they are the picture, on
- * every device, every frame.
+ * `image !== null` branch below draws them. For the first year of this
+ * creature's life **nothing passed an image**: `drawCreatures`'s `claspImage`
+ * parameter defaulted to `null` and its one caller never handed it anything,
+ * so the frames were paint nobody had ever seen. They are wired up now, the
+ * way `apps/game/src/raster.ts` wires the baked burst — `ClaspFrames` on
+ * `Effects`, `frame-field.ts` passing `effects.claspFrames.image` down, and a
+ * host installing the strip only behind `?raster=1`.
  *
- * That matters twice. A candidate look for the lattice is a candidate for what
- * the field actually draws, which is the opposite of what `docs/queue.md` said
- * while this was unread; and the raster branch, `ClaspSheet` and the committed
- * 42 KB strip are paint nobody has ever seen. `docs/queue.md` carries the item
- * to either wire the strip up the way `apps/game/src/raster.ts` wires the
- * burst — behind `?raster=1`, offered rather than swapped in — or take it out.
- * Do not read the branch below as a fallback that fires on a bad network: the
- * shell is what fires, always, and it is meant to.
+ * So the branch below is still not a fallback that fires on a bad network. The
+ * shell fires unless somebody has asked for the other look by name, and it is
+ * meant to: CLAUDE.md's *a look is offered, never replaced*. A candidate look
+ * for the lattice is therefore still a candidate for what the field actually
+ * draws, and `clasp-lattice.ts`'s honeycomb is the shipping picture rather
+ * than a floor under one.
  *
  * The green is the owner's decision, taken with the collision named: green is
  * otherwise reserved for a Simon round answered in full. See

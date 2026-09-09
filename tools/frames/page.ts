@@ -101,7 +101,12 @@ export async function openStage(
   // (`apps/game/src/menu.ts`). Without it every frame would be photographed
   // through a title screen. A build from before the flag existed ignores it,
   // which is what `bun run frames <sha>` needs it to do.
-  await page.goto(`${baseUrl}${baseUrl.includes("?") ? "&" : "?"}play=1`, { waitUntil: "load" });
+  // And `?raster=1` beside it when a capture is of one of the baked looks:
+  // the burst, or THE CLASP's hand-painted shield. Both are fetched only when
+  // the flag is set, so a capture without it is byte for byte the shipped
+  // field (`FrameSpec.raster`).
+  const query = `play=1${spec.raster ? "&raster=1" : ""}`;
+  await page.goto(`${baseUrl}${baseUrl.includes("?") ? "&" : "?"}${query}`, { waitUntil: "load" });
   await page.waitForFunction(() => Boolean(window.neonSpore));
 
   const driven = await freezeClocks(page);

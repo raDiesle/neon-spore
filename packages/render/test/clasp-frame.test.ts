@@ -7,6 +7,7 @@ import {
   type TimedCommand,
   ticksPerBeat,
 } from "@neon-spore/sim";
+import { Canvas2DRenderer } from "../src/canvas2d.js";
 import { claspResonanceIn } from "../src/clasp.js";
 import { ClaspBreakFx, claspBreakVisible } from "../src/clasp-break.js";
 import { ClaspStrikeFx } from "../src/clasp-strike.js";
@@ -17,6 +18,7 @@ import {
   installCanvasGlobals,
   runFrames,
   stubCanvas,
+  VIEWPORT,
 } from "./frame-harness.js";
 
 // The cap this file runs under. Asked for here rather than inherited: bun
@@ -227,5 +229,67 @@ describe("the ward's bolts", () => {
     // Two beats is `claspBreakBeats`; the strike is the instant, not the beat.
     fx.update(60 / CFG.bpm);
     expect(starts((ctx) => fx.draw(ctx, L, world, 0))).toEqual([]);
+  });
+});
+
+/**
+ * The branch that had never run.
+ *
+ * `drawClaspShield` has always had two halves — the hand-painted frames when
+ * an image is passed and the procedural shell when it is not — and for the
+ * whole first year of this creature nothing anywhere passed one, so half of
+ * that file was code no device had ever executed. It is wired up now behind
+ * `?raster=1` (`clasp-frames.ts`, `apps/game/src/raster.ts`), and this is the
+ * pair of assertions that arrangement rests on: **with no strip installed the
+ * field blits nothing**, which is what "the shipped game is unchanged" means;
+ * and with one installed the frames actually reach the canvas, which is what
+ * nobody could say before.
+ */
+const STRIP = { width: 2560, height: 128 } as unknown as CanvasImageSource;
+
+/** How many times **this strip** reaches `drawImage` over a clasp's four
+ * beats, with and without it installed on the renderer.
+ *
+ * Counted by identity rather than by counting blits: the field draws a
+ * thousand of them a run — every cached layer is one — so a bare tally would
+ * say nothing about which picture the shield took. The stub never looks at the
+ * image itself; it checks the numbers around it, which is where a bad blit
+ * goes wrong. */
+function blits(install: boolean): number {
+  const { canvas, ctx } = stubCanvas();
+  const renderer = new Canvas2DRenderer(canvas);
+  renderer.resize(VIEWPORT);
+  if (install) renderer.claspShield.install(STRIP);
+  let count = 0;
+  const spy = ctx as unknown as { drawImage: (...a: unknown[]) => void };
+  const real = spy.drawImage.bind(ctx);
+  spy.drawImage = (...a: unknown[]): void => {
+    if (a[0] === STRIP) count++;
+    real(...a);
+  };
+  const world = createWorld(CFG, 1, [clasp(5)]);
+  for (let tick = 0; tick < TPB * 4; tick++) {
+    step(world, []);
+    if (tick % 4 !== 0) continue;
+    renderer.draw({
+      world,
+      beatPhase: (world.tick % TPB) / TPB,
+      role: "p1",
+      time: tick / CFG.tickHz,
+      dt: 4 / CFG.tickHz,
+      events: world.events.slice(),
+      running: true,
+    });
+  }
+  return count;
+}
+
+describe("THE CLASP's hand-painted shield", () => {
+  it("is not fetched, installed or drawn unless a host asks for it", () => {
+    expect(blits(false)).toBe(0);
+  });
+
+  it("reaches the canvas once a host installs the strip", () => {
+    expect(blits(true)).toBeGreaterThan(0);
   });
 });

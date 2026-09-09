@@ -121,7 +121,19 @@ export function drawBodies(
   // through it on its last beat: the membrane holds it up, and the dome the
   // pair is arguing about is one of the things holding it (`fence-wire.ts`).
   drawFences(ctx, l, world, view.beatPhase, view.time, surfaceY);
-  drawCreatures(ctx, l, world, view.beatPhase, view.time, effects.blocked);
+  // The last argument is THE CLASP's hand-painted shield, and it is null on
+  // every device that has not been told to fetch it: the host installs the
+  // strip behind `?raster=1` and the procedural shell is what draws until it
+  // does (`clasp-frames.ts`, `docs/raster.md`).
+  drawCreatures(
+    ctx,
+    l,
+    world,
+    view.beatPhase,
+    view.time,
+    effects.blocked,
+    effects.claspFrames.image,
+  );
   // Over the same bodies drawCreatures just drew, and nowhere else: the
   // plating recomputes fresh from world.creatures every frame (see
   // shell-draw.ts), so it belongs beside the pass that owns bodies, not

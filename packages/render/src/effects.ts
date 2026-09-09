@@ -3,6 +3,7 @@ import { Arrivals } from "./arrivals.js";
 import { BeatboxSilences } from "./beatbox-silence.js";
 import { BeatboxWaves } from "./beatbox-wave.js";
 import { ChoirQuake } from "./choir-quake.js";
+import { ClaspFrames } from "./clasp-frames.js";
 import { CoordGrid } from "./coord-grid.js";
 import { CrawlerFx } from "./crawler-fx.js";
 import { Debris } from "./debris.js";
@@ -89,6 +90,15 @@ export class Effects {
    * does, this draws nothing (`sprite-burst.ts`, `docs/raster.md`).
    */
   readonly spriteBursts = new SpriteBursts();
+  /**
+   * THE CLASP's hand-painted shield, on exactly the same terms one asset
+   * along: the strip is installed by a host behind `?raster=1` and the
+   * procedural shell is what draws until one is (`clasp-frames.ts`). It holds
+   * an image and no per-frame state, so `reset` has nothing to clear in it —
+   * a restart must not unload an atlas somebody is in the middle of looking
+   * at.
+   */
+  readonly claspFrames = new ClaspFrames();
   /**
    * The two clocks a wave's opening needs and a world standing still cannot
    * give it: how long the page that is up has been up, and the blobs a circle
