@@ -34,8 +34,6 @@ import { EYE_GLAZE } from "./eye-iris/glaze/index.js";
 import { EYE_TURN } from "./eye-iris/turn/index.js";
 import { GHOST_LATITUDE } from "./ghost-tears/latitude/index.js";
 import { GHOST_SLIDE } from "./ghost-tears/slide/index.js";
-import { MAZE_RAIL } from "./maze-walls/rail/index.js";
-import { MAZE_WELL } from "./maze-walls/well/index.js";
 import { JOIN_BOTH } from "./panel-join/both/index.js";
 import { JOIN_ORGANS } from "./panel-join/organs/index.js";
 import { JOIN_ROOF } from "./panel-join/roof/index.js";
@@ -80,8 +78,6 @@ export const VARIANTS: Variant[] = [
   EYE_TURN,
   GHOST_LATITUDE,
   GHOST_SLIDE,
-  MAZE_RAIL,
-  MAZE_WELL,
   JOIN_BOTH,
   JOIN_ORGANS,
   JOIN_ROOF,

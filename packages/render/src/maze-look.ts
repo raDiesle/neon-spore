@@ -1,5 +1,6 @@
 import type { MazeWheel, SimConfig } from "@neon-spore/sim";
 import type { MazeBreakup } from "./maze-fall.js";
+import { drawMazeFloors, drawMazePosts } from "./maze-relief.js";
 import { drawMazeWalls } from "./maze-walls.js";
 
 /**
@@ -46,6 +47,16 @@ export const MAZE_LOOK: MazeLook = {
   // carries it because a candidate that shades a corridor has to know how wide
   // the rings are in the simulation's own units, and a look reaching for a
   // config the call site already holds is better than one guessing at it.
-  walls: (ctx, drum, wheel, angleMilli, breakup) =>
-    drawMazeWalls(ctx, drum, wheel, angleMilli, breakup),
+  //
+  // **Three calls in one order, and the order is the whole picture.** The
+  // floors go down first, the sheet's own lines over them, the posts on top of
+  // those — a room, rather than a stack of discs or a set of marks floating on
+  // the field. `maze-relief.ts` has the argument and both halves of it; what
+  // matters here is that `drawMazeWalls` still draws every circle, every gap
+  // and every radial wall, in the middle, untouched.
+  walls: (ctx, drum, wheel, angleMilli, breakup) => {
+    drawMazeFloors(ctx, drum, wheel);
+    drawMazeWalls(ctx, drum, wheel, angleMilli, breakup);
+    drawMazePosts(ctx, drum, wheel, angleMilli);
+  },
 };

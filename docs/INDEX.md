@@ -795,6 +795,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/maze-drips.ts` | The half of a refused shot that lands on the ship: a pool across the top of the hull |
 | `packages/render/src/maze-spill.ts` | What a shot the heart refuses throws back, and how far it gets |
 | `packages/render/src/maze-look.ts` | the one record a candidate MAZE patches — the drum standing still |
+| `packages/render/src/maze-relief.ts` | THE MAZE's drum given depth: a floor under every corridor, and a wall that stands on it |
 | `packages/render/src/pulse-fall.ts` | The arrows themselves: what is falling, what is standing on the line |
 | `packages/render/src/pulse-lane.ts` | Where THE PULSE's four lanes are, and where the line across them is |
 | `packages/render/src/pulse-meter.ts` | The one meter, the tally under it, and the verdict |
