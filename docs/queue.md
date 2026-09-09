@@ -193,6 +193,7 @@ takes the two pictures for the owner to choose between.
 ## THE CROSSING, THE PULSE and THE BALLOON teach with words and no rehearsal
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Taken:** 2026-09-09, claude/queue-the-crossing-the-pulse-and-the-balloon-teach-wit
 - **Files:** `packages/content/src/waves/act-7b.ts`,
   `packages/content/src/scenes.ts`, `packages/content/src/scenes/`
 
