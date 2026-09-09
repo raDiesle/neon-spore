@@ -150,6 +150,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## THE WISP and BULB QUEEN carry a measured cost from the adopted looks
 
 - **Found:** 2026-09-09, claude/game-visual-assets-21ed8c
+- **Taken:** 2026-09-09, claude/queue-the-wisp-and-bulb-queen-carry-a-measured-cost-fr
 - **Files:** `packages/render/src/wisp-tentacles.ts`,
   `packages/render/src/torch-ball.ts`, `packages/render/src/torch-fire.ts`,
   `tools/perf/baseline.json`
