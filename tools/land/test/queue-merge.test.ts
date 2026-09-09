@@ -68,7 +68,8 @@ describe("merging a queue file", () => {
   test("both sides rewriting the preamble is not merged", () => {
     const theirs = `${PREAMBLE}A trunk sentence.\n`;
     const mine = `${PREAMBLE}A lane sentence.\n`;
-    expect(mergeQueue(PREAMBLE + `\n${A}\n`, theirs + `\n${A}\n`, mine + `\n${A}\n`)).toBeNull();
+    const entry = `\n${A}\n`;
+    expect(mergeQueue(`${PREAMBLE}${entry}`, `${theirs}${entry}`, `${mine}${entry}`)).toBeNull();
   });
 });
 

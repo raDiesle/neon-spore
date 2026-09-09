@@ -1266,6 +1266,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/maze-editor.ts` | THE MAZE's five stages, walked through one at a time |
 | `tools/land/refusal.ts` | Why a push was refused, said in full — git's own words and where the trunk stands |
 | `tools/land/replay.ts` | The replay, and the one conflict it settles on its own |
+| `tools/land/remote-branch.ts` | The lane's branch on `origin`, after the landing has taken it locally |
 | `tools/frames/press.ts` | `--press`: the verbs a held thumb cannot reach |
 | `tools/frames/crop.ts` | Cropping and magnifying a captured frame, so a change the size of a creature can be seen |
 | `tools/frames/wave.ts` | Which wave `--wave` names, answered against the right commit's own list |
@@ -1275,6 +1276,7 @@ place — the generator keeps whatever is there.
 | `tools/hooks/session-start.ts` | Pin bun to a version new enough for this repo, in Claude Code on the web |
 | `tools/director/src/brush-poses-echo.ts` | THE ECHO's specimen, split out of `brush-poses.ts` when THE CAROM took that file over its 250-line limit |
 | `tools/land/state.ts` | the facts a landing is decided from, read off git — `run.ts` moves refs, `land.ts` decides |
+| `tools/land/shallow.ts` | A shallow clone, which is what a cloud session lands from |
 | `tools/director/src/entry-fields-rock.ts` | **A rock's two numbers**: how fast it falls and how wide it arrives |
 | `tools/frames/exec.ts` | The three things every part of this tool needs before it can do anything: where the checkout is |
 | `tools/frames/scratch.ts` | The throwaway checkouts `bun run frames` works out of: made, used, and — the part that was missing |

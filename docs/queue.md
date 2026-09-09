@@ -256,31 +256,6 @@ send them the way `capture.ts` does, and give THE LANCE a held colour so its row
 means something. The rows for waves with no commands are untouched, so the rest
 of the baseline stays comparable.
 
-## `bun run land` refuses in a cloud session, because the clone is shallow
-
-- **Found:** 2026-09-08, claude/rock-paper-scissors-boss-sn9ful
-- **Taken:** 2026-09-09, claude/queue-bun-run-land-refuses-in-a-cloud-session-because
-- **Files:** `tools/land/run.ts`, `docs/cloud-session.md`
-
-A cloud session's checkout is a **shallow** clone. `git fetch origin main`
-brings a second shallow segment down rather than joining the first, so `main`
-and `origin/main` have no ancestor git can see between them: `git merge-base`
-answers nothing at all, and `git rev-list --count` reports each as ahead of the
-other by the depth of the graft — fifty and fifty in this session, on a branch
-whose own base *was* `origin/main`. `land`'s trunk guard reads that as
-`origin/main has 50 commits main has not` and refuses, and nothing fixes it
-from inside the guard's own advice: there is no fast-forward to take, because
-the two segments are not one history.
-
-`git fetch --unshallow origin` fixes it outright — after it the same two counts
-were 89 behind and 0 ahead, `git merge --ff-only origin/main` went through, and
-the landing did too. So the work is: `land` asks
-`git rev-parse --is-shallow-repository` before it compares anything, and either
-unshallows or says *that* instead of a count nobody can act on; and
-`docs/cloud-session.md` says it beside the two host variables, because
-`CLAUDE.md` tells a cloud session to land every turn and every one of them
-walks into this on the way.
-
 ## `docs/party-games.md` links to nine screenshots it could not embed
 
 - **Found:** 2026-09-08, claude/party-minigames-research-udjn67
@@ -312,51 +287,6 @@ dance battle; the refused rows need none. Then delete the *What the pictures
 are, and are not* section's second and third paragraphs, which exist only to
 explain the absence.
 
-## A cloud session cannot delete the branch it just landed
-
-- **Found:** 2026-09-08, claude/party-minigames-research-udjn67
-- **Taken:** 2026-09-09, claude/queue-a-cloud-session-cannot-delete-the-branch-it-just
-- **Files:** `tools/land/run.ts`, `docs/cloud-session.md`
-
-`bun run land` "deletes the branch and sweeps spent worktrees", and locally it
-does. The branch on `origin` is a different matter from a cloud session: the
-delete-push is refused by the git proxy the session runs behind.
-
-```
-$ git push origin --delete claude/party-minigames-research-udjn67
-warning: push negotiation failed; proceeding anyway with push
-error: RPC failed; HTTP 403 curl 22 The requested URL returned error: 403
-send-pack: unexpected disconnect while reading sideband packet
-fatal: the remote end hung up unexpectedly
-Everything up-to-date
-```
-
-Three attempts with backoff, and `git push origin :refs/heads/<branch>` gives
-the same 403 — an ordinary push of the same branch had gone through minutes
-earlier, so it is the *deletion* the proxy denies rather than the repository or
-the credential. `Everything up-to-date` on the last line is `git` reporting the
-other half of the same command and is not a success.
-
-So every cloud landing leaves its branch standing on `origin`, and after enough
-of them `git ls-remote --heads origin` is mostly graveyard —
-`claude/queued-items-rer0av`, `claude/rock-paper-scissors-boss-sn9ful` and
-`claude/the-weight-boss-states-w8bha3` were already there when this one looked.
-Nothing is broken by it: the commits are on `main` and `CLAUDE.md` says a
-landed branch is never revived. What it costs is that the branch list stops
-being a list of live work.
-
-The work: `land` should notice it is in a cloud session, try the delete once,
-and on a 403 say *the branch stays on origin, delete it in GitHub* rather than
-printing a stack of git's own noise after a successful landing — the landing
-did work and the last four lines currently read as though it had not. Then
-`docs/cloud-session.md` says it beside the two host variables, next to the
-shallow-clone entry, because the two are hit in the same minute of the same
-turn.
-
-Also worth deciding while somebody is in there: whether landing from a clone
-with no worktrees should push a branch at all. The hand-off is `main`
-(`CLAUDE.md`, Git), the branch was pushed only so the turn had somewhere to
-report from, and a branch never pushed is a branch nothing has to delete.
 ## THE TELL's last rung was designed as three throws and ships as one
 
 - **Found:** 2026-09-08, claude/rock-paper-scissors-boss-sn9ful

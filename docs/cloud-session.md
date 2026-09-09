@@ -161,6 +161,28 @@ PREVIEW_HOST=127.0.0.1 bun run preview
 DIRECTOR_HOST=127.0.0.1 bun run dev
 ```
 
+**Its clone is shallow, and `bun run land` deals with that itself now.** A
+depth-limited clone is not a shorter history, it is a *different* one: a
+`git fetch origin main` brings a second shallow segment down rather than
+joining the first, `git merge-base` then answers nothing at all, and
+`git rev-list --count` reports `main` and `origin/main` as each ahead of the
+other by the depth of the graft — fifty and fifty, in the session that found
+this, on a branch whose own base *was* `origin/main`. The trunk guard read that
+as fifty commits of real work and refused, and its own advice could not fix it,
+because there is no fast-forward to take between two histories that do not
+meet. `land` now runs `git fetch --unshallow origin` before it counts anything,
+says `deepened` when it did, and says so plainly if it could not.
+
+**Its landed branch stays on `origin`, and that is not a failure.** The git
+proxy a cloud session runs behind answers 403 to a branch *deletion*
+specifically — an ordinary push of the same branch goes through minutes
+earlier. `land` asks once and then says `⚑ <branch> stays on origin`; nothing
+is broken by it, because the commits are on `main` and a landed branch is never
+revived. Take it out in GitHub when the list gets long. Do not retry the delete:
+three attempts produce three copies of the same refusal, ending in git's
+`Everything up-to-date`, which is the other half of the command and reads like
+success after a landing that already worked.
+
 With one of those up, a headless Chromium reaches further than "the DOM is
 there". It can drive the real loop — `window.neonSpore.advance` and `paint`
 past a gesture that unlocks audio — and a frame that throws is a frame that

@@ -37,6 +37,24 @@ export async function gitOrDie(args: string[], cwd: string): Promise<string> {
 }
 
 /**
+ * The same two answers in one shape, for the callers that need both — did it
+ * work, and what did it say. `shallow.ts` and `remote-branch.ts` are written
+ * against this so they can be tested without a repository.
+ */
+export function runner(cwd: string): (args: string[]) => Promise<{ ok: boolean; out: string }> {
+  return async (args) => {
+    logGit(args);
+    const proc = Bun.spawn(["git", ...args], { cwd, stdout: "pipe", stderr: "pipe" });
+    const [out, err, code] = await Promise.all([
+      new Response(proc.stdout).text(),
+      new Response(proc.stderr).text(),
+      proc.exited,
+    ]);
+    return { ok: code === 0, out: code === 0 ? out : err || out };
+  };
+}
+
+/**
  * Where `origin` has the trunk, asked before anything else is measured.
  *
  * Returns how many commits `origin/<trunk>` has that the local one has not, and

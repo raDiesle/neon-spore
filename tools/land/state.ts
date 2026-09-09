@@ -1,5 +1,6 @@
-import { git, trunkAgainstOrigin } from "./git.js";
+import { git, runner, trunkAgainstOrigin } from "./git.js";
 import type { LandState } from "./land.js";
+import { deepen, deepenedLine } from "./shallow.js";
 
 /**
  * The facts a landing is decided from, read off git.
@@ -74,12 +75,16 @@ export async function readState(
   root: string,
   trunk: string,
   flags: Flags,
-): Promise<{ state: LandState; unreached: string }> {
+): Promise<{ state: LandState; unreached: string; deepened: string }> {
   const branch = (await git(["rev-parse", "--abbrev-ref", "HEAD"], root)) || "HEAD";
   const hasOrigin = (await git(["remote", "get-url", "origin"], root)) !== "";
+  // Before anything is counted: a shallow clone's two segments are not one
+  // history, and every number below would be about the graft (`shallow.ts`).
+  const joined = hasOrigin ? await deepen(runner(root)) : { was: false, ok: true };
   const { stale, fetched } = await trunkAgainstOrigin(root, trunk, hasOrigin);
   const tree = await trunkTree(root, trunk);
   return {
+    deepened: deepenedLine(joined, trunk),
     unreached:
       hasOrigin && !fetched
         ? `  \u2691 could not reach origin; ${trunk} is measured against the ref already here`

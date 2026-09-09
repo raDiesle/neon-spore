@@ -49,11 +49,12 @@
  */
 
 import { crlfOnDisk, crlfRefusal } from "./crlf.js";
-import { git, gitOrDie } from "./git.js";
+import { git, gitOrDie, runner } from "./git.js";
 import { type Landing, plan, pushNow, SWEPT_NOTHING } from "./land.js";
 import { type Landed, LOG_FORMAT, parseLanded } from "./notes.js";
 import { queueSnapshots, refusal, resurrectedAfter } from "./queue-guard.js";
 import { trunkRaced } from "./race.js";
+import { deleteRemote, deletionLine } from "./remote-branch.js";
 import { replay } from "./replay.js";
 import { badge, describe } from "./say.js";
 import { readState } from "./state.js";
@@ -68,12 +69,13 @@ const keep = argv.includes("--keep");
 const sweepOnly = argv.includes("--sweep");
 const TRUNK = "main";
 
-const { state, unreached } = await readState(root, TRUNK, {
+const { state, unreached, deepened } = await readState(root, TRUNK, {
   noPush,
   forcePush,
   keep,
   sweepOnly,
 });
+if (deepened) console.log(deepened);
 if (unreached) console.log(unreached);
 const branch = state.branch;
 
@@ -229,6 +231,17 @@ if (pushNow(going, cleanup)) {
   const behind = Number(unpushed) || 0;
   const many = behind === 1 ? "commit" : "commits";
   console.log(`  held     origin/${TRUNK} — ${behind} ${many} unpushed; bun run push sends them`);
+}
+
+// The branch on `origin`, which only a clone with no worktrees ever put there —
+// a cloud session pushes its lane so the turn has somewhere to report from, and
+// then lands it. Asked once and said in one line either way
+// (`remote-branch.ts`).
+if (going.sweeps && going.moveRef && going.mayPush) {
+  const onOrigin = await git(["ls-remote", "--heads", "origin", branch], root);
+  if (onOrigin) {
+    console.log(deletionLine(await deleteRemote(runner(root), branch), branch));
+  }
 }
 
 console.log(badge(branch, TRUNK, await git(["rev-parse", "--short", TRUNK], root), state.ahead));
