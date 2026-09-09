@@ -237,6 +237,7 @@ arrow drawn on the line while the button under it is still dark.
 ## `bun run land` stops on a `docs/INDEX.md` conflict it could resolve itself
 
 - **Found:** 2026-09-08, claude/pinball-boss-ui-polish-f6c35e
+- **Taken:** 2026-09-09, claude/queue-bun-run-land-stops-on-a-docs-index-md-conflict-i
 - **Files:** `tools/land/`, `tools/index/`, `docs/INDEX.md`
 
 `docs/INDEX.md` is generated, and every lane that adds, splits or deletes a file
