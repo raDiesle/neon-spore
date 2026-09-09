@@ -143,7 +143,9 @@ const link = bindShell({
 // The baked burst, behind `?raster=1` — `raster.ts` and `docs/raster.md`.
 void bindRasterBurst(renderer.sprites, location.href);
 // Ink off the end of a mouse, and nothing at all on a phone (`trail.ts`).
-bindSplashTrail();
+// Full size while a sheet is up and much smaller on the field: the "menu" hold
+// is exactly "something is covering the game", which is the question asked.
+bindSplashTrail({ onField: () => !run.held("menu") });
 
 /**
  * Beat zero. Both devices land here within a few milliseconds of each other,

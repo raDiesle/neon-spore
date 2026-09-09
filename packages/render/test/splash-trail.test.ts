@@ -1,5 +1,6 @@
 import { beforeAll, describe, expect, it } from "bun:test";
-import { neonHue, SplashTrail } from "../src/splash-trail.js";
+import { FIELD_TRAIL_SCALE, neonHue } from "../src/splash-blob.js";
+import { SplashTrail } from "../src/splash-trail.js";
 import { installCanvasGlobals, stubCanvas } from "./frame-harness.js";
 
 /**
@@ -67,6 +68,38 @@ describe("the mouse trail", () => {
     trail.draw(ctx as unknown as CanvasRenderingContext2D);
     // Two fills and two paths a blob, and the cap is 120 of them.
     expect(ctx.tally.get("fill") ?? 0).toBeLessThanOrEqual(240);
+  });
+
+  it("lays a scaled trail closer together, so it is still one mass", () => {
+    const fills = (scale: number): number => {
+      const { ctx } = stubCanvas();
+      const trail = new SplashTrail();
+      trail.scale = scale;
+      trail.push(0, 0);
+      trail.push(330, 0);
+      trail.draw(ctx as unknown as CanvasRenderingContext2D);
+      return ctx.tally.get("fill") ?? 0;
+    };
+    // The spacing is a length and shrinks with the ink. Left unscaled, a third
+    // the size at the same spacing would be beads on a string rather than the
+    // one running mass the whole effect is.
+    const big = fills(1);
+    const small = fills(FIELD_TRAIL_SCALE);
+    expect(big).toBeGreaterThan(0);
+    expect(small / big).toBeCloseTo(1 / FIELD_TRAIL_SCALE, 0);
+  });
+
+  it("raises its ceiling by exactly what it took off the size", () => {
+    const { ctx } = stubCanvas();
+    const trail = new SplashTrail();
+    trail.scale = FIELD_TRAIL_SCALE;
+    for (let i = 0; i < 100; i++) trail.push((i % 2) * 800, i * 3);
+    trail.draw(ctx as unknown as CanvasRenderingContext2D);
+    // More blobs than the full-size cap, and each one a fraction of the area:
+    // the small trail is the cheaper of the two to fill, not the dearer.
+    const fills = ctx.tally.get("fill") ?? 0;
+    expect(fills).toBeGreaterThan(240);
+    expect(fills).toBeLessThanOrEqual(2 * Math.round(120 / FIELD_TRAIL_SCALE));
   });
 
   it("says a hue in the only notation the canvas takes", () => {

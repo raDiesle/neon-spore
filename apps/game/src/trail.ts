@@ -1,4 +1,4 @@
-import { SplashTrail } from "@neon-spore/render";
+import { FIELD_TRAIL_SCALE, SplashTrail } from "@neon-spore/render";
 
 /**
  * The mouse's own canvas.
@@ -25,9 +25,27 @@ import { SplashTrail } from "@neon-spore/render";
  * **It stops when the mouse does.** The frame loop is started by a pointer
  * event and ends itself the moment the last blob dies, so an idle desk costs
  * one listener and no frames at all.
+ *
+ * **Full size on a sheet, much smaller on the field.** The owner asked for
+ * both in the same sentence, and the reason is what the pointer is doing in
+ * each place. On the menu and the room screen it is the only thing moving and
+ * the ink is the answer to it; on the field it crosses a picture two people
+ * are reading columns off, and ink at that size is weather over the thing they
+ * are talking about. So the size follows the screen, by the one fraction
+ * `FIELD_TRAIL_SCALE` that the director's own field uses too.
  */
 export interface SplashTrailBinding {
   stop(): void;
+}
+
+export interface SplashTrailParts {
+  /**
+   * Whether the field is what the pointer is over — no menu, no room screen,
+   * no intro. `apps/game/src/main.ts` answers it from the world's own hold,
+   * which is the same question those sheets already answer when they stop the
+   * game (`run-state.ts`).
+   */
+  onField: () => boolean;
 }
 
 /**
@@ -40,7 +58,7 @@ export interface SplashTrailBinding {
  * the first thing that should go when someone has said they do not want things
  * moving at them.
  */
-export function bindSplashTrail(): SplashTrailBinding {
+export function bindSplashTrail(p: SplashTrailParts): SplashTrailBinding {
   const nothing = { stop: () => {} };
   if (typeof window.matchMedia !== "function") return nothing;
   if (!window.matchMedia("(pointer: fine)").matches) return nothing;
@@ -110,6 +128,10 @@ export function bindSplashTrail(): SplashTrailBinding {
 
   const move = (e: PointerEvent): void => {
     if (e.pointerType !== "mouse") return;
+    // Read per event rather than remembered: the menu opens and closes under a
+    // pointer that never left the glass, and the next stroke should be the
+    // size of the screen it is actually on.
+    trail.scale = p.onField() ? FIELD_TRAIL_SCALE : 1;
     trail.push(e.clientX, e.clientY);
     wake();
   };

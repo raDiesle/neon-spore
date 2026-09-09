@@ -794,6 +794,9 @@ place — the generator keeps whatever is there.
 | `packages/render/src/hull-light.ts` | who lights the ship, as a record — the shipped `litBox` reached through a seam a second answer can be held against |
 | `packages/render/src/splash-trail.ts` | **Slime off the end of a mouse** — the ink a desk's pointer leaves, as blobs that swell, sag and add up |
 | `packages/render/src/beatbox-count.ts` | **What the counter over a soundbox is saying**, as a shape rather than as a drawing — how many slots |
+| `packages/render/src/canvas2d-takeover.ts` | **The two frames that are not the field**, and the clocks that run whether or not one of them is up |
+| `packages/render/src/effects-frame.ts` | **What `Effects` does with a frame**, as opposed to what it owns |
+| `packages/render/src/splash-blob.ts` | ONE BLOB OF THE MOUSE'S INK — its size, its sag, and how it is put down |
 
 ### packages/net
 

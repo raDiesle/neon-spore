@@ -49,7 +49,8 @@ export { drawStepGlyph, stepHex, stepLabel } from "./simon-glyph.js";
 export { hitSlab, type Slab, slabFor, slabPanel } from "./slabs.js";
 export { type Arena, showsSnakeBody, showsSnakeFood, snakeArena } from "./snake-draw.js";
 export { drawSnakeRound } from "./snake-round.js";
-export { neonHue, SplashTrail } from "./splash-trail.js";
+export { FIELD_TRAIL_SCALE, neonHue } from "./splash-blob.js";
+export { SplashTrail } from "./splash-trail.js";
 export { BURST_SHEET, SpriteBursts, type SpriteSheet } from "./sprite-burst.js";
 export { type CanvasBox, pointOnStage } from "./stage-point.js";
 // The torch's own rock, so a tool drafting what *holds* one can draw the real

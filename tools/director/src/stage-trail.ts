@@ -1,4 +1,4 @@
-import { SplashTrail } from "@neon-spore/render";
+import { FIELD_TRAIL_SCALE, SplashTrail } from "@neon-spore/render";
 
 /**
  * THE MOUSE'S OWN INK, ON THE DIRECTOR'S FIELD.
@@ -59,6 +59,10 @@ export function bindStageTrail(stage: HTMLCanvasElement): StageTrail {
   }
 
   const trail = new SplashTrail();
+  // This surface is the field and nothing else, so it never wears the full
+  // size the game keeps for its menu — the fraction is the game's own
+  // (`packages/render/src/splash-trail.ts`), called rather than repeated.
+  trail.scale = FIELD_TRAIL_SCALE;
   let w = 0;
   let h = 0;
 
