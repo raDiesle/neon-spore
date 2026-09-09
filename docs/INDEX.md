@@ -988,6 +988,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/waves-io.ts` | the page's half of that: load, save, and the token it holds in between |
 | `tools/shape-sheet/src/subjects.ts` | every silhouette as a function of time |
 | `tools/shape-sheet/src/catalogue.ts` | drawn, spare and drafted — which shapes are spendable |
+| `tools/shape-sheet/src/candidates.ts` | EVERY CONTOUR CANDIDATE, AS A SHAPE THAT CAN BE MEASURED |
 | `tools/shape-sheet/src/forms/` | contour forms the game has no creature for yet |
 | `tools/shape-sheet/src/motions.ts` | the spare motions, unclaimed by anything |
 | `tools/shape-sheet/src/drafts/` | a shape per open idea, and what each is offered to |

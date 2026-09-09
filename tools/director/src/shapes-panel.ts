@@ -48,12 +48,16 @@ const WIDE = 620;
 // existed.
 
 const STROKE: Record<CatalogueEntry["status"], string> = {
+  // A candidate is the one status with a vote open on it, so it wears the
+  // colour nothing else on this page does (`shape-sheet/src/candidates.ts`).
+  candidate: "var(--red)",
   draft: "var(--cyan)",
   free: "var(--gold)",
   taken: "var(--dim)",
 };
 
 const STAMP: Record<CatalogueEntry["status"], string> = {
+  candidate: "ON VERSUS",
   draft: "DRAFT",
   free: "FREE",
   taken: "TAKEN",
@@ -123,6 +127,14 @@ export function renderShapes(): void {
   const host = document.getElementById("shapesSkin");
   if (host) controlBar(host, renderShapes);
 
+  // The candidates first: they are the only shapes on this page with a vote
+  // open on them, and the two questions this page answers — does it survive
+  // its drawn size, is it still its own word — are the cheap ones a vote is
+  // not worth without (`shape-sheet/src/candidates.ts`).
+  fill(
+    "shapesCandidates",
+    CATALOGUE.filter((e) => e.status === "candidate"),
+  );
   fill(
     "shapesDrafts",
     CATALOGUE.filter((e) => e.status === "draft"),

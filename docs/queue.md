@@ -223,40 +223,6 @@ what `CLAUDE.md` tells it not to do. Either the baseline test should tolerate a
 row marked unmeasured, or `CLAUDE.md`'s rule needs the exception written into
 it. That is the owner's call and this entry is where it is waiting.
 
-## A contour candidate cannot be measured before it is voted on
-
-- **Found:** 2026-09-08, claude/visual-system-style-guide-rdti4j
-- **Taken:** 2026-09-09, claude/queue-a-contour-candidate-cannot-be-measured-before-it
-- **Files:** `tools/shape-sheet/src/drafts/index.ts`, `tools/versus/variant.ts`, `tools/shape-sheet/src/nameability.ts`
-
-`creature:slick` / `pinch` and `creature:bulb` / `six` patch a
-`CreatureSilhouette`, and the two questions this repo insists on about a
-silhouette cannot be asked of either of them. `bun run shapes:report` prints
-geometry for the records in `packages/content`, and a candidate is not one —
-it is a set of fields held for the length of one `draw()`. So *does it survive
-its own drawn size* (the 20 px floor, the 11 px cliff) and *does the
-nameability gate still separate it from its neighbours* are both unanswerable
-until the candidate has won and been adopted, which is precisely backwards:
-they are the cheap disqualifiers `docs/art-review.md` puts first, and the vote
-is the expensive step they exist to save.
-
-The mechanism for it already exists next door. `tools/shape-sheet/src/drafts/`
-holds shapes that are not shipped and draws them on the sheet beside the ones
-that are, which is where a *draft* contour is judged. What is missing is one
-join: a `Variant` whose patched record is a `CreatureSilhouette` should be
-readable as a draft, so `bun run shapes` puts it on the sheet and
-`bun run shapes:report` measures it, under the candidate's own name.
-
-Derive it rather than authoring it twice — a draft written by hand beside a
-candidate is a second copy of the numbers, and the two would drift the first
-time either moved. The join is a function over `VARIANTS` that keeps the
-patches whose `where.file` is `packages/content/src/silhouettes.ts`, applies
-each one's `fields` to a copy of its target, and hands the result back as a
-draft. `tools/shape-sheet/test/` is the guard: every contour candidate open in
-`tools/versus/candidates/index.ts` appears on the sheet, and a candidate whose
-patched shape falls under the drawn-size floor fails there rather than at the
-pair.
-
 ## THE CLASP's bubble has no place a candidate look can live
 
 - **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7

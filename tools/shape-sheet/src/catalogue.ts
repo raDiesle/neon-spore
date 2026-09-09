@@ -1,5 +1,6 @@
 import type { OwnMotion } from "@neon-spore/content";
 import { livingMotion } from "@neon-spore/content";
+import { CANDIDATE_SHAPES } from "./candidates.js";
 import type { Subject } from "./contour.js";
 import { DRAFTS } from "./drafts/index.js";
 import { FREE_CONTOURS } from "./free-contours.js";
@@ -36,8 +37,13 @@ import { livingKinds, SUBJECTS } from "./subjects.js";
  * at a behaviour, which is a proposal and not a decision. It stops being a
  * draft by being claimed — at which point its parameters move into
  * `packages/content` and it becomes `taken` — or by being cut.
+ *
+ * `candidate` is the fourth and the only one nobody types: it is derived from
+ * the VERSUS registry, one entry per contour a candidate patches, so a second
+ * answer to a shipped outline can be measured *before* the vote rather than
+ * after it (`candidates.ts`).
  */
-export type ShapeStatus = "taken" | "free" | "draft";
+export type ShapeStatus = "taken" | "free" | "draft" | "candidate";
 
 /** What a shape could be spent on. */
 export type ShapeSlot = "creature" | "ship" | "boss" | "field";
@@ -129,6 +135,7 @@ const taken: CatalogueEntry[] = SUBJECTS.filter((s) => s.name !== "TORCH").map((
  * `jelly-bodies.ts` for the eight that swim.
  */
 export const CATALOGUE: CatalogueEntry[] = [
+  ...CANDIDATE_SHAPES,
   ...DRAFTS,
   ...FREE_CONTOURS,
   ...GROWN_BODIES,

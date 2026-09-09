@@ -150,6 +150,11 @@ figcaption p { margin: 0; }
 
 const SECTIONS = [
   {
+    id: "candidates",
+    title: "On VERSUS",
+    rest: "a second answer to a shape the game draws · a vote is open on it",
+  },
+  {
     id: "drafts",
     title: "Drafts",
     rest: "drawn at an idea in ideas.md · offered, not accepted",

@@ -1,4 +1,11 @@
-import { type Beats, beats, livingMotion, livingSilhouette, type Pose } from "@neon-spore/content";
+import {
+  type Beats,
+  beats,
+  type CreatureSilhouette,
+  livingMotion,
+  livingSilhouette,
+  type Pose,
+} from "@neon-spore/content";
 import { type CreatureKind, DEFAULT_CONFIG } from "@neon-spore/sim";
 import { blob } from "./subjects.js";
 
@@ -145,9 +152,29 @@ function dominantHarmonic(radii: number[]): number {
  * collide. Nothing in the game passes it.
  */
 export function nameability(kind: CreatureKind, poseAt?: (t: Beats) => Pose): Nameability {
-  const shape = livingSilhouette(kind);
-  const subject = blob(kind.toUpperCase(), shape);
-  const pose = poseAt ?? livingMotion(kind).poseAt;
+  return nameabilityOf(
+    kind.toUpperCase(),
+    livingSilhouette(kind),
+    poseAt ?? livingMotion(kind).poseAt,
+  );
+}
+
+/**
+ * The same three axes, measured on a silhouette that is not a shipped kind.
+ *
+ * `nameability` reads its shape out of `livingSilhouette`, which is the right
+ * door for anything in the game and the wrong one for a **candidate**: a
+ * second answer to an outline exists as a patch held over that record for the
+ * length of one `draw()`, so the one question worth asking about it before a
+ * vote — is it still its own word beside its neighbours — could not be asked
+ * at all (`candidates.ts`).
+ */
+export function nameabilityOf(
+  name: string,
+  shape: CreatureSilhouette,
+  pose: (t: Beats) => Pose,
+): Nameability {
+  const subject = blob(name, shape);
   // The fixed footprint every living body is drawn at, times the one static
   // multiplier content owns: the Runt's `sizeMul`, its whole "tiny".
   const footprint = (REFERENCE_BODY_PX / Math.max(shape.rx, shape.ry)) * (shape.sizeMul ?? 1);

@@ -145,7 +145,7 @@ function card(subject: Subject, motion: OwnMotion | undefined, t: CardText, kind
   return fig;
 }
 
-const STAMP = { draft: "DRAFT", free: "FREE", taken: "TAKEN" } as const;
+const STAMP = { candidate: "ON VERSUS", draft: "DRAFT", free: "FREE", taken: "TAKEN" } as const;
 
 function shapeCard(entry: CatalogueEntry): Element {
   return card(
@@ -201,6 +201,7 @@ function tick(): void {
 
 const of = (status: CatalogueEntry["status"]) => CATALOGUE.filter((e) => e.status === status);
 
+section("candidates", () => of("candidate").map(shapeCard));
 section("drafts", () => of("draft").map(shapeCard));
 section("free", () => of("free").map(shapeCard));
 section("taken", () => of("taken").map(shapeCard));

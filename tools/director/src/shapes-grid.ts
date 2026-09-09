@@ -21,6 +21,9 @@ const BOX = 92;
 const WIDE = 620;
 
 const STROKE: Record<CatalogueEntry["status"], string> = {
+  // A candidate is the one status with a vote open on it, so it wears the
+  // colour nothing else on this page does (`shape-sheet/src/candidates.ts`).
+  candidate: "var(--red)",
   draft: "var(--cyan)",
   free: "var(--gold)",
   taken: "var(--dim)",
