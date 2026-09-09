@@ -107,9 +107,12 @@ function tongueSprite(): HTMLCanvasElement {
   if (g) {
     const ramp = g.createLinearGradient(0, 0, w, 0);
     ramp.addColorStop(0, rgba(PALETTE.ember, 0));
-    ramp.addColorStop(0.3, rgba(PALETTE.ember, 0.55));
-    ramp.addColorStop(0.52, rgba(PALETTE.emberRim, 1));
-    ramp.addColorStop(0.78, rgba(PALETTE.ember, 0.75));
+    ramp.addColorStop(0.28, rgba(PALETTE.ember, 0.7));
+    // One narrow stop of the pale colour and no more. A tongue is four or five
+    // pixels across at the size a torch ships at, so a wide pale core is a
+    // white sausage rather than a flame with a hot centre.
+    ramp.addColorStop(0.5, rgba(PALETTE.emberRim, 0.95));
+    ramp.addColorStop(0.62, rgba(PALETTE.ember, 0.95));
     ramp.addColorStop(1, rgba(PALETTE.ember, 0));
     g.fillStyle = ramp;
     g.beginPath();

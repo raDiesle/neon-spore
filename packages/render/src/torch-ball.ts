@@ -120,8 +120,12 @@ function shellRamp(ctx: CanvasRenderingContext2D, which: 0 | 1, rad: number): Ca
   if (held && held.ctx === ctx && held.rad === rad) return held.gradient;
   const g = ctx.createRadialGradient(0, 0, rad * 0.25, 0, 0, rad);
   g.addColorStop(0, rgba(PALETTE.ember, 0));
-  g.addColorStop(0.62, rgba(PALETTE.ember, 0.22));
-  g.addColorStop(0.86, rgba(PALETTE.emberRim, 0.3));
+  g.addColorStop(0.5, rgba(PALETTE.ember, 0.24));
+  // The pale end is a *sliver*, and deliberately so: `emberRim` is nearly
+  // white, and a wide band of it over a dark field takes the whole ball to
+  // peach — a fire that has gone out and is still warm. The orange is the fire.
+  g.addColorStop(0.82, rgba(PALETTE.emberRim, 0.16));
+  g.addColorStop(0.92, rgba(PALETTE.ember, 0.3));
   g.addColorStop(1, rgba(PALETTE.ember, 0));
   ramps.set(which, { ctx, rad, gradient: g });
   return g;
