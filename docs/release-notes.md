@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 9ff5fabd — Three fluid motions for the slick
+
+"I can imagine a very fluid animated slick could look cool, floating in all directions, but some more according to flying position." So `slick:motion` opens on SWALLOW, which is a good motion and a strictly sideways one: every part of it happens along the body's long axis.
+
 ## 2026-09-09 · f7c7ca82 — Act 6's three creatures rehearse instead of explaining
 
 THE VEER, THE STRAND and THE CRAWLER opened on three paragraphs of prose, which is the shape every guide had before rehearsals existed. Each now names a `GuideScene`: the game's own screen at full size, playing the thing the wave is about, with the words inside the picture beside their subject.
