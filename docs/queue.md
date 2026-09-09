@@ -193,6 +193,7 @@ takes the two pictures for the owner to choose between.
 ## THE TORCH and THE DART have one look each and no second answer
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Taken:** 2026-09-09, claude/queue-the-torch-and-the-dart-have-one-look-each-and-no
 - **Files:** `packages/render/src/torch-look.ts`,
   `packages/render/src/dart-look.ts`, `tools/versus/candidates/`,
   `tools/director/src/versus-pose.ts`
