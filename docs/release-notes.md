@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · f7c7ca82 — Act 6's three creatures rehearse instead of explaining
+
+THE VEER, THE STRAND and THE CRAWLER opened on three paragraphs of prose, which is the shape every guide had before rehearsals existed. Each now names a `GuideScene`: the game's own screen at full size, playing the thing the wave is about, with the words inside the picture beside their subject.
+
 ## 2026-09-09 · 08e56390 — Queue the half of the shape collection a slot cannot reach
 
 A candidate on a shipped body patches six numbers, and most of the drafts are forms rather than blobs — a cluster of five under one skin cannot be spelled as a lobe count. `clubs` is the precedent for what the answer looks like.
