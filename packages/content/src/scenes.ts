@@ -22,9 +22,11 @@ import { THE_GAUGE } from "./scenes/the-gauge.js";
 import { THE_GHOST } from "./scenes/the-ghost.js";
 import { THE_GYRE } from "./scenes/the-gyre.js";
 import { THE_HAND } from "./scenes/the-hand.js";
+import { THE_JAM } from "./scenes/the-jam.js";
 import { THE_LANCE } from "./scenes/the-lance.js";
 import { THE_LID } from "./scenes/the-lid.js";
 import { THE_LURE } from "./scenes/the-lure.js";
+import { THE_MAGNET } from "./scenes/the-magnet.js";
 import { THE_MAZE } from "./scenes/the-maze.js";
 import { THE_MIRROR } from "./scenes/the-mirror.js";
 import { THE_PURGE } from "./scenes/the-purge.js";
@@ -109,7 +111,9 @@ export type SceneId =
   | "theChoir"
   | "theVeer"
   | "theStrand"
-  | "theCrawler";
+  | "theCrawler"
+  | "theMagnet"
+  | "theJam";
 
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
@@ -156,6 +160,8 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theVeer: THE_VEER,
   theStrand: THE_STRAND,
   theCrawler: THE_CRAWLER,
+  theMagnet: THE_MAGNET,
+  theJam: THE_JAM,
 };
 
 export type { GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";

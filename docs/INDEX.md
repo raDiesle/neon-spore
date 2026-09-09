@@ -393,6 +393,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-gauge.ts` | THE GAUGE's rehearsal: neither of them has more than half a dial |
 | `packages/content/src/scenes/the-lid.ts` | THE LID's rehearsal: doing your half first is the same as not doing it |
 | `packages/content/src/scenes/the-maze.ts` | THE MAZE's rehearsal: he turns the wheel and she fires, and neither can do the other half |
+| `packages/content/src/scenes/the-magnet.ts` | THE MAGNET's rehearsal: the column the body is in is the one place a shot cannot come from |
 | `packages/content/src/scenes/the-warden.ts` | THE WARDEN's rehearsal: he holds the door open and she has to be quick enough to shoot through it |
 | `packages/content/src/creatures-bare.ts` | The three bodies with **nothing laid over them at all**: a slick or a bulb drawn small, drawn large |
 | `packages/content/src/mechanics-rocks.ts` | The six rocks' rows, lifted out of `mechanics-table.ts` when THE VOLLEY took that file past its 250-line… |
@@ -434,6 +435,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-choir.ts` | THE CHOIR's rehearsal: the one gesture that is on no panel at all |
 | `packages/content/src/scenes/the-crawler.ts` | THE CRAWLER's rehearsal: nothing is falling, and standing still loses it |
 | `packages/content/src/scenes/the-strand.ts` | THE STRAND's rehearsal: two beads, and neither seat can name one alone |
+| `packages/content/src/scenes/the-jam.ts` | THE JAM's rehearsal: the trigger is gone and the aim is all that is left |
 | `packages/content/src/pulse-stages.ts` | THE PULSE's stages — the charts, and so far there is one of them |
 | `packages/content/src/pulse-steps.ts` | A chart, written as bars of text, and the reader that turns one into notes |
 | `packages/content/src/mechanics-rounds.ts` | The rounds that are not the field, as mechanic rows |

@@ -155,6 +155,7 @@ export const WAVES_ACT_7: Wave[] = [
       both: "A horseshoe on two poles, one red and one cyan, with an armoured plate slung underneath. A shot straight up its column hits the plate and bounces off it. Player 1 holds a thumb on the body from another column instead: the shot climbs, turns level with it and comes in sideways. Whichever side it arrives from is the pole it meets, and that pole's colour is the only one that kills it.",
       p1: "Never stand under it. Take the cannon two or three columns to one side, hold your thumb on the body, and say which side you are coming in from. That is your whole half; the colour is not yours to pick.",
       p2: "You cannot put a hand on this one, so wait to be told the side and read the pole on it. Load that colour and fire. A bolt that bounces off the underside means they were still in its column.",
+      scene: "theMagnet",
     },
     entries: [
       { beat: 0, col: 3, kind: "magnet", color: "red" },
@@ -175,6 +176,7 @@ export const WAVES_ACT_7: Wave[] = [
       both: "The cannon has jammed on. It fires by itself, on every beat, up whichever column player 1 is standing in — and it alternates: red, cyan, red, cyan. RED and CYAN are dead, and nothing stops the gun.",
       p1: "You are not shooting any more, you are aiming. Slide onto a body on the beat its colour comes up, and be off a lure's column before the next shot lands.",
       p2: "You have no trigger this wave. Count the colours out loud so they know which beat is theirs, and call the lures — where the gun is pointed is the only thing either of you can still decide.",
+      scene: "theJam",
     },
     entries: [
       { beat: 0, col: 3, kind: "lure", color: "red" },

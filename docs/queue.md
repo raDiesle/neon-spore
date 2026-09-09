@@ -190,19 +190,6 @@ Whichever wins, `packages/render/test/wave-budget.test.ts`'s BULB QUEEN rows
 are the proof it changed nothing else, and `bun run frames . --wave 25 --at`
 takes the two pictures for the owner to choose between.
 
-## THE MAGNET and THE JAM teach with words and no rehearsal
-
-- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
-- **Taken:** 2026-09-09, claude/queue-the-magnet-and-the-jam-teach-with-words-and-no-r
-- **Files:** `packages/content/src/waves/act-7.ts`,
-  `packages/content/src/scenes.ts`, `packages/content/src/scenes/`
-
-Act 7's two words-only guides. Give each a `GuideScene` with anchored steps and
-short captions, modelled on `scenes/the-rind.ts`; `.claude/skills/new-tutorial`
-carries the rules, and the director's GUIDES tab confirms which guides are
-still prose. THE MAGNET's rehearsal has a body that pulls the cannon off its
-column to show, which is a page about a control moving on its own.
-
 ## THE CROSSING, THE PULSE and THE BALLOON teach with words and no rehearsal
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
