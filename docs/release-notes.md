@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 68e8055b — One place converts between a tick and a beat
+
+`world.beat` is a label rather than a position: a wave's opening holds the field with `world.tick += 1` and an early return before `onBeat`, so every opening a run passes adds ticks with no beat under them and the counter falls permanently behind `tick / ticksPerBeat` for the rest of that run. Nothing said so, and THE BEATBOX had already settled every run a beat early because of it.
+
 ## 2026-09-09 · 6780a7e1 — Three enemies offered a surface instead of a coat of paint
 
 A worm, a throb and a membrane each get a VERSUS candidate written to the direction the owner named on 8 September: a body's silhouette is posed and its surface is *placed*, so a mark sits at a longitude and a latitude, is carried round by a turn, and is lit by a key that does not move. Each takes a creature the game already draws well and argues that what is missing is not more paint but a far side.
