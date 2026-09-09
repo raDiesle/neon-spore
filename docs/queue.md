@@ -140,6 +140,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## THE PULSE judges a press ~100 ms late on two devices
 
 - **Found:** 2026-09-07, claude/ddr-boss-concept-57c9c8
+- **Taken:** 2026-09-09, claude/queue-the-pulse-judges-a-press-100-ms-late-on-two-devi
 - **Files:** `packages/sim/src/config-pulse.ts`, `packages/render/src/pulse-fall.ts`,
   `packages/render/src/pulse-drop.ts`, `packages/render/src/pulse-button.ts`,
   `packages/render/src/renderer.ts`, `apps/game/src/main.ts`, `packages/net/src/delay.ts`
