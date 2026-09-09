@@ -484,6 +484,7 @@ proof is `bun run port` naming 58200 while a `dev:once` from the same tree is up
 ## `bun run preview` stops on its own after about half a minute
 
 - **Found:** 2026-09-08, claude/game-mouse-hover-effect
+- **Taken:** 2026-09-09, claude/queue-bun-run-preview-stops-on-its-own-after-about-hal
 - **Files:** `apps/game/preview.ts`, `apps/game/package.json`
 
 The agent's own server exits with code 0 roughly thirty to forty seconds after
