@@ -200,6 +200,7 @@ compare decoded pixels.
 ## THE TORCH's veil is drawn at full strength — `VEIL` has never done anything
 
 - **Found:** 2026-09-09, claude/queue-the-wisp-and-bulb-queen-carry-a-measured-cost-fr
+- **Taken:** 2026-09-09, claude/queue-the-torchs-veil-is-drawn-at-full-strength-veil-h
 - **Files:** `packages/render/src/torch-fire.ts`,
   `packages/render/src/torch-ball.ts`
 - **Asks:** Should the veil over the stone's face be the fifth of a plume the code always said it was, or is what has actually been shipping the right strength?
