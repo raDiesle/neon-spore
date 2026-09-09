@@ -198,3 +198,373 @@ first paint), in which case the wait is the fix and the comparison stays exact;
 or two PNG encodes of one identical frame are genuinely allowed to differ by a
 byte, in which case the assertion is comparing the wrong thing and should
 compare decoded pixels.
+
+## THE TORCH's veil is drawn at full strength — `VEIL` has never done anything
+
+- **Found:** 2026-09-09, claude/queue-the-wisp-and-bulb-queen-carry-a-measured-cost-fr
+- **Taken:** 2026-09-09, claude/queue-the-torchs-veil-is-drawn-at-full-strength-veil-h
+- **Files:** `packages/render/src/torch-fire.ts`,
+  `packages/render/src/torch-ball.ts`
+- **Asks:** Should the veil over the stone's face be the fifth of a plume the code always said it was, or is what has actually been shipping the right strength?
+
+`fireball` ends with a fourth pass — the nearest plumes again, faintly, over
+the rock's face, so the stone reads as being *inside* the fire rather than in
+front of it. It sets `ctx.globalAlpha = VEIL` (0.2) and calls `plumes(…,
+true)`. **`plumes` then overwrites that alpha rather than multiplying it**, once
+per plume, with the plume's own `(near ? 0.34 : 0.24) * heat` — it did so
+through `halo`, which assigns `globalAlpha` outright, and the pass that
+replaced `halo` with a direct blit kept the behaviour exactly so the speed
+change could be proved to draw the same thing.
+
+So the veil has been drawn at the same strength as the main plume pass since
+the day it was written, and the near plumes are laid down twice at full value.
+The comment beside `VEIL` says what was intended and what it costs to get it
+wrong: *"with it any louder, the craters stop being countable, and the craters
+are the only readout this body carries."* It is five times louder.
+
+This is not a tuning question and it is not quite a defect either, which is why
+it asks rather than states. The picture that has been on the field for the
+creature's whole life is the loud one, the owner has looked at THE TORCH and
+BULB QUEEN with it, and honouring the constant now would visibly lift the
+craters out of the fire on both. Two answers, and the work is three lines
+either way:
+
+- **Honour it.** `plumes` takes the caller's alpha as a multiplier — pass a
+  `strength` argument defaulting to 1 and multiply, so `ball` is unchanged and
+  the veil finally lands at a fifth. The stone gets darker and the craters get
+  easier to count, which is what the file says it wanted.
+- **Keep what ships.** Delete `VEIL` and the `globalAlpha` line, and say in the
+  comment that the veil is the near plumes at their own strength drawn twice.
+  A constant that does nothing is worse than no constant, whichever way the
+  look goes.
+
+Whichever wins, `packages/render/test/wave-budget.test.ts`'s BULB QUEEN rows
+are the proof it changed nothing else, and `bun run frames . --wave 25 --at`
+takes the two pictures for the owner to choose between.
+
+## VERSUS costs a lane a long read to open a slot and a hand edit to adopt one
+
+- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Files:** `tools/versus/run.ts`, `tools/versus/candidates/index.ts`,
+  `tools/versus/prompt.ts`, `tools/versus/prompt-steps.ts`,
+  `tools/versus/prompt-close.ts`, `tools/versus/prompt-changes.ts`,
+  `tools/versus/prompt-text.ts`, `tools/versus/DECIDED.md`,
+  `tools/versus/README.md`, `tools/director/src/versus-pose.ts`
+
+Five things, and the first one settles the other four. **The owner decides in
+chat.** Asked on 9 September 2026 how an approved candidate should reach the
+game, he said he does not want a vote button and prefers to say directly which
+candidate to integrate and which to reject. So the page's whole job is to show
+the pair, and the vote button and the clipboard prompt behind it — `prompt.ts`
+and its four neighbours, some 670 lines — are machinery nobody will use. Take
+them out.
+
+What replaces them is a command that takes the name he said. **`bun run versus
+adopt <slot> <name>`**: read the winner's `where` and `fields`, write those
+values into the shipped record, remove every candidate directory in the slot,
+drop them from the registry and append the decision to `DECIDED.md`. It must
+refuse, printing what to do by hand, when a patched field holds a function — a
+`poseAt` cannot be written into a record mechanically and pretending otherwise
+is worse than not trying. **`bun run versus drop <slot> "<reason>"`** is the
+other half: the same removal with the reason recorded, for a slot he turns down.
+
+**`candidates/index.ts` is one array every lane edits**, so two sessions opening
+slots at once conflict on rebase inside a file neither of them is really
+changing — and this queue is about to hold a dozen such lanes. The
+`// region: candidates` markers are already in the file: generate the region
+with `bun run versus index` and fail a test when it is stale, the way
+`bun run index` does for `docs/INDEX.md`.
+
+**`bun run versus new <slot> <name>` scaffolds** the directory, the registry
+entry and a `versus-pose.ts` stub, so a lane spends its tokens on the look
+rather than on plumbing it has to read `README.md` in full to get right.
+
+## THE VEER, THE STRAND and THE CRAWLER teach with words and no rehearsal
+
+- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Files:** `packages/content/src/waves/act-6.ts`,
+  `packages/content/src/scenes.ts`, `packages/content/src/scenes/`
+
+Ten of the fifty-one guides in the game are still three lines of prose with no
+`scene`, which is the shape every guide had before rehearsals existed. These
+three are act 6's. Give each one a `GuideScene` the way `scenes/the-rind.ts`
+does it: a short film the pair watches, `steps` carrying a few words each,
+every step anchored at the thing it is about so the text sits beside the body
+or the control rather than in a paragraph. Read `.claude/skills/new-tutorial`
+first — every rule in it is a correction the owner has already made once, and
+the two that matter most here are that the words are short and that they are
+placed inside the real screen. Confirm on the director's GUIDES tab which of
+the three still lack a scene before writing one.
+
+## THE MAGNET and THE JAM teach with words and no rehearsal
+
+- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Files:** `packages/content/src/waves/act-7.ts`,
+  `packages/content/src/scenes.ts`, `packages/content/src/scenes/`
+
+Act 7's two words-only guides. Give each a `GuideScene` with anchored steps and
+short captions, modelled on `scenes/the-rind.ts`; `.claude/skills/new-tutorial`
+carries the rules, and the director's GUIDES tab confirms which guides are
+still prose. THE MAGNET's rehearsal has a body that pulls the cannon off its
+column to show, which is a page about a control moving on its own.
+
+## THE CROSSING, THE PULSE and THE BALLOON teach with words and no rehearsal
+
+- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Files:** `packages/content/src/waves/act-7b.ts`,
+  `packages/content/src/scenes.ts`, `packages/content/src/scenes/`
+
+Act 7b's three words-only guides. Give each a `GuideScene` with anchored steps
+and short captions, modelled on `scenes/the-rind.ts`, following
+`.claude/skills/new-tutorial`. THE PULSE and THE BALLOON are rounds with their
+own furniture, so their rehearsals show that furniture rather than the field.
+
+## THE BEATBOX and THE TELL teach with words and no rehearsal
+
+- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Files:** `packages/content/src/waves/act-8.ts`,
+  `packages/content/src/scenes.ts`, `packages/content/src/scenes/`
+
+Act 8's two words-only guides, and the last of the ten. Give each a
+`GuideScene` with anchored steps and short captions, modelled on
+`scenes/the-rind.ts`, following `.claude/skills/new-tutorial`. THE BEATBOX is a
+rhythm round, so its rehearsal has to run at tempo for the pages to mean
+anything.
+
+## THE TORCH and THE DART have one look each and no second answer
+
+- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Files:** `packages/render/src/torch-look.ts`,
+  `packages/render/src/dart-look.ts`, `tools/versus/candidates/`,
+  `tools/director/src/versus-pose.ts`
+
+Open one VERSUS slot per body — `creature:torch` and `creature:dart` — with
+three candidates each beside what ships. What the owner asked for on 9
+September 2026 is that every enemy read as its own creature and as a solid
+thing: depth, interior shading, a light that says which way is up, and motion
+that looks grown rather than tweened. `.claude/skills/depth` has the projection
+to call rather than re-derive, and a look is assembled from the named parts in
+`tools/shape-sheet` rather than invented from nothing. Both bodies already have
+a `-look.ts` record to patch. Each slot needs a pose in `versus-pose.ts` in the
+same commit, and `bun test` refuses two open slots claiming one field, so run
+`bun run versus` first to see what is taken.
+
+## THE WISP and THE VEIL have one look each and no second answer
+
+- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Files:** `packages/render/src/wisp-look.ts`,
+  `packages/render/src/veil-look.ts`, `tools/versus/candidates/`,
+  `tools/director/src/versus-pose.ts`
+
+One slot per body, `creature:wisp` and `creature:veil`, three candidates each
+beside what ships, aimed at depth and at movement that reads as alien and
+grown. `.claude/skills/depth` applies, and a look is assembled from the shapes
+page rather than invented. THE WISP is already the subject of the open entry
+about a measured cost from the adopted looks — read that entry before patching,
+because a candidate that makes the tentacles more expensive is a candidate that
+has to answer it. Pose in `versus-pose.ts` in the same commit; `bun run versus`
+says which fields another open slot has already claimed.
+
+## THE GHOST and THE ECHO have one look each and no second answer
+
+- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Files:** `packages/render/src/ghost-look.ts`,
+  `packages/render/src/echo.ts`, `tools/versus/candidates/`,
+  `tools/director/src/versus-pose.ts`
+
+One slot per body, three candidates each, aimed at depth and alien motion.
+`ghost:tears` is already open on the ghost, so a `creature:ghost` slot must
+patch fields that slot does not — `bun run versus` lists them, and `bun test`
+refuses an overlap. THE ECHO has no `-look.ts` record at all, so the first job
+there is to cut one out of `echo.ts` the way `meteor-look.ts` was cut, which is
+also what makes the body tunable at all. `.claude/skills/depth` applies. Pose in
+`versus-pose.ts` in the same commit.
+
+## THE GYRE and THE MAGNET have one look each and no second answer
+
+- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Files:** `packages/render/src/gyre-look.ts`,
+  `packages/render/src/magnet-look.ts`, `tools/versus/candidates/`,
+  `tools/director/src/versus-pose.ts`
+
+One slot per body, `creature:gyre` and `creature:magnet`, three candidates each
+beside what ships. Both turn, so both are slots where motion is the thing being
+judged and the pair must animate — `docs/versus.md`'s rule about a still is
+about surfaces, not about a body whose whole character is how it spins.
+`.claude/skills/depth` has what makes a turn read as solid rather than as a
+flat shape rotating. Pose in `versus-pose.ts` in the same commit.
+
+## THE WARDEN has one look and no second answer
+
+- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Files:** `packages/render/src/warden-look.ts`,
+  `packages/render/src/warden-plates.ts`, `packages/render/src/warden-cilia.ts`,
+  `packages/render/src/warden-veins.ts`, `tools/versus/candidates/`
+
+One slot, `creature:warden`, three candidates beside what ships. The warden is
+the most built body in the game — plates, cilia and veins are three files of
+its own — so it is the one where depth and a natural, unmechanical motion have
+the most to work with, and it gets a slot to itself for that reason.
+`.claude/skills/depth` applies, and armour on it follows the body's own contour
+rather than sitting in a ring around it. Pose in `versus-pose.ts` in the same
+commit.
+
+## THE THROB and THE CRAWLER have one look each and no second answer
+
+- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Files:** `packages/render/src/throb-look.ts`,
+  `packages/render/src/crawler-look.ts`, `tools/versus/candidates/`,
+  `tools/director/src/versus-pose.ts`
+
+One slot per body, three candidates each. The throb turns half a coloured body
+and half shell the whole way down, so its slot is about whether the turn reads
+as a solid thing rotating — `.claude/skills/depth` is the whole of that
+question. The crawler walks, and its slot is about whether the walk looks
+grown. Both are motion slots and both sides animate. Pose in `versus-pose.ts`
+in the same commit.
+
+## THE QUEEN has one look and no second answer, and no record to patch
+
+- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Files:** `packages/render/src/queen-figure.ts`,
+  `packages/render/src/queen-egg.ts`, `packages/render/src/queen-glyph.ts`,
+  `tools/versus/candidates/`
+
+The boss of act 4 and the biggest body on any field, drawn from three files
+with no `-look.ts` record between them, so a candidate has nothing to patch.
+Cut one — the fields `queen-figure.ts` reads for shell, marks and interior —
+the way `meteor-look.ts` was cut, then open `creature:queen` with three
+candidates on it. Depth matters more here than anywhere: she fills the screen,
+and a flat fill at that size is the most visible thing in the game.
+`.claude/skills/depth` applies. Pose in `versus-pose.ts` in the same commit.
+
+## THE RIND and THE LID have one look each and no record to patch
+
+- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Files:** `packages/render/src/rind-shed.ts`, `packages/render/src/lid.ts`,
+  `packages/render/src/lid-string.ts`, `tools/versus/candidates/`
+
+Neither body has a `-look.ts` record, so the first job is to cut one apiece and
+the second is to open `creature:rind` and `creature:lid` with three candidates
+each. The rind sheds a layer per hit and is three sizes over its life, so its
+candidates are judged on whether the shed reads as a thing losing a skin; the
+lid opens, so its candidates are judged on the opening. Both are motion slots.
+`.claude/skills/depth` applies. Poses in `versus-pose.ts` in the same commit.
+
+## THE MOUNT and THE RECOIL have one look each and no record to patch
+
+- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Files:** `packages/render/src/recoil.ts`,
+  `packages/render/src/recoil-ribs.ts`,
+  `packages/render/src/recoil-cage-break.ts`, `tools/versus/candidates/`
+
+Cut a look record for each body, then open `creature:mount` and
+`creature:recoil` with three candidates each, aimed at depth and at motion that
+reads as grown rather than mechanical. The recoil's cage and ribs are where the
+depth is: a cage drawn flat is a stack of lines, and drawn with a light it is a
+thing with an inside. `.claude/skills/depth` applies. Poses in `versus-pose.ts`
+in the same commit.
+
+## THE CAROM and THE CHUTE have one look each and no record to patch
+
+- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Files:** `packages/render/src/carom.ts`,
+  `packages/render/src/carom-window.ts`, `packages/render/src/chute.ts`,
+  `packages/render/src/chute-cut.ts`, `tools/versus/candidates/`
+
+Cut a look record for each, then open `creature:carom` and `creature:chute`
+with three candidates each. Both bodies are about a path — one bounces, one
+drops down a channel — so both slots animate and both are judged on whether the
+body looks like a solid thing travelling rather than a sprite being moved.
+`.claude/skills/depth` applies. Poses in `versus-pose.ts` in the same commit.
+
+## THE VOLLEY and THE VEER have one look each and no record to patch
+
+- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Files:** `packages/render/src/volley.ts`,
+  `packages/render/src/volley-seams.ts`,
+  `packages/render/src/volley-cracks.ts`,
+  `packages/render/src/veer-clown.ts`, `tools/versus/candidates/`
+
+Cut a look record for each, then open `creature:volley` and `creature:veer`
+with three candidates each. The volley already carries seams and cracks, which
+is most of a surface a light can act on; the veer arrives from a side wall, so
+its candidates are judged as it crosses rather than as it hangs.
+`.claude/skills/depth` applies. Poses in `versus-pose.ts` in the same commit.
+
+## THE COIL and THE TETHER have one look each and no record to patch
+
+- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Files:** `packages/render/src/coil.ts`, `packages/render/src/coil-jump.ts`,
+  `packages/render/src/tether.ts`, `tools/versus/candidates/`
+
+Cut a look record for each, then open `creature:coil` and `creature:tether`
+with three candidates each. Both are long bodies rather than blobs, which is
+where a flat fill shows worst — a rope or a coil with no light on it is a
+stroke, and with one it is a thing with a near side. `.claude/skills/depth`
+applies, and the tether's line to whatever it holds is drawn as a link rather
+than as two marks at its ends. Poses in `versus-pose.ts` in the same commit.
+
+## THE SLICK and THE BULB have no body of their own to patch
+
+- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Files:** `packages/render/src/living-skin.ts`,
+  `packages/render/src/creature-body.ts`, `tools/versus/candidates/`
+
+The first two bodies a pair ever sees, and the two with no look record: they
+are drawn through the shared `LIVING_SKIN`, which is what the open
+`creature:skin` slot already patches. So this item waits on that slot being
+decided, and then does one of two things — either the adopted skin is enough
+for both and this entry goes, or each gets a per-kind record cut out of
+`creature-body.ts` and a slot of its own with three candidates. Decide which by
+looking at the adopted skin on a slick and on a bulb, and say in the commit
+which it was. `.claude/skills/depth` applies either way.
+
+## The player's ship has had one hull since the game started
+
+- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Files:** `packages/render/src/hull.ts`,
+  `packages/render/src/hull-frame.ts`, `packages/render/src/hull-barrel.ts`,
+  `packages/render/src/cannon-maw.ts`, `packages/render/src/shield.ts`,
+  `tools/versus/candidates/`
+
+Open `ship:hull-shape` again — it was decided and removed once, and the owner
+asked for it back on 9 September 2026, wanting radically different hulls rather
+than a reskin: a different silhouette, a different cannon and a different
+shield, three of them beside what ships. The constraint that makes this hard is
+that the hull is not decoration — the cannon slides along it, the shield sits on
+it and every column maps onto it — so a candidate has to keep those attachments
+working while changing the shape they hang off. Read `DECIDED.md` on how the
+slot left the first time before opening it. Both sides animate, and the pose is
+the default: the ship is on every frame.
+
+## The space behind the game has never had a second answer
+
+- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Files:** `packages/render/src/backdrop.ts`,
+  `packages/render/src/light-shafts.ts`, `packages/render/src/field.ts`,
+  `tools/versus/candidates/`
+
+Everything the two players read sits on one backdrop that has never been argued
+with. Open `field:backdrop` with three candidates. The rule that binds this one
+hardest is that a decoration is full strength on a menu and much smaller over
+the field, which two people are reading at speed — a background that competes
+with a body is a defect however handsome it is. So the candidates are judged on
+whether the field is easier to read, not on whether the picture is prettier. A
+still is enough here unless a candidate moves.
+
+## The band the players actually touch has one look
+
+- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Files:** `packages/render/src/band.ts`,
+  `packages/render/src/band-control.ts`, `packages/render/src/band-lobes.ts`,
+  `packages/render/src/band-slime.ts`, `packages/render/src/band-seam.ts`,
+  `tools/versus/candidates/`
+
+The control band is the half of the screen a player's thumb lives on, and it has
+never been offered an alternative. Open `panel:band-skin` with three candidates
+on the lobe, the socket and the slime. `panel:ship-join` is already open on
+where the band meets the hull, so this slot must not claim its fields —
+`bun run versus` says which those are. Any new furniture keeps the grown
+contour, the wet socket and the gloss: a flat plate with a stroke around it is
+the one thing the panel look is not.
