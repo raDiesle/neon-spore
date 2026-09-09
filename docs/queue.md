@@ -190,24 +190,6 @@ Whichever wins, `packages/render/test/wave-budget.test.ts`'s BULB QUEEN rows
 are the proof it changed nothing else, and `bun run frames . --wave 25 --at`
 takes the two pictures for the owner to choose between.
 
-## THE VEER, THE STRAND and THE CRAWLER teach with words and no rehearsal
-
-- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
-- **Taken:** 2026-09-09, claude/queue-the-veer-the-strand-and-the-crawler-teach-with-w
-- **Files:** `packages/content/src/waves/act-6.ts`,
-  `packages/content/src/scenes.ts`, `packages/content/src/scenes/`
-
-Ten of the fifty-one guides in the game are still three lines of prose with no
-`scene`, which is the shape every guide had before rehearsals existed. These
-three are act 6's. Give each one a `GuideScene` the way `scenes/the-rind.ts`
-does it: a short film the pair watches, `steps` carrying a few words each,
-every step anchored at the thing it is about so the text sits beside the body
-or the control rather than in a paragraph. Read `.claude/skills/new-tutorial`
-first — every rule in it is a correction the owner has already made once, and
-the two that matter most here are that the words are short and that they are
-placed inside the real screen. Confirm on the director's GUIDES tab which of
-the three still lack a scene before writing one.
-
 ## THE MAGNET and THE JAM teach with words and no rehearsal
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067

@@ -368,6 +368,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-lure.ts` | THE LURE's rehearsal: the shot you are waiting for must never come |
 | `packages/content/src/scenes/the-throb.ts` | THE THROB's rehearsal: the wave where firing on sight is the miss |
 | `packages/content/src/scenes/the-veil.ts` | THE VEIL's rehearsal: the colour you were given goes stale while you are loading it |
+| `packages/content/src/scenes/the-veer.ts` | THE VEER's rehearsal: the column stops being true while you are saying it |
 | `packages/content/src/scenes/salvage.ts` | SALVAGE's rehearsal: shooting something is only half of getting it |
 | `packages/content/src/scenes/the-clasp.ts` | THE CLASP's rehearsal: the shield opens the enemy instead of stopping it |
 | `packages/content/src/scenes/the-rind.ts` | THE RIND's rehearsal: the shot that lands does not close the column |
@@ -431,6 +432,8 @@ place — the generator keeps whatever is there.
 | `packages/content/src/keys-desk.ts` | **The desk keyboard is a panel too**, and this is where a key finds out what it means |
 | `packages/content/src/control-aim.ts` | Which way a control points, and which rig of keys answers it |
 | `packages/content/src/scenes/the-choir.ts` | THE CHOIR's rehearsal: the one gesture that is on no panel at all |
+| `packages/content/src/scenes/the-crawler.ts` | THE CRAWLER's rehearsal: nothing is falling, and standing still loses it |
+| `packages/content/src/scenes/the-strand.ts` | THE STRAND's rehearsal: two beads, and neither seat can name one alone |
 | `packages/content/src/pulse-stages.ts` | THE PULSE's stages — the charts, and so far there is one of them |
 | `packages/content/src/pulse-steps.ts` | A chart, written as bars of text, and the reader that turns one into notes |
 | `packages/content/src/mechanics-rounds.ts` | The rounds that are not the field, as mechanic rows |

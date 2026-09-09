@@ -11,6 +11,7 @@ import { THE_CHOIR } from "./scenes/the-choir.js";
 import { THE_CLASP } from "./scenes/the-clasp.js";
 import { THE_CLAW } from "./scenes/the-claw.js";
 import { THE_COIL } from "./scenes/the-coil.js";
+import { THE_CRAWLER } from "./scenes/the-crawler.js";
 import { THE_CUT } from "./scenes/the-cut.js";
 import { THE_DART } from "./scenes/the-dart.js";
 import { THE_ECHO } from "./scenes/the-echo.js";
@@ -30,10 +31,12 @@ import { THE_PURGE } from "./scenes/the-purge.js";
 import { THE_RECOIL } from "./scenes/the-recoil.js";
 import { THE_RIND } from "./scenes/the-rind.js";
 import { THE_ROCK } from "./scenes/the-rock.js";
+import { THE_STRAND } from "./scenes/the-strand.js";
 import { THE_THIRD_SHOT } from "./scenes/the-third-shot.js";
 import { THE_THROB } from "./scenes/the-throb.js";
 import { THE_TORCH } from "./scenes/the-torch.js";
 import { THE_VANE } from "./scenes/the-vane.js";
+import { THE_VEER } from "./scenes/the-veer.js";
 import { THE_VEIL } from "./scenes/the-veil.js";
 import { THE_VOLLEY } from "./scenes/the-volley.js";
 import { THE_WARD } from "./scenes/the-ward.js";
@@ -103,7 +106,10 @@ export type SceneId =
   | "theFence"
   | "theGap"
   | "theCut"
-  | "theChoir";
+  | "theChoir"
+  | "theVeer"
+  | "theStrand"
+  | "theCrawler";
 
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
@@ -147,6 +153,9 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theGap: THE_GAP,
   theCut: THE_CUT,
   theChoir: THE_CHOIR,
+  theVeer: THE_VEER,
+  theStrand: THE_STRAND,
+  theCrawler: THE_CRAWLER,
 };
 
 export type { GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";

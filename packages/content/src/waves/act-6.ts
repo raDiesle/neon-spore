@@ -116,6 +116,7 @@ export const WAVES_ACT_6: Wave[] = [
       both: "A rock with a rider on it. Every third row it steps to one side, and it never stops — the last step lands one row above the ship. Nothing about it can be shot. What lands is still a rock, and still wants the shield.",
       p1: "You are the only one who sees the arrow over its hat, and it re-aims every three rows all the way down. Say the side out loud every single time — and keep the thumb on GUARD, because saying it is not warding it.",
       p2: "You can see where it is, not where it is going. Move the shield on what you are told rather than on what you can see, and never park it — there is no row on the way down where the last thing you were told is still true.",
+      scene: "theVeer",
     },
     entries: [
       { beat: 0, col: 3, kind: "veer", color: null },
@@ -134,6 +135,7 @@ export const WAVES_ACT_6: Wave[] = [
       both: "Beads on one thread, alternating red and cyan. It comes apart from its ends inward, and only one bead can be shot at a time — a shot at any other swells a dead one back to life.",
       p1: "You can see the colours and not which bead is lit. Wait to be told which one, put the cannon under it, and say its colour out loud before the trigger comes.",
       p2: "You can see which bead is lit and no colour at all, and it jumps ends. Count it from the left and say the number every time — then load what you are told, not what you guess.",
+      scene: "theStrand",
     },
     entries: [
       { beat: 0, col: 3, kind: "strand", color: "red", beads: 2 },
@@ -151,6 +153,7 @@ export const WAVES_ACT_6: Wave[] = [
       both: "A maggot that walks along the ship instead of falling on it. It cannot hurt you while it walks — but it must not reach the far wall. Every ring comes off. A crosshair marks each one; the ones with the shield above them are the dome's, and that is the head, the tail and every third segment.",
       p1: "Take the cannon under a colour ring and say which colour you are standing under. The plates are not yours to shoot and the trigger is — so keep a thumb on GUARD and press when you are told the shield is under one.",
       p2: "Load what you are told and fire straight up. When the next ring wears the shield mark, take the dome under it yourself and say when you are there — you cannot fire it, and they cannot move it.",
+      scene: "theCrawler",
     },
     entries: [
       { beat: 0, col: 0, kind: "crawler", color: null, segments: 3, side: "left" },
