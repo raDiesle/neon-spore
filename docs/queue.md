@@ -180,6 +180,7 @@ has to say which of the two the pair is being asked about.
 ## The eye THE LID and THE WARDEN share is a disc
 
 - **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7
+- **Taken:** 2026-09-09, claude/queue-the-eye-the-lid-and-the-warden-share-is-a-disc
 - **Files:** `packages/render/src/eye.ts`, `packages/render/src/eye-iris.ts`,
   `packages/render/src/eye-lens.ts`, `tools/versus/candidates/`
 
