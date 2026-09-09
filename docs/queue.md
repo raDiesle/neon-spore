@@ -193,6 +193,7 @@ takes the two pictures for the owner to choose between.
 ## THE BEATBOX and THE TELL teach with words and no rehearsal
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Taken:** 2026-09-09, claude/queue-the-beatbox-and-the-tell-teach-with-words-and-no
 - **Files:** `packages/content/src/waves/act-8.ts`,
   `packages/content/src/scenes.ts`, `packages/content/src/scenes/`
 
