@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 60b98ee0 — A shell's plate is a slab, and armour gives off no light
+
+SHELL:PLATE / SLAB into the game and WORN rejected, the owner's answer on the VERSUS page. A plate was the body's contour cut in half and filled in one flat grey — the one hard surface in the game with no thickness at all, over a body that has plenty. It is a slab now: a wall showing a hair of thickness down the unlit side, a face lit by its own outward normal so the two halves are two different greys, and a specular held where the key light is while the body sways under it.
+
 ## 2026-09-09 · 5279c4e6 — Two VERSUS slots: what a burning rock and a thrown body look like
 
 THE TORCH and THE DART each had one look and nowhere for a second answer to sit. Both have a record to patch already, so this is six candidates and a pose, and nothing the game draws today has moved.
