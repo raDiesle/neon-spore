@@ -20,10 +20,28 @@ describe("the shapes page", () => {
    * an unrelated string that happened to contain it, and the day that string
    * went, "SHELL" turned out never to have been checked at all.
    */
+  /**
+   * A VERSUS contour candidate's name is **computed**, and that is why it is
+   * checked in halves.
+   *
+   * `shape-sheet/src/candidates.ts` builds it as `${symbol} · ${name}` at
+   * import time, so a bundle holds `BULB` and `burr` as the two literals the
+   * candidate file wrote and never holds `BULB · BURR` at all. Looking for the
+   * joined string would fail for every contour candidate there will ever be —
+   * which nobody found out until 9 September 2026, because until `slick:shape`
+   * and `bulb:shape` opened there had never been one. Both halves is what this
+   * check can honestly make, and it still catches the failure it is for: a
+   * candidate whose directory is registered but whose shape never reaches the
+   * page.
+   */
+  const parts = (entry: (typeof CATALOGUE)[number]): string[] =>
+    entry.status === "candidate" ? entry.subject.name.split(" · ") : [entry.subject.name];
+
   it("carries every shape and every spare motion", () => {
     const carried = page.toLowerCase();
     for (const entry of CATALOGUE) {
-      expect(carried, entry.subject.name).toContain(entry.subject.name.toLowerCase());
+      for (const part of parts(entry))
+        expect(carried, entry.subject.name).toContain(part.toLowerCase());
     }
     for (const motion of MOTIONS) expect(carried, motion.name).toContain(motion.name.toLowerCase());
   });

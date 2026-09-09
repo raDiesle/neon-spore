@@ -64,17 +64,25 @@ const axes = CATALOGUE.map((e) => ({
 }));
 
 describe("the catalogue's long axes", () => {
-  it("splits a hundred and five bodies into wide, round and tall", () => {
+  it("splits a hundred and fifteen bodies into wide, round and tall", () => {
     const count = (a: "x" | "y" | null) => axes.filter((e) => e.long === a).length;
     // 104 until 8 September 2026, when THROB · CROWN was filed in
     // `drafts/offered.ts` — a round card, so it lands in the middle count.
-    expect(axes.length).toBe(105);
+    // 105 until 9 September 2026, when `slick:shape` and `bulb:shape` opened
+    // with five answers each: a contour candidate is a catalogue entry like any
+    // other (`shape-sheet/src/candidates.ts`), and these are the first ten
+    // there have ever been. Four of the slick's five are wide and one round;
+    // all five of the bulb's are round. None is tall, which is itself the
+    // finding: the two first bodies are a long one and a round one, and ten
+    // deliberately different answers to them did not produce a single upright
+    // shape between them.
+    expect(axes.length).toBe(115);
     // One ring of THE CRAWLER is the thirty-ninth wide card, and it is wide by
     // more than any other: a ring reaches nearly a full tile past its own
     // column at each end, which is what makes a run of them one animal with no
     // gap in it rather than beads on a string (`content/crawler-shape.ts`).
-    expect(count("x")).toBe(39);
-    expect(count(null)).toBe(53);
+    expect(count("x")).toBe(43);
+    expect(count(null)).toBe(59);
     // THE VEER is the thirteenth tall card and the only one made tall by
     // something *on* a body rather than by the body: the stone under it is
     // round, and the rider's hat carries the box half as far again above it.

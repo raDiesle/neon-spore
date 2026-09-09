@@ -73,6 +73,15 @@ const SLOT_POSE: Record<string, string> = {
   // the only pose that puts four of them on one frame.
   "creature:slick": "BODIES · FOUR KINDS AT ONCE",
   "creature:bulb": "BODIES · FOUR KINDS AT ONCE",
+  // The same pose again for the two interiors and the two outlines opened on 9
+  // September 2026, and for the same reason both times. What is inside a body
+  // and what shape it is are both judged against the bodies it could be
+  // mistaken for, and this is the only pose that puts four of them on one
+  // frame. The interiors are `creature:` slots because they are about what a
+  // creature has; the outlines are `slick:` and `bulb:` because they are about
+  // one named body and nothing else.
+  "slick:shape": "BODIES · FOUR KINDS AT ONCE",
+  "bulb:shape": "BODIES · FOUR KINDS AT ONCE",
   // And back to one creature doing one thing, because a dart's thrust is one:
   // it burns on the beat the body is thrown and on no other, so the slot needs
   // a pose held on that tick and replayed (`poses-bodies.ts`).

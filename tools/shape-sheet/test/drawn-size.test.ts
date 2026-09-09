@@ -71,13 +71,20 @@ import { drawnSize, FLOOR_HI, FLOOR_LO, isWide } from "../src/drawn-size.js";
 const SQUARE = CATALOGUE.filter((e) => !isWide(e));
 
 describe("drawn size against the 20-26 px floor", () => {
-  it("has the 92 square cards the catalogue now holds", () => {
+  it("has the 102 square cards the catalogue now holds", () => {
     // Two changes on 8 September 2026 that cancelled out. SLICK left: its
     // lobes went onto its long axis, and `depth` 0.52 with an apex at 0° and
     // another at 180° stretches the contour to 209 x 60 where the bean it drew
     // before came out near square, so it is measured as a wide card now.
     // THROB · CROWN arrived in its place (`drafts/offered.ts`).
-    expect(SQUARE.length).toBe(92);
+    //
+    // Ten more on 9 September 2026, when `slick:shape` and `bulb:shape` opened
+    // with five answers each. A contour candidate is a catalogue entry like any
+    // other, so every one of them is held to the drawn-size floor by the two
+    // checks below — which is the useful thing about them being here: a
+    // candidate outline that would be under twenty pixels on a phone fails
+    // `bun test` rather than being found at the pair.
+    expect(SQUARE.length).toBe(102);
   });
 
   it("clears the floor for every square card at the 92 px frame it actually gets", () => {
@@ -111,7 +118,12 @@ describe("drawn size against the 20-26 px floor", () => {
     // it from 16 px to 23, which clears 20 without clearing 26, and THROB ·
     // CROWN — six small caps on long stalks round a small core — lands under
     // it. A rim that reaches is a wide box fitted to a narrow body.
-    expect(under26).toBe(54);
+    // Two more on 9 September 2026, out of the ten contour candidates
+    // `slick:shape` and `bulb:shape` opened. That is the useful thing about a
+    // candidate being a catalogue entry: an alternative outline that would be
+    // under twenty-six pixels on a phone is counted here on the day it is
+    // written, rather than found at the pair by somebody squinting.
+    expect(under26).toBe(56);
     expect(under20).toBe(21);
   });
 

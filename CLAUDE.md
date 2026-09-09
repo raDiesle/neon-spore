@@ -205,6 +205,10 @@ Three exemptions, and say in the commit which one you used:
   spinning rock, a shape clipping its frame, a control under the status bar:
   these are defects, repaired rather than offered.
 
+**A new shape is never one the game already draws.** Check it against
+`packages/content/src/silhouettes*.ts`, then take one from the unused
+collection — `tools/shape-sheet/src/drafts/` — or combine two, naming it.
+
 **A lane about to improve a look mid-task stops** and puts it in the report.
 Why, in the owner's own words: `docs/looks.md`; the mechanism: `docs/versus.md`.
 

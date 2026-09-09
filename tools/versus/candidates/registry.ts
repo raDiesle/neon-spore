@@ -6,6 +6,11 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
+import { BULB_BURR } from "./bulb-shape/burr/index.js";
+import { BULB_CLOVER } from "./bulb-shape/clover/index.js";
+import { BULB_PEAR } from "./bulb-shape/pear/index.js";
+import { BULB_PEBBLE } from "./bulb-shape/pebble/index.js";
+import { BULB_SPIKE } from "./bulb-shape/spike/index.js";
 import { BREAK_SHATTER } from "./creature-break/shatter/index.js";
 import { BULB_CHAMBERS } from "./creature-bulb/chambers/index.js";
 import { BULB_FILAMENT } from "./creature-bulb/filament/index.js";
@@ -31,10 +36,20 @@ import { JOIN_ROOF } from "./panel-join/roof/index.js";
 import { SHELL_SLAB } from "./shell-plate/slab/index.js";
 import { SHELL_WORN } from "./shell-plate/worn/index.js";
 import { CRATER_SPALL } from "./ship-crater/spall/index.js";
+import { SLICK_CHAIN } from "./slick-shape/chain/index.js";
+import { SLICK_COMMA } from "./slick-shape/comma/index.js";
+import { SLICK_FRILL } from "./slick-shape/frill/index.js";
+import { SLICK_RAY } from "./slick-shape/ray/index.js";
+import { SLICK_REVERB } from "./slick-shape/reverb/index.js";
 import { TORCH_BLOOM } from "./torch-veil/bloom/index.js";
 import { TORCH_FIFTH } from "./torch-veil/fifth/index.js";
 
 export const VARIANTS: Variant[] = [
+  BULB_BURR,
+  BULB_CLOVER,
+  BULB_PEAR,
+  BULB_PEBBLE,
+  BULB_SPIKE,
   BREAK_SHATTER,
   BULB_CHAMBERS,
   BULB_FILAMENT,
@@ -60,6 +75,11 @@ export const VARIANTS: Variant[] = [
   SHELL_SLAB,
   SHELL_WORN,
   CRATER_SPALL,
+  SLICK_CHAIN,
+  SLICK_COMMA,
+  SLICK_FRILL,
+  SLICK_RAY,
+  SLICK_REVERB,
   TORCH_BLOOM,
   TORCH_FIFTH,
 ];
