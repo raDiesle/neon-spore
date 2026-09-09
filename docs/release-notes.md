@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 36fdc9cc — One queue item out of the list
+
+## 2026-09-09 · 2931e26f — A room test waits for the message it is about to read, not for 60 milliseconds
+
+`settle()` was one fixed 60 ms sleep, and every assertion in the file stood on the bet that a workerd round trip fits inside it. Under a full `bun test` — 339 files at once — it does not always, which is the flake that cost one failure in 60851 and passed the moment the file was run on its own.
+
 ## 2026-09-09 · f30a3aca — A soundbox goes blue on the beat, and its counter says which of four things happened
 
 Five reports, all about the same thing: the box was telling the pair what had happened and not what to do next.
