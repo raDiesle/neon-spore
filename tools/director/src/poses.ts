@@ -1,4 +1,5 @@
 import type { PoseGroup } from "./pose-kit.js";
+import { CASING_GROUP } from "./poses-casing.js";
 import { FIELD_GROUPS } from "./poses-field.js";
 import { MECHANIC_POSES } from "./poses-mechanics.js";
 import { CONTROL_POSES } from "./poses-ship.js";
@@ -34,4 +35,5 @@ export const POSE_GROUPS: PoseGroup[] = [
   ...FIELD_GROUPS,
   VERSUS_GROUP,
   SURFACE_GROUP,
+  CASING_GROUP,
 ];

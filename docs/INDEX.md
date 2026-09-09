@@ -477,6 +477,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/lance.ts` | the lance drawn: the button filling, and the mark that puts on a column |
 | `packages/render/src/torch.ts` | the torch: a rock drawn at whatever width its body carries, with an ember ring and a tail |
 | `packages/render/src/torch-alarm.ts` | the role-aware banner and pulsing band a torch in the queue triggers |
+| `packages/render/src/torch-ember.ts` | THE TORCH's flame, such as it is left: a faint ring just outside the stone |
+| `packages/render/src/torch-look.ts` | THE ONE RECORD A CANDIDATE TORCH FLAME PATCHES |
 | `packages/render/src/bullets.ts` | shots and their tails |
 | `packages/render/src/effects.ts` | every transient the field keeps past its frame, and where each one is kept |
 | `packages/render/src/effects-frame.ts` | **What `Effects` does with a frame**, as opposed to what it owns |
@@ -553,8 +555,10 @@ place — the generator keeps whatever is there.
 | `packages/render/src/vane-draw.ts` | THE VANE, drawn: an arm sweeping the top of the field, and the bearing it turns on |
 | `packages/render/src/veil-bolt.ts` | THE VEIL's lightning: small bolts that break out of the cloud's own border, scattered round it, each in its |
 | `packages/render/src/veil-marks.ts` | What stands over a cloud, and it is a different thing in each seat |
+| `packages/render/src/veil-mass.ts` | THE VEIL's cloud, filled: what a thunderhead is made of between its rim and its lightning |
 | `packages/render/src/veil-shape.ts` | THE VEIL's *form*: the silhouette a cloud has, and the vapour standing around it |
 | `packages/render/src/veil-tear.ts` | A cloud coming apart, and the body inside it visible for the first and last time |
+| `packages/render/src/veil-look.ts` | THE ONE RECORD A CANDIDATE THUNDERHEAD PATCHES |
 | `packages/render/src/veil.ts` | THE VEIL's cloud: the thunderhead a slick or a bulb falls inside |
 | `packages/render/src/warden-eye.ts` | THE WARDEN's door, and the eye behind it |
 | `packages/render/src/eye.ts` | you are drawing an eye — the wet film round it and the lashes and cilia off it, shared by THE LID and THE WARDEN; the lens itself is `eye-lens.ts` |
@@ -680,6 +684,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/warden-plates.ts` | THE WARDEN's armour, and the only place on the field that says how far in the pair is |
 | `packages/render/src/warden-skin.ts` | THE WARDEN's skin: the veins under it, the wet film over it |
 | `packages/render/src/warden-veins.ts` | What lies **under** THE WARDEN's surface: the veins running in from its rim, and the wet film over them |
+| `packages/render/src/warden-look.ts` | THE ONE RECORD A CANDIDATE WARDEN ARMOUR PATCHES |
 | `packages/render/src/queen-drop.ts` | NEXT TO FALL: the flank the queen's next torch comes off, said on player 2's screen and nowhere else |
 | `packages/render/src/queen-figure.ts` | Where the parts of the queen sit on her, and where the screen puts them |
 | `packages/render/src/maze-walls.ts` | THE MAZE's walls: the circles, the gaps cut in them, and the radial walls that make the corridors turn |
@@ -1317,6 +1322,7 @@ place — the generator keeps whatever is there.
 | `tools/shape-sheet/src/rock-subjects.ts` | Everything on this sheet that is faceted rather than grown: the builder that draws a crystal |
 | `tools/director/src/poses-versus.ts` | The states a candidate look is judged on — one per slot that had none |
 | `tools/director/src/poses-bodies.ts` | The pose a candidate for a *body* is judged on, as opposed to one for a mechanism firing |
+| `tools/director/src/poses-casing.ts` | The states a candidate for what a body **wears** is judged on |
 | `tools/director/src/versus-app.ts` | `versus.html` — the page a VERSUS door opens into, and the whole of its routing |
 | `tools/director/src/versus-one.ts` | One candidate, alone, on a page of its own — the live half of VERSUS |
 | `tools/director/src/versus-open.ts` | Where a look opens, and how a page links to it |

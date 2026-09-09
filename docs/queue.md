@@ -282,3 +282,55 @@ add a test that a section containing `###` sub-headings comes back whole.
 Check the existing callers while doing it — `backlog.ts` reads "Examined and
 rejected" and the borrowed docs this way, and a section that grows one
 sub-heading later should not need this found a second time.
+## THE CLASP's bubble has no place a candidate look can live
+
+- **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7
+- **Files:** `packages/render/src/clasp.ts`, `packages/render/src/clasp-lattice.ts`,
+  `tools/versus/README.md`
+
+This lane went looking for bodies with no VERSUS slot and picked the clasp's
+honeycomb sphere first: `drawClaspLattice` is a warped hexagon grid that already
+argues it is a ball, and turning it into a *placed* surface — cells at real
+longitudes and latitudes, half of them round the back — is the same work
+`crawler:skin` / `pearl` did for a worm. It was dropped before a line was
+written, because of `drawClaspShield`'s first branch: when `image !== null` the
+hand-painted strip is drawn and **the whole procedural floor, lattice included,
+is skipped**. `assets/raster/green-shield-strip.webp` is committed and is what a
+phone loads, so the lattice is only ever seen when the raster fails — a
+candidate patching it would have been a slot whose difference nobody could see
+in the shipping game, which is precisely the defect the entry above this one is
+about.
+
+Two things to do, and they are independent. **Say it where the next session
+looks**: `clasp.ts`'s own doc comment describes the procedural path as "the
+floor" without saying it is unreachable with the assets loaded, and
+`tools/versus/README.md`'s "Writing one" section has no line about a record that
+sits behind an asset branch. **Then decide what the floor is for**: either it is
+a genuine fallback worth keeping — in which case a seam for it has to patch both
+halves or neither, and the honest slot is the *strip*, which VERSUS cannot offer
+because a candidate cannot repaint a webp — or it is dead paint on every device
+that ever loads, and `clasp-lattice.ts` is 134 lines of it. `raster-probe.ts`
+and `raster-caps.ts` are where the answer to "does a phone ever miss" lives.
+
+## The slot-to-creature map in `versus-pose.test.ts` is kept by hand
+
+- **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7
+- **Files:** `tools/director/test/versus-pose.test.ts`
+
+`each creature slot's pose actually puts that creature on the field` is the
+guard for the owner's complaint that every slot showed a slick, and it reads
+from a literal `Record<string, string>` of four — now seven — slots. A slot
+missing from that object is not a failure and not a warning: it is simply not
+checked, so the guard covers whichever slots somebody remembered to add and
+silently exempts the rest. This lane added three rows to it by hand, which is
+the second time the same list has been extended by hand.
+
+Most of it derives. A slot is `area:thing`, and where the area is `creature` the
+thing **is** the `CreatureKind` for every slot on the page today — so the check
+can walk `slots(VARIANTS)`, take the ones whose prefix is `creature:` and assert
+the kind is on the field, with a small explicit table left for the ones that do
+not follow the rule (`crawler:pulse`, `crawler:skin`, `warden:plates`). Then a
+new creature slot is covered the moment it is registered. The test that proves
+it is the one already there, plus an assertion that the derived set is not
+empty — a derivation that quietly matches nothing is the same silence in a
+different place.

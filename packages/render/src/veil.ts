@@ -5,7 +5,8 @@ import { halo } from "./glow.js";
 import { mixHex } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { drawVeilBolts } from "./veil-bolt.js";
-import { cloudPath, drawVeilFog, VEIL_FLATTEN } from "./veil-shape.js";
+import { VEIL_LOOK } from "./veil-look.js";
+import { cloudPath, drawVeilFog } from "./veil-shape.js";
 
 /**
  * THE VEIL's cloud: the thunderhead a slick or a bulb falls inside.
@@ -153,19 +154,26 @@ export function drawVeilCloud(
   ctx.fill(cloudPath(r, t), "nonzero");
   ctx.restore();
 
-  // The body of it. A vertical gradient rather than a flat fill — a cloud is
-  // lit from above and heavy underneath, and the dark underside is what makes
-  // it read as weather instead of as a grey blob.
-  const g = ctx.createLinearGradient(0, -r * 0.85, 0, r * VEIL_FLATTEN);
-  g.addColorStop(0, haze(shut > 0 ? mixHex(DARK, ANGRY, shut) : DARK));
-  g.addColorStop(1, haze(shut > 0 ? mixHex(DARKER, ANGRY, shut * 0.8) : DARKER));
-  // See-through on player 1's screen and nowhere else. Well short of half, so
-  // the colour underneath is unambiguous — the pilot has to be able to say
-  // "cyan" without leaning in — and well short of nothing, so the cloud is
-  // still plainly the thing they are looking at.
-  ctx.globalAlpha = seeThrough ? 0.66 : 1;
-  ctx.fillStyle = g;
-  ctx.fill(path, "nonzero");
+  // The body of it, through the one record a candidate thunderhead patches
+  // (`veil-look.ts`). The rim above and the bolts below are not in the slot:
+  // the first is the silhouette player 2 finds this body by and the second is
+  // the count the pair is keeping.
+  VEIL_LOOK.mass({
+    ctx,
+    r,
+    t,
+    beats,
+    path,
+    shut,
+    seeThrough,
+    top: haze(shut > 0 ? mixHex(DARK, ANGRY, shut) : DARK),
+    bottom: haze(shut > 0 ? mixHex(DARKER, ANGRY, shut * 0.8) : DARKER),
+    haze,
+  });
+  // Back to full strength before the bolts, which is where the shipped fill
+  // left it: the rim above runs at less than 1, and the mass is a record now,
+  // so the alpha the lightning is drawn at cannot be left to whatever a
+  // candidate happened to do with the context.
   ctx.globalAlpha = 1;
 
   // Over the contour and *not* clipped to it: these break out of the border

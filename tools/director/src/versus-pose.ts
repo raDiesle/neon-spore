@@ -105,6 +105,15 @@ const SLOT_POSE: Record<string, string> = {
   // and the only honest frame for either is the ship with a body falling past
   // it, which is the one thing brighter than the membrane being judged.
   "ship:hull-shape": "HULL · BOTH LOBES UP",
+  // Three bodies that had never been posed at all, and their states are in
+  // `poses-casing.ts`: a rock wearing fire, a body wearing weather and a boss
+  // wearing armour. The first two fall as fast as they ship and are replayed on
+  // the length of their own fall — a torch's is a third of a cloud's — and the
+  // third does not fall at all, because a warden is a fixture and stands there
+  // for the whole fight.
+  "creature:torch": "TORCH · THE FALL",
+  "creature:veil": "VEIL · CARRYING",
+  "warden:plates": "WARDEN · ARMOURED",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

@@ -47,8 +47,12 @@ const COL = 5;
  * config the pose is built with and cannot drift when either number moves.
  * The half-beat is so the replay lands on an empty field rather than in the
  * middle of a body breaking up against the hull.
+ *
+ * Exported for `poses-casing.ts`, whose cloud falls at exactly this rate and
+ * whose torch falls at a multiple of it — a second copy of a fall's length is
+ * a second copy of the rule that a body comes down a row a beat.
  */
-function fallSeconds(): number {
+export function fallSeconds(): number {
   return ((DEFAULT_CONFIG.rows + 0.5) * 60) / DEFAULT_CONFIG.bpm;
 }
 

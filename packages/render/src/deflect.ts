@@ -4,7 +4,8 @@ import { hash01 } from "./backdrop.js";
 import { DEFLECT_LOOK } from "./deflect-look.js";
 import { halo } from "./glow.js";
 import { PALETTE } from "./palette.js";
-import { drawEmberRing, rockTileRadius } from "./torch.js";
+import { rockTileRadius } from "./torch.js";
+import { drawEmberRing } from "./torch-ember.js";
 
 interface Particle {
   x: number;

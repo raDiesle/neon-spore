@@ -6,9 +6,12 @@ import { GYRE_YOLK } from "./creature-gyre/yolk/index.js";
 import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
 import { SKIN_VEIL } from "./creature-skin/veil/index.js";
 import { THROB_GLOBE } from "./creature-throb/globe/index.js";
+import { TORCH_KILN } from "./creature-torch/kiln/index.js";
+import { VEIL_ANVIL } from "./creature-veil/anvil/index.js";
 import { WISP_RING } from "./creature-wisp/ring/index.js";
 import { HULL_RIDGE } from "./ship-hull/ridge/index.js";
 import { SHIP_BARREL } from "./ship-light/barrel/index.js";
+import { WARDEN_BEVEL } from "./warden-plates/bevel/index.js";
 // endregion
 
 /**
@@ -125,7 +128,34 @@ import { SHIP_BARREL } from "./ship-light/barrel/index.js";
  * radius function goes from two deep lobes to fourteen shallow ones, so the
  * membrane the whole field is read against ripples instead of swelling. It sits
  * on `HULL · BOTH LOBES UP` beside `ship:light`, which is the same object asked
- * a different question — where the light falls on it, against what shape it is.
+ * a different question — where the light falls on it, against what shape it is. *
+ * ## Three bodies nobody had offered a second answer to, on 9 September 2026
+ *
+ * `creature:torch` / `kiln`, `creature:veil` / `anvil` and `warden:plates` /
+ * `bevel` are the first candidates for a rock, for the weather and for a boss.
+ * Each of the three was picked for the same reason: the shipped look is good,
+ * it has never had a rival, and what it is missing is the half of
+ * `docs/style-guide.md`'s Depth rule about a *placed* surface. A torch's flame
+ * is one ring in front of everything; a thundercloud's inside is one gradient
+ * down the picture; a warden's armour is one stroke at one brightness the whole
+ * way round.
+ *
+ * They are three rather than one because each spends the rule differently and
+ * they can lose in different ways. The torch is the fastest body in the game
+ * and gets the full argument — marks placed on a surface that turns, with the
+ * rock itself hiding the far half, which is the reveal no pose can fake. The
+ * cloud is *mostly interior*, so its depth has to come from heaps stacking
+ * inside a silhouette that may not move at all. The warden takes the other
+ * half deliberately and openly: a lit solid that does not turn, on the biggest
+ * body in the game, because where its plates are is the only health bar the
+ * pair has and may not be re-placed by a look.
+ *
+ * Two of the three needed a **seam** first, and the torch's is the first one on
+ * this page that hands the caller's own paint back through the record:
+ * `torch-look.ts` gives a candidate flame the stone as a field of the draw, so
+ * a flame with a far side can put half of itself under an opaque rock.
+ * `veil-look.ts` and `warden-look.ts` are two more of `magnet-look.ts`'s kind,
+ * and the shipped paint went through all three with not one pixel moved.
  */
 export const VARIANTS: Variant[] = [
   METEOR_FORGE,
@@ -137,4 +167,7 @@ export const VARIANTS: Variant[] = [
   WISP_RING,
   GYRE_YOLK,
   HULL_RIDGE,
+  TORCH_KILN,
+  VEIL_ANVIL,
+  WARDEN_BEVEL,
 ];

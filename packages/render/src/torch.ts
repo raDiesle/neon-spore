@@ -3,6 +3,7 @@ import { type Creature, colSpan, spanOf } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import { type Layout, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { TORCH_LOOK } from "./torch-look.js";
 
 /**
  * How far a **full-width** torch's radius reaches, in tiles.
@@ -87,34 +88,6 @@ export function drawTorchTail(
   ctx.restore();
 }
 
-/** The torch's flame, kept only as a faint ring just outside the rock's own
- * outline — a trace of it, not the flame itself. Exported for the bounce
- * (`deflect.ts`): a torch the shield turns away is still a torch, and the ring
- * is the one mark that says so once the tail is gone. */
-export function drawEmberRing(ctx: CanvasRenderingContext2D, r: number, time: number): void {
-  const ringD = crystalPath(
-    0,
-    0,
-    r * 1.14,
-    r * 1.14,
-    METEOR.sides,
-    METEOR.depth,
-    METEOR.wobble,
-    time * 0.15,
-    METEOR.seed,
-  );
-  // Multiplied into whatever alpha the caller already had, and restored
-  // rather than set back to 1: a bounced rock is drawn fading out
-  // (`deflect.ts`), and a ring that reset the alpha would take the fade with
-  // it and leave the stone at full strength for the whole of its flight.
-  ctx.save();
-  ctx.globalAlpha *= 0.4;
-  ctx.strokeStyle = PALETTE.ember;
-  ctx.lineWidth = STROKE.outline;
-  ctx.stroke(new Path2D(ringD));
-  ctx.restore();
-}
-
 /**
  * The rock itself: the ember ring, then the same crystal shape and stone-grey
  * fill as a plain meteor. Assumes `ctx` is already translated to the rock's
@@ -135,8 +108,19 @@ export function drawTorchRock(
   time: number,
   ember = true,
 ): void {
-  if (ember) drawEmberRing(ctx, r, time);
+  const stone = (): void => drawStone(ctx, r, time);
+  // The flame decides where the stone goes, because a flame with a far side
+  // needs half of itself under an opaque rock (`torch-look.ts`). A rock with no
+  // flame is drawn by itself, exactly as it was when the ring was an `if`.
+  if (ember) TORCH_LOOK.flame({ ctx, r, time, stone });
+  else stone();
+}
 
+/** The stone: the crystal contour, the stone-grey fill and the rock outline —
+ * every rock in the game, torch or plain tier. Split off `drawTorchRock` so a
+ * candidate flame can put it down in an order of its own choosing; not one
+ * value in it moved. */
+function drawStone(ctx: CanvasRenderingContext2D, r: number, time: number): void {
   const d = crystalPath(
     0,
     0,

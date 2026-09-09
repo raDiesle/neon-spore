@@ -18,7 +18,7 @@ import { type Circle, type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawWardenCilia } from "./warden-cilia.js";
 import { drawEye, drawHatch, HATCH } from "./warden-eye.js";
-import { drawPlates } from "./warden-plates.js";
+import { WARDEN_LOOK } from "./warden-look.js";
 import { drawWardenEyelets } from "./warden-skin.js";
 import { drawWardenUnderskin } from "./warden-veins.js";
 
@@ -204,7 +204,7 @@ export function drawWarden(
     0.6 + openness * 0.8,
   );
 
-  drawPlates(ctx, cx, cy, r, b, cfg, time, cut);
+  WARDEN_LOOK.plates({ ctx, cx, cy, r, b, cfg, time, cut });
   drawHatch(ctx, cx + dx, cy, pupilR * HATCH, openness);
   // The eye behind the door — the same one THE LID wears, `eye.ts`. The fluid
   // and the fringe are drawn whether or not the hatch is open, because they are
