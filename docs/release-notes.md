@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · dafea2c2 — A boss round is measured inside its song, and a held control is measured at all
+
+Two holes in the same sweep, and both of them measured a wave that was not there. `measure.ts` finds a wave's busiest tick by counting `world.creatures`, and a boss round has none — THE PULSE, THE GAUGE, PINBALL, SNAKE, THE MAZE and THE MIRROR all keep their picture in `world.boss` — so the count never improved on tick 0 and every round in the baseline was photographed during its count-in. And the sweep presses nothing at all, so THE LANCE's beam, its ribbon and the wash it leaves were drawn zero times in the row that was supposed to weigh them.
+
 ## 2026-09-09 · 072abfeb — The mouse's ink no longer sticks to the right edge and the bottom
 
 The trail was found standing still down the right-hand side of the director's field and along the bottom of it, on ink that no later frame could take off again. The cause is one line of arithmetic, and it is in every surface this repository sizes in device pixels and draws in CSS ones: the overlay sets `canvas.width = w * dpr` and then `setTransform(dpr, ...)`, so a `clearRect(0, 0, canvas.width, canvas.height)` is scaled like every other rectangle and asks for `w * dpr` *CSS* pixels. Above a ratio of one that merely wipes more than the surface. Below one — a desk zoomed out to 80% reports 0.8 — it wipes 64% of it, and the strip on the right and the band along the bottom keep whatever was last drawn there. The loop stops the moment the last blob dies, so what was outside the wipe stayed for the session.
