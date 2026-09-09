@@ -342,6 +342,7 @@ raster branch switched on tomorrow would be two answers to one question.
 ## A CRLF markdown file makes `bun run index` blame a missing heading
 
 - **Found:** 2026-09-09, claude/queue-the-shells-plating-is-a-flat-lid-over-a-round-bo
+- **Taken:** 2026-09-09, claude/queue-a-crlf-markdown-file-makes-bun-run-index-blame-a
 - **Files:** `tools/index/index.ts`, `tools/index/test/index.test.ts`
 
 `CODE_HEADING` is `"## Code
