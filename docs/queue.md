@@ -300,3 +300,29 @@ table that will go stale. The other option is to keep it kind-agnostic and step
 a round to a fixed fraction of its own length, which is one number and wrong for
 none of them. Take a fresh baseline with `bun run perf --save` afterwards, since
 every round's row moves.
+
+## `sectionNamed` ends a spec section at the first `###` inside it
+
+- **Found:** 2026-09-09, claude/bosses-bestiary-explanations-957046
+- **Files:** `tools/director/src/sections.ts`, `tools/director/src/plain-words.ts`,
+  `tools/director/test/` (a new test beside `roster.test.ts`)
+
+`sectionNamed(text, needle)` walks the file and breaks out of the section on
+any line starting with `##` — which is every `###` sub-heading as well as the
+next `##`. Every caller it has today happens to read a section made only of
+prose, tables and lists, so nothing has been wrong yet; the first section that
+uses sub-headings inside it silently returns the two or three lines before the
+first one.
+
+This lane hit it writing `## 10.5 In plain words`, whose entries are `###`
+headings, and worked around it with a private `sectionLines` in
+`plain-words.ts` that tests `/^##(?!#)/`. That is a second copy of "where does
+a section end", which is exactly the kind of re-derived rule
+`packages/sim/test/purity.test.ts` carries a table against.
+
+What to do: give `sectionNamed` the `/^##(?!#)/` boundary, delete
+`sectionLines` from `plain-words.ts` and have it call `sectionNamed` again, and
+add a test that a section containing `###` sub-headings comes back whole.
+Check the existing callers while doing it — `backlog.ts` reads "Examined and
+rejected" and the borrowed docs this way, and a section that grows one
+sub-heading later should not need this found a second time.

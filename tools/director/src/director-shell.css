@@ -23,6 +23,27 @@
   --red: #ff5470;
   --blue: #5b8cff;
   --green: #3ddc84;
+  --mono: "Courier New", monospace;
+  /*
+   * Prose is read, not aligned. Courier at 12px was the whole director,
+   * paragraphs included, and the owner could not read it — a monospace face
+   * sets prose about a third wider than a text face at the same size, so the
+   * eye covers a third fewer words per line and every stem is the same
+   * weight. The rule below spends this on the places that are sentences and
+   * leaves every grid, chart and column of numbers in `--mono`.
+   */
+  --prose: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+/*
+ * The one knob for the whole tool. Every `font-size` in the director's CSS is
+ * written in `rem` against this — 1rem was the old 12px body — so the size of
+ * the director is this line and nothing else. The small labels are lifted
+ * further than the body is (8px became 0.75rem rather than 0.667rem): they
+ * were the half that could not be read, and a scale that multiplies
+ * everything equally keeps them the smallest thing on the page.
+ */
+html {
+  font-size: 15px;
 }
 html,
 body {
@@ -32,9 +53,7 @@ body {
 body {
   background: var(--bg);
   color: var(--ink);
-  font:
-    12px / 1.5 "Courier New",
-    monospace;
+  font: 1rem / 1.5 var(--mono);
   display: grid;
   grid-template-rows: 38px 1fr;
   height: 100%;
@@ -51,7 +70,7 @@ header {
 }
 header h1 {
   margin: 0;
-  font-size: 11px;
+  font-size: 0.95rem;
   letter-spacing: 3px;
   color: var(--gold);
   font-weight: 600;
@@ -69,14 +88,14 @@ header button[data-view] {
   display: none;
 }
 #status {
-  font-size: 10px;
+  font-size: 0.875rem;
   color: var(--dim);
 }
 #status.bad {
   color: var(--red);
 }
 #buildStamp {
-  font-size: 10px;
+  font-size: 0.875rem;
   letter-spacing: 1px;
   color: #3c3468;
 }
@@ -162,7 +181,7 @@ textarea {
 }
 label.field {
   display: block;
-  font-size: 9px;
+  font-size: 0.8rem;
   letter-spacing: 2px;
   color: var(--dim);
   margin: 9px 0 3px;
@@ -202,3 +221,27 @@ label.field {
    nowhere to break — and an `fr` track is sized from the available
    space instead, so the same text wraps inside whatever width the row
    gives it rather than dictating one. */
+
+/*
+ * Prose in a text face, everything that has to line up left alone. The list is
+ * selectors rather than an element rule because a `p` inside a chart legend is
+ * still a chart, and because a page's own stylesheet may add to it: what is
+ * named here is a note, a blurb, a caption's body, rendered markdown and the
+ * plain-words rows on a NOT BUILT YET card.
+ */
+.note,
+.blurb,
+.cap p,
+.md,
+.plainwords,
+.plan .drawn {
+  font-family: var(--prose);
+}
+/* Identifiers keep the typewriter — a file path in a sentence is not prose. */
+.note code,
+.blurb code,
+.md code,
+.plainwords code,
+.md pre {
+  font-family: var(--mono);
+}

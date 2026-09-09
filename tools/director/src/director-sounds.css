@@ -28,11 +28,11 @@
 #soundboard .title {
   color: var(--gold);
   letter-spacing: 4px;
-  font-size: 13px;
+  font-size: 1.1rem;
 }
 #soundboard .sub {
   color: var(--dim);
-  font-size: 10px;
+  font-size: 0.875rem;
 }
 #soundboard > header button {
   margin-left: auto;
@@ -88,7 +88,7 @@
 }
 .sound .art-empty {
   color: #3b3163;
-  font-size: 14px;
+  font-size: 1.2rem;
 }
 .sound-body {
   min-width: 0;
@@ -101,14 +101,14 @@
 .sound .name {
   color: var(--ink);
   letter-spacing: 1px;
-  font-size: 11px;
+  font-size: 0.95rem;
 }
 .sound.is-built .name {
   color: var(--cyan);
 }
 .sound .stamp {
   margin-left: auto;
-  font-size: 9px;
+  font-size: 0.8rem;
   color: #574d84;
   letter-spacing: 2px;
 }
@@ -122,24 +122,24 @@
 .sound .use {
   margin: 2px 0;
   color: var(--dim);
-  font-size: 10px;
+  font-size: 0.875rem;
 }
 .sound .pierce {
   margin: 2px 0;
   color: var(--red);
-  font-size: 9px;
+  font-size: 0.8rem;
   letter-spacing: 1px;
 }
 .sound .kind {
   margin: 2px 0 0;
   color: #a98cff;
-  font-size: 9px;
+  font-size: 0.8rem;
 }
 .sound .recipe {
   display: block;
   margin-top: 4px;
   color: #4d4478;
-  font-size: 9px;
+  font-size: 0.8rem;
   word-break: break-word;
 }
 .sound .plot {

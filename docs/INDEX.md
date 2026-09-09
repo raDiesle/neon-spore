@@ -1008,6 +1008,7 @@ place — the generator keeps whatever is there.
 | `tools/director/shapes-still.ts` | Draw a skin without starting anything |
 | `tools/director/src/backlog-ideas.ts` | The "accepted in principle, not worked out" half of the backlog — split out of `backlog.ts` on line count |
 | `tools/director/src/backlog-tabs.ts` | The tabs of the NOT BUILT YET sheet that are drawn on first sight rather than on first open |
+| `tools/director/src/backlog-entry.ts` | One card on the NOT BUILT YET page: the name, its frame, the plain-English rows |
 | `tools/director/src/boss-cycles.ts` | The two boss panels that are mostly a cycle, and the chrome all of them share |
 | `tools/director/src/brush-art.ts` | A brush's own picture, kept: the body it paints, drawn by the shipping renderer, on nothing |
 | `tools/director/src/brush-category.ts` | Which brush categories (`BRUSH_GROUPS` in brush-groups.ts — CANNON, SHIELD, MIXED |
@@ -1320,6 +1321,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/versus-open.ts` | Where a look opens, and how a page links to it |
 | `tools/director/src/versus-tab.ts` | The VERSUS tab: every look offered beside what the field already draws, never in place of it |
 | `tools/director/src/place.ts` | Where you are in the director, as a value — and the two functions that turn it into a URL and back |
+| `tools/director/src/plain-words.ts` | The plain-English half of an unbuilt entry: what the thing does, what each seat does about it |
 | `tools/queue/edit.ts` | Editing `docs/queue.md` and `docs/parked.md` in place: the claim written into an entry |
 | `tools/frames/press-plan.ts` | when each `--press` is sent, and the tick that must run after it |
 | `tools/perf/renumber.ts` | a merged baseline put back on today's wave numbers |

@@ -62,7 +62,7 @@
     width: 100%;
     text-align: left;
     padding: 12px;
-    font-size: 12px;
+    font-size: 1rem;
   }
   main {
     grid-template-columns: 1fr;

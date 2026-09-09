@@ -28,7 +28,7 @@
 .versus-screen-label {
   margin: 0 0 4px;
   color: var(--gold);
-  font-size: 9px;
+  font-size: 0.8rem;
   letter-spacing: 2px;
 }
 .versus-bar {
@@ -45,7 +45,7 @@
 .versus-patch {
   display: block;
   color: var(--dim);
-  font-size: 9px;
+  font-size: 0.8rem;
   margin: 2px 0 10px;
 }
 .versus-stage {
@@ -66,7 +66,7 @@
   max-width: 380px;
   margin: 4px 0 0;
   color: var(--dim);
-  font-size: 9px;
+  font-size: 0.8rem;
   line-height: 1.5;
 }
 /* The name stays above its own phone and keeps its height whichever
@@ -77,7 +77,7 @@
   min-height: 26px;
   margin-bottom: 4px;
   color: var(--ink);
-  font-size: 9px;
+  font-size: 0.8rem;
   letter-spacing: 1px;
   line-height: 1.4;
 }
@@ -116,7 +116,7 @@
   background: rgba(7, 6, 15, 0.82);
   color: var(--gold);
   letter-spacing: 3px;
-  font-size: 10px;
+  font-size: 0.875rem;
 }
 .versus-vote {
   margin-top: 14px;
@@ -147,7 +147,7 @@
   border-radius: 6px;
   color: var(--red);
   letter-spacing: 2px;
-  font-size: 11px;
+  font-size: 0.95rem;
   line-height: 1.5;
 }
 
@@ -191,12 +191,12 @@
 }
 .plan.is-reading .name {
   color: var(--ink);
-  font-size: 12px;
+  font-size: 1rem;
 }
 /* The date and the branch: provenance, not the sentence — so it sits
    under the title in the colour of a footnote rather than of prose. */
 .plan.is-reading .blurb {
-  font-size: 9px;
+  font-size: 0.8rem;
   letter-spacing: 1px;
   color: #574d84;
 }
@@ -205,7 +205,7 @@
   border-left: none;
   background: transparent;
   padding: 0;
-  font-size: 11px;
+  font-size: 0.95rem;
   line-height: 1.65;
 }
 
@@ -219,7 +219,7 @@
 .versus-slot h3 {
   margin: 0 0 2px;
   color: var(--gold);
-  font-size: 11px;
+  font-size: 0.95rem;
   letter-spacing: 3px;
 }
 /* Which picture the comparison is made on. It is the answer to "what am I
@@ -229,7 +229,7 @@
   margin: 0 0 10px;
   max-width: 620px;
   color: var(--dim);
-  font-size: 9px;
+  font-size: 0.8rem;
   line-height: 1.6;
   letter-spacing: 1px;
 }
@@ -271,7 +271,7 @@ body.standalone .sheetpage {
 }
 body.standalone h1 {
   margin: 0 0 10px;
-  font-size: 14px;
+  font-size: 1.2rem;
   letter-spacing: 4px;
 }
 
@@ -302,7 +302,7 @@ body.standalone h1 {
 .versus-look {
   margin: 8px 0 2px;
   color: var(--gold);
-  font-size: 11px;
+  font-size: 0.95rem;
   letter-spacing: 1px;
   max-width: 720px;
 }

@@ -25,11 +25,11 @@
 #notes .title {
   color: var(--gold);
   letter-spacing: 4px;
-  font-size: 13px;
+  font-size: 1.1rem;
 }
 #notes .sub {
   color: var(--dim);
-  font-size: 10px;
+  font-size: 0.875rem;
 }
 #notes > header button {
   margin-left: auto;
@@ -45,7 +45,7 @@
    button, because a count says something is waiting and nothing is. */
 .note-day {
   color: var(--cyan);
-  font-size: 10px;
+  font-size: 0.875rem;
   letter-spacing: 3px;
   border-bottom: 1px solid var(--line-soft);
   padding-bottom: 3px;
@@ -64,18 +64,18 @@
 }
 .note-head .sha {
   color: #574d84;
-  font-size: 9px;
+  font-size: 0.8rem;
   letter-spacing: 1px;
 }
 .note-head .subject {
   flex: 1 1 auto;
   min-width: 0;
-  font-size: 11px;
+  font-size: 0.95rem;
   color: var(--ink);
 }
 .note-what {
   color: var(--dim);
-  font-size: 10px;
+  font-size: 0.875rem;
   margin: 3px 0 0 0;
   line-height: 1.5;
 }
@@ -106,11 +106,11 @@
 #orphans .title {
   color: var(--red);
   letter-spacing: 4px;
-  font-size: 13px;
+  font-size: 1.1rem;
 }
 #orphans .sub {
   color: var(--dim);
-  font-size: 10px;
+  font-size: 0.875rem;
 }
 #orphans > header button {
   margin-left: auto;
@@ -146,16 +146,16 @@
 .orphan-head .id {
   flex: 1 1 auto;
   letter-spacing: 2px;
-  font-size: 12px;
+  font-size: 1rem;
   color: var(--ink);
 }
 .orphan-head .stamp {
   color: var(--dim);
-  font-size: 9px;
+  font-size: 0.8rem;
   letter-spacing: 1px;
 }
 .orphan .what {
-  font-size: 11px;
+  font-size: 0.95rem;
   margin: 6px 0 0;
 }
 
@@ -190,16 +190,16 @@
 .demo-head .id {
   flex: 1 1 auto;
   letter-spacing: 2px;
-  font-size: 12px;
+  font-size: 1rem;
   color: var(--ink);
 }
 .demo .wave {
   color: var(--dim);
-  font-size: 10px;
+  font-size: 0.875rem;
   margin: 6px 0 0;
 }
 .demo .what {
-  font-size: 11px;
+  font-size: 0.95rem;
   margin: 4px 0 0;
 }
 .demo.broken .what {
@@ -207,6 +207,6 @@
 }
 .orphan .fix {
   color: var(--cyan);
-  font-size: 10px;
+  font-size: 0.875rem;
   margin: 4px 0 0;
 }

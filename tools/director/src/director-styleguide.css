@@ -12,7 +12,7 @@
 #mech-style .sg-section h2 {
   color: var(--gold);
   letter-spacing: 3px;
-  font-size: 12px;
+  font-size: 1rem;
   margin: 0 0 6px;
 }
 #mech-style .sg-section > .note {
@@ -25,12 +25,12 @@
 #mech-style .sg-family h3 {
   color: var(--cyan);
   letter-spacing: 2px;
-  font-size: 11px;
+  font-size: 0.95rem;
   margin: 0 0 3px;
 }
 #mech-style .sg-rule {
   color: var(--dim);
-  font-size: 10px;
+  font-size: 0.875rem;
   max-width: 760px;
   margin: 0 0 8px;
 }
@@ -62,14 +62,14 @@
   border-color: var(--ink);
 }
 #mech-style .swatch .key {
-  font-size: 10px;
+  font-size: 0.875rem;
   /* `claspShieldDeep` is fifteen characters in a 96px cell. Wrapping it is the
      only option that keeps the key readable: shrinking the type further makes
      a hex unreadable, and a wider cell puts four swatches on a row. */
   overflow-wrap: anywhere;
 }
 #mech-style .swatch .hex {
-  font-size: 9px;
+  font-size: 0.8rem;
   overflow-wrap: anywhere;
   color: var(--dim);
 }
@@ -96,11 +96,11 @@
 #mech-style .sg-rowname b {
   color: var(--cyan);
   letter-spacing: 2px;
-  font-size: 10px;
+  font-size: 0.875rem;
 }
 #mech-style .sg-rowname span {
   color: var(--dim);
-  font-size: 9px;
+  font-size: 0.8rem;
 }
 #mech-style .sg-cell {
   text-align: center;
@@ -111,10 +111,10 @@
 }
 #mech-style .sg-caption {
   margin-top: 4px;
-  font-size: 10px;
+  font-size: 0.875rem;
 }
 #mech-style .sg-sub {
-  font-size: 9px;
+  font-size: 0.8rem;
   color: var(--dim);
 }
 #mech-style .sg-cell.is-dim .sg-caption {

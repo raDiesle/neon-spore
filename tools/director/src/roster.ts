@@ -5,9 +5,11 @@
  */
 
 import { CREATURES } from "@neon-spore/content";
-import { BOSS_KINDS } from "@neon-spore/sim";
+import { BOSS_KINDS, POD_KINDS } from "@neon-spore/sim";
+import { type PlainRow, parsePlainWords, plainWordsFor } from "./plain-words.js";
 import {
   firstParagraph,
+  normalizeName,
   parseNumberedSections,
   proseBlocks,
   sectionBody,
@@ -30,6 +32,12 @@ export interface Planned {
   detail: string;
   /** Where the detail came from, e.g. "bestiary.md 10.2". */
   ref: string;
+  /**
+   * The plain-English rows written for it in the spec's own "In plain words"
+   * section — what it does, what each seat does, what is left to decide. Empty
+   * for anything nobody has written one for yet.
+   */
+  plain: PlainRow[];
 }
 
 export interface Roster {
@@ -64,6 +72,11 @@ export function isBuilt(name: string): boolean {
   // table along: what a slot is called and what the simulation calls it differ
   // by the words a person puts in front.
   if (last in CREATURES) return true;
+  // A pod is built and is deliberately not a `CreatureKind` — it carries no
+  // colour and is never cleared, so it lives outside `CREATURES` entirely
+  // (`docs/spec/systems.md` 5.7). It is in neither table this function reads,
+  // and the backlog listed a shipped power-up as unbuilt until this line.
+  if (POD_KINDS.some((pod) => pod === last) || last === "pod") return true;
   return BOSS_KINDS.some((kind) => kind === last);
 }
 
@@ -107,7 +120,7 @@ function parseTable(text: string, headingEnd: string, ref: string): Planned[] {
 
     const kind = cells[2] ?? "";
     const note = cells[3] ?? "";
-    rows.push({ name, kind, note, built: isBuilt(name), detail: "", ref });
+    rows.push({ name, kind, note, built: isBuilt(name), detail: "", ref, plain: [] });
   }
 
   return rows;
@@ -146,19 +159,21 @@ function parseBosses(text: string): Planned[] {
     const match = part.match(/^(.+?)\s*\(([^)]+)\)/);
     if (!match) continue;
     const name = match[1]!.trim();
-    const kind = match[2]!.trim();
-    bosses.push({ name, kind, note: "", built: isBuilt(name), detail: "", ref: "bosses.md" });
+    // "The Conductor (30, **THE VANE**)" — the act order writes the boss that
+    // took a slot in bold, and a stamp is text rather than markdown.
+    const kind = match[2]!.replace(/\*\*/g, "").trim();
+    bosses.push({
+      name,
+      kind,
+      note: "",
+      built: isBuilt(name),
+      detail: "",
+      ref: "bosses.md",
+      plain: [],
+    });
   }
 
   return bosses;
-}
-
-/** "The Bulb Queen" and "Bulb Queen" name the same boss; strip the article to compare. */
-function normalize(name: string): string {
-  return name
-    .toLowerCase()
-    .replace(/^the\s+/, "")
-    .trim();
 }
 
 /**
@@ -189,7 +204,7 @@ function rowNamed(lead: string, rows: Planned[]): Planned | undefined {
   return [...rows]
     .sort((a, b) => b.name.length - a.name.length)
     .find((row) => {
-      const word = normalize(row.name).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const word = normalizeName(row.name).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
       return new RegExp(`\\b${word}\\b`).test(hay);
     });
 }
@@ -201,6 +216,13 @@ export function parseRoster(bestiary: string, bosses: string): Roster {
   attachDetails(bestiary, "first thirteen", creatures);
   attachDetails(bestiary, "Newly accepted", accepted);
 
+  // The two "In plain words" sections, read once and handed to every row that
+  // has one. A creature's is written in `bestiary.md` and a boss's in
+  // `bosses.md`, and neither file knows about the other's names.
+  const creatureWords = parsePlainWords(bestiary);
+  const bossWords = parsePlainWords(bosses);
+  for (const row of [...creatures, ...accepted]) row.plain = plainWordsFor(creatureWords, row.name);
+
   return {
     creatures,
     accepted,
@@ -211,8 +233,9 @@ export function parseRoster(bestiary: string, bosses: string): Roster {
      * the opening paragraph is the fallback for a heading with none, like The
      * Vessel's, and the whole section is the detail either way.
      */
-    bosses: parseBosses(bosses).map((boss) => {
-      const section = sections.find((s) => normalize(s.title) === normalize(boss.name));
+    bosses: parseBosses(bosses).map((planned) => {
+      const boss = { ...planned, plain: plainWordsFor(bossWords, planned.name) };
+      const section = sections.find((s) => normalizeName(s.title) === normalizeName(boss.name));
       if (!section) return boss;
       return {
         ...boss,

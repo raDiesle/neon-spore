@@ -1176,3 +1176,78 @@ difficulty curve in one integer and is `tell-rungs.ts`'s to turn; and whether
 the ring's three glyphs should become the control glyphs
 `packages/render/src/simon-glyph.ts` already holds, which cover SHIELD and SUCK
 and have nothing for a bolt — `tell-ring.ts` draws its own three for now.
+
+## 11.10 In plain words
+
+Every name in the act order the game does not have yet, written the way you
+would explain it to two people sitting down at two phones: what the encounter
+does, what each seat does about it, and what is still undecided. **Player 1 is
+the pilot** — the cannon, the shield trigger, the maw, the rock strip.
+**Player 2 is the navigator** — the two colours, the shield's own movement, the
+creature strip ([roles](roles.md)).
+
+Most of these are a name holding a slot, and *not decided yet* is the honest
+answer for them. **To finish it** is the list of questions to answer before
+anybody starts building — and for a boss the first of those is always the same
+one this file opens with: **what does it ask the pair that no built boss asks
+already.**
+
+The director reads this section and puts it on the NOT BUILT YET card
+(`tools/director/src/plain-words.ts`), so no name on that page stands with
+nothing under it.
+
+### Strand Nest
+
+- **What it does:** not designed. The name says a nest that sends strands, and the strand is built: a thread of beads eaten from its ends inward, with the column on one screen and the colour on the other.
+- **Player 1:** not decided yet.
+- **Player 2:** not decided yet.
+- **To finish it:** decide what a nest adds to a thread the pair has already played for twenty waves — several threads at once, threads that grow back, or a body that has to be opened before any thread can be finished. Once that is chosen it is a wave and a state machine, nothing new in the controls.
+
+### The Conductor
+
+- **What it does:** nothing left to build. **THE VANE** holds this slot and is in the game (11.5). The name is still on the list because the act order was written before THE VANE existed.
+- **Player 1:** —
+- **Player 2:** —
+- **To finish it:** decide whether The Conductor is a separate boss the game still wants or simply the old name for THE VANE. If it is separate it needs a question of its own; no built boss may be re-skinned into another.
+
+### The Heart
+
+- **What it does:** not designed. A name holding act 60.
+- **Player 1:** not decided yet.
+- **Player 2:** not decided yet.
+- **To finish it:** give it a question no built boss has taken. The five in the game ask about what you know, what you remember, what your hands are free to do, what you can still say, and giving directions. Note that wave 60 already carries THE TELL, so this slot may need moving as well as designing.
+
+### The Mother
+
+- **What it does:** she brings back what the pair destroyed in the act before. She reacts to *what* you killed, never to how well you played.
+- **Player 1:** nothing new in the hands. The wave is one of several written-out versions, and the pair's own past chose which one they get.
+- **Player 2:** the same — the difference is which control group is loaded heavily, not how hard anything is.
+- **To finish it:** the game does not count what a pair destroys yet, so that has to be tracked and carried across waves first. Then write the versions out: meteors → more warding, slicks → more colour work, runts spared → stronger growth. Overall difficulty must not move.
+
+### The Codex
+
+- **What it does:** not designed in this file. There *is* a worked-out **THE CODEX** among the boss ideas on the NOT BUILT YET page — read that one first.
+- **Player 1:** not decided yet.
+- **Player 2:** not decided yet.
+- **To finish it:** decide whether the idea and this slot are the same thing. If they are, the idea moves out of `ideas.md` and becomes a numbered section here; if not, act 80 needs a question of its own.
+
+### The Echoes
+
+- **What it does:** not designed, and the name is a trap: **THE ECHO is already a creature** — a body that comes down at half speed and divides into four. A big one of those would be a re-skin, not a boss.
+- **Player 1:** not decided yet.
+- **Player 2:** not decided yet.
+- **To finish it:** pick a different question, or rename the slot. `ideas.md` holds **Reverb** and **Herald**, the two names the bestiary freed up for repeat-with-a-delay designs.
+
+### The Kernel
+
+- **What it does:** not designed. It is the last boss before the finale, so it should be the hardest thing the pair has learned to *say*, not the fastest thing on the screen.
+- **Player 1:** not decided yet.
+- **Player 2:** not decided yet.
+- **To finish it:** pick a question. The only thing settled is the position: act 100 comes after every control the game has, so this boss may use all of them at once — which is a shape, not yet a design.
+
+### The Vessel
+
+- **What it does:** the ship has to be brought to a target combination. Player 2 is shown the combination; player 1 is shown only the current state of each part. Neither sees both, so it is an announcement under time pressure rather than a sum done in a hurry.
+- **Player 1:** reads out the state of each part as it stands, and moves to whatever they are told.
+- **Player 2:** holds the target and works out from what they hear which part is still wrong.
+- **To finish it:** the parts do not exist. Decide what a combination is made of on this field — columns, colours, shield positions — and how many of them. It also needs two real devices to mean anything: on one shared screen this boss does not work at all.

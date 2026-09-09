@@ -57,7 +57,7 @@
   margin: 0;
 }
 .skinbar.control-bar .control-desc {
-  font-size: 10px;
+  font-size: 0.875rem;
   color: var(--dim);
   line-height: 1.45;
   margin: 0;
@@ -79,13 +79,13 @@
   align-items: center;
   gap: 6px;
   flex-wrap: wrap;
-  font-size: 10px;
+  font-size: 0.875rem;
   color: var(--dim);
   margin: 4px 0;
 }
 .build-row .skin {
   padding: 3px 8px;
-  font-size: 10px;
+  font-size: 0.875rem;
 }
 .build-recipe {
   width: 100%;
@@ -155,7 +155,7 @@
   padding: 8px;
   border: 1px solid var(--line-soft);
   border-radius: 8px;
-  font-size: 10px;
+  font-size: 0.875rem;
 }
 .shape.is-free {
   border-color: #5a4a1f;
@@ -174,7 +174,7 @@
   margin: 3px 0 0;
   color: var(--cyan);
   letter-spacing: 1px;
-  font-size: 9px;
+  font-size: 0.8rem;
 }
 .shape .suggest b {
   color: var(--ink);
@@ -197,11 +197,11 @@
 .shape .name {
   color: var(--ink);
   letter-spacing: 2px;
-  font-size: 11px;
+  font-size: 0.95rem;
 }
 .shape .stamp {
   float: right;
-  font-size: 8px;
+  font-size: 0.75rem;
   letter-spacing: 1px;
   color: #574d84;
 }
@@ -216,7 +216,7 @@
 .shape .figures {
   margin: 4px 0 0;
   color: #574d84;
-  font-size: 9px;
+  font-size: 0.8rem;
 }
 .spec-file {
   padding: 6px 0;
@@ -224,12 +224,12 @@
 }
 .spec-file details.more > summary {
   color: var(--ink);
-  font-size: 11px;
+  font-size: 0.95rem;
   letter-spacing: 1px;
 }
 .spec-file .blurb {
   margin: 3px 0 0;
   color: var(--dim);
-  font-size: 10px;
+  font-size: 0.875rem;
   line-height: 1.45;
 }

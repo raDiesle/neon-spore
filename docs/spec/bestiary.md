@@ -539,3 +539,112 @@ unambiguously distinguishable silhouettes — and it is capped anyway by "new
 creatures only up to wave 50". Rule 3 above is likely to bite before rule 1
 does: twenty names that stay distinct over a voice channel is the harder
 constraint.
+
+## 10.5 In plain words
+
+Every creature on this page the game does not have yet, written the way you
+would explain it to two people sitting down at two phones: what the thing
+does, what each seat does about it, and what is still undecided. **Player 1 is
+the pilot** — the cannon, the shield trigger, the maw, the rock strip.
+**Player 2 is the navigator** — the two colours, the shield's own movement, the
+creature strip ([roles](roles.md)).
+
+Where a line says *not decided yet*, that is the honest answer rather than a
+gap somebody forgot to fill: the design says what the body looks like and not
+who is told what. **To finish it** is the list of questions to answer before
+anybody starts building.
+
+The director reads this section and puts it on the NOT BUILT YET card
+(`tools/director/src/plain-words.ts`), so no name on that page stands with
+nothing under it.
+
+### Crystal
+
+- **What it does:** a hard, angular body. One shot does not clear it — it breaks into two smaller halves and both keep coming down.
+- **Player 1:** has to move the cannon between two columns instead of one, and quickly, because one target just became two.
+- **Player 2:** not decided yet.
+- **To finish it:** decide what the halves are — the parent's colour, or one of each — and whether a half can break again. Until one seat knows something about the halves the other does not, this is a creature only the pilot plays.
+
+### Gum
+
+- **What it does:** it sticks to the ship and hangs on.
+- **Player 1:** not decided yet.
+- **Player 2:** not decided yet.
+- **To finish it:** the old answer was three dodges in a row, and the ship cannot dodge any more ([roles](roles.md)). Decide what replaces it — a set number of shots and guards, in an order the pair has to agree on, is the obvious candidate. That decision is the whole creature; the sticky body is easy afterwards.
+
+### Choke
+
+- **What it does:** it docks onto the ship and switches one control off. What you are told to do and what your hands can still do stop agreeing.
+- **Player 1:** if it takes the cannon, the pilot can only talk — and has to say where the cannon was going.
+- **Player 2:** if it takes a colour, the navigator can only talk.
+- **To finish it:** decide which control it takes, for how long, and how the pair gets it back. THE MALFUNCTION already runs this idea as a fault on the wave rather than as a body, and the owner took its relief button out — so decide what a choke has that a malfunction does not, or drop the name.
+
+### Glyph
+
+- **What it does:** it wears a pattern on its skin. The pattern is not the answer; somebody has to look it up.
+- **Player 1:** not decided yet — one seat sees the pattern and the other holds the table, and which way round is open.
+- **Player 2:** the other half of the same question.
+- **To finish it:** decide who sees the pattern and who holds the table, and where the table lives — on a screen, or on paper beside the players. Then check the length: a look-up longer than one spoken sentence does not fit the beat ([latency](latency.md)).
+
+### Thread
+
+- **What it does:** it draws a line of where it is *going* to be, not where it has been. The first body the pair talks about in the future tense.
+- **Player 1:** sees where it is now and nothing about where it is going.
+- **Player 2:** sees the line ahead, and has to say the column early enough for the cannon to be standing there when the body arrives.
+- **To finish it:** decide how far ahead the line reaches and whether it can be wrong. THE DART and THE WISP already show player 2 one move ahead, so a thread has to show more than one move or it is a third copy of the same trick.
+
+### The Shadow
+
+- **What it does:** while it lies behind another creature it cannot be hurt. The field has to be cleared in the right order.
+- **Player 1:** has to hold the cannon on the body in front first, even when the shadow is the one that looks dangerous.
+- **Player 2:** not decided yet — nothing yet says which seat is shown that a body is covered.
+- **To finish it:** decide who sees the overlap. Both screens gives the pair an order to agree on; one screen makes it a split. Pick one — and decide what "behind" means on a grid where everything falls down a column.
+
+### The Whisperer
+
+- **What it does:** it answers only when both players act on the same beat. Two right moves one beat apart do nothing at all.
+- **Player 1:** the shield trigger, on the beat.
+- **Player 2:** the colour, on the same beat.
+- **To finish it:** decide how wide "the same beat" is. Two devices judge a press about 100 ms apart, so the window has to be one the network can defend ([latency](latency.md), and the same question THE PULSE has open). Settle that number before anything else.
+
+### The Doppelgänger
+
+- **What it does:** two bodies that look almost the same. One is real trouble and one is not.
+- **Player 1:** tells them apart by the shape.
+- **Player 2:** tells them apart by how they behave on the strip.
+- **To finish it:** write down the actual difference in the shape and the actual difference on the strip, and check that neither seat can work out the other's half alone. Then decide what a wrong guess costs — a guess that is free is not a question.
+
+### The Blind One
+
+- **What it does:** one radar strip gets noise instead of a clean blip — the right column, the right height, but garbled. Broken information, never silence.
+- **Player 1:** when the body is a rock kind the noise lands on the pilot's strip, and they have to turn a mess into a very short best guess.
+- **Player 2:** when it is a living kind the noise lands on the navigator's strip instead. Whichever seat still has a clean picture carries the call.
+- **To finish it:** two things the draft already demands — the noise sits in the blip's own column and travels with it, and it looks clearly different from a real connection problem. Then decide which kinds it can jam. Act 5 at the earliest.
+
+### The Clamp
+
+- **What it does:** it joins two creatures into one dangerous line across the field. There are three ways out and the pair picks one together.
+- **Player 1:** not decided yet.
+- **Player 2:** not decided yet.
+- **To finish it:** write the three ways out. Nothing else here is missing — the shape is clear and the split is not. Once the three are named, decide which seat can see which of them.
+
+### The Beat-breaker
+
+- **What it does:** it runs on its own count while the game's beat carries on correctly underneath. Off the beat on purpose, not broken.
+- **Player 1:** has to hold the cannon through a gap that does not line up with the music.
+- **Player 2:** has to fire on the body's count rather than the game's.
+- **To finish it:** decide the offset — a fixed half beat, or one rolled per body — and how it is shown, because a body that is simply late reads as lag. The pair has to be able to see the count it is on.
+
+### The Silent
+
+- **What it does:** no strip announces it at all. The field itself is the only warning.
+- **Player 1:** sees it only once it is on screen.
+- **Player 2:** the same. It is the one body where neither seat has a lead over the other.
+- **To finish it:** work out the speed. The three-second floor ([latency](latency.md)) assumes a strip gives a lead; with none, the body has to be slow enough to be seen, named and answered after it is already visible. Do not build it before that number exists — a fast silent body is not uncertainty, it is an unannounced hit.
+
+### The Jammer
+
+- **What it does:** while it is alive, one player's whole radar strip goes dark — not only for the jammer, for everything that strip owns.
+- **Player 1:** with the rock strip dark, the pilot loses the warning for everything falling and has to ask what the navigator can see.
+- **Player 2:** the same the other way round. The seat that still has a strip describes the field for both, which is the one moment in the game where the split is not permanent.
+- **To finish it:** decide which strip a jammer blanks — its own kind's owner, or the other one — and how the pair is told it has started, so a dark strip is never read as a bug. Then decide how it dies, since the strip that would have announced it is the one it took.

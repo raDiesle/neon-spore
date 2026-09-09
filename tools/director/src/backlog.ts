@@ -15,6 +15,7 @@
 
 import { dropBuilt, fromIdeas } from "./backlog-ideas.js";
 import { type Concept, type Idea, parseConcepts } from "./concepts.js";
+import type { PlainRow } from "./plain-words.js";
 import { type Planned, parseRoster } from "./roster.js";
 import { sectionBody, sectionNamed } from "./sections.js";
 
@@ -25,6 +26,13 @@ export interface BacklogEntry {
   note: string;
   detail: string;
   ref: string;
+  /**
+   * What it does, what each seat does about it and what is left to decide —
+   * the spec's own "In plain words" rows (`plain-words.ts`). Absent on an
+   * entry nobody has written one for, and on every idea group, whose entries
+   * are a worked-out paragraph already.
+   */
+  plain?: PlainRow[];
 }
 
 export interface BacklogGroup {

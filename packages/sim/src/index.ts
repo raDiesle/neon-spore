@@ -47,6 +47,7 @@ export {
   METEOR_TIER_KINDS,
   occupiesCol,
   otherColor,
+  POD_KINDS,
   SNAKE_TURNS,
   spanCenterCol,
   spanOf,

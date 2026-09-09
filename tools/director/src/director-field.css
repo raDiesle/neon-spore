@@ -84,13 +84,13 @@
 #keyHelpModal .title {
   color: var(--gold);
   letter-spacing: 4px;
-  font-size: 12px;
+  font-size: 1rem;
 }
 #keyHelpModal header button {
   margin-left: auto;
 }
 #keyHelpBody h3 {
-  font-size: 9px;
+  font-size: 0.8rem;
   letter-spacing: 2px;
   color: var(--cyan);
   margin: 12px 0 4px;
@@ -108,7 +108,7 @@
   display: flex;
   gap: 8px;
   padding: 3px 0;
-  font-size: 11px;
+  font-size: 0.95rem;
   color: var(--ink);
 }
 #keyHelpBody .key {

@@ -14,7 +14,7 @@
 button.snake-tab {
   flex: 1;
   min-width: 54px;
-  font-size: 9px;
+  font-size: 0.8rem;
   letter-spacing: 1px;
 }
 button.snake-tab.on {
@@ -77,14 +77,14 @@ button.snake-cell.rock {
   justify-content: space-between;
 }
 .simon-head b {
-  font-size: 9px;
+  font-size: 0.8rem;
   letter-spacing: 2px;
   color: var(--gold);
   font-weight: 600;
 }
 .simon-head button {
   padding: 2px 6px;
-  font-size: 9px;
+  font-size: 0.8rem;
 }
 .simon-chips {
   display: flex;
@@ -95,7 +95,7 @@ button.snake-cell.rock {
 }
 .simon-chips button {
   padding: 2px 7px;
-  font-size: 9px;
+  font-size: 0.8rem;
 }
 .simon-add {
   display: flex;
@@ -105,7 +105,7 @@ button.snake-cell.rock {
 }
 .simon-add button {
   padding: 1px 5px;
-  font-size: 9px;
+  font-size: 0.8rem;
 }
 .simon-add:hover {
   opacity: 1;

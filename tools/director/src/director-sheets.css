@@ -31,11 +31,11 @@
 #states .title {
   color: var(--gold);
   letter-spacing: 4px;
-  font-size: 13px;
+  font-size: 1.1rem;
 }
 #states .sub {
   color: var(--dim);
-  font-size: 10px;
+  font-size: 0.875rem;
   max-width: 720px;
 }
 /* MAIN MENU rides the same `margin-left: auto` every other sheet gives
@@ -62,7 +62,7 @@
 }
 #statesBody .note {
   color: var(--dim);
-  font-size: 10px;
+  font-size: 0.875rem;
   margin: 0 0 10px;
 }
 .states-row {
@@ -87,7 +87,7 @@
 }
 .state .shot.is-broken {
   color: var(--red);
-  font-size: 18px;
+  font-size: 1.5rem;
   min-height: 120px;
 }
 .state canvas {
@@ -96,17 +96,17 @@
 .state .name {
   color: var(--ink);
   letter-spacing: 2px;
-  font-size: 10px;
+  font-size: 0.875rem;
   margin-top: 6px;
 }
 .state .seat {
   color: var(--cyan);
   letter-spacing: 1px;
-  font-size: 8px;
+  font-size: 0.75rem;
 }
 .state .blurb {
   color: var(--dim);
-  font-size: 9px;
+  font-size: 0.8rem;
   line-height: 1.45;
   margin: 3px 0 0;
 }
@@ -133,11 +133,11 @@
 #backlog .title {
   color: var(--gold);
   letter-spacing: 4px;
-  font-size: 13px;
+  font-size: 1.1rem;
 }
 #backlog .sub {
   color: var(--dim);
-  font-size: 10px;
+  font-size: 0.875rem;
 }
 #backlog > header button {
   margin-left: auto;

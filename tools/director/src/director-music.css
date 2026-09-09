@@ -20,15 +20,15 @@
 .theme .name {
   color: var(--gold);
   letter-spacing: 2px;
-  font-size: 12px;
+  font-size: 1rem;
 }
 .theme .id {
   color: #4d4478;
-  font-size: 9px;
+  font-size: 0.8rem;
 }
 .theme .stamp {
   margin-left: auto;
-  font-size: 9px;
+  font-size: 0.8rem;
   color: #574d84;
   letter-spacing: 2px;
 }
@@ -39,12 +39,12 @@
 .theme .use {
   margin: 2px 0;
   color: var(--dim);
-  font-size: 10px;
+  font-size: 0.875rem;
 }
 .theme .kind {
   margin: 2px 0 6px;
   color: #a98cff;
-  font-size: 9px;
+  font-size: 0.8rem;
 }
 .theme .roll {
   display: block;
@@ -62,7 +62,7 @@
 }
 .cells h2 {
   color: var(--dim);
-  font-size: 10px;
+  font-size: 0.875rem;
   letter-spacing: 2px;
   margin: 0 0 6px;
 }
@@ -72,7 +72,7 @@
   gap: 4px;
 }
 .cellbtn {
-  font-size: 9px;
+  font-size: 0.8rem;
   letter-spacing: 1px;
 }
 .sheetpage {
@@ -101,7 +101,7 @@
   max-width: 620px;
   margin: 0 0 14px;
   padding: 0 0 12px;
-  font-size: 12px;
+  font-size: 1rem;
   line-height: 1.6;
   color: var(--ink);
   border-bottom: 1px solid var(--line-soft);
@@ -109,6 +109,6 @@
 .sheetpage h2 {
   color: var(--cyan);
   letter-spacing: 3px;
-  font-size: 11px;
+  font-size: 0.95rem;
   margin: 18px 0 2px;
 }

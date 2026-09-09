@@ -5,13 +5,13 @@
 
 details.more {
   margin: 6px 0 0;
-  font-size: 10px;
+  font-size: 0.875rem;
 }
 details.more > summary {
   cursor: pointer;
   list-style: none;
   color: #a98cff;
-  font-size: 9px;
+  font-size: 0.8rem;
   letter-spacing: 1px;
 }
 details.more > summary::-webkit-details-marker {
@@ -34,7 +34,7 @@ details.more > summary:hover {
   border-radius: 0 5px 5px 0;
   color: var(--dim);
   line-height: 1.55;
-  font-size: 10px;
+  font-size: 0.875rem;
 }
 .md p {
   margin: 0 0 8px;
@@ -52,7 +52,7 @@ details.more > summary:hover {
 }
 .md code {
   color: var(--cyan);
-  font-size: 9px;
+  font-size: 0.8rem;
 }
 .md h3,
 .md h4,
@@ -60,7 +60,7 @@ details.more > summary:hover {
 .md h6 {
   margin: 12px 0 5px;
   color: var(--ink);
-  font-size: 10px;
+  font-size: 0.875rem;
   font-weight: 400;
   letter-spacing: 1px;
 }
@@ -81,7 +81,7 @@ table.md-table {
   width: 100%;
   border-collapse: collapse;
   margin: 0 0 8px;
-  font-size: 9px;
+  font-size: 0.8rem;
 }
 table.md-table th,
 table.md-table td {
@@ -112,7 +112,7 @@ img.md-img {
 }
 
 .expand {
-  font-size: 9px;
+  font-size: 0.8rem;
   letter-spacing: 1px;
   margin: 0 0 8px;
 }

@@ -9,7 +9,7 @@
 }
 #grid .head {
   color: var(--dim);
-  font-size: 9px;
+  font-size: 0.8rem;
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -19,11 +19,11 @@
 }
 #grid .head .maps {
   color: #4b4177;
-  font-size: 8px;
+  font-size: 0.75rem;
 }
 #grid .beat {
   color: var(--dim);
-  font-size: 9px;
+  font-size: 0.8rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -48,7 +48,7 @@
   cursor: pointer;
   position: relative;
   padding: 0;
-  font-size: 13px;
+  font-size: 1.1rem;
   line-height: 1;
   color: var(--dim);
 }
@@ -86,7 +86,7 @@
   position: absolute;
   right: 1px;
   bottom: 0;
-  font-size: 9px;
+  font-size: 0.8rem;
   color: var(--gold);
 }
 /* A pod's picture in the cell (`grid.ts`). Centred like a creature's when the
@@ -132,18 +132,18 @@
   margin: 0 auto 8px;
 }
 .brush-card-name {
-  font-size: 12px;
+  font-size: 1rem;
   letter-spacing: 2px;
   color: var(--ink);
 }
 .brush-card-wave {
-  font-size: 9px;
+  font-size: 0.8rem;
   letter-spacing: 1px;
   color: var(--gold);
   margin-top: 3px;
 }
 .brush-card-note {
-  font-size: 10px;
+  font-size: 0.875rem;
   color: var(--dim);
   line-height: 1.45;
   margin-top: 5px;
@@ -151,7 +151,7 @@
 /* The way to that wave, under the sentence about it. Dimmer than the
    wave line above: it is an instruction, not a fact about the brush. */
 .brush-card-jump {
-  font-size: 9px;
+  font-size: 0.8rem;
   letter-spacing: 1px;
   color: #4b4177;
   margin-top: 6px;
@@ -181,7 +181,7 @@
   align-items: center;
   gap: 8px;
   min-height: 28px;
-  font-size: 10px;
+  font-size: 0.875rem;
   color: var(--dim);
   letter-spacing: 1px;
 }
@@ -204,7 +204,7 @@
 }
 .cell-row-label {
   flex: 0 0 58px;
-  font-size: 8px;
+  font-size: 0.75rem;
   letter-spacing: 1px;
   color: var(--dim);
 }
@@ -212,7 +212,7 @@
   display: flex;
   align-items: center;
   gap: 3px;
-  font-size: 9px;
+  font-size: 0.8rem;
   padding: 3px 7px;
 }
 .cell-row .chip svg {
@@ -244,6 +244,6 @@
   margin: 8px 0 6px;
 }
 .cell-actions button {
-  font-size: 9px;
+  font-size: 0.8rem;
   padding: 4px 9px;
 }

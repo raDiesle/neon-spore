@@ -146,3 +146,16 @@ export function sectionNamed(text: string, needle: string): string[] {
   }
   return lines;
 }
+
+/**
+ * "The Bulb Queen" and "Bulb Queen" name the same thing; the article is what
+ * differs between the act order, a bestiary row and a heading. Here rather
+ * than in `roster.ts` because `plain-words.ts` has to agree with it exactly —
+ * a second spelling of this rule is a card that silently shows nothing.
+ */
+export function normalizeName(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/^the\s+/, "")
+    .trim();
+}

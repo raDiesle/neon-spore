@@ -13,23 +13,12 @@
  * headings.
  */
 
+import { type BacklogEntry, renderEntry } from "./backlog-entry.js";
 import { mountLazyTabs } from "./backlog-tabs.js";
-import { conceptArt, draftFor, hasConceptArt } from "./concept-art.js";
 import { renderHolders } from "./holders-panel.js";
-import { detailBox, inline, renderMarkdown } from "./markdown.js";
 import { bindOrphans } from "./orphans-panel.js";
-import { onTheField } from "./scene-box.js";
 import { mountSheet } from "./session.js";
-import { isWide } from "./shape-figure.js";
 import { renderWholeDoc } from "./whole-doc.js";
-
-interface BacklogEntry {
-  name: string;
-  kind: string;
-  note: string;
-  detail: string;
-  ref: string;
-}
 
 interface BacklogGroup {
   title: string;
@@ -45,91 +34,6 @@ interface Backlog {
   bestiary: BacklogGroup[];
   mechanics: BacklogGroup[];
   designs: BacklogGroup[];
-}
-
-function renderEntry(item: BacklogEntry, reading = false): HTMLElement {
-  const div = document.createElement("div");
-  div.className = reading ? "plan is-reading" : "plan";
-
-  const head = document.createElement("div");
-  head.className = "head";
-
-  // Every named entry gets a frame, filled or empty. It used to get one only
-  // where the *spec's* name happened to match a contour the game draws, which
-  // on a page of unbuilt things is almost never — so the twenty ideas that do
-  // have a shape drawn at them showed nothing, and the shape sat one tab away
-  // beside the other shapes instead of beside the idea. `concept-art.ts` is
-  // the join, and the empty frame is deliberate: a gap where a picture will go
-  // has to look different from a picture that failed to draw.
-  //
-  // Except in a reading group, where the entry's name is a *sentence* rather
-  // than a concept's name — so nothing is ever drawn at it, and seventy-five
-  // question marks down the left margin say nothing seventy-five times.
-  if (item.name) {
-    // The concept's own name, on the row, so a terminal can reach one entry:
-    // `bun run shot` presses a CSS selector and a page of a hundred identical
-    // `.plan` rows had nothing to tell two of them apart, so a picture of one
-    // idea's scene meant counting `details` elements and hoping. Nothing in
-    // the page reads it — it is a handle for the outside.
-    div.dataset.concept = item.name;
-    if (!reading || hasConceptArt(item.name)) head.appendChild(conceptArt(item.name));
-    const name = document.createElement("span");
-    name.className = "name";
-    name.textContent = item.name;
-    head.appendChild(name);
-  }
-
-  if (item.kind) {
-    const kind = document.createElement("span");
-    kind.className = "stamp";
-    kind.textContent = /^\d+$/.test(item.kind) ? `ACT ${item.kind}` : item.kind.toUpperCase();
-    head.appendChild(kind);
-  }
-  if (head.childElementCount > 0) div.appendChild(head);
-
-  if (item.note) {
-    const blurb = document.createElement("p");
-    blurb.className = "blurb";
-    inline(blurb, item.note);
-    div.appendChild(blurb);
-  }
-
-  // Why the shape is *that* shape. A contour drawn at a mechanic is an
-  // argument — the Echo is two bodies because the pair never sees one at the
-  // same moment — and a picture with the argument left on the other tab is a
-  // picture a person has to take on trust.
-  const draft = draftFor(item.name);
-  if (draft) {
-    const why = document.createElement("p");
-    // Indented to clear the frame above it, and a long shape gets a wide
-    // frame — so the sentence has to know which one it is standing under.
-    why.className = isWide(draft) ? "drawn is-wide" : "drawn";
-    inline(why, `**${draft.subject.name}**, offered — ${draft.owner}`);
-    div.appendChild(why);
-  }
-
-  // The shape, and then the *mechanic*. A contour in a 46 px frame says what
-  // something looks like and cannot say what it does, and every one of these
-  // entries is a behaviour first. `scene-box.ts` opens a real frame of the game
-  // with the idea standing in it, at the size a phone would draw it.
-  const field = onTheField(item.name);
-  if (field) div.appendChild(field);
-
-  // Open on the page in a reading group, behind an expander everywhere else.
-  // A list of a hundred entries is scanned, and an expander is right there —
-  // but a group somebody reads end to end to decide what is worth doing is
-  // that page with its content removed once every box is closed.
-  if (item.detail) {
-    if (reading) {
-      const body = document.createElement("div");
-      body.className = "md";
-      renderMarkdown(body, item.detail);
-      div.appendChild(body);
-    } else {
-      div.appendChild(detailBox(item.detail, item.ref));
-    }
-  }
-  return div;
 }
 
 /**

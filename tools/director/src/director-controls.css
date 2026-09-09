@@ -29,20 +29,20 @@
 }
 .field-control h3 {
   color: var(--gold);
-  font-size: 11px;
+  font-size: 0.95rem;
   letter-spacing: 2px;
   margin: 0 0 4px;
   font-weight: 400;
 }
 .field-control .stamp {
   color: var(--cyan);
-  font-size: 9px;
+  font-size: 0.8rem;
   letter-spacing: 1px;
   margin-right: 8px;
 }
 .field-control dl {
   margin: 6px 0 0;
-  font-size: 10px;
+  font-size: 0.875rem;
   line-height: 1.5;
 }
 .field-control dt {
@@ -67,13 +67,13 @@
 }
 .tried-control h3 {
   color: var(--gold);
-  font-size: 11px;
+  font-size: 0.95rem;
   letter-spacing: 2px;
   margin: 0 0 4px;
   font-weight: 400;
 }
 .tried-control p {
-  font-size: 10px;
+  font-size: 0.875rem;
   line-height: 1.5;
   color: var(--dim);
   margin: 4px 0;
@@ -89,7 +89,7 @@
 }
 .control-set-card h2 {
   color: var(--gold);
-  font-size: 12px;
+  font-size: 1rem;
   letter-spacing: 2px;
   margin: 0 0 4px;
 }
@@ -114,7 +114,7 @@
   flex: 1 1 220px;
 }
 .control-set-col h3 {
-  font-size: 9px;
+  font-size: 0.8rem;
   letter-spacing: 2px;
   color: var(--cyan);
   margin: 0 0 4px;
@@ -128,7 +128,7 @@
   margin: 0 0 5px;
   color: var(--dim);
   line-height: 1.4;
-  font-size: 10px;
+  font-size: 0.875rem;
 }
 .control-set-col li b {
   color: var(--ink);
@@ -152,7 +152,7 @@
    group of cards needs only its own heading style. */
 .card-wave-head {
   color: var(--cyan);
-  font-size: 10px;
+  font-size: 0.875rem;
   letter-spacing: 2px;
   margin: 0 0 8px;
   font-weight: 400;
@@ -183,11 +183,11 @@
 }
 .holder-card .blurb {
   color: var(--ink);
-  font-size: 11px;
+  font-size: 0.95rem;
   margin-bottom: 4px;
 }
 .holder-card .note {
-  font-size: 10px;
+  font-size: 0.875rem;
   line-height: 1.5;
 }
 .queen-row .holder-card {
@@ -197,17 +197,17 @@
 .queen-axis {
   color: var(--cyan);
   letter-spacing: 2px;
-  font-size: 11px;
+  font-size: 0.95rem;
   margin: 18px 0 2px;
 }
 .gallery-cat {
   color: var(--gold);
   letter-spacing: 2px;
-  font-size: 11px;
+  font-size: 0.95rem;
   margin: 18px 0 2px;
 }
 .gallery-empty {
-  font-size: 9px;
+  font-size: 0.8rem;
   color: #574d84;
   margin: 0 0 10px;
 }
@@ -227,7 +227,7 @@
   min-width: 0;
 }
 .set-roster-col h4 {
-  font-size: 8px;
+  font-size: 0.75rem;
   letter-spacing: 2px;
   color: var(--cyan);
   font-weight: 400;
@@ -237,7 +237,7 @@
   display: flex;
   gap: 5px;
   align-items: baseline;
-  font-size: 9px;
+  font-size: 0.8rem;
   line-height: 1.5;
   color: var(--ink);
 }
@@ -264,7 +264,7 @@
 /* A rung's card on PANELS says what it is less than, above the two seat
    columns — a reduced panel is only legible beside the panel it reduces. */
 .control-set-card .reduces {
-  font-size: 10px;
+  font-size: 0.875rem;
   letter-spacing: 1px;
   color: var(--dim);
   margin: 4px 0 0;

@@ -20,7 +20,7 @@
 .cap {
   padding: 6px 0;
   border-bottom: 1px solid var(--line-soft);
-  font-size: 10px;
+  font-size: 0.875rem;
 }
 .cap b {
   color: var(--ink);
@@ -40,7 +40,7 @@
 .plan {
   padding: 6px 0;
   border-bottom: 1px solid var(--line-soft);
-  font-size: 10px;
+  font-size: 0.875rem;
 }
 .plan .head {
   display: flex;
@@ -55,14 +55,14 @@
 .plan .name {
   color: var(--dim);
   letter-spacing: 2px;
-  font-size: 11px;
+  font-size: 0.95rem;
 }
 .plan.is-built .name {
   color: var(--ink);
 }
 .plan .stamp {
   margin-left: auto;
-  font-size: 8px;
+  font-size: 0.75rem;
   letter-spacing: 1px;
   color: #574d84;
 }
@@ -72,7 +72,7 @@
 .plan .kind {
   color: #a98cff;
   margin-left: 6px;
-  font-size: 9px;
+  font-size: 0.8rem;
 }
 .plan .blurb {
   margin: 2px 0 0;
@@ -85,7 +85,7 @@
   margin: 3px 0 0 54px;
   color: #6fb9c4;
   line-height: 1.4;
-  font-size: 9px;
+  font-size: 0.8rem;
 }
 .plan .drawn b {
   color: var(--cyan);
@@ -114,7 +114,7 @@
 }
 .concept-art.is-none {
   color: #3b3163;
-  font-size: 13px;
+  font-size: 1.1rem;
 }
 .concept-art svg {
   background: none;
@@ -156,7 +156,7 @@
   margin: 5px 0 0;
   color: var(--dim);
   line-height: 1.45;
-  font-size: 9px;
+  font-size: 0.8rem;
 }
 .scene .claim b {
   color: var(--ink);
@@ -165,23 +165,23 @@
 .scene .seat {
   margin: 2px 0 0;
   color: #574d84;
-  font-size: 8px;
+  font-size: 0.75rem;
   letter-spacing: 1px;
 }
 
 .concept {
   padding: 6px 0 10px;
   border-bottom: 1px solid var(--line-soft);
-  font-size: 10px;
+  font-size: 0.875rem;
 }
 .concept .name {
   color: var(--ink);
   letter-spacing: 2px;
-  font-size: 11px;
+  font-size: 0.95rem;
 }
 .concept .status {
   float: right;
-  font-size: 8px;
+  font-size: 0.75rem;
   letter-spacing: 1px;
   color: #574d84;
 }
@@ -197,7 +197,7 @@ table.concept-table {
   width: 100%;
   border-collapse: collapse;
   margin: 8px 0 0;
-  font-size: 9px;
+  font-size: 0.8rem;
 }
 table.concept-table th,
 table.concept-table td {
@@ -218,7 +218,7 @@ table.concept-table td:first-child {
 .idea {
   padding: 5px 0;
   border-bottom: 1px solid var(--line-soft);
-  font-size: 10px;
+  font-size: 0.875rem;
 }
 .idea .name {
   color: var(--ink);
@@ -232,3 +232,39 @@ table.concept-table td:first-child {
 
 /* The spec as the spec wrote it — every entry that has more than its one
    parsed line carries one of these, shut. */
+
+/*
+ * The plain-words rows on a NOT BUILT YET card: what it does, what each seat
+ * does, what is left to decide. A two-column grid rather than a paragraph,
+ * because the point of it is that "Player 2" sits in the same place on every
+ * card — a reader going down a column of them can compare the seats without
+ * reading a word of the rest.
+ */
+.plan .plainwords {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 2px 10px;
+  margin: 6px 0 0;
+  padding: 6px 0 6px 10px;
+  border-left: 2px solid var(--line);
+}
+.plan .plainwords dt {
+  color: #a98cff;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding-top: 1px;
+}
+.plan .plainwords dd {
+  margin: 0;
+  color: var(--ink);
+  line-height: 1.5;
+}
+/* What nobody has decided yet, said in the colour of a gap rather than of an
+   answer — so a card that is mostly open questions looks like one. */
+.plan .plainwords dd.is-open {
+  color: var(--dim);
+  font-style: italic;
+}

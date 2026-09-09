@@ -134,6 +134,7 @@ Order: Bulb Queen (10) · Strand Nest (20) · The Vessel (finale).
         built: true,
         detail: "",
         ref: "bestiary.md 10.1",
+        plain: [],
       },
       {
         name: "Dart",
@@ -142,6 +143,7 @@ Order: Bulb Queen (10) · Strand Nest (20) · The Vessel (finale).
         built: true,
         detail: "**The dart is fast.** Two lines,\nwrapped like the spec wraps them.",
         ref: "bestiary.md 10.1",
+        plain: [],
       },
     ]);
 
@@ -153,6 +155,7 @@ Order: Bulb Queen (10) · Strand Nest (20) · The Vessel (finale).
         built: false,
         detail: "",
         ref: "bestiary.md 10.2",
+        plain: [],
       },
       {
         name: "The Shadow",
@@ -161,13 +164,38 @@ Order: Bulb Queen (10) · Strand Nest (20) · The Vessel (finale).
         built: false,
         detail: "",
         ref: "bestiary.md 10.2",
+        plain: [],
       },
     ]);
 
     expect(roster.bosses).toEqual([
-      { name: "Bulb Queen", kind: "10", note: "", built: true, detail: "", ref: "bosses.md" },
-      { name: "Strand Nest", kind: "20", note: "", built: false, detail: "", ref: "bosses.md" },
-      { name: "The Vessel", kind: "finale", note: "", built: false, detail: "", ref: "bosses.md" },
+      {
+        name: "Bulb Queen",
+        kind: "10",
+        note: "",
+        built: true,
+        detail: "",
+        ref: "bosses.md",
+        plain: [],
+      },
+      {
+        name: "Strand Nest",
+        kind: "20",
+        note: "",
+        built: false,
+        detail: "",
+        ref: "bosses.md",
+        plain: [],
+      },
+      {
+        name: "The Vessel",
+        kind: "finale",
+        note: "",
+        built: false,
+        detail: "",
+        ref: "bosses.md",
+        plain: [],
+      },
     ]);
   });
 });
