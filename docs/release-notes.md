@@ -13,6 +13,10 @@ commit message that read wrong, and the history is where that lives.
 
 A candidate for a creature's outline is a set of fields held over a shipped record for the length of one `draw()`, so the two questions this project insists on about a silhouette could not be asked of one: does it survive its own drawn size, and is it still its own word beside its neighbours. Both are the cheap disqualifiers, and the vote is the expensive step they exist to save — so being unable to ask them until after the vote was precisely backwards.
 
+## 2026-09-09 · 6c39e4c6 — Four graphics lanes queued, each ending in a candidate rather than a change
+
+Everything this lane noticed while looking for bodies with no second answer, written as work a cold session can finish. Each is a seam plus one candidate, because a look is offered and never replaced: THE GHOST's camouflage, which is laid out in picture space on the one creature whose subject is a surface coming apart; THE SHELL's plating, the one hard surface in the game with no thickness, sitting over a body that has one; the eye THE LID and THE WARDEN share, which is the roundest thing on the field and a disc; and the interludes, where no round has ever had a look offered to anything it draws — that one is a pose first, and says to stop and report if the pair cannot be made to draw a round at all.
+
 ## 2026-09-09 · d0620cb3 — A spec section keeps the sub-headings inside it
 
 `sectionNamed` broke out of a section on any line opening with two hashes, which is every `###` as well as the next `##`. Every caller it had read a section of prose, tables and lists, so nothing was wrong until `## 10.5 In plain words` arrived, whose entries are all `###`: that section came back as the two or three lines before the first one, silently and with no error to notice. The boundary is `/^##(?!#)/` now.
