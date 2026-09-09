@@ -313,6 +313,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-rounds.ts` | The rounds' numbers, as one block of `SimConfig` |
 | `packages/sim/src/step-round.ts` | The rounds' own tick, and the one thing all five of them have in common |
 | `packages/sim/src/pinball-shot.ts` | One shot of PINBALL: where the ball waits, what firing it does, and putting the loop back to the start |
+| `packages/sim/src/beatbox-picture.ts` | **THE BEATBOX's readings that decide nothing**: how long ago a thumb counted, how long ago one missed |
 
 ### packages/content
 
@@ -792,6 +793,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/splash-trail.ts` | **Slime off the end of a mouse** — the ink a desk's pointer leaves, as blobs that swell, sag and add up |
 | `packages/render/src/canvas2d-takeover.ts` | **The two frames that are not the field**, and the clocks that run whether or not one of them is up |
 | `packages/render/src/effects-frame.ts` | **What `Effects` does with a frame**, as opposed to what it owns |
+| `packages/render/src/beatbox-count.ts` | **What the counter over a soundbox is saying**, as a shape rather than as a drawing — how many slots |
 
 ### packages/net
 

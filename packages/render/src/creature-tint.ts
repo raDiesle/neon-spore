@@ -55,3 +55,19 @@ export function turnedTrio(color: Color | null, turn: number): Tint {
     dark: mixHex(from.dark, to.dark, k),
   };
 }
+
+/**
+ * **A colour laid over a body's own, and how far** — a hex trio and a fraction.
+ *
+ * A type rather than an inline shape because two files build one: this file
+ * mixes it into the skin, and `creature-body.ts` decides which of THE
+ * BEATBOX's two a box is wearing this frame. A second spelling of the four
+ * fields is a second place they can disagree about what a wash is.
+ */
+export interface Wash {
+  rim: string;
+  hex: string;
+  dark: string;
+  /** 0 for the body's own colour, 1 for the wash outright. */
+  amount: number;
+}

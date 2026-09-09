@@ -45,11 +45,15 @@ export {
 // a tap counted (`beatbox-round.ts`).
 export {
   beatboxBeatFor,
+  beatboxCorrect,
   beatboxHitsMade,
   beatboxIsBox,
+  beatboxMissAge,
   beatboxRunOpen,
+  beatboxSpentRun,
   beatboxTapAge,
   beatboxWanted,
+  beatboxWindowOpen,
   beatboxWindowTicks,
   beatboxWrongAge,
 } from "./beatbox.js";

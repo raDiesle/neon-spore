@@ -10,7 +10,7 @@ import {
 } from "@neon-spore/sim";
 import { drawDetails, drawMotionTrail } from "./creature-detail.js";
 import { contourClock, livingBodyMul } from "./creature-place.js";
-import { colorTrio, turnedTrio } from "./creature-tint.js";
+import { colorTrio, turnedTrio, type Wash } from "./creature-tint.js";
 import { dartFlip, dartLean } from "./dart.js";
 import { hazed } from "./depth.js";
 import { drawEchoSeam, echoStrain } from "./echo.js";
@@ -69,14 +69,13 @@ export function drawLiving(
    */
   shapeOver?: CreatureSilhouette,
   /**
-   * How far this body is lit as **wrong**, 0..1 — the whole skin carried
-   * towards red and back again. Nought for every body but a soundbox whose run
-   * has just come apart, which the owner asked for in those words. A fraction
-   * rather than a flag so it fades out, which is what keeps it an alarm rather
-   * than a colour: a body that snapped to solid red and stayed there would be
-   * saying *load red*, the one sentence no box may say (`creatures-beatbox.ts`).
+   * A colour laid over whatever this body's own is (`creature-tint.ts`).
+   *
+   * Unset for every body but a soundbox, which wears two: `red` for the beats
+   * after a run comes apart, and `arc` for as long as a tap would count. Which
+   * one, and how far, is `beatboxWash`'s (`beatbox.ts`).
    */
-  alarm = 0,
+  wash?: Wash,
 ): void {
   // **Not `c.kind`.** A lure is drawn as the body it wears — the contour, the
   // own-motion, the interior, the size, all of it — and this is the line that
@@ -105,15 +104,15 @@ export function drawLiving(
   // eye there. `turnedTrio` owns the crossing, because the cage around a
   // recoil is lit in the same colour on the same frame (`recoil.ts`).
   const tint = turnedTrio(neutral ? null : c.color, turn);
-  // And the alarm, carried over the top of whatever the body's own colour is.
-  // A mix rather than a replacement: it fades in and out, so what the pair
-  // reads is *something just went wrong here* rather than a body that has
-  // changed which trigger answers it (`alarm`).
-  const alert = colorTrio("red");
-  const lit = (h: string, to: string): string => haze(alarm > 0 ? mixHex(h, to, alarm) : h);
-  const rim = lit(tint.rim, alert.rim);
-  const hex = lit(tint.hex, alert.hex);
-  const dark = lit(tint.dark, alert.dark);
+  // And the wash, carried over the top of whatever the body's own colour is. A
+  // mix rather than a replacement: it fades in and out, so what the pair reads
+  // is *something is happening to this body* rather than a body that has
+  // changed which trigger answers it (`wash`).
+  const lit = (h: string, to: string): string =>
+    haze(wash === undefined ? h : mixHex(h, to, wash.amount));
+  const rim = lit(tint.rim, wash?.rim ?? tint.rim);
+  const hex = lit(tint.hex, wash?.hex ?? tint.hex);
+  const dark = lit(tint.dark, wash?.dark ?? tint.dark);
 
   // The contour wobble is still on the wall clock, which the pose no longer
   // is: `blobPath` is sampled in seconds by every shape tool too, and its

@@ -59,6 +59,11 @@ export function beatboxTapped(world: World, player: 1 | 2, id: number): void {
   if (c === undefined || !beatboxIsBox(c)) return;
   const beat = beatboxBeatFor(world);
   if (beat === null) {
+    // The tick, so the counter can put a red dot where the next one would have
+    // gone: a press that reached nothing used to leave nothing behind on the
+    // body, and the navigator's only account of their own run could not say
+    // *that one was not on the beat* (`creature-state-beatbox.ts`).
+    c.beatboxMiss = world.tick;
     world.events.push({ type: "reject", col: c.col, row: c.row });
     return;
   }
@@ -190,9 +195,14 @@ function dischargeBeatbox(world: World, c: Creature): void {
     hits: beatboxHitsMade(c),
   });
   breachUnscarred(world, c.col, "beatbox", c.fromRow, world.cfg.damageBeatboxWave, c.color);
+  // The run that failed, kept for the marks: `beatboxHits` is wiped one line
+  // below, and without this the counter would empty on the exact frame the pair
+  // looks at it to find out how far off they were.
+  c.beatboxRan = beatboxHitsMade(c);
   c.beatboxHits = 0;
   c.beatboxBeat = undefined;
   c.beatboxTick = undefined;
+  c.beatboxMiss = undefined;
   // The tick the red is timed from, and the only thing left on the body saying
   // anything went wrong — the run above has just been wiped. Render lights the
   // box in it and throws the red rings from it

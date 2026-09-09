@@ -178,6 +178,8 @@ export function lateHashParts(c: Creature): number[] {
   // negative, so absent and present can never be the same number.
   out.push(c.beatboxTick ?? -1);
   out.push(c.beatboxWrong ?? -1);
+  out.push(c.beatboxMiss ?? -1);
+  out.push(c.beatboxRan ?? -1);
   // THE BALLOON's six, and the loudest group in this list. The heading and the
   // speed decide which tile it reaches next; the beat it came into being
   // decides whether it is climbing at all yet; the count decides whether the

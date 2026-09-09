@@ -7,12 +7,13 @@ import {
   recoilTurn,
 } from "@neon-spore/sim";
 import { drawBalloon } from "./balloon.js";
-import { beatboxArmGrown, beatboxSwell, beatboxWrongThrough } from "./beatbox.js";
+import { beatboxArmGrown, beatboxSwell, beatboxWash } from "./beatbox.js";
 import { drawBeatboxAir } from "./beatbox-air.js";
 import { drawChoir } from "./choir.js";
 import type { Body } from "./creature-body-in.js";
 import { drawMagnetBody, drawStrandBody } from "./creature-body-worn.js";
 import { livingBodyMul } from "./creature-place.js";
+import type { Wash } from "./creature-tint.js";
 import { drawGhost, showsGhostBody } from "./ghost.js";
 import { drawLid } from "./lid.js";
 import { drawLiving } from "./living-draw.js";
@@ -143,13 +144,10 @@ function drawBeatboxBody(b: Body): void {
   const r = b.l.tile * 0.4 * livingBodyMul(b.c) * swell;
   drawBeatboxAir(b.ctx, b.world, b.c, b.x, b.y, r, b.beatPhase);
   const shape = beatboxArms(beatboxHitsMade(b.c), beatboxArmGrown(b.world, b.c));
-  // The alarm eases *out* rather than in: it is loudest on the frame the run
-  // came apart, which is the frame the pair is looking for an answer on.
-  const wrong = beatboxWrongThrough(b.world, b.c);
-  drawLivingBody(b, swell, shape, wrong === null ? 0 : (1 - wrong) ** 0.7);
+  drawLivingBody(b, swell, shape, beatboxWash(b.world, b.c));
 }
 
-export function drawLivingBody(b: Body, swell = 1, shape?: CreatureSilhouette, alarm = 0): void {
+export function drawLivingBody(b: Body, swell = 1, shape?: CreatureSilhouette, wash?: Wash): void {
   const { ctx, l, world, c, x, y, time, beats, beatPhase, near } = b;
   if (c.kind === "veil" && !showsVeilCore(l)) return;
   if (!showsVolleyCore(world.cfg, c)) return;
@@ -173,7 +171,7 @@ export function drawLivingBody(b: Body, swell = 1, shape?: CreatureSilhouette, a
     recoilTurn(c, beatPhase),
     swell,
     shape,
-    alarm,
+    wash,
   );
 }
 

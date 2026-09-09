@@ -1,8 +1,9 @@
 /**
- * **THE BEATBOX's five fields**, and the whole of what one box remembers: how
- * many beats it is asking for, how many taps have landed, the beat the last
- * one landed on, and the two ticks the picture is timed from — the last thumb
- * that counted and the last discharge.
+ * **THE BEATBOX's seven fields**, and the whole of what one box remembers: how
+ * many beats it is asking for, how many taps have landed, the beat the last one
+ * landed on, the three ticks the picture is timed from — the last thumb that
+ * counted, the last thumb that did not, and the last discharge — and the count
+ * a discharge took away with it.
  *
  * Its own file rather than three more entries in `creature-state.ts`, and for
  * `creature-state-fence.ts`'s reason with rather more of it: these three only
@@ -94,4 +95,34 @@ export interface BeatboxState {
    * that length that can disagree with the one drawing it.
    */
   beatboxWrong?: number;
+  /**
+   * The tick a thumb landed on this box **between** two beats, and absent on
+   * one nobody has missed.
+   *
+   * A press that reaches nothing already says so the way the whole field does,
+   * with a `reject` — but a `reject` carries a column and a row and no body, so
+   * nothing on the box itself remembers it, and the mark the navigator reads
+   * their run off had no way to say *that one was not on the beat*. The owner
+   * asked for the next dot of the counter to go red when a press misses, and
+   * this is the tick that is timed from.
+   *
+   * Deliberately **not** the same field as `beatboxTick`. A press that counted
+   * and a press that did not are the two things this creature is entirely
+   * about, and one field holding whichever happened last could not tell them
+   * apart on the frame after.
+   */
+  beatboxMiss?: number;
+  /**
+   * The count a discharge committed, and absent on a box that has never come
+   * apart.
+   *
+   * `beatboxHits` is wiped by the same discharge — that is what gives the pair
+   * another run at the body — so by the frame after there is nothing left
+   * saying how long the run that failed was. The counter has to keep showing
+   * it while the red lasts, or the marks would empty on the exact frame the
+   * pair is looking at them to find out what went wrong.
+   *
+   * It is no secret from anybody: player 2 pressed every one of them.
+   */
+  beatboxRan?: number;
 }

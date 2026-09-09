@@ -51,6 +51,19 @@ const IDLE_STAGGER = 0.34;
  * with the count. */
 const IDLE_REACH = 1.5;
 const IDLE_ALPHA = 0.36;
+/**
+ * **How much of a beat the idle ring gets to live**, and the whole of what a
+ * metronome is.
+ *
+ * It used to ride the beat phase the whole way, so a ring was always crossing
+ * and the moment the beat actually landed had nothing sharp in it. The owner
+ * asked for it to *disappear very fast, so it supports player to hit the
+ * beat*: what helps a thumb find a beat is a flash that is over well before
+ * the next one, because then the eye is timing an edge rather than watching a
+ * ripple. A third of a beat, so two staggered rings are both gone inside half
+ * of one.
+ */
+const IDLE_LIFE = 0.34;
 
 /** A counted beat's rings: more of them, further out and much brighter, so the
  * difference between a beat that happened and a beat that *counted* is not a
@@ -139,12 +152,15 @@ export function drawBeatboxAir(
   beatPhase: number,
 ): void {
   // The beat, always. Even a box in the middle of a run is still a cabinet.
+  // `beatPhase / IDLE_LIFE` rather than the phase itself: the ring is finished
+  // a third of the way through the beat and the rest of it is quiet, which is
+  // what makes the flash a thing to time a thumb against (`IDLE_LIFE`).
   train(
     ctx,
     x,
     y,
     r,
-    beatPhase,
+    beatPhase / IDLE_LIFE,
     IDLE_RINGS,
     IDLE_STAGGER,
     IDLE_REACH,

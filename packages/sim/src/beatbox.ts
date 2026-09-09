@@ -190,24 +190,33 @@ export function beatboxCorrect(c: Creature): boolean {
 }
 
 /**
- * **How long ago the last counting thumb landed**, in ticks, or null for a box
- * nobody has touched.
+ * **Whether a tap would count right now**, which is the whole of what the box
+ * is lit blue for.
  *
- * Here rather than at the draw site because three pictures are timed from it —
- * the glow under the thumb, the green ring going out of the body, and the arm
- * growing out of the rim — and three copies of `world.tick - c.beatboxTick`
- * is three places that can disagree about when a press happened. The purity
- * test carries a row for exactly this shape (`packages/sim/test/purity.test.ts`).
+ * The same reading `beatboxBeatFor` is, asked as a yes or no. It is a reading
+ * rather than a second copy of the window because it is drawn: the owner asked
+ * for the body to change colour on the beat and back again, *to indicate player
+ * becomes active on beat*, and a picture of the window that was worked out at
+ * the draw site would be a second opinion about when a press is live — which is
+ * the one thing on this creature that must have exactly one answer.
  */
-export function beatboxTapAge(world: World, c: Creature): number | null {
-  return c.beatboxTick === undefined ? null : world.tick - c.beatboxTick;
+export function beatboxWindowOpen(world: World): boolean {
+  return beatboxBeatFor(world) !== null;
 }
 
-/** The same reading for the last discharge: how long the body has been lit
- * red, in ticks, or null for a box that has never come apart. */
-export function beatboxWrongAge(world: World, c: Creature): number | null {
-  return c.beatboxWrong === undefined ? null : world.tick - c.beatboxWrong;
-}
+// **The readings only the picture asks for** — how long ago a thumb counted,
+// how long ago one missed, how long ago the box came apart, and the run a
+// discharge took away — are `beatbox-picture.ts` next door, cut out when the
+// counter's four states took this file over its 250-line limit. The seam is
+// one the state itself already draws (`creature-state-beatbox.ts`): none of
+// the four decides anything, they only say how far through a drawing the body
+// is. Re-exported here, so nothing that reached for one had to move.
+export {
+  beatboxMissAge,
+  beatboxSpentRun,
+  beatboxTapAge,
+  beatboxWrongAge,
+} from "./beatbox-picture.js";
 
 /**
  * What a box is born with: the count the wave authored, or the config's own.
