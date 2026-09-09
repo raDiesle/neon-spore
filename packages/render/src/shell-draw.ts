@@ -124,3 +124,45 @@ function drawOne(
 
   ctx.restore();
 }
+
+/** How far off centre the body's own light is pushed on a half-open shell, as
+ * a share of the body's drawn radius. Enough that the halo and the puffs sit
+ * over the opened half rather than over the armour, and not so far that the
+ * light reads as belonging to something standing next to the creature. */
+const OPEN_SIDE = 0.7;
+
+/**
+ * Where a body's own light may show, given what it is wearing: a sideways
+ * offset in pixels, or `null` when none of it may show at all.
+ *
+ * `living-draw.ts` finishes every body with two marks in the body's colour
+ * that are not part of its contour — the halo around it and the motion trail
+ * rising off it — and neither of them knew a shell was under armour. So a
+ * plated shell was drawn with a red plume coming off the plate, which is the
+ * one thing plating means it cannot do: armour is opaque and dead, and the
+ * only colour it lets past is the flat line in its own cracks
+ * (`shell-plate.ts`). The owner asked for that plume gone on 9 September 2026.
+ *
+ * Three answers, and they are the shell's three states read straight off
+ * `Creature.shell`:
+ *
+ *  - **Intact** — `null`. Both halves are armour, so there is nowhere for the
+ *    body's light to come out and nothing is drawn.
+ *  - **One half chipped** — the offset, toward whichever half is open. The
+ *    light comes out of the side that is open, which is also the side the pair
+ *    has already cleared, so the picture says which column is done.
+ *  - **Bare** — zero, like every other body in the game. The last plate coming
+ *    off is what lets the body's own light out, and that is the reveal.
+ *
+ * Zero for everything that is not a shell, which is every other kind.
+ */
+export function plateLightShift(c: Creature, r: number): number | null {
+  if (c.kind !== "shell" || shellIsBare(c)) return 0;
+  // Piece 0 owns the half where `cos a` is negative — the left column
+  // (`shell-cut.ts`'s `pieceAngleSpan`) — so an open piece 0 pushes the light
+  // left and an open piece 1 pushes it right.
+  for (let piece = 0; piece < SHELL_COLS; piece++) {
+    if (!shellHasPiece(c, c.col + piece)) return (piece === 0 ? -1 : 1) * r * OPEN_SIDE;
+  }
+  return null;
+}

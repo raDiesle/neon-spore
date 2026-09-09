@@ -234,3 +234,22 @@ turn is its own slow clock and does not change with the temper.
 `bun run breaks` is the bench both were tuned on: every tuning of the engine
 on one sheet, seven moments across, which is the one thing a running preview
 cannot show for an effect that is over in a second.
+
+## `shell:plate` / `slab` — taken by hand, 2026-09-09
+
+SLAB into `packages/render/src/shell-plate.ts`. The owner took the slab and
+rejected WORN, with two changes made on the way in.
+
+**Nothing on a plate glows.** The split and the crack still carry the body's
+own colour — on an intact shell they are the only way the pair can tell red
+from cyan — but they carry it as flat lines rather than through `strokeGlow`.
+
+**The body's own light does not come through armour at all.**
+`living-draw.ts` finishes every creature with a halo and a motion trail in its
+colour, and neither knew a shell was plated, so a red plume stood in the air
+above a piece of dead armour. `plateLightShift` in `shell-draw.ts` is the
+answer: nothing at all while both plates are on, pushed onto the opened half
+while one is, and back in the middle once the body is bare — which makes the
+last plate coming off the moment the light gets out.
+
+The look rejected beside it was `worn`; both directories went with the slot.

@@ -8,13 +8,12 @@ import {
   throbTurnMilli,
   wornKind,
 } from "@neon-spore/sim";
-import { drawDetails, drawMotionTrail } from "./creature-detail.js";
+import { drawDetails, drawOwnLight } from "./creature-detail.js";
 import { contourClock, livingBodyMul, livingRadius, livingScale } from "./creature-place.js";
 import { colorTrio, turnedTrio, type Wash } from "./creature-tint.js";
 import { dartFlip, dartLean } from "./dart.js";
 import { hazed } from "./depth.js";
 import { drawEchoSeam, echoStrain } from "./echo.js";
-import { halo } from "./glow.js";
 import { mixHex } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { LIVING_SKIN } from "./living-skin.js";
@@ -238,9 +237,10 @@ export function drawLiving(
 
   if (blocked <= 0) {
     // Out of the hole, in screen space: the sparks are thrown by the body and
-    // must not take its lean, its strain or its squash with them.
+    // must not take its lean, its strain or its squash with them. The plume
+    // and the halo go together and carry the rule about armour with them
+    // (`creature-detail.ts`).
     if (vent) drawLureVent(ctx, x + ox, y + oy, r, time, c.id);
-    drawMotionTrail(ctx, l, x, y, r, hex, t);
-    halo(ctx, x + ox, y + oy, r * 1.9, hex, 0.16);
+    drawOwnLight(ctx, l, c, x, y, ox, oy, r, hex, t);
   }
 }

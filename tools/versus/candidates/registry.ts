@@ -39,8 +39,6 @@ import { MAZE_WELL } from "./maze-walls/well/index.js";
 import { JOIN_BOTH } from "./panel-join/both/index.js";
 import { JOIN_ORGANS } from "./panel-join/organs/index.js";
 import { JOIN_ROOF } from "./panel-join/roof/index.js";
-import { SHELL_SLAB } from "./shell-plate/slab/index.js";
-import { SHELL_WORN } from "./shell-plate/worn/index.js";
 import { CRATER_SPALL } from "./ship-crater/spall/index.js";
 import { SLICK_BANK } from "./slick-motion/bank/index.js";
 import { SLICK_FLOAT } from "./slick-motion/float/index.js";
@@ -87,8 +85,6 @@ export const VARIANTS: Variant[] = [
   JOIN_BOTH,
   JOIN_ORGANS,
   JOIN_ROOF,
-  SHELL_SLAB,
-  SHELL_WORN,
   CRATER_SPALL,
   SLICK_BANK,
   SLICK_FLOAT,

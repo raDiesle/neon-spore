@@ -12,8 +12,9 @@ import {
   ticksPerBeat,
 } from "@neon-spore/sim";
 import { drawnRow, hazed, nearness } from "../src/depth.js";
+import { rgba } from "../src/hex.js";
 import { computeLayout } from "../src/layout.js";
-import { drawShellArmour } from "../src/shell-draw.js";
+import { drawShellArmour, plateLightShift } from "../src/shell-draw.js";
 import { PLATE_RIM } from "../src/shell-plate.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
@@ -83,7 +84,14 @@ function drawFrames(world: ReturnType<typeof createWorld>): number {
 /** How many times one frame set the plating's grey — twice on an intact
  * shell, one per plate, and the question the bare half's rim is an answer
  * to. `beatPhase` and `time` are pinned so the hazed colour is computable
- * here from the one row the body is on. */
+ * here from the one row the body is on.
+ *
+ * The **colour** is counted and the alpha is not. A plate and a bared half are
+ * the same material and are edged in the same grey, but each is laid down at a
+ * strength that follows how much of the key light that half takes — a slab is
+ * lit by its own normal (`shell-plate.ts`) — so a test that pinned the whole
+ * `rgba(...)` string would be asserting the light angle in the one place that
+ * is meant to be about the material. */
 function greyStrokes(world: ReturnType<typeof createWorld>): number {
   const { ctx } = stubCanvas();
   const log: string[] = [];
@@ -91,8 +99,9 @@ function greyStrokes(world: ReturnType<typeof createWorld>): number {
   drawShellArmour(ctx as unknown as CanvasRenderingContext2D, L, world, 0, 0);
   const body = world.creatures[0];
   if (!body) return log.filter((e) => e.startsWith("set strokeStyle=")).length;
-  const grey = hazed(CFG, PLATE_RIM, nearness(L, drawnRow(body, 0)));
-  return log.filter((e) => e === `set strokeStyle=${grey}`).length;
+  const grey = rgba(hazed(CFG, PLATE_RIM, nearness(L, drawnRow(body, 0))), 1);
+  const prefix = `set strokeStyle=${grey.slice(0, grey.lastIndexOf(",") + 1)}`;
+  return log.filter((e) => e.startsWith(prefix)).length;
 }
 
 beforeAll(installCanvasGlobals);
@@ -165,5 +174,40 @@ describe("the shell's plating", () => {
   it("draws nothing at all when there is no shelled body on the field", () => {
     const { world } = run([], 1);
     expect(drawFrames(world)).toBe(0);
+  });
+});
+
+describe("the body's own light on a plated body", () => {
+  // `living-draw.ts` finishes every body with a halo and a motion trail in its
+  // own colour, and until 9 September 2026 a shell got both through its
+  // armour — a red plume rising off a plate that is supposed to be opaque and
+  // dead. What replaced it is one number per state, and these are the three.
+  const R = 20;
+
+  it("shows none of it while both plates are on", () => {
+    const { world } = run([shell(COL)], TPB + 1);
+    expect(shellPiecesLeft(world.creatures[0]!)).toBe(2);
+    expect(plateLightShift(world.creatures[0]!, R)).toBeNull();
+  });
+
+  it("pushes it onto whichever half has been opened", () => {
+    const left = run([shell(COL)], TPB * 4, shot(TPB * 2, COL, "red"));
+    const right = run([shell(COL)], TPB * 4, shot(TPB * 2, COL + 1, "red"));
+    // Piece 0 is the left column, so an open left half puts the light left of
+    // centre and an open right half puts it right (`pieceAngleSpan`).
+    expect(plateLightShift(left.world.creatures[0]!, R)).toBeLessThan(0);
+    expect(plateLightShift(right.world.creatures[0]!, R)).toBeGreaterThan(0);
+  });
+
+  it("lets it back to the middle once the last plate is off", () => {
+    const inputs = [...shot(TPB * 2, COL, "red"), ...shot(TPB * 3, COL + 1, "red")];
+    const { world } = run([shell(COL)], TPB * 5, inputs);
+    expect(shellIsBare(world.creatures[0]!)).toBe(true);
+    expect(plateLightShift(world.creatures[0]!, R)).toBe(0);
+  });
+
+  it("leaves every other kind exactly where it was", () => {
+    const { world } = run([{ beat: 0, col: COL, kind: "slick", color: "red" }], TPB + 1);
+    expect(plateLightShift(world.creatures[0]!, R)).toBe(0);
   });
 });

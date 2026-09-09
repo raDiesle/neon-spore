@@ -1,6 +1,8 @@
+import type { Creature } from "@neon-spore/sim";
 import { type Interior, interiorFor } from "./body-interior.js";
-import { haloSprite } from "./glow.js";
+import { halo, haloSprite } from "./glow.js";
 import type { Layout } from "./layout.js";
+import { plateLightShift } from "./shell-draw.js";
 
 /**
  * What this body has inside it, through the record for its kind.
@@ -74,4 +76,39 @@ export function drawMotionTrail(
     ctx.drawImage(sprite, px - wide / 2, py - tall / 2, wide, tall);
   }
   ctx.restore();
+}
+
+/**
+ * The two marks a body makes in its own colour that are not part of its
+ * contour — the plume above it and the halo around it — and the one thing that
+ * can stop them.
+ *
+ * They are here together rather than at the end of `drawLiving` because they
+ * share a rule that the contour does not: **armour damps them.** A shell wears
+ * opaque dead plating, and until 9 September 2026 both were drawn straight
+ * through it, so a red plume stood in the air above a plate that is supposed
+ * to give off nothing at all. `plateLightShift` is where the body's light is
+ * allowed to be — nowhere while both plates are on, over the opened half while
+ * one is, and back in the middle once the body is bare (`shell-draw.ts`). Zero
+ * for every other kind, which is every body but one.
+ *
+ * Screen space, outside the body's own transform: neither mark takes the
+ * creature's lean, its strain or its squash with it.
+ */
+export function drawOwnLight(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  c: Creature,
+  x: number,
+  y: number,
+  ox: number,
+  oy: number,
+  r: number,
+  hex: string,
+  t: number,
+): void {
+  const open = plateLightShift(c, r);
+  if (open === null) return;
+  drawMotionTrail(ctx, l, x + open, y, r, hex, t);
+  halo(ctx, x + ox + open, y + oy, r * 1.9, hex, 0.16);
 }
