@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · e0d5bd22 — A CRLF markdown file stops blaming its own content
+
+`bun run index` matched its anchor as `"## Code\n"` with `indexOf`, so a `docs/INDEX.md` whose lines ended `\r\n` threw *docs/INDEX.md has no '## Code' heading to anchor the generated table on* — false, about a heading right there in the file, and it cost a turn.
+
 ## 2026-09-09 · cb5ac49a — THE SHELL's plating gets a seam and a slab beside it
 
 `drawPlate` cuts the body's contour in half, fills it in one flat grey, strokes a hard rim and lights three splits with the colour underneath. It is a good picture of the rule — armour over a body, opening where it cracks — and it is the one hard surface left in the game with no highlight, no bevel and no thickness at all, sitting directly over a body that has both. `warden:plates` / `bevel` asked this on a boss and the owner took it into the game on 9 September 2026; this is the same question on a body a tenth the size.
