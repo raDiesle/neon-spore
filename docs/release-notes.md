@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 13ad0d71 — The slot-to-creature guard derives its own list
+
+`each creature slot's pose actually puts that creature on the field` is the guard for the owner's complaint that every slot showed a slick, and it read from a literal `Record` of four slots. A slot missing from that object was not a failure and not a warning — it was simply not checked — so the guard covered whichever slots somebody had remembered to add and silently exempted the rest. Three of its four rows named slots that have since been decided and left the page, and the one slot it did still cover was covered by accident.
+
 ## 2026-09-09 · 4f670a39 — A destroy event says what died
 
 `destroy` carried a column, a row and a colour, so the only thing a break could ask was the bestiary's map from ammunition colour to body: red is a slick and cyan a bulb. That is right for an ordinary kill and wrong for every body that is neither — a magnet, a ghost, a lid and a balloon all emit the same plain event, and `effects-break.ts` would have cut their pieces out of a slick's outline at a size where the difference shows.
