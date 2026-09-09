@@ -18,7 +18,7 @@
  * one is a refusal rather than a guess.
  */
 
-import { readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { VARIANTS } from "./candidates/index.js";
 import { type Edit, isRefusal, rewriteRecord } from "./record-edit.js";
@@ -70,14 +70,7 @@ function planFor(won: Variant): FileEdit[] {
     );
     if (isRefusal(result)) {
       throw new Error(
-        [
-          `${patch.where.file} — ${result.why}`,
-          "",
-          wrap(
-            "Nothing was written. Take the slot by hand: open the file, make the change, " +
-              `then \`bun run versus drop ${won.slot}\` with a reason saying it was taken by hand.`,
-          ),
-        ].join("\n"),
+        [`${patch.where.file} — ${result.why}`, "", ...byHand(won, patch.where.file)].join("\n"),
       );
     }
     plan.push({
@@ -88,6 +81,64 @@ function planFor(won: Variant): FileEdit[] {
     });
   }
   return plan;
+}
+
+/**
+ * What to do instead, when the tool will not do it — spelled out rather than
+ * left as "take it by hand".
+ *
+ * It matters more than it looks. Fourteen of the fifteen candidates standing on
+ * 9 September 2026 patch a whole drawing function rather than a colour, so this
+ * is the path a lane actually walks, and every step of it is the same four
+ * every time: the candidate's `paint.ts` moves into the package, its imports
+ * lose the five `../`, the record points at the moved function, and the slot is
+ * closed with a reason. Saying so here costs one read; working it out from the
+ * candidate costs five.
+ */
+function byHand(won: Variant, recordFile: string): string[] {
+  const paint = `${won.dir}/paint.ts`;
+  const has = existsSync(join(ROOT, paint));
+  const pkg = recordFile.split("/").slice(0, 2).join("/");
+  return [
+    wrap(`Nothing was written. Taking \`${won.slot}\` / \`${won.name}\` by hand:`),
+    "",
+    ...(has
+      ? [
+          `  1. git mv ${paint} ${pkg}/src/<a name for it>.ts`,
+          "",
+          wrap(
+            `2. In the moved file, rewrite the imports: a \`../../…/${pkg}/src/x.js\` ` +
+              "becomes `./x.js`, and a path into another package becomes its bare " +
+              "specifier — the candidate directory has no `package.json`, and the " +
+              "package it is moving into does.",
+            "  ",
+            "     ",
+          ),
+          "",
+          wrap(
+            `3. In \`${recordFile}\`, point the field at the moved function, and delete ` +
+              "the implementation nothing reads any more.",
+            "  ",
+            "     ",
+          ),
+        ]
+      : [
+          wrap(
+            `1. Open \`${recordFile}\` and make the change the candidate makes. Its own ` +
+              `\`index.ts\` under \`${won.dir}\` is the argument for it.`,
+            "  ",
+            "     ",
+          ),
+        ]),
+    "",
+    wrap(
+      `${has ? "4" : "2"}. bun run versus drop ${won.slot} "taken by hand — <why>"`,
+      "  ",
+      "     ",
+    ),
+    "",
+    wrap("Then `bun run check`."),
+  ];
 }
 
 /** The winner into the game, and the slot off the page. */

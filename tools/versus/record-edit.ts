@@ -174,7 +174,6 @@ export function rewriteRecord(
 
   const edits: Edit[] = [];
   let out = src;
-  // Right to left, so an edit never moves the offsets of one not yet made.
   const spans = Object.keys(fields)
     .sort()
     .map((field) => ({ field, at: fieldSpan(src, span, field) }));
@@ -195,7 +194,12 @@ export function rewriteRecord(
     edits.push({ field, from: was, to: show(fields[field]) });
   }
 
-  for (const { field, at } of [...spans].reverse()) {
+  // Late in the file first, so an edit never moves the offsets of one not yet
+  // made. By *position*, not by the name order `spans` is built in: reversing
+  // an alphabetical list is not reversing a positional one, and the day that
+  // was confused `BREAK_LOOK` came out of an adoption reading
+  // `gravityTile 1411`.
+  for (const { field, at } of [...spans].sort((a, b) => (b.at?.from ?? 0) - (a.at?.from ?? 0))) {
     if (!at) continue;
     const lead = /^\s*/.exec(src.slice(at.from, at.to))?.[0] ?? " ";
     out = out.slice(0, at.from) + lead + show(fields[field]) + out.slice(at.to);

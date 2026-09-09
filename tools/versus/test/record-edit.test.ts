@@ -40,12 +40,27 @@ describe("writing a field into a record", () => {
     expect(out).toContain("stops: [0, 0.5, 1],");
   });
 
-  it("writes several fields at once without disturbing each other's offsets", () => {
+  /**
+   * The one that caught a real corruption. Fields are written late-in-the-file
+   * first so an edit cannot move the offsets of one not yet made, and that has
+   * to be by *position*: these two are in the opposite order alphabetically to
+   * the order they appear in, and the first version sorted by name. It changed
+   * a record's `gravityTiles: 11` into `gravityTile 1411`, and passed a test
+   * whose two new values happened to be the same length as the old ones.
+   */
+  it("writes several fields of different lengths without disturbing each other", () => {
     const out = text(
-      rewriteRecord(SRC, "TORCH_LOOK", { rim: "#22FF88", lift: 9 }, { rim: "#FFAE3D", lift: 3 }),
+      rewriteRecord(
+        SRC,
+        "TORCH_LOOK",
+        { rim: "#0F0", lift: 14, stops: [0, 1] },
+        { rim: "#FFAE3D", lift: 3, stops: [0.1, 0.4, 0.9] },
+      ),
     );
-    expect(out).toContain(`rim: "#22FF88",`);
-    expect(out).toContain("lift: 9,");
+    expect(out).toContain(`rim: "#0F0",`);
+    expect(out).toContain("stops: [0, 1],");
+    expect(out).toContain("lift: 14,");
+    expect(out).toContain(`glow: { rim: "#101020", lift: 2 },`);
   });
 
   it("refuses when the file and the live record disagree", () => {

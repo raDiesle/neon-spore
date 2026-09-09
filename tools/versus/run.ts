@@ -34,6 +34,17 @@ function need(what: string, value: string | undefined, usage: string): string {
   return value;
 }
 
+/**
+ * A refusal is an answer, not a crash. `adopt` says no more often than it says
+ * yes — that is its design — and a stack trace under every one of those would
+ * teach a reader to skim past the sentence that says which field disagreed,
+ * which is the only part worth reading.
+ */
+process.on("uncaughtException", (e: unknown) => {
+  console.error(`\n${e instanceof Error ? e.message : String(e)}\n`);
+  process.exit(1);
+});
+
 async function open(): Promise<ReturnType<typeof slots>> {
   return slots((await import("./candidates/index.js")).VARIANTS);
 }

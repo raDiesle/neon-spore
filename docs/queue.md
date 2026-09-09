@@ -574,3 +574,38 @@ the shared `LIVING_SKIN` that the open `creature:skin` slot patches, so cut
 `bulb-look.ts` out of `creature-body.ts` first and open `creature:bulb` on it.
 `.claude/skills/depth` applies, the shapes page is where the parts come from,
 and both sides animate. Pose in `versus-pose.ts` in the same commit.
+
+## `versus adopt` refuses fourteen of the fifteen candidates standing
+
+- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Files:** `tools/versus/decide.ts`, `tools/versus/record-edit.ts`,
+  `tools/versus/test/record-edit.test.ts`, `tools/versus/README.md`
+
+`bun run versus adopt` writes a candidate's field values into the shipped
+record, and it refuses a field holding a **function**, because `toString` hands
+back what the transpiler made rather than how the file spells it. That refusal
+is right. What it means in practice was measured the day the command was
+written: of the fifteen candidates then open, fourteen patch a whole drawing
+function — `paint`, `walls`, `plate`, `pit`, `iris`, `tears` — and exactly one
+patches plain numbers. So the command's mechanical half currently reaches one
+slot in fifteen, and every other adoption is a lane doing by hand what the
+refusal prints as four steps.
+
+Those four steps are themselves the same every time, which is what makes this
+drainable rather than a design question. A function-valued candidate keeps its
+implementation in `paint.ts` beside its `index.ts`, and taking it is: move that
+file into the package the record lives in, rewrite its import specifiers — a
+`../../../../../packages/render/src/x.js` becomes `./x.js` and a path into
+another package becomes that package's bare specifier — point the record's
+field at the moved function, and delete the implementation nothing reads any
+more. `byHand` in `decide.ts` already spells all four out and is where the
+knowledge is.
+
+Two things have to be decided by the session that does it, and both have an
+honest default. The **name** of the moved file: default to the candidate's own
+name plus what it draws (`spall` on `crater-look.ts` becomes
+`crater-spall.ts`), and let a flag override it. And whether the **old
+implementation** goes: it goes when nothing else imports it, which is a `git
+grep` the tool can run and refuse on rather than guess. Anything else it cannot
+see its way through stays a refusal with the four steps printed, which is what
+it does today.
