@@ -1,6 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { WANTED } from "../hooks/session-start.ts";
 
 /**
  * Which Bun this project expects, said once and held in step.
@@ -12,7 +13,7 @@ import { fileURLToPath } from "node:url";
  * against, and neither did anybody opening the repository. The question "are
  * we on the version this was written for" had no answer in the tree.
  *
- * Three places declare it now and this holds them equal:
+ * Four places read it now and this holds them equal:
  *
  * - **`.bun-version`** is the file, and the one to edit. `oven-sh/setup-bun`
  *   reads it directly (`bun-version-file`), so CI cannot drift from it.
@@ -20,6 +21,12 @@ import { fileURLToPath } from "node:url";
  *   it, in the shape every other tool looks for.
  * - **`engines.bun`** is the floor, for a reader rather than for a check —
  *   Bun does not refuse to run on a mismatch and this test does not either.
+ * - **`tools/hooks/session-start.ts`'s `WANTED`** is what the web image's bun
+ *   is pinned *to*, and it is the reader that had already drifted: it held
+ *   `1.4.2` as a literal while this file said `1.4.0`, documented as a floor
+ *   nobody could re-derive. It reads `.bun-version` now, and the row below is
+ *   what says the derivation still reaches this file — a hook moved to another
+ *   directory would quietly fall back to its no-op and pin nothing.
  *
  * **It does not fail on the Bun you happen to be running.** A version that is
  * merely different is a session's business to report, not a reason to stop it
@@ -58,6 +65,11 @@ describe("the Bun version this project expects", () => {
     // itself, which is the only thing worth checking about it: a floor above
     // the pin would refuse the very version CI installs.
     expect(pkg.engines?.bun, "engines.bun does not admit the pinned version").toBe(`>=${pinned}`);
+  });
+
+  it("is the version the session-start hook pins the web image to", async () => {
+    const pinned = (await text(".bun-version")).trim();
+    expect(WANTED, "the session-start hook does not read .bun-version").toBe(pinned);
   });
 
   it("is the version the workflow installs, and the workflow reads the file", async () => {

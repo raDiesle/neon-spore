@@ -22,6 +22,10 @@
  * linux-x64 (the only image this repo runs on there), and once bun is already
  * new enough — so a resume or a newer image costs one version comparison and
  * stops. `test/session-start.test.ts` holds the comparison.
+ *
+ * **What it pins is `.bun-version` and not a number of its own** — see `WANTED`
+ * below, which used to be a literal one minor ahead of the file and could not
+ * be re-derived by anybody who found the two disagreeing.
  */
 
 import { spawn } from "node:child_process";
@@ -34,8 +38,38 @@ import {
   readFileSync,
 } from "node:fs";
 
-/** The lowest bun this repo's lockfile and workerd tests are known to want. */
-export const WANTED = "1.4.2";
+/**
+ * The bun this repo is pinned to, **read out of `.bun-version`** rather than
+ * written here.
+ *
+ * It used to be a literal, `1.4.2`, documented as the lowest bun the lockfile
+ * and the workerd tests were known to want — and `.bun-version` said `1.4.0`.
+ * Both could not be right, and the number here was the wrong one: `apps/server`
+ * is green on 1.4.0 and a frozen install on it reports no changes against a
+ * `lockfileVersion: 2` lockfile, which is exactly what CI has been proving on
+ * Linux every run, because CI installs from `.bun-version` and then runs the
+ * whole suite.
+ *
+ * So this is derived and there is no second number to raise. `.bun-version` is
+ * the one file to edit; `package.json`, the workflow and now this all read it,
+ * and `tools/test/bun-version.test.ts` holds every reader in step.
+ *
+ * **A checkout this cannot read is a no-op, not a crash.** `0.0.0` is older
+ * than any bun there has ever been, so `needsUpgrade` returns false, the hook
+ * stops and the session keeps the bun it has — which is the right answer when
+ * the thing that says what to pin is missing.
+ */
+export const WANTED = pinnedBun();
+
+function pinnedBun(): string {
+  try {
+    const at = new URL("../../.bun-version", import.meta.url);
+    const said = readFileSync(at, "utf8").trim();
+    return /^\d+\.\d+\.\d+$/.test(said) ? said : "0.0.0";
+  } catch {
+    return "0.0.0";
+  }
+}
 
 /**
  * Whether `current` is older than `wanted`, by numeric version parts. A

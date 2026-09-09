@@ -184,38 +184,6 @@ Take a fresh full-sweep baseline with `--save` **only** once neither is flagged
 — a baseline saved on a busy machine is worse than a stale one, which this lane
 did once and reverted.
 
-## Two Bun versions disagree, and the cloud doc names neither
-
-- **Found:** 2026-09-09, main
-- **Taken:** 2026-09-09, claude/queue-two-bun-versions-disagree-and-the-cloud-doc-name
-- **Files:** `docs/cloud-session.md`, `.bun-version`, `package.json`,
-  `tools/hooks/session-start.ts`, `tools/test/bun-version.test.ts`
-
-`tools/hooks/session-start.ts` already fixes the old-Bun problem: on the web
-image it fetches `@oven/bun-linux-x64` from npm, caches it under
-`~/.cache/neon-spore-bun` and puts it first on `PATH` through
-`$CLAUDE_ENV_FILE`, so the three failures the doc describes — the silent
-`lockfileVersion` 2→1 downgrade, `--frozen-lockfile` stopping `land` before the
-check runs, and twenty-five timed-out websocket tests in `apps/server` — never
-happen. `docs/cloud-session.md` does not know that. It still tells a cloud
-session to diagnose all three by hand and then run
-`npm install bun@latest --prefix /tmp/bun`, which is a second, different
-mechanism aimed at the same thing. Rewrite that section to say what the hook
-does, what its one stderr line looks like when it could not pin a binary, and
-that the manual `PATH=` command is the fallback for that case only.
-
-The second half is a real disagreement rather than stale prose. `.bun-version`
-says `1.4.0`, and `package.json` and CI are held equal to it by
-`tools/test/bun-version.test.ts`. The hook's floor is `WANTED = "1.4.2"`,
-documented as *the lowest bun this repo's lockfile and workerd tests are known
-to want*. Both cannot be right: either CI installs a Bun below the floor the
-workerd suite needs, or the floor is set higher than anything requires. Find out
-which by running `apps/server`'s suite on 1.4.0 — if it is green, lower `WANTED`
-to match `.bun-version`; if it is red, raise `.bun-version` (and with it the two
-declarations the test holds in step) to 1.4.2. Then add the hook's constant to
-that test as a fourth reader, so the next raise cannot leave it behind — which
-is how the two numbers parted in the first place.
-
 ## THE CLASP's hand-painted shield has never been drawn
 
 - **Found:** 2026-09-09, claude/queue-the-clasps-bubble-has-no-place-a-candidate-look

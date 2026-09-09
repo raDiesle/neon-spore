@@ -136,42 +136,58 @@ and is open. Picking one up later is a fresh session — `bun run queue next`
 prints the prompt — which removes the entry in the commit that finishes it.
 `docs/queue.md` says the rest.
 
-**Its Bun may be older than the lockfile, and three things fail in ways that
-name something else.** A cloud session's image carries whatever Bun it was
-built with — 1.3.11 on 4 September 2026, against a `bun.lock` written by a
-newer one. Three symptoms, none of which mentions a version:
+**Its Bun is pinned for it, and it no longer has to know why.** A cloud
+session's image carries whatever Bun it was built with — 1.3.11 on 4 September
+2026, against a `bun.lock` written by a newer one — and three things then fail
+in ways that name something else: `bun install` silently rewrites
+`lockfileVersion` from 2 to 1, so a lane staging `bun.lock` commits a downgrade
+nobody asked for; `bun install --frozen-lockfile` fails with *lockfile had
+changes, but lockfile is frozen*, which is the first thing `bun run land` does
+after the rebase, so the landing stops before the check has run; and
+`apps/server`'s suite times out on every websocket case, because that Bun's `ws`
+shim has no `upgrade` event for miniflare to use. Twenty-five red tests that are
+green on the owner's machine, and a `bun run check` no lane can turn green.
 
-- `bun install` silently rewrites `lockfileVersion` from 2 to 1, so a lane that
-  stages `bun.lock` commits a downgrade nobody asked for. Leave that file
-  alone unless the change is a dependency you added.
-- `bun install --frozen-lockfile` fails with *lockfile had changes, but
-  lockfile is frozen*, which is the first thing `bun run land` does after the
-  rebase. The landing then stops before the check has even run.
-- `apps/server`'s suite fails outright: every websocket case times out, because
-  Bun's `ws` shim has no `upgrade` event for miniflare to use. Twenty-five red
-  tests that are green on the owner's machine, and a `bun run check` no lane
-  can turn green.
+**None of that happens any more.** `tools/hooks/session-start.ts` runs before
+the session does. On the web image, and only there, it compares the image's Bun
+against `.bun-version`; if it is older it fetches that Bun from the npm registry
+as `@oven/bun-linux-x64` — the one host the sandbox's proxy allows for packages,
+and the reason nothing is downloaded from `bun.sh` — caches it under
+`~/.cache/neon-spore-bun` and puts it first on `PATH` for the rest of the
+session through `$CLAUDE_ENV_FILE`. The image's own Bun is left in place.
 
-The way out is one command, and the npm registry is one of the few hosts the
-sandbox's proxy allows:
+It says so in one line on stderr, and there are only two:
+
+```
+session-start: bun 1.3.11 is below 1.4.0; pinned /root/.cache/neon-spore-bun/bun ahead of it
+session-start: could not pin bun 1.4.0; leaving the image's 1.3.11
+```
+
+The first is the ordinary case and needs nothing. **The second is the only time
+the manual route is the right one** — the registry was unreachable, or the
+binary would not run — and it is:
 
 ```
 npm install bun@latest --prefix /tmp/bun
 PATH=/tmp/bun/node_modules/.bin:$PATH bun run land
 ```
 
-With a current Bun all three go away — the frozen install passes, the relay's
-Durable Object tests pass in six seconds, and the check is green for real
-rather than green apart from a suite that could not run. Do this before
-concluding that a suite is broken, and before reporting a landing as blocked.
+Reach for that when the second line appeared, and not otherwise. A session that
+installs a second Bun over a working pin is spending a minute to arrive where it
+already was.
 
-**And check which Bun it got against the one this project names.**
-`.bun-version` is the version the repository is tested against; `package.json`
-names it as its package manager, CI installs it from that file, and
-`tools/test/bun-version.test.ts` holds the three in step. Nothing refuses to run
-on a mismatch, so a session on a different Bun is not stopped — but it is a
-session whose green check is a result about a different runtime, and after the
-three failures above that is worth a line in the report rather than a shrug.
+**One version, and it is `.bun-version`.** That file is what the repository is
+tested against; `package.json` names it as its package manager, CI installs from
+it, the hook pins to it, and `tools/test/bun-version.test.ts` holds all four in
+step. The hook used to carry a number of its own — `1.4.2`, described as the
+lowest Bun the lockfile and the workerd tests were known to want, against a file
+saying `1.4.0` — and the file was right: `apps/server` is green on 1.4.0 and a
+frozen install on it reports no changes, which is what CI has been demonstrating
+on Linux every run. There is no second number to raise now.
+
+Nothing refuses to run on a mismatch, so a session on a different Bun is not
+stopped — but its green check is a result about a different runtime, and after
+the three failures above that is worth a line in the report rather than a shrug.
 `bun --version` against the file is the whole check.
 
 **Its servers need a host, and the error if you forget says the wrong thing.**
