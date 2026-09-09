@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 520fa1ab — A fracture engine, a bench for it, and two damage looks offered
+
+Destruction on this field has always been `sparks.ts`: a dozen three-pixel squares thrown from a point. A square has no shape, so a slick, a bulb, a boss plate and a hull breach all read as the same event at different sizes, and nothing in the game has ever said *what came apart*.
+
 ## 2026-09-09 · 53e7cdae — Queue the two waves the adopted looks made dearer
 
 BULB QUEEN and THE WISP both report over their old share after ten looks came out of VERSUS. Neither is a defect — the worst frame in the game is 7.1 ms against 16.7 — but both have an obvious next move and neither was worth holding the looks for, so the entry says what to do and how to prove it.
