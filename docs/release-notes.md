@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 7bca2560 — The check says a stale install before tsc blames the code
+
+A worktree installed before `main` gained a package has no link for it, and the first thing that says so is `tsc`, with eight `Cannot find module` errors in files the lane never opened — a turn spent reading code that was never wrong. `bun run check` now opens with a preflight that walks the workspace globs and asks, per edge of the dependency graph, whether the consumer's own `node_modules` carries the link. Bun puts one there rather than at the root, so the question is asked once per edge, which is also the only shape that notices a dependency added to a package that was already installed. Silent when the install is good; one line per missing link and a stop when it is not.
+
 ## 2026-09-09 · e3c272f4 — A landing rebuilds the file map instead of stopping on it
 
 Every lane that adds, splits or deletes a file writes a row into `docs/INDEX.md`, so two lanes landing on the same day conflict there almost every time — and the resolution was five hand-typed commands whose result the tree already decides. The replay now does it: the trunk's copy, regenerated against the tree the replay has built, and the lane's own rows written back over the derived ones so a line somebody wrote by hand is not replaced by a first sentence. A row both sides rewrote differently still stops the landing.
