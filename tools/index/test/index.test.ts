@@ -1,14 +1,8 @@
 import { describe, expect, test } from "bun:test";
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
-import {
-  deriveHeaderSentence,
-  filterScopeFiles,
-  generateIndex,
-  parseRows,
-  rowLives,
-  type Tree,
-} from "../index.js";
+import { filterScopeFiles, generateIndex, parseRows, rowLives, type Tree } from "../index.js";
+import { deriveHeaderSentence } from "../sentence.js";
 
 const ROOT = join(import.meta.dirname, "..", "..", "..");
 // `.claude` for the reason `tools/test/tree-walk.test.ts` gives: a worktree is
@@ -130,6 +124,68 @@ describe("a row whose file is gone", () => {
       "packages/sim/src/step.ts",
       "packages/sim/src/gone.ts",
     ]);
+  });
+});
+
+/**
+ * A row filed at the bottom of its section is a row nobody finds. The case that
+ * put this here: splitting `crawler.ts` produced `crawler-ring.ts`, and its row
+ * was written seventy lines below the two rows a reader looking it up would
+ * have been reading.
+ */
+describe("a new row lands beside its siblings", () => {
+  const doc = [
+    "## Code\n",
+    "<!-- index:code:start -->",
+    "",
+    "### packages/render",
+    "",
+    "| Path | One line |",
+    "|---|---|",
+    "| `packages/render/src/crawler.ts` | The worm |",
+    "| `packages/render/src/crawler-skin.ts` | Its rings |",
+    "| `packages/render/src/hull.ts` | The ship |",
+    "| `packages/render/src/palette.ts` | Every colour |",
+    "",
+    "<!-- index:code:end -->",
+    "",
+  ].join("\n");
+  const read = (path: string) => `/** Derived from ${path}. */\nexport const x = 1;`;
+  const tree = (scope: string[]): Tree => ({ scope, read, has: () => true });
+  const paths = (out: string) => parseRows(out).map((r) => r.path);
+
+  test("follows the last row whose name it shares a beginning with", () => {
+    const out = generateIndex(doc, tree(["packages/render/src/crawler-ring.ts"]));
+    expect(paths(out)).toEqual([
+      "packages/render/src/crawler.ts",
+      "packages/render/src/crawler-skin.ts",
+      "packages/render/src/crawler-ring.ts",
+      "packages/render/src/hull.ts",
+      "packages/render/src/palette.ts",
+    ]);
+  });
+
+  test("keeps the order a file was split in when there are several", () => {
+    const out = generateIndex(
+      doc,
+      tree(["packages/render/src/hull-frame.ts", "packages/render/src/hull-skin.ts"]),
+    );
+    expect(paths(out).slice(2)).toEqual([
+      "packages/render/src/hull.ts",
+      "packages/render/src/hull-frame.ts",
+      "packages/render/src/hull-skin.ts",
+      "packages/render/src/palette.ts",
+    ]);
+  });
+
+  test("falls back to the end of its own directory, not the end of the section", () => {
+    // `sheen` shares nothing with any name here but the directory it is in, and
+    // that is still better than the bottom of the section, where the section's
+    // *other* directories begin.
+    const out = generateIndex(doc, tree(["packages/render/src/sheen.ts"]));
+    expect(paths(out).at(-1)).toBe("packages/render/src/sheen.ts");
+    const out2 = generateIndex(doc, tree(["packages/render/test/frame.test.ts"]));
+    expect(paths(out2).at(-1)).toBe("packages/render/test/frame.test.ts");
   });
 });
 

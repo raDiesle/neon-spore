@@ -324,6 +324,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/queue.ts` | wave to spawn queue, seeded per wave |
 | `packages/content/src/shapes.ts` | contour maths, shared by canvas and SVG |
 | `packages/content/src/silhouettes.ts` | the style guide's tuned shape parameters |
+| `packages/content/src/silhouettes-clubbed.ts` | The one body whose contour is **walked** |
 | `packages/content/src/own-motion.ts` | how a body sways while going nowhere — the one copy of it |
 | `packages/content/src/long-axis.ts` | which way a body is long, and the quarter turn a motion written along one takes |
 | `packages/content/src/control-sets.ts` | a control set: the whole panel, both players at once, for one wave |
@@ -333,6 +334,8 @@ place — the generator keeps whatever is there.
 | `packages/content/src/light.ts` | where the light is — the one named direction every sheen, crater and glow reads against |
 | `packages/content/src/maze-rounds.ts` | THE MAZE's drum, copied wall for wall off the sheet the owner sent, and the five rounds played against it |
 | `packages/content/src/mechanics-table.ts` | the rows themselves, lifted out of `mechanics.ts` when that file crossed the 250-line limit |
+| `packages/content/src/mechanics-worn.ts` | a slick or a bulb wearing something that has to come off first — one sentence said six ways |
+| `packages/content/src/mechanics-bosses.ts` | the four bosses, and the line the warden throws — a rule change each, not a body |
 | `packages/content/src/mechanics.ts` | every mechanic the game has, so that something can be said about all of them at once |
 | `packages/content/src/motions.ts` | the motions themselves: one record per body that has one, and the pairing of a kind to its own |
 | `packages/content/src/ship-silhouettes.ts` | the ship's own shapes: the hull it is drawn as, the two lobes that stand on it, and the maw one turns into |
@@ -423,6 +426,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/waves/act-7b.ts` | The second half of act seven, cut off `act-7.ts` when THE COIL was split into two waves and that file reached… |
 | `packages/content/src/scenes/the-coil.ts` | THE COIL's rehearsal: the shield is stuck open, and the plate is what opens the dome |
 | `packages/content/src/keys-desk.ts` | **The desk keyboard is a panel too**, and this is where a key finds out what it means |
+| `packages/content/src/control-aim.ts` | Which way a control points, and which rig of keys answers it |
 | `packages/content/src/scenes/the-choir.ts` | THE CHOIR's rehearsal: the one gesture that is on no panel at all |
 | `packages/content/src/pulse-stages.ts` | THE PULSE's stages — the charts, and so far there is one of them |
 | `packages/content/src/pulse-steps.ts` | A chart, written as bars of text, and the reader that turns one into notes |
@@ -443,10 +447,6 @@ place — the generator keeps whatever is there.
 | `packages/content/src/motions-retired.ts` | The motions nothing in the game carries any more |
 | `packages/content/src/balloon-parts.ts` | **What is alive inside THE BALLOON**, and hanging under it: veins, a ring of lit beads |
 | `packages/content/src/surface.ts` | where a mark placed at a longitude and latitude lands, how the tangent plane foreshortens it, and its own normal against `KEY` |
-| `packages/content/src/control-aim.ts` | Which way a control points, and which rig of keys answers it |
-| `packages/content/src/mechanics-bosses.ts` | the four bosses, and the line the warden throws — a rule change each, not a body |
-| `packages/content/src/mechanics-worn.ts` | a slick or a bulb wearing something that has to come off first — one sentence said six ways |
-| `packages/content/src/silhouettes-clubbed.ts` | The one body whose contour is **walked** |
 
 ### packages/render
 
@@ -477,11 +477,13 @@ place — the generator keeps whatever is there.
 | `packages/render/src/torch-alarm.ts` | the role-aware banner and pulsing band a torch in the queue triggers |
 | `packages/render/src/bullets.ts` | shots and their tails |
 | `packages/render/src/effects.ts` | every transient the field keeps past its frame, and where each one is kept |
+| `packages/render/src/effects-frame.ts` | **What `Effects` does with a frame**, as opposed to what it owns |
 | `packages/render/src/sparks.ts` | the particles every impact spends, thrown out or drawn in |
 | `packages/render/src/balance.ts` | the screen after the run, drawn |
 | `packages/render/src/hud.ts` | hull, score, beat, the guard balance, overlays |
 | `packages/render/src/band.ts` | the two control strips, trigger and colours |
 | `packages/render/src/canvas2d.ts` | the renderer, orchestrating the above |
+| `packages/render/src/canvas2d-takeover.ts` | **The two frames that are not the field**, and the clocks that run whether or not one of them is up |
 | `packages/render/src/renderer.ts` | the interface a PixiJS version would implement |
 | `packages/render/src/arrivals.ts` | Which impacts have actually landed, as far as the picture is concerned |
 | `packages/render/src/assets.d.ts` | Bun's bundler emits an imported binary as a file and hands back its URL |
@@ -791,8 +793,6 @@ place — the generator keeps whatever is there.
 | `packages/render/src/beatbox-air.ts` | **The air a soundbox is moving**, which is the half of this creature that has no number in it at all |
 | `packages/render/src/hull-light.ts` | who lights the ship, as a record — the shipped `litBox` reached through a seam a second answer can be held against |
 | `packages/render/src/splash-trail.ts` | **Slime off the end of a mouse** — the ink a desk's pointer leaves, as blobs that swell, sag and add up |
-| `packages/render/src/canvas2d-takeover.ts` | **The two frames that are not the field**, and the clocks that run whether or not one of them is up |
-| `packages/render/src/effects-frame.ts` | **What `Effects` does with a frame**, as opposed to what it owns |
 | `packages/render/src/beatbox-count.ts` | **What the counter over a soundbox is saying**, as a shape rather than as a drawing — how many slots |
 
 ### packages/net
@@ -859,6 +859,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/loop.ts` | fixed timestep; the only place wall-clock time exists |
 | `apps/game/src/viewport.ts` | the window's size, and the stage and layout derived from it |
 | `apps/game/src/input.ts` | pointers and capture; what a touch *means* is `touch.ts` |
+| `apps/game/src/field-input.ts` | Everything a finger on the glass reaches: the field itself, a shake |
 | `apps/game/src/keys.ts` | commands from the keyboard — the test rig, not the game |
 | `apps/game/src/testing.ts` | pause, wave skip and the tuning sliders |
 | `apps/game/src/link.ts` | solo or two devices: the clock, the scheduler, beat zero |
@@ -919,7 +920,6 @@ place — the generator keeps whatever is there.
 | `apps/game/src/rounds.ts` | Every round that is not the field, bound to the canvas at once |
 | `apps/game/src/keys-crank.ts` | The desk key that turns THE CLAW's crank, which no key can do by itself |
 | `apps/game/src/trail.ts` | The surface the mouse's ink is drawn on, over every sheet, and nothing at all on a phone |
-| `apps/game/src/field-input.ts` | Everything a finger on the glass reaches: the field itself, a shake |
 
 ### apps/server
 
@@ -1232,6 +1232,8 @@ place — the generator keeps whatever is there.
 | `tools/versus/seed.ts` | One seeded random stream, so the only thing that can differ between the two sides of a VERSUS frame is the… |
 | `tools/versus/variant.ts` | VERSUS — the place a second answer to an existing shape can live |
 | `tools/index/drift.ts` | Whether a row in `docs/INDEX.md` still describes the file it names |
+| `tools/index/sentence.ts` | **The one line a row carries**, read off the file's own header comment and cut to something a table can hold |
+| `tools/index/place.ts` | where a new row goes: beside the rows whose names it shares a beginning with |
 | `tools/land/claims.ts` | Which of the branches a landing finds merged are really queue claims |
 | `tools/director/src/waves-acts.ts` | The act files, and the save that writes a wave list back across them |
 | `tools/hooks/after-sim-edit.ts` | Determinism is the one thing a reviewer cannot see by looking |

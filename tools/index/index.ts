@@ -22,6 +22,9 @@ export const GROUPS = [
   "tools",
 ] as const;
 
+import { fileBeside } from "./place.js";
+import { deriveHeaderSentence } from "./sentence.js";
+
 export interface Row {
   path: string;
   line: string;
@@ -72,65 +75,6 @@ export function parseRows(text: string): Row[] {
 }
 
 /** First sentence of a header comment, or the placeholder when there is none. */
-export function deriveHeaderSentence(source: string): string {
-  const block = /\/\*\*([\s\S]*?)\*\//.exec(source);
-  if (block) {
-    const lines = (block[1] ?? "")
-      .split("\n")
-      .map((l) =>
-        l
-          .trim()
-          .replace(/^\*\s?/, "")
-          .trim(),
-      )
-      .filter((l) => l.length > 0);
-    const raw = lines.join(" ").trim();
-    if (raw.length > 0) return truncateSentence(raw);
-  }
-  const lineComment = source.split("\n").find((l) => l.trim().startsWith("//"));
-  if (lineComment) {
-    const raw = lineComment
-      .trim()
-      .replace(/^\/\/\s?/, "")
-      .trim();
-    if (raw.length > 0) return truncateSentence(raw);
-  }
-  return "(no header comment — add one)";
-}
-
-const LIMIT = 110;
-
-function truncateSentence(raw: string): string {
-  const stopAt = raw.indexOf(". ");
-  let cut = stopAt === -1 ? raw : raw.slice(0, stopAt);
-  let elided = false;
-  if (cut.length > LIMIT) {
-    // A clause boundary reads as a finished thought; a bare word boundary does
-    // not, and says so with an ellipsis rather than stopping mid-sentence.
-    const head = cut.slice(0, LIMIT);
-    const clause = Math.max(
-      head.lastIndexOf(" — "),
-      head.lastIndexOf(", "),
-      head.lastIndexOf(": "),
-    );
-    if (clause > LIMIT / 3) {
-      cut = head.slice(0, clause);
-    } else {
-      const lastSpace = head.lastIndexOf(" ");
-      cut = head.slice(0, lastSpace === -1 ? LIMIT - 1 : lastSpace);
-      elided = true;
-    }
-  }
-  cut = cut.trim();
-  if (cut.endsWith(".")) cut = cut.slice(0, -1);
-  // A cut mid-emphasis leaves an unmatched "**" — drop it rather than ship broken markdown.
-  if ((cut.match(/\*\*/g)?.length ?? 0) % 2 === 1) {
-    cut = cut.replace(/\*\*[^*]*$/, "").trimEnd();
-  }
-  if (elided) cut = `${cut.replace(/[,;:—-]+$/, "").trimEnd()}…`;
-  return cut;
-}
-
 export function formatRow(path: string, text: string): string {
   return `| \`${path}\` | ${text} |`;
 }
@@ -223,10 +167,13 @@ export function generateIndex(currentText: string, tree: Tree): string {
     if (covered(path)) continue;
     const g = groupFor(path);
     if (!g) continue; // scope filter already restricts to packages/apps roots
-    byGroup.get(g)?.push({ path, line: formatRow(path, deriveHeaderSentence(tree.read(path))) });
+    fileBeside(byGroup.get(g) ?? [], {
+      path,
+      line: formatRow(path, deriveHeaderSentence(tree.read(path))),
+    });
   }
-  // Existing rows keep their hand-curated order; new rows (already alphabetical
-  // via the scope list) are appended after them within the same group.
+  // Existing rows keep their hand-curated order; a new row is filed beside its
+  // nearest sibling rather than appended (`fileBeside`).
 
   const sections: string[] = [];
   for (const g of GROUPS) {
