@@ -190,25 +190,6 @@ Whichever wins, `packages/render/test/wave-budget.test.ts`'s BULB QUEEN rows
 are the proof it changed nothing else, and `bun run frames . --wave 25 --at`
 takes the two pictures for the owner to choose between.
 
-## THE TORCH and THE DART have one look each and no second answer
-
-- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
-- **Taken:** 2026-09-09, claude/queue-the-torch-and-the-dart-have-one-look-each-and-no
-- **Files:** `packages/render/src/torch-look.ts`,
-  `packages/render/src/dart-look.ts`, `tools/versus/candidates/`,
-  `tools/director/src/versus-pose.ts`
-
-Open one VERSUS slot per body — `creature:torch` and `creature:dart` — with
-three candidates each beside what ships. What the owner asked for on 9
-September 2026 is that every enemy read as its own creature and as a solid
-thing: depth, interior shading, a light that says which way is up, and motion
-that looks grown rather than tweened. `.claude/skills/depth` has the projection
-to call rather than re-derive, and a look is assembled from the named parts in
-`tools/shape-sheet` rather than invented from nothing. Both bodies already have
-a `-look.ts` record to patch. Each slot needs a pose in `versus-pose.ts` in the
-same commit, and `bun test` refuses two open slots claiming one field, so run
-`bun run versus` first to see what is taken.
-
 ## THE WISP and THE VEIL have one look each and no second answer
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067

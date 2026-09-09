@@ -17,6 +17,9 @@ import { BULB_FILAMENT } from "./creature-bulb/filament/index.js";
 import { BULB_NUCLEUS } from "./creature-bulb/nucleus/index.js";
 import { BULB_SPORES } from "./creature-bulb/spores/index.js";
 import { BULB_VENT } from "./creature-bulb/vent/index.js";
+import { DART_BRAID } from "./creature-dart/braid/index.js";
+import { DART_SHOCK } from "./creature-dart/shock/index.js";
+import { DART_WAKE } from "./creature-dart/wake/index.js";
 import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
 import { SKIN_VEIL } from "./creature-skin/veil/index.js";
 import { SLICK_BLOOM } from "./creature-slick/bloom/index.js";
@@ -24,6 +27,9 @@ import { SLICK_GUT } from "./creature-slick/gut/index.js";
 import { SLICK_LATTICE } from "./creature-slick/lattice/index.js";
 import { SLICK_ROE } from "./creature-slick/roe/index.js";
 import { SLICK_SEDIMENT } from "./creature-slick/sediment/index.js";
+import { TORCH_CROWN } from "./creature-torch/crown/index.js";
+import { TORCH_HOLLOW } from "./creature-torch/hollow/index.js";
+import { TORCH_KILN } from "./creature-torch/kiln/index.js";
 import { EYE_GLAZE } from "./eye-iris/glaze/index.js";
 import { EYE_TURN } from "./eye-iris/turn/index.js";
 import { GHOST_LATITUDE } from "./ghost-tears/latitude/index.js";
@@ -59,6 +65,9 @@ export const VARIANTS: Variant[] = [
   BULB_NUCLEUS,
   BULB_SPORES,
   BULB_VENT,
+  DART_BRAID,
+  DART_SHOCK,
+  DART_WAKE,
   METEOR_FORGE,
   SKIN_VEIL,
   SLICK_BLOOM,
@@ -66,6 +75,9 @@ export const VARIANTS: Variant[] = [
   SLICK_LATTICE,
   SLICK_ROE,
   SLICK_SEDIMENT,
+  TORCH_CROWN,
+  TORCH_HOLLOW,
+  TORCH_KILN,
   EYE_GLAZE,
   EYE_TURN,
   GHOST_LATITUDE,

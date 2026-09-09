@@ -124,6 +124,12 @@ const SLOT_POSE: Record<string, string> = {
   // the field ever draws one, falling at the speed it ships at
   // (`poses-casing.ts`, `torch-veil.ts`).
   "torch:veil": "TORCH · THE FALL",
+  // And the whole creature on the same pose, opened on 9 September 2026. The
+  // veil slot argues about one pass over the stone's face; this one argues
+  // about the fire, and both want the one picture that answers *what does a
+  // burning rock look like falling* — one torch as big as the field ever draws
+  // one, at the speed it ships at (`poses-casing.ts`).
+  "creature:torch": "TORCH · THE FALL",
   // The first slot here that is not the field at all. Every pose above puts a
   // body, a control or a boss on the playing field; an interlude is a whole
   // screen of its own, and until `poses-rounds.ts` there was no pose that
