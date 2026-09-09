@@ -520,6 +520,7 @@ the one thing the panel look is not.
 ## THE SLICK is on more waves than anything else and has one look
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Taken:** 2026-09-09, claude/queue-the-slick-is-on-more-waves-than-anything-else-an
 - **Files:** `packages/render/src/creature-body.ts`,
   `packages/render/src/living-skin.ts`, `packages/render/src/effects-body.ts`,
   `packages/render/src/sparks.ts`, `tools/versus/candidates/`,
