@@ -274,6 +274,103 @@ describe("what stops it being a coin toss", () => {
   });
 });
 
+/**
+ * THE LAST RUNG: three throws, back to back, no guess in either of them.
+ *
+ * `docs/spec/bosses.md` 11.9 ends the ladder on a rung that is not a reading
+ * test at all — the pair finding out whether it can say three words in four
+ * seconds. What is worth asserting is the two things that make it one rung
+ * rather than three: the exchanges are *consecutive*, with no reveal between
+ * them, and the sentence is folded whole, so two right words and a wrong one
+ * is a lost rung and not two thirds of a climb.
+ */
+describe("a rung of three throws", () => {
+  const THREE: TellRung[] = [{ beats: 2, throws: 3 }];
+
+  it("opens the next tell on the beat the last window closed, with no scene between", () => {
+    const world = open(THREE);
+    until(world, "tell");
+    const seen: number[] = [];
+    // Two windows' worth of beats, answering nothing: each is a loss, and the
+    // phase has to still be `tell` at the end of the first two of them.
+    for (let i = 0; i < 2; i++) {
+      const at = round(world).at;
+      seen.push(at);
+      run(world, 2 * TPB + 1);
+      expect(round(world).phase, `after exchange ${at + 1}`).toBe("tell");
+      expect(round(world).at, "the next exchange opened").toBe(at + 1);
+    }
+    expect(seen).toEqual([0, 1]);
+    // And the third closes the rung rather than opening a fourth.
+    run(world, 2 * TPB + 1);
+    expect(round(world).phase).toBe("reveal");
+    expect(round(world).played).toHaveLength(3);
+  });
+
+  it("is climbed only by a pair that says all three words", () => {
+    const world = open(THREE);
+    until(world, "tell");
+    run(world, 3 * (2 * TPB + 1), beatIt);
+    const t = round(world);
+    expect(
+      t.played.map((e) => e.outcome),
+      "three wins",
+    ).toEqual([1, 1, 1]);
+    expect(t.passed || t.rung > 0, "the ladder moved").toBe(true);
+  });
+
+  it("loses the whole rung for one word missed", () => {
+    const world = open([...THREE, { beats: 3 }]);
+    until(world, "tell");
+    // The first two answered and the third left alone, driven off the round's
+    // own exchange index rather than off a tick count — a window closes on a
+    // beat boundary, so counting ticks would have the bot answering the third.
+    run(world, 3 * (2 * TPB + 2), (w) => (round(w).at < 2 ? beatIt(w) : []));
+    const t = round(world);
+    expect(t.played.map((e) => e.outcome)).toEqual([1, 1, 3]);
+    expect(t.rung, "back to the foot of the ladder").toBe(0);
+    expect(t.lost).toBe(1);
+  });
+
+  it("plays the three scenes in turn rather than one", () => {
+    const world = open(THREE);
+    until(world, "tell");
+    run(world, 3 * (2 * TPB + 1), beatIt);
+    expect(round(world).phase).toBe("reveal");
+    // The scalars render/ reads are the first exchange, then the second, then
+    // the third — one scene a reveal, walked by the clock.
+    const scenes: number[] = [];
+    for (let i = 0; i < 3; i++) {
+      scenes.push(round(world).at);
+      const was = round(world).at;
+      for (
+        let t = 0;
+        t < 4 * TPB && round(world).at === was && round(world).phase === "reveal";
+        t++
+      ) {
+        step(world, []);
+      }
+    }
+    expect(scenes).toEqual([0, 1, 2]);
+  });
+
+  it("refuses a rung that both feints and asks for three", () => {
+    expect(() => open([{ beats: 2, feint: true, throws: 3 }])).toThrow(/feint/);
+  });
+
+  it("puts every exchange into the fingerprint, not only the one on screen", () => {
+    const world = open(THREE);
+    until(world, "tell");
+    run(world, 2 * TPB + 1, beatIt);
+    const before = hashWorld(world);
+    const t = round(world);
+    const first = t.played[0];
+    if (first === undefined) throw new Error("no exchange played");
+    first.outcome = first.outcome === 1 ? 3 : 1;
+    expect(hashWorld(world), "an exchange nobody is looking at").not.toBe(before);
+  });
+});
+
 describe("the fingerprint", () => {
   it("notices the throw nobody can see yet", () => {
     const world = open();

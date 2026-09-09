@@ -111,6 +111,51 @@ export interface TellRung {
    * to the Rng, which is why this is per rung rather than a count.
    */
   answers?: boolean;
+  /**
+   * How many throws the rung asks for, back to back. One when it is absent,
+   * which is every rung but the last.
+   *
+   * **It is the one rung with no guess in it** (`docs/spec/bosses.md` 11.9):
+   * three throws, every one shown outright, no feint, and the pair finding out
+   * whether it can say three words in four seconds. The exchanges run
+   * *consecutively* — no reveal between them, the next tell opening on the
+   * beat the last window closed — which is what makes it a sentence rather
+   * than three rungs in a row; the reveal at the end plays all three in turn.
+   * A rung may not both take more than one throw and feint, and `installTell`
+   * refuses the pair: one asks the pair to hold its call a beat longer and the
+   * other to stop holding anything.
+   */
+  throws?: number;
+}
+
+/**
+ * One exchange, kept after it has been played.
+ *
+ * A rung of one has a list of one and nothing about the round changes; a rung
+ * of three has three, and the reveal steps through them. It is a record rather
+ * than a second copy of the state: the scalars on `TellState` below are
+ * whatever is *on screen* — the exchange being played, and then the exchange
+ * being revealed — and `revealScene` is the one place an entry here is copied
+ * into them, so render/ reads one exchange at a time and never learnt that a
+ * rung can hold more than one.
+ */
+export interface TellExchange {
+  /** What the boss threw, a `TELL_THROWS` index. */
+  bossThrow: number;
+  /** The colour it was wearing: 1 red, 2 cyan. */
+  bossColor: number;
+  /** What the ship threw, -1 for a fumble or for a window nobody answered. */
+  thrown: number;
+  /** The colour of that throw: 0 for a throw that is not a bolt, else 1 or 2. */
+  thrownColor: number;
+  /** Which seat's thumb it was, 0 for nobody. */
+  thrownBy: 0 | 1 | 2;
+  /** Both seats pressed inside the window, so the ship threw nothing. */
+  fumbled: boolean;
+  /** The tick the throw was locked on. */
+  thrownTick: number;
+  /** How it came out, a `TELL_OUTCOMES` index. */
+  outcome: number;
 }
 
 /** Everything THE TELL remembers between ticks. A `BossState` like the rest. */
@@ -131,6 +176,19 @@ export interface TellState {
   rung: number;
   /** How many rungs have been lost. The picture's only tally, and a cost. */
   lost: number;
+  /**
+   * Which exchange of the rung is on screen — the one being played while the
+   * phase is `tell`, and the one being revealed while it is `reveal`. Nought
+   * on every rung that asks for a single throw, which is every rung but the
+   * last (`TellRung.throws`).
+   */
+  at: number;
+  /**
+   * The exchanges of this rung that are already played, in order, cleared when
+   * a rung opens. One entry on an ordinary rung; three on the last one, and
+   * they are what the reveal steps through.
+   */
+  played: TellExchange[];
   /**
    * Beats knocked off this rung's window by stand-offs. It only ever grows
    * inside a rung and is cleared when a new one opens: a pair that keeps
@@ -168,6 +226,16 @@ export interface TellState {
    * with `answers` reads. A fumble leaves it alone: there is nothing to answer.
    */
   lastThrow: number;
+}
+
+/**
+ * How many throws a rung asks for. One unless it says otherwise, and it is a
+ * function rather than a `??` at each site for the reason every other rule in
+ * this round is: two readers spelling out the same default is how a rung comes
+ * to run three exchanges in the simulation and draw one on a screen.
+ */
+export function tellThrows(rung: TellRung): number {
+  return Math.max(1, rung.throws ?? 1);
 }
 
 /** The colour a `bossColor` or a `thrownColor` stands for, or null for none. */

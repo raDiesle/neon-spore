@@ -3,6 +3,7 @@ import {
   TELL_LEAD_BEATS,
   type TellState,
   tellCurrent,
+  tellThrows,
   tellWindow,
 } from "@neon-spore/sim";
 import { drawBand } from "./band.js";
@@ -102,7 +103,18 @@ export function drawTellRound(ctx: CanvasRenderingContext2D, l: Layout, view: Vi
   ctx.textAlign = "left";
 }
 
-/** The name, and how long this window is under it. */
+/**
+ * The name, and how long this window is under it.
+ *
+ * **The last rung says which throw of three it is on**, and that line is drawn
+ * nowhere else in the round because no rung before it has more than one. A
+ * pair asked for three words in a row has to know which word it is on: the
+ * window looks identical from the first to the third, and the count is the
+ * only thing on screen that says the sentence is not over. It replaces
+ * nothing — a rung of three had never been played until this commit — so it is
+ * paint that goes straight onto the field rather than a candidate
+ * (`CLAUDE.md`, the second exemption).
+ */
 function drawTitle(ctx: CanvasRenderingContext2D, l: Layout, boss: TellState): void {
   ctx.fillStyle = PALETTE.hull;
   ctx.font = '600 16px "Courier New",monospace';
@@ -111,7 +123,10 @@ function drawTitle(ctx: CanvasRenderingContext2D, l: Layout, boss: TellState): v
   ctx.fillStyle = PALETTE.dim;
   ctx.font = '13px "Courier New",monospace';
   const beats = tellWindow(tellCurrent(boss), boss.shorten);
-  ctx.fillText(`${beats} BEAT${beats === 1 ? "" : "S"}`, l.width / 2, l.playHeight * 0.105);
+  const of = tellThrows(tellCurrent(boss));
+  const window = `${beats} BEAT${beats === 1 ? "" : "S"}`;
+  const line = of > 1 ? `${window}  ·  ${boss.at + 1} OF ${of}` : window;
+  ctx.fillText(line, l.width / 2, l.playHeight * 0.105);
 }
 
 /**

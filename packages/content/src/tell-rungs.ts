@@ -30,9 +30,16 @@ import type { TellRung } from "@neon-spore/sim";
  *    is filling moves on the last beat. It shivers before it does, so a pair
  *    that has learnt the tell is not being punished for reading — they are
  *    being asked to hold their call one beat longer than is comfortable.
- * 5. **Two beats, feinting.** The same lie in half the room. There is no rung
- *    six: five is where a ladder stops being a climb and starts being a
- *    grind, and a lost rung already sends them back to rung one.
+ * 5. **Two beats, three throws, and no guess in it at all.** The ladder does
+ *    not end on a lie, it ends on a sentence: three exchanges back to back,
+ *    every one shown outright, no feint, and a two-beat window on each — about
+ *    four seconds for the three of them at the shipped tempo. Nothing about it
+ *    is a reading test. It is the pair finding out whether it can say three
+ *    words without talking over itself, and it is there because a ladder that
+ *    ends on a coin toss ends on somebody else's decision
+ *    (`docs/spec/bosses.md` 11.9). There is no rung six: five is where a
+ *    ladder stops being a climb and starts being a grind, and a lost rung
+ *    already sends them back to rung one.
  *
  * **A lost rung does not re-draw this list**, which is the reason a restart is
  * bearable: rungs one to three are the same windows in the same order, so a
@@ -44,7 +51,7 @@ export const TELL_RUNGS: TellRung[] = [
   { beats: 4, answers: true },
   { beats: 3, answers: true },
   { beats: 3, feint: true },
-  { beats: 2, feint: true },
+  { beats: 2, throws: 3 },
 ];
 
 /**

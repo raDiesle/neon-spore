@@ -1,4 +1,4 @@
-import { TELL_PHASES, type TellState } from "./tell.js";
+import { TELL_PHASES, type TellState, tellThrows } from "./tell.js";
 
 /**
  * What THE TELL puts into `hashWorld`, and nothing else.
@@ -34,6 +34,7 @@ export function tellHashParts(b: TellState): number[] {
     push(rung.beats);
     push(rung.feint === true ? 1 : 0);
     push(rung.answers === true ? 1 : 0);
+    push(tellThrows(rung));
   }
   push(b.rung);
   push(b.lost);
@@ -48,5 +49,23 @@ export function tellHashParts(b: TellState): number[] {
   push(b.thrownTick);
   push(b.outcome);
   push(b.lastThrow);
+  // **The exchanges already played are in, and the length before them.** On
+  // every rung but the last this is one entry that says again what the scalars
+  // above say; on a rung of three it is the only record that the first two
+  // throws happened at all, and two devices that disagreed about one of them
+  // would agree about everything on screen right up to the fold that decides
+  // the rung (`tell-ladder.ts`).
+  push(b.at);
+  push(b.played.length);
+  for (const e of b.played) {
+    push(e.bossThrow);
+    push(e.bossColor);
+    push(e.thrown);
+    push(e.thrownColor);
+    push(e.thrownBy);
+    push(e.fumbled ? 1 : 0);
+    push(e.thrownTick);
+    push(e.outcome);
+  }
   return parts;
 }

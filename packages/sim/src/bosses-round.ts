@@ -121,14 +121,17 @@ export {
   TELL_REVEAL_BEATS,
   TELL_THROWS,
   TELL_VERDICT_BEATS,
+  type TellExchange,
   type TellOutcome,
   type TellPhase,
   type TellRung,
   type TellState,
   type TellThrow,
   tellColor,
+  tellThrows,
 } from "./tell.js";
 
+export { tellRungOutcome } from "./tell-ladder.js";
 export { closeTell, tellHolds, tellRound } from "./tell-round.js";
 
 export {

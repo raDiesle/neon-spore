@@ -3,7 +3,7 @@ import { mirrorOpenRound } from "./mirror-round.js";
 import { pinballOpenRound } from "./pinball-round.js";
 import { pulseOpenStage } from "./pulse-round.js";
 import { snakeOpenRound } from "./snake-open.js";
-import { tellOpenRung } from "./tell-round.js";
+import { tellOpenRung } from "./tell-ladder.js";
 import type { World } from "./world.js";
 
 /**

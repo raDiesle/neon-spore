@@ -147,33 +147,6 @@ Why the short label is what fits today, and what each of the three costs.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
-## THE TELL's last rung was designed as three throws and ships as one
-
-- **Found:** 2026-09-08, claude/rock-paper-scissors-boss-sn9ful
-- **Taken:** 2026-09-09, claude/queue-the-tells-last-rung-was-designed-as-three-throws
-- **Files:** `packages/sim/src/tell.ts`, `packages/sim/src/tell-round.ts`,
-  `packages/content/src/tell-rungs.ts`, `packages/render/src/tell-body.ts`
-
-`docs/spec/bosses.md` 11.9 ends the ladder on a rung with **no guess in it at
-all**: three throws on three consecutive beats, every one of them shown
-outright, no feint. Nothing about it is a reading test — it is the pair finding
-out whether it can say three words in four seconds without talking over itself,
-and it is there because a ladder that ends on a coin toss ends on somebody
-else's decision.
-
-What shipped asks for one throw a rung. `TellRung` has `beats`, `feint` and
-`answers`, and the fifth rung is `{ beats: 2, feint: true }` — a hard rung, and
-the same kind of hard as the fourth.
-
-It is a second mode inside the round rather than a number, which is why it was
-left rather than half-built: a rung of three would need a list of boss throws
-instead of one `bossThrow`, a list of the ship's instead of one `thrown`, and a
-reveal that plays three scenes in a row rather than one. The seam is `openRung`
-and `reveal` in `tell-round.ts`, which already do exactly this once. Add
-`throws?: number` to `TellRung`, let the two `number` fields become the first
-entry of a fixed-length array when it is set, and the picture follows — the
-ring already draws one node lit at a time and would light them in turn.
-
 ## THE CLASP's bubble has no place a candidate look can live
 
 - **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7

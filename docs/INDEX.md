@@ -307,8 +307,9 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/crank.ts` | THE CLAW's crank: the arm is **wound** home by a finger going round, and a bearing becomes rope |
 | `packages/sim/src/config-tell.ts` | THE TELL's numbers, which are two: what a lost rung costs and what running the ladder's clock out costs… |
 | `packages/sim/src/tell-hash.ts` | What THE TELL puts into `hashWorld`, and nothing else |
-| `packages/sim/src/tell-round.ts` | THE TELL's clock: the lead-in, the ladder, and the two ways the hull pays |
+| `packages/sim/src/tell-round.ts` | THE TELL's clock: the lead-in, the phases, and whose press counts |
 | `packages/sim/src/tell-rules.ts` | The ring, and who wins an exchange |
+| `packages/sim/src/tell-ladder.ts` | WHAT AN EXCHANGE DOES TO THE LADDER — the rung, the throws inside it, and the two ways the hull pays |
 | `packages/sim/src/tell.ts` | THE TELL: rock, paper, scissors against a boss that shows you its hand |
 | `packages/sim/src/bosses-round.ts` | The rounds, as their half of the boss barrel |
 | `packages/sim/src/config-rounds.ts` | The rounds' numbers, as one block of `SimConfig` |

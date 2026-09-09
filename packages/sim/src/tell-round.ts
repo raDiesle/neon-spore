@@ -1,27 +1,22 @@
-import { midCol } from "./config.js";
-import { breachHull } from "./hull.js";
 import {
   TELL_LEAD_BEATS,
   TELL_REVEAL_BEATS,
   TELL_VERDICT_BEATS,
-  type TellPhase,
   type TellRung,
   type TellState,
+  tellThrows,
 } from "./tell.js";
-import {
-  tellCurrent,
-  tellIndex,
-  tellPick,
-  tellPickColor,
-  tellResolve,
-  tellShivers,
-  tellWindow,
-} from "./tell-rules.js";
+import { enterPhase, tellOpenRung, tellReveal, tellShowExchange } from "./tell-ladder.js";
+import { tellCurrent, tellIndex, tellShivers, tellWindow } from "./tell-rules.js";
 import type { Color, Command } from "./types.js";
 import type { World } from "./world.js";
 
 /**
- * THE TELL's clock: the lead-in, the ladder, and the two ways the hull pays.
+ * THE TELL's clock: the lead-in, the phases, and whose press counts.
+ *
+ * What an exchange *does* — the ring folded into an outcome, the rung moved,
+ * the hull charged — is `tell-ladder.ts`, cut out of here when the last rung
+ * became three throws and took this file over its 250-line limit.
  *
  * The fifth round, built the way the first four are — a round that is not the
  * field is a **boss wave**, so a wave names `boss: { kind: "tell", … }`,
@@ -56,6 +51,15 @@ export function installTell(world: World, rungs: readonly TellRung[], beats: num
   // A wave that carries this boss and authors nothing is a ladder with no
   // rungs — SNAKE's objection, and it is worth the same throw.
   if (rungs.length === 0) throw new Error("a tell wave with no rungs is not a round");
+  // A rung may ask the pair to hold its call one beat longer, or it may ask
+  // them to stop holding anything and say three words in a row. It may not ask
+  // both, and a wave that authors both is a rung nobody designed
+  // (`TellRung.throws`, `docs/spec/bosses.md` 11.9).
+  for (const rung of rungs) {
+    if (rung.feint === true && tellThrows(rung) > 1) {
+      throw new Error("a tell rung cannot both feint and take more than one throw");
+    }
+  }
   const state: TellState = {
     kind: "tell",
     phase: "lead",
@@ -66,6 +70,8 @@ export function installTell(world: World, rungs: readonly TellRung[], beats: num
     rungs: rungs.map((r) => ({ ...r })),
     rung: 0,
     lost: 0,
+    at: 0,
+    played: [],
     shorten: 0,
     bossThrow: 0,
     bossShown: 0,
@@ -88,7 +94,7 @@ export function stepTellRound(world: World): void {
   const since = world.beat - state.phaseBeat;
 
   if (state.phase === "lead") {
-    if (since >= TELL_LEAD_BEATS) openRung(world, state, 0);
+    if (since >= TELL_LEAD_BEATS) tellOpenRung(world, state, 0);
     return;
   }
   // Over, and only being looked at — THE GAUGE's spent phase, same reason.
@@ -98,7 +104,17 @@ export function stepTellRound(world: World): void {
     return;
   }
   if (state.phase === "reveal") {
-    if (since >= TELL_REVEAL_BEATS) openRung(world, state, state.rung);
+    if (since < TELL_REVEAL_BEATS) return;
+    // A rung of three has three scenes, and they play in turn — the ring
+    // lights one node at a time and this is what walks it along
+    // (`tell-ladder.ts`). A rung of one has one, and this is the same line it
+    // has always run.
+    if (state.at + 1 < state.played.length) {
+      tellShowExchange(state, state.at + 1);
+      enterPhase(state, "reveal", world.beat);
+      return;
+    }
+    tellOpenRung(world, state, state.rung);
     return;
   }
   // The window. A feinting boss changes its mind on its last beat, and it has
@@ -106,85 +122,7 @@ export function stepTellRound(world: World): void {
   // and the pair that called on the first beat is already committed.
   const windowBeats = tellWindow(tellCurrent(state), state.shorten);
   if (since === tellShivers(windowBeats)) state.bossShown = state.bossThrow;
-  if (since >= windowBeats) reveal(world, state);
-}
-
-/**
- * The window ran out: the boss shows its hand, the ship shows what it threw,
- * and the ladder moves.
- *
- * Both nodes light on the same beat, which is the owner's rule about the
- * reveal being simultaneous. What the picture makes of the outcome is
- * `render/tell-scene.ts`; nothing about the scene is decided here.
- */
-function reveal(world: World, state: TellState): void {
-  const thrown = state.fumbled ? -1 : state.thrown;
-  state.outcome = tellResolve(thrown, state.thrownColor, state.bossThrow, state.bossColor);
-  state.bossShown = state.bossThrow;
-  if (state.outcome === 1) {
-    // Won. The rung is behind them, and what they threw is what the next
-    // answering rung will have to beat. The shortening a stand-off earned goes
-    // with the rung that earned it: a pair does not carry a punishment up a
-    // rung they got right.
-    state.lastThrow = thrown;
-    state.shorten = 0;
-    state.rung += 1;
-    if (state.rung >= state.rungs.length) {
-      state.passed = true;
-      enterPhase(state, "verdict", world.beat);
-      return;
-    }
-  } else if (state.outcome === 2) {
-    // A stand-off. The rung stands and the next window is one beat shorter,
-    // so mirroring the boss is survivable twice and not three times.
-    state.lastThrow = thrown;
-    state.shorten += 1;
-  } else {
-    // Lost. Back to the foot of the ladder, and the hull pays for it — but the
-    // ladder itself is not re-drawn, so the rungs they already know are the
-    // fifteen seconds they take to come back (`docs/spec/bosses.md` 11.9).
-    state.lost += 1;
-    state.rung = 0;
-    state.shorten = 0;
-    state.lastThrow = -1;
-    breachHull(world, midCol(world.cfg), "meteorFastest", 0, world.cfg.damageTellRepeat);
-  }
-  enterPhase(state, "reveal", world.beat);
-}
-
-/**
- * Open a numbered rung: the boss picks, the ship's throw is cleared, the
- * window starts.
- *
- * The one way in, so the round's own progress and a caller jumping to a rung
- * cannot disagree about what a rung is — `setBossRound`'s whole point
- * (`boss-round.ts`).
- */
-export function tellOpenRung(world: World, state: TellState, rung: number): void {
-  openRung(world, state, rung);
-}
-
-function openRung(world: World, state: TellState, rung: number): void {
-  // The ladder's own clock, checked here and nowhere else: the round ends
-  // *between* rungs, so a scene is never cut off half-drawn.
-  if (world.beat - state.openBeat >= state.beats) {
-    state.passed = false;
-    breachHull(world, midCol(world.cfg), "meteorFastest", 0, world.cfg.damageTell);
-    enterPhase(state, "verdict", world.beat);
-    return;
-  }
-  state.rung = Math.max(0, Math.min(state.rungs.length - 1, rung));
-  const picked = tellPick(world.rng, tellCurrent(state), state.lastThrow);
-  state.bossThrow = picked.real;
-  state.bossShown = picked.shown;
-  state.bossColor = tellPickColor(world.rng);
-  state.thrown = -1;
-  state.thrownColor = 0;
-  state.thrownBy = 0;
-  state.fumbled = false;
-  state.thrownTick = -1;
-  state.outcome = 0;
-  enterPhase(state, "tell", world.beat);
+  if (since >= windowBeats) tellReveal(world, state);
 }
 
 /**
@@ -240,9 +178,4 @@ function throwOf(player: 1 | 2, command: Command): { at: number; color: number }
     return { at: tellIndex("bolt"), color: color === "red" ? 1 : 2 };
   }
   return null;
-}
-
-export function enterPhase(state: TellState, phase: TellPhase, beat: number): void {
-  state.phase = phase;
-  state.phaseBeat = beat;
 }

@@ -154,6 +154,7 @@ export {
   tellRound,
   tellShivers,
   tellThrowAt,
+  tellThrows,
   tellWindow,
   VANE_CYCLE,
   VANE_CYCLE_BEATS,
