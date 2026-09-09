@@ -280,6 +280,7 @@ pair.
 ## `bun run perf` measures every boss round at its lead-in and never at its song
 
 - **Found:** 2026-09-08, claude/pulse-boss-tuning-1af6df
+- **Taken:** 2026-09-09, claude/queue-bun-run-perf-measures-every-boss-round-at-its-le
 - **Files:** `tools/perf/measure.ts`, `tools/perf/sweep-timing.ts`, `tools/perf/test/`
 
 `measure.ts` steps a wave to its **busiest tick**, and it decides which one that
