@@ -339,6 +339,7 @@ putting it back.
 ## The relay room test fails under a full `bun test` and passes on its own
 
 - **Found:** 2026-09-07, claude/versus-creature-strand-updates-efa043
+- **Taken:** 2026-09-09, claude/queue-the-relay-room-test-fails-under-a-full-bun-test
 - **Files:** `apps/server/test/room.test.ts`
 
 `a room relays and answers > a ping comes back as a pong carrying both server
