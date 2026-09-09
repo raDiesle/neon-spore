@@ -42,7 +42,20 @@ A vote writes nothing. It builds this text, puts it on the clipboard, and
 renders it into a selected textarea so it can be read before it is pasted. The
 session that receives it adopts the winner and deletes the loser.
 
-This is the literal text `ADOPT bulb-deep` puts on the clipboard for slot `creature:bulb`, with `bulb-fine` as the loser and the reason typed into the field before pressing. Every value in it was read out of the tree today: BULB is `lobes: 9, depth: 0.1, wobble: 0.055`, and `SWAY_PUMP.poseAt` is `sin(t * 1.9)` / `sin(t * 3.1)` with `dx: swing * 0.17`.
+This is the literal text `ADOPT bulb-deep` put on the clipboard for slot
+`creature:bulb` on 27 August 2026, with `bulb-fine` as the loser and the reason
+typed into the field before pressing.
+
+**Read it for the shape and never for a number.** It is a transcript of one
+vote, and every value in it is a photograph of what `silhouettes.ts` and the
+bulb's own-motion said on that day — several of them were already wrong within
+a fortnight, and `SWAY_PUMP` is re-exported from `motions-retired.ts` now. That
+is not a defect in the transcript: **the mechanism stores no value at all.**
+`tools/versus/variant.ts` reads `currentValues` off the live record at the
+moment the button is pressed, which is exactly why a real emitted prompt is
+always current and why this frozen one is allowed not to be. The tree is the
+only place a number may be read from, and step 0 below is what a stale prompt
+runs into.
 
 ---
 
@@ -212,7 +225,7 @@ Bias the first slots to what is on screen in every frame of every wave and needs
 
 **1. `ship:hull-skin` — `OWN_SKIN` in `packages/render/src/hull.ts`.** Four body stops, a rim, an edge and a muzzle colour, and that is the whole of a ship's appearance: the file's own comment says everything else about a hull — contour, lobes, sheen, how damage hangs off it — is the same for every ship there will ever be. It is the player's own ship, at the bottom of the field, in every frame they ever see, and `MIRROR_SKIN` sitting directly beneath it already proves a whole reskin is a pure record swap with no branch anywhere. Zero lift, highest look-count, and it is the fixture lane 1 is written against, so it is also the first vote by construction.
 
-**2. `creature:bulb` and `creature:slick`, one slot each.** `BULB` (`lobes: 9, depth: 0.1, wobble: 0.055`) and `SLICK` (`lobes: 2, depth: 0.38, wobble: 0.02`) in `silhouettes.ts`, each patched together with its own-motion — `SWAY_PUMP` and `TILT_RIPPLE` in `own-motion.ts`. These are the two bodies a player reads on the field, at 26 px, while somebody is talking at them, and `own-motion.ts`'s own docstring makes the case better than I can: two blobs with the same lobes read as different creatures because one swings and the other shivers, and at that size that difference is most of what a player has. Both are pure record patches with no lift. The timing constraint that used to sit on them — a lane owning `own-motion.ts` — is discharged: the rewrite onto beats has landed, and `motions.ts` carries both records beat-counted.
+**2. `creature:bulb` and `creature:slick`, one slot each.** `BULB` and `SLICK` in `silhouettes.ts` — a lobe count, a lobe depth and a wobble each, and the records themselves say what those are today — patched together with its own-motion — `SWAY_PUMP` and `TILT_RIPPLE` in `own-motion.ts`. These are the two bodies a player reads on the field, at 26 px, while somebody is talking at them, and `own-motion.ts`'s own docstring makes the case better than I can: two blobs with the same lobes read as different creatures because one swings and the other shivers, and at that size that difference is most of what a player has. Both are pure record patches with no lift. The timing constraint that used to sit on them — a lane owning `own-motion.ts` — is discharged: the rewrite onto beats has landed, and `motions.ts` carries both records beat-counted.
 
 **3. `palette:ammo-pair` — `PALETTE.red` / `redRim` / `redDark` and `cyan` / `cyanRim` / `cyanDark`.** Six tokens, one slot, because red and cyan are a pair: they are the two ammunition colours, every creature wears one, every button is one, every spark is one, and a vote on cyan alone is a vote on a thing nobody sees alone. No lift; the only cost is a cast in `apply()` because `PALETTE` is `as const`.
 
