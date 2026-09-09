@@ -9,6 +9,18 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · cb5ac49a — THE SHELL's plating gets a seam and a slab beside it
+
+`drawPlate` cuts the body's contour in half, fills it in one flat grey, strokes a hard rim and lights three splits with the colour underneath. It is a good picture of the rule — armour over a body, opening where it cracks — and it is the one hard surface left in the game with no highlight, no bevel and no thickness at all, sitting directly over a body that has both. `warden:plates` / `bevel` asked this on a boss and the owner took it into the game on 9 September 2026; this is the same question on a body a tenth the size.
+
+## 2026-09-09 · 4c1e9267 — THE CLASP draws the shell, and always has
+
+The queue asked why the honeycomb had no place a candidate could live, and its premise was that `drawClaspShield`'s first branch draws the hand-painted strip on every phone, leaving the procedural floor visible only when the raster fails. It is the other way round.
+
+## 2026-09-09 · aa7aa638 — THE TELL's ladder ends on three throws
+
+`docs/spec/bosses.md` 11.9 ends the ladder on a rung with no guess in it at all — three throws, every one shown outright, no feint, the pair finding out whether it can say three words in four seconds. What shipped was `{ beats: 2, feint: true }`: a hard rung, and the same kind of hard as the fourth. A ladder that ends on a coin toss ends on somebody else's decision, which is the whole reason the spec put a sentence at the top of it.
+
 ## 2026-09-09 · 5bca37b9 — The party-games study gets its five pictures
 
 The page was written in a cloud session whose network policy refused every host its screenshots live on, so each row carried a link to the wiki page holding the picture rather than the picture. Writing an `![…](…)` from memory would have put nine unchecked URLs in a public file, which is why it was left.
