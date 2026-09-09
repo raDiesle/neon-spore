@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · f30a3aca — A soundbox goes blue on the beat, and its counter says which of four things happened
+
+Five reports, all about the same thing: the box was telling the pair what had happened and not what to do next.
+
 ## 2026-09-09 · b44b067a — The director's field takes the mouse's ink too
 
 The trail shipped bound to `apps/game/src/main.ts`, and the director never sees that file: it renders the field itself into `#stage` and imports no application, so the ink existed on the game and nowhere a wave is actually authored. The picture was never the missing half — `SplashTrail` is in `packages/render`, which a tool may have. Only the wiring was.
