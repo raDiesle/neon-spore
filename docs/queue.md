@@ -193,6 +193,7 @@ takes the two pictures for the owner to choose between.
 ## THE VEER, THE STRAND and THE CRAWLER teach with words and no rehearsal
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Taken:** 2026-09-09, claude/queue-the-veer-the-strand-and-the-crawler-teach-with-w
 - **Files:** `packages/content/src/waves/act-6.ts`,
   `packages/content/src/scenes.ts`, `packages/content/src/scenes/`
 
