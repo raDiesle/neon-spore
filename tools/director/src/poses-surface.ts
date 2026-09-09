@@ -1,5 +1,5 @@
 import { DEFAULT_CONFIG, type SpawnEntry } from "@neon-spore/sim";
-import { fresh, type Pose, type PoseGroup, run, POSE_TPB as TPB } from "./pose-kit.js";
+import { firstOfKind, fresh, type Pose, type PoseGroup, run, POSE_TPB as TPB } from "./pose-kit.js";
 
 /**
  * The states a candidate for a **surface** is judged on.
@@ -22,15 +22,15 @@ import { fresh, type Pose, type PoseGroup, run, POSE_TPB as TPB } from "./pose-k
  * precisely what a two-second window cuts off. So a pose here is held for as
  * long as its body is on the field and replayed when it leaves.
  *
- * **And that is why neither of them is cropped to a tile.** A crop is worked
- * out once, from the world as it is handed over (`pose-art.ts`'s `cropRect`),
- * and these bodies then fall for nine seconds — so a tile window centred on
- * where one started is a window the body drops straight out of, and the page
- * shows an empty lane for eight of its ten seconds. Both of these were written
- * with `crop: "tile"` first and both had to be widened. The whole field keeps
- * the body on screen for its whole fall at exactly the size a thumb meets it
- * at, and the controls bar's own 2× is the magnifier for anybody who wants
- * one. `docs/queue.md` carries the entry for making a tile crop follow.
+ * **Both are cropped to a tile, and the tile follows.** A crop used to be
+ * worked out once, from the world as it was handed over, which was right only
+ * for a pose replayed every two seconds — a body falls a third of a tile in
+ * that time. These fall for nine seconds, so both were written with
+ * `crop: "tile"`, both showed an empty lane for eight of their ten seconds,
+ * and both had to be widened to the whole field. `versus-crop.ts`'s
+ * `CropWindow` re-derives the rectangle from the world each frame is drawn
+ * from, so they are back on a tile: the magnification a surface is judged at,
+ * held on the body for the whole fall.
  */
 
 const COL = 5;
@@ -69,7 +69,12 @@ const CHOIR_POSE: Pose = {
   note: "A membrane falling in one lane with no gesture made at it. Two grey bodies inside one traced skin, drifting about each other and turning slowly — the state this creature spends nearly all its life in, and the one in which neither trigger answers it.",
   lookAt:
     "the inside of the membrane — whether the two voices read as bodies or as a dent in one outline",
-  crop: "field",
+  crop: "tile",
+  at: firstOfKind("choir"),
+  // Wider than the default 3.4: a membrane is judged on what is happening
+  // *inside* one skin, and a window fitted to the outline leaves the eye no
+  // margin to read a bulge against.
+  span: 4.5,
   cadenceSeconds: fallSeconds(),
   build: () => {
     const entry: SpawnEntry = { beat: 0, col: COL, kind: "choir", color: "cyan" };
@@ -102,7 +107,8 @@ const THROB_POSE: Pose = {
   name: "THROB · TURNING",
   note: "One throb falling in a lane with nothing else on the field. Half of it is one ammunition colour and half the other, and it turns clockwise the whole way down — which half is pointing at the cannon is what a shot meets, so the seam between them is the readout the pair fires against.",
   lookAt: "the cut between the two colours as the body turns — how wide it gets, and how often",
-  crop: "field",
+  crop: "tile",
+  at: firstOfKind("throb"),
   cadenceSeconds: fallSeconds(),
   build: () => {
     // A colour is authored, because half of a throb is the colour it arrived

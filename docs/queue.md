@@ -365,35 +365,6 @@ a round to a fixed fraction of its own length, which is one number and wrong for
 none of them. Take a fresh baseline with `bun run perf --save` afterwards, since
 every round's row moves.
 
-## A VERSUS pose cropped to a tile drifts off the body it is about
-
-- **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7
-- **Taken:** 2026-09-09, claude/queue-a-versus-pose-cropped-to-a-tile-drifts-off-the-b
-- **Files:** `tools/director/src/pose-art.ts`, `tools/director/src/versus-pair.ts`,
-  `tools/director/src/poses-surface.ts`
-
-`cropRect` is computed once, from the world as the pose hands it over, and the
-pair then steps that world for as long as the pose's `cadenceSeconds` allows.
-For every pose written before this lane that was fine: they all replay every two
-seconds, and a body falls a third of a tile in two seconds. A **surface** slot
-cannot use that rhythm — a body turning needs longer than two seconds to finish
-turning, and the reveal a placed surface exists for is exactly what a
-two-second window cuts off — so `CHOIR · TWO VOICES` and `THROB · TURNING` run
-for a whole fall, and a tile crop centred on where the body started is a window
-the body drops straight out of. Both were written with `crop: "tile"` and
-`at: firstOfKind(…)`, both showed an empty lane for eight of their ten seconds,
-and both had to be widened to `crop: "field"` — which is honest but costs the
-magnification a tile crop is *for*.
-
-What to do: let the crop follow. `versus-pair.ts` already calls `fitCrop` on
-every zoom change, and `Pose.at` is already a function of the world, so
-re-deriving the rectangle per frame when a pose carries `at` is a few lines in
-the paint loop rather than a new mechanism. The one thing to be careful of is
-that both sides must take the identical rectangle from the identical world, or
-the pair stops being an A/B. Prove it with a test that steps a `crop: "tile"`
-pose a whole fall and asserts the body's centre stays inside the rectangle,
-then put `CHOIR · TWO VOICES` and `THROB · TURNING` back on a tile crop.
-
 ## A VERSUS candidate can be too small to see, and nothing says so
 
 - **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7

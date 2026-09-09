@@ -2,10 +2,9 @@ import type { ViewRole, ViewState } from "@neon-spore/render";
 import { beatPhase, type SimEvent, step, type World } from "@neon-spore/sim";
 import { seedRandom } from "../../versus/seed.js";
 import { type Applied, apply, restore, type Variant } from "../../versus/variant.js";
-import { poseCropRect } from "./pose-art.js";
 import { cadenceElapsed, type Pose } from "./pose-kit.js";
 import { runStageLoop } from "./stage-loop.js";
-import { type CropSide, fitCrop, makeCropSide } from "./versus-crop.js";
+import { type CropSide, CropWindow, makeCropSide } from "./versus-crop.js";
 import { hashCanvas } from "./versus-hash.js";
 import { Freeze } from "./versus-pair-freeze.js";
 
@@ -102,8 +101,9 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
   let world = pose.build();
   // Both sides stay whole phones; only what is *shown* of them is cut. The
   // rectangle is the pose's own — `crop: "band"` on a slot decided on two
-  // buttons, so a reader is not handed 670 px of empty field above them.
-  const crop = poseCropRect(pose, world, role, { ...PAIR_PHONE, dpr: 1 });
+  // buttons, so a reader is not handed 670 px of empty field above them — and
+  // a tile crop follows the body it is centred on (`versus-crop.ts`).
+  const crop = new CropWindow([left, right], PAIR_PHONE, pose, role, world);
   let running = true;
   const freeze = new Freeze(opts.freezeSeconds, world.cfg.tickHz);
   let rate = 1;
@@ -154,6 +154,8 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
 
   const paint = (dt: number): void => {
     view.world = world;
+    // The window before the frame, off the same world both sides are drawn from.
+    crop.follow(world);
     view.beatPhase = beatPhase(world.cfg, world.tick);
     view.time = clock;
     view.dt = dt;
@@ -216,9 +218,6 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
     },
   });
 
-  const zoom = (n: number): void => fitCrop([left, right], PAIR_PHONE, crop, n);
-  zoom(1);
-
   return {
     left: left.frame,
     right: right.frame,
@@ -228,7 +227,7 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
     setRate(next) {
       rate = next;
     },
-    setZoom: zoom,
+    setZoom: (n) => crop.setZoom(n),
     setBlink(on) {
       blink = on;
       blinkAt = 0;

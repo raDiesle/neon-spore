@@ -1,4 +1,7 @@
-import { Canvas2DRenderer } from "@neon-spore/render";
+import { Canvas2DRenderer, type ViewRole } from "@neon-spore/render";
+import type { World } from "@neon-spore/sim";
+import { poseCropRect } from "./pose-art.js";
+import type { Pose } from "./pose-kit.js";
 
 /**
  * One side of a VERSUS pair: a whole phone, drawn, shown through the window
@@ -62,5 +65,71 @@ export function fitCrop(
     side.canvas.style.top = `${-crop.y * n}px`;
     side.frame.style.width = `${crop.w * n}px`;
     side.frame.style.height = `${crop.h * n}px`;
+  }
+}
+
+/**
+ * The window both sides are shown through, kept on the body it is about.
+ *
+ * `fitCrop` above is a single application of one rectangle; this owns the
+ * rectangle over time. A crop was worked out once, from the world as the pose
+ * handed it over, and that was right for as long as every pose replayed every
+ * two seconds — a body falls a third of a tile in two seconds, so the window
+ * it started in is the window it is still in. A pose held for a whole fall is
+ * not: `CHOIR · TWO VOICES` and `THROB · TURNING` run for nine seconds, and a
+ * tile crop centred on where the body started is a window the body drops
+ * straight out of. Both had to be widened to the whole field, which is honest
+ * and costs exactly the magnification a tile crop is for.
+ *
+ * So the rectangle is re-derived from the world both sides are about to be
+ * drawn from. **Once, and handed to both** — the pair's one claim is that the
+ * two sides differ only by the patch, and two rectangles worked out separately
+ * would be a second thing that could disagree.
+ *
+ * Only a `tile` crop moves. The band, the field, the ship and the whole phone
+ * are named parts of a layout that does not change while a pose runs, so
+ * asking for them again every frame would be arithmetic with a known answer.
+ */
+export class CropWindow {
+  private rect: Rect;
+  private zoom = 1;
+
+  constructor(
+    private readonly sides: readonly CropSide[],
+    private readonly phone: { width: number; height: number },
+    private readonly pose: Pose,
+    private readonly role: ViewRole,
+    world: World,
+  ) {
+    this.rect = this.rectFor(world);
+    this.fit();
+  }
+
+  private rectFor(world: World): Rect {
+    return poseCropRect(this.pose, world, this.role, { ...this.phone, dpr: 1 });
+  }
+
+  /** The rectangle as it stands — what a test asks whether a body is inside. */
+  get window(): Rect {
+    return { ...this.rect };
+  }
+
+  /** Re-derive from the world of the frame about to be drawn. */
+  follow(world: World): void {
+    if (this.pose.crop !== "tile" || !this.pose.at) return;
+    const next = this.rectFor(world);
+    if (next.x === this.rect.x && next.y === this.rect.y) return;
+    this.rect = next;
+    this.fit();
+  }
+
+  /** CSS pixels per phone pixel: 1 is true size, 2 is the magnifier. */
+  setZoom(n: number): void {
+    this.zoom = n;
+    this.fit();
+  }
+
+  private fit(): void {
+    fitCrop(this.sides, this.phone, this.rect, this.zoom);
   }
 }
