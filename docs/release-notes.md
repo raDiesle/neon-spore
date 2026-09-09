@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · e5015cf0 — A contour candidate is measured before the vote, not after it
+
+A candidate for a creature's outline is a set of fields held over a shipped record for the length of one `draw()`, so the two questions this project insists on about a silhouette could not be asked of one: does it survive its own drawn size, and is it still its own word beside its neighbours. Both are the cheap disqualifiers, and the vote is the expensive step they exist to save — so being unable to ask them until after the vote was precisely backwards.
+
 ## 2026-09-09 · d0620cb3 — A spec section keeps the sub-headings inside it
 
 `sectionNamed` broke out of a section on any line opening with two hashes, which is every `###` as well as the next `##`. Every caller it had read a section of prose, tables and lists, so nothing was wrong until `## 10.5 In plain words` arrived, whose entries are all `###`: that section came back as the two or three lines before the first one, silently and with no error to notice. The boundary is `/^##(?!#)/` now.
