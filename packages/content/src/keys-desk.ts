@@ -1,5 +1,5 @@
 import type { PulseLane } from "@neon-spore/sim";
-import { controlPress } from "./control-command.js";
+import { aimOf, onArrows, onSeatWays, type Way } from "./control-aim.js";
 import { type ControlSet, layoutSet, setControls } from "./control-sets.js";
 import type { ControlId } from "./controls.js";
 
@@ -96,10 +96,6 @@ const SEAT_WAYS: Record<1 | 2, Record<PulseLane, string>> = {
   2: { slick: "ArrowLeft", bulb: "ArrowDown", meteor: "ArrowUp", pod: "ArrowRight" },
 };
 
-/** A direction a control names, or `"column"` for a strip, which names none. */
-type Way = "left" | "right" | "up" | "down";
-type Aim = Way | PulseLane | "column" | null;
-
 /** The four-way, for whichever seat's panel carries one — a chart's sights,
  * a snake's two turns. Never a seat's own: only one panel at a time has it. */
 const ARROWS: Record<Way, string> = {
@@ -108,59 +104,6 @@ const ARROWS: Record<Way, string> = {
   up: "ArrowUp",
   down: "ArrowDown",
 };
-
-/**
- * Which way a control points, read off what pressing it *says* rather than
- * declared beside it.
- *
- * A second table of directions here would be a copy of `controlPress`, and the
- * pair would drift the first time a round turned its needle the other way —
- * the drift `purity.test.ts` keeps a table against. `null` is a control that
- * points nowhere and belongs in its seat's press row.
- */
-function aimOf(id: ControlId): Aim {
-  const { down } = controlPress(id);
-  switch (down.kind) {
-    case "cannonCol":
-    case "shieldCol":
-      return "column";
-    case "slide":
-    case "valve":
-      return down.dir < 0 ? "left" : "right";
-    case "snakeTurn":
-      return down.dir;
-    case "pulseStep":
-      return down.lane;
-    case "aim":
-      if (down.dcol !== 0) return down.dcol < 0 ? "left" : "right";
-      if (down.drow !== 0) return down.drow < 0 ? "up" : "down";
-      return null;
-    default:
-      return null;
-  }
-}
-
-/**
- * Whether this control is one of the four-way's — a *step* across a chart or a
- * quarter turn — rather than a thing that slides along the hull.
- *
- * The two are told apart by whether the panel is the field's at all: a strip
- * and a held valve move something that is *on the ship*, which is what the
- * seat's own sideways pair is under the hand for, and an `aim` or a
- * `snakeTurn` walks something out on the field, which is what the arrows have
- * always been.
- */
-function onArrows(id: ControlId): boolean {
-  const { kind } = controlPress(id).down;
-  return kind === "aim" || kind === "snakeTurn";
-}
-
-/** Whether this control is one of a seat's *own* four-way — THE PULSE's lanes,
- * which both seats have all four of and which therefore cannot share one set
- * of arrow keys (`SEAT_WAYS`). */
-function onSeatWays(id: ControlId): boolean {
-  return controlPress(id).down.kind === "pulseStep";
-}
 
 /**
  * Every key this panel answers, in no order a caller should depend on.
@@ -247,4 +190,26 @@ export function keyLabel(code: string): string {
 export function deskSlideKeys(set: ControlSet, player: 1 | 2): readonly DeskKey[] {
   const pair = SEAT_KEYS[player].slide;
   return deskKeys(set).filter((k) => k.player === player && pair.includes(k.code));
+}
+
+/**
+ * Which seats one press of a strip key moves — the key itself, and player 2's
+ * strip carried along where the panel has one and the hand is player 1's.
+ *
+ * Never the other way round: J and L are the plate on its own, which is the
+ * half of the rig that lets one person put the two swellings in different
+ * columns.
+ *
+ * **Here rather than in either rig**, because both of them have one. The game
+ * (`apps/game/src/keys-slide.ts`) and the director (`tools/director/src/keys.ts`)
+ * each wrote these eight lines out, and *which seats a key moves* is exactly
+ * the kind of rule that drifts — the director's copy had gone stale for months
+ * before the pair were made to agree. What is left in each rig is its own: the
+ * game counts a repeat in sim ticks and the director does not, and neither
+ * belongs in a package whose job is data.
+ */
+export function deskStepSeats(set: ControlSet, key: DeskKey): readonly DeskKey[] {
+  if (key.player !== 1) return [key];
+  const other = deskKeys(set).find((k) => k.player === 2 && k.step === key.step);
+  return other === undefined ? [key] : [key, other];
 }

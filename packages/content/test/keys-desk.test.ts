@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { CONTROL_SETS, controlSet, setControls } from "../src/control-sets.js";
-import { deskKey, deskKeys } from "../src/keys-desk.js";
+import { deskKey, deskKeys, deskStepSeats } from "../src/keys-desk.js";
 
 /**
  * The desk keyboard is a panel, and this is what holds it to that.
@@ -120,5 +120,35 @@ describe("one key, several meanings", () => {
     // Player 1's own second key is the crank, not the mouth: the mouth moved
     // seats and the key moved with it.
     expect(deskKey(claw, "KeyS")?.control).toBe("crank");
+  });
+});
+
+/**
+ * Which seats one key moves — the rule both desk rigs used to write out for
+ * themselves, and the one the director's copy had gone stale on.
+ */
+describe("a strip key moves the seats it is supposed to", () => {
+  it("carries player 2's strip along with player 1's, and only that way", () => {
+    const set = controlSet("default");
+    const a = deskKey(set, "KeyA");
+    if (a === undefined) throw new Error("A is a strip key on the full panel");
+    const moved = deskStepSeats(set, a);
+    expect(moved.map((k) => k.player)).toEqual([1, 2]);
+    // The seat that came along steps the same way, or the two swellings would
+    // walk apart under one thumb.
+    expect(moved.every((k) => k.step === a.step)).toBe(true);
+
+    const j = deskKey(set, "KeyJ");
+    if (j === undefined) throw new Error("J is a strip key on the full panel");
+    expect(deskStepSeats(set, j)).toEqual([j]);
+  });
+
+  it("carries nobody along on a panel where the other seat has no strip", () => {
+    // THE CLAW gives player 2 the mouth and no column of their own, so A is one
+    // seat's key and stays one seat's key.
+    const claw = controlSet("claw");
+    const a = deskKey(claw, "KeyA");
+    if (a === undefined) throw new Error("A is the arm's column on THE CLAW");
+    expect(deskStepSeats(claw, a)).toEqual([a]);
   });
 });

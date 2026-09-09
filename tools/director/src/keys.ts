@@ -5,6 +5,7 @@ import {
   type DeskKey,
   deskKey,
   deskKeys,
+  deskStepSeats,
   keyLabel,
   panelSends,
 } from "@neon-spore/content";
@@ -146,17 +147,10 @@ export function bindKeys(
     send(key.player, controlPress(key.control, col[key.player]).down);
   };
 
-  /**
-   * A strip key, and player 2's strip carried along where the panel has one
-   * and the hand is player 1's. Never the other way round: J and L are the
-   * plate on its own, which is the half of the rig that lets one person put
-   * the two swellings in different columns.
-   */
+  /** A strip key, and every seat it moves — `deskStepSeats` is the rule, this
+   * is the stepping. */
   const stepAll = (key: DeskKey): void => {
-    stepStrip(key);
-    if (key.player !== 1) return;
-    const other = deskKeys(controls()).find((k) => k.player === 2 && k.step === key.step);
-    if (other !== undefined) stepStrip(other);
+    for (const k of deskStepSeats(controls(), key)) stepStrip(k);
   };
 
   window.addEventListener("keydown", (e) => {

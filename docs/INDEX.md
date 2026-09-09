@@ -442,6 +442,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/motions-retired.ts` | The motions nothing in the game carries any more |
 | `packages/content/src/balloon-parts.ts` | **What is alive inside THE BALLOON**, and hanging under it: veins, a ring of lit beads |
 | `packages/content/src/surface.ts` | where a mark placed at a longitude and latitude lands, how the tangent plane foreshortens it, and its own normal against `KEY` |
+| `packages/content/src/control-aim.ts` | Which way a control points, and which rig of keys answers it |
 
 ### packages/render
 

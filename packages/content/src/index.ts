@@ -92,6 +92,7 @@ export {
   deskKey,
   deskKeys,
   deskSlideKeys,
+  deskStepSeats,
   keyLabel,
 } from "./keys-desk.js";
 export { LID, type LidSilhouette, lidOutline, lidPath } from "./lid-shape.js";
