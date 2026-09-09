@@ -1,7 +1,7 @@
 import { circleSubpath } from "@neon-spore/content";
 import type { EyeInk } from "./eye-lens.js";
 import { strokeGlow } from "./glow.js";
-import { STROKE } from "./palette.js";
+import { PALETTE, STROKE } from "./palette.js";
 
 /**
  * **The machinery inside an eye**: an aperture ring around the pupil and a ring
@@ -19,11 +19,18 @@ import { STROKE } from "./palette.js";
  * fifth of a turn a beat — because anything faster becomes a second clock beside
  * the one the two of them are already counting out loud.
  *
- * **Everything here is under the lens's own clip**, which the caller already
- * holds for the pupil, so a shut eye shows none of it and a half open one shows
- * the band of it the lids have not taken. That is the whole reason it is worth
- * drawing: the machinery being *cut* by the lids is what says how far shut the
- * thing is, on top of the gap the other seat is already reading.
+ * **Everything here is under the lens's own clip**, which the caller holds, so
+ * a shut eye shows none of it and a half open one shows the band of it the lids
+ * have not taken. That is the whole reason it is worth drawing: the machinery
+ * being *cut* by the lids is what says how far shut the thing is, on top of the
+ * gap the other seat is already reading.
+ *
+ * **The pupil is drawn here too**, and it was in `eye-lens.ts` until
+ * `eye-look.ts` gave this a seam. It has to be: a look that places the iris on
+ * a ball moves the hole with it, and a record that held the ring and the spokes
+ * while somebody else held the pupil would let a candidate open a hole where
+ * the iris no longer is. Everything inside the aperture is one mark, so it is
+ * one function and one field.
  */
 
 /** Spokes round the iris. Six: enough to read as a mechanism, few enough that
@@ -51,13 +58,61 @@ const RING_MUL = 1.55;
 const SPIN = 0.16;
 
 /**
- * The ring and the spokes, in the eye's own colour, inside the caller's clip.
+ * Everything the inside of an eye is drawn from.
+ *
+ * A record rather than seven positional arguments, because `eye-look.ts` lets a
+ * candidate replace this whole function and a look needs two things the shipped
+ * one does not read: how far a mark may travel from the middle (`reach`, the
+ * lens's own half-width) and whether this eye is round or an almond
+ * (`rx`/`ry`). Adding them to a list of positions would have made the shipped
+ * call unreadable and the candidate's signature a guess.
+ */
+export interface IrisDraw {
+  readonly ctx: CanvasRenderingContext2D;
+  /** The middle of the gap, which is where the pupil rides. */
+  readonly cx: number;
+  readonly cy: number;
+  /** The pupil's radius this instant. It breathes, and everything the shipped
+   * look draws is measured off it. */
+  readonly pr: number;
+  /** The lens's own half-width — how far across the opening reaches, and so how
+   * far a mark placed on a surface may go before the lids take it. */
+  readonly reach: number;
+  /** The socket's half-extents: THE WARDEN's is round and THE LID's an almond
+   * half as tall as it is wide. */
+  readonly rx: number;
+  readonly ry: number;
+  readonly ink: EyeInk;
+  readonly openness: number;
+  /** The **beat** clock, so both phones draw one picture. */
+  readonly t: number;
+}
+
+/**
+ * The ring, the spokes and the pupil, in the eye's own colour, inside the
+ * caller's clip.
  *
  * `pr` is the pupil's radius this instant — it breathes, and everything here is
  * measured off it, so the whole assembly breathes with the hole at its middle
  * rather than being a second thing on a second clock.
  */
-export function drawEyeIris(
+export function drawEyeIris(d: IrisDraw): void {
+  if (d.pr <= 0 || d.openness <= 0) return;
+  drawIrisMarks(d.ctx, d.cx, d.cy, d.pr, d.ink, d.openness, d.t);
+}
+
+/**
+ * The assembly itself — the ring, the spokes and the hole — at a point.
+ *
+ * Split out of the function above so a candidate look can **move** it without
+ * making a second copy of what it is. Where the iris goes is the question
+ * VERSUS is for; six spokes at this weight turning at this rate is the answer
+ * the game already has, and a look arguing about the first has no business
+ * restating the second. It takes no `save` of its own for the reason the pupil
+ * does not: the caller is already inside one, and a save per eye is an op
+ * `frame-budget.test.ts` counts on the two biggest bodies in the game.
+ */
+export function drawIrisMarks(
   ctx: CanvasRenderingContext2D,
   cx: number,
   cy: number,
@@ -66,7 +121,6 @@ export function drawEyeIris(
   openness: number,
   t: number,
 ): void {
-  if (pr <= 0 || openness <= 0) return;
   const spin = t * SPIN * Math.PI * 2;
   // **One path and one glow, not nine.** The ring and every spoke go into the
   // same `Path2D` at the same weight, so the whole assembly costs what a single
@@ -79,4 +133,18 @@ export function drawEyeIris(
     iris.lineTo(cx + Math.cos(a) * pr * SPOKE_OUT, cy + Math.sin(a) * pr * SPOKE_OUT);
   }
   strokeGlow(ctx, iris, ink.rim, STROKE.inner, 0.4 + openness * 0.5);
+
+  // The hole, over the machinery it turns outside of, so a spoke never crosses
+  // it. Cut by the lids rather than sized to miss them — the clip is the
+  // caller's — so an eye half open shows a big pupil with its top and bottom
+  // taken off rather than a small round one.
+  // No `save` of its own: the caller is already inside one for the clip, and
+  // the alpha set here is cleaned up by the same `restore`. A `save` per eye is
+  // an op `frame-budget.test.ts` counts, and this pass is drawn on the two
+  // biggest bodies in the game.
+  const pupil = new Path2D(circleSubpath(cx, cy, pr));
+  ctx.globalAlpha = openness;
+  ctx.fillStyle = PALETTE.background;
+  ctx.fill(pupil);
+  strokeGlow(ctx, pupil, ink.rim, STROKE.inner, 1.2 * openness);
 }

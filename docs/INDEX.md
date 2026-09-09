@@ -707,6 +707,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/maze-door.ts` | THE MAZE's way in, and the light that comes out of it when it is standing on the ship's column |
 | `packages/render/src/maze-blood.ts` | What THE MAZE's heart leaves on the floor of its room when it is hit, and why it is still there next round |
 | `packages/render/src/eye-lens.ts` | you are changing the shape of an open eye — the two lid curves, the corners, and the pupil they cut |
+| `packages/render/src/eye-look.ts` | the one record a candidate EYE patches, on the two bodies that share one |
 | `packages/render/src/veer-clown.ts` | THE VEER's rider: a clown sitting on the rock, and the reason the rock does not fall straight |
 | `packages/render/src/veer-marks.ts` | THE VEER's two half-pictures: the arrow over the rider on player 1's screen, and the *ask* on player 2's |
 | `packages/render/src/lock-mark.ts` | THE LOCK, drawn: the frame that says *the cannon has this one* |

@@ -94,6 +94,11 @@ const SLOT_POSE: Record<string, string> = {
   // on and one off is the state this creature spends its life in and the one
   // where both halves of the answer stand side by side (`shell-look.ts`).
   "shell:plate": "SHELL · ONE HALF OPEN",
+  // The one slot here whose subject is on two bodies. Its pose is the small
+  // one, where an eye is the whole picture and the difference is largest —
+  // `WARDEN · ARMOURED` above shows the same record on the biggest fixture in
+  // the game, and a pair voting on this should open both (`eye-look.ts`).
+  "eye:iris": "LID · THE EYE OPEN",
   // Two about **damage**, on 9 September 2026, and the first slots on this page
   // whose subject is what happens *to* something rather than what it is made
   // of. A break is event-shaped in the sharpest way this map has met — the body

@@ -1,5 +1,14 @@
-import { DEFAULT_CONFIG, type SpawnEntry } from "@neon-spore/sim";
-import { firstOfKind, fresh, type Pose, type PoseGroup, run, POSE_TPB as TPB } from "./pose-kit.js";
+import { DEFAULT_CONFIG, lidIsOpen, type SpawnEntry } from "@neon-spore/sim";
+import {
+  firstOfKind,
+  fresh,
+  type Pose,
+  type PoseGroup,
+  pullCord,
+  run,
+  runUntil,
+  POSE_TPB as TPB,
+} from "./pose-kit.js";
 
 /**
  * The states a candidate for a **surface** is judged on.
@@ -188,7 +197,47 @@ const GYRE_POSE: Pose = {
   },
 };
 
-export const SURFACE_POSES: Pose[] = [CHOIR_POSE, THROB_POSE, WISP_POSE, GYRE_POSE];
+/**
+ * THE LID with its eye wide open, held there by a hand that never lets go.
+ *
+ * **The one body in the game whose whole picture is an eye**, which is why it
+ * is the pose `eye:iris` is judged on rather than THE WARDEN — the same record
+ * draws both, and on the boss the eye is one part of a fixture that fills the
+ * field. A pair voting on this should open `WARDEN · ARMOURED` afterwards and
+ * check the answer survives being large.
+ *
+ * The cord is pulled rather than `lidPullMilli` written, because a pose that
+ * set the field by hand is a picture of a state the game cannot produce — and
+ * it is sent once, past taut, because a hand stays down until it lets go and a
+ * pull stopping exactly on taut is one rounding from a shut eye.
+ */
+const LID_POSE: Pose = {
+  name: "LID · THE EYE OPEN",
+  note: "One eye coming down a lane with a cord hanging off it, held wide by the pilot's thumb. The plates are back, the aperture is at its full height and the machinery inside it is turning — which is the state the other seat reads the tension off and the only one in which any of the inside is visible at all.",
+  lookAt:
+    "the middle of the eye — whether the iris reads as a disc lying on a ball or as a mark stuck to the front of a picture",
+  crop: "field",
+  cadenceSeconds: fallSeconds(),
+  build: () => {
+    const entry: SpawnEntry = { beat: 0, col: COL, kind: "lid", color: "red" };
+    const w = fresh([entry]);
+    run(w, TPB);
+    const lid = w.creatures.find((c) => c.kind === "lid");
+    if (lid === undefined) throw new Error("the lid wave sent no lid");
+    // Taut, and a little past it: `lidIsOpen` asks whether the pull has reached
+    // the taut length, and a pose that stopped exactly on it would be one
+    // rounding away from a shut eye.
+    runUntil(
+      w,
+      "a lid with its eye open",
+      [pullCord(w.tick, lid.id, w.cfg.lidTautMilli * 1.2)],
+      (x) => x.creatures.some((c) => c.kind === "lid" && lidIsOpen(x.cfg, c)),
+    );
+    return w;
+  },
+};
+
+export const SURFACE_POSES: Pose[] = [CHOIR_POSE, THROB_POSE, WISP_POSE, GYRE_POSE, LID_POSE];
 
 export const SURFACE_GROUP: PoseGroup = {
   title: "SURFACES",

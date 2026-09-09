@@ -3,6 +3,7 @@ import { BREAK_SHATTER } from "./creature-break/shatter/index.js";
 // region: candidates
 import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
 import { SKIN_VEIL } from "./creature-skin/veil/index.js";
+import { EYE_TURN } from "./eye-iris/turn/index.js";
 import { JOIN_BOTH } from "./panel-join/both/index.js";
 import { JOIN_ORGANS } from "./panel-join/organs/index.js";
 import { JOIN_ROOF } from "./panel-join/roof/index.js";
@@ -193,6 +194,37 @@ import { CRATER_SPALL } from "./ship-crater/spall/index.js";
  * that moved one and not the other would put a body on the field wearing two
  * answers.
  *
+
+ * ## And one on two bodies at once, the same day
+ *
+ * `eye:iris` / `turn` is the first slot on this page whose subject is drawn on
+ * **two** creatures. `lid.ts` and `warden-eye.ts` both call `drawEyeLens`, so
+ * one record paints the roundest thing in the game on the small body whose
+ * whole picture is an eye and on the biggest fixture the game ever draws. That
+ * is why the slot is not named after either of them: a look that improved a lid
+ * and spoiled a warden is a vote nobody can cast, and a slot called
+ * `creature:lid` would have hidden the question. The pose is the lid, where the
+ * difference is largest; `WARDEN · ARMOURED` is the second picture and belongs
+ * open beside it.
+ *
+ * The shipped eye is the roundest thing in the game with no depth on it at all:
+ * the iris is concentric with the socket and every mark sits at a fixed screen
+ * offset, so an eye *looking somewhere* would be an eye whose whole picture had
+ * been slid sideways — which is why it never looks anywhere. TURN pins the iris
+ * at a longitude and carries it round on a slow sweep, foreshortened by the
+ * tangent plane's own map and losing the light as it goes, under a catchlight
+ * drawn outside that transform where the light is. A mark that moves against a
+ * mark that does not is the cheapest solid-looking thing there is, and this
+ * spends it on two of the biggest bodies in the game at once.
+ *
+ * The seam it needed is `packages/render/src/eye-look.ts`, and it took the
+ * pupil with it: it used to be drawn by `eye-lens.ts` after the ring and the
+ * spokes, which was fine while every mark was concentric and is not the moment
+ * a look places the iris somewhere — the hole would have stayed behind. What
+ * stayed next door is the lens itself, the aperture the lids open, because that
+ * is the **readout** the seat without the cord reads a number off and no look
+ * may touch it.
+ *
  * `bun run breaks` is the bench both were tuned on: every tuning of the engine
  * on one sheet, seven moments across, which is the one thing a running preview
  * cannot show for an effect that is over in a second.
@@ -206,4 +238,5 @@ export const VARIANTS: Variant[] = [
   BREAK_SHATTER,
   CRATER_SPALL,
   SHELL_SLAB,
+  EYE_TURN,
 ];

@@ -177,35 +177,6 @@ Watch the temper: `ghostRage` already drives how far a band shifts, so a turn
 must not become a second reading of the same number. The candidate's own file
 has to say which of the two the pair is being asked about.
 
-## The eye THE LID and THE WARDEN share is a disc
-
-- **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7
-- **Taken:** 2026-09-09, claude/queue-the-eye-the-lid-and-the-warden-share-is-a-disc
-- **Files:** `packages/render/src/eye.ts`, `packages/render/src/eye-iris.ts`,
-  `packages/render/src/eye-lens.ts`, `tools/versus/candidates/`
-
-One eye is drawn on two bodies — `lid.ts` and `warden-eye.ts` both call
-`drawEyeFluid`, `drawEyeFringe` and `drawEyeLens` — and it is the roundest thing
-in the game drawn with no depth on it at all: the iris is concentric with the
-socket and every mark on it is at a fixed screen offset, so an eye that is
-looking somewhere is an eye whose *whole picture* has been translated.
-
-A real eye is the textbook case for `surface.ts`: the iris is a disc placed at a
-longitude and latitude on a ball, foreshortened by `scale(sx, sy)` as it turns
-toward the edge, with the wet film's catchlight staying exactly where the light
-is while the iris travels under it. That contrast — a mark that moves and a
-highlight that does not — is the cheapest solid-looking thing there is, and this
-is one record on two of the biggest bodies in the game.
-
-Work it as a seam (`eye-look.ts`, holding `iris`) plus one candidate, and open
-the slot as `eye:iris` rather than as a creature's, because both bodies get it
-at once — say so in the candidate's own file, since a vote that improved a lid
-and spoiled a warden is a vote nobody can cast. `WARDEN · ARMOURED` in
-`poses-casing.ts` already puts one on screen; a lid pose has to be found or
-written. Check `warden-eye.ts`'s `HATCH` gating first: the lens is drawn only
-past an openness, and a candidate that ignored that would draw an iris through a
-shut door.
-
 ## No interlude round has ever been offered a look
 
 - **Found:** 2026-09-09, claude/enemy-graphics-animations-versus-3mjjv7

@@ -1,8 +1,7 @@
-import { circleSubpath } from "@neon-spore/content";
-import { drawEyeIris } from "./eye-iris.js";
+import { EYE_LOOK } from "./eye-look.js";
 import { eyeBox } from "./eye-rim.js";
 import { strokeGlow } from "./glow.js";
-import { PALETTE, STROKE } from "./palette.js";
+import { STROKE } from "./palette.js";
 
 /**
  * **The lens, and the shape of it.** The other half of `eye.ts` — that file
@@ -144,16 +143,12 @@ export function drawEyeLens(
   const pulse = 0.85 + 0.15 * Math.sin(t * Math.PI * 2);
   const pr = w * PUPIL_MUL * pulse;
   if (pr > 0 && openness > 0) {
-    const pupil = new Path2D(circleSubpath(cx, mid, pr));
     ctx.save();
     ctx.clip(lens);
-    // The machinery first and the hole over it, so a spoke never crosses the
-    // pupil it is meant to be turning outside of (`eye-iris.ts`).
-    drawEyeIris(ctx, cx, mid, pr, ink, openness, t);
-    ctx.globalAlpha = openness;
-    ctx.fillStyle = PALETTE.background;
-    ctx.fill(pupil);
-    strokeGlow(ctx, pupil, ink.rim, STROKE.inner, 1.2 * openness);
+    // Everything inside the aperture, through the record a candidate patches:
+    // the machinery, and the hole over it so a spoke never crosses the pupil it
+    // is meant to be turning outside of (`eye-look.ts`, `eye-iris.ts`).
+    EYE_LOOK.iris({ ctx, cx, cy: mid, pr, reach: w, rx, ry, ink, openness, t });
     ctx.restore();
   }
   // The margins last, over the pupil they cut: the line a player reads the
