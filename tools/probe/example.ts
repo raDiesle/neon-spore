@@ -9,9 +9,12 @@ import { beats, field, waveWorld } from "./world.js";
  * `tools/probe/scratch/<whatever>.ts` — which is ignored by git — change the id
  * and the number, and run `bun run probe scratch/<whatever>`.
  *
- * Anything in `@neon-spore/sim`, `@neon-spore/content` or `@neon-spore/render`
- * is importable from there: this package depends on all three so that a
- * question about a running world never costs the three tries it used to.
+ * **Any of the five packages** is importable from there — `sim`, `content`,
+ * `render`, `net` and `audio` — because this one depends on all five, so that a
+ * question about a running world never costs the three tries it used to. A
+ * script written anywhere else cannot import one at all: the workspace links
+ * live under each package's own `node_modules` and the repository root has
+ * none, which is why a file at the top level resolves nothing.
  */
 
 const world = waveWorld("theCoil");

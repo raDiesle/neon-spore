@@ -256,28 +256,6 @@ send them the way `capture.ts` does, and give THE LANCE a held colour so its row
 means something. The rows for waves with no commands are untouched, so the rest
 of the baseline stays comparable.
 
-## A scratch script cannot import `@neon-spore/*` from the repository root
-
-- **Found:** 2026-09-08, claude/claw-crank-winder-control-xzuf4h
-- **Taken:** 2026-09-09, claude/queue-a-scratch-script-cannot-import-neon-spore-from-t
-- **Files:** `package.json`, `tools/` (wherever the answer lands)
-
-A lane checking a rehearsal's timing wrote twenty lines against
-`sceneScript` and `SceneRun`, put them in a file at the root, and bun could
-not resolve `@neon-spore/content` from there: the workspace links exist under
-each package's own `node_modules` and there is nothing at the top. The lane
-worked around it by dropping the file into `tools/director/`, which resolves
-everything — and then had to remember to delete it out of a package it does
-not own.
-
-It costs a few minutes and a wrong turn every time somebody wants to *ask the
-simulation a question* rather than assert one, which is a thing that happens
-in every lane that touches a scene, a wave or a boss. Two ways out, either is
-fine: a root `node_modules/@neon-spore` link created by the install, or a
-`tools/scratch/` with a package of its own that depends on all five packages
-and is gitignored except for its `package.json`. The second is the honest
-one — a scratch file belongs somewhere it is expected to be deleted from.
-
 ## `bun run land` refuses in a cloud session, because the clone is shallow
 
 - **Found:** 2026-09-08, claude/rock-paper-scissors-boss-sn9ful

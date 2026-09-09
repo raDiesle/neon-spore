@@ -139,7 +139,9 @@
       "name": "@neon-spore/probe",
       "version": "0.0.0",
       "dependencies": {
+        "@neon-spore/audio": "workspace:*",
         "@neon-spore/content": "workspace:*",
+        "@neon-spore/net": "workspace:*",
         "@neon-spore/render": "workspace:*",
         "@neon-spore/sim": "workspace:*",
       },
