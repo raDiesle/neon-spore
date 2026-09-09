@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 7bf557ca — Two bodies that never fall, and a ship with a rippled skin
+
+Three more candidates on the VERSUS page, and the two creatures among them are the ones the page has been missing a way to look at: a wisp stands and jumps rather than coming down a column, and a settled gyre stays. Both are on screen for as long as anybody wants to look, which is exactly what a surface that turns needs and what a two-second replay cannot give it — so `WISP · STANDING` and `GYRE · TURNING` are the first poses here that carry no cadence at all.
+
 ## 2026-09-09 · 2632551f — One command photographs a VERSUS candidate
 
 A candidate does not appear in the game by construction, so `bun run frames` cannot reach one and a session writing a candidate had no way to see whether its paint drew what it thought. One lane found a throb whose far half was filled over its own core marks and whose rim glow was clipped at the contour — both obvious in the first frame, both invisible to `bun run check` twice over — and paid for it with thirty lines of throwaway Playwright and a root `bun add -d playwright` that had to be reverted.
