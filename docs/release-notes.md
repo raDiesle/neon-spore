@@ -9,6 +9,24 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 09d31da3 — Four queue items out of the list
+
+## 2026-09-09 · 591ebf13 — The VERSUS worked example is dated, so its numbers stop reading as instructions
+
+Every value in the emitted-prompt example was stale — BULB and SLICK have moved since 27 August 2026, and `SWAY_PUMP` is re-exported from `motions-retired.ts` now — and a reader could not tell which parts of it were the mechanism and which were a snapshot, because the snapshot parts look most like instructions.
+
+## 2026-09-09 · 3e59e26b — Which seats one key moves is written down once, not once per rig
+
+Both desk keyboards read `deskKey` for what a key means and then applied the same convenience by hand: player 1's sideways pair steps his strip and carries player 2's along, and J/L move player 2's alone. Eight lines in `keys-slide.ts` and eight in the director's `keys.ts`, carrying exactly the kind of rule that drifts — the director's had been stale for months before the pair were made to agree.
+
+## 2026-09-09 · de5ba9d6 — A handle says whose it is without assuming it is the pilot's
+
+`drawHandleHint` baked the seat in as `role !== "p2"`, which was true of every handle in the game until THE BALLOON gave each seat one — so `balloon-handles.ts` carried four lines saying the same thing with the seat passed in. The seat and the two words are arguments now, `PILOT_HANDLE` is what the three older callers pass, and the balloon's copy is gone. Nothing in a frame moved.
+
+## 2026-09-09 · 1065bfbd — One `rgba`, in the file about colour rather than the one about rocks
+
+`meteor-look.ts` exported a second `rgba(hex, alpha)` beside `hex.ts`', and the VERSUS candidates written against the meteor took theirs from that one — so a candidate ported into the game arrived importing a colour helper from a file about rocks, which is a minute of a later reader's life every time. The copy is gone, `pitGradient` and the two candidates call `hex.ts`', and the only thing that changed on a canvas is that an alpha is no longer padded to three decimals.
+
 ## 2026-09-08 · 6442080a — Install when a git operation brought dependencies with it
 
 `bun run dev` restarts its hot server after a merge, a rebase or a checkout, because an incremental bundle built while git is still writing is half of each revision. The restart was not enough when the operation also carried a new dependency: the fresh server bundles a perfectly correct import against the `node_modules` of the revision before and reports it as unresolvable. That is what `tools/style-guide` did to the director — four "Could not resolve" errors against imports that were right, and `bun install` was the cure nobody was told about.
