@@ -259,6 +259,7 @@ of the baseline stays comparable.
 ## A scratch script cannot import `@neon-spore/*` from the repository root
 
 - **Found:** 2026-09-08, claude/claw-crank-winder-control-xzuf4h
+- **Taken:** 2026-09-09, claude/queue-a-scratch-script-cannot-import-neon-spore-from-t
 - **Files:** `package.json`, `tools/` (wherever the answer lands)
 
 A lane checking a rehearsal's timing wrote twenty lines against
