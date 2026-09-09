@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 6e9f3cf7 — A number cannot remove an item somebody else is holding
+
+`bun run queue done <n>` obeyed a position read off a listing that renumbers every time an entry leaves it. A session draining two items in one sitting reads the list once, does the first, says `done 1`, does the second and says `done 2` — and 2 is a third entry that moved up. On 9 September 2026 that took an `Asks:` entry out from under a lane working it, and it was caught only because the branch it went on to delete was checked out and refused to go.
+
 ## 2026-09-09 · ae1e03be — A capture is compared as a picture, not as a file
 
 `captureFrames` digested the PNG bytes, and two runs of one build inside a full `bun run check` came back different — then matched twelve times out of twelve when the file was run alone. A PNG is a compressed stream: the encoder picks a filter per scanline and a deflate layout, and nothing promises it picks the same ones on a machine that is being fought over. So `whole` is now a digest of the frame's pixels, which is the question both the test and `bun run frames`'s `identical:` guard meant to ask.
