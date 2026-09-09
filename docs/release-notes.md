@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-09 · 5279c4e6 — Two VERSUS slots: what a burning rock and a thrown body look like
+
+THE TORCH and THE DART each had one look and nowhere for a second answer to sit. Both have a record to patch already, so this is six candidates and a pose, and nothing the game draws today has moved.
+
 ## 2026-09-09 · 5bd87d92 — SHIP:CRATER is watched rather than photographed
 
 The crater slot opened as a still on the argument that a hole is cut once and then simply sits there. That is true of the hole and false of everything around it: a crater is revealed by the rock rolling out of it a second later, so the look does not exist on any frame until something has moved — and the one way SPALL loses, a hull wearing several holes at once ceasing to read as one surface, cannot be seen on a picture of one hole.
