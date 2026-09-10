@@ -104,7 +104,7 @@ Four conditions, all of them:
    asked about is the small one. `check:fast` is the install preflight, the
    typecheck, the lint, and only the tests this lane's diff can have reached:
    `tools/hooks/scope.ts`'s table, the one the Stop hook already reads, plus
-   the two sweeps that read every file (`purity.test.ts`, `copies.test.ts`).
+   the sweeps that read every file (`purity`, `copies`, `limits`).
    Where the table would run everything — a change under `packages/sim` — it
    runs that package's own tests instead. On a lane touching one tool that is
    twenty seconds; the full `bun run check` is four and a half minutes, and

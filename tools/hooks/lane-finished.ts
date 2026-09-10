@@ -22,11 +22,9 @@
  * beside it: that one returns immediately when the tree is clean, and this one
  * returns immediately when it is not.
  *
- * It runs no check of its own, and the commit it asks about was let through by
- * `bun run check:fast` — the typecheck, the lint and the tests the diff can
- * reach, not the whole suite. That is deliberate (`tools/check/fast-scope.ts`):
- * the full check is `bun run land`'s, on the rebased tree, and the question
- * here is asked the same way whichever check the session ran.
+ * It runs no check of its own. The commit it asks about was let through by
+ * `bun run check:fast`, not the whole suite (`tools/check/fast-scope.ts`); the
+ * full check is `bun run land`'s, and the question is asked the same either way.
  *
  * A landing deletes the branch it just landed, so the worktree it was standing
  * in is left on a detached `HEAD` — `tools/land/sweep.ts` says why the tree

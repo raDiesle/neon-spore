@@ -1456,7 +1456,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/stage-trail.ts` | THE MOUSE'S OWN INK, ON THE DIRECTOR'S FIELD |
 | `tools/check/installed.ts` | Whether this worktree's install is still the one the tree needs |
 | `tools/check/run.ts` | The preflight `bun run check` runs before the typecheck |
-| `tools/check/fast-scope.ts` | Which tests `bun run check:fast` runs — the diff's reach, plus the two sweeps |
+| `tools/check/fast-scope.ts` | Which tests `bun run check:fast` runs — the diff's reach, plus the tree-wide sweeps |
 | `tools/check/fast.ts` | The test half of `bun run check:fast` — decide, say, run |
 | `tools/breaks/src/main.ts` | `bun run breaks` — every break the engine can make, drawn across time |
 | `tools/breaks/src/page.ts` | Page furniture for the break sheet |

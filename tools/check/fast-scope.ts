@@ -21,11 +21,12 @@
  *   `packages/content`, the root `package.json` — the hook does. This does
  *   not: it runs the changed package's own tests and leaves the rest to the
  *   landing. That is the whole point of a fast check. What it keeps, always,
- *   are the two sweeps: `purity.test.ts`, which reads every file under `sim`
- *   and `content` for a wall clock, a random number or a DOM global, and
+ *   are the sweeps: `purity.test.ts`, which reads every file under `sim` and
+ *   `content` for a wall clock, a random number or a DOM global,
  *   `copies.test.ts`, which reads them for a rule spelled out by hand instead
- *   of called. Those are the two that catch a candidate's mistakes, and they
- *   run in fifteen seconds.
+ *   of called, and `limits.test.ts`, which counts every source file's lines.
+ *   Those are the ones that catch a candidate's mistakes, and they run in
+ *   fifteen seconds.
  *
  * A green `check:fast` is a reason to commit. It is not a reason to believe the
  * tree is good — that is `bun run land`'s full check, and the only result that
@@ -34,9 +35,15 @@
 
 import { scopeFor } from "../hooks/scope.js";
 
-/** The two tests that read the whole tree, and so run whatever changed. */
+/**
+ * The tests that read the whole tree, and so run whatever changed. The third
+ * is the one the first landing under this rule went red on: a hook file two
+ * lines over the limit, in a directory the diff had named and whose own tests
+ * do not count lines.
+ */
 export const SWEEPS: readonly string[] = [
   "packages/sim/test/copies.test.ts",
+  "packages/sim/test/limits.test.ts",
   "packages/sim/test/purity.test.ts",
 ];
 
@@ -52,7 +59,7 @@ function memberOf(path: string): string | undefined {
 /**
  * The `bun test` filters for a set of changed paths: for each, the hook's
  * directories when its table has a narrow answer, the path's own member when
- * it asks for everything; and the two sweeps either way. Asked one path at a
+ * it asks for everything; and the sweeps either way. Asked one path at a
  * time, because the table answers "everything" for the *set* — one
  * `package.json` in a diff of ten would otherwise silence the nine narrow
  * answers beside it. A sweep already under a listed directory is not named

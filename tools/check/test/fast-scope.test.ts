@@ -13,7 +13,7 @@ import { changedSince, fastScopeFor, SWEEPS } from "../fast-scope.js";
 const ROOT = join(import.meta.dirname, "..", "..", "..");
 
 describe("fastScopeFor", () => {
-  it("a narrow scope is the hook's answer plus the two sweeps", () => {
+  it("a narrow scope is the hook's answer plus the sweeps", () => {
     expect(fastScopeFor(["packages/net/src/wire.ts"])).toEqual([
       "apps/game",
       "packages/net",

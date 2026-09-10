@@ -23,7 +23,7 @@ const changed = changedSince(TRUNK, ROOT);
 const filters = fastScopeFor(changed);
 console.log(
   changed.length === 0
-    ? `check:fast — nothing differs from ${TRUNK}; the two sweeps only`
+    ? `check:fast — nothing differs from ${TRUNK}; the sweeps only`
     : `check:fast — ${changed.length} path${changed.length === 1 ? "" : "s"} differ from ${TRUNK}`,
 );
 console.log(`  testing  ${filters.join(" ")}`);
