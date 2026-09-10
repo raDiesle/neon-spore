@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · f7788489 — A silhouette can carry a form's contour whole, so the shape collection reaches shipped bodies
+
+`CreatureSilhouette.contour` is a second optional field beside `clubs`: the outline at time `t`, walked by `livingPath` the way a clubbed rim is walked instead of being sampled from six numbers. It exists so a form from `tools/shape-sheet/src/forms/` — a cluster, a welling, a sac, a slab, none of them a lobed blob — can be patched onto SLICK or BULB in VERSUS, which the rule that a candidate outline comes out of the collection rather than being invented assumed and half the collection could not do.
+
 ## 2026-09-10 · a5fe5430 — EMBEDDED: the first ship that moves the basis, not the skin
 
 The owner said every ship so far looked the same from its basis. This card is the answer: there is no panel. The lower screen is the ship's body; the buttons are pores — a depression in the flesh with the flesh ringed round it, no socket and no plate — standing out at the corners where the thumbs are; the rail is a lit spine through the body with a node per column and a swollen node on the column held; broad folds and one light run across hull and chamber alike. It patches the three records lifted for it — the arrangement, which the layout and `bandLobes` both read so the hit regions move with the pores; the rail; the socket — and the five ships beside it pass the shipped values through so the slot stays one question.
