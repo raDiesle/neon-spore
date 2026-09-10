@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · 38d151ce — slick:shape closed with nothing taken: COMMA and REVERB go to the shape sheet
+
+The owner read the five outlines on 9 September 2026 and kept the shipped slick. RAY, FRILL and CHAIN are rejected and go with the slot — one flat sheet with seven scallops that is close to a bar at 26 px, nine shallow lobes the wobble eats, and four sacs whose three waists are three places a body can look severed. COMMA and REVERB are kept as pictures: two OFFERED_DRAFTS cards on the slick's own motion, each with its how-it-can-lose — THE DART already owns a point, and plain reads as unfinished. `versus drop` wrote the DECIDED entry and removed the five candidates; the catalogue's counts move with them.
+
 ## 2026-09-10 · bcbcdfad — slick:motion closed: BANK is the slick's own motion, GLIDE and FLOAT go to the shape sheet
 
 The owner answered the slot in chat on 9 September 2026 — BANK applied to the game, the other two kept as pictures. A look the owner asked for by name, so it goes onto the field. BANK is `packages/content/src/motion-bank.ts`: two slow drifts on periods with no common multiple, and the body leaning into its own travel, the roll read off the drift's derivative. SWALLOW, which it replaces, moves to `motions-retired.ts` and onto the SHAPES tab's motion axis with the other retired pair, so the look the game stopped drawing can still be looked at beside the one that replaced it.
