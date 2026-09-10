@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · be61041b — The SHAPES card measures contour, not size, and the candidates test now says so
+
+`candidates.test.ts` asserted that a `sizeMul: 0.2` candidate for the slick draws smaller on the 92 px card than the shipped body. It does not: `drawnSize` is the director's own fit, and the fit scales every body to fill its card, so both came out at 22.6107 px and the assertion held on Windows and failed on a Linux clone by the last digit of a float — the red shard every lane saw before landing. The case now asserts the two halves of what the sheet does: a body pressed flat reads thinner, and a shrunken one reads the same, with the `0.2× size` label as the place that smallness is said. `drawn-size.ts` carries the same paragraph.
+
 ## 2026-09-10 · 9fd4c52f — A fourth answer each for THE CAROM and THE CHUTE, beside the three that landed
 
 Two lanes did the queue's carom-and-chute item at once — a cloud session pushed its three-and-three to `origin/main` while this one was drawing its own — and four of this lane's six were the other lane's under different names: a stone rolled with pits placed on it, chips shed into the streak, a panelled dome, a bell that squeezes. Those are dropped. The two that argue something the slot does not yet have are offered on the records that landed: FACET cuts the crust into the faces its outline promises, an outer ring sloping to the silhouette and a bevel sloping down into the hole, each shaded flat by its own normal so the faces brighten and dim as the stone spins and the window becomes a hole in something thick; VANE turns the shipped dome slowly about its own axis with a twist from the sway, eight pores placed on it by longitude and latitude coming round from one limb to the other over a shell lit from the key — the reveal a dome's unchanging outline makes free.
