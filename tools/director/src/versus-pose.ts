@@ -207,6 +207,18 @@ const SLOT_POSE: Record<string, string> = {
   // *slick*. The wheel's own pose: all six up, turning, which is the only
   // state a mount is ever in (`mount-look.ts`).
   "creature:mount": "GYRE · TURNING",
+  // Two about a layer over a body giving way, opened on 10 September 2026, and
+  // the first poses on this page with a hand kept on the world after it is
+  // built (`Pose.hand`, `poses-layers.ts`). A rind sheds on a shot and a lid
+  // opens under a pull, and neither happens on a page where nobody fires and
+  // nobody pulls — so the cannon fires again every two beats, and the cord is
+  // pulled, held and let go on its own clock.
+  "creature:rind": "RIND · SHEDDING",
+  "creature:lid": "LID · OPENING",
+  // And the rind's whole body, asked for by the owner the same day — a rind
+  // that is not a slick. The same pose: a body worn per layer is judged as the
+  // layers come off it, and nowhere else.
+  "rind:body": "RIND · SHEDDING",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

@@ -1,5 +1,5 @@
 import type { ViewRole } from "@neon-spore/render";
-import type { World } from "@neon-spore/sim";
+import type { TimedCommand, World } from "@neon-spore/sim";
 
 /**
  * What a pose *is* — the shape of one, and the two things a caller can ask of
@@ -51,6 +51,25 @@ export interface Pose {
   role?: ViewRole;
   /** A world, posed. Built fresh each time — nothing here is shared. */
   build(): World;
+  /**
+   * A hand kept on the world after it is built: the commands to send on this
+   * tick, read off the world as it stands. Called once per tick by the pair
+   * (`versus-pair.ts`'s `advance`) and by the frames test that draws a
+   * candidate on its pose; the STATES gallery, which holds one frame, never
+   * calls it.
+   *
+   * A pose is otherwise stepped with nobody pressing anything, and for most
+   * states that is right — a shot leaves, a plate turns it away, a body
+   * comes apart, all from the tick `build` handed over. But some states are
+   * *held* by a hand and only mean anything while it moves: THE LID's plates
+   * part by exactly as much as a cord is being pulled, so a pose built with
+   * the cord already taut is a picture of an eye standing open, and the
+   * opening — the thing a look for the armour is judged on — never happens
+   * on the page. This is how a pose pulls, holds and lets go on its own
+   * clock, and it reads `world.tick` for that clock so a rebuilt world starts
+   * the gesture again from the same place.
+   */
+  hand?(world: World): TimedCommand[];
   /** Where a `tile` crop is centred. Read off the posed world, never guessed. */
   at?(world: World): { col: number; row: number };
   /**

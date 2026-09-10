@@ -20,6 +20,7 @@ import { drawLid } from "./lid.js";
 import { drawLiving } from "./living-draw.js";
 import { drawMeteor } from "./meteor.js";
 import { MOUNT_LOOK } from "./mount-look.js";
+import { rindWears } from "./rind-look.js";
 import { drawTorch } from "./torch.js";
 import { showsVeilCore } from "./veil.js";
 import { showsVolleyCore } from "./volley.js";
@@ -153,6 +154,10 @@ export function drawLivingBody(b: Body, swell = 1, shape?: CreatureSilhouette, w
   const { ctx, l, world, c, x, y, time, beats, beatPhase, near } = b;
   if (c.kind === "veil" && !showsVeilCore(l)) return;
   if (!showsVolleyCore(world.cfg, c)) return;
+  // A rind under a look that gives it a body of its own wears that body while
+  // it has a layer on, the way a soundbox wears its arms: a contour that is a
+  // fact about this body now rather than about its kind (`rind-look.ts`).
+  const over = shape ?? rindWears(c, world.cfg);
   drawLiving(
     ctx,
     l,
@@ -172,7 +177,7 @@ export function drawLivingBody(b: Body, swell = 1, shape?: CreatureSilhouette, w
     near,
     recoilTurn(c, beatPhase),
     swell,
-    shape,
+    over,
     wash,
   );
 }

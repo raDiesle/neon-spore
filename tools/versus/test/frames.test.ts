@@ -107,13 +107,16 @@ describe("a candidate survives a whole frame", () => {
  * ticks of it, and the stub still refusing what a real canvas refuses.
  */
 function drawPose(slot: string, ticks: number): number {
-  const world = poseForSlot(slot).build();
+  const pose = poseForSlot(slot);
+  const world = pose.build();
   const { canvas, ctx } = stubCanvas();
   const renderer = new Canvas2DRenderer(canvas);
   renderer.resize({ width: 760, height: 1640, dpr: 2 });
 
   for (let tick = 0; tick < ticks; tick++) {
-    step(world, []);
+    // With the pose's own hand on it, so a candidate for a state a hand holds
+    // — a cord pulled, a shot fired — is drawn in that state and not beside it.
+    step(world, pose.hand ? pose.hand(world) : []);
     if (tick % 4 !== 0) continue;
     renderer.draw({
       world,

@@ -65,15 +65,14 @@ export interface PairHooks {
  * named state arrives, so a rebuilt world's own `events` already holds the
  * `fire` or `deflect` that moment produced — a shield candidate's shockwave
  * is drawn from that event alone, since the rock it caught left no scar and
- * no lasting body. Handing back `[]` here, as this file used to on every
- * rebuild and the first frame, is why that shockwave never played: the event
- * that would have started it was thrown away before a renderer saw it.
- * `test/versus-loop.test.ts` pins the fix with no canvas needed. `pose`, given, matters only
- * if `cadenceSeconds` is set: `needWave` is left unhandled rather than racing `startPair`.
+ * no lasting body. Handing back `[]` here on every rebuild, as this file used
+ * to, is why that shockwave never played (`test/versus-loop.test.ts`). `pose`
+ * matters only with `cadenceSeconds` set: `needWave` is then left to `startPair`,
+ * and its `hand` says what a pose's hand does this tick (`Pose.hand`).
  */
 type StepResult = { world: World; events: SimEvent[] };
 export function advance(world: World, build: () => World, pose?: Pose): StepResult {
-  step(world, []);
+  step(world, pose?.hand ? pose.hand(world) : []);
   if (pose?.cadenceSeconds === undefined && world.events.some((e) => e.type === "needWave")) {
     const rebuilt = build();
     return { world: rebuilt, events: [...rebuilt.events] };
@@ -193,20 +192,21 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
         return;
       }
       const next = advance(world, () => pose.build(), pose);
+      // Gathered across a frame's ticks, not replaced per tick: at 120 Hz on a 60 Hz
+      // frame, the first tick's event was overwritten by the second (`stage.ts`).
       if (next.world !== world) rebuiltTo(next.world);
-      events = next.events;
+      else events.push(...next.events);
     },
     paint: (dt, real) => {
       if (stepping()) {
         clock += dt;
         // The one place a cadenced pose ever rebuilds.
         if (cadenceElapsed(pose, clock)) rebuiltTo(pose.build());
-      } else {
-        // Not running, or frozen: a non-empty `events` replayed on every static
-        // tick would re-ingest a `fire` or a `deflect` again and again.
-        events = [];
       }
       paint(dt);
+      // Spent once drawn: kept, they would be re-ingested on every frame that
+      // steps no tick — paused, frozen, or a rate under a tick a frame.
+      events = [];
 
       if (!blink) return;
       blinkAt += real;

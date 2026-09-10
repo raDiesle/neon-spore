@@ -645,6 +645,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/ghost-latitude.ts` | THE GHOST's camouflage, coming apart on a **surface** rather than on a flat plane |
 | `packages/render/src/wisp-aim.ts` | you are drawing the square a wisp is going to and the dotted arc to it — the navigator's whole sentence |
 | `packages/render/src/lid-string.ts` | you are drawing or hit-testing the cord under an armoured eye — the handle's circle lives here |
+| `packages/render/src/lid-look.ts` | you are offering a second answer to the lid's armour — the one record a candidate for the plates patches |
+| `packages/render/src/lid-plates.ts` | the shipped plates over the lid's lens — two grey rectangles sliding apart, and the lit seam between them |
 | `packages/render/src/lid.ts` | you are drawing the armoured eye itself — the lens, the sliding plates and the fringe |
 | `packages/render/src/ease.ts` | The one easing curve `render/` uses, and the one place it is written out |
 | `packages/render/src/hash.ts` | The one repeatable 0..1 in `render/`, and the one place its two magic numbers are written down |
@@ -658,7 +660,9 @@ place — the generator keeps whatever is there.
 | `packages/render/src/pinball-piece.ts` | you are drawing what stands on PINBALL's table — a peg as a living cell, a block as a slab of the same tissue |
 | `packages/render/src/snake-skin.ts` | What the body is made of: its contour, its light and its scales |
 | `packages/render/src/snake-mouth.ts` | What is in the mouth: the space itself, the fangs hung in it, and the tongue |
-| `packages/render/src/rind-shed.ts` | A layer coming off THE RIND — the owner's picture of it: it should look like it is shrinking, hit with a |
+| `packages/render/src/rind-shed.ts` | the event of a layer coming off a rind — which body, how big it was and is — handed to `RIND_LOOK` to draw |
+| `packages/render/src/rind-skin.ts` | the shipped picture of a rind losing a layer — the outline crushed onto the smaller body, the skin thrown out as a ring |
+| `packages/render/src/rind-look.ts` | you are offering a second answer to the rind — its shed, or the body it wears per layer |
 | `packages/render/src/snake-crash.ts` | The pause between two attempts, as a picture |
 | `packages/render/src/snake-items.ts` | What is standing in SNAKE's arena to be spent: the things to shoot and the things to swallow |
 | `packages/render/src/snake-ribbon.ts` | What a body looks like once somebody has said where its joints are |
@@ -1393,6 +1397,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/poses-cage.ts` | The pose a candidate for THE RECOIL's cage is judged on |
 | `tools/director/src/poses-damage.ts` | The two poses about **damage** — a rock being marked, and a body being destroyed |
 | `tools/director/src/poses-rounds.ts` | The states a candidate for an **interlude** is judged on |
+| `tools/director/src/poses-layers.ts` | the states a layer over a body is judged giving way in — a rind under fire, a lid under a hand — with `Pose.hand` |
 | `tools/director/src/versus-app.ts` | `versus.html` — the page a VERSUS door opens into, and the whole of its routing |
 | `tools/director/src/versus-one.ts` | One candidate, alone, on a page of its own — the live half of VERSUS |
 | `tools/director/src/versus-open.ts` | Where a look opens, and how a page links to it |

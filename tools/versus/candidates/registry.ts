@@ -21,6 +21,9 @@ import { GHOST_SWARM } from "./creature-ghost/swarm/index.js";
 import { GYRE_HELIX } from "./creature-gyre/helix/index.js";
 import { GYRE_ORBIT } from "./creature-gyre/orbit/index.js";
 import { GYRE_VORTEX } from "./creature-gyre/vortex/index.js";
+import { LID_BEVEL } from "./creature-lid/bevel/index.js";
+import { LID_IRIS } from "./creature-lid/iris/index.js";
+import { LID_ROLL } from "./creature-lid/roll/index.js";
 import { MAGNET_ORE } from "./creature-magnet/ore/index.js";
 import { MAGNET_ROD } from "./creature-magnet/rod/index.js";
 import { MAGNET_YAW } from "./creature-magnet/yaw/index.js";
@@ -34,6 +37,9 @@ import { QUEEN_SCUTES } from "./creature-queen/scutes/index.js";
 import { RECOIL_GLOBE } from "./creature-recoil/globe/index.js";
 import { RECOIL_SPRUNG } from "./creature-recoil/sprung/index.js";
 import { RECOIL_TUBE } from "./creature-recoil/tube/index.js";
+import { RIND_FLAKES } from "./creature-rind/flakes/index.js";
+import { RIND_POD } from "./creature-rind/pod/index.js";
+import { RIND_SLOUGH } from "./creature-rind/slough/index.js";
 import { THROB_CAP } from "./creature-throb/cap/index.js";
 import { THROB_GIRDLE } from "./creature-throb/girdle/index.js";
 import { THROB_PORES } from "./creature-throb/pores/index.js";
@@ -49,6 +55,9 @@ import { WARDEN_WHORL } from "./creature-warden/whorl/index.js";
 import { WISP_ARMS } from "./creature-wisp/arms/index.js";
 import { WISP_COMB } from "./creature-wisp/comb/index.js";
 import { WISP_SKIRT } from "./creature-wisp/skirt/index.js";
+import { RIND_BODY_BURR } from "./rind-body/burr/index.js";
+import { RIND_BODY_FACET } from "./rind-body/facet/index.js";
+import { RIND_BODY_TOOTHED } from "./rind-body/toothed/index.js";
 import { SHIP_CHITIN } from "./ship-body/chitin/index.js";
 import { SHIP_EMBEDDED } from "./ship-body/embedded/index.js";
 import { SHIP_GULLET } from "./ship-body/gullet/index.js";
@@ -76,6 +85,9 @@ export const VARIANTS: Variant[] = [
   GYRE_HELIX,
   GYRE_ORBIT,
   GYRE_VORTEX,
+  LID_BEVEL,
+  LID_IRIS,
+  LID_ROLL,
   MAGNET_ORE,
   MAGNET_ROD,
   MAGNET_YAW,
@@ -89,6 +101,9 @@ export const VARIANTS: Variant[] = [
   RECOIL_GLOBE,
   RECOIL_SPRUNG,
   RECOIL_TUBE,
+  RIND_FLAKES,
+  RIND_POD,
+  RIND_SLOUGH,
   THROB_CAP,
   THROB_GIRDLE,
   THROB_PORES,
@@ -104,6 +119,9 @@ export const VARIANTS: Variant[] = [
   WISP_ARMS,
   WISP_COMB,
   WISP_SKIRT,
+  RIND_BODY_BURR,
+  RIND_BODY_FACET,
+  RIND_BODY_TOOTHED,
   SHIP_CHITIN,
   SHIP_EMBEDDED,
   SHIP_GULLET,

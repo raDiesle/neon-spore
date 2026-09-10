@@ -5,6 +5,7 @@ import { hazed } from "./depth.js";
 import { drawEyeFluid, drawEyeFringe, drawEyeLens, type EyeInk } from "./eye.js";
 import { strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
+import { LID_LOOK } from "./lid-look.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { PLATE, PLATE_RIM } from "./shell-plate.js";
 
@@ -100,7 +101,22 @@ export function drawLid(
   ctx.save();
   ctx.clip(socket);
   drawEyeLens(ctx, 0, 0, LID.rx, LID.ry, ink, open, beats);
-  drawPlates(ctx, open, hazed(cfg, PLATE, near), ink.rim, line);
+  // Through the record and not the paint, so a candidate can stand in for the
+  // armour for the length of one frame (`docs/versus.md`). `gap` is worked out
+  // here and handed over: it is the readout, and `PART_MUL` is the one place
+  // that says how far a fully open lid parts.
+  LID_LOOK.plates({
+    ctx,
+    open,
+    gap: open * LID.rx * PART_MUL,
+    rx: LID.rx,
+    ry: LID.ry,
+    plate: hazed(cfg, PLATE, near),
+    edge: PLATE_RIM,
+    light: ink.rim,
+    line,
+    time,
+  });
   ctx.restore();
   // And the fringe outside both, so a lash is never cut off by the socket it
   // grows from.
@@ -110,62 +126,4 @@ export function drawLid(
   // shape while the picture inside it does.
   strokeGlow(ctx, socket, open > 0 ? ink.rim : hazed(cfg, PLATE_RIM, near), line, 0.5 + open * 0.9);
   ctx.restore();
-}
-
-/**
- * The two plates, and the gap between them.
- *
- * Rectangles clipped to the eye's own outline rather than shapes cut to it —
- * the caller holds that clip, because the lens under them is clipped to the
- * same path and opening it twice would be two clips for one shape. The plates
- * *slide*, so their inner edges have to be straight and their outer ones have
- * to be the socket's, and the clip gives both from one path; a plate cut to the
- * contour would have to be re-cut on every frame the body breathes on, and
- * would still be a second copy of where the socket is.
- *
- * The inner edges are lit in the lens's colour whatever the tension, so a shut
- * lid still tells the pair which trigger to load — that seam is the whole of
- * why the armour here buys timing rather than surprise (`lid.ts` in sim).
- */
-function drawPlates(
-  ctx: CanvasRenderingContext2D,
-  open: number,
-  plate: string,
-  light: string,
-  line: number,
-): void {
-  const gap = open * LID.rx * PART_MUL;
-  const w = LID.rx * 2.2;
-  for (const side of [-1, 1] as const) {
-    const inner = side * gap;
-    ctx.fillStyle = plate;
-    ctx.fillRect(side < 0 ? inner - w : inner, -LID.ry * 1.2, w, LID.ry * 2.4);
-  }
-  // Two grooves per plate, at fixed fractions of its own width, so they travel
-  // with the plate and say it is a thing that moved rather than a shape that
-  // shrank. One path for all four: the fringe's argument next door, and the
-  // reason the whole body is a flat count of canvas calls whatever it is doing.
-  const grooves = new Path2D();
-  for (const side of [-1, 1] as const) {
-    for (const f of [0.35, 0.7] as const) {
-      const gx = side * gap + side * LID.rx * f;
-      grooves.moveTo(gx, -LID.ry);
-      grooves.lineTo(gx, LID.ry);
-    }
-  }
-  ctx.save();
-  ctx.globalAlpha = 0.5;
-  ctx.strokeStyle = PLATE_RIM;
-  ctx.lineWidth = line * 0.7;
-  ctx.stroke(grooves);
-  ctx.restore();
-
-  // The two inner edges, lit — one path again, and the light stops at the
-  // socket because the caller's clip is still open.
-  const edges = new Path2D();
-  for (const side of [-1, 1] as const) {
-    edges.moveTo(side * gap, -LID.ry);
-    edges.lineTo(side * gap, LID.ry);
-  }
-  strokeGlow(ctx, edges, light, line * 0.9, 0.8 + open * 0.8);
 }

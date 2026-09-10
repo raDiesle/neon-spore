@@ -190,20 +190,6 @@ Whichever wins, `packages/render/test/wave-budget.test.ts`'s BULB QUEEN rows
 are the proof it changed nothing else, and `bun run frames . --wave 25 --at`
 takes the two pictures for the owner to choose between.
 
-## THE RIND and THE LID have one look each and no record to patch
-
-- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
-- **Taken:** 2026-09-10, claude/queue-the-rind-and-the-lid-have-one-look-each-and-no-r
-- **Files:** `packages/render/src/rind-shed.ts`, `packages/render/src/lid.ts`,
-  `packages/render/src/lid-string.ts`, `tools/versus/candidates/`
-
-Neither body has a `-look.ts` record, so the first job is to cut one apiece and
-the second is to open `creature:rind` and `creature:lid` with three candidates
-each. The rind sheds a layer per hit and is three sizes over its life, so its
-candidates are judged on whether the shed reads as a thing losing a skin; the
-lid opens, so its candidates are judged on the opening. Both are motion slots.
-`.claude/skills/depth` applies. Poses in `versus-pose.ts` in the same commit.
-
 ## THE CAROM and THE CHUTE have one look each and no record to patch
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
@@ -329,3 +315,25 @@ Wait for `creature:break` to be decided before opening this, or check with
 `bun run versus` that the fields do not overlap: `bun test` refuses two open
 slots claiming one field, and a body's break and a body's hit are next-door
 questions.
+
+## `versus:shot --at` on a `--only` tile pose photographs the page, not the window
+
+- **Found:** 2026-09-10, claude/queue-the-rind-and-the-lid-have-one-look-each-and-no-r
+- **Files:** `tools/frames/versus-element.ts`, `tools/frames/shot.ts`,
+  `tools/frames/pixels.ts`
+
+`bun run versus:shot creature:lid bevel out.png --freeze 0.62 --only candidate
+--at 36,80,100,56` came back as a strip of the BLINK prose and a corner of the
+stage. `versus-element.ts` says `--at` is measured against the first
+`.versus-crop` window, and with `--only` against that side's — but the
+rectangle landed somewhere under it, so the window `--only` mounts at true
+size is not the element the crop is measured from, or it moves after the
+measurement (`only=` mounts one side alone, and the page's layout is not the
+pair's). The lane took the picture at `--zoom 2` whole instead and cropped and
+magnified it with a throwaway script over `pixels.ts`'s decoder — the third
+lane in two days to write that script. Two things to do, either of which ends
+it: make `--at` land on the window under `--only`, and prove it with the
+command above returning the eye and nothing else; and give `tools/frames` a
+`crop <in.png> <out.png> x,y,w,h [zoom]` that reads with `decodePng` and
+writes with `tools/raster/src/png.ts`'s chunks, so a lane that already has a
+picture can look closer without a browser.

@@ -162,6 +162,15 @@ map, in the same commit as the candidate.
 `tools/director/test/versus-pose.test.ts` fails on a slot that does not, which
 is the only thing keeping that from happening again.
 
+**A state a hand holds gets a hand.** The pair steps a pose with nobody
+pressing anything, which is right for a shot leaving or a plate turning one
+away and wrong for a lid whose plates part by exactly as much as a cord is
+being pulled — built taut, it is an eye standing open, and the opening never
+happens on the page. `Pose.hand(world)` is the commands to send on this tick,
+read off the world as it stands: `poses-layers.ts` pulls a cord, holds it and
+lets it go on a clock of its own, and fires at a rind every two beats. The
+STATES gallery never calls it; the pair and `test/frames.test.ts` do.
+
 **Which file the pose goes in is the same question as which rhythm it wants.**
 `poses-versus.ts` holds the states where something *happens* — a shot arriving,
 a plate turning one away, a hand pushing a body — and every one of them carries
