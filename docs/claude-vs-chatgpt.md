@@ -32,9 +32,9 @@ It is not "which model is smarter". Both houses ship a frontier coding model,
 both are good enough to add a creature to `packages/content`, and on the work
 this repository does most — small, test-covered, deterministic edits behind
 `bun run check` — the difference between them is smaller than the difference
-between a well-scoped task and a badly scoped one. `docs/choosing-a-model.md`
-already measured that: the cheapest model ran the most expensive lane of the
-day, because it had the widest scope.
+between a well-scoped task and a badly scoped one. That was measured here on
+27 August 2026 across thirteen lanes: the cheapest model ran the most expensive
+lane of the day, because it had the widest scope.
 
 The question is about the **harness**, and this repository is an unusually
 harness-heavy one. Read what is in the tree: `CLAUDE.md` is a constitution, not

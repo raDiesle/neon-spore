@@ -22,7 +22,6 @@ file, and a count has to agree with what the file's own header counts.
 | `docs/art-review.md` | you are about to propose anything a player would see, and want the checklist those rules turn into |
 | `docs/architecture.md` | you touch the sim/render boundary, determinism or the tick |
 | `docs/working-with-claude.md` | you are setting up a session, a skill or a hook |
-| `docs/choosing-a-model.md` | you are writing a prompt and picking a model and a thinking effort |
 | `docs/versus.md` | you are offering a second answer to something already drawn, or judging one |
 | `docs/alive.md` | you are making a body read as living rather than as drawn |
 | `docs/parts.md` | you are adding a secondary form — a tentacle, a spore, a crystal, a fin — or building a body out of them |
@@ -37,7 +36,7 @@ file, and a count has to agree with what the file's own header counts.
 | `docs/queue.md` | you found a technical improvement and are not doing it now, or you are opening a session to drain one — `bun run queue` |
 | `docs/parked.md` | you are stopping mid-way through something, or picking up what a session left half-done — the front of the same queue, work only, never ideas |
 | `docs/performance.md` | you added a shape or an animation, or you want to know what a frame costs and where the time goes — `bun run perf` |
-| `docs/token-budget.md` | you wonder why files are small and docs are split |
+| `docs/token-budget.md` | you wonder why files are small and docs are split, or how one sequential session with automatic compaction should spend its context |
 | `docs/commands.md` | you need a `bun run` script that `CLAUDE.md`'s short list has not got — every one, a line each |
 | `docs/delegating.md` | you hand implementation to the worker model |
 | `docs/delegation-cost.md` | you wonder whether delegating is worth it — it was measured |

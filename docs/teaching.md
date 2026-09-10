@@ -150,9 +150,9 @@ never re-authored. And #18's own "Reconsider if" — "something has to be taught
 that no wave contains… That wants a third mechanism" — is the door this walks
 through.
 
-**Lane shape, against `docs/choosing-a-model.md`.** Section 10's measured fact
-is that model tier explained almost none of the spread across thirteen lanes;
-scope and repeat turns explained nearly all of it. So the batch is cut by
+**Lane shape.** The measured fact from thirteen lanes on 27 August 2026 is
+that model tier explained almost none of the spread; scope and repeat turns
+explained nearly all of it. So the batch is cut by
 seam, not by size: two pre-existing defects cleared first, each its own
 commit, then the mechanism, then the words, then the picture.
 The two files everything wants — `world.ts` and `beat.ts` — are **both exactly

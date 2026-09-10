@@ -37,6 +37,22 @@ entry, which now waits on `ship:body` instead of asking. About 5 min.
 
 Bottleneck: none worth naming.
 
+## 2026-09-10 · claude/workflow-token-efficiency-fb8475 (second landing)
+
+`docs/choosing-a-model.md` removed with its three pointers, and
+`docs/token-budget.md` rewritten for the way the work is actually done: one
+session on Opus 5, tasks in sequence, compaction at about 300k. About 15 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the three files that pointed at the doc, the sessions memory |
+| writing | 5 | the doc, three pointers, an INDEX row |
+| looking | 0 | nothing visible moved |
+| friction | 0 | — |
+| landing | 5 | `check:fast`, the commit, `land --keep` |
+
+Bottleneck: **none** to speak of — a short lane.
+
 ## 2026-09-10 · claude/workflow-token-efficiency-fb8475
 
 `CLAUDE.md` cut from 21.3 KB to 13.3 KB, a paragraph's headroom from its
