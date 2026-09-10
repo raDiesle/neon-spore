@@ -371,12 +371,8 @@ whole file — and make sure it is not the shard that also happens to run a
 `bun install` (the red shard's output opened with one, from whichever test
 spawns it).
 
-It took three reds to learn the test's name, because the runner keeps no
-record: `shard.ts` prints the red shard's output to stdout and nothing keeps
-it, so a session that ran `land` through `tail` has nothing to read once the
-terminal scrolls. `shard.ts` already writes a junit file per shard under
-`tmpdir()` and merges them; leave the merged report — or at least the names
-of the failing tests — at a fixed path and have `land` name that path in its
-failure line. `tools/check/test/` holds the runner's tests; the proof is a
-deliberately failing file run through the sharder and its name found in the
-kept report.
+It took three reds to learn the test's name, because `land` printed only the
+last twenty-five lines of the check and a red shard's name sits well above
+them. `tools/land/red-check.ts` now prints the failing tests' own lines first
+and keeps the whole output in a file it names, so the next flake is named on
+its first red; the fix here is the test itself.

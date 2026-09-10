@@ -56,6 +56,7 @@ import { writeNotes } from "./note-commit.js";
 import { type Landed, LOG_FORMAT, parseLanded } from "./notes.js";
 import { queueSnapshots, refusal, resurrectedAfter } from "./queue-guard.js";
 import { trunkRaced } from "./race.js";
+import { redCheckReport } from "./red-check.js";
 import { deleteRemote, deletionLine } from "./remote-branch.js";
 import { replay } from "./replay.js";
 import { badge, describe } from "./say.js";
@@ -180,8 +181,7 @@ async function moveTrunk(): Promise<Landed[]> {
     check.exited,
   ]);
   if (checkCode !== 0) {
-    console.log(`✗ bun run check is red on the replayed lane; ${TRUNK} was not moved`);
-    console.log(`${checkOut}${checkErr}`.trim().split("\n").slice(-25).join("\n"));
+    for (const line of await redCheckReport(`${checkOut}${checkErr}`, TRUNK)) console.log(line);
     process.exit(1);
   }
   console.log("  checked  green");
