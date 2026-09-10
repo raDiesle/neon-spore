@@ -53,6 +53,14 @@ export interface DrawnSize {
  * The frame is an input, never assumed: the paired-cards lane's entire
  * finding was a number that changed when the frame did, and a function that
  * hardcoded 92 would answer a question nobody will ask twice.
+ *
+ * And because it *is* the card's fit, an absolute size is invisible to it: a
+ * body authored at `sizeMul: 0.2` is scaled back up to fill the same card and
+ * measures exactly what the full-size one does — the SHAPES page draws THE
+ * RUNT as big as THE SLICK and says `0.2× size` on the label instead. This is
+ * a measure of contour, of how much of a card a resting body fills once its
+ * sway is reserved, and `candidates.test.ts` holds both halves of that: a
+ * flattened body reads thinner, a shrunken one reads the same.
  */
 export function drawnSize(entry: CatalogueEntry, box: number, width = box): DrawnSize {
   const { scale } = figureLayout(entry, entry.motion, box, width);

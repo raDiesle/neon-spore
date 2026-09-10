@@ -29,13 +29,13 @@ const SHIPPED = livingSilhouette("slick");
 /** The card every body on the SHAPES page is fitted to. */
 const CARD = 92;
 
-/** A candidate for the slick's own outline, drawn far too small. */
-function tiny(): Variant {
+/** A candidate for the slick's own outline, patching `fields` over it. */
+function contour(name: string, sentence: string, fields: Partial<typeof SHIPPED>): Variant {
   return {
     slot: "creature:slick",
-    name: "speck",
-    sentence: "the same body at a fifth the size",
-    dir: "tools/versus/candidates/creature-slick/speck",
+    name,
+    sentence,
+    dir: `tools/versus/candidates/creature-slick/${name}`,
     patches: [
       {
         target: SHIPPED,
@@ -45,10 +45,20 @@ function tiny(): Variant {
           symbol: "SLICK",
           type: "CreatureSilhouette",
         },
-        fields: { sizeMul: 0.2 },
+        fields,
       },
     ],
   };
+}
+
+/** The same body at a fifth the size. */
+function tiny(): Variant {
+  return contour("speck", "the same body at a fifth the size", { sizeMul: 0.2 });
+}
+
+/** The same body pressed flat — a quarter the height at the same width. */
+function flat(): Variant {
+  return contour("ribbon", "the same body pressed flat", { ry: SHIPPED.ry / 4 });
 }
 
 /** A candidate for a *look* — a colour, not a contour. */
@@ -102,11 +112,11 @@ describe("contourCandidates", () => {
 });
 
 describe("what a candidate can now be asked", () => {
-  it("is measured for its drawn size, so a shrunken one reads as smaller", () => {
-    const entry = candidateEntries([tiny()])[0];
+  it("is measured for its drawn size, so a flattened one reads as thinner", () => {
+    const entry = candidateEntries([flat()])[0];
     expect(entry).toBeDefined();
     // The 92 px card the SHAPES page draws every body on.
-    const shrunk = drawnSize(entry!, CARD);
+    const thin = drawnSize(entry!, CARD);
     const shipped = drawnSize(
       { subject: blob("SLICK", SHIPPED), status: "taken", slot: "creature", owner: "" },
       CARD,
@@ -114,8 +124,30 @@ describe("what a candidate can now be asked", () => {
     // The whole point: this is answerable at all. Before the join there was
     // no subject to hand `drawnSize`, so the 20 px floor and the 11 px cliff
     // could not be applied to a candidate until after it had won.
-    expect(shrunk.short).toBeLessThan(shipped.short);
-    expect(Number.isFinite(shrunk.long)).toBe(true);
+    expect(thin.short).toBeLessThan(shipped.short);
+    expect(Number.isFinite(thin.long)).toBe(true);
+  });
+
+  it("measures a shrunken one at the shipped size, because the card fits every body", () => {
+    // Until 10 September 2026 this case asserted the opposite — that a
+    // `sizeMul: 0.2` candidate reads *smaller* — and it was red on a Linux
+    // clone and green on Windows, by the last digit of a float. `drawnSize`
+    // is the director's own fit (`figureLayout`), and the fit scales a body
+    // to fill its card whatever size it is authored at: the SHAPES page
+    // draws THE RUNT as big as THE SLICK and says `0.2× size` on the label
+    // instead (`subjects.ts`). So the floor this measure is held against is
+    // about the *contour* — how much of a card a body's resting box fills
+    // once its sway is reserved — and an absolute `sizeMul` is not something
+    // it can see. What it sees is the case above: a body pressed flat.
+    const entry = candidateEntries([tiny()])[0];
+    expect(entry).toBeDefined();
+    const shrunk = drawnSize(entry!, CARD);
+    const shipped = drawnSize(
+      { subject: blob("SLICK", SHIPPED), status: "taken", slot: "creature", owner: "" },
+      CARD,
+    );
+    expect(shrunk.long).toBeCloseTo(shipped.long, 6);
+    expect(shrunk.short).toBeCloseTo(shipped.short, 6);
   });
 
   it("is measured against the nameability gate, so one that lost its word is caught", () => {

@@ -40,3 +40,20 @@ Bottleneck: **looking**. A picture of one candidate costs two to three minutes
 of director start-up and browser, and a candidate needs two or three pictures
 before it is right — more than a third of the lane was waiting for
 screenshots. The pair's own frame rate is not the cost; the start-up is.
+
+## 2026-09-10 · claude/queue-bun-run-check-is-red-on-main-a-claim-the-shapes
+
+A test that was green on Windows and red on Linux by the last digit of a
+float, settled by saying what the sheet actually does. About 25 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the queue entry, `candidates.test.ts`, `drawn-size.ts`, `shape-fit.ts`, `drawn-size.test.ts`'s premise, the git log around dce50590 |
+| writing | 5 | the two cases in `candidates.test.ts` and a paragraph in `drawn-size.ts` |
+| looking | 0 | nothing visible moved |
+| friction | 5 | the failure would not reproduce here — a scratch script at the root could not import `@neon-spore/content` and had to move inside the package |
+| landing | 5 | `check:fast`, the commit, `land --keep` |
+
+Bottleneck: **reading** — the entry named a red test that is green on this
+machine, so most of the lane went into proving the diagnosis before the
+three-line fix could be trusted.

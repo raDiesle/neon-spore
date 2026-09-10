@@ -286,33 +286,6 @@ Wait for `creature:break` to be decided before opening this, or check with
 slots claiming one field, and a body's break and a body's hit are next-door
 questions.
 
-## `bun run check` is red on `main`: a claim the SHAPES card no longer makes
-
-- **Found:** 2026-09-10, claude/enemy-graphics-animations-versus-3mjjv7
-- **Taken:** 2026-09-10, claude/queue-bun-run-check-is-red-on-main-a-claim-the-shapes
-- **Files:** `tools/shape-sheet/test/candidates.test.ts`,
-  `tools/shape-sheet/src/drawn-size.ts`
-
-`tools/shape-sheet/test/candidates.test.ts` — *what a candidate can now be
-asked > is measured for its drawn size, so a shrunken one reads as smaller* —
-fails on `origin/main` at dce50590 with a clean tree, so every lane that runs
-`bun run check` before landing sees a red shard it did not cause. The test
-patches `sizeMul: 0.2` onto the slick's silhouette and asserts the candidate's
-`short` comes back under the shipped body's; both now come back at exactly
-22.610698182298695.
-
-It has survived at least two landings since — the sha above is where this lane
-found it, not where it started. The cause is `21298131`, *`drawnSize` is the
-director's own fit now, not a second copy of it*: `drawnSize` runs `figureLayout`, which **fits a figure to
-the card**, so a body authored at a fifth of the size is scaled back up to fill
-the same 92 px box and measures identically. That is a decision rather than a
-slip, and it is why this is an entry instead of a fix in the lane that found
-it — the sheet either normalises every body to its card, in which case the
-20 px floor and the 11 px cliff cannot be applied to a `sizeMul` at all and the
-test's premise goes, or it does not, in which case `figureLayout`'s fit is the
-wrong thing for `drawnSize` to be asking. Pick one, say which in the test's own
-words, and prove it with `bun run check` green from a clean `main`.
-
 ## `bun run queue take` cannot write its `Taken:` line in a cloud clone
 
 - **Found:** 2026-09-10, claude/enemy-graphics-animations-versus-3mjjv7
