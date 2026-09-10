@@ -555,7 +555,6 @@ says what to add.
 ## `bun install` in a stale worktree writes no workspace links and says nothing
 
 - **Found:** 2026-09-09, claude/shell-plate-versus-page-d18721
-- **Taken:** 2026-09-10, claude/queue-bun-install-in-a-stale-worktree-writes-no-worksp
 - **Files:** `docs/working-with-claude.md`, `tools/check/run.ts`
 
 A worktree that had been installed once already came back with no
