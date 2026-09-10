@@ -225,6 +225,7 @@ than as two marks at its ends. Poses in `versus-pose.ts` in the same commit.
 ## The player's ship has had one hull since the game started
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Taken:** 2026-09-10, claude/queue-the-players-ship-has-had-one-hull-since-the-game
 - **Files:** `packages/render/src/hull.ts`,
   `packages/render/src/hull-frame.ts`, `packages/render/src/hull-barrel.ts`,
   `packages/render/src/cannon-maw.ts`, `packages/render/src/shield.ts`,
