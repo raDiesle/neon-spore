@@ -776,6 +776,7 @@ proof is a photograph of the join at four times size with no straight run in it.
 ## The seat probe cannot see a look that only appears after an event
 
 - **Found:** 2026-09-09, claude/ship-crater-spall-animation-e9da51
+- **Taken:** 2026-09-10, claude/queue-the-seat-probe-cannot-see-a-look-that-only-appea
 - **Files:** `tools/director/src/versus-seat.ts`, `tools/director/src/versus-one.ts`
 
 `diffSequence` steps the world one tick per loop but hands the renderer
