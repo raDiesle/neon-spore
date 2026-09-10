@@ -423,6 +423,7 @@ card's fit; re-pin them with a note saying why, which is what that file does.
 ## `bun test` runs 384 files one after another; the play-by-play cut has run out
 
 - **Found:** 2026-09-10, claude/queue-the-test-suite-is-still-214-seconds-and-the-rest
+- **Taken:** 2026-09-10, claude/queue-bun-test-runs-384-files-one-after-another-the-pl
 - **Files:** `tools/check/`, `tools/check/profile.ts`, `package.json`,
   `docs/performance.md`, `tools/frames/test/opening.test.ts`,
   `apps/server/test/room.test.ts`
