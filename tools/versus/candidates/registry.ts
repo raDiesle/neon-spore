@@ -6,12 +6,14 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
+import { CAROM_FACET } from "./creature-carom/facet/index.js";
 import { CAROM_GRIT } from "./creature-carom/grit/index.js";
 import { CAROM_KEEL } from "./creature-carom/keel/index.js";
 import { CAROM_PITS } from "./creature-carom/pits/index.js";
 import { CHUTE_BELL } from "./creature-chute/bell/index.js";
 import { CHUTE_GORES } from "./creature-chute/gores/index.js";
 import { CHUTE_RIBS } from "./creature-chute/ribs/index.js";
+import { CHUTE_VANE } from "./creature-chute/vane/index.js";
 import { CRAWLER_GUT } from "./creature-crawler/gut/index.js";
 import { CRAWLER_SETAE } from "./creature-crawler/setae/index.js";
 import { CRAWLER_WRINKLE } from "./creature-crawler/wrinkle/index.js";
@@ -79,12 +81,14 @@ import { TORCH_BLOOM } from "./torch-veil/bloom/index.js";
 import { TORCH_FIFTH } from "./torch-veil/fifth/index.js";
 
 export const VARIANTS: Variant[] = [
+  CAROM_FACET,
   CAROM_GRIT,
   CAROM_KEEL,
   CAROM_PITS,
   CHUTE_BELL,
   CHUTE_GORES,
   CHUTE_RIBS,
+  CHUTE_VANE,
   CRAWLER_GUT,
   CRAWLER_SETAE,
   CRAWLER_WRINKLE,

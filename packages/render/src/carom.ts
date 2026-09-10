@@ -104,6 +104,8 @@ export function drawCaromCrust(
   const metal = hazed(cfg, PALETTE.rock, near);
   const glow = hazed(cfg, c.color === "cyan" ? PALETTE.cyan : PALETTE.red, near);
   const rim = hazed(cfg, c.color === "cyan" ? PALETTE.cyanRim : PALETTE.redRim, near);
+  const dark = hazed(cfg, PALETTE.rockDark, near);
+  const ember = hazed(cfg, PALETTE.ember, near);
 
   // The rock turns and the window does not, which is the whole reason they are
   // two drawings rather than one path with a hole in it. A porthole that rolled
@@ -120,6 +122,11 @@ export function drawCaromCrust(
     metal,
     glow,
     rim,
+    x,
+    y,
+    phase: spin,
+    dark,
+    ember,
   };
 
   ctx.save();

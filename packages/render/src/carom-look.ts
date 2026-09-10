@@ -61,17 +61,30 @@ export interface CrustDraw {
    * glass, and the only colour on this drawing that is the creature's own. */
   readonly glow: string;
   readonly rim: string;
+  /** Where the body is on the field, in the same pixels the context has
+   * been translated to — for a look whose turn follows the distance it has
+   * travelled rather than the clock, so it turns back at the wall because
+   * the heading does. Not read by the shipped stone. */
+  readonly x: number;
+  readonly y: number;
+  /** This body's own phase, from its id, so two caroms are never one drawing
+   * done twice; `turn` already carries it plus the clock's drift. */
+  readonly phase: number;
+  /** The rock's own dark and the ember a heated one glows, hazed the same —
+   * neither read by the shipped stone, both by a look that shades it. */
+  readonly dark: string;
+  readonly ember: string;
 }
 
 /** The unlit mid-tone a meteor is filled with before the key touches it.
  * `meteor.ts`'s own fill, so the rock a cracked carom becomes is the identical
  * drawing with the window closed up. */
-const STONE_FILL = "#8A8F9C";
+export const STONE_FILL = "#8A8F9C";
 
 /** How far the streak reaches behind it, in rock radii. Two: about half a lane
  * at the top of the field and most of one at the bottom, which is the distance
  * that reads as speed without reaching into the column next door. */
-const TRAIL_MUL = 2.0;
+export const TRAIL_MUL = 2.0;
 /** How much of the trail's own colour survives where it leaves the rock. */
 const TRAIL_ALPHA = 0.5;
 

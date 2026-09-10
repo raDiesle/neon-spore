@@ -64,6 +64,19 @@ const SWAY = 0.16;
 /** How long the plume under a climbing body reaches, in body radii. */
 const PLUME = 2.4;
 
+/** The rig's lean this frame, in radians — one sway, read off the clock
+ * spread by the body's own phase. Named so a look that keeps the drift
+ * leans exactly as far as the shipped canopy, and no candidate carries a
+ * second copy of the number. */
+export function swayAt(time: number, phase: number): number {
+  return Math.sin(time * 0.7 + phase) * SWAY;
+}
+
+/** The canopy's breath this frame — the belly `canopyPath` is bellied by. */
+export function bellyAt(time: number, phase: number): number {
+  return 1 + Math.sin(time * 1.6 + phase) * 0.06;
+}
+
 /**
  * The dome and its lines as they ship, leaning together about the body they
  * hang from. Rotated about the *body* and not about the canopy's own crown,
@@ -74,13 +87,12 @@ const PLUME = 2.4;
 export function membrane(d: ChuteDraw): void {
   const { ctx, cfg, r, glow, rim, near, time, phase } = d;
   ctx.save();
-  ctx.rotate(Math.sin(time * 0.7 + phase) * SWAY);
+  ctx.rotate(swayAt(time, phase));
   const lift = -r * CANOPY_LIFT;
   const half = r * CANOPY_HALF;
 
   // The dome, with its own breath — the shape `chute-cut.ts` cuts loose.
-  const belly = 1 + Math.sin(time * 1.6 + phase) * 0.06;
-  const dome = canopyPath(r, belly);
+  const dome = canopyPath(r, bellyAt(time, phase));
   ctx.fillStyle = glow;
   ctx.globalAlpha = 0.22;
   ctx.fill(dome);
