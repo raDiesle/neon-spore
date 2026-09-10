@@ -374,6 +374,7 @@ questions.
 ## The test suite is still 214 seconds, and the rest of the cut is a play at a time
 
 - **Found:** 2026-09-10, claude/queue-the-test-suite-takes-four-and-a-half-minutes-and
+- **Taken:** 2026-09-10, claude/queue-the-test-suite-is-still-214-seconds-and-the-rest
 - **Files:** `packages/render/test/*-frame.test.ts`, `tools/shape-sheet/test/drawn-size.test.ts`, `apps/server/test/room.test.ts`, `docs/performance.md`
 
 The lane that wrote `bun run test:profile` took the suite from 292 s to
