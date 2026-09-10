@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · 21298131 — `drawnSize` is the director's own fit now, not a second copy of it
+
+`tools/shape-sheet/src/drawn-size.ts` said it reached into the director rather than re-deriving its arithmetic, and then re-derived the fit: its own `boundsOver`, its own `transformedBounds` with no long axis where the card's fit passes one, and the pad restated as two constants. `shape-fit.ts` now exports `restBounds` — the rest pose's box its memo already held — and `drawnSize` is `figureLayout`'s scale over it, two lines. The memo this file grew on 10 September goes with the copy, since the director's remembers the same scan. Not one pinned figure in `drawn-size.test.ts` moved, which says the missing long axis never changed a square card's fit.
+
 ## 2026-09-10 · f99d3509 — The suite is 153 seconds, from 212, and three rules do it a play at a time
 
 Three seats sharing one seeded world used to draw it three times over, so `thirdOf` in the frame harness gives each a third of the ticks at its own phase, and `remembered` keeps a roles loop's play for the case under it that used to play it again to compare two seats or read the events. The strand's chase stops at eight beats where the thread was swept by five; the lure's shot fires on beat one and is watched for four; the fence's six wall plays are two and the crawler's walls and lengths are paired. Eighteen frame tests carry the three rules, `drawnSize` remembers its contour scan per entry instead of taking it once per case, and the table in `docs/performance.md` has the figures.
