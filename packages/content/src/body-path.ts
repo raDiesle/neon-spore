@@ -214,11 +214,12 @@ export function clubbedPoints(shape: CreatureSilhouette, rim: ClubbedRim, t: num
  * and at the silhouette's own `rx`/`ry` — `sizeMul` is deliberately not applied,
  * because every draw site folds it into a scale it is setting anyway.
  *
- * `n` is how many samples a plain blob takes and is ignored by a clubbed rim,
- * which is walked rather than sampled: how many points a club needs is a fact
- * about the club, not about the caller.
+ * `n` is how many samples a plain blob takes and is ignored by a walked rim or
+ * contour: how many points a club needs is a fact about the club, not the caller.
  */
 export function livingPoints(shape: CreatureSilhouette, t: number, n = 40): Point[] {
+  // A form carried whole is walked as it is, and `n` is its own business too.
+  if (shape.contour) return shape.contour(t);
   if (shape.clubs) return clubbedPoints(shape, shape.clubs, t);
   const pts: Point[] = [];
   for (let i = 0; i < n; i++) {
@@ -243,7 +244,7 @@ export function rimCount(shape: CreatureSilhouette): number {
   return shape.clubs?.clubs ?? shape.lobes;
 }
 
-/** The same contour as an SVG path string, which is what a canvas wants. */
+/** The same contour as a path string, which is what a canvas wants. */
 export function livingPath(shape: CreatureSilhouette, t: number, n = 40): string {
   return catmullRomToBezierPath(livingPoints(shape, t, n));
 }

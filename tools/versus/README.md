@@ -97,6 +97,19 @@ Five things worth knowing before the first one:
 - **`fields` holds whatever the record holds.** A number, a colour, a readonly
   tuple, or a whole replacement function: `poseAt` is a method on `OwnMotion`,
   so a candidate motion is a `fields` with one function in it.
+- **An outline from the shape collection is offered as a `contour`, not as
+  six numbers.** A `CreatureSilhouette` describes a lobed blob, and most of
+  `tools/shape-sheet/src/drafts/` and every generator in `forms/` is not one.
+  Those go on a shipped body through the silhouette's optional `contour`
+  field, which `livingPath` walks the way it walks THE THROB's clubs. Build it
+  with `walkedSilhouette` from `packages/content/src/body-form.ts` and patch
+  the four fields it hands back — `contour`, `rx`, `ry`, and `lobes` as what
+  an eye counts — never `rx` and `ry` of your own: it takes the bounding
+  ellipse off the walked contour once, and those two numbers are what the
+  body's scale, its grip ring and a thumb read. A candidate importing a form
+  out of `tools/shape-sheet` is fine here; taking it is the clubbed rim's move,
+  the form's parameters into `packages/content` and the tool reading the same
+  copy (`ClubbedRim`'s header).
 - **A record declared `as const` needs a cast at the target.** `PALETTE` is one.
   The cast belongs at the candidate or in `apply`, never as a widened type on
   the shipped record.

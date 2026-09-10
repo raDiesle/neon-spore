@@ -1,6 +1,14 @@
 import { describe, expect, it } from "bun:test";
-import type { CreatureSilhouette } from "../src/index.js";
-import { BULB, livingPath, livingPoints, rimCount, SLICK, THROB } from "../src/index.js";
+import type { CreatureSilhouette, Point } from "../src/index.js";
+import {
+  BULB,
+  livingPath,
+  livingPoints,
+  rimCount,
+  SLICK,
+  THROB,
+  walkedSilhouette,
+} from "../src/index.js";
 
 /**
  * THE THROB's rim, and the one property the creature cannot work without.
@@ -74,5 +82,87 @@ describe("a clubbed rim", () => {
     expect(THROB.clubs).toBeDefined();
     expect(rimCount(THROB)).toBe(THROB.clubs?.clubs ?? 0);
     expect(rimCount(SLICK)).toBe(SLICK.lobes);
+  });
+});
+
+/**
+ * A silhouette carrying a contour of its own — the seam that lets a form from
+ * the shape collection be offered on a body that ships. The walk has to be
+ * the form's, and the two numbers everything else reads have to be true of it.
+ */
+describe("a walked contour", () => {
+  /** Five small bodies sharing one skin, parting and closing with `t` — the
+   * shape of `cluster` in the collection, small enough to write here. */
+  const cluster = (t: number): Point[] => {
+    const pts: Point[] = [];
+    const part = 1 + 0.5 * Math.sin(t);
+    for (let i = 0; i < 60; i++) {
+      const a = (i / 60) * Math.PI * 2;
+      const m = 1 + 0.35 * Math.cos(5 * a);
+      pts.push({ x: Math.cos(a) * 30 * m * part, y: Math.sin(a) * 20 * m });
+    }
+    return pts;
+  };
+  const CLUSTER = walkedSilhouette(
+    { lobes: 5, depth: 0.35, wobble: 0, seed: 0, sizeMul: 0.9 },
+    cluster,
+  );
+
+  it("is walked rather than sampled, and ignores the sample count", () => {
+    for (const t of TIMES) {
+      expect(livingPoints(CLUSTER, t)).toEqual(cluster(t));
+      expect(livingPoints(CLUSTER, t, 7)).toEqual(cluster(t));
+    }
+  });
+
+  it("takes rx and ry off the contour's own reach, at its furthest", () => {
+    // The form is widest when `sin(t)` is one, and the bounding ellipse has to
+    // hold that moment rather than the one it happened to be built at.
+    let rx = 0;
+    let ry = 0;
+    for (let t = 0; t < 12; t += 0.05) {
+      for (const p of cluster(t)) {
+        rx = Math.max(rx, Math.abs(p.x));
+        ry = Math.max(ry, Math.abs(p.y));
+      }
+    }
+    expect(CLUSTER.rx).toBeCloseTo(rx, 0);
+    expect(CLUSTER.ry).toBeCloseTo(ry, 0);
+    for (const t of TIMES) {
+      for (const p of livingPoints(CLUSTER, t)) {
+        // Within a percent: the reach is sampled, and a moment between two
+        // samples may reach a hair past the one that set the ellipse.
+        expect(Math.abs(p.x)).toBeLessThanOrEqual(CLUSTER.rx * 1.01);
+        expect(Math.abs(p.y)).toBeLessThanOrEqual(CLUSTER.ry * 1.01);
+      }
+    }
+  });
+
+  it("keeps the author's count and size, and takes precedence over clubs", () => {
+    expect(rimCount(CLUSTER)).toBe(5);
+    expect(CLUSTER.sizeMul).toBe(0.9);
+    const both: CreatureSilhouette = { ...THROB, contour: cluster };
+    expect(livingPoints(both, 1)).toEqual(cluster(1));
+  });
+
+  it("refuses a contour with no reach", () => {
+    expect(() =>
+      walkedSilhouette({ lobes: 1, depth: 0, wobble: 0, seed: 0 }, () => [{ x: 0, y: 0 }]),
+    ).toThrow();
+  });
+
+  it("can be patched onto a shipped body the way VERSUS patches one", () => {
+    // The whole point: a shipped record with the form's contour written over
+    // it, drawn through the same call every draw site makes, and put back.
+    const before = livingPath(SLICK, 1);
+    const kept = { rx: SLICK.rx, ry: SLICK.ry };
+    Object.assign(SLICK, { contour: CLUSTER.contour, rx: CLUSTER.rx, ry: CLUSTER.ry });
+    try {
+      expect(livingPoints(SLICK, 1)).toEqual(cluster(1));
+    } finally {
+      Object.assign(SLICK, kept);
+      delete (SLICK as { contour?: unknown }).contour;
+    }
+    expect(livingPath(SLICK, 1)).toBe(before);
   });
 });

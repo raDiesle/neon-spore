@@ -1,4 +1,5 @@
 import type { ClubbedRim } from "./body-path.js";
+import type { Point } from "./shapes.js";
 
 /**
  * Creature parameters: lobes, depth and wobble for the shape, `rx` and `ry` for
@@ -21,6 +22,30 @@ export interface CreatureSilhouette {
    * the only place it may be.
    */
   clubs?: ClubbedRim;
+  /**
+   * A contour the silhouette supplies itself — the outline at time `t`,
+   * centred on the origin, in the same units as `rx` and `ry`. Present and
+   * `livingPath` walks it instead of sampling the six numbers above, exactly
+   * as it walks a clubbed rim; `clubs` is ignored beside it.
+   *
+   * It exists so a **form** from the shape collection can be offered on a
+   * body that ships. Six numbers describe a lobed blob and nothing else, and
+   * most of `tools/shape-sheet/src/drafts/` is not one: a cluster of five
+   * sharing a skin, a torn opening with something rising in it, a sac, a
+   * slab. Until this field none of those could be patched onto SLICK or BULB
+   * in VERSUS, so the rule that a candidate outline comes out of the
+   * collection rather than being invented reached half of the collection.
+   *
+   * A function rather than points, because every form breathes: it samples
+   * `blobRadiusMul` at `t` the way the built shapes do, and a still of it
+   * would be judged against bodies that move. `walkedSilhouette` in
+   * `body-form.ts` is how one is made, and it is the only way one should be:
+   * it takes the bounding ellipse off the walked contour **once** and writes
+   * it into `rx` and `ry`, so `livingScale`, a hit test and a grip ring —
+   * which read those two numbers and nothing else — keep answering something
+   * true about a body whose reach is not an ellipse.
+   */
+  contour?: (t: number) => Point[];
 }
 
 /**

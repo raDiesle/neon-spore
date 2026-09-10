@@ -6,6 +6,7 @@ export {
   balloonVeinPath,
 } from "./balloon-parts.js";
 export { BALLOON, balloonKnot, balloonOutline, balloonPath } from "./balloon-shape.js";
+export { walkedSilhouette } from "./body-form.js";
 export {
   type ClubbedRim,
   clubbedPoints,

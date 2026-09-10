@@ -465,39 +465,6 @@ Wait for `creature:break` to be decided before opening this, or check with
 slots claiming one field, and a body's break and a body's hit are next-door
 questions.
 
-## Half the shape collection cannot be offered on a body that ships
-
-- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
-- **Taken:** 2026-09-10, claude/queue-half-the-shape-collection-cannot-be-offered-on-a
-- **Files:** `packages/content/src/silhouettes.ts`,
-  `packages/content/src/body-path.ts`, `tools/shape-sheet/src/forms/`,
-  `tools/versus/variant.ts`
-
-`CLAUDE.md` now says a candidate outline is taken from the unused collection in
-`tools/shape-sheet/src/drafts/` rather than invented, and that is right — but
-only about half of that collection can be reached from a VERSUS slot today. A
-candidate on `SLICK` or `BULB` patches a `CreatureSilhouette`, which is six
-numbers: `lobes`, `depth`, `wobble`, `rx`, `ry` and `seed`. Two of the drafts
-are plain blobs and can be lifted whole. The rest are **forms** — `cluster` is
-five small bodies sharing one skin, `welling` is a torn opening with something
-rising in it, `hooked`, `sac`, `glyphed`, `slab` and a dozen more in
-`tools/shape-sheet/src/forms/` — and none of those is expressible as six
-numbers, so none of them can be offered against a body the game already draws.
-
-The one exception already in the type is `clubs`, the optional `ClubbedRim`
-THE THROB carries: present, and `livingPath` in `body-path.ts` *walks* the
-contour instead of sampling it by angle. That is the shape of the answer. A
-second optional field — a contour the silhouette supplies itself, walked the
-way a clubbed rim is walked — would let a draft form be patched onto a shipped
-body without every kind growing a branch.
-
-What to decide while doing it: whether the field carries points or a function,
-and what a hit test does with it. `creatureRadius` and the thumb's grip ring
-both read `rx` and `ry` today, and a form whose reach is not an ellipse needs
-those to keep answering something sensible — a bounding ellipse over the walked
-contour is the obvious answer and should be computed once rather than per
-frame.
-
 ## Close `slick:motion`: adopt BANK, GLIDE and FLOAT to the shape sheet
 
 - **Found:** 2026-09-09, claude/slick-content-organization-17beb0

@@ -411,6 +411,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/waves/act-1b.ts` | The last of act one, cut off `act-1.ts` when that file reached the 250-line ceiling on `CATCH AND AIM` |
 | `packages/content/src/maze-drawn.ts` | The four sheets THE MAZE plays after the owner's own, drawn by `bun run maze` and printed here |
 | `packages/content/src/body-path.ts` | one living body's contour — a blob, or the walk that puts clubs on its rim |
+| `packages/content/src/body-form.ts` | `walkedSilhouette`: a silhouette that carries a form's contour whole, with rx and ry taken off the walked outline once |
 | `packages/content/src/crystals.ts` | the angular family — the rock, the torch and the queen's shell, which do not live |
 | `packages/content/src/crawler-shape.ts` | THE CRAWLER's contour: one link of a worm, and the fifth family of contour in this package |
 | `packages/content/src/creatures-fixtures.ts` | **The three bodies a wave never sends** |
