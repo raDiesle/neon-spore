@@ -564,6 +564,7 @@ sheets.
 ## THE BALLOON: a longer pull, a hold at full stretch, slower, and halves that part
 
 - **Found:** 2026-09-09, claude/slick-content-organization-17beb0
+- **Taken:** 2026-09-10, claude/queue-the-balloon-a-longer-pull-a-hold-at-full-stretch
 - **Files:** `packages/sim/src/config-balloon.ts`, `packages/sim/src/balloon.ts`,
   `packages/sim/src/balloon-pull.ts`, `packages/sim/src/creature-state-balloon.ts`,
   `packages/sim/src/hash-creature-late.ts`, `packages/render/src/` (the balloon skin),
