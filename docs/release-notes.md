@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · 4c8beac3 — A finished lane lands on the local main before the turn ends; the rest is asked
+
+The end of a finished turn used to be a four-way question with nothing landed before the answer. The owner split that moment on 10 September 2026: the local trunk moving is the reversible half and the one that keeps the rebase small, so it is no longer asked about — a lane that ends a turn clean and ahead of `main` always runs `bun run land --keep` first. What is still put to him is what `--keep` leaves undone, in three answers: more to come, send (`bun run push`), or finished (`bun run sweep`). `tools/hooks/lane-finished.ts` sends the session back with the landing to run and the three options, and its test now checks that order.
+
 ## 2026-09-10 · 92afa9ec — The line-count test is a third sweep the fast check always runs
 
 The first landing under the new rule went red on it: a hook file two lines over 250, in a directory the fast check had named and whose own tests do not count lines. `limits.test.ts` reads the whole tree like `purity` and `copies` do, so it rides along with them now.
