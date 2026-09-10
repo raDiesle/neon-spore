@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · d16fd31e — The model decision aid goes, and the token budget is written for one session with compaction
+
+`docs/choosing-a-model.md` is removed: the owner works on Opus 5 only, so a document about choosing between models answers a question nobody here asks. The one measured fact two other documents cited from it — that scope and repeat turns, not model tier, explained the spread across thirteen lanes — is now stated inline where it was cited. `docs/token-budget.md` is rewritten for the way the work is actually done: one session, tasks in sequence, compacted automatically at about 300k tokens. Cost within a stretch is turns times length; a compaction throws away whatever lived only in the chat; so each green piece is landed and everything the next task needs is written into a file first.
+
 ## 2026-09-10 · 12f4d1f1 — CLAUDE.md cut to rules and everyday commands, with its ceiling lowered to match
 
 The file is loaded into every request of every session and had crept from 14.5 KB to 21.3 KB — a paragraph from its 22 KB ceiling — while being edited four or five times a day, each edit emptying the prompt cache for every open session. It is now 13.3 KB: the justifications went back to the docs that already held them (`git-and-landing.md`, `queue.md`'s preamble, `looks.md`, `working-with-claude.md`, `performance.md`, the `net-change` skill), and the sheets, rasters, deploys and relay commands moved to a new `docs/commands.md`, which lists every script and is tested for both existence and completeness against `package.json`. The ceiling in `tools/test/claude-md.test.ts` comes down to 16 KB so the next drift is caught at a paragraph rather than a section, and the intro now says where a new rule goes — a skill for one kind of work, `docs/` for a fact that changes — so the file stays cached.
