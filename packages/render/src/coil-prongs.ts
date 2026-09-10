@@ -1,9 +1,9 @@
-import { drawBolt } from "../../../../../packages/render/src/bolt.js";
-import type { ChargeDraw, StudDraw } from "../../../../../packages/render/src/coil-look.js";
-import { halo } from "../../../../../packages/render/src/glow.js";
-import { signedHash } from "../../../../../packages/render/src/hash.js";
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
+import { drawBolt } from "./bolt.js";
+import type { ChargeDraw, StudDraw } from "./coil-look.js";
+import { halo } from "./glow.js";
+import { signedHash } from "./hash.js";
+import { rgba } from "./hex.js";
+import { PALETTE } from "./palette.js";
 
 /**
  * PRONGS — the dome has terminals, and the charge sprays off them.

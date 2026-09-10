@@ -215,3 +215,47 @@ it they claim `LOBE_LOOK` (gloss, socket), `STRIP_LOOK`, `BAND_GROUND`,
 patch — and `bun test` refuses two open slots on one field. Any new furniture
 keeps the grown contour, the wet socket and the gloss: a flat plate with a
 stroke around it is the one thing the panel look is not.
+
+## `bun run queue take` cannot claim an entry that is only in the lane's own tree
+
+- **Found:** 2026-09-10, hit-looks
+- **Files:** `tools/queue/repo.ts`, `tools/queue/run.ts`, `tools/queue/test/taken.test.ts`
+
+The owner asked for an item to be added to the queue and worked in the same
+sitting. `take` made its claim branch off `main`, then went to write the
+`Taken:` line onto the trunk's copy of this file — where the entry does not
+exist yet — and threw; a second `take` then said the item was already taken,
+because the branch had survived the failure. Worked around by deleting the
+branch and writing the `Taken:` line by hand, which the preamble says nobody
+does. Two things to fix: a claim that fails to mark should delete the branch
+it made, and `take` on an entry present in the working tree but absent from
+the trunk should mark the working copy and say it did, since the lane that
+found it is the lane on it.
+
+## `versus-pose.ts` keeps a row for every slot that has ever closed
+
+- **Found:** 2026-09-10, hit-looks
+- **Files:** `tools/director/src/versus-pose.ts`, `tools/versus/decide.ts`, `tools/director/test/versus-pose.test.ts`
+
+The map's own header says *a decided slot's row goes with its candidates*,
+and about forty rows are for slots no candidate directory names any more —
+`cannon:shot`, `shield:ward`, `creature:strand`, `slick:hit`, and on. Nothing
+removes them: `bun run versus adopt` and `drop` delete the candidates and
+leave the row, and no test compares the map's keys with the open slots.
+Remove the stale rows, make `adopt` and `drop` take the row with the slot,
+and have `versus-pose.test.ts` refuse a row whose slot has no candidate.
+
+## `docs/shipped-looks.md` no longer describes five creatures
+
+- **Found:** 2026-09-10, hit-looks
+- **Files:** `docs/shipped-looks.md`, `packages/render/src/{chute,coil,crawler,dart,echo}-look.ts`
+
+The file says of itself that the renderer is right where the two disagree,
+and since 8 September the VERSUS answers have moved faster than it: the
+crawler's table still listed a belly, a sheen and a sliding catchlight two
+looks ago (one row fixed in the commit that found this), and the chute, the
+coil, the dart and the echo — each now drawn through a `*-look.ts` record
+whose shipped field is a candidate that won — have no section at all. Write
+the five sections from the records, in the file's own table form, numbers
+included; each `*-look.ts` header says what is drawn and `DECIDED.md` says
+when it changed.

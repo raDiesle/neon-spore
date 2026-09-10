@@ -316,31 +316,34 @@ const SCENES: readonly Scene[] = [
     name: "THE ECHO",
     // Fifteen bodies, which is the most the field ever carries: one echo
     // divides into three, then six, then nine, and every one of them is a
-    // whole contour with a seam across it.
+    // whole contour with a seam across it. BUDS moved `fill` by ten and
+    // `createRadialGradient` by ten on 10 September 2026: the seam is two lit
+    // cores now, each a radial gradient of its own per body per frame
+    // (`echo-buds.ts`), on the five bodies about to part in these frames.
     why: "one body divided into fifteen",
     rows: {
       p1: [
         {
           fillRect: 65,
           stroke: 147,
-          fill: 68,
+          fill: 78,
           clip: 21,
           save: 99,
           drawImage: 122,
           createLinearGradient: 15,
-          createRadialGradient: 3,
+          createRadialGradient: 13,
           "new Path2D": 41,
           fillText: 2,
         },
         {
           fillRect: 65,
           stroke: 149,
-          fill: 67,
+          fill: 77,
           clip: 21,
           save: 99,
           drawImage: 122,
           createLinearGradient: 5,
-          createRadialGradient: 1,
+          createRadialGradient: 11,
           "new Path2D": 23,
           fillText: 2,
         },
@@ -349,24 +352,24 @@ const SCENES: readonly Scene[] = [
         {
           fillRect: 65,
           stroke: 151,
-          fill: 75,
+          fill: 85,
           clip: 21,
           save: 101,
           drawImage: 121,
           createLinearGradient: 15,
-          createRadialGradient: 3,
+          createRadialGradient: 13,
           "new Path2D": 39,
           fillText: 2,
         },
         {
           fillRect: 65,
           stroke: 153,
-          fill: 74,
+          fill: 84,
           clip: 21,
           save: 101,
           drawImage: 121,
           createLinearGradient: 5,
-          createRadialGradient: 1,
+          createRadialGradient: 11,
           "new Path2D": 23,
           fillText: 2,
         },

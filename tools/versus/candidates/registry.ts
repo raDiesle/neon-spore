@@ -6,22 +6,6 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
-import { CHUTE_BELL } from "./creature-chute/bell/index.js";
-import { CHUTE_GORES } from "./creature-chute/gores/index.js";
-import { CHUTE_RIBS } from "./creature-chute/ribs/index.js";
-import { CHUTE_VANE } from "./creature-chute/vane/index.js";
-import { COIL_LEAP } from "./creature-coil/leap/index.js";
-import { COIL_PRONGS } from "./creature-coil/prongs/index.js";
-import { COIL_SOCKETS } from "./creature-coil/sockets/index.js";
-import { CRAWLER_GUT } from "./creature-crawler/gut/index.js";
-import { CRAWLER_SETAE } from "./creature-crawler/setae/index.js";
-import { CRAWLER_WRINKLE } from "./creature-crawler/wrinkle/index.js";
-import { DART_BRAID } from "./creature-dart/braid/index.js";
-import { DART_SHOCK } from "./creature-dart/shock/index.js";
-import { DART_WAKE } from "./creature-dart/wake/index.js";
-import { ECHO_BUDS } from "./creature-echo/buds/index.js";
-import { ECHO_CLEFT } from "./creature-echo/cleft/index.js";
-import { ECHO_WAIST } from "./creature-echo/waist/index.js";
 import { GHOST_HOLLOW } from "./creature-ghost/hollow/index.js";
 import { GHOST_LANTERN } from "./creature-ghost/lantern/index.js";
 import { GHOST_SWARM } from "./creature-ghost/swarm/index.js";
@@ -92,22 +76,6 @@ import { TORCH_BLOOM } from "./torch-veil/bloom/index.js";
 import { TORCH_FIFTH } from "./torch-veil/fifth/index.js";
 
 export const VARIANTS: Variant[] = [
-  CHUTE_BELL,
-  CHUTE_GORES,
-  CHUTE_RIBS,
-  CHUTE_VANE,
-  COIL_LEAP,
-  COIL_PRONGS,
-  COIL_SOCKETS,
-  CRAWLER_GUT,
-  CRAWLER_SETAE,
-  CRAWLER_WRINKLE,
-  DART_BRAID,
-  DART_SHOCK,
-  DART_WAKE,
-  ECHO_BUDS,
-  ECHO_CLEFT,
-  ECHO_WAIST,
   GHOST_HOLLOW,
   GHOST_LANTERN,
   GHOST_SWARM,

@@ -22,6 +22,23 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-10 · hit-looks — five creature slots answered
+
+Five VERSUS slots taken into the game from one chat message, the looks he
+wanted kept re-authored on the SHAPES page (three tails, two skins, one hit),
+two op-count budgets remeasured. About 50 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `docs/versus.md`, the five slots' candidates, the tails/skins/hits registries |
+| writing | 15 | four adoptions by tool and one by hand, six SHAPES entries, the record clean-ups |
+| looking | 10 | `shapes:still` grew `tail:`, `tails`, `hit:` so the six could be seen; three rounds each |
+| friction | 5 | `queue take` cannot claim an entry only in the lane's tree; a heredoc that swallowed three files |
+| landing | 10 | two budget tables moved, `check:fast`, `land` |
+
+Bottleneck: the SHAPES page had no terminal path to a tail or a hit, so half
+the looking time went into building one before anything could be looked at.
+
 ## 2026-09-10 · claude/band-slot-after-ship-body
 
 One question put to the owner and his answer written into the band's queue

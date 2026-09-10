@@ -1,10 +1,8 @@
-import { CRAWLER } from "../../../../../packages/content/src/crawler-shape.js";
-import { KEY, LIGHT_HALF } from "../../../../../packages/content/src/light.js";
-import { facet, LAT_LIMIT, pin, surfaceDim } from "../../../../../packages/content/src/surface.js";
-import type { CrawlerLinkDraw } from "../../../../../packages/render/src/crawler-look.js";
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import { litRound } from "../../../../../packages/render/src/key-light.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
+import { CRAWLER, facet, KEY, LAT_LIMIT, LIGHT_HALF, pin, surfaceDim } from "@neon-spore/content";
+import type { CrawlerLinkDraw } from "./crawler-look.js";
+import { rgba } from "./hex.js";
+import { litRound } from "./key-light.js";
+import { PALETTE } from "./palette.js";
 
 /**
  * GUT — the ring is a bag with something in it: a dark organ seen through

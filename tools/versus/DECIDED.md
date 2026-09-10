@@ -459,3 +459,106 @@ The other answers offered were `lifeboat` (every rear face a band from
 silhouette to glass, a beacon that throws a flash) and `pod` (plain riveted
 plate, the stripe as a hatch ring on the bevel, the beacon on a mast); they
 went with the slot.
+
+## `creature:coil` / `prongs` — taken, 2026-09-10
+
+the dome says about to fail from both ends — the prongs flare and crackle
+round the rim while the charge is on its way, and the bolt sprays; the owner
+picked it on the page and saw no difference in SOCKETS
+
+the studs as three two-faced prongs off the rim with a bead on each tip, lit
+on their key side — flaring and crackling from prong to prong round the rim
+while a charge is on its way — and the bolt with a spray of three short sparks
+fanning off its head
+
+`COIL_LOOK.studs` is `prongs`, moved from
+`tools/versus/candidates/creature-coil/prongs/paint.ts` to
+`packages/render/src/coil-prongs.ts`.
+
+`COIL_LOOK.charge` is `spray`, moved from
+`tools/versus/candidates/creature-coil/prongs/paint.ts` to
+`packages/render/src/coil-prongs.ts`.
+
+The other answers offered were `leap` and `sockets`. SOCKETS went with the
+slot — he could see no difference in it. LEAP he wanted kept, in a new
+category if it needed one; it is on the SHAPES tab's HIT axis as LEAP
+(`tools/director/src/hits/leap.ts`), in the *before* phase beside TELEGRAPH,
+because a charge arriving at a body is the window before an impact and that
+axis already has the trigger. The discs and two bolts it replaced were
+deleted from `coil-look.ts` with it.
+
+## `creature:crawler` / `gut` — taken, 2026-09-10
+
+a bag with something alive in it — the owner picked it on the page; SETAE and
+WRINKLE go to the SHAPES page's SKIN axis rather than being lost
+
+a dark organ seen through translucent skin, pushed to the tail by the squeeze
+and swinging back a beat behind, under a rim of light where the skin is
+thinnest — a bag with something alive in it
+
+`CRAWLER_LOOK.slime` is `gut`, moved from
+`tools/versus/candidates/creature-crawler/gut/paint.ts` to
+`packages/render/src/crawler-gut.ts`.
+
+The other answers offered were `setae` and `wrinkle`, and he suggested the
+ones not chosen go to the SHAPES page: they are on the SKIN axis as SETAE and
+WRINKLE (`tools/director/src/skins/`), placed on the turning ball with the
+mounted four, since a surface tried on one worm is a surface that can be
+tried on any body. The placed pores they and GUT replaced were deleted from
+`crawler-skin.ts`, which now holds only the face.
+
+## `creature:echo` / `buds` — taken, 2026-09-10
+
+two lit cores drawn apart under one skin, so the parting is seen coming from
+inside — the owner picked it on the page and dropped CLEFT and WAIST
+
+two lit cores under one skin — one on top of the other at first and drawn
+apart along the axis as the parting comes, with the shipped furrow deepening
+between them
+
+`ECHO_LOOK.seam` is `buds`, moved from
+`tools/versus/candidates/creature-echo/buds/paint.ts` to
+`packages/render/src/echo-buds.ts`.
+
+The other answers offered were `cleft` and `waist`; they went with the slot,
+and so did the bare furrow BUDS replaced — BUDS still cuts it between its
+cores, from its own copy of the three numbers.
+
+## `creature:chute` / `vane` — taken, 2026-09-10
+
+the one answer that turns the canopy rather than reshaping it — the owner
+picked it on the page over BELL, GORES and RIBS
+
+the shipped dome turning slowly about its own axis as it comes down, with a
+twist from the sway — eight pores placed on it by longitude and latitude
+arrive thin at one limb, cross the front lit and full, and thin away at the
+other — over a shell lit from the key; the shipped shrouds, and the shipped
+plume on the climb
+
+`CHUTE_LOOK.canopy` is `vane`, moved from
+`tools/versus/candidates/creature-chute/vane/paint.ts` to
+`packages/render/src/chute-vane.ts`.
+
+The other answers offered were `bell`, `gores` and `ribs`; they went with the
+slot. VANE's plume was the shipped `column`, so the candidate's patch was cut
+to `canopy` alone before `adopt` would take it; the membrane dome it replaced
+was deleted from `chute-look.ts`.
+
+## `creature:dart` / `shock` — taken by hand, 2026-09-10
+
+The owner picked SHOCK in chat on 10 September 2026 — three bright knots
+strung down the flame, each breathing on its own clock, an exhaust with
+something happening inside it — and asked for the others *and the current*
+to go to the SHAPES page.
+
+Taken by hand because its `jet` was written inline in the candidate's
+`index.ts`, which `adopt` refuses: the knots are
+`packages/render/src/dart-shock.ts`, `DART_LOOK.jet` points at `shockJet`,
+and `dart-torch.ts` exports `BODY` and `jetReach` so the knots ride the same
+length as the flame they are strung down rather than a second copy of it.
+
+The other answers offered were `braid` and `wake`, and neither was lost: with
+the flame they were judged against, they are on the SHAPES tab's TAIL axis
+(`tools/director/src/tails/`) as BRAID, CINDERS — WAKE was already the name
+of an earlier dart candidate there, the rungs — and FLAME, which carries
+`shipped` because `torchJet` still burns under SHOCK's knots.

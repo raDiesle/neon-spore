@@ -180,9 +180,7 @@ One ring, in draw order:
 | Pass | What | Numbers |
 |---|---|---|
 | body | the egg, squeezed | `CRAWLER` `rx 95`, `ry 42`, `taper 0.22`, `pulse 0.14`, in hundredths of a tile |
-| belly | a dark band under it, so it sits on the hull | `PALETTE.background` at `0.34`, `1.1rx × 0.75ry`, dropped `0.95ry` |
-| sheen | a specular along the top, `lighter` | `PALETTE.text` at `0.16`, `0.62rx × 0.3ry` |
-| wet | one catchlight that **slides with the contraction** | `PALETTE.text` at `0.4`, `0.2rx × 0.16ry`, offset `rx·(0.1 + squeeze·0.12)` |
+| wet | `CRAWLER_LOOK.slime` — GUT since 10 September 2026: a dark organ seen through the skin, pushed to the tail by the squeeze and swinging back a beat behind, under a rim of light where the skin is thinnest | `crawler-gut.ts`; it replaced the placed pores of 9 September, which replaced the belly, sheen and sliding catchlight this table used to list |
 | rim | glow if the ring is lit, a flat stroke if it is a plate | `strokeGlow` or `STROKE.outline` |
 | face | head only: one eye, a catchlight, a mouth that gapes on the beat | eye `0.16rx`, spark `0.06rx` at `0.85`, gape `ry·(0.16 + (squeeze + 1)·0.07)` |
 

@@ -1,4 +1,5 @@
-import { drawFace, drawSlime } from "./crawler-skin.js";
+import { gut } from "./crawler-gut.js";
+import { drawFace } from "./crawler-skin.js";
 
 /**
  * THE ONE RECORD A CANDIDATE CRAWLER SURFACE PATCHES.
@@ -55,7 +56,7 @@ export interface CrawlerLook {
   face(d: CrawlerLinkDraw): void;
 }
 
-/** The shipped worm: every ring a ball, with eight pores placed on it and
- * carried round by a roll that runs backwards along the way it is going, under
- * a light that stays put. `crawler-skin.ts` holds the arithmetic. */
-export const CRAWLER_LOOK: CrawlerLook = { slime: drawSlime, face: drawFace };
+/** The shipped worm: every ring a bag with a dark organ in it, pushed to the
+ * tail by the squeeze and swinging back a beat behind, under a rim of light
+ * where the skin is thinnest (`crawler-gut.ts`); the face is `crawler-skin.ts`. */
+export const CRAWLER_LOOK: CrawlerLook = { slime: gut, face: drawFace };

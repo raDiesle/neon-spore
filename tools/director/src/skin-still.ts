@@ -2,11 +2,13 @@ import { REST } from "@neon-spore/content";
 import { type CatalogueEntry, contourAt } from "@neon-spore/shape-sheet";
 import type { FillingId } from "./fillings/index.js";
 import { type GlowId, glowSpread } from "./glows/index.js";
+import { type HitId, type HitMoment, hitSpread } from "./hits/index.js";
 import { figureLayout } from "./shape-fit.js";
 import { poseAtSecond, poseTransform } from "./shapes-motion.js";
 import { IDLE_HIT } from "./shapes-trigger.js";
 import { BEAT_SECONDS, buildSkin, type SkinId } from "./skins/index.js";
 import { element, type ShimElement, serialise, withDocument } from "./svg-dom.js";
+import { type TailId, tailReach } from "./tails/index.js";
 
 /**
  * One card, drawn at one moment, as a string.
@@ -56,6 +58,21 @@ export interface StillOptions {
    * values and every one of them was written from a terminal.
    */
   filling?: FillingId;
+  /**
+   * What the body leaves behind it — the SHAPES tab's TAIL axis. Here since
+   * 10 September 2026, when three tails were written from a terminal in one
+   * sitting and there was no way to see one without starting the director.
+   * The frame grows upward for it exactly as the card's does.
+   */
+  tails?: readonly TailId[];
+  /**
+   * Which hits the body wears, and the moment of the hit to draw them at —
+   * `IDLE_HIT` when not given, which is the frame between hits where every
+   * value on that axis draws nothing. A still of a hit is a still of one
+   * instant, so the instant is an argument.
+   */
+  hits?: readonly HitId[];
+  hit?: HitMoment;
   /** Draw the body at rest, ignoring its own-motion. The frame is unchanged. */
   still?: boolean;
 }
@@ -83,7 +100,14 @@ export function skinStill(entry: CatalogueEntry, opts: StillOptions): string {
 
   const o = { ...DEFAULTS, ...opts };
   const motion = o.still ? undefined : entry.motion;
-  const layout = figureLayout(entry, entry.motion, o.box, o.width, glowSpread(o.glows ?? []));
+  const layout = figureLayout(
+    entry,
+    entry.motion,
+    o.box,
+    o.width,
+    Math.max(glowSpread(o.glows ?? []), hitSpread(o.hits ?? [])),
+    tailReach(o.tails ?? []),
+  );
 
   return withDocument(() => {
     const svg = element("svg");
@@ -119,13 +143,15 @@ export function skinStill(entry: CatalogueEntry, opts: StillOptions): string {
         centre: layout.pivot,
         glows: o.glows,
         filling: o.filling,
+        tails: o.tails,
+        hits: o.hits,
       },
     );
 
     const d = contourAt(entry.subject, o.t);
     for (const p of contour) (p as unknown as ShimElement).setAttribute("d", d);
     body.setAttribute("transform", poseTransform(pose, layout.pivot, layout.tile));
-    onFrame?.({ t: o.t, beat: (o.t / BEAT_SECONDS) % 1, pose, hit: IDLE_HIT });
+    onFrame?.({ t: o.t, beat: (o.t / BEAT_SECONDS) % 1, pose, hit: o.hit ?? IDLE_HIT });
 
     frame.appendChild(body);
     svg.appendChild(frame);

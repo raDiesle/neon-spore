@@ -1,15 +1,10 @@
-import { KEY } from "../../../../../packages/content/src/light.js";
-import { facet, type Pin, pin, surfaceDim } from "../../../../../packages/content/src/surface.js";
-import {
-  CANOPY_HALF,
-  CANOPY_LIFT,
-  canopyPath,
-} from "../../../../../packages/render/src/chute-canopy.js";
-import { bellyAt, type ChuteDraw, swayAt } from "../../../../../packages/render/src/chute-look.js";
-import { hazed } from "../../../../../packages/render/src/depth.js";
-import { halo } from "../../../../../packages/render/src/glow.js";
-import { mixHex, rgba } from "../../../../../packages/render/src/hex.js";
-import { PALETTE, STROKE } from "../../../../../packages/render/src/palette.js";
+import { facet, KEY, type Pin, pin, surfaceDim } from "@neon-spore/content";
+import { CANOPY_HALF, CANOPY_LIFT, canopyPath } from "./chute-canopy.js";
+import { bellyAt, type ChuteDraw, swayAt } from "./chute-look.js";
+import { hazed } from "./depth.js";
+import { halo } from "./glow.js";
+import { mixHex, rgba } from "./hex.js";
+import { PALETTE, STROKE } from "./palette.js";
 
 /**
  * VANE — the canopy turns slowly as it comes down, and its surface goes

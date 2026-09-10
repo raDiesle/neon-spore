@@ -37,14 +37,16 @@ describe("the tail registry", () => {
     expect(new Set(TAILS.map((t) => t.label)).size).toBe(TAILS.length);
   });
 
-  it("keeps both shipped looks on the axis", () => {
-    // SMOKE is what every living body wears, WEDGE is what a torch wears.
-    // They are the controls. An axis of proposals and no baseline is an axis
-    // that proposes replacing something nobody has looked at. It was HALOES
-    // and WEDGE until 8 September 2026, when SMOKE won the first of those two
-    // slots and HALOES stayed on as a proposal.
+  it("keeps every shipped look on the axis", () => {
+    // SMOKE is what every living body wears, WEDGE is what a torch wears,
+    // FLAME is a dart's thrust. They are the controls. An axis of proposals
+    // and no baseline is an axis that proposes replacing something nobody has
+    // looked at. It was HALOES and WEDGE until 8 September 2026, when SMOKE
+    // won the first of those two slots and HALOES stayed on as a proposal;
+    // FLAME joined on 10 September 2026 when the dart's slot was answered a
+    // second time and the two it beat came here.
     const shipped = TAILS.filter((t) => t.shipped);
-    expect(shipped.map((t) => t.id).sort()).toEqual(["smoke", "wedge"]);
+    expect(shipped.map((t) => t.id).sort()).toEqual(["flame", "smoke", "wedge"]);
     // And each names where, because "shipped" with no address is a claim
     // nobody can check against the renderer.
     for (const t of shipped) expect(t.shipped, t.id).toContain(".ts");

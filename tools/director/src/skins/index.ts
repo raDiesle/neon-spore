@@ -14,6 +14,7 @@ import { MEMBRANE } from "./membrane.js";
 import { NACRE } from "./nacre.js";
 import { MOUNTED_PORE, PORE } from "./pore.js";
 import { MOUNTED_SCALE, SCALE } from "./scale.js";
+import { SETAE } from "./setae.js";
 import { MOUNTED_SUCKER, SUCKER } from "./sucker.js";
 import { TURN } from "./turn.js";
 import { type SkinContext, type SkinFrame, SVG } from "./types.js";
@@ -21,6 +22,7 @@ import { VEIL } from "./veil.js";
 import { VEIN } from "./vein.js";
 import { VEIN_PULSE } from "./vein-pulse.js";
 import { WIND } from "./wind.js";
+import { WRINKLE } from "./wrinkle.js";
 
 /**
  * Every way to draw the same contour, so the question `docs/alive.md` sends to
@@ -64,6 +66,13 @@ export const SKINS = [
   CHAMBER,
   GLASS,
   VEIL,
+  // Two that came off VERSUS on 10 September 2026, when the crawler's slot
+  // was answered with GUT and the owner asked for the two it beat to be kept
+  // here: a surface tried on one worm is a surface that can be tried on any
+  // body. Both are placed on the turning ball, so they sit with the mounted
+  // four rather than with the flat skins above.
+  SETAE,
+  WRINKLE,
   // The mounted four, kept together at the end rather than each next to its
   // flat original. They are one block and answer one question — whether a
   // texture on a turning body goes round the far side or slides across a face —

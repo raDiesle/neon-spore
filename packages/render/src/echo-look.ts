@@ -1,3 +1,5 @@
+import { buds } from "./echo-buds.js";
+
 /**
  * THE ONE RECORD A CANDIDATE **ECHO** PATCHES.
  *
@@ -15,8 +17,9 @@
  * picture — and a line is the one thing on this creature a light has never
  * touched, which is why it is the field a look is offered on.
  *
- * **The shipped `furrow` came through here with not one pixel moved.** The
- * numbers are the ones `echo.ts` carried inline, and the caller still decides
+ * **The first `furrow` came through here with not one pixel moved**, and left
+ * on 10 September 2026 when the owner took BUDS over it (`echo-buds.ts`, which
+ * still cuts that furrow between its two cores). The caller still decides
  * whether there is a seam at all: it reads the axis and the phase and hands
  * them over, so a look cannot draw a parting on a body that has finished.
  */
@@ -43,39 +46,11 @@ export interface SeamDraw {
   readonly rim: string;
 }
 
-/** The furrow's darkness, standing and at full strain. The floor is the part
- * that never goes away: it is what makes the seam a *marking* on this
- * creature rather than an animation that happens to it. */
-const SEAM_MIN = 0.22;
-const SEAM_MAX = 0.85;
-
-/** The furrow's width across the body, as a share of the radius it cuts. */
-const SEAM_WIDTH = 0.16;
-
-/**
- * The seam as it ships: one dark stroke across the axis, cut deeper as the
- * beat comes, long enough to leave the contour at both ends — a furrow that
- * stopped short would read as a scratch rather than a parting.
- */
-export function furrow(d: SeamDraw): void {
-  const { ctx, angle, phase, rx, ry, dark } = d;
-  const reach = Math.max(rx, ry) * 1.05;
-  ctx.save();
-  ctx.rotate(angle);
-  ctx.globalAlpha = SEAM_MIN + (SEAM_MAX - SEAM_MIN) * phase;
-  ctx.strokeStyle = dark;
-  ctx.lineCap = "round";
-  ctx.lineWidth = Math.min(rx, ry) * SEAM_WIDTH * (1 + phase);
-  ctx.beginPath();
-  ctx.moveTo(0, -reach);
-  ctx.lineTo(0, reach);
-  ctx.stroke();
-  ctx.restore();
-}
-
 export interface EchoLook {
   /** The mark across the body where it will part. */
   readonly seam: (d: SeamDraw) => void;
 }
 
-export const ECHO_LOOK: EchoLook = { seam: furrow };
+/** The shipped seam: two lit cores under one skin, drawn apart along the axis
+ * as the parting comes, with the furrow deepening between them. */
+export const ECHO_LOOK: EchoLook = { seam: buds };

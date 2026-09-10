@@ -1,8 +1,6 @@
 import type { SimConfig } from "@neon-spore/sim";
-import { CANOPY_HALF, CANOPY_LIFT, canopyPath } from "./chute-canopy.js";
-import { hazed } from "./depth.js";
+import { vane } from "./chute-vane.js";
 import { halo } from "./glow.js";
-import { PALETTE, STROKE } from "./palette.js";
 
 /**
  * THE ONE RECORD A CANDIDATE **CHUTE** PATCHES.
@@ -29,9 +27,12 @@ import { PALETTE, STROKE } from "./palette.js";
  * the carom's window, which is the point of the creature. A slot that repainted
  * it would be `creature:skin` again under a second name.
  *
- * **The shipped pair came through here with not one pixel moved.** Both
- * functions are the code `chute.ts` carried, with the arguments gathered into a
- * record and nothing else touched.
+ * **The shipped pair came through here with not one pixel moved** — both
+ * functions the code `chute.ts` carried, with the arguments gathered into a
+ * record. The canopy left on 10 September 2026 when the owner took VANE over
+ * it (`chute-vane.ts`, which turns the same dome about its own axis);
+ * `tools/versus/DECIDED.md` has the membrane it was. The plume is still that
+ * code.
  */
 
 /**
@@ -78,50 +79,6 @@ export function bellyAt(time: number, phase: number): number {
 }
 
 /**
- * The dome and its lines as they ship, leaning together about the body they
- * hang from. Rotated about the *body* and not about the canopy's own crown,
- * because that is where the weight is: a canopy pivoting on itself swings the
- * body around underneath it, which is a picture of something being shaken
- * rather than something hanging.
- */
-export function membrane(d: ChuteDraw): void {
-  const { ctx, cfg, r, glow, rim, near, time, phase } = d;
-  ctx.save();
-  ctx.rotate(swayAt(time, phase));
-  const lift = -r * CANOPY_LIFT;
-  const half = r * CANOPY_HALF;
-
-  // The dome, with its own breath — the shape `chute-cut.ts` cuts loose.
-  const dome = canopyPath(r, bellyAt(time, phase));
-  ctx.fillStyle = glow;
-  ctx.globalAlpha = 0.22;
-  ctx.fill(dome);
-  ctx.globalAlpha = 1;
-  ctx.strokeStyle = rim;
-  ctx.lineWidth = STROKE.outline;
-  ctx.stroke(dome);
-
-  // Four lines, evenly across the hem and gathered at the body. Four rather
-  // than two, because two is a handle; and evenly rather than at the edges,
-  // because the inner pair is what says the hem is being *held down* across
-  // its whole width.
-  ctx.beginPath();
-  for (let k = 0; k < 4; k++) {
-    const t = -1 + (k * 2) / 3;
-    ctx.moveTo(half * t, lift + r * 0.42 * (1 - t * t));
-    ctx.lineTo(0, -r * 0.45);
-  }
-  ctx.strokeStyle = hazed(cfg, PALETTE.dim, near);
-  ctx.lineWidth = STROKE.inner;
-  ctx.stroke();
-  ctx.restore();
-
-  // A soft light off the underside of the canopy onto the body, so the two
-  // read as one object rather than as a shape parked above another.
-  halo(ctx, 0, -r * CANOPY_LIFT * 0.5, r * 1.4, glow, 0.1);
-}
-
-/**
  * The column of fire under a body still climbing, as it ships: a tapering
  * plume with a bright core, guttering on the wall clock.
  *
@@ -165,5 +122,6 @@ export interface ChuteLook {
   plume(d: ChuteDraw): void;
 }
 
-/** The shipped chute: a membrane dome on four lines, and a tapering flame. */
-export const CHUTE_LOOK: ChuteLook = { canopy: membrane, plume: column };
+/** The shipped chute: the dome turning slowly on its own axis with eight pores
+ * coming round it, on four lines, and a tapering flame on the climb. */
+export const CHUTE_LOOK: ChuteLook = { canopy: vane, plume: column };

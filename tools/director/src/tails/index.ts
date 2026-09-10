@@ -1,5 +1,8 @@
 import type { SkinContext } from "../skins/types.js";
+import { BRAID } from "./braid.js";
+import { CINDERS } from "./cinders.js";
 import { EMBERS } from "./embers.js";
+import { FLAME } from "./flame.js";
 import { HALOES } from "./haloes.js";
 import { PLUME } from "./plume.js";
 import { RIBBON } from "./ribbon.js";
@@ -16,11 +19,12 @@ import { WEDGE } from "./wedge.js";
  * creature in this game falls down a column, that is the only motion the field
  * has, and no card on this page had ever shown it.
  *
- * ## Two of these are the game, and two of them used to be
+ * ## Three of these are the game, and two of them used to be
  *
  * `SMOKE` is what every living body wears today; `WEDGE` is what a torch
- * wears. They carry `shipped`, the switcher marks them, and they are on the
- * axis **as controls**. A proposal judged against a memory of the shipped look
+ * wears; `FLAME` is a dart's thrust, which SHOCK strings its knots down. They
+ * carry `shipped`, the switcher marks them, and they are on the axis **as
+ * controls**. A proposal judged against a memory of the shipped look
  * wins every time — CLAUDE.md's *a look is offered, never replaced* only means
  * something if the thing being offered against is on the same row.
  *
@@ -33,7 +37,10 @@ import { WEDGE } from "./wedge.js";
  * `WAKE` came from somewhere else again: it was a VERSUS candidate for the
  * dart alone, and it is here because what it actually proposes — rungs rather
  * than a ribbon — is a claim about every falling body and not about one
- * creature.
+ * creature. `BRAID` and `CINDERS` followed it on 10 September 2026, the
+ * second time the dart's slot was answered: the owner took SHOCK and asked
+ * for the two it beat, and the flame they were judged against, to be kept
+ * where they can be browsed.
  *
  * `docs/shipped-looks.md` is the long version: what the renderer actually
  * draws for each creature, effect by effect.
@@ -44,7 +51,19 @@ import { WEDGE } from "./wedge.js";
  * very nearly what a burning rock ought to look like. Order is this array's,
  * drawn back to front: the broad soft things first, the hard ones over them.
  */
-export const TAILS = [SMOKE, WEDGE, RIBBON, HALOES, PLUME, WAKE, STREAK, EMBERS] as const;
+export const TAILS = [
+  SMOKE,
+  WEDGE,
+  FLAME,
+  RIBBON,
+  HALOES,
+  PLUME,
+  BRAID,
+  WAKE,
+  CINDERS,
+  STREAK,
+  EMBERS,
+] as const;
 
 /** The id of a tail that exists, derived from the registry and never typed. */
 export type TailId = (typeof TAILS)[number]["id"];

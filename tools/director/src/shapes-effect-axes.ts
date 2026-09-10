@@ -134,9 +134,10 @@ export function effectGroups(axes: HTMLElement, rerender: () => void): void {
     `What the body leaves behind as it falls — the one axis about the field ` +
       `rather than about the body, since falling down a column is the only ` +
       `motion the field has. It stacks, and it draws upward, so a card ` +
-      `wearing one sits lower in its frame to leave the room. HALOES and ` +
-      `WEDGE are marked IN THE GAME: they are what a slick and a torch wear ` +
-      `today, and everything else here has to beat them. Now: ${tailWearing}.`,
+      `wearing one sits lower in its frame to leave the room. SMOKE, WEDGE ` +
+      `and FLAME are marked IN THE GAME: they are what a living body, a torch ` +
+      `and a dart wear today, and everything else here has to beat them. ` +
+      `Now: ${tailWearing}.`,
     (row) => {
       button(row, "NONE", tailsOn.length === 0, "no tail at all", () => {
         clearTails();

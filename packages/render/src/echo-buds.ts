@@ -1,6 +1,6 @@
-import { KEY } from "../../../../../packages/content/src/light.js";
-import type { SeamDraw } from "../../../../../packages/render/src/echo-look.js";
-import { rgba } from "../../../../../packages/render/src/hex.js";
+import { KEY } from "@neon-spore/content";
+import type { SeamDraw } from "./echo-look.js";
+import { rgba } from "./hex.js";
 
 /**
  * BUDS — two lit nuclei under one skin, pulling apart along the axis, with
@@ -29,7 +29,9 @@ import { rgba } from "../../../../../packages/render/src/hex.js";
  * from one that is about to divide.
  */
 
-/** The furrow's own numbers for the seam between the cores. */
+/** The seam between the cores: the numbers the furrow this replaced had, its
+ * darkness standing and at full strain, and its width as a share of the
+ * radius it cuts. */
 const SEAM_MIN = 0.22;
 const SEAM_MAX = 0.85;
 const SEAM_WIDTH = 0.16;

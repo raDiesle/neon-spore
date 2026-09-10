@@ -1,6 +1,4 @@
-import { drawBolt } from "./bolt.js";
-import { halo } from "./glow.js";
-import { PALETTE } from "./palette.js";
+import { prongs, spray } from "./coil-prongs.js";
 
 /**
  * THE ONE RECORD A CANDIDATE **COIL** LOOK PATCHES.
@@ -22,18 +20,12 @@ import { PALETTE } from "./palette.js";
  * leaves by read as places on a shell rather than dots beside it* — and that
  * is two fields, `studs` and `charge`, each drawn on its own frame.
  *
- * **The shipped pair came through here with not one pixel moved.** `studs`
- * is the loop `coil.ts` carried as `drawStuds`, and `bolt` is the body of
- * `CoilJumpFx.draw`, each with the arguments gathered into a record and
- * nothing else touched.
+ * **The first pair came through here with not one pixel moved** — the loop
+ * `coil.ts` carried as `drawStuds`, and the body of `CoilJumpFx.draw` — and
+ * both left on 10 September 2026 when the owner took PRONGS over them
+ * (`coil-prongs.ts`; `tools/versus/DECIDED.md` has the discs and the two
+ * bolts they were).
  */
-
-/** How many studs sit on the rim. Three: enough that one is always facing
- * whichever way the charge came from, few enough to read at 26 px. */
-export const STUDS = 3;
-
-/** How far a stud sits out past the dome's own rim, as a share of it. */
-export const STUD_OUT = 1.04;
 
 /**
  * Everything the studs are drawn from, in field pixels — the dome is drawn
@@ -84,58 +76,6 @@ export interface ChargeDraw {
   readonly id: number;
 }
 
-/**
- * The three studs as they ship: discs on the rim, brightening with the charge
- * rather than blinking on at some threshold — the pilot has three beats of a
- * bolt crossing the field and the thing they are being asked to say is
- * *which* dome, so the answer has to be readable from the first frame and
- * unmistakable by the last.
- */
-export function studs(d: StudDraw): void {
-  const { ctx, x, y, tile, spin, charge, rim, hot } = d;
-  const r = d.r * STUD_OUT;
-  ctx.save();
-  ctx.globalCompositeOperation = "lighter";
-  for (let k = 0; k < STUDS; k++) {
-    const a = spin + (k * Math.PI * 2) / STUDS;
-    const sx = x + Math.cos(a) * r;
-    const sy = y + Math.sin(a) * r;
-    const size = tile * (0.06 + 0.05 * charge);
-    ctx.globalAlpha = 0.55 + 0.45 * charge;
-    ctx.fillStyle = charge > 0 ? hot : rim;
-    ctx.beginPath();
-    ctx.arc(sx, sy, size, 0, Math.PI * 2);
-    ctx.fill();
-    if (charge > 0) halo(ctx, sx, sy, size * 3.2, hot, 0.4 * charge);
-  }
-  ctx.restore();
-}
-
-/** Bolts per charge. Two rather than the strike's three: this one is on screen
- * for three beats instead of a quarter of a second, and three overlapping
- * crackling lines that long read as a rope rather than as a discharge. */
-const BOLTS = 2;
-
-/**
- * The charge as it ships: two crackling bolts from the failed dome's tile,
- * reaching only as far as the charge has come — so the pilot is watching
- * something *arrive* rather than a line joining two bodies — with a head that
- * brightens as it closes. The head is the thing the pilot is actually
- * reading: not the line, but which dome it is nearly at.
- */
-export function bolt(d: ChargeDraw): void {
-  const { ctx, from, to, t, age, tile, id } = d;
-  const x1 = from.x + (to.x - from.x) * t;
-  const y1 = from.y + (to.y - from.y) * t;
-  for (let k = 0; k < BOLTS; k++) {
-    // Redrawn from a different seed a few times a second, so the charge
-    // crackles along its path instead of holding one shape.
-    const seed = k * 211 + Math.floor(age * 60) * 23 + id;
-    drawBolt(ctx, from.x, from.y, x1, y1, tile, seed, k === 0 ? 0.9 : 0.55, 1.4);
-  }
-  halo(ctx, x1, y1, tile * (0.5 + 0.9 * t), PALETTE.shieldRim, 0.3 + 0.45 * t);
-}
-
 export interface CoilLook {
   /** The marks on the rim a charge leaves by and lands on, drawn over the
    * dome. */
@@ -144,6 +84,6 @@ export interface CoilLook {
   charge(d: ChargeDraw): void;
 }
 
-/** The shipped chain: three discs on the rim, and two bolts with a bright
- * head between them. */
-export const COIL_LOOK: CoilLook = { studs, charge: bolt };
+/** The shipped chain: three prongs off the rim that flare and crackle while
+ * a charge is on its way, and a bolt with a spray off its head. */
+export const COIL_LOOK: CoilLook = { studs: prongs, charge: spray };

@@ -41,6 +41,24 @@ const CORE = 0.42;
 const FLICKER_RATE = 37;
 const FLICKER = 0.07;
 
+/** The body radius the exhaust is measured in, as a share of a tile — the
+ * `tile * 0.4` every living body is drawn at. */
+export const BODY = 0.4;
+
+/**
+ * How far the flame reaches behind the body: the shipped curve, `0.9 + 2.1 ·
+ * heat` body radii, breathing a few per cent on a clock of the body's own so
+ * two darts on one field never flicker together.
+ *
+ * Exported so that what is drawn *inside* the flame (`dart-shock.ts`) sits on
+ * the same length as the flame itself rather than on a second copy of this
+ * arithmetic.
+ */
+export function jetReach(r: number, heat: number, c: Creature, beatPhase: number): number {
+  const flick = 1 + FLICKER * Math.sin(beatPhase * FLICKER_RATE + c.id);
+  return r * (0.9 + 2.1 * heat) * flick;
+}
+
 /**
  * The thrust, as a flame rather than as a spike.
  *
@@ -69,7 +87,7 @@ export function torchJet(
   const heat = dartThrust(c, beatPhase);
   if (heat <= 0.01) return;
   const dir = dartHeading(c);
-  const r = l.tile * 0.4;
+  const r = l.tile * BODY;
   const hex = dartHex(c);
   // Back up the diagonal the body is running down. The travel spends one
   // column per row, so the exhaust is the unit diagonal — a direction, not a
@@ -79,10 +97,7 @@ export function torchJet(
   const by = -Math.SQRT1_2;
   const px = -by;
   const py = bx;
-  // Its own length, on the shipped curve, breathing a few per cent on a clock
-  // of the body's own so two darts on one field never flicker together.
-  const flick = 1 + FLICKER * Math.sin(beatPhase * FLICKER_RATE + c.id);
-  const reach = r * (0.9 + 2.1 * heat) * flick;
+  const reach = jetReach(r, heat, c, beatPhase);
 
   const at = (along: number, across: number): [number, number] => [
     x + bx * along + px * across,

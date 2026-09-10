@@ -7,6 +7,10 @@
  * bun run shapes:still all "THE POMMEL"        one body under every skin
  * bun run shapes:still fill:roe "SLICK"        one body with ROE inside it
  * bun run shapes:still fills "SLICK"           one body under every filling
+ * bun run shapes:still tail:braid "SLICK"      one body with BRAID behind it
+ * bun run shapes:still tails "SLICK"           one body under every tail
+ * bun run shapes:still hit:leap "SLICK"        one body with LEAP, just before
+ *                                              the hit lands
  * ```
  *
  * The two `fill` forms came with the FILLING axis on 9 September 2026, and they
@@ -36,8 +40,10 @@ import { writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { CATALOGUE } from "@neon-spore/shape-sheet";
 import { FILLINGS, type FillingId } from "./src/fillings/index.js";
+import { HITS, type HitId, type HitMoment } from "./src/hits/index.js";
 import { skinStill, UNDRAWABLE } from "./src/skin-still.js";
 import { SKINS, type SkinId } from "./src/skins/index.js";
+import { TAILS, type TailId } from "./src/tails/index.js";
 
 const OUT = resolve(import.meta.dir, "../shape-sheet/skin-sheet.svg");
 
@@ -80,10 +86,21 @@ ${body}
 }
 
 const [skinArg, nameArg] = process.argv.slice(2);
+/** The moment a tail is drawn at: a little way into the page clock rather than
+ * zero, so a tail that rolls or flickers is caught mid-motion and not at the
+ * one phase where every sine is nought. */
+const T = 0.37;
+/** The instant a hit is drawn at: a twentieth of a second before it lands,
+ * when a wind-up is all but complete and nothing of the aftermath has started. */
+const HIT_AT: HitMoment = { since: -0.05, wind: 0.95, shock: 0 };
 if (!skinArg) {
-  console.error("usage: bun run shapes:still <skin|all|fills|fill:ID> [SHAPE NAME]");
+  console.error(
+    "usage: bun run shapes:still <skin|all|fills|fill:ID|tails|tail:ID|hit:ID> [SHAPE NAME]",
+  );
   console.error(`skins: ${SKINS.map((s) => s.id).join(", ")}`);
   console.error(`fillings: ${FILLINGS.map((f) => f.id).join(", ")}`);
+  console.error(`tails: ${TAILS.map((x) => x.id).join(", ")}`);
+  console.error(`hits: ${HITS.map((x) => x.id).join(", ")}`);
   process.exit(1);
 }
 
@@ -126,6 +143,46 @@ if (skinArg === "fills") {
     svg: skinStill(e, { skin: "membrane", box, filling: filling.id as FillingId }),
   }));
   title = `${filling.label} — ${entries.length === 1 ? entries[0]?.subject.name : `${entries.length} BODIES`}`;
+} else if (skinArg === "tails") {
+  // Every tail behind one body. The frame grows upward for each, as the card's
+  // does, so a cell is the card and not a version of it.
+  const entry = entries[0];
+  if (!entry) process.exit(1);
+  box = MANY;
+  cells = [
+    { label: "NONE", svg: skinStill(entry, { skin: "membrane", box }) },
+    ...TAILS.map((x) => ({
+      label: x.shipped ? `${x.label} *` : x.label,
+      svg: skinStill(entry, { skin: "membrane", box, tails: [x.id], t: T }),
+    })),
+  ];
+  title = `${entry.subject.name} — EVERY TAIL`;
+} else if (skinArg.startsWith("tail:")) {
+  const id = skinArg.slice("tail:".length);
+  const tail = TAILS.find((x) => x.id === id);
+  if (!tail) {
+    console.error(`no tail ${id} — have ${TAILS.map((x) => x.id).join(", ")}`);
+    process.exit(1);
+  }
+  box = entries.length === 1 ? ONE : MANY;
+  cells = entries.map((e) => ({
+    label: e.subject.name,
+    svg: skinStill(e, { skin: "membrane", box, tails: [tail.id as TailId], t: T }),
+  }));
+  title = `${tail.label} — ${entries.length === 1 ? entries[0]?.subject.name : `${entries.length} BODIES`}`;
+} else if (skinArg.startsWith("hit:")) {
+  const id = skinArg.slice("hit:".length);
+  const hit = HITS.find((x) => x.id === id);
+  if (!hit) {
+    console.error(`no hit ${id} — have ${HITS.map((x) => x.id).join(", ")}`);
+    process.exit(1);
+  }
+  box = entries.length === 1 ? ONE : MANY;
+  cells = entries.map((e) => ({
+    label: e.subject.name,
+    svg: skinStill(e, { skin: "membrane", box, hits: [hit.id as HitId], hit: HIT_AT, t: T }),
+  }));
+  title = `${hit.label} — ${entries.length === 1 ? entries[0]?.subject.name : `${entries.length} BODIES`}`;
 } else if (skinArg === "all") {
   const entry = entries[0];
   if (!entry) process.exit(1);

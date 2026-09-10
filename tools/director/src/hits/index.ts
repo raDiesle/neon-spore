@@ -1,6 +1,7 @@
 import type { SkinContext } from "../skins/types.js";
 import { DIM } from "./dim.js";
 import { FLASH } from "./flash.js";
+import { LEAP } from "./leap.js";
 import { RING } from "./ring.js";
 import { SHAKE } from "./shake.js";
 import { SHARDS } from "./shards.js";
@@ -28,6 +29,14 @@ import { TELEGRAPH } from "./telegraph.js";
  * three to five simple layers stacked, and this axis is where that is true
  * rather than a slogan. So the control is ticks, and the order is the array's.
  *
+ * ## Two answers to the wind-up
+ *
+ * TELEGRAPH says a hit is coming from the body's side — a ring tightening on
+ * it. LEAP says it from the other end: the thing that is coming, in flight,
+ * landing. It came off VERSUS on 10 September 2026 as the coil's charge, and
+ * it is on this axis rather than in a category of its own because what it
+ * draws is the window before an impact, on this axis's trigger.
+ *
  * ## Order is the order of the event, not a stacking whim
  *
  * The array runs before, impact, after, and reads down as the thing happening.
@@ -35,7 +44,7 @@ import { TELEGRAPH } from "./telegraph.js";
  * on the body, and the debris and the shockwave are in front of what threw
  * them.
  */
-export const HITS = [TELEGRAPH, DIM, FLASH, SQUASH, SHAKE, RING, SHARDS] as const;
+export const HITS = [TELEGRAPH, LEAP, DIM, FLASH, SQUASH, SHAKE, RING, SHARDS] as const;
 
 /** The id of a hit that exists, derived from the registry and never typed. */
 export type HitId = (typeof HITS)[number]["id"];

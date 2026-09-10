@@ -624,6 +624,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/snake-morph.ts` | The ship becoming the snake, and it is the real ship |
 | `packages/render/src/echo.ts` | the seam and the strain — what tells the pair a body is about to come apart, and which way |
 | `packages/render/src/echo-look.ts` | The one record a candidate ECHO patches — the furrow, so a second answer to the mark can sit beside the shipped one |
+| `packages/render/src/echo-buds.ts` | BUDS — two lit nuclei under one skin, pulling apart along the axis, with the seam as the dark between them |
 | `packages/render/src/pinball-round.ts` | PINBALL over the whole stage |
 | `packages/render/src/pinball-table.ts` | PINBALL's table: the frame it is played inside, and everything standing on it |
 | `packages/render/src/round-draw.ts` | Which bosses replace the whole picture, and what draws each |
@@ -732,6 +733,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/chute-cut.ts` | A chute shot down under its canopy: the canopy cut loose and the body dropping out from under it |
 | `packages/render/src/chute-canopy.ts` | THE CANOPY'S GEOMETRY: the one shape a chute hangs under, and the two lengths that put it where it is |
 | `packages/render/src/chute-look.ts` | THE ONE RECORD A CANDIDATE **CHUTE** PATCHES |
+| `packages/render/src/chute-vane.ts` | VANE — the canopy turns slowly as it comes down, and its surface goes round |
 | `packages/render/src/warden-cilia.ts` | THE WARDEN's fringe: the half of CILIATE that stands **outside** the rim |
 | `packages/render/src/warden-plates.ts` | THE WARDEN's armour, and the only place on the field that says how far in the pair is |
 | `packages/render/src/warden-skin.ts` | THE WARDEN's skin: the veins under it, the wet film over it |
@@ -790,6 +792,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/crawler-marks.ts` | What each ring of THE CRAWLER is owed — a crosshair on every one, the shield's mark over the dome's |
 | `packages/render/src/crawler-place.ts` | Where a ring of THE CRAWLER actually sits on screen, and how much bigger it draws for being that near |
 | `packages/render/src/crawler-look.ts` | THE ONE RECORD A CANDIDATE CRAWLER SURFACE PATCHES |
+| `packages/render/src/crawler-gut.ts` | GUT — the ring is a bag with something in it: a dark organ seen through translucent skin |
 | `packages/render/src/fence-gate.ts` | The way through a fence, on the screen that is shown it |
 | `packages/render/src/fence.ts` | THE FENCE: a live line the width of the field, and the two different pictures of it the two screens carry |
 | `packages/render/src/spline.ts` | A contour, written into a `Path2D` as numbers |
@@ -812,6 +815,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/bolt.ts` | **One discharge drawn between two points**, and the one place the shape of a bolt in this game is decided |
 | `packages/render/src/coil-jump.ts` | The charge leaving a dome that has just failed and crossing the field to the next one |
 | `packages/render/src/coil-look.ts` | THE ONE RECORD A CANDIDATE **COIL** LOOK PATCHES |
+| `packages/render/src/coil-prongs.ts` | PRONGS — the dome has terminals, and the charge sprays off them |
 | `packages/render/src/coil.ts` | THE COIL's dome: the shell a rock crosses the field inside, and the three studs the charge leaves it by |
 | `packages/render/src/reach-arm.ts` | THE CLAW's arm, drawn out of the swelling that was the gun |
 | `packages/render/src/comms-talker.ts` | one row per creature: which seat has to say something about it |
@@ -875,6 +879,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/tell-round.ts` | THE TELL over the whole stage |
 | `packages/render/src/tell-scene.ts` | The reveal: nine little scenes, one per ordered pair of throws |
 | `packages/render/src/dart-torch.ts` | WHAT A DART'S THRUST IS DRAWN AS, in a file of its own beside `dart-look.ts` |
+| `packages/render/src/dart-shock.ts` | SHOCK — the flame has **structure inside it**: three bright knots strung down its axis |
 | `packages/render/src/magnet-coil.ts` | WHAT THE MAGNET IS DRAWN AS: a solid horseshoe, poles lit from their tips |
 | `packages/render/src/magnet-lanes.ts` | Where an intake lane starts and ends, in body radii from the centre |
 | `packages/render/src/magnet-look.ts` | THE ONE RECORD A CANDIDATE MAGNET LOOK PATCHES |
@@ -1140,6 +1145,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/hits/squash.ts` | The body flattens on impact and springs back |
 | `tools/director/src/hits/telegraph.ts` | A glow building over the beats before the hit, snapping off the instant it lands |
 | `tools/director/src/hits/types.ts` | What a hit is, and what it is told |
+| `tools/director/src/hits/leap.ts` | A ball of light thrown at the body over the beats before the hit, on a bowed path from off the frame |
 | `tools/director/src/holders-panel.ts` | The BULB QUEEN VARIANTS tab |
 | `tools/director/src/holders/collar.ts` | THE COLLAR — the reference picture's own answer, turned on its side |
 | `tools/director/src/holders/cradle.ts` | THE CRADLE — she is holding it with herself |
@@ -1219,6 +1225,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/skins/pore.ts` | PORE — a frog's skin: bumps scattered without a lattice, dense in places and sparse in others |
 | `tools/director/src/skins/scale.ts` | SCALE — many small, soft plates, laid in offset rows around the body's own centre and shrinking toward the rim |
 | `tools/director/src/skins/seed.ts` | Determinism, for skins |
+| `tools/director/src/skins/setae.ts` | SETAE — a girdle of short bristles round the body, pinned by longitude and carried round as it turns |
 | `tools/director/src/skins/sucker.ts` | SUCKER — an octopus arm: concentric rings, largest along a spine and falling off to either side |
 | `tools/director/src/skins/turn.ts` | The first skin that turned |
 | `tools/director/src/skins/types.ts` | What a skin is, and what it is told |
@@ -1226,6 +1233,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/skins/vein.ts` | CORE with filaments under the skin, clipped to the body |
 | `tools/director/src/skins/veil.ts` | The body stays a hole, and the **membrane around it** is what has thickness |
 | `tools/director/src/skins/wind.ts` | WIND — the same turning body, but the phase varies along it |
+| `tools/director/src/skins/wrinkle.ts` | WRINKLE — meridians of fold that come up across the body on the beat and smooth away again |
 | `tools/director/src/snake-editor.ts` | SNAKE's arena, edited on the grid the pair will play it on |
 | `tools/director/src/spec.ts` | The SPEC tab of DOCUMENTATION: every file in `docs/spec/` verbatim, one expander each |
 | `tools/director/src/stage-afterrun.ts` | The after-run screen honours its own instruction |
@@ -1473,6 +1481,9 @@ place — the generator keeps whatever is there.
 | `tools/style-guide/src/depth.ts` | the posed body beside the placed one, through half a turn — why an affine can never bring a mark out from behind |
 | `tools/director/src/tails/plume.ts` | A filled tongue back along the body's own axis, three soft balls down it and a near-white root |
 | `tools/director/src/tails/wake.ts` | Four short bars lying **across** the line behind the body, shrinking and fading with age |
+| `tools/director/src/tails/braid.ts` | Two ribbons of flame wound round one axis half a turn apart and rolling on the beat |
+| `tools/director/src/tails/cinders.ts` | Eight cooling embers hanging back down the line the body came along |
+| `tools/director/src/tails/flame.ts` | A flame that leaves the body narrow, opens into a belly a third of the way back and frays out into nothing |
 | `tools/director/src/stage-balloon-both.ts` | **Both of THE BALLOON's handles off one mouse**, and only under TEST |
 | `tools/director/src/style-colour.ts` | The colour half of the STYLE page: every swatch in `PALETTE`, filed under the rule it belongs to |
 | `tools/director/src/style-form.ts` | The form half of the STYLE page: how a body is drawn, how big it ships, what makes one nameable |

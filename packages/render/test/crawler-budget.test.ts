@@ -67,6 +67,12 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * one per ring, because a scale about the canvas origin does not enlarge a
  * worm, it slides it (`drawLink`).
  *
+ * **GUT moved the `fill` row by ten on 10 September 2026** and nothing else.
+ * The owner took it over the pores: the organ, its rim of light and the wet
+ * are fills inside the same clip the pores used, two more a ring across five
+ * rings, and nothing on it is a transform of its own, so `save` stood still
+ * (`crawler-gut.ts`).
+ *
  * Every number is exact, measured after the change that earned it. If a
  * legitimate change raises one, remeasure and move that row — do not pad it.
  * Set `MEASURE` to true and run this file: each row is printed as the object
@@ -103,12 +109,12 @@ const MEASURE = false;
 
 const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
   p1: [
-    { fillRect: 65, stroke: 71, fill: 53, clip: 11, save: 56, "new Path2D": 39, fillText: 2 },
-    { fillRect: 65, stroke: 73, fill: 50, clip: 11, save: 53, "new Path2D": 17, fillText: 2 },
+    { fillRect: 65, stroke: 71, fill: 63, clip: 11, save: 56, "new Path2D": 39, fillText: 2 },
+    { fillRect: 65, stroke: 73, fill: 60, clip: 11, save: 53, "new Path2D": 17, fillText: 2 },
   ],
   p2: [
-    { fillRect: 65, stroke: 75, fill: 61, clip: 11, save: 58, "new Path2D": 37, fillText: 2 },
-    { fillRect: 65, stroke: 77, fill: 58, clip: 11, save: 55, "new Path2D": 17, fillText: 2 },
+    { fillRect: 65, stroke: 75, fill: 71, clip: 11, save: 58, "new Path2D": 37, fillText: 2 },
+    { fillRect: 65, stroke: 77, fill: 68, clip: 11, save: 55, "new Path2D": 17, fillText: 2 },
   ],
 };
 

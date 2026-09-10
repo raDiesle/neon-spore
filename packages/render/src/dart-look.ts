@@ -1,5 +1,5 @@
 import type { Creature } from "@neon-spore/sim";
-import { torchJet } from "./dart-torch.js";
+import { shockJet } from "./dart-shock.js";
 import type { Layout } from "./layout.js";
 
 /**
@@ -52,6 +52,8 @@ export interface DartLook {
   ): void;
 }
 
-/** The shipped thrust: a flame that leaves the tail narrow, bellies out and
- * frays into nothing. `dart-torch.ts` holds the arithmetic. */
-export const DART_LOOK: DartLook = { jet: torchJet };
+/** The shipped thrust: the flame that leaves the tail narrow, bellies out and
+ * frays into nothing (`dart-torch.ts`), with three knots breathing down its
+ * axis (`dart-shock.ts`) — the owner took SHOCK over the bare flame on
+ * 10 September 2026. */
+export const DART_LOOK: DartLook = { jet: shockJet };
