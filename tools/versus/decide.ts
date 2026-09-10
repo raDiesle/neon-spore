@@ -13,17 +13,29 @@
  *
  * **It writes nothing at all unless every field can be written.** `adopt`
  * collects the rewrites for the whole slot first and stops on the first
- * refusal, so a candidate with three good fields and one function does not
- * leave a record half taken. `record-edit.ts` holds the refusals and why each
- * one is a refusal rather than a guess.
+ * refusal, so a candidate with three good fields and one this cannot place
+ * does not leave a record half taken. `record-edit.ts` holds the refusals for
+ * a plain value and why each one is a refusal rather than a guess.
+ *
+ * **A function-valued field is taken by moving its file.** `record-edit.ts`
+ * still refuses to *write* one — `toString` hands back the transpiler's
+ * spelling — but since 10 September 2026 that refusal is not the end: the
+ * candidate's implementation file moves into the package the record lives
+ * in, its imports are rewritten, the record's field points at the moved
+ * function and the implementation nothing reads any more is deleted
+ * (`take-function.ts`, `take-function-fs.ts`). What stays a refusal is a
+ * function written inline in the candidate's `index.ts`, which has no file to
+ * move, and a name the record file already uses.
  */
 
-import { existsSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { byHand } from "./by-hand.js";
 import { VARIANTS } from "./candidates/index.js";
 import { type Edit, isRefusal, rewriteRecord } from "./record-edit.js";
 import { writeRegistry } from "./registry.js";
 import { CANDIDATES, ROOT } from "./root.js";
+import { type FunctionTake, planFunctionTake } from "./take-function-fs.js";
 import { quoted, wrap } from "./text.js";
 import { currentValues, slots, type Variant } from "./variant.js";
 
@@ -35,6 +47,8 @@ interface FileEdit {
   readonly symbol: string;
   readonly text: string;
   readonly edits: readonly Edit[];
+  /** The function-valued fields, taken by moving their file. */
+  readonly taken?: FunctionTake;
 }
 
 function slotOf(name: string): { slot: string; candidates: readonly Variant[] } {
@@ -58,91 +72,51 @@ function slotOf(name: string): { slot: string; candidates: readonly Variant[] } 
  * value copied into a candidate is the drift this whole arrangement exists to
  * prevent.
  */
-function planFor(won: Variant): FileEdit[] {
+function planFor(won: Variant, as?: string): FileEdit[] {
   const plan: FileEdit[] = [];
   for (const patch of won.patches) {
     const file = join(ROOT, patch.where.file);
-    const result = rewriteRecord(
-      readFileSync(file, "utf8"),
-      patch.where.symbol,
-      patch.fields as Record<string, unknown>,
-      currentValues(patch),
-    );
+    const fields = patch.fields as Record<string, unknown>;
+    const current = currentValues(patch);
+    // The plain values first, through the writer that compares them against
+    // the live record; the functions after, by moving their file into place.
+    const plain: Record<string, unknown> = {};
+    const functions: string[] = [];
+    for (const field of Object.keys(fields)) {
+      if (typeof fields[field] === "function" || typeof current[field] === "function") {
+        functions.push(field);
+      } else plain[field] = fields[field];
+    }
+    const result = rewriteRecord(readFileSync(file, "utf8"), patch.where.symbol, plain, current);
     if (isRefusal(result)) {
       throw new Error(
         [`${patch.where.file} — ${result.why}`, "", ...byHand(won, patch.where.file)].join("\n"),
       );
     }
+    let text = result.text;
+    let taken: FunctionTake | undefined;
+    if (functions.length > 0) {
+      const take = planFunctionTake(ROOT, won, patch, functions, text, as);
+      if ("why" in take) {
+        throw new Error([take.why, "", ...byHand(won, patch.where.file)].join("\n"));
+      }
+      taken = take;
+      text = take.recordText;
+    }
     plan.push({
       file: patch.where.file,
       symbol: patch.where.symbol,
-      text: result.text,
+      text,
       edits: result.edits,
+      taken,
     });
   }
   return plan;
 }
 
-/**
- * What to do instead, when the tool will not do it — spelled out rather than
- * left as "take it by hand".
- *
- * It matters more than it looks. Fourteen of the fifteen candidates standing on
- * 9 September 2026 patch a whole drawing function rather than a colour, so this
- * is the path a lane actually walks, and every step of it is the same four
- * every time: the candidate's `paint.ts` moves into the package, its imports
- * lose the five `../`, the record points at the moved function, and the slot is
- * closed with a reason. Saying so here costs one read; working it out from the
- * candidate costs five.
- */
-function byHand(won: Variant, recordFile: string): string[] {
-  const paint = `${won.dir}/paint.ts`;
-  const has = existsSync(join(ROOT, paint));
-  const pkg = recordFile.split("/").slice(0, 2).join("/");
-  return [
-    wrap(`Nothing was written. Taking \`${won.slot}\` / \`${won.name}\` by hand:`),
-    "",
-    ...(has
-      ? [
-          `  1. git mv ${paint} ${pkg}/src/<a name for it>.ts`,
-          "",
-          wrap(
-            `2. In the moved file, rewrite the imports: a \`../../…/${pkg}/src/x.js\` ` +
-              "becomes `./x.js`, and a path into another package becomes its bare " +
-              "specifier — the candidate directory has no `package.json`, and the " +
-              "package it is moving into does.",
-            "  ",
-            "     ",
-          ),
-          "",
-          wrap(
-            `3. In \`${recordFile}\`, point the field at the moved function, and delete ` +
-              "the implementation nothing reads any more.",
-            "  ",
-            "     ",
-          ),
-        ]
-      : [
-          wrap(
-            `1. Open \`${recordFile}\` and make the change the candidate makes. Its own ` +
-              `\`index.ts\` under \`${won.dir}\` is the argument for it.`,
-            "  ",
-            "     ",
-          ),
-        ]),
-    "",
-    wrap(
-      `${has ? "4" : "2"}. bun run versus drop ${won.slot} "taken by hand — <why>"`,
-      "  ",
-      "     ",
-    ),
-    "",
-    wrap("Then `bun run check`."),
-  ];
-}
-
-/** The winner into the game, and the slot off the page. */
-export function adopt(slotName: string, winner: string, reason: string): string[] {
+/** The winner into the game, and the slot off the page. `as` names the base of
+ * a moved implementation file, when the default is not wanted. */
+export function adopt(slotName: string, winner: string, reason: string, as?: string): string[] {
   const { slot, candidates } = slotOf(slotName);
   const won = candidates.find((c) => c.name === winner);
   if (!won) {
@@ -154,13 +128,26 @@ export function adopt(slotName: string, winner: string, reason: string): string[
     );
   }
 
-  const plan = planFor(won);
-  for (const f of plan) writeFileSync(join(ROOT, f.file), f.text);
+  const plan = planFor(won, as);
+  for (const f of plan) {
+    writeFileSync(join(ROOT, f.file), f.text);
+    for (const m of f.taken?.moves ?? []) writeFileSync(join(ROOT, m.to), m.text);
+    for (const r of f.taken?.retired ?? []) {
+      if (r.delete) rmSync(join(ROOT, r.file), { force: true });
+    }
+  }
 
   const out = [`${slot} — ${won.name} taken.`, ""];
   for (const f of plan) {
     out.push(`  ${f.file} · ${f.symbol}`);
     for (const e of f.edits) out.push(`      ${e.field}  ${e.from}  ->  ${e.to}`);
+    for (const t of f.taken?.fields ?? []) {
+      out.push(`      ${t.field}  ->  ${t.ident} from ${t.to}`);
+    }
+    for (const m of f.taken?.moves ?? []) out.push(`  moved    ${m.from} -> ${m.to}`);
+    for (const r of f.taken?.retired ?? []) {
+      out.push(`  ${r.delete ? "deleted " : "kept    "} ${r.note}`);
+    }
   }
   out.push("", ...removeSlot(candidates), "");
   writeDecided(decidedEntry(slot, won, candidates, reason, plan));
@@ -222,12 +209,19 @@ function decidedEntry(
   if (won) {
     lines.push("", wrap(won.sentence));
     for (const f of plan) {
-      lines.push(
-        "",
-        wrap(
-          `Written into \`${f.file}\`, \`${f.symbol}\`: ${quoted(f.edits.map((e) => e.field))}.`,
-        ),
-      );
+      const written = f.edits.map((e) => e.field);
+      if (written.length > 0) {
+        lines.push("", wrap(`Written into \`${f.file}\`, \`${f.symbol}\`: ${quoted(written)}.`));
+      }
+      for (const t of f.taken?.fields ?? []) {
+        lines.push(
+          "",
+          wrap(
+            `\`${f.symbol}.${t.field}\` is \`${t.ident}\`, moved from \`${t.from}\` to \`${t.to}\`.`,
+          ),
+        );
+      }
+      for (const r of f.taken?.retired ?? []) lines.push("", wrap(`${r.note}.`));
     }
   }
   lines.push(

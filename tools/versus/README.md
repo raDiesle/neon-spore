@@ -196,10 +196,22 @@ he turns down or one left undecided at the end of the session that opened it.
 all. The value in the file has to be the value the live record holds, so a
 record somebody has edited since the candidate was written stops the adoption
 and names the field rather than reverting their work. A field it cannot find at
-the top level of the literal stops it too. And a **function** — a candidate
-`poseAt`, say — is refused outright: `toString` hands back what the transpiler
-made, not how the file spells it. Take those by hand and then `drop` the slot
-with a reason saying so.
+the top level of the literal stops it too.
+
+**A function is taken by moving its file.** A candidate `paint` or `poseAt`
+cannot be *written* — `toString` hands back what the transpiler made, not how
+the file spells it — so `adopt` takes it the way a lane used to by hand: the
+candidate's sibling files (`paint.ts` and whatever it imports beside it) move
+into the package the record lives in, named `<record>-<candidate>.ts` with
+`-look` dropped — `spall` on `crater-look.ts` lands as `crater-spall.ts`, and a
+sibling called `nerves.ts` as `crater-spall-nerves.ts` — or under `--as <base>`;
+their imports are rewritten for where they stand; the record's field points at
+the moved function; and the module the record used to import, if nothing else
+in the tree imports it, is deleted. A function written **inline** in the
+candidate's `index.ts` is still a refusal, because there is no file to move —
+keep the implementation in `paint.ts` and import it. So is a name the record
+file already uses. Take those by hand and then `drop` the slot with a reason
+saying so.
 
 Afterwards, `bun run check`. The record moved and the tests that draw it have
 not been run.

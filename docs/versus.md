@@ -149,13 +149,23 @@ rather than guessing which of the two is newer — because a cold session cannot
 know, and guessing destroys work silently. `tools/versus/record-edit.ts` holds
 that, and its tests are the refusals rather than the writes.
 
-Two things it will not do, and says so. A **function** field — a candidate
-`poseAt` — is refused outright, because `toString` hands back what the
-transpiler made and not how the file spells it, so writing it would mean
-writing a lie into a record. And a field it cannot find at the top level of the
-literal is refused rather than written to a nested field of the same name.
-Both are taken by hand, and then the slot is closed with `drop` and a reason
-saying it was.
+A **function** field — a candidate `paint` or `poseAt` — cannot be written
+that way, because `toString` hands back what the transpiler made and not how
+the file spells it, so writing it would mean writing a lie into a record. It
+was refused outright until 10 September 2026, and the day the command was
+written that refusal reached fourteen of the fifteen candidates standing: a
+look is nearly always a drawing function. So `adopt` now takes one the way a
+lane took it by hand, in the same four steps every time — the candidate's
+implementation file moves into the package the record lives in, its imports
+are rewritten, the record's field points at the moved function, and the module
+nothing reads any more is deleted (`tools/versus/take-function.ts`,
+`take-record.ts`, `take-function-fs.ts`; `tools/versus/README.md` has the
+naming and the `--as` flag). Two things it still will not do, and says so: a
+function written inline in the candidate's `index.ts`, which has no file to
+move, and a field it cannot find at the top level of the literal, which is
+refused rather than written to a nested field of the same name. Those are
+taken by hand, and then the slot is closed with `drop` and a reason saying it
+was.
 
 The registry moved for the same reason the command exists. `candidates/index.ts`
 used to hold the array, and every lane that opened a slot added an import and a

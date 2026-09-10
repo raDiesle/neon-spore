@@ -1310,7 +1310,11 @@ place — the generator keeps whatever is there.
 | `tools/versus/list.ts` | `bun run versus` — which slots are open, and what deciding one would reach |
 | `tools/versus/text.ts` | How a value and a paragraph are spelled where VERSUS talks to a person |
 | `tools/versus/tube.ts` | a tube of varying width round a sampled centreline, and the cubic that samples one — shared by candidates in more than one slot |
+| `tools/versus/take-function-fs.ts` | Taking a function-valued field, the half that looks at the tree: which sibling files move where, the plan `adopt` writes in one go, and whether anything still imports what the record used to point at |
+| `tools/versus/take-function.ts` | Taking a function-valued field, the text work: which identifier a candidate gives the field and which sibling it comes from, where the file lands, and its imports rewritten for the package it moves into |
+| `tools/versus/take-record.ts` | The record side of taking a function-valued field: the field pointed at the moved function, with its import added, and the old value taken out of the imports |
 | `tools/versus/join.ts` | how a ship meets its panel without a line — the welded start, the hull's own light over the chamber and the sagging roof, the baseline every whole-ship card patches |
+| `tools/versus/by-hand.ts` | The four steps `adopt` prints when it will not take a slot itself |
 | `tools/index/drift.ts` | Whether a row in `docs/INDEX.md` still describes the file it names |
 | `tools/index/sentence.ts` | **The one line a row carries**, read off the file's own header comment and cut to something a table can hold |
 | `tools/index/place.ts` | where a new row goes: beside the rows whose names it shares a beginning with |

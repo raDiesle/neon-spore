@@ -5,7 +5,9 @@
  * `bun run versus new <slot> <name>` — the candidate, spelled out, and the
  *   five things about writing one that are not guessable.
  * `bun run versus index` — regenerate the registry from the directories.
- * `bun run versus adopt <slot> <name> "<why>"` — the owner's answer, applied.
+ * `bun run versus adopt <slot> <name> "<why>" [--as <base>]` — the owner's
+ *   answer, applied; a function-valued field by moving its file into the
+ *   package, named `<record>-<candidate>.ts` unless `--as` says otherwise.
  * `bun run versus drop <slot> "<why not>"` — the slot, closed with nothing taken.
  *
  * The two that write are the ones worth explaining. Until 9 September 2026 a
@@ -67,11 +69,16 @@ if (command === "index") {
   const taken = (await open()).find((s) => s.slot === slot)?.candidates.map((c) => c.name) ?? [];
   for (const line of scaffold(slot, name, taken)) console.log(line);
 } else if (command === "adopt") {
-  const usage = 'usage: bun run versus adopt <slot> <name> "<why>"';
+  const usage = 'usage: bun run versus adopt <slot> <name> "<why>" [--as <file-base>]';
   const slot = need("slot", rest[0], usage);
   const name = need("candidate", rest[1], usage);
+  // `--as` names the base of a moved implementation file, when the default —
+  // the record's file less its `-look`, then the candidate — is not wanted.
+  const flag = rest.indexOf("--as");
+  const as = flag === -1 ? undefined : need("file base after --as", rest[flag + 1], usage);
+  const words = flag === -1 ? rest.slice(2) : rest.slice(2, flag);
   const { adopt } = await import("./decide.js");
-  for (const line of adopt(slot, name, rest.slice(2).join(" "))) console.log(line);
+  for (const line of adopt(slot, name, words.join(" "), as)) console.log(line);
 } else if (command === "drop") {
   const usage = 'usage: bun run versus drop <slot> "<why not>"';
   const slot = need("slot", rest[0], usage);
