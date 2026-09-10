@@ -20,6 +20,7 @@ import { JOIN_ORGANS } from "./panel-join/organs/index.js";
 import { JOIN_ROOF } from "./panel-join/roof/index.js";
 import { JOIN_SAC } from "./panel-join/sac/index.js";
 import { JOIN_VESSEL } from "./panel-join/vessel/index.js";
+import { SHIP_GULLET } from "./ship-body/gullet/index.js";
 import { CRATER_GRIT } from "./ship-crater/grit/index.js";
 import { CRATER_SHARDS } from "./ship-crater/shards/index.js";
 import { SLICK_BANK } from "./slick-motion/bank/index.js";
@@ -48,6 +49,7 @@ export const VARIANTS: Variant[] = [
   JOIN_ROOF,
   JOIN_SAC,
   JOIN_VESSEL,
+  SHIP_GULLET,
   CRATER_GRIT,
   CRATER_SHARDS,
   SLICK_BANK,

@@ -1,3 +1,4 @@
+import type { HullSkin } from "./hull.js";
 import type { Layout } from "./layout.js";
 import { bloom, dither, innerLight, iridescence, sweep } from "./sheen.js";
 
@@ -31,6 +32,10 @@ export interface SheenPass {
   readonly filled: Path2D;
   /** The skin's y above a screen x, without the cannon lobe on it. */
   readonly skinY: (x: number) => number;
+  /** Whose ship this is, so a material can be painted in the seat's colours
+   * rather than reaching for a palette (`seat-skin.ts`). The shipped passes
+   * take their colours from the film and ignore it. */
+  readonly skin: HullSkin;
 }
 
 export interface HullSheen {

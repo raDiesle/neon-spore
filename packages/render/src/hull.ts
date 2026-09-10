@@ -170,7 +170,7 @@ export function drawHull(
   // in what order, is the material's business (`hull-sheen.ts`).
   ctx.save();
   ctx.clip(filled);
-  HULL_SHEEN.passes({ ctx, l, time, body, filled, skinY: (x) => skin(f, x).y });
+  HULL_SHEEN.passes({ ctx, l, time, body, filled, skinY: (x) => skin(f, x).y, skin: skin_ });
   ctx.restore();
   // WHERE THE LIGHT IS. Everything above this line implies one — the vertical
   // body ramp, the inner glow, the sweep — and none of them names it, which is
@@ -187,6 +187,7 @@ export function drawHull(
     w: l.gridWidth,
     h: bottom - top,
     half: LIGHT_HALF.hull,
+    skin: skin_,
   });
   // Every crater's geometry, open or not — a crack's *position* (`scars.ts`'s
   // `crackOrigin`) reads this unconditional list, so it never moves once drawn. The rim goes round every OPEN crater, not

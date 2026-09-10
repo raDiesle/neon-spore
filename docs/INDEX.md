@@ -702,6 +702,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/carom-window.ts` | THE CAROM's window: a hole punched clean through the rock, a bezel round it |
 | `packages/render/src/controls-fleet.ts` | THE FLEET's own two controls, and the crosshair only they still wear |
 | `packages/render/src/ship-air.ts` | THE AIR THE SHIP IS SITTING IN |
+| `packages/render/src/ship-nerves.ts` | what runs from a control to the organ it drives, as a record — drawn under the controls and across the membrane; ships empty, a candidate ship wires it |
 | `packages/render/src/volley.ts` | THE VOLLEY's shell: the rock plating a slick or a bulb is sealed inside |
 | `packages/render/src/band-lobes.ts` | Where the round buttons on the band stand, for one seat and one panel |
 | `packages/render/src/band-join.ts` | THE ONE RECORD A CANDIDATE SHIP-AND-PANEL JOIN PATCHES |
@@ -1298,6 +1299,7 @@ place — the generator keeps whatever is there.
 | `tools/versus/decide.ts` | What happens after the owner has looked |
 | `tools/versus/list.ts` | `bun run versus` — which slots are open, and what deciding one would reach |
 | `tools/versus/text.ts` | How a value and a paragraph are spelled where VERSUS talks to a person |
+| `tools/versus/tube.ts` | a tube of varying width round a sampled centreline, and the cubic that samples one — shared by candidates in more than one slot |
 | `tools/index/drift.ts` | Whether a row in `docs/INDEX.md` still describes the file it names |
 | `tools/index/sentence.ts` | **The one line a row carries**, read off the file's own header comment and cut to something a table can hold |
 | `tools/index/place.ts` | where a new row goes: beside the rows whose names it shares a beginning with |

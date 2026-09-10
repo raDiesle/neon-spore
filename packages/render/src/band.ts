@@ -6,9 +6,10 @@ import { drawBandGround } from "./band-ground.js";
 import { BAND_JOIN } from "./band-join.js";
 import { chamberPath, drawSeamFlesh, drawSeamSpill, seamTop, seamY } from "./band-seam.js";
 import { drawDrips } from "./band-slime.js";
-import { bandLobes, type Circle, type Layout, showsCannon, showsShield } from "./layout.js";
+import { bandLobes, type Layout, type Lobe, showsCannon, showsShield, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { seatSkin } from "./seat-skin.js";
+import { SHIP_NERVES } from "./ship-nerves.js";
 
 /**
  * The control band. Two strips over the full width, each snapping to column
@@ -66,6 +67,9 @@ export function drawBand(
    * (`ViewState.leadTicks`, `pulse-button.ts`). 0 everywhere else, and 0 for
    * every panel with no chart falling at it. */
   lead = 0,
+  /** The hull's membrane, so a nerve from a control can end on the skin the
+   * eye is looking at (`ship-nerves.ts`). Absent on a host with no ship. */
+  surfaceY: ((x: number) => number) | null = null,
 ): void {
   // A boss can take the controls away (`mirrorHoldsControls`). When it has,
   // the band is drawn dead and says so: a control that quietly does nothing
@@ -85,7 +89,8 @@ export function drawBand(
   // halves of the join: a roof that swells over a button and the thing that
   // reaches down to it have to agree about where the button is, and two lists
   // are two answers (`band-join.ts`).
-  const lobes = controlCircles(l, set);
+  const named = controlLobes(l, set);
+  const lobes = named.map((lobe) => lobe.circle);
   const chamber = chamberPath(l, time, lobes);
   ctx.save();
   // The chamber, cut to the membrane above it — so the tissue is bounded by a
@@ -104,6 +109,29 @@ export function drawBand(
   // outside it would put a shoulder of slime across the ship's belly.
   drawDrips(ctx, l, time, skin, lobes);
   ctx.restore();
+  // Between the tissue and the controls, and free of the clip so it can reach
+  // the ship: what runs from each control to the organ it drives.
+  const strips = new Set(
+    setControls(set, 1)
+      .concat(setControls(set, 2))
+      .map((c) => c.id),
+  );
+  const cannonX = tileCX(l, world.cannonCol);
+  const shieldX = tileCX(l, world.shieldCol);
+  SHIP_NERVES.draw({
+    ctx,
+    l,
+    time,
+    skin,
+    lobes: named,
+    cannon: showsCannon(l.role) && strips.has("cannon") ? { x: cannonX, y: l.cannonStrip.y } : null,
+    shield: showsShield(l.role) && strips.has("shield") ? { x: shieldX, y: l.shieldStrip.y } : null,
+    cannonX,
+    shieldX,
+    surfaceY,
+    armed,
+    open,
+  });
 
   ctx.font = '9px "Courier New",monospace';
   ctx.textAlign = "center";
@@ -121,10 +149,10 @@ export function drawBand(
  * the same `bandLobes` that draws and answers them, so nothing the join grows
  * can ever run to a button that is not there.
  */
-function controlCircles(l: Layout, set: ControlSet): Circle[] {
-  const out: Circle[] = [];
+function controlLobes(l: Layout, set: ControlSet): Lobe[] {
+  const out: Lobe[] = [];
   for (const player of [1, 2] as const) {
-    for (const lobe of bandLobes(l, set, player)) out.push(lobe.circle);
+    for (const lobe of bandLobes(l, set, player)) out.push(lobe);
   }
   return out;
 }

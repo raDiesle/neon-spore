@@ -1,4 +1,5 @@
 import type { LightHalf } from "@neon-spore/content";
+import type { HullSkin } from "./hull.js";
 import { barrel } from "./hull-barrel.js";
 
 /**
@@ -36,6 +37,9 @@ export interface HullLit {
   readonly h: number;
   /** Value alone, or value and hue. The hull takes both (`LIGHT_HALF`). */
   readonly half: LightHalf;
+  /** Whose ship this is. The shipped light is white and ignores it; a light
+   * that glows from inside the ship glows in the seat's colour. */
+  readonly skin: HullSkin;
 }
 
 export interface HullLight {

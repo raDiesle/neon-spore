@@ -1,4 +1,7 @@
 import { openSmoothPath, type Point } from "../../../../../packages/content/src/index.js";
+
+export { curve, tube } from "../../../tube.js";
+
 import { hash01 } from "../../../../../packages/render/src/backdrop.js";
 import type { Circle } from "../../../../../packages/render/src/layout.js";
 
@@ -13,49 +16,6 @@ import type { Circle } from "../../../../../packages/render/src/layout.js";
  * points, offsets and one Catmull-Rom, and every one of them is a pure function
  * of its arguments.
  */
-
-/**
- * A tube of varying width around a centreline, as a closed path.
- *
- * Offsetting the line by the half-width along its own normal rather than
- * horizontally is what lets a branch leave a trunk at an angle and still have
- * an even thickness — a horizontal offset thins every diagonal by its own
- * cosine, which is exactly the defect that makes a hand-drawn vein read as a
- * ribbon.
- */
-export function tube(mid: readonly Point[], half: (p: number) => number): string {
-  const last = mid.length - 1;
-  if (last < 1) return "";
-  const left: Point[] = [];
-  const right: Point[] = [];
-  for (let i = 0; i <= last; i++) {
-    const a = mid[Math.max(0, i - 1)] as Point;
-    const b = mid[Math.min(last, i + 1)] as Point;
-    const at = mid[i] as Point;
-    const len = Math.max(1e-3, Math.hypot(b.x - a.x, b.y - a.y));
-    const nx = -(b.y - a.y) / len;
-    const ny = (b.x - a.x) / len;
-    const w = half(i / last);
-    left.push({ x: at.x + nx * w, y: at.y + ny * w });
-    right.push({ x: at.x - nx * w, y: at.y - ny * w });
-  }
-  right.reverse();
-  return `${openSmoothPath([...left, ...right])} Z`;
-}
-
-/** A cubic sampled into points — one vessel's centreline. */
-export function curve(a: Point, b: Point, c1: Point, c2: Point, n: number): Point[] {
-  const pts: Point[] = [];
-  for (let i = 0; i <= n; i++) {
-    const t = i / n;
-    const u = 1 - t;
-    pts.push({
-      x: u ** 3 * a.x + 3 * u * u * t * c1.x + 3 * u * t * t * c2.x + t ** 3 * b.x,
-      y: u ** 3 * a.y + 3 * u * u * t * c1.y + 3 * u * t * t * c2.y + t ** 3 * b.y,
-    });
-  }
-  return pts;
-}
 
 /** The controls this panel carries, left to right and two to a trunk. A seat
  * with an odd control gets a trunk of its own for the last one, which is what a
