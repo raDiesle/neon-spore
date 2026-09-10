@@ -225,6 +225,10 @@ export function drawHandleHint(
   ctx.textBaseline = "middle";
   ctx.fillStyle = mine ? PALETTE.text : PALETTE.dim;
   ctx.globalAlpha = mine ? style.mine : style.theirs;
-  ctx.fillText(mine ? words.mine : words.theirs, x, y);
+  const word = mine ? words.mine : words.theirs;
+  // Kept on the glass: a handle resting against the screen's edge (THE
+  // BALLOON's, in a wall column) would otherwise centre its word half off it.
+  const half = ctx.measureText(word).width / 2;
+  ctx.fillText(word, Math.min(Math.max(x, half), l.width - half), y);
   ctx.restore();
 }

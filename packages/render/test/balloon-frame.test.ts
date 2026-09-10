@@ -143,3 +143,43 @@ describe("a caption pointed at one of THE BALLOON's handles", () => {
     expect(handleCircle(L, empty, "balloonRight", 0)).toBeNull();
   });
 });
+
+describe("a balloon standing in a wall column", () => {
+  // The field is the full width of the glass on the phones the game ships on
+  // (`gridLeft` is nought at 390×844), and a handle hangs 1.15 tiles out from
+  // its body — so with no clamp the outer ring of a balloon in column 0 or
+  // column 6 rests past the edge, where no finger can go, and the hint under
+  // it with it.
+  const walls = (): SpawnEntry[] => [
+    { beat: 0, col: 0, kind: "balloon", color: null },
+    { beat: 0, col: CFG.cols - 1, kind: "balloon", color: null },
+  ];
+
+  it("keeps both of its rings on the glass, for the picture and the finger alike", () => {
+    const world = createWorld(CFG, 1, walls());
+    for (let t = 0; t < 120 && world.creatures.length < 2; t++) step(world, []);
+    expect(world.creatures.length).toBe(2);
+    for (const c of world.creatures) {
+      for (const side of [-1, 1] as const) {
+        const ring = balloonHandleCircle(L, CFG, c, world.beat, 0, side);
+        expect(ring.x - ring.r, `col ${c.col} side ${side}`).toBeGreaterThanOrEqual(0);
+        expect(ring.x + ring.r, `col ${c.col} side ${side}`).toBeLessThanOrEqual(L.width);
+      }
+      // The inner one is still a full handle's width away from the outer, so
+      // the clamp has not folded the pair onto one spot.
+      const left = balloonHandleCircle(L, CFG, c, world.beat, 0, -1);
+      const right = balloonHandleCircle(L, CFG, c, world.beat, 0, 1);
+      expect(right.x - left.x).toBeGreaterThan(left.r * 2);
+    }
+  });
+
+  it("draws them, and their words, through a canvas that refuses what a real one does", () => {
+    for (const role of ROLES) {
+      const { ctx } = runFrames(createWorld(CFG, 1, walls()), role, TPB * 3, {
+        every: 2,
+        onTick: (_tick, w) => step(w, []),
+      });
+      expect(ctx.calls, role).toBeGreaterThan(0);
+    }
+  });
+});

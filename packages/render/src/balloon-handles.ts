@@ -57,6 +57,17 @@ export function balloonHandleSeat(side: -1 | 1): 1 | 2 {
  * circle whatever the skin is doing. The handle travels while it is dragged
  * and that costs nothing, because by then the pointer is captured and nothing
  * is hit-tested again.
+ *
+ * **And it never rests off the glass.** On the phones the game ships on the
+ * field is the full width of the screen, and a balloon stands in a wall
+ * column for one step of every crossing — a wave sends them in from both
+ * (`act-7b.ts`). Its outer handle would rest two thirds of a tile past the
+ * edge there, a ring drawn where no finger can go, which is the defect class
+ * `CLAUDE.md` names by example (*a control under the status bar*). So the
+ * rest is held inside the screen by its own radius: the ring on that side
+ * sits against the body's own skin, plainly that body's, and the thumb can
+ * reach it. Written here, in the one place, so the finger and the picture
+ * move together.
  */
 export function balloonHandleCircle(
   l: Layout,
@@ -69,10 +80,12 @@ export function balloonHandleCircle(
   // The beat as well as the phase, because a balloon's step is spread over
   // several of them and the body is drawn part-way along it (`glidePhase`).
   const { x, y } = creatureCenter(l, c, glidePhase(cfg, beat, c, beatPhase));
+  const r = handleRadius(l, cfg);
   // How far off the body it hangs is the simulation's number, not this file's:
   // it is the same figure the rule uses to place the thing a hand takes hold
   // of, so a handle drawn wide of its own circle is impossible by arithmetic.
-  return { x: x + (side * l.tile * cfg.balloonHandleMilli) / 1000, y, r: handleRadius(l, cfg) };
+  const rest = x + (side * l.tile * cfg.balloonHandleMilli) / 1000;
+  return { x: Math.min(Math.max(rest, r), l.width - r), y, r };
 }
 
 /** Where it actually stands: its rest plus how far the hand has carried it.

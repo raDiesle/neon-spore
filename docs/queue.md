@@ -466,35 +466,3 @@ Wait for `creature:break` to be decided before opening this, or check with
 `bun run versus` that the fields do not overlap: `bun test` refuses two open
 slots claiming one field, and a body's break and a body's hit are next-door
 questions.
-
-## THE BALLOON's outer handle rests off the screen in the wall columns
-
-- **Found:** 2026-09-10, claude/queue-the-balloon-a-longer-pull-a-hold-at-full-stretch
-- **Taken:** 2026-09-10, claude/queue-the-balloons-outer-handle-rests-off-the-screen-i
-- **Files:** `packages/render/src/balloon-handles.ts`,
-  `packages/render/src/handles.ts`, `packages/sim/src/config-balloon.ts`
-
-On the phones the game ships on the field is the full width of the glass
-(`computeLayout`: `gridLeft` is nought at 390×844, 360×780 and 412×915), and
-a balloon's handle rests `balloonHandleMilli` — 1.15 tiles — out from its
-body's centre. So the pilot's handle on a balloon standing in the leftmost
-column rests 0.65 of a tile past the left edge of the screen, and the
-navigator's on one in the rightmost column the same past the right: the ring
-is drawn where no finger can go, and the hint under it with it. The body is
-in those columns for one step every crossing, turning, and a wave sends
-balloons in from both wall columns (`act-7b.ts`, THE BALLOON: columns 0 and
-6), so every arrival begins with one of its two handles off the glass.
-
-Not a matter of the taut distance — that was raised to two tiles on the
-same lane, which is what makes this visible, but the rest circle was off the
-screen at the old figure too. The choice is where the handle should rest when
-its resting place is off the glass: clamp the rest to the screen's edge (a
-ring the thumb can reach, drawn against the body's own skin on that side and
-so still plainly *that* body's), or draw it where it is and accept that the
-wall side is not a side that can be pulled while the body stands there. The
-first is the honest fix: a control drawn where it cannot be touched is the
-defect class `CLAUDE.md`'s look rule names by example (*a control under the
-status bar*). `balloonHandleCircle` is the one place the rest is written down
-and `handleUnder` hit-tests the same circle, so the clamp goes there and both
-agree by construction. `render/test/balloon-frame.test.ts` is where to prove a
-balloon in column 0 has both rings inside the frame.
