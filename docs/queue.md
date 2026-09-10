@@ -523,6 +523,7 @@ two boxes do not overlap is the proof.
 ## THE TELL's trigger does not reach the round from the panel
 
 - **Found:** 2026-09-09, claude/queued-items-a47ead
+- **Taken:** 2026-09-10, claude/queue-the-tells-trigger-does-not-reach-the-round-from
 - **Files:** `packages/sim/src/tell-round.ts`,
   `packages/render/src/touch-lobe.ts`, `packages/content/src/scenes/the-tell.ts`
 
