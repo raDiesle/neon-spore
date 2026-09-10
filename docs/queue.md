@@ -708,6 +708,7 @@ is visible in a number.
 ## The wash across the ship-and-panel join is a lit stripe, not a ramp
 
 - **Found:** 2026-09-09, claude/versus-ship-visual-redesign-4ca99d
+- **Taken:** 2026-09-10, claude/queue-the-wash-across-the-ship-and-panel-join-is-a-lit
 - **Files:** `tools/versus/candidates/panel-join/fused/tissue.ts`
 
 The owner looked at all four new `panel:ship-join` cards and said the thing they
