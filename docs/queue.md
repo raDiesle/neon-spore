@@ -468,6 +468,7 @@ questions.
 ## Close `slick:motion`: adopt BANK, GLIDE and FLOAT to the shape sheet
 
 - **Found:** 2026-09-09, claude/slick-content-organization-17beb0
+- **Taken:** 2026-09-10, claude/queue-close-slick-motion-adopt-bank-glide-and-float-to
 - **Files:** `tools/versus/candidates/slick-motion/`, `tools/versus/DECIDED.md`,
   `packages/content/src/motions-event.ts`, `tools/shape-sheet/src/motions/`,
   `tools/shape-sheet/src/drafts/offered.ts`
