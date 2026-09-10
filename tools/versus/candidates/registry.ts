@@ -6,9 +6,6 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
-import { BULB_HIT_POP } from "./bulb-hit/pop/index.js";
-import { BULB_HIT_SCATTER } from "./bulb-hit/scatter/index.js";
-import { BULB_HIT_SHOCK } from "./bulb-hit/shock/index.js";
 import { CAROM_FACET } from "./creature-carom/facet/index.js";
 import { CAROM_GRIT } from "./creature-carom/grit/index.js";
 import { CAROM_KEEL } from "./creature-carom/keel/index.js";
@@ -95,16 +92,10 @@ import { SHIP_PLASM } from "./ship-body/plasm/index.js";
 import { SHIP_REEF } from "./ship-body/reef/index.js";
 import { CRATER_GRIT } from "./ship-crater/grit/index.js";
 import { CRATER_SHARDS } from "./ship-crater/shards/index.js";
-import { SLICK_HIT_AFTERGLOW } from "./slick-hit/afterglow/index.js";
-import { SLICK_HIT_RUPTURE } from "./slick-hit/rupture/index.js";
-import { SLICK_HIT_SPLASH } from "./slick-hit/splash/index.js";
 import { TORCH_BLOOM } from "./torch-veil/bloom/index.js";
 import { TORCH_FIFTH } from "./torch-veil/fifth/index.js";
 
 export const VARIANTS: Variant[] = [
-  BULB_HIT_POP,
-  BULB_HIT_SCATTER,
-  BULB_HIT_SHOCK,
   CAROM_FACET,
   CAROM_GRIT,
   CAROM_KEEL,
@@ -191,9 +182,6 @@ export const VARIANTS: Variant[] = [
   SHIP_REEF,
   CRATER_GRIT,
   CRATER_SHARDS,
-  SLICK_HIT_AFTERGLOW,
-  SLICK_HIT_RUPTURE,
-  SLICK_HIT_SPLASH,
   TORCH_BLOOM,
   TORCH_FIFTH,
 ];

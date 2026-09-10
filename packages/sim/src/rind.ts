@@ -125,6 +125,7 @@ export function rindStruck(world: World, b: Bullet, hit: Creature): boolean {
     row: hit.row,
     color: b.color,
     kind: rindBecomes(hit),
+    of: hit.kind,
   });
   removeCreature(world, hit.id);
   return b.lance;

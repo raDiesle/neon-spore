@@ -1,12 +1,8 @@
-import { facet } from "../../../../../packages/content/src/surface.js";
-import { hash01 } from "../../../../../packages/render/src/backdrop.js";
-import type { Strike } from "../../../../../packages/render/src/body-hit.js";
-import {
-  SPORE_PINS,
-  SPORE_REACH,
-  SPORE_SPIN,
-} from "../../../../../packages/render/src/body-spores.js";
-import { mixHex, rgba } from "../../../../../packages/render/src/hex.js";
+import { facet } from "@neon-spore/content";
+import { hash01 } from "./backdrop.js";
+import type { Strike } from "./body-hit.js";
+import { SPORE_PINS, SPORE_REACH, SPORE_SPIN } from "./body-spores.js";
+import { mixHex, rgba } from "./hex.js";
 
 /**
  * SCATTER — the spores are set loose.

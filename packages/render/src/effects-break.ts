@@ -42,7 +42,7 @@ export function breakBody(
   debris: Debris,
   l: Layout,
   time: number,
-  e: { col: number; row: number; color: Color; kind: CreatureKind },
+  e: { col: number; row: number; color: Color; kind: CreatureKind; of?: CreatureKind },
 ): void {
   if (!hasOwnBody(e.kind)) return;
   const shape = livingSilhouette(e.kind);
@@ -56,7 +56,7 @@ export function breakBody(
   // both of them agree about.
   const seed = Math.imul(e.col + 1, 73856093) ^ Math.imul(e.row + 1, 19349663);
   debris.break({
-    look: hitFor(e.kind).pieces,
+    look: hitFor(e.kind, e.of).pieces,
     outline: livingPoints(shape, contourClock(seed, time)),
     scale: livingScale(shape, r),
     x: tileCX(l, e.col),
@@ -83,5 +83,5 @@ export function breakBody(
  * quietened by a break look.
  */
 export function breakSparks(e: SimEvent, n: number): number {
-  return e.type === "destroy" ? Math.round(n * hitFor(e.kind).pieces.sparkScale) : n;
+  return e.type === "destroy" ? Math.round(n * hitFor(e.kind, e.of).pieces.sparkScale) : n;
 }

@@ -844,6 +844,12 @@ place — the generator keeps whatever is there.
 | `packages/render/src/body-spores.ts` | THE BULB's interior — the body is full, and it is a spore case |
 | `packages/render/src/body-strike.ts` | A body on the beat it is struck, drawn where it stood after it is gone |
 | `packages/render/src/body-hit.ts` | What happens to a living body **when a shot lands on it** |
+| `packages/render/src/body-hit-afterglow.ts` | THE DART's strike: the cores burn out and the outline hangs as an afterimage |
+| `packages/render/src/body-hit-pop.ts` | THE BULB's strike: the film tears from where the bolt met it and pops |
+| `packages/render/src/body-hit-rupture.ts` | THE RIND's strike: the skin peels back in petals and the gel stains the ship |
+| `packages/render/src/body-hit-scatter.ts` | THE WISP's strike: lit motes rise and blink out, nothing lands |
+| `packages/render/src/body-hit-shock.ts` | THE THROB's strike: pressed flat by the blow, then rings run down the column |
+| `packages/render/src/body-hit-splash.ts` | THE ECHO's strike: a crown of drops thrown up and a puddle on the skin |
 | `packages/render/src/pulse-body.ts` | One arrival falling down a lane, and the two ways of drawing one that cannot be read |
 | `packages/render/src/choir-shape.ts` | where THE CHOIR's two bodies stand and the skin traced over them — the shape half, with no light or colour in it |
 | `packages/render/src/choir-skin.ts` | **The light THE CHOIR throws and the film it wears** — the surface half of this creature |

@@ -1,6 +1,6 @@
-import { hash01 } from "../../../../../packages/render/src/backdrop.js";
-import type { Strike } from "../../../../../packages/render/src/body-hit.js";
-import { mixHex, rgba } from "../../../../../packages/render/src/hex.js";
+import { hash01 } from "./backdrop.js";
+import type { Strike } from "./body-hit.js";
+import { mixHex, rgba } from "./hex.js";
 
 /**
  * POP — a bubble bursting from the point the shot went in.

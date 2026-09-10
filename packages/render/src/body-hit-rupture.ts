@@ -1,6 +1,6 @@
-import { hash01 } from "../../../../../packages/render/src/backdrop.js";
-import type { Strike } from "../../../../../packages/render/src/body-hit.js";
-import { mixHex } from "../../../../../packages/render/src/hex.js";
+import { hash01 } from "./backdrop.js";
+import type { Strike } from "./body-hit.js";
+import { mixHex } from "./hex.js";
 
 /**
  * RUPTURE — the sac tears open along its own veins.

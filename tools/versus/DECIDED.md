@@ -396,3 +396,41 @@ motion, each with its how-it-can-lose.
 
 The other answers offered were `chain`, `comma`, `frill`, `ray` and `reverb`;
 they went with the slot.
+
+## `bulb:hit` / `pop` — taken, 2026-09-10
+
+The owner chose it in chat on 10 September 2026 — a bulb is a bubble and a
+bubble pops: the film tears open at the bottom where the bolt met it and runs
+round both ways with a bright bead at each end, swelling outward as it goes, a
+puff of cyan mist rising out of it, four flecks of film falling to the ship and
+lying there wet.
+
+Written into `packages/render/src/body-hit.ts`, `BULB_HIT`: `life` and
+`strike`, which is `pop`, moved from
+`tools/versus/candidates/bulb-hit/pop/paint.ts` to
+`packages/render/src/body-hit-pop.ts`.
+
+The other answers offered were `scatter` and `shock`, and neither was lost:
+he liked every hit look on the page and asked for all of them in the game, so
+`scatter` is THE WISP's strike (`WISP_HIT`, `body-hit-scatter.ts` — a light
+that rises and blinks out, and nothing of a wisp ever falls) and `shock` is
+THE THROB's (`THROB_HIT`, `body-hit-shock.ts` — half of it is plating, so a
+shot on it is a blow). The distribution was the session's, not his.
+
+## `slick:hit` — nothing taken, 2026-09-10
+
+The owner kept the shipped kill for the slick — squares and wedges, no strike
+— in chat on 10 September 2026, and took the three candidates for other
+bodies rather than dropping them: `afterglow` is THE DART's strike
+(`DART_HIT`, `packages/render/src/body-hit-afterglow.ts` — a body that moves
+in leaps leaves an afterimage), `rupture` is THE RIND's last layer's
+(`RIND_HIT`, `body-hit-rupture.ts` — a rind is skin, and it peels back in
+petals) and `splash` is THE ECHO's (`ECHO_HIT`, `body-hit-splash.ts` — one
+small body into a dozen drops). The rind and the echo die wearing a slick's
+or a bulb's contour, so `destroy` gained an `of` field naming what they were
+(`packages/sim/src/events.ts`) and `hitFor` asks it first. The distribution
+was the session's; the bodies are named in `body-hit.ts` with the reason each
+one reads on its body.
+
+The answers offered were `afterglow`, `rupture` and `splash`; they went with
+the slot.

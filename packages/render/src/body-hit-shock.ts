@@ -1,5 +1,5 @@
-import type { Strike } from "../../../../../packages/render/src/body-hit.js";
-import { mixHex, rgba } from "../../../../../packages/render/src/hex.js";
+import type { Strike } from "./body-hit.js";
+import { mixHex, rgba } from "./hex.js";
 
 /**
  * SHOCK — the body takes the hit before it goes.

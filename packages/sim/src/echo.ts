@@ -143,6 +143,7 @@ export function echoStruck(world: World, b: Bullet, hit: Creature): boolean {
     row: hit.row,
     color: b.color,
     kind: echoBecomes(hit),
+    of: hit.kind,
   });
   removeCreature(world, hit.id);
   return b.lance;

@@ -37,8 +37,22 @@ export type SimEvent =
    * cuts the pieces of a broken body out of that body's own contour, and a
    * magnet cut into a slick's wedges is the wrong silhouette at a size where
    * the difference is visible.
+   *
+   * `of` is the creature it *was*, and it is set by exactly two kills — the
+   * echo's and the rind's — because those are the two whose strike
+   * (`render/body-hit.ts`, `hitFor`) differs from the worn body's. Neither is
+   * a secret: both seats watch an echo divide and a rind shed. A lure never
+   * sets it, for the reason above, and a kind whose strike is the worn body's
+   * has no cause to.
    */
-  | { type: "destroy"; col: number; row: number; color: Color; kind: Creature["kind"] }
+  | {
+      type: "destroy";
+      col: number;
+      row: number;
+      color: Color;
+      kind: Creature["kind"];
+      of?: Creature["kind"];
+    }
   | { type: "hole"; col: number; row: number }
   | { type: "reject"; col: number; row: number }
   | { type: "deflect"; col: number; span: number; kind: Creature["kind"]; fromRow: number }

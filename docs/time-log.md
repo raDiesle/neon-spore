@@ -209,3 +209,20 @@ WARDEN's rope, and a pose file for both. About 95 min.
 Bottleneck: **looking** — none of the four defects the pictures caught was
 visible to `bun run check`, and each cost a shot, a crop and a re-shot; the
 pose's chain in particular could only be timed by watching the beats print.
+
+## 2026-09-10 · hit-looks
+
+Every hit look on the VERSUS page put into the game, one body each, and both
+slots closed. About 25 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the six candidates, `body-hit.ts`, `body-strike.ts`, which kills carry which kind (`wornKind`), the adopt tool |
+| writing | 10 | the five moves, the seven records and `hitFor`, `of` on the kill event, the test, DECIDED |
+| looking | 5 | four `bun run frames` strips to find the tick a bolt meets a bulb on wave 2; two perf runs |
+| friction | 0 | no Python on this machine for the sim edit — sed did it |
+| landing | 5 | `check:fast`, the commit, `land --keep` |
+
+Bottleneck: **looking** — photographing a kill means guessing the tick the
+bolt lands on, and it took three strips of the wrong tick before one of the
+right one.

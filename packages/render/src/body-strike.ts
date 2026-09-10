@@ -13,9 +13,9 @@ import { type Layout, tileCX, tileCY } from "./layout.js";
  * plainest of them: fed by `destroy`, frozen at the tile the shot landed in,
  * drawn under the hull and dropped on a restart. What it draws is not here at
  * all — it is `HitLook.strike`, reached through `hitFor` so a candidate can
- * stand in for it for the length of one frame (`docs/versus.md`). The shipped
- * record's `life` is 0, so on the shipped field this ingests nothing and the
- * kill is the sparks and the pieces it always was.
+ * stand in for it for the length of one frame (`docs/versus.md`). A record
+ * with `life` 0 — the slick's — ingests nothing here, and its kill is the
+ * sparks and the pieces it always was.
  *
  * **The outline is cut on the frame of the hit and never again**, for
  * `debris.ts`'s reason: the body is gone from the world on the frame the
@@ -53,7 +53,7 @@ export class BodyStrikeFx {
   ingest(events: readonly SimEvent[], l: Layout, time: number): void {
     for (const e of events) {
       if (e.type !== "destroy") continue;
-      const look = hitFor(e.kind);
+      const look = hitFor(e.kind, e.of);
       if (look.life <= 0 || !hasOwnBody(e.kind)) continue;
       const shape = livingSilhouette(e.kind);
       // The plain footprint, as `effects-break.ts` cuts it: there is no
