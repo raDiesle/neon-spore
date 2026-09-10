@@ -397,29 +397,6 @@ the workaround this entry ends. Find what is spinning, fix it, and prove it
 with `bun run versus:shot creature:echo cleft out.png --freeze 1.1 --only
 candidate --scale 6` coming back in under a minute with the echo in it.
 
-## `drawnSize` re-derives the fit `figureLayout` remembers, minus the long axis
-
-- **Found:** 2026-09-10, claude/queue-the-test-suite-is-still-214-seconds-and-the-rest
-- **Taken:** 2026-09-10, claude/queue-drawnsize-re-derives-the-fit-figurelayout-rememb
-- **Files:** `tools/shape-sheet/src/drawn-size.ts`,
-  `tools/director/src/shape-fit.ts`, `tools/shape-sheet/test/drawn-size.test.ts`
-
-`drawn-size.ts` says at the top that it reaches into the director rather than
-re-deriving its arithmetic, and then re-derives the fit: it calls `boundsOver`
-and `transformedBounds` itself, restates `shapeFigure`'s pad as `PAD_MIN` and
-`PAD_FRACTION`, and hands `transformedBounds` no `long` axis where
-`shape-fit.ts`'s `fitOf` passes `still.long` — so the box it fits is not quite
-the box the card is drawn in, for any body whose motion reads its long axis.
-`figureLayout(entry, entry.motion, box, width)` is the director's own answer,
-remembered per entry, and it exports the `scale`; what it does not export is
-the rest pose's box (`Still.bounds`), which is the other half of a drawn size.
-Export `stillOf` (or a `restBounds`) from `shape-fit.ts`, make `drawnSize` two
-lines over `figureLayout` and it, and delete the memo this lane added to
-`drawn-size.ts` on 10 September 2026, which exists only because the fit was
-being scanned five times over. The pinned figures in `drawn-size.test.ts`
-(99, 61, 23, the bulb at 22–24) will move if the long axis changes any square
-card's fit; re-pin them with a note saying why, which is what that file does.
-
 ## `bun test` runs 384 files one after another; the play-by-play cut has run out
 
 - **Found:** 2026-09-10, claude/queue-the-test-suite-is-still-214-seconds-and-the-rest

@@ -63,9 +63,12 @@ import { drawnSize, FLOOR_HI, FLOOR_LO, isWide } from "../src/drawn-size.js";
  * first when the frame tightens, and on a phone the frame is always tight.
  *
  * If `shapeFigure`'s fit ever changes, this is the test that notices: it goes
- * through `drawnSize`, which calls the director's own `FIT_TIMES`, `isWide`,
- * `tilePixels` and `transformedBounds` rather than re-deriving them, so a
- * changed fit changes these numbers here too, not silently.
+ * through `drawnSize`, which is the director's own `figureLayout` scale over
+ * its own `restBounds` rather than a second copy of either, so a changed fit
+ * changes these numbers here too, not silently. On 10 September 2026 the copy
+ * was replaced by the call — it had been scanning without the long axis the
+ * card's fit passes — and not one pinned figure below moved, which says the
+ * long axis never changed a square card's fit.
  */
 
 const SQUARE = CATALOGUE.filter((e) => !isWide(e));

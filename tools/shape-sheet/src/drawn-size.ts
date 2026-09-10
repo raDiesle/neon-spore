@@ -1,16 +1,15 @@
 // Deliberately reaching into the director rather than re-deriving its
-// arithmetic: `FIT_TIMES` and `isWide` are `shape-figure.ts`'s, and
-// `tilePixels`/`transformedBounds` are `shapes-motion.ts`'s — the same scan
-// over a whole wobble and a whole own-motion that decides what a card on the
-// SHAPES tab actually draws. A floor measured against a second copy of that
-// scan is a floor about nothing: it would drift from the picture the moment
-// either changed, silently, which is exactly what this file exists to catch
-// instead of repeat. `tools/director/src/` is not this lane's to edit, only
-// to call — see `CLAUDE.md`.
-import { FIT_TIMES, isWide } from "../../director/src/shape-figure.js";
-import { type Centre, tilePixels, transformedBounds } from "../../director/src/shapes-motion.js";
+// arithmetic: `figureLayout` is `shape-fit.ts`'s — the same scan over a whole
+// wobble and a whole own-motion, fitted with the same pad, that decides what a
+// card on the SHAPES tab actually draws — and `restBounds` is the rest pose's
+// box that scan remembers. A floor measured against a second copy of that fit
+// is a floor about nothing: it would drift from the picture the moment either
+// changed, silently, which is exactly what this file exists to catch instead
+// of repeat. Until 10 September 2026 this file *was* that second copy: it
+// called `boundsOver` and `transformedBounds` itself, restated the pad, and
+// handed the scan no long axis where the card's fit passes one.
+import { figureLayout, isWide, restBounds } from "../../director/src/shape-fit.js";
 import type { CatalogueEntry } from "./catalogue.js";
-import { boundsOver } from "./metrics.js";
 
 /**
  * The 20–26 px floor `docs/spec/graphics.md` sets for a body to stay
@@ -31,46 +30,6 @@ export interface DrawnSize {
 }
 
 /**
- * The padding `shapeFigure` reserves inside its frame before fitting the
- * body into what remains — `Math.max(6, box * 0.18)` in
- * `tools/director/src/shape-figure.ts`, restated here because that function
- * fits and draws in one motion and has nothing smaller to call. It is a
- * constant clamp on a linear scale, not a scan that can silently drift the
- * way the fit itself can, so restating it costs little of what calling would
- * have bought.
- */
-const PAD_MIN = 6;
-const PAD_FRACTION = 0.18;
-
-/** The two boxes a size is read off: the rest pose's, and the whole sway's. */
-interface Scan {
-  still: ReturnType<typeof boundsOver>;
-  fit: ReturnType<typeof transformedBounds>;
-}
-
-/**
- * The scan, remembered per entry — for the same reason `shape-fit.ts` keeps
- * its own: a hundred-odd contour samples and six thousand poses is the whole
- * price of a card, none of it depends on the frame it is fitted into, and the
- * catalogue is a fixed table. `drawn-size.test.ts` asks every square entry
- * at two frames across five cases, and before this it paid for the scan five
- * times over — ten seconds of `bun test` for two seconds of information.
- */
-const scans = new WeakMap<CatalogueEntry, Scan>();
-
-function scanOf(entry: CatalogueEntry): Scan {
-  const had = scans.get(entry);
-  if (had) return had;
-  const still = boundsOver(entry.subject, FIT_TIMES);
-  const tile = tilePixels(still);
-  const pivot: Centre = { x: (still.x0 + still.x1) / 2, y: (still.y0 + still.y1) / 2 };
-  const fit = transformedBounds(entry.subject, entry.motion, FIT_TIMES, tile, pivot);
-  const scan = { still, fit };
-  scans.set(entry, scan);
-  return scan;
-}
-
-/**
  * The drawn long and short axis of a catalogue entry's body, in CSS pixels,
  * at the frame `shapeFigure` fits it into — `box` its height and the pad
  * basis, `width` its width, defaulting to `box` for the square card every
@@ -82,24 +41,22 @@ function scanOf(entry: CatalogueEntry): Scan {
  * 0.18`, so narrowing only `width` narrows the picture without shrinking the
  * margin it is judged inside.
  *
- * The *scale* is fitted to the whole sway: `transformedBounds` is the box a
- * body needs across its own-motion so a card never clips mid-swing, and that
- * box is what `shapeFigure` fits into the frame. But the size worth marking
- * against a nameability floor is what the body actually draws *at rest* —
- * the still pose, `boundsOver`'s box — through that same scale. A shape that
- * sways wide is fit small so its swing never leaves the card, and it is
- * exactly that shape whose resting body reads smaller than the frame
- * suggests; scoring the swing's own box instead would hide the one case this
- * floor exists to catch.
+ * The *scale* is fitted to the whole sway: `figureLayout` fits the box a body
+ * needs across its own-motion so a card never clips mid-swing. But the size
+ * worth marking against a nameability floor is what the body actually draws
+ * *at rest* — `restBounds`' box — through that same scale. A shape that sways
+ * wide is fit small so its swing never leaves the card, and it is exactly
+ * that shape whose resting body reads smaller than the frame suggests;
+ * scoring the swing's own box instead would hide the one case this floor
+ * exists to catch.
  *
  * The frame is an input, never assumed: the paired-cards lane's entire
  * finding was a number that changed when the frame did, and a function that
  * hardcoded 92 would answer a question nobody will ask twice.
  */
 export function drawnSize(entry: CatalogueEntry, box: number, width = box): DrawnSize {
-  const { still, fit } = scanOf(entry);
-  const pad = Math.max(PAD_MIN, box * PAD_FRACTION);
-  const scale = Math.min((width - pad) / (fit.x1 - fit.x0), (box - pad) / (fit.y1 - fit.y0));
+  const { scale } = figureLayout(entry, entry.motion, box, width);
+  const still = restBounds(entry);
   const a = (still.x1 - still.x0) * scale;
   const c = (still.y1 - still.y0) * scale;
   return a >= c ? { long: a, short: c } : { long: c, short: a };

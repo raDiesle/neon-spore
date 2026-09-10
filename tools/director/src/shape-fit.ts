@@ -119,6 +119,20 @@ function fitOf(entry: CatalogueEntry, motion: OwnMotion | undefined, still: Stil
   return b;
 }
 
+/**
+ * The rest pose's box — the other half of a drawn size.
+ *
+ * `figureLayout` exports the scale a card is fitted at, and the scale alone
+ * says nothing about how big the body comes out: that is the scale times the
+ * box the body draws *at rest*, which the fit scanned but kept to itself.
+ * `tools/shape-sheet/src/drawn-size.ts` re-derived it for want of this, with
+ * its own `boundsOver` and its own pad — the exact drift `figureLayout`'s
+ * comment warns against — so it is handed out from the same memo.
+ */
+export function restBounds(entry: CatalogueEntry): Bounds {
+  return stillOf(entry).bounds;
+}
+
 /** Whether this shape needs the wide frame rather than the square one. */
 export function isWide(entry: CatalogueEntry): boolean {
   const b = stillOf(entry).bounds;
