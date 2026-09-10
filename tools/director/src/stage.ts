@@ -14,7 +14,7 @@ import { bindKeyHelp } from "./key-help.js";
 import { bindKeys, type Keys } from "./keys.js";
 import { bindStageAfterRun } from "./stage-afterrun.js";
 import { exposeStageHandle } from "./stage-handle.js";
-import { runStageLoop } from "./stage-loop.js";
+import { runStageLoopWhileSeen } from "./stage-loop.js";
 import type { StagePanel } from "./stage-panel.js";
 import { stageGeometry } from "./stage-point.js";
 import { bindStageRounds } from "./stage-rounds.js";
@@ -164,7 +164,9 @@ export function bindStage(
     onFrame();
   };
 
-  runStageLoop({ tickHz: () => cfg.tickHz, advance, paint });
+  // Only while the canvas is on screen: a phone showing WAVE or MAP, or a
+  // desk with the GAME column collapsed, pays nothing for the stage.
+  runStageLoopWhileSeen(canvas, { tickHz: () => cfg.tickHz, advance, paint });
 
   const playBtn = document.getElementById("play");
   const paintPlay = (): void => {

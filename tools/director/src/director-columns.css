@@ -198,6 +198,11 @@ section.collapsed .column-body {
   flex-wrap: wrap;
   gap: 4px;
 }
+/* The wave actions sit above the filter now (index.html says why); this is
+   the room the list used to leave under itself before them. */
+.rail-actions + #waveFilter {
+  margin-top: 10px;
+}
 
 /* The section itself now only stacks .column-head above .column-body
    (columns.ts) — the head/body split below is subcols.ts's, one level

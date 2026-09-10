@@ -72,3 +72,48 @@ export function runStageLoop({ tickHz, advance, paint, scale, alive }: StageLoop
     },
   };
 }
+
+/**
+ * The same loop, run only while `target` is on screen.
+ *
+ * On a phone the director shows one view at a time (`mobile-menu.ts`), and
+ * for as long as WAVE or MAP is the one showing, the stage is `display: none`
+ * — which stops nothing: `requestAnimationFrame` keeps firing for a hidden
+ * *element* (it is a hidden *tab* it stops for), so the world was stepped and
+ * the frame painted sixty times a second into a canvas nobody could see, and
+ * a phone editing a wave was doing the whole cost of playing one. A collapsed
+ * GAME column on a desk did the same.
+ *
+ * An `IntersectionObserver` answers both: an element with no box, and one
+ * scrolled out of sight, both stop intersecting, and the observer says so
+ * once rather than being asked every frame. Off screen the loop is stopped
+ * outright — not held at scale 0, which would still cost a frame — so a
+ * hidden stage costs exactly nothing. The world *holds* rather than catching
+ * up: coming back to GAME finds the wave where it was left, which is what a
+ * person who stepped away to edit it expects, and the same thing a paused
+ * transport gives.
+ *
+ * Without the observer (a test's fake DOM), the loop simply runs.
+ */
+export function runStageLoopWhileSeen(target: Element, loop: StageLoop): StageLoopHandle {
+  if (typeof IntersectionObserver !== "function") return runStageLoop(loop);
+  let inner: StageLoopHandle | null = null;
+  const watch = new IntersectionObserver((entries) => {
+    // The last entry is the current state; earlier ones are changes already
+    // superseded by the time this runs.
+    const seen = entries[entries.length - 1]?.isIntersecting ?? false;
+    if (seen && inner === null) inner = runStageLoop(loop);
+    else if (!seen && inner !== null) {
+      inner.stop();
+      inner = null;
+    }
+  });
+  watch.observe(target);
+  return {
+    stop(): void {
+      watch.disconnect();
+      inner?.stop();
+      inner = null;
+    },
+  };
+}

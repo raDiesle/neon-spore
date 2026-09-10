@@ -76,6 +76,19 @@
         <!-- No <h2>WAVES</h2> here — the column-head columns.ts inserts
              already carries the title; a second one under it would repeat
              itself on every load. -->
+        <!-- The actions at the top of the column, not under the list. On a
+             phone the list is the whole screen and more, so a row under it
+             was a scroll away from the wave it acts on; up here it is in
+             reach whichever wave is showing. Above the filter rather than
+             between filter and list: the filter stays the one thing directly
+             over the list (rail-filter.test.ts holds that). -->
+        <div class="rail-actions">
+          <button type="button" id="waveAdd">+ NEW</button>
+          <button type="button" id="waveCopy">COPY</button>
+          <button type="button" id="waveUp">↑</button>
+          <button type="button" id="waveDown">↓</button>
+          <button type="button" id="waveDel">DELETE</button>
+        </div>
         <!-- The list's filter. A full-width field above the list, never
              anything beside it: WAVES is the director's narrowest column
              (210px in columns.ts) and the width it has is for wave names.
@@ -89,13 +102,6 @@
         />
         <div id="waveFilterNote" class="note" hidden></div>
         <div id="waveList"></div>
-        <div class="rail-actions">
-          <button type="button" id="waveAdd">+ NEW</button>
-          <button type="button" id="waveCopy">COPY</button>
-          <button type="button" id="waveUp">↑</button>
-          <button type="button" id="waveDown">↓</button>
-          <button type="button" id="waveDel">DELETE</button>
-        </div>
         <p class="note">
           A wave without a sentence is padding and does not save. That is the
           one-sentence test, not a validation rule someone added.

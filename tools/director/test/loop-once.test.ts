@@ -42,7 +42,10 @@ test("the one that does is the one everything else calls", async () => {
   for (const file of new Glob("src/*.ts").scanSync(SRC)) {
     const rel = file.replaceAll("\\", "/");
     if (rel === HOME) continue;
-    if ((await Bun.file(join(SRC, file)).text()).includes("runStageLoop(")) callers.push(rel);
+    // Either door: `runStageLoopWhileSeen` is the same loop behind a
+    // visibility gate, and a caller through it is still a caller.
+    if (/\brunStageLoop(?:WhileSeen)?\(/.test(await Bun.file(join(SRC, file)).text()))
+      callers.push(rel);
   }
   expect(callers.sort()).toEqual(["src/stage.ts", "src/versus-pair.ts"]);
 });
