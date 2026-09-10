@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · ffdc985f — GULLET: the ship is a mouth, and every control is a tendon on its organ
+
+The first whole-ship candidate, in a new slot `ship:body`. The owner asked for a ship with cannon, suck and shield on the surface and buttons on the panel and everything else open, chose GULLET from four directions, and while it was being built asked for one more thing: *buttons control the cannon and shield, maybe we could create some visual connections.*
+
+## 2026-09-10 · fe04947d — The ship's material and the panel's tissue become records
+
+Two lifts, no pixel changed, so that a whole ship can be offered on VERSUS. `drawHull` called the five sheen passes by name in a row, which meant the one thing that decides whether the membrane reads as a soap film, a wet lip or a crust had nowhere for a second answer to sit; `HULL_SHEEN` in `hull-sheen.ts` is that seam, and its shipped record is the same five calls in the same order. `band-ground.ts` painted its baked sheet through a private function; `BAND_GROUND` is the painter as a record, with its name in the bake key so a candidate that swaps the painter is not handed the shipped sheet from the cache on every frame after the first.
+
 ## 2026-09-10 · d8c86b8b — THE TELL hears the lift of a colour as the navigator's bolt
 
 The round only counted a bare `fire`, which the swipe across the ship and the desk keyboard send and the panel's lobes never do — a thumb on RED or CYAN sends `prime` down and up. So on a phone player 2 could not throw at all, and every exchange that needed a bolt was a stand-off nobody was told about. The lift is now the bolt, in the colour that was held, which is the game's own rule everywhere else. The rehearsal gains the page that was waiting on this: a third rung where the boss opens a cyan mouth and the navigator lifts CYAN.
