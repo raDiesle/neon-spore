@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · 0ec69720 — The pose map back under the line ceiling
+
+Two lanes landed a slot each on the same afternoon, and the rebase that reconciled the split trunk kept both paragraphs over `SLOT_POSE`: 253 lines, and `limits.test.ts` red on `main` after the push. The rind and lid rows lose half their prose here, which brings the file back to 249, and the shape of the problem — a map every slot writes a paragraph into — is queued so the next slot does not do it again.
+
+## 2026-09-10 · a1dba0c5 — `bun run crop` magnifies a picture already taken, and `shot --at` says what it clipped from
+
+The queue entry said `versus:shot --at` on a `--only` tile pose photographed the page's prose instead of the window. It did not: the window on a three-tile pose is 104 px square, not the 172 a five-tile one is, and the rectangle the lane wrote overran it — the clip was exactly where it was asked to be. So the shot now prints the size of the element it clipped from beside the rectangle, the usage text and `versus-element.ts` say a tile window is `span` tiles wide, and `bun run crop <in.png> <out.png> x,y,w,h [zoom]` is the throwaway three lanes wrote in two days kept: a rectangle of a PNG already taken, drawn bigger by whole pixels, decoded by `pixels.ts` and written back through the raster chunks (`picture.ts`). One real defect went with it: `shot.ts` scrolled the window by the crop's offset and then clipped a box measured against the viewport, and Playwright clips against the document — right only on a page that fits the window. Nothing scrolls now; the window is grown instead.
+
 ## 2026-09-10 · 4b68ed68 — Three backs for the field, offered in VERSUS, and a still's freeze counted in ticks
 
 `field:backdrop` opens with three answers beside the shipped sea, on a record cut out of `backdrop.ts` — `backdrop-look.ts`, one field, the whole composition, the shipped layers coming through it with not one pixel moved. BARE paints nothing behind the field but the field's own dark, pooled toward the middle so the columns sit in the brighter ground and the edges fall away. LANES shades every other column a shade darker in the field's black from the sky to the band, keeps the wash and horizon, halves the far dust and drops the near dust and the light shafts, so a column is counted off the space rather than off the grid lines. NEBULA puts the field in space: a black a step deeper than the ground, two large dim clouds of the act's tint drifting far behind everything, the far dust kept as stars and six pin stars breathing. All three are stills, judged on `BODIES · FOUR KINDS AT ONCE` — the slot's question is whether four bodies are easier to read, not whether the back is handsome — and the slot is named in `versus-pose.ts`.
