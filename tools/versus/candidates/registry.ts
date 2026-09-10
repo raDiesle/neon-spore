@@ -14,6 +14,9 @@ import { CHUTE_BELL } from "./creature-chute/bell/index.js";
 import { CHUTE_GORES } from "./creature-chute/gores/index.js";
 import { CHUTE_RIBS } from "./creature-chute/ribs/index.js";
 import { CHUTE_VANE } from "./creature-chute/vane/index.js";
+import { COIL_LEAP } from "./creature-coil/leap/index.js";
+import { COIL_PRONGS } from "./creature-coil/prongs/index.js";
+import { COIL_SOCKETS } from "./creature-coil/sockets/index.js";
 import { CRAWLER_GUT } from "./creature-crawler/gut/index.js";
 import { CRAWLER_SETAE } from "./creature-crawler/setae/index.js";
 import { CRAWLER_WRINKLE } from "./creature-crawler/wrinkle/index.js";
@@ -51,6 +54,9 @@ import { RECOIL_TUBE } from "./creature-recoil/tube/index.js";
 import { RIND_FLAKES } from "./creature-rind/flakes/index.js";
 import { RIND_POD } from "./creature-rind/pod/index.js";
 import { RIND_SLOUGH } from "./creature-rind/slough/index.js";
+import { TETHER_CORD } from "./creature-tether/cord/index.js";
+import { TETHER_SINEW } from "./creature-tether/sinew/index.js";
+import { TETHER_TWIST } from "./creature-tether/twist/index.js";
 import { THROB_CAP } from "./creature-throb/cap/index.js";
 import { THROB_GIRDLE } from "./creature-throb/girdle/index.js";
 import { THROB_PORES } from "./creature-throb/pores/index.js";
@@ -98,6 +104,9 @@ export const VARIANTS: Variant[] = [
   CHUTE_GORES,
   CHUTE_RIBS,
   CHUTE_VANE,
+  COIL_LEAP,
+  COIL_PRONGS,
+  COIL_SOCKETS,
   CRAWLER_GUT,
   CRAWLER_SETAE,
   CRAWLER_WRINKLE,
@@ -135,6 +144,9 @@ export const VARIANTS: Variant[] = [
   RIND_FLAKES,
   RIND_POD,
   RIND_SLOUGH,
+  TETHER_CORD,
+  TETHER_SINEW,
+  TETHER_TWIST,
   THROB_CAP,
   THROB_GIRDLE,
   THROB_PORES,

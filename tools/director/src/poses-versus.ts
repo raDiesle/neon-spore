@@ -17,6 +17,7 @@ import { BODIES_POSE, DART_RUN_POSE, ECHO_POSE, GHOST_POSE } from "./poses-bodie
 import { RECOIL_POSE } from "./poses-cage.js";
 import { CAROM_POSE, CHUTE_POSE, VEER_POSE } from "./poses-crossing.js";
 import { BREACH_ROCKS_POSE, BREAK_POSE, METEOR_HIT_POSE } from "./poses-damage.js";
+import { COIL_POSE, TETHER_POSE } from "./poses-link.js";
 
 /**
  * The states a candidate look is judged on — one per slot that had none.
@@ -208,6 +209,8 @@ export const VERSUS_POSES: Pose[] = [
   CAROM_POSE,
   CHUTE_POSE,
   VEER_POSE,
+  COIL_POSE,
+  TETHER_POSE,
 ];
 
 export const VERSUS_GROUP: PoseGroup = {

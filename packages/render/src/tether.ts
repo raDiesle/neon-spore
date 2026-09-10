@@ -1,4 +1,3 @@
-import { circleSubpath, openSmoothPath } from "@neon-spore/content";
 import {
   type Creature,
   type SimConfig,
@@ -9,7 +8,6 @@ import {
   wardenHandleMilli,
   wardenPullMilli,
 } from "@neon-spore/sim";
-import { strokeGlow } from "./glow.js";
 import {
   drawHandleHint,
   drawHandleRest,
@@ -17,11 +15,11 @@ import {
   fieldPoint,
   HINT_LOUD,
   handleRadius,
-  handleSag,
 } from "./handle-draw.js";
 import type { Circle, Layout } from "./layout.js";
 import { tileCX, tileCY } from "./layout.js";
-import { PALETTE, STROKE } from "./palette.js";
+import { PALETTE } from "./palette.js";
+import { TETHER_LOOK } from "./tether-look.js";
 import { wardenRopeAnchor } from "./warden.js";
 
 /**
@@ -125,43 +123,17 @@ export function drawTether(
   const pull = wardenPullMilli(world, b) / 1000;
   const held = b.pulling;
 
-  // Under tension the rope goes thin and bright from the rim down: the rope is
-  // its own gauge, and there is no widget anywhere saying how far the pull has
-  // got. Slack, it hangs with a slow wave travelling down it.
-  const sag = handleSag({
-    anchor,
-    head,
-    held,
-    pull,
-    time,
-    segments: 14,
-    waveHeld: 1.2,
-    waveSlack: 3.5,
-  });
-  const line = new Path2D(openSmoothPath(sag));
-  strokeGlow(ctx, line, held ? rim : hex, STROKE.outline * (1 - pull * 0.35), 0.5 + pull * 1.5);
-
-  drawAnchor(ctx, anchor.x, anchor.y, hex, rim, pull);
+  // The rope is its own gauge, and there is no widget anywhere saying how far
+  // the pull has got: whatever `TETHER_LOOK` draws it from, the line has to
+  // change with `pull` alone (`tether-look.ts`). The line first and the root
+  // over it, then the handle, which is shared with the other cords and is not
+  // the look's to change.
+  const d = { ctx, anchor, head, held, pull, time, tile: l.tile, hex, rim };
+  TETHER_LOOK.rope(d);
+  TETHER_LOOK.root(d);
   // The column it hangs in, marked faintly, so the swing reads as a distance
   // from somewhere rather than as a handle that happens to be over there.
   if (held) drawHandleRest(ctx, rest, hex);
   drawHandleRing(ctx, { x: head.x, y: head.y, r: rest.r, hex, rim, held, pull, time });
   if (!held) drawHandleHint(ctx, l, l.role, head.x, head.y + l.tile * 0.7, HINT_LOUD);
-}
-
-/** Where it comes out of the rim, brightening as the tension takes. */
-function drawAnchor(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  hex: string,
-  rim: string,
-  pull: number,
-): void {
-  const p = new Path2D(circleSubpath(x, y, 3 + pull * 4));
-  ctx.save();
-  ctx.fillStyle = pull > 0 ? rim : hex;
-  ctx.globalAlpha = 0.5 + pull * 0.5;
-  ctx.fill(p);
-  ctx.restore();
 }

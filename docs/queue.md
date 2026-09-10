@@ -193,20 +193,6 @@ Whichever wins, `packages/render/test/wave-budget.test.ts`'s BULB QUEEN rows
 are the proof it changed nothing else, and `bun run frames . --wave 25 --at`
 takes the two pictures for the owner to choose between.
 
-## THE COIL and THE TETHER have one look each and no record to patch
-
-- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
-- **Taken:** 2026-09-10, claude/queue-the-coil-and-the-tether-have-one-look-each-and-n
-- **Files:** `packages/render/src/coil.ts`, `packages/render/src/coil-jump.ts`,
-  `packages/render/src/tether.ts`, `tools/versus/candidates/`
-
-Cut a look record for each, then open `creature:coil` and `creature:tether`
-with three candidates each. Both are long bodies rather than blobs, which is
-where a flat fill shows worst — a rope or a coil with no light on it is a
-stroke, and with one it is a thing with a near side. `.claude/skills/depth`
-applies, and the tether's line to whatever it holds is drawn as a link rather
-than as two marks at its ends. Poses in `versus-pose.ts` in the same commit.
-
 ## The band the players actually touch has one look
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067

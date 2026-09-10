@@ -1,13 +1,14 @@
 import {
   type Creature,
   coilChargeAge,
+  coilHeading,
   coilWardReaches,
   type SimConfig,
   type World,
 } from "@neon-spore/sim";
 import { CLASP_RADIUS_MUL, drawClaspShield } from "./clasp.js";
+import { COIL_LOOK } from "./coil-look.js";
 import { hazed } from "./depth.js";
-import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -33,7 +34,9 @@ import { PALETTE } from "./palette.js";
  * the rim, and they are where a bolt leaves and where one lands
  * (`coil-jump.ts`) — a dome that discharged from nowhere in particular would
  * make the chain read as a coincidence between two bodies rather than as one
- * thing passing between them.
+ * thing passing between them. They and the bolt are the coil's own picture,
+ * and both go through `COIL_LOOK` (`coil-look.ts`) so a candidate can offer
+ * another; the dome and the rock are other creatures' and do not.
  *
  * **And the charge is drawn on player 1's screen only.** That is the whole
  * split: the navigator holds the only plate and is shown a dome that looks
@@ -41,13 +44,6 @@ import { PALETTE } from "./palette.js";
  * only be *told*. `showsCoilCharge` is the one gate, and it is the sentence
  * `showsGhostBody` and `showsVeilCore` already make, aimed at this seat.
  */
-
-/** How many studs sit on the rim. Three: enough that one is always facing
- * whichever way the charge came from, few enough to read at 26 px. */
-const STUDS = 3;
-
-/** How far a stud sits out past the dome's own rim, as a share of it. */
-const STUD_OUT = 1.04;
 
 /**
  * Whether this screen shows the charge sitting in a dome at all — player 1's,
@@ -111,22 +107,19 @@ export function drawCoilDome(
 ): void {
   const lit = Math.max(coilWardReaches(world, c) ? 1 : 0, charge);
   drawClaspShield(ctx, l, world.cfg, x, y, time, near, lit, image);
-  drawStuds(ctx, l, world.cfg, c, x, y, time, near, charge);
+  drawStuds(ctx, l, world, c, x, y, time, near, charge);
 }
 
 /**
  * The three studs on the rim, turning slowly with the body's own id so that no
- * two domes on the field are standing at the same angle.
- *
- * They brighten with the charge rather than blinking on at some threshold: the
- * pilot has three beats of a bolt crossing the field and the thing they are
- * being asked to say is *which* dome, so the answer has to be readable from
- * the first frame and unmistakable by the last.
+ * two domes on the field are standing at the same angle. What they are drawn
+ * *as* is `COIL_LOOK.studs`'s (`coil-look.ts`); this gathers what the field
+ * knows about the dome and hands it over.
  */
 function drawStuds(
   ctx: CanvasRenderingContext2D,
   l: Layout,
-  cfg: SimConfig,
+  world: World,
   c: Creature,
   x: number,
   y: number,
@@ -134,25 +127,22 @@ function drawStuds(
   near: number,
   charge: number,
 ): void {
-  const r = l.tile * CLASP_RADIUS_MUL * STUD_OUT;
+  const cfg = world.cfg;
   // Slow, and turning the other way for odd ids: a field of domes all spinning
   // together reads as one object rotating rather than as several bodies.
   const spin = time * 0.35 * (c.id % 2 === 0 ? 1 : -1) + c.id;
-  const rim = hazed(cfg, PALETTE.claspShieldRim, near);
-  const hot = hazed(cfg, PALETTE.shieldRim, near);
-  ctx.save();
-  ctx.globalCompositeOperation = "lighter";
-  for (let k = 0; k < STUDS; k++) {
-    const a = spin + (k * Math.PI * 2) / STUDS;
-    const sx = x + Math.cos(a) * r;
-    const sy = y + Math.sin(a) * r;
-    const size = l.tile * (0.06 + 0.05 * charge);
-    ctx.globalAlpha = 0.55 + 0.45 * charge;
-    ctx.fillStyle = charge > 0 ? hot : rim;
-    ctx.beginPath();
-    ctx.arc(sx, sy, size, 0, Math.PI * 2);
-    ctx.fill();
-    if (charge > 0) halo(ctx, sx, sy, size * 3.2, hot, 0.4 * charge);
-  }
-  ctx.restore();
+  COIL_LOOK.studs({
+    ctx,
+    x,
+    y,
+    r: l.tile * CLASP_RADIUS_MUL,
+    tile: l.tile,
+    spin,
+    time,
+    charge,
+    dir: coilHeading(c),
+    rim: hazed(cfg, PALETTE.claspShieldRim, near),
+    hot: hazed(cfg, PALETTE.shieldRim, near),
+    lit: coilWardReaches(world, c),
+  });
 }

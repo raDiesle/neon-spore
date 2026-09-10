@@ -1,10 +1,8 @@
 import type { SimConfig, SimEvent, World } from "@neon-spore/sim";
-import { drawBolt } from "./bolt.js";
 import { showsCoilCharge } from "./coil.js";
+import { COIL_LOOK } from "./coil-look.js";
 import { creatureCenter } from "./creature-place.js";
-import { halo } from "./glow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
-import { PALETTE } from "./palette.js";
 
 /**
  * The charge leaving a dome that has just failed and crossing the field to the
@@ -15,7 +13,9 @@ import { PALETTE } from "./palette.js";
  * to next one"*. `ClaspStrikeFx` next door is the same light travelling the
  * other way — up out of the hull, into the body the ward reached — and this is
  * that picture with both ends on the field. `drawBolt` is the one shape they
- * share (`bolt.ts`).
+ * share (`bolt.ts`). What the charge is drawn *as* is `COIL_LOOK.charge`'s
+ * (`coil-look.ts`), so a candidate can offer another; this file decides where
+ * its two ends are and how far along it has come.
  *
  * **One end is frozen and the other is looked up every frame**, and the
  * asymmetry is the creature. Where the charge *left* is a place: that dome is
@@ -47,11 +47,6 @@ export interface CoilJump {
   /** Seconds the flight lasts, from `coilJumpBeats` at this tempo. */
   life: number;
 }
-
-/** Bolts per charge. Two rather than the strike's three: this one is on screen
- * for three beats instead of a quarter of a second, and three overlapping
- * crackling lines that long read as a rope rather than as a discharge. */
-const BOLTS = 2;
 
 export class CoilJumpFx {
   private live: CoilJump[] = [];
@@ -96,19 +91,15 @@ export class CoilJumpFx {
       if (c?.kind !== "coil") continue;
       const t = Math.min(1, fx.age / fx.life);
       const to = creatureCenter(l, c, beatPhase);
-      // The bolt reaches only as far as the charge has come, so the pilot is
-      // watching something *arrive* rather than a line joining two bodies.
-      const x1 = fx.x + (to.x - fx.x) * t;
-      const y1 = fx.y + (to.y - fx.y) * t;
-      for (let k = 0; k < BOLTS; k++) {
-        // Redrawn from a different seed a few times a second, so the charge
-        // crackles along its path instead of holding one shape.
-        const seed = k * 211 + Math.floor(fx.age * 60) * 23 + fx.id;
-        drawBolt(ctx, fx.x, fx.y, x1, y1, l.tile, seed, k === 0 ? 0.9 : 0.55, 1.4);
-      }
-      // The head of it, brightening as it closes. This is the thing the pilot
-      // is actually reading: not the line, but which dome it is nearly at.
-      halo(ctx, x1, y1, l.tile * (0.5 + 0.9 * t), PALETTE.shieldRim, 0.3 + 0.45 * t);
+      COIL_LOOK.charge({
+        ctx,
+        from: { x: fx.x, y: fx.y },
+        to,
+        t,
+        age: fx.age,
+        tile: l.tile,
+        id: fx.id,
+      });
     }
   }
 }

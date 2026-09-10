@@ -126,3 +126,19 @@ and three candidates apiece. About 1 h 30 min.
 Bottleneck: **writing** — six paints is six small programs, and each was
 written against a picture of the shipped body taken first rather than blind,
 which is what kept the looking short.
+## 2026-09-10 · claude/queue-the-coil-and-the-tether-have-one-look-each-and-n
+
+Two look records cut, three candidates each for THE COIL's chain and THE
+WARDEN's rope, and a pose file for both. About 95 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | the queue entry, `coil.ts`, `coil-jump.ts`, `tether.ts`, `clasp.ts`, `handle-draw.ts`, the sim's coil and rope rules, `carom-look.ts` as the pattern, the pose kit and three pose files, the depth skill |
+| writing | 40 | `coil-look.ts`, `tether-look.ts`, the two call sites, six candidates with their paints, `poses-link.ts`, the rows |
+| looking | 25 | nine `versus:shot` pictures with crops; the first coil pose collapsed its chain, the first bead answer put a dark blob on the rock and was replaced, the prongs read as Vs, the sinew's sheath filled as a chord |
+| friction | 5 | no Python on this machine for a multi-file edit; a probe script at the root could not import `@neon-spore/sim` and moved inside the director |
+| landing | 5 | `check:fast`, the commit, `land --keep` |
+
+Bottleneck: **looking** — none of the four defects the pictures caught was
+visible to `bun run check`, and each cost a shot, a crop and a re-shot; the
+pose's chain in particular could only be timed by watching the beats print.

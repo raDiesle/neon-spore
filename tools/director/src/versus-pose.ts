@@ -72,6 +72,8 @@ const SLOT_POSE: Record<string, string> = {
   "creature:chute": "CHUTE · THROWN CLEAR",
   "creature:veer": "VEER · RIDING DOWN",
   "creature:volley": "VOLLEY · WARDED THREE TIMES",
+  "creature:coil": "COIL · THE CHARGE JUMPING",
+  "creature:tether": "TETHER · PULLED",
   "maze:walls": "MAZE · THE WHEEL TO READ",
 };
 

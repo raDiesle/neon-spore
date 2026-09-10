@@ -585,6 +585,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/slabs.ts` | The other kind of panel: slabs, for a round that has taken the field away |
 | `packages/render/src/sprite-burst.ts` | A baked animation, played from an atlas, over the field |
 | `packages/render/src/tether.ts` | THE WARDEN's rope, and the handle on it: the one thing on this field either player can put a hand on |
+| `packages/render/src/tether-look.ts` | THE ONE RECORD A CANDIDATE **TETHER** LOOK PATCHES |
 | `packages/render/src/vane-draw.ts` | THE VANE, drawn: an arm sweeping the top of the field, and the bearing it turns on |
 | `packages/render/src/veil-bolt.ts` | THE VEIL's lightning: small bolts that break out of the cloud's own border, scattered round it, each in its |
 | `packages/render/src/veil-marks.ts` | What stands over a cloud, and it is a different thing in each seat |
@@ -807,6 +808,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/hull-sheen.ts` | what the ship's skin is made of, as a record — the five sheen passes as one material a candidate ship can replace |
 | `packages/render/src/bolt.ts` | **One discharge drawn between two points**, and the one place the shape of a bolt in this game is decided |
 | `packages/render/src/coil-jump.ts` | The charge leaving a dome that has just failed and crossing the field to the next one |
+| `packages/render/src/coil-look.ts` | THE ONE RECORD A CANDIDATE **COIL** LOOK PATCHES |
 | `packages/render/src/coil.ts` | THE COIL's dome: the shell a rock crosses the field inside, and the three studs the charge leaves it by |
 | `packages/render/src/reach-arm.ts` | THE CLAW's arm, drawn out of the swelling that was the gun |
 | `packages/render/src/comms-talker.ts` | one row per creature: which seat has to say something about it |
@@ -1410,6 +1412,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/poses-damage.ts` | The two poses about **damage** — a rock being marked, and a body being destroyed |
 | `tools/director/src/poses-rounds.ts` | The states a candidate for an **interlude** is judged on |
 | `tools/director/src/poses-layers.ts` | the states a layer over a body is judged giving way in — a rind under fire, a lid under a hand — with `Pose.hand` |
+| `tools/director/src/poses-link.ts` | The two states a candidate for something that **joins two things** is judged on |
 | `tools/director/src/versus-app.ts` | `versus.html` — the page a VERSUS door opens into, and the whole of its routing |
 | `tools/director/src/versus-one.ts` | One candidate, alone, on a page of its own — the live half of VERSUS |
 | `tools/director/src/versus-open.ts` | Where a look opens, and how a page links to it |
