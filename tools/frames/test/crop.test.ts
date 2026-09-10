@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { clipFor, parseAt, sameFrames } from "../crop.js";
+import { clipFor, onDocument, parseAt, sameFrames } from "../crop.js";
 
 /**
  * The rectangle a capture is cropped to, and the comparison a crop must not be
@@ -59,5 +59,15 @@ describe("sameFrames", () => {
   it("is false when one frame differs, or when there are not the same number", () => {
     expect(sameFrames(["a", "b"], ["a", "c"])).toBe(false);
     expect(sameFrames(["a"], ["a", "a"])).toBe(false);
+  });
+});
+
+describe("onDocument", () => {
+  /** A viewport box plus the window's scroll is the document box the clip
+   * wants; with no scroll the two are one, which is why `#stage` never
+   * showed the difference. */
+  it("puts the scroll back onto a box measured after it", () => {
+    expect(onDocument({ x: 12, y: 40 }, { x: 0, y: 80 })).toEqual({ x: 12, y: 120 });
+    expect(onDocument({ x: 12, y: 40 }, { x: 0, y: 0 })).toEqual({ x: 12, y: 40 });
   });
 });

@@ -45,6 +45,7 @@
     "png": "bun run tools/frames/svg.ts",
     "icons": "bun run tools/icons/run.ts",
     "shot": "bun run tools/frames/shot.ts",
+    "crop": "bun run tools/frames/crop-png.ts",
     "versus:shot": "bun run tools/frames/versus-shot.ts",
     "test": "bun run tools/check/shard.ts",
     "test:determinism": "bun test packages/sim/test/determinism.test.ts",

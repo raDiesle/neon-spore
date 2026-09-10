@@ -84,6 +84,11 @@ Style and formatting are Biome's job: `bun run lint`, `bun run format`.
 - Write the commit message well: `bun run land` turns its subject and first
   paragraph into the release note. Do not write a `Check:` trailer and do not
   ask the owner to confirm that something was tested.
+- **Every lane writes where its time went**, in `docs/time-log.md`, in the
+  commit that lands it: the five rows that file names, minutes rounded to
+  five and read off timestamps rather than measured, and the one bottleneck
+  in a sentence. Say the bottleneck in the report too. The owner asked for
+  this on 10 September 2026 so the slow parts of ordinary work become visible.
 
 Why any of that: `docs/git-and-landing.md`.
 
@@ -222,6 +227,7 @@ bun run preview        # build, then serve dist/ on 4173 — how an agent verifi
 bun run preview:once   # same, on a free port that nobody else can be holding
 bun run port           # which port this tree's servers answer on, before one is started
 bun run probe          # run a scratch script against a live world — tools/probe/
+bun run crop           # a rectangle of a PNG already taken, magnified — tools/frames/picture.ts
 bun test               # everything, in one process — for one file, or one package
 bun run test           # the same, dealt across eight — what `check` runs (tools/check/shard.ts)
 bun run test:determinism

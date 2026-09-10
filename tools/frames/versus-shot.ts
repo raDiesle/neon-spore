@@ -51,7 +51,14 @@ if (!slot || !name) {
   console.error("       --wait    milliseconds to settle before the shot — with --freeze,");
   console.error("            counted from the moment the pair reports the freeze landed");
   console.error("       --at      a rectangle inside the picture, x,y,w,h, magnified —");
-  console.error("            the window the pose cuts, in its own pixels; P1's, or --only's side");
+  console.error("            the window the pose cuts, in its own pixels; P1's, or --only's side.");
+  console.error(
+    "            A tile window is span x 34.5 px square: 104 at three tiles, 172 at five.",
+  );
+  console.error(
+    "            The shot prints the size it clipped from; bun run crop magnifies a PNG",
+  );
+  console.error("            already taken when this cannot.");
   console.error("       --element which element to photograph; .versus-row for the whole");
   console.error("            candidate, notes and all. Default .versus-stage, the phones");
   console.error("       --scale   device scale factor, default 2 — with --at, how far a");

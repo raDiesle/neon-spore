@@ -22,7 +22,7 @@ import type { Locator, Page } from "playwright-core";
 /** As tall as a shot will grow the window. Beyond this the picture is bigger
  * than anything a phone will show and the browser starts refusing the buffer;
  * a taller element is photographed to here and said to be cut. */
-const TALLEST = 8000;
+export const TALLEST = 8000;
 
 export async function withHeightFor(
   page: Page,

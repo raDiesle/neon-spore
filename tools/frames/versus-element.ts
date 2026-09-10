@@ -7,7 +7,8 @@
  * holding a name line and then the window the pose cuts (`versus-crop.ts`).
  * On a whole-phone pose the two are close enough that a rectangle measured
  * against one lands on the other; on a `crop: "tile"` pose the window is a
- * 172 px square under a line of text in a 380 px box, and `--at 110,110` from
+ * square of `span` tiles — 172 px at five, 104 px at three — under a line of
+ * text in a 380 px box, and `--at 110,110` from
  * the stage's corner is *under* the tile. That is what wrote a picture of the
  * page's buttons and prose for `creature:magnet` and cost a lane three
  * rectangles and the crop — `docs/queue.md` had it as a scrolling bug in

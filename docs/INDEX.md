@@ -33,6 +33,7 @@ file, and a count has to agree with what the file's own header counts.
 | `docs/dimensional.md` | you are asking how much depth this stack can show without a second renderer |
 | `docs/teaching.md` | you are about to touch a wave's guide, or reconsidering a gated demonstration for the first minutes — the game's own answer to that question is `docs/spec/briefings.md` |
 | `docs/release-notes.md` | you want to know what changed and when — read-only, written by `bun run land` |
+| `docs/time-log.md` | you want to know where a lane's time went, or you are landing one and owe it an entry — the bottlenecks across sessions, in minutes |
 | `docs/queue.md` | you found a technical improvement and are not doing it now, or you are opening a session to drain one — `bun run queue` |
 | `docs/parked.md` | you are stopping mid-way through something, or picking up what a session left half-done — the front of the same queue, work only, never ideas |
 | `docs/performance.md` | you added a shape or an animation, or you want to know what a frame costs and where the time goes — `bun run perf` |
@@ -1361,6 +1362,7 @@ place — the generator keeps whatever is there.
 | `tools/land/red-check.ts` | What a landing says when `bun run check` comes back red |
 | `tools/frames/press.ts` | `--press`: the verbs a held thumb cannot reach |
 | `tools/frames/crop.ts` | Cropping and magnifying a captured frame, so a change the size of a creature can be seen |
+| `tools/frames/crop-png.ts` | you have a screenshot and want to look closer — `bun run crop` cuts a rectangle out and magnifies it by whole pixels |
 | `tools/frames/wave.ts` | Which wave `--wave` names, answered against the right commit's own list |
 | `tools/frames/opening-hold.ts` | Standing *in* a wave's opening, rather than getting past it |
 | `tools/land/queue-guard.ts` | A landing must not put back a queue entry another lane took out |
@@ -1464,6 +1466,7 @@ place — the generator keeps whatever is there.
 | `tools/frames/flags.ts` | Every `--hold` on the command line rather than the first, and the one tick line the ticked ones join |
 | `tools/frames/page-handle.ts` | The handle `window.neonSpore` installs, as this tool sees it — every field, and the build that added it |
 | `tools/frames/pixels.ts` | **A screenshot read back as the picture it is**, rather than as the file it arrived in |
+| `tools/frames/picture.ts` | encoding a decoded PNG again, and magnifying a rectangle of one pixel for pixel — what `bun run crop` is made of |
 | `tools/frames/report.ts` | What a finished capture prints, including the `world.tick` each frame was actually taken at |
 | `tools/frames/shot-usage.ts` | What `bun run shot` prints when it is called with nothing to photograph |
 | `tools/frames/shot-state.ts` | Getting the page into the state that is worth photographing |

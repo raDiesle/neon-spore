@@ -60,6 +60,26 @@ export function clipFor(stage: { x: number; y: number }, at: Crop): Crop {
 }
 
 /**
+ * An element's place on the **page**, from its place in the viewport.
+ *
+ * Playwright measures `boundingBox()` against the viewport and takes a
+ * `page.screenshot` clip against the document, and the two agree only while
+ * the window has not scrolled. `#stage` never scrolls and `capture.ts` never
+ * met the difference; `shot.ts` used to scroll the window by the crop's own
+ * offset to bring a rectangle low on a page into view and then clip a box
+ * measured after that scroll as if nothing had moved — right on a page that
+ * fits the window, and `at.y` off on one that does not. `shot.ts` no longer
+ * scrolls at all, and the scroll is put back here anyway, so the arithmetic
+ * is honest whatever the page does.
+ */
+export function onDocument(
+  box: { x: number; y: number },
+  scroll: { x: number; y: number },
+): { x: number; y: number } {
+  return { x: box.x + scroll.x, y: box.y + scroll.y };
+}
+
+/**
  * Whether two runs came back with the same pictures, frame for frame.
  *
  * Digests of the **whole** frame rather than of what was written, so a crop
