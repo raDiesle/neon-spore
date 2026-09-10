@@ -210,6 +210,7 @@ says which fields another open slot has already claimed.
 ## THE GHOST and THE ECHO have one look each and no second answer
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Taken:** 2026-09-10, claude/queue-the-ghost-and-the-echo-have-one-look-each-and-no
 - **Files:** `packages/render/src/ghost-look.ts`,
   `packages/render/src/echo.ts`, `tools/versus/candidates/`,
   `tools/director/src/versus-pose.ts`
