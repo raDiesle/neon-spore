@@ -37,6 +37,23 @@ import { P1_SKIN, type SeatSkin } from "./seat-skin.js";
 const sheets = bakedCache<string, HTMLCanvasElement>();
 
 /**
+ * WHAT THE TISSUE IS, AS A RECORD.
+ *
+ * The owner asked on 10 September 2026 for a whole new ship, and the panel is
+ * the inside of it — so the painter is a record, the way the hull's material
+ * is (`hull-sheen.ts`), and `paint` below is what it ships as.
+ *
+ * `name` is in the bake key. The sheet is drawn once per size and seat and
+ * blitted from then on, so a candidate that swapped `paint` alone would be
+ * handed the shipped sheet from the cache on every frame after the first —
+ * two pictures that agree, which is the one failure VERSUS exists to prevent.
+ */
+export interface BandGround {
+  readonly name: string;
+  paint(g: CanvasRenderingContext2D, w: number, h: number, skin: SeatSkin): void;
+}
+
+/**
  * The sheet for a panel this size, baked once. Keyed on the pixel size it will
  * be blitted at **and on the seat**, and cleared past a handful of entries — a
  * window being dragged wider walks through every width on the way. The seat is
@@ -52,7 +69,7 @@ export function groundSheet(
 ): HTMLCanvasElement {
   const w = Math.max(1, Math.round(width * dpr));
   const h = Math.max(1, Math.round(height * dpr));
-  const key = `${w}x${h}:${skin.ground[0]}`;
+  const key = `${BAND_GROUND.name}:${w}x${h}:${skin.ground[0]}`;
   const held = sheets.get(key);
   if (held) return held;
   if (sheets.size > 4) sheets.clear();
@@ -60,18 +77,21 @@ export function groundSheet(
   canvas.width = w;
   canvas.height = h;
   const g = canvas.getContext("2d");
-  if (g) paint(g, w, h, skin);
+  if (g) BAND_GROUND.paint(g, w, h, skin);
   sheets.set(key, canvas);
   return canvas;
 }
 
-function paint(g: CanvasRenderingContext2D, w: number, h: number, skin: SeatSkin): void {
+export function paint(g: CanvasRenderingContext2D, w: number, h: number, skin: SeatSkin): void {
   ground(g, w, h, skin);
   cells(g, w, h, skin);
   veins(g, w, h, skin);
   mottle(g, w, h, skin);
   vignette(g, w, h, skin);
 }
+
+/** The shipped tissue: wet, veined, celled, lit from the seam above it. */
+export const BAND_GROUND: BandGround = { name: "chamber", paint };
 
 /**
  * The meat of it: the hull’s own deepest colour at the top, near black below.

@@ -778,6 +778,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/fence-shards.ts` | The pieces of wall a bolt knocks out of a column it cuts |
 | `packages/render/src/fence-strike.ts` | A wall landing on the ship, remembered: the outage and the shock it leaves |
 | `packages/render/src/hull-shock.ts` | The whole ship conducting for a moment after a wall earthed through the dome |
+| `packages/render/src/hull-sheen.ts` | what the ship's skin is made of, as a record — the five sheen passes as one material a candidate ship can replace |
 | `packages/render/src/bolt.ts` | **One discharge drawn between two points**, and the one place the shape of a bolt in this game is decided |
 | `packages/render/src/coil-jump.ts` | The charge leaving a dome that has just failed and crossing the field to the next one |
 | `packages/render/src/coil.ts` | THE COIL's dome: the shell a rock crosses the field inside, and the three studs the charge leaves it by |

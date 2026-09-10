@@ -13,12 +13,12 @@ import {
   surface,
 } from "./hull-frame.js";
 import { HULL_LIGHT } from "./hull-light.js";
+import { HULL_SHEEN } from "./hull-sheen.js";
 import type { Layout } from "./layout.js";
 import { drawCharge, drawChew, drawInhale } from "./maw.js";
 import { drawMuzzle } from "./muzzle.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawScars } from "./scars.js";
-import { bloom, dither, innerLight, iridescence, sweep } from "./sheen.js";
 import { drawShieldRim } from "./shield.js";
 import { splinePath, splineSkirt } from "./spline.js";
 
@@ -166,14 +166,11 @@ export function drawHull(
   ctx.fillStyle = bg;
   ctx.fill(filled);
 
-  // One clip for all five sheen passes — see sheen.ts's header.
+  // One clip for every sheen pass — see sheen.ts's header. Which passes, and
+  // in what order, is the material's business (`hull-sheen.ts`).
   ctx.save();
   ctx.clip(filled);
-  bloom(ctx, l, time, (x) => skin(f, x).y);
-  innerLight(ctx, body);
-  iridescence(ctx, body, l, time);
-  sweep(ctx, body, l, time);
-  dither(ctx, filled);
+  HULL_SHEEN.passes({ ctx, l, time, body, filled, skinY: (x) => skin(f, x).y });
   ctx.restore();
   // WHERE THE LIGHT IS. Everything above this line implies one — the vertical
   // body ramp, the inner glow, the sweep — and none of them names it, which is
