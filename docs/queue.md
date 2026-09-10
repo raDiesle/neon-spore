@@ -200,21 +200,18 @@ takes the two pictures for the owner to choose between.
   `packages/render/src/band-control.ts`, `packages/render/src/band-lobes.ts`,
   `packages/render/src/band-slime.ts`, `packages/render/src/band-seam.ts`,
   `tools/versus/candidates/`
-- **Asks:** Once `ship:body` is decided, does the band still get a slot of its own, or does the ship that wins carry its band with it?
 
 The control band is the half of the screen a player's thumb lives on, and it
-was never offered an alternative until `ship:body` opened on 10 September
-2026. That slot's six ships each redraw the whole panel — the throat, the
-pores, the cytoplasm, the root mass, the ribbed inside of a shell — and to do
-it they claim `LOBE_LOOK` (gloss, socket), `STRIP_LOOK`, `BAND_GROUND`,
-`PANEL_PLAN`, `BAND_JOIN` and `SHIP_NERVES`: every field a `panel:band-skin`
-would patch. `bun test` refuses two open slots on one field, so this cannot
-open while `ship:body` stands, and it should not be handed out until the
-owner has said which of these it becomes:
+has never been offered an alternative of its own. **Wait until `ship:body` is
+decided** — `bun run versus` no longer lists it — and then open
+`panel:band-skin` on whatever panel ships at that point, with three candidates
+on the lobe, the socket and the slime. The owner answered on 10 September
+2026 that the band gets its own slot *whichever* ship wins: a ship's panel is
+the ground the band stands on, not the last word on the band.
 
-- **A slot of its own, after.** If `ship:body` closes on what ships, open
-  `panel:band-skin` with three candidates on the lobe, the socket and the
-  slime, keeping the grown contour, the wet socket and the gloss — a flat
-  plate with a stroke around it is the one thing the panel look is not.
-- **Nothing.** If a ship is taken, its panel is the answer to this question
-  too, and the entry comes out with `bun run queue done`.
+Why it waits: `ship:body`'s six ships each redraw the whole panel, and to do
+it they claim `LOBE_LOOK` (gloss, socket), `STRIP_LOOK`, `BAND_GROUND`,
+`PANEL_PLAN`, `BAND_JOIN` and `SHIP_NERVES` — every field this slot would
+patch — and `bun test` refuses two open slots on one field. Any new furniture
+keeps the grown contour, the wet socket and the gloss: a flat plate with a
+stroke around it is the one thing the panel look is not.

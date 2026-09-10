@@ -22,6 +22,21 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-10 · claude/band-slot-after-ship-body
+
+One question put to the owner and his answer written into the band's queue
+entry, which now waits on `ship:body` instead of asking. About 5 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 0 | — |
+| writing | 5 | the entry, re-filed as a task |
+| looking | 0 | nothing visible moved |
+| friction | 0 | — |
+| landing | 0 | folded into the next landing's check |
+
+Bottleneck: none worth naming.
+
 ## 2026-09-10 · claude/queue-what-a-hit-on-a-slick-or-a-bulb-looks-like-is-sh
 
 A hit record per kind, the transient that draws it, two poses, and six
