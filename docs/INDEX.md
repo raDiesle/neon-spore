@@ -38,6 +38,7 @@ file, and a count has to agree with what the file's own header counts.
 | `docs/parked.md` | you are stopping mid-way through something, or picking up what a session left half-done — the front of the same queue, work only, never ideas |
 | `docs/performance.md` | you added a shape or an animation, or you want to know what a frame costs and where the time goes — `bun run perf` |
 | `docs/token-budget.md` | you wonder why files are small and docs are split |
+| `docs/commands.md` | you need a `bun run` script that `CLAUDE.md`'s short list has not got — every one, a line each |
 | `docs/delegating.md` | you hand implementation to the worker model |
 | `docs/delegation-cost.md` | you wonder whether delegating is worth it — it was measured |
 | `docs/delegation-pitfalls.md` | you turn delegation back on for more tasks — the failure modes already hit |

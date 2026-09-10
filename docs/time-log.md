@@ -37,6 +37,24 @@ entry, which now waits on `ship:body` instead of asking. About 5 min.
 
 Bottleneck: none worth naming.
 
+## 2026-09-10 · claude/workflow-token-efficiency-fb8475
+
+`CLAUDE.md` cut from 21.3 KB to 13.3 KB, a paragraph's headroom from its
+ceiling, after the owner asked how to spend fewer tokens: the justifications
+went back to the docs that already held them, the rarely-run scripts to a new
+`docs/commands.md`, and the ceiling came down to 16 KB. About 20 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `CLAUDE.md` whole, `claude-md.test.ts`, the time log, `token-budget.md`, and each receiving doc to be sure it held what was being cut |
+| writing | 10 | the file rewritten, `docs/commands.md`, two tests, an INDEX row |
+| looking | 0 | nothing visible moved |
+| friction | 0 | — |
+| landing | 5 | `check:fast`, the commit, `land --keep` |
+
+Bottleneck: **reading** — checking that every sentence removed already lived
+somewhere else, which is the only thing that makes removing it safe.
+
 ## 2026-09-10 · claude/queue-what-a-hit-on-a-slick-or-a-bulb-looks-like-is-sh
 
 A hit record per kind, the transient that draws it, two poses, and six

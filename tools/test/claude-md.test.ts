@@ -14,14 +14,18 @@ import { fileURLToPath } from "node:url";
  * re-reading, so it moved to `docs/git-and-landing.md`, `docs/cloud-session.md`
  * and `docs/looks.md`, one hop from the pointer that names it.
  *
- * This test is what keeps it there. The ceiling is generous — the file may grow
- * by half again — because the failure mode is not one paragraph, it is a
- * section drifting back over months with nobody noticing.
+ * This test is what keeps it there. The failure mode is not one paragraph, it
+ * is a section drifting back over months with nobody noticing: by 10 September
+ * 2026 the file had crept from 14.5 KB to 21.3 KB against a 22 KB ceiling, and
+ * was being edited four or five times a day. It was cut to 13 KB — the
+ * justifications went back to the docs that already held them and the
+ * rarely-run scripts to `docs/commands.md` — and the ceiling came down with
+ * it, so the next drift is caught at a paragraph rather than at a section.
  */
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
-/** Comfortably above the 14.5 KB it stands at, well under the 31 KB it was. */
-const SIZE_LIMIT = 22_000;
+/** Above the 13.3 KB it stands at by about a section, well under the 31 KB it was. */
+const SIZE_LIMIT = 16_000;
 
 async function read(name: string): Promise<string> {
   return await Bun.file(join(ROOT, name)).text();
@@ -62,8 +66,8 @@ describe("CLAUDE.md", () => {
    * session runs it, reads the error and spends a turn working out whether the
    * document or the repository is wrong.
    */
-  it("names only scripts that exist", async () => {
-    const text = await read("CLAUDE.md");
+  it.each(["CLAUDE.md", "docs/commands.md"])("%s names only scripts that exist", async (file) => {
+    const text = await read(file);
     const pkg = (await Bun.file(join(ROOT, "package.json")).json()) as {
       scripts: Record<string, string>;
     };
@@ -75,7 +79,21 @@ describe("CLAUDE.md", () => {
     for (const script of new Set(named)) {
       expect(
         script in pkg.scripts,
-        `CLAUDE.md names \`bun run ${script}\`, which package.json has not got`,
+        `${file} names \`bun run ${script}\`, which package.json has not got`,
+      ).toBe(true);
+    }
+  });
+
+  /** The long list is the one that goes stale: every script is on it, or one is missing. */
+  it("docs/commands.md names every script", async () => {
+    const text = await read("docs/commands.md");
+    const pkg = (await Bun.file(join(ROOT, "package.json")).json()) as {
+      scripts: Record<string, string>;
+    };
+    for (const script of Object.keys(pkg.scripts)) {
+      expect(
+        text.includes(`bun run ${script}`),
+        `docs/commands.md is missing \`bun run ${script}\``,
       ).toBe(true);
     }
   });
@@ -91,13 +109,18 @@ describe("CLAUDE.md", () => {
   });
 
   /**
-   * The three documents the sections were split into. Named here rather than
-   * left implicit: a later edit that folds one of them back into CLAUDE.md
-   * would pass the size check for a while and then stop, and the failure would
-   * point at the wrong thing.
+   * The documents the sections were split into. Named here rather than left
+   * implicit: a later edit that folds one of them back into CLAUDE.md would
+   * pass the size check for a while and then stop, and the failure would point
+   * at the wrong thing.
    */
   it("keeps the reasoning where it was moved to", async () => {
-    for (const doc of ["docs/git-and-landing.md", "docs/cloud-session.md", "docs/looks.md"]) {
+    for (const doc of [
+      "docs/git-and-landing.md",
+      "docs/cloud-session.md",
+      "docs/looks.md",
+      "docs/commands.md",
+    ]) {
       const text = await read(doc);
       expect(text.length, `${doc} is empty`).toBeGreaterThan(1_000);
     }
