@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · 92afa9ec — The line-count test is a third sweep the fast check always runs
+
+The first landing under the new rule went red on it: a hook file two lines over 250, in a directory the fast check had named and whose own tests do not count lines. `limits.test.ts` reads the whole tree like `purity` and `copies` do, so it rides along with them now.
+
+## 2026-09-10 · b445c20e — A fast check before a commit, and the full one left to the landing
+
+`bun run check:fast` is the install preflight, the typecheck, the lint, and only the tests this lane's diff can have reached — the Stop hook's own table in `tools/hooks/scope.ts`, asked one path at a time, plus the two sweeps that read every file. It runs in half a minute where `bun run check` took four and a half, and the commit rule in `CLAUDE.md` now names it: the full check is `bun run land`'s, on the rebased tree, and the one result that counts. Until today every item paid the full run twice.
+
 ## 2026-09-10 · 9af7f822 — versus:shot --at is measured against the picture, not the stage
 
 `bun run versus:shot … --at x,y,w,h` now photographs the window the pose cuts in the phone (`.versus-crop`) rather than the stage around it, so the rectangle is in the picture's own pixels the way `bun run frames --at` is in `#stage`'s. On a tile pose the stage is a phone-wide box holding a name line and a 172 px square, and a rectangle measured from its corner landed under the tile — which is what wrote a picture of the page's prose for `creature:magnet` and cost a lane three tries and the crop. The queue had it as a scrolling fault in `shot.ts`, and it was not: nothing scrolled, and Playwright's clip is viewport-relative, so the arithmetic there was right. `--element` still overrides; `versus-element.ts` holds the choice and its test.
