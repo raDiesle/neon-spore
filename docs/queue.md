@@ -825,6 +825,7 @@ showing two open holes and no rock in either.
 ## The shipped crater plates re-derive the fracture depth rule
 
 - **Found:** 2026-09-09, claude/ship-crater-spall-animation-e9da51
+- **Taken:** 2026-09-10, claude/queue-the-shipped-crater-plates-re-derive-the-fracture
 - **Files:** `packages/render/src/crater-spall.ts`, `packages/render/src/break-piece.ts`
 
 `spallRing` colours each plate with `mixHex(skin.muzzle, skin.rim, 0.42 + rnd()
