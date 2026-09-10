@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · 493bb8d1 — Four concept ships beside GULLET: PLASM, REEF, MEDUSA, CHITIN
+
+The owner asked to see the other directions as pictures before code is spent on them, and said the picture and the code must not part company — so each of these is a rough candidate in `ship:body`, drawn by the code it would ship as and shot once. PLASM is a single cell: a nucleus and organelles behind a double-lined membrane, vacuoles for a chamber. REEF is a colony: polyps in the contour, spores rising, a root mass below. MEDUSA is the jellyfish the ship already is, all the way: canals and a breathing pouch under the film, oral arms hanging the height of the panel, the contour left as it ships. CHITIN is his own reference — a wet black carapace glittering under a hard sun — with plates, one specular each, and pinpoint glints. All four borrow GULLET's wiring; the one he chooses gets its own.
+
 ## 2026-09-10 · ffdc985f — GULLET: the ship is a mouth, and every control is a tendon on its organ
 
 The first whole-ship candidate, in a new slot `ship:body`. The owner asked for a ship with cannon, suck and shield on the surface and buttons on the panel and everything else open, chose GULLET from four directions, and while it was being built asked for one more thing: *buttons control the cannon and shield, maybe we could create some visual connections.*
