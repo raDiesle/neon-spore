@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · 8ce3788a — Several tasks in one prompt are worked in order, and a mid-turn message is read by its prefix
+
+A prompt may carry a numbered list of independent tasks: each is finished and landed onto the local main before the next begins, with no question in between — one that needs the owner's decision is parked with its question and the next task starts. A message typed while the session works arrives mid-task and, without a rule, reads as a correction to the work in hand, so it is read by its first word: NEXT: appends a task for afterwards, STOP applies now, and anything unprefixed is asked about first. The rule is in CLAUDE.md; the three shapes and the reasoning are in docs/working-with-claude.md, which also now says the model choice is none — the owner works on Opus 5 only.
+
 ## 2026-09-10 · a00ef4c4 — Every hit look in the game: the bulb pops, and the other five strikes go to bodies of their own
 
 The owner liked all seven ways a body can die on the VERSUS page and asked for every one in the game, the bulb's to be `pop` and the slick's to stay as shipped. So the slick keeps its squares and wedges, the bulb pops, and the five other strikes go to the bodies they read best on: `shock` to THE THROB (half plating, so a shot is a blow), `afterglow` to THE DART (a leaping body leaves an afterimage), `scatter` to THE WISP (a light that rises and blinks out), `rupture` to THE RIND's last layer (skin peeling back in petals) and `splash` to THE ECHO (one small body into a dozen drops). Both slots are closed in DECIDED.md. A look the owner asked for by name.
