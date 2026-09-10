@@ -1,0 +1,9 @@
+/**
+ * The VERSUS page's stylesheet: four of the director's sheets, in the order
+ * the page's cascade was written in. One `@import` list for the reason
+ * `director.css` gives — the dev route rewrites a page's `<link>`s in reverse.
+ */
+@import "./director-shell.css";
+@import "./director-markdown.css";
+@import "./director-sheets.css";
+@import "./director-versus.css";

@@ -681,31 +681,3 @@ correction the owner has already made once.
 Prove it with `bun run check` and `bun run test:determinism`, and watch THE
 BALLOON at tempo: the slower climb and the hold are both timing, and neither
 is visible in a number.
-
-## The dev director loads its stylesheets in reverse; a phone gets the desk layout
-
-- **Found:** 2026-09-10, claude/director-mobile-cpu-wave-buttons-7877f2
-- **Taken:** 2026-09-10, claude/queue-the-dev-director-loads-its-stylesheets-in-revers
-- **Files:** `tools/director/index.html`, `tools/director/server.ts`, `tools/director/src/director-phone.css`
-
-`index.html` links eighteen sheets in an order the cascade depends on, and
-`director-phone.css` is last on purpose: its `@media (max-width: 700px)` block
-ties on specificity with `.column-head`, `main { grid-template-columns }` and
-the `.stage-col` rules above it and wins by coming after them. Bun 1.4.2's
-HTML dev route (`server.ts`, `routes: { "/": indexHtml }`) rewrites those links
-as `/_bun/asset/<hash>.css` **in reverse order** — `document.styleSheets[0]`
-is the phone sheet and `director-shell.css` is last — so on the hot server at
-375px `matchMedia("(max-width: 700px)")` is true and nothing in it applies:
-four columns, `.column-head` showing, no ≡ MENU. `bun tools/director/build.ts`
-concatenates into one chunk with the phone block at the end, so the deployed
-director is right and this only bites `bun run dev` viewed from a phone —
-which is what a phone on the same network gets, since the server binds `::`.
-
-Make the order not depend on the bundler: one `<link>` to a `src/director.css`
-that `@import`s the eighteen in order (Bun inlines `@import` in place), or one
-sheet with the phone block at its end. Prove it against the dev server at a
-375px viewport — `document.styleSheets` first entry holding `* { box-sizing`
-and `getComputedStyle(document.querySelector(".column-head")).display` being
-`none` — and check the static build's single chunk still ends in the phone
-block. A source test asserting `director-phone.css` is the last `@import`
-keeps it that way.

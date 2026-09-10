@@ -11,16 +11,14 @@
       the game draws today, `?page=animations` for the baked-animation
       examples.
 
-      Only the four sheets this page's own markup uses, in the same order
-      `index.html` loads them in — the cascade is one cascade whichever page
-      is reading it, so a sheet moved relative to another can change which of
-      two equally specific rules wins. Nothing here builds a column, a map or
-      a phone menu, so those sheets are not loaded.
+      Only the four sheets this page's own markup uses, imported by
+      `src/versus.css` in the same order `src/director.css` takes them in —
+      the cascade is one cascade whichever page is reading it, so a sheet
+      moved relative to another can change which of two equally specific
+      rules wins. Nothing here builds a column, a map or a phone menu, so
+      those sheets are not loaded.
     -->
-    <link rel="stylesheet" href="./src/director-shell.css" />
-    <link rel="stylesheet" href="./src/director-markdown.css" />
-    <link rel="stylesheet" href="./src/director-sheets.css" />
-    <link rel="stylesheet" href="./src/director-versus.css" />
+    <link rel="stylesheet" href="./src/versus.css" />
   </head>
   <body class="standalone">
     <div id="standalone" class="sheetpage"></div>

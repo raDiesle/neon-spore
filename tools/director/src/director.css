@@ -1,0 +1,39 @@
+/**
+ * The director's one stylesheet, in eighteen files, in this order.
+ *
+ * `index.html` used to link the eighteen directly, and the order of the links
+ * was the cascade: `director-phone.css` came last so that its
+ * `@media (max-width: 700px)` block, tying on specificity with the column
+ * rules above it, won by coming after them. Bun 1.4's HTML dev route rewrites
+ * a page's `<link>`s in **reverse** — `document.styleSheets[0]` was the phone
+ * sheet and the shell came last — so on `bun run dev` at a phone's width the
+ * media query matched and nothing in it applied: four columns, `.column-head`
+ * showing, no ≡ MENU. `bun tools/director/build.ts` concatenated them the
+ * right way round, so the shipped director was right and only the hot server
+ * was wrong, which is the kind of wrong that gets found on a phone on the
+ * same network and read as a bug in the sheet.
+ *
+ * One `@import` list is an order no bundler can reverse: the dev route and the
+ * build both inline the imports in place. The sheets themselves are unchanged
+ * and still split on the page's own seams; add a new one where its rules
+ * already sit, and keep `director-phone.css` last —
+ * `test/stylesheet-order.test.ts` refuses anything else.
+ */
+@import "./director-shell.css";
+@import "./director-columns.css";
+@import "./director-brush.css";
+@import "./director-map.css";
+@import "./director-field.css";
+@import "./director-plans.css";
+@import "./director-markdown.css";
+@import "./director-sheets.css";
+@import "./director-notes.css";
+@import "./director-sounds.css";
+@import "./director-music.css";
+@import "./director-versus.css";
+@import "./director-shapes.css";
+@import "./director-boss.css";
+@import "./director-rounds.css";
+@import "./director-controls.css";
+@import "./director-styleguide.css";
+@import "./director-phone.css";
