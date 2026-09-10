@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · 3b86e629 — The stale-install refusal names the command that works
+
+`bun run check` already refuses before `tsc` when a worktree's workspace links are missing, but it told the session to run `bun install` — which in exactly that state prints "no changes" and writes nothing, because the lockfile is satisfied and Bun does not re-check the links it once wrote. The refusal now says `bun install --force`, from a native shell, and says why the plain install is the same error spelled as a success. The doc's amendment carries the same sentence, and the queue item that found it is drained.
+
 ## 2026-09-10 · 17c0c951 — The crater plates are painted by facet, and the camera waits to be told
 
 `spallRing` carried its own copy of what a broken piece looks like — the two colours mixed by a die roll — where `break-piece.ts` already decides it once, dark on the faces that were inside and lit where the piece carried the rim, by depth. The plates go through `facet` now, with one named constant scaling the membrane colour so the answer lands where the owner saw it: a pixel compare of the hull at the same frozen tick gives a mean difference of 2.4 values, with the darkening now following the cut rather than chance. A copies-table row stops the next die-roll fracture.
