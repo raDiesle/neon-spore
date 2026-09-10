@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · fd4db2ad — The seat probe ages effects by the time the world actually advanced
+
+`diffSequence` stepped six ticks between samples and told the renderer a sixtieth of a second had passed each time, so effects aged six times slower than the world they were drawn over. A look revealed by an effect — a crater under a rock that has not yet rolled off — was never on any sampled frame, and `ship:crater` came back as moving nothing on either seat: one screen, and "under the floor" printed beneath a candidate that repaints a hull's worth of pixels.
+
 ## 2026-09-10 · a6e1e703 — Queue three findings the crater lane worked around
 
 The seat probe and the frames tool both age render effects by draw count rather than by the simulation time they advanced, so neither can show a look that a rock's departure reveals; and the shipped crater plates carry their own copy of the fracture depth rule that break-piece.ts already owns.
