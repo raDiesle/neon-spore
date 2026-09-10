@@ -468,6 +468,7 @@ questions.
 ## Half the shape collection cannot be offered on a body that ships
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Taken:** 2026-09-10, claude/queue-half-the-shape-collection-cannot-be-offered-on-a
 - **Files:** `packages/content/src/silhouettes.ts`,
   `packages/content/src/body-path.ts`, `tools/shape-sheet/src/forms/`,
   `tools/versus/variant.ts`
