@@ -266,6 +266,7 @@ the default: the ship is on every frame.
 ## The space behind the game has never had a second answer
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Taken:** 2026-09-10, claude/queue-the-space-behind-the-game-has-never-had-a-second
 - **Files:** `packages/render/src/backdrop.ts`,
   `packages/render/src/light-shafts.ts`, `packages/render/src/field.ts`,
   `tools/versus/candidates/`
