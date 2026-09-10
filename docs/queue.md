@@ -209,6 +209,7 @@ and a flat fill at that size is the most visible thing in the game.
 ## THE RIND and THE LID have one look each and no record to patch
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Taken:** 2026-09-10, claude/queue-the-rind-and-the-lid-have-one-look-each-and-no-r
 - **Files:** `packages/render/src/rind-shed.ts`, `packages/render/src/lid.ts`,
   `packages/render/src/lid-string.ts`, `tools/versus/candidates/`
 
