@@ -1459,6 +1459,8 @@ place — the generator keeps whatever is there.
 | `tools/check/run.ts` | The preflight `bun run check` runs before the typecheck |
 | `tools/check/fast-scope.ts` | Which tests `bun run check:fast` runs — the diff's reach, plus the tree-wide sweeps |
 | `tools/check/fast.ts` | The test half of `bun run check:fast` — decide, say, run |
+| `tools/check/profile-report.ts` | The reading half of `bun run test:profile`: a JUnit report from `bun test` turned into the slowest files and cases |
+| `tools/check/profile.ts` | `bun run test:profile [paths...] [--top N]` — which test files carry the minutes |
 | `tools/breaks/src/main.ts` | `bun run breaks` — every break the engine can make, drawn across time |
 | `tools/breaks/src/page.ts` | Page furniture for the break sheet |
 | `tools/breaks/src/sheet.ts` | Every break the bench knows, drawn across time |

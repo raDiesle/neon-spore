@@ -387,29 +387,28 @@ Wait for `creature:break` to be decided before opening this, or check with
 slots claiming one field, and a body's break and a body's hit are next-door
 questions.
 
-## The test suite takes four and a half minutes and nobody knows which files
+## The test suite is still 214 seconds, and the rest of the cut is a play at a time
 
-- **Found:** 2026-09-10, claude/queue-the-gyre-and-the-magnet-have-one-look-each-and-n
-- **Taken:** 2026-09-10, claude/queue-the-test-suite-takes-four-and-a-half-minutes-and
-- **Files:** `packages/render/test/`, `tools/check/run.ts`, `docs/performance.md`
+- **Found:** 2026-09-10, claude/queue-the-test-suite-takes-four-and-a-half-minutes-and
+- **Files:** `packages/render/test/*-frame.test.ts`, `tools/shape-sheet/test/drawn-size.test.ts`, `apps/server/test/room.test.ts`, `docs/performance.md`
 
-`bun test` runs 78,653 tests across 379 files in about 260 seconds, and no
-figure exists for which files carry that time: `bun test` prints one total,
-and `copies.test.ts`, the biggest by count at 69,822 tests, runs in 13
-seconds, so the count is not where the minutes are. The suspicion is the
-render frame tests — every `*-frame.test.ts` builds a world, steps it and
-draws whole frames through the canvas stub, and there are dozens — but a
-suspicion is not a profile.
+The lane that wrote `bun run test:profile` took the suite from 292 s to
+214 s with three files — the rehearsal walks, `copies.test.ts` and one
+duplicate play in `tell-frame.test.ts` — and stopped where every remaining
+second is a frame test honestly drawing frames, at about 0.8 ms each. The
+target the first item set stands: **under two minutes with the same
+coverage.** The table under "What the test suite costs" in
+`docs/performance.md` is the map; the top of it is `strand-frame.test.ts` at
+12 s (eight plays of thirty beats), `drawn-size.test.ts` at 10 s, then
+`lure`, `crawler`, `ghost`, `fence` and `veer` at five to seven each.
 
-First measure: run each test file on its own with `bun test <file>` and
-record its wall time (`tools/check/run.ts` already walks files; a
-`--profile` flag that prints the twenty slowest is the tool). Then cut the
-top of that list without dropping what it proves: a frame test that steps
-`TPB * 12` ticks where four would reach the same state, one that draws every
-second tick where every fourth shows the same paths, a harness that
-reinstalls canvas globals per test rather than per file. Keep the profile
-in `docs/performance.md` beside the frame budget, so the next file added
-here is read against a number.
-
-The target is the whole suite under two minutes with the same coverage,
-proved by `bun run check` and by the profile run again.
+What to do, file by file and never blind: read the comment that justifies
+each play's length and sampling, and cut only where the proof survives —
+a play the same file already ran under another name (the tell had one), three
+roles that can each take a different phase of one clock the way
+`briefing.test.ts` now does, a state reached in eight beats that the play runs
+thirty to reach, a `runFrames` at `every: 2` whose comment only argues against
+a multiple of the beat and not for the density. `room.test.ts` waits on real
+timers and wants a fake clock, which is a different kind of change. Take
+`bun run test:profile` before and after and put the new figures in the
+document's table; `bun run check` green is the proof of coverage.

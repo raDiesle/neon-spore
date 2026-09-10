@@ -89,15 +89,14 @@ describe("THE TELL draws on all three screens", () => {
       expect(ctx.calls).toBeGreaterThan(500);
       expect(watched.phases.has("tell"), "a window was drawn").toBe(true);
       expect(watched.phases.has("reveal"), "a reveal was drawn").toBe(true);
+      // And what the play reached, asked of the same play rather than of a
+      // fourth one: the world is seeded, so the three roles watch one game,
+      // and a case of its own here was two seconds of the suite re-running it.
+      expect(watched.outcomes.has(1), "a rung was won").toBe(true);
+      expect(watched.outcomes.has(3), "a rung was lost").toBe(true);
+      expect(watched.thrown.size, "every throw the ship can make was drawn").toBe(3);
     });
   }
-
-  it("draws all three throws and both sides of the ring", () => {
-    const { watched } = tellFrames("test", TICKS);
-    expect(watched.outcomes.has(1), "a rung was won").toBe(true);
-    expect(watched.outcomes.has(3), "a rung was lost").toBe(true);
-    expect(watched.thrown.size, "every throw the ship can make was drawn").toBe(3);
-  });
 
   /**
    * The half of the tell that is player 1's, and the half that is player 2's.

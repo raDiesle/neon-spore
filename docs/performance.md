@@ -376,3 +376,54 @@ says why that one is worth staying away from).
 `docs/queue.md` carries what this turned up and nobody has done yet — the path
 string round trip first, because it is the largest single win and it is a
 mechanical change rather than a decision about how the game looks.
+
+## What the test suite costs
+
+The same discipline, one level up. `bun run check` is `bun test` plus a few
+seconds of typecheck and lint, and `bun test` prints one total; until
+10 September 2026 the only figure anybody had for it was "four and a half
+minutes", and the guess about where they went — the render frame tests,
+because there are dozens — was a guess.
+
+**`bun run test:profile`** takes the reading. It runs the suite once through
+bun's JUnit reporter, which is the same process and the same order as the
+check, and prints the slowest files with their share of the run, the slowest
+cases, and a sum per package. Paths narrow it the way they narrow `bun test`.
+Read the *cases* before the files: a file of fourteen tests is not slow, four
+of its tests are.
+
+The first profile, on this machine, was **292 s across 383 files**, and it
+said the guess was wrong in the useful way:
+
+| file | before | after | what it was |
+|---|---|---|---|
+| `packages/render/test/briefing.test.ts` | 88.6 s | 24.1 s | four walks through every rehearsal, a frame drawn per tick; now one tick in four, each walk taking a different one, so every tick is still drawn once |
+| `tools/frames/test/opening.test.ts` | 31.7 s | 31.9 s | a real build served to a real Chrome, twelve captures at two seconds each; the one case that launched a browser of its own now borrows the file's |
+| `packages/sim/test/copies.test.ts` | 19.8 s | 0.6 s | seventy thousand cases, each reading and stripping its file again; now one case per rule over files read once |
+| `packages/render/test/tell-frame.test.ts` | 6.6 s | 4.6 s | a fourth play of the same seeded game, asked what the third had already seen |
+| the whole suite | 292 s | 214 s | |
+
+Everything under those is honest work: a frame test costs about 0.8 ms per
+frame drawn, and that is the renderer, not the stub — its per-call tally was
+measured at under a tenth of it. So the rest of the list is a play at a time,
+each with a reason in its file for the beats it runs and the tick it samples:
+
+| file | seconds | plays |
+|---|---|---|
+| `packages/render/test/strand-frame.test.ts` | 12.0 | 8 × 30 beats at every second tick |
+| `tools/shape-sheet/test/drawn-size.test.ts` | 9.9 | 6 |
+| `packages/render/test/lure-frame.test.ts` | 7.3 | 10 |
+| `apps/server/test/room.test.ts` | 7.3 | 25, most of them waiting on a real timer |
+| `packages/render/test/crawler-frame.test.ts` | 6.1 | 11 |
+| `packages/render/test/ghost-frame.test.ts` | 5.9 | 19 |
+| `packages/render/test/fence-frame.test.ts` | 5.7 | 9 |
+| `packages/render/test/veer-frame.test.ts` | 5.4 | 6 × 18 beats |
+
+`packages/render` is 119 s of the 214 as a package, `tools/frames` 36,
+`tools/shape-sheet` 19, `tools/director` 13. The target the queue set is the
+whole suite under two minutes with the same coverage, and the route to it is
+the second table: a play that the same file already ran, a play that reaches
+its state in eight beats rather than thirty, three roles that could take three
+phases of one clock the way the rehearsals now do. A new frame test is read
+against this list before it lands — if it would enter the first ten rows, say
+in the file why the frames it draws are all needed.

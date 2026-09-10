@@ -224,6 +224,7 @@ bun run port           # which port this tree's servers answer on, before one is
 bun run probe          # run a scratch script against a live world — tools/probe/
 bun test               # everything
 bun run test:determinism
+bun run test:profile   # which test files carry the minutes — docs/performance.md
 bun run relay:check    # two headless devices against a running relay
 bun run perf           # what a frame costs, wave by wave, at phone speed
 bun run perf --save    # keep this run as the baseline the next one is read against

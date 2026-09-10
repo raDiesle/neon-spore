@@ -48,6 +48,7 @@
     "versus:shot": "bun run tools/frames/versus-shot.ts",
     "test": "bun test",
     "test:determinism": "bun test packages/sim/test/determinism.test.ts",
+    "test:profile": "bun run tools/check/profile.ts",
     "relay:check": "bun run --cwd tools/relay-check check",
     "typecheck": "tsc --noEmit && bun run --cwd apps/server typecheck",
     "lint": "biome check --error-on-warnings .",

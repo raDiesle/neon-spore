@@ -145,13 +145,27 @@ describe("a wave's opening on the stage", () => {
    * looking at page one for the whole test.
    */
   /**
-   * Frames drawn per page. Two ticks each, so a hundred and forty of them
-   * crosses the shortest page a film may have and most of the longest — which
-   * is what this test is for. It was 260, chosen when there was one film to
-   * walk; there are twenty-six now and the walk grew past half a minute, so it
-   * was cut rather than the timeout raised a third time.
+   * Ticks stepped per page. A hundred and forty of them crosses the shortest
+   * page a film may have and most of the longest — which is what this test is
+   * for. It was 260, chosen when there was one film to walk; there are
+   * fifty-one now, so it was cut rather than the timeout raised a third time.
    */
-  const FRAMES_PER_PAGE = 140;
+  const TICKS_PER_PAGE = 140;
+
+  /**
+   * Ticks per frame drawn. Every tick is stepped; one in four is drawn.
+   *
+   * The stepping is nothing — 250 pages of it cost under half a second — and
+   * the drawing is everything: at a frame per tick the four walks below were
+   * ninety seconds, thirty percent of the whole suite, and the profile that
+   * found it (`bun run test:profile`) is in `docs/performance.md`. The four
+   * walks each take a different tick of the four (`phase`), so across the
+   * file every tick of every page is still drawn exactly once — the same
+   * coverage of the film's clock as before, at a quarter of the frames — and
+   * every walk draws a page's first tick regardless, because a fresh page at
+   * age zero is the frame most likely to divide by it.
+   */
+  const DRAW_EVERY = 4;
 
   const walkPages = (
     ctx: unknown,
@@ -159,11 +173,12 @@ describe("a wave's opening on the stage", () => {
     world: World,
     role: ViewRole,
     stage: GuideStage,
-    framesPerPage: number,
+    phase: number,
   ): void => {
     for (let page = 0; page < guidePages(world); page++) {
-      for (let f = 0; f < framesPerPage; f++) {
+      for (let f = 0; f < TICKS_PER_PAGE; f++) {
         stage.update(world, 1 / 60, role);
+        if (f !== 0 && f % DRAW_EVERY !== phase) continue;
         drawWaveOpening(ctx as CanvasRenderingContext2D, l, world, {
           role,
           scene: stage,
@@ -187,7 +202,9 @@ describe("a wave's opening on the stage", () => {
    * catches a value that is a perfectly good number and not a colour — and it
    * is the most expensive thing in this package. The budget on it has been
    * raised twice already (five seconds ran out at the ninth film, thirty at
-   * the twenty-sixth) and `FRAMES_PER_PAGE` cut once to avoid a third raise.
+   * the twenty-sixth), `TICKS_PER_PAGE` cut once to avoid a third raise, and
+   * the frames thinned to one tick in four when the four walks were found to
+   * be ninety seconds of the suite.
    *
    * The role is the axis to split on rather than the axis to shorten: the
    * three walks share nothing — a fresh `GuideStage`, a fresh layout, a fresh
@@ -198,7 +215,7 @@ describe("a wave's opening on the stage", () => {
    * reading. Nothing here is measuring speed, so the budget is a guard rather
    * than a claim.
    */
-  for (const role of ROLES) {
+  for (const [phase, role] of ROLES.entries()) {
     it(`draws a rehearsal, through every page of it, for ${role}`, () => {
       // Every page and not a frame of one: a scene is a world being stepped,
       // so the values reaching the canvas change tick by tick — the muzzle
@@ -209,7 +226,7 @@ describe("a wave's opening on the stage", () => {
       for (const i of SCENED) {
         const { guide } = opening(i);
         const stage = new GuideStage();
-        walkPages(ctx, l, guide, role, stage, FRAMES_PER_PAGE);
+        walkPages(ctx, l, guide, role, stage, phase);
         // The last page is the gate, which is not a rehearsal at all.
         expect(stage.active, `${WAVES[i]?.name} left its scene up on the gate`).toBe(false);
       }
@@ -222,9 +239,11 @@ describe("a wave's opening on the stage", () => {
     // button still comes out as a number a canvas accepts.
     const { ctx } = stubCanvas();
     const l = computeLayout({ width: 240, height: 480, dpr: 1 }, CFG, "p1");
+    // The fourth tick of every four: the three walks above take the other
+    // three, so this is the one that completes the film's clock.
     for (const i of SCENED) {
       const { guide } = opening(i);
-      walkPages(ctx, l, guide, "p1", new GuideStage(), FRAMES_PER_PAGE);
+      walkPages(ctx, l, guide, "p1", new GuideStage(), ROLES.length);
     }
     // One screen, so it costs what one of the three walks above costs — and
     // it gets the same budget, for the same reason.

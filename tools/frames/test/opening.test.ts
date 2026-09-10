@@ -433,7 +433,12 @@ describe("captureFrames past a wave's opening", () => {
       // introduction passes straight onto the field and there is no second
       // screen to stand on.
       await expect(
-        captureFrames(baseUrl, { wave: 3, ticks: 6, opening: "guide" }, join(scratchOut, "none")),
+        captureFrames(
+          baseUrl,
+          { wave: 3, ticks: 6, opening: "guide" },
+          join(scratchOut, "none"),
+          browser,
+        ),
       ).rejects.toThrow("carries no guide");
     },
     STARVED_MS,
