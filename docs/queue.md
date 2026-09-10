@@ -423,3 +423,58 @@ has moved by less than `at.y` and the clip overshoots by the difference,
 landing below the phone. Measure the box first, or scroll and then clip at
 `box.y + (at.y - scrolled)`, and `tools/frames/test/` holds the arithmetic.
 Prove it with the magnet command above: the picture is the horseshoe.
+
+## A landing runs the full check twice: once by the session, once by `land`
+
+- **Found:** 2026-09-10, claude/queue-the-gyre-and-the-magnet-have-one-look-each-and-n
+- **Files:** `package.json`, `tools/check/run.ts`, `CLAUDE.md`,
+  `tools/hooks/lane-finished.ts`, `docs/git-and-landing.md`
+
+`bun run check` takes about four and a half minutes — 78,000 tests — and a
+session pays it twice per item: once before committing, because `CLAUDE.md`
+says commit only when the check passes, and once inside `bun run land`,
+which checks the *rebased* tree and is the run that actually counts. In a
+two-item session on 10 September 2026 that was seven full runs, a third of
+the wall clock, and two of them were thrown away when another session moved
+`main` mid-check. The owner asked on the same day to take the first run out.
+
+What to build: a `bun run check:fast` — the typecheck, the lint, and only
+the test files under the packages the working tree has changed
+(`git diff --name-only main` mapped to `packages/<x>/test` and
+`tools/<x>/test`, plus `packages/sim/test/purity.test.ts` and
+`copies.test.ts`, which sweep the whole tree and are the two that catch a
+candidate's mistakes) — and then the rule change that goes with it.
+`CLAUDE.md`'s commit condition becomes *`bun run check:fast` passes*, with
+the full check named as `bun run land`'s job and the one result that
+counts; `docs/git-and-landing.md` says why; `lane-finished.ts` keeps
+asking its question either way. The full `bun run check` stays for a
+session that wants it and for the landing.
+
+Prove it by timing both on this lane's own diff: `check:fast` under a
+minute, and `bun run land` still green.
+
+## The test suite takes four and a half minutes and nobody knows which files
+
+- **Found:** 2026-09-10, claude/queue-the-gyre-and-the-magnet-have-one-look-each-and-n
+- **Files:** `packages/render/test/`, `tools/check/run.ts`, `docs/performance.md`
+
+`bun test` runs 78,653 tests across 379 files in about 260 seconds, and no
+figure exists for which files carry that time: `bun test` prints one total,
+and `copies.test.ts`, the biggest by count at 69,822 tests, runs in 13
+seconds, so the count is not where the minutes are. The suspicion is the
+render frame tests — every `*-frame.test.ts` builds a world, steps it and
+draws whole frames through the canvas stub, and there are dozens — but a
+suspicion is not a profile.
+
+First measure: run each test file on its own with `bun test <file>` and
+record its wall time (`tools/check/run.ts` already walks files; a
+`--profile` flag that prints the twenty slowest is the tool). Then cut the
+top of that list without dropping what it proves: a frame test that steps
+`TPB * 12` ticks where four would reach the same state, one that draws every
+second tick where every fourth shows the same paths, a harness that
+reinstalls canvas globals per test rather than per file. Keep the profile
+in `docs/performance.md` beside the frame budget, so the next file added
+here is read against a number.
+
+The target is the whole suite under two minutes with the same coverage,
+proved by `bun run check` and by the profile run again.
