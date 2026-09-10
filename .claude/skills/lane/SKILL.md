@@ -68,8 +68,10 @@ measurement is not about the code under test.
 
 ## 3. Work
 
-Ordinary rules: `bun run check` before saying done, commit when finished,
-staging **by path**. One commit per coherent change.
+Ordinary rules: `bun run check:fast` before a commit — the typecheck, the lint
+and the tests the lane's diff can reach; the full `bun run check` is the
+landing's, on the rebased tree — commit when finished, staging **by path**. One
+commit per coherent change.
 
 ## 4. Land it
 

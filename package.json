@@ -53,6 +53,7 @@
     "lint": "biome check --error-on-warnings .",
     "format": "biome check --write .",
     "check": "bun run tools/check/run.ts && bun run typecheck && bun run lint && bun test",
+    "check:fast": "bun run tools/check/run.ts && bun run typecheck && bun run lint && bun run tools/check/fast.ts",
     "shapes": "bun run --cwd tools/shape-sheet sheets",
     "shapes:cues": "bun run --cwd tools/shape-sheet cues",
     "shapes:parts": "bun run --cwd tools/shape-sheet parts",

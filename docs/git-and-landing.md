@@ -100,7 +100,19 @@ sitting in the working tree.
 
 Four conditions, all of them:
 
-1. `bun run check` passes. Never commit a red tree.
+1. `bun run check:fast` passes. Never commit a red tree — but the tree it is
+   asked about is the small one. `check:fast` is the install preflight, the
+   typecheck, the lint, and only the tests this lane's diff can have reached:
+   `tools/hooks/scope.ts`'s table, the one the Stop hook already reads, plus
+   the two sweeps that read every file (`purity.test.ts`, `copies.test.ts`).
+   Where the table would run everything — a change under `packages/sim` — it
+   runs that package's own tests instead. On a lane touching one tool that is
+   twenty seconds; the full `bun run check` is four and a half minutes, and
+   until 10 September 2026 every item paid it twice, once here and once inside
+   `bun run land`, where it is run on the *rebased* tree. Two of one session's
+   seven runs were thrown away when `main` moved mid-check. The landing's run
+   is the one that counts, so it is the only full one; `bun run check` is still
+   there for a session that wants the whole answer before it lands.
 2. The work is actually finished. Mid-task, or blocked on a question, means no
    commit — say what is outstanding instead.
 3. Stage **only the files this task touched**, by path. Never `git add -A`:

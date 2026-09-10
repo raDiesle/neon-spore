@@ -67,9 +67,6 @@ Style and formatting are Biome's job: `bun run lint`, `bun run format`.
   else does, no sweep and no push, so work carries on here. **d) Land and send** —
   `bun run land --keep --push`: (c), and `origin` gets `main` too. Land nothing
   before the answer. `NO_LANE_PROMPT=1` turns the hook off.
-- **The rebase happens before the check, not after.** `bun run land` already
-  orders it that way; a green check taken before the rebase is a result about a
-  tree that no longer exists.
 - **Bring the trunk up before you start, not only before you land.**
   `git fetch origin main && git merge --ff-only origin/main`. `bun run land`
   fetches and refuses while `main` is behind `origin/main`. A rebase deferred is
@@ -83,10 +80,11 @@ Style and formatting are Biome's job: `bun run lint`, `bun run format`.
 - **A defect found after landing is new work, and gets a new branch from
   `main`.** Never revive the landed branch.
 - **Commit when the work is done, without being asked.** Four conditions, all of
-  them: `bun run check` passes; the work is actually finished; you stage **only
-  the files this task touched, by path** — never `git add -A`, because another
-  session may have work in the tree; one commit per coherent change. Then say
-  what was committed.
+  them: `bun run check:fast` passes — the full check is `bun run land`'s, run
+  after the rebase, and the one result that counts; the work is actually
+  finished; you stage **only the files this task touched, by path** — never
+  `git add -A`, because another session may have work in the tree; one commit
+  per coherent change. Then say what was committed.
 - Write the commit message well: `bun run land` turns its subject and first
   paragraph into the release note, and that is the only part of this anybody
   sees twice. Do not write a `Check:` trailer and do not ask the owner to
@@ -251,7 +249,8 @@ bun run queue next     # hand out the first free item: branch + Taken: on main
 bun run queue take <n> # the same claim, without opening a lane for it
 bun run queue release <n>  # give back an item that was handed out, not started
 bun run queue done <n> # take an entry out once it has landed
-bun run check          # typecheck + lint + test, run this before saying "done"
+bun run check:fast     # typecheck + lint + the tests a lane's diff can reach — before a commit
+bun run check          # the same with every test; what `land` runs, minutes long
 bun run land           # rebase, check, fast-forward, note it, sweep
 bun run sweep          # the cleanup a --keep landing deferred, on its own
 bun run push           # send main to origin, on purpose rather than on landing

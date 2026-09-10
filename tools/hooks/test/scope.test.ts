@@ -73,10 +73,13 @@ describe("scopeFor", () => {
     expect(scopeFor([".claude/settings.json"])).toEqual(["tools/hooks"]);
   });
 
-  it("the rest of .claude/, README.md and CLAUDE.md carry no code a test reads", () => {
+  it("CLAUDE.md is held to a size, a script list and a file list by tools/test", () => {
+    expect(scopeFor(["CLAUDE.md"])).toEqual(["tools/test"]);
+  });
+
+  it("the rest of .claude/ and README.md carry no code a test reads", () => {
     expect(scopeFor([".claude/launch.json"])).toEqual([]);
     expect(scopeFor(["README.md"])).toEqual([]);
-    expect(scopeFor(["CLAUDE.md"])).toEqual([]);
   });
 
   it("an unmapped path contributes nothing on its own", () => {

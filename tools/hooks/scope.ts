@@ -61,10 +61,14 @@ const ROWS: readonly Row[] = [
   // which is exactly the wiring that was silently wrong while four hooks
   // were invoked through a `bash` that PowerShell does not have.
   { prefix: ".claude/settings.json", dirs: ["tools/hooks"] },
-  // The rest of .claude/, README.md and CLAUDE.md carry no code a test reads.
+  // CLAUDE.md is read by `tools/test/claude-md.test.ts`, which holds its size
+  // under a ceiling the file stands four characters below, and checks every
+  // `bun run` it names and every `docs/` file it points at. A rule added to it
+  // is a paragraph moved out of it, and that test is what says so.
+  { prefix: "CLAUDE.md", dirs: ["tools/test"] },
+  // The rest of .claude/ and README.md carry no code a test reads.
   { prefix: ".claude/", dirs: [] },
   { prefix: "README.md", dirs: [] },
-  { prefix: "CLAUDE.md", dirs: [] },
 ];
 
 /**

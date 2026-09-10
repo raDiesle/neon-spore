@@ -402,36 +402,6 @@ Wait for `creature:break` to be decided before opening this, or check with
 slots claiming one field, and a body's break and a body's hit are next-door
 questions.
 
-## A landing runs the full check twice: once by the session, once by `land`
-
-- **Found:** 2026-09-10, claude/queue-the-gyre-and-the-magnet-have-one-look-each-and-n
-- **Taken:** 2026-09-10, claude/queue-a-landing-runs-the-full-check-twice-once-by-the
-- **Files:** `package.json`, `tools/check/run.ts`, `CLAUDE.md`,
-  `tools/hooks/lane-finished.ts`, `docs/git-and-landing.md`
-
-`bun run check` takes about four and a half minutes — 78,000 tests — and a
-session pays it twice per item: once before committing, because `CLAUDE.md`
-says commit only when the check passes, and once inside `bun run land`,
-which checks the *rebased* tree and is the run that actually counts. In a
-two-item session on 10 September 2026 that was seven full runs, a third of
-the wall clock, and two of them were thrown away when another session moved
-`main` mid-check. The owner asked on the same day to take the first run out.
-
-What to build: a `bun run check:fast` — the typecheck, the lint, and only
-the test files under the packages the working tree has changed
-(`git diff --name-only main` mapped to `packages/<x>/test` and
-`tools/<x>/test`, plus `packages/sim/test/purity.test.ts` and
-`copies.test.ts`, which sweep the whole tree and are the two that catch a
-candidate's mistakes) — and then the rule change that goes with it.
-`CLAUDE.md`'s commit condition becomes *`bun run check:fast` passes*, with
-the full check named as `bun run land`'s job and the one result that
-counts; `docs/git-and-landing.md` says why; `lane-finished.ts` keeps
-asking its question either way. The full `bun run check` stays for a
-session that wants it and for the landing.
-
-Prove it by timing both on this lane's own diff: `check:fast` under a
-minute, and `bun run land` still green.
-
 ## The test suite takes four and a half minutes and nobody knows which files
 
 - **Found:** 2026-09-10, claude/queue-the-gyre-and-the-magnet-have-one-look-each-and-n
@@ -457,3 +427,23 @@ here is read against a number.
 
 The target is the whole suite under two minutes with the same coverage,
 proved by `bun run check` and by the profile run again.
+
+## `CLAUDE.md` is four characters under its ceiling
+
+- **Found:** 2026-09-10, claude/queue-a-landing-runs-the-full-check-twice-once-by-the
+- **Files:** `CLAUDE.md`, `tools/test/claude-md.test.ts`, `docs/git-and-landing.md`
+
+`tools/test/claude-md.test.ts` holds `CLAUDE.md` under 22,000 characters, and
+the file stands at 21,996. The lane that added the `check:fast` commit rule
+had to fold the "rebase before the check" bullet into it to get the sentence
+in at all, and the next rule anybody adds — one line — turns the check red on
+a file that did not change in any way that matters. The ceiling is doing its
+job; what it is asking for is a move, not a raise.
+
+What to do: read the Git section of `CLAUDE.md` against
+`docs/git-and-landing.md` and move every clause that is reasoning rather than
+rule — the cloud-session bullets are the likeliest, most of them restate
+`docs/cloud-session.md` — leaving the pointer, until the file has a paragraph
+of room again (~1,500 characters). Do not raise `SIZE_LIMIT`; the test's own
+comment says why. `bun run check` proves it: the size test, the
+names-only-scripts test and the points-only-at-files test all read the result.
