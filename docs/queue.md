@@ -330,6 +330,7 @@ well under the ceiling.
 ## A tile crop centres on where a fast body is going, not where it is drawn
 
 - **Found:** 2026-09-10, claude/six-more-answers-for-carom-and-chute
+- **Taken:** 2026-09-10, claude/queue-a-tile-crop-centres-on-where-a-fast-body-is-goin
 - **Files:** `tools/director/src/pose-kit.ts`, `tools/director/src/poses-crossing.ts`,
   `tools/director/src/poses-bodies.ts`, `tools/director/test/versus-pose.test.ts`
 
