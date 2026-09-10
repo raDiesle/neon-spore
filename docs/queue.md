@@ -207,6 +207,7 @@ lid opens, so its candidates are judged on the opening. Both are motion slots.
 ## THE CAROM and THE CHUTE have one look each and no record to patch
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Taken:** 2026-09-10, claude/queue-the-carom-and-the-chute-have-one-look-each-and-n
 - **Files:** `packages/render/src/carom.ts`,
   `packages/render/src/carom-window.ts`, `packages/render/src/chute.ts`,
   `packages/render/src/chute-cut.ts`, `tools/versus/candidates/`
