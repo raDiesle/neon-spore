@@ -11,7 +11,8 @@
  */
 
 import { spawnSync } from "node:child_process";
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { branchFor, takenMark } from "./claim.js";
 import { markTaken } from "./edit.js";
@@ -24,9 +25,29 @@ export const PATHS = {
 };
 export const TRUNK = "main";
 
-function gitIn(cwd: string, ...args: string[]): { ok: boolean; out: string; err: string } {
-  const r = spawnSync("git", args, { cwd, encoding: "utf8" });
-  return { ok: r.status === 0, out: (r.stdout ?? "").trim(), err: (r.stderr ?? "").trim() };
+interface Ran {
+  ok: boolean;
+  out: string;
+  err: string;
+}
+
+function gitIn(cwd: string, ...args: string[]): Ran {
+  return gitWith({ cwd }, ...args);
+}
+
+/** `raw` keeps stdout as git wrote it — a file's content, not a ref's name. */
+function gitWith(
+  opts: { cwd: string; input?: string; env?: Record<string, string>; raw?: boolean },
+  ...args: string[]
+): Ran {
+  const r = spawnSync("git", args, {
+    cwd: opts.cwd,
+    encoding: "utf8",
+    input: opts.input,
+    env: opts.env ? { ...process.env, ...opts.env } : process.env,
+  });
+  const out = r.stdout ?? "";
+  return { ok: r.status === 0, out: opts.raw ? out : out.trim(), err: (r.stderr ?? "").trim() };
 }
 
 export function git(...args: string[]): { ok: boolean; out: string; err: string } {
@@ -72,33 +93,90 @@ export function trunkTree(): string {
  * when the file it is about to write is already modified there — `--only` would
  * commit *their* version of it, and this cannot tell the two apart.
  *
- * Every refusal here is a warning rather than an error. The branch is the gate
- * and it has already been taken by the time this runs; a clone with no trunk
- * checked out is the ordinary shape of a cloud session, and it is better to
- * claim an item unmarked than not to claim it at all.
+ * **A clone with nothing on the trunk is written the same way.** No worktree
+ * holds `main` there — that is the ordinary shape of a cloud session
+ * (`docs/cloud-session.md`), where the one checkout stands on the lane and the
+ * trunk is a ref beside it — and until 10 September 2026 this printed `⚑ left
+ * alone` and `take` went on to report the item ongoing anyway. Half a claim:
+ * the branch, which no other clone can see, and no line, which is the half
+ * that was written for exactly those clones. So the ref is written to directly
+ * (`commitOnRef`), and the working tree is not touched.
+ *
+ * The one refusal left is a warning rather than an error: the trunk tree has
+ * the file modified. The branch is the gate and it has already been taken by
+ * the time this runs, and `--only` would commit *their* version of the file.
  */
 export function onTrunk(item: Item, edit: (md: string) => string, subject: string): boolean {
   const tree = trunkTree();
   const rel = `docs/${item.source}.md`;
   if (!tree) {
-    console.log(`  ⚑ ${rel} on ${TRUNK} left alone — nothing has ${TRUNK} checked out`);
-    return false;
+    commitOnRef(ROOT, TRUNK, rel, edit, subject);
+  } else {
+    if (gitIn(tree, "status", "--porcelain", "--", rel).out) {
+      console.log(`  ⚑ ${rel} on ${TRUNK} left alone — ${tree} has uncommitted changes to it`);
+      return false;
+    }
+    const path = join(tree, rel);
+    writeFileSync(path, edit(readFileSync(path, "utf8")));
+    const made = gitIn(tree, "commit", "--only", rel, "-q", "-m", subject);
+    if (!made.ok) throw new Error(`could not commit ${rel} on ${TRUNK}: ${made.err}`);
   }
-  if (gitIn(tree, "status", "--porcelain", "--", rel).out) {
-    console.log(`  ⚑ ${rel} on ${TRUNK} left alone — ${tree} has uncommitted changes to it`);
-    return false;
-  }
-  const path = join(tree, rel);
-  writeFileSync(path, edit(readFileSync(path, "utf8")));
-  const made = gitIn(tree, "commit", "--only", rel, "-q", "-m", subject);
-  if (!made.ok) throw new Error(`could not commit ${rel} on ${TRUNK}: ${made.err}`);
   console.log(`  ${TRUNK}     ${rel} — ${subject}`);
 
   if (!git("remote", "get-url", "origin").ok) return true;
-  const pushed = gitIn(tree, "push", "origin", `${TRUNK}:${TRUNK}`);
+  const pushed = gitIn(tree || ROOT, "push", "origin", `${TRUNK}:${TRUNK}`);
   if (pushed.ok) console.log(`  pushed   origin/${TRUNK}`);
   else console.log(`  ⚑ origin/${TRUNK} not updated — run: git push origin ${TRUNK}`);
   return true;
+}
+
+/**
+ * One file, rewritten and committed onto a branch nothing has checked out.
+ *
+ * Plumbing rather than a checkout: the branch's tree is read into an index of
+ * its own, the one path is replaced by the edited blob, and the commit that
+ * results is put on the ref with the old tip as its guard, so a ref that moved
+ * meanwhile is refused rather than overwritten. The working tree this runs
+ * from is never read and never written — the session is standing on its lane,
+ * and its lane is nothing to do with the claim.
+ *
+ * Fails, rather than warns, when the branch is not there at all: a clone that
+ * checked out one lane by name has no `main`, and a claim that cannot be
+ * written is not a claim.
+ */
+export function commitOnRef(
+  root: string,
+  ref: string,
+  rel: string,
+  edit: (md: string) => string,
+  subject: string,
+): string {
+  const tip = gitIn(root, "rev-parse", "--verify", "--quiet", `refs/heads/${ref}`);
+  if (!tip.ok) throw new Error(`could not write ${rel} on ${ref}: no such branch here`);
+  const was = gitWith({ cwd: root, raw: true }, "show", `${ref}:${rel}`);
+  if (!was.ok) throw new Error(`could not read ${rel} on ${ref}: ${was.err}`);
+  const blob = gitWith({ cwd: root, input: edit(was.out) }, "hash-object", "-w", "--stdin");
+  if (!blob.ok) throw new Error(`could not write ${rel}: ${blob.err}`);
+  const index = join(tmpdir(), `queue-${process.pid}-${Date.now()}.index`);
+  const env = { GIT_INDEX_FILE: index };
+  try {
+    for (const step of [
+      ["read-tree", tip.out],
+      ["update-index", "--cacheinfo", `100644,${blob.out},${rel}`],
+    ]) {
+      const r = gitWith({ cwd: root, env }, ...step);
+      if (!r.ok) throw new Error(`could not stage ${rel} on ${ref}: ${r.err}`);
+    }
+    const tree = gitWith({ cwd: root, env }, "write-tree");
+    if (!tree.ok) throw new Error(`could not write a tree for ${ref}: ${tree.err}`);
+    const made = gitIn(root, "commit-tree", tree.out, "-p", tip.out, "-m", subject);
+    if (!made.ok) throw new Error(`could not commit ${rel} on ${ref}: ${made.err}`);
+    const moved = gitIn(root, "update-ref", `refs/heads/${ref}`, made.out, tip.out);
+    if (!moved.ok) throw new Error(`could not move ${ref}: ${moved.err}`);
+    return made.out;
+  } finally {
+    rmSync(index, { force: true });
+  }
 }
 
 /**

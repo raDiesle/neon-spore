@@ -97,10 +97,13 @@ reads. `next` then moves the branch onto that commit, so a lane starts from a
 trunk that already carries its own mark and its `queue done` removes the whole
 entry without a conflict.
 
-The two things a claim cannot always do are said out loud rather than guessed
-at: if no worktree has `main` checked out, or the trunk's copy of this file has
-uncommitted changes in it, the branch is still made and a `⚑` line says the
-entry went unmarked.
+A clone with nothing on `main` — every cloud session, where the one checkout
+stands on the lane and the trunk is a ref beside it — gets the same line by a
+different route: the commit is written onto the ref directly, without a
+checkout, and the lane's own working tree is not touched. The one thing a
+claim still cannot do is said out loud rather than guessed at: if the trunk's
+copy of this file has uncommitted changes in it, the branch is made and a `⚑`
+line says the entry went unmarked.
 
 A claim carries no commits, so it points at `main` and reads as fully merged.
 `bun run land` sweeps merged branches, and for one day it swept other lanes'
@@ -285,29 +288,6 @@ Wait for `creature:break` to be decided before opening this, or check with
 `bun run versus` that the fields do not overlap: `bun test` refuses two open
 slots claiming one field, and a body's break and a body's hit are next-door
 questions.
-
-## `bun run queue take` cannot write its `Taken:` line in a cloud clone
-
-- **Found:** 2026-09-10, claude/enemy-graphics-animations-versus-3mjjv7
-- **Taken:** 2026-09-10, claude/queue-bun-run-queue-take-cannot-write-its-taken-line-i
-- **Files:** `tools/queue/`, `docs/cloud-session.md`
-
-`bun run queue take 4` in a session started from a phone answers `⚑
-docs/queue.md on main left alone — nothing has main checked out` and then
-reports the item ongoing anyway. Half the claim is made and half is not: the
-listing in that session says taken, and the file every *other* session reads
-says free. A clone has no worktrees and no checked-out `main` — that is the
-normal shape of a cloud session (`docs/cloud-session.md`), not an unusual one —
-so this is not a rare path, and the only reason it did no harm here is that
-one session was running.
-
-Two options, and the answer picks between them. Either `take`/`next` learn the
-clone case and write the `Taken:` line onto the current branch, leaving the
-line to reach `main` with the work that carries it — which is what a cloud
-session's every other write already does — or they refuse outright in a clone
-and say to claim by hand, rather than reporting a claim that was not made. The
-half-done third state is the one thing that must go. `tools/queue/test/queue.test.ts`
-holds the formats and is where the case belongs.
 
 ## `versus-pose.ts` is at the line ceiling and every slot adds to it
 

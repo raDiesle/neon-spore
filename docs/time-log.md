@@ -57,3 +57,20 @@ float, settled by saying what the sheet actually does. About 25 min.
 Bottleneck: **reading** — the entry named a red test that is green on this
 machine, so most of the lane went into proving the diagnosis before the
 three-line fix could be trusted.
+
+## 2026-09-10 · claude/queue-bun-run-queue-take-cannot-write-its-taken-line-i
+
+A claim written onto `main` in a clone that has nothing checked out on it.
+About 30 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the queue entry, `claim.ts`, `repo.ts`, `run.ts`, how `land` writes a note in a clone (`note-commit.ts`) and how it merges `docs/queue.md` (`queue-merge.ts`) |
+| writing | 15 | `commitOnRef` through git plumbing, its clone-shaped test, two paragraphs of docs |
+| looking | 0 | nothing visible moved |
+| friction | 5 | a regex written through `sed` lost its backslashes twice; the third time it went through Python |
+| landing | 5 | `check:fast`, the commit, `land --keep` |
+
+Bottleneck: **reading** — deciding between the entry's two options took
+finding that the landing already resolves the conflict the first one would
+cause, which was in a file the entry did not name.

@@ -124,6 +124,15 @@ do not ask the owner to confirm that something was tested. Write the commit
 message well instead: it is the release note, and it is the only part of this
 that anybody sees twice.
 
+**A claim is made the same way here.** `bun run queue take` and `next` write
+their `Taken:` line onto `main` and push it, and a clone with nothing on
+`main` is no exception: the commit goes onto the ref directly, without a
+checkout, and the lane this session is standing on is not touched. Until
+10 September 2026 it printed `⚑ left alone — nothing has main checked out`
+and reported the item ongoing anyway, which was a claim only this clone could
+see. The lane's `queue done` then removes an entry the trunk has since marked,
+and the landing's rebase resolves that on its own (`tools/land/queue-merge.ts`).
+
 **A technical finding goes in `docs/queue.md`, not in the report.** A refactor
 the session stepped around, a slow path, a missing test, a document that no
 longer describes the code: one `##` section, in the same commit, and then it is
