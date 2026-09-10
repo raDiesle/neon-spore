@@ -6,7 +6,7 @@ import * as sheen from "../../../../../packages/render/src/hull-sheen.js";
 import * as seat from "../../../../../packages/render/src/seat-skin.js";
 import * as nerves from "../../../../../packages/render/src/ship-nerves.js";
 import { patch, type Variant } from "../../../variant.js";
-import { wired } from "../gullet/nerves.js";
+import { transported } from "./nerves.js";
 import { cytoplasm, vacuoles } from "./paint.js";
 
 /**
@@ -19,13 +19,12 @@ import { cytoplasm, vacuoles } from "./paint.js";
  * cannon is where the cell pushes out; the shield is the membrane thickening.
  * The wobbliest contour of the four, because a cell has no shape of its own.
  *
- * **A concept card.** The owner said on 10 September 2026 that a new look may
- * be designed as a picture first if it saves tokens, so long as the picture
- * and the code do not part company; this card is that picture, drawn by the
- * code it would ship as and shot once, rough, so what he picks from is what he
- * gets. GULLET's wiring is borrowed — every control a tendon on its organ —
- * because the connections are the same question on every ship and only the
- * one he chooses will get its own answer.
+ * **Taken further on 10 September 2026**, chosen from four concept cards. The
+ * concept was a thin flat band with blobs in it; this is the same cell with
+ * body: a contour that bulges, a membrane with a thickness you can see
+ * through, organelles with an inside, and its own wiring — a cell has no
+ * tendons, so every control is a bundle of microtubules with vesicles walking
+ * up it to the organ it moves (`nerves.ts`).
  */
 export const SHIP_PLASM: Variant = {
   slot: "ship:body",
@@ -42,14 +41,14 @@ export const SHIP_PLASM: Variant = {
         symbol: "HULL",
         type: "HullSilhouette",
       },
-      fields: { lobes: 4, depth: 0.2, wobble: 0.12, seed: 0.31 },
+      fields: { lobes: 7, depth: 0.32, wobble: 0.22, seed: 0.31 },
     }),
     patch({
       target: seat.P1_SKIN.hull,
       reached: () => seat.seatSkin("p1").hull,
       where: { file: "packages/render/src/seat-skin.ts", symbol: "P1_SKIN", type: "SeatSkin" },
       fields: {
-        body: ["#C4B0FF", "#6E4CD8", "#2C1A6E", "#120A30"],
+        body: ["#D2C2FF", "#9A7CF0", "#5A40B8", "#2A1A60"],
         rim: "#B79CFF",
         edge: "#F2ECFF",
         muzzle: "#1A1038",
@@ -61,8 +60,8 @@ export const SHIP_PLASM: Variant = {
       where: { file: "packages/render/src/seat-skin.ts", symbol: "P1_SKIN", type: "SeatSkin" },
       fields: {
         tint: "#B79CFF",
-        ground: ["#120A30", "#0F0A2A", "#080516", "#04020A"],
-        flesh: ["#A88CF8", "#7A5AE0", "#5A44B8"],
+        ground: ["#2A1A60", "#1C1248", "#0E0828", "#06030F"],
+        flesh: ["#BEA6FF", "#8E6EF0", "#6A50C8"],
       },
     }),
     patch({
@@ -95,7 +94,7 @@ export const SHIP_PLASM: Variant = {
         symbol: "SHIP_NERVES",
         type: "ShipNerves",
       },
-      fields: { draw: wired },
+      fields: { draw: transported },
     }),
   ],
 };
