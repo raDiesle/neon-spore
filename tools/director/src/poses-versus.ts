@@ -61,7 +61,8 @@ export const WAVE_WITH_BOTH_FACES = 13;
  * A worm, long enough that its links are visibly out of step with each other.
  * The head is the entry and the rest are hung off the field behind it
  * (`crawler-round.ts`), so the world has to be *run* before there is a body
- * to look at rather than a single link stepping on.
+ * to look at rather than a single link stepping on. `crawler:pulse` and
+ * `creature:crawler` are both judged on the chain, not on one ring.
  */
 const CRAWLER_POSE: Pose = {
   name: "CRAWLER · WALKING",
@@ -89,7 +90,7 @@ const CRAWLER_POSE: Pose = {
  * A bolt fired straight up the magnet's own column. An unsteered shot has
  * `aimMilli === 0` and `magnetLetsThrough` wants at least `magnetSlantMilli`,
  * so the plate turns this one away every time and the sim throws
- * `magnetPlate` on the tick it does.
+ * `magnetPlate` on the tick it does. `creature:magnet` is judged on the turn.
  */
 const MAGNET_POSE: Pose = {
   name: "MAGNET · A SHOT TURNED AWAY",
@@ -115,7 +116,7 @@ const MAGNET_POSE: Pose = {
  * the test view draw the real slick or bulb and player two draws the body
  * that will not say which it is. The pair overrides `role` per screen and
  * `versus-seat.ts` reports the seats as different for exactly this reason, so
- * both are drawn and the reel is the one on the right.
+ * both are drawn and the reel is the one on the right (`creature:strand`).
  */
 const STRAND_POSE: Pose = {
   name: "STRAND · THE NAVIGATOR'S BEAD",

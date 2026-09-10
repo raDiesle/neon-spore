@@ -40,7 +40,8 @@ const COL = 5;
  * next one lands. The third shot kills what is left, which is the creature's
  * own sentence ending — a rind cut down to size dies to an ordinary shot — and
  * the six-second window then holds an empty lane for a beat or two before the
- * next rind comes down.
+ * next rind comes down. `creature:rind` is judged here, and so is `rind:body`
+ * — the body under the layers is judged as they come off it.
  */
 const RIND_POSE: Pose = {
   name: "RIND · SHEDDING",
@@ -97,7 +98,10 @@ const letGo = (tick: number, id: number): TimedCommand => ({
  * on the threshold is one rounding from a shut eye. The hold is long enough
  * to read the open state, and the release is one message, because a hand
  * lifting is one event and the plates close on the rule with no easing
- * anywhere between it and the picture (`lid.ts` in sim).
+ * anywhere between it and the picture (`lid.ts` in sim). `creature:lid` is
+ * judged here rather than on `LID · THE EYE OPEN`, because the opening is what
+ * a look for the armour is about, and it never happens on a page where nobody
+ * pulls.
  */
 const LID_POSE: Pose = {
   name: "LID · OPENING",

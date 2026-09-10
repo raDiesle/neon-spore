@@ -73,8 +73,9 @@ function shellPieces(c: { col: number; shell?: number }): number {
  * the same breath. There are **three of them, one beat apart in three lanes**,
  * so something is falling for two full seconds instead of for three quarters
  * of one — each still a single torch at the size the field draws one, which is
- * what the slot asks about (`versus-pose.ts`), and a wave that sends three is
- * an ordinary wave. And the replay waits for **one more fall's worth of empty
+ * what both slots ask about — `torch:veil` argues about one pass over the
+ * stone's face, `creature:torch` about the fire — and a wave that sends three
+ * is an ordinary wave. And the replay waits for **one more fall's worth of empty
  * field** after the last of them lands, which is the pause `pose-type.ts`
  * argues is the thing that makes a repeat legible at all.
  *
@@ -124,6 +125,8 @@ const TORCH_POSE: Pose = {
   },
 };
 
+/** `creature:veil` is judged on the fall: what the weather is made of between
+ * the rim and the bolts is only read with a body inside it coming down. */
 const VEIL_POSE: Pose = {
   name: "VEIL · CARRYING",
   note: "A thundercloud coming down a lane with a slick or a bulb inside it, morphing from one to the other on the beat. The lightning is the pair's metronome; player 1 can see the body through the weather and player 2 sees only the weather.",
@@ -145,7 +148,8 @@ const VEIL_POSE: Pose = {
  * reason turned around: this body does not fall because it is a fixture. It
  * stands dead centre for the whole fight, its pupil drifting from column to
  * column, and the ring of plates around it is the only health bar in the game —
- * which is exactly why the armour is worth a look of its own.
+ * which is exactly why the armour is worth a look of its own — `warden:plates`
+ * was judged here, and `creature:warden` after it, on the same standing ring.
  *
  * It is handed over **with every plate still on**. A candidate is free to make
  * a plate look like anything; where the *gap* is has to stay the same on both
@@ -179,7 +183,7 @@ const WARDEN_POSE: Pose = {
  * body has no armour on it at all. The state in between is the one this
  * creature spends most of its life in and the only one where the two answers
  * stand side by side — a plate on one half, the grey edge it leaves on the
- * other — which is exactly the pair a look has to get right at once
+ * other — which is exactly the pair `shell:plate` has to get right at once
  * (`shell-look.ts` on why both fields move together).
  *
  * It is reached by shooting, not by writing a bitmask: `Creature.shell` is the

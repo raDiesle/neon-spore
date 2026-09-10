@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test";
+import { join } from "node:path";
 import { CREATURES, controlSetForWave, setHas } from "@neon-spore/content";
 import { chargeMilli, laying, step } from "@neon-spore/sim";
 import { VARIANTS } from "../../versus/candidates/index.js";
@@ -197,5 +198,27 @@ describe("poseForSlot", () => {
   test("a slot with no dedicated pose still gets a real one", () => {
     const pose = poseForSlot("some:unmapped-slot");
     expect(pose.build().tick).toBeGreaterThan(0);
+  });
+
+  /**
+   * The map is rows and nothing else. It carried a paragraph over every row
+   * once; three lanes landing slots on one afternoon each added a row and a
+   * paragraph, and a rebase that kept two of them put the trunk over the line
+   * ceiling. The reason a slot is judged on a pose goes on that pose's own
+   * docstring in `poses-*.ts`, so this reads the literal and refuses a comment
+   * inside it — a rule called here rather than remembered by the next lane.
+   */
+  test("SLOT_POSE carries rows alone — a slot's reason lives on its pose", async () => {
+    const source = await Bun.file(join(import.meta.dirname, "..", "src", "versus-pose.ts")).text();
+    const start = source.indexOf("const SLOT_POSE");
+    const end = source.indexOf("\n};", start);
+    expect(start).toBeGreaterThan(-1);
+    expect(end).toBeGreaterThan(start);
+    const rows = source.slice(start, end).split("\n").slice(1);
+    for (const row of rows) {
+      expect(row.trim().startsWith("//") || row.includes("/*"), row).toBe(false);
+      expect(row, row).toMatch(/^ {2}"[a-z-]+:[a-z-]+": ".+",$/);
+    }
+    expect(rows.length).toBeGreaterThan(10);
   });
 });

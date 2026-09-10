@@ -103,6 +103,9 @@ function queen(): World {
 }
 
 const BOSSES: Pose[] = [
+  // `creature:queen` is judged shut: the armour is the whole of her while both
+  // marks are blank, and it is the one state where nothing under it is asking
+  // to be looked at instead.
   {
     name: "QUEEN · SHUT",
     note: "Armoured, holding her row, both marks blank. Nothing that reaches her while she is like this takes a petal.",

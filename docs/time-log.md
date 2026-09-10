@@ -74,3 +74,20 @@ About 30 min.
 Bottleneck: **reading** — deciding between the entry's two options took
 finding that the landing already resolves the conflict the first one would
 cause, which was in a file the entry did not name.
+
+## 2026-09-10 · claude/queue-versus-pose-ts-is-at-the-line-ceiling-and-every
+
+`SLOT_POSE` cut down to rows, each slot's reason moved onto the pose it names,
+and a test that keeps the paragraphs from growing back. About 25 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the queue entry, `versus-pose.ts`, every `poses-*.ts` docstring the map pointed at, `limits.test.ts`, the scaffold's step four |
+| writing | 10 | the rows-only map, one sentence on each of twenty poses, the test, the scaffold's wording |
+| looking | 0 | nothing visible moved |
+| friction | 5 | a heredoc that would not close on a quote inside the prose, moved to a script file; two escaped newlines the test file lost on the way in |
+| landing | 5 | the director and versus tests, `check:fast`, the commit, `land --keep` |
+
+Bottleneck: **reading** — twenty pose docstrings had to be read to know which
+already argued for their slot and which did not, before a sentence could be
+put on the ones that did not.

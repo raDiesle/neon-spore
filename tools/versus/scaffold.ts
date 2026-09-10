@@ -89,8 +89,9 @@ export function rules(slot: string): string[] {
     ),
     ...say(
       "4.",
-      `Give \`${slot}\` a pose in \`tools/director/src/versus-pose.ts\` in the same commit. ` +
-        "A slot with no entry falls through to a red slick falling, which for five slots " +
+      `Give \`${slot}\` a row in \`tools/director/src/versus-pose.ts\` in the same commit — ` +
+        "the row alone; why that pose goes on the pose's own docstring in `poses-*.ts`. " +
+        "A slot with no row falls through to a red slick falling, which for five slots " +
         "once meant two identical pictures and a vote on a difference nobody could see.",
     ),
     ...say(

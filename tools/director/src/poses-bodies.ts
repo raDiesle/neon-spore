@@ -48,6 +48,15 @@ import {
  * breaking up against the hull, which is a picture of a wave ending rather
  * than of a material. The two-second replay holds them where they can be
  * looked at.
+ *
+ * **Every slot judged against the bodies a body could be mistaken for lands
+ * here**, which is why `versus-pose.ts` names it more than any other pose:
+ * the two interiors (`creature:slick`, `creature:bulb`), the two outlines
+ * (`slick:shape`, `bulb:shape`), the sway (`slick:motion` — a swing is only
+ * told from a shiver beside it), and the space behind them all
+ * (`field:backdrop`), whose question is not whether a back is handsome but
+ * whether four bodies in front of it are easier to read; a back judged on an
+ * empty field would win on exactly the thing it must lose on.
  */
 export const BODIES_POSE: Pose = {
   name: "BODIES · FOUR KINDS AT ONCE",
@@ -132,7 +141,8 @@ export const DART_RUN_POSE: Pose = {
  * and the disguise barely moves. It is handed over part-way through the temper
  * and **before the last turn**, when the whole camouflage comes off and the
  * body dives: what a look here is about is on screen for the crossing and gone
- * after it.
+ * after it. `ghost:tears` was judged here first and `creature:ghost` after it
+ * was settled — the camouflage decided, the interior it is torn over open.
  *
  * It lives on this page rather than with the surfaces next door for the reason
  * `BODIES · FOUR KINDS AT ONCE` does — a slot about what a body is *made of* —
@@ -183,7 +193,7 @@ const ECHO_CADENCE_SECONDS = ((DEFAULT_CONFIG.echoSplitBeats * 3 + 2) * 60) / DE
  * Every other pose on this page holds a body so it can be looked at; this one
  * is watched **through** something, because the mark a look here is about is
  * the one that says *this body is about to come apart*, and a mark like that
- * is only judged as the parting arrives. So the world is handed over with the
+ * is only judged as the parting arrives (`creature:echo`). So the world is handed over with the
  * body a beat old and left to run: the furrow deepens, the body necks, it
  * goes, and the two it leaves start their own longer wait — which is when the
  * seam turns to cut across the other axis (`ECHO_AXES`), the second thing the

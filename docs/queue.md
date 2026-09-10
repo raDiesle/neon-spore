@@ -288,21 +288,3 @@ Wait for `creature:break` to be decided before opening this, or check with
 `bun run versus` that the fields do not overlap: `bun test` refuses two open
 slots claiming one field, and a body's break and a body's hit are next-door
 questions.
-
-## `versus-pose.ts` is at the line ceiling and every slot adds to it
-
-- **Found:** 2026-09-10, claude/queue-versus-shot-at-on-a-only-tile-pose-photographs-t
-- **Taken:** 2026-09-10, claude/queue-versus-pose-ts-is-at-the-line-ceiling-and-every
-- **Files:** `tools/director/src/versus-pose.ts`, `tools/director/src/poses-*.ts`
-
-`SLOT_POSE` is one map with a paragraph of reasoning over every row, and three
-lanes landing slots on one afternoon each added a row and a paragraph; the
-trunk went over 250 lines in a rebase that kept two of them and `bun run check`
-went red on `limits.test.ts` after the push. The map cannot stay a place every
-slot writes prose into. Move each slot's reason next to the pose it names —
-the pose files already carry a docstring per pose, and "which slots are judged
-on this pose and why" belongs there — and leave `SLOT_POSE` as rows alone, or
-let each `poses-*.ts` file export its own `slot → pose` rows and have
-`versus-pose.ts` concatenate them, so a lane opening a slot touches the pose
-file it wrote and nothing shared. Prove it with `bun run check` and the file
-well under the ceiling.

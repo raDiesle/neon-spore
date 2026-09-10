@@ -27,7 +27,8 @@ import {
  * standing, the frame under more strain than it arrived with — and then
  * lets it fall. No cadence: a cage that turns, or breathes, needs longer
  * than a replay window to be watched doing it, and what the body does on
- * its way down is the ordinary fall the pair already knows.
+ * its way down is the ordinary fall the pair already knows. `creature:recoil`
+ * is judged here.
  */
 
 /** Which column the body comes down. The middle of eleven, for the reason

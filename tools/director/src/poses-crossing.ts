@@ -81,8 +81,8 @@ function chuteLifeSeconds(): number {
  * slot on this page is cropped to a tile, because a surface at twenty-six pixels
  * is only readable magnified. A tile crop follows its body (`versus-crop.ts`
  * re-derives the window every frame), and a window that follows a carom is a
- * window in which the carom never moves — which is the one thing this slot is
- * about. On the whole field it crosses three lanes a beat, turns at the left
+ * window in which the carom never moves — which is the one thing `creature:carom`
+ * is about. On the whole field it crosses three lanes a beat, turns at the left
  * wall and comes back, and the streak behind it points where the simulation is
  * actually going to put it next.
  *
@@ -118,7 +118,8 @@ export const CAROM_POSE: Pose = {
  * The pair is handed the world on the tick the chute exists, so the ejection is
  * the first thing on screen rather than something that happened while nobody was
  * looking. Nothing is assigned: the crust is opened by a shot that was actually
- * fired, and every state after that is the simulation's own.
+ * fired, and every state after that is the simulation's own. `creature:chute`
+ * is judged here: the half of one creature whose subject is a path.
  */
 export const CHUTE_POSE: Pose = {
   name: "CHUTE · THROWN CLEAR",

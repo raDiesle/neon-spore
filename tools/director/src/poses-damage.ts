@@ -59,7 +59,8 @@ const UNHIT_ROWS = 11;
  * pair had never once seen this creature in the state it spends most of its
  * life in. The fourth crater opening was the whole picture. It is the first
  * one now, and the three that follow arrive on the replay clock, so the state
- * a rock arrives on the field in is the state the page opens on.
+ * a rock arrives on the field in is the state the page opens on
+ * (`creature:meteor`).
  */
 export const METEOR_HIT_POSE: Pose = {
   name: "METEOR · A SHOT ARRIVING",

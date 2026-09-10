@@ -118,7 +118,9 @@ function lanceGone(w: World): boolean {
  * showed either alone would be a vote taken on half the question: the roof is
  * judged against the hull's own ripple a tile above it, and a trunk is judged
  * against the button it grows into. `crop: "ship"` is the one cut that carries
- * both — the hull, five tiles of field over it, and the whole band.
+ * both — the hull, five tiles of field over it, and the whole band — and it is
+ * where `ship:body` is judged too, a whole ship on the cut that carries the
+ * panel it grows into.
  *
  * Nothing falls and nothing is pressed. Both are deliberate: a body coming down
  * the field is the brightest thing on the screen and would decide a vote about

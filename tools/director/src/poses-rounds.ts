@@ -38,7 +38,8 @@ const NOTHING: [] = [];
  * Handed over in the `read` phase, which is where the round spends nearly all
  * of its time and the only phase in which the drum is the whole question: the
  * wheel is up, every wall and every gap is on it, and nothing has been fired
- * yet. A pose held during a shot would be a pose about the shot.
+ * yet. A pose held during a shot would be a pose about the shot. `maze:walls`
+ * is judged here — the first slot whose subject is a whole screen of its own.
  *
  * Both seats draw the same frame here — with the maze, the shot and the middle
  * on both of them there is no seat to draw the round *for*, which is a decision

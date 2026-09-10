@@ -117,7 +117,7 @@ const CHOIR_POSE: Pose = {
  * Here the body is alone on the field, and held for the whole fall: five turns
  * with nothing else moving on the frame, which is what it takes to see
  * whether a seam swells and shuts twice a revolution or simply sweeps round
- * once like the hand of a clock.
+ * once like the hand of a clock (`creature:throb`).
  */
 const THROB_POSE: Pose = {
   name: "THROB · TURNING",
@@ -146,7 +146,8 @@ const THROB_POSE: Pose = {
  * pose here that needs no replay at all: it stands, it jumps to another tile
  * every `wispDwellBeats`, and it is still there when the pair has finished
  * looking. That is exactly the state a fringe wants to be judged in — the jump
- * is what the streamers read, and a surface needs every second it can get.
+ * is what the streamers read, and a surface needs every second it can get
+ * (`creature:wisp`).
  *
  * **Only player two is shown one**, which is the creature rather than an
  * omission (`showsWisp`). The pair draws both seats' screens one above the
@@ -175,10 +176,11 @@ const WISP_POSE: Pose = {
  * A gyre walks a diamond and sinks as it goes, and then it stays: at twenty
  * beats it is still on the field with all six mounts up, which is what makes it
  * the second pose here that can be held rather than replayed. The middle of it
- * turns at the wheel's *true* rate while the rim ratchets, so the organelle a
- * candidate argues about is the one part of this picture that never stops
+ * turns at the wheel's *true* rate while the rim ratchets, so the organelle
+ * `creature:gyre` argues about is the one part of this picture that never stops
  * moving — and a candidate that claims a surface is turning needs to be watched
- * turning for longer than two seconds.
+ * turning for longer than two seconds. `creature:mount` is judged here too: all
+ * six up and turning is the only state a mount is ever in.
  */
 const GYRE_POSE: Pose = {
   name: "GYRE · TURNING",
