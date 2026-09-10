@@ -498,6 +498,7 @@ sheets.
 ## THE BALLOON's outer handle rests off the screen in the wall columns
 
 - **Found:** 2026-09-10, claude/queue-the-balloon-a-longer-pull-a-hold-at-full-stretch
+- **Taken:** 2026-09-10, claude/queue-the-balloons-outer-handle-rests-off-the-screen-i
 - **Files:** `packages/render/src/balloon-handles.ts`,
   `packages/render/src/handles.ts`, `packages/sim/src/config-balloon.ts`
 
