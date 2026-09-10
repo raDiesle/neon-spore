@@ -1,3 +1,4 @@
+import { openSmoothPath, type Point } from "@neon-spore/content";
 import { hash01 } from "./backdrop.js";
 import { seamRise, seamTop, seamY } from "./band-seam.js";
 import { halo } from "./glow.js";
@@ -103,14 +104,29 @@ export function drawDrips(
   lobes: readonly Circle[] = [],
 ): void {
   const all = drips(l, time, lobes);
-  const body = new Path2D();
+  const over = seamRise(l) * OVER;
+  // One path string for every pendant and one `Path2D` from it — not one per
+  // drip: `frame-budget.test.ts` counts constructions, and three more a frame
+  // for a thing nobody looks straight at is exactly what it exists to refuse.
+  let d = "";
   const beads = new Path2D();
   let deepest = l.bandTop;
-  for (const d of all) {
-    pendant(body, d);
-    deepest = Math.max(deepest, d.top + d.length);
-    if (d.bead) beads.ellipse(d.x, d.top + d.bead.y, d.bead.r, d.bead.r * 1.25, 0, 0, Math.PI * 2);
+  for (const drip of all) {
+    d += pendant(drip, over);
+    deepest = Math.max(deepest, drip.top + drip.length);
+    if (drip.bead) {
+      beads.ellipse(
+        drip.x,
+        drip.top + drip.bead.y,
+        drip.bead.r,
+        drip.bead.r * 1.25,
+        0,
+        0,
+        Math.PI * 2,
+      );
+    }
   }
+  const body = new Path2D(d);
 
   // Every colour of it is the seat’s: this is the ship’s own fluid, and a
   // violet drip off a golden hull was the loudest thing left on player two’s
@@ -133,20 +149,57 @@ export function drawDrips(
 }
 
 /**
+ * How far above the membrane a pendant's shoulder starts. More than the
+ * membrane's whole swing, so that wherever the contour stands at the drip's
+ * x — and at the x's either side of it, which the shoulder spans — the top of
+ * the shape is above it and the chamber's clip is what cuts it.
+ */
+const OVER = 1.1;
+
+/** Samples down one side of a pendant. */
+const STEPS = 14;
+
+/**
  * A thread of slime hanging off the membrane: wide where it leaves the skin,
  * pinched to a neck, and swelling into a bead at the end — the shape something
- * viscous actually hangs in. A teardrop with a flat bulb reads as a tooth,
- * which is what the first pass of this drew.
+ * viscous actually hangs in.
+ *
+ * **It used to have a ruled top and four nearly straight sides.** The first
+ * pass drew it as four bezier segments from a flat line at `top - 1`, which
+ * is the membrane's height at the drip's own x and not at the x's a shoulder
+ * 1.6 widths either side of it reaches — so the top edge hung a few pixels
+ * clear of the contour with the ship showing through, and each side ran
+ * straight from that edge to the neck. `sheen.ts` states the rule that broke:
+ * a straight edge anywhere on this ship reads as a seam, and the membrane has
+ * no seams. The owner was shown it at six times phone size and asked for it
+ * queued rather than left.
+ *
+ * So it is a **width profile sampled down its length** and splined, the way
+ * the VERSUS trunks are built: three bells — a shoulder, a neck it never goes
+ * below, a bulb — pinched off over the last twentieth so the tip closes to a
+ * round. And it starts `OVER` above the membrane rather than on it, so the
+ * chamber's own clip trims it to the contour to the pixel at every x it
+ * spans: there is no height to guess and nothing to come away.
  */
-function pendant(path: Path2D, d: Drip): void {
-  const { x, top: y, width: w, length: len } = d;
-  const neck = w * 0.34;
-  const bulb = w * 0.8;
-  const waist = y + len * 0.5;
-  path.moveTo(x - w * 1.6, y - 1);
-  path.bezierCurveTo(x - w * 1.3, y + len * 0.18, x - neck, y + len * 0.32, x - neck, waist);
-  path.bezierCurveTo(x - bulb, y + len * 0.78, x - bulb, y + len * 0.95, x, y + len);
-  path.bezierCurveTo(x + bulb, y + len * 0.95, x + bulb, y + len * 0.78, x + neck, waist);
-  path.bezierCurveTo(x + neck, y + len * 0.32, x + w * 1.3, y + len * 0.18, x + w * 1.6, y - 1);
-  path.closePath();
+function pendant(d: Drip, over: number): string {
+  const { x, top, width: w, length: len } = d;
+  const from = top - over;
+  const drop = Math.max(1, len + over);
+  const bell = (q: number, c: number, s: number) => Math.exp(-(((q - c) / s) ** 2));
+  const down: Point[] = [];
+  const back: Point[] = [];
+  for (let i = 0; i <= STEPS; i++) {
+    const p = i / STEPS;
+    const y = from + drop * p;
+    // Measured from the membrane in lengths, so the shoulder sits *at* the
+    // skin whatever `over` is and the bulb sits near the tip whatever the
+    // length is.
+    const q = (y - top) / Math.max(1, len);
+    const half =
+      w * (1.5 * bell(q, 0, 0.22) + 0.34 + 0.5 * bell(q, 0.84, 0.15)) * Math.min(1, (1 - p) / 0.07);
+    down.push({ x: x - half, y });
+    back.push({ x: x + half, y });
+  }
+  back.reverse();
+  return `${openSmoothPath([...down, ...back])} Z `;
 }

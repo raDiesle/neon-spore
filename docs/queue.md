@@ -705,31 +705,6 @@ Prove it with `bun run check` and `bun run test:determinism`, and watch THE
 BALLOON at tempo: the slower climb and the hold are both timing, and neither
 is visible in a number.
 
-## The slime pendants have a flat top edge and straight sides
-
-- **Found:** 2026-09-09, claude/versus-ship-visual-redesign-4ca99d
-- **Taken:** 2026-09-10, claude/queue-the-slime-pendants-have-a-flat-top-edge-and-stra
-- **Files:** `packages/render/src/band-slime.ts`
-
-`pendant` draws each drip hanging off the membrane as a shape with a **ruled
-horizontal top** and two nearly straight tapering sides. At six times phone size
-it reads as a paper wedge stuck under the ship rather than as something viscous
-hanging off it, and the shipped panel has it as much as any candidate does — it
-is visible in a photograph of the current look, not only in the new ones.
-
-The owner was asked and said to queue it rather than have it repaired in the
-lane that found it. It is a repair and not an offer: `sheen.ts` states the rule
-this breaks — *a straight edge anywhere on this ship reads as a seam, and the
-membrane has no seams* — so it is CLAUDE.md's third exemption and goes straight
-onto the field with the exemption named in the commit.
-
-What to do: give the pendant a sampled width profile splined through, the way
-`tools/versus/candidates/panel-join/fused/paint.ts` builds a trunk, so the neck
-and the bulb are one curve; and start its top edge **above** `seamTop` so the
-chamber's own clip welds it to the membrane instead of a flat lid meeting the
-contour at one height. `packages/render/test/frame.test.ts` draws it, and the
-proof is a photograph of the join at four times size with no straight run in it.
-
 ## The shipped crater plates re-derive the fracture depth rule
 
 - **Found:** 2026-09-09, claude/ship-crater-spall-animation-e9da51

@@ -99,8 +99,11 @@ export function drawBand(
   drawBandGround(ctx, l, seamTop(l), skin);
   drawSeamSpill(ctx, l, skin);
   BAND_JOIN.attach({ ctx, l, lobes, time, skin, ceilingY: (x) => seamY(l, x, time, lobes) });
-  ctx.restore();
+  // Inside the clip, not after it: a pendant starts above the membrane and
+  // relies on this contour to cut it to the skin (`band-slime.ts`). Drawn
+  // outside it would put a shoulder of slime across the ship's belly.
   drawDrips(ctx, l, time, skin, lobes);
+  ctx.restore();
 
   ctx.font = '9px "Courier New",monospace';
   ctx.textAlign = "center";
