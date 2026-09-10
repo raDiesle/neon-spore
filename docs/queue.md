@@ -207,6 +207,7 @@ lid opens, so its candidates are judged on the opening. Both are motion slots.
 ## THE MOUNT and THE RECOIL have one look each and no record to patch
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Taken:** 2026-09-10, claude/queue-the-mount-and-the-recoil-have-one-look-each-and
 - **Files:** `packages/render/src/recoil.ts`,
   `packages/render/src/recoil-ribs.ts`,
   `packages/render/src/recoil-cage-break.ts`, `tools/versus/candidates/`
