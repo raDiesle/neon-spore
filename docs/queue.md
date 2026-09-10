@@ -772,3 +772,72 @@ and the bulb are one curve; and start its top edge **above** `seamTop` so the
 chamber's own clip welds it to the membrane instead of a flat lid meeting the
 contour at one height. `packages/render/test/frame.test.ts` draws it, and the
 proof is a photograph of the join at four times size with no straight run in it.
+
+## The seat probe cannot see a look that only appears after an event
+
+- **Found:** 2026-09-09, claude/ship-crater-spall-animation-e9da51
+- **Files:** `tools/director/src/versus-seat.ts`, `tools/director/src/versus-one.ts`
+
+`diffSequence` steps the world one tick per loop but hands the renderer
+`dt: 1 / 60` and `time: tick / 60` on every sixth tick, so the renderer's own
+clock runs six times slower than the simulation it is drawing. A look that is
+*revealed* by an effect — a crater, which `RockImpactFx.coversCrater` hides
+until the rock has lain in it for `STICK_LIFE` and started to roll — never
+appears inside the 144 ticks the probe samples, because the effect has had a
+quarter of a second of its own time. The probe then reports the patch as
+changing nothing on either seat, `seats()` returns `["p1"]`, and `sizeNote`
+prints *THIS PATCH MOVES 0.000% OF THE FRAME — under the floor* for a candidate
+that moves a hull's worth of pixels. The lane that found it had to force
+`screens` to both seats by hand to photograph player two's crater, and revert.
+
+Two things, both in `versus-seat.ts`. Advance the view's `time` and `dt` by the
+simulation's own elapsed time — `SAMPLE_EVERY / world.cfg.tickHz` per sample —
+so effects age at the rate the pair ages them. And sample for at least the
+pose's own `cadenceSeconds` when it carries one, rather than a flat
+`SAMPLES * SAMPLE_EVERY`, so a look that lives late in a replay is seen at all.
+Prove it with a test that builds `BREACH · ROCKS COMING THROUGH`, runs
+`seatPlan` on `ship:crater` / `grit`, and asserts `share` is well above
+`SEEN_FLOOR` and both seats are reported, since the crumb is painted in the
+seat's own colour.
+
+## `bun run frames` cannot photograph a hole a rock just made
+
+- **Found:** 2026-09-09, claude/ship-crater-spall-animation-e9da51
+- **Files:** `tools/frames/run.ts`, `tools/frames/capture.ts`, `apps/game/src/testing.ts`
+
+The same clock in a second tool. `frames` advances the world by hundreds of
+ticks and then paints a handful of frames, so `RockImpactFx` — which ages by
+render `dt`, not by ticks — never reaches `stickStart`, and a rock that landed
+six seconds ago in simulation time is still drawn lodged in the skin with its
+crater covered. Five strips of `--wave 12 --seat p2` across a thousand ticks all
+came back with the rocks in place and no hole open, and the lane spent the time
+looking for a wave where rocks *do* breach before it understood why none of
+them showed.
+
+The handle should paint with a `dt` equal to the simulation time it just
+advanced, or `--settle N` should mean *N frames at the real frame interval*
+rather than N paints at nothing. Either way `Effects` has to be told the time
+that passed. Prove it with a capture of `--wave 12 --ticks 2300 --seat p2`
+showing two open holes and no rock in either.
+
+## The shipped crater plates re-derive the fracture depth rule
+
+- **Found:** 2026-09-09, claude/ship-crater-spall-animation-e9da51
+- **Files:** `packages/render/src/crater-spall.ts`, `packages/render/src/break-piece.ts`
+
+`spallRing` colours each plate with `mixHex(skin.muzzle, skin.rim, 0.42 + rnd()
+* 0.22)` and strokes its whole outline at `rgba(skin.edge, 0.22)`. That is a
+second copy of what `break-piece.ts` already writes down once — `faceHex`
+(dark inside, lit at the rim, by `Shard.depth`) and `edgeLit` (dimmed once a
+piece lies still) — and the two crater candidates that arrived with it already
+paint every piece through `facet`. The plates were adopted with those values
+by eye, so this is not free: `facet` at the plates' depths comes out a little
+brighter and its edge a little dimmer than the shipped mix.
+
+Route the plates through `facet` with `landed: true`, then tune `faceHex`'s
+two constants or pass a darker `hex` until a frame of `BREACH · ROCKS COMING
+THROUGH` is within a few values of the shipped picture — `bun run versus:shot`
+with `--freeze 6` and a pixel compare at the wide crater is the instrument. If
+that cannot be made close, offer the `facet` version as a `ship:crater`
+candidate instead of landing it, and say which in the commit. Add
+`faceHex`/`edgeLit` to `purity.test.ts`'s called-not-copied table either way.
