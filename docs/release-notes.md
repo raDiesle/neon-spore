@@ -9,6 +9,9 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · 4b68ed68 — Three backs for the field, offered in VERSUS, and a still's freeze counted in ticks
+
+`field:backdrop` opens with three answers beside the shipped sea, on a record cut out of `backdrop.ts` — `backdrop-look.ts`, one field, the whole composition, the shipped layers coming through it with not one pixel moved. BARE paints nothing behind the field but the field's own dark, pooled toward the middle so the columns sit in the brighter ground and the edges fall away. LANES shades every other column a shade darker in the field's black from the sky to the band, keeps the wash and horizon, halves the far dust and drops the near dust and the light shafts, so a column is counted off the space rather than off the grid lines. NEBULA puts the field in space: a black a step deeper than the ground, two large dim clouds of the act's tint drifting far behind everything, the far dust kept as stars and six pin stars breathing. All three are stills, judged on `BODIES · FOUR KINDS AT ONCE` — the slot's question is whether four bodies are easier to read, not whether the back is handsome — and the slot is named in `versus-pose.ts`.
 ## 2026-09-10 · 880a54fd — Three crusts for THE CAROM and three canopies for THE CHUTE, offered in VERSUS
 
 `creature:carom` and `creature:chute` open with three answers each beside what ships, and they are one question asked of the two halves of one creature: does a body on a path read as a solid thing travelling, or as a sprite being moved. Both records were cut for it — `carom-look.ts` carries the rock's face and the streak behind it, `chute-look.ts` the canopy over a falling body and the plume under a climbing one, and the shipped code came through both with not one pixel moved.
