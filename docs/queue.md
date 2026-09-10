@@ -209,6 +209,7 @@ also what makes the body tunable at all. `.claude/skills/depth` applies. Pose in
 ## THE THROB and THE CRAWLER have one look each and no second answer
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Taken:** 2026-09-10, claude/queue-the-throb-and-the-crawler-have-one-look-each-and
 - **Files:** `packages/render/src/throb-look.ts`,
   `packages/render/src/crawler-look.ts`, `tools/versus/candidates/`,
   `tools/director/src/versus-pose.ts`
