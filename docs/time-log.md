@@ -37,6 +37,22 @@ entry, which now waits on `ship:body` instead of asking. About 5 min.
 
 Bottleneck: none worth naming.
 
+## 2026-09-10 · claude/next-and-stop-in-chat
+
+The convention for handing a session several independent tasks — a numbered
+list worked in order, `NEXT:` to queue a task mid-turn, `STOP` to interrupt —
+written into `CLAUDE.md` and `docs/working-with-claude.md`. About 10 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 0 | — |
+| writing | 5 | one bullet, one section |
+| looking | 0 | nothing visible moved |
+| friction | 0 | — |
+| landing | 5 | `check:fast`, the commit, `land --keep` |
+
+Bottleneck: **none** — a short lane.
+
 ## 2026-09-10 · claude/workflow-token-efficiency-fb8475 (second landing)
 
 `docs/choosing-a-model.md` removed with its three pointers, and

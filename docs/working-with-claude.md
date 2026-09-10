@@ -287,10 +287,42 @@ by side with *identical* input. The agent produces variants; you pick.
 
 ## Model choice
 
-Delegation to the worker model is measured, not assumed: building the same
-module twice found delegating cost 6.8 times as much. See
-`docs/delegation-cost.md` for the figures and when delegation still pays for
-itself.
+There is none: the owner works on Opus 5 only. Delegation to the worker model
+is measured, not assumed: building the same module twice found delegating cost
+6.8 times as much. See `docs/delegation-cost.md` for the figures and when
+delegation still pays for itself.
+
+## Several tasks in one session: NEXT: and STOP
+
+The owner works one session at a time, tasks in sequence, and on 10 September
+2026 asked for a way to hand a session independent tasks that queue up rather
+than interrupt. Three shapes, from cheapest up.
+
+**A numbered list in one prompt.** The tasks are independent and are worked in
+the order given; each is finished, checked, committed and landed onto the
+local `main` (`bun run land --keep`) with one line of report before the next
+begins. The session does not stop to ask between tasks. A task that turns out
+to need a decision from the owner is written into `docs/parked.md` with the
+question and the next task starts — a list that stalls on its first fork is
+not a queue.
+
+**A message typed while the session works.** It is delivered at the next tool
+boundary, in the middle of whatever is being done, and without a rule it reads
+as a correction to that work. So it is read by its first word:
+
+- `NEXT:` — a new task, appended to the list for after the current one. It
+  changes nothing about the task in hand.
+- `STOP` — applies now: stop, read the rest of the message, act on it.
+- no prefix — ambiguous; the session asks whether it is a change to the
+  current task or a new one, before acting on it.
+
+**More than a handful, unattended.** That is `docs/queue.md`: the owner writes
+the entries and says to drain the queue; `bun run queue next` claims, branches
+and reports, and the session runs to the end without prompting him.
+
+The reason each task lands before the next is the one `docs/token-budget.md`
+gives: the session is one long conversation compacted automatically, and a
+compaction that falls mid-task loses the half that was only in the chat.
 
 ## Git
 

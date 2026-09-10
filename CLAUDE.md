@@ -73,8 +73,15 @@ Style and formatting are Biome's job: `bun run lint`, `bun run format`.
 - **Every lane writes where its time went** in `docs/time-log.md`, in the
   commit that lands it: that file's five rows, minutes rounded to five and read
   off timestamps, and the one bottleneck in a sentence — said in the report too.
+- **A prompt may carry several independent tasks; they are worked in order,
+  each landed before the next, with no question in between** — one that needs
+  the owner's decision goes in `docs/parked.md` with the question, and the next
+  task starts. **A message that arrives mid-turn is read by its prefix**:
+  `NEXT:` is appended to the list for after the current task, `STOP` applies
+  now, and anything without a prefix is asked about before it is acted on.
 
-Why any of that: `docs/git-and-landing.md`.
+Why any of that: `docs/git-and-landing.md`; the prefixes:
+`docs/working-with-claude.md`.
 
 ## Working in a cloud session
 
