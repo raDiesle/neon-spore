@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · 76461805 — frames paints the world as it advances, so effects age with it
+
+The driver stepped every tick and painted nothing until the picture was taken, so anything drawn off the render clock stood at its first frame however far the world had gone: a rock that landed six simulated seconds ago was still lodged in the skin with its crater covered, and five strips across a thousand ticks came back that way. The world is now stepped in runs no longer than the game's own frame cap and painted once per run for the time it advanced — what frame.ts's loop does with a real clock — so a capture of --wave 12 --ticks 2300 --seat p2 shows two open holes and no rock in either.
+
 ## 2026-09-10 · 5836476c — The panel is lit by the ship's own light, and the wash is gone
 
 The owner could still see a line at the join after the four new `panel:ship-join` cards, and a column of pixels said why: the wash that carried the belly's pale down into the panel had been tuned against the one x where the belly is pale. What makes the hull pale on the left and dark on the right is not a colour, it is `hull-barrel.ts` — the key light across the width, a cosine of where the membrane points — and the chamber never got that light. Two surfaces under two lights are two objects however well their edges meet.
