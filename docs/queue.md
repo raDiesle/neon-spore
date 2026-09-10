@@ -354,28 +354,29 @@ the workaround this entry ends. Find what is spinning, fix it, and prove it
 with `bun run versus:shot creature:echo cleft out.png --freeze 1.1 --only
 candidate --scale 6` coming back in under a minute with the echo in it.
 
-## A shard that goes red under `bun run land` leaves no record of which test
+## `wave.test.ts` reads WAVES at HEAD through git and times out under `check`
 
 - **Found:** 2026-09-10, claude/queue-the-mount-and-the-recoil-have-one-look-each-and
-- **Files:** `tools/check/shard.ts`, `tools/land/run.ts`
+- **Files:** `tools/frames/test/wave.test.ts`, `tools/check/shard.ts`, `tools/land/run.ts`
 
-Landing the queen lane on 10 September 2026, `bun run land --keep` reported
-`9247 pass, 1 fail — 1 shard red` and stopped; the same `bun run
-tools/check/shard.ts` run again by hand was green, and the landing that
-followed was green. It happened a second time the same afternoon, under
-`bun run check:fast` on the recoil lane: `3697 pass, 1 fail`, and green on
-the rerun. Both times the failing test's name was in the red shard's output,
-which `shard.ts` prints to stdout and nothing keeps — the session had piped
-`land` through `tail`, and once the terminal scrolled it was gone. So a flake
-was worked around by re-running, and the test that flaked is unknown, which
-is the one thing a flake entry needs.
+`waveNamesAt › reads today's WAVES from the working tree's own HEAD commit`
+shells out to `git rev-parse HEAD` and then reads the tree at it, and under
+eight shards on a loaded machine that took longer than bun's five-second
+default: it went red once under `bun run land --keep` (`9247 pass, 1 fail`),
+once under `bun run check:fast` on the next lane, and a third time under
+`check:fast` again, green on every rerun. A flake in the landing gate is a
+landing that has to be run twice, which is minutes each time. Give the test
+the timeout its work needs — or better, have it read the commit once for the
+whole file — and make sure it is not the shard that also happens to run a
+`bun install` (the red shard's output opened with one, from whichever test
+spawns it).
 
-Keep the check's output on disk. `shard.ts` already writes a junit file per
-shard under `tmpdir()` and merges them (`--junit`); have it also leave the
-merged report — or at least the names of the failing tests — at a fixed path
-(`tools/check/last-run.xml`, or under the scratch directory the hooks use),
-and have `land` name that path in its failure line so a session that ran the
-command through `tail` can still read what failed. Then queue the flake by
-name when it next happens. `tools/check/test/` holds the runner's tests; the
-proof is a deliberately failing test file run through the sharder and its
-name found in the kept report.
+It took three reds to learn the test's name, because the runner keeps no
+record: `shard.ts` prints the red shard's output to stdout and nothing keeps
+it, so a session that ran `land` through `tail` has nothing to read once the
+terminal scrolls. `shard.ts` already writes a junit file per shard under
+`tmpdir()` and merges them; leave the merged report — or at least the names
+of the failing tests — at a fixed path and have `land` name that path in its
+failure line. `tools/check/test/` holds the runner's tests; the proof is a
+deliberately failing file run through the sharder and its name found in the
+kept report.

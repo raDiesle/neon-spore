@@ -396,23 +396,3 @@ motion, each with its how-it-can-lose.
 
 The other answers offered were `chain`, `comma`, `frill`, `ray` and `reverb`;
 they went with the slot.
-
-## `creature:mount` — never opened, 2026-09-10
-
-The queue asked for a look record and three answers for THE MOUNT alongside
-THE RECOIL's, and the session that did the recoil found there was nothing of
-the mount's own to put a record on. A mount is a slick or a bulb standing on a
-wheel's rim: `wornKind` resolves it to one of those and `drawCreatures` draws
-it exactly as it draws a body in a lane — same contour, same colour, same
-own-motion, same size — and `gyre.ts` says why that is the creature rather
-than a saving: what the pair reads off a wheel is *the colour standing in a
-column*, the sentence they already know, and a mount that looked like
-anything else would be a new word to learn. Every look question about that
-picture — its skin, its interior, its outline, its sway — is already asked or
-answered under `creature:slick`, `creature:bulb`, `slick:shape`, `bulb:shape`
-and `slick:motion`, and a `creature:mount` slot would either duplicate one of
-those or argue with the mount's own design. The wheel that carries it is
-`creature:gyre`'s question. So no record was cut and no slot opened; if the
-owner wants the mount to say something a lane body does not, that is a
-question for him, and it is put to him in the report of the turn that wrote
-this rather than filed here as an answer.

@@ -19,6 +19,7 @@ import { drawGhost, showsGhostBody } from "./ghost.js";
 import { drawLid } from "./lid.js";
 import { drawLiving } from "./living-draw.js";
 import { drawMeteor } from "./meteor.js";
+import { MOUNT_LOOK } from "./mount-look.js";
 import { drawTorch } from "./torch.js";
 import { showsVeilCore } from "./veil.js";
 import { showsVolleyCore } from "./volley.js";
@@ -204,6 +205,11 @@ const EXCLUSIVE: ReadonlyMap<CreatureKind, BodyDraw> = new Map<CreatureKind, Bod
   // A skin two hands change the shape of, which is why `living-look.ts`
   // answers `null` for it and `drawLiving` cannot have it (`balloon.ts`).
   ["balloon", drawBalloon],
+  // A slick or a bulb on a wheel's rim, drawn by `drawLivingBody` as it always
+  // was — with one door left open: the contour it is drawn with is
+  // `MOUNT_LOOK.shape`'s answer, `undefined` as it ships, so a second answer
+  // to what a mount looks like has somewhere to sit (`mount-look.ts`).
+  ["mount", (b) => drawLivingBody(b, 1, MOUNT_LOOK.shape(b))],
 ]);
 
 /**

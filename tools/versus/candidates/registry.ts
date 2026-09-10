@@ -25,6 +25,9 @@ import { MAGNET_ORE } from "./creature-magnet/ore/index.js";
 import { MAGNET_ROD } from "./creature-magnet/rod/index.js";
 import { MAGNET_YAW } from "./creature-magnet/yaw/index.js";
 import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
+import { MOUNT_PENDANT } from "./creature-mount/pendant/index.js";
+import { MOUNT_RASP } from "./creature-mount/rasp/index.js";
+import { MOUNT_TAPROOT } from "./creature-mount/taproot/index.js";
 import { QUEEN_CARAPACE } from "./creature-queen/carapace/index.js";
 import { QUEEN_FACET } from "./creature-queen/facet/index.js";
 import { QUEEN_SCUTES } from "./creature-queen/scutes/index.js";
@@ -77,6 +80,9 @@ export const VARIANTS: Variant[] = [
   MAGNET_ROD,
   MAGNET_YAW,
   METEOR_FORGE,
+  MOUNT_PENDANT,
+  MOUNT_RASP,
+  MOUNT_TAPROOT,
   QUEEN_CARAPACE,
   QUEEN_FACET,
   QUEEN_SCUTES,

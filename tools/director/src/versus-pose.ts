@@ -202,6 +202,11 @@ const SLOT_POSE: Record<string, string> = {
   // because a cage with nothing wrong with it is three springs that all look
   // alike and the count is only visible once one differs (`poses-cage.ts`).
   "creature:recoil": "RECOIL · ONE BOUNCE SPENT",
+  // The six on a wheel's rim, opened on 10 September 2026 at the owner's
+  // asking, with three outlines that say *mount* where the shipped one says
+  // *slick*. The wheel's own pose: all six up, turning, which is the only
+  // state a mount is ever in (`mount-look.ts`).
+  "creature:mount": "GYRE · TURNING",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

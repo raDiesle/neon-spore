@@ -45,8 +45,16 @@ describe("the body draw a kind gets", () => {
   });
 
   it("falls through to the living draw for everything else", () => {
-    for (const kind of ["bulb", "veil", "volley", "carom", "recoil", "chute", "mount", "clasp"]) {
+    for (const kind of ["bulb", "veil", "volley", "carom", "recoil", "chute", "clasp"]) {
       expect(bodyDraw(kind as CreatureKind)).toBe(living);
     }
+  });
+
+  it("gives the mount a row of its own, which is the living draw with a door open", () => {
+    // `mount-look.ts`: the row exists so a candidate outline can be offered,
+    // and it hands the mount to `drawLivingBody` with whatever `MOUNT_LOOK`
+    // answers — `undefined` as it ships, so the picture is the worn kind's.
+    expect(bodyDraw("mount")).not.toBe(living);
+    expect(bodyDraw("mount")).not.toBe(rock);
   });
 });
