@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · 0bc74e85 — THE BALLOON's handles rest on the glass in the wall columns
+
+A balloon standing in column 0 or column 6 hung its outer handle 1.15 tiles out from its body, and on the phones the game ships on the field is the full width of the screen — so the ring rested two thirds of a tile past the edge, drawn where no finger can go, and the "PULL" word under it with it. Every arrival on THE BALLOON begins that way, since the wave sends bodies in from both wall columns. The rest is now held inside the screen by the ring's own radius, in `balloonHandleCircle`, the one place the rest is written down, so the picture and the hit test move together; the ring on that side sits against the body's own skin and is still plainly that body's. `drawHandleHint` keeps its word on the glass the same way. A fix to something wrong, not unlovely: the defect class CLAUDE.md names as a control under the status bar.
+
 ## 2026-09-10 · 38d151ce — slick:shape closed with nothing taken: COMMA and REVERB go to the shape sheet
 
 The owner read the five outlines on 9 September 2026 and kept the shipped slick. RAY, FRILL and CHAIN are rejected and go with the slot — one flat sheet with seven scallops that is close to a bar at 26 px, nine shallow lobes the wobble eats, and four sacs whose three waists are three places a body can look severed. COMMA and REVERB are kept as pictures: two OFFERED_DRAFTS cards on the slick's own motion, each with its how-it-can-lose — THE DART already owns a point, and plain reads as unfinished. `versus drop` wrote the DECIDED entry and removed the five candidates; the catalogue's counts move with them.
