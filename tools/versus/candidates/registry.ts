@@ -42,7 +42,10 @@ import { MOUNT_TAPROOT } from "./creature-mount/taproot/index.js";
 import { QUEEN_CARAPACE } from "./creature-queen/carapace/index.js";
 import { QUEEN_FACET } from "./creature-queen/facet/index.js";
 import { QUEEN_SCUTES } from "./creature-queen/scutes/index.js";
+import { RECOIL_CALYX } from "./creature-recoil/calyx/index.js";
+import { RECOIL_FOAM } from "./creature-recoil/foam/index.js";
 import { RECOIL_GLOBE } from "./creature-recoil/globe/index.js";
+import { RECOIL_MOONS } from "./creature-recoil/moons/index.js";
 import { RECOIL_SPRUNG } from "./creature-recoil/sprung/index.js";
 import { RECOIL_TUBE } from "./creature-recoil/tube/index.js";
 import { RIND_FLAKES } from "./creature-rind/flakes/index.js";
@@ -117,7 +120,10 @@ export const VARIANTS: Variant[] = [
   QUEEN_CARAPACE,
   QUEEN_FACET,
   QUEEN_SCUTES,
+  RECOIL_CALYX,
+  RECOIL_FOAM,
   RECOIL_GLOBE,
+  RECOIL_MOONS,
   RECOIL_SPRUNG,
   RECOIL_TUBE,
   RIND_FLAKES,
