@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · d8c86b8b — THE TELL hears the lift of a colour as the navigator's bolt
+
+The round only counted a bare `fire`, which the swipe across the ship and the desk keyboard send and the panel's lobes never do — a thumb on RED or CYAN sends `prime` down and up. So on a phone player 2 could not throw at all, and every exchange that needed a bolt was a stand-off nobody was told about. The lift is now the bolt, in the colour that was held, which is the game's own rule everywhere else. The rehearsal gains the page that was waiting on this: a third rung where the boss opens a cyan mouth and the navigator lifts CYAN.
+
 ## 2026-09-10 · 217515dd — The director's cascade is one @import list the dev route cannot reverse
 
 `index.html` linked eighteen sheets and relied on their order, with `director-phone.css` last so its media block won its ties. Bun's HTML dev route rewrote the links in reverse, so `bun run dev` viewed from a phone matched the phone query and lost every rule in it: four columns, the column heads showing, no menu. `src/director.css` now imports the eighteen in order and the page links that one sheet; `versus.html` takes its four the same way. A source test pins the order and keeps the phone sheet last. Checked on the hot server at 375px — one sheet, the shell's rules first, `.column-head` gone, a single column — and the static build's chunk still ends inside the phone block.
