@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · 217515dd — The director's cascade is one @import list the dev route cannot reverse
+
+`index.html` linked eighteen sheets and relied on their order, with `director-phone.css` last so its media block won its ties. Bun's HTML dev route rewrote the links in reverse, so `bun run dev` viewed from a phone matched the phone query and lost every rule in it: four columns, the column heads showing, no menu. `src/director.css` now imports the eighteen in order and the page links that one sheet; `versus.html` takes its four the same way. A source test pins the order and keeps the phone sheet last. Checked on the hot server at 375px — one sheet, the shell's rules first, `.column-head` gone, a single column — and the static build's chunk still ends inside the phone block.
+
 ## 2026-09-10 · 3b86e629 — The stale-install refusal names the command that works
 
 `bun run check` already refuses before `tsc` when a worktree's workspace links are missing, but it told the session to run `bun install` — which in exactly that state prints "no changes" and writes nothing, because the lockfile is satisfied and Bun does not re-check the links it once wrote. The refusal now says `bun install --force`, from a native shell, and says why the plain install is the same error spelled as a success. The doc's amendment carries the same sentence, and the queue item that found it is drained.
