@@ -1,5 +1,6 @@
 import { type ControlDef, type ControlSet, panelSlots } from "@neon-spore/content";
 import type { Circle, Layout } from "./layout.js";
+import { PANEL_PLAN } from "./panel-plan.js";
 import { showsCannon, showsShield } from "./view-role.js";
 
 /**
@@ -77,9 +78,10 @@ export function bandLobes(l: Layout, set: ControlSet, player: 1 | 2): Lobe[] {
   const solo = l.role !== "test";
   // Each seat's share of the width, and the middle of it. In the test view the
   // two seats stand side by side and neither may reach into the other's half.
-  const centre = solo ? 0.5 : player === 1 ? 0.23 : 0.72;
-  const maxPitch = solo ? (player === 1 ? 0.28 : 0.32) : player === 1 ? 0.15 : 0.24;
-  const share = solo ? 1 : 0.46;
+  // The shares are the panel's plan (`panel-plan.ts`), the same record
+  // `computeLayout` reads for the rows.
+  const seats = solo ? PANEL_PLAN.solo : PANEL_PLAN.test;
+  const { centre, maxPitch, share } = player === 1 ? seats[0] : seats[1];
   const pitch = Math.min(maxPitch, share / slots.length);
   const first = centre - ((slots.length - 1) / 2) * pitch;
   const out: Lobe[] = [];

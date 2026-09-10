@@ -8,7 +8,7 @@ import { halo } from "./glow.js";
 import { guardLapse } from "./guard-lapse.js";
 import { lanceFillFor } from "./lance.js";
 import type { Circle, Layout } from "./layout.js";
-import { drawLobeGloss, drawLobeSocket } from "./lobe-shell.js";
+import { LOBE_LOOK } from "./lobe-look.js";
 import { drawFaultOver } from "./malfunction-look.js";
 import { PALETTE } from "./palette.js";
 import { drawPinLobe, pinLobeOf } from "./pinball-button.js";
@@ -53,7 +53,7 @@ export function drawLobe(
 ): void {
   const { x, y, r } = circle;
   const skin = seatSkin(l.role);
-  drawLobeSocket(ctx, x, y, r, l.dpr, skin.lip);
+  LOBE_LOOK.socket({ ctx, x, y, r, dpr: l.dpr, skin });
   drawFace(ctx, circle, c, world, armed, open, skin, time, lead);
   // A control this wave's fault has taken over is drawn and then drawn broken,
   // over the top of its own face — the panel keeps every button where it was
@@ -62,7 +62,7 @@ export function drawLobe(
   if (controlBroken(c.id, world.malfunction)) {
     drawFaultOver(ctx, circle, time);
   }
-  drawLobeGloss(ctx, x, y, r, l.dpr);
+  LOBE_LOOK.gloss({ ctx, x, y, r, dpr: l.dpr, skin });
 }
 
 /** The button itself, with nothing of the panel around it. */

@@ -466,6 +466,7 @@ place — the generator keeps whatever is there.
 | Path | One line |
 |---|---|
 | `packages/render/src/palette.ts` | style guide as values |
+| `packages/render/src/panel-plan.ts` | where the controls stand on the panel, as a record — the rows, the radius and each seat's spread, read by the layout and by bandLobes so drawing and touch move together |
 | `packages/render/src/glow.ts` | glow without shadowBlur |
 | `packages/render/src/layout.ts` | screen geometry, shared with input hit-testing |
 | `packages/render/src/field.ts` | background, grid pulse, radar strip |
@@ -671,6 +672,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/band-seam.ts` | WHERE THE SHIP ENDS AND THE PANEL BEGINS — WHICH IS NOWHERE |
 | `packages/render/src/band-slime.ts` | WHAT RUNS OFF THE MEMBRANE, AND WHAT REACHES DOWN FROM IT |
 | `packages/render/src/lobe-shell.ts` | WHAT A BUTTON ON THE PANEL SITS IN, AND WHAT IT IS SHAPED LIKE |
+| `packages/render/src/lobe-look.ts` | what a button stands in and shines with, as a record — the socket under a face and the gloss over it, so a candidate panel can grow its buttons as pores |
 | `packages/render/src/recoil-vent.ts` | The jet THE RECOIL leaves behind: fire vented **downward** out of the tile a shot met it in |
 | `packages/render/src/recoil.ts` | THE RECOIL's cage: the sprung frame a slick or a bulb falls inside |
 | `packages/render/src/guide-nav.ts` | BACK, the page number, and NEXT: the bar a stepped guide is turned by |
@@ -794,6 +796,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/grip-arrows.ts` | THE PUSH, said before it happens: the two white arrows beside a held rock, and the beat they go out for |
 | `packages/render/src/effects-ship.ts` | the ship's own clocks: the swallow, the fire opening, the deflection flash, the queen's shudder |
 | `packages/render/src/strand-still.ts` | One live bead on the navigator's screen that **no shot can answer this instant**: the reel drawn as a grey outline |
+| `packages/render/src/strip-look.ts` | what a strip looks like, as a record — the trough, its lip, the rail, the stations and the block, lifted out of band-channel so a candidate panel can draw a rail as something else |
 | `packages/render/src/maze-timer.ts` | THE MAZE's clock, drawn on the outside of the heart |
 | `packages/render/src/choir-arrows.ts` | **THE CHOIR's two arrows**: the way to open a membrane on a device that cannot tell you it has been shaken |
 | `packages/render/src/choir-prompt.ts` | **The instruction over a membrane**: a scan frame around the middle dot with the gesture written under it |

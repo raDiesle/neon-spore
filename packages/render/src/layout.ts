@@ -17,6 +17,7 @@ export {
   type ViewRole,
 } from "./view-role.js";
 
+import { PANEL_PLAN } from "./panel-plan.js";
 import type { ViewRole } from "./view-role.js";
 
 /**
@@ -143,13 +144,18 @@ export function computeLayout(viewport: Viewport, cfg: SimConfig, role: ViewRole
 
   // One role has a single strip and its buttons, so both move up and the band
   // itself is shorter. Two roles share the band in the order they are read out.
-  const rowCannon = bandTop + bandHeight * (solo ? 0.28 : 0.2);
-  const rowShield = bandTop + bandHeight * (solo ? 0.28 : 0.48);
-  const rowButton = bandTop + bandHeight * (solo ? 0.72 : 0.8);
+  // The shares are the panel's plan (`panel-plan.ts`), which is also what
+  // `bandLobes` reads — so a candidate arrangement moves both at once.
+  const at = solo ? 0 : 1;
+  const plan = PANEL_PLAN;
+  const rowCannon = bandTop + bandHeight * plan.cannonRow[at];
+  const rowShield = bandTop + bandHeight * plan.shieldRow[at];
+  const rowButton = bandTop + bandHeight * plan.lobeRow[at];
   // Both seats' lobes share the test view — and `hitCircle` answers a ring 30%
   // wider than the circle drawn, so they have to be smaller there than on a
   // screen carrying one role's half.
-  const r = Math.min(bandHeight * (solo ? 0.19 : 0.14), width * (solo ? 0.068 : 0.056));
+  const r = Math.min(bandHeight * plan.lobeR[at], width * plan.lobeRCap[at]);
+  const stripHeight = Math.min(bandHeight * plan.stripH, plan.stripHCap);
 
   return {
     role,
@@ -168,8 +174,8 @@ export function computeLayout(viewport: Viewport, cfg: SimConfig, role: ViewRole
     playHeight,
     radarHeight,
     hullY: gridTop + (cfg.rows - 1) * tile,
-    cannonStrip: { y: rowCannon, height: Math.min(bandHeight * 0.24, 32) },
-    shieldStrip: { y: rowShield, height: Math.min(bandHeight * 0.24, 32) },
+    cannonStrip: { y: rowCannon, height: stripHeight },
+    shieldStrip: { y: rowShield, height: stripHeight },
     lobeY: rowButton,
     lobeR: r,
   };
