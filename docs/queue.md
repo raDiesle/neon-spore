@@ -401,6 +401,7 @@ document's table; `bun run check` green is the proof of coverage.
 ## `versus:shot --scale 3` hangs the page on a `crop: "tile"` pose
 
 - **Found:** 2026-09-10, claude/queue-the-ghost-and-the-echo-have-one-look-each-and-no
+- **Taken:** 2026-09-10, claude/queue-versus-shot-scale-3-hangs-the-page-on-a-crop-til
 - **Files:** `tools/frames/shot.ts`, `tools/director/src/versus-pair.ts`,
   `tools/director/src/versus-crop.ts`
 
