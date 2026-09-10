@@ -106,6 +106,8 @@ const BOSSES: Pose[] = [
   {
     name: "QUEEN · SHUT",
     note: "Armoured, holding her row, both marks blank. Nothing that reaches her while she is like this takes a petal.",
+    lookAt:
+      "the armour across her back, between the two marks under her and the two rocks on her wings — whether it has a near side, and whether anything on it moves",
     crop: "tile",
     span: 8,
     at: queenAt,

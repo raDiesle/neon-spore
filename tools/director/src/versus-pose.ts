@@ -192,6 +192,11 @@ const SLOT_POSE: Record<string, string> = {
   // `poses-versus.ts`).
   "creature:throb": "THROB · TURNING",
   "creature:crawler": "CRAWLER · WALKING",
+  // The other boss, opened on 10 September 2026 with three answers to her
+  // shell. Judged shut: the armour is the whole of her while both marks are
+  // blank, and it is the one state where nothing under it is asking to be
+  // looked at instead (`poses-field.ts`, `queen-look.ts`).
+  "creature:queen": "QUEEN · SHUT",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

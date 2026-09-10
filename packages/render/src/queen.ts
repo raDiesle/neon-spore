@@ -5,6 +5,7 @@ import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawEgg, drawSideHint } from "./queen-egg.js";
 import { QUEEN_FIGURE, queenMarkCenter } from "./queen-figure.js";
+import { QUEEN_LOOK } from "./queen-look.js";
 import { drawMark, markGlow } from "./queen-weakpoint.js";
 
 // The figure itself is next door, with the rest of the measurements a caption
@@ -149,9 +150,12 @@ export function torchTremor(
 export const hullShake = (t: { x: number; y: number }) => ({ x: t.x * 0.22, y: t.y * 0.22 });
 /**
  * The armoured shell — the same angular rock her torches are made of rather
- * than a living contour. Faceted and gradient-shaded like `drawTorchRock`,
- * so the material reads as one thing across her whole body and the rock she
- * drops. Drawn over both marks, closing over the top and sides of each.
+ * than a living contour, so the material reads as one thing across her whole
+ * body and the rock she drops. Drawn over both marks, closing over the top
+ * and sides of each. What it is *made of* is `QUEEN_LOOK.shell`'s answer
+ * (`queen-look.ts`); this builds the contour, so a look cannot change her
+ * silhouette, and reads the record once per frame, which is the whole route
+ * a candidate patches.
  */
 function drawShell(
   ctx: CanvasRenderingContext2D,
@@ -172,15 +176,7 @@ function drawShell(
 
   ctx.save();
   ctx.translate(x, y);
-  const rg = ctx.createLinearGradient(-rx, -ry, rx, ry);
-  rg.addColorStop(0, "#6B707E");
-  rg.addColorStop(0.55, "#3C3F49");
-  rg.addColorStop(1, PALETTE.rockDark);
-  ctx.fillStyle = rg;
-  ctx.fill(path);
-  ctx.strokeStyle = PALETTE.rock;
-  ctx.lineWidth = Math.max(1, Math.min(rx, ry) * 0.06);
-  ctx.stroke(path);
+  QUEEN_LOOK.shell({ ctx, path, rx, ry, t, time, healthShare });
   ctx.restore();
 }
 

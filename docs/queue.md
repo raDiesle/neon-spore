@@ -190,22 +190,6 @@ Whichever wins, `packages/render/test/wave-budget.test.ts`'s BULB QUEEN rows
 are the proof it changed nothing else, and `bun run frames . --wave 25 --at`
 takes the two pictures for the owner to choose between.
 
-## THE QUEEN has one look and no second answer, and no record to patch
-
-- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
-- **Taken:** 2026-09-10, claude/queue-the-queen-has-one-look-and-no-second-answer-and
-- **Files:** `packages/render/src/queen-figure.ts`,
-  `packages/render/src/queen-egg.ts`, `packages/render/src/queen-glyph.ts`,
-  `tools/versus/candidates/`
-
-The boss of act 4 and the biggest body on any field, drawn from three files
-with no `-look.ts` record between them, so a candidate has nothing to patch.
-Cut one — the fields `queen-figure.ts` reads for shell, marks and interior —
-the way `meteor-look.ts` was cut, then open `creature:queen` with three
-candidates on it. Depth matters more here than anywhere: she fills the screen,
-and a flat fill at that size is the most visible thing in the game.
-`.claude/skills/depth` applies. Pose in `versus-pose.ts` in the same commit.
-
 ## THE RIND and THE LID have one look each and no record to patch
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
