@@ -719,6 +719,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/carom-look.ts` | THE ONE RECORD A CANDIDATE **CAROM** CRUST PATCHES |
 | `packages/render/src/carom-facet.ts` | THE CAROM's crust cut into lit faces, nose along its heading — the base every capsule candidate draws on |
 | `packages/render/src/carom-marks.ts` | A rescue capsule's markings on those faces: rivets, chevrons, a beacon on the beat, a scorched shield |
+| `packages/render/src/carom-capsule.ts` | THE CAROM's shipped crust: the rescue capsule the owner picked — stripe on the rear faces, rivets, scorched nose, beacon on the tail |
 | `packages/render/src/controls-fleet.ts` | THE FLEET's own two controls, and the crosshair only they still wear |
 | `packages/render/src/ship-air.ts` | THE AIR THE SHIP IS SITTING IN |
 | `packages/render/src/ship-nerves.ts` | what runs from a control to the organ it drives, as a record — drawn under the controls and across the membrane; ships empty, a candidate ship wires it |

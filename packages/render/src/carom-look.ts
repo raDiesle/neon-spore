@@ -1,6 +1,4 @@
-import { crystalPath, LIGHT_HALF, METEOR } from "@neon-spore/content";
-import { litRound } from "./key-light.js";
-import { STROKE } from "./palette.js";
+import { capsule } from "./carom-capsule.js";
 
 /**
  * THE ONE RECORD A CANDIDATE **CAROM** CRUST PATCHES.
@@ -29,9 +27,11 @@ import { STROKE } from "./palette.js";
  * that moved it would be asking two questions at once. A candidate that wants
  * a differently-lit bezel is a second slot, later.
  *
- * **The shipped pair came through here with not one pixel moved.** Both
- * functions are the code `carom.ts` carried inline, with the arguments
- * gathered into a record and nothing else touched.
+ * **The shipped crust is a rescue capsule since 10 September 2026.** The
+ * rolling stone that shipped before it — `crystalPath` filled flat and lit by
+ * one gradient — went when the owner took FACET and asked for it as a capsule;
+ * `carom-capsule.ts` is the answer he picked of the three offered, on
+ * `carom-facet.ts`. The streak is still the code `carom.ts` carried inline.
  */
 
 /**
@@ -51,7 +51,9 @@ export interface CrustDraw {
    * read off the world, so a picture and the next beat can never point
    * opposite ways. */
   readonly dir: number;
-  /** How far round the stone has rolled on this frame, in radians. */
+  /** How far round the stone has rolled on this frame, in radians. The
+   * capsule ignores it — its nose is on its heading — and a rolling look
+   * reads it. */
   readonly turn: number;
   /** Seconds on the wall clock, for a facet that has its own gutter. */
   readonly time: number;
@@ -64,26 +66,20 @@ export interface CrustDraw {
   /** Where the body is on the field, in the same pixels the context has
    * been translated to — for a look whose turn follows the distance it has
    * travelled rather than the clock, so it turns back at the wall because
-   * the heading does. Not read by the shipped stone. */
+   * the heading does. Not read by the capsule. */
   readonly x: number;
   readonly y: number;
   /** This body's own phase, from its id, so two caroms are never one drawing
    * done twice; `turn` already carries it plus the clock's drift. */
   readonly phase: number;
   /** The rock's own dark and the ember a heated one glows, hazed the same —
-   * neither read by the shipped stone, both by a look that shades it. */
+   * the capsule scorches its shield with the ember. */
   readonly dark: string;
   readonly ember: string;
   /** Where in the beat this frame falls, 0 at the beat and 1 just before the
-   * next — for a light on the shell that keeps the game's own time. Not read
-   * by the shipped stone. */
+   * next — the capsule's beacon flashes on it. */
   readonly beat: number;
 }
-
-/** The unlit mid-tone a meteor is filled with before the key touches it.
- * `meteor.ts`'s own fill, so the rock a cracked carom becomes is the identical
- * drawing with the window closed up. */
-export const STONE_FILL = "#8A8F9C";
 
 /** How far the streak reaches behind it, in rock radii. Two: about half a lane
  * at the top of the field and most of one at the bottom, which is the distance
@@ -91,39 +87,6 @@ export const STONE_FILL = "#8A8F9C";
 export const TRAIL_MUL = 2.0;
 /** How much of the trail's own colour survives where it leaves the rock. */
 const TRAIL_ALPHA = 0.5;
-
-/**
- * The rock as it ships: `crystalPath` at the full `METEOR` parameters with the
- * window's disc added to it, filled `evenodd` so the hole is never painted at
- * all, lit by the key and outlined in the metal.
- *
- * The whole path is drawn inside the *turned* frame and the circle is added
- * there too, which is right rather than convenient: a circle about the origin
- * is the same circle whichever way the frame is turned, so the stone rolls
- * while the window stays where the eye left it.
- */
-export function stone(d: CrustDraw): void {
-  const { ctx, r, glass, turn, time, metal } = d;
-  const shell = new Path2D(
-    crystalPath(0, 0, r, r, METEOR.sides, METEOR.depth, METEOR.wobble, time * 0.15, METEOR.seed),
-  );
-  const hole = new Path2D();
-  hole.arc(0, 0, glass, 0, Math.PI * 2);
-  shell.addPath(hole);
-
-  ctx.save();
-  ctx.rotate(turn);
-  ctx.fillStyle = STONE_FILL;
-  ctx.fill(shell, "evenodd");
-  ctx.save();
-  ctx.clip(shell, "evenodd");
-  litRound(ctx, 0, 0, r, LIGHT_HALF.rock, turn);
-  ctx.restore();
-  ctx.strokeStyle = metal;
-  ctx.lineWidth = STROKE.outline;
-  ctx.stroke(shell);
-  ctx.restore();
-}
 
 /**
  * The wedge dragged behind it as it ships: widest at the rock, gone by the far
@@ -164,6 +127,6 @@ export interface CaromLook {
   travel(d: CrustDraw): void;
 }
 
-/** The shipped crust: a lit crystal with a hole in it, dragging a wedge of the
- * body's own colour behind it along the heading. */
-export const CAROM_LOOK: CaromLook = { shell: stone, travel: wedge };
+/** The shipped crust: a rescue capsule cut from FACET's faces, nose along its
+ * heading, dragging a wedge of the body's own colour behind it (`carom-capsule.ts`). */
+export const CAROM_LOOK: CaromLook = { shell: capsule, travel: wedge };

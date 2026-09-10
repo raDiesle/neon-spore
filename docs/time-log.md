@@ -242,3 +242,19 @@ slots closed. About 25 min.
 Bottleneck: **looking** — photographing a kill means guessing the tick the
 bolt lands on, and it took three strips of the wrong tick before one of the
 right one.
+
+## 2026-09-10 · hit-looks (second piece: the carom capsule)
+
+FACET taken on as a space rescue capsule: three offered on its faces, one
+picked in chat and shipped, the slot closed. About 40 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the four carom candidates, `carom-look.ts`, `carom.ts`, the window, the adopt and by-hand tools |
+| writing | 20 | `carom-facet.ts` and `carom-marks.ts`, three paints and their indexes, the by-hand take, DECIDED, INDEX |
+| looking | 10 | three `versus:shot` pictures twice over with a strip tool written in the scratchpad, one game frame, one perf run |
+| friction | 5 | a heredoc with a long file died in bash and was written with the tool instead; `adopt` refuses a slot whose travel is the shipped wedge, and `drop` needs the directories still there — the DECIDED entry was written by hand |
+| landing | 5 | `check:fast`, the commit, `land --keep` |
+
+Bottleneck: **writing** — three candidates that all wear four markings is
+one base and two helper files before any of the three can be drawn.

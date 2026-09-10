@@ -434,3 +434,28 @@ one reads on its body.
 
 The answers offered were `afterglow`, `rupture` and `splash`; they went with
 the slot.
+
+## `creature:carom` / `capsule` — taken by hand, 2026-09-10
+
+The owner picked FACET from the four on the slot on 10 September 2026 and
+asked for it taken further — *more like a space rescue capsule*: the cut
+outline kept, the nose along its heading, seams and rivets, a band of hazard
+chevrons, a beacon on the beat and a scorched shield on the side it travels
+toward. GRIT, KEEL and PITS went with that answer. FACET's faces became
+`packages/render/src/carom-facet.ts` and the four markings
+`carom-marks.ts`, three capsules were offered on them, and he took CAPSULE in
+chat: the restrained one — the stripe on the outer ring of the four rear
+faces, dark, white, white, dark; a rivet at every ridge vertex; the nose and
+half of each shoulder scorched with an ember lip; a small beacon on the tail
+flashing the body's colour on the beat.
+
+Taken by hand because `adopt` refuses a slot whose `travel` is the shipped
+`wedge` rather than a sibling file: the paint is
+`packages/render/src/carom-capsule.ts`, `CAROM_LOOK.shell` points at it, and
+the rolling stone it replaced is deleted from `carom-look.ts`. `CrustDraw`
+gained `beat` for the beacon.
+
+The other answers offered were `lifeboat` (every rear face a band from
+silhouette to glass, a beacon that throws a flash) and `pod` (plain riveted
+plate, the stripe as a hatch ring on the bevel, the beacon on a mast); they
+went with the slot.

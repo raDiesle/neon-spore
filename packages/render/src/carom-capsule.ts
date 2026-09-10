@@ -1,19 +1,7 @@
-import { METEOR } from "../../../../../packages/content/src/index.js";
-import {
-  beaconPulse,
-  drawFacets,
-  headingAngle,
-  plate,
-} from "../../../../../packages/render/src/carom-facet.js";
-import type { CrustDraw } from "../../../../../packages/render/src/carom-look.js";
-import {
-  beacon,
-  chevron,
-  emberLip,
-  rivet,
-  scorched,
-  shieldShare,
-} from "../../../../../packages/render/src/carom-marks.js";
+import { METEOR } from "@neon-spore/content";
+import { beaconPulse, drawFacets, headingAngle, plate } from "./carom-facet.js";
+import type { CrustDraw } from "./carom-look.js";
+import { beacon, chevron, emberLip, rivet, scorched, shieldShare } from "./carom-marks.js";
 
 /**
  * CAPSULE — FACET pointed along its heading, marked the way a capsule is.
