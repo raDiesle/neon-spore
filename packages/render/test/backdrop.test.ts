@@ -1,6 +1,7 @@
 import { beforeAll, describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
-import { drawBackdrop, hash01 } from "../src/backdrop.js";
+import { hash01 } from "../src/backdrop.js";
+import { drawBackdrop } from "../src/backdrop-look.js";
 import { computeLayout } from "../src/layout.js";
 import { installCanvasGlobals } from "./canvas-stub.js";
 

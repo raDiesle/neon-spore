@@ -511,6 +511,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/arrivals.ts` | Which impacts have actually landed, as far as the picture is concerned |
 | `packages/render/src/assets.d.ts` | Bun's bundler emits an imported binary as a file and hands back its URL |
 | `packages/render/src/backdrop.ts` | The field's back: two depths of drifting motes, a slow wash, and the horizon they sit in front of |
+| `packages/render/src/backdrop-look.ts` | THE ONE RECORD A CANDIDATE **BACKDROP** PATCHES |
 | `packages/render/src/banner.ts` | The one-word receipt for what a pod just gave, and the colour it reads in |
 | `packages/render/src/briefing.ts` | How a wave opens, drawn: first its introduction, then its guide |
 | `packages/render/src/break-look.ts` | THE ONE RECORD A CANDIDATE **BREAK** PATCHES |

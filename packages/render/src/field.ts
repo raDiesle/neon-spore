@@ -1,5 +1,5 @@
 import { isMeteorKind, type World } from "@neon-spore/sim";
-import { drawBackdrop } from "./backdrop.js";
+import { drawBackdrop } from "./backdrop-look.js";
 import { needsComms } from "./comms.js";
 import { drawEyeGlyph } from "./comms-glyphs.js";
 import { drawCoordGrid } from "./coord-grid.js";

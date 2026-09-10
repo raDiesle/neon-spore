@@ -138,8 +138,17 @@ function renderScreen(
   rightBox.dataset.versusKey = `${slot.slot}/${candidate.name}/${role}`;
 
   const banner = el("div", "versus-banner");
+  // A still's own moment is the camera's kind of freeze — counted in ticks,
+  // never off the wall. It was a `setTimeout` calling `pair.freeze()`, and on
+  // a cold page, where the first frames are slow, the wall clock beat the
+  // camera's tick count to it: `frozen` was set from outside the tick path,
+  // the loop stopped stepping, and `Freeze.mark` — which only the tick path
+  // calls — never ran, so `bun run versus:shot` waited for a `[data-frozen]`
+  // that was never coming. Every first shot after an edit timed out and the
+  // second passed. One mechanism now, and the camera's own request wins.
+  const freezeSeconds = shot.freezeSeconds ?? candidate.screenshot?.freezeSeconds ?? null;
   const pair = startPair(
-    { pose, role, variant: candidate, freezeSeconds: shot.freezeSeconds },
+    { pose, role, variant: candidate, freezeSeconds },
     {
       onSettled(identical) {
         banner.textContent = identical
@@ -157,9 +166,9 @@ function renderScreen(
   if (candidate.screenshot) {
     // No CURRENT side at all: `pair.left` is built but never mounted here —
     // the whole point of a screenshot row is one picture documenting this
-    // answer, not a compare. `freeze`, not `setRunning(false)`, so the frame
-    // it holds carries no `hud.ts` "PAUSED" caption.
-    window.setTimeout(() => pair.freeze(), candidate.screenshot.freezeSeconds * 1000);
+    // answer, not a compare. The freeze is the pair's own, above: `freeze`
+    // and not `setRunning(false)`, so the frame it holds carries no `hud.ts`
+    // "PAUSED" caption.
     stage.append(rightBox);
     screen.append(stage, banner);
     return screen;

@@ -235,22 +235,6 @@ working while changing the shape they hang off. Read `DECIDED.md` on how the
 slot left the first time before opening it. Both sides animate, and the pose is
 the default: the ship is on every frame.
 
-## The space behind the game has never had a second answer
-
-- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
-- **Taken:** 2026-09-10, claude/queue-the-space-behind-the-game-has-never-had-a-second
-- **Files:** `packages/render/src/backdrop.ts`,
-  `packages/render/src/light-shafts.ts`, `packages/render/src/field.ts`,
-  `tools/versus/candidates/`
-
-Everything the two players read sits on one backdrop that has never been argued
-with. Open `field:backdrop` with three candidates. The rule that binds this one
-hardest is that a decoration is full strength on a menu and much smaller over
-the field, which two people are reading at speed — a background that competes
-with a body is a defect however handsome it is. So the candidates are judged on
-whether the field is easier to read, not on whether the picture is prettier. A
-still is enough here unless a candidate moves.
-
 ## The band the players actually touch has one look
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067

@@ -1,6 +1,5 @@
 import { gradientSlot, slotGradient } from "./gradient-slot.js";
 import type { Layout } from "./layout.js";
-import { drawLightShafts } from "./light-shafts.js";
 import { PALETTE } from "./palette.js";
 
 /**
@@ -15,6 +14,11 @@ import { PALETTE } from "./palette.js";
  * Deliberately dim throughout. The creatures are the brightest thing on the
  * field; a backdrop bright enough to compete with them breaks the one thing
  * that has to read at 26 px on a phone — see `bun run shapes`.
+ *
+ * **The layers, not the picture.** Each pass here is exported on its own, and
+ * the order they are laid down in — and whether they are laid down at all —
+ * is `backdrop-look.ts`'s, the one record a candidate backdrop patches. A
+ * candidate keeps a layer by calling it and drops one by not.
  */
 
 /**
@@ -39,7 +43,7 @@ export function hash01(seed: number): number {
   return (h >>> 0) / 4294967296;
 }
 
-function withAlpha(hex: string, alpha: number): string {
+export function withAlpha(hex: string, alpha: number): string {
   const byte = Math.round(Math.max(0, Math.min(1, alpha)) * 255);
   return `${hex}${byte.toString(16).padStart(2, "0")}`;
 }
@@ -52,12 +56,12 @@ function withAlpha(hex: string, alpha: number): string {
  */
 const WASH_TINTS = ["#241B4F", "#152A45", "#3A1B45", "#123B2E", "#402313"] as const;
 
-function tintFor(wave: number): string {
+export function tintFor(wave: number): string {
   const i = ((wave % WASH_TINTS.length) + WASH_TINTS.length) % WASH_TINTS.length;
   return WASH_TINTS[i]!;
 }
 
-interface MoteStyle {
+export interface MoteStyle {
   count: number;
   /** Keeps this depth's hashes out of the other depth's — otherwise both
    * layers would draw the same dust in the same places. */
@@ -69,7 +73,7 @@ interface MoteStyle {
 }
 
 /** Farther, smaller, slower, dimmer. */
-const FAR: MoteStyle = {
+export const FAR: MoteStyle = {
   count: 30,
   seedBase: 0,
   speed: 0.007,
@@ -79,7 +83,7 @@ const FAR: MoteStyle = {
 
 /** Nearer, a touch bigger and brighter, drifting faster — parallax between
  * the two is the whole of what reads as depth. */
-const NEAR: MoteStyle = {
+export const NEAR: MoteStyle = {
   count: 14,
   seedBase: 10_000,
   speed: 0.021,
@@ -94,14 +98,14 @@ const NEAR: MoteStyle = {
  * and it moves by a drift computed from `time` at the draw site, in the order
  * the table is in, which is the order the motes were always drawn in.
  */
-interface Mote {
+export interface Mote {
   bx: number;
   by: number;
   size: number;
   alpha: number;
 }
 
-function motesOf(style: MoteStyle): Mote[] {
+export function motesOf(style: MoteStyle): Mote[] {
   const out: Mote[] = [];
   for (let i = 0; i < style.count; i++) {
     const s = style.seedBase + i;
@@ -115,10 +119,10 @@ function motesOf(style: MoteStyle): Mote[] {
   return out;
 }
 
-const FAR_MOTES = motesOf(FAR);
-const NEAR_MOTES = motesOf(NEAR);
+export const FAR_MOTES = motesOf(FAR);
+export const NEAR_MOTES = motesOf(NEAR);
 
-function drawMotes(
+export function drawMotes(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   time: number,
@@ -146,7 +150,7 @@ function drawMotes(
  * time, so the same gradient serves every frame between two waves. */
 const horizonSlot = gradientSlot<CanvasGradient>();
 
-function drawHorizon(ctx: CanvasRenderingContext2D, l: Layout, wave: number): void {
+export function drawHorizon(ctx: CanvasRenderingContext2D, l: Layout, wave: number): void {
   if (l.gridHeight <= 0 || l.width <= 0) return;
   const y = l.gridTop + l.gridHeight * HORIZON_FRAC;
   const band = Math.max(1, l.gridHeight * 0.1);
@@ -165,7 +169,12 @@ function drawHorizon(ctx: CanvasRenderingContext2D, l: Layout, wave: number): vo
 /** A very slow, very faint wash over the whole sky, breathing rather than
  * static — the one part of the backdrop that moves without anything crossing
  * it, so the field never looks quite like a still. */
-function drawWash(ctx: CanvasRenderingContext2D, l: Layout, wave: number, time: number): void {
+export function drawWash(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  wave: number,
+  time: number,
+): void {
   const height = l.bandTop;
   if (height <= 0 || l.width <= 0) return;
   const tint = tintFor(wave);
@@ -179,20 +188,4 @@ function drawWash(ctx: CanvasRenderingContext2D, l: Layout, wave: number, time: 
   g.addColorStop(1, withAlpha(tint, 0));
   ctx.fillStyle = g;
   ctx.fillRect(0, 0, l.width, height);
-}
-
-export function drawBackdrop(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  wave: number,
-  time: number,
-): void {
-  drawWash(ctx, l, wave, time);
-  // Light reaching the water, over the wash and under the horizon band and
-  // the motes — a suggestion under the field's other back layers, never on
-  // top of them. Its own file: `light-shafts.ts` has the why and the geometry.
-  drawLightShafts(ctx, l, time);
-  drawHorizon(ctx, l, wave);
-  drawMotes(ctx, l, time, FAR, FAR_MOTES);
-  drawMotes(ctx, l, time, NEAR, NEAR_MOTES);
 }

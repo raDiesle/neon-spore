@@ -227,6 +227,13 @@ const SLOT_POSE: Record<string, string> = {
   // follows a carom is one in which the carom never moves.
   "creature:carom": "CAROM · CROSSING",
   "creature:chute": "CHUTE · THROWN CLEAR",
+  // The space behind the game, opened on 10 September 2026 — the first slot
+  // here whose subject is not on the field but under it. Judged on the one
+  // pose that puts four kinds of body on the field at once, because the
+  // question is not whether the back is handsome but whether the bodies in
+  // front of it are easier to read; a back judged on an empty field would win
+  // on exactly the thing it must lose on (`backdrop-look.ts`).
+  "field:backdrop": "BODIES · FOUR KINDS AT ONCE",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */
