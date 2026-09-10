@@ -208,6 +208,7 @@ in the same commit.
 ## THE QUEEN has one look and no second answer, and no record to patch
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Taken:** 2026-09-10, claude/queue-the-queen-has-one-look-and-no-second-answer-and
 - **Files:** `packages/render/src/queen-figure.ts`,
   `packages/render/src/queen-egg.ts`, `packages/render/src/queen-glyph.ts`,
   `tools/versus/candidates/`
