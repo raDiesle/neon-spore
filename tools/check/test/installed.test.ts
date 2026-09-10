@@ -56,8 +56,12 @@ describe("workspace links", () => {
   test("the refusal says which package needs what, and why tsc would have lied", () => {
     const lines = refusal([{ dir: "tools/probe", dep: "@neon-spore/sim" }]);
     expect(lines[0]).toContain("1 workspace link is missing");
+    // A plain `bun install` in a stale worktree says "no changes" and writes
+    // nothing; the refusal must name the command that actually works.
+    expect(lines[0]).toContain("bun install --force");
     expect(lines[1]).toBe("  tools/probe needs @neon-spore/sim");
-    expect(lines[2]).toContain("Cannot find module");
+    expect(lines[2]).toContain("--force");
+    expect(lines[3]).toContain("Cannot find module");
   });
 });
 

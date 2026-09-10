@@ -552,30 +552,6 @@ The proof is a test in `packages/sim/test/` that plays one exchange with a
 unblocks is the navigator's own throw in `scenes/the-tell.ts`, whose comment
 says what to add.
 
-## `bun install` in a stale worktree writes no workspace links and says nothing
-
-- **Found:** 2026-09-09, claude/shell-plate-versus-page-d18721
-- **Taken:** 2026-09-10, claude/queue-bun-install-in-a-stale-worktree-writes-no-worksp
-- **Files:** `docs/working-with-claude.md`, `tools/check/run.ts`
-
-A worktree that had been installed once already came back with no
-`node_modules/@neon-spore` anywhere in it — not at the root and not under any
-`tools/*` package — so `bunx tsc --noEmit` failed with twenty `TS2307: Cannot
-find module '@neon-spore/render'` errors in `tools/` while `bun test` and
-`bun run frames` both ran fine, because Bun resolves a workspace at run time
-without needing the link on disk. Running `bun install` from a native
-PowerShell, which is what `CLAUDE.md` says to do, printed `Checked 76 installs
-across 151 packages (no changes)` and wrote nothing. Only `bun install --force`
-recreated the junctions, and then the typecheck was clean.
-
-The cost is a session reading a wall of module-resolution errors that look like
-its own change broke the build. Two things would end it. `docs/working-with-
-claude.md` should name `--force` as the fix for a worktree whose typecheck
-cannot see `@neon-spore/*`, beside the MSYS-link trap it already carries. And
-`bun run check` should fail early with that sentence rather than through
-`tsc` — `tools/check/run.ts` already runs before the typecheck, and one
-`existsSync` on `node_modules/@neon-spore` is the whole test.
-
 ## Close `slick:motion`: adopt BANK, GLIDE and FLOAT to the shape sheet
 
 - **Found:** 2026-09-09, claude/slick-content-organization-17beb0

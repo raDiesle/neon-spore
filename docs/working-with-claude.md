@@ -133,7 +133,13 @@ it and the name it needs, and the check stops there. What it fixes is not the
 fresh worktree, which `CLAUDE.md` already covers, but the **existing** one: it
 was installed correctly, `main` then gained a package or an edge, and nothing
 said so until eight `Cannot find module` errors arrived in files the lane had
-never opened.
+never opened. The command the refusal names is `bun install --force`, and the
+`--force` is not caution: on 9 September 2026 a worktree in exactly this state
+answered a plain `bun install` with *Checked 76 installs across 151 packages
+(no changes)* and wrote nothing, because the lockfile was satisfied and Bun
+does not re-check that the links it once wrote are still there. Only `--force`
+put the junctions back; the plain install is the second round of the same
+error, spelled as a success.
 
 *Amended 2026-09-05:* the other half of the same trap is the **index**, and
 `.gitattributes` cannot reach it. `eol=lf` governs what a checkout writes; a

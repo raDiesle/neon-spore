@@ -61,14 +61,25 @@ export function unlinked(members: readonly Member[], has: (path: string) => bool
   return out;
 }
 
-/** What the preflight says when it refuses, first line already carrying the ✗. */
+/**
+ * What the preflight says when it refuses, first line already carrying the ✗.
+ *
+ * The command it names is `bun install --force`, not `bun install`. A worktree
+ * that was installed once has a lockfile Bun considers satisfied, so a plain
+ * install prints `Checked N installs (no changes)` and writes nothing — the
+ * links stay missing and the next `bun run check` refuses again for the same
+ * reason. Only `--force` writes the junctions back. A refusal that named the
+ * command which does nothing would cost a session one more round of the same
+ * error, which is the round this preflight exists to remove.
+ */
 export function refusal(missing: readonly Missing[]): string[] {
   const many = missing.length === 1 ? "link is" : "links are";
   const lines = [
-    `✗ ${missing.length} workspace ${many} missing in this worktree — run bun install here`,
+    `✗ ${missing.length} workspace ${many} missing in this worktree — run bun install --force here, from a native shell`,
   ];
   for (const { dir, dep } of missing) lines.push(`  ${dir} needs ${dep}`);
   lines.push(
+    "  a plain bun install says `no changes` and writes no link; only --force recreates them",
     "  tsc would have blamed the code instead: `Cannot find module` in files this lane never opened",
   );
   return lines;
