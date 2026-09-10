@@ -405,6 +405,7 @@ questions.
 ## The test suite takes four and a half minutes and nobody knows which files
 
 - **Found:** 2026-09-10, claude/queue-the-gyre-and-the-magnet-have-one-look-each-and-n
+- **Taken:** 2026-09-10, claude/queue-the-test-suite-takes-four-and-a-half-minutes-and
 - **Files:** `packages/render/test/`, `tools/check/run.ts`, `docs/performance.md`
 
 `bun test` runs 78,653 tests across 379 files in about 260 seconds, and no
