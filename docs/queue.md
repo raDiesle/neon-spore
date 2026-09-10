@@ -312,6 +312,7 @@ holds the formats and is where the case belongs.
 ## `versus-pose.ts` is at the line ceiling and every slot adds to it
 
 - **Found:** 2026-09-10, claude/queue-versus-shot-at-on-a-only-tile-pose-photographs-t
+- **Taken:** 2026-09-10, claude/queue-versus-pose-ts-is-at-the-line-ceiling-and-every
 - **Files:** `tools/director/src/versus-pose.ts`, `tools/director/src/poses-*.ts`
 
 `SLOT_POSE` is one map with a paragraph of reasoning over every row, and three
