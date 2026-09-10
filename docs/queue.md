@@ -204,21 +204,6 @@ candidates are judged on whether the shed reads as a thing losing a skin; the
 lid opens, so its candidates are judged on the opening. Both are motion slots.
 `.claude/skills/depth` applies. Poses in `versus-pose.ts` in the same commit.
 
-## THE MOUNT and THE RECOIL have one look each and no record to patch
-
-- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
-- **Taken:** 2026-09-10, claude/queue-the-mount-and-the-recoil-have-one-look-each-and
-- **Files:** `packages/render/src/recoil.ts`,
-  `packages/render/src/recoil-ribs.ts`,
-  `packages/render/src/recoil-cage-break.ts`, `tools/versus/candidates/`
-
-Cut a look record for each body, then open `creature:mount` and
-`creature:recoil` with three candidates each, aimed at depth and at motion that
-reads as grown rather than mechanical. The recoil's cage and ribs are where the
-depth is: a cage drawn flat is a stack of lines, and drawn with a light it is a
-thing with an inside. `.claude/skills/depth` applies. Poses in `versus-pose.ts`
-in the same commit.
-
 ## THE CAROM and THE CHUTE have one look each and no record to patch
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
@@ -368,3 +353,29 @@ the echo at 2x whole and cropped it with a throwaway script instead, which is
 the workaround this entry ends. Find what is spinning, fix it, and prove it
 with `bun run versus:shot creature:echo cleft out.png --freeze 1.1 --only
 candidate --scale 6` coming back in under a minute with the echo in it.
+
+## A shard that goes red under `bun run land` leaves no record of which test
+
+- **Found:** 2026-09-10, claude/queue-the-mount-and-the-recoil-have-one-look-each-and
+- **Files:** `tools/check/shard.ts`, `tools/land/run.ts`
+
+Landing the queen lane on 10 September 2026, `bun run land --keep` reported
+`9247 pass, 1 fail — 1 shard red` and stopped; the same `bun run
+tools/check/shard.ts` run again by hand was green, and the landing that
+followed was green. It happened a second time the same afternoon, under
+`bun run check:fast` on the recoil lane: `3697 pass, 1 fail`, and green on
+the rerun. Both times the failing test's name was in the red shard's output,
+which `shard.ts` prints to stdout and nothing keeps — the session had piped
+`land` through `tail`, and once the terminal scrolled it was gone. So a flake
+was worked around by re-running, and the test that flaked is unknown, which
+is the one thing a flake entry needs.
+
+Keep the check's output on disk. `shard.ts` already writes a junit file per
+shard under `tmpdir()` and merges them (`--junit`); have it also leave the
+merged report — or at least the names of the failing tests — at a fixed path
+(`tools/check/last-run.xml`, or under the scratch directory the hooks use),
+and have `land` name that path in its failure line so a session that ran the
+command through `tail` can still read what failed. Then queue the flake by
+name when it next happens. `tools/check/test/` holds the runner's tests; the
+proof is a deliberately failing test file run through the sharder and its
+name found in the kept report.

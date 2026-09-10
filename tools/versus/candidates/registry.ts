@@ -28,6 +28,9 @@ import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
 import { QUEEN_CARAPACE } from "./creature-queen/carapace/index.js";
 import { QUEEN_FACET } from "./creature-queen/facet/index.js";
 import { QUEEN_SCUTES } from "./creature-queen/scutes/index.js";
+import { RECOIL_GLOBE } from "./creature-recoil/globe/index.js";
+import { RECOIL_SPRUNG } from "./creature-recoil/sprung/index.js";
+import { RECOIL_TUBE } from "./creature-recoil/tube/index.js";
 import { THROB_CAP } from "./creature-throb/cap/index.js";
 import { THROB_GIRDLE } from "./creature-throb/girdle/index.js";
 import { THROB_PORES } from "./creature-throb/pores/index.js";
@@ -77,6 +80,9 @@ export const VARIANTS: Variant[] = [
   QUEEN_CARAPACE,
   QUEEN_FACET,
   QUEEN_SCUTES,
+  RECOIL_GLOBE,
+  RECOIL_SPRUNG,
+  RECOIL_TUBE,
   THROB_CAP,
   THROB_GIRDLE,
   THROB_PORES,

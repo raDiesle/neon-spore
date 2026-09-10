@@ -40,6 +40,27 @@ export function drawRib(
   time: number,
   glow: number,
 ): void {
+  const path = ribPath(x, y, a, inner, outer, spent, time);
+  ctx.globalAlpha = spent ? 0.65 : 1;
+  strokeGlow(ctx, path, hex, Math.max(0.8, outer * (spent ? 0.05 : 0.08)), glow);
+  ctx.globalAlpha = 1;
+}
+
+/**
+ * The leaf itself, as a path: the zigzag from the body out to the hoop, or
+ * the shortened, leaning wreck of one. Its own function so a look that draws
+ * the same spring as a different material — a tube, say — walks the same
+ * folds rather than a second copy of them.
+ */
+export function ribPath(
+  x: number,
+  y: number,
+  a: number,
+  inner: number,
+  outer: number,
+  spent: boolean,
+  time: number,
+): Path2D {
   const reach = spent ? inner + (outer - inner) * 0.55 : outer;
   const lean = spent ? 0.5 : 0;
   const swing = spent ? 0 : 0.18 * Math.sin(time * 3.1 + a * 2);
@@ -56,9 +77,7 @@ export function drawRib(
     if (k === 0) path.moveTo(px, py);
     else path.lineTo(px, py);
   }
-  ctx.globalAlpha = spent ? 0.65 : 1;
-  strokeGlow(ctx, path, hex, Math.max(0.8, outer * (spent ? 0.05 : 0.08)), glow);
-  ctx.globalAlpha = 1;
+  return path;
 }
 
 /**

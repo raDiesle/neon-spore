@@ -197,6 +197,11 @@ const SLOT_POSE: Record<string, string> = {
   // blank, and it is the one state where nothing under it is asking to be
   // looked at instead (`poses-field.ts`, `queen-look.ts`).
   "creature:queen": "QUEEN · SHUT",
+  // The one body on the field that wears a frame, opened on 10 September
+  // 2026 with three answers to the frame. Judged with one rib already blown,
+  // because a cage with nothing wrong with it is three springs that all look
+  // alike and the count is only visible once one differs (`poses-cage.ts`).
+  "creature:recoil": "RECOIL · ONE BOUNCE SPENT",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

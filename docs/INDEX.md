@@ -740,6 +740,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/lock-mark.ts` | THE LOCK, drawn: the frame that says *the cannon has this one* |
 | `packages/render/src/creature-tint.ts` | The three colours a body carries, and what they are mid-turn |
 | `packages/render/src/recoil-ribs.ts` | One rib of THE RECOIL's cage, and the piece of hoop it carries |
+| `packages/render/src/recoil-look.ts` | THE ONE RECORD A CANDIDATE **RECOIL** PATCHES |
 | `packages/render/src/intro-flash.ts` | THE LOUD HALF OF THE INTRO: a headline on a lit slab, a price-tag flash |
 | `packages/render/src/creature-body.ts` | Which body draw a kind gets, as a lookup a stray statement cannot sever |
 | `packages/render/src/effects-spark-silent.ts` | The events that are deliberately not a burst, and why each one is not |
@@ -1387,6 +1388,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/poses-versus.ts` | The states a candidate look is judged on — one per slot that had none |
 | `tools/director/src/poses-bodies.ts` | The pose a candidate for a *body* is judged on, as opposed to one for a mechanism firing |
 | `tools/director/src/poses-casing.ts` | The states a candidate for what a body **wears** is judged on |
+| `tools/director/src/poses-cage.ts` | The pose a candidate for THE RECOIL's cage is judged on |
 | `tools/director/src/poses-damage.ts` | The two poses about **damage** — a rock being marked, and a body being destroyed |
 | `tools/director/src/poses-rounds.ts` | The states a candidate for an **interlude** is judged on |
 | `tools/director/src/versus-app.ts` | `versus.html` — the page a VERSUS door opens into, and the whole of its routing |

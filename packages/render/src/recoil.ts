@@ -7,7 +7,7 @@ import { sinHash } from "./hash.js";
 import { mixHex } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { drawHoopArc, drawRib } from "./recoil-ribs.js";
+import { RECOIL_LOOK } from "./recoil-look.js";
 
 /**
  * THE RECOIL's cage: the sprung frame a slick or a bulb falls inside, and the
@@ -183,19 +183,25 @@ export function drawRecoilCage(
     (AURA_BASE + AURA_STRAIN * (strain - 1)) * shimmer,
   );
 
-  ctx.save();
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
-  for (let i = 0; i < struts; i++) {
-    // Rib `i` is spent once fewer than `i` bounces remain. Counted from the
-    // top and going round, so the damage accumulates in one direction and the
-    // pair can read "how far round has it got" rather than "how many are lit".
-    const spent = i >= left;
-    const a = (i / struts) * Math.PI * 2 - Math.PI / 2;
-    const hex = spent ? burnt : metal;
-    const glow = spent ? lit * 0.25 : lit;
-    drawRib(ctx, x, y, a, creatureRadius(l, c, 0, cfg), hoop, spent, hex, time, glow);
-    drawHoopArc(ctx, x, y, a, struts, hoop, spent, hex, dark, glow);
-  }
-  ctx.restore();
+  // The frame itself is `RECOIL_LOOK.cage`'s answer (`recoil-look.ts`), read
+  // once per frame, which is the route a candidate patches. Everything above
+  // — the count, the colours, the breath and the burn — is worked out here
+  // and handed over, so a look can draw the ribs however it likes and cannot
+  // change what they say.
+  RECOIL_LOOK.cage({
+    ctx,
+    x,
+    y,
+    inner: creatureRadius(l, c, 0, cfg),
+    hoop,
+    struts,
+    left,
+    strain,
+    metal,
+    dark,
+    burnt,
+    glow: lit,
+    time,
+    phase,
+  });
 }
