@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · 9af7f822 — versus:shot --at is measured against the picture, not the stage
+
+`bun run versus:shot … --at x,y,w,h` now photographs the window the pose cuts in the phone (`.versus-crop`) rather than the stage around it, so the rectangle is in the picture's own pixels the way `bun run frames --at` is in `#stage`'s. On a tile pose the stage is a phone-wide box holding a name line and a 172 px square, and a rectangle measured from its corner landed under the tile — which is what wrote a picture of the page's prose for `creature:magnet` and cost a lane three tries and the crop. The queue had it as a scrolling fault in `shot.ts`, and it was not: nothing scrolled, and Playwright's clip is viewport-relative, so the arithmetic there was right. `--element` still overrides; `versus-element.ts` holds the choice and its test.
+
 ## 2026-09-10 · e8debd64 — Queue two performance items: one full check per landing, and a profile of the suite
 
 Both from the owner's question on 10 September 2026 about where a session's time goes: a third of it was the full test suite, run once by the session before committing and again inside the landing, and nobody has measured which of the 379 files carry the four and a half minutes.
