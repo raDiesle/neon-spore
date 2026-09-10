@@ -167,6 +167,45 @@ describe("one throw, two seats", () => {
     expect(round(world).outcome, "a fumble loses the rung").toBe(3);
   });
 
+  it("hears the lift of a colour as the bolt, and the press as nothing", () => {
+    // What the round's own panel sends: a thumb on RED is `prime` down and
+    // `prime` up, and the lift is the shot (`control-command.ts`). Until the
+    // round heard it, player 2 could not throw from a phone at all.
+    const world = open();
+    until(world, "tell");
+    step(world, [cmd(world, 2, { kind: "prime", on: true, color: "cyan" })]);
+    expect(round(world).thrown, "the press says only *held*").toBe(-1);
+    step(world, [cmd(world, 2, { kind: "prime", on: false, color: "cyan" })]);
+    const t = round(world);
+    expect(t.thrown).toBe(tellIndex("bolt"));
+    expect(t.thrownColor, "in the colour that was held").toBe(2);
+    expect(t.thrownBy).toBe(2);
+  });
+
+  it("climbs a rung on a bolt thrown from the panel", () => {
+    // One exchange played the way a phone plays it: the boss is made to throw
+    // a maw by answering a plate, and the navigator lifts the boss's colour.
+    const world = open([{ beats: 3 }, { beats: 3, answers: true }]);
+    until(world, "tell");
+    step(world, [cmd(world, 1, { kind: "guard" })]);
+    until(world, "reveal");
+    until(world, "tell");
+    const t = round(world);
+    expect(tellThrowAt(t.bossThrow), "answering a plate is a maw").toBe("maw");
+    const color = t.bossColor === 1 ? "red" : "cyan";
+    step(world, [cmd(world, 2, { kind: "prime", on: true, color })]);
+    step(world, [cmd(world, 2, { kind: "prime", on: false, color })]);
+    until(world, "reveal");
+    expect(round(world).outcome, "a bolt into a maw wins").toBe(1);
+  });
+
+  it("does not hear player 1 lifting a colour", () => {
+    const world = open();
+    until(world, "tell");
+    step(world, [cmd(world, 1, { kind: "prime", on: false, color: "red" })]);
+    expect(round(world).thrown).toBe(-1);
+  });
+
   it("ignores the same seat pressing twice", () => {
     const world = open();
     until(world, "tell");

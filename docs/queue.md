@@ -520,39 +520,6 @@ owner put it, which is the reason to prefer it.
 `packages/render/test/frame.test.ts` draws every round, and a test that the
 two boxes do not overlap is the proof.
 
-## THE TELL's trigger does not reach the round from the panel
-
-- **Found:** 2026-09-09, claude/queued-items-a47ead
-- **Taken:** 2026-09-10, claude/queue-the-tells-trigger-does-not-reach-the-round-from
-- **Files:** `packages/sim/src/tell-round.ts`,
-  `packages/render/src/touch-lobe.ts`, `packages/content/src/scenes/the-tell.ts`
-
-The navigator's only throw in THE TELL is a bolt, and the round never hears
-one pressed on its own panel. `throwOf` accepts `{ kind: "fire" }`; a thumb on
-RED or CYAN sends `{ kind: "prime", on }` — the press starts the fill and the
-lift is the shot (`touch-lobe.ts`, and `control-command.ts` says the same) —
-and the only thing in the game that sends a bare `fire` is the swipe across the
-ship (`touch-ship.ts`) and the desk keyboard. So on a phone, playing the round
-the way its own band asks to be played, player 2 cannot throw at all: every
-exchange they are meant to answer is a stand-off, and the pair loses the rung
-without being told why.
-
-Two ways to close it, and the first is the one the rest of the game already
-argues for:
-
-- **Hear the lift.** `throwOf` takes `{ kind: "prime", on: false }` as the
-  bolt, in the colour that was held. That is the game's own rule — *the lift is
-  the shot* — and it costs the round nothing: a hold long enough to be a lance
-  has no field to fire into here.
-- **Send a `fire` from the round's own lobes.** `touch-lobe.ts` would have to
-  know which round is installed to decide, which is the coupling that file has
-  never had.
-
-The proof is a test in `packages/sim/test/` that plays one exchange with a
-`prime` pair from player 2 and expects the rung to be climbed, and the page it
-unblocks is the navigator's own throw in `scenes/the-tell.ts`, whose comment
-says what to add.
-
 ## Close `slick:motion`: adopt BANK, GLIDE and FLOAT to the shape sheet
 
 - **Found:** 2026-09-09, claude/slick-content-organization-17beb0

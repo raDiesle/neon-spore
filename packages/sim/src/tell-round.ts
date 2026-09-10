@@ -169,11 +169,24 @@ export function tellRoundHeard(world: World, player: 1 | 2, command: Command): v
   state.thrownTick = world.tick;
 }
 
-/** Which throw this seat's press is, or null for a press that is not one. */
+/**
+ * Which throw this seat's press is, or null for a press that is not one.
+ *
+ * **The bolt is the lift.** A thumb on RED or CYAN sends `prime` — down to
+ * start the fill, up to shoot — and the lift is the ordinary shot everywhere
+ * else in the game (`commands.ts`), so it is the bolt here. Until 10 September
+ * 2026 only a bare `fire` counted, which nothing on the round's own panel
+ * sends: the swipe across the ship and the desk keyboard send one, the lobes
+ * never do, and on a phone the navigator could not throw at all. The press
+ * itself says nothing, as it says nothing on the field; a hold long enough to
+ * be a lance has no column to fire into here, so the lift owes a bolt whatever
+ * was in the lobe. `fire` stays, for the swipe and for a caller with no thumbs.
+ */
 function throwOf(player: 1 | 2, command: Command): { at: number; color: number } | null {
   if (player === 1 && command.kind === "guard") return { at: tellIndex("plate"), color: 0 };
   if (player === 1 && command.kind === "intake") return { at: tellIndex("maw"), color: 0 };
-  if (player === 2 && command.kind === "fire") {
+  if (player !== 2) return null;
+  if (command.kind === "fire" || (command.kind === "prime" && !command.on)) {
     const color: Color = command.color;
     return { at: tellIndex("bolt"), color: color === "red" ? 1 : 2 };
   }
