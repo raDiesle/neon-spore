@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · a00ef4c4 — Every hit look in the game: the bulb pops, and the other five strikes go to bodies of their own
+
+The owner liked all seven ways a body can die on the VERSUS page and asked for every one in the game, the bulb's to be `pop` and the slick's to stay as shipped. So the slick keeps its squares and wedges, the bulb pops, and the five other strikes go to the bodies they read best on: `shock` to THE THROB (half plating, so a shot is a blow), `afterglow` to THE DART (a leaping body leaves an afterimage), `scatter` to THE WISP (a light that rises and blinks out), `rupture` to THE RIND's last layer (skin peeling back in petals) and `splash` to THE ECHO (one small body into a dozen drops). Both slots are closed in DECIDED.md. A look the owner asked for by name.
+
 ## 2026-09-10 · d16fd31e — The model decision aid goes, and the token budget is written for one session with compaction
 
 `docs/choosing-a-model.md` is removed: the owner works on Opus 5 only, so a document about choosing between models answers a question nobody here asks. The one measured fact two other documents cited from it — that scope and repeat turns, not model tier, explained the spread across thirteen lanes — is now stated inline where it was cited. `docs/token-budget.md` is rewritten for the way the work is actually done: one session, tasks in sequence, compacted automatically at about 300k tokens. Cost within a stretch is turns times length; a compaction throws away whatever lived only in the chat; so each green piece is landed and everything the next task needs is written into a file first.
