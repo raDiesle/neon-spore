@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · 0dc1d8eb — THE BALLOON: a longer pull, a hold at full stretch, half the speed, and halves that part
+
+The four changes the owner asked for by name on 9 September 2026 — the first of the look rule's exemptions, so they go onto the field rather than to VERSUS. A hand carries a handle two tiles before its side counts as taut, bounded by the third column from either wall on a phone whose field is the full width of the glass. A body both hands have reached holds at full stretch for a beat, its glow coming up, before it gives, and a hand that slackens inside the hold gives it back. A balloon climbs a row every second beat instead of every beat — the simulation stores integers, so the slowing is a period rather than a fraction — and the picture glides each step over both beats rather than stopping and starting, which is why the balloon now writes its own `from` fields and `beat.ts` skips its reset. And the two halves of a split part: one climbs on, the other sinks and bursts on the ship's row for the top's price, with no scar, on the step after it was drawn arriving.
+
 ## 2026-09-10 · 430d2348 — The panel's arrangement, its rails and its sockets become records
 
 Three lifts, no pixel changed, for the owner's ask that a ship be different from fresh and not only in its skin: every ship so far kept a rail across the width and two buttons in fixed wet sockets, because those were the last things about the panel that were not records.
