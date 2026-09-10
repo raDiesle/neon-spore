@@ -222,25 +222,6 @@ stroke, and with one it is a thing with a near side. `.claude/skills/depth`
 applies, and the tether's line to whatever it holds is drawn as a link rather
 than as two marks at its ends. Poses in `versus-pose.ts` in the same commit.
 
-## The player's ship has had one hull since the game started
-
-- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
-- **Taken:** 2026-09-10, claude/queue-the-players-ship-has-had-one-hull-since-the-game
-- **Files:** `packages/render/src/hull.ts`,
-  `packages/render/src/hull-frame.ts`, `packages/render/src/hull-barrel.ts`,
-  `packages/render/src/cannon-maw.ts`, `packages/render/src/shield.ts`,
-  `tools/versus/candidates/`
-
-Open `ship:hull-shape` again — it was decided and removed once, and the owner
-asked for it back on 9 September 2026, wanting radically different hulls rather
-than a reskin: a different silhouette, a different cannon and a different
-shield, three of them beside what ships. The constraint that makes this hard is
-that the hull is not decoration — the cannon slides along it, the shield sits on
-it and every column maps onto it — so a candidate has to keep those attachments
-working while changing the shape they hang off. Read `DECIDED.md` on how the
-slot left the first time before opening it. Both sides animate, and the pose is
-the default: the ship is on every frame.
-
 ## The band the players actually touch has one look
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
@@ -248,14 +229,24 @@ the default: the ship is on every frame.
   `packages/render/src/band-control.ts`, `packages/render/src/band-lobes.ts`,
   `packages/render/src/band-slime.ts`, `packages/render/src/band-seam.ts`,
   `tools/versus/candidates/`
+- **Asks:** Once `ship:body` is decided, does the band still get a slot of its own, or does the ship that wins carry its band with it?
 
-The control band is the half of the screen a player's thumb lives on, and it has
-never been offered an alternative. Open `panel:band-skin` with three candidates
-on the lobe, the socket and the slime. `panel:ship-join` is already open on
-where the band meets the hull, so this slot must not claim its fields —
-`bun run versus` says which those are. Any new furniture keeps the grown
-contour, the wet socket and the gloss: a flat plate with a stroke around it is
-the one thing the panel look is not.
+The control band is the half of the screen a player's thumb lives on, and it
+was never offered an alternative until `ship:body` opened on 10 September
+2026. That slot's six ships each redraw the whole panel — the throat, the
+pores, the cytoplasm, the root mass, the ribbed inside of a shell — and to do
+it they claim `LOBE_LOOK` (gloss, socket), `STRIP_LOOK`, `BAND_GROUND`,
+`PANEL_PLAN`, `BAND_JOIN` and `SHIP_NERVES`: every field a `panel:band-skin`
+would patch. `bun test` refuses two open slots on one field, so this cannot
+open while `ship:body` stands, and it should not be handed out until the
+owner has said which of these it becomes:
+
+- **A slot of its own, after.** If `ship:body` closes on what ships, open
+  `panel:band-skin` with three candidates on the lobe, the socket and the
+  slime, keeping the grown contour, the wet socket and the gloss — a flat
+  plate with a stroke around it is the one thing the panel look is not.
+- **Nothing.** If a ship is taken, its panel is the answer to this question
+  too, and the entry comes out with `bun run queue done`.
 
 ## What a hit on a slick or a bulb looks like is shared with everything else
 

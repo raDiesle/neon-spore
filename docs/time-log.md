@@ -22,6 +22,24 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-10 · claude/queue-the-players-ship-has-had-one-hull-since-the-game
+
+Two queue entries checked against what `main` already carries: the hull
+entry was answered by `ship:body`, and the band entry cannot open while that
+slot holds its fields. About 25 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the queue, `docs/versus.md`, `DECIDED.md`, `bun run versus`'s field lists, the five `ship:body` commit messages |
+| writing | 5 | one entry removed, one re-filed with an `Asks:` line |
+| looking | 0 | nothing visible moved |
+| friction | 0 | — |
+| landing | 5 | `check:fast`, the commit, `land --keep` |
+
+Bottleneck: **reading** — the entries were written before `ship:body`
+existed, so most of the lane was establishing that it is the answer to one
+of them and the block on the other.
+
 ## 2026-09-10 · claude/queue-the-rind-and-the-lid-have-one-look-each-and-no-r
 
 Three sheds and three bodies for THE RIND, three armours for THE LID, a hand
