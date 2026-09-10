@@ -10,12 +10,15 @@ import { latitude } from "./ghost-latitude.js";
  * one `draw()` and the call site never learns anything about it
  * (`docs/versus.md`).
  *
- * **One field, and it is the camouflage.** What a ghost *is* — a dome with a
- * hem of tails — is `ghostPoints` and is not in question; what the pair is
- * being asked about is the thing it is wearing instead of being invisible.
- * The outline, the eyes, the halo and the shards thrown clear of the body all
- * stay in `ghost.ts`, because a look that moved the silhouette would be
- * arguing with the one thing player 2 finds this body by.
+ * **Two fields: the interior and the camouflage.** What a ghost *is* — a dome
+ * with a hem of tails — is `ghostPoints` and is not in question. The
+ * camouflage is the thing it is wearing instead of being invisible, and the
+ * interior is what that camouflage is torn *over* — the fill inside the
+ * contour, which shipped as one flat radial gradient and is the half of this
+ * body a light has never touched. The outline, the eyes, the halo and the
+ * shards thrown clear of the body all stay in `ghost.ts`, because a look that
+ * moved the silhouette would be arguing with the one thing player 2 finds this
+ * body by.
  *
  * **The shipped `drawTears` came through here with not one pixel moved**, which
  * is the rule for every seam on this page: the left-hand side of a pair is the
@@ -71,7 +74,49 @@ export function drawTears(d: TearsDraw): void {
   ctx.restore();
 }
 
+/**
+ * Everything the interior is drawn from. The same shape as `TearsDraw` and
+ * the same reason: a look shading the dome as a ball reads `time` for a turn
+ * and `rage` for a temper, and the call should say which is which.
+ */
+export interface InteriorDraw {
+  readonly ctx: CanvasRenderingContext2D;
+  /** The body's own contour, already built, to fill. */
+  readonly body: Path2D;
+  /** The creature's id — the whole of the randomness, as for the bands. */
+  readonly id: number;
+  /** The wall clock in seconds; one seat only, so not a desync (`TearsDraw`). */
+  readonly time: number;
+  /** How far through its temper a crossing ghost is, 0 for a falling one. */
+  readonly rage: number;
+  /** The body's colour, its dark and its rim, and the field behind it — all
+   * four already hazed for distance by the caller. */
+  readonly hex: string;
+  readonly dark: string;
+  readonly rim: string;
+  readonly back: string;
+}
+
+/**
+ * The interior as it ships: near-black at the rim and the colour welling up
+ * out of the middle, which is the reference the owner sent — a dark body with
+ * a nebula inside it rather than a flat fill. One radial gradient, centred a
+ * little below the middle, and nothing about it turns or is lit: it is the
+ * same picture from every side, which is what the slot below is about.
+ */
+export function drawGhostInterior(d: InteriorDraw): void {
+  const { ctx, body, hex, dark, back } = d;
+  const glow = ctx.createRadialGradient(0, GHOST.ry * 0.1, 0, 0, 0, GHOST.ry * 1.1);
+  glow.addColorStop(0, hex);
+  glow.addColorStop(0.55, dark);
+  glow.addColorStop(1, back);
+  ctx.fillStyle = glow;
+  ctx.fill(body);
+}
+
 export interface GhostLook {
+  /** The fill inside the outline, under the camouflage. */
+  readonly interior: (d: InteriorDraw) => void;
   /** The camouflage inside the outline. */
   readonly tears: (d: TearsDraw) => void;
 }
@@ -89,4 +134,4 @@ export interface GhostLook {
  * one honest statement in the package of what the flat answer was. A seam whose
  * shipped side has been deleted cannot show a pair anything.
  */
-export const GHOST_LOOK: GhostLook = { tears: latitude };
+export const GHOST_LOOK: GhostLook = { interior: drawGhostInterior, tears: latitude };

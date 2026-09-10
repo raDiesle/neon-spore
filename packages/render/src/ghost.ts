@@ -110,15 +110,20 @@ export function drawGhost(
   ctx.translate(x, y);
   ctx.scale(scale, scale);
 
-  // The interior: near-black at the rim and the colour welling up out of the
-  // middle, which is the reference the owner sent — a dark body with a nebula
-  // inside it rather than a flat fill.
-  const glow = ctx.createRadialGradient(0, GHOST.ry * 0.1, 0, 0, 0, GHOST.ry * 1.1);
-  glow.addColorStop(0, haze(hex));
-  glow.addColorStop(0.55, haze(dark));
-  glow.addColorStop(1, haze(PALETTE.background));
-  ctx.fillStyle = glow;
-  ctx.fill(body);
+  // The interior, through the record rather than inline, so a second answer
+  // to what is inside this body can be drawn beside the nebula it ships with
+  // (`ghost-look.ts`, `docs/versus.md`).
+  GHOST_LOOK.interior({
+    ctx,
+    body,
+    id: c.id,
+    time,
+    rage,
+    hex: haze(hex),
+    dark: haze(dark),
+    rim: haze(rim),
+    back: haze(PALETTE.background),
+  });
 
   GHOST_LOOK.tears({ ctx, body, id: c.id, time, rage, hex: haze(rim) });
 

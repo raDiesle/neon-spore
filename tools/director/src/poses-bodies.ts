@@ -1,4 +1,4 @@
-import { ghostRage } from "@neon-spore/sim";
+import { DEFAULT_CONFIG, ghostRage } from "@neon-spore/sim";
 import {
   EVENT_CADENCE_SECONDS,
   firstOfKind,
@@ -159,6 +159,56 @@ export const GHOST_POSE: Pose = {
         return rage > 0.3 && rage < 1;
       }),
     );
+    return w;
+  },
+};
+
+/**
+ * How long one echo takes to divide twice, in seconds, plus a beat.
+ *
+ * Derived rather than typed, `fallSeconds`'s way: the first wait is
+ * `echoSplitBeats` and the second is twice that (`echoWaitBeats`), so the
+ * window runs from one body to four and a beat past the second parting —
+ * long enough that the eye sees the halves strain in their turn and the four
+ * stand for a moment, and short of the third, which is `ECHO_AXES`'s
+ * two-by-two and a different picture. Plus the beat the pose runs before it
+ * is handed over, which the first wait is counted from.
+ */
+const ECHO_CADENCE_SECONDS = ((DEFAULT_CONFIG.echoSplitBeats * 3 + 2) * 60) / DEFAULT_CONFIG.bpm;
+
+/**
+ * One echo, from the beat it arrives to the beat its halves have parted in
+ * their turn.
+ *
+ * Every other pose on this page holds a body so it can be looked at; this one
+ * is watched **through** something, because the mark a look here is about is
+ * the one that says *this body is about to come apart*, and a mark like that
+ * is only judged as the parting arrives. So the world is handed over with the
+ * body a beat old and left to run: the furrow deepens, the body necks, it
+ * goes, and the two it leaves start their own longer wait — which is when the
+ * seam turns to cut across the other axis (`ECHO_AXES`), the second thing the
+ * pair reads off it.
+ *
+ * Cropped to a tile with a wide span rather than to the field, because an
+ * echo is six tenths of a slick and the seam is a share of that; the window
+ * follows the first echo there is, and after the parting the halves stand one
+ * column either side of where it was, inside the span.
+ */
+export const ECHO_POSE: Pose = {
+  name: "ECHO · ABOUT TO DIVIDE",
+  note: "One cyan echo falling on its own. A dark line is cut across it from the moment it arrives, deepening as the beat comes, and on the third beat the body pulls itself in two and parts along that line. Each half then wears its own line the other way, for the parting that follows. It replays from the arrival.",
+  lookAt:
+    "the line across the body and how it deepens — whether it reads as a groove in something solid or as a scratch across a flat picture",
+  crop: "tile",
+  span: 5,
+  at: firstOfKind("echo"),
+  cadenceSeconds: ECHO_CADENCE_SECONDS,
+  build: () => {
+    const w = fresh([{ beat: 0, col: 5, kind: "echo", color: "cyan" }]);
+    // A beat in, so the body is on the field and the furrow is already cut:
+    // the floor of the seam is the part that never goes away, and the replay
+    // should land on it rather than on an empty column.
+    run(w, TPB);
     return w;
   },
 };

@@ -138,13 +138,25 @@ const typed = flag("type");
  * PNG file size.
  */
 const select = flag("select");
+/**
+ * `--scale 6`, the device scale factor, default 2.
+ *
+ * `--at` clips a rectangle out of the frame and the magnification is only
+ * ever this number — so a crop the size of a creature came back as a body
+ * ninety pixels wide, which is not a picture a session can correct a look
+ * from. The ghost interior lane took five shots at 2x before finding that the
+ * flag it wanted did not exist. A creature is judged at 26 px on a phone and
+ * at six times that on a desk, and both are the same frame at a different
+ * scale factor; the browser paints it, and nothing is stretched.
+ */
+const scale = Number(flag("scale") ?? 2);
 const url = `http://localhost:${port}${path}`;
 
 const browser = await launchBrowser();
 try {
   const page = await browser.newPage({
     viewport: { width: vw || 1240, height: vh || 900 },
-    deviceScaleFactor: 2,
+    deviceScaleFactor: scale,
   });
   await page.goto(url, { waitUntil: "networkidle" });
 
@@ -165,7 +177,12 @@ try {
     console.error(`no element matches ${selector} — is the tab right?`);
     process.exit(2);
   }
-  await target.first().scrollIntoViewIfNeeded();
+  // The page's own `scrollIntoView`, not Playwright's `scrollIntoViewIfNeeded`:
+  // that one first waits for the element to be *stable* — the same box on
+  // two consecutive animation frames — and a VERSUS pair on a tile crop is
+  // refitted around the body it follows, so the wait timed out on echo shots
+  // with the frozen frame sitting right there. Scrolling asks no questions.
+  await target.first().evaluate((el: Element) => el.scrollIntoView({ block: "start" }));
   // A second settle after scrolling: figures are only animated while in sight,
   // so one just scrolled to has had no frames yet and would photograph in its
   // rest pose. `shape-loop.ts`'s observer is what makes that true.
@@ -197,7 +214,16 @@ try {
     // The whole of it, however tall: an element past the fold is painted black
     // below the window unless the window is grown to fit it first (`tall.ts`).
     await withHeightFor(page, target.first(), vw || 1240, vh || 900, async () => {
-      await target.first().screenshot({ path: out });
+      // The page's camera clipped to the element's box, not the element's own
+      // `screenshot`: that one first waits for the element to be *stable* —
+      // the same box on two consecutive animation frames — and a VERSUS pair
+      // is never reliably that. Its stage is refitted around a body the tile
+      // crop follows, and on a machine painting slowly the wait timed out on
+      // one echo shot in three, at every scale, with the frozen frame sitting
+      // right there. A box is measured once and photographed.
+      const box = await target.first().boundingBox();
+      if (!box) throw new Error(`${selector} has no box to photograph`);
+      await page.screenshot({ path: out, clip: box });
     });
   }
   console.log(`wrote ${out}`);

@@ -104,7 +104,11 @@ describe("the seam", () => {
     const { ctx } = stubCanvas();
     const log: string[] = [];
     ctx.log = log;
-    drawEchoSeam(ctx as unknown as CanvasRenderingContext2D, CFG, c, beats, 52, 52, "#0a1a2a");
+    drawEchoSeam(ctx as unknown as CanvasRenderingContext2D, CFG, c, beats, 52, 52, 0, {
+      dark: "#0a1a2a",
+      hex: "#3fd7ff",
+      rim: "#bff4ff",
+    });
     ctx.log = undefined;
     return log;
   }

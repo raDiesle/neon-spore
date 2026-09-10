@@ -190,22 +190,6 @@ Whichever wins, `packages/render/test/wave-budget.test.ts`'s BULB QUEEN rows
 are the proof it changed nothing else, and `bun run frames . --wave 25 --at`
 takes the two pictures for the owner to choose between.
 
-## THE GHOST and THE ECHO have one look each and no second answer
-
-- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
-- **Taken:** 2026-09-10, claude/queue-the-ghost-and-the-echo-have-one-look-each-and-no
-- **Files:** `packages/render/src/ghost-look.ts`,
-  `packages/render/src/echo.ts`, `tools/versus/candidates/`,
-  `tools/director/src/versus-pose.ts`
-
-One slot per body, three candidates each, aimed at depth and alien motion.
-`ghost:tears` is already open on the ghost, so a `creature:ghost` slot must
-patch fields that slot does not — `bun run versus` lists them, and `bun test`
-refuses an overlap. THE ECHO has no `-look.ts` record at all, so the first job
-there is to cut one out of `echo.ts` the way `meteor-look.ts` was cut, which is
-also what makes the body tunable at all. `.claude/skills/depth` applies. Pose in
-`versus-pose.ts` in the same commit.
-
 ## THE THROB and THE CRAWLER have one look each and no second answer
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
@@ -412,3 +396,28 @@ a multiple of the beat and not for the density. `room.test.ts` waits on real
 timers and wants a fake clock, which is a different kind of change. Take
 `bun run test:profile` before and after and put the new figures in the
 document's table; `bun run check` green is the proof of coverage.
+
+## `versus:shot --scale 3` hangs the page on a `crop: "tile"` pose
+
+- **Found:** 2026-09-10, claude/queue-the-ghost-and-the-echo-have-one-look-each-and-no
+- **Files:** `tools/frames/shot.ts`, `tools/director/src/versus-pair.ts`,
+  `tools/director/src/versus-crop.ts`
+
+`shot.ts` grew `--scale`, the device scale factor, on 10 September 2026,
+because a creature-sized `--at` crop at the fixed 2x came back as a body
+ninety pixels wide that nobody could correct a look from. At `--scale 6` on
+`creature:ghost` (`GHOST · TORN`, a `crop: "field"` pose) it works and the
+ghost arrives desk-sized. On `creature:echo` (`ECHO · ABOUT TO DIVIDE`, a
+`crop: "tile"` pose) **any scale above 2 hangs the page**: the `evaluate`
+that scrolls the stage into view times out after thirty seconds — the main
+thread is not coming back. (Playwright's own stability waits, which the same
+lane took out of `shot.ts` because they timed out on this pose at *every*
+scale, were a separate thing; this one is the page.) `--only current` hangs
+the same way, so it is not a candidate. `versus-pair.ts` caps
+its own `dpr` at 3 and `CropWindow.follow` re-fits the window every frame the
+body moves; something in that pairing at a device ratio above 2 is either
+resizing a canvas per frame or painting one it cannot finish. The lane read
+the echo at 2x whole and cropped it with a throwaway script instead, which is
+the workaround this entry ends. Find what is spinning, fix it, and prove it
+with `bun run versus:shot creature:echo cleft out.png --freeze 1.1 --only
+candidate --scale 6` coming back in under a minute with the echo in it.

@@ -620,6 +620,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/living-skin.ts` | What a living body is *made of*, as a record rather than as three lines in the middle of `drawLiving` |
 | `packages/render/src/snake-morph.ts` | The ship becoming the snake, and it is the real ship |
 | `packages/render/src/echo.ts` | the seam and the strain — what tells the pair a body is about to come apart, and which way |
+| `packages/render/src/echo-look.ts` | The one record a candidate ECHO patches — the furrow, so a second answer to the mark can sit beside the shipped one |
 | `packages/render/src/pinball-round.ts` | PINBALL over the whole stage |
 | `packages/render/src/pinball-table.ts` | PINBALL's table: the frame it is played inside, and everything standing on it |
 | `packages/render/src/round-draw.ts` | Which bosses replace the whole picture, and what draws each |
@@ -640,7 +641,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/lure-hole.ts` | THE HOLE THROUGH A LURE, and what is coming out of it |
 | `packages/render/src/ghost-eyes.ts` | THE GHOST's eyes, and they are the whole of what makes the shape a face rather than a bell |
 | `packages/render/src/ghost-trail.ts` | Where THE GHOST has just been: the body stamped again at the places it stood a moment ago, fading out behind |
-| `packages/render/src/ghost-look.ts` | the one record a candidate GHOST patches — the camouflage inside the outline |
+| `packages/render/src/ghost-look.ts` | the one record a candidate GHOST patches — the interior under the camouflage, and the camouflage inside the outline |
 | `packages/render/src/ghost-latitude.ts` | THE GHOST's camouflage, coming apart on a **surface** rather than on a flat plane |
 | `packages/render/src/wisp-aim.ts` | you are drawing the square a wisp is going to and the dotted arc to it — the navigator's whole sentence |
 | `packages/render/src/lid-string.ts` | you are drawing or hit-testing the cord under an armoured eye — the handle's circle lives here |

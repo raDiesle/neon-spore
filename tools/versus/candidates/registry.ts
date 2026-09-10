@@ -9,6 +9,12 @@ import type { Variant } from "../variant.js";
 import { DART_BRAID } from "./creature-dart/braid/index.js";
 import { DART_SHOCK } from "./creature-dart/shock/index.js";
 import { DART_WAKE } from "./creature-dart/wake/index.js";
+import { ECHO_BUDS } from "./creature-echo/buds/index.js";
+import { ECHO_CLEFT } from "./creature-echo/cleft/index.js";
+import { ECHO_WAIST } from "./creature-echo/waist/index.js";
+import { GHOST_HOLLOW } from "./creature-ghost/hollow/index.js";
+import { GHOST_LANTERN } from "./creature-ghost/lantern/index.js";
+import { GHOST_SWARM } from "./creature-ghost/swarm/index.js";
 import { GYRE_HELIX } from "./creature-gyre/helix/index.js";
 import { GYRE_ORBIT } from "./creature-gyre/orbit/index.js";
 import { GYRE_VORTEX } from "./creature-gyre/vortex/index.js";
@@ -43,6 +49,12 @@ export const VARIANTS: Variant[] = [
   DART_BRAID,
   DART_SHOCK,
   DART_WAKE,
+  ECHO_BUDS,
+  ECHO_CLEFT,
+  ECHO_WAIST,
+  GHOST_HOLLOW,
+  GHOST_LANTERN,
+  GHOST_SWARM,
   GYRE_HELIX,
   GYRE_ORBIT,
   GYRE_VORTEX,

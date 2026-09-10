@@ -121,6 +121,14 @@ const SLOT_POSE: Record<string, string> = {
   // off altogether. Drawn on player two's screen alone, which is the creature
   // rather than an omission (`poses-bodies.ts`).
   "ghost:tears": "GHOST · TORN",
+  // And the whole body on the same pose, opened on 10 September 2026 after
+  // `ghost:tears` was settled: the camouflage is decided, and what this slot
+  // argues about is the interior it is torn over (`ghost-look.ts`).
+  "creature:ghost": "GHOST · TORN",
+  // A body watched *through* something rather than held: the seam an echo
+  // wears is only judged as the parting it warns of arrives, so its pose runs
+  // from the arrival to the second division and replays (`poses-bodies.ts`).
+  "creature:echo": "ECHO · ABOUT TO DIVIDE",
   // The veil over a burning stone's face, and the pose is the creature alone
   // rather than BULB QUEEN's six sockets: the question is what the rock's own
   // face looks like through the fire, so what is wanted is one torch as big as

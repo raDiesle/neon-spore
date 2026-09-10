@@ -1,4 +1,5 @@
 import { type Creature, echoAxis, echoSplitPhase, type SimConfig } from "@neon-spore/sim";
+import { ECHO_LOOK } from "./echo-look.js";
 
 /**
  * What tells the pair a body is about to come apart, and which way.
@@ -38,15 +39,6 @@ const STRAIN = 0.34;
  * than simply growing. Under one, because a waist that thinned as fast as the
  * length grew would read as a shape being squashed rather than parting. */
 const NECK = 0.55;
-
-/** The furrow's darkness, standing and at full strain. The floor is the part
- * that never goes away: it is what makes the seam a *marking* on this
- * creature rather than an animation that happens to it. */
-const SEAM_MIN = 0.22;
-const SEAM_MAX = 0.85;
-
-/** The furrow's width across the body, as a share of the radius it cuts. */
-const SEAM_WIDTH = 0.16;
 
 /** Squared, so the strain gathers into the beat before the division. */
 function strainPhase(cfg: SimConfig, c: Creature, beats: number): number {
@@ -106,6 +98,11 @@ export function echoStrain(
  * It is cut *across* the axis: a body dividing sideways is scored down the
  * middle, one dividing up and down is scored across it. That is the whole of
  * how the pair knows which way to expect the halves, and both screens have it.
+ *
+ * Whether there is a seam is decided here and the seam itself is drawn
+ * through the record, so a second answer to what the mark looks like can be
+ * offered beside this one without being able to put one on a body that has
+ * finished dividing (`echo-look.ts`, `docs/versus.md`).
  */
 export function drawEchoSeam(
   ctx: CanvasRenderingContext2D,
@@ -114,26 +111,19 @@ export function drawEchoSeam(
   beats: number,
   rx: number,
   ry: number,
-  dark: string,
+  rot: number,
+  tint: { dark: string; hex: string; rim: string },
 ): void {
   if (c.kind !== "echo") return;
   const axis = echoAxis(cfg, c);
   if (axis === null) return;
-  const p = strainPhase(cfg, c, beats);
-  const angle = Math.atan2(axis.row, axis.col);
-  // Across the axis, and long enough to leave the contour at both ends: a
-  // furrow that stopped short would read as a scratch rather than a parting.
-  const reach = Math.max(rx, ry) * 1.05;
-
-  ctx.save();
-  ctx.rotate(angle);
-  ctx.globalAlpha = SEAM_MIN + (SEAM_MAX - SEAM_MIN) * p;
-  ctx.strokeStyle = dark;
-  ctx.lineCap = "round";
-  ctx.lineWidth = Math.min(rx, ry) * SEAM_WIDTH * (1 + p);
-  ctx.beginPath();
-  ctx.moveTo(0, -reach);
-  ctx.lineTo(0, reach);
-  ctx.stroke();
-  ctx.restore();
+  ECHO_LOOK.seam({
+    ctx,
+    angle: Math.atan2(axis.row, axis.col),
+    phase: strainPhase(cfg, c, beats),
+    rx,
+    ry,
+    rot,
+    ...tint,
+  });
 }

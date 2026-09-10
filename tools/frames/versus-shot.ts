@@ -55,6 +55,8 @@ if (!slot || !name) {
   console.error("            the window the pose cuts, in its own pixels; P1's, or --only's side");
   console.error("       --element which element to photograph; .versus-row for the whole");
   console.error("            candidate, notes and all. Default .versus-stage, the phones");
+  console.error("       --scale   device scale factor, default 2 — with --at, how far a");
+  console.error("            creature-sized crop is magnified; 6 shows a body at desk size");
   process.exit(1);
 }
 
@@ -96,6 +98,9 @@ const at = flag("at");
  * friction this file exists to have ended.
  */
 const element = elementFor({ element: flag("element"), at });
+/** `--scale`, forwarded: the device scale factor the frame is painted at,
+ * which with `--at` is the magnification of the crop (`shot.ts`). */
+const scale = flag("scale");
 
 const query = new URLSearchParams({ slot, name });
 if (freeze !== undefined) query.set("freeze", freeze);
@@ -154,6 +159,7 @@ try {
   // and `--zoom` mean the same thing; there is only one step.
   if (zoom !== undefined) args.push("--click", ".versus-zoom");
   if (at !== undefined) args.push("--at", at);
+  if (scale !== undefined) args.push("--scale", scale);
   // The pair says when the freeze has landed; the settle starts from there.
   if (freeze !== undefined) args.push("--until", "[data-frozen]");
   await run(["bun", ...args], root);

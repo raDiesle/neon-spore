@@ -209,7 +209,7 @@ export function drawLiving(
     // And the furrow it will part along, cut across that same axis. In here
     // with the details rather than outside the body, because it is a marking
     // on the contour and takes the contour's own aspect and strain with it.
-    drawEchoSeam(ctx, cfg, c, beats, shape.rx, shape.ry, dark);
+    drawEchoSeam(ctx, cfg, c, beats, shape.rx, shape.ry, rot, { dark, hex, rim });
     if (vent) ctx.restore();
     // Over the interior rather than under it: the far half of a throb covers
     // the body in the other ammunition colour, it does not shine through it

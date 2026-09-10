@@ -57,6 +57,14 @@ const THROW = 1.8;
  */
 const SPIN = 0.11;
 
+/**
+ * The same clock, for anything else placed on this body. A candidate interior
+ * that turns (`tools/versus/candidates/creature-ghost/`) reads it here rather
+ * than writing 0.11 a second time, so the nebula and the camouflage go round
+ * together and one number moves both.
+ */
+export const GHOST_SPIN = SPIN;
+
 /** What a band keeps of its light where it faces furthest from the key. Well
  * above nothing: a band that reached zero would read as a hole in the body
  * rather than as a piece of its surface (`surfaceDim`). */
