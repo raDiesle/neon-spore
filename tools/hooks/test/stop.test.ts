@@ -15,9 +15,10 @@ import {
  * happened. The decision is a function now, and this is where it is asked.
  *
  * `lane-finished` is the one worth being sure of. It blocks the stop and sends
- * the session back to put a question to the owner, so every question that keeps
- * it quiet has to be right: too eager and every turn ends in a prompt nobody
- * wanted, too shy and a finished lane sits on a branch unmentioned.
+ * the session back to land the lane on the local trunk and put the rest to the
+ * owner, so every question that keeps it quiet has to be right: too eager and
+ * every turn ends in a landing nobody wanted, too shy and a finished lane sits
+ * on a branch unmentioned.
  */
 
 const lane = (over: Partial<LaneState> = {}): LaneState => ({
@@ -78,9 +79,9 @@ describe("whether a finished lane asks about itself", () => {
   });
 
   /**
-   * "More to come" is one of the three answers, so the lane stays clean and
-   * ahead afterwards. Asking per turn would put the same question again at the
-   * end of every one of them until the owner gave in and landed it.
+   * A landing that went red leaves the lane clean and ahead afterwards. Asking
+   * per turn would send the session back to the same failure at the end of
+   * every one of them with nothing new to say.
    */
   it("asks once per commit, not once per turn", () => {
     expect(whyNotAsking(lane({ head: "abc1234", askedFor: "abc1234" }))).toBe(
@@ -143,11 +144,11 @@ describe("the branch a detached lane gets back", () => {
 });
 
 /**
- * The message is the whole hook. Nothing lands here any more, so if the four
- * options or their commands are wrong the session invents something instead —
- * which is what the change was made to stop.
+ * The message is the whole hook. Nothing lands here, so if the landing command
+ * or the three options after it are wrong the session invents something
+ * instead — which is what the change was made to stop.
  */
-describe("what the session is sent back to ask", () => {
+describe("what the session is sent back to do", () => {
   const asked = question("claude/a-lane", 3);
 
   it("names the lane and what is on it", () => {
@@ -156,26 +157,28 @@ describe("what the session is sent back to ask", () => {
     expect(question("claude/a-lane", 1)).toContain("1 commit,");
   });
 
-  it("carries all four options, and the command for each one that has one", () => {
-    expect(asked).toContain("bun run land --push");
+  /** The local trunk is not a question any more: it is landed first, every time. */
+  it("says to land on the local trunk before asking anything", () => {
     expect(asked).toContain("bun run land --keep");
-    expect(asked).toContain("bun run land --keep --push");
-    expect(asked).toContain("nothing lands");
+    expect(asked).toContain("Land before you ask");
+    expect(asked).not.toContain("bun run land --push");
   });
 
   /**
-   * (c) and (d) differ in nothing but the remote, which is the distinction the
-   * owner asked for: reaching `origin` is a decision of its own, separate from
-   * whether the lane is over.
+   * (b) reaches the remote without ending the lane, which is the distinction
+   * the owner asked for: reaching `origin` is a decision of its own, separate
+   * from whether the lane is over.
    */
-  it("offers landing without a push and landing with one as two answers", () => {
-    expect(asked).toContain("no push");
-    expect(asked).toContain("origin gets main too");
+  it("carries the three options left, and the command for each one that has one", () => {
+    expect(asked).toContain("nothing else happens");
+    expect(asked).toContain("bun run push");
+    expect(asked).toContain("bun run sweep");
+    expect(asked).toContain("the lane stays open");
   });
 
-  it("says not to land before the answer, and not to invent a fifth option", () => {
-    expect(asked).toContain("land nothing before the answer");
-    expect(asked).toContain("fifth option");
+  it("says to ask once, and not to invent a fourth option", () => {
+    expect(asked).toContain("ask once");
+    expect(asked).toContain("fourth option");
   });
 });
 

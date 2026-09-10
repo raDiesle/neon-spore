@@ -1,8 +1,8 @@
 #!/usr/bin/env bun
 
 /**
- * The turn is over and the lane is finished. Stop, and put the choice to the
- * owner — do not take it.
+ * The turn is over and the lane is finished. Stop: land it on the local trunk,
+ * and put the rest to the owner.
  *
  * This used to be `auto-land.ts`, and it landed: it ran `bun run land` itself,
  * so a finished turn moved the trunk, swept the tree and pushed `origin` with
@@ -10,45 +10,46 @@
  * on a branch is a rebase that grows every day — and overshot it. Landing is
  * where a lane's life ends: the trunk moves, the worktree is swept, the remote
  * is written. The owner asked for that moment to be a question rather than a
- * notification after the fact.
+ * notification after the fact, and on 10 September 2026 he split it in two.
+ * The local trunk moving is the reversible half, and the half that keeps the
+ * rebase small, so it is not asked about: a finished lane always lands with
+ * `bun run land --keep` before the turn ends. What is still his to choose is
+ * the part that reaches past this checkout — whether `origin` gets `main`, and
+ * whether the lane is over — and that is asked after the landing, not instead.
  *
- * So the questions git can answer are still asked here, and answering them all
- * now blocks the stop instead of starting a landing. The session is sent back
- * with four options to put to the owner and the command for each. Everything
- * this file will not do — a dirty tree, a branch that is not ahead, the main
- * checkout — is still a silent exit, which is most turns.
+ * So the questions git can answer are asked here, and answering them all blocks
+ * the stop and sends the session back with the landing to run and three options
+ * to put to the owner. The landing is the session's to run rather than this
+ * file's: it is minutes of `bun run check` whose output the session has to see
+ * when it goes red, and on this machine a check run from a shell without `bash`
+ * on its PATH goes red on twelve hook tests for no fault of the lane's.
+ * Everything this file will not do — a dirty tree, a branch that is not ahead,
+ * the main checkout — is a silent exit, which is most turns.
  *
  * It does not collide with `check-on-stop.ts`, which shares this event and runs
  * beside it: that one returns immediately when the tree is clean, and this one
- * returns immediately when it is not.
- *
- * It runs no check of its own. The commit it asks about was let through by
- * `bun run check:fast`, not the whole suite (`tools/check/fast-scope.ts`); the
- * full check is `bun run land`'s, and the question is asked the same either way.
+ * returns immediately when it is not. It runs no check of its own: the commit
+ * was let through by `bun run check:fast` (`tools/check/fast-scope.ts`), and
+ * the full check is the landing's.
  *
  * A landing deletes the branch it just landed, so the worktree it was standing
  * in is left on a detached `HEAD` — `tools/land/sweep.ts` says why the tree
  * itself stays. That used to end the session's ability to land anything else:
  * this file asked `git rev-parse --abbrev-ref HEAD`, read `HEAD`, and exited as
- * "not on a lane's own branch". Every commit after the first landing went into
- * detachment and stayed there, silently, which is the same nothing-happens
- * failure the hooks were moved off bash to stop. So a detached tree with
- * commits on it is a lane: it is handed a branch here and asked about like any
- * other. A detached tree with nothing on it is the ordinary state after a
- * landing, and still exits quietly.
+ * "not on a lane's own branch", so every commit after the first landing went
+ * into detachment and stayed there, silently. A detached tree with commits on
+ * it is a lane: it is handed a branch here and asked about like any other. One
+ * with nothing on it is the ordinary state after a landing, and exits quietly.
  *
- * **It asks once per commit, not once per turn.** "More to come" is one of the
- * three answers, so a lane deliberately left open would otherwise be put to the
- * owner again at the end of every turn until he gave in and landed it. The
- * commit asked about is written to the worktree's own git directory and the
- * question is not repeated until `HEAD` moves.
+ * **It asks once per commit, not once per turn.** A landing that could not go
+ * through — a red check, a trunk behind `origin` — leaves the lane clean and
+ * ahead, and would otherwise be put to the session again at the end of every
+ * turn with nothing new to say. The commit asked about is written to the
+ * worktree's own git directory and the question is not repeated until `HEAD`
+ * moves; a landing that went through needs no note, because the branch is no
+ * longer ahead.
  *
  * `NO_LANE_PROMPT=1` turns it off for a session that decides for itself.
- *
- * Moved off bash with the other three, and this is the one that mattered most:
- * `bash .claude/hooks/auto-land.sh` in a PowerShell session meant a finished
- * lane simply never landed, and the only evidence was the absence of a badge
- * nobody was waiting for.
  */
 
 import { readFileSync, writeFileSync } from "node:fs";
@@ -97,11 +98,10 @@ export function whyNotAsking(s: LaneState): string | null {
   // that sorts the two kinds of them: nothing on it is the ordinary state after
   // a landing, and commits on it are a lane whose branch the landing took away.
   if (s.ahead === 0) return "the branch is not ahead of main";
-  // Asked once per commit, not once per turn. "More to come" is one of the
-  // three answers, and a lane deliberately left open would otherwise be put to
-  // the owner again at the end of every turn until he gave in and landed it.
-  // New work moves `HEAD`, and new work is what makes the question worth
-  // asking a second time.
+  // Asked once per commit, not once per turn. A landing that failed leaves the
+  // lane ahead, and would otherwise be put to the session again at the end of
+  // every turn with nothing new to say. New work moves `HEAD`, and new work is
+  // what makes the question worth asking a second time.
   if (s.head !== "" && s.head === s.askedFor) return "this commit was already put to the owner";
   return null;
 }
@@ -133,29 +133,28 @@ export function branchForDetached(worktree: string, taken: readonly string[]): s
  * than a suggestion because a blocked stop is the session's whole account of
  * why it is still going, and "consider asking" is how a rule becomes optional.
  *
- * The four options are the owner's own. Two axes cross in them — is the lane
- * over, and does `origin` get the trunk — and the pair that keeps the lane
- * open, (c) and (d), differ in nothing but the second. That is deliberate:
- * reaching the remote is its own decision, not a consequence of the other one.
- *
- * The fifth option a session would invent — landing quietly because the work is
- * obviously finished — is the behaviour this file was changed to stop.
+ * The landing comes first and is not a question. The three options after it are
+ * the owner's own, and two axes cross in them — does `origin` get the trunk,
+ * and is the lane over. (b) reaches the remote without ending the lane, on
+ * purpose: reaching the remote is its own decision, not a consequence of the
+ * other one. The fourth option a session would invent — sweeping or pushing
+ * quietly because the work is obviously finished — is the behaviour this file
+ * exists to stop.
  */
 export function question(branch: string, ahead: number): string {
   const count = ahead === 1 ? "1 commit" : `${ahead} commits`;
   return [
-    `${branch} is finished — ${count}, nothing uncommitted — and landing it is the`,
-    "owner's call rather than yours. Put it to them as one question with these four",
-    "options, then do what the answer says:",
+    `${branch} is finished — ${count}, nothing uncommitted. Land it on the local`,
+    "trunk now, from the Bash tool:  bun run land --keep  — the local main moves and",
+    "nothing else does: no sweep, no push, work carries on here. If it goes red,",
+    "fix that first. Once it has landed, put the rest to the owner as one question",
+    "with these three options, then do what the answer says:",
     "",
-    "  a) Finished       bun run land --push         — land, sweep, main to origin",
-    "  b) More to come   nothing lands; the lane stays open for the next prompt",
-    "  c) Land and stay  bun run land --keep         — the local main moves and",
-    "                                                  nothing else does: no sweep,",
-    "                                                  no push, work carries on here",
-    "  d) Land and send  bun run land --keep --push  — (c), and origin gets main too",
+    "  a) More to come   nothing else happens; the lane stays open for the next prompt",
+    "  b) Send           bun run push   — origin gets main, the lane stays open",
+    "  c) Finished       bun run sweep  — the branch and spent worktrees go, origin gets main",
     "",
-    "Ask once, land nothing before the answer, and do not invent a fifth option.",
+    "Land before you ask, ask once, and do not invent a fourth option.",
   ].join("\n");
 }
 

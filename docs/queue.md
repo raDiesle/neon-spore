@@ -427,24 +427,3 @@ here is read against a number.
 
 The target is the whole suite under two minutes with the same coverage,
 proved by `bun run check` and by the profile run again.
-
-## `CLAUDE.md` is four characters under its ceiling
-
-- **Found:** 2026-09-10, claude/queue-a-landing-runs-the-full-check-twice-once-by-the
-- **Taken:** 2026-09-10, claude/queue-claude-md-is-four-characters-under-its-ceiling
-- **Files:** `CLAUDE.md`, `tools/test/claude-md.test.ts`, `docs/git-and-landing.md`
-
-`tools/test/claude-md.test.ts` holds `CLAUDE.md` under 22,000 characters, and
-the file stands at 21,996. The lane that added the `check:fast` commit rule
-had to fold the "rebase before the check" bullet into it to get the sentence
-in at all, and the next rule anybody adds — one line — turns the check red on
-a file that did not change in any way that matters. The ceiling is doing its
-job; what it is asking for is a move, not a raise.
-
-What to do: read the Git section of `CLAUDE.md` against
-`docs/git-and-landing.md` and move every clause that is reasoning rather than
-rule — the cloud-session bullets are the likeliest, most of them restate
-`docs/cloud-session.md` — leaving the pointer, until the file has a paragraph
-of room again (~1,500 characters). Do not raise `SIZE_LIMIT`; the test's own
-comment says why. `bun run check` proves it: the size test, the
-names-only-scripts test and the points-only-at-files test all read the result.

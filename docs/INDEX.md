@@ -1333,7 +1333,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/ship-notes.ts` | The paragraph under each card's heading, and nothing else |
 | `tools/land/push.ts` | `bun run push` — put the trunk on `origin`, because somebody asked |
 | `tools/land/specs.ts` | The spent-delegate-spec half of the sweep |
-| `tools/hooks/lane-finished.ts` | The turn is over and the lane is finished: put the choice to the owner rather than taking it |
+| `tools/hooks/lane-finished.ts` | The turn is over and the lane is finished: land it on the local trunk, and put the rest to the owner |
 | `tools/director/src/control-set-note.ts` | The roster under the wave editor's control-set picker: every button on the panel, seat by seat |
 | `tools/director/src/rail-marks.ts` | The small glyphs in front of a wave's name in the rail: a boss, a panel, a guide |
 | `tools/land/say.ts` | What a landing says about itself before and after it happens |

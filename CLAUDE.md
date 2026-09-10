@@ -35,9 +35,8 @@ history; nothing here is an argument you have already accepted.
 Rules 1–4 are enforced by tests, not by good intentions.
 `packages/sim/test/purity.test.ts` scans every file in `sim` and `content` for a
 wall clock, a random number, a DOM global or an import of `render`, and carries
-a table of rules that must be **called, not re-derived** — `mapCol` spelled out
-by hand is a second copy of where a creature lands, and it will drift. Add a row
-when review catches one. `packages/sim/test/hash-coverage.test.ts` walks a
+a table of rules that must be **called, not re-derived**. Add a row when review
+catches one. `packages/sim/test/hash-coverage.test.ts` walks a
 populated world field by field and fails on one the fingerprint does not notice.
 
 Style and formatting are Biome's job: `bun run lint`, `bun run format`.
@@ -49,29 +48,27 @@ Style and formatting are Biome's job: `bun run lint`, `bun run format`.
 - **Worktrees are a working tool**, and the branch that comes with one is
   temporary. A fresh worktree needs its own `bun install` — `node_modules` must
   **not** be linked or copied from the main tree, and on Windows it is run **from
-  a native shell**: MSYS writes the workspace link with a POSIX target `tsc`
-  cannot follow (`docs/working-with-claude.md`).
+  a native shell** (`docs/working-with-claude.md`).
 - **Landing is one command: `bun run land`, from inside the lane's worktree.**
   It rebases onto `main`, checks the result, fast-forwards, writes the release
   note, deletes the branch and sweeps spent worktrees. Do not do any of it by
   hand, and do not skip a step because it looks done.
-- **A landing does not push `origin/main`; a cleanup does.** The trunk goes to
-  `origin` when the sweep cleared a lane away; in between it moves locally and
-  `bun run push` sends it. A clone with no worktrees pushes every time — nothing
-  there to sweep, and the push is the hand-off.
-- **A finished lane is never landed silently.** When a turn ends in a worktree
-  clean and ahead of `main`, `tools/hooks/lane-finished.ts` blocks the stop; put
-  one question to the owner — these four answers, no fifth.
-  **a) Finished** — `bun run land --push`. **b) More to come** — nothing lands.
-  **c) Land and stay** — `bun run land --keep`: the local `main` moves and nothing
-  else does, no sweep and no push, so work carries on here. **d) Land and send** —
-  `bun run land --keep --push`: (c), and `origin` gets `main` too. Land nothing
-  before the answer. `NO_LANE_PROMPT=1` turns the hook off.
+- **A landing does not push `origin/main`; a cleanup does.** In between the
+  trunk moves locally and `bun run push` sends it. A clone with no worktrees
+  pushes every time — the push is the hand-off.
+- **A finished lane lands on the local `main` before the turn ends, and the
+  rest is asked.** When a turn ends in a worktree clean and ahead of `main`,
+  `tools/hooks/lane-finished.ts` blocks the stop. Run `bun run land --keep` —
+  the local `main` moves and nothing else does, no sweep and no push — then put
+  one question to the owner, these three answers, no fourth.
+  **a) More to come** — nothing else happens; work carries on here.
+  **b) Send** — `bun run push`: `origin` gets `main`, the lane stays open.
+  **c) Finished** — `bun run sweep`: the branch and spent worktrees go, and
+  `origin` gets `main`. `NO_LANE_PROMPT=1` turns the hook off.
 - **Bring the trunk up before you start, not only before you land.**
   `git fetch origin main && git merge --ff-only origin/main`. `bun run land`
-  fetches and refuses while `main` is behind `origin/main`. A rebase deferred is
-  not the same rebase later — it grows a conflict per file both sides touched —
-  so **land each green piece** rather than holding a branch open for a second.
+  refuses while `main` is behind `origin/main`. A rebase deferred grows, so
+  **land each green piece** rather than holding a branch open for a second.
 - **Resolving a conflict is not finished until `bunx tsc --noEmit` passes**,
   before `git rebase --continue`. Never concatenate both sides in a file with
   syntax; resolve a generated file by running its command; and for
@@ -80,15 +77,13 @@ Style and formatting are Biome's job: `bun run lint`, `bun run format`.
 - **A defect found after landing is new work, and gets a new branch from
   `main`.** Never revive the landed branch.
 - **Commit when the work is done, without being asked.** Four conditions, all of
-  them: `bun run check:fast` passes — the full check is `bun run land`'s, run
-  after the rebase, and the one result that counts; the work is actually
-  finished; you stage **only the files this task touched, by path** — never
-  `git add -A`, because another session may have work in the tree; one commit
-  per coherent change. Then say what was committed.
+  them: `bun run check:fast` passes (the full check is `bun run land`'s, and the
+  one result that counts); the work is actually finished; you stage **only the
+  files this task touched, by path** — never `git add -A`; one commit per
+  coherent change. Then say what was committed.
 - Write the commit message well: `bun run land` turns its subject and first
-  paragraph into the release note, and that is the only part of this anybody
-  sees twice. Do not write a `Check:` trailer and do not ask the owner to
-  confirm that something was tested.
+  paragraph into the release note. Do not write a `Check:` trailer and do not
+  ask the owner to confirm that something was tested.
 
 Why any of that: `docs/git-and-landing.md`.
 
@@ -99,22 +94,16 @@ A session started from a phone clones `origin` and never sees this checkout.
 - **It reads the remote, not the tree.** The hand-off is a push, not a save.
 - **It pushes its own branch when done**, without being asked. Never a pull
   request.
-- **It lands `main` itself, every turn**, when two conditions hold: the branch
-  is already rebased onto the current `origin/main`, and `bun run check` is
-  green on that rebased branch. If either fails, it pushes the branch and says
-  so. Mid-task work is not committed and therefore cannot land.
-- **It says which parts it could not verify, in the report, in that word —
-  and queues them.** `bun test` and the typecheck hold unaided; anything
-  needing a wave watched at tempo, a shape sheet seen by an eye, `bun run perf`
-  or `bun run relay:check` is *unverified*. The report names it as a list of
-  what to open, and `bun run land --unverified "<what>"` — repeatable — writes
-  the same list into `docs/queue.md`, so a session with a machine that can look
-  picks it up like any other item. A report ends when the session does; the
-  queue does not.
+- **It lands `main` itself, every turn**, when the branch is rebased onto the
+  current `origin/main` and `bun run check` is green there. If either fails, it
+  pushes the branch and says so.
+- **It says which parts it could not verify, in the report, in that word — and
+  queues them** with `bun run land --unverified "<what>"`, repeatable. `bun test`
+  and the typecheck hold unaided; a wave watched at tempo, a shape sheet seen by
+  an eye, `bun run perf` or `bun run relay:check` is *unverified*.
 - **Its servers need a host**: `PREVIEW_HOST=127.0.0.1`, `DIRECTOR_HOST=127.0.0.1`.
-  Without it Bun reports `EADDRINUSE`, which is the wrong cause.
 - **Two at once is the ceiling**, on different packages, each naming its branch
-  in the prompt. Landings are serialised by a linear trunk whatever else runs.
+  in the prompt.
 
 The reasoning, and what a cloud session needs once it is running:
 `docs/cloud-session.md`.
@@ -128,14 +117,12 @@ each is where it is: `docs/queue.md`'s own preamble.
 A refactor stepped around, a rule re-derived instead of called, a file grown
 past ~250 lines, dead code, a slow path, a missing test, a document that no
 longer describes the code, a tool that would have helped, **a command that
-failed and was worked around** — the retry costs every later session the same
-tokens. It goes in
-`docs/queue.md` as one `##` item — the date, the branch, the files, and what to
-do — committed with the work that found it. Do not ask first, do not weigh
-whether it is worth the owner's attention, do not settle for saying it in the
-report, and do **not** also offer it as a suggested background task. The test
-for an entry is one question: **could a fresh session finish this alone and
-prove it with `bun run check`?**
+failed and was worked around**. It goes in `docs/queue.md` as one `##` item —
+the date, the branch, the files, and what to do — committed with the work that
+found it. Do not ask first, do not weigh whether it is worth the owner's
+attention, do not settle for saying it in the report, and do **not** also offer
+it as a suggested background task. The test for an entry is one question:
+**could a fresh session finish this alone and prove it with `bun run check`?**
 
 **A queue item is worked by a session that has nothing else in it, and it is
 claimed before any of the work starts.** `bun run queue next` hands out the
@@ -149,24 +136,22 @@ which releases it. A session draining several in one sitting claims each with
 worktree.
 
 **A topic that needs the owner's answer is queued too, on an `Asks:` line.**
-That is a rule the owner changed on 6 September 2026, and it reverses what this
-section used to say. The test is not whether a decision is involved — it is
-**whether there is work waiting on it**. Work that is decided, sized and
-sitting in named files, held up by one sentence from him, goes in
+The test is **whether there is work waiting on it**: work that is decided,
+sized and sitting in named files, held up by one sentence from him, goes in
 `docs/queue.md` like anything else, with
 `- **Asks:** <question ending in a question mark>` under `Files:`. The listing
-then marks it `ASKS THE OWNER`, and `bun run queue next` hands the session a
-prompt that puts the question first and says to build nothing until it is
-answered. The body must still **name the options the answer picks between**: a
-bare "what should this look like" is not an entry.
+marks it `ASKS THE OWNER`, and `bun run queue next` hands the session a prompt
+that puts the question first and says to build nothing until it is answered.
+The body must still **name the options the answer picks between**: a bare
+"what should this look like" is not an entry.
 
 **An idea for the game is still not collected.** What the game could have and
 does not — a creature, a mechanic, a control, a weapon, a boss, a round — has no
 lane waiting on it, so it goes in `docs/spec/`, which is what the director's
-`◇ NOT BUILT YET` sheet reads, next to the built things it would sit beside. A
-*look* with something already shipped in its place is offered in `tools/versus/`
-instead, because the only way to choose between two is to see both. Neither is
-filed into the queue by the session that thought of it.
+`◇ NOT BUILT YET` sheet reads. A *look* with something already shipped in its
+place is offered in `tools/versus/` instead, because the only way to choose
+between two is to see both. Neither is filed into the queue by the session that
+thought of it.
 
 **Either may still be put to the owner, at the end of the turn that found it.**
 A session working on something else that sees a feature the game wants — a
@@ -299,8 +284,7 @@ carries no `cwd`, so it starts the *main* checkout and nothing errors.
 `?play=1` opens on the field rather than the menu, which is what `tools/frames`
 drives. Never start a server with a backgrounded shell command, and never
 install a service worker on a local address (`?pwa=1` tests the install
-itself). Each of those is a trap something walked into, and each costs a turn to
-rediscover: `docs/working-with-claude.md`.
+itself). Each of those cost a turn once: `docs/working-with-claude.md`.
 
 ## Measuring what a frame costs
 
@@ -355,20 +339,17 @@ answered. Kill the wrangler when the check is done.
   not touched: a wave shows the union of its creatures' control groups.
 - A new wave must pass the one-sentence test — if you cannot write
   `sentence`, the wave is padding. See `.claude/skills/new-wave`.
-- A wave's **tutorial** is the game's own screen, not a card over it, and every
-  rule about one is a correction the owner has already made once. Read
+- A wave's **tutorial** is the game's own screen, not a card over it. Read
   `.claude/skills/new-tutorial` before writing or changing a guide's pages.
 - Silhouettes are judged through `tools/shape-sheet`, not by screenshotting the
   running game. `bun run shapes:report` prints the geometry as numbers — reach
   for that first; `bun run shapes` regenerates the sheets an eye needs.
 - Anything drawn is drawn again in `packages/render/test/frame.test.ts`, through
-  a canvas that refuses what a real one refuses. It catches the class of mistake
-  a type check cannot: a value that is a perfectly good `string` and not a
+  a canvas that refuses what a real one refuses — a `string` that is not a
   colour.
 - **`world.beat`, `world.tick` and `world.nextId` are not monotonic.** A restart
-  builds a fresh `World` and all three start at 0, so render state cached
-  against them is read by the next run as its own. Anything in render/ that
-  outlives a frame belongs in `Effects` and is cleared in `Effects.reset()`;
+  starts all three at 0. Anything in render/ that outlives a frame belongs in
+  `Effects` and is cleared in `Effects.reset()`;
   `packages/render/test/restart.test.ts` fails if a new field is not.
 - Files stay under ~250 lines. Split rather than grow.
 - **Everything in the repository is in English** — code, identifiers, commits,
