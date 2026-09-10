@@ -1,10 +1,12 @@
 import { blobPath, openSmoothPath, type Point } from "../../../../../packages/content/src/index.js";
 import { hash01 } from "../../../../../packages/render/src/backdrop.js";
+import type { BandAttach } from "../../../../../packages/render/src/band-join.js";
 import { halo, strokeGlow } from "../../../../../packages/render/src/glow.js";
 import { rgba } from "../../../../../packages/render/src/hex.js";
 import type { SheenPass } from "../../../../../packages/render/src/hull-sheen.js";
 import type { SeatSkin } from "../../../../../packages/render/src/seat-skin.js";
 import { dither } from "../../../../../packages/render/src/sheen.js";
+import { sameLight } from "../../../join.js";
 
 /**
  * PLASM's skin and chamber: the ship is a **single cell**.
@@ -146,6 +148,44 @@ export function cytoplasm(s: SheenPass): void {
   mitochondria(s);
   membrane(s);
   dither(s.ctx, s.filled);
+}
+
+/**
+ * The chamber's living part, drawn every frame under the controls: the same
+ * granules and two of the same mitochondria that drift in the hull, so the
+ * cytoplasm does not stop at the membrane — the one thing that makes the two
+ * layers one cell rather than a cell on a panel. Then the hull's own light.
+ */
+export function chamberLife(d: BandAttach): void {
+  const { ctx, l, time, skin } = d;
+  const top = l.bandTop;
+  const deep = l.bandTop + l.bandHeight * 0.55;
+  ctx.fillStyle = rgba(skin.flesh[0], 0.3);
+  for (let i = 0; i < 40; i++) {
+    const x = l.width * ((hash01(i * 31 + 5) + time * 0.004 * (0.5 + hash01(i * 3 + 7))) % 1);
+    const y = top + (deep - top) * hash01(i * 17 + 3) + Math.sin(time * 0.5 + i) * 2;
+    const r = l.tile * (0.012 + hash01(i * 19 + 7) * 0.02);
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  for (let i = 0; i < 2; i++) {
+    const u = (0.3 + i * 0.45 + time * 0.004) % 1;
+    const x = l.gridLeft + u * l.gridWidth;
+    const y = top + l.tile * (0.6 + 0.4 * Math.sin(time * 0.2 + i * 2));
+    const len = l.tile * 0.4;
+    mitochondrion(
+      ctx,
+      x,
+      y,
+      len,
+      len * 0.42,
+      Math.sin(time * 0.1 + i) * 0.5,
+      i * 13 + 2,
+      skin.hull,
+    );
+  }
+  sameLight(d);
 }
 
 /** The chamber: the same cytoplasm deeper in — vacuoles as lenses of fluid,

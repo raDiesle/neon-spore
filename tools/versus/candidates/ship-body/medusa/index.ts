@@ -1,10 +1,12 @@
 import * as content from "../../../../../packages/content/src/index.js";
 import * as ground from "../../../../../packages/render/src/band-ground.js";
+import * as join from "../../../../../packages/render/src/band-join.js";
 import { barrel } from "../../../../../packages/render/src/hull-barrel.js";
 import * as light from "../../../../../packages/render/src/hull-light.js";
 import * as sheen from "../../../../../packages/render/src/hull-sheen.js";
 import * as seat from "../../../../../packages/render/src/seat-skin.js";
 import * as nerves from "../../../../../packages/render/src/ship-nerves.js";
+import { saggingRoof, sameLight } from "../../../join.js";
 import { patch, type Variant } from "../../../variant.js";
 import { wired } from "../gullet/nerves.js";
 import { arms, bell } from "./paint.js";
@@ -87,6 +89,18 @@ export const SHIP_MEDUSA: Variant = {
         type: "BandGround",
       },
       fields: { name: "medusa", paint: arms },
+    }),
+    patch({
+      target: join.BAND_JOIN,
+      reached: () => join.BAND_JOIN,
+      where: {
+        file: "packages/render/src/band-join.ts",
+        symbol: "BAND_JOIN",
+        type: "BandJoin",
+      },
+      // The join is the ship's: the membrane sags over every control and the
+      // chamber is lit and grained the way the hull is (`tools/versus/join.ts`).
+      fields: { ceiling: saggingRoof(3.4, 0.4), attach: sameLight },
     }),
     patch({
       target: nerves.SHIP_NERVES,

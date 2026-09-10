@@ -13,13 +13,6 @@ import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
 import { TORCH_CROWN } from "./creature-torch/crown/index.js";
 import { TORCH_HOLLOW } from "./creature-torch/hollow/index.js";
 import { TORCH_KILN } from "./creature-torch/kiln/index.js";
-import { JOIN_BOTH } from "./panel-join/both/index.js";
-import { JOIN_CAUL } from "./panel-join/caul/index.js";
-import { JOIN_FUSED } from "./panel-join/fused/index.js";
-import { JOIN_ORGANS } from "./panel-join/organs/index.js";
-import { JOIN_ROOF } from "./panel-join/roof/index.js";
-import { JOIN_SAC } from "./panel-join/sac/index.js";
-import { JOIN_VESSEL } from "./panel-join/vessel/index.js";
 import { SHIP_CHITIN } from "./ship-body/chitin/index.js";
 import { SHIP_GULLET } from "./ship-body/gullet/index.js";
 import { SHIP_MEDUSA } from "./ship-body/medusa/index.js";
@@ -46,13 +39,6 @@ export const VARIANTS: Variant[] = [
   TORCH_CROWN,
   TORCH_HOLLOW,
   TORCH_KILN,
-  JOIN_BOTH,
-  JOIN_CAUL,
-  JOIN_FUSED,
-  JOIN_ORGANS,
-  JOIN_ROOF,
-  JOIN_SAC,
-  JOIN_VESSEL,
   SHIP_CHITIN,
   SHIP_GULLET,
   SHIP_MEDUSA,

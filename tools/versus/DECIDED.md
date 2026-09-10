@@ -354,3 +354,16 @@ screen for the reason ammunition is.
 The slot stays open, because the owner asked in the same breath whether the
 hole could be more detailed — smaller stone pieces still crumbling off the top
 of it. What is above is the shipped side of that question now.
+
+## `panel:ship-join` — nothing taken, 2026-09-10
+
+Closed with nothing adopted, on the owner's word on 10 September 2026: a ship
+that is fluent from crest to buttons has to own its join, so the slot's
+findings — a grown thing starts above the membrane and the clip welds it, the
+chamber lit by the hull's own light and grain, a roof that sags over the
+controls — moved to tools/versus/join.ts as the baseline every ship:body card
+patches. The four attachment ideas (welded trunks, a vascular tree, a draped
+caul, bladders) stay in history at 386988aa as material for the ships.
+
+The other answers offered were `both`, `caul`, `fused`, `organs`, `roof`,
+`sac` and `vessel`; they went with the slot.

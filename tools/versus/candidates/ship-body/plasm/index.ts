@@ -1,13 +1,15 @@
 import * as content from "../../../../../packages/content/src/index.js";
 import * as ground from "../../../../../packages/render/src/band-ground.js";
+import * as join from "../../../../../packages/render/src/band-join.js";
 import { barrel } from "../../../../../packages/render/src/hull-barrel.js";
 import * as light from "../../../../../packages/render/src/hull-light.js";
 import * as sheen from "../../../../../packages/render/src/hull-sheen.js";
 import * as seat from "../../../../../packages/render/src/seat-skin.js";
 import * as nerves from "../../../../../packages/render/src/ship-nerves.js";
+import { saggingRoof } from "../../../join.js";
 import { patch, type Variant } from "../../../variant.js";
 import { transported } from "./nerves.js";
-import { cytoplasm, vacuoles } from "./paint.js";
+import { chamberLife, cytoplasm, vacuoles } from "./paint.js";
 
 /**
  * `ship:body` / `plasm` — the ship is a single cell.
@@ -85,6 +87,18 @@ export const SHIP_PLASM: Variant = {
         type: "BandGround",
       },
       fields: { name: "plasm", paint: vacuoles },
+    }),
+    patch({
+      target: join.BAND_JOIN,
+      reached: () => join.BAND_JOIN,
+      where: {
+        file: "packages/render/src/band-join.ts",
+        symbol: "BAND_JOIN",
+        type: "BandJoin",
+      },
+      // The join is the ship's: the membrane sags over every control and the
+      // chamber is lit and grained the way the hull is (`tools/versus/join.ts`).
+      fields: { ceiling: saggingRoof(3.4, 0.3), attach: chamberLife },
     }),
     patch({
       target: nerves.SHIP_NERVES,

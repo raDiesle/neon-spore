@@ -100,9 +100,9 @@ const SLOT_POSE: Record<string, string> = {
   // panel under it. It is the first here whose subject is *two* objects, so its
   // pose is the one cut that carries both and nothing else is moving on it
   // (`poses-versus.ts`).
-  "panel:ship-join": "SHIP · MEETING THE PANEL",
-  // A whole ship is judged on the same cut as its join: the hull across the
-  // width with the panel under it and nothing falling.
+  // A whole ship is judged on the cut that carries both the hull and the panel
+  // under it, with nothing falling — the cut `panel:ship-join` was judged on
+  // before the ships took the join over.
   "ship:body": "SHIP · MEETING THE PANEL",
   // Armour on a body rather than on a boss, and the pose is the *half-open*
   // state on purpose: an intact shell is two plates that tile exactly, so a

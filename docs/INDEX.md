@@ -1302,6 +1302,7 @@ place — the generator keeps whatever is there.
 | `tools/versus/list.ts` | `bun run versus` — which slots are open, and what deciding one would reach |
 | `tools/versus/text.ts` | How a value and a paragraph are spelled where VERSUS talks to a person |
 | `tools/versus/tube.ts` | a tube of varying width round a sampled centreline, and the cubic that samples one — shared by candidates in more than one slot |
+| `tools/versus/join.ts` | how a ship meets its panel without a line — the welded start, the hull's own light over the chamber and the sagging roof, the baseline every whole-ship card patches |
 | `tools/index/drift.ts` | Whether a row in `docs/INDEX.md` still describes the file it names |
 | `tools/index/sentence.ts` | **The one line a row carries**, read off the file's own header comment and cut to something a table can hold |
 | `tools/index/place.ts` | where a new row goes: beside the rows whose names it shares a beginning with |

@@ -1,9 +1,11 @@
 import * as content from "../../../../../packages/content/src/index.js";
 import * as ground from "../../../../../packages/render/src/band-ground.js";
+import * as join from "../../../../../packages/render/src/band-join.js";
 import * as light from "../../../../../packages/render/src/hull-light.js";
 import * as sheen from "../../../../../packages/render/src/hull-sheen.js";
 import * as seat from "../../../../../packages/render/src/seat-skin.js";
 import * as nerves from "../../../../../packages/render/src/ship-nerves.js";
+import { saggingRoof, sameLight } from "../../../join.js";
 import { patch, type Variant } from "../../../variant.js";
 import { wired } from "./nerves.js";
 import { lip, mouthLight } from "./sheen.js";
@@ -20,7 +22,7 @@ import { throat } from "./throat.js";
  * makes it what the ship *is*. The hull is a lip. The field is what it eats.
  * The panel is the throat, and the buttons are glands in its wall.
  *
- * **Seven records, one body.** The contour goes from fourteen shallow ripples to
+ * **Eight records, one body.** The contour goes from fourteen shallow ripples to
  * nine deeper, slower folds, which is a lip and not a ridge. The skin keeps the seat's
  * hue and goes wet: a paler edge, a redder flesh, a darker inside. The material
  * is `sheen.ts` — a swallow passing down the lip every three seconds, creases
@@ -31,10 +33,10 @@ import { throat } from "./throat.js";
  * `nerves.ts`: every control is a tendon on the organ it moves — the cannon's
  * knob roots a cord that runs up through the throat and the lip to the base of
  * the cannon lobe, the shield's likewise, and each button's thread joins the
- * cord of the organ it speaks to. The panel's roof and
- * what hangs from it are **not** touched — `panel:ship-join` holds those and
- * the owner asked for both slots to stay open — so what a card in this slot
- * argues is the ship and its inside, and the join is judged next door.
+ * cord of the organ it speaks to. And the join is the ship's own: the roof
+ * sags over every control and the chamber is lit and grained the way the lip
+ * is (`tools/versus/join.ts`), which is what the closed `panel:ship-join`
+ * slot found and the ships took over.
  *
  * Cannon, maw and shield are the same lobes on the same membrane: nothing a
  * player aims with moved. The maw in particular is unchanged and is the point —
@@ -107,6 +109,18 @@ export const SHIP_GULLET: Variant = {
         type: "BandGround",
       },
       fields: { name: "throat", paint: throat },
+    }),
+    patch({
+      target: join.BAND_JOIN,
+      reached: () => join.BAND_JOIN,
+      where: {
+        file: "packages/render/src/band-join.ts",
+        symbol: "BAND_JOIN",
+        type: "BandJoin",
+      },
+      // The join is the ship's: the membrane sags over every control and the
+      // chamber is lit and grained the way the hull is (`tools/versus/join.ts`).
+      fields: { ceiling: saggingRoof(3.4, 0.4), attach: sameLight },
     }),
     patch({
       target: nerves.SHIP_NERVES,

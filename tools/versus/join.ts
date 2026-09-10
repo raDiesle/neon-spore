@@ -1,40 +1,30 @@
-import {
-  HULL,
-  hullAngleAtX,
-  hullRadiusMul,
-  LIGHT_HALF,
-} from "../../../../../packages/content/src/index.js";
-import type { BandAttach, CeilingRise } from "../../../../../packages/render/src/band-join.js";
-import { seamRise, seamTop } from "../../../../../packages/render/src/band-seam.js";
-import { mixHex } from "../../../../../packages/render/src/hex.js";
-import { barrelAcross } from "../../../../../packages/render/src/hull-barrel.js";
-import { hullClock, hullSpan } from "../../../../../packages/render/src/hull-frame.js";
-import type { Circle, Layout } from "../../../../../packages/render/src/layout.js";
-import type { SeatSkin } from "../../../../../packages/render/src/seat-skin.js";
-import { dither } from "../../../../../packages/render/src/sheen.js";
+import { HULL, hullAngleAtX, hullRadiusMul, LIGHT_HALF } from "../../packages/content/src/index.js";
+import type { BandAttach, CeilingRise } from "../../packages/render/src/band-join.js";
+import { seamRise, seamTop } from "../../packages/render/src/band-seam.js";
+import { mixHex } from "../../packages/render/src/hex.js";
+import { barrelAcross } from "../../packages/render/src/hull-barrel.js";
+import { hullClock, hullSpan } from "../../packages/render/src/hull-frame.js";
+import type { Circle, Layout } from "../../packages/render/src/layout.js";
+import type { SeatSkin } from "../../packages/render/src/seat-skin.js";
+import { dither } from "../../packages/render/src/sheen.js";
 
 /**
- * WHAT EVERY ANSWER WRITTEN ON 9 SEPTEMBER 2026 IS MADE OF.
+ * HOW A SHIP MEETS ITS PANEL WITHOUT A LINE — the baseline every whole-ship
+ * card is built on.
  *
- * Four candidates went into this slot at once and they share three problems,
- * because the owner named all three about the card that was already there:
- * *left side top is not connected properly*, *the gradient on top ship looks
- * different than control panel, because control panel has no gradient at all*,
- * and it should feel like *one single alien living ship where everything is
- * grown together*. Those are one question with three symptoms, and an answer
- * that solved them four times over in four candidate directories would be four
- * chances to solve them four slightly different ways — which would make the
- * vote a vote on the arithmetic in here rather than on the four shapes it is
- * supposed to be about.
+ * These were `candidates/panel-join/fused/tissue.ts`, the shared half of four
+ * answers to `panel:ship-join`. On 10 September 2026 the owner closed that
+ * slot with nothing adopted and had its findings folded into `ship:body`
+ * instead: a ship that is fluent from crest to buttons has to own its join,
+ * and a join judged apart from the ship it is on is a vote on half a body. So
+ * the three things those cards proved live here, beside `tube.ts`, where no
+ * slot's closing can remove them:
  *
- * So the fixes live here once and the candidates differ only in **what grows
- * in the chamber**, which is the thing being argued about.
- *
- * It sits inside `fused/` rather than beside `variant.ts` for the reason
- * `roof/paint.ts` does: a slot is removed whole when it is decided
- * (`bun run versus adopt`), and a shared file one directory up would outlive
- * every candidate that used it. `both/index.ts` already imports across two
- * sibling directories, so the shape of this is not new.
+ * - `sky` — a grown thing starts above the membrane and the chamber's clip
+ *   welds it to the contour, so nothing can come away from the roof.
+ * - `sameLight` — the chamber is lit by the hull's own key light and grained
+ *   with its own dither, which is what removed the last line at the join.
+ * - `saggingRoof` — the membrane hangs lower over every control.
  */
 
 /**
