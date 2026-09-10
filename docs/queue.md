@@ -465,36 +465,6 @@ Wait for `creature:break` to be decided before opening this, or check with
 slots claiming one field, and a body's break and a body's hit are next-door
 questions.
 
-## Close `slick:shape` with nothing taken: COMMA and REVERB to the shape sheet
-
-- **Found:** 2026-09-09, claude/slick-content-organization-17beb0
-- **Taken:** 2026-09-10, claude/queue-close-slick-shape-with-nothing-taken-comma-and-r
-- **Files:** `tools/versus/candidates/slick-shape/`, `tools/versus/DECIDED.md`,
-  `tools/shape-sheet/src/drafts/offered.ts`
-
-The owner answered this slot in chat on 9 September 2026 and took none of the
-five. **RAY, FRILL and CHAIN are rejected** — they go with the slot and their
-argument survives only in the removing commit's message, which is the rule
-`docs/versus.md` sets for a candidate nobody took. **COMMA and REVERB are
-kept as pictures**: they move to the shape sheet rather than being deleted.
-
-Order again: move the two out **before** `bun run versus drop slick:shape
-"<why not>"`, because the drop takes the whole directory with it. The drop is
-what writes `DECIDED.md`; do not write that file by hand.
-
-COMMA is one deep lobe and a drawn-out tail — a body with a head end — and
-REVERB is the REVERB draft's even three-lobed edge stretched onto the slick's
-footprint. Both become `OFFERED_DRAFTS` entries in
-`tools/shape-sheet/src/drafts/offered.ts`, status `free`, following the THROB ·
-CROWN entry already there, with the owner line saying each was offered against
-the shipped slick and not taken. Keep both docstrings, the *how it can lose*
-paragraph included: COMMA's is that THE DART already owns a point, REVERB's is
-that plain reads as unfinished, and those are the sentences that will decide
-them if they are ever picked up again.
-
-Prove it with `bun run check` and `bun run shapes`, staging the regenerated
-sheets.
-
 ## THE BALLOON's outer handle rests off the screen in the wall columns
 
 - **Found:** 2026-09-10, claude/queue-the-balloon-a-longer-pull-a-hold-at-full-stretch

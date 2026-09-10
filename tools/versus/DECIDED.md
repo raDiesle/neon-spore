@@ -382,3 +382,17 @@ tools/shape-sheet/src/motions/offered.ts and OFFERED_DRAFTS.
 
 The other answers offered were `bank`, `float` and `glide`; they went with the
 slot.
+
+## `slick:shape` — nothing taken, 2026-09-10
+
+The owner read the five on 9 September 2026 and took none: the shipped
+two-sacs-at-a-waist slick stands. RAY (one flat sheet with seven shallow
+scallops — at 26 px close to a bar), FRILL (nine shallow lobes along a long
+body — the wobble eats a fringe that size) and CHAIN (four sacs along the axis
+— four waists is three places a body can look severed) are rejected and go
+with the slot. COMMA and REVERB are kept as pictures: on the SHAPES tab as
+OFFERED_DRAFTS (tools/shape-sheet/src/drafts/offered.ts), on the slick's own
+motion, each with its how-it-can-lose.
+
+The other answers offered were `chain`, `comma`, `frill`, `ray` and `reverb`;
+they went with the slot.

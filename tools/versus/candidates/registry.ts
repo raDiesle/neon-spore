@@ -21,11 +21,6 @@ import { SHIP_PLASM } from "./ship-body/plasm/index.js";
 import { SHIP_REEF } from "./ship-body/reef/index.js";
 import { CRATER_GRIT } from "./ship-crater/grit/index.js";
 import { CRATER_SHARDS } from "./ship-crater/shards/index.js";
-import { SLICK_CHAIN } from "./slick-shape/chain/index.js";
-import { SLICK_COMMA } from "./slick-shape/comma/index.js";
-import { SLICK_FRILL } from "./slick-shape/frill/index.js";
-import { SLICK_RAY } from "./slick-shape/ray/index.js";
-import { SLICK_REVERB } from "./slick-shape/reverb/index.js";
 import { TORCH_BLOOM } from "./torch-veil/bloom/index.js";
 import { TORCH_FIFTH } from "./torch-veil/fifth/index.js";
 
@@ -45,11 +40,6 @@ export const VARIANTS: Variant[] = [
   SHIP_REEF,
   CRATER_GRIT,
   CRATER_SHARDS,
-  SLICK_CHAIN,
-  SLICK_COMMA,
-  SLICK_FRILL,
-  SLICK_RAY,
-  SLICK_REVERB,
   TORCH_BLOOM,
   TORCH_FIFTH,
 ];

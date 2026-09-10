@@ -64,7 +64,7 @@ const axes = CATALOGUE.map((e) => ({
 }));
 
 describe("the catalogue's long axes", () => {
-  it("splits a hundred and seventeen bodies into wide, round and tall", () => {
+  it("splits a hundred and fourteen bodies into wide, round and tall", () => {
     const count = (a: "x" | "y" | null) => axes.filter((e) => e.long === a).length;
     // 104 until 8 September 2026, when THROB · CROWN was filed in
     // `drafts/offered.ts` — a round card, so it lands in the middle count.
@@ -79,12 +79,15 @@ describe("the catalogue's long axes", () => {
     // 117 from 10 September 2026: SLICK · GLIDE and SLICK · FLOAT, the two
     // motions the owner kept as pictures when he took BANK, each on the
     // slick's own outline — so two more wide cards and nothing else changes.
-    expect(axes.length).toBe(117);
+    // 114 the same day, when `slick:shape` closed with nothing taken: its five
+    // candidates left the catalogue (four wide, one round) and COMMA and
+    // REVERB came back as drafts — COMMA round at 64 × 54, REVERB wide.
+    expect(axes.length).toBe(114);
     // One ring of THE CRAWLER is the thirty-ninth wide card, and it is wide by
     // more than any other: a ring reaches nearly a full tile past its own
     // column at each end, which is what makes a run of them one animal with no
     // gap in it rather than beads on a string (`content/crawler-shape.ts`).
-    expect(count("x")).toBe(45);
+    expect(count("x")).toBe(42);
     expect(count(null)).toBe(59);
     // THE VEER is the thirteenth tall card and the only one made tall by
     // something *on* a body rather than by the body: the stone under it is

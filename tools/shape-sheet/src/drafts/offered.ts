@@ -15,6 +15,8 @@ import { blob } from "../subjects.js";
  * still on purpose.
  */
 const BULB_MOTION = livingMotion("bulb");
+/** And the slick's, for the same reason, worn by its two kept outlines. */
+const SLICK_MOTION = livingMotion("slick");
 
 /**
  * Second answers to bodies the game already draws.
@@ -66,7 +68,19 @@ const BULB_MOTION = livingMotion("bulb");
  * the slick's own shipped outline, carrying the motions themselves from
  * `motions/offered.ts`: the contour is held still on purpose, because the
  * motion is what is being read.
+ *
+ * ## The slick's two outlines, on 9 September 2026
+ *
+ * `slick:shape` was five whole outlines for the flat body, and the owner took
+ * none of them: RAY, FRILL and CHAIN were rejected and went with the slot,
+ * their argument surviving only in the commit that removed them, which is the
+ * rule `docs/versus.md` sets for a candidate nobody took. COMMA and REVERB he
+ * asked to keep as pictures, so they are here on the slick's own motion, the
+ * way the bulb's five wear the bulb's. Each keeps its *how it can lose*,
+ * because those are the sentences that will decide them if they are ever
+ * picked up again.
  */
+
 export const OFFERED_DRAFTS: CatalogueEntry[] = [
   {
     subject: clubbed("THROB · CROWN", "six clubs lifted clear on visible stalks, all alike", {
@@ -170,5 +184,29 @@ export const OFFERED_DRAFTS: CatalogueEntry[] = [
     slot: "creature",
     owner:
       "nothing wears it: offered on VERSUS as `slick:motion` / `float` and moved here on 10 September 2026, when the owner took BANK and asked for this one to be kept as a picture. It is the plainest reading of his sentence about a slick that is very fluid, floating in all directions: two slow drifts on periods that share no common multiple, so the body traces a path that never visibly repeats, with a lazy roll and a breathing squash under it. Nothing in it is an event — where SWALLOW has a move and a wait, this has neither, and that is the argument. BANK is this same drift with the roll read off its own velocity, and BANK is what was taken, so what this card shows is the half of that answer he did not take: the drift without the attitude. How it can lose: nothing happens. A motion with no event in it gives the pair nothing to say to each other, and SWALLOW's rest is what makes its crossing legible — a body that is always moving may be a body whose movement stops meaning anything",
+  },
+  {
+    subject: blob(
+      "SLICK · COMMA",
+      { lobes: 1, depth: 0.42, wobble: 0.05, rx: 64, ry: 54, seed: 0 },
+      "one deep lobe and a drawn-out tail — a body with a head end, not two sacs",
+    ),
+    motion: SLICK_MOTION,
+    status: "free",
+    slot: "creature",
+    owner:
+      "nothing wears it: offered on VERSUS as `slick:shape` / `comma` against the shipped slick and not taken — moved here on 10 September 2026 when the owner closed the slot with nothing adopted and asked for this one and REVERB to stay as pictures. It argues that the slick should have a head end: one deep lobe on a body a third taller than the shipped one, a tadpole rather than two sacs, with a fat end and a drawn-out one. It is the only outline offered in that slot that is asymmetric along the long axis, which is the cheapest way a shape says which way it is going without anything moving. How it can lose: THE DART already owns a point. The dart is the body that has a direction, and it is the shape a pair has learned to read as steering — a slick with a head is a slick that could be mistaken for one at the size both are drawn, and that is a confusion between two creatures rather than a matter of taste",
+  },
+  {
+    subject: blob(
+      "SLICK · REVERB",
+      { lobes: 3, depth: 0.24, wobble: 0.06, rx: 72, ry: 42, seed: 6.1 },
+      "the REVERB draft's even three-lobed edge, stretched onto the slick — no waist and no head",
+    ),
+    motion: SLICK_MOTION,
+    status: "free",
+    slot: "creature",
+    owner:
+      "nothing wears it: offered on VERSUS as `slick:shape` / `reverb` against the shipped slick and not taken — moved here on 10 September 2026 with COMMA. It was lifted from the drafts rather than invented, which is the rule the owner gave on 9 September 2026: REVERB is a draft creature in `drafts/creatures.ts`, three lobes at depth 0.24 with seed 6.1, deliberately plain so it would not be mistaken for the Herald beside it, and its numbers are here unchanged except for the proportion, stretched from 46 × 40 to the slick's own footprint. It argues that the slick should be even: three lobes at a modest depth carried across a long body, no waist, no head, nothing to count in a hurry — the quietest of the five, there so the loud ones had something to be loud against. How it can lose: plain reads as unfinished. The draft's own note says the contour was kept plain on purpose because the creature's whole idea lived in its motion, and the slick's motion is a drift, not a delay, so the reason that shape was plain does not come with it",
   },
 ];

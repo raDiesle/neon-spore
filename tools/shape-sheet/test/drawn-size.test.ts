@@ -84,7 +84,13 @@ describe("drawn size against the 20-26 px floor", () => {
     // checks below — which is the useful thing about them being here: a
     // candidate outline that would be under twenty pixels on a phone fails
     // `bun test` rather than being found at the pair.
-    expect(SQUARE.length).toBe(102);
+    //
+    // Three fewer on 10 September 2026, when `slick:shape` closed with nothing
+    // taken: its five contour candidates left `candidates.ts` — all five were
+    // square cards by this file's measure, whatever their long axis — and two
+    // of them, COMMA and REVERB, came back in `drafts/offered.ts` on the
+    // slick's own motion. The other three went with the slot.
+    expect(SQUARE.length).toBe(99);
   });
 
   it("clears the floor for every square card at the 92 px frame it actually gets", () => {
@@ -137,8 +143,14 @@ describe("drawn size against the 20-26 px floor", () => {
     // a body on the field is never still — and it is the same effect this
     // file's own header records from the other direction, when the wisp
     // stopped spinning and grew.
-    expect(under26).toBe(60);
-    expect(under20).toBe(21);
+    //
+    // One more under 26 and two more under 20 on 10 September 2026, for the
+    // same reason again: COMMA and REVERB came back from `slick:shape` as
+    // drafts wearing the slick's own BANK, and the union over a drift-and-lean
+    // fits each smaller than the still candidate was — 16 and 17 px at the
+    // halved width, where the shipped slick is a wide card and not in this set.
+    expect(under26).toBe(61);
+    expect(under20).toBe(23);
   });
 
   it("puts the Bulb at about 23 px, up from the 16 the paired-cards lane read", () => {
