@@ -196,6 +196,7 @@ takes the two pictures for the owner to choose between.
 ## THE VOLLEY and THE VEER have one look each and no record to patch
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Taken:** 2026-09-10, claude/queue-the-volley-and-the-veer-have-one-look-each-and-n
 - **Files:** `packages/render/src/volley.ts`,
   `packages/render/src/volley-seams.ts`,
   `packages/render/src/volley-cracks.ts`,
