@@ -21,9 +21,6 @@ import { SHIP_PLASM } from "./ship-body/plasm/index.js";
 import { SHIP_REEF } from "./ship-body/reef/index.js";
 import { CRATER_GRIT } from "./ship-crater/grit/index.js";
 import { CRATER_SHARDS } from "./ship-crater/shards/index.js";
-import { SLICK_BANK } from "./slick-motion/bank/index.js";
-import { SLICK_FLOAT } from "./slick-motion/float/index.js";
-import { SLICK_GLIDE } from "./slick-motion/glide/index.js";
 import { SLICK_CHAIN } from "./slick-shape/chain/index.js";
 import { SLICK_COMMA } from "./slick-shape/comma/index.js";
 import { SLICK_FRILL } from "./slick-shape/frill/index.js";
@@ -48,9 +45,6 @@ export const VARIANTS: Variant[] = [
   SHIP_REEF,
   CRATER_GRIT,
   CRATER_SHARDS,
-  SLICK_BANK,
-  SLICK_FLOAT,
-  SLICK_GLIDE,
   SLICK_CHAIN,
   SLICK_COMMA,
   SLICK_FRILL,

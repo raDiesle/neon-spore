@@ -2,8 +2,9 @@ import { describe, expect, it } from "bun:test";
 import type { CreatureKind } from "@neon-spore/sim";
 import { CREATURES } from "../src/creatures.js";
 import { hasOwnBody, livingBodyKinds, livingMotion, livingSilhouette } from "../src/living-look.js";
+import { BANK } from "../src/motion-bank.js";
 import { HOLD, POISE } from "../src/motions.js";
-import { BLOOM, SWALLOW } from "../src/motions-event.js";
+import { BLOOM } from "../src/motions-event.js";
 import { BULB, DART, SLICK, THROB } from "../src/silhouettes.js";
 
 const EVERY_KIND = Object.keys(CREATURES) as CreatureKind[];
@@ -37,7 +38,7 @@ describe("the living-look table", () => {
 
   it("pairs each body with the contour and the motion it had before the tables merged", () => {
     expect(livingSilhouette("slick")).toBe(SLICK);
-    expect(livingMotion("slick")).toBe(SWALLOW);
+    expect(livingMotion("slick")).toBe(BANK);
     expect(livingSilhouette("bulb")).toBe(BULB);
     expect(livingMotion("bulb")).toBe(BLOOM);
     expect(livingSilhouette("throb")).toBe(THROB);

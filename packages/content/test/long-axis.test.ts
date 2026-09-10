@@ -1,6 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { LONG_AXIS_RATIO, longAxis, poseOn } from "../src/long-axis.js";
 import {
+  BANK,
   BLOOM,
   beats,
   HOLD,
@@ -24,7 +25,7 @@ import {
  * handedness.
  */
 
-const GAME_MOTIONS = [SWALLOW, BLOOM, SWAY_PUMP, TILT_RIPPLE, TREMBLE, HOLD];
+const GAME_MOTIONS = [BANK, SWALLOW, BLOOM, SWAY_PUMP, TILT_RIPPLE, TREMBLE, HOLD];
 
 describe("longAxis", () => {
   it("gives a round body no long axis at all", () => {

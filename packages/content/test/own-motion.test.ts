@@ -11,6 +11,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import {
+  BANK,
   BLOOM,
   beats,
   bodyPhase,
@@ -52,7 +53,7 @@ function reach(m: OwnMotion): number {
 }
 
 describe("own-motion", () => {
-  for (const m of [SWALLOW, BLOOM, SWAY_PUMP, TILT_RIPPLE, TREMBLE, HOLD]) {
+  for (const m of [BANK, SWALLOW, BLOOM, SWAY_PUMP, TILT_RIPPLE, TREMBLE, HOLD]) {
     it(`${m.name} stays inside its column`, () => {
       for (const p of samples(m)) {
         expect(Math.abs(p.dx)).toBeLessThan(LANE_LIMIT);
@@ -80,7 +81,7 @@ describe("own-motion", () => {
 
   it("pairs each living kind with its own motion", () => {
     expect(livingMotion("bulb")).toBe(BLOOM);
-    expect(livingMotion("slick")).toBe(SWALLOW);
+    expect(livingMotion("slick")).toBe(BANK);
     expect(livingMotion("throb")).toBe(HOLD);
   });
 
@@ -102,7 +103,7 @@ describe("own-motion", () => {
 
   it("the throb's own-motion is the smallest of the four — it must not compete with the beat", () => {
     const throbReach = reach(HOLD);
-    expect(throbReach).toBeLessThan(reach(SWALLOW));
+    expect(throbReach).toBeLessThan(reach(BANK));
     expect(throbReach).toBeLessThan(reach(BLOOM));
     expect(throbReach).toBeLessThan(reach(TREMBLE));
   });

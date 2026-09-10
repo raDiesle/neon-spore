@@ -11,7 +11,7 @@ import type { OwnMotion } from "./own-motion.js";
  * stopped drawing, and CLAUDE.md is clear that one of those is kept where it
  * can be seen rather than deleted.
  *
- * Where they are seen: `tools/shape-sheet/src/motions/index.ts` puts all three
+ * Where they are seen: `tools/shape-sheet/src/motions/index.ts` puts all four
  * on the SHAPES tab's motion axis with the spares, so the sway a bulb used to
  * have animates beside BLOOM, which replaced it, on one clock and one body.
  * That is the only comparison worth having and it is not one prose can make.
@@ -99,6 +99,64 @@ export const TREMBLE: OwnMotion = {
       rot: Math.sin(t * 7.0625) * 0.08,
       sx: 1,
       sy: 1,
+    };
+  },
+};
+
+/**
+ * Spare since 10 September 2026, when the owner took BANK for the slick
+ * (`motion-bank.ts`) — a drift with a direction, over a transfer with a rest.
+ * On the SHAPES tab's motion axis with the other two, for the reason written
+ * there.
+ *
+ * The slick, as it was: mass passed from one sac to the other, and then a rest.
+ *
+ * A slick is two broad lobes on its long axis joined at a waist deep enough to
+ * read as a join (`silhouettes.ts`), and what it carried was three sines
+ * written for the bean that shape used to be. Three sines is a rocking; the
+ * picture the new shape offers is a *transfer*, and no sine can be one,
+ * because a sine has no rest for an event to stand against.
+ *
+ * So this is the first motion in the game with **a state, a move and a wait**
+ * in it. One sac is full and the body leans that way; over 1.2 beats the mass
+ * crosses on `1 − (1 − v)³`, poured rather than struck, and as it passes the
+ * waist the body shortens and thickens — what a bounding box sees of two sacs
+ * squeezing one lump between them. Then 1.8 beats of nothing, and the next
+ * goes back: six beats to a cycle, so a row of them never falls onto one
+ * clock. **`sx` and `sy` are reciprocal**, so the squeeze holds area exactly —
+ * a body that grew as it crossed would be filling, and filling is a size tell
+ * (`docs/alive.md`).
+ */
+const SWALLOW_PERIOD = 3;
+const SWALLOW_CROSS = 1.2;
+/** How far the full end pulls the body over, in tiles, and how far it leans. */
+const SWALLOW_SHIFT = 0.1;
+const SWALLOW_LEAN = 0.14;
+/** How hard the waist squeezes at the crossing, as a fraction of the width. */
+const SWALLOW_PINCH = 0.1;
+
+export const SWALLOW: OwnMotion = {
+  name: "SWALLOW",
+  note: "one sac fills, the mass crosses the waist, the other holds it — a move and then a wait",
+  poseAt(t) {
+    const cycle = Math.floor(t / SWALLOW_PERIOD);
+    const p = t - cycle * SWALLOW_PERIOD;
+    const v = Math.min(1, p / SWALLOW_CROSS);
+    // Poured, not struck: quick to leave and slow to arrive.
+    const e = 1 - (1 - v) ** 3;
+    // Which end is full at the start of this cycle, and which it ends on.
+    const from = cycle % 2 === 0 ? -1 : 1;
+    const at = from + -from * 2 * e;
+    // Peaks halfway across and is zero at both ends, so the waist is only
+    // squeezed while something is going through it.
+    const squeeze = 4 * e * (1 - e);
+    const w = 1 - squeeze * SWALLOW_PINCH;
+    return {
+      dx: at * SWALLOW_SHIFT,
+      dy: 0,
+      rot: at * SWALLOW_LEAN,
+      sx: w,
+      sy: 1 / w,
     };
   },
 };

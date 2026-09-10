@@ -122,6 +122,7 @@ export {
 export { type Bounds, type Field, isoLoops, perimeter, resample } from "./metaball.js";
 export { resampleAll } from "./metaball-spread.js";
 export {
+  BANK,
   type Beats,
   BLOOM,
   beats,
@@ -134,11 +135,11 @@ export {
   type Pose,
   poseClock,
   REST,
+  // The four the game stopped drawing. Exported so the shape sheet can put
+  // each back beside the motion that replaced it — SWALLOW, SWAY · PUMP and
+  // TILT · RIPPLE on the SHAPES tab's motion axis, TREMBLE on the retired-shapes
+  // page beside the contour it was written for (`tools/shape-sheet/src/retired.ts`).
   SWALLOW,
-  // The three the game stopped drawing. Exported so the shape sheet can put
-  // each back beside the motion that replaced it — SWAY · PUMP and TILT ·
-  // RIPPLE on the SHAPES tab's motion axis, TREMBLE on the retired-shapes page
-  // beside the contour it was written for (`tools/shape-sheet/src/retired.ts`).
   SWAY_PUMP,
   TILT_RIPPLE,
   TREMBLE,

@@ -1,6 +1,7 @@
-import { livingMotion } from "@neon-spore/content";
+import { livingMotion, livingSilhouette } from "@neon-spore/content";
 import type { CatalogueEntry } from "../catalogue.js";
 import { clubbed } from "../forms/index.js";
+import { FLOAT, GLIDE } from "../motions/index.js";
 import { TURN } from "../motions.js";
 import { blob } from "../subjects.js";
 
@@ -56,6 +57,15 @@ const BULB_MOTION = livingMotion("bulb");
  * thing `nameability.ts` measures. The shipped bulb sits between CLOVER and
  * BURR, and that is easier to see with all five on one sheet than it ever was
  * two at a time.
+ *
+ * ## The slick's two motions, on 9 September 2026
+ *
+ * `slick:motion` was three answers to how the slick moves, and the owner took
+ * BANK — the drift that leans into its own travel — and asked for the other
+ * two to be neither adopted nor thrown away. So GLIDE and FLOAT are here on
+ * the slick's own shipped outline, carrying the motions themselves from
+ * `motions/offered.ts`: the contour is held still on purpose, because the
+ * motion is what is being read.
  */
 export const OFFERED_DRAFTS: CatalogueEntry[] = [
   {
@@ -136,5 +146,29 @@ export const OFFERED_DRAFTS: CatalogueEntry[] = [
     slot: "creature",
     owner:
       "nothing wears it: `bulb:shape` / `pear`, moved here with the other four on 9 September 2026. It argues that the bulb should stop being symmetrical — one lobe placed by a quarter-turn seed on a body taller than it is wide, a fruit hanging, with a fat end and a narrow one. Every other body in the game is either symmetrical about its long axis or pointed along it; this is the only shape that is simply heavier at the bottom, which is a thing a falling body can honestly be. It is also the only one of the five that changes the *proportion* rather than the count — 46 by 56 against the shipped 52 square — which is the axis `nameability.ts` measures first, and the reason to read it beside the other four rather than alone. What it risks is that tall is the slick's business turned ninety degrees: the two first bodies are told apart mostly by proportion, one long and one round, and a bulb with a proportion of its own spends that difference",
+  },
+  {
+    subject: blob(
+      "SLICK · GLIDE",
+      livingSilhouette("slick"),
+      "the shipped slick, moving by a stroke, a coast and a new heading",
+    ),
+    motion: GLIDE,
+    status: "free",
+    slot: "creature",
+    owner:
+      "nothing wears it: offered on VERSUS as `slick:motion` / `glide` and moved here on 10 September 2026, when the owner took BANK and asked for this one to be kept as a picture. It argues that a thing swimming does not oscillate — FLOAT and BANK are continuous, the body always moving, and a swimmer is not: it pushes, it coasts while the push runs out, then it pushes somewhere else. That is a move and a wait, the shape the shipped SWALLOW has and the other two gave up; this keeps it and makes the move a stroke in a direction rather than a transfer along the axis. The heading turns by a fixed 2.4 radians each stroke, never randomly, so the path wanders without anything being random underneath it, and the body stretches on the push and recovers on the coast with its area held, so the stroke reads as effort rather than as a size change. How it can lose: it is the busiest of the three. A stroke every two beats on every slick in a column is a lot of movement on a screen where the pair is trying to read positions, and the wave that shows it is not a wave with one body on it",
+  },
+  {
+    subject: blob(
+      "SLICK · FLOAT",
+      livingSilhouette("slick"),
+      "the shipped slick, adrift on two slow drifts that never come back into step",
+    ),
+    motion: FLOAT,
+    status: "free",
+    slot: "creature",
+    owner:
+      "nothing wears it: offered on VERSUS as `slick:motion` / `float` and moved here on 10 September 2026, when the owner took BANK and asked for this one to be kept as a picture. It is the plainest reading of his sentence about a slick that is very fluid, floating in all directions: two slow drifts on periods that share no common multiple, so the body traces a path that never visibly repeats, with a lazy roll and a breathing squash under it. Nothing in it is an event — where SWALLOW has a move and a wait, this has neither, and that is the argument. BANK is this same drift with the roll read off its own velocity, and BANK is what was taken, so what this card shows is the half of that answer he did not take: the drift without the attitude. How it can lose: nothing happens. A motion with no event in it gives the pair nothing to say to each other, and SWALLOW's rest is what makes its crossing legible — a body that is always moving may be a body whose movement stops meaning anything",
   },
 ];

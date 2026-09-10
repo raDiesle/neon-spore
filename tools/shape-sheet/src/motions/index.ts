@@ -1,6 +1,7 @@
-import { type OwnMotion, SWAY_PUMP, TILT_RIPPLE } from "@neon-spore/content";
+import { type OwnMotion, SWALLOW, SWAY_PUMP, TILT_RIPPLE } from "@neon-spore/content";
 import { RECOIL, SETTLE, TUMBLE, WIND } from "./borrowed.js";
 import { APPROACH, CRAWL, PITCH, TURN_IN_DEPTH } from "./depth.js";
+import { FLOAT, GLIDE } from "./offered.js";
 import {
   CANT,
   DRIFT,
@@ -23,6 +24,8 @@ export {
   CANT,
   CRAWL,
   DRIFT,
+  FLOAT,
+  GLIDE,
   HEART,
   HEAVE,
   JET,
@@ -48,7 +51,8 @@ export {
  *
  * "Yet" was true until 8 September 2026, when the slick's TILT · RIPPLE and
  * the bulb's SWAY · PUMP were retired for SWALLOW and BLOOM — so the list now
- * holds two of a second kind, a motion the game *stopped* moving with. They
+ * holds a second kind, a motion the game *stopped* moving with, and SWALLOW
+ * joined them on 10 September when BANK took the slick. They
  * are here rather than deleted for CLAUDE.md's reason: a look that is taken
  * out is kept where it can be seen, and the only place a motion can be seen is
  * on a body, on a clock, beside the one that replaced it. They are imported
@@ -66,6 +70,7 @@ export {
  * | `depth.ts` | the four that project a body moving in depth onto it |
  * | `pulse.ts` | the three that put an attack in a swell, beside SWELL |
  * | `borrowed.ts` | the four read off other games — see `docs/tower-defence.md` |
+ * | `offered.ts` | the two offered against the slick on VERSUS and left unspent |
  *
  * `MOTIONS` below is the **only** place that knows which motions exist — the
  * drafts panel iterates it, and `tools/shape-sheet/src/index.ts` re-exports
@@ -109,10 +114,18 @@ export const MOTIONS: OwnMotion[] = [
   CANT,
   PITCH,
   SAG,
-  // Last, and the only two here that are retired rather than unspent: the
-  // slick's and the bulb's own motions until SWALLOW and BLOOM replaced them.
-  // At the end rather than beside their kin, because a reader browsing for a
-  // motion to spend wants the unspent ones first.
+  // The two offered against the slick's own motion and kept as pictures when
+  // BANK was taken (`offered.ts`): unspent, so ahead of the retired pair, and
+  // beside each other because the argument between them — an event against
+  // none — is only visible with both on one clock.
+  GLIDE,
+  FLOAT,
+  // Last, and the only three here that are retired rather than unspent: the
+  // slick's and the bulb's own motions until SWALLOW and BLOOM replaced them,
+  // and SWALLOW itself once BANK replaced it. At the end rather than beside
+  // their kin, because a reader browsing for a motion to spend wants the
+  // unspent ones first.
   TILT_RIPPLE,
   SWAY_PUMP,
+  SWALLOW,
 ];

@@ -47,7 +47,11 @@ function entriesAfter(role: "p1" | "p2"): number {
  * row in the same commit. A change that puts it into the hundreds has not
  * added sprites, it has added a key that moves.
  */
-const HELD = { p1: 73, p2: 78 } as const;
+// Four more on each seat from 10 September 2026, when the slick's own motion
+// became BANK: it rolls with its own travel through a wider arc than SWALLOW's
+// lean, so `key-light.ts`'s twenty-fourth-of-a-turn spin key takes four more
+// distinct values on the first wave's slicks — a bounded set, as the run says.
+const HELD = { p1: 77, p2: 82 } as const;
 
 describe("what the renderer keeps between frames", () => {
   for (const role of ["p1", "p2"] as const) {

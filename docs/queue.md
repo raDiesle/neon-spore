@@ -465,42 +465,6 @@ Wait for `creature:break` to be decided before opening this, or check with
 slots claiming one field, and a body's break and a body's hit are next-door
 questions.
 
-## Close `slick:motion`: adopt BANK, GLIDE and FLOAT to the shape sheet
-
-- **Found:** 2026-09-09, claude/slick-content-organization-17beb0
-- **Taken:** 2026-09-10, claude/queue-close-slick-motion-adopt-bank-glide-and-float-to
-- **Files:** `tools/versus/candidates/slick-motion/`, `tools/versus/DECIDED.md`,
-  `packages/content/src/motions-event.ts`, `tools/shape-sheet/src/motions/`,
-  `tools/shape-sheet/src/drafts/offered.ts`
-
-The owner answered this slot in chat on 9 September 2026: **BANK is applied to
-the game**, and **GLIDE and FLOAT are neither adopted nor thrown away — they
-move to the shape sheet**. Two halves, and the order matters, because
-`bun run versus adopt` removes every directory in the slot: **move the two
-losers out first, then adopt.**
-
-BANK reads the slick's roll off the derivative of its own drift and stretches
-the body along its travel, which is the owner's "floating in all directions but
-some more according to flying position" answered as attitude rather than as a
-position on the field. `bun run versus adopt slick:motion bank "<why>"` writes
-its field values into the shipped record and appends the entry to
-`tools/versus/DECIDED.md`; do not write either by hand.
-
-GLIDE (a push, a coast and a new heading every 2.1 beats) and FLOAT (two slow
-drifts on periods with no common multiple, no event in it at all) are motions
-with nothing on the field wearing them, which is what the spare-motions
-registry under `tools/shape-sheet/src/motions/` is for. Give each one an entry
-there, then hang them off `OFFERED_DRAFTS` in
-`tools/shape-sheet/src/drafts/offered.ts` on the slick's own subject, status
-`free`, with the owner line saying they were offered against SWALLOW and left
-unspent — `offered.ts`'s own preamble is the precedent and says how to word it.
-Carry each one's docstring across: the argument and the *how it can lose*
-paragraph are the whole value of the thing, and a moved shape with no note is a
-picture nobody can weigh.
-
-Prove it with `bun run check` plus `bun run shapes` and `bun run shapes:cues`,
-and stage the regenerated sheets with the change.
-
 ## Close `slick:shape` with nothing taken: COMMA and REVERB to the shape sheet
 
 - **Found:** 2026-09-09, claude/slick-content-organization-17beb0

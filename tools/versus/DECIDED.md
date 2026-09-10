@@ -367,3 +367,18 @@ caul, bladders) stay in history at 386988aa as material for the ships.
 
 The other answers offered were `both`, `caul`, `fused`, `organs`, `roof`,
 `sac` and `vessel`; they went with the slot.
+
+## `slick:motion` — nothing taken, 2026-09-10
+
+taken by hand — BANK applied to the game: the owner answered in chat on 9
+September 2026 that the slick floats in all directions but some more according
+to flying position, which BANK reads as attitude off the drift's own velocity.
+Taken by hand because the candidate patches a function (poseAt) and adopt
+refuses one: BANK is packages/content/src/motion-bank.ts and
+livingMotion("slick") hands it back, SWALLOW moved to motions-retired.ts and
+onto the SHAPES tab's motion axis. GLIDE and FLOAT were neither adopted nor
+thrown away: they are kept as pictures on the slick's own outline, in
+tools/shape-sheet/src/motions/offered.ts and OFFERED_DRAFTS.
+
+The other answers offered were `bank`, `float` and `glide`; they went with the
+slot.

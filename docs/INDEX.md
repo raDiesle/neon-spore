@@ -461,6 +461,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/queue-boss.ts` | A wave's boss, remapped onto the field the pair is actually playing |
 | `packages/content/src/motions-event.ts` | The two motions that are events rather than idles |
 | `packages/content/src/motions-retired.ts` | The motions nothing in the game carries any more |
+| `packages/content/src/motion-bank.ts` | BANK, the slick's own motion: two slow drifts on periods with no common multiple, the body leaning into its own travel — the answer the owner took on 9 September 2026 |
 | `packages/content/src/balloon-parts.ts` | **What is alive inside THE BALLOON**, and hanging under it: veins, a ring of lit beads |
 | `packages/content/src/surface.ts` | where a mark placed at a longitude and latitude lands, how the tangent plane foreshortens it, and its own normal against `KEY` |
 
@@ -1275,6 +1276,7 @@ place — the generator keeps whatever is there.
 | `tools/shape-sheet/src/motions/plane.ts` | The spare motions that happen in the picture plane |
 | `tools/shape-sheet/src/motions/pose.ts` | A pose, positionally |
 | `tools/shape-sheet/src/motions/pulse.ts` | The four that pulse, as opposed to the one that breathes |
+| `tools/shape-sheet/src/motions/offered.ts` | GLIDE and FLOAT, the two motions offered against the slick on VERSUS and kept as pictures when BANK was taken |
 | `tools/shape-sheet/src/nameability.ts` | The three axes a silhouette is told apart on, and the rule that says when two kinds are the same word |
 | `tools/shape-sheet/src/parts-sheet.ts` | The parts sheet: every secondary form drawn on its own, grouped, labelled |
 | `tools/shape-sheet/src/parts/alien.ts` | ALIEN — the parts that are not biology |

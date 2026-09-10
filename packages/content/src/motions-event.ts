@@ -1,7 +1,8 @@
 import type { OwnMotion } from "./own-motion.js";
 
 /**
- * The two motions that are events rather than idles.
+ * The motion that is an event rather than an idle — and, until 10 September
+ * 2026, the two.
  *
  * Every other motion in this game is sines: a drift, a lean, a swell, each
  * spending as long getting big as it spends getting small. A sine is a fine
@@ -10,70 +11,19 @@ import type { OwnMotion } from "./own-motion.js";
  * happen against, and a body doing it is never *doing* something, it is only
  * moving.
  *
- * These two are the other kind, and they arrived together on 8 September 2026
- * with the two contours that asked for them: a slick is two sacs holding on to
- * each other and a bulb is a spore, and what each of those shapes wants to be
- * seen doing is one gesture with a wait after it. The shape of the attack is
- * the whole design in both — how fast it leaves, how slowly it settles, and
- * how long the body is still afterwards.
+ * BLOOM is the other kind. It arrived on 8 September 2026 beside SWALLOW,
+ * with the two contours that asked for them: a slick is two sacs holding on
+ * to each other and a bulb is a spore, and what each of those shapes wants to
+ * be seen doing is one gesture with a wait after it. The shape of the attack
+ * is the whole design — how fast it leaves, how slowly it settles, and how
+ * long the body is still afterwards. SWALLOW was retired on 10 September 2026
+ * when the owner took BANK for the slick (`motion-bank.ts`), a drift with a
+ * direction and no rest in it; it is kept in `motions-retired.ts`.
  *
- * A file of their own because `motions.ts` reached its limit holding all six,
+ * A file of its own because `motions.ts` reached its limit holding all six,
  * and this is the seam the records themselves draw rather than one picked to
  * make the numbers work.
  */
-
-/**
- * THE SLICK: mass passed from one sac to the other, and then a rest.
- *
- * A slick is two broad lobes on its long axis joined at a waist deep enough to
- * read as a join (`silhouettes.ts`), and what it carried was three sines
- * written for the bean that shape used to be. Three sines is a rocking; the
- * picture the new shape offers is a *transfer*, and no sine can be one,
- * because a sine has no rest for an event to stand against.
- *
- * So this is the first motion in the game with **a state, a move and a wait**
- * in it. One sac is full and the body leans that way; over 1.2 beats the mass
- * crosses on `1 − (1 − v)³`, poured rather than struck, and as it passes the
- * waist the body shortens and thickens — what a bounding box sees of two sacs
- * squeezing one lump between them. Then 1.8 beats of nothing, and the next
- * goes back: six beats to a cycle, so a row of them never falls onto one
- * clock. **`sx` and `sy` are reciprocal**, so the squeeze holds area exactly —
- * a body that grew as it crossed would be filling, and filling is a size tell
- * (`docs/alive.md`).
- */
-const SWALLOW_PERIOD = 3;
-const SWALLOW_CROSS = 1.2;
-/** How far the full end pulls the body over, in tiles, and how far it leans. */
-const SWALLOW_SHIFT = 0.1;
-const SWALLOW_LEAN = 0.14;
-/** How hard the waist squeezes at the crossing, as a fraction of the width. */
-const SWALLOW_PINCH = 0.1;
-
-export const SWALLOW: OwnMotion = {
-  name: "SWALLOW",
-  note: "one sac fills, the mass crosses the waist, the other holds it — a move and then a wait",
-  poseAt(t) {
-    const cycle = Math.floor(t / SWALLOW_PERIOD);
-    const p = t - cycle * SWALLOW_PERIOD;
-    const v = Math.min(1, p / SWALLOW_CROSS);
-    // Poured, not struck: quick to leave and slow to arrive.
-    const e = 1 - (1 - v) ** 3;
-    // Which end is full at the start of this cycle, and which it ends on.
-    const from = cycle % 2 === 0 ? -1 : 1;
-    const at = from + -from * 2 * e;
-    // Peaks halfway across and is zero at both ends, so the waist is only
-    // squeezed while something is going through it.
-    const squeeze = 4 * e * (1 - e);
-    const w = 1 - squeeze * SWALLOW_PINCH;
-    return {
-      dx: at * SWALLOW_SHIFT,
-      dy: 0,
-      rot: at * SWALLOW_LEAN,
-      sx: w,
-      sy: 1 / w,
-    };
-  },
-};
 
 /**
  * THE BULB: a long slow fill and a quick vent, on a clock the beat never meets.
