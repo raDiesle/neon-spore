@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · f8bc0711 — versus adopt takes a function-valued field by moving its file into the package
+
+`adopt` reached one slot in fifteen: it refused every field holding a function, rightly, because `toString` hands back the transpiler's spelling — and nearly every look is a drawing function. The four steps a lane then took by hand were the same every time, so the tool takes them now. The candidate's sibling files move into the package the record lives in, named `<record>-<candidate>.ts` with `-look` dropped (`--as <base>` overrides), their import specifiers are rewritten for where they stand — a sibling followed to its new name, a path into the same package shortened, another package's path made its bare specifier — the record's field is pointed at the moved function with the import added, and the module the record used to import is deleted when nothing else in the tree imports it, kept and named when something does.
+
 ## 2026-09-10 · 0bc74e85 — THE BALLOON's handles rest on the glass in the wall columns
 
 A balloon standing in column 0 or column 6 hung its outer handle 1.15 tiles out from its body, and on the phones the game ships on the field is the full width of the screen — so the ring rested two thirds of a tile past the edge, drawn where no finger can go, and the "PULL" word under it with it. Every arrival on THE BALLOON begins that way, since the wave sends bodies in from both wall columns. The rest is now held inside the screen by the ring's own radius, in `balloonHandleCircle`, the one place the rest is written down, so the picture and the hit test move together; the ring on that side sits against the body's own skin and is still plainly that body's. `drawHandleHint` keeps its word on the glass the same way. A fix to something wrong, not unlovely: the defect class CLAUDE.md names as a control under the status bar.
