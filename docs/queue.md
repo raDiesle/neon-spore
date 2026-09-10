@@ -289,6 +289,7 @@ questions.
 ## `bun run queue take` cannot write its `Taken:` line in a cloud clone
 
 - **Found:** 2026-09-10, claude/enemy-graphics-animations-versus-3mjjv7
+- **Taken:** 2026-09-10, claude/queue-bun-run-queue-take-cannot-write-its-taken-line-i
 - **Files:** `tools/queue/`, `docs/cloud-session.md`
 
 `bun run queue take 4` in a session started from a phone answers `⚑
