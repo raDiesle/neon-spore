@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · 1c754f72 — PLASM taken further: a cell with body, and microtubules for wiring
+
+The owner chose PLASM from the four concept cards. The concept was a thin flat band with blobs in it; this is the same cell given body: a contour that bulges and wobbles (seven lobes, deep, a cell has no shape of its own), a lighter interior so the organelles are seen through a luminous fluid, a membrane with a thickness — a broad lit band under the rim and an inner face a little further in — mitochondria with cristae, a nucleus with its own membrane and a nucleolus, a haze of granules drifting, and a chamber whose vacuoles now sit in the cortex's own streaming. And its own wiring: a cell has no tendons, so every control roots a bundle of five microtubules that leave it together, splay, and gather at the organ, with vesicles walking up the middle fibre — more of them and faster while the organ's window is open.
+
 ## 2026-09-10 · 493bb8d1 — Four concept ships beside GULLET: PLASM, REEF, MEDUSA, CHITIN
 
 The owner asked to see the other directions as pictures before code is spent on them, and said the picture and the code must not part company — so each of these is a rough candidate in `ship:body`, drawn by the code it would ship as and shot once. PLASM is a single cell: a nucleus and organelles behind a double-lined membrane, vacuoles for a chamber. REEF is a colony: polyps in the contour, spores rising, a root mass below. MEDUSA is the jellyfish the ship already is, all the way: canals and a breathing pouch under the film, oral arms hanging the height of the panel, the contour left as it ships. CHITIN is his own reference — a wet black carapace glittering under a hard sun — with plates, one specular each, and pinpoint glints. All four borrow GULLET's wiring; the one he chooses gets its own.
