@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · a68521da — The hull entry is answered by `ship:body`; the band entry waits on it
+
+Two queue entries written on 9 September 2026, before `ship:body` opened the next day at the owner's asking. The hull one wanted three radically different ships beside what ships — a different silhouette, not a reskin — and that is what `ship:body`'s six candidates are, opened from the directions he chose, so the entry comes out. The band one asked for `panel:band-skin` on the lobe, the socket and the slime, and every field it would patch is claimed by `ship:body`, whose six ships each redraw the whole panel; `bun test` refuses two open slots on one field. It stays, re-filed on an `Asks:` line: once the ship is decided, does the band still get a slot of its own, or does the ship that wins carry its band with it.
+
 ## 2026-09-10 · 98fc0d16 — `SLOT_POSE` is rows alone, and a slot's reason lives on the pose it names
 
 `tools/director/src/versus-pose.ts` was at the line ceiling: every row in the slot-to-pose map carried a paragraph, three lanes landing slots on one afternoon each added one, and a rebase that kept two of them put the trunk over 250 lines. The map is forty rows and a header now, at 90 lines. The reason a slot is judged on a pose belongs on that pose — `poses-*.ts` already keeps a docstring per pose that argues for the state it holds — so each of the twenty poses the map names says in one sentence which slots are judged on it, and a lane opening a slot writes its reasoning into the pose file it is already touching. `versus-pose.test.ts` reads the literal and refuses a comment inside it, so the paragraphs cannot grow back; the scaffold's step four says row, not entry. Not a look: nothing the pair draws changes.
