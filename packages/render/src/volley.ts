@@ -1,4 +1,4 @@
-import { crystalPath, LIGHT_HALF, METEOR } from "@neon-spore/content";
+import { crystalPath, METEOR } from "@neon-spore/content";
 import {
   type Creature,
   type SimConfig,
@@ -9,12 +9,10 @@ import {
 import { depthScale, drawnRow, hazed } from "./depth.js";
 import { halo } from "./glow.js";
 import { sinHash } from "./hash.js";
-import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
-import { PALETTE, STROKE } from "./palette.js";
+import { PALETTE } from "./palette.js";
 import { rockRadius } from "./torch.js";
-import { drawCracks } from "./volley-cracks.js";
-import { drawSeams } from "./volley-seams.js";
+import { VOLLEY_LOOK, type VolleyShell } from "./volley-look.js";
 
 /**
  * THE VOLLEY's shell: **a basketball made of meteor**, and the count of wards
@@ -142,6 +140,24 @@ export function drawVolleyShell(
     crystalPath(0, 0, r, r, METEOR.sides, METEOR.depth, METEOR.wobble, time * 0.15, METEOR.seed),
   );
 
+  const open = 1 - plates / total;
+  const kept = plates < total ? remaining(lead, total, plates, r) : null;
+  const shell: VolleyShell = {
+    ctx,
+    ball,
+    r,
+    turn,
+    time,
+    glow,
+    metal,
+    plates,
+    total,
+    open,
+    lead,
+    kept,
+    id: c.id,
+  };
+
   ctx.save();
   ctx.translate(x, y);
   // **The stone goes and the frame stays.** A ward takes a sector of the
@@ -151,23 +167,19 @@ export function drawVolleyShell(
   // out of it. The owner asked for exactly that, and it is the better picture
   // as well — a silhouette that changed with the count would be a creature
   // whose *shape* meant something, and the shape is how the pair says "volley".
+  // The stone and its damage go inside the clip, because a crack is a fault
+  // in material and there is none where the material has gone; the skeleton
+  // and the seams go over it, whole (`volley-look.ts`).
   ctx.save();
-  if (plates < total) ctx.clip(remaining(lead, total, plates, r));
-  fillRock(ctx, ball, r, turn);
-  // And the damage on what is left of it. Inside the same clip as the stone,
-  // because a crack is a fault in material and there is none where the
-  // material has gone — a fracture drawn across the empty sector would be a
-  // line hanging in front of the body.
-  if (plates < total) drawCracks(ctx, ball, r, turn, total - plates, c.id, metal);
+  if (kept) ctx.clip(kept);
+  VOLLEY_LOOK.stone(shell);
   ctx.restore();
-  drawFrame(ctx, ball, turn, metal);
-  drawSeams(ctx, ball, r, turn, glow);
+  VOLLEY_LOOK.seams(shell);
   ctx.restore();
 
   // The light out of the break, and none at all while the ball is closed —
   // which is the whole of the first state. It grows as the shell opens,
   // because by then the colour is what the pair has to be saying out loud.
-  const open = 1 - plates / total;
   if (open > 0) halo(ctx, x, y, r * 1.5, glow, 0.16 * open);
 }
 
@@ -186,39 +198,4 @@ function remaining(lead: number, total: number, plates: number, r: number): Path
   kept.arc(0, 0, r * 1.4, from, from + sweep * plates);
   kept.closePath();
   return kept;
-}
-
-/**
- * The stone: `meteor.ts`'s own filling, so a volley and the rocks it shares a
- * field with are visibly one material. The mid-tone, and the key light handed
- * the rotation so the light stays where it is while the ball rolls under it.
- *
- * Drawn inside whatever clip the caller has set, which is what makes a ward
- * take material away. It is deliberately *only* the filling — the outline is
- * `drawFrame` below, and the whole point of the two being separate is that one
- * of them survives.
- */
-function fillRock(ctx: CanvasRenderingContext2D, ball: Path2D, r: number, turn: number): void {
-  ctx.save();
-  ctx.rotate(turn);
-  ctx.fillStyle = "#8A8F9C";
-  ctx.fill(ball);
-  ctx.clip(ball);
-  litRound(ctx, 0, 0, r, LIGHT_HALF.rock, turn);
-  ctx.restore();
-}
-
-/**
- * The rim, drawn whole however much filling is left. It is the skeleton the
- * owner asked for: a volley that has been warded twice is still round, still
- * the size it was, and still unmistakably the same body — what has changed is
- * that you can see through it.
- */
-function drawFrame(ctx: CanvasRenderingContext2D, ball: Path2D, turn: number, metal: string): void {
-  ctx.save();
-  ctx.rotate(turn);
-  ctx.strokeStyle = metal;
-  ctx.lineWidth = STROKE.outline;
-  ctx.stroke(ball);
-  ctx.restore();
 }

@@ -109,3 +109,20 @@ and a test that keeps the paragraphs from growing back. About 25 min.
 Bottleneck: **reading** — twenty pose docstrings had to be read to know which
 already argued for their slot and which did not, before a sentence could be
 put on the ones that did not.
+
+## 2026-09-10 · claude/queue-the-volley-and-the-veer-have-one-look-each-and-n
+
+A look record each for THE VOLLEY's shell and THE VEER's rider, a pose each,
+and three candidates apiece. About 1 h 30 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | the queue entry, `volley.ts` and its seams and cracks, `veer-clown.ts` and the clown figure, `throb-look.ts` for the record shape, the depth skill, `versus/README.md`, the pose kit's hand |
+| writing | 45 | two records and the shipped paint moved behind them, `VolleyShell.kept`, two poses and the volley's hand, six candidates, the ward test |
+| looking | 15 | eight `versus:shot` runs at twelve seconds each; the pits made larger and more, the jester's horns widened into a V, the ember's scorch clipped to stone |
+| friction | 10 | a heredoc that would not close, three times, on prose with quotes in it — moved to script files and to the Write tool; a `rm -rf` of the wrong glob that took six freshly written files with it |
+| landing | 5 | `check:fast`, the commit, `land --keep` |
+
+Bottleneck: **writing** — six paints is six small programs, and each was
+written against a picture of the shipped body taken first rather than blind,
+which is what kept the looking short.

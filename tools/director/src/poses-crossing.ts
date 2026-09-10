@@ -12,7 +12,7 @@ import {
 import { fallSeconds } from "./poses-surface.js";
 
 /**
- * The two states a candidate for a body that **goes somewhere** is judged on.
+ * The states a candidate for a body that **goes somewhere** is judged on.
  *
  * Its own file rather than rows added to `poses-versus.ts` or `poses-surface.ts`,
  * both of which sit near the line ceiling — CLAUDE.md's *split rather than
@@ -27,7 +27,8 @@ import { fallSeconds } from "./poses-surface.js";
  *
  * They are two halves of one creature and are built the same way: a carom is
  * authored, and a chute is what is left when somebody shoots one
- * (`sim/chute.ts` — nothing authors a chute and nothing can).
+ * (`sim/chute.ts` — nothing authors a chute and nothing can). THE VEER joined
+ * them as the third path: a rock that steps between lanes as it falls.
  */
 
 /** The column a carom is authored in. The middle, so its first crossing is the
@@ -145,6 +146,42 @@ export const CHUTE_POSE: Pose = {
     runUntil(w, "a body thrown clear of a cracked carom", cmds, (x) =>
       x.creatures.some((c) => c.kind === "chute"),
     );
+    return w;
+  },
+};
+
+/**
+ * THE VEER coming down with its rider on, changing lane every few rows.
+ *
+ * The third path on this page, and the first that is a *rock's*: a veer is a
+ * meteor that steps sideways every `veerRowsApart` rows, up to `veerMaxDist`
+ * columns at a stride, and the thing that makes it do that is the clown
+ * sitting on it (`veer-clown.ts`). `creature:veer` is about that rider, and a
+ * rider is judged on the two things it does — sit on a stone that is never
+ * still, and brace on the beat the stone is about to step — so the pose is
+ * the whole fall with every lane change in it, cropped to a tile that
+ * follows the drawn body across its strides. Both seats are drawn, because
+ * the arrow over it is player one's alone and the rider must say nothing
+ * about which way that the other seat could read.
+ */
+export const VEER_POSE: Pose = {
+  name: "VEER · RIDING DOWN",
+  note: "A rock with a clown on it, coming down the field and stepping into another lane every three rows. The rider sinks and leans on the beat before each step — on both screens — and the arrow over it, which says which way, is on player one's alone.",
+  lookAt:
+    "the figure on top of the rock — whether it reads as something sitting on a stone or as marks painted beside one, and what it does on the beat before the rock steps",
+  crop: "tile",
+  at: firstOfKind("veer"),
+  // A stride of up to four columns at once: the window follows the drawn
+  // body, but the hat stands two head radii over the stone and a rider leans
+  // into the crouch, so the crop is cut with room over the crown.
+  span: 4.5,
+  cadenceSeconds: fallSeconds(),
+  build: () => {
+    const entry: SpawnEntry = { beat: 0, col: COL, kind: "veer", color: null };
+    const w = fresh([entry]);
+    // Two beats: on the field, with the first change of lane still ahead of
+    // it, so the pair sees the rider brace before it ever sees it step.
+    run(w, TPB * 2);
     return w;
   },
 };

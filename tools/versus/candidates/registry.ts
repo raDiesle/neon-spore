@@ -57,9 +57,15 @@ import { THROB_PORES } from "./creature-throb/pores/index.js";
 import { TORCH_CROWN } from "./creature-torch/crown/index.js";
 import { TORCH_HOLLOW } from "./creature-torch/hollow/index.js";
 import { TORCH_KILN } from "./creature-torch/kiln/index.js";
+import { VEER_HUNCHED } from "./creature-veer/hunched/index.js";
+import { VEER_JESTER } from "./creature-veer/jester/index.js";
+import { VEER_SOLID } from "./creature-veer/solid/index.js";
 import { VEIL_FOAM } from "./creature-veil/foam/index.js";
 import { VEIL_STRATA } from "./creature-veil/strata/index.js";
 import { VEIL_VORTEX } from "./creature-veil/vortex/index.js";
+import { VOLLEY_EMBER } from "./creature-volley/ember/index.js";
+import { VOLLEY_GROOVE } from "./creature-volley/groove/index.js";
+import { VOLLEY_PITTED } from "./creature-volley/pitted/index.js";
 import { WARDEN_MANTLE } from "./creature-warden/mantle/index.js";
 import { WARDEN_ROLL } from "./creature-warden/roll/index.js";
 import { WARDEN_WHORL } from "./creature-warden/whorl/index.js";
@@ -135,9 +141,15 @@ export const VARIANTS: Variant[] = [
   TORCH_CROWN,
   TORCH_HOLLOW,
   TORCH_KILN,
+  VEER_HUNCHED,
+  VEER_JESTER,
+  VEER_SOLID,
   VEIL_FOAM,
   VEIL_STRATA,
   VEIL_VORTEX,
+  VOLLEY_EMBER,
+  VOLLEY_GROOVE,
+  VOLLEY_PITTED,
   WARDEN_MANTLE,
   WARDEN_ROLL,
   WARDEN_WHORL,

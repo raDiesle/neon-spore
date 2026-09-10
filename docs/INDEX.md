@@ -723,6 +723,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/band-lobes.ts` | Where the round buttons on the band stand, for one seat and one panel |
 | `packages/render/src/band-join.ts` | THE ONE RECORD A CANDIDATE SHIP-AND-PANEL JOIN PATCHES |
 | `packages/render/src/volley-seams.ts` | **The pattern painted on THE VOLLEY's shell**: the four seams a basketball has |
+| `packages/render/src/volley-stone.ts` | **The shipped paint of THE VOLLEY's shell**, in the two passes `volley-look.ts` names |
 | `packages/render/src/meteor-look.ts` | WHAT A ROCK IS MADE OF, as a record rather than as the body of one function |
 | `packages/render/src/chute-cut.ts` | A chute shot down under its canopy: the canopy cut loose and the body dropping out from under it |
 | `packages/render/src/chute-canopy.ts` | THE CANOPY'S GEOMETRY: the one shape a chute hangs under, and the two lengths that put it where it is |
@@ -740,12 +741,15 @@ place — the generator keeps whatever is there.
 | `packages/render/src/maze-shot.ts` | The shot inside THE MAZE: where it stands, the corridors behind it, and what it found when it stopped |
 | `packages/render/src/maze-heart.ts` | What is in the middle of THE MAZE: a heart, beating |
 | `packages/render/src/volley-cracks.ts` | **The damage on THE VOLLEY's shell**: the fractures a ward leaves across the stone that is still there |
+| `packages/render/src/volley-look.ts` | THE ONE RECORD A CANDIDATE VOLLEY LOOK PATCHES |
 | `packages/render/src/maze-door.ts` | THE MAZE's way in, and the light that comes out of it when it is standing on the ship's column |
 | `packages/render/src/maze-blood.ts` | What THE MAZE's heart leaves on the floor of its room when it is hit, and why it is still there next round |
 | `packages/render/src/eye-lens.ts` | you are changing the shape of an open eye — the two lid curves, the corners, and the pupil they cut |
 | `packages/render/src/eye-look.ts` | the one record a candidate EYE patches, on the two bodies that share one |
 | `packages/render/src/veer-clown.ts` | THE VEER's rider: a clown sitting on the rock, and the reason the rock does not fall straight |
 | `packages/render/src/veer-marks.ts` | THE VEER's two half-pictures: the arrow over the rider on player 1's screen, and the *ask* on player 2's |
+| `packages/render/src/veer-look.ts` | THE ONE RECORD A CANDIDATE VEER LOOK PATCHES |
+| `packages/render/src/veer-rider.ts` | **The shipped rider**: the colours, the light and the order THE VEER's clown is drawn in |
 | `packages/render/src/lock-mark.ts` | THE LOCK, drawn: the frame that says *the cannon has this one* |
 | `packages/render/src/creature-tint.ts` | The three colours a body carries, and what they are mid-turn |
 | `packages/render/src/recoil-ribs.ts` | One rib of THE RECOIL's cage, and the piece of hoop it carries |
@@ -1398,6 +1402,7 @@ place — the generator keeps whatever is there.
 | `tools/shape-sheet/src/veer-subject.ts` | **THE VEER**: the meteor with its rider on it, the one card made of a shape already on the sheet plus something over the top |
 | `tools/shape-sheet/src/rock-subjects.ts` | Everything on this sheet that is faceted rather than grown: the builder that draws a crystal |
 | `tools/director/src/poses-versus.ts` | The states a candidate look is judged on — one per slot that had none |
+| `tools/director/src/poses-volley.ts` | THE VOLLEY, warded three times by a hand that never misses |
 | `tools/director/src/poses-bodies.ts` | The pose a candidate for a *body* is judged on, as opposed to one for a mechanism firing |
 | `tools/director/src/poses-casing.ts` | The states a candidate for what a body **wears** is judged on |
 | `tools/director/src/poses-cage.ts` | The pose a candidate for THE RECOIL's cage is judged on |

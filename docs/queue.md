@@ -193,21 +193,6 @@ Whichever wins, `packages/render/test/wave-budget.test.ts`'s BULB QUEEN rows
 are the proof it changed nothing else, and `bun run frames . --wave 25 --at`
 takes the two pictures for the owner to choose between.
 
-## THE VOLLEY and THE VEER have one look each and no record to patch
-
-- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
-- **Taken:** 2026-09-10, claude/queue-the-volley-and-the-veer-have-one-look-each-and-n
-- **Files:** `packages/render/src/volley.ts`,
-  `packages/render/src/volley-seams.ts`,
-  `packages/render/src/volley-cracks.ts`,
-  `packages/render/src/veer-clown.ts`, `tools/versus/candidates/`
-
-Cut a look record for each, then open `creature:volley` and `creature:veer`
-with three candidates each. The volley already carries seams and cracks, which
-is most of a surface a light can act on; the veer arrives from a side wall, so
-its candidates are judged as it crosses rather than as it hangs.
-`.claude/skills/depth` applies. Poses in `versus-pose.ts` in the same commit.
-
 ## THE COIL and THE TETHER have one look each and no record to patch
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067

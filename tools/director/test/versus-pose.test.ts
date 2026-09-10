@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { join } from "node:path";
 import { CREATURES, controlSetForWave, setHas } from "@neon-spore/content";
-import { chargeMilli, laying, step } from "@neon-spore/sim";
+import { chargeMilli, laying, step, volleyPlatesLeft } from "@neon-spore/sim";
 import { VARIANTS } from "../../versus/candidates/index.js";
 import { slots } from "../../versus/variant.js";
 import { VERSUS_POSES } from "../src/poses-versus.js";
@@ -193,6 +193,29 @@ describe("poseForSlot", () => {
       const pose = poseForSlot(slot.slot);
       expect(pose.lookAt, `${slot.slot} · ${pose.name}`).toBeTruthy();
     }
+  });
+
+  /**
+   * The volley's pose keeps a hand on the shield, and the whole point of it
+   * is that every ward happens on screen: a pose that lost its hand would
+   * show `creature:volley` a whole ball falling and never the skeleton the
+   * slot is about. So the hand is stepped the way the pair steps it, and the
+   * count has to come down within the pose's own cadence.
+   */
+  test("the volley is warded on the page, not inside build", () => {
+    const pose = poseForSlot("creature:volley");
+    const world = pose.build();
+    const whole = world.creatures.find((c) => c.kind === "volley");
+    expect(whole).toBeDefined();
+    expect(volleyPlatesLeft(whole as never)).toBe(world.cfg.volleyPlates);
+    let fewest = world.cfg.volleyPlates;
+    const ticks = Math.round((pose.cadenceSeconds ?? 0) * world.cfg.tickHz);
+    for (let i = 0; i < ticks; i++) {
+      step(world, pose.hand?.(world) ?? []);
+      const v = world.creatures.find((c) => c.kind === "volley");
+      if (v) fewest = Math.min(fewest, volleyPlatesLeft(v));
+    }
+    expect(fewest).toBeLessThan(world.cfg.volleyPlates);
   });
 
   test("a slot with no dedicated pose still gets a real one", () => {

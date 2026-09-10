@@ -18,6 +18,7 @@ import {
   until,
 } from "./pose-kit.js";
 import { fallSeconds } from "./poses-surface.js";
+import { VOLLEY_POSE } from "./poses-volley.js";
 
 /**
  * The states a candidate for what a body **wears** is judged on.
@@ -212,7 +213,7 @@ const SHELL_POSE: Pose = {
   },
 };
 
-export const CASING_POSES: Pose[] = [TORCH_POSE, VEIL_POSE, WARDEN_POSE, SHELL_POSE];
+export const CASING_POSES: Pose[] = [TORCH_POSE, VEIL_POSE, WARDEN_POSE, SHELL_POSE, VOLLEY_POSE];
 
 export const CASING_GROUP: PoseGroup = {
   title: "CASINGS",

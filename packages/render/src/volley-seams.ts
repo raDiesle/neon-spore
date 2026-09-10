@@ -59,6 +59,31 @@ const SEAM_MUL = 0.07;
 const SEAM_GLOW = 2.4;
 
 /**
+ * `SEAMS` scaled to one ball, as a path — the pattern and nothing about how it
+ * is stroked. Exported because a candidate look (`volley-look.ts`) that cuts
+ * the seams into the stone or lets the body burn through them is still
+ * drawing *these* seams: the pattern is the owner's drawing and the only thing
+ * a look may change about it is what a seam is made of.
+ */
+export function seamPath(r: number): Path2D {
+  const path = new Path2D();
+  for (const seam of SEAMS) {
+    path.moveTo(seam[0]! * r, seam[1]! * r);
+    for (let i = 2; i + 5 < seam.length; i += 6) {
+      path.bezierCurveTo(
+        seam[i]! * r,
+        seam[i + 1]! * r,
+        seam[i + 2]! * r,
+        seam[i + 3]! * r,
+        seam[i + 4]! * r,
+        seam[i + 5]! * r,
+      );
+    }
+  }
+  return path;
+}
+
+/**
  * The seams, in the colour of the body inside: `SEAMS` scaled to this ball and
  * clipped to its own contour.
  *
@@ -76,21 +101,7 @@ export function drawSeams(
   turn: number,
   glow: string,
 ): void {
-  const path = new Path2D();
-  for (const seam of SEAMS) {
-    path.moveTo(seam[0]! * r, seam[1]! * r);
-    for (let i = 2; i + 5 < seam.length; i += 6) {
-      path.bezierCurveTo(
-        seam[i]! * r,
-        seam[i + 1]! * r,
-        seam[i + 2]! * r,
-        seam[i + 3]! * r,
-        seam[i + 4]! * r,
-        seam[i + 5]! * r,
-      );
-    }
-  }
-
+  const path = seamPath(r);
   ctx.save();
   ctx.rotate(turn);
   ctx.clip(ball);
