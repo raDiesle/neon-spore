@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · bcbcdfad — slick:motion closed: BANK is the slick's own motion, GLIDE and FLOAT go to the shape sheet
+
+The owner answered the slot in chat on 9 September 2026 — BANK applied to the game, the other two kept as pictures. A look the owner asked for by name, so it goes onto the field. BANK is `packages/content/src/motion-bank.ts`: two slow drifts on periods with no common multiple, and the body leaning into its own travel, the roll read off the drift's derivative. SWALLOW, which it replaces, moves to `motions-retired.ts` and onto the SHAPES tab's motion axis with the other retired pair, so the look the game stopped drawing can still be looked at beside the one that replaced it.
+
 ## 2026-09-10 · f7788489 — A silhouette can carry a form's contour whole, so the shape collection reaches shipped bodies
 
 `CreatureSilhouette.contour` is a second optional field beside `clubs`: the outline at time `t`, walked by `livingPath` the way a clubbed rim is walked instead of being sampled from six numbers. It exists so a form from `tools/shape-sheet/src/forms/` — a cluster, a welling, a sac, a slab, none of them a lobed blob — can be patched onto SLICK or BULB in VERSUS, which the rule that a candidate outline comes out of the collection rather than being invented assumed and half the collection could not do.
