@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · 728ee416 — The band gets its own slot whichever ship wins, once `ship:body` is decided
+
+The owner's answer to the band entry's question, on 10 September 2026: the band still gets `panel:band-skin` after `ship:body` closes, whatever ship is taken — a ship's panel is the ground the band stands on, not the last word on it. The entry stops asking and says to wait until `bun run versus` no longer lists `ship:body`, then open the slot on whatever panel ships then.
+
 ## 2026-09-10 · 2303a269 — A hit has a record per kind, and the slick and the bulb each get three strikes in VERSUS
 
 The owner asked on 9 September 2026 for the slick and the bulb to have very good hit visuals, and there was nothing per-body to patch: a shot landing on either threw the same sparks and cut the same pieces as a shot landing on anything else. `body-hit.ts` is the seam, cut the way `body-interior.ts` was — three records holding one shipped answer, reached by kind through `hitFor`, so a candidate on the slick's hit cannot change a dart's. Each holds the pieces (`BREAK_LOOK`, now handed to `Debris` per break rather than read there) and a strike: what the body does on the beat it is struck and what it leaves behind, drawn where it stood by `body-strike.ts` for `life` seconds, in the body's own colour, which is the shot's. It ships empty, so the field is untouched to the pixel.
