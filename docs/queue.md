@@ -211,6 +211,7 @@ its candidates are judged as it crosses rather than as it hangs.
 ## THE COIL and THE TETHER have one look each and no record to patch
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Taken:** 2026-09-10, claude/queue-the-coil-and-the-tether-have-one-look-each-and-n
 - **Files:** `packages/render/src/coil.ts`, `packages/render/src/coil-jump.ts`,
   `packages/render/src/tether.ts`, `tools/versus/candidates/`
 
