@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · e8debd64 — Queue two performance items: one full check per landing, and a profile of the suite
+
+Both from the owner's question on 10 September 2026 about where a session's time goes: a third of it was the full test suite, run once by the session before committing and again inside the landing, and nobody has measured which of the 379 files carry the four and a half minutes.
+
 ## 2026-09-10 · a1a7e24d — Three fringes for THE WISP and three interiors for THE VEIL, offered in VERSUS
 
 `creature:wisp` and `creature:veil` open again with three answers each beside what ships, every one assembled from a part on the shapes page and placed on the projection in `surface.ts` rather than posed. The wisp's fringe: ARMS, four ruffled oral arms with a lit edge and a dark one; SKIRT, one translucent curtain from the whole hem to a scalloped foot, its near side lower and lit; COMB, eight comb rows of paddles beating in sequence and carrying the bell's own cyan-violet-red down each row. The veil's mass, inside the shipped rim and under its bolts: FOAM, a froth of thin-walled cells; STRATA, five layers ringing the mass with knots that go round; VORTEX, a storm seen from above, three arms of grains winding into a dark eye. Both slots take the pose their first slot was judged on (`versus-pose.ts`), and the queue entry that asked for them is gone.
