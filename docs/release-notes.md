@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · 17c0c951 — The crater plates are painted by facet, and the camera waits to be told
+
+`spallRing` carried its own copy of what a broken piece looks like — the two colours mixed by a die roll — where `break-piece.ts` already decides it once, dark on the faces that were inside and lit where the piece carried the rim, by depth. The plates go through `facet` now, with one named constant scaling the membrane colour so the answer lands where the owner saw it: a pixel compare of the hull at the same frozen tick gives a mean difference of 2.4 values, with the darkening now following the cut rather than chance. A copies-table row stops the next die-roll fracture.
+
 ## 2026-09-10 · 9bc297a1 — The slime pendants are sampled curves welded to the membrane
 
 A pendant was four bezier segments hung from a ruled line at the membrane's height over the drip's own x, and a shoulder reaching 1.6 widths either side of that x meets the contour somewhere else — so the top edge hung a few pixels clear of the skin with the ship showing through, and each side ran straight to the neck. A straight edge anywhere on this ship reads as a seam. The owner was shown it at six times phone size and asked for it queued, and this is that entry drained.
