@@ -225,6 +225,7 @@ also what makes the body tunable at all. `.claude/skills/depth` applies. Pose in
 ## THE GYRE and THE MAGNET have one look each and no second answer
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Taken:** 2026-09-10, claude/queue-the-gyre-and-the-magnet-have-one-look-each-and-n
 - **Files:** `packages/render/src/gyre-look.ts`,
   `packages/render/src/magnet-look.ts`, `tools/versus/candidates/`,
   `tools/director/src/versus-pose.ts`
