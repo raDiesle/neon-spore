@@ -170,6 +170,12 @@ const SLOT_POSE: Record<string, string> = {
   // and the bolts is judged on that fall (`poses-surface.ts`, `poses-casing.ts`).
   "creature:wisp": "WISP · STANDING",
   "creature:veil": "VEIL · CARRYING",
+  // The boss's whole surface, reopened on 10 September 2026 after BEVEL took
+  // its armour: the same pose `warden:plates` was judged on, the ring standing
+  // across the field with every plate still on, because a fixture that never
+  // falls is judged standing, and what the material does over time is the
+  // whole question (`poses-casing.ts`, `warden-look.ts`).
+  "creature:warden": "WARDEN · ARMOURED",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

@@ -22,6 +22,9 @@ import { TORCH_KILN } from "./creature-torch/kiln/index.js";
 import { VEIL_FOAM } from "./creature-veil/foam/index.js";
 import { VEIL_STRATA } from "./creature-veil/strata/index.js";
 import { VEIL_VORTEX } from "./creature-veil/vortex/index.js";
+import { WARDEN_MANTLE } from "./creature-warden/mantle/index.js";
+import { WARDEN_ROLL } from "./creature-warden/roll/index.js";
+import { WARDEN_WHORL } from "./creature-warden/whorl/index.js";
 import { WISP_ARMS } from "./creature-wisp/arms/index.js";
 import { WISP_COMB } from "./creature-wisp/comb/index.js";
 import { WISP_SKIRT } from "./creature-wisp/skirt/index.js";
@@ -53,6 +56,9 @@ export const VARIANTS: Variant[] = [
   VEIL_FOAM,
   VEIL_STRATA,
   VEIL_VORTEX,
+  WARDEN_MANTLE,
+  WARDEN_ROLL,
+  WARDEN_WHORL,
   WISP_ARMS,
   WISP_COMB,
   WISP_SKIRT,

@@ -1,7 +1,6 @@
 import {
   catmullRomToBezierPath,
   hullRadiusMul,
-  openSmoothPath,
   type Point,
   wardenOpening,
 } from "@neon-spore/content";
@@ -13,14 +12,10 @@ import {
   wardenColor,
   wardenCycle,
 } from "@neon-spore/sim";
-import { strokeGlow } from "./glow.js";
 import { type Circle, type Layout, tileCX, tileCY } from "./layout.js";
-import { PALETTE, STROKE } from "./palette.js";
-import { drawWardenCilia } from "./warden-cilia.js";
+import { PALETTE } from "./palette.js";
 import { drawEye, drawHatch, HATCH } from "./warden-eye.js";
 import { WARDEN_LOOK } from "./warden-look.js";
-import { drawWardenEyelets } from "./warden-skin.js";
-import { drawWardenUnderskin } from "./warden-veins.js";
 
 /**
  * THE WARDEN, drawn: a horseshoe standing over a hole you can see the field
@@ -176,35 +171,29 @@ export function drawWarden(
   ctx.fill(body2d, "evenodd");
   ctx.restore();
 
-  // The surface, under everything on this body that has a job to do: the veins
-  // and the wet film inside the material, the eyelets standing in it, and the
-  // fringe outside the edge that is drawn over them next. CILIATE off the
-  // shapes page (`warden-veins.ts`, `warden-skin.ts`, `warden-cilia.ts`).
-  drawWardenUnderskin(ctx, body2d, cx, cy, r, time, openness, cut);
-  drawWardenEyelets(ctx, cx, cy, r, cx + dx, pupilR, time, openness, cut);
-  drawWardenCilia(ctx, outerPts, cx, cy, r, time, openness, cut);
-
-  strokeGlow(
+  // The surface: everything on this body between its material and its door —
+  // what is under the skin, what is set into it, the fringe off its edge, the
+  // two glows along that edge, and the armour over all of it. One record, so
+  // a second answer can rebuild the whole of it (`warden-look.ts`). The lip
+  // of the hole carries the cycle's colour, and it is the only part of the
+  // body that does.
+  WARDEN_LOOK.surface({
     ctx,
-    new Path2D(cut ? openSmoothPath(cut.edge) : catmullRomToBezierPath(outerPts)),
-    PALETTE.rock,
-    STROKE.outline,
-    0.7,
-  );
-  // The edge you look through carries the cycle's colour, and it is the only
-  // part of the body that does: the rim says what ammunition the one shot
-  // needs, a whole cycle before there is anything to shoot at. It stops where
-  // the material does — there is no lip across the opening, because there is
-  // nothing there for a lip to be the edge of.
-  strokeGlow(
-    ctx,
-    new Path2D(cut ? openSmoothPath(cut.lip) : catmullRomToBezierPath(pupilPts)),
-    openness > 0 ? rim : hex,
-    STROKE.outline,
-    0.6 + openness * 0.8,
-  );
-
-  WARDEN_LOOK.plates({ ctx, cx, cy, r, b, cfg, time, cut });
+    cx,
+    cy,
+    r,
+    b,
+    cfg,
+    time,
+    cut,
+    shape: body2d,
+    outer: outerPts,
+    pupil: pupilPts,
+    pupilX: cx + dx,
+    pupilR,
+    openness,
+    lip: openness > 0 ? rim : hex,
+  });
   drawHatch(ctx, cx + dx, cy, pupilR * HATCH, openness);
   // The eye behind the door — the same one THE LID wears, `eye.ts`. The fluid
   // and the fringe are drawn whether or not the hatch is open, because they are

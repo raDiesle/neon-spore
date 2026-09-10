@@ -206,22 +206,6 @@ there is to cut one out of `echo.ts` the way `meteor-look.ts` was cut, which is
 also what makes the body tunable at all. `.claude/skills/depth` applies. Pose in
 `versus-pose.ts` in the same commit.
 
-## THE WARDEN has one look and no second answer
-
-- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
-- **Taken:** 2026-09-10, claude/queue-the-warden-has-one-look-and-no-second-answer
-- **Files:** `packages/render/src/warden-look.ts`,
-  `packages/render/src/warden-plates.ts`, `packages/render/src/warden-cilia.ts`,
-  `packages/render/src/warden-veins.ts`, `tools/versus/candidates/`
-
-One slot, `creature:warden`, three candidates beside what ships. The warden is
-the most built body in the game — plates, cilia and veins are three files of
-its own — so it is the one where depth and a natural, unmechanical motion have
-the most to work with, and it gets a slot to itself for that reason.
-`.claude/skills/depth` applies, and armour on it follows the body's own contour
-rather than sitting in a ring around it. Pose in `versus-pose.ts` in the same
-commit.
-
 ## THE THROB and THE CRAWLER have one look each and no second answer
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067

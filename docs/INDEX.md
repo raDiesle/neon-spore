@@ -720,8 +720,9 @@ place — the generator keeps whatever is there.
 | `packages/render/src/warden-cilia.ts` | THE WARDEN's fringe: the half of CILIATE that stands **outside** the rim |
 | `packages/render/src/warden-plates.ts` | THE WARDEN's armour, and the only place on the field that says how far in the pair is |
 | `packages/render/src/warden-skin.ts` | THE WARDEN's skin: the veins under it, the wet film over it |
+| `packages/render/src/warden-surface.ts` | THE WARDEN's whole surface as one field — veins, eyelets, fringe, edges and armour, in the order a solid is built |
 | `packages/render/src/warden-veins.ts` | What lies **under** THE WARDEN's surface: the veins running in from its rim, and the wet film over them |
-| `packages/render/src/warden-look.ts` | THE ONE RECORD A CANDIDATE WARDEN ARMOUR PATCHES |
+| `packages/render/src/warden-look.ts` | THE ONE RECORD A CANDIDATE WARDEN PATCHES |
 | `packages/render/src/queen-drop.ts` | NEXT TO FALL: the flank the queen's next torch comes off, said on player 2's screen and nowhere else |
 | `packages/render/src/queen-figure.ts` | Where the parts of the queen sit on her, and where the screen puts them |
 | `packages/render/src/maze-walls.ts` | THE MAZE's walls: the circles, the gaps cut in them, and the radial walls that make the corridors turn |

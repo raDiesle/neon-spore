@@ -21,7 +21,7 @@
  * things that genuinely want an SVG `d`: `tools/shape-sheet`, the menu's
  * wordmark, and every contour that reaches a real `<path>` element.
  */
-export function catmullRomSegments(pts: Point[], closed: boolean): number[] {
+export function catmullRomSegments(pts: readonly Point[], closed: boolean): number[] {
   const n = pts.length;
   const out: number[] = [];
   for (let i = 0; i < (closed ? n : n - 1); i++) {
@@ -54,7 +54,7 @@ function curveText(seg: number[]): string {
  * Catmull-Rom spline through a closed loop of points. Returns an SVG path
  * string with Bezier curves.
  */
-export function catmullRomToBezierPath(pts: Point[]): string {
+export function catmullRomToBezierPath(pts: readonly Point[]): string {
   const head = `M ${pts[0]!.x.toFixed(2)} ${pts[0]!.y.toFixed(2)} `;
   return `${head}${curveText(catmullRomSegments(pts, true))}Z`;
 }
@@ -63,7 +63,7 @@ export function catmullRomToBezierPath(pts: Point[]): string {
  * Catmull-Rom spline through an open path of points (not closed). The spline
  * is clamped at the start and end.
  */
-export function openSmoothPath(pts: Point[]): string {
+export function openSmoothPath(pts: readonly Point[]): string {
   if (pts.length < 2) return "";
   const head = `M ${pts[0]!.x.toFixed(2)} ${pts[0]!.y.toFixed(2)} `;
   return head + curveText(catmullRomSegments(pts, false));
