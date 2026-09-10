@@ -190,21 +190,6 @@ Whichever wins, `packages/render/test/wave-budget.test.ts`'s BULB QUEEN rows
 are the proof it changed nothing else, and `bun run frames . --wave 25 --at`
 takes the two pictures for the owner to choose between.
 
-## THE THROB and THE CRAWLER have one look each and no second answer
-
-- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
-- **Taken:** 2026-09-10, claude/queue-the-throb-and-the-crawler-have-one-look-each-and
-- **Files:** `packages/render/src/throb-look.ts`,
-  `packages/render/src/crawler-look.ts`, `tools/versus/candidates/`,
-  `tools/director/src/versus-pose.ts`
-
-One slot per body, three candidates each. The throb turns half a coloured body
-and half shell the whole way down, so its slot is about whether the turn reads
-as a solid thing rotating — `.claude/skills/depth` is the whole of that
-question. The crawler walks, and its slot is about whether the walk looks
-grown. Both are motion slots and both sides animate. Pose in `versus-pose.ts`
-in the same commit.
-
 ## THE QUEEN has one look and no second answer, and no record to patch
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067

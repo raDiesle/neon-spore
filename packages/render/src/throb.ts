@@ -54,7 +54,7 @@ import type { ThrobHalf } from "./throb-look.js";
  * width cue `docs/dimensional.md` says repeats **twice** per revolution against
  * a lean's once, and a diameter rotating in the picture plane has neither.
  */
-function seamAt(turn: number, rx: number): { half: number; side: number } {
+export function seamAt(turn: number, rx: number): { half: number; side: number } {
   const first = turn + Math.PI / 2;
   const nearIsFirst = Math.cos(first) > 0;
   const a = nearIsFirst ? first : first + Math.PI;
@@ -75,7 +75,7 @@ function seamAt(turn: number, rx: number): { half: number; side: number } {
  * all. The shipped half has the same shape for the same reason: its clip is a
  * rectangle four radii wide, not the contour.
  */
-function farRegion(half: number, side: number, rx: number, ry: number): Path2D {
+export function farRegion(half: number, side: number, rx: number, ry: number): Path2D {
   const out = 3;
   const g = new Path2D();
   // Down the meridian, out past the poles at both ends, then round the outside

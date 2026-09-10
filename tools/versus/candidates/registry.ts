@@ -6,6 +6,9 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
+import { CRAWLER_GUT } from "./creature-crawler/gut/index.js";
+import { CRAWLER_SETAE } from "./creature-crawler/setae/index.js";
+import { CRAWLER_WRINKLE } from "./creature-crawler/wrinkle/index.js";
 import { DART_BRAID } from "./creature-dart/braid/index.js";
 import { DART_SHOCK } from "./creature-dart/shock/index.js";
 import { DART_WAKE } from "./creature-dart/wake/index.js";
@@ -22,6 +25,9 @@ import { MAGNET_ORE } from "./creature-magnet/ore/index.js";
 import { MAGNET_ROD } from "./creature-magnet/rod/index.js";
 import { MAGNET_YAW } from "./creature-magnet/yaw/index.js";
 import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
+import { THROB_CAP } from "./creature-throb/cap/index.js";
+import { THROB_GIRDLE } from "./creature-throb/girdle/index.js";
+import { THROB_PORES } from "./creature-throb/pores/index.js";
 import { TORCH_CROWN } from "./creature-torch/crown/index.js";
 import { TORCH_HOLLOW } from "./creature-torch/hollow/index.js";
 import { TORCH_KILN } from "./creature-torch/kiln/index.js";
@@ -46,6 +52,9 @@ import { TORCH_BLOOM } from "./torch-veil/bloom/index.js";
 import { TORCH_FIFTH } from "./torch-veil/fifth/index.js";
 
 export const VARIANTS: Variant[] = [
+  CRAWLER_GUT,
+  CRAWLER_SETAE,
+  CRAWLER_WRINKLE,
   DART_BRAID,
   DART_SHOCK,
   DART_WAKE,
@@ -62,6 +71,9 @@ export const VARIANTS: Variant[] = [
   MAGNET_ROD,
   MAGNET_YAW,
   METEOR_FORGE,
+  THROB_CAP,
+  THROB_GIRDLE,
+  THROB_PORES,
   TORCH_CROWN,
   TORCH_HOLLOW,
   TORCH_KILN,

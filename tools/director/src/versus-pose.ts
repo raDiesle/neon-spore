@@ -184,6 +184,14 @@ const SLOT_POSE: Record<string, string> = {
   // falls is judged standing, and what the material does over time is the
   // whole question (`poses-casing.ts`, `warden-look.ts`).
   "creature:warden": "WARDEN · ARMOURED",
+  // The two motion slots reopened on 10 September 2026, each on the pose its
+  // first slot was judged on: a throb alone in a lane held for the whole
+  // fall, because whether a turn reads as a solid needs longer than a replay
+  // window; a worm of six links crossing above the ship, because a walk is
+  // judged on the chain and not on one ring (`poses-surface.ts`,
+  // `poses-versus.ts`).
+  "creature:throb": "THROB · TURNING",
+  "creature:crawler": "CRAWLER · WALKING",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */
