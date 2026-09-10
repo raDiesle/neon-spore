@@ -500,6 +500,7 @@ frame.
 ## The tutorial plate is drawn over a boss round's own header
 
 - **Found:** 2026-09-09, claude/queued-items-a47ead
+- **Taken:** 2026-09-10, claude/queue-the-tutorial-plate-is-drawn-over-a-boss-rounds-o
 - **Files:** `packages/render/src/guide-plate.ts`,
   `packages/render/src/guide-scene.ts`
 
