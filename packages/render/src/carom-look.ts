@@ -74,6 +74,10 @@ export interface CrustDraw {
    * neither read by the shipped stone, both by a look that shades it. */
   readonly dark: string;
   readonly ember: string;
+  /** Where in the beat this frame falls, 0 at the beat and 1 just before the
+   * next — for a light on the shell that keeps the game's own time. Not read
+   * by the shipped stone. */
+  readonly beat: number;
 }
 
 /** The unlit mid-tone a meteor is filled with before the key touches it.

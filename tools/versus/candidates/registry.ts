@@ -6,10 +6,9 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
-import { CAROM_FACET } from "./creature-carom/facet/index.js";
-import { CAROM_GRIT } from "./creature-carom/grit/index.js";
-import { CAROM_KEEL } from "./creature-carom/keel/index.js";
-import { CAROM_PITS } from "./creature-carom/pits/index.js";
+import { CAROM_CAPSULE } from "./creature-carom/capsule/index.js";
+import { CAROM_LIFEBOAT } from "./creature-carom/lifeboat/index.js";
+import { CAROM_POD } from "./creature-carom/pod/index.js";
 import { CHUTE_BELL } from "./creature-chute/bell/index.js";
 import { CHUTE_GORES } from "./creature-chute/gores/index.js";
 import { CHUTE_RIBS } from "./creature-chute/ribs/index.js";
@@ -96,10 +95,9 @@ import { TORCH_BLOOM } from "./torch-veil/bloom/index.js";
 import { TORCH_FIFTH } from "./torch-veil/fifth/index.js";
 
 export const VARIANTS: Variant[] = [
-  CAROM_FACET,
-  CAROM_GRIT,
-  CAROM_KEEL,
-  CAROM_PITS,
+  CAROM_CAPSULE,
+  CAROM_LIFEBOAT,
+  CAROM_POD,
   CHUTE_BELL,
   CHUTE_GORES,
   CHUTE_RIBS,

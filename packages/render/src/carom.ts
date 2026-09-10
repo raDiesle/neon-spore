@@ -127,6 +127,7 @@ export function drawCaromCrust(
     phase: spin,
     dark,
     ember,
+    beat: beatPhase,
   };
 
   ctx.save();

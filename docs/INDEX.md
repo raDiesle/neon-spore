@@ -717,6 +717,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/chute.ts` | THE CHUTE, drawn: the thrust that throws a body out of a cracked carom |
 | `packages/render/src/carom-window.ts` | THE CAROM's window: a hole punched clean through the rock, a bezel round it |
 | `packages/render/src/carom-look.ts` | THE ONE RECORD A CANDIDATE **CAROM** CRUST PATCHES |
+| `packages/render/src/carom-facet.ts` | THE CAROM's crust cut into lit faces, nose along its heading — the base every capsule candidate draws on |
+| `packages/render/src/carom-marks.ts` | A rescue capsule's markings on those faces: rivets, chevrons, a beacon on the beat, a scorched shield |
 | `packages/render/src/controls-fleet.ts` | THE FLEET's own two controls, and the crosshair only they still wear |
 | `packages/render/src/ship-air.ts` | THE AIR THE SHIP IS SITTING IN |
 | `packages/render/src/ship-nerves.ts` | what runs from a control to the organ it drives, as a record — drawn under the controls and across the membrane; ships empty, a candidate ship wires it |
