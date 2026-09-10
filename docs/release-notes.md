@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · 6e6702fe — Three surfaces for THE WARDEN, offered in VERSUS
+
+`creature:warden` opens with three answers beside what ships, each rebuilding the boss's whole surface for depth and a motion that reads as grown. ROLL: the ring read as a tube, lit from the lip over a wet crest to the rim, turning inside-out on an eighteen-second clock so every eyelet and vein surfaces at the outer edge, crosses the crest and is swallowed into the hole. MANTLE: the material grown in four rings of overlapping soft lobes, each lit as a cushion tilted into the hole so the ring reads as a throat, with a swell running round the folds. WHORL: a sphincter of thirty ridged fibres winding from the rim into the hole over a bowl lit on its far wall, turning slowly, a bead of green running down each fibre. To make that reachable, `WARDEN_LOOK`'s one field is now the whole surface — veins, eyelets, fringe, the two edges and the armour, in the order they were always drawn (`warden-surface.ts`) — and the shipped picture is unchanged. The slot takes `WARDEN · ARMOURED`, and the queue entry that asked for it is gone.
+
 ## 2026-09-10 · 4c8beac3 — A finished lane lands on the local main before the turn ends; the rest is asked
 
 The end of a finished turn used to be a four-way question with nothing landed before the answer. The owner split that moment on 10 September 2026: the local trunk moving is the reversible half and the one that keeps the rebase small, so it is no longer asked about — a lane that ends a turn clean and ahead of `main` always runs `bun run land --keep` first. What is still put to him is what `--keep` leaves undone, in three answers: more to come, send (`bun run push`), or finished (`bun run sweep`). `tools/hooks/lane-finished.ts` sends the session back with the landing to run and the three options, and its test now checks that order.
