@@ -251,6 +251,7 @@ owner has said which of these it becomes:
 ## What a hit on a slick or a bulb looks like is shared with everything else
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Taken:** 2026-09-10, claude/queue-what-a-hit-on-a-slick-or-a-bulb-looks-like-is-sh
 - **Files:** `packages/render/src/effects-body.ts`,
   `packages/render/src/sparks.ts`, `packages/render/src/break-look.ts`,
   `packages/render/src/body-interior.ts`, `tools/versus/candidates/`
