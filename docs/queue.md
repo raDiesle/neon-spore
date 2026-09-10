@@ -751,6 +751,7 @@ its own on the hull and should be offered beside this, not folded into it.
 ## The slime pendants have a flat top edge and straight sides
 
 - **Found:** 2026-09-09, claude/versus-ship-visual-redesign-4ca99d
+- **Taken:** 2026-09-10, claude/queue-the-slime-pendants-have-a-flat-top-edge-and-stra
 - **Files:** `packages/render/src/band-slime.ts`
 
 `pendant` draws each drip hanging off the membrane as a shape with a **ruled
