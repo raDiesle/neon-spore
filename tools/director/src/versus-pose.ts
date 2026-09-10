@@ -156,6 +156,12 @@ const SLOT_POSE: Record<string, string> = {
   // (`poses-damage.ts`).
   "creature:break": "BREAK · A BODY COMING APART",
   "ship:crater": "BREACH · ROCKS COMING THROUGH",
+  // The wheel's organelle, opened a second time on 10 September 2026 — three
+  // more answers beside the one taken on the 9th. The same pose as before:
+  // a wheel held on the field with its middle turning at the true rate,
+  // because every candidate here is judged on a turn and a turn needs longer
+  // than a replay window to finish (`poses-surface.ts`).
+  "creature:gyre": "GYRE · TURNING",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

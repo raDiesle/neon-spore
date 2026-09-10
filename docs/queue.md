@@ -223,21 +223,6 @@ there is to cut one out of `echo.ts` the way `meteor-look.ts` was cut, which is
 also what makes the body tunable at all. `.claude/skills/depth` applies. Pose in
 `versus-pose.ts` in the same commit.
 
-## THE GYRE and THE MAGNET have one look each and no second answer
-
-- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
-- **Taken:** 2026-09-10, claude/queue-the-gyre-and-the-magnet-have-one-look-each-and-n
-- **Files:** `packages/render/src/gyre-look.ts`,
-  `packages/render/src/magnet-look.ts`, `tools/versus/candidates/`,
-  `tools/director/src/versus-pose.ts`
-
-One slot per body, `creature:gyre` and `creature:magnet`, three candidates each
-beside what ships. Both turn, so both are slots where motion is the thing being
-judged and the pair must animate — `docs/versus.md`'s rule about a still is
-about surfaces, not about a body whose whole character is how it spins.
-`.claude/skills/depth` has what makes a turn read as solid rather than as a
-flat shape rotating. Pose in `versus-pose.ts` in the same commit.
-
 ## THE WARDEN has one look and no second answer
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
@@ -432,3 +417,25 @@ Wait for `creature:break` to be decided before opening this, or check with
 `bun run versus` that the fields do not overlap: `bun test` refuses two open
 slots claiming one field, and a body's break and a body's hit are next-door
 questions.
+
+## `versus:shot --at` clips the page's chrome when the pose is a tile crop
+
+- **Found:** 2026-09-10, claude/queue-the-gyre-and-the-magnet-have-one-look-each-and-n
+- **Files:** `tools/frames/shot.ts`, `tools/frames/crop.ts`,
+  `tools/frames/versus-shot.ts`
+
+`bun run versus:shot creature:magnet rod out.png --only candidate --at
+110,110,120,120` wrote a picture of the page's buttons and prose, not of the
+body — three rectangles were tried and none landed on the phone, where the
+same flag on `creature:gyre` (a `crop: "field"` pose) had hit its core first
+time. The lane gave up on the crop and read the magnified whole instead,
+which is the workaround this entry exists to end.
+
+`shot.ts` scrolls the nearest scrolling ancestor by `at.y` *before* it
+measures the element's box, then clips at `box.y + at.y`. That is right when
+the scroll goes the whole way; when the page is short and the scroll stops
+early — a `crop: "tile"` pose is a small square on a short page — the box
+has moved by less than `at.y` and the clip overshoots by the difference,
+landing below the phone. Measure the box first, or scroll and then clip at
+`box.y + (at.y - scrolled)`, and `tools/frames/test/` holds the arithmetic.
+Prove it with the magnet command above: the picture is the horseshoe.

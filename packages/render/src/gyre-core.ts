@@ -94,6 +94,48 @@ const PINS = Array.from({ length: GRAINS }, (_, i) =>
 const STOPS = 9;
 
 /**
+ * The mass inside the membrane: a value ramp across the ball read off
+ * `surfaceLit` at the longitude the surface is pointing in, rather than a
+ * radial gradient with a bright spot in it. A cosine with a terminator is what
+ * makes a ball read as a ball; a radial disc reads as a lamp seen head-on from
+ * any angle.
+ *
+ * Drawn about the origin in a frame the turn has been taken out of, and
+ * exported for the same reason `gyreSkinPath` is: a candidate organelle in
+ * `tools/versus` that argues about what is *suspended* in the fluid should
+ * not carry a second copy of how the fluid is lit.
+ */
+export function gyreMass(
+  ctx: CanvasRenderingContext2D,
+  r: number,
+  tint: string,
+  pull: number,
+): void {
+  const mass = ctx.createLinearGradient(-r, -r * 0.6, r, r * 0.6);
+  for (let i = 0; i < STOPS; i++) {
+    const u = i / (STOPS - 1);
+    const lon = -1.2 + 2.4 * u;
+    const k = surfaceDim(0.12, surfaceLit(1, 0, Math.sin(lon), Math.cos(lon)));
+    mass.addColorStop(u, rgba(tint, (0.2 + 0.8 * k) * (0.9 + 0.1 * pull)));
+  }
+  ctx.fillStyle = mass;
+  ctx.beginPath();
+  ctx.arc(0, 0, r * YOLK, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+/** The one specular, upper left and stationary. It is the half of the pair
+ * that no amount of turning supplies and the half without which all that
+ * turning is a coin: `KEY` is a constant and never a parameter. Exported
+ * beside `gyreMass`, and for its reason. */
+export function gyreSpecular(ctx: CanvasRenderingContext2D, r: number): void {
+  ctx.beginPath();
+  ctx.ellipse(-r * 0.34, -r * 0.34, r * 0.24, r * 0.17, -0.79, 0, Math.PI * 2);
+  ctx.fillStyle = rgba(PALETTE.text, 0.22);
+  ctx.fill();
+}
+
+/**
  * The core of one wheel: a ball with things suspended in it.
  *
  * `tint` and `rim` are the wheel's two neon colours, already hazed for the row
@@ -145,21 +187,7 @@ export function drawGyreCore(d: GyreCoreDraw): void {
   ctx.clip(skin);
   ctx.rotate(-flow);
 
-  // The mass: a value ramp across the ball read off `surfaceLit` at the
-  // longitude the surface is pointing in, rather than a radial gradient with a
-  // bright spot in it. A cosine with a terminator is what makes a ball read as
-  // a ball; a radial disc reads as a lamp seen head-on from any angle.
-  const mass = ctx.createLinearGradient(-r, -r * 0.6, r, r * 0.6);
-  for (let i = 0; i < STOPS; i++) {
-    const u = i / (STOPS - 1);
-    const lon = -1.2 + 2.4 * u;
-    const k = surfaceDim(0.12, surfaceLit(1, 0, Math.sin(lon), Math.cos(lon)));
-    mass.addColorStop(u, rgba(tint, (0.2 + 0.8 * k) * (0.9 + 0.1 * pull)));
-  }
-  ctx.fillStyle = mass;
-  ctx.beginPath();
-  ctx.arc(0, 0, r * YOLK, 0, Math.PI * 2);
-  ctx.fill();
+  gyreMass(ctx, r, tint, pull);
 
   // The granules, placed and carried round by the wheel's own true rate — the
   // same `flow` the skin is turned by, so the inside and the outside of the
@@ -181,13 +209,7 @@ export function drawGyreCore(d: GyreCoreDraw): void {
     ctx.restore();
   }
 
-  // The one specular, upper left and stationary. It is the half of the pair
-  // that no amount of turning supplies and the half without which all that
-  // turning is a coin: `KEY` is a constant and never a parameter.
-  ctx.beginPath();
-  ctx.ellipse(-r * 0.34, -r * 0.34, r * 0.24, r * 0.17, -0.79, 0, Math.PI * 2);
-  ctx.fillStyle = rgba(PALETTE.text, 0.22);
-  ctx.fill();
+  gyreSpecular(ctx, r);
   ctx.restore();
 
   // The membrane over its own contents, back in the turned frame and in the

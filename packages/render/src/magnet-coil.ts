@@ -1,21 +1,18 @@
 import { MAGNET_SHAPE, type MagnetShape } from "@neon-spore/content";
 import { magnetPoleColor } from "@neon-spore/sim";
-import { livingBodyMul } from "./creature-place.js";
 import { hazed } from "./depth.js";
 import { halo, strokeGlow } from "./glow.js";
 import { mixHex } from "./hex.js";
 import { litBox, litRound } from "./key-light.js";
 import {
-  HANG,
-  HANG_BEATS,
-  HANG_SPREAD,
   type MagnetDraw,
   magnetArchPath,
+  magnetHang,
   magnetPlatePath,
   magnetPolePath,
+  magnetRadius,
   magnetSlabPath,
   poleTip,
-  TURN,
 } from "./magnet.js";
 import { lanes } from "./magnet-lanes.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -71,9 +68,9 @@ function bevel(
 export function coil(d: MagnetDraw): void {
   const { ctx, l, cfg, c, x, y, beats, struck, near } = d;
   const s = MAGNET_SHAPE;
-  const r = l.tile * 0.4 * livingBodyMul(c);
+  const r = magnetRadius(l, c);
   const haze = (h: string): string => hazed(cfg, h, near);
-  const spin = Math.sin((beats / HANG_BEATS + c.id * HANG_SPREAD) * TURN) * HANG;
+  const spin = magnetHang(c, beats);
 
   // The lanes go down before the transform, level and unrotated: what they
   // draw is the path a locked bolt runs, and a bolt does not lean because the
@@ -99,7 +96,7 @@ export function coil(d: MagnetDraw): void {
  * whole job is to be *thick* looks it. The hard rock edge stays: it is what
  * tells a glance which of the two greys is armour.
  */
-function slab(
+export function slab(
   d: MagnetDraw,
   r: number,
   s: MagnetShape,
@@ -182,7 +179,11 @@ function arch(d: MagnetDraw, r: number, haze: (h: string) => string, spin: numbe
 }
 
 /**
- * One pole, lit from its own end.
+ * One pole, lit from its own end. Exported, with `slab`, for a candidate in
+ * `tools/versus` that argues about the arch or the plate and not about the
+ * poles: the two lamps are the half of this body that carries a word somebody
+ * says out loud, and a second copy of how they are lit is a second copy of
+ * where the pair looks for it.
  *
  * Shipped, a pole is a flat wedge of colour with a halo at the tip. Here the
  * colour is a gradient standing *on* the tip and falling away up the arm, so
@@ -193,7 +194,7 @@ function arch(d: MagnetDraw, r: number, haze: (h: string) => string, spin: numbe
  * The colour comes from `magnetPoleColor` and not from a ternary here: the
  * pole the pair is looking at and the pole the bolt has to match are one fact.
  */
-function pole(
+export function pole(
   d: MagnetDraw,
   r: number,
   s: MagnetShape,

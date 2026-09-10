@@ -9,6 +9,12 @@ import type { Variant } from "../variant.js";
 import { DART_BRAID } from "./creature-dart/braid/index.js";
 import { DART_SHOCK } from "./creature-dart/shock/index.js";
 import { DART_WAKE } from "./creature-dart/wake/index.js";
+import { GYRE_HELIX } from "./creature-gyre/helix/index.js";
+import { GYRE_ORBIT } from "./creature-gyre/orbit/index.js";
+import { GYRE_VORTEX } from "./creature-gyre/vortex/index.js";
+import { MAGNET_ORE } from "./creature-magnet/ore/index.js";
+import { MAGNET_ROD } from "./creature-magnet/rod/index.js";
+import { MAGNET_YAW } from "./creature-magnet/yaw/index.js";
 import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
 import { TORCH_CROWN } from "./creature-torch/crown/index.js";
 import { TORCH_HOLLOW } from "./creature-torch/hollow/index.js";
@@ -28,6 +34,12 @@ export const VARIANTS: Variant[] = [
   DART_BRAID,
   DART_SHOCK,
   DART_WAKE,
+  GYRE_HELIX,
+  GYRE_ORBIT,
+  GYRE_VORTEX,
+  MAGNET_ORE,
+  MAGNET_ROD,
+  MAGNET_YAW,
   METEOR_FORGE,
   TORCH_CROWN,
   TORCH_HOLLOW,

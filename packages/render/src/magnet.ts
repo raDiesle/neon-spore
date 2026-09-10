@@ -1,5 +1,6 @@
 import { MAGNET_SHAPE, type MagnetShape } from "@neon-spore/content";
 import type { Creature, SimConfig } from "@neon-spore/sim";
+import { livingBodyMul } from "./creature-place.js";
 import type { Layout } from "./layout.js";
 
 /**
@@ -73,8 +74,22 @@ export const HANG_SPREAD = 0.37;
 
 /** A whole turn, so the angles below read as what they are. */
 export const TURN = Math.PI * 2;
-/** Straight down, in canvas bearings. Every angle here is measured from it. */
-const DOWN = Math.PI / 2;
+
+/** The body's radius on this screen. One place, because a candidate look in
+ * `tools/versus` draws the same paths at the same size, and a body two
+ * pixels bigger on one side of a pair is a difference nobody asked about. */
+export function magnetRadius(l: Layout, c: Creature): number {
+  return l.tile * 0.4 * livingBodyMul(c);
+}
+
+/** How far the body hangs off vertical this instant, in radians, off the pose
+ * clock — exported with the three numbers above and for their reason. */
+export function magnetHang(c: Creature, beats: number): number {
+  return Math.sin((beats / HANG_BEATS + c.id * HANG_SPREAD) * TURN) * HANG;
+}
+/** Straight down, in canvas bearings. Every angle here is measured from it,
+ * and so is the one a candidate in `tools/versus` needs — the end of an arm. */
+export const DOWN = Math.PI / 2;
 
 /** The band between the two radii, from `a0` to `a1`, going `ccw`. */
 function band(
