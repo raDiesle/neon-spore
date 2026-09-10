@@ -1,4 +1,4 @@
-import type { Creature, SimConfig } from "@neon-spore/sim";
+import { balloonGlidePhase, type Creature, type SimConfig } from "@neon-spore/sim";
 import { mixHex } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -39,6 +39,22 @@ export function nearness(l: Layout, row: number): number {
  */
 export function drawnRow(c: Creature, beatPhase: number): number {
   return c.fromRow + (c.row - c.fromRow) * beatPhase;
+}
+
+/**
+ * The phase a body is glided by — what every reader of `drawnRow` and
+ * `creatureCenter` hands them for a body that might be THE BALLOON.
+ *
+ * The beat's own for every other kind: one tile a beat, the glide is the
+ * beat. A balloon's one step is `balloonClimbBeats` long and its `from`
+ * fields stand for all of them (`sim/balloon.ts`), so its glide is the phase
+ * across the step rather than across the beat — `balloonGlidePhase` is that
+ * rule and this is the one place render/ asks it, so the body, its two
+ * handles, a finger on one and a caption pointing at it all agree about where
+ * it is on the second beat of a step.
+ */
+export function glidePhase(cfg: SimConfig, beat: number, c: Creature, beatPhase: number): number {
+  return c.kind === "balloon" ? balloonGlidePhase(cfg, beat, beatPhase, c) : beatPhase;
 }
 
 /**

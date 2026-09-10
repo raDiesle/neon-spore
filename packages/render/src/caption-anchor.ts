@@ -1,6 +1,7 @@
 import { type ControlSet, control, type SceneAnchor } from "@neon-spore/content";
 import { type Creature, gripCount, type World } from "@neon-spore/sim";
 import { creatureCenter, creatureRadius } from "./creature-place.js";
+import { glidePhase } from "./depth.js";
 import { handleCircle } from "./handles.js";
 import { hullBarBox } from "./hud.js";
 import { bandLobes, type Layout, tileCX } from "./layout.js";
@@ -73,8 +74,9 @@ export function anchorPoint(
     // between rows, and `creatureCenter` is the one place that glide is
     // written down — a ring placed from the tile alone lands a whole row
     // behind the shape it is meant to be around.
-    const at = creatureCenter(l, top, beatPhase);
-    return { x: at.x, y: at.y, r: creatureRadius(l, top, beatPhase, world.cfg) + 6, clear: CLEAR };
+    const glide = glidePhase(world.cfg, world.beat, top, beatPhase);
+    const at = creatureCenter(l, top, glide);
+    return { x: at.x, y: at.y, r: creatureRadius(l, top, glide, world.cfg) + 6, clear: CLEAR };
   }
   if (anchor.at === "held") {
     // Whatever a hand is on. Either seat's: the page names which of them is

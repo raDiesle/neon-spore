@@ -1,10 +1,4 @@
-import { markMoment } from "./balance.js";
-import { balloonSplitsLeft } from "./balloon.js";
-import { hullRow, type SimConfig } from "./config.js";
-import { wornKind } from "./creature-rules.js";
-import type { CrossDir } from "./cross.js";
-import { removeCreature } from "./field.js";
-import { clampSpanCol } from "./span.js";
+import type { SimConfig } from "./config.js";
 import type { Command, Creature } from "./types.js";
 import type { World } from "./world.js";
 
@@ -16,7 +10,9 @@ import type { World } from "./world.js";
  * and `choir-gesture.ts` already cut. Next door is what the *body* is — where
  * it appears, how it climbs, what it costs at the top — and that half is
  * finished. This is what the *hands* do, and it is the half with the coupling
- * in it.
+ * in it. What the body does once both hands have reached it — the hold, the
+ * split, the pop — is `balloon-rub.ts`, cut off this file when the hold took
+ * it past its length.
  *
  * **A side per seat, fixed, and never negotiated.** The pilot has the handle
  * on a balloon's left and carries it left; the navigator has the one on its
@@ -132,89 +128,5 @@ export function releaseBalloons(world: World, player: 1 | 2): void {
     if (c.kind !== "balloon") continue;
     if (player === 1) c.balloonPullP1 = undefined;
     else c.balloonPullP2 = undefined;
-  }
-}
-
-/**
- * Every balloon both hands are taut on, given — read on the tick, from `step`.
- *
- * On the tick rather than on the beat, and for `lidHeard`'s reason with more
- * riding on it: the pair counted themselves into this instant out loud, and a
- * moment answered on the next beat would land up to a whole beat after the one
- * they said. Both hands lift with the body, because whatever they were holding
- * has either become two things or stopped existing.
- */
-export function rubBalloons(world: World): void {
-  const given = world.creatures.filter((c) => balloonIsRubbed(world.cfg, c));
-  for (const c of given) rubBalloon(world, c);
-}
-
-/**
- * One balloon, given.
- *
- * **The first rub splits and the last one pops**, which is the owner's own
- * shape for this creature: a pair who reach one are not finished with it, they
- * have made two smaller problems that have to be agreed all over again. The
- * halves hold still for `balloonSwellBeats` before they climb — the short
- * delay he asked for, and it is the same swell a fresh arrival has, because it
- * is the same picture.
- *
- * A pop costs the hull nothing at all. That is the whole of the bargain: the
- * only way this body leaves the field without taking a piece of the ship with
- * it is two people doing one thing at one moment.
- */
-function rubBalloon(world: World, c: Creature): void {
-  const left = balloonSplitsLeft(c);
-  markMoment(world, true);
-  if (left <= 0) {
-    world.score += world.cfg.scoreBalloonPop;
-    world.events.push({ type: "balloonPop", col: c.col, row: c.row });
-    // Beside it on the same tick, so the burst of particles a body going off
-    // the field gets is the ordinary one and this file invents no picture of
-    // its own (`chuteCut`'s arrangement). A balloon carries no colour, and
-    // `destroy` wants one: cyan is what `lensPalette` and `ghostPalette`
-    // already answer for a body that has none, so the two agree. The kind is
-    // the balloon's own and resolves to nothing to cut: a skin two hands
-    // stretched has no contour a fracture could follow, so it leaves no pieces
-    // (`render/effects-break.ts`).
-    world.events.push({
-      type: "destroy",
-      col: c.col,
-      row: c.row,
-      color: "cyan",
-      kind: wornKind(c),
-    });
-    removeCreature(world, c.id);
-    return;
-  }
-  world.score += world.cfg.scoreBalloonRub;
-  world.events.push({ type: "balloonSplit", col: c.col, row: c.row });
-  removeCreature(world, c.id);
-  // Nothing above the top row and nothing on the ship's: a split must not put
-  // a body through either end of the field. `splitEchoes`' clamp, and its
-  // reason word for word.
-  const lowest = hullRow(world.cfg) - 1;
-  for (const dir of [-1, 1] as const) {
-    world.creatures.push({
-      ...c,
-      id: world.nextId++,
-      col: clampSpanCol(c.col + dir, world.cfg.cols, 1),
-      row: Math.max(0, Math.min(lowest, c.row)),
-      fromCol: c.col,
-      fromRow: c.row,
-      balloonSplits: left - 1,
-      // The swell starts again from this beat, which is the delay: two bodies
-      // filling where one was, and neither of them going anywhere until the
-      // pair has had time to see that there are two.
-      balloonBeat: world.beat,
-      // Each half sets off the way it stepped, so the two come apart rather
-      // than crossing each other a beat later.
-      balloonDir: dir as CrossDir,
-      // Neither half is held. The hands were on the body that has just stopped
-      // existing, and a pull inherited by a spread would be two seats silently
-      // taut on a thing they never took hold of.
-      balloonPullP1: undefined,
-      balloonPullP2: undefined,
-    });
   }
 }

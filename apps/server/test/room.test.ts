@@ -171,13 +171,18 @@ describe("a room hands out two seats", () => {
 
     one.send({ t: "ready" });
     await one.settle("welcome");
+    // The other phone is told too, and it is waited for by name: under a full
+    // `bun test` the broadcast to the second socket landed after the first
+    // socket's welcome once, and the line below read a list that was not
+    // there yet.
+    await two.settle("ready");
     // One press is not a start: the other person has not looked up yet.
     expect(of(one.said, "welcome").at(-1)?.startMs).toBe(0);
     expect(of(one.said, "ready").at(-1)?.players).toEqual([1]);
     expect(of(two.said, "ready").at(-1)?.players).toEqual([1]);
 
     two.send({ t: "ready" });
-    await two.settle();
+    await two.settle("welcome");
     await one.settle("welcome");
 
     // Neither device picks its own beat zero. That is the whole reason the

@@ -1,4 +1,5 @@
 import { markMoment } from "./balance.js";
+import { balloonClimbs, balloonIsSwelling } from "./balloon-clock.js";
 import { hullRow, type SimConfig } from "./config.js";
 import { type CrossDir, crossAwayFromWall, crossField } from "./cross.js";
 import { removeCreature } from "./field.js";
@@ -13,8 +14,10 @@ import type { World } from "./world.js";
  *
  * It appears out of nothing one row above the ship, swells into the field for
  * `balloonSwellBeats`, and then climbs — a row up and a column across every
- * beat, turning at the side walls the way a carom does. At the top it bursts,
- * and the hull pays for it wherever the ship happens to be standing.
+ * `balloonClimbBeats`, turning at the side walls the way a carom does. At the
+ * top it bursts, and the hull pays for it wherever the ship happens to be
+ * standing. A half sent downward by a split (`balloonSinks`) does the same on
+ * the ship's row: both ends of the field punish a half left alone.
  *
  * **Every other arrival in the game is a deadline behind the pair.** A slick,
  * a rock, a wall: say the colour, say the column, before it reaches the ship.
@@ -69,28 +72,10 @@ export function balloonEntryRow(cfg: SimConfig): number {
   return Math.max(0, hullRow(cfg) - 1);
 }
 
-/**
- * How far through its swell this body is, 0..1 — nought on the beat it came
- * into being and one once it has started climbing.
- *
- * It takes beats as a fraction rather than an integer, `echoSplitPhase`'s
- * arrangement and for its reason: the drawing is sampled between beats, and a
- * body that grew in steps would read as a stutter rather than as something
- * filling with air.
- */
-export function balloonSwellPhase(cfg: SimConfig, beats: number, c: Creature): number {
-  const wait = Math.max(1, cfg.balloonSwellBeats);
-  const gone = beats - (c.balloonBeat ?? 0);
-  return Math.max(0, Math.min(1, gone / wait));
-}
-
-/**
- * Whether this balloon is still filling rather than climbing — read on the
- * beat, from the moment it came into being plus a length, never from a
- * countdown (`World.guardTick`'s rule, `echoDue`'s spelling).
- */
-export function balloonIsSwelling(cfg: SimConfig, beat: number, c: Creature): boolean {
-  return beat - (c.balloonBeat ?? 0) < cfg.balloonSwellBeats;
+/** Whether this body goes down the field rather than up. Absent is the
+ * climbing answer, which is what every fresh arrival is. */
+export function balloonSinks(c: Creature): boolean {
+  return c.balloonSinks === true;
 }
 
 /** The fields a balloon arrives with: the beat its swell is counted from, the
@@ -119,12 +104,41 @@ export function balloonOnSpawn(
  * One beat of a balloon, in place of the fall every other body takes.
  *
  * Three phases and they are read in order: the swell, the climb, and the burst
- * at the top. A body that both climbed and fell would be going nowhere at all
- * — `own-step.ts`'s rule, and here it is the *sign* that carries it.
+ * at the end. A body that both climbed and fell would be going nowhere at all
+ * — `own-step.ts`'s rule, and here it is the *sign* that carries it: a sinking
+ * half takes the same step with the rise turned over.
+ *
+ * **It writes its own `from` fields**, which is why `beat.ts` skips it before
+ * the reset it gives every other body. A step is `balloonClimbBeats` long and
+ * the picture glides it over the whole of that (`balloonGlidePhase`), so the
+ * tile the step set out from has to stand until the next one — a reset every
+ * beat would have the body drawn back to its origin on the second beat of
+ * every step.
+ *
+ * **The burst comes on the climbing beat after the body was drawn arriving**,
+ * not on the beat it arrived. The row is clamped at the end of the field
+ * rather than allowed past it, the glide carries the body onto that row, and
+ * only on the next step — when it has been seen standing there — does it go
+ * off. That is `resolveHull`'s rule for everything that lands on the ship,
+ * and a sinking half is something that lands on the ship; the top is given
+ * the same beat so the two ends of the field are one picture.
  */
 export function stepBalloon(world: World, c: Creature): void {
   const cfg = world.cfg;
-  if (balloonIsSwelling(cfg, world.beat, c)) return;
+  if (balloonIsSwelling(cfg, world.beat, c)) {
+    c.fromRow = c.row;
+    c.fromCol = c.col;
+    return;
+  }
+  if (!balloonClimbs(cfg, world.beat, c)) return;
+  const sinks = balloonSinks(c);
+  const end = sinks ? hullRow(cfg) : 0;
+  if (c.row === end) {
+    burstBalloon(world, c);
+    return;
+  }
+  c.fromRow = c.row;
+  c.fromCol = c.col;
   const rise = balloonRiseRows(cfg, c.balloonRise);
   // The crossing first, so the column it bursts in is the one it travelled to
   // rather than the one it left. `crossField` is the whole of the sideways
@@ -132,26 +146,26 @@ export function stepBalloon(world: World, c: Creature): void {
   const step = crossField(cfg.cols, c.col, spanOf(c), balloonHeading(c), rise);
   c.col = step.col;
   c.balloonDir = step.dir;
-  c.row -= rise;
-  if (c.row > 0) return;
-  // It has reached the top. The row is clamped rather than allowed past it, so
-  // the burst is drawn on the field both players are looking at rather than
-  // above the edge of it.
-  c.row = 0;
-  burstBalloon(world, c);
+  // Clamped at either end so the burst is drawn on the field both players are
+  // looking at rather than past the edge of it.
+  c.row = sinks ? Math.min(end, c.row + rise) : Math.max(end, c.row - rise);
 }
 
 /**
- * A balloon reached the top of the field, and the hull pays for it.
+ * A balloon reached the end of the field — the top, or the ship's row for a
+ * sinking half — and the hull pays for it.
  *
- * `breachUnscarred` rather than `breachHull`: nothing struck the ship. A scar
- * is a crack drawn where a body landed, and drawing one for something that
- * went off at the far end of the field would put damage on the hull in a place
- * nothing ever hit — the defect the owner named when he asked for damage to be
- * drawn where it lands (`singChoirs` makes the same call for the same reason).
+ * `breachUnscarred` rather than `breachHull`, at both ends: nothing struck
+ * the ship. A scar is a crack drawn where a body landed, and drawing one for
+ * something that went off at the far end of the field would put damage on the
+ * hull in a place nothing ever hit — the defect the owner named when he asked
+ * for damage to be drawn where it lands (`singChoirs` makes the same call for
+ * the same reason). A half that bursts *on* the ship's row is a skin going
+ * off against the plating rather than a body striking it, and the owner
+ * priced it at the top's `damageBalloonBurst` on 9 September 2026.
  *
  * The column is the balloon's own, so the burst comes out of a body the pair
- * has been watching climb.
+ * has been watching go.
  */
 export function burstBalloon(world: World, c: Creature): void {
   markMoment(world, false);

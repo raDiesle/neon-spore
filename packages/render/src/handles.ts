@@ -65,7 +65,7 @@ function balloonHandleUnder(l: Layout, x: number, y: number, field: Field): Touc
   let bestDist = Number.POSITIVE_INFINITY;
   for (const c of field.creatures) {
     if (c.kind !== "balloon") continue;
-    const circle = balloonHandleCircle(l, field.cfg, c, field.beatPhase, side);
+    const circle = balloonHandleCircle(l, field.cfg, c, field.beat, field.beatPhase, side);
     if (!hitCircle(circle, x, y)) continue;
     const d = Math.hypot(x - circle.x, y - circle.y);
     if (d >= bestDist) continue;

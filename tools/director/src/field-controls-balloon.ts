@@ -20,11 +20,15 @@ export const BALLOON_CONTROLS: readonly FieldControlDef[] = [
     does:
       "Carried leftward past balloonTautMilli it holds this side of the skin " +
       "taut, and the body visibly gives on it. On its own that is all it " +
-      "does: the skin only lets go while **both** handles are taut on the " +
-      "same body at the same instant, and the first time it does the balloon " +
-      "splits into two smaller ones, the second it pops for nothing. " +
+      "does: the skin only lets go once **both** handles have been taut on " +
+      "the same body together for balloonHoldBeats — the body sits at full " +
+      "stretch with its glow coming up, and a hand that slackens inside the " +
+      "hold gives it back. The first time it gives the balloon splits into " +
+      "two smaller ones that part, one climbing on and one sinking to burst " +
+      "on the ship for the top's price; the second it pops for nothing. " +
       "Carrying it inward counts as nothing at all — a pair squeezing a " +
-      "balloon is not a pair stretching one (sim/balloon-pull.ts).",
+      "balloon is not a pair stretching one (sim/balloon-pull.ts, " +
+      "sim/balloon-rub.ts).",
     source: "touch.ts — balloonHandleUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "balloonLeft",

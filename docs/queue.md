@@ -561,69 +561,33 @@ them if they are ever picked up again.
 Prove it with `bun run check` and `bun run shapes`, staging the regenerated
 sheets.
 
-## THE BALLOON: a longer pull, a hold at full stretch, slower, and halves that part
+## THE BALLOON's outer handle rests off the screen in the wall columns
 
-- **Found:** 2026-09-09, claude/slick-content-organization-17beb0
-- **Taken:** 2026-09-10, claude/queue-the-balloon-a-longer-pull-a-hold-at-full-stretch
-- **Files:** `packages/sim/src/config-balloon.ts`, `packages/sim/src/balloon.ts`,
-  `packages/sim/src/balloon-pull.ts`, `packages/sim/src/creature-state-balloon.ts`,
-  `packages/sim/src/hash-creature-late.ts`, `packages/render/src/` (the balloon skin),
-  `packages/content/src/scenes/the-balloon.ts`
+- **Found:** 2026-09-10, claude/queue-the-balloon-a-longer-pull-a-hold-at-full-stretch
+- **Files:** `packages/render/src/balloon-handles.ts`,
+  `packages/render/src/handles.ts`, `packages/sim/src/config-balloon.ts`
 
-Four changes the owner asked for by name on 9 September 2026, which is the
-first of the three exemptions in `CLAUDE.md`'s look rule — this goes onto the
-field rather than to VERSUS, and the commit says so. Every number below is the
-session's to pick; what is fixed is the direction of each one.
+On the phones the game ships on the field is the full width of the glass
+(`computeLayout`: `gridLeft` is nought at 390×844, 360×780 and 412×915), and
+a balloon's handle rests `balloonHandleMilli` — 1.15 tiles — out from its
+body's centre. So the pilot's handle on a balloon standing in the leftmost
+column rests 0.65 of a tile past the left edge of the screen, and the
+navigator's on one in the rightmost column the same past the right: the ring
+is drawn where no finger can go, and the hint under it with it. The body is
+in those columns for one step every crossing, turning, and a wave sends
+balloons in from both wall columns (`act-7b.ts`, THE BALLOON: columns 0 and
+6), so every arrival begins with one of its two handles off the glass.
 
-**The pull is longer.** `balloonTautMilli` is 1200 thousandths, a little over a
-tile, and the owner wants a hand to carry a handle further before that side
-counts as pulled. Raise it, and check the consequence the field constrains:
-`balloonHandleMilli` is where the handle is *drawn*, and a taut distance that
-puts a finger past the edge of the screen from a body in an outer column is a
-control one seat cannot complete. Say in the docstring what the new figure is
-in tiles and what bounded it.
-
-**The skin holds at full stretch before it goes.** Today both sides taut on one
-tick rubs on that tick. Add a hold — a new `balloonHoldBeats` in
-`config-balloon.ts` — so a balloon pulled to its limit stays there, visibly at
-maximum stretch, for a short beat before it splits or pops. Two things it buys:
-the pair sees that they did the thing together, and the split reads as a
-consequence rather than as a disappearance. The stretch readout
-`balloonSideTaut`/the 0..1000 give already exists in `balloon-pull.ts` and is
-what the skin is drawn from, so the hold is a state to sit in at 1000 rather
-than a new picture. It is a new `Creature` field, so it needs its
-`hash-creature-late.ts` row and `hash-coverage.test.ts` will say so if it is
-missed.
-
-**They are much slower.** `balloonRiseRows` is 1, a slick's speed read upward,
-and thirteen rows is about nine seconds. Cut it, and mind the two things that
-number was holding: a wave may author its own (`WaveEntry.rise`), and the
-comment in `config-balloon.ts` explains that the crossing is a diagonal because
-the rise and the sideways step are *the same number* — a fractional rise has to
-keep that or the path stops being a diagonal.
-
-**The two halves part.** `rubBalloon` in `balloon-pull.ts` already sends one
-half left and one right; the owner wants them to differ vertically too — one
-climbing and one descending, so a split is two bodies going visibly different
-ways rather than two doing the same thing a column apart. `stepBalloon` does
-`c.row -= rise`, so the sign of the rise is the whole of it; the descending
-half needs its own field beside `balloonRise` (hashed, as above). **A
-descending half bursts on the ship's row for the full `damageBalloonBurst`**,
-the same as a climbing one at the top — the owner decided that on 9 September:
-both ends of the field punish a half left alone, so the pair still has to
-answer both. Route it through `burstBalloon`, which already exists and already
-uses `breachUnscarred` rather than `breachHull` — nothing struck the ship, so
-no scar. When the body is against a wall and one half cannot go outward, keep
-the vertical split and send both halves the same way sideways: one up and one
-down, both inward. `clampSpanCol` is already the clamp.
-
-**The wave's guide is reworked in the same lane** — the owner asked for that
-too. `packages/content/src/scenes/the-balloon.ts` teaches a pull that is now
-further, a hold that did not exist, and a split that now goes two ways; a guide
-that rehearses the old shape is a guide that lies. Read
-`.claude/skills/new-tutorial` before touching it — every rule in there is a
-correction the owner has already made once.
-
-Prove it with `bun run check` and `bun run test:determinism`, and watch THE
-BALLOON at tempo: the slower climb and the hold are both timing, and neither
-is visible in a number.
+Not a matter of the taut distance — that was raised to two tiles on the
+same lane, which is what makes this visible, but the rest circle was off the
+screen at the old figure too. The choice is where the handle should rest when
+its resting place is off the glass: clamp the rest to the screen's edge (a
+ring the thumb can reach, drawn against the body's own skin on that side and
+so still plainly *that* body's), or draw it where it is and accept that the
+wall side is not a side that can be pulled while the body stands there. The
+first is the honest fix: a control drawn where it cannot be touched is the
+defect class `CLAUDE.md`'s look rule names by example (*a control under the
+status bar*). `balloonHandleCircle` is the one place the rest is written down
+and `handleUnder` hit-tests the same circle, so the clamp goes there and both
+agree by construction. `render/test/balloon-frame.test.ts` is where to prove a
+balloon in column 0 has both rings inside the frame.

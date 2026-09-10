@@ -1,4 +1,3 @@
-import { stepBalloon } from "./balloon.js";
 import { stepCarom } from "./carom.js";
 import { stepChute } from "./chute.js";
 import { stepCoil } from "./coil.js";
@@ -45,7 +44,8 @@ import type { World } from "./world.js";
  * included where there is one.
  *
  * Called only for a body that is still above the ship's row and is not a boss,
- * a mount or a link of a worm: `beat.ts` has answered all four before it asks.
+ * a mount, a link of a worm or a balloon: `beat.ts` has answered all five
+ * before it asks, the last because it keeps its `from` fields across beats.
  */
 export function steppedInsteadOfFalling(world: World, c: Creature): boolean {
   // A dart takes a diagonal every other beat and hangs in between, and
@@ -53,14 +53,6 @@ export function steppedInsteadOfFalling(world: World, c: Creature): boolean {
   // be moving three rows on the beats it moved.
   if (c.kind === "dart") {
     stepDart(world, c);
-    return true;
-  }
-  // THE BALLOON goes **up**, on a diagonal, and stands still while it is still
-  // filling — `stepBalloon` is all three phases and the burst at the top. The
-  // sharpest reading of this file's rule in the game: a body that both climbed
-  // and fell would go nowhere at all, which is exactly what it would look like.
-  if (c.kind === "balloon") {
-    stepBalloon(world, c);
     return true;
   }
   // A carom crosses the field on a diagonal and turns at the walls; the drop

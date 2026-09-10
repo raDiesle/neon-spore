@@ -180,28 +180,31 @@ export function lateHashParts(c: Creature): number[] {
   out.push(c.beatboxWrong ?? -1);
   out.push(c.beatboxMiss ?? -1);
   out.push(c.beatboxRan ?? -1);
-  // THE BALLOON's six, and the loudest group in this list. The heading and the
-  // speed decide which tile it reaches next; the beat it came into being
-  // decides whether it is climbing at all yet; the count decides whether the
-  // next rub makes two bodies or none. And the two pulls decide **when it
-  // gives** — they are the only fields in a creature two different people
-  // write, so two devices that disagree about either are two devices where one
-  // pair has just done the thing together and the other has not
+  // THE BALLOON's eight, and the loudest group in this list. The heading, the
+  // way and the speed decide which tile it reaches next; the beat it came into
+  // being decides whether it is climbing at all yet; the count decides whether
+  // the next rub makes two bodies or none. And the two pulls and the tick they
+  // both went taut decide **when it gives** — the pulls are the only fields in
+  // a creature two different people write, so two devices that disagree about
+  // either are two devices where one pair has just done the thing together and
+  // the other has not, and the tick is when the hold they are in began
   // (`balloon-pull.ts`).
   //
-  // `-1` for the count and the beat, `0` for the heading and the speed, which
-  // are values none of the four can take on a live balloon — so "not a
-  // balloon" and "brand new, climbing right at a row a beat" are never the
-  // same numbers in the fingerprint. The two pulls hash absent as a value no
-  // pull can be, because a hand at rest reports nought and no hand at all
-  // reports nothing: `balloonHeld` is the difference and the fingerprint keeps
-  // it (`-1000000`, past any distance the clamp allows).
+  // `-1` for the count, the beat and the tick, `0` for the heading, the way
+  // and the speed, which are values none of the six can take on a live balloon
+  // — so "not a balloon" and "brand new, climbing right at a row a beat" are
+  // never the same numbers in the fingerprint. The two pulls hash absent as a
+  // value no pull can be, because a hand at rest reports nought and no hand at
+  // all reports nothing: `balloonHeld` is the difference and the fingerprint
+  // keeps it (`-1000000`, past any distance the clamp allows).
   out.push(c.balloonSplits ?? -1);
   out.push(c.balloonBeat ?? -1);
   out.push(c.balloonDir ?? 0);
+  out.push(c.balloonSinks ? 1 : 0);
   out.push(c.balloonRise ?? 0);
   out.push(c.balloonPullP1 ?? NO_BALLOON_HAND);
   out.push(c.balloonPullP2 ?? NO_BALLOON_HAND);
+  out.push(c.balloonTautTick ?? -1);
   return out;
 }
 

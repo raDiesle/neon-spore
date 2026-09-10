@@ -18,14 +18,15 @@ import { balloonRiseRows, DEFAULT_CONFIG } from "@neon-spore/sim";
  * what an arrival that names nothing does.
  */
 
-/** How fast a balloon may be authored to climb: rows a beat, and the same
- * number of lanes across, because the path is a diagonal.
+/** How fast a balloon may be authored to climb: rows a step, and the same
+ * number of lanes across, because the path is a diagonal — a step every
+ * `balloonClimbBeats` (`sim/config-balloon.ts`).
  *
- * Three, and the ceiling is the field rather than taste: at four rows a beat a
- * balloon crosses the thirteen rows above the ship in under three beats, which
- * is under the four seconds a spoken exchange needs — and the exchange is the
- * whole creature (`.claude/skills/new-creature`, step 4). One is a slick's
- * speed read upward and two is the pair having to mean it.
+ * Three, and the ceiling is the field rather than taste: at four rows a step
+ * a balloon crosses the thirteen rows above the ship in under four steps,
+ * which is about the four seconds a spoken exchange needs — and the exchange
+ * is the whole creature (`.claude/skills/new-creature`, step 4). One is half
+ * a slick's speed read upward and two is the pair having to mean it.
  */
 export const BALLOON_SPEEDS: readonly number[] = [1, 2, 3];
 

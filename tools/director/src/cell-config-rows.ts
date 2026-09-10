@@ -28,9 +28,10 @@ export function speedLabel(speed: MeteorSpeed): string {
 }
 
 /** How fast a balloon climbs, said in the same unit and the same way a rock's
- * fall is: rows a beat, which is also lanes a beat, because the path is a
- * diagonal. The same label deliberately — the pair says "twice as fast" about
- * both, and two spellings would be two words for one idea. */
+ * fall is: rows a step, which is also lanes a step, because the path is a
+ * diagonal (a step comes every `balloonClimbBeats`). The same label
+ * deliberately — the pair says "twice as fast" about both, and two spellings
+ * would be two words for one idea. */
 export function riseLabel(rise: number): string {
   return `×${rise}`;
 }

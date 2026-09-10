@@ -6,6 +6,7 @@ import {
   DEFAULT_CONFIG,
   step,
   type TimedCommand,
+  ticksPerBeat,
 } from "@neon-spore/sim";
 import { balloonBothHands } from "../src/stage-balloon-both.js";
 
@@ -98,10 +99,18 @@ describe("the pair it makes is a rub the simulation actually answers", () => {
     ];
   }
 
-  it("splits the body under TEST, on the tick both hands are taut", () => {
+  it("splits the body under TEST, once both hands have held taut for the hold", () => {
+    // The mirrored hand is sent every tick, the way the rig repeats a drag,
+    // and the body gives `balloonHoldBeats` after the two first met taut —
+    // not on that tick (`sim/balloon-rub.ts`).
     const world = withBalloon();
-    step(world, carried("test", world));
-    expect(world.events.some((e) => e.type === "balloonSplit")).toBe(true);
+    const hold = world.cfg.balloonHoldBeats * ticksPerBeat(world.cfg);
+    const seen: string[] = [];
+    for (let i = 0; i <= hold; i++) {
+      step(world, carried("test", world));
+      for (const e of world.events) seen.push(e.type);
+    }
+    expect(seen).toContain("balloonSplit");
   });
 
   it("leaves it alone under p1, where one hand is one hand", () => {

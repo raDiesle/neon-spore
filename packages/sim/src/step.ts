@@ -1,4 +1,5 @@
-import { balloonHeard, rubBalloons } from "./balloon-pull.js";
+import { balloonHeard } from "./balloon-pull.js";
+import { rubBalloons } from "./balloon-rub.js";
 import { onBeat } from "./beat.js";
 import { isBeatTick } from "./beat-clock.js";
 import { settleSpentBeatboxes } from "./beatbox-round.js";

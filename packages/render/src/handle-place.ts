@@ -82,7 +82,7 @@ export function handleCircle(
       (b) => b.kind === "balloon" && (col === undefined || occupiesCol(b, col)),
     );
     if (!c) return null;
-    const rest = balloonHandleCircle(l, cfg, c, beatPhase, side);
+    const rest = balloonHandleCircle(l, cfg, c, world.beat, beatPhase, side);
     const pull = balloonPull(c, balloonHandleSeat(side));
     return { ...rest, x: rest.x + (pull * l.tile) / 1000 };
   }

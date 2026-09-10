@@ -8,8 +8,8 @@
  * reads `cfg.balloonRiseRows`, and the split is only about how much of one
  * file a reader has to hold at once.
  *
- * **Its own file rather than seven more rows in `config-creatures.ts`**, and
- * THE CHOIR's file next door makes the argument these seven make again: they
+ * **Its own file rather than ten more rows in `config-creatures.ts`**, and
+ * THE CHOIR's file next door makes the argument these ten make again: they
  * are decided **together**. How long a body hangs there, how fast it leaves,
  * how far each hand has to travel and how long the pair therefore has to agree
  * on which one to take next are one decision about how hard the creature is,
@@ -29,18 +29,35 @@ export interface BalloonConfig {
    */
   balloonSwellBeats: number;
   /**
-   * Rows a balloon climbs a beat, and columns it takes to the side on the same
-   * beat — one number, because the path is a diagonal and a diagonal is the
-   * two being equal. The wave may author its own (`WaveEntry.rise`); this is
-   * what an arrival that names none climbs at.
+   * Rows a balloon climbs on a climbing beat, and columns it takes to the
+   * side on the same beat — one number, because the path is a diagonal and a
+   * diagonal is the two being equal. The wave may author its own
+   * (`WaveEntry.rise`); this is what an arrival that names none climbs at.
    *
-   * One, which is a slick's speed read upward. It has thirteen rows to cross
-   * from the row above the ship to the top of the field, which is about nine
-   * seconds — well past the four a spoken exchange needs
-   * (`.claude/skills/new-creature`, step 4), and it has to be: the exchange is
-   * *which one*, and there are usually several.
+   * One. How *often* a climbing beat comes round is `balloonClimbBeats` below,
+   * and the two together are the speed: a row every climbing beat, a climbing
+   * beat every so many beats.
    */
   balloonRiseRows: number;
+  /**
+   * Beats between one climb and the next — how slowly a balloon leaves.
+   *
+   * The owner asked on 9 September 2026 for them to be **much slower**, and
+   * this is the number that answers it rather than a fraction of a row: the
+   * simulation stores integers, so a body cannot climb half a tile a beat,
+   * and what it does instead is climb a whole tile every second beat
+   * (`balloonClimbs`) — THE ECHO's arrangement, read upward. The picture
+   * glides the tile over the whole two beats rather than over one and then
+   * standing still (`balloonGlidePhase`), so what the pair sees is a body
+   * drifting at half the speed and not one stopping and starting.
+   *
+   * Two, so the thirteen rows from the row above the ship to the top of the
+   * field take about eighteen seconds, twice what they did. Three would be a
+   * body that hangs for most of the wave on a field that usually holds several
+   * of them, and two is already well past the four seconds a spoken exchange
+   * needs (`.claude/skills/new-creature`, step 4).
+   */
+  balloonClimbBeats: number;
   /**
    * How many times a fresh balloon comes apart before a rub finishes it. One:
    * the first rub splits it into two small ones and the second pops each of
@@ -50,11 +67,42 @@ export interface BalloonConfig {
   balloonSplits: number;
   /**
    * Thousandths of a tile a hand has to carry a balloon's handle **outward**
-   * before that side counts as pulled. A little over a tile: far enough that a
-   * thumb brushing the body never counts, short enough that both seats can
-   * hold their side taut at the same instant with one hand each.
+   * before that side counts as pulled.
+   *
+   * **Two tiles**, up from the little over one it began at: the owner asked on
+   * 9 September 2026 for a hand to carry a handle further before it counts,
+   * so that a pull is a gesture the other seat can watch happen rather than a
+   * brush past the ring. What bounds it is the edge of the screen. On the
+   * phones the game ships on the field is the full width of the glass, a
+   * handle rests `balloonHandleMilli` out from its body, and the thumb on it
+   * travels *outward* — so from a body in column `c` (counted from the wall
+   * on that side) the pilot's thumb has `c + 0.5 - 1.15` tiles of screen to
+   * cross before it runs off the edge and the pull is lost. From the third
+   * column in that is 2.35 tiles; from the second it is 1.35, which the old
+   * figure was already past. Two tiles keeps the third column reachable with
+   * a little to spare, and nothing between 1.35 and 2.35 would reach a column
+   * this does not. The two outer columns on each side are where a balloon is
+   * turning anyway, and the pair takes it on the way in or on the way back.
    */
   balloonTautMilli: number;
+  /**
+   * Beats a balloon pulled taut on both sides **holds at full stretch**
+   * before it gives.
+   *
+   * The owner asked for this on 9 September 2026. Without it both sides taut
+   * on one tick rubbed on that tick, and two things were lost: the pair never
+   * saw that they had done the thing together, and the split read as a
+   * disappearance rather than as a consequence. So a body both hands have
+   * reached sits at its limit for this long — the skin at its widest, the
+   * halo coming up to full (`balloonHoldPhase`) — and then comes apart. A
+   * hand that lets go inside the hold gives the hold back: nothing was
+   * earned by getting there once.
+   *
+   * One beat. Long enough to be seen and said, short enough that a pair who
+   * arrived together are not kept waiting on a body they have already
+   * answered.
+   */
+  balloonHoldBeats: number;
   /**
    * Thousandths of a tile from a balloon's own centre to where each of its two
    * handles rests. The one place it is said, so the circle a finger is
@@ -93,8 +141,10 @@ export interface BalloonConfig {
 export const BALLOON_DEFAULTS: BalloonConfig = {
   balloonSwellBeats: 2,
   balloonRiseRows: 1,
+  balloonClimbBeats: 2,
   balloonSplits: 1,
-  balloonTautMilli: 1200,
+  balloonTautMilli: 2000,
+  balloonHoldBeats: 1,
   balloonHandleMilli: 1150,
   damageBalloonBurst: 16,
   scoreBalloonRub: 120,

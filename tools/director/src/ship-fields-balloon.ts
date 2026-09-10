@@ -2,7 +2,7 @@ import type { SimConfig } from "@neon-spore/sim";
 import type { GroupName } from "./ship-groups.js";
 
 /**
- * THE BALLOON's eight numbers, sorted into their card.
+ * THE BALLOON's ten numbers, sorted into their card.
  *
  * Cut out of `ship-fields.ts` when this creature took that file over its
  * 250-line limit — the first cut it has ever needed, and the seam is the one
@@ -18,8 +18,10 @@ import type { GroupName } from "./ship-groups.js";
 export const BALLOON_FIELDS = {
   balloonSwellBeats: "THE BALLOON — a body that goes up, opened by two hands at once",
   balloonRiseRows: "THE BALLOON — a body that goes up, opened by two hands at once",
+  balloonClimbBeats: "THE BALLOON — a body that goes up, opened by two hands at once",
   balloonSplits: "THE BALLOON — a body that goes up, opened by two hands at once",
   balloonTautMilli: "THE BALLOON — a body that goes up, opened by two hands at once",
+  balloonHoldBeats: "THE BALLOON — a body that goes up, opened by two hands at once",
   balloonHandleMilli: "THE BALLOON — a body that goes up, opened by two hands at once",
   damageBalloonBurst: "THE BALLOON — a body that goes up, opened by two hands at once",
   scoreBalloonRub: "SCORE",

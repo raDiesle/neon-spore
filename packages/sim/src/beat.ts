@@ -1,3 +1,4 @@
+import { stepBalloon } from "./balloon.js";
 import { settleSpentBeatboxes } from "./beatbox-round.js";
 import { stepBoss } from "./boss.js";
 import { hullRow } from "./config.js";
@@ -96,6 +97,18 @@ export function onBeat(world: World): void {
     // came from overwritten with where it now is — a body that teleports a
     // column once a beat instead of walking one.
     if (c.kind === "crawler") continue;
+    // THE BALLOON goes **up**, on a diagonal, a tile every `balloonClimbBeats`
+    // — and it is skipped before the reset for the mount's reason with a
+    // clock on it: the picture glides one step over all of those beats, so
+    // the tile it set out from has to stand in its `from` fields until the
+    // next step, and `stepBalloon` writes them itself on the beat it takes
+    // one. It is the whole of the body's beat, the burst at either end of the
+    // field included; a body that both climbed and fell would go nowhere at
+    // all, which is exactly what it would look like.
+    if (c.kind === "balloon") {
+      stepBalloon(world, c);
+      continue;
+    }
     c.fromRow = c.row;
     // Where it is coming *from*, sideways. Set for every kind and moved by
     // one, so `drawnCol` has an origin to glide a dart out of and every other

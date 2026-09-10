@@ -125,7 +125,7 @@ describe("a caption pointed at one of THE BALLOON's handles", () => {
     ] as const) {
       const at = handleCircle(L, world, target, 0);
       expect(at, target).not.toBeNull();
-      expect(at?.x, target).toBe(balloonHandleCircle(L, CFG, c, 0, side).x);
+      expect(at?.x, target).toBe(balloonHandleCircle(L, CFG, c, world.beat, 0, side).x);
     }
     // And the two are not the same place, which is the whole of the gesture:
     // one seat carries one of them left and the other carries the other right.

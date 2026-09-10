@@ -21,11 +21,17 @@
 // to draw a body growing, leaning and about to give.
 export {
   balloonHeading,
-  balloonIsSwelling,
   balloonRiseRows,
+  balloonSinks,
   balloonSplitsLeft,
-  balloonSwellPhase,
 } from "./balloon.js";
+export {
+  balloonClimbs,
+  balloonGlidePhase,
+  balloonHoldPhase,
+  balloonIsSwelling,
+  balloonSwellPhase,
+} from "./balloon-clock.js";
 // And its two hands, the rows in this file that are not a reading of a body at
 // all: the handles are a *control*, so render/ has to know how far each seat
 // has carried its own in order to draw the skin giving on that side. The rule

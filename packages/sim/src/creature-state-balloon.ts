@@ -1,22 +1,23 @@
 import type { CrossDir } from "./cross.js";
 
 /**
- * **THE BALLOON's six**, and the eighth group carried out of
+ * **THE BALLOON's eight**, and the eighth group carried out of
  * `creature-state.ts` along the seam that file's own header describes.
  *
  * What holds them together is that they are the whole of one creature: where
- * it is going, how fast, how long it has been growing, how many times it still
- * comes apart, and what each of the two hands on it has done. Nothing else in
+ * it is going, which way and how fast, how long it has been growing, how many
+ * times it still comes apart, what each of the two hands on it has done, and
+ * since when both of them have been doing it. Nothing else in
  * the game carries a field a *second* seat writes — THE LID's cord is the
  * pilot's alone, THE MAZE's string and THE WARDEN's rope likewise — so the two
  * pulls at the bottom of this list are the first pair of fields in `Creature`
  * that two people can be writing at the same instant, which is the creature.
  *
  * **Absent is a value here, always**, and none of these may be read directly:
- * `balloonHeading`, `balloonRiseRows`, `balloonSplitsLeft`, `balloonIsSwelling`
- * and `balloonPull` are the rules (`balloon.ts`, `balloon-pull.ts`), and a
- * second spelling of a fallback is how the picture and the step come to
- * disagree about one body.
+ * `balloonHeading`, `balloonSinks`, `balloonRiseRows`, `balloonSplitsLeft`,
+ * `balloonIsSwelling`, `balloonPull` and `balloonHoldPhase` are the rules
+ * (`balloon.ts`, `balloon-pull.ts`), and a second spelling of a fallback is
+ * how the picture and the step come to disagree about one body.
  */
 export interface BalloonState {
   /**
@@ -58,6 +59,19 @@ export interface BalloonState {
    */
   balloonRise?: number;
   /**
+   * Whether this body goes **down** the field rather than up — one half of
+   * every split does, so the two are seen going visibly different ways rather
+   * than the same way a lane apart. Absent on a fresh arrival and on the
+   * climbing half; `true` and never `false`, so a body that climbs carries no
+   * field and every world written before the halves parted is byte-for-byte
+   * the same.
+   *
+   * Read it through `balloonSinks`. A sinking half bursts on the ship's row
+   * for the same price a climbing one pays at the top (`stepBalloon`): both
+   * ends of the field punish a half left alone.
+   */
+  balloonSinks?: true;
+  /**
    * Thousandths of a tile the **pilot** has carried this balloon's left handle,
    * signed the way the field is (negative is left). Absent is the whole of "no
    * hand": a grab reports zero, so a balloon being held at rest still has a
@@ -74,4 +88,16 @@ export interface BalloonState {
    * two are held at the same instant by two different people: a single field
    * could not be taut twice. */
   balloonPullP2?: number;
+  /**
+   * The tick both sides became taut at once, and absent while they are not.
+   * The rub waits `balloonHoldBeats` from here (`rubBalloons`), which is the
+   * hold at full stretch the owner asked for, and the picture reads the same
+   * moment for how far through the hold the body is (`balloonHoldPhase`).
+   *
+   * A moment and not a countdown, `balloonBeat`'s rule: a stored count would
+   * be a second copy of `balloonHoldBeats`, and the two devices could come to
+   * split a body on different ticks. Cleared the instant either hand slackens,
+   * so a hold is earned whole or not at all.
+   */
+  balloonTautTick?: number;
 }

@@ -1,5 +1,6 @@
 import { BALLOON, balloonKnot, balloonPath, openSmoothPath } from "@neon-spore/content";
 import {
+  balloonHoldPhase,
   balloonSplitsLeft,
   balloonSwellPhase,
   balloonTension,
@@ -34,7 +35,11 @@ import { PALETTE, STROKE } from "./palette.js";
  * side actually stretches — the pair's only readout of a thumb they cannot see
  * is the shape of the body itself, so there is no easing anywhere between
  * `balloonTension` and this (`lidOpenMilli` makes the same argument about a
- * gap between two plates).
+ * gap between two plates). Once both sides are taut the body **holds** at its
+ * widest for `balloonHoldBeats` before it gives (`sim/balloon-rub.ts`), and
+ * the one thing added for the hold is the glow round it coming up to full —
+ * the skin is already as stretched as it goes, so the light is what says
+ * *now*, and the frame it is brightest is the frame it comes apart.
  *
  * **Both screens draw the whole of it.** Nothing about this creature is
  * withheld from either seat — what is split is the hand, not the picture — so
@@ -128,7 +133,11 @@ export function drawBalloon({ ctx, l, world, c, x, y, time, beats, near }: Body)
   ctx.globalAlpha = 1;
   ctx.restore();
 
-  // And the glow around it, brightening with the pull: at full tension on both
-  // sides it is a frame away from giving, and the field should say so.
-  if (lit > 0) halo(ctx, x, y, ry * 2.4, PALETTE.sheenRim, 0.1 + lit * 0.22);
+  // And the glow around it, brightening with the pull — and through the hold,
+  // swelling out and up to full: at the end of the hold it is a frame away
+  // from giving, and the field should say so.
+  const hold = balloonHoldPhase(cfg, world.tick, c);
+  if (lit > 0) {
+    halo(ctx, x, y, ry * (2.4 + hold * 1.2), PALETTE.sheenRim, 0.1 + lit * 0.22 + hold * 0.4);
+  }
 }

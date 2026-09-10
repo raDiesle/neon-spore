@@ -7,7 +7,7 @@ import { coilCharge, drawCoilDome, showsCoilCharge } from "./coil.js";
 import { bodyDraw } from "./creature-body.js";
 import { creatureCenter } from "./creature-place.js";
 import { DART_LOOK } from "./dart-look.js";
-import { byDepth, depthScale, drawnRow, nearness } from "./depth.js";
+import { byDepth, depthScale, drawnRow, glidePhase, nearness } from "./depth.js";
 import { mountPlace } from "./gyre-place.js";
 import type { Layout } from "./layout.js";
 import { drawLidCords } from "./lid-string.js";
@@ -89,8 +89,11 @@ export function drawCreatures(
     // contours cannot come apart. Null for everything else, which is what keeps
     // this a line rather than a branch.
     const onRim = mountPlace(l, world, c, beatPhase, time);
-    const { x, y } = onRim ?? creatureCenter(l, c, beatPhase);
-    const row = onRim ? onRim.row : drawnRow(c, beatPhase);
+    // A balloon's step is spread over several beats, and `glidePhase` is the
+    // one place that is asked (`depth.ts`); everything else glides by the beat.
+    const glide = glidePhase(world.cfg, world.beat, c, beatPhase);
+    const { x, y } = onRim ?? creatureCenter(l, c, glide);
+    const row = onRim ? onRim.row : drawnRow(c, glide);
     const near = nearness(l, row);
     // Perspective as one transform about the body's own centre, rather than a
     // radius threaded through three drawing files: it takes the rock and the

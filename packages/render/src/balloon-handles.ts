@@ -8,6 +8,7 @@ import {
 } from "@neon-spore/sim";
 import { balloonRy } from "./balloon.js";
 import { creatureCenter } from "./creature-place.js";
+import { glidePhase } from "./depth.js";
 import { strokeGlow } from "./glow.js";
 import { drawHandleHint, drawHandleRing, type HintStyle, handleRadius } from "./handle-draw.js";
 import type { Circle, Layout } from "./layout.js";
@@ -61,10 +62,13 @@ export function balloonHandleCircle(
   l: Layout,
   cfg: SimConfig,
   c: Creature,
+  beat: number,
   beatPhase: number,
   side: -1 | 1,
 ): Circle {
-  const { x, y } = creatureCenter(l, c, beatPhase);
+  // The beat as well as the phase, because a balloon's step is spread over
+  // several of them and the body is drawn part-way along it (`glidePhase`).
+  const { x, y } = creatureCenter(l, c, glidePhase(cfg, beat, c, beatPhase));
   // How far off the body it hangs is the simulation's number, not this file's:
   // it is the same figure the rule uses to place the thing a hand takes hold
   // of, so a handle drawn wide of its own circle is impossible by arithmetic.
@@ -75,8 +79,15 @@ export function balloonHandleCircle(
  * The pull is thousandths of a tile, which is what `l.tile` turns back into
  * pixels — and the rule has already cut it to taut, so nothing here bounds it
  * a second time (`sim/balloon-pull.ts`). */
-function handleAt(l: Layout, cfg: SimConfig, c: Creature, beatPhase: number, side: -1 | 1): Circle {
-  const rest = balloonHandleCircle(l, cfg, c, beatPhase, side);
+function handleAt(
+  l: Layout,
+  cfg: SimConfig,
+  c: Creature,
+  beat: number,
+  beatPhase: number,
+  side: -1 | 1,
+): Circle {
+  const rest = balloonHandleCircle(l, cfg, c, beat, beatPhase, side);
   const pull = balloonPull(c, balloonHandleSeat(side));
   return { ...rest, x: rest.x + (pull * l.tile) / 1000 };
 }
@@ -112,13 +123,13 @@ function drawOne(
 ): void {
   const cfg = world.cfg;
   const player = balloonHandleSeat(side);
-  const head = handleAt(l, cfg, c, beatPhase, side);
+  const head = handleAt(l, cfg, c, world.beat, beatPhase, side);
   const held = balloonHeld(c, player);
   const pull = balloonTension(cfg, c, player) / 1000;
   // Whose it is on *this* screen. The rig sees both as its own, which is what
   // makes a two-seat control drawable in one frame for a test.
   const mine = l.role === "test" || (l.role === "p1") === (player === 1);
-  const body = creatureCenter(l, c, beatPhase);
+  const body = creatureCenter(l, c, glidePhase(cfg, world.beat, c, beatPhase));
 
   // The tab: a short line from the skin out to the ring, so the handle reads
   // as attached to this body and not to the one in the next lane. It starts at
