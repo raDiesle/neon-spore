@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · f79af497 — The conversation compacts at 300k, keeps the task list, and a hook restates the tree afterwards
+
+Opus 5 compacts at its own ~967k by default, and every turn below that re-reads everything, so `.claude/settings.json` now sets `autoCompactWindow` to 300k for every session on this repository. A compaction cannot be timed to a task boundary, so two things make any moment safe: a `# Compact instructions` section at the end of `CLAUDE.md`, read only by the compaction, says the summary keeps the task list with what is done, the branch and its landing state, what was parked and any `NEXT:` tasks, and drops tool output and file contents; and `tools/hooks/after-compact.ts`, the `SessionStart` hook matched on `compact`, writes the branch and what is uncommitted, the queue's one word and the parked titles into the fresh context, so the session re-orients from the tree rather than from the summary. Parked titles come through the queue's own parser, which is what keeps the preamble's fenced example from counting as an entry.
+
 ## 2026-09-10 · 12e8c3be — THE CAROM is a rescue capsule: CAPSULE taken into the game, the slot closed
 
 Of the three capsules offered on FACET's faces the owner took CAPSULE in chat on 10 September 2026 — the restrained one: the rescue stripe on the outer ring of the four rear faces, dark, white, white, dark; a rivet at every ridge vertex; the nose and half of each shoulder scorched with an ember lip; a small beacon on the tail flashing the body's colour on the beat; the nose on the diagonal it walks, turning over at the wall. A look the owner asked for by name.
