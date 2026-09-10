@@ -174,7 +174,7 @@ bun run probe          # a scratch script against a live world — tools/probe/
 bun run crop           # a rectangle of a PNG already taken, magnified
 bun test               # everything, in one process — or one file, one package
 bun run test           # the same, dealt across eight — what `check` runs
-bun run perf --wave X  # what a frame costs on the waves the new thing appears in
+bun run perf --wave X  # what a frame costs — weekly, or when the owner asks; never per lane
 bun run queue          # technical work waiting, and who is already on what
 bun run queue status   # DONE, IDLE or BUSY
 bun run check:fast     # typecheck + lint + the tests a lane's diff reaches — before a commit
@@ -209,11 +209,16 @@ a local address (`?pwa=1` is for testing the install itself).
 
 ## Measuring what a frame costs
 
-**A new shape or a new animation gets a performance run; an ordinary change
-does not, and a cloud session never does.** Measure only the waves the new
-thing appears in: `bun run perf --wave "THE GRATE"`. A flagged reference wave
-means the machine was busy and the run says nothing. **Never `--save` to make a
-regression stop being reported.** `docs/performance.md`.
+**A performance run happens once a week, or when the owner asks for one — a
+lane never owes one**, not for a new shape, not for a new animation, and a
+cloud session never runs one. Do not list it as a step before landing, an
+unverified item or a queue entry. The per-lane measurement is the op-count
+budget tests (`packages/render/test/*-budget.test.ts`): a legitimate change
+that raises a row is remeasured and moved, with a sentence saying why. When a
+run is asked for, measure the waves the new things appear in:
+`bun run perf --wave "THE GRATE"`. A flagged reference wave means the machine
+was busy and the run says nothing. **Never `--save` to make a regression stop
+being reported.** `docs/performance.md`.
 
 ## Verifying the relay
 

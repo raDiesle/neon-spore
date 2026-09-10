@@ -112,8 +112,10 @@ leave" has always been none.
   `sinHash` off numbers both devices agree on — a column and a beat. Two phones
   watching one body die must watch the same pieces leave it.
 - **Cost.** Pieces are per-piece work where a body was one fill. No shadow, no
-  gradient and no per-frame allocation inside a piece paint. A new shape or a
-  new animation gets `bun run perf --wave "<the wave it appears in>"`.
+  gradient and no per-frame allocation inside a piece paint. The op-count
+  budget tests (`packages/render/test/*-budget.test.ts`) are what a lane
+  measures; `bun run perf` is weekly or on the owner's request, never a step a
+  lane owes.
 
 ## The files
 

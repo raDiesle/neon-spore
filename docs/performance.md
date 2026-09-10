@@ -6,12 +6,28 @@ report, which is a snapshot and not a measurement you can repeat.
 
 ## The rule
 
-**A new shape or a new animation gets a performance run. An ordinary change does
-not.** Tuning a number, moving a control, fixing a bug, renaming something —
-none of those can add per-frame cost nobody has weighed. A creature, a boss, a
-round, or a new animated behaviour on a body that already exists can, and it is
-the only kind of change that can arrive on the field without anybody knowing
-what it costs.
+**A performance run happens once a week, or when the owner asks for one.** He
+settled it on 10 September 2026, after a lane that had taken five new looks
+into the game listed a run on their five waves as the one thing left before
+landing: *"perf i said we only need to run once in a week or manual."* So no
+lane owes a run — not for a new shape, not for a new animation — and a report
+that names one as a step still to do, an unverified item or a queue entry is
+wrong. The rule this replaces, that a new shape or animation earned a run of
+its own, cost a lane a run per look on an afternoon that added five.
+
+**What a lane does measure** is the op-count budgets in
+`packages/render/test/*-budget.test.ts`: exact counts of fills, strokes, clips,
+saves and allocations on the dearest frames of the dearest waves. A legitimate
+change that raises a row is remeasured (`MEASURE = true`, run the file, paste
+the printed rows back) and the table's comment says what moved and why. That
+is what catches a per-frame allocation the day it lands; the weekly run is
+what says whether the whole game got slower.
+
+**The weekly run is taken by hand**, not by a scheduler: it has to be the only
+thing on the machine (below), which no scheduled job can promise, and a cloud
+session cannot run it at all. `bun run perf` over every wave against the
+checked-in baseline is the run; a wave that moved gets looked at, and
+`--save` only after the move is understood.
 
 ```
 bun run perf --wave "THE GRATE"   # the waves the new thing appears in
