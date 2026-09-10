@@ -1,3 +1,4 @@
+export { BODY_HIT, BULB_HIT, type HitLook, hitFor, SLICK_HIT, type Strike } from "./body-hit.js";
 export { BREAK_LOOK, type BreakLook, fallFrom, fractureFrom } from "./break-look.js";
 export { edgeLit, faceHex, facet, type PiecePaint } from "./break-piece.js";
 export { drawWaveOpening } from "./briefing.js";

@@ -1,4 +1,5 @@
 import type { SimConfig, SimEvent, World } from "@neon-spore/sim";
+import { BodyStrikeFx } from "./body-strike.js";
 import { ChuteCutFx } from "./chute-cut.js";
 import { ClaspBreakFx } from "./clasp-break.js";
 import { ClaspStrikeFx } from "./clasp-strike.js";
@@ -65,6 +66,10 @@ export class BodyTransients {
    * the one transient here that is a body *leaving* rather than failing, and
    * the reason `draw` takes a layout and the ship's surface (`fence-exit.ts`). */
   private fenceExit = new FenceExitFx();
+  /** A body on the beat a shot landed on it, drawn where it stood — nothing on
+   * the shipped field, and the seam a `slick:hit` or `bulb:hit` candidate
+   * fills (`body-hit.ts`, `body-strike.ts`). */
+  private bodyStrike = new BodyStrikeFx();
 
   /** `time` is the wall clock the contour wobble is sampled at — the husk
    * freezes the outline the body had on the frame the layer came off. */
@@ -104,6 +109,9 @@ export class BodyTransients {
     // And a wall going back up off a ship it did not touch, parting at the way
     // through the dome was standing in (`fence-exit.ts`).
     this.fenceExit.ingest(events);
+    // And the strike itself, frozen on the tile the shot landed in, with the
+    // outline the body wore on that frame cut off the same clock the husk is.
+    this.bodyStrike.ingest(events, l, time);
   }
 
   update(dt: number): void {
@@ -120,6 +128,7 @@ export class BodyTransients {
     this.magnetBounce.update(dt);
     this.coilJump.update(dt);
     this.fenceExit.update(dt);
+    this.bodyStrike.update(dt);
   }
 
   draw(ctx: CanvasRenderingContext2D, l: Layout, surfaceY?: SurfaceY): void {
@@ -150,6 +159,10 @@ export class BodyTransients {
     // the same reason: the body is gone from the world before this draws.
     this.magnetBreak.draw(ctx);
     this.magnetBounce.draw(ctx);
+    // And a struck body, frozen where it stood for the same reason as the
+    // lure's fold: it is gone from the world by the time this draws. It takes
+    // the skin because what it leaves behind lies on the ship.
+    this.bodyStrike.draw(ctx, l, surfaceY);
   }
 
   /** The five that are drawn around a body the world still has. */
@@ -191,5 +204,6 @@ export class BodyTransients {
     this.coilJump.clear();
     this.magnetBounce.clear();
     this.fenceExit.clear();
+    this.bodyStrike.clear();
   }
 }

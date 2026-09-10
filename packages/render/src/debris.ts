@@ -1,4 +1,4 @@
-import { BREAK_LOOK, fallFrom, fractureFrom } from "./break-look.js";
+import { type BreakLook, fallFrom, fractureFrom } from "./break-look.js";
 import type { Shard } from "./shatter.js";
 import { shatter } from "./shatter.js";
 import type { Fall } from "./shatter-fall.js";
@@ -14,11 +14,13 @@ import { shardAt } from "./shatter-fall.js";
  * cut happens once, at the moment of the break, off a contour the drawing code
  * hands in (`shatter.ts`).
  *
- * **It draws nothing until a look asks it to.** `BREAK_LOOK.wedges` ships at 0
- * and `break` returns immediately, so the shipped field is untouched to the
- * pixel; a VERSUS candidate patches the record and the same code path fills up.
- * That is the arrangement `docs/versus.md` calls a seam, and it is why this
- * class exists before anything in the game uses it.
+ * **It draws what a look asks it to, and the look arrives with the body.**
+ * `BREAK_LOOK.wedges` shipped at 0 and `break` returned immediately until
+ * `creature:break` was taken; the look is handed in per break now rather than
+ * read off one record here, because which pieces a body comes apart into is
+ * a fact about *that kind* (`body-hit.ts`), and a VERSUS candidate on the
+ * slick's hit must not retune a dart's. That is the arrangement
+ * `docs/versus.md` calls a seam.
  *
  * Everything is in **screen pixels** by the time it is stored. The cut is done
  * in the body's own units and scaled once on the way in, so a frame costs a
@@ -27,6 +29,8 @@ import { shardAt } from "./shatter-fall.js";
 
 /** One body's worth of pieces, with the clock they all share. */
 interface Break {
+  /** The look the cut was made with — its `paint` draws every piece. */
+  readonly look: BreakLook;
   readonly pieces: readonly Shard[];
   readonly fall: Fall;
   /** Where the body stood, in pixels. */
@@ -40,6 +44,9 @@ interface Break {
 
 /** What `break` is told: a body, where it was, and what it was made of. */
 export interface BreakAt {
+  /** How this body comes apart: `hitFor(kind).pieces`, and never read off a
+   * record here (`body-hit.ts`). */
+  readonly look: BreakLook;
   /** The body's own contour, centred on the origin — `livingPoints`' output. */
   readonly outline: readonly { readonly x: number; readonly y: number }[];
   /** Contour units to pixels. `drawLiving` already computes one; hand that in
@@ -66,7 +73,7 @@ export class Debris {
 
   /** Cut a body up, if the look asks for pieces at all. */
   break(b: BreakAt): void {
-    const look = BREAK_LOOK;
+    const look = b.look;
     if (look.wedges < 3) return;
     const cut = shatter(b.outline, fractureFrom(look, b.tile / b.scale, b.seed));
     if (cut.length === 0) return;
@@ -84,6 +91,7 @@ export class Debris {
     }));
     const floor = b.floor === undefined ? undefined : b.floor - b.y;
     this.list.push({
+      look,
       pieces,
       fall: fallFrom(look, b.tile, floor),
       x: b.x,
@@ -107,7 +115,7 @@ export class Debris {
       ctx.save();
       ctx.translate(b.x, b.y);
       for (const s of b.pieces) {
-        BREAK_LOOK.paint(ctx, {
+        b.look.paint(ctx, {
           shard: s,
           pose: shardAt(s, b.age, b.fall),
           hex: b.hex,

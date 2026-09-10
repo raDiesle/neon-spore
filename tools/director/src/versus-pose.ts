@@ -44,6 +44,8 @@ const SLOT_POSE: Record<string, string> = {
   "bulb:shape": "BODIES · FOUR KINDS AT ONCE",
   "slick:motion": "BODIES · FOUR KINDS AT ONCE",
   "creature:break": "BREAK · A BODY COMING APART",
+  "slick:hit": "BREAK · A BODY COMING APART",
+  "bulb:hit": "BULB · STRUCK",
   "creature:meteor": "METEOR · A SHOT ARRIVING",
   "creature:magnet": "MAGNET · A SHOT TURNED AWAY",
   "creature:strand": "STRAND · THE NAVIGATOR'S BEAD",

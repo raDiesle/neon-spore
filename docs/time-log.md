@@ -22,6 +22,24 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-10 · claude/queue-what-a-hit-on-a-slick-or-a-bulb-looks-like-is-sh
+
+A hit record per kind, the transient that draws it, two poses, and six
+candidates — three strikes for the slick and three for the bulb. About
+50 min from the claim to the trunk moving.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the queue entry, `body-interior.ts`, `debris.ts`, `effects-break.ts`, `effects-spark.ts`, the recoil lane's candidate shape, the break pose |
+| writing | 15 | `body-hit.ts`, `body-strike.ts`, the debris and sparks routed through it, a test, `poses-struck.ts`, six paints and six cards |
+| looking | 20 | twenty `versus:shot` runs at eight seconds each, and what each picture asked for — petals too small, a drip drawn as a disc, spores lost in the wedges, a wave four columns wide |
+| friction | 0 | — |
+| landing | 5 | `check:fast`, the commit, `land --keep` |
+
+Bottleneck: **looking**, again — but a shot is eight seconds now rather than
+two minutes, so the cost was the number of corrections rather than the wait
+for each, which is the right cost to be paying.
+
 ## 2026-09-10 · claude/queue-the-players-ship-has-had-one-hull-since-the-game
 
 Two queue entries checked against what `main` already carries: the hull

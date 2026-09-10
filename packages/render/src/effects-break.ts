@@ -1,6 +1,6 @@
 import { hasOwnBody, livingPoints, livingSilhouette } from "@neon-spore/content";
 import type { Color, CreatureKind, SimEvent } from "@neon-spore/sim";
-import { BREAK_LOOK } from "./break-look.js";
+import { hitFor } from "./body-hit.js";
 import { contourClock, livingRadius, livingScale } from "./creature-place.js";
 import { colorTrio } from "./creature-tint.js";
 import type { Debris } from "./debris.js";
@@ -26,9 +26,13 @@ import { type Layout, tileCX, tileCY } from "./layout.js";
  * of their own rather than by a radial contour, so `livingSilhouette` has
  * nothing to hand back for them and cutting them out of somebody else's
  * outline is the defect above wearing a different coat. Drawing nothing is the
- * honest answer until each of those bodies offers its own outline to be cut,
- * and it costs nothing today: the shipped `BREAK_LOOK.wedges` is 0 and the
- * field draws no debris at all.
+ * honest answer until each of those bodies offers its own outline to be cut.
+ *
+ * **Which pieces, and how many squares, is the kind's own answer.** Both are
+ * read off `hitFor(kind)` (`body-hit.ts`) rather than off `BREAK_LOOK`
+ * directly: every kind hands back the same shipped record today, and the
+ * lookup is what lets the slick's hit be offered a second answer without the
+ * dart's changing with it.
  */
 
 /** Where the pieces come to rest: the ship's own skin line. A body is killed
@@ -52,6 +56,7 @@ export function breakBody(
   // both of them agree about.
   const seed = Math.imul(e.col + 1, 73856093) ^ Math.imul(e.row + 1, 19349663);
   debris.break({
+    look: hitFor(e.kind).pieces,
     outline: livingPoints(shape, contourClock(seed, time)),
     scale: livingScale(shape, r),
     x: tileCX(l, e.col),
@@ -78,5 +83,5 @@ export function breakBody(
  * quietened by a break look.
  */
 export function breakSparks(e: SimEvent, n: number): number {
-  return e.type === "destroy" ? Math.round(n * BREAK_LOOK.sparkScale) : n;
+  return e.type === "destroy" ? Math.round(n * hitFor(e.kind).pieces.sparkScale) : n;
 }

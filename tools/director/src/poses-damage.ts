@@ -4,7 +4,6 @@ import {
   EVENT_CADENCE_SECONDS,
   firstOfKind,
   fresh,
-  living,
   type Pose,
   rock,
   run,
@@ -15,8 +14,9 @@ import {
 } from "./pose-kit.js";
 
 /**
- * The three poses about **damage** — a rock being marked, a body being
- * destroyed, and the ship being holed.
+ * The poses about **damage** — a rock being marked and the ship being holed.
+ * A body being destroyed was the third and is `poses-struck.ts` now, one per
+ * kind whose hit has a record of its own.
  *
  * Split out of `poses-versus.ts` when the second of them took that file past
  * its line ceiling, and the seam is a real one rather than a convenient cut:
@@ -26,11 +26,11 @@ import {
  * for the moments after that — and each carries `cadenceSeconds` so the whole
  * of it comes round again on its own clock.
  *
- * The first two are a shot landing and come round every two seconds. The third
- * is rocks landing on the ship, and it is longer than the other two put
- * together, because a hole in the hull is not finished when the rock arrives —
- * the rock lies in it, and the hole is only there to be looked at once the rock
- * has rolled off the field (`rock-drift.ts`).
+ * The first is a shot landing and comes round on the ordinary cadence. The
+ * second is rocks landing on the ship, and it is longer, because a hole in the
+ * hull is not finished when the rock arrives — the rock lies in it, and the
+ * hole is only there to be looked at once the rock has rolled off the field
+ * (`rock-drift.ts`).
  *
  * The column both of them use. Middle-ish, and the same one `poses-versus.ts`
  * spawns in, so a session flipping between the two sheets is looking at the
@@ -78,71 +78,6 @@ export const METEOR_HIT_POSE: Pose = {
       const b = x.bullets[0];
       const c = x.creatures[0];
       return b !== undefined && c !== undefined && b.row - c.row <= UNHIT_ROWS;
-    });
-    return w;
-  },
-};
-
-/**
- * How far under the body the bolt is when the pair is handed the world.
- *
- * `METEOR · A SHOT ARRIVING`'s number and its reasoning, arrived at for the
- * same reason: a bolt covers twelve tiles a beat, so a handover two rows short
- * puts the kill on screen before anybody has looked at the body it happened to.
- * Six is half a beat of a whole, living slick — long enough to have seen what
- * is about to come apart, which is the only way a break means anything.
- */
-const UNBROKEN_ROWS = 6;
-
-/**
- * How many rows short of the hull the body is when the shot is fired.
- *
- * Three, and the number is the whole of why this pose works. A slick shot where
- * it spawns dies at the top of the field, well outside the crop that contains
- * the ship — so the pair watched an empty lane and the debris fell out of the
- * picture. Killed three rows up, the break happens over the hull and the pieces
- * land on it, which is half of what the candidate is claiming.
- */
-const ROWS_ABOVE_HULL = 3;
-
-/**
- * A slick over the ship with a matching bolt still climbing at it: the kill
- * itself, replayed.
- *
- * The pose `creature:break` is judged on, and the only one on this page whose
- * whole subject happens *after* the body is gone. So it is handed over before
- * the shot lands rather than after — a pose held on the frame of the burst
- * would show the pair a picture of debris and never the body it used to be, and
- * half of what a break has to do is say **which creature that was**.
- *
- * Red, and therefore a slick (`living` asks `kindForColor`), because a slick is
- * the body the pair sees most and the one a break has to work on first.
- */
-export const BREAK_POSE: Pose = {
-  name: "BREAK · A BODY COMING APART",
-  note: "A living slick three rows over the ship with a red bolt half a beat under it. The shot lands, the body is destroyed, and whatever the kill leaves behind happens where you are already looking.",
-  lookAt: "the moment the body stops being a body — what is left of it, and where that goes",
-  // The ship and the rows above it, not the tile. A tile crop is centred on the
-  // body the pose is named after, and this is the one pose whose body **stops
-  // existing** halfway through: the crop then falls back to the middle of the
-  // field and photographs an empty lane.
-  crop: "ship",
-  cadenceSeconds: EVENT_CADENCE_SECONDS,
-  build: () => {
-    const w = fresh([living("red", COL)]);
-    // Let it come down over the ship first. The cannon lines up while it falls,
-    // so nothing is pressed after the handover — `pose-kit.ts`'s rule.
-    runUntil(
-      w,
-      "a slick three rows over the hull",
-      [aim(0, COL)],
-      (x) => (x.creatures[0]?.row ?? 0) >= x.cfg.rows - 1 - ROWS_ABOVE_HULL,
-    );
-    const cmds: TimedCommand[] = [shoot(w.tick, "red")];
-    runUntil(w, "a bolt six tiles under a slick", cmds, (x) => {
-      const b = x.bullets[0];
-      const c = x.creatures[0];
-      return b !== undefined && c !== undefined && b.row - c.row <= UNBROKEN_ROWS;
     });
     return w;
   },

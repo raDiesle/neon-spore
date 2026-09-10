@@ -842,6 +842,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/body-interior.ts` | **What a living body has inside it**: one record per kind, so the slick's two dots can be argued with |
 | `packages/render/src/body-bloom.ts` | THE SLICK's interior — a nucleus that sends something out along its veins |
 | `packages/render/src/body-spores.ts` | THE BULB's interior — the body is full, and it is a spore case |
+| `packages/render/src/body-strike.ts` | A body on the beat it is struck, drawn where it stood after it is gone |
+| `packages/render/src/body-hit.ts` | What happens to a living body **when a shot lands on it** |
 | `packages/render/src/pulse-body.ts` | One arrival falling down a lane, and the two ways of drawing one that cannot be read |
 | `packages/render/src/choir-shape.ts` | where THE CHOIR's two bodies stand and the skin traced over them — the shape half, with no light or colour in it |
 | `packages/render/src/choir-skin.ts` | **The light THE CHOIR throws and the film it wears** — the surface half of this creature |
@@ -1159,6 +1161,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/poses-mechanics.ts` | What those hands add up to on the field: a hand on something falling, a shot in the air |
 | `tools/director/src/poses-ship.ts` | What a player's own hands put the ship into |
 | `tools/director/src/poses-surface.ts` | The states a candidate for a **surface** is judged on |
+| `tools/director/src/poses-struck.ts` | A living body over the ship with a matching bolt still climbing at it: the kill itself, replayed |
 | `tools/director/src/poses.ts` | Every state the STATES sheet draws, in reading order |
 | `tools/director/src/query.ts` | What is in a wave: the questions, with no answer that changes anything |
 | `tools/director/src/rail.ts` | The wave list and the fields every wave must carry |

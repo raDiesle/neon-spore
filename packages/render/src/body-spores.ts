@@ -35,15 +35,23 @@ import { mixHex } from "./hex.js";
 
 const SPORES = 11;
 const SPORE = 0.2;
-const REACH = 0.62;
-const SPIN = 0.42;
 const DIM = 0.24;
+/** How far out the packing reaches, as a share of the body's smaller radius,
+ * and how fast it turns on the contour clock. Exported with the pins so a
+ * strike that sets the spores loose (`slick:hit`'s neighbour, `bulb:hit`)
+ * starts each one from where the pair last saw it, rather than from a second
+ * copy of this packing. */
+export const SPORE_REACH = 0.62;
+export const SPORE_SPIN = 0.42;
 
 /** Longitude, latitude and how far out — three shells rather than one. */
-const PINS: { pin: Pin; depth: number }[] = [];
+export const SPORE_PINS: readonly { readonly pin: Pin; readonly depth: number }[] = [];
 for (let i = 0; i < SPORES; i++) {
   const depth = 0.45 + ((i * 7) % 3) * 0.27;
-  PINS.push({ pin: pin(i * 2.39, ((i / (SPORES - 1)) * 2 - 1) * 0.8, depth), depth });
+  (SPORE_PINS as { pin: Pin; depth: number }[]).push({
+    pin: pin(i * 2.39, ((i / (SPORES - 1)) * 2 - 1) * 0.8, depth),
+    depth,
+  });
 }
 
 /**
@@ -69,11 +77,11 @@ type Blob = readonly [x: number, y: number, rx: number, ry: number];
 const atStep: Blob[][] = Array.from({ length: LEVELS }, () => []);
 
 export function spores(ctx: CanvasRenderingContext2D, p: Interior): void {
-  const theta = p.t * SPIN;
-  const reach = Math.min(p.rx, p.ry) * REACH;
+  const theta = p.t * SPORE_SPIN;
+  const reach = Math.min(p.rx, p.ry) * SPORE_REACH;
 
   for (const blobs of atStep) blobs.length = 0;
-  for (const q of PINS) {
+  for (const q of SPORE_PINS) {
     const f = facet(q.pin, theta);
     if (!f.near) continue;
     // Deeper in the packing is smaller and dimmer, which is the whole of why
