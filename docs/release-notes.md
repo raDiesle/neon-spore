@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · 2303a269 — A hit has a record per kind, and the slick and the bulb each get three strikes in VERSUS
+
+The owner asked on 9 September 2026 for the slick and the bulb to have very good hit visuals, and there was nothing per-body to patch: a shot landing on either threw the same sparks and cut the same pieces as a shot landing on anything else. `body-hit.ts` is the seam, cut the way `body-interior.ts` was — three records holding one shipped answer, reached by kind through `hitFor`, so a candidate on the slick's hit cannot change a dart's. Each holds the pieces (`BREAK_LOOK`, now handed to `Debris` per break rather than read there) and a strike: what the body does on the beat it is struck and what it leaves behind, drawn where it stood by `body-strike.ts` for `life` seconds, in the body's own colour, which is the shot's. It ships empty, so the field is untouched to the pixel.
+
 ## 2026-09-10 · d016efcf — Three chains for THE COIL and three ropes for THE WARDEN's tether, offered in VERSUS
 
 `creature:coil` and `creature:tether` open with three answers each beside what ships. The queue entry imagined two long bodies wanting a light on them; the code says otherwise. THE COIL is a rock inside THE CLASP's dome, and neither of those is its own to change — what it draws that nothing else does is the **chain**: three studs on the rim where a charge leaves and lands, and the bolt that crosses the field between two of them. THE WARDEN's tether is a control, not a creature, and its handle is shared with THE LID's cord and the balloon strings — so its record holds the line and the root, and leaves the ring alone. Both records were cut for it, `coil-look.ts` and `tether-look.ts`, and the shipped code came through both with not one pixel moved.
