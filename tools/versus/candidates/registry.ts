@@ -19,6 +19,12 @@ import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
 import { TORCH_CROWN } from "./creature-torch/crown/index.js";
 import { TORCH_HOLLOW } from "./creature-torch/hollow/index.js";
 import { TORCH_KILN } from "./creature-torch/kiln/index.js";
+import { VEIL_FOAM } from "./creature-veil/foam/index.js";
+import { VEIL_STRATA } from "./creature-veil/strata/index.js";
+import { VEIL_VORTEX } from "./creature-veil/vortex/index.js";
+import { WISP_ARMS } from "./creature-wisp/arms/index.js";
+import { WISP_COMB } from "./creature-wisp/comb/index.js";
+import { WISP_SKIRT } from "./creature-wisp/skirt/index.js";
 import { SHIP_CHITIN } from "./ship-body/chitin/index.js";
 import { SHIP_EMBEDDED } from "./ship-body/embedded/index.js";
 import { SHIP_GULLET } from "./ship-body/gullet/index.js";
@@ -44,6 +50,12 @@ export const VARIANTS: Variant[] = [
   TORCH_CROWN,
   TORCH_HOLLOW,
   TORCH_KILN,
+  VEIL_FOAM,
+  VEIL_STRATA,
+  VEIL_VORTEX,
+  WISP_ARMS,
+  WISP_COMB,
+  WISP_SKIRT,
   SHIP_CHITIN,
   SHIP_EMBEDDED,
   SHIP_GULLET,

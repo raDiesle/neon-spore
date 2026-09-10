@@ -190,23 +190,6 @@ Whichever wins, `packages/render/test/wave-budget.test.ts`'s BULB QUEEN rows
 are the proof it changed nothing else, and `bun run frames . --wave 25 --at`
 takes the two pictures for the owner to choose between.
 
-## THE WISP and THE VEIL have one look each and no second answer
-
-- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
-- **Taken:** 2026-09-10, claude/queue-the-wisp-and-the-veil-have-one-look-each-and-no
-- **Files:** `packages/render/src/wisp-look.ts`,
-  `packages/render/src/veil-look.ts`, `tools/versus/candidates/`,
-  `tools/director/src/versus-pose.ts`
-
-One slot per body, `creature:wisp` and `creature:veil`, three candidates each
-beside what ships, aimed at depth and at movement that reads as alien and
-grown. `.claude/skills/depth` applies, and a look is assembled from the shapes
-page rather than invented. THE WISP is already the subject of the open entry
-about a measured cost from the adopted looks — read that entry before patching,
-because a candidate that makes the tentacles more expensive is a candidate that
-has to answer it. Pose in `versus-pose.ts` in the same commit; `bun run versus`
-says which fields another open slot has already claimed.
-
 ## THE GHOST and THE ECHO have one look each and no second answer
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067

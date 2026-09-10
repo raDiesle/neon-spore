@@ -162,6 +162,14 @@ const SLOT_POSE: Record<string, string> = {
   // because every candidate here is judged on a turn and a turn needs longer
   // than a replay window to finish (`poses-surface.ts`).
   "creature:gyre": "GYRE · TURNING",
+  // The two bodies that hide something from a seat, reopened on 10 September
+  // 2026 with three answers each. Both take the pose their first slot was
+  // judged on: a wisp is the one body that never falls, so it stands on its
+  // tile and jumps while the pair watches what hangs off it; a veil comes down
+  // a lane with a body inside, and what its weather is made of between the rim
+  // and the bolts is judged on that fall (`poses-surface.ts`, `poses-casing.ts`).
+  "creature:wisp": "WISP · STANDING",
+  "creature:veil": "VEIL · CARRYING",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */
