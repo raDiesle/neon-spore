@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · 9fd4c52f — A fourth answer each for THE CAROM and THE CHUTE, beside the three that landed
+
+Two lanes did the queue's carom-and-chute item at once — a cloud session pushed its three-and-three to `origin/main` while this one was drawing its own — and four of this lane's six were the other lane's under different names: a stone rolled with pits placed on it, chips shed into the streak, a panelled dome, a bell that squeezes. Those are dropped. The two that argue something the slot does not yet have are offered on the records that landed: FACET cuts the crust into the faces its outline promises, an outer ring sloping to the silhouette and a bevel sloping down into the hole, each shaded flat by its own normal so the faces brighten and dim as the stone spins and the window becomes a hole in something thick; VANE turns the shipped dome slowly about its own axis with a twist from the sway, eight pores placed on it by longitude and latitude coming round from one limb to the other over a shell lit from the key — the reveal a dome's unchanging outline makes free.
+
 ## 2026-09-10 · 0ec69720 — The pose map back under the line ceiling
 
 Two lanes landed a slot each on the same afternoon, and the rebase that reconciled the split trunk kept both paragraphs over `SLOT_POSE`: 253 lines, and `limits.test.ts` red on `main` after the push. The rind and lid rows lose half their prose here, which brings the file back to 249, and the shape of the problem — a map every slot writes a paragraph into — is queued so the next slot does not do it again.
