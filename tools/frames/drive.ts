@@ -21,18 +21,51 @@ export interface Driver {
   tick(): Promise<number>;
 }
 
+/**
+ * The most simulated time one paint is told has passed, in seconds — the
+ * game's own clamp (`apps/game/src/frame.ts`), called by value rather than
+ * imported because this file is evaluated inside the page.
+ */
+const FRAME_CAP = 0.05;
+
+/**
+ * Steps of the world's clock, **painted as the game paints them.**
+ *
+ * Until 10 September 2026 this stepped `n` ticks and painted nothing, and the
+ * frame was taken afterwards with a sixtieth of a second on the render clock.
+ * Everything drawn off that clock — `Effects`, which age by the `dt` a paint
+ * hands them and not by ticks — therefore stood at its first frame however far
+ * the world had gone: a rock that landed six simulated seconds ago was still
+ * lodged in the skin with its crater covered, and five strips of `--wave 12
+ * --seat p2` across a thousand ticks all came back that way. The lane that met
+ * it spent the afternoon looking for a wave where rocks *do* breach.
+ *
+ * So the world is stepped in runs no longer than the game's own frame cap and
+ * painted once per run for exactly the time it advanced — which is what
+ * `frame.ts`'s loop does with a real clock. A burst fired on the last tick gets
+ * one frame of ageing, as it would in play, so a `--stride 0` strip still
+ * starts on its first frame. On a rehearsal (`filmDt` given) the paint *is*
+ * the clock and nothing here changes.
+ */
 export function makeDriver(page: Page, filmDt: number | undefined): Driver {
   const advance = async (n: number): Promise<void> => {
     await page.evaluate(
-      ([count, dt]) => {
+      ([count, dt, cap]) => {
         const ns = window.neonSpore;
         if (!ns) throw new Error("window.neonSpore missing mid-capture");
-        for (let i = 0; i < (count as number); i++) {
-          if (dt === undefined) ns.advance(1);
-          else ns.paint(dt as number);
+        if (dt !== undefined) {
+          for (let i = 0; i < (count as number); i++) ns.paint(dt as number);
+          return;
+        }
+        const tickHz = ns.world.cfg?.tickHz ?? 120;
+        const run = Math.max(1, Math.floor((cap as number) * tickHz));
+        for (let left = count as number; left > 0; left -= run) {
+          const ticks = Math.min(run, left);
+          ns.advance(ticks);
+          ns.paint(ticks / tickHz);
         }
       },
-      [n, filmDt] as [number, number | undefined],
+      [n, filmDt, FRAME_CAP] as [number, number | undefined, number],
     );
   };
 

@@ -730,27 +730,6 @@ chamber's own clip welds it to the membrane instead of a flat lid meeting the
 contour at one height. `packages/render/test/frame.test.ts` draws it, and the
 proof is a photograph of the join at four times size with no straight run in it.
 
-## `bun run frames` cannot photograph a hole a rock just made
-
-- **Found:** 2026-09-09, claude/ship-crater-spall-animation-e9da51
-- **Taken:** 2026-09-10, claude/queue-bun-run-frames-cannot-photograph-a-hole-a-rock-j
-- **Files:** `tools/frames/run.ts`, `tools/frames/capture.ts`, `apps/game/src/testing.ts`
-
-The same clock in a second tool. `frames` advances the world by hundreds of
-ticks and then paints a handful of frames, so `RockImpactFx` — which ages by
-render `dt`, not by ticks — never reaches `stickStart`, and a rock that landed
-six seconds ago in simulation time is still drawn lodged in the skin with its
-crater covered. Five strips of `--wave 12 --seat p2` across a thousand ticks all
-came back with the rocks in place and no hole open, and the lane spent the time
-looking for a wave where rocks *do* breach before it understood why none of
-them showed.
-
-The handle should paint with a `dt` equal to the simulation time it just
-advanced, or `--settle N` should mean *N frames at the real frame interval*
-rather than N paints at nothing. Either way `Effects` has to be told the time
-that passed. Prove it with a capture of `--wave 12 --ticks 2300 --seat p2`
-showing two open holes and no rock in either.
-
 ## The shipped crater plates re-derive the fracture depth rule
 
 - **Found:** 2026-09-09, claude/ship-crater-spall-animation-e9da51
