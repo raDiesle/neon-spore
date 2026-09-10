@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · 5836476c — The panel is lit by the ship's own light, and the wash is gone
+
+The owner could still see a line at the join after the four new `panel:ship-join` cards, and a column of pixels said why: the wash that carried the belly's pale down into the panel had been tuned against the one x where the belly is pale. What makes the hull pale on the left and dark on the right is not a colour, it is `hull-barrel.ts` — the key light across the width, a cosine of where the membrane points — and the chamber never got that light. Two surfaces under two lights are two objects however well their edges meet.
+
 ## 2026-09-10 · fd4db2ad — The seat probe ages effects by the time the world actually advanced
 
 `diffSequence` stepped six ticks between samples and told the renderer a sixtieth of a second had passed each time, so effects aged six times slower than the world they were drawn over. A look revealed by an effect — a crater under a rock that has not yet rolled off — was never on any sampled frame, and `ship:crater` came back as moving nothing on either seat: one screen, and "under the floor" printed beneath a candidate that repaints a hull's worth of pixels.
