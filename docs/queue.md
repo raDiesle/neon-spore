@@ -404,6 +404,7 @@ questions.
 ## `versus:shot --at` clips the page's chrome when the pose is a tile crop
 
 - **Found:** 2026-09-10, claude/queue-the-gyre-and-the-magnet-have-one-look-each-and-n
+- **Taken:** 2026-09-10, claude/queue-versus-shot-at-clips-the-pages-chrome-when-the-p
 - **Files:** `tools/frames/shot.ts`, `tools/frames/crop.ts`,
   `tools/frames/versus-shot.ts`
 
