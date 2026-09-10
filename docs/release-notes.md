@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · a6e1e703 — Queue three findings the crater lane worked around
+
+The seat probe and the frames tool both age render effects by draw count rather than by the simulation time they advanced, so neither can show a look that a rock's departure reveals; and the shipped crater plates carry their own copy of the fracture depth rule that break-piece.ts already owns.
+
 ## 2026-09-09 · 7fcdf63a — SPALL is the game's crater, clipped to the ship and painted in its colour
 
 The owner said to build it in, and named two things wrong with it. Both are repaired here rather than offered as a second question, because neither is a matter of taste.
