@@ -685,6 +685,7 @@ is visible in a number.
 ## The dev director loads its stylesheets in reverse; a phone gets the desk layout
 
 - **Found:** 2026-09-10, claude/director-mobile-cpu-wave-buttons-7877f2
+- **Taken:** 2026-09-10, claude/queue-the-dev-director-loads-its-stylesheets-in-revers
 - **Files:** `tools/director/index.html`, `tools/director/server.ts`, `tools/director/src/director-phone.css`
 
 `index.html` links eighteen sheets in an order the cascade depends on, and
