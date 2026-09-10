@@ -398,6 +398,7 @@ the one thing the panel look is not.
 ## `versus adopt` refuses fourteen of the fifteen candidates standing
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Taken:** 2026-09-10, claude/queue-versus-adopt-refuses-fourteen-of-the-fifteen-can
 - **Files:** `tools/versus/decide.ts`, `tools/versus/record-edit.ts`,
   `tools/versus/test/record-edit.test.ts`, `tools/versus/README.md`
 
