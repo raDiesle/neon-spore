@@ -29,7 +29,6 @@
  * session write what it meant to.
  */
 
-import { spawn } from "node:child_process";
 import { root, run } from "./exec.js";
 import { elementFor } from "./versus-element.js";
 
@@ -114,28 +113,42 @@ if (only !== undefined) query.set("only", only);
  * must not answer from one either. The port is read rather than derived —
  * `--pin` settles it and prints it, and it is also written down for
  * `bun run port` while this runs (`tools/running.ts`).
+ *
+ * `Bun.spawn`, the way `serve.ts` starts a preview, and not `node:child_process`
+ * through a shell. On Windows the shell was the only thing `kill()` reached:
+ * the director it had started lived on, holding this process's stdout pipe,
+ * until its own idle exit a hundred and fifty seconds later
+ * (`tools/director/server.ts`) — so every shot took two and a half minutes
+ * after its picture was written, and the lane that filed the scale hang had
+ * read that wait as part of the hang. `Bun.spawn`'s kill takes the tree.
  */
-async function startDirector(): Promise<{ port: string; stop: () => void }> {
-  const proc = spawn("bun", ["run", "dev:once"], {
+async function startDirector(): Promise<{ port: string; stop: () => Promise<void> }> {
+  const proc = Bun.spawn(["bun", "run", "dev:once"], {
     cwd: root,
     env: { ...process.env, DIRECTOR_HOST: "127.0.0.1" },
-    stdio: ["ignore", "pipe", "pipe"],
-    shell: process.platform === "win32",
+    stdout: "pipe",
+    stderr: "pipe",
   });
+  const reader = proc.stdout.getReader();
+  const decoder = new TextDecoder();
   const deadline = Date.now() + 60_000;
   let buffered = "";
-  const port = await new Promise<string>((resolve, reject) => {
-    const look = (chunk: Buffer): void => {
-      buffered += chunk.toString();
-      const found = buffered.match(/http:\/\/localhost:(\d+)/);
-      if (found?.[1]) resolve(found[1]);
-      else if (Date.now() > deadline) reject(new Error("the director never printed its port"));
-    };
-    proc.stdout?.on("data", look);
-    proc.stderr?.on("data", look);
-    proc.on("exit", () => reject(new Error(`the director exited:\n${buffered.trim()}`)));
-  });
-  return { port, stop: () => void proc.kill() };
+  let port: string | null = null;
+  while (!port) {
+    if (Date.now() > deadline) throw new Error("the director never printed its port");
+    const { value, done } = await reader.read();
+    if (done) throw new Error(`the director exited:\n${buffered.trim()}`);
+    buffered += decoder.decode(value, { stream: true });
+    port = buffered.match(/http:\/\/localhost:(\d+)/)?.[1] ?? null;
+  }
+  reader.releaseLock();
+  return {
+    port,
+    stop: async () => {
+      proc.kill();
+      await proc.exited;
+    },
+  };
 }
 
 const director = await startDirector();
@@ -165,5 +178,5 @@ try {
   await run(["bun", ...args], root);
   console.log(`wrote ${file} — ${slot} · ${name}`);
 } finally {
-  director.stop();
+  await director.stop();
 }

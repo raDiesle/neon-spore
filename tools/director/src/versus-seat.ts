@@ -137,13 +137,13 @@ interface Probe {
   share: number;
 }
 
-/** The patch's own difference from the shipped look, sampled across one loop
- * of the pose, at one seat. */
+/** The patch's difference from the shipped look across one loop of the pose, at
+ * one seat. `readback`: undeclared, its reads cost the pair the GPU (`canvas2d.ts`). */
 function diffSequence(pose: Pose, role: ViewRole, variant: Variant): Probe {
   const current = document.createElement("canvas");
   const candidate = document.createElement("canvas");
-  const renderCurrent = new Canvas2DRenderer(current);
-  const renderCandidate = new Canvas2DRenderer(candidate);
+  const renderCurrent = new Canvas2DRenderer(current, { readback: true });
+  const renderCandidate = new Canvas2DRenderer(candidate, { readback: true });
   renderCurrent.resize({ ...PROBE_PHONE, dpr: 1 });
   renderCandidate.resize({ ...PROBE_PHONE, dpr: 1 });
   let world = pose.build();

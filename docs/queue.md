@@ -328,29 +328,3 @@ Wait for `creature:break` to be decided before opening this, or check with
 `bun run versus` that the fields do not overlap: `bun test` refuses two open
 slots claiming one field, and a body's break and a body's hit are next-door
 questions.
-
-## `versus:shot --scale 3` hangs the page on a `crop: "tile"` pose
-
-- **Found:** 2026-09-10, claude/queue-the-ghost-and-the-echo-have-one-look-each-and-no
-- **Taken:** 2026-09-10, claude/queue-versus-shot-scale-3-hangs-the-page-on-a-crop-til
-- **Files:** `tools/frames/shot.ts`, `tools/director/src/versus-pair.ts`,
-  `tools/director/src/versus-crop.ts`
-
-`shot.ts` grew `--scale`, the device scale factor, on 10 September 2026,
-because a creature-sized `--at` crop at the fixed 2x came back as a body
-ninety pixels wide that nobody could correct a look from. At `--scale 6` on
-`creature:ghost` (`GHOST · TORN`, a `crop: "field"` pose) it works and the
-ghost arrives desk-sized. On `creature:echo` (`ECHO · ABOUT TO DIVIDE`, a
-`crop: "tile"` pose) **any scale above 2 hangs the page**: the `evaluate`
-that scrolls the stage into view times out after thirty seconds — the main
-thread is not coming back. (Playwright's own stability waits, which the same
-lane took out of `shot.ts` because they timed out on this pose at *every*
-scale, were a separate thing; this one is the page.) `--only current` hangs
-the same way, so it is not a candidate. `versus-pair.ts` caps
-its own `dpr` at 3 and `CropWindow.follow` re-fits the window every frame the
-body moves; something in that pairing at a device ratio above 2 is either
-resizing a canvas per frame or painting one it cannot finish. The lane read
-the echo at 2x whole and cropped it with a throwaway script instead, which is
-the workaround this entry ends. Find what is spinning, fix it, and prove it
-with `bun run versus:shot creature:echo cleft out.png --freeze 1.1 --only
-candidate --scale 6` coming back in under a minute with the echo in it.

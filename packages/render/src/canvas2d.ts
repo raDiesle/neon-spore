@@ -23,8 +23,26 @@ export class Canvas2DRenderer implements Renderer {
    * when a wave starts over (`render-state.ts`). */
   private held = new RenderState();
 
-  constructor(private canvas: HTMLCanvasElement) {
-    const ctx = canvas.getContext("2d", { alpha: false });
+  /**
+   * `readback` is for a caller that will read the pixels back with
+   * `getImageData` more than once — a probe, never the game. A canvas that is
+   * read back twice without saying so is moved off the GPU by the browser,
+   * and one read back forty-six times in a page's first seconds did more than
+   * that: every phone-sized canvas the page made afterwards was rasterised in
+   * software, one pixel readback per sprite it drew, at three frames a second
+   * — VERSUS's seat probe (`tools/director/src/versus-seat.ts`), and with it
+   * every pair on a cadenced pose; `bun run versus:shot creature:echo cleft
+   * --scale 6` timed out on it. Declared, the demotion stays with the canvas
+   * that earned it and the same shot takes seconds.
+   */
+  constructor(
+    private canvas: HTMLCanvasElement,
+    opts: { readback?: boolean } = {},
+  ) {
+    const ctx = canvas.getContext("2d", {
+      alpha: false,
+      willReadFrequently: opts.readback === true,
+    });
     if (!ctx) throw new Error("Canvas 2D context unavailable");
     this.ctx = ctx;
   }
