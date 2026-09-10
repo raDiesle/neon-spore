@@ -30,6 +30,17 @@
  * looking, and none of this applies to it.
  */
 
+/**
+ * Ticks a pending freeze runs per animation frame. Four, not one: reason 2
+ * above is that the count of frames drawn on the way is fixed rather than a
+ * property of the machine, and any fixed stride keeps it. One tick a frame
+ * made a six-second freeze take at least twelve seconds of wall clock, and
+ * over two minutes on a machine running a check — the camera timed out and
+ * photographed nothing. Four is a thirtieth of a second per paint, which is a
+ * frame a phone actually draws.
+ */
+export const FREEZE_STRIDE = 4;
+
 export class Freeze {
   /** The tick to stop on, or null for a pair nobody is photographing. */
   readonly atTick: number | null;
@@ -57,6 +68,16 @@ export class Freeze {
     }
     this.stepped++;
     return true;
+  }
+
+  /**
+   * The camera's cue. `tools/frames/versus-shot.ts` waits for `[data-frozen]`
+   * rather than for a number of milliseconds: a timed wait guessed at how long
+   * the seat probe and the run to the freeze would take, and photographed the
+   * wrong moment whenever it guessed short — twice, on two different days.
+   */
+  mark(...frames: HTMLElement[]): void {
+    for (const f of frames) f.dataset.frozen = "1";
   }
 
   /** The seed a draw uses: the tick count once frozen, the frame count until then. */

@@ -523,4 +523,15 @@ export const COPIES: Copy[] = [
     pattern: /%\s*(?:tpb|ticksPerBeat(?:\(\w*\))?)\s*\)?\s*\/\s*(?:tpb|ticksPerBeat(?:\(\w*\))?)/,
     also: ["apps/game/src/interpolate.ts"],
   },
+  {
+    // What a broken piece is filled with: dark on the faces that were inside,
+    // the body's own colour where it carried the rim, by `Shard.depth`. The
+    // crater plates arrived with their own answer — the two colours mixed by a
+    // *die roll* — which is the copy's shape: a fracture piece coloured by a
+    // random share is a piece whose depth nobody read. The first alternative
+    // is the owner's own spelling, so the row can prove it still holds it.
+    call: "facet / faceHex",
+    owner: "packages/render/src/break-piece.ts",
+    pattern: /mixHex\(dark,\s*hex,\s*lit\)|mixHex\([^)]*\+\s*rnd\(\)/,
+  },
 ];

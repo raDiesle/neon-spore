@@ -705,29 +705,6 @@ Prove it with `bun run check` and `bun run test:determinism`, and watch THE
 BALLOON at tempo: the slower climb and the hold are both timing, and neither
 is visible in a number.
 
-## The shipped crater plates re-derive the fracture depth rule
-
-- **Found:** 2026-09-09, claude/ship-crater-spall-animation-e9da51
-- **Taken:** 2026-09-10, claude/queue-the-shipped-crater-plates-re-derive-the-fracture
-- **Files:** `packages/render/src/crater-spall.ts`, `packages/render/src/break-piece.ts`
-
-`spallRing` colours each plate with `mixHex(skin.muzzle, skin.rim, 0.42 + rnd()
-* 0.22)` and strokes its whole outline at `rgba(skin.edge, 0.22)`. That is a
-second copy of what `break-piece.ts` already writes down once — `faceHex`
-(dark inside, lit at the rim, by `Shard.depth`) and `edgeLit` (dimmed once a
-piece lies still) — and the two crater candidates that arrived with it already
-paint every piece through `facet`. The plates were adopted with those values
-by eye, so this is not free: `facet` at the plates' depths comes out a little
-brighter and its edge a little dimmer than the shipped mix.
-
-Route the plates through `facet` with `landed: true`, then tune `faceHex`'s
-two constants or pass a darker `hex` until a frame of `BREACH · ROCKS COMING
-THROUGH` is within a few values of the shipped picture — `bun run versus:shot`
-with `--freeze 6` and a pixel compare at the wide crater is the instrument. If
-that cannot be made close, offer the `facet` version as a `ship:crater`
-candidate instead of landing it, and say which in the commit. Add
-`faceHex`/`edgeLit` to `purity.test.ts`'s called-not-copied table either way.
-
 ## The dev director loads its stylesheets in reverse; a phone gets the desk layout
 
 - **Found:** 2026-09-10, claude/director-mobile-cpu-wave-buttons-7877f2

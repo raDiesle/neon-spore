@@ -6,7 +6,7 @@ import { cadenceElapsed, type Pose } from "./pose-kit.js";
 import { runStageLoop } from "./stage-loop.js";
 import { type CropSide, CropWindow, makeCropSide } from "./versus-crop.js";
 import { hashCanvas } from "./versus-hash.js";
-import { Freeze } from "./versus-pair-freeze.js";
+import { FREEZE_STRIDE, Freeze } from "./versus-pair-freeze.js";
 
 /**
  * One phone pair, one world, one frame — the engine half of the ALTERNATIVES sheet.
@@ -98,10 +98,8 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
   const right = makeCropSide(PAIR_PHONE, dpr);
 
   let world = pose.build();
-  // Both sides stay whole phones; only what is *shown* of them is cut. The
-  // rectangle is the pose's own — `crop: "band"` on a slot decided on two
-  // buttons, so a reader is not handed 670 px of empty field above them — and
-  // a tile crop follows the body it is centred on (`versus-crop.ts`).
+  // Both sides stay whole phones; only what is *shown* of them is cut, to the
+  // pose's own rectangle, and a tile crop follows its body (`versus-crop.ts`).
   const crop = new CropWindow([left, right], PAIR_PHONE, pose, role, world);
   let running = true;
   const freeze = new Freeze(opts.freezeSeconds, world.cfg.tickHz);
@@ -185,11 +183,13 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
     tickHz: () => world.cfg.tickHz,
     // `frozen` holds `dt` at 0 the way `!running` does, and neither reaches the
     // drawing. A pending freeze runs on the tick, not the wall (`Freeze`).
-    scale: (real) => (freeze.pending ? 1 / world.cfg.tickHz : stepping() ? real * rate : 0),
+    scale: (real) =>
+      freeze.pending ? FREEZE_STRIDE / world.cfg.tickHz : stepping() ? real * rate : 0,
     advance: () => {
       // Own-motion's clock joins the simulated axis as the freeze lands.
       if (!freeze.step()) {
         clock = freeze.stepped / world.cfg.tickHz;
+        freeze.mark(left.frame, right.frame);
         return;
       }
       const next = advance(world, () => pose.build(), pose);

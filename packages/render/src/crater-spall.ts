@@ -1,7 +1,8 @@
 import { crystalRadiusMul, METEOR, type Point } from "@neon-spore/content";
+import { facet } from "./break-piece.js";
 import type { Crater } from "./crater-geom.js";
 import { stream } from "./hash.js";
-import { mixHex, rgba } from "./hex.js";
+import { mixHex } from "./hex.js";
 import type { HullSkin } from "./hull.js";
 import { shatter } from "./shatter.js";
 
@@ -36,6 +37,17 @@ import { shatter } from "./shatter.js";
  * on that screen was lined with player one's violet. Every colour here is read
  * off the `HullSkin` the hull was drawn with, which also means THE MIRROR's
  * copy wears its own.
+ *
+ * **And every plate is painted by `facet` (`break-piece.ts`).** It arrived
+ * with its own mix — dark to membrane at a random share between 0.42 and 0.64,
+ * the outline stroked in the ship's edge colour — which was a second copy of
+ * the one rule this game has about what a broken piece looks like: dark on the
+ * faces that were inside, lit on the face that was out, by `Shard.depth`.
+ * The plates go through that rule now, with `PLATE_LIT` chosen so the range
+ * of values comes out where the owner saw it; what changed is that the
+ * darkening follows the cut rather than a die, so a plate nearer the pit is
+ * darker than one at the intact skin, which is what the paragraph above was
+ * claiming all along.
  */
 
 /** How far out the buckled ring reaches, as a multiple of the hole's radius. */
@@ -48,6 +60,17 @@ const PULL = 0.07;
 /** The most a plate is turned out of true, in radians. A buckle is a small
  * angle: past this the ring reads as rubble sitting in a hole. */
 const TILT = 0.075;
+/**
+ * How far toward the membrane's colour the brightest a plate can be sits.
+ *
+ * `facet` lights a piece between `CORE_LIT` and `RIND_LIT` of the way from
+ * `dark` to `hex`, and the plates drawn are the rind of the cut (depth 0.6 and
+ * up), so handed the membrane colour itself they come out 0.51 to 0.75 of the
+ * way there — brighter than the 0.42 to 0.64 the look was taken at. Handing it
+ * this share of the membrane instead puts the same rule's answer at 0.43 to
+ * 0.63. One number, and it is a scale on the input, not a copy of the rule.
+ */
+const PLATE_LIT = 0.84;
 
 /** The hole's own outline at `REACH` times its size, in screen space — the
  * crystal `craters.ts` measures the mouth from, rotated the same way. */
@@ -76,7 +99,12 @@ export function ring(c: Crater, reach = REACH): Point[] {
  */
 export function spallRing(ctx: CanvasRenderingContext2D, c: Crater, skin: HullSkin): void {
   const rnd = stream(Math.round(c.x) * 7919 + Math.round(c.r));
-  for (const s of shatter(ring(c), {
+  // Dark at the pit and back toward the ship's own membrane colour at the far
+  // edge, which is where the intact skin resumes. A plate that stayed
+  // hull-bright would be a facet of the ship lying at an angle, not skin
+  // pulled into a hole.
+  const hex = mixHex(skin.muzzle, skin.rim, PLATE_LIT);
+  for (const shard of shatter(ring(c), {
     ox: 0,
     oy: 0,
     wedges: PLATES,
@@ -87,29 +115,23 @@ export function spallRing(ctx: CanvasRenderingContext2D, c: Crater, skin: HullSk
   })) {
     // The inner ring of the cut is the hole itself, and it is filled opaque
     // over the top of this. Only the outer plates are the skin that stayed.
-    if (s.depth < 0.6) continue;
+    if (shard.depth < 0.6) continue;
     const pull = 1 - PULL;
-    ctx.save();
-    ctx.translate(s.x * pull, s.y * pull);
-    ctx.rotate((rnd() - 0.5) * 2 * TILT);
-    ctx.beginPath();
-    const first = s.points[0] as Point;
-    ctx.moveTo(first.x, first.y);
-    for (let i = 1; i < s.points.length; i++) {
-      const p = s.points[i] as Point;
-      ctx.lineTo(p.x, p.y);
-    }
-    ctx.closePath();
-    // Dark at the pit and back to the ship's own membrane colour at the far
-    // edge, which is where the intact skin resumes. A plate that stayed
-    // hull-bright would be a facet of the ship lying at an angle, not skin
-    // pulled into a hole.
-    ctx.fillStyle = mixHex(skin.muzzle, skin.rim, 0.42 + rnd() * 0.22);
-    ctx.fill();
-    ctx.strokeStyle = rgba(skin.edge, 0.22);
-    ctx.lineWidth = 1;
-    ctx.lineJoin = "round";
-    ctx.stroke();
-    ctx.restore();
+    // `landed`: a plate is lying in a hull, not turning in the air, and the rim
+    // it carries is dimmed for exactly that. The ring is built in screen
+    // pixels, so no scale.
+    facet(ctx, {
+      shard,
+      pose: {
+        x: shard.x * pull,
+        y: shard.y * pull,
+        angle: (rnd() - 0.5) * 2 * TILT,
+        alpha: 1,
+        landed: true,
+      },
+      hex,
+      dark: skin.muzzle,
+      scale: 1,
+    });
   }
 }

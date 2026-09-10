@@ -82,6 +82,15 @@ const click = flag("click");
 const nth = Number(flag("nth") ?? 1);
 const open = flag("open");
 const settle = Number(flag("wait") ?? 2500);
+/**
+ * `--until <selector>`: wait for something on the page to *say* it is ready
+ * before the timed settle starts. A page that reaches its state on its own
+ * clock — a VERSUS pair running tick by tick to a `--freeze` — cannot be
+ * waited for by guessing a number of milliseconds; the guess was short every
+ * time the page had more to do first, and the picture was of the wrong
+ * moment with nothing to say so.
+ */
+const until = flag("until");
 const port = flag("port") ?? "4174";
 /**
  * The viewport. The director is a desk tool and 1240x900 is what it is judged
@@ -146,6 +155,9 @@ try {
     console.error(error.message);
     process.exit(error.code);
   }
+  // Ten minutes: a machine running a full check paints a headless frame at
+  // about eight a second, and a wrong picture is worse than a slow one.
+  if (until) await page.locator(until).first().waitFor({ state: "attached", timeout: 600_000 });
   await page.waitForTimeout(settle);
 
   const target = page.locator(selector);
