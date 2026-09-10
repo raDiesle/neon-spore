@@ -289,6 +289,7 @@ questions.
 ## `bun run check` is red on `main`: a claim the SHAPES card no longer makes
 
 - **Found:** 2026-09-10, claude/enemy-graphics-animations-versus-3mjjv7
+- **Taken:** 2026-09-10, claude/queue-bun-run-check-is-red-on-main-a-claim-the-shapes
 - **Files:** `tools/shape-sheet/test/candidates.test.ts`,
   `tools/shape-sheet/src/drawn-size.ts`
 
