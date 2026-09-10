@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · 9bc297a1 — The slime pendants are sampled curves welded to the membrane
+
+A pendant was four bezier segments hung from a ruled line at the membrane's height over the drip's own x, and a shoulder reaching 1.6 widths either side of that x meets the contour somewhere else — so the top edge hung a few pixels clear of the skin with the ship showing through, and each side ran straight to the neck. A straight edge anywhere on this ship reads as a seam. The owner was shown it at six times phone size and asked for it queued, and this is that entry drained.
+
 ## 2026-09-10 · 302f1b9e — The director's stage runs only while it is on screen, and the wave actions move to the top
 
 On a phone the director shows one view at a time, and a hidden GAME view did not stop the stage: `requestAnimationFrame` keeps firing for a `display: none` element, so the world was stepped and the frame painted sixty times a second into a canvas nobody could see, and a phone editing a wave paid the whole cost of playing one. `runStageLoopWhileSeen` gates the loop on an `IntersectionObserver` — off screen it is stopped outright, so WAVE and MAP cost nothing for the stage, and a collapsed GAME column on a desk the same; the world holds and resumes where it was, with no catch-up burst. The WAVES column's + NEW / COPY / ↑ / ↓ / DELETE row moves from under the list to the top of the column, above the filter, where a phone can reach it without scrolling past every wave.
