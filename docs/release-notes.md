@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · 302f1b9e — The director's stage runs only while it is on screen, and the wave actions move to the top
+
+On a phone the director shows one view at a time, and a hidden GAME view did not stop the stage: `requestAnimationFrame` keeps firing for a `display: none` element, so the world was stepped and the frame painted sixty times a second into a canvas nobody could see, and a phone editing a wave paid the whole cost of playing one. `runStageLoopWhileSeen` gates the loop on an `IntersectionObserver` — off screen it is stopped outright, so WAVE and MAP cost nothing for the stage, and a collapsed GAME column on a desk the same; the world holds and resumes where it was, with no catch-up burst. The WAVES column's + NEW / COPY / ↑ / ↓ / DELETE row moves from under the list to the top of the column, above the filter, where a phone can reach it without scrolling past every wave.
+
 ## 2026-09-10 · 76461805 — frames paints the world as it advances, so effects age with it
 
 The driver stepped every tick and painted nothing until the picture was taken, so anything drawn off the render clock stood at its first frame however far the world had gone: a rock that landed six simulated seconds ago was still lodged in the skin with its crater covered, and five strips across a thousand ticks came back that way. The world is now stepped in runs no longer than the game's own frame cap and painted once per run for the time it advanced — what frame.ts's loop does with a real clock — so a capture of --wave 12 --ticks 2300 --seat p2 shows two open holes and no rock in either.
