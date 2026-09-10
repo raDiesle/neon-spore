@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · 430d2348 — The panel's arrangement, its rails and its sockets become records
+
+Three lifts, no pixel changed, for the owner's ask that a ship be different from fresh and not only in its skin: every ship so far kept a rail across the width and two buttons in fixed wet sockets, because those were the last things about the panel that were not records.
+
 ## 2026-09-10 · 19e5d605 — The ships own their join: panel:ship-join closed, its findings folded in
 
 The owner saw the same horizontal cut on PLASM that the join slot had been opened to remove, and said the layers must be fluent. They cannot be while the join is judged apart from the ship it is on: the light that closed the line lives in the join's own attach pass. So on his word `panel:ship-join` is closed with nothing adopted, and what its four cards proved moves to `tools/versus/join.ts` — a grown thing starts above the membrane and the chamber's clip welds it, the chamber is lit by the hull's own key light and grained with its own dither, the roof sags over every control — where no slot's closing can remove it. Every `ship:body` card now patches `BAND_JOIN` with that baseline; PLASM goes one further and carries its granules and mitochondria on through the membrane into the chamber, so the cytoplasm does not stop where the panel starts.
