@@ -319,6 +319,7 @@ questions.
 ## `versus:shot --at` on a `--only` tile pose photographs the page, not the window
 
 - **Found:** 2026-09-10, claude/queue-the-rind-and-the-lid-have-one-look-each-and-no-r
+- **Taken:** 2026-09-10, claude/queue-versus-shot-at-on-a-only-tile-pose-photographs-t
 - **Files:** `tools/frames/versus-element.ts`, `tools/frames/shot.ts`,
   `tools/frames/pixels.ts`
 
