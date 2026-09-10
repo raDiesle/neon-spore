@@ -20,6 +20,15 @@ const COLOR = /^#([0-9a-f]{3}|[0-9a-f]{4}|[0-9a-f]{6}|[0-9a-f]{8})$|^rgba?\([^)]
 
 class StubFail extends Error {}
 
+/** Where one `fillText` landed: its top-left corner and its size. */
+export interface TextBox {
+  text: string;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
 function fail(where: string, detail: string): never {
   throw new StubFail(`${where}: ${detail}`);
 }
@@ -194,6 +203,14 @@ export class StubContext {
    * ones and the path builders that are not counted — compact enough to diff
    * two frames by eye. Unset by default; assign an array to start recording. */
   private _log?: string[];
+  /**
+   * Every word drawn, as the box it occupies, when a test asks for it. Unset
+   * by default; assign an array to start collecting. The box is the glyphs'
+   * own — the baseline `fillText` was given, an ascent of eight tenths of the
+   * font's size above it, and the width `measureText` answers — so two texts
+   * that overlap here overlap on the phone.
+   */
+  texts?: TextBox[];
   private _globalCompositeOperation = "source-over";
 
   // Deliberately does *not* claim `activeTally`/`activeLog` here — a frame
@@ -306,8 +323,16 @@ export class StubContext {
   clip(): void {
     this.mark("clip");
   }
+  /**
+   * Six tenths of the font's size per character — Courier's advance, and the
+   * game sets nothing else. It used to answer six pixels a character whatever
+   * the font said, which made every plate sized off a measurement about half
+   * as wide as the real one; a test asking whether two boxes overlap was
+   * answering for a picture the phone never draws.
+   */
   measureText(text: string): { width: number } {
-    return { width: text.length * 6 };
+    const px = /(\d+(?:\.\d+)?)px/.exec(this.font);
+    return { width: text.length * 0.6 * (px ? Number(px[1]) : 10) };
   }
 
   moveTo(...a: number[]): void {
@@ -396,6 +421,14 @@ export class StubContext {
     if (/NaN|undefined/.test(text)) fail("fillText", `text reads "${text}"`);
     this.calls++;
     this.mark("fillText", undefined, [x, y]);
+    if (this.texts) {
+      const width = this.measureText(text).width;
+      const px = /(\d+(?:\.\d+)?)px/.exec(this.font);
+      const size = px ? Number(px[1]) : 10;
+      const left =
+        this.textAlign === "center" ? x - width / 2 : this.textAlign === "right" ? x - width : x;
+      this.texts.push({ text, x: left, y: y - size * 0.8, w: width, h: size });
+    }
   }
   fill(): void {
     this.calls++;

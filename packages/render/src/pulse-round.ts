@@ -13,6 +13,7 @@ import { type PulseField, pulseField } from "./pulse-lane.js";
 import { drawPulseMeter, drawPulseTally, drawPulseVerdict } from "./pulse-meter.js";
 import { drawPulseWash, pulseWash } from "./pulse-wash.js";
 import type { ViewState } from "./renderer.js";
+import { headerLift } from "./round-header.js";
 import { seatSkin } from "./seat-skin.js";
 import { drawShipAir } from "./ship-air.js";
 
@@ -124,7 +125,12 @@ export function drawPulseRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
   // this tick (`canvas2d.ts` makes the same bargain for the same reason).
   const { at, mood } = stillPose(view);
   const f = frame(l, view.time, mood, at);
-  const field = pulseField(l, set, view.role, surfaceSampler(f));
+  // The top of the screen is one block — name, meter, tally, and the line the
+  // arrows enter on — and under a rehearsal's plate the whole of it drops by
+  // the same distance (`round-header.ts`). The arrows' fall is shorter and
+  // takes the same ticks, so nothing about the beat moves.
+  const lift = headerLift(view, l.playHeight * 0.07);
+  const field = pulseField(l, set, view.role, surfaceSampler(f), lift);
 
   // The field's own ground, not a flat fill: the round sits in the same water
   // the ship always sits in, which is most of what "integrated" turned out to
@@ -135,9 +141,9 @@ export function drawPulseRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
   drawShipAir(ctx, l, view.time, skin);
 
   ctx.textAlign = "center";
-  drawTitle(ctx, l, boss);
-  drawPulseMeter(ctx, l, boss, cfg.pulseMeterMaxMilli);
-  drawPulseTally(ctx, l, boss, seat);
+  drawTitle(ctx, l, boss, l.playHeight * 0.07 + lift);
+  drawPulseMeter(ctx, l, boss, cfg.pulseMeterMaxMilli, lift);
+  drawPulseTally(ctx, l, boss, seat, l.playHeight * 0.185 + lift);
 
   if (boss.phase === "count") drawCount(ctx, l, view, boss);
   if (boss.phase === "play" || boss.phase === "count") drawArrivals(ctx, view, boss, field, seat);
@@ -173,14 +179,14 @@ export function drawPulseRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
   ctx.textAlign = "left";
 }
 
-/** The name, and the stage under it. */
-function drawTitle(ctx: CanvasRenderingContext2D, l: Layout, boss: PulseState): void {
+/** The name, and the stage under it, from the baseline the caller gives. */
+function drawTitle(ctx: CanvasRenderingContext2D, l: Layout, boss: PulseState, top: number): void {
   ctx.fillStyle = PALETTE.hull;
   ctx.font = '600 16px "Courier New",monospace';
-  ctx.fillText("THE PULSE", l.width / 2, l.playHeight * 0.07);
+  ctx.fillText("THE PULSE", l.width / 2, top);
   ctx.fillStyle = PALETTE.dim;
   ctx.font = '13px "Courier New",monospace';
-  ctx.fillText(pulseCurrent(boss).name, l.width / 2, l.playHeight * 0.105);
+  ctx.fillText(pulseCurrent(boss).name, l.width / 2, top + l.playHeight * 0.035);
 }
 
 /** The count-in, on the beat, so the pair start together. */

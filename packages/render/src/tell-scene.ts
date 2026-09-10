@@ -2,7 +2,7 @@ import { TELL_REVEAL_BEATS, type TellState, type TellThrow, tellThrowAt } from "
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { ViewState } from "./renderer.js";
-import { tellBody } from "./tell-body.js";
+import { tellBody, tellLift } from "./tell-body.js";
 import { drawThrowGlyph } from "./tell-ring.js";
 
 /**
@@ -26,8 +26,8 @@ import { drawThrowGlyph } from "./tell-ring.js";
  */
 
 /** Where the two throws meet, and how big they are drawn. */
-function stage(l: Layout): { y: number; gap: number; r: number } {
-  const body = tellBody(l);
+function stage(l: Layout, view: ViewState): { y: number; gap: number; r: number } {
+  const body = tellBody(l, tellLift(l, view));
   return {
     y: body.cy + body.r * 1.5,
     gap: Math.min(l.width * 0.22, l.playHeight * 0.14),
@@ -57,7 +57,7 @@ export function drawTellScene(
   const theirs = tellThrowAt(boss.bossThrow);
   if (theirs === null) return;
   const ours = tellThrowAt(boss.thrown);
-  const { y, gap, r } = stage(l);
+  const { y, gap, r } = stage(l, view);
   const t = progress(view, boss);
   // They close over the first third and then the scene happens.
   const close = Math.min(1, t * 3);

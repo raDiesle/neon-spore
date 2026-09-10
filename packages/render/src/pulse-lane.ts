@@ -68,6 +68,9 @@ export function pulseField(
    * the eye is looking at rather than on a second one a fraction of a tick
    * away (`hull-frame.ts`). */
   skinAt: SurfaceY,
+  /** How far the top of the screen has dropped under a rehearsal's plate:
+   * the arrows enter below the meter, wherever the meter is. */
+  lift = 0,
 ): PulseField {
   const seat: 1 | 2 = role === "p2" ? 2 : 1;
   const lobes = bandLobes(l, set, seat);
@@ -83,5 +86,5 @@ export function pulseField(
     const w = lobe === undefined ? (l.width / 4) * 0.82 : lobe.circle.r * 2.3;
     return { x, w, landY: skinAt(x) };
   });
-  return { topY: l.playHeight * 0.22, lineY: l.hullY, lanes };
+  return { topY: l.playHeight * 0.22 + lift, lineY: l.hullY, lanes };
 }

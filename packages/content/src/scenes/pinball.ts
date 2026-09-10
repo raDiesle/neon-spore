@@ -24,6 +24,12 @@ import type { GuideScene } from "../scene-types.js";
 export const PINBALL: GuideScene = {
   ticks: 1320,
   bpm: 120,
+  // One row shorter than the game's table, so the board hangs under the
+  // tutorial plate and the round's header has the empty top row to drop
+  // into (`GuideScene.pinballRows`). The first board is ten rows deep and a
+  // thirteen-row table carries exactly ten; the ball's course is unchanged
+  // and the miss the last page is about still lands inside page four.
+  pinballRows: 13,
   seed: 1,
   entries: [],
   boss: { kind: "pinball", rounds: PINBALL_ROUNDS },

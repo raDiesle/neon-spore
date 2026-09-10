@@ -539,6 +539,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/egg-curve.ts` | The cannon's wind-up, as pure arithmetic — no canvas anywhere near it |
 | `packages/render/src/frame-passes.ts` | The four passes `Canvas2DRenderer.draw` assembles a frame from, in the order a reader looks for them: the |
 | `packages/render/src/gauge-round.ts` | THE GAUGE over the whole stage |
+| `packages/render/src/gauge-title.ts` | THE GAUGE's header: the name and the one sentence that teaches this seat its half |
 | `packages/render/src/gauge.ts` | THE GAUGE's picture: a half-round dial, a needle, and two marks that only one of the two screens carries |
 | `packages/render/src/glide.ts` | A spring that chases a value |
 | `packages/render/src/handles.ts` | The handles: the things drawn **on the field** that a hand takes hold of and carries, as opposed to the |
@@ -617,6 +618,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/pinball-round.ts` | PINBALL over the whole stage |
 | `packages/render/src/pinball-table.ts` | PINBALL's table: the frame it is played inside, and everything standing on it |
 | `packages/render/src/round-draw.ts` | Which bosses replace the whole picture, and what draws each |
+| `packages/render/src/round-header.ts` | Where a round's header starts: on its own line, or under a plate that stands over it |
 | `packages/render/src/snake-head.ts` | The head, shut and open |
 | `packages/render/src/snake-panel.ts` | Around the arena: what this screen is told, the clock, the buttons |
 | `packages/render/src/snake-shot.ts` | The shot: the one thing in this round both screens see the same way |

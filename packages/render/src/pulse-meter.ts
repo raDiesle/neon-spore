@@ -24,11 +24,13 @@ export function drawPulseMeter(
   l: Layout,
   boss: PulseState,
   max: number,
+  /** How far the top of the screen has dropped under a rehearsal's plate. */
+  lift = 0,
 ): void {
   const w = l.width * 0.72;
   const h = Math.max(10, l.playHeight * 0.022);
   const x = (l.width - w) / 2;
-  const y = l.playHeight * 0.135;
+  const y = l.playHeight * 0.135 + lift;
   const at = Math.max(0, Math.min(1, boss.meter / max));
   const color = at < 0.25 ? PALETTE.red : at < 0.5 ? PALETTE.pod : PALETTE.hull;
 
@@ -73,10 +75,10 @@ export function drawPulseTally(
   l: Layout,
   boss: PulseState,
   seat: 1 | 2,
+  y: number,
 ): void {
   const combo = seat === 1 ? boss.combo1 : boss.combo2;
   const left = boss.notes.length - (seat === 1 ? boss.from1 : boss.from2);
-  const y = l.playHeight * 0.185;
   ctx.font = '13px "Courier New",monospace';
   ctx.fillStyle = PALETTE.dim;
   ctx.textAlign = "left";

@@ -7,7 +7,7 @@ import { drawGripThumb, fieldThumb, gripThumb, handleThumb, tapThumb } from "./g
 import { drawGuideNav, NAV_H } from "./guide-nav.js";
 import { ScenePlay } from "./guide-play.js";
 import { SeatView } from "./guide-seat.js";
-import { drawGuideCorner, drawSwitchSeam } from "./guide-switch.js";
+import { BANNER_H, BANNER_TOP, drawGuideCorner, drawSwitchSeam } from "./guide-switch.js";
 import { drawGhostThumb, thumbAnchors } from "./guide-thumb.js";
 import { computeLayout, type Layout, type ViewRole } from "./layout.js";
 
@@ -222,6 +222,10 @@ export class GuideStage {
       events: this.play.events,
       running: true,
       controls: set,
+      // The corner plate stands over the top of this screen for as long as the
+      // guide is up, so a round's header and the HUD's lower rows go under it
+      // (`round-header.ts`). Its foot, plus the slime hanging off it.
+      clearTop: BANNER_TOP + BANNER_H + 8,
     });
     ctx.restore();
   }

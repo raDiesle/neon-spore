@@ -16,7 +16,7 @@ import { PALETTE } from "./palette.js";
 import type { ViewState } from "./renderer.js";
 import { seatSkin } from "./seat-skin.js";
 import { drawShipAir } from "./ship-air.js";
-import { drawTellBody } from "./tell-body.js";
+import { drawTellBody, TELL_TITLE_Y, tellLift } from "./tell-body.js";
 import { drawTellScene } from "./tell-scene.js";
 
 /**
@@ -75,11 +75,14 @@ export function drawTellRound(ctx: CanvasRenderingContext2D, l: Layout, view: Vi
   drawShipAir(ctx, l, view.time, skin);
 
   ctx.textAlign = "center";
-  drawTitle(ctx, l, boss);
-  drawLadder(ctx, l, boss);
+  // One column from the name down to the count, and under a rehearsal's
+  // plate the whole of it drops together (`tellLift`).
+  const lift = tellLift(l, view);
+  drawTitle(ctx, l, boss, l.playHeight * TELL_TITLE_Y + lift);
+  drawLadder(ctx, l, boss, lift);
   drawTellBody(ctx, l, view, boss);
   drawTellScene(ctx, l, view, boss);
-  if (boss.phase === "lead") drawCount(ctx, l, view, boss);
+  if (boss.phase === "lead") drawCount(ctx, l, view, boss, lift);
 
   drawHull(
     ctx,
@@ -99,7 +102,7 @@ export function drawTellRound(ctx: CanvasRenderingContext2D, l: Layout, view: Vi
   drawBand(ctx, l, world, false, false, view.time, view.controls);
   drawHud(ctx, l, view);
   ctx.textAlign = "center";
-  if (boss.phase === "verdict" || boss.phase === "spent") drawVerdict(ctx, l, boss);
+  if (boss.phase === "verdict" || boss.phase === "spent") drawVerdict(ctx, l, boss, lift);
   ctx.textAlign = "left";
 }
 
@@ -115,10 +118,10 @@ export function drawTellRound(ctx: CanvasRenderingContext2D, l: Layout, view: Vi
  * paint that goes straight onto the field rather than a candidate
  * (`CLAUDE.md`, the second exemption).
  */
-function drawTitle(ctx: CanvasRenderingContext2D, l: Layout, boss: TellState): void {
+function drawTitle(ctx: CanvasRenderingContext2D, l: Layout, boss: TellState, top: number): void {
   ctx.fillStyle = PALETTE.hull;
   ctx.font = '600 16px "Courier New",monospace';
-  ctx.fillText("THE TELL", l.width / 2, l.playHeight * 0.07);
+  ctx.fillText("THE TELL", l.width / 2, top);
   if (boss.phase !== "tell") return;
   ctx.fillStyle = PALETTE.dim;
   ctx.font = '13px "Courier New",monospace';
@@ -126,7 +129,7 @@ function drawTitle(ctx: CanvasRenderingContext2D, l: Layout, boss: TellState): v
   const of = tellThrows(tellCurrent(boss));
   const window = `${beats} BEAT${beats === 1 ? "" : "S"}`;
   const line = of > 1 ? `${window}  ·  ${boss.at + 1} OF ${of}` : window;
-  ctx.fillText(line, l.width / 2, l.playHeight * 0.105);
+  ctx.fillText(line, l.width / 2, top + l.playHeight * 0.035);
 }
 
 /**
@@ -137,11 +140,11 @@ function drawTitle(ctx: CanvasRenderingContext2D, l: Layout, boss: TellState): v
  * has lost three ladders sees the same five pips they saw at the start, which
  * is the honest picture of a boss whose whole rule is starting again.
  */
-function drawLadder(ctx: CanvasRenderingContext2D, l: Layout, boss: TellState): void {
+function drawLadder(ctx: CanvasRenderingContext2D, l: Layout, boss: TellState, lift: number): void {
   const n = boss.rungs.length;
   const gap = Math.min(l.width * 0.05, l.playHeight * 0.03);
   const r = gap * 0.22;
-  const y = l.playHeight * 0.135;
+  const y = l.playHeight * 0.135 + lift;
   for (let i = 0; i < n; i++) {
     const x = l.width / 2 + (i - (n - 1) / 2) * gap;
     const done = i < boss.rung || (boss.passed && boss.phase !== "tell");
@@ -160,27 +163,33 @@ function drawCount(
   l: Layout,
   view: ViewState,
   boss: TellState,
+  lift: number,
 ): void {
   const left = TELL_LEAD_BEATS - (view.world.beat - boss.phaseBeat);
   const swell = (1 - view.beatPhase) ** 2;
   ctx.fillStyle = PALETTE.text;
   ctx.globalAlpha = 0.3 + 0.6 * swell;
   ctx.font = `600 ${Math.round(46 + 16 * swell)}px "Courier New",monospace`;
-  ctx.fillText(String(Math.max(1, left)), l.width / 2, l.playHeight * 0.62);
+  ctx.fillText(String(Math.max(1, left)), l.width / 2, l.playHeight * 0.62 + lift);
   ctx.globalAlpha = 1;
 }
 
 /** How the ladder went, and what it cost on the way. */
-function drawVerdict(ctx: CanvasRenderingContext2D, l: Layout, boss: TellState): void {
+function drawVerdict(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  boss: TellState,
+  lift: number,
+): void {
   ctx.fillStyle = boss.passed ? PALETTE.good : PALETTE.red;
   ctx.font = '600 26px "Courier New",monospace';
-  ctx.fillText(boss.passed ? "CLIMBED" : "OUT OF TIME", l.width / 2, l.playHeight * 0.62);
+  ctx.fillText(boss.passed ? "CLIMBED" : "OUT OF TIME", l.width / 2, l.playHeight * 0.62 + lift);
   if (boss.lost === 0) return;
   ctx.fillStyle = PALETTE.dim;
   ctx.font = '13px "Courier New",monospace';
   ctx.fillText(
     `${boss.lost} RUNG${boss.lost === 1 ? "" : "S"} LOST`,
     l.width / 2,
-    l.playHeight * 0.66,
+    l.playHeight * 0.66 + lift,
   );
 }

@@ -1,5 +1,5 @@
 import { GAUGE_FULL, type GaugeState, type SimConfig } from "@neon-spore/sim";
-import type { Layout, ViewRole } from "./layout.js";
+import type { ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
 /**
@@ -63,38 +63,8 @@ function pointOn(dial: Dial, milli: number, radius: number): { x: number; y: num
   return { x: dial.cx + Math.cos(a) * radius, y: dial.cy + Math.sin(a) * radius };
 }
 
-/**
- * The name, and the one sentence that teaches the round. Different on the two
- * screens because the halves are different — a pair reading the same line
- * would have nothing to tell each other, which is filter 6 of the category
- * (`docs/spec/transfers-hazelight.md`) failed in the first frame.
- */
-export function drawGaugeTitle(ctx: CanvasRenderingContext2D, l: Layout, role: ViewRole): void {
-  const y = l.playHeight * 0.14;
-  ctx.fillStyle = PALETTE.hull;
-  ctx.font = '600 16px "Courier New",monospace';
-  ctx.fillText("THE GAUGE", l.width / 2, y);
-  ctx.fillStyle = PALETTE.text;
-  ctx.font = '11px "Courier New",monospace';
-  ctx.fillText(taught(role), l.width / 2, y + 22);
-  ctx.fillStyle = PALETTE.dim;
-  ctx.font = '9px "Courier New",monospace';
-  ctx.fillText(withheld(role), l.width / 2, y + 38);
-}
-
-/** What this screen can do. */
-function taught(role: ViewRole): string {
-  if (role === "p1") return "turn it where they tell you";
-  if (role === "p2") return "say where it has to go, then call";
-  return "one of you turns, the other calls";
-}
-
-/** And what it is not being shown, said out loud rather than merely missing. */
-function withheld(role: ViewRole): string {
-  if (role === "p1") return "YOU CANNOT SEE THE MARKS";
-  if (role === "p2") return "YOU CANNOT TURN IT";
-  return "NEITHER HALF IS ENOUGH ON ITS OWN";
-}
+/** The plate's overhang past the dial's rim, as a share of the radius. */
+export const PLATE_PAD = 0.16;
 
 export function drawGauge(
   ctx: CanvasRenderingContext2D,
@@ -116,7 +86,7 @@ export function drawGauge(
  * straight edge anywhere.
  */
 function drawPlate(ctx: CanvasRenderingContext2D, dial: Dial): void {
-  const pad = dial.r * 0.16;
+  const pad = dial.r * PLATE_PAD;
   const left = dial.cx - dial.r - pad;
   const top = dial.cy - dial.r - pad;
   const w = (dial.r + pad) * 2;

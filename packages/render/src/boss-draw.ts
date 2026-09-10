@@ -102,7 +102,7 @@ export function drawBoss(
   // and is cleared with everything else in `Effects.reset` (`fleet-fx.ts`).
   if (boss.kind === "fleet") {
     const fleet = effects.fleet;
-    drawFleetChart(ctx, l, world, boss, view.beatPhase, view.time);
+    drawFleetChart(ctx, l, world, boss, view.beatPhase, view.time, view.clearTop !== undefined);
     drawFleetHulls(ctx, l, world, boss, view.beatPhase, fleet);
     drawFleetMarks(ctx, l, world, boss, fleet);
     drawFleetSights(ctx, l, world, boss, view.beatPhase);

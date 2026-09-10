@@ -1,9 +1,11 @@
 import { controlSetForWave } from "@neon-spore/content";
 import { GAUGE_LEAD_BEATS, type GaugeState } from "@neon-spore/sim";
-import { drawGauge, drawGaugeTitle, showsGaugeMarks } from "./gauge.js";
+import { drawGauge, PLATE_PAD, showsGaugeMarks } from "./gauge.js";
+import { drawGaugeTitle, GAUGE_TITLE_DEPTH } from "./gauge-title.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { ViewState } from "./renderer.js";
+import { headerTop } from "./round-header.js";
 import { slabPanel } from "./slabs.js";
 
 /**
@@ -32,11 +34,26 @@ export function drawGaugeRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
   drawEdge(ctx, l);
 
   ctx.textAlign = "center";
-  drawGaugeTitle(ctx, l, view.role);
+  const top = headerTop(view, l.playHeight * 0.14);
+  drawGaugeTitle(ctx, l, view.role, top);
+  // The plate the dial is cut into starts a breath under the title's last row.
+  // On the game's own screen that costs nothing; under a rehearsal's plate the
+  // title is lower and the dial gives up radius rather than its top edge
+  // (`round-header.ts`).
+  const cy = l.playHeight * 0.62;
   const dial = {
     cx: l.width / 2,
-    cy: l.playHeight * 0.62,
-    r: Math.min(l.width * 0.42, l.playHeight * 0.3),
+    cy,
+    // And never below a tenth of the screen: a phone too small for the words
+    // to fit is a phone where the dial overlaps the title rather than vanishes.
+    r: Math.max(
+      l.playHeight * 0.1,
+      Math.min(
+        l.width * 0.42,
+        l.playHeight * 0.3,
+        (cy - top - GAUGE_TITLE_DEPTH - 8) / (1 + PLATE_PAD),
+      ),
+    ),
   };
   drawGauge(ctx, dial, view.world.cfg, boss, {
     showMarks: showsGaugeMarks(view.role),

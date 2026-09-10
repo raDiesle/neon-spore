@@ -133,6 +133,7 @@ export function sceneScript(id: SceneId, wave: number, cfg: SimConfig): SceneScr
   const sceneCfg: SimConfig = {
     ...cfg,
     bpm: scene.bpm,
+    ...(scene.pinballRows === undefined ? {} : { pinballRows: scene.pinballRows }),
     // A rehearsal held behind its own opening would be a guide inside a guide.
     briefings: false,
     // And a rehearsal's hull does not mend. The last thing FIRST STEP's film

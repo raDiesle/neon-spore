@@ -45,16 +45,25 @@ export const showsSnakeBody = (role: ViewRole): boolean => role !== "p1";
  * them: a grid whose tiles were half a pixel out is a grid a pair cannot count
  * along, and counting along it is how a tile gets said out loud.
  */
-export function snakeArena(l: Layout, cfg: SimConfig): Arena {
+export function snakeArena(
+  l: Layout,
+  cfg: SimConfig,
+  /** How far the header above has dropped under a rehearsal's plate: the
+   * arena's top comes down with it and its floor stays, so it shrinks to fit
+   * rather than taking the header's rows (`round-header.ts`). */
+  lift = 0,
+): Arena {
+  const top = l.playHeight * 0.23 + lift;
+  const bottom = l.playHeight * 0.89;
   const tile = Math.max(
     1,
-    Math.min((l.width * 0.92) / cfg.snakeCols, (l.playHeight * 0.66) / cfg.snakeRows),
+    Math.min((l.width * 0.92) / cfg.snakeCols, (bottom - top) / cfg.snakeRows),
   );
   const w = tile * cfg.snakeCols;
   const h = tile * cfg.snakeRows;
   return {
     x: (l.width - w) / 2,
-    y: l.playHeight * 0.56 - h / 2,
+    y: top + (bottom - top - h) / 2,
     tile,
     cols: cfg.snakeCols,
     rows: cfg.snakeRows,

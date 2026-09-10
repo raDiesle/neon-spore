@@ -81,6 +81,18 @@ export interface ViewState {
    */
   names?: SeatNames;
   /**
+   * How far down from the top of the screen something else already stands.
+   *
+   * A rehearsal carries a plate top left — TUTORIAL over PLAYER n · SCREEN —
+   * that is always there and never fades (`guide-switch.ts`), and a boss round
+   * draws a header of its own in the same band. Neither is wrong; what was
+   * missing was that a header had never had to make room. So the film says
+   * where the plate ends, and a round's header and the HUD's lower rows start
+   * under it (`round-header.ts`). Unset by the game itself, where there is no
+   * plate and every header sits where it always has.
+   */
+  clearTop?: number;
+  /**
    * Bodies only, on flat black: no backdrop, no radar, no grid, no ship, no
    * band and no HUD — just what `drawBodies` puts on the field.
    *

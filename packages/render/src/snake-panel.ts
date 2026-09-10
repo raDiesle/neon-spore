@@ -32,8 +32,11 @@ export function drawTitle(
   l: Layout,
   role: ViewRole,
   round: SnakeState,
+  top: number,
 ): void {
-  const y = l.playHeight * 0.09;
+  // The name's baseline; the two rows hang off it. The caller says where the
+  // top is, because a rehearsal has a plate there (`round-header.ts`).
+  const y = top;
   ctx.fillStyle = PALETTE.hull;
   ctx.font = '600 16px "Courier New",monospace';
   ctx.fillText("SNAKE", l.width / 2, y);

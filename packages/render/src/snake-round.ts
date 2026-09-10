@@ -2,6 +2,7 @@ import { SNAKE_MORPH_BEATS, type SnakeState } from "@neon-spore/sim";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { ViewState } from "./renderer.js";
+import { headerLift } from "./round-header.js";
 import { drawSnakeBody, snakeSlide } from "./snake-body.js";
 import { crash01, crashReturn, drawSnakeCrash } from "./snake-crash.js";
 import {
@@ -41,8 +42,12 @@ export function drawSnakeRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
   ctx.strokeRect(6.5, 6.5, Math.max(1, l.width - 13), Math.max(1, l.height - 13));
 
   ctx.textAlign = "center";
-  drawTitle(ctx, l, view.role, boss);
-  const arena = snakeArena(l, view.world.cfg);
+  // The header and the arena under it move together: under a rehearsal's
+  // plate the name drops, its two rows with it, and the arena's top follows
+  // (`round-header.ts`).
+  const lift = headerLift(view, l.playHeight * 0.09);
+  drawTitle(ctx, l, view.role, boss, l.playHeight * 0.09 + lift);
+  const arena = snakeArena(l, view.world.cfg, lift);
   drawArena(ctx, arena);
   drawBodies(ctx, l, arena, view, boss);
   drawTally(ctx, l, view, boss);

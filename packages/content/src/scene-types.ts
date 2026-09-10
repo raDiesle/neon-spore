@@ -187,21 +187,28 @@ export interface GuideScene {
   /** How long one turn of the loop is, in ticks. */
   ticks: number;
   /**
-   * The rehearsal's tempo. It used to be 180 — a third quicker again than this
-   * — on the argument that a film with five things to show should not make
-   * anybody sit through them. That argument is spent: the film is not one run
-   * any more but a stack of pages the pair turns itself (`sim/guide-steps.ts`),
-   * so nothing is waiting on the end of it and the owner's answer to watching
-   * the old one was simply that **the animations were too fast**. 120 is a beat
-   * every half second, between the old film's third and the game's own
-   * five-eighths. `test/scenes.test.ts` holds that it still divides the tick
-   * rate.
+   * The rehearsal's tempo. It used to be 180, on the argument that a film with
+   * five things to show should not make anybody sit through them. That
+   * argument is spent: the film is a stack of pages the pair turns itself
+   * (`sim/guide-steps.ts`), so nothing waits on the end of it, and the owner's
+   * answer to the old one was that **the animations were too fast**. 120 is a
+   * beat every half second; `test/scenes.test.ts` holds that it divides the
+   * tick rate.
    *
    * The *field* is the game's own, unlike the tempo: same columns, same rows,
    * same hull. A rehearsal is played at full size now, so there is nothing to
    * be gained by shrinking it and a shape to be taught wrongly if it were.
+   * The one exception is `pinballRows`, and it says why.
    */
   bpm: number;
+  /**
+   * Rows in the film's pinball table. PINBALL's header sits in the air above
+   * its first pins, which on a rehearsal is where the corner plate stands, and
+   * its board hangs from the ceiling with nowhere to drop to
+   * (`render/src/round-header.ts`). A row fewer is the owner's answer of 10
+   * September 2026: the same board, one row lower, the header in its top row.
+   */
+  pinballRows?: number;
   seed: number;
   entries: WaveEntry[];
   /**

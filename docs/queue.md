@@ -497,30 +497,6 @@ those to keep answering something sensible — a bounding ellipse over the walke
 contour is the obvious answer and should be computed once rather than per
 frame.
 
-## The tutorial plate is drawn over a boss round's own header
-
-- **Found:** 2026-09-09, claude/queued-items-a47ead
-- **Taken:** 2026-09-10, claude/queue-the-tutorial-plate-is-drawn-over-a-boss-rounds-o
-- **Files:** `packages/render/src/guide-plate.ts`,
-  `packages/render/src/guide-scene.ts`
-
-A rehearsal carries one plate top left — `TUTORIAL` over `PLAYER n · SCREEN`
-— and it is always there and never fades, which is what the owner asked for.
-A **boss round** draws a header of its own in the same band: THE PULSE puts
-its name, `REHEARSAL`, `RUN 3`, `STAGE 1/1` and `LEFT 2` across the top, and
-the plate sits on top of all of it. THE GAUGE, THE FLEET, PINBALL, SNAKE, THE
-MAZE and THE WARDEN each have a header there too, so every boss rehearsal in
-the game reads the same way: two things in one place, and neither legible.
-
-The plate is right and the header is right; what is missing is that a round's
-header has never had to make room for one. Either the round's header drops
-below the plate while a guide is showing, or the plate moves to the other
-corner on a round that has a header — the first keeps the plate where the
-owner put it, which is the reason to prefer it.
-
-`packages/render/test/frame.test.ts` draws every round, and a test that the
-two boxes do not overlap is the proof.
-
 ## Close `slick:motion`: adopt BANK, GLIDE and FLOAT to the shape sheet
 
 - **Found:** 2026-09-09, claude/slick-content-organization-17beb0

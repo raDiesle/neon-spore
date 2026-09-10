@@ -108,6 +108,9 @@ export function drawFleetChart(
   boss: FleetState,
   beatPhase: number,
   time: number,
+  /** Whether something stands over the chart's top-left corner — a
+   * rehearsal's plate — so the row numbers go down the other edge. */
+  leftCovered = false,
 ): void {
   // Loud on the beat and gone well before the next one. Derived from the
   // phase rather than handed down, because this is the only lattice in the
@@ -173,7 +176,7 @@ export function drawFleetChart(
   ctx.strokeRect(c.left + 0.75, c.top + 0.75, w - 1.5, h - 1.5);
   ctx.globalAlpha = 1;
 
-  drawAxis(ctx, c);
+  drawAxis(ctx, c, leftCovered);
   drawFleetClock(ctx, c, world, boss, beatPhase);
   ctx.restore();
 }
@@ -186,18 +189,24 @@ export function drawFleetChart(
  * exactly as wide as the columns and there is no outside to put them in
  * (`computeStage`). The gutter carries its own dark band so a digit never has
  * to be read off a square that has a hull under it.
+ *
+ * Inside the **right** edge when the left one is covered: a rehearsal's plate
+ * stands over the top-left corner of the screen, and rows 1 and 2 were
+ * numbered under it. The chart is symmetric and the digit reads the same from
+ * either side, which is why this is a side and not a second axis.
  */
-function drawAxis(ctx: CanvasRenderingContext2D, c: Chart): void {
+function drawAxis(ctx: CanvasRenderingContext2D, c: Chart, leftCovered: boolean): void {
   const g = gutter(c);
   const h = c.rows * c.tile;
+  const gx = leftCovered ? c.left + c.cols * c.tile - g : c.left;
   ctx.fillStyle = "rgba(4,8,20,.8)";
-  ctx.fillRect(c.left, c.top, g, h);
+  ctx.fillRect(gx, c.top, g, h);
 
   ctx.font = `700 ${Math.max(7, Math.round(c.tile * 0.32))}px "Courier New",monospace`;
   ctx.fillStyle = PALETTE.dim;
   ctx.textAlign = "center";
   for (let row = 0; row < c.rows; row++) {
-    ctx.fillText(chartRowName(row), c.left + g / 2, chartY(c, row) + 3);
+    ctx.fillText(chartRowName(row), gx + g / 2, chartY(c, row) + 3);
   }
   const y = c.top + h + Math.max(9, c.tile * 0.42);
   for (let col = 0; col < c.cols; col++) {

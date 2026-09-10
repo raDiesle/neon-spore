@@ -61,6 +61,14 @@ One plate, top left: `TUTORIAL` over `PLAYER n · SCREEN`, the second line the
 prominent one. Nothing else. The line saying whether it was the phone in your
 own hand was cut — *"one of the two screens" we can remove*.
 
+A boss round's own header makes room for it rather than the other way round:
+the film says where the plate ends (`ViewState.clearTop`) and the round's
+name, its rows and whatever hangs off them drop under it as one block
+(`render/src/round-header.ts`). PINBALL, whose board hangs from the ceiling,
+has no room to drop into and shortens its film's table by a row instead
+(`GuideScene.pinballRows`). `render/test/guide-plate-room.test.ts` holds that
+no word of any boss rehearsal is drawn under the plate.
+
 ### Every page belongs to a seat — with exactly one exception
 
 > *Step 4/5 is useless, the game scene shows exactly the same for both players

@@ -11,6 +11,7 @@ import { drawPinBlast, drawPinTake } from "./pinball-blast.js";
 import { drawPinPieces } from "./pinball-piece.js";
 import { drawPinBall, drawPinResting, drawPinWalls, pinTable } from "./pinball-table.js";
 import type { ViewState } from "./renderer.js";
+import { headerTop } from "./round-header.js";
 import { seatSkin } from "./seat-skin.js";
 import { drawShipAir } from "./ship-air.js";
 
@@ -103,8 +104,11 @@ export function drawPinballRound(ctx: CanvasRenderingContext2D, l: Layout, view:
 
   ctx.textAlign = "center";
   drawPinWalls(ctx, table);
-  drawTitle(ctx, l, table, view.role, boss);
-  drawTally(ctx, l, table, view, boss);
+  // The header hangs in the air above the first pins, from wherever the top
+  // is: the table's own, or under a rehearsal's plate (`round-header.ts`).
+  const top = headerTop(view, table.y + table.tile * 0.52);
+  drawTitle(ctx, l, table, view.role, boss, top);
+  drawTally(ctx, l, view, boss, top + table.tile * 0.92);
 
   if (boss.phase !== "morph") {
     if (showsPinPieces(view.role)) drawPinPieces(ctx, table, boss, view.time);
@@ -159,16 +163,17 @@ export function drawPinballRound(ctx: CanvasRenderingContext2D, l: Layout, view:
 function drawTitle(
   ctx: CanvasRenderingContext2D,
   l: Layout,
-  t: { x: number; y: number; tile: number },
+  t: { tile: number },
   role: ViewRole,
   boss: PinballState,
+  top: number,
 ): void {
   ctx.fillStyle = PALETTE.hull;
   ctx.font = '600 16px "Courier New",monospace';
-  ctx.fillText("PINBALL", l.width / 2, t.y + t.tile * 0.52);
+  ctx.fillText("PINBALL", l.width / 2, top);
   ctx.fillStyle = PALETTE.dim;
   ctx.font = '12px "Courier New",monospace';
-  ctx.fillText(waiting(role, boss), l.width / 2, t.y + t.tile * 0.98);
+  ctx.fillText(waiting(role, boss), l.width / 2, top + t.tile * 0.46);
 }
 
 /**
@@ -200,14 +205,13 @@ function waiting(role: ViewRole, boss: PinballState): string {
 function drawTally(
   ctx: CanvasRenderingContext2D,
   l: Layout,
-  t: { y: number; tile: number },
   view: ViewState,
   boss: PinballState,
+  y: number,
 ): void {
   const left = pinTargetsLeft(boss);
   const round = boss.rounds[Math.min(boss.round, boss.rounds.length - 1)];
   const beats = Math.max(0, (round?.beats ?? 0) - (view.world.beat - boss.roundBeat));
-  const y = t.y + t.tile * 1.44;
   ctx.font = '11px "Courier New",monospace';
   ctx.textAlign = "center";
   ctx.fillStyle = PALETTE.pod;

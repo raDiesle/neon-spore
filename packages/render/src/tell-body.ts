@@ -3,6 +3,7 @@ import { type TellState, tellCurrent, tellShivers, tellWindow } from "@neon-spor
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { ViewState } from "./renderer.js";
+import { headerLift } from "./round-header.js";
 import { drawRing, ringNode } from "./tell-ring.js";
 import { showsTellColor, showsTellHand } from "./view-role.js";
 
@@ -24,11 +25,23 @@ import { showsTellColor, showsTellHand } from "./view-role.js";
  * throw, which the arithmetic in `tell-rules.ts` says cannot exist.
  */
 
+/** Where the name sits, as a share of the play height; everything under it hangs off that. */
+export const TELL_TITLE_Y = 0.07;
+
+/**
+ * How far the whole picture has dropped under a rehearsal's plate. The name,
+ * the ladder, the body, the exchange and the count are one column and move
+ * together (`round-header.ts`); on the game's own screen this is 0.
+ */
+export function tellLift(l: Layout, view: ViewState): number {
+  return headerLift(view, l.playHeight * TELL_TITLE_Y);
+}
+
 /** Where the body stands and how big it is. Read by the scene as well. */
-export function tellBody(l: Layout): { cx: number; cy: number; r: number } {
+export function tellBody(l: Layout, lift = 0): { cx: number; cy: number; r: number } {
   return {
     cx: l.width / 2,
-    cy: l.playHeight * 0.3,
+    cy: l.playHeight * 0.3 + lift,
     r: Math.min(l.width * 0.3, l.playHeight * 0.22),
   };
 }
@@ -62,7 +75,7 @@ export function drawTellBody(
   view: ViewState,
   boss: TellState,
 ): void {
-  const { cx, cy, r } = tellBody(l);
+  const { cx, cy, r } = tellBody(l, tellLift(l, view));
   const shiver = shivering(view, boss);
   // The contour goes tight rather than moving: a boss that jumped would be a
   // boss that had already told you, and the shiver has to be small enough to

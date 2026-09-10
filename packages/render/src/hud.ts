@@ -3,6 +3,7 @@ import { drawBalanceSheet } from "./balance.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { ViewState } from "./renderer.js";
+import { headerTop } from "./round-header.js";
 
 /**
  * Readouts over the field: hull, score, the beat, and the guard balance.
@@ -56,7 +57,13 @@ export function drawHud(ctx: CanvasRenderingContext2D, l: Layout, view: ViewStat
     ctx.font = '9px "Courier New",monospace';
     ctx.fillStyle = "#6F639F";
     const late = world.guard.mistimed > 0 ? `  (${world.guard.mistimed} late)` : "";
-    ctx.fillText(`Guard ${world.guard.deflected}/${world.guard.tries}${late}`, 10, 48);
+    // The third row of the corner, and the one a rehearsal's plate would
+    // otherwise cover: it drops under the plate the way a round's header does.
+    ctx.fillText(
+      `Guard ${world.guard.deflected}/${world.guard.tries}${late}`,
+      10,
+      headerTop(view, 48),
+    );
   }
 }
 
