@@ -1462,6 +1462,8 @@ place — the generator keeps whatever is there.
 | `tools/check/fast.ts` | The test half of `bun run check:fast` — decide, say, run |
 | `tools/check/profile-report.ts` | The reading half of `bun run test:profile`: a JUnit report from `bun test` turned into the slowest files and cases |
 | `tools/check/profile.ts` | `bun run test:profile [paths...] [--top N]` — which test files carry the minutes |
+| `tools/check/shard.ts` | `bun test`, in several processes at once — the test half of `bun run check` |
+| `tools/check/shards.ts` | The arithmetic of a sharded `bun test`: which files go in which process |
 | `tools/breaks/src/main.ts` | `bun run breaks` — every break the engine can make, drawn across time |
 | `tools/breaks/src/page.ts` | Page furniture for the break sheet |
 | `tools/breaks/src/sheet.ts` | Every break the bench knows, drawn across time |

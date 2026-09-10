@@ -396,34 +396,3 @@ the echo at 2x whole and cropped it with a throwaway script instead, which is
 the workaround this entry ends. Find what is spinning, fix it, and prove it
 with `bun run versus:shot creature:echo cleft out.png --freeze 1.1 --only
 candidate --scale 6` coming back in under a minute with the echo in it.
-
-## `bun test` runs 384 files one after another; the play-by-play cut has run out
-
-- **Found:** 2026-09-10, claude/queue-the-test-suite-is-still-214-seconds-and-the-rest
-- **Taken:** 2026-09-10, claude/queue-bun-test-runs-384-files-one-after-another-the-pl
-- **Files:** `tools/check/`, `tools/check/profile.ts`, `package.json`,
-  `docs/performance.md`, `tools/frames/test/opening.test.ts`,
-  `apps/server/test/room.test.ts`
-
-Two lanes have now taken the suite from 292 s to the figure in
-`docs/performance.md`'s table by cutting plays — the rehearsals, the seat
-loops, the repeated plays — and what is left is honest: `opening.test.ts`
-is a real Chrome (31 s), `briefing.test.ts` draws every page of every
-rehearsal once (23 s), and the rest is a long tail of one to three seconds a
-file. The target the first item set — **under two minutes with the same
-coverage** — is not reachable that way, and it is reachable another: the
-suite is 384 files run one after another in one process on a machine with
-many cores. Shard the files across N `bun test` processes from
-`tools/check/` — files are independent by construction, each installs its own
-canvas globals — and merge the exit codes and the JUnit reports so
-`test:profile` still reads one run. Two things stand in the way, and both are
-this lane's to settle: a shard that opens a server takes a port derived from
-the tree (`tools/port.ts`), and two shards in one tree would collide on it —
-`opening.test.ts` builds and serves, `room.test.ts` raises workerd — so put
-every server-owning file in one shard, or hand each shard a port offset; and
-`purity.test.ts`, `hash-coverage.test.ts` and `tools/test/*.test.ts` walk the
-whole tree, which is fine in any shard but slow in all of them. Measure with
-`bun run test:profile` before and after; `bun run check` green in under two
-minutes is the proof. `room.test.ts`'s fifty `settle()` sleeps of 60 ms each
-(3 s of wall clock waiting for workerd) are still the one file whose cost is
-a clock rather than a frame, and a fake clock there is a different lane.

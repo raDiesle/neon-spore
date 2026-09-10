@@ -379,8 +379,8 @@ mechanical change rather than a decision about how the game looks.
 
 ## What the test suite costs
 
-The same discipline, one level up. `bun run check` is `bun test` plus a few
-seconds of typecheck and lint, and `bun test` prints one total; until
+The same discipline, one level up. `bun run check` is the test suite plus a
+few seconds of typecheck and lint, and `bun test` prints one total; until
 10 September 2026 the only figure anybody had for it was "four and a half
 minutes", and the guess about where they went — the render frame tests,
 because there are dozens — was a guess.
@@ -444,9 +444,53 @@ five cases, and now remembers the scan per entry.
 play: `opening.test.ts` is a real Chrome (29 s), `briefing.test.ts` draws
 every page of every rehearsal exactly once (23 s), and `room.test.ts` waits
 on workerd (7 s). The target the queue set — the whole suite under two
-minutes with the same coverage — is not reachable a play at a time from
-here, and `docs/queue.md` says where it is reachable: the 384 files run one
-after another in one process. A new frame test is read against this list
-before it lands — if it would enter the first ten rows, say in the file why
-the frames it draws are all needed, and reach for `thirdOf` and `remembered`
-before reaching for a shorter play.
+minutes with the same coverage — was not reachable a play at a time from
+here. A new frame test is still read against this list before it lands — if
+it would enter the first ten rows, say in the file why the frames it draws
+are all needed, and reach for `thirdOf` and `remembered` before reaching for
+a shorter play.
+
+### The suite runs in eight processes
+
+Where the target was reachable was the shape of the run: 384 files, one after
+another, in one process, on a machine with sixteen cores. The files are
+independent by construction — each installs its own canvas globals, every
+test that writes takes a `mkdtemp` of its own — so `tools/check/shard.ts`
+deals them across eight `bun test` processes and runs them together. It is
+what `bun run check`, `bun run test`, `check:fast` and `test:profile` run;
+bare `bun test` is still bun's, one process, for a human running one file.
+
+| run | wall clock |
+|---|---|
+| one process, 10 September 2026 | 153 s |
+| eight shards, files weighed by bytes | 46 s |
+| eight shards, a file that draws weighed six times its bytes | 34.5 s |
+
+The floor is `opening.test.ts` alone in its shard, 32 s of Chrome plus the
+process start; nothing below it can bring the wall clock under that, and the
+other seven finish between 16 and 31 s. The weighing is what moves a run
+between the second row and the third: `shards.ts` puts the three files whose
+cost is nothing like their size in a table, in seconds, and weighs the rest by
+bytes at two rates — a frame test or a shape-sheet test runs at about 3 500
+bytes a second, everything else at about 20 000, both read off one profile and
+rounded. One rate filled the shard that had `briefing.test.ts` with eight
+frame tests and it finished at 46 s while another finished at 10.
+
+Two things were in the way and neither turned out to be. A test that starts a
+server could collide with one in another shard on the port a tree derives
+(`tools/ports.ts`) — but `opening.test.ts` starts its preview with
+`PREVIEW_PORT=0` and `room.test.ts`'s Miniflare asks the OS as well; two
+`room.test.ts` side by side both passed, which is how that was settled, and
+`shard.ts` says what to do with a test that ever takes a derived port. And
+the tree-wide sweeps — `purity.test.ts`, `hash-coverage.test.ts`,
+`tools/test/*` — land in whichever shard the deal puts them, which is fine:
+each reads the tree once, and two in two shards read it twice, a second or so
+across the run.
+
+**Reading the profile after this.** A file's seconds in `bun run test:profile`
+are what it cost inside its process, and alongside seven others that is about
+a fifth more than alone — 180 s of test inside a 35 s run — which is the same
+for every file and changes no share. The total the report prints is the sum
+of those, the suite's *cost*; the wall clock is on `shard.ts`'s own last
+line, above the report. The table above is read in cost, the row for the
+whole suite in wall clock.

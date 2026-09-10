@@ -222,7 +222,8 @@ bun run preview        # build, then serve dist/ on 4173 — how an agent verifi
 bun run preview:once   # same, on a free port that nobody else can be holding
 bun run port           # which port this tree's servers answer on, before one is started
 bun run probe          # run a scratch script against a live world — tools/probe/
-bun test               # everything
+bun test               # everything, in one process — for one file, or one package
+bun run test           # the same, dealt across eight — what `check` runs (tools/check/shard.ts)
 bun run test:determinism
 bun run test:profile   # which test files carry the minutes — docs/performance.md
 bun run relay:check    # two headless devices against a running relay

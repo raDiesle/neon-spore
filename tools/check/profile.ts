@@ -18,6 +18,15 @@
  * way they narrow `bun test`. The XML is left in the temp directory and named,
  * for a session that wants to read a figure the report did not print.
  *
+ * The run is `shard.ts`'s — several processes, the same ones `bun run check`
+ * runs — with the shards' reports merged into one file, so the figures here
+ * are the figures the check pays. A file's seconds are what it cost inside
+ * its process; the total is the sum of those, the suite's *cost*, and the
+ * wall clock the shards took is on `shard.ts`'s own last line above the
+ * report. Running alongside seven other processes a file reads a fifth or so
+ * slower than it would alone, which is the same for every file and changes
+ * no share.
+ *
  * `docs/performance.md` keeps the last full reading, so a file added later is
  * read against a number rather than against the feeling that the check got
  * slower.
@@ -38,13 +47,16 @@ const outfile = join(tmpdir(), `neon-spore-test-profile-${process.pid}.xml`);
 console.log(`test:profile — bun test ${filters.join(" ")}`.trimEnd());
 console.log(`  report   ${outfile}`);
 
-const proc = Bun.spawn(
-  ["bun", "test", ...filters, "--reporter=junit", `--reporter-outfile=${outfile}`],
-  { cwd: ROOT, stdout: "inherit", stderr: "inherit" },
-);
+const proc = Bun.spawn(["bun", "run", "tools/check/shard.ts", ...filters, "--junit", outfile], {
+  cwd: ROOT,
+  stdout: "inherit",
+  stderr: "inherit",
+});
 const code = await proc.exited;
 
-const xml = await Bun.file(outfile).text();
+const xml = await Bun.file(outfile)
+  .text()
+  .catch(() => "");
 console.log("");
 for (const line of report(parseJunit(xml), top)) console.log(line);
 if (code !== 0) console.log(`\nbun test exited ${code}; the figures above are for a red run`);

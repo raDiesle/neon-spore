@@ -29,7 +29,9 @@ console.log(
 console.log(`  testing  ${filters.join(" ")}`);
 console.log(`  the full suite is \`bun run land\`'s to run, and its result is the one that counts`);
 
-const proc = Bun.spawn(["bun", "test", ...filters], {
+// Through `shard.ts`, the way the full check runs: the scope is a few dozen
+// files on a wide diff, and they are as independent in a lane as on `main`.
+const proc = Bun.spawn(["bun", "run", "tools/check/shard.ts", ...filters], {
   cwd: ROOT,
   stdout: "inherit",
   stderr: "inherit",
