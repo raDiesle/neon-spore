@@ -35,14 +35,27 @@ describe("resolveWaveFlag", () => {
   });
 });
 
+/**
+ * A checkout and a `bun install` in a scratch worktree, which is what
+ * `waveNamesAt` is — so it gets the minute that work can take under eight
+ * shards on a loaded machine, not bun's five-second default. It timed out at
+ * five seconds on four landings in one afternoon (10 September 2026), and the
+ * fourth was the first that could name it (`tools/land/red-check.ts`).
+ */
+const SCRATCH_TREE_MS = 60_000;
+
 describe("waveNamesAt", () => {
-  it("reads today's WAVES from the working tree's own HEAD commit", async () => {
-    const head = await Bun.$`git rev-parse HEAD`
-      .cwd(join(import.meta.dir, "..", "..", ".."))
-      .text();
-    const names = await waveNamesAt(head.trim());
-    expect(names.map((w) => w.name)).toEqual(WAVES.map((w) => w.name));
-  });
+  it(
+    "reads today's WAVES from the working tree's own HEAD commit",
+    async () => {
+      const head = await Bun.$`git rev-parse HEAD`
+        .cwd(join(import.meta.dir, "..", "..", ".."))
+        .text();
+      const names = await waveNamesAt(head.trim());
+      expect(names.map((w) => w.name)).toEqual(WAVES.map((w) => w.name));
+    },
+    SCRATCH_TREE_MS,
+  );
 });
 
 /**

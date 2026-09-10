@@ -353,26 +353,3 @@ the echo at 2x whole and cropped it with a throwaway script instead, which is
 the workaround this entry ends. Find what is spinning, fix it, and prove it
 with `bun run versus:shot creature:echo cleft out.png --freeze 1.1 --only
 candidate --scale 6` coming back in under a minute with the echo in it.
-
-## `wave.test.ts` reads WAVES at HEAD through git and times out under `check`
-
-- **Found:** 2026-09-10, claude/queue-the-mount-and-the-recoil-have-one-look-each-and
-- **Files:** `tools/frames/test/wave.test.ts`, `tools/check/shard.ts`, `tools/land/run.ts`
-
-`waveNamesAt › reads today's WAVES from the working tree's own HEAD commit`
-shells out to `git rev-parse HEAD` and then reads the tree at it, and under
-eight shards on a loaded machine that took longer than bun's five-second
-default: it went red once under `bun run land --keep` (`9247 pass, 1 fail`),
-once under `bun run check:fast` on the next lane, and a third time under
-`check:fast` again, green on every rerun. A flake in the landing gate is a
-landing that has to be run twice, which is minutes each time. Give the test
-the timeout its work needs — or better, have it read the commit once for the
-whole file — and make sure it is not the shard that also happens to run a
-`bun install` (the red shard's output opened with one, from whichever test
-spawns it).
-
-It took three reds to learn the test's name, because `land` printed only the
-last twenty-five lines of the check and a red shard's name sits well above
-them. `tools/land/red-check.ts` now prints the failing tests' own lines first
-and keeps the whole output in a file it names, so the next flake is named on
-its first red; the fix here is the test itself.
