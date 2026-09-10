@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · f9830f8e — The test suite runs in eight processes: 34 seconds of wall clock, from 153
+
+Two lanes cut plays and left 153 s of honest work in 384 files run one after another in one process on sixteen cores. `tools/check/shard.ts` deals the files across eight `bun test` processes — the heaviest file to the lightest shard, with three files whose cost is nothing like their size in a table and the rest weighed by bytes at two rates, a file that draws costing six times one that does not — and runs them together: 34.5 s, which is `opening.test.ts` alone in its shard plus nothing. `bun run check`, `bun run test`, `check:fast` and `test:profile` all run through it, the shards' JUnit reports merged so the profile still reads one run; bare `bun test` is still bun's for one file. Nothing in the suite holds a derived port — the preview starts on `PREVIEW_PORT=0` and Miniflare asks the OS, which two `room.test.ts` side by side proved — so no shard is pinned.
+
 ## 2026-09-10 · 21298131 — `drawnSize` is the director's own fit now, not a second copy of it
 
 `tools/shape-sheet/src/drawn-size.ts` said it reached into the director rather than re-deriving its arithmetic, and then re-derived the fit: its own `boundsOver`, its own `transformedBounds` with no long axis where the card's fit passes one, and the pad restated as two constants. `shape-fit.ts` now exports `restBounds` — the rest pose's box its memo already held — and `drawnSize` is `figureLayout`'s scale over it, two lines. The memo this file grew on 10 September goes with the copy, since the director's remembers the same scan. Not one pinned figure in `drawn-size.test.ts` moved, which says the missing long axis never changed a square card's fit.
