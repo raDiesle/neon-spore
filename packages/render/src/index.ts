@@ -10,6 +10,7 @@ export {
   livingRadius,
   livingScale,
 } from "./creature-place.js";
+export { drawnCol, drawnRow } from "./depth.js";
 export { smoothstep } from "./ease.js";
 export {
   type Dial,

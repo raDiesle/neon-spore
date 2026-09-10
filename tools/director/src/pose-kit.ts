@@ -1,6 +1,8 @@
 import { kindForColor } from "@neon-spore/content";
+import { drawnCol, drawnRow } from "@neon-spore/render";
 import {
   type BossEntry,
+  beatPhase,
   type Color,
   createWorld,
   DEFAULT_CONFIG,
@@ -68,18 +70,32 @@ export const living = (color: Color, col: number, beat = 0): SpawnEntry => ({
 
 /**
  * Where a `tile` crop is centred: the first body of the kind the pose is named
- * after, read off the posed world rather than guessed.
+ * after, **where it is drawn** on this tick, read off the posed world rather
+ * than guessed.
  *
- * Here rather than in one of the pose files because two of them want it —
- * `poses-versus.ts` centres on a magnet, a rock and a strand, `poses-bodies.ts`
- * on a dart — and a second copy of "find the body this picture is about" is
- * how one sheet ends up centred on a creature the caption is not describing.
+ * Here rather than in one of the pose files because every one of them wants
+ * it, and a second copy of "find the body this picture is about" is how one
+ * sheet ends up centred on a creature the caption is not describing.
+ *
+ * Drawn, not stepping-to. The simulation writes a body's next tile down at
+ * the start of a beat and the renderer glides it there from `fromCol` and
+ * `fromRow` over the beat (`drawnCol`, `drawnRow`), so a window centred on
+ * `c.col` and `c.row` is a beat ahead of the picture. For a body that moves a
+ * tile a beat that is within a tile and a five-tile window hides it; for one
+ * that strides further — a dart two columns, a carom three, a chute four
+ * rows — the drawn body is outside its own window for most of every beat,
+ * which is what `versus-crop-follow.test.ts` holds now. The pair re-derives
+ * the window every frame (`CropWindow.follow`) from this, so the window
+ * glides with the body rather than jumping ahead of it. Fractional is fine:
+ * `cropRect` multiplies by the tile.
  */
 export const firstOfKind =
   (kind: string) =>
   (w: World): { col: number; row: number } => {
     const c = w.creatures.find((x) => x.kind === kind) ?? w.creatures[0];
-    return c ? { col: c.col, row: c.row } : { col: 5, row: 7 };
+    if (!c) return { col: 5, row: 7 };
+    const phase = beatPhase(w.cfg, w.tick);
+    return { col: drawnCol(c, phase), row: drawnRow(c, phase) };
   };
 
 /** A rock to spawn. It carries no colour, which is the whole of what it is. */

@@ -306,32 +306,3 @@ let each `poses-*.ts` file export its own `slot → pose` rows and have
 `versus-pose.ts` concatenate them, so a lane opening a slot touches the pose
 file it wrote and nothing shared. Prove it with `bun run check` and the file
 well under the ceiling.
-
-## A tile crop centres on where a fast body is going, not where it is drawn
-
-- **Found:** 2026-09-10, claude/six-more-answers-for-carom-and-chute
-- **Taken:** 2026-09-10, claude/queue-a-tile-crop-centres-on-where-a-fast-body-is-goin
-- **Files:** `tools/director/src/pose-kit.ts`, `tools/director/src/poses-crossing.ts`,
-  `tools/director/src/poses-bodies.ts`, `tools/director/test/versus-pose.test.ts`
-
-`firstOfKind` answers a `tile` crop with the body's **target** tile —
-`c.col` and `c.row` — and `cropRect` centres the window there. The renderer
-draws the body gliding from `fromCol`/`fromRow` toward that tile over the
-beat (`drawnCol`, `drawnRow`), so for a body that moves one tile a beat the
-drawn one is never more than a tile off centre and a five-tile window holds
-it. A body that strides further is outside the window for most of every
-beat: a carom crosses three lanes, a chute climbs four rows, a dart steps two
-columns. A lane found it as a rock at the edge of every frame and then not in it
-at all, and wrote a `drawnAt` — the same interpolation the renderer uses,
-`drawnCol` and `drawnRow` read off `beatPhase(w.cfg, w.tick)` — so the
-window glided with the body; that lane's work was superseded and the helper
-went with it, but the defect stands.
-
-The helper belongs in `pose-kit.ts` beside `firstOfKind`, and every `tile`
-pose of a body that strides more than a tile should use it — `DART · THE RUN`
-in `poses-bodies.ts` and `CHUTE · THROWN CLEAR` in `poses-crossing.ts`, whose
-body climbs four rows a beat, are the two already open. Then `versus-pose.test.ts` (or
-`versus-crop`'s own test, which already asks whether a body is inside the
-window) should step each such pose through a beat and assert the drawn body
-never leaves the crop, which is what would have caught this the day the dart's
-pose was written.
