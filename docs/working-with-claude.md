@@ -21,8 +21,11 @@ division of labour, not a limitation.
 - **`.claude/skills/`** — for what is needed occasionally: `new-creature`,
   `new-wave`, `delegate` and `worktree-preview` carry the full procedure, so it
   does not have to be explained.
-- **`.claude/hooks/`** — for what must happen without exception. The
-  determinism test runs after every edit inside `packages/sim`. A rule in
+- **`tools/hooks/`**, wired in `.claude/settings.json` — for what must happen
+  without exception. The determinism test runs after every edit inside
+  `packages/sim`; `after-compact.ts` restates the tree's state into the fresh
+  context after every automatic compaction (`autoCompactWindow`, 300k, in the
+  same settings file). A rule in
   CLAUDE.md is a hint; a hook is binding. The one that refuses a command
   outright is `tools/hooks/guard.ts` rather than a shell script, because
   deciding what a command *is* outgrew a glob over its text — a glob matched

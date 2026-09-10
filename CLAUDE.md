@@ -253,3 +253,11 @@ Object. For that, `bun run relay:check` against a running wrangler:
 - **Everything in the repository is in English.** The design vocabulary (hull,
   lobe, beat, guard, cannon, shield, scar, tick, column) is fixed — do not
   invent synonyms.
+
+# Compact instructions
+
+When compacting, keep: the task list from the prompt with what is done and
+what is left, in order; the current branch and whether it is landed; what was
+parked and its question; any `NEXT:` tasks received. Drop tool output, test
+results, screenshots and file contents — the tree holds them, and
+`tools/hooks/after-compact.ts` restates the tree's state afterwards.

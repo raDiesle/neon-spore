@@ -37,6 +37,23 @@ entry, which now waits on `ship:body` instead of asking. About 5 min.
 
 Bottleneck: none worth naming.
 
+## 2026-09-10 · claude/compaction-window-and-hook
+
+The auto-compaction window set to 300k in `.claude/settings.json`, compact
+instructions at the end of `CLAUDE.md`, and a `SessionStart(compact)` hook
+that restates branch, queue and parked into the fresh context. About 25 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the Claude Code docs for the setting's real name, the existing hooks and their wiring test, the queue parser |
+| writing | 10 | the hook, its test, the settings, the instructions, two docs |
+| looking | 0 | nothing visible moved |
+| friction | 5 | one combined command hung for two minutes and was re-run as separate steps |
+| landing | 5 | `check:fast`, the commit, `land --keep` |
+
+Bottleneck: **reading** — a setting's name has to come from the docs, not
+from memory, before it can be written into a file every session reads.
+
 ## 2026-09-10 · claude/next-and-stop-in-chat
 
 The convention for handing a session several independent tasks — a numbered

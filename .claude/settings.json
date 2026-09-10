@@ -1,4 +1,5 @@
 {
+  "autoCompactWindow": "300k",
   "permissions": {
     "allow": ["Bash(aider:*)"]
   },
@@ -9,6 +10,15 @@
           {
             "type": "command",
             "command": "bun tools/hooks/session-start.ts"
+          }
+        ]
+      },
+      {
+        "matcher": "compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun tools/hooks/after-compact.ts"
           }
         ]
       }

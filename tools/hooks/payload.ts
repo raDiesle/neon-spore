@@ -17,6 +17,8 @@ export interface HookPayload {
   tool_input?: { file_path?: unknown };
   stop_hook_active?: unknown;
   session_id?: unknown;
+  /** `SessionStart` only: `startup`, `resume`, `clear` or `compact`. */
+  source?: unknown;
 }
 
 /** The payload on stdin, or `null` when it is absent or not JSON. */

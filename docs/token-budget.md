@@ -19,6 +19,11 @@ and only two levers:
 - **At a compaction, the conversation is replaced by a summary.** The next
   turn is cheap again — and everything that lived only in the chat is gone or
   blurred. The lever is what has been written into the repository by then.
+  The threshold is `autoCompactWindow` in `.claude/settings.json`, 300k rather
+  than the model's own ~967k, because every turn re-reads everything below it;
+  the `# Compact instructions` at the end of `CLAUDE.md` say what the summary
+  keeps, and `tools/hooks/after-compact.ts` restates the tree's state — branch,
+  queue, parked — into the fresh context so the session re-orients from files.
 
 ## The four levers, and why compaction makes them matter more
 
