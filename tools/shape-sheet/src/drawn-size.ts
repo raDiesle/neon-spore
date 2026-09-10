@@ -42,6 +42,34 @@ export interface DrawnSize {
 const PAD_MIN = 6;
 const PAD_FRACTION = 0.18;
 
+/** The two boxes a size is read off: the rest pose's, and the whole sway's. */
+interface Scan {
+  still: ReturnType<typeof boundsOver>;
+  fit: ReturnType<typeof transformedBounds>;
+}
+
+/**
+ * The scan, remembered per entry — for the same reason `shape-fit.ts` keeps
+ * its own: a hundred-odd contour samples and six thousand poses is the whole
+ * price of a card, none of it depends on the frame it is fitted into, and the
+ * catalogue is a fixed table. `drawn-size.test.ts` asks every square entry
+ * at two frames across five cases, and before this it paid for the scan five
+ * times over — ten seconds of `bun test` for two seconds of information.
+ */
+const scans = new WeakMap<CatalogueEntry, Scan>();
+
+function scanOf(entry: CatalogueEntry): Scan {
+  const had = scans.get(entry);
+  if (had) return had;
+  const still = boundsOver(entry.subject, FIT_TIMES);
+  const tile = tilePixels(still);
+  const pivot: Centre = { x: (still.x0 + still.x1) / 2, y: (still.y0 + still.y1) / 2 };
+  const fit = transformedBounds(entry.subject, entry.motion, FIT_TIMES, tile, pivot);
+  const scan = { still, fit };
+  scans.set(entry, scan);
+  return scan;
+}
+
 /**
  * The drawn long and short axis of a catalogue entry's body, in CSS pixels,
  * at the frame `shapeFigure` fits it into — `box` its height and the pad
@@ -69,10 +97,7 @@ const PAD_FRACTION = 0.18;
  * hardcoded 92 would answer a question nobody will ask twice.
  */
 export function drawnSize(entry: CatalogueEntry, box: number, width = box): DrawnSize {
-  const still = boundsOver(entry.subject, FIT_TIMES);
-  const tile = tilePixels(still);
-  const pivot: Centre = { x: (still.x0 + still.x1) / 2, y: (still.y0 + still.y1) / 2 };
-  const fit = transformedBounds(entry.subject, entry.motion, FIT_TIMES, tile, pivot);
+  const { still, fit } = scanOf(entry);
   const pad = Math.max(PAD_MIN, box * PAD_FRACTION);
   const scale = Math.min((width - pad) / (fit.x1 - fit.x0), (box - pad) / (fit.y1 - fit.y0));
   const a = (still.x1 - still.x0) * scale;

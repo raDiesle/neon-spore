@@ -8,6 +8,7 @@ import {
   FRAME_TIMEOUT_MS,
   installCanvasGlobals,
   ROLES,
+  remembered,
   runFrames,
   VIEWPORT,
 } from "./frame-harness.js";
@@ -58,27 +59,35 @@ describe("the fence", () => {
   // field.
   const TICKS = ticksPerBeat(CFG) * 10;
 
+  // The two walls every seat is shown — one gap in column four, and no gap at
+  // all — once per seat. Four cases below compare two seats, or a seat with
+  // and without a crack, and read these rather than playing them again.
+  const gapped = remembered((role) => fenceFrames(role, [4], TICKS).ctx.calls);
+  const solid = remembered((role) => fenceFrames(role, [], TICKS).ctx.calls);
+  const callsFor = (role: ViewRole, gaps: number[]) => (gaps.length ? gapped(role) : solid(role));
+
   for (const role of ROLES) {
     it(`draws the wall and its breaks for ${role}`, () => {
-      const { ctx } = fenceFrames(role, [4], TICKS);
-      expect(ctx.calls).toBeGreaterThan(1000);
+      expect(callsFor(role, [4])).toBeGreaterThan(1000);
     });
   }
 
   it("keeps the canvas happy with the way through against either wall", () => {
-    for (const gaps of [[0], [CFG.cols - 1], [0, CFG.cols - 1]]) {
-      const { ctx } = fenceFrames("p1", gaps, TICKS);
-      expect(ctx.calls).toBeGreaterThan(1000);
-    }
+    // One wall with both ways through at once, rather than three: a gap at
+    // either edge is a run of filament that starts or stops a column short of
+    // the wall, and this fence has one of each; a run that reaches the wall is
+    // what every seat's wall above has on both sides of its gap in column four.
+    // The three plays this used to be were those two pictures and a third
+    // made of them.
+    const { ctx } = fenceFrames("p1", [0, CFG.cols - 1], TICKS);
+    expect(ctx.calls).toBeGreaterThan(1000);
   });
 
   it("gives the two seats two different pictures of the same wall", () => {
     // Same world, same ticks, same body. The pilot's wall is broken and the
     // navigator's is not — two more ends to light and two uprights to draw, on
     // the one screen that can see them. That gap is the whole creature.
-    const p1 = fenceFrames("p1", [4], TICKS);
-    const p2 = fenceFrames("p2", [4], TICKS);
-    expect(p1.ctx.calls).not.toBe(p2.ctx.calls);
+    expect(callsFor("p1", [4])).not.toBe(callsFor("p2", [4]));
   });
 
   it("shows the authored gaps to the pilot and the rig, and never to the navigator", () => {
@@ -92,22 +101,23 @@ describe("the fence", () => {
     // The other opening, and the other half of the split. A crack is a column
     // and an ammunition colour on the pilot's screen; the navigator gets the
     // same unbroken wire they always did, so the two frames cannot match.
-    const solid = fenceFrames("p2", [], TICKS);
     const cracked = fenceFrames("p2", [], TICKS, { cracksRed: [4] });
-    expect(cracked.ctx.calls, "the navigator must not be shown a crack").toBe(solid.ctx.calls);
+    expect(cracked.ctx.calls, "the navigator must not be shown a crack").toBe(callsFor("p2", []));
     const seen = fenceFrames("p1", [], TICKS, { cracksRed: [4] });
-    expect(seen.ctx.calls).toBeGreaterThan(fenceFrames("p1", [], TICKS).ctx.calls);
+    expect(seen.ctx.calls).toBeGreaterThan(callsFor("p1", []));
   });
 
   it("keeps the canvas happy with a crack of either colour against either wall", () => {
-    for (const cracks of [
-      { cracksRed: [0] },
-      { cracksCyan: [CFG.cols - 1] },
-      { cracksRed: [1, 5], cracksCyan: [8] },
-    ]) {
-      const { ctx } = fenceFrames("p1", [], TICKS, cracks);
-      expect(ctx.calls).toBeGreaterThan(1000);
-    }
+    // Both colours, both walls and a crack with neighbours, on one fence: a
+    // crack is a column and a colour and nothing about one reads its
+    // neighbour, so the three plays this used to be — one crack at each wall,
+    // then three in the middle — were the same values through the canvas three
+    // times.
+    const { ctx } = fenceFrames("p1", [], TICKS, {
+      cracksRed: [0, 5],
+      cracksCyan: [CFG.cols - 1],
+    });
+    expect(ctx.calls).toBeGreaterThan(1000);
   });
 
   it("draws a fence with no gaps at all without the canvas refusing a value", () => {
@@ -115,8 +125,7 @@ describe("the fence", () => {
     // answer. It is one unbroken run from wall to wall on both screens, which
     // is the one arrangement `drawFences` has no gate to interrupt it with.
     for (const role of ROLES) {
-      const { ctx } = fenceFrames(role, [], TICKS);
-      expect(ctx.calls, role).toBeGreaterThan(1000);
+      expect(callsFor(role, []), role).toBeGreaterThan(1000);
     }
   });
 });

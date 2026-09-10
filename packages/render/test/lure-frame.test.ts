@@ -7,6 +7,7 @@ import {
   FRAME_TIMEOUT_MS,
   installCanvasGlobals,
   ROLES,
+  remembered,
   runFrames,
   stubCanvas,
   VIEWPORT,
@@ -50,9 +51,13 @@ describe("the lure", () => {
   // canvas that refuses what a real one refuses.
   const TICKS = ticksPerBeat(CFG) * 20;
 
+  // The play in column three, once per seat: the case that compares the two
+  // seats reads it rather than playing it again.
+  const playFor = remembered((role) => lureFrames(role, 3, TICKS));
+
   for (const role of ROLES) {
     it(`draws the body, its alarm and its fold for ${role}`, () => {
-      const { ctx, vanished } = lureFrames(role, 3, TICKS);
+      const { ctx, vanished } = playFor(role);
       expect(vanished).toBe(1);
       expect(ctx.calls).toBeGreaterThan(1000);
     });
@@ -61,9 +66,7 @@ describe("the lure", () => {
   it("puts the alarm on player 2's screen and nothing extra on player 1's", () => {
     // Same world, same ticks, same body — the ring, the exclamation and the
     // label are the entire difference between the two frames.
-    const p1 = lureFrames("p1", 3, TICKS);
-    const p2 = lureFrames("p2", 3, TICKS);
-    expect(p2.ctx.calls).toBeGreaterThan(p1.ctx.calls);
+    expect(playFor("p2").ctx.calls).toBeGreaterThan(playFor("p1").ctx.calls);
   });
 
   it("keeps its label on screen in the first column and the last", () => {
@@ -74,17 +77,29 @@ describe("the lure", () => {
 });
 
 describe("a lure shot by mistake", () => {
-  const SHOT_TICK = ticksPerBeat(CFG) * 3;
+  // A beat in: the body is on the field by then and the shot, which takes a
+  // beat to climb to it, lands on the second. It was three, and the two beats
+  // before it were a lure falling — the picture the first describe already
+  // has — drawn at every tick, five times over.
+  const SHOT_TICK = ticksPerBeat(CFG);
   // Past the end of the blast: every frame of it, from the white wash to the
-  // colour left hanging over the ship, has been through the canvas.
-  const TICKS = SHOT_TICK + ticksPerBeat(CFG) * 6;
+  // colour left hanging over the ship, has been through the canvas. The hit
+  // is a beat after the shot and the blast lives `LIFE` seconds after that
+  // (`lure-blast.ts`), a beat and a half — so four beats past the shot is the
+  // whole of it and a beat of the hull standing broken under nothing.
+  const TICKS = SHOT_TICK + ticksPerBeat(CFG) * 4;
 
-  /** The shot, and the frames it throws. `every: 1` because the wash is over
-   * in an eighth of a second and a coarser sampling would step past it. */
-  function shotFrames(role: ViewRole, col: number) {
+  /**
+   * The shot, and the frames it throws. Every tick, because the wash is over
+   * in an eighth of a second — fifteen ticks — and a coarser sampling would
+   * step past it; or, for one of three seats sharing the play, every third
+   * tick at that seat's own phase, which still puts five frames of the wash
+   * through the canvas for each and every tick through it for the three.
+   */
+  function shotFrames(role: ViewRole, col: number, sampling = { every: 1, phase: 0 }) {
     const queue: SpawnEntry[] = [{ beat: 0, col, kind: "lure", color: "cyan", wears: "bulb" }];
     return runFrames(createWorld(CFG, 1, queue), role, TICKS, {
-      every: 1,
+      ...sampling,
       onTick: (tick, world) =>
         step(
           world,
@@ -98,9 +113,9 @@ describe("a lure shot by mistake", () => {
     });
   }
 
-  for (const role of ROLES) {
+  for (const [phase, role] of ROLES.entries()) {
     it(`draws the blast and the broken hull under it for ${role}`, () => {
-      const { ctx, events, world } = shotFrames(role, 3);
+      const { ctx, events, world } = shotFrames(role, 3, { every: 3, phase });
       // The run really did fire at it, or the frames prove nothing.
       expect(events.filter((e) => e.type === "lureHit")).toHaveLength(1);
       expect(world.scars).toHaveLength(CFG.lureBlastPlaces);

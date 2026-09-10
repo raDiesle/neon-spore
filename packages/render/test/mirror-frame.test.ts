@@ -8,6 +8,7 @@ import {
   installCanvasGlobals,
   ROLES,
   runFrames,
+  thirdOf,
   waveWith,
 } from "./frame-harness.js";
 
@@ -26,13 +27,18 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 beforeAll(installCanvasGlobals);
 
-function mirrorFrames(role: ViewRole, ticks: number) {
+function mirrorFrames(
+  role: ViewRole,
+  ticks: number,
+  sampling: { every?: number; phase?: number } = {},
+) {
   const world = createWorld(CFG, 5);
   const index = waveWith("mirror");
   startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
 
   const tpb = ticksPerBeat(CFG);
   return runFrames(world, role, ticks, {
+    ...sampling,
     onTick: (tick, w) => {
       const listening = w.boss?.kind === "mirror" && w.boss.phase === "listen";
       // One right, then one wrong: the first round is FIRE RED then SHIELD.
@@ -48,9 +54,11 @@ function mirrorFrames(role: ViewRole, ticks: number) {
 }
 
 describe("the mirror", () => {
-  for (const role of ROLES) {
+  // Each seat draws a third of the ticks (`thirdOf`); the verdict is read off
+  // the world, which every run steps whole.
+  for (const [i, role] of ROLES.entries()) {
     it(`draws its ship, its sequence and both verdicts for ${role}`, () => {
-      const { ctx, world } = mirrorFrames(role, ticksPerBeat(CFG) * 20);
+      const { ctx, world } = mirrorFrames(role, ticksPerBeat(CFG) * 20, thirdOf(4, i));
       expect(ctx.calls).toBeGreaterThan(1000);
       // It really got as far as being judged, or the frames prove nothing
       // about the parts of the picture that only exist after a verdict.

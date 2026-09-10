@@ -8,6 +8,7 @@ import {
   FRAME_TIMEOUT_MS,
   installCanvasGlobals,
   ROLES,
+  remembered,
   runFrames,
   stubCanvas,
 } from "./frame-harness.js";
@@ -57,10 +58,13 @@ describe("the dart", () => {
   // that refuses what a real one refuses.
   const TICKS = ticksPerBeat(CFG) * 20;
 
+  // The play in column three, once per seat: the case that compares the two
+  // seats reads it rather than playing it again.
+  const callsFor = remembered((role) => dartFrames(role, 3, TICKS).ctx.calls);
+
   for (const role of ROLES) {
     it(`draws the body, its jet and its diagonal for ${role}`, () => {
-      const { ctx } = dartFrames(role, 3, TICKS);
-      expect(ctx.calls).toBeGreaterThan(1000);
+      expect(callsFor(role)).toBeGreaterThan(1000);
     });
   }
 
@@ -69,9 +73,7 @@ describe("the dart", () => {
     // the placeholder; player 1 gets two arrows and a question mark, which is
     // more marks and far less picture. That gap is the whole creature.
     // Which mark lands on which screen is `dart-query.test.ts`'s to hold.
-    const p1 = dartFrames("p1", 3, TICKS);
-    const p2 = dartFrames("p2", 3, TICKS);
-    expect(p2.ctx.calls).toBeGreaterThan(p1.ctx.calls);
+    expect(callsFor("p2")).toBeGreaterThan(callsFor("p1"));
   });
 
   it("keeps its arrow on the canvas in the first column and the last", () => {

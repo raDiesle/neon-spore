@@ -8,6 +8,7 @@ import {
   FRAME_TIMEOUT_MS,
   installCanvasGlobals,
   ROLES,
+  remembered,
   runFrames,
   VIEWPORT,
 } from "./frame-harness.js";
@@ -48,10 +49,13 @@ describe("the veer", () => {
   // has been through a canvas that refuses what a real one refuses.
   const TICKS = ticksPerBeat(CFG) * 18;
 
+  // The play in column three, once per seat: the case that compares the two
+  // seats reads it rather than playing it again.
+  const callsFor = remembered((role) => veerFrames(role, 3, TICKS).ctx.calls);
+
   for (const role of ROLES) {
     it(`draws the rock, its rider and its marks for ${role}`, () => {
-      const { ctx } = veerFrames(role, 3, TICKS);
-      expect(ctx.calls).toBeGreaterThan(1000);
+      expect(callsFor(role)).toBeGreaterThan(1000);
     });
   }
 
@@ -66,9 +70,7 @@ describe("the veer", () => {
     // Same world, same ticks, same body. The pilot gets one arrow; the
     // navigator gets two dim ones and a target lock, which is more marks and
     // less information. That gap is the whole creature.
-    const p1 = veerFrames("p1", 3, TICKS);
-    const p2 = veerFrames("p2", 3, TICKS);
-    expect(p1.ctx.calls).not.toBe(p2.ctx.calls);
+    expect(callsFor("p1")).not.toBe(callsFor("p2"));
   });
 
   it("puts the side on the pilot's screen and on no other", () => {

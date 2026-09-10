@@ -7,7 +7,15 @@ import {
   ticksPerBeat,
 } from "@neon-spore/sim";
 import type { ViewRole } from "../src/layout.js";
-import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, ROLES, runFrames } from "./frame-harness.js";
+import {
+  CFG,
+  FRAME_TIMEOUT_MS,
+  installCanvasGlobals,
+  ROLES,
+  remembered,
+  runFrames,
+  thirdOf,
+} from "./frame-harness.js";
 
 // The cap this file runs under. Asked for here rather than inherited: bun
 // applies `setDefaultTimeout` to the file the call is in, and the harness is
@@ -30,10 +38,16 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 beforeAll(installCanvasGlobals);
 
-function veilFrames(role: ViewRole, ticks: number, withVeil = true) {
+function veilFrames(
+  role: ViewRole,
+  ticks: number,
+  withVeil = true,
+  sampling: { every?: number; phase?: number } = {},
+) {
   const queue: SpawnEntry[] = withVeil ? [{ beat: 0, col: 3, kind: "veil", color: null }] : [];
   const tpb = ticksPerBeat(CFG);
   const { ctx, events } = runFrames(createWorld(CFG, 1, queue), role, ticks, {
+    ...sampling,
     onTick: (tick, w) => {
       const veil = w.creatures.find((c) => c.kind === "veil");
       const inputs: TimedCommand[] = [];
@@ -62,10 +76,15 @@ function veilFrames(role: ViewRole, ticks: number, withVeil = true) {
 describe("the veil", () => {
   const TICKS = ticksPerBeat(CFG) * 12;
 
+  // Each seat draws a third of the ticks (`thirdOf`), and the rig's play is
+  // kept for the case under the loop that reads what it reached.
+  const played = remembered((role) =>
+    veilFrames(role, TICKS, true, thirdOf(4, ROLES.indexOf(role))),
+  );
+
   for (const role of ROLES) {
     it(`draws the cloud, its clock and its lightning for ${role}`, () => {
-      const { ctx } = veilFrames(role, TICKS);
-      expect(ctx.calls).toBeGreaterThan(1000);
+      expect(played(role).ctx.calls).toBeGreaterThan(1000);
     });
   }
 
@@ -73,7 +92,7 @@ describe("the veil", () => {
     // Without all three the run drew one open cloud for twelve beats: the
     // switch mark never changed colour, the red never happened, and the tear
     // was never drawn. Asserted on `test`, which carries both seats' marks.
-    const { morphs, rebuffs, torn } = veilFrames("test", TICKS);
+    const { morphs, rebuffs, torn } = played("test");
     expect(morphs).toBeGreaterThan(0);
     expect(rebuffs).toBe(1);
     expect(torn).toBe(1);

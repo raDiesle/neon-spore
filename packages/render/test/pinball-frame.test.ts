@@ -16,6 +16,7 @@ import {
   installCanvasGlobals,
   ROLES,
   runFrames,
+  thirdOf,
   waveWith,
 } from "./frame-harness.js";
 
@@ -45,7 +46,13 @@ interface Watched {
   cleared: number;
 }
 
-function pinballFrames(role: ViewRole, ticks: number, controls?: ControlSet, labels?: string[]) {
+function pinballFrames(
+  role: ViewRole,
+  ticks: number,
+  controls?: ControlSet,
+  labels?: string[],
+  sampling: { every?: number; phase?: number } = {},
+) {
   const world = createWorld(CFG, 5);
   const index = waveWith("pinball");
   startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
@@ -54,6 +61,7 @@ function pinballFrames(role: ViewRole, ticks: number, controls?: ControlSet, lab
   const watched: Watched = { phases: new Set(), shots: new Set(), cleared: 0 };
 
   const frames = runFrames(world, role, ticks, {
+    ...sampling,
     controls,
     // The stub logs a `fillText` by its coordinates and not its string, so a
     // test about *which* label was drawn collects them on the way past.
@@ -106,9 +114,10 @@ describe("PINBALL draws on all three screens", () => {
   // first board is given.
   const TICKS = ticksPerBeat(CFG) * (PINBALL_MORPH_BEATS + 20);
 
-  for (const role of ROLES) {
+  // Each seat draws a third of the morph and the board (`thirdOf`).
+  for (const [i, role] of ROLES.entries()) {
     it(`draws the morph, the table and a ball in flight on ${role}`, () => {
-      const { ctx } = pinballFrames(role, TICKS);
+      const { ctx } = pinballFrames(role, TICKS, undefined, undefined, thirdOf(4, i));
       // The stub throws on a value a real canvas would refuse, so reaching
       // here at all is most of the assertion; the count is what tells a drawn
       // round from a frame that returned early.

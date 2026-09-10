@@ -1,7 +1,14 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { createWorld, type SpawnEntry, ticksPerBeat } from "@neon-spore/sim";
 import type { ViewRole } from "../src/layout.js";
-import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, ROLES, runFrames } from "./frame-harness.js";
+import {
+  CFG,
+  FRAME_TIMEOUT_MS,
+  installCanvasGlobals,
+  ROLES,
+  runFrames,
+  thirdOf,
+} from "./frame-harness.js";
 
 // The cap this file runs under. Asked for here rather than inherited: bun
 // applies `setDefaultTimeout` to the file the call is in, and the harness is
@@ -19,8 +26,9 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 beforeAll(installCanvasGlobals);
 
-function bodyFrames(queue: SpawnEntry[], role: ViewRole, ticks: number) {
-  return runFrames(createWorld(CFG, 3, queue), role, ticks);
+/** Every triple in this file shares one play, a third of it per seat (`thirdOf`). */
+function bodyFrames(queue: SpawnEntry[], role: ViewRole, ticks: number, seat: number) {
+  return runFrames(createWorld(CFG, 3, queue), role, ticks, thirdOf(4, seat));
 }
 
 describe("the throb", () => {
@@ -33,17 +41,17 @@ describe("the throb", () => {
     { beat: 2, col: 6, kind: "throb", color: "cyan" },
   ];
 
-  for (const role of ROLES) {
+  for (const [i, role] of ROLES.entries()) {
     it(`draws the turn and both halves of it for ${role}`, () => {
-      const { ctx } = bodyFrames(queue, role, TICKS);
+      const { ctx } = bodyFrames(queue, role, TICKS, i);
       expect(ctx.calls).toBeGreaterThan(1000);
     });
   }
 
-  for (const role of ROLES) {
+  for (const [i, role] of ROLES.entries()) {
     it(`draws a colourless throb without reaching for a second colour for ${role}`, () => {
       const bare: SpawnEntry[] = [{ beat: 0, col: 3, kind: "throb", color: null }];
-      const { ctx } = bodyFrames(bare, role, TICKS);
+      const { ctx } = bodyFrames(bare, role, TICKS, i);
       expect(ctx.calls).toBeGreaterThan(1000);
     });
   }
@@ -58,9 +66,9 @@ describe("the rind", () => {
     { beat: 2, col: 6, kind: "rind", color: "cyan" },
   ];
 
-  for (const role of ROLES) {
+  for (const [i, role] of ROLES.entries()) {
     it(`draws the outsized body and its skin for ${role}`, () => {
-      const { ctx } = bodyFrames(queue, role, TICKS);
+      const { ctx } = bodyFrames(queue, role, TICKS, i);
       expect(ctx.calls).toBeGreaterThan(1000);
     });
   }

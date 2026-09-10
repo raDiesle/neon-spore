@@ -20,6 +20,7 @@ import {
   installCanvasGlobals,
   ROLES,
   runFrames,
+  thirdOf,
   VIEWPORT,
 } from "./frame-harness.js";
 
@@ -60,12 +61,22 @@ const crawler = (segments: number, col = 0): SpawnEntry => ({
   segments,
 });
 
-function crawlerFrames(role: ViewRole, ticks: number, segments = 5, col = 0) {
+/**
+ * Every second tick, unless a caller is one of three sharing the play: the
+ * contraction runs the length of the body inside two beats, so a sampling
+ * that only caught beat boundaries would draw one phase of it over and over.
+ */
+const EVERY_SECOND = { every: 2, phase: 0 };
+
+function crawlerFrames(
+  role: ViewRole,
+  ticks: number,
+  segments = 5,
+  col = 0,
+  sampling = EVERY_SECOND,
+) {
   return runFrames(createWorld(CFG, 1, [crawler(segments, col)]), role, ticks, {
-    // Every second tick: the contraction runs the length of the body inside two
-    // beats, so a sampling that only caught beat boundaries would draw one
-    // phase of it over and over.
-    every: 2,
+    ...sampling,
     controls: controlSet("default"),
   });
 }
@@ -99,19 +110,31 @@ describe("the crawler", () => {
   // it — has been through the stub.
   const TICKS = ticksPerBeat(CFG) * 26;
 
-  for (const role of ROLES) {
+  // Each seat draws a third of the every-second-tick walk (`thirdOf`), so
+  // the contraction is still caught mid-body and the walk is drawn once.
+  for (const [i, role] of ROLES.entries()) {
     it(`draws the links, their necks and both endings for ${role}`, () => {
-      const { ctx } = crawlerFrames(role, TICKS);
+      const { ctx } = crawlerFrames(role, TICKS, 5, 0, thirdOf(2, i));
       expect(ctx.calls).toBeGreaterThan(1000);
     });
   }
 
+  /**
+   * The wall and the length are **paired rather than crossed**, for the
+   * strand's reason (`strand-frame.test.ts`): the two axes are independent.
+   * `crawlerSide` reads the column to pick a wall and `linkCol` walks the
+   * body off it a link a rank, `dir` times the rank, and the count only says
+   * how many ranks there are — so the short worm over one wall and the long
+   * one over the other put every value of both through the canvas, in two
+   * plays where crossing them took four.
+   */
   it("keeps the canvas happy off either wall, and at either length", () => {
-    for (const col of [0, CFG.cols - 1]) {
-      for (const segments of [2, 7]) {
-        const { ctx } = crawlerFrames("p1", TICKS, segments, col);
-        expect(ctx.calls).toBeGreaterThan(1000);
-      }
+    for (const [col, segments] of [
+      [0, 2],
+      [CFG.cols - 1, 7],
+    ] as const) {
+      const { ctx } = crawlerFrames("p1", TICKS, segments, col);
+      expect(ctx.calls).toBeGreaterThan(1000);
     }
   });
 

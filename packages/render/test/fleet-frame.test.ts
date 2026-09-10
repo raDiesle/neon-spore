@@ -9,7 +9,9 @@ import {
   FRAME_TIMEOUT_MS,
   installCanvasGlobals,
   ROLES,
+  remembered,
   runFrames,
+  thirdOf,
   VIEWPORT,
   waveWith,
 } from "./frame-harness.js";
@@ -48,7 +50,11 @@ function firstShip(world: World): { col: number; row: number } {
   return { col: ship.col, row: ship.row };
 }
 
-function fleetFrames(role: ViewRole, ticks: number) {
+function fleetFrames(
+  role: ViewRole,
+  ticks: number,
+  sampling: { every?: number; phase?: number } = {},
+) {
   const world = createWorld(CFG, 3);
   const index = waveWith("fleet");
   startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
@@ -62,6 +68,7 @@ function fleetFrames(role: ViewRole, ticks: number) {
     // Every tick: a shell leaving and a shell landing are both moments between
     // beats, and a frame every fourth tick would step over one of them.
     every: 1,
+    ...sampling,
     onTick: (tick, w) => {
       if (col !== target.col) {
         const dcol: -1 | 1 = target.col > col ? 1 : -1;
@@ -92,15 +99,20 @@ function fleetFrames(role: ViewRole, ticks: number) {
 }
 
 describe("the fleet", () => {
+  // Sixteen beats, each seat drawing a third of the ticks (`thirdOf`), and
+  // the rig's play kept for the case under the loop that reads its events.
+  const played = remembered((role) =>
+    fleetFrames(role, ticksPerBeat(CFG) * 16, thirdOf(1, ROLES.indexOf(role))),
+  );
+
   for (const role of ROLES) {
     it(`draws the chart, the water, a salvo in the air and where it lands for ${role}`, () => {
-      const { ctx } = fleetFrames(role, ticksPerBeat(CFG) * 16);
-      expect(ctx.calls).toBeGreaterThan(1000);
+      expect(played(role).ctx.calls).toBeGreaterThan(1000);
     });
   }
 
   it("really fired, or no shell was ever drawn", () => {
-    const { events } = fleetFrames("test", ticksPerBeat(CFG) * 16);
+    const { events } = played("test");
     expect(events.some((e) => e.type === "fleetSalvo")).toBe(true);
     // And found the hull the sights were walked onto — the splash is the other
     // burst and this test would pass on it without proving the red one.

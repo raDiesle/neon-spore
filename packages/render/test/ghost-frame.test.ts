@@ -18,8 +18,10 @@ import {
   FRAME_TIMEOUT_MS,
   installCanvasGlobals,
   ROLES,
+  remembered,
   runFrames,
   stubCanvas,
+  thirdOf,
   VIEWPORT,
 } from "./frame-harness.js";
 
@@ -65,11 +67,13 @@ function paint(
   ticks: number,
   role: ViewRole,
   inputs: TimedCommand[] = [],
+  sampling: { every?: number; phase?: number } = {},
 ): Painted {
   const byTick = new Map<number, TimedCommand[]>();
   for (const i of inputs) byTick.set(i.tick, [...(byTick.get(i.tick) ?? []), i]);
   const log: string[] = [];
   const { world, ctx } = runFrames(createWorld(CFG, 1, queue), role, ticks, {
+    ...sampling,
     onCanvas: (c) => {
       c.log = log;
     },
@@ -100,9 +104,11 @@ const shoot = (col: number): TimedCommand[] => [
 ];
 
 describe("a ghost on the field", () => {
+  const standing = remembered((role) => paint([falling(5)], TPB * 5, role));
+
   for (const role of ROLES) {
     it(`paints the body, or the band that stands in for it, for ${role}`, () => {
-      expect(paint([falling(5)], TPB * 5, role).calls).toBeGreaterThan(0);
+      expect(standing(role).calls).toBeGreaterThan(0);
     });
   }
 
@@ -110,8 +116,8 @@ describe("a ghost on the field", () => {
     // Not "player 1's is shorter" — the band is drawn on that screen and the
     // body is not, so both frames have work in them. What has to be true is
     // that they are not the *same* frame, which is the whole creature.
-    const one = paint([falling(5)], TPB * 5, "p1").log.join("\n");
-    const two = paint([falling(5)], TPB * 5, "p2").log.join("\n");
+    const one = standing("p1").log.join("\n");
+    const two = standing("p2").log.join("\n");
     expect(one).not.toBe(two);
   });
 
@@ -170,9 +176,12 @@ describe("a ghost that crosses", () => {
   const CROSS_BEATS = Math.ceil((CFG.cols - 1) / CFG.ghostCrossCols) + 1;
   const spent = TPB * (CFG.ghostCrossRow + CROSS_BEATS * (CFG.ghostChargeLaps + 1) + CFG.rows + 4);
 
-  for (const role of ROLES) {
+  // The crossing is the longest play in the file, and each seat draws a
+  // third of it (`thirdOf`), so the prowl, the turns and the dive are drawn once.
+  for (const [i, role] of ROLES.entries()) {
     it(`paints the prowl, the turns and the dive for ${role}`, () => {
-      expect(paint([crossing(1)], spent, role).calls).toBeGreaterThan(0);
+      const painted = paint([crossing(1)], spent, role, [], thirdOf(4, i));
+      expect(painted.calls).toBeGreaterThan(0);
     });
   }
 
@@ -209,9 +218,11 @@ describe("a ghost that crosses", () => {
 });
 
 describe("the escape", () => {
+  const shot = remembered((role) => paint([falling(5)], TPB * 8, role, shoot(5)));
+
   for (const role of ROLES) {
     it(`paints a shot ghost climbing out of the top of the field for ${role}`, () => {
-      const painted = paint([falling(5)], TPB * 8, role, shoot(5));
+      const painted = shot(role);
       expect(painted.calls).toBeGreaterThan(0);
       expect(painted.world.creatures).toHaveLength(0);
     });
@@ -222,8 +233,8 @@ describe("the escape", () => {
     // consulted at all here — the effect is spawned from an event and the
     // creature is already gone — so the two frames differ only where the band
     // was, and the escape itself is in both logs.
-    const one = paint([falling(5)], TPB * 8, "p1", shoot(5));
-    const two = paint([falling(5)], TPB * 8, "p2", shoot(5));
+    const one = shot("p1");
+    const two = shot("p2");
     expect(one.world.creatures).toHaveLength(0);
     expect(two.world.creatures).toHaveLength(0);
     expect(one.calls).toBeGreaterThan(0);

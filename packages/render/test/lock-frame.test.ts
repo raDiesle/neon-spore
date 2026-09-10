@@ -7,6 +7,7 @@ import {
   FRAME_TIMEOUT_MS,
   installCanvasGlobals,
   ROLES,
+  remembered,
   runFrames,
   VIEWPORT,
 } from "./frame-harness.js";
@@ -51,18 +52,19 @@ const SLICK: SpawnEntry[] = [{ beat: 0, col: 8, kind: "slick", color: "red" }];
 const ROCK: SpawnEntry[] = [{ beat: 0, col: 8, kind: "meteor", color: null }];
 
 describe("a locked body and the bolt going to it", () => {
+  // The slick's play once per seat, and read again by the two cases below
+  // rather than played again for each.
+  const slick = remembered((role) => lockedFrames(role, SLICK));
+
   for (const role of ROLES) {
     it(`draws the frame and the curve for ${role} without the canvas refusing a value`, () => {
-      const { ctx } = lockedFrames(role, SLICK);
-      expect(ctx.calls).toBeGreaterThan(500);
+      expect(slick(role).ctx.calls).toBeGreaterThan(500);
     });
   }
 
   it("is drawn on both screens, because the seat that fires is the other one", () => {
-    const p1 = lockedFrames("p1", SLICK);
-    const p2 = lockedFrames("p2", SLICK);
-    expect(p1.ctx.calls).toBeGreaterThan(0);
-    expect(p2.ctx.calls).toBeGreaterThan(0);
+    expect(slick("p1").ctx.calls).toBeGreaterThan(0);
+    expect(slick("p2").ctx.calls).toBeGreaterThan(0);
   });
 
   it("wears no frame over a rock, which is held and cannot be shot", () => {
@@ -72,7 +74,7 @@ describe("a locked body and the bolt going to it", () => {
   });
 
   it("wears one over the body it is actually promised to", () => {
-    const { world } = lockedFrames("p1", SLICK);
+    const { world } = slick("p1");
     // The slick is shot down partway through, so the run is checked at the
     // moment the hand went on rather than at the end.
     const w = createWorld(CFG, 5, SLICK);

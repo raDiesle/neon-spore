@@ -12,7 +12,7 @@ import {
   ticksPerBeat,
 } from "@neon-spore/sim";
 import type { ViewRole } from "../src/layout.js";
-import { CFG, installCanvasGlobals, ROLES, runFrames, waveWith } from "./frame-harness.js";
+import { CFG, installCanvasGlobals, ROLES, runFrames, thirdOf, waveWith } from "./frame-harness.js";
 
 /**
  * THE TELL over the whole stage, played rather than watched.
@@ -55,13 +55,18 @@ function commandsFor(boss: TellState, tick: number, lose: boolean): TimedCommand
   ];
 }
 
-function tellFrames(role: ViewRole, ticks: number) {
+function tellFrames(
+  role: ViewRole,
+  ticks: number,
+  sampling: { every?: number; phase?: number } = {},
+) {
   const world = createWorld(CFG, 5);
   const index = waveWith("tell");
   startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
   const watched: Watched = { phases: new Set(), outcomes: new Set(), thrown: new Set() };
 
   const frames = runFrames(world, role, ticks, {
+    ...sampling,
     onTick: (tick, w) => {
       const t = w.boss?.kind === "tell" ? w.boss : null;
       const commands: TimedCommand[] = [];
@@ -81,9 +86,11 @@ describe("THE TELL draws on all three screens", () => {
   // Long enough for the lead-in, a climb, a loss and the ladder again.
   const TICKS = ticksPerBeat(CFG) * 70;
 
-  for (const role of ROLES) {
+  // Each seat draws a third of the seventy beats (`thirdOf`); `watched` is
+  // read on every tick regardless of which are drawn.
+  for (const [i, role] of ROLES.entries()) {
     it(`draws the ring, the tell and a reveal on ${role}`, () => {
-      const { ctx, watched } = tellFrames(role, TICKS);
+      const { ctx, watched } = tellFrames(role, TICKS, thirdOf(4, i));
       // The stub throws on a value a real canvas would refuse, so reaching
       // here at all is most of the assertion.
       expect(ctx.calls).toBeGreaterThan(500);

@@ -405,25 +405,48 @@ said the guess was wrong in the useful way:
 
 Everything under those is honest work: a frame test costs about 0.8 ms per
 frame drawn, and that is the renderer, not the stub — its per-call tally was
-measured at under a tenth of it. So the rest of the list is a play at a time,
-each with a reason in its file for the beats it runs and the tick it samples:
+measured at under a tenth of it. So the rest of the list was a play at a
+time, each with a reason in its file for the beats it runs and the tick it
+samples, and the second lane went through them file by file. Three cuts
+account for nearly all of it, and each is a rule a new frame test can call:
 
-| file | seconds | plays |
-|---|---|---|
-| `packages/render/test/strand-frame.test.ts` | 12.0 | 8 × 30 beats at every second tick |
-| `tools/shape-sheet/test/drawn-size.test.ts` | 9.9 | 6 |
-| `packages/render/test/lure-frame.test.ts` | 7.3 | 10 |
-| `apps/server/test/room.test.ts` | 7.3 | 25, most of them waiting on a real timer |
-| `packages/render/test/crawler-frame.test.ts` | 6.1 | 11 |
-| `packages/render/test/ghost-frame.test.ts` | 5.9 | 19 |
-| `packages/render/test/fence-frame.test.ts` | 5.7 | 9 |
-| `packages/render/test/veer-frame.test.ts` | 5.4 | 6 × 18 beats |
+- **Three seats share one play** (`thirdOf` in `frame-harness.ts`). A roles
+  loop drew one seeded world three times over, once per seat; each seat now
+  draws a third of the ticks — every `3 × every`, at its own phase — so the
+  play is still drawn once between them. It is the trade `briefing.test.ts`
+  made for the rehearsals, in one line.
+- **A play is remembered** (`remembered`). The case under a roles loop that
+  compares two seats' counts, or reads the events the run produced, used to
+  play the world again to ask; it reads the loop's play instead.
+- **A play stops when its picture is over.** The strand's chase had the thread
+  swept by beat five and ran thirty; the lure's shot was fired on beat three
+  and watched for six more where the blast lives a beat and a half. Each is
+  cut to what its own comment argues for, and the comment now says so.
 
-`packages/render` is 119 s of the 214 as a package, `tools/frames` 36,
-`tools/shape-sheet` 19, `tools/director` 13. The target the queue set is the
-whole suite under two minutes with the same coverage, and the route to it is
-the second table: a play that the same file already ran, a play that reaches
-its state in eight beats rather than thirty, three roles that could take three
-phases of one clock the way the rehearsals now do. A new frame test is read
-against this list before it lands — if it would enter the first ten rows, say
-in the file why the frames it draws are all needed.
+And one that is not a play: `drawnSize` scanned every contour five times for
+five cases, and now remembers the scan per entry.
+
+| file | before | after | plays |
+|---|---|---|---|
+| `packages/render/test/strand-frame.test.ts` | 11.2 s | 3.6 s | seats a third each; the chase 8 beats not 30; the walls 12 |
+| `tools/shape-sheet/test/drawn-size.test.ts` | 9.8 s | 2.1 s | one scan per entry, not one per case |
+| `packages/render/test/lure-frame.test.ts` | 6.7 s | 3.2 s | seats a third each on the shot; the shot on beat one; two repeats read |
+| `packages/render/test/veer-frame.test.ts` | 5.6 s | 3.6 s | two repeats read |
+| `packages/render/test/ghost-frame.test.ts` | 5.6 s | 2.5 s | seats a third each on the crossing; four repeats read |
+| `packages/render/test/fence-frame.test.ts` | 5.5 s | 2.9 s | four repeats read; six wall plays are two |
+| `packages/render/test/crawler-frame.test.ts` | 5.4 s | 2.4 s | seats a third each; wall and length paired |
+| `packages/render/test/tell-frame.test.ts` | 5.3 s | 1.9 s | seats a third each |
+| `dart`, `pinball`, `living`, `fleet`, `gyre`, `veil`, `warden`, `mirror`, `vane`, `lock` | 21.4 s | 9.6 s | the same three rules |
+| the whole suite | 212 s | 153 s | |
+
+`packages/render` is 71 s of the 153 as a package, `tools/frames` 33,
+`tools/director` 12, `tools/shape-sheet` 11. What is left at the top is not a
+play: `opening.test.ts` is a real Chrome (29 s), `briefing.test.ts` draws
+every page of every rehearsal exactly once (23 s), and `room.test.ts` waits
+on workerd (7 s). The target the queue set — the whole suite under two
+minutes with the same coverage — is not reachable a play at a time from
+here, and `docs/queue.md` says where it is reachable: the 384 files run one
+after another in one process. A new frame test is read against this list
+before it lands — if it would enter the first ten rows, say in the file why
+the frames it draws are all needed, and reach for `thirdOf` and `remembered`
+before reaching for a shorter play.

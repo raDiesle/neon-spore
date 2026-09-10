@@ -371,33 +371,6 @@ Wait for `creature:break` to be decided before opening this, or check with
 slots claiming one field, and a body's break and a body's hit are next-door
 questions.
 
-## The test suite is still 214 seconds, and the rest of the cut is a play at a time
-
-- **Found:** 2026-09-10, claude/queue-the-test-suite-takes-four-and-a-half-minutes-and
-- **Taken:** 2026-09-10, claude/queue-the-test-suite-is-still-214-seconds-and-the-rest
-- **Files:** `packages/render/test/*-frame.test.ts`, `tools/shape-sheet/test/drawn-size.test.ts`, `apps/server/test/room.test.ts`, `docs/performance.md`
-
-The lane that wrote `bun run test:profile` took the suite from 292 s to
-214 s with three files — the rehearsal walks, `copies.test.ts` and one
-duplicate play in `tell-frame.test.ts` — and stopped where every remaining
-second is a frame test honestly drawing frames, at about 0.8 ms each. The
-target the first item set stands: **under two minutes with the same
-coverage.** The table under "What the test suite costs" in
-`docs/performance.md` is the map; the top of it is `strand-frame.test.ts` at
-12 s (eight plays of thirty beats), `drawn-size.test.ts` at 10 s, then
-`lure`, `crawler`, `ghost`, `fence` and `veer` at five to seven each.
-
-What to do, file by file and never blind: read the comment that justifies
-each play's length and sampling, and cut only where the proof survives —
-a play the same file already ran under another name (the tell had one), three
-roles that can each take a different phase of one clock the way
-`briefing.test.ts` now does, a state reached in eight beats that the play runs
-thirty to reach, a `runFrames` at `every: 2` whose comment only argues against
-a multiple of the beat and not for the density. `room.test.ts` waits on real
-timers and wants a fake clock, which is a different kind of change. Take
-`bun run test:profile` before and after and put the new figures in the
-document's table; `bun run check` green is the proof of coverage.
-
 ## `versus:shot --scale 3` hangs the page on a `crop: "tile"` pose
 
 - **Found:** 2026-09-10, claude/queue-the-ghost-and-the-echo-have-one-look-each-and-no
@@ -423,3 +396,55 @@ the echo at 2x whole and cropped it with a throwaway script instead, which is
 the workaround this entry ends. Find what is spinning, fix it, and prove it
 with `bun run versus:shot creature:echo cleft out.png --freeze 1.1 --only
 candidate --scale 6` coming back in under a minute with the echo in it.
+
+## `drawnSize` re-derives the fit `figureLayout` remembers, minus the long axis
+
+- **Found:** 2026-09-10, claude/queue-the-test-suite-is-still-214-seconds-and-the-rest
+- **Files:** `tools/shape-sheet/src/drawn-size.ts`,
+  `tools/director/src/shape-fit.ts`, `tools/shape-sheet/test/drawn-size.test.ts`
+
+`drawn-size.ts` says at the top that it reaches into the director rather than
+re-deriving its arithmetic, and then re-derives the fit: it calls `boundsOver`
+and `transformedBounds` itself, restates `shapeFigure`'s pad as `PAD_MIN` and
+`PAD_FRACTION`, and hands `transformedBounds` no `long` axis where
+`shape-fit.ts`'s `fitOf` passes `still.long` — so the box it fits is not quite
+the box the card is drawn in, for any body whose motion reads its long axis.
+`figureLayout(entry, entry.motion, box, width)` is the director's own answer,
+remembered per entry, and it exports the `scale`; what it does not export is
+the rest pose's box (`Still.bounds`), which is the other half of a drawn size.
+Export `stillOf` (or a `restBounds`) from `shape-fit.ts`, make `drawnSize` two
+lines over `figureLayout` and it, and delete the memo this lane added to
+`drawn-size.ts` on 10 September 2026, which exists only because the fit was
+being scanned five times over. The pinned figures in `drawn-size.test.ts`
+(99, 61, 23, the bulb at 22–24) will move if the long axis changes any square
+card's fit; re-pin them with a note saying why, which is what that file does.
+
+## `bun test` runs 384 files one after another; the play-by-play cut has run out
+
+- **Found:** 2026-09-10, claude/queue-the-test-suite-is-still-214-seconds-and-the-rest
+- **Files:** `tools/check/`, `tools/check/profile.ts`, `package.json`,
+  `docs/performance.md`, `tools/frames/test/opening.test.ts`,
+  `apps/server/test/room.test.ts`
+
+Two lanes have now taken the suite from 292 s to the figure in
+`docs/performance.md`'s table by cutting plays — the rehearsals, the seat
+loops, the repeated plays — and what is left is honest: `opening.test.ts`
+is a real Chrome (31 s), `briefing.test.ts` draws every page of every
+rehearsal once (23 s), and the rest is a long tail of one to three seconds a
+file. The target the first item set — **under two minutes with the same
+coverage** — is not reachable that way, and it is reachable another: the
+suite is 384 files run one after another in one process on a machine with
+many cores. Shard the files across N `bun test` processes from
+`tools/check/` — files are independent by construction, each installs its own
+canvas globals — and merge the exit codes and the JUnit reports so
+`test:profile` still reads one run. Two things stand in the way, and both are
+this lane's to settle: a shard that opens a server takes a port derived from
+the tree (`tools/port.ts`), and two shards in one tree would collide on it —
+`opening.test.ts` builds and serves, `room.test.ts` raises workerd — so put
+every server-owning file in one shard, or hand each shard a port offset; and
+`purity.test.ts`, `hash-coverage.test.ts` and `tools/test/*.test.ts` walk the
+whole tree, which is fine in any shard but slow in all of them. Measure with
+`bun run test:profile` before and after; `bun run check` green in under two
+minutes is the proof. `room.test.ts`'s fifty `settle()` sleeps of 60 ms each
+(3 s of wall clock waiting for workerd) are still the one file whose cost is
+a clock rather than a frame, and a fake clock there is a different lane.

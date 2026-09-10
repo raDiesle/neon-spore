@@ -17,7 +17,9 @@ import {
   FRAME_TIMEOUT_MS,
   installCanvasGlobals,
   ROLES,
+  remembered,
   runFrames,
+  thirdOf,
   waveWith,
 } from "./frame-harness.js";
 
@@ -36,12 +38,17 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 beforeAll(installCanvasGlobals);
 
-function wardenFrames(role: ViewRole, ticks: number) {
+function wardenFrames(
+  role: ViewRole,
+  ticks: number,
+  sampling: { every?: number; phase?: number } = {},
+) {
   const world = createWorld(CFG, 7, buildQueue(0, CFG.cols));
   const index = waveWith("warden");
   startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
 
   return runFrames(world, role, ticks, {
+    ...sampling,
     onTick: (_tick, w) => {
       // Player 1 grabs the handle the moment a rope is there and hauls it all
       // the way over; player 2 fires into the pupil as soon as the hatch is
@@ -84,10 +91,13 @@ function wardenFrames(role: ViewRole, ticks: number) {
 describe("the warden", () => {
   const TICKS = ticksPerBeat(CFG) * (CFG.wardenCycleBeats + 2);
 
+  // Each seat draws a third of the ticks (`thirdOf`), and the rig's play is
+  // kept for the case under the loop that reads its events.
+  const played = remembered((role) => wardenFrames(role, TICKS, thirdOf(4, ROLES.indexOf(role))));
+
   for (const role of ROLES) {
     it(`draws the ring, a pulled rope and an open eye for ${role}`, () => {
-      const { ctx } = wardenFrames(role, TICKS);
-      expect(ctx.calls).toBeGreaterThan(1000);
+      expect(played(role).ctx.calls).toBeGreaterThan(1000);
     });
   }
 
@@ -95,7 +105,7 @@ describe("the warden", () => {
     // The state is no help here: a landed shot cuts the rope in the same tick,
     // so by the last frame there is nothing left to look at. What the run
     // reported is the record.
-    const { events } = wardenFrames("test", TICKS);
+    const { events } = played("test");
     expect(events.some((e) => e.type === "tether")).toBe(true);
     expect(events.some((e) => e.type === "eyeOpen")).toBe(true);
     expect(events.some((e) => e.type === "plate")).toBe(true);

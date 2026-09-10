@@ -12,7 +12,14 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { ViewRole } from "../src/layout.js";
-import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, ROLES, runFrames } from "./frame-harness.js";
+import {
+  CFG,
+  FRAME_TIMEOUT_MS,
+  installCanvasGlobals,
+  ROLES,
+  runFrames,
+  thirdOf,
+} from "./frame-harness.js";
 
 // The cap this file runs under. Asked for here rather than inherited: bun
 // applies `setDefaultTimeout` to the file the call is in, and the harness is
@@ -64,14 +71,26 @@ function chase(w: World): TimedCommand[] {
   ];
 }
 
-function strandFrames(role: ViewRole, ticks: number, beads = 4, col = 3, shoot = false) {
+/**
+ * Every second tick, unless a caller is one of three sharing the play. A
+ * thread steps down every `strandFallBeats` beats and the reel over a bead
+ * rolls on the wall clock rather than on the beat, so a sampling pinned to
+ * beat boundaries would draw one turn of it over and over.
+ */
+const EVERY_SECOND = { every: 2, phase: 0 };
+
+function strandFrames(
+  role: ViewRole,
+  ticks: number,
+  beads = 4,
+  col = 3,
+  shoot = false,
+  sampling = EVERY_SECOND,
+) {
   const world: World = createWorld(CFG, 3, [strand(beads, col)]);
   let shrivelled = 0;
   const frames = runFrames(world, role, ticks, {
-    // A thread steps down every `strandFallBeats` beats and the reel over a
-    // bead rolls on the wall clock rather than on the beat, so a sampling
-    // pinned to beat boundaries would draw one turn of it over and over.
-    every: 2,
+    ...sampling,
     controls: controlSet("default"),
     onTick: (_tick, w) => {
       step(w, shoot ? chase(w) : []);
@@ -89,9 +108,11 @@ describe("the strand", () => {
   // slower clock, and land on the hull.
   const TICKS = ticksPerBeat(CFG) * 30;
 
-  for (const role of ROLES) {
+  // Each seat draws a third of the every-second-tick play (`thirdOf`), so
+  // the reel is still caught between beats and the thread is drawn once.
+  for (const [i, role] of ROLES.entries()) {
     it(`draws the thread and the bodies on it for ${role}`, () => {
-      const { ctx } = strandFrames(role, TICKS);
+      const { ctx } = strandFrames(role, TICKS, 4, 3, false, thirdOf(2, i));
       expect(ctx.calls).toBeGreaterThan(1000);
     });
   }
@@ -110,22 +131,37 @@ describe("the strand", () => {
    * as slow. A test that only passes on an idle box is a test somebody re-runs
    * on its own and stops reading.
    */
+  // Twelve beats rather than the thirty the seat plays run: what these two
+  // are for is the clamp at the wall and the spacing along the thread, and
+  // both are in every frame from the first. Twelve is six steps of the fall
+  // (`strandFallBeats`), which is the clamp holding as the thread moves; the
+  // landing is the same breach at any column and the seat plays draw it.
+  const WALL_TICKS = ticksPerBeat(CFG) * 12;
+
   for (const [col, beads] of [
     [0, 2],
     [CFG.cols - 1, 5],
   ] as const) {
     it(`keeps the canvas happy at column ${col} with ${beads} beads`, () => {
-      const { ctx } = strandFrames("p1", TICKS, beads, col);
+      const { ctx } = strandFrames("p1", WALL_TICKS, beads, col);
       expect(ctx.calls).toBeGreaterThan(1000);
     });
   }
+
+  // A pair answering every bead the moment it is offered has the first one
+  // shrivelled inside two beats and the third spent inside four, and the
+  // thread leaves no transient behind it (`effects-ingest-silent.ts`) — so
+  // eight beats is the raisin, the sweep and the sparks the last shot threw,
+  // and the twenty-two beyond it that this play used to run were an empty
+  // field drawn three times over.
+  const CHASE_TICKS = ticksPerBeat(CFG) * 8;
 
   for (const role of ROLES) {
     it(`draws a shrivelled bead and the sweep after the last one for ${role}`, () => {
       // The two pictures a standing thread never shows. `drawRaisin` needs a
       // bead that has been shot and is still hanging; the sweep needs the last
       // live one spent, which takes the thread off the field entirely.
-      const { ctx, world, shrivelled } = strandFrames(role, TICKS, 3, 5, true);
+      const { ctx, world, shrivelled } = strandFrames(role, CHASE_TICKS, 3, 5, true);
       expect(shrivelled, "no bead was ever shot, so no raisin was drawn").toBeGreaterThan(0);
       expect(world.creatures.filter((c) => c.kind === "strand")).toHaveLength(0);
       expect(ctx.calls).toBeGreaterThan(1000);

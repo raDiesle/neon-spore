@@ -7,7 +7,9 @@ import {
   FRAME_TIMEOUT_MS,
   installCanvasGlobals,
   ROLES,
+  remembered,
   runFrames,
+  thirdOf,
   waveWith,
 } from "./frame-harness.js";
 
@@ -26,23 +28,32 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 beforeAll(installCanvasGlobals);
 
-function vaneFrames(role: ViewRole, ticks: number) {
+function vaneFrames(
+  role: ViewRole,
+  ticks: number,
+  sampling: { every?: number; phase?: number } = {},
+) {
   const world = createWorld(CFG, 3);
   const index = waveWith("vane");
   startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
-  return runFrames(world, role, ticks);
+  return runFrames(world, role, ticks, sampling);
 }
 
 describe("the vane", () => {
+  // Each seat draws a third of the ticks (`thirdOf`), and the rig's play is
+  // kept for the case under the loop that reads what it reached.
+  const played = remembered((role) =>
+    vaneFrames(role, ticksPerBeat(CFG) * 18, thirdOf(4, ROLES.indexOf(role))),
+  );
+
   for (const role of ROLES) {
     it(`draws the arm, the bearing and a split housing for ${role}`, () => {
-      const { ctx } = vaneFrames(role, ticksPerBeat(CFG) * 18);
-      expect(ctx.calls).toBeGreaterThan(1000);
+      expect(played(role).ctx.calls).toBeGreaterThan(1000);
     });
   }
 
   it("really threw something, or the flick was never drawn", () => {
-    const { world } = vaneFrames("test", ticksPerBeat(CFG) * 18);
+    const { world } = played("test");
     const boss = world.boss;
     expect(boss?.kind === "vane" && boss.throwBeat !== -1).toBe(true);
   });

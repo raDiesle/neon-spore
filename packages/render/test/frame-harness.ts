@@ -135,6 +135,42 @@ export function peakWorld(id: string, seed = 3, beats = 24): World {
   return world;
 }
 
+/**
+ * The sampling for the `i`th of three seats sharing one play.
+ *
+ * Three roles drawing one seeded world used to be the same frames three
+ * times over, and the roles were the top of every file's cost. Each takes a
+ * third of the ticks instead — every `3 * every`, at its own phase — so
+ * between them every `every`th tick of the play is still drawn once. What the
+ * three runs share is the simulation; what differs is which seat is drawing
+ * it, and a seat's picture is the same code at any tick. `briefing.test.ts`
+ * made the trade first, for the rehearsals; this is it in one line.
+ */
+export function thirdOf(every: number, i: number): { every: number; phase: number } {
+  return { every: every * 3, phase: every * i };
+}
+
+/**
+ * A play once per seat, remembered.
+ *
+ * A file's roles loop plays a world for each seat, and then a case under it
+ * asks what that play reached — the events, the world it left, the two seats'
+ * counts side by side — and used to play it again to find out. Played on
+ * demand rather than in `beforeAll`, so a case run on its own still has what
+ * it needs, and the loop's cases still fail one seat at a time.
+ */
+export function remembered<T>(play: (role: ViewRole) => T): (role: ViewRole) => T {
+  const seen = new Map<ViewRole, T>();
+  return (role) => {
+    let had = seen.get(role);
+    if (had === undefined) {
+      had = play(role);
+      seen.set(role, had);
+    }
+    return had;
+  };
+}
+
 export interface FramesOptions {
   viewport?: Viewport;
   /**
@@ -143,6 +179,15 @@ export interface FramesOptions {
    * that, and a button that fades wants every tick.
    */
   every?: number;
+  /**
+   * Which tick of each `every` this run draws, `0` unless asked. For three
+   * roles that share one world: drawn at `every: 6` with phases 0, 2 and 4,
+   * the three runs between them draw every second tick of the play exactly
+   * once, at a third of the frames each — the trade `briefing.test.ts` made
+   * for the rehearsals, brought here so a file can make it in one line
+   * rather than with a loop of its own.
+   */
+  phase?: number;
   /**
    * What happens on this tick, stepping the world itself. The default steps
    * with no commands; a subject that needs a press, a mid-run mutation or a
@@ -194,6 +239,7 @@ export function runFrames(
   options.onCanvas?.(ctx);
 
   const every = options.every ?? 4;
+  const phase = (options.phase ?? 0) % every;
   // The world's own configuration, not `DEFAULT_CONFIG`: a subject built on
   // `PAIR_ON` or a charged shot runs at whatever tempo it was created with.
   const cfg = world.cfg;
@@ -208,7 +254,7 @@ export function runFrames(
       events.push(...world.events);
       all.push(...world.events);
     }
-    if (tick % every !== 0) continue;
+    if (tick % every !== phase) continue;
     renderer.draw({
       world,
       beatPhase: (world.tick % tpb) / tpb,
