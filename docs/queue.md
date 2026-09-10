@@ -804,6 +804,7 @@ seat's own colour.
 ## `bun run frames` cannot photograph a hole a rock just made
 
 - **Found:** 2026-09-09, claude/ship-crater-spall-animation-e9da51
+- **Taken:** 2026-09-10, claude/queue-bun-run-frames-cannot-photograph-a-hole-a-rock-j
 - **Files:** `tools/frames/run.ts`, `tools/frames/capture.ts`, `apps/game/src/testing.ts`
 
 The same clock in a second tool. `frames` advances the world by hundreds of
