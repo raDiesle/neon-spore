@@ -193,6 +193,7 @@ takes the two pictures for the owner to choose between.
 ## THE WISP and THE VEIL have one look each and no second answer
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Taken:** 2026-09-10, claude/queue-the-wisp-and-the-veil-have-one-look-each-and-no
 - **Files:** `packages/render/src/wisp-look.ts`,
   `packages/render/src/veil-look.ts`, `tools/versus/candidates/`,
   `tools/director/src/versus-pose.ts`
