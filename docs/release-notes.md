@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · 12e8c3be — THE CAROM is a rescue capsule: CAPSULE taken into the game, the slot closed
+
+Of the three capsules offered on FACET's faces the owner took CAPSULE in chat on 10 September 2026 — the restrained one: the rescue stripe on the outer ring of the four rear faces, dark, white, white, dark; a rivet at every ridge vertex; the nose and half of each shoulder scorched with an ember lip; a small beacon on the tail flashing the body's colour on the beat; the nose on the diagonal it walks, turning over at the wall. A look the owner asked for by name.
+
+## 2026-09-10 · 12bacd4c — Three rescue capsules offered on THE CAROM, built on FACET's faces
+
+The owner picked FACET from the four `creature:carom` candidates on 10 September 2026 and asked for it taken further — more like a space rescue capsule, keeping the cut outline, the nose along its heading, with seams and rivets, hazard chevrons, a beacon on the beat and a scorched shield on the side it travels toward. GRIT, KEEL and PITS go; FACET's faces move into `packages/render/src/carom-facet.ts` as the base, the four markings into `carom-marks.ts`, and three capsules stand in the slot that differ in where the markings go: CAPSULE (stripe on the outer ring of the rear faces, small beacon), LIFEBOAT (every rear face a band from silhouette to glass, a beacon that throws a flash) and POD (plain riveted plate, the stripe as a hatch ring on the bevel, the beacon on a mast). `CrustDraw` gains `beat` for the beacon; the shipped stone does not read it.
+
 ## 2026-09-10 · 8ce3788a — Several tasks in one prompt are worked in order, and a mid-turn message is read by its prefix
 
 A prompt may carry a numbered list of independent tasks: each is finished and landed onto the local main before the next begins, with no question in between — one that needs the owner's decision is parked with its question and the next task starts. A message typed while the session works arrives mid-task and, without a rule, reads as a correction to the work in hand, so it is read by its first word: NEXT: appends a task for afterwards, STOP applies now, and anything unprefixed is asked about first. The rule is in CLAUDE.md; the three shapes and the reasoning are in docs/working-with-claude.md, which also now says the model choice is none — the owner works on Opus 5 only.
