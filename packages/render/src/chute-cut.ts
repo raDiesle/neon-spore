@@ -1,6 +1,6 @@
 import { livingPath, livingSilhouette } from "@neon-spore/content";
 import type { Color, CreatureKind, SimEvent } from "@neon-spore/sim";
-import { CANOPY_HALF, CANOPY_LIFT, canopyPath } from "./chute.js";
+import { CANOPY_HALF, CANOPY_LIFT, canopyPath } from "./chute-canopy.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 

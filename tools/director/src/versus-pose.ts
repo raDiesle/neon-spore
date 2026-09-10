@@ -219,6 +219,14 @@ const SLOT_POSE: Record<string, string> = {
   // that is not a slick. The same pose: a body worn per layer is judged as the
   // layers come off it, and nowhere else.
   "rind:body": "RIND · SHEDDING",
+  // The two halves of one creature, opened the same day, and the first slots
+  // here whose subject is a **path**: neither a surface held still nor an event
+  // replayed, but a journey, so both are held for as long as their body is on
+  // the field (`poses-crossing.ts`). The carom is the one creature slot cropped
+  // to the whole **field** — a tile crop follows its body, and a window that
+  // follows a carom is one in which the carom never moves.
+  "creature:carom": "CAROM · CROSSING",
+  "creature:chute": "CHUTE · THROWN CLEAR",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

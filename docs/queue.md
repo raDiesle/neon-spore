@@ -190,20 +190,6 @@ Whichever wins, `packages/render/test/wave-budget.test.ts`'s BULB QUEEN rows
 are the proof it changed nothing else, and `bun run frames . --wave 25 --at`
 takes the two pictures for the owner to choose between.
 
-## THE CAROM and THE CHUTE have one look each and no record to patch
-
-- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
-- **Taken:** 2026-09-10, claude/queue-the-carom-and-the-chute-have-one-look-each-and-n
-- **Files:** `packages/render/src/carom.ts`,
-  `packages/render/src/carom-window.ts`, `packages/render/src/chute.ts`,
-  `packages/render/src/chute-cut.ts`, `tools/versus/candidates/`
-
-Cut a look record for each, then open `creature:carom` and `creature:chute`
-with three candidates each. Both bodies are about a path — one bounces, one
-drops down a channel — so both slots animate and both are judged on whether the
-body looks like a solid thing travelling rather than a sprite being moved.
-`.claude/skills/depth` applies. Poses in `versus-pose.ts` in the same commit.
-
 ## THE VOLLEY and THE VEER have one look each and no record to patch
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
@@ -338,3 +324,51 @@ command above returning the eye and nothing else; and give `tools/frames` a
 `crop <in.png> <out.png> x,y,w,h [zoom]` that reads with `decodePng` and
 writes with `tools/raster/src/png.ts`'s chunks, so a lane that already has a
 picture can look closer without a browser.
+
+## `bun run check` is red on `main`: a claim the SHAPES card no longer makes
+
+- **Found:** 2026-09-10, claude/enemy-graphics-animations-versus-3mjjv7
+- **Files:** `tools/shape-sheet/test/candidates.test.ts`,
+  `tools/shape-sheet/src/drawn-size.ts`
+
+`tools/shape-sheet/test/candidates.test.ts` — *what a candidate can now be
+asked > is measured for its drawn size, so a shrunken one reads as smaller* —
+fails on `origin/main` at dce50590 with a clean tree, so every lane that runs
+`bun run check` before landing sees a red shard it did not cause. The test
+patches `sizeMul: 0.2` onto the slick's silhouette and asserts the candidate's
+`short` comes back under the shipped body's; both now come back at exactly
+22.610698182298695.
+
+It has survived at least two landings since — the sha above is where this lane
+found it, not where it started. The cause is `21298131`, *`drawnSize` is the
+director's own fit now, not a second copy of it*: `drawnSize` runs `figureLayout`, which **fits a figure to
+the card**, so a body authored at a fifth of the size is scaled back up to fill
+the same 92 px box and measures identically. That is a decision rather than a
+slip, and it is why this is an entry instead of a fix in the lane that found
+it — the sheet either normalises every body to its card, in which case the
+20 px floor and the 11 px cliff cannot be applied to a `sizeMul` at all and the
+test's premise goes, or it does not, in which case `figureLayout`'s fit is the
+wrong thing for `drawnSize` to be asking. Pick one, say which in the test's own
+words, and prove it with `bun run check` green from a clean `main`.
+
+## `bun run queue take` cannot write its `Taken:` line in a cloud clone
+
+- **Found:** 2026-09-10, claude/enemy-graphics-animations-versus-3mjjv7
+- **Files:** `tools/queue/`, `docs/cloud-session.md`
+
+`bun run queue take 4` in a session started from a phone answers `⚑
+docs/queue.md on main left alone — nothing has main checked out` and then
+reports the item ongoing anyway. Half the claim is made and half is not: the
+listing in that session says taken, and the file every *other* session reads
+says free. A clone has no worktrees and no checked-out `main` — that is the
+normal shape of a cloud session (`docs/cloud-session.md`), not an unusual one —
+so this is not a rare path, and the only reason it did no harm here is that
+one session was running.
+
+Two options, and the answer picks between them. Either `take`/`next` learn the
+clone case and write the `Taken:` line onto the current branch, leaving the
+line to reach `main` with the work that carries it — which is what a cloud
+session's every other write already does — or they refuse outright in a clone
+and say to claim by hand, rather than reporting a claim that was not made. The
+half-done third state is the one thing that must go. `tools/queue/test/queue.test.ts`
+holds the formats and is where the case belongs.

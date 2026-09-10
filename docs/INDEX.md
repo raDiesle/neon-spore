@@ -713,6 +713,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/carom.ts` | THE CAROM's crust: a meteor with a window cut in it, and the streak it drags |
 | `packages/render/src/chute.ts` | THE CHUTE, drawn: the thrust that throws a body out of a cracked carom |
 | `packages/render/src/carom-window.ts` | THE CAROM's window: a hole punched clean through the rock, a bezel round it |
+| `packages/render/src/carom-look.ts` | THE ONE RECORD A CANDIDATE **CAROM** CRUST PATCHES |
 | `packages/render/src/controls-fleet.ts` | THE FLEET's own two controls, and the crosshair only they still wear |
 | `packages/render/src/ship-air.ts` | THE AIR THE SHIP IS SITTING IN |
 | `packages/render/src/ship-nerves.ts` | what runs from a control to the organ it drives, as a record — drawn under the controls and across the membrane; ships empty, a candidate ship wires it |
@@ -722,6 +723,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/volley-seams.ts` | **The pattern painted on THE VOLLEY's shell**: the four seams a basketball has |
 | `packages/render/src/meteor-look.ts` | WHAT A ROCK IS MADE OF, as a record rather than as the body of one function |
 | `packages/render/src/chute-cut.ts` | A chute shot down under its canopy: the canopy cut loose and the body dropping out from under it |
+| `packages/render/src/chute-canopy.ts` | THE CANOPY'S GEOMETRY: the one shape a chute hangs under, and the two lengths that put it where it is |
+| `packages/render/src/chute-look.ts` | THE ONE RECORD A CANDIDATE **CHUTE** PATCHES |
 | `packages/render/src/warden-cilia.ts` | THE WARDEN's fringe: the half of CILIATE that stands **outside** the rim |
 | `packages/render/src/warden-plates.ts` | THE WARDEN's armour, and the only place on the field that says how far in the pair is |
 | `packages/render/src/warden-skin.ts` | THE WARDEN's skin: the veins under it, the wet film over it |
@@ -1395,6 +1398,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/poses-bodies.ts` | The pose a candidate for a *body* is judged on, as opposed to one for a mechanism firing |
 | `tools/director/src/poses-casing.ts` | The states a candidate for what a body **wears** is judged on |
 | `tools/director/src/poses-cage.ts` | The pose a candidate for THE RECOIL's cage is judged on |
+| `tools/director/src/poses-crossing.ts` | The two states a candidate for a body that **goes somewhere** is judged on |
 | `tools/director/src/poses-damage.ts` | The two poses about **damage** — a rock being marked, and a body being destroyed |
 | `tools/director/src/poses-rounds.ts` | The states a candidate for an **interlude** is judged on |
 | `tools/director/src/poses-layers.ts` | the states a layer over a body is judged giving way in — a rind under fire, a lid under a hand — with `Pose.hand` |

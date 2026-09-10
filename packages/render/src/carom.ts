@@ -1,12 +1,11 @@
-import { crystalPath, LIGHT_HALF, METEOR } from "@neon-spore/content";
 import { type Creature, caromHeading, type SimConfig, spanOf } from "@neon-spore/sim";
+import { CAROM_LOOK, type CrustDraw } from "./carom-look.js";
 import { drawWindow } from "./carom-window.js";
 import { depthScale, drawnRow, hazed } from "./depth.js";
 import { halo } from "./glow.js";
 import { sinHash } from "./hash.js";
-import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
-import { PALETTE, STROKE } from "./palette.js";
+import { PALETTE } from "./palette.js";
 import { rockRadius } from "./torch.js";
 
 /**
@@ -50,6 +49,11 @@ import { rockRadius } from "./torch.js";
  * simulation is actually going to move it — which means the picture and the
  * next beat can never point opposite ways.
  *
+ * **The rock and the streak are both drawn through `CAROM_LOOK`**, which is
+ * where their code now lives: `carom-look.ts` is the one record a candidate
+ * crust patches, and this file gathers the lengths and the colours and hands
+ * the record a `CrustDraw`. Nothing about what ships moved with it.
+ *
  * Nothing here is remembered between frames. The heading comes off the world
  * and the shimmer off the wall clock spread by the body's own id, so a restart
  * cannot leave a stale streak behind and two caroms in two lanes are never one
@@ -72,12 +76,6 @@ import { rockRadius } from "./torch.js";
  * to read as rock at the top of the field.
  */
 const GLASS_MUL = 0.58;
-/** How far the streak reaches behind it, in rock radii. Two: about half a lane
- * at the top of the field and most of one at the bottom, which is the distance
- * that reads as speed without reaching into the column next door. */
-const TRAIL_MUL = 2.0;
-/** How much of the trail's own colour survives where it leaves the rock. */
-const TRAIL_ALPHA = 0.5;
 
 /**
  * The crust and its streak, over a body that is already drawn. `time` is
@@ -107,79 +105,35 @@ export function drawCaromCrust(
   const glow = hazed(cfg, c.color === "cyan" ? PALETTE.cyan : PALETTE.red, near);
   const rim = hazed(cfg, c.color === "cyan" ? PALETTE.cyanRim : PALETTE.redRim, near);
 
+  // The rock turns and the window does not, which is the whole reason they are
+  // two drawings rather than one path with a hole in it. A porthole that rolled
+  // with the stone would be a porthole nobody could look through, and the body
+  // behind it is drawn upright by `drawLiving` either way — so a turning frame
+  // would visibly slide across a body standing still.
+  const d: CrustDraw = {
+    ctx,
+    r,
+    glass,
+    dir,
+    turn: spin + time * 0.12,
+    time,
+    metal,
+    glow,
+    rim,
+  };
+
   ctx.save();
   ctx.translate(x, y);
-  drawTrail(ctx, r, dir, glow);
-
-  // The rock turns and the window does not, which is the whole reason they are
-  // two paths in two frames rather than one path with a hole in it. A porthole
-  // that rolled with the stone would be a porthole nobody could look through,
-  // and the body behind it is drawn upright by `drawLiving` either way — so a
-  // turning frame would visibly slide across a body standing still.
-  const turn = spin + time * 0.12;
-  // The facets and the hole in one path, filled `evenodd`, so the window is
-  // never painted at all and the body `drawLiving` already put down shows
-  // through it. The first version punched the hole out afterwards with
-  // `destination-out`, which took the body with it — the pair got a rock with
-  // a grey disc in it and no colour to call.
-  //
-  // The circle is added inside the rotated frame and is right to be: it is
-  // centred on the body, and a circle about the origin is the same circle
-  // whichever way the frame is turned. That is what lets the stone roll while
-  // the window stays where the eye left it.
-  const shell = new Path2D(
-    crystalPath(0, 0, r, r, METEOR.sides, METEOR.depth, METEOR.wobble, time * 0.15, METEOR.seed),
-  );
-  const hole = new Path2D();
-  hole.arc(0, 0, glass, 0, Math.PI * 2);
-  shell.addPath(hole);
-
-  ctx.save();
-  ctx.rotate(turn);
-  ctx.fillStyle = "#8A8F9C";
-  ctx.fill(shell, "evenodd");
-  ctx.save();
-  ctx.clip(shell, "evenodd");
-  litRound(ctx, 0, 0, r, LIGHT_HALF.rock, turn);
-  ctx.restore();
-  ctx.strokeStyle = metal;
-  ctx.lineWidth = STROKE.outline;
-  ctx.stroke(shell);
-  ctx.restore();
-
+  // The streak first, so the rock stands on top of what it has left behind.
+  CAROM_LOOK.travel(d);
+  CAROM_LOOK.shell(d);
+  // The window is not in the record and is not in the question: it is what the
+  // pair reads a *colour* through, and a slot that moved it would be asking two
+  // things at once (`carom-look.ts`).
   drawWindow(ctx, glass, metal, rim, glow);
   ctx.restore();
 
   // The light escaping past the glass. Small: most of it is behind something,
   // which is the difference between this and a body in the open.
   halo(ctx, x, y, r * 1.3, glow, 0.12);
-}
-
-/**
- * The wedge dragged behind it: widest at the rock, gone by the far end, and
- * pointing the way `caromHeading` says the body is going. Drawn in the body's
- * own colour rather than in rock, because what the streak is saying is *this
- * one is alive and it is already past you*.
- */
-function drawTrail(ctx: CanvasRenderingContext2D, r: number, dir: number, glow: string): void {
-  const back = -dir * r * TRAIL_MUL;
-  const tip = -r * TRAIL_MUL * 0.5;
-  // Along the wedge rather than across it: a gradient running the other way
-  // samples the transparent end everywhere and draws nothing at all.
-  const grad = ctx.createLinearGradient(0, 0, back, tip);
-  grad.addColorStop(0, glow);
-  grad.addColorStop(1, "rgba(0,0,0,0)");
-  ctx.save();
-  ctx.globalAlpha = TRAIL_ALPHA;
-  ctx.beginPath();
-  ctx.moveTo(0, -r * 0.7);
-  ctx.lineTo(0, r * 0.7);
-  // Behind and *above*: the body is falling as well as crossing, so a streak
-  // laid flat along the row would describe a different creature. The wedge
-  // leans back up the diagonal the simulation actually walked it down.
-  ctx.lineTo(back, tip);
-  ctx.closePath();
-  ctx.fillStyle = grad;
-  ctx.fill();
-  ctx.restore();
 }
