@@ -3,7 +3,7 @@ import { hash01 } from "../../../../../packages/render/src/backdrop.js";
 import type { BandAttach } from "../../../../../packages/render/src/band-join.js";
 import { rgba } from "../../../../../packages/render/src/hex.js";
 import type { Circle } from "../../../../../packages/render/src/layout.js";
-import { bell, belly, sky, wash } from "./tissue.js";
+import { bell, belly, sameLight, sky } from "./tissue.js";
 
 /**
  * The paint FUSED is made of.
@@ -137,8 +137,10 @@ function sprigs(c: Circle, index: number, top: number, sway: number): string {
  */
 export function welded(d: BandAttach): void {
   const { ctx, l, lobes, time, skin } = d;
-  wash(d);
-  if (lobes.length === 0) return;
+  if (lobes.length === 0) {
+    sameLight(d);
+    return;
+  }
 
   const top = sky(l);
   let body = "";
@@ -176,4 +178,6 @@ export function welded(d: BandAttach): void {
   ctx.strokeStyle = rgba(skin.rim, 0.1);
   ctx.lineWidth = Math.max(1, l.tile * 0.07);
   ctx.stroke(new Path2D(light));
+
+  sameLight(d);
 }

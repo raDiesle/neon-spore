@@ -1,10 +1,17 @@
-import { HULL, hullAngleAtX, hullRadiusMul } from "../../../../../packages/content/src/index.js";
+import {
+  HULL,
+  hullAngleAtX,
+  hullRadiusMul,
+  LIGHT_HALF,
+} from "../../../../../packages/content/src/index.js";
 import type { BandAttach, CeilingRise } from "../../../../../packages/render/src/band-join.js";
-import { seamBottom, seamRise, seamTop } from "../../../../../packages/render/src/band-seam.js";
-import { mixHex, rgba } from "../../../../../packages/render/src/hex.js";
+import { seamRise, seamTop } from "../../../../../packages/render/src/band-seam.js";
+import { mixHex } from "../../../../../packages/render/src/hex.js";
+import { barrelAcross } from "../../../../../packages/render/src/hull-barrel.js";
 import { hullClock, hullSpan } from "../../../../../packages/render/src/hull-frame.js";
 import type { Circle, Layout } from "../../../../../packages/render/src/layout.js";
 import type { SeatSkin } from "../../../../../packages/render/src/seat-skin.js";
+import { dither } from "../../../../../packages/render/src/sheen.js";
 
 /**
  * WHAT EVERY ANSWER WRITTEN ON 9 SEPTEMBER 2026 IS MADE OF.
@@ -78,38 +85,44 @@ export function belly(skin: SeatSkin): string {
 }
 
 /**
- * THE SHIP'S OWN RAMP, CARRIED PAST THE MEMBRANE.
+ * THE SHIP'S OWN LIGHT, CARRIED PAST THE MEMBRANE.
  *
- * The owner offered two ways out of the step: *either we reduce gradient or
+ * The owner offered two ways out of the step — *either we reduce gradient or
  * have gradient flowing into control panel more so there is no visual
- * difference when going top to bottom*. This is the second, and it is the one a
- * candidate in this slot can reach — `attach` is drawn inside the chamber, so a
- * candidate may paint the panel and may not repaint the ship.
+ * difference when going top to bottom* — and the first pass of this took the
+ * second literally: an additive wash of the belly's pale colour, from the
+ * membrane down. He could still see a line, and a column of pixels said why.
+ * The wash had been tuned against one x, the far left, where the belly reads
+ * `rgb(98,81,148)`; at x=380 of 760 it reads `rgb(57,36,88)` and at x=700
+ * `rgb(40,24,70)`. A wash the same strength everywhere was brighter than the
+ * ship above it *and* the tissue below it over most of the width: a third
+ * surface between two, which is worse than the edge it replaced.
  *
- * It is additive, over most of the chamber, and it is deliberately long: a wash
- * that faded out in half a tile would be a *second* edge a little lower down
- * rather than no edge at all.
+ * What makes the belly pale on the left and dark on the right is not a colour
+ * at all. It is `hull-barrel.ts` — the ship lit across its width by the key
+ * light, a cosine of where the membrane is pointing — and the chamber under it
+ * never got that light. Two surfaces under two lights are two objects however
+ * well their edges meet and however closely their colours agree. So the
+ * chamber is lit by **calling the same pass with the same box**: same arc,
+ * same floor, same gradient slots, and the two cannot come apart when either is
+ * tuned. With that in place the unlit belly and the unlit chamber turn out to
+ * be within a few points of each other already — the ship's last body stop
+ * *is* the chamber's first (`seat-skin.ts`) — so there is no wash left to tune.
  *
- * **The ramp starts at `seamBottom`, which is the lowest the membrane can
- * hang.** A gradient holds its first stop for everything above it, so every
- * part of the chamber between the membrane and that line — the whole of the
- * strip whose height changes with x — is washed at full strength whatever the
- * roof is doing there. Starting it at the membrane's *highest* point instead is
- * what the first pass did, and it left the deep parts of the contour a quarter
- * of the way down the ramp before the tissue under them had begun: the wash was
- * strongest where the roof was highest, which is precisely backwards.
+ * It is called **last** by every candidate, over whatever the candidate grew,
+ * so a trunk, a vessel, a sheet or a bladder is lit the way the ship is rather
+ * than floating unlit in a lit room.
  */
-export function wash(d: BandAttach): void {
-  const { ctx, l, skin } = d;
-  const grad = ctx.createLinearGradient(0, seamBottom(l), 0, l.bandTop + l.bandHeight * 0.85);
-  grad.addColorStop(0, rgba(belly(skin), 0.27));
-  grad.addColorStop(0.3, rgba(skin.flesh[0], 0.1));
-  grad.addColorStop(0.65, rgba(skin.flesh[1], 0.04));
-  grad.addColorStop(1, rgba(skin.flesh[2], 0));
-  ctx.globalCompositeOperation = "lighter";
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, sky(l), l.width, l.bandTop + l.bandHeight - sky(l));
-  ctx.globalCompositeOperation = "source-over";
+export function sameLight(d: BandAttach): void {
+  const { ctx, l } = d;
+  const region = new Path2D();
+  region.rect(0, sky(l), l.width, l.bandTop + l.bandHeight - sky(l));
+  barrelAcross(ctx, region, l.gridLeft, l.gridWidth, LIGHT_HALF.hull);
+  // And the ship's grain. What was left of the edge after the light matched
+  // was texture: the hull is dithered and the chamber was not, and the eye
+  // finds a boundary between a grained surface and a smooth one as surely as
+  // between two colours. Same pattern, same alpha, same call.
+  dither(ctx, region);
 }
 
 /**

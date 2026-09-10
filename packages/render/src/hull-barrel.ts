@@ -76,35 +76,72 @@ function alongArc(u: number): number {
 }
 
 /**
- * The whole pass. The shape of it — a `source-over` fill of black and a
- * `lighter` fill of light — is `litBox`'s, because a canvas gradient carries
- * one ramp and the two halves cannot share one.
+ * The light **across** the ship, without the crown: the two horizontal passes
+ * alone, over any region that is under the same light as the hull and is not
+ * the hull.
+ *
+ * Split out of `barrel` on 10 September 2026 for the control panel. The owner
+ * could still see where the ship ended and the panel began after every stroke
+ * along the join had been removed and the two had been given the same colour,
+ * and a column of pixels said why: the hull's belly reads `rgb(98,81,148)` at
+ * the left of the screen and `rgb(40,24,70)` at the right — this pass — while
+ * the chamber under it was one colour from edge to edge. Two surfaces lit by
+ * different lights are two objects however well their edges meet. So the
+ * chamber asks for the same light by calling this, with the same box, and the
+ * two cannot disagree: same arc, same floor, same slots, one cache hit.
+ *
+ * The crown stays with `barrel`. It is stroked along the ship's own contour,
+ * and a caller lighting the *inside* of the ship has no contour to crown and
+ * must not be handed a bright line to draw along its roof.
  */
-export function barrel(ctx: CanvasRenderingContext2D, s: HullLit): void {
+export function barrelAcross(
+  ctx: CanvasRenderingContext2D,
+  region: Path2D,
+  x: number,
+  w: number,
+  half: HullLit["half"],
+): void {
   // Quantised to eight pixels for `litBox`'s reason: a value that moves every
   // frame builds a gradient every frame.
   const q = 8;
-  const box = `${Math.round(s.x / q)}|${Math.round(s.w / q)}`;
+  const box = `${Math.round(x / q)}|${Math.round(w / q)}`;
   const shade = slotGradient(ctx, SHADE_SLOT, box, () => {
-    const g = ctx.createLinearGradient(s.x, 0, s.x + s.w, 0);
+    const g = ctx.createLinearGradient(x, 0, x + w, 0);
     for (let i = 0; i < STOPS; i++) {
       const u = i / (STOPS - 1);
       g.addColorStop(u, `rgba(11,16,36,${((1 - alongArc(u)) * SHADE).toFixed(3)})`);
     }
     return g;
   });
-  const lift = slotGradient(ctx, LIFT_SLOT, `${s.half}|${box}`, () => {
-    const g = ctx.createLinearGradient(s.x, 0, s.x + s.w, 0);
+  const lift = slotGradient(ctx, LIFT_SLOT, `${half}|${box}`, () => {
+    const g = ctx.createLinearGradient(x, 0, x + w, 0);
     for (let i = 0; i < STOPS; i++) {
       const u = i / (STOPS - 1);
       const k = alongArc(u);
       // Hue only where the hull is allowed it; the value half brightens
       // nothing (`LIGHT_HALF`).
-      const warm = s.half === "value+hue" ? k * k * LIFT : 0;
+      const warm = half === "value+hue" ? k * k * LIFT : 0;
       g.addColorStop(u, `rgba(255,246,228,${warm.toFixed(3)})`);
     }
     return g;
   });
+  const prev = ctx.globalCompositeOperation;
+  ctx.fillStyle = shade;
+  ctx.fill(region);
+  ctx.globalCompositeOperation = "lighter";
+  ctx.fillStyle = lift;
+  ctx.fill(region);
+  ctx.globalCompositeOperation = prev;
+}
+
+/**
+ * The whole pass. The shape of it — a `source-over` fill of black and a
+ * `lighter` fill of light — is `litBox`'s, because a canvas gradient carries
+ * one ramp and the two halves cannot share one.
+ */
+export function barrel(ctx: CanvasRenderingContext2D, s: HullLit): void {
+  barrelAcross(ctx, s.region, s.x, s.w, s.half);
+  const q = 8;
   // The crown runs down the screen, and is stroked along the contour — so its
   // colour is read at whatever height the membrane has reached, and a lobe
   // rising into the top stop is a lobe catching the light.
@@ -123,11 +160,7 @@ export function barrel(ctx: CanvasRenderingContext2D, s: HullLit): void {
 
   const prev = ctx.globalCompositeOperation;
   ctx.save();
-  ctx.fillStyle = shade;
-  ctx.fill(s.region);
   ctx.globalCompositeOperation = "lighter";
-  ctx.fillStyle = lift;
-  ctx.fill(s.region);
   // The crown is clipped to the body so the half of a wide stroke that would
   // spill into space is cut away by the membrane rather than by a straight
   // line — `innerLight`'s rule, and the same reason.

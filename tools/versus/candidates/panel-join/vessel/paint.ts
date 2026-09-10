@@ -3,7 +3,7 @@ import { hash01 } from "../../../../../packages/render/src/backdrop.js";
 import type { BandAttach } from "../../../../../packages/render/src/band-join.js";
 import { rgba } from "../../../../../packages/render/src/hex.js";
 import type { Circle, Layout } from "../../../../../packages/render/src/layout.js";
-import { sky, wash } from "../fused/tissue.js";
+import { sameLight, sky } from "../fused/tissue.js";
 import { curve, groups, sprays, tube } from "./vein.js";
 
 /**
@@ -133,8 +133,10 @@ function tree(l: Layout, lobes: readonly Circle[], time: number): [string, strin
  */
 export function vascular(d: BandAttach): void {
   const { ctx, l, lobes, time, skin } = d;
-  wash(d);
-  if (lobes.length === 0) return;
+  if (lobes.length === 0) {
+    sameLight(d);
+    return;
+  }
 
   const [big, collars, fine, cores] = tree(l, lobes, time);
   const top = sky(l);
@@ -183,4 +185,6 @@ export function vascular(d: BandAttach): void {
   ctx.strokeStyle = rgba(skin.rim, 0.1);
   ctx.lineWidth = Math.max(1, l.tile * 0.05);
   ctx.stroke(new Path2D(cores));
+
+  sameLight(d);
 }

@@ -3,7 +3,7 @@ import { hash01 } from "../../../../../packages/render/src/backdrop.js";
 import type { BandAttach } from "../../../../../packages/render/src/band-join.js";
 import { rgba } from "../../../../../packages/render/src/hex.js";
 import type { Circle, Layout } from "../../../../../packages/render/src/layout.js";
-import { bell, belly, sky, wash } from "../fused/tissue.js";
+import { bell, belly, sameLight, sky } from "../fused/tissue.js";
 
 /**
  * The paint SAC is made of.
@@ -103,8 +103,10 @@ function guys(l: Layout, lobes: readonly Circle[], time: number): string {
  */
 export function slung(d: BandAttach): void {
   const { ctx, l, lobes, time, skin } = d;
-  wash(d);
-  if (lobes.length === 0) return;
+  if (lobes.length === 0) {
+    sameLight(d);
+    return;
+  }
 
   const top = sky(l);
   let cords = "";
@@ -165,4 +167,6 @@ export function slung(d: BandAttach): void {
     ctx.lineWidth = Math.max(1.2, l.tile * 0.045);
     ctx.stroke(glint);
   }
+
+  sameLight(d);
 }

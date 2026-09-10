@@ -4,7 +4,7 @@ import type { BandAttach } from "../../../../../packages/render/src/band-join.js
 import { seamBottom } from "../../../../../packages/render/src/band-seam.js";
 import { rgba } from "../../../../../packages/render/src/hex.js";
 import type { Circle, Layout } from "../../../../../packages/render/src/layout.js";
-import { belly, sky, wash } from "../fused/tissue.js";
+import { belly, sameLight, sky } from "../fused/tissue.js";
 
 /**
  * The paint CAUL is made of.
@@ -128,7 +128,6 @@ function folds(l: Layout, lobes: readonly Circle[], time: number): string {
  */
 export function draped(d: BandAttach): void {
   const { ctx, l, lobes, time, skin } = d;
-  wash(d);
 
   const top = sky(l);
   const back = sheet(l, lobes, time + 3.4, 0.62);
@@ -168,4 +167,6 @@ export function draped(d: BandAttach): void {
   ctx.strokeStyle = rgba(skin.rim, 0.16);
   ctx.lineWidth = Math.max(0.6, l.tile * 0.02);
   ctx.stroke(new Path2D(front.edge));
+
+  sameLight(d);
 }

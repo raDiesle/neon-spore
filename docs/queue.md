@@ -705,49 +705,6 @@ Prove it with `bun run check` and `bun run test:determinism`, and watch THE
 BALLOON at tempo: the slower climb and the hold are both timing, and neither
 is visible in a number.
 
-## The wash across the ship-and-panel join is a lit stripe, not a ramp
-
-- **Found:** 2026-09-09, claude/versus-ship-visual-redesign-4ca99d
-- **Taken:** 2026-09-10, claude/queue-the-wash-across-the-ship-and-panel-join-is-a-lit
-- **Files:** `tools/versus/candidates/panel-join/fused/tissue.ts`
-
-The owner looked at all four new `panel:ship-join` cards and said the thing they
-were built to fix is still there: *i still see a visual line so i see where ship
-top with gradient ends and the panel starts with the line in between. this line
-should be removed and there is no separation at all. all should look the same as
-its altogether.*
-
-He is right, and a column of pixels says what went wrong. `wash` in `tissue.ts`
-adds the seat's palest colour at 0.27 from `seamBottom` down, which was tuned
-against **one** x — the far left, where the hull's belly happens to read
-`rgb(98,81,148)`. Across the rest of the width the belly is much darker: at x=380
-of a 760-wide frame it is about `rgb(57,36,88)` and at x=700 about
-`rgb(45,25,72)`. The wash is the same strength everywhere, so under most of the
-ship it lands **brighter than the hull above it and brighter than the tissue
-below it** — measured at `rgb(144,112,193)` in a band roughly twelve CSS pixels
-deep that follows the contour. That band is the line he can see. It is not an
-edge between two surfaces any more; it is a third surface between them, which is
-worse.
-
-Two ways out, and the second is the one the rest of this repository argues for:
-
-- **Turn the wash down** until it no longer exceeds the darkest belly, and
-  accept that the left of the panel keeps a small step. One number, and it will
-  be wrong again the day `HULL` or `OWN_SKIN` is tuned.
-- **Sample the belly rather than assume it.** `hull-frame.ts`'s `skin(f, x)`
-  gives the ship's own surface point at any x and `hull.ts` computes its fill
-  ramp from the contour's highest point down to `hullBottom` — so the value the
-  hull ends on at a given x is derivable rather than guessable, and the wash can
-  match it per column instead of once for the whole width. That is a strip of
-  gradients or one gradient per sampled x, in the same shape `band-seam.ts`
-  already samples the contour in.
-
-The owner's other option is still open and is not this entry: he offered
-*either we reduce gradient or have gradient flowing into control panel*, and
-nothing has yet tried reducing the ship's own fall from crest to belly
-(`OWN_SKIN.body`, four stops, `packages/render/src/hull.ts`). That is a slot of
-its own on the hull and should be offered beside this, not folded into it.
-
 ## The slime pendants have a flat top edge and straight sides
 
 - **Found:** 2026-09-09, claude/versus-ship-visual-redesign-4ca99d
