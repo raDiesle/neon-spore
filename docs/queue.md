@@ -401,29 +401,6 @@ Wait for `creature:break` to be decided before opening this, or check with
 slots claiming one field, and a body's break and a body's hit are next-door
 questions.
 
-## `versus:shot --at` clips the page's chrome when the pose is a tile crop
-
-- **Found:** 2026-09-10, claude/queue-the-gyre-and-the-magnet-have-one-look-each-and-n
-- **Taken:** 2026-09-10, claude/queue-versus-shot-at-clips-the-pages-chrome-when-the-p
-- **Files:** `tools/frames/shot.ts`, `tools/frames/crop.ts`,
-  `tools/frames/versus-shot.ts`
-
-`bun run versus:shot creature:magnet rod out.png --only candidate --at
-110,110,120,120` wrote a picture of the page's buttons and prose, not of the
-body — three rectangles were tried and none landed on the phone, where the
-same flag on `creature:gyre` (a `crop: "field"` pose) had hit its core first
-time. The lane gave up on the crop and read the magnified whole instead,
-which is the workaround this entry exists to end.
-
-`shot.ts` scrolls the nearest scrolling ancestor by `at.y` *before* it
-measures the element's box, then clips at `box.y + at.y`. That is right when
-the scroll goes the whole way; when the page is short and the scroll stops
-early — a `crop: "tile"` pose is a small square on a short page — the box
-has moved by less than `at.y` and the clip overshoots by the difference,
-landing below the phone. Measure the box first, or scroll and then clip at
-`box.y + (at.y - scrolled)`, and `tools/frames/test/` holds the arithmetic.
-Prove it with the magnet command above: the picture is the horseshoe.
-
 ## A landing runs the full check twice: once by the session, once by `land`
 
 - **Found:** 2026-09-10, claude/queue-the-gyre-and-the-magnet-have-one-look-each-and-n

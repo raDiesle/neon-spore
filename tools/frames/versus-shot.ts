@@ -31,6 +31,7 @@
 
 import { spawn } from "node:child_process";
 import { root, run } from "./exec.js";
+import { elementFor } from "./versus-element.js";
 
 const argv = process.argv.slice(2);
 const flag = (name: string): string | undefined => {
@@ -50,7 +51,8 @@ if (!slot || !name) {
   console.error("       --zoom    the pair's magnifier, e.g. 2");
   console.error("       --wait    milliseconds to settle before the shot — with --freeze,");
   console.error("            counted from the moment the pair reports the freeze landed");
-  console.error("       --at      a rectangle inside the picture, x,y,w,h, magnified");
+  console.error("       --at      a rectangle inside the picture, x,y,w,h, magnified —");
+  console.error("            the window the pose cuts, in its own pixels; P1's, or --only's side");
   console.error("       --element which element to photograph; .versus-row for the whole");
   console.error("            candidate, notes and all. Default .versus-stage, the phones");
   process.exit(1);
@@ -78,6 +80,10 @@ const wait = flag("wait") ?? "3000";
  * screenshot, so a hole in the hull arrives about twenty pixels across. The
  * escape was to take the picture and crop it somewhere else, which is the
  * friction this file exists to have ended (`crop.ts`).
+ *
+ * *Inside the picture* means the window the pose cuts, not the stage around
+ * it — `versus-element.ts` has why the two are not the same thing on a tile
+ * pose, and which one `--at` is therefore measured against.
  */
 const at = flag("at");
 /**
@@ -89,7 +95,7 @@ const at = flag("at");
  * only way to photograph one was a throwaway copy of this file, which is the
  * friction this file exists to have ended.
  */
-const element = flag("element") ?? ".versus-stage";
+const element = elementFor({ element: flag("element"), at });
 
 const query = new URLSearchParams({ slot, name });
 if (freeze !== undefined) query.set("freeze", freeze);
