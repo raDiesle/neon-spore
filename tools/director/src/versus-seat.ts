@@ -70,9 +70,46 @@ const PROBE_PHONE = { width: 380, height: 820 } as const;
 /** How many ticks apart each sample is, and how many samples are taken —
  * `SAMPLES * SAMPLE_EVERY` ticks is comfortably past one `waveRestBeats`
  * rebuild at the default tempo, so a transient tied to the pose's opening
- * moment is not the only thing this ever looks at. */
+ * moment is not the only thing this ever looks at. The floor: a pose with a
+ * cadence of its own stretches both (`probeSchedule`). */
 const SAMPLE_EVERY = 6;
 const SAMPLES = 24;
+/** The most samples a long pose is allowed to cost. Two seats, two renders
+ * and a `getImageData` each, at page open: past this the row is slow to
+ * appear, so a long cadence widens the stride rather than the count. */
+const MAX_SAMPLES = 48;
+
+/** The probe's own clock: ticks between samples, how many, and how much
+ * time each sample tells the renderer has passed. */
+export interface ProbeSchedule {
+  readonly every: number;
+  readonly samples: number;
+  /** Seconds per sample — `every / tickHz`, never a frame of the wall clock. */
+  readonly dt: number;
+}
+
+/**
+ * **The renderer is told the time the simulation actually advanced, and the
+ * probe runs for at least one loop of the pose.** Until 10 September 2026 it
+ * handed every sample `dt: 1 / 60` while stepping six ticks between them, so
+ * effects aged six times slower than the world they were drawn over. A look
+ * *revealed* by an effect — a crater, hidden by `RockImpactFx.coversCrater`
+ * until the rock has lain in it and rolled off — never appeared inside the
+ * 144 ticks sampled, and `ship:crater` was reported as moving nothing on
+ * either seat: one screen, and *under the floor* printed beneath a candidate
+ * that repaints a hull's worth of pixels.
+ *
+ * So `dt` is `every / tickHz`, and a pose that carries `cadenceSeconds` is
+ * sampled across the whole of it, with the stride widened rather than the
+ * count grown once `MAX_SAMPLES` would be passed. A pose with no cadence keeps
+ * the old span exactly.
+ */
+export function probeSchedule(pose: Pose, tickHz: number): ProbeSchedule {
+  const span = Math.max(SAMPLES * SAMPLE_EVERY, Math.ceil((pose.cadenceSeconds ?? 0) * tickHz));
+  const every = Math.max(SAMPLE_EVERY, Math.ceil(span / MAX_SAMPLES));
+  const samples = Math.ceil(span / every);
+  return { every, samples, dt: every / tickHz };
+}
 
 /**
  * What one seat has to say about a candidate: the sequence of differences it
@@ -111,20 +148,21 @@ function diffSequence(pose: Pose, role: ViewRole, variant: Variant): Probe {
   renderCandidate.resize({ ...PROBE_PHONE, dpr: 1 });
   let world = pose.build();
   const bandTop = bandTopPx(world.cfg, role);
+  const { every, samples, dt } = probeSchedule(pose, world.cfg.tickHz);
   let events = [...world.events];
-  const view: ViewState = { world, beatPhase: 0, role, time: 0, dt: 1 / 60, events, running: true };
+  const view: ViewState = { world, beatPhase: 0, role, time: 0, dt, events, running: true };
   const hashes: string[] = [];
   let share = 0;
   let unchanged = "";
   try {
-    for (let tick = 0; tick < SAMPLES * SAMPLE_EVERY; tick++) {
+    for (let tick = 0; tick < samples * every; tick++) {
       const next = advance(world, () => pose.build());
       world = next.world;
       events = next.events;
-      if (tick % SAMPLE_EVERY !== 0) continue;
+      if (tick % every !== 0) continue;
       view.world = world;
       view.beatPhase = beatPhase(world.cfg, world.tick);
-      view.time = tick / 60;
+      view.time = tick / world.cfg.tickHz;
       view.events = events;
 
       const unseedA = seedRandom(tick + 1);

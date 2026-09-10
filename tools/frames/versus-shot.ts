@@ -73,10 +73,12 @@ const zoom = flag("zoom");
  * and with no error anywhere. Two shots of a four-second pose came back
  * identical to a shot of a one-second one, which is how this was found.
  *
- * A second of headroom on top for the bundle and the first paint, and never
- * less than the three seconds this always waited. `--wait` still overrides.
+ * Four seconds of headroom on top for the bundle, the first paint and the seat
+ * probe — which samples a cadenced pose across its whole replay before the
+ * pair starts (`versus-seat.ts`) — and never less than the three seconds this
+ * always waited. `--wait` still overrides.
  */
-const wait = flag("wait") ?? String(Math.max(3000, Math.ceil(Number(freeze ?? 0) * 2000) + 1000));
+const wait = flag("wait") ?? String(Math.max(3000, Math.ceil(Number(freeze ?? 0) * 2000) + 4000));
 /**
  * A rectangle inside the picture, magnified — `shot.ts`'s own `--at`, forwarded.
  *

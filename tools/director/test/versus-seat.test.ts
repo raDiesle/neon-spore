@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
+import { BREACH_ROCKS_POSE } from "../src/poses-damage.js";
 import {
   absDiffHash,
   bandTopPx,
@@ -7,6 +8,8 @@ import {
   touchedShare,
   touchFootprintHash,
 } from "../src/versus-diff.js";
+import { poseForSlot } from "../src/versus-pose.js";
+import { probeSchedule } from "../src/versus-seat.js";
 
 /**
  * `versus-seat.ts`'s pure arithmetic, exercised without a canvas — `bun
@@ -215,5 +218,42 @@ describe("touchedShare", () => {
     // than as a sentence in a comment nobody can run.
     expect(SEEN_FLOOR).toBeGreaterThan(0.00013);
     expect(SEEN_FLOOR).toBeLessThan(0.00071);
+  });
+});
+
+/**
+ * The probe's clock, which is the half of `versus-seat.ts` that can be held
+ * without a canvas. Until 10 September 2026 every sample told the renderer a
+ * sixtieth of a second had passed while the world had stepped six ticks, so an
+ * effect-revealed look — a crater under a rock that has not yet rolled off —
+ * was never on any sampled frame and `ship:crater` was reported as changing
+ * nothing. What has to hold: the time handed to the renderer is the time the
+ * simulation advanced, and a pose with a cadence is sampled across all of it.
+ */
+describe("probeSchedule", () => {
+  const { tickHz } = DEFAULT_CONFIG;
+
+  test("tells the renderer exactly the simulation time each sample advanced", () => {
+    const pose = poseForSlot("some:unmapped-slot");
+    const s = probeSchedule(pose, tickHz);
+    expect(s.dt).toBeCloseTo(s.every / tickHz, 10);
+    expect(s.dt).not.toBeCloseTo(1 / 60, 3);
+  });
+
+  test("a pose with no cadence keeps the short span it always had", () => {
+    const s = probeSchedule(poseForSlot("some:unmapped-slot"), tickHz);
+    expect(s.every * s.samples).toBe(144);
+  });
+
+  test("the crater pose is sampled across its whole replay, at a bounded cost", () => {
+    const s = probeSchedule(BREACH_ROCKS_POSE, tickHz);
+    const cadence = BREACH_ROCKS_POSE.cadenceSeconds ?? 0;
+    expect(cadence).toBeGreaterThan(0);
+    // Long enough that the last rock has rolled off and its hole is open —
+    // the frame the whole entry was about.
+    expect((s.every * s.samples) / tickHz).toBeGreaterThanOrEqual(cadence);
+    expect(s.samples).toBeLessThanOrEqual(48);
+    // And the stride widened to pay for it, rather than the count growing.
+    expect(s.every).toBeGreaterThan(6);
   });
 });

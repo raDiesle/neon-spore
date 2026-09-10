@@ -773,34 +773,6 @@ chamber's own clip welds it to the membrane instead of a flat lid meeting the
 contour at one height. `packages/render/test/frame.test.ts` draws it, and the
 proof is a photograph of the join at four times size with no straight run in it.
 
-## The seat probe cannot see a look that only appears after an event
-
-- **Found:** 2026-09-09, claude/ship-crater-spall-animation-e9da51
-- **Taken:** 2026-09-10, claude/queue-the-seat-probe-cannot-see-a-look-that-only-appea
-- **Files:** `tools/director/src/versus-seat.ts`, `tools/director/src/versus-one.ts`
-
-`diffSequence` steps the world one tick per loop but hands the renderer
-`dt: 1 / 60` and `time: tick / 60` on every sixth tick, so the renderer's own
-clock runs six times slower than the simulation it is drawing. A look that is
-*revealed* by an effect — a crater, which `RockImpactFx.coversCrater` hides
-until the rock has lain in it for `STICK_LIFE` and started to roll — never
-appears inside the 144 ticks the probe samples, because the effect has had a
-quarter of a second of its own time. The probe then reports the patch as
-changing nothing on either seat, `seats()` returns `["p1"]`, and `sizeNote`
-prints *THIS PATCH MOVES 0.000% OF THE FRAME — under the floor* for a candidate
-that moves a hull's worth of pixels. The lane that found it had to force
-`screens` to both seats by hand to photograph player two's crater, and revert.
-
-Two things, both in `versus-seat.ts`. Advance the view's `time` and `dt` by the
-simulation's own elapsed time — `SAMPLE_EVERY / world.cfg.tickHz` per sample —
-so effects age at the rate the pair ages them. And sample for at least the
-pose's own `cadenceSeconds` when it carries one, rather than a flat
-`SAMPLES * SAMPLE_EVERY`, so a look that lives late in a replay is seen at all.
-Prove it with a test that builds `BREACH · ROCKS COMING THROUGH`, runs
-`seatPlan` on `ship:crater` / `grit`, and asserts `share` is well above
-`SEEN_FLOOR` and both seats are reported, since the crumb is painted in the
-seat's own colour.
-
 ## `bun run frames` cannot photograph a hole a rock just made
 
 - **Found:** 2026-09-09, claude/ship-crater-spall-animation-e9da51
