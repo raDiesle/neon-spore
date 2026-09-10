@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-10 · 19e5d605 — The ships own their join: panel:ship-join closed, its findings folded in
+
+The owner saw the same horizontal cut on PLASM that the join slot had been opened to remove, and said the layers must be fluent. They cannot be while the join is judged apart from the ship it is on: the light that closed the line lives in the join's own attach pass. So on his word `panel:ship-join` is closed with nothing adopted, and what its four cards proved moves to `tools/versus/join.ts` — a grown thing starts above the membrane and the chamber's clip welds it, the chamber is lit by the hull's own key light and grained with its own dither, the roof sags over every control — where no slot's closing can remove it. Every `ship:body` card now patches `BAND_JOIN` with that baseline; PLASM goes one further and carries its granules and mitochondria on through the membrane into the chamber, so the cytoplasm does not stop where the panel starts.
+
 ## 2026-09-10 · 040cf29a — A round's header makes room for the tutorial plate
 
 Every boss rehearsal drew the corner plate on top of the round's own header — the name, the window, the tally — so two things stood in one place and neither was legible. The film now says where the plate ends and each round drops its header under it: THE GAUGE, SNAKE, THE PULSE and THE TELL as one block with the dial, arena, meter or body that hangs off it; THE FLEET's row numbers move to the chart's right gutter; the HUD's guard line drops too. PINBALL's board hangs from the ceiling with nowhere to drop to, so its film's table is one row shorter — the owner's answer — and the header takes the row the board's author left empty. The game's own screens are untouched: this is a fix to something wrong rather than unlovely. A render test draws every page of every boss rehearsal and refuses a word under the plate, on a stub canvas that now measures text by its font instead of six pixels a character.
