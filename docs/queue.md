@@ -468,6 +468,7 @@ questions.
 ## Close `slick:shape` with nothing taken: COMMA and REVERB to the shape sheet
 
 - **Found:** 2026-09-09, claude/slick-content-organization-17beb0
+- **Taken:** 2026-09-10, claude/queue-close-slick-shape-with-nothing-taken-comma-and-r
 - **Files:** `tools/versus/candidates/slick-shape/`, `tools/versus/DECIDED.md`,
   `tools/shape-sheet/src/drafts/offered.ts`
 
