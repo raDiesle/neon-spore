@@ -427,6 +427,7 @@ Prove it with the magnet command above: the picture is the horseshoe.
 ## A landing runs the full check twice: once by the session, once by `land`
 
 - **Found:** 2026-09-10, claude/queue-the-gyre-and-the-magnet-have-one-look-each-and-n
+- **Taken:** 2026-09-10, claude/queue-a-landing-runs-the-full-check-twice-once-by-the
 - **Files:** `package.json`, `tools/check/run.ts`, `CLAUDE.md`,
   `tools/hooks/lane-finished.ts`, `docs/git-and-landing.md`
 
