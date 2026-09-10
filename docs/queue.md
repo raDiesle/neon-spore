@@ -431,6 +431,7 @@ proved by `bun run check` and by the profile run again.
 ## `CLAUDE.md` is four characters under its ceiling
 
 - **Found:** 2026-09-10, claude/queue-a-landing-runs-the-full-check-twice-once-by-the
+- **Taken:** 2026-09-10, claude/queue-claude-md-is-four-characters-under-its-ceiling
 - **Files:** `CLAUDE.md`, `tools/test/claude-md.test.ts`, `docs/git-and-landing.md`
 
 `tools/test/claude-md.test.ts` holds `CLAUDE.md` under 22,000 characters, and
