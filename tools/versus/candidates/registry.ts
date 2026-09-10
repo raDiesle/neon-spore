@@ -14,6 +14,7 @@ import { TORCH_CROWN } from "./creature-torch/crown/index.js";
 import { TORCH_HOLLOW } from "./creature-torch/hollow/index.js";
 import { TORCH_KILN } from "./creature-torch/kiln/index.js";
 import { SHIP_CHITIN } from "./ship-body/chitin/index.js";
+import { SHIP_EMBEDDED } from "./ship-body/embedded/index.js";
 import { SHIP_GULLET } from "./ship-body/gullet/index.js";
 import { SHIP_MEDUSA } from "./ship-body/medusa/index.js";
 import { SHIP_PLASM } from "./ship-body/plasm/index.js";
@@ -40,6 +41,7 @@ export const VARIANTS: Variant[] = [
   TORCH_HOLLOW,
   TORCH_KILN,
   SHIP_CHITIN,
+  SHIP_EMBEDDED,
   SHIP_GULLET,
   SHIP_MEDUSA,
   SHIP_PLASM,

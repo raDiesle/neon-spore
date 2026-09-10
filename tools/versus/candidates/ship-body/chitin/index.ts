@@ -3,8 +3,11 @@ import * as ground from "../../../../../packages/render/src/band-ground.js";
 import * as join from "../../../../../packages/render/src/band-join.js";
 import * as light from "../../../../../packages/render/src/hull-light.js";
 import * as sheen from "../../../../../packages/render/src/hull-sheen.js";
+import * as lobe from "../../../../../packages/render/src/lobe-look.js";
+import * as plan from "../../../../../packages/render/src/panel-plan.js";
 import * as seat from "../../../../../packages/render/src/seat-skin.js";
 import * as nerves from "../../../../../packages/render/src/ship-nerves.js";
+import * as strip from "../../../../../packages/render/src/strip-look.js";
 import { saggingRoof, sameLight } from "../../../join.js";
 import { patch, type Variant } from "../../../variant.js";
 import { wired } from "../gullet/nerves.js";
@@ -101,6 +104,32 @@ export const SHIP_CHITIN: Variant = {
       // The join is the ship's: the membrane sags over every control and the
       // chamber is lit and grained the way the hull is (`tools/versus/join.ts`).
       fields: { ceiling: saggingRoof(3.4, 0.4), attach: sameLight },
+    }),
+    patch({
+      target: plan.PANEL_PLAN,
+      reached: () => plan.PANEL_PLAN,
+      where: { file: "packages/render/src/panel-plan.ts", symbol: "PANEL_PLAN", type: "PanelPlan" },
+      // The shipped arrangement, passed through: this ship changes its skin
+      // and not where the hands go.
+      fields: {
+        cannonRow: plan.PANEL_PLAN.cannonRow,
+        shieldRow: plan.PANEL_PLAN.shieldRow,
+        lobeRow: plan.PANEL_PLAN.lobeRow,
+        solo: plan.PANEL_PLAN.solo,
+        test: plan.PANEL_PLAN.test,
+      },
+    }),
+    patch({
+      target: strip.STRIP_LOOK,
+      reached: () => strip.STRIP_LOOK,
+      where: { file: "packages/render/src/strip-look.ts", symbol: "STRIP_LOOK", type: "StripLook" },
+      fields: { draw: strip.trough },
+    }),
+    patch({
+      target: lobe.LOBE_LOOK,
+      reached: () => lobe.LOBE_LOOK,
+      where: { file: "packages/render/src/lobe-look.ts", symbol: "LOBE_LOOK", type: "LobeLook" },
+      fields: { socket: lobe.LOBE_LOOK.socket, gloss: lobe.LOBE_LOOK.gloss },
     }),
     patch({
       target: nerves.SHIP_NERVES,

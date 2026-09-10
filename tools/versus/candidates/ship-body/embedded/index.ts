@@ -9,35 +9,44 @@ import * as plan from "../../../../../packages/render/src/panel-plan.js";
 import * as seat from "../../../../../packages/render/src/seat-skin.js";
 import * as nerves from "../../../../../packages/render/src/ship-nerves.js";
 import * as strip from "../../../../../packages/render/src/strip-look.js";
-import { saggingRoof, sameLight } from "../../../join.js";
+import { saggingRoof } from "../../../join.js";
 import { patch, type Variant } from "../../../variant.js";
 import { wired } from "../gullet/nerves.js";
-import { crust, roots } from "./paint.js";
+import { body, CORNERS, CORNERS_TEST, flesh, pore, ROWS, spine, wet } from "./panel.js";
+import { skinFolds } from "./sheen.js";
 
 /**
- * `ship:body` / `reef` — the ship is a colony.
+ * `ship:body` / `embedded` — there is no panel; the lower screen is the body.
  *
- * A crust of polyps stands in the contour — thirty small tubes, each with an
- * open mouth and a lit rim, swaying — with spores rising off them and fading.
- * The chamber is the root mass the colony grew from: knotted, dense, glowing
- * where a spore has lodged. The cannon and the shield are the colony's two
- * biggest polyps, and they were there already. The knobbliest contour of the
- * four: many shallow lobes and a lot of wobble, a reef and not a skin.
+ * The owner, after five ships: *right now all look similar from basis.* They
+ * did, because every one kept a rail in a trough across the width and two
+ * buttons in wet sockets in a row, and painted the tissue round them. This is
+ * the first card that moves the basis. The buttons are **pores** — a
+ * depression in the flesh with the flesh ringed round it, no socket and no
+ * plate — and they stand out at the corners where the thumbs are. The rail is
+ * a **spine**: a lit cord running through the body with a node per column and
+ * a swollen node on the column held. Broad folds run across the whole lower
+ * screen, hull and chamber alike, and the same light lies over both, so
+ * nothing says where a ship ends and a panel starts because there is no
+ * panel.
  *
- * **A concept card.** The owner said on 10 September 2026 that a new look may
- * be designed as a picture first if it saves tokens, so long as the picture
- * and the code do not part company; this card is that picture, drawn by the
- * code it would ship as and shot once, rough, so what he picks from is what he
- * gets. GULLET's wiring is borrowed — every control a tendon on its organ —
- * because the connections are the same question on every ship and only the
- * one he chooses will get its own answer.
+ * It patches three records nothing else in this slot had touched — the
+ * arrangement (`PANEL_PLAN`, read by the layout and by `bandLobes`, so the
+ * hit regions move with the pores), the rail (`STRIP_LOOK`) and the socket
+ * (`LOBE_LOOK`); the five ships beside it pass the shipped values through so
+ * the slot stays one question. The wiring is GULLET's cords, borrowed: veins
+ * to the lobes were in the concept picture the owner chose this from.
+ *
+ * How it loses: pores in the corners are further from the columns they fire
+ * into than a row in the middle, and a spine with no trough round it may read
+ * as a wire rather than a rail. Both are answered by a thumb, not an eye.
  */
-export const SHIP_REEF: Variant = {
+export const SHIP_EMBEDDED: Variant = {
   slot: "ship:body",
-  name: "reef",
+  name: "embedded",
   sentence:
-    "the ship is a colony — a crust of polyps standing in the contour with spores rising off them, the panel the root mass they grew from and glowing where a spore has lodged, the cannon and the shield its two biggest polyps",
-  dir: "tools/versus/candidates/ship-body/reef",
+    "there is no panel — the lower screen is the ship's body, the buttons are pores in the flesh out at the thumbs, the rail is a lit spine through it with a node per column, and broad folds and one light run across hull and chamber alike",
+  dir: "tools/versus/candidates/ship-body/embedded",
   patches: [
     patch({
       target: content.HULL,
@@ -47,17 +56,17 @@ export const SHIP_REEF: Variant = {
         symbol: "HULL",
         type: "HullSilhouette",
       },
-      fields: { lobes: 22, depth: 0.1, wobble: 0.14, seed: 0.58 },
+      fields: { lobes: 10, depth: 0.14, wobble: 0.06, seed: 0.5 },
     }),
     patch({
       target: seat.P1_SKIN.hull,
       reached: () => seat.seatSkin("p1").hull,
       where: { file: "packages/render/src/seat-skin.ts", symbol: "P1_SKIN", type: "SeatSkin" },
       fields: {
-        body: ["#C7A3E8", "#8756B0", "#3E1F62", "#160A2A"],
-        rim: "#D9A6FF",
-        edge: "#FBEFFF",
-        muzzle: "#1E0C2E",
+        body: ["#C08CF4", "#7A36BE", "#3E1668", "#1A0836"],
+        rim: "#C86CFF",
+        edge: "#F6ECFF",
+        muzzle: "#1C0E30",
       },
     }),
     patch({
@@ -65,16 +74,16 @@ export const SHIP_REEF: Variant = {
       reached: () => seat.seatSkin("p1"),
       where: { file: "packages/render/src/seat-skin.ts", symbol: "P1_SKIN", type: "SeatSkin" },
       fields: {
-        tint: "#D9A6FF",
-        ground: ["#160A2A", "#120826", "#0A0416", "#04020A"],
-        flesh: ["#B47CE8", "#8650C0", "#64409A"],
+        tint: "#C86CFF",
+        ground: ["#1A0836", "#160730", "#0E0420", "#06020C"],
+        flesh: ["#B27AF2", "#8650CC", "#6440A8"],
       },
     }),
     patch({
       target: sheen.HULL_SHEEN,
       reached: () => sheen.HULL_SHEEN,
       where: { file: "packages/render/src/hull-sheen.ts", symbol: "HULL_SHEEN", type: "HullSheen" },
-      fields: { passes: crust },
+      fields: { passes: skinFolds },
     }),
     patch({
       target: light.HULL_LIGHT,
@@ -90,7 +99,7 @@ export const SHIP_REEF: Variant = {
         symbol: "BAND_GROUND",
         type: "BandGround",
       },
-      fields: { name: "reef", paint: roots },
+      fields: { name: "embedded", paint: body },
     }),
     patch({
       target: join.BAND_JOIN,
@@ -100,35 +109,31 @@ export const SHIP_REEF: Variant = {
         symbol: "BAND_JOIN",
         type: "BandJoin",
       },
-      // The join is the ship's: the membrane sags over every control and the
-      // chamber is lit and grained the way the hull is (`tools/versus/join.ts`).
-      fields: { ceiling: saggingRoof(3.4, 0.4), attach: sameLight },
+      fields: { ceiling: saggingRoof(2.6, 0.25), attach: flesh },
     }),
     patch({
       target: plan.PANEL_PLAN,
       reached: () => plan.PANEL_PLAN,
       where: { file: "packages/render/src/panel-plan.ts", symbol: "PANEL_PLAN", type: "PanelPlan" },
-      // The shipped arrangement, passed through: this ship changes its skin
-      // and not where the hands go.
       fields: {
-        cannonRow: plan.PANEL_PLAN.cannonRow,
-        shieldRow: plan.PANEL_PLAN.shieldRow,
-        lobeRow: plan.PANEL_PLAN.lobeRow,
-        solo: plan.PANEL_PLAN.solo,
-        test: plan.PANEL_PLAN.test,
+        cannonRow: ROWS.cannonRow,
+        shieldRow: ROWS.shieldRow,
+        lobeRow: ROWS.lobeRow,
+        solo: CORNERS,
+        test: CORNERS_TEST,
       },
     }),
     patch({
       target: strip.STRIP_LOOK,
       reached: () => strip.STRIP_LOOK,
       where: { file: "packages/render/src/strip-look.ts", symbol: "STRIP_LOOK", type: "StripLook" },
-      fields: { draw: strip.trough },
+      fields: { draw: spine },
     }),
     patch({
       target: lobe.LOBE_LOOK,
       reached: () => lobe.LOBE_LOOK,
       where: { file: "packages/render/src/lobe-look.ts", symbol: "LOBE_LOOK", type: "LobeLook" },
-      fields: { socket: lobe.LOBE_LOOK.socket, gloss: lobe.LOBE_LOOK.gloss },
+      fields: { socket: pore, gloss: wet },
     }),
     patch({
       target: nerves.SHIP_NERVES,
