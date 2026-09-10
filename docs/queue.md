@@ -400,6 +400,7 @@ candidate --scale 6` coming back in under a minute with the echo in it.
 ## `drawnSize` re-derives the fit `figureLayout` remembers, minus the long axis
 
 - **Found:** 2026-09-10, claude/queue-the-test-suite-is-still-214-seconds-and-the-rest
+- **Taken:** 2026-09-10, claude/queue-drawnsize-re-derives-the-fit-figurelayout-rememb
 - **Files:** `tools/shape-sheet/src/drawn-size.ts`,
   `tools/director/src/shape-fit.ts`, `tools/shape-sheet/test/drawn-size.test.ts`
 
