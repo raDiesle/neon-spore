@@ -4,7 +4,7 @@
  * What a session is told the moment its conversation has been compacted.
  *
  * The owner works one session at a time, tasks in sequence, and the
- * conversation is summarised automatically at about 300k tokens
+ * conversation is summarised automatically at about 200k tokens
  * (`autoCompactWindow` in `.claude/settings.json`). A compaction cannot be
  * timed to a task boundary, so it lands wherever it lands — and the summary it
  * leaves is a paraphrase of what the session *thought* it was doing, not the

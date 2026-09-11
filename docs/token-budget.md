@@ -8,7 +8,7 @@ to change the wrong thing.
 ## How the work is actually done
 
 One session at a time, on Opus 5, tasks one after another in it, with the
-conversation compacted automatically at about 300k tokens. There is no model
+conversation compacted automatically at about 200k tokens. There is no model
 choice to make and no parallel lane to schedule. So the bill has two parts
 and only two levers:
 
@@ -19,8 +19,14 @@ and only two levers:
 - **At a compaction, the conversation is replaced by a summary.** The next
   turn is cheap again — and everything that lived only in the chat is gone or
   blurred. The lever is what has been written into the repository by then.
-  The threshold is `autoCompactWindow` in `.claude/settings.json`, 300k rather
-  than the model's own ~967k, because every turn re-reads everything below it;
+  The threshold is `autoCompactWindow` in `.claude/settings.json`, 200k rather
+  than the model's own ~967k, because every turn re-reads everything below it.
+  It was 300k until 11 September 2026; the owner drains the queue in long
+  sittings of independent items, and an item hardly ever needs more than
+  ~100k of its own context, so the long tail past 200k was being re-read on
+  every turn for nothing. Lower than that and a feature-sized task — a new
+  creature with its six tables, its wave, its tests and its look — compacts
+  twice before it lands, which costs more than it saves;
   the `# Compact instructions` at the end of `CLAUDE.md` say what the summary
   keeps, and `tools/hooks/after-compact.ts` restates the tree's state — branch,
   queue, parked — into the fresh context so the session re-orients from files.

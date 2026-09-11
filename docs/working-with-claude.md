@@ -24,7 +24,7 @@ division of labour, not a limitation.
 - **`tools/hooks/`**, wired in `.claude/settings.json` — for what must happen
   without exception. The determinism test runs after every edit inside
   `packages/sim`; `after-compact.ts` restates the tree's state into the fresh
-  context after every automatic compaction (`autoCompactWindow`, 300k, in the
+  context after every automatic compaction (`autoCompactWindow`, 200k, in the
   same settings file). A rule in
   CLAUDE.md is a hint; a hook is binding. The one that refuses a command
   outright is `tools/hooks/guard.ts` rather than a shell script, because

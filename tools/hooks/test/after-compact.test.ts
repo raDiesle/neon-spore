@@ -56,8 +56,8 @@ describe("after-compact", () => {
     const compact = (settings.hooks?.SessionStart ?? []).filter((e) => e.matcher === "compact");
     expect(compact.length).toBe(1);
     expect(compact[0]?.hooks?.[0]?.command).toBe("bun tools/hooks/after-compact.ts");
-    // The window is what makes the hook matter: compaction at 300k, not at the
+    // The window is what makes the hook matter: compaction at 200k, not at the
     // model's own ~967k. `docs/token-budget.md` says why.
-    expect(settings.autoCompactWindow).toBe("300k");
+    expect(settings.autoCompactWindow).toBe("200k");
   });
 });
