@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · d2920870 — A landed lane no longer asks whether to push, sweep or deploy
+
+The owner retired the three-answer question on 11 September 2026: a finished lane runs `bun run land --keep`, says what landed, and stops. `bun run push`, `bun run sweep` and a director deploy happen when he asks for them, in his own message, and never because the work looks finished. CLAUDE.md, the stop hook's message and its test, `docs/git-and-landing.md` and the lane skill all say so now. Not a look; nothing the game draws changes.
+
 ## 2026-09-11 · 4d9bed7f — Three burning meteors offered in VERSUS: BLAZE, COMET and SMOULDER
 
 Three new candidates in the `creature:meteor` slot, for the owner's ask of 11 September 2026 — very different meteors, in the direction of the torch's fireball with more fire, a real cratered stone, and small pieces falling off behind it with their own smoke, still indestructible and still marked by every shot. BLAZE is a torch's fireball round a scorched, cratered basalt, shedding glowing pieces; COMET is a rusted iron stone, dimpled and white-hot underneath, under a long plume of fire with chips of the rock tumbling up it; SMOULDER is a black stone burning only on its underside, under a thick column of smoke with flakes of ash and the odd ember. Each patches only the body and the pit, so the shipped placing of shot marks is kept and every hit still shows, in each look's own material. FORGE stays on the page.
