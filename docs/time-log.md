@@ -22,6 +22,25 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — Ten creature ideas leave the bestiary
+
+The owner retired the Choke, the Glyph and the nine idea rows of bestiary 10.2
+from the NOT BUILT YET page. Rows, paragraphs and the whole of 10.5 out of the
+spec, a decision written, six documents that pointed at them re-pointed, the
+director's tests turned round, and the page's empty-group line made one
+sentence. About 40 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | how the director builds the bestiary groups (`backlog.ts`, `roster.ts`, `plain-words.ts`), every file naming the ten, the page's empty-group text |
+| writing | 15 | `bestiary.md`, `decisions.md` #28, five other documents, two director tests, `backlog-page.ts` |
+| looking | 5 | three shots of the tab: the two notes said "nothing here" and then "12 more", then "all 1 are" |
+| friction | 5 | a Python heredoc bash refused to parse, rewritten as a file; one wrong assertion length |
+| landing | 5 | `check:fast`, the commit, `land --keep` |
+
+Bottleneck: **writing** — ten names were in eleven places, and each place
+needed a sentence that still reads once they are gone.
+
 ## 2026-09-11 · hit-looks — `bun run shot` says what the page said
 
 The queue's `versus:shot` item: a page that throws while loading used to

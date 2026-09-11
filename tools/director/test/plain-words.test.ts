@@ -64,8 +64,10 @@ describe("the spec's own sections", () => {
     (r) => !r.built,
   );
 
+  // Bosses only, since 11 September 2026: every creature row left in the
+  // bestiary is built, and its idea rows were retired (docs/decisions.md #28).
   it("finds something unbuilt to explain", () => {
-    expect(unbuilt.length).toBeGreaterThan(10);
+    expect(unbuilt.length).toBeGreaterThan(5);
   });
 
   // The whole point of the page: a name with a table cell under it told a

@@ -79,7 +79,7 @@ not.**
 |---|---|
 | Veil: the body inside, and which it starts as | positions |
 | Target mix (boss "The Vessel") | moments |
-| Glyph: the pattern | paths |
+| THE MIRROR: the sequence it performs | paths |
 | Bulb: the marking colour | order |
 | Power-up: position and escape direction\* | colours of normally visible creatures |
 

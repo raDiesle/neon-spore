@@ -39,16 +39,21 @@ describe("buildBacklog", () => {
     expect(names(backlog.bestiary)).not.toContain("Crystal");
     expect(names(backlog.bestiary)).not.toContain("Gum");
     expect(names(backlog.bestiary)).not.toContain("Choke");
-    expect(names(backlog.bestiary)).toContain("Glyph");
+    // Retired on 11 September 2026 (docs/decisions.md #28): the glyph, and
+    // the nine idea rows of 10.2. The bestiary's own groups show nothing now.
+    expect(names(backlog.bestiary)).not.toContain("Glyph");
+    expect(names(backlog.bestiary)).not.toContain("The Jammer");
 
     const thirteen = backlog.bestiary[0]!;
     // Slick, bulb, meteor, lure, throb, dart, veil, strand, crystal, gum and
-    // choke — the eight of the first thirteen built after the original three,
-    // and the three themselves — plus the pod, which is built and is
-    // deliberately not a `CreatureKind`, so `isBuilt` has to know about
-    // `POD_KINDS` to see it.
+    // choke — plus the pod, which is built and is deliberately not a
+    // `CreatureKind`, so `isBuilt` has to know about `POD_KINDS` to see it.
+    // Twelve rows, twelve built, none on the page.
     expect(thirteen.builtHidden).toBe(12);
-    expect(thirteen.entries.length + thirteen.builtHidden).toBe(13);
+    expect(thirteen.entries).toHaveLength(0);
+    const accepted = backlog.bestiary[1]!;
+    expect(accepted.entries).toHaveLength(0);
+    expect(accepted.builtHidden).toBe(1);
 
     expect(names(backlog.bosses)).not.toContain("Bulb Queen");
     expect(names(backlog.bosses)).not.toContain("The Mirror");
@@ -152,10 +157,11 @@ describe("buildBacklog", () => {
     const backlog = await realBacklog();
     for (const groups of Object.values(backlog)) {
       for (const group of groups as BacklogGroup[]) {
-        expect({ title: group.title, entries: group.entries.length > 0 }).toEqual({
-          title: group.title,
-          entries: true,
-        });
+        // A group whose every row is built is populated — the page says
+        // "nothing here — all of it is built" and counts them. A heading the
+        // parser no longer finds is nothing at all: no rows and none hidden.
+        const found = group.entries.length > 0 || group.builtHidden > 0;
+        expect({ title: group.title, found }).toEqual({ title: group.title, found: true });
       }
     }
   });

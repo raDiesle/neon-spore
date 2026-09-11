@@ -57,21 +57,23 @@ function renderGroup(container: HTMLElement, group: BacklogGroup): void {
 
   for (const entry of group.entries) section.appendChild(renderEntry(entry, group.reading));
 
-  if (group.entries.length === 0) {
-    const empty = document.createElement("p");
-    empty.className = "note";
-    empty.textContent = "nothing here — all of it is built.";
-    section.appendChild(empty);
-  }
-
   // Said out loud rather than silently dropped: a group that shows three of
-  // thirteen and does not say so reads as a bestiary of three.
-  if (group.builtHidden > 0) {
-    const hidden = document.createElement("p");
-    hidden.className = "note";
-    hidden.textContent = `${group.builtHidden} more are built and not listed here — they are in the brush palette.`;
-    section.appendChild(hidden);
+  // thirteen and does not say so reads as a bestiary of three. One sentence
+  // when the group is empty — "nothing here" followed by "12 more" counted
+  // more than nothing, the day the bestiary's last idea rows were retired.
+  const said = document.createElement("p");
+  said.className = "note";
+  if (group.entries.length === 0) {
+    said.textContent =
+      group.builtHidden > 1
+        ? `nothing left here — all ${group.builtHidden} are built and in the brush palette.`
+        : group.builtHidden === 1
+          ? "nothing left here — the one it had is built and in the brush palette."
+          : "nothing here — all of it is built.";
+  } else if (group.builtHidden > 0) {
+    said.textContent = `${group.builtHidden} more are built and not listed here — they are in the brush palette.`;
   }
+  if (said.textContent) section.appendChild(said);
 
   container.appendChild(section);
 }

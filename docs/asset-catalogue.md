@@ -347,16 +347,14 @@ Roughly in the order the work is worth doing.
    `glyphed` and the blob vocabulary itself — the two that are not, THE BELT and
    THE VAULT, are cut above for the same reason.
 
-   What is left undrawn is not an idea without a picture, it is a **creature**
-   without one:
-   the thirteen in [bestiary](spec/bestiary.md) 10.1 and 10.2 that were never
-   built — Dart, Veil, Crystal, Gum, Choke, Glyph, Thread, The Shadow,
-   The Doppelgänger, The Clamp, The Beat-breaker, The Jammer. They are not here
-   because the bestiary is not the idea store: a draft's `suggests` has to
-   resolve to a heading, the test only reads `ideas.md` and `bosses.md`, and a
-   lane that widened that test to take a table row would have been changing the
-   rule rather than drawing. It is the next thing worth doing on this page and
-   it costs one predicate.
+   What was left undrawn was not an idea without a picture, it was a
+   **creature** without one: the rows of [bestiary](spec/bestiary.md) 10.1 and
+   10.2 that were never built. They were not here because the bestiary is not
+   the idea store: a draft's `suggests` has to resolve to a heading, the test
+   only reads `ideas.md` and `bosses.md`, and a lane that widened that test to
+   take a table row would have been changing the rule rather than drawing.
+   Moot since 11 September 2026: every row still in those tables is built,
+   and the unbuilt ones were retired (`decisions.md` #28).
 4. **Draw the motion sheet from the catalogue, not from `SUBJECTS`.**
    `bun run shapes` still onion-skins only what the game draws, so a draft
    cannot be diffed or archived as an image. `tools/shape-sheet/src/motion.ts`

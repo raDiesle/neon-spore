@@ -116,9 +116,9 @@ is that there is no body at the end of it for the cannon to finish, so the row
 has no `aim` to owe — and the difference from THE BEATBOX is that the gesture
 takes two seats rather than one.
 
-It stays a different axis from `radar`: *The Silent* and *The Jammer* (10.2)
-are unusual in what they tell a radar strip, not in what a player does about
-them, so they still land in `cannon`, `shield` or `mixed` like anything else.
+It stays a different axis from `radar`: what a body tells a radar strip is
+not what a player does about it, so a kind unusual there still lands in
+`cannon`, `shield` or `mixed` like anything else.
 Pods are never `CreatureKind` values and were never in `CREATURES`, so they do
 not go through `categoryOf` at all — `POD_CATEGORY` names their group
 directly, `"suck"`, after what taking one in is called throughout the sim
@@ -139,10 +139,14 @@ directly, `"suck"`, after what taking one in is called throughout the sim
 | **Throb** | six clubs on a small core, red down one side and cyan down the other, turning clockwise | colour *and* timing in one call |
 | **Lure** | a slick or a bulb that only the navigator can see through | do *not* hit it (costs the hull) |
 | **Choke** | TENDRIL's sac in the palette's bile yellow, tall and boneless, falling straight down one lane with two hooks under it; wound round the cannon's swelling once it has landed, and round player 1's strip node | it cannot be shot and the shield does not stop it; it lands, takes the cannon, and the cannon strip goes dead while the cannon walks wall to wall a column a beat. Player 2 keeps firing from wherever it is. Player 1 taps the dead strip, a lift between each — how many loops are still tight is the count, on both screens — `chokeTaps` times, and it lets go |
-| **Glyph** | pattern across its skin | look it up in a table |
 | **Pod** | capsule with a blinking core | power-up |
 
 Built: slick, bulb, meteor, lure, throb, dart, veil, strand, torch, crystal, gum, choke.
+
+The thirteenth was **Glyph** — a pattern across its skin, looked up in a
+table — and it left this list on 11 September 2026: THE MIRROR's Simon Says is
+that look-up, played on the pair's own controls (`bosses.md` 11.3,
+`docs/decisions.md` #28).
 Slick, bulb and meteor carry the teaching waves; the torch is the meteor's own
 widened relative, not one of the original thirteen. Lure, throb, dart, veil and
 strand are the next five of that thirteen — none of them needed a new control
@@ -328,15 +332,11 @@ up, and the only sight player 1 gets of the body they have been firing at.
 | Creature | Pillar | Description |
 |---|---|---|
 | **Wisp** | Uncertainty | on one screen and not the other at all, and never in the same tile twice — the first creature whose *position* is the secret. **Built** |
-| **Thread** | Future | a trace of its *future* movement; the navigator sees it strongly, the pilot the current position. For the first time both talk about a future rather than a state |
-| **The Shadow** | Order | invulnerable while it lies behind another creature. Forces a planned order instead of a reaction |
-| **The Whisperer** | Rhythm | reacts only when both inputs hit the same beat. Makes the beat the load-bearing system instead of a comfort feature |
-| **The Doppelgänger** | Uncertainty | two nearly identical creatures; the pilot recognises the shape, the navigator the radar behaviour |
-| **The Blind One** | Uncertainty | visible to one, only interference to the other — see below |
-| **The Clamp** | Order | joins two creatures into one dangerous line; three ways out, chosen together |
-| **The Beat-breaker** | Rhythm | runs on its own offset while the global beat stays correct |
-| **The Silent** | Uncertainty | `radar: "none"` — neither strip announces it. Must be slow enough that the field itself is the only warning |
-| **The Jammer** | Uncertainty | blanks the *other* player's radar for as long as it lives — the one kind whose danger is what it does to a strip, not what it does to the hull |
+
+Nine more names stood in this table until 11 September 2026 — Thread, The
+Shadow, The Whisperer, The Doppelgänger, The Blind One, The Clamp, The
+Beat-breaker, The Silent, The Jammer — and the owner retired them
+(`docs/decisions.md` #28). Their arguments are in this file's history.
 
 **THE WISP is the first body one player cannot see at all**, and the first
 whose position is the secret rather than its colour, its kind or its path. THE
@@ -387,40 +387,6 @@ was two beats and 1.25 s, which was under an exchange rather than equal to one
 — that did not force the shorthand, it forced a miss. The grid goes down again
 with the last wisp, because a lattice behind every wave is a texture the pair
 stops seeing.
-
-**The Silent — the field is the warning, or there is none.** Every other rock
-and every living kind picks a `radar` owner (`docs/decisions.md` #15); this is
-the one place `RadarOwner`'s third case, `"none"`, is meant to be spent. With
-no strip announcement at all, it can only be fair if it is slow enough to be
-read and named after it is already visible — which is a tighter constraint
-than it sounds, since `docs/spec/latency.md`'s 3-second floor was written
-assuming a radar lead exists. Do not build this one until that arithmetic is
-worked out; a silent fast kind is not uncertainty, it is an unannounced hit.
-
-**The Jammer — the danger is the strip going dark, not the kind itself.**
-While it is alive, the radar that would normally show its own kind (say,
-guard kinds, if the jammer itself is aimed at) blanks for the player who reads
-that strip — a live variant of `showsRadar` returning false for everything,
-not just this one kind, for as long as the jammer's creature exists. The
-player who lost their strip has to fall back on the other player's picture of
-the field, which is the one time in the game the split is not permanent.
-
-**The Blind One — interference, not invisibility.** It does not touch the
-field the way the original draft proposed; with the radar built and owned per
-kind (`systems.md#52-information-split--partly-built`), interference belongs
-on the *radar strip that owns it* — the screen that would normally get a clean
-announcement instead gets noise, distortion, a flicker in the blip's shape or
-timing, in the right column, not silence. The information is incomplete
-rather than absent: the other player still holds a clean picture, since only
-one radar owns any given kind, and has to turn a garbled call into a very
-short, best-guess description — which is exactly the task. Act 5 at the
-earliest.
-
-Two requirements, unchanged from the original draft: the interference must sit
-**at the position** (now: in the blip's column, at its correct height) and
-travel with it, or it is decoration. And it must be distinguishable from a
-real connection problem — otherwise a pair will think the game is broken the
-first time they see it.
 
 ## THE MAGNET
 
@@ -542,97 +508,10 @@ repeats an *action* with a delay is a third thing again, and it is called
 
 ## 10.4 The ceiling
 
-13 existing plus 7 new is 20 types. At 20–26 px object size and within the
-style frame from [graphics](graphics.md), that is probably the limit for
-unambiguously distinguishable silhouettes — and it is capped anyway by "new
-creatures only up to wave 50". Rule 3 above is likely to bite before rule 1
-does: twenty names that stay distinct over a voice channel is the harder
-constraint.
-
-## 10.5 In plain words
-
-Every creature on this page the game does not have yet, written the way you
-would explain it to two people sitting down at two phones: what the thing
-does, what each seat does about it, and what is still undecided. **Player 1 is
-the pilot** — the cannon, the shield trigger, the maw, the rock strip.
-**Player 2 is the navigator** — the two colours, the shield's own movement, the
-creature strip ([roles](roles.md)).
-
-Where a line says *not decided yet*, that is the honest answer rather than a
-gap somebody forgot to fill: the design says what the body looks like and not
-who is told what. **To finish it** is the list of questions to answer before
-anybody starts building.
-
-The director reads this section and puts it on the NOT BUILT YET card
-(`tools/director/src/plain-words.ts`), so no name on that page stands with
-nothing under it.
-
-### Glyph
-
-- **What it does:** it wears a pattern on its skin. The pattern is not the answer; somebody has to look it up.
-- **Player 1:** not decided yet — one seat sees the pattern and the other holds the table, and which way round is open.
-- **Player 2:** the other half of the same question.
-- **To finish it:** decide who sees the pattern and who holds the table, and where the table lives — on a screen, or on paper beside the players. Then check the length: a look-up longer than one spoken sentence does not fit the beat ([latency](latency.md)).
-
-### Thread
-
-- **What it does:** it draws a line of where it is *going* to be, not where it has been. The first body the pair talks about in the future tense.
-- **Player 1:** sees where it is now and nothing about where it is going.
-- **Player 2:** sees the line ahead, and has to say the column early enough for the cannon to be standing there when the body arrives.
-- **To finish it:** decide how far ahead the line reaches and whether it can be wrong. THE DART and THE WISP already show player 2 one move ahead, so a thread has to show more than one move or it is a third copy of the same trick.
-
-### The Shadow
-
-- **What it does:** while it lies behind another creature it cannot be hurt. The field has to be cleared in the right order.
-- **Player 1:** has to hold the cannon on the body in front first, even when the shadow is the one that looks dangerous.
-- **Player 2:** not decided yet — nothing yet says which seat is shown that a body is covered.
-- **To finish it:** decide who sees the overlap. Both screens gives the pair an order to agree on; one screen makes it a split. Pick one — and decide what "behind" means on a grid where everything falls down a column.
-
-### The Whisperer
-
-- **What it does:** it answers only when both players act on the same beat. Two right moves one beat apart do nothing at all.
-- **Player 1:** the shield trigger, on the beat.
-- **Player 2:** the colour, on the same beat.
-- **To finish it:** decide how wide "the same beat" is. Two devices judge a press about 100 ms apart, so the window has to be one the network can defend ([latency](latency.md), and the same question THE PULSE has open). Settle that number before anything else.
-
-### The Doppelgänger
-
-- **What it does:** two bodies that look almost the same. One is real trouble and one is not.
-- **Player 1:** tells them apart by the shape.
-- **Player 2:** tells them apart by how they behave on the strip.
-- **To finish it:** write down the actual difference in the shape and the actual difference on the strip, and check that neither seat can work out the other's half alone. Then decide what a wrong guess costs — a guess that is free is not a question.
-
-### The Blind One
-
-- **What it does:** one radar strip gets noise instead of a clean blip — the right column, the right height, but garbled. Broken information, never silence.
-- **Player 1:** when the body is a rock kind the noise lands on the pilot's strip, and they have to turn a mess into a very short best guess.
-- **Player 2:** when it is a living kind the noise lands on the navigator's strip instead. Whichever seat still has a clean picture carries the call.
-- **To finish it:** two things the draft already demands — the noise sits in the blip's own column and travels with it, and it looks clearly different from a real connection problem. Then decide which kinds it can jam. Act 5 at the earliest.
-
-### The Clamp
-
-- **What it does:** it joins two creatures into one dangerous line across the field. There are three ways out and the pair picks one together.
-- **Player 1:** not decided yet.
-- **Player 2:** not decided yet.
-- **To finish it:** write the three ways out. Nothing else here is missing — the shape is clear and the split is not. Once the three are named, decide which seat can see which of them.
-
-### The Beat-breaker
-
-- **What it does:** it runs on its own count while the game's beat carries on correctly underneath. Off the beat on purpose, not broken.
-- **Player 1:** has to hold the cannon through a gap that does not line up with the music.
-- **Player 2:** has to fire on the body's count rather than the game's.
-- **To finish it:** decide the offset — a fixed half beat, or one rolled per body — and how it is shown, because a body that is simply late reads as lag. The pair has to be able to see the count it is on.
-
-### The Silent
-
-- **What it does:** no strip announces it at all. The field itself is the only warning.
-- **Player 1:** sees it only once it is on screen.
-- **Player 2:** the same. It is the one body where neither seat has a lead over the other.
-- **To finish it:** work out the speed. The three-second floor ([latency](latency.md)) assumes a strip gives a lead; with none, the body has to be slow enough to be seen, named and answered after it is already visible. Do not build it before that number exists — a fast silent body is not uncertainty, it is an unannounced hit.
-
-### The Jammer
-
-- **What it does:** while it is alive, one player's whole radar strip goes dark — not only for the jammer, for everything that strip owns.
-- **Player 1:** with the rock strip dark, the pilot loses the warning for everything falling and has to ask what the navigator can see.
-- **Player 2:** the same the other way round. The seat that still has a strip describes the field for both, which is the one moment in the game where the split is not permanent.
-- **To finish it:** decide which strip a jammer blanks — its own kind's owner, or the other one — and how the pair is told it has started, so a dark strip is never read as a bug. Then decide how it dies, since the strip that would have announced it is the one it took.
+`CREATURE_KINDS` holds forty names today, and the design's own guess was
+twenty. At 20–26 px object size and within the style frame from
+[graphics](graphics.md), twenty was thought the limit for unambiguously
+distinguishable silhouettes — and it is capped anyway by "new creatures only
+up to wave 50". Rule 3 above is likely to bite before rule 1 does: names that
+stay distinct over a voice channel is the harder constraint, which is one
+reason the idea rows of 10.1 and 10.2 were retired rather than built.

@@ -348,7 +348,7 @@ re-deriving ownership from `controls` by hand.
 
 **Reconsider if:** a creature ever needs a radar owner that is not simply "the
 side that doesn't act" — `RadarOwner` already has a `"none"` case reserved for
-that (see *The Silent*, `docs/spec/bestiary.md` 10.2).
+that (*The Silent* was the idea that would have spent it, until #28 retired it).
 
 ## 16. The radar lead is a 3-second floor, not a 4-beat habit
 
@@ -791,3 +791,31 @@ command being the one way a shrunken document actively costs a session a turn.
 argument was one hop away. That is the measurement this trade is made against,
 and it is a real risk rather than a rhetorical one. The answer then is a test
 for that rule, or one more sentence beside it — not the section back.
+
+## 28. Ten creature ideas leave the bestiary
+
+**Decision:** on 11 September 2026 the owner retired the bestiary's remaining
+creature ideas from the NOT BUILT YET page: **Choke** and **Glyph** from 10.1
+"The first thirteen", and **Thread, The Shadow, The Whisperer, The
+Doppelgänger, The Blind One, The Clamp, The Beat-breaker, The Silent** and
+**The Jammer** from 10.2 "Newly accepted". Their table rows, the three
+worked-out paragraphs (The Silent, The Jammer, The Blind One) and the whole
+of 10.5 "In plain words" are gone from `docs/spec/bestiary.md`; the file's
+history holds the arguments.
+
+**Why:** two of them were built — the Choke as THE CHOKE (wave 55, act 7),
+and the Glyph as THE MIRROR's Simon Says, which is the look-up on a pattern
+that the creature was, played on the pair's own controls rather than worn on a
+body. The other eight had stood as one-line rows for months while every
+creature actually built came from a newer idea with a wave written for it;
+the owner judged them a list nobody was going to draw from and asked for the
+page to show what is left rather than what was once thought of.
+
+**Consequences:** 10.1 has twelve rows, all built; 10.2 has the Wisp alone,
+built; the bestiary's NOT BUILT YET groups are empty and the page's creature
+ideas are `ideas.md`'s. `RadarOwner`'s `"none"` case (#15) is still reserved
+and now has no idea named against it. `packages/audio`'s spare cues written
+for the Whisperer and the Beat-breaker keep their names as history.
+
+**Reconsider if:** one of the eight comes back as a wave with a sentence — it
+returns through `ideas.md`, not by restoring the row.

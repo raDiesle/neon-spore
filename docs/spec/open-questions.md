@@ -60,14 +60,16 @@ trademark search is still outstanding either way.
 
 ## From the later rounds
 
-10. How does the Blind One's interference visibly differ from a real
-    disconnection? *The indicator now exists (`packages/net/src/status.ts`,
-    `apps/game/src/join.ts`) and its vocabulary is closed and owned by the
-    network layer: `solo`, `connecting`, `waiting`, `syncing`, `countdown`,
-    `live`, `stalled`, `lost`, `desync`, each with one sentence. A creature may
-    take away any part of a player's picture but may never produce one of those
-    states — so a dead indicator always means a dead link. What is still open is
-    the other half: what interference should look like instead.*
+10. How would a creature's interference with a radar strip visibly differ
+    from a real disconnection? *Asked for the Blind One, which
+    `docs/decisions.md` #28 retired; the half that was answered outlives it.
+    The indicator exists (`packages/net/src/status.ts`, `apps/game/src/join.ts`)
+    and its vocabulary is closed and owned by the network layer: `solo`,
+    `connecting`, `waiting`, `syncing`, `countdown`, `live`, `stalled`, `lost`,
+    `desync`, each with one sentence. A creature may take away any part of a
+    player's picture but may never produce one of those states — so a dead
+    indicator always means a dead link. What interference should look like
+    instead is open, and nothing is waiting on it.*
 11. Does a wave with a modifier count as its own wave or as a variant? Affects
     the numbering and therefore the save points.
 12. May two assist forms run at once? Sharing sight costs no thumb, keeping

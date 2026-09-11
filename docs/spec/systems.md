@@ -90,8 +90,8 @@ somewhere to put them. See `packages/sim/src/wisp.ts` and
 [bestiary](bestiary.md).
 
 **Ground rule:** every creature's position is present for both. It may be
-incomplete or disturbed (see *The Blind One*, [bestiary](bestiary.md)), but
-never absent — otherwise a hit is arbitrary for the person who took it.
+incomplete or disturbed (the retired Blind One would have garbled it,
+`decisions.md` #28), but never absent — otherwise a hit is arbitrary for the person who took it.
 
 ## 5.3 The beat — partly built
 

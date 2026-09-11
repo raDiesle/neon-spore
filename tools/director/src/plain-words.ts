@@ -7,8 +7,10 @@
  * label, not an explanation, and a reader deciding what to build next got
  * nothing from it about who talks to whom or about what is actually missing.
  *
- * Parsed out of `## 10.5 In plain words` in `bestiary.md` and `## 11.10 In
- * plain words` in `bosses.md`, for the reason `roster.ts` parses the tables
+ * Parsed out of `## 11.10 In plain words` in `bosses.md` — and out of
+ * `bestiary.md`'s `## 10.5`, until 11 September 2026 retired every creature
+ * idea that section explained (`docs/decisions.md` #28); a file with no such
+ * section yields no rows — for the reason `roster.ts` parses the tables
  * rather than copying them: a second copy of a paragraph drifts from the one
  * the design argues over. The shape it reads is deliberately dull —
  *

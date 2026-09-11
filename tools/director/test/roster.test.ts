@@ -14,12 +14,11 @@ describe("roster", () => {
 
     const roster = parseRoster(bestiary, bosses);
 
-    expect(roster.creatures).toHaveLength(13);
-    // The Silent and The Jammer joined for the torch's radar-ownership work —
-    // docs/decisions.md #15 — and the Wisp is the tenth: newly accepted rather
-    // than one of the first thirteen, because nothing on that list had a
-    // *position* nobody could see.
-    expect(roster.accepted).toHaveLength(10);
+    // Twelve of the first thirteen: the Glyph left the table when THE MIRROR's
+    // Simon Says turned out to be it (docs/decisions.md #28).
+    expect(roster.creatures).toHaveLength(12);
+    // The Wisp alone — the nine idea rows beside it were retired the same day.
+    expect(roster.accepted).toHaveLength(1);
     // Eleven named in the act order, plus THE MIRROR, which holds no slot in
     // it and is built (docs/spec/bosses.md 11.3), plus THE TELL, which was
     // built and taken out again and stands as an idea (11.9).
@@ -46,13 +45,14 @@ describe("roster", () => {
     const strand = roster.creatures.find((c) => c.name === "Strand");
     expect(strand?.built).toBe(true);
 
-    // Still not built, and the row this assertion is really about: something
-    // in the first thirteen that the bestiary lists and `CREATURES` does not.
-    // It was the strand until that one was built, then the choke until that
-    // one was, which is the whole point of the row — pick another out of the
-    // same table rather than deleting it.
-    const glyph = roster.creatures.find((c) => c.name === "Glyph");
-    expect(glyph?.built).toBe(false);
+    // Every row left in both tables is built: the tables are a record now,
+    // and the NOT BUILT YET page draws its creature ideas from ideas.md alone.
+    // The row this used to be about — the one thing the bestiary listed and
+    // `CREATURES` did not — was the strand, then the choke, then the glyph,
+    // and the last of them was retired rather than built (#28).
+    for (const row of [...roster.creatures, ...roster.accepted]) {
+      expect(row.built, row.name).toBe(true);
+    }
 
     // Only the three worked-out bosses carry a note off their own heading's tail.
     const queen = roster.bosses.find((b) => b.name === "Bulb Queen");
@@ -63,15 +63,13 @@ describe("roster", () => {
 
     // The one this panel used to get wrong: a table cell of one sentence where
     // the spec spends a paragraph saying what the kind actually does.
-    const jammer = roster.accepted.find((c) => c.name === "The Jammer");
-    expect(jammer?.ref).toBe("bestiary.md 10.2");
-    expect(jammer?.detail).toContain("the danger is the strip going dark");
-    expect(jammer?.detail).toContain("fall back on the other player's picture");
-    expect(jammer?.detail.length).toBeGreaterThan(jammer?.note.length ?? 0);
-
-    // A block with no bold lead of its own stays with the entry above it.
-    const blind = roster.accepted.find((c) => c.name === "The Blind One");
-    expect(blind?.detail).toContain("Two requirements, unchanged from the original draft");
+    const wisp = roster.accepted.find((c) => c.name === "Wisp");
+    expect(wisp?.ref).toBe("bestiary.md 10.2");
+    expect(wisp?.detail).toContain("the first body one player cannot see at all");
+    expect(wisp?.detail.length).toBeGreaterThan(wisp?.note.length ?? 0);
+    // The note under the table about the retired rows has no bold lead and
+    // stands before any owner, so it goes to nobody — not to the Wisp.
+    expect(wisp?.detail).not.toContain("retired them");
 
     // The bosses carry their whole section, tables and all, not just the tail.
     expect(queen?.ref).toBe("bosses.md 11.0");

@@ -253,9 +253,9 @@ the spec actually writes and is tested against a document stub in
 `test/markdown.test.ts`.
 
 Which paragraph belongs to which name is not guessed twice: a block that opens
-`**The Jammer — …**` goes to the Jammer, and a block with no bold lead of its
-own stays with the block above it, which is how "Two requirements, unchanged
-from the original draft" stays attached to The Blind One.
+`**THE WISP …**` goes to the Wisp, and a block with no bold lead of its own
+stays with the block above it — `test/roster.test.ts`'s minimal example is the
+proof, since the spec's own such block left with the Blind One.
 
 One caution, in the spec's own words: a name here is a label on an unbuilt
 design and costs one edit to change. Nothing in the simulation depends on it.
