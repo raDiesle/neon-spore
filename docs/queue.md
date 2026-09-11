@@ -248,6 +248,7 @@ and have `versus-pose.test.ts` refuse a row whose slot has no candidate.
 ## `docs/shipped-looks.md` no longer describes five creatures
 
 - **Found:** 2026-09-10, hit-looks
+- **Taken:** 2026-09-11, claude/queue-docs-shipped-looks-md-no-longer-describes-five-c
 - **Files:** `docs/shipped-looks.md`, `packages/render/src/{chute,coil,crawler,dart,echo}-look.ts`
 
 The file says of itself that the renderer is right where the two disagree,
