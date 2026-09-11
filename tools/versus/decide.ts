@@ -32,6 +32,7 @@ import { readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { byHand } from "./by-hand.js";
 import { VARIANTS } from "./candidates/index.js";
+import { removePoseRow } from "./pose-row.js";
 import { type Edit, isRefusal, rewriteRecord } from "./record-edit.js";
 import { writeRegistry } from "./registry.js";
 import { CANDIDATES, ROOT } from "./root.js";
@@ -149,7 +150,7 @@ export function adopt(slotName: string, winner: string, reason: string, as?: str
       out.push(`  ${r.delete ? "deleted " : "kept    "} ${r.note}`);
     }
   }
-  out.push("", ...removeSlot(candidates), "");
+  out.push("", ...removeSlot(slot, candidates), "");
   writeDecided(decidedEntry(slot, won, candidates, reason, plan));
   out.push(
     "  tools/versus/DECIDED.md — the answer, so the next slot on this record can read it",
@@ -163,24 +164,27 @@ export function adopt(slotName: string, winner: string, reason: string, as?: str
 export function drop(slotName: string, reason: string): string[] {
   const { slot, candidates } = slotOf(slotName);
   const out = [`${slot} — nothing taken. The game draws what it drew.`, ""];
-  out.push(...removeSlot(candidates), "");
+  out.push(...removeSlot(slot, candidates), "");
   writeDecided(decidedEntry(slot, null, candidates, reason, []));
   out.push("  tools/versus/DECIDED.md — the reason, which is the only thing left of the slot");
   return out;
 }
 
 /**
- * Every candidate directory in the slot, gone, and the registry rebuilt around
- * the hole. The winner's directory goes with the losers: its numbers live in
- * `packages/` now, and a second copy of them in a tool is exactly the drift
- * this arrangement exists to prevent.
+ * Every candidate directory in the slot, gone, the registry rebuilt around
+ * the hole, and the slot's row taken out of the director's pose map. The
+ * winner's directory goes with the losers: its numbers live in `packages/`
+ * now, and a second copy of them in a tool is exactly the drift this
+ * arrangement exists to prevent. The row goes for the reason `pose-row.ts`
+ * gives — its pose stays in the gallery, the row was only the slot's way to it.
  */
-function removeSlot(candidates: readonly Variant[]): string[] {
+function removeSlot(slot: string, candidates: readonly Variant[]): string[] {
   for (const c of candidates) rmSync(join(ROOT, c.dir), { recursive: true, force: true });
   const { count } = writeRegistry(CANDIDATES);
   return [
     ...candidates.map((c) => `  removed  ${c.dir}`),
     `  rewrote  tools/versus/candidates/registry.ts — ${count} candidate${count === 1 ? "" : "s"} left`,
+    removePoseRow(ROOT, slot),
   ];
 }
 

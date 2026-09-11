@@ -4,8 +4,27 @@ import { CREATURES, controlSetForWave, setHas } from "@neon-spore/content";
 import { chargeMilli, laying, step, volleyPlatesLeft } from "@neon-spore/sim";
 import { VARIANTS } from "../../versus/candidates/index.js";
 import { slots } from "../../versus/variant.js";
+import { POSE_GROUPS } from "../src/poses.js";
 import { VERSUS_POSES } from "../src/poses-versus.js";
 import { poseForSlot } from "../src/versus-pose.js";
+
+/** A pose by its name, for the tests about a pose whose slot has closed. */
+function poseNamed(name: string) {
+  const pose = POSE_GROUPS.flatMap((g) => g.poses).find((p) => p.name === name);
+  if (!pose) throw new Error(`no pose called ${name}`);
+  return pose;
+}
+
+/** The rows of `SLOT_POSE`, read off the source rather than the module: the
+ * map is not exported, and the literal is what the two tests below are about. */
+async function slotPoseRows(): Promise<string[]> {
+  const source = await Bun.file(join(import.meta.dirname, "..", "src", "versus-pose.ts")).text();
+  const start = source.indexOf("const SLOT_POSE");
+  const end = source.indexOf("\n};", start);
+  expect(start).toBeGreaterThan(-1);
+  expect(end).toBeGreaterThan(start);
+  return source.slice(start, end).split("\n").slice(1);
+}
 
 /**
  * Every open slot gets a pose that actually reaches the state it patches —
@@ -69,10 +88,23 @@ describe("poseForSlot", () => {
     }
   });
 
-  test("cannon:shot and shield:ward each get the pose that puts their own body on screen", () => {
-    expect(poseForSlot("cannon:shot").name).toBe("SHOT · BEING LAID");
-    expect(poseForSlot("cannon:mouth").name).toBe("SHOT · BEING LAID");
-    expect(poseForSlot("shield:ward").name).toBe("WARD · DEFLECTED");
+  /**
+   * The header always said a decided slot's row goes with its candidates, and
+   * nothing did it: by 10 September 2026 the map carried a row for every slot
+   * that had ever closed — `cannon:shot`, `shield:ward`, `creature:strand`,
+   * `slick:hit` and on, twice as many rows as open slots. `bun run versus
+   * adopt` and `drop` take the row now (`tools/versus/pose-row.ts`), and this
+   * is what keeps a row from outliving its slot by any other route.
+   */
+  test("every row in SLOT_POSE names a slot that still has a candidate", async () => {
+    const open = new Set(slots(VARIANTS).map((s) => s.slot));
+    for (const row of await slotPoseRows()) {
+      const slot = /^ {2}"([^"]+)":/.exec(row)?.[1] ?? row;
+      expect(
+        open.has(slot),
+        `${slot} — no candidate directory names it; its row goes with the slot`,
+      ).toBe(true);
+    }
   });
 
   /**
@@ -148,12 +180,14 @@ describe("poseForSlot", () => {
     expect(setHas(set, "intake"), set.id).toBe(true);
   });
 
-  test("a cannon slot is handed a world with the shot still in the muzzle", () => {
+  test("the shot pose hands over a world with the shot still in the muzzle", () => {
     // The defect this replaces: `SHOT · IN FLIGHT` is held thirty ticks after
     // the press, so every part of firing a shot had already happened inside
     // `build` and the page showed only a bolt in transit. A candidate for how
-    // a shot *leaves* had nothing to be compared against.
-    const world = poseForSlot("cannon:shot").build();
+    // a shot *leaves* had nothing to be compared against. `cannon:shot` is
+    // decided and its row gone; the pose is asked for by name, as the band
+    // test above does, because the assertion outlives the slot.
+    const world = poseNamed("SHOT · BEING LAID").build();
     expect(laying(world)).toBe(true);
     expect(world.bullets).toHaveLength(0);
     expect(chargeMilli(world)).toBeLessThan(1000);
@@ -163,7 +197,7 @@ describe("poseForSlot", () => {
     // What `versus-pair.ts` does: step, and rebuild when the world asks for a
     // wave. Nothing else. If the loop stops, the sheet goes quiet after one
     // shot and the difference between two candidates is gone with it.
-    const pose = poseForSlot("cannon:shot");
+    const pose = poseNamed("SHOT · BEING LAID");
     let world = pose.build();
     let departures = 0;
     let inTheMuzzle = 0;
@@ -232,12 +266,7 @@ describe("poseForSlot", () => {
    * inside it — a rule called here rather than remembered by the next lane.
    */
   test("SLOT_POSE carries rows alone — a slot's reason lives on its pose", async () => {
-    const source = await Bun.file(join(import.meta.dirname, "..", "src", "versus-pose.ts")).text();
-    const start = source.indexOf("const SLOT_POSE");
-    const end = source.indexOf("\n};", start);
-    expect(start).toBeGreaterThan(-1);
-    expect(end).toBeGreaterThan(start);
-    const rows = source.slice(start, end).split("\n").slice(1);
+    const rows = await slotPoseRows();
     for (const row of rows) {
       expect(row.trim().startsWith("//") || row.includes("/*"), row).toBe(false);
       expect(row, row).toMatch(/^ {2}"[a-z-]+:[a-z-]+": ".+",$/);

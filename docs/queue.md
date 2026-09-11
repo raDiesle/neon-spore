@@ -223,17 +223,3 @@ it they claim `LOBE_LOOK` (gloss, socket), `STRIP_LOOK`, `BAND_GROUND`,
 patch — and `bun test` refuses two open slots on one field. Any new furniture
 keeps the grown contour, the wet socket and the gloss: a flat plate with a
 stroke around it is the one thing the panel look is not.
-
-## `versus-pose.ts` keeps a row for every slot that has ever closed
-
-- **Found:** 2026-09-10, hit-looks
-- **Taken:** 2026-09-11, claude/queue-versus-pose-ts-keeps-a-row-for-every-slot-that-h
-- **Files:** `tools/director/src/versus-pose.ts`, `tools/versus/decide.ts`, `tools/director/test/versus-pose.test.ts`
-
-The map's own header says *a decided slot's row goes with its candidates*,
-and about forty rows are for slots no candidate directory names any more —
-`cannon:shot`, `shield:ward`, `creature:strand`, `slick:hit`, and on. Nothing
-removes them: `bun run versus adopt` and `drop` delete the candidates and
-leave the row, and no test compares the map's keys with the open slots.
-Remove the stale rows, make `adopt` and `drop` take the row with the slot,
-and have `versus-pose.test.ts` refuse a row whose slot has no candidate.

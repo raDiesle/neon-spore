@@ -140,8 +140,10 @@ So the steps are a command instead:
     bun run versus drop  <slot> "<why not>"
 
 `adopt` writes the winner's field values into the shipped record, removes every
-directory in the slot, regenerates the registry and appends the answer to
-`tools/versus/DECIDED.md`. `drop` is the same with nothing written into the
+directory in the slot, regenerates the registry, takes the slot's row out of the
+director's `SLOT_POSE` map (`tools/versus/pose-row.ts` — the pose itself stays
+in the gallery) and appends the answer to `tools/versus/DECIDED.md`. `drop` is
+the same with nothing written into the
 game. What survives of the prompt is the part that was load-bearing: **the
 staleness refusal.** The value in the file has to be the value the live record
 holds right now, and a disagreement stops the adoption and names the field

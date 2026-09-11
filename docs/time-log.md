@@ -21,6 +21,25 @@ same every time so they can be compared:
   conflict or red full check between the first attempt and the trunk moving.
 
 End each entry with the one bottleneck, in a sentence.
+
+## 2026-09-11 · hit-looks — the queue: the pose map's stale rows
+
+Nineteen rows for closed slots out of `versus-pose.ts`; `adopt` and `drop`
+take a slot's row with it, and the director's test refuses a row whose slot
+has no candidate. On the way, two room tests that raced under a full check.
+About 35 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `versus-pose.ts`, its test, `decide.ts`; then `room.test.ts`, `settle`, `occupiedSeats` and `pressStart` for the flakes |
+| writing | 15 | `pose-row.ts` and its test, the row test, the cannon tests moved onto the pose by name, `docs/versus.md`; the two room tests |
+| looking | 0 | — |
+| friction | 5 | the Bash tool collapses a doubled backslash inside quoted heredocs and `node -e`, so a script that matched source text never matched — the edits went through the editor tool |
+| landing | 5 | `queue done`, `check:fast`, the commit, `land --keep` |
+
+Bottleneck: **friction** — two red `land` runs on room tests unrelated to
+the lane, each a full `check` to find out.
+
 ## 2026-09-11 · hit-looks — the queue: a claim on the lane's own entry
 
 `bun run queue take` marks an entry the trunk has not got in the working

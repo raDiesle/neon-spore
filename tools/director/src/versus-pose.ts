@@ -25,51 +25,35 @@ import { POSE_GROUPS } from "./poses.js";
  * or continuous, and what that means for its cadence — is `pose-type.ts`'s
  * `cadenceSeconds`.
  *
- * A decided slot's row goes with its candidates, and its pose stays in the
- * gallery — a pose is a picture of the game and outlives the question it was
- * drawn for. `ship:hull-skin` never had a row: the hull is on every frame of
- * every pose, so a slot showing it needs no dedicated one.
+ * A decided slot's row goes with its candidates — `bun run versus adopt` and
+ * `drop` take it out (`tools/versus/pose-row.ts`), and the test refuses a row
+ * whose slot has no candidate, because by 10 September 2026 the map carried
+ * one for every slot that had ever closed. Its pose stays in the gallery: a
+ * pose is a picture of the game and outlives the question it was drawn for.
+ * `ship:hull-skin` never had a row: the hull is on every frame of every pose,
+ * so a slot showing it needs no dedicated one.
  */
 const SLOT_POSE: Record<string, string> = {
-  "cannon:shot": "SHOT · BEING LAID",
-  "cannon:mouth": "SHOT · BEING LAID",
-  "shield:ward": "WARD · DEFLECTED",
   "ship:body": "SHIP · MEETING THE PANEL",
   "ship:crater": "BREACH · ROCKS COMING THROUGH",
   "field:backdrop": "BODIES · FOUR KINDS AT ONCE",
-  "creature:skin": "BODIES · FOUR KINDS AT ONCE",
-  "creature:slick": "BODIES · FOUR KINDS AT ONCE",
-  "creature:bulb": "BODIES · FOUR KINDS AT ONCE",
-  "slick:shape": "BODIES · FOUR KINDS AT ONCE",
-  "bulb:shape": "BODIES · FOUR KINDS AT ONCE",
-  "slick:motion": "BODIES · FOUR KINDS AT ONCE",
-  "creature:break": "BREAK · A BODY COMING APART",
-  "slick:hit": "BREAK · A BODY COMING APART",
-  "bulb:hit": "BULB · STRUCK",
   "creature:meteor": "METEOR · A SHOT ARRIVING",
   "creature:magnet": "MAGNET · A SHOT TURNED AWAY",
-  "creature:strand": "STRAND · THE NAVIGATOR'S BEAD",
-  "crawler:pulse": "CRAWLER · WALKING",
-  "ghost:tears": "GHOST · TORN",
   "creature:throb": "THROB · TURNING",
   "creature:wisp": "WISP · STANDING",
   "creature:mount": "GYRE · TURNING",
-  "eye:iris": "LID · THE EYE OPEN",
   "creature:rind": "RIND · SHEDDING",
   "rind:body": "RIND · SHEDDING",
   "creature:lid": "LID · OPENING",
-  "shell:plate": "SHELL · ONE HALF OPEN",
   "creature:torch": "TORCH · THE FALL",
   "torch:veil": "TORCH · THE FALL",
   "creature:veil": "VEIL · CARRYING",
   "creature:warden": "WARDEN · ARMOURED",
   "creature:queen": "QUEEN · SHUT",
   "creature:recoil": "RECOIL · ONE BOUNCE SPENT",
-  "creature:carom": "CAROM · CROSSING",
   "creature:veer": "VEER · RIDING DOWN",
   "creature:volley": "VOLLEY · WARDED THREE TIMES",
   "creature:tether": "TETHER · PULLED",
-  "maze:walls": "MAZE · THE WHEEL TO READ",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */
