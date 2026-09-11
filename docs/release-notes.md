@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · cfab2e05 — DOCUMENTATION → WORDINGS: an ordinary screen with every part of it named
+
+A new tab in the director's DOCUMENTATION sheet, for writing prompts: the pilot's and the navigator's whole phones, each a real frame of the shipping renderer over one world run into an ordinary moment — a scar in the hull, a slick and a bulb falling, a shot on its way, both swellings up, a blip on the strip and the siren lit — with a line from every word to the thing it names (hull, cannon, shield, lobe, band, strip, block, seam, siren, radar strip, hull bar, the beat, …) and, under them, the words with no one place to point at (ward, lance, tick, socket, gloss, slime, …). Every point is worked out from the layout the frame was drawn with, so a label follows its thing.
+
 ## 2026-09-11 · b0894fab — The torch stays as shipped: both torch slots dropped, the stale veil claim closed
 
 The owner decided the torch's veil on the VERSUS page: keep what the game draws. `torch:veil` (BLOOM, FIFTH) and `creature:torch` (CROWN, HOLLOW, KILN) are dropped, the reasons in `tools/versus/DECIDED.md`. The queue entry that asked the question is closed; its `Taken:` branch was a local ref in the main checkout with its tip already on `main` and no worktree or session behind it, and is deleted.
