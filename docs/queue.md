@@ -185,6 +185,7 @@ stroke around it is the one thing the panel look is not.
 ## GLAND's spine and organs build their paths every frame
 
 - **Found:** 2026-09-11, hit-looks
+- **Taken:** 2026-09-11, claude/queue-glands-spine-and-organs-build-their-paths-every
 - **Files:** `packages/render/src/gland-fluid.ts`, `packages/render/src/gland-organ.ts`,
   `packages/render/src/gland-wet.ts`, `packages/render/test/frame-budget.test.ts`
 
