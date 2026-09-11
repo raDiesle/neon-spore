@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · d9f26a96 — A decided slot's row leaves the pose map with its candidates
+
+`versus-pose.ts` said so in its header and nothing did it: nineteen of its forty rows were for slots no candidate directory names — `cannon:shot`, `shield:ward`, `creature:strand`, `slick:hit` and on. They are gone; `bun run versus adopt` and `drop` take the slot's row out with its directories (`tools/versus/pose-row.ts`, a line-level edit so the literal the director's test reads is otherwise untouched); and that test now refuses any row whose slot has no candidate. The two cannon tests that reached `SHOT · BEING LAID` through the closed `cannon:shot` slot ask for the pose by name, as the band test already did. The queue item is done.
+
 ## 2026-09-11 · 927a7f67 — The run-over room test judges silence over 600 ms, not 100
 
 `occupiedSeats` hangs a seat up on any message once the wall clock has moved `SEAT_SILENT_MS` past its last one, and at 100 ms a full `bun run check` put more than that between seat one's join and the two presses — so seat one was gone before it pressed, and the welcome announcing it had left was the one the test read as the stamp. The window is 600 ms now, with the run-over window 900 ms above it as before; the arrivals that ask whether the run is over still cover it inside the test's budget.
