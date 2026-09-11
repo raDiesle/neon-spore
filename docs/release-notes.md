@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · a1881f1d — A living body's interior stays inside its rim: THE RIND's bloom no longer crosses the knobs
+
+The owner saw the red rind's inner animation reach outside its body. A rind wears the slick's look, and the slick's bloom sizes its veins to the slick's own ellipse — but the rind's contour is BURR, three lobes and knobs, whose rim dips well inside that ellipse, so the veins crossed it. Now every living body's interior is drawn through a clip of the body itself scaled a sixth smaller (`body-inset.ts`), so nothing inside a body touches or passes its edge, whatever contour it wears. A fix to something wrong, not to something unlovely.
+
 ## 2026-09-11 · 916a91bf — The BESTIARY tab leaves the NOT BUILT YET page; the creature ideas read on MECHANICS beside their shapes
 
 Every creature the tab listed is built and in the brush palette, so the owner took the page off on 11 September 2026. Its ten creature ideas move to the MECHANICS page as a CREATURE IDEAS group — a creature is a rule that falls — each with the frame holding the draft drawn for it, and the same drafts stand on GRAPHICS through their `suggests`, which is where the shapes were already. The two empty roster groups and the "examined and rejected" prose go with the tab; `bestiary.md` keeps all of it.
