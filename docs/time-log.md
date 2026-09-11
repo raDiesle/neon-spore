@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — creature:warden — SURFACE stays, three kept on the LIBRARY
+
+Read the three candidates and the warden record, moved their paints into packages/render beside the record, built a warden stage for the LIBRARY from the game's own body and state, photographed the cards, dropped the slot.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | reading |
+| writing | 25 | writing |
+| looking | 15 | looking |
+| friction | 10 | friction |
+| landing | 10 | landing |
+
+Bottleneck: Photographing the LIBRARY: the browser pane cannot save a PNG and `bun run shot` needed the right flags (`--tab` opens the sheet itself; `--click` takes a CSS selector, not a Playwright one) — found by three failed runs.
+
 ## 2026-09-11 · hit-looks — the wisp wears ARMS, and SHAPES gets a LIBRARY
 
 The owner took ARMS into the game and asked for the threads it replaced, COMB and SKIRT, to be kept on the SHAPES page because he wants more jellyfish-like bodies. The page had no place for a whole canvas-drawn look, so it got one: a fourth view, LIBRARY, whose cards are the game's own drawing code run on the game's own wisp (`tools/director/src/library`). ARMS was inline in its candidate and went in by hand; THE WISP's op-count rows moved.

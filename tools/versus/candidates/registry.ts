@@ -43,9 +43,6 @@ import { VEIL_VORTEX } from "./creature-veil/vortex/index.js";
 import { VOLLEY_EMBER } from "./creature-volley/ember/index.js";
 import { VOLLEY_GROOVE } from "./creature-volley/groove/index.js";
 import { VOLLEY_PITTED } from "./creature-volley/pitted/index.js";
-import { WARDEN_MANTLE } from "./creature-warden/mantle/index.js";
-import { WARDEN_ROLL } from "./creature-warden/roll/index.js";
-import { WARDEN_WHORL } from "./creature-warden/whorl/index.js";
 import { SHIP_CHITIN } from "./ship-body/chitin/index.js";
 import { SHIP_GLAND } from "./ship-body/gland/index.js";
 import { SHIP_GULLET } from "./ship-body/gullet/index.js";
@@ -91,9 +88,6 @@ export const VARIANTS: Variant[] = [
   VOLLEY_EMBER,
   VOLLEY_GROOVE,
   VOLLEY_PITTED,
-  WARDEN_MANTLE,
-  WARDEN_ROLL,
-  WARDEN_WHORL,
   SHIP_CHITIN,
   SHIP_GLAND,
   SHIP_GULLET,

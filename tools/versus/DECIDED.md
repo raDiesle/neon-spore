@@ -682,3 +682,11 @@ arms floating under it
 
 The other answers offered were `arms`, `comb` and `skirt`; they went with the
 slot.
+
+## `creature:warden` — nothing taken, 2026-09-11
+
+taken by hand — the shipped surface stays; MANTLE, ROLL and WHORL kept on the
+SHAPES page's LIBRARY
+
+The other answers offered were `mantle`, `roll` and `whorl`; they went with
+the slot.

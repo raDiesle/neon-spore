@@ -1,5 +1,5 @@
-import { surfaceLit } from "../../../../../packages/content/src/surface.js";
-import type { WardenSurfaceDraw } from "../../../../../packages/render/src/warden-surface.js";
+import { surfaceLit } from "@neon-spore/content";
+import type { WardenSurfaceDraw } from "./warden-surface.js";
 
 /**
  * THE WARDEN's material as a **tube**: the ring read as a torus seen face-on,

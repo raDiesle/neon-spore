@@ -1,15 +1,21 @@
-import { KEY } from "../../../../../packages/content/src/light.js";
-import { mixHex, rgba } from "../../../../../packages/render/src/hex.js";
-import { PALETTE, STROKE } from "../../../../../packages/render/src/palette.js";
-import { drawWardenCilia } from "../../../../../packages/render/src/warden-cilia.js";
-import { drawPlates } from "../../../../../packages/render/src/warden-plates.js";
-import { drawWardenEyelets, inOpening } from "../../../../../packages/render/src/warden-skin.js";
-import {
-  drawWardenEdges,
-  type WardenSurfaceDraw,
-} from "../../../../../packages/render/src/warden-surface.js";
+import { KEY } from "@neon-spore/content";
+import { mixHex, rgba } from "./hex.js";
+import { PALETTE, STROKE } from "./palette.js";
+import { drawWardenCilia } from "./warden-cilia.js";
+import { drawPlates } from "./warden-plates.js";
+import { drawWardenEyelets, inOpening } from "./warden-skin.js";
+import { drawWardenEdges, type WardenSurfaceDraw } from "./warden-surface.js";
 
 /**
+ * WHORL — a kept look for THE WARDEN, drawn only on the SHAPES page's LIBRARY.
+ *
+ * It stood beside the shipped surface on VERSUS (`creature:warden`, decided
+ * 11 September 2026) and lost; the owner kept the surface the game had and
+ * asked for this one to be kept where he can see it, to build another body
+ * from. It sits in this package, beside the record it once patched, because
+ * it is written against this package's internals; nothing on the field
+ * imports it, and the game's bundle drops it.
+ *
  * WHORL — the material is muscle: a sphincter of ridged fibres winding from
  * the rim into the hole, turning, with a pulse running down them.
  *

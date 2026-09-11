@@ -745,6 +745,10 @@ place — the generator keeps whatever is there.
 | `packages/render/src/warden-surface.ts` | THE WARDEN's whole surface as one field — veins, eyelets, fringe, edges and armour, in the order a solid is built |
 | `packages/render/src/warden-veins.ts` | What lies **under** THE WARDEN's surface: the veins running in from its rim, and the wet film over them |
 | `packages/render/src/warden-look.ts` | THE ONE RECORD A CANDIDATE WARDEN PATCHES |
+| `packages/render/src/warden-mantle.ts` | MANTLE — a kept look for THE WARDEN, drawn only on the SHAPES page's LIBRARY |
+| `packages/render/src/warden-roll-tube.ts` | THE WARDEN's material as a **tube**: the ring read as a torus seen face-on |
+| `packages/render/src/warden-roll.ts` | ROLL — a kept look for THE WARDEN, drawn only on the SHAPES page's LIBRARY |
+| `packages/render/src/warden-whorl.ts` | WHORL — a kept look for THE WARDEN, drawn only on the SHAPES page's LIBRARY |
 | `packages/render/src/queen-drop.ts` | NEXT TO FALL: the flank the queen's next torch comes off, said on player 2's screen and nowhere else |
 | `packages/render/src/queen-figure.ts` | Where the parts of the queen sit on her, and where the screen puts them |
 | `packages/render/src/queen-look.ts` | THE ONE RECORD A CANDIDATE **QUEEN** PATCHES |
@@ -1559,5 +1563,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/library/wisp-comb.ts` | COMB — eight comb rows under the hem, each a run of paddles beating one after the next |
 | `tools/director/src/library/wisp-skirt.ts` | SKIRT — one continuous veil hanging from the whole hem, scalloped at its foot, with folds that go round |
 | `tools/director/src/library/wisp-stage.ts` | The game's own wisp, drawn on a card wearing a fringe of the caller's choosing |
+| `tools/director/src/library/warden-assets.ts` | THE WARDEN's four surfaces — everything on the ring between its material and the door over its eye |
+| `tools/director/src/library/warden-stage.ts` | The game's own warden, drawn on a card wearing a surface of the caller's choosing |
 
 <!-- index:code:end -->

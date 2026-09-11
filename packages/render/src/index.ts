@@ -100,6 +100,12 @@ export {
   swipeColor,
 } from "./touch-ship.js";
 export { drawVane } from "./vane-draw.js";
+export { drawWarden } from "./warden.js";
+export { WARDEN_LOOK, type WardenLook } from "./warden-look.js";
+export { mantle } from "./warden-mantle.js";
+export { roll } from "./warden-roll.js";
+export { drawWardenSurface, type WardenSurfaceDraw } from "./warden-surface.js";
+export { whorl } from "./warden-whorl.js";
 export { INTRO_SECONDS } from "./wave-intro.js";
 // THE WISP whole, and its fringe record, so the SHAPES page's LIBRARY can
 // draw the real jellyfish wearing each fringe the owner kept

@@ -1,23 +1,29 @@
-import { KEY } from "../../../../../packages/content/src/light.js";
-import { surfaceDim } from "../../../../../packages/content/src/surface.js";
-import { strokeGlow } from "../../../../../packages/render/src/glow.js";
-import { mixHex, rgba } from "../../../../../packages/render/src/hex.js";
-import { PALETTE, STROKE } from "../../../../../packages/render/src/palette.js";
-import { drawWardenCilia } from "../../../../../packages/render/src/warden-cilia.js";
-import { drawPlates } from "../../../../../packages/render/src/warden-plates.js";
-import { inOpening } from "../../../../../packages/render/src/warden-skin.js";
-import {
-  drawWardenEdges,
-  type WardenSurfaceDraw,
-} from "../../../../../packages/render/src/warden-surface.js";
-import { tubeAt, tubeLit, tubePoint } from "./tube.js";
+import { KEY, surfaceDim } from "@neon-spore/content";
+import { strokeGlow } from "./glow.js";
+import { mixHex, rgba } from "./hex.js";
+import { PALETTE, STROKE } from "./palette.js";
+import { drawWardenCilia } from "./warden-cilia.js";
+import { drawPlates } from "./warden-plates.js";
+import { tubeAt, tubeLit, tubePoint } from "./warden-roll-tube.js";
+import { inOpening } from "./warden-skin.js";
+import { drawWardenEdges, type WardenSurfaceDraw } from "./warden-surface.js";
 
 /**
+ * ROLL — a kept look for THE WARDEN, drawn only on the SHAPES page's LIBRARY.
+ *
+ * It stood beside the shipped surface on VERSUS (`creature:warden`, decided
+ * 11 September 2026) and lost; the owner kept the surface the game had and
+ * asked for this one to be kept where he can see it, to build another body
+ * from. It sits in this package, beside the record it once patched, because
+ * it is written against this package's internals; nothing on the field
+ * imports it, and the game's bundle drops it. Its tube geometry is
+ * `warden-roll-tube.ts`.
+ *
  * ROLL — the ring is a smoke ring: a tube turning inside-out, its surface
  * rolling in over the crest and down into the hole, and the eyelets and veins
  * ride it round.
  *
- * The material is shaded as a tube (`tube.ts`): one gradient from the lip
+ * The material is shaded as a tube (`warden-roll-tube.ts`): one gradient from the lip
  * up over the crest to the rim with the light read off the tube's own normal,
  * the far side darkened along the key, and a specular along the crest where
  * it faces the light. Every mark is pinned at a bearing and a tube latitude,

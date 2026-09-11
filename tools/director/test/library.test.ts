@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from "bun:test";
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { WISP_LOOK } from "@neon-spore/render";
+import { WARDEN_LOOK, WISP_LOOK } from "@neon-spore/render";
 import { installCanvasGlobals, stubCanvas } from "../../../packages/render/test/canvas-stub.js";
 import { ASSETS, BEAT_SECONDS } from "../src/library/index.js";
 
@@ -12,8 +12,9 @@ import { ASSETS, BEAT_SECONDS } from "../src/library/index.js";
  * is the game's real function called from outside the game, at a card's size,
  * with a body the card made up — so every one of them is drawn through a
  * beat's worth of frames, on the stub canvas that validates every value the
- * way `frame.test.ts` does. And `wisp-stage.ts` swaps the fringe on the
- * shipped record for the length of a card and promises to put it back; if it
+ * way `frame.test.ts` does. And each stage (`wisp-stage.ts`, `warden-stage.ts`)
+ * swaps a field on a shipped record for the length of a card and promises to
+ * put it back; if it
  * ever did not, the *game* would draw whichever card was drawn last, which is
  * the one way a tool could change a look without anyone deciding it.
  */
@@ -39,9 +40,15 @@ describe("the library", () => {
   });
 
   it("marks exactly the looks the game draws today", () => {
-    // One fringe per wisp: the record wears one, and one card says so.
-    const wisp = ASSETS.filter((a) => a.from.startsWith("THE WISP"));
-    expect(wisp.filter((a) => a.inGame).length).toBe(1);
+    // One look per record: each creature's record wears one, and one card in
+    // that creature's group says so.
+    const groups = new Map<string, number>();
+    for (const a of ASSETS) {
+      const creature = a.from.split(" · ")[0] ?? a.from;
+      groups.set(creature, (groups.get(creature) ?? 0) + (a.inGame ? 1 : 0));
+    }
+    expect(groups.size).toBeGreaterThan(1);
+    for (const [creature, n] of groups) expect(n, creature).toBe(1);
   });
 
   it("draws every asset through a beat of frames", () => {
@@ -57,12 +64,14 @@ describe("the library", () => {
     }
   });
 
-  it("leaves the game's own record as it found it", () => {
-    const before = WISP_LOOK.fringe;
+  it("leaves the game's own records as it found them", () => {
+    const fringe = WISP_LOOK.fringe;
+    const surface = WARDEN_LOOK.surface;
     const { ctx } = stubCanvas();
     const c = { ctx: ctx as unknown as CanvasRenderingContext2D, w: 300, h: 300 };
     for (const a of ASSETS) a.draw(c, { t: 1, beat: 1, beatPhase: 0.5 });
-    expect(WISP_LOOK.fringe).toBe(before);
+    expect(WISP_LOOK.fringe).toBe(fringe);
+    expect(WARDEN_LOOK.surface).toBe(surface);
   });
 
   it("keeps every file in the folder a part of the registry or its plumbing", () => {
