@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · aa8e28d8 — Three new ships on VERSUS from the owner's brief: a wet grain-free skin, buttons grown as organs, PLASM's bubbles and strings
+
+The owner judged the six `ship:body` cards and named what he wanted from three of them rather than picking one: EMBEDDED's arrangement without its sand-like light, MEDUSA's slime going down but with the lines starting from the very top of the hull, PLASM's big bottom bubbles and the strings running up from the buttons — and every button grown together with the body like a heart, with veins and a little plasma coming out. EMBEDDED, MEDUSA and PLASM are gone and GLAND, HEART and LYMPH stand beside CHITIN, GULLET and REEF: the same brief on EMBEDDED's arrangement, on the shipped one with each button a beating heart, and taken toward a paler, more translucent fluid.
+
 ## 2026-09-11 · cfab2e05 — DOCUMENTATION → WORDINGS: an ordinary screen with every part of it named
 
 A new tab in the director's DOCUMENTATION sheet, for writing prompts: the pilot's and the navigator's whole phones, each a real frame of the shipping renderer over one world run into an ordinary moment — a scar in the hull, a slick and a bulb falling, a shot on its way, both swellings up, a blip on the strip and the siren lit — with a line from every word to the thing it names (hull, cannon, shield, lobe, band, strip, block, seam, siren, radar strip, hull bar, the beat, …) and, under them, the words with no one place to point at (ward, lance, tick, socket, gloss, slime, …). Every point is worked out from the layout the frame was drawn with, so a label follows its thing.
