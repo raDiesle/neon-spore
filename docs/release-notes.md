@@ -9,6 +9,18 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · 927a7f67 — The run-over room test judges silence over 600 ms, not 100
+
+`occupiedSeats` hangs a seat up on any message once the wall clock has moved `SEAT_SILENT_MS` past its last one, and at 100 ms a full `bun run check` put more than that between seat one's join and the two presses — so seat one was gone before it pressed, and the welcome announcing it had left was the one the test read as the stamp. The window is 600 ms now, with the run-over window 900 ms above it as before; the arrivals that ask whether the run is over still cover it inside the test's budget.
+
+## 2026-09-11 · 5489023d — Two room tests count the welcome a join sends before they wait for the stamped one
+
+`settle("welcome")` waits for one more welcome than the last named settle counted, and both tests that read `startMs` off the last welcome had settled the join with a bare `settle()`, which counts nothing — so the wait was satisfied by the join's own welcome, and under a full `bun run check` the stamped one landed after the assertion read `startMs` 0. It went red on one landing on 11 September 2026 and passed three times alone. The joins are settled by name now, so every welcome on the phone is counted before the wait that means the stamp.
+
+## 2026-09-11 · 4fe066a5 — `bun run queue take` claims an entry the trunk has not got, and a failed claim leaves no branch
+
+An item queued and worked in the same sitting exists only in the lane's working tree; `take` made its branch, went to write the `Taken:` line onto `main`, threw, and the surviving branch made the second `take` say the item was already taken. Now a claim asks the trunk's copy of the file first: an entry it has not got is marked in the working copy, to land with the work that queued it, and the branch is still made because it is the gate the other worktrees read. Whatever throws between the branch and the line deletes the branch before the error goes up. `tools/queue/git.ts` holds the runner and `commitOnRef`, split out of `repo.ts` to keep it under 250 lines; `claim-here.test.ts` proves both in a repository shaped like the lane.
+
 ## 2026-09-11 · f4addd70 — `docs/shipped-looks.md` describes the chute, the coil, the dart and the echo
 
 Four sections the file was missing, written from the `*-look.ts` records, the paint they point at and `DECIDED.md`: VANE's turning canopy and the plume under a climb, PRONGS' studs and the spraying charge, SHOCK's knots over the frayed flame, BUDS' two cores and the furrow between them — each in the file's own table form with its numbers, and a paragraph on what was decided rather than set. The queue item is done.
