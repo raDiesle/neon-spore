@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · c734dc7e — The perf baseline has a row for THE COUNT, unmeasured, and every wave after it on its new number
+
+`bun run perf --unmeasured`: inserting a wave into act 3 moved thirty-seven rows one number on, and the baseline test reads the file by play order. A lane does not owe a perf run for a new body, so the row is marked unmeasured and the weekly sweep fills it in.
+
+## 2026-09-11 · 9fab66ba — THE COUNT: a body only the pilot can count, open on zero, and a shot off zero costs the hull
+
+The Countdown creature from `docs/spec/ideas.md` is in the game as THE COUNT, act 3, after THE THROB. A round body with `countdownBeats` marks cut into its rim on player 1's screen, one fewer each beat; on nought it is open for `countdownOpenBeats` and lit, and the matching colour kills it. A shot that lands on any other beat is rejected, costs the hull `damageCountdown` — the lure's figure — and the body stays, still counting; a zero that passes unhit starts the count again. Player 2, who fires, is drawn the same disc bare, so the count has to be said out loud. The wave's guide teaches the two halves: count it down, fire on the word zero, not on sight.
+
 ## 2026-09-11 · 01a1ba9a — Ten creature ideas leave the bestiary and the NOT BUILT YET page
 
 The owner retired them on 11 September 2026: the Choke, built today as THE CHOKE; the Glyph, whose look-up on a pattern is THE MIRROR's Simon Says; and the nine idea rows of bestiary 10.2 — Thread, The Shadow, The Whisperer, The Doppelgänger, The Blind One, The Clamp, The Beat-breaker, The Silent, The Jammer. Their rows, the three worked-out paragraphs and the whole of 10.5 "In plain words" are gone from `docs/spec/bestiary.md`; `docs/decisions.md` #28 records what went and why, and the six documents that pointed at a retired name now point at the decision. The director's BESTIARY tab shows both bestiary groups empty and CREATURE IDEAS from `ideas.md` under them.
