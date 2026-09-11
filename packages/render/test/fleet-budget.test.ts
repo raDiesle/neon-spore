@@ -115,7 +115,10 @@ type Budget = Partial<
 // bar per column, so `fillRect` fell by ten and `fill` rose; each button is an
 // organ with veins and a beaded cord, and the hull carries seven ribs through
 // the chamber — which is where the extra strokes and paths come from
-// (`ship-gland.ts`). Remeasured, not padded.
+// (`ship-gland.ts`). Then the second-frame `new Path2D` fell back by ten and
+// `fill` by nine: the spine's cord, its stations as one path and its node, and
+// each organ's bed, are held between frames the way the trough's channel was
+// (`gland-fluid.ts`, `gland-organ.ts`). Remeasured, not padded.
 const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budget>>>> = {
   p1: {
     mid: {
@@ -130,7 +133,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       drawImage: 16,
       createLinearGradient: 13,
       createRadialGradient: 5,
-      "new Path2D": 23,
+      "new Path2D": 19,
       fillText: 25,
     },
     hit: {
@@ -149,7 +152,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       createLinearGradient: 12,
       // The fireball, and the one radial gradient this fight ever builds.
       createRadialGradient: 6,
-      "new Path2D": 23,
+      "new Path2D": 19,
       fillText: 25,
     },
   },
@@ -165,7 +168,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       drawImage: 23,
       createLinearGradient: 16,
       createRadialGradient: 11,
-      "new Path2D": 35,
+      "new Path2D": 19,
       fillText: 24,
     },
     hit: {
@@ -177,7 +180,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       drawImage: 26,
       createLinearGradient: 15,
       createRadialGradient: 12,
-      "new Path2D": 35,
+      "new Path2D": 19,
       // One fewer than the pilot's, every frame: the square's own name is on
       // both screens and the wave's own readouts are not all of them.
       fillText: 24,

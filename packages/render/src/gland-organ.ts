@@ -1,5 +1,6 @@
 import { blobPath, type Point } from "@neon-spore/content";
 import { hash01 } from "./backdrop.js";
+import { bakedCache } from "./baked.js";
 import { beadedCords } from "./gland-cord.js";
 import { curve, tube } from "./gland-tube.js";
 import { halo } from "./glow.js";
@@ -81,17 +82,54 @@ function vein(x: number, y: number, r: number, angle: number, len: number, seed:
   );
 }
 
-/** Under the face: the swelling of flesh the button grew out of, and its veins. */
-export function organBed(d: LobeDraw, o: OrganLook): void {
-  const { ctx, x, y, r, skin } = d;
+/**
+ * The three contours a button's bed is made of, held per button. They depend
+ * on where the button is and how big it is and on nothing else, and building
+ * them every frame was twelve `new Path2D` a seat on the frame that should
+ * have been all cache hits (`docs/queue.md`, 11 September 2026). Keyed on
+ * position, radius and the look, so a resize bakes new ones; cleared past a
+ * handful of entries the way `band-ground.ts` clears its sheets, because a
+ * window being dragged walks through every size on the way.
+ */
+interface Bed {
+  readonly veins: Path2D;
+  readonly swell: Path2D;
+  readonly shoulder: Path2D;
+  readonly gloss: Path2D;
+}
+const beds = bakedCache<string, Bed>();
+
+function bedFor(x: number, y: number, r: number, o: OrganLook): Bed {
+  const key = `${x}|${y}|${r}|${o.veins}|${o.reach}|${o.swell}|${o.lobes}|${o.depth}`;
+  const held = beds.get(key);
+  if (held) return held;
+  if (beds.size > 8) beds.clear();
   const R = r * (1 + o.swell);
-  // The veins first, so the swelling covers their roots.
   let veins = "";
   for (let i = 0; i < o.veins; i++) {
     const angle = ((i + 0.5) / o.veins) * Math.PI * 2 + (hash01(i * 13 + 1) - 0.5) * 0.6;
     veins += vein(x, y, r, angle, r * o.reach * (0.75 + hash01(i * 5 + 2) * 0.5), i * 7 + 3);
   }
-  const veinPath = new Path2D(veins);
+  const shoulder = new Path2D();
+  shoulder.ellipse(x, y + r * 0.1, R * 0.86, R * 0.8, 0, Math.PI * 1.08, Math.PI * 1.55);
+  const gloss = new Path2D();
+  gloss.ellipse(x, y, r * 0.84, r * 0.84, 0, Math.PI * 1.12, Math.PI * 1.48);
+  const bed: Bed = {
+    veins: new Path2D(veins),
+    swell: new Path2D(blobPath(x, y + r * 0.12, R, R * 0.92, o.lobes, o.depth, 0.04, 0, 11, 44)),
+    shoulder,
+    gloss,
+  };
+  beds.set(key, bed);
+  return bed;
+}
+
+/** Under the face: the swelling of flesh the button grew out of, and its veins. */
+export function organBed(d: LobeDraw, o: OrganLook): void {
+  const { ctx, x, y, r, skin } = d;
+  const R = r * (1 + o.swell);
+  const { veins: veinPath, swell } = bedFor(x, y, r, o);
+  // The veins first, so the swelling covers their roots.
   ctx.save();
   ctx.translate(r * 0.03, r * 0.05);
   ctx.fillStyle = rgba(skin.ground[3], 0.55);
@@ -107,9 +145,6 @@ export function organBed(d: LobeDraw, o: OrganLook): void {
   ctx.stroke(veinPath);
   ctx.restore();
 
-  const swell = new Path2D(
-    blobPath(x, y + r * 0.12, R, R * 0.92, o.lobes, o.depth, 0.04, 0, 11, 44),
-  );
   const g = ctx.createRadialGradient(x - r * 0.35, y - r * 0.45, r * 0.15, x, y + r * 0.1, R);
   g.addColorStop(0, rgba(skin.flesh[0], 0.7));
   g.addColorStop(0.55, rgba(skin.flesh[1], 0.6));
@@ -126,12 +161,10 @@ export function organBed(d: LobeDraw, o: OrganLook): void {
   ctx.fillStyle = under;
   ctx.fill(swell);
   // The wet shoulder.
-  const arc = new Path2D();
-  arc.ellipse(x, y + r * 0.1, R * 0.86, R * 0.8, 0, Math.PI * 1.08, Math.PI * 1.55);
   ctx.strokeStyle = rgba(skin.hull.edge, 0.3);
   ctx.lineWidth = Math.max(1, r * 0.07);
   ctx.lineCap = "round";
-  ctx.stroke(arc);
+  ctx.stroke(bedFor(x, y, r, o).shoulder);
   // The crease where the button sinks into the flesh.
   const crease = ctx.createRadialGradient(x, y, r * 0.92, x, y, r * 1.28);
   crease.addColorStop(0, rgba(skin.ground[3], 0.7));
@@ -142,15 +175,13 @@ export function organBed(d: LobeDraw, o: OrganLook): void {
 }
 
 /** Over the face: one wet arc up and to the side, and the fine lit lip where
- * flesh meets button. */
-export function organGloss(d: LobeDraw): void {
+ * flesh meets button. The arc is the bed's, so it is held with the bed. */
+export function organGloss(d: LobeDraw, o: OrganLook): void {
   const { ctx, x, y, r, skin } = d;
   ctx.lineCap = "round";
-  const arc = new Path2D();
-  arc.ellipse(x, y, r * 0.84, r * 0.84, 0, Math.PI * 1.12, Math.PI * 1.48);
   ctx.strokeStyle = rgba(skin.rim, 0.36);
   ctx.lineWidth = Math.max(1, r * 0.08);
-  ctx.stroke(arc);
+  ctx.stroke(bedFor(x, y, r, o).gloss);
   ctx.strokeStyle = rgba(skin.flesh[0], 0.3);
   ctx.lineWidth = Math.max(0.6, r * 0.03);
   ctx.beginPath();

@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — GLAND's paths are held between frames
+
+The spine's cord, stations and node and each organ's bed are cached per layout and per button, the stations are one fill instead of ten, the budget rows fell back and the frame is byte-identical.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | reading |
+| writing | 10 | writing |
+| looking | 0 | looking |
+| friction | 0 | friction |
+| landing | 5 | landing |
+
+Bottleneck: Remeasuring five budget tables is a run and a paste, but still the longest part of a small change.
+
 ## 2026-09-11 · hit-looks — GLAND is the ship
 
 The owner picked GLAND out of ship:body; adopt refused the function fields so the six shared tool modules moved into packages/render by hand, the seven records point at them, the displaced looks are deleted, five budget tables and the baked-entry count were remeasured, and the slot closed.

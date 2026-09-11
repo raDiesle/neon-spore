@@ -55,7 +55,7 @@ export function bed(d: LobeDraw): void {
 }
 
 export function gloss(d: LobeDraw): void {
-  organGloss(d);
+  organGloss(d, ORGAN);
 }
 
 export function life(d: NerveDraw): void {

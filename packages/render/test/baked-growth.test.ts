@@ -59,7 +59,10 @@ function entriesAfter(role: "p1" | "p2"): number {
 // socket under every button were baked sprites, and the wet skin and the organ
 // that replaced them draw with paths and gradients and bake nothing
 // (`ship-gland.ts`).
-const HELD = { p1: 39, p2: 47 } as const;
+// One more on p2 from the same day: an organ button's bed — its veins, its
+// swelling, its shoulder and its gloss — is held per button position
+// (`gland-organ.ts`), and on the first wave only p2 has a button.
+const HELD = { p1: 39, p2: 48 } as const;
 
 describe("what the renderer keeps between frames", () => {
   for (const role of ["p1", "p2"] as const) {

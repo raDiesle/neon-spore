@@ -128,7 +128,10 @@ const MEASURE = false;
 // bar per column, so `fillRect` fell by ten and `fill` rose; each button is an
 // organ with veins and a beaded cord, and the hull carries seven ribs through
 // the chamber — which is where the extra strokes and paths come from
-// (`ship-gland.ts`). Remeasured, not padded.
+// (`ship-gland.ts`). Then the second-frame `new Path2D` fell back by ten and
+// `fill` by nine: the spine's cord, its stations as one path and its node, and
+// each organ's bed, are held between frames the way the trough's channel was
+// (`gland-fluid.ts`, `gland-organ.ts`). Remeasured, not padded.
 const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
   p1: [
     {
@@ -143,7 +146,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // whole of the trade the owner chose — the word cost almost nothing and
       // could not be drawn at a sequence glyph's size at all.
       stroke: 85,
-      fill: 72,
+      fill: 63,
       clip: 9,
       save: 46,
       drawImage: 47,
@@ -156,13 +159,13 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // emblems' membrane and crest, baked the same way and by the same
       // mechanism (`action-face.ts`'s `bakedCache`). The row below is the
       // proof — same seat, same size, one frame later, and back down.
-      "new Path2D": 45,
+      "new Path2D": 46,
       fillText: 2,
     },
     {
       fillRect: 55,
       stroke: 87,
-      fill: 72,
+      fill: 63,
       clip: 9,
       save: 46,
       drawImage: 47,
@@ -171,8 +174,8 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // channels' three in band-control.ts) are cache hits from the second
       // frame on.
       createLinearGradient: 12,
-      createRadialGradient: 9,
-      "new Path2D": 31,
+      createRadialGradient: 8,
+      "new Path2D": 21,
       fillText: 2,
     },
   ],
@@ -188,7 +191,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // Three more, and all three are `drawDetails`: the bulb's one core and
       // the slick's two, drawn on the buttons now that the silhouettes are
       // bodies rather than stencils.
-      fill: 79,
+      fill: 70,
       clip: 9,
       // Two fewer: a fire button's face is one `paintLobe` doing fill and
       // stroke together where it used to be a fill and then a crosshair.
@@ -198,23 +201,23 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       createRadialGradient: 11,
       // Two more than p1's frame 0: the sheet, and the fire buttons'
       // silhouettes, which are on this seat's panel alone.
-      "new Path2D": 43,
+      "new Path2D": 44,
       fillText: 2,
     },
     {
       fillRect: 55,
       stroke: 91,
-      fill: 79,
+      fill: 70,
       clip: 9,
       save: 48,
       drawImage: 46,
       createLinearGradient: 12,
-      createRadialGradient: 9,
+      createRadialGradient: 8,
       // Back level with p1's second frame, and the two it came down by are the
       // fire buttons' silhouettes: every argument to them is a constant of the
       // colour, so `controls.ts` keeps the two paths rather than rebuilding
       // both every frame.
-      "new Path2D": 31,
+      "new Path2D": 21,
       fillText: 2,
     },
   ],
@@ -383,7 +386,7 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       stroke: 132,
       // Four more: the two patches of the wet film, the eyelids and their
       // pupils. Flat, whatever the openness.
-      fill: 88,
+      fill: 79,
       // Two more than the body's own: the film and the veins share a single
       // clip to it, and the lens opens one of its own so the lids can cut the
       // pupil instead of the pupil being sized to miss them (`eye-lens.ts`).
@@ -401,19 +404,19 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // Fourteen of them the panel's sheet, as on every frame 0 here. Four are
       // the skin's, and there are four of them however much of it is showing.
       // One is the lids' folds, and it is one however far apart they stand.
-      "new Path2D": 74,
+      "new Path2D": 75,
       fillText: 2,
     },
     {
       fillRect: 55,
       stroke: 134,
-      fill: 88,
+      fill: 79,
       clip: 8,
       save: 46,
       drawImage: 29,
       createLinearGradient: 12,
-      createRadialGradient: 9,
-      "new Path2D": 60,
+      createRadialGradient: 8,
+      "new Path2D": 50,
       fillText: 2,
     },
   ],
@@ -430,7 +433,7 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // into one path stroked once, so this row does not move when the spoke
       // count does (`eye-iris.ts`).
       stroke: 112,
-      fill: 80,
+      fill: 71,
       // The one op this body's share of the new lens costs: the clip the lids
       // cut the pupil through (`eye-lens.ts`).
       clip: 8,
@@ -438,13 +441,13 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       drawImage: 29,
       createLinearGradient: 20,
       createRadialGradient: 17,
-      "new Path2D": 53,
+      "new Path2D": 54,
       fillText: 2,
     },
     {
       fillRect: 55,
       stroke: 114,
-      fill: 80,
+      fill: 71,
       clip: 8,
       save: 44,
       drawImage: 29,
@@ -453,8 +456,8 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // cached by colour and radius, and the one left is `key-light.ts`'s
       // layout-only slot (`render/eye.ts`). The other six are the leaves'
       // curls (`lid-iris.ts`).
-      createRadialGradient: 15,
-      "new Path2D": 39,
+      createRadialGradient: 14,
+      "new Path2D": 29,
       fillText: 2,
     },
   ],

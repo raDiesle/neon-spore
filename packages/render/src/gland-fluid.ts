@@ -1,6 +1,7 @@
 import { blobPath, openSmoothPath, type Point } from "@neon-spore/content";
 import { hash01 } from "./backdrop.js";
 import { halo, strokeGlow } from "./glow.js";
+import { gradientSlot, slotGradient } from "./gradient-slot.js";
 import { rgba } from "./hex.js";
 import { tileCX } from "./layout.js";
 import type { SeatSkin } from "./seat-skin.js";
@@ -81,52 +82,85 @@ export function bubbles(
   g.fillRect(0, 0, w, h);
 }
 
+/**
+ * The cord's contour and the height of it at every x, held per strip: it
+ * depends on the layout and nothing else, and a path rebuilt every frame is
+ * what `gradient-slot.ts` exists to stop (`docs/queue.md`, 11 September 2026
+ * — twenty `new Path2D` on the frame that should have been all cache hits).
+ */
+interface Cord {
+  readonly path: Path2D;
+  readonly ys: readonly number[];
+}
+const CORD = [gradientSlot<Cord>(), gradientSlot<Cord>()] as const;
+/** The stations, one path for every column but the one held, so they are one
+ * `fill` rather than one per column. Keyed on the column too. */
+const STATIONS = [gradientSlot<Path2D>(), gradientSlot<Path2D>()] as const;
+const NODE = [gradientSlot<Path2D>(), gradientSlot<Path2D>()] as const;
+const GLOSS = [gradientSlot<CanvasGradient>(), gradientSlot<CanvasGradient>()] as const;
+
 /** The rail as a lit cord through the flesh, a node per column and a swollen
  * wet node on the column held. */
 export function spine(d: StripDraw): void {
-  const { ctx, l, y, h, col, hex, label, skin } = d;
+  const { ctx, l, which, y, h, col, hex, label, skin } = d;
   ctx.fillStyle = hex;
   ctx.globalAlpha = 0.85;
   ctx.fillText(label, l.width / 2, y - h / 2 - 5);
   ctx.globalAlpha = 1;
   const span = l.gridWidth + l.tile * 0.8;
   const left = l.gridLeft - l.tile * 0.4;
-  const pts: Point[] = [];
-  for (let i = 0; i <= 24; i++) {
-    const u = i / 24;
-    pts.push({
-      x: left + span * u,
-      y: y + Math.sin(u * 5.3 + 1.1) * h * 0.14 + Math.sin(u * 12.7) * h * 0.05,
-    });
-  }
-  const yAt = (x: number): number => (pts[Math.round(((x - left) / span) * 24)] ?? { y }).y;
-  const cord = new Path2D(openSmoothPath(pts));
+  const key = `${left}|${span}|${y}|${h}`;
+  const cord = slotGradient(ctx, CORD[which], key, () => {
+    const pts: Point[] = [];
+    for (let i = 0; i <= 24; i++) {
+      const u = i / 24;
+      pts.push({
+        x: left + span * u,
+        y: y + Math.sin(u * 5.3 + 1.1) * h * 0.14 + Math.sin(u * 12.7) * h * 0.05,
+      });
+    }
+    return { path: new Path2D(openSmoothPath(pts)), ys: pts.map((p) => p.y) };
+  });
+  const yAt = (x: number): number => cord.ys[Math.round(((x - left) / span) * 24)] ?? y;
   ctx.lineCap = "round";
   ctx.strokeStyle = rgba(skin.ground[3], 0.55);
   ctx.lineWidth = h * 0.5;
-  ctx.stroke(cord);
-  strokeGlow(ctx, cord, hex, h * 0.14, 0.22);
+  ctx.stroke(cord.path);
+  strokeGlow(ctx, cord.path, hex, h * 0.14, 0.22);
   ctx.strokeStyle = rgba(hex, 0.4);
   ctx.lineWidth = Math.max(1, h * 0.06);
-  ctx.stroke(cord);
-  for (let c = 0; c < l.cols; c++) {
-    if (c === col) continue;
-    const x = tileCX(l, c);
-    ctx.fillStyle = rgba(hex, 0.45);
-    ctx.beginPath();
-    ctx.arc(x, yAt(x), Math.max(1.5, h * 0.09), 0, Math.PI * 2);
-    ctx.fill();
-  }
+  ctx.stroke(cord.path);
+  const held = `${key}|${col}|${l.cols}`;
+  const stations = slotGradient(ctx, STATIONS[which], held, () => {
+    const path = new Path2D();
+    const r = Math.max(1.5, h * 0.09);
+    for (let c = 0; c < l.cols; c++) {
+      if (c === col) continue;
+      const x = tileCX(l, c);
+      path.moveTo(x + r, yAt(x));
+      path.arc(x, yAt(x), r, 0, Math.PI * 2);
+    }
+    return path;
+  });
+  ctx.fillStyle = rgba(hex, 0.45);
+  ctx.fill(stations);
   const kx = tileCX(l, col);
   const ky = yAt(kx);
-  const node = new Path2D(blobPath(kx, ky, h * 0.5, h * 0.44, 3, 0.05, 0.02, 0, 3, 32));
+  const node = slotGradient(
+    ctx,
+    NODE[which],
+    held,
+    () => new Path2D(blobPath(kx, ky, h * 0.5, h * 0.44, 3, 0.05, 0.02, 0, 3, 32)),
+  );
   halo(ctx, kx, ky, h * 1.1, hex, 0.5);
   ctx.fillStyle = hex;
   ctx.fill(node);
-  const gloss = ctx.createRadialGradient(kx - h * 0.15, ky - h * 0.2, 0, kx, ky, h * 0.5);
-  gloss.addColorStop(0, "rgba(255,255,255,0.6)");
-  gloss.addColorStop(1, "rgba(255,255,255,0)");
-  ctx.fillStyle = gloss;
+  ctx.fillStyle = slotGradient(ctx, GLOSS[which], held, () => {
+    const g = ctx.createRadialGradient(kx - h * 0.15, ky - h * 0.2, 0, kx, ky, h * 0.5);
+    g.addColorStop(0, "rgba(255,255,255,0.6)");
+    g.addColorStop(1, "rgba(255,255,255,0)");
+    return g;
+  });
   ctx.fill(node);
   ctx.strokeStyle = "rgba(255,255,255,0.4)";
   ctx.lineWidth = 0.9;
