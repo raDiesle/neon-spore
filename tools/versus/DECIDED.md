@@ -793,3 +793,12 @@ to a curve at the front and back
 
 The other answers offered were `calyx`, `foam`, `moons`, `sprung` and `tube`;
 they went with the slot.
+
+## `creature:rind` — nothing taken, 2026-09-11
+
+taken by hand — the owner kept the shipped shed and asked for FLAKES, POD and
+SLOUGH on the GRAPHICS page; they live in
+packages/render/src/rind-{flakes,pod,slough}.ts and draw on the LIBRARY
+
+The other answers offered were `flakes`, `pod` and `slough`; they went with
+the slot.

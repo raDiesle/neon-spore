@@ -7,9 +7,6 @@
 
 import type { Variant } from "../variant.js";
 import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
-import { RIND_FLAKES } from "./creature-rind/flakes/index.js";
-import { RIND_POD } from "./creature-rind/pod/index.js";
-import { RIND_SLOUGH } from "./creature-rind/slough/index.js";
 import { TETHER_CORD } from "./creature-tether/cord/index.js";
 import { TETHER_SINEW } from "./creature-tether/sinew/index.js";
 import { TETHER_TWIST } from "./creature-tether/twist/index.js";
@@ -25,9 +22,6 @@ import { SHIP_REEF } from "./ship-body/reef/index.js";
 
 export const VARIANTS: Variant[] = [
   METEOR_FORGE,
-  RIND_FLAKES,
-  RIND_POD,
-  RIND_SLOUGH,
   TETHER_CORD,
   TETHER_SINEW,
   TETHER_TWIST,

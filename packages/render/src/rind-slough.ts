@@ -1,11 +1,22 @@
-import { KEY } from "../../../../../packages/content/src/light.js";
-import { halo } from "../../../../../packages/render/src/glow.js";
-import { mixHex, rgba } from "../../../../../packages/render/src/hex.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
-import type { RindShed } from "../../../../../packages/render/src/rind-look.js";
-import { drawCrush } from "../../../../../packages/render/src/rind-skin.js";
+import { KEY } from "@neon-spore/content";
+import { halo } from "./glow.js";
+import { mixHex, rgba } from "./hex.js";
+import { PALETTE } from "./palette.js";
+import type { RindShed } from "./rind-look.js";
+import { drawCrush } from "./rind-skin.js";
 
 /**
+ * SLOUGH — a kept look for THE RIND's shed, drawn only on the GRAPHICS page's
+ * LIBRARY.
+ *
+ * It stood in `creature:rind` on VERSUS, decided 11 September 2026: the owner
+ * said "'CREATURE:RIND' keep current and move the versus alternative effects
+ * to 'Shapes' page", so the shipped shed (`rind-skin.ts`) stays what the game
+ * draws and this is kept to be seen. It sits in this package, beside the
+ * record it once patched, because it is written against this package's
+ * internals; nothing on the field imports it, and the game's bundle drops it.
+ * The argument it made, from its VERSUS card:
+ *
  * SLOUGH — the skin drops off the body whole, like a sock: it falls under its
  * own weight, stretches long and narrow as it goes, gathers at the top into
  * a mouth that shows the dark inside, and fades as it slides away below.

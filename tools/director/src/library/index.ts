@@ -8,6 +8,7 @@ import {
   RECOIL_MOONS,
   RECOIL_SPRINGS,
 } from "./recoil-assets.js";
+import { RIND_FLAKES, RIND_HUSK, RIND_POD, RIND_SLOUGH } from "./rind-assets.js";
 import type { Asset } from "./types.js";
 import { VEIL_ANVIL, VEIL_FOAM, VEIL_STRATA, VEIL_VORTEX } from "./veil-assets.js";
 import { VOLLEY_EMBER, VOLLEY_PAINTED, VOLLEY_PITTED } from "./volley-assets.js";
@@ -54,6 +55,10 @@ export const ASSETS: readonly Asset[] = [
   RECOIL_MOONS,
   RECOIL_FOAM,
   RECOIL_CALYX,
+  RIND_HUSK,
+  RIND_FLAKES,
+  RIND_POD,
+  RIND_SLOUGH,
 ];
 
 export type { Asset, AssetContext, AssetFrame } from "./types.js";

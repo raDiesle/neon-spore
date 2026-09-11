@@ -676,8 +676,11 @@ place — the generator keeps whatever is there.
 | `packages/render/src/snake-mouth.ts` | What is in the mouth: the space itself, the fangs hung in it, and the tongue |
 | `packages/render/src/rind-shed.ts` | the event of a layer coming off a rind — which body, how big it was and is — handed to `RIND_LOOK` to draw |
 | `packages/render/src/rind-skin.ts` | the shipped picture of a rind losing a layer — the outline crushed onto the smaller body, the skin thrown out as a ring |
+| `packages/render/src/rind-slough.ts` | SLOUGH — a kept look for THE RIND's shed, drawn only on the GRAPHICS page's LIBRARY |
 | `packages/render/src/rind-look.ts` | you are offering a second answer to the rind — its shed, or the body it wears per layer |
 | `packages/render/src/rind-burr.ts` | BURR — a rind wearing knobs, and it loses knobs with its layers |
+| `packages/render/src/rind-flakes.ts` | FLAKES — a kept look for THE RIND's shed, drawn only on the GRAPHICS page's LIBRARY |
+| `packages/render/src/rind-pod.ts` | POD — a kept look for THE RIND's shed, drawn only on the GRAPHICS page's LIBRARY |
 | `packages/render/src/snake-crash.ts` | The pause between two attempts, as a picture |
 | `packages/render/src/snake-items.ts` | What is standing in SNAKE's arena to be spent: the things to shoot and the things to swallow |
 | `packages/render/src/snake-ribbon.ts` | What a body looks like once somebody has said where its joints are |
@@ -1596,5 +1599,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/library/queen-stage.ts` | THE BULB QUEEN's shell, drawn on a card by a look of the caller's choosing |
 | `tools/director/src/library/recoil-assets.ts` | THE RECOIL's five cages — the frame round a body that turns its colour over on every bounce |
 | `tools/director/src/library/recoil-stage.ts` | The game's own recoil, drawn on a card inside a cage of the caller's choosing |
+| `tools/director/src/library/rind-assets.ts` | THE RIND's four sheds — the half-second in which a layer comes off |
+| `tools/director/src/library/rind-stage.ts` | The game's own rind, losing its layers on a card, each one drawn coming off by a shed of the caller's choosing |
 
 <!-- index:code:end -->

@@ -19,11 +19,14 @@ export { ClaspFrames } from "./clasp-frames.js";
 export { drawLivingBody } from "./creature-body.js";
 export type { Body } from "./creature-body-in.js";
 export {
+  contourClock,
   creatureAt,
   creatureCenter,
   creatureRadius,
+  livingBodyMul,
   livingRadius,
   livingScale,
+  rindPrevBodyMul,
 } from "./creature-place.js";
 export { drawnCol, drawnRow } from "./depth.js";
 export { smoothstep } from "./ease.js";
@@ -91,6 +94,11 @@ export { globe } from "./recoil-globe.js";
 export { type CageDraw, RECOIL_LOOK, type RecoilLook, springs } from "./recoil-look.js";
 export { moons } from "./recoil-moons.js";
 export type { Renderer, Viewport, ViewState } from "./renderer.js";
+export { flakes } from "./rind-flakes.js";
+export { RIND_LOOK, type RindLook, type RindShed, rindWears } from "./rind-look.js";
+export { pod } from "./rind-pod.js";
+export { drawShed } from "./rind-skin.js";
+export { slough } from "./rind-slough.js";
 export { hasSeatName, type SeatNames, seatName } from "./seat-name.js";
 export { P1_SKIN, P2_SKIN, type SeatSkin, seatSkin } from "./seat-skin.js";
 export { type Fracture, type Shard, shatter } from "./shatter.js";

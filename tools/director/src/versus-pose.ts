@@ -37,7 +37,6 @@ const SLOT_POSE: Record<string, string> = {
   "ship:body": "SHIP · MEETING THE PANEL",
   "creature:meteor": "METEOR · A SHOT ARRIVING",
   "creature:throb": "THROB · TURNING",
-  "creature:rind": "RIND · SHEDDING",
   "creature:tether": "TETHER · PULLED",
 };
 

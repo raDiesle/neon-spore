@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — creature:rind kept, three sheds to the LIBRARY
+
+The owner kept the shipped shed and asked for the VERSUS alternatives on the GRAPHICS page: FLAKES, POD and SLOUGH moved into packages/render beside their record, the slot dropped by hand, and a rind card built that replays the shed on the game's own burr.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | reading |
+| writing | 20 | writing |
+| looking | 15 | looking |
+| friction | 10 | friction |
+| landing | 10 | landing |
+
+Bottleneck: Catching a half-second event on a card with a fixed-wait shot took five shots; the page clock does not start at the click.
+
 ## 2026-09-11 · hit-looks — creature:recoil — GLOBE into the game, three cages kept
 
 Copied MOONS, FOAM and CALYX into render for the LIBRARY, adopted GLOBE with the tool, built a recoil card that spends its ribs, let two creatures share a label on the LIBRARY.
