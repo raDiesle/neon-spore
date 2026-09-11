@@ -8,6 +8,7 @@ import {
   throbTurnMilli,
   wornKind,
 } from "@neon-spore/sim";
+import { clipInside } from "./body-inset.js";
 import { drawDetails, drawOwnLight } from "./creature-detail.js";
 import { contourClock, livingBodyMul, livingRadius, livingScale } from "./creature-place.js";
 import { colorTrio, turnedTrio, type Wash } from "./creature-tint.js";
@@ -115,11 +116,9 @@ export function drawLiving(
 
   // The contour wobble is still on the wall clock, which the pose no longer
   // is: `blobPath` is sampled in seconds by every shape tool too, and its
-  // excursion is a couple of percent of a radius — a fraction of a pixel of
-  // disagreement, against the fifth of a lane the pose was worth. Variation
-  // without randomness in the simulation lives inside `contourClock`: the id
-  // is deterministic on both devices, so two screens shake the same creature
-  // the same way.
+  // excursion is a fraction of a pixel of disagreement. Variation without
+  // randomness lives inside `contourClock`: the id is deterministic on both
+  // devices, so two screens shake the same creature the same way.
   const t = contourClock(c.id, time);
   // **The body, not `look`.** How big it draws is a fact about what it *is* —
   // an echo is a slick or a bulb at a fraction of the footprint, a rind is one
@@ -205,7 +204,12 @@ export function drawLiving(
       ctx.save();
       ctx.clip(path, rule);
     }
+    // And always to the body itself, a hair inside its edge (`body-inset.ts`):
+    // an interior laid out for one contour is worn by others.
+    ctx.save();
+    clipInside(ctx, path, rule);
     drawDetails(ctx, look, { hex, rim, dark, rx: shape.rx, ry: shape.ry, rot, t });
+    ctx.restore();
     // And the furrow it will part along, cut across that same axis. In here
     // with the details rather than outside the body, because it is a marking
     // on the contour and takes the contour's own aspect and strain with it.

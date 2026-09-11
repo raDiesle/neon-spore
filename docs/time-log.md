@@ -22,6 +22,26 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — What is inside a body stays inside it
+
+The owner saw the red rind's inner animation reach past its body: a rind
+wearing BURR (three lobes and knobs) drew the slick's bloom, whose veins are
+sized to the slick's own ellipse, and they crossed the knobbed rim. Now every
+living body's interior is clipped to the body drawn a sixth smaller
+(`body-inset.ts`), so nothing inside touches the edge. About 35 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `living-draw.ts`'s order of clips, where `drawDetails` gets its radii, the BURR contour against the bloom's reach |
+| writing | 10 | `body-inset.ts`, the wrap in `living-draw.ts`, a test that counts the clips per living body |
+| looking | 5 | two 6-frame strips of THE RIND at zoom 3 — inset 0.9 still touched, 0.84 left a clear gap |
+| friction | 5 | ten budget rows moved by one `clip` and one `save` each — remeasured with MEASURE on, every other figure checked unchanged |
+| landing | 5 | `check:fast`, the two dated notes, the commit, `land --keep` |
+
+Bottleneck: **the budget rows** — one extra clip per living body touches
+every row in two budget tests, and each had to be remeasured rather than
+padded.
+
 ## 2026-09-11 · hit-looks — The BESTIARY tab comes off
 
 The owner asked whether the page was gone; it was not — an earlier lane had

@@ -898,6 +898,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/lance-flash.ts` | The whole screen going white, then the ammunition colour, then nothing |
 | `packages/render/src/body-mark.ts` | One living body, at a size, with no world around it |
 | `packages/render/src/body-interior.ts` | **What a living body has inside it**: one record per kind, so the slick's two dots can be argued with |
+| `packages/render/src/body-inset.ts` | what is inside a living body is clipped to the body drawn a sixth smaller, so an interior borrowed from one contour never crosses another's rim |
 | `packages/render/src/body-bloom.ts` | THE SLICK's interior — a nucleus that sends something out along its veins |
 | `packages/render/src/body-spores.ts` | THE BULB's interior — the body is full, and it is a spore case |
 | `packages/render/src/body-strike.ts` | A body on the beat it is struck, drawn where it stood after it is gone |

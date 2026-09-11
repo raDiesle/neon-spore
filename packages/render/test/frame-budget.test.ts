@@ -108,6 +108,13 @@ type Budget = Partial<
 // it — so every frame in every budget file in this package carries one more
 // `clip`, one more `stroke` and, on a cold cache, one more gradient.
 //
+// **`clip` and `save` rose by one per living body on 11 September 2026.** An
+// interior is clipped to its body drawn a sixth smaller (`body-inset.ts`): a
+// rind wearing BURR drew the slick's bloom past its own rim, and the owner
+// ruled that what is inside a body never touches its edge. Every other figure
+// in every row was measured unchanged; only those two moved, in this file and
+// in `wave-budget.test.ts`.
+//
 // Wave 2, stepped to its first tick with 3+ creatures on the field, a
 // phone-sized 390x844 dpr 3 stage — busy enough that every pass in
 // `frame-passes.ts` has something to draw. Each seat runs its own world, so
@@ -147,8 +154,8 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // could not be drawn at a sequence glyph's size at all.
       stroke: 85,
       fill: 63,
-      clip: 9,
-      save: 46,
+      clip: 12,
+      save: 49,
       drawImage: 47,
       createLinearGradient: 19,
       createRadialGradient: 11,
@@ -166,8 +173,8 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       fillRect: 55,
       stroke: 87,
       fill: 63,
-      clip: 9,
-      save: 46,
+      clip: 12,
+      save: 49,
       drawImage: 47,
       // Down from frame 0: the layout-only gradients (`gradient-slot.ts`'s
       // sites in field.ts and backdrop.ts, key-light.ts's own slot, and the
@@ -192,10 +199,10 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // the slick's two, drawn on the buttons now that the silhouettes are
       // bodies rather than stencils.
       fill: 70,
-      clip: 9,
+      clip: 12,
       // Two fewer: a fire button's face is one `paintLobe` doing fill and
       // stroke together where it used to be a fill and then a crosshair.
-      save: 48,
+      save: 51,
       drawImage: 46,
       createLinearGradient: 19,
       createRadialGradient: 11,
@@ -208,8 +215,8 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       fillRect: 55,
       stroke: 91,
       fill: 70,
-      clip: 9,
-      save: 48,
+      clip: 12,
+      save: 51,
       drawImage: 46,
       createLinearGradient: 12,
       createRadialGradient: 8,
