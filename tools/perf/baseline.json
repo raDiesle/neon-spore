@@ -602,8 +602,18 @@
       "jitter": 0.159
     },
     {
-      "id": "theTwitch",
+      "id": "theChoke",
       "wave": 55,
+      "name": "THE CHOKE",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "theTwitch",
+      "wave": 56,
       "name": "THE TWITCH",
       "bodies": 3,
       "arrivals": "10:23c99a32",
@@ -614,7 +624,7 @@
     },
     {
       "id": "theClaw",
-      "wave": 56,
+      "wave": 57,
       "name": "THE CLAW",
       "bodies": 2,
       "arrivals": "6:5494c513",
@@ -625,7 +635,7 @@
     },
     {
       "id": "theCrossing",
-      "wave": 57,
+      "wave": 58,
       "name": "THE CROSSING",
       "bodies": 4,
       "arrivals": "9:839a4c6b",
@@ -636,7 +646,7 @@
     },
     {
       "id": "theChoir",
-      "wave": 58,
+      "wave": 59,
       "name": "THE CHOIR",
       "bodies": 3,
       "arrivals": "6:fe631e0d",
@@ -647,7 +657,7 @@
     },
     {
       "id": "pulse",
-      "wave": 59,
+      "wave": 60,
       "name": "THE PULSE",
       "bodies": 0,
       "arrivals": "0:741638a5",
@@ -658,7 +668,7 @@
     },
     {
       "id": "theBalloon",
-      "wave": 60,
+      "wave": 61,
       "name": "THE BALLOON",
       "bodies": 4,
       "arrivals": "8:e4aa072d",
@@ -669,7 +679,7 @@
     },
     {
       "id": "theBeatbox",
-      "wave": 61,
+      "wave": 62,
       "name": "THE BEATBOX",
       "bodies": 4,
       "arrivals": "7:bdde6c4f",
