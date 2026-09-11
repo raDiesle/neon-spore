@@ -274,6 +274,8 @@ describe("poseForSlot", () => {
       expect(row.trim().startsWith("//") || row.includes("/*"), row).toBe(false);
       expect(row, row).toMatch(/^ {2}"[a-z-]+:[a-z-]+": ".+",$/);
     }
-    expect(rows.length).toBeGreaterThan(10);
+    // The map shrinks as slots are decided — eleven were on 11 September 2026
+    // — so the floor is only that it is not empty.
+    expect(rows.length).toBeGreaterThan(0);
   });
 });

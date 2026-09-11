@@ -34,9 +34,6 @@ import { TETHER_TWIST } from "./creature-tether/twist/index.js";
 import { THROB_CAP } from "./creature-throb/cap/index.js";
 import { THROB_GIRDLE } from "./creature-throb/girdle/index.js";
 import { THROB_PORES } from "./creature-throb/pores/index.js";
-import { VEER_HUNCHED } from "./creature-veer/hunched/index.js";
-import { VEER_JESTER } from "./creature-veer/jester/index.js";
-import { VEER_SOLID } from "./creature-veer/solid/index.js";
 import { SHIP_CHITIN } from "./ship-body/chitin/index.js";
 import { SHIP_GLAND } from "./ship-body/gland/index.js";
 import { SHIP_GULLET } from "./ship-body/gullet/index.js";
@@ -73,9 +70,6 @@ export const VARIANTS: Variant[] = [
   THROB_CAP,
   THROB_GIRDLE,
   THROB_PORES,
-  VEER_HUNCHED,
-  VEER_JESTER,
-  VEER_SOLID,
   SHIP_CHITIN,
   SHIP_GLAND,
   SHIP_GULLET,

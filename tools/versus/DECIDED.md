@@ -706,3 +706,12 @@ FOAM, STRATA and VORTEX kept on the SHAPES page's LIBRARY
 
 The other answers offered were `foam`, `strata` and `vortex`; they went with
 the slot.
+
+## `creature:veer` — nothing taken, 2026-09-11
+
+decided — the shipped rider stays; the collar it grips the rock with no longer
+sinks on the brace (the owner: the hands stay on top, holding the meteor).
+HUNCHED, JESTER and SOLID go
+
+The other answers offered were `hunched`, `jester` and `solid`; they went with
+the slot.

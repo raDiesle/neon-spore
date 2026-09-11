@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — creature:veer — the rider's collar stays on the rock
+
+Read the rider's geometry, found the 'hands' are the ruff beads sinking with the crouch, pinned them to the rock's crown, photographed the brace before and after, dropped the slot.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | reading |
+| writing | 5 | writing |
+| looking | 15 | looking |
+| friction | 5 | friction |
+| landing | 5 | landing |
+
+Bottleneck: Catching the brace on a frame: the first two photographs were of a rock in a row that does not brace, and a probe had to say which tick to shoot.
+
 ## 2026-09-11 · hit-looks — creature:veil — ANVIL kept and thinned over the body, three clouds kept
 
 Moved FOAM, STRATA and VORTEX into packages/render, thinned the see-through cloud until the slick reads, built a veil stage and four cards, photographed the field and the LIBRARY, dropped the slot.

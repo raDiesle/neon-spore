@@ -173,7 +173,11 @@ export function clownFigure(
   sway: number,
 ): ClownFigure {
   const hr = r * s.headMul;
-  const seatY = cy - r * s.seatMul + r * s.crouchMul * brace;
+  // The collar stays on the rock's crown: it is the figure's grip, and the
+  // owner read it as hands — "the hands must stay on top connected holding the
+  // meteor all the time" (11 September 2026). Only the head and hat crouch.
+  const restY = cy - r * s.seatMul;
+  const seatY = restY + r * s.crouchMul * brace;
   const headX = cx + sway * hr;
   const headY = seatY - hr * s.headLift;
 
@@ -181,7 +185,7 @@ export function clownFigure(
   for (let k = -s.ruffSide; k <= s.ruffSide; k++) {
     ruff.push({
       x: cx + k * hr * s.ruffStep,
-      y: seatY + Math.abs(k) * hr * s.ruffDrop,
+      y: restY + Math.abs(k) * hr * s.ruffDrop,
       r: hr * s.ruffMul,
     });
   }
