@@ -5,7 +5,7 @@ import { drawChute } from "./chute.js";
 import { claspResonance, drawClaspShield } from "./clasp.js";
 import { coilCharge, drawCoilDome, showsCoilCharge } from "./coil.js";
 import { bodyDraw } from "./creature-body.js";
-import { creatureCenter } from "./creature-place.js";
+import { centerAt, creatureCenter } from "./creature-place.js";
 import { DART_LOOK } from "./dart-look.js";
 import { byDepth, depthScale, drawnRow, glidePhase, nearness } from "./depth.js";
 import { mountPlace } from "./gyre-place.js";
@@ -13,6 +13,7 @@ import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import { drawLidCords } from "./lid-string.js";
 import { drawRecoilCage } from "./recoil.js";
+import type { RecoilLeapFx } from "./recoil-leap.js";
 import { rockLandingY } from "./rock-landing.js";
 import { drawVeerClown } from "./veer-clown.js";
 import { drawVeilCloud, showsVeilCore } from "./veil.js";
@@ -46,6 +47,10 @@ export function drawCreatures(
   /** The ship's plating, for the one glide that ends *in* it: a rock's last
    * one (`rock-landing.ts`). Absent, a rock lands on its row's centre. */
   skinY?: SurfaceY,
+  /** THE RECOIL's throw: where a struck recoil is drawn for the beat after
+   * the hit, and how far its colour has turned (`recoil-leap.ts`). Absent,
+   * a recoil glides the way the simulation wrote it, jump and all. */
+  leaps?: RecoilLeapFx,
 ): void {
   // The pose clock, in beats. `beatPhase` alone would restart it every beat.
   const beats = world.beat + beatPhase;
@@ -97,12 +102,18 @@ export function drawCreatures(
     // A balloon's step is spread over several beats, and `glidePhase` is the
     // one place that is asked (`depth.ts`); everything else glides by the beat.
     const glide = glidePhase(world.cfg, world.beat, c, beatPhase);
-    const placed = onRim ?? creatureCenter(l, c, glide);
+    // A struck recoil is on a throw of its own for a beat, placed by the
+    // transient that remembers where it left from; every other frame of a
+    // recoil, and every other body, is where the simulation's glide puts it.
+    const leap = c.kind === "recoil" ? leaps?.place(c, beats, beatPhase) : undefined;
+    const placed =
+      onRim ?? (leap ? centerAt(l, c, leap.row, leap.col) : creatureCenter(l, c, glide));
     const x = placed.x;
     // A rock's landing beat ends half-sunk in the skin, where `RockImpactFx`
     // takes it over, and not under the membrane at the hull row's centre.
     const y = onRim ? placed.y : rockLandingY(l, c, x, placed.y, glide, skinY);
-    const row = onRim ? onRim.row : drawnRow(c, glide);
+    const row = onRim ? onRim.row : leap ? leap.row : drawnRow(c, glide);
+    const turn = leap ? leap.turn : recoilTurn(c, beatPhase);
     const near = nearness(l, row);
     // Perspective as one transform about the body's own centre, rather than a
     // radius threaded through three drawing files: it takes the rock and the
@@ -124,7 +135,7 @@ export function drawCreatures(
     // lookup cannot be severed by a statement landing in the middle of it,
     // which is why the choice moved out and the things laid *over* a body
     // stayed here as the separate `if`s they already were.
-    bodyDraw(c.kind)({ ctx, l, world, c, x, y, time, beats, beatPhase, near, blocked });
+    bodyDraw(c.kind)({ ctx, l, world, c, x, y, time, beats, beatPhase, near, blocked, turn });
     // The weather over that body, on both screens and identical on both — the
     // clasp's arrangement below, one creature earlier in the pass.
     if (c.kind === "veil") {
@@ -164,8 +175,7 @@ export function drawCreatures(
     // this bounce left it. Both screens get the whole of it — nothing about a
     // recoil is split — so there is no gate. The last argument is the turn the
     // body took, because the cage is lit in the body's colour (`recoil.ts`).
-    if (c.kind === "recoil")
-      drawRecoilCage(ctx, l, world.cfg, c, x, y, time, near, recoilTurn(c, beatPhase));
+    if (c.kind === "recoil") drawRecoilCage(ctx, l, world.cfg, c, x, y, time, near, turn);
     // The clasp's shield goes on *after* the body, because it is a membrane
     // around one and not a substitute for one — `wornKind` has already drawn
     // the slick or the bulb inside, in its own colour, which is what player 2

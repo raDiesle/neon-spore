@@ -4,7 +4,6 @@ import {
   type CreatureKind,
   colourArmourLeft,
   isMeteorKind,
-  recoilTurn,
 } from "@neon-spore/sim";
 import { drawBalloon } from "./balloon.js";
 import { beatboxArmGrown, beatboxSwell } from "./beatbox.js";
@@ -179,7 +178,7 @@ export function drawLivingBody(b: Body, swell = 1, shape?: CreatureSilhouette, w
     Math.max(b.blocked.get(c.id) ?? 0, colourArmourLeft(world, c)),
     world.cfg,
     near,
-    recoilTurn(c, beatPhase),
+    b.turn,
     swell,
     over,
     wash,

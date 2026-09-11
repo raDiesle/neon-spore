@@ -139,6 +139,7 @@ export function drawBodies(
     effects.blocked,
     effects.claspFrames.image,
     skinY,
+    effects.recoilLeap,
   );
   // Over the same bodies drawCreatures just drew, and nowhere else: the
   // plating recomputes fresh from world.creatures every frame (see

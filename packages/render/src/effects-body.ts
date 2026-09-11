@@ -12,6 +12,7 @@ import { LureVanishFx } from "./lure-vanish.js";
 import { MagnetBounceFx } from "./magnet-bounce.js";
 import { MagnetBreakFx } from "./magnet-break.js";
 import { RecoilCageBreakFx } from "./recoil-cage-break.js";
+import type { RecoilLeapFx } from "./recoil-leap.js";
 import { RecoilVentFx } from "./recoil-vent.js";
 import { RindShedFx } from "./rind-shed.js";
 import { VeilTearFx } from "./veil-tear.js";
@@ -166,7 +167,15 @@ export class BodyTransients {
   }
 
   /** The five that are drawn around a body the world still has. */
-  drawOnBodies(ctx: CanvasRenderingContext2D, l: Layout, world: World, beatPhase: number): void {
+  drawOnBodies(
+    ctx: CanvasRenderingContext2D,
+    l: Layout,
+    world: World,
+    beatPhase: number,
+    /** THE RECOIL's throw, for the one picture here that ends on a body mid-
+     * throw: the vent's wake (`recoil-leap.ts`). */
+    leaps?: RecoilLeapFx,
+  ): void {
     // The charge in flight, under everything else here and on player 1's
     // screen alone: it is aimed at a dome that has not failed yet, so it is
     // the only one of these drawn *before* anything has happened rather than
@@ -181,7 +190,7 @@ export class BodyTransients {
     this.rindShed.draw(ctx, l, world, beatPhase);
     // And the jet a recoil vented downward out of the tile it was struck in,
     // with a wake of embers reaching up to wherever the body is now.
-    this.recoilVent.draw(ctx, l, world, beatPhase);
+    this.recoilVent.draw(ctx, l, world, beatPhase, leaps);
   }
 
   /**

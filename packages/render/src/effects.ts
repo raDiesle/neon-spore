@@ -20,6 +20,7 @@ import type { SurfaceY } from "./hull-frame.js";
 import type { LayEcho } from "./lay-echo.js";
 import type { Layout } from "./layout.js";
 import { OpeningFx } from "./opening-fx.js";
+import { RecoilLeapFx } from "./recoil-leap.js";
 import { RockImpactFx } from "./rock-impact.js";
 import { MirrorFx } from "./simon-fx.js";
 import { Sparks } from "./sparks.js";
@@ -66,6 +67,10 @@ export class Effects {
   readonly arrivals = new Arrivals();
   /** The transients that belong to one body — `effects-body.ts`. */
   readonly bodies = new BodyTransients();
+  /** THE RECOIL's knock-back as a throw, one beat long from the frame of the
+   * hit. Public: `drawCreatures` asks it where each recoil is drawn
+   * (`recoil-leap.ts`), which is not a place a transient can paint. */
+  readonly recoilLeap = new RecoilLeapFx();
   /** THE CRAWLER's three: a burst ring's goo, the swept lane, the burrow's
    * banks — each outliving what it is about (`crawler-fx.ts`). */
   readonly crawler = new CrawlerFx();
@@ -171,6 +176,7 @@ export class Effects {
     this.warden.ingest(events);
     this.fleet.ingest(events, beatSeconds);
     this.bodies.ingest(events, l, cfg, beatSeconds, time);
+    this.recoilLeap.ingest(events, beatSeconds);
     for (const e of events) {
       const spark = burstFor(e, l);
       if (spark) this.sparks.burst(spark.x, spark.y, breakSparks(e, spark.n), spark.hex);

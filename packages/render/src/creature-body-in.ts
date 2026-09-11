@@ -28,4 +28,9 @@ export type Body = {
   near: number;
   /** How long each body has been reading as blocked, by creature id. */
   blocked: ReadonlyMap<number, number>;
+  /** How far a recoil's colour has turned over, 0 at the hit and 1 once it
+   * has landed — `turnedTrio`'s argument. One for every other body. Handed in
+   * rather than read here because the throw that carries it is a transient
+   * (`recoil-leap.ts`), and a draw path reads no transient of its own. */
+  turn: number;
 };

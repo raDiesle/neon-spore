@@ -82,6 +82,7 @@ export function drawMountStage(c: AssetContext, f: AssetFrame, look: MountLook):
     // At arm's length: the haze is distance.
     near: 1,
     blocked: NO_BLOCKS,
+    turn: 1,
   };
   ctx.save();
   drawLivingBody(body, 1, look.shape(body));

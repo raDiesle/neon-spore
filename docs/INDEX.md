@@ -805,6 +805,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/creature-tint.ts` | The three colours a body carries, and what they are mid-turn |
 | `packages/render/src/recoil-ribs.ts` | One rib of THE RECOIL's cage, and the piece of hoop it carries |
 | `packages/render/src/recoil-look.ts` | THE ONE RECORD A CANDIDATE **RECOIL** PATCHES |
+| `packages/render/src/recoil-leap.ts` | THE RECOIL's knock-back as a **throw**: one beat long from the instant of the hit |
 | `packages/render/src/recoil-foam.ts` | FOAM — a kept look for THE RECOIL's cage, drawn only on the GRAPHICS page's LIBRARY |
 | `packages/render/src/recoil-globe.ts` | GLOBE — THE RECOIL's cage as the game draws it since 11 September 2026 |
 | `packages/render/src/recoil-moons.ts` | MOONS — a kept look for THE RECOIL's cage, drawn only on the GRAPHICS page's LIBRARY |

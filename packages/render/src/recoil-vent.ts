@@ -1,10 +1,11 @@
 import type { SimConfig, SimEvent, World } from "@neon-spore/sim";
-import { creatureCenter } from "./creature-place.js";
+import { centerAt, creatureCenter } from "./creature-place.js";
 import { depthScale } from "./depth.js";
 import { halo } from "./glow.js";
 import { sinHash } from "./hash.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import type { RecoilLeapFx } from "./recoil-leap.js";
 
 /**
  * The jet THE RECOIL leaves behind: fire vented **downward** out of the tile a
@@ -89,13 +90,25 @@ export class RecoilVentFx {
     this.live = [];
   }
 
-  draw(ctx: CanvasRenderingContext2D, l: Layout, world: World, beatPhase: number): void {
+  draw(
+    ctx: CanvasRenderingContext2D,
+    l: Layout,
+    world: World,
+    beatPhase: number,
+    /** Where the body was drawn this frame, on its throw (`recoil-leap.ts`):
+     * the wake has to end on the body the eye is following, not on the tile
+     * the simulation's glide would have it in. */
+    leaps?: RecoilLeapFx,
+  ): void {
     for (const fx of this.live) {
       const t = fx.age / LIFE;
       const body = world.creatures.find((c) => c.id === fx.id);
       // The wake first, so the plume burns over the top of the end of it.
       if (body) {
-        const { x, y } = creatureCenter(l, body, beatPhase);
+        const at = leaps?.drawnAt(body.id);
+        const { x, y } = at
+          ? centerAt(l, body, at.row, at.col)
+          : creatureCenter(l, body, beatPhase);
         drawWake(ctx, fx, x, y, t);
       }
       drawPlume(ctx, fx, t);

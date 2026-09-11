@@ -43,6 +43,7 @@ export function updateAll(e: Effects, dt: number, l: Layout): void {
   e.mirror.update(dt);
   e.warden.update(dt);
   e.bodies.update(dt);
+  e.recoilLeap.update(dt);
   e.crawler.update(dt);
   e.spriteBursts.update(dt);
   e.ghostTrail.update(dt);
@@ -74,7 +75,7 @@ export function drawAll(
   e.spriteBursts.draw(ctx);
   e.beatboxWaves.draw(ctx, l);
   e.beatboxSilences.draw(ctx, l);
-  e.bodies.drawOnBodies(ctx, l, world, beatPhase);
+  e.bodies.drawOnBodies(ctx, l, world, beatPhase, e.recoilLeap);
 }
 
 /** Forget everything transient: a wave has (re)started and none of it
@@ -93,6 +94,7 @@ export function resetAll(e: Effects): void {
   e.warden.reset();
   e.fleet.clear();
   e.bodies.clear();
+  e.recoilLeap.clear();
   e.crawler.clear();
   e.spriteBursts.clear();
   e.coordGrid.clear();

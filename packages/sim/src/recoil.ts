@@ -114,6 +114,12 @@ export function recoilRow(cfg: SimConfig, row: number): number {
  * reason `recoilBouncesLeft` is: a second spelling of "this body is turning"
  * is how the picture and the shot come to disagree about what colour the pair
  * must load next.
+ *
+ * Render reads it for every frame but the beat after a hit: while the throw
+ * that knock-back is drawn as is in the air, the turn rides the throw's own
+ * clock (`render/recoil-leap.ts`), which starts at 0 on the frame of the hit
+ * where this starts at the beat's phase. The shot is judged on `c.color`
+ * either way; only the picture's clock differs, and only for one beat.
  */
 export function recoilTurn(c: Creature, beatPhase: number): number {
   if (c.kind !== "recoil" || c.fromCol === undefined || c.fromCol === c.col) return 1;

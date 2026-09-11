@@ -14,17 +14,15 @@ import { depthScale, drawnCol, drawnRow } from "./depth.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { rockRadius } from "./torch.js";
 
+type XY = { x: number; y: number };
+
 /**
  * Where a creature is on screen, between beats. The one place the glide is
  * written down: the grip's ring is drawn around the same shape the player is
  * looking at, and the app hit-tests a finger against it, so all three have to
  * agree about where the thing actually is.
  */
-export function creatureCenter(
-  l: Layout,
-  c: Creature,
-  beatPhase: number,
-): { x: number; y: number } {
+export function creatureCenter(l: Layout, c: Creature, beatPhase: number): XY {
   // One tile per beat, linear (`drawnRow`). No easing: the movement must read
   // as an even glide so that "it lands on the four" is a statement both
   // players can act on. Exactly linear, and it stays that way — the depth cues
@@ -34,9 +32,18 @@ export function creatureCenter(
   // columns over the beat it moves, and `drawnCol` is where that is written
   // down. Every other body has no `fromCol` to come from and lands on `c.col`
   // exactly, so the lane read is untouched.
-  // `c.col` is a wide kind's leftmost column (see `spanCenterCol` in
-  // sim/types.ts) — every kind is drawn at its visual centre.
-  return { x: tileCX(l, bodyCenterCol(c, drawnCol(c, beatPhase))), y: tileCY(l, row) };
+  return centerAt(l, c, row, drawnCol(c, beatPhase));
+}
+
+/**
+ * The pixel a body stands at for a fractional row and column — the one
+ * formula under `creatureCenter` and under THE RECOIL's throw, which places a
+ * body off a clock of its own (`recoil-leap.ts`) and must land on the pixel
+ * the glide would have. `c.col` is a wide kind's leftmost column (see
+ * `spanCenterCol` in sim/types.ts) — every kind is drawn at its visual centre.
+ */
+export function centerAt(l: Layout, c: Creature, row: number, col: number): XY {
+  return { x: tileCX(l, bodyCenterCol(c, col)), y: tileCY(l, row) };
 }
 
 /**

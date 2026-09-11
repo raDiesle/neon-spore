@@ -22,6 +22,27 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — THE RECOIL is thrown, not jumped
+
+The owner: *jumping when hit is sometimes not natural and fluent — it's like
+jumping.* A bounce was written mid-tick and glided over whatever was left of
+the beat, so the frame of the hit jumped and a late hit crossed two rows in a
+tenth of a beat. Now a struck recoil is on a throw of its own for one beat:
+a parabola from where it was drawn, ending on the simulation's own place at
+the fall's own speed, the colour turning along it. About 40 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `recoil.ts`'s bounce, `drawnRow`/`drawnCol`, the beat's `from` reset, where `Effects` reaches `drawCreatures` |
+| writing | 15 | `recoil-leap.ts`, `Body.turn`, the placement in `creatures.ts`, the wake's end, four tests |
+| looking | 10 | three films — the first two on the authored column rather than the mapped one, the bullet flying up an empty lane |
+| friction | 0 | — |
+| landing | 5 | `creature-place.ts` one line over its limit, `check:fast`, the commit, `land --keep` |
+
+Bottleneck: **the column.** A wave's column is not the field's (`mapCol`),
+and `press.ts` says so in its own header — two films were spent before it
+was read.
+
 ## 2026-09-11 · hit-looks — What is inside a body stays inside it
 
 The owner saw the red rind's inner animation reach past its body: a rind
