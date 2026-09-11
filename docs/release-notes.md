@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · f1104684 — GLAND is the ship: the owner's answer to ship:body, into the game by hand
+
+The owner picked GLAND out of `ship:body` on 11 September 2026 — EMBEDDED with his four corrections — to be used in the game. The hull is a clear wet surface with no grain, seven ribs leave the very top of it and hang on through the chamber as ribbons, the roof is the hull's own ripple sagging over every control, the rail is a lit spine with a node per column and a swollen wet node on the column held, every button is an organ grown out of the panel's flesh with veins and a slow breath, droplets of plasma and a beaded cord up to its rail and on to the lobe on the hull, and big lenses of fluid lie along the floor. The contour has twelve lobes now instead of fourteen. The seat's colours are untouched, so player two's ship is the same organ in amber. This is the look the owner asked for by name.
+
 ## 2026-09-11 · d2920870 — A landed lane no longer asks whether to push, sweep or deploy
 
 The owner retired the three-answer question on 11 September 2026: a finished lane runs `bun run land --keep`, says what landed, and stops. `bun run push`, `bun run sweep` and a director deploy happen when he asks for them, in his own message, and never because the work looks finished. CLAUDE.md, the stop hook's message and its test, `docs/git-and-landing.md` and the lane skill all say so now. Not a look; nothing the game draws changes.
