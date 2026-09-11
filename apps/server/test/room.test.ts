@@ -165,12 +165,16 @@ describe("a room hands out two seats", () => {
 
   test("both presses stamp one beat zero, and both phones are told the same one", async () => {
     const one = await phone("AADD");
-    await one.settle();
+    await one.settle("welcome");
     const two = await phone("AADD");
-    await two.settle();
+    await two.settle("welcome");
+    // Told of the second seat, by name: a welcome not counted here is one the
+    // stamp waits below would take for the stamp — the race *leaves a run
+    // alone* lost once under a full `bun test`.
+    await one.settle("welcome");
 
     one.send({ t: "ready" });
-    await one.settle("welcome");
+    await one.settle("ready");
     // The other phone is told too, and it is waited for by name: under a full
     // `bun test` the broadcast to the second socket landed after the first
     // socket's welcome once, and the line below read a list that was not
@@ -545,7 +549,10 @@ describe("what the pair got to, and the run that nobody came back to", () => {
       try {
         const one = await phone("ALAM", PROTOCOL_VERSION, brief);
         const two = await phone("ALAM", PROTOCOL_VERSION, brief);
-        await two.settle();
+        // Named, so the welcome the join sent is counted and the wait below is
+        // for the *stamped* one: a bare settle left `seen` at zero, and under a
+        // full `bun test` the line after read the join's welcome, `startMs` 0.
+        await two.settle("welcome");
         one.send({ t: "ready" });
         two.send({ t: "ready" });
         await two.settle("welcome");
