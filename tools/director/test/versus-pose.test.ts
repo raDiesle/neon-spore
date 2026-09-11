@@ -6,6 +6,7 @@ import { VARIANTS } from "../../versus/candidates/index.js";
 import { slots } from "../../versus/variant.js";
 import { POSE_GROUPS } from "../src/poses.js";
 import { VERSUS_POSES } from "../src/poses-versus.js";
+import { VOLLEY_POSE } from "../src/poses-volley.js";
 import { poseForSlot } from "../src/versus-pose.js";
 
 /** A pose by its name, for the tests about a pose whose slot has closed. */
@@ -234,10 +235,12 @@ describe("poseForSlot", () => {
    * is that every ward happens on screen: a pose that lost its hand would
    * show `creature:volley` a whole ball falling and never the skeleton the
    * slot is about. So the hand is stepped the way the pair steps it, and the
-   * count has to come down within the pose's own cadence.
+   * count has to come down within the pose's own cadence. The slot was decided
+   * on 11 September 2026 and its row is gone; the pose stays on the POSES page
+   * and is held to the same promise by name.
    */
   test("the volley is warded on the page, not inside build", () => {
-    const pose = poseForSlot("creature:volley");
+    const pose = VOLLEY_POSE;
     const world = pose.build();
     const whole = world.creatures.find((c) => c.kind === "volley");
     expect(whole).toBeDefined();

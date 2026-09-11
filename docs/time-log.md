@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — creature:volley — EMBER into the game, PITTED and the painted seams kept
+
+Moved EMBER's seams into the record and PITTED beside it, built a volley stage that walks the plate count down on a card, photographed the LIBRARY and the field, dropped the slot.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | reading |
+| writing | 20 | writing |
+| looking | 10 | looking |
+| friction | 5 | friction |
+| landing | 10 | landing |
+
+Bottleneck: Dropping a decided slot also drops its versus-pose row, and one test reached the pose through that row — it now names the pose directly.
+
 ## 2026-09-11 · hit-looks — creature:warden — SURFACE stays, three kept on the LIBRARY
 
 Read the three candidates and the warden record, moved their paints into packages/render beside the record, built a warden stage for the LIBRARY from the game's own body and state, photographed the cards, dropped the slot.

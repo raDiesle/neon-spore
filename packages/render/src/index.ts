@@ -58,6 +58,7 @@ export {
   tileCY,
   type ViewRole,
 } from "./layout.js";
+export { drawLiving } from "./living-draw.js";
 export { drawMazeWalls, mazeCanvasAngle, mazeRimHalfGapMilli } from "./maze-walls.js";
 export { LAUNCH_LIFE, SETTLED_AGE } from "./opening-fx.js";
 export { PALETTE, STROKE } from "./palette.js";
@@ -100,6 +101,11 @@ export {
   swipeColor,
 } from "./touch-ship.js";
 export { drawVane } from "./vane-draw.js";
+export { drawVolleyShell, showsVolleyCore } from "./volley.js";
+export { emberSeams } from "./volley-ember.js";
+export { VOLLEY_LOOK, type VolleyLook, type VolleyShell } from "./volley-look.js";
+export { pittedStone } from "./volley-pitted.js";
+export { shippedSeams, shippedStone } from "./volley-stone.js";
 export { drawWarden } from "./warden.js";
 export { WARDEN_LOOK, type WardenLook } from "./warden-look.js";
 export { mantle } from "./warden-mantle.js";

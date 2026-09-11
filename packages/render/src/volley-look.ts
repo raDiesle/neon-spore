@@ -1,4 +1,5 @@
-import { shippedSeams, shippedStone } from "./volley-stone.js";
+import { emberSeams } from "./volley-ember.js";
+import { shippedStone } from "./volley-stone.js";
 
 /**
  * THE ONE RECORD A CANDIDATE VOLLEY LOOK PATCHES.
@@ -63,5 +64,7 @@ export interface VolleyLook {
 }
 
 /** The shipped shell: meteor stone under the key light, cracked where it has
- * been hit, with the rim and the four seams painted whole over it. */
-export const VOLLEY_LOOK: VolleyLook = { stone: shippedStone, seams: shippedSeams };
+ * been hit, with the rim whole over it and the four seams burning through —
+ * EMBER, the owner's pick on 11 September 2026 (`volley-ember.ts`). The
+ * painted seams it replaced are `shippedSeams`, kept for the LIBRARY. */
+export const VOLLEY_LOOK: VolleyLook = { stone: shippedStone, seams: emberSeams };

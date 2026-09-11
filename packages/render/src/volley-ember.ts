@@ -1,9 +1,15 @@
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import type { VolleyShell } from "../../../../../packages/render/src/volley-look.js";
-import { seamPath } from "../../../../../packages/render/src/volley-seams.js";
-import { drawFrame } from "../../../../../packages/render/src/volley-stone.js";
+import { rgba } from "./hex.js";
+import type { VolleyShell } from "./volley-look.js";
+import { seamPath } from "./volley-seams.js";
+import { drawFrame } from "./volley-stone.js";
 
 /**
+ * EMBER — THE VOLLEY's seams as the game draws them since 11 September 2026,
+ * when the owner decided `creature:volley` with "Apply to game CREATURE:VOLLEY
+ * · EMBER". Written as a VERSUS candidate against the painted seams
+ * (`shippedSeams` in `volley-stone.ts`, kept for the SHAPES page's LIBRARY),
+ * and moved here whole; `VOLLEY_LOOK` points at it.
+ *
  * EMBER — the seams are the body inside showing through the joints.
  *
  * The shipped seam is the colour painted on the stone: it names the body but

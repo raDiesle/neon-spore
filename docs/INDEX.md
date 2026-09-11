@@ -757,6 +757,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/maze-heart.ts` | What is in the middle of THE MAZE: a heart, beating |
 | `packages/render/src/volley-cracks.ts` | **The damage on THE VOLLEY's shell**: the fractures a ward leaves across the stone that is still there |
 | `packages/render/src/volley-look.ts` | THE ONE RECORD A CANDIDATE VOLLEY LOOK PATCHES |
+| `packages/render/src/volley-ember.ts` | EMBER — THE VOLLEY's seams as the game draws them since 11 September 2026 |
+| `packages/render/src/volley-pitted.ts` | PITTED — a kept look for THE VOLLEY's stone, drawn only on the SHAPES page's LIBRARY |
 | `packages/render/src/maze-door.ts` | THE MAZE's way in, and the light that comes out of it when it is standing on the ship's column |
 | `packages/render/src/maze-blood.ts` | What THE MAZE's heart leaves on the floor of its room when it is hit, and why it is still there next round |
 | `packages/render/src/eye-lens.ts` | you are changing the shape of an open eye — the two lid curves, the corners, and the pupil they cut |
@@ -1565,5 +1567,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/library/wisp-stage.ts` | The game's own wisp, drawn on a card wearing a fringe of the caller's choosing |
 | `tools/director/src/library/warden-assets.ts` | THE WARDEN's four surfaces — everything on the ring between its material and the door over its eye |
 | `tools/director/src/library/warden-stage.ts` | The game's own warden, drawn on a card wearing a surface of the caller's choosing |
+| `tools/director/src/library/volley-assets.ts` | THE VOLLEY's three shells — what the stone is and what a seam is |
+| `tools/director/src/library/volley-stage.ts` | The game's own volley, drawn on a card wearing a shell of the caller's choosing |
 
 <!-- index:code:end -->

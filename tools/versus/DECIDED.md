@@ -690,3 +690,11 @@ SHAPES page's LIBRARY
 
 The other answers offered were `mantle`, `roll` and `whorl`; they went with
 the slot.
+
+## `creature:volley` — nothing taken, 2026-09-11
+
+taken by hand — EMBER into the game; PITTED kept on the SHAPES page's LIBRARY
+(the owner: maybe for the meteors); GROOVE goes
+
+The other answers offered were `ember`, `groove` and `pitted`; they went with
+the slot.

@@ -73,7 +73,10 @@ export function shippedStone(s: VolleyShell): void {
   }
 }
 
-/** The shipped skeleton: the rim and the four seams, whole on every frame. */
+/** The painted skeleton: the rim and the four seams laid on the stone, whole
+ * on every frame. What the game drew until 11 September 2026, when EMBER took
+ * the record (`volley-ember.ts`); kept for the SHAPES page's LIBRARY, where it
+ * stands beside the look that replaced it. */
 export function shippedSeams(s: VolleyShell): void {
   drawFrame(s.ctx, s.ball, s.turn, s.metal);
   drawSeams(s.ctx, s.ball, s.r, s.turn, s.glow);

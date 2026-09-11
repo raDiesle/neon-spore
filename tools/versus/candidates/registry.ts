@@ -40,9 +40,6 @@ import { VEER_SOLID } from "./creature-veer/solid/index.js";
 import { VEIL_FOAM } from "./creature-veil/foam/index.js";
 import { VEIL_STRATA } from "./creature-veil/strata/index.js";
 import { VEIL_VORTEX } from "./creature-veil/vortex/index.js";
-import { VOLLEY_EMBER } from "./creature-volley/ember/index.js";
-import { VOLLEY_GROOVE } from "./creature-volley/groove/index.js";
-import { VOLLEY_PITTED } from "./creature-volley/pitted/index.js";
 import { SHIP_CHITIN } from "./ship-body/chitin/index.js";
 import { SHIP_GLAND } from "./ship-body/gland/index.js";
 import { SHIP_GULLET } from "./ship-body/gullet/index.js";
@@ -85,9 +82,6 @@ export const VARIANTS: Variant[] = [
   VEIL_FOAM,
   VEIL_STRATA,
   VEIL_VORTEX,
-  VOLLEY_EMBER,
-  VOLLEY_GROOVE,
-  VOLLEY_PITTED,
   SHIP_CHITIN,
   SHIP_GLAND,
   SHIP_GULLET,

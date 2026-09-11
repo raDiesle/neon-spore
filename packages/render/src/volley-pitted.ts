@@ -1,11 +1,21 @@
-import { facet, LAT_LIMIT, pin, surfaceDim } from "../../../../../packages/content/src/surface.js";
-import { sinHash } from "../../../../../packages/render/src/hash.js";
-import { keyAxis, METEOR_LOOK } from "../../../../../packages/render/src/meteor-look.js";
-import { drawCracks } from "../../../../../packages/render/src/volley-cracks.js";
-import type { VolleyShell } from "../../../../../packages/render/src/volley-look.js";
-import { fillRock } from "../../../../../packages/render/src/volley-stone.js";
+import { facet, LAT_LIMIT, pin, surfaceDim } from "@neon-spore/content";
+import { sinHash } from "./hash.js";
+import { keyAxis, METEOR_LOOK } from "./meteor-look.js";
+import { drawCracks } from "./volley-cracks.js";
+import type { VolleyShell } from "./volley-look.js";
+import { fillRock } from "./volley-stone.js";
 
 /**
+ * PITTED — a kept look for THE VOLLEY's stone, drawn only on the SHAPES page's
+ * LIBRARY.
+ *
+ * It stood in `creature:volley` on VERSUS, decided 11 September 2026: EMBER
+ * went into the game and the owner said of this one "keep CREATURE:VOLLEY ·
+ * PITTED for 'Shapes' page, i like this rotation - maybe to apply for
+ * 'Meteors'". It sits in this package, beside the record it once patched,
+ * because it is written against this package's internals; nothing on the
+ * field imports it, and the game's bundle drops it.
+ *
  * PITTED — the stone carries the meteor's own pits, and they come round.
  *
  * A meteor in this game is a lit polygon with craters cut into it where shots
