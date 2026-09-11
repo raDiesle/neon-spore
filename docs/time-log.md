@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — creature:mount — TAPROOT into the game, RASP kept
+
+Moved the rooted rim into content so a package could draw it, took TAPROOT and RASP by hand, broke the record–look import cycle with mount-bearing.ts, built a mount card with a hub to face, dropped the slot.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | reading |
+| writing | 20 | writing |
+| looking | 5 | looking |
+| friction | 5 | friction |
+| landing | 5 | landing |
+
+Bottleneck: Both candidates imported tools/shape-sheet, which a package cannot; the rim had to move into content first and the adopt tool could not do the slot.
+
 ## 2026-09-11 · hit-looks — creature:magnet — ORE into the game, the rest gone
 
 Adopted ORE with the tool, cut COIL's dead arch out of magnet-coil.ts and retitled it as the slab and poles ORE draws over, photographed THE MAGNET.

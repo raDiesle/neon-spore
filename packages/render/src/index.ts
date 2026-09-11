@@ -16,6 +16,8 @@ export { edgeLit, faceHex, facet, type PiecePaint } from "./break-piece.js";
 export { drawWaveOpening } from "./briefing.js";
 export { Canvas2DRenderer } from "./canvas2d.js";
 export { ClaspFrames } from "./clasp-frames.js";
+export { drawLivingBody } from "./creature-body.js";
+export type { Body } from "./creature-body-in.js";
 export {
   creatureAt,
   creatureCenter,
@@ -65,6 +67,9 @@ export { LID_LOOK, type LidLook, type LidPlates } from "./lid-look.js";
 export { drawPlates } from "./lid-plates.js";
 export { drawLiving } from "./living-draw.js";
 export { drawMazeWalls, mazeCanvasAngle, mazeRimHalfGapMilli } from "./maze-walls.js";
+export { MOUNT_LOOK, type MountLook } from "./mount-look.js";
+export { rasp } from "./mount-rasp.js";
+export { taproot } from "./mount-taproot.js";
 export { LAUNCH_LIFE, SETTLED_AGE } from "./opening-fx.js";
 export { PALETTE, STROKE } from "./palette.js";
 export { drawPinBlast, drawPinTake } from "./pinball-blast.js";

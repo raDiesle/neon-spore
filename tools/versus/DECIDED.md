@@ -746,3 +746,15 @@ the tip
 `packages/render/src/magnet-ore.ts`.
 
 The other answers offered were `rod` and `yaw`; they went with the slot.
+
+## `creature:mount` — nothing taken, 2026-09-11
+
+taken by hand — the owner: apply to game 'CREATURE:MOUNT · TAPROOT'; move to
+'shapes' page 'CREATURE:MOUNT · RASP'. TAPROOT is MOUNT_LOOK.shape
+(packages/render/src/mount-taproot.ts, its rim rootedContour in
+packages/content); RASP is drawn on the GRAPHICS page's LIBRARY
+(mount-rasp.ts); PENDANT goes. Both reached tools/shape-sheet, which a package
+cannot import, so adopt could not move them.
+
+The other answers offered were `pendant`, `rasp` and `taproot`; they went with
+the slot.

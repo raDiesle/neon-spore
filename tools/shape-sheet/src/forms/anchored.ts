@@ -1,4 +1,9 @@
-import { blobRadiusMul, catmullRomToBezierPath, type Point } from "@neon-spore/content";
+import {
+  blobRadiusMul,
+  catmullRomToBezierPath,
+  type Point,
+  rootedContour,
+} from "@neon-spore/content";
 import type { Subject } from "../contour.js";
 
 /**
@@ -116,26 +121,13 @@ export function rooted(
   drift: number,
   period: number,
 ): Subject {
+  // The rim itself is `rootedContour` in `packages/content` since 11 September
+  // 2026, when THE GYRE's mounts took it into the game; this is the card.
   return {
     name,
     note,
     open: false,
-    pointsAt(t) {
-      const pts: Point[] = [];
-      for (let i = 0; i < N; i++) {
-        const a = (i / N) * Math.PI * 2;
-        // Only the underside grows roots, and it fades in rather than starting
-        // at the equator: a tendril leaving the side of the body would read as
-        // a limb, which is a different animal.
-        const under = Math.max(0, Math.sin(a)) ** 2;
-        // Raised to a high power so each one is a spike and not a lobe.
-        const comb = Math.max(0, Math.cos(roots * a)) ** 10;
-        const wander = 1 + drift * Math.sin((t / period) * Math.PI * 2 + a * 3);
-        const m = blobRadiusMul(a, 2, 0.08, 0.04, t, 11.6) * (1 + reach * under * comb * wander);
-        pts.push({ x: Math.cos(a) * rx * m, y: Math.sin(a) * ry * m });
-      }
-      return pts;
-    },
+    pointsAt: rootedContour({ rx, ry, roots, reach, drift, period }),
     path: catmullRomToBezierPath,
   };
 }

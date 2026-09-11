@@ -162,6 +162,7 @@ export {
   podsFromWave,
   queueFromWave,
 } from "./queue.js";
+export { type RootedOpts, rootedContour } from "./rooted.js";
 export { actCol, sceneCommands, sceneScript } from "./scene-script.js";
 export {
   type GuideScene,

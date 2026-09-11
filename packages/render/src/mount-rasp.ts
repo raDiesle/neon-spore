@@ -1,11 +1,23 @@
-import { walkedSilhouette } from "../../../../../packages/content/src/body-form.js";
-import type { Point } from "../../../../../packages/content/src/shapes.js";
-import type { CreatureSilhouette } from "../../../../../packages/content/src/silhouettes.js";
-import type { Body } from "../../../../../packages/render/src/creature-body-in.js";
-import { mountBearing } from "../../../../../packages/render/src/mount-look.js";
-import { studded } from "../../../../shape-sheet/src/forms/studded.js";
+import {
+  type CreatureSilhouette,
+  type Point,
+  studdedContour,
+  walkedSilhouette,
+} from "@neon-spore/content";
+import type { Body } from "./creature-body-in.js";
+import { mountBearing } from "./mount-bearing.js";
 
 /**
+ * RASP — a kept look for THE GYRE's mounts, drawn only on the GRAPHICS page's
+ * LIBRARY.
+ *
+ * It stood in `creature:mount` on VERSUS, decided 11 September 2026: TAPROOT
+ * went into the game (`mount-taproot.ts`) and the owner said "move to
+ * 'shapes' page if not there yet: CREATURE:MOUNT · RASP". It sits in this
+ * package, beside the record it once patched, because it is written against
+ * this package's internals; nothing on the field imports it, and the game's
+ * bundle drops it. The rim itself is `studdedContour` in `packages/content`.
+ *
  * RASP — the mount is a burr: a small round body under a ring of short
  * spines, with a crown of longer ones on the side facing out.
  *
@@ -20,7 +32,7 @@ import { studded } from "../../../../shape-sheet/src/forms/studded.js";
  */
 
 /** The sheet's tuning, plus the crown, pointing along `+x` before the turn. */
-const FORM = studded("RASP", "a small round body under a dense ring of short spines", {
+const FORM = studdedContour({
   rx: 44,
   ry: 42,
   studs: 20,
@@ -55,7 +67,7 @@ export function rasp(b: Body): CreatureSilhouette {
   if (have) return have;
   const made = walkedSilhouette(
     { lobes: 20, depth: 0.04, wobble: 0.025, seed: 6.7, sizeMul: SIZE },
-    (t) => turned(FORM.pointsAt(t), turn),
+    (t) => turned(FORM(t), turn),
   );
   BY_TURN.set(key, made);
   return made;

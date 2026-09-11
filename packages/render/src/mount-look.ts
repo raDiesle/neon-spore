@@ -1,6 +1,6 @@
 import type { CreatureSilhouette } from "@neon-spore/content";
 import type { Body } from "./creature-body-in.js";
-import { hubOf } from "./gyre-place.js";
+import { taproot } from "./mount-taproot.js";
 
 /**
  * THE ONE RECORD A CANDIDATE **MOUNT** PATCHES.
@@ -20,25 +20,16 @@ import { hubOf } from "./gyre-place.js";
  * bulb's own slots. A look here changes the outline and nothing else, the
  * way THE BEATBOX's arms do (`drawLivingBody`'s `shape`).
  *
- * **The shipped answer is no answer**: `undefined`, and `drawLivingBody`
- * draws the slick or the bulb as it always has. Not one pixel moved.
+ * **The shipped answer was no answer** until 11 September 2026 — `undefined`,
+ * the slick or the bulb as it always was. The owner then took TAPROOT: the
+ * body held to the rim by roots reaching in toward the hub
+ * (`mount-taproot.ts`). RASP, the burr, is kept on the GRAPHICS page's LIBRARY.
  */
 export interface MountLook {
-  /** The contour this mount is drawn with, or `undefined` for its worn kind's. */
-  readonly shape: (b: Body) => CreatureSilhouette | undefined;
+  /** The contour this mount is drawn with, or `undefined` for its worn kind's.
+   * Writable, like every field a look goes through: the LIBRARY swaps it for
+   * the length of one card and puts it back. */
+  shape: (b: Body) => CreatureSilhouette | undefined;
 }
 
-export const MOUNT_LOOK: MountLook = { shape: () => undefined };
-
-/**
- * Which way a mount faces on its wheel: the bearing from the hub to the tile
- * it stands on, in screen radians — 0 to the right, `π/2` straight down. Off
- * the tiles rather than the drawn centres, so it steps with the click and a
- * look keyed on it can cache one contour per step. `null` for a body that
- * rides no wheel, which a mount never is; the fallback is the caller's.
- */
-export function mountBearing(b: Body): number | null {
-  const hub = hubOf(b.world, b.c);
-  if (hub === null) return null;
-  return Math.atan2(b.c.row - hub.row, b.c.col - hub.col);
-}
+export const MOUNT_LOOK: MountLook = { shape: taproot };

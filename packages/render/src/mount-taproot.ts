@@ -1,11 +1,20 @@
-import { walkedSilhouette } from "../../../../../packages/content/src/body-form.js";
-import type { Point } from "../../../../../packages/content/src/shapes.js";
-import type { CreatureSilhouette } from "../../../../../packages/content/src/silhouettes.js";
-import type { Body } from "../../../../../packages/render/src/creature-body-in.js";
-import { mountBearing } from "../../../../../packages/render/src/mount-look.js";
-import { rooted } from "../../../../shape-sheet/src/forms/anchored.js";
+import {
+  type CreatureSilhouette,
+  type Point,
+  rootedContour,
+  walkedSilhouette,
+} from "@neon-spore/content";
+import type { Body } from "./creature-body-in.js";
+import { mountBearing } from "./mount-bearing.js";
 
 /**
+ * TAPROOT — THE GYRE's mount as the game draws it since 11 September 2026,
+ * when the owner decided `creature:mount` with "apply to game CREATURE:MOUNT ·
+ * TAPROOT". Written as a VERSUS candidate against the bare slick or bulb a
+ * mount wore, and moved here whole; `MOUNT_LOOK` points at it. The rim
+ * itself is `rootedContour` in `packages/content`, which the shape sheet's
+ * TAPROOT card is also drawn from.
+ *
  * TAPROOT — the mount is a bulb held to the wheel by roots.
  *
  * The form is the shape sheet's own TAPROOT (`free-contours.ts`, `rooted`):
@@ -22,7 +31,7 @@ import { rooted } from "../../../../shape-sheet/src/forms/anchored.js";
  * grows them on the underside, and eight puts three there — one straight
  * at the hub and one either side — where five put one and a half, which
  * read as a tail. */
-const FORM = rooted("TAPROOT", "a bulb that will not come loose", 46, 40, 8, 0.6, 0.18, 6);
+const FORM = rootedContour({ rx: 46, ry: 40, roots: 8, reach: 0.6, drift: 0.18, period: 6 });
 /** A walked form is fitted to its furthest reach, roots and all, so the body
  * under them would draw at little over half a slick; this is the body back
  * at a body's size, with the roots reaching past it as they should. */
@@ -47,7 +56,7 @@ export function taproot(b: Body): CreatureSilhouette {
   if (have) return have;
   const made = walkedSilhouette(
     { lobes: 3, depth: 0.08, wobble: 0.04, seed: 11.6, sizeMul: SIZE },
-    (t) => turned(FORM.pointsAt(t), turn),
+    (t) => turned(FORM(t), turn),
   );
   BY_TURN.set(key, made);
   return made;

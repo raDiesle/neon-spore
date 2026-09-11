@@ -466,6 +466,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/balloon-parts.ts` | **What is alive inside THE BALLOON**, and hanging under it: veins, a ring of lit beads |
 | `packages/content/src/surface.ts` | where a mark placed at a longitude and latitude lands, how the tangent plane foreshortens it, and its own normal against `KEY` |
 | `packages/content/src/studded.ts` | A body whose whole rim is broken by the same feature repeated: knobs, spines or hairs — the contour alone |
+| `packages/content/src/rooted.ts` | A bulb held down by roots: a round body with narrow tendrils reaching from its underside |
 
 ### packages/render
 
@@ -902,6 +903,9 @@ place — the generator keeps whatever is there.
 | `packages/render/src/magnet-look.ts` | THE ONE RECORD A CANDIDATE MAGNET LOOK PATCHES |
 | `packages/render/src/magnet-ore.ts` | ORE — THE MAGNET's body as the game draws it since 11 September 2026 |
 | `packages/render/src/mount-look.ts` | THE ONE RECORD A CANDIDATE **MOUNT** PATCHES |
+| `packages/render/src/mount-bearing.ts` | Where on its wheel a mount stands, for a look that turns with it |
+| `packages/render/src/mount-rasp.ts` | RASP — a kept look for THE GYRE's mounts, drawn only on the GRAPHICS page's LIBRARY |
+| `packages/render/src/mount-taproot.ts` | TAPROOT — THE GYRE's mount as the game draws it since 11 September 2026 |
 | `packages/render/src/balloon-alive.ts` | **What makes THE BALLOON alien**: the film that travels over its skin |
 | `packages/render/src/pulse-wash.ts` | **The whole ship lit, by the one body that got past.** A body answered too late is not answered |
 | `packages/render/src/pinball-blast.ts` | PINBALL's two loud moments: a ball that hit the ship, and a target taken |
@@ -1579,5 +1583,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/library/veil-stage.ts` | The game's own veil, drawn on a card with a cloud mass of the caller's choosing |
 | `tools/director/src/library/lid-assets.ts` | THE LID's three armours — what stands between the pair and the lens, and how it gets out of the way |
 | `tools/director/src/library/lid-stage.ts` | The game's own lid, drawn on a card wearing armour of the caller's choosing |
+| `tools/director/src/library/mount-assets.ts` | THE GYRE's mounts — the two contours offered for a body that stands on a turning rim |
+| `tools/director/src/library/mount-stage.ts` | One of THE GYRE's mounts, drawn on a card with a contour of the caller's choosing |
 
 <!-- index:code:end -->
