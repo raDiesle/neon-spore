@@ -238,6 +238,8 @@ export { BEATBOX, beatboxArms } from "./silhouettes-beatbox.js";
 // door, cut out when this file came back to its limit. Re-exported here so
 // nothing that already reaches for it through this file has to move.
 export { THROB } from "./silhouettes-clubbed.js";
+// THE COUNT's disc, `silhouettes-countdown.ts`, for the file's own reason.
+export { COUNTDOWN } from "./silhouettes-countdown.js";
 // The two contours in this family that are **not a body on the roster** — the
 // retired shell and the pod's capsule — are `silhouettes-spare.ts` next door,
 // cut out when THE BARB took this file over its limit. Re-exported here so

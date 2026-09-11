@@ -29,6 +29,11 @@ export interface CreatureScoreConfig {
    * Above `damageCreature` on purpose — a body that reached the hull cost a
    * shot nobody fired, and this cost one that was. */
   damageLure: number;
+  /** What a shot at THE COUNT off zero costs the hull. `damageLure`'s figure
+   * and for its reason: the mistake is a shot that landed when it should not
+   * have, and the hull is the currency the pair feels. Paid per shot and the
+   * body stays, so a trigger that keeps guessing keeps paying. */
+  damageCountdown: number;
   /** Score for hitting a Throb with the colour its round half is in. */
   scoreThrobHit: number;
   /** What one piece of THE SHELL is worth. Smaller than a kill: chipping the
@@ -82,11 +87,15 @@ export interface CreatureScoreConfig {
    * of standing under what they are shooting as well.
    */
   scoreMagnetKill: number;
+  /** What THE COUNT is worth on zero, in its colour. `scoreThrobHit`'s figure:
+   * the other body the pair can only reach by saying a moment out loud. */
+  scoreCountdownKill: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
 export const CREATURE_SCORE_DEFAULTS: CreatureScoreConfig = {
   damageLure: 15,
+  damageCountdown: 15,
   scoreThrobHit: 200,
   scoreShellPiece: 120,
   scoreClaspBreak: 120,
@@ -96,4 +105,5 @@ export const CREATURE_SCORE_DEFAULTS: CreatureScoreConfig = {
   scoreRindShed: 50,
   scoreLidKill: 250,
   scoreMagnetKill: 250,
+  scoreCountdownKill: 200,
 };

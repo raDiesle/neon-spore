@@ -45,11 +45,11 @@ describe("buildBacklog", () => {
     expect(names(backlog.bestiary)).not.toContain("The Jammer");
 
     const thirteen = backlog.bestiary[0]!;
-    // Slick, bulb, meteor, lure, throb, dart, veil, strand, crystal, gum and
-    // choke — plus the pod, which is built and is deliberately not a
-    // `CreatureKind`, so `isBuilt` has to know about `POD_KINDS` to see it.
-    // Twelve rows, twelve built, none on the page.
-    expect(thirteen.builtHidden).toBe(12);
+    // Slick, bulb, meteor, lure, throb, dart, veil, strand, crystal, gum,
+    // choke and countdown — plus the pod, which is built and is deliberately
+    // not a `CreatureKind`, so `isBuilt` has to know about `POD_KINDS` to see
+    // it. Thirteen rows, thirteen built, none on the page.
+    expect(thirteen.builtHidden).toBe(13);
     expect(thirteen.entries).toHaveLength(0);
     const accepted = backlog.bestiary[1]!;
     expect(accepted.entries).toHaveLength(0);

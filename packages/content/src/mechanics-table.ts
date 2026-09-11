@@ -49,6 +49,7 @@ export const MECHANICS = {
   veil: SPLIT_MECHANICS.veil,
   wisp: SPLIT_MECHANICS.wisp,
   ghost: SPLIT_MECHANICS.ghost,
+  countdown: SPLIT_MECHANICS.countdown,
   echo: {
     what: "A small slick or bulb that comes down half as fast as anything else, and divides while it falls: three beats, then six, then nine. Every division turns a corner — sideways, then up and down, then both at once — and the seam across it says which way and how soon. The matching cannon kills any of them, and a shot that catches one early is paid for every body it would have become.",
     reach: "spawn",

@@ -6,13 +6,13 @@ import type { Mechanic, MechanicId } from "./mechanics.js";
  * `never` and the key becomes a build error, so this list cannot fall behind a
  * rename.
  */
-type SplitId = Extract<MechanicId, "lure" | "dart" | "veil" | "wisp" | "ghost">;
+type SplitId = Extract<MechanicId, "lure" | "dart" | "veil" | "wisp" | "ghost" | "countdown">;
 
 /**
- * The five bodies **one seat cannot see whole**: a lure only the navigator
+ * The six bodies **one seat cannot see whole**: a lure only the navigator
  * knows is a fake, a dart whose next diagonal is drawn on one screen, a veil
  * only the pilot can see inside, a wisp standing on a tile only one of them is
- * shown, a ghost the pilot never sees at all. Every one of them is a sentence
+ * shown, a ghost the pilot never sees at all, a count only the pilot can read. Every one of them is a sentence
  * that has to be said out loud, which is what makes the group a fact about the
  * game rather than a convenient cut — `render/comms.ts` and the bestiary
  * already read it as one.
@@ -59,6 +59,14 @@ export const SPLIT_MECHANICS = {
     // A wave names this kind and gives it a colour, the way it does for a
     // dart: the silhouette is the ghost's and the colour is which trigger
     // answers it, so neither can be worked out from the other.
+    waveNames: true,
+  },
+  countdown: {
+    what: "A round body with marks cut into its rim, one fewer each beat. While none are left it is open — two beats — and the matching colour kills it; on any other beat a shot that lands costs the hull and the body stays, still counting. A zero that passes unhit starts the count again. Only the pilot is drawn the marks; the navigator, who fires, sees a blank rim.",
+    reach: "spawn",
+    // A wave names this kind and gives it a colour, the way it does for a
+    // throb: the count says *when* and the colour says *which trigger*, and
+    // neither can be worked out from the other.
     waveNames: true,
   },
 } as const satisfies Record<SplitId, Mechanic>;

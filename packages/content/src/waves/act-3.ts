@@ -65,6 +65,29 @@ import type { Wave } from "../wave-types.js";
  * enters the field (`veilOnSpawn`), because the only thing this game leaves
  * random is what one player knows and the other does not.
  */
+/**
+ * **THE COUNT, in three figures.** Here for the reason the two blocks above
+ * are. The mistake it punishes is firing on sight, and the hull is what a
+ * shot off zero costs (`sim/countdown.ts`) — so what has to bite is a
+ * navigator with a matching colour loaded, a body in the lane, and no
+ * permission to pull yet.
+ *
+ * 1. Beat 0, one body alone, red. Fifteen rows is two zeros, sometimes three,
+ *    and the whole descent is there to find the sentence: the pilot counting
+ *    down out loud and the navigator firing on the word.
+ * 2. Beats 8–10, the cover. A cyan count on the left and an ordinary red slick
+ *    on the right two beats later. The slick is the point: it is shot on
+ *    sight like every body before this wave, and the count is not — the same
+ *    thumb has to do both, and the pilot has to say which lane is which kind.
+ * 3. Beats 18–19, two counts a beat apart. Each has a phase of its own
+ *    (`countdownOnSpawn`), so the two zeros do not fall together and the
+ *    pilot is holding two counts at once — and the navigator two colours.
+ *
+ * A count entry names its kind and a colour, the throb's arrangement: the
+ * colour is the navigator's half of the sentence and is authored; the phase is
+ * the pilot's and is rolled, because a phase read off the arrival would be one
+ * the navigator could keep unaided.
+ */
 export const WAVES_ACT_3: Wave[] = [
   {
     id: "theLure",
@@ -99,6 +122,23 @@ export const WAVES_ACT_3: Wave[] = [
       scene: "theThrob",
     },
     entries: [{ beat: 0, col: 3, kind: "throb", color: "red" }],
+  },
+  {
+    id: "theCount",
+    name: "THE COUNT",
+    sentence: "The one where firing on sight costs the hull, and only one of you can count.",
+    guide: {
+      both: "A round body with marks cut into its rim, one fewer each beat. It can only be hit while no marks are left; a shot on any other beat breaks the hull and the body stays. Only one screen shows the marks.",
+      p1: "You can see the count. Say it down out loud — three, two, one, zero — the way you call a column, and say the lane with it.",
+      p2: "Your rim is blank. Load the colour, aim the lane, and fire on the word zero — not on sight, and not on your own count.",
+    },
+    entries: [
+      { beat: 0, col: 3, kind: "countdown", color: "red" },
+      { beat: 8, col: 1, kind: "countdown", color: "cyan" },
+      { beat: 10, col: 5, color: "red" },
+      { beat: 18, col: 2, kind: "countdown", color: "red" },
+      { beat: 19, col: 5, kind: "countdown", color: "cyan" },
+    ],
   },
   {
     id: "theThirdShot",

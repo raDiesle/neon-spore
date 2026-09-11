@@ -126,8 +126,8 @@ the two can be compared by opening the wave.
 | 5 | **The pod** | shooting it loose is half of getting it; then it sinks and drifts | p2 frees it, p1 chases and opens the maw | 14 · SALVAGE |
 | 6 | **The lock** | player 1's hand on a body steers every shot into it, from whatever column the cannon is in; it says nothing about the colour | p1 holds and keeps the cannon on the pod, p2 fires the colour | 15 · CATCH AND AIM |
 | 7 | **The queen** | two marks, one real; she opens for two beats; a torch drops every eight | p1 sees *what*, p2 sees *where* | 17 · BULB QUEEN |
-| 8 | **The bosses** | the mirror, the maze, the gauge, the warden and its line, the vane | one guide each, on their own wave | 18 · THE MIRROR, 19 · THE MAZE, 20 · THE GAUGE, 21 · THE WARDEN, 29 · THE VANE |
-| 9 | **The rest of the bestiary** | the lure that took the runt's place, the throb, the shell, the pods, the rock speed tiers | one guide each | 23 · THE LURE, 24 · THE THROB, 25 · THE SHELL, 31 · THE PURGE, 32 · THE WARD |
+| 8 | **The bosses** | the mirror, the maze, the gauge, the warden and its line, the vane | one guide each, on their own wave | 18 · THE MIRROR, 19 · THE MAZE, 20 · THE GAUGE, 21 · THE WARDEN, 30 · THE VANE |
+| 9 | **The rest of the bestiary** | the lure that took the runt's place, the throb, the count, the shell, the pods, the rock speed tiers | one guide each | 23 · THE LURE, 24 · THE THROB, 25 · THE COUNT, 26 · THE SHELL, 32 · THE PURGE, 33 · THE WARD |
 
 **The grip is still the odd one out**, and it has no guide. It is a control no
 wave *contains*, so no wave is the first to carry it and nothing places it.

@@ -69,6 +69,7 @@ const creature = (): Required<Creature> => ({
   chokeTaps: 3,
   chokeHeld: true,
   chokeDir: 1,
+  countPhase: 2,
   chuteOpen: true,
   veerDir: -1,
   veerDist: 3,

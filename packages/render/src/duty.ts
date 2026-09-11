@@ -57,6 +57,10 @@ const DUTY_WORD = {
   warden: null,
   tether: null,
   throb: null,
+  // The pilot counts, the navigator fires on the count — both halves said,
+  // because a thumb that fires on sight is the mistake and it is the seat
+  // that cannot see the count that makes it.
+  countdown: { p1: "COUNT", p2: "FIRE ON ZERO" },
   shell: null,
   clasp: null,
   echo: null,

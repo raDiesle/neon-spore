@@ -209,6 +209,13 @@ export function lateHashParts(c: Creature): number[] {
   out.push(c.balloonPullP1 ?? NO_BALLOON_HAND);
   out.push(c.balloonPullP2 ?? NO_BALLOON_HAND);
   out.push(c.balloonTautTick ?? -1);
+  // Where THE COUNT's rim stands in its period. It decides the one beat in
+  // five a shot is let in on, so two devices that disagree about it are two
+  // devices where one player's shot kills and the other's breaks the hull —
+  // and it is the pair's most private number after the beatbox's: only the
+  // pilot is drawn it, so neither screen would show them their worlds had
+  // parted. `-1` for a body without a count, which no phase can be.
+  out.push(c.countPhase ?? -1);
   return out;
 }
 

@@ -14,6 +14,7 @@ import { claspIsShielded, claspStruck } from "./clasp.js";
 import { coilStruck } from "./coil.js";
 import { coilIsDomed } from "./coil-state.js";
 import { colourIsArmoured } from "./colour-armour.js";
+import { countdownStruck } from "./countdown.js";
 import { linkStruck } from "./crawler-round.js";
 import { wornKind } from "./creature-rules.js";
 import { crystalStruck } from "./crystal.js";
@@ -205,6 +206,15 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
     // is one code path and not a second copy of one.
     shellStruck(world, b, hit);
     return false;
+  }
+  if (hit.kind === "countdown") {
+    // Open one beat in five, and only the pilot can see which. Off zero the
+    // hull pays and the body stays; on zero in its colour it is a kill; on
+    // zero otherwise it is an ordinary body and the tail below books the
+    // colour miss (`countdown.ts`).
+    const struck = countdownStruck(world, b, hit);
+    if (struck === "killed") return b.lance;
+    if (struck === "shut") return false;
   }
   // Still shut from the last wrong colour, and shut to *both* — which is the
   // whole of what makes a colour mistake cost something (`colour-armour.ts`).

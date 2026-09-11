@@ -2,6 +2,7 @@ import { balloonEntryRow, balloonOnSpawn } from "./balloon.js";
 import { beatboxOnSpawn } from "./beatbox.js";
 import { caromOnSpawn } from "./carom.js";
 import { coilOnSpawn } from "./coil-state.js";
+import { countdownOnSpawn } from "./countdown.js";
 import { growCrawler } from "./crawler-round.js";
 import { crystalOnSpawn } from "./crystal.js";
 import { dartOnSpawn } from "./dart.js";
@@ -153,13 +154,14 @@ export function spawnArrivals(world: World): void {
       // How many layers this arrival has to shed, absent on every other kind —
       // a wave written before THE RIND is the same world.
       ...(entry.kind === "rind" ? rindOnSpawn(world.cfg) : {}),
-      // A wheel arrives upright and with no age on it, so the first rim it
-      // shows is the one `GYRE_RING` starts at and its turn begins at the
-      // slowest it will ever go (`gyre.ts`).
       // How many bounces this arrival has, absent on every other kind — a wave
       // written before THE RECOIL is the same world.
       ...(entry.kind === "recoil" ? recoilOnSpawn(world.cfg) : {}),
+      // A wheel arrives upright and with no age on it (`gyre.ts`).
       ...(entry.kind === "gyre" ? gyreOnSpawn() : {}),
+      // Where THE COUNT's rim starts in its period, rolled for the veil's
+      // reason: a phase read off the arrival is one the navigator could keep.
+      ...(entry.kind === "countdown" ? countdownOnSpawn(world) : {}),
       // Which columns a wall is open in, as the mask everything downstream
       // reads, and absent on every other kind. Authored rather than rolled and
       // remapped onto the real field before it got here (`queueFromWave`), so
@@ -197,9 +199,7 @@ export function spawnArrivals(world: World): void {
       // Which side THE VEER's first change of lane takes, rolled here for the
       // dart's reason far above: the arrow has to be over the rider from the
       // frame the rock is on the field, or the three rows before the first
-      // change are three rows with nothing for the pilot to say. Absent on
-      // every other kind, so a rock that holds its lane carries no field at
-      // all and every wave written before this creature is the same world.
+      // change have nothing for the pilot to say. Absent on every other kind.
       ...(entry.kind === "veer" ? veerOnSpawn(world, col) : {}),
       // Which way a rock crosses the field, and the row it crosses along —
       // absent on a rock that falls, so every wave written before crossing

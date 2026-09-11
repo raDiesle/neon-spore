@@ -108,6 +108,17 @@ export interface CreatureState
    */
   colourStruckTick?: number;
   /**
+   * Where in its period THE COUNT's rim was on beat nought, and absent on
+   * every other kind. Rolled from the world's stream on the beat the body
+   * enters (`countdownOnSpawn`) rather than read off the clock, because the
+   * whole creature is that the navigator cannot see the count — and a count
+   * that started on the arrival would be one they could keep unaided. Read
+   * it through `countdownMarks` and `countdownIsOpen` (countdown.ts), never
+   * by hand: the marks the pilot counts off and the beat the shot is let in
+   * on are one fact.
+   */
+  countPhase?: number;
+  /**
    * How many times THE ECHO still divides, and absent on every other kind. It
    * is the only state this creature carries, and it answers three questions at
    * once: whether this body divides on the next beat, how far apart the two

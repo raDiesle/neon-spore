@@ -104,4 +104,13 @@ export type ManyKind =
    * its grip by one. `choke.ts` holds the whole of it; `Creature.chokeStuck`,
    * `chokeTaps`, `chokeHeld` and `chokeDir` are the whole of its state.
    */
-  | "choke";
+  | "choke"
+  /**
+   * A round body with marks cut into its rim, one fewer each beat, that a
+   * shot only reaches while none are left — and **only the pilot is drawn
+   * the marks**; the navigator, who fires, sees a blank rim. A shot off zero
+   * costs the hull and the body stays; a zero that passes unhit starts the
+   * count again. `countdown.ts` holds the whole of it; `Creature.countPhase`
+   * is the whole of its state.
+   */
+  | "countdown";

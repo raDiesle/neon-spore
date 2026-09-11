@@ -76,13 +76,12 @@ export const CREATURE_DRAFTS: CatalogueEntry[] = [
       "travels, stops, waits, travels again — the delay is in the motion, which is where a repeat belongs; the contour stays plain so it is not mistaken for the Herald",
   },
   {
-    subject: glyphed("COUNTDOWN", "a rim of marks, one fewer each pass", 42, 42, 7, 0.9),
+    subject: glyphed("COUNTDOWN · MARKS", "a rim of marks, one fewer each pass", 42, 42, 7, 0.9),
     motion: TWITCH,
-    status: "draft",
+    status: "taken",
     slot: "creature",
-    suggests: "Countdown creature",
     owner:
-      "the count has to be readable at 26 px, so it is cut into the outline rather than drawn inside it; the long stillness between flicks is what says it is waiting rather than idling",
+      "THE COUNT, built 11 September 2026 (act 3, after THE THROB) — and taken in two halves, which is the interesting part. The disc is the body (`content/silhouettes-countdown.ts`, the four numbers under these teeth) and it is what both phones draw; the marks are *not* in the contour, because the whole creature is that only the pilot may see the count, and a silhouette carries its notches on both screens. So `render/countdown.ts` cuts them on player 1's screen off the world's beat, `countdownBeats` slots from twelve o'clock, one fewer each beat, and lights the rim while none are left; player 2 is drawn this disc bare. The card keeps the marching teeth because that is the idea it was drawn to say. The motion went too: a body whose rim is being counted must not twitch under the reading, so it ships on HOLD, the throb's stillness",
   },
   {
     subject: crystal(

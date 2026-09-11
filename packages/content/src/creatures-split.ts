@@ -7,13 +7,13 @@ import type { CreatureDef } from "./creatures.js";
  * to `never` and the key becomes a build error, so this list cannot fall
  * behind a rename in `creature-kinds.ts`.
  */
-type SplitKind = Extract<CreatureKind, "dart" | "wisp" | "ghost">;
+type SplitKind = Extract<CreatureKind, "dart" | "wisp" | "ghost" | "countdown">;
 
 /**
- * The three bodies **one seat cannot see whole**, and that wear nothing to do
+ * The four bodies **one seat cannot see whole**, and that wear nothing to do
  * it: a dart whose next diagonal is drawn on one screen only, a wisp that
  * stands on a tile only one of them is shown, a ghost the pilot never sees at
- * all. What splits them is where the information is, not what is laid over
+ * all, a count only the pilot can read. What splits them is where the information is, not what is laid over
  * them — so `living-look.ts` answers for them the way it answers for a slick,
  * and there is no `wornKind` to resolve.
  *
@@ -104,4 +104,22 @@ export const SPLIT_CREATURES: Record<SplitKind, CreatureDef> = {
   // THE ECHO, and the fifth worn body: a small slick or bulb that divides.
   // Next door with the other four for the reason they are all there — it is
   // drawn as the body its colour names and `wornKind` is what resolves it.
+  countdown: {
+    kind: "countdown",
+    // The cannon alone: it is answered by a shot like a slick, and everything
+    // that makes it hard is *which beat* the shot has to land on.
+    controls: ["aim"],
+    // The throb's arrangement: none of its own, one authored per arrival. The
+    // colour is the navigator's half of the sentence and the count is the
+    // pilot's, and a body that carried one fixed colour would leave the
+    // navigator with nothing to be told but "now".
+    color: null,
+    authorsColor: true,
+    // Player 2's strip, like every other aim target: the seat that fires is
+    // the seat warned that something is coming. What that seat is *not*
+    // shown is the count, and the strip says nothing about it.
+    radar: "p2",
+    blurb:
+      "A round body with marks cut into its rim, one fewer each beat. A shot only reaches it while no marks are left; a shot on any other beat costs the hull, and the body stays. Only the pilot is drawn the marks — the navigator, who fires, sees a blank rim — so the count has to be said out loud, the way a column is.",
+  },
 };

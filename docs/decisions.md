@@ -819,3 +819,34 @@ for the Whisperer and the Beat-breaker keep their names as history.
 
 **Reconsider if:** one of the eight comes back as a wave with a sentence — it
 returns through `ideas.md`, not by restoring the row.
+
+## 29. THE COUNT is open for two beats, and makes no sound
+
+**Decision:** the countdown creature (`docs/spec/ideas.md`, taken 11
+September 2026) ships as THE COUNT in act 3, after THE THROB. Its count runs
+`countdownBeats` (four) down to nought and the body then stays open for
+`countdownOpenBeats` (two) before the count starts again; a shot off zero
+costs the hull `damageCountdown` — the lure's figure — and does not reset the
+count; the phase is rolled per body from the world's stream; and the spare
+cue `creature.countdown` stays spare.
+
+**Why two beats:** a bolt climbs `bulletTilesPerBeat` tiles a beat and is
+judged on the beat it *arrives*, and the navigator fires on a word that took a
+moment to say. With one open beat, "fire on zero" lands late for a body in the
+top half of the field and "fire on one" lands early for one in the bottom
+half, so the instruction the wave teaches would be true on half the field.
+Two beats make "fire on the word zero" true everywhere on it. The owner's
+answers fixed the price (the hull, like the lure) and the restart (the count
+runs again after an unhit zero); the window's length is a number, and numbers
+are the lane's.
+
+**Why no sound:** the two of them sit side by side. A pip per mark on player
+1's device is a count player 2 hears, and the split — the pilot counts, the
+navigator fires — would be derivable from the speaker (`docs/decisions.md`
+#15's rule for THE LURE's alarm, the other way round). The reject spark, the
+hull breaking and the destroy burst are what the ear gets, and all three come
+after the shot.
+
+**Reconsider if:** a pair at tempo reads the two open beats as a body that is
+simply slow rather than as a window — then `countdownOpenBeats` comes down and
+the guide's sentence changes with it.

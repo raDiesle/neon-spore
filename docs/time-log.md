@@ -22,6 +22,26 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — THE COUNT
+
+The Countdown creature out of `ideas.md` and into act 3 as THE COUNT: a disc
+whose count only the pilot is drawn, open for two beats at nought, a shot off
+zero costing the hull. `sim/countdown.ts`, the render's marks, the wave and
+its guide, the six tables, the director's brush and ship groups, a decision,
+and sixteen tests that counted things moved by one. About 55 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the ideas entry, the lure's price and the throb's colour arrangement, `bullet-hit.ts`, `spawn.ts`, the split family in `creatures-split.ts`, the COUNTDOWN draft, `nameability.ts` |
+| writing | 25 | `countdown.ts` in sim and render, the silhouette, the wave, the tables, the test, `decisions.md` #29, the bestiary row, fifteen knock-on tests |
+| looking | 5 | two close-ups and a seven-beat strip of the pilot's screen, one close-up of the navigator's |
+| friction | 10 | a one-lobe disc has no lobe count under the nameability gate (fixed with seven shallow lobes); the draft's card name collided with the new living card; five files at 251–254 lines trimmed back to 250 |
+| landing | 5 | `check:fast`, the commit, `land --keep` |
+
+Bottleneck: **writing** — a new kind is a name in six tables and a number in
+sixteen tests, and every one of those tests wanted a sentence saying why it
+moved.
+
 ## 2026-09-11 · hit-looks — Ten creature ideas leave the bestiary
 
 The owner retired the Choke, the Glyph and the nine idea rows of bestiary 10.2

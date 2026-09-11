@@ -134,7 +134,7 @@ export const CREATURE_STORE_SOUNDS: SoundDef[] = [
     family: "creature",
     blurb: "Three pips falling in pitch, and a fourth that is a hole where a pip was.",
     status: "spare",
-    use: "The countdown creature (ideas.md) — only hittable at zero.",
+    use: "Written for THE COUNT and deliberately not bound to it: the count is the pilot's alone, and a pip both phones make is the count through the speaker of the phone in the other hand.",
     level: 0.3,
     layers: [
       glint(6600, 0.07, 0.45),

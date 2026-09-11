@@ -16,9 +16,10 @@ describe("brushTooltip", () => {
     // inserted into act one when the standard panel became a ladder — and the
     // *names* move when the owner renames a wave in the director, which is how
     // wave 22 stopped being ON THE BEAT. CATCH AND AIM went in ahead of FINALE
-    // when THE LOCK arrived and pushed both on by one again.
+    // when THE LOCK arrived and pushed both on by one again. THE COUNT went in
+    // between these two on 11 September 2026 and moved the shell alone.
     expect(brushTooltip("throb")).toBe("First in WAVE 24 · THE THROB");
-    expect(brushTooltip("shell")).toBe("First in WAVE 25 · THE SHELL");
+    expect(brushTooltip("shell")).toBe("First in WAVE 26 · THE SHELL");
   });
 
   test("says nothing for ERASE, which paints nothing", () => {

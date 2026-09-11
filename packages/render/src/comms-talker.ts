@@ -62,6 +62,9 @@ export const TALKER = {
   slick: null,
   bulb: null,
   throb: null,
+  // The pilot: the marks are on player 1's screen and the trigger is in
+  // player 2's hand, and nothing on the navigator's screen says which beat.
+  countdown: "p1",
   // THE ECHO carries nothing hidden either — both screens draw all four bodies
   // whole. What the pair has to say about one is an order rather than a
   // secret, and a siren over a body neither of them is missing anything about

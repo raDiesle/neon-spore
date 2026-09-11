@@ -45,6 +45,24 @@ export interface CreatureConfig {
   /** Thousandths of every turn the authored colour is square to the cannon.
    * The rest is the other colour's half, a body too (`throbColorAt`). */
   throbFaceMilli: number;
+  /** Marks on THE COUNT's rim when the count starts; one goes each beat, and
+   * when none are left the body is open (`countdownMarks`, countdown.ts).
+   * Four: with the two open beats below that is a zero every six, which at
+   * 96 BPM is under four seconds — one call and one answer between windows,
+   * and a body that falls `rows` beats shows two or three of them. */
+  countdownBeats: number;
+  /**
+   * Beats the body stays open once the marks are gone, before the count
+   * starts again. **Two, and not one, because of what a shot is.** A bolt
+   * climbs `bulletTilesPerBeat` tiles a beat and is judged on the beat it
+   * *arrives*, and the navigator fires on a word that took the pilot a
+   * moment to say: fired on "zero" at the top of a beat, a shot at a body
+   * ten rows up lands the better part of a beat later. One open beat would
+   * make "fire on zero" the wrong instruction for the top half of the field
+   * and "fire on one" the wrong one for the bottom half; two makes "fire on
+   * zero" true everywhere on it, which is the sentence the wave teaches.
+   */
+  countdownOpenBeats: number;
   /**
    * Beats the broken shield goes on flying apart for. Render-only — the sim
    * opens a clasp on the instant of the trigger — but a `SimConfig` field
@@ -183,6 +201,8 @@ export const CREATURE_DEFAULTS: CreatureConfig = {
   lureBlastPlaces: 3,
   throbSpinBeats: 3,
   throbFaceMilli: 500,
+  countdownBeats: 4,
+  countdownOpenBeats: 2,
   claspBreakBeats: 2,
   veilMorphBeats: 5,
   veilArmourMs: 2000,

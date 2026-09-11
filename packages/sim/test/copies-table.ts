@@ -458,6 +458,17 @@ export const COPIES: Copy[] = [
     strip: true,
   },
   {
+    // How many marks THE COUNT shows — which is the same question as whether
+    // a shot is let in, since the beat with none is the open one. The marks
+    // are drawn on one screen and judged on both devices, so a picture with
+    // its own modulo over `countPhase` is a rim that says zero on a beat the
+    // shot breaks the hull.
+    call: "countdownMarks",
+    owner: "packages/sim/src/countdown.ts",
+    pattern: /\bcountPhase\b[^;\n]*%/,
+    strip: true,
+  },
+  {
     // The one repeatable 0..1 in render/. Seven files carried this arithmetic
     // privately, under seven doc comments each re-arguing why it is not `Rng`
     // and not `Math.random`. Two magic numbers written out again is a marking

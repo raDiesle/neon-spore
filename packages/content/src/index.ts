@@ -98,8 +98,7 @@ export {
 } from "./keys-desk.js";
 export { LID, type LidSilhouette, lidOutline, lidPath } from "./lid-shape.js";
 export { KEY, LIGHT_HALF, type LightHalf } from "./light.js";
-// Which kinds are bodies, and what each one looks like — the contour and the
-// own-motion out of one row per kind, so the two cannot drift apart.
+// Which kinds are bodies and what each looks like: contour and own-motion, one row.
 export { hasOwnBody, livingBodyKinds, livingSilhouette } from "./living-look.js";
 export { type LongAxis, longAxis, poseOn } from "./long-axis.js";
 export { MAGNET_SHAPE, type MagnetShape, magnetOutline } from "./magnet-shape.js";
@@ -191,6 +190,7 @@ export {
   beatboxArms,
   CANNON_LOBE,
   CHOIR,
+  COUNTDOWN,
   type CreatureSilhouette,
   type CrystalSilhouette,
   HULL,

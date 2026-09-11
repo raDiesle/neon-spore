@@ -96,8 +96,10 @@ describe("drawn size against the 20-26 px floor", () => {
     //
     // Two more on 11 September 2026: GUM, the sac THE WEIGHT's draft is drawn
     // from, and CHOKE, TENDRIL's, both bodies the field sends now
-    // (`content/silhouettes-gum.ts`, `content/silhouettes-choke.ts`).
-    expect(SQUARE.length).toBe(101);
+    // (`content/silhouettes-gum.ts`, `content/silhouettes-choke.ts`). And a
+    // third the same day: COUNTDOWN, THE COUNT's disc, 42 × 42 on HOLD
+    // (`content/silhouettes-countdown.ts`).
+    expect(SQUARE.length).toBe(102);
   });
 
   it("clears the floor for every square card at the 92 px frame it actually gets", () => {
@@ -156,7 +158,11 @@ describe("drawn size against the 20-26 px floor", () => {
     // drafts wearing the slick's own BANK, and the union over a drift-and-lean
     // fits each smaller than the still candidate was — 16 and 17 px at the
     // halved width, where the shipped slick is a wide card and not in this set.
-    expect(under26).toBe(61);
+    //
+    // One more under 26 on 11 September 2026: COUNTDOWN, a 42 px disc that
+    // holds still, so its union is its own outline and nothing more — the
+    // marks the pilot counts are cut by the renderer and are not in it.
+    expect(under26).toBe(62);
     expect(under20).toBe(23);
   });
 

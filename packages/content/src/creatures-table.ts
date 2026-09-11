@@ -70,11 +70,9 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
   },
   shell: WORN_CREATURES.shell,
   clasp: WORN_CREATURES.clasp,
-  // THE DART, and the first of the three bodies one seat cannot see whole that
+  // THE DART, and the first of the four bodies one seat cannot see whole that
   // wear nothing to do it: next door in `creatures-split.ts`, named one by one
-  // rather than spread so this table still reads in the order the bestiary has
-  // always had it. See that file for why the family is where the information
-  // sits rather than what is laid over the body.
+  // rather than spread so this table still reads in the bestiary's order.
   dart: SPLIT_CREATURES.dart,
   veil: WORN_CREATURES.veil,
   // The second, and the sharpest split in the game: the seat that is shown one
@@ -86,6 +84,8 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
   // The third, and the only body one of the two never sees at all. Next door
   // in `creatures-split.ts`, with the dart and the wisp.
   ghost: SPLIT_CREATURES.ghost,
+  // The fourth: the count on the pilot's screen, the trigger in the other hand.
+  countdown: SPLIT_CREATURES.countdown,
   echo: BARE_CREATURES.echo,
   // THE RIND, and the sixth: an outsized slick or bulb that is cut back to one
   // by the shots it takes. Next door for the same reason as the other five —

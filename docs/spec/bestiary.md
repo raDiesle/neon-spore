@@ -63,7 +63,7 @@ table in a document cannot be wrong in a way a compiler notices.
 
 | Category | Answered by | Members today |
 |---|---|---|
-| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand`, `magnet`, `choir`, `gum`, `choke` |
+| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand`, `magnet`, `choir`, `gum`, `choke`, `countdown` |
 | `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch`, `veer`, `coil` |
 | `mixed` | `aim` and `guard` | `queen`, `warden`, `clasp`, `carom`, `volley`, `crawler`, `fence`, `crystal` |
 | `special` | neither | `tether`, `mount`, `chute`, `beatbox`, `balloon` |
@@ -139,9 +139,10 @@ directly, `"suck"`, after what taking one in is called throughout the sim
 | **Throb** | six clubs on a small core, red down one side and cyan down the other, turning clockwise | colour *and* timing in one call |
 | **Lure** | a slick or a bulb that only the navigator can see through | do *not* hit it (costs the hull) |
 | **Choke** | TENDRIL's sac in the palette's bile yellow, tall and boneless, falling straight down one lane with two hooks under it; wound round the cannon's swelling once it has landed, and round player 1's strip node | it cannot be shot and the shield does not stop it; it lands, takes the cannon, and the cannon strip goes dead while the cannon walks wall to wall a column a beat. Player 2 keeps firing from wherever it is. Player 1 taps the dead strip, a lift between each — how many loops are still tight is the count, on both screens — `chokeTaps` times, and it lets go |
+| **Countdown** | the COUNTDOWN draft's disc — as near a plain circle as the roster has — with marks cut into its rim on the pilot's screen only, one fewer each beat, and the rim lit while none are left; a bare disc on the navigator's | hit only while the count is at zero, in its colour; a shot on any other beat costs the hull like a lure's and the body stays. The pilot counts down out loud, the navigator fires on the word — THE COUNT (act 3) teaches it |
 | **Pod** | capsule with a blinking core | power-up |
 
-Built: slick, bulb, meteor, lure, throb, dart, veil, strand, torch, crystal, gum, choke.
+Built: slick, bulb, meteor, lure, throb, dart, veil, strand, torch, crystal, gum, choke, countdown.
 
 The thirteenth was **Glyph** — a pattern across its skin, looked up in a
 table — and it left this list on 11 September 2026: THE MIRROR's Simon Says is
@@ -508,7 +509,7 @@ repeats an *action* with a delay is a third thing again, and it is called
 
 ## 10.4 The ceiling
 
-`CREATURE_KINDS` holds forty names today, and the design's own guess was
+`CREATURE_KINDS` holds forty-one names today, and the design's own guess was
 twenty. At 20–26 px object size and within the style frame from
 [graphics](graphics.md), twenty was thought the limit for unambiguously
 distinguishable silhouettes — and it is capped anyway by "new creatures only

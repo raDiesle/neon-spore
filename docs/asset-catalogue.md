@@ -1,6 +1,6 @@
 # The asset catalogue
 
-> **Status: thirty-six drafts, and two claimed so far.** A draft is a picture
+> **Status: thirty-five drafts, and three claimed so far.** A draft is a picture
 > offered to an idea, not a decision about it. Nothing on this page is in the
 > game until it is claimed — its parameters moving into `packages/content`, or
 > into `packages/render` where what was drawn is a mechanism rather than a
@@ -249,9 +249,11 @@ Said plainly, because a catalogue that oversells itself is worse than none.
   if one of them stops. What that does **not** say is whether the parting reads
   at creature size on a phone — five bodies at a fifth of a tile each may be a
   spread, or may be a smear. That is an eye's question and it is open.
-- **The glyph rim is a notch pattern, not glyphs.** COUNTDOWN and THE CODEX
-  scroll a wave around their outline. Whether a *count* or a *key* can be read
-  off it is unanswered, and it is the question both of those ideas turn on.
+- **The glyph rim is a notch pattern, not glyphs.** COUNTDOWN · MARKS and THE
+  CODEX scroll a wave around their outline. Whether a *key* can be read off it
+  is unanswered; the *count* was answered another way when THE COUNT was built
+  (11 September 2026): the marks are cut by the renderer on one screen off the
+  world's beat, and the disc under them is the silhouette.
 - **The arms are single strokes.** THE CONDUCTOR, THE NEEDLE and LIGHT TRACE
   have no thickness of their own. A real one is a stroke width and a taper.
   THE VANE now carries a drawn bearing at its pivot, which is the part of it

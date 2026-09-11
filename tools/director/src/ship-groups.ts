@@ -40,6 +40,7 @@ export type GroupName =
   | "PINBALL — a table the ship's cannon fires up into"
   | "THE PULSE — the same song on two screens"
   | "THROB — red one side, cyan the other, turning"
+  | "THE COUNT — open on zero, and only the pilot can count"
   | "THE LURE — a body only one of you can see through"
   | "THE VEIL — a cloud only one of you can see into"
   | "THE WISP — a body only one of you can see at all"
@@ -90,6 +91,7 @@ export const GROUP_ORDER: GroupName[] = [
   "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
   "THROB — red one side, cyan the other, turning",
+  "THE COUNT — open on zero, and only the pilot can count",
   "THE LURE — a body only one of you can see through",
   "THE VEIL — a cloud only one of you can see into",
   "THE WISP — a body only one of you can see at all",

@@ -60,18 +60,6 @@ filed rightly, and there is no second list to change.
   of a wave is free; how the pending state is drawn, since the draft has no
   marker for it and a hit that visibly does nothing reads as a miss; whether the
   wasted second shot costs score or only time
-- **Countdown creature** — can only be hit at zero, and only one player can
-  read the count. The marks are cut into the rim, one fewer each pass, and they
-  are legible on the pilot's screen while the navigator sees a blank rim — so
-  the sentence the pair already says for warding, "column four, I trigger on the
-  three", comes out of the other mouth and aims the cannon instead of the
-  shield. It hangs off the beat, which [systems](systems.md) 5.3 already says
-  countdown creatures do. Unworked out: what a hit off zero does, where nothing
-  is safe and dull and a reset is a punish that can push a creature past row 14
-  and strand a wave; whether the count runs in beats or in passes; whether a
-  wave holding one has to be authored so a zero always falls above the hull,
-  which would be the first thing `packages/content` checks rather than the
-  author remembering
 - **Moulting** — it changes which control answers it, halfway down. It falls
   armoured and faceted and shots only crater it, exactly as the meteor already
   does (`holes`, [systems](systems.md) 5.6); on a fixed beat the shell comes off

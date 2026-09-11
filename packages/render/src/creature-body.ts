@@ -12,6 +12,7 @@ import { drawBeatboxAir } from "./beatbox-air.js";
 import { beatboxWash } from "./beatbox-wash.js";
 import { drawChoir } from "./choir.js";
 import { drawChokeBody } from "./choke.js";
+import { drawCountMarks } from "./countdown.js";
 import type { Body } from "./creature-body-in.js";
 import { drawMagnetBody, drawStrandBody } from "./creature-body-worn.js";
 import { livingBodyMul } from "./creature-place.js";
@@ -188,11 +189,9 @@ export function drawLivingBody(b: Body, swell = 1, shape?: CreatureSilhouette, w
 /** The kinds whose body is not the ordinary blob and not a rock. */
 const EXCLUSIVE: ReadonlyMap<CreatureKind, BodyDraw> = new Map<CreatureKind, BodyDraw>([
   ["torch", drawTorchBody],
-  // THE COIL is a rock and is **not** an `isMeteorKind` — the shield strips its
-  // dome rather than turning it away, so it is not in that list and would fall
-  // through to `drawLiving`, which would ask a body with no contour for one
-  // and throw. A row here rather than a name in `kinds.ts`: what it looks like
-  // and what answers it are two questions, and this file is the first.
+  // THE COIL is a rock and **not** an `isMeteorKind` — the shield strips its
+  // dome rather than turning it away — so without a row it would fall through
+  // to `drawLiving` and ask a body with no contour for one.
   ["coil", drawMeteorBody],
   ["ghost", drawGhostBody],
   ["wisp", drawWispBody],
@@ -213,10 +212,8 @@ const EXCLUSIVE: ReadonlyMap<CreatureKind, BodyDraw> = new Map<CreatureKind, Bod
   // A skin two hands change the shape of, which is why `living-look.ts`
   // answers `null` for it and `drawLiving` cannot have it (`balloon.ts`).
   ["balloon", drawBalloon],
-  // A slick or a bulb on a wheel's rim, drawn by `drawLivingBody` as it always
-  // was — with one door left open: the contour it is drawn with is
-  // `MOUNT_LOOK.shape`'s answer, `undefined` as it ships, so a second answer
-  // to what a mount looks like has somewhere to sit (`mount-look.ts`).
+  // A slick or a bulb on a wheel's rim, by `drawLivingBody` — with the contour
+  // left to `MOUNT_LOOK.shape`, `undefined` as it ships (`mount-look.ts`).
   ["mount", (b) => drawLivingBody(b, 1, MOUNT_LOOK.shape(b))],
   // Two bodies in one shell: a slick and a bulb by `drawLiving`, each in its
   // own tile, and the shell and the join drawn over them (`crystal.ts`).
@@ -227,6 +224,15 @@ const EXCLUSIVE: ReadonlyMap<CreatureKind, BodyDraw> = new Map<CreatureKind, Bod
   // And THE CHOKE, the same arrangement: the strand in the air here, the
   // loops on the cannon over the ship by `drawStuckChokes` (`choke.ts`).
   ["choke", drawChokeBody],
+  // THE COUNT: the ordinary body, and on the pilot's screen only, the marks
+  // cut into its rim over the top (`countdown.ts`).
+  [
+    "countdown",
+    (b) => {
+      drawLivingBody(b);
+      drawCountMarks(b);
+    },
+  ],
 ]);
 
 /**

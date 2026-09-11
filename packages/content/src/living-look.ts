@@ -4,6 +4,7 @@ import { FLICKER, HOLD, POISE, RUMBLE } from "./motions.js";
 import { BLOOM } from "./motions-event.js";
 import type { OwnMotion } from "./own-motion.js";
 import { BEATBOX, BULB, type CreatureSilhouette, DART, SLICK, THROB, WISP } from "./silhouettes.js";
+import { COUNTDOWN } from "./silhouettes-countdown.js";
 
 /**
  * Which kinds are drawn as a body of their own, and what that body looks like
@@ -51,6 +52,10 @@ const LIVING_LOOK = {
   // because four shallow lobes on a nearly square body is exactly what a
   // radial contour describes well.
   beatbox: { shape: BEATBOX, motion: RUMBLE },
+  // THE COUNT: the COUNTDOWN draft's disc, bare — the marks are the pilot's
+  // and `render/countdown.ts` cuts them. HOLD for the throb's reason: a body
+  // whose rim is being read must not turn or swell under the reading.
+  countdown: { shape: COUNTDOWN, motion: HOLD },
   // Drawn as the body underneath — resolve with `wornKind` before asking.
   lure: null,
   clasp: null,
@@ -79,11 +84,9 @@ const LIVING_LOOK = {
   // further down and no contour either. So this row describes the creature
   // only while it is alive, which is exactly as long as it is a creature.
   carom: null,
-  // THE CHUTE is the ninth, and the echo's case again: the same slick or bulb,
-  // at the same size, with a canopy drawn above it rather than anything laid
-  // over it (`render/chute.ts`). A contour of its own would be a second shape
-  // for a body the pair already has a word for — and the word is the whole
-  // point, because this *is* the body they were looking at inside the rock.
+  // THE CHUTE is the ninth, and the echo's case again: the same slick or bulb
+  // with a canopy drawn above it (`render/chute.ts`) — this *is* the body they
+  // were looking at inside the rock, and the word is the whole point.
   chute: null,
   // THE VOLLEY is the tenth, and the carom's row with the sign turned over: it
   // is a slick or a bulb with a rock shell over it, and the *ward* that opens
@@ -97,19 +100,16 @@ const LIVING_LOOK = {
   crystal: null,
   // THE STRAND is the eleventh, and the one whose answer depends on which
   // screen is asking. On the pilot's it is a slick or a bulb with nothing laid
-  // over it — `wornKind` resolves one, so a row here would be a second shape
-  // for a body the pair already has a word for. On the navigator's it is not
-  // drawn as a body at all: a sealed bead, with no colour anywhere on it, by
-  // a path of its own in `render/strand.ts`. Neither half is a contour this
-  // table could hold.
+  // over it — `wornKind` resolves one. On the navigator's it is not drawn as
+  // a body at all: a sealed bead with no colour on it, by a path of its own
+  // in `render/strand.ts`. Neither half is a contour this table could hold.
   strand: null,
   // A body of its own, and not a blob — so `livingSilhouette` has nothing to
   // return for it and `drawLiving` never sees one. THE GHOST's outline is a
   // dome over a hanging hem (`ghost-shape.ts`), which no radial contour can
   // describe, so it is drawn by `render/ghost.ts` the way a rock is drawn by
   // `meteor.ts` — routed away in `drawCreatures` before the living pass. Its
-  // own-motion is there too, for the same reason: a `Pose` is applied to a
-  // body `drawLiving` is drawing, and nothing here is.
+  // own-motion is there too: a `Pose` is applied to a body `drawLiving` draws.
   ghost: null,
   // The six on THE GYRE's rim are the sixth worn body: a slick or a bulb with
   // a wheel under it, so `wornKind` resolves one and a row here would be a

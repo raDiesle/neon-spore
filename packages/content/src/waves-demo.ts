@@ -84,6 +84,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   strand: { wave: "theStrand" },
   crawler: { wave: "theCrawler" },
   throb: { wave: "theThrob" },
+  countdown: { wave: "theCount" },
   shell: { wave: "theThirdShot" },
   meteor: { wave: "theRock" },
   meteorMedium: { wave: "theWard" },

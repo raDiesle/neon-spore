@@ -154,6 +154,7 @@ export const SHORT_NOTE: Partial<Record<CreatureKind, string>> = {
   strand: "beads on a thread; only p2 sees which end is next",
   crawler: "walks the ship; shoot the colours, ward the plates",
   throb: "red one side, cyan the other, turning as it falls",
+  countdown: "only p1 sees the count; fire on zero, not on sight",
   shell: "shoot the armour away first",
   clasp: "ward it, then shoot",
   choir: "shake the phone or swipe both arrows out, then shoot",
