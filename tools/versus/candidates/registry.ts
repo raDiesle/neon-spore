@@ -16,12 +16,6 @@ import { TETHER_TWIST } from "./creature-tether/twist/index.js";
 import { THROB_CAP } from "./creature-throb/cap/index.js";
 import { THROB_GIRDLE } from "./creature-throb/girdle/index.js";
 import { THROB_PORES } from "./creature-throb/pores/index.js";
-import { SHIP_CHITIN } from "./ship-body/chitin/index.js";
-import { SHIP_GLAND } from "./ship-body/gland/index.js";
-import { SHIP_GULLET } from "./ship-body/gullet/index.js";
-import { SHIP_HEART } from "./ship-body/heart/index.js";
-import { SHIP_LYMPH } from "./ship-body/lymph/index.js";
-import { SHIP_REEF } from "./ship-body/reef/index.js";
 
 export const VARIANTS: Variant[] = [
   METEOR_BLAZE,
@@ -34,10 +28,4 @@ export const VARIANTS: Variant[] = [
   THROB_CAP,
   THROB_GIRDLE,
   THROB_PORES,
-  SHIP_CHITIN,
-  SHIP_GLAND,
-  SHIP_GULLET,
-  SHIP_HEART,
-  SHIP_LYMPH,
-  SHIP_REEF,
 ];

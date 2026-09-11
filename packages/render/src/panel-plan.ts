@@ -51,22 +51,24 @@ export interface PanelPlan {
   readonly test: readonly [p1: LobeSpread, p2: LobeSpread];
 }
 
-/** The shipped arrangement: two rails across the width, a row of buttons
- * under them, each seat's row centred in its share. */
+/** The shipped arrangement, GLAND's since 11 September 2026: the buttons out
+ * at the thumbs and the rail a little lower than before, so the spine runs
+ * through the body's middle. Before it the rows were `0.28`/`0.72` solo and
+ * each seat's row was centred with a pitch of `0.28`–`0.32`. */
 export const PANEL_PLAN: PanelPlan = {
-  cannonRow: [0.28, 0.2],
-  shieldRow: [0.28, 0.48],
-  lobeRow: [0.72, 0.8],
+  cannonRow: [0.3, 0.22],
+  shieldRow: [0.3, 0.5],
+  lobeRow: [0.74, 0.8],
   lobeR: [0.19, 0.14],
   lobeRCap: [0.068, 0.056],
   stripH: 0.24,
   stripHCap: 32,
   solo: [
-    { centre: 0.5, maxPitch: 0.28, share: 1 },
-    { centre: 0.5, maxPitch: 0.32, share: 1 },
+    { centre: 0.5, maxPitch: 0.58, share: 1 },
+    { centre: 0.5, maxPitch: 0.58, share: 1 },
   ],
   test: [
-    { centre: 0.23, maxPitch: 0.15, share: 0.46 },
-    { centre: 0.72, maxPitch: 0.24, share: 0.46 },
+    { centre: 0.24, maxPitch: 0.26, share: 0.48 },
+    { centre: 0.74, maxPitch: 0.26, share: 0.48 },
   ],
 };

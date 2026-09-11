@@ -167,16 +167,34 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
   `tools/versus/candidates/`
 
 The control band is the half of the screen a player's thumb lives on, and it
-has never been offered an alternative of its own. **Wait until `ship:body` is
-decided** — `bun run versus` no longer lists it — and then open
-`panel:band-skin` on whatever panel ships at that point, with three candidates
-on the lobe, the socket and the slime. The owner answered on 10 September
-2026 that the band gets its own slot *whichever* ship wins: a ship's panel is
-the ground the band stands on, not the last word on the band.
+has never been offered an alternative of its own. `ship:body` is decided —
+the owner took GLAND on 11 September 2026, and the panel is its wet chamber,
+spine and organ buttons (`ship-gland.ts`) — so open `panel:band-skin` on that
+panel, with three candidates on the organ, its bed and the slime. The owner
+answered on 10 September 2026 that the band gets its own slot *whichever*
+ship wins: a ship's panel is the ground the band stands on, not the last word
+on the band.
 
-Why it waits: `ship:body`'s six ships each redraw the whole panel, and to do
-it they claim `LOBE_LOOK` (gloss, socket), `STRIP_LOOK`, `BAND_GROUND`,
-`PANEL_PLAN`, `BAND_JOIN` and `SHIP_NERVES` — every field this slot would
-patch — and `bun test` refuses two open slots on one field. Any new furniture
-keeps the grown contour, the wet socket and the gloss: a flat plate with a
+It waited until the ship was decided because its six candidates each redrew
+the whole panel and claimed `LOBE_LOOK` (gloss, socket), `STRIP_LOOK`,
+`BAND_GROUND`, `PANEL_PLAN`, `BAND_JOIN` and `SHIP_NERVES` — every field this
+slot would patch — and `bun test` refuses two open slots on one field. Any new
+furniture keeps the grown contour and the wet highlight: a flat plate with a
 stroke around it is the one thing the panel look is not.
+
+## GLAND's spine and organs build their paths every frame
+
+- **Found:** 2026-09-11, hit-looks
+- **Files:** `packages/render/src/gland-fluid.ts`, `packages/render/src/gland-organ.ts`,
+  `packages/render/src/gland-wet.ts`, `packages/render/test/frame-budget.test.ts`
+
+When GLAND came out of `ship:body` the budget rows moved by twenty `new Path2D`
+a frame on the second frame as well as the first — the frame that is meant to
+be all cache hits. The spine's cord and node (`spine`), each organ's swelling
+and its veins (`organBed`) and the hull's ribs (`wetHull`, `wetChamber`) are
+built from the layout and the seat every frame, the way a candidate draws;
+the shipped trough held its channel in a `gradientSlot` and rebuilt it only
+when the layout moved. Hold each of those paths the same way — keyed on the
+layout and, for the ribs, the wobble's quantised phase — and remeasure the
+four budget files (`MEASURE`) so the second-frame rows fall back. Not a look:
+nothing in the picture changes.

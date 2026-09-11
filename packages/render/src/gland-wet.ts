@@ -1,13 +1,13 @@
-import { openSmoothPath, type Point } from "../../packages/content/src/index.js";
-import { hash01 } from "../../packages/render/src/backdrop.js";
-import type { BandAttach } from "../../packages/render/src/band-join.js";
-import { rgba } from "../../packages/render/src/hex.js";
-import type { HullSkin } from "../../packages/render/src/hull.js";
-import type { SheenPass } from "../../packages/render/src/hull-sheen.js";
-import type { Layout } from "../../packages/render/src/layout.js";
-import { sweep } from "../../packages/render/src/sheen.js";
-import { sameLight } from "./join.js";
-import { tube } from "./tube.js";
+import { openSmoothPath, type Point } from "@neon-spore/content";
+import { hash01 } from "./backdrop.js";
+import type { BandAttach } from "./band-join.js";
+import { sameLight } from "./gland-join.js";
+import { tube } from "./gland-tube.js";
+import { rgba } from "./hex.js";
+import type { HullSkin } from "./hull.js";
+import type { SheenPass } from "./hull-sheen.js";
+import type { Layout } from "./layout.js";
+import { sweep } from "./sheen.js";
 
 /**
  * WET SKIN — the ship as a clear, light-reflecting surface, with **no grain**.

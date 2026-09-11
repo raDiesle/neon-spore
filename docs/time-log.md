@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — GLAND is the ship
+
+The owner picked GLAND out of ship:body; adopt refused the function fields so the six shared tool modules moved into packages/render by hand, the seven records point at them, the displaced looks are deleted, five budget tables and the baked-entry count were remeasured, and the slot closed.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | reading |
+| writing | 25 | writing |
+| looking | 5 | looking |
+| friction | 15 | friction |
+| landing | 10 | landing |
+
+Bottleneck: Closing the slot by hand: drop needs the candidates and their shared modules present to list them, so the moved files had to be restored, dropped, and removed again.
+
 ## 2026-09-11 · hit-looks — The lane question is retired
 
 The owner said a landed lane must no longer ask whether to push, sweep or deploy; the rule, the hook message, its test, the reasoning doc and the lane skill now say: land with --keep, report, stop.

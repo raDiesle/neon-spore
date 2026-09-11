@@ -1,7 +1,7 @@
-import { hash01 } from "./backdrop.js";
-import { rgba } from "./hex.js";
+import { saggingRoof } from "./gland-join.js";
 import type { Circle, Layout } from "./layout.js";
 import type { SeatSkin } from "./seat-skin.js";
+import { chamber } from "./ship-gland.js";
 
 /**
  * THE ONE RECORD A CANDIDATE SHIP-AND-PANEL JOIN PATCHES.
@@ -66,62 +66,9 @@ export interface BandJoin {
   attach(d: BandAttach): void;
 }
 
-/**
- * The shipped roof: a slow contour with three periods and a drift on each, so
- * nothing in it repeats over a screen's width and it never reads as a wave
- * pattern. It knows nothing about where the controls are.
- */
-export const wobbleCeiling: CeilingRise = (l, x, time) => {
-  const u = x / Math.max(1, l.width);
-  const swell =
-    Math.sin(u * 4.3 + time * 0.19) * 0.5 +
-    Math.sin(u * 9.7 - time * 0.31) * 0.28 +
-    Math.sin(u * 19.3 + 2.1 + time * 0.13) * 0.14 +
-    Math.sin(u * 1.7 + 1.1 - time * 0.09) * 0.36;
-  return Math.max(0, Math.min(1, 0.5 + swell / 2.2));
-};
-
-/**
- * The shipped attachment: a feeder running out of the membrane down to each
- * control.
- *
- * This is the sentence the owner asked for — *like it is part of the ship* —
- * said in one line rather than in texture: nothing on this panel is placed on
- * it, everything on it is fed from the hull above.
- *
- * All of them in one path and one stroke, the same bargain the slime makes:
- * five tendrils drawn one at a time would be five paths and ten strokes of a
- * frame's budget for a thing nobody looks straight at.
- */
-export function drawFeeders(d: BandAttach): void {
-  const { ctx, l, lobes, time, skin } = d;
-  if (lobes.length === 0) return;
-  const path = new Path2D();
-  for (const [i, c] of lobes.entries()) {
-    const y = c.y - c.r * 1.1;
-    const top = d.ceilingY(c.x);
-    // A lazy S rather than a straight drop, and each one leans its own way.
-    const lean = (hash01(i * 149 + 31) - 0.5) * l.width * 0.24;
-    const drift = Math.sin(time * 0.3 + i * 1.7) * l.tile * 0.12;
-    path.moveTo(c.x + drift * 0.3, top);
-    path.bezierCurveTo(
-      c.x + lean + drift,
-      top + (y - top) * 0.38,
-      c.x - lean + drift,
-      top + (y - top) * 0.72,
-      c.x,
-      y,
-    );
-  }
-  ctx.lineCap = "round";
-  ctx.strokeStyle = rgba(skin.flesh[1], 0.2);
-  ctx.lineWidth = Math.max(1.4, l.tile * 0.08);
-  ctx.stroke(path);
-  ctx.strokeStyle = rgba(skin.rim, 0.14);
-  ctx.lineWidth = Math.max(0.6, l.tile * 0.026);
-  ctx.stroke(path);
-}
-
-/** The shipped join: a roof that knows nothing about the buttons under it, and
- * a thin tendril from it down to each one. */
-export const BAND_JOIN: BandJoin = { ceiling: wobbleCeiling, attach: drawFeeders };
+/** The shipped join, GLAND's since 11 September 2026: the hull's own ripple
+ * as the roof, hanging lower over every control (`gland-join.ts`), and a wet
+ * chamber under it with the hull's ribs hanging on through it as ribbons
+ * (`gland-wet.ts`, tuned in `ship-gland.ts`). It replaced a roof that knew
+ * nothing about the buttons and a thin tendril from it down to each one. */
+export const BAND_JOIN: BandJoin = { ceiling: saggingRoof(2.6, 0.25), attach: chamber };

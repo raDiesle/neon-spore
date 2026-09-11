@@ -1,12 +1,12 @@
-import { HULL, hullAngleAtX, hullRadiusMul, LIGHT_HALF } from "../../packages/content/src/index.js";
-import type { BandAttach, CeilingRise } from "../../packages/render/src/band-join.js";
-import { seamRise, seamTop } from "../../packages/render/src/band-seam.js";
-import { mixHex } from "../../packages/render/src/hex.js";
-import { barrelAcross } from "../../packages/render/src/hull-barrel.js";
-import { hullClock, hullSpan } from "../../packages/render/src/hull-frame.js";
-import type { Circle, Layout } from "../../packages/render/src/layout.js";
-import type { SeatSkin } from "../../packages/render/src/seat-skin.js";
-import { dither } from "../../packages/render/src/sheen.js";
+import { HULL, hullAngleAtX, hullRadiusMul, LIGHT_HALF } from "@neon-spore/content";
+import type { BandAttach, CeilingRise } from "./band-join.js";
+import { seamRise, seamTop } from "./band-seam.js";
+import { mixHex } from "./hex.js";
+import { barrelAcross } from "./hull-barrel.js";
+import { hullClock, hullSpan } from "./hull-frame.js";
+import type { Circle, Layout } from "./layout.js";
+import type { SeatSkin } from "./seat-skin.js";
+import { dither } from "./sheen.js";
 
 /**
  * HOW A SHIP MEETS ITS PANEL WITHOUT A LINE — the baseline every whole-ship

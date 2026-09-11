@@ -107,14 +107,20 @@ type Budget = Partial<
  */
 const MEASURE = false;
 
+// Every row moved on 11 September 2026, when the owner took GLAND out of
+// `ship:body`: the rail is a spine with a filled node per column instead of a
+// bar per column, so `fillRect` fell by ten and `fill` rose; each button is an
+// organ with veins and a beaded cord, and the hull carries seven ribs through
+// the chamber — which is where the extra strokes and paths come from
+// (`ship-gland.ts`). Remeasured, not padded.
 const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
   p1: [
-    { fillRect: 65, stroke: 71, fill: 63, clip: 11, save: 56, "new Path2D": 39, fillText: 2 },
-    { fillRect: 65, stroke: 73, fill: 60, clip: 11, save: 53, "new Path2D": 17, fillText: 2 },
+    { fillRect: 55, stroke: 96, fill: 107, clip: 11, save: 68, "new Path2D": 55, fillText: 2 },
+    { fillRect: 55, stroke: 98, fill: 104, clip: 11, save: 65, "new Path2D": 37, fillText: 2 },
   ],
   p2: [
-    { fillRect: 65, stroke: 75, fill: 71, clip: 11, save: 58, "new Path2D": 37, fillText: 2 },
-    { fillRect: 65, stroke: 77, fill: 68, clip: 11, save: 55, "new Path2D": 17, fillText: 2 },
+    { fillRect: 55, stroke: 100, fill: 115, clip: 11, save: 70, "new Path2D": 53, fillText: 2 },
+    { fillRect: 55, stroke: 102, fill: 112, clip: 11, save: 67, "new Path2D": 37, fillText: 2 },
   ],
 };
 

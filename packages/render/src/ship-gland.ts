@@ -1,12 +1,12 @@
-import type { BandAttach } from "../../../../../packages/render/src/band-join.js";
-import type { SheenPass } from "../../../../../packages/render/src/hull-sheen.js";
-import type { LobeDraw } from "../../../../../packages/render/src/lobe-look.js";
-import type { PanelPlan } from "../../../../../packages/render/src/panel-plan.js";
-import type { SeatSkin } from "../../../../../packages/render/src/seat-skin.js";
-import type { NerveDraw } from "../../../../../packages/render/src/ship-nerves.js";
-import { bubbles } from "../../../fluid.js";
-import { organBed, organGloss, organLife } from "../../../organ.js";
-import { ribs, wetChamber, wetHull } from "../../../wet.js";
+import type { BandAttach } from "./band-join.js";
+import { bubbles } from "./gland-fluid.js";
+import { organBed, organGloss, organLife } from "./gland-organ.js";
+import { ribs, wetChamber, wetHull } from "./gland-wet.js";
+import type { SheenPass } from "./hull-sheen.js";
+import type { LobeDraw } from "./lobe-look.js";
+import type { PanelPlan } from "./panel-plan.js";
+import type { SeatSkin } from "./seat-skin.js";
+import type { NerveDraw } from "./ship-nerves.js";
 
 /**
  * GLAND's parts: EMBEDDED's arrangement with everything the owner asked for

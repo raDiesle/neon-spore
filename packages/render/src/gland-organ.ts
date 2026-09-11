@@ -1,11 +1,11 @@
-import { blobPath, type Point } from "../../packages/content/src/index.js";
-import { hash01 } from "../../packages/render/src/backdrop.js";
-import { halo } from "../../packages/render/src/glow.js";
-import { rgba } from "../../packages/render/src/hex.js";
-import type { LobeDraw } from "../../packages/render/src/lobe-look.js";
-import type { NerveDraw } from "../../packages/render/src/ship-nerves.js";
-import { beadedCords } from "./cord.js";
-import { curve, tube } from "./tube.js";
+import { blobPath, type Point } from "@neon-spore/content";
+import { hash01 } from "./backdrop.js";
+import { beadedCords } from "./gland-cord.js";
+import { curve, tube } from "./gland-tube.js";
+import { halo } from "./glow.js";
+import { rgba } from "./hex.js";
+import type { LobeDraw } from "./lobe-look.js";
+import type { NerveDraw } from "./ship-nerves.js";
 
 /**
  * A BUTTON GROWN AS AN ORGAN — the flesh it swells out of, the veins that feed

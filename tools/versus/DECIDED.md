@@ -802,3 +802,14 @@ packages/render/src/rind-{flakes,pod,slough}.ts and draw on the LIBRARY
 
 The other answers offered were `flakes`, `pod` and `slough`; they went with
 the slot.
+
+## `ship:body` / `gland` — taken by hand, 2026-09-11
+
+taken by hand — the owner picked GLAND, EMBEDDED with his four corrections, to
+be used in the game; its eleven fields were function values in shared modules,
+so wet.ts, organ.ts, fluid.ts, join.ts, tube.ts and cord.ts moved into
+packages/render as gland-*.ts with paint.ts as ship-gland.ts, and the records
+point at them
+
+The other answers offered were `chitin`, `gullet`, `heart`, `lymph` and
+`reef`; they went with the slot.

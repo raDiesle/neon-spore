@@ -1,5 +1,5 @@
-import { drawLobeGloss, drawLobeSocket } from "./lobe-shell.js";
 import type { SeatSkin } from "./seat-skin.js";
+import { bed, gloss } from "./ship-gland.js";
 
 /**
  * WHAT A BUTTON STANDS IN AND SHINES WITH, AS A RECORD.
@@ -13,9 +13,12 @@ import type { SeatSkin } from "./seat-skin.js";
  * sockets could not be drawn. Lifted out on 10 September 2026 with
  * `panel-plan.ts` and `strip-look.ts`.
  *
- * The menu's and the guide's buttons (`nav-button.ts`, `guide-switch.ts`)
- * keep calling the shipped sprites directly: they are not on the panel and
- * must not change with it.
+ * Since 11 September 2026 the record is GLAND's, taken out of `ship:body`: a
+ * button has no socket and no plate, it is a swelling of the panel's own flesh
+ * with veins running out of it (`gland-organ.ts`, tuned in `ship-gland.ts`).
+ * The menu's and the guide's buttons (`nav-button.ts`, `guide-switch.ts`) keep
+ * calling the wet-socket sprites in `lobe-shell.ts` directly: they are not on
+ * the panel and must not change with it.
  */
 
 export interface LobeDraw {
@@ -34,8 +37,6 @@ export interface LobeLook {
   gloss(d: LobeDraw): void;
 }
 
-/** The shipped look: a wet depression with a rim of its own, and a gloss. */
-export const LOBE_LOOK: LobeLook = {
-  socket: (d) => drawLobeSocket(d.ctx, d.x, d.y, d.r, d.dpr, d.skin.lip),
-  gloss: (d) => drawLobeGloss(d.ctx, d.x, d.y, d.r, d.dpr),
-};
+/** The shipped look: an organ's bed of flesh and veins under the face, and a
+ * wet highlight on its shoulder over it. */
+export const LOBE_LOOK: LobeLook = { socket: bed, gloss };

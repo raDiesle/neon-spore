@@ -110,6 +110,12 @@ type Budget = Partial<
 // decided `field:backdrop`: one soft light of the act's tint sits in the
 // bottom-right corner of the sky (`corner-light.ts`), a disc baked once and
 // blitted every frame the field is drawn.
+// Every row moved on 11 September 2026, when the owner took GLAND out of
+// `ship:body`: the rail is a spine with a filled node per column instead of a
+// bar per column, so `fillRect` fell by ten and `fill` rose; each button is an
+// organ with veins and a beaded cord, and the hull carries seven ribs through
+// the chamber — which is where the extra strokes and paths come from
+// (`ship-gland.ts`). Remeasured, not padded.
 const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budget>>>> = {
   p1: {
     mid: {
@@ -117,61 +123,61 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       // One more stroke and one more clip than before the hull's light became a
       // barrel: `hull-barrel.ts` strokes the contour with a crown ramp, clipped
       // to the body. Every row in this file carries the same two.
-      stroke: 45,
-      fill: 35,
+      stroke: 60,
+      fill: 53,
       clip: 7,
-      save: 36,
-      drawImage: 19,
-      createLinearGradient: 7,
-      createRadialGradient: 0,
-      "new Path2D": 9,
+      save: 46,
+      drawImage: 16,
+      createLinearGradient: 13,
+      createRadialGradient: 5,
+      "new Path2D": 23,
       fillText: 25,
     },
     hit: {
       fillRect: 82,
       // Two more than mid: the shockwave ring and the fireball's own contour.
-      stroke: 47,
-      fill: 33,
+      stroke: 62,
+      fill: 51,
       clip: 7,
       // Eight more: the burst opens one per shard it turns, and the shards are
       // the only thing in this picture drawn in a frame of its own.
-      save: 44,
+      save: 54,
       // Three more: the flash and the fireball are `halo` blits, and the halo
       // the shell was carrying is gone.
-      drawImage: 23,
+      drawImage: 20,
       // One fewer: the shell's exhaust gradient goes with the shell.
-      createLinearGradient: 6,
+      createLinearGradient: 12,
       // The fireball, and the one radial gradient this fight ever builds.
-      createRadialGradient: 1,
-      "new Path2D": 9,
+      createRadialGradient: 6,
+      "new Path2D": 23,
       fillText: 25,
     },
   },
   p2: {
     mid: {
-      fillRect: 59,
+      fillRect: 62,
       // Nine fewer than the pilot's: five hulls, their spines and their scars
       // are the whole of what this seat is not shown (`fleet-hulls.ts`).
-      stroke: 36,
-      fill: 32,
+      stroke: 66,
+      fill: 71,
       clip: 7,
-      save: 31,
-      drawImage: 20,
-      createLinearGradient: 7,
-      createRadialGradient: 0,
-      "new Path2D": 9,
+      save: 47,
+      drawImage: 23,
+      createLinearGradient: 16,
+      createRadialGradient: 11,
+      "new Path2D": 35,
       fillText: 24,
     },
     hit: {
-      fillRect: 82,
-      stroke: 37,
-      fill: 30,
+      fillRect: 85,
+      stroke: 67,
+      fill: 69,
       clip: 7,
-      save: 39,
-      drawImage: 23,
-      createLinearGradient: 6,
-      createRadialGradient: 1,
-      "new Path2D": 9,
+      save: 55,
+      drawImage: 26,
+      createLinearGradient: 15,
+      createRadialGradient: 12,
+      "new Path2D": 35,
       // One fewer than the pilot's, every frame: the square's own name is on
       // both screens and the wave's own readouts are not all of them.
       fillText: 24,

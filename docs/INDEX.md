@@ -553,6 +553,12 @@ place — the generator keeps whatever is there.
 | `packages/render/src/gauge-title.ts` | THE GAUGE's header: the name and the one sentence that teaches this seat its half |
 | `packages/render/src/gauge.ts` | THE GAUGE's picture: a half-round dial, a needle, and two marks that only one of the two screens carries |
 | `packages/render/src/glide.ts` | A spring that chases a value |
+| `packages/render/src/gland-cord.ts` | THE STRINGS RUNNING UP FROM THE BUTTONS — PLASM's, kept |
+| `packages/render/src/gland-fluid.ts` | THE FLUID UNDER THE CONTROLS — the two things the owner picked out of PLASM and EMBEDDED on 11 September 2026… |
+| `packages/render/src/gland-join.ts` | HOW A SHIP MEETS ITS PANEL WITHOUT A LINE — the baseline every whole-ship card is built on |
+| `packages/render/src/gland-organ.ts` | A BUTTON GROWN AS AN ORGAN — the flesh it swells out of, the veins that feed it |
+| `packages/render/src/gland-tube.ts` | A TUBE AND A CURVE — the two pieces of vector arithmetic every grown thing on VERSUS is drawn out of |
+| `packages/render/src/gland-wet.ts` | WET SKIN — the ship as a clear, light-reflecting surface, with **no grain** |
 | `packages/render/src/handles.ts` | The handles: the things drawn **on the field** that a hand takes hold of and carries, as opposed to the |
 | `packages/render/src/hex.ts` | Two `#rrggbb` colours mixed, as a `#rrggbb` colour |
 | `packages/render/src/hull-frame.ts` | The hull's shape for one frame — split out of `hull.ts` so the geometry model (this file) and the drawing |
@@ -743,6 +749,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/controls-fleet.ts` | THE FLEET's own two controls, and the crosshair only they still wear |
 | `packages/render/src/ship-air.ts` | THE AIR THE SHIP IS SITTING IN |
 | `packages/render/src/ship-nerves.ts` | what runs from a control to the organ it drives, as a record — drawn under the controls and across the membrane; ships empty, a candidate ship wires it |
+| `packages/render/src/ship-gland.ts` | GLAND's parts: EMBEDDED's arrangement with everything the owner asked for laid over it |
 | `packages/render/src/volley.ts` | THE VOLLEY's shell: the rock plating a slick or a bulb is sealed inside |
 | `packages/render/src/band-lobes.ts` | Where the round buttons on the band stand, for one seat and one panel |
 | `packages/render/src/band-join.ts` | THE ONE RECORD A CANDIDATE SHIP-AND-PANEL JOIN PATCHES |
@@ -1384,17 +1391,11 @@ place — the generator keeps whatever is there.
 | `tools/versus/decide.ts` | What happens after the owner has looked |
 | `tools/versus/list.ts` | `bun run versus` — which slots are open, and what deciding one would reach |
 | `tools/versus/text.ts` | How a value and a paragraph are spelled where VERSUS talks to a person |
-| `tools/versus/tube.ts` | a tube of varying width round a sampled centreline, and the cubic that samples one — shared by candidates in more than one slot |
 | `tools/versus/take-function-fs.ts` | Taking a function-valued field, the half that looks at the tree: which sibling files move where, the plan `adopt` writes in one go, and whether anything still imports what the record used to point at |
 | `tools/versus/take-function.ts` | Taking a function-valued field, the text work: which identifier a candidate gives the field and which sibling it comes from, where the file lands, and its imports rewritten for the package it moves into |
 | `tools/versus/take-record.ts` | The record side of taking a function-valued field: the field pointed at the moved function, with its import added, and the old value taken out of the imports |
-| `tools/versus/join.ts` | how a ship meets its panel without a line — the welded start, the hull's own light over the chamber and the sagging roof, the baseline every whole-ship card patches |
 | `tools/versus/by-hand.ts` | The four steps `adopt` prints when it will not take a slot itself |
 | `tools/versus/pose-row.ts` | The row a slot has in the director's `SLOT_POSE` map, taken out with the slot |
-| `tools/versus/cord.ts` | THE STRINGS RUNNING UP FROM THE BUTTONS — PLASM's, kept |
-| `tools/versus/fluid.ts` | THE FLUID UNDER THE CONTROLS — the two things the owner picked out of PLASM and EMBEDDED on 11 September 2026… |
-| `tools/versus/organ.ts` | A BUTTON GROWN AS AN ORGAN — the flesh it swells out of, the veins that feed it |
-| `tools/versus/wet.ts` | WET SKIN — the ship as a clear, light-reflecting surface, with **no grain** |
 | `tools/versus/wake-fire.ts` | THE FIRE ON A BURNING ROCK — the other half of `wake.ts` |
 | `tools/versus/wake.ts` | WHAT A BURNING ROCK LEAVES BEHIND IT — the marks the three `creature:meteor` candidates of 11 September 2026… |
 | `tools/index/drift.ts` | Whether a row in `docs/INDEX.md` still describes the file it names |

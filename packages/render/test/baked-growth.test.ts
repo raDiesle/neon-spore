@@ -54,7 +54,12 @@ function entriesAfter(role: "p1" | "p2"): number {
 // One more on each seat from 11 September 2026: the light in the sky's
 // bottom-right corner (`corner-light.ts`), baked once per size and act tint —
 // one key on one wave.
-const HELD = { p1: 78, p2: 83 } as const;
+// Thirty-nine fewer on p1 and thirty-six on p2 from 11 September 2026, when
+// the owner took GLAND out of `ship:body`: the membrane's bloom and the wet
+// socket under every button were baked sprites, and the wet skin and the organ
+// that replaced them draw with paths and gradients and bake nothing
+// (`ship-gland.ts`).
+const HELD = { p1: 39, p2: 47 } as const;
 
 describe("what the renderer keeps between frames", () => {
   for (const role of ["p1", "p2"] as const) {

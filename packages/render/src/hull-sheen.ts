@@ -1,6 +1,6 @@
 import type { HullSkin } from "./hull.js";
 import type { Layout } from "./layout.js";
-import { bloom, dither, innerLight, iridescence, sweep } from "./sheen.js";
+import { skin } from "./ship-gland.js";
 
 /**
  * WHAT THE SHIP'S SKIN IS MADE OF, AS A RECORD.
@@ -14,8 +14,12 @@ import { bloom, dither, innerLight, iridescence, sweep } from "./sheen.js";
  * you can completely be creative* — and a whole new ship is mostly a new skin,
  * so this is the seam, the tenth of `magnet-look.ts`'s kind.
  *
- * The shipped record is exactly what `drawHull` did, in the order it did it,
- * and nothing else in this file draws. `sheen.ts` keeps the passes.
+ * The record pointed at `membrane` — bioluminescence under the skin, a lit
+ * inner rim, a soap film, one travelling highlight and a grain over all of it
+ * — until 11 September 2026, when the owner took GLAND out of `ship:body`:
+ * the skin is a clear wet surface with no grain now (`gland-wet.ts`, tuned in
+ * `ship-gland.ts`), and the membrane's passes went with it. `sheen.ts` keeps
+ * the two the wet skin still uses.
  */
 
 /** Everything the material is handed: the membrane's outline, the filled body
@@ -42,16 +46,6 @@ export interface HullSheen {
   passes(s: SheenPass): void;
 }
 
-/** The shipped material: bioluminescence under the skin, a lit inner rim, a
- * soap film across the field, one travelling highlight, and a grain over all of
- * it so the gradient never bands. */
-export function membrane(s: SheenPass): void {
-  const { ctx, l, time, body, filled, skinY } = s;
-  bloom(ctx, l, time, skinY);
-  innerLight(ctx, body);
-  iridescence(ctx, body, l, time);
-  sweep(ctx, body, l, time);
-  dither(ctx, filled);
-}
-
-export const HULL_SHEEN: HullSheen = { passes: membrane };
+/** The shipped material: GLAND's wet skin — clear, reflecting, ribbed from
+ * the crown, and without a grain. */
+export const HULL_SHEEN: HullSheen = { passes: skin };

@@ -1,10 +1,10 @@
-import { blobPath, openSmoothPath, type Point } from "../../packages/content/src/index.js";
-import { hash01 } from "../../packages/render/src/backdrop.js";
-import { halo, strokeGlow } from "../../packages/render/src/glow.js";
-import { rgba } from "../../packages/render/src/hex.js";
-import { tileCX } from "../../packages/render/src/layout.js";
-import type { SeatSkin } from "../../packages/render/src/seat-skin.js";
-import type { StripDraw } from "../../packages/render/src/strip-look.js";
+import { blobPath, openSmoothPath, type Point } from "@neon-spore/content";
+import { hash01 } from "./backdrop.js";
+import { halo, strokeGlow } from "./glow.js";
+import { rgba } from "./hex.js";
+import { tileCX } from "./layout.js";
+import type { SeatSkin } from "./seat-skin.js";
+import type { StripDraw } from "./strip-look.js";
 
 /**
  * THE FLUID UNDER THE CONTROLS — the two things the owner picked out of PLASM

@@ -45,11 +45,11 @@ export interface HullSilhouette {
  * what changed is the membrane they stand on.
  */
 export const HULL: HullSilhouette = {
-  lobes: 14,
-  depth: 0.12,
-  wobble: 0.05,
+  lobes: 12,
+  depth: 0.13,
+  wobble: 0.06,
   cannonRadius: 10,
-  seed: 0.4,
+  seed: 0.45,
 };
 
 /**

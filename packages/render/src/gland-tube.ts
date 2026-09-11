@@ -1,4 +1,4 @@
-import { openSmoothPath, type Point } from "../../packages/content/src/index.js";
+import { openSmoothPath, type Point } from "@neon-spore/content";
 
 /**
  * A TUBE AND A CURVE — the two pieces of vector arithmetic every grown thing

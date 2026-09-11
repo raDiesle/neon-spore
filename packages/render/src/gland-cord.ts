@@ -1,8 +1,8 @@
-import { openSmoothPath, type Point } from "../../packages/content/src/index.js";
-import { halo } from "../../packages/render/src/glow.js";
-import { rgba } from "../../packages/render/src/hex.js";
-import type { NerveDraw } from "../../packages/render/src/ship-nerves.js";
-import { curve } from "./tube.js";
+import { openSmoothPath, type Point } from "@neon-spore/content";
+import { curve } from "./gland-tube.js";
+import { halo } from "./glow.js";
+import { rgba } from "./hex.js";
+import type { NerveDraw } from "./ship-nerves.js";
 
 /**
  * THE STRINGS RUNNING UP FROM THE BUTTONS — PLASM's, kept.

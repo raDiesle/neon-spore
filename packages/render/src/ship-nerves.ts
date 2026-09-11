@@ -1,6 +1,7 @@
 import type { Lobe } from "./band-lobes.js";
 import type { Layout } from "./layout.js";
 import type { SeatSkin } from "./seat-skin.js";
+import { life } from "./ship-gland.js";
 
 /**
  * WHAT RUNS FROM A CONTROL TO THE ORGAN IT DRIVES, AS A RECORD.
@@ -19,10 +20,13 @@ import type { SeatSkin } from "./seat-skin.js";
  * leaves, and can reach up over the ship. The hull's membrane is handed in as
  * `surfaceY`, so the far end lands on the skin the eye is looking at.
  *
- * **The shipped record draws nothing.** Not because nothing should be there,
- * but because what should be there is a question for the pair, per ship: a
- * mouth is wired one way and a cell another, and every candidate in
- * `ship:body` answers it in its own material.
+ * **The shipped record is GLAND's** (`gland-organ.ts`, tuned in
+ * `ship-gland.ts`), taken out of `ship:body` on 11 September 2026: each button
+ * breathes with a light inside it, leaks droplets of plasma, and sends a
+ * beaded cord up to the knob on its rail and on to the organ on the hull. It
+ * drew nothing until then — what should be there was a question for the
+ * pair, per ship, and every candidate in the slot answered it in its own
+ * material.
  */
 
 /** A point on the screen. */
@@ -61,7 +65,5 @@ export interface ShipNerves {
   draw(d: NerveDraw): void;
 }
 
-/** The shipped answer: nothing between a control and its organ but the label. */
-export function unwired(_d: NerveDraw): void {}
-
-export const SHIP_NERVES: ShipNerves = { draw: unwired };
+/** The shipped answer: GLAND's breath, drops and beaded cords. */
+export const SHIP_NERVES: ShipNerves = { draw: life };

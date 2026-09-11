@@ -123,6 +123,12 @@ const MEASURE = false;
 // the owner decided `field:backdrop`: one soft light of the act's tint in the
 // bottom-right corner of the sky (`corner-light.ts`), baked once, blitted
 // every frame the field is drawn.
+// Every row moved on 11 September 2026, when the owner took GLAND out of
+// `ship:body`: the rail is a spine with a filled node per column instead of a
+// bar per column, so `fillRect` fell by ten and `fill` rose; each button is an
+// organ with veins and a beaded cord, and the hull carries seven ribs through
+// the chamber — which is where the extra strokes and paths come from
+// (`ship-gland.ts`). Remeasured, not padded.
 const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
   p1: [
     {
@@ -130,19 +136,19 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // rect over the backdrop, one save for the composite mode it needs, and
       // one gradient on the first frame at a size and none after
       // (`ship-air.ts`).
-      fillRect: 65,
+      fillRect: 55,
       // Ten of these are the two action buttons' emblems: one membrane stroke
       // and `strokeGlow`'s four passes over the lit crest, twice
       // (`action-face.ts`). They replaced two `fillText` calls, which is the
       // whole of the trade the owner chose — the word cost almost nothing and
       // could not be drawn at a sequence glyph's size at all.
-      stroke: 60,
-      fill: 28,
+      stroke: 85,
+      fill: 72,
       clip: 9,
-      save: 34,
-      drawImage: 39,
-      createLinearGradient: 15,
-      createRadialGradient: 3,
+      save: 46,
+      drawImage: 47,
+      createLinearGradient: 19,
+      createRadialGradient: 11,
       // Fourteen of these are the panel's own sheet, painted here and only
       // here: it depends on the size of the band and nothing else, so the
       // first frame at a size pays for every cell and vein in it and no frame
@@ -150,65 +156,65 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // emblems' membrane and crest, baked the same way and by the same
       // mechanism (`action-face.ts`'s `bakedCache`). The row below is the
       // proof — same seat, same size, one frame later, and back down.
-      "new Path2D": 29,
+      "new Path2D": 45,
       fillText: 2,
     },
     {
-      fillRect: 65,
-      stroke: 62,
-      fill: 28,
+      fillRect: 55,
+      stroke: 87,
+      fill: 72,
       clip: 9,
-      save: 34,
-      drawImage: 39,
+      save: 46,
+      drawImage: 47,
       // Down from frame 0: the layout-only gradients (`gradient-slot.ts`'s
       // sites in field.ts and backdrop.ts, key-light.ts's own slot, and the
       // channels' three in band-control.ts) are cache hits from the second
       // frame on.
-      createLinearGradient: 5,
-      createRadialGradient: 1,
-      "new Path2D": 11,
+      createLinearGradient: 12,
+      createRadialGradient: 9,
+      "new Path2D": 31,
       fillText: 2,
     },
   ],
   p2: [
     {
-      fillRect: 65,
+      fillRect: 55,
       // The seam's rim off (five, as on p1) and the fire buttons rebuilt: each
       // one lost a crosshair's two strokes and gained the outline round its
       // contour plus `strokeGlow`'s four passes round the creature inside it,
       // which is how the field draws that body and the whole of what the owner
       // asked for (`controls.ts`).
-      stroke: 64,
+      stroke: 89,
       // Three more, and all three are `drawDetails`: the bulb's one core and
       // the slick's two, drawn on the buttons now that the silhouettes are
       // bodies rather than stencils.
-      fill: 35,
+      fill: 79,
       clip: 9,
       // Two fewer: a fire button's face is one `paintLobe` doing fill and
       // stroke together where it used to be a fill and then a crosshair.
-      save: 36,
-      drawImage: 38,
-      createLinearGradient: 15,
-      createRadialGradient: 3,
+      save: 48,
+      drawImage: 46,
+      createLinearGradient: 19,
+      createRadialGradient: 11,
       // Two more than p1's frame 0: the sheet, and the fire buttons'
       // silhouettes, which are on this seat's panel alone.
-      "new Path2D": 27,
+      "new Path2D": 43,
       fillText: 2,
     },
     {
-      fillRect: 65,
-      stroke: 66,
-      fill: 35,
+      fillRect: 55,
+      stroke: 91,
+      fill: 79,
       clip: 9,
-      save: 36,
-      drawImage: 38,
-      createLinearGradient: 5,
-      createRadialGradient: 1,
+      save: 48,
+      drawImage: 46,
+      createLinearGradient: 12,
+      createRadialGradient: 9,
       // Back level with p1's second frame, and the two it came down by are the
       // fire buttons' silhouettes: every argument to them is a constant of the
       // colour, so `controls.ts` keeps the two paths rather than rebuilding
       // both every frame.
-      "new Path2D": 11,
+      "new Path2D": 31,
       fillText: 2,
     },
   ],
@@ -357,7 +363,7 @@ function rope(fromYMilli: number) {
 const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
   "THE WARDEN's eye": [
     {
-      fillRect: 65,
+      fillRect: 55,
       // Two more than the plates alone would take: the opening below the eye
       // splits the plate it stands under into the two pieces either side of
       // it, and a plate is a stroke (`render/warden.ts`).
@@ -374,40 +380,40 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // **Four of these are the iris**: the aperture ring and every spoke go
       // into one path stroked once, so this row does not move when the spoke
       // count does (`eye-iris.ts`).
-      stroke: 107,
+      stroke: 132,
       // Four more: the two patches of the wet film, the eyelids and their
       // pupils. Flat, whatever the openness.
-      fill: 44,
+      fill: 88,
       // Two more than the body's own: the film and the veins share a single
       // clip to it, and the lens opens one of its own so the lids can cut the
       // pupil instead of the pupil being sized to miss them (`eye-lens.ts`).
       clip: 8,
       // Three of these are the ball: the dome, the iris on its own tangent
       // plane, and the wet point, each in a frame of its own (`eye-ball.ts`).
-      save: 34,
+      save: 46,
       // Two of these are the ball as well, and they are the whole of what it
       // costs: the dome is a sprite baked once per colour and size, and the wet
       // point is `halo`'s. Neither builds a gradient, which is why the two
       // gradient rows below did not move at all.
-      drawImage: 21,
-      createLinearGradient: 15,
-      createRadialGradient: 3,
+      drawImage: 29,
+      createLinearGradient: 19,
+      createRadialGradient: 11,
       // Fourteen of them the panel's sheet, as on every frame 0 here. Four are
       // the skin's, and there are four of them however much of it is showing.
       // One is the lids' folds, and it is one however far apart they stand.
-      "new Path2D": 58,
+      "new Path2D": 74,
       fillText: 2,
     },
     {
-      fillRect: 65,
-      stroke: 109,
-      fill: 44,
+      fillRect: 55,
+      stroke: 134,
+      fill: 88,
       clip: 8,
-      save: 34,
-      drawImage: 21,
-      createLinearGradient: 5,
-      createRadialGradient: 1,
-      "new Path2D": 40,
+      save: 46,
+      drawImage: 29,
+      createLinearGradient: 12,
+      createRadialGradient: 9,
+      "new Path2D": 60,
       fillText: 2,
     },
   ],
@@ -419,36 +425,36 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // edge stroked, so `fill` rose by twelve, `createRadialGradient` by six
       // and `stroke` by five (six cuts, less the plates' one straight seam);
       // `fillRect` lost the plates' three slabs.
-      fillRect: 64,
+      fillRect: 55,
       // **Four of these are the iris**: the aperture ring and every spoke go
       // into one path stroked once, so this row does not move when the spoke
       // count does (`eye-iris.ts`).
-      stroke: 87,
-      fill: 36,
+      stroke: 112,
+      fill: 80,
       // The one op this body's share of the new lens costs: the clip the lids
       // cut the pupil through (`eye-lens.ts`).
       clip: 8,
-      save: 32,
-      drawImage: 21,
-      createLinearGradient: 15,
-      createRadialGradient: 9,
-      "new Path2D": 37,
+      save: 44,
+      drawImage: 29,
+      createLinearGradient: 20,
+      createRadialGradient: 17,
+      "new Path2D": 53,
       fillText: 2,
     },
     {
-      fillRect: 64,
-      stroke: 89,
-      fill: 36,
+      fillRect: 55,
+      stroke: 114,
+      fill: 80,
       clip: 8,
-      save: 32,
-      drawImage: 21,
-      createLinearGradient: 5,
+      save: 44,
+      drawImage: 29,
+      createLinearGradient: 13,
       // The eye builds none of its own: the wash around it is a `halo` sprite
       // cached by colour and radius, and the one left is `key-light.ts`'s
       // layout-only slot (`render/eye.ts`). The other six are the leaves'
       // curls (`lid-iris.ts`).
-      createRadialGradient: 7,
-      "new Path2D": 19,
+      createRadialGradient: 15,
+      "new Path2D": 39,
       fillText: 2,
     },
   ],
