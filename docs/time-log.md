@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — the crater decided
+
+The owner keeps the crater as shipped; the slot closed with nothing taken. About 5 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 0 | nothing — the decision came in chat |
+| writing | 0 | nothing |
+| looking | 0 | nothing |
+| friction | 0 | none |
+| landing | 5 | `versus drop`, `check:fast`, the commit, `land --keep` |
+
+Bottleneck: **landing** — there was nothing else.
+
 ## 2026-09-11 · hit-looks — the ship's body, three cards from the brief
 
 The owner named what he wanted from three of the six ships rather than one of

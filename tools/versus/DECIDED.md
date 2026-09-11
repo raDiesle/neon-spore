@@ -642,3 +642,9 @@ and a little plasma coming out
 `embedded`, `medusa` and `plasm` went, and `gland`, `heart` and `lymph` stand
 in their place beside `chitin`, `gullet` and `reef`; the three new cards share
 `tools/versus/wet.ts`, `organ.ts` and `fluid.ts`, which hold his brief.
+
+## `ship:crater` — nothing taken, 2026-09-11
+
+the owner keeps the crater as shipped — no alternative wanted
+
+The other answers offered were `grit` and `shards`; they went with the slot.

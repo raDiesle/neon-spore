@@ -61,8 +61,6 @@ import { SHIP_GULLET } from "./ship-body/gullet/index.js";
 import { SHIP_HEART } from "./ship-body/heart/index.js";
 import { SHIP_LYMPH } from "./ship-body/lymph/index.js";
 import { SHIP_REEF } from "./ship-body/reef/index.js";
-import { CRATER_GRIT } from "./ship-crater/grit/index.js";
-import { CRATER_SHARDS } from "./ship-crater/shards/index.js";
 
 export const VARIANTS: Variant[] = [
   LID_BEVEL,
@@ -120,6 +118,4 @@ export const VARIANTS: Variant[] = [
   SHIP_HEART,
   SHIP_LYMPH,
   SHIP_REEF,
-  CRATER_GRIT,
-  CRATER_SHARDS,
 ];
