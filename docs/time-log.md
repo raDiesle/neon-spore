@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — creature:queen — SCUTES into the game, CARAPACE and FACET kept
+
+Copied CARAPACE and FACET into render for the LIBRARY, adopted SCUTES with the tool, built a queen card that hands her contour straight to a look, remeasured the BULB QUEEN's op-count rows.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | reading |
+| writing | 15 | writing |
+| looking | 5 | looking |
+| friction | 10 | friction |
+| landing | 5 | landing |
+
+Bottleneck: A Bash heredoc holding three files failed to parse and had to be redone through the Write tool; then the op-count budget wanted the seven plates measured.
+
 ## 2026-09-11 · hit-looks — creature:mount — TAPROOT into the game, RASP kept
 
 Moved the rooted rim into content so a package could draw it, took TAPROOT and RASP by hand, broke the record–look import cycle with mount-bearing.ts, built a mount card with a hub to face, dropped the slot.

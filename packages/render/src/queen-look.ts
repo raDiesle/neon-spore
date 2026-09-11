@@ -1,4 +1,5 @@
 import { PALETTE } from "./palette.js";
+import { scutes } from "./queen-scutes.js";
 
 /**
  * THE ONE RECORD A CANDIDATE **QUEEN** PATCHES.
@@ -17,7 +18,10 @@ import { PALETTE } from "./palette.js";
  * **The shipped `armour` came through here with not one pixel moved.** The
  * stops, the stroke and the contour are the ones `queen.ts` carried inline;
  * the caller still builds the path, so a look cannot change her silhouette,
- * and still adds her shudder, so a look cannot steady her.
+ * and still adds her shudder, so a look cannot steady her. On 11 September
+ * 2026 the owner decided the slot: SCUTES (`queen-scutes.ts`) is what she
+ * wears now, and `armour` stays here for the GRAPHICS page's LIBRARY, beside
+ * CARAPACE and FACET, which he kept for bodies not built yet.
  */
 
 /** Everything the shell is drawn from, in a frame centred on her body. */
@@ -40,9 +44,9 @@ export interface ShellDraw {
 }
 
 /**
- * The shell as it ships: the same angular rock her torches are made of, one
- * gradient from her upper-left corner to her lower-right, and the rock's
- * outline round it.
+ * The shell as it shipped until 11 September 2026: the same angular rock her
+ * torches are made of, one gradient from her upper-left corner to her
+ * lower-right, and the rock's outline round it.
  */
 export function armour(d: ShellDraw): void {
   const { ctx, path, rx, ry } = d;
@@ -62,4 +66,5 @@ export interface QueenLook {
   readonly shell: (d: ShellDraw) => void;
 }
 
-export const QUEEN_LOOK: QueenLook = { shell: armour };
+/** SCUTES since 11 September 2026 — the owner's pick over `armour`. */
+export const QUEEN_LOOK: QueenLook = { shell: scutes };

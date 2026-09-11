@@ -757,7 +757,10 @@ place — the generator keeps whatever is there.
 | `packages/render/src/warden-whorl.ts` | WHORL — a kept look for THE WARDEN, drawn only on the SHAPES page's LIBRARY |
 | `packages/render/src/queen-drop.ts` | NEXT TO FALL: the flank the queen's next torch comes off, said on player 2's screen and nowhere else |
 | `packages/render/src/queen-figure.ts` | Where the parts of the queen sit on her, and where the screen puts them |
+| `packages/render/src/queen-facet.ts` | FACET — a kept look for THE BULB QUEEN's shell, drawn only on the GRAPHICS page's LIBRARY |
 | `packages/render/src/queen-look.ts` | THE ONE RECORD A CANDIDATE **QUEEN** PATCHES |
+| `packages/render/src/queen-carapace.ts` | CARAPACE — a kept look for THE BULB QUEEN's shell, drawn only on the GRAPHICS page's LIBRARY |
+| `packages/render/src/queen-scutes.ts` | SCUTES — THE BULB QUEEN's shell as the game draws it since 11 September 2026 |
 | `packages/render/src/maze-walls.ts` | THE MAZE's walls: the circles, the gaps cut in them, and the radial walls that make the corridors turn |
 | `packages/render/src/maze-shot.ts` | The shot inside THE MAZE: where it stands, the corridors behind it, and what it found when it stopped |
 | `packages/render/src/maze-heart.ts` | What is in the middle of THE MAZE: a heart, beating |
@@ -1585,5 +1588,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/library/lid-stage.ts` | The game's own lid, drawn on a card wearing armour of the caller's choosing |
 | `tools/director/src/library/mount-assets.ts` | THE GYRE's mounts — the two contours offered for a body that stands on a turning rim |
 | `tools/director/src/library/mount-stage.ts` | One of THE GYRE's mounts, drawn on a card with a contour of the caller's choosing |
+| `tools/director/src/library/queen-assets.ts` | THE BULB QUEEN's four shells — what the biggest body on any field is made of |
+| `tools/director/src/library/queen-stage.ts` | THE BULB QUEEN's shell, drawn on a card by a look of the caller's choosing |
 
 <!-- index:code:end -->

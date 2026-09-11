@@ -1,17 +1,20 @@
-import { KEY, LIGHT_HALF } from "../../../../../packages/content/src/light.js";
-import {
-  facet,
-  LAT_LIMIT,
-  type Pin,
-  pin,
-  surfaceDim,
-} from "../../../../../packages/content/src/surface.js";
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import { litRound } from "../../../../../packages/render/src/key-light.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
-import type { ShellDraw } from "../../../../../packages/render/src/queen-look.js";
+import { facet, KEY, LAT_LIMIT, LIGHT_HALF, type Pin, pin, surfaceDim } from "@neon-spore/content";
+import { rgba } from "./hex.js";
+import { litRound } from "./key-light.js";
+import { PALETTE } from "./palette.js";
+import type { ShellDraw } from "./queen-look.js";
 
 /**
+ * CARAPACE — a kept look for THE BULB QUEEN's shell, drawn only on the GRAPHICS
+ * page's LIBRARY.
+ *
+ * It stood in `creature:queen` on VERSUS, decided 11 September 2026: SCUTES
+ * went into the game (`queen-scutes.ts`) and the owner said of this one
+ * "move this CREATURE:QUEEN · CARAPACE to 'shapes' page i like it a lot, can be used like for a 'roller' enemy or obstacle". It sits in this package, beside the record it once patched,
+ * because it is written against this package's internals; nothing on the
+ * field imports it, and the game's bundle drops it. The argument it made,
+ * from its VERSUS card:
+ *
  * CARAPACE — the shell is a domed back, lit as a ball under the key, with
  * rows of spiracles pinned to it that ride over the crest as she heaves.
  *

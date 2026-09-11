@@ -7,9 +7,6 @@
 
 import type { Variant } from "../variant.js";
 import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
-import { QUEEN_CARAPACE } from "./creature-queen/carapace/index.js";
-import { QUEEN_FACET } from "./creature-queen/facet/index.js";
-import { QUEEN_SCUTES } from "./creature-queen/scutes/index.js";
 import { RECOIL_CALYX } from "./creature-recoil/calyx/index.js";
 import { RECOIL_FOAM } from "./creature-recoil/foam/index.js";
 import { RECOIL_GLOBE } from "./creature-recoil/globe/index.js";
@@ -34,9 +31,6 @@ import { SHIP_REEF } from "./ship-body/reef/index.js";
 
 export const VARIANTS: Variant[] = [
   METEOR_FORGE,
-  QUEEN_CARAPACE,
-  QUEEN_FACET,
-  QUEEN_SCUTES,
   RECOIL_CALYX,
   RECOIL_FOAM,
   RECOIL_GLOBE,

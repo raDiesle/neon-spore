@@ -1,11 +1,19 @@
-import { QUEEN_SHELL } from "../../../../../packages/content/src/crystals.js";
-import { crystalRadiusMul } from "../../../../../packages/content/src/shapes.js";
-import { surfaceDim, surfaceLit } from "../../../../../packages/content/src/surface.js";
-import { mixHex, rgba } from "../../../../../packages/render/src/hex.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
-import type { ShellDraw } from "../../../../../packages/render/src/queen-look.js";
+import { crystalRadiusMul, QUEEN_SHELL, surfaceDim, surfaceLit } from "@neon-spore/content";
+import { mixHex, rgba } from "./hex.js";
+import { PALETTE } from "./palette.js";
+import type { ShellDraw } from "./queen-look.js";
 
 /**
+ * FACET — a kept look for THE BULB QUEEN's shell, drawn only on the GRAPHICS
+ * page's LIBRARY.
+ *
+ * It stood in `creature:queen` on VERSUS, decided 11 September 2026: SCUTES
+ * went into the game (`queen-scutes.ts`) and the owner said of this one
+ * "move to 'shapes' page the CREATURE:QUEEN · FACET can be used for metal enemy or obstacle". It sits in this package, beside the record it once patched,
+ * because it is written against this package's internals; nothing on the
+ * field imports it, and the game's bundle drops it. The argument it made,
+ * from its VERSUS card:
+ *
  * FACET — the shell is a cut stone: a flat table raised off the rim, and a
  * crown of thirty-two planes running down from it to the sixteen corners
  * of her contour, every plane lit by its own normal against the key.

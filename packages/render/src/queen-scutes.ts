@@ -1,10 +1,16 @@
-import { LIGHT_HALF } from "../../../../../packages/content/src/light.js";
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import { litColour, litRound } from "../../../../../packages/render/src/key-light.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
-import type { ShellDraw } from "../../../../../packages/render/src/queen-look.js";
+import { LIGHT_HALF } from "@neon-spore/content";
+import { rgba } from "./hex.js";
+import { litColour, litRound } from "./key-light.js";
+import { PALETTE } from "./palette.js";
+import type { ShellDraw } from "./queen-look.js";
 
 /**
+ * SCUTES — THE BULB QUEEN's shell as the game draws it since 11 September
+ * 2026, when the owner decided `creature:queen` with "apply from 'versus' to
+ * game CREATURE:QUEEN · SCUTES". Written as a VERSUS candidate against
+ * `armour` (`queen-look.ts`, kept for the LIBRARY) and moved here whole;
+ * `QUEEN_LOOK` points at it.
+ *
  * SCUTES — the shell is seven overlapping plates, each one a ridge with a
  * near side, lapped from the wings in toward the middle, and they slide.
  *

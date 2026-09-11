@@ -758,3 +758,21 @@ cannot import, so adopt could not move them.
 
 The other answers offered were `pendant`, `rasp` and `taproot`; they went with
 the slot.
+
+## `creature:queen` / `scutes` — taken, 2026-09-11
+
+The owner: apply from 'versus' to game 'CREATURE:QUEEN · SCUTES'. CARAPACE (a
+roller enemy or obstacle) and FACET (a metal enemy or obstacle) are kept on
+the GRAPHICS page's LIBRARY.
+
+the shell as seven plates lapped from the wings in — each cut from her own
+contour and filled as a ridge under the key, the lapping edges throwing
+shadows and wearing bevels, breathing apart and back with a tilt running wing
+to wing
+
+`QUEEN_LOOK.shell` is `scutes`, moved from
+`tools/versus/candidates/creature-queen/scutes/paint.ts` to
+`packages/render/src/queen-scutes.ts`.
+
+The other answers offered were `carapace` and `facet`; they went with the
+slot.
