@@ -1560,6 +1560,7 @@ place — the generator keeps whatever is there.
 | `tools/frames/drive.ts` | The three verbs a capture drives the page with, and the rule each of them carries |
 | `tools/frames/flags.ts` | Every `--hold` on the command line rather than the first, and the one tick line the ticked ones join |
 | `tools/frames/page-handle.ts` | The handle `window.neonSpore` installs, as this tool sees it — every field, and the build that added it |
+| `tools/frames/page-said.ts` | What the page said while `shot.ts` waited for it — its throws and console errors, printed above *is the tab right?* |
 | `tools/frames/pixels.ts` | **A screenshot read back as the picture it is**, rather than as the file it arrived in |
 | `tools/frames/picture.ts` | encoding a decoded PNG again, and magnifying a rectangle of one pixel for pixel — what `bun run crop` is made of |
 | `tools/frames/report.ts` | What a finished capture prints, including the `world.tick` each frame was actually taken at |
