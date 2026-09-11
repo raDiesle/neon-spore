@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · 98be232f — THE TELL is taken out of the game, whole
+
+The owner: "i want to completely remove 'The Tell' boss wave and all related dependencies. I do not like it and its hard to understand for players. too far away from the actual game setup and how it should feel." So the round goes with everything that hung off it: the sim's ladder, ring, clock, hash and two config numbers; the render's three-lobed body, its ring and its nine scenes; the reduced `tell` panel; the guide scene; wave 60; the director's group, fields and notes for it; the perf baseline row. The intro now counts ten bosses. The design is kept on the BOSSES page of NOT BUILT YET as a removed idea, with the owner's reason and what a second try would have to start from.
+
 ## 2026-09-11 · b0dbc852 — creature:rind decided: the game keeps its shed, FLAKES, POD and SLOUGH go to the LIBRARY
 
 The owner said "'CREATURE:RIND' keep current and move the versus alternative effects to 'Shapes' page". So THE RIND's shed is what it was, and the three looks that stood against it are kept to be seen: they moved whole from the VERSUS candidates into packages/render beside the record they patched, and the GRAPHICS page's LIBRARY now has a rind row — the husk the game draws, then FLAKES, POD and SLOUGH — each replayed on the game's own burr as it loses its layers, at the field's own half-second. A look the owner asked for by name. The slot is dropped by hand and written up in DECIDED.md.
