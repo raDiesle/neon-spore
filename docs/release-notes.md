@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · fc435310 — creature:magnet decided: ORE goes into the game and the other answers go
+
+The owner: "apply to game 'CREATURE:MAGNET · ORE' and remove other related 'CREATURE:MAGNET' alternatives". A look the owner asked for by name. THE MAGNET is dug-up stone now — a pitted arch, a plate split into strata, and the pole's colour running into each arm as veins with a bead of light flowing to the tip. ROD and YAW go with the slot, and so does COIL's machined arch: what ORE kept of it, the lit slab and the two poles, is what `magnet-coil.ts` holds now.
+
 ## 2026-09-11 · 6dd5391b — creature:lid decided: IRIS goes into the game, BEVEL and the old plates stay on the LIBRARY, and the SHAPES tab is GRAPHICS now
 
 The owner: "apply from 'versus' the 'CREATURE:LID · IRIS' to the game. keep the 'CREATURE:LID · BEVEL' with the graphic of opening like a iron curtain to see something behind for upcoming creatures, so show it on 'Shapes' page. I suggest to rename 'Shapes' to 'Graphics' and keep 'Shapes' a backwards compatible synonym - as idea is to have a graphics game asset library". A look the owner asked for by name. THE LID's armour is six overlapping leaves now, opening from a point at the middle of the eye; the two flat plates it wore and the bevelled ones are drawn beside it on the LIBRARY, on the game's own lid with a card pulling the cord. NOT BUILT YET's SHAPES tab reads GRAPHICS, its id and `bun run shot --tab SHAPES` still work, and THE LID's op-count row is remeasured for the leaves. ROLL goes with the slot.
