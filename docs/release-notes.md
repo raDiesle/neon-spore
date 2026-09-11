@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · 9eb945fb — The file map knows `page-said.ts`
+
+One row in `docs/INDEX.md` for the listener `bun run shot` gained; the completeness test asked for it at landing.
+
+## 2026-09-11 · 96f868e0 — `bun run shot` says what the page said when the picture is not coming
+
+A page that threw while loading used to photograph as *no element matches .versus-stage — is the tab right?*, and with `--freeze` as a ten-minute wait for a `[data-frozen]` that was never coming; reading the one-line error meant starting the director by hand and opening a console. `shot.ts` now listens to the page from the moment it opens — every uncaught exception and every `console.error` — and prints them above that line when the element is missing or the `--until` wait runs out. A throw also cuts the wait short: five seconds of grace, then the report. `bun run versus:shot` inherits it.
+
 ## 2026-09-11 · 1f419800 — THE CHOKE's bile on the specimen sheet, and its wave in the perf baseline
 
 The three bile colours join ONE THING EACH and the dial, and the sheet is redrawn; the baseline gets an UNMEASURED row for wave 55 and every row after it renumbered - the full check asked for both after the last commit.
