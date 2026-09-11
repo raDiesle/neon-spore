@@ -6,7 +6,10 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
+import { METEOR_BLAZE } from "./creature-meteor/blaze/index.js";
+import { METEOR_COMET } from "./creature-meteor/comet/index.js";
 import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
+import { METEOR_SMOULDER } from "./creature-meteor/smoulder/index.js";
 import { TETHER_CORD } from "./creature-tether/cord/index.js";
 import { TETHER_SINEW } from "./creature-tether/sinew/index.js";
 import { TETHER_TWIST } from "./creature-tether/twist/index.js";
@@ -21,7 +24,10 @@ import { SHIP_LYMPH } from "./ship-body/lymph/index.js";
 import { SHIP_REEF } from "./ship-body/reef/index.js";
 
 export const VARIANTS: Variant[] = [
+  METEOR_BLAZE,
+  METEOR_COMET,
   METEOR_FORGE,
+  METEOR_SMOULDER,
   TETHER_CORD,
   TETHER_SINEW,
   TETHER_TWIST,

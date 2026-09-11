@@ -1395,6 +1395,8 @@ place — the generator keeps whatever is there.
 | `tools/versus/fluid.ts` | THE FLUID UNDER THE CONTROLS — the two things the owner picked out of PLASM and EMBEDDED on 11 September 2026… |
 | `tools/versus/organ.ts` | A BUTTON GROWN AS AN ORGAN — the flesh it swells out of, the veins that feed it |
 | `tools/versus/wet.ts` | WET SKIN — the ship as a clear, light-reflecting surface, with **no grain** |
+| `tools/versus/wake-fire.ts` | THE FIRE ON A BURNING ROCK — the other half of `wake.ts` |
+| `tools/versus/wake.ts` | WHAT A BURNING ROCK LEAVES BEHIND IT — the marks the three `creature:meteor` candidates of 11 September 2026… |
 | `tools/index/drift.ts` | Whether a row in `docs/INDEX.md` still describes the file it names |
 | `tools/index/sentence.ts` | **The one line a row carries**, read off the file's own header comment and cut to something a table can hold |
 | `tools/index/place.ts` | where a new row goes: beside the rows whose names it shares a beginning with |

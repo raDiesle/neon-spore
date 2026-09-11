@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — Three burning meteors offered in VERSUS
+
+Three new creature:meteor candidates — BLAZE (a torch's fireball round a scorched, cratered stone), COMET (rusted iron under a long plume) and SMOULDER (a black stone burning on its underside, under a column of smoke) — each shedding small pieces with their own smoke up the wake, each keeping the shot marks; shared fire and smoke helpers in tools/versus/wake.ts and wake-fire.ts.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | reading |
+| writing | 40 | writing |
+| looking | 35 | looking |
+| friction | 20 | friction |
+| landing | 10 | landing |
+
+Bottleneck: Radial gradients painted inside the clipped stone came out flat or blank in the shots, whatever their geometry; the hot underside is a linear gradient instead, and every other gradient in the three was made concentric on the way.
+
 ## 2026-09-11 · hit-looks — THE GUM: a body that sticks to the ship and is swiped off by the seat without the cannon
 
 A new creature and wave 44: the gum falls straight, cannot be shot, sticks to the hull and shuts the cannon in its columns; player 1 parks the cannon under it and player 2 swipes it toward the nearer wall, the wrong way spreading it a lane. Sim, render (THE WEIGHT's sac in venom green), scene, audio, director, frames tool, tests.
