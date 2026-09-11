@@ -36,10 +36,15 @@ five seconds. A browser test with a page that throws. About 20 min.
 | writing | 10 | `page-said.ts`, the wiring in `shot.ts` under its line limit, `page-said.test.ts` |
 | looking | 0 | nothing visible moved |
 | friction | 0 | — |
-| landing | 5 | `queue done` by title, `check:fast`, the commit, `land --keep` |
+| landing | 10 | `queue done` by title, `check:fast`, the commit, `land --keep` twice |
 
-Bottleneck: **writing** — there was nothing to fight; the page already held
-the sentence, and the work was choosing where the wait gives up.
+Bottleneck: **landing** — half the time went on landing a 10-minute change.
+The first `bun run land` ran its full check for four minutes and then went
+red on one thing: the new file had no row in `docs/INDEX.md`. Writing the row
+took a minute; the second full check took another four. `check:fast` had
+passed a moment earlier because the index test was not among the tests it
+runs for every change. Fixed in the next landing: the index test is now one
+of `check:fast`'s sweeps, so a missing row is red before the commit.
 
 ## 2026-09-11 · hit-looks — THE CHOKE
 

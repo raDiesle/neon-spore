@@ -39,12 +39,17 @@ import { scopeFor } from "../hooks/scope.js";
  * The tests that read the whole tree, and so run whatever changed. The third
  * is the one the first landing under this rule went red on: a hook file two
  * lines over the limit, in a directory the diff had named and whose own tests
- * do not count lines.
+ * do not count lines. The fourth is the file map's completeness: a lane that
+ * adds a file owes `docs/INDEX.md` a row, and on 11 September 2026 the only
+ * thing that said so was `bun run land`'s full check, after its own four
+ * minutes — a second commit and a second full check for one line of prose.
+ * It reads the tree in a quarter of a second.
  */
 export const SWEEPS: readonly string[] = [
   "packages/sim/test/copies.test.ts",
   "packages/sim/test/limits.test.ts",
   "packages/sim/test/purity.test.ts",
+  "tools/index/test/index.test.ts",
 ];
 
 /**

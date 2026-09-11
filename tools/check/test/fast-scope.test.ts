@@ -6,7 +6,7 @@ import { changedSince, fastScopeFor, SWEEPS } from "../fast-scope.js";
 /**
  * What `bun run check:fast` decides to run. The table of what reaches what is
  * `tools/hooks/scope.ts`'s and is tested there; this asks only about the two
- * things the fast check adds — the narrowing of "run everything", and the two
+ * things the fast check adds — the narrowing of "run everything", and the
  * sweeps that ride along whatever changed.
  */
 
@@ -29,17 +29,16 @@ describe("fastScopeFor", () => {
   });
 
   it("one path asking for everything does not silence the narrow answers beside it", () => {
-    expect(fastScopeFor(["package.json", "docs/queue.md", "packages/net/src/wire.ts"])).toEqual([
-      "apps/game",
-      "packages/net",
-      ...SWEEPS,
-      "tools/director",
-      "tools/queue",
-    ]);
+    expect(fastScopeFor(["package.json", "docs/queue.md", "packages/net/src/wire.ts"])).toEqual(
+      ["apps/game", "packages/net", ...SWEEPS, "tools/director", "tools/queue"].sort(),
+    );
   });
 
-  it("a sim change names sim once — the sweeps already live there", () => {
-    expect(fastScopeFor(["packages/sim/src/step.ts"])).toEqual(["packages/sim"]);
+  it("a sim change names sim once — three of the sweeps already live there", () => {
+    expect(fastScopeFor(["packages/sim/src/step.ts"])).toEqual([
+      "packages/sim",
+      "tools/index/test/index.test.ts",
+    ]);
   });
 
   it("a shared file with no package of its own is the sweeps alone", () => {
@@ -52,7 +51,7 @@ describe("fastScopeFor", () => {
   });
 
   it("a tool is its own directory, whichever tool it is", () => {
-    expect(fastScopeFor(["tools/check/fast.ts"])).toEqual([...SWEEPS, "tools/check"]);
+    expect(fastScopeFor(["tools/check/fast.ts"])).toEqual([...SWEEPS, "tools/check"].sort());
   });
 
   it("the sweeps are real files, so a rename cannot make the fast check silent", () => {
