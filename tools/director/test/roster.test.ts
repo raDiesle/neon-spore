@@ -20,11 +20,13 @@ describe("roster", () => {
     expect(roster.creatures).toHaveLength(13);
     // The Wisp alone — the nine idea rows beside it were retired the same day.
     expect(roster.accepted).toHaveLength(1);
-    // Eleven named in the act order, plus THE MIRROR, which holds no slot in
-    // it and is built (docs/spec/bosses.md 11.3), plus THE TELL, which was
-    // built and taken out again and stands as an idea (11.9).
-    expect(roster.bosses).toHaveLength(13);
-    expect(roster.bosses.find((b) => b.name === "The Tell")?.built).toBe(false);
+    // Four named in the act order, plus THE MIRROR, which holds no slot in it
+    // and is built (docs/spec/bosses.md 11.3). The seven names that held
+    // empty slots, and THE TELL, left the order on 11 September 2026
+    // (docs/decisions.md #30) — every name still in it is built.
+    expect(roster.bosses).toHaveLength(5);
+    for (const boss of roster.bosses) expect(boss.built, boss.name).toBe(true);
+    expect(roster.bosses.find((b) => b.name === "The Tell")).toBeUndefined();
     expect(roster.bosses.find((b) => b.name === "The Mirror")?.built).toBe(true);
     expect(roster.bosses.find((b) => b.name === "Bulb Queen")?.built).toBe(true);
 
@@ -55,12 +57,13 @@ describe("roster", () => {
       expect(row.built, row.name).toBe(true);
     }
 
-    // Only the three worked-out bosses carry a note off their own heading's tail.
+    // Only a boss with a section of its own carries a note off its heading's
+    // tail; THE CHOIR is a creature with a slot and has none.
     const queen = roster.bosses.find((b) => b.name === "Bulb Queen");
     expect(queen?.note).toBe("armoured everywhere but the mark");
 
-    const strandNest = roster.bosses.find((b) => b.name === "Strand Nest");
-    expect(strandNest?.note).toBe("");
+    const choir = roster.bosses.find((b) => b.name === "The Choir");
+    expect(choir?.note).toBe("");
 
     // The one this panel used to get wrong: a table cell of one sentence where
     // the spec spends a paragraph saying what the kind actually does.

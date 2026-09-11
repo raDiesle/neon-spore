@@ -25,6 +25,8 @@ interface BacklogGroup {
   note: string;
   entries: BacklogEntry[];
   builtHidden: number;
+  /** Where a built one went — see `backlog.ts`; the palette when unsaid. */
+  builtWhere?: string;
   /** One column at prose width, every argument open — see `backlog.ts`. */
   reading?: boolean;
 }
@@ -63,15 +65,16 @@ function renderGroup(container: HTMLElement, group: BacklogGroup): void {
   // more than nothing, the day the bestiary's last idea rows were retired.
   const said = document.createElement("p");
   said.className = "note";
+  const where = group.builtWhere ?? "the brush palette";
   if (group.entries.length === 0) {
     said.textContent =
       group.builtHidden > 1
-        ? `nothing left here — all ${group.builtHidden} are built and in the brush palette.`
+        ? `nothing left here — all ${group.builtHidden} are built and in ${where}.`
         : group.builtHidden === 1
-          ? "nothing left here — the one it had is built and in the brush palette."
+          ? `nothing left here — the one it had is built and in ${where}.`
           : "nothing here — all of it is built.";
   } else if (group.builtHidden > 0) {
-    said.textContent = `${group.builtHidden} more are built and not listed here — they are in the brush palette.`;
+    said.textContent = `${group.builtHidden} more are built and not listed here — they are in ${where}.`;
   }
   if (said.textContent) section.appendChild(said);
 

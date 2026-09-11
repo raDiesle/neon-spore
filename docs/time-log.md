@@ -22,6 +22,25 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — The act order names only what is built
+
+The owner cleared THE ACT ORDER group of the NOT BUILT YET page: seven
+placeholder names and THE TELL out of `bosses.md`'s order, 11.10 "In plain
+words" gone with them, THE MOTHER and THE VESSEL drafts set free, a decision,
+and the page's empty line saying where a built boss went. About 30 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `roster.ts`'s order parser and `isBuilt`, the drafts that suggest the names, every file naming a slot |
+| writing | 15 | `bosses.md`'s head and the cut, `decisions.md` #30, four director tests, two drafts, the catalogue, `backlog.ts`'s `builtWhere`, the tab preamble |
+| looking | 5 | three shots of the tab — the first against the main checkout's director on 4174, which showed yesterday's page |
+| friction | 5 | The Conductor stood as unbuilt under its own name (now written as THE VANE); a draft must be offered to something, so two became free; the once-director idles out in three minutes |
+| landing | 0 | `check:fast`, the commit, `land --keep` |
+
+Bottleneck: **writing** — a draft cannot point at nothing and a test cannot
+count nothing, so removing eight names is also deciding what the two
+pictures drawn for them are now.
+
 ## 2026-09-11 · hit-looks — THE COUNT
 
 The Countdown creature out of `ideas.md` and into act 3 as THE COUNT: a disc

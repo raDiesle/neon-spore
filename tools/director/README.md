@@ -149,7 +149,7 @@ somebody wrote it down.
 
 | Tab | What is in it |
 |---|---|
-| `BOSSES` | the act order minus the ones that exist, the boss ideas, and the rounds that are not the field |
+| `BOSSES` | the act order minus the ones that exist — every name in it is built, so the group stands empty — the boss ideas, and the rounds that are not the field |
 | `BESTIARY` | every creature with a name and no code: the first thirteen, everything accepted since, and the creature ideas |
 | `SHAPES` | the contour catalogue — see below |
 | `MECHANICS` | couplings, assist forms, systems, and the mechanic, control and weapon ideas |

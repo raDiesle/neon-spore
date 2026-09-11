@@ -57,7 +57,12 @@ describe("buildBacklog", () => {
 
     expect(names(backlog.bosses)).not.toContain("Bulb Queen");
     expect(names(backlog.bosses)).not.toContain("The Mirror");
-    expect(names(backlog.bosses)).toContain("The Vessel");
+    // The act order names only built bosses since 11 September 2026
+    // (docs/decisions.md #30): the group is empty and says how many it hid.
+    expect(names(backlog.bosses)).not.toContain("The Vessel");
+    const order = group(backlog.bosses, "THE ACT ORDER");
+    expect(order.entries).toHaveLength(0);
+    expect(order.builtHidden).toBe(5);
   });
 
   test("a built coupling drops out, a partly built system does not", async () => {

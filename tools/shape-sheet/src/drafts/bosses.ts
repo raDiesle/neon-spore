@@ -3,7 +3,7 @@ import { arm, bloom, glyphed, mawed, sac } from "../forms/index.js";
 import { HEAVE, SWELL, TOLL, TURN } from "../motions.js";
 
 /**
- * Draft bosses: four encounters nobody has designed yet.
+ * Draft bosses: encounters nobody has built yet.
  *
  * The Warden used to be first here, as a body waiting for something to draw
  * it. It is drawn now — the shape moved to `packages/content/silhouettes.ts`
@@ -30,20 +30,24 @@ export const BOSS_DRAFTS: CatalogueEntry[] = [
       7,
     ),
     motion: SWELL,
-    status: "draft",
+    // Free, not draft, since 11 September 2026: The Mother left the act order
+    // with every other unbuilt name (docs/decisions.md #30), so there is no
+    // idea on the page for this to be offered to. Her design is still
+    // bosses.md 11.1, and this is still the shape drawn for it — a picture
+    // waiting for a boss again, which is what `free` means.
+    status: "free",
     slot: "boss",
-    suggests: "The Mother",
     owner:
-      "she gives back what the pair destroyed, so the shape is built around the opening it comes back out of rather than around a body with an attack: the arms say how far she reaches and the mouth says what she is for, and the pair can name both before anything happens",
+      "nothing wears it: drawn for The Mother while she held act 70 — she gives back what the pair destroyed, so the shape is built around the opening it comes back out of rather than around a body with an attack: the arms say how far she reaches and the mouth says what she is for, and the pair can name both before anything happens",
   },
   {
     subject: bloom("THE VESSEL", "one core, six arms, each at its own length", 60, 6, 0.62, 9),
     motion: TURN,
-    status: "draft",
+    // Free for the same reason as THE MOTHER's; the design is 11.2.
+    status: "free",
     slot: "boss",
-    suggests: "The Vessel",
     owner:
-      "the navigator reads a target combination and the pilot only the current states, so the silhouette has to *be* several readings at once — six arms on six periods, never in step, so the shape at any instant is a set of numbers and not a mood",
+      "nothing wears it: drawn for The Vessel while it held the finale — the navigator reads a target combination and the pilot only the current states, so the silhouette has to *be* several readings at once — six arms on six periods, never in step, so the shape at any instant is a set of numbers and not a mood",
   },
   {
     subject: sac("THE WEIGHT", "a sac hung heavy, narrow at the top", 0.46, 74, 96),

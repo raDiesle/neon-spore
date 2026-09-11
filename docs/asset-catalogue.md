@@ -1,6 +1,6 @@
 # The asset catalogue
 
-> **Status: thirty-five drafts, and three claimed so far.** A draft is a picture
+> **Status: thirty-three drafts, three claimed and two set free so far.** A draft is a picture
 > offered to an idea, not a decision about it. Nothing on this page is in the
 > game until it is claimed — its parameters moving into `packages/content`, or
 > into `packages/render` where what was drawn is a mechanism rather than a
@@ -100,7 +100,10 @@ creatures, six bosses, five collected, six for the controls and mechanics, four
 marks on the ship's own skin and two interlude bodies.
 Each names the idea it is offered to, and a test fails if that idea is not a heading in
 [ideas.md](spec/ideas.md) — a suggestion pointing at nothing is worse than no
-suggestion.
+suggestion. Which is why THE MOTHER and THE VESSEL are **free** shapes now and
+not drafts: the names they were drawn for left the act order on 11 September
+2026 (`decisions.md` #30), and a picture with no idea to be offered to is a
+picture waiting for one.
 
 **Four ideas turned out to be one drawing problem, and that is why they had no
 picture.** *The breach*, *The Patch*, *The Other Hand* and *Handover* had sat

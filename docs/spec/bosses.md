@@ -1,32 +1,27 @@
 # Bosses
 
-> **Status: five of the eleven names, and four more that hold none of them.**
-> The Bulb Queen, THE MIRROR, The Warden and THE VANE are in the game — THE
-> VANE holding The Conductor's slot — and so are THE FLEET, THE GAUGE, SNAKE,
-> PINBALL and THE PULSE, none of which is on the list below. Of the remaining
-> seven names none are built. Two more are worked out on this page and neither
-> is buildable today: The Vessel waits on a second device and The Mother on
-> destruction tracking. **THE TELL** (11.9) is a thirteenth, outside the order
-> below: asked for by the owner, designed on this page, shipped on wave 60 on
-> 8 September 2026 and **taken out again on 11 September** — he found it hard
-> for players to understand and too far from how the game is set up and should
-> feel. The design stays here as an idea; the code is in the history.
+> **Status: the act order names only what is built.** The Bulb Queen, THE
+> VANE (in the slot once called The Conductor), THE CHOIR, The Warden and
+> THE MIRROR are in the game, and so are THE FLEET, THE GAUGE, SNAKE, PINBALL and THE
+> PULSE, none of which is on the list below. The seven names that once held
+> the empty slots — Strand Nest, The Conductor, The Heart, The Mother, The
+> Codex, The Echoes, The Kernel, The Vessel — and THE TELL, built and taken
+> out again, left the
+> order on 11 September 2026 (`decisions.md` #30). The slots themselves are
+> the act structure's, in [wave-design 8.4](wave-design.md#84-the-ten-pillars-as-an-act-structure--not-built),
+> and a boss idea on the NOT BUILT YET page names the one it would fit. Two
+> designs below hold no slot: The Mother (11.1) waits on destruction tracking,
+> The Vessel (11.2) on a second device; THE TELL's design is 11.9.
 
 Order, following [the act structure](wave-design.md#84-the-ten-pillars-as-an-act-structure--not-built):
 
-Bulb Queen (10) · Strand Nest (20) · The Conductor (30, **THE VANE**) ·
-The Choir (40) ·
-The Warden (50) · The Heart (60) · The Mother (70) · The Codex (80) ·
-The Echoes (90) · The Kernel (100) · The Vessel (finale) · The Mirror (built) ·
-The Tell (removed).
+Bulb Queen (10) · The Vane (30) · The Choir (40) · The Warden (50) ·
+The Mirror (built).
 
-THE MIRROR is a twelfth, outside that order. It was built because it was asked
-for, and it holds no slot in the act structure yet — 11.3 says where it would
-fit if one is ever given to it. THE TELL is a thirteenth, built and removed;
-11.9 keeps the design and says why it went.
-
-Only four of the eleven are worked out. The rest are names holding a slot in
-the act structure.
+THE MIRROR holds no slot in the act structure yet — 11.3 says where it would
+fit if one is ever given to it. Every other slot is empty and unnamed: what
+goes in it comes from the boss ideas, each of which says which slot it wants,
+and arrives here as a numbered section when it is built.
 
 The five that exist ask five different questions. The Queen is about **what you
 know**, THE MIRROR about **what you remember**, The Warden about **what your
@@ -1196,85 +1191,3 @@ ring has to be one the pair already knows from playing — the plate stopping a
 bolt is the only arrow the game teaches by itself — and the tell has to be a
 thing the game already shows, not a lobe filling on a body built for the
 purpose.
-
-## 11.10 In plain words
-
-Every name in the act order the game does not have yet, written the way you
-would explain it to two people sitting down at two phones: what the encounter
-does, what each seat does about it, and what is still undecided. **Player 1 is
-the pilot** — the cannon, the shield trigger, the maw, the rock strip.
-**Player 2 is the navigator** — the two colours, the shield's own movement, the
-creature strip ([roles](roles.md)).
-
-Most of these are a name holding a slot, and *not decided yet* is the honest
-answer for them. **To finish it** is the list of questions to answer before
-anybody starts building — and for a boss the first of those is always the same
-one this file opens with: **what does it ask the pair that no built boss asks
-already.**
-
-The director reads this section and puts it on the NOT BUILT YET card
-(`tools/director/src/plain-words.ts`), so no name on that page stands with
-nothing under it.
-
-### Strand Nest
-
-- **What it does:** not designed. The name says a nest that sends strands, and the strand is built: a thread of beads eaten from its ends inward, with the column on one screen and the colour on the other.
-- **Player 1:** not decided yet.
-- **Player 2:** not decided yet.
-- **To finish it:** decide what a nest adds to a thread the pair has already played for twenty waves — several threads at once, threads that grow back, or a body that has to be opened before any thread can be finished. Once that is chosen it is a wave and a state machine, nothing new in the controls.
-
-### The Conductor
-
-- **What it does:** nothing left to build. **THE VANE** holds this slot and is in the game (11.5). The name is still on the list because the act order was written before THE VANE existed.
-- **Player 1:** —
-- **Player 2:** —
-- **To finish it:** decide whether The Conductor is a separate boss the game still wants or simply the old name for THE VANE. If it is separate it needs a question of its own; no built boss may be re-skinned into another.
-
-### The Heart
-
-- **What it does:** not designed. A name holding act 60.
-- **Player 1:** not decided yet.
-- **Player 2:** not decided yet.
-- **To finish it:** give it a question no built boss has taken. The five in the game ask about what you know, what you remember, what your hands are free to do, what you can still say, and giving directions. Note that wave 60 already carries THE TELL, so this slot may need moving as well as designing.
-
-### The Mother
-
-- **What it does:** she brings back what the pair destroyed in the act before. She reacts to *what* you killed, never to how well you played.
-- **Player 1:** nothing new in the hands. The wave is one of several written-out versions, and the pair's own past chose which one they get.
-- **Player 2:** the same — the difference is which control group is loaded heavily, not how hard anything is.
-- **To finish it:** the game does not count what a pair destroys yet, so that has to be tracked and carried across waves first. Then write the versions out: meteors → more warding, slicks → more colour work, runts spared → stronger growth. Overall difficulty must not move.
-
-### The Codex
-
-- **What it does:** not designed in this file. There *is* a worked-out **THE CODEX** among the boss ideas on the NOT BUILT YET page — read that one first.
-- **Player 1:** not decided yet.
-- **Player 2:** not decided yet.
-- **To finish it:** decide whether the idea and this slot are the same thing. If they are, the idea moves out of `ideas.md` and becomes a numbered section here; if not, act 80 needs a question of its own.
-
-### The Echoes
-
-- **What it does:** not designed, and the name is a trap: **THE ECHO is already a creature** — a body that comes down at half speed and divides into four. A big one of those would be a re-skin, not a boss.
-- **Player 1:** not decided yet.
-- **Player 2:** not decided yet.
-- **To finish it:** pick a different question, or rename the slot. `ideas.md` holds **Reverb** and **Herald**, the two names the bestiary freed up for repeat-with-a-delay designs.
-
-### The Kernel
-
-- **What it does:** not designed. It is the last boss before the finale, so it should be the hardest thing the pair has learned to *say*, not the fastest thing on the screen.
-- **Player 1:** not decided yet.
-- **Player 2:** not decided yet.
-- **To finish it:** pick a question. The only thing settled is the position: act 100 comes after every control the game has, so this boss may use all of them at once — which is a shape, not yet a design.
-
-### The Vessel
-
-- **What it does:** the ship has to be brought to a target combination. Player 2 is shown the combination; player 1 is shown only the current state of each part. Neither sees both, so it is an announcement under time pressure rather than a sum done in a hurry.
-- **Player 1:** reads out the state of each part as it stands, and moves to whatever they are told.
-- **Player 2:** holds the target and works out from what they hear which part is still wrong.
-- **To finish it:** the parts do not exist. Decide what a combination is made of on this field — columns, colours, shield positions — and how many of them. It also needs two real devices to mean anything: on one shared screen this boss does not work at all.
-
-### The Tell
-
-- **What it does:** built and removed. Rock, paper, scissors against a body at the top of the field, on the panel the pair already holds: the plate beats a bolt, a bolt beats an open mouth, an open mouth beats the plate. The boss shows what it is about to throw, half on each screen, and the ship throws once. It shipped on wave 60 on 8 September 2026 and the owner took it out on 11 September: hard for players to understand, too far from how the game is set up and should feel. The design is 11.9.
-- **Player 1:** held SHIELD and SUCK, so threw the plate and the mouth, and saw which lobe the boss was filling — what it would throw.
-- **Player 2:** held the two colours, so threw the bolt and nothing else, and saw the colour the boss wore — which bolt would land.
-- **To finish it:** find a version that needs no rule table. The ring has to be one the pair already knows from fifty waves of play, and the tell has to be something the game already shows. Until that exists it stays an idea.

@@ -42,6 +42,9 @@ export interface BacklogGroup {
   entries: BacklogEntry[];
   /** How many entries were left out because the simulation already has them. */
   builtHidden: number;
+  /** Where a built one went, for the sentence that says so: a creature is in
+   * the brush palette, a boss is a wave. Omitted, it is the palette. */
+  builtWhere?: string;
   /**
    * Read rather than scanned: one column at prose width, and every entry's
    * argument open on the page instead of behind an expander. For the groups
@@ -107,12 +110,18 @@ function fromSection(
 }
 
 // A built entry is not backlog. It is in the brush palette, or on the field.
-function fromRoster(title: string, note: string, rows: Planned[]): BacklogGroup {
+function fromRoster(
+  title: string,
+  note: string,
+  rows: Planned[],
+  builtWhere?: string,
+): BacklogGroup {
   return {
     title,
     note,
     entries: rows.filter((r) => !r.built).map(({ built: _built, ...rest }) => rest),
     builtHidden: rows.filter((r) => r.built).length,
+    ...(builtWhere ? { builtWhere } : {}),
   };
 }
 
@@ -161,7 +170,12 @@ export function buildBacklog(
     // in the act order, and a round filed on a tab of its own was read as a
     // different kind of thing than the boss it stands next to.
     bosses: [
-      fromRoster("THE ACT ORDER", "one boss every ten waves — bosses.md", roster.bosses),
+      fromRoster(
+        "THE ACT ORDER",
+        "one boss every ten waves — bosses.md",
+        roster.bosses,
+        "the wave list",
+      ),
       fromIdeas(
         "BOSS IDEAS",
         "encounters worked out and set aside, each naming the slot it would fit — ideas.md",

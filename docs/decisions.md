@@ -850,3 +850,37 @@ after the shot.
 **Reconsider if:** a pair at tempo reads the two open beats as a body that is
 simply slow rather than as a window — then `countdownOpenBeats` comes down and
 the guide's sentence changes with it.
+
+## 30. The empty boss slots lose their names
+
+**Decision:** on 11 September 2026 the owner cleared THE ACT ORDER group of
+the NOT BUILT YET page. The seven names that held empty slots in
+`docs/spec/bosses.md`'s order — **Strand Nest** (20), **The Heart** (60),
+**The Mother** (70), **The Codex** (80), **The Echoes** (90), **The Kernel**
+(100), **The Vessel** (finale) — and **The Tell**, built and removed the same
+day, are out of the order line; **The Conductor** (30) is written as THE
+VANE, the boss that holds it, since the old name stood on the page as a
+thing to build with "nothing left to build" under it; and 11.10 "In plain words", which existed to
+put a sentence under each of them, is gone with them. The order names only
+what is built.
+
+**Why:** the same reason as #28, one page along. The names were placeholders
+written before any boss existed, and every boss actually built since — THE
+FLEET, THE GAUGE, SNAKE, PINBALL, THE PULSE, THE CHOIR — came from an idea
+with a question of its own, not from the list. A list of eight names with
+*not decided yet* under six of them told a reader what was once thought of,
+not what is left to do.
+
+**Consequences:** the slots are the act structure's (`wave-design.md` 8.4),
+and a boss idea on the page still says which one it wants — "Slot: The Heart
+(60)" is a pillar's label now, not a boss's. The designs stay where they are
+worth keeping: The Mother's rule that a boss reacts to *what* was destroyed
+and never to *how well* (11.1) is cited by THE VANE and THE WARDEN; The
+Vessel's argument for the information split (11.2) is the clearest the spec
+has; THE TELL (11.9) was kept as an idea by the owner earlier the same day.
+`packages/audio`'s planned cues keep their names as history. The director's
+group shows its empty line.
+
+**Reconsider if:** a boss is designed for one of the empty slots — it arrives
+as a numbered section and a name in the order, through `ideas.md`, not by
+restoring the list.

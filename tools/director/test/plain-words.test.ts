@@ -64,14 +64,17 @@ describe("the spec's own sections", () => {
     (r) => !r.built,
   );
 
-  // Bosses only, since 11 September 2026: every creature row left in the
-  // bestiary is built, and its idea rows were retired (docs/decisions.md #28).
-  it("finds something unbuilt to explain", () => {
-    expect(unbuilt.length).toBeGreaterThan(5);
+  // Nothing, since 11 September 2026: every creature row left in the bestiary
+  // is built and its idea rows were retired (docs/decisions.md #28), and the
+  // act order names only built bosses (#30). The parser above is what stays
+  // ready for the next design that arrives with a section.
+  it("finds nothing unbuilt to explain", () => {
+    expect(unbuilt).toEqual([]);
   });
 
   // The whole point of the page: a name with a table cell under it told a
   // reader nothing about who says what to whom, or about what is missing.
+  // Vacuous today, and it is the rule the next unbuilt row is held to.
   it("gives every unbuilt entry all four rows", () => {
     for (const row of unbuilt) {
       expect(row.plain.map((r) => r.label)).toEqual([
