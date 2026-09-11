@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · f51afbea — GLAND's spine and organ beds are held between frames, and the stations are one fill
+
+The queue item from the adoption: the spine's cord and node and every organ button's veins, swelling, shoulder and gloss were built from the layout on every frame, twenty `new Path2D` on the frame that should have been all cache hits. The cord, its stations and its node now sit in slots per strip keyed on the layout and the column held, the way the trough's channel did; a button's bed is held per position and radius in a baked cache that clears past a handful of entries; and the stations are one path filled once rather than a fill per column. The second-frame rows in the four budget tables fell by ten paths and nine fills, the baked count rose by one on p2 for the bed, and the frame is byte-identical before and after — not a look, nothing in the picture changed.
+
 ## 2026-09-11 · f1104684 — GLAND is the ship: the owner's answer to ship:body, into the game by hand
 
 The owner picked GLAND out of `ship:body` on 11 September 2026 — EMBEDDED with his four corrections — to be used in the game. The hull is a clear wet surface with no grain, seven ribs leave the very top of it and hang on through the chamber as ribbons, the roof is the hull's own ripple sagging over every control, the rail is a lit spine with a node per column and a swollen wet node on the column held, every button is an organ grown out of the panel's flesh with veins and a slow breath, droplets of plasma and a beaded cord up to its rail and on to the lobe on the hull, and big lenses of fluid lie along the floor. The contour has twelve lobes now instead of fourteen. The seat's colours are untouched, so player two's ship is the same organ in amber. This is the look the owner asked for by name.
