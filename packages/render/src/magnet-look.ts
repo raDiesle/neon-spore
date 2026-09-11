@@ -1,5 +1,5 @@
 import type { MagnetDraw } from "./magnet.js";
-import { coil } from "./magnet-coil.js";
+import { ore } from "./magnet-ore.js";
 
 /**
  * THE ONE RECORD A CANDIDATE MAGNET LOOK PATCHES.
@@ -13,4 +13,7 @@ import { coil } from "./magnet-coil.js";
  * field patched onto it for the length of one `draw()`, and a call site that
  * named the function would never see one (`docs/versus.md`).
  */
-export const MAGNET_LOOK: { body: (d: MagnetDraw) => void } = { body: coil };
+/** ORE since 11 September 2026 — the owner's pick over the machined `coil` it
+ * is built on (`magnet-coil.ts` still paints the slab and the poles under the
+ * pits and veins). */
+export const MAGNET_LOOK: { body: (d: MagnetDraw) => void } = { body: ore };

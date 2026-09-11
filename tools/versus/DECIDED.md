@@ -731,3 +731,18 @@ it rides over the next
 `packages/render/src/lid-iris.ts`.
 
 The other answers offered were `bevel` and `roll`; they went with the slot.
+
+## `creature:magnet` / `ore` — taken, 2026-09-11
+
+The owner: apply to game 'CREATURE:MAGNET · ORE' and remove other related
+'CREATURE:MAGNET' alternatives. ROD and YAW go.
+
+the horseshoe as dug-up stone — pitted, the plate split into strata, and the
+colour a vein running into each arm with a bead of light flowing down it to
+the tip
+
+`MAGNET_LOOK.body` is `ore`, moved from
+`tools/versus/candidates/creature-magnet/ore/paint.ts` to
+`packages/render/src/magnet-ore.ts`.
+
+The other answers offered were `rod` and `yaw`; they went with the slot.

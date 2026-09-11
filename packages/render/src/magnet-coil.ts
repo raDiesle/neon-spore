@@ -1,44 +1,41 @@
-import { MAGNET_SHAPE, type MagnetShape } from "@neon-spore/content";
+import type { MagnetShape } from "@neon-spore/content";
 import { magnetPoleColor } from "@neon-spore/sim";
-import { hazed } from "./depth.js";
 import { halo, strokeGlow } from "./glow.js";
 import { mixHex } from "./hex.js";
-import { litBox, litRound } from "./key-light.js";
+import { litBox } from "./key-light.js";
 import {
   type MagnetDraw,
-  magnetArchPath,
-  magnetHang,
   magnetPlatePath,
   magnetPolePath,
-  magnetRadius,
   magnetSlabPath,
   poleTip,
 } from "./magnet.js";
-import { lanes } from "./magnet-lanes.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /**
- * WHAT THE MAGNET IS DRAWN AS: a solid horseshoe, poles lit from their tips,
- * and a chevron lane at each side saying the way in is across and not up.
+ * THE MAGNET'S SLAB AND POLES: the plate lit as a slab, and the two poles lit
+ * from their tips — the half of the body ORE (`magnet-ore.ts`) draws over.
  *
- * It arrived as `creature:magnet` / `coil` on VERSUS and the owner took it
- * into the game on 8 September 2026. What it replaced was three flat greys and
- * two wedges of colour — a body that stated two thirds of its own rule and
- * left the hardest clause, that a shot only gets in **sideways**, to be
- * learned by losing a shot to the plate.
+ * This file was COIL, the machined horseshoe that arrived as `creature:magnet`
+ * / `coil` on VERSUS and went into the game on 8 September 2026 — a bevel, a
+ * ramp and a hard edge under the key light. On 11 September 2026 the owner
+ * took ORE in its place, a pitted stone with the colour running through it as
+ * veins, and asked for the other alternatives to go; ORE kept the slab and
+ * the poles as they were and drew its own arch, so the horseshoe's machined
+ * arch and its bevel went with COIL and what is left here is what both drew.
  *
- * **Every path here is the geometry next door.** `magnetArchPath`, `magnetPolePath`,
+ * **Every path here is the geometry next door.** `magnetPolePath`,
  * `magnetPlatePath` and `magnetSlabPath` come from `magnet.ts` rather than
  * being redrawn here, because `magnetOutline` in `packages/content` is the
  * silhouette the shape sheet judges and the nameability gate reads, and a
  * picture that moved the contour without moving that function would disagree
  * with the one file allowed to say what this body's shape is. What this file
- * decides is the light on it, what the poles do, and one thing drawn beside
- * it.
+ * decides is the light on the plate and what the poles do.
  */
 
 /**
- * A machined edge, all the way round, drawn **inside** the clip.
+ * A machined edge, all the way round, drawn **inside** the clip — the plate's
+ * now; it was the arch's too, until ORE.
  *
  * A wide pale stroke on a clipped path lands entirely within the shape, so the
  * whole rim lifts; the key light then goes over the top and takes the far half
@@ -59,32 +56,6 @@ function bevel(
   ctx.lineWidth = Math.max(1.5, r * 0.11);
   ctx.stroke(path);
   ctx.globalAlpha = 1;
-}
-
-/**
- * COIL, drawn: the horseshoe as a solid under the key light, its two poles lit
- * from their ends, and a lane of its own colour running in at each side.
- */
-export function coil(d: MagnetDraw): void {
-  const { ctx, l, cfg, c, x, y, beats, struck, near } = d;
-  const s = MAGNET_SHAPE;
-  const r = magnetRadius(l, c);
-  const haze = (h: string): string => hazed(cfg, h, near);
-  const spin = magnetHang(c, beats);
-
-  // The lanes go down before the transform, level and unrotated: what they
-  // draw is the path a locked bolt runs, and a bolt does not lean because the
-  // body it is arriving at happens to be hanging.
-  ctx.save();
-  ctx.translate(x, y);
-  lanes(d, r, s, haze);
-  ctx.rotate(spin);
-
-  slab(d, r, s, struck, haze);
-  arch(d, r, haze, spin);
-  pole(d, r, s, true, haze);
-  pole(d, r, s, false, haze);
-  ctx.restore();
 }
 
 /**
@@ -158,32 +129,12 @@ export function slab(
   halo(ctx, 0, r * s.plateDrop, r * 1.1, PALETTE.rock, 0.45 * heat);
 }
 
-/** The horseshoe: the same dark mass, with the shipped key light over it so it
- * reads as a bent bar rather than as a ring cut out of paper. `litRound`
- * rather than a gradient of this file's own, for `forge`'s reason — which
- * greys a body is made of is a material question and where the light is
- * coming from is not. */
-function arch(d: MagnetDraw, r: number, haze: (h: string) => string, spin: number): void {
-  const { ctx } = d;
-  const path = magnetArchPath(r);
-  ctx.fillStyle = haze(PALETTE.rockDark);
-  ctx.fill(path);
-  ctx.save();
-  ctx.clip(path);
-  bevel(ctx, path, r, haze);
-  litRound(ctx, 0, 0, r, "value", spin);
-  ctx.restore();
-  ctx.lineWidth = STROKE.outline;
-  ctx.strokeStyle = haze(PALETTE.dim);
-  ctx.stroke(path);
-}
-
 /**
- * One pole, lit from its own end. Exported, with `slab`, for a candidate in
- * `tools/versus` that argues about the arch or the plate and not about the
- * poles: the two lamps are the half of this body that carries a word somebody
- * says out loud, and a second copy of how they are lit is a second copy of
- * where the pair looks for it.
+ * One pole, lit from its own end. Exported, with `slab`, for a body that
+ * argues about the arch or the plate and not about the poles — ORE is one:
+ * the two lamps are the half of this body that carries a word somebody says
+ * out loud, and a second copy of how they are lit is a second copy of where
+ * the pair looks for it.
  *
  * Shipped, a pole is a flat wedge of colour with a halo at the tip. Here the
  * colour is a gradient standing *on* the tip and falling away up the arm, so

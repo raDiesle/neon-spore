@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — creature:magnet — ORE into the game, the rest gone
+
+Adopted ORE with the tool, cut COIL's dead arch out of magnet-coil.ts and retitled it as the slab and poles ORE draws over, photographed THE MAGNET.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | reading |
+| writing | 10 | writing |
+| looking | 5 | looking |
+| friction | 5 | friction |
+| landing | 5 | landing |
+
+Bottleneck: Cutting the dead horseshoe: the slab shares the bevel with the arch, and the first cut took it too.
+
 ## 2026-09-11 · hit-looks — creature:lid — IRIS into the game, BEVEL kept, SHAPES renamed GRAPHICS
 
 Adopted IRIS with the tool after copying BEVEL and the old plates into render for the LIBRARY, built the lid stage that pulls the cord on a card, renamed the tab with SHAPES kept as a synonym for the shot tool, remeasured THE LID's op-count row.

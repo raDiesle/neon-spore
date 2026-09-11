@@ -1,12 +1,10 @@
-import {
-  MAGNET_SHAPE,
-  type MagnetShape,
-} from "../../../../../packages/content/src/magnet-shape.js";
-import { hazed } from "../../../../../packages/render/src/depth.js";
-import { halo } from "../../../../../packages/render/src/glow.js";
-import { sinHash } from "../../../../../packages/render/src/hash.js";
-import { mixHex, rgba } from "../../../../../packages/render/src/hex.js";
-import { litRound } from "../../../../../packages/render/src/key-light.js";
+import { MAGNET_SHAPE, type MagnetShape } from "@neon-spore/content";
+import { magnetPoleColor } from "@neon-spore/sim";
+import { hazed } from "./depth.js";
+import { halo } from "./glow.js";
+import { sinHash } from "./hash.js";
+import { mixHex, rgba } from "./hex.js";
+import { litRound } from "./key-light.js";
 import {
   DOWN,
   type MagnetDraw,
@@ -15,13 +13,17 @@ import {
   magnetRadius,
   magnetSlabPath,
   TURN,
-} from "../../../../../packages/render/src/magnet.js";
-import { pole, slab } from "../../../../../packages/render/src/magnet-coil.js";
-import { lanes } from "../../../../../packages/render/src/magnet-lanes.js";
-import { PALETTE, STROKE } from "../../../../../packages/render/src/palette.js";
-import { magnetPoleColor } from "../../../../../packages/sim/src/magnet.js";
+} from "./magnet.js";
+import { pole, slab } from "./magnet-coil.js";
+import { lanes } from "./magnet-lanes.js";
+import { PALETTE, STROKE } from "./palette.js";
 
 /**
+ * ORE — THE MAGNET's body as the game draws it since 11 September 2026, when
+ * the owner decided `creature:magnet` with "apply to game CREATURE:MAGNET ·
+ * ORE and remove other related alternatives". Written as a VERSUS candidate
+ * over `coil` and moved here whole; `MAGNET_LOOK` points at it.
+ *
  * ORE, drawn: the horseshoe is a lump of something dug up, and the colour in
  * its poles is a vein running through the stone.
  *

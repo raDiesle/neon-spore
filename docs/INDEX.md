@@ -900,6 +900,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/magnet-coil.ts` | WHAT THE MAGNET IS DRAWN AS: a solid horseshoe, poles lit from their tips |
 | `packages/render/src/magnet-lanes.ts` | Where an intake lane starts and ends, in body radii from the centre |
 | `packages/render/src/magnet-look.ts` | THE ONE RECORD A CANDIDATE MAGNET LOOK PATCHES |
+| `packages/render/src/magnet-ore.ts` | ORE — THE MAGNET's body as the game draws it since 11 September 2026 |
 | `packages/render/src/mount-look.ts` | THE ONE RECORD A CANDIDATE **MOUNT** PATCHES |
 | `packages/render/src/balloon-alive.ts` | **What makes THE BALLOON alien**: the film that travels over its skin |
 | `packages/render/src/pulse-wash.ts` | **The whole ship lit, by the one body that got past.** A body answered too late is not answered |
