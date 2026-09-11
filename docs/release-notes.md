@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · 78a190ce — THE RECOIL is thrown, not jumped: a knock-back is one beat's arc from where the body was drawn
+
+The owner saw a struck recoil jump. A bounce is written mid-tick and the picture glided it over whatever was left of the beat, so the frame of the hit jumped from the body's drawn place to the tile's centre, and a late hit crossed two rows and a lane in a tenth of a beat before turning on its heel at the beat line. Now a struck recoil is on a throw of its own for one beat (`recoil-leap.ts`, kept in `Effects`): a parabola in rows from the point it was last drawn at, ending exactly where the simulation has the body when the beat is up and at the fall's own speed, so it comes off the arc into its fall without a corner; sideways with all the speed at the start; and the colour turns over along the same arc (`Body.turn`). The vent's wake ends on the thrown body rather than on the glide's tile. Nothing in the simulation moved: the row and column a shot is judged against are what they were. A fix to something wrong, not to something unlovely.
+
 ## 2026-09-11 · a1881f1d — A living body's interior stays inside its rim: THE RIND's bloom no longer crosses the knobs
 
 The owner saw the red rind's inner animation reach outside its body. A rind wears the slick's look, and the slick's bloom sizes its veins to the slick's own ellipse — but the rind's contour is BURR, three lobes and knobs, whose rim dips well inside that ellipse, so the veins crossed it. Now every living body's interior is drawn through a clip of the body itself scaled a sixth smaller (`body-inset.ts`), so nothing inside a body touches or passes its edge, whatever contour it wears. A fix to something wrong, not to something unlovely.
