@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 
 /**
- * `bun run shot <#selector> <out.png> [--open "≡ RELEASE NOTES"] [--tab SHAPES]
+ * `bun run shot <#selector> <out.png> [--open "≡ RELEASE NOTES"] [--tab GRAPHICS]
  * [--inner SPEC] [--wait 2500] [--hold Control] [--select ".versus-rate=0.25"]` —
  * photograph one element of the running director.
  *

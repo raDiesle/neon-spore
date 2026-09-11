@@ -1,7 +1,7 @@
-import { KEY } from "../../../../../packages/content/src/light.js";
-import { strokeGlow } from "../../../../../packages/render/src/glow.js";
-import { mixHex, rgba } from "../../../../../packages/render/src/hex.js";
-import type { LidPlates } from "../../../../../packages/render/src/lid-look.js";
+import { KEY } from "@neon-spore/content";
+import { strokeGlow } from "./glow.js";
+import { mixHex, rgba } from "./hex.js";
+import type { LidPlates } from "./lid-look.js";
 
 /**
  * IRIS — six armour leaves overlapping like a diaphragm, closing to a point

@@ -6,9 +6,6 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
-import { LID_BEVEL } from "./creature-lid/bevel/index.js";
-import { LID_IRIS } from "./creature-lid/iris/index.js";
-import { LID_ROLL } from "./creature-lid/roll/index.js";
 import { MAGNET_ORE } from "./creature-magnet/ore/index.js";
 import { MAGNET_ROD } from "./creature-magnet/rod/index.js";
 import { MAGNET_YAW } from "./creature-magnet/yaw/index.js";
@@ -42,9 +39,6 @@ import { SHIP_LYMPH } from "./ship-body/lymph/index.js";
 import { SHIP_REEF } from "./ship-body/reef/index.js";
 
 export const VARIANTS: Variant[] = [
-  LID_BEVEL,
-  LID_IRIS,
-  LID_ROLL,
   MAGNET_ORE,
   MAGNET_ROD,
   MAGNET_YAW,

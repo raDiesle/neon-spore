@@ -1,4 +1,4 @@
-import { drawPlates } from "./lid-plates.js";
+import { iris } from "./lid-iris.js";
 
 /**
  * THE ONE RECORD A CANDIDATE LID ARMOUR PATCHES.
@@ -58,7 +58,9 @@ export interface LidLook {
   plates(d: LidPlates): void;
 }
 
-/** The shipped armour: two flat plates of shell grey sliding apart from the
- * middle, two grooves apiece travelling with them, and the inner edges lit in
- * the lens's own colour. `lid-plates.ts` holds the arithmetic. */
-export const LID_LOOK: LidLook = { plates: drawPlates };
+/** The shipped armour: six overlapping leaves closing to a point at the
+ * middle of the eye and turning outward as the cord is pulled — IRIS, the
+ * owner's pick on 11 September 2026 (`lid-iris.ts`). The two flat sliding
+ * plates it replaced are `drawPlates` in `lid-plates.ts`, kept for the
+ * GRAPHICS page's LIBRARY beside BEVEL. */
+export const LID_LOOK: LidLook = { plates: iris };

@@ -657,6 +657,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/lid-string.ts` | you are drawing or hit-testing the cord under an armoured eye — the handle's circle lives here |
 | `packages/render/src/lid-look.ts` | you are offering a second answer to the lid's armour — the one record a candidate for the plates patches |
 | `packages/render/src/lid-plates.ts` | the shipped plates over the lid's lens — two grey rectangles sliding apart, and the lit seam between them |
+| `packages/render/src/lid-bevel.ts` | BEVEL — a kept look for THE LID's armour, drawn only on the GRAPHICS page's LIBRARY |
+| `packages/render/src/lid-iris.ts` | IRIS — six armour leaves overlapping like a diaphragm |
 | `packages/render/src/lid.ts` | you are drawing the armoured eye itself — the lens, the sliding plates and the fringe |
 | `packages/render/src/ease.ts` | The one easing curve `render/` uses, and the one place it is written out |
 | `packages/render/src/hash.ts` | The one repeatable 0..1 in `render/`, and the one place its two magic numbers are written down |
@@ -1574,5 +1576,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/library/volley-stage.ts` | The game's own volley, drawn on a card wearing a shell of the caller's choosing |
 | `tools/director/src/library/veil-assets.ts` | THE VEIL's four clouds — what the weather is made of between its rim and its lightning |
 | `tools/director/src/library/veil-stage.ts` | The game's own veil, drawn on a card with a cloud mass of the caller's choosing |
+| `tools/director/src/library/lid-assets.ts` | THE LID's three armours — what stands between the pair and the lens, and how it gets out of the way |
+| `tools/director/src/library/lid-stage.ts` | The game's own lid, drawn on a card wearing armour of the caller's choosing |
 
 <!-- index:code:end -->

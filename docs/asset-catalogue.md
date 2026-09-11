@@ -28,7 +28,9 @@ reads this sentence and counts the catalogue. It had gone wrong twice in one
 day before that — two sessions each incrementing the number they found instead
 of counting — and a status line nobody can trust is worse than none.
 
-Browse it in the director: `bun run dev`, then **NOT BUILT YET → SHAPES**. The
+Browse it in the director: `bun run dev`, then **NOT BUILT YET → GRAPHICS** —
+the tab was SHAPES until 11 September 2026, and that name is still understood
+(`bun run shot --tab SHAPES`). The
 cards animate, and that is the whole reason the page exists rather than a
 folder of SVGs.
 

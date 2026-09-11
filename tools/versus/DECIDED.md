@@ -715,3 +715,19 @@ HUNCHED, JESTER and SOLID go
 
 The other answers offered were `hunched`, `jester` and `solid`; they went with
 the slot.
+
+## `creature:lid` / `iris` — taken, 2026-09-11
+
+The owner: apply from 'versus' the 'CREATURE:LID · IRIS' to the game. BEVEL is
+kept on the GRAPHICS page's LIBRARY for upcoming creatures; ROLL goes.
+
+six overlapping armour leaves closing to a point at the middle of the eye and
+turning outward as the cord is pulled — a diaphragm opening on the rule's own
+gap, each leaf lit by where it sits under the key light, with a dark cut where
+it rides over the next
+
+`LID_LOOK.plates` is `iris`, moved from
+`tools/versus/candidates/creature-lid/iris/paint.ts` to
+`packages/render/src/lid-iris.ts`.
+
+The other answers offered were `bevel` and `roll`; they went with the slot.

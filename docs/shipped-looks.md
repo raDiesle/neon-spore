@@ -519,7 +519,7 @@ The travelling ribbon that was the lance for one day is parked on NOT BUILT YET
 
 ## Where this is decided from now on
 
-The director's SHAPES tab, under `◇ NOT BUILT YET`:
+The director's GRAPHICS tab (SHAPES until 11 September 2026), under `◇ NOT BUILT YET`:
 
 - **GLOW** — nine ways a body throws light, with the two shipped ones among
   them (`BLOOM` is `strokeGlow`, `HALO` is `halo`).

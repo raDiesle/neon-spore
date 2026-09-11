@@ -77,7 +77,7 @@ bun run shapes:report  # the geometry as numbers — reach for this first
 bun run shapes:cues    # the motion half of shapes:report, as numbers not a picture
 bun run shapes:parts   # every secondary form on one sheet — docs/parts.md
 bun run shapes:swim    # one pulse cycle of every body that swims, as a strip
-bun run shapes:page    # the director's SHAPES page, built
+bun run shapes:page    # the director's GRAPHICS page (was SHAPES), built
 bun run shapes:still   # the same, as stills
 bun run maze           # the sheets THE MAZE is played on, drawn
 bun run style-guide    # the specimen sheet for docs/style-guide.md, drawn from the palette

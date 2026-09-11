@@ -23,6 +23,10 @@ import type { Page } from "playwright-core";
 /** How long a sheet takes to build itself after its button is pressed. */
 const BUILD_MS = 600;
 
+/** A tab's former name, still accepted: the owner renamed SHAPES to GRAPHICS
+ * on 11 September 2026 and asked for the old name to keep working. */
+const FORMER_TAB: Readonly<Record<string, string>> = { SHAPES: "GRAPHICS" };
+
 export interface Reach {
   /** A full-screen sheet, by the label on its header button. */
   open?: string | undefined;
@@ -74,7 +78,8 @@ export async function reachState(page: Page, reach: Reach): Promise<void> {
     // it lands on rebuilds them again.
     await page.getByRole("button", { name: "NOT BUILT YET" }).click();
     await page.waitForTimeout(BUILD_MS);
-    await page.getByRole("button", { name: reach.tab, exact: true }).click();
+    const label = FORMER_TAB[reach.tab] ?? reach.tab;
+    await page.getByRole("button", { name: label, exact: true }).click();
   }
   if (reach.inner) {
     // Pressed in the page rather than through Playwright's locator engine. An

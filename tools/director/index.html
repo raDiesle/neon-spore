@@ -451,7 +451,13 @@
       <div id="backlogTabs">
         <button type="button" data-tab="bosses" class="on">BOSSES</button>
         <button type="button" data-tab="bestiary">BESTIARY</button>
-        <button type="button" data-tab="shapes">SHAPES</button>
+        <!-- GRAPHICS was SHAPES until 11 September 2026, when the owner renamed
+             it: the page is the game's graphics asset library now — the LIBRARY
+             view holds looks the game draws and looks kept for bodies not built
+             yet — and SHAPES stays a synonym. The id keeps the old name so a
+             saved place and every `shapes-*.ts` still find it, and `bun run shot
+             --tab SHAPES` is mapped to this button in `shot-state.ts`. -->
+        <button type="button" data-tab="shapes" title="was SHAPES">GRAPHICS</button>
         <button type="button" data-tab="mechanics">MECHANICS</button>
         <button type="button" data-tab="designs">DESIGNS</button>
         <button type="button" data-tab="queen">BULB QUEEN VARIANTS</button>

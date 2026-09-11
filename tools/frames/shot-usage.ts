@@ -8,7 +8,7 @@
  */
 export function usage(): never {
   console.error(
-    'usage: bun run shot <#selector> <out.png> [--open "≡ RELEASE NOTES"] [--tab SHAPES] [--wait 2500]',
+    'usage: bun run shot <#selector> <out.png> [--open "≡ RELEASE NOTES"] [--tab GRAPHICS] [--wait 2500]',
   );
   console.error('       --click is a CSS selector pressed first, e.g. ".cell:has(img)"');
   console.error("       --nth is which of its matches to press, counting from 1");
@@ -16,7 +16,9 @@ export function usage(): never {
   console.error('       --path is what the port is asked for, e.g. "/?play=1" — the field itself');
   console.error("       --size is a viewport, e.g. 390x844 — a phone, for something a phone shows");
   console.error("       --open is a header button to press first, for a sheet that starts hidden");
-  console.error("       --tab is a NOT BUILT YET tab name; omit it for the main screen");
+  console.error(
+    "       --tab is a NOT BUILT YET tab name (SHAPES still means GRAPHICS); omit it for the main screen",
+  );
   console.error("       --at is a rectangle inside it, x,y,w,h in its own CSS pixels");
   console.error('       --type fills a field first, e.g. "#waveFilter=boss"');
   console.error('       --select turns a <select> first, e.g. ".versus-rate=0.25"');

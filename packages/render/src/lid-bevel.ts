@@ -1,9 +1,19 @@
-import { KEY } from "../../../../../packages/content/src/light.js";
-import { strokeGlow } from "../../../../../packages/render/src/glow.js";
-import { mixHex, rgba } from "../../../../../packages/render/src/hex.js";
-import type { LidPlates } from "../../../../../packages/render/src/lid-look.js";
+import { KEY } from "@neon-spore/content";
+import { strokeGlow } from "./glow.js";
+import { mixHex, rgba } from "./hex.js";
+import type { LidPlates } from "./lid-look.js";
 
 /**
+ * BEVEL — a kept look for THE LID's armour, drawn only on the GRAPHICS page's
+ * LIBRARY.
+ *
+ * It stood in `creature:lid` on VERSUS, decided 11 September 2026: IRIS went
+ * into the game (`lid-iris.ts`) and the owner said of this one "keep the
+ * CREATURE:LID · BEVEL with the graphic of opening like a iron curtain to see
+ * something behind for upcoming creatures". It sits in this package, beside
+ * the record it once patched, because it is written against this package's
+ * internals; nothing on the field imports it, and the game's bundle drops it.
+ *
  * BEVEL — the same two sliding plates, given a thickness and a curve.
  *
  * The shipped armour is two flat rectangles of one grey with two lines on

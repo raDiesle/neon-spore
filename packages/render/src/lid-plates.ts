@@ -2,7 +2,9 @@ import { strokeGlow } from "./glow.js";
 import type { LidPlates } from "./lid-look.js";
 
 /**
- * THE SHIPPED ARMOUR on THE LID: two plates, and the gap between them.
+ * THE ARMOUR THE LID WORE until 11 September 2026: two plates, and the gap
+ * between them. IRIS (`lid-iris.ts`) is what the game draws now; this stays
+ * for the GRAPHICS page's LIBRARY, where it is drawn beside IRIS and BEVEL.
  *
  * Cut out of `lid.ts` when the plates got a record (`lid-look.ts`), so that a
  * second answer could sit beside this one. Nothing changed a pixel in the

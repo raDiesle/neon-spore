@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — creature:lid — IRIS into the game, BEVEL kept, SHAPES renamed GRAPHICS
+
+Adopted IRIS with the tool after copying BEVEL and the old plates into render for the LIBRARY, built the lid stage that pulls the cord on a card, renamed the tab with SHAPES kept as a synonym for the shot tool, remeasured THE LID's op-count row.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | reading |
+| writing | 20 | writing |
+| looking | 10 | looking |
+| friction | 5 | friction |
+| landing | 5 | landing |
+
+Bottleneck: The op-count budget: six leaves cost more fills and gradients than two plates, and the row had to be remeasured in MEASURE mode and moved before check:fast went green.
+
 ## 2026-09-11 · hit-looks — creature:veer — the rider's collar stays on the rock
 
 Read the rider's geometry, found the 'hands' are the ruff beads sinking with the crouch, pinned them to the rock's crown, photographed the brace before and after, dropped the slot.

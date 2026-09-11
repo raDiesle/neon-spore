@@ -1,3 +1,4 @@
+import { LID_BEVEL, LID_IRIS, LID_PLATES } from "./lid-assets.js";
 import type { Asset } from "./types.js";
 import { VEIL_ANVIL, VEIL_FOAM, VEIL_STRATA, VEIL_VORTEX } from "./veil-assets.js";
 import { VOLLEY_EMBER, VOLLEY_PAINTED, VOLLEY_PITTED } from "./volley-assets.js";
@@ -29,6 +30,9 @@ export const ASSETS: readonly Asset[] = [
   VEIL_FOAM,
   VEIL_STRATA,
   VEIL_VORTEX,
+  LID_IRIS,
+  LID_PLATES,
+  LID_BEVEL,
 ];
 
 export type { Asset, AssetContext, AssetFrame } from "./types.js";

@@ -58,6 +58,11 @@ export {
   tileCY,
   type ViewRole,
 } from "./layout.js";
+export { drawLid } from "./lid.js";
+export { bevel } from "./lid-bevel.js";
+export { iris } from "./lid-iris.js";
+export { LID_LOOK, type LidLook, type LidPlates } from "./lid-look.js";
+export { drawPlates } from "./lid-plates.js";
 export { drawLiving } from "./living-draw.js";
 export { drawMazeWalls, mazeCanvasAngle, mazeRimHalfGapMilli } from "./maze-walls.js";
 export { LAUNCH_LIFE, SETTLED_AGE } from "./opening-fx.js";

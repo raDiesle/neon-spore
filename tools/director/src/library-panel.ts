@@ -1,8 +1,8 @@
 import { ASSETS, type AssetContext, BEAT_SECONDS } from "./library/index.js";
 
 /**
- * The LIBRARY view on SHAPES: the game's own looks, each on a card, drawn by
- * the game's own code.
+ * The LIBRARY view on GRAPHICS (SHAPES until 11 September 2026): the game's
+ * own looks, each on a card, drawn by the game's own code.
  *
  * `library/types.ts` says why the view is a canvas and the other three are
  * SVG. This file is the loop: one `requestAnimationFrame`, one clock, every

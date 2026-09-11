@@ -413,39 +413,42 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
   ],
   "THE LID": [
     {
-      fillRect: 67,
-      // Five under the row that stood here, and none of the five was spent by
-      // this change: they were slack left behind by a saving that landed
-      // without lowering the row, which a ceiling test never notices. Measured
-      // again, and put where the frame actually is.
+      // Remeasured on 11 September 2026, when the armour became IRIS
+      // (`lid-iris.ts`): six leaves in place of two sliding plates. Each leaf
+      // is a face filled, a curl filled from its own radial gradient and a cut
+      // edge stroked, so `fill` rose by twelve, `createRadialGradient` by six
+      // and `stroke` by five (six cuts, less the plates' one straight seam);
+      // `fillRect` lost the plates' three slabs.
+      fillRect: 64,
       // **Four of these are the iris**: the aperture ring and every spoke go
       // into one path stroked once, so this row does not move when the spoke
       // count does (`eye-iris.ts`).
-      stroke: 82,
-      fill: 24,
+      stroke: 87,
+      fill: 36,
       // The one op this body's share of the new lens costs: the clip the lids
       // cut the pupil through (`eye-lens.ts`).
       clip: 8,
       save: 32,
       drawImage: 21,
       createLinearGradient: 15,
-      createRadialGradient: 3,
-      "new Path2D": 38,
+      createRadialGradient: 9,
+      "new Path2D": 37,
       fillText: 2,
     },
     {
-      fillRect: 67,
-      stroke: 84,
-      fill: 24,
+      fillRect: 64,
+      stroke: 89,
+      fill: 36,
       clip: 8,
       save: 32,
       drawImage: 21,
       createLinearGradient: 5,
       // The eye builds none of its own: the wash around it is a `halo` sprite
       // cached by colour and radius, and the one left is `key-light.ts`'s
-      // layout-only slot (`render/eye.ts`).
-      createRadialGradient: 1,
-      "new Path2D": 20,
+      // layout-only slot (`render/eye.ts`). The other six are the leaves'
+      // curls (`lid-iris.ts`).
+      createRadialGradient: 7,
+      "new Path2D": 19,
       fillText: 2,
     },
   ],
