@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · 778fbcf5 — The back decided: the sea stays, one light in the corner, the beat's sweep off
+
+The owner kept the shipped back on 11 September 2026 and `field:backdrop` is dropped — BARE, LANES and NEBULA gone. Of NEBULA he asked for *some, but not so strong*: one rounded light in the bottom-right corner, sitting well with the shafts' slow light. That is `corner-light.ts` — one soft disc of the act's tint, its heart lifted toward the dust's grey, added to the sky the way the shafts are, breathing on the wash's clock and never drifting. The beat's band travelling from the top of the field to the hull is off for the moment, as he asked; `drawBeatSweep` stays exported with a note saying the one call that brings it back. Every op-count budget row moved by the one `drawImage` a frame the light costs, and the baked count by its one sprite. A look the owner asked for by name.
+
 ## 2026-09-11 · 952e3388 — The rind wears BURR's knobs: `rind:body` adopted, the studded form moved into content
 
 The owner picked BURR for the rind on 11 September 2026 — a rind is a body with something on it, and the knobs go with the layers. `bun run versus adopt rind:body burr` moved the candidate into `packages/render/src/rind-burr.ts`; the studded rim it draws with moved from the shape sheet into `packages/content/src/studded.ts` because a package cannot import a tool, and the sheet's `studded` form is now a subject wrapped round the same arithmetic, so the card and the creature stay one shape. FACET and TOOTHED are gone with the slot. A look the owner asked for by name.
