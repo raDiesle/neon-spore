@@ -103,7 +103,7 @@ export function belly(skin: SeatSkin): string {
  * so a trunk, a vessel, a sheet or a bladder is lit the way the ship is rather
  * than floating unlit in a lit room.
  */
-export function sameLight(d: BandAttach): void {
+export function sameLight(d: BandAttach, grain = true): void {
   const { ctx, l } = d;
   const region = new Path2D();
   region.rect(0, sky(l), l.width, l.bandTop + l.bandHeight - sky(l));
@@ -111,8 +111,10 @@ export function sameLight(d: BandAttach): void {
   // And the ship's grain. What was left of the edge after the light matched
   // was texture: the hull is dithered and the chamber was not, and the eye
   // finds a boundary between a grained surface and a smooth one as surely as
-  // between two colours. Same pattern, same alpha, same call.
-  dither(ctx, region);
+  // between two colours. Same pattern, same alpha, same call — and the same
+  // rule the other way round: a ship whose skin is drawn without the grain
+  // (`wet.ts`, the owner's *no sand*) asks for the chamber without it too.
+  if (grain) dither(ctx, region);
 }
 
 /**

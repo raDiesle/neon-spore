@@ -628,3 +628,17 @@ the owner keeps the torch as shipped — no alternative body wanted
 
 The other answers offered were `crown`, `hollow` and `kiln`; they went with
 the slot.
+
+## `ship:body` — three cards replaced, slot still open, 2026-09-11
+
+the owner judged the six ships and named what he wanted from three of them
+rather than one of them: EMBEDDED's arrangement without its sand-like light
+and gradient, MEDUSA's slime going down but not its thin lines converging in
+the middle of the bell — *start them from the very top of the hull* — and
+PLASM's big bottom bubbles and the strings running up from the buttons, with
+every button grown together with the body like a heart or an organ, veins
+and a little plasma coming out
+
+`embedded`, `medusa` and `plasm` went, and `gland`, `heart` and `lymph` stand
+in their place beside `chitin`, `gullet` and `reef`; the three new cards share
+`tools/versus/wet.ts`, `organ.ts` and `fluid.ts`, which hold his brief.

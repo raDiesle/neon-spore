@@ -22,6 +22,24 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — the ship's body, three cards from the brief
+
+The owner named what he wanted from three of the six ships rather than one of
+them; those three went and three new cards stand in their place, built on a
+wet grain-free skin, buttons grown as organs, and PLASM's bubbles and strings.
+About 70 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the three cards he judged, `join.ts`, `sheen.ts`, the band's draw order, the record types, the versus tests that hold a slot to one shape |
+| writing | 35 | `wet.ts`, `organ.ts`, `cord.ts`, `fluid.ts`, three candidates, the DECIDED entry |
+| looking | 10 | five `versus:shot` pictures: ribs beading at the rim, veins as a sea urchin twice before they read as vessels |
+| friction | 5 | two long heredocs died in bash and were written through a script file; `organ.ts` over 250 lines, the cords moved to `cord.ts` |
+| landing | 5 | `check:fast`, the commit, `land --keep` |
+
+Bottleneck: **writing** — a brief that takes one thing from each of three
+cards is three shared modules before any card can be drawn.
+
 ## 2026-09-11 · hit-looks — DOCUMENTATION → WORDINGS
 
 A new tab: two whole phones, the pilot's and the navigator's, each a real

@@ -1359,6 +1359,10 @@ place — the generator keeps whatever is there.
 | `tools/versus/join.ts` | how a ship meets its panel without a line — the welded start, the hull's own light over the chamber and the sagging roof, the baseline every whole-ship card patches |
 | `tools/versus/by-hand.ts` | The four steps `adopt` prints when it will not take a slot itself |
 | `tools/versus/pose-row.ts` | The row a slot has in the director's `SLOT_POSE` map, taken out with the slot |
+| `tools/versus/cord.ts` | THE STRINGS RUNNING UP FROM THE BUTTONS — PLASM's, kept |
+| `tools/versus/fluid.ts` | THE FLUID UNDER THE CONTROLS — the two things the owner picked out of PLASM and EMBEDDED on 11 September 2026… |
+| `tools/versus/organ.ts` | A BUTTON GROWN AS AN ORGAN — the flesh it swells out of, the veins that feed it |
+| `tools/versus/wet.ts` | WET SKIN — the ship as a clear, light-reflecting surface, with **no grain** |
 | `tools/index/drift.ts` | Whether a row in `docs/INDEX.md` still describes the file it names |
 | `tools/index/sentence.ts` | **The one line a row carries**, read off the file's own header comment and cut to something a table can hold |
 | `tools/index/place.ts` | where a new row goes: beside the rows whose names it shares a beginning with |

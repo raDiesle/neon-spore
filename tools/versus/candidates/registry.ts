@@ -56,10 +56,10 @@ import { RIND_BODY_BURR } from "./rind-body/burr/index.js";
 import { RIND_BODY_FACET } from "./rind-body/facet/index.js";
 import { RIND_BODY_TOOTHED } from "./rind-body/toothed/index.js";
 import { SHIP_CHITIN } from "./ship-body/chitin/index.js";
-import { SHIP_EMBEDDED } from "./ship-body/embedded/index.js";
+import { SHIP_GLAND } from "./ship-body/gland/index.js";
 import { SHIP_GULLET } from "./ship-body/gullet/index.js";
-import { SHIP_MEDUSA } from "./ship-body/medusa/index.js";
-import { SHIP_PLASM } from "./ship-body/plasm/index.js";
+import { SHIP_HEART } from "./ship-body/heart/index.js";
+import { SHIP_LYMPH } from "./ship-body/lymph/index.js";
 import { SHIP_REEF } from "./ship-body/reef/index.js";
 import { CRATER_GRIT } from "./ship-crater/grit/index.js";
 import { CRATER_SHARDS } from "./ship-crater/shards/index.js";
@@ -115,10 +115,10 @@ export const VARIANTS: Variant[] = [
   RIND_BODY_FACET,
   RIND_BODY_TOOTHED,
   SHIP_CHITIN,
-  SHIP_EMBEDDED,
+  SHIP_GLAND,
   SHIP_GULLET,
-  SHIP_MEDUSA,
-  SHIP_PLASM,
+  SHIP_HEART,
+  SHIP_LYMPH,
   SHIP_REEF,
   CRATER_GRIT,
   CRATER_SHARDS,
