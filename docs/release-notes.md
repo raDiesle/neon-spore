@@ -9,6 +9,18 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · 1f419800 — THE CHOKE's bile on the specimen sheet, and its wave in the perf baseline
+
+The three bile colours join ONE THING EACH and the dial, and the sheet is redrawn; the baseline gets an UNMEASURED row for wave 55 and every row after it renumbered - the full check asked for both after the last commit.
+
+## 2026-09-11 · b083478f — THE CHOKE: a body that takes the cannon, tapped off by player 1
+
+A strand falls straight down one lane; no shot touches it and the shield does not stop it. It lands, takes the cannon, and from that beat the cannon strip answers nobody while the cannon walks wall to wall a column a beat. Player 2 keeps firing from wherever it is. Player 1 gets it off by tapping the dead strip, a lift between each press, chokeTaps (32) times - a thumb held down is one tap, so a fast thumb still needs five seconds or more. Its own wave, THE CHOKE, stands in act 7 after THE COIL, with a guide; the bestiary's Choke card is retired, the row moved to the built table.
+
+## 2026-09-11 · c5403284 — The conversation compacts at 200k, not 300k
+
+The owner drains the queue in long sittings of independent items, and one item hardly ever needs more than ~100k of its own context; every turn re-reads everything below it, so the tail past 200k was paid on every turn for nothing. Not lower: a feature-sized task - a creature with its six tables, wave, tests and look - would compact twice before landing, which costs more than it saves. `autoCompactWindow` in `.claude/settings.json`, the three documents that name the figure, the hook's comment and its test.
+
 ## 2026-09-11 · 637b5f34 — panel:band-skin opened: POLYP, VESICLE and SUCKER on GLAND's panel
 
 Three answers to what a button on the band stands in, shines with, does while it waits and has hanging over it, each built from the shape sheet's parts and drawn in the seat's own colours: POLYP stands every button on a stalk out of the floor in a coral cup with cilia, with filaments from the roof; VESICLE puts every button under a glass blister on a ring of tissue with veins under it, a light going round the ring and veils between the buttons; SUCKER makes every button the mouth of a ridged sucker disc with an arm trailing off it and a web strung from the roof. All three are offered in VERSUS, the mechanism and not an exemption; the slot is judged on SHIP · MEETING THE PANEL. `bun run versus:shot panel:band-skin <name>` shows one.
