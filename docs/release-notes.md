@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · 637b5f34 — panel:band-skin opened: POLYP, VESICLE and SUCKER on GLAND's panel
+
+Three answers to what a button on the band stands in, shines with, does while it waits and has hanging over it, each built from the shape sheet's parts and drawn in the seat's own colours: POLYP stands every button on a stalk out of the floor in a coral cup with cilia, with filaments from the roof; VESICLE puts every button under a glass blister on a ring of tissue with veins under it, a light going round the ring and veils between the buttons; SUCKER makes every button the mouth of a ridged sucker disc with an arm trailing off it and a web strung from the roof. All three are offered in VERSUS, the mechanism and not an exemption; the slot is judged on SHIP · MEETING THE PANEL. `bun run versus:shot panel:band-skin <name>` shows one.
+
 ## 2026-09-11 · 868f99e6 — The slime hanging into the band is read from a record
 
 `drawBand` called `drawDrips` by name inside the chamber's clip. `slime-look.ts` now carries `BAND_SLIME`, a record pointing at the same shipped pendants, so `panel:band-skin` can offer a second answer to what hangs over the buttons. A refactor, not a look: the frame is unchanged.
