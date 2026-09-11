@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · 916a91bf — The BESTIARY tab leaves the NOT BUILT YET page; the creature ideas read on MECHANICS beside their shapes
+
+Every creature the tab listed is built and in the brush palette, so the owner took the page off on 11 September 2026. Its ten creature ideas move to the MECHANICS page as a CREATURE IDEAS group — a creature is a rule that falls — each with the frame holding the draft drawn for it, and the same drafts stand on GRAPHICS through their `suggests`, which is where the shapes were already. The two empty roster groups and the "examined and rejected" prose go with the tab; `bestiary.md` keeps all of it.
+
 ## 2026-09-11 · fdc760ab — A rock lands in the hole it makes: the crater, the rock in it and the crack all show the moment it hits
 
 The meteor used to go into the ship and vanish, then jump back up with the crater appearing under it. Two causes. The hull row's centre is below the membrane, so a rock's last glide ended behind the skin and the hull painted over it; and the hole was kept shut under the stuck rock until it lifted off. Now a rock's landing glide ends half-sunk in the plating — `rock-landing.ts`, asked with the skin without the cannon so the rock lands where its crater is dug — `RockImpactFx` picks it up standing exactly there instead of replaying a fall from under the ship, and `coversCrater` stops covering the frame the rock arrives, so the hole, the sparks and the crack are all seen with the rock sitting in the hole. A shield catch on the last beat bounces from the same resting height.
