@@ -53,7 +53,11 @@ export function runStageLoop({ tickHz, advance, paint, scale, alive }: StageLoop
     // always did it: a throw in `paint` then costs one frame instead of the
     // whole loop, and a stopped loop has already returned above.
     raf = requestAnimationFrame(frame);
-    const real = Math.min(0.25, (now - last) / 1000);
+    // Clamped at zero as well as a quarter second: the first callback's `now`
+    // is the frame's start, which can fall before the `performance.now()`
+    // taken when the loop was set up, and a negative first `dt` sent a
+    // candidate's clock below zero (`polyp` indexed its lip with it).
+    const real = Math.min(0.25, Math.max(0, (now - last) / 1000));
     last = now;
     const dt = scale === undefined ? real : scale(real);
     const hz = tickHz();
