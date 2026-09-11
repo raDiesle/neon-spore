@@ -214,6 +214,125 @@ not put it out like a lamp. The beam is deliberately the longest thing here —
 taking a worm apart costs both controls, turn about, for most of a wave, and it
 is the only moment the ship says so.
 
+## The chute
+
+`packages/render/src/chute.ts`, drawing through the record in `chute-look.ts`;
+the canopy is `chute-vane.ts` over the outline in `chute-canopy.ts`. The body
+underneath is not in any of them: `wornKind` answers slick or bulb, so
+`drawLiving` has already put an ordinary body down in its ordinary colour,
+and this is what is hung on it — a plume while it climbs, a canopy once
+`chuteIsOpen`. Everything is measured in the body's drawn radius `r`, and the
+sway, the breath and the gutter are read off the wall clock with an offset
+from the body's id (`sinHash(c.id) · 6.3`), so two chutes are never one
+drawing twice.
+
+| Pass | What | Numbers |
+|---|---|---|
+| **plume** | `column` — a tapering wedge of ember under the body, and a white-hot core inside it, while the body is still going up | base `1.1r` wide at `0.4r` under the centre, `2.4r` long, guttering `±12%` at `22` rad/s; ember → clear, alpha `0.75`; core `0.44r` wide reaching `0.66` of the length, `rgba(255,240,214,.75)`; halo `1.2r` at `0.6r` below, `PALETTE.ember` at `0.18` |
+| **canopy** | VANE since 10 September 2026: the shipped dome, lit as a shell and turning about its own vertical axis, with eight pores coming round it | `canopyPath` — hem `1.5r` either side, crown `1.9r` above the body, bellied `±6%` at `1.6` rad/s; the whole rig leans `±0.16` rad at `0.7` rad/s |
+| shell | a linear gradient from the key's shoulder to the far hem | `mixHex(glow, #F4F1EA, 0.3)` at `0.5` → glow at `0.28` → the shadowed colour at `0.45`, the dark being `mixHex(glow, #0B1024, 0.7)` |
+| pores | eight marks on a ring at latitude `0.5`, projected by `facet` and clipped to the dome; the far ones are not drawn | one turn in `7` s plus `2.5 ×` the sway as twist; radius `0.16r`, foreshortened by the pore's own tangent plane (`sx` floored at `0.05`); fill `mixHex(dark, rim, lit)` at `0.85`, lit floor `0.35`; a pale lip at `0.8 × STROKE.inner`, alpha `0.6` |
+| outline | the dome's rim | `STROKE.outline` in the body's rim colour |
+| shrouds | four lines from the hem to a point above the body | from `t = −1, −⅓, ⅓, 1` along the hem to `0.45r` above centre, `PALETTE.dim` hazed, `STROKE.inner` |
+| halo | one, over the whole canopy | `1.4r` at `0.95r` above, the body colour at `0.1` |
+
+**The plume points down and the canopy turns.** The flame is what is putting
+the thing up the screen, so it can only be drawn under it; a flame pointing
+anywhere else describes a body that is falling. And the canopy is the one
+answer on the slot that changed nothing about the outline — a dome is the same
+silhouette from every bearing, which is why a yaw is the reveal to reach for:
+the pores arrive thin at one limb, cross the front full and lit, and thin
+away at the other, and if at field size they read as dots sliding *over* the
+dome rather than *with* it, the look has lost (`chute-vane.ts`). The membrane
+dome VANE replaced was deleted with the slot; `tools/versus/DECIDED.md` has it,
+and BELL, GORES and RIBS went with it.
+
+## The coil
+
+`packages/render/src/coil.ts`, drawing through `coil-look.ts`; the chain is
+`coil-prongs.ts`. A coil is a rock inside a dome, and neither is its own:
+`drawMeteorBody` draws the stone and `drawClaspShield` the dome, on the
+owner's instruction. What a coil draws that nothing else does is the **chain**
+— the marks on the rim a charge leaves by and lands on, and the bolt crossing
+the field between two domes — and that is the whole of the record, `studs`
+and `charge`, each on its own frame.
+
+| Pass | What | Numbers |
+|---|---|---|
+| dome | THE CLASP's shield, lit when the ship's plate reaches it or a charge is coming | `drawClaspShield`, `r = tile · CLASP_RADIUS_MUL`; `lit = max(coilWardReaches, charge)` |
+| **studs** | PRONGS since 10 September 2026: three spikes standing off the rim, a bead on each tip, each with a lit face and a shaded one | turning at `0.35` rad/s, the other way for odd ids, offset by the id; reach `0.24` tiles past the rim, base `0.12` tiles, bead `0.05` tiles (`+0.04 ×` charge); the away face `#0B1024` at `0.55`; alpha `0.8 + 0.2 ×` charge; `PALETTE.claspShieldRim` at rest, `PALETTE.shieldRim` once a charge is on its way |
+| flare | a halo on each tip, only while charged | `0.2` tiles, the hot colour at `0.45 ×` charge |
+| crackle | short bolts leaping off every tip, only while charged | `2` a tip, up to `0.3` tiles, redrawn `10` times a second, alpha `0.9 ×` charge |
+| **charge** | `spray` — the bolt from the failed dome to the next, and sparks fanning off its head | two `drawBolt` passes, alpha `0.9` and `0.55`, width `1.4`; `3` sparks ahead of the head within `±1.1` rad, up to `0.45` tiles, redrawn at `60` Hz off the age; a halo on the head growing `0.5`→`1.4` tiles and `0.3`→`0.75` alpha across the flight, `PALETTE.shieldRim` |
+
+**The dome says *about to fail* from both ends.** The pilot has three beats to
+call a charge, and before PRONGS the only thing saying one was coming was the
+bolt itself; now the dome it is going to flares and crackles round its rim
+while the bolt is in the air. The way it loses is written in the file: three
+spikes on a bubble are a mine, so it is judged uncharged first, on a dome
+nobody is doing anything to. SOCKETS went with the slot — the owner saw no
+difference in it — and LEAP is on the SHAPES tab's HIT axis, in the *before*
+phase beside TELEGRAPH; the three discs and two bare bolts they replaced were
+deleted from `coil-look.ts`.
+
+## The dart
+
+`packages/render/src/dart.ts` holds the lean, the flip, the heat and the
+navigator's arrow; the thrust goes through `dart-look.ts`, and since
+10 September 2026 that is `dart-shock.ts` over `dart-torch.ts`. Drawn before
+the body, in field pixels, back up the diagonal the body is running down
+(`−dir · √½, −√½` — a direction, not a distance). The heat is `dartThrust`'s,
+the direction `dartHeading`'s, and every length is the body radius
+`r = tile · 0.4`.
+
+| Pass | What | Numbers |
+|---|---|---|
+| **reach** | how far the flame goes, shared by every layer through `jetReach` | `r · (0.9 + 2.1 · heat)`, breathing `±7%` at `37` rad/beat off the body's id |
+| flame | `torchJet` — three passes of one shape, `lighter`: a dim wide envelope, the body colour, a hot narrow core | width scales `1.7`, `1`, `0.42` of `r`; alphas `0.28`, `0.8`, `0.9 ×` heat; each leaves the tail at `0.16` of its width, bellies to `0.46` at `0.34` of the reach, frays out at `0.54` on a gradient to nothing |
+| root | one tight near-white halo where the flame leaves the body | `0.3r · heat` at `0.22r` back, `PALETTE.sparkDim` at `0.95 ×` heat |
+| **knots** | SHOCK — three bright marks strung down the axis, each breathing on its own clock | at `0.22`, `0.46`, `0.72` of the reach; `0.34r`, `0.24r`, `0.15r`; pulsing `±26%` at `23`, `31`, `41` rad/beat; each is the body colour at `0.55 ×` heat with `PALETTE.sparkDim` at `0.5 ×` heat over its inner `0.4` |
+
+**The flame leaves the tail narrow and frays out, and that was the argument.**
+What the game drew first was a filled triangle with its base against the body
+and its apex a tile away — the profile of a beam, which is what a lance and
+every aimed thing here looks like, and a dart is not shooting; it is being
+thrown. `torchJet` turned the two ends round on 8 September, and SHOCK put a
+repeating mark inside it, because the one thing an exhaust has that a smear
+does not is structure — three rates that are not multiples of each other, so
+the knots never pulse together. Where it can lose: three round marks in a line
+is a chain of bubbles, and THE STRAND's whole creature is bodies on a line. The
+triangle is PLUME on the SHAPES tab's TAIL axis; BRAID, CINDERS and the bare
+FLAME (marked shipped, since it still burns under the knots) are there beside
+it.
+
+## The echo
+
+`packages/render/src/echo.ts`, drawing the seam through `echo-look.ts`; the
+seam is `echo-buds.ts`. An echo is a slick or a bulb at six tenths pulling
+itself in two: the strain is `STRAIN 0.34` along the axis at the instant it
+divides and a neck of `0.55` across, squared in phase so nearly all of the
+pulling happens in the beat before it goes (`echo-strain.test.ts` asserts the
+curve). None of that is in the record. What the record holds is the one mark
+that says *this one is about to come apart, and this way*, drawn in the body's
+own scaled frame alongside `drawDetails`, and only while `echoAxis` says there
+is a parting to come.
+
+| Pass | What | Numbers |
+|---|---|---|
+| **cores** | BUDS since 10 September 2026: two balls of the body's own colour under the skin, on top of each other at first and drawn apart along the axis as the strain gathers | radius `0.62 ×` the smaller half-extent, each travelling `0.5 ×` that at full strain; strength `0.3` → `0.9` with the phase |
+| light | each core is lit from `KEY`, with the pose's lean and the axis taken back out so the light stays in the field's corner | a radial gradient from `0.4` core radii toward the key: rim at full strength → colour at `0.8` (at `0.35`) → dark at `0.6` (at `0.8`) → clear, over `1.1` core radii |
+| **furrow** | the shipped seam, cut across the axis between the cores | the body's dark, alpha `0.22` → `0.85` with the phase, width `0.16 ×` the smaller half-extent doubling to full strain, `1.05 ×` the larger half-extent long, round caps |
+
+**The picture cannot point one way while the bodies go another.** A core moves
+along `echoAxis`, the same field axis the two halves will step along, and the
+furrow is scored across it — a body dividing sideways is scored down the
+middle, one dividing up and down across it — and both screens have it. BUDS
+added what the furrow alone never said, *what* is parting: over three beats one
+heart becomes two. Where it can lose: two bright discs on a small round body is
+a face, and this game already has a creature whose two bright discs are one.
+CLEFT and WAIST went with the slot, and so did the bare furrow — BUDS still
+cuts it, from its own copy of the three numbers.
+
 ## The fence
 
 `packages/render/src/fence.ts`, and the files around it: `fence-wire.ts` (the

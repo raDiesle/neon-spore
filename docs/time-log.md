@@ -22,6 +22,24 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — the queue: shipped-looks caught up
+
+Four sections written into `docs/shipped-looks.md` — the chute, the coil, the
+dart and the echo — from the four `*-look.ts` records, the adopted paint and
+`DECIDED.md`, in the file's own table form. About 25 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the file's 400 lines for its form, eight render files and four DECIDED entries for the numbers |
+| writing | 10 | four tables and the paragraph under each |
+| looking | 0 | nothing visible moved |
+| friction | 0 | a long heredoc died in bash again — the sections were written with the tool and spliced in with awk |
+| landing | 5 | `queue done`, the commit, `land --keep` |
+
+Bottleneck: **reading** — every number in a table is in a different file
+from the one that says why it is there.
+
+
 ## 2026-09-11 · hit-looks — the gyre slot answered
 
 ORBIT into the game; the granules it replaced, HELIX and VORTEX all

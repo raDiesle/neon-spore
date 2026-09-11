@@ -244,19 +244,3 @@ removes them: `bun run versus adopt` and `drop` delete the candidates and
 leave the row, and no test compares the map's keys with the open slots.
 Remove the stale rows, make `adopt` and `drop` take the row with the slot,
 and have `versus-pose.test.ts` refuse a row whose slot has no candidate.
-
-## `docs/shipped-looks.md` no longer describes five creatures
-
-- **Found:** 2026-09-10, hit-looks
-- **Taken:** 2026-09-11, claude/queue-docs-shipped-looks-md-no-longer-describes-five-c
-- **Files:** `docs/shipped-looks.md`, `packages/render/src/{chute,coil,crawler,dart,echo}-look.ts`
-
-The file says of itself that the renderer is right where the two disagree,
-and since 8 September the VERSUS answers have moved faster than it: the
-crawler's table still listed a belly, a sheen and a sliding catchlight two
-looks ago (one row fixed in the commit that found this), and the chute, the
-coil, the dart and the echo — each now drawn through a `*-look.ts` record
-whose shipped field is a candidate that won — have no section at all. Write
-the five sections from the records, in the file's own table form, numbers
-included; each `*-look.ts` header says what is drawn and `DECIDED.md` says
-when it changed.
