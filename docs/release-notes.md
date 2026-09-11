@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · 01a1ba9a — Ten creature ideas leave the bestiary and the NOT BUILT YET page
+
+The owner retired them on 11 September 2026: the Choke, built today as THE CHOKE; the Glyph, whose look-up on a pattern is THE MIRROR's Simon Says; and the nine idea rows of bestiary 10.2 — Thread, The Shadow, The Whisperer, The Doppelgänger, The Blind One, The Clamp, The Beat-breaker, The Silent, The Jammer. Their rows, the three worked-out paragraphs and the whole of 10.5 "In plain words" are gone from `docs/spec/bestiary.md`; `docs/decisions.md` #28 records what went and why, and the six documents that pointed at a retired name now point at the decision. The director's BESTIARY tab shows both bestiary groups empty and CREATURE IDEAS from `ideas.md` under them.
+
 ## 2026-09-11 · 175303e3 — `check:fast` reads the file map too, so a new file without its INDEX row is red before the commit
 
 The last landing spent half its time on this: `check:fast` was green, the first `bun run land` ran its four-minute check and went red on one missing row in `docs/INDEX.md`, and the row cost a second commit and a second full check. The index completeness test reads the whole tree in a quarter of a second, which is the definition of a sweep — so it is the fourth one in `tools/check/fast-scope.ts`, beside `purity`, `copies` and `limits`. The time-log entry says the bottleneck in plain words, and `docs/git-and-landing.md` names the fourth sweep.
