@@ -494,8 +494,13 @@ describe("what the pair got to, and the run that nobody came back to", () => {
   test(
     "ends a run nobody came back to, so the next arrival starts a fresh one",
     async () => {
-      // Both windows shortened so the test does not sit still for the real ones.
-      const brief = relay({ SEAT_SILENT_MS: "100", RUN_OVER_MS: "200" });
+      // Both windows shortened so the test does not sit still for the real ones
+      // — but not to a hundred milliseconds: the seats are judged silent against
+      // the wall clock on every message, and under a full `bun run check` the
+      // gap between a join and the presses went past 100 ms, so seat one was
+      // hung up before its press and the welcome that announced it leaving was
+      // the one the wait below read as the stamp (11 September 2026).
+      const brief = relay({ SEAT_SILENT_MS: "600", RUN_OVER_MS: "900" });
       try {
         const one = await phone("AKAL", PROTOCOL_VERSION, brief);
         const two = await phone("AKAL", PROTOCOL_VERSION, brief);
