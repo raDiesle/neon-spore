@@ -227,6 +227,7 @@ stroke around it is the one thing the panel look is not.
 ## `versus-pose.ts` keeps a row for every slot that has ever closed
 
 - **Found:** 2026-09-10, hit-looks
+- **Taken:** 2026-09-11, claude/queue-versus-pose-ts-keeps-a-row-for-every-slot-that-h
 - **Files:** `tools/director/src/versus-pose.ts`, `tools/versus/decide.ts`, `tools/director/test/versus-pose.test.ts`
 
 The map's own header says *a decided slot's row goes with its candidates*,
