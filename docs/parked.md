@@ -56,23 +56,6 @@ count is a way of saying something is owed, and nothing here is.
 `tools/queue/test/queue.test.ts` fails on an entry a cold session could not act
 on.
 
-## The ghost slot: SWARM into the game, clearer eyes, the rest to the SHAPES page
-
-- **Found:** 2026-09-10, hit-looks
-- **Files:** `tools/versus/candidates/creature-ghost/`, `packages/render/src/ghost-look.ts`, `tools/director/src/{skins,glows,fillings}/`, `tools/versus/DECIDED.md`
-
-The second of three tasks the owner handed one lane on 10 September 2026,
-after the five creature slots that landed with it. His words: *"CREATURE:GHOST
-· SWARM" use in the game. make the eyes of ghost more visible and clear for
-player to see. the other "CREATURE:GHOST" alternatives you can add to "shapes"
-page.* So: `bun run versus adopt creature:ghost swarm "…"` (by hand if its
-field is inline), then the eyes — read `ghost-look.ts` and the swarm's paint
-for what an eye is, and make it larger or brighter until it reads at 26 px,
-which is a fix he asked for by name and lands straight on the field — then
-the other ghost candidates re-authored on the SHAPES page in whichever axis
-each one's claim belongs to (the five-slot landing's `DECIDED.md` entries say
-how that was decided for a tail, a skin and a hit). Not started.
-
 ## The gyre slot: ORBIT into the game, the current interior and the rest to SHAPES
 
 - **Found:** 2026-09-10, hit-looks
@@ -86,4 +69,4 @@ shipped gyre interior **and** every other gyre candidate on the SHAPES page —
 he names them as an *inside* effect, which is the FILLING axis
 (`tools/director/src/fillings/`, one pick, `shipped` on the one the game
 draws), and says what they are for: interiors to build new creatures from.
-Not started; comes after the ghost.
+Not started; the ghost, the second task, landed on 11 September.

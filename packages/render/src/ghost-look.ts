@@ -1,6 +1,7 @@
 import { GHOST } from "@neon-spore/content";
 import { slabs } from "./ghost-glitch.js";
 import { latitude } from "./ghost-latitude.js";
+import { swarm } from "./ghost-swarm.js";
 
 /**
  * THE ONE RECORD A CANDIDATE **GHOST** PATCHES.
@@ -14,8 +15,8 @@ import { latitude } from "./ghost-latitude.js";
  * with a hem of tails — is `ghostPoints` and is not in question. The
  * camouflage is the thing it is wearing instead of being invisible, and the
  * interior is what that camouflage is torn *over* — the fill inside the
- * contour, which shipped as one flat radial gradient and is the half of this
- * body a light has never touched. The outline, the eyes, the halo and the
+ * contour, which shipped as one flat radial gradient until 11 September 2026
+ * and is a crowd of motes now (`ghost-swarm.ts`). The outline, the eyes, the halo and the
  * shards thrown clear of the body all stay in `ghost.ts`, because a look that
  * moved the silhouette would be arguing with the one thing player 2 finds this
  * body by.
@@ -97,23 +98,6 @@ export interface InteriorDraw {
   readonly back: string;
 }
 
-/**
- * The interior as it ships: near-black at the rim and the colour welling up
- * out of the middle, which is the reference the owner sent — a dark body with
- * a nebula inside it rather than a flat fill. One radial gradient, centred a
- * little below the middle, and nothing about it turns or is lit: it is the
- * same picture from every side, which is what the slot below is about.
- */
-export function drawGhostInterior(d: InteriorDraw): void {
-  const { ctx, body, hex, dark, back } = d;
-  const glow = ctx.createRadialGradient(0, GHOST.ry * 0.1, 0, 0, 0, GHOST.ry * 1.1);
-  glow.addColorStop(0, hex);
-  glow.addColorStop(0.55, dark);
-  glow.addColorStop(1, back);
-  ctx.fillStyle = glow;
-  ctx.fill(body);
-}
-
 export interface GhostLook {
   /** The fill inside the outline, under the camouflage. */
   readonly interior: (d: InteriorDraw) => void;
@@ -122,6 +106,11 @@ export interface GhostLook {
 }
 
 /**
+ * `ghost-swarm.ts` for the interior since 11 September 2026: the owner took
+ * SWARM over HOLLOW and LANTERN, and the gradient nebula that shipped before
+ * it is gone from this file — `tools/versus/DECIDED.md` says what it was, and
+ * the two it beat are on the SHAPES page's FILLING axis.
+ *
  * `ghost-latitude.ts` and not `drawTears`, since 9 September 2026.
  *
  * The owner could not tell `ghost:tears`'s two candidates apart, so the slot
@@ -134,4 +123,4 @@ export interface GhostLook {
  * one honest statement in the package of what the flat answer was. A seam whose
  * shipped side has been deleted cannot show a pair anything.
  */
-export const GHOST_LOOK: GhostLook = { interior: drawGhostInterior, tears: latitude };
+export const GHOST_LOOK: GhostLook = { interior: swarm, tears: latitude };

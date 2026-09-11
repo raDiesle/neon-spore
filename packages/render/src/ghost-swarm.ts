@@ -1,8 +1,7 @@
-import { GHOST } from "../../../../../packages/content/src/ghost-shape.js";
-import { facet, LAT_LIMIT, pin, surfaceDim } from "../../../../../packages/content/src/surface.js";
-import { GHOST_SPIN } from "../../../../../packages/render/src/ghost-latitude.js";
-import type { InteriorDraw } from "../../../../../packages/render/src/ghost-look.js";
-import { halo } from "../../../../../packages/render/src/glow.js";
+import { facet, GHOST, LAT_LIMIT, pin, surfaceDim } from "@neon-spore/content";
+import { GHOST_SPIN } from "./ghost-latitude.js";
+import type { InteriorDraw } from "./ghost-look.js";
+import { halo } from "./glow.js";
 
 /**
  * SWARM — the nebula is not a gradient but a *population*: motes of the

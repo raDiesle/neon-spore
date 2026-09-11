@@ -159,14 +159,18 @@ const SCENES: readonly Scene[] = [
           fillText: 4,
         },
       ],
+      // SWARM (11 September 2026) is fourteen motes and their wakes, each a
+      // `halo` blit under its own save: twenty-eight saves and fifty-six
+      // sprite draws a body, over the gradient nebula's one fill — the
+      // `save`, `drawImage` and `clip` rows moved by that and nothing else.
       p2: [
         {
           fillRect: 79,
           stroke: 84,
           fill: 56,
-          clip: 10,
-          save: 46,
-          drawImage: 40,
+          clip: 12,
+          save: 104,
+          drawImage: 96,
           createLinearGradient: 15,
           createRadialGradient: 5,
           "new Path2D": 41,
@@ -176,9 +180,9 @@ const SCENES: readonly Scene[] = [
           fillRect: 79,
           stroke: 86,
           fill: 56,
-          clip: 10,
-          save: 46,
-          drawImage: 40,
+          clip: 12,
+          save: 104,
+          drawImage: 96,
           createLinearGradient: 5,
           createRadialGradient: 3,
           "new Path2D": 25,

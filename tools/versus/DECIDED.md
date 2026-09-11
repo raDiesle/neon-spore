@@ -562,3 +562,31 @@ the flame they were judged against, they are on the SHAPES tab's TAIL axis
 (`tools/director/src/tails/`) as BRAID, CINDERS — WAKE was already the name
 of an earlier dart candidate there, the rungs — and FLAME, which carries
 `shipped` because `torchJet` still burns under SHOCK's knots.
+
+## `creature:ghost` / `swarm` — taken, 2026-09-11
+
+The owner took SWARM on 10 September 2026: the nebula is a crowd of motes
+streaming round the inside of the dome, alive where a gradient is still.
+HOLLOW and LANTERN go to the SHAPES page as fillings, at his asking.
+
+the nebula is a crowd — fourteen motes of the body's own light streaming round
+a ball inside the dome, lit toward the key, drifting on their own meridians,
+each going round the back and coming out the other side
+
+`GHOST_LOOK.interior` is `swarm`, moved from
+`tools/versus/candidates/creature-ghost/swarm/paint.ts` to
+`packages/render/src/ghost-swarm.ts`.
+
+The other answers offered were `hollow` and `lantern`. Both are interiors —
+what a body has *in* it — so both went to the SHAPES page's FILLING axis
+(`tools/director/src/fillings/hollow.ts`, `lantern.ts`), re-authored in SVG
+with the same projection: the glass bell lit on its far inner wall, and the
+solid ball lit toward the key, the heart of each going round on the ghost's
+own turn. They sit last on the row, together, because the pair is one
+question — bright away from the light or bright toward it.
+
+The eyes went with it, at the owner's asking — *make the eyes of ghost more
+visible and clear for player to see* — a fix to something wrong, landed
+straight on the field: the socket a little wider, the pupil most of it, the
+core half the pupil, and the flicker shallow enough that the lamp never dims
+past four fifths (`packages/render/src/ghost-eyes.ts`).

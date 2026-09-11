@@ -22,6 +22,23 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — the ghost slot answered
+
+SWARM into the game, the eyes made to read at the field's size, HOLLOW and
+LANTERN re-authored as fillings on the SHAPES page. About 40 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the three ghost candidates, `ghost-eyes.ts`, `ghost.ts`, the fillings axis and its helpers |
+| writing | 10 | the adoption, the eye numbers, two fillings, the record clean-up |
+| looking | 10 | `versus:shot` before, `frames . --wave` after at 8x; two rounds on each filling card |
+| friction | 5 | `land` refused yesterday's lane over two parked titles a few characters past eighty |
+| landing | 5 | the ghost budget rows remeasured, `check:fast` |
+
+Bottleneck: once a slot is closed nothing shows the shipped look on its own —
+`versus:shot` needs a candidate — so the eyes were checked by cropping a
+wave frame, which is fine for the ghost and blind for a body that moves.
+
 ## 2026-09-10 · hit-looks — five creature slots answered
 
 Five VERSUS slots taken into the game from one chat message, the looks he

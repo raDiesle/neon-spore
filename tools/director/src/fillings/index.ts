@@ -3,6 +3,8 @@ import { BLOOM } from "./bloom.js";
 import { CHAMBERS } from "./chambers.js";
 import { FILAMENT } from "./filament.js";
 import { GUT } from "./gut.js";
+import { HOLLOW } from "./hollow.js";
+import { LANTERN } from "./lantern.js";
 import { LATTICE } from "./lattice.js";
 import { NUCLEUS } from "./nucleus.js";
 import { ROE } from "./roe.js";
@@ -36,7 +38,10 @@ import { VENT } from "./vent.js";
  * puts the pairs that argue with each other next to each other. CHAMBERS and
  * NUCLEUS disagree about whether an interior is a population or one object;
  * ROE and GUT disagree about whether a body is contents or anatomy; LATTICE
- * disagrees with all four about whether it is wet at all.
+ * disagrees with all four about whether it is wet at all. Last, the two that
+ * came from the ghost on 11 September 2026 — LANTERN and HOLLOW, the same body
+ * as a solid and as a shell, bright toward the key and bright away from it —
+ * which disagree about whether the body has an inside to see at all.
  *
  * ## NONE is a value and is not in here
  *
@@ -55,6 +60,8 @@ export const FILLINGS = [
   GUT,
   SEDIMENT,
   LATTICE,
+  LANTERN,
+  HOLLOW,
 ] as const;
 
 /** The id of a filling that exists, derived from the registry and never typed. */

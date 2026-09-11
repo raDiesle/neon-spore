@@ -647,6 +647,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/ghost-trail.ts` | Where THE GHOST has just been: the body stamped again at the places it stood a moment ago, fading out behind |
 | `packages/render/src/ghost-look.ts` | the one record a candidate GHOST patches — the interior under the camouflage, and the camouflage inside the outline |
 | `packages/render/src/ghost-latitude.ts` | THE GHOST's camouflage, coming apart on a **surface** rather than on a flat plane |
+| `packages/render/src/ghost-swarm.ts` | SWARM — the nebula is not a gradient but a *population* |
 | `packages/render/src/wisp-aim.ts` | you are drawing the square a wisp is going to and the dotted arc to it — the navigator's whole sentence |
 | `packages/render/src/lid-string.ts` | you are drawing or hit-testing the cord under an armoured eye — the handle's circle lives here |
 | `packages/render/src/lid-look.ts` | you are offering a second answer to the lid's armour — the one record a candidate for the plates patches |
@@ -1523,6 +1524,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/fillings/filament.ts` | FILAMENT — one thread wound round the inside |
 | `tools/director/src/fillings/gut.ts` | GUT — one tube, coiled, threaded through both sacs |
 | `tools/director/src/fillings/lattice.ts` | LATTICE — a rigid frame inside a soft body |
+| `tools/director/src/fillings/lantern.ts` | LANTERN — the body is a ball under the key light |
 | `tools/director/src/fillings/nucleus.ts` | NUCLEUS — one heavy thing loose in a shell |
 | `tools/director/src/fillings/parts.ts` | What every filling is built out of |
 | `tools/director/src/fillings/roe.ts` | ROE — the sacs are full of eggs |
@@ -1530,5 +1532,6 @@ place — the generator keeps whatever is there.
 | `tools/director/src/fillings/spores.ts` | SPORES — the body is full, and it is a spore case |
 | `tools/director/src/fillings/types.ts` | What is *inside* a body, as against what its surface is made of |
 | `tools/director/src/fillings/vent.ts` | VENT — a mouth on the surface, opening and closing |
+| `tools/director/src/fillings/hollow.ts` | HOLLOW — the body is a bell of glass, lit on the inside of its far wall, with a heart hanging inside it |
 
 <!-- index:code:end -->
