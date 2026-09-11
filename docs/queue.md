@@ -219,6 +219,7 @@ stroke around it is the one thing the panel look is not.
 ## `bun run queue take` cannot claim an entry that is only in the lane's own tree
 
 - **Found:** 2026-09-10, hit-looks
+- **Taken:** 2026-09-11, claude/queue-bun-run-queue-take-cannot-claim-an-entry-that-is
 - **Files:** `tools/queue/repo.ts`, `tools/queue/run.ts`, `tools/queue/test/taken.test.ts`
 
 The owner asked for an item to be added to the queue and worked in the same
