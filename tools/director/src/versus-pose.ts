@@ -37,6 +37,7 @@ const SLOT_POSE: Record<string, string> = {
   "creature:meteor": "METEOR · A SHOT ARRIVING",
   "creature:throb": "THROB · TURNING",
   "creature:tether": "TETHER · PULLED",
+  "panel:band-skin": "SHIP · MEETING THE PANEL",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

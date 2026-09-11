@@ -1,10 +1,10 @@
 import { HULL, hullAngleAtX, hullRadiusMul, LIGHT_HALF } from "@neon-spore/content";
 import type { BandAttach, CeilingRise } from "./band-join.js";
-import { seamRise, seamTop } from "./band-seam.js";
 import { mixHex } from "./hex.js";
 import { barrelAcross } from "./hull-barrel.js";
 import { hullClock, hullSpan } from "./hull-frame.js";
 import type { Circle, Layout } from "./layout.js";
+import { seamRise, seamTop } from "./seam-line.js";
 import type { SeatSkin } from "./seat-skin.js";
 import { dither } from "./sheen.js";
 

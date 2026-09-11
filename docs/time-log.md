@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — panel:band-skin opened with POLYP, VESICLE and SUCKER
+
+Three candidates for the bed, gloss, life and slime round a button on GLAND's panel; a module cycle band-join / gland-join / band-seam that kept the VERSUS page from opening at all is broken by a leaf seam-line.ts.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | reading |
+| writing | 45 | writing |
+| looking | 20 | looking |
+| friction | 20 | friction |
+| landing | 10 | landing |
+
+Bottleneck: bun run versus:shot failed with no picture and no message for twenty minutes before the in-app browser showed the cycle; the shot tool should print the page's console errors when the stage is missing.
+
 ## 2026-09-11 · hit-looks — The slime on the band is a record
 
 drawBand called drawDrips by name; BAND_SLIME in slime-look.ts now wraps it so panel:band-skin can patch what hangs over the buttons.

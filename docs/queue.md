@@ -158,27 +158,22 @@ Why the short label is what fits today, and what each of the three costs.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
-## The band the players actually touch has one look
+## `bun run versus:shot` says nothing when the page it photographs has thrown
 
-- **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
-- **Taken:** 2026-09-11, claude/queue-the-band-the-players-actually-touch-has-one-look
-- **Files:** `packages/render/src/band.ts`,
-  `packages/render/src/band-control.ts`, `packages/render/src/band-lobes.ts`,
-  `packages/render/src/band-slime.ts`, `packages/render/src/band-seam.ts`,
-  `tools/versus/candidates/`
+- **Found:** 2026-09-11, hit-looks
+- **Files:** `tools/frames/shot.ts`, `tools/frames/versus-shot.ts`,
+  `tools/frames/exec.ts`
 
-The control band is the half of the screen a player's thumb lives on, and it
-has never been offered an alternative of its own. `ship:body` is decided —
-the owner took GLAND on 11 September 2026, and the panel is its wet chamber,
-spine and organ buttons (`ship-gland.ts`) — so open `panel:band-skin` on that
-panel, with three candidates on the organ, its bed and the slime. The owner
-answered on 10 September 2026 that the band gets its own slot *whichever*
-ship wins: a ship's panel is the ground the band stands on, not the last word
-on the band.
-
-It waited until the ship was decided because its six candidates each redrew
-the whole panel and claimed `LOBE_LOOK` (gloss, socket), `STRIP_LOOK`,
-`BAND_GROUND`, `PANEL_PLAN`, `BAND_JOIN` and `SHIP_NERVES` — every field this
-slot would patch — and `bun test` refuses two open slots on one field. Any new
-furniture keeps the grown contour and the wet highlight: a flat plate with a
-stroke around it is the one thing the panel look is not.
+When the VERSUS page throws while loading, `shot.ts` reports only *no element
+matches .versus-stage — is the tab right?* and exits 2, and with `--freeze` it
+waits for a `[data-frozen]` that never comes until something kills it. On
+11 September 2026 a module cycle (`band-join` → `gland-join` → `band-seam` →
+`band-join`, now broken by `seam-line.ts`) made every candidate page throw
+`Cannot read properties of null (reading 'saggingRoof')`, and the only way to
+read that sentence was to start the director by hand and open the in-app
+browser's console — twenty minutes for a one-line error. `shot.ts` already
+holds a Playwright page: subscribe to `page.on("pageerror")` and
+`page.on("console")` at the error level, and when the element is missing or
+the `--until` wait runs out, print what the page said before the *is the tab
+right?* line. `tools/frames/test/` should hold a page that throws on load and
+assert the message reaches stderr.

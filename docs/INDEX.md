@@ -725,6 +725,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/seat-skin.ts` | WHICH SHIP THIS IS: player one's violet, player two's amber |
 | `packages/render/src/nav-button.ts` | One button on a guide's bar, and the contour every one of them is cut from |
 | `packages/render/src/seat-name.ts` | What to call a seat on a screen a person is reading |
+| `packages/render/src/seam-line.ts` | WHERE THE MEMBRANE MAY SWING — the numbers, and nothing that draws |
 | `packages/render/src/hover.ts` | WHAT A MOUSE IS RESTING ON, LIT |
 | `packages/render/src/recoil-cage-break.ts` | THE RECOIL's cage coming apart: the shot that spends the last bounce, drawn as the frame failing all at once |
 | `packages/render/src/recoil-calyx.ts` | CALYX — a kept look for THE RECOIL's cage, drawn only on the GRAPHICS page's LIBRARY |

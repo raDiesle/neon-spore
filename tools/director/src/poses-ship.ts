@@ -119,8 +119,11 @@ function lanceGone(w: World): boolean {
  * judged against the hull's own ripple a tile above it, and a trunk is judged
  * against the button it grows into. `crop: "ship"` is the one cut that carries
  * both — the hull, five tiles of field over it, and the whole band — and it is
- * where `ship:body` is judged too, a whole ship on the cut that carries the
- * panel it grows into.
+ * where `ship:body` was judged too, a whole ship on the cut that carries the
+ * panel it grows into. `panel:band-skin` — the bed a button stands in, its
+ * gloss, what moves on it and what hangs over it from the roof — is judged
+ * here as well, because every one of those is read against the roof above it
+ * and the cords running up through it, and this is the cut that has both.
  *
  * Nothing falls and nothing is pressed. Both are deliberate: a body coming down
  * the field is the brightest thing on the screen and would decide a vote about

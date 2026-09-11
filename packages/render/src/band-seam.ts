@@ -3,7 +3,10 @@ import { BAND_JOIN } from "./band-join.js";
 import { gradientSlot, slotGradient } from "./gradient-slot.js";
 import { rgba } from "./hex.js";
 import type { Circle, Layout } from "./layout.js";
+import { CLIMB, seamBottom, seamRise, seamTop } from "./seam-line.js";
 import { P1_SKIN, type SeatSkin } from "./seat-skin.js";
+
+export { hullBottom, seamBottom, seamRise, seamTop } from "./seam-line.js";
 
 /**
  * WHERE THE SHIP ENDS AND THE PANEL BEGINS — WHICH IS NOWHERE.
@@ -41,19 +44,6 @@ import { P1_SKIN, type SeatSkin } from "./seat-skin.js";
  * CLAUDE.md about `world.beat` not being monotonic).
  */
 
-/** How far the membrane swings either side of `bandTop`. */
-export function seamRise(l: Layout): number {
-  return Math.max(5, Math.min(l.tile * 0.62, l.bandHeight * 0.12));
-}
-
-/**
- * How far the membrane may climb onto the hull, as a share of `seamRise`. The
- * rest of its swing hangs *down* into the chamber, which is where the shape
- * has to come from: the hull's belly is one tile deep and a membrane that took
- * most of it would be eating the ship to decorate the panel.
- */
-const CLIMB = 0.3;
-
 /**
  * The underside of the ship at `x`, swinging either side of `bandTop`.
  *
@@ -77,47 +67,6 @@ function seamPoints(l: Layout, time: number, lobes: readonly Circle[]): Point[] 
     pts.push({ x, y: seamY(l, x, time, lobes) });
   }
   return pts;
-}
-
-/**
- * The membrane as two paths: the line itself, and the chamber it closes off.
- *
- * Both come out of one sampling, so the rim can never be drawn a pixel away
- * from the edge of what it encloses.
- */
-export function seamTop(l: Layout): number {
-  return l.bandTop - seamRise(l) * CLIMB;
-}
-
-/** The deepest the membrane hangs — the flesh above it is the ship's, not the
- * chamber's, and is filled before anything is clipped (`drawSeamFlesh`). */
-export function seamBottom(l: Layout): number {
-  return l.bandTop + seamRise(l) * (1 - CLIMB);
-}
-
-/**
- * HOW FAR DOWN THE SHIP GOES — and it is not `bandTop`.
- *
- * It was, and that produced the one straight edge nothing else about this ship
- * has: the membrane was cut off flat at the top of the panel, so the hull's
- * fill, its ramp and its key light all stopped in mid-air along a ruled line
- * with the seam's lit rim a few pixels under it. Two horizontals, read exactly
- * as drawn — the ship, and then another line separating the controls.
- *
- * So the ship ends where its skin does. `seamBottom` is the lowest the
- * membrane hangs, which is the bottom of the belly, and the panel is drawn
- * over whatever of the ship lies below the membrane — so the visible edge is
- * the contour rather than a rectangle's bottom.
- *
- * It buys the maw the room it never had as well. At full intake the cannon
- * lobe inverts most of a tile below the hull line and the throat is drawn in
- * the bottom of that dent; against `bandTop` both were sliced flat.
- * `test/swallow-bounds.test.ts` holds this bound rather than the old one, and
- * the rule it exists for is unchanged: the ship still may not draw into the
- * chamber where the buttons are, only into its own skin.
- */
-export function hullBottom(l: Layout): number {
-  return seamBottom(l);
 }
 
 /**

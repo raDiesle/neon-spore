@@ -16,6 +16,9 @@ import { TETHER_TWIST } from "./creature-tether/twist/index.js";
 import { THROB_CAP } from "./creature-throb/cap/index.js";
 import { THROB_GIRDLE } from "./creature-throb/girdle/index.js";
 import { THROB_PORES } from "./creature-throb/pores/index.js";
+import { SKIN_POLYP } from "./panel-band-skin/polyp/index.js";
+import { SKIN_SUCKER } from "./panel-band-skin/sucker/index.js";
+import { SKIN_VESICLE } from "./panel-band-skin/vesicle/index.js";
 
 export const VARIANTS: Variant[] = [
   METEOR_BLAZE,
@@ -28,4 +31,7 @@ export const VARIANTS: Variant[] = [
   THROB_CAP,
   THROB_GIRDLE,
   THROB_PORES,
+  SKIN_POLYP,
+  SKIN_SUCKER,
+  SKIN_VESICLE,
 ];
