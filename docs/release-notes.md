@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · 0219b71a — creature:veer decided: the shipped rider stays, and its collar no longer sinks into the rock on the brace
+
+The owner: "keep current for CREATURE:VEER. fix that it shouldnt move the hands below the border of top meteor, so the hands must stay on top connected holding the meteor all the time - not moving more down". A fix to something wrong: the collar of beads the rider grips the stone with — the hands, read at a tile — crouched with the whole figure and went under the rock's top edge every third beat. Now the collar sits on the rock's crown and stays there, and only the head and the hat sink, into the collar, so the brace reads as a rider bearing down on what it holds. HUNCHED, JESTER and SOLID go with the slot.
+
 ## 2026-09-11 · 9b0b1f65 — creature:veil decided: ANVIL stays and thins over the body on player 1's screen; FOAM, STRATA and VORTEX kept on the LIBRARY
 
 The owner: "keep current, but make the underlying slick or bulb a little bit more visible, so less clouds, just some. move the versus alternatives all to 'Shapes' page". A look the owner asked for by name. On the screen that sees into the cloud the mass no longer lays its dark base over the body and draws only the heaps on the near side of the turn, and the rim's fill and the fog are thinner there — so the slick or bulb inside is read at a glance with a few lumps of weather passing over it. Player 2's cloud is untouched: same contour, same rim, same lightning, whole mass. The three alternatives move into packages/render as veil-foam.ts, veil-strata.ts and veil-vortex.ts for the SHAPES page's LIBRARY only, which gets a veil stage running the game's own drawVeilCloud with the record's mass swapped for the length of a card, and four cards: ANVIL (starred), FOAM, STRATA, VORTEX.
