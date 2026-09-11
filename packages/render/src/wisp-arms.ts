@@ -1,16 +1,20 @@
-import { pin, surfaceDim } from "../../../../../packages/content/src/surface.js";
-import { mixHex, rgba } from "../../../../../packages/render/src/hex.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
-import type { WispFringe } from "../../../../../packages/render/src/wisp-look.js";
-import * as wispLook from "../../../../../packages/render/src/wisp-look.js";
-import { strandWave } from "../../../../../packages/render/src/wisp-tentacles.js";
-import { patch, type Variant } from "../../../variant.js";
+import { pin, surfaceDim } from "@neon-spore/content";
+import { mixHex, rgba } from "./hex.js";
+import { PALETTE } from "./palette.js";
+import type { WispFringe } from "./wisp-look.js";
+import { strandWave } from "./wisp-tentacles.js";
 
 /**
- * `creature:wisp` / `arms` — four oral arms under the bell, each a ruffled
- * ribbon with a width, instead of eight threads with none.
+ * ARMS — four oral arms under the bell, each a ruffled ribbon with a width,
+ * instead of eight threads with none.
  *
- * **What the shipped side is.** Eight strokes rooted round the hem, half of
+ * It was `creature:wisp` / `arms` on VERSUS, and the owner put it into the
+ * game on 11 September 2026: *a jellyfish with arms floating under it* is the
+ * kind of body he wants more of, and the eight threads it replaces
+ * (`wisp-tentacles.ts`), with COMB and SKIRT that stood beside it, are kept
+ * on the SHAPES page's LIBRARY for building those.
+ *
+ * **What the threads were.** Eight strokes rooted round the hem, half of
  * them behind the bell, each a bezier of one line width. It is a fringe, and it
  * reads as one — but a line has no near side. A strand going round the back
  * can only thin and dim, because there is nothing on it a light could fall
@@ -70,7 +74,7 @@ const SHADOW = "#0B1024";
 
 const PINS = Array.from({ length: ARMS }, (_, i) => pin((i / ARMS) * Math.PI * 2, 0, ROOT_REACH));
 
-function arms(f: WispFringe): void {
+export function arms(f: WispFringe): void {
   const { ctx, rx, ry, t, j, dive, air, heading, noise, haze } = f;
   // The three things the jump does, as `drawTentacles` reads them: short when
   // gathered or splashed, longest at the two ends of the arc; spread on the
@@ -165,25 +169,3 @@ function arms(f: WispFringe): void {
   }
   ctx.restore();
 }
-
-export const WISP_ARMS: Variant = {
-  slot: "creature:wisp",
-  name: "arms",
-  sentence:
-    "four oral arms under the bell, each a ruffled ribbon with a lit edge and a dark one, turning as sheets and going round the back as slivers — a fringe with mass instead of eight threads",
-  dir: "tools/versus/candidates/creature-wisp/arms",
-  patches: [
-    patch({
-      target: wispLook.WISP_LOOK,
-      // No accessor: `wisp-body.ts` reads the export itself, once per wisp per
-      // frame. The module namespace is the whole route there is.
-      reached: () => wispLook.WISP_LOOK,
-      where: {
-        file: "packages/render/src/wisp-look.ts",
-        symbol: "WISP_LOOK",
-        type: "WispLook",
-      },
-      fields: { fringe: arms },
-    }),
-  ],
-};

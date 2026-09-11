@@ -229,27 +229,31 @@ const SCENES: readonly Scene[] = [
           fillText: 30,
         },
       ],
+      // ARMS (11 September 2026): the fringe is four filled ribbons with a
+      // gradient each, and a lit edge stroked on the two facing us, in place
+      // of eight stroked threads — eight more fills and seven more gradients,
+      // twelve fewer strokes. Only the seat that sees the wisp moved.
       p2: [
         {
           fillRect: 257,
-          stroke: 122,
-          fill: 63,
+          stroke: 110,
+          fill: 71,
           clip: 27,
           save: 74,
           drawImage: 42,
-          createLinearGradient: 17,
+          createLinearGradient: 24,
           createRadialGradient: 5,
           "new Path2D": 29,
           fillText: 31,
         },
         {
           fillRect: 257,
-          stroke: 124,
-          fill: 63,
+          stroke: 112,
+          fill: 71,
           clip: 27,
           save: 74,
           drawImage: 42,
-          createLinearGradient: 7,
+          createLinearGradient: 14,
           createRadialGradient: 3,
           "new Path2D": 13,
           fillText: 31,

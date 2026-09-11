@@ -1,5 +1,5 @@
 import type { WispJump } from "./wisp.js";
-import { drawTentacles } from "./wisp-tentacles.js";
+import { arms } from "./wisp-arms.js";
 
 /**
  * THE ONE RECORD A CANDIDATE WISP FRINGE PATCHES.
@@ -49,7 +49,9 @@ export interface WispLook {
   fringe(f: WispFringe): void;
 }
 
-/** The shipped fringe: eight strands rooted at fixed longitudes round the hem,
- * half of them behind the bell, each carrying its own share of the signal.
- * `wisp-tentacles.ts` holds the arithmetic. */
-export const WISP_LOOK: WispLook = { fringe: drawTentacles };
+/** The shipped fringe: four oral arms under the bell, ruffled ribbons with a
+ * lit edge and a dark one, turning as sheets and going round the back as
+ * slivers — ARMS, the owner's pick of 11 September 2026 (`wisp-arms.ts`). The
+ * eight threads it replaced are `wisp-tentacles.ts`'s, still drawn on the
+ * SHAPES page's LIBRARY and still lending ARMS its `strandWave`. */
+export const WISP_LOOK: WispLook = { fringe: arms };

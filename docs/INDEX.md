@@ -650,6 +650,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/ghost-latitude.ts` | THE GHOST's camouflage, coming apart on a **surface** rather than on a flat plane |
 | `packages/render/src/ghost-swarm.ts` | SWARM — the nebula is not a gradient but a *population* |
 | `packages/render/src/wisp-aim.ts` | you are drawing the square a wisp is going to and the dotted arc to it — the navigator's whole sentence |
+| `packages/render/src/wisp-arms.ts` | ARMS — four oral arms under the bell, each a ruffled ribbon with a width, instead of eight threads with none |
 | `packages/render/src/lid-string.ts` | you are drawing or hit-testing the cord under an armoured eye — the handle's circle lives here |
 | `packages/render/src/lid-look.ts` | you are offering a second answer to the lid's armour — the one record a candidate for the plates patches |
 | `packages/render/src/lid-plates.ts` | the shipped plates over the lid's lens — two grey rectangles sliding apart, and the lit seam between them |
@@ -1552,5 +1553,11 @@ place — the generator keeps whatever is there.
 | `tools/director/src/fillings/helix.ts` | HELIX — something coiled is growing inside the ball, and it is winding |
 | `tools/director/src/fillings/orbit.ts` | ORBIT — one band of light girdles the ball at a tilt, and the ball is in the way of half of it |
 | `tools/director/src/fillings/yolk.ts` | YOLK — nine granules suspended in a lit mass, carried round by the turn, and a pale nucleus that does not move |
+| `tools/director/src/library-panel.ts` | The LIBRARY view on SHAPES: the game's own looks, each on a card, drawn by the game's own code |
+| `tools/director/src/library/types.ts` | What an asset in the LIBRARY is, and what it is told |
+| `tools/director/src/library/wisp-assets.ts` | THE WISP's four fringes — what hangs under the bell |
+| `tools/director/src/library/wisp-comb.ts` | COMB — eight comb rows under the hem, each a run of paddles beating one after the next |
+| `tools/director/src/library/wisp-skirt.ts` | SKIRT — one continuous veil hanging from the whole hem, scalloped at its foot, with folds that go round |
+| `tools/director/src/library/wisp-stage.ts` | The game's own wisp, drawn on a card wearing a fringe of the caller's choosing |
 
 <!-- index:code:end -->

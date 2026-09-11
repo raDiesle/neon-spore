@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — the wisp wears ARMS, and SHAPES gets a LIBRARY
+
+The owner took ARMS into the game and asked for the threads it replaced, COMB and SKIRT, to be kept on the SHAPES page because he wants more jellyfish-like bodies. The page had no place for a whole canvas-drawn look, so it got one: a fourth view, LIBRARY, whose cards are the game's own drawing code run on the game's own wisp (`tools/director/src/library`). ARMS was inline in its candidate and went in by hand; THE WISP's op-count rows moved.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the candidate, `wisp-look.ts`, the SHAPES views, the holders panel's loop |
+| writing | 25 | `wisp-arms.ts`, the library's types, stage, four assets, panel, VIEW button, test |
+| looking | 10 | the LIBRARY in the director twice, one frame of THE WISP |
+| friction | 5 | a canvas that is 300 wide by default hid a missing height; one heredoc too long for the shell |
+| landing | 5 | check:fast, budget rows, commit, land |
+
+Bottleneck: There was no place on the SHAPES page for a canvas-drawn look, and building one was most of the piece.
+
 ## 2026-09-11 · hit-looks — the back decided: the sea stays, one light in the corner, the beat's sweep off
 
 The owner kept the shipped back and dropped `field:backdrop`; what he kept of NEBULA is one soft rounded light of the act's tint in the sky's bottom-right corner (`corner-light.ts`, additive like the shafts), and the beat's travelling band across the field is off for the moment, its function kept and exported with a note on how to put it back. Every op-count budget moved by the one `drawImage` a frame the light costs.

@@ -190,6 +190,12 @@
   font-size: 0.875rem;
   line-height: 1.5;
 }
+.library-card .head .from {
+  margin-left: 10px;
+  color: var(--dim);
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
 .queen-row .holder-card {
   flex-basis: 320px;
   max-width: 380px;

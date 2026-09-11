@@ -56,11 +56,12 @@
  * costs about a fifth of a second regardless of which group it lands in.
  */
 
+import { renderLibrary } from "./library-panel.js";
 import { axisGroups } from "./shapes-axes.js";
 import { renderShapesBuild } from "./shapes-build.js";
 import { button, group } from "./shapes-widgets.js";
 
-export type ShapesView = "overview" | "compose" | "build";
+export type ShapesView = "overview" | "compose" | "build" | "library";
 
 /** Which of the three views is showing. OVERVIEW, because that is the default
  * the owner asked for — see this file's header. */
@@ -83,10 +84,16 @@ function applyView(): void {
   const overview = document.getElementById("shapes-view-overview");
   const compose = document.getElementById("shapes-view-compose");
   const build = document.getElementById("shapes-view-build");
+  const library = document.getElementById("shapes-view-library");
   if (overview) overview.style.display = view === "overview" ? "" : "none";
   if (compose) compose.style.display = view === "compose" ? "" : "none";
   if (build) build.style.display = view === "build" ? "" : "none";
+  if (library) library.style.display = view === "library" ? "" : "none";
   if (view === "build") renderShapesBuild();
+  // LIBRARY runs its own loop and mounts once: its cards are canvases the
+  // game's code draws into, and a rebuild on every control click would start a
+  // second loop beside the first (`library-panel.ts`).
+  if (view === "library" && library && !library.querySelector(".library-card")) renderLibrary();
 }
 
 /**
@@ -115,7 +122,7 @@ export function controlBar(host: HTMLElement, rerender: () => void): void {
   host.classList.add("control-bar");
   applyView();
 
-  const viewLabel = view === "overview" ? "OVERVIEW" : view === "compose" ? "COMPOSE" : "BUILD";
+  const viewLabel = view.toUpperCase();
   group(
     host,
     "VIEW",
@@ -123,7 +130,9 @@ export function controlBar(host: HTMLElement, rerender: () => void): void {
       `every skin, every motion and both light states, with nothing to set; ` +
       `COMPOSE is the sixty-body catalogue and the four axes that say what ` +
       `every card there is wearing; BUILD is a base blob and a click-together ` +
-      `list of parts, for trying a recipe before it is one. Now: ${viewLabel}.`,
+      `list of parts, for trying a recipe before it is one; LIBRARY is the ` +
+      `game's own looks, drawn by the game's own code, kept for building more ` +
+      `bodies like them. Now: ${viewLabel}.`,
     (row) => {
       button(
         row,
@@ -152,6 +161,16 @@ export function controlBar(host: HTMLElement, rerender: () => void): void {
         "pick a base and click parts onto it, then copy the recipe out",
         () => {
           setView("build");
+          rerender();
+        },
+      );
+      button(
+        row,
+        "LIBRARY",
+        view === "library",
+        "looks the game draws or drew, each on a card, run by the game's own code",
+        () => {
+          setView("library");
           rerender();
         },
       );

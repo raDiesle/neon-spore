@@ -37,6 +37,7 @@ export { halo, haloSprite, strokeGlow } from "./glow.js";
 export { gripLabel } from "./grip.js";
 export { drawGuideNav, NAV_H, navButtons, navHit, onNavBar } from "./guide-nav.js";
 export { signedHash, sinHash } from "./hash.js";
+export { mixHex, rgba } from "./hex.js";
 export { hullBarBox } from "./hud.js";
 export { drawIntroPage, type IntroHit, introHit, skipBox } from "./intro-page.js";
 export { half, litBox, litColour, litRound, type Shade, shadeAt } from "./key-light.js";
@@ -100,3 +101,12 @@ export {
 } from "./touch-ship.js";
 export { drawVane } from "./vane-draw.js";
 export { INTRO_SECONDS } from "./wave-intro.js";
+// THE WISP whole, and its fringe record, so the SHAPES page's LIBRARY can
+// draw the real jellyfish wearing each fringe the owner kept
+// (`tools/director/src/library`). Drawing only — the jump is read off a beat
+// the card supplies, and no world is touched.
+export { type WispJump, wispJump } from "./wisp.js";
+export { arms } from "./wisp-arms.js";
+export { drawWispBody } from "./wisp-body.js";
+export { WISP_LOOK, type WispFringe, type WispLook } from "./wisp-look.js";
+export { drawTentacles, strandWave } from "./wisp-tentacles.js";

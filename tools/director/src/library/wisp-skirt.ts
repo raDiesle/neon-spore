@@ -1,14 +1,16 @@
-import { facet, pin, surfaceDim } from "../../../../../packages/content/src/surface.js";
-import { mixHex, rgba } from "../../../../../packages/render/src/hex.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
-import type { WispFringe } from "../../../../../packages/render/src/wisp-look.js";
-import * as wispLook from "../../../../../packages/render/src/wisp-look.js";
-import { strandWave } from "../../../../../packages/render/src/wisp-tentacles.js";
-import { patch, type Variant } from "../../../variant.js";
+import { facet, pin, surfaceDim } from "@neon-spore/content";
+import { mixHex, PALETTE, rgba, strandWave, type WispFringe } from "@neon-spore/render";
 
 /**
- * `creature:wisp` / `skirt` — one continuous veil hanging from the whole hem,
+ * SKIRT — one continuous veil hanging from the whole hem,
  * scalloped at its foot, with folds that go round.
+ *
+ * It was `creature:wisp` / `skirt` on VERSUS. The owner took ARMS into the
+ * game on 11 September 2026 and asked for this to be kept on the SHAPES page:
+ * *a jellyfish with arms floating under it* is a kind of body he wants more
+ * of, and this is one way of hanging things off a bell. Drawn here on the
+ * game's own wisp (`wisp-stage.ts`), untouched, so it is the real thing and
+ * not a memory of it.
  *
  * **What the shipped side is.** Eight separate threads. Between any two of
  * them is field, so the fringe is *mostly gap*, and the thing that tells the
@@ -82,7 +84,7 @@ const RING_PINS = [Math.PI / 2, -Math.PI / 2].map((from) =>
   Array.from({ length: STEPS + 1 }, (_, s) => pin(from + (s / STEPS) * Math.PI, 0, HEM_K)),
 );
 
-function skirt(f: WispFringe): void {
+export function skirt(f: WispFringe): void {
   const { ctx, rx, ry, t, j, dive, air, heading, noise, haze } = f;
   // The jump, as the shipped fringe reads it: flattened on the crouch and the
   // landing, longest at the two ends of the arc, thrown out at the foot on the
@@ -182,25 +184,3 @@ function skirt(f: WispFringe): void {
   }
   ctx.restore();
 }
-
-export const WISP_SKIRT: Variant = {
-  slot: "creature:wisp",
-  name: "skirt",
-  sentence:
-    "one translucent curtain hanging from the whole hem to a scalloped foot, the near half lower and lit, the far half short and dim behind it, ten folds going round — a bell with an underside instead of threads with gaps",
-  dir: "tools/versus/candidates/creature-wisp/skirt",
-  patches: [
-    patch({
-      target: wispLook.WISP_LOOK,
-      // No accessor: `wisp-body.ts` reads the export itself, once per wisp per
-      // frame. The module namespace is the whole route there is.
-      reached: () => wispLook.WISP_LOOK,
-      where: {
-        file: "packages/render/src/wisp-look.ts",
-        symbol: "WISP_LOOK",
-        type: "WispLook",
-      },
-      fields: { fringe: skirt },
-    }),
-  ],
-};

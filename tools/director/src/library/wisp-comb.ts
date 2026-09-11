@@ -1,15 +1,17 @@
-import { facet, pin, surfaceDim } from "../../../../../packages/content/src/surface.js";
-import { mixHex, rgba } from "../../../../../packages/render/src/hex.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
-import type { WispFringe } from "../../../../../packages/render/src/wisp-look.js";
-import * as wispLook from "../../../../../packages/render/src/wisp-look.js";
-import { strandWave } from "../../../../../packages/render/src/wisp-tentacles.js";
-import { patch, type Variant } from "../../../variant.js";
+import { facet, pin, surfaceDim } from "@neon-spore/content";
+import { mixHex, PALETTE, rgba, strandWave, type WispFringe } from "@neon-spore/render";
 
 /**
- * `creature:wisp` / `comb` — eight comb rows under the hem, each a run of
+ * COMB — eight comb rows under the hem, each a run of
  * paddles beating one after the next, and the beat runs the spectrum down the
  * row.
+ *
+ * It was `creature:wisp` / `comb` on VERSUS. The owner took ARMS into the
+ * game on 11 September 2026 and asked for this to be kept on the SHAPES page:
+ * *a jellyfish with arms floating under it* is a kind of body he wants more
+ * of, and this is one way of hanging things off a bell. Drawn here on the
+ * game's own wisp (`wisp-stage.ts`), untouched, so it is the real thing and
+ * not a memory of it.
  *
  * **What the shipped side is.** Eight threads that sway. A thread's whole
  * vocabulary is its curve, and a curve on a seven-second clock is a slow
@@ -79,7 +81,7 @@ function iridescence(k: number): string {
     : mixHex(PALETTE.wisp, PALETTE.red, (u - 0.5) * 2);
 }
 
-function comb(f: WispFringe): void {
+export function comb(f: WispFringe): void {
   const { ctx, rx, ry, t, j, dive, air, heading, noise, haze } = f;
   const len = ry * (1.5 - j.crouch * 0.85 - j.land * 0.88 + dive * 0.6);
   const splay = 1 + j.land * 2.2 + air * 0.25;
@@ -175,25 +177,3 @@ function comb(f: WispFringe): void {
   }
   ctx.restore();
 }
-
-export const WISP_COMB: Variant = {
-  slot: "creature:wisp",
-  name: "comb",
-  sentence:
-    "eight comb rows under the hem, five paddles each, a beat running down every row a paddle at a time and carrying the bell's own cyan-violet-red with it — the fringe of a comb jelly, going round the back as slivers",
-  dir: "tools/versus/candidates/creature-wisp/comb",
-  patches: [
-    patch({
-      target: wispLook.WISP_LOOK,
-      // No accessor: `wisp-body.ts` reads the export itself, once per wisp per
-      // frame. The module namespace is the whole route there is.
-      reached: () => wispLook.WISP_LOOK,
-      where: {
-        file: "packages/render/src/wisp-look.ts",
-        symbol: "WISP_LOOK",
-        type: "WispLook",
-      },
-      fields: { fringe: comb },
-    }),
-  ],
-};

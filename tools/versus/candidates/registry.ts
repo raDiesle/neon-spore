@@ -46,9 +46,6 @@ import { VOLLEY_PITTED } from "./creature-volley/pitted/index.js";
 import { WARDEN_MANTLE } from "./creature-warden/mantle/index.js";
 import { WARDEN_ROLL } from "./creature-warden/roll/index.js";
 import { WARDEN_WHORL } from "./creature-warden/whorl/index.js";
-import { WISP_ARMS } from "./creature-wisp/arms/index.js";
-import { WISP_COMB } from "./creature-wisp/comb/index.js";
-import { WISP_SKIRT } from "./creature-wisp/skirt/index.js";
 import { SHIP_CHITIN } from "./ship-body/chitin/index.js";
 import { SHIP_GLAND } from "./ship-body/gland/index.js";
 import { SHIP_GULLET } from "./ship-body/gullet/index.js";
@@ -97,9 +94,6 @@ export const VARIANTS: Variant[] = [
   WARDEN_MANTLE,
   WARDEN_ROLL,
   WARDEN_WHORL,
-  WISP_ARMS,
-  WISP_COMB,
-  WISP_SKIRT,
   SHIP_CHITIN,
   SHIP_GLAND,
   SHIP_GULLET,

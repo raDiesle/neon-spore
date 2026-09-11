@@ -672,3 +672,13 @@ it in the corner, asked for by name, and BARE and LANES go
 
 The other answers offered were `bare`, `lanes` and `nebula`; they went with
 the slot.
+
+## `creature:wisp` — nothing taken, 2026-09-11
+
+taken by hand — ARMS into the game (render/wisp-arms.ts); the threads it
+replaced, COMB and SKIRT kept on the SHAPES page's LIBRARY, drawn on the
+game's own wisp, because the owner wants more bodies like a jellyfish with
+arms floating under it
+
+The other answers offered were `arms`, `comb` and `skirt`; they went with the
+slot.
