@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · 6dd5391b — creature:lid decided: IRIS goes into the game, BEVEL and the old plates stay on the LIBRARY, and the SHAPES tab is GRAPHICS now
+
+The owner: "apply from 'versus' the 'CREATURE:LID · IRIS' to the game. keep the 'CREATURE:LID · BEVEL' with the graphic of opening like a iron curtain to see something behind for upcoming creatures, so show it on 'Shapes' page. I suggest to rename 'Shapes' to 'Graphics' and keep 'Shapes' a backwards compatible synonym - as idea is to have a graphics game asset library". A look the owner asked for by name. THE LID's armour is six overlapping leaves now, opening from a point at the middle of the eye; the two flat plates it wore and the bevelled ones are drawn beside it on the LIBRARY, on the game's own lid with a card pulling the cord. NOT BUILT YET's SHAPES tab reads GRAPHICS, its id and `bun run shot --tab SHAPES` still work, and THE LID's op-count row is remeasured for the leaves. ROLL goes with the slot.
+
 ## 2026-09-11 · 0219b71a — creature:veer decided: the shipped rider stays, and its collar no longer sinks into the rock on the brace
 
 The owner: "keep current for CREATURE:VEER. fix that it shouldnt move the hands below the border of top meteor, so the hands must stay on top connected holding the meteor all the time - not moving more down". A fix to something wrong: the collar of beads the rider grips the stone with — the hands, read at a tile — crouched with the whole figure and went under the rock's top edge every third beat. Now the collar sits on the rock's crown and stays there, and only the head and the hat sink, into the collar, so the brace reads as a rider bearing down on what it holds. HUNCHED, JESTER and SOLID go with the slot.
