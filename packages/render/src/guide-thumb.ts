@@ -5,7 +5,7 @@ import {
   type GuideScene,
   type SceneAct,
 } from "@neon-spore/content";
-import { arrivingFirst, type World } from "@neon-spore/sim";
+import { arrivingFirst, atBodyCol, type World } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import { bandLobes, type Layout, tileCX, type ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -124,7 +124,7 @@ function pointOn(
  * says so and there is one on the field to answer. */
 function stripCol(act: SceneAct, cols: number, world: World | null): number {
   const body = act.atBody && world ? arrivingFirst(world) : null;
-  return body ? body.col : actCol(act, cols);
+  return body ? atBodyCol(body) : actCol(act, cols);
 }
 
 /**

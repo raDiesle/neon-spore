@@ -57,7 +57,7 @@ export { type Replay, record, runReplay } from "./replay.js";
 export { createRng, next, nextInt, type Rng } from "./rng.js";
 export { endRun, resetClock, resetRun } from "./run.js";
 export { SceneRun, type SceneScript } from "./scene.js";
-export { arrivingFirst, type SceneCommand } from "./scene-aim.js";
+export { arrivingFirst, atBodyCol, type SceneCommand } from "./scene-aim.js";
 export { roundSpent } from "./wave-end.js";
 export {
   type BossEntry,

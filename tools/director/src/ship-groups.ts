@@ -48,6 +48,7 @@ export type GroupName =
   | "THE RIND — one body, three sizes"
   | "THE RECOIL — a shot that sends it the wrong way"
   | "THE CAROM — a rock with something alive in it"
+  | "THE CRYSTAL — two bodies in one shell, broken at the middle"
   | "THE VOLLEY — a rock you have to hit back three times"
   | "THE FENCE — a live line with a way through it"
   | "THE VEER — a rock that changes lane on the way down"
@@ -95,6 +96,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE RIND — one body, three sizes",
   "THE RECOIL — a shot that sends it the wrong way",
   "THE CAROM — a rock with something alive in it",
+  "THE CRYSTAL — two bodies in one shell, broken at the middle",
   "THE VOLLEY — a rock you have to hit back three times",
   "THE FENCE — a live line with a way through it",
   "THE MALFUNCTION — a control that acts by itself",

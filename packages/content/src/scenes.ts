@@ -15,6 +15,7 @@ import { THE_CLAW } from "./scenes/the-claw.js";
 import { THE_COIL } from "./scenes/the-coil.js";
 import { THE_CRAWLER } from "./scenes/the-crawler.js";
 import { THE_CROSSING } from "./scenes/the-crossing.js";
+import { THE_CRYSTAL } from "./scenes/the-crystal.js";
 import { THE_CUT } from "./scenes/the-cut.js";
 import { THE_DART } from "./scenes/the-dart.js";
 import { THE_ECHO } from "./scenes/the-echo.js";
@@ -107,6 +108,7 @@ export type SceneId =
   | "theWarden"
   | "theCoil"
   | "theCarom"
+  | "theCrystal"
   | "theClaw"
   | "theVolley"
   | "theFence"
@@ -159,6 +161,7 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theWarden: THE_WARDEN,
   theCoil: THE_COIL,
   theCarom: THE_CAROM,
+  theCrystal: THE_CRYSTAL,
   theClaw: THE_CLAW,
   theVolley: THE_VOLLEY,
   theFence: THE_FENCE,

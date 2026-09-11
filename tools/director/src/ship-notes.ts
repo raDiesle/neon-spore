@@ -168,6 +168,12 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "crossing on a diagonal and turning at the walls twice before it lands. " +
     "The shield cannot touch it whole; the cannon cracks it, and what drops " +
     "out is a meteor that has to be warded. See carom.ts.",
+  "THE CRYSTAL — two bodies in one shell, broken at the middle":
+    "A slick and a bulb joined at a thin middle and armoured all round, " +
+    "crossing on the carom's diagonal. Only the middle breaks, in the colour " +
+    "the wave gave it, and only while the shield stands armed in that lane; " +
+    "then the two ends fall as a plain slick and a plain bulb. Any other shot " +
+    "bounces off and drives it a row toward the ship. See crystal.ts.",
   "THE STRAND — beads on a thread, shot in order":
     "Two to five slicks and bulbs on one line, alternating. It is eaten " +
     "from its ends inward and only one bead can be shot at a time, at an " +

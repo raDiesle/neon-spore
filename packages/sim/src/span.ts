@@ -65,6 +65,12 @@ export function colSpan(kind: CreatureKind): number {
   // path, and the path is the whole creature. The rock it becomes keeps the
   // width — `caromStruck` writes it onto the body — so the shield covers what
   // the pair has been watching rather than half of it.
+  // THE CRYSTAL is three, and the number is the creature: a body on the left,
+  // a body on the right and the one tile between them that a shot can break.
+  // Odd on purpose, so the middle *is* a column (`crystalMiddleCol`) rather
+  // than a seam between two — the shield and the cannon both have to be said
+  // to be in it.
+  if (kind === "crystal") return 3;
   return kind === "torch" || kind === "carom" ? 2 : 1;
 }
 

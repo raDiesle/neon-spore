@@ -88,3 +88,10 @@ export {
   coilIsDomed,
   coilWardReaches,
 } from "./coil-state.js";
+export {
+  type CrystalDir,
+  crystalHeading,
+  crystalHeld,
+  crystalImpactDamage,
+  crystalMiddleCol,
+} from "./crystal.js";

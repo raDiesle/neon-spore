@@ -6,7 +6,10 @@ import type { Mechanic, MechanicId } from "./mechanics.js";
  * `never` and the key becomes a build error, so this list cannot fall behind a
  * rename.
  */
-type WornId = Extract<MechanicId, "rind" | "recoil" | "carom" | "chute" | "volley" | "clasp">;
+type WornId = Extract<
+  MechanicId,
+  "rind" | "recoil" | "carom" | "chute" | "volley" | "clasp" | "crystal"
+>;
 
 /**
  * **A slick or a bulb wearing something that has to come off first.**
@@ -71,6 +74,14 @@ export const WORN_MECHANICS = {
     // carom: the silhouette is the shell's and the colour is the body sealed
     // inside it, which is which cannon finishes it once the shield is done, so
     // neither can be worked out from the other.
+    waveNames: true,
+  },
+  crystal: {
+    what: "A slick and a bulb joined at a thin middle and armoured all the way round — an hourglass on its side, three tiles wide — crossing the field on the carom's diagonal and turning at the walls. Only the middle can be broken, in the colour the wave gave it, and only while the shield stands armed in that same lane: then the shell comes off and the two ends fall as a plain slick and a plain bulb, each down its own column. Any other shot bounces off and drives the whole thing a row toward the ship.",
+    reach: "spawn",
+    // A wave names this kind and gives it a colour, the way it does for a
+    // carom: the silhouette is the shell's and the colour is the join's, which
+    // is which cannon breaks it, so neither can be worked out from the other.
     waveNames: true,
   },
   clasp: {

@@ -50,8 +50,8 @@ describe("roster", () => {
     // in the first thirteen that the bestiary lists and `CREATURES` does not.
     // It was the strand until that one was built, which is the whole point of
     // the row — pick another out of the same table rather than deleting it.
-    const crystal = roster.creatures.find((c) => c.name === "Crystal");
-    expect(crystal?.built).toBe(false);
+    const choke = roster.creatures.find((c) => c.name === "Choke");
+    expect(choke?.built).toBe(false);
 
     // Only the three worked-out bosses carry a note off their own heading's tail.
     const queen = roster.bosses.find((b) => b.name === "Bulb Queen");

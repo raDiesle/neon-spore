@@ -105,6 +105,11 @@ const BY_ID: Record<string, Subject> = {
   // the card shows the contour.
   "signal.bearing": shape("WISP"),
   "impact.split": shape("BULB"),
+  // THE CRYSTAL's shell turning a wrong shot away. The body has no card of
+  // its own on the sheet — it is a slick and a bulb under one shell
+  // (`render/crystal.ts`) — and the slick is the half the wave opens on the
+  // left, where a shot at the wrong tile most often lands.
+  "creature.crystalFacet": shape("SLICK"),
   "creature.moult": shape("BULB"),
   // THE RECOIL bouncing. The slick, because a recoil arrives red in the wave
   // that introduces it — and because the body is the subject rather than the

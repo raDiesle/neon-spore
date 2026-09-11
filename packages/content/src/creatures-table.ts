@@ -5,6 +5,7 @@ import { BEATBOX_CREATURE } from "./creatures-beatbox.js";
 import { FIXTURE_CREATURES } from "./creatures-fixtures.js";
 import { HANDED_CREATURES } from "./creatures-handed.js";
 import { HAZARD_CREATURES } from "./creatures-hazards.js";
+import { JOINED_CREATURES } from "./creatures-joined.js";
 import { SPLIT_CREATURES } from "./creatures-split.js";
 import { WORN_CREATURES } from "./creatures-worn.js";
 
@@ -21,9 +22,9 @@ import { WORN_CREATURES } from "./creatures-worn.js";
  * with a delay on it, so what one of them says has to be the same word every
  * time: a round cyan thing is a bulb and a bulb is a round cyan thing. A new
  * silhouette is spent on a new *behaviour*, never on recolouring an existing
- * one — the shapes still free (dart, veil, strand, crystal, …) are reserved for
- * creatures that do something the standard ones do not, and one of those has to
- * look clearly different, not merely differently tinted. See docs/spec/bestiary.md.
+ * one — a free shape goes to a creature that does something the standard ones
+ * do not, and it has to look clearly different, not merely differently tinted.
+ * See docs/spec/bestiary.md.
  */
 export const CREATURES: Record<CreatureKind, CreatureDef> = {
   slick: {
@@ -147,10 +148,10 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
   mount: BARE_CREATURES.mount,
   // THE CAROM, and the eighth worn body: a slick or a bulb inside a rock crust
   // that crosses the field instead of falling. Next door for the same reason
-  // as the other seven — it is drawn as the body its colour names, and
-  // `wornKind` resolves it right up until the crust comes off, after which
-  // there is no body left to resolve.
+  // as the other seven — `wornKind` resolves it until the crust comes off.
   carom: WORN_CREATURES.carom,
+  // THE CRYSTAL: a slick *and* a bulb in one shell — `creatures-joined.ts`.
+  crystal: JOINED_CREATURES.crystal,
   // THE CHUTE, and the ninth worn body: the slick or the bulb thrown clear of
   // a cracked carom, under a canopy. Next door with the rest for their reason
   // — it is drawn as the body its colour names, and `wornKind` resolves it.

@@ -238,10 +238,12 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/crawler.ts` | THE CRAWLER: a maggot that walks the ship's own surface, and the first body |
 | `packages/sim/src/creature-state-crawler.ts` | **THE CRAWLER's three fields**, and the whole of what one link remembers |
 | `packages/sim/src/events-crawler.ts` | THE CRAWLER's three: a ring coming apart, the worm cleared, and the worm getting in |
+| `packages/sim/src/events-crystal.ts` | **Everything THE CRYSTAL does**, as events: it turns at a wall, a wrong shot drives it down |
 | `packages/sim/src/events-ghost.ts` | THE GHOST's three: the body letting go, a wall turned at, and the dive |
 | `packages/sim/src/kind-code.ts` | **A kind as a number**, and the compile-time proof that every kind has one |
 | `packages/sim/src/lure-exit.ts` | **THE LURE leaving on its own**, which is the one thing in this game a body does at the end of a beat for no… |
 | `packages/sim/src/config-creature-scores.ts` | what one creature pays and what one costs, priced against each other |
+| `packages/sim/src/config-crystal.ts` | THE CRYSTAL's numbers: how it crosses the field, how far a wrong shot drives it down |
 | `packages/sim/src/creature-roster.ts` | **The fixed order every kind is written into the world fingerprint in.** Cut out of `creature-kinds.ts` when… |
 | `packages/sim/src/grippable.ts` | **Whether a hand may be put on a body at all**, and the fourteen refusals that answer it |
 | `packages/sim/src/hull-damage.ts` | **What the hull loses, and what it gets back.** Cut out of `hull.ts` when THE GRATE's own answer took that… |
@@ -308,6 +310,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/drag-targets.ts` | **Every thing on this field a hand may take hold of**, as a closed list of names |
 | `packages/sim/src/events-balloon.ts` | **THE BALLOON's three**: one given, one popped, one gone off at the top |
 | `packages/sim/src/crank.ts` | THE CLAW's crank: the arm is **wound** home by a finger going round, and a bearing becomes rope |
+| `packages/sim/src/crystal.ts` | THE CRYSTAL: two bodies in one shell, three tiles wide |
 | `packages/sim/src/bosses-round.ts` | The rounds, as their half of the boss barrel |
 | `packages/sim/src/config-rounds.ts` | The rounds' numbers, as one block of `SimConfig` |
 | `packages/sim/src/step-round.ts` | The rounds' own tick, and the one thing all five of them have in common |
@@ -434,6 +437,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-choir.ts` | THE CHOIR's rehearsal: the one gesture that is on no panel at all |
 | `packages/content/src/scenes/the-crawler.ts` | THE CRAWLER's rehearsal: nothing is falling, and standing still loses it |
 | `packages/content/src/scenes/the-crossing.ts` | THE CROSSING's rehearsal: the lane you are aiming up is only yours until something walks across it |
+| `packages/content/src/scenes/the-crystal.ts` | THE CRYSTAL's rehearsal: a lane, a light, and four thumbs at once |
 | `packages/content/src/scenes/the-strand.ts` | THE STRAND's rehearsal: two beads, and neither seat can name one alone |
 | `packages/content/src/scenes/the-jam.ts` | THE JAM's rehearsal: the trigger is gone and the aim is all that is left |
 | `packages/content/src/scenes/the-balloon.ts` | THE BALLOON's rehearsal: two hands on one body, or nothing at all |
@@ -450,6 +454,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/waves/act-8.ts` | Act eight, opened for THE BEATBOX rather than for a chapter |
 | `packages/content/src/balloon-shape.ts` | THE BALLOON's contour: a skin with a knot under it, and the fifth family of contour in this package |
 | `packages/content/src/creatures-handed.ts` | **The bodies answered by hands alone**, and today there is one of them |
+| `packages/content/src/creatures-joined.ts` | The body that is **two bodies in one shell** |
 | `packages/content/src/mechanics-handed.ts` | The keys of the table below, checked against the roster |
 | `packages/content/src/queue-boss.ts` | A wave's boss, remapped onto the field the pair is actually playing |
 | `packages/content/src/motions-event.ts` | The two motions that are events rather than idles |
@@ -893,6 +898,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/creature-body-in.ts` | **What a body draw is handed.** Cut out of `creature-body.ts` when THE BALLOON's row took that file over its… |
 | `packages/render/src/handle-place.ts` | **Where a handle is standing**, as against where a finger may grab it |
 | `packages/render/src/crank-dial.ts` | THE CLAW's crank, drawn: the winder that brings the arm home |
+| `packages/render/src/crystal.ts` | THE CRYSTAL: a slick and a bulb joined at a thin middle, armoured all the way round |
 | `packages/render/src/touch-drag.ts` | What a hand that already has hold of something says when it moves — a handle carried, a crank turned |
 | `packages/render/src/dart-torch.ts` | WHAT A DART'S THRUST IS DRAWN AS, in a file of its own beside `dart-look.ts` |
 | `packages/render/src/dart-shock.ts` | SHOCK — the flame has **structure inside it**: three bright knots strung down its axis |

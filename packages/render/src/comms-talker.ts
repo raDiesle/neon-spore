@@ -180,4 +180,9 @@ export const TALKER = {
   // not have — there each seat holds half a fact, here each holds half a
   // gesture — and it is the same conclusion, which is why it is the same word.
   balloon: "both",
+  // THE CRYSTAL: both screens draw the whole of it, the join's colour
+  // included, and the light under the join is on both. Nothing is withheld —
+  // what the pair has to do is put four thumbs in one lane on one beat, which
+  // a siren cannot help with.
+  crystal: null,
 } as const satisfies Record<CreatureKind, Talker | null>;

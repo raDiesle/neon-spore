@@ -65,7 +65,7 @@ table in a document cannot be wrong in a way a compiler notices.
 |---|---|---|
 | `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand`, `magnet`, `choir` |
 | `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch`, `veer`, `coil` |
-| `mixed` | `aim` and `guard` | `queen`, `warden`, `clasp`, `carom`, `volley`, `crawler`, `fence` |
+| `mixed` | `aim` and `guard` | `queen`, `warden`, `clasp`, `carom`, `volley`, `crawler`, `fence`, `crystal` |
 | `special` | neither | `tether`, `mount`, `chute`, `beatbox`, `balloon` |
 | `suck` | — (pods, not `CreatureKind`) | mend, purge, ward |
 
@@ -134,7 +134,7 @@ directly, `"suck"`, after what taking one in is called throughout the sim
 | **Veil** | a thundercloud; the pilot sees into it, the navigator does not, and the body inside turns over every few beats | announce the body *and* how long it is good for |
 | **Bulb** | round, many fine lobes, rotating ring of light; pumps — always cyan | mark + colour |
 | **Strand** | chain of segments on one thread, alternating red and cyan | eaten from its ends inward — and only one of you is shown which end is next |
-| **Crystal** | facets, breaks into two halves | fast switching |
+| **Crystal** | a red slick and a cyan bulb joined at a thin middle, armoured all round — an hourglass on its side, three tiles wide, crossing on the carom's diagonal | the shield under the middle and the shot in the join's colour on the same beat; then it is two plain bodies |
 | **Gum** | sticky; grabs and holds on | three evasive manoeuvres in a row |
 | **Throb** | six clubs on a small core, red down one side and cyan down the other, turning clockwise | colour *and* timing in one call |
 | **Lure** | a slick or a bulb that only the navigator can see through | do *not* hit it (costs the hull) |
@@ -142,12 +142,17 @@ directly, `"suck"`, after what taking one in is called throughout the sim
 | **Glyph** | pattern across its skin | look it up in a table |
 | **Pod** | capsule with a blinking core | power-up |
 
-Built: slick, bulb, meteor, lure, throb, dart, veil, strand, torch. Slick, bulb
-and meteor carry the teaching waves; the torch is the meteor's own widened
-relative, not one of the original thirteen. Lure, throb, dart, veil and strand
-are the next five of that thirteen — none of them needed a new control group,
-only an entry and a state machine (see THE LURE, THE THROB, THE DART, THE VEIL
-and THE STRAND waves, and `.claude/skills/new-creature`).
+Built: slick, bulb, meteor, lure, throb, dart, veil, strand, torch, crystal.
+Slick, bulb and meteor carry the teaching waves; the torch is the meteor's own
+widened relative, not one of the original thirteen. Lure, throb, dart, veil and
+strand are the next five of that thirteen — none of them needed a new control
+group, only an entry and a state machine (see THE LURE, THE THROB, THE DART,
+THE VEIL and THE STRAND waves, and `.claude/skills/new-creature`). The crystal
+is the seventh, built 11 September 2026 on THE CRYSTAL (wave 43): the Splitter
+as it was merged into, with the split made the pair's to earn — the shield
+standing under the middle tile and the guard armed on the beat the shot of the
+join's colour lands, or the shot bounces off and the whole thing dives a row
+(`packages/sim/src/crystal.ts`, `packages/render/src/crystal.ts`).
 
 **The veil is the lure's split turned over**, and the pair is the point: THE
 LURE hides something from the navigator's *trigger finger* by showing the pilot
@@ -557,13 +562,6 @@ anybody starts building.
 The director reads this section and puts it on the NOT BUILT YET card
 (`tools/director/src/plain-words.ts`), so no name on that page stands with
 nothing under it.
-
-### Crystal
-
-- **What it does:** a hard, angular body. One shot does not clear it — it breaks into two smaller halves and both keep coming down.
-- **Player 1:** has to move the cannon between two columns instead of one, and quickly, because one target just became two.
-- **Player 2:** not decided yet.
-- **To finish it:** decide what the halves are — the parent's colour, or one of each — and whether a half can break again. Until one seat knows something about the halves the other does not, this is a creature only the pilot plays.
 
 ### Gum
 

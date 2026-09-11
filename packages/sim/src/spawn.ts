@@ -3,6 +3,7 @@ import { beatboxOnSpawn } from "./beatbox.js";
 import { caromOnSpawn } from "./carom.js";
 import { coilOnSpawn } from "./coil-state.js";
 import { growCrawler } from "./crawler-round.js";
+import { crystalOnSpawn } from "./crystal.js";
 import { dartOnSpawn } from "./dart.js";
 import { echoOnSpawn } from "./echo.js";
 import { fenceOnSpawn } from "./fence.js";
@@ -173,13 +174,13 @@ export function spawnArrivals(world: World): void {
       ...(entry.kind === "fence"
         ? fenceCracksOnSpawn(world.cfg, entry.cracksRed, entry.cracksCyan)
         : {}),
-      // Which way THE CAROM sets off, and absent on every other kind — so a
-      // body that never crosses carries no field at all and every wave written
-      // before this creature is byte-for-byte the same world. Derived from the
-      // column and the field's width rather than rolled: both screens see the
-      // heading from the first frame, and what the pair cannot do is be there
-      // (`caromOnSpawn`).
+      // Which way THE CAROM sets off — and THE CRYSTAL, on the same terms —
+      // absent on every other kind, so a body that never crosses carries no
+      // field and every earlier wave is byte-for-byte the same world. Derived
+      // from the column and the field's width rather than rolled: both screens
+      // see the heading from the first frame (`caromOnSpawn`, `crystalOnSpawn`).
       ...(entry.kind === "carom" ? caromOnSpawn(world.cfg, col, span) : {}),
+      ...(entry.kind === "crystal" ? crystalOnSpawn(world.cfg, col, span) : {}),
       // Which way THE COIL sets off, absent on every other kind — a wave
       // written before this creature is the same world. Always left, which is
       // what "it comes in at the right wall" means once the wave has put it in

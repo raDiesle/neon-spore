@@ -1,6 +1,7 @@
 import { stepCarom } from "./carom.js";
 import { stepChute } from "./chute.js";
 import { stepCoil } from "./coil.js";
+import { stepCrystal } from "./crystal.js";
 import { stepDart } from "./dart.js";
 import { ghostCrosses, stepGhostAcross } from "./ghost.js";
 import { stepGyre } from "./gyre.js";
@@ -62,6 +63,14 @@ export function steppedInsteadOfFalling(world: World, c: Creature): boolean {
   // half.
   if (c.kind === "carom") {
     stepCarom(world, c);
+    return true;
+  }
+  // THE CRYSTAL crosses on the carom's diagonal, with the drop inside
+  // `stepCrystal`, and for the carom's reason. The two halves it breaks into
+  // are a plain slick and a plain bulb by then and fall through here like
+  // any other.
+  if (c.kind === "crystal") {
+    stepCrystal(world, c);
     return true;
   }
   // THE COIL crosses the field to the left and sinks two rows at each wall it

@@ -1,5 +1,5 @@
 import { gripOf, NO_GRIP } from "./grip.js";
-import { occupiesCol } from "./span.js";
+import { bodyCenterCol, occupiesCol } from "./span.js";
 import type { Command, Creature } from "./types.js";
 import type { World } from "./world.js";
 
@@ -119,7 +119,7 @@ export function aimed(world: World, c: SceneCommand): Command {
     // grip's bargain: a film that mistimed its press should look mistimed
     // rather than be quietly corrected into a column nobody chose.
     const body = arrivingFirst(world);
-    return body === null ? c.command : { ...c.command, col: body.col };
+    return body === null ? c.command : { ...c.command, col: atBodyCol(body) };
   }
   if (c.tapCol !== undefined && c.command.kind === "tap") {
     const on = lowestIn(world, c.tapCol);
@@ -140,6 +140,18 @@ export function aimed(world: World, c: SceneCommand): Command {
  */
 export function arrivingFirst(world: World): Creature | null {
   return lowestOf(world, undefined);
+}
+
+/**
+ * The column a strip aimed at a body lands in: the one under its **centre**.
+ * `col` alone is the leftmost lane a body occupies (`occupiesCol`), which is
+ * the body itself for everything one tile wide and a lobe of it for THE
+ * CRYSTAL — whose middle is the only lane a shield or a cannon under it can
+ * mean. Floored, so a two-wide body still lands on the lane `col` names.
+ * Both the press and the ghost thumb ask this, so they cannot disagree.
+ */
+export function atBodyCol(body: Creature): number {
+  return Math.floor(bodyCenterCol(body, body.col));
 }
 
 /** The body furthest down this column, or none. Both gestures that are aimed

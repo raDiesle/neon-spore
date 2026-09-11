@@ -92,6 +92,9 @@ const LIVING_LOOK = {
   // row describes the creature only while it is a creature, and a contour here
   // would be a second shape for a body the pair already has one word for.
   volley: null,
+  // THE CRYSTAL is two bodies in one shell, drawn by `render/crystal.ts` as a
+  // slick and a bulb under one contour — neither half is a row of its own.
+  crystal: null,
   // THE STRAND is the eleventh, and the one whose answer depends on which
   // screen is asking. On the pilot's it is a slick or a bulb with nothing laid
   // over it — `wornKind` resolves one, so a row here would be a second shape

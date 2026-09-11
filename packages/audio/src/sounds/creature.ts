@@ -79,8 +79,11 @@ export const CREATURE_SOUNDS: SoundDef[] = [
     id: "creature.crystalFacet",
     family: "creature",
     blurb: "Facets catching light: two very short high tones, a semitone apart.",
-    status: "spare",
-    use: "The crystal's own-motion — the one that breaks into halves.",
+    // Drafted for this body before it existed and spent on it on 11 September
+    // 2026: the shell turning a wrong shot away as the whole thing drops a row
+    // (`crystalDive`, `bind-carom.ts`).
+    status: "bound",
+    use: "THE CRYSTAL's shell catching a wrong shot — the body dives a row (`crystalDive`).",
     level: 0.2,
     layers: [glint(7400, 0.05, 0.4), after(0.03, glint(7840, 0.06, 0.3))],
   },

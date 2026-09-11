@@ -136,6 +136,8 @@ const DUTY_WORD = {
   // what each dial says is the half its own thumb owes; what has to be said
   // out loud is which body, and no dial can carry that.
   balloon: { p1: "PULL LEFT", p2: "PULL RIGHT" },
+  // Silent in `TALKER`, so no word here either.
+  crystal: null,
 } as const satisfies Record<CreatureKind, { p1?: string; p2?: string } | null>;
 
 /** Whether a kind counts as active for this word, including the one kind

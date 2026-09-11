@@ -61,6 +61,7 @@ const creature = (): Required<Creature> => ({
   pushBeat: 4,
   recoilBounces: 2,
   caromDir: -1,
+  crystalDir: -1,
   chuteOpen: true,
   veerDir: -1,
   veerDist: 3,

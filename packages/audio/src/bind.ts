@@ -27,13 +27,10 @@ import { MIRROR_STEP_SOUNDS, POD_TAKEN_SOUNDS } from "./bind-lookups.js";
 import { panForCol, pitchForRow } from "./bind-place.js";
 import { volleyCue } from "./bind-volley.js";
 
-// **What a cue is** — an id, stereo position, pitch, delay and the seat that
-// may hear it — is `bind-cue.ts` next door, cut out on the same limit. Every
-// `bind-*.ts` file that reaches for it does so through this re-export.
+// **What a cue is** is `bind-cue.ts` and **where a sound is** is
+// `bind-place.ts`, both cut out on the same limit and re-exported here for
+// every `bind-*.ts` file that reaches for them.
 export type { Cue } from "./bind-cue.js";
-
-// **Where a sound is** — a column as a stereo position, a row as a pitch — is
-// `bind-place.ts` next door, cut out on the same limit and re-exported here.
 export { panForCol, pitchForRow } from "./bind-place.js";
 
 // The two id-to-id lookups this file reads are `bind-lookups.ts` next door,
@@ -232,6 +229,9 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "caromEject":
     case "chuteOpen":
     case "chuteCut":
+    case "crystalBounce":
+    case "crystalDive":
+    case "crystalSplit":
       return caromCue(e, cols, rows);
     // THE BEATBOX's three, in `bind-beatbox.ts` — about a rhythm, not a shot.
     case "beatboxTap":

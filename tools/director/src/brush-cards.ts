@@ -52,6 +52,9 @@ const TWO_BODIED: readonly CreatureKind[] = [
   "chute",
   "volley",
   "strand",
+  // And THE CRYSTAL, which is the one case where "either" is *both*: a slick
+  // on the left and a bulb on the right under one shell (`render/crystal.ts`).
+  "crystal",
 ];
 
 export function cardSubjects(kind: CreatureKind): string[] {
@@ -162,6 +165,7 @@ export const SHORT_NOTE: Partial<Record<CreatureKind, string>> = {
   rind: "starts bigger, shrinks when shot",
   recoil: "a hit knocks it back up and flips its colour",
   carom: "bounces off the walls; shoot it, then ward the rock",
+  crystal: "shield under the middle, then shoot it — it breaks in two",
   coil: "crosses right to left; opening one costs the rock it leaves",
   balloon: "rises from the ship; both of you pull a handle at once",
   beatbox: "p2 taps the beat; p1 sees the count",

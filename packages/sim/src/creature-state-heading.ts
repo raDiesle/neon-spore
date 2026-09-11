@@ -1,5 +1,6 @@
 import type { CaromDir } from "./carom.js";
 import type { CoilDir } from "./coil-state.js";
+import type { CrystalDir } from "./crystal.js";
 import type { DartDir } from "./dart.js";
 import type { GhostDir } from "./ghost.js";
 import type { RockCross } from "./rock-cross.js";
@@ -71,6 +72,14 @@ export interface HeadingState {
    * disagree.
    */
   caromDir?: CaromDir;
+  /**
+   * Which way across the field THE CRYSTAL is going, on `caromDir`'s terms
+   * exactly, and absent on every other kind. Read it through
+   * `crystalHeading`, never directly: the two halves it breaks into carry no
+   * heading at all — `crystalStruck` clears it — so absent and "falling" are
+   * one state.
+   */
+  crystalDir?: CrystalDir;
   /**
    * THE COIL's two, and `coil.ts` is the whole of what they mean. `coilDir` is
    * which way across the field this one is crossing (`-1` left, which is where

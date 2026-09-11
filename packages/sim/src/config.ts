@@ -8,6 +8,7 @@ import { COIL_DEFAULTS, type CoilConfig } from "./config-coil.js";
 import { CRAWLER_DEFAULTS, type CrawlerConfig } from "./config-crawler.js";
 import { CREATURE_SCORE_DEFAULTS, type CreatureScoreConfig } from "./config-creature-scores.js";
 import { CREATURE_DEFAULTS, type CreatureConfig } from "./config-creatures.js";
+import { CRYSTAL_DEFAULTS, type CrystalConfig } from "./config-crystal.js";
 import { FENCE_DEFAULTS, type FenceConfig } from "./config-fence.js";
 import { GHOST_DEFAULTS, type GhostConfig } from "./config-ghost.js";
 import { GYRE_DEFAULTS, type GyreConfig } from "./config-gyre.js";
@@ -33,6 +34,7 @@ export { COIL_DEFAULTS, type CoilConfig } from "./config-coil.js";
 export { CRAWLER_DEFAULTS, type CrawlerConfig } from "./config-crawler.js";
 export { CREATURE_SCORE_DEFAULTS, type CreatureScoreConfig } from "./config-creature-scores.js";
 export { CREATURE_DEFAULTS, type CreatureConfig } from "./config-creatures.js";
+export { CRYSTAL_DEFAULTS, type CrystalConfig } from "./config-crystal.js";
 export { FENCE_DEFAULTS, type FenceConfig } from "./config-fence.js";
 export { GHOST_DEFAULTS, type GhostConfig } from "./config-ghost.js";
 export { GYRE_DEFAULTS, type GyreConfig } from "./config-gyre.js";
@@ -66,6 +68,7 @@ export interface SimConfig
     ChoirConfig,
     ClawConfig,
     CrawlerConfig,
+    CrystalConfig,
     CreatureConfig,
     CreatureScoreConfig,
     GhostConfig,
@@ -186,6 +189,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   ...BALLOON_DEFAULTS,
   ...BOSS_DEFAULTS,
   ...CAROM_DEFAULTS,
+  ...CRYSTAL_DEFAULTS,
   ...BEATBOX_DEFAULTS,
   ...CHOIR_DEFAULTS,
   ...CRAWLER_DEFAULTS,

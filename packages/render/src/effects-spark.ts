@@ -140,8 +140,7 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     // misleading thing this file could draw: the colour on the event is the
     // one the body has *become*, and a shower of it at the moment of the hit
     // would read as the shot having matched what is standing there now.
-    // Thrown at the tile it was struck in and not the one it landed in, for
-    // the jet's reason: that is where the pair were looking.
+    // Thrown at the tile it was struck in, for the jet's reason.
     case "recoilBounce":
       return at(l, e.col, e.row, 10, PALETTE.ember);
 
@@ -149,9 +148,10 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     // body's — `recoilBounce`'s argument from the other side. The body is
     // gone and the picture must not say the *column* is: a rock still stands
     // in the lane and somebody has to ward it. So the particles are the
-    // shell's, as many as a `shellBare` gets — the same moment, a covering
-    // coming off, at the size of the thing it came off (`e.span`).
+    // shell's, as many as a `shellBare` gets — a covering coming off. And THE
+    // CRYSTAL's join breaking: the same shell's colour, on the middle tile.
     case "caromCrack":
+    case "crystalSplit":
       return at(l, e.col, e.row, 20, PALETTE.rock);
 
     // A plate off THE VOLLEY, in the **shield's** colour rather than the

@@ -163,7 +163,7 @@ describe("a rock's width", () => {
 describe("the kinds whose colour a wave authors", () => {
   const bodied = (Object.keys(CREATURES) as CreatureKind[]).filter(authorsBodyColor);
 
-  test("is exactly the fourteen", () => {
+  test("is exactly the fifteen", () => {
     // The lure's disguise, the throb's coloured half, the shell's core, the
     // clasp's prisoner, the dart's colour, the ghost's, the echo's, the
     // rind's, the lid's lens, the recoil's first body, the carom's prisoner,
@@ -200,6 +200,10 @@ describe("the kinds whose colour a wave authors", () => {
         "volley",
         "strand",
         "choir",
+        // THE CRYSTAL's is the colour of the *join* — the one tile a shot can
+        // open — and not of either body inside it, which are always a red slick
+        // and a cyan bulb (`crystalStruck`).
+        "crystal",
       ]),
     );
   });

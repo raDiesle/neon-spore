@@ -44,6 +44,10 @@ export function lateHashParts(c: Creature): number[] {
   // off is `c.kind` at the top of this list, and the width it keeps is
   // `spanOf` beside it.
   out.push(c.caromDir ?? 0);
+  // Which way THE CRYSTAL is going, for the carom's reason exactly: it decides
+  // which lane the middle is in on the next beat, and the middle is the one
+  // lane four hands have to agree on. `0` for a body that never crosses.
+  out.push(c.crystalDir ?? 0);
   // Whether THE CHUTE's canopy is out. It decides which *direction* the body
   // moves on the next beat, so two devices that disagree about it are two
   // devices holding one body at one row and pulling it apart — the loudest

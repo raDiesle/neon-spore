@@ -15,6 +15,7 @@ import type { Body } from "./creature-body-in.js";
 import { drawMagnetBody, drawStrandBody } from "./creature-body-worn.js";
 import { livingBodyMul } from "./creature-place.js";
 import type { Wash } from "./creature-tint.js";
+import { drawCrystalBody } from "./crystal.js";
 import { drawGhost, showsGhostBody } from "./ghost.js";
 import { drawLid } from "./lid.js";
 import { drawLiving } from "./living-draw.js";
@@ -215,6 +216,9 @@ const EXCLUSIVE: ReadonlyMap<CreatureKind, BodyDraw> = new Map<CreatureKind, Bod
   // `MOUNT_LOOK.shape`'s answer, `undefined` as it ships, so a second answer
   // to what a mount looks like has somewhere to sit (`mount-look.ts`).
   ["mount", (b) => drawLivingBody(b, 1, MOUNT_LOOK.shape(b))],
+  // Two bodies in one shell: a slick and a bulb by `drawLiving`, each in its
+  // own tile, and the shell and the join drawn over them (`crystal.ts`).
+  ["crystal", drawCrystalBody],
 ]);
 
 /**

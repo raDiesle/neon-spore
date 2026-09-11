@@ -16,6 +16,7 @@ import { coilIsDomed } from "./coil-state.js";
 import { colourIsArmoured } from "./colour-armour.js";
 import { linkStruck } from "./crawler-round.js";
 import { wornKind } from "./creature-rules.js";
+import { crystalStruck } from "./crystal.js";
 import { echoStruck } from "./echo.js";
 import { fenceStruck } from "./fence.js";
 import { removeCreature } from "./field.js";
@@ -144,6 +145,11 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
   // the shield has to take the second, which is why it is the one kill in the
   // game that hands a body to the other player (`carom.ts`).
   if (hit.kind === "carom") return caromStruck(world, b, hit);
+  // Two bodies in one shell, and the only tile a shot can open is the middle
+  // — in its own colour, while the ship's shield stands armed in that lane.
+  // Everything else bounces off and costs a row. One rule, in `crystal.ts`
+  // for `claspStruck`'s reason.
+  if (hit.kind === "crystal") return crystalStruck(world, b, hit);
   // The body that carom threw out, shot while it is hanging under its canopy.
   // The same price a slick pays — the branch buys a picture, not a rule
   // (`chute.ts`) — and only while the canopy is out: one still climbing under

@@ -203,6 +203,24 @@ export const WAVES_ACT_5: Wave[] = [
     ],
   },
   {
+    id: "theCrystal",
+    name: "THE CRYSTAL",
+    sentence: "The one where the shield has to be under the middle on the beat the shot lands.",
+    guide: {
+      both: "A slick and a bulb joined at a thin middle and armoured all the way round, crossing the field on the carom's diagonal. Only the middle breaks, in the colour it is drawn in — and only while the shield stands armed under that lane. Then it comes apart into a plain slick and a plain bulb, one in each lane. Any other shot bounces off and drives it a row closer.",
+      p1: "Two thumbs. Put the cannon under the middle, and press GUARD on the beat player 2 fires — the shot only counts while the shield is up. Watch the light under the join: when it is lit the shield is in the right lane.",
+      p2: "Slide the shield under the middle first — the light under the join comes on when you have it. Then load the colour of the join and fire when player 1 says GUARD. A shot anywhere else drives it a row closer.",
+      scene: "theCrystal",
+    },
+    entries: [
+      { beat: 0, col: 0, kind: "crystal", color: "red" },
+      { beat: 14, col: 6, kind: "crystal", color: "cyan" },
+      { beat: 18, col: 3, color: "cyan" },
+      { beat: 28, col: 1, kind: "crystal", color: "cyan" },
+      { beat: 34, col: 5, kind: "crystal", color: "red" },
+    ],
+  },
+  {
     id: "theVolley",
     name: "THE VOLLEY",
     sentence: "The one where a ward that works is not a body that is gone.",

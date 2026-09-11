@@ -118,6 +118,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   // carom throws one out.
   chute: { wave: "theCarom" },
   volley: { wave: "theVolley" },
+  crystal: { wave: "theCrystal" },
   // The six on the rim are watched in that same wave and can be watched
   // nowhere else: nothing authors a mount, a wheel brings them.
   mount: { wave: "theGyre" },

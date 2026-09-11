@@ -1,4 +1,4 @@
-import type { SimConfig, World } from "@neon-spore/sim";
+import { crystalMiddleCol, type SimConfig, type World } from "@neon-spore/sim";
 import { drawClaspLattice } from "./clasp-lattice.js";
 import { hazed } from "./depth.js";
 import { halo } from "./glow.js";
@@ -86,6 +86,9 @@ export function claspResonance(shieldCol: number, col: number): number {
 export function claspResonanceIn(world: World): number {
   for (const c of world.creatures) {
     if (c.kind === "clasp" && claspResonance(world.shieldCol, c.col) > 0) return 1;
+    // And THE CRYSTAL's join, the same link one creature on: the shield
+    // standing under the middle is the half of its answer player 2 holds.
+    if (c.kind === "crystal" && claspResonance(world.shieldCol, crystalMiddleCol(c)) > 0) return 1;
   }
   return 0;
 }

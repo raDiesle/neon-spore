@@ -88,6 +88,12 @@ export const SILENT = [
   // still do nothing about. The turn is drawn on the body — the streak swings
   // the other way next frame (`carom.ts`) — and heard, not seen.
   "caromBounce",
+  // THE CRYSTAL at a wall, for the carom's reason; and a wrong shot driving
+  // it down, because the `reject` on the same tick has already thrown the
+  // bolt's spark and the dive is the whole body moving — drawn by the glide,
+  // not by material leaving it.
+  "crystalBounce",
+  "crystalDive",
   // A lure going is drawn *inward*, by `lure-vanish.ts`, and particles are the
   // whole of what it must not have: every burst in the other file throws
   // material away from a body, which is the picture of something being broken.

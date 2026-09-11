@@ -4,6 +4,7 @@ import type { CaromEvent } from "./events-carom.js";
 import type { ChoirEvent } from "./events-choir.js";
 import type { CoilEvent } from "./events-coil.js";
 import type { CrawlerEvent } from "./events-crawler.js";
+import type { CrystalEvent } from "./events-crystal.js";
 import type { FenceEvent } from "./events-fence.js";
 import type { GhostEvent } from "./events-ghost.js";
 import type { MagnetEvent } from "./events-magnet.js";
@@ -190,6 +191,9 @@ export type CreatureEvent =
   // this file over its limit. One arrival taken apart, rather than four
   // incidents that happen to share a creature.
   | CaromEvent
+  // And THE CRYSTAL's three — the wall, the dive and the split — are
+  // `events-crystal.ts`, on the same terms.
+  | CrystalEvent
   // And THE VOLLEY's two — the ward that sends it back and the shell bursting
   // over the body — are `events-volley.ts`, on exactly the same terms: one
   // arrival taken apart, in a file of its own because this one is at its
@@ -235,6 +239,7 @@ export type { CaromEvent } from "./events-carom.js";
 export type { ChoirEvent } from "./events-choir.js";
 export type { CoilEvent } from "./events-coil.js";
 export type { CrawlerEvent } from "./events-crawler.js";
+export type { CrystalEvent } from "./events-crystal.js";
 export type { FenceEvent } from "./events-fence.js";
 export type { GhostEvent } from "./events-ghost.js";
 export type { MagnetEvent } from "./events-magnet.js";

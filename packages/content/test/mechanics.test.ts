@@ -98,6 +98,7 @@ describe("which kinds a wave may name", () => {
       "crawler",
       "fence",
       "magnet",
+      "crystal",
       "coil",
       "choir",
       "beatbox",

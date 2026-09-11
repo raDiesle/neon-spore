@@ -1,7 +1,7 @@
 /**
- * **The five bodies that are more than one thing**: a thread of beads, a worm
- * of links, a wire the width of the field, an arch with two poles, and a chain
- * of domes.
+ * **The six bodies that are more than one thing**: a thread of beads, a worm
+ * of links, a wire the width of the field, an arch with two poles, a chain
+ * of domes, and two bodies joined at a waist.
  *
  * Cut out of `creature-kinds.ts` on purpose rather than under pressure — that
  * file was five lines under its 250-line limit and grows by a paragraph for
@@ -69,4 +69,16 @@ export type ManyKind =
    * `coil.ts` holds the whole of it; `Creature.coilDir` and `Creature.coilLit`
    * are the whole of its state.
    */
-  | "coil";
+  | "coil"
+  /**
+   * A slick and a bulb joined at a thin middle tile and armoured all the way
+   * round — an hourglass on its side, three tiles wide — crossing the field
+   * on THE CAROM's diagonal and turning at the walls. Only the middle can be
+   * broken, only in the colour the wave gave it, and **only while the ship's
+   * shield stands armed in that same lane**: then the shell comes off and
+   * the two ends fall as an ordinary red slick and an ordinary cyan bulb.
+   * Any other shot bounces off and drives the whole thing a row toward the
+   * ship. `crystal.ts` holds the whole of it and `Creature.crystalDir` is the
+   * whole of its state.
+   */
+  | "crystal";

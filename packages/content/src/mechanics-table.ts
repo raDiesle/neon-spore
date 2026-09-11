@@ -66,6 +66,7 @@ export const MECHANICS = {
   carom: WORN_MECHANICS.carom,
   chute: WORN_MECHANICS.chute,
   volley: WORN_MECHANICS.volley,
+  crystal: WORN_MECHANICS.crystal,
   strand: {
     what: "Two to five slicks and bulbs threaded on one line, alternating red and cyan. It is eaten from its ends inward and only one bead can be shot at a time — one of the two ends, decided again after every shot. One of you is shown which that is and no colours; the other is shown the colours and no mark. A shot at the wrong one swells a dead bead back to life.",
     reach: "spawn",

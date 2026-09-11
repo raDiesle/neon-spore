@@ -205,6 +205,13 @@ function caromArt(): HTMLCanvasElement {
   return tile(world, creatureAt(world, "carom"));
 }
 
+/** THE CRYSTAL, on the carom's terms: it crosses the same way. */
+function crystalArt(): HTMLCanvasElement {
+  const world = fresh([{ beat: 0, col: COL, kind: "crystal", color: "cyan" }]);
+  run(world, TPB * 3 - 1);
+  return tile(world, creatureAt(world, "crystal"));
+}
+
 const BUILDERS: Partial<Record<Brush, () => HTMLCanvasElement>> = {
   rock: meteorArt,
   veer: veerArt,
@@ -215,6 +222,7 @@ const BUILDERS: Partial<Record<Brush, () => HTMLCanvasElement>> = {
   dart: dartArt,
   echo: echoArt,
   carom: caromArt,
+  crystal: crystalArt,
   mend: () => podArt(undefined),
   purge: () => podArt("purge"),
   ward: () => podArt("ward"),

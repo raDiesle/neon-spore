@@ -3,7 +3,9 @@ import { type Cue, panForCol, pitchForRow } from "./bind.js";
 
 /**
  * **What THE CAROM and the body it throws out sound like**: a wall, a crack,
- * an ejection and a canopy.
+ * an ejection and a canopy. **And THE CRYSTAL's three**, which crosses on the
+ * carom's diagonal and turns at the same walls: a wall, a wrong shot driving
+ * it down, and the join breaking.
  *
  * Split out of `bind-creatures.ts` when the four of them took that file past
  * its 250-line limit, and along the seam `events-carom.ts` already cuts in the
@@ -18,13 +20,24 @@ import { type Cue, panForCol, pitchForRow } from "./bind.js";
 export function caromCue(
   e: Extract<
     SimEvent,
-    { type: "caromBounce" | "caromCrack" | "caromEject" | "chuteOpen" | "chuteCut" }
+    {
+      type:
+        | "caromBounce"
+        | "caromCrack"
+        | "caromEject"
+        | "chuteOpen"
+        | "chuteCut"
+        | "crystalBounce"
+        | "crystalDive"
+        | "crystalSplit";
+    }
   >,
   cols: number,
   rows: number,
 ): Cue | null {
   switch (e.type) {
     case "caromBounce":
+    case "crystalBounce":
       // The same bounce THE RECOIL gets, and it is the same word: the thing
       // you were looking at went somewhere else. That one is knocked back up
       // the field by a shot and this one turns at a wall on its own, and the
@@ -36,6 +49,10 @@ export function caromCue(
         pan: panForCol(e.col, cols),
         pitch: pitchForRow(e.row, rows),
       };
+    case "crystalSplit":
+    // The join breaking, and `impact.split` for the carom's reason exactly:
+    // nothing died. Two lanes opened where one shell was, and a kill sound
+    // here would send both thumbs off the two bodies that are still coming.
     case "caromCrack":
       // A crust coming apart, which is what `impact.split` was written for —
       // and deliberately **not** `impact.destroyRed`/`Cyan`, which are the
@@ -82,6 +99,18 @@ export function caromCue(
       // together as one thing ending in two parts.
       return {
         id: "impact.split",
+        pan: panForCol(e.col, cols),
+        pitch: pitchForRow(e.row, rows),
+      };
+    case "crystalDive":
+      // A shot the shell turned away, and the body a row closer for it. The
+      // `reject` on the same tick is the bolt bouncing; this is the shell —
+      // `creature.crystalFacet` was drafted for exactly this body, "the one
+      // that breaks into halves", and its two glints are the facets catching
+      // the light as the whole thing drops. Short and high, so it rides over
+      // the reject rather than doubling it.
+      return {
+        id: "creature.crystalFacet",
         pan: panForCol(e.col, cols),
         pitch: pitchForRow(e.row, rows),
       };

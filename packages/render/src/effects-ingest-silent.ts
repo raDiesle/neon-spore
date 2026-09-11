@@ -85,6 +85,12 @@ export const INGEST_SILENT = [
   // the one thing that cannot go stale across a restart.
   "caromBounce",
   "caromCrack",
+  // THE CRYSTAL's three, for the carom's reason: the shell, the heading and
+  // the light under the join are read every frame off the body and the world
+  // (`crystal.ts`), and the two halves are a slick and a bulb from that tick.
+  "crystalBounce",
+  "crystalDive",
+  "crystalSplit",
   // Nothing about the ejected body is remembered either: which way it is
   // going and what is drawn over it are read every frame off `chuteOpen`
   // (`chute.ts`), which is the one thing that cannot go stale across a

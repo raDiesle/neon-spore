@@ -80,6 +80,9 @@ const UNGRIPPABLE: readonly CreatureKind[] = [
   "gyre",
   "mount",
   "carom",
+  // And THE CRYSTAL, for the carom's reason with nothing left over: it
+  // crosses on the same diagonal and never goes near `grippedFallTiles`.
+  "crystal",
   "chute",
   "volley",
   // And a bead, for a reason of its own: a thread is several bodies falling

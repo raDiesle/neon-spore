@@ -32,6 +32,8 @@ async function eventTypes(): Promise<string[]> {
     // silently unheard, so the list has to be a thing somebody adds to on
     // purpose — and forgetting is a failure here rather than a silence.
     ["packages/sim/src/events-carom.ts", "export type CaromEvent ="],
+    // And THE CRYSTAL's three, on the same terms, bound beside the carom's.
+    ["packages/sim/src/events-crystal.ts", "export type CrystalEvent ="],
     // THE VOLLEY's two, on exactly the same terms and for the same reason.
     ["packages/sim/src/events-volley.ts", "export type VolleyEvent ="],
     // And THE STRAND's three, cut out for the same reason again.
@@ -135,6 +137,9 @@ const SAMPLES: Record<string, SimEvent> = {
   caromEject: { type: "caromEject", id: 9, col: 3, row: 5, color: "red" },
   chuteOpen: { type: "chuteOpen", col: 3, row: 0, color: "red" },
   chuteCut: { type: "chuteCut", col: 3, row: 6, color: "red", kind: "slick" },
+  crystalBounce: { type: "crystalBounce", col: 0, row: 5, dir: 1 },
+  crystalDive: { type: "crystalDive", col: 4, row: 6 },
+  crystalSplit: { type: "crystalSplit", col: 4, row: 5, color: "red" },
   volleyReturn: { type: "volleyReturn", id: 4, col: 2, row: 13, left: 2 },
   volleyHatch: { type: "volleyHatch", col: 2, row: 6, kind: "slick", color: "red" },
   claspBreak: { type: "claspBreak", id: 7, col: 3, row: 5, kind: "bulb", color: "cyan" },
@@ -334,6 +339,11 @@ const CAROM_IDS: Record<string, string> = {
   caromEject: "creature.gateLoop",
   chuteOpen: "creature.moult",
   chuteCut: "impact.split",
+  // THE CRYSTAL's three, bound in the same file: it crosses on the carom's
+  // diagonal and turns at the same walls.
+  crystalBounce: "impact.bounce",
+  crystalDive: "creature.crystalFacet",
+  crystalSplit: "impact.split",
 };
 
 /**

@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — THE CRYSTAL
+
+THE CRYSTAL built off the bestiary's Crystal: a red slick and a cyan bulb joined at a thin middle under one shell, crossing on the carom's diagonal, opened only by the shield under the middle and the guard armed on the beat the shot of the join's colour lands; a wave, a guide film, three sounds, the director's rows. About 70 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the carom and clasp files end to end, the scene format, the audio binding tables, the file-limit list, the director's brush and ship tables |
+| writing | 30 | config-crystal, crystal.ts in sim and render, events, the joined creatures file, the wave, the scene, the bindings, thirteen sim tests and a frame test, the bestiary |
+| looking | 10 | six bun run frames pictures — the shell's waist too shallow at first, then the link drawn under the gliding body instead of in the shield's lane |
+| friction | 5 | a heredoc turned an escaped newline into a real one and broke the edit script; two files landed on 251 lines and each lost a comment line |
+| landing | 10 | two check:fast rounds fixing the twelve tests that name every kind, the commit, land --keep |
+
+Bottleneck: writing — a creature touches forty files across four packages and the director before it can be drawn once, and every one of them is a row in a table a test reads
+
 ## 2026-09-11 · hit-looks — THE TELL removed
 
 The boss round THE TELL and everything that hung off it — sim ladder and ring, render body and scenes, the reduced panel, the guide scene, wave 60, the director's rows, the perf baseline row — taken out; the design stays on the BOSSES page as a removed idea.
