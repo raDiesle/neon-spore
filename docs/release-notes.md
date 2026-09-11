@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · fdc760ab — A rock lands in the hole it makes: the crater, the rock in it and the crack all show the moment it hits
+
+The meteor used to go into the ship and vanish, then jump back up with the crater appearing under it. Two causes. The hull row's centre is below the membrane, so a rock's last glide ended behind the skin and the hull painted over it; and the hole was kept shut under the stuck rock until it lifted off. Now a rock's landing glide ends half-sunk in the plating — `rock-landing.ts`, asked with the skin without the cannon so the rock lands where its crater is dug — `RockImpactFx` picks it up standing exactly there instead of replaying a fall from under the ship, and `coversCrater` stops covering the frame the rock arrives, so the hole, the sparks and the crack are all seen with the rock sitting in the hole. A shield catch on the last beat bounces from the same resting height.
+
 ## 2026-09-11 · 8ad79408 — The act order names only what is built: eight names leave the NOT BUILT YET page
 
 The owner cleared THE ACT ORDER group of the director's NOT BUILT YET → BOSSES tab. Strand Nest, The Heart, The Mother, The Codex, The Echoes, The Kernel and The Vessel — placeholders written before any boss existed — and The Tell, built and taken out again today, are out of `docs/spec/bosses.md`'s order line, and 11.10 "In plain words", which put a sentence under each, goes with them. The Conductor's slot is written as THE VANE, the boss that holds it. The slots themselves are the act structure's (wave-design 8.4) and a boss idea still names the one it wants. `docs/decisions.md` #30.
