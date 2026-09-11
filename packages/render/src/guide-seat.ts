@@ -2,7 +2,7 @@ import { guardArmed, mawOpen, ticksPerBeat, type World, wispOnField } from "@neo
 import { Effects } from "./effects.js";
 import { FieldPose } from "./field-pose.js";
 import { drawBodies, drawFieldBack, drawOverlays, drawShip } from "./frame-passes.js";
-import { frame, surfaceSampler } from "./hull-frame.js";
+import { frame, skinSampler, surfaceSampler } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import type { ViewState } from "./renderer.js";
 import { ROUND_DRAWS } from "./round-draw.js";
@@ -62,7 +62,16 @@ export class SeatView {
     const mood = this.pose.mood(world, this.effects);
     const hull = frame(l, view.time, mood, this.pose.at);
     drawFieldBack(ctx, l, world, view, flash, this.effects.coordGrid.shown);
-    drawBodies(ctx, l, world, view, this.effects, this.pose.at.cannon, surfaceSampler(hull));
+    drawBodies(
+      ctx,
+      l,
+      world,
+      view,
+      this.effects,
+      this.pose.at.cannon,
+      surfaceSampler(hull),
+      skinSampler(hull),
+    );
     drawShip(ctx, l, world, view, this.effects, mood, this.pose.at, hull);
     // No scene of its own, and that is the whole of the recursion guard: a
     // rehearsal's config has `briefings` off, so the opening pass finds

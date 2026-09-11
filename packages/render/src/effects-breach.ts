@@ -15,10 +15,12 @@ import { rockRadius } from "./torch.js";
  * and the picture of it landing**, which is a subject of its own. Nothing else
  * in `Effects` has that problem.
  *
- * The gap is real. A rock is still visibly falling when the simulation says it
- * has hit, so its sparks and its crack wait for `rock-impact.ts` to bring it
- * down; a living creature falls one tile a beat, is already at the hull when
- * the event arrives, and fires now.
+ * The gap is real for anything still in the air. A rock's sparks and crack
+ * wait for `rock-impact.ts` to bring it down — and when the rock has already
+ * been drawn landing in the skin (`rock-landing.ts`), that wait is one frame
+ * and the hole, the sparks and the crack all show as it is seen in it; a
+ * living creature falls one tile a beat, is already at the hull when the
+ * event arrives, and fires now.
  *
  * A deflection has exactly the same gap and is here for exactly that reason:
  * the bounce has to wait for the rock too, and the two are one subject.

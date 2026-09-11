@@ -37,8 +37,9 @@ import { rockRadius, torchRotation } from "./torch.js";
  * `RockImpactFx.coversCrater` before cutting the rim or filling the hole).
  * Kept unconditional here so a crack's *position* (`scars.ts`'s
  * `crackOrigin`) can read a crater's edge from the moment its rock arrives,
- * long before the hole itself is open — a position that later changed once
- * the hole opened used to read as a second crack appearing out of nowhere.
+ * however long the hole waits on a rock still in the air — a position that
+ * later changed once the hole opened used to read as a second crack
+ * appearing out of nowhere.
  */
 /** A crater with its mouth measured — the one place `mouth` is ever called. */
 function withMouth(c: CraterShape): Crater {

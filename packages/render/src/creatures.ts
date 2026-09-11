@@ -9,9 +9,11 @@ import { creatureCenter } from "./creature-place.js";
 import { DART_LOOK } from "./dart-look.js";
 import { byDepth, depthScale, drawnRow, glidePhase, nearness } from "./depth.js";
 import { mountPlace } from "./gyre-place.js";
+import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import { drawLidCords } from "./lid-string.js";
 import { drawRecoilCage } from "./recoil.js";
+import { rockLandingY } from "./rock-landing.js";
 import { drawVeerClown } from "./veer-clown.js";
 import { drawVeilCloud, showsVeilCore } from "./veil.js";
 import { drawVolleyShell } from "./volley.js";
@@ -41,6 +43,9 @@ export function drawCreatures(
   time: number,
   blocked: ReadonlyMap<number, number>,
   claspImage: CanvasImageSource | null = null,
+  /** The ship's plating, for the one glide that ends *in* it: a rock's last
+   * one (`rock-landing.ts`). Absent, a rock lands on its row's centre. */
+  skinY?: SurfaceY,
 ): void {
   // The pose clock, in beats. `beatPhase` alone would restart it every beat.
   const beats = world.beat + beatPhase;
@@ -92,7 +97,11 @@ export function drawCreatures(
     // A balloon's step is spread over several beats, and `glidePhase` is the
     // one place that is asked (`depth.ts`); everything else glides by the beat.
     const glide = glidePhase(world.cfg, world.beat, c, beatPhase);
-    const { x, y } = onRim ?? creatureCenter(l, c, glide);
+    const placed = onRim ?? creatureCenter(l, c, glide);
+    const x = placed.x;
+    // A rock's landing beat ends half-sunk in the skin, where `RockImpactFx`
+    // takes it over, and not under the membrane at the hull row's centre.
+    const y = onRim ? placed.y : rockLandingY(l, c, x, placed.y, glide, skinY);
     const row = onRim ? onRim.row : drawnRow(c, glide);
     const near = nearness(l, row);
     // Perspective as one transform about the body's own centre, rather than a

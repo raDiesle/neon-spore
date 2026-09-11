@@ -4,7 +4,7 @@ import { drawStuckChokes } from "./choke.js";
 import type { ClaspFrames } from "./clasp-frames.js";
 import { drawBodies, drawFieldBack, drawOverlays, drawShip } from "./frame-passes.js";
 import { drawStuckGums } from "./gum.js";
-import { frame, surfaceSampler } from "./hull-frame.js";
+import { frame, skinSampler, surfaceSampler } from "./hull-frame.js";
 import { computeLayout, computeStage, type Layout, type Stage } from "./layout.js";
 import { RenderState } from "./render-state.js";
 import type { Renderer, Viewport, ViewState } from "./renderer.js";
@@ -178,6 +178,7 @@ export class Canvas2DRenderer implements Renderer {
     const mood = this.held.pose.mood(world, this.held.effects);
     const hull = frame(l, view.time, mood, at);
     const surfaceY = surfaceSampler(hull);
+    const skinY = skinSampler(hull);
 
     // A bare frame is the bodies and nothing else (`ViewState.bare`), and it
     // returns here rather than skipping four calls one at a time, so what a
@@ -186,13 +187,13 @@ export class Canvas2DRenderer implements Renderer {
     // *body* is the same body, and a thumbnail that flattened it would be a
     // picture of a creature this game has not got.
     if (view.bare) {
-      drawBodies(ctx, l, world, view, this.held.effects, at.cannon, surfaceY);
+      drawBodies(ctx, l, world, view, this.held.effects, at.cannon, surfaceY, skinY);
       ctx.restore();
       return;
     }
 
     drawFieldBack(ctx, l, world, view, flash, this.held.effects.coordGrid.shown);
-    drawBodies(ctx, l, world, view, this.held.effects, at.cannon, surfaceY);
+    drawBodies(ctx, l, world, view, this.held.effects, at.cannon, surfaceY, skinY);
     // The pieces a bolt knocked out of a wall, over the field and under the
     // hull, because that is where the wall is (`fence-shards.ts`).
     this.held.fenceShards.draw(ctx, l);

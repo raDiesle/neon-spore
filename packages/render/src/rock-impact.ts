@@ -39,7 +39,9 @@ interface Impact {
   x0: number;
   /** Screen y the replayed last fall step starts from — the sim's own
    * `fromRow` the beat the miss happened, the exact row render/ last drew
-   * this creature at. */
+   * this creature at; never below where it would rest in the skin, because
+   * the field pass never draws a rock lower than that (`rock-landing.ts`).
+   * Settled on the first `draw` frame, where the skin's height is known. */
   y0: number;
   /** px/s — the same speed every earlier beat of the fall had. */
   fallSpeed: number;
@@ -141,6 +143,13 @@ export class RockImpactFx {
       const x = currentX(im);
       const surfaceY = skinAt(x);
       const stuckY = surfaceY - im.r * 0.5;
+      // Where the field pass left it. A rock that has already landed — the
+      // sim breaks the hull on the beat *after* the one it is drawn coming
+      // down (`sim/hull.ts`) — is standing in the skin, not on its row's
+      // centre under the membrane (`rock-landing.ts`), and its replay is
+      // then no fall at all: it is stuck from the first frame, and the hole,
+      // the sparks and the crack all show on that frame.
+      im.y0 = Math.min(im.y0, stuckY);
       // A deflected rock never sinks: the rule turns it at `shieldRow`, a
       // whole tile above the plating, and that is where its bounce starts.
       // Never *above* where the replay began, though — a rock the shield
@@ -209,16 +218,20 @@ export class RockImpactFx {
   }
 
   /**
-   * Whether a rock is still falling into, or lodged in, its crater at this x
-   * — any embedding kind, sized by its own radius; a deflect never embeds, so
-   * it never has a dent waiting on it. The hull draws a rock's dent only once
-   * this goes false (`hull.ts`): the sim scars the columns half a second
-   * before the rock is visibly there, and a hole that opens first reads as
-   * the ship breaking by itself.
+   * Whether a rock is still *falling into* its crater at this x — any
+   * embedding kind, sized by its own radius; a deflect never embeds, so it
+   * never has a dent waiting on it. The hull draws a rock's dent only once
+   * this goes false (`hull.ts`): the sim scars the columns before a rock
+   * still in the air is visibly there, and a hole that opens first reads as
+   * the ship breaking by itself. It stops covering the frame the rock
+   * arrives, not when it lifts off: the hole is what the rock made, so it is
+   * seen the instant the rock is seen in it, with the rock drawn over the
+   * hull inside it. A hole kept shut under a stuck rock opened only as the
+   * rock left, which read as the ship breaking *after* the hit.
    */
   coversCrater(x: number, tile: number): boolean {
     for (const im of this.impacts) {
-      if (!im.embed || im.t > stickStart(im)) continue;
+      if (!im.embed || im.arrived) continue;
       if (Math.abs(x - im.x0) < Math.max(im.r, tile * 0.6)) return true;
     }
     return false;

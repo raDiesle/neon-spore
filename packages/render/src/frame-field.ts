@@ -86,6 +86,11 @@ export function drawBodies(
    * membrane, and a worm goes over them (`crawler-place.ts`). Absent leaves
    * every worm on the flat hull line, which is where they all were. */
   surfaceY?: SurfaceY,
+  /** The same membrane without the cannon on it. A rock lands *in* the
+   * plating, where its crater is dug, whichever lobe is over the column
+   * (`rock-landing.ts`); on the surface it stood on the cannon's crown for a
+   * beat and then dropped to the hole beneath. */
+  skinY?: SurfaceY,
 ): void {
   // Under the creatures: the mark is on the column, not on anything in it.
   drawLanceMark(ctx, l, world);
@@ -133,6 +138,7 @@ export function drawBodies(
     view.time,
     effects.blocked,
     effects.claspFrames.image,
+    skinY,
   );
   // Over the same bodies drawCreatures just drew, and nowhere else: the
   // plating recomputes fresh from world.creatures every frame (see

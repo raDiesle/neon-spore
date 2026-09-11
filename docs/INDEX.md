@@ -723,6 +723,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/opening-fx.ts` | The two things a wave's opening remembers between frames: how long the page that is up has been up |
 | `packages/render/src/ready-page.ts` | The last page of a stepped guide: the wave's own name, and the button that says this seat has finished reading |
 | `packages/render/src/rock-drift.ts` | **How a rock leaves the ship it broke** — the waiting and the rolling, and the arithmetic of both |
+| `packages/render/src/rock-landing.ts` | Where a rock's last glide ends: half-sunk in the skin, where the crater is, not under the membrane at the hull row's centre |
 | `packages/render/src/ship-marks.ts` | The marks round the cup: what letting go of this swelling would do |
 | `packages/render/src/touch-hand.ts` | What a hand on the ship should be *shown* as — the cup that says which swelling is under the finger |
 | `packages/render/src/guide-prose.ts` | A guide with no rehearsal, read a page at a time on the game's own screen |

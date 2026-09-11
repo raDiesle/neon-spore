@@ -2,6 +2,7 @@ import { beforeAll, describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
 import { computeLayout, tileCY } from "../src/layout.js";
 import { RockImpactFx } from "../src/rock-impact.js";
+import { rockRadius } from "../src/torch.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 /**
@@ -119,7 +120,10 @@ describe("RockImpactFx deflect arrival target", () => {
     // standing on the plating (`hull.ts`), and `fromRow` is then the hull row
     // itself. Shifting up a `tile` from the skin would put the bounce above
     // the rock the player is looking at — a jump, not a deflection — so the
-    // arrival never rises above where the replay began.
+    // arrival never rises above where the replay began. Where it began is
+    // where the field pass left the rock: half-sunk in the skin, which is
+    // above the hull row's centre (`rock-landing.ts`), never under the
+    // membrane.
     const fx = new RockImpactFx();
     const { ctx } = stubCanvas();
     let arriveY = Number.NaN;
@@ -136,7 +140,9 @@ describe("RockImpactFx deflect arrival target", () => {
       fx.draw(ctx as unknown as CanvasRenderingContext2D, L, t, skinAt);
     }
     expect(arriveY).toBeGreaterThan(L.hullY - L.tile);
-    expect(arriveY).toBeCloseTo(tileCY(L, fromRow), 5);
+    const rest = L.hullY - rockRadius(L, 1) * 0.5;
+    expect(rest).toBeLessThan(tileCY(L, fromRow));
+    expect(arriveY).toBeCloseTo(rest, 5);
   });
 });
 

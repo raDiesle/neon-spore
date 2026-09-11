@@ -22,6 +22,27 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — A rock lands in the hole it makes
+
+The owner's report: the meteor went into the ship and vanished, then jumped
+up with the crater under it. The hull row's centre is under the membrane, so
+the last glide ended behind the skin; and the hole stayed shut under the
+stuck rock until it lifted off. Now the glide ends half-sunk in the plating,
+the replay picks it up standing there, and the hole, the sparks and the
+crack all show that frame. About 50 min, a compaction in the middle.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the layout numbers at 390×844, `rock-impact.ts`, `creatures.ts`'s placement, `sim/hull.ts`'s landing beat, `frame-ship.ts`'s gate, the two samplers in `hull-frame.ts`, the tests |
+| writing | 15 | `rock-landing.ts` and its test, the `y0` clamp and the gate in `rock-impact.ts`, `skinSampler`, the parameter through `drawBodies` and `drawCreatures`, three doc comments |
+| looking | 10 | two eight-frame strips of THE ROCK, the first with the cannon standing on the rock's column — which is what turned the surface sampler into the skin one |
+| friction | 5 | no PNG joiner on the machine: a throwaway strip script against `tools/frames`'s own codec, written twice because the encoder lives in `picture.ts` and the decoder in `pixels.ts` |
+| landing | 5 | `check:fast` red once on the file index, `bun run index`, the commit, `land --keep` |
+
+Bottleneck: **reading** — the defect is three files agreeing on a height,
+and finding which of the two membranes each one was asking took longer than
+making them agree.
+
 ## 2026-09-11 · hit-looks — The act order names only what is built
 
 The owner cleared THE ACT ORDER group of the NOT BUILT YET page: seven
