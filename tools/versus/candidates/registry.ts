@@ -34,9 +34,6 @@ import { TETHER_TWIST } from "./creature-tether/twist/index.js";
 import { THROB_CAP } from "./creature-throb/cap/index.js";
 import { THROB_GIRDLE } from "./creature-throb/girdle/index.js";
 import { THROB_PORES } from "./creature-throb/pores/index.js";
-import { TORCH_CROWN } from "./creature-torch/crown/index.js";
-import { TORCH_HOLLOW } from "./creature-torch/hollow/index.js";
-import { TORCH_KILN } from "./creature-torch/kiln/index.js";
 import { VEER_HUNCHED } from "./creature-veer/hunched/index.js";
 import { VEER_JESTER } from "./creature-veer/jester/index.js";
 import { VEER_SOLID } from "./creature-veer/solid/index.js";
@@ -66,8 +63,6 @@ import { SHIP_PLASM } from "./ship-body/plasm/index.js";
 import { SHIP_REEF } from "./ship-body/reef/index.js";
 import { CRATER_GRIT } from "./ship-crater/grit/index.js";
 import { CRATER_SHARDS } from "./ship-crater/shards/index.js";
-import { TORCH_BLOOM } from "./torch-veil/bloom/index.js";
-import { TORCH_FIFTH } from "./torch-veil/fifth/index.js";
 
 export const VARIANTS: Variant[] = [
   LID_BEVEL,
@@ -98,9 +93,6 @@ export const VARIANTS: Variant[] = [
   THROB_CAP,
   THROB_GIRDLE,
   THROB_PORES,
-  TORCH_CROWN,
-  TORCH_HOLLOW,
-  TORCH_KILN,
   VEER_HUNCHED,
   VEER_JESTER,
   VEER_SOLID,
@@ -130,6 +122,4 @@ export const VARIANTS: Variant[] = [
   SHIP_REEF,
   CRATER_GRIT,
   CRATER_SHARDS,
-  TORCH_BLOOM,
-  TORCH_FIFTH,
 ];

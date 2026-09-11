@@ -22,6 +22,23 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — the torch decided
+
+The owner keeps the torch as shipped: both torch slots dropped, the stale
+queue claim closed, the branch that only ever existed as a local ref deleted.
+About 10 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | where the claimed branch lived (a local ref in the main checkout, tip already on `main`, no worktree), the two torch slots |
+| writing | 0 | — |
+| looking | 0 | — |
+| friction | 0 | — |
+| landing | 5 | `versus drop` twice, `queue done`, the tests, the commit, `land --keep` |
+
+Bottleneck: **reading** — a `Taken:` line names a branch, not where the
+branch lives, so the owner could not tell a finished claim from a lost one.
+
 ## 2026-09-11 · hit-looks — the queue: the pose map's stale rows
 
 Nineteen rows for closed slots out of `versus-pose.ts`; `adopt` and `drop`

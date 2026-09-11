@@ -614,3 +614,17 @@ axis, so all four are there (`tools/director/src/fillings/orbit.ts`, `yolk.ts`,
 being the organelle the game drew from 9 to 11 September. The nine granules
 and their constants are gone from `gyre-core.ts`, which keeps the membrane,
 the lit mass and the specular every answer shares.
+
+## `torch:veil` — nothing taken, 2026-09-11
+
+the owner keeps the torch as shipped — the veil stays as it is, no alternative
+wanted
+
+The other answers offered were `bloom` and `fifth`; they went with the slot.
+
+## `creature:torch` — nothing taken, 2026-09-11
+
+the owner keeps the torch as shipped — no alternative body wanted
+
+The other answers offered were `crown`, `hollow` and `kiln`; they went with
+the slot.
