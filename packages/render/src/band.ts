@@ -5,11 +5,11 @@ import { drawLobe } from "./band-control.js";
 import { drawBandGround } from "./band-ground.js";
 import { BAND_JOIN } from "./band-join.js";
 import { chamberPath, drawSeamFlesh, drawSeamSpill, seamTop, seamY } from "./band-seam.js";
-import { drawDrips } from "./band-slime.js";
 import { bandLobes, type Layout, type Lobe, showsCannon, showsShield, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { seatSkin } from "./seat-skin.js";
 import { SHIP_NERVES } from "./ship-nerves.js";
+import { BAND_SLIME } from "./slime-look.js";
 
 /**
  * The control band. Two strips over the full width, each snapping to column
@@ -105,9 +105,9 @@ export function drawBand(
   drawSeamSpill(ctx, l, skin);
   BAND_JOIN.attach({ ctx, l, lobes, time, skin, ceilingY: (x) => seamY(l, x, time, lobes) });
   // Inside the clip, not after it: a pendant starts above the membrane and
-  // relies on this contour to cut it to the skin (`band-slime.ts`). Drawn
+  // relies on this contour to cut it to the skin (`slime-look.ts`). Drawn
   // outside it would put a shoulder of slime across the ship's belly.
-  drawDrips(ctx, l, time, skin, lobes);
+  BAND_SLIME.drips({ ctx, l, time, skin, lobes });
   ctx.restore();
   // Between the tissue and the controls, and free of the clip so it can reach
   // the ship: what runs from each control to the organ it drives.

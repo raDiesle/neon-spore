@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — The slime on the band is a record
+
+drawBand called drawDrips by name; BAND_SLIME in slime-look.ts now wraps it so panel:band-skin can patch what hangs over the buttons.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | reading |
+| writing | 10 | writing |
+| looking | 0 | looking |
+| friction | 0 | friction |
+| landing | 5 | landing |
+
+Bottleneck: Nothing worth naming: one import, one call, one new file.
+
 ## 2026-09-11 · hit-looks — GLAND's paths are held between frames
 
 The spine's cord, stations and node and each organ's bed are cached per layout and per button, the stations are one fill instead of ten, the budget rows fell back and the frame is byte-identical.

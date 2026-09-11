@@ -593,6 +593,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/siren-seats.ts` | The two chips that flank the siren: which seat, and what that seat has to do about the thing on the field |
 | `packages/render/src/siren.ts` | The warning siren, top right of the field beside the strip, and the two seats' jobs under it |
 | `packages/render/src/slabs.ts` | The other kind of panel: slabs, for a round that has taken the field away |
+| `packages/render/src/slime-look.ts` | WHAT HANGS OFF THE MEMBRANE INTO THE CHAMBER, AS A RECORD |
 | `packages/render/src/sprite-burst.ts` | A baked animation, played from an atlas, over the field |
 | `packages/render/src/tether.ts` | THE WARDEN's rope, and the handle on it: the one thing on this field either player can put a hand on |
 | `packages/render/src/tether-look.ts` | THE ONE RECORD A CANDIDATE **TETHER** LOOK PATCHES |
