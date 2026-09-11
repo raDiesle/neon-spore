@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · 616e4421 — The gyre slot answered: ORBIT into the game, and all four organelles on the SHAPES page
+
+`creature:gyre` / `orbit` is taken — the owner's choice on 10 September: one band of light girdling the ball at a tilt, the far half seen through the mass and the near half drawn over the nucleus, swapping once a turn (`gyre-orbit.ts`). He liked every answer to this slot and the one it had, and wanted them all kept to build new creatures from, so the FILLING axis gains four: ORBIT as the shipped control, YOLK — the nine granules the game drew until today — HELIX and VORTEX. `gyre-core.ts` keeps only what every answer shares: the membrane, the lit mass and the specular.
+
 ## 2026-09-11 · c6c28470 — The ghost slot answered: SWARM into the game, eyes that read at field size, HOLLOW and LANTERN on the SHAPES page
 
 `creature:ghost` / `swarm` is taken — the owner's choice on 10 September: the nebula is fourteen motes of the body's own light streaming round the inside of the dome, going round the back and coming out the other side (`ghost-swarm.ts`); the gradient nebula it replaces is gone from `ghost-look.ts`. The eyes are the fix he asked for by name: the socket a little wider, the pupil most of it, the hot core half the pupil, and the flicker shallow enough that the lamp never dims past four fifths — a pixel and a half of white is now a clear eye at 26 px. HOLLOW and LANTERN, the two he did not take, are fillings on the SHAPES page now: the same body as a glass bell lit on its far inner wall and as a solid lit toward the key, each heart going round on the ghost's own turn.
