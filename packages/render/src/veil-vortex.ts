@@ -1,10 +1,18 @@
-import { facet, pin, surfaceDim } from "../../../../../packages/content/src/surface.js";
-import { mixHex, rgba } from "../../../../../packages/render/src/hex.js";
-import type { VeilMassDraw } from "../../../../../packages/render/src/veil-look.js";
-import * as veilLook from "../../../../../packages/render/src/veil-look.js";
-import { patch, type Variant } from "../../../variant.js";
+import { facet, pin, surfaceDim } from "@neon-spore/content";
+import { mixHex, rgba } from "./hex.js";
+import type { VeilMassDraw } from "./veil-look.js";
 
 /**
+ * VORTEX — a kept look for THE VEIL's cloud, drawn only on the SHAPES page's
+ * LIBRARY.
+ *
+ * It stood in `creature:veil` on VERSUS, decided 11 September 2026: the owner
+ * kept ANVIL (`veil-mass.ts`) and said "move the versus alternatives all to
+ * 'Shapes' page". It sits in this package, beside the record it once patched,
+ * because it is written against this package's internals; nothing on the
+ * field imports it, and the game's bundle drops it. The argument it made,
+ * from its VERSUS card:
+ *
  * `creature:veil` / `vortex` — the cloud is a storm seen from a little above:
  * three arms of vapour winding into a dark eye on a turning disc.
  *
@@ -80,7 +88,7 @@ const PINS = Array.from({ length: ARMS }, (_, a) =>
   }),
 ).flat();
 
-function vortex(d: VeilMassDraw): void {
+export function vortex(d: VeilMassDraw): void {
   const { ctx, r, path, beats } = d;
   const theta = (beats / TURN_BEATS) * Math.PI * 2;
   const crest = d.haze(CREST);
@@ -125,25 +133,3 @@ function vortex(d: VeilMassDraw): void {
   }
   ctx.restore();
 }
-
-export const VEIL_VORTEX: Variant = {
-  slot: "creature:veil",
-  name: "vortex",
-  sentence:
-    "a storm seen from a little above — three arms of vapour grains winding a turn and a half into a dark eye on a disc that turns on the beat, the near half sweeping one way and the far half the other, brighter toward the middle",
-  dir: "tools/versus/candidates/creature-veil/vortex",
-  patches: [
-    patch({
-      target: veilLook.VEIL_LOOK,
-      // No accessor: `veil.ts` reads the export itself, once per cloud per
-      // frame. The module namespace is the whole route there is.
-      reached: () => veilLook.VEIL_LOOK,
-      where: {
-        file: "packages/render/src/veil-look.ts",
-        symbol: "VEIL_LOOK",
-        type: "VeilLook",
-      },
-      fields: { mass: vortex },
-    }),
-  ],
-};

@@ -1,4 +1,5 @@
 import type { Asset } from "./types.js";
+import { VEIL_ANVIL, VEIL_FOAM, VEIL_STRATA, VEIL_VORTEX } from "./veil-assets.js";
 import { VOLLEY_EMBER, VOLLEY_PAINTED, VOLLEY_PITTED } from "./volley-assets.js";
 import { WARDEN_MANTLE, WARDEN_ROLL, WARDEN_SURFACE, WARDEN_WHORL } from "./warden-assets.js";
 import { WISP_ARMS, WISP_COMB, WISP_SKIRT, WISP_THREADS } from "./wisp-assets.js";
@@ -24,6 +25,10 @@ export const ASSETS: readonly Asset[] = [
   VOLLEY_EMBER,
   VOLLEY_PAINTED,
   VOLLEY_PITTED,
+  VEIL_ANVIL,
+  VEIL_FOAM,
+  VEIL_STRATA,
+  VEIL_VORTEX,
 ];
 
 export type { Asset, AssetContext, AssetFrame } from "./types.js";

@@ -1,10 +1,18 @@
-import { facet, pin, surfaceDim } from "../../../../../packages/content/src/surface.js";
-import { mixHex, rgba } from "../../../../../packages/render/src/hex.js";
-import type { VeilMassDraw } from "../../../../../packages/render/src/veil-look.js";
-import * as veilLook from "../../../../../packages/render/src/veil-look.js";
-import { patch, type Variant } from "../../../variant.js";
+import { facet, pin, surfaceDim } from "@neon-spore/content";
+import { mixHex, rgba } from "./hex.js";
+import type { VeilMassDraw } from "./veil-look.js";
 
 /**
+ * STRATA — a kept look for THE VEIL's cloud, drawn only on the SHAPES page's
+ * LIBRARY.
+ *
+ * It stood in `creature:veil` on VERSUS, decided 11 September 2026: the owner
+ * kept ANVIL (`veil-mass.ts`) and said "move the versus alternatives all to
+ * 'Shapes' page". It sits in this package, beside the record it once patched,
+ * because it is written against this package's internals; nothing on the
+ * field imports it, and the game's bundle drops it. The argument it made,
+ * from its VERSUS card:
+ *
  * `creature:veil` / `strata` — the cloud is five stacked layers of vapour, each
  * a ring round the mass seen a little from above, with knots on the rings that
  * go round.
@@ -83,7 +91,7 @@ const KNOT_PINS = LATS.map((lat, i) =>
   Array.from({ length: KNOTS }, (_, k) => pin(((k + i * 0.37) / KNOTS) * Math.PI * 2, lat, REACH)),
 );
 
-function strata(d: VeilMassDraw): void {
+export function strata(d: VeilMassDraw): void {
   const { ctx, r, path, beats } = d;
   const theta = (beats / TURN_BEATS) * Math.PI * 2;
   const crest = d.haze(CREST);
@@ -154,25 +162,3 @@ function strata(d: VeilMassDraw): void {
   }
   ctx.restore();
 }
-
-export const VEIL_STRATA: Variant = {
-  slot: "creature:veil",
-  name: "strata",
-  sentence:
-    "five layers of vapour ringing the mass, each seen a little from above so its near arc sags below its far one, with three knots per ring coming round the front broad and lit and crossing the back as slivers — a cloud that is visibly turning about its axis",
-  dir: "tools/versus/candidates/creature-veil/strata",
-  patches: [
-    patch({
-      target: veilLook.VEIL_LOOK,
-      // No accessor: `veil.ts` reads the export itself, once per cloud per
-      // frame. The module namespace is the whole route there is.
-      reached: () => veilLook.VEIL_LOOK,
-      where: {
-        file: "packages/render/src/veil-look.ts",
-        symbol: "VEIL_LOOK",
-        type: "VeilLook",
-      },
-      fields: { mass: strata },
-    }),
-  ],
-};

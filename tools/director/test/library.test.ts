@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from "bun:test";
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { VOLLEY_LOOK, WARDEN_LOOK, WISP_LOOK } from "@neon-spore/render";
+import { VEIL_LOOK, VOLLEY_LOOK, WARDEN_LOOK, WISP_LOOK } from "@neon-spore/render";
 import { installCanvasGlobals, stubCanvas } from "../../../packages/render/test/canvas-stub.js";
 import { ASSETS, BEAT_SECONDS } from "../src/library/index.js";
 
@@ -12,7 +12,7 @@ import { ASSETS, BEAT_SECONDS } from "../src/library/index.js";
  * is the game's real function called from outside the game, at a card's size,
  * with a body the card made up — so every one of them is drawn through a
  * beat's worth of frames, on the stub canvas that validates every value the
- * way `frame.test.ts` does. And each stage (`wisp-stage.ts`, `warden-stage.ts`, `volley-stage.ts`)
+ * way `frame.test.ts` does. And each stage (`wisp-stage.ts`, `warden-stage.ts`, `volley-stage.ts`, `veil-stage.ts`)
  * swaps a field on a shipped record for the length of a card and promises to
  * put it back; if it
  * ever did not, the *game* would draw whichever card was drawn last, which is
@@ -69,6 +69,7 @@ describe("the library", () => {
     const surface = WARDEN_LOOK.surface;
     const stone = VOLLEY_LOOK.stone;
     const seams = VOLLEY_LOOK.seams;
+    const mass = VEIL_LOOK.mass;
     const { ctx } = stubCanvas();
     const c = { ctx: ctx as unknown as CanvasRenderingContext2D, w: 300, h: 300 };
     for (const a of ASSETS) a.draw(c, { t: 1, beat: 1, beatPhase: 0.5 });
@@ -76,6 +77,7 @@ describe("the library", () => {
     expect(WARDEN_LOOK.surface).toBe(surface);
     expect(VOLLEY_LOOK.stone).toBe(stone);
     expect(VOLLEY_LOOK.seams).toBe(seams);
+    expect(VEIL_LOOK.mass).toBe(mass);
   });
 
   it("keeps every file in the folder a part of the registry or its plumbing", () => {

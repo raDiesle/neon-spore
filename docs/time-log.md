@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — creature:veil — ANVIL kept and thinned over the body, three clouds kept
+
+Moved FOAM, STRATA and VORTEX into packages/render, thinned the see-through cloud until the slick reads, built a veil stage and four cards, photographed the field and the LIBRARY, dropped the slot.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | reading |
+| writing | 20 | writing |
+| looking | 15 | looking |
+| friction | 0 | friction |
+| landing | 10 | landing |
+
+Bottleneck: Finding how much cloud to leave on player 1's screen took three frames: the near heaps are dark on dark and hardly show at game size, so the visible change is mostly the base fill going.
+
 ## 2026-09-11 · hit-looks — creature:volley — EMBER into the game, PITTED and the painted seams kept
 
 Moved EMBER's seams into the record and PITTED beside it, built a volley stage that walks the plate count down on a card, photographed the LIBRARY and the field, dropped the slot.

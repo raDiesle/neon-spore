@@ -592,8 +592,11 @@ place — the generator keeps whatever is there.
 | `packages/render/src/veil-marks.ts` | What stands over a cloud, and it is a different thing in each seat |
 | `packages/render/src/veil-mass.ts` | THE VEIL's cloud, filled: what a thunderhead is made of between its rim and its lightning |
 | `packages/render/src/veil-shape.ts` | THE VEIL's *form*: the silhouette a cloud has, and the vapour standing around it |
+| `packages/render/src/veil-strata.ts` | STRATA — a kept look for THE VEIL's cloud, drawn only on the SHAPES page's LIBRARY |
 | `packages/render/src/veil-tear.ts` | A cloud coming apart, and the body inside it visible for the first and last time |
 | `packages/render/src/veil-look.ts` | THE ONE RECORD A CANDIDATE THUNDERHEAD PATCHES |
+| `packages/render/src/veil-foam.ts` | FOAM — a kept look for THE VEIL's cloud, drawn only on the SHAPES page's LIBRARY |
+| `packages/render/src/veil-vortex.ts` | VORTEX — a kept look for THE VEIL's cloud, drawn only on the SHAPES page's LIBRARY |
 | `packages/render/src/veil.ts` | THE VEIL's cloud: the thunderhead a slick or a bulb falls inside |
 | `packages/render/src/warden-eye.ts` | THE WARDEN's door, and the eye behind it |
 | `packages/render/src/eye.ts` | you are drawing an eye — the wet film round it and the lashes and cilia off it, shared by THE LID and THE WARDEN; the lens itself is `eye-lens.ts` |
@@ -1569,5 +1572,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/library/warden-stage.ts` | The game's own warden, drawn on a card wearing a surface of the caller's choosing |
 | `tools/director/src/library/volley-assets.ts` | THE VOLLEY's three shells — what the stone is and what a seam is |
 | `tools/director/src/library/volley-stage.ts` | The game's own volley, drawn on a card wearing a shell of the caller's choosing |
+| `tools/director/src/library/veil-assets.ts` | THE VEIL's four clouds — what the weather is made of between its rim and its lightning |
+| `tools/director/src/library/veil-stage.ts` | The game's own veil, drawn on a card with a cloud mass of the caller's choosing |
 
 <!-- index:code:end -->

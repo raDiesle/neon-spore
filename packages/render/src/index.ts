@@ -101,6 +101,12 @@ export {
   swipeColor,
 } from "./touch-ship.js";
 export { drawVane } from "./vane-draw.js";
+export { drawVeilCloud } from "./veil.js";
+export { foam } from "./veil-foam.js";
+export { VEIL_LOOK, type VeilLook, type VeilMassDraw } from "./veil-look.js";
+export { anvil } from "./veil-mass.js";
+export { strata } from "./veil-strata.js";
+export { vortex } from "./veil-vortex.js";
 export { drawVolleyShell, showsVolleyCore } from "./volley.js";
 export { emberSeams } from "./volley-ember.js";
 export { VOLLEY_LOOK, type VolleyLook, type VolleyShell } from "./volley-look.js";

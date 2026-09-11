@@ -698,3 +698,11 @@ taken by hand — EMBER into the game; PITTED kept on the SHAPES page's LIBRARY
 
 The other answers offered were `ember`, `groove` and `pitted`; they went with
 the slot.
+
+## `creature:veil` — nothing taken, 2026-09-11
+
+taken by hand — ANVIL stays, thinned over the body on the screen that sees in;
+FOAM, STRATA and VORTEX kept on the SHAPES page's LIBRARY
+
+The other answers offered were `foam`, `strata` and `vortex`; they went with
+the slot.

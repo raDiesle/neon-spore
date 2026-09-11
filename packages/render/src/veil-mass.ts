@@ -64,6 +64,20 @@ const SHOULDER = 0.66;
  * that keeps the far half of the mass a surface rather than a hole. */
 const DIM = 0.2;
 
+/**
+ * How much of the mass the screen that sees into the cloud gets.
+ *
+ * On player 1's screen the body inside is the whole point of looking, and the
+ * owner said on 11 September 2026 it was too hard to find: "make the
+ * underlying slick or bulb a little bit more visible, so less clouds, just
+ * some". So that screen draws the mass thinner, and only the heaps on the near
+ * side of the turn — a few lumps of weather passing in front of the body,
+ * rather than a base and nine heaps laid over it. Player 2's cloud is the
+ * whole mass, as before; the contour, the rim and the bolts are the same on
+ * both, which is the disguise (`veil.ts`).
+ */
+const SEE_THROUGH_ALPHA = 0.8;
+
 const GOLDEN = Math.PI * (3 - Math.sqrt(5));
 
 /** Where each heap sits on the mass, worked out once. `LAT_LIMIT` is called
@@ -89,20 +103,26 @@ export function anvil(d: VeilMassDraw): void {
   const theta = (beats / TURN_BEATS) * Math.PI * 2;
 
   ctx.save();
-  ctx.globalAlpha = d.seeThrough ? 0.66 : 1;
+  ctx.globalAlpha = d.seeThrough ? SEE_THROUGH_ALPHA : 1;
   ctx.clip(path);
 
   // The base, under every heap: the gradient's own dark, filling the whole
   // contour. Without it a rotation that carried two heaps to the same side
-  // would open a hole onto the field through the middle of a cloud.
-  ctx.fillStyle = d.bottom;
-  ctx.fill(path, "nonzero");
+  // would open a hole onto the field through the middle of a cloud. Not on
+  // the screen that sees through: there the rim's own fill is already under
+  // the mass (`veil.ts`), and what shows between the heaps is the body, which
+  // is what that screen is for.
+  if (!d.seeThrough) {
+    ctx.fillStyle = d.bottom;
+    ctx.fill(path, "nonzero");
+  }
 
   // Far heaps first, near ones over them. A heap is not opaque, so what this
   // buys is not occlusion but *stacking*: the near ones come up over the far
   // ones' shoulders, which is the one thing a flat gradient cannot show and
-  // what makes the mass read as deep rather than as tall.
-  for (const want of [false, true]) {
+  // what makes the mass read as deep rather than as tall. The see-through
+  // screen gets the near ones only.
+  for (const want of d.seeThrough ? [true] : [false, true]) {
     for (let i = 0; i < PINS.length; i++) {
       const p = PINS[i];
       if (!p) continue;

@@ -37,9 +37,6 @@ import { THROB_PORES } from "./creature-throb/pores/index.js";
 import { VEER_HUNCHED } from "./creature-veer/hunched/index.js";
 import { VEER_JESTER } from "./creature-veer/jester/index.js";
 import { VEER_SOLID } from "./creature-veer/solid/index.js";
-import { VEIL_FOAM } from "./creature-veil/foam/index.js";
-import { VEIL_STRATA } from "./creature-veil/strata/index.js";
-import { VEIL_VORTEX } from "./creature-veil/vortex/index.js";
 import { SHIP_CHITIN } from "./ship-body/chitin/index.js";
 import { SHIP_GLAND } from "./ship-body/gland/index.js";
 import { SHIP_GULLET } from "./ship-body/gullet/index.js";
@@ -79,9 +76,6 @@ export const VARIANTS: Variant[] = [
   VEER_HUNCHED,
   VEER_JESTER,
   VEER_SOLID,
-  VEIL_FOAM,
-  VEIL_STRATA,
-  VEIL_VORTEX,
   SHIP_CHITIN,
   SHIP_GLAND,
   SHIP_GULLET,

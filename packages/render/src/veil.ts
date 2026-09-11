@@ -137,7 +137,7 @@ export function drawVeilCloud(
   // Under everything, including the contour: the air the cloud is standing in.
   // It is what a bolt off the rim lights, so it has to be down before the rim
   // is (`veil-shape.ts`).
-  drawVeilFog(ctx, x, y + sink, r, beats, rim, seeThrough ? 0.5 : 0.75);
+  drawVeilFog(ctx, x, y + sink, r, beats, rim, seeThrough ? 0.4 : 0.75);
 
   ctx.save();
   ctx.translate(x, y + sink);
@@ -147,7 +147,9 @@ export function drawVeilCloud(
   // The rim: the same shape a fraction larger, filled underneath rather than
   // stroked. `BILLOWS` says why — a stroke would draw the seams between the
   // five heaps and turn one cloud into five bubbles.
-  ctx.globalAlpha = seeThrough ? 0.5 : 0.85;
+  // Thinner on the screen that sees in, so the body inside is the thing seen
+  // — the owner asked for less cloud there (`veil-mass.ts`).
+  ctx.globalAlpha = seeThrough ? 0.42 : 0.85;
   ctx.fillStyle = rim;
   ctx.save();
   ctx.scale(1.07, 1.09);
