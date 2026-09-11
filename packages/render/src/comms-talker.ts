@@ -185,4 +185,8 @@ export const TALKER = {
   // what the pair has to do is put four thumbs in one lane on one beat, which
   // a siren cannot help with.
   crystal: null,
+  // THE GUM: the balloon's "both" for the balloon's reason — each seat holds
+  // half a gesture, the cannon under it and the swipe across it, and neither
+  // half is anything on its own.
+  gum: "both",
 } as const satisfies Record<CreatureKind, Talker | null>;

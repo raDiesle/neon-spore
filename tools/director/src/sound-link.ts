@@ -110,6 +110,9 @@ const BY_ID: Record<string, Subject> = {
   // (`render/crystal.ts`) — and the slick is the half the wave opens on the
   // left, where a shot at the wrong tile most often lands.
   "creature.crystalFacet": shape("SLICK"),
+  // THE GUM taking hold. The card is the body in the air — the sac — because
+  // the smear it becomes on the ship is drawn off the world and has no still.
+  "creature.gumStick": shape("GUM"),
   "creature.moult": shape("BULB"),
   // THE RECOIL bouncing. The slick, because a recoil arrives red in the wave
   // that introduces it — and because the body is the subject rather than the

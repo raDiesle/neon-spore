@@ -28,7 +28,8 @@ export type DragTarget =
   | "choirRight"
   | "balloonLeft"
   | "balloonRight"
-  | "crank";
+  | "crank"
+  | "gum";
 
 /**
  * `choirLeft` and `choirRight` are the fifth and sixth, and the first pair
@@ -62,6 +63,15 @@ export type DragTarget =
  * its **bearing**, in thousandths of a turn clockwise from the top, and the
  * simulation turns the step between two of them into rope. The reasoning, at
  * length, is in `crank.ts`'s own header.
+ */
+
+/**
+ * `gum` is the tenth, and the second that is **player 2's** after
+ * `balloonRight` — and the first handle that is the whole body rather than a
+ * thing hanging off it: a stuck gum is swiped where it sits on the ship
+ * (`gum.ts`). It carries `id` for THE LID's reason, a wave may drop several,
+ * and its `fromMilli` is a distance across the hull, signed the way the field
+ * is: toward the nearer wall flings it and away from that wall spreads it.
  */
 
 /**

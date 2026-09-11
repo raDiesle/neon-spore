@@ -7,6 +7,7 @@ import type { CrawlerEvent } from "./events-crawler.js";
 import type { CrystalEvent } from "./events-crystal.js";
 import type { FenceEvent } from "./events-fence.js";
 import type { GhostEvent } from "./events-ghost.js";
+import type { GumEvent } from "./events-gum.js";
 import type { MagnetEvent } from "./events-magnet.js";
 import type { StrandEvent } from "./events-strand.js";
 import type { VeilEvent } from "./events-veil.js";
@@ -191,9 +192,10 @@ export type CreatureEvent =
   // this file over its limit. One arrival taken apart, rather than four
   // incidents that happen to share a creature.
   | CaromEvent
-  // And THE CRYSTAL's three — the wall, the dive and the split — are
-  // `events-crystal.ts`, on the same terms.
+  // And THE CRYSTAL's three (`events-crystal.ts`) and THE GUM's four
+  // (`events-gum.ts`), on the same terms.
   | CrystalEvent
+  | GumEvent
   // And THE VOLLEY's two — the ward that sends it back and the shell bursting
   // over the body — are `events-volley.ts`, on exactly the same terms: one
   // arrival taken apart, in a file of its own because this one is at its
@@ -205,9 +207,7 @@ export type CreatureEvent =
   // limit. Its two *answers* are a plain `destroy` and a plain `deflect`.
   | CrawlerEvent
   // And THE FENCE's two — the wire going over the ship and a bolt cutting it
-  // open — are `events-fence.ts`, on the same terms as the three above: one
-  // arrival taken apart, in a file of its own because this one is at its
-  // limit.
+  // open — are `events-fence.ts`, on the same terms as the three above.
   | FenceEvent
   // And THE MAGNET's two — the plate turning a bolt away and the arch coming
   // apart when one got past it — are `events-magnet.ts`, on the same terms as
@@ -242,6 +242,7 @@ export type { CrawlerEvent } from "./events-crawler.js";
 export type { CrystalEvent } from "./events-crystal.js";
 export type { FenceEvent } from "./events-fence.js";
 export type { GhostEvent } from "./events-ghost.js";
+export type { GumEvent } from "./events-gum.js";
 export type { MagnetEvent } from "./events-magnet.js";
 export type { StrandEvent } from "./events-strand.js";
 export type { VeilEvent } from "./events-veil.js";

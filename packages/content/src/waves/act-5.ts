@@ -1,14 +1,9 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Act five, and it opens with a wheel.
- *
- * The acts are not a design unit — `waves.ts` says so at length: they exist
- * because a list that grows a dozen lines a wave has to be cut somewhere, and
- * a chapter of the game is the least arbitrary place to cut it. `act-4.ts`
- * reached the 250-line limit the day THE GYRE was written, exactly as
- * `act-3.ts` and `act-2.ts` did before it. It filled up in its own turn the
- * day THE VEER was written; `act-6.ts` is where new waves land now.
+ * Act five, and it opens with a wheel. The acts are not a design unit —
+ * `waves.ts` says so at length; this one is full, and `act-6.ts` is where new
+ * waves land now.
  */
 /**
  * **THE GYRE, in three figures.** Here for the reason every block above its
@@ -31,9 +26,8 @@ import type { Wave } from "../wave-types.js";
  *    there to be the thing the pilot is *not* doing while they hold the pull:
  *    the maw is free of the column, but the thumb is not, and a wave with
  *    nothing else in it would never say so.
- * 3. Beat 26, a rock. It arrives about when a wheel left alone starts
- *    grinding, so the pair is choosing between the shield's column and the
- *    wheel's beat with the hull already going down. That is the wave.
+ * 3. Beat 26, a rock, about when a wheel left alone starts grinding: the pair
+ *    chooses between the shield's column and the wheel's beat. That is the wave.
  *
  * **THE LID, in three figures**, and the same shape of argument. What has
  * to bite is that a lid is not a thing you do and then a thing they do: the
@@ -72,16 +66,10 @@ import type { Wave } from "../wave-types.js";
  *    the shield's column is already spoken for — which is where "say it again"
  *    stops being an instruction and becomes the only way through.
  *
- * A recoil entry names its kind and its colour, the way a rind does: the
- * colour is which trigger answers it *first*, and every bounce turns it over
- * from there.
- *
  * **THE CAROM, in three figures**, and what has to bite is that finishing a
- * body is no longer the end of it. Everything up to here has been answered by
- * one control or the other — the cannon for a body, the shield for a rock —
- * and the pair has learned to hand an arrival to whichever of them owns it. A
- * carom is owned by both, in order, and the shot that "kills" it is what hands
- * it over. A pair who celebrate the crack lose the ship to what falls out.
+ * body is no longer the end of it: a carom is owned by both seats, in order,
+ * and the shot that "kills" it is what hands it over. A pair who celebrate
+ * the crack lose the ship to what falls out.
  *
  * 1. Beat 0, one alone, entered against the left wall so its first crossing is
  *    the long one. Nothing else on the field for a dozen beats, so the pair can
@@ -97,17 +85,21 @@ import type { Wave } from "../wave-types.js";
  *    apart in two columns — which is where "say which one we are finishing"
  *    stops being advice and becomes the only way through.
  *
- * A carom entry names its kind and its colour, the way a clasp does: the
- * silhouette is the crust's and the colour is the body sealed inside it, which
- * is which cannon opens it.
+ * **THE GUM, in three figures**: one alone at beat 0 so the pair can find that
+ * nothing they own touches it and that it does not budge without the cannon
+ * under it; a second on the far side at 14 with a bulb under it, so the
+ * cannon is wanted in two lanes at once and one of them is shut; a third dead
+ * centre at 30, where neither wall is near and the wrong guess is a lane.
+ *
+ * A recoil, a carom or a volley entry names its kind and its colour, the way
+ * a rind does: the colour is the body inside, which is the cannon that
+ * answers it — first, for a recoil; last, for the other two.
  */
 /**
  * **THE VOLLEY, in three figures**, and it is THE CAROM's argument read
- * backwards. There the shot that finished a body handed it to the shield; here
- * the ward that answers one hands it straight back, three times, and only then
- * to the cannon. What has to bite is the reflex every warded thing in the game
- * has taught so far — *ward it and stop looking at it*. A pair who lift the
- * thumb after a ward that worked lose the ship to the same body.
+ * backwards: the ward that answers one hands it straight back, three times,
+ * and only then to the cannon. What has to bite is the reflex every warded
+ * thing so far has taught — *ward it and stop looking at it*.
  *
  * 1. Beat 0, one alone. Nothing else on the field for twenty beats, so the
  *    pair can spend the whole rally discovering that a ward sends it back
@@ -123,10 +115,6 @@ import type { Wave } from "../wave-types.js";
  *    The rock takes exactly one ward and the volley takes three, so the pair
  *    has to say which of the two the shield is under on each beat — and being
  *    wrong once about that is the only mistake here that cannot be taken back.
- *
- * A volley entry names its kind and its colour, the way a carom does: the
- * silhouette is the shell's and the colour is the body sealed inside it, which
- * is which cannon finishes it once the shield has run out of things to do.
  */
 export const WAVES_ACT_5: Wave[] = [
   {
@@ -218,6 +206,27 @@ export const WAVES_ACT_5: Wave[] = [
       { beat: 18, col: 3, color: "cyan" },
       { beat: 28, col: 1, kind: "crystal", color: "cyan" },
       { beat: 34, col: 5, kind: "crystal", color: "red" },
+    ],
+  },
+  {
+    id: "theGum",
+    name: "THE GUM",
+    sentence: "The one where the cannon has to be parked under the thing that shuts it.",
+    guide: {
+      both: "A sticky mass falling straight down one lane. No shot touches it and the shield does not stop it: it lands on the ship and sticks, and the cannon cannot fire from any column it covers until it is gone. Getting it off takes both of you — the cannon parked under it, and a swipe toward the nearer side wall. Swiped the wrong way it spreads a lane wider.",
+      p1: "You cannot swipe it. Park the cannon under the gum and leave it there until player 2 has flung it — say which lane it is in, and which side wall is nearer. Your radar shows it coming down.",
+      p2: "You cannot move the cannon. Once it is parked under the gum, put a thumb on the gum and swipe it toward the nearer side wall. It does not budge without the cannon under it, and the wrong way spreads it a lane wider.",
+      scene: "theGum",
+    },
+    entries: [
+      { beat: 0, col: 1, kind: "gum", color: null },
+      { beat: 8, col: 1, color: "red" },
+      { beat: 14, col: 5, kind: "gum", color: null },
+      { beat: 20, col: 5, color: "cyan" },
+      { beat: 24, col: 3, color: "red" },
+      { beat: 30, col: 3, kind: "gum", color: null },
+      { beat: 36, col: 2, color: "cyan" },
+      { beat: 38, col: 4, color: "red" },
     ],
   },
   {

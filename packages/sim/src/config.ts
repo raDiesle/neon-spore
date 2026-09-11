@@ -11,6 +11,7 @@ import { CREATURE_DEFAULTS, type CreatureConfig } from "./config-creatures.js";
 import { CRYSTAL_DEFAULTS, type CrystalConfig } from "./config-crystal.js";
 import { FENCE_DEFAULTS, type FenceConfig } from "./config-fence.js";
 import { GHOST_DEFAULTS, type GhostConfig } from "./config-ghost.js";
+import { GUM_DEFAULTS, type GumConfig } from "./config-gum.js";
 import { GYRE_DEFAULTS, type GyreConfig } from "./config-gyre.js";
 import { MALFUNCTION_DEFAULTS, type MalfunctionConfig } from "./config-malfunction.js";
 import type { PairConfig } from "./config-pair.js";
@@ -37,6 +38,7 @@ export { CREATURE_DEFAULTS, type CreatureConfig } from "./config-creatures.js";
 export { CRYSTAL_DEFAULTS, type CrystalConfig } from "./config-crystal.js";
 export { FENCE_DEFAULTS, type FenceConfig } from "./config-fence.js";
 export { GHOST_DEFAULTS, type GhostConfig } from "./config-ghost.js";
+export { GUM_DEFAULTS, type GumConfig } from "./config-gum.js";
 export { GYRE_DEFAULTS, type GyreConfig } from "./config-gyre.js";
 export { MALFUNCTION_DEFAULTS, type MalfunctionConfig } from "./config-malfunction.js";
 export { PAIR_ON, type PairConfig } from "./config-pair.js";
@@ -69,6 +71,7 @@ export interface SimConfig
     ClawConfig,
     CrawlerConfig,
     CrystalConfig,
+    GumConfig,
     CreatureConfig,
     CreatureScoreConfig,
     GhostConfig,
@@ -190,6 +193,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   ...BOSS_DEFAULTS,
   ...CAROM_DEFAULTS,
   ...CRYSTAL_DEFAULTS,
+  ...GUM_DEFAULTS,
   ...BEATBOX_DEFAULTS,
   ...CHOIR_DEFAULTS,
   ...CRAWLER_DEFAULTS,

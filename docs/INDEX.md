@@ -186,6 +186,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/bullet-types.ts` | you need what a bullet *is* rather than what one does — the shape, lifted out of `types.ts` beside `pod-types.ts` |
 | `packages/sim/src/lid.ts` | you are working on the armoured eye — the cord, how far the plates have parted, and what a shot into it does |
 | `packages/sim/src/config-ghost.ts` | THE GHOST's numbers: what one is worth, the row a crossing one prowls along, how far it goes each beat, how |
+| `packages/sim/src/config-gum.ts` | THE GUM's numbers: how far a swipe has to carry it, how much a swipe the wrong way spreads it |
 | `packages/sim/src/boss-surface.ts` | Every name the boss code puts on `@neon-spore/sim`'s surface, written out |
 | `packages/sim/src/handle-pull.ts` | a hand is carrying a handle and you need to know how far it may go — the taut length, the field it may not leave, and how taut is measured |
 | `packages/sim/src/wave-end.ts` | How a wave ends, in one place, because two paths reach it |
@@ -197,6 +198,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/creature-types.ts` | What a **body on the field** is made of |
 | `packages/sim/src/recoil.ts` | THE RECOIL: a slick or a bulb inside a sprung cage, and the first body a landed shot sends the **wrong way** |
 | `packages/sim/src/guide-steps.ts` | A guide the pair turns the pages of, one seat at a time |
+| `packages/sim/src/gum.ts` | **THE GUM**: a sticky mass that falls straight down one lane, cannot be shot, is not stopped by the shield |
 | `packages/sim/src/carom.ts` | THE CAROM: a slick or a bulb sealed inside a hurtling rock crust |
 | `packages/sim/src/config-carom.ts` | THE CAROM's numbers: how steeply it crosses the field, what cracking one open is worth |
 | `packages/sim/src/impact.ts` | **What one body costs the hull when it reaches it**, for everything the shield was never offered |
@@ -240,6 +242,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-crawler.ts` | THE CRAWLER's three: a ring coming apart, the worm cleared, and the worm getting in |
 | `packages/sim/src/events-crystal.ts` | **Everything THE CRYSTAL does**, as events: it turns at a wall, a wrong shot drives it down |
 | `packages/sim/src/events-ghost.ts` | THE GHOST's three: the body letting go, a wall turned at, and the dive |
+| `packages/sim/src/events-gum.ts` | **Everything THE GUM does**, as events: it sticks, it refuses a shot, it is flung off, or it spreads |
 | `packages/sim/src/kind-code.ts` | **A kind as a number**, and the compile-time proof that every kind has one |
 | `packages/sim/src/lure-exit.ts` | **THE LURE leaving on its own**, which is the one thing in this game a body does at the end of a beat for no… |
 | `packages/sim/src/config-creature-scores.ts` | what one creature pays and what one costs, priced against each other |
@@ -429,6 +432,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-cut.ts` | THE CUT's rehearsal: a wall with no way through, and the crack that is the only place a shot goes through it |
 | `packages/content/src/scenes/the-fence.ts` | THE FENCE's rehearsal: a wall the width of the field, and the one thing that has to be true when it lands |
 | `packages/content/src/scenes/the-gap.ts` | THE GAP's rehearsal: the wall moves its opening, and only one of them can see where it went |
+| `packages/content/src/scenes/the-gum.ts` | THE GUM's rehearsal: it sticks, the cannon is parked under it, and a swipe toward the near wall takes it off |
 | `packages/content/src/control-sets-keys.ts` | Whether a panel answers a command — what the desk keyboard is gated by |
 | `packages/content/src/waves/act-7b.ts` | The second half of act seven, cut off `act-7.ts` when THE COIL was split into two waves and that file reached… |
 | `packages/content/src/scenes/the-coil.ts` | THE COIL's rehearsal: the shield is stuck open, and the plate is what opens the dome |
@@ -451,6 +455,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/creatures-beatbox.ts` | THE BEATBOX's row, cut out of `creatures-table.ts` when it took that file past its 250-line limit |
 | `packages/content/src/mechanics-beatbox.ts` | THE BEATBOX's row, cut out of `mechanics-table.ts` when it took that file past its 250-line limit |
 | `packages/content/src/silhouettes-beatbox.ts` | Beatbox: a rounded cabinet, and the one body on this roster whose contour is *architecture* rather than an… |
+| `packages/content/src/silhouettes-gum.ts` | **THE GUM in the air: THE WEIGHT's sac**, taken off the shape sheet whole |
 | `packages/content/src/waves/act-8.ts` | Act eight, opened for THE BEATBOX rather than for a chapter |
 | `packages/content/src/balloon-shape.ts` | THE BALLOON's contour: a skin with a knot under it, and the fifth family of contour in this package |
 | `packages/content/src/creatures-handed.ts` | **The bodies answered by hands alone**, and today there is one of them |
@@ -719,6 +724,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/radar-blip.ts` | Which arrivals this screen's warning strip is carrying, and where each one sits on it |
 | `packages/render/src/caption-anchor.ts` | Where a caption's subject is on the screen |
 | `packages/render/src/guide-hand.ts` | The hands that are **not** on the panel: one held on something falling |
+| `packages/render/src/gum-handle.ts` | THE GUM as a handle: the one thing on this field a hand takes hold of that is the whole body rather than a… |
+| `packages/render/src/gum.ts` | THE GUM, drawn in its two states: a heavy drop coming down a lane |
 | `packages/render/src/baked.ts` | Every cache in render/ that holds baked work between frames, in one place that can empty them all |
 | `packages/render/src/stage-point.ts` | WHERE A POINTER ON THE CANVAS ACTUALLY LANDS |
 | `packages/render/src/intro-figure.ts` | THE SIX PICTURES ON THE INTRO'S PAGES |
@@ -978,6 +985,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/mixer-pulse.ts` | THE PULSE's song, played off the simulation's own clock |
 | `packages/audio/src/bind-beatbox.ts` | THE BEATBOX's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
 | `packages/audio/src/bind-balloon.ts` | THE BALLOON's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
+| `packages/audio/src/bind-gum.ts` | THE GUM's four, in a file of their own on `bind-balloon.ts`'s pattern |
 
 ### apps/game
 
@@ -1508,6 +1516,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/skins/glass.ts` | GLASS — a body you see *into*, rather than one with things drawn on it |
 | `tools/director/src/entry-fields-balloon.ts` | **THE BALLOON's one authored fact**: how fast it climbs |
 | `tools/director/src/field-controls-balloon.ts` | THE BALLOON's two handles, in a file of their own |
+| `tools/director/src/field-controls-gum.ts` | THE GUM's one handle, in a file of its own on `field-controls-balloon.ts`'s pattern |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-notes-round.ts` | The paragraph under each **round's** card |
 | `tools/style-guide/src/colour.ts` | the swatch grid and the hue dial — every colour under its rule, and the twelve body hues at their measured angles |

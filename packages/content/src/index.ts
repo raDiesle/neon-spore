@@ -207,6 +207,7 @@ export {
   THROB,
   TORCH,
 } from "./silhouettes.js";
+export { GUM, SAC_SKIN, type SacSkin, sacPoints } from "./silhouettes-gum.js";
 export { SNAKE_ROUNDS } from "./snake-rounds.js";
 export { type StuddedOpts, studdedContour } from "./studded.js";
 export type { Pin } from "./surface.js";

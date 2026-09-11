@@ -18,14 +18,9 @@ import { PALETTE } from "./palette.js";
  * The switch is exhaustive **on purpose**, over every case `SimEvent` has —
  * `runtHit` used to fall through a `default: return null` because it reused
  * `destroy`, and the day it stopped reusing `destroy` the burst it drew
- * silently stopped existing. Nothing failed: the type checker was satisfied
- * by a branch that also covered every event nobody had thought about yet. The
- * fix is the same one `content/briefings.ts` already leans on for `BriefingId`
- * — a form that cannot compile while something is unaccounted for. A `switch`
- * cannot be a `Record`, so here it is a `default` that only compiles if `e` has
- * narrowed to `never`, meaning every other case matched: add a case to
- * `SimEvent` and forget a line here, and `assertNever` stops type-checking
- * instead of quietly drawing nothing.
+ * silently stopped existing. So it is a `default` that only compiles if `e`
+ * has narrowed to `never`: add a case to `SimEvent` and forget a line here,
+ * and `assertNever` stops type-checking instead of quietly drawing nothing.
  */
 export interface Burst {
   x: number;
@@ -37,11 +32,8 @@ export interface Burst {
 
 export function burstFor(e: SimEvent, l: Layout): Burst | null {
   // The long tail of events that are answered some other way, taken out of the
-  // union before the switch sees it. `effects-spark-silent.ts` was written to
-  // hold exactly that list and its reasons, and for a while it held a *second
-  // copy* of it: the cases stayed here as well, so the two could drift and the
-  // guard nothing called could never have said so. The guard narrows, so the
-  // `assertNever` below still catches an event accounted for in neither place.
+  // union before the switch sees it (`effects-spark-silent.ts`). The guard
+  // narrows, so `assertNever` still catches an event accounted for in neither.
   if (isSilent(e)) return null;
   switch (e.type) {
     case "destroy":
@@ -239,6 +231,14 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     // the ship, `sim/balloon.ts`).
     case "balloonBurst":
       return at(l, e.col, e.row, 26, PALETTE.pod);
+    // THE GUM in its own material: landing, flung, and at the muzzle for each
+    // shot it refused. Everything between is read off the world (`gum.ts`).
+    case "gumStick":
+      return at(l, e.col, e.row, 14, PALETTE.venom);
+    case "gumFlung":
+      return at(l, e.col, e.row, 24, PALETTE.venom);
+    case "gumBlock":
+      return { x: tileCX(l, e.col), y: l.hullY, n: 6, hex: PALETTE.venom };
 
     default:
       return assertNever(e);

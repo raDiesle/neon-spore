@@ -56,6 +56,12 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "it sings: damageChoirSong off the hull, and the gesture starts again. " +
     "The whole screen shakes while the window is open and shakes harder on " +
     "the merge. See choir.ts and choir-gesture.ts.",
+  "THE GUM — a mass stuck to the ship, swiped off by the seat without the cannon":
+    "It falls straight down its lane like a slick, no shot touches it and the shield does not stop it, and it " +
+    "sticks to the ship where it lands. While it is stuck the cannon fires nothing from under it. It moves only " +
+    "while the cannon is parked in one of its columns: then player 2 swipes it gumSwipeMilli toward the nearer " +
+    "side wall and it comes off for scoreGumFlung. A swipe toward the far wall spreads it gumSpreadCols wider " +
+    "instead, once per hold. See gum.ts.",
   "THE BALLOON — a body that goes up, opened by two hands at once":
     "It appears out of nothing one row above the ship, swells, then climbs balloonRiseRows up and " +
     "across every balloonClimbBeats beats, turning at the walls, and bursts at the top for " +

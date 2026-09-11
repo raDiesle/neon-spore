@@ -82,13 +82,16 @@ describe("the catalogue's long axes", () => {
     // 114 the same day, when `slick:shape` closed with nothing taken: its five
     // candidates left the catalogue (four wide, one round) and COMMA and
     // REVERB came back as drafts — COMMA round at 64 × 54, REVERB wide.
-    expect(axes.length).toBe(114);
+    // 115 from 11 September 2026: GUM, THE WEIGHT's sac brought onto the
+    // field, a round card by this measure — taller than wide, but not by
+    // enough to be upright.
+    expect(axes.length).toBe(115);
     // One ring of THE CRAWLER is the thirty-ninth wide card, and it is wide by
     // more than any other: a ring reaches nearly a full tile past its own
     // column at each end, which is what makes a run of them one animal with no
     // gap in it rather than beads on a string (`content/crawler-shape.ts`).
     expect(count("x")).toBe(42);
-    expect(count(null)).toBe(59);
+    expect(count(null)).toBe(60);
     // THE VEER is the thirteenth tall card and the only one made tall by
     // something *on* a body rather than by the body: the stone under it is
     // round, and the rider's hat carries the box half as far again above it.

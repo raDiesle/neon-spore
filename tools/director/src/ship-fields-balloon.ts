@@ -26,4 +26,9 @@ export const BALLOON_FIELDS = {
   damageBalloonBurst: "THE BALLOON — a body that goes up, opened by two hands at once",
   scoreBalloonRub: "SCORE",
   scoreBalloonPop: "SCORE",
+  // THE GUM's three ride along here rather than in a fourth file: the same
+  // seam, a creature with a handle on it that player 2 works.
+  gumSwipeMilli: "THE GUM — a mass stuck to the ship, swiped off by the seat without the cannon",
+  gumSpreadCols: "THE GUM — a mass stuck to the ship, swiped off by the seat without the cannon",
+  scoreGumFlung: "SCORE",
 } satisfies Partial<Record<keyof SimConfig, GroupName>>;

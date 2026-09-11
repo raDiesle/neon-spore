@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — THE GUM: a body that sticks to the ship and is swiped off by the seat without the cannon
+
+A new creature and wave 44: the gum falls straight, cannot be shot, sticks to the hull and shuts the cannon in its columns; player 1 parks the cannon under it and player 2 swipes it toward the nearer wall, the wrong way spreading it a lane. Sim, render (THE WEIGHT's sac in venom green), scene, audio, director, frames tool, tests.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | the balloon's handle, drag and audio files as the pattern, the tests that enumerate every kind |
+| writing | 95 | sim, render, content, scene, audio binding, director pages, the sim test |
+| looking | 5 | one frame of a stuck gum mid-swipe |
+| friction | 20 | two heredocs broken by apostrophes, the canvas stub without transform, a dozen enumerating tests found one by one |
+| landing | 15 | format, check:fast, index, perf --unmeasured, the log |
+
+Bottleneck: The tests that enumerate every creature kind — bestiary categories, mechanics, backlog counts, sheet card counts, audio wiring lists — each found by running the whole suite rather than from one checklist.
+
 ## 2026-09-11 · hit-looks — THE CRYSTAL
 
 THE CRYSTAL built off the bestiary's Crystal: a red slick and a cyan bulb joined at a thin middle under one shell, crossing on the carom's diagonal, opened only by the shield under the middle and the guard armed on the beat the shot of the join's colour lands; a wave, a guide film, three sounds, the director's rows. About 70 min.

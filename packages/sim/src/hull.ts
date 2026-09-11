@@ -1,6 +1,7 @@
 import { markMoment } from "./balance.js";
 import { hullRow } from "./config.js";
 import { fenceIsOpen } from "./fence.js";
+import { gumLands } from "./gum.js";
 import { breachHull, breachUnscarred, damageSpan } from "./hull-damage.js";
 import { guardArmed, shieldRow } from "./hull-guard.js";
 import { impactDamage } from "./impact.js";
@@ -56,6 +57,18 @@ export function resolveHull(world: World): void {
         continue;
       }
       if (resolveFence(world, c, shipRow)) survivors.push(c);
+      continue;
+    }
+
+    // **THE GUM never breaks the hull and never leaves this loop.** It comes
+    // down like everything else and, on the beat it is drawn standing on the
+    // ship, it sticks — `gumLands` says so once — and it stays a survivor
+    // until a hand flings it (`gum.ts`). Before the ward's question, because
+    // the shield has nothing to say to it and the fence's branch above is the
+    // shape of that: a body with an answer of its own.
+    if (c.kind === "gum") {
+      if (c.row >= shipRow) gumLands(world, c, shipRow);
+      survivors.push(c);
       continue;
     }
 

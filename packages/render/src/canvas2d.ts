@@ -2,6 +2,7 @@ import { guardArmed, mawOpen, ticksPerBeat, wispOnField } from "@neon-spore/sim"
 import { drawTakeover } from "./canvas2d-takeover.js";
 import type { ClaspFrames } from "./clasp-frames.js";
 import { drawBodies, drawFieldBack, drawOverlays, drawShip } from "./frame-passes.js";
+import { drawStuckGums } from "./gum.js";
 import { frame, surfaceSampler } from "./hull-frame.js";
 import { computeLayout, computeStage, type Layout, type Stage } from "./layout.js";
 import { RenderState } from "./render-state.js";
@@ -201,6 +202,10 @@ export class Canvas2DRenderer implements Renderer {
     // the rim `drawHull` has just lit, so neither can go down with the field
     // pass (`fence-strike.ts`).
     this.held.fenceStrike.draw(ctx, l, at, surfaceY, view.time);
+    // And every gum stuck to the ship, on the same membrane and over the same
+    // finished hull: its drips hang down the plating, which the ship pass
+    // would otherwise cover (`gum.ts`).
+    drawStuckGums(ctx, l, world, surfaceY, view.time);
     drawOverlays(ctx, l, world, view, {
       armed: isArmed,
       open: isOpen,

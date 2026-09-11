@@ -1,4 +1,11 @@
-import { blobRadiusMul, catmullRomToBezierPath, type Point } from "@neon-spore/content";
+import {
+  blobRadiusMul,
+  catmullRomToBezierPath,
+  type Point,
+  SAC_SKIN,
+  type SacSkin,
+  sacPoints,
+} from "@neon-spore/content";
 import type { Subject } from "../contour.js";
 
 /**
@@ -20,15 +27,12 @@ import type { Subject } from "../contour.js";
 
 const N = 64;
 
-/** The lobing a sac is cut from, where the default two-lobed one is wrong. */
-export interface SacSkin {
-  lobes: number;
-  depth: number;
-  wobble: number;
-  seed: number;
-}
-
-const SAC_SKIN: SacSkin = { lobes: 2, depth: 0.1, wobble: 0.05, seed: 1.7 };
+// `SacSkin`, `SAC_SKIN` and the sac's own points live in
+// `packages/content/src/silhouettes-gum.ts` now: THE GUM wears THE WEIGHT's
+// sac on the field, and the card here is drawn from the same points so the
+// two cannot drift apart. Re-exported so nothing that reached for the skin
+// through this file had to move.
+export { SAC_SKIN, type SacSkin };
 
 /**
  * A sac: a blob with its mass pulled downward, hanging rather than floating.
@@ -55,17 +59,7 @@ export function sac(
     name,
     note,
     open: false,
-    pointsAt(t) {
-      const pts: Point[] = [];
-      for (let i = 0; i < N; i++) {
-        const a = (i / N) * Math.PI * 2;
-        const m =
-          blobRadiusMul(a, skin.lobes, skin.depth, skin.wobble, t, skin.seed) *
-          (1 + bias * Math.sin(a));
-        pts.push({ x: Math.cos(a) * rx * m, y: Math.sin(a) * ry * m });
-      }
-      return pts;
-    },
+    pointsAt: (t) => sacPoints(t, bias, rx, ry, skin, N),
     path: catmullRomToBezierPath,
   };
 }

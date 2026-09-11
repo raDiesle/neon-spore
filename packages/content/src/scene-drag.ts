@@ -46,6 +46,9 @@ function tautMilli(target: DragTarget, cfg: SimConfig): number {
   // side, so a film says which handle and never how far.
   if (target === "balloonLeft") return -cfg.balloonTautMilli;
   if (target === "balloonRight") return cfg.balloonTautMilli;
+  // A gum is swiped one swipe's length, and the film says the side with `dir`
+  // the way it says it for an arrow (`sim/gum.ts`).
+  if (target === "gum") return cfg.gumSwipeMilli;
   return cfg.mazeTurnMilli;
 }
 
@@ -71,7 +74,8 @@ function pullsDown(target: DragTarget): boolean {
     target !== "choirLeft" &&
     target !== "choirRight" &&
     target !== "balloonLeft" &&
-    target !== "balloonRight"
+    target !== "balloonRight" &&
+    target !== "gum"
   );
 }
 
@@ -97,7 +101,7 @@ function pullsDown(target: DragTarget): boolean {
  * rather than being a field a film could get wrong.
  */
 export function dragSeat(target: DragTarget): 1 | 2 {
-  return target === "balloonRight" ? 2 : 1;
+  return target === "balloonRight" || target === "gum" ? 2 : 1;
 }
 
 /**
@@ -111,7 +115,12 @@ export function dragSeat(target: DragTarget): 1 | 2 {
  * string and a warden one rope, so neither needs it.
  */
 function byColumn(target: DragTarget): boolean {
-  return target === "lidString" || target === "balloonLeft" || target === "balloonRight";
+  return (
+    target === "lidString" ||
+    target === "balloonLeft" ||
+    target === "balloonRight" ||
+    target === "gum"
+  );
 }
 
 export function dragCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {

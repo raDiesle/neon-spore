@@ -64,8 +64,8 @@ export const SHIP_SOUNDS: SoundDef[] = [
     id: "ship.fireBlocked",
     family: "ship",
     blurb: "The snap without the bolt. A mechanism moving against a lock.",
-    status: "spare",
-    use: "Fire pressed inside the reload gap. Needs the refused command, which the sim does not report.",
+    status: "bound",
+    use: "Fire pressed while THE GUM is stuck over the cannon — the one refusal the sim reports.",
     level: 0.24,
     layers: [
       noise(700, { type: "lowpass", freq: 240, q: 1.4 }, 0.001, 0.03, 0.5),

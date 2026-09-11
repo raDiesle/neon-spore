@@ -83,6 +83,10 @@ const UNGRIPPABLE: readonly CreatureKind[] = [
   // And THE CRYSTAL, for the carom's reason with nothing left over: it
   // crosses on the same diagonal and never goes near `grippedFallTiles`.
   "crystal",
+  // And THE GUM, which falls and could be slowed — but nothing can be done to
+  // it in the air, so a brake would show every sign of working and buy
+  // nothing. What answers it is a hand *after* it lands (`gum.ts`).
+  "gum",
   "chute",
   "volley",
   // And a bead, for a reason of its own: a thread is several bodies falling

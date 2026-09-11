@@ -183,11 +183,13 @@ const LIVING_LOOK = {
   // THE BALLOON, and a `null` of the choir's shape rather than the coil's: it
   // is not a body drawn under something, it is a body that **changes shape as
   // it is played**. A blob contour is one radius sampled all the way round, so
-  // the two hands stretching it towards opposite walls would come out as one
-  // body growing evenly — a picture of something filling rather than something
-  // giving. `render/balloon.ts` draws the skin, the knot and the two sides
-  // separately, off the pulls themselves.
+  // two hands stretching it towards opposite walls would come out as one body
+  // growing evenly. `render/balloon.ts` draws it off the pulls themselves.
   balloon: null,
+  // THE GUM wears THE WEIGHT's sac (`silhouettes-gum.ts`) in the air and is
+  // a smear across the hull once it lands, neither of which is a body with a
+  // motion of its own: `render/gum.ts` draws both states off the world.
+  gum: null,
 } as const satisfies Record<CreatureKind, { shape: CreatureSilhouette; motion: OwnMotion } | null>;
 
 /**

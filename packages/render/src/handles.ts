@@ -1,6 +1,7 @@
 import { NO_TETHER } from "@neon-spore/sim";
 import { balloonHandleCircle, balloonHandleSeat } from "./balloon-handles.js";
 import { choirArrowCircle, showsChoirArrows } from "./choir-arrows.js";
+import { gumUnder } from "./gum-handle.js";
 import { hitCircle, type Layout } from "./layout.js";
 import { lidCordCircle } from "./lid-string.js";
 import { mazeStringCircle } from "./maze-string.js";
@@ -41,6 +42,7 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     wardenRopeUnder(l, x, y, field) ??
     lidCordUnder(l, x, y, field) ??
     balloonHandleUnder(l, x, y, field) ??
+    gumUnder(l, x, y, field) ??
     choirArrowUnder(l, x, y, field)
   );
 }

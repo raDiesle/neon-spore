@@ -1,5 +1,6 @@
 import type { FieldControlDef } from "./field-control-def.js";
 import { BALLOON_CONTROLS } from "./field-controls-balloon.js";
+import { GUM_CONTROLS } from "./field-controls-gum.js";
 
 /**
  * The other half of the CONTROLS tab (`controlsets-page.ts`) — split out on
@@ -190,6 +191,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
   // the position they belong in, after the four handles that are the pilot's
   // and before the guide's hold, which is not a field control at all.
   ...BALLOON_CONTROLS,
+  ...GUM_CONTROLS,
   {
     name: "THE GUIDE'S HOLD",
     where: "anywhere on the screen, while a guide or the ready gate is up",

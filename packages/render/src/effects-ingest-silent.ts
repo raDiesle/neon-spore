@@ -91,6 +91,13 @@ export const INGEST_SILENT = [
   "crystalBounce",
   "crystalDive",
   "crystalSplit",
+  // THE GUM's four: whether it is stuck, how wide, whether the cannon is
+  // under it and how far a hand has pulled it are all read off the world
+  // every frame (`gum.ts`), and nothing outlives the tick.
+  "gumStick",
+  "gumBlock",
+  "gumFlung",
+  "gumSpread",
   // Nothing about the ejected body is remembered either: which way it is
   // going and what is drawn over it are read every frame off `chuteOpen`
   // (`chute.ts`), which is the one thing that cannot go stale across a

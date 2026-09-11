@@ -24,6 +24,7 @@ import { THE_FLEET } from "./scenes/the-fleet.js";
 import { THE_GAP } from "./scenes/the-gap.js";
 import { THE_GAUGE } from "./scenes/the-gauge.js";
 import { THE_GHOST } from "./scenes/the-ghost.js";
+import { THE_GUM } from "./scenes/the-gum.js";
 import { THE_GYRE } from "./scenes/the-gyre.js";
 import { THE_HAND } from "./scenes/the-hand.js";
 import { THE_JAM } from "./scenes/the-jam.js";
@@ -109,6 +110,7 @@ export type SceneId =
   | "theCoil"
   | "theCarom"
   | "theCrystal"
+  | "theGum"
   | "theClaw"
   | "theVolley"
   | "theFence"
@@ -162,6 +164,7 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theCoil: THE_COIL,
   theCarom: THE_CAROM,
   theCrystal: THE_CRYSTAL,
+  theGum: THE_GUM,
   theClaw: THE_CLAW,
   theVolley: THE_VOLLEY,
   theFence: THE_FENCE,

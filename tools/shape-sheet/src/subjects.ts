@@ -7,6 +7,7 @@ import {
   crawlerOutline,
   GHOST,
   type GhostSilhouette,
+  GUM,
   ghostOutline,
   LID,
   type LidSilhouette,
@@ -207,6 +208,11 @@ export const SUBJECTS: Subject[] = [
   // that decides whether a run of them reads as an animal or as a stack.
   crawler("CRAWLER", CRAWLER, `an egg on its side · ${CRAWLER.taper} taper · overlapping rings`),
   blob("POD", POD),
+  // THE GUM's body in the air — THE WEIGHT's sac, brought over from the drafts
+  // (`content/silhouettes-gum.ts`). Off `LIVING_SUBJECTS` because
+  // `living-look.ts` gives it no row: `render/gum.ts` draws it, and on the
+  // ship it is a smear rather than this contour at all.
+  blob("GUM", GUM, "a sac hung heavy, narrow at the top · THE WEIGHT's draft, on the field"),
   // The faceted four, in one list of their own: the rock, the same rock with
   // its rider on it, the torch and the queen's shell (`rock-subjects.ts`).
   ...ROCK_SUBJECTS,

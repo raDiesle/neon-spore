@@ -23,19 +23,15 @@ import { creatureCue } from "./bind-creatures.js";
 import type { Cue } from "./bind-cue.js";
 import { fenceCue } from "./bind-fence.js";
 import { fleetCue } from "./bind-fleet.js";
+import { gumCue } from "./bind-gum.js";
 import { MIRROR_STEP_SOUNDS, POD_TAKEN_SOUNDS } from "./bind-lookups.js";
 import { panForCol, pitchForRow } from "./bind-place.js";
 import { volleyCue } from "./bind-volley.js";
 
 // **What a cue is** is `bind-cue.ts` and **where a sound is** is
-// `bind-place.ts`, both cut out on the same limit and re-exported here for
-// every `bind-*.ts` file that reaches for them.
+// `bind-place.ts`, re-exported here for every `bind-*.ts` file.
 export type { Cue } from "./bind-cue.js";
 export { panForCol, pitchForRow } from "./bind-place.js";
-
-// The two id-to-id lookups this file reads are `bind-lookups.ts` next door,
-// cut out for the same reason: data, not an argument about which sound a
-// moment deserves.
 
 /**
  * One event, one cue, or none. `needWave` is bookkeeping between the host and
@@ -224,6 +220,11 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "balloonPop":
     case "balloonBurst":
       return balloonCue(e, cols, rows);
+    case "gumStick":
+    case "gumBlock":
+    case "gumFlung":
+    case "gumSpread":
+      return gumCue(e, cols, rows);
     case "caromBounce":
     case "caromCrack":
     case "caromEject":

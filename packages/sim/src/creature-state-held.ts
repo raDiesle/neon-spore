@@ -15,10 +15,12 @@
  * every call site still reads `c.lidPullMilli` and nothing moved — the same
  * arrangement `SimConfig` has with `CreatureConfig` and the rest.
  *
- * There is exactly one creature in it today. That is not a reason to fold it
- * back in: a hand is a control rather than a creature, and the next body a
- * finger can be put on belongs here beside the lid rather than in the middle
- * of a list of things that fall.
+ * THE LID was alone here for a while; THE GUM is the second, and the first
+ * whose hand is **player 2's** — the heading above says player 1 because that
+ * was true of every field when it was written, and the seam is still the
+ * right one: a hand is a control rather than a creature, and a body a finger
+ * can be put on belongs here rather than in the middle of a list of things
+ * that fall.
  */
 export interface HeldState {
   /**
@@ -54,4 +56,26 @@ export interface HeldState {
    * finger while the body falls away (`lidHandleMilli`). Absent unheld. */
   lidAnchorMilli?: number;
   lidAnchorYMilli?: number;
+  /**
+   * **THE GUM is on the ship.** Set once, on the beat it is drawn standing
+   * on the hull, and never cleared: a gum leaves the field by being flung and
+   * no other way. Absent on a gum still falling, which is a body a hand does
+   * nothing to. Read through `gumIsStuck` (`gum.ts`).
+   */
+  gumStuck?: true;
+  /**
+   * How far **player 2's** hand has carried a stuck gum from where it
+   * grabbed, across, in thousandths of a tile — and absent on one nobody has
+   * hold of, the lid's arrangement exactly: a grab reports zero, so nought
+   * and nothing are two states. Nought also while the cannon is not under
+   * it, so a gum that will not budge is drawn not budging. Read through
+   * `gumPull` and `gumIsHeld`; `gum.ts` is what bounds it.
+   */
+  gumPull?: number;
+  /**
+   * This grab has already spread the gum, and may not act again until the
+   * hand lifts. Absent otherwise. Without it a hand that kept pushing the
+   * wrong way would spread the gum a lane further on every message.
+   */
+  gumSpent?: true;
 }

@@ -1,7 +1,7 @@
 /**
- * **The six bodies that are more than one thing**: a thread of beads, a worm
- * of links, a wire the width of the field, an arch with two poles, a chain
- * of domes, and two bodies joined at a waist.
+ * **The seven bodies that are more than one thing**: a thread of beads, a
+ * worm of links, a wire the width of the field, an arch with two poles, a
+ * chain of domes, two bodies joined at a waist, and a mass that spreads.
  *
  * Cut out of `creature-kinds.ts` on purpose rather than under pressure — that
  * file was five lines under its 250-line limit and grows by a paragraph for
@@ -81,4 +81,15 @@ export type ManyKind =
    * ship. `crystal.ts` holds the whole of it and `Creature.crystalDir` is the
    * whole of its state.
    */
-  | "crystal";
+  | "crystal"
+  /**
+   * A sticky mass that falls straight down one lane, cannot be shot, is not
+   * stopped by the shield and does not break the hull: it **sticks to it**,
+   * and the cannon cannot fire from any column it covers until it is swiped
+   * off — by player 2, toward the nearer wall, while player 1 holds the
+   * cannon under it. Swiped the wrong way it spreads a lane wider, which is
+   * why it is here among the bodies answered a column at a time. `gum.ts`
+   * holds the whole of it; `Creature.gumStuck`, `gumPull` and `gumSpent` are
+   * the whole of its state.
+   */
+  | "gum";

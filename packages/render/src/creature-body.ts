@@ -17,6 +17,7 @@ import { livingBodyMul } from "./creature-place.js";
 import type { Wash } from "./creature-tint.js";
 import { drawCrystalBody } from "./crystal.js";
 import { drawGhost, showsGhostBody } from "./ghost.js";
+import { drawGumBody } from "./gum.js";
 import { drawLid } from "./lid.js";
 import { drawLiving } from "./living-draw.js";
 import { drawMeteor } from "./meteor.js";
@@ -219,6 +220,9 @@ const EXCLUSIVE: ReadonlyMap<CreatureKind, BodyDraw> = new Map<CreatureKind, Bod
   // Two bodies in one shell: a slick and a bulb by `drawLiving`, each in its
   // own tile, and the shell and the join drawn over them (`crystal.ts`).
   ["crystal", drawCrystalBody],
+  // A sac in the air and nothing at all once it is stuck: the smear is drawn
+  // over the ship by `drawStuckGums`, from `canvas2d.ts` (`gum.ts`).
+  ["gum", drawGumBody],
 ]);
 
 /**

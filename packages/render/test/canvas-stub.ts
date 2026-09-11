@@ -372,6 +372,11 @@ export class StubContext {
   rotate(...a: number[]): void {
     nums("rotate", a);
   }
+  /** The general one, which a shear has to go through: THE GUM's smear leans
+   * with the swipe (`gum.ts`), and nothing else in render/ reaches for it. */
+  transform(...a: number[]): void {
+    nums("transform", a);
+  }
   /** Logged as well as checked, unlike `translate`/`scale`/`rotate`: a
    * surface that wipes itself has to put the identity on first, and the log
    * is the only place a test can see that it did (`surface-clear.test.ts`). */

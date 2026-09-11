@@ -95,3 +95,10 @@ export {
   crystalImpactDamage,
   crystalMiddleCol,
 } from "./crystal.js";
+export {
+  gumFlingDir,
+  gumIsHeld,
+  gumIsStuck,
+  gumOverCannon,
+  gumPull,
+} from "./gum.js";

@@ -156,11 +156,9 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
   // a cracked carom, under a canopy. Next door with the rest for their reason
   // — it is drawn as the body its colour names, and `wornKind` resolves it.
   chute: WORN_CREATURES.chute,
-  // THE VOLLEY, and the ninth worn body: a slick or a bulb inside a shell the
-  // shield knocks off it a plate at a time. Next door for the same reason as
-  // the other eight — it is drawn as the body its colour names, and `wornKind`
-  // resolves it right up until the shell bursts, after which there is nothing
-  // left to resolve.
+  // THE VOLLEY, and the tenth worn body: a slick or a bulb inside a shell the
+  // shield knocks off it a plate at a time. `wornKind` resolves it right up
+  // until the shell bursts, after which there is nothing left to resolve.
   volley: WORN_CREATURES.volley,
   // THE STRAND, and the fourth bare body: two to five slicks and bulbs on one
   // thread, with nothing laid over any of them. Next door with the echo, the
@@ -247,4 +245,6 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
   // still reads in the order the bestiary has always had it. See that file for
   // why a body answered by hands alone is its own family.
   balloon: HANDED_CREATURES.balloon,
+  // THE GUM, the second: swiped off the ship by hand (`creatures-handed.ts`).
+  gum: HANDED_CREATURES.gum,
 };

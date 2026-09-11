@@ -63,7 +63,7 @@ table in a document cannot be wrong in a way a compiler notices.
 
 | Category | Answered by | Members today |
 |---|---|---|
-| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand`, `magnet`, `choir` |
+| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand`, `magnet`, `choir`, `gum` |
 | `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch`, `veer`, `coil` |
 | `mixed` | `aim` and `guard` | `queen`, `warden`, `clasp`, `carom`, `volley`, `crawler`, `fence`, `crystal` |
 | `special` | neither | `tether`, `mount`, `chute`, `beatbox`, `balloon` |
@@ -135,14 +135,14 @@ directly, `"suck"`, after what taking one in is called throughout the sim
 | **Bulb** | round, many fine lobes, rotating ring of light; pumps — always cyan | mark + colour |
 | **Strand** | chain of segments on one thread, alternating red and cyan | eaten from its ends inward — and only one of you is shown which end is next |
 | **Crystal** | a red slick and a cyan bulb joined at a thin middle, armoured all round — an hourglass on its side, three tiles wide, crossing on the carom's diagonal | the shield under the middle and the shot in the join's colour on the same beat; then it is two plain bodies |
-| **Gum** | sticky; grabs and holds on | three evasive manoeuvres in a row |
+| **Gum** | THE WEIGHT's sac in the palette's venom green, falling straight down one lane; a flat smear across the plating with drips off it once it has landed | it cannot be shot and the shield does not stop it; it sticks to the ship and shuts the cannon in its columns until player 2 swipes it toward the nearer wall — which only works while player 1 has the cannon parked under it. The wrong way spreads it a lane wider |
 | **Throb** | six clubs on a small core, red down one side and cyan down the other, turning clockwise | colour *and* timing in one call |
 | **Lure** | a slick or a bulb that only the navigator can see through | do *not* hit it (costs the hull) |
 | **Choke** | docks on, shuts one control | inverted instruction |
 | **Glyph** | pattern across its skin | look it up in a table |
 | **Pod** | capsule with a blinking core | power-up |
 
-Built: slick, bulb, meteor, lure, throb, dart, veil, strand, torch, crystal.
+Built: slick, bulb, meteor, lure, throb, dart, veil, strand, torch, crystal, gum.
 Slick, bulb and meteor carry the teaching waves; the torch is the meteor's own
 widened relative, not one of the original thirteen. Lure, throb, dart, veil and
 strand are the next five of that thirteen — none of them needed a new control
@@ -244,8 +244,11 @@ fires an unavoidable marking shot at the hull, **extinguishes its own drive**
 (visibly), whereupon player 2's controls **grey out**. After that the only way
 through is shooting its 5–7 segments in alternating colours.
 
-> The strand and the gum depend on evasion, which no longer exists. (The pod
-> did too; it was re-designed rather than dropped — see above.)
+> The strand and the gum depended on evasion, which no longer exists. (The pod
+> did too; it was re-designed rather than dropped — see above.) The gum's
+> replacement is built: it shuts the cannon where it lands, and the pair gets
+> it back by parking under it and swiping — wave THE GUM, `packages/content/src/waves/act-5.ts`.
+
 > The strand's whole point — greying out a control group — survives if it greys
 > out `guard` instead, but that has to be re-designed rather than renamed.
 
@@ -562,13 +565,6 @@ anybody starts building.
 The director reads this section and puts it on the NOT BUILT YET card
 (`tools/director/src/plain-words.ts`), so no name on that page stands with
 nothing under it.
-
-### Gum
-
-- **What it does:** it sticks to the ship and hangs on.
-- **Player 1:** not decided yet.
-- **Player 2:** not decided yet.
-- **To finish it:** the old answer was three dodges in a row, and the ship cannot dodge any more ([roles](roles.md)). Decide what replaces it — a set number of shots and guards, in an order the pair has to agree on, is the obvious candidate. That decision is the whole creature; the sticky body is easy afterwards.
 
 ### Choke
 

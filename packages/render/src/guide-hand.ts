@@ -1,6 +1,16 @@
 import { actCol, control, type GuideScene } from "@neon-spore/content";
-import { type Creature, gripsCreature, lidIsHeld, occupiesCol, type World } from "@neon-spore/sim";
+import {
+  type Creature,
+  gripsCreature,
+  gumIsHeld,
+  gumIsStuck,
+  gumPull,
+  lidIsHeld,
+  occupiesCol,
+  type World,
+} from "@neon-spore/sim";
 import { creatureCenter, creatureRadius } from "./creature-place.js";
+import { gumCircle } from "./gum-handle.js";
 import { handleCircle } from "./handles.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -170,7 +180,15 @@ export function handleThumb(
   seat: 1 | 2,
   beatPhase: number,
 ): { x: number; y: number; r: number } | null {
-  if (seat !== 1) return null;
+  // Player 2's one handle on the field: a stuck gum with a hand on it, drawn
+  // where the smear is and carried with the pull (`gum.ts`).
+  if (seat === 2) {
+    const gum = world.creatures.find((c) => gumIsStuck(c) && gumIsHeld(c));
+    if (!gum) return null;
+    const circle = gumCircle(l, gum);
+    const x = circle.x + (gumPull(gum) * l.tile) / world.cfg.gumSwipeMilli;
+    return { x, y: circle.y, r: circle.r };
+  }
   const lid = world.creatures.find((c) => c.kind === "lid" && lidIsHeld(c));
   if (lid) return handleCircle(l, world, "lidString", beatPhase, lid.col);
   if (world.boss?.kind === "maze" && world.boss.dragging) {

@@ -85,6 +85,7 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     case "choirRight":
     case "balloonLeft":
     case "balloonRight":
+    case "gum":
       return target;
     default:
       return assertNever(target);

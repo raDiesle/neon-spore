@@ -34,6 +34,7 @@ const ACCEPTED: Command[] = [
   // body that never gives.
   { kind: "drag", target: "balloonLeft", on: true, fromMilli: -1400, id: 4 },
   { kind: "drag", target: "balloonRight", on: true, fromMilli: 1400, id: 4 },
+  { kind: "drag", target: "gum", on: true, fromMilli: -1000, id: 4 },
   // THE CLAW's crank, whose `fromMilli` is a bearing round a circle rather
   // than a distance, and whose press carries `NO_CRANK` instead of one.
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
@@ -110,6 +111,7 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   choirRight: true,
   balloonLeft: true,
   balloonRight: true,
+  gum: true,
   crank: true,
 };
 

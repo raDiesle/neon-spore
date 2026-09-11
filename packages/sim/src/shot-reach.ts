@@ -53,6 +53,11 @@ export function firstAlong(
     // hub that stopped bolts would put a wall across five columns of the
     // field with no body anywhere in it.
     if (c.kind === "gyre") continue;
+    // Nor THE GUM, in the air or on the ship: nothing fired reaches it, and a
+    // bolt fired up a lane it is falling down goes past it to whatever is
+    // above. On the ship it stops the shot *before* it exists instead
+    // (`gumOverCannon`, in `firePress`), which is the block the pair hears.
+    if (c.kind === "gum") continue;
     // THE FENCE stops a bolt in every column it is still **shut** in, and in
     // none of the ones it is open in: a hole is a hole, so a shot fired up a
     // way through reaches whatever is above it rather than dying on a gap the

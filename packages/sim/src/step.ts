@@ -13,6 +13,7 @@ import { crankHeard } from "./crank.js";
 import { fleetHeard } from "./fleet.js";
 import { dropLostGrips } from "./grip.js";
 import { gripPushHeard } from "./grip-push.js";
+import { gumHeard } from "./gum.js";
 import { regenerateHull } from "./hull.js";
 import { stepBeam } from "./lance.js";
 import { releaseLance } from "./lance-burn.js";
@@ -111,6 +112,10 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // it rather than on the tick after.
   for (const c of commands) balloonHeard(world, c.player, c.command);
   rubBalloons(world);
+  // And player 2's hand on a stuck gum, on the tick for the balloon's reason:
+  // a swipe is an instant, and one answered on the next beat would let the
+  // cannon slide out from under it in between (`gum.ts`).
+  for (const c of commands) gumHeard(world, c.player, c.command);
   // THE FLEET's sights and its salvo, read on the tick for the third time and
   // the same reason: a square the pair just named out loud is answered now,
   // not on the next beat. Its clock is the one thing about it that is on the

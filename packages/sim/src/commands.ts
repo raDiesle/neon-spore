@@ -4,6 +4,7 @@ import { choirShaken } from "./choir-gesture.js";
 import { clampCol } from "./config-derived.js";
 import { closeGauge } from "./gauge-round.js";
 import { gripsCreature, setGrip } from "./grip.js";
+import { gumOverCannon } from "./gum.js";
 import { armShield } from "./hull-guard.js";
 import { endPrime, primeChargeMilli, priming, spillPrime, startPrime } from "./lance.js";
 import { faultSwallows } from "./malfunction.js";
@@ -203,6 +204,14 @@ export function applyCommand(world: World, timed: TimedCommand): void {
  * a sequence a pair could not finish.
  */
 function firePress(world: World, color: Color): void {
+  // **A stuck gum over the muzzle, and no shot at all** — not a shot the
+  // mirror or the maze hears either, because nothing left the lobe. The
+  // cooldown and the charge are untouched: the lane is shut, the trigger is
+  // not broken, and the pair is told so once per press (`gum.ts`).
+  if (gumOverCannon(world) !== undefined) {
+    world.events.push({ type: "gumBlock", col: world.cannonCol });
+    return;
+  }
   // The ids this press is about to hand out, so a shot the drum swallows
   // can be told from one that was already in the air up the same column.
   const before = world.nextId;

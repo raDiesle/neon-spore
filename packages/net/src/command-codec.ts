@@ -29,6 +29,7 @@ const DRAG_TARGETS: readonly DragTarget[] = [
   "choirRight",
   "balloonLeft",
   "balloonRight",
+  "gum",
   "crank",
 ];
 

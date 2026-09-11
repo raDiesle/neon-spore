@@ -94,6 +94,9 @@ export const SILENT = [
   // not by material leaving it.
   "crystalBounce",
   "crystalDive",
+  // THE GUM spreading is the smear itself getting wider, drawn off the world;
+  // material leaving it would say it was coming apart, and it is not.
+  "gumSpread",
   // A lure going is drawn *inward*, by `lure-vanish.ts`, and particles are the
   // whole of what it must not have: every burst in the other file throws
   // material away from a body, which is the picture of something being broken.

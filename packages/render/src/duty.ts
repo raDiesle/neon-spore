@@ -138,6 +138,9 @@ const DUTY_WORD = {
   balloon: { p1: "PULL LEFT", p2: "PULL RIGHT" },
   // Silent in `TALKER`, so no word here either.
   crystal: null,
+  // The halves of the gesture, by seat: the cannon parked under it, and the
+  // swipe toward the wall. Which wall is the picture's to say (`gum.ts`).
+  gum: { p1: "PARK UNDER", p2: "SWIPE" },
 } as const satisfies Record<CreatureKind, { p1?: string; p2?: string } | null>;
 
 /** Whether a kind counts as active for this word, including the one kind

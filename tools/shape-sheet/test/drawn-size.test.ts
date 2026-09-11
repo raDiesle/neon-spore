@@ -93,7 +93,10 @@ describe("drawn size against the 20-26 px floor", () => {
     // square cards by this file's measure, whatever their long axis — and two
     // of them, COMMA and REVERB, came back in `drafts/offered.ts` on the
     // slick's own motion. The other three went with the slot.
-    expect(SQUARE.length).toBe(99);
+    //
+    // One more on 11 September 2026: GUM, the sac THE WEIGHT's draft is drawn
+    // from, now a body the field sends (`content/silhouettes-gum.ts`).
+    expect(SQUARE.length).toBe(100);
   });
 
   it("clears the floor for every square card at the 92 px frame it actually gets", () => {
