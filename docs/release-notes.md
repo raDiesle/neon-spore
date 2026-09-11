@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · c0f557e9 — THE CRYSTAL's baseline row, unmeasured, and the waves after it renumbered
+
+`bun run perf --unmeasured`: the row the full check requires for wave 43, with the flag the owner settled on 9 September so a lane does not owe a performance run for a new wave. The next weekly sweep fills it in.
+
+## 2026-09-11 · 7d30e9aa — THE CRYSTAL: two bodies in one shell, opened only with the shield under the middle on the beat the shot lands
+
+A new creature built off the bestiary's Crystal, and the Crystal leaves the NOT BUILT YET page by existing. A red slick on the left and a cyan bulb on the right, joined at a thin middle tile and armoured all the way round — an hourglass on its side, three tiles wide — crossing the field on the carom's diagonal and turning at the walls. Only the middle breaks, only in the colour the wave gave the join, and only while player 2's shield stands under that middle tile and player 1's guard is armed on the beat the shot lands: then the shell comes off and the two ends fall straight as a plain slick and a plain bulb, killed by the matching cannon. Any other shot — wrong tile, wrong colour, or the shield not there — bounces off and drives the whole thing a row toward the ship. A whole one costs the hull twenty. THE CRYSTAL is wave 43, right after THE CAROM, with a guide film of four pages; the light under the join comes on in the shield's lane while the shield stands there, drawn as the clasp's link all the way down to the ship, and the join burns brighter while the guard is armed too.
+
 ## 2026-09-11 · 98be232f — THE TELL is taken out of the game, whole
 
 The owner: "i want to completely remove 'The Tell' boss wave and all related dependencies. I do not like it and its hard to understand for players. too far away from the actual game setup and how it should feel." So the round goes with everything that hung off it: the sim's ladder, ring, clock, hash and two config numbers; the render's three-lobed body, its ring and its nine scenes; the reduced `tell` panel; the guide scene; wave 60; the director's group, fields and notes for it; the perf baseline row. The intro now counts ten bosses. The design is kept on the BOSSES page of NOT BUILT YET as a removed idea, with the owner's reason and what a second try would have to start from.
