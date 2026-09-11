@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · f6b55d44 — The wisp wears ARMS, and the SHAPES page gets a LIBRARY of the game's own looks
+
+The owner took ARMS into the game on 11 September 2026 — four oral arms under the bell, ruffled ribbons with a lit edge and a dark one, going round the back as slivers — and said of the rest: *i like them a lot, i want to build much more enemies later on which look like this*. So the threads the wisp wore until today, and COMB and SKIRT that stood beside ARMS, are kept where he asked, on the SHAPES page. The page had no place for a whole canvas-drawn look, so it has one now: a fourth view, LIBRARY, whose cards are the game's own drawing code run on the game's own wisp, hopping on one clock, the one it wears marked with a star. `creature:wisp` is closed. A look the owner asked for by name.
+
 ## 2026-09-11 · 778fbcf5 — The back decided: the sea stays, one light in the corner, the beat's sweep off
 
 The owner kept the shipped back on 11 September 2026 and `field:backdrop` is dropped — BARE, LANES and NEBULA gone. Of NEBULA he asked for *some, but not so strong*: one rounded light in the bottom-right corner, sitting well with the shafts' slow light. That is `corner-light.ts` — one soft disc of the act's tint, its heart lifted toward the dust's grey, added to the sky the way the shafts are, breathing on the wash's clock and never drifting. The beat's band travelling from the top of the field to the hull is off for the moment, as he asked; `drawBeatSweep` stays exported with a note saying the one call that brings it back. Every op-count budget row moved by the one `drawImage` a frame the light costs, and the baked count by its one sprite. A look the owner asked for by name.
