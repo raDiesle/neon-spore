@@ -22,6 +22,25 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — The BESTIARY tab comes off
+
+The owner asked whether the page was gone; it was not — an earlier lane had
+only retired its idea rows. Now it is: the tab and its sheet leave the
+director, the creature ideas read on MECHANICS in a group of their own, each
+beside the draft drawn for it, which was already on GRAPHICS. About 20 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | what the tab still held (two empty groups, ten ideas, one prose section), every `bestiary` in the director, the concept-art join |
+| writing | 5 | `index.html`, `backlog.ts` and `backlog-page.ts`, three comments, the README, the backlog tests |
+| looking | 5 | two shots of the page against this tree's own director — the tab row, then the CREATURE IDEAS group with its shapes |
+| friction | 0 | — |
+| landing | 5 | lint red once on a line the formatter wanted folded, `check:fast`, the commit, `land --keep` |
+
+Bottleneck: **none worth the name** — the shapes were on GRAPHICS already
+through each draft's `suggests`, so the work was taking a page away without
+breaking the join that page had carried.
+
 ## 2026-09-11 · hit-looks — A rock lands in the hole it makes
 
 The owner's report: the meteor went into the ship and vanished, then jumped

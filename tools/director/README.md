@@ -150,12 +150,14 @@ somebody wrote it down.
 | Tab | What is in it |
 |---|---|
 | `BOSSES` | the act order minus the ones that exist — every name in it is built, so the group stands empty — the boss ideas, and the rounds that are not the field |
-| `BESTIARY` | every creature with a name and no code: the first thirteen, everything accepted since, and the creature ideas |
 | `SHAPES` | the contour catalogue — see below |
-| `MECHANICS` | couplings, assist forms, systems, and the mechanic, control and weapon ideas |
+| `MECHANICS` | couplings, assist forms, systems, and the creature, mechanic, control and weapon ideas |
 | `BORROWED` | It Takes Two and Split Fiction, mapped row by row onto whether each mechanic can reach this one |
 | `PARKED` | deferred on purpose, or examined and turned down with the reason |
 
+`BESTIARY` was a tab here until 11 September 2026: every creature it listed
+is built and in the palette, so the owner took it off, and the creature ideas
+read on `MECHANICS` beside the contour drawn for each on `GRAPHICS`.
 `SPEC` was a tab here and is one of `▣ DOCUMENTATION`'s now: `docs/spec/` read
 verbatim describes the shield, the beat and the cannon as much as it describes
 what is still an argument, and reference does not belong under a heading
@@ -163,14 +165,14 @@ reading NOT BUILT YET. `TOWER DEFENCE` and `CLAUDE VS CHATGPT` were tabs here
 until the owner took them off the sheet; `docs/tower-defence.md` stays in the
 repository and is cited across `tools/shape-sheet`.
 
-**BOSSES, BESTIARY and MECHANICS read in one column.** Each is a page somebody
+**BOSSES and MECHANICS read in one column.** Each is a page somebody
 goes down heading by heading to decide what is worth building, and a grid of
 side-by-side groups is read in vertical strips with no way to tell which
 heading a paragraph belongs under. The rounds are on the boss page because a
 round takes a slot in the act order the same way a boss does — THE MIRROR is
 one already and is filed as a boss — and the controls are on the mechanics page
 because a control is a rule the field plays by that happens to live in a hand.
-Neither had enough of its own to be a page.
+Neither had enough of its own to be a page, and nor did the creature ideas.
 
 **Anything built is not on this page at all.** A creature that exists is in the
 brush palette; a capability that exists is on `SHIP`. Each group says how many

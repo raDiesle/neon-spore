@@ -7,8 +7,8 @@
  * either a contour out of `shape-sheet` (the same geometry the canvas draws)
  * or a control glyph out of `render/simon-glyph.ts` (the same button the band
  * draws). A sound whose subject has no drawn shape yet shows nothing, and that
- * gap is worth seeing: it is the same gap the BESTIARY panel shows, arrived at
- * from the other side.
+ * gap is worth seeing: it is the same gap a creature idea with no draft at it
+ * shows on the NOT BUILT YET page, arrived at from the other side.
  */
 
 import type { SoundDef } from "@neon-spore/audio";

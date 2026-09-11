@@ -29,31 +29,28 @@ describe("buildBacklog", () => {
   test("a built thing is not backlog, and the count of what was hidden is kept", async () => {
     const backlog = await realBacklog();
 
-    // The three that exist carry the teaching waves; the page is about the rest.
-    expect(names(backlog.bestiary)).not.toContain("Slick");
-    expect(names(backlog.bestiary)).not.toContain("Bulb");
-    expect(names(backlog.bestiary)).not.toContain("Meteor");
-    expect(names(backlog.bestiary)).not.toContain("Dart");
-    expect(names(backlog.bestiary)).not.toContain("Veil");
-    expect(names(backlog.bestiary)).not.toContain("Strand");
-    expect(names(backlog.bestiary)).not.toContain("Crystal");
-    expect(names(backlog.bestiary)).not.toContain("Gum");
-    expect(names(backlog.bestiary)).not.toContain("Choke");
+    // Nothing built is on any page. The BESTIARY tab went on 11 September
+    // 2026 once every row of bestiary.md 10.1 and 10.2 was built, and the
+    // creature ideas read on the mechanics page; a built creature is in the
+    // palette and nowhere here.
+    const everything = Object.values(backlog).flatMap((gs) => names(gs as BacklogGroup[]));
+    for (const built of [
+      "Slick",
+      "Bulb",
+      "Meteor",
+      "Dart",
+      "Veil",
+      "Strand",
+      "Crystal",
+      "Gum",
+      "Choke",
+    ])
+      expect(everything).not.toContain(built);
     // Retired on 11 September 2026 (docs/decisions.md #28): the glyph, and
-    // the nine idea rows of 10.2. The bestiary's own groups show nothing now.
-    expect(names(backlog.bestiary)).not.toContain("Glyph");
-    expect(names(backlog.bestiary)).not.toContain("The Jammer");
-
-    const thirteen = backlog.bestiary[0]!;
-    // Slick, bulb, meteor, lure, throb, dart, veil, strand, crystal, gum,
-    // choke and countdown — plus the pod, which is built and is deliberately
-    // not a `CreatureKind`, so `isBuilt` has to know about `POD_KINDS` to see
-    // it. Thirteen rows, thirteen built, none on the page.
-    expect(thirteen.builtHidden).toBe(13);
-    expect(thirteen.entries).toHaveLength(0);
-    const accepted = backlog.bestiary[1]!;
-    expect(accepted.entries).toHaveLength(0);
-    expect(accepted.builtHidden).toBe(1);
+    // the nine idea rows of 10.2.
+    expect(everything).not.toContain("Glyph");
+    expect(everything).not.toContain("The Jammer");
+    expect(backlog).not.toHaveProperty("bestiary");
 
     expect(names(backlog.bosses)).not.toContain("Bulb Queen");
     expect(names(backlog.bosses)).not.toContain("The Mirror");
@@ -101,8 +98,11 @@ describe("buildBacklog", () => {
   test("an idea lands in the section its spec heading puts it under", async () => {
     const backlog = await realBacklog();
 
-    expect(names(backlog.bestiary)).toContain("Prism");
-    expect(names(backlog.bestiary)).toContain("Wave gate");
+    // A creature idea reads on the mechanics page, in a group of its own,
+    // since the BESTIARY tab went.
+    const creatures = group(backlog.mechanics, "CREATURE IDEAS");
+    expect(names([creatures])).toContain("Prism");
+    expect(names([creatures])).toContain("Wave gate");
     expect(names(backlog.mechanics)).toContain("Reverse wave");
     // The controls read on down the mechanics page rather than having one of
     // their own — a control is a rule that happens to live in a hand.
@@ -136,7 +136,7 @@ describe("buildBacklog", () => {
     // A boss idea sits with the act order rather than among the creatures:
     // it is a whole encounter waiting for a slot, not a thing that falls.
     expect(names(backlog.bosses)).toContain("THE CODEX");
-    expect(names(backlog.bestiary)).not.toContain("THE CODEX");
+    expect(names(backlog.mechanics)).not.toContain("THE CODEX");
 
     // THE CHOIR is off the page entirely, and it left the way THE GAUGE and
     // SNAKE did: its bullet was cut once the thing existed, because an entry
@@ -146,12 +146,11 @@ describe("buildBacklog", () => {
     // — and it is in the bestiary like any other arrival. The act-40 slot
     // still carries the name for a boss built on it later.
     expect(names(backlog.bosses)).not.toContain("THE CHOIR");
-    expect(names(backlog.bestiary)).not.toContain("THE CHOIR");
+    expect(names(backlog.mechanics)).not.toContain("THE CHOIR");
 
     // And in exactly one of them — a name in two sections is a name that gets
     // worked on twice.
     const everywhere = [
-      ...names(backlog.bestiary),
       ...names(backlog.mechanics),
       ...names([group(backlog.bosses, "ROUND IDEAS")]),
     ];

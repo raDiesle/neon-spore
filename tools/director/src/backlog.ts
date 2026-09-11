@@ -17,7 +17,6 @@ import { dropBuilt, fromIdeas } from "./backlog-ideas.js";
 import { type Concept, type Idea, parseConcepts } from "./concepts.js";
 import type { PlainRow } from "./plain-words.js";
 import { type Planned, parseRoster } from "./roster.js";
-import { sectionBody, sectionNamed } from "./sections.js";
 
 export interface BacklogEntry {
   name: string;
@@ -57,8 +56,8 @@ export interface BacklogGroup {
 export interface Backlog {
   /** Bosses, and the rounds that are not the field, on one page. */
   bosses: BacklogGroup[];
-  bestiary: BacklogGroup[];
-  /** Rules the field plays by, and what a player's hands would do — one page. */
+  /** Rules the field plays by, what would fall, and what a player's hands
+   * would do — one page. */
   mechanics: BacklogGroup[];
   // Worked-out design documents — `docs/versus.md` and friends — each
   // carrying numbers a queued lane is meant to build. Built in
@@ -88,24 +87,6 @@ function deferredGroup(deferred: Idea[]): BacklogGroup {
       detail: "",
       ref: i.ref,
     })),
-  };
-}
-
-// A whole spec section as one entry — for prose that never became a list.
-function fromSection(
-  title: string,
-  note: string,
-  text: string,
-  needle: string,
-  ref: string,
-): BacklogGroup {
-  const body = sectionBody(sectionNamed(text, needle));
-  return {
-    title,
-    note,
-    builtHidden: 0,
-    // No name of its own: the group heading already carries it.
-    entries: body ? [{ name: "", kind: "", note: "", detail: body, ref }] : [],
   };
 }
 
@@ -191,38 +172,24 @@ export function buildBacklog(
         ),
       ),
     ],
-    bestiary: [
-      fromRoster(
-        "THE FIRST THIRTEEN",
-        "the bestiary the design started from — bestiary.md 10.1",
-        roster.creatures,
-      ),
-      fromRoster(
-        "ACCEPTED SINCE",
-        "argued into the spec after that first thirteen — bestiary.md 10.2",
-        roster.accepted,
-      ),
-      fromIdeas(
-        "CREATURE IDEAS",
-        "accepted in principle, not worked out — ideas.md",
-        sheet,
-        "Creatures",
-      ),
-      fromSection(
-        "EXAMINED AND REJECTED",
-        "names that were considered and turned down, with the reason",
-        bestiary,
-        "Examined and rejected",
-        "bestiary.md 10.3",
-      ),
-    ],
     // The controls used to be a tab of their own, holding two idea groups. A
     // control is a rule the field plays by that happens to live in a hand, and
-    // two groups is not a page — so they read on down this one.
+    // two groups is not a page — so they read on down this one. The creature
+    // ideas arrived the same way on 11 September 2026, when the owner took the
+    // BESTIARY tab off: every row of `bestiary.md` 10.1 and 10.2 is built, and
+    // one group of ideas is not a page either. A creature here is a rule that
+    // falls — what it makes the pair say is the whole of it — and the contour
+    // drawn for each stands on GRAPHICS, joined by the draft's `suggests`.
     mechanics: [
       fromConcepts("COUPLINGS", "the patterns everything else follows from", sheet.couplings),
       fromConcepts("ASSIST FORMS", "how the pair cushions a difference in ability", sheet.assists),
       fromConcepts("SYSTEMS", "the rules the field plays by", sheet.systems),
+      fromIdeas(
+        "CREATURE IDEAS",
+        "what would fall, accepted in principle and not worked out — ideas.md; the shape drawn for each is on GRAPHICS",
+        sheet,
+        "Creatures",
+      ),
       fromIdeas("MECHANIC IDEAS", "accepted in principle, not worked out", sheet, "Mechanics"),
       fromIdeas(
         "CONTROL IDEAS",

@@ -8,7 +8,7 @@ import { mountVersusTab } from "./versus-tab.js";
  *
  * One of them now — SHAPES — and it is expensive in its own way: thirty-odd
  * animated contours to fit, a third of a second of arithmetic. Not work a
- * session that opened the sheet to read the bestiary should pay for.
+ * session that opened the sheet to read the boss ideas should pay for.
  *
  * VERSUS is mounted here too and is **not** one of them, which is the point of
  * saying so: it used to be the most expensive tab on the sheet — five baked
@@ -27,7 +27,7 @@ import { mountVersusTab } from "./versus-tab.js";
  */
 export function mountLazyTabs(): void {
   // It has to be mounted before `bindTabs` runs, so a click on it is wired
-  // exactly the way a click on BESTIARY or BORROWED is.
+  // exactly the way a click on MECHANICS or BORROWED is.
   mountVersusTab();
   bindTabs("#backlogTabs", "sheetpage", "sheet-");
 

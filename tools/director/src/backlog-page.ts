@@ -33,7 +33,6 @@ interface BacklogGroup {
 
 interface Backlog {
   bosses: BacklogGroup[];
-  bestiary: BacklogGroup[];
   mechanics: BacklogGroup[];
   designs: BacklogGroup[];
 }
@@ -60,9 +59,9 @@ function renderGroup(container: HTMLElement, group: BacklogGroup): void {
   for (const entry of group.entries) section.appendChild(renderEntry(entry, group.reading));
 
   // Said out loud rather than silently dropped: a group that shows three of
-  // thirteen and does not say so reads as a bestiary of three. One sentence
-  // when the group is empty — "nothing here" followed by "12 more" counted
-  // more than nothing, the day the bestiary's last idea rows were retired.
+  // thirteen and does not say so reads as a list of three. One sentence when
+  // the group is empty — "nothing here" followed by "12 more" counted more
+  // than nothing, the day the bestiary's last idea rows were retired.
   const said = document.createElement("p");
   said.className = "note";
   const where = group.builtWhere ?? "the brush palette";
@@ -97,7 +96,6 @@ async function load(): Promise<void> {
   const backlog = (await res.json()) as Backlog;
 
   fill("backlogBosses", backlog.bosses);
-  fill("backlogBestiary", backlog.bestiary);
   fill("backlogMechanics", backlog.mechanics);
   fill("backlogDesigns", backlog.designs);
   void renderWholeDoc("borrowedDoc", "/api/borrowed");
