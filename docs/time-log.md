@@ -22,6 +22,28 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — THE STRAND's thread burns away like a fuse
+
+The owner: *when all bulb and slick are destroyed there must be a nice
+animation how the string is destroyed — like a fuse in the air, a bigger
+effect.* The `strandBroke` event now carries every bead on the thread, and a
+new body transient rebuilds the line from them, lights it at both ends and
+burns it inward — sparking fronts, each raisin popping off as a front reaches
+it — to a blast where the two meet, on the tile the old grey puff stood on.
+About 25 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `strand.ts`, `strand-bead.ts`, `effects-body.ts`, the burst table and both silent lists |
+| writing | 10 | the event's `beads`, `drawRaisinAt`, `strand-fuse.ts` and `strand-fuse-draw.ts`, the wiring, five tests |
+| looking | 5 | three films — the first too small, the second's blast too big |
+| friction | 5 | the probe that planned the presses: two threads under the one I wanted rejected the shots, and the cooldown; `sinHash` re-derived once |
+| landing | 5 | `check:fast`, the commit, `land --keep` |
+
+Bottleneck: **getting every bead shrivelled on film** — the lit end is the
+seeded rng's and hops after every shot, so the presses had to be planned by
+running the wave headless first (`tools/probe`).
+
 ## 2026-09-11 · hit-looks — THE LID's cord hangs beside the eye and rides down with it
 
 The owner: *the pull must be left or right of the enemy, then it should

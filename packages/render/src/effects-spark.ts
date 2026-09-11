@@ -66,13 +66,14 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
       return at(l, e.col, e.row, 24, PALETTE.red);
     case "wardenDown":
       return at(l, e.col, e.row, 24, PALETTE.rock);
-    // THE GYRE's armature failing, and THE STRAND's thread parting, both a beat
-    // after the last body on them went. The rock's colour and not a body's:
-    // nothing living broke here — every bead and every mount was already gone,
-    // each with its own burst — and what is left is structure letting go.
-    // Sized with the two bosses, because it is the end of an arrival.
+    // THE GYRE's armature failing, a beat after the last body on it went. The
+    // rock's colour and not a body's: nothing living broke here — every mount
+    // was already gone, each with its own burst — and what is left is
+    // structure letting go. Sized with the two bosses, because it is the end
+    // of an arrival. THE STRAND's thread used to share the line and no longer
+    // does: it burns (`strand-fuse.ts`), and its big moment is where the two
+    // fronts meet, not the beat it parted.
     case "gyreBroke":
-    case "strandBroke":
       return at(l, e.col, e.row, 24, PALETTE.rock);
     case "podLoose":
       return at(l, e.col, e.row, 10, PALETTE.ember);

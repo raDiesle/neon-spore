@@ -166,13 +166,20 @@ export function breakSpentStrands(world: World): void {
   const gone: number[] = [];
   for (const id of threads) {
     if (strandLeft(world, id) > 0) continue;
-    const beads = world.creatures.filter((c) => beadStrand(c) === id);
+    const beads = world.creatures.filter((c) => beadStrand(c) === id).sort((a, b) => a.col - b.col);
     for (const bead of beads) gone.push(bead.id);
     world.score += world.cfg.scoreStrandBreak;
     // The middle of what was hanging there rather than the tile of the last
-    // shot: what goes is the whole arrival (`events-strand.ts`).
+    // shot: what goes is the whole arrival — and every raisin on it, for the
+    // picture of it going (`events-strand.ts`).
     const mid = beads[Math.floor(beads.length / 2)];
-    if (mid) world.events.push({ type: "strandBroke", col: mid.col, row: mid.row });
+    if (mid)
+      world.events.push({
+        type: "strandBroke",
+        col: mid.col,
+        row: mid.row,
+        beads: beads.map((b) => ({ id: b.id, col: b.col, row: b.row })),
+      });
   }
   if (gone.length > 0) removeCreatures(world, gone);
 }

@@ -15,6 +15,7 @@ import { RecoilCageBreakFx } from "./recoil-cage-break.js";
 import type { RecoilLeapFx } from "./recoil-leap.js";
 import { RecoilVentFx } from "./recoil-vent.js";
 import { RindShedFx } from "./rind-shed.js";
+import { StrandFuseFx } from "./strand-fuse.js";
 import { VeilTearFx } from "./veil-tear.js";
 
 /**
@@ -71,6 +72,10 @@ export class BodyTransients {
    * the shipped field, and the seam a `slick:hit` or `bulb:hit` candidate
    * fills (`body-hit.ts`, `body-strike.ts`). */
   private bodyStrike = new BodyStrikeFx();
+  /** THE STRAND's thread burning away like a fuse from both ends once its
+   * last bead is spent — the one transient here that is a *line* of bodies
+   * going rather than one (`strand-fuse.ts`). */
+  private strandFuse = new StrandFuseFx();
 
   /** `time` is the wall clock the contour wobble is sampled at — the husk
    * freezes the outline the body had on the frame the layer came off. */
@@ -113,6 +118,9 @@ export class BodyTransients {
     // And the strike itself, frozen on the tile the shot landed in, with the
     // outline the body wore on that frame cut off the same clock the husk is.
     this.bodyStrike.ingest(events, l, time);
+    // And a thread lit at both ends, rebuilt from the beads the event carries:
+    // the bodies are gone from the world on the tick it fires.
+    this.strandFuse.ingest(events, l, cfg, time);
   }
 
   update(dt: number): void {
@@ -130,6 +138,7 @@ export class BodyTransients {
     this.coilJump.update(dt);
     this.fenceExit.update(dt);
     this.bodyStrike.update(dt);
+    this.strandFuse.update(dt);
   }
 
   draw(ctx: CanvasRenderingContext2D, l: Layout, surfaceY?: SurfaceY): void {
@@ -164,6 +173,10 @@ export class BodyTransients {
     // lure's fold: it is gone from the world by the time this draws. It takes
     // the skin because what it leaves behind lies on the ship.
     this.bodyStrike.draw(ctx, l, surfaceY);
+    // And a thread burning, frozen on the tiles its beads stood on for the
+    // same reason: the bodies are gone from the world by the time this draws,
+    // and what is left to see is the line going.
+    this.strandFuse.draw(ctx, l);
   }
 
   /** The five that are drawn around a body the world still has. */
@@ -214,5 +227,6 @@ export class BodyTransients {
     this.magnetBounce.clear();
     this.fenceExit.clear();
     this.bodyStrike.clear();
+    this.strandFuse.clear();
   }
 }

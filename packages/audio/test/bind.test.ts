@@ -118,7 +118,7 @@ const SAMPLES: Record<string, SimEvent> = {
   strandSwell: { type: "strandSwell", id: 6, col: 2, row: 3, color: "cyan", left: 3 },
   fencePass: { type: "fencePass", col: 4, row: 11 },
   fenceBurn: { type: "fenceBurn", col: 3, row: 8 },
-  strandBroke: { type: "strandBroke", col: 3, row: 5 },
+  strandBroke: { type: "strandBroke", col: 3, row: 5, beads: [] },
   lureVanished: { type: "lureVanished", col: 3, row: 4, color: "cyan" },
   shellBreak: { type: "shellBreak", col: 3, row: 4, left: 1 },
   shellBare: { type: "shellBare", col: 3, row: 5, color: "cyan" },

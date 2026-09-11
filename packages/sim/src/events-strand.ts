@@ -47,5 +47,17 @@ export type StrandEvent =
    * (`breakSpentStrands`). `col` and `row` are the middle of what was hanging
    * there rather than the tile of the last shot: what goes is the whole
    * arrival, and the pair has held one order across every beat of it.
+   *
+   * `beads` is every raisin that was on it, in thread order, on the tiles they
+   * stood on when it went — the bodies leave the world on this tick, and the
+   * picture of the thread burning away like a fuse (`render/strand-fuse.ts`)
+   * has to be built from somewhere. The owner asked for that picture on
+   * 11 September 2026, and a thread the pair held an order across for six
+   * beats is owed more than a puff at its middle.
    */
-  | { type: "strandBroke"; col: number; row: number };
+  | {
+      type: "strandBroke";
+      col: number;
+      row: number;
+      beads: { id: number; col: number; row: number }[];
+    };

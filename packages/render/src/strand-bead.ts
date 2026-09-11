@@ -210,10 +210,25 @@ export const STRAND_LOOK: StrandLook = { bead: drawReelBead };
  * thread. Drawn on both screens.
  */
 export function drawRaisin(b: Bead): void {
-  const { ctx, l, cfg, c, x, y, time, near } = b;
+  drawRaisinAt(b.ctx, b.l, b.cfg, b.c.id, b.x, b.y, b.time, b.near);
+}
+
+/** The same raisin from a point and an id — for the beads a thread still
+ * carries while it burns, after the bodies have left the world
+ * (`strand-fuse.ts`). */
+export function drawRaisinAt(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  cfg: SimConfig,
+  id: number,
+  x: number,
+  y: number,
+  time: number,
+  near: number,
+): void {
   const haze = (h: string): string => hazed(cfg, h, near);
   const r = l.tile * 0.4 * RAISIN_MUL;
-  const t = contourClock(c.id, time);
+  const t = contourClock(id, time);
   // Deep lobes and a slow wobble: a body that has lost its water pulls in
   // between its own ribs rather than staying round, and the creases are the
   // only thing this shape has to say.

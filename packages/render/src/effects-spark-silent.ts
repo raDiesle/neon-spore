@@ -77,6 +77,11 @@ export const SILENT = [
   // the pole's colour off the tile; this one is the arch and the plate going,
   // and `magnet-break.ts` draws all of it.
   "magnetBreak",
+  // THE STRAND's thread parting. Not a burst on the beat it parts: the line is
+  // lit at both ends and burns inward (`strand-fuse.ts`), and the big moment
+  // is a second later where the two fronts meet — a burst here would be the
+  // end of it before it had started.
+  "strandBroke",
   // THE COIL's charge crossing the field to the next dome. Nothing has broken
   // yet — that is the whole of what it means — and a shower of sparks along
   // the way would say something had. It is drawn as the bolt it is, on the one

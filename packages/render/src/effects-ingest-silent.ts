@@ -161,9 +161,9 @@ export const INGEST_SILENT = [
   // on the same beat, so an entry keyed to it would have nothing to look up.
   "gyreBroke",
   // A bead shrivelling or filling again, and the thread parting. None of the
-  // three leaves a transient: a raisin is drawn off `strandSpent` on the
-  // body every frame (`strand.ts`), and the thread is off the field on the
-  // beat it breaks, so an entry keyed to it would have nothing to look up.
+  // three leaves a transient *here*: a raisin is drawn off `strandSpent` on
+  // the body every frame (`strand.ts`), and the thread's burn is one of the
+  // body transients (`strand-fuse.ts`), which ingest the event themselves.
   "strandBead",
   "strandSwell",
   "strandBroke",

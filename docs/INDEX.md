@@ -878,6 +878,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/grip-arrows.ts` | THE PUSH, said before it happens: the two white arrows beside a held rock, and the beat they go out for |
 | `packages/render/src/effects-ship.ts` | the ship's own clocks: the swallow, the fire opening, the deflection flash, the queen's shudder |
 | `packages/render/src/strand-still.ts` | One live bead on the navigator's screen that **no shot can answer this instant**: the reel drawn as a grey outline |
+| `packages/render/src/strand-fuse-draw.ts` | The three pictures a burning thread is made of (`strand-fuse.ts`): a front eating its way along the line |
+| `packages/render/src/strand-fuse.ts` | THE STRAND's thread going, drawn as a fuse |
 | `packages/render/src/strip-look.ts` | what a strip looks like, as a record — the trough, its lip, the rail, the stations and the block, lifted out of band-channel so a candidate panel can draw a rail as something else |
 | `packages/render/src/maze-timer.ts` | THE MAZE's clock, drawn on the outside of the heart |
 | `packages/render/src/choir-arrows.ts` | **THE CHOIR's two arrows**: the way to open a membrane on a device that cannot tell you it has been shaken |
