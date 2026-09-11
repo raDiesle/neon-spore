@@ -56,7 +56,7 @@ count is a way of saying something is owed, and nothing here is.
 `tools/queue/test/queue.test.ts` fails on an entry a cold session could not act
 on.
 
-## The ghost's VERSUS slot: SWARM into the game, clearer eyes, the rest to the SHAPES page
+## The ghost slot: SWARM into the game, clearer eyes, the rest to the SHAPES page
 
 - **Found:** 2026-09-10, hit-looks
 - **Files:** `tools/versus/candidates/creature-ghost/`, `packages/render/src/ghost-look.ts`, `tools/director/src/{skins,glows,fillings}/`, `tools/versus/DECIDED.md`
@@ -73,7 +73,7 @@ the other ghost candidates re-authored on the SHAPES page in whichever axis
 each one's claim belongs to (the five-slot landing's `DECIDED.md` entries say
 how that was decided for a tail, a skin and a hit). Not started.
 
-## The gyre's VERSUS slot: ORBIT into the game, the current look and the rest to the SHAPES page
+## The gyre slot: ORBIT into the game, the current interior and the rest to SHAPES
 
 - **Found:** 2026-09-10, hit-looks
 - **Files:** `tools/versus/candidates/creature-gyre/`, `packages/render/src/gyre-look.ts`, `tools/director/src/fillings/`, `tools/versus/DECIDED.md`
