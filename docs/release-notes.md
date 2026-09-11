@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · 941ba907 — THE GUM: a body that sticks to the ship and is swiped off by the seat without the cannon
+
+A new creature and a new wave, 44, right after THE CRYSTAL. The gum falls straight down one lane like a slick; no shot touches it and the shield does not stop it. It lands on the ship and sticks, and from that beat the cannon fires nothing from any column it covers. Getting it off takes the seats the wrong way round: player 1 parks the cannon under it and cannot swipe, player 2 puts a thumb on the smear and swipes it toward the nearer side wall for the score — and it does not budge without the cannon under it, which is how player 2 reads where the cannon is. Swiped toward the far wall it spreads a lane wider instead, once per grab. The old Gum entry on the NOT BUILT YET page is gone; the bestiary row says what it is now.
+
 ## 2026-09-11 · c0f557e9 — THE CRYSTAL's baseline row, unmeasured, and the waves after it renumbered
 
 `bun run perf --unmeasured`: the row the full check requires for wave 43, with the flag the owner settled on 9 September so a lane does not owe a performance run for a new wave. The next weekly sweep fills it in.
