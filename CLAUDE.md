@@ -50,14 +50,12 @@ Style and formatting are Biome's job: `bun run lint`, `bun run format`.
   It rebases, checks, fast-forwards, writes the release note, deletes the branch
   and sweeps spent worktrees. Do none of it by hand and skip no step.
 - **A landing does not push `origin/main`; `bun run push` does.**
-- **A finished lane lands on the local `main` before the turn ends, and the
-  rest is asked.** `tools/hooks/lane-finished.ts` blocks a stop in a worktree
-  that is clean and ahead of `main`. Run `bun run land --keep`, then put one
-  question to the owner with these three answers, no fourth:
-  **a) More to come** — nothing else happens.
-  **b) Send** — `bun run push`; the lane stays open.
-  **c) Finished** — `bun run sweep`; branch and spent worktrees go, `origin`
-  gets `main`. `NO_LANE_PROMPT=1` turns the hook off.
+- **A finished lane lands on the local `main` before the turn ends, and
+  nothing is asked.** `tools/hooks/lane-finished.ts` blocks a stop in a
+  worktree that is clean and ahead of `main`. Run `bun run land --keep`, say
+  what landed, and stop. **Never ask whether to push, sweep or deploy**: the
+  owner says `bun run push`, `bun run sweep` or a director deploy himself,
+  whenever he wants one. `NO_LANE_PROMPT=1` turns the hook off.
 - **Resolving a conflict is not finished until `bunx tsc --noEmit` passes**,
   before `git rebase --continue`. Never concatenate both sides of a file with
   syntax; resolve a generated file by running its command; for `docs/queue.md`

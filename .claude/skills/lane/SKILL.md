@@ -90,13 +90,15 @@ most landings leave the trunk local and say how many commits are waiting.
 one landing regardless.
 
 **A finished lane lands on the local trunk before the turn ends; the rest is
-the owner's.** The `Stop` hook `tools/hooks/lane-finished.ts` blocks the turn
-when the tree is clean and ahead of `main`: run `bun run land --keep` — which
-moves the local trunk and sweeps nothing, so the branch, this worktree and
-`origin` stay as they are — and then the owner picks one of three: nothing
-(more prompts coming, work carries on here), `bun run push` (`origin` gets
-`main`, the lane stays open), or `bun run sweep` (the lane is finished: the
-branch and spent worktrees go, and `origin` gets `main`).
+the owner's, and he asks for it himself.** The `Stop` hook
+`tools/hooks/lane-finished.ts` blocks the turn when the tree is clean and ahead
+of `main`: run `bun run land --keep` — which moves the local trunk and sweeps
+nothing, so the branch, this worktree and `origin` stay as they are — say what
+landed, and stop. Do not put a question after it: `bun run push` (`origin` gets
+`main`, the lane stays open), `bun run sweep` (the lane is finished: the branch
+and spent worktrees go, and `origin` gets `main`) and a director deploy happen
+when the owner says so, in his own message, and never because the work looks
+finished.
 
 Two things it will refuse, and both refusals are right: a dirty tree (a lane
 lands what it committed), and a branch that does not replay onto `main` (resolve

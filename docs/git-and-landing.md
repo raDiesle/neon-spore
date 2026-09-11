@@ -284,20 +284,25 @@ can answer without trusting anybody's account of the work —
 - is the branch ahead of `main`?
 
 — and, when all three say yes, blocks the stop and sends the session back with
-two things to do, in this order:
+one thing to do:
 
-1. **`bun run land --keep`**, from the Bash tool. The *local* trunk takes the
-   work and nothing else happens: no sweep, no push, the branch and the
-   worktree exactly where they were. If the check goes red, that is fixed
-   first; the hook asks about the same commit only once, so a landing that
-   failed is not re-run at the end of every turn with nothing new to say.
-2. **One question to the owner**, in three answers:
-   - **a) More to come** — nothing else happens. The lane stays a branch on
-     `main`'s tip and the next prompt continues it.
-   - **b) Send** — `bun run push`. `origin` gets `main`; the lane stays open.
-   - **c) Finished** — `bun run sweep`. The lane ends: the branch goes, spent
-     worktrees go, this tree is left detached on `main`'s tip, and the push
-     rides on the sweep the way it always does.
+**`bun run land --keep`**, from the Bash tool. The *local* trunk takes the work
+and nothing else happens: no sweep, no push, the branch and the worktree
+exactly where they were. If the check goes red, that is fixed first; the hook
+asks about the same commit only once, so a landing that failed is not re-run at
+the end of every turn with nothing new to say. Then the session says what
+landed and stops.
+
+What `--keep` leaves undone is the owner's to ask for, and **he asks for it
+himself, unprompted**: `bun run push` when `origin` should get `main` (the lane
+stays open), `bun run sweep` when the lane is over (the branch goes, spent
+worktrees go, this tree is left detached on `main`'s tip, and the push rides on
+the sweep the way it always does), or a director deploy. Until 11 September
+2026 those were put to him as three answers at the end of every landed turn —
+*more to come*, *send*, *finished* — and he retired the question: he answered
+it the same way nearly every time, the lane's state is visible to him anyway,
+and a tap he does not need is a tap he does not want. A session never runs any
+of the three because the work looks finished.
 
 The hook does not run the landing itself, though it could. It is minutes of
 `bun run check` whose output the session has to see when it goes red, and on a
@@ -313,10 +318,10 @@ only way out, which is the one thing this tool exists to stop. `--sweep` skips
 the replay, the check and the fast-forward, because the trunk already has all
 three, and runs everything that comes after them.
 
-(b) reaches the remote without ending the lane, on purpose — reaching `origin`
-is a decision of its own rather than a consequence of the lane ending. It is the
-same argument as the section above: the push is not a step of landing, it is a
-thing somebody decides.
+A push reaches the remote without ending the lane, on purpose — reaching
+`origin` is a decision of its own rather than a consequence of the lane ending.
+It is the same argument as the section above: the push is not a step of
+landing, it is a thing somebody decides.
 
 The clean-tree question is the load-bearing one: mid-task work is never asked
 about, by construction, because mid-task work is uncommitted. Everything else —
@@ -326,8 +331,8 @@ and it refuses on its own terms, before the trunk has moved.
 It shares the `Stop` event with `check-on-stop.ts`, and they never do the same
 work twice: that one returns immediately when the tree is clean, this one
 returns immediately when it is not. `stop_hook_active` guards the second round,
-so the landing is asked for once per turn and a lane the owner said (a) about is
-not nagged again in the same breath.
+so the landing is asked for once per turn and a landed lane is not nagged again
+in the same breath.
 
 **After its own landing a session is standing on a detached `HEAD`.** The
 landing deleted the branch — the branch is spent, its tip is an ancestor of

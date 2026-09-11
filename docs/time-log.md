@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — The lane question is retired
+
+The owner said a landed lane must no longer ask whether to push, sweep or deploy; the rule, the hook message, its test, the reasoning doc and the lane skill now say: land with --keep, report, stop.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | reading |
+| writing | 10 | writing |
+| looking | 0 | looking |
+| friction | 5 | friction |
+| landing | 5 | landing |
+
+Bottleneck: A python heredoc with apostrophes in it broke under the Bash tool again, so the edit script went through a file.
+
 ## 2026-09-11 · hit-looks — Three burning meteors offered in VERSUS
 
 Three new creature:meteor candidates — BLAZE (a torch's fireball round a scorched, cratered stone), COMET (rusted iron under a long plume) and SMOULDER (a black stone burning on its underside, under a column of smoke) — each shedding small pieces with their own smoke up the wake, each keeping the shot marks; shared fire and smoke helpers in tools/versus/wake.ts and wake-fire.ts.

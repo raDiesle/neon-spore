@@ -133,13 +133,13 @@ export function branchForDetached(worktree: string, taken: readonly string[]): s
  * than a suggestion because a blocked stop is the session's whole account of
  * why it is still going, and "consider asking" is how a rule becomes optional.
  *
- * The landing comes first and is not a question. The three options after it are
- * the owner's own, and two axes cross in them — does `origin` get the trunk,
- * and is the lane over. (b) reaches the remote without ending the lane, on
- * purpose: reaching the remote is its own decision, not a consequence of the
- * other one. The fourth option a session would invent — sweeping or pushing
- * quietly because the work is obviously finished — is the behaviour this file
- * exists to stop.
+ * The landing is the whole of it. What `--keep` leaves undone — does `origin`
+ * get the trunk, is the lane over — used to be put to the owner as three
+ * options, and on 11 September 2026 he retired the question: he says `bun run
+ * push`, `bun run sweep` or a director deploy himself, whenever he wants one.
+ * So the session lands, reports, and stops; doing any of those three unasked
+ * because the work is obviously finished is the behaviour this file exists to
+ * stop, and asking about them is the behaviour he stopped.
  */
 export function question(branch: string, ahead: number): string {
   const count = ahead === 1 ? "1 commit" : `${ahead} commits`;
@@ -147,14 +147,11 @@ export function question(branch: string, ahead: number): string {
     `${branch} is finished — ${count}, nothing uncommitted. Land it on the local`,
     "trunk now, from the Bash tool:  bun run land --keep  — the local main moves and",
     "nothing else does: no sweep, no push, work carries on here. If it goes red,",
-    "fix that first. Once it has landed, put the rest to the owner as one question",
-    "with these three options, then do what the answer says:",
+    "fix that first. Once it has landed, say what landed and stop.",
     "",
-    "  a) More to come   nothing else happens; the lane stays open for the next prompt",
-    "  b) Send           bun run push   — origin gets main, the lane stays open",
-    "  c) Finished       bun run sweep  — the branch and spent worktrees go, origin gets main",
-    "",
-    "Land before you ask, ask once, and do not invent a fourth option.",
+    "Do not ask whether to push, sweep or deploy, and do not do any of them: the",
+    "owner asks for  bun run push ,  bun run sweep  or a director deploy himself,",
+    "whenever he wants one.",
   ].join("\n");
 }
 

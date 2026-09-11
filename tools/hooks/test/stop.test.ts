@@ -157,28 +157,23 @@ describe("what the session is sent back to do", () => {
     expect(question("claude/a-lane", 1)).toContain("1 commit,");
   });
 
-  /** The local trunk is not a question any more: it is landed first, every time. */
-  it("says to land on the local trunk before asking anything", () => {
+  /** The local trunk is not a question: it is landed first, every time. */
+  it("says to land on the local trunk", () => {
     expect(asked).toContain("bun run land --keep");
-    expect(asked).toContain("Land before you ask");
+    expect(asked).toContain("say what landed and stop");
     expect(asked).not.toContain("bun run land --push");
   });
 
   /**
-   * (b) reaches the remote without ending the lane, which is the distinction
-   * the owner asked for: reaching `origin` is a decision of its own, separate
-   * from whether the lane is over.
+   * The owner retired the push / sweep question on 11 September 2026: he asks
+   * for each himself. The message names them only to say they are his to ask
+   * for, never as options.
    */
-  it("carries the three options left, and the command for each one that has one", () => {
-    expect(asked).toContain("nothing else happens");
-    expect(asked).toContain("bun run push");
-    expect(asked).toContain("bun run sweep");
-    expect(asked).toContain("the lane stays open");
-  });
-
-  it("says to ask once, and not to invent a fourth option", () => {
-    expect(asked).toContain("ask once");
-    expect(asked).toContain("fourth option");
+  it("neither asks about pushing or sweeping nor does them", () => {
+    expect(asked).toContain("Do not ask whether to push, sweep or deploy");
+    expect(asked).toContain("do not do any of them");
+    expect(asked).not.toContain("a) ");
+    expect(asked).not.toContain("three options");
   });
 });
 
