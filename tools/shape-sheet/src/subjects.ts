@@ -1,4 +1,5 @@
 import {
+  CHOKE,
   CRAWLER,
   CRAWLER_PULSE,
   type CrawlerSilhouette,
@@ -213,6 +214,9 @@ export const SUBJECTS: Subject[] = [
   // `living-look.ts` gives it no row: `render/gum.ts` draws it, and on the
   // ship it is a smear rather than this contour at all.
   blob("GUM", GUM, "a sac hung heavy, narrow at the top · THE WEIGHT's draft, on the field"),
+  // THE CHOKE's body in the air — TENDRIL's sac, the same way
+  // (`content/silhouettes-choke.ts`); on the ship it is loops round the cannon.
+  blob("CHOKE", CHOKE, "a strand, tall and boneless · TENDRIL's draft, on the field"),
   // The faceted four, in one list of their own: the rock, the same rock with
   // its rider on it, the torch and the queen's shell (`rock-subjects.ts`).
   ...ROCK_SUBJECTS,

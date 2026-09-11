@@ -63,7 +63,7 @@ table in a document cannot be wrong in a way a compiler notices.
 
 | Category | Answered by | Members today |
 |---|---|---|
-| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand`, `magnet`, `choir`, `gum` |
+| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand`, `magnet`, `choir`, `gum`, `choke` |
 | `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch`, `veer`, `coil` |
 | `mixed` | `aim` and `guard` | `queen`, `warden`, `clasp`, `carom`, `volley`, `crawler`, `fence`, `crystal` |
 | `special` | neither | `tether`, `mount`, `chute`, `beatbox`, `balloon` |
@@ -138,11 +138,11 @@ directly, `"suck"`, after what taking one in is called throughout the sim
 | **Gum** | THE WEIGHT's sac in the palette's venom green, falling straight down one lane; a flat smear across the plating with drips off it once it has landed | it cannot be shot and the shield does not stop it; it sticks to the ship and shuts the cannon in its columns until player 2 swipes it toward the nearer wall — which only works while player 1 has the cannon parked under it. The wrong way spreads it a lane wider |
 | **Throb** | six clubs on a small core, red down one side and cyan down the other, turning clockwise | colour *and* timing in one call |
 | **Lure** | a slick or a bulb that only the navigator can see through | do *not* hit it (costs the hull) |
-| **Choke** | docks on, shuts one control | inverted instruction |
+| **Choke** | TENDRIL's sac in the palette's bile yellow, tall and boneless, falling straight down one lane with two hooks under it; wound round the cannon's swelling once it has landed, and round player 1's strip node | it cannot be shot and the shield does not stop it; it lands, takes the cannon, and the cannon strip goes dead while the cannon walks wall to wall a column a beat. Player 2 keeps firing from wherever it is. Player 1 taps the dead strip, a lift between each — how many loops are still tight is the count, on both screens — `chokeTaps` times, and it lets go |
 | **Glyph** | pattern across its skin | look it up in a table |
 | **Pod** | capsule with a blinking core | power-up |
 
-Built: slick, bulb, meteor, lure, throb, dart, veil, strand, torch, crystal, gum.
+Built: slick, bulb, meteor, lure, throb, dart, veil, strand, torch, crystal, gum, choke.
 Slick, bulb and meteor carry the teaching waves; the torch is the meteor's own
 widened relative, not one of the original thirteen. Lure, throb, dart, veil and
 strand are the next five of that thirteen — none of them needed a new control
@@ -527,7 +527,8 @@ tearing; it does not decide anything.
   four?" is an eye test, not a communication task
 
 **Merged:** brood fibre and root are absorbed into the **Colony** · the
-Splitter is the **Crystal** · the Inverter is the **Choke** · the runt cloud is
+Splitter is the **Crystal** · the Inverter is the **Choke**, built as wave
+THE CHOKE (`packages/content/src/waves/act-7a.ts`) · the runt cloud is
 a later stage of the retired **Runt**, whose slot THE LURE now holds
 
 **Name clash:** *Echo* used to be the name of a creature that appears one
@@ -565,13 +566,6 @@ anybody starts building.
 The director reads this section and puts it on the NOT BUILT YET card
 (`tools/director/src/plain-words.ts`), so no name on that page stands with
 nothing under it.
-
-### Choke
-
-- **What it does:** it docks onto the ship and switches one control off. What you are told to do and what your hands can still do stop agreeing.
-- **Player 1:** if it takes the cannon, the pilot can only talk — and has to say where the cannon was going.
-- **Player 2:** if it takes a colour, the navigator can only talk.
-- **To finish it:** decide which control it takes, for how long, and how the pair gets it back. THE MALFUNCTION already runs this idea as a fault on the wave rather than as a body, and the owner took its relief button out — so decide what a choke has that a malfunction does not, or drop the name.
 
 ### Glyph
 

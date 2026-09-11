@@ -287,8 +287,11 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/rock-cross.ts` | **A rock authored to cross the field instead of holding its lane** |
 | `packages/sim/src/choir-gesture.ts` | **The hand on THE CHOIR**, which is the half of that creature nothing else in this game has |
 | `packages/sim/src/choir.ts` | THE CHOIR: three dots in one membrane, and the first body in this game that **no button can reach** |
+| `packages/sim/src/choke.ts` | **THE CHOKE**: a tall boneless body that falls straight down one lane, cannot be shot |
 | `packages/sim/src/config-choir.ts` | THE CHOIR's numbers: how far a hand has to carry an arrow, how long the pair has between the two of them |
+| `packages/sim/src/config-choke.ts` | THE CHOKE's numbers: how many taps get it off the cannon, how fast it drags the cannon while it has it |
 | `packages/sim/src/events-choir.ts` | **THE CHOIR's three**: an arrow out, both in, and the window gone |
+| `packages/sim/src/events-choke.ts` | **Everything THE CHOKE does**, as events: it takes the cannon, it is tapped, and it lets go |
 | `packages/sim/src/command-round.ts` | **The rounds' own verbs**, as their half of the `Command` union |
 | `packages/sim/src/config-pulse.ts` | THE PULSE's numbers — the step grid, the two windows a press is judged in |
 | `packages/sim/src/pulse-chart.ts` | THE PULSE's chart, as arithmetic: where a note is in time, which note a press is aimed at |
@@ -331,6 +334,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/shapes.ts` | contour maths, shared by canvas and SVG |
 | `packages/content/src/silhouettes.ts` | the style guide's tuned shape parameters |
 | `packages/content/src/silhouettes-clubbed.ts` | The one body whose contour is **walked** |
+| `packages/content/src/silhouettes-choke.ts` | **THE CHOKE in the air: TENDRIL's sac**, taken off the shape sheet whole |
 | `packages/content/src/own-motion.ts` | how a body sways while going nowhere — the one copy of it |
 | `packages/content/src/long-axis.ts` | which way a body is long, and the quarter turn a motion written along one takes |
 | `packages/content/src/control-sets.ts` | a control set: the whole panel, both players at once, for one wave |
@@ -435,6 +439,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-gum.ts` | THE GUM's rehearsal: it sticks, the cannon is parked under it, and a swipe toward the near wall takes it off |
 | `packages/content/src/control-sets-keys.ts` | Whether a panel answers a command — what the desk keyboard is gated by |
 | `packages/content/src/waves/act-7b.ts` | The second half of act seven, cut off `act-7.ts` when THE COIL was split into two waves and that file reached… |
+| `packages/content/src/waves/act-7a.ts` | One wave, between the two halves of act seven: **THE CHOKE** |
 | `packages/content/src/scenes/the-coil.ts` | THE COIL's rehearsal: the shield is stuck open, and the plate is what opens the dome |
 | `packages/content/src/keys-desk.ts` | **The desk keyboard is a panel too**, and this is where a key finds out what it means |
 | `packages/content/src/control-aim.ts` | Which way a control points, and which rig of keys answers it |
@@ -803,6 +808,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/intro-flash.ts` | THE LOUD HALF OF THE INTRO: a headline on a lit slab, a price-tag flash |
 | `packages/render/src/creature-body.ts` | Which body draw a kind gets, as a lookup a stray statement cannot sever |
 | `packages/render/src/effects-spark-silent.ts` | The events that are deliberately not a burst, and why each one is not |
+| `packages/render/src/effects-spark-handed.ts` | The bursts for the bodies answered by hands alone (`creatures-handed.ts`) |
 | `packages/render/src/maze-fall.ts` | THE MAZE coming apart, which is what a dead end looks like |
 | `packages/render/src/maze-stage.ts` | How far through THE MAZE the pair is: one cell per stage, under the ship's own hull bar |
 | `packages/render/src/lure-blast.ts` | A LURE GOING UP, AND THE WHOLE SCREEN WITH IT |
@@ -902,6 +908,9 @@ place — the generator keeps whatever is there.
 | `packages/render/src/choir-shape.ts` | where THE CHOIR's two bodies stand and the skin traced over them — the shape half, with no light or colour in it |
 | `packages/render/src/choir-skin.ts` | **The light THE CHOIR throws and the film it wears** — the surface half of this creature |
 | `packages/render/src/choir-look.ts` | THE ONE RECORD A CANDIDATE CHOIR SURFACE PATCHES |
+| `packages/render/src/choke-coil.ts` | **The coil, which is THE CHOKE's one word said in two places.** On the field the choke is wound round the… |
+| `packages/render/src/choke-strip.ts` | **Player 1's cannon strip while THE CHOKE has the cannon.** Drawn over the strip the band has just drawn |
+| `packages/render/src/choke.ts` | THE CHOKE, drawn in its two states: a strand coming down a lane with its hooks opening |
 | `packages/render/src/action-face.ts` | Player 1's action buttons, showing the ship doing the thing instead of spelling its name |
 | `packages/render/src/beatbox-marks.ts` | THE BEATBOX's two half-pictures: the **count** over the box on player 1's screen |
 | `packages/render/src/beatbox-tap.ts` | **Player 2's thumb on a soundbox**, and the first press in this game that lands on a *body* and is over the… |
@@ -991,10 +1000,12 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-cue.ts` | **What one sound-to-be is**: an id out of the catalogue, where it sits in the stereo field |
 | `packages/audio/src/bind-veil.ts` | THE VEIL's three, as sounds |
 | `packages/audio/src/bind-choir.ts` | THE CHOIR's three, in a file of its own |
+| `packages/audio/src/bind-choke.ts` | THE CHOKE's three, in a file of their own on `bind-gum.ts`'s pattern |
 | `packages/audio/src/mixer-pulse.ts` | THE PULSE's song, played off the simulation's own clock |
 | `packages/audio/src/bind-beatbox.ts` | THE BEATBOX's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
 | `packages/audio/src/bind-balloon.ts` | THE BALLOON's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
 | `packages/audio/src/bind-gum.ts` | THE GUM's four, in a file of their own on `bind-balloon.ts`'s pattern |
+| `packages/audio/src/bind-mirror.ts` | THE MIRROR's four and THE MAZE's four |
 
 ### apps/game
 
@@ -1522,6 +1533,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/entry-fields-balloon.ts` | **THE BALLOON's one authored fact**: how fast it climbs |
 | `tools/director/src/field-controls-balloon.ts` | THE BALLOON's two handles, in a file of their own |
 | `tools/director/src/field-controls-gum.ts` | THE GUM's one handle, in a file of its own on `field-controls-balloon.ts`'s pattern |
+| `tools/director/src/field-controls-choke.ts` | THE CHOKE's one gesture, in a file of its own on `field-controls-gum.ts`'s pattern |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-notes-round.ts` | The paragraph under each **round's** card |
 | `tools/style-guide/src/colour.ts` | the swatch grid and the hue dial — every colour under its rule, and the twelve body hues at their measured angles |

@@ -1,5 +1,5 @@
 import { type ControlSet, controlPress, type Point, setHas } from "@neon-spore/content";
-import { NO_GRIP } from "@neon-spore/sim";
+import { NO_GRIP, stuckChoke } from "@neon-spore/sim";
 import { beatboxUnder } from "./beatbox-tap.js";
 import { creatureAt } from "./creature-place.js";
 import { handleUnder } from "./handles.js";
@@ -76,6 +76,20 @@ export function touchDown(l: Layout, x: number, y: number, field: Field): Touch 
       setHas(field.controls, "cannon") &&
       Math.abs(y - l.cannonStrip.y) <= l.cannonStrip.height * 0.75
     ) {
+      // **The strip is dead while THE CHOKE has the cannon**, and a press on
+      // it is a tap: what goes to the ship is a grab on the choke, counted
+      // once per hand that lands, and the column under the thumb is not read
+      // at all (`sim/choke.ts`). Decided here rather than in the simulation
+      // alone because the *hold* is different — a slide on a dead strip
+      // sends nothing, and the lift is what lets the next tap count.
+      const choke = stuckChoke(field.creatures);
+      if (choke) {
+        return {
+          player: 1,
+          command: { kind: "drag", target: "choke", on: true, fromMilli: 0, id: choke.id },
+          hold: { kind: "drag", target: "choke", player: 1, originX: x, originY: y, id: choke.id },
+        };
+      }
       return {
         player: 1,
         command: { kind: "cannonCol", col: colFromX(l, x) },

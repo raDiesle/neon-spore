@@ -186,10 +186,11 @@ const LIVING_LOOK = {
   // two hands stretching it towards opposite walls would come out as one body
   // growing evenly. `render/balloon.ts` draws it off the pulls themselves.
   balloon: null,
-  // THE GUM wears THE WEIGHT's sac (`silhouettes-gum.ts`) in the air and is
-  // a smear across the hull once it lands, neither of which is a body with a
-  // motion of its own: `render/gum.ts` draws both states off the world.
+  // THE GUM and THE CHOKE wear a sac off the sheet in the air and are on the
+  // ship once they land, with no motion of their own in either state:
+  // `render/gum.ts` and `render/choke.ts` draw both off the world.
   gum: null,
+  choke: null,
 } as const satisfies Record<CreatureKind, { shape: CreatureSilhouette; motion: OwnMotion } | null>;
 
 /**

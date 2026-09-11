@@ -189,4 +189,8 @@ export const TALKER = {
   // half a gesture, the cannon under it and the swipe across it, and neither
   // half is anything on its own.
   gum: "both",
+  // Both again, for the gum's reason turned round: the pilot has to say how
+  // many taps are left and the navigator where the cannon will be on the
+  // beat she fires, and neither can read the other's off the screen.
+  choke: "both",
 } as const satisfies Record<CreatureKind, Talker | null>;

@@ -173,8 +173,8 @@ export const CREATURE_SOUNDS: SoundDef[] = [
     id: "creature.chokeDock",
     family: "creature",
     blurb: "A clamp closing over a control, and the control going dead under it.",
-    status: "spare",
-    use: "The choke shutting one control — the inverted instruction.",
+    status: "bound",
+    use: "THE CHOKE taking the cannon: the strip goes dead under it (`bind-choke.ts`).",
     level: 0.34,
     layers: [
       metal(140, 0.12, 0.5, 130),

@@ -92,4 +92,16 @@ export type ManyKind =
    * holds the whole of it; `Creature.gumStuck`, `gumPull` and `gumSpent` are
    * the whole of its state.
    */
-  | "gum";
+  | "gum"
+  /**
+   * A tall boneless body that falls straight down one lane, cannot be shot,
+   * is not stopped by the shield and does not break the hull: it **takes the
+   * cannon by the throat**. From the beat it is drawn standing on the ship
+   * the cannon strip answers nobody and the cannon sweeps wall to wall a
+   * column a beat, and player 2 goes on firing from wherever it happens to
+   * be. What gets it off is player 1 tapping the dead strip, over and over —
+   * `chokeTaps` fresh presses, a lift between each — and every tap loosens
+   * its grip by one. `choke.ts` holds the whole of it; `Creature.chokeStuck`,
+   * `chokeTaps`, `chokeHeld` and `chokeDir` are the whole of its state.
+   */
+  | "choke";

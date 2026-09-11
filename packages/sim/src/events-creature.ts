@@ -2,6 +2,7 @@ import type { BalloonEvent } from "./events-balloon.js";
 import type { BeatboxEvent } from "./events-beatbox.js";
 import type { CaromEvent } from "./events-carom.js";
 import type { ChoirEvent } from "./events-choir.js";
+import type { ChokeEvent } from "./events-choke.js";
 import type { CoilEvent } from "./events-coil.js";
 import type { CrawlerEvent } from "./events-crawler.js";
 import type { CrystalEvent } from "./events-crystal.js";
@@ -192,10 +193,11 @@ export type CreatureEvent =
   // this file over its limit. One arrival taken apart, rather than four
   // incidents that happen to share a creature.
   | CaromEvent
-  // And THE CRYSTAL's three (`events-crystal.ts`) and THE GUM's four
-  // (`events-gum.ts`), on the same terms.
+  // And THE CRYSTAL's three (`events-crystal.ts`), THE GUM's four
+  // (`events-gum.ts`) and THE CHOKE's three (`events-choke.ts`), on the same terms.
   | CrystalEvent
   | GumEvent
+  | ChokeEvent
   // And THE VOLLEY's two — the ward that sends it back and the shell bursting
   // over the body — are `events-volley.ts`, on exactly the same terms: one
   // arrival taken apart, in a file of its own because this one is at its
@@ -210,11 +212,9 @@ export type CreatureEvent =
   // open — are `events-fence.ts`, on the same terms as the three above.
   | FenceEvent
   // And THE MAGNET's two — the plate turning a bolt away and the arch coming
-  // apart when one got past it — are `events-magnet.ts`, on the same terms as
-  // the four above: one arrival taken apart, in a file of its own because this
-  // one is at its limit.
+  // apart when one got past it — are `events-magnet.ts`, on the same terms.
   | MagnetEvent
-  // And THE COIL's two, on the same terms as the five above (`events-coil.ts`).
+  // And THE COIL's two, on the same terms as the six above (`events-coil.ts`).
   | CoilEvent
   // And THE CHOIR's three, on the same terms and cut out for the same reason
   // (`events-choir.ts`) — the first group in this list that is about the
@@ -237,6 +237,7 @@ export type { BeatboxEvent } from "./events-beatbox.js";
 export type { CaromEvent } from "./events-carom.js";
 // Re-exported so nothing that reaches for one through this file has to move.
 export type { ChoirEvent } from "./events-choir.js";
+export type { ChokeEvent } from "./events-choke.js";
 export type { CoilEvent } from "./events-coil.js";
 export type { CrawlerEvent } from "./events-crawler.js";
 export type { CrystalEvent } from "./events-crystal.js";

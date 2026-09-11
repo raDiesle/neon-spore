@@ -98,7 +98,7 @@ grain changes the game's voice and should be rare; adding a sound is not.
 | `mirror` | THE MIRROR's half of a sequence, and the verdict | 15 of 17 |
 | `ui` | menu, room, banner, balance sheet | 2 of 17 |
 | `ambient` | the room; never a foreground sound | 0 of 8 |
-| `creature` | the bestiary, built and unbuilt | 12 of 38 |
+| `creature` | the bestiary, built and unbuilt | 13 of 38 |
 | `assist` · `signal` | the couplings and the assists | 7 of 21 |
 | `swarm` · `motion` · `ruin` | the field, and things ending | 2 of 20 |
 | `music` | the instruments a theme is played on, and not in `CATALOGUE` at all — section 8 | — |
@@ -110,7 +110,7 @@ in a noisy room throws away.
 
 ## 5 · Built and unspent
 
-113 of the 219 are `spare`: finished, tested, and nothing plays them. That is
+112 of the 219 are `spare`: finished, tested, and nothing plays them. That is
 deliberate. A creature that is still a name in `bestiary.md` is easier to argue
 about once you can hear what it would sound like, and several idea-store entries stand or fall on exactly that — the
 countdown creature is three pips and a hole where the fourth should be, and
@@ -134,7 +134,7 @@ The `BOUND` stamp is not a label anyone maintains: the test reads `bind.ts`,
 `bind-creatures.ts`, `bind-carom.ts`, `bind-coil.ts`, `bind-crawler.ts`,
 `bind-fence.ts`,
 `bind-veil.ts`, `bind-volley.ts`,
-`bind-fleet.ts`, `bind-choir.ts`, `bind-beatbox.ts`, `bind-breach.ts`, `bind-gum.ts`, `bind-lookups.ts`, `mixer.ts` and
+`bind-fleet.ts`, `bind-choir.ts`, `bind-beatbox.ts`, `bind-breach.ts`, `bind-gum.ts`, `bind-choke.ts`, `bind-mirror.ts`, `bind-lookups.ts`, `mixer.ts` and
 `mixer-boss.ts`, `mixer-pulse.ts` and fails if a sound claims to
 be wired and is not, or is
 played and claims to be spare. A handful of bound

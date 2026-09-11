@@ -1,4 +1,5 @@
 import { markMoment } from "./balance.js";
+import { chokeLands } from "./choke.js";
 import { hullRow } from "./config.js";
 import { fenceIsOpen } from "./fence.js";
 import { gumLands } from "./gum.js";
@@ -68,6 +69,14 @@ export function resolveHull(world: World): void {
     // shape of that: a body with an answer of its own.
     if (c.kind === "gum") {
       if (c.row >= shipRow) gumLands(world, c, shipRow);
+      survivors.push(c);
+      continue;
+    }
+    // And THE CHOKE, on the gum's terms exactly: it never breaks the hull,
+    // the shield has nothing to say to it, and on the beat it is drawn
+    // standing on the ship it takes the cannon (`choke.ts`).
+    if (c.kind === "choke") {
+      if (c.row >= shipRow) chokeLands(world, c, shipRow);
       survivors.push(c);
       continue;
     }

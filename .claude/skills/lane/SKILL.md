@@ -39,6 +39,17 @@ the index and every clone since writes it out wrong — which is how one lane's
 and is nobody's to format: the desktop harness rewrites it with CRLF whenever
 it opens a worktree.
 
+**A Python script that edits a source file opens it with `newline=""`**, for
+reading and for writing. Python's text mode on Windows turns every `
+` into
+`
+` on the way out, and on 11 September 2026 one lane's edit scripts put
+carriage returns into 45 files before biome refused the lot; the fix is one
+argument, not a normalising pass afterwards. **A commit message with a dash
+or a quote in it goes through `git commit -F <file>`**, never through
+`-m "$(cat <<'EOF' ...)"` — that form hangs the Bash tool waiting for an EOF
+it never sees, and the lane finds out two minutes later.
+
 `bun install` there does **not** put `@neon-spore/*` in a root `node_modules` —
 the links land under each package's own. A throwaway script written at the
 repository root therefore cannot `import "@neon-spore/shape-sheet"` and has to

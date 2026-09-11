@@ -20,17 +20,10 @@ import {
  * second copy elsewhere would be caught.
  */
 const COLORS = ["red", "cyan"] as const;
+// biome-ignore format: one line a row of the sim's DragTarget union, kept flat so the file stays under its limit
 const DRAG_TARGETS: readonly DragTarget[] = [
-  "mazeString",
-  "wardenTether",
-  "lidString",
-  "gripBody",
-  "choirLeft",
-  "choirRight",
-  "balloonLeft",
-  "balloonRight",
-  "gum",
-  "crank",
+  "mazeString", "wardenTether", "lidString", "gripBody", "choirLeft", "choirRight",
+  "balloonLeft", "balloonRight", "gum", "crank", "choke",
 ];
 
 const isColor = (x: unknown): x is Color =>

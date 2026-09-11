@@ -31,4 +31,9 @@ export const BALLOON_FIELDS = {
   gumSwipeMilli: "THE GUM — a mass stuck to the ship, swiped off by the seat without the cannon",
   gumSpreadCols: "THE GUM — a mass stuck to the ship, swiped off by the seat without the cannon",
   scoreGumFlung: "SCORE",
+  // And THE CHOKE's three, on the gum's terms: a body on the ship with a
+  // gesture on it, this time the seat whose control it took.
+  chokeTaps: "THE CHOKE — a body on the cannon, tapped off by the seat whose cannon it was",
+  chokeSweepBeats: "THE CHOKE — a body on the cannon, tapped off by the seat whose cannon it was",
+  scoreChokeFreed: "SCORE",
 } satisfies Partial<Record<keyof SimConfig, GroupName>>;

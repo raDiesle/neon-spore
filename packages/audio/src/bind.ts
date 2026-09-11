@@ -17,6 +17,7 @@ import { beatboxCue } from "./bind-beatbox.js";
 import { breachCue } from "./bind-breach.js";
 import { caromCue } from "./bind-carom.js";
 import { choirCue } from "./bind-choir.js";
+import { chokeCue } from "./bind-choke.js";
 import { coilCue } from "./bind-coil.js";
 import { crawlerCue } from "./bind-crawler.js";
 import { creatureCue } from "./bind-creatures.js";
@@ -24,7 +25,8 @@ import type { Cue } from "./bind-cue.js";
 import { fenceCue } from "./bind-fence.js";
 import { fleetCue } from "./bind-fleet.js";
 import { gumCue } from "./bind-gum.js";
-import { MIRROR_STEP_SOUNDS, POD_TAKEN_SOUNDS } from "./bind-lookups.js";
+import { POD_TAKEN_SOUNDS } from "./bind-lookups.js";
+import { mirrorCue } from "./bind-mirror.js";
 import { panForCol, pitchForRow } from "./bind-place.js";
 import { volleyCue } from "./bind-volley.js";
 
@@ -132,42 +134,17 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
       return { id: "impact.petal", pan: panForCol(e.col, cols) };
     case "queenDown":
       return { id: "boss.queenDown", pan: panForCol(e.col, cols) };
+    // THE MIRROR's four and THE MAZE's four, in `bind-mirror.ts`: the two
+    // rounds that are a call and an answer rather than a body meeting a shot.
     case "mirrorShow":
-      return { id: MIRROR_STEP_SOUNDS[e.step] ?? "mirror.handover", pan: panForCol(e.col, cols) };
     case "mirrorEcho":
-      // Each step answered sits a little higher than the one before it, so a
-      // long round is heard to be going well without anyone saying so.
-      return { id: "mirror.echo", pitch: 1 + (e.index - 1) * 0.06 };
     case "mirrorVerdict":
-      if (e.right) return { id: "mirror.verdictRight", pan: panForCol(e.col, cols) };
-      return {
-        id:
-          e.reason === "bait"
-            ? "mirror.bait"
-            : e.reason === "silence"
-              ? "mirror.silence"
-              : "mirror.verdictWrong",
-        pan: panForCol(e.col, cols),
-      };
     case "mirrorDown":
-      return { id: "mirror.down", pan: panForCol(e.col, cols) };
     case "mazeCommit":
-      // The shot going into a mouth. `mirror.handover` is the cue written for
-      // "your turn is over, the answer is out of your hands now", which is
-      // exactly what committing to a mouth is.
-      return { id: "mirror.handover", pan: panForCol(e.col, cols) };
     case "mazeProbe":
-      // One cell further in, and a step higher each time, so a shot still
-      // travelling is heard to be getting somewhere without anyone saying so.
-      return { id: "mirror.echo", pitch: 1 + e.ring * 0.06 };
     case "mazeVerdict":
-      if (e.right) return { id: "mirror.verdictRight", pan: panForCol(e.col, cols) };
-      return {
-        id: e.reason === "silence" ? "mirror.silence" : "mirror.verdictWrong",
-        pan: panForCol(e.col, cols),
-      };
     case "mazeDown":
-      return { id: "mirror.down", pan: panForCol(e.col, cols) };
+      return mirrorCue(e, cols);
     // THE FLEET's five, in `bind-fleet.ts`: they carry more of the fight than
     // any other row in the catalogue, and four of the five are held back by
     // the shell's flight rather than sounding where they are bound.
@@ -225,6 +202,10 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "gumFlung":
     case "gumSpread":
       return gumCue(e, cols, rows);
+    case "chokeGrip":
+    case "chokeTap":
+    case "chokeFreed":
+      return chokeCue(e, cols);
     case "caromBounce":
     case "caromCrack":
     case "caromEject":

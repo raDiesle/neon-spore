@@ -1,5 +1,6 @@
 import { guardArmed, mawOpen, ticksPerBeat, wispOnField } from "@neon-spore/sim";
 import { drawTakeover } from "./canvas2d-takeover.js";
+import { drawStuckChokes } from "./choke.js";
 import type { ClaspFrames } from "./clasp-frames.js";
 import { drawBodies, drawFieldBack, drawOverlays, drawShip } from "./frame-passes.js";
 import { drawStuckGums } from "./gum.js";
@@ -206,6 +207,9 @@ export class Canvas2DRenderer implements Renderer {
     // finished hull: its drips hang down the plating, which the ship pass
     // would otherwise cover (`gum.ts`).
     drawStuckGums(ctx, l, world, surfaceY, view.time);
+    // And THE CHOKE on the cannon, on the eased cannon the ship pass drew
+    // (`choke.ts`).
+    drawStuckChokes(ctx, l, world, hull.cannonX, surfaceY, view.time);
     drawOverlays(ctx, l, world, view, {
       armed: isArmed,
       open: isOpen,

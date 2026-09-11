@@ -5,6 +5,7 @@ import { drawLobe } from "./band-control.js";
 import { drawBandGround } from "./band-ground.js";
 import { BAND_JOIN } from "./band-join.js";
 import { chamberPath, drawSeamFlesh, drawSeamSpill, seamTop, seamY } from "./band-seam.js";
+import { drawChokeStrip } from "./choke-strip.js";
 import { bandLobes, type Layout, type Lobe, showsCannon, showsShield, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { seatSkin } from "./seat-skin.js";
@@ -175,7 +176,11 @@ function drawHalf(
   lead = 0,
 ): void {
   for (const c of setControls(set, player)) {
-    if (c.form === "strip") drawStripFor(ctx, l, world, c);
+    if (c.form !== "strip") continue;
+    drawStripFor(ctx, l, world, c);
+    // Over the cannon strip while THE CHOKE has the cannon: the rail dead,
+    // the body on the node, and the tapping asked for (`choke-strip.ts`).
+    if (c.id === "cannon") drawChokeStrip(ctx, l, world, time, seatSkin(l.role));
   }
   // The lobes come from `bandLobes` rather than from named fields of the
   // layout, and `touchDown` asks it the same question with the same set — so

@@ -22,6 +22,24 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — THE CHOKE
+
+A body that takes the cannon: the strip goes dead, the cannon walks wall to
+wall, player 1 taps it off. Rules, six tables, a wave in act 7, the look on
+the field and on the strip, its sounds, the director's rows, the bestiary
+card retired. About 160 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | `gum.ts` both sides, `malfunction.ts`, the strip look, the spine, `touch.ts`, the band's draw order, the frames tool's flags, nine pinned-count tests |
+| writing | 75 | `sim/choke.ts` and its config and events, the codec, the six tables, `act-7a.ts`, `render/choke.ts`, `choke-coil.ts`, `choke-strip.ts`, `bind-choke.ts`, the replay and frame tests, the director rows, the bestiary |
+| looking | 15 | four `bun run frames` pictures: the loops merged into a block at the first stack height, the hooks tangled once |
+| friction | 30 | Python's text mode wrote CRLF into 45 files and biome refused them; a commit message in a `$(cat <<EOF)` hung bash and was written to a file; six files at the 250-line ceiling (`bind.ts`, `effects-spark.ts`, `act-7b.ts`, `events-creature.ts`, three tables), each split or trimmed; `--hold` had no lift, so the frames tool learnt `choke=up` |
+| landing | 15 | `check:fast` four times over the pinned counts, the commit, `land --keep` |
+
+Bottleneck: **friction** — a new creature touches every table the game has,
+and five of them were already standing on the 250-line ceiling.
+
 ## 2026-09-11 · hit-looks — panel:band-skin opened with POLYP, VESICLE and SUCKER
 
 Three candidates for the bed, gloss, life and slime round a button on GLAND's panel; a module cycle band-join / gland-join / band-seam that kept the VERSUS page from opening at all is broken by a leaf seam-line.ts.

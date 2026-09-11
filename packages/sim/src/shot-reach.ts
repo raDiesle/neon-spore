@@ -58,6 +58,9 @@ export function firstAlong(
     // above. On the ship it stops the shot *before* it exists instead
     // (`gumOverCannon`, in `firePress`), which is the block the pair hears.
     if (c.kind === "gum") continue;
+    // Nor THE CHOKE, for the same reason: nothing fired reaches it, in the
+    // air or on the cannon (`choke.ts`).
+    if (c.kind === "choke") continue;
     // THE FENCE stops a bolt in every column it is still **shut** in, and in
     // none of the ones it is open in: a hole is a hole, so a shot fired up a
     // way through reaches whatever is above it rather than dying on a gap the

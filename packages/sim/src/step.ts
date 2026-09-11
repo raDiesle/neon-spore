@@ -7,6 +7,7 @@ import { briefHeard, briefingHolds, guideStepHeard, stepReady } from "./briefing
 import { advanceBullets, releaseShot } from "./bullets.js";
 import { stepChoirFuse } from "./choir.js";
 import { choirArrowHeard, stepChoirWindow } from "./choir-gesture.js";
+import { chokeHeard, stepChoke } from "./choke.js";
 import { wardCoils } from "./coil.js";
 import { applyCommand } from "./commands.js";
 import { crankHeard } from "./crank.js";
@@ -116,6 +117,10 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // a swipe is an instant, and one answered on the next beat would let the
   // cannon slide out from under it in between (`gum.ts`).
   for (const c of commands) gumHeard(world, c.player, c.command);
+  // And player 1's thumb on the strip THE CHOKE has taken, on the tick for
+  // the same reason: a tap is an instant, and the count the pair is saying
+  // out loud has to move on the press and not on the next beat (`choke.ts`).
+  for (const c of commands) chokeHeard(world, c.player, c.command);
   // THE FLEET's sights and its salvo, read on the tick for the third time and
   // the same reason: a square the pair just named out loud is answered now,
   // not on the next beat. Its clock is the one thing about it that is on the
@@ -135,6 +140,10 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // so the tick it comes full on is this one, whatever else happens next.
   releaseLance(world);
   if (isBeatTick(world.cfg, world.tick)) {
+    // THE CHOKE walks the cannon before the field moves, so a choke that
+    // takes hold on this beat is drawn reaching the cannon for a whole beat
+    // before it drags it anywhere (`choke.ts`).
+    stepChoke(world);
     onBeat(world);
     // A broken control acts on the beat, straight after the field has moved
     // under it — so the shot goes up the column the cannon is standing in

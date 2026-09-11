@@ -117,8 +117,7 @@ export {
   unreachedMechanics,
   type WaveKind,
 } from "./mechanics.js";
-// The metaball trace SYMBIOSIS, the Colony and THE CHOIR are all drawn with —
-// one description for the game and for the shape sheet (`metaball.ts`).
+// The metaball trace SYMBIOSIS, the Colony and THE CHOIR share (`metaball.ts`).
 export { type Bounds, type Field, isoLoops, perimeter, resample } from "./metaball.js";
 export { resampleAll } from "./metaball-spread.js";
 export {
@@ -207,6 +206,7 @@ export {
   THROB,
   TORCH,
 } from "./silhouettes.js";
+export { CHOKE } from "./silhouettes-choke.js";
 export { GUM, SAC_SKIN, type SacSkin, sacPoints } from "./silhouettes-gum.js";
 export { SNAKE_ROUNDS } from "./snake-rounds.js";
 export { type StuddedOpts, studdedContour } from "./studded.js";

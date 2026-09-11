@@ -38,14 +38,16 @@ describe("buildBacklog", () => {
     expect(names(backlog.bestiary)).not.toContain("Strand");
     expect(names(backlog.bestiary)).not.toContain("Crystal");
     expect(names(backlog.bestiary)).not.toContain("Gum");
-    expect(names(backlog.bestiary)).toContain("Choke");
+    expect(names(backlog.bestiary)).not.toContain("Choke");
+    expect(names(backlog.bestiary)).toContain("Glyph");
 
     const thirteen = backlog.bestiary[0]!;
-    // Slick, bulb, meteor, lure, throb, dart, veil, strand, crystal and gum —
-    // the seven of the first thirteen built after the original three, and the
-    // three themselves — plus the pod, which is built and is deliberately not
-    // a `CreatureKind`, so `isBuilt` has to know about `POD_KINDS` to see it.
-    expect(thirteen.builtHidden).toBe(11);
+    // Slick, bulb, meteor, lure, throb, dart, veil, strand, crystal, gum and
+    // choke — the eight of the first thirteen built after the original three,
+    // and the three themselves — plus the pod, which is built and is
+    // deliberately not a `CreatureKind`, so `isBuilt` has to know about
+    // `POD_KINDS` to see it.
+    expect(thirteen.builtHidden).toBe(12);
     expect(thirteen.entries.length + thirteen.builtHidden).toBe(13);
 
     expect(names(backlog.bosses)).not.toContain("Bulb Queen");

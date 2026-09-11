@@ -6,7 +6,7 @@ import type { Mechanic, MechanicId } from "./mechanics.js";
  * name that is not a `MechanicId` collapses to `never` and the key becomes a
  * build error, so this list cannot fall behind a rename.
  */
-type HandedId = Extract<MechanicId, "balloon" | "gum">;
+type HandedId = Extract<MechanicId, "balloon" | "gum" | "choke">;
 
 /**
  * **The bodies answered by hands alone.** `creatures-handed.ts` next door is
@@ -38,6 +38,14 @@ export const HANDED_MECHANICS = {
     // A wave names this kind and never a colour, the balloon's arrangement:
     // nothing fired reaches it. What a wave authors is where it comes down,
     // which is the lane the cannon is about to lose.
+    waveNames: true,
+  },
+  choke: {
+    what: "A tall boneless body that falls straight down one lane, at a slick's pace. No shot touches it and the shield does not stop it: it lands on the ship and takes the cannon. From that beat the cannon strip answers nobody and the cannon walks a column a beat toward one wall, turns, and walks back, for as long as the choke has it — and player 2 goes on firing from wherever it happens to be standing. What gets it off is player 1 tapping the dead strip, over and over, a lift between each: every fresh press loosens the grip by one, and enough of them and it lets go. It cannot be evaded; the lane it falls in does not matter, because it goes to the cannon wherever the cannon is.",
+    reach: "spawn",
+    // A wave names this kind and never a colour, the gum's arrangement:
+    // nothing fired reaches it. What a wave authors is the beat it comes,
+    // which is the beat the pair loses the steering.
     waveNames: true,
   },
 } as const satisfies Record<HandedId, Mechanic>;

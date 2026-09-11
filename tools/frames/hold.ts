@@ -18,6 +18,8 @@ import type { HoldSpec } from "./spec.js";
  *   --hold balloonLeft=-1600,id=1   THE BALLOON: the pilot's hand on body 1
  *   --hold balloonRight=1600,id=1   and the navigator's on the same one
  *   --hold gum=-600,id=1            THE GUM: player 2's thumb on a stuck one
+ *   --hold choke=0,id=3@1700        THE CHOKE: player 1's thumb down on the dead strip
+ *   --hold choke=up,id=3@1704       and lifted — a tap is the two, and the count needs the lift
  *
  * THE CHOIR's two are the only handles here whose **sign** is the whole of the
  * gesture rather than a direction the picture happens to take: the left arrow
@@ -94,7 +96,7 @@ export function parseHold(value: string): HoldSpec[] {
   const SEAT: Record<string, 1 | 2> = { balloonRight: 2, gum: 2 };
   // And they take an `id` for THE LID's reason: a wave puts several on the
   // field at once on purpose.
-  const NEEDS_ID = ["lidString", "balloonLeft", "balloonRight", "gum"];
+  const NEEDS_ID = ["lidString", "balloonLeft", "balloonRight", "gum", "choke"];
   const DRAGS = [
     "mazeString",
     "wardenTether",
@@ -104,9 +106,17 @@ export function parseHold(value: string): HoldSpec[] {
     "balloonLeft",
     "balloonRight",
     "gum",
+    "choke",
   ];
   if (!DRAGS.includes(target)) {
     throw new Error(`--hold ${value}: unknown control. One of prime=red|cyan, ${DRAGS.join(", ")}`);
+  }
+  // THE CHOKE's is a tap and not a pull: the count moves on a fresh press, so
+  // a capture of the count needs the thumb *up* between two of them, and `up`
+  // is the one value here that sends a lift rather than a hold (`sim/choke.ts`).
+  if (target === "choke" && milliText === "up") {
+    if (id === undefined) throw new Error("--hold choke=up: say which one with id=N");
+    return [{ player: 1, command: { kind: "drag", target, on: false, fromMilli: 0, id } }];
   }
   const fromMilli = milliText === undefined ? 1000 : Number(milliText);
   if (!Number.isFinite(fromMilli)) {

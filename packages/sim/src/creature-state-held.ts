@@ -78,4 +78,28 @@ export interface HeldState {
    * wrong way would spread the gum a lane further on every message.
    */
   gumSpent?: true;
+  /**
+   * **THE CHOKE has the cannon.** Set once, on the beat it is drawn standing
+   * on the hull, and never cleared: a choke leaves the field by being tapped
+   * off and no other way. Absent on one still falling. Read through
+   * `chokeIsStuck` (`choke.ts`).
+   */
+  chokeStuck?: true;
+  /**
+   * How many fresh taps player 1 has landed on the dead strip since it took
+   * hold, counted up to `chokeTaps`, at which it lets go. Absent before the
+   * first. Read through `chokeTapsSoFar`.
+   */
+  chokeTaps?: number;
+  /**
+   * A thumb is down on the strip now, so the next message from the same hand
+   * is the same tap and not another one: a tap is a **fresh** press, and the
+   * hand has to lift before it can count again. Absent between presses.
+   */
+  chokeHeld?: true;
+  /**
+   * Which way the cannon is being dragged this beat, `1` toward the right
+   * wall; it turns at each wall (`stepChoke`). Absent on one still falling.
+   */
+  chokeDir?: -1 | 1;
 }

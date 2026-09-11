@@ -85,7 +85,9 @@ describe("the catalogue's long axes", () => {
     // 115 from 11 September 2026: GUM, THE WEIGHT's sac brought onto the
     // field, a round card by this measure — taller than wide, but not by
     // enough to be upright.
-    expect(axes.length).toBe(115);
+    // 116 the same day: CHOKE, TENDRIL's sac brought onto the field the same
+    // way, and tall the way TENDRIL is — the fourteenth upright card.
+    expect(axes.length).toBe(116);
     // One ring of THE CRAWLER is the thirty-ninth wide card, and it is wide by
     // more than any other: a ring reaches nearly a full tile past its own
     // column at each end, which is what makes a run of them one animal with no
@@ -98,16 +100,17 @@ describe("the catalogue's long axes", () => {
     // Which is the finding the grown bodies above make from the other side —
     // a part changes what a body looks like and not which way round it is —
     // reaching the opposite answer, because this part stands straight up.
-    expect(count("y")).toBe(13);
+    expect(count("y")).toBe(14);
   });
 
-  it("names the thirteen tall ones", () => {
+  it("names the fourteen tall ones", () => {
     expect(
       axes
         .filter((e) => e.long === "y")
         .map((e) => e.name)
         .sort(),
     ).toEqual([
+      "CHOKE",
       "COMB",
       "GHOST",
       "HUSK 1",

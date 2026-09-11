@@ -1,5 +1,6 @@
 import type { FieldControlDef } from "./field-control-def.js";
 import { BALLOON_CONTROLS } from "./field-controls-balloon.js";
+import { CHOKE_CONTROLS } from "./field-controls-choke.js";
 import { GUM_CONTROLS } from "./field-controls-gum.js";
 
 /**
@@ -192,6 +193,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
   // and before the guide's hold, which is not a field control at all.
   ...BALLOON_CONTROLS,
   ...GUM_CONTROLS,
+  ...CHOKE_CONTROLS,
   {
     name: "THE GUIDE'S HOLD",
     where: "anywhere on the screen, while a guide or the ready gate is up",

@@ -76,6 +76,7 @@ export {
 // arrow is standing out in order to draw the other one as the next thing to
 // carry. The rule stays inside — nothing here decides whether a pull counted.
 export { CHOIR_SHAKEN, type ChoirArm, type ChoirSide, choirArmed } from "./choir-gesture.js";
+export { chokeHeading, chokeIsHeld, chokeIsStuck, chokeTapsSoFar, stuckChoke } from "./choke.js";
 export { chuteBecomes, chuteFalls, chuteIsOpen } from "./chute.js";
 export { claspBecomes, claspIsShielded, claspStruck } from "./clasp.js";
 export { coilImpactDamage } from "./coil.js";

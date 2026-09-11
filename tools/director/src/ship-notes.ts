@@ -62,6 +62,12 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "while the cannon is parked in one of its columns: then player 2 swipes it gumSwipeMilli toward the nearer " +
     "side wall and it comes off for scoreGumFlung. A swipe toward the far wall spreads it gumSpreadCols wider " +
     "instead, once per hold. See gum.ts.",
+  "THE CHOKE — a body on the cannon, tapped off by the seat whose cannon it was":
+    "It falls straight down its lane like a slick, no shot touches it and the shield does not stop it, and " +
+    "when it lands it goes to the cannon wherever the cannon is. From then on the cannon strip answers nobody " +
+    "and the cannon walks a column every chokeSweepBeats beats toward a wall, turns there, and walks back; " +
+    "player 2 keeps firing from wherever it is. Player 1 gets it off by tapping the dead strip chokeTaps " +
+    "times, a lift between each — a thumb held down is one tap. Then it is gone for scoreChokeFreed. See choke.ts.",
   "THE BALLOON — a body that goes up, opened by two hands at once":
     "It appears out of nothing one row above the ship, swells, then climbs balloonRiseRows up and " +
     "across every balloonClimbBeats beats, turning at the walls, and bursts at the top for " +

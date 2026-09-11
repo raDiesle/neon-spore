@@ -1,4 +1,5 @@
 import type { SimEvent } from "@neon-spore/sim";
+import { handedBurst } from "./effects-spark-handed.js";
 import { isSilent } from "./effects-spark-silent.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { assertNever } from "./never.js";
@@ -223,22 +224,18 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "beatboxWave":
       return at(l, e.col, e.row, 12, PALETTE.red);
 
-    // A balloon given: rock grey and narrow, since a balloon carries no colour.
+    // The bodies answered by hands alone — THE BALLOON, THE GUM, THE CHOKE —
+    // in a file of their own when THE CHOKE's three took this one past its
+    // limit (`effects-spark-handed.ts`).
     case "balloonSplit":
-      return at(l, e.col, e.row, 12, PALETTE.rock);
-
-    // One that reached the top: wide, in the pod's amber (hull damage lands at
-    // the ship, `sim/balloon.ts`).
     case "balloonBurst":
-      return at(l, e.col, e.row, 26, PALETTE.pod);
-    // THE GUM in its own material: landing, flung, and at the muzzle for each
-    // shot it refused. Everything between is read off the world (`gum.ts`).
     case "gumStick":
-      return at(l, e.col, e.row, 14, PALETTE.venom);
     case "gumFlung":
-      return at(l, e.col, e.row, 24, PALETTE.venom);
     case "gumBlock":
-      return { x: tileCX(l, e.col), y: l.hullY, n: 6, hex: PALETTE.venom };
+    case "chokeGrip":
+    case "chokeTap":
+    case "chokeFreed":
+      return handedBurst(e, l);
 
     default:
       return assertNever(e);

@@ -29,7 +29,8 @@ export type DragTarget =
   | "balloonLeft"
   | "balloonRight"
   | "crank"
-  | "gum";
+  | "gum"
+  | "choke";
 
 /**
  * `choirLeft` and `choirRight` are the fifth and sixth, and the first pair
@@ -82,4 +83,15 @@ export type DragTarget =
  * lift that opens the maw are one hold and two controls. `id` says which body,
  * for THE LID's reason: a wave may have several on the field and either seat
  * may have a hand on a different one.
+ */
+
+/**
+ * `choke` is the eleventh, and the second that is not on the field: it is
+ * **player 1's own cannon strip**, while THE CHOKE has the cannon by the
+ * throat (`choke.ts`). A press on the strip then is not a column — the strip
+ * answers nobody — so the panel sends a grab on the choke instead, and what
+ * the simulation counts is the *grab*, not the distance: one tap per hand
+ * that lands, with a lift between. `fromMilli` is carried and ignored, which
+ * is what makes it a tap rather than a swipe. It carries `id` for THE LID's
+ * reason, though a wave is unlikely to have two on the cannon at once.
  */

@@ -11,6 +11,7 @@ import { beatboxArmGrown, beatboxSwell } from "./beatbox.js";
 import { drawBeatboxAir } from "./beatbox-air.js";
 import { beatboxWash } from "./beatbox-wash.js";
 import { drawChoir } from "./choir.js";
+import { drawChokeBody } from "./choke.js";
 import type { Body } from "./creature-body-in.js";
 import { drawMagnetBody, drawStrandBody } from "./creature-body-worn.js";
 import { livingBodyMul } from "./creature-place.js";
@@ -223,6 +224,9 @@ const EXCLUSIVE: ReadonlyMap<CreatureKind, BodyDraw> = new Map<CreatureKind, Bod
   // A sac in the air and nothing at all once it is stuck: the smear is drawn
   // over the ship by `drawStuckGums`, from `canvas2d.ts` (`gum.ts`).
   ["gum", drawGumBody],
+  // And THE CHOKE, the same arrangement: the strand in the air here, the
+  // loops on the cannon over the ship by `drawStuckChokes` (`choke.ts`).
+  ["choke", drawChokeBody],
 ]);
 
 /**

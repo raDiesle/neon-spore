@@ -240,11 +240,11 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     blurb:
       "A maggot that comes over one side wall and walks the ship's surface instead of falling on it, a column every other beat. It costs the hull nothing while it walks. Its head and tail are armour; the segments between them run red, cyan, plate, red, cyan, plate — a colour wants the matching cannon under it, a plate wants the shield. Take one off and the body snaps together behind it. Strip it and a beam takes what is left; let it reach the far wall and it eats its way in.",
   },
-  // THE BALLOON, and the first body **neither panel answers at all**: next
-  // door in `creatures-handed.ts`, named rather than spread so this table
-  // still reads in the order the bestiary has always had it. See that file for
-  // why a body answered by hands alone is its own family.
+  // THE BALLOON, THE GUM and THE CHOKE — the bodies **neither panel answers
+  // at all**: next door in `creatures-handed.ts`, named rather than spread so
+  // this table still reads in the bestiary's order. See that file for why a
+  // body answered by hands alone is its own family.
   balloon: HANDED_CREATURES.balloon,
-  // THE GUM, the second: swiped off the ship by hand (`creatures-handed.ts`).
   gum: HANDED_CREATURES.gum,
+  choke: HANDED_CREATURES.choke,
 };
