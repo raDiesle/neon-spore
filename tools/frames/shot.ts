@@ -33,6 +33,7 @@
 
 import { closeBrowser, launchBrowser } from "./capture.js";
 import { clipFor, onDocument, parseAt } from "./crop.js";
+import { elementOr, listen, waitUntil } from "./page-said.js";
 import { reachState, Unreachable } from "./shot-state.js";
 import { usage } from "./shot-usage.js";
 import { TALLEST, withHeightFor } from "./tall.js";
@@ -158,24 +159,22 @@ try {
     viewport: { width: vw || 1240, height: vh || 900 },
     deviceScaleFactor: scale,
   });
+  // Listened to before it is opened, so what a page throws while loading is
+  // in the report when the element is missing or the wait runs out
+  // (`page-said.ts`).
+  const said = listen(page);
   await page.goto(url, { waitUntil: "networkidle" });
 
+  let target: ReturnType<typeof page.locator>;
   try {
     await reachState(page, { open, tab, inner, click, nth, type: typed, select, hold });
+    if (until) await waitUntil(page, until, said);
+    await page.waitForTimeout(settle);
+    target = await elementOr(page, selector, said);
   } catch (error) {
     if (!(error instanceof Unreachable)) throw error;
     console.error(error.message);
     process.exit(error.code);
-  }
-  // Ten minutes: a machine running a full check paints a headless frame at
-  // about eight a second, and a wrong picture is worse than a slow one.
-  if (until) await page.locator(until).first().waitFor({ state: "attached", timeout: 600_000 });
-  await page.waitForTimeout(settle);
-
-  const target = page.locator(selector);
-  if ((await target.count()) === 0) {
-    console.error(`no element matches ${selector} — is the tab right?`);
-    process.exit(2);
   }
   // The page's own `scrollIntoView`, not Playwright's `scrollIntoViewIfNeeded`:
   // that one first waits for the element to be *stable* — the same box on

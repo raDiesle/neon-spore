@@ -22,6 +22,25 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — `bun run shot` says what the page said
+
+The queue's `versus:shot` item: a page that throws while loading used to
+photograph as *no element matches — is the tab right?*, and with `--freeze`
+as a ten-minute wait. `shot.ts` now listens to the page from the moment it
+opens and prints what it said above that line, and a throw cuts the wait to
+five seconds. A browser test with a page that throws. About 20 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `shot.ts`, `versus-shot.ts`, `shot-state.ts`, `page.ts`'s own listener, how `opening.test.ts` shares a browser |
+| writing | 10 | `page-said.ts`, the wiring in `shot.ts` under its line limit, `page-said.test.ts` |
+| looking | 0 | nothing visible moved |
+| friction | 0 | — |
+| landing | 5 | `queue done` by title, `check:fast`, the commit, `land --keep` |
+
+Bottleneck: **writing** — there was nothing to fight; the page already held
+the sentence, and the work was choosing where the wait gives up.
+
 ## 2026-09-11 · hit-looks — THE CHOKE
 
 A body that takes the cannon: the strip goes dead, the cannon walks wall to

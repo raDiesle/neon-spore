@@ -157,24 +157,3 @@ Why the short label is what fits today, and what each of the three costs.
 
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
-
-## `bun run versus:shot` says nothing when the page it photographs has thrown
-
-- **Found:** 2026-09-11, hit-looks
-- **Taken:** 2026-09-11, claude/queue-bun-run-versus-shot-says-nothing-when-the-page-i
-- **Files:** `tools/frames/shot.ts`, `tools/frames/versus-shot.ts`,
-  `tools/frames/exec.ts`
-
-When the VERSUS page throws while loading, `shot.ts` reports only *no element
-matches .versus-stage — is the tab right?* and exits 2, and with `--freeze` it
-waits for a `[data-frozen]` that never comes until something kills it. On
-11 September 2026 a module cycle (`band-join` → `gland-join` → `band-seam` →
-`band-join`, now broken by `seam-line.ts`) made every candidate page throw
-`Cannot read properties of null (reading 'saggingRoof')`, and the only way to
-read that sentence was to start the director by hand and open the in-app
-browser's console — twenty minutes for a one-line error. `shot.ts` already
-holds a Playwright page: subscribe to `page.on("pageerror")` and
-`page.on("console")` at the error level, and when the element is missing or
-the `--until` wait runs out, print what the page said before the *is the tab
-right?* line. `tools/frames/test/` should hold a page that throws on load and
-assert the message reaches stderr.
