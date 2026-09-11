@@ -1,11 +1,7 @@
-import { halo, strokeGlow } from "../../../../../packages/render/src/glow.js";
-import {
-  gyreMass,
-  gyreSkinPath,
-  gyreSpecular,
-} from "../../../../../packages/render/src/gyre-core.js";
-import type { GyreCoreDraw } from "../../../../../packages/render/src/gyre-look.js";
-import { STROKE } from "../../../../../packages/render/src/palette.js";
+import { halo, strokeGlow } from "./glow.js";
+import { gyreMass, gyreSkinPath, gyreSpecular } from "./gyre-core.js";
+import type { GyreCoreDraw } from "./gyre-look.js";
+import { STROKE } from "./palette.js";
 
 /**
  * ORBIT, drawn: one band of light girdles the ball at a tilt, and the ball is

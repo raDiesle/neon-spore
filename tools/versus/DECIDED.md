@@ -590,3 +590,27 @@ visible and clear for player to see* — a fix to something wrong, landed
 straight on the field: the socket a little wider, the pupil most of it, the
 core half the pupil, and the flicker shallow enough that the lamp never dims
 past four fifths (`packages/render/src/ghost-eyes.ts`).
+
+## `creature:gyre` / `orbit` — taken, 2026-09-11
+
+The owner liked every gyre answer and the current one, and took ORBIT into the
+game on 10 September 2026: one band of light girdling the ball at a tilt, the
+far half seen through the mass and the near half over the nucleus, swapping
+once a turn. The granules it replaces, HELIX and VORTEX all go to the SHAPES
+page as fillings, at his asking — interiors to build new creatures from.
+
+one band of light girdles the ball at a tilt — the far half seen dimly through
+the mass, the near half drawn over the nucleus, swapping once a turn
+
+`GYRE_LOOK.core` is `orbit`, moved from
+`tools/versus/candidates/creature-gyre/orbit/paint.ts` to
+`packages/render/src/gyre-orbit.ts`.
+
+The other answers offered were `helix` and `vortex`, and the owner wanted
+them kept, together with the granules ORBIT replaced — *to create new
+upcoming enemies with this inside effect*. An inside effect is the FILLING
+axis, so all four are there (`tools/director/src/fillings/orbit.ts`, `yolk.ts`,
+`helix.ts`, `vortex.ts`), ORBIT carrying `shipped` as the control and YOLK
+being the organelle the game drew from 9 to 11 September. The nine granules
+and their constants are gone from `gyre-core.ts`, which keeps the membrane,
+the lit mass and the specular every answer shares.

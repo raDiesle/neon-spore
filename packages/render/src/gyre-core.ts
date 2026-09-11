@@ -1,12 +1,14 @@
-import { blobPath, facet, LAT_LIMIT, pin, surfaceDim, surfaceLit } from "@neon-spore/content";
-import { halo, strokeGlow } from "./glow.js";
-import type { GyreCoreDraw } from "./gyre-look.js";
+import { blobPath, surfaceDim, surfaceLit } from "@neon-spore/content";
 import { rgba } from "./hex.js";
-import { PALETTE, STROKE } from "./palette.js";
+import { PALETTE } from "./palette.js";
 
 /**
  * The surface in the middle of THE GYRE's wheel: the organelle the whole
- * mechanism is built around.
+ * mechanism is built around — here, the parts of it every answer shares. The
+ * membrane's contour, the lit mass under it and the one stationary specular;
+ * what is *suspended* in the mass is `gyre-orbit.ts` since 11 September 2026,
+ * and the nine granules that were here before it are YOLK on the SHAPES
+ * page's FILLING axis, with the two other answers the owner read beside it.
  *
  * **A wheel needs a middle.** Every other armature in this game hangs off
  * something with a body in it — the queen has a figure, the warden has an eye —
@@ -65,28 +67,10 @@ export function gyreSkinPath(r: number, time: number): Path2D {
   return new Path2D(blobPath(0, 0, r, r, LOBES, LOBE_DEPTH, SKIN_WOBBLE, time, 17, SKIN_POINTS));
 }
 
-/** How much of the membrane the mass inside fills, and the nucleus's own size.
- * Fractions of the organelle's radius, so the whole thing scales as one
- * object. The **contour is not here at all**: `gyreSkinPath` is called above. */
+/** How much of the membrane the mass inside fills, as a fraction of the
+ * organelle's radius, so the whole thing scales as one object. The **contour
+ * is not here at all**: `gyreSkinPath` is called above. */
 const YOLK = 0.9;
-const NUCLEUS = 0.19;
-
-/** How many granules are suspended in the mass, and how far out they sit.
- * Nine: enough that four or five are on the near side at any turn, few enough
- * that at the twenty-odd pixels a core draws at they are marks rather than a
- * texture. */
-const GRAINS = 9;
-const REACH = 0.58;
-
-/** What a granule keeps where the surface has turned away from the light.
- * Generous, because the mass is *lit from inside* as well as from the key —
- * a granule that went black would read as a hole in an organelle. */
-const GRAIN_FLOOR = 0.42;
-
-const GOLDEN = Math.PI * (3 - Math.sqrt(5));
-const PINS = Array.from({ length: GRAINS }, (_, i) =>
-  pin(i * GOLDEN, Math.sin(i * 1.9) * LAT_LIMIT * 0.66, REACH),
-);
 
 /** How many stops the membrane's rim is walked in. Nine, for
  * `docs/style-guide.md`'s reason: three make a ramp and a ramp reads as a
@@ -133,109 +117,4 @@ export function gyreSpecular(ctx: CanvasRenderingContext2D, r: number): void {
   ctx.ellipse(-r * 0.34, -r * 0.34, r * 0.24, r * 0.17, -0.79, 0, Math.PI * 2);
   ctx.fillStyle = rgba(PALETTE.text, 0.22);
   ctx.fill();
-}
-
-/**
- * The core of one wheel: a ball with things suspended in it.
- *
- * `tint` and `rim` are the wheel's two neon colours, already hazed for the row
- * it is standing on, and `pull` is 0..1 — the same number the rim and the wind
- * brighten with, so the three ends of one pull cannot light on different
- * frames. It takes a record rather than nine positional arguments because it is
- * the field on `GYRE_LOOK` a candidate organelle is patched onto
- * (`gyre-look.ts`).
- *
- * It was a radial gradient built inside a frame turned by `flow`, so the pale
- * sliver was glued to the membrane and travelled with it — a lit surface that
- * turns with its light is a painted stone. The owner took YOLK out of VERSUS
- * on 9 September 2026 and this is it: the contour is turned and the shading is
- * not, so the granules cross a highlight that stays where it is.
- *
- * Three passes and the order matters: the aura under everything, the mass with
- * its granules riding round inside it, and the membrane over its own contents.
- * The nucleus is last and is the only thing drawn in the pale colour.
- */
-export function drawGyreCore(d: GyreCoreDraw): void {
-  const { ctx, x, y, r, tint, rim, flow, time, pull } = d;
-
-  ctx.save();
-  ctx.globalCompositeOperation = "lighter";
-
-  // The aura, first and widest — the shipped pass, unchanged. It is what makes
-  // the middle read as lit from inside rather than as a disc laid on the field,
-  // and it is not what this candidate is arguing about.
-  halo(ctx, x, y, r * (2.4 + pull * 0.9), tint, 0.13 + 0.16 * pull);
-
-  ctx.save();
-  ctx.translate(x, y);
-
-  // **The skin turns; the light does not.** The shipped organelle rotates the
-  // whole frame by `flow` and builds its fluid gradient inside it, so the pale
-  // sliver is glued to the membrane and travels with it — a lit surface that
-  // turns with its light is a painted stone, whatever else is right about it
-  // (`docs/style-guide.md`, Depth). Here the contour is turned and the shading
-  // is not, so the granules cross a highlight that stays where it is.
-  const skin = gyreSkinPath(r, time);
-
-  // The turn is taken for the *clip* and put straight back for the shading. A
-  // clip is fixed in device space the moment it is taken, so the membrane can
-  // be turned by `flow` while everything painted inside it is drawn in a frame
-  // the turn has been taken out of — which is the whole two-step this candidate
-  // is.
-  ctx.save();
-  ctx.rotate(flow);
-  ctx.clip(skin);
-  ctx.rotate(-flow);
-
-  gyreMass(ctx, r, tint, pull);
-
-  // The granules, placed and carried round by the wheel's own true rate — the
-  // same `flow` the skin is turned by, so the inside and the outside of the
-  // organelle are one object turning rather than two things moving. Each is
-  // drawn about its own origin and foreshortened by the tangent plane's map, so
-  // one going round the limb narrows to nothing instead of being clipped by an
-  // edge; the ones at the back come into view, which is the reveal no pose can
-  // produce at any setting.
-  for (const p of PINS) {
-    const f = facet(p, flow);
-    if (!f.near) continue;
-    ctx.save();
-    ctx.translate(f.x * r, f.y * r);
-    ctx.scale(f.sx, f.sy);
-    ctx.beginPath();
-    ctx.arc(0, 0, r * 0.19, 0, Math.PI * 2);
-    ctx.fillStyle = rgba(rim, 0.42 * surfaceDim(GRAIN_FLOOR, f.lit));
-    ctx.fill();
-    ctx.restore();
-  }
-
-  gyreSpecular(ctx, r);
-  ctx.restore();
-
-  // The membrane over its own contents, back in the turned frame and in the
-  // wheel's colour rather than the pale one — the shipped organelle's rule, and its reason: a white edge round
-  // a violet surface is a sticker, and the edge has to be the same substance as
-  // what is under it, only brighter.
-  ctx.globalAlpha = 0.9;
-  ctx.rotate(flow);
-  strokeGlow(ctx, skin, tint, STROKE.inner, 1.4 + pull);
-  ctx.restore();
-
-  // The nucleus: the one hard edge on the organelle, and the thing an eye lands
-  // on when it looks for the middle of a wheel. It sits a little off centre
-  // toward the light, which is what a solid thing inside a translucent one
-  // looks like when it is nearer the viewer than the far wall.
-  ctx.globalAlpha = 1;
-  ctx.fillStyle = rim;
-  ctx.beginPath();
-  ctx.arc(
-    x - r * 0.06,
-    y - r * 0.06,
-    r * NUCLEUS * (1 + 0.08 * Math.sin(time * 2.2)),
-    0,
-    Math.PI * 2,
-  );
-  ctx.fill();
-
-  ctx.restore();
 }

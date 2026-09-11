@@ -110,3 +110,40 @@ export function place(
 ): Mounted {
   return mount(el, lon, lat, reach, dim);
 }
+
+/**
+ * The organelle's radius on a card: what the gyre's core filled of its
+ * membrane, taken of the smaller half-extent so a slick's contents stay inside
+ * its waist. The four fillings that came from `creature:gyre` on 11 September
+ * 2026 all measure themselves against this, as their paint measured against
+ * `r` in the game, so they keep their proportions to one another.
+ */
+export function organelle(ctx: FillingContext): number {
+  return Math.min(ctx.extent.w, ctx.extent.h) * 0.5 * 0.9;
+}
+
+/** How the gyre's wheel turns on a card, in radians per second of the page
+ * clock — `gyre-place.ts`'s true rate is a wave's number; this is a rate a
+ * viewer can follow a mark round at. */
+export const GYRE_TURN = 0.55;
+
+/**
+ * The nucleus: the one hard edge on the gyre's organelle, pale, a little off
+ * centre toward the key, breathing on its own slow clock. Three of the four
+ * gyre fillings put one down and it is drawn once here, so they agree about
+ * what the middle of a wheel is. About the origin: the caller's `at` group
+ * puts it on the body's centre.
+ */
+export function nucleus(ctx: FillingContext, r: number, share: number, dy = 0): SVGCircleElement {
+  const c = document.createElementNS(SVG, "circle");
+  c.setAttribute("cx", (-r * 0.06).toFixed(2));
+  c.setAttribute("cy", (-r * 0.06 + dy).toFixed(2));
+  c.setAttribute("fill", "#F2E9DC");
+  c.setAttribute("fill-opacity", "0.92");
+  const base = r * share;
+  c.setAttribute("r", base.toFixed(2));
+  ctx.onFrame(({ t }) => {
+    c.setAttribute("r", (base * (1 + 0.08 * Math.sin(t * 2.2))).toFixed(2));
+  });
+  return c;
+}

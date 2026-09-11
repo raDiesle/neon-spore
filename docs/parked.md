@@ -55,18 +55,3 @@ keeps it either way. Nothing here is ticked, and nothing here is counted — a
 count is a way of saying something is owed, and nothing here is.
 `tools/queue/test/queue.test.ts` fails on an entry a cold session could not act
 on.
-
-## The gyre slot: ORBIT into the game, the current interior and the rest to SHAPES
-
-- **Found:** 2026-09-10, hit-looks
-- **Files:** `tools/versus/candidates/creature-gyre/`, `packages/render/src/gyre-look.ts`, `tools/director/src/fillings/`, `tools/versus/DECIDED.md`
-
-The third task of the same prompt. His words: *i like all versus of
-"CREATURE:GYRE" and current in game. i suggest to use "CREATURE:GYRE · ORBIT"
-in game, and keep current and alternatives in "shapes" page to create new
-upcoming enemies with this inside effect.* So: adopt `orbit`, and put the
-shipped gyre interior **and** every other gyre candidate on the SHAPES page —
-he names them as an *inside* effect, which is the FILLING axis
-(`tools/director/src/fillings/`, one pick, `shipped` on the one the game
-draws), and says what they are for: interiors to build new creatures from.
-Not started; the ghost, the second task, landed on 11 September.

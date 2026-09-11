@@ -53,7 +53,6 @@ const SLOT_POSE: Record<string, string> = {
   "ghost:tears": "GHOST · TORN",
   "creature:throb": "THROB · TURNING",
   "creature:wisp": "WISP · STANDING",
-  "creature:gyre": "GYRE · TURNING",
   "creature:mount": "GYRE · TURNING",
   "eye:iris": "LID · THE EYE OPEN",
   "creature:rind": "RIND · SHEDDING",

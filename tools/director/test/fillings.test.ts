@@ -11,8 +11,8 @@ import { skinStill } from "../src/skin-still.js";
  * Two things here that the glow and hit tests do not have, and both are the
  * reason this axis was added rather than eight more skins.
  *
- * The **shipped** marker, as on the tail axis. Two values are what a bulb and a
- * slick wear on the field, and they are on the page as controls — CLAUDE.md's
+ * The **shipped** marker, as on the tail axis. Three values are what a bulb, a
+ * slick and the gyre's organelle wear on the field, and they are on the page as controls — CLAUDE.md's
  * *a look is offered, never replaced* only means something if the thing being
  * offered against is on the same row. A refactor that quietly dropped the
  * marking would leave ten proposals and no baseline, and nothing would error.
@@ -44,9 +44,9 @@ describe("the filling registry", () => {
     expect(new Set(FILLINGS.map((f) => f.label)).size).toBe(FILLINGS.length);
   });
 
-  it("keeps both shipped looks on the axis", () => {
+  it("keeps every shipped look on the axis", () => {
     const shipped = FILLINGS.filter((f) => f.shipped);
-    expect(shipped.map((f) => f.id).sort()).toEqual(["bloom", "spores"]);
+    expect(shipped.map((f) => f.id).sort()).toEqual(["bloom", "orbit", "spores"]);
     // And each names where, because "shipped" with no address is a claim
     // nobody can check against the renderer.
     for (const f of shipped) expect(f.shipped, f.id).toContain(".ts");

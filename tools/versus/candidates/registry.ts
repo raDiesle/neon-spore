@@ -6,9 +6,6 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
-import { GYRE_HELIX } from "./creature-gyre/helix/index.js";
-import { GYRE_ORBIT } from "./creature-gyre/orbit/index.js";
-import { GYRE_VORTEX } from "./creature-gyre/vortex/index.js";
 import { LID_BEVEL } from "./creature-lid/bevel/index.js";
 import { LID_IRIS } from "./creature-lid/iris/index.js";
 import { LID_ROLL } from "./creature-lid/roll/index.js";
@@ -73,9 +70,6 @@ import { TORCH_BLOOM } from "./torch-veil/bloom/index.js";
 import { TORCH_FIFTH } from "./torch-veil/fifth/index.js";
 
 export const VARIANTS: Variant[] = [
-  GYRE_HELIX,
-  GYRE_ORBIT,
-  GYRE_VORTEX,
   LID_BEVEL,
   LID_IRIS,
   LID_ROLL,

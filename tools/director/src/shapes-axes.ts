@@ -128,9 +128,9 @@ function fillingGroup(axes: HTMLElement, rerender: () => void): void {
     "FILLING",
     `What every card has inside it, for the whole page — independent of the ` +
       `skin, the motion and the light. One pick, not a stack: a body has one ` +
-      `inside. SPORES and BLOOM are marked IN THE GAME — they are what a bulb ` +
-      `and a slick wear today, and everything else here has to beat them and ` +
-      `to beat NONE. Now: ${wearing?.label ?? "NONE"}.`,
+      `inside. SPORES, BLOOM and ORBIT are marked IN THE GAME — they are what ` +
+      `a bulb, a slick and the gyre's middle wear today, and everything else ` +
+      `here has to beat them and to beat NONE. Now: ${wearing?.label ?? "NONE"}.`,
     (row) => {
       button(
         row,

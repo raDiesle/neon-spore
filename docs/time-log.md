@@ -22,6 +22,23 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — the gyre slot answered
+
+ORBIT into the game; the granules it replaced, HELIX and VORTEX all
+re-authored as fillings on the SHAPES page, ORBIT beside them as the
+control. About 30 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the three gyre candidates and `gyre-core.ts` |
+| writing | 15 | the adoption, the core stripped to its shared parts, four fillings and two helpers in `fillings/parts.ts` |
+| looking | 5 | `versus:shot` before; one card each after, the helix opened up on the second look |
+| friction | 0 | — |
+| landing | 5 | the gyre budget rows remeasured, `check:fast` |
+
+Bottleneck: none worth the name — the ghost lane an hour earlier had already
+built the path, and this one walked it.
+
 ## 2026-09-11 · hit-looks — the ghost slot answered
 
 SWARM into the game, the eyes made to read at the field's size, HOLLOW and

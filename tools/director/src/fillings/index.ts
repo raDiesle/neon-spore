@@ -3,14 +3,18 @@ import { BLOOM } from "./bloom.js";
 import { CHAMBERS } from "./chambers.js";
 import { FILAMENT } from "./filament.js";
 import { GUT } from "./gut.js";
+import { HELIX } from "./helix.js";
 import { HOLLOW } from "./hollow.js";
 import { LANTERN } from "./lantern.js";
 import { LATTICE } from "./lattice.js";
 import { NUCLEUS } from "./nucleus.js";
+import { ORBIT } from "./orbit.js";
 import { ROE } from "./roe.js";
 import { SEDIMENT } from "./sediment.js";
 import { SPORES } from "./spores.js";
 import { VENT } from "./vent.js";
+import { VORTEX } from "./vortex.js";
+import { YOLK } from "./yolk.js";
 
 /**
  * Everything a body can have **in** it.
@@ -24,12 +28,12 @@ import { VENT } from "./vent.js";
  * what it *contains*, which is the same line `body-interior.ts` draws in the
  * game.
  *
- * ## Two of these are the game
+ * ## Three of these are the game
  *
- * `SPORES` and `BLOOM` carry `shipped`: they are what a bulb and a slick wear
- * on the field, taken there the same day the other eight came here. They are on
- * the axis **as controls**, because a proposal judged against a memory of the
- * shipped look wins every time.
+ * `SPORES`, `BLOOM` and `ORBIT` carry `shipped`: they are what a bulb, a slick
+ * and the gyre's organelle wear on the field, each taken there the day the
+ * answers beside it came here. They are on the axis **as controls**, because a
+ * proposal judged against a memory of the shipped look wins every time.
  *
  * ## The order
  *
@@ -41,7 +45,11 @@ import { VENT } from "./vent.js";
  * disagrees with all four about whether it is wet at all. Last, the two that
  * came from the ghost on 11 September 2026 — LANTERN and HOLLOW, the same body
  * as a solid and as a shell, bright toward the key and bright away from it —
- * which disagree about whether the body has an inside to see at all.
+ * which disagree about whether the body has an inside to see at all. Then
+ * the four from the gyre, the same day: the owner liked every answer to that
+ * slot *and* the one it had, and wanted all of them kept *to create new
+ * upcoming enemies with this inside effect* — ORBIT, the one he took, with
+ * YOLK, HELIX and VORTEX after it.
  *
  * ## NONE is a value and is not in here
  *
@@ -62,6 +70,10 @@ export const FILLINGS = [
   LATTICE,
   LANTERN,
   HOLLOW,
+  ORBIT,
+  YOLK,
+  HELIX,
+  VORTEX,
 ] as const;
 
 /** The id of a filling that exists, derived from the registry and never typed. */

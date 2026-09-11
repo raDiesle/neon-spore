@@ -1,4 +1,4 @@
-import { drawGyreCore } from "./gyre-core.js";
+import { orbit } from "./gyre-orbit.js";
 
 /**
  * THE ONE RECORD A CANDIDATE GYRE CORE PATCHES.
@@ -39,7 +39,9 @@ export interface GyreLook {
   core(d: GyreCoreDraw): void;
 }
 
-/** The shipped organelle: an aura, a lit mass clipped into a breathing skin
- * that turns, nine granules placed on it and carried round by `flow`, and one
- * specular that does not move at all. `gyre-core.ts` holds it. */
-export const GYRE_LOOK: GyreLook = { core: drawGyreCore };
+/** `gyre-orbit.ts` since 11 September 2026: one band of light girdling the
+ * ball at a tilt, its far half seen through the mass and its near half drawn
+ * over the nucleus, swapping once a turn. The owner liked every answer to this
+ * slot and the granules it replaced, so all four are on the SHAPES page's
+ * FILLING axis — `tools/versus/DECIDED.md`. */
+export const GYRE_LOOK: GyreLook = { core: orbit };

@@ -660,6 +660,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/gyre-core.ts` | you are drawing the surface in the middle of a gyre wheel — the organelle, its fluid and its nucleus |
 | `packages/render/src/gyre-place.ts` | you are asking where a gyre's hub, rim or mounts are drawn between beats — the arc, the ease and the jam |
 | `packages/render/src/gyre-look.ts` | THE ONE RECORD A CANDIDATE GYRE CORE PATCHES |
+| `packages/render/src/gyre-orbit.ts` | ORBIT, drawn: one band of light girdles the ball at a tilt, and the ball is in the way of half of it |
 | `packages/render/src/touch-field.ts` | you are adding something a hit test needs to know about the wave or the world — the shape `touch.ts` reads |
 | `packages/render/src/pinball-aim.ts` | you are changing what PINBALL's aim shows — the real flight path out of the bucket, and the strength bar beside the table |
 | `packages/render/src/pinball-piece.ts` | you are drawing what stands on PINBALL's table — a peg as a living cell, a block as a slab of the same tissue |
@@ -1532,6 +1533,10 @@ place — the generator keeps whatever is there.
 | `tools/director/src/fillings/spores.ts` | SPORES — the body is full, and it is a spore case |
 | `tools/director/src/fillings/types.ts` | What is *inside* a body, as against what its surface is made of |
 | `tools/director/src/fillings/vent.ts` | VENT — a mouth on the surface, opening and closing |
+| `tools/director/src/fillings/vortex.ts` | VORTEX — the inside is a throat, not a ball |
 | `tools/director/src/fillings/hollow.ts` | HOLLOW — the body is a bell of glass, lit on the inside of its far wall, with a heart hanging inside it |
+| `tools/director/src/fillings/helix.ts` | HELIX — something coiled is growing inside the ball, and it is winding |
+| `tools/director/src/fillings/orbit.ts` | ORBIT — one band of light girdles the ball at a tilt, and the ball is in the way of half of it |
+| `tools/director/src/fillings/yolk.ts` | YOLK — nine granules suspended in a lit mass, carried round by the turn, and a pale nucleus that does not move |
 
 <!-- index:code:end -->
