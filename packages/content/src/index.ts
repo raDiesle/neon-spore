@@ -207,6 +207,7 @@ export {
   TORCH,
 } from "./silhouettes.js";
 export { SNAKE_ROUNDS } from "./snake-rounds.js";
+export { type StuddedOpts, studdedContour } from "./studded.js";
 export type { Pin } from "./surface.js";
 export { type Facet, facet, LAT_LIMIT, limbX, pin, surfaceDim, surfaceLit } from "./surface.js";
 // THE VEER's rider, as figures and as loops — one description of the clown for

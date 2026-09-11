@@ -465,6 +465,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/motion-bank.ts` | BANK, the slick's own motion: two slow drifts on periods with no common multiple, the body leaning into its own travel — the answer the owner took on 9 September 2026 |
 | `packages/content/src/balloon-parts.ts` | **What is alive inside THE BALLOON**, and hanging under it: veins, a ring of lit beads |
 | `packages/content/src/surface.ts` | where a mark placed at a longitude and latitude lands, how the tangent plane foreshortens it, and its own normal against `KEY` |
+| `packages/content/src/studded.ts` | A body whose whole rim is broken by the same feature repeated: knobs, spines or hairs — the contour alone |
 
 ### packages/render
 
@@ -669,6 +670,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/rind-shed.ts` | the event of a layer coming off a rind — which body, how big it was and is — handed to `RIND_LOOK` to draw |
 | `packages/render/src/rind-skin.ts` | the shipped picture of a rind losing a layer — the outline crushed onto the smaller body, the skin thrown out as a ring |
 | `packages/render/src/rind-look.ts` | you are offering a second answer to the rind — its shed, or the body it wears per layer |
+| `packages/render/src/rind-burr.ts` | BURR — a rind wearing knobs, and it loses knobs with its layers |
 | `packages/render/src/snake-crash.ts` | The pause between two attempts, as a picture |
 | `packages/render/src/snake-items.ts` | What is standing in SNAKE's arena to be spent: the things to shoot and the things to swallow |
 | `packages/render/src/snake-ribbon.ts` | What a body looks like once somebody has said where its joints are |

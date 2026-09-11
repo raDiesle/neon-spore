@@ -52,9 +52,6 @@ import { WISP_SKIRT } from "./creature-wisp/skirt/index.js";
 import { BACKDROP_BARE } from "./field-backdrop/bare/index.js";
 import { BACKDROP_LANES } from "./field-backdrop/lanes/index.js";
 import { BACKDROP_NEBULA } from "./field-backdrop/nebula/index.js";
-import { RIND_BODY_BURR } from "./rind-body/burr/index.js";
-import { RIND_BODY_FACET } from "./rind-body/facet/index.js";
-import { RIND_BODY_TOOTHED } from "./rind-body/toothed/index.js";
 import { SHIP_CHITIN } from "./ship-body/chitin/index.js";
 import { SHIP_GLAND } from "./ship-body/gland/index.js";
 import { SHIP_GULLET } from "./ship-body/gullet/index.js";
@@ -109,9 +106,6 @@ export const VARIANTS: Variant[] = [
   BACKDROP_BARE,
   BACKDROP_LANES,
   BACKDROP_NEBULA,
-  RIND_BODY_BURR,
-  RIND_BODY_FACET,
-  RIND_BODY_TOOTHED,
   SHIP_CHITIN,
   SHIP_GLAND,
   SHIP_GULLET,

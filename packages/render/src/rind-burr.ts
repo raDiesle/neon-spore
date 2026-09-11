@@ -1,6 +1,4 @@
-import { walkedSilhouette } from "../../../../../packages/content/src/body-form.js";
-import type { CreatureSilhouette } from "../../../../../packages/content/src/silhouettes.js";
-import { studded } from "../../../../shape-sheet/src/forms/studded.js";
+import { type CreatureSilhouette, studdedContour, walkedSilhouette } from "@neon-spore/content";
 
 /**
  * BURR — a rind wearing knobs, and it loses knobs with its layers.
@@ -10,8 +8,8 @@ import { studded } from "../../../../shape-sheet/src/forms/studded.js";
  * every falling enemy in other games wears and what tells one kind from
  * another at the size a phone draws them. A rind is a body with something
  * *on* it, and a knob is the plainest picture there is of something on a
- * body. The form is taken as it is — the candidate imports it rather than
- * copying its arithmetic, which is the clubbed rim's move — and asked for a
+ * body. The form is taken as it is — the rim's arithmetic is content's
+ * `studded.ts`, which the shapes page draws from too — and asked for a
  * different rim per layer: seven fat knobs standing well off the body with
  * both layers on, four shorter ones with one, and the ordinary blob when bare.
  * Few and fat rather than many and sharp, so it is not TOOTHED's rim again:
@@ -39,7 +37,7 @@ export function burr(left: number): CreatureSilhouette {
   const have = built.get(left);
   if (have) return have;
   const studs = KNOBS_BASE + KNOBS_PER_LAYER * left;
-  const form = studded("BURR", "a rind wearing knobs", {
+  const form = studdedContour({
     rx: RX,
     ry: RY,
     studs,
@@ -51,7 +49,7 @@ export function burr(left: number): CreatureSilhouette {
     depth: base.depth,
     seed: base.seed,
   });
-  const made = walkedSilhouette({ ...base, lobes: studs }, (t) => form.pointsAt(t));
+  const made = walkedSilhouette({ ...base, lobes: studs }, form);
   built.set(left, made);
   return made;
 }

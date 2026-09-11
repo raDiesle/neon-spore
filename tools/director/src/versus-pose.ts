@@ -42,7 +42,6 @@ const SLOT_POSE: Record<string, string> = {
   "creature:wisp": "WISP · STANDING",
   "creature:mount": "GYRE · TURNING",
   "creature:rind": "RIND · SHEDDING",
-  "rind:body": "RIND · SHEDDING",
   "creature:lid": "LID · OPENING",
   "creature:veil": "VEIL · CARRYING",
   "creature:warden": "WARDEN · ARMOURED",

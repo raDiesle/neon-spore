@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — the rind decided: BURR
+
+The owner picked BURR for `rind:body`. `bun run versus adopt` moved the candidate into render, but it imported the shape sheet's `studded` form by a relative path, which a package may not do; the arithmetic moved into `packages/content/src/studded.ts` and the sheet's form became a wrapper round it, the move `metaball.ts` and `body-path.ts` made before.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the adopt tool's output and the candidate's imports |
+| writing | 10 | `content/studded.ts`, the sheet's wrapper, the render import |
+| looking | 5 | one frame of THE RIND, cropped |
+| friction | 5 | the moved file's relative import broke the typecheck; the crop tool's argument shape |
+| landing | 5 | check:fast, commit, land |
+
+Bottleneck: The adopt tool moves a file without rewriting a relative import into a tool, which cost a typecheck round.
+
 ## 2026-09-11 · hit-looks — the crater decided
 
 The owner keeps the crater as shipped; the slot closed with nothing taken. About 5 min.

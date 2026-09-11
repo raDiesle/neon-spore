@@ -648,3 +648,19 @@ in their place beside `chitin`, `gullet` and `reef`; the three new cards share
 the owner keeps the crater as shipped — no alternative wanted
 
 The other answers offered were `grit` and `shards`; they went with the slot.
+
+## `rind:body` / `burr` — taken, 2026-09-11
+
+the owner picked BURR — a rind is a body with something on it, and the knobs
+go with the layers
+
+the rind wears a rim of fat knobs — seven standing well off the body with both
+layers on, four shorter with one, none when bare — the shapes page's studded
+form asked for a different rim per layer, so the knobs are seen to go with the
+skin
+
+`RIND_LOOK.body` is `burr`, moved from
+`tools/versus/candidates/rind-body/burr/paint.ts` to
+`packages/render/src/rind-burr.ts`.
+
+The other answers offered were `facet` and `toothed`; they went with the slot.

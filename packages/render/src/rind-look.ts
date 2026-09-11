@@ -1,5 +1,6 @@
 import type { CreatureSilhouette } from "@neon-spore/content";
 import { type Creature, rindLayersLeft, type SimConfig } from "@neon-spore/sim";
+import { burr } from "./rind-burr.js";
 import { drawShed } from "./rind-skin.js";
 
 /**
@@ -80,7 +81,7 @@ export interface RindLook {
  * thrown outward as a thinning ring that breaks into plates on the way, in a
  * bloom of the body's own colour. `rind-skin.ts` holds the arithmetic. And no
  * body of its own: a rind is drawn as what it will become. */
-export const RIND_LOOK: RindLook = { shed: drawShed, body: null };
+export const RIND_LOOK: RindLook = { shed: drawShed, body: burr };
 
 /**
  * The silhouette this rind is drawn with instead of its worn kind's, or
