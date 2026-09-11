@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · 2c7e5b72 — creature:warden decided: the shipped surface stays, MANTLE, ROLL and WHORL kept on the SHAPES page's LIBRARY
+
+The owner kept the warden's surface as the game draws it and said of the three alternatives "i like the alternatives a lot, move them to 'Shapes' page". A look the owner asked for by name. The three paints move out of tools/versus into packages/render beside the record they patched (warden-mantle.ts, warden-roll.ts with warden-roll-tube.ts, warden-whorl.ts), exported for the director and dropped from the game's bundle, and the LIBRARY view gets a warden stage: the game's own drawWarden on a body and state made the way wave-start makes them, the hole drifting a column and back and the hatch opening and shutting, with WARDEN_LOOK.surface swapped for the length of a card and put back. Four cards: SURFACE (starred, in the game), MANTLE, ROLL, WHORL. The slot is dropped with the reason in DECIDED.md.
+
 ## 2026-09-11 · f6b55d44 — The wisp wears ARMS, and the SHAPES page gets a LIBRARY of the game's own looks
 
 The owner took ARMS into the game on 11 September 2026 — four oral arms under the bell, ruffled ribbons with a lit edge and a dark one, going round the back as slivers — and said of the rest: *i like them a lot, i want to build much more enemies later on which look like this*. So the threads the wisp wore until today, and COMB and SKIRT that stood beside ARMS, are kept where he asked, on the SHAPES page. The page had no place for a whole canvas-drawn look, so it has one now: a fourth view, LIBRARY, whose cards are the game's own drawing code run on the game's own wisp, hopping on one clock, the one it wears marked with a star. `creature:wisp` is closed. A look the owner asked for by name.
