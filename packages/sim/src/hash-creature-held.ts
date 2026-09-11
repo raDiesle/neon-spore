@@ -28,10 +28,6 @@ export function heldHashParts(c: Creature): number[] {
   // the plates stand apart — which is to say about whether the shot player 2
   // just fired counted.
   out.push(c.lidPullYMilli ?? 0);
-  // And where the hand took the cord, for the reason above one more time: two
-  // devices that disagree about the anchor draw the handle in two places.
-  out.push(c.lidAnchorMilli ?? -1);
-  out.push(c.lidAnchorYMilli ?? -1);
   // The beat this body was last carried a column on. It decides whether the
   // next hand that has earned a column gets one, so two devices that disagree
   // about it disagree about which column the body is standing in a beat later

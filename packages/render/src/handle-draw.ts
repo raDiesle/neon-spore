@@ -71,6 +71,10 @@ export function handleRadius(l: Layout, cfg: SimConfig): number {
  * one pulled straight down. The perpendicular to the line between the two ends
  * is the same picture whichever way the hand went — and for a rope swung aside,
  * which is all this used to have to draw, it is the picture it always was.
+ * Of the two perpendiculars, the one with a downward part: a cord run
+ * sideways to a handle on the left of its body (THE LID's, since the handle
+ * moved beside the eye) bellied *upward* with the other, and a slack line
+ * hangs.
  */
 export function handleSag(opts: {
   anchor: Point;
@@ -90,8 +94,9 @@ export function handleSag(opts: {
   const dx = head.x - anchor.x;
   const dy = head.y - anchor.y;
   const len = Math.hypot(dx, dy) || 1;
-  const nx = -dy / len;
-  const ny = dx / len;
+  const down = dx >= 0 ? 1 : -1;
+  const nx = (-dy / len) * down;
+  const ny = (dx / len) * down;
   for (let i = 0; i <= opts.segments; i++) {
     const t = i / opts.segments;
     // A half-sine across the length, so both ends stay where they are anchored.

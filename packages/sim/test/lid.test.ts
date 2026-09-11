@@ -5,9 +5,11 @@ import {
   hashWorld,
   hullPercent,
   hullRow,
+  lidHandleMilli,
   lidIsHeld,
   lidIsOpen,
   lidOpenMilli,
+  lidSide,
   record,
   runReplay,
   type SimConfig,
@@ -167,10 +169,10 @@ describe("the hand on the cord", () => {
     // field, and it stops *there* rather than wherever the finger went on to.
     const { world } = run([lid(COL)], TPB * 2, [pull(TPB, -99_000)]);
     const body = only(world);
-    // The cord hangs `lidCordMilli` under the body's own centre; the field is
-    // inset by the handle's own radius, so what is kept on is the whole circle,
-    // and by a tile along the top, which is the app's own chrome.
-    const rest = body.row * 1000 + 500 + CFG.lidCordMilli;
+    // The cord hangs level with the body's own centre, a tile beside it; the
+    // field is inset by the handle's own radius, so what is kept on is the
+    // whole circle, and by a tile along the top, which is the app's own chrome.
+    const rest = body.row * 1000 + 500;
     const handle = rest + (body.lidPullYMilli ?? 0);
     expect(handle).toBeGreaterThanOrEqual(CFG.handleRadiusMilli + 1000);
     expect(handle).toBeLessThanOrEqual(CFG.rows * 1000 - CFG.handleRadiusMilli);
@@ -178,6 +180,47 @@ describe("the hand on the cord", () => {
     // more than taut and got less, which no taut clamp alone would give.
     expect(Math.abs(body.lidPullYMilli ?? 0)).toBeLessThan(CFG.lidTautMilli);
     expect(lidIsOpen(CFG, body)).toBe(false);
+  });
+
+  /**
+   * The owner, 11 September 2026: *the pull must be left or right of the
+   * enemy, then it should glide as the lid glides.* Beside, on the side with
+   * the room; and the handle rides the body down whether or not a hand is on
+   * it — the tension is the hand's travel and does not change as it goes.
+   */
+  it("hangs its handle a tile beside the eye, on the side toward the middle", () => {
+    const left = only(run([lid(0)], TPB * 2).world);
+    const right = only(run([lid(6)], TPB * 2).world);
+    expect(lidSide(CFG, left)).toBe(1);
+    expect(lidSide(CFG, right)).toBe(-1);
+    const at = lidHandleMilli(CFG, left);
+    expect(at.x).toBe(left.col * 1000 + 500 + CFG.lidCordMilli);
+    expect(at.y).toBe(left.row * 1000 + 500);
+    expect(lidHandleMilli(CFG, right).x).toBe(right.col * 1000 + 500 - CFG.lidCordMilli);
+  });
+
+  it("rides the lid down, held, with the tension unchanged", () => {
+    const held = run([lid(COL)], TPB * 3 + 1, [pull(TPB * 2, 3000)]);
+    const later = run([lid(COL)], TPB * 5 + 1, [pull(TPB * 2, 3000)]);
+    const a = lidHandleMilli(CFG, only(held.world));
+    const b = lidHandleMilli(CFG, only(later.world));
+    expect(only(later.world).row).toBe(only(held.world).row + 2);
+    expect(b.y - a.y).toBe(2000);
+    expect(b.x).toBe(a.x);
+    expect(lidOpenMilli(CFG, only(later.world))).toBe(lidOpenMilli(CFG, only(held.world)));
+  });
+
+  it("pays the cord out when the handle reaches the floor before the lid does", () => {
+    // Pulled straight down as far as the field allows, from low enough that
+    // the floor is nearer than taut: the handle is pinned on the bottom edge.
+    // Two beats later the lid is two rows lower and the handle is still on
+    // the field — the pull is shorter, not the field.
+    const pinned = run([lid(COL)], TPB * 9 + 1, [pull(TPB * 9, 99_000)]);
+    const later = run([lid(COL)], TPB * 11 + 1, [pull(TPB * 9, 99_000)]);
+    const floor = CFG.rows * 1000 - CFG.handleRadiusMilli;
+    expect(lidHandleMilli(CFG, only(pinned.world)).y).toBe(floor);
+    expect(lidHandleMilli(CFG, only(later.world)).y).toBe(floor);
+    expect(only(later.world).lidPullYMilli).toBe((only(pinned.world).lidPullYMilli ?? 0) - 2000);
   });
 
   it("clamps past taut, so leaning further does not bank anything", () => {

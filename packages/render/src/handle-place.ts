@@ -1,7 +1,6 @@
 import {
   balloonPull,
   type DragTarget,
-  lidHandleMilli,
   lidIsHeld,
   NO_TETHER,
   occupiesCol,
@@ -12,7 +11,7 @@ import { balloonHandleCircle, balloonHandleSeat } from "./balloon-handles.js";
 import { choirArrowCircle, showsChoirArrows } from "./choir-arrows.js";
 import { fieldPoint, handleRadius } from "./handle-draw.js";
 import type { Circle, Layout } from "./layout.js";
-import { lidCordCircle } from "./lid-string.js";
+import { lidCordCircle, lidHandlePoint } from "./lid-string.js";
 import { mazeStringCircle, mazeStringHandle } from "./maze-string.js";
 
 /**
@@ -104,9 +103,9 @@ export function handleCircle(
     (c) => c.kind === "lid" && (col === undefined || occupiesCol(c, col)),
   );
   if (!lid) return null;
-  // Held, the handle is wherever the hand carried it; loose, it hangs under
-  // the body and follows it down, which is `lidCordCircle`'s own answer.
+  // Loose, it hangs beside the body and follows it down; held, it is the same
+  // place plus the hand's pull — both `lid-string.ts`'s own answers.
   if (!lidIsHeld(lid)) return lidCordCircle(l, cfg, lid, beatPhase);
-  const at = fieldPoint(l, lidHandleMilli(cfg, lid));
+  const at = lidHandlePoint(l, cfg, lid, beatPhase);
   return { x: at.x, y: at.y, r: handleRadius(l, cfg) };
 }

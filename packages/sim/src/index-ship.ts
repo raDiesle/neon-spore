@@ -44,7 +44,7 @@ export {
   primeColor,
   priming,
 } from "./lance.js";
-export { lidHandleMilli, lidIsHeld, lidIsOpen, lidOpenMilli, lidPull } from "./lid.js";
+export { lidHandleMilli, lidIsHeld, lidIsOpen, lidOpenMilli, lidPull, lidSide } from "./lid.js";
 export { isLockedOn, lockedBody } from "./lock.js";
 export { mawOpen, podKindOf } from "./pods.js";
 export { ARM_HOME, reachOut, reachTipMilli } from "./reach.js";

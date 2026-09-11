@@ -1,9 +1,10 @@
 import { openSmoothPath } from "@neon-spore/content";
 import {
   type Creature,
-  lidHandleMilli,
   lidIsHeld,
   lidOpenMilli,
+  lidPull,
+  lidSide,
   type SimConfig,
   type World,
 } from "@neon-spore/sim";
@@ -13,7 +14,6 @@ import {
   drawHandleHint,
   drawHandleRest,
   drawHandleRing,
-  fieldPoint,
   HINT_SOFT,
   handleRadius,
   handleSag,
@@ -41,8 +41,13 @@ import { PALETTE, STROKE } from "./palette.js";
  *
  * **One difference from the rope, and it is the creature.** A warden's line is
  * lowered into a column and hangs there; a lid's cord comes down with the body,
- * so it is drawn from wherever the body has glided to this frame — `beatPhase`
- * rather than the row it left.
+ * handle and all — the owner's ask: *the pull must be left or right of the
+ * enemy, then it should glide as the lid glides*. So the handle hangs a tile
+ * beside the eye on the side with the room (`lidSide`), and held or loose it
+ * is drawn from wherever the body has glided to this frame, `beatPhase` rather
+ * than the row it left, plus the hand's pull. The finger that took it is
+ * captured and does not have to follow; the tension is how far the finger has
+ * come, not where the handle is (`sim/lid.ts`).
  */
 
 /**
@@ -59,10 +64,30 @@ import { PALETTE, STROKE } from "./palette.js";
  */
 export function lidCordCircle(l: Layout, cfg: SimConfig, c: Creature, beatPhase: number): Circle {
   const { x, y } = creatureCenter(l, c, beatPhase);
-  // How far under the body it hangs is the simulation's number too, not this
-  // file's: the clamp that keeps a pulled handle on the field is written
-  // against exactly this hang (`sim/handle-pull.ts`).
-  return { x, y: y + (l.tile * cfg.lidCordMilli) / 1000, r: handleRadius(l, cfg) };
+  // How far beside the body it hangs, and on which side, are the simulation's
+  // numbers too, not this file's: the clamp that keeps a pulled handle on the
+  // field is written against exactly this rest (`sim/lid.ts`, `cordRest`).
+  const side = lidSide(cfg, c);
+  return { x: x + (side * l.tile * cfg.lidCordMilli) / 1000, y, r: handleRadius(l, cfg) };
+}
+
+/**
+ * Where the handle is this frame: the rest, glided with the body, plus how
+ * far the hand has carried it — `lidHandleMilli`'s rule with the beat's phase
+ * in it, which the rule's integer row cannot hold. One to one with the hand
+ * in both axes: the pull is thousandths of a tile, which is what `l.tile`
+ * turns back into pixels, and the simulation has already kept it on the
+ * field, so nothing here bounds it a second time (`sim/handle-pull.ts`).
+ */
+export function lidHandlePoint(
+  l: Layout,
+  cfg: SimConfig,
+  c: Creature,
+  beatPhase: number,
+): { x: number; y: number } {
+  const rest = lidCordCircle(l, cfg, c, beatPhase);
+  const pull = lidPull(c);
+  return { x: rest.x + (pull.x * l.tile) / 1000, y: rest.y + (pull.y * l.tile) / 1000 };
 }
 
 /**
@@ -94,23 +119,18 @@ function drawOne(
   const rim = c.color === "red" ? PALETTE.redRim : PALETTE.cyanRim;
   const rest = lidCordCircle(l, cfg, c, beatPhase);
   const top = creatureCenter(l, c, beatPhase);
-  // One to one with the hand, in both axes: the handle stands exactly where the
-  // finger carried it, so the distance on the screen *is* the distance being
-  // asked for. The pull is thousandths of a tile, which is what `l.tile` turns
-  // back into pixels — and the simulation has already kept it on the field, so
-  // nothing here has to bound it a second time (`sim/handle-pull.ts`).
   const held = lidIsHeld(c);
   const pull = lidOpenMilli(cfg, c) / 1000;
-  // Where the handle is, straight from the rule: the anchor the hand took it
-  // from plus how far the hand carried it, which is why it stays under the
-  // finger while the body falls away (`sim/lid.ts`). Not `rest + pull` — that
-  // is what walked the handle down the screen a tile a beat.
-  const head = fieldPoint(l, lidHandleMilli(cfg, c));
+  // Where the handle is: the rest, riding the body, plus the hand's pull —
+  // the same picture held and loose, which is what lets it glide as the lid
+  // glides (`sim/lid.ts`, `lidHandleMilli`).
+  const head = lidHandlePoint(l, cfg, c, beatPhase);
 
   // Under tension the cord goes thin and bright: it is its own gauge, and
-  // there is no widget anywhere saying how far the pull has got.
+  // there is no widget anywhere saying how far the pull has got. It runs from
+  // the eye's own centre, out of the side the handle hangs on.
   const sag = handleSag({
-    anchor: { x: rest.x, y: top.y },
+    anchor: top,
     head,
     held,
     pull,

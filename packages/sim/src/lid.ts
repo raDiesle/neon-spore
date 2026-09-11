@@ -57,39 +57,48 @@ export function lidPull(c: Creature): { x: number; y: number } {
   return { x: c.lidPullMilli ?? 0, y: c.lidPullYMilli ?? 0 };
 }
 
+/**
+ * Which side of the body the cord hangs on: **the side toward the middle of
+ * the field**, +1 for the right and -1 for the left. The owner asked for the
+ * handle beside the eye rather than under it (11 September 2026), and beside
+ * means one side or the other: the one with the room, so a lid against a wall
+ * never hangs its handle into it and a hand pulling *away* from the body has
+ * the width of the field to do it in. A lid dead centre hangs it on the left.
+ */
+export function lidSide(cfg: SimConfig, c: Creature): -1 | 1 {
+  return c.col * 2 + 1 < cfg.cols ? 1 : -1;
+}
+
 /** Where this lid's cord hangs with no hand on it, in thousandths of a tile —
- * `lidCordMilli` below the body's own centre. The one place it is said, so the
- * clamp that keeps the handle on the field and the cord render draws to it
- * cannot disagree about where it started. */
+ * `lidCordMilli` beside the body's own centre, on `lidSide`. The one place it
+ * is said, so the clamp that keeps the handle on the field and the cord render
+ * draws to it cannot disagree about where it starts. */
 export function cordRest(cfg: SimConfig, c: Creature): { x: number; y: number } {
   const centre = tileCentreMilli(c.col, c.row);
-  return { x: centre.x, y: centre.y + cfg.lidCordMilli };
+  return { x: centre.x + lidSide(cfg, c) * cfg.lidCordMilli, y: centre.y };
 }
 
 /**
- * Where the handle actually is, in thousandths of a tile — the anchor the hand
- * took it from, plus how far the hand has carried it.
+ * Where the handle is, in thousandths of a tile — the cord's rest **today**
+ * plus how far the hand has carried it.
  *
- * **Not the cord's rest plus the pull**, which is what it was and what made the
- * handle walk out from under a stationary thumb: a lid falls a tile a beat, and
- * a handle hung off *today's* rest fell with it. The anchor is frozen at the
- * grab, so the handle stays exactly where the finger is and the cord simply
- * gets longer as the body drops away from it.
+ * So the handle goes down the field with the lid, held or not, and the cord
+ * keeps its length: the owner's ask, *it should glide as the lid glides*. It
+ * was the other way for a while — an anchor frozen at the grab, so the handle
+ * sat under a still thumb while the body fell away and the cord paid out —
+ * and that read as the handle having come off the creature. The tension is
+ * how far the hand has come from where it grabbed (`lidHeard`), which a body
+ * falling under a still hand does not change; the picture the pilot is
+ * holding simply travels with the thing it is attached to, and the finger,
+ * which is captured, does not have to follow it.
  *
- * Nought for a lid nobody is holding — the caller draws the resting circle for
- * that, which is a different picture and a different place.
+ * Render glides this by the beat's phase rather than reading it off the row;
+ * this is the rule the clamp and the tests are on.
  */
 export function lidHandleMilli(cfg: SimConfig, c: Creature): { x: number; y: number } {
-  const anchor = lidAnchor(cfg, c);
+  const rest = cordRest(cfg, c);
   const pull = lidPull(c);
-  return { x: anchor.x + pull.x, y: anchor.y + pull.y };
-}
-
-/** The anchor a held cord hangs from: frozen at the grab, and the cord's own
- * rest for one that nobody has taken yet. */
-function lidAnchor(cfg: SimConfig, c: Creature): { x: number; y: number } {
-  if (c.lidAnchorMilli === undefined || c.lidAnchorYMilli === undefined) return cordRest(cfg, c);
-  return { x: c.lidAnchorMilli, y: c.lidAnchorYMilli };
+  return { x: rest.x + pull.x, y: rest.y + pull.y };
 }
 
 /**
@@ -151,22 +160,13 @@ export function lidHeard(world: World, player: 1 | 2, command: Command): void {
     if (c === held) continue;
     c.lidPullMilli = undefined;
     c.lidPullYMilli = undefined;
-    c.lidAnchorMilli = undefined;
-    c.lidAnchorYMilli = undefined;
-  }
-  // The anchor is taken once, at the grab, and held there for as long as the
-  // hand is: that is what keeps the handle under the finger while the body
-  // falls away from it (`lidHandleMilli`).
-  if (held.lidAnchorMilli === undefined) {
-    const rest = cordRest(world.cfg, held);
-    held.lidAnchorMilli = rest.x;
-    held.lidAnchorYMilli = rest.y;
   }
   // Cut to taut and then kept on the field, both in one rule and neither of
-  // them spelled out here (`handle-pull.ts`).
+  // them spelled out here (`handle-pull.ts`) — against the cord's rest today,
+  // which is where the handle hangs from (`lidHandleMilli`).
   const pulled = clampPull(
     world.cfg,
-    { x: held.lidAnchorMilli, y: held.lidAnchorYMilli ?? 0 },
+    cordRest(world.cfg, held),
     { x: command.fromMilli, y: command.fromYMilli ?? 0 },
     world.cfg.lidTautMilli,
   );
@@ -183,8 +183,27 @@ export function releaseLids(world: World): void {
     if (c.kind !== "lid") continue;
     c.lidPullMilli = undefined;
     c.lidPullYMilli = undefined;
-    c.lidAnchorMilli = undefined;
-    c.lidAnchorYMilli = undefined;
+  }
+}
+
+/**
+ * Every held cord, kept on the field as the body under it falls.
+ *
+ * The clamp in `lidHeard` settles where a handle may be at the instant a
+ * finger reports, and the handle rides the lid down a tile a beat afterwards
+ * (`lidHandleMilli`) — so one pinned against the bottom of the field would be
+ * off it a beat later with no new command to notice. Re-clamping shortens the
+ * pull rather than moving the body, which is the honest reading: the handle
+ * reached the floor and the lid went on falling, so the cord paid it out and
+ * the plates close by themselves. Both seats see it, because both draw the
+ * same number. Called from `step` once a beat, after the field has fallen.
+ */
+export function stepLidPulls(world: World): void {
+  for (const c of world.creatures) {
+    if (c.kind !== "lid" || c.lidPullMilli === undefined) continue;
+    const kept = clampPull(world.cfg, cordRest(world.cfg, c), lidPull(c), world.cfg.lidTautMilli);
+    c.lidPullMilli = kept.x;
+    c.lidPullYMilli = kept.y;
   }
 }
 

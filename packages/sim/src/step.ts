@@ -18,7 +18,7 @@ import { gumHeard } from "./gum.js";
 import { regenerateHull } from "./hull.js";
 import { stepBeam } from "./lance.js";
 import { releaseLance } from "./lance-burn.js";
-import { lidHeard } from "./lid.js";
+import { lidHeard, stepLidPulls } from "./lid.js";
 import { stepMalfunction } from "./malfunction.js";
 import { mazeStringHeard, stepMazeTurn } from "./maze-controls.js";
 import { advancePods } from "./pods.js";
@@ -145,6 +145,9 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
     // before it drags it anywhere (`choke.ts`).
     stepChoke(world);
     onBeat(world);
+    // After the field has fallen, and only then: a held cord rides its lid
+    // down and has to stay on the field as it goes (`lid.ts`).
+    stepLidPulls(world);
     // A broken control acts on the beat, straight after the field has moved
     // under it — so the shot goes up the column the cannon is standing in
     // *now* and the dome comes up over the row a body has just stepped onto.

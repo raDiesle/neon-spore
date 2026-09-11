@@ -22,6 +22,26 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — THE LID's cord hangs beside the eye and rides down with it
+
+The owner: *the pull must be left or right of the enemy, then it should
+glide as the lid glides.* The handle hangs a tile beside the eye on the side
+toward the middle of the field (`lidSide`), and held or loose it goes down
+with the body, the cord keeping its length; the tension is still the hand's
+travel. The frozen anchor a September lane added is gone, and the per-beat
+re-clamp it removed is back. About 30 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `lid.ts`, `handle-pull.ts`, `lid-string.ts`, `handle-place.ts`, the commit that froze the anchor and why |
+| writing | 10 | `lidSide`, the rest and handle rules, `stepLidPulls` back, the two anchor fields out of the state and the hash, the render's `lidHandlePoint`, the sag's belly hanging down, three tests |
+| looking | 5 | two films — one with the handle pulled off the crop, one loose then held |
+| friction | 0 | — |
+| landing | 5 | `check:fast`, the commit, `land --keep` |
+
+Bottleneck: **none worth the name** — the one decision was which side, and
+the side with the room answered it.
+
 ## 2026-09-11 · hit-looks — THE RECOIL is thrown, not jumped
 
 The owner: *jumping when hit is sometimes not natural and fluent — it's like

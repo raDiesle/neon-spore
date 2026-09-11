@@ -101,19 +101,15 @@ export function tileCentreMilli(col: number, row: number): PullVec {
 /**
  * The pull, cut to length and then kept on the field.
  *
- * `anchor` is **where the handle was when the hand took it**, frozen there for
- * as long as the hand stays, and `raw` is what the pulling device reported — a
- * displacement from wherever the finger grabbed, resolved on that device
- * (`Command` in `command-types.ts`). Anchor plus pull is therefore the finger,
- * and the handle stays under it however far the body it hangs off has moved
- * since (`lidAnchorMilli`, `WardenState.pullAnchorX`).
- *
- * **Frozen, and not the handle's resting place today**, which is what it used
- * to be and what made the bug: a lid falls a tile a beat, so a handle drawn at
- * its current rest walked down the screen out from under a stationary thumb,
- * and the warden's walked sideways as the pupil drifted. What comes back is
- * what the handle actually did, which is what both the picture and the openness
- * are read off.
+ * `anchor` is **where the handle hangs from**, and `raw` is what the pulling
+ * device reported — a displacement from wherever the finger grabbed, resolved
+ * on that device (`Command` in `command-types.ts`). Anchor plus pull is the
+ * handle. For THE WARDEN the anchor is frozen where the hand took the rope
+ * (`WardenState.pullAnchorX`), so the handle stays under the finger while the
+ * pupil drifts; for THE LID it is the cord's rest **today**, so the handle
+ * rides the falling body (`lidHandleMilli`, the owner's ask) and is re-clamped
+ * once a beat as it goes (`stepLidPulls`). What comes back is what the handle
+ * actually did, which is what both the picture and the openness are read off.
  */
 export function clampPull(
   cfg: SimConfig,

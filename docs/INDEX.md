@@ -671,7 +671,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/ghost-swarm.ts` | SWARM — the nebula is not a gradient but a *population* |
 | `packages/render/src/wisp-aim.ts` | you are drawing the square a wisp is going to and the dotted arc to it — the navigator's whole sentence |
 | `packages/render/src/wisp-arms.ts` | ARMS — four oral arms under the bell, each a ruffled ribbon with a width, instead of eight threads with none |
-| `packages/render/src/lid-string.ts` | you are drawing or hit-testing the cord under an armoured eye — the handle's circle lives here |
+| `packages/render/src/lid-string.ts` | you are drawing or hit-testing the cord beside an armoured eye — the handle's circle lives here |
 | `packages/render/src/lid-look.ts` | you are offering a second answer to the lid's armour — the one record a candidate for the plates patches |
 | `packages/render/src/lid-plates.ts` | the shipped plates over the lid's lens — two grey rectangles sliding apart, and the lit seam between them |
 | `packages/render/src/lid-bevel.ts` | BEVEL — a kept look for THE LID's armour, drawn only on the GRAPHICS page's LIBRARY |

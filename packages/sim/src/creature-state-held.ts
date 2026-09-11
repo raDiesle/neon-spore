@@ -51,11 +51,6 @@ export interface HeldState {
    */
   lidPullMilli?: number;
   lidPullYMilli?: number;
-  /** Where the handle was when the hand took it, held there until the hand lets
-   * go: the handle is this plus the pull, which is what keeps it under the
-   * finger while the body falls away (`lidHandleMilli`). Absent unheld. */
-  lidAnchorMilli?: number;
-  lidAnchorYMilli?: number;
   /**
    * **THE GUM is on the ship.** Set once, on the beat it is drawn standing
    * on the hull, and never cleared: a gum leaves the field by being flung and

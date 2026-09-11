@@ -182,9 +182,11 @@ export interface CreatureConfig {
    */
   lidTautMilli: number;
   /**
-   * How far below THE LID's own centre its cord hangs, in thousandths of a
-   * tile. Far enough to be clear of the eye at every row, so a thumb reaching
-   * for the cord is never a thumb landing on the body behind it.
+   * How far beside THE LID's own centre its cord hangs, in thousandths of a
+   * tile — on the side toward the middle of the field (`lidSide`). A whole
+   * tile: clear of the eye at every row, so a thumb reaching for the cord is
+   * never a thumb landing on the body behind it, and clear of the body's
+   * growth near the ship.
    *
    * **A `SimConfig` number rather than a render constant**, because the rule
    * reads it: the clamp that keeps a handle on the field needs to know where
@@ -212,5 +214,5 @@ export const CREATURE_DEFAULTS: CreatureConfig = {
   echoSplitBeats: 3,
   rindLayers: 2,
   lidTautMilli: 7000,
-  lidCordMilli: 800,
+  lidCordMilli: 1000,
 };
