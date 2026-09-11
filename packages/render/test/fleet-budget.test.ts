@@ -106,6 +106,10 @@ type Budget = Partial<
  * touch, and the rows below are the measurement that bought: 192 down to 60
  * on both seats, for one more `fill` and one more `Path2D`.
  */
+// One more `drawImage` in every row from 11 September 2026, when the owner
+// decided `field:backdrop`: one soft light of the act's tint sits in the
+// bottom-right corner of the sky (`corner-light.ts`), a disc baked once and
+// blitted every frame the field is drawn.
 const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budget>>>> = {
   p1: {
     mid: {
@@ -117,7 +121,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       fill: 35,
       clip: 7,
       save: 36,
-      drawImage: 18,
+      drawImage: 19,
       createLinearGradient: 7,
       createRadialGradient: 0,
       "new Path2D": 9,
@@ -134,7 +138,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       save: 44,
       // Three more: the flash and the fireball are `halo` blits, and the halo
       // the shell was carrying is gone.
-      drawImage: 22,
+      drawImage: 23,
       // One fewer: the shell's exhaust gradient goes with the shell.
       createLinearGradient: 6,
       // The fireball, and the one radial gradient this fight ever builds.
@@ -152,7 +156,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       fill: 32,
       clip: 7,
       save: 31,
-      drawImage: 19,
+      drawImage: 20,
       createLinearGradient: 7,
       createRadialGradient: 0,
       "new Path2D": 9,
@@ -164,7 +168,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       fill: 30,
       clip: 7,
       save: 39,
-      drawImage: 22,
+      drawImage: 23,
       createLinearGradient: 6,
       createRadialGradient: 1,
       "new Path2D": 9,

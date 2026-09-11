@@ -119,6 +119,10 @@ type Budget = Partial<
  */
 const MEASURE = false;
 
+// One more `drawImage` in every row of this file from 11 September 2026, when
+// the owner decided `field:backdrop`: one soft light of the act's tint in the
+// bottom-right corner of the sky (`corner-light.ts`), baked once, blitted
+// every frame the field is drawn.
 const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
   p1: [
     {
@@ -136,7 +140,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       fill: 28,
       clip: 9,
       save: 34,
-      drawImage: 38,
+      drawImage: 39,
       createLinearGradient: 15,
       createRadialGradient: 3,
       // Fourteen of these are the panel's own sheet, painted here and only
@@ -155,7 +159,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       fill: 28,
       clip: 9,
       save: 34,
-      drawImage: 38,
+      drawImage: 39,
       // Down from frame 0: the layout-only gradients (`gradient-slot.ts`'s
       // sites in field.ts and backdrop.ts, key-light.ts's own slot, and the
       // channels' three in band-control.ts) are cache hits from the second
@@ -183,7 +187,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // Two fewer: a fire button's face is one `paintLobe` doing fill and
       // stroke together where it used to be a fill and then a crosshair.
       save: 36,
-      drawImage: 37,
+      drawImage: 38,
       createLinearGradient: 15,
       createRadialGradient: 3,
       // Two more than p1's frame 0: the sheet, and the fire buttons'
@@ -197,7 +201,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       fill: 35,
       clip: 9,
       save: 36,
-      drawImage: 37,
+      drawImage: 38,
       createLinearGradient: 5,
       createRadialGradient: 1,
       // Back level with p1's second frame, and the two it came down by are the
@@ -385,7 +389,7 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // costs: the dome is a sprite baked once per colour and size, and the wet
       // point is `halo`'s. Neither builds a gradient, which is why the two
       // gradient rows below did not move at all.
-      drawImage: 20,
+      drawImage: 21,
       createLinearGradient: 15,
       createRadialGradient: 3,
       // Fourteen of them the panel's sheet, as on every frame 0 here. Four are
@@ -400,7 +404,7 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       fill: 44,
       clip: 8,
       save: 34,
-      drawImage: 20,
+      drawImage: 21,
       createLinearGradient: 5,
       createRadialGradient: 1,
       "new Path2D": 40,
@@ -423,7 +427,7 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // cut the pupil through (`eye-lens.ts`).
       clip: 8,
       save: 32,
-      drawImage: 20,
+      drawImage: 21,
       createLinearGradient: 15,
       createRadialGradient: 3,
       "new Path2D": 38,
@@ -435,7 +439,7 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       fill: 24,
       clip: 8,
       save: 32,
-      drawImage: 20,
+      drawImage: 21,
       createLinearGradient: 5,
       // The eye builds none of its own: the wash around it is a `halo` sprite
       // cached by colour and radius, and the one left is `key-light.ts`'s

@@ -664,3 +664,11 @@ skin
 `packages/render/src/rind-burr.ts`.
 
 The other answers offered were `facet` and `toothed`; they went with the slot.
+
+## `field:backdrop` — nothing taken, 2026-09-11
+
+the owner keeps the shipped back — the sea stays; one soft nebula light joins
+it in the corner, asked for by name, and BARE and LANES go
+
+The other answers offered were `bare`, `lanes` and `nebula`; they went with
+the slot.

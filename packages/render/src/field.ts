@@ -72,7 +72,8 @@ export function drawGrid(
 ): void {
   drawCoordGrid(ctx, l, flash, grid);
 
-  drawBeatSweep(ctx, l, beatPhase);
+  // The travelling beat (`drawBeatSweep`) is off: see its note.
+  void beatPhase;
 
   // The cannon's own column, straight up. Spec 5.8: this is the only path
   // marker left in the field — everything else is read off the radar.
@@ -94,8 +95,14 @@ export function drawGrid(
  * the pulse reads as passing *over* it rather than the horizon sitting on top
  * of the grid as a second, static layer — `beatPhase` alone drives it, so it
  * never drifts out of step between the two screens the way a wall clock would.
+ *
+ * **Off since 11 September 2026, and kept.** The owner asked for the line
+ * repeating from top to bottom to go *for the moment*, while the back was
+ * being decided. Nothing calls this; it is exported so the shape stays whole
+ * and a session that is asked for the beat back puts one call in `drawGrid`,
+ * `drawBeatSweep(ctx, l, beatPhase)`, after the coordinate grid.
  */
-function drawBeatSweep(ctx: CanvasRenderingContext2D, l: Layout, beatPhase: number): void {
+export function drawBeatSweep(ctx: CanvasRenderingContext2D, l: Layout, beatPhase: number): void {
   if (l.gridHeight <= 0 || l.width <= 0) return;
   const alpha = (1 - beatPhase) * 0.1;
   if (alpha <= 0.002) return;

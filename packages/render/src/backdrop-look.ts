@@ -1,4 +1,5 @@
 import { drawHorizon, drawMotes, drawWash, FAR, FAR_MOTES, NEAR, NEAR_MOTES } from "./backdrop.js";
+import { drawCornerLight } from "./corner-light.js";
 import type { Layout } from "./layout.js";
 import { drawLightShafts } from "./light-shafts.js";
 
@@ -22,9 +23,10 @@ import { drawLightShafts } from "./light-shafts.js";
  * `field.ts`'s radial fill — is painted before this runs, so a look that
  * wants a different dark paints its own over it.
  *
- * **The shipped `back` came through here with not one pixel moved.** The
- * calls are the ones `backdrop.ts`'s `drawBackdrop` made, in the order it
- * made them; `test/backdrop.test.ts` records the same field it always did.
+ * **The shipped `back` came through here with not one pixel moved**, and
+ * stayed so until 11 September 2026, when the owner decided the slot: the
+ * sea stays, and one soft light of the act's tint sits in the bottom-right
+ * corner (`corner-light.ts`) — what he kept of NEBULA, asked for by name.
  */
 
 /** Everything the back is drawn from, in the phone's own pixels. */
@@ -38,13 +40,15 @@ export interface BackdropDraw {
 }
 
 /**
- * The back as it ships: the wash, then light reaching the water over it and
- * under everything else, then the horizon band, then the far dust and the
- * near — a suggestion under the field's other layers, never on top of them.
+ * The back as it ships: the wash, then the one light in the corner under
+ * everything that moves, then light reaching the water over both, then the
+ * horizon band, then the far dust and the near — a suggestion under the
+ * field's other layers, never on top of them.
  */
 export function shipped(d: BackdropDraw): void {
   const { ctx, l, wave, time } = d;
   drawWash(ctx, l, wave, time);
+  drawCornerLight(d);
   drawLightShafts(ctx, l, time);
   drawHorizon(ctx, l, wave);
   drawMotes(ctx, l, time, FAR, FAR_MOTES);

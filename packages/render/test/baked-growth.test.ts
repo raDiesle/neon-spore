@@ -51,7 +51,10 @@ function entriesAfter(role: "p1" | "p2"): number {
 // became BANK: it rolls with its own travel through a wider arc than SWALLOW's
 // lean, so `key-light.ts`'s twenty-fourth-of-a-turn spin key takes four more
 // distinct values on the first wave's slicks — a bounded set, as the run says.
-const HELD = { p1: 77, p2: 82 } as const;
+// One more on each seat from 11 September 2026: the light in the sky's
+// bottom-right corner (`corner-light.ts`), baked once per size and act tint —
+// one key on one wave.
+const HELD = { p1: 78, p2: 83 } as const;
 
 describe("what the renderer keeps between frames", () => {
   for (const role of ["p1", "p2"] as const) {

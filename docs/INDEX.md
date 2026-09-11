@@ -823,6 +823,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/coil.ts` | THE COIL's dome: the shell a rock crosses the field inside, and the three studs the charge leaves it by |
 | `packages/render/src/reach-arm.ts` | THE CLAW's arm, drawn out of the swelling that was the gun |
 | `packages/render/src/comms-talker.ts` | one row per creature: which seat has to say something about it |
+| `packages/render/src/corner-light.ts` | One rounded light in the bottom-right corner of the sky |
 | `packages/render/src/fence-bolt.ts` | **One line of current between the wall and the dome.** Cut out of `fence-arc.ts` when the warning skull took… |
 | `packages/render/src/fence-crack.ts` | **The breaking point in a wall, on the screen that is shown it.** A gap is a hole the dome is steered into; a… |
 | `packages/render/src/fence-exit.ts` | **A wall leaving the ship it did not touch.** A fence that finds the dome standing in one of its ways through… |

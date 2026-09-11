@@ -49,9 +49,6 @@ import { WARDEN_WHORL } from "./creature-warden/whorl/index.js";
 import { WISP_ARMS } from "./creature-wisp/arms/index.js";
 import { WISP_COMB } from "./creature-wisp/comb/index.js";
 import { WISP_SKIRT } from "./creature-wisp/skirt/index.js";
-import { BACKDROP_BARE } from "./field-backdrop/bare/index.js";
-import { BACKDROP_LANES } from "./field-backdrop/lanes/index.js";
-import { BACKDROP_NEBULA } from "./field-backdrop/nebula/index.js";
 import { SHIP_CHITIN } from "./ship-body/chitin/index.js";
 import { SHIP_GLAND } from "./ship-body/gland/index.js";
 import { SHIP_GULLET } from "./ship-body/gullet/index.js";
@@ -103,9 +100,6 @@ export const VARIANTS: Variant[] = [
   WISP_ARMS,
   WISP_COMB,
   WISP_SKIRT,
-  BACKDROP_BARE,
-  BACKDROP_LANES,
-  BACKDROP_NEBULA,
   SHIP_CHITIN,
   SHIP_GLAND,
   SHIP_GULLET,

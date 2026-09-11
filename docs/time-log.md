@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — the back decided: the sea stays, one light in the corner, the beat's sweep off
+
+The owner kept the shipped back and dropped `field:backdrop`; what he kept of NEBULA is one soft rounded light of the act's tint in the sky's bottom-right corner (`corner-light.ts`, additive like the shafts), and the beat's travelling band across the field is off for the moment, its function kept and exported with a note on how to put it back. Every op-count budget moved by the one `drawImage` a frame the light costs.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the three candidates, `backdrop-look.ts`, `field.ts`'s sweep, the budget files |
+| writing | 10 | `corner-light.ts`, the record's new order, the sweep's note |
+| looking | 10 | three frames of THE RIND — the first two too faint to see over the violet ground |
+| friction | 5 | twenty-two budget rows and the baked count moved by one |
+| landing | 5 | check:fast, commit, land |
+
+Bottleneck: A light of an act's tint laid over the ground is invisible until it is added instead, which took two pictures to see.
+
 ## 2026-09-11 · hit-looks — the rind decided: BURR
 
 The owner picked BURR for `rind:body`. `bun run versus adopt` moved the candidate into render, but it imported the shape sheet's `studded` form by a relative path, which a package may not do; the arithmetic moved into `packages/content/src/studded.ts` and the sheet's form became a wrapper round it, the move `metaball.ts` and `body-path.ts` made before.
