@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · 952e3388 — The rind wears BURR's knobs: `rind:body` adopted, the studded form moved into content
+
+The owner picked BURR for the rind on 11 September 2026 — a rind is a body with something on it, and the knobs go with the layers. `bun run versus adopt rind:body burr` moved the candidate into `packages/render/src/rind-burr.ts`; the studded rim it draws with moved from the shape sheet into `packages/content/src/studded.ts` because a package cannot import a tool, and the sheet's `studded` form is now a subject wrapped round the same arithmetic, so the card and the creature stay one shape. FACET and TOOTHED are gone with the slot. A look the owner asked for by name.
+
 ## 2026-09-11 · 4d14b83b — The crater stays as shipped: `ship:crater` closed with nothing taken
 
 The owner keeps the crater the game draws; GRIT and SHARDS go with the slot, and its row leaves the pose map.
