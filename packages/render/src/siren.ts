@@ -55,6 +55,15 @@ const GAP = 3;
 const DUTY_DROP = 12;
 const DUTY_FONT = '700 8px "Courier New",monospace';
 
+/**
+ * Where the dial's middle is on this screen. Exported for the director's
+ * WORDINGS page, which points a label at it — from these numbers rather than
+ * a copy of them, so the label follows the dial if it ever moves.
+ */
+export function sirenCentre(l: Layout): { x: number; y: number } {
+  return { x: l.width - SIREN_PAD - PILL_W - GAP - R, y: TOP + R };
+}
+
 export function drawCommsSiren(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -68,8 +77,7 @@ export function drawCommsSiren(
   // before player 2 everywhere else on the screen. Stacking both chips under
   // the dial put them in a column, and a column has no left and no right, so
   // there was nothing to line either of them up with.
-  const cx = l.width - SIREN_PAD - PILL_W - GAP - R;
-  const cy = TOP + R;
+  const { x: cx, y: cy } = sirenCentre(l);
   const reach = R + GAP + PILL_W / 2;
 
   ctx.save();

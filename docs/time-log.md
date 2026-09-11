@@ -22,6 +22,23 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — DOCUMENTATION → WORDINGS
+
+A new tab: two whole phones, the pilot's and the navigator's, each a real
+frame with a line from every word to the thing it names, and the words with
+no place to point at under them. About 75 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | the sheet's tab wiring, `pose-art.ts`, `layout.ts`, the band, lobe, siren, HUD and radar files for what each thing is called and where it stands |
+| writing | 30 | the world, the callouts, the page with its label stacking, the glossary, the CSS, the test, three render exports |
+| looking | 15 | two `bun run shot` rounds: labels piling up at the top of one margin, both lobe leaders on one line, the blip under the torch's alarm |
+| friction | 5 | a `cat` left waiting on stdin; `bun run dev` is refused to an agent, so the director was launched by absolute path on its own port |
+| landing | 5 | `main.ts` over 250 lines after one more binding — the five room bindings moved to `documentation-rooms.ts` |
+
+Bottleneck: **writing** — laying labels beside a picture without them
+piling up took a measured two-pass stack rather than a guessed one.
+
 ## 2026-09-11 · hit-looks — the torch decided
 
 The owner keeps the torch as shipped: both torch slots dropped, the stale

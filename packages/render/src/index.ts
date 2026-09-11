@@ -37,15 +37,18 @@ export { halo, haloSprite, strokeGlow } from "./glow.js";
 export { gripLabel } from "./grip.js";
 export { drawGuideNav, NAV_H, navButtons, navHit, onNavBar } from "./guide-nav.js";
 export { signedHash, sinHash } from "./hash.js";
+export { hullBarBox } from "./hud.js";
 export { drawIntroPage, type IntroHit, introHit, skipBox } from "./intro-page.js";
 export { half, litBox, litColour, litRound, type Shade, shadeAt } from "./key-light.js";
 export {
+  bandLobes,
   type Circle,
   colFromX,
   computeLayout,
   computeStage,
   hitCircle,
   type Layout,
+  type Lobe,
   type Stage,
   type Strip,
   showsCannon,
@@ -71,6 +74,7 @@ export { P1_SKIN, P2_SKIN, type SeatSkin, seatSkin } from "./seat-skin.js";
 export { type Fracture, type Shard, shatter } from "./shatter.js";
 export { type Fall, type ShardPose, shardAt } from "./shatter-fall.js";
 export { drawStepGlyph, stepHex, stepLabel } from "./simon-glyph.js";
+export { sirenCentre } from "./siren.js";
 export { hitSlab, type Slab, slabFor, slabPanel } from "./slabs.js";
 export { type Arena, showsSnakeBody, showsSnakeFood, snakeArena } from "./snake-draw.js";
 export { drawSnakeRound } from "./snake-round.js";

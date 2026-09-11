@@ -7,10 +7,9 @@ import { jumpWaveIndex } from "./brush-wave.js";
 import { bindCellPanel, type CellPanel } from "./cell-panel.js";
 import { initColumnResize } from "./column-resize.js";
 import { initColumns } from "./columns.js";
-import { bindControlSetsTab } from "./controlsets-page.js";
 import { bindDemoPanel } from "./demo-panel.js";
+import { bindDocumentationRooms } from "./documentation-rooms.js";
 import { bindGrid, type GridPanel } from "./grid.js";
-import { bindGuidesTab } from "./guide-sheet.js";
 import { makeHeld } from "./held.js";
 import { initMobileMenu } from "./mobile-menu.js";
 import { bindNotes } from "./notes-page.js";
@@ -22,7 +21,6 @@ import { bindPlace, type PlaceSession } from "./session.js";
 import { renderShip, renderShipSheet } from "./ship.js";
 import { bindShipped } from "./shipped.js";
 import { bindSoundPage } from "./sound-page.js";
-import { bindSpecTab } from "./spec.js";
 import { bindStage } from "./stage.js";
 import {
   type Brush,
@@ -34,7 +32,6 @@ import {
   type Store,
 } from "./state.js";
 import { bindStates, closeMechanicsSheet } from "./states-page.js";
-import { bindStyleTab } from "./style-page.js";
 import { initSubcols } from "./subcols.js";
 import { bindExpanders, bindTabs } from "./tabs.js";
 import { bindTuning } from "./tuning.js";
@@ -145,13 +142,9 @@ bindDemoPanel(
   },
   closeMechanicsSheet,
 );
-// DOCUMENTATION's lazy rooms, all bound before `bindStates` below: that call
-// replays the place's inner tab as a real click, so a room bound after it
-// restores to a blank page. CONTROLS was, and did.
-bindGuidesTab();
-bindSpecTab();
-bindStyleTab();
-bindControlSetsTab();
+// DOCUMENTATION's lazy rooms, all bound before `bindStates` below — see
+// `documentation-rooms.ts` for why the order matters.
+bindDocumentationRooms();
 
 // The palette's descriptions, on or off, remembered — see `brush-hints.ts`.
 bindBrushHints();

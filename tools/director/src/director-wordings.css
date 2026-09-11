@@ -1,0 +1,80 @@
+/* DOCUMENTATION → WORDINGS: a whole phone with a label in each margin and
+   a line from the label to the thing it names (`wordings-page.ts`). The
+   figure is positioned by hand — the canvas at a fixed left, the labels at
+   measured tops — because the leaders are drawn from where the labels ended
+   up, and a flex layout would move them after the lines were drawn. */
+.wordfig {
+  position: relative;
+  margin: 8px 0 30px;
+}
+.wordfig-frame {
+  position: absolute;
+  top: 0;
+  display: block;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #05040b;
+}
+.wordfig-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+.wordlead {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1.2;
+  opacity: 0.85;
+}
+.worddot {
+  fill: var(--gold);
+  stroke: #05040b;
+  stroke-width: 1.5;
+}
+.wordlabel {
+  position: absolute;
+  width: 196px;
+  font-family: var(--prose);
+  font-size: 0.74rem;
+  line-height: 1.35;
+  color: var(--dim);
+}
+.wordlabel.is-left {
+  left: 0;
+  text-align: right;
+}
+.wordlabel.is-right {
+  right: 0;
+  text-align: left;
+}
+.wordlabel b {
+  display: block;
+  color: var(--gold);
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.wordlist {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 6px 18px;
+  max-width: 780px;
+  margin: 0;
+}
+.wordlist dt {
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.wordlist dd {
+  margin: 0;
+  color: var(--dim);
+  font-family: var(--prose);
+  font-size: 0.8rem;
+  line-height: 1.45;
+}

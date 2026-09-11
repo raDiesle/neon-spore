@@ -1121,6 +1121,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/controlsets-page.ts` | CONTROLS: every registered panel, drawn, plus the things the pair touches on the field itself |
 | `tools/director/src/demo-panel.ts` | DEMOS — one wave and one set of switches per mechanic, opened in one click |
 | `tools/director/src/docs-api.ts` | The GET routes that only read a document off disk — `docs/borrowed.md` and the spec directory |
+| `tools/director/src/documentation-rooms.ts` | DOCUMENTATION's lazy rooms, bound in one place |
 | `tools/director/src/field-controls-page.ts` | The other half of the CONTROLS tab (`controlsets-page.ts`) — split out on line count |
 | `tools/director/src/fleet-editor.ts` | THE FLEET's placement, edited on the chart the pair will play it on |
 | `tools/director/src/glows/aura.ts` | A ring standing clear of the body, pulsing |
@@ -1364,6 +1365,10 @@ place — the generator keeps whatever is there.
 | `tools/index/generate.ts` | `docs/INDEX.md` as a function of a checkout |
 | `tools/land/claims.ts` | Which of the branches a landing finds merged are really queue claims |
 | `tools/director/src/waves-acts.ts` | The act files, and the save that writes a wave list back across them |
+| `tools/director/src/wordings-glossary.ts` | The words on the WORDINGS page that have no one place on the picture — the list under the two labelled screens |
+| `tools/director/src/wordings-page.ts` | DOCUMENTATION → WORDINGS: an ordinary screen with every part of it named |
+| `tools/director/src/wordings-world.ts` | The one ordinary screen the WORDINGS page names things on |
+| `tools/director/src/wordings.ts` | DOCUMENTATION → WORDINGS: what each thing on an ordinary screen is called |
 | `tools/hooks/after-sim-edit.ts` | Determinism is the one thing a reviewer cannot see by looking |
 | `tools/hooks/check-on-stop.ts` | The last thing before Claude hands the turn back |
 | `tools/hooks/format-edited.ts` | Formatting is not a conversation |
