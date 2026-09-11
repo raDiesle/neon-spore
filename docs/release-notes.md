@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · f4addd70 — `docs/shipped-looks.md` describes the chute, the coil, the dart and the echo
+
+Four sections the file was missing, written from the `*-look.ts` records, the paint they point at and `DECIDED.md`: VANE's turning canopy and the plume under a climb, PRONGS' studs and the spraying charge, SHOCK's knots over the frayed flame, BUDS' two cores and the furrow between them — each in the file's own table form with its numbers, and a paragraph on what was decided rather than set. The queue item is done.
+
 ## 2026-09-11 · 616e4421 — The gyre slot answered: ORBIT into the game, and all four organelles on the SHAPES page
 
 `creature:gyre` / `orbit` is taken — the owner's choice on 10 September: one band of light girdling the ball at a tilt, the far half seen through the mass and the near half drawn over the nucleus, swapping once a turn (`gyre-orbit.ts`). He liked every answer to this slot and the one it had, and wanted them all kept to build new creatures from, so the FILLING axis gains four: ORBIT as the shipped control, YOLK — the nine granules the game drew until today — HELIX and VORTEX. `gyre-core.ts` keeps only what every answer shares: the membrane, the lit mass and the specular.
