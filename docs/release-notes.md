@@ -9,6 +9,18 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · 1c31364b — Parked titles fit the eighty-character line the queue test measures
+
+Both entries parked on 10 September were a few characters over the limit, which `bun run land` found. Shortened; nothing else changed.
+
+## 2026-09-10 · 9cc164f2 — A performance run is weekly or on the owner's request, never a step a lane owes
+
+The owner corrected the standing rule on 10 September 2026 after a lane listed a perf run on five waves as the one thing left before landing: perf runs once a week or when he asks, and a new shape or animation no longer earns one of its own. CLAUDE.md, docs/performance.md and the destruction skill say so; the op-count budget tests remain the per-lane measurement, and the weekly run is taken by hand because it has to be the only thing on the machine.
+
+## 2026-09-10 · da9772ec — Five creature slots answered: VANE, PRONGS, GUT, SHOCK and BUDS into the game, six looks kept on the SHAPES page
+
+The owner read the VERSUS page and answered five slots in one message. THE CHUTE's canopy turns on its own axis with eight pores coming round it (VANE), THE COIL's studs are prongs that flare and crackle while a charge is on its way and its bolt sprays (PRONGS), THE CRAWLER's rings are bags with a dark organ swinging in them (GUT), THE DART's flame has three knots breathing down it (SHOCK, taken by hand — its jet was inline) and THE ECHO's seam is two lit cores drawn apart under one skin (BUDS). Each is the look he asked for by name. The displaced functions — the membrane dome, the discs and two bolts, the placed pores, the bare furrow — are deleted from their records.
+
 ## 2026-09-10 · f79af497 — The conversation compacts at 300k, keeps the task list, and a hook restates the tree afterwards
 
 Opus 5 compacts at its own ~967k by default, and every turn below that re-reads everything, so `.claude/settings.json` now sets `autoCompactWindow` to 300k for every session on this repository. A compaction cannot be timed to a task boundary, so two things make any moment safe: a `# Compact instructions` section at the end of `CLAUDE.md`, read only by the compaction, says the summary keeps the task list with what is done, the branch and its landing state, what was parked and any `NEXT:` tasks, and drops tool output and file contents; and `tools/hooks/after-compact.ts`, the `SessionStart` hook matched on `compact`, writes the branch and what is uncommitted, the queue's one word and the parked titles into the fresh context, so the session re-orients from the tree rather than from the summary. Parked titles come through the queue's own parser, which is what keeps the preamble's fenced example from counting as an entry.
