@@ -1442,6 +1442,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/place.ts` | Where you are in the director, as a value — and the two functions that turn it into a URL and back |
 | `tools/director/src/plain-words.ts` | The plain-English half of an unbuilt entry: what the thing does, what each seat does about it |
 | `tools/queue/edit.ts` | Editing `docs/queue.md` and `docs/parked.md` in place: the claim written into an entry |
+| `tools/queue/git.ts` | The queue's git: one runner, and the one piece of plumbing that writes a commit onto a branch nothing has… |
 | `tools/frames/press-plan.ts` | when each `--press` is sent, and the tick that must run after it |
 | `tools/perf/renumber.ts` | a merged baseline put back on today's wave numbers |
 | `tools/perf/held.ts` | WHAT A MEASUREMENT PRESSES, AND ON WHICH WAVE |

@@ -3,8 +3,8 @@ import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { markTaken } from "../edit.js";
+import { commitOnRef } from "../git.js";
 import { parseItems } from "../queue.js";
-import { commitOnRef } from "../repo.js";
 
 /**
  * A `Taken:` line written in a clone — the half of a claim that used not to

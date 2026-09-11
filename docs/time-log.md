@@ -21,6 +21,23 @@ same every time so they can be compared:
   conflict or red full check between the first attempt and the trunk moving.
 
 End each entry with the one bottleneck, in a sentence.
+## 2026-09-11 · hit-looks — the queue: a claim on the lane's own entry
+
+`bun run queue take` marks an entry the trunk has not got in the working
+copy instead of throwing, and a claim that fails to mark deletes the branch
+it made; `repo.ts` split along its git seam into `git.ts`. About 25 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `claim.ts`, `repo.ts`, `run.ts`, `edit.ts`, the two existing tests |
+| writing | 15 | `trunkHas`, the working-copy branch of `claim`, the rollback, `hasEntry`, a test repository shaped like the lane, the preamble paragraph |
+| looking | 0 | — |
+| friction | 0 | one assertion compared against an untrimmed `git status` line |
+| landing | 5 | `queue done`, `check:fast`, the commit, `land --keep` |
+
+Bottleneck: **writing** — the fix is ten lines and the test that proves it
+in a real repository is a hundred.
+
 
 ## 2026-09-11 · hit-looks — the queue: shipped-looks caught up
 

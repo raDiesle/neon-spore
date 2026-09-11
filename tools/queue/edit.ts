@@ -72,3 +72,8 @@ export function removeItem(md: string, title: string): string {
     .replace(/\n{3,}$/, "\n\n")
     .trimEnd()}\n`;
 }
+
+/** Whether the markdown has an entry under this title at all. */
+export function hasEntry(md: string, title: string): boolean {
+  return sectionOf(md.split("\n"), title)[0] !== -1;
+}

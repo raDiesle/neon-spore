@@ -10,12 +10,11 @@
  * repository, which is why it is worth keeping them apart.
  */
 
-import { spawnSync } from "node:child_process";
-import { readFileSync, rmSync, writeFileSync } from "node:fs";
-import { tmpdir } from "node:os";
+import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { branchFor, takenMark } from "./claim.js";
-import { markTaken } from "./edit.js";
+import { hasEntry, markTaken } from "./edit.js";
+import { commitOnRef, gitIn, gitWith } from "./git.js";
 import type { Item } from "./queue.js";
 
 export const ROOT = join(import.meta.dirname, "..", "..");
@@ -24,31 +23,6 @@ export const PATHS = {
   parked: join(ROOT, "docs", "parked.md"),
 };
 export const TRUNK = "main";
-
-interface Ran {
-  ok: boolean;
-  out: string;
-  err: string;
-}
-
-function gitIn(cwd: string, ...args: string[]): Ran {
-  return gitWith({ cwd }, ...args);
-}
-
-/** `raw` keeps stdout as git wrote it — a file's content, not a ref's name. */
-function gitWith(
-  opts: { cwd: string; input?: string; env?: Record<string, string>; raw?: boolean },
-  ...args: string[]
-): Ran {
-  const r = spawnSync("git", args, {
-    cwd: opts.cwd,
-    encoding: "utf8",
-    input: opts.input,
-    env: opts.env ? { ...process.env, ...opts.env } : process.env,
-  });
-  const out = r.stdout ?? "";
-  return { ok: r.status === 0, out: opts.raw ? out : out.trim(), err: (r.stderr ?? "").trim() };
-}
 
 export function git(...args: string[]): { ok: boolean; out: string; err: string } {
   return gitIn(ROOT, ...args);
@@ -75,9 +49,9 @@ export function refs(): string[] {
 }
 
 /** The worktree holding the trunk, or "" when nothing has it checked out. */
-export function trunkTree(): string {
+export function trunkTree(root = ROOT): string {
   let path = "";
-  for (const line of git("worktree", "list", "--porcelain").out.split("\n")) {
+  for (const line of gitIn(root, "worktree", "list", "--porcelain").out.split("\n")) {
     if (line.startsWith("worktree ")) path = line.slice("worktree ".length).trim();
     if (line.trim() === `branch refs/heads/${TRUNK}`) return path;
   }
@@ -106,11 +80,16 @@ export function trunkTree(): string {
  * the file modified. The branch is the gate and it has already been taken by
  * the time this runs, and `--only` would commit *their* version of the file.
  */
-export function onTrunk(item: Item, edit: (md: string) => string, subject: string): boolean {
-  const tree = trunkTree();
+export function onTrunk(
+  item: Item,
+  edit: (md: string) => string,
+  subject: string,
+  root = ROOT,
+): boolean {
+  const tree = trunkTree(root);
   const rel = `docs/${item.source}.md`;
   if (!tree) {
-    commitOnRef(ROOT, TRUNK, rel, edit, subject);
+    commitOnRef(root, TRUNK, rel, edit, subject);
   } else {
     if (gitIn(tree, "status", "--porcelain", "--", rel).out) {
       console.log(`  ⚑ ${rel} on ${TRUNK} left alone — ${tree} has uncommitted changes to it`);
@@ -123,60 +102,17 @@ export function onTrunk(item: Item, edit: (md: string) => string, subject: strin
   }
   console.log(`  ${TRUNK}     ${rel} — ${subject}`);
 
-  if (!git("remote", "get-url", "origin").ok) return true;
-  const pushed = gitIn(tree || ROOT, "push", "origin", `${TRUNK}:${TRUNK}`);
+  if (!gitIn(root, "remote", "get-url", "origin").ok) return true;
+  const pushed = gitIn(tree || root, "push", "origin", `${TRUNK}:${TRUNK}`);
   if (pushed.ok) console.log(`  pushed   origin/${TRUNK}`);
   else console.log(`  ⚑ origin/${TRUNK} not updated — run: git push origin ${TRUNK}`);
   return true;
 }
 
-/**
- * One file, rewritten and committed onto a branch nothing has checked out.
- *
- * Plumbing rather than a checkout: the branch's tree is read into an index of
- * its own, the one path is replaced by the edited blob, and the commit that
- * results is put on the ref with the old tip as its guard, so a ref that moved
- * meanwhile is refused rather than overwritten. The working tree this runs
- * from is never read and never written — the session is standing on its lane,
- * and its lane is nothing to do with the claim.
- *
- * Fails, rather than warns, when the branch is not there at all: a clone that
- * checked out one lane by name has no `main`, and a claim that cannot be
- * written is not a claim.
- */
-export function commitOnRef(
-  root: string,
-  ref: string,
-  rel: string,
-  edit: (md: string) => string,
-  subject: string,
-): string {
-  const tip = gitIn(root, "rev-parse", "--verify", "--quiet", `refs/heads/${ref}`);
-  if (!tip.ok) throw new Error(`could not write ${rel} on ${ref}: no such branch here`);
-  const was = gitWith({ cwd: root, raw: true }, "show", `${ref}:${rel}`);
-  if (!was.ok) throw new Error(`could not read ${rel} on ${ref}: ${was.err}`);
-  const blob = gitWith({ cwd: root, input: edit(was.out) }, "hash-object", "-w", "--stdin");
-  if (!blob.ok) throw new Error(`could not write ${rel}: ${blob.err}`);
-  const index = join(tmpdir(), `queue-${process.pid}-${Date.now()}.index`);
-  const env = { GIT_INDEX_FILE: index };
-  try {
-    for (const step of [
-      ["read-tree", tip.out],
-      ["update-index", "--cacheinfo", `100644,${blob.out},${rel}`],
-    ]) {
-      const r = gitWith({ cwd: root, env }, ...step);
-      if (!r.ok) throw new Error(`could not stage ${rel} on ${ref}: ${r.err}`);
-    }
-    const tree = gitWith({ cwd: root, env }, "write-tree");
-    if (!tree.ok) throw new Error(`could not write a tree for ${ref}: ${tree.err}`);
-    const made = gitIn(root, "commit-tree", tree.out, "-p", tip.out, "-m", subject);
-    if (!made.ok) throw new Error(`could not commit ${rel} on ${ref}: ${made.err}`);
-    const moved = gitIn(root, "update-ref", `refs/heads/${ref}`, made.out, tip.out);
-    if (!moved.ok) throw new Error(`could not move ${ref}: ${moved.err}`);
-    return made.out;
-  } finally {
-    rmSync(index, { force: true });
-  }
+/** Whether the trunk's own copy of the file has an entry under this title. */
+export function trunkHas(item: Item, root = ROOT): boolean {
+  const md = gitWith({ cwd: root, raw: true }, "show", `${TRUNK}:docs/${item.source}.md`);
+  return md.ok && hasEntry(md.out, item.title);
 }
 
 /**
@@ -188,19 +124,43 @@ export function commitOnRef(
  * as it stood *before* its own `Taken:` line deletes an entry that `main` has
  * since edited, and its landing rebase conflicts inside the very entry it is
  * draining — a conflict nobody could read as anything but the tool's fault.
+ *
+ * **An entry the trunk has not got yet is marked where it is.** The owner asks
+ * for an item to be queued and worked in the same sitting, so the entry is in
+ * the lane's working tree and nowhere else. Until 11 September 2026 this made
+ * the branch, went to write the line onto `main` — where there was no entry to
+ * write it into — and threw, and the branch it left standing made the second
+ * `take` say the item was already taken. Now the line goes into the working
+ * copy, the lane commits it with the work, and the branch is still made,
+ * because it is the gate every other worktree on this machine reads.
+ *
+ * **And a claim that fails to mark is not a claim.** Whatever throws between
+ * the branch and the line, the branch goes before the error does, so the next
+ * attempt starts from nothing rather than from a ghost.
  */
-export function claim(item: Item): string {
+export function claim(item: Item, root = ROOT): string {
   const branch = branchFor(item);
-  const made = git("branch", branch, TRUNK);
+  const made = gitIn(root, "branch", branch, TRUNK);
   if (!made.ok) throw new Error(`could not claim ${JSON.stringify(item.title)}: ${made.err}`);
-  const marked = onTrunk(
-    item,
-    (md) => markTaken(md, item.title, takenMark(branch, new Date().toISOString().slice(0, 10))),
-    `Mark ${JSON.stringify(item.title)} taken`,
-  );
-  if (marked) {
-    const moved = git("branch", "--force", branch, TRUNK);
-    if (!moved.ok) throw new Error(`could not move the claim onto ${TRUNK}: ${moved.err}`);
+  const mark = takenMark(branch, new Date().toISOString().slice(0, 10));
+  const edit = (md: string) => markTaken(md, item.title, mark);
+  try {
+    if (!trunkHas(item, root)) {
+      const rel = `docs/${item.source}.md`;
+      const path = join(root, rel);
+      writeFileSync(path, edit(readFileSync(path, "utf8")));
+      console.log(`  here     ${rel} — marked in this tree; ${TRUNK} has no such entry yet,`);
+      console.log(`           so the line lands with the work that queued it`);
+      return branch;
+    }
+    const marked = onTrunk(item, edit, `Mark ${JSON.stringify(item.title)} taken`, root);
+    if (marked) {
+      const moved = gitIn(root, "branch", "--force", branch, TRUNK);
+      if (!moved.ok) throw new Error(`could not move the claim onto ${TRUNK}: ${moved.err}`);
+    }
+  } catch (e) {
+    gitIn(root, "branch", "-D", branch);
+    throw e;
   }
   return branch;
 }

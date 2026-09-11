@@ -105,6 +105,14 @@ claim still cannot do is said out loud rather than guessed at: if the trunk's
 copy of this file has uncommitted changes in it, the branch is made and a `⚑`
 line says the entry went unmarked.
 
+An entry that is not on `main` yet — the owner asked for it to be queued and
+worked in the same sitting, so it is in the lane's working tree and nowhere
+else — is marked where it is: the branch is made, the line goes into the
+working copy, and the lane commits it with the work that queued it. And a
+claim that fails between the branch and the line takes the branch back down
+with it, so the next `take` starts from nothing rather than from a ghost
+that says the item is already taken.
+
 A claim carries no commits, so it points at `main` and reads as fully merged.
 `bun run land` sweeps merged branches, and for one day it swept other lanes'
 claims along with its own — both sessions running on 3 September 2026 lost every
@@ -215,23 +223,6 @@ it they claim `LOBE_LOOK` (gloss, socket), `STRIP_LOOK`, `BAND_GROUND`,
 patch — and `bun test` refuses two open slots on one field. Any new furniture
 keeps the grown contour, the wet socket and the gloss: a flat plate with a
 stroke around it is the one thing the panel look is not.
-
-## `bun run queue take` cannot claim an entry that is only in the lane's own tree
-
-- **Found:** 2026-09-10, hit-looks
-- **Taken:** 2026-09-11, claude/queue-bun-run-queue-take-cannot-claim-an-entry-that-is
-- **Files:** `tools/queue/repo.ts`, `tools/queue/run.ts`, `tools/queue/test/taken.test.ts`
-
-The owner asked for an item to be added to the queue and worked in the same
-sitting. `take` made its claim branch off `main`, then went to write the
-`Taken:` line onto the trunk's copy of this file — where the entry does not
-exist yet — and threw; a second `take` then said the item was already taken,
-because the branch had survived the failure. Worked around by deleting the
-branch and writing the `Taken:` line by hand, which the preamble says nobody
-does. Two things to fix: a claim that fails to mark should delete the branch
-it made, and `take` on an entry present in the working tree but absent from
-the trunk should mark the working copy and say it did, since the lane that
-found it is the lane on it.
 
 ## `versus-pose.ts` keeps a row for every slot that has ever closed
 
