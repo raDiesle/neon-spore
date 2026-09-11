@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · 4d14b83b — The crater stays as shipped: `ship:crater` closed with nothing taken
+
+The owner keeps the crater the game draws; GRIT and SHARDS go with the slot, and its row leaves the pose map.
+
 ## 2026-09-11 · aa8e28d8 — Three new ships on VERSUS from the owner's brief: a wet grain-free skin, buttons grown as organs, PLASM's bubbles and strings
 
 The owner judged the six `ship:body` cards and named what he wanted from three of them rather than picking one: EMBEDDED's arrangement without its sand-like light, MEDUSA's slime going down but with the lines starting from the very top of the hull, PLASM's big bottom bubbles and the strings running up from the buttons — and every button grown together with the body like a heart, with veins and a little plasma coming out. EMBEDDED, MEDUSA and PLASM are gone and GLAND, HEART and LYMPH stand beside CHITIN, GULLET and REEF: the same brief on EMBEDDED's arrangement, on the shipped one with each button a beating heart, and taken toward a paler, more translucent fluid.
