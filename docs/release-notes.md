@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · 99f44e7c — creature:mount decided: TAPROOT goes into the game, RASP stays on the LIBRARY
+
+The owner: "apply to game 'CREATURE:MOUNT · TAPROOT'. move to 'shapes' page if not there yet : 'CREATURE:MOUNT · RASP'". A look the owner asked for by name. THE GYRE's six mounts are bulbs held to the rim by roots now, every one reaching in toward the hub; the burr is drawn beside it on the GRAPHICS page's LIBRARY, with the bare slick or bulb a mount was until today. The rooted rim moved from the shape sheet into `packages/content` so the game could draw it, the way the studded one did for the rind; the sheet's TAPROOT card is drawn from the same arithmetic. PENDANT goes with the slot.
+
 ## 2026-09-11 · fc435310 — creature:magnet decided: ORE goes into the game and the other answers go
 
 The owner: "apply to game 'CREATURE:MAGNET · ORE' and remove other related 'CREATURE:MAGNET' alternatives". A look the owner asked for by name. THE MAGNET is dug-up stone now — a pitted arch, a plate split into strata, and the pole's colour running into each arm as veins with a bead of light flowing to the tip. ROD and YAW go with the slot, and so does COIL's machined arch: what ORE kept of it, the lit slab and the two poles, is what `magnet-coil.ts` holds now.
