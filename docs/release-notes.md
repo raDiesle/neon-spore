@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · 811cc917 — creature:queen decided: SCUTES goes into the game, CARAPACE and FACET stay on the LIBRARY
+
+The owner: "apply from 'versus' to game 'CREATURE:QUEEN · SCUTES'. move this 'CREATURE:QUEEN · CARAPACE' to 'shapes' page i like it a lot, can be used like for a 'roller' enemy or obstacle . also move to 'shapes' page the 'CREATURE:QUEEN · FACET' can be used for metal enemy or obstacle". A look the owner asked for by name. THE BULB QUEEN's shell is seven overlapping plates now, lapped from the wings in toward the middle and sliding as she breathes; the domed back with its pores, the cut stone, and the flat rock she wore until today are drawn beside it on the GRAPHICS page's LIBRARY, on her own contour. Her op-count rows are remeasured for the plates.
+
 ## 2026-09-11 · 99f44e7c — creature:mount decided: TAPROOT goes into the game, RASP stays on the LIBRARY
 
 The owner: "apply to game 'CREATURE:MOUNT · TAPROOT'. move to 'shapes' page if not there yet : 'CREATURE:MOUNT · RASP'". A look the owner asked for by name. THE GYRE's six mounts are bulbs held to the rim by roots now, every one reaching in toward the hub; the burr is drawn beside it on the GRAPHICS page's LIBRARY, with the bare slick or bulb a mount was until today. The rooted rim moved from the shape sheet into `packages/content` so the game could draw it, the way the studded one did for the rind; the sheet's TAPROOT card is drawn from the same arithmetic. PENDANT goes with the slot.
