@@ -161,6 +161,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## `bun run versus:shot` says nothing when the page it photographs has thrown
 
 - **Found:** 2026-09-11, hit-looks
+- **Taken:** 2026-09-11, claude/queue-bun-run-versus-shot-says-nothing-when-the-page-i
 - **Files:** `tools/frames/shot.ts`, `tools/frames/versus-shot.ts`,
   `tools/frames/exec.ts`
 
