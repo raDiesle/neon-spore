@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · c0307f47 — THE STRAND's thread burns away like a fuse when its last bead is spent
+
+The owner asked for it by name: when every bead is shrivelled, the string should go with a nice animation — like a fuse in the air, a bigger effect. Until now the thread parting was twenty-four grey particles at its middle, the same puff a wheel's hub gets. Now the `strandBroke` event carries every bead on the thread, in order, on the tiles they stood on, and a new body transient rebuilds the line from them with the thread's own sags, lights it at both ends and burns it inward: a white-hot spitting front at each end, the violet line still hanging between them, each raisin still on it until a front reaches it and pops it off, and a blast — ring, streaks, light — where the two fronts meet, on the tile the old burst stood on.
+
 ## 2026-09-11 · 762f496f — THE LID's cord hangs beside the eye and rides down with it, held or not
 
 The owner: "the pull must be left or right of the enemy, then it should glide as the lid glides." The handle now hangs a whole tile beside the eye on the side toward the middle of the field (`lidSide`, so a lid against a wall never hangs its handle into it), and it goes down the field with the body whether or not a hand is on it — the cord keeps its length instead of paying out under a still thumb. The tension is unchanged: how far the hand has come from where it grabbed, which a body falling under a still finger does not alter. The anchor frozen at the grab is gone from the creature's state and the hash, the per-beat re-clamp is back so a handle pinned on the floor stays on the field as its lid keeps falling, and a slack cord's belly now always hangs downward — run leftward it used to belly up. A look the owner asked for by name.
