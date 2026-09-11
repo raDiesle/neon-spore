@@ -715,6 +715,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/seat-name.ts` | What to call a seat on a screen a person is reading |
 | `packages/render/src/hover.ts` | WHAT A MOUSE IS RESTING ON, LIT |
 | `packages/render/src/recoil-cage-break.ts` | THE RECOIL's cage coming apart: the shot that spends the last bounce, drawn as the frame failing all at once |
+| `packages/render/src/recoil-calyx.ts` | CALYX — a kept look for THE RECOIL's cage, drawn only on the GRAPHICS page's LIBRARY |
 | `packages/render/src/radar-blip.ts` | Which arrivals this screen's warning strip is carrying, and where each one sits on it |
 | `packages/render/src/caption-anchor.ts` | Where a caption's subject is on the screen |
 | `packages/render/src/guide-hand.ts` | The hands that are **not** on the panel: one held on something falling |
@@ -780,6 +781,9 @@ place — the generator keeps whatever is there.
 | `packages/render/src/creature-tint.ts` | The three colours a body carries, and what they are mid-turn |
 | `packages/render/src/recoil-ribs.ts` | One rib of THE RECOIL's cage, and the piece of hoop it carries |
 | `packages/render/src/recoil-look.ts` | THE ONE RECORD A CANDIDATE **RECOIL** PATCHES |
+| `packages/render/src/recoil-foam.ts` | FOAM — a kept look for THE RECOIL's cage, drawn only on the GRAPHICS page's LIBRARY |
+| `packages/render/src/recoil-globe.ts` | GLOBE — THE RECOIL's cage as the game draws it since 11 September 2026 |
+| `packages/render/src/recoil-moons.ts` | MOONS — a kept look for THE RECOIL's cage, drawn only on the GRAPHICS page's LIBRARY |
 | `packages/render/src/intro-flash.ts` | THE LOUD HALF OF THE INTRO: a headline on a lit slab, a price-tag flash |
 | `packages/render/src/creature-body.ts` | Which body draw a kind gets, as a lookup a stray statement cannot sever |
 | `packages/render/src/effects-spark-silent.ts` | The events that are deliberately not a burst, and why each one is not |
@@ -1590,5 +1594,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/library/mount-stage.ts` | One of THE GYRE's mounts, drawn on a card with a contour of the caller's choosing |
 | `tools/director/src/library/queen-assets.ts` | THE BULB QUEEN's four shells — what the biggest body on any field is made of |
 | `tools/director/src/library/queen-stage.ts` | THE BULB QUEEN's shell, drawn on a card by a look of the caller's choosing |
+| `tools/director/src/library/recoil-assets.ts` | THE RECOIL's five cages — the frame round a body that turns its colour over on every bounce |
+| `tools/director/src/library/recoil-stage.ts` | The game's own recoil, drawn on a card inside a cage of the caller's choosing |
 
 <!-- index:code:end -->

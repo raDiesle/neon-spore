@@ -7,12 +7,6 @@
 
 import type { Variant } from "../variant.js";
 import { METEOR_FORGE } from "./creature-meteor/forge/index.js";
-import { RECOIL_CALYX } from "./creature-recoil/calyx/index.js";
-import { RECOIL_FOAM } from "./creature-recoil/foam/index.js";
-import { RECOIL_GLOBE } from "./creature-recoil/globe/index.js";
-import { RECOIL_MOONS } from "./creature-recoil/moons/index.js";
-import { RECOIL_SPRUNG } from "./creature-recoil/sprung/index.js";
-import { RECOIL_TUBE } from "./creature-recoil/tube/index.js";
 import { RIND_FLAKES } from "./creature-rind/flakes/index.js";
 import { RIND_POD } from "./creature-rind/pod/index.js";
 import { RIND_SLOUGH } from "./creature-rind/slough/index.js";
@@ -31,12 +25,6 @@ import { SHIP_REEF } from "./ship-body/reef/index.js";
 
 export const VARIANTS: Variant[] = [
   METEOR_FORGE,
-  RECOIL_CALYX,
-  RECOIL_FOAM,
-  RECOIL_GLOBE,
-  RECOIL_MOONS,
-  RECOIL_SPRUNG,
-  RECOIL_TUBE,
   RIND_FLAKES,
   RIND_POD,
   RIND_SLOUGH,

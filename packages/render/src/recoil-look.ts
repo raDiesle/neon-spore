@@ -1,3 +1,4 @@
+import { globe } from "./recoil-globe.js";
 import { drawHoopArc, drawRib } from "./recoil-ribs.js";
 
 /**
@@ -20,7 +21,10 @@ import { drawHoopArc, drawRib } from "./recoil-ribs.js";
  *
  * **The shipped `springs` came through here with not one pixel moved.** The
  * loop is the one `recoil.ts` carried inline, and the colours, the glow and
- * the breath still arrive worked out from the record's caller.
+ * the breath still arrive worked out from the record's caller. On 11
+ * September 2026 the owner decided the slot: GLOBE (`recoil-globe.ts`) is the
+ * cage now, and `springs` stays here for the GRAPHICS page's LIBRARY, beside
+ * MOONS, FOAM and CALYX, which he kept for an enemy not built yet.
  */
 
 /** Everything the cage is drawn from, in field pixels about `(x, y)`. */
@@ -50,9 +54,9 @@ export interface CageDraw {
 }
 
 /**
- * The cage as it ships: a zigzag leaf from the body to the hoop per rib, the
- * quarter of the hoop it carries and the bolt at its head, every one lit
- * through `strokeGlow`. `recoil-ribs.ts` draws the pieces.
+ * The cage as it shipped until 11 September 2026: a zigzag leaf from the body
+ * to the hoop per rib, the quarter of the hoop it carries and the bolt at its
+ * head, every one lit through `strokeGlow`. `recoil-ribs.ts` draws the pieces.
  */
 export function springs(d: CageDraw): void {
   const { ctx, x, y, inner, hoop, struts, left, metal, burnt, dark, glow, time } = d;
@@ -71,8 +75,11 @@ export function springs(d: CageDraw): void {
 }
 
 export interface RecoilLook {
-  /** The frame round the body: ribs, hoop and bolts. */
-  readonly cage: (d: CageDraw) => void;
+  /** The frame round the body: ribs, hoop and bolts. Writable, like every
+   * field a look goes through: the LIBRARY swaps it for the length of one
+   * card and puts it back. */
+  cage: (d: CageDraw) => void;
 }
 
-export const RECOIL_LOOK: RecoilLook = { cage: springs };
+/** GLOBE since 11 September 2026 — the owner's pick over `springs`. */
+export const RECOIL_LOOK: RecoilLook = { cage: globe };

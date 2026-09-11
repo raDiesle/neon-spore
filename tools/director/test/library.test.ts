@@ -1,7 +1,14 @@
 import { beforeAll, describe, expect, it } from "bun:test";
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { LID_LOOK, VEIL_LOOK, VOLLEY_LOOK, WARDEN_LOOK, WISP_LOOK } from "@neon-spore/render";
+import {
+  LID_LOOK,
+  RECOIL_LOOK,
+  VEIL_LOOK,
+  VOLLEY_LOOK,
+  WARDEN_LOOK,
+  WISP_LOOK,
+} from "@neon-spore/render";
 import { installCanvasGlobals, stubCanvas } from "../../../packages/render/test/canvas-stub.js";
 import { ASSETS, BEAT_SECONDS } from "../src/library/index.js";
 
@@ -24,10 +31,13 @@ const DIR = join(import.meta.dir, "..", "src", "library");
 const FILES = readdirSync(DIR).filter((f) => f.endsWith(".ts"));
 
 describe("the library", () => {
-  it("gives every asset its own id and its own label", () => {
+  it("gives every asset its own id, and its own label within its creature", () => {
     expect(ASSETS.length).toBeGreaterThan(0);
     expect(new Set(ASSETS.map((a) => a.id)).size).toBe(ASSETS.length);
-    expect(new Set(ASSETS.map((a) => a.label)).size).toBe(ASSETS.length);
+    // A label is VERSUS's spelling, and two slots can spell the same word —
+    // THE VEIL and THE RECOIL each had a FOAM — so a label is unique under
+    // its creature, where the card is read, and the id is unique everywhere.
+    expect(new Set(ASSETS.map((a) => `${a.from} ${a.label}`)).size).toBe(ASSETS.length);
   });
 
   it("says where to look, in plain words, on every card", () => {
@@ -70,6 +80,7 @@ describe("the library", () => {
     const seams = VOLLEY_LOOK.seams;
     const mass = VEIL_LOOK.mass;
     const plates = LID_LOOK.plates;
+    const cage = RECOIL_LOOK.cage;
     const { ctx } = stubCanvas();
     const c = { ctx: ctx as unknown as CanvasRenderingContext2D, w: 300, h: 300 };
     for (const a of ASSETS) a.draw(c, { t: 1, beat: 1, beatPhase: 0.5 });
@@ -79,6 +90,7 @@ describe("the library", () => {
     expect(VOLLEY_LOOK.seams).toBe(seams);
     expect(VEIL_LOOK.mass).toBe(mass);
     expect(LID_LOOK.plates).toBe(plates);
+    expect(RECOIL_LOOK.cage).toBe(cage);
   });
 
   it("keeps every file in the folder a part of the registry or its plumbing", () => {

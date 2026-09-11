@@ -1,9 +1,20 @@
-import { KEY } from "../../../../../packages/content/src/light.js";
-import { mixHex, rgba } from "../../../../../packages/render/src/hex.js";
-import { STROKE } from "../../../../../packages/render/src/palette.js";
-import type { CageDraw } from "../../../../../packages/render/src/recoil-look.js";
+import { KEY } from "@neon-spore/content";
+import { mixHex, rgba } from "./hex.js";
+import { STROKE } from "./palette.js";
+import type { CageDraw } from "./recoil-look.js";
 
 /**
+ * CALYX — a kept look for THE RECOIL's cage, drawn only on the GRAPHICS
+ * page's LIBRARY.
+ *
+ * It stood in `creature:recoil` on VERSUS, decided 11 September 2026: GLOBE
+ * went into the game (`recoil-globe.ts`) and the owner said "have this for
+ * 'shapes' page to be reused for another upcoming enemy: CREATURE:RECOIL ·
+ * MOONS and CREATURE:RECOIL · FOAM and CREATURE:RECOIL · CALYX". It sits in
+ * this package, beside the record it once patched, because it is written
+ * against this package's internals; nothing on the field imports it, and the
+ * game's bundle drops it. The argument it made, from its VERSUS card:
+ *
  * CALYX — no cage: the body is a fruit held in a cup of leaves.
  *
  * One leaf per bounce the body arrived with, fanning out and down from

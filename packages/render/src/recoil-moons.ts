@@ -1,10 +1,20 @@
-import { KEY } from "../../../../../packages/content/src/light.js";
-import { facet, type Pin, pin, surfaceDim } from "../../../../../packages/content/src/surface.js";
-import { mixHex, rgba } from "../../../../../packages/render/src/hex.js";
-import { STROKE } from "../../../../../packages/render/src/palette.js";
-import type { CageDraw } from "../../../../../packages/render/src/recoil-look.js";
+import { facet, KEY, type Pin, pin, surfaceDim } from "@neon-spore/content";
+import { mixHex, rgba } from "./hex.js";
+import { STROKE } from "./palette.js";
+import type { CageDraw } from "./recoil-look.js";
 
 /**
+ * MOONS — a kept look for THE RECOIL's cage, drawn only on the GRAPHICS
+ * page's LIBRARY.
+ *
+ * It stood in `creature:recoil` on VERSUS, decided 11 September 2026: GLOBE
+ * went into the game (`recoil-globe.ts`) and the owner said "have this for
+ * 'shapes' page to be reused for another upcoming enemy: CREATURE:RECOIL ·
+ * MOONS and CREATURE:RECOIL · FOAM and CREATURE:RECOIL · CALYX". It sits in
+ * this package, beside the record it once patched, because it is written
+ * against this package's internals; nothing on the field imports it, and the
+ * game's bundle drops it. The argument it made, from its VERSUS card:
+ *
  * MOONS — no cage: the bounces orbit the body.
  *
  * One moon per bounce the body arrived with, on a ring tilted toward the

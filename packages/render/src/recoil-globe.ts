@@ -1,9 +1,15 @@
-import { facet, type Pin, pin, surfaceDim } from "../../../../../packages/content/src/surface.js";
-import { strokeGlow } from "../../../../../packages/render/src/glow.js";
-import { mixHex } from "../../../../../packages/render/src/hex.js";
-import type { CageDraw } from "../../../../../packages/render/src/recoil-look.js";
+import { facet, type Pin, pin, surfaceDim } from "@neon-spore/content";
+import { strokeGlow } from "./glow.js";
+import { mixHex } from "./hex.js";
+import type { CageDraw } from "./recoil-look.js";
 
 /**
+ * GLOBE — THE RECOIL's cage as the game draws it since 11 September 2026,
+ * when the owner decided `creature:recoil` with "apply to game
+ * CREATURE:RECOIL · GLOBE". Written as a VERSUS candidate against `springs`
+ * (`recoil-look.ts`, kept for the LIBRARY) and moved here whole;
+ * `RECOIL_LOOK` points at it.
+ *
  * GLOBE — the cage is a wire ball round the body, and it turns.
  *
  * Each rib is a meridian of a sphere the hoop's size — the whole great circle

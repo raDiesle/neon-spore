@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — creature:recoil — GLOBE into the game, three cages kept
+
+Copied MOONS, FOAM and CALYX into render for the LIBRARY, adopted GLOBE with the tool, built a recoil card that spends its ribs, let two creatures share a label on the LIBRARY.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | reading |
+| writing | 15 | writing |
+| looking | 5 | looking |
+| friction | 5 | friction |
+| landing | 5 | landing |
+
+Bottleneck: Two slots had spelled a look FOAM, and the LIBRARY test wanted labels unique across the whole page; a label is now unique under its creature.
+
 ## 2026-09-11 · hit-looks — creature:queen — SCUTES into the game, CARAPACE and FACET kept
 
 Copied CARAPACE and FACET into render for the LIBRARY, adopted SCUTES with the tool, built a queen card that hands her contour straight to a look, remeasured the BULB QUEEN's op-count rows.

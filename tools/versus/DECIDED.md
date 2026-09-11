@@ -776,3 +776,20 @@ to wing
 
 The other answers offered were `carapace` and `facet`; they went with the
 slot.
+
+## `creature:recoil` / `globe` — taken, 2026-09-11
+
+The owner: apply to game 'CREATURE:RECOIL · GLOBE'. MOONS, FOAM and CALYX are
+kept on the GRAPHICS page's LIBRARY for an upcoming enemy; SPRUNG and TUBE go.
+
+the cage as a wire ball — each rib a whole meridian through the poles with its
+near half lit over the body and its far half dim behind, the hoop a tilted
+equator, the ball turning slowly so every rib swings from a line at the limb
+to a curve at the front and back
+
+`RECOIL_LOOK.cage` is `globe`, moved from
+`tools/versus/candidates/creature-recoil/globe/paint.ts` to
+`packages/render/src/recoil-globe.ts`.
+
+The other answers offered were `calyx`, `foam`, `moons`, `sprung` and `tube`;
+they went with the slot.

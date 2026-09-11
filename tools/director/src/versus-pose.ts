@@ -38,7 +38,6 @@ const SLOT_POSE: Record<string, string> = {
   "creature:meteor": "METEOR · A SHOT ARRIVING",
   "creature:throb": "THROB · TURNING",
   "creature:rind": "RIND · SHEDDING",
-  "creature:recoil": "RECOIL · ONE BOUNCE SPENT",
   "creature:tether": "TETHER · PULLED",
 };
 
