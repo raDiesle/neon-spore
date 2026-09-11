@@ -161,6 +161,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## The band the players actually touch has one look
 
 - **Found:** 2026-09-09, claude/queue-item-parallel-safety-20f067
+- **Taken:** 2026-09-11, claude/queue-the-band-the-players-actually-touch-has-one-look
 - **Files:** `packages/render/src/band.ts`,
   `packages/render/src/band-control.ts`, `packages/render/src/band-lobes.ts`,
   `packages/render/src/band-slime.ts`, `packages/render/src/band-seam.ts`,
