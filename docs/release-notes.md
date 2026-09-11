@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · b0dbc852 — creature:rind decided: the game keeps its shed, FLAKES, POD and SLOUGH go to the LIBRARY
+
+The owner said "'CREATURE:RIND' keep current and move the versus alternative effects to 'Shapes' page". So THE RIND's shed is what it was, and the three looks that stood against it are kept to be seen: they moved whole from the VERSUS candidates into packages/render beside the record they patched, and the GRAPHICS page's LIBRARY now has a rind row — the husk the game draws, then FLAKES, POD and SLOUGH — each replayed on the game's own burr as it loses its layers, at the field's own half-second. A look the owner asked for by name. The slot is dropped by hand and written up in DECIDED.md.
+
 ## 2026-09-11 · 334eaa67 — creature:recoil decided: GLOBE goes into the game, MOONS, FOAM and CALYX stay on the LIBRARY
 
 The owner: "apply to game 'CREATURE:RECOIL · GLOBE'. have this for 'shapes' page to be reused for another upcoming enemy: 'CREATURE:RECOIL · MOONS' and 'CREATURE:RECOIL · FOAM' and 'CREATURE:RECOIL · CALYX'". A look the owner asked for by name. THE RECOIL's cage is a wire ball now, each rib a full ring through both poles, turning round the body; the moons, the foam, the calyx and the springs it wore until today are drawn beside it on the GRAPHICS page's LIBRARY, on the game's own recoil spending its ribs. SPRUNG and TUBE go with the slot.
