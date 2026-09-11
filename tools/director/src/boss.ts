@@ -144,10 +144,6 @@ export function bindBossPanel(
     // whole difficulty is `config-gauge.ts`, which is the SHIP card's, not
     // this panel's.
     if (boss.kind === "gauge") return;
-    // THE TELL has nothing to author on this panel either: its ladder is a
-    // list of windows in `packages/content/src/tell-rungs.ts`, read there for
-    // the reason SNAKE's arenas and PINBALL's boards are read there.
-    if (boss.kind === "tell") return;
 
     const fields = document.createElement("div");
     fields.className = "boss-fields";

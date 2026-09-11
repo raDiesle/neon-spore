@@ -108,13 +108,6 @@ export const CONTROL_SETS: readonly ControlSet[] = [
     ],
   },
   {
-    id: "tell",
-    name: "THE TELL",
-    why: "The standard panel with both strips held back: four buttons, three throws, and the two of you own different ones.",
-    reduces: "default",
-    controls: ["guard", "intake", "fireRed", "fireCyan"],
-  },
-  {
     id: "claw",
     name: "THE CLAW",
     why: "The gun is a hand: player 1 slides it, reaches up a column and winds it home again, and the mouth moves to player 2, so nothing is caught by one person alone.",

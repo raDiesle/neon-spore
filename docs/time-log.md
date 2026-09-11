@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-11 · hit-looks — THE TELL removed
+
+The boss round THE TELL and everything that hung off it — sim ladder and ring, render body and scenes, the reduced panel, the guide scene, wave 60, the director's rows, the perf baseline row — taken out; the design stays on the BOSSES page as a removed idea.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | reading |
+| writing | 20 | writing |
+| looking | 0 | looking |
+| friction | 5 | friction |
+| landing | 10 | landing |
+
+Bottleneck: Finding every dependency of a round when 'tell' is also an ordinary English word and the Bulb Queen's own field name.
+
 ## 2026-09-11 · hit-looks — creature:rind kept, three sheds to the LIBRARY
 
 The owner kept the shipped shed and asked for the VERSUS alternatives on the GRAPHICS page: FLAKES, POD and SLOUGH moved into packages/render beside their record, the slot dropped by hand, and a rind card built that replays the shed on the game's own burr.

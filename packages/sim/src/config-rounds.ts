@@ -3,14 +3,12 @@ import { GAUGE_DEFAULTS, type GaugeConfig } from "./config-gauge.js";
 import { PINBALL_DEFAULTS, type PinballConfig } from "./config-pinball.js";
 import { PULSE_DEFAULTS, type PulseConfig } from "./config-pulse.js";
 import { SNAKE_DEFAULTS, type SnakeConfig } from "./config-snake.js";
-import { TELL_DEFAULTS, type TellConfig } from "./config-tell.js";
 
 export { FLEET_DEFAULTS, FLEET_SHELL_BEATS, type FleetConfig } from "./config-fleet.js";
 export { GAUGE_DEFAULTS, type GaugeConfig } from "./config-gauge.js";
 export { PINBALL_DEFAULTS, type PinballConfig } from "./config-pinball.js";
 export { PULSE_DEFAULTS, type PulseConfig } from "./config-pulse.js";
 export { SNAKE_DEFAULTS, type SnakeConfig } from "./config-snake.js";
-export { TELL_DEFAULTS, type TellConfig } from "./config-tell.js";
 
 /**
  * The rounds' numbers, as one block of `SimConfig`.
@@ -37,8 +35,7 @@ export interface RoundConfig
     FleetConfig,
     SnakeConfig,
     PinballConfig,
-    PulseConfig,
-    TellConfig {}
+    PulseConfig {}
 
 export const ROUND_DEFAULTS: RoundConfig = {
   ...GAUGE_DEFAULTS,
@@ -46,5 +43,4 @@ export const ROUND_DEFAULTS: RoundConfig = {
   ...SNAKE_DEFAULTS,
   ...PINBALL_DEFAULTS,
   ...PULSE_DEFAULTS,
-  ...TELL_DEFAULTS,
 };

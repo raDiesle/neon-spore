@@ -25,7 +25,6 @@ export {
   type PinballEntry,
   type PulseEntry,
   type SnakeEntry,
-  type TellEntry,
   type VaneEntry,
   type WardenEntry,
 } from "./entries.js";

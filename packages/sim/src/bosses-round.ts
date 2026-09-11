@@ -113,35 +113,3 @@ export {
 } from "./snake.js";
 
 export { SNAKE_MORPH_BEATS, SNAKE_VERDICT_BEATS, snakeHolds, snakeRound } from "./snake-round.js";
-
-export {
-  TELL_LEAD_BEATS,
-  TELL_OUTCOMES,
-  TELL_PHASES,
-  TELL_REVEAL_BEATS,
-  TELL_THROWS,
-  TELL_VERDICT_BEATS,
-  type TellExchange,
-  type TellOutcome,
-  type TellPhase,
-  type TellRung,
-  type TellState,
-  type TellThrow,
-  tellColor,
-  tellThrows,
-} from "./tell.js";
-
-export { tellRungOutcome } from "./tell-ladder.js";
-export { closeTell, tellHolds, tellRound } from "./tell-round.js";
-
-export {
-  TELL_BEATS,
-  tellBeatenBy,
-  tellCurrent,
-  tellIndex,
-  tellResolve,
-  tellRingIsBalanced,
-  tellShivers,
-  tellThrowAt,
-  tellWindow,
-} from "./tell-rules.js";

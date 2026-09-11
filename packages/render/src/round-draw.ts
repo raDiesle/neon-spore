@@ -4,7 +4,6 @@ import { drawPinballRound } from "./pinball-round.js";
 import { drawPulseRound } from "./pulse-round.js";
 import type { ViewState } from "./renderer.js";
 import { drawSnakeRound } from "./snake-round.js";
-import { drawTellRound } from "./tell-round.js";
 
 /**
  * Which bosses replace the whole picture, and what draws each.
@@ -27,5 +26,4 @@ export const ROUND_DRAWS: Record<
   snake: drawSnakeRound,
   pinball: drawPinballRound,
   pulse: drawPulseRound,
-  tell: drawTellRound,
 };

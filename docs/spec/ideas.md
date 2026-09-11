@@ -588,9 +588,10 @@ Mario Party and Rayman Raving Rabbids, read in
 [party games](../party-games.md): a party minigame's transferable half is never
 the minigame, it is the *shape of its sixty seconds*, and there are about eight
 of those in two hundred. A thirteenth of the originals — THE TELL — was argued
-out far enough in one sitting to be a section rather than a bullet, so it is
+out far enough in one sitting to be a section rather than a bullet, was built,
+and was taken out again on 11 September 2026; it is
 [bosses](bosses.md#119-the-tell--rock-paper-scissors-and-half-the-tell-on-each-screen)
-11.9 and is not repeated here. The category comes from reading Hazelight's two
+11.9, as an idea again, and is not repeated here. The category comes from reading Hazelight's two
 co-op games — see [transfers-hazelight](transfers-hazelight.md) — and what a
 round is allowed to be is [interludes](interludes.md). THE MIRROR
 ([bosses](bosses.md) 11.4) is the one the game already had without calling it

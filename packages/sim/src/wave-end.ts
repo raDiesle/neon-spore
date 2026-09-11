@@ -57,8 +57,7 @@ export function roundSpent(world: World): boolean {
     boss.kind === "gauge" ||
     boss.kind === "snake" ||
     boss.kind === "pinball" ||
-    boss.kind === "pulse" ||
-    boss.kind === "tell";
+    boss.kind === "pulse";
   if (!round) return false;
   return boss.phase === "spent";
 }

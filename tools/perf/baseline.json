@@ -657,17 +657,6 @@
       "mean": 3.09,
       "p90": 4.72,
       "jitter": 0.333
-    },
-    {
-      "id": "theTell",
-      "wave": 60,
-      "name": "THE TELL",
-      "bodies": 0,
-      "arrivals": "0:741638a5",
-      "typical": 1.81,
-      "mean": 1.84,
-      "p90": 2.04,
-      "jitter": 0.069
     }
   ]
 }

@@ -5,7 +5,6 @@ import type { PinballState } from "./pinball.js";
 import type { PulseState } from "./pulse.js";
 import type { MirrorState } from "./simon.js";
 import type { SnakeState } from "./snake.js";
-import type { TellState } from "./tell.js";
 import type { Color } from "./types.js";
 
 /**
@@ -219,5 +218,4 @@ export type BossState =
   | FleetState
   | SnakeState
   | PinballState
-  | PulseState
-  | TellState;
+  | PulseState;

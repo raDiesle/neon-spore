@@ -5,7 +5,6 @@ import { gaugeHolds, gaugeRoundHeard, stepGaugeRound } from "./gauge-round.js";
 import { pinballHolds, pinballRoundHeard, stepPinballRound } from "./pinball-round.js";
 import { pulseHolds, pulseRoundHeard, stepPulseRound } from "./pulse-round.js";
 import { snakeHolds, snakeRoundHeard, stepSnakeRound } from "./snake-round.js";
-import { stepTellRound, tellHolds, tellRoundHeard } from "./tell-round.js";
 import type { Command, TimedCommand } from "./types.js";
 import { endSpentRound } from "./wave-end.js";
 import type { World } from "./world.js";
@@ -63,17 +62,16 @@ interface RoundStep {
  * - **THE PULSE** — the whole round is *when a thumb landed*, and a press
  *   judged on the beat is judged to within six hundred milliseconds, which is
  *   not a judgement.
- * - **THE TELL** — the exchange itself lands on a beat boundary, because a
- *   window is counted in beats; what it needs the tick for is the press. A
- *   thumb that came down on the last tick of a window locked inside it, and a
- *   press read on the next beat would be a throw the pair did not make.
+ * - **THE TELL**, while it stood (removed 11 September 2026) — the exchange
+ *   landed on a beat boundary, but the press it waited for had to be read on
+ *   the tick it came down on, or a thumb on a window's last tick would have
+ *   been a throw the pair did not make.
  */
 const ROUNDS: readonly RoundStep[] = [
   { holds: gaugeHolds, heard: gaugeRoundHeard, step: stepGaugeRound },
   { holds: snakeHolds, heard: snakeRoundHeard, step: stepSnakeRound },
   { holds: pinballHolds, heard: pinballRoundHeard, step: stepPinballRound },
   { holds: pulseHolds, heard: pulseRoundHeard, step: stepPulseRound },
-  { holds: tellHolds, heard: tellRoundHeard, step: stepTellRound },
 ];
 
 /**

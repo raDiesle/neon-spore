@@ -6,20 +6,24 @@
 > PINBALL and THE PULSE, none of which is on the list below. Of the remaining
 > seven names none are built. Two more are worked out on this page and neither
 > is buildable today: The Vessel waits on a second device and The Mother on
-> destruction tracking. **THE TELL** (11.9) is built and is a thirteenth,
-> outside the order below — asked for by the owner, designed on this page and
-> shipped on wave 60 in the same sitting.
+> destruction tracking. **THE TELL** (11.9) is a thirteenth, outside the order
+> below: asked for by the owner, designed on this page, shipped on wave 60 on
+> 8 September 2026 and **taken out again on 11 September** — he found it hard
+> for players to understand and too far from how the game is set up and should
+> feel. The design stays here as an idea; the code is in the history.
 
 Order, following [the act structure](wave-design.md#84-the-ten-pillars-as-an-act-structure--not-built):
 
 Bulb Queen (10) · Strand Nest (20) · The Conductor (30, **THE VANE**) ·
 The Choir (40) ·
 The Warden (50) · The Heart (60) · The Mother (70) · The Codex (80) ·
-The Echoes (90) · The Kernel (100) · The Vessel (finale) · The Mirror (built).
+The Echoes (90) · The Kernel (100) · The Vessel (finale) · The Mirror (built) ·
+The Tell (removed).
 
 THE MIRROR is a twelfth, outside that order. It was built because it was asked
 for, and it holds no slot in the act structure yet — 11.3 says where it would
-fit if one is ever given to it.
+fit if one is ever given to it. THE TELL is a thirteenth, built and removed;
+11.9 keeps the design and says why it went.
 
 Only four of the eleven are worked out. The rest are names holding a slot in
 the act structure.
@@ -980,6 +984,19 @@ three are questions about an eye and a hand, and no test can answer any of them.
 > The one where the boss shows you what it is about to throw, and only one of
 > you can see it.
 
+**Built and taken out.** It shipped on wave 60 on 8 September 2026 and the
+owner removed it on 11 September 2026: "I do not like it and its hard to
+understand for players. too far away from the actual game setup and how it
+should feel." Everything it was — the sim's ladder and ring, the render's
+three-lobed body and its nine scenes, the reduced panel, the guide scene and
+the wave — was deleted whole rather than switched off; `git log -S tellRound`
+finds it. What follows is the design as it was argued, kept because the
+argument (an odd ring, a split tell, a boss that answers your last throw) may
+be worth having again in a form the pair can read at a glance. Any second try
+has to start from the objection: a rule table drawn on the boss is still a
+rule table, and a round the pair has to be taught three arrows for is not a
+round of this game.
+
 Asked for by the owner on 8 September 2026, with most of it already decided in
 the asking: a boss at the top of the field that reveals at the same moment the
 pair does, a rule table that is on the screen the whole time, several rungs, a
@@ -1114,17 +1131,15 @@ lattice carrying coordinates would be inviting them to say "column four" in a
 round where the phrase means nothing. `render/tell-round.ts` draws it at just
 over half strength with `drawGrid`'s coordinate argument at nought.
 
-**What it cost** is what [interludes](interludes.md) says a round costs, and
-the forecast held: `packages/sim/src/tell.ts` (the state), `tell-rules.ts` (the
-ring, pure over its arguments), `tell-round.ts` (the clock), `tell-hash.ts` and
-`config-tell.ts`; `packages/content/src/tell-rungs.ts` for the ladder and one
-entry in `control-sets-table.ts` for the panel; and
-`packages/render/src/tell-ring.ts`, `tell-body.ts`, `tell-scene.ts` and
-`tell-round.ts` for the picture. Every field of it is in `hashWorld` under the
-boss tag, and `packages/sim/test/tell.test.ts` holds the ring, the seat split,
-the ladder and the fingerprint.
+**What it cost** was what [interludes](interludes.md) says a round costs, and
+the forecast held: five files in `packages/sim` (the state, the ring pure over
+its arguments, the clock, the hash and two config numbers), a ladder file and
+one control-set row in `packages/content`, and four files in `packages/render`
+for the picture. Every field of it was in `hashWorld` under the boss tag, and
+a sim test held the ring, the seat split, the ladder and the fingerprint. All
+of it is gone from the tree.
 
-**The panel is a reduction of the standard one**, which is the part that cost
+**The panel was a reduction of the standard one**, which is the part that cost
 nothing at all: `{ id: "tell", reduces: "default", controls: ["guard",
 "intake", "fireRed", "fireCyan"] }`. No new `ControlDef`, no new `Command`, no
 slab. `reduces` is what the numbered STANDARDs use to hold a button on the
@@ -1140,10 +1155,11 @@ are designed, so they are a table in `packages/sim/src/step-round.ts` now. Four
 other files were sitting exactly on the 250-line ceiling and paying for it —
 `config.ts`, `bosses.ts`, `queue.ts` and the director's `ship-notes.ts` — and
 each was split along the seam this repository has now cut five times for the
-same growth: the rounds are the half that grows.
+same growth: the rounds are the half that grows. The table and the splits
+outlived the round that caused them.
 
 **The three rules the owner settled**, on 8 September 2026, each between named
-options and each now in the code:
+options and each in the code while it stood:
 
 - **Both seats pressing inside the same window loses the rung.** Not a race
   won by the first thumb: the ship throws once, so who is throwing has to be
@@ -1160,22 +1176,26 @@ options and each now in the code:
   which is the reading `tellResolve` exists to rule out.
 - **The lattice is drawn faint, without coordinates**, as above.
 
-Slot: it is on wave 60, at the end of act eight, which is where a new wave lands
-rather than a pillar it was designed for. The act order still has The Choir (40)
-and The Codex (80) open and either would take it.
+Slot: it stood on wave 60, at the end of act eight, which is where a new wave
+lands rather than a pillar it was designed for. Wave 60 is The Heart's slot
+again.
 
-**What is not built**, and it is one thing: the ladder's last rung was designed
-as *three throws on three consecutive beats, all shown outright* — a rung with
-no guess in it at all, where the difficulty is the pair saying three words in
-four seconds without talking over each other. Every rung the code has asks for
-one throw. It is a second mode inside the round rather than a number, and it is
-in `docs/queue.md` rather than half-built here.
+**What was never built**, and it is one thing: the ladder's last rung was
+designed as *three throws on three consecutive beats, all shown outright* — a
+rung with no guess in it at all, where the difficulty is the pair saying three
+words in four seconds without talking over each other. Every rung the code had
+asked for one throw.
 
-Still open: how many rungs the boss answers the last throw for, which is the
-difficulty curve in one integer and is `tell-rungs.ts`'s to turn; and whether
-the ring's three glyphs should become the control glyphs
-`packages/render/src/simon-glyph.ts` already holds, which cover SHIELD and SUCK
-and have nothing for a bolt — `tell-ring.ts` draws its own three for now.
+**Why it went**, in the owner's words: hard for players to understand, and too
+far from the actual game setup and how it should feel. Read against this page,
+that is the first condition of a round failing even though the field looked
+like the field: the pair was asked to learn a ring of three arrows and a
+two-screen tell before the first rung meant anything, and nothing in the
+fifty-nine waves before it had taught either. If it is ever tried again, the
+ring has to be one the pair already knows from playing — the plate stopping a
+bolt is the only arrow the game teaches by itself — and the tell has to be a
+thing the game already shows, not a lobe filling on a body built for the
+purpose.
 
 ## 11.10 In plain words
 
@@ -1251,3 +1271,10 @@ nothing under it.
 - **Player 1:** reads out the state of each part as it stands, and moves to whatever they are told.
 - **Player 2:** holds the target and works out from what they hear which part is still wrong.
 - **To finish it:** the parts do not exist. Decide what a combination is made of on this field — columns, colours, shield positions — and how many of them. It also needs two real devices to mean anything: on one shared screen this boss does not work at all.
+
+### The Tell
+
+- **What it does:** built and removed. Rock, paper, scissors against a body at the top of the field, on the panel the pair already holds: the plate beats a bolt, a bolt beats an open mouth, an open mouth beats the plate. The boss shows what it is about to throw, half on each screen, and the ship throws once. It shipped on wave 60 on 8 September 2026 and the owner took it out on 11 September: hard for players to understand, too far from how the game is set up and should feel. The design is 11.9.
+- **Player 1:** held SHIELD and SUCK, so threw the plate and the mouth, and saw which lobe the boss was filling — what it would throw.
+- **Player 2:** held the two colours, so threw the bolt and nothing else, and saw the colour the boss wore — which bolt would land.
+- **To finish it:** find a version that needs no rule table. The ring has to be one the pair already knows from fifty waves of play, and the tell has to be something the game already shows. Until that exists it stays an idea.

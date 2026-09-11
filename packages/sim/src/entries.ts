@@ -224,7 +224,6 @@ export {
   type PulseEntry,
   type QueenEntry,
   type SnakeEntry,
-  type TellEntry,
   type VaneEntry,
   type WardenEntry,
 } from "./boss-entries.js";

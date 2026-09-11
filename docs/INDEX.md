@@ -308,12 +308,6 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/drag-targets.ts` | **Every thing on this field a hand may take hold of**, as a closed list of names |
 | `packages/sim/src/events-balloon.ts` | **THE BALLOON's three**: one given, one popped, one gone off at the top |
 | `packages/sim/src/crank.ts` | THE CLAW's crank: the arm is **wound** home by a finger going round, and a bearing becomes rope |
-| `packages/sim/src/config-tell.ts` | THE TELL's numbers, which are two: what a lost rung costs and what running the ladder's clock out costs… |
-| `packages/sim/src/tell-hash.ts` | What THE TELL puts into `hashWorld`, and nothing else |
-| `packages/sim/src/tell-round.ts` | THE TELL's clock: the lead-in, the phases, and whose press counts |
-| `packages/sim/src/tell-rules.ts` | The ring, and who wins an exchange |
-| `packages/sim/src/tell-ladder.ts` | WHAT AN EXCHANGE DOES TO THE LADDER — the rung, the throws inside it, and the two ways the hull pays |
-| `packages/sim/src/tell.ts` | THE TELL: rock, paper, scissors against a boss that shows you its hand |
 | `packages/sim/src/bosses-round.ts` | The rounds, as their half of the boss barrel |
 | `packages/sim/src/config-rounds.ts` | The rounds' numbers, as one block of `SimConfig` |
 | `packages/sim/src/step-round.ts` | The rounds' own tick, and the one thing all five of them have in common |
@@ -376,7 +370,6 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-clasp.ts` | THE CLASP's rehearsal: the shield opens the enemy instead of stopping it |
 | `packages/content/src/scenes/the-rind.ts` | THE RIND's rehearsal: the shot that lands does not close the column |
 | `packages/content/src/scenes/the-third-shot.ts` | THE SHELL's rehearsal: the shot that worked twice is the miss |
-| `packages/content/src/scenes/the-tell.ts` | THE TELL's rehearsal: it shows you what it is about to throw, and each of you can see half of it |
 | `packages/content/src/scenes/the-echo.ts` | THE ECHO's rehearsal: the slowest thing on the field is the one to take first |
 | `packages/content/src/scenes/the-ghost.ts` | THE GHOST's rehearsal: waiting to see it is the miss |
 | `packages/content/src/scenes/the-purge.ts` | THE PURGE's rehearsal: the field is cleared by swallowing, not by shooting |
@@ -458,7 +451,6 @@ place — the generator keeps whatever is there.
 | `packages/content/src/balloon-shape.ts` | THE BALLOON's contour: a skin with a knot under it, and the fifth family of contour in this package |
 | `packages/content/src/creatures-handed.ts` | **The bodies answered by hands alone**, and today there is one of them |
 | `packages/content/src/mechanics-handed.ts` | The keys of the table below, checked against the roster |
-| `packages/content/src/tell-rungs.ts` | THE TELL's ladder: five rungs, and what makes each of them a different question |
 | `packages/content/src/queue-boss.ts` | A wave's boss, remapped onto the field the pair is actually playing |
 | `packages/content/src/motions-event.ts` | The two motions that are events rather than idles |
 | `packages/content/src/motions-retired.ts` | The motions nothing in the game carries any more |
@@ -902,10 +894,6 @@ place — the generator keeps whatever is there.
 | `packages/render/src/handle-place.ts` | **Where a handle is standing**, as against where a finger may grab it |
 | `packages/render/src/crank-dial.ts` | THE CLAW's crank, drawn: the winder that brings the arm home |
 | `packages/render/src/touch-drag.ts` | What a hand that already has hold of something says when it moves — a handle carried, a crank turned |
-| `packages/render/src/tell-body.ts` | THE TELL's body: a blob at the top of the field with the ring on its skin |
-| `packages/render/src/tell-ring.ts` | The ring, drawn on the boss's own body — three nodes and the three arrows between them |
-| `packages/render/src/tell-round.ts` | THE TELL over the whole stage |
-| `packages/render/src/tell-scene.ts` | The reveal: nine little scenes, one per ordered pair of throws |
 | `packages/render/src/dart-torch.ts` | WHAT A DART'S THRUST IS DRAWN AS, in a file of its own beside `dart-look.ts` |
 | `packages/render/src/dart-shock.ts` | SHOCK — the flame has **structure inside it**: three bright knots strung down its axis |
 | `packages/render/src/magnet-coil.ts` | WHAT THE MAGNET IS DRAWN AS: a solid horseshoe, poles lit from their tips |

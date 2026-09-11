@@ -21,8 +21,10 @@ describe("roster", () => {
     // *position* nobody could see.
     expect(roster.accepted).toHaveLength(10);
     // Eleven named in the act order, plus THE MIRROR, which holds no slot in
-    // it and is built (docs/spec/bosses.md 11.3).
-    expect(roster.bosses).toHaveLength(12);
+    // it and is built (docs/spec/bosses.md 11.3), plus THE TELL, which was
+    // built and taken out again and stands as an idea (11.9).
+    expect(roster.bosses).toHaveLength(13);
+    expect(roster.bosses.find((b) => b.name === "The Tell")?.built).toBe(false);
     expect(roster.bosses.find((b) => b.name === "The Mirror")?.built).toBe(true);
     expect(roster.bosses.find((b) => b.name === "Bulb Queen")?.built).toBe(true);
 

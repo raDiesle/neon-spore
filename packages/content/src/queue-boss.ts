@@ -69,12 +69,5 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
       })),
     };
   }
-  // THE TELL has a body at the top and a ship at the bottom and nothing on the
-  // grid between them, so its ladder names no column either. The rungs are
-  // copied rather than shared, on this function's own rule: what a wave
-  // authored is never handed to the simulation to write on.
-  if (boss.kind === "tell") {
-    return { ...boss, rungs: boss.rungs.map((r) => ({ ...r })) };
-  }
   return { ...boss, col: mapCol(boss.col, cols) };
 }

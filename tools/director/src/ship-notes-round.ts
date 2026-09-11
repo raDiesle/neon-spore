@@ -51,8 +51,4 @@ export const ROUND_NOTES = {
     "The two windows say how forgiving a thumb on glass is; the meter numbers say " +
     "how many misses a stage survives. The chart itself is not here — it is bars of " +
     "text in packages/content/src/pulse-stages.ts.",
-  "THE TELL — rock, paper, scissors with half a tell each":
-    "What a lost rung costs and what running the ladder's clock out costs. The " +
-    "ladder itself is authored in packages/content/src/tell-rungs.ts: window " +
-    "length, feints, and which rungs answer the pair's last throw.",
 } satisfies Partial<Record<GroupName, string>>;

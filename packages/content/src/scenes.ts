@@ -38,7 +38,6 @@ import { THE_RECOIL } from "./scenes/the-recoil.js";
 import { THE_RIND } from "./scenes/the-rind.js";
 import { THE_ROCK } from "./scenes/the-rock.js";
 import { THE_STRAND } from "./scenes/the-strand.js";
-import { THE_TELL } from "./scenes/the-tell.js";
 import { THE_THIRD_SHOT } from "./scenes/the-third-shot.js";
 import { THE_THROB } from "./scenes/the-throb.js";
 import { THE_TORCH } from "./scenes/the-torch.js";
@@ -122,8 +121,7 @@ export type SceneId =
   | "theCrossing"
   | "thePulse"
   | "theBalloon"
-  | "theBeatbox"
-  | "theTell";
+  | "theBeatbox";
 
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
@@ -176,7 +174,6 @@ export const SCENES: Record<SceneId, GuideScene> = {
   thePulse: THE_PULSE,
   theBalloon: THE_BALLOON,
   theBeatbox: THE_BEATBOX,
-  theTell: THE_TELL,
 };
 
 export type { GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";

@@ -63,11 +63,6 @@ export function serializeBoss(boss: BossEntry): string {
   // read back out as a list of `{ step, lane }` is a rhythm nobody could see
   // (`packages/content/src/pulse-stages.ts`).
   if (boss.kind === "pulse") return '{ kind: "pulse", stages: PULSE_STAGES }';
-  // THE TELL the same: a ladder is a handful of windows with a feint marked on
-  // two of them, and it reads as a list in
-  // `packages/content/src/tell-rungs.ts` rather than as five objects inlined
-  // into a wave.
-  if (boss.kind === "tell") return '{ kind: "tell", rungs: TELL_RUNGS, beats: TELL_BEATS }';
   // The rounds go one per line: a sequence is read down the page, and putting
   // several on one line is how a diff of a boss stops being reviewable.
   const rounds = boss.rounds.map((r) => `        [${r.map((s) => `"${s}"`).join(", ")}],`);

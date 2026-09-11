@@ -107,9 +107,6 @@ export function stepBoss(world: World): void {
   // rather than to do anything.
   if (boss.kind === "gauge" || boss.kind === "snake" || boss.kind === "pinball") return;
   if (boss.kind === "pulse") return;
-  // And THE TELL, for the same reason: its ladder is stepped on the tick from
-  // `step` and the field's beat never runs underneath it.
-  if (boss.kind === "tell") return;
   if (boss.scratch.length === 0) boss.scratch = [0, 1];
 
   const queen = world.creatures.find((c) => c.id === boss.creatureId);
