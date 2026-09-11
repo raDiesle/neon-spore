@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · 8ad79408 — The act order names only what is built: eight names leave the NOT BUILT YET page
+
+The owner cleared THE ACT ORDER group of the director's NOT BUILT YET → BOSSES tab. Strand Nest, The Heart, The Mother, The Codex, The Echoes, The Kernel and The Vessel — placeholders written before any boss existed — and The Tell, built and taken out again today, are out of `docs/spec/bosses.md`'s order line, and 11.10 "In plain words", which put a sentence under each, goes with them. The Conductor's slot is written as THE VANE, the boss that holds it. The slots themselves are the act structure's (wave-design 8.4) and a boss idea still names the one it wants. `docs/decisions.md` #30.
+
 ## 2026-09-11 · c734dc7e — The perf baseline has a row for THE COUNT, unmeasured, and every wave after it on its new number
 
 `bun run perf --unmeasured`: inserting a wave into act 3 moved thirty-seven rows one number on, and the baseline test reads the file by play order. A lane does not owe a perf run for a new body, so the row is marked unmeasured and the weekly sweep fills it in.
