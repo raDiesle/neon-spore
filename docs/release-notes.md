@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-11 · b0894fab — The torch stays as shipped: both torch slots dropped, the stale veil claim closed
+
+The owner decided the torch's veil on the VERSUS page: keep what the game draws. `torch:veil` (BLOOM, FIFTH) and `creature:torch` (CROWN, HOLLOW, KILN) are dropped, the reasons in `tools/versus/DECIDED.md`. The queue entry that asked the question is closed; its `Taken:` branch was a local ref in the main checkout with its tip already on `main` and no worktree or session behind it, and is deleted.
+
 ## 2026-09-11 · d9f26a96 — A decided slot's row leaves the pose map with its candidates
 
 `versus-pose.ts` said so in its header and nothing did it: nineteen of its forty rows were for slots no candidate directory names — `cannon:shot`, `shield:ward`, `creature:strand`, `slick:hit` and on. They are gone; `bun run versus adopt` and `drop` take the slot's row out with its directories (`tools/versus/pose-row.ts`, a line-level edit so the literal the director's test reads is otherwise untouched); and that test now refuses any row whose slot has no candidate. The two cannon tests that reached `SHOT · BEING LAID` through the closed `cannon:shot` slot ask for the pose by name, as the band test already did. The queue item is done.
