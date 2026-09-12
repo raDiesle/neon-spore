@@ -22,6 +22,26 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 — relay-dev-kill — stopping `dev.ts` stops the wrangler under it
+
+Queue item from the lane before: killing `apps/server/dev.ts` left wrangler
+and two `workerd` running. `dev.ts` now spawns wrangler's own `cli.js` under
+`node` as a direct child, no `npx` and no shell between, and forwards a stop;
+a test starts the relay on a free port, kills the tree and finds the port
+silent. Along the way the other half of the orphan turned out to be Git
+Bash's `$!` being an MSYS pid, which a `taskkill /T` cannot walk — written
+into the net-change skill. About 15 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `dev.ts`, wrangler's bin shim, `test/relay.ts`, the existing server tests |
+| writing | 5 | the spawn, two exported helpers, the test, the skill paragraph |
+| looking | 0 | a probe script's own lines |
+| friction | 5 | one URL segment wrong in the `cli.js` path; a tree kill on an MSYS pid that left `workerd` up again |
+| landing | 0 | `check:fast`, the commit, `bun run land --keep` |
+
+Bottleneck: friction — finding out which pid a tree kill needs on Windows.
+
 ## 2026-09-12 — relay-verified — the reconnect, against a real Durable Object
 
 Queue item: the two scheduler tests' reconnect was unverified against a real

@@ -161,29 +161,3 @@ Why the short label is what fits today, and what each of the three costs.
 
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
-
-## Killing `apps/server/dev.ts` leaves wrangler and two `workerd` running
-
-- **Found:** 2026-09-12, relay-verified
-- **Taken:** 2026-09-12, claude/queue-killing-apps-server-dev-ts-leaves-wrangler-and-t
-- **Files:** `apps/server/dev.ts`, `.claude/skills/net-change/SKILL.md`
-
-`dev.ts` spawns `npx --yes wrangler dev …` through a shell. On Windows that is
-`cmd → npx.cmd → node cli.js → workerd ×2`, and the shell in the middle exits
-as soon as node is up, so the tree is cut: `taskkill /T` on the `bun` process
-that ran `dev.ts` — or Ctrl-C reaching it, or the `&` job a check script
-started being killed — takes the shell and leaves `wrangler`'s node and both
-`workerd` holding the port. Running the four `relay:check`s today ended with
-three orphans found by `Get-Process` and killed by pid, after the script's own
-`taskkill //F //T` had reported the port free (the listener had moved to a
-child it could not see).
-
-What to do: spawn wrangler's own entry point with `node` directly —
-`node_modules/wrangler/wrangler-dist/cli.js`, resolved from the tree, the same
-file the `npx` chain ends in — so the process is `dev.ts`'s child and a tree
-kill reaches it; and forward `SIGINT`/`SIGTERM` from `dev.ts` to the child
-before exiting, the way `tools/dev/supervise.ts` does. Prove it with a test in
-`apps/server/test/` that starts `dev.ts` with a `RELAY_PORT` of its own, kills
-it, and finds nothing listening on that port a second later; and say in the
-net-change skill that the wrangler is stopped by stopping `dev.ts`, not by
-hunting for `workerd`.

@@ -66,8 +66,13 @@ bun run relay:check ws://127.0.0.1:8800 14 --rejoin
 detector is watching rather than merely present. `--full` sends a third device
 at a room that already has two, and `--rejoin` drops one mid-run and brings it
 back — the two things the Durable Object does that no unit test reaches, and
-both of them were broken when somebody first looked. Kill the wrangler when
-done.
+both of them were broken when somebody first looked. **Stop the wrangler by
+stopping `dev.ts`** — the process `bun run --cwd apps/server dev` started —
+never by hunting for `workerd`: wrangler is its direct child and goes with it
+(`apps/server/test/dev-stop.test.ts` proves it). On Windows kill it by its
+*Windows* pid — `taskkill /F /T /PID <pid>` on the pid `Bun.spawn` reports;
+Git Bash's `$!` is an MSYS pid, and a tree kill on that number takes the
+shell and leaves the relay answering.
 
 If you could not run it — no wrangler, a sandbox with no network — say
 **unverified** in the report and name what a person should run. Do not offer a
