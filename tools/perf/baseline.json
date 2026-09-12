@@ -255,12 +255,11 @@
       "id": "theLure",
       "wave": 23,
       "name": "THE LURE",
-      "bodies": 7,
-      "arrivals": "9:1a768d01",
-      "typical": 2.95,
-      "mean": 2.86,
-      "p90": 3.5,
-      "jitter": 0.288
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "theThrob",
@@ -287,56 +286,51 @@
       "id": "theThirdShot",
       "wave": 26,
       "name": "THE SHELL",
-      "bodies": 3,
-      "arrivals": "3:f09767f4",
-      "typical": 2.86,
-      "mean": 2.81,
-      "p90": 3.4,
-      "jitter": 0.262
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "theClasp",
       "wave": 27,
       "name": "THE CLASP",
-      "bodies": 4,
-      "arrivals": "8:d48656d5",
-      "typical": 2.54,
-      "mean": 2.64,
-      "p90": 3.09,
-      "jitter": 0.069
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "theDart",
       "wave": 28,
       "name": "THE DART",
-      "bodies": 4,
-      "arrivals": "7:4b68c3c1",
-      "typical": 3.07,
-      "mean": 3.11,
-      "p90": 3.56,
-      "jitter": 0.118
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "theVeil",
       "wave": 29,
       "name": "THE VEIL",
-      "bodies": 6,
-      "arrivals": "8:5797fa3d",
-      "typical": 2.76,
-      "mean": 2.89,
-      "p90": 3.36,
-      "jitter": 0.204
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "theVane",
       "wave": 30,
       "name": "THE VANE",
-      "bodies": 5,
-      "arrivals": "12:7a06427b",
-      "typical": 2.9,
-      "mean": 2.84,
-      "p90": 3.32,
-      "jitter": 0.194
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "theLance",
@@ -353,12 +347,11 @@
       "id": "thePurge",
       "wave": 32,
       "name": "THE PURGE",
-      "bodies": 4,
-      "arrivals": "4:6de2254f",
-      "typical": 2.32,
-      "mean": 2.37,
-      "p90": 2.55,
-      "jitter": 0.086
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "theWard",
@@ -375,23 +368,21 @@
       "id": "theWisp",
       "wave": 34,
       "name": "THE WISP",
-      "bodies": 6,
-      "arrivals": "7:12716686",
-      "typical": 3.65,
-      "mean": 3.82,
-      "p90": 4.71,
-      "jitter": 0.103
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "theGhost",
       "wave": 35,
       "name": "THE GHOST",
-      "bodies": 4,
-      "arrivals": "7:b218b1a8",
-      "typical": 3.38,
-      "mean": 3.38,
-      "p90": 3.96,
-      "jitter": 0.152
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "snake",
@@ -408,12 +399,11 @@
       "id": "theEcho",
       "wave": 37,
       "name": "THE ECHO",
-      "bodies": 17,
-      "arrivals": "7:259a559d",
-      "typical": 4.05,
-      "mean": 4.12,
-      "p90": 4.73,
-      "jitter": 0.154
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "pinball",
@@ -430,56 +420,51 @@
       "id": "theRind",
       "wave": 39,
       "name": "THE RIND",
-      "bodies": 6,
-      "arrivals": "7:33ebdddf",
-      "typical": 2.59,
-      "mean": 2.79,
-      "p90": 3.73,
-      "jitter": 0.401
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "theGyre",
       "wave": 40,
       "name": "THE GYRE",
-      "bodies": 11,
-      "arrivals": "5:91dc6050",
-      "typical": 3.29,
-      "mean": 3.46,
-      "p90": 4.45,
-      "jitter": 0.141
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "theLid",
       "wave": 41,
       "name": "THE LID",
-      "bodies": 4,
-      "arrivals": "5:21a929f",
-      "typical": 2.49,
-      "mean": 2.66,
-      "p90": 3.4,
-      "jitter": 0.211
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "theRecoil",
       "wave": 42,
       "name": "THE RECOIL",
-      "bodies": 5,
-      "arrivals": "6:5b8ac045",
-      "typical": 2.44,
-      "mean": 2.52,
-      "p90": 3.08,
-      "jitter": 0.092
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "theCarom",
       "wave": 43,
       "name": "THE CAROM",
-      "bodies": 3,
-      "arrivals": "5:8ecb49af",
-      "typical": 2.39,
-      "mean": 2.39,
-      "p90": 2.71,
-      "jitter": 0.099
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "theCrystal",
@@ -505,45 +490,41 @@
       "id": "theVolley",
       "wave": 46,
       "name": "THE VOLLEY",
-      "bodies": 2,
-      "arrivals": "5:8d33057f",
-      "typical": 1.99,
-      "mean": 2.05,
-      "p90": 2.29,
-      "jitter": 0.05
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "theVeer",
       "wave": 47,
       "name": "THE VEER",
-      "bodies": 2,
-      "arrivals": "6:ab2ebe26",
-      "typical": 2.38,
-      "mean": 2.41,
-      "p90": 2.81,
-      "jitter": 0.042
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "theStrand",
       "wave": 48,
       "name": "THE STRAND",
-      "bodies": 6,
-      "arrivals": "5:5fd8bbdd",
-      "typical": 2.56,
-      "mean": 2.66,
-      "p90": 3.38,
-      "jitter": 0.107
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "theCrawler",
       "wave": 49,
       "name": "THE CRAWLER",
-      "bodies": 8,
-      "arrivals": "5:173045b8",
-      "typical": 2.66,
-      "mean": 2.76,
-      "p90": 3.51,
-      "jitter": 0.103
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "theFence",
@@ -560,56 +541,51 @@
       "id": "theGap",
       "wave": 51,
       "name": "THE GAP",
-      "bodies": 2,
-      "arrivals": "9:99b05b5",
-      "typical": 2.81,
-      "mean": 2.74,
-      "p90": 3.54,
-      "jitter": 0.298
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "theCut",
       "wave": 52,
       "name": "THE CUT",
-      "bodies": 2,
-      "arrivals": "8:3a8bb9fc",
-      "typical": 2.85,
-      "mean": 2.86,
-      "p90": 4.18,
-      "jitter": 0.338
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "theMagnet",
       "wave": 53,
       "name": "THE MAGNET",
-      "bodies": 3,
-      "arrivals": "7:2ee2243d",
-      "typical": 2.46,
-      "mean": 2.54,
-      "p90": 3.14,
-      "jitter": 0.071
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "theJam",
       "wave": 54,
       "name": "THE JAM",
-      "bodies": 3,
-      "arrivals": "9:ad36d5ea",
-      "typical": 3,
-      "mean": 3.06,
-      "p90": 3.35,
-      "jitter": 0.079
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "theCoil",
       "wave": 55,
       "name": "THE COIL",
-      "bodies": 6,
-      "arrivals": "12:39a4cd23",
-      "typical": 2.99,
-      "mean": 3,
-      "p90": 3.54,
-      "jitter": 0.159
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "theChoke",
@@ -647,23 +623,21 @@
       "id": "theCrossing",
       "wave": 59,
       "name": "THE CROSSING",
-      "bodies": 4,
-      "arrivals": "9:839a4c6b",
-      "typical": 2.09,
-      "mean": 2.22,
-      "p90": 3.06,
-      "jitter": 0.096
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "theChoir",
       "wave": 60,
       "name": "THE CHOIR",
-      "bodies": 3,
-      "arrivals": "6:fe631e0d",
-      "typical": 2.74,
-      "mean": 2.81,
-      "p90": 3.32,
-      "jitter": 0.105
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "pulse",
@@ -680,23 +654,21 @@
       "id": "theBalloon",
       "wave": 62,
       "name": "THE BALLOON",
-      "bodies": 4,
-      "arrivals": "8:e4aa072d",
-      "typical": 3.7,
-      "mean": 3.7,
-      "p90": 4.42,
-      "jitter": 0.189
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "theBeatbox",
       "wave": 63,
       "name": "THE BEATBOX",
-      "bodies": 4,
-      "arrivals": "7:bdde6c4f",
-      "typical": 2.7,
-      "mean": 3.09,
-      "p90": 4.72,
-      "jitter": 0.333
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     }
   ]
 }

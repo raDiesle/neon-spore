@@ -30,15 +30,18 @@ lesson go, plain slicks stay only where the lesson needs a target, at the
 fewest. Thirty-two guided waves trimmed, 90 entries out; a stray rock was on
 most of them. `guided-entries.test.ts` holds it: a kind on a guided wave is
 the one it introduces or one a table says the lesson keeps, with the reason
-(THE VANE's rocks, THE JAM's lures, the fence waves' wire). About 30 min.
+(THE VANE's rocks, THE JAM's lures, the fence waves' wire). The perf
+baseline's rows for those waves were figures for waves that no longer exist;
+`bun run perf --unmeasured` now blanks such a row instead of asking a lane
+for the run it never owes. About 40 min.
 
 | activity | minutes | what it was |
 |---|---|---|
 | reading | 10 | every guided wave's entries by kind and its guide, to say for each which bodies the lesson needs |
-| writing | 10 | the trim as one script over the act files, the test and its table |
+| writing | 15 | the trim as one script over the act files, the test and its table; `--unmeasured` blanking a row whose wave changed |
 | looking | 0 | — |
 | friction | 5 | the director's save test round-trips the act files on disk and went red once against a hand-trimmed single-entry list it then wrote canonical |
-| landing | 5 | `check:fast`, the commit, `land --keep` |
+| landing | 10 | `check:fast`, the commit, a red `land` on twenty-eight stale baseline rows, the second commit, `land --keep` |
 
 Bottleneck: **reading** — whether a slick is a target the lesson needs or
 padding is a sentence per wave, and there were thirty-two.

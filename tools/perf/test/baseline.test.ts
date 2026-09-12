@@ -137,9 +137,25 @@ describe("a row nobody has measured", () => {
   });
 
   it("adds nothing to a baseline that already covers the game", () => {
-    const { run, added } = fillUnmeasured(saved);
+    const { run, added, blanked } = fillUnmeasured(saved);
     expect(added).toEqual([]);
+    expect(blanked).toEqual([]);
     expect(run.waves).toHaveLength(saved.waves.length);
+  });
+
+  it("blanks a measured row whose wave no longer sends what it was measured on", () => {
+    // The row's figures describe a wave that no longer exists (the check
+    // above), and a lane never owes the perf run that would replace them —
+    // so the row says nobody has weighed this wave, and the next sweep does.
+    const first = saved.waves.findIndex((w) => !isUnmeasured(w));
+    const row = saved.waves[first] as WaveCost;
+    const moved = saved.waves.map((w, i) => (i === first ? { ...w, arrivals: "elsewhere" } : w));
+    const { run, added, blanked } = fillUnmeasured({ ...saved, waves: moved });
+    expect(added).toEqual([]);
+    expect(blanked).toEqual([`${row.wave} ${row.name}`]);
+    expect(run.waves).toHaveLength(saved.waves.length);
+    expect(isUnmeasured(run.waves[first] as WaveCost)).toBe(true);
+    expect(run.waves[first]?.id).toBe(row.id);
   });
 
   it("does not move the median, and so moves nobody else's verdict", () => {

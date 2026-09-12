@@ -36,7 +36,7 @@ bun run perf                      # every wave — what a baseline is taken from
 bun run perf --throttle 6         # at low-end-mobile speed instead of mid-tier
 bun run perf --save               # write a full sweep back as the new baseline
 bun run perf --wave 46 --save     # merge that one wave into the baseline
-bun run perf --unmeasured         # give every unweighed wave a row, and measure nothing
+bun run perf --unmeasured         # a row for every unweighed wave, a blank for every row its wave changed under; measures nothing
 ```
 
 **Not in a cloud session.** A narrow run that takes about 25 seconds on the
@@ -68,6 +68,14 @@ row for a row saying exactly that, in play order and on today's numbers
 (`renumber`, so an inserted wave does not leave the file one out). The session
 commits it, `bun run check` passes, and the report names `bun run perf` in what
 it could not verify.
+
+**A wave that changed under its row is the same case.** A row records what the
+wave sent when it was weighed, and the test fails a row whose wave sends
+something else now — a figure for a wave that no longer exists. Re-measuring it
+is the perf run a lane never owes, so the same command blanks such a row to
+unmeasured (it says so, wave by wave), and the next sweep fills it in. On 12
+September 2026 a content lane trimmed twenty-eight guided waves in one commit;
+that was the first time.
 
 Nothing then lets that row be forgotten. It counts towards no median — a zero
 in the median would move the verdict on every wave that *was* weighed — and

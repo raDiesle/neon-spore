@@ -36,6 +36,7 @@ bun run relay:check    # two headless devices against a running relay — .claud
 bun run perf           # what a frame costs, wave by wave, at phone speed — a baseline sweep
 bun run perf --wave X  # the waves the new thing appears in, and nothing else
 bun run perf --save    # keep this run as the baseline the next one is read against
+bun run perf --unmeasured  # a row for every unweighed wave, a blank for every row its wave changed under; measures nothing
 bun run orphans        # what is built and reached by nothing — a creature no wave spawns
 ```
 

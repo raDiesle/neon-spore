@@ -1,8 +1,9 @@
 import { WAVES } from "@neon-spore/content";
+import { arrivalsOf } from "./arrivals.js";
 import type { Run, WaveCost } from "./compare.js";
 import { waveId, waveName } from "./measure.js";
 import { renumber } from "./renumber.js";
-import { keyOf } from "./shape.js";
+import { isUnmeasured, keyOf } from "./shape.js";
 
 /**
  * A BASELINE ROW FOR A WAVE NOBODY HAS MEASURED.
@@ -53,8 +54,18 @@ export function unmeasuredRow(index: number): WaveCost {
 }
 
 /**
- * Every wave the baseline has no row for, given one — `bun run perf
- * --unmeasured`, which opens no browser and measures nothing.
+ * Every wave the baseline has no row for, given one, and every row whose wave
+ * no longer sends what it sent when the row was measured, blanked to one —
+ * `bun run perf --unmeasured`, which opens no browser and measures nothing.
+ *
+ * The second is the same case as the first. A row records what the wave sent
+ * when it was weighed (`arrivalsOf`), and `baseline.test.ts` fails a row
+ * whose wave sends something else now: its figures are for a wave that no
+ * longer exists. Re-measuring it is a perf run, and a lane never owes one
+ * (`CLAUDE.md`) — on 12 September 2026 a content lane trimmed twenty-eight
+ * guided waves in one commit, and the choice was twelve minutes of narrow
+ * runs or this. So the row says nobody has weighed *this* wave yet, which is
+ * the truth, and the next sweep fills it in as it fills in a new one.
  *
  * It is here rather than left as a hand-edit of `baseline.json` because the
  * hand-edit is the one that goes wrong: inserting a wave moves the number of
@@ -66,15 +77,27 @@ export function unmeasuredRow(index: number): WaveCost {
  * A run that adds nothing is not an error: it is the answer that the baseline
  * already covers the game, which is what the caller wanted to know.
  */
-export function fillUnmeasured(baseline: Run): { run: Run; added: string[] } {
-  const known = new Set(baseline.waves.map((w) => keyOf(w)));
+export function fillUnmeasured(baseline: Run): {
+  run: Run;
+  /** The waves given a row. */
+  added: string[];
+  /** The waves whose measured row was for something they no longer send. */
+  blanked: string[];
+} {
+  const known = new Map(baseline.waves.map((w) => [keyOf(w), w]));
   const rows = [...baseline.waves];
   const added: string[] = [];
+  const blanked: string[] = [];
   for (let index = 0; index < WAVES.length; index++) {
-    if (known.has(waveId(index))) continue;
-    rows.push(unmeasuredRow(index));
-    added.push(`${index + 1} ${waveName(index)}`);
+    const have = known.get(waveId(index));
+    if (have === undefined) {
+      rows.push(unmeasuredRow(index));
+      added.push(`${index + 1} ${waveName(index)}`);
+    } else if (!isUnmeasured(have) && have.arrivals !== arrivalsOf(index)) {
+      rows[rows.indexOf(have)] = unmeasuredRow(index);
+      blanked.push(`${index + 1} ${waveName(index)}`);
+    }
   }
   const { run } = renumber({ ...baseline, waves: rows });
-  return { run, added };
+  return { run, added, blanked };
 }

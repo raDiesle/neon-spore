@@ -28,7 +28,8 @@ import { wavesAsked, withReferences } from "./waves.js";
  *   bun run perf --throttle 6         at low-end-mobile speed instead
  *   bun run perf --save               write a full sweep back as the new baseline
  *   bun run perf --wave X --save      merge that one wave into the baseline
- *   bun run perf --unmeasured         give every unweighed wave a row, and measure nothing
+ *   bun run perf --unmeasured         give every unweighed wave a row, blank every row whose
+ *                                     wave changed under it, and measure nothing
  *
  * **The narrow run is the ordinary one.** A lane that adds a creature measures
  * the waves that creature appears in; the whole game is swept when a baseline is
@@ -101,9 +102,9 @@ if (process.argv.includes("--unmeasured")) {
     );
     process.exit(1);
   }
-  const { run: written, added } = fillUnmeasured(before);
-  if (added.length === 0) {
-    console.log("the baseline already has a row for every wave — nothing to mark");
+  const { run: written, added, blanked } = fillUnmeasured(before);
+  if (added.length === 0 && blanked.length === 0) {
+    console.log("the baseline has a row for every wave as it is — nothing to mark");
     process.exit(0);
   }
   await Bun.write(
@@ -111,7 +112,8 @@ if (process.argv.includes("--unmeasured")) {
     `${JSON.stringify(written, null, 2)}
 `,
   );
-  console.log(`marked unmeasured in tools/perf/baseline.json: ${added.join(", ")}`);
+  const marked = [...added, ...blanked.map((b) => `${b} (changed under its row)`)];
+  console.log(`marked unmeasured in tools/perf/baseline.json: ${marked.join(", ")}`);
   console.log("  say so in the report, and name bun run perf in what could not be verified");
   process.exit(0);
 }
