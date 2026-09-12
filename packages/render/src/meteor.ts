@@ -2,7 +2,8 @@ import { crystalPath, METEOR } from "@neon-spore/content";
 import { type Creature, spanOf } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
-import { keyAxis, METEOR_LOOK } from "./meteor-look.js";
+import { keyAxis, type MeteorLook } from "./meteor-look.js";
+import { meteorLookFor } from "./meteor-looks.js";
 import { rockRadius } from "./torch.js";
 
 /**
@@ -11,9 +12,10 @@ import { rockRadius } from "./torch.js";
  * Craters from shots are placed from the creature id, so both screens agree
  * without the simulation having to store an angle per hole.
  *
- * What the rock is *made of* is not here: it is `METEOR_LOOK`
- * (`meteor-look.ts`), which this file drives. This is the placing, the spin
- * and the wobble — everything that is true of any rock however it is painted.
+ * What the rock is *made of* is not here: it is one of the three `MeteorLook`s
+ * in `meteor-looks.ts`, picked by the rock's own seed, which this file drives.
+ * This is the placing, the spin and the wobble — everything that is true of
+ * any rock however it is painted.
  */
 export function drawMeteor(
   ctx: CanvasRenderingContext2D,
@@ -37,6 +39,12 @@ export function drawMeteor(
  * wears the same stone. `seed` stands in for the creature id: it is what
  * places the pits and starts the spin, and both devices agree on it because it
  * is a number out of the simulation either way.
+ *
+ * `look` is what the rock is made of, and left out it is the rock's own pick
+ * (`meteorLookFor`) — which is every rock on the field and THE PULSE's chart.
+ * PINBALL hands in the grey `STONE_LOOK`: its obstacles are meant to be the
+ * boring thing on the table, by the owner's own instruction, and a burning
+ * rock is not boring (`pinball-piece.ts`).
  */
 export function drawRockBody(
   ctx: CanvasRenderingContext2D,
@@ -46,6 +54,7 @@ export function drawRockBody(
   time: number,
   seed: number,
   holes: number,
+  look: MeteorLook = meteorLookFor(seed),
 ): void {
   const d = crystalPath(
     0,
@@ -69,17 +78,17 @@ export function drawRockBody(
   // the one part of a rock that has to read as *not* part of it.
   ctx.save();
   ctx.rotate(turn);
-  METEOR_LOOK.body(ctx, path, r, turn, time);
+  look.body(ctx, path, r, turn, time);
   const { dx, dy } = keyAxis(turn);
   for (let k = 0; k < holes; k++) {
     const a = ((k * 2.399) % (Math.PI * 2)) + (seed % 5) * 0.4;
     const dist = 0.3 + ((k * 7 + seed) % 10) / 28;
-    METEOR_LOOK.pit(ctx, Math.cos(a) * r * dist, Math.sin(a) * r * dist, r * 0.16, dx, dy);
+    look.pit(ctx, Math.cos(a) * r * dist, Math.sin(a) * r * dist, r * 0.16, dx, dy);
   }
   ctx.restore();
 
-  METEOR_LOOK.shell?.(ctx, r, time);
+  look.shell?.(ctx, r, time);
   ctx.restore();
 
-  halo(ctx, x, y, r * METEOR_LOOK.haloMul, METEOR_LOOK.haloColor, METEOR_LOOK.haloAlpha);
+  halo(ctx, x, y, r * look.haloMul, look.haloColor, look.haloAlpha);
 }

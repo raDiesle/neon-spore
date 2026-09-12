@@ -21,7 +21,7 @@ describe("whether an edited file draws a picture", () => {
   it("says yes to a module that builds SVG in code", () => {
     const skin = 'document.createElementNS("http://www.w3.org/2000/svg", "path")';
     expect(drawsAPicture("tools/director/src/skins/vein.ts", skin)).toBe(true);
-    expect(drawsAPicture("tools/versus/candidates/creature-meteor/forge.ts", skin)).toBe(true);
+    expect(drawsAPicture("tools/versus/candidates/creature-throb/pores.ts", skin)).toBe(true);
   });
 
   it("says no to a module with no SVG in it at all", () => {

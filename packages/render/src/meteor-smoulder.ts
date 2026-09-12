@@ -1,10 +1,10 @@
-import { LIGHT_HALF } from "../../../../../packages/content/src/index.js";
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import { litRound } from "../../../../../packages/render/src/key-light.js";
-import { keyAxis } from "../../../../../packages/render/src/meteor-look.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
-import { chip, pieces, puff, rockPhase } from "../../../wake.js";
-import { tongue } from "../../../wake-fire.js";
+import { LIGHT_HALF } from "@neon-spore/content";
+import { rgba } from "./hex.js";
+import { litRound } from "./key-light.js";
+import { keyAxis } from "./meteor-look.js";
+import { PALETTE } from "./palette.js";
+import { chip, pieces, puff, rockPhase } from "./rock-wake.js";
+import { tongue } from "./rock-wake-fire.js";
 
 /**
  * The paint SMOULDER is made of: a black stone burning only where it meets

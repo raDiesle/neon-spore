@@ -1,10 +1,6 @@
-import {
-  blobRadiusMul,
-  catmullRomToBezierPath,
-  type Point,
-} from "../../packages/content/src/index.js";
-import { rgba } from "../../packages/render/src/hex.js";
-import { PALETTE } from "../../packages/render/src/palette.js";
+import { blobRadiusMul, catmullRomToBezierPath, type Point } from "@neon-spore/content";
+import { rgba } from "./hex.js";
+import { PALETTE } from "./palette.js";
 
 /**
  * THE FIRE ON A BURNING ROCK — the other half of `wake.ts`, split off for the

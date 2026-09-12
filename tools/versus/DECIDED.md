@@ -813,3 +813,12 @@ point at them
 
 The other answers offered were `chitin`, `gullet`, `heart`, `lymph` and
 `reef`; they went with the slot.
+
+## `creature:meteor` — nothing taken, 2026-09-12
+
+taken by hand: BLAZE is built in and COMET and SMOULDER are alternative looks
+any rock may wear, picked by the rock's own id (render/meteor-looks.ts); FORGE
+rejected by the owner
+
+The other answers offered were `blaze`, `comet`, `forge` and `smoulder`; they
+went with the slot.

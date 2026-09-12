@@ -213,31 +213,38 @@ const SCENES: readonly Scene[] = [
     // The lettered grid is on *both* screens while a wisp is out, and it is
     // drawn a cell at a time: two hundred and sixty rects and thirty-one
     // pieces of text, which is four times any other frame in the game.
+    //
+    // BURNING ROCKS (12 September 2026): the one meteor on this frame is no
+    // longer a grey stone but one of the three fires the owner took from
+    // VERSUS (`meteor-looks.ts`) — this seed draws the comet: a plume of five
+    // flames and tongues, chips and smoke up the wake, and a gradient for
+    // nearly every one of them. Forty-two more fills, nineteen more saves,
+    // nineteen linear and twenty-one radial gradients more, on both seats.
     why: "the lettered grid, on both screens at once",
     rows: {
       p1: [
         {
-          fillRect: 251,
-          stroke: 98,
-          fill: 73,
+          fillRect: 252,
+          stroke: 111,
+          fill: 115,
           clip: 11,
-          save: 56,
+          save: 75,
           drawImage: 45,
-          createLinearGradient: 19,
-          createRadialGradient: 11,
-          "new Path2D": 47,
+          createLinearGradient: 38,
+          createRadialGradient: 32,
+          "new Path2D": 50,
           fillText: 30,
         },
         {
-          fillRect: 251,
-          stroke: 100,
-          fill: 73,
+          fillRect: 252,
+          stroke: 113,
+          fill: 115,
           clip: 11,
-          save: 56,
+          save: 75,
           drawImage: 45,
-          createLinearGradient: 12,
-          createRadialGradient: 8,
-          "new Path2D": 22,
+          createLinearGradient: 31,
+          createRadialGradient: 29,
+          "new Path2D": 25,
           fillText: 30,
         },
       ],
@@ -247,27 +254,27 @@ const SCENES: readonly Scene[] = [
       // twelve fewer strokes. Only the seat that sees the wisp moved.
       p2: [
         {
-          fillRect: 247,
-          stroke: 135,
-          fill: 106,
+          fillRect: 248,
+          stroke: 148,
+          fill: 148,
           clip: 29,
-          save: 88,
+          save: 107,
           drawImage: 50,
-          createLinearGradient: 29,
-          createRadialGradient: 13,
-          "new Path2D": 46,
+          createLinearGradient: 48,
+          createRadialGradient: 34,
+          "new Path2D": 49,
           fillText: 31,
         },
         {
-          fillRect: 247,
-          stroke: 137,
-          fill: 106,
+          fillRect: 248,
+          stroke: 150,
+          fill: 148,
           clip: 29,
-          save: 88,
+          save: 107,
           drawImage: 50,
-          createLinearGradient: 22,
-          createRadialGradient: 10,
-          "new Path2D": 23,
+          createLinearGradient: 41,
+          createRadialGradient: 31,
+          "new Path2D": 26,
           fillText: 31,
         },
       ],

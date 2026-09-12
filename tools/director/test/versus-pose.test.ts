@@ -150,8 +150,10 @@ describe("poseForSlot", () => {
     // the fourth on screen, which the owner met on 8 September 2026 with the
     // obvious question — what does the rock look like before anything hits it.
     // Nothing is fired inside `build` now: `holes` is 0 at hand-over and every
-    // crater this rock ever has opens where somebody can see it.
-    const world = poseForSlot("creature:meteor").build();
+    // crater this rock ever has opens where somebody can see it. The slot is
+    // decided and gone (12 September 2026); the pose stays in the gallery, so
+    // the assertion is made on it by name, the way the band pose's is below.
+    const world = poseNamed("METEOR · A SHOT ARRIVING").build();
     const bullet = world.bullets[0];
     const rock = world.creatures[0];
     expect(bullet).toBeDefined();

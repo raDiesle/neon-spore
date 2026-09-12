@@ -1,6 +1,7 @@
 import type { PinballState, PinPiece } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import { drawRockBody } from "./meteor.js";
+import { STONE_LOOK } from "./meteor-look.js";
 import { PALETTE } from "./palette.js";
 import type { Table } from "./pinball-table.js";
 import { pinAt } from "./pinball-table.js";
@@ -20,7 +21,10 @@ import { drawPodBody } from "./pods.js";
  * So they are drawn by the game's own two answers to exactly that question. A
  * piece that is in the way is a **meteor** (`drawRockBody`): grey, faceted,
  * spinning slowly, dead — the thing this game has always meant by "you cannot
- * do anything with this". A piece that must go is a **pod** (`drawPodBody`):
+ * do anything with this". The rocks on the field burn since 12 September 2026
+ * (`meteor-looks.ts`); these keep the grey `STONE_LOOK` on purpose, because
+ * *more boring* is the instruction and a fire is not. A piece that must go is
+ * a **pod** (`drawPodBody`):
  * amber, breathing, haloed — the thing it has always meant by "go and get
  * this". Neither is invented here and neither can drift, because both are the
  * calls the field makes.
@@ -97,7 +101,7 @@ function drawDull(
   // A block is the same stone pulled wide. Scaled rather than redrawn, so a
   // wall and a peg are visibly the same material.
   if (halfW !== halfH) ctx.scale(halfW / r, halfH / r);
-  drawRockBody(ctx, 0, 0, r, time + seed * 0.7, seed * 7 + 3, 0);
+  drawRockBody(ctx, 0, 0, r, time + seed * 0.7, seed * 7 + 3, 0, STONE_LOOK);
   ctx.restore();
 }
 

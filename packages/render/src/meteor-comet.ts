@@ -1,11 +1,11 @@
-import { LIGHT_HALF } from "../../../../../packages/content/src/index.js";
-import { strokeGlow } from "../../../../../packages/render/src/glow.js";
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import { litRound } from "../../../../../packages/render/src/key-light.js";
-import { keyAxis } from "../../../../../packages/render/src/meteor-look.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
-import { chip, pieces, puff, rockPhase, thread } from "../../../wake.js";
-import { flame, tongue } from "../../../wake-fire.js";
+import { LIGHT_HALF } from "@neon-spore/content";
+import { strokeGlow } from "./glow.js";
+import { rgba } from "./hex.js";
+import { litRound } from "./key-light.js";
+import { keyAxis } from "./meteor-look.js";
+import { PALETTE } from "./palette.js";
+import { chip, pieces, puff, rockPhase, thread } from "./rock-wake.js";
+import { flame, tongue } from "./rock-wake-fire.js";
 
 /**
  * The paint COMET is made of: a rusted iron stone with a long plume of fire

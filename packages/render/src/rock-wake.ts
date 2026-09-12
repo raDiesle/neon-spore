@@ -1,5 +1,5 @@
-import { hash01 } from "../../packages/render/src/backdrop.js";
-import { rgba } from "../../packages/render/src/hex.js";
+import { hash01 } from "./backdrop.js";
+import { rgba } from "./hex.js";
 
 /**
  * WHAT A BURNING ROCK LEAVES BEHIND IT — the marks the three `creature:meteor`

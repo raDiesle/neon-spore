@@ -1,6 +1,6 @@
 import { facet, LAT_LIMIT, pin, surfaceDim } from "@neon-spore/content";
 import { sinHash } from "./hash.js";
-import { keyAxis, METEOR_LOOK } from "./meteor-look.js";
+import { keyAxis, STONE_LOOK } from "./meteor-look.js";
 import { drawCracks } from "./volley-cracks.js";
 import type { VolleyShell } from "./volley-look.js";
 import { fillRock } from "./volley-stone.js";
@@ -30,7 +30,7 @@ import { fillRock } from "./volley-stone.js";
  * that separates a ball from a disc, and no amount of shading a disc produces
  * it.
  *
- * Each pit is `METEOR_LOOK.pit`, the crater a shot leaves, drawn about its own
+ * Each pit is `STONE_LOOK.pit`, the crater a shot leaves, drawn about its own
  * origin and squashed by its tangent plane — so the volley's pits are visibly
  * the same holes every rock on the field wears. The cracks a ward leaves and
  * the seams over it all are the shipped ones.
@@ -74,7 +74,7 @@ export function pittedStone(s: VolleyShell): void {
     ctx.translate(f.x, f.y);
     ctx.scale(Math.max(0.12, f.sx), f.sy);
     ctx.globalAlpha = surfaceDim(DIM, f.lit);
-    METEOR_LOOK.pit(ctx, 0, 0, r * PIT_MUL, dx, dy);
+    STONE_LOOK.pit(ctx, 0, 0, r * PIT_MUL, dx, dy);
     ctx.restore();
   }
   ctx.restore();

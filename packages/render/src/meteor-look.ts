@@ -9,14 +9,10 @@ import { PALETTE, STROKE } from "./palette.js";
  * `drawMeteor` used to hold the fill, the light, the outline, the pits and the
  * halo inline, which made the rock's *material* unarguable: there was nowhere
  * for a second answer to it to sit. `docs/versus.md` names the meteor as the
- * case the mechanism should be tested against, and this is the seam that makes
- * that possible — the layers a look is made of, named, with the shipped ones
- * filled in below.
- *
- * Nothing here changes a pixel. `drawMeteor` calls these in the order it used
- * to run them, in the same transform, and `METEOR_LOOK` holds exactly the
- * arithmetic that was inline. It is the same rock; it is now a rock somebody
- * can offer another answer to.
+ * case the mechanism should be tested against, and this is the seam that made
+ * it possible — the layers a look is made of, named. It was tested against on
+ * 11 September 2026 with four candidates, and three of them are the game's
+ * rocks now (`meteor-looks.ts`); the stone they replaced is below.
  */
 export interface MeteorLook {
   /**
@@ -102,17 +98,20 @@ export function pitGradient(
 }
 
 /**
- * The shipped rock: stone. The base is the unlit mid-tone between
- * `PALETTE.rock` and `rockDark` — the key light supplies the ends, so nothing
- * paints a second set.
+ * The grey stone the game's rocks were made of until 12 September 2026, kept
+ * for the one body that still wears it: THE VOLLEY's ball is this stone with
+ * a basketball's seams on it, and its pits are these pits (`volley-stone.ts`,
+ * `volley-pitted.ts`). The rocks themselves burn now — `meteor-looks.ts`
+ * holds the three looks the owner took from VERSUS and how a rock picks one.
  *
- * The volume used to come from a linear gradient built in the rotated frame,
- * which meant its light turned with the rock: a stone whose bright side is
- * glued to the stone is a painted stone. It comes from the key light now and
- * `turn` is handed back to it, so the light stays where it is while the rock
- * rolls under it.
+ * The base is the unlit mid-tone between `PALETTE.rock` and `rockDark` — the
+ * key light supplies the ends, so nothing paints a second set. The volume
+ * used to come from a linear gradient built in the rotated frame, which meant
+ * its light turned with the rock: a stone whose bright side is glued to the
+ * stone is a painted stone. It comes from the key light and `turn` is handed
+ * back to it, so the light stays where it is while the rock rolls under it.
  */
-export const METEOR_LOOK: MeteorLook = {
+export const STONE_LOOK: MeteorLook = {
   body(ctx, path, r, turn) {
     ctx.fillStyle = "#8A8F9C";
     ctx.fill(path);

@@ -724,6 +724,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/ready-page.ts` | The last page of a stepped guide: the wave's own name, and the button that says this seat has finished reading |
 | `packages/render/src/rock-drift.ts` | **How a rock leaves the ship it broke** — the waiting and the rolling, and the arithmetic of both |
 | `packages/render/src/rock-landing.ts` | Where a rock's last glide ends: half-sunk in the skin, where the crater is, not under the membrane at the hull row's centre |
+| `packages/render/src/rock-wake-fire.ts` | What burns behind a rock: `tongue` and `flame`, the two fire shapes the three meteor looks are built from |
+| `packages/render/src/rock-wake.ts` | What a burning rock leaves behind it — puffs of smoke, chips, threads and the phase that keeps them on the rock — shared by the three meteor looks |
 | `packages/render/src/ship-marks.ts` | The marks round the cup: what letting go of this swelling would do |
 | `packages/render/src/touch-hand.ts` | What a hand on the ship should be *shown* as — the cup that says which swelling is under the finger |
 | `packages/render/src/guide-prose.ts` | A guide with no rehearsal, read a page at a time on the game's own screen |
@@ -766,7 +768,11 @@ place — the generator keeps whatever is there.
 | `packages/render/src/volley-seams.ts` | **The pattern painted on THE VOLLEY's shell**: the four seams a basketball has |
 | `packages/render/src/volley-stone.ts` | **The shipped paint of THE VOLLEY's shell**, in the two passes `volley-look.ts` names |
 | `packages/render/src/volley-shards.ts` | THE VOLLEY's broken pieces: curved fragments of the ball a ward takes off it, and the core's skin when it hatches — thrown, falling on the skin, kept in `Effects` |
-| `packages/render/src/meteor-look.ts` | WHAT A ROCK IS MADE OF, as a record rather than as the body of one function |
+| `packages/render/src/meteor-look.ts` | The `MeteorLook` record — body, pit, shell, halo — with `STONE_LOOK`, the grey stone the rocks were before they burned, kept for THE VOLLEY's ball |
+| `packages/render/src/meteor-looks.ts` | The three things a rock can be — BLAZE, COMET, SMOULDER — as `MeteorLook` records, and `meteorLookFor`, the pick each rock makes by its own id |
+| `packages/render/src/meteor-blaze.ts` | BLAZE: a scorched, cratered stone inside a torch's fireball, glowing pieces coming away up the wake; the look the owner had built in |
+| `packages/render/src/meteor-comet.ts` | COMET: a rusted iron stone white-hot underneath with a long plume of fire behind it and chips of rock tumbling up it |
+| `packages/render/src/meteor-smoulder.ts` | SMOULDER: a black stone white-hot along its underside under a column of dark smoke, ash and the odd ember tumbling up it |
 | `packages/render/src/chute-cut.ts` | A chute shot down under its canopy: the canopy cut loose and the body dropping out from under it |
 | `packages/render/src/chute-canopy.ts` | THE CANOPY'S GEOMETRY: the one shape a chute hangs under, and the two lengths that put it where it is |
 | `packages/render/src/chute-look.ts` | THE ONE RECORD A CANDIDATE **CHUTE** PATCHES |
@@ -1425,8 +1431,6 @@ place — the generator keeps whatever is there.
 | `tools/versus/take-record.ts` | The record side of taking a function-valued field: the field pointed at the moved function, with its import added, and the old value taken out of the imports |
 | `tools/versus/by-hand.ts` | The four steps `adopt` prints when it will not take a slot itself |
 | `tools/versus/pose-row.ts` | The row a slot has in the director's `SLOT_POSE` map, taken out with the slot |
-| `tools/versus/wake-fire.ts` | THE FIRE ON A BURNING ROCK — the other half of `wake.ts` |
-| `tools/versus/wake.ts` | WHAT A BURNING ROCK LEAVES BEHIND IT — the marks the three `creature:meteor` candidates of 11 September 2026… |
 | `tools/index/drift.ts` | Whether a row in `docs/INDEX.md` still describes the file it names |
 | `tools/index/sentence.ts` | **The one line a row carries**, read off the file's own header comment and cut to something a table can hold |
 | `tools/index/place.ts` | where a new row goes: beside the rows whose names it shares a beginning with |

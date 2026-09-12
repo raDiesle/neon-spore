@@ -22,6 +22,31 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 · hit-looks — The rocks burn: BLAZE built in, COMET and SMOULDER worn by any rock, FORGE rejected
+
+The owner, from the VERSUS page: *build into game 'CREATURE:METEOR · BLAZE';
+I would like to configure also COMET to be alternative visuals for any
+meteor; SMOULDER also; reject FORGE.* Asked how a rock should pick an
+alternative, he chose *by the rock itself* — so the three looks are
+`MeteorLook` records in `meteor-looks.ts` and each rock wears one by its own
+id, two to one to one, blaze first; the grey stone stays as `STONE_LOOK` for
+THE VOLLEY's ball and PINBALL's obstacles. The slot was taken by hand (the
+candidates' draws were written inline) and closed with `versus drop`. About
+35 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the four candidates, `meteor-look.ts`, `meteor.ts`, `drawRockBody`'s two other callers, `docs/versus.md` on adopting a function field |
+| writing | 15 | six files moved into render/ with their imports rewritten, `meteor-looks.ts`, the pick in `drawRockBody`, the pinball exception, the pose test built by name |
+| looking | 5 | one film of THE HAND: three rocks, three fires |
+| friction | 5 | `versus drop` could not load a registry whose candidates imported files already moved — their imports were pointed at the new modules for the one run that deleted them |
+| landing | 5 | `check:fast` (THE WISP's budget rows remeasured for one burning rock), the commit, `land --keep` |
+
+Bottleneck: **an inline draw** — a candidate whose `body` is written in its
+`index.ts` cannot be adopted by the command, so the four steps `adopt` does
+were done by hand, and the drop then tripped over the files the hand had
+already moved.
+
 ## 2026-09-12 · hit-looks — THE VOLLEY is a round ball with a smaller ball inside, and breaks into pieces of itself
 
 The owner: *it should look like a basketball, such as rounded; improve the
