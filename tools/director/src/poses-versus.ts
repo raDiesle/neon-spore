@@ -15,6 +15,7 @@ import {
 } from "./pose-kit.js";
 import { BODIES_POSE, DART_RUN_POSE, ECHO_POSE, GHOST_POSE } from "./poses-bodies.js";
 import { RECOIL_POSE } from "./poses-cage.js";
+import { COUNT_POSE } from "./poses-count.js";
 import { CAROM_POSE, CHUTE_POSE, VEER_POSE } from "./poses-crossing.js";
 import { BREACH_ROCKS_POSE, METEOR_HIT_POSE } from "./poses-damage.js";
 import { COIL_POSE, TETHER_POSE } from "./poses-link.js";
@@ -213,6 +214,7 @@ export const VERSUS_POSES: Pose[] = [
   VEER_POSE,
   COIL_POSE,
   TETHER_POSE,
+  COUNT_POSE,
 ];
 
 export const VERSUS_GROUP: PoseGroup = {

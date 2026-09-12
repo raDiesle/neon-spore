@@ -33,7 +33,9 @@ import { POSE_GROUPS } from "./poses.js";
  * `ship:hull-skin` never had a row: the hull is on every frame of every pose,
  * so a slot showing it needs no dedicated one.
  */
-const SLOT_POSE: Record<string, string> = {};
+const SLOT_POSE: Record<string, string> = {
+  "creature:countdown": "COUNT · THREE MARKS LEFT",
+};
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */
 const DEFAULT_POSE_NAME = "SLICK · FALLING";

@@ -2,7 +2,7 @@ import { livingMotion, poseClock } from "@neon-spore/content";
 import { countdownIsOpen, countdownMarks } from "@neon-spore/sim";
 import type { Body } from "./creature-body-in.js";
 import { livingBodyMul, livingRadius } from "./creature-place.js";
-import { colorTrio } from "./creature-tint.js";
+import { colorTrio, type Tint } from "./creature-tint.js";
 import { hazed } from "./depth.js";
 import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
@@ -46,20 +46,26 @@ const MARK_OUT = 1.12;
 /** A mark's width as a share of the radius: three pixels on a phone. */
 const MARK_W = 0.17;
 
-/** The marks, over a body `drawLivingBody` has already drawn — the row in
- * `creature-body.ts` calls the two in that order. */
-export function drawCountMarks(b: Body): void {
-  if (!showsCount(b.l)) return;
-  const { ctx, l, world, c, x, y, beats, near } = b;
-  const cfg = world.cfg;
+/**
+ * Where the disc actually is, and how big: the own-motion's drift, applied
+ * the way `living-draw.ts` applies it, so anything drawn on the rim sits on
+ * the rim and not beside it. HOLD carries no turn and no scale, so the offset
+ * is the whole pose. Shared with every look in `countdown-look.ts`.
+ */
+export function countDisc(b: Body): { cx: number; cy: number; r: number; trio: Tint } {
+  const { l, c, x, y, beats } = b;
   const r = livingRadius(l.tile, livingBodyMul(c));
-  // Where the body actually is: the own-motion's drift, applied the way
-  // `living-draw.ts` applies it, so the notches sit on the rim and not beside
-  // it. HOLD carries no turn and no scale, so the offset is the whole pose.
   const pose = livingMotion(c.kind).poseAt(poseClock(c.id, beats));
-  const cx = x + pose.dx * l.tile;
-  const cy = y + pose.dy * l.tile;
-  const trio = colorTrio(c.color);
+  return { cx: x + pose.dx * l.tile, cy: y + pose.dy * l.tile, r, trio: colorTrio(c.color) };
+}
+
+/** The marks, over a body `drawLivingBody` has already drawn — the row in
+ * `creature-body.ts` calls the two in that order, on the screens `showsCount`
+ * names. */
+export function drawCountMarks(b: Body): void {
+  const { ctx, world, c, near } = b;
+  const cfg = world.cfg;
+  const { cx, cy, r, trio } = countDisc(b);
   if (countdownIsOpen(cfg, world.beat, c)) {
     // Zero: nothing to cut, and the rim lit for the beat instead.
     halo(ctx, cx, cy, Math.round(r * 2.6), trio.hex, 0.55);

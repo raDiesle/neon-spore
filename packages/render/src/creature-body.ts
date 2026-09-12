@@ -11,7 +11,8 @@ import { drawBeatboxAir } from "./beatbox-air.js";
 import { beatboxWash } from "./beatbox-wash.js";
 import { drawChoir } from "./choir.js";
 import { drawChokeBody } from "./choke.js";
-import { drawCountMarks } from "./countdown.js";
+import { showsCount } from "./countdown.js";
+import { COUNTDOWN_LOOK } from "./countdown-look.js";
 import type { Body } from "./creature-body-in.js";
 import { drawCoilBody, drawMeteorBody, drawTorchBody } from "./creature-body-rock.js";
 import { drawMagnetBody, drawStrandBody } from "./creature-body-worn.js";
@@ -213,13 +214,14 @@ const EXCLUSIVE: ReadonlyMap<CreatureKind, BodyDraw> = new Map<CreatureKind, Bod
   // And THE CHOKE, the same arrangement: the strand in the air here, the
   // loops on the cannon over the ship by `drawStuckChokes` (`choke.ts`).
   ["choke", drawChokeBody],
-  // THE COUNT: the ordinary body, and on the pilot's screen only, the marks
-  // cut into its rim over the top (`countdown.ts`).
+  // THE COUNT: the ordinary body, whatever the look lays over it on both
+  // screens, and on the pilot's screen only, the count (`countdown-look.ts`).
   [
     "countdown",
     (b) => {
       drawLivingBody(b);
-      drawCountMarks(b);
+      COUNTDOWN_LOOK.over(b);
+      if (showsCount(b.l)) COUNTDOWN_LOOK.count(b);
     },
   ],
 ]);

@@ -22,6 +22,24 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 · hit-looks — three counts for THE COUNT, offered in VERSUS
+
+The owner: *improve the "Countdown" enemy visuals.* The shipped count is
+four notches in the rim; a look is offered, not replaced, so THE COUNT's
+draw became a record (`render/countdown-look.ts`) and three candidates
+patch it under `creature:countdown` — DIAL, IRIS and FUSE — judged on a new
+pose with three marks left. About 30 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `countdown.ts`, the body table, how a throb candidate was written, the pair and the seat probe |
+| writing | 15 | the look record, the disc helper, three paints and their cards, the pose, the pose row |
+| looking | 10 | seven frames of the shipped count beat by beat, then the three candidates at true size beside it |
+| friction | 0 | — |
+| landing | 0 | `bun run land --keep` |
+
+Bottleneck: the first five frames I took were all on the two open beats, so the shipped notches looked missing until a frame per beat showed them.
+
 ## 2026-09-12 · hit-looks — the band keeps its skin and grows POLYP's threads; the beads walk the cords
 
 The owner, from the VERSUS page: *keep current in game, but add the tiny
