@@ -9,6 +9,11 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-12 · dc89d573 — There is no point score; a run is its clock and its retries
+
+The last piece of the owner's rule of 12 September 2026. `World.score` is gone, with the fifty-one places in the simulation that paid it, the `score*` prices in eight config files (`config-creature-scores.ts` whole), the SCORE group in the director's ship editor and the figure in the HUD's corner: once a hit costs the wave and a run is *the time played and the retries*, a second currency counted nothing the clock did not, and a number that only went up told the pair less than one that could be beaten.
+
+## 2026-09-12 · b3499c12 — The hull has no points, and a pod is taken or the wave is lost
 ## 2026-09-12 · 36ef8657 — The hull has no points, and a pod is taken or the wave is lost
 
 The second piece of the owner's rule of 12 September 2026. `World.hullMilli` is gone, with the bar and heart in the HUD's corner, the slow regeneration, the mend pod and its `+HULL` banner, and the twenty-three `damage*` fields that priced each body: a hit costs the wave, whatever hit, so a figure that drained by twelves was a second price nobody read. What a body carries to the hull is a **weight** now, heavy or light (`BreachWeight`, `sim/impact.ts` — rocks, the carom, the crystal, the coil and a charging ghost are heavy, everything that merely arrived is light), and the weight picks the breach sound and nothing else. THE MIRROR keeps its own hull and its rim still fades with it, through a `rimAlpha` on the skin rather than a hull figure the ship no longer has.
