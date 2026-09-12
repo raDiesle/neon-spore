@@ -2,6 +2,7 @@ import type { CreatureKind } from "@neon-spore/sim";
 import type { CreatureDef } from "./creatures.js";
 import { BARE_CREATURES } from "./creatures-bare.js";
 import { BEATBOX_CREATURE } from "./creatures-beatbox.js";
+import { CLING_CREATURES } from "./creatures-cling.js";
 import { FIXTURE_CREATURES } from "./creatures-fixtures.js";
 import { HANDED_CREATURES } from "./creatures-handed.js";
 import { HAZARD_CREATURES } from "./creatures-hazards.js";
@@ -240,11 +241,10 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     blurb:
       "A maggot that comes over one side wall and walks the ship's surface instead of falling on it, a column every other beat. It costs the hull nothing while it walks. Its head and tail are armour; the segments between them run red, cyan, plate, red, cyan, plate — a colour wants the matching cannon under it, a plate wants the shield. Take one off and the body snaps together behind it. Strip it and a beam takes what is left; let it reach the far wall and it eats its way in.",
   },
-  // THE BALLOON, THE GUM and THE CHOKE — the bodies **neither panel answers
-  // at all**: next door in `creatures-handed.ts`, named rather than spread so
-  // this table still reads in the bestiary's order. See that file for why a
-  // body answered by hands alone is its own family.
+  // The bodies **neither panel answers at all** are in `creatures-handed.ts`;
+  // the two answered by a control being *moved* in `creatures-cling.ts`.
   balloon: HANDED_CREATURES.balloon,
   gum: HANDED_CREATURES.gum,
   choke: HANDED_CREATURES.choke,
+  ...CLING_CREATURES,
 };

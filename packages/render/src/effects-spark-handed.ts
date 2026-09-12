@@ -24,7 +24,11 @@ export function handedBurst(
         | "gumBlock"
         | "chokeGrip"
         | "chokeTap"
-        | "chokeFreed";
+        | "chokeFreed"
+        | "clingGrip"
+        | "clingShake"
+        | "clingFreed"
+        | "clingBlast";
     }
   >,
   l: Layout,
@@ -58,6 +62,18 @@ export function handedBurst(
       return { x: tileCX(l, e.col), y: l.cannonStrip.y, n: 4, hex: PALETTE.bileRim };
     case "chokeFreed":
       return { x: tileCX(l, e.col), y: l.hullY, n: 24, hex: PALETTE.bile };
+    // THE LIMPET and THE LEECH, in the malfunction's blue: the grab where it
+    // landed, a move shaking sparks off it, letting go — and the blast, which
+    // is the breach's own burst made louder in the fire's colour, because the
+    // wave has just been lost to a control that stood still (`cling.ts`).
+    case "clingGrip":
+      return { x: tileCX(l, e.from), y: l.hullY, n: 14, hex: PALETTE.arc };
+    case "clingShake":
+      return { x: tileCX(l, e.col), y: l.hullY, n: 5, hex: PALETTE.arcRim };
+    case "clingFreed":
+      return { x: tileCX(l, e.col), y: l.hullY, n: 24, hex: PALETTE.arc };
+    case "clingBlast":
+      return { x: tileCX(l, e.col), y: l.hullY, n: 40, hex: PALETTE.ember };
   }
 }
 

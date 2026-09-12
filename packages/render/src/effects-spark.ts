@@ -225,9 +225,7 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "beatboxWave":
       return at(l, e.col, e.row, 12, PALETTE.red);
 
-    // The bodies answered by hands alone — THE BALLOON, THE GUM, THE CHOKE —
-    // in a file of their own when THE CHOKE's three took this one past its
-    // limit (`effects-spark-handed.ts`).
+    // The bodies answered by hands alone: `effects-spark-handed.ts`.
     case "balloonSplit":
     case "balloonBurst":
     case "gumStick":
@@ -236,6 +234,10 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "chokeGrip":
     case "chokeTap":
     case "chokeFreed":
+    case "clingGrip":
+    case "clingShake":
+    case "clingFreed":
+    case "clingBlast":
       return handedBurst(e, l);
 
     default:

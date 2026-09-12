@@ -171,6 +171,8 @@ export const SHORT_NOTE: Partial<Record<CreatureKind, string>> = {
   balloon: "rises from the ship; both of you pull a handle at once",
   gum: "sticks to the ship; cannon under it, then p2 swipes it off",
   choke: "takes the cannon; p1 taps the dead strip off, many times",
+  limpet: "takes the plate; goes off if it stands still — p2 moves it",
+  leech: "takes the cannon; goes off if it stands still — p1 moves it",
   beatbox: "p2 taps the beat; p1 sees the count",
   chute: "what a cracked carom throws out — it goes up, then drifts back down",
   volley: "ward it three times, then shoot what hatches",

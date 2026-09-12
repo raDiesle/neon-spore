@@ -6,7 +6,7 @@ import type { Mechanic, MechanicId } from "./mechanics.js";
  * name that is not a `MechanicId` collapses to `never` and the key becomes a
  * build error, so this list cannot fall behind a rename.
  */
-type HandedId = Extract<MechanicId, "balloon" | "gum" | "choke">;
+type HandedId = Extract<MechanicId, "balloon" | "gum" | "choke" | "limpet" | "leech">;
 
 /**
  * **The bodies answered by hands alone.** `creatures-handed.ts` next door is
@@ -46,6 +46,18 @@ export const HANDED_MECHANICS = {
     // A wave names this kind and never a colour, the gum's arrangement:
     // nothing fired reaches it. What a wave authors is the beat it comes,
     // which is the beat the pair loses the steering.
+    waveNames: true,
+  },
+  // THE LIMPET and THE LEECH ride along here: bodies on the ship answered
+  // by something other than a shot — this time a control being moved.
+  limpet: {
+    what: "A round body ringed with hooks that falls straight down one lane, at a slick's pace. No shot touches it and the shield does not stop it: it lands on the ship and clamps onto the plate, wherever the plate is. From that beat a fuse runs while the shield stands still — every beat it is found in the column it was in a beat before is a beat of the fuse, and when the fuse runs out the body goes off: a heavy hit on the hull at the plate's column, and the wave is lost. A beat the shield is found in a new column puts the fuse back to nought and is one move against the grip; enough moves and it drops off. Only the seat without the plate is shown the fuse. It cannot be evaded; the lane it falls in does not matter.",
+    reach: "spawn",
+    waveNames: true,
+  },
+  leech: {
+    what: "Four needles on a round body, falling straight down one lane at a slick's pace. No shot touches it and the shield does not stop it: it lands on the ship and drives itself into the cannon, wherever the cannon is. From that beat a fuse runs while the cannon stands still — every beat it is found in the column it was in a beat before is a beat of the fuse, and when the fuse runs out the body goes off: a heavy hit on the hull at the cannon's column, and the wave is lost. A beat the cannon is found in a new column puts the fuse back to nought and is one move against the grip; enough moves and it drops off. Only the seat without the cannon is shown the fuse. It cannot be evaded; the lane it falls in does not matter.",
+    reach: "spawn",
     waveNames: true,
   },
 } as const satisfies Record<HandedId, Mechanic>;

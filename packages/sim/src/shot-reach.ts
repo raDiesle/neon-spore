@@ -61,6 +61,9 @@ export function firstAlong(
     // Nor THE CHOKE, for the same reason: nothing fired reaches it, in the
     // air or on the cannon (`choke.ts`).
     if (c.kind === "choke") continue;
+    // Nor THE LIMPET or THE LEECH: nothing fired reaches either, in the air
+    // or on its control (`cling.ts`).
+    if (c.kind === "limpet" || c.kind === "leech") continue;
     // THE FENCE stops a bolt in every column it is still **shut** in, and in
     // none of the ones it is open in: a hole is a hole, so a shot fired up a
     // way through reaches whatever is above it rather than dying on a gap the

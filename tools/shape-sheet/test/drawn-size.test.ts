@@ -101,8 +101,10 @@ describe("drawn size against the 20-26 px floor", () => {
     // (`content/silhouettes-countdown.ts`).
     //
     // Three more on 12 September 2026, drawn at the Mine in
-    // `drafts/mine.ts`: CALTROP, REACHER and SINKER, all square.
-    expect(SQUARE.length).toBe(105);
+    // `drafts/mine.ts`: CALTROP, REACHER and SINKER, all square. And two the
+    // same day the field sends: LIMPET, HOOK COLONY's round base, and LEECH,
+    // CALTROP itself (`content/silhouettes-cling.ts`).
+    expect(SQUARE.length).toBe(107);
   });
 
   it("clears the floor for every square card at the 92 px frame it actually gets", () => {
@@ -170,7 +172,9 @@ describe("drawn size against the 20-26 px floor", () => {
     // Mine's three drafts, and none under 20. REACHER clears it: its four
     // arms reach half again past the core, and a body measured across its
     // arms is fitted larger — the grown bodies' finding above, once more.
-    expect(under26).toBe(64);
+    // And LIMPET and LEECH the same day, the two of them the same two forms
+    // brought onto the field at the same 33 and 34 px.
+    expect(under26).toBe(66);
     expect(under20).toBe(23);
   });
 

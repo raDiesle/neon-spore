@@ -11,6 +11,7 @@ import { drawBeatboxAir } from "./beatbox-air.js";
 import { beatboxWash } from "./beatbox-wash.js";
 import { drawChoir } from "./choir.js";
 import { drawChokeBody } from "./choke.js";
+import { drawLeechBody, drawLimpetBody } from "./cling.js";
 import { showsCount } from "./countdown.js";
 import { COUNTDOWN_LOOK } from "./countdown-look.js";
 import type { Body } from "./creature-body-in.js";
@@ -214,6 +215,10 @@ const EXCLUSIVE: ReadonlyMap<CreatureKind, BodyDraw> = new Map<CreatureKind, Bod
   // And THE CHOKE, the same arrangement: the strand in the air here, the
   // loops on the cannon over the ship by `drawStuckChokes` (`choke.ts`).
   ["choke", drawChokeBody],
+  // THE LIMPET and THE LEECH, the same again: the body falling here, and
+  // on its control over the ship by `drawStuckClingers` (`cling.ts`).
+  ["limpet", drawLimpetBody],
+  ["leech", drawLeechBody],
   // THE COUNT: the ordinary body, whatever the look lays over it on both
   // screens, and on the pilot's screen only, the count (`countdown-look.ts`).
   [

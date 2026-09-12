@@ -94,13 +94,16 @@ describe("the catalogue's long axes", () => {
     // drawn at the Mine in `drafts/mine.ts` — all three round by this measure,
     // the roots under SINKER included, which hang the box down by less than a
     // body's width.
-    expect(axes.length).toBe(120);
+    // 122 the same day: LIMPET and LEECH, HOOK COLONY's base and CALTROP
+    // brought onto the field as bodies of their own — both round, both
+    // drawn at rx = ry.
+    expect(axes.length).toBe(122);
     // One ring of THE CRAWLER is the thirty-ninth wide card, and it is wide by
     // more than any other: a ring reaches nearly a full tile past its own
     // column at each end, which is what makes a run of them one animal with no
     // gap in it rather than beads on a string (`content/crawler-shape.ts`).
     expect(count("x")).toBe(42);
-    expect(count(null)).toBe(64);
+    expect(count(null)).toBe(66);
     // THE VEER is the thirteenth tall card and the only one made tall by
     // something *on* a body rather than by the body: the stone under it is
     // round, and the rider's hat carries the box half as far again above it.

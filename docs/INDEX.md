@@ -117,6 +117,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/boss-state.ts` | everything the Bulb Queen encounter remembers between beats |
 | `packages/sim/src/briefing.ts` | how a wave opens, and the only part of it the simulation owns |
 | `packages/sim/src/clasp.ts` | THE CLASP: a slick or a bulb inside a shield of its own, becoming a different creature instead of dying |
+| `packages/sim/src/cling.ts` | **THE LIMPET and THE LEECH**: two bodies that fall straight down one lane, cannot be shot |
 | `packages/sim/src/command-types.ts` | what a press *is*, as a flat union — so that a replay is a list of these and nothing else |
 | `packages/sim/src/config-boss.ts` | the numbers the bosses own |
 | `packages/sim/src/config-creatures.ts` | how long one creature's own clock runs, and the shapes it moves |
@@ -263,6 +264,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/grip-push.ts` | THE PUSH: the hand on a rock, carried sideways — one column, then a beat of quiet |
 | `packages/sim/src/hash-creature-held.ts` | **The fields a hand writes**, folded into the fingerprint |
 | `packages/sim/src/config-claw.ts` | THE CLAW's numbers — the rail, the clock, and what a bad grab costs |
+| `packages/sim/src/config-cling.ts` | THE LIMPET's and THE LEECH's numbers: how many beats a control may stand still with one on it before it goes… |
 | `packages/sim/src/snake-hash.ts` | What SNAKE puts into `hashWorld`, and nothing else |
 | `packages/sim/src/coil.ts` | THE COIL: a rock sitting inside a dome of its own |
 | `packages/sim/src/config-coil.ts` | THE COIL's numbers: how far it crosses the field each beat, how far it sinks at a wall |
@@ -292,6 +294,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-choke.ts` | THE CHOKE's numbers: how many taps get it off the cannon, how fast it drags the cannon while it has it |
 | `packages/sim/src/events-choir.ts` | **THE CHOIR's three**: an arrow out, both in, and the window gone |
 | `packages/sim/src/events-choke.ts` | **Everything THE CHOKE does**, as events: it takes the cannon, it is tapped, and it lets go |
+| `packages/sim/src/events-cling.ts` | **Everything THE LIMPET and THE LEECH do**, as events: one takes hold of a control, is shaken a move looser |
 | `packages/sim/src/command-round.ts` | **The rounds' own verbs**, as their half of the `Command` union |
 | `packages/sim/src/config-pulse.ts` | THE PULSE's numbers — the step grid, the two windows a press is judged in |
 | `packages/sim/src/pulse-chart.ts` | THE PULSE's chart, as arithmetic: where a note is in time, which note a press is aimed at |
@@ -336,6 +339,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/shapes.ts` | contour maths, shared by canvas and SVG |
 | `packages/content/src/silhouettes.ts` | the style guide's tuned shape parameters |
 | `packages/content/src/silhouettes-clubbed.ts` | The one body whose contour is **walked** |
+| `packages/content/src/silhouettes-cling.ts` | **THE LIMPET and THE LEECH, off the shape sheet.** **THE LIMPET is HOOK COLONY's body** |
 | `packages/content/src/silhouettes-choke.ts` | **THE CHOKE in the air: TENDRIL's sac**, taken off the shape sheet whole |
 | `packages/content/src/silhouettes-countdown.ts` | **THE COUNT: the COUNTDOWN draft's disc**, taken off the shape sheet whole |
 | `packages/content/src/own-motion.ts` | how a body sways while going nowhere — the one copy of it |
@@ -468,6 +472,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/balloon-shape.ts` | THE BALLOON's contour: a skin with a knot under it, and the fifth family of contour in this package |
 | `packages/content/src/creatures-handed.ts` | **The bodies answered by hands alone**, and today there is one of them |
 | `packages/content/src/creatures-joined.ts` | The body that is **two bodies in one shell** |
+| `packages/content/src/creatures-cling.ts` | **THE LIMPET and THE LEECH — the bodies that take a control and go off if it stands still.** Next door to… |
 | `packages/content/src/mechanics-handed.ts` | The keys of the table below, checked against the roster |
 | `packages/content/src/queue-boss.ts` | A wave's boss, remapped onto the field the pair is actually playing |
 | `packages/content/src/motions-event.ts` | The two motions that are events rather than idles |
@@ -535,6 +540,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/clasp-strike.ts` | The ward reaching up the column and taking a clasp's shield off it |
 | `packages/render/src/clasp-frames.ts` | THE CLASP's hand-painted shield, held for a host that wants to offer it |
 | `packages/render/src/clasp.ts` | THE CLASP's shield: the bubble a slick or a bulb falls inside, and the way it comes apart when the ward opens |
+| `packages/render/src/cling-fuse.ts` | **The fuse on a clinger, and who is shown it.** The seat that can move the control is not told how long it… |
+| `packages/render/src/cling.ts` | THE LIMPET and THE LEECH, drawn in their two states: a body coming down a lane |
 | `packages/render/src/comms-glyphs.ts` | The three marks the whole game says "one of you can see this" with: an eye on the strip, a speech bubble over |
 | `packages/render/src/comms.ts` | Which arrivals make the two of them talk, and which way round |
 | `packages/render/src/craters.ts` | A rock's own mark: not the whole rock's silhouette, only the sliver of it that was ever inside the skin |
@@ -1038,6 +1045,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-veil.ts` | THE VEIL's three, as sounds |
 | `packages/audio/src/bind-choir.ts` | THE CHOIR's three, in a file of its own |
 | `packages/audio/src/bind-choke.ts` | THE CHOKE's three, in a file of their own on `bind-gum.ts`'s pattern |
+| `packages/audio/src/bind-cling.ts` | THE LIMPET's and THE LEECH's four, in a file of their own on `bind-choke.ts`'s pattern |
 | `packages/audio/src/mixer-pulse.ts` | THE PULSE's song, played off the simulation's own clock |
 | `packages/audio/src/bind-beatbox.ts` | THE BEATBOX's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
 | `packages/audio/src/bind-balloon.ts` | THE BALLOON's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
@@ -1530,6 +1538,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/poses-rounds.ts` | The states a candidate for an **interlude** is judged on |
 | `tools/director/src/poses-layers.ts` | the states a layer over a body is judged giving way in — a rind under fire, a lid under a hand — with `Pose.hand` |
 | `tools/director/src/poses-link.ts` | The two states a candidate for something that **joins two things** is judged on |
+| `tools/director/src/poses-hold.ts` | The two bodies that hold a control and **go off if it stands still** — THE LIMPET on the plate |
 | `tools/director/src/versus-app.ts` | `versus.html` — the page a VERSUS door opens into, and the whole of its routing |
 | `tools/director/src/versus-one.ts` | One candidate, alone, on a page of its own — the live half of VERSUS |
 | `tools/director/src/versus-open.ts` | Where a look opens, and how a page links to it |
@@ -1576,6 +1585,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/field-controls-tether.ts` | THE WARDEN'S rope in each of the four looks the game keeps, drawn under its row on the ON THE FIELD tab |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-notes-round.ts` | The paragraph under each **round's** card |
+| `tools/director/src/ship-notes-hold.ts` | The paragraph under each card for a **body that has a control of the ship's** — THE GUM on the plating |
 | `tools/style-guide/src/colour.ts` | the swatch grid and the hue dial — every colour under its rule, and the twelve body hues at their measured angles |
 | `tools/style-guide/src/families.ts` | Every swatch in `PALETTE`, filed under the rule it belongs to |
 | `tools/style-guide/src/form.ts` | the drawn panels: the stroke build-up, the size ladder down to 11 px, and the five living silhouettes |

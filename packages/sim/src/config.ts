@@ -5,6 +5,7 @@ import { CAROM_DEFAULTS, type CaromConfig } from "./config-carom.js";
 import { CHOIR_DEFAULTS, type ChoirConfig } from "./config-choir.js";
 import { CHOKE_DEFAULTS, type ChokeConfig } from "./config-choke.js";
 import { CLAW_DEFAULTS, type ClawConfig } from "./config-claw.js";
+import { CLING_DEFAULTS, type ClingConfig } from "./config-cling.js";
 import { COIL_DEFAULTS, type CoilConfig } from "./config-coil.js";
 import { CRAWLER_DEFAULTS, type CrawlerConfig } from "./config-crawler.js";
 import { CREATURE_DEFAULTS, type CreatureConfig } from "./config-creatures.js";
@@ -33,6 +34,7 @@ export { CAROM_DEFAULTS, type CaromConfig } from "./config-carom.js";
 export { CHOIR_DEFAULTS, type ChoirConfig } from "./config-choir.js";
 export { CHOKE_DEFAULTS, type ChokeConfig } from "./config-choke.js";
 export { CLAW_DEFAULTS, type ClawConfig } from "./config-claw.js";
+export { CLING_DEFAULTS, type ClingConfig } from "./config-cling.js";
 export { COIL_DEFAULTS, type CoilConfig } from "./config-coil.js";
 export { CRAWLER_DEFAULTS, type CrawlerConfig } from "./config-crawler.js";
 export { CREATURE_DEFAULTS, type CreatureConfig } from "./config-creatures.js";
@@ -75,6 +77,7 @@ export interface SimConfig
     CrystalConfig,
     GumConfig,
     ChokeConfig,
+    ClingConfig,
     CreatureConfig,
     GhostConfig,
     RockCrossConfig,
@@ -176,6 +179,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   ...CRYSTAL_DEFAULTS,
   ...GUM_DEFAULTS,
   ...CHOKE_DEFAULTS,
+  ...CLING_DEFAULTS,
   ...BEATBOX_DEFAULTS,
   ...CHOIR_DEFAULTS,
   ...CRAWLER_DEFAULTS,

@@ -22,6 +22,29 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 · malfunction B — THE LIMPET and THE LEECH
+
+The second piece of the malfunction task: a body that falls to the shield
+and cannot be evaded, and its twin on the cannon. Each takes hold of its
+control and runs a fuse while the control stands still — five beats and a
+heavy hit on the hull, or eight moves and it lets go — and only the seat
+without the control is shown the fuse, so *move* has to be said. Two waves
+with guides, six tables, a replay test for both, a frame test on every
+seat, the director's brush notes, sheet paragraphs and a pose sheet. About
+45 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | THE CHOKE's route through sim, render, content, audio and the director; who moves which control |
+| writing | 20 | `sim/cling.ts` and its config, events, state and hash; `render/cling.ts` and `cling-fuse.ts`; the waves; the tests; the director sheets |
+| looking | 10 | two frames — the first lost the wave to a rock, because a wave's columns are authored on seven lanes and land on eleven |
+| friction | 5 | the group-name union, three golden counts and two file ceilings, each found by a different test |
+| landing | 5 | the suites, the index, the commit, `land --keep` |
+
+Bottleneck: **writing** — six tables and four packages is what a creature
+costs here, and the skill says so; the only surprise was the authoring
+column map, found by a probe rather than by reading.
+
 ## 2026-09-12 · malfunction A — a fault has a visible cause
 
 The first piece of the owner's rule *whenever there is a malfunction there

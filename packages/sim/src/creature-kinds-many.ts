@@ -113,4 +113,21 @@ export type ManyKind =
    * count again. `countdown.ts` holds the whole of it; `Creature.countPhase`
    * is the whole of its state.
    */
-  | "countdown";
+  | "countdown"
+  /**
+   * A round body ringed with hooklets that falls straight down one lane,
+   * cannot be shot, is not stopped by the shield and does not break the hull:
+   * it **takes hold of the shield's plate and goes off if the plate stands
+   * still**. Every beat the shield is found in the column it was in a beat
+   * ago is a beat of the fuse, `limpetStillBeats` of them a heavy hit on the
+   * hull; a beat it is found elsewhere puts the fuse back and is one of the
+   * `limpetShakeMoves` that shake it off. Only the seat *without* the plate
+   * is shown the fuse. `cling.ts` holds the whole of it, with the leech.
+   */
+  | "limpet"
+  /**
+   * THE LIMPET's twin on the cannon: four needles driven into the swelling,
+   * and the fuse runs while the cannon stands in one column. The pilot
+   * moves it and is not shown the count; the navigator is (`cling.ts`).
+   */
+  | "leech";

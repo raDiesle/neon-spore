@@ -105,6 +105,12 @@ export const INGEST_SILENT = [
   "chokeGrip",
   "chokeTap",
   "chokeFreed",
+  // And the clingers' four, for the choke's reason: the grip, the fuse and
+  // the moves are all read off the world every frame (`cling.ts`).
+  "clingGrip",
+  "clingShake",
+  "clingFreed",
+  "clingBlast",
   // Nothing about the ejected body is remembered either: which way it is
   // going and what is drawn over it are read every frame off `chuteOpen`
   // (`chute.ts`), which is the one thing that cannot go stale across a

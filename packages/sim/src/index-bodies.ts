@@ -80,6 +80,17 @@ export { chokeHeading, chokeIsHeld, chokeIsStuck, chokeTapsSoFar, stuckChoke } f
 export { chuteBecomes, chuteFalls, chuteIsOpen } from "./chute.js";
 export { claspBecomes, claspIsShielded, claspStruck } from "./clasp.js";
 export {
+  type ClingKind,
+  clingControlCol,
+  clingFuse,
+  clingIsStuck,
+  clingMovesSoFar,
+  clingShake,
+  clingStillBeats,
+  isClingKind,
+  stuckClinger,
+} from "./cling.js";
+export {
   type CoilDir,
   coilChargeAge,
   coilCharged,

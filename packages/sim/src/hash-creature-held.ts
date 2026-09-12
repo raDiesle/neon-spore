@@ -60,5 +60,12 @@ export function heldHashParts(c: Creature): number[] {
   out.push(c.chokeTaps ?? -1);
   out.push(c.chokeHeld === true ? 1 : 0);
   out.push(c.chokeDir ?? 0);
+  // The clingers' four (`cling.ts`): whether one has its control, how far
+  // its fuse has run, how many moves are against it, and the column the next
+  // beat is judged against. `-1` where absent, a value none of them takes.
+  out.push(c.clingStuck === true ? 1 : 0);
+  out.push(c.clingStill ?? -1);
+  out.push(c.clingMoves ?? -1);
+  out.push(c.clingLastCol ?? -1);
   return out;
 }

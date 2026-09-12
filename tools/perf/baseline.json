@@ -598,8 +598,28 @@
       "unmeasured": true
     },
     {
-      "id": "theTwitch",
+      "id": "theLimpet",
       "wave": 57,
+      "name": "THE LIMPET",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "theLeech",
+      "wave": 58,
+      "name": "THE LEECH",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "theTwitch",
+      "wave": 59,
       "name": "THE TWITCH",
       "bodies": 3,
       "arrivals": "10:23c99a32",
@@ -610,7 +630,7 @@
     },
     {
       "id": "theClaw",
-      "wave": 58,
+      "wave": 60,
       "name": "THE CLAW",
       "bodies": 2,
       "arrivals": "6:5494c513",
@@ -621,7 +641,7 @@
     },
     {
       "id": "theCrossing",
-      "wave": 59,
+      "wave": 61,
       "name": "THE CROSSING",
       "bodies": 0,
       "typical": 0,
@@ -631,7 +651,7 @@
     },
     {
       "id": "theChoir",
-      "wave": 60,
+      "wave": 62,
       "name": "THE CHOIR",
       "bodies": 0,
       "typical": 0,
@@ -641,7 +661,7 @@
     },
     {
       "id": "pulse",
-      "wave": 61,
+      "wave": 63,
       "name": "THE PULSE",
       "bodies": 0,
       "arrivals": "0:741638a5",
@@ -652,7 +672,7 @@
     },
     {
       "id": "theBalloon",
-      "wave": 62,
+      "wave": 64,
       "name": "THE BALLOON",
       "bodies": 0,
       "typical": 0,
@@ -662,7 +682,7 @@
     },
     {
       "id": "theBeatbox",
-      "wave": 63,
+      "wave": 65,
       "name": "THE BEATBOX",
       "bodies": 0,
       "typical": 0,

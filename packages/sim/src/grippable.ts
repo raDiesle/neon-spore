@@ -91,6 +91,9 @@ const UNGRIPPABLE: readonly CreatureKind[] = [
   // air, and what answers it is a thumb on the strip after it has the cannon
   // (`choke.ts`).
   "choke",
+  // And the two clingers, for the same reason (`cling.ts`).
+  "limpet",
+  "leech",
   "chute",
   "volley",
   // And a bead, for a reason of its own: a thread is several bodies falling

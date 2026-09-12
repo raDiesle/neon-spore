@@ -106,6 +106,8 @@ describe("which kinds a wave may name", () => {
       "gum",
       "choke",
       "countdown",
+      "limpet",
+      "leech",
     ];
     expect([...kinds].sort()).toEqual([...nameable].sort() as typeof kinds);
   });

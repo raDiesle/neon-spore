@@ -3,6 +3,7 @@ import type { BeatboxEvent } from "./events-beatbox.js";
 import type { CaromEvent } from "./events-carom.js";
 import type { ChoirEvent } from "./events-choir.js";
 import type { ChokeEvent } from "./events-choke.js";
+import type { ClingEvent } from "./events-cling.js";
 import type { CoilEvent } from "./events-coil.js";
 import type { CrawlerEvent } from "./events-crawler.js";
 import type { CrystalEvent } from "./events-crystal.js";
@@ -193,20 +194,19 @@ export type CreatureEvent =
   // this file over its limit. One arrival taken apart, rather than four
   // incidents that happen to share a creature.
   | CaromEvent
-  // And THE CRYSTAL's three (`events-crystal.ts`), THE GUM's four
-  // (`events-gum.ts`) and THE CHOKE's three (`events-choke.ts`), on the same terms.
+  // And THE CRYSTAL's, THE GUM's, THE CHOKE's and the clingers', on the same
+  // terms (`events-crystal.ts`, `events-gum.ts`, `events-choke.ts`,
+  // `events-cling.ts`).
   | CrystalEvent
   | GumEvent
   | ChokeEvent
+  | ClingEvent
   // And THE VOLLEY's two — the ward that sends it back and the shell bursting
-  // over the body — are `events-volley.ts`, on exactly the same terms: one
-  // arrival taken apart, in a file of its own because this one is at its
-  // limit.
+  // over the body — are `events-volley.ts`, on exactly the same terms.
   | VolleyEvent
   // And THE CRAWLER's two — the beam that takes a stripped worm and the burrow
-  // when one gets in — are `events-crawler.ts`, on the same terms: the two
-  // endings of one arrival, in a file of its own because this one is at its
-  // limit. Its two *answers* are a plain `destroy` and a plain `deflect`.
+  // when one gets in — are `events-crawler.ts`, on the same terms. Its two
+  // *answers* are a plain `destroy` and a plain `deflect`.
   | CrawlerEvent
   // And THE FENCE's two — the wire going over the ship and a bolt cutting it
   // open — are `events-fence.ts`, on the same terms as the three above.

@@ -97,4 +97,20 @@ export interface HeldState {
    * wall; it turns at each wall (`stepChoke`). Absent on one still falling.
    */
   chokeDir?: -1 | 1;
+  /**
+   * **THE LIMPET or THE LEECH has its control.** Set once, on the beat it is
+   * drawn standing on the hull, and never cleared: one leaves the field by
+   * being shaken off or by going off, and no other way. Absent on one still
+   * falling. Read through `clingIsStuck` (`cling.ts`).
+   */
+  clingStuck?: true;
+  /** Beats the control has now stood in one column under it; nought again
+   * on a move. The fuse: `limpetStillBeats` of them and it goes off. */
+  clingStill?: number;
+  /** Beats the control was found in a new column, counted once per beat;
+   * `limpetShakeMoves` of them and it lets go. */
+  clingMoves?: number;
+  /** The control's column a beat ago, which the beat's column is judged
+   * against. Absent on one still falling. */
+  clingLastCol?: number;
 }

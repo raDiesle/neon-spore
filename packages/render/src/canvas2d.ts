@@ -2,10 +2,11 @@ import { guardArmed, mawOpen, ticksPerBeat, wispOnField } from "@neon-spore/sim"
 import { drawTakeover } from "./canvas2d-takeover.js";
 import { drawStuckChokes } from "./choke.js";
 import type { ClaspFrames } from "./clasp-frames.js";
+import { drawStuckClingers } from "./cling.js";
 import { drawBodies, drawFieldBack, drawOverlays, drawShip } from "./frame-passes.js";
 import { drawStuckGums } from "./gum.js";
 import { frame, skinSampler, surfaceSampler } from "./hull-frame.js";
-import { computeLayout, computeStage, type Layout, type Stage } from "./layout.js";
+import { computeLayout, computeStage, type Layout, type Stage, tileCX } from "./layout.js";
 import { RenderState } from "./render-state.js";
 import type { Renderer, Viewport, ViewState } from "./renderer.js";
 import type { SpriteBursts } from "./sprite-burst.js";
@@ -211,6 +212,9 @@ export class Canvas2DRenderer implements Renderer {
     // And THE CHOKE on the cannon, on the eased cannon the ship pass drew —
     // or still crawling along the plating toward it (`choke.ts`).
     drawStuckChokes(ctx, l, world, hull.cannonX, surfaceY, view.time, this.held.chokeCrawl);
+    // And THE LIMPET on the plate and THE LEECH on the cannon (`cling.ts`).
+    const shieldX = tileCX(l, at.shield[0]?.col ?? world.shieldCol);
+    drawStuckClingers(ctx, l, world, hull.cannonX, shieldX, surfaceY, view.beatPhase, view.time);
     drawOverlays(ctx, l, world, view, {
       armed: isArmed,
       open: isOpen,

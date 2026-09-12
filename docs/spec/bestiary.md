@@ -63,8 +63,8 @@ table in a document cannot be wrong in a way a compiler notices.
 
 | Category | Answered by | Members today |
 |---|---|---|
-| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand`, `magnet`, `choir`, `gum`, `choke`, `countdown` |
-| `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch`, `veer`, `coil` |
+| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand`, `magnet`, `choir`, `gum`, `choke`, `countdown`, `leech` |
+| `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch`, `veer`, `coil`, `limpet` |
 | `mixed` | `aim` and `guard` | `queen`, `warden`, `clasp`, `carom`, `volley`, `crawler`, `fence`, `crystal` |
 | `special` | neither | `tether`, `mount`, `chute`, `beatbox`, `balloon` |
 | `suck` | — (pods, not `CreatureKind`) | mend, purge, ward |
@@ -140,9 +140,11 @@ directly, `"suck"`, after what taking one in is called throughout the sim
 | **Lure** | a slick or a bulb that only the navigator can see through | do *not* hit it (costs the hull) |
 | **Choke** | TENDRIL's sac in the palette's bile yellow, tall and boneless, falling straight down one lane with two hooks under it; wound round the cannon's swelling once it has landed, and round player 1's strip node | it cannot be shot and the shield does not stop it; it lands, takes the cannon, and the cannon strip goes dead while the cannon walks wall to wall a column a beat. Player 2 keeps firing from wherever it is. Player 1 taps the dead strip, a lift between each — how many loops are still tight is the count, on both screens — `chokeTaps` times, and it lets go |
 | **Countdown** | the COUNTDOWN draft's disc — as near a plain circle as the roster has — with a socket and a bright core on both screens; on the pilot's, blades of the body closed over the core, one per beat left, the last sliding back through its beat, and on zero a hole to shoot into under a halo; on the navigator's an eye that never blinks (IRIS, 12 September 2026) | hit only while the count is at zero, in its colour; a shot on any other beat is a hit on the hull like a lure's — the wave is lost — and the body stays. The pilot counts down out loud, the navigator fires on the word — THE COUNT (act 3) teaches it |
+| **Limpet** | HOOK COLONY's round base in the malfunction's arc-blue, a rim of hooklets all curled the same way, falling straight down one lane; squatting on the shield's plate with the hooks turned down into the plating once it has landed | it cannot be shot and the shield does not stop it; it lands and takes hold of the plate. Every beat the plate is found in the column it was in a beat before is a beat of the fuse — `limpetStillBeats` of them and it goes off, a heavy hit on the hull at the plate's column, and the wave is lost. A beat the plate is found in a new column puts the fuse back and is one of the `limpetShakeMoves` that shake it off. **Only player 1, who has no plate, is shown the fuse** — a row of lights over the body going out one a beat — so *move* has to be said |
+| **Leech** | CALTROP in the same arc-blue, four needles off a round body, falling straight down one lane; on the cannon's swelling with the needles driven in once it has landed | THE LIMPET's twin on the cannon: the fuse runs `leechStillBeats` beats while the cannon stands in one column, a beat in a new column puts it back, `leechShakeMoves` of those and it comes off, and at the end of the fuse a heavy hit on the hull at the cannon's column. Only player 2, who has no cannon, is shown the fuse |
 | **Pod** | capsule with a blinking core | power-up |
 
-Built: slick, bulb, meteor, lure, throb, dart, veil, strand, torch, crystal, gum, choke, countdown.
+Built: slick, bulb, meteor, lure, throb, dart, veil, strand, torch, crystal, gum, choke, countdown, limpet, leech.
 
 The thirteenth was **Glyph** — a pattern across its skin, looked up in a
 table — and it left this list on 11 September 2026: THE MIRROR's Simon Says is

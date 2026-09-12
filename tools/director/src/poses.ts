@@ -2,6 +2,7 @@ import type { Pose, PoseGroup } from "./pose-kit.js";
 import { CASING_GROUP } from "./poses-casing.js";
 import { FIELD_GROUPS } from "./poses-field.js";
 import { FIELD_CONTROL_GROUP } from "./poses-field-controls.js";
+import { HOLD_GROUP } from "./poses-hold.js";
 import { LAYER_GROUP } from "./poses-layers.js";
 import { MECHANIC_POSES } from "./poses-mechanics.js";
 import { ROUND_GROUP } from "./poses-rounds.js";
@@ -37,6 +38,7 @@ export const POSE_GROUPS: PoseGroup[] = [
   },
   ...FIELD_GROUPS,
   FIELD_CONTROL_GROUP,
+  HOLD_GROUP,
   VERSUS_GROUP,
   SURFACE_GROUP,
   LAYER_GROUP,

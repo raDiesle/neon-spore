@@ -42,6 +42,9 @@ const THE_LESSON_KEEPS: Record<string, readonly WaveKind[]> = {
   "THE CLAW": ["meteor", "meteorMedium"],
   // A rock over a side wall is a rock; what is new is the `cross`.
   "THE CROSSING": ["meteor"],
+  // A rock is what asks the plate to stand somewhere, and a plate that has
+  // to meet one and be gone on the next beat is the limpet's lesson.
+  "THE LIMPET": ["meteor"],
 };
 
 describe("a guided wave's entries", () => {

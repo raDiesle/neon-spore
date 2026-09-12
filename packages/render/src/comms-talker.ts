@@ -196,4 +196,8 @@ export const TALKER = {
   // many taps are left and the navigator where the cannon will be on the
   // beat she fires, and neither can read the other's off the screen.
   choke: "both",
+  // The seat without the control is the one shown the fuse, and *move* is
+  // the whole of what it has to say (`cling-fuse.ts`).
+  limpet: "p1",
+  leech: "p2",
 } as const satisfies Record<CreatureKind, Talker | null>;

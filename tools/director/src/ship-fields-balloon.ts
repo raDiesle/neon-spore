@@ -31,4 +31,9 @@ export const BALLOON_FIELDS = {
   // gesture on it, this time the seat whose control it took.
   chokeTaps: "THE CHOKE — a body on the cannon, tapped off by the seat whose cannon it was",
   chokeSweepBeats: "THE CHOKE — a body on the cannon, tapped off by the seat whose cannon it was",
+  // And the clingers' four: a body on a control, shaken off by moving it.
+  limpetStillBeats: "THE LIMPET — a body on the plate that goes off if the plate stands still",
+  limpetShakeMoves: "THE LIMPET — a body on the plate that goes off if the plate stands still",
+  leechStillBeats: "THE LEECH — a body on the cannon that goes off if the cannon stands still",
+  leechShakeMoves: "THE LEECH — a body on the cannon that goes off if the cannon stands still",
 } satisfies Partial<Record<keyof SimConfig, GroupName>>;

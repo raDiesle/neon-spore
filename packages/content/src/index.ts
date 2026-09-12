@@ -207,13 +207,13 @@ export {
   TORCH,
 } from "./silhouettes.js";
 export { CHOKE } from "./silhouettes-choke.js";
+export { LEECH, LIMPET } from "./silhouettes-cling.js";
 export { GUM, SAC_SKIN, type SacSkin, sacPoints } from "./silhouettes-gum.js";
 export { SNAKE_ROUNDS } from "./snake-rounds.js";
 export { type StuddedOpts, studdedContour } from "./studded.js";
 export type { Pin } from "./surface.js";
 export { type Facet, facet, LAT_LIMIT, limbX, pin, surfaceDim, surfaceLit } from "./surface.js";
-// THE VEER's rider, as figures and as loops — one description of the clown for
-// the game that draws it in colour and the palette that draws it as a contour.
+// THE VEER's rider, as figures and as loops — one description of the clown.
 export {
   type ClownArc,
   type ClownDisc,

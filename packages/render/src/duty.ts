@@ -150,6 +150,10 @@ const DUTY_WORD = {
   // that taps once and waits is the mistake; the navigator's is what she is
   // still doing while the cannon is not hers to aim.
   choke: { p1: "TAP AGAIN", p2: "FIRE ON THE PASS" },
+  // The seat with the fuse says the word; the seat with the control does the
+  // thing, whole instruction both, since standing still is the mistake.
+  limpet: { p1: "SAY MOVE", p2: "KEEP MOVING" },
+  leech: { p1: "KEEP MOVING", p2: "SAY MOVE" },
 } as const satisfies Record<CreatureKind, { p1?: string; p2?: string } | null>;
 
 /** Whether a kind counts as active for this word, including the one kind

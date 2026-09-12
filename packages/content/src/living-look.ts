@@ -4,6 +4,7 @@ import { FLICKER, HOLD, POISE, RUMBLE } from "./motions.js";
 import { BLOOM } from "./motions-event.js";
 import type { OwnMotion } from "./own-motion.js";
 import { BEATBOX, BULB, type CreatureSilhouette, DART, SLICK, THROB, WISP } from "./silhouettes.js";
+import { LEECH, LIMPET } from "./silhouettes-cling.js";
 import { COUNTDOWN } from "./silhouettes-countdown.js";
 
 /**
@@ -11,12 +12,10 @@ import { COUNTDOWN } from "./silhouettes-countdown.js";
  * — one row for every `CreatureKind`, and the only place either half is said.
  *
  * **Why one table and not two.** The contour lived in `silhouettes.ts` and the
- * own-motion in `motions.ts`, each as a ternary chain ending in a default, and
- * they were two hand-kept answers to a single question: *is this kind a body,
- * and which one*. Two lists over one fact drift — a kind reaching one chain and
- * not the other draws its own shape with the slick's sway, which is a body that
- * moves like something it is not. They are one row now, so the pair cannot
- * disagree.
+ * own-motion in `motions.ts`, each a ternary chain ending in a default: two
+ * hand-kept answers to one question, *is this kind a body, and which one*.
+ * Two lists over one fact drift — a kind reaching one chain and not the other
+ * draws its own shape with the slick's sway. One row now, so they cannot.
  *
  * **It is total on purpose, and that is the whole point of the file.** Each
  * chain used to end in `: SLICK` and `: TILT_RIPPLE`, so a kind added to
@@ -45,12 +44,10 @@ const LIVING_LOOK = {
   throb: { shape: THROB, motion: HOLD },
   dart: { shape: DART, motion: POISE },
   wisp: { shape: WISP, motion: FLICKER },
-  // A body of its own, and the first here whose *size* is not part of its
-  // silhouette but is the whole of what it says: the contour is a rounded
-  // cabinet and `render/beatbox.ts` swells it on the beat. A row here rather
-  // than a draw path of its own, unlike THE GHOST and THE LID next door,
-  // because four shallow lobes on a nearly square body is exactly what a
-  // radial contour describes well.
+  // A body whose *size* is the whole of what it says: a rounded cabinet that
+  // `render/beatbox.ts` swells on the beat. A row here rather than a draw
+  // path of its own because four shallow lobes on a nearly square body is
+  // exactly what a radial contour describes well.
   beatbox: { shape: BEATBOX, motion: RUMBLE },
   // THE COUNT: the COUNTDOWN draft's disc, bare — the marks are the pilot's
   // and `render/countdown.ts` cuts them. HOLD for the throb's reason: a body
@@ -176,21 +173,23 @@ const LIVING_LOOK = {
   // not one body drawn small, large, or under something — it is *two*, leaning
   // on each other inside one film, and a silhouette here would be a single
   // contour for a thing whose whole picture is that it is not single yet.
-  // `render/choir.ts` draws the pair and the film over them; the moment the
-  // pilot's gesture lands the kind changes and the ordinary slick or bulb
-  // takes over, contour, motion and all.
+  // `render/choir.ts` draws the pair and the film; the moment the pilot's
+  // gesture lands the kind changes and the ordinary slick or bulb takes over.
   choir: null,
-  // THE BALLOON, and a `null` of the choir's shape rather than the coil's: it
-  // is not a body drawn under something, it is a body that **changes shape as
-  // it is played**. A blob contour is one radius sampled all the way round, so
-  // two hands stretching it towards opposite walls would come out as one body
-  // growing evenly. `render/balloon.ts` draws it off the pulls themselves.
+  // THE BALLOON, a `null` of the choir's shape: not a body drawn under
+  // something but one that **changes shape as it is played**. A blob contour
+  // is one radius sampled all the way round, so two hands stretching it apart
+  // would come out as one body growing evenly. `render/balloon.ts` draws it
+  // off the pulls themselves.
   balloon: null,
   // THE GUM and THE CHOKE wear a sac off the sheet in the air and are on the
-  // ship once they land, with no motion of their own in either state:
-  // `render/gum.ts` and `render/choke.ts` draw both off the world.
+  // ship once they land: `render/gum.ts` and `render/choke.ts` draw both.
   gum: null,
   choke: null,
+  // THE LIMPET and THE LEECH fall as ordinary bodies off the sheet — HOOK
+  // COLONY's base and CALTROP — and `render/cling.ts` draws them on the ship.
+  limpet: { shape: LIMPET, motion: HOLD },
+  leech: { shape: LEECH, motion: HOLD },
 } as const satisfies Record<CreatureKind, { shape: CreatureSilhouette; motion: OwnMotion } | null>;
 
 /**
