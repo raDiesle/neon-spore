@@ -72,10 +72,6 @@ export interface PinballConfig {
   pinballCatchMilli: number;
   /** Beats one shot may stay in the air before the table gives it back. */
   pinballFlightBeats: number;
-  /** What running out of time takes off the hull, in whole points. */
-  damagePinball: number;
-  /** What a ball that missed the bucket takes off it. */
-  damagePinballDrop: number;
 }
 
 /**
@@ -125,9 +121,4 @@ export const PINBALL_DEFAULTS: PinballConfig = {
   pinballPowerMilli: 8,
   pinballCatchMilli: 620,
   pinballFlightBeats: 24,
-  // THE GAUGE's twenty, for the same event and defended no further.
-  damagePinball: 20,
-  // SNAKE's crash number: a drop has to cost enough that the bucket is real
-  // and little enough that the round is not over at the first one.
-  damagePinballDrop: 8,
 };

@@ -233,8 +233,8 @@ describe("once the shell is off, the colour is the only question", () => {
 
 describe("the shell as an ordinary arrival", () => {
   it("costs the hull exactly what any other missed creature does", () => {
-    const noRegen: SimConfig = { ...CFG, hullRegenPerSecond: 0 };
-    const world = createWorld(noRegen, 0, [shell(COL)]);
+    const PLAIN: SimConfig = { ...CFG };
+    const world = createWorld(PLAIN, 0, [shell(COL)]);
     for (let t = 0; t < BREACH_TICK + 1; t++) step(world, []);
     expect(world.retries).toBe(1);
   });

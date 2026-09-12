@@ -12,14 +12,13 @@ import { BRUSH_KIND, type Brush } from "./brushes.js";
 
 /**
  * The mechanic id a brush paints, for every brush that paints one at all —
- * `BRUSH_KIND` (`brushes.ts`) widened to include the three pod kinds it
+ * `BRUSH_KIND` (`brushes.ts`) widened to include the two pod kinds it
  * leaves out, since its only consumer there (`categoryOf`) takes a
  * `CreatureKind` and a pod is not one. `ERASE` paints nothing and carries no
  * entry.
  */
 export const BRUSH_MECHANIC: Partial<Record<Brush, MechanicId>> = {
   ...BRUSH_KIND,
-  mend: "mend",
   purge: "purge",
   ward: "ward",
 };

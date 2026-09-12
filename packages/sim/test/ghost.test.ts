@@ -204,12 +204,11 @@ describe("the dive at the end of its temper", () => {
     expect(at).toBe(CFG.ghostChargeLaps - 1);
   });
 
-  it("comes down head first and takes more of the hull than a body that merely arrived", () => {
+  it("comes down head first, and lands heavy where a body that merely arrived lands light", () => {
     const { world, events } = spent();
     const breach = events.find((e) => e.type === "breach");
     expect(breach).toBeDefined();
-    expect(breach).toMatchObject({ kind: "ghost", damage: CFG.damageGhostDive });
-    expect(CFG.damageGhostDive).toBeGreaterThan(CFG.damageCreature);
+    expect(breach).toMatchObject({ kind: "ghost", weight: "heavy" });
     expect(world.creatures).toHaveLength(0);
   });
 

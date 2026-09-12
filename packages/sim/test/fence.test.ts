@@ -160,11 +160,9 @@ describe("a fence reaching the ship", () => {
     for (let t = 0; t < ticksPast; t += 10) presses.push(guard(t));
     const { world, events } = run([fence([4])], ticksPast, [shieldTo(TPB, 0), ...presses]);
     expect(fenceOf(world)).toBeUndefined();
-    // The breach itself rather than the hull afterwards: the ship mends
-    // `hullRegenPerSecond` while the run plays on, so a reading taken at the
-    // end of it is the damage minus however long the test happened to run.
+    // A fence lands heavy: it is a rock's arrival, not a body's brush.
     const breach = events.find((e) => e.type === "breach");
-    expect(breach && breach.type === "breach" && breach.damage).toBe(CFG.fenceDamage);
+    expect(breach && breach.type === "breach" && breach.weight).toBe("heavy");
     expect(world.retries).toBe(1);
     expect(world.guard.deflected).toBe(0);
     // Right column, wrong moment is a failure class this creature has not got.

@@ -194,7 +194,7 @@ function dischargeBeatbox(world: World, c: Creature): void {
     row: c.row,
     hits: beatboxHitsMade(c),
   });
-  breachUnscarred(world, c.col, "beatbox", c.fromRow, world.cfg.damageBeatboxWave, c.color);
+  breachUnscarred(world, c.col, "beatbox", c.fromRow, "light", c.color);
   // The run that failed, kept for the marks: `beatboxHits` is wiped one line
   // below, and without this the counter would empty on the exact frame the pair
   // looks at it to find out how far off they were.

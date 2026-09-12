@@ -15,7 +15,6 @@ import { fleetHeard } from "./fleet.js";
 import { dropLostGrips } from "./grip.js";
 import { gripPushHeard } from "./grip-push.js";
 import { gumHeard } from "./gum.js";
-import { regenerateHull } from "./hull.js";
 import { stepBeam } from "./lance.js";
 import { releaseLance } from "./lance-burn.js";
 import { lidHeard, stepLidPulls } from "./lid.js";
@@ -45,9 +44,9 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // also what the ready gate is counted in, so `stepReady` runs after the
   // counter moves, the way `releaseLance` does further down.
   //
-  // And nothing below this line runs, `regenerateHull` included. That is the
-  // whole of THE FORK's "not a free repair bay" rule, inherited by the shape
-  // of the tick rather than by a check anybody has to remember.
+  // And nothing below this line runs. That was the whole of THE FORK's "not a
+  // free repair bay" rule while the hull mended, inherited by the shape of the
+  // tick rather than by a check anybody had to remember.
   if (briefingHolds(world)) {
     for (const c of commands) {
       if (c.command.kind === "brief") briefHeard(world, c.player, c.command.on ?? true);
@@ -201,6 +200,5 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // tick for the next one (`reach.ts`).
   stepReach(world);
   advancePods(world);
-  regenerateHull(world);
   progressWave(world);
 }

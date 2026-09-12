@@ -2,7 +2,6 @@ import { describe, expect, it } from "bun:test";
 import {
   createWorld,
   DEFAULT_CONFIG,
-  hullPercent,
   hullRow,
   type PodEntry,
   type SimConfig,
@@ -82,7 +81,7 @@ const POD_COL = 3;
 
 describe("a moored pod", () => {
   it("hangs exactly where the wave left it and never moves on its own", () => {
-    const { world } = run([{ beat: 0, col: 3, row: 4 }], TPB * 8);
+    const { world } = run([{ beat: 0, col: 3, row: 4, kind: "purge" }], TPB * 8);
     expect(world.pods).toHaveLength(1);
     const pod = world.pods[0]!;
     expect(pod.loose).toBe(false);
@@ -90,16 +89,21 @@ describe("a moored pod", () => {
     expect(pod.colMilli).toBe(3000);
   });
 
-  it("does not hold up the end of a wave", () => {
-    // An empty spawn queue is a cleared wave, pod or no pod.
-    const { events } = run([{ beat: 0, col: 3, row: 4 }], TPB * 6);
-    expect(events.some((e) => e.type === "needWave")).toBe(true);
+  it("holds the wave open while it hangs", () => {
+    // An empty spawn queue used to be a cleared wave, pod or no pod. A pod is
+    // taken or the wave is lost now, so one still moored is one still to do.
+    const { events } = run([{ beat: 0, col: 3, row: 4, kind: "purge" }], TPB * 6);
+    expect(events.some((e) => e.type === "needWave")).toBe(false);
   });
 });
 
 describe("shooting a pod loose", () => {
   it("sets it falling and sliding, and reports where it came free", () => {
-    const { world, events } = run([{ beat: 0, col: 3, row: 4 }], TPB * 3, shootLoose(3));
+    const { world, events } = run(
+      [{ beat: 0, col: 3, row: 4, kind: "purge" }],
+      TPB * 3,
+      shootLoose(3),
+    );
     const pod = world.pods[0]!;
     expect(pod.loose).toBe(true);
     expect(pod.rowMilli).toBeGreaterThan(4000);
@@ -108,12 +112,15 @@ describe("shooting a pod loose", () => {
   });
 
   it("stays put when the shot goes up a different column", () => {
-    const { world } = run([{ beat: 0, col: 3, row: 4 }], TPB * 3, [aim(2, 5), fire(4)]);
+    const { world } = run([{ beat: 0, col: 3, row: 4, kind: "purge" }], TPB * 3, [
+      aim(2, 5),
+      fire(4),
+    ]);
     expect(world.pods[0]!.loose).toBe(false);
   });
 
   it("cannot be shot a second time once it is falling", () => {
-    const { events } = run([{ beat: 0, col: 3, row: 4 }], TPB * 4, [
+    const { events } = run([{ beat: 0, col: 3, row: 4, kind: "purge" }], TPB * 4, [
       ...shootLoose(3),
       fire(TPB),
       fire(TPB * 2),
@@ -144,11 +151,8 @@ function hold(col: number, withIntake: boolean): TimedCommand[] {
 }
 
 describe("taking a pod in", () => {
-  it("repairs the hull and scores when the cannon is under it and the maw is open", () => {
-    // Damage first, so a repair is visible: the pod is worth `podRepair` points
-    // of hull, and a hull already at 100 would hide that entirely.
-    const world = createWorld({ ...STILL }, 0, [], [{ beat: 0, col: 3, row: 4 }]);
-    world.hullMilli = 40_000;
+  it("scores when the cannon is under it and the maw is open", () => {
+    const world = createWorld({ ...STILL }, 0, [], [{ beat: 0, col: 3, row: 4, kind: "purge" }]);
     const inputs = hold(3, true);
     const byTick = new Map<number, TimedCommand[]>();
     for (const i of inputs) byTick.set(i.tick, [...(byTick.get(i.tick) ?? []), i]);
@@ -161,13 +165,17 @@ describe("taking a pod in", () => {
     expect(events.some((e) => e.type === "podTaken")).toBe(true);
     expect(world.pods).toHaveLength(0);
     expect(world.score).toBeGreaterThanOrEqual(CFG.scorePod);
-    // Regeneration runs the whole time, so the repair is a floor, not a figure.
-    expect(hullPercent(world)).toBeGreaterThan(40 + CFG.podRepair);
+    expect(world.retries).toBe(0);
   });
 
   it("is lost when the maw never opens, however well the cannon follows", () => {
     const inputs = hold(3, false);
-    const { world, events } = run([{ beat: 0, col: 3, row: 4 }], ARRIVAL, inputs, STILL);
+    const { world, events } = run(
+      [{ beat: 0, col: 3, row: 4, kind: "purge" }],
+      ARRIVAL,
+      inputs,
+      STILL,
+    );
     expect(events.some((e) => e.type === "podLost")).toBe(true);
     expect(events.some((e) => e.type === "podTaken")).toBe(false);
     expect(world.pods).toHaveLength(0);
@@ -175,36 +183,30 @@ describe("taking a pod in", () => {
 
   it("is lost when the maw is open in the wrong column", () => {
     const inputs = hold(0, true);
-    const { events } = run([{ beat: 0, col: 3, row: 4 }], ARRIVAL, inputs, STILL);
+    const { events } = run([{ beat: 0, col: 3, row: 4, kind: "purge" }], ARRIVAL, inputs, STILL);
     expect(events.some((e) => e.type === "podLost")).toBe(true);
   });
 
-  it("costs no hull when it is missed — a missed gift is not a punishment", () => {
-    const { world } = run([{ beat: 0, col: 3, row: 4 }], ARRIVAL, shootLoose(3), STILL);
-    expect(world.retries).toBe(0);
+  it("loses the wave when it is missed, and leaves no scar", () => {
+    // A pod not taken in is a hit (`wave-fail.ts`): the field stops and the
+    // wave is asked for again. Nothing struck the ship, so nothing marks it.
+    const { world } = run(
+      [{ beat: 0, col: 3, row: 4, kind: "purge" }],
+      ARRIVAL,
+      shootLoose(3),
+      STILL,
+    );
+    expect(world.retries).toBe(1);
     expect(world.scars).toHaveLength(0);
   });
 });
 
 /**
- * The three things a pod can give. A pod with no `kind` at all — every test
- * above this point authors one that way — defaults to `mend`, which is what
- * every pod authored before this mechanic existed already was; that default
- * is what keeps every one of those tests honest without being told about
- * `kind` at all.
+ * The two things a pod can give. There were three: the plain pod, the one a
+ * wave got by naming no kind, gave hull points back, and went with them
+ * (`pod-types.ts`). Every pod names its cargo now.
  */
 describe("what a pod gives", () => {
-  it("mends the hull, capped at 100, when a mend pod is swallowed", () => {
-    const { world, events } = run(
-      [{ beat: 0, col: 3, row: 4, kind: "mend" }],
-      ARRIVAL,
-      hold(3, true),
-      STILL,
-    );
-    expect(events.some((e) => e.type === "podTaken")).toBe(true);
-    expect(world.retries).toBe(0);
-  });
-
   it("carries the kind it was authored with on podTaken", () => {
     const { events } = run(
       [{ beat: 0, col: 3, row: 4, kind: "ward" }],
@@ -298,7 +300,7 @@ describe("what a pod gives", () => {
   });
 
   it("without a ward, the same arriving meteor breaches the hull instead", () => {
-    const world = createWorld({ ...STILL }, 0, [], [{ beat: 0, col: 3, row: 4, kind: "mend" }]);
+    const world = createWorld({ ...STILL }, 0, [], [{ beat: 0, col: 3, row: 4, kind: "purge" }]);
     const inputs = hold(3, true);
     const byTick = new Map<number, TimedCommand[]>();
     for (const i of inputs) byTick.set(i.tick, [...(byTick.get(i.tick) ?? []), i]);
@@ -332,13 +334,23 @@ describe("what a pod gives", () => {
 
 describe("the last stretch of the fall", () => {
   it("steers into the cannon's column so an off-column catch still lands", () => {
-    const { events } = run([{ beat: 0, col: POD_COL, row: 4 }], ARRIVAL, hold(2, true), STILL);
+    const { events } = run(
+      [{ beat: 0, col: POD_COL, row: 4, kind: "purge" }],
+      ARRIVAL,
+      hold(2, true),
+      STILL,
+    );
     expect(events.some((e) => e.type === "podTaken")).toBe(true);
   });
 
   it("without the assist, the same off-column hold misses", () => {
     const NO_HOME: SimConfig = { ...STILL, podHomeTiles: 0 };
-    const { events } = run([{ beat: 0, col: POD_COL, row: 4 }], ARRIVAL, hold(2, true), NO_HOME);
+    const { events } = run(
+      [{ beat: 0, col: POD_COL, row: 4, kind: "purge" }],
+      ARRIVAL,
+      hold(2, true),
+      NO_HOME,
+    );
     expect(events.some((e) => e.type === "podLost")).toBe(true);
     expect(events.some((e) => e.type === "podTaken")).toBe(false);
   });

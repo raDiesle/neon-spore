@@ -24,7 +24,7 @@ export const WAVES_ACT_2: Wave[] = [
       scene: "bulbQueen",
     },
     entries: [],
-    pods: [{ beat: 2, col: 3, row: 4 }],
+    pods: [{ beat: 2, col: 3, row: 4, kind: "purge" }],
     boss: { kind: "queen", col: 3, petals: 9 },
   },
   {

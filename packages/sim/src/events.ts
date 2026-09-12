@@ -1,4 +1,5 @@
 import type { CreatureEvent } from "./events-creature.js";
+import type { BreachWeight } from "./hull-damage.js";
 import type { MazeVerdictReason } from "./maze-verdict.js";
 import type { MirrorStep, MirrorVerdictReason } from "./simon.js";
 import type { Color, Creature, PodKind } from "./types.js";
@@ -80,11 +81,10 @@ export type SimEvent =
   | {
       type: "breach";
       col: number;
-      /** What it cost the hull, in **whole points** — `damageMeteor` and its
-       * neighbours in `SimConfig`, never thousandths. `packages/audio` splits
-       * the cue on it and read it as thousandths for a while, which meant the
-       * heavy one never played. */
-      damage: number;
+      /** How it sounds: a rock going through the plate, or a body brushing
+       * it (`hull-damage.ts`). It used to be the hull points it cost, which
+       * `packages/audio` split its cue on; there are no points any more. */
+      weight: BreachWeight;
       span: number;
       kind: Creature["kind"];
       fromRow: number;

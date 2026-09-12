@@ -78,7 +78,7 @@ export function countdownStruck(
     // The body's own refusal first, then the price: the same two pictures a
     // lure makes, minus the body going up — it is still there, still counting.
     world.events.push({ type: "reject", col: hit.col, row: hit.row });
-    breachHull(world, hit.col, hit.kind, hit.row, world.cfg.damageCountdown, hit.color);
+    breachHull(world, hit.col, hit.kind, hit.row, "heavy", hit.color);
     return "shut";
   }
   if (colourIsArmoured(world, hit) || hit.color !== b.color) return "open";

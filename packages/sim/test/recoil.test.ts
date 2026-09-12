@@ -346,8 +346,8 @@ describe("the colour turning over", () => {
 
 describe("the recoil as an ordinary arrival", () => {
   it("costs the hull exactly what any other missed creature does", () => {
-    const noRegen: SimConfig = { ...CFG, hullRegenPerSecond: 0 };
-    const world = createWorld(noRegen, 0, [recoil(COL)]);
+    const PLAIN: SimConfig = { ...CFG };
+    const world = createWorld(PLAIN, 0, [recoil(COL)]);
     for (let t = 0; t < BREACH_TICK + 1; t++) step(world, []);
     expect(world.retries).toBe(1);
   });

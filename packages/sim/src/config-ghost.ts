@@ -62,13 +62,6 @@ export interface GhostConfig {
   /** Tiles a charging ghost falls each beat. `meteorFast`'s three: fast enough
    * to read as a decision and slow enough to still be shot on the way down. */
   ghostDiveTiles: number;
-  /**
-   * What a charging ghost costs the hull. Above `damageCreature` and below
-   * `damageMeteor`: it is the one arrival that *aimed* at the ship, so it is
-   * worse than a body that merely arrived — and it was answerable for three
-   * whole crossings, which a rock never is.
-   */
-  damageGhostDive: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
@@ -78,5 +71,4 @@ export const GHOST_DEFAULTS: GhostConfig = {
   ghostCrossCols: 2,
   ghostChargeLaps: 3,
   ghostDiveTiles: 3,
-  damageGhostDive: 18,
 };

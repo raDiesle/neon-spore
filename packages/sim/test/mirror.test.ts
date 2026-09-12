@@ -16,7 +16,7 @@ import { createWorld, type SimEvent, type World } from "../src/world.js";
 
 // No regeneration: the echo strike's damage has to be readable as an exact
 // number, and three hull points a second would blur it within the beat.
-const CFG = { ...DEFAULT_CONFIG, hullInvulnerable: false, hullRegenPerSecond: 0 };
+const CFG = { ...DEFAULT_CONFIG, hullInvulnerable: false };
 const TPB = ticksPerBeat(CFG);
 
 const ROUNDS: MirrorStep[][] = [

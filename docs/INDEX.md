@@ -202,7 +202,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/gum.ts` | **THE GUM**: a sticky mass that falls straight down one lane, cannot be shot, is not stopped by the shield |
 | `packages/sim/src/carom.ts` | THE CAROM: a slick or a bulb sealed inside a hurtling rock crust |
 | `packages/sim/src/config-carom.ts` | THE CAROM's numbers: how steeply it crosses the field, what cracking one open is worth |
-| `packages/sim/src/impact.ts` | **What one body costs the hull when it reaches it**, for everything the shield was never offered |
+| `packages/sim/src/impact.ts` | **How heavy one body lands when it reaches the hull**, for everything the shield was never offered — the weight picks the sound, and a hit costs the wave whatever hit |
 | `packages/sim/src/creature-state.ts` | **The state one kind carries and no other does.** Every field here is optional |
 | `packages/sim/src/chute.ts` | THE CHUTE: the slick or the bulb thrown clear of a cracked carom |
 | `packages/sim/src/events-carom.ts` | **Everything THE CAROM and the body it throws out do**, as events |
@@ -250,7 +250,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-crystal.ts` | THE CRYSTAL's numbers: how it crosses the field, what splitting one is worth, what a whole one costs |
 | `packages/sim/src/creature-roster.ts` | **The fixed order every kind is written into the world fingerprint in.** Cut out of `creature-kinds.ts` when… |
 | `packages/sim/src/grippable.ts` | **Whether a hand may be put on a body at all**, and the fourteen refusals that answer it |
-| `packages/sim/src/hull-damage.ts` | **What the hull loses, and what it gets back.** Cut out of `hull.ts` when THE GRATE's own answer took that… |
+| `packages/sim/src/hull-damage.ts` | **A breach: the scar, the weight and the wave lost.** The hull has no points; a hit fails the wave (`wave-fail.ts`) |
 | `packages/sim/src/config-fence.ts` | THE FENCE's two numbers: how wide each way through it is |
 | `packages/sim/src/creature-state-fence.ts` | **THE FENCE's two fields**, and both of them are sets of columns: the ways through the wave authored |
 | `packages/sim/src/events-fence.ts` | **What THE FENCE does**, as events: the wire going over the ship, and a bolt cutting a way through it |
@@ -517,7 +517,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/effects-frame.ts` | **What `Effects` does with a frame**, as opposed to what it owns |
 | `packages/render/src/sparks.ts` | the particles every impact spends, thrown out or drawn in |
 | `packages/render/src/balance.ts` | the screen after the run, drawn |
-| `packages/render/src/hud.ts` | hull, score, beat, the guard balance, overlays |
+| `packages/render/src/hud.ts` | the run line (time and retries), score, beat, the guard balance, overlays |
 | `packages/render/src/band.ts` | the two control strips, trigger and colours |
 | `packages/render/src/canvas2d.ts` | the renderer, orchestrating the above |
 | `packages/render/src/canvas2d-takeover.ts` | **The two frames that are not the field**, and the clocks that run whether or not one of them is up |
@@ -832,7 +832,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/effects-spark-silent.ts` | The events that are deliberately not a burst, and why each one is not |
 | `packages/render/src/effects-spark-handed.ts` | The bursts for the bodies answered by hands alone (`creatures-handed.ts`) |
 | `packages/render/src/maze-fall.ts` | THE MAZE coming apart, which is what a dead end looks like |
-| `packages/render/src/maze-stage.ts` | How far through THE MAZE the pair is: one cell per stage, under the ship's own hull bar |
+| `packages/render/src/maze-stage.ts` | How far through THE MAZE the pair is: one cell per stage, top right where the hull bar was |
 | `packages/render/src/lure-blast.ts` | A LURE GOING UP, AND THE WHOLE SCREEN WITH IT |
 | `packages/render/src/eye-rim.ts` | **The eye's box, and the rim hung on it.** The third piece of one eye — `eye.ts` holds the wet parts |
 | `packages/render/src/eye-iris.ts` | **The machinery inside an eye**: an aperture ring around the pupil and a ring of spokes turning slowly… |

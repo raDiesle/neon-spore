@@ -43,7 +43,7 @@ const POD_DEFAULT_ROW = 3;
 export function paint(wave: Wave, beat: number, col: number, brush: Brush): void {
   if (isCreaturePlacementBlocked(wave) && CREATURE_BRUSHES.includes(brush)) return;
 
-  if (brush === "mend" || brush === "purge" || brush === "ward") {
+  if (brush === "purge" || brush === "ward") {
     paintPod(wave, beat, col, brush);
     return;
   }
@@ -116,8 +116,8 @@ export function cellIsEmpty(wave: Wave, beat: number, col: number): boolean {
  * The brushes that make an entry. `pod` and `erase` are the two that do not:
  * a pod is not an entry, and an erase is not a thing but the absence of one.
  */
-type EntryBrush = Exclude<Brush, "mend" | "purge" | "ward" | "erase">;
-type PodBrush = Extract<Brush, "mend" | "purge" | "ward">;
+type EntryBrush = Exclude<Brush, "purge" | "ward" | "erase">;
+type PodBrush = Extract<Brush, "purge" | "ward">;
 
 function makeEntry(beat: number, col: number, brush: EntryBrush): WaveEntry {
   const rock = ROCK_BRUSHES.find(([b]) => b === brush);
@@ -163,11 +163,11 @@ function paintPod(wave: Wave, beat: number, col: number, brush: PodBrush): void 
   const existing = podAt(wave, beat, col);
   if (existing) {
     if (podBrushOf(existing) === brush) return;
-    existing.kind = brush === "mend" ? undefined : brush;
+    existing.kind = brush;
     return;
   }
   const pods = wave.pods ?? [];
-  pods.push({ beat, col, row: POD_DEFAULT_ROW, kind: brush === "mend" ? undefined : brush });
+  pods.push({ beat, col, row: POD_DEFAULT_ROW, kind: brush });
   wave.pods = pods.sort(byBeatThenCol);
 }
 

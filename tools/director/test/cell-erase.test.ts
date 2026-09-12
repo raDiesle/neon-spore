@@ -53,7 +53,7 @@ describe("eraseAt is the one removal", () => {
   test("it empties a cell holding both an entry and a pod", () => {
     const wave = emptyWave();
     paint(wave, 2, 4, "slick");
-    paint(wave, 2, 4, "mend");
+    paint(wave, 2, 4, "ward");
     expect(cellIsEmpty(wave, 2, 4)).toBe(false);
     eraseAt(wave, 2, 4);
     expect(cellIsEmpty(wave, 2, 4)).toBe(true);
@@ -68,7 +68,7 @@ describe("eraseAt is the one removal", () => {
 
   test("a wave with its last pod erased carries no empty pods array", () => {
     const wave = emptyWave();
-    paint(wave, 1, 2, "mend");
+    paint(wave, 1, 2, "ward");
     eraseAt(wave, 1, 2);
     expect(wave.pods).toBeUndefined();
   });

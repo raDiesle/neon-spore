@@ -1,6 +1,5 @@
 import type { MazeState } from "@neon-spore/sim";
 import { halo } from "./glow.js";
-import { hullBarBox } from "./hud.js";
 import type { Layout } from "./layout.js";
 import { mazeHeartBlood } from "./maze-heart.js";
 import { PALETTE } from "./palette.js";
@@ -16,11 +15,11 @@ import { PALETTE } from "./palette.js";
  * of these are there*, and a row of five cells answers that at a glance while
  * a half-empty bar does not. The owner asked for it in those words.
  *
- * **It sits directly under the ship's hull bar and is the same width**, out of
- * `hullBarBox` rather than out of four numbers copied from it, so the two read
- * as a pair: ours above, its below. Nothing else on this boss says how long it
- * is — the blood on the floor says how hurt it is, and neither of them is a
- * number.
+ * **It sits top right, where the ship's hull bar was** and at that bar's
+ * width — the bar went with the hull's points on 12 September 2026
+ * (`hud.ts`), and the row keeps its place. Nothing else on this boss says how
+ * long it is — the blood on the floor says how hurt it is, and neither of
+ * them is a number.
  *
  * **A finished stage keeps the colour its heart was beating in.** That is free
  * information the pair has already earned, and it turns the row into a record
@@ -47,7 +46,7 @@ export function drawMazeStages(
 ): void {
   const stages = m.rounds.length;
   if (stages < 1) return;
-  const bar = hullBarBox(l);
+  const bar = stageRowBox(l);
   const y = bar.y + bar.h + DROP;
   const w = (bar.w - CELL_GAP * (stages - 1)) / stages;
   const pulse = 0.55 + 0.45 * Math.sin((beat + beatPhase) * Math.PI);
@@ -85,4 +84,10 @@ export function drawMazeStages(
     ctx.stroke();
   }
   ctx.globalAlpha = 1;
+}
+
+/** The top-right slot the row hangs under: the ship's hull bar's old box. */
+function stageRowBox(l: Layout): { x: number; y: number; w: number; h: number } {
+  const w = l.width * 0.42;
+  return { x: l.width - w - 10, y: 14, w, h: 6 };
 }

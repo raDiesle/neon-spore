@@ -29,12 +29,6 @@ export interface CrystalConfig {
    * makes the two ordinary kills that follow possible.
    */
   scoreCrystalSplit: number;
-  /**
-   * What a whole one costs the hull when it reaches the ship. `damageCarom`'s
-   * figure: it arrives as the armoured thing it always was and the shield
-   * alone was never able to turn it.
-   */
-  damageCrystal: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
@@ -42,5 +36,4 @@ export const CRYSTAL_DEFAULTS: CrystalConfig = {
   crystalCols: 1,
   crystalRows: 1,
   scoreCrystalSplit: 200,
-  damageCrystal: 20,
 };

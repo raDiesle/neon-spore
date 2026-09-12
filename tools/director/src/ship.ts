@@ -45,7 +45,7 @@ const VALUE: Partial<Record<string, (cfg: SimConfig) => string>> = {
   "AIM — colour and column": (cfg) => `${cfg.fireEveryBeats} beats`,
   "GUARD — the shared defence": (cfg) => `${cfg.guardWindowMs} ms`,
   "MAW — taking a pod in": (cfg) => `${cfg.intakeWindowMs} ms`,
-  "POD — shot loose, then caught": (cfg) => `+${cfg.podRepair} hull`,
+  "POD — shot loose, then caught": (cfg) => `${cfg.wardBeats} beats warded`,
   "LANCE — a column marked, then spent": (cfg) => `${cfg.lancePrimeBeats} beats`,
   "GRIP — a hand on the field": (cfg) => `${cfg.gripSlowPermille} ‰ speed`,
   "HULL — damage and repair": (cfg) => `${cfg.maxScars} scars kept`,

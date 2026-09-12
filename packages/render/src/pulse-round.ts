@@ -1,5 +1,5 @@
 import { controlSetForWave } from "@neon-spore/content";
-import { hullPercent, PULSE_COUNT_BEATS, type PulseState, pulseCurrent } from "@neon-spore/sim";
+import { PULSE_COUNT_BEATS, type PulseState, pulseCurrent } from "@neon-spore/sim";
 import { drawBand } from "./band.js";
 import { drawBackground } from "./field.js";
 import { drawHud } from "./hud.js";
@@ -154,7 +154,6 @@ export function drawPulseRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
     world.scars,
     view.time,
     mood,
-    hullPercent(world),
     at,
     () => true,
     () => true,

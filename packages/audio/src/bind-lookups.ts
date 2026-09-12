@@ -23,7 +23,6 @@ export const MIRROR_STEP_SOUNDS: Record<string, string> = {
 
 /** A pod taken in, by what it gives. */
 export const POD_TAKEN_SOUNDS: Record<string, string> = {
-  mend: "pod.takenMend",
   purge: "pod.takenPurge",
   ward: "pod.takenWard",
 };

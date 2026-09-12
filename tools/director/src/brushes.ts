@@ -17,7 +17,7 @@ import { cardSubjects, livingStroke, SHORT_NOTE } from "./brush-cards.js";
  * speed of one arrival is a number on the entry rather than a choice of tool
  * (`brushOf` in query.ts, `entry-fields.ts` for the numbers themselves).
  */
-export type Brush = CreatureKind | "rock" | "mend" | "purge" | "ward" | "erase";
+export type Brush = CreatureKind | "rock" | "purge" | "ward" | "erase";
 
 /**
  * The rock brushes, paired with the kind each one paints *first*.
@@ -129,13 +129,6 @@ export const BRUSHES: {
     stroke: PALETTE.rock,
     note: SHORT_NOTE.veer ?? CREATURES.veer.blurb,
     detail: CREATURES.veer.blurb,
-  },
-  {
-    brush: "mend",
-    label: "MEND",
-    subjects: ["POD"],
-    stroke: PALETTE.pod,
-    note: "restores hull",
   },
   {
     brush: "purge",

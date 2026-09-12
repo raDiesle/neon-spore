@@ -195,14 +195,19 @@ export function onBeat(world: World): void {
   // Hull resolution. Creatures that have reached it are removed and cause damage.
   resolveHull(world);
 
-  // Wave progression: if all enemies are gone and all were spawned, the wave is
-  // done. Wait `waveRestBeats` before the next one starts automatically. Pods
-  // are deliberately not counted — a power-up never blocks the end of a wave
-  // (docs/spec/systems.md 5.7), so one left hanging is one left behind.
+  // Wave progression: if all enemies are gone, all were spawned and every pod
+  // has been taken, the wave is done. Wait `waveRestBeats` before the next one
+  // starts automatically. A pod used not to count — a power-up never blocked
+  // the end of a wave, and one left hanging was one left behind — until
+  // *sucked* became one of the ways a wave is passed (`pods.ts`, 12 September
+  // 2026): a pod still hanging is a pod still to be freed and taken.
   // A boss still standing holds the wave open even when the field is empty.
   // The queen is a creature and counted herself; THE MIRROR is not on the
   // field at all, so without this its wave would clear on its first beat.
   const cleared =
-    world.spawned >= world.queue.length && world.creatures.length === 0 && world.boss === null;
+    world.spawned >= world.queue.length &&
+    world.creatures.length === 0 &&
+    world.pods.length === 0 &&
+    world.boss === null;
   if (cleared) noteWaveCleared(world);
 }

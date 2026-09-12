@@ -69,8 +69,6 @@ export interface BossConfig {
   scoreWardenDown: number;
   /** The row THE MIRROR's own hull surface sits on — the ship's, upside down. */
   mirrorRow: number;
-  /** Damage a wrong step in a Simon sequence costs, thrown back by THE MIRROR. */
-  damageEcho: number;
   /** Score for answering one of THE MIRROR's sequences in full. */
   scoreMirrorRound: number;
   /** Score for breaking THE MIRROR. */
@@ -95,8 +93,6 @@ export interface BossConfig {
    * the field and starts falling, the same job `mirrorRow` does.
    */
   mazeRow: number;
-  /** Damage a shot down a way in that goes nowhere costs. */
-  damageMaze: number;
   /**
    * How wide THE MAZE's wheel stands across the field, in thousandths of the
    * field's width. About six sevenths, so the rim clears the hull and the
@@ -168,14 +164,12 @@ export const BOSS_DEFAULTS: BossConfig = {
   scoreWardenPlate: 500,
   scoreWardenDown: 2500,
   mirrorRow: 3,
-  damageEcho: 15,
   scoreMirrorRound: 500,
   scoreMirrorDown: 2500,
   vanePins: 5,
   scoreVanePin: 500,
   scoreVaneDown: 2500,
   mazeRow: 3,
-  damageMaze: 15,
   mazeSpanMilli: 857,
   mazeTurnMilli: 600,
   mazeDragMilliPerTile: 45_000,

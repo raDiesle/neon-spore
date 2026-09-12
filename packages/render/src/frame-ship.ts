@@ -1,5 +1,5 @@
 import { setHas } from "@neon-spore/content";
-import { hullPercent, type World } from "@neon-spore/sim";
+import type { World } from "@neon-spore/sim";
 import { bandControlSet, drawBand } from "./band.js";
 import { drawWaveOpening } from "./briefing.js";
 import type { Effects } from "./effects.js";
@@ -69,7 +69,6 @@ export function drawShip(
     world.scars,
     view.time,
     mood,
-    hullPercent(world),
     at,
     (x) => !effects.rockImpact.coversCrater(x, l.tile),
     (col, beat) => effects.arrivals.has(col, beat),

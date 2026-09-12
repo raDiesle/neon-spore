@@ -186,8 +186,9 @@ export interface PodEntry {
   col: number;
   /** Row it hangs at, from the top. Never the hull row. */
   row: number;
-  /** What the pod gives when swallowed. A wave that does not say means `mend`. */
-  kind?: PodKind;
+  /** What the pod gives when swallowed. Every pod says: the plain pod that a
+   * wave got by saying nothing gave hull points, and there are none. */
+  kind: PodKind;
   /**
    * Which way it crosses the field, and absent for a pod that hangs where it
    * was left — which is every pod authored before THE CLAW.

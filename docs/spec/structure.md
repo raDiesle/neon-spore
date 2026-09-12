@@ -12,13 +12,18 @@
 > `retry`). What a run keeps is **the time played and the number of
 > retries**, across every wave until the last authored one is cleared —
 > there are no generated waves past it any more. `sim/wave-fail.ts`; the HUD
-> shows the clock and the count where the score was. The hull's points, its
-> bar and regeneration, the mend pod and the point score are on their way
-> out (the next lane); until then they stand but nothing drains the hull.
+> shows the clock and the count where the score was. **The hull has no
+> points**: the figure, its bar, its regeneration, the mend pod and the
+> per-body damage numbers came out the same day (NOT BUILT YET → Mechanics in
+> [ideas](ideas.md)); a hit carries only a weight, for the ear. A pod not
+> taken in is a hit too, and a pod still hanging holds the wave open
+> ([systems](systems.md) 5.7). The point score still stands and is the next
+> lane's to remove, with the balance sheet led by time and retries.
 
 - Waves come **all at once as a closed set**, then a short rest, then the next
 - Wave length 30–60 s; the rests shrink as the wave number rises
-- The hull regenerates slowly during play
+- ~~The hull regenerates slowly during play~~ — no hull points since 12
+  September 2026
 - A missed shot in the wrong colour: brief invulnerability
 - A shot at an unmarked bulb: bounces off with no effect (has to look visibly
   different from the colour mistake)
@@ -26,8 +31,7 @@
   only on the very first appearance, and both see the same thing. With two
   devices this needs a "both ready" signal
 
-Built: the closed-set arrival, the rest (`waveRestBeats`), and the hull
-regeneration. The eleven waves that exist are in
+Built: the closed-set arrival and the rest (`waveRestBeats`). The eleven waves that exist are in
 `packages/content/src/waves.ts`; they run 10–20 s rather than 30–60, because
 they are teaching waves. The invulnerability after a colour mistake is built:
 `colourArmourMs` on the shot config, and the body refuses every shot — the

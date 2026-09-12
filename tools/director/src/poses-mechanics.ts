@@ -172,7 +172,7 @@ const MECHANICS: Pose[] = [
       };
     },
     build: () => {
-      const w = fresh([], [{ beat: 0, col: COL, row: 5 }]);
+      const w = fresh([], [{ beat: 0, col: COL, row: 5, kind: "ward" }]);
       run(w, TPB * 2);
       return w;
     },
@@ -189,7 +189,7 @@ const MECHANICS: Pose[] = [
       };
     },
     build: () => {
-      const w = fresh([], [{ beat: 0, col: COL, row: 5 }]);
+      const w = fresh([], [{ beat: 0, col: COL, row: 5, kind: "ward" }]);
       // The pod is hung on a beat, so there is nothing in the column to shoot
       // loose until one has passed. Aim first, then fire at something there.
       run(w, TPB * 2, [aim(0, COL)]);

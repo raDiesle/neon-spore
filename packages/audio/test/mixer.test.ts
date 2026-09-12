@@ -63,23 +63,22 @@ describe("the mixer's first frame", () => {
     const w = world();
     w.cannonCol = 0;
     w.shieldCol = 6;
-    w.hullMilli -= 40_000;
     mixer.frame(w, []);
     expect(ids()).toEqual([]);
   });
 
   /**
-   * A standing condition is not an edge, and the two the game has are the two
-   * it would be worst to swallow: the alarm repeats until the hull is mended,
-   * and a device that joined a run already over has to say so.
+   * A standing condition is not an edge, and the one the game has is the one
+   * it would be worst to swallow: a device that joined a run already over has
+   * to say so. (The hull's alarm was the other, and went with the hull's
+   * points.)
    */
   it("still sounds a condition that is true rather than newly true", () => {
     const { mixer, ids } = recorder();
     const w = world();
-    w.hullMilli = 1_000;
     w.over = true;
     mixer.frame(w, []);
-    expect(ids()).toEqual(["hull.alarm", "hull.dead"]);
+    expect(ids()).toEqual(["hull.dead"]);
   });
 
   it("sounds what happened, because an event is not a difference", () => {
@@ -139,41 +138,6 @@ describe("the mixer's remembered frame", () => {
     expect(rec.ids()).toEqual(["ship.intake", "ship.intakeShut"]);
   });
 
-  it("sounds a mend when the hull goes up, and nothing when it goes down", () => {
-    w.tick++;
-    w.hullMilli -= 20_000;
-    rec.mixer.frame(w, []);
-    expect(rec.ids()).toEqual([]);
-
-    w.tick++;
-    w.hullMilli += 20_000;
-    rec.mixer.frame(w, []);
-    expect(rec.ids()).toEqual(["hull.mend"]);
-  });
-
-  it("repeats the alarm on every fourth beat below a quarter hull, and only there", () => {
-    w.hullMilli = 20_000;
-    const sounded: number[] = [];
-    for (let beat = 0; beat <= 8; beat++) {
-      w.tick++;
-      w.beat = beat;
-      rec.played.length = 0;
-      rec.mixer.frame(w, []);
-      if (rec.ids().includes("hull.alarm")) sounded.push(beat);
-    }
-    expect(sounded).toEqual([0, 4, 8]);
-  });
-
-  it("does not sound the alarm twice on one beat", () => {
-    w.hullMilli = 20_000;
-    w.beat = 4;
-    w.tick++;
-    rec.mixer.frame(w, []);
-    w.tick++;
-    rec.mixer.frame(w, []);
-    expect(rec.ids()).toEqual(["hull.alarm"]);
-  });
-
   it("sounds the end of the run once", () => {
     w.tick++;
     w.over = true;
@@ -187,8 +151,7 @@ describe("the mixer's remembered frame", () => {
 /**
  * The case the whole of `Memory` exists for. A restart builds a fresh `World`
  * whose tick starts at zero again, so a mixer still holding the last run's
- * frame would read a full hull as a mend and the cannon's home column as a
- * step it never took.
+ * frame would read the cannon's home column as a step it never took.
  */
 describe("a restart", () => {
   it("is forgotten rather than heard as the difference between two runs", () => {
@@ -196,7 +159,6 @@ describe("a restart", () => {
     const first = world();
     first.tick = 400;
     first.cannonCol = 0;
-    first.hullMilli = 20_000;
     first.over = true;
     mixer.frame(first, []);
     played.length = 0;

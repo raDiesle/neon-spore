@@ -34,16 +34,6 @@ export interface GaugeConfig {
   gaugeRoundBeats: number;
   /** Beats between two calls, landed or not, so a held thumb is slower than talking. */
   gaugeCallRestBeats: number;
-  /**
-   * What running out of time takes off the hull, in whole points.
-   *
-   * Named for the `damage*` family rather than the `gauge*` one, because that
-   * is the question a reader is asking when they find it: everything else in
-   * this file is a dial, and this is the only line here that can end a run.
-   * The round draws no hull and the hull is at stake anyway — see
-   * `gauge-round.ts` and `docs/decisions.md` #20.
-   */
-  damageGauge: number;
 }
 
 /**
@@ -63,8 +53,4 @@ export const GAUGE_DEFAULTS: GaugeConfig = {
   gaugeMarks: 5,
   gaugeRoundBeats: 128,
   gaugeCallRestBeats: 2,
-  // Two rocks' worth, and deliberately not a number anybody should defend yet:
-  // it has to hurt enough that a pair plays the round, and the value itself is
-  // the owner's to turn once they have lost one.
-  damageGauge: 20,
 };

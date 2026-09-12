@@ -92,6 +92,6 @@ export const CYAN: GuideScene = {
     // And what that costs, which is the half a page about a wasted shot can
     // never say on its own: the body is still coming, and it arrives. It stays
     // on player 2's screen because the colour was player 2's to choose.
-    { tick: 1260, seat: 2, text: "AND IT REACHES THE HULL", anchor: { at: "health" } },
+    { tick: 1260, seat: 2, text: "AND IT REACHES THE HULL", anchor: { at: "retries" } },
   ],
 };

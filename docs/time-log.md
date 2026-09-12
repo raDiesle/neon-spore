@@ -22,6 +22,28 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 · hull-out — the hull has no points, and a pod is taken or the wave is lost
+
+The second piece of the owner's rule. `World.hullMilli`, the bar, the
+regeneration, the twenty-three `damage*` fields and the mend pod come out;
+a breach carries a **weight** (heavy or light, `impact.ts`) that picks the
+sound and nothing else. On the owner's two answers a pod not taken in fails
+the wave and a pod still hanging holds it open, and every pod names its
+cargo — PURGE or WARD — so eight waves and scenes that sent a plain pod now
+send one of those. Eleven guide captions were retargeted from the bar to the
+retries line. About 35 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | who read `hullMilli` and `damage*` (166 files), how the mirror's own hull dims the rim, what a director brush knows about a pod |
+| writing | 15 | five scripts across sim, render, content, audio, director and eighty test files; the NOT BUILT YET note and four spec sections |
+| looking | 0 | the bar is gone from the corner and the run line stands where it was; nothing new drawn |
+| friction | 5 | `hull.ts` landed one line over the limit after the rim's alpha came back for THE MIRROR; a `mend → ward` sweep turned the *without a ward* test into one with a ward |
+| landing | 10 | `check:fast`, the index rows, the audio doc's counts, the commit, `land --keep` |
+
+Bottleneck: **writing** — the number of places that named a hull point, more
+than the difficulty of any of them.
+
 ## 2026-09-12 · wave-fail — a hit fails the wave, and the run is a clock and a count
 
 The owner's rule, put in as a mechanic: every hull damage fails the wave, the

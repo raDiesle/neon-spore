@@ -266,7 +266,6 @@ describe("the fingerprint covers the world", () => {
         "guardTick",
         "gripP1",
         "gripP2",
-        "hullMilli",
         "intakeTick",
         "lastFireTick",
         "malfunction",

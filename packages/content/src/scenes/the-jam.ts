@@ -52,6 +52,6 @@ export const THE_JAM: GuideScene = {
       text: "SLIDE ON WHEN IT IS RED",
       anchor: { at: "control", control: "cannon" },
     },
-    { tick: 690, seat: 1, text: "A LURE SHOT COSTS THE HULL", anchor: { at: "health" } },
+    { tick: 690, seat: 1, text: "A LURE SHOT LOSES THE WAVE", anchor: { at: "retries" } },
   ],
 };

@@ -64,6 +64,6 @@ export const THE_BALLOON: GuideScene = {
     // Three beats, and it holds with the climbing half on row six — the last
     // beat it is still in the middle of the screen — and the other on row ten.
     { tick: 840, seat: 1, text: "ONE CLIMBS ON, ONE SINKS", anchor: { at: "body" } },
-    { tick: 1020, seat: 1, text: "A HALF LEFT ALONE HITS YOU", anchor: { at: "health" } },
+    { tick: 1020, seat: 1, text: "A HALF LEFT ALONE HITS YOU", anchor: { at: "retries" } },
   ],
 };

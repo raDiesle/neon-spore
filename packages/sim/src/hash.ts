@@ -119,7 +119,6 @@ export function hashWorld(world: World): number {
     push(beam.left);
     push(beam.topMilli);
   }
-  push(world.hullMilli);
   push(world.rng.state);
   push(world.guard.tries);
   push(world.guard.deflected);

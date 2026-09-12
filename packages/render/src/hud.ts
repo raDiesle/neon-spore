@@ -1,4 +1,4 @@
-import { hullPercent, playSeconds, type World } from "@neon-spore/sim";
+import { playSeconds, type World } from "@neon-spore/sim";
 import { drawBalanceSheet } from "./balance.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -15,16 +15,14 @@ import { headerTop } from "./round-header.js";
  * a voice delay actually breaks.
  */
 /**
- * The hull bar, top right — where it is, rather than what it says.
- *
- * Exported because a guide's rehearsal points a caption at it (`AND THE HULL
- * TAKES IT`, `guide-caption.ts`), and a caption placed from a second copy of
- * these four numbers is a caption that ends up beside the bar rather than on
- * it the first time anybody moves the readout.
+ * Where the run's line is written — the corner's top row, on the left. The
+ * hull bar was the top row's right half until 12 September 2026, and a
+ * guide's rehearsal pointed a caption at it (`AND THE HULL TAKES IT`); the
+ * captions point here now, at the count going up (`caption-anchor.ts`), and
+ * they ask rather than knowing so a moved readout takes them with it.
  */
-export function hullBarBox(l: Layout): { x: number; y: number; w: number; h: number } {
-  const w = l.width * 0.42;
-  return { x: l.width - w - 10, y: 14, w, h: 6 };
+export function runLineBox(l: Layout): { x: number; y: number; w: number; h: number } {
+  return { x: 10, y: 11, w: Math.min(120, l.width * 0.4), h: 12 };
 }
 
 /**
@@ -45,16 +43,9 @@ export function drawHud(ctx: CanvasRenderingContext2D, l: Layout, view: ViewStat
   ctx.font = '10px "Courier New",monospace';
   ctx.textAlign = "left";
 
-  const { x: bx, y: by, w: bw, h: bh } = hullBarBox(l);
-  ctx.fillStyle = "#2A1F4E";
-  ctx.fillRect(bx, by, bw, bh);
-  const hp = hullPercent(world) / 100;
-  ctx.fillStyle = hp > 0.5 ? PALETTE.cyan : hp > 0.25 ? PALETTE.hull : PALETTE.red;
-  ctx.fillRect(bx, by, bw * hp, bh);
-  drawHeart(ctx, bx - 9, by + bh / 2, 6, PALETTE.pod);
-
+  const line = runLineBox(l);
   ctx.fillStyle = PALETTE.dim;
-  ctx.fillText(runLine(world), 10, 20);
+  ctx.fillText(runLine(world), line.x, line.y + line.h - 3);
 
   // Four dots, the active one lit. The pulse both players share.
   const active = world.beat % 4;
@@ -100,25 +91,4 @@ export function drawOverlay(ctx: CanvasRenderingContext2D, l: Layout, view: View
     ctx.fillText("P or the button to continue", l.width / 2, l.height * 0.46 + 20);
   }
   ctx.textAlign = "left";
-}
-
-/** A small filled heart, for labelling the hull bar as what a `mend` pod feeds. */
-function drawHeart(
-  ctx: CanvasRenderingContext2D,
-  cx: number,
-  cy: number,
-  r: number,
-  hex: string,
-): void {
-  ctx.save();
-  ctx.translate(cx, cy);
-  ctx.beginPath();
-  ctx.moveTo(0, -r * 0.15);
-  ctx.quadraticCurveTo(-r * 0.3, -r * 0.5, -r * 0.55, -r * 0.1);
-  ctx.quadraticCurveTo(-r * 0.55, r * 0.3, 0, r * 0.55);
-  ctx.quadraticCurveTo(r * 0.55, r * 0.3, r * 0.55, -r * 0.1);
-  ctx.quadraticCurveTo(r * 0.3, -r * 0.5, 0, -r * 0.15);
-  ctx.fillStyle = hex;
-  ctx.fill();
-  ctx.restore();
 }

@@ -27,7 +27,7 @@ import {
  * and have to put the arm in the same place.
  */
 
-const CFG: SimConfig = { ...DEFAULT_CONFIG, hullRegenPerSecond: 0 };
+const CFG: SimConfig = { ...DEFAULT_CONFIG };
 const TPB = ticksPerBeat(CFG);
 const STEP = windPerTickMilli(CFG);
 const WAVE = 3;

@@ -4,7 +4,6 @@ import {
   DEFAULT_CONFIG,
   guideHolds,
   hashWorld,
-  hullPercent,
   readyFill,
   readyFraction,
   readyHeld,
@@ -148,12 +147,5 @@ describe("what the gate inherited from THE FORK", () => {
     const world = atGuide();
     for (let i = 0; i < 20_000; i++) step(world, []);
     expect(guideHolds(world)).toBe(true);
-  });
-
-  it("is not a free repair bay: the hull does not mend behind it", () => {
-    const world = atGuide();
-    world.hullMilli = 40_000;
-    for (let i = 0; i < 5_000; i++) step(world, []);
-    expect(hullPercent(world)).toBe(40);
   });
 });

@@ -1,39 +1,38 @@
 import { bodyCenterCol, type Color, type Creature, spanOf } from "./types.js";
 import { failWave } from "./wave-fail.js";
-import { MILLI, type World } from "./world.js";
+import type { World } from "./world.js";
 
 /**
- * **What the hull loses, and what it gets back.**
+ * **What a breach is**: a scar where the ship broke, a `breach` event the
+ * picture and the sound hang on, and the wave lost (`wave-fail.ts`).
  *
  * Cut out of `hull.ts` when THE FENCE's own answer took that file over its
- * 250-line limit, and along the seam that file had already written down in
- * `regenerateHull`'s own header — *one file for what the hull loses and what
- * it gets back*. Next door is the question of what happens to a body that
- * reached the ship: which row it is answered on, whether the shield turned it,
- * whether the dome was standing in a gap. Every one of those ends in a call to
- * something here, and none of them cares how a scar is recorded.
+ * 250-line limit. Next door is the question of what happens to a body that
+ * reached the ship: which row it is answered on, whether the shield turned
+ * it, whether the dome was standing in a gap. Every one of those ends in a
+ * call to something here, and none of them cares how a scar is recorded.
  *
- * `hull.ts` re-exports all four, so nothing that already reached for
- * `breachHull`, `hullPercent` or `regenerateHull` through it had to move.
+ * Until 12 September 2026 a breach also took points off a hull, and this
+ * file was *what the hull loses and what it gets back* — `hullMilli`,
+ * `hullPercent`, `regenerateHull`, and a `damage*` figure for every body in
+ * `SimConfig`. The owner's rule retired all of it: a hit costs the wave, and
+ * every hit costs the same. What a breach still carries is a **weight**, and
+ * that is for the ear alone — a rock going through the plate is not the sound
+ * of a slick brushing it (`audio/bind-breach.ts`).
  */
 
 /**
- * Hull damage, shared by a single-column hit and a spanning one.
- *
- * It used to take `amount` off `hullMilli` and end the run at nought. Since
- * 12 September 2026 a hit does not cost points, it costs the wave: the field
- * stops and the same wave is gone again (`wave-fail.ts`). `amount` still
- * travels on the `breach` event, where the sound and the burst are sized by
- * it; the hull's own figure no longer moves, and is on its way out.
+ * How a breach sounds. `heavy` is a rock or anything that arrived as one — a
+ * carom, a crystal, a coil nobody opened, a charging ghost, a round's wreck
+ * coming down — and `light` is a body that merely arrived, or a share of a
+ * blast torn in several places.
  */
-function applyHullDamage(world: World, _amount: number): void {
-  failWave(world);
-}
+export type BreachWeight = "light" | "heavy";
 
 /**
  * One column of the hull, broken. The whole of what "something got through"
- * means: the damage, the scar that stays, and the `breach` event render/ hangs
- * the impact on.
+ * means: the wave lost, the scar that stays, and the `breach` event render/
+ * hangs the impact on.
  *
  * Exported because a creature reaching the hull is no longer the only way this
  * happens — THE MIRROR answers a wrong step by breaking the hull directly
@@ -47,7 +46,7 @@ export function breachHull(
   col: number,
   kind: Creature["kind"],
   fromRow: number,
-  amount: number,
+  weight: BreachWeight,
   /** The body's own colour, so the burst is thrown in it. Defaults to null,
    * which is the truth for every caller that breaks the hull without a body:
    * a rock, and the rounds that cost the hull from off the field. */
@@ -55,11 +54,11 @@ export function breachHull(
 ): void {
   world.scars.push({ col, beat: world.beat, kind });
   if (world.scars.length > world.cfg.maxScars) world.scars.shift();
-  breachUnscarred(world, col, kind, fromRow, amount, color);
+  breachUnscarred(world, col, kind, fromRow, weight, color);
 }
 
 /**
- * **The same cost with nothing torn in the plating**: the hull points and the
+ * **The same hit with nothing torn in the plating**: the wave lost and the
  * `breach` event, and no scar.
  *
  * One caller, and it is the creature the distinction was written for. THE
@@ -68,25 +67,24 @@ export function breachHull(
  * asked for that to look like what it is — no cracks in the skin, and the
  * shield's own line put out in several places instead (`shield-outage.ts`) —
  * and a crack is what a `Scar` draws, so there is nothing here for one to hang
- * from. The damage is unchanged: what a fence costs is `fenceDamage` either
- * way, and only the picture of it moved.
+ * from.
  *
  * `breachHull` is this function with a scar in front of it, so the two can
- * never disagree about what a breach *is*: one event, one amount, one place.
+ * never disagree about what a breach *is*: one event, one weight, one place.
  */
 export function breachUnscarred(
   world: World,
   col: number,
   kind: Creature["kind"],
   fromRow: number,
-  amount: number,
+  weight: BreachWeight,
   color: Color | null = null,
 ): void {
-  applyHullDamage(world, amount);
+  failWave(world);
   world.events.push({
     type: "breach",
     col,
-    damage: amount,
+    weight,
     span: 1,
     kind,
     fromRow,
@@ -95,37 +93,15 @@ export function breachUnscarred(
   });
 }
 
-/** Hull integrity as a plain 0..100 number, for display only. */
-export function hullPercent(world: World): number {
-  return world.hullMilli / MILLI;
-}
-
 /**
- * The hull mending itself, one tick's worth. It lived in `world.ts` beside the
- * `step` that calls it until that file ran out of room; this is where it
- * always belonged, next to the two functions that break the hull in the first
- * place — one file for what the hull loses and what it gets back.
+ * A rock is one impact, not two, however many columns it spans — but every
+ * column it covers scars, since that is where the hull visibly broke. The
+ * `breach` event still fires once, on the creature's visual centre, so an
+ * effect that reacts to it plays once rather than stacked on top of itself
+ * per column.
  */
-export function regenerateHull(world: World): void {
-  // Nothing mends while the run belongs to the pair. That rule used to name
-  // THE FORK here; the gate that replaced it needs no line of its own, because
-  // `step` returns before this function for as long as a wave's opening holds
-  // the field (`briefing.ts`). A guide the pair can sit behind while the hull
-  // heals would be the same exploit through a new door, and it is shut.
-  if (world.over) return;
-  const perTick = Math.round((world.cfg.hullRegenPerSecond * MILLI) / world.cfg.tickHz);
-  world.hullMilli = Math.min(100 * MILLI, world.hullMilli + perTick);
-}
-
-/**
- * A miss costs the hull `amount` once, no matter how many columns the
- * creature spans — the torch is one impact, not two — but every column it
- * covers scars, since that is where the hull visibly broke. The `breach`
- * event still fires once, on the creature's visual centre, so an effect that
- * reacts to it plays once rather than stacked on top of itself per column.
- */
-export function damageSpan(world: World, c: Creature, amount: number): void {
-  applyHullDamage(world, amount);
+export function damageSpan(world: World, c: Creature, weight: BreachWeight): void {
+  failWave(world);
   const span = spanOf(c);
   for (let col = c.col; col < c.col + span; col++) {
     // The scar carries the width too: a crater is drawn at the size of the
@@ -137,7 +113,7 @@ export function damageSpan(world: World, c: Creature, amount: number): void {
   world.events.push({
     type: "breach",
     col: bodyCenterCol(c, c.col),
-    damage: amount,
+    weight,
     span,
     kind: c.kind,
     fromRow: c.fromRow,

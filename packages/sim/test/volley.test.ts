@@ -47,7 +47,7 @@ const HULL = hullRow(CFG);
 const SHIELD = HULL - 1;
 /** The same run with the hull's mending switched off, so a damage figure is
  * the damage rather than the damage less a second of regrowth. */
-const LANE: SimConfig = { ...CFG, hullRegenPerSecond: 0 };
+const LANE: SimConfig = { ...CFG };
 
 const volley = (col: number, color: "red" | "cyan" = "red"): SpawnEntry => ({
   beat: 0,

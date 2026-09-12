@@ -63,7 +63,7 @@ export const WAVES_ACT_3B: Wave[] = [
     name: "THE PURGE",
     sentence: "The one where the field is cleared by swallowing, not by shooting.",
     guide: {
-      both: "The same pod with different cargo: taking this one in clears the field of everything that is falling.",
+      both: "A pod again, and this time the field is full when it comes loose: taking it in clears everything that is falling.",
       p1: "Hold it for the beat that is about to go wrong, not for the one that already has.",
       p2: "Freeing it is still a shot, and a shot spent here is a creature still coming.",
       scene: "thePurge",

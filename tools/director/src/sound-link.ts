@@ -150,7 +150,6 @@ const BY_ID: Record<string, Subject> = {
   "creature.ghostTurn": shape("GHOST"),
   "creature.ghostCharge": shape("GHOST"),
 
-  "hull.mend": HULL,
   "hull.ward": ARMED,
   "hull.purge": MAW,
 };

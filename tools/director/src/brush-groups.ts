@@ -56,6 +56,6 @@ export const BRUSH_GROUPS: BrushGroup[] = (() => {
     const brushes = byCategory.get(category);
     if (brushes?.length) groups.push({ label: CATEGORY_LABEL[category], brushes });
   }
-  groups.push({ label: "SUCK", brushes: ["mend", "purge", "ward"] });
+  groups.push({ label: "SUCK", brushes: ["purge", "ward"] });
   return groups;
 })();

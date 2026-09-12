@@ -15,7 +15,7 @@ import { DEFAULT_SETTINGS, parseSettings } from "../src/settings.js";
 const breach: SimEvent = {
   type: "breach",
   col: 3,
-  damage: 9000,
+  weight: "heavy",
   span: 1,
   kind: "meteor",
   color: null,
@@ -45,7 +45,7 @@ describe("what earns a buzz", () => {
       { type: "destroy", col: 1, row: 2, color: "red", kind: "slick" },
       { type: "hole", col: 1, row: 2 },
       { type: "deflect", col: 1, span: 1, kind: "meteor", fromRow: 3 },
-      { type: "podTaken", col: 1, kind: "mend" },
+      { type: "podTaken", col: 1, kind: "ward" },
       { type: "podLost", col: 1 },
     ];
     for (const event of others) {

@@ -69,14 +69,6 @@ export interface CoilConfig {
    * same, because the pair earned it with the ward that started the chain.
    */
   scoreCoilBreak: number;
-  /**
-   * What a whole one costs the hull when it reaches the ship. `damageMeteor`'s
-   * figure, for `damageCarom`'s reason: what arrives is the rock it always
-   * was, and the shield was never offered it — nothing turns a coil away, the
-   * ward only takes its dome off. A cheaper number would teach the pair that
-   * leaving one to sink is better than the rock they already know to ward.
-   */
-  damageCoil: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
@@ -85,5 +77,4 @@ export const COIL_DEFAULTS: CoilConfig = {
   coilDropRows: 5,
   coilJumpBeats: 3,
   scoreCoilBreak: 120,
-  damageCoil: 20,
 };

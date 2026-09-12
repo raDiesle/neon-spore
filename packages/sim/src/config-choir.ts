@@ -42,14 +42,6 @@ export interface ChoirConfig {
    */
   choirFuseBeats: number;
   /**
-   * What the song costs the hull when the window lapses, or when an arrow is
-   * carried the wrong way. Below `damageCreature`, because a body that reached
-   * the ship has beaten the pair and a missed gesture has only delayed them —
-   * and plainly not nothing, because a mechanic where every option quietly
-   * works out is a mechanic nobody is playing.
-   */
-  damageChoirSong: number;
-  /**
    * What one merge is worth. `scoreClaspBreak`'s figure exactly, and the
    * pairing is the argument: both are a body that **stops being what it was**
    * rather than dying, both are answered by a gesture only player 1 has, and
@@ -64,6 +56,5 @@ export const CHOIR_DEFAULTS: ChoirConfig = {
   choirPullMilli: 1500,
   choirWindowBeats: 2,
   choirFuseBeats: 1,
-  damageChoirSong: 8,
   scoreChoirMerge: 120,
 };

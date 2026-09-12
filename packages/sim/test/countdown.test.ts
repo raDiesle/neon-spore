@@ -17,7 +17,7 @@ import {
 } from "../src/index.js";
 
 // No regrowth, so what a shot off zero costs can be read off the bar.
-const CFG: SimConfig = { ...DEFAULT_CONFIG, hullRegenPerSecond: 0 };
+const CFG: SimConfig = { ...DEFAULT_CONFIG };
 const TPB = ticksPerBeat(CFG);
 const COL = 3;
 

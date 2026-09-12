@@ -49,7 +49,7 @@ export const BULB_QUEEN: GuideScene = {
     // `marks` and not `body`: the ring has to hold *both* of them, or a page
     // about one of two being real is drawn around neither.
     { tick: 0, seat: 2, text: "ONE MARK IS REAL", anchor: { at: "marks" } },
-    { tick: 440, seat: 1, text: "A TORCH EVERY EIGHT BEATS", anchor: { at: "health" } },
+    { tick: 440, seat: 1, text: "A TORCH EVERY EIGHT BEATS", anchor: { at: "retries" } },
     {
       tick: 700,
       seat: 2,

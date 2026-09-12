@@ -30,20 +30,9 @@ export interface FenceConfig {
    * each other.
    */
   fenceGapCols: number;
-  /**
-   * Hull points a fence that finds the dome in the way costs. Twenty, which is
-   * `damageMeteor` rather than `damageCreature` and is the same argument: this
-   * is a thing the shield was supposed to answer and did not, and a pair must
-   * never learn that the arrival they cannot shoot is the cheap one to give up
-   * on. It is a number of its own rather than a share of the rock's because
-   * the two are argued about separately — a fence arrives about once a wave
-   * and rocks arrive in threes.
-   */
-  fenceDamage: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
 export const FENCE_DEFAULTS: FenceConfig = {
   fenceGapCols: 1,
-  fenceDamage: 20,
 };

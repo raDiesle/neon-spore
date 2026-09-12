@@ -40,7 +40,7 @@ import {
  * assertion below about what something cost is then an exact number rather than
  * one that drifts by whatever fraction of a second the run took.
  */
-const CFG: SimConfig = { ...DEFAULT_CONFIG, hullRegenPerSecond: 0 };
+const CFG: SimConfig = { ...DEFAULT_CONFIG };
 const TPB = ticksPerBeat(CFG);
 const TAUT = CFG.wardenTautMilli;
 const MIDDLE = Math.floor((CFG.cols - WARDEN_COLS) / 2) + Math.floor(WARDEN_COLS / 2);
@@ -134,7 +134,7 @@ describe("the rope", () => {
     beats(run, CFG.wardenCycleBeats - 1);
     expect(wardenTether(run.world)?.row).toBe(CFG.wardenRow + CFG.wardenHangRows);
     expect(hullRow(CFG) - wardenTether(run.world)!.row).toBeGreaterThan(0);
-    expect(run.world.hullMilli).toBe(100_000);
+    expect(run.world.retries).toBe(0);
     expect(run.world.scars).toHaveLength(0);
     // And it is not a guard try either — the shield has nothing to do with it.
     expect(run.world.guard.tries).toBe(0);
@@ -347,7 +347,7 @@ describe("nothing in this fight can hurt the pair", () => {
     // (docs/spec/bosses.md 11.4). The room that leaves is the owner's to fill.
     const run = open();
     beats(run, CFG.wardenCycleBeats * 3);
-    expect(run.world.hullMilli).toBe(100_000);
+    expect(run.world.retries).toBe(0);
     expect(run.world.creatures.filter((c) => c.kind !== "warden" && c.kind !== "tether")).toEqual(
       [],
     );

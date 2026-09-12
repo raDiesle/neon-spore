@@ -1,4 +1,4 @@
-import { hullPercent, type PinballState, pinCannonMilli, pinTargetsLeft } from "@neon-spore/sim";
+import { type PinballState, pinCannonMilli, pinTargetsLeft } from "@neon-spore/sim";
 import { drawBand } from "./band.js";
 import { drawBackground } from "./field.js";
 import { drawHud } from "./hud.js";
@@ -124,7 +124,6 @@ export function drawPinballRound(ctx: CanvasRenderingContext2D, l: Layout, view:
     world.scars,
     view.time,
     mood,
-    hullPercent(world),
     at,
     () => true,
     () => true,

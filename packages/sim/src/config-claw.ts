@@ -23,18 +23,6 @@ export interface ClawConfig {
    * ahead of a crossing pod the pair has to be talking.
    */
   reachTilesPerBeat: number;
-  /**
-   * What the arm costs the hull when it closes on a body instead of a pod, in
-   * whole points.
-   *
-   * **It is less than the body would have cost by landing**, and that is the
-   * mechanic rather than a kindness: a rock coming down a column nobody can
-   * shield is answerable on this panel by reaching into it, and the price of
-   * that answer is what makes it a decision instead of a reflex. Named for the
-   * `damage*` family, because that is the question a reader has when they find
-   * it.
-   */
-  damageReach: number;
   /** Score for a pod the arm brings down and the mouth takes. */
   scoreReachCatch: number;
   /**
@@ -75,7 +63,6 @@ export interface ClawConfig {
  */
 export const CLAW_DEFAULTS: ClawConfig = {
   reachTilesPerBeat: 9,
-  damageReach: 6,
   scoreReachCatch: 250,
   windTilesPerTurn: 4,
 };

@@ -1,5 +1,5 @@
 import { midCol } from "./config.js";
-import { breachHull } from "./hull.js";
+import { type BreachWeight, breachHull } from "./hull.js";
 import {
   loadBoard,
   openPinball,
@@ -116,7 +116,7 @@ export function stepPinballRound(world: World): void {
   }
   if (world.beat - state.roundBeat >= pinballCurrent(state).beats) {
     state.passed = false;
-    spendHull(world, world.cfg.damagePinball, midCol(world.cfg));
+    spendHull(world, "heavy", midCol(world.cfg));
     enterPhase(state, "verdict", world.beat);
   }
 }
@@ -161,7 +161,7 @@ function flyBall(world: World, state: PinballState): void {
       // Where it came down, kept for the blast: the hull is struck at the
       // place the ball actually arrived and not in the middle of the ship.
       state.dropXMilli = state.ball.xMilli;
-      spendHull(world, world.cfg.damagePinballDrop, pinFieldCol(world.cfg, state.ball.xMilli));
+      spendHull(world, "light", pinFieldCol(world.cfg, state.ball.xMilli));
     }
   }
   resetShot(state);
@@ -198,8 +198,8 @@ export function pinballOpenRound(world: World, state: PinballState, round: numbe
  * out has no such place and takes the middle, which is what THE GAUGE, SNAKE
  * and THE FLEET all do.
  */
-function spendHull(world: World, amount: number, col: number): void {
-  breachHull(world, col, "meteorFastest", 0, amount);
+function spendHull(world: World, weight: BreachWeight, col: number): void {
+  breachHull(world, col, "meteorFastest", 0, weight);
 }
 
 /**

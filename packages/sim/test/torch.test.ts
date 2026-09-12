@@ -134,8 +134,8 @@ describe("the torch", () => {
     // No-regen config: a miss should cost exactly one damageMeteor, and the
     // ambient per-tick hull regen over IMPACT_TICK ticks would otherwise mask
     // whether the span paid for itself twice over.
-    const noRegen: SimConfig = { ...CFG, hullRegenPerSecond: 0 };
-    const world = createWorld(noRegen, 0, [torch(5)]);
+    const PLAIN: SimConfig = { ...CFG };
+    const world = createWorld(PLAIN, 0, [torch(5)]);
     const byTick = new Map<number, TimedCommand[]>();
     for (let t = 0; t < BREACH_TICK + 1; t++) step(world, byTick.get(t) ?? []);
     expect(world.retries).toBe(1);
@@ -147,7 +147,7 @@ describe("the torch", () => {
     const { events } = run([torch(5)], BREACH_TICK + 1);
     const breaches = events.filter((e) => e.type === "breach");
     expect(breaches).toHaveLength(1);
-    expect(breaches[0]).toMatchObject({ col: 5.5, damage: CFG.damageMeteor, span: 2 });
+    expect(breaches[0]).toMatchObject({ col: 5.5, weight: "heavy", span: 2 });
   });
 
   // render/ has no notion of a creature's fall speed of its own — it replays

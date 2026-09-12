@@ -187,9 +187,8 @@ describe("a salvo", () => {
     expect(world.events.some((e) => e.type === "fleetSunk")).toBe(true);
   });
 
-  it("ends the wave when the last hull goes down, and costs the hull nothing", () => {
+  it("ends the wave when the last hull goes down, and costs the pair nothing", () => {
     const world = fleetWorld();
-    const hull = world.hullMilli;
     for (const [col, row] of [
       [1, 1],
       [2, 1],
@@ -201,7 +200,7 @@ describe("a salvo", () => {
       salvo(world);
     }
     expect(world.boss).toBeNull();
-    expect(world.hullMilli).toBe(hull);
+    expect(world.retries).toBe(0);
     expect(world.score).toBeGreaterThan(world.cfg.scoreFleetDown);
   });
 });

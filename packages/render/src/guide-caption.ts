@@ -54,7 +54,7 @@ export function drawCaption(
 
   // The ring first, under the words: it is the subject being pointed at, and a
   // label over its own highlight would be a label nobody could read.
-  if (step.anchor.at !== "hull" && step.anchor.at !== "health") {
+  if (step.anchor.at !== "hull" && step.anchor.at !== "retries") {
     ctx.globalAlpha = 0.75 * k;
     ctx.strokeStyle = PALETTE.pod;
     ctx.lineWidth = 2;

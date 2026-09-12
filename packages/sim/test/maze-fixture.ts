@@ -59,7 +59,7 @@ export const WHEELS: MazeWheel[] = [PAIR, THREE, FOUR];
 // No regeneration: the breach has to be readable as an exact number, and three
 // hull points a second would blur it inside the beat. `mirror.test.ts` says the
 // same and for the same reason.
-export const CFG = { ...DEFAULT_CONFIG, hullInvulnerable: false, hullRegenPerSecond: 0 };
+export const CFG = { ...DEFAULT_CONFIG, hullInvulnerable: false };
 export const TPB = ticksPerBeat(CFG);
 
 export function install(rounds: MazeWheel[] = WHEELS): World {

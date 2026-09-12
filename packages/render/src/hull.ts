@@ -52,6 +52,9 @@ export interface HullSkin {
   body: readonly [string, string, string, string];
   /** The outline, and what its glow is made of. */
   rim: string;
+  /** How strong the rim glows, 0..1; absent is full. The ship's own is always
+   * full — it has no points to dim with — and THE MIRROR's fades with its. */
+  rimAlpha?: number;
   /** The bright edge on the muzzle. */
   edge: string;
   /** Inside the muzzle. */
@@ -92,7 +95,6 @@ export function drawHull(
   scars: readonly Scar[],
   time: number,
   mood: HullMood,
-  hullPercent: number,
   at: LobePositions,
   craterVisible: (x: number) => boolean = () => true,
   crackArrived: (col: number, beat: number) => boolean = () => true,
@@ -197,7 +199,7 @@ export function drawHull(
   // until the rock that made it has climbed back out of it.
   const allCraters = findCraters(l, scars, (x) => skin(f, x));
   const openCraters = allCraters.filter((c) => craterVisible(c.x));
-  strokeHullRim(ctx, l, body, hullPercent, openCraters, skin_.rim);
+  strokeHullRim(ctx, l, body, openCraters, skin_.rim, skin_.rimAlpha ?? 1);
 
   // Cracks first, each rock's dent after: its opaque fill paints over whatever
   // a crack drew across that patch, so the crack reads as staying in the skin
@@ -237,12 +239,12 @@ function strokeHullRim(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   body: Path2D,
-  hullPercent: number,
   craters: Crater[],
   rim: string,
+  alpha: number,
 ): void {
   ctx.save();
   clipOutMouths(ctx, l, craters);
-  strokeGlow(ctx, body, rim, STROKE.outline + 0.6, Math.max(0.25, hullPercent / 100));
+  strokeGlow(ctx, body, rim, STROKE.outline + 0.6, alpha);
   ctx.restore();
 }

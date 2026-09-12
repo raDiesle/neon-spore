@@ -56,7 +56,7 @@ export const THE_LURE: GuideScene = {
     // reading out loud. The words still point at the bar rather than at the
     // holes: the blast is the loudest thing on the screen by then, and the one
     // thing it does not say is how much of the run it just spent.
-    { tick: 660, seat: 2, text: "FIRING AT IT COSTS HULL", anchor: { at: "health" } },
+    { tick: 660, seat: 2, text: "FIRING AT IT LOSES THE WAVE", anchor: { at: "retries" } },
     {
       tick: 920,
       seat: 1,

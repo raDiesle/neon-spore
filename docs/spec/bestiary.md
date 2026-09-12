@@ -244,7 +244,7 @@ rock has one, and a wave may narrow it to a single tile
 (`WaveEntry.size`, offered as SIZE in the director beside a plain rock's): the
 same creature at either width, and what changes is how much of the hull one
 plate has to cover. A shield in any column the body occupies deflects it, and a
-miss scars all of them, once, for a single `damageMeteor`. The one-tile torch
+miss scars all of them, once, for a single heavy breach. The one-tile torch
 is also what a coil's dome leaves behind when it comes off — see THE COIL. Radar
 `"p1"`, the same as every other rock (`docs/decisions.md` #15), and
 `packages/render/src/torch-alarm.ts` gives the strip a second, louder cue: a

@@ -50,9 +50,11 @@ export function sceneWorld(scene: Scene): World {
     // it — see `beat.ts`. Authored waves are sorted; these are composed.
     .sort((a, b) => a.beat - b.beat);
   // A pod names its own row, so it needs no arithmetic and no run of its own.
+  // A ward, since a pod has to say: what it carries is not what the pose is
+  // about.
   const pods: PodEntry[] = spawns
     .filter((s) => s.what === "pod")
-    .map((s) => ({ beat: 0, col: s.col, row: s.row }));
+    .map((s) => ({ beat: 0, col: s.col, row: s.row, kind: "ward" }));
 
   const world = fresh(queue, pods);
   run(world, hold * POSE_TPB);

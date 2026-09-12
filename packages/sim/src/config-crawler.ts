@@ -54,21 +54,6 @@ export interface CrawlerConfig {
    * held one order across both controls for the length of a wave.
    */
   scoreCrawlerBeam: number;
-  /**
-   * What the head costs the ship when it gets in, before the body behind it is
-   * counted. `damageMeteor`'s figure: a rock nobody warded is the plainest
-   * thing in the game that got through, and a worm's head is that with a mouth
-   * on it.
-   */
-  damageCrawlerBite: number;
-  /**
-   * What each segment still on the body adds to that. Half of
-   * `damageCreature`, so a worm let in whole costs a good deal more than a rock
-   * and a worm stripped to its last segment costs a little more — the pair's
-   * work is subtracted from the price rather than being all-or-nothing, which
-   * is what stops a run that went badly from being a run worth abandoning.
-   */
-  damageCrawlerSegment: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
@@ -76,6 +61,4 @@ export const CRAWLER_DEFAULTS: CrawlerConfig = {
   crawlerSegments: 5,
   crawlerStepBeats: 2,
   scoreCrawlerBeam: 300,
-  damageCrawlerBite: 20,
-  damageCrawlerSegment: 6,
 };

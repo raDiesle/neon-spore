@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG, hullRow, ticksPerBeat } from "../src/config.js";
 import { hashWorld } from "../src/hash.js";
-import { hullPercent, shieldRow } from "../src/hull.js";
+import { shieldRow } from "../src/hull.js";
 import { fallTilesPerBeat, type RockKind } from "../src/kinds.js";
 import type { TimedCommand } from "../src/types.js";
 import { createWorld, type SimEvent, type SpawnEntry, step, type World } from "../src/world.js";
@@ -142,7 +142,7 @@ describe("the shield answers a rock where the shield is", () => {
     // The shield's row is where a rock is *asked*, not where it lands. A rock
     // nobody answers goes all the way down, and the damage arrives with it.
     const early = run([rock(5)], SHIELD_TICK + 1);
-    expect(hullPercent(early.world)).toBe(100);
+    expect(early.world.retries).toBe(0);
     // And not on the beat it *reaches* the ship either. It lands there and
     // stands on the plating for the beat render/ draws it arriving; the hull
     // is whole for all of that beat, and breaks at the end of it.
@@ -185,7 +185,7 @@ describe("the shield answers a rock where the shield is", () => {
         guard(landTick + TPB - 20),
       ]);
       expect({ kind, deflected: world.guard.deflected }).toEqual({ kind, deflected: 1 });
-      expect({ kind, hull: hullPercent(world) }).toEqual({ kind, hull: 100 });
+      expect({ kind, retries: world.retries }).toEqual({ kind, retries: 0 });
     }
   });
 
@@ -250,7 +250,7 @@ describe("the cannon's column", () => {
         guard(answerTick - 20),
       ]);
       expect({ kind, left: world.creatures.length }).toEqual({ kind, left: 0 });
-      expect({ kind, hull: hullPercent(world) }).toEqual({ kind, hull: 100 });
+      expect({ kind, retries: world.retries }).toEqual({ kind, retries: 0 });
     }
   });
 });

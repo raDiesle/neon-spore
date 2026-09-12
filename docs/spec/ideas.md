@@ -250,9 +250,11 @@ filed rightly, and there is no second list to change.
   while it still hung would be free to ignore, and free to ignore is not a
   decision.
 
-  **Taking it in inverts the receipt.** `mend` gives `podRepair` hull back and a
-  husk takes the same number away; there is no flash, and the ship darkens from
-  inside instead of lighting. Player 1 learns the answer the way they learn
+  **Taking it in inverts the receipt.** A pod gives and a husk takes the same
+  thing away — it was `podRepair` hull points against `mend` while the hull
+  had points; with two pod kinds left it would have to spend the ward or
+  purge the *ship's* shots instead; there is no flash, and the ship darkens
+  from inside instead of lighting. Player 1 learns the answer the way they learn
   every other one, from the ship rather than from a number.
 
   **Refusing costs no hull and a great deal of everything else.** A husk that
@@ -382,6 +384,28 @@ Each names the slot it would fit.
 
 ### Mechanics
 
+- **Hull points, the bar, regeneration and the mend pod** — the ship had a
+  hull figure (`World.hullMilli`, 0–100 in thousandths), every body that
+  reached it took a number off (`damageCreature` 12, `damageMeteor` 20 and a
+  field per kind, `config-*.ts`), the figure crept back at
+  `hullRegenPerSecond`, a bar top left of the HUD showed it (`hullBarBox`,
+  `drawHeart`, the rim glow fading with it), the run ended at zero
+  (`hull.dead`), and the plain pod — the one a wave got by naming no kind —
+  gave `podRepair` points back with a `+HULL` banner and `hull.mend`. Taken
+  out on 12 September 2026 by the owner's rule that *a hit fails the wave*:
+  once every hit costs the wave, a figure that drains by twelves is a second
+  price nobody reads, and a pod that pays it back mends nothing. What
+  survives: the scars, the craters, the crack across the cockpit, and a
+  **weight** on every breach (`BreachWeight`, `impact.ts`) that picks the
+  heavy or light sound; `hull.mend` and `hull.alarm`'s old use are `spare`
+  in the catalogue. To restore: `hullMilli` back on `World` and in
+  `hashWorld`, a `damage` per kind beside the weight in `breachHull`
+  (`hull-damage.ts`), `regenerateHull` in `step`, `"mend"` back in
+  `POD_KINDS` (append, never insert — the index is the wire value) with
+  `mend()` in `pod-effects.ts`, and the bar from `hud.ts`'s history at
+  `6f902f6e`. It belongs, if anywhere, with a mode where a hit does *not*
+  fail the wave, since that is the only game in which a second price means
+  anything
 - **The crystal's dive** — a wrong shot at THE CRYSTAL (wave 43) costs the
   pair a row: the body dives `crystalDiveRows` toward the ship, so fourteen
   beats becomes thirteen with every guess. Built and shipped on 11 September
@@ -413,8 +437,9 @@ Each names the slot it would fit.
   instead of a record. What an open column *does* is deliberately not settled
   here: it could let the next arrival through for nothing, it could be where a
   reverse wave comes from, it could be the thing a repair pod is finally for.
-  Unworked out: whether the hull's slow regeneration (`hullRegenPerSecond`)
-  closes one, which decides whether a run can recover or only decay; how many
+  Unworked out: whether anything closes one, now that the hull no longer
+  regenerates (see the Mechanics note above), which decides whether a run can
+  recover or only decay; how many
   arrivals in one column is the threshold, and whether the pair can watch it
   approach, since a hull that gives way without warning reads as the game
   cheating; whether a breach is per column or per neighbouring pair, because

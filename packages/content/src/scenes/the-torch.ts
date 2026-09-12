@@ -51,7 +51,7 @@ export const THE_TORCH: GuideScene = {
   steps: [
     { tick: 0, seat: 1, text: "PLAYER 1 SEES THE COLUMN", anchor: { at: "radar" } },
     { tick: 200, seat: 2, text: "PLAYER 2 IS NOT TOLD WHERE", anchor: { at: "radar" } },
-    { tick: 400, seat: 1, text: "NOBODY CALLED IT", anchor: { at: "health" } },
+    { tick: 400, seat: 1, text: "NOBODY CALLED IT", anchor: { at: "retries" } },
     {
       tick: 700,
       seat: 2,

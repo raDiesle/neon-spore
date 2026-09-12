@@ -24,16 +24,6 @@
  * argued against, and the whole game reads them rather than one creature.
  */
 export interface CreatureScoreConfig {
-  /** What a shot at a lure costs the hull. Not the score: two currencies for
-   * one mistake reads as bookkeeping, and the hull is the one the pair feels.
-   * Above `damageCreature` on purpose — a body that reached the hull cost a
-   * shot nobody fired, and this cost one that was. */
-  damageLure: number;
-  /** What a shot at THE COUNT off zero costs the hull. `damageLure`'s figure
-   * and for its reason: the mistake is a shot that landed when it should not
-   * have, and the hull is the currency the pair feels. Paid per shot and the
-   * body stays, so a trigger that keeps guessing keeps paying. */
-  damageCountdown: number;
   /** Score for hitting a Throb with the colour its round half is in. */
   scoreThrobHit: number;
   /** What one piece of THE SHELL is worth. Smaller than a kill: chipping the
@@ -94,8 +84,6 @@ export interface CreatureScoreConfig {
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
 export const CREATURE_SCORE_DEFAULTS: CreatureScoreConfig = {
-  damageLure: 15,
-  damageCountdown: 15,
   scoreThrobHit: 200,
   scoreShellPiece: 120,
   scoreClaspBreak: 120,

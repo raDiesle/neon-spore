@@ -61,7 +61,7 @@ describe("events with nothing to burst", () => {
       {
         type: "breach",
         col: 0,
-        damage: 0,
+        weight: "light",
         span: 1,
         kind: "meteor",
         fromRow: 0,

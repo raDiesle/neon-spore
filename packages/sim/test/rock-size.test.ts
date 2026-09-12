@@ -6,7 +6,6 @@ import {
   DEFAULT_CONFIG,
   fallTilesPerBeat,
   hashWorld,
-  hullPercent,
   hullRow,
   occupiesCol,
   type SimConfig,
@@ -118,8 +117,7 @@ describe("a two-tile meteor on the field", () => {
     // Every scar carries the width, so a crater is drawn at the size of the
     // rock that made it rather than at its kind's.
     expect(world.scars.every((s) => spanOf(s) === 2)).toBe(true);
-    const oneWide = run([small(2)], BREACH_TICK + 1).world;
-    expect(hullPercent(world)).toBe(hullPercent(oneWide));
+    expect(world.retries).toBe(1);
   });
 
   it("is pulled back onto the field when the last column was authored", () => {

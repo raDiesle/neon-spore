@@ -57,13 +57,6 @@ export interface BeatboxConfig {
    */
   beatboxFallBeats: number;
   /**
-   * What the wave of sound costs the hull when a run locks in on the wrong
-   * count. Below `damageCreature`, on `damageChoirSong`'s terms and for its
-   * reason: a body that reached the ship has beaten the pair and a miscounted
-   * run has only cost them the box, which is still coming down.
-   */
-  damageBeatboxWave: number;
-  /**
    * What one silenced box is worth. `scoreChoirMerge`'s figure exactly, and
    * the pairing is the argument: both are a body answered by a gesture that is
    * on no panel, both need one seat to say a thing the other cannot see, and
@@ -78,6 +71,5 @@ export const BEATBOX_DEFAULTS: BeatboxConfig = {
   beatboxBeats: 3,
   beatboxWindowMs: 200,
   beatboxFallBeats: 2,
-  damageBeatboxWave: 8,
   scoreBeatboxSilence: 120,
 };

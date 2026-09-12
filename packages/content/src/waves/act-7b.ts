@@ -127,10 +127,10 @@ export const WAVES_ACT_7B: Wave[] = [
       { beat: 54, col: 6, kind: "meteorMedium", color: null },
     ],
     pods: [
-      { beat: 2, col: 0, row: 4, kind: "mend", cross: 1 },
+      { beat: 2, col: 0, row: 4, kind: "ward", cross: 1 },
       { beat: 18, col: 6, row: 6, kind: "ward", cross: -1 },
       { beat: 34, col: 0, row: 3, kind: "purge", cross: 1, speed: 3 },
-      { beat: 50, col: 6, row: 5, kind: "mend", cross: -1 },
+      { beat: 50, col: 6, row: 5, kind: "purge", cross: -1 },
     ],
     controls: "claw",
   },

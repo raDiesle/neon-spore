@@ -16,7 +16,7 @@ import { NO_SHELL } from "../src/shell.js";
 /**
  * Complaint 3 of the swallow: a power-up must count as taken the moment it
  * is swallowed, not once some later, purely visual moment finishes. It
- * already does — `resolveIntake` (`pods.ts`) applies `mend`/`purge`/`ward`
+ * already does — `resolveIntake` (`pods.ts`) applies `purge`/`ward`
  * synchronously, on the same tick the pod's row crosses the hull, well
  * before `SwallowFx`'s cosmetic chew-then-flash even starts playing in
  * render/. This file pins that down as a guarantee rather than an accident
@@ -76,27 +76,6 @@ function runTicked(
 }
 
 describe("a pod's effect lands the instant it is swallowed", () => {
-  it("mend: hullMilli is already repaired on the podTaken tick, not later", () => {
-    const world = createWorld({ ...CFG }, 0, [], [{ beat: 0, col: POD_COL, row: 4, kind: "mend" }]);
-    world.hullMilli = 40_000;
-    const byTick = new Map<number, TimedCommand[]>();
-    for (const i of hold(POD_COL)) byTick.set(i.tick, [...(byTick.get(i.tick) ?? []), i]);
-    let takenTick = -1;
-    let hullAtTaken = -1;
-    for (let t = 0; t < ARRIVAL; t++) {
-      step(world, byTick.get(t) ?? []);
-      if (takenTick < 0 && world.events.some((e) => e.type === "podTaken")) {
-        takenTick = t;
-        hullAtTaken = world.hullMilli;
-      }
-    }
-    expect(takenTick).toBeGreaterThan(0);
-    // Repaired by the very tick of the catch — not the tick after, and not
-    // waiting for the ~0.58s of chew that plays out afterwards in render/.
-    expect(hullAtTaken).toBeGreaterThan(40_000);
-    expect(world.pods).toHaveLength(0);
-  });
-
   it("ward: the shield is already armed one tick after the catch, with no guard command", () => {
     const { world, ticksToTaken } = runTicked(
       [{ beat: 0, col: POD_COL, row: 4, kind: "ward" }],

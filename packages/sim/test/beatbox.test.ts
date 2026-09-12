@@ -78,7 +78,6 @@ interface Run {
  * the game and useless for an assertion about what one discharge cost. The
  * runs that weigh the hull turn it off; nothing else about them changes.
  */
-const NO_REGEN = { ...CFG, hullRegenPerSecond: 0 };
 
 function run(queue: SpawnEntry[], ticks: number, inputs: TimedCommand[] = [], cfg = CFG): Run {
   const world = createWorld({ ...cfg }, 0, queue);
@@ -175,7 +174,7 @@ describe("a run", () => {
     // the last body on the field would have that bonus folded into the number
     // this asserts.
     const queue = [box(3, 3), { beat: 30, col: 0, kind: "meteor", color: null } as SpawnEntry];
-    const { world, events } = run(queue, at(7), runOf(1, 3), NO_REGEN);
+    const { world, events } = run(queue, at(7), runOf(1, 3), CFG);
     expect(world.creatures.some(beatboxIsBox)).toBe(false);
     expect(events.filter((e) => e.type === "beatboxSilent")).toHaveLength(1);
     expect(events.some((e) => e.type === "beatboxWave")).toBe(false);
@@ -220,7 +219,7 @@ describe("a mistake is answered at once", () => {
     // Two taps against a box asking for three, and then nothing. The run is
     // over the moment beat 3's window closes — one tick past the deadline —
     // and it must not still be open on the tick before it.
-    const world = createWorld({ ...NO_REGEN }, 0, [box(3, 3)]);
+    const world = createWorld({ ...CFG }, 0, [box(3, 3)]);
     const inputs = new Map(runOf(1, 2).map((i) => [i.tick, [i]]));
     const deadline = at(3) + beatboxWindowTicks(CFG);
     let fired = -1;
@@ -246,7 +245,7 @@ describe("a mistake is answered at once", () => {
     // A box asking for two, tapped three times. The third is refused as a run
     // rather than folded into one: the discharge is on beat 3 itself, and the
     // count on the event is the two that were right.
-    const { world, events } = run([box(3, 2)], at(3) + 1, runOf(1, 3), NO_REGEN);
+    const { world, events } = run([box(3, 2)], at(3) + 1, runOf(1, 3), CFG);
     const wave = events.find((e) => e.type === "beatboxWave");
     expect(wave).toBeDefined();
     expect(wave?.hits).toBe(2);
@@ -257,7 +256,7 @@ describe("a mistake is answered at once", () => {
   });
 
   it("stamps the tick a discharge happened on, for the red render draws", () => {
-    const { world } = run([box(3, 2)], at(3) + 1, runOf(1, 3), NO_REGEN);
+    const { world } = run([box(3, 2)], at(3) + 1, runOf(1, 3), CFG);
     expect(only(world).beatboxWrong).toBe(at(3));
     // And the tap's own tick is cleared with the run it belonged to.
     expect(only(world).beatboxTick).toBeUndefined();
@@ -279,7 +278,7 @@ describe("a wrong count", () => {
   it("discharges at the hull and leaves the body falling", () => {
     // Two taps against a box asking for three: short, which is the mistake the
     // creature is built around — the pilot's number never arrived in time.
-    const { world, events } = run([box(3, 3)], at(5), runOf(1, 2), NO_REGEN);
+    const { world, events } = run([box(3, 3)], at(5), runOf(1, 2), CFG);
     const waves = events.filter((e) => e.type === "beatboxWave");
     expect(waves).toHaveLength(1);
     expect(world.retries).toBe(1);
@@ -292,7 +291,7 @@ describe("a wrong count", () => {
   });
 
   it("is a miss when the count is over as well as under", () => {
-    const { world, events } = run([box(3, 2)], at(6), runOf(1, 3), NO_REGEN);
+    const { world, events } = run([box(3, 2)], at(6), runOf(1, 3), CFG);
     expect(events.filter((e) => e.type === "beatboxWave")).toHaveLength(1);
     expect(events.some((e) => e.type === "beatboxSilent")).toBe(false);
     expect(world.retries).toBe(1);

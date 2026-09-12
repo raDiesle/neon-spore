@@ -167,8 +167,6 @@ describe("the gesture", () => {
 });
 
 describe("what a wrong move costs", () => {
-  const full = 100 * 1000;
-
   it("sings when the window runs out with one arrow open", () => {
     const ticks = TPB * (CFG.choirWindowBeats + 3);
     const { world, events } = run([choir(2, "red")], ticks, pull(ON_FIELD, "choirLeft", -FAR));
@@ -197,7 +195,7 @@ describe("what a wrong move costs", () => {
       ...pull(ON_FIELD + 12, "choirLeft", FAR),
     ]);
     expect(events.some((e) => e.type === "choirSing")).toBe(false);
-    expect(world.hullMilli).toBe(full);
+    expect(world.retries).toBe(0);
   });
 });
 

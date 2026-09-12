@@ -39,7 +39,7 @@ const SCENE = {
 };
 
 /** The rehearsal's own config, the same three overrides `sceneScript` makes. */
-const CFG = { ...DEFAULT_CONFIG, bpm: SCENE.bpm, briefings: false, hullRegenPerSecond: 0 };
+const CFG = { ...DEFAULT_CONFIG, bpm: SCENE.bpm, briefings: false };
 
 interface Played {
   /** Whether a membrane was still unopened, per tick. */

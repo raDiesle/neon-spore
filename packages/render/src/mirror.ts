@@ -93,11 +93,12 @@ export function drawMirror(
     m.scars,
     time,
     mood,
-    m.hullMilli / 1000,
     at,
     () => true,
     () => true,
-    MIRROR_SKIN,
+    // Its rim fades with its own hull, the way the ship's used to with the
+    // ship's; the boss still has points (`hash-boss.ts`), the ship has none.
+    { ...MIRROR_SKIN, rimAlpha: Math.max(0.25, m.hullMilli / 100_000) },
   );
   ctx.restore();
 }

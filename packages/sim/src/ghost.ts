@@ -162,16 +162,6 @@ export function stepGhostAcross(world: World, c: Creature): void {
 }
 
 /**
- * What this body costs the hull when it reaches it. A charging ghost is the
- * one arrival in the game that *aimed* at the ship, so it costs more than a
- * slick that merely arrived — and every other body, ghost or not, costs
- * exactly what it always did.
- */
-export function ghostImpactDamage(cfg: SimConfig, c: Creature): number {
-  return ghostIsCharging(cfg, c) ? cfg.damageGhostDive : cfg.damageCreature;
-}
-
-/**
  * A shot met a ghost. Returns whether the bullet goes on, the same contract
  * `resolve` has — a lance that killed it carries on up the column, because
  * what stopped it was the body and the body is gone.

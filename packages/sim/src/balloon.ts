@@ -170,7 +170,7 @@ export function stepBalloon(world: World, c: Creature): void {
 export function burstBalloon(world: World, c: Creature): void {
   markMoment(world, false);
   world.events.push({ type: "balloonBurst", col: c.col, row: c.row });
-  breachUnscarred(world, c.col, "balloon", c.fromRow, world.cfg.damageBalloonBurst, null);
+  breachUnscarred(world, c.col, "balloon", c.fromRow, "heavy", null);
   removeCreature(world, c.id);
 }
 

@@ -256,7 +256,6 @@ export function populatedWorld(bossKind: BossEntry["kind"]): World {
   world.bullets.push(bullet());
   world.pods.push(pod());
   world.scars.push(scar());
-  world.hullMilli = 87_000;
   world.guard = { tries: 4, deflected: 3, mistimed: 1 };
   world.balance = {
     podsFreed: 2,

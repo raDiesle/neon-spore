@@ -81,7 +81,7 @@ export function stepPulseRound(world: World): void {
   // lost rather than passed.
   if (state.meter <= 0) {
     state.passed = false;
-    breachHull(world, midCol(world.cfg), "meteorFastest", 0, world.cfg.damagePulse);
+    breachHull(world, midCol(world.cfg), "meteorFastest", 0, "heavy");
     enterPhase(state, "verdict", world.beat);
     return;
   }

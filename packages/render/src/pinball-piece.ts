@@ -41,9 +41,9 @@ import { drawPodBody } from "./pods.js";
  */
 
 /** Which pod a target wears. One kind for the whole table: the mark at a pod's
- * centre says which of the three it is, and on this board there is nothing for
+ * centre says which of the two it is, and on this board there is nothing for
  * that distinction to mean. */
-const POD_KIND = "mend" as const;
+const POD_KIND = "ward" as const;
 
 /** How much bigger a target is drawn than the box it collides with. A pod that
  * exactly filled its own radius read as smaller than the rock beside it. */

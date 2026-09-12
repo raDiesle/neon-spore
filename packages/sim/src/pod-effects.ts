@@ -1,26 +1,22 @@
 import { ticksPerBeat } from "./config.js";
 import { wornKind } from "./creature-rules.js";
 import { type Color, isMeteorKind } from "./types.js";
-import { MILLI, type World } from "./world.js";
+import type { World } from "./world.js";
 
 /**
  * What a pod *gives*, once the mouth has closed on it.
  *
  * Its own file for the reason `fleet-board.ts` is not `fleet.ts`: everything
  * left next door is where a pod is and how it gets there — hanging, crossing,
- * falling, homing, arriving — and these three are the only things in the whole
+ * falling, homing, arriving — and these two are the only things in the whole
  * subject that touch the *ship*. `pods.ts` had reached the ceiling `CLAUDE.md`
  * sets when a pod learned to cross the field, and this is the seam it already
  * had in it.
  *
  * `PodKind` is the closed list of them and `resolveIntake` is the one switch;
- * nothing else in the game calls these directly.
+ * nothing else in the game calls these directly. There were three: the plain
+ * pod's hull repair went with the hull's points (`pod-types.ts`).
  */
-
-/** The hull repair a plain pod has always given. Clamped, never a debt. */
-export function mend(world: World): void {
-  world.hullMilli = Math.min(100 * MILLI, world.hullMilli + world.cfg.podRepair * MILLI);
-}
 
 /**
  * Every creature on the field is gone. A rock is not shot down, it is swept

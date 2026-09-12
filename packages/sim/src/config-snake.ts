@@ -71,23 +71,6 @@ export interface SnakeConfig {
    * it costs is only the time it takes to watch (`snake-move.ts`).
    */
   snakeStunTicks: number;
-  /**
-   * What running out of time takes off the hull, in whole points. The round
-   * draws no hull and the hull is at stake anyway — `damageGauge`'s argument,
-   * one round along.
-   */
-  damageSnake: number;
-  /**
-   * What starting the round over costs: a wall, the body's own back, a touched
-   * enemy, or a point taken with the mouth shut.
-   *
-   * Smaller than the round, on purpose: a repeat is a thing the pair can
-   * survive and talk about, and a round that ended on the first wall would be
-   * ninety seconds of holding still. What it must not be is free — the clock
-   * restarting is a mercy, and a mercy nobody pays for is a round with no
-   * shape.
-   */
-  damageSnakeRepeat: number;
 }
 
 /**
@@ -118,8 +101,4 @@ export const SNAKE_DEFAULTS: SnakeConfig = {
   // the empty arena to be three separate things the pair sees, and short
   // enough that a repeat is still a repeat rather than an interruption.
   snakeStunTicks: 150,
-  // THE GAUGE's number, because it is the same event: a round the pair did not
-  // finish. The owner turns one, they both move.
-  damageSnake: 20,
-  damageSnakeRepeat: 8,
 };

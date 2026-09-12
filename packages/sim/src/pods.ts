@@ -2,9 +2,10 @@ import { markMoment } from "./balance.js";
 import { hullRow, msToTicks, type SimConfig, ticksPerBeat } from "./config.js";
 import type { PodEntry } from "./entries.js";
 import { mirrorBaitTaken } from "./mirror-round.js";
-import { mend, purge, ward } from "./pod-effects.js";
+import { purge, ward } from "./pod-effects.js";
 import { nextInt } from "./rng.js";
 import type { Pod, PodKind } from "./types.js";
+import { failWave } from "./wave-fail.js";
 import { MILLI, type World } from "./world.js";
 
 /**
@@ -21,11 +22,18 @@ import { MILLI, type World } from "./world.js";
  * old design had player 1 fly to the power-up, and there is no flying any more.
  * Here the pod comes to the ship instead, and the ship has to open for it.
  *
- * What is taken is one of three things — mend, purge or ward, see `PodKind` —
+ * What is taken is one of two things — purge or ward, see `PodKind` —
  * authored in the wave and never drawn at random: a pair that watches a pod
- * come loose has to be able to tell what it is before it decides whether to
+ * come loose has to be able to tell what it is before it decides how to
  * chase it. The effect lands all at once, on the tick of the catch; there is
  * no pickup that waits to be spent.
+ *
+ * **And a pod is taken, or the wave is lost.** The owner's rule of 12
+ * September 2026 lists *sucked* beside destroyed, evaded and shielded as the
+ * ways a wave is passed: a pod that breaks on the skin, or crosses the field
+ * and gets away, is a hit (`wave-fail.ts`), and a pod still hanging holds the
+ * wave open the way a body still falling does (`beat.ts`). It used to be a
+ * gift, and missing it cost nothing.
  *
  * The fall is no longer the only thing that changes near the mouth — the last
  * stretch of it steers toward whatever column the cannon already holds, so
@@ -34,15 +42,13 @@ import { MILLI, type World } from "./world.js";
  */
 
 /**
- * What a pod gives when it is swallowed. A wave that does not say means mend.
- *
- * One `??` and therefore exactly the size of thing a second reader writes out
- * again: `mechanics.ts` had its own copy, so a changed default would have made
- * the wave guide name a mechanic the field never produces, and the guide test
- * would have passed for the wrong wave.
+ * What a pod gives when it is swallowed. It was `entry.kind ?? "mend"` while a
+ * wave could leave the kind unsaid, and the one `??` lived here so that
+ * `mechanics.ts` could call it rather than write its own; every pod names its
+ * kind now, and the function stays as the one place that reads it.
  */
 export function podKindOf(entry: PodEntry): PodKind {
-  return entry.kind ?? "mend";
+  return entry.kind;
 }
 
 /** Ticks the maw stays open, from `intakeWindowMs` at this tick rate. */
@@ -162,7 +168,11 @@ export function advancePods(world: World): void {
       // window that has shut.
       if (p.crossMilli !== 0) {
         p.colMilli += p.crossMilli;
-        if (p.colMilli < -MILLI || p.colMilli > edge + MILLI) continue;
+        if (p.colMilli < -MILLI || p.colMilli > edge + MILLI) {
+          // And a window that shut is a pod not taken: the wave is lost.
+          lost(world, p);
+          continue;
+        }
       }
       survivors.push(p);
       continue;
@@ -199,8 +209,10 @@ export function advancePods(world: World): void {
 /**
  * The pod has arrived at the hull. Two conditions, both player 1's: the cannon
  * stands in its column, and the maw was opened recently enough to still be
- * open. Anything else and the pod breaks on the skin — it costs no hull, it is
- * simply gone, because a missed gift is a missed gift and not a punishment.
+ * open. Anything else and the pod breaks on the skin, and that is a hit: the
+ * wave is lost (`wave-fail.ts`). It used to be simply gone — a missed gift
+ * and not a punishment — until taking every pod in became part of passing
+ * the wave.
  */
 function resolveIntake(world: World, pod: Pod): void {
   const col = Math.round(pod.colMilli / MILLI);
@@ -212,9 +224,6 @@ function resolveIntake(world: World, pod: Pod): void {
     markMoment(world, true);
     world.score += world.cfg.scorePod;
     switch (pod.kind) {
-      case "mend":
-        mend(world);
-        break;
       case "purge":
         purge(world);
         break;
@@ -226,7 +235,14 @@ function resolveIntake(world: World, pod: Pod): void {
     world.events.push({ type: "podTaken", col, kind: pod.kind });
     return;
   }
+  lost(world, pod);
+}
+
+/** A pod the pair did not take, at the hull or off the side: the wave is lost. */
+function lost(world: World, pod: Pod): void {
+  const col = Math.max(0, Math.min(world.cfg.cols - 1, Math.round(pod.colMilli / MILLI)));
   world.balance.podsLost += 1;
   markMoment(world, false);
+  failWave(world);
   world.events.push({ type: "podLost", col });
 }

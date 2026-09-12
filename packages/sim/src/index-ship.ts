@@ -34,7 +34,7 @@ export { carryIsReady, type GripPush, gripPushOf } from "./grip-push.js";
 // picture all ask rather than answer for themselves (`hand.ts`).
 export { type HandMeans, handMeans } from "./hand.js";
 export { isqrt, type PullVec, tileCentreMilli } from "./handle-pull.js";
-export { guardArmed, hullPercent, ticksSinceGuard } from "./hull.js";
+export { type BreachWeight, guardArmed, ticksSinceGuard } from "./hull.js";
 export {
   beamTicks,
   type LanceBeam,

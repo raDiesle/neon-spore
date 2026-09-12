@@ -34,7 +34,7 @@ export const CATCH_AND_AIM: GuideScene = {
   // make it a wave about keeping up; one is enough to make it a wave about
   // where the shot goes.
   entries: [{ beat: 2, col: 6, color: "cyan" }],
-  pods: [{ beat: 0, col: 1, row: 3 }],
+  pods: [{ beat: 0, col: 1, row: 3, kind: "ward" }],
   acts: [
     // A beat and a half after the page opens, which is every film's rule: a
     // pair reading "go to the pod" while the cannon is already there has been

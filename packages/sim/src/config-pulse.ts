@@ -65,8 +65,6 @@ export interface PulseConfig {
    * owner's rule is), so mashing costs more per press than waiting costs.
    */
   pulseStrayMilli: number;
-  /** What the hull pays when the meter empties and the stage is lost. */
-  damagePulse: number;
 }
 
 export const PULSE_DEFAULTS: PulseConfig = {
@@ -87,7 +85,4 @@ export const PULSE_DEFAULTS: PulseConfig = {
   // is survivable with a dozen mistakes in it and not with thirty.
   pulseMissMilli: 35,
   pulseStrayMilli: 13,
-  // THE GAUGE's twenty, the number every round since has taken for the same
-  // event, and defended no further.
-  damagePulse: 20,
 };

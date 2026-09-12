@@ -14,7 +14,6 @@ export interface Memory {
   shieldCol: number;
   gripP1: number;
   gripP2: number;
-  hullMilli: number;
   bossCol: number;
   /** "" while no boss is installed — the two are told apart by kind. */
   bossKind: string;
@@ -26,8 +25,6 @@ export interface Memory {
   torches: number;
   /** Creatures on the field, so a wave running out can be heard. */
   creatures: number;
-  /** The beat `hull.alarm` last sounded on, so it repeats without stacking. */
-  alarmBeat: number;
   /** The beat `ship.gripStrain` last sounded on. */
   strainBeat: number;
   /** THE PULSE's own five, and every one of them is a cursor into a chart:
@@ -53,14 +50,12 @@ export function blankMemory(): Memory {
     shieldCol: -1,
     gripP1: -1,
     gripP2: -1,
-    hullMilli: -1,
     bossCol: -1,
     bossKind: "",
     mirrorPhase: "",
     queenOpen: false,
     torches: 0,
     creatures: 0,
-    alarmBeat: -1,
     strainBeat: -1,
     pulseStep: -1,
     pulseSung: 0,

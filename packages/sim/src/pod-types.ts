@@ -14,18 +14,22 @@
 
 /**
  * What a pod gives when it is swallowed. Every pod is one of exactly these:
- * `mend` gives hull back, `purge` sweeps the field, `ward` holds the shield
- * armed without a trigger.
+ * `purge` sweeps the field, `ward` holds the shield armed without a trigger.
+ *
+ * There was a third, `mend`, and it was the plain pod — the one a wave got
+ * when it named no kind — giving hull points back. The hull has no points
+ * since 12 September 2026 (`hull-damage.ts`), so on the owner's word the
+ * plain pod went with them and every pod names its cargo.
  */
-export type PodKind = "mend" | "purge" | "ward";
+export type PodKind = "purge" | "ward";
 
 /**
- * The three, as data. `hashWorld` folds a pod's kind in by its index here
- * rather than by a ternary chain, for `BOSS_KINDS`' reason: a fourth pod added
- * to the type and not to a chain would hash as the third, and two devices
+ * The two, as data. `hashWorld` folds a pod's kind in by its index here
+ * rather than by a ternary chain, for `BOSS_KINDS`' reason: a third pod added
+ * to the type and not to a chain would hash as the second, and two devices
  * would agree about a ship they disagree about.
  */
-export const POD_KINDS: readonly PodKind[] = ["mend", "purge", "ward"];
+export const POD_KINDS: readonly PodKind[] = ["purge", "ward"];
 
 /**
  * A supply pod. It is not a creature: it does not live, does not travel of its

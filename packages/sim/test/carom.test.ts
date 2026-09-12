@@ -231,15 +231,15 @@ describe("what a shot does", () => {
 });
 
 describe("the two controls, in order", () => {
-  const noRegen: SimConfig = { ...CFG, hullRegenPerSecond: 0 };
+  const PLAIN: SimConfig = { ...CFG };
 
   /**
    * The whole creature as a number. A shield held over a carom the pair never
    * shot answers nothing at all — the body is not a rock, so `resolveHull`
-   * never offers it the shield's row — and it costs `damageCarom` rather than
-   * `damageCreature`, because what arrived was the rock it always was.
+   * never offers it the shield's row — and it lands heavy rather than light,
+   * because what arrived was the rock it always was.
    */
-  it("cannot be warded while the crust is on, and costs a rock's damage", () => {
+  it("cannot be warded while the crust is on, and lands a rock's weight", () => {
     // One beat past the row, because a body that has reached the ship spends
     // the beat render/ draws it come down the last tile standing there before
     // it is through (`BREACH_TICK` in rules.test.ts).
@@ -251,14 +251,14 @@ describe("the two controls, in order", () => {
       for (let col = 0; col < CFG.cols; col++) inputs.push(shield(TPB * beat, col));
       inputs.push(guard(TPB * beat));
     }
-    const { world } = run([carom(0)], impact, inputs, noRegen);
+    const { world } = run([carom(0)], impact, inputs, PLAIN);
     expect(guardArmed(world)).toBe(true);
     expect(world.guard.tries).toBe(0);
     expect(world.retries).toBe(1);
   });
 
   it("is warded like any other rock once it has been cracked", () => {
-    const world = createWorld({ ...noRegen }, 0, [carom(0)]);
+    const world = createWorld({ ...PLAIN }, 0, [carom(0)]);
     for (let t = 0; t < tickAtRow(4) + 1; t++) step(world, []);
     const body = world.creatures[0]!;
     caromStruck(world, bolt(body, "red"), body);

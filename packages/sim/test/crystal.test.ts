@@ -265,7 +265,7 @@ describe("what a whole one costs", () => {
       for (let col = 0; col < CFG.cols; col++) inputs.push(shield(TPB * beat, col));
       inputs.push(guard(TPB * beat));
     }
-    const world = createWorld({ ...CFG, hullRegenPerSecond: 0 }, 0, [crystal(0)]);
+    const world = createWorld({ ...CFG }, 0, [crystal(0)]);
     const byTick = new Map<number, TimedCommand[]>();
     for (const i of inputs) byTick.set(i.tick, [...(byTick.get(i.tick) ?? []), i]);
     for (let t = 0; t < tickAtRow(HULL) + TPB + 1; t++) step(world, byTick.get(t) ?? []);

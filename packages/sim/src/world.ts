@@ -68,8 +68,6 @@ export interface World extends ShipState {
   bullets: Bullet[];
   pods: Pod[];
   scars: Scar[];
-  /** Hull integrity in thousandths, 0..100000. */
-  hullMilli: number;
   guard: GuardStats;
   /** The rest of the balance sheet — pods, colours, the streak. */
   balance: RunStats;
@@ -128,7 +126,6 @@ export function createWorld(
     bullets: [],
     pods: [],
     scars: [],
-    hullMilli: 100 * MILLI,
     guard: { tries: 0, deflected: 0, mistimed: 0 },
     balance: emptyRunStats(),
     boss: null,

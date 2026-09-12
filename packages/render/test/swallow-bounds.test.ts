@@ -82,7 +82,7 @@ describe("the maw stays inside the field", () => {
       for (let ti = 0; ti < 20; ti++) {
         const time = ti * 0.1;
         for (const intake of [0, 0.25, 0.5, 0.75, 1]) {
-          drawHull(ctx as unknown as CanvasRenderingContext2D, L, [], time, moodAt(intake), 100, {
+          drawHull(ctx as unknown as CanvasRenderingContext2D, L, [], time, moodAt(intake), {
             cannon: col,
             shield: [],
           });
@@ -102,7 +102,7 @@ describe("the maw stays inside the field", () => {
     const ctx = new RecordingContext();
     for (let col = 0; col <= CFG.cols - 1; col += 0.5) {
       for (const intake of [0, 0.25, 0.5, 0.75, 1]) {
-        drawHull(ctx as unknown as CanvasRenderingContext2D, L, [], 0.3, moodAt(intake), 100, {
+        drawHull(ctx as unknown as CanvasRenderingContext2D, L, [], 0.3, moodAt(intake), {
           cannon: col,
           shield: [],
         });

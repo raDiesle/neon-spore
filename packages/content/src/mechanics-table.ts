@@ -121,12 +121,8 @@ export const MECHANICS = {
     what: "An arm sweeping the top of the field. Everything that comes in under it is folded about the column it is standing in — as far the other side of the arm as it came in.",
     reach: "spawn",
   },
-  mend: {
-    what: "It hangs where it was left. Shooting it loose is only half of getting it — after that it sinks and drifts.",
-    reach: "spawn",
-  },
   purge: {
-    what: "The same pod with different cargo: taking this one in clears the field of everything that is falling.",
+    what: "A pod hangs where it was left; shooting it loose is only half of getting it, and a pod not taken is the wave lost. Taking this one in clears the field of everything that is falling.",
     reach: "spawn",
   },
   ward: {

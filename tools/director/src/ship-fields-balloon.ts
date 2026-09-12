@@ -23,7 +23,6 @@ export const BALLOON_FIELDS = {
   balloonTautMilli: "THE BALLOON — a body that goes up, opened by two hands at once",
   balloonHoldBeats: "THE BALLOON — a body that goes up, opened by two hands at once",
   balloonHandleMilli: "THE BALLOON — a body that goes up, opened by two hands at once",
-  damageBalloonBurst: "THE BALLOON — a body that goes up, opened by two hands at once",
   scoreBalloonRub: "SCORE",
   scoreBalloonPop: "SCORE",
   // THE GUM's three ride along here rather than in a fourth file: the same

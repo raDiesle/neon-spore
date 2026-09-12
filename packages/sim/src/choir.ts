@@ -147,7 +147,7 @@ export function singChoirs(world: World): void {
   markMoment(world, false);
   const col = first.col;
   world.events.push({ type: "choirSing", col, row: first.row });
-  breachUnscarred(world, col, "choir", first.fromRow, world.cfg.damageChoirSong, first.color);
+  breachUnscarred(world, col, "choir", first.fromRow, "light", first.color);
 }
 
 /**

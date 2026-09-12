@@ -31,14 +31,7 @@ import {
  * tested here beside the arm rather than in a file of its own.
  */
 
-/**
- * The hull does not mend while these run. It does in the game, and at three
- * percent a second it puts back everything a strike costs inside the arm's own
- * travel — so a test that measured the price after the arm was home would
- * measure nothing at all, which is exactly what the first draft of this file
- * did (`podRepair` is a different number; this is `hullRegenPerSecond`).
- */
-const CFG: SimConfig = { ...DEFAULT_CONFIG, hullRegenPerSecond: 0 };
+const CFG: SimConfig = { ...DEFAULT_CONFIG };
 const TPB = ticksPerBeat(CFG);
 const WAVE = 3;
 
@@ -167,13 +160,10 @@ describe("what it closes on", () => {
     // is (`wave-fail.ts`).
     expect(world.scars.length).toBeGreaterThan(0);
     expect(world.retries).toBe(1);
-    // The whole of why reaching into a rock is an answer rather than a
-    // mistake, and why this panel may carry rocks at all.
-    expect(CFG.damageReach).toBeLessThan(CFG.damageMeteor);
   });
 
   it("brings a pod home for the other seat's mouth", () => {
-    const world = open([], [{ beat: 0, col: 4, row: 5, kind: "mend" }]);
+    const world = open([], [{ beat: 0, col: 4, row: 5, kind: "ward" }]);
     ticks(world, TPB);
     expect(world.pods).toHaveLength(1);
     ticks(world, 1, [press(1, { kind: "cannonCol", col: 4 })]);
@@ -202,7 +192,7 @@ describe("what it closes on", () => {
   });
 
   it("lets the other seat take what it brought down", () => {
-    const world = open([], [{ beat: 0, col: 4, row: 5, kind: "mend" }]);
+    const world = open([], [{ beat: 0, col: 4, row: 5, kind: "ward" }]);
     ticks(world, TPB);
     ticks(world, 1, [press(1, { kind: "cannonCol", col: 4 })]);
     ticks(world, 1, [press(1, { kind: "reach" })]);
@@ -224,7 +214,7 @@ describe("what it closes on", () => {
 
 describe("a power-up that crosses the field", () => {
   it("travels its row and leaves at the far side", () => {
-    const world = open([], [{ beat: 0, col: 0, row: 4, kind: "mend", cross: 1 }]);
+    const world = open([], [{ beat: 0, col: 0, row: 4, kind: "ward", cross: 1 }]);
     ticks(world, TPB);
     const pod = world.pods[0];
     expect(pod, "the wave hung one").toBeDefined();
@@ -240,7 +230,7 @@ describe("a power-up that crosses the field", () => {
   });
 
   it("hangs exactly as it always did when the wave does not say", () => {
-    const world = open([], [{ beat: 0, col: 3, row: 4, kind: "mend" }]);
+    const world = open([], [{ beat: 0, col: 3, row: 4, kind: "ward" }]);
     ticks(world, TPB * 4);
     expect(world.pods[0]?.colMilli).toBe(3000);
     expect(world.pods[0]?.crossMilli).toBe(0);

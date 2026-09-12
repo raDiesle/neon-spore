@@ -88,16 +88,6 @@ export interface CaromConfig {
    * is the arithmetic saying what the creature is.
    */
   scoreCaromCrack: number;
-  /**
-   * What a whole one costs the hull when it reaches the ship. `damageMeteor`'s
-   * figure exactly, and that is the point rather than a coincidence: a carom
-   * nobody cracked arrives as the rock it always was, and it has to cost what
-   * a rock costs — otherwise the pair learns that leaving one alone is cheaper
-   * than the rock they already know to ward, which is the opposite of the
-   * lesson. It is deliberately not answerable by the shield: nothing turns
-   * this body away until the cannon has made it a rock the shield can see.
-   */
-  damageCarom: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
@@ -107,5 +97,4 @@ export const CAROM_DEFAULTS: CaromConfig = {
   chuteRiseRows: 4,
   chuteFallBeats: 2,
   scoreCaromCrack: 200,
-  damageCarom: 20,
 };

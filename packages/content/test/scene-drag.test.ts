@@ -37,7 +37,7 @@ const SCENE: { ticks: number; bpm: number; seed: number; entries: WaveEntry[] } 
 };
 
 /** The rehearsal's own config, the same three overrides `sceneScript` makes. */
-const CFG = { ...DEFAULT_CONFIG, bpm: SCENE.bpm, briefings: false, hullRegenPerSecond: 0 };
+const CFG = { ...DEFAULT_CONFIG, bpm: SCENE.bpm, briefings: false };
 
 /** A scene of one act, run for its whole loop. Returns every tick's answer to
  * "is a hand on the cord, and are the plates apart". */

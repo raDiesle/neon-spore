@@ -298,15 +298,15 @@ describe("the end of a thread", () => {
 
 describe("the thread as an arrival", () => {
   it("costs the hull once per live bead that lands", () => {
-    const noRegen: SimConfig = { ...CFG, hullRegenPerSecond: 0 };
-    const world = createWorld(noRegen, 0, [strand(2)]);
+    const PLAIN: SimConfig = { ...CFG };
+    const world = createWorld(PLAIN, 0, [strand(2)]);
     for (let t = 0; t < BREACH_TICK + 1; t++) step(world, []);
     expect(world.retries).toBe(1);
   });
 
   it("charges nothing for a raisin, which has already been paid for", () => {
-    const noRegen: SimConfig = { ...CFG, hullRegenPerSecond: 0 };
-    const world = createWorld(noRegen, 0, [strand(2)]);
+    const PLAIN: SimConfig = { ...CFG };
+    const world = createWorld(PLAIN, 0, [strand(2)]);
     for (let t = 0; t < TPB + 1; t++) step(world, []);
     shootHead(world);
     for (let t = 0; t < BREACH_TICK + 1; t++) step(world, []);

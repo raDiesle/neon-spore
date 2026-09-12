@@ -43,7 +43,7 @@ export { gripLabel } from "./grip.js";
 export { drawGuideNav, NAV_H, navButtons, navHit, onNavBar } from "./guide-nav.js";
 export { signedHash, sinHash } from "./hash.js";
 export { mixHex, rgba } from "./hex.js";
-export { hullBarBox } from "./hud.js";
+export { runLineBox } from "./hud.js";
 export { drawIntroPage, type IntroHit, introHit, skipBox } from "./intro-page.js";
 export { half, litBox, litColour, litRound, type Shade, shadeAt } from "./key-light.js";
 export {

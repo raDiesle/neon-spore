@@ -87,7 +87,7 @@ describe("a shot at a colour", () => {
 });
 
 describe("a pod", () => {
-  const POD: PodEntry[] = [{ beat: 0, col: 3, row: 4 }];
+  const POD: PodEntry[] = [{ beat: 0, col: 3, row: 4, kind: "ward" }];
   const loose = [aim(2, 3), fire(TPB + 4, "red")];
   const ticksToMaw = TPB * 14;
 

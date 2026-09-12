@@ -70,12 +70,12 @@ export function mazeWrong(world: World, m: MazeState, reason: MazeVerdictReason)
   m.lost = reason;
   enterMazePhase(m, "verdict", world.beat);
   if (reason === "mouth") {
-    breachHull(world, col, "meteorFastest", world.cfg.mazeRow, world.cfg.damageMaze);
+    breachHull(world, col, "meteorFastest", world.cfg.mazeRow, "heavy");
   }
   if (reason === "color") {
     const blood = mazeHeartColor(m.round);
     const kind = livingKindForColor(blood);
-    breachHull(world, col, kind, world.cfg.mazeRow, world.cfg.damageMaze, blood);
+    breachHull(world, col, kind, world.cfg.mazeRow, "heavy", blood);
   }
   world.events.push({ type: "mazeVerdict", right: false, col, reason });
 }
@@ -132,7 +132,7 @@ export function mazeRight(world: World, m: MazeState): void {
 export function mazeSettle(world: World, m: MazeState): void {
   if (m.verdict !== 1) {
     if (m.lost === "silence") {
-      breachHull(world, m.verdictCol, MAZE_WRECK, world.cfg.mazeRow, world.cfg.damageMaze);
+      breachHull(world, m.verdictCol, MAZE_WRECK, world.cfg.mazeRow, "heavy");
       enterMazePhase(m, "lead", world.beat);
       return;
     }

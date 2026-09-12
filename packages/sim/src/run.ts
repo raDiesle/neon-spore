@@ -1,7 +1,7 @@
 import { emptyRunStats } from "./balance.js";
 import { createRng } from "./rng.js";
 import { NOT_FAILED } from "./wave-fail.js";
-import { MILLI, type World } from "./world.js";
+import type { World } from "./world.js";
 
 /**
  * The run, as opposed to the beat.
@@ -13,11 +13,10 @@ import { MILLI, type World } from "./world.js";
  */
 
 /**
- * Wipe the run itself: hull, scars, score and balance. Used by a restart after
- * the hull is through, and by jumping to a wave in the test build.
+ * Wipe the run itself: scars, score, clock, retries and balance. Used by a
+ * restart from the balance sheet, and by jumping to a wave in the test build.
  */
 export function resetRun(world: World): void {
-  world.hullMilli = 100 * MILLI;
   world.scars = [];
   world.score = 0;
   world.over = false;

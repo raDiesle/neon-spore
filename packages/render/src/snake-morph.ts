@@ -1,4 +1,4 @@
-import { hullPercent, midCol, type SnakeState } from "@neon-spore/sim";
+import { midCol, type SnakeState } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import { drawHull } from "./hull.js";
 import type { Layout } from "./layout.js";
@@ -57,7 +57,6 @@ export function drawSnakeMorph(
     view.world.scars,
     view.time,
     { armed: 0, intake: 0, chew: 0, charge: 0 },
-    hullPercent(view.world),
     // Both lobes in the middle, still: the round put them there when it
     // started (`startWave`), and a ship folding up is not a ship being flown.
     { cannon: mid(view), shield: [{ col: mid(view), weight: 1, halfMul: 1 }] },

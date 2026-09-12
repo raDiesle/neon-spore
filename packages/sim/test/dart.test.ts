@@ -225,8 +225,8 @@ describe("the dart on the field", () => {
   });
 
   it("costs the hull exactly like any other missed creature", () => {
-    const noRegen: SimConfig = { ...CFG, hullRegenPerSecond: 0 };
-    const world = fly([dart(5)], HULL + 2, noRegen);
+    const PLAIN: SimConfig = { ...CFG };
+    const world = fly([dart(5)], HULL + 2, PLAIN);
     expect(world.creatures).toHaveLength(0);
     expect(world.retries).toBe(1);
   });

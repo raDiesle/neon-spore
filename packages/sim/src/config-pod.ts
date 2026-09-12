@@ -52,8 +52,6 @@ export interface PodConfig {
    * `podDriftTilesPerBeat` entirely — the two never apply on the same tick.
    */
   podHomeTilesPerBeat: number;
-  /** Hull points a swallowed pod gives back. The energy boost, as a number. */
-  podRepair: number;
   /** Beats a `ward` pod keeps the shield armed without a trigger. */
   wardBeats: number;
 }
@@ -68,6 +66,5 @@ export const POD_DEFAULTS: PodConfig = {
   podCrossTilesPerBeat: 2,
   podHomeTiles: 2,
   podHomeTilesPerBeat: 2,
-  podRepair: 18,
   wardBeats: 6,
 };

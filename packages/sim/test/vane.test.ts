@@ -37,7 +37,7 @@ import { colSpan } from "../src/types.js";
  * mode this design is one edit away from.
  */
 
-const CFG: SimConfig = { ...DEFAULT_CONFIG, hullRegenPerSecond: 0 };
+const CFG: SimConfig = { ...DEFAULT_CONFIG };
 const TPB = ticksPerBeat(CFG);
 const PIVOT = vanePivotCol(CFG);
 

@@ -164,9 +164,9 @@ function dartArt(): HTMLCanvasElement {
   return tile(world, creatureAt(world, "dart"), 4, "p1");
 }
 
-/** A pod, moored — `mend`, `purge` and `ward` are three marks on the one
- * shape (`pods.ts`), never the torch. */
-function podArt(kind: PodKind | undefined): HTMLCanvasElement {
+/** A pod, moored — `purge` and `ward` are two marks on the one shape
+ * (`pods.ts`), never the torch. */
+function podArt(kind: PodKind): HTMLCanvasElement {
   const world = fresh([], [{ beat: 0, col: COL, row: 3, kind }]);
   run(world, TPB * 2);
   return tile(world, podAt(world), 2.4);
@@ -223,7 +223,6 @@ const BUILDERS: Partial<Record<Brush, () => HTMLCanvasElement>> = {
   echo: echoArt,
   carom: caromArt,
   crystal: crystalArt,
-  mend: () => podArt(undefined),
   purge: () => podArt("purge"),
   ward: () => podArt("ward"),
 };

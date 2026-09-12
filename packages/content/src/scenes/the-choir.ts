@@ -109,8 +109,8 @@ export const THE_CHOIR: GuideScene = {
     {
       tick: 1080,
       seat: 1,
-      text: "HALF A PULL COSTS THE HULL",
-      anchor: { at: "health" },
+      text: "HALF A PULL LOSES THE WAVE",
+      anchor: { at: "retries" },
     },
   ],
 };

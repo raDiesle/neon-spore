@@ -22,7 +22,6 @@ export const ROUND_FIELD_GROUP = {
   gaugeMarks: "THE GAUGE — a round with no field in it",
   gaugeRoundBeats: "THE GAUGE — a round with no field in it",
   gaugeCallRestBeats: "THE GAUGE — a round with no field in it",
-  damageGauge: "THE GAUGE — a round with no field in it",
   // SnakeConfig
   snakeCols: "SNAKE — a round the ship is the body of",
   snakeRows: "SNAKE — a round the ship is the body of",
@@ -33,8 +32,6 @@ export const ROUND_FIELD_GROUP = {
   snakeFireRestBeats: "SNAKE — a round the ship is the body of",
   snakeShotTiles: "SNAKE — a round the ship is the body of",
   snakeStunTicks: "SNAKE — a round the ship is the body of",
-  damageSnake: "SNAKE — a round the ship is the body of",
-  damageSnakeRepeat: "SNAKE — a round the ship is the body of",
   pinballCols: "PINBALL — a table the ship's cannon fires up into",
   pinballRows: "PINBALL — a table the ship's cannon fires up into",
   pinballBallMilli: "PINBALL — a table the ship's cannon fires up into",
@@ -50,8 +47,6 @@ export const ROUND_FIELD_GROUP = {
   pinballPowerMilli: "PINBALL — a table the ship's cannon fires up into",
   pinballCatchMilli: "PINBALL — a table the ship's cannon fires up into",
   pinballFlightBeats: "PINBALL — a table the ship's cannon fires up into",
-  damagePinball: "PINBALL — a table the ship's cannon fires up into",
-  damagePinballDrop: "PINBALL — a table the ship's cannon fires up into",
   // PulseConfig
   pulseStepTicks: "THE PULSE — the same song on two screens",
   pulseLeadTicks: "THE PULSE — the same song on two screens",
@@ -63,5 +58,4 @@ export const ROUND_FIELD_GROUP = {
   pulseGoodMilli: "THE PULSE — the same song on two screens",
   pulseMissMilli: "THE PULSE — the same song on two screens",
   pulseStrayMilli: "THE PULSE — the same song on two screens",
-  damagePulse: "THE PULSE — the same song on two screens",
 } satisfies Record<string, GroupName>;

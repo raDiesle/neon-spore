@@ -23,7 +23,7 @@ export function wrong(world: World, m: MirrorState, reason: MirrorVerdictReason)
   m.verdict = -1;
   m.verdictCol = col;
   enterPhase(m, "verdict", world.beat, world.cannonCol);
-  breachHull(world, col, "meteorFastest", world.cfg.mirrorRow, world.cfg.damageEcho);
+  breachHull(world, col, "meteorFastest", world.cfg.mirrorRow, "heavy");
   world.events.push({ type: "mirrorVerdict", right: false, col, reason });
 }
 
@@ -58,6 +58,9 @@ export function settle(world: World, m: MirrorState): void {
     if (m.hullMilli <= 0) {
       world.score += world.cfg.scoreMirrorDown;
       world.boss = null;
+      // The bait goes with it. A pod hanging holds the wave open now
+      // (`beat.ts`), and this one was never meant to be taken.
+      world.pods = [];
       world.events.push({ type: "mirrorDown", col: m.verdictCol });
       return;
     }
@@ -100,7 +103,9 @@ export function releaseBait(world: World): void {
     rowMilli: (hullRow(world.cfg) - BAIT_TILES_ABOVE_HULL) * MILLI,
     driftMilli: 0,
     loose: false,
-    kind: "mend",
+    // A ward, since the plain pod went: what it says it holds is beside the
+    // point, because touching it at all is the mistake.
+    kind: "ward",
     crossMilli: 0,
   });
 }
@@ -110,8 +115,10 @@ export function releaseBait(world: World): void {
  * a shot that frees it and a maw that swallows it — because both are the same
  * mistake: they stopped repeating the sequence to go and get something.
  *
- * Nothing forces them to. That is the trap: it is a free hull repair sitting
- * in plain sight, and the only cost is the round.
+ * Nothing forces them to. That is the trap: it is a pod sitting in plain
+ * sight, on a field where every other pod has to be taken, and the only cost
+ * is the round. It goes down with the mirror rather than waiting to be taken
+ * (`settle`).
  */
 export function mirrorBaitTaken(world: World): void {
   const m = world.boss;

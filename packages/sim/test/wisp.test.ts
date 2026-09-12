@@ -241,8 +241,8 @@ describe("the wisp", () => {
   });
 
   it("never reaches the hull, however long it is left alone", () => {
-    const noRegen: SimConfig = { ...CFG, hullRegenPerSecond: 0 };
-    const world = createWorld(noRegen, 0, [wisp(3)]);
+    const PLAIN: SimConfig = { ...CFG };
+    const world = createWorld(PLAIN, 0, [wisp(3)]);
     for (let t = 0; t < TPB * (HULL + 20); t++) step(world, []);
     expect(world.retries).toBe(0);
     expect(world.creatures).toHaveLength(1);

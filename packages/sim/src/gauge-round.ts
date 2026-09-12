@@ -127,7 +127,7 @@ export function stepGaugeRound(world: World): void {
  */
 function spendHull(world: World): void {
   const col = midCol(world.cfg);
-  breachHull(world, col, "meteorFastest", 0, world.cfg.damageGauge);
+  breachHull(world, col, "meteorFastest", 0, "heavy");
 }
 
 /**

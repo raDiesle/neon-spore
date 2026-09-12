@@ -248,7 +248,7 @@ until the cannon stands in its column, and say which column.*
 P2: *Yours is the shield itself, and the two colours. Press red — nothing
 leaves the hull until you do.*
 
-The beat, the hull bar and the score are still explained nowhere. The voice
+The beat, the run line and the score are still explained nowhere. The voice
 channel is deliberately not explained here either — that belongs to the menu,
 before a room is even joined.
 
@@ -369,12 +369,12 @@ next turn as its own (CLAUDE.md, `render/test/restart.test.ts`).
 
 **A rehearsal's field is the game's field.** Same columns, same rows, same
 hull: there is nothing to be gained by shrinking it at full size and a shape
-would be taught wrongly if it were. Two things about the *world* are the
-scene's own and named as fields rather than hidden in a drawing: the tempo
+would be taught wrongly if it were. One thing about the *world* is the
+scene's own and named as a field rather than hidden in a drawing: the tempo
 (`bpm`, quicker, because a film with five things to get through at the game's
-own beat is a film nobody watches twice) and `hullRegenPerSecond: 0`, because
-the last step shows what a miss costs and at three percent a second the bar had
-crept back to full inside the same loop.
+own beat is a film nobody watches twice). There was a second, the hull's
+regeneration held at zero so the last step's cost stayed visible; the hull has
+no points to mend now, and a miss's cost is the wave itself.
 
 #### The screen it shows, and the switch between them
 
@@ -399,7 +399,7 @@ caption cannot come off its subject when the layout changes — the rule the
 ghost thumb already plays by. A body's ring is placed from `creatureCenter`,
 the one place the between-beats glide is written down, because a ring placed
 from the tile alone lands a whole row behind the shape it is meant to be
-around. The hull bar's position comes from `hullBarBox` in `hud.ts` for the
+around. The run line's position comes from `runLineBox` in `hud.ts` for the
 same reason.
 
 Text is as short as it will go. `SLICK`, `P1 · SLIDE TO ITS COLUMN`,

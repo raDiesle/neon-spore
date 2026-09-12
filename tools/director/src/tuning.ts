@@ -50,7 +50,6 @@ const SLIDERS: SliderSpec[] = [
     step: 0.05,
     unit: " × beat",
   },
-  { key: "hullRegenPerSecond", label: "Hull regen/s", min: 0, max: 30, step: 1, unit: "" },
   { key: "bandPct", label: "Control band", min: 24, max: 44, step: 1, unit: " %" },
 ];
 

@@ -116,15 +116,6 @@ export interface BalloonConfig {
    * control nobody grabs.
    */
   balloonHandleMilli: number;
-  /**
-   * What a balloon costs the hull when it reaches the top of the field and
-   * bursts. Above `damageCreature`, and that is the creature: every other body
-   * in the game is answered on the way *to* the ship, so a pair who leave one
-   * alone are only out of time. This one leaves on its own and takes a piece
-   * of the ship with it however far away it got, so the price has to be worth
-   * putting two pairs of hands on rather than shooting something else.
-   */
-  damageBalloonBurst: number;
   /** What the first rub is worth — the one that splits a body in two rather
    * than finishing it. `scoreClaspBreak`'s figure, and the pairing is the
    * argument: both are a body that **stops being what it was** rather than
@@ -146,7 +137,6 @@ export const BALLOON_DEFAULTS: BalloonConfig = {
   balloonTautMilli: 2000,
   balloonHoldBeats: 1,
   balloonHandleMilli: 1150,
-  damageBalloonBurst: 16,
   scoreBalloonRub: 120,
   scoreBalloonPop: 100,
 };

@@ -191,8 +191,11 @@ the ship has to open for it.
 **The pod.** A capsule with a core, amber — neither ammunition colour, so it is
 never mistaken for a target that needs a colour called out. It hangs at a fixed
 column and row and does nothing at all. It is not an enemy: it is never
-cleared, it costs no hull, and it **does not block the end of a wave**, exactly
-as the original says.
+cleared and it never strikes the ship. But since 12 September 2026 **it is
+taken, or the wave is lost**, and a pod still hanging holds the wave open the
+way a body still falling does — *sucked* is one of the four ways a wave is
+passed ([structure](structure.md)), so the original's "does not block the end
+of a wave" no longer holds.
 
 **Two halves, as everything here has two halves.**
 
@@ -219,13 +222,20 @@ than the muzzle was tall (`MAW`). Window: `intakeWindowMs`, 800 ms.
 **Taking it in.** The skin either side of the maw comes apart while the pod goes
 through, and then the whole ship lights from inside and goes out again. The
 flash is the receipt — player 1 knows the catch counted without reading a
-number. What the pod actually gives is `podRepair` hull points and `scorePod`
-score; slow motion and autopilot are still unbuilt and would now be a second
+number. What the pod gives is what it was authored to carry, and every pod
+says: **PURGE** clears everything falling, **WARD** holds the shield armed
+for `wardBeats` without a trigger (`PodKind`, `pod-types.ts`), plus
+`scorePod`. There was a third, the plain pod that gave hull points back, and
+it went with the hull's points ([ideas](ideas.md), NOT BUILT YET →
+Mechanics). Slow motion and autopilot are still unbuilt and would be a third
 kind of pod rather than a second way of collecting one.
 
-**Missing it costs nothing.** A pod that arrives with the cannon elsewhere, or
-with the maw shut, breaks on the skin: no damage, no scar. A missed gift is a
-missed gift, not a punishment.
+**Missing it is a hit.** A pod that arrives with the cannon elsewhere, or with
+the maw shut, breaks on the skin — no scar, but the wave is lost and played
+again, exactly as a body reaching the hull loses it (`wave-fail.ts`). The
+same for a crossing pod that gets away off the side of the field. It used to
+cost nothing, a missed gift being no punishment; taking every pod in is part
+of passing the wave now.
 
 ## 5.8 Overall behaviour in the raster — built
 
@@ -262,16 +272,17 @@ to put behind a body somebody is reading a letter off. See
 
 | Event | Effect |
 |---|---|
-| Creature reaches the hull | 12 damage, scar at that column |
-| Meteor, shield in the wrong column or not triggered | 20 damage, scar |
-| Meteor, shield right **and** triggered | 0 damage, deflected |
+| Creature reaches the hull | the wave is lost; scar at that column; a *light* hit to the ear |
+| Meteor, shield in the wrong column or not triggered | the wave is lost; scar; a *heavy* hit |
+| Meteor, shield right **and** triggered | nothing, deflected |
 | Shot hits a meteor | crater; size unchanged, indestructible |
 
-The two figures in that table are `damageCreature` and `damageMeteor`, and
-every other body in the game is tuned against the first of them — a config
-block that sets one says whether its body costs more or less than a creature
-reaching the hull, never a number on its own. The hull regenerates slowly
-(`hullRegenPerSecond`).
+There are no hull points. A hit costs the wave, whatever hit
+([structure](structure.md)); what a body carries to the hull is only a
+**weight**, heavy or light (`BreachWeight`, `impact.ts`), and the weight
+picks the sound and nothing else. The points, their bar, their slow
+regeneration and the per-body damage table came out on 12 September 2026
+and are written up under NOT BUILT YET → Mechanics ([ideas](ideas.md)).
 
 **Visibility of a deflection.** A successful ward must be unmissable, or the
 pair never learns the timing. Built: the shield changes from a thin, permeable
@@ -388,11 +399,11 @@ that belongs to them would belong to the clock again like everything else. So
 the gate stays open forever. The only ways out are the two holds and leaving
 the run.
 
-**Nor is it a repair bay.** The hull does not mend behind it — otherwise the
-cheapest way to play would be to sit on a guide and talk about nothing for a
-minute. It needs no rule of its own: the whole opening freezes the world before
-the hull's regeneration is reached. The beat keeps running, as it does through
-every pause (5.3) — it is the shared clock, not a countdown.
+**Nor does the clock run.** `playTicks`, the run's own time, counts only while
+a wave is live (`wave-fail.ts`), so sitting on a guide costs the pair nothing
+and gains them nothing. (When the hull still had points, this paragraph said
+it did not mend behind the gate; it has none now.) The beat keeps running, as
+it does through every pause (5.3) — it is the shared clock, not a countdown.
 
 **Only waves that carry a guide.** A wave with none runs its introduction —
 number, name, sentence, on its own timer — and then plays. The gate exists

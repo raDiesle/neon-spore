@@ -231,6 +231,6 @@ function repeat(world: World, snake: SnakeState, col: number, row: number): void
   snake.roundBeat = world.beat;
   snake.struck = [];
   snake.taken = [];
-  breachHull(world, midCol(world.cfg), "meteorFastest", 0, world.cfg.damageSnakeRepeat);
+  breachHull(world, midCol(world.cfg), "meteorFastest", 0, "light");
   resetBody(world, snake);
 }

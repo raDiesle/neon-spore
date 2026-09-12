@@ -50,7 +50,6 @@ const SLIDERS: SliderSpec[] = [
   { key: "gripSlowPermille", label: "Grip drag", min: 200, max: 1000, s: 25, unit: " ‰ speed" },
   { key: "intakeWindowMs", label: "Intake window", min: 80, max: 1600, s: 20, unit: " ms" },
   { key: "podFallTilesPerBeat", label: "Pod fall", min: 0.5, max: 5, s: 0.1, unit: " tiles/beat" },
-  { key: "hullRegenPerSecond", label: "Hull regen/s", min: 0, max: 30, s: 1, unit: "" },
   { key: "bandPct", label: "Control band", min: 24, max: 44, s: 1, unit: " %" },
 ];
 

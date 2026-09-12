@@ -48,11 +48,11 @@ describe("the lure", () => {
   const COL = 3;
   const SHOT_TICK = TPB * 3;
   const BEFORE_NEXT_BEAT = TPB * 4 - 2;
-  const noRegen: SimConfig = { ...CFG, hullRegenPerSecond: 0 };
+  const PLAIN: SimConfig = { ...CFG };
 
   it("costs the hull and is removed by a shot of either colour", () => {
     for (const color of ["red", "cyan"] as const) {
-      const world = createWorld({ ...noRegen }, 0, [lure(COL)]);
+      const world = createWorld({ ...PLAIN }, 0, [lure(COL)]);
       const byTick = new Map<number, TimedCommand[]>([
         [SHOT_TICK, [aim(SHOT_TICK, COL), fire(SHOT_TICK, color)]],
       ]);
@@ -68,7 +68,7 @@ describe("the lure", () => {
   });
 
   it("breaks the hull in `lureBlastPlaces` separate columns, and charges once for all of them", () => {
-    const world = createWorld({ ...noRegen }, 0, [lure(COL)]);
+    const world = createWorld({ ...PLAIN }, 0, [lure(COL)]);
     const byTick = new Map<number, TimedCommand[]>([
       [SHOT_TICK, [aim(SHOT_TICK, COL), fire(SHOT_TICK, "cyan")]],
     ]);
@@ -94,7 +94,7 @@ describe("the lure", () => {
 
   it("breaks it in as many places at either edge of the field as in the middle", () => {
     for (const col of [0, CFG.cols - 1]) {
-      const world = createWorld({ ...noRegen }, 0, [lure(col)]);
+      const world = createWorld({ ...PLAIN }, 0, [lure(col)]);
       const byTick = new Map<number, TimedCommand[]>([
         [SHOT_TICK, [aim(SHOT_TICK, col), fire(SHOT_TICK, "cyan")]],
       ]);
@@ -111,25 +111,11 @@ describe("the lure", () => {
     }
   });
 
-  it("leaves the hull on a whole thousandth however the price divides", () => {
-    // The share is `damageLure` over the places it broke in, which is not an
-    // integer for every configuration a director can dial up. What is stored
-    // has to be (CLAUDE.md rule 3), or two devices are one rounding step
-    // apart a minute later.
-    const odd: SimConfig = { ...noRegen, lureBlastPlaces: 7 };
-    const world = createWorld(odd, 0, [lure(COL)]);
-    const byTick = new Map<number, TimedCommand[]>([
-      [SHOT_TICK, [aim(SHOT_TICK, COL), fire(SHOT_TICK, "cyan")]],
-    ]);
-    for (let t = 0; t < BEFORE_NEXT_BEAT; t++) step(world, byTick.get(t) ?? []);
-    expect(Number.isInteger(world.hullMilli)).toBe(true);
-  });
-
   it("costs the hull even in the colour it is wearing", () => {
     // The point of the branch: a lure carries a colour, so without its own
     // case in `resolve` a matching shot would have been a kill and a wrong
     // one a mistake — making the *wrong* colour the cheaper thing to fire.
-    const world = createWorld({ ...noRegen }, 0, [lure(COL, "slick")]);
+    const world = createWorld({ ...PLAIN }, 0, [lure(COL, "slick")]);
     const byTick = new Map<number, TimedCommand[]>([
       [SHOT_TICK, [aim(SHOT_TICK, COL), fire(SHOT_TICK, "red")]],
     ]);
@@ -139,7 +125,7 @@ describe("the lure", () => {
   });
 
   it("fails the wave once for its several places, and holds the field from that tick", () => {
-    const world = createWorld({ ...noRegen }, 0, [lure(COL)]);
+    const world = createWorld({ ...PLAIN }, 0, [lure(COL)]);
     const byTick = new Map<number, TimedCommand[]>([
       [SHOT_TICK, [aim(SHOT_TICK, COL), fire(SHOT_TICK, "red")]],
     ]);
@@ -150,7 +136,7 @@ describe("the lure", () => {
   });
 
   it("stands the row two above the hull for one beat, then goes, hull untouched", () => {
-    const world = createWorld(noRegen, 0, [lure(COL)]);
+    const world = createWorld(PLAIN, 0, [lure(COL)]);
     const events: SimEvent[] = [];
     const rowsSeen: number[] = [];
     for (let t = 0; t < IMPACT_TICK + TPB; t++) {
@@ -178,7 +164,7 @@ describe("the lure", () => {
   });
 
   it("is announced to the navigator's ear when it arrives, and only then", () => {
-    const world = createWorld(noRegen, 0, [lure(COL)]);
+    const world = createWorld(PLAIN, 0, [lure(COL)]);
     const events: SimEvent[] = [];
     for (let t = 0; t < IMPACT_TICK; t++) {
       step(world, []);
@@ -188,7 +174,7 @@ describe("the lure", () => {
   });
 
   it("is drawn as the body it wears, never as itself", () => {
-    const world = createWorld(noRegen, 0, [lure(COL, "slick")]);
+    const world = createWorld(PLAIN, 0, [lure(COL, "slick")]);
     for (let t = 0; t < TPB * 2; t++) step(world, []);
     const c = world.creatures[0]!;
     expect(c.kind).toBe("lure");

@@ -88,6 +88,6 @@ export const FIRST_STEP: GuideScene = {
     // It points at the bar rather than at the body, because the bar is the
     // half nobody notices on their own — and it is on player 1's screen
     // because the column that was never taken was player 1's to take.
-    { tick: 1200, seat: 1, text: "A MISS COSTS THE HULL", anchor: { at: "health" } },
+    { tick: 1200, seat: 1, text: "A MISS LOSES THE WAVE", anchor: { at: "retries" } },
   ],
 };

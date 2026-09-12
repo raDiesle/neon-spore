@@ -90,8 +90,6 @@ function crawlOn(world: World, crawlerId: number): boolean {
 function burrowIn(world: World, links: Creature[]): void {
   const cfg = world.cfg;
   const head = links[0]!;
-  const segments = links.length - 2;
-  const price = cfg.damageCrawlerBite + Math.max(0, segments) * cfg.damageCrawlerSegment;
   const cols: number[] = [];
   for (const link of links) {
     const col = Math.max(0, Math.min(cfg.cols - 1, link.col));
@@ -101,8 +99,7 @@ function burrowIn(world: World, links: Creature[]): void {
   // cost: the ear and the eye both open on the body going in.
   world.events.push({ type: "crawlerBurrow", col: head.col, row: head.row, links: links.length });
   markMoment(world, false);
-  const share = price / cols.length;
-  for (const col of cols) breachHull(world, col, "crawler", head.row, share, null);
+  for (const col of cols) breachHull(world, col, "crawler", head.row, "heavy", null);
   removeCreatures(
     world,
     links.map((l) => l.id),

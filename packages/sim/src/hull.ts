@@ -5,7 +5,7 @@ import { fenceIsOpen } from "./fence.js";
 import { gumLands } from "./gum.js";
 import { breachHull, breachUnscarred, damageSpan } from "./hull-damage.js";
 import { guardArmed, shieldRow } from "./hull-guard.js";
-import { impactDamage } from "./impact.js";
+import { impactWeight } from "./impact.js";
 import { beadIsSpent } from "./strand.js";
 import { type Creature, isWardable, occupiesCol } from "./types.js";
 import { wardTurns } from "./ward.js";
@@ -136,13 +136,13 @@ export function resolveHull(world: World): void {
       world.guard.tries += 1;
       if (inColumn) world.guard.mistimed += 1;
       markMoment(world, false);
-      damageSpan(world, c, world.cfg.damageMeteor);
+      damageSpan(world, c, "heavy");
     } else {
-      // What it costs. `damageCreature` for everything that merely arrived,
-      // and more for the two that did not: a charging ghost, head first, and a
-      // carom nobody cracked open, which is a rock the shield was never
-      // offered. One question, asked once (`impact.ts`).
-      breachHull(world, c.col, c.kind, c.fromRow, impactDamage(world.cfg, c), c.color);
+      // How it sounds. Light for everything that merely arrived, and heavy
+      // for the ones that did not: a charging ghost, head first, and a carom
+      // nobody cracked open, which is a rock the shield was never offered.
+      // One question, asked once (`impact.ts`).
+      breachHull(world, c.col, c.kind, c.fromRow, impactWeight(world.cfg, c), c.color);
     }
   }
   world.creatures = survivors;
@@ -192,15 +192,14 @@ function resolveFence(world: World, c: Creature, shipRow: number): boolean {
   // a try nobody met and nothing else. Counting it as mistimed would put a
   // timing lesson in the pair's balance sheet for a creature that has none.
   markMoment(world, false);
-  breachUnscarred(world, world.shieldCol, c.kind, c.fromRow, world.cfg.fenceDamage);
+  breachUnscarred(world, world.shieldCol, c.kind, c.fromRow, "heavy");
   return false;
 }
 
-// **What a breach costs and how the hull mends** — `breachHull`, `damageSpan`,
-// `hullPercent` and `regenerateHull` — is `hull-damage.ts` next door, cut out
-// when THE FENCE took this file over its limit. What is left here is the one
-// question this file was named for: what happens to a body that reached the
-// ship. All four are re-exported below, so nothing that reached for one
-// through this file had to move.
-export { breachHull, breachUnscarred, hullPercent, regenerateHull } from "./hull-damage.js";
+// **What a breach is** — `breachHull`, `breachUnscarred`, `damageSpan` — is
+// `hull-damage.ts` next door, cut out when THE FENCE took this file over its
+// limit. What is left here is the one question this file was named for: what
+// happens to a body that reached the ship. Re-exported below, so nothing that
+// reached for one through this file had to move.
+export { type BreachWeight, breachHull, breachUnscarred } from "./hull-damage.js";
 export { guardArmed, guardWindowTicks, shieldRow, ticksSinceGuard } from "./hull-guard.js";

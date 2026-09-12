@@ -43,7 +43,7 @@ test("serializes wave with pods correctly", async () => {
       { beat: 0, col: 1, color: "red" as const },
       { beat: 2, col: 3, color: "cyan" as const },
     ],
-    pods: [{ beat: 0, col: 2, row: 3 }],
+    pods: [{ beat: 0, col: 2, row: 3, kind: "ward" as const }],
   };
 
   const result = serializeWaveArray(source, [wave], "WAVES_ACT_1");
@@ -52,7 +52,7 @@ test("serializes wave with pods correctly", async () => {
   expect(result).toContain("entries: [");
   expect(result).toContain('{ beat: 0, col: 1, color: "red" },');
   expect(result).toContain('{ beat: 2, col: 3, color: "cyan" },');
-  expect(result).toContain("pods: [{ beat: 0, col: 2, row: 3 }]");
+  expect(result).toContain('pods: [{ beat: 0, col: 2, row: 3, kind: "ward" }]');
 
   const waveWithoutPods = { ...wave, pods: undefined };
   const resultWithoutPods = serializeWaveArray(source, [waveWithoutPods], "WAVES_ACT_1");

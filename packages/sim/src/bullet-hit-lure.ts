@@ -61,7 +61,6 @@ export function resolveLure(world: World, _b: Bullet, hit: Creature): void {
   // cost: the ear and the eye both open on the body going up.
   world.events.push({ type: "lureHit", col: hit.col, row: hit.row, color });
   const cols = lureBlastCols(world.cfg, hit.col);
-  const share = world.cfg.damageLure / cols.length;
-  for (const col of cols) breachHull(world, col, hit.kind, hit.row, share, color);
+  for (const col of cols) breachHull(world, col, hit.kind, hit.row, "light", color);
   removeCreature(world, hit.id);
 }

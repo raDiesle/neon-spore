@@ -136,8 +136,8 @@ describe("the throb", () => {
   });
 
   it("costs the hull exactly like any other missed creature if never hit", () => {
-    const noRegen: SimConfig = { ...CFG, hullRegenPerSecond: 0 };
-    const world = createWorld(noRegen, 0, [throb(COL)]);
+    const PLAIN: SimConfig = { ...CFG };
+    const world = createWorld(PLAIN, 0, [throb(COL)]);
     for (let t = 0; t < BREACH_TICK + 1; t++) step(world, []);
     expect(world.retries).toBe(1);
   });

@@ -40,14 +40,6 @@ export interface FleetConfig {
    * air was never a picture of anything.
    */
   fleetSalvoRestBeats: number;
-  /**
-   * What running out of time takes off the hull, in whole points.
-   *
-   * Named for the `damage*` family rather than the `fleet*` one, because that
-   * is the question a reader is asking when they find it: everything else in
-   * this file is the chart, and this is the only line here that can end a run.
-   */
-  damageFleet: number;
   /** Score for a salvo that finds a hull. */
   scoreFleetHit: number;
   /** Score for the salvo that takes the last square of a ship. */
@@ -98,10 +90,6 @@ export const FLEET_DEFAULTS: FleetConfig = {
   // one decision (`FLEET_SHELL_BEATS`), and a pair of 2s here is how they come
   // apart the first time either is turned.
   fleetSalvoRestBeats: FLEET_SHELL_BEATS,
-  // Two rocks' worth, the same figure THE GAUGE's failure costs, and for the
-  // same reason: it has to hurt enough that the pair play the round, and the
-  // number itself is the owner's to turn once they have lost one.
-  damageFleet: 20,
   scoreFleetHit: 120,
   scoreFleetSunk: 400,
   scoreFleetDown: 1500,

@@ -89,11 +89,11 @@ describe("the pages a rehearsal is read off", () => {
     }
   });
 
-  it("spends at most one page on what the hull has left", () => {
+  it("spends at most one page on what a miss costs", () => {
     // The film exists to teach a pair that they hold two different halves, and
-    // the bar saying what the hull has left is the one readout that is
-    // *identical* on both screens. The owner cut the one page that pointed at
-    // it — "the game scene shows exactly the same for both players ... remove
+    // the corner saying how the run is going — the retries now, the hull's bar
+    // before it — is the one readout that is *identical* on both screens. The
+    // owner cut the one page that pointed at it — "the game scene shows exactly the same for both players ... remove
     // this, also for future tutorials" — and then asked for it back, because
     // without it the film never says what a miss costs: "the step is missing
     // to show that the enemy hits the ship and it loses health".
@@ -108,11 +108,10 @@ describe("the pages a rehearsal is read off", () => {
     // one phone and nothing but water on the other, which is the split itself
     // rather than an escape from it.
     for (const id of SCENE_IDS) {
-      const paid = SCENES[id].steps.filter((s) => s.anchor.at === "health");
-      expect(
-        paid.length,
-        `${id} spends ${paid.length} pages on what the hull has left`,
-      ).toBeLessThanOrEqual(1);
+      const paid = SCENES[id].steps.filter((s) => s.anchor.at === "retries");
+      expect(paid.length, `${id} spends ${paid.length} pages on the retries`).toBeLessThanOrEqual(
+        1,
+      );
     }
   });
 

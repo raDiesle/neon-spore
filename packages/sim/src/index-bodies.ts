@@ -63,7 +63,7 @@ export {
   beatboxWindowTicks,
   beatboxWrongAge,
 } from "./beatbox.js";
-export { type CaromDir, caromBecomes, caromHeading, caromImpactDamage } from "./carom.js";
+export { type CaromDir, caromBecomes, caromHeading } from "./carom.js";
 export {
   choirBecomes,
   choirFusePhase,
@@ -79,7 +79,6 @@ export { CHOIR_SHAKEN, type ChoirArm, type ChoirSide, choirArmed } from "./choir
 export { chokeHeading, chokeIsHeld, chokeIsStuck, chokeTapsSoFar, stuckChoke } from "./choke.js";
 export { chuteBecomes, chuteFalls, chuteIsOpen } from "./chute.js";
 export { claspBecomes, claspIsShielded, claspStruck } from "./clasp.js";
-export { coilImpactDamage } from "./coil.js";
 export {
   type CoilDir,
   coilChargeAge,
@@ -94,7 +93,6 @@ export {
   type CrystalDir,
   crystalHeading,
   crystalHeld,
-  crystalImpactDamage,
   crystalMiddleCol,
   crystalUnder,
 } from "./crystal.js";

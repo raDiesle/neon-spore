@@ -155,12 +155,6 @@ export interface SimConfig
    * hand, so two hands on one rock are not twice as quick as one.
    */
   gripPushPauseBeats: number;
-  /** Hull points regained per second. */
-  hullRegenPerSecond: number;
-  /** Damage when a creature reaches the hull. */
-  damageCreature: number;
-  /** Damage when a meteor is not deflected. */
-  damageMeteor: number;
   /** Craters a single meteor can carry. Older ones are forgotten. */
   maxHoles: number;
   /** Breaks the hull remembers. Older ones are forgotten. */
@@ -221,9 +215,6 @@ export const DEFAULT_CONFIG: SimConfig = {
   gripSlowPermille: 550,
   gripPushMilli: 1000,
   gripPushPauseBeats: 1,
-  hullRegenPerSecond: 3,
-  damageCreature: 12,
-  damageMeteor: 20,
   maxHoles: 10,
   maxScars: 30,
   readyHoldMs: 420,

@@ -1,8 +1,8 @@
 import { controlSetForWave, showsRadar } from "@neon-spore/content";
 import {
   bandLobes,
-  hullBarBox,
   type Layout,
+  runLineBox,
   sirenCentre,
   tileCX,
   tileCY,
@@ -69,17 +69,17 @@ const SHARED: Callout[] = [
     at: () => ({ x: 30, y: 34 }),
   },
   {
-    name: "hull bar",
-    says: "Top right, the thin bar with the heart beside it: how much hull is left. It changes colour as it empties.",
-    side: "right",
+    name: "run line",
+    says: "Top left, the small text: how long you have been playing, and how many times a wave had to be played again.",
+    side: "left",
     at: (l) => {
-      const b = hullBarBox(l);
+      const b = runLineBox(l);
       return { x: b.x + b.w * 0.5, y: b.y + b.h * 0.5 };
     },
   },
   {
     name: "the siren",
-    says: "The round dial under the hull bar with a chip either side. It lights when a creature needs the two of you to talk; the chips say whose turn it is to speak.",
+    says: "The round dial at the top right with a chip either side. It lights when a creature needs the two of you to talk; the chips say whose turn it is to speak.",
     side: "right",
     at: (l) => sirenCentre(l),
   },

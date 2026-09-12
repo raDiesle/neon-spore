@@ -313,9 +313,9 @@ describe("what a rub does", () => {
   it("sinks a half onto the ship, where it bursts for the burst's price and no scar", () => {
     // The halves' first step puts the sinker on the ship's row, and the step
     // after it is the one on which the body goes — not before, so the picture
-    // has drawn it arriving. One tick short, the hull is whole.
+    // has drawn it arriving. One tick short, the wave is not lost.
     const arriving = play([balloon(3)], TPB * (HALVES_STEP + EVERY) - 1, rub(ON_FIELD, 1));
-    expect(arriving.world.hullMilli).toBe(100 * 1000);
+    expect(arriving.world.retries).toBe(0);
     expect(byCol(arriving.world).map((c) => c.row)).toEqual([
       ENTRY - CFG.balloonRiseRows,
       hullRow(CFG),

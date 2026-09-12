@@ -133,20 +133,6 @@ export function stepCarom(world: World, c: Creature): void {
 }
 
 /**
- * What a whole one costs the hull when it reaches it. `damageCarom` rather
- * than `damageCreature`, and the reason is in that field's own comment: what
- * arrived is the rock it always was, and the shield was never offered it.
- *
- * It is a rule here rather than a branch in `hull.ts` for `ghostImpactDamage`'s
- * reason, and the two of them together are why `impact.ts` next door exists:
- * what a body costs the ship is a question about the body, and there are two
- * bodies that answer it differently now.
- */
-export function caromImpactDamage(cfg: SimConfig): number {
-  return cfg.damageCarom;
-}
-
-/**
  * A shot met a carom. Returns whether the bullet goes on, the same contract
  * `resolve` has — and it never does: what stopped the bolt is a rock, and a
  * rock stops a lance exactly as it stops anything else (`resolve`'s own rock

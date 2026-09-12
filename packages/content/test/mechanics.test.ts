@@ -12,7 +12,7 @@ import {
 } from "../src/mechanics.js";
 import { WAVES } from "../src/waves.js";
 
-const POD_KINDS = ["mend", "purge", "ward"] as const;
+const POD_KINDS = ["purge", "ward"] as const;
 
 describe("the registry is closed over what already exists", () => {
   it("has a row for every creature, pod and boss", () => {

@@ -58,7 +58,9 @@ export type SceneAnchor =
    */
   | { at: "radar" }
   | { at: "hull" }
-  | { at: "health" };
+  /** The run's line in the corner — the retry count, which a hit puts up.
+   * It was `health`, the hull bar, until the hull lost its points. */
+  | { at: "retries" };
 
 /**
  * One step of the film: a screen, a few words, and what they point at.

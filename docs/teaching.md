@@ -263,8 +263,8 @@ mistake is offered and never gated on.**
 column 2. waveBeat 25: it spawns. waveBeat 39: hull — fourteen beats of fall,
 8.75 s, the latency budget with room. No bracket, no freeze. p2 reads, says,
 p1 stands, p2 fires red. If they miss, the crack draws at column 2 and the
-impact sounds and the hull bar does not move: they have seen what losing looks
-like and it cost nothing.
+impact sounds and the field stands still for the retry: they have seen what
+losing looks like, and it cost them the wave.
 
 ≈ 39 waveBeats of field (24 s) plus 4 beats of Call 1 and however long Calls 2
 and 3 take.

@@ -43,7 +43,7 @@ export const THE_CLAW: GuideScene = {
   entries: [{ beat: 10, col: 6, kind: "meteor", color: null }],
   // One power-up, crossing left to right along row four, on player 2's screen
   // and nobody else's — the wave's own arrangement, in miniature.
-  pods: [{ beat: 3, col: 0, row: 4, kind: "mend", cross: 1, speed: 1 }],
+  pods: [{ beat: 3, col: 0, row: 4, kind: "ward", cross: 1, speed: 1 }],
   acts: [
     { tick: 480, control: "cannon", col: 5 },
     { tick: 660, control: "reach" },

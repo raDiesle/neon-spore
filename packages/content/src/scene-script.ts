@@ -136,11 +136,6 @@ export function sceneScript(id: SceneId, wave: number, cfg: SimConfig): SceneScr
     ...(scene.pinballRows === undefined ? {} : { pinballRows: scene.pinballRows }),
     // A rehearsal held behind its own opening would be a guide inside a guide.
     briefings: false,
-    // And a rehearsal's hull does not mend. The last thing FIRST STEP's film
-    // shows is what a miss costs, and at three percent a second the bar had
-    // crept back to full inside the same loop — which teaches the opposite of
-    // the step it is under.
-    hullRegenPerSecond: 0,
   };
   return {
     cfg: sceneCfg,

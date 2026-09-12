@@ -125,9 +125,8 @@ describe("a coil crosses the field instead of falling", () => {
     // deliberately never pressed here. Long enough for the serpentine to work
     // its way down from the top of the field to the ship.
     const { world, events } = run([coil(0, 8)], TPB * 60, [shieldTo(4, 0)]);
-    // The breach itself rather than the hull's reading: `hullRegenPerSecond`
-    // has healed the whole of it back by the end of a run this long, so a
-    // ledger check here would be a test of the mend and not of the arrival.
+    // The breach itself, which is the arrival; the retry it costs is
+    // `wave-fail.ts`'s to prove.
     expect(events.some((e) => e.type === "breach")).toBe(true);
     expect(world.creatures).toHaveLength(0);
   });

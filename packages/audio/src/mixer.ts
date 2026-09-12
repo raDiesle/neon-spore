@@ -24,7 +24,6 @@ import { soundBoss } from "./mixer-boss.js";
 import { soundPulse } from "./mixer-pulse.js";
 
 /** The hull is in trouble below a quarter of it, in thousandths. */
-const QUARTER = 25_000;
 
 export interface MixerOptions {
   volume?: number;
@@ -157,20 +156,10 @@ export class Mixer {
       m.strainBeat = world.beat;
     }
 
-    // The hull's own two sounds: a mend nobody asked for an event about, and
-    // an alarm that repeats on the beat until it is dealt with.
-    if (!first && world.hullMilli > m.hullMilli + 500) this.play("hull.mend");
-    m.hullMilli = world.hullMilli;
-    if (
-      world.hullMilli > 0 &&
-      world.hullMilli < QUARTER &&
-      world.beat !== m.alarmBeat &&
-      world.beat % 4 === 0
-    ) {
-      this.play("hull.alarm");
-      m.alarmBeat = world.beat;
-    }
-
+    // The hull used to have two sounds of its own here — a mend read off its
+    // points going up, and an alarm on the beat below a quarter. It has no
+    // points (`sim/hull-damage.ts`): the alarm is bound to the hit that
+    // loses the wave instead (`bind.ts`, `waveFailed`), and nothing mends.
     if (world.over && !m.over) this.play("hull.dead");
     m.over = world.over;
 

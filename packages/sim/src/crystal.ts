@@ -126,11 +126,6 @@ export function stepCrystal(world: World, c: Creature): void {
   }
 }
 
-/** What a whole one costs the hull — `caromImpactDamage`'s reason. */
-export function crystalImpactDamage(cfg: SimConfig): number {
-  return cfg.damageCrystal;
-}
-
 /**
  * A shot met a crystal. Returns whether the bullet goes on, and it never
  * does: the shell stops a lance as a rock does.

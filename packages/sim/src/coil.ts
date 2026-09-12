@@ -1,6 +1,6 @@
 import { markMoment } from "./balance.js";
 import { coilCharged, coilDue, coilHeading, coilIsDomed, coilWardReaches } from "./coil-state.js";
-import { hullRow, type SimConfig } from "./config.js";
+import { hullRow } from "./config.js";
 import { crossField } from "./cross.js";
 import { guardArmed } from "./hull-guard.js";
 import { nextInt } from "./rng.js";
@@ -237,13 +237,4 @@ export function wardCoils(world: World): void {
 function escapeCol(world: World): number {
   const cols = world.cfg.cols;
   return world.shieldCol * 2 < cols - 1 ? cols - 1 : 0;
-}
-
-/**
- * What a whole one costs the hull when it reaches it. `damageCoil` rather than
- * `damageCreature`, and `caromImpactDamage`'s reason word for word: what
- * arrived is the rock it always was, and the shield was never offered it.
- */
-export function coilImpactDamage(cfg: SimConfig): number {
-  return cfg.damageCoil;
 }

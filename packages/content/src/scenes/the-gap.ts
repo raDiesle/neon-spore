@@ -49,6 +49,6 @@ export const THE_GAP: GuideScene = {
       text: "PLAYER 2 MOVES THE SHIELD",
       anchor: { at: "control", control: "shield" },
     },
-    { tick: 1200, seat: 1, text: "NOBODY CALLED IT", anchor: { at: "health" } },
+    { tick: 1200, seat: 1, text: "NOBODY CALLED IT", anchor: { at: "retries" } },
   ],
 };

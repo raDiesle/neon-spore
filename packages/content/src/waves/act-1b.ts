@@ -21,7 +21,7 @@ export const WAVES_ACT_1B: Wave[] = [
     sentence: "The one where shooting something is only half of getting it.",
     guide: {
       both: "The panel is complete: the maw is the last button, and it is yours from here on. This is the wave it is for. The pod hangs where it was left, and shooting it loose is only half of getting it — after that it sinks and drifts.",
-      p1: "SUCK is new, beside your trigger. Chase the pod with the cannon and open the maw as it reaches the hull. It mends the ship.",
+      p1: "SUCK is new, beside your trigger. Chase the pod with the cannon and open the maw as it reaches the hull. A pod that breaks on the skin is the wave lost; this one, taken, clears the field.",
       p2: "Free it with a shot of either colour, then say which way it is drifting.",
       scene: "salvage",
     },
@@ -29,7 +29,7 @@ export const WAVES_ACT_1B: Wave[] = [
       { beat: 2, col: 1, color: "cyan" },
       { beat: 7, col: 5, color: "red" },
     ],
-    pods: [{ beat: 0, col: 3, row: 3 }],
+    pods: [{ beat: 0, col: 3, row: 3, kind: "purge" }],
   },
   {
     id: "catchAndAim",
@@ -47,8 +47,8 @@ export const WAVES_ACT_1B: Wave[] = [
       { beat: 15, col: 6, color: "red" },
     ],
     pods: [
-      { beat: 0, col: 1, row: 3 },
-      { beat: 11, col: 0, row: 4 },
+      { beat: 0, col: 1, row: 3, kind: "ward" },
+      { beat: 11, col: 0, row: 4, kind: "ward" },
     ],
   },
   {

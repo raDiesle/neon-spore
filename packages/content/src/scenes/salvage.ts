@@ -31,7 +31,7 @@ export const SALVAGE: GuideScene = {
   // this is the one wave whose subject is standing still and waiting to be
   // fetched, and a body in the same film would be the thing the eye followed.
   entries: [],
-  pods: [{ beat: 0, col: 3, row: 3 }],
+  pods: [{ beat: 0, col: 3, row: 3, kind: "purge" }],
   acts: [
     { tick: 370, control: "fireRed" },
     { tick: 540, control: "cannon", col: 4 },

@@ -236,22 +236,13 @@ describe("the rehearsals a guide can show", () => {
       const run = new SceneRun(sceneScript(id, wave, DEFAULT_CONFIG));
       const spent: SimEvent[] = [];
       for (let t = 0; t < SCENES[id].ticks - 1; t++) run.advance(spent);
-      const paid = SCENES[id].steps.some((s) => s.anchor.at === "health");
+      const paid = SCENES[id].steps.some((s) => s.anchor.at === "retries");
       expect(
         run.world.retries > 0,
         paid
-          ? `${id} points a page at what the hull has left and never marks it`
+          ? `${id} points a page at the retries and never costs one`
           : `${id} takes a hit with no page saying why`,
       ).toBe(paid);
-    }
-  });
-
-  it("keeps a rehearsal's hull from mending, so a miss leaves a mark", () => {
-    // The last step of FIRST STEP's film is the hull bar dropping. At the
-    // game's own three percent a second the bar was back to full inside the
-    // same loop, which teaches the opposite of the words over it.
-    for (const { wave, id } of USED) {
-      expect(sceneScript(id, wave, DEFAULT_CONFIG).cfg.hullRegenPerSecond).toBe(0);
     }
   });
 
