@@ -176,3 +176,40 @@ the hull (`hullInvulnerable`). Take the second-try paths out: a lost stage is
 the round's verdict and nothing after it, `repeats`/`snakeStunTicks` and the
 maze's rebuild go, and the tests say the verdict and the retry instead. Prove
 it with `bun test packages/sim` and `bun run check`.
+
+## `lockstep.ts` never says its promise rests on an ordered, reliable transport
+
+- **Found:** 2026-09-12, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `packages/net/src/lockstep.ts`, `.claude/skills/net-change/SKILL.md`
+
+The scheduler is safe against a frame that arrives late — an `input` at or
+before the peer's horizon is refused and counted — and it has no defence at all
+against a frame that is *lost* while the `confirm` sent after it arrives: the
+device then simulates that tick with nothing on it, the peer simulates it with
+a command, and the two worlds part with nobody the wiser until the next
+fingerprint. That is fine, because a WebSocket does not deliver past a segment
+it is missing. But the only place it is written down is a comment on a test's
+own wire in `two-devices.test.ts`, so the assumption is invisible from the file
+that depends on it: anything that later sends a `Command` outside the socket's
+stream — a datagram transport, a second channel for something "small", a relay
+that fans out through two queues — breaks lockstep and reads as a network bug.
+Add the paragraph to `lockstep.ts`'s header, and the sentence to the skill's
+four rules beside "decode without trusting". A document, so `bun run check`
+proves only that nothing else moved.
+
+## No test drives a wave's opening through the scheduler
+
+- **Found:** 2026-09-12, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `packages/net/test/two-devices.test.ts`, `packages/sim/src/briefing.ts`
+
+`briefings` is off in `DEFAULT_CONFIG` and on in the game, so every two-device
+test plays a wave that has already started and no test anywhere puts an opening
+through the wire. The opening is the one place `step` takes a different shape —
+two command kinds are read, everything below the branch is skipped, and the tick
+counter still moves — and the `brief` ack that ends it has to land on the same
+tick on both devices or one of them plays a wave the other is still reading
+about. `{ ...DEFAULT_CONFIG, ...PAIR_ON }` is the world to build
+(`config-pair.ts`); ack each seat through `Lockstep.press` a few ticks apart, and
+assert the two worlds leave `OPENING_INTRO` on the same tick and hash equal
+through it. The guide's pages and its ready gate are the same case one step
+harder and can follow in the same test or the next one.

@@ -1407,3 +1407,30 @@ picked in chat and shipped, the slot closed. About 40 min.
 
 Bottleneck: **writing** — three candidates that all wear four markings is
 one base and two helper files before any of the three can be drawn.
+
+## 2026-09-12 · scheduler-tests — the failure modes `packages/net` survives, written down
+
+Every behaviour the headers of `lockstep.ts`, `delay.ts`, `clock.ts` and
+`desync.ts` claim, matched against the tests that prove it, and the eight with
+nothing behind them written: a frame that arrives after its tick has been
+simulated, a frame lost and sent again, the relay handing a device its own word
+back, two presses from one seat on one tick, a phone that rebuilt its scheduler
+while its partner kept playing, the same two rebuilding together, a pong that
+overtakes one sent before it, the ahead-window measured in the caller's own
+ticks, and the fingerprint ledger's depth from both sides of its boundary. The
+link's failure modes have their own file now (`scheduler-faults.test.ts`), and
+the ledger's tests moved out of `protocol.test.ts` into one. No defect: every
+new test was checked by breaking the line it is about and watching it, and only
+it, go red. About 60 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | the four headers claim by claim, the 126 tests already there, `link-run.ts` and `link.ts` for what a rejoin is from each side, `start-gate.ts` for why the room throws beat zero away, `room.ts` for whether a relay can duplicate a frame |
+| writing | 25 | `scheduler-faults.test.ts`, `desync.test.ts`, the two additions to `clock.test.ts` and `lockstep.test.ts`, the two queue entries |
+| looking | 0 | nothing drawn |
+| friction | 0 | — |
+| landing | 10 | eight mutations of `src` to prove each new test bites, `check:fast`, the commit, `land` |
+
+Bottleneck: **reading** — a documented behaviour is a sentence in a header, and
+deciding whether the suite already proves one means reading every test that
+touches the same field rather than searching for a name.

@@ -4,7 +4,6 @@ import {
   decodeClient,
   decodeServer,
   encode,
-  HashLedger,
   isRoomCode,
   MAX_COMMANDS_PER_FRAME,
   normalizeRoomCode,
@@ -92,33 +91,5 @@ describe("room code", () => {
     const code = roomCodeFromBytes([0, 255, 128, 7, 9]);
     expect(code.length).toBe(ROOM_CODE_LENGTH);
     expect(isRoomCode(code)).toBe(true);
-  });
-});
-
-describe("desync ledger", () => {
-  it("says nothing until both sides have reported a tick", () => {
-    const ledger = new HashLedger();
-    expect(ledger.record(0, 123)).toBe("pending");
-    expect(ledger.observe(0, 123)).toBe("match");
-    expect(ledger.desyncTick).toBeNull();
-  });
-
-  it("names the tick the two worlds parted, whichever side reports first", () => {
-    const ledger = new HashLedger();
-    ledger.record(0, 1);
-    ledger.observe(0, 1);
-    expect(ledger.observe(300, 9)).toBe("pending");
-    expect(ledger.record(300, 8)).toBe("mismatch");
-    expect(ledger.desyncTick).toBe(300);
-    expect(ledger.agreements).toBe(1);
-  });
-
-  it("keeps the earliest parting, not the latest", () => {
-    const ledger = new HashLedger();
-    for (const tick of [600, 300]) {
-      ledger.record(tick, 1);
-      ledger.observe(tick, 2);
-    }
-    expect(ledger.desyncTick).toBe(300);
   });
 });

@@ -87,6 +87,37 @@ describe("clock sync", () => {
     expect(clock.offsetMs).toBe(60_000);
   });
 
+  it("reads each trip from its own four timestamps, not from the order they land in", () => {
+    // A pong that overtakes one sent before it is ordinary: two pings are in
+    // the air at once whenever a trip is longer than the gap between them, and
+    // the room answers each where it stands rather than in the order they were
+    // asked. Every trip carries the four timestamps it is measured from, so
+    // which one lands first has to decide nothing — the alternative is a beat
+    // that moves depending on how two packets raced.
+    const at = (i: number) => trip(i * 700, 20 + i, 5000);
+    const inOrder = new ClockSync();
+    for (const i of [0, 1, 2, 3, 4, 5, 6]) inOrder.add(at(i));
+    const jumbled = new ClockSync();
+    for (const i of [3, 0, 5, 1, 6, 2, 4]) jumbled.add(at(i));
+
+    expect(jumbled.offsetMs).toBe(inOrder.offsetMs);
+    expect(jumbled.target).toBe(inOrder.target);
+    expect(jumbled.rttMs).toBe(inOrder.rttMs);
+    // And it is the right answer, not the same wrong one twice.
+    expect(jumbled.offsetMs).toBe(5000);
+    expect(jumbled.rttMs).toBe(46);
+
+    // The far end of the same case: a ping that sat in a queue on the way up
+    // and is answered after the two sent behind it. It is one sample of seven
+    // and it reads 450 ms of offset that is not there, so the median outvotes
+    // it — and the applied offset does not move for it at all, because nothing
+    // but `settle` and `snap` ever moves that.
+    const c1 = 4900;
+    jumbled.add({ c1, s1: c1 + 920 + 5000, s2: c1 + 920 + 5000, c2: c1 + 940 });
+    expect(jumbled.target).toBe(5000);
+    expect(jumbled.offsetMs).toBe(5000);
+  });
+
   it("snaps nothing before the first acquisition", () => {
     const clock = new ClockSync();
     clock.add(trip(0, 20, 5000));

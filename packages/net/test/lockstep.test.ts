@@ -166,6 +166,27 @@ describe("lockstep", () => {
     expect(wire.p1.ready(1)).toBe(false);
   });
 
+  it("measures that window in the caller's own ticks and not in sixtieths", () => {
+    // The game runs at 60 Hz and the bound is ten seconds of it, but the number
+    // the scheduler holds is a count of ticks — so a caller at another rate
+    // hands over its own, and `link-run.ts` does. A window left at 60 Hz would
+    // refuse a peer a legitimate five seconds ahead on a 120 Hz device.
+    const ticks = 120 * AHEAD_LIMIT_SECONDS;
+    const lock = new Lockstep({
+      player: 1,
+      delayTicks: 2,
+      aheadLimitTicks: ticks,
+      send: () => {},
+    });
+    lock.pump(0);
+    lock.receive({ t: "confirm", player: 2, tick: ticks });
+    expect(lock.brokenPromises).toBe(0);
+    expect(lock.ready(ticks)).toBe(true);
+
+    lock.receive({ t: "confirm", player: 2, tick: ticks + 1 });
+    expect(lock.brokenPromises).toBe(1);
+  });
+
   it("keeps a press out of a tick that has already been simulated", () => {
     // The guarantee the whole model rests on: at head H nothing can still be
     // added to any tick at or before H, because a press lands at H + delay.
