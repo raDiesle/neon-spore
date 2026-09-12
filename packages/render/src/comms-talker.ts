@@ -196,4 +196,12 @@ export const TALKER = {
   // the whole of what it has to say (`cling-fuse.ts`).
   limpet: "p1",
   leech: "p2",
+  // THE WEIGHT: `"both"`, and it is the row this value was waiting for. The
+  // balloon and the gum are "both" because each seat holds half a gesture and
+  // neither half is anything alone — true here too, and with nothing at all on
+  // either screen to read it off. A balloon draws both its pulls on both
+  // phones; a weight brightens under your own thumb and nowhere else, so the
+  // siren is not saying *one of you can see this* but *neither of you can, so
+  // one of you has to count*.
+  weight: "both",
 } as const satisfies Record<CreatureKind, Talker | null>;

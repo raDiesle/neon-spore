@@ -6,7 +6,7 @@ import type { Mechanic, MechanicId } from "./mechanics.js";
  * name that is not a `MechanicId` collapses to `never` and the key becomes a
  * build error, so this list cannot fall behind a rename.
  */
-type HandedId = Extract<MechanicId, "balloon" | "gum" | "limpet" | "leech">;
+type HandedId = Extract<MechanicId, "balloon" | "gum" | "weight" | "limpet" | "leech">;
 
 /**
  * **The bodies answered by hands alone.** `creatures-handed.ts` next door is
@@ -30,6 +30,14 @@ export const HANDED_MECHANICS = {
     // all, the way a wisp and a wall do, and no bolt reaches one in any
     // colour. What a wave authors instead is how fast it climbs
     // (`WaveEntry.rise`), which is how long the pair has to agree on it.
+    waveNames: true,
+  },
+  weight: {
+    what: "A heavy sac that comes down one lane a beat, at a slick's pace. Nothing either of you can fire reaches it and the shield has nothing to say to it, so if it gets to the hull it simply lands and the wave is lost. What answers it is a hand from each seat, on the body itself, at the same time: hold both on it for a little over half a beat and it gives between them. One hand alone does nothing at all — and the only sign of it is on that player's own screen, a brightening under the thumb the other seat is not shown. So neither of you can see whether your partner is already pressing, and the only thing that gets two thumbs onto one body at once is one of you counting it out loud.",
+    reach: "spawn",
+    // A wave names this kind and never a colour, the balloon's arrangement and
+    // for its reason: nothing fired reaches it. What a wave authors is the lane
+    // it comes down, which is the tile the pair has to both find.
     waveNames: true,
   },
   gum: {

@@ -161,3 +161,25 @@ Why the short label is what fits today, and what each of the three costs.
 
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
+
+## THE WEIGHT's guide is prose, and its lesson is a negative
+
+- **Found:** 2026-09-12, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `packages/content/src/scenes.ts`, `packages/content/src/waves/act-8.ts`, `packages/content/src/scene-types.ts`
+
+The wave that introduces THE WEIGHT carries a three-line prose guide and no
+`scene`, so the pair reads two pages and meets the body cold. That is how sixteen
+guides shipped and it is worse here than for most of them, because the lesson is
+**a negative**: a thumb held alone looks exactly like two thumbs held together,
+and prose has to assert that where a rehearsal could show it. The wave is written
+to teach it by costing a retry (`act-8.ts`, the first entry stands alone on
+purpose), which works and is a slow way to learn one sentence.
+
+What a rehearsal would show, in the order the guide's pages already go: one sac
+and one ghost thumb, and nothing happens; the same sac and both ghost thumbs a
+beat apart, and nothing happens; both on the same beat, and the calipers close.
+Three pages, no new machinery — `scenes.ts` holds the choreography and
+`queueFromWave` already puts a rehearsal's arrivals through the same column
+remap as a wave's. `.claude/skills/new-tutorial` has the rules the owner has
+already corrected twice; `bun test packages/content` and the guide-page tests
+prove it.

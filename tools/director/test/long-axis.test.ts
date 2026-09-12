@@ -99,13 +99,19 @@ describe("the catalogue's long axes", () => {
     // 122 the same day: LIMPET and LEECH, HOOK COLONY's base and CALTROP
     // brought onto the field as bodies of their own — both round, both
     // drawn at rx = ry.
-    expect(axes.length).toBe(121);
+    // 122 on 12 September 2026: THE WEIGHT, the slumped hanging draft brought
+    // onto the field as a creature of its own, and **round** by this measure —
+    // 92 × 80, wider than it is tall but not by enough to be wide. It is the
+    // GUM's own entry from the other side: the two sacs sit either side of
+    // round, one a drop and one a load, which is the difference an eye reads
+    // first and the reason they are tellable apart at all.
+    expect(axes.length).toBe(122);
     // One ring of THE CRAWLER is the thirty-ninth wide card, and it is wide by
     // more than any other: a ring reaches nearly a full tile past its own
     // column at each end, which is what makes a run of them one animal with no
     // gap in it rather than beads on a string (`content/crawler-shape.ts`).
     expect(count("x")).toBe(42);
-    expect(count(null)).toBe(66);
+    expect(count(null)).toBe(67);
     // THE VEER is the thirteenth tall card and the only one made tall by
     // something *on* a body rather than by the body: the stone under it is
     // round, and the rider's hat carries the box half as far again above it.

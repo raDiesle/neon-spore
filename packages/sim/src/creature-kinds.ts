@@ -9,6 +9,7 @@
  * and the one of the three with no dependencies at all.
  */
 
+import type { HandedKind } from "./creature-kinds-handed.js";
 import type { ManyKind } from "./creature-kinds-many.js";
 
 export type CreatureKind =
@@ -215,24 +216,12 @@ export type CreatureKind =
    * `beatbox.ts` is what one is and `beatbox-round.ts` what happens to one.
    */
   | "beatbox"
-  /**
-   * The first body that does not come down at all, and the first that
-   * neither control can touch. It appears out of nothing one row above the
-   * ship, swells into the field, and then **climbs** — a row up and a column
-   * across every beat, turning at the side walls — until it reaches the top,
-   * where it bursts and the hull pays for it wherever the ship happens to be.
-   *
-   * Nothing on either panel reaches it. What does is **two hands at once**:
-   * the pilot carries the handle on its left leftward, the navigator the one
-   * on its right rightward, and while both are taut the skin gives. The
-   * first rub splits it into two smaller balloons that climb on again; the
-   * second pops each of them for nothing — so what the pair has to say out
-   * loud is **which one, now**, the one thing several rising bodies cannot
-   * answer for them. `balloon.ts` is the body and `balloon-pull.ts` the two
-   * hands; `Creature.balloonSplits`, `balloonBeat`, `balloonDir`,
-   * `balloonRise` and the two pulls are the whole of its state.
-   */
-  | "balloon"
+  // **The two answered by a hand from each seat at once** — a balloon that
+  // climbs and a weight that sinks, one negotiated by *which* and the other by
+  // *when*. `creature-kinds-handed.ts` next door, cut out at the moment this
+  // file's own note predicted: it was left with room for the next creature, and
+  // the next creature filled it.
+  | HandedKind
   // **The five that are more than one body**, each answered a member or a
   // column at a time rather than as a single arrival: a thread of beads, a
   // worm of links, a wire across the field, an arch with two poles, a chain of

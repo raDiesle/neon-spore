@@ -56,5 +56,12 @@ export function heldHashParts(c: Creature): number[] {
   out.push(c.clingStill ?? -1);
   out.push(c.clingMoves ?? -1);
   out.push(c.clingLastCol ?? -1);
+  // THE WEIGHT's one: how long both hands have been on it. Two devices that
+  // disagree about it disagree about the tick the body gives, and a body that
+  // gives on one phone and not the other is the parting this whole layer is
+  // built to catch. Absent is not nought — nobody pressing and a press one tick
+  // old are different worlds — so presence gets a number of its own.
+  out.push(c.weightPressTicks === undefined ? 0 : 1);
+  out.push(c.weightPressTicks ?? 0);
   return out;
 }

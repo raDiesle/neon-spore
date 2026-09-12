@@ -35,6 +35,17 @@ import { ROUND_NOTES } from "./ship-notes-round.js";
  * `SimEvent`.
  */
 export const GROUP_NOTE: Record<GroupName, string> = {
+  "THE WEIGHT — a load only two thumbs at once take down":
+    "A heavy sac that comes down a lane a beat. Nothing fired reaches it " +
+    "(shot-reach.ts) and the shield has nothing to say to it, so a weight that " +
+    "gets to the hull simply lands and the wave is lost. What answers it is a " +
+    "hand from each seat, on the body itself — the ordinary grip, which " +
+    "handMeans calls a press rather than a brake or an aim — held for " +
+    "weightCrushMs, and then it gives between them. One hand alone does nothing, " +
+    "and the creature is in what it looks like: the body brightens under a thumb " +
+    "on that seat's screen only, so neither player can see whether their partner " +
+    "has arrived. The dials hand the count to the pilot and the answer to the " +
+    "navigator, because a pair where both count land on two beats. See weight.ts.",
   "THE BEATBOX — a soundbox counted out on the beat":
     "A rounded soundbox that swells on every beat and asks for a number of them. " +
     "No shot touches it. Player 2 taps the body itself, once a beat, on the beat, " +

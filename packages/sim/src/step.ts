@@ -27,6 +27,7 @@ import type { TimedCommand } from "./types.js";
 import { stepWardenTether, wardenTetherHeard } from "./warden-rope.js";
 import { progressWave } from "./wave-end.js";
 import { countPlay, failHolds, stepFailHold } from "./wave-fail.js";
+import { stepWeights } from "./weight.js";
 import type { World } from "./world.js";
 
 /** Advance exactly one tick. The only way the world ever changes. */
@@ -123,6 +124,13 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // it rather than on the tick after.
   for (const c of commands) balloonHeard(world, c.player, c.command);
   rubBalloons(world);
+  // And the two hands on THE WEIGHT, which is not a command at all: the press
+  // is the ordinary `grip` and `applyCommand` has already recorded it, so what
+  // runs here is the clock over it. On the tick with the balloon's rub above
+  // and for the same reason, at its strongest: the pair counts itself into the
+  // instant both thumbs land, and an instant answered on the next beat would
+  // land up to a whole beat after the one they said out loud (`weight.ts`).
+  stepWeights(world);
   // And player 2's hand on a stuck gum, on the tick for the balloon's reason:
   // a swipe is an instant, and one answered on the next beat would let the
   // cannon slide out from under it in between (`gum.ts`).

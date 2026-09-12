@@ -213,6 +213,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-volley.ts` | **What THE VOLLEY does**, as events: a ward that sends it back |
 | `packages/sim/src/volley.ts` | THE VOLLEY: a rock coming in on a diagonal with a body sealed inside it |
 | `packages/sim/src/ward.ts` | **What the shield does with a body it turns**, which used to be one answer and is now two |
+| `packages/sim/src/weight.ts` |  |
 | `packages/sim/src/colour-armour.ts` | What a shot of the wrong colour leaves behind on an ordinary body: a window in which nothing at all reaches it |
 | `packages/sim/src/maze-solve.ts` | The way through THE MAZE's drum, worked out from the walls rather than typed beside them |
 | `packages/sim/src/maze-hash.ts` | What THE MAZE puts into `hashWorld`, and nothing else |
@@ -279,6 +280,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/index-ship.ts` | the ship and what a thumb does to it, as a reading |
 | `packages/sim/src/bullet-hit-lure.ts` | What a shot does when it meets THE LURE |
 | `packages/sim/src/creature-kinds-many.ts` | the five kinds that are more than one body, answered a part at a time |
+| `packages/sim/src/creature-kinds-handed.ts` | **The two bodies answered by a hand from each seat at once** |
 | `packages/sim/src/creature-state-heading.ts` | the four kinds that carry a direction, and the beats attached to it |
 | `packages/sim/src/events-veil.ts` | THE VEIL's three events: the turn, the rebuff and the tear |
 | `packages/sim/src/hash-creature-late.ts` | the tail of one body's fingerprint, cut at a position and never a subject |
@@ -321,6 +323,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/bosses-round.ts` | The rounds, as their half of the boss barrel |
 | `packages/sim/src/config-rounds.ts` | The rounds' numbers, as one block of `SimConfig` |
 | `packages/sim/src/config-run.ts` | The run's own numbers: the rest after a wave, the pause after a hit |
+| `packages/sim/src/config-weight.ts` | THE WEIGHT's one number |
 | `packages/sim/src/countdown.ts` | THE COUNT: a body that can only be hit on **zero**, and only the pilot can read the count |
 | `packages/sim/src/step-round.ts` | The rounds' own tick, and the one thing all five of them have in common |
 | `packages/sim/src/pinball-shot.ts` | One shot of PINBALL: where the ball waits, what firing it does, and putting the loop back to the start |
@@ -360,6 +363,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/waves/act-2.ts` | act two: the first six bosses, back to back, nothing else |
 | `packages/content/src/waves/act-3.ts` | act three: new mechanics after the first five bosses, one more boss among them (THE VANE) |
 | `packages/content/src/living-look.ts` | which kinds are drawn as a body of their own, and the contour and own-motion of each — one row per kind, so a forgotten one is a build error |
+| `packages/content/src/living-look-handed.ts` | **How the bodies answered by two hands are drawn** |
 | `packages/content/src/waves/act-4.ts` | act four, opening on THE WISP; filled the day THE GYRE was written |
 | `packages/content/src/ghost-shape.ts` | THE GHOST's contour, which is the third family of them in this package |
 | `packages/content/src/snake-rounds.ts` | SNAKE's rounds: three maps, and the map is the fight |
@@ -465,6 +469,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/mechanics-beatbox.ts` | THE BEATBOX's row, cut out of `mechanics-table.ts` when it took that file past its 250-line limit |
 | `packages/content/src/silhouettes-beatbox.ts` | Beatbox: a rounded cabinet, and the one body on this roster whose contour is *architecture* rather than an… |
 | `packages/content/src/silhouettes-gum.ts` | **THE GUM in the air: THE WEIGHT's sac**, taken off the shape sheet whole |
+| `packages/content/src/silhouettes-weight.ts` | **THE WEIGHT: the slumped sac**, the louder of the two hanging drafts, taken off the shape sheet whole |
 | `packages/content/src/waves/act-8.ts` | Act eight, opened for THE BEATBOX rather than for a chapter |
 | `packages/content/src/balloon-shape.ts` | THE BALLOON's contour: a skin with a knot under it, and the fifth family of contour in this package |
 | `packages/content/src/creatures-handed.ts` | **The bodies answered by hands alone**, and today there is one of them |
@@ -799,6 +804,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/warden-roll-tube.ts` | THE WARDEN's material as a **tube**: the ring read as a torus seen face-on |
 | `packages/render/src/warden-roll.ts` | ROLL — a kept look for THE WARDEN, drawn only on the SHAPES page's LIBRARY |
 | `packages/render/src/warden-whorl.ts` | WHORL — a kept look for THE WARDEN, drawn only on the SHAPES page's LIBRARY |
+| `packages/render/src/weight.ts` | **THE WEIGHT under a thumb, and the one thing on this field a player is shown that their partner is not.**… |
 | `packages/render/src/queen-drop.ts` | NEXT TO FALL: the flank the queen's next torch comes off, said on player 2's screen and nowhere else |
 | `packages/render/src/queen-figure.ts` | Where the parts of the queen sit on her, and where the screen puts them |
 | `packages/render/src/queen-facet.ts` | FACET — a kept look for THE BULB QUEEN's shell, drawn only on the GRAPHICS page's LIBRARY |

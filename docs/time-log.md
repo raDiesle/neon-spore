@@ -1964,3 +1964,32 @@ its slider rows. About 35 min.
 Bottleneck: **looking** — a shot of `#stage` is clipped to the wrong box, so
 the column had to be photographed instead, and a `--wave` for a wave with
 buttons on both seats had to be found by listing the control sets.
+
+## 2026-09-12 · the-weight — a body two thumbs crush, and neither thumb can see the other
+
+THE WEIGHT off `docs/spec/transfers-bosses.md`, built as the owner asked for it:
+an ordinary arrival rather than the five-state boss on that page. A sac sinks a
+lane a beat, no bolt reaches it and the shield has nothing to say to it, and it
+gives to a hand from **each** seat on the body itself held together for
+`weightCrushMs`. The hand is the ordinary `grip` — `handMeans` gains `"press"`,
+the third thing a hand can be and the first worth nothing without the other
+seat's — so nothing new crosses the wire. The whole creature is in what each
+screen does *not* draw: a thumb brightens the body on that seat's screen and on
+nothing the other phone shows, so neither player can tell whether their partner
+has arrived and the only thing that lands two thumbs on one body is one of them
+counting out loud. THE BALLOON is the contrast and it is drawn as one: its two
+pulls are on both screens, and what the pair says there is *which*; here it is
+*when*. Wave 66 in act eight teaches it in three steps, the first of which is the
+pair pressing separately and losing the wave to it. About 150 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 35 | the spec's five-state boss, `grip.ts`/`hand.ts`/`grippable.ts` for what a hand already means, `balloon-pull.ts` for the only other two-hand body, `shot-reach.ts` and `hull.ts` for what an arrival can refuse, and `ViewState.role` for how a seat-private picture is drawn |
+| writing | 65 | `weight.ts` in sim and in render, `config-weight.ts`, the silhouette off the slumped draft, the six tables the skill names and nine more the compiler found, the wave and its guide, 23 tests across sim and render |
+| looking | 0 | nothing looked at — a cloud session cannot, and it is named below |
+| friction | 30 | `world.score` had gone from `World` on the origin/main this lane started from, so the creature's score field was deleted before it existed; `creature-kinds.ts`, `living-look.ts` and `ship-notes.ts` were all *exactly* at the 250-line wall, so one row each forced two file splits and a trim; and the shape's dent read as a third lobe on some frames, which `nameability.test.ts` caught and cost three measurements to settle |
+| landing | 20 | ten table and count failures found by `check:fast` and fixed one at a time, `perf --unmeasured` for the wave's row, the commit, `land` |
+
+Bottleneck: **friction** — three of the files a creature has to touch were at
+the line limit to the row, so adding a body meant choosing two seams that had
+nothing to do with the creature.

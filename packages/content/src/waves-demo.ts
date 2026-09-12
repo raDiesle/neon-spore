@@ -121,6 +121,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   volley: { wave: "theVolley" },
   crystal: { wave: "theCrystal" },
   gum: { wave: "theGum" },
+  weight: { wave: "theWeight" },
   limpet: { wave: "theLimpet" },
   leech: { wave: "theLeech" },
   // The six on the rim are watched in that same wave and can be watched

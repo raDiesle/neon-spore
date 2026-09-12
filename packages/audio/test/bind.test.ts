@@ -173,6 +173,7 @@ const SAMPLES: Record<string, SimEvent> = {
   crawlerBreak: { type: "crawlerBreak", col: 5, row: 10, color: "cyan" },
   crawlerBeam: { type: "crawlerBeam", col: 6, row: 10 },
   crawlerBurrow: { type: "crawlerBurrow", col: 10, row: 10, links: 4 },
+  weightCrushed: { type: "weightCrushed", col: 3, row: 8 },
 };
 
 describe("bindings", () => {

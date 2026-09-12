@@ -55,3 +55,9 @@ export {
   laying,
   type ShotCharge,
 } from "./shot-charge.js";
+// THE WEIGHT: whether both hands are on one, and how far the press has come.
+// The picture asks both rather than reading `weightPressTicks` off the body —
+// absent and nought are the same answer to a caller and two different worlds to
+// the fingerprint, and the moment is the tick count's to decide, never the
+// rounded readout's (`weight.ts`).
+export { weightPressed, weightPressMilli, weightPressTicks } from "./weight.js";

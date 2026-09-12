@@ -689,6 +689,16 @@
       "mean": 0,
       "p90": 0,
       "unmeasured": true
+    },
+    {
+      "id": "theWeight",
+      "wave": 66,
+      "name": "THE WEIGHT",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     }
   ]
 }

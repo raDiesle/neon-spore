@@ -61,6 +61,11 @@ export function firstAlong(
     // Nor THE LIMPET or THE LEECH: nothing fired reaches either, in the air
     // or on its control (`cling.ts`).
     if (c.kind === "limpet" || c.kind === "leech") continue;
+    // Nor THE WEIGHT, and that is the whole of the creature: a bolt would be a
+    // way for one player to answer it alone, and the only answer it has is a
+    // hand from each seat at the same instant (`weight.ts`). A shot up its lane
+    // goes past it to whatever is above, the way one does through a gum.
+    if (c.kind === "weight") continue;
     // THE FENCE stops a bolt in every column it is still **shut** in, and in
     // none of the ones it is open in: a hole is a hole, so a shot fired up a
     // way through reaches whatever is above it rather than dying on a gap the

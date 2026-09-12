@@ -211,6 +211,17 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "clingFreed":
     case "clingBlast":
       return clingCue(e, cols);
+    // THE WEIGHT giving, and the one sound in the catalogue that was written
+    // for this and filed spare: two grabs doubled and briefly in tune
+    // (`sounds/grip.ts`). Placed by column and row like any body, because it is
+    // also the only confirmation either player gets that the other one's thumb
+    // was ever down.
+    case "weightCrushed":
+      return {
+        id: "ship.gripBoth",
+        pan: panForCol(e.col, cols),
+        pitch: pitchForRow(e.row, rows),
+      };
     case "caromBounce":
     case "caromCrack":
     case "caromEject":

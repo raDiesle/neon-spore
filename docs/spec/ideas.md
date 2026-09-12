@@ -313,7 +313,11 @@ what a hand does is the point of every one, and the pictures drawn at them
 are on the director's SHAPES tab, not here. THE VANE left this list because it
 is built ([bosses](bosses.md) 11.5).
 
-- **THE WEIGHT** — the boss you hold up with your thumbs. It sinks steadily
+- **THE WEIGHT** — *a creature of this name is built* (12 September 2026): a sac
+  that sinks a lane a beat and gives to a hand from each seat held together, with
+  each thumb drawn on its own screen and nowhere else. What is below is still the
+  **boss**, and none of it shipped — see [transfers-bosses](transfers-bosses.md).
+  The boss you hold up with your thumbs. It sinks steadily
   instead of holding a row; a thumb pressed on it stops it, two thumbs lift
   it, and it has no weak point until it has been dragged below a line. But two
   thumbs on the boss is nobody on the cannon, and it sheds rocks while held —

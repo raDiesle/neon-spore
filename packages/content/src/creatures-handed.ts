@@ -2,7 +2,7 @@ import type { CreatureKind } from "@neon-spore/sim";
 import type { CreatureDef } from "./creatures.js";
 
 /**
- * **The bodies answered by hands alone**, and today there are three of them.
+ * **The bodies answered by hands alone**, and today there are four of them.
  *
  * Every other family in this bestiary is cut by what is *on* a body — a
  * costume (`creatures-worn.ts`), nothing at all (`creatures-bare.ts`), a split
@@ -19,7 +19,7 @@ import type { CreatureDef } from "./creatures.js";
  * trigger, and a second body answered by hands and nothing else has a place to
  * land rather than a table to overflow.
  */
-export type HandedKind = Extract<CreatureKind, "balloon" | "gum">;
+export type HandedKind = Extract<CreatureKind, "balloon" | "gum" | "weight">;
 
 export const HANDED_CREATURES: Record<HandedKind, CreatureDef> = {
   balloon: {
@@ -46,6 +46,28 @@ export const HANDED_CREATURES: Record<HandedKind, CreatureDef> = {
     radar: "none",
     blurb:
       "It appears out of nothing one row above the ship, swells there for a beat or two, then climbs — a row up and a lane across every beat, turning at the walls. Reach the top and it goes off, and the hull pays for it wherever the ship is standing. No shot touches it. Both of you take a handle — the pilot the one on its left, the navigator the one on its right — and pull at the same instant: the first time the skin gives it splits into two smaller ones, and the second pops them for nothing. The only thing left to say out loud is which one.",
+  },
+  weight: {
+    kind: "weight",
+    // **Neither control, and for THE BALLOON's reason arrived at from the other
+    // end.** A balloon is answered by two handles hung off it; this is answered
+    // by two hands on the body itself, and in both cases there is no group a
+    // wave's panel has to be able to answer — `categoryOf` reads the empty list
+    // as `special`.
+    controls: [],
+    // No colour, and none ever authored. A colour is what the cannon has to
+    // match, and no bolt reaches this body at all (`shot-reach.ts`) — so one
+    // offered here would be a promise the field refuses, the balloon's blank
+    // exactly.
+    color: null,
+    // The navigator's strip, like every other living body that comes down. It
+    // hides nothing — both seats watch the same sac fall — and what the pair has
+    // to agree about is not *where* it is but *when* they press, so an early
+    // warning is worth exactly what it is worth for a slick: the seconds to say
+    // something in.
+    radar: "p2",
+    blurb:
+      "A heavy sac that comes down a lane a beat and answers nothing either of you can do: no shot reaches it and the shield goes straight through. What answers it is a hand from each of you, on the body itself, at the same moment — hold both and it gives. Press it alone and it brightens under your thumb on your screen and on nothing your partner can see, so neither of you can tell whether the other has arrived. Count it out loud and land together.",
   },
   gum: {
     kind: "gum",

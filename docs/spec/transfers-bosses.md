@@ -176,6 +176,22 @@ folds *too* far to be predicted at all, or whether that is the ending it wants
 
 ### THE WEIGHT — the boss you have to let fall
 
+> **A creature of this name is built, and it is not this.** The owner asked on
+> 12 September 2026 for the *idea* as an ordinary arrival rather than a boss, and
+> that is what shipped: a sac that comes down a lane a beat, answered by a hand
+> from each seat on the body itself, held together for `weightCrushMs`. It keeps
+> the two names the draft below argues for — hands, and the price of a hand — and
+> takes one sentence of it, *the hand is the only thing that answers it*. It
+> wears the slumped hanging draft rather than the `sac` below, because THE GUM
+> already wears that one (`packages/content/src/silhouettes-weight.ts`).
+>
+> What is still unbuilt is everything that made this a **boss**: the five-state
+> cycle, the ballast it sheds while held, the seam that opens below a line, and
+> the HEAVE that buys height. The creature answers none of the questions under
+> *Unworked out* — it never has to be dragged anywhere, because a press is not a
+> brake — so the slot below is still open and the argument with THE CAIRN is
+> still to be had.
+
 **The shape.** Drawn, as `sac`: a blob with its mass pulled to the bottom,
 narrow at the top where the stalk takes the load. `HEAVE` for the motion — a
 lift that comes fast and falls back slowly, which is what a heavy thing does

@@ -140,6 +140,13 @@ const DUTY_WORD = {
   // what each dial says is the half its own thumb owes; what has to be said
   // out loud is which body, and no dial can carry that.
   balloon: { p1: "PULL LEFT", p2: "PULL RIGHT" },
+  // THE WEIGHT, and the balloon's row with the asymmetry moved: the gesture is
+  // the same on both sides, so what differs is not which hand but **who
+  // counts**. A pair where both call a beat lands on two different ones, and a
+  // pair where neither calls never lands at all — so the dials hand the count
+  // to one seat and the answer to the other, which is the protocol the guide
+  // teaches and the field cannot show.
+  weight: { p1: "CALL THE BEAT", p2: "PRESS ON THEIRS" },
   // Silent in `TALKER`, so no word here either.
   crystal: null,
   // The halves of the gesture, by seat: the cannon parked under it, and the

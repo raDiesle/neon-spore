@@ -26,6 +26,7 @@ import { STRAND_DEFAULTS, type StrandConfig } from "./config-strand.js";
 import { VEER_DEFAULTS, type VeerConfig } from "./config-veer.js";
 import { VIEW_DEFAULTS, type ViewConfig } from "./config-view.js";
 import { VOLLEY_DEFAULTS, type VolleyConfig } from "./config-volley.js";
+import { WEIGHT_DEFAULTS, type WeightConfig } from "./config-weight.js";
 
 export { BALLOON_DEFAULTS, type BalloonConfig } from "./config-balloon.js";
 export { BEATBOX_DEFAULTS, type BeatboxConfig } from "./config-beatbox.js";
@@ -60,6 +61,7 @@ export { STRAND_DEFAULTS, type StrandConfig } from "./config-strand.js";
 export { VEER_DEFAULTS, type VeerConfig } from "./config-veer.js";
 export { VIEW_DEFAULTS, type ViewConfig } from "./config-view.js";
 export { VOLLEY_DEFAULTS, type VolleyConfig } from "./config-volley.js";
+export { WEIGHT_DEFAULTS, type WeightConfig } from "./config-weight.js";
 
 /**
  * Every tunable number of the simulation. Named values, never loose literals —
@@ -90,6 +92,7 @@ export interface SimConfig
     RunConfig,
     RecoilConfig,
     ShotConfig,
+    WeightConfig,
     StrandConfig,
     VeerConfig,
     ViewConfig,
@@ -197,6 +200,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   ...ROUND_DEFAULTS,
   ...RUN_DEFAULTS,
   ...SHOT_DEFAULTS,
+  ...WEIGHT_DEFAULTS,
   cols: 11,
   rows: 15,
   bpm: 96,

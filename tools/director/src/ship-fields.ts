@@ -116,6 +116,10 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   // rather than named one by one: this object is a lookup and nothing reads
   // its key order, unlike `MECHANICS` next door in content.
   ...BALLOON_FIELDS,
+  // THE WEIGHT's one dial: how long both thumbs have to be down together. It
+  // is the only number the creature has, and the only thing between "two
+  // thumbs, eventually" and "two thumbs, together".
+  weightCrushMs: "THE WEIGHT — a load only two thumbs at once take down",
   recoilBounces: "THE RECOIL — a shot that sends it the wrong way",
   recoilRows: "THE RECOIL — a shot that sends it the wrong way",
   gyreSpinMilli: "THE GYRE — six bodies on a turning rim",

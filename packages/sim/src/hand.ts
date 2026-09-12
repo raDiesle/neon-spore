@@ -46,8 +46,16 @@ import { isMeteorKind } from "./kinds.js";
  * hold one, because on that body a hand is an aim and the aim belongs to the
  * pilot. That is now what the general rule says about every living body, so
  * the special case dissolved into it rather than being deleted.
+ *
+ * **THE WEIGHT is the third thing, and it is the first that needs the other
+ * seat.** A brake is worth something with one hand and twice as much with two;
+ * an aim is one seat's and the other seat has none. A `"press"` is worth
+ * *nothing at all* until both hands are on the same body — and because a hand
+ * on a weight is drawn on that seat's screen alone, neither player can see
+ * whether the other has arrived. That is the creature: the gesture is ordinary
+ * and the only way to make it land is to say when (`weight.ts`).
  */
-export type HandMeans = "brake" | "aim";
+export type HandMeans = "brake" | "aim" | "press";
 
 /** What one seat's hand on this kind would be, or null for a press that is
  * refused. `isGrippable` first, which is the kinds that refuse a hand for
@@ -55,5 +63,10 @@ export type HandMeans = "brake" | "aim";
 export function handMeans(kind: CreatureKind, player: 1 | 2): HandMeans | null {
   if (!isGrippable(kind)) return null;
   if (isMeteorKind(kind)) return "brake";
+  // Either seat, and neither seat's is worth anything alone. Above the living
+  // body's rule below, because a weight *is* a living body and the rule that
+  // hands the aim to the pilot would otherwise refuse the navigator the one
+  // hand this creature cannot be beaten without.
+  if (kind === "weight") return "press";
   return player === 1 ? "aim" : null;
 }

@@ -1,11 +1,4 @@
-import {
-  blobRadiusMul,
-  catmullRomToBezierPath,
-  type Point,
-  SAC_SKIN,
-  type SacSkin,
-  sacPoints,
-} from "@neon-spore/content";
+import { catmullRomToBezierPath, SAC_SKIN, type SacSkin, sacPoints } from "@neon-spore/content";
 import type { Subject } from "../contour.js";
 
 /**
@@ -64,14 +57,6 @@ export function sac(
   };
 }
 
-/** Shortest signed distance from `a` to `b` around the circle. */
-function angleDiff(a: number, b: number): number {
-  let d = (a - b) % (Math.PI * 2);
-  if (d > Math.PI) d -= Math.PI * 2;
-  if (d < -Math.PI) d += Math.PI * 2;
-  return d;
-}
-
 /**
  * A sac with a shoulder fallen in: the same sag, plus a dent where an intact
  * body has a crown.
@@ -94,27 +79,19 @@ export function slumped(
   ry: number,
   skin: SacSkin = SAC_SKIN,
 ): Subject {
-  // Up and a little to one side: the shoulder, not the top of the head.
-  const AT = -Math.PI / 2 + 0.75;
-  const WIDTH = 0.5;
+  // Where the shoulder falls in, and how wide the dent is, are the contour's own
+  // two numbers now (`packages/content/src/silhouettes-gum.ts`): THE WEIGHT
+  // wears this form on the field, so the card and the body are drawn from one
+  // place and cannot disagree about where the damage is.
   return {
     name,
     note,
     open: false,
-    pointsAt(t) {
-      const pts: Point[] = [];
-      for (let i = 0; i < N; i++) {
-        const a = (i / N) * Math.PI * 2;
-        const d = angleDiff(a, AT) / WIDTH;
-        const dent = 1 - crown * Math.exp(-d * d);
-        const m =
-          blobRadiusMul(a, skin.lobes, skin.depth, skin.wobble, t, skin.seed) *
-          (1 + bias * Math.sin(a)) *
-          dent;
-        pts.push({ x: Math.cos(a) * rx * m, y: Math.sin(a) * ry * m });
-      }
-      return pts;
-    },
+    // The dent lives with the sac's own loop in
+    // `packages/content/src/silhouettes-weight.ts`' neighbour now — THE WEIGHT
+    // wears this form on the field, and the card is drawn from the same points
+    // so the two cannot drift apart, exactly as the gum's sac is.
+    pointsAt: (t) => sacPoints(t, bias, rx, ry, skin, N, crown),
     path: catmullRomToBezierPath,
   };
 }

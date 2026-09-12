@@ -46,7 +46,10 @@ describe("categoryOf", () => {
     // places had come to read this category as if it meant that. `isInstalled`
     // is the fact those three actually wanted (`CreatureDef.installed`) — a
     // box and a balloon are answered by neither control and authored anyway.
-    expect(special).toEqual(["tether", "mount", "chute", "beatbox", "balloon"]);
+    // THE WEIGHT is the sixth and the second a wave places: neither control
+    // reaches it either, and what does is a hand from each seat on the body
+    // itself — which is not a `ControlGroup` for the balloon's reason exactly.
+    expect(special).toEqual(["tether", "mount", "chute", "beatbox", "balloon", "weight"]);
   });
 });
 

@@ -106,7 +106,9 @@ describe("drawn size against the 20-26 px floor", () => {
     // CALTROP itself (`content/silhouettes-cling.ts`). One fewer the same
     // day: CHOKE left the field when THE CHOKE became a fault with no body
     // (docs/decisions.md #31).
-    expect(SQUARE.length).toBe(106);
+    // 107 the same day: THE WEIGHT, the slumped hanging draft brought onto the
+    // field as a creature of its own (`content/silhouettes-weight.ts`).
+    expect(SQUARE.length).toBe(107);
   });
 
   it("clears the floor for every square card at the 92 px frame it actually gets", () => {
@@ -176,7 +178,10 @@ describe("drawn size against the 20-26 px floor", () => {
     // arms is fitted larger — the grown bodies' finding above, once more.
     // And LIMPET and LEECH the same day, the two of them the same two forms
     // brought onto the field at the same 33 and 34 px.
-    expect(under26).toBe(66);
+    // 67 with THE WEIGHT, which is the gum's own entry again: a sac fitted to a
+    // 46 px card comes out under 26 px across, and the two of them differ by the
+    // dent rather than by the size.
+    expect(under26).toBe(67);
     expect(under20).toBe(23);
   });
 

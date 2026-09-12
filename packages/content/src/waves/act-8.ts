@@ -57,6 +57,28 @@ import type { Wave } from "../wave-types.js";
  * argument about THE MAGNET's hand and THE CHOIR's shake said a third time),
  * and the bodies beside it want the cannon.
  *
+ * **THE WEIGHT** is the second wave here, and it is a lesson in three steps
+ * about one sentence: *a thumb held alone and two thumbs held together look the
+ * same from where you are sitting.*
+ *
+ * 1. Beat 0, one sac in the middle of the field, and nothing else on it. The
+ *    pair will press it separately first — both of them will see their own
+ *    thumb brighten it and believe it is working — and it will land. That is
+ *    the wave teaching itself, and it costs a retry rather than a paragraph.
+ * 2. Beats 14 and 18, a sac and an ordinary slick four beats behind it. The
+ *    hand that presses is a hand off a control, so this is where the pair finds
+ *    out what the press is spent out of: the pilot's strip and the navigator's
+ *    dome, both, at once.
+ * 3. Beats 30 and 32, **two sacs at opposite ends**, two beats apart. Now the
+ *    count is not enough — "on the three" answers *when* and says nothing about
+ *    *which*, and the two are five lanes apart so a column is the shortest way
+ *    to say it. It is THE BALLOON's question arriving from the other side, and
+ *    a pair who has met one already has the words for it.
+ *
+ * It is played on the ordinary panel: a hand on the field is not a
+ * `ControlGroup` (`creatures-handed.ts`), and the slick in the middle step
+ * wants the cannon.
+ *
  * The prose about a wave lives **here, above the array**, and not beside the
  * entry it is about: `tools/director/src/serialize.ts` regenerates everything
  * from `export const WAVES_ACT_8` down every time somebody saves a wave in the
@@ -79,6 +101,23 @@ export const WAVES_ACT_8: Wave[] = [
       { beat: 24, col: 0, kind: "beatbox", color: null, beats: 2 },
       { beat: 26, col: 4, kind: "beatbox", color: null, beats: 4 },
       { beat: 42, col: 5, kind: "beatbox", color: null, beats: 3 },
+    ],
+  },
+  {
+    id: "theWeight",
+    name: "THE WEIGHT",
+    sentence: "The one where holding it alone looks exactly like holding it together.",
+    guide: {
+      both: "A heavy sac, coming down a lane a beat. No shot reaches it and the shield goes straight through, so if it lands the wave is lost. It gives to one thing only: a hand from each of you, on the body itself, at the same moment. Press it on your own and it brightens under your thumb — on your screen, and on nothing the other one can see. So a thumb held alone and two thumbs held together look identical from where you are sitting.",
+      p1: 'You call it. Pick the beat out loud — "on the three" — and put your thumb down on it. Your thumb is off the strip while it is down, so call one you can afford.',
+      p2: "Do not count. Land on the beat they called, not on the one you were about to say, and keep your thumb there until it gives. Yours is the hand that is also the shield, so what they are spending is your dome.",
+    },
+    entries: [
+      { beat: 0, col: 3, kind: "weight", color: null },
+      { beat: 14, col: 5, kind: "weight", color: null },
+      { beat: 18, col: 2, color: "red" },
+      { beat: 30, col: 1, kind: "weight", color: null },
+      { beat: 32, col: 6, kind: "weight", color: null },
     ],
   },
 ];

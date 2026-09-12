@@ -89,4 +89,21 @@ export interface HeldState {
   /** The control's column a beat ago, which the beat's column is judged
    * against. Absent on one still falling. */
   clingLastCol?: number;
+  /**
+   * **Ticks both seats have had a hand on THE WEIGHT at once**, and absent on
+   * one nobody is pressing with both hands.
+   *
+   * Ticks rather than beats, and counted on the body rather than on the world,
+   * for the same reason THE BALLOON's pulls are: the pair counts itself into
+   * the instant both thumbs land, and an instant answered on the next beat
+   * would arrive up to a whole beat after the one they said out loud. A field
+   * per weight, because a wave may send two down and each is being pressed or
+   * not on its own.
+   *
+   * It goes back to absent the moment either hand lifts — a press half made is
+   * no press at all, which is what makes the coordination the creature rather
+   * than a stopwatch. Read it through `weightPressTicks` and `weightPressFrac`
+   * in `weight.ts`, never by name.
+   */
+  weightPressTicks?: number;
 }

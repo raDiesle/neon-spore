@@ -1,4 +1,5 @@
 import type { CreatureKind } from "@neon-spore/sim";
+import { HANDED_LOOK } from "./living-look-handed.js";
 import { BANK } from "./motion-bank.js";
 import { FLICKER, HOLD, POISE, RUMBLE } from "./motions.js";
 import { BLOOM } from "./motions-event.js";
@@ -176,15 +177,11 @@ const LIVING_LOOK = {
   // `render/choir.ts` draws the pair and the film; the moment the pilot's
   // gesture lands the kind changes and the ordinary slick or bulb takes over.
   choir: null,
-  // THE BALLOON, a `null` of the choir's shape: not a body drawn under
-  // something but one that **changes shape as it is played**. A blob contour
-  // is one radius sampled all the way round, so two hands stretching it apart
-  // would come out as one body growing evenly. `render/balloon.ts` draws it
-  // off the pulls themselves.
-  balloon: null,
-  // THE GUM wears a sac off the sheet in the air and is on the ship once it
-  // lands: `render/gum.ts` draws both.
-  gum: null,
+  // THE BALLOON, THE GUM and THE WEIGHT — the bodies two hands answer, and three
+  // different answers to "is this a body of its own". `living-look-handed.ts`
+  // next door, cut out when the third of them took this table over its limit,
+  // and spread rather than named one by one the way `creatures-table.ts` does.
+  ...HANDED_LOOK,
   // THE LIMPET and THE LEECH fall as ordinary bodies off the sheet — HOOK
   // COLONY's base and CALTROP — and `render/cling.ts` draws them on the ship.
   limpet: { shape: LIMPET, motion: HOLD },

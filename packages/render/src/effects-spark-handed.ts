@@ -25,7 +25,8 @@ export function handedBurst(
         | "clingGrip"
         | "clingShake"
         | "clingFreed"
-        | "clingBlast";
+        | "clingBlast"
+        | "weightCrushed";
     }
   >,
   l: Layout,
@@ -58,6 +59,13 @@ export function handedBurst(
       return { x: tileCX(l, e.col), y: l.hullY, n: 24, hex: PALETTE.arc };
     case "clingBlast":
       return { x: tileCX(l, e.col), y: l.hullY, n: 40, hex: PALETTE.ember };
+    // THE WEIGHT given between two thumbs: rock grey, because it carries no
+    // colour, and **narrow** — a dozen, against the balloon's twenty-six at the
+    // top of the field. A body that has been pressed does not throw itself
+    // outward; it goes inward and stops being there, and a wide shower would
+    // read as something that burst rather than something that gave.
+    case "weightCrushed":
+      return at(l, e.col, e.row, 12, PALETTE.rock);
   }
 }
 

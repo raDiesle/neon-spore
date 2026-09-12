@@ -23,6 +23,17 @@ export type SimEvent =
   | { type: "needWave"; wave: number; retry?: true }
   /** A hit failed the wave: the field holds, then the wave is gone again. */
   | { type: "waveFailed"; wave: number; retries: number }
+  /**
+   * THE WEIGHT gave: both seats had a hand on it for `weightCrushMs`.
+   *
+   * Its own event rather than a `destroy`, because `destroy` carries the colour
+   * the body is broken into and a weight has none — nothing can be fired at it,
+   * so it never had one. It is also a different picture: a body that has been
+   * *pressed* gives inward between two hands rather than bursting outward, and
+   * it is the one kill in the game both players earned with the same gesture at
+   * the same instant (`sim/weight.ts`).
+   */
+  | { type: "weightCrushed"; col: number; row: number }
   /** `lance` is true when the shot left a full lobe — see `lance.ts`. */
   | { type: "fire"; col: number; color: Color; lance: boolean }
   /** The lobe came full: from this moment the next shot out of it is a lance. */
