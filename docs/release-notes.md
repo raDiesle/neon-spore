@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-12 · a3b3c65f — A page about a body holds with that body in the middle of the field, not at the top
+
+The owner, 12 September 2026: when a tutorial stops, the explained enemy should be around the middle of the screen, not the top. Every film's first page turned four beats in with its body on row two or three, under the corner plate. A page anchored at a body now holds with that body no higher than row six of the fifteen — the test in `scene-pages.test.ts` — and the pages after it work lower on the field. Twenty-eight films are retimed for it: the body page is longer, every later press stays about a beat and a half after its page opens where the fall leaves room (THE VEER and THE DART say in a comment where it does not), kills land before the hull, and a second arrival enters after the first body's hold so the caption keeps ringing the body the page is about.
+
 ## 2026-09-12 · 6f8d5e7b — THE VOLLEY's gap is a cutaway planet: strata, two cut faces and the core set in a molten socket
 
 Where a ward has taken a sector off the shell, the inside is drawn as every diagram of a planet draws it — a thin grey crust, a mantle in the body's own colour running from full strength at the core to its dark tone at the crust, and the two flat faces the cut leaves, meeting on the axis through the middle, the one turned towards the key light the lighter. The core ball sits in a ring of the light tone, so it is *in* the planet rather than on a picture of one. Half the ball gone is one flat face; a quarter or three is a corner, with the shade gathering where the faces meet. The stone still on covers the rest, so the whole ball costs nothing new.
