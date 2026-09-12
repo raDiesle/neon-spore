@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-12 · a8e8dbfd — THE CRYSTAL is a craft with an electric field round it, opened by a shield anywhere under it
+
+The owner's asks, 12 September 2026: the shield counts under any lane of the whole body, not only the middle; an electric field is drawn round all of it before, and is interrupted across the underside while the shield stands armed there, so the shot can hit the middle; it crosses slower (one lane a beat instead of two); a wrong shot no longer drives it a row down — it is caught and nothing else happens; and it looks like a space ship, with the slick and bulb inside replaced by red and cyan engine pods.
+
 ## 2026-09-12 · 48ed44ca — THE COIL's rock is thrown from the dome's tile diagonally to the far wall, and the coil burns like the torch it becomes
 
 The owner asked for it by name: the torch must release from the exact position the coil's dome was opened on and fly a diagonal to the farthest border, immediately; the domed coil should already look like a torch inside; and "Do not shield!" goes in the guide. `popCoil` now keeps `fromCol` and `fromRow` on the dome's tile and puts the rock on the far wall's hull row, so the simulation's own glide is the diagonal and the rock is resolved on the next beat line, when it is drawn touching. `CoilFlightFx` measures the throw from the frame the dome went, so a ward that lands late in a beat leaves from the dome rather than partway down the line, runs the torch's tail from the dome, and keeps the line lit for a moment after the hit; the impact draws no vertical tail for it. The coil's body is the burning torch stone, moved with the other rock bodies into `creature-body-rock.ts`. Player 2's half of THE COIL's guide opens with "Do not shield!".
