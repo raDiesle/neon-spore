@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-12 · 0c248cc8 — Two devices open a wave together: the introduction, a stepped guide and a prose guide, over the wire
+
+`briefings` is off in `DEFAULT_CONFIG` and on in the game, so every two-device test played a wave that had already started and nothing sent an opening through the scheduler — the one place `step` takes a different shape, and the place where the word that ends it has to land on the same tick on both devices or one of them plays a wave the other is still reading about. `packages/net/test/two-devices-opening.test.ts` plays three openings with a different delay in each hand: the introduction and its two acks; a guide of two pages, paged at each seat's own speed, with one thumb lifted before its circle is full and held again; and a prose guide through the gate and then the introduction. Each asserts both devices leave each state on the same tick, that it is after the slower hand's word, that the fingerprints agree on every tick between, and that the first body comes only once the field is open.
+
 ## 2026-09-12 · 3d2b2ae5 — The lockstep scheduler says its promise rests on an ordered, reliable transport
 
 Delayed lockstep catches an `input` that arrives late and cannot see one that is lost while the `confirm` behind it arrives — the tick is simulated empty on one device and full on the other, and nothing tells until the next fingerprint. A WebSocket never delivers past a missing segment, which is the whole defence, and the only place that was written down was a comment on a test's own wire. It is a paragraph in `lockstep.ts`'s header now, and the fifth rule of the `net-change` skill: every `Command` travels in the socket's one stream, and a datagram, a second channel or a relay with two queues would break lockstep and read as a network bug. The header took the file over 250 lines, so `LockstepOptions` and the ahead limit live in `lockstep-options.ts`.
