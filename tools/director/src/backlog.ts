@@ -59,10 +59,12 @@ export interface Backlog {
   /** Rules the field plays by, what would fall, and what a player's hands
    * would do — one page. */
   mechanics: BacklogGroup[];
-  // Worked-out design documents — `docs/versus.md` and friends — each
-  // carrying numbers a queued lane is meant to build. Built in
-  // `design-docs.ts`, a different thing from an idea nobody has argued with.
-  designs: BacklogGroup[];
+  // DESIGNS was a third page until 12 September 2026: `docs/versus.md`,
+  // `teaching.md` and `alive.md` read section by section as backlog. The
+  // owner took it off — VERSUS is built and its file is a manual now, THE
+  // CALL is one design and not a list, and `alive.md`'s numbers had been
+  // overtaken — so what of those three is still unbuilt is an entry under
+  // MECHANIC IDEAS in `ideas.md`, pointing at the file.
 }
 
 /**
@@ -141,7 +143,6 @@ export function buildBacklog(
   assists: string,
   systems: string,
   ideas: string,
-  designs: BacklogGroup[] = [],
 ): Backlog {
   const roster = parseRoster(bestiary, bosses);
   const sheet = parseConcepts(couplings, assists, systems, ideas);
@@ -205,6 +206,5 @@ export function buildBacklog(
       ),
       deferredGroup(sheet.deferred),
     ],
-    designs,
   };
 }

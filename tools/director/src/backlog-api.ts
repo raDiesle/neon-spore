@@ -11,18 +11,11 @@
  */
 
 import { buildBacklog } from "./backlog.js";
-import { buildDesigns, type DesignFile } from "./design-docs.js";
 
 const noCache = { "cache-control": "no-store, must-revalidate" } as const;
 
-const DESIGN_NAMES = ["versus.md", "teaching.md", "alive.md"];
-
 function specFile(base: URL, name: string): URL {
   return new URL(`../../../docs/spec/${name}`, base);
-}
-
-function docFile(base: URL, name: string): URL {
-  return new URL(`../../../docs/${name}`, base);
 }
 
 export async function backlogState(): Promise<Response> {
@@ -31,28 +24,15 @@ export async function backlogState(): Promise<Response> {
   // no group here asks git anything — every one of them is a read of a file
   // this module can find on its own.
   const base = new URL(import.meta.url);
-  const [bestiary, bosses, couplings, assists, systems, ideas, designText] = await Promise.all([
+  const [bestiary, bosses, couplings, assists, systems, ideas] = await Promise.all([
     Bun.file(specFile(base, "bestiary.md")).text(),
     Bun.file(specFile(base, "bosses.md")).text(),
     Bun.file(specFile(base, "couplings.md")).text(),
     Bun.file(specFile(base, "assists.md")).text(),
     Bun.file(specFile(base, "systems.md")).text(),
     Bun.file(specFile(base, "ideas.md")).text(),
-    Promise.all(DESIGN_NAMES.map((name) => Bun.file(docFile(base, name)).text())),
   ]);
 
-  const designs: DesignFile[] = DESIGN_NAMES.map((name, i) => ({
-    name,
-    text: designText[i] ?? "",
-  }));
-  const backlog = buildBacklog(
-    bestiary,
-    bosses,
-    couplings,
-    assists,
-    systems,
-    ideas,
-    buildDesigns(designs),
-  );
+  const backlog = buildBacklog(bestiary, bosses, couplings, assists, systems, ideas);
   return Response.json(backlog, { headers: noCache });
 }

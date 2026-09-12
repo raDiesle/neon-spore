@@ -34,7 +34,6 @@ interface BacklogGroup {
 interface Backlog {
   bosses: BacklogGroup[];
   mechanics: BacklogGroup[];
-  designs: BacklogGroup[];
 }
 
 /**
@@ -97,7 +96,6 @@ async function load(): Promise<void> {
 
   fill("backlogBosses", backlog.bosses);
   fill("backlogMechanics", backlog.mechanics);
-  fill("backlogDesigns", backlog.designs);
   void renderWholeDoc("borrowedDoc", "/api/borrowed");
   void renderWholeDoc("partyGamesDoc", "/api/party-games");
   renderHolders();

@@ -1799,3 +1799,24 @@ About 55 min.
 Bottleneck: **reading** — the tests worth writing were the two claims the file
 headers make in prose and nothing enforces, and those are found by reading the
 prose, not by looking at which exports have no assertions.
+
+## 2026-09-12 · drop-designs-tab — the DESIGNS tab goes, and what it still held moves to MECHANICS
+
+The NOT BUILT YET sheet's DESIGNS tab read `docs/versus.md`, `teaching.md` and
+`alive.md` section by section as backlog. VERSUS is built and its file is a
+manual; THE CALL is one design rather than a list; `alive.md`'s numbers were
+overtaken (the bulb's depth is 0.24, the runt is retired, the throb rebuilt).
+The tab, `design-docs.ts` and its test are gone; THE CALL and the three still-open
+questions of `alive.md` are two entries under MECHANIC IDEAS in `ideas.md`, and
+`alive.md` opens with a note saying it is a record. About 30 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the three documents against the shipped tree to see which of their claims still held |
+| writing | 10 | the removal across five files, the two `ideas.md` entries, the `alive.md` preamble |
+| looking | 0 | nothing drawn |
+| friction | 5 | an edit script read the files in cp1252 and stopped on an em dash; rerun with `encoding="utf-8"` |
+| landing | 5 | `check:fast`, the commit, `land` |
+
+Bottleneck: **reading** — deciding what was stale meant checking each figure
+in `alive.md` against `silhouettes.ts`, not just reading the file.

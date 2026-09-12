@@ -1156,9 +1156,8 @@ place — the generator keeps whatever is there.
 | `tools/director/src/sound-art.ts` | that subject drawn — a contour or a control glyph, never an invented icon |
 | `tools/director/src/sound-plot.ts` | a sound as time against frequency, with the speech band shaded |
 | `tools/director/src/backlog-page.ts` | the NOT BUILT YET sheet, and which panel each of its tabs is |
-| `tools/director/src/backlog.ts` | the six groups NOT BUILT YET is arranged into: five parsed out of the spec, and `designs` built in `design-docs.ts` |
+| `tools/director/src/backlog.ts` | the two pages NOT BUILT YET is arranged into, bosses and mechanics, parsed out of the spec |
 | `tools/director/src/backlog-api.ts` | `GET /api/backlog`: nine files read, parsed and joined into one response |
-| `tools/director/src/design-docs.ts` | `docs/versus.md`, `teaching.md`, `alive.md` as backlog, one group per file |
 | `tools/director/src/sections.ts` | the "## N Title — tail" shape shared by several spec files |
 | `tools/director/src/concepts.ts` | couplings, assist forms, unbuilt systems and the idea store |
 | `tools/director/src/shapes-panel.ts` | the shape catalogue: drafts, then spare, then spent |

@@ -523,6 +523,31 @@ is built ([bosses](bosses.md) 11.5).
   flat record and a spiral wants the *rate* to worsen with the damage; and
   whether it is a second decay track or the same `Scar`s read differently at
   higher counts
+- **THE CALL — a gate a wave opens through** — the tutorial design scored
+  on 27 August 2026 and never built: a wave that does not start until the
+  pair has *done* its new thing together, the field frozen under a live
+  two-hand puzzle, one half on each phone. What shipped instead is the
+  guide the pair *reads* — three lines split across the two screens, no gate,
+  no freeze ([briefings](briefings.md)) — and the owner's direction is to
+  keep improving that with animation and fewer words, not to build the gate.
+  The whole design, argued out with its pages, its beat tables and the
+  scores of its alternatives, is `docs/teaching.md` under *THE CALL*; it read
+  on the director's DESIGNS tab until 12 September 2026, when that tab went
+- **The living field — what `docs/alive.md` still asks** — the 27 August
+  2026 plan for a field that reads as living rather than drawn. Most of it is
+  landed or overtaken: the bulb's depth went to 0.24 rather than the 0.13 it
+  argued, the throb was rebuilt on 5 September and the runt retired, VERSUS
+  exists, and the pose clock runs on beats. Three things in it are still
+  open and are not decided by argument. *The landing in unison*: every body
+  squashing on the same downbeat is either the shared clock made visible or
+  a field of metronomes, and only a phone at tempo can tell — a VERSUS slot
+  with the gains at full against every gain halved. *The shock recoil*:
+  whether a neighbour's flinch reads as sympathy or as damage is a question
+  about what a player then does, which is a playtest with two people, not a
+  picture. *An interior gradient at 26 px*: the flat swatch against a value
+  gradient under the skin, a straight disagreement with
+  [graphics](graphics.md)'s own sentence that detail does not survive there.
+  The argument for each is in the file; its numbers are not current
 
 ### Controls
 

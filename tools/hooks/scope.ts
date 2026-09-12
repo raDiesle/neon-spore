@@ -60,7 +60,7 @@ const ROWS: readonly Row[] = [
 
   // docs/spec and the top-level docs/*.md files are read by the director's
   // backlog, notes and parked-idea parsers (backlog.ts, notes.ts, parked.ts,
-  // design-docs.ts, docs-api.ts, notes-api.ts, whole-doc.ts, spec.ts) — a
+  // docs-api.ts, notes-api.ts, whole-doc.ts, spec.ts) — a
   // change to their shape can break how those pages parse them.
   { prefix: "docs/spec/", dirs: ["tools/director"] },
 

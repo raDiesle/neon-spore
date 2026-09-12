@@ -1,5 +1,14 @@
 # Alive
 
+> **Read as a record, not a plan.** Designed 27 August 2026. By 12 September
+> most of it has landed or been overtaken: `BULB.depth` is 0.24, not the 0.13
+> argued below; the throb was rebuilt on 5 September and the runt retired; the
+> VERSUS mechanism exists; the pose clock runs on beats. The three questions
+> still open — the landing in unison, the shock recoil, an interior gradient
+> at 26 px — are listed under *Mechanics* in `docs/spec/ideas.md`, which is
+> where the director shows them. Every number below is the number of the day
+> it was written.
+
 Why the field reads as drawn rather than living, and what is being done about
 it. Three readers diagnosed the current state, three directions were designed
 from different first principles — motion first, surface first, behaviour
