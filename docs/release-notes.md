@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-12 · fbb9ca55 — The band and the maw write their contours as numbers, and a drawn frame costs half what it did
+
+A CPU profile of one rehearsal walk in `briefing.test.ts` found four seconds of ten in `toFixed` and `curveText`: the band's ribbons, ridges, tubes, drips, filaments, cords and chamber, and the cloaca's contour, were building SVG path strings every frame that `new Path2D` parsed straight back into the numbers they came from. Those callers now go through `spline.ts` — `splineSealedInto` for an open run sealed square, `tubeInto` so a vein and its twigs share one path, `splineSkirt` for the chamber, and `blobPoints` in `content` so a blob can be splined without text. The picture is the same to within the rounding that was dropped, so no budget row moved. On this machine a frame drawn in the test went from 1.14 ms to 0.63 ms, `briefing.test.ts` from 53.8 s to 29.5 s, `packages/render` from 168 s to 112 s and the suite from 273 s to 222 s of cost; the round is written into `docs/performance.md` with the rule it leaves, and the fifty-six colder call sites that still take the text form are one queue item.
+
 ## 2026-09-12 · 59467da3 — Two devices cross a wave boundary on one tick, and play the wave after it in step
 
 The two-device wave test stopped on the `needWave` that ends FIRST STEP — exactly where the host takes over, and nothing proved the two devices reset every wave-local field on the same tick. `two-devices-wave.test.ts` now answers the event the way `apps/game/src/waves.ts` does: the same calls into `content`, guide facts and malfunction included, inside the tick it arrived, on both devices. CYAN is played through on presses counted from the tick the wave opened, which is the run's to find and asserted the same on both, and the fingerprints keep crossing over the seam until the wave after CYAN is asked for.
