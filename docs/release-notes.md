@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-12 · 6f8d5e7b — THE VOLLEY's gap is a cutaway planet: strata, two cut faces and the core set in a molten socket
+
+Where a ward has taken a sector off the shell, the inside is drawn as every diagram of a planet draws it — a thin grey crust, a mantle in the body's own colour running from full strength at the core to its dark tone at the crust, and the two flat faces the cut leaves, meeting on the axis through the middle, the one turned towards the key light the lighter. The core ball sits in a ring of the light tone, so it is *in* the planet rather than on a picture of one. Half the ball gone is one flat face; a quarter or three is a corner, with the shade gathering where the faces meet. The stone still on covers the rest, so the whole ball costs nothing new.
+
 ## 2026-09-12 · 031ebc0a — The Mine, designed and drawn at: a wisp that stands still and is answered by a thumb
 
 An idea-store entry (`docs/spec/ideas.md`, Creatures) for the body the owner asked for on 12 September 2026 — a stationary wisp that goes off after a time — with the three forks decided with him first: the navigator sees it and the pilot taps the exact tile blind; a tap on one of the four neighbouring tiles is a hull hit in its colour, a tap farther away takes a beat off its fuse; the fuse — six beats — and the lettered grid are on both screens, so both know when and only one knows where. The tap is the pilot's field thumb, the one THE BEATBOX already gives the navigator; no new control. Nothing is built: it is on the director's NOT BUILT YET sheet with what is still unworked out.
