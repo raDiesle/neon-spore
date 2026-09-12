@@ -26,6 +26,7 @@ import { MOUNT_LOOK } from "./mount-look.js";
 import { rindWears } from "./rind-look.js";
 import { showsVeilCore } from "./veil.js";
 import { showsVolleyCore } from "./volley.js";
+import { drawVolleyCore } from "./volley-core.js";
 import { drawWisp, showsWisp, wispJump } from "./wisp.js";
 
 /**
@@ -203,6 +204,9 @@ const EXCLUSIVE: ReadonlyMap<CreatureKind, BodyDraw> = new Map<CreatureKind, Bod
   // Two bodies in one shell: a slick and a bulb by `drawLiving`, each in its
   // own tile, and the shell and the join drawn over them (`crystal.ts`).
   ["crystal", drawCrystalBody],
+  // THE VOLLEY: nothing under a whole shell, and a smaller ball of the body's
+  // colour once a ward has opened it; the shell goes over it (`volley-core.ts`).
+  ["volley", drawVolleyCore],
   // A sac in the air and nothing at all once it is stuck: the smear is drawn
   // over the ship by `drawStuckGums`, from `canvas2d.ts` (`gum.ts`).
   ["gum", drawGumBody],

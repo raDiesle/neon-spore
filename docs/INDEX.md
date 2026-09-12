@@ -765,6 +765,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/band-join.ts` | THE ONE RECORD A CANDIDATE SHIP-AND-PANEL JOIN PATCHES |
 | `packages/render/src/volley-seams.ts` | **The pattern painted on THE VOLLEY's shell**: the four seams a basketball has |
 | `packages/render/src/volley-stone.ts` | **The shipped paint of THE VOLLEY's shell**, in the two passes `volley-look.ts` names |
+| `packages/render/src/volley-shards.ts` | THE VOLLEY's broken pieces: curved fragments of the ball a ward takes off it, and the core's skin when it hatches — thrown, falling on the skin, kept in `Effects` |
 | `packages/render/src/meteor-look.ts` | WHAT A ROCK IS MADE OF, as a record rather than as the body of one function |
 | `packages/render/src/chute-cut.ts` | A chute shot down under its canopy: the canopy cut loose and the body dropping out from under it |
 | `packages/render/src/chute-canopy.ts` | THE CANOPY'S GEOMETRY: the one shape a chute hangs under, and the two lengths that put it where it is |
@@ -790,6 +791,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/maze-shot.ts` | The shot inside THE MAZE: where it stands, the corridors behind it, and what it found when it stopped |
 | `packages/render/src/maze-heart.ts` | What is in the middle of THE MAZE: a heart, beating |
 | `packages/render/src/volley-cracks.ts` | **The damage on THE VOLLEY's shell**: the fractures a ward leaves across the stone that is still there |
+| `packages/render/src/volley-core.ts` | THE VOLLEY's core: a smaller glossy ball of the body's colour, wearing the shell's seams, drawn inside the shell once a ward has opened it |
 | `packages/render/src/volley-look.ts` | THE ONE RECORD A CANDIDATE VOLLEY LOOK PATCHES |
 | `packages/render/src/volley-ember.ts` | EMBER — THE VOLLEY's seams as the game draws them since 11 September 2026 |
 | `packages/render/src/volley-pitted.ts` | PITTED — a kept look for THE VOLLEY's stone, drawn only on the SHAPES page's LIBRARY |

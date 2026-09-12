@@ -45,9 +45,17 @@ describe("the body draw a kind gets", () => {
   });
 
   it("falls through to the living draw for everything else", () => {
-    for (const kind of ["bulb", "veil", "volley", "carom", "recoil", "chute", "clasp"]) {
+    for (const kind of ["bulb", "veil", "carom", "recoil", "chute", "clasp"]) {
       expect(bodyDraw(kind as CreatureKind)).toBe(living);
     }
+  });
+
+  it("gives the volley its own row: a ball inside the ball, not the worn body", () => {
+    // `volley-core.ts`, since the owner asked for the thing inside the shell
+    // to be a smaller ball of the body's colour rather than the slick or the
+    // bulb it will fall as; the shell over it is still the caller's.
+    expect(bodyDraw("volley")).not.toBe(living);
+    expect(bodyDraw("volley")).not.toBe(rock);
   });
 
   it("gives the mount a row of its own, which is the living draw with a door open", () => {

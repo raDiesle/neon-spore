@@ -22,6 +22,33 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 · hit-looks — THE VOLLEY is a round ball with a smaller ball inside, and breaks into pieces of itself
+
+The owner: *it should look like a basketball, such as rounded; improve the
+graphics of the broken pieces; maybe change what is inside to a smaller red
+or cyan only enemy so it looks harmonic with the same shape of the
+basketball.* The shell is a true circle now rather than the `METEOR`
+contour; what shows through a break is `volley-core.ts`, a glossy sphere of
+the body's colour at half the shell's radius wearing the shell's own four
+seams, breathing; and `volley-shards.ts` replaces the spray of squares with
+curved fragments cut from the sector a ward took — rind and stone, some with
+a burning length of seam — thrown up and out off the shield and falling on
+the skin, and at the hatch a ring of the core's own skin. The simulation is
+untouched: the core is a picture over the slick or bulb it will fall as, and
+the hatch's burst covers the swap. About 55 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `volley.ts`, `volley-look.ts`, `volley-stone.ts`, `shatter.ts` for why its cutter does not fit a sector, `effects.ts` for where a transient is registered |
+| writing | 20 | the circle, `volleyBallRadius`, `volley-core.ts`, `volley-shards.ts`, the `Effects` wiring, the spark counts, the body-draw row and its test |
+| looking | 20 | four films: the first pieces landed on the shield before they were seen (lift up, pull down); the hatch strip showed no shell was left to break, so the hatch throws the core's skin instead |
+| friction | 5 | `crop` refuses a fractional zoom; the frames tool's effect clock runs behind the simulation, so the pieces' flight was judged by shape and not by timing |
+| landing | 5 | `check:fast` (two index rows, one body-draw assertion moved), the commit, `land --keep` |
+
+Bottleneck: **what is there to break** — the pieces were designed for a shell
+that the third ward has already taken whole, and only the film of the hatch
+said so.
+
 ## 2026-09-12 · hit-looks — THE CRYSTAL is a craft with an electric field, opened by a shield anywhere under it
 
 The owner: *it should react on the shield when in the same vertical as the

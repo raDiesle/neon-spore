@@ -1,4 +1,3 @@
-import { crystalPath, METEOR } from "@neon-spore/content";
 import {
   type Creature,
   type SimConfig,
@@ -21,19 +20,31 @@ import { VOLLEY_LOOK, type VolleyShell } from "./volley-look.js";
  * The owner asked for this one by name — a ball in the rock's own colours,
  * with the seams a basketball has, in the colour of the body sealed inside it,
  * and *nothing else of that body showing while the shell is whole*. So the
- * shell is the same `METEOR` contour `meteor.ts` strokes, filled with the same
- * unlit mid-tone and lit by the same key light, and the only colour on it is
- * the four seams a basketball has, which are `volley-seams.ts` next door.
- * Those seams *are* the sentence player 2 has to have ready — a red ball and a
- * cyan ball are the same rock with a different pattern painted on it, which is
+ * shell is **round** — a true circle, the one shape in the game that is,
+ * since 12 September 2026 when the owner asked for it to *look like a
+ * basketball, such as rounded*; it was the `METEOR` contour before, and a
+ * faceted ball is a rock with lines on it — filled with the rock's unlit
+ * mid-tone and lit by the same key light, and the only colour on it is the
+ * four seams a basketball has, which are `volley-seams.ts` next door. Those
+ * seams *are* the sentence player 2 has to have ready — a red ball and a cyan
+ * ball are the same rock with a different pattern painted on it, which is
  * exactly what a basketball is.
  *
  * **A whole shell is opaque, and the body inside is not drawn at all.**
- * `showsVolleyCore` is the gate `creatures.ts` reads, and it is THE VEIL's
- * arrangement rather than a new one: a halo, a rim and a glow pass all reach
- * outside the contour they belong to, so a body drawn under an opaque ball
- * would show as a ring of light around it and the shell would leak the one
- * thing it is holding back.
+ * `showsVolleyCore` is the gate `creature-body.ts` reads, and it is THE
+ * VEIL's arrangement rather than a new one: a halo, a rim and a glow pass all
+ * reach outside the contour they belong to, so a body drawn under an opaque
+ * ball would show as a ring of light around it and the shell would leak the
+ * one thing it is holding back. What *is* drawn once the shell has opened is
+ * `volley-core.ts`: a smaller ball of the body's colour, round like the shell
+ * round it, in place of the slick or the bulb it will fall as — the owner's
+ * ask on the same day, so the thing inside and the thing round it are one
+ * shape at two sizes. The hatch's burst covers the moment it becomes the
+ * plain body the simulation makes of it (`volleyBecomes`).
+ *
+ * **And the pieces are pieces of the ball.** A ward used to throw squares;
+ * `volley-shards.ts` throws curved fragments of the shell — the sector a ward
+ * took, and the whole of what was left when it hatches.
  *
  * **The count is how much of the stone is left, and the frame never goes.**
  * There is no health bar in this game and THE RECOIL's cage is the precedent
@@ -72,7 +83,7 @@ import { VOLLEY_LOOK, type VolleyShell } from "./volley-look.js";
  * meteor, and that is the right trade: a rock is a rock whatever size it is,
  * and a ball with something sealed in it has to look like it could hold one.
  */
-const BALL_MUL = 1.55;
+export const BALL_MUL = 1.55;
 /** How much the ball shudders while a ward is carrying it up, as a share of
  * its radius. Only while climbing: a shell under load looks like one. */
 const SHUDDER = 0.05;
@@ -86,6 +97,15 @@ const SHUDDER = 0.05;
  */
 export function showsVolleyCore(cfg: SimConfig, c: Creature): boolean {
   return c.kind !== "volley" || volleyPlatesLeft(c) < cfg.volleyPlates;
+}
+
+/**
+ * The ball's radius in pixels for a body on `row` — the one figure the shell,
+ * the core inside it and the pieces it breaks into all size themselves from,
+ * so a fragment is a fragment *of this ball* and the core fits inside it.
+ */
+export function volleyBallRadius(l: Layout, cfg: SimConfig, span: number, row: number): number {
+  return rockRadius(l, span) * BALL_MUL * depthScale(cfg, l, row);
 }
 
 /**
@@ -116,8 +136,7 @@ export function drawVolleyShell(
   const spin = sinHash(c.id) * 6.3;
   const climbing = volleyIsClimbing(c);
   const shudder = climbing ? 1 + SHUDDER * Math.sin(time * 9 + spin) : 1;
-  const r =
-    rockRadius(l, spanOf(c)) * BALL_MUL * depthScale(cfg, l, drawnRow(c, beatPhase)) * shudder;
+  const r = volleyBallRadius(l, cfg, spanOf(c), drawnRow(c, beatPhase)) * shudder;
   // The ball rolls, and the pattern rolls with it — which is the one thing a
   // basketball does that a porthole must not (`carom.ts` argues the opposite
   // case for the opposite reason). `drawMeteor`'s own rate, so a volley and a
@@ -132,13 +151,10 @@ export function drawVolleyShell(
   const metal = hazed(cfg, PALETTE.rock, near);
 
   // One path for all three passes: the stone is filled from it, the skeleton
-  // is stroked from it, and the seams are clipped to it. A seam drawn to the
-  // full radius runs off the stone — the contour is faceted and is inside `r`
-  // almost everywhere — and four lines overhanging a rock read as a scribble
-  // over one rather than as panels on it.
-  const ball = new Path2D(
-    crystalPath(0, 0, r, r, METEOR.sides, METEOR.depth, METEOR.wobble, time * 0.15, METEOR.seed),
-  );
+  // is stroked from it, and the seams are clipped to it. A circle, so the
+  // seams reach its edge everywhere and a ball warded twice is still round.
+  const ball = new Path2D();
+  ball.arc(0, 0, r, 0, Math.PI * 2);
 
   const open = 1 - plates / total;
   const kept = plates < total ? remaining(lead, total, plates, r) : null;

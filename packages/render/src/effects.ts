@@ -26,6 +26,7 @@ import { RockImpactFx } from "./rock-impact.js";
 import { MirrorFx } from "./simon-fx.js";
 import { Sparks } from "./sparks.js";
 import { SpriteBursts } from "./sprite-burst.js";
+import { VolleyShardsFx } from "./volley-shards.js";
 import { WardenFx } from "./warden-fx.js";
 
 /**
@@ -76,6 +77,8 @@ export class Effects {
    * the dome went. Public for the leap's reason: `drawCreatures` asks it
    * where the torch is drawn (`coil-flight.ts`). */
   readonly coilFlight = new CoilFlightFx();
+  /** THE VOLLEY's shell in pieces (`volley-shards.ts`). */
+  readonly volleyShards = new VolleyShardsFx();
   /** THE CRAWLER's three: a burst ring's goo, the swept lane, the burrow's
    * banks — each outliving what it is about (`crawler-fx.ts`). */
   readonly crawler = new CrawlerFx();
@@ -183,6 +186,7 @@ export class Effects {
     this.bodies.ingest(events, l, cfg, beatSeconds, time);
     this.recoilLeap.ingest(events, beatSeconds);
     this.coilFlight.ingest(events, l, beatSeconds);
+    this.volleyShards.ingest(events, l, cfg);
     for (const e of events) {
       const spark = burstFor(e, l);
       if (spark) this.sparks.burst(spark.x, spark.y, breakSparks(e, spark.n), spark.hex);
