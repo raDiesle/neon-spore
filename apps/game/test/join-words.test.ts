@@ -130,17 +130,21 @@ describe("the chip", () => {
 describe("what the pair got to last time", () => {
   test("is nothing at all for a room never played in", () => {
     expect(lastTimeLine(SOLO_STATUS)).toBe("");
-    expect(lastTimeLine(at({ best: { wave: 0, score: 0 } }))).toBe("");
+    expect(lastTimeLine(at({ best: { wave: 0, seconds: 0, retries: 0 } }))).toBe("");
   });
 
   test("counts the wave the way a player does, from one", () => {
     // `world.wave` is an index and the screen says a number. Wave 0 cleared is
     // "wave 1" to the two people who cleared it.
-    expect(lastTimeLine(at({ best: { wave: 0, score: 400 } }))).toContain("wave 1");
-    expect(lastTimeLine(at({ best: { wave: 6, score: 2400 } }))).toContain("wave 7");
+    expect(lastTimeLine(at({ best: { wave: 0, seconds: 40, retries: 0 } }))).toContain("wave 1");
+    expect(lastTimeLine(at({ best: { wave: 6, seconds: 240, retries: 2 } }))).toContain("wave 7");
   });
 
-  test("says the score beside it", () => {
-    expect(lastTimeLine(at({ best: { wave: 2, score: 1750 } }))).toContain("1750");
+  test("says the clock and the retries beside it, and neither for a mark from the old wire", () => {
+    expect(lastTimeLine(at({ best: { wave: 2, seconds: 222, retries: 1 } }))).toContain("3:42");
+    expect(lastTimeLine(at({ best: { wave: 2, seconds: 222, retries: 1 } }))).toContain("1 retry");
+    expect(lastTimeLine(at({ best: { wave: 2, seconds: 0, retries: 0 } }))).toBe(
+      "Last time you two reached wave 3.",
+    );
   });
 });

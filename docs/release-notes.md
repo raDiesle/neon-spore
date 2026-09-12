@@ -13,20 +13,18 @@ commit message that read wrong, and the history is where that lives.
 
 The owner's rule of 12 September 2026 — *whenever there is a malfunction there must be an indication and a visible cause* — applied to the two faults the game has. On THE JAM and THE COIL an emitter hangs from the top edge of the field, in the middle, from the first frame of the wave: the LANTERN body off the shapes page — two antennae reaching up to the edge, a lit vesicle low in it — in the arc-blue the torn button bleeds. From the vesicle a beam runs to whatever the fault has taken on *this* screen. A shield fault's beam is steady and wide, on GUARD on the pilot's panel and on the dome over the plate on the navigator's. A cannon fault's is a thread between shots and a flash on each one, in the colour the gun is loading, on that colour's lobe and on the muzzle — the other colour's lobe gets the thread, so the next shot can be read off the picture. Where a beam lands it blooms and throws short arcs at the tear's own cadence. *A look the owner asked for by name.*
 
-## 2026-09-12 · 74893de1 — THE COUNT wears IRIS; DIAL and FUSE go to the SHAPES page for other timing enemies
 ## 2026-09-12 · b80cc858 — THE COUNT wears IRIS; DIAL and FUSE go to the SHAPES page for other timing enemies
 
 The owner's answer to `creature:countdown`, 12 September 2026: IRIS into the game, the other candidates to the SHAPES page. `COUNTDOWN_LOOK` is IRIS now (`render/countdown-iris.ts`, moved by `bun run versus adopt`): a socket with a bright core on both screens, and on the pilot's the blades of the body's own flesh closed over it, one per beat left, the last one sliding back into the rim through its beat — and on zero a hole to shoot into. The navigator sees an eye that never blinks. *A look the owner asked for by name.*
 
-## 2026-09-12 · 1d4c6cba — There is no point score; a run is its clock and its retries
 ## 2026-09-12 · dc89d573 — There is no point score; a run is its clock and its retries
 
 The last piece of the owner's rule of 12 September 2026. `World.score` is gone, with the fifty-one places in the simulation that paid it, the `score*` prices in eight config files (`config-creature-scores.ts` whole), the SCORE group in the director's ship editor and the figure in the HUD's corner: once a hit costs the wave and a run is *the time played and the retries*, a second currency counted nothing the clock did not, and a number that only went up told the pair less than one that could be beaten.
 
-## 2026-09-12 · b3499c12 — The hull has no points, and a pod is taken or the wave is lost
 ## 2026-09-12 · 36ef8657 — The hull has no points, and a pod is taken or the wave is lost
 
 The second piece of the owner's rule of 12 September 2026. `World.hullMilli` is gone, with the bar and heart in the HUD's corner, the slow regeneration, the mend pod and its `+HULL` banner, and the twenty-three `damage*` fields that priced each body: a hit costs the wave, whatever hit, so a figure that drained by twelves was a second price nobody read. What a body carries to the hull is a **weight** now, heavy or light (`BreachWeight`, `sim/impact.ts` — rocks, the carom, the crystal, the coil and a charging ghost are heavy, everything that merely arrived is light), and the weight picks the breach sound and nothing else. THE MIRROR keeps its own hull and its rim still fades with it, through a `rimAlpha` on the skin rather than a hull figure the ship no longer has.
+
 ## 2026-09-12 · e70b57e7 — The indicator's vocabulary is closed, and a quiet phone never reads like a dead line
 
 `packages/net/src/status.ts` was the only one of `net-change`'s six files that move together with no test, and the three functions in `apps/game/src/join-words.ts` that carry the actual sentences — `explain`, `roomLine` and `chipText` — had none either. Twenty-five tests now hold what both file headers claim in prose and nothing enforced. The list of eleven states is closed and the test knows all of them by name, so a twelfth arrives here before it arrives on a screen; no two states share a word or a sentence; every word fits the chip; and `linkIsFault` names the socket closed, the room full and the two worlds parted — and never a stall.
