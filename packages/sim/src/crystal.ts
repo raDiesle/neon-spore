@@ -3,7 +3,8 @@ import type { SimConfig } from "./config.js";
 import { type CrossDir, crossAwayFromWall, crossField } from "./cross.js";
 import { guardArmed } from "./hull-guard.js";
 import { livingKindForColor } from "./kinds.js";
-import { spanOf } from "./span.js";
+import { creatureLane } from "./mid-beat.js";
+import { occupiesLane, spanOf } from "./span.js";
 import type { Bullet, Creature } from "./types.js";
 import type { World } from "./world.js";
 
@@ -18,25 +19,33 @@ import type { World } from "./world.js";
  * `crossField`. Nothing about the crossing is new; what is new is the answer.
  *
  * **Only the middle can be broken, and only while the ship's shield stands
- * under it.** The middle is authored one colour per wave, red or cyan, and it
- * is shown on both screens. A bolt of that colour up the middle lane, on a
- * tick the shield is armed *in that same lane*, breaks the join: the shell
- * comes off, and what is left is an ordinary red slick in the left lane and
- * an ordinary cyan bulb in the right, each falling straight down its own
- * column for the matching cannon. Two easy kills, bought with one hard shot.
+ * armed under the body.** The middle is authored one colour per wave, red or
+ * cyan, and it is shown on both screens. A bolt of that colour up the middle
+ * lane, on a tick the shield is armed under *any* of the three lanes, breaks
+ * the join: the shell comes off, and what is left is an ordinary red slick
+ * in the left lane and an ordinary cyan bulb in the right, each falling
+ * straight down its own column for the matching cannon. Two easy kills,
+ * bought with one hard shot.
  *
  * So the sentence is four things said at once: player 1 puts the cannon on
- * the middle and holds the shield trigger, player 2 puts the shield on the
- * same lane and fires the colour — the shield's column and the cannon's
+ * the middle and holds the shield trigger, player 2 puts the shield under
+ * the body and fires the colour — the shield's column and the cannon's
  * column are two different controls held by two different seats, and this
- * is the one body that needs them in the same lane on the same tick.
+ * is the one body that needs them under the same thing on the same tick.
+ * The shield answers for the whole width and the shot for the middle only:
+ * the owner, 12 September 2026, *it should react on the shield when in the
+ * same vertical as the whole ship, to make it easier* — the harder half of
+ * the answer is the shot, and a plate that had to find one lane of three
+ * while the body crossed a lane a beat was two hard halves.
  *
- * **And a wrong shot costs a row.** A bolt that meets the shell anywhere
- * else, or meets the middle without the shield standing there, or in the
- * wrong colour, is thrown off — and the whole body dives `crystalDiveRows`
- * toward the ship. Fourteen beats becomes thirteen with every guess, which
- * is what stops the pair firing up the middle on every tick and waiting for
- * the shield to happen to be there.
+ * **A wrong shot costs nothing but the shot.** A bolt that meets the shell
+ * anywhere else, or meets the middle without the shield standing under the
+ * body, or in the wrong colour, is caught and thrown off: a spark, a sound,
+ * and the body goes on exactly as it was. It used to dive a row for every
+ * guess (`crystalDiveRows`); the owner took that out — *when hit wrong, it
+ * shouldn't fall faster, just nothing* — and the dive is written up on the
+ * NOT BUILT YET page (`docs/spec/ideas.md`, Mechanics) should a wave ever
+ * want a crystal that punishes guessing.
  *
  * What lands whole costs `damageCrystal`, the carom's figure: the shield
  * alone was never able to turn it (`impact.ts`, `hull.ts`).
@@ -72,14 +81,37 @@ export function crystalMiddleCol(c: Creature): number {
 }
 
 /**
- * Whether the ship's shield is standing under this one's middle **right
- * now**: the trigger's window is open and the plate is in that lane. One
- * question with one answer, asked by the rule below and by render for the
- * light on the join — two readings of it that disagreed would light a body
- * a shot then bounces off.
+ * The same tile **on this tick**: the middle of the lane the body is drawn
+ * in, part-way across the beat (`creatureLane`). A shot is found against
+ * that lane (`bullets.ts`, `firstAlong`), so the shot's own test has to ask
+ * about the same body — with the middle read off `col` alone, a bolt up the
+ * drawn middle in the first half of a beat met the lane the body was leaving
+ * and was caught for it, one column from where both screens showed the join.
+ */
+export function crystalMiddleLane(world: World, c: Creature): number {
+  return creatureLane(world, c) + (spanOf(c) - 1) / 2;
+}
+
+/**
+ * Whether the ship's shield is standing under this one **right now**, armed
+ * or not: the plate is in one of the lanes the body is *drawn* across on this
+ * tick (`creatureLane`, the lane a bolt is found against). Render lights the
+ * link off this and `claspResonanceIn` grows the ship's arcs off it, so the
+ * green comes on under the body the pair can see and not under the one the
+ * simulation has already written a lane on.
+ */
+export function crystalUnder(world: World, c: Creature): boolean {
+  return occupiesLane(creatureLane(world, c), spanOf(c), world.shieldCol);
+}
+
+/**
+ * The whole of the shield's half: standing under the body **and** armed —
+ * the trigger's window is open. One question with one answer, asked by the
+ * rule below and by render for the gap it opens in the body's own field — two
+ * readings of it that disagreed would open a body a shot then bounces off.
  */
 export function crystalHeld(world: World, c: Creature): boolean {
-  return guardArmed(world) && world.shieldCol === crystalMiddleCol(c);
+  return guardArmed(world) && crystalUnder(world, c);
 }
 
 /** One beat of it, in place of the fall: `stepCarom`'s arrangement exactly. */
@@ -107,22 +139,18 @@ export function crystalImpactDamage(cfg: SimConfig): number {
  * a colour miss and is booked as one — both screens can read the join. The
  * other two are refusals rather than misses, on `claspStruck`'s terms: a
  * bolt into the shell, or into a middle nothing is holding, was never a
- * colour question. All three dive the body a row, which is the price.
+ * colour question. All three leave the body as it was: the shell caught the
+ * shot, and that is the whole of it (`crystalCatch`).
  */
 export function crystalStruck(world: World, b: Bullet, hit: Creature): boolean {
   const cfg = world.cfg;
-  const middle = crystalMiddleCol(hit);
+  const middle = crystalMiddleLane(world, hit);
   const held = b.col === middle && crystalHeld(world, hit);
   if (!held || b.color !== hit.color) {
     if (held) missedColor(world);
     else markMoment(world, false);
     world.events.push({ type: "reject", col: b.col, row: hit.row });
-    // Where it was, then the dive — written the way `recoilStruck` writes a
-    // knock-back, so render glides the row it just lost rather than cutting
-    // to it.
-    hit.fromRow = hit.row;
-    hit.row += cfg.crystalDiveRows;
-    world.events.push({ type: "crystalDive", col: middle, row: hit.row });
+    world.events.push({ type: "crystalCatch", col: middle, row: hit.row });
     return false;
   }
 

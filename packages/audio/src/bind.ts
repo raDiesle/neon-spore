@@ -212,7 +212,7 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "chuteOpen":
     case "chuteCut":
     case "crystalBounce":
-    case "crystalDive":
+    case "crystalCatch":
     case "crystalSplit":
       return caromCue(e, cols, rows);
     // THE BEATBOX's three, in `bind-beatbox.ts` — about a rhythm, not a shot.

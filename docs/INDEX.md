@@ -240,13 +240,13 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/crawler.ts` | THE CRAWLER: a maggot that walks the ship's own surface, and the first body |
 | `packages/sim/src/creature-state-crawler.ts` | **THE CRAWLER's three fields**, and the whole of what one link remembers |
 | `packages/sim/src/events-crawler.ts` | THE CRAWLER's three: a ring coming apart, the worm cleared, and the worm getting in |
-| `packages/sim/src/events-crystal.ts` | **Everything THE CRYSTAL does**, as events: it turns at a wall, a wrong shot drives it down |
+| `packages/sim/src/events-crystal.ts` | **Everything THE CRYSTAL does**, as events: it turns at a wall, its shell catches a wrong shot, the right one breaks it in two |
 | `packages/sim/src/events-ghost.ts` | THE GHOST's three: the body letting go, a wall turned at, and the dive |
 | `packages/sim/src/events-gum.ts` | **Everything THE GUM does**, as events: it sticks, it refuses a shot, it is flung off, or it spreads |
 | `packages/sim/src/kind-code.ts` | **A kind as a number**, and the compile-time proof that every kind has one |
 | `packages/sim/src/lure-exit.ts` | **THE LURE leaving on its own**, which is the one thing in this game a body does at the end of a beat for no… |
 | `packages/sim/src/config-creature-scores.ts` | what one creature pays and what one costs, priced against each other |
-| `packages/sim/src/config-crystal.ts` | THE CRYSTAL's numbers: how it crosses the field, how far a wrong shot drives it down |
+| `packages/sim/src/config-crystal.ts` | THE CRYSTAL's numbers: how it crosses the field, what splitting one is worth, what a whole one costs |
 | `packages/sim/src/creature-roster.ts` | **The fixed order every kind is written into the world fingerprint in.** Cut out of `creature-kinds.ts` when… |
 | `packages/sim/src/grippable.ts` | **Whether a hand may be put on a body at all**, and the fourteen refusals that answer it |
 | `packages/sim/src/hull-damage.ts` | **What the hull loses, and what it gets back.** Cut out of `hull.ts` when THE GRATE's own answer took that… |
@@ -935,7 +935,9 @@ place — the generator keeps whatever is there.
 | `packages/render/src/creature-body-rock.ts` | The three rock body draws: the plain tiers, the torch, and the coil drawn as the burning torch it will become |
 | `packages/render/src/handle-place.ts` | **Where a handle is standing**, as against where a finger may grab it |
 | `packages/render/src/crank-dial.ts` | THE CLAW's crank, drawn: the winder that brings the arm home |
-| `packages/render/src/crystal.ts` | THE CRYSTAL: a slick and a bulb joined at a thin middle, armoured all the way round |
+| `packages/render/src/crystal.ts` | THE CRYSTAL: a craft three tiles wide with an electric field round it — the order its parts go on in |
+| `packages/render/src/crystal-craft.ts` | THE CRYSTAL's craft: the `SHELL` saucer, the red and cyan engine pods and the canopy over the middle |
+| `packages/render/src/crystal-field.ts` | THE CRYSTAL's electric field: arcs crawling round the whole craft, and the hole they open underneath while the shield stands there |
 | `packages/render/src/touch-drag.ts` | What a hand that already has hold of something says when it moves — a handle carried, a crank turned |
 | `packages/render/src/dart-torch.ts` | WHAT A DART'S THRUST IS DRAWN AS, in a file of its own beside `dart-look.ts` |
 | `packages/render/src/dart-shock.ts` | SHOCK — the flame has **structure inside it**: three bright knots strung down its axis |

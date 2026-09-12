@@ -96,6 +96,7 @@ export {
   crystalHeld,
   crystalImpactDamage,
   crystalMiddleCol,
+  crystalUnder,
 } from "./crystal.js";
 export {
   gumFlingDir,

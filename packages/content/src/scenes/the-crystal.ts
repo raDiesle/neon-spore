@@ -3,11 +3,12 @@ import type { GuideScene } from "../scene-types.js";
 /**
  * THE CRYSTAL's rehearsal: a lane, a light, and four thumbs at once.
  *
- * What the pair has to learn is that the shield's lane and the cannon's lane
- * are the *same* lane for once, and that the shot only counts while the
- * shield is armed there. Neither reads off a line of text: the first is the
- * light under the join coming on when the shield slides under it, and the
- * second is the join breaking on the beat GUARD and the shot land together.
+ * What the pair has to learn is that the shield has to be under the craft
+ * when the cannon fires at its middle, and that the shot only counts while
+ * the shield is armed there. Neither reads off a line of text: the first is
+ * the green column coming on when the shield slides under it, and the second
+ * is the field opening and the canopy breaking on the beat GUARD and the
+ * shot land together.
  *
  * **One crystal and nothing else**, for THE CAROM's reason: the wave sends
  * four and a plain body between them, and the film is about the join.
@@ -33,7 +34,7 @@ export const THE_CRYSTAL: GuideScene = {
     {
       tick: 270,
       seat: 2,
-      text: "SHIELD UNDER THE MIDDLE",
+      text: "SHIELD UNDER THE CRAFT",
       anchor: { at: "control", control: "shield" },
     },
     {

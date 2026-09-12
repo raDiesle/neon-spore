@@ -193,11 +193,11 @@ export const WAVES_ACT_5: Wave[] = [
   {
     id: "theCrystal",
     name: "THE CRYSTAL",
-    sentence: "The one where the shield has to be under the middle on the beat the shot lands.",
+    sentence: "The one where the shield has to be under the craft on the beat the shot lands.",
     guide: {
-      both: "A slick and a bulb joined at a thin middle and armoured all the way round, crossing the field on the carom's diagonal. Only the middle breaks, in the colour it is drawn in — and only while the shield stands armed under that lane. Then it comes apart into a plain slick and a plain bulb, one in each lane. Any other shot bounces off and drives it a row closer.",
-      p1: "Two thumbs. Put the cannon under the middle, and press GUARD on the beat player 2 fires — the shot only counts while the shield is up. Watch the light under the join: when it is lit the shield is in the right lane.",
-      p2: "Slide the shield under the middle first — the light under the join comes on when you have it. Then load the colour of the join and fire when player 1 says GUARD. A shot anywhere else drives it a row closer.",
+      both: "A craft three tiles wide, crossing on a diagonal, an electric field crawling round it. Only the canopy in the middle breaks, in its own colour — and only through the hole the field opens while the shield stands armed under the craft. Any other shot is caught.",
+      p1: "Two thumbs. Put the cannon under the canopy, and press GUARD on the beat player 2 fires — the shot only counts while the shield is up. Watch the field: when it opens underneath, the shield is there.",
+      p2: "Slide the shield under the craft — any of its three lanes; a green column says you have it. Then load the canopy's colour and fire when player 1 says GUARD. A shot anywhere else is caught by the field.",
       scene: "theCrystal",
     },
     entries: [

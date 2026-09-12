@@ -1,7 +1,6 @@
 /**
- * THE CRYSTAL's numbers: how it crosses the field, how far a wrong shot drives
- * it down, what splitting one is worth and what a whole one costs the hull
- * (`crystal.ts`).
+ * THE CRYSTAL's numbers: how it crosses the field, what splitting one is
+ * worth and what a whole one costs the hull (`crystal.ts`).
  *
  * `SimConfig` extends this rather than nesting it, for `config-carom.ts`'
  * reason next door: every call site still reads `cfg.crystalCols`, and the
@@ -9,11 +8,12 @@
  */
 export interface CrystalConfig {
   /**
-   * Columns it crosses each beat. Two, one under the carom's three: this body
-   * is three tiles wide, and the tile that matters is the *middle* one, so
-   * what the pair has to say is a lane the middle will be in — and at three
-   * lanes a beat a three-wide body reaches a wall of a nine-wide field every
-   * other beat, which is a ball nobody can put four things under at once.
+   * Columns it crosses each beat. One, under the carom's three and the two it
+   * used to take: this body is three tiles wide and what the pair has to put
+   * under it is a plate *and* a cannon on the same beat, and at two lanes a
+   * beat the plate that had found it was out from under it by the time the
+   * shot was loaded. The owner, 12 September 2026: *let the shield fly
+   * slower.* One lane and one row a beat is the slick's own diagonal.
    */
   crystalCols: number;
   /**
@@ -23,13 +23,6 @@ export interface CrystalConfig {
    * lane, a colour, a shield in that lane and a trigger, all at one moment.
    */
   crystalRows: number;
-  /**
-   * Rows a wrong shot drives it toward the ship. One: a bolt that met the
-   * shell anywhere but the standing-shield middle, or met the middle in the
-   * wrong colour, bounces off and the whole thing dives a row — so a guess
-   * costs a beat of the fourteen, every time.
-   */
-  crystalDiveRows: number;
   /**
    * What splitting one is worth. `scoreCaromCrack`'s figure, for its reason:
    * the shot that lands here is the harder half of a four-hand answer, and it
@@ -46,9 +39,8 @@ export interface CrystalConfig {
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
 export const CRYSTAL_DEFAULTS: CrystalConfig = {
-  crystalCols: 2,
+  crystalCols: 1,
   crystalRows: 1,
-  crystalDiveRows: 1,
   scoreCrystalSplit: 200,
   damageCrystal: 20,
 };

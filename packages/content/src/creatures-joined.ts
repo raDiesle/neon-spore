@@ -38,6 +38,6 @@ export const JOINED_CREATURES: Record<JoinedKind, CreatureDef> = {
     // coming.
     radar: "p2",
     blurb:
-      "A slick and a bulb joined at a thin middle and armoured all the way round — an hourglass on its side, three tiles wide — crossing the field on a diagonal and turning at the walls. Only the middle can be broken, in its own colour, and only while the shield stands armed in that lane. Then it breaks in two: a plain slick and a plain bulb, each falling its own column. Any other shot bounces off and drives it a row toward the ship.",
+      "A craft three tiles wide with an electric field round it, crossing the field on a diagonal and turning at the walls. Only the middle can be broken, in its own colour, and only while the shield stands armed under the craft — the field opens there. Then it breaks in two: a plain slick and a plain bulb, each falling its own column. Any other shot is caught.",
   },
 };

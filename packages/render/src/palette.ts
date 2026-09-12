@@ -55,6 +55,14 @@ export const PALETTE = {
    * opens a hole in a silhouette, and half a silhouette is a different word.
    */
   claspShieldDeep: "#16401F",
+  /**
+   * THE CRYSTAL's own field: the electric skin that crawls round the whole
+   * craft until the ship's shield stands under it (`crystal-field.ts`). A pale
+   * ice-white, on purpose neither of the two ammunition colours nor the
+   * clasp's green: the pair have to read the join's colour *through* it, and
+   * a field in red or cyan would answer the colour question for them.
+   */
+  crystalField: "#DDEBFF",
   goodRim: "#C7FFE4",
   /**
    * The wet film around an eye — THE LID's and THE WARDEN's — and the **third**

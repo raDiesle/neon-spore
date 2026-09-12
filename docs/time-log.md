@@ -22,6 +22,38 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 · hit-looks — THE CRYSTAL is a craft with an electric field, opened by a shield anywhere under it
+
+The owner: *it should react on the shield when in the same vertical as the
+whole ship, to make it easier; add some visual before which indicates an
+electrical shield around all — when shielded correctly below it the electric
+shield is interrupted and the shot can hit the middle; let it fly slower;
+make it look more cool, like a space ship; when hit wrong it shouldn't fall
+faster, just nothing; replace the bulb and slick in the ship with anything
+you like, red and cyan.* `crystalHeld` now answers for any lane of the span,
+the crossing is one lane a beat, a wrong shot is caught and nothing else
+happens (`crystalCatch`; the dive went to NOT BUILT YET → Mechanics), and
+the body is a saucer cut from the retired `SHELL` contour with red and cyan
+engine pods and a canopy in the join's colour, an electric field crawling
+round the whole of it that opens across the underside while the shield
+stands armed there. Found on the way: the shot was tested against the
+middle of the lane the body was *going to* while it was found against the
+lane it was *drawn* in, so a bolt up the visible join in the first half of a
+beat was caught — `crystalMiddleLane` and `crystalUnder` read the drawn lane
+now. About 55 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `sim/crystal.ts` and its config, events and consumers, `render/crystal.ts`, `silhouettes-spare.ts` for a free contour, the shape drafts, `mid-beat.ts` and `bullets.ts` for how a shot finds a body |
+| writing | 25 | the sim rule and its tests, the event rename through audio, render, director and their tests, `crystal-craft.ts`, `crystal-field.ts`, the guide, the tables, the bestiary and the NOT BUILT YET card |
+| looking | 10 | three films: the pods hidden under the wing, then a shot up the middle that was caught — which was the lane defect, not the picture |
+| friction | 5 | `--press` refuses a press after `--ticks`, so the whole sequence was filmed as two runs |
+| landing | 5 | `check:fast` (two index rows), the commit, `land --keep` |
+
+Bottleneck: **the drawn lane** — a body that changes lanes is found by a bolt
+where it is drawn, and every rule that then asks "which column of it" has to
+ask the same question; the crystal's did not, and the film is what said so.
+
 ## 2026-09-12 · hit-looks — THE COIL's rock is thrown from the dome's tile to the far wall
 
 The owner: *the first hit by shield must have a torch falling, immediately;

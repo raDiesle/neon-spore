@@ -77,7 +77,7 @@ export const WORN_MECHANICS = {
     waveNames: true,
   },
   crystal: {
-    what: "A slick and a bulb joined at a thin middle and armoured all the way round — an hourglass on its side, three tiles wide — crossing the field on the carom's diagonal and turning at the walls. Only the middle can be broken, in the colour the wave gave it, and only while the shield stands armed in that same lane: then the shell comes off and the two ends fall as a plain slick and a plain bulb, each down its own column. Any other shot bounces off and drives the whole thing a row toward the ship.",
+    what: "A craft three tiles wide with an electric field crawling round the whole of it, crossing the field on a diagonal and turning at the walls. Only the middle can be broken, in the colour the wave gave it, and only while the shield stands armed under any of its three lanes — the field opens across the underside then: the shell comes off and the two ends fall as a plain slick and a plain bulb, each down its own column. Any other shot is caught by the field and nothing else happens.",
     reach: "spawn",
     // A wave names this kind and gives it a colour, the way it does for a
     // carom: the silhouette is the shell's and the colour is the join's, which

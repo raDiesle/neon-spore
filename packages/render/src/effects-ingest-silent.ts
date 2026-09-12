@@ -89,7 +89,7 @@ export const INGEST_SILENT = [
   // the light under the join are read every frame off the body and the world
   // (`crystal.ts`), and the two halves are a slick and a bulb from that tick.
   "crystalBounce",
-  "crystalDive",
+  "crystalCatch",
   "crystalSplit",
   // THE GUM's four: whether it is stuck, how wide, whether the cannon is
   // under it and how far a hand has pulled it are all read off the world

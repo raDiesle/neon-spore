@@ -1,6 +1,12 @@
 import { describe, expect, it } from "bun:test";
 import { resolve } from "../src/bullet-hit.js";
-import { crystalHeading, crystalHeld, crystalMiddleCol, crystalStruck } from "../src/crystal.js";
+import {
+  crystalHeading,
+  crystalHeld,
+  crystalMiddleCol,
+  crystalMiddleLane,
+  crystalStruck,
+} from "../src/crystal.js";
 import {
   createWorld,
   DEFAULT_CONFIG,
@@ -18,6 +24,7 @@ import {
   type TimedCommand,
   ticksPerBeat,
 } from "../src/index.js";
+import { creatureLane } from "../src/mid-beat.js";
 import type { Bullet, Creature } from "../src/types.js";
 
 /**
@@ -25,9 +32,10 @@ import type { Bullet, Creature } from "../src/types.js";
  * round, crossing on the carom's diagonal. What is worth pinning is the half a
  * reader of `crystal.ts` cannot check by eye — that the middle is a column and
  * not a seam, that the shield alone does nothing and the shot alone does
- * nothing, that a wrong shot costs a row, that the two halves come out in the
- * columns the two ends were standing in, and that a second device walking the
- * same beats arrives at the same fingerprint.
+ * nothing, that a wrong shot costs nothing but the shot, that the middle a
+ * bolt is tested against is the one drawn on this tick, that the two halves
+ * come out in the columns the two ends were standing in, and that a second
+ * device walking the same beats arrives at the same fingerprint.
  */
 
 const CFG: SimConfig = DEFAULT_CONFIG;
@@ -92,9 +100,15 @@ function bolt(body: Creature, col: number, color: "red" | "cyan"): Bullet {
   };
 }
 
-/** The whole condition: the shield under the middle and the guard armed now. */
+/**
+ * The whole condition: the shield under the middle and the guard armed now.
+ * Under the middle *as drawn on this tick* — `standing` leaves the world a
+ * tick into a beat, where the body is still in the lane it is leaving, and
+ * that lane is the one a bolt is found against and the shield is tested
+ * against (`crystalUnder`, `crystalMiddleLane`).
+ */
 function hold(world: World, body: Creature): void {
-  world.shieldCol = crystalMiddleCol(body);
+  world.shieldCol = crystalMiddleLane(world, body);
   world.guardTick = world.tick;
 }
 
@@ -141,41 +155,73 @@ describe("what opens it", () => {
   it("is off with the shield elsewhere, and off with the shield there but no guard", () => {
     const { world, body } = standing(4);
     expect(crystalHeld(world, body)).toBe(false);
-    world.shieldCol = crystalMiddleCol(body);
+    world.shieldCol = crystalMiddleLane(world, body);
     world.guardTick = -1000;
     expect(crystalHeld(world, body)).toBe(false);
     hold(world, body);
     expect(crystalHeld(world, body)).toBe(true);
   });
 
-  it("bounces a shot at the middle while the shield is not there, and the body dives a row", () => {
+  it("is on with the shield armed under either end, not only the middle", () => {
+    // The owner, 12 September 2026: the plate answers for the whole width, so
+    // that the hard half of the answer is the shot and not the plate.
+    const { world, body } = standing(4);
+    hold(world, body);
+    const left = creatureLane(world, body);
+    world.shieldCol = left;
+    expect(crystalHeld(world, body)).toBe(true);
+    world.shieldCol = left + spanOf(body) - 1;
+    expect(crystalHeld(world, body)).toBe(true);
+    world.shieldCol = left + spanOf(body);
+    expect(crystalHeld(world, body)).toBe(false);
+  });
+
+  it("catches a shot at the middle while the shield is not there, and nothing else happens", () => {
     const { world, body } = standing(4);
     const row = body.row;
-    expect(crystalStruck(world, bolt(body, crystalMiddleCol(body), "red"), body)).toBe(false);
+    expect(crystalStruck(world, bolt(body, crystalMiddleLane(world, body), "red"), body)).toBe(
+      false,
+    );
     expect(body.kind).toBe("crystal");
-    expect(body.row).toBe(row + CFG.crystalDiveRows);
+    expect(body.row).toBe(row);
+    expect(body.fromRow).toBe(row - CFG.crystalRows);
     expect(of(world, "reject")).toHaveLength(1);
-    expect(of(world, "crystalDive")).toHaveLength(1);
+    expect(of(world, "crystalCatch")).toHaveLength(1);
     expect(of(world, "crystalSplit")).toHaveLength(0);
   });
 
-  it("bounces a shot at either end even while the whole condition holds", () => {
+  it("catches a shot at either end even while the whole condition holds", () => {
     const { world, body } = standing(4);
     hold(world, body);
     const row = body.row;
-    expect(crystalStruck(world, bolt(body, body.col, "red"), body)).toBe(false);
+    expect(crystalStruck(world, bolt(body, creatureLane(world, body), "red"), body)).toBe(false);
     expect(body.kind).toBe("crystal");
-    expect(body.row).toBe(row + CFG.crystalDiveRows);
+    expect(body.row).toBe(row);
   });
 
-  it("bounces the wrong colour at a held middle, and it costs the same row", () => {
+  it("catches the wrong colour at a held middle, and the body goes on as it was", () => {
     const { world, body } = standing(4, "cyan");
     hold(world, body);
     const row = body.row;
-    expect(resolve(world, bolt(body, crystalMiddleCol(body), "red"), body)).toBe(false);
+    expect(resolve(world, bolt(body, crystalMiddleLane(world, body), "red"), body)).toBe(false);
     expect(body.kind).toBe("crystal");
-    expect(body.row).toBe(row + CFG.crystalDiveRows);
+    expect(body.row).toBe(row);
     expect(of(world, "reject")).toHaveLength(1);
+  });
+
+  it("is opened at the middle it is drawn on part-way across a beat, not the one it is going to", () => {
+    // One tick into a beat the body is still drawn in the lane it is leaving
+    // (`creatureLane`), and that is the lane a bolt is found against — so the
+    // join it can open is that lane's middle, one column behind `col`'s.
+    const { world, body } = standing(4);
+    hold(world, body);
+    const drawn = crystalMiddleLane(world, body);
+    expect(drawn).toBe(crystalMiddleCol(body) - CFG.crystalCols);
+    expect(crystalStruck(world, bolt(body, crystalMiddleCol(body), "red"), body)).toBe(false);
+    expect(body.kind).toBe("crystal");
+    expect(crystalStruck(world, bolt(body, drawn, "red"), body)).toBe(false);
+    expect(body.kind).not.toBe("crystal");
+    expect(of(world, "crystalSplit")).toHaveLength(1);
   });
 
   it("splits into a red slick on the left and a cyan bulb on the right when all four hands agree", () => {
@@ -184,7 +230,7 @@ describe("what opens it", () => {
     const col = body.col;
     const row = body.row;
     const score = world.score;
-    expect(resolve(world, bolt(body, crystalMiddleCol(body), "cyan"), body)).toBe(false);
+    expect(resolve(world, bolt(body, crystalMiddleLane(world, body), "cyan"), body)).toBe(false);
     expect(of(world, "crystalSplit")).toHaveLength(1);
     expect(of(world, "destroy")).toHaveLength(0);
     expect(world.creatures).toHaveLength(2);
@@ -199,7 +245,7 @@ describe("what opens it", () => {
   it("falls straight as two plain bodies afterwards, killed by the matching cannon", () => {
     const { world, body } = standing(4, "cyan");
     hold(world, body);
-    resolve(world, bolt(body, crystalMiddleCol(body), "cyan"), body);
+    resolve(world, bolt(body, crystalMiddleLane(world, body), "cyan"), body);
     const cols = world.creatures.map((c) => c.col);
     for (let t = 0; t < TPB; t++) step(world, []);
     expect(world.creatures.map((c) => c.col)).toEqual(cols);

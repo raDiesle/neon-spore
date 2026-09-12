@@ -349,6 +349,19 @@ Each names the slot it would fit.
 
 ### Mechanics
 
+- **The crystal's dive** — a wrong shot at THE CRYSTAL (wave 43) costs the
+  pair a row: the body dives `crystalDiveRows` toward the ship, so fourteen
+  beats becomes thirteen with every guess. Built and shipped on 11 September
+  2026 and taken out the next day at the owner's word — *when hit wrong, it
+  shouldn't fall faster, just nothing* — because the dive made the first
+  crystal a body the pair lost to before they had read it. What survives is
+  the catch: the shell throws the shot off with a spark and its own sound
+  (`crystalCatch`) and the body goes on as it was. The dive is one line to
+  restore in `crystalStruck` (`packages/sim/src/crystal.ts`) — `hit.fromRow =
+  hit.row; hit.row += cfg.crystalDiveRows` beside the catch event, with the
+  field back in `config-crystal.ts` — and it belongs, if anywhere, on a
+  *later* crystal wave, where a pair that already knows the answer is being
+  asked to stop guessing at it
 - **Reverse wave** — a wave from below, and the reason nothing was drawn at it
   is that a direction is not a shape. The breach is what would give it one:
   something comes up out of a hole in the hull, and since the hull is the bottom

@@ -28,7 +28,7 @@ export function caromCue(
         | "chuteOpen"
         | "chuteCut"
         | "crystalBounce"
-        | "crystalDive"
+        | "crystalCatch"
         | "crystalSplit";
     }
   >,
@@ -102,13 +102,13 @@ export function caromCue(
         pan: panForCol(e.col, cols),
         pitch: pitchForRow(e.row, rows),
       };
-    case "crystalDive":
-      // A shot the shell turned away, and the body a row closer for it. The
-      // `reject` on the same tick is the bolt bouncing; this is the shell —
+    case "crystalCatch":
+      // A shot the shell turned away, and nothing else for it. The `reject`
+      // on the same tick is the bolt bouncing; this is the shell —
       // `creature.crystalFacet` was drafted for exactly this body, "the one
       // that breaks into halves", and its two glints are the facets catching
-      // the light as the whole thing drops. Short and high, so it rides over
-      // the reject rather than doubling it.
+      // the light. Short and high, so it rides over the reject rather than
+      // doubling it.
       return {
         id: "creature.crystalFacet",
         pan: panForCol(e.col, cols),

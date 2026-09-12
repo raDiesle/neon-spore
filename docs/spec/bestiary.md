@@ -155,8 +155,12 @@ group, only an entry and a state machine (see THE LURE, THE THROB, THE DART,
 THE VEIL and THE STRAND waves, and `.claude/skills/new-creature`). The crystal
 is the seventh, built 11 September 2026 on THE CRYSTAL (wave 43): the Splitter
 as it was merged into, with the split made the pair's to earn — the shield
-standing under the middle tile and the guard armed on the beat the shot of the
-join's colour lands, or the shot bounces off and the whole thing dives a row
+standing under the craft and the guard armed on the beat the shot of the
+join's colour lands, or the shot is caught and nothing else happens. It was
+drawn as an hourglass with the two ends visible inside it and dove a row for
+every wrong shot until 12 September 2026, when the owner asked for a craft
+with an electric field round it, opened underneath while the shield stands
+there; the dive is on the NOT BUILT YET page ([ideas](ideas.md), Mechanics)
 (`packages/sim/src/crystal.ts`, `packages/render/src/crystal.ts`).
 
 **The veil is the lure's split turned over**, and the pair is the point: THE

@@ -109,7 +109,6 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   scoreCaromCrack: "SCORE",
   crystalCols: "THE CRYSTAL — two bodies in one shell, broken at the middle",
   crystalRows: "THE CRYSTAL — two bodies in one shell, broken at the middle",
-  crystalDiveRows: "THE CRYSTAL — two bodies in one shell, broken at the middle",
   damageCrystal: "THE CRYSTAL — two bodies in one shell, broken at the middle",
   scoreCrystalSplit: "SCORE",
   crawlerSegments: "THE CRAWLER — a worm that walks the ship instead of falling",

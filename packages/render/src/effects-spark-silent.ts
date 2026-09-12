@@ -98,7 +98,7 @@ export const SILENT = [
   // bolt's spark and the dive is the whole body moving — drawn by the glide,
   // not by material leaving it.
   "crystalBounce",
-  "crystalDive",
+  "crystalCatch",
   // THE GUM spreading is the smear itself getting wider, drawn off the world;
   // material leaving it would say it was coming apart, and it is not.
   "gumSpread",

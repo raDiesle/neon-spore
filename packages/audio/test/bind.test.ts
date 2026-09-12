@@ -139,7 +139,7 @@ const SAMPLES: Record<string, SimEvent> = {
   chuteOpen: { type: "chuteOpen", col: 3, row: 0, color: "red" },
   chuteCut: { type: "chuteCut", col: 3, row: 6, color: "red", kind: "slick" },
   crystalBounce: { type: "crystalBounce", col: 0, row: 5, dir: 1 },
-  crystalDive: { type: "crystalDive", col: 4, row: 6 },
+  crystalCatch: { type: "crystalCatch", col: 4, row: 6 },
   crystalSplit: { type: "crystalSplit", col: 4, row: 5, color: "red" },
   volleyReturn: { type: "volleyReturn", id: 4, col: 2, row: 13, left: 2 },
   volleyHatch: { type: "volleyHatch", col: 2, row: 6, kind: "slick", color: "red" },
@@ -347,7 +347,7 @@ const CAROM_IDS: Record<string, string> = {
   // THE CRYSTAL's three, bound in the same file: it crosses on the carom's
   // diagonal and turns at the same walls.
   crystalBounce: "impact.bounce",
-  crystalDive: "creature.crystalFacet",
+  crystalCatch: "creature.crystalFacet",
   crystalSplit: "impact.split",
 };
 

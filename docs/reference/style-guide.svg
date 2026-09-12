@@ -259,6 +259,11 @@
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">arcRim</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#DCE6FF 223°</text>
     </g>
+    <g transform="translate(268 1770)">
+      <rect width="66" height="46" rx="4" fill="#DDEBFF" stroke="#241B4F"/>
+      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">crystalField</text>
+      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#DDEBFF 215°</text>
+    </g>
 <text x="40" y="1876" fill="#2FE0F0" font-family="Courier New, monospace" font-size="10" text-anchor="start">THE FILM</text>
 <text x="150" y="1876" fill="#7A6FA8" font-family="Courier New, monospace" font-size="9" text-anchor="start">not a colour but a sweep: THE BALLOON's skin runs 245°–290°–320° and back, so no hue on it ever holds still long enough to be named.</text>
     <g transform="translate(40 1892)">

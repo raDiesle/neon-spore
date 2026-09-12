@@ -1,8 +1,8 @@
 import type { Color } from "./types.js";
 
 /**
- * **Everything THE CRYSTAL does**, as events: it turns at a wall, a wrong shot
- * drives it down, and the right one breaks it in two. Its own file on
+ * **Everything THE CRYSTAL does**, as events: it turns at a wall, its shell
+ * catches a wrong shot, and the right one breaks it in two. Its own file on
  * `events-carom.ts`' terms — one arrival taken apart rather than incidents
  * that share a creature — and one arm of `CreatureEvent`, so every consumer
  * still switches over the whole list.
@@ -16,13 +16,14 @@ export type CrystalEvent =
   | { type: "crystalBounce"; col: number; row: number; dir: -1 | 1 }
   /**
    * A shot met the shell and was thrown off — anywhere but the middle, or the
-   * middle without the ship's shield standing armed in that lane, or the
-   * middle in the wrong colour — and the whole body dove `crystalDiveRows`
-   * toward the ship. `col` is the **middle** column and `row` the row it now
-   * stands on. Beside the ordinary `reject` rather than in place of it: the
-   * spark is the spark, and this is the price that rides on it.
+   * middle without the ship's shield standing armed under the body, or the
+   * middle in the wrong colour. Nothing else happens to the body: it used to
+   * dive a row here and the owner took that out. `col` is the **middle**
+   * column and `row` the row it stands on. Beside the ordinary `reject`
+   * rather than in place of it: the spark is the spark, and this is the
+   * shell's own sound over it.
    */
-  | { type: "crystalDive"; col: number; row: number }
+  | { type: "crystalCatch"; col: number; row: number }
   /**
    * The middle broke and the shell came off. `col` is the **middle** column —
    * the tile that broke, and the one the burst belongs on — and `color` the

@@ -80,10 +80,10 @@ export const CREATURE_SOUNDS: SoundDef[] = [
     family: "creature",
     blurb: "Facets catching light: two very short high tones, a semitone apart.",
     // Drafted for this body before it existed and spent on it on 11 September
-    // 2026: the shell turning a wrong shot away as the whole thing drops a row
-    // (`crystalDive`, `bind-carom.ts`).
+    // 2026: the shell turning a wrong shot away (`crystalCatch`,
+    // `bind-carom.ts`). The row the body used to lose with it went on the 12th.
     status: "bound",
-    use: "THE CRYSTAL's shell catching a wrong shot — the body dives a row (`crystalDive`).",
+    use: "THE CRYSTAL's shell catching a wrong shot and nothing else happening (`crystalCatch`).",
     level: 0.2,
     layers: [glint(7400, 0.05, 0.4), after(0.03, glint(7840, 0.06, 0.3))],
   },
