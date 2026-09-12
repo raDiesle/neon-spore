@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-12 · 361b3a7c — The TEST view is the game's own stage and ship
+
+The director's TEST view (and the game's desk rig) took a taller control band than a phone — `bandPct`, 31 % against `bandSoloPct`'s 19 % — because it carries both seats' controls. A taller band leaves less height for the field, so the tile shrank, the stage narrowed to the columns with black at both sides, and the hull stood higher than in P1 or P2. The owner asked for the TEST view to have the game's own dimensions and the game's own ship height, always. The band is now one share in every role; both seats' rails and buttons share the band a phone gives one seat, in the arrangement `panel-plan.ts`'s test column already had. `bandPct` goes, with its slider row in the game's test panel and the director's TUNING page; the pointer test that assumed the narrower stage gets a wider canvas. A look the owner asked for by name.
+
 ## 2026-09-12 · 1d66779f — Stopping apps/server's dev script stops the wrangler under it
 
 `dev.ts` ran `npx --yes wrangler dev …` through a shell, and on Windows the shell exited as soon as node was up, so a stop that reached the script took the shell and left wrangler's node and both `workerd` holding the port. It now spawns wrangler's own `wrangler-dist/cli.js` under `node` as a direct child, resolved from this tree's `wrangler` so the dev server, the deploy and the tests stay on one version, and forwards `SIGINT`/`SIGTERM` to it. `apps/server/test/dev-stop.test.ts` starts the relay on a free port, sees it answer, kills the tree the way anything outside a console does, and finds the port silent. The net-change skill now says to stop the wrangler by stopping `dev.ts` — and by its Windows pid: Git Bash's `$!` is an MSYS number that a tree kill cannot walk, which was the other half of today's orphans.
