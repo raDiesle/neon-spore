@@ -165,6 +165,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## `lockstep.ts` never says its promise rests on an ordered, reliable transport
 
 - **Found:** 2026-09-12, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-12, claude/queue-lockstep-ts-never-says-its-promise-rests-on-an-o
 - **Files:** `packages/net/src/lockstep.ts`, `.claude/skills/net-change/SKILL.md`
 
 The scheduler is safe against a frame that arrives late — an `input` at or
