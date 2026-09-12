@@ -179,6 +179,7 @@ what the rest of this file holds.
 ## Nothing has swept for a re-derived rule since the copies table reached 46 rows
 
 - **Found:** 2026-09-12, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-12, claude/queue-nothing-has-swept-for-a-re-derived-rule-since-th
 - **Files:** `packages/sim/test/copies-table.ts`, `packages/sim/test/copies.test.ts`
 
 Every row in `copies-table.ts` exists because review caught a rule written out
