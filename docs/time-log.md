@@ -1461,3 +1461,31 @@ devDependency to reach the wave list. About 45 min.
 Bottleneck: **writing** — the script had to play the wave rather than fidget
 through it, which meant choosing the beat the red shot goes out on so the run
 covers the body's fall instead of ending on the first beat.
+
+## 2026-09-12 · doc-drift — a document that names a file it has not got fails a test
+
+`tools/index/drift.ts`' argument, applied to the spec: prose is hand-written and
+worth keeping hand-written, so nothing regenerates over it, and the cost is that
+it goes quietly wrong. `tools/test/doc-drift.test.ts` settles the three claims a
+document makes that the tree can answer without reading the argument — 2,211
+backticked paths under `docs/`, every field of `SimConfig`, and the `Files:` line
+of every queue and parked entry. It caught **seven stale paths in five
+documents** and **one undocumented core config field**, all fixed here. The
+deciding half is `doc-paths.ts`, because the interesting question was never "is
+this a path in the tree": the docs say `sim/hash.ts` and `render/glow.ts` on
+purpose, so a literal check reported 147 healthy sentences and nine real misses,
+and a shorthand resolver — segments in order, last segment the file name — got it
+to nine. The other 138 were the docs being written the way they should be.
+About 100 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | `tools/index/drift.ts`, whether `tools/queue`'s own tests already checked a `Files:` path (`problemsIn` checks the shape, `stale.ts` checks the trunk when somebody runs the listing, nothing tests it), and then each of the nine misses in its own paragraph to see whether it was a rename, a removal, a hypothetical or a notation |
+| writing | 40 | the test, `doc-paths.ts`, the 158-name allowlist and its header, seven doc fixes, `damageCreature`'s sentence under the damage table it belongs to, the `Asks:` entry with its three options |
+| looking | 0 | nothing drawn |
+| friction | 20 | three passes over the resolver before the false-positive rate was honest — `git ls-files` misses a file the same commit adds, `.gitignore`'d build outputs are not drift, fenced blocks are examples, and `docs/queue.md` quoting a field name made six undocumented fields read as documented, including the six in this lane's own entry |
+| landing | 15 | five mutations of the tree to prove each check bites, the split at 258 lines, `check:fast` — which caught the new walk under `tree-walk.test.ts`' rule that anything recursing into directories names `.claude`, whatever directory it starts in — the commit, `land` |
+
+Bottleneck: **friction** — every rule the check needed was discovered by reading
+a false positive, and each one cost a full re-run over 54 documents to find the
+next.

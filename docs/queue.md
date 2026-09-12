@@ -246,3 +246,48 @@ anything in `startWave` that read something other than the world. Answer
 `content`, on the tick the event arrived, on both devices — carry the run into
 wave 1 (CYAN, two cyan bodies) and keep the fingerprints crossing over the
 boundary. `bun test packages/net` proves it.
+
+## 158 of SimConfig's 234 fields are named in no document
+
+- **Found:** 2026-09-12, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `tools/test/doc-drift-allow.ts`, `tools/test/doc-drift.test.ts`, `docs/spec/bestiary.md`, `docs/spec/bosses.md`, `docs/spec/interludes.md`
+- **Asks:** Should every tunable get a sentence naming it, only the ones whose own spec sheet already argues about the figure, or none beyond the core?
+
+`tools/test/doc-drift.test.ts` holds every field of `SimConfig` to being named
+somewhere under `docs/spec/` or in a `docs/*.md`. 76 pass, and the split is
+sharper than anybody would have guessed: **every field `packages/sim/src/config.ts`
+declares itself is named** — the grid, the beat, the windows, the input delay,
+the hull's limits, the run's clock — and **not one of the 158 misses is**. The
+hundred and fifty-ninth was `damageCreature`, and it got its sentence in this
+lane rather than a line on the list. Every miss lives in a `config-<thing>.ts` of its own and is a
+per-creature or per-round figure: `strandBeads`, `pinballWallPermille`,
+`scoreWardenPlate`, `damageCrawlerBite`. Their mechanics are all specified in
+prose; what no document does is quote the field name.
+
+The 149 are frozen in `tools/test/doc-drift-allow.ts` so the next field added
+is a red test rather than the hundred and fiftieth miss, and the list is held
+honest from both ends: a name that leaves `SimConfig` and a name a document
+starts naming both fail the test.
+
+What the answer picks between:
+
+- **Every field.** 158 sentences across about thirty spec sheets, written where
+  the field's neighbours are described rather than as a table — the rule the
+  test already states, applied. Two sessions of prose, and the list goes to
+  empty and stays there.
+- **Only where the sheet argues about the figure.** A `score*` or `damage*`
+  number is an outcome nobody tunes by reading the spec, while
+  `pinballGravityMilli` and `gaugeDriftMilli` are the feel of a round and a
+  sheet that does not name them is a sheet that cannot be checked. That is
+  107 fields to write and the 51 `score*` and `damage*` ones to keep on the
+  list, with the list's own comment saying which kind it holds.
+- **Nothing beyond the core.** The line the tree already draws — `config.ts` is
+  documented, a `config-<thing>.ts` is not — becomes the rule, and the check
+  narrows to `config.ts`. The allowlist disappears, and so does the pressure on
+  a new round to write a sentence about its numbers.
+
+Hull points are the reason this is a question rather than a task: `score*` and
+`damage*` are the largest group on the list, and `docs/spec/structure.md` has
+them on their way out with the hull's own figure (`wave-fail.ts`, 12 September
+2026). Writing sentences about those 51 a month before they are deleted is the
+one outcome all three options should avoid.

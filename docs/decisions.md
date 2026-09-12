@@ -699,7 +699,7 @@ would make the boundary above arbitrary rather than physical.
 reason. `docs/queue.md` was driven by `bun run burn`, which read it as a board
 of parallel lanes and joined it to git. `Check:` trailers produced an
 outstanding list in `bun run checks` and a sheet in the director with a verdict
-button on every row, backed by a ledger in `docs/verified.md` and hand-written
+button on every row, backed by a ledger of its own and hand-written
 restatements under `docs/checks/`. `bun run handoff` derived a four-line closing
 block for a phone. All three were accurate, and all three asked the owner for
 something.

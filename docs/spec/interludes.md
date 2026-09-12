@@ -108,7 +108,7 @@ What a round costs now:
 | Its numbers | `packages/sim/src/config-<round>.ts`, spread into `DEFAULT_CONFIG` |
 | Its panel | one `ControlSet` of slabs in `packages/content/src/control-sets.ts` |
 | Its picture | `packages/render/src/<round>.ts`, one file per round |
-| Its card | one row in `packages/content/src/briefings.ts` |
+| Its guide | the `guide:` on that same wave entry, and its rehearsal in `packages/content/src/scenes.ts` |
 
 **Nothing needs a third home.** A round's *tuning* is `SimConfig`, split into a
 block of its own; a round's *authored content* — if it has any — is the `boss:`

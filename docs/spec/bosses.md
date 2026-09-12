@@ -1123,8 +1123,8 @@ three — the grid faint with no numbers on it, no grid at all, or the grid
 exactly as a wave draws it — and took the first. The reasoning he was given for
 it holds: the room the pair is standing in should be the room they know, and a
 lattice carrying coordinates would be inviting them to say "column four" in a
-round where the phrase means nothing. `render/tell-round.ts` draws it at just
-over half strength with `drawGrid`'s coordinate argument at nought.
+round where the phrase means nothing. The round's own picture drew it at just
+over half strength, with `drawGrid`'s coordinate argument at nought.
 
 **What it cost** was what [interludes](interludes.md) says a round costs, and
 the forecast held: five files in `packages/sim` (the state, the ring pure over

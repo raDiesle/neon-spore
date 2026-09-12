@@ -267,7 +267,11 @@ to put behind a body somebody is reading a letter off. See
 | Meteor, shield right **and** triggered | 0 damage, deflected |
 | Shot hits a meteor | crater; size unchanged, indestructible |
 
-The hull regenerates slowly (`hullRegenPerSecond`).
+The two figures in that table are `damageCreature` and `damageMeteor`, and
+every other body in the game is tuned against the first of them — a config
+block that sets one says whether its body costs more or less than a creature
+reaching the hull, never a number on its own. The hull regenerates slowly
+(`hullRegenPerSecond`).
 
 **Visibility of a deflection.** A successful ward must be unmissable, or the
 pair never learns the timing. Built: the shield changes from a thin, permeable

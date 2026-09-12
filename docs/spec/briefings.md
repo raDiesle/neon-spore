@@ -59,7 +59,7 @@ wave 9, three waves after the rock arrived.
 is itself the thing that goes stale, and that reading the subject off the
 wave's own entries cannot be forgotten. That was true, and it produced a closed
 list of subjects in `packages/sim/src/briefing.ts` and a catalogue in
-`packages/content/src/briefings.ts` that was a `Record` over it.
+`packages/content` that was a `Record` over it.
 
 **It is placed again now, and the reason is not that the derivation broke.** It
 is that a derived card can only ever be about a *creature*, in the abstract,

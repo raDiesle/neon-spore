@@ -608,8 +608,8 @@ time, picked up the way the game's other power-ups already are.
   beats has earned certainty and a shot that can be dodged out of takes it back;
   what would grant it, since the lance is not a pickup; and whether the ribbon
   reads at all against the beam standing in the same column, which is the one
-  thing that cannot be argued and has to be seen — `git show` the commit that
-  removed it (`packages/render/src/lance-beam.ts`) for the drawing.
+  thing that cannot be argued and has to be seen — `git show de17df5c`, the
+  commit that removed it, for the drawing.
 
 ### Rounds
 
