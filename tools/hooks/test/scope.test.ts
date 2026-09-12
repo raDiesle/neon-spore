@@ -40,16 +40,32 @@ describe("scopeFor", () => {
     expect(scopeFor(["packages/audio/src/mix.ts"])).toEqual(["packages/audio", "tools/director"]);
   });
 
-  it("net's wire format is shared with the game client", () => {
-    expect(scopeFor(["packages/net/src/wire.ts"])).toEqual(["apps/game", "packages/net"]);
+  it("net's wire format is shared with the game client and the relay", () => {
+    expect(scopeFor(["packages/net/src/wire.ts"])).toEqual([
+      "apps/game",
+      "apps/server",
+      "packages/net",
+    ]);
   });
 
-  it("apps/server speaks net's protocol, so it scopes the same way", () => {
-    expect(scopeFor(["apps/server/src/room.ts"])).toEqual(["apps/game", "packages/net"]);
+  it("apps/server speaks net's protocol, so it scopes the same way, its own tests included", () => {
+    expect(scopeFor(["apps/server/src/room.ts"])).toEqual([
+      "apps/game",
+      "apps/server",
+      "packages/net",
+    ]);
   });
 
   it("apps/game drives the renderer, so a game change re-runs render too", () => {
     expect(scopeFor(["apps/game/src/loop.ts"])).toEqual(["apps/game", "packages/render"]);
+  });
+
+  it("the game's end of the wire reaches the relay's tests; the rest of the game does not", () => {
+    const wire = ["apps/game", "apps/server", "packages/render"];
+    expect(scopeFor(["apps/game/src/link.ts"])).toEqual(wire);
+    expect(scopeFor(["apps/game/src/link-socket.ts"])).toEqual(wire);
+    expect(scopeFor(["apps/game/src/relay.ts"])).toEqual(wire);
+    expect(scopeFor(["apps/game/src/menu-link.ts"])).toEqual(["apps/game", "packages/render"]);
   });
 
   it("a tool directory maps to itself, whatever its name", () => {

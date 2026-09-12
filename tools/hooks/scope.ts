@@ -43,10 +43,18 @@ const ROWS: readonly Row[] = [
   },
   // audio is only ever driven from the director's music page.
   { prefix: "packages/audio/", dirs: ["packages/audio", "tools/director"] },
-  // net's wire format is shared with the game client that speaks it, and
-  // with the relay's own server package.
-  { prefix: "packages/net/", dirs: ["packages/net", "apps/game"] },
-  { prefix: "apps/server/", dirs: ["packages/net", "apps/game"] },
+  // net's wire format is shared with the game client that speaks it and with
+  // the relay, whose own tests raise the shipped worker in a real workerd
+  // (`apps/server/test/room.test.ts`). Until 12 September 2026 neither row
+  // named `apps/server`, so a lane that could break the relay first heard of
+  // it from `bun run land`'s full check, minutes in.
+  { prefix: "packages/net/", dirs: ["packages/net", "apps/game", "apps/server"] },
+  { prefix: "apps/server/", dirs: ["packages/net", "apps/game", "apps/server"] },
+  // The game's end of the wire — `link.ts` and the pieces it is split into,
+  // and `relay.ts` — can break the relay's tests the same way, so they reach
+  // them too; the rest of apps/game cannot.
+  { prefix: "apps/game/src/link", dirs: ["apps/game", "packages/render", "apps/server"] },
+  { prefix: "apps/game/src/relay.ts", dirs: ["apps/game", "packages/render", "apps/server"] },
   // apps/game is the one thing that drives the renderer at runtime.
   { prefix: "apps/game/", dirs: ["apps/game", "packages/render"] },
 

@@ -16,9 +16,26 @@ describe("fastScopeFor", () => {
   it("a narrow scope is the hook's answer plus the sweeps", () => {
     expect(fastScopeFor(["packages/net/src/wire.ts"])).toEqual([
       "apps/game",
+      "apps/server",
       "packages/net",
       ...SWEEPS,
     ]);
+  });
+
+  it("a lane that can break the relay reaches the relay's own tests", () => {
+    // `apps/server/test/room.test.ts` raises the shipped worker; until 12
+    // September 2026 nothing short of `bun run land` ran it for a change to
+    // the wire, and two landings went red there for lanes that had not
+    // touched it.
+    for (const path of [
+      "packages/net/src/protocol.ts",
+      "apps/server/src/room.ts",
+      "apps/game/src/link.ts",
+      "apps/game/src/relay.ts",
+    ]) {
+      expect(fastScopeFor([path]), path).toContain("apps/server");
+    }
+    expect(fastScopeFor(["apps/game/src/loop.ts"])).not.toContain("apps/server");
   });
 
   it("a change the hook would run everything for runs its own package instead", () => {
@@ -30,7 +47,14 @@ describe("fastScopeFor", () => {
 
   it("one path asking for everything does not silence the narrow answers beside it", () => {
     expect(fastScopeFor(["package.json", "docs/queue.md", "packages/net/src/wire.ts"])).toEqual(
-      ["apps/game", "packages/net", ...SWEEPS, "tools/director", "tools/queue"].sort(),
+      [
+        "apps/game",
+        "apps/server",
+        "packages/net",
+        ...SWEEPS,
+        "tools/director",
+        "tools/queue",
+      ].sort(),
     );
   });
 

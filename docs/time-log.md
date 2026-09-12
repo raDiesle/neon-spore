@@ -22,6 +22,33 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 · room-tests — the room tests wait for what they read, and `check:fast` reaches them
+
+Two landings went red on `apps/server/test/room.test.ts` for lanes that had
+not touched it. Why it races under a full shard run and not alone: eight
+`bun test` processes on a CPU capped at half starve workerd and the test
+process both, so a 60 ms quiet interval is no longer a round trip, a
+count-based wait is satisfied by the `ready` a join sends before the one the
+press sends, and a 150 ms silence window is crossed by the wall clock between
+two lines of a test. Every bare `settle()` before a read is gone — a wait on
+the message itself (`settle("welcome", (w) => w.startMs > 0)`), or a ping
+fenced by its pong where the assertion is that nothing came; the shortened
+windows are one 600 ms figure and the arrivals ask whether it has passed.
+`tools/hooks/scope.ts` names `apps/server` for a change to `packages/net`,
+`apps/server`, the game's `link*.ts` or `relay.ts`. Five green
+`shard.ts room` runs in a row. About 35 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `room.test.ts`, the three commits that had widened it, `room.ts`, `seat.ts`, `start-gate.ts` for what a join and a press actually send; `scope.ts`, `fast-scope.ts` |
+| writing | 15 | the `settle` predicate and the `caughtUp` fence, twenty waits named or fenced, `arriveUntil` for the two window tests, the two scope rows and their tests |
+| looking | 0 | — |
+| friction | 5 | a quoted heredoc the shell would not close — the script went through the editor tool instead |
+| landing | 5 | `shard.ts room` five times, `check:fast`, the commit, `land --keep` |
+
+Bottleneck: **writing** — a join to a full room sends a `welcome` *and* a
+`ready`, and every count-based wait had to be re-read against that.
+
 ## 2026-09-12 · queue-stale — `bun run queue` says when an entry has gone stale
 
 The owner, reading this log: the most frequent bottleneck is reading, and

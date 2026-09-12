@@ -1,4 +1,4 @@
-import { afterAll, describe, expect, test } from "bun:test";
+import { afterAll, beforeAll, describe, expect, test } from "bun:test";
 import {
   decodeServer,
   NAME_PARAM,
@@ -44,7 +44,57 @@ import { relay } from "./relay.ts";
  */
 const OWN_RELAY_MS = 20_000;
 
+/**
+ * **How short a window a test may set.**
+ *
+ * The seats are judged silent against the wall clock, and under a full
+ * `bun run check` the wall clock runs between two lines of a test as freely
+ * as it runs between two pings: at 100 ms and at 150 ms, the gap between a
+ * join and the press that followed it went past the window, the room hung the
+ * seat up, and the test read a working relay as a broken one (11 September
+ * 2026, twice, on landings that had not touched this file). Alone, the same
+ * lines are microseconds apart, which is why it never showed there. 600 ms is
+ * the figure that has held since; it is written once so the next shortened
+ * window is not a new bet.
+ */
+const BRIEF_SILENT_MS = 600;
+
+/**
+ * Arrive until the room says what the test is waiting for it to say.
+ *
+ * Both eviction and the end of a run are judged when a phone arrives
+ * (`Room.fetch`), so the honest way to ask whether a window has passed is to
+ * arrive — waiting the window out and arriving once was the other half of the
+ * flake, when the deadline elapsed before the room had processed the silence.
+ * An arrival that comes too early is refused or handed the old stamp; it hangs
+ * up, which gives back nothing (a refused socket was never a seat), and the
+ * next attempt costs it nothing. `phone` sends no message, so the arrivals do
+ * not move the room's clock.
+ */
+async function arriveUntil(
+  join: () => Promise<Awaited<ReturnType<typeof phone>>>,
+  ok: (said: ServerMessage[]) => boolean,
+): Promise<Awaited<ReturnType<typeof phone>> | undefined> {
+  for (let tries = 0; tries < 60; tries++) {
+    const arrival = await join();
+    // Either answer will do: a welcome, or the error a full room gives.
+    await until(() => arrival.said.length > 0);
+    await quiet();
+    if (ok(arrival.said)) return arrival;
+    arrival.close();
+    await quiet(100);
+  }
+  return undefined;
+}
+
 const mf = relay();
+
+// The shared workerd boots on the first request it is given, and under a full
+// `bun run check` — eight shards on a CPU capped at half — a boot is not five
+// seconds' work for certain, which is all a test gets by default. It is paid
+// here, once, against the budget written for it, rather than by whichever
+// test happens to come first.
+beforeAll(() => mf.ready, OWN_RELAY_MS);
 
 afterAll(() => mf.dispose());
 
@@ -72,41 +122,74 @@ async function phone(
   });
   socket?.addEventListener("close", (e) => closed.push(e.code));
   socket?.accept();
+  const send = (message: unknown) => socket?.send(JSON.stringify(message));
+  /**
+   * Everything the room has said by the time it has had a chance to say it.
+   *
+   * **Name what you are waiting for.** `settle()` on its own is one quiet
+   * interval and nothing more — a race for anything read afterwards: a workerd
+   * round trip is not synchronous with this loop, and under a full `bun run
+   * check` — eight shards on a CPU capped at half — one interval is not
+   * always enough for a reply to come back. That is the flake this file lost
+   * once in 60851 tests and then twice more on landings that had not touched
+   * it, each a full check to find out the line meant nothing.
+   *
+   * `settle("pong")` polls until **one more** message of that kind has landed
+   * than the last time this phone was settled on it, then takes one quiet
+   * interval on top so anything following it is in `said` too. Counting from
+   * the last settle rather than from zero is what makes it right for the
+   * `.at(-1)` reads below, where a second welcome carrying a new stamp is the
+   * whole point of the wait.
+   *
+   * `settle("welcome", (w) => w.startMs > 0)` waits until the **last** message
+   * of that kind is the one the line below is about to read. It is the form to
+   * use wherever the count is not obvious — a join sends a `welcome` *and* a
+   * `ready` to a full room, and a wait that had not counted the join's `ready`
+   * was satisfied by it and read a list that was not there yet. A wait on the
+   * message itself cannot be off by one.
+   *
+   * On an idle machine either returns in the same 60 ms a bare settle always
+   * took; on a loaded one it waits, and if the reply never comes the assertion
+   * below it fails on the message that is missing rather than on a timeout that
+   * says nothing about which.
+   */
+  async function settle<T extends ServerMessage["t"]>(
+    waitFor?: T,
+    where?: (last: Extract<ServerMessage, { t: T }>) => boolean,
+  ): Promise<ServerMessage[]> {
+    if (waitFor !== undefined) {
+      const had = seen.get(waitFor) ?? 0;
+      await until(() => {
+        const all = of(said, waitFor);
+        if (where) {
+          const last = all.at(-1);
+          return last !== undefined && where(last);
+        }
+        return all.length > had;
+      });
+      seen.set(waitFor, of(said, waitFor).length);
+    }
+    await quiet();
+    return said;
+  }
+  let fences = 0;
   return {
     status: res.status,
     said,
     closed,
-    send: (message: unknown) => socket?.send(JSON.stringify(message)),
+    send,
     close: () => socket?.close(1000, "left"),
+    settle,
     /**
-     * Everything the room has said by the time it has had a chance to say it.
-     *
-     * **Name what you are waiting for.** `settle()` on its own is one quiet
-     * interval and nothing more — right for asserting that nothing arrived, and
-     * a race for everything else: a workerd round trip is not synchronous with
-     * this loop, and under a full `bun test` (339 files at once) one interval is
-     * not always enough for a reply to come back. That is the flake this file
-     * lost once in 60851 tests, and it is the sort that costs a session a
-     * re-run to find out whether the line meant anything.
-     *
-     * `settle("pong")` polls until **one more** message of that kind has landed
-     * than the last time this phone was settled on it, then takes one quiet
-     * interval on top so anything following it is in `said` too. Counting from
-     * the last settle rather than from zero is what makes it right for the
-     * `.at(-1)` reads below, where a second welcome carrying a new stamp is the
-     * whole point of the wait. On an idle machine it returns in the same 60 ms
-     * it always did; on a loaded one it waits, and if the reply never comes the
-     * assertion below it fails on the message that is missing rather than on a
-     * timeout that says nothing about which.
+     * Everything sent on this socket before now has been handled by the room —
+     * the fence for a line that asserts *nothing* arrived. A socket's messages
+     * are handled in the order they were sent, so the pong to a ping sent
+     * behind them is proof the room has seen them and said whatever it was
+     * going to. A bare `settle()` in that place was a bet that 60 ms would do.
      */
-    settle: async (waitFor?: ServerMessage["t"]) => {
-      if (waitFor !== undefined) {
-        const had = seen.get(waitFor) ?? 0;
-        await until(() => of(said, waitFor).length > had);
-        seen.set(waitFor, of(said, waitFor).length);
-      }
-      await quiet();
-      return said;
+    caughtUp: async () => {
+      send({ t: "ping", c1: 1_000_000 + fences++ });
+      await settle("pong");
     },
   };
 }
@@ -145,10 +228,10 @@ describe("a room hands out two seats", () => {
 
   test("the second phone is seat 2, and neither is started by arriving", async () => {
     const one = await phone("AACC");
-    await one.settle();
+    await one.settle("welcome");
     const two = await phone("AACC");
-    await two.settle();
-    await one.settle();
+    await two.settle("welcome");
+    await one.settle("welcome", (w) => w.peers === 2);
 
     const second = of(two.said, "welcome");
     expect(second[0]?.player).toBe(2);
@@ -174,20 +257,20 @@ describe("a room hands out two seats", () => {
     await one.settle("welcome");
 
     one.send({ t: "ready" });
-    await one.settle("ready");
-    // The other phone is told too, and it is waited for by name: under a full
-    // `bun test` the broadcast to the second socket landed after the first
-    // socket's welcome once, and the line below read a list that was not
-    // there yet.
-    await two.settle("ready");
+    // Waited for by what it says, not by count: a full room's join sends a
+    // `ready` of its own, with nobody on it, and a wait for "one more ready"
+    // was satisfied by that one under a full `bun test` — the line below read
+    // a list that was not there yet.
+    await one.settle("ready", (r) => r.players.includes(1));
+    await two.settle("ready", (r) => r.players.includes(1));
     // One press is not a start: the other person has not looked up yet.
     expect(of(one.said, "welcome").at(-1)?.startMs).toBe(0);
     expect(of(one.said, "ready").at(-1)?.players).toEqual([1]);
     expect(of(two.said, "ready").at(-1)?.players).toEqual([1]);
 
     two.send({ t: "ready" });
-    await two.settle("welcome");
-    await one.settle("welcome");
+    await two.settle("welcome", (w) => w.startMs > 0);
+    await one.settle("welcome", (w) => w.startMs > 0);
 
     // Neither device picks its own beat zero. That is the whole reason the
     // room exists rather than a handshake between the two phones.
@@ -200,37 +283,48 @@ describe("a room hands out two seats", () => {
 
   test("a press from one phone alone starts nothing at all", async () => {
     const one = await phone("AAEE");
-    await one.settle();
-    one.send({ t: "ready" });
-    one.send({ t: "ready" });
     await one.settle("welcome");
+    one.send({ t: "ready" });
+    one.send({ t: "ready" });
     // Twice, from the only seat there is: a thumb that lands twice is one
-    // ready seat, and one ready seat is nobody to start with.
+    // ready seat, and one ready seat is nobody to start with. The first press
+    // is answered with who has pressed; the second with nothing at all, which
+    // is why the fence: both have been handled before the silence is read.
+    await one.settle("ready", (r) => r.players.includes(1));
+    await one.caughtUp();
+    expect(of(one.said, "ready")).toHaveLength(1);
     expect(of(one.said, "welcome").at(-1)?.startMs).toBe(0);
     one.close();
   });
 
   test("a seat that leaves takes its press with it", async () => {
     const one = await phone("AAFF");
-    await one.settle();
+    await one.settle("welcome");
     const two = await phone("AAFF");
-    await two.settle();
+    await two.settle("welcome");
+    await one.settle("welcome", (w) => w.peers === 2);
 
     two.send({ t: "ready" });
-    await two.settle();
-    await one.settle("ready");
+    await two.settle("ready", (r) => r.players.includes(2));
+    await one.settle("ready", (r) => r.players.includes(2));
     expect(of(one.said, "ready").at(-1)?.players).toEqual([2]);
 
     two.close();
-    await one.settle();
+    // The seat going is announced twice over — `peers`, and the presses as
+    // they now stand — and the second is what the line below reads.
+    await one.settle("ready", (r) => r.players.length === 0);
     // The one still here must not be one thumb away from starting a game with
     // nobody in the other chair.
     expect(of(one.said, "ready").at(-1)?.players).toEqual([]);
 
     const three = await phone("AAFF");
-    await three.settle();
+    await three.settle("welcome");
+    await one.settle("welcome", (w) => w.peers === 2);
     one.send({ t: "ready" });
-    await one.settle("welcome");
+    // The press is answered with who has pressed and not with a stamp, so the
+    // `ready` is what proves the room handled it before the welcome is read.
+    await one.settle("ready", (r) => r.players.includes(1));
+    expect(of(one.said, "ready").at(-1)?.players).toEqual([1]);
     expect(of(one.said, "welcome").at(-1)?.startMs).toBe(0);
     one.close();
     three.close();
@@ -239,9 +333,12 @@ describe("a room hands out two seats", () => {
   test("a third phone is refused through the socket, not in front of it", async () => {
     const one = await phone("ACDE");
     const two = await phone("ACDE");
-    await two.settle();
+    await two.settle("welcome");
     const three = await phone("ACDE");
     await three.settle("error");
+    // The close comes behind the error on the same socket, and it is a frame
+    // of its own: waited for, not assumed to fit in the interval after.
+    await until(() => three.closed.length > 0);
 
     // A 409 would reach the page as a socket that would not open, which is
     // indistinguishable from a dead line. The upgrade is completed so the
@@ -259,7 +356,7 @@ describe("a room hands out two seats", () => {
   test("a seat leaving is announced to the one still there", async () => {
     const one = await phone("ADEF");
     const two = await phone("ADEF");
-    await two.settle();
+    await two.settle("welcome");
     two.close();
     await one.settle("peers");
     expect(of(one.said, "peers").at(-1)?.peers).toBe(1);
@@ -270,7 +367,7 @@ describe("a room hands out two seats", () => {
 describe("a room relays and answers", () => {
   test("a ping comes back as a pong carrying both server stamps", async () => {
     const one = await phone("AFGH");
-    await one.settle();
+    await one.settle("welcome");
     one.send({ t: "ping", c1: 1234 });
     await one.settle("pong");
     const [pong] = of(one.said, "pong");
@@ -283,7 +380,7 @@ describe("a room relays and answers", () => {
   test("an input reaches the peer with the sender's seat on it", async () => {
     const one = await phone("AGHJ");
     const two = await phone("AGHJ");
-    await two.settle();
+    await two.settle("welcome");
     one.send({ t: "input", tick: 12, commands: [{ kind: "guard" }] });
     await two.settle("input");
     const [input] = of(two.said, "input");
@@ -300,10 +397,12 @@ describe("a room relays and answers", () => {
 describe("a room refuses what it cannot play with", () => {
   test("a wrong protocol version never reaches a seat", async () => {
     const one = await phone("AHJK");
-    await one.settle();
+    await one.settle("welcome");
     const wrong = await phone("AHJK", PROTOCOL_VERSION + 98);
-    await wrong.settle();
-    await one.settle();
+    await wrong.settle("error");
+    // The refusal happened inside the upgrade, which has returned; whatever
+    // the room said to the seat while refusing is ahead of this fence.
+    await one.caughtUp();
 
     expect(of(wrong.said, "error")[0]?.code).toBe("protocol");
     expect(of(wrong.said, "welcome")).toEqual([]);
@@ -344,7 +443,7 @@ describe("a seat that went silent is not held against its owner", () => {
     async () => {
       // The window, shortened so the test does not have to sit still for the real
       // one. Everything else is the shipped worker.
-      const brief = relay({ SEAT_SILENT_MS: "150" });
+      const brief = relay({ SEAT_SILENT_MS: String(BRIEF_SILENT_MS) });
       try {
         const one = await phone("CDEF", PROTOCOL_VERSION, brief);
         const two = await phone("CDEF", PROTOCOL_VERSION, brief);
@@ -353,19 +452,20 @@ describe("a seat that went silent is not held against its owner", () => {
 
         // Nobody says anything for longer than the window: the shape of a screen
         // locking in a pocket, where the socket is not closed, it simply stops.
-        await quiet(300);
-
-        // The phone comes back. Before the eviction it was told the room it had
-        // a seat in was full — by the room holding that very seat for a socket
-        // that had stopped answering.
-        const back = await phone("CDEF", PROTOCOL_VERSION, brief);
-        await back.settle();
-        expect(of(back.said, "error")).toEqual([]);
-        expect(of(back.said, "welcome")).toHaveLength(1);
-        expect(of(back.said, "welcome")[0]?.room).toBe("CDEF");
+        // The phone comes back, and keeps coming back until it is let in.
+        // Before the eviction it is told the room it had a seat in is full — by
+        // the room holding that very seat for a socket that had stopped
+        // answering; after it, it is seated.
+        const back = await arriveUntil(
+          () => phone("CDEF", PROTOCOL_VERSION, brief),
+          (said) => of(said, "welcome").length > 0,
+        );
+        expect(of(back?.said ?? [], "error")).toEqual([]);
+        expect(of(back?.said ?? [], "welcome")).toHaveLength(1);
+        expect(of(back?.said ?? [], "welcome")[0]?.room).toBe("CDEF");
         one.close();
         two.close();
-        back.close();
+        back?.close();
       } finally {
         await brief.dispose();
       }
@@ -376,16 +476,22 @@ describe("a seat that went silent is not held against its owner", () => {
   test(
     "a seat that keeps pinging is never evicted",
     async () => {
-      const brief = relay({ SEAT_SILENT_MS: "150" });
+      const brief = relay({ SEAT_SILENT_MS: String(BRIEF_SILENT_MS) });
       try {
         const one = await phone("CFGH", PROTOCOL_VERSION, brief);
         const two = await phone("CFGH", PROTOCOL_VERSION, brief);
-        await two.settle();
-        // Every 700 ms in the game; faster here, because the window is.
-        for (let i = 0; i < 6; i++) {
+        await two.settle("welcome");
+        // Every 700 ms in the game; faster here, because the window is. Each
+        // ping is waited for by its pong — the room stamps the seat before it
+        // answers, so a pong is proof the ping counted — and the pinging goes
+        // on for twice the window, so that a seat that was going to be evicted
+        // for silence has had every chance to be.
+        const from = Date.now();
+        for (let i = 0; Date.now() - from < 2 * BRIEF_SILENT_MS; i++) {
           one.send({ t: "ping", c1: i });
           two.send({ t: "ping", c1: i });
-          await quiet(50);
+          await one.settle("pong");
+          await two.settle("pong");
         }
         const three = await phone("CFGH", PROTOCOL_VERSION, brief);
         await three.settle("error");
@@ -403,10 +509,10 @@ describe("a seat that went silent is not held against its owner", () => {
 describe("the names two people are called", () => {
   test("ride the upgrade and come back on the welcome, by seat", async () => {
     const one = await phone("ACAD", PROTOCOL_VERSION, mf, "Ada");
-    await one.settle();
-    const two = await phone("ACAD", PROTOCOL_VERSION, mf, "David");
-    await two.settle();
     await one.settle("welcome");
+    const two = await phone("ACAD", PROTOCOL_VERSION, mf, "David");
+    await two.settle("welcome");
+    await one.settle("welcome", (w) => w.peers === 2);
 
     // `names[0]` is player 1's, whichever phone is reading it.
     expect(of(two.said, "welcome").at(-1)?.names).toEqual(["Ada", "David"]);
@@ -420,10 +526,10 @@ describe("the names two people are called", () => {
     // carry is something that is not a name at all — the same rule both
     // clients apply on the way out, applied again on the way in.
     const one = await phone("ADAE", PROTOCOL_VERSION, mf, "  D~a!v?i,d  ");
-    await one.settle();
-    const two = await phone("ADAE", PROTOCOL_VERSION, mf, "<img src=x onerror=1>");
-    await two.settle();
     await one.settle("welcome");
+    const two = await phone("ADAE", PROTOCOL_VERSION, mf, "<img src=x onerror=1>");
+    await two.settle("welcome");
+    await one.settle("welcome", (w) => w.peers === 2);
 
     expect(of(one.said, "welcome").at(-1)?.names).toEqual(["David", ""]);
     one.close();
@@ -439,10 +545,10 @@ describe("the names two people are called", () => {
 
   test("go with the seat that leaves", async () => {
     const one = await phone("AFAG", PROTOCOL_VERSION, mf, "Ada");
-    await one.settle();
+    await one.settle("welcome");
     const two = await phone("AFAG", PROTOCOL_VERSION, mf, "David");
-    await two.settle();
-    await one.settle();
+    await two.settle("welcome");
+    await one.settle("welcome", (w) => w.peers === 2);
     two.close();
     await one.settle("peers");
     expect(of(one.said, "peers").at(-1)?.names).toEqual(["Ada", ""]);
@@ -453,9 +559,12 @@ describe("the names two people are called", () => {
 describe("what the pair got to, and the run that nobody came back to", () => {
   test("is kept, and handed back on the next welcome", async () => {
     const one = await phone("AGAH", PROTOCOL_VERSION, mf, "Ada");
-    await one.settle();
+    await one.settle("welcome");
     one.send({ t: "stats", wave: 8, score: 12_300 });
-    await one.settle();
+    // A tally is answered with nothing, so the fence is what says it is in:
+    // the next arrival's welcome is built from whatever the room holds when
+    // the join lands, and a join can land ahead of a message under load.
+    await one.caughtUp();
 
     // The room stores it and never reads it: what proves it is there is that
     // it comes back, not anything the room did with it.
@@ -469,12 +578,13 @@ describe("what the pair got to, and the run that nobody came back to", () => {
   test("takes the better of the two seats' figures, field by field", async () => {
     const one = await phone("AHAJ", PROTOCOL_VERSION, mf, "Ada");
     const two = await phone("AHAJ", PROTOCOL_VERSION, mf, "David");
-    await two.settle();
+    await two.settle("welcome");
     // One seat saw the furthest wave, the other the higher score — a run where
     // the hull broke on wave nine after a good wave eight.
     one.send({ t: "stats", wave: 9, score: 100 });
     two.send({ t: "stats", wave: 8, score: 12_300 });
-    await two.settle();
+    await one.caughtUp();
+    await two.caughtUp();
     one.close();
     two.close();
 
@@ -495,49 +605,29 @@ describe("what the pair got to, and the run that nobody came back to", () => {
     "ends a run nobody came back to, so the next arrival starts a fresh one",
     async () => {
       // Both windows shortened so the test does not sit still for the real ones
-      // — but not to a hundred milliseconds: the seats are judged silent against
-      // the wall clock on every message, and under a full `bun run check` the
-      // gap between a join and the presses went past 100 ms, so seat one was
-      // hung up before its press and the welcome that announced it leaving was
-      // the one the wait below read as the stamp (11 September 2026).
-      const brief = relay({ SEAT_SILENT_MS: "600", RUN_OVER_MS: "900" });
+      // — the run's kept above the seats', the way the shipped figures are.
+      const brief = relay({
+        SEAT_SILENT_MS: String(BRIEF_SILENT_MS),
+        RUN_OVER_MS: String(BRIEF_SILENT_MS + 300),
+      });
       try {
         const one = await phone("AKAL", PROTOCOL_VERSION, brief);
         const two = await phone("AKAL", PROTOCOL_VERSION, brief);
         await two.settle("welcome");
         one.send({ t: "ready" });
         two.send({ t: "ready" });
-        await two.settle("welcome");
+        await two.settle("welcome", (w) => w.startMs > 0);
         expect(of(two.said, "welcome").at(-1)?.startMs).toBeGreaterThan(0);
 
         // Both phones stop answering — two pockets rather than one. Without the
         // silence the room keeps the stamp, and the next arrival is handed a
-        // beat zero from a game that ended.
-        //
-        // The wait is for the *state* and not for a duration. Waiting out the
-        // two windows and then arriving once failed under a full suite: the
-        // deadline elapsed before the room had processed the silence, so the
-        // arrival was handed the old stamp and the test read a working relay
-        // as a broken one. `runIsOver` is answered at the moment a phone
-        // arrives (`Room.fetch`), so the honest way to ask is to arrive.
-        //
-        // Hanging up between attempts is what makes that safe. The room's
-        // clock moves on a client *message* and `phone` sends none, and a
-        // closed socket gives its seat back, so an attempt that came too early
-        // costs the next one nothing.
-        let back: Awaited<ReturnType<typeof phone>> | undefined;
-        for (let tries = 0; tries < 60 && !back; tries++) {
-          const arrival = await phone("AKAL", PROTOCOL_VERSION, brief);
-          // Deliberately unnamed: an attempt that came too early finds the room
-          // full and is answered with an `error` rather than a `welcome`, so
-          // waiting for one would hang here instead of costing a retry.
-          await arrival.settle();
-          if (of(arrival.said, "welcome").at(-1)?.startMs === 0) back = arrival;
-          else {
-            arrival.close();
-            await quiet(100);
-          }
-        }
+        // beat zero from a game that ended. The arrivals ask whether the run is
+        // over (`arriveUntil`): too early, and the room is full, or hands out
+        // the old stamp; late enough, and beat zero is fresh.
+        const back = await arriveUntil(
+          () => phone("AKAL", PROTOCOL_VERSION, brief),
+          (said) => of(said, "welcome").at(-1)?.startMs === 0,
+        );
         expect(of(back?.said ?? [], "welcome").at(-1)?.startMs).toBe(0);
         back?.close();
       } finally {
@@ -554,13 +644,12 @@ describe("what the pair got to, and the run that nobody came back to", () => {
       try {
         const one = await phone("ALAM", PROTOCOL_VERSION, brief);
         const two = await phone("ALAM", PROTOCOL_VERSION, brief);
-        // Named, so the welcome the join sent is counted and the wait below is
-        // for the *stamped* one: a bare settle left `seen` at zero, and under a
-        // full `bun test` the line after read the join's welcome, `startMs` 0.
         await two.settle("welcome");
         one.send({ t: "ready" });
         two.send({ t: "ready" });
-        await two.settle("welcome");
+        // For the *stamped* welcome, by what it says: a bare settle here read
+        // the join's, `startMs` 0, under a full `bun test`.
+        await two.settle("welcome", (w) => w.startMs > 0);
         const stamped = of(two.said, "welcome").at(-1)?.startMs ?? 0;
         expect(stamped).toBeGreaterThan(0);
 
