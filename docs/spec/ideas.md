@@ -307,80 +307,42 @@ filed rightly, and there is no second list to change.
 
 ### Bosses
 
-Six encounters, in two batches. The first three were worked out far enough to
-be worth keeping and set aside when
-[The Warden](bosses.md#114-the-warden--the-eye-that-takes-a-hand-off-you) took
-the slot they were competing for. The last three came out of reading the two
-reference games at boss scale — see [transfers-bosses](transfers-bosses.md),
-which also says what each of the first three looks like on a second reading.
-Each names the slot it would fit.
+Four encounters, each naming the slot in [bosses](bosses.md) it would fit.
+Cut to what each asks of the pair on 12 September 2026, at the owner's ask;
+what a hand does is the point of every one, and the pictures drawn at them
+are on the director's SHAPES tab, not here. THE VANE left this list because it
+is built ([bosses](bosses.md) 11.5).
 
-- **THE WEIGHT** — a boss held up by hands alone. A heavy sagging sac on a taut
-  stalk, the only boss that descends continuously instead of holding a row, and
-  the only one with no weak point at all until it has been dragged below a
-  line. Two hands stop it dead, but two hands on the field is nobody firing, so
-  it falls again the moment you let go to shoot; it sheds ballast rocks while
-  held, so holding is never free. The whole fight is the rhythm of hands on and
-  off, negotiated out loud. Its animation — the contour deforming toward the
-  finger, the skin going taut and bright along the line of pull — was taken for
-  the Warden's tether, so what is left here is the mechanic. Worked out as a
-  five-state cycle, with a picture of each state, in
-  [transfers-bosses](transfers-bosses.md#the-weight--the-boss-you-have-to-let-fall):
-  sinking, held, shedding ballast, open below the line, heaving back up. Slot:
-  The Heart (60), whose pillar it fits better than a pulse would. Unworked out:
-  whether the pair *lets* it fall past the line or *drags* it there, since a
-  hand is a brake today and the second reading asks for a gesture the game does
-  not have
-- **THE CODEX** — it rewrites what a colour means. A slab-bodied thing whose
-  skin carries a scrolling glyph pattern, the Glyph creature grown up. It swaps
-  what red and cyan *do* for one player without telling them, and the current
-  key is legible only on the boss's own skin, which only the *other* player can
-  read. Grounds **Interference** and the **Codebook table** below in one object
-  rather than two systems. Slot: The Codex (80)
-- **THE VANE** — the boss that bends the field instead of the beat. An open
-  contour with no inside, a pendulum arm sweeping the top, and at the end of
-  each sweep it reverses one player's column order: column four on their device
-  is column eight on the other, until the arm comes back. Its pivot is exposed
-  only at the far end of a sweep, the end belonging to the player who was just
-  rolled — so the one who has to shoot is the one whose numbers stopped
-  matching, and the other has to talk them into a column they cannot read. It
-  costs the simulation nothing: the roll is a transform on one device's picture
-  and its touch mapping, so both worlds stay identical. Spaceteam's wormhole,
-  and the pendulum already drawn for THE CONDUCTOR is the picture. Slot: The
-  Conductor (30), whose deferral asked for a boss that bends something other
-  than the tempo. Drawn, as `vane`: the arm with the bearing it turns on, which
-  is the only part of it that can be hit. Unworked out: whether The Flip should
-  run at wave scale first, and how a roll ends so it stays a passage rather
-  than a state
-- **THE TITHE** — it always takes something and the pair chooses what. Two
-  rocks a cycle in two columns on the same beat, one shield, and one lit plate
-  in a third column wanting the cannon on that beat: two hands, three demands,
-  so every cycle is a sentence about what to give up and the scars are the
-  record of it. The first boss where the right play is to take damage on
-  purpose. From the rotating shield in Lovers in a Dangerous Spacetime, which
-  is the one thing its bosses do that nothing here does — every boss so far is
-  careful never to ask for the shield and the cannon at once. A body mostly
-  edge: a slab across seven columns with a row of plates under it. Slot: The
-  Kernel (100). Unworked out: it is one edit from merely mean, so the choice
-  has to be legible a cycle ahead and a pair eating one scar a cycle has to
-  finish alive. Drawn, as `plated`: the live plate reaches rather than lights,
-  since a silhouette has no colours, and each of the seven is exactly one
-  column wide
-- **THE CAIRN** — a boss built out of the field's own rocks: seven angular
-  units in one outline, the first drawn with the crystal contour rather than a
-  blob, and nothing about it can be shot. You take it apart with hands — a grip
-  drags a unit out of the pile, and once loose it falls as an ordinary rock to
-  be warded like any other — so the boss dismantles into the game the pair
-  already knows and the whole fight is rate: pull two at once and you have two
-  rocks and one shield. It asks how much your partner can absorb right now,
-  which is the question Lovers in a Dangerous Spacetime asks constantly and
-  none of the three built bosses asks at all. Slot: it wants The Heart (60) and
-  so does THE WEIGHT; they are the same pillar and both should not be built.
-  Drawn, as `pile`: the faceted tracing this asked for exists, the units are
-  rocks at `METEOR`'s own size and facet count, and the pile is one outline
-  until a unit is dragged clear and exactly two after. Unworked out: what stops
-  a pair pulling nothing and waiting; and whether a person can count seven
-  rocks in the silhouette, which is the whole mechanic and needs an eye
+- **THE WEIGHT** — the boss you hold up with your thumbs. It sinks steadily
+  instead of holding a row; a thumb pressed on it stops it, two thumbs lift
+  it, and it has no weak point until it has been dragged below a line. But two
+  thumbs on the boss is nobody on the cannon, and it sheds rocks while held —
+  so the fight is the pair negotiating out loud who lets go, when, to shoot.
+  *Screen: a heavy sac on a stalk over the field, its skin going taut and
+  bright toward whichever thumb holds it.* Slot: The Heart (60). Unworked out:
+  whether the pair *lets* it fall past the line or *drags* it there — a drag
+  is a gesture the game does not have yet
+- **THE CODEX** — it swaps what red and cyan do for one seat without saying
+  so, and the current key is written on its own skin, legible only to the
+  *other* seat. So the one who fires cannot read what a colour means and the
+  one who can read it cannot fire. Slot: The Codex (80). Unworked out: how
+  long a swap holds and whether it is announced by anything but a partner
+- **THE TITHE** — it always takes something and the pair chooses what. Each
+  cycle: two rocks in two columns on one beat, one shield, and one plate lit
+  in a third column wanting the cannon on that same beat. Two hands, three
+  demands, so every cycle is one sentence about what to give up, and the first
+  boss where taking a scar on purpose is the right play. *Screen: a slab
+  across seven columns with a row of plates under it; the live plate reaches
+  down.* Slot: The Kernel (100). Unworked out: the choice must be legible a
+  cycle ahead, or it is merely mean
+- **THE CAIRN** — a pile of the field's own rocks that cannot be shot: you
+  take it apart by hand. A thumb dragged across one unit pulls it out of the
+  pile, and once loose it falls as an ordinary rock to be warded like any
+  other. The fight is rate — pull two and you have two rocks and one shield —
+  so it asks how much your partner can absorb right now. *Screen: seven rocks
+  in one outline; drag one clear and there are two outlines.* Slot: The Heart
+  (60), the same slot as THE WEIGHT; build one of them. Unworked out: what
+  stops a pair pulling nothing and waiting
 
 ### Mechanics
 
@@ -681,277 +643,68 @@ time, picked up the way the game's other power-ups already are.
 
 ### Rounds
 
-Fifteen short rounds that are not the field: their own rules, their own
-controls, their own picture, over in about ninety seconds, and nothing they
-teach is used again. Twelve were written first; two of them are built and have
-left this list, and a third turned out to be a control set instead — THE CLAW,
-below. Six more arrived in September 2026 out of a study of two party games,
-Mario Party and Rayman Raving Rabbids, read in
-[party games](../party-games.md): a party minigame's transferable half is never
-the minigame, it is the *shape of its sixty seconds*, and there are about eight
-of those in two hundred. A thirteenth of the originals — THE TELL — was argued
-out far enough in one sitting to be a section rather than a bullet, was built,
-and was taken out again on 11 September 2026; it is
-[bosses](bosses.md#119-the-tell--rock-paper-scissors-and-half-the-tell-on-each-screen)
-11.9, as an idea again, and is not repeated here. The category comes from reading Hazelight's two
-co-op games — see [transfers-hazelight](transfers-hazelight.md) — and what a
-round is allowed to be is [interludes](interludes.md). THE MIRROR
-([bosses](bosses.md) 11.4) is the one the game already had without calling it
-that.
+Short rounds that are not the field: their own rules, their own controls,
+their own picture, over in about ninety seconds. What a round is allowed to
+be is [interludes](interludes.md). **A built round stops being an idea and
+its entry is cut** — THE GAUGE and SNAKE are written up in
+[interludes](interludes.md); THE CLAW turned into a control set and is in
+[controls](controls.md); THE TELL is [bosses](bosses.md) 11.9. The list was
+cut to seven on 12 September 2026, at the owner's ask, keeping the rounds
+built on a gesture or an information split and dropping the ones that were
+counted on the beat or were reflex games (THE DUET, THE CRANK, THE DIVIDE,
+THE FLOOR, THE BELT), a mechanism without a round (THE REPRISE, THE EDGE),
+or a second *you read, I hold* (THE THROTTLE); their arguments stay in
+[party games](../party-games.md) and
+[transfers-hazelight](transfers-hazelight.md). None of these needs the
+no-travel rule relaxed.
 
-**A built round stops being an idea, and its entry is cut.** The director's
-backlog also drops one by name off `BOSS_KINDS`, so a bullet left standing
-after the round exists is hidden rather than wrong — but hidden is not the same
-as gone, and a paragraph describing a shipped round in the future tense is a
-page that lies to whoever reads it next. THE GAUGE and SNAKE are both built and
-both bullets are gone; what they actually turned out to be is written up in
-[rounds that are not the field](interludes.md), which carries the files, the
-numbers and the questions the code answered.
-
-**THE CLAW is the interesting case**, and the reason a cut entry is not always
-a built round: it was built, and built as something else. The idea here was a claw on a rail over its own
-screen with a wreck field under it; what the owner asked for once he had seen
-it was the ship's own cannon replaced by an arm, on the ordinary field, with
-the power-ups crossing it sideways and visible to one seat only. That is a
-**control set** and not a round at all, so it is in [controls](controls.md)
-rather than in [bosses](bosses.md) — and the entry is gone from here because
-the thing it described is not what anybody is going to build.
-
-Each entry says whether it needs the no-travel rule relaxed. Most do not, and
-that is deliberate: a round that survives either answer to
-[the question the category hangs on](interludes.md#the-question-the-whole-page-hangs-on)
-is worth more than a better one that is waiting on it.
-
-- **THE LATHE** — one of you describes a shape and the other builds it blind,
-  and it is made entirely out of maths the game already has. The navigator's
-  device shows a target contour and no controls. The pilot's shows four
-  numbered knobs and a contour that is not the target: lobe count, radius,
-  bump depth, bump position — the parameters `blobPath` and `hullRadiusMul`
-  already take (`packages/content/src/shapes.ts`). Neither sees the other's
-  screen, and the only channel is the sentence "three lobes, fatter at the
-  top". It is [announcing](couplings.md) with the falling object removed, which
-  is the one condition under which the pair finds out how bad their shared
-  vocabulary actually is. **No relaxation needed** — nothing moves at all. The
-  design vocabulary is fixed and this round is where a pair discovers whether
-  it works: lobe is the word, and if two people cannot use it to agree on a
-  shape in ninety seconds then the word is wrong and the bestiary has a problem
-  ([bestiary](bestiary.md) naming). Unworked out: how close is close enough,
-  which has to be an integer distance between two contours computed the same
-  way on both devices, and there is no such function today; whether the knobs
-  are shared or split, since four knobs on one device is one person working
-  while the other talks; whether a round is one shape or three
-- **THE VAULT** — pairs, played across two devices, with the faces on the wrong
-  one. A grid of slabs, face down on both screens. Each player can read the
-  faces of the cells **the other one is able to turn**, and neither can read
-  their own. So every turn is dictated: you are told what you are about to
-  reveal and by whom, and a pair that stops narrating loses the board
-  immediately. It is the cleanest expression of the information split in the
-  whole store — no timing, no aim, no clock, nothing but what each of you can
-  see. **No relaxation needed.** Unworked out: whether a wrong pair costs a
-  turn or costs nothing, where costing nothing makes it a memory exercise and
-  costing a turn makes it a memory exercise with a punish; the grid size, which
-  is the entire difficulty and has to fit a portrait phone twice; whether the
-  faces are glyphs the pair already knows — the six control glyphs
-  (`packages/render/src/simon-glyph.ts`) are drawn and legible small — or new
-  symbols, which would be a vocabulary lesson inside a minute
-- **THE ACCORD** — eight beats, two dials, no picture in common. Each of you
-  has a dial showing a number neither of you chose, and the round ends when
-  both dials read the same. Neither can see the other's. There is no correct
-  answer, only an agreed one, so the whole round is two people inventing a
-  protocol for meeting in the middle and then executing it before the count
-  runs out. It is the shortest thing the category can hold and it is the one
-  that would go in the first gap of a run, before the pair has learnt anything
-  else. **No relaxation needed.** Unworked out: whether the dials wrap, which
-  turns "go up" into an ambiguity the pair has to notice on their own and is
-  probably the best thing in it; whether the count is eight beats or sixteen;
-  whether it repeats three times with a tighter count each time, which is how
-  it becomes a round rather than a moment
-- **THE DUET** — the beat, played rather than counted, and the one round built
-  to spend an asset that is finished and unheard. The audio catalogue is built
-  ([audio](audio.md)), the speech band is deliberately kept clear, and no
-  design has yet asked the pair to *listen* to anything. Here a phrase runs
-  past on the beat and each player holds half of its notes — the pilot's pads
-  and the navigator's, never the same one twice — so a phrase can only be
-  played by two people taking turns inside a bar. Each device shows only its
-  own half, which means the handover is announced, out loud, in a channel the
-  sound was designed not to occupy. The Rabbids' dance battles say how to
-  *place* those halves rather than merely split them: there the bodies arrive
-  from both sides of the stage on the beat, and each hand answers its own side
-  ([party games](../party-games.md)). Two hands is two players, so give each
-  seat a **side** instead of alternate notes and the handover stops being a
-  queue and becomes a cue each of them gives the other. **No relaxation
-  needed.** Unworked out:
-  whether a phrase is authored or generated, where authored is the only version
-  that can be *good*; what a wrong note does, since silence is a poor answer and
-  a buzzer is a sound in the speech band; whether 625 ms per beat
-  ([latency](latency.md)) is a musical tempo or merely the game's, which is a
-  question somebody has to hear before it can be answered
-- **THE SPLICE** — a nest of tangled cable, two ends, and the colour on the
-  wrong device. The navigator sees where each strand enters; the pilot sees
-  where each leaves; the tangle in between is drawn on both and legible on
-  neither. Cutting the right strand takes a call from one and a press from the
-  other, and cutting the wrong one re-tangles the rest. It is the classic
-  asymmetric puzzle and the reason it is here rather than in
-  [transfers](transfers.md) with Keep Talking is that it needs no manual: both
-  halves are pictures, and neither is a page of rules somebody has to read
-  aloud. **No relaxation needed.** Unworked out: whether the strands may cross
-  at all, since a tangle that is genuinely unreadable is a round decided by
-  who has better eyes; whether the two colours are the game's red and cyan,
-  which would collide with what a shot means everywhere else; how a re-tangle
-  is drawn so that it reads as a consequence and not as a bug
-- **THE BELT** — the first thing in this game that moves sideways, and it is
-  worth building for that alone. A horizontal line of slabs travels across both
-  devices at one tile per beat. Each carries a mark that is legible on the
-  navigator's device and blank on the pilot's, and the levers that sort them
-  are the pilot's alone. Everything in the game falls; a pair that has spent an
-  act reading a vertical field has to re-learn where to look, and the
-  re-learning is the round. **No relaxation needed** — nothing the pair
-  controls moves, the belt does. It is also the one candidate that is close to
-  a genre this design has already refused, and the refusal is worth
-  re-reading before anybody starts: a sorting line under time pressure is a
-  reflex game, and reflex games are what the beat exists to prevent. Unworked
-  out: whether the pressure is the belt's speed, which makes it a reflex game
-  and disqualifies it, or the number of slabs in flight, which does not;
-  whether a mis-sorted slab comes back round; whether the marks are the control
-  glyphs or something new
-- **THE REPRISE** — one of you plays, and then the other has to live inside the
-  recording. The pilot performs a short pattern of presses over four beats. It
-  is recorded — `packages/sim/src/replay.ts` already stores inputs and returns
-  a fingerprint, so a minigame built on recorded input is nearly free in an
-  engine that is lockstep anyway — and then it replays, on a loop, while the
-  navigator has to do their own half around it. The pilot cannot intervene: it
-  is their own past, and they watch it get in the way. It is the nearest this
-  design gets to It Takes Two's best verb pair, rewind and clone
-  ([transfers-hazelight](transfers-hazelight.md)), without either player
-  touching time. **No relaxation needed.** Unworked out: what the navigator is
-  actually doing around the loop, which is the whole design and is not decided
-  — the honest answer is that this is a mechanism looking for a round; whether
-  the pilot records blind or is told what the loop will have to accommodate,
-  where blind is crueller and much funnier; whether the loop is four beats or a
-  bar of the pair's own choosing
-- **THE EDGE** — one space, two projections, and the pair has to work out that
-  they are looking at the same thing. The navigator sees a field from above,
-  the way the game is always drawn. The pilot sees it edge on: one row of
-  eleven columns with depth carried as brightness, so two objects in the same
-  column at different rows are one bright mark and one dim one. Neither view is
-  wrong and neither is sufficient. It comes from Split Fiction's habit of
-  giving the two players genuinely different cameras on one room. **No
-  relaxation needed.** Unworked out: whether brightness can carry fifteen rows
-  legibly, which is an eye's question and probably answers "no, so use fewer";
-  whether this is a round at all or is a *veil* — a way of showing the
-  ordinary field, which would make it a system rather than a round, and
-  [systems](systems.md) 5.2 already governs what may be disturbed and what may
-  never be absent; what the pair is doing in it, which like THE REPRISE is not
-  yet decided
-- **THE WELL** — the field turned inside out: the hull at the centre, the
-  creatures falling inward from a rim, and eleven columns become eleven
-  positions on a clock face. Nothing in `packages/sim` changes at all — a
-  creature is still `(col, row)` and the rules are the rules; only
-  `packages/render` projects it differently, which is legal precisely because
-  render changes nothing (`CLAUDE.md` rule 1). What changes is the **sentence**:
-  "column four" stops being a phrase and "four o'clock" starts being one, and a
-  pair that has spent four acts building one vocabulary discovers it was
-  building a vocabulary about a picture rather than about a game. **No
-  relaxation needed**, and it is the cheapest large change in the store. It
-  also plainly **fails the first test of a round** — the field is not
-  gone, it is re-drawn — and that failure is the useful part: its real home may
-  be the modifier slot that [wave-design](wave-design.md) already reserves for
-  waves 8 and 9 of an act, where inverting something is the point. Unworked
-  out: which of the two it is, which is the only question it has and is worth
-  answering before the drawing starts; whether both devices flip or only one,
-  where only one is The Flip ([ideas](ideas.md), Mechanics) wearing a different
-  hat; whether the radar strip survives a polar field at all
-
+- **THE LATHE** — one seat describes a shape, the other builds it blind. The
+  navigator sees a target contour and no controls; the pilot sees four knobs
+  — lobes, radius, bump depth, bump position, the numbers the game's own blobs
+  are made of — and a contour that is not the target. The only channel is
+  "three lobes, fatter at the top", which is where the pair finds out whether
+  the game's vocabulary works. Unworked out: how close is close enough, as an
+  integer both devices compute the same
+- **THE VAULT** — pairs across two phones, with the faces on the wrong one.
+  A grid of slabs face down on both; each seat can read the faces of the
+  cells only the *other* can turn. Every turn is dictated, and a pair that
+  stops narrating loses the board. Unworked out: whether a wrong pair costs a
+  turn; the grid size, which is the whole difficulty on a phone
+- **THE ACCORD** — two dials, no picture in common. Each seat has a dial
+  showing a number neither chose; the round ends when both read the same, and
+  neither can see the other's. No right answer, only an agreed one, invented
+  and executed before the count runs out. Unworked out: whether the dials
+  wrap, which is probably the best thing in it
+- **THE SPLICE** — a tangle of cable, and the colour on the wrong phone. The
+  navigator sees where each strand enters, the pilot where each leaves; the
+  tangle between is drawn on both and legible on neither. Cutting the right
+  one takes a call from one seat and a press from the other; cutting the wrong
+  one re-tangles the rest. Unworked out: whether strands may cross at all,
+  since a truly unreadable tangle is decided by eyesight
+- **THE WELL** — the field turned inside out: the hull at the centre, bodies
+  falling inward from a rim, eleven columns become a clock face. Nothing in
+  the simulation changes, only the projection — and the sentence: "column
+  four" becomes "four o'clock". It fails the first test of a round (the field
+  is not gone, it is redrawn), so its real home may be the modifier waves 8–9
+  of an act. Unworked out: which of the two it is; whether both phones flip
+  or only one
 - **THE FUSE** — five valves on one bomb, and the evidence is on the wrong
-  phone. One valve is live this round. Only the pilot can hold a valve down,
-  and only the navigator can read the pressure needle that answers while it is
-  held: a valve held through one beat and released before the next is dead, and
-  one held into the next beat goes off. It is Mario Party's Bowser's Big Blast
-  with the elimination taken out and an information split put in its place —
-  which is the whole trick, because the party version is luck and this one is
-  deduction, the pair narrowing five down to one out loud. **No relaxation
-  needed** — nothing moves at all. Unworked out: whether the tell is a number
-  or a needle, where a number is sayable straight off and a picture makes the
-  pair invent a vocabulary in ninety seconds — the better round and the harder
-  card; whether a wrong valve costs the hull or costs the round; whether
-  five becomes four becomes three the way the party game escalates, which may be
-  one round too many for ninety seconds; whether the live valve is redrawn from
-  the seeded `Rng` each time or is fixed and merely unknown, which is the
-  difference between a deduction and a memory
-- **THE DIVIDE** — the one round the pair loses by agreeing. Six sockets, and on
-  every beat each of you fills one; two hands in the same socket voids the beat
-  and neither of you sees the other's choice until it resolves. So the round is
-  two people partitioning six things between them with no shared screen, and the
-  protocol — odds and evens, you climb and I descend — is theirs to invent and
-  then to hold under a clock. It is Mario Party's Look Away
-  inverted ([party games](../party-games.md)), and it is **THE ACCORD**'s exact
-  opposite:
-  one round is about meeting in the middle and this one is about staying out of
-  each other's way, so the two want to sit at either end of a run rather than
-  next to each other. **No relaxation needed.** Unworked out: whether a
-  collision costs a beat or the hull; whether the sockets are relabelled between
-  beats, which is what stops one protocol agreed in the first four seconds from
-  carrying the whole round and is probably the entire difficulty; whether it is
-  six sockets or eleven, where eleven borrows the field's own count and is
-  precisely what a round may not do ([interludes](interludes.md))
-- **THE CRANK** — one pump, two handles, and it only turns if you take turns. Each
-  seat has a single slab, a press on the beat after the other's press advances
-  the pump, and two presses on the same beat stall it and it slips back. What
-  makes it a round rather than a metronome is that the alternation is not always
-  one-and-one: it runs one-one, then two-one, then one-two, and only the
-  navigator is told which — so the pilot is pressing an instruction rather than
-  a rhythm. It is Mario Party's Handcar Havoc and Dungeon Dash, which are the
-  only party archetype that is *structurally* two-handed rather than two people
-  doing one job twice. **No relaxation needed** — the pump turns, nobody
-  travels. Unworked out: whether a stall costs progress or hull; whether the
-  pattern is announced a bar ahead or on the bar, where ahead is a sentence and
-  on the bar is a reflex and disqualifies the round outright; what the pump is
-  pumping, which is the only part of this entry that is fiction rather than
-  mechanism and still has to carry the one-sentence card
-- **THE SLING** — one of you winds it and the other one says when. A launcher on
-  the hull, wound rather than aimed: the pilot holds a slab, the charge climbs
-  one step per beat, and nothing but the winding is on that screen. The navigator alone
-  sees the target and how far off it is, and has no slab at all. Release on the
-  called beat and it lands. It is the Rabbids' cow toss with the eye and the arm
-  on different phones, and it is the smallest thing in this group that is
-  recognisably this game — a cannon, a charge and a call. **No relaxation
-  needed**; the shot travels, which is what a shot has always done here.
-  Unworked out: whether overwinding fails or merely overshoots, where
-  overshooting is the better round and needs a second number; whether the target
-  moves, which turns arithmetic into aim and probably into a reflex; what unit
-  the navigator calls a distance in, since "column four" does not exist in a
-  round with no columns and a new unit is a vocabulary lesson in front of a
-  ninety-second game
-- **THE THROTTLE** — one instrument panel, cut in half between two people. A car
-  on a rail, a throttle slab held by the pilot, and a needle that is the only
-  thing the pilot can see. The navigator sees the track ahead — the corners
-  arriving one per beat, each with a speed it can be taken at — and nothing
-  about how fast the car is going. Above the corner's number it comes off;
-  under it the clock runs out. It is Mario Party's Slot Car Derby read as an
-  information split instead of as a race, and it is the purest *you read, I
-  hold* in the store. The car travels and **that is covered**: a round with no
-  columns is outside the rule ([`docs/decisions.md` #21](../decisions.md)), the
-  same way THE CLAW's rail was. Unworked out: whether the corners are authored
-  or drawn from the seeded `Rng`, where only the authored version can have a
-  shape — three tightening corners is a sentence and a random sequence is a
-  list; how many speeds the needle has, since eleven positions is the field's
-  own count wearing a dial; whether the pilot sees one corner too, which would
-  make it a duet rather than a dictation and is probably worse
-- **THE FLOOR** — the tile is called to the seat that cannot brace it. Seven
-  tiles in a ring; on every beat one of them is named. The navigator is told
-  which, one beat early, and can do nothing about it. The pilot can brace
-  exactly one tile per beat and is told nothing. Brace the named one and the
-  ring holds; brace another and the floor takes a chip out of the hull. It is
-  Hexagon Heat and Mushroom Mix-Up with the running taken out, because in this
-  game nobody runs — and seven rather than eleven on purpose, since a round may
-  not borrow the field's count. **No relaxation needed** — the tiles sink, the
-  pair does not. Unworked out: whether the lead is one beat or two, which given
-  a 0.5–2 s voice delay ([latency](latency.md)) is the whole round and is the
-  one number nobody can find without playing it; whether the calling speeds up,
-  which is the party game's own escalation and the fastest way to turn this into
-  the reflex round the category refuses; whether the seven are named by colour,
-  by glyph or by position, where position needs a vocabulary and the other two
-  need a legend
+  phone. Only the pilot can hold a valve down; only the navigator can read the
+  needle that answers while it is held. Held through one beat and released,
+  a valve is dead; held into the next, it goes off. Luck taken out of a party
+  game and deduction put in: the pair narrows five to one, out loud.
+  *Screen, pilot: five valves to press and hold. Navigator: one needle and no
+  valves.* Unworked out: whether the tell is a number (sayable at once) or a
+  needle (the pair invents a vocabulary in ninety seconds); whether a wrong
+  valve costs the hull or the round
+- **THE SLING** — one seat winds it and the other says when. A launcher on the
+  hull: the pilot holds a slab and the charge climbs one step per beat, and
+  that is all that seat sees. The navigator alone sees the target and how far
+  off it is, and has no slab. Release on the called beat and it lands — a
+  cannon, a charge and a call, the smallest round that is recognisably this
+  game. Unworked out: whether overwinding fails or overshoots (overshooting is
+  the better round); what unit a distance is called in when there are no
+  columns
 
 ## Deliberately deferred
 

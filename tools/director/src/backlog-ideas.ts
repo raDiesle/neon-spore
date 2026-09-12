@@ -23,10 +23,10 @@ export function fromIdeas(
 
 /**
  * A group, minus whatever `isBuilt` already covers by name. Only the rounds
- * ask for this: THE GAUGE ends in `gauge`, in `BOSS_KINDS`. The other
- * idea groups stay as `fromIdeas` leaves them — a boss idea like THE VANE
- * keeps appearing after being built, because a concept-art scene still points
- * a suggestion at it (`concept-art.test.ts`).
+ * ask for this: THE GAUGE ends in `gauge`, in `BOSS_KINDS`. The other idea
+ * groups stay as `fromIdeas` leaves them; a boss idea's bullet is cut by hand
+ * once the boss exists (THE VANE's was, 12 September 2026), and the shape
+ * drawn for it is joined to the act order's row instead (`concept-art.test.ts`).
  */
 export function dropBuilt(group: BacklogGroup): BacklogGroup {
   const open = group.entries.filter((e) => !isBuilt(e.name));

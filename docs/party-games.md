@@ -177,7 +177,11 @@ round *is* and that sentence is the owner's.
 ## What actually comes out of this
 
 Six rounds, promoted to [the idea store](spec/ideas.md#rounds), and one note
-added to a round already there.
+added to a round already there. **Two of the six are still there** — THE FUSE
+and THE SLING, the two built on a held thumb and an information split. The
+owner cut the store to what fits the game as it stands on 12 September 2026,
+and the four counted on the beat went, along with THE DUET; what they were is
+below, and stays here as the reading it came out of.
 
 1. **THE FUSE** (Bowser's Big Blast) — press-your-luck, made co-op by splitting
    the evidence: one seat may press, the other alone can read the tell.

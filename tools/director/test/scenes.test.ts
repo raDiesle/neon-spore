@@ -2,6 +2,7 @@ import { describe, expect, test } from "bun:test";
 import { CATALOGUE, SCENES } from "@neon-spore/shape-sheet";
 import { DEFAULT_CONFIG, hullRow } from "@neon-spore/sim";
 import { type Backlog, type BacklogGroup, buildBacklog } from "../src/backlog.js";
+import { parseRoster } from "../src/roster.js";
 import { sceneWorld } from "../src/scene-world.js";
 
 /**
@@ -34,18 +35,37 @@ async function realBacklog(): Promise<Backlog> {
   );
 }
 
-const allNames = (backlog: Backlog): Set<string> =>
-  new Set(
-    Object.values(backlog)
-      .flat()
-      .flatMap((g: BacklogGroup) => g.entries.map((e) => e.name))
-      .filter(Boolean),
+/**
+ * Every name the design has, case-blind and with the built bosses in: a shape
+ * or a scene drawn at THE VANE is drawn at something the act order lists as
+ * "The Vane", built, and the backlog page hides a built row rather than
+ * carrying it. Until 12 September 2026 the idea store kept a THE VANE bullet
+ * after the boss was built only so this join would hold; the bullet is gone
+ * and the join reads the roster instead.
+ */
+async function allNames(backlog: Backlog): Promise<Set<string>> {
+  const roster = parseRoster(
+    await read("docs/spec/bestiary.md"),
+    await read("docs/spec/bosses.md"),
   );
+  return new Set(
+    [
+      ...Object.values(backlog)
+        .flat()
+        .flatMap((g: BacklogGroup) => g.entries.map((e) => e.name)),
+      ...roster.bosses.map((b) => b.name),
+    ]
+      .filter(Boolean)
+      .map((n) => n.toLowerCase()),
+  );
+}
 
 describe("a mechanic drawn on the field", () => {
   test("is a picture of a concept the backlog actually has", async () => {
-    const names = allNames(await realBacklog());
-    expect(SCENES.filter((s) => !names.has(s.suggests)).map((s) => s.suggests)).toEqual([]);
+    const names = await allNames(await realBacklog());
+    expect(
+      SCENES.filter((s) => !names.has(s.suggests.toLowerCase())).map((s) => s.suggests),
+    ).toEqual([]);
   });
 
   test("only places contours the catalogue holds", () => {

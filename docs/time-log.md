@@ -22,6 +22,28 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 — bosses-page-summary — the NOT BUILT YET boss page, cut to what fits
+
+Owner's ask: drastically summarise the boss page's ideas — no names or shapes
+talk, nothing that duplicates a built thing, nothing counted on the beat, the
+gestures and control splits kept. `ideas.md`'s Bosses went from five entries to
+four (THE VANE is built) and Rounds from fifteen to seven, each a few lines
+with what each seat's screen shows; the two director tests that join a drawn
+shape to an idea now read the act order too, so a built boss's bullet can go.
+About 15 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the two sections, the director's parser, which names the drafts and scenes are joined to |
+| writing | 5 | the two sections rewritten; `party-games.md`'s promotion paragraph |
+| looking | 0 | — |
+| friction | 5 | THE VANE's cut broke the shape join twice — the act order hides a built row — until the join read the roster |
+| landing | 5 | `check:fast`, the commit, `bun run land --keep` |
+
+Bottleneck: the bold names are load-bearing — the director parses them and
+five drafts point at them — so the summary keeps them as handles where the
+owner asked for none.
+
 ## 2026-09-12 — render-test-time — two fifths of a drawn frame was text
 
 Queue item: `packages/render` was seventy per cent of the suite's cost, and

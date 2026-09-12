@@ -1,6 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { CATALOGUE } from "@neon-spore/shape-sheet";
 import { type Backlog, type BacklogGroup, buildBacklog } from "../src/backlog.js";
+import { parseRoster } from "../src/roster.js";
 
 /**
  * The join between a shape and the concept it was drawn at.
@@ -29,13 +30,30 @@ async function realBacklog(): Promise<Backlog> {
   );
 }
 
-const allNames = (backlog: Backlog): Set<string> =>
-  new Set(
-    Object.values(backlog)
-      .flat()
-      .flatMap((g: BacklogGroup) => g.entries.map((e) => e.name))
-      .filter(Boolean),
+/**
+ * Every name the design has, case-blind and with the built bosses in: a shape
+ * or a scene drawn at THE VANE is drawn at something the act order lists as
+ * "The Vane", built, and the backlog page hides a built row rather than
+ * carrying it. Until 12 September 2026 the idea store kept a THE VANE bullet
+ * after the boss was built only so this join would hold; the bullet is gone
+ * and the join reads the roster instead.
+ */
+async function allNames(backlog: Backlog): Promise<Set<string>> {
+  const roster = parseRoster(
+    await read("docs/spec/bestiary.md"),
+    await read("docs/spec/bosses.md"),
   );
+  return new Set(
+    [
+      ...Object.values(backlog)
+        .flat()
+        .flatMap((g: BacklogGroup) => g.entries.map((e) => e.name)),
+      ...roster.bosses.map((b) => b.name),
+    ]
+      .filter(Boolean)
+      .map((n) => n.toLowerCase()),
+  );
+}
 
 const suggested = (): string[] => [
   ...new Set(CATALOGUE.map((e) => e.suggests).filter((s): s is string => Boolean(s))),
@@ -43,8 +61,8 @@ const suggested = (): string[] => [
 
 describe("a shape drawn at a concept", () => {
   test("names a concept the backlog actually has", async () => {
-    const names = allNames(await realBacklog());
-    const orphans = suggested().filter((s) => !names.has(s));
+    const names = await allNames(await realBacklog());
+    const orphans = suggested().filter((s) => !names.has(s.toLowerCase()));
     expect(orphans).toEqual([]);
   });
 
@@ -52,8 +70,8 @@ describe("a shape drawn at a concept", () => {
     // Not a count that has to be kept up to date — a floor. If this drops to
     // nothing the join is still correct and no longer does anything, and a
     // green test that proves nothing is the failure mode being guarded here.
-    const names = allNames(await realBacklog());
-    const hit = suggested().filter((s) => names.has(s));
+    const names = await allNames(await realBacklog());
+    const hit = suggested().filter((s) => names.has(s.toLowerCase()));
     expect(hit.length).toBeGreaterThan(10);
   });
 
