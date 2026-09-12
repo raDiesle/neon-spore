@@ -140,6 +140,7 @@ export function drawBodies(
     effects.claspFrames.image,
     skinY,
     effects.recoilLeap,
+    effects.coilFlight,
   );
   // Over the same bodies drawCreatures just drew, and nowhere else: the
   // plating recomputes fresh from world.creatures every frame (see

@@ -4,6 +4,7 @@ import { drawCaromCrust } from "./carom.js";
 import { drawChute } from "./chute.js";
 import { claspResonance, drawClaspShield } from "./clasp.js";
 import { coilCharge, drawCoilDome, showsCoilCharge } from "./coil.js";
+import type { CoilFlightFx } from "./coil-flight.js";
 import { bodyDraw } from "./creature-body.js";
 import { centerAt, creatureCenter } from "./creature-place.js";
 import { DART_LOOK } from "./dart-look.js";
@@ -51,6 +52,10 @@ export function drawCreatures(
    * the hit, and how far its colour has turned (`recoil-leap.ts`). Absent,
    * a recoil glides the way the simulation wrote it, jump and all. */
   leaps?: RecoilLeapFx,
+  /** THE COIL's throw: where a rock out of a dome is drawn for the rest of
+   * the beat it was freed in, and the dome its tail runs from
+   * (`coil-flight.ts`). Absent, it glides the way the simulation wrote it. */
+  flights?: CoilFlightFx,
 ): void {
   // The pose clock, in beats. `beatPhase` alone would restart it every beat.
   const beats = world.beat + beatPhase;
@@ -106,13 +111,17 @@ export function drawCreatures(
     // transient that remembers where it left from; every other frame of a
     // recoil, and every other body, is where the simulation's glide puts it.
     const leap = c.kind === "recoil" ? leaps?.place(c, beats, beatPhase) : undefined;
+    // And a torch out of a dome is on a throw of its own to the far wall,
+    // placed by the transient that saw the dome go, landing where the sim's
+    // glide would have — so the impact takes it over in the same place.
+    const flown = c.kind === "torch" ? flights?.place(c, l, beats, skinY) : undefined;
     const placed =
-      onRim ?? (leap ? centerAt(l, c, leap.row, leap.col) : creatureCenter(l, c, glide));
+      onRim ?? flown ?? (leap ? centerAt(l, c, leap.row, leap.col) : creatureCenter(l, c, glide));
     const x = placed.x;
     // A rock's landing beat ends half-sunk in the skin, where `RockImpactFx`
     // takes it over, and not under the membrane at the hull row's centre.
-    const y = onRim ? placed.y : rockLandingY(l, c, x, placed.y, glide, skinY);
-    const row = onRim ? onRim.row : leap ? leap.row : drawnRow(c, glide);
+    const y = onRim || flown ? placed.y : rockLandingY(l, c, x, placed.y, glide, skinY);
+    const row = onRim ? onRim.row : flown ? flown.row : leap ? leap.row : drawnRow(c, glide);
     const turn = leap ? leap.turn : recoilTurn(c, beatPhase);
     const near = nearness(l, row);
     // Perspective as one transform about the body's own centre, rather than a
@@ -135,7 +144,21 @@ export function drawCreatures(
     // lookup cannot be severed by a statement landing in the middle of it,
     // which is why the choice moved out and the things laid *over* a body
     // stayed here as the separate `if`s they already were.
-    bodyDraw(c.kind)({ ctx, l, world, c, x, y, time, beats, beatPhase, near, blocked, turn });
+    bodyDraw(c.kind)({
+      ctx,
+      l,
+      world,
+      c,
+      x,
+      y,
+      time,
+      beats,
+      beatPhase,
+      near,
+      blocked,
+      turn,
+      tailFrom: flown?.from,
+    });
     // The weather over that body, on both screens and identical on both — the
     // clasp's arrangement below, one creature earlier in the pass.
     if (c.kind === "veil") {

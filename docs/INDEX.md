@@ -866,6 +866,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/coil-jump.ts` | The charge leaving a dome that has just failed and crossing the field to the next one |
 | `packages/render/src/coil-look.ts` | THE ONE RECORD A CANDIDATE **COIL** LOOK PATCHES |
 | `packages/render/src/coil-prongs.ts` | PRONGS — the dome has terminals, and the charge sprays off them |
+| `packages/render/src/coil-flight.ts` | THE COIL's freed rock drawn thrown from the dome's tile to the far wall's hull from the frame the dome went, its tail from the dome and the line lit a moment after the hit |
 | `packages/render/src/coil.ts` | THE COIL's dome: the shell a rock crosses the field inside, and the three studs the charge leaves it by |
 | `packages/render/src/reach-arm.ts` | THE CLAW's arm, drawn out of the swelling that was the gun |
 | `packages/render/src/comms-talker.ts` | one row per creature: which seat has to say something about it |
@@ -931,6 +932,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/balloon-handles.ts` | **THE BALLOON's two handles**: the one thing on this field that two people take hold of at the same time |
 | `packages/render/src/balloon.ts` | THE BALLOON, drawn — a skin with a knot under it, filling where it appears, leaning the way it climbs |
 | `packages/render/src/creature-body-in.ts` | **What a body draw is handed.** Cut out of `creature-body.ts` when THE BALLOON's row took that file over its… |
+| `packages/render/src/creature-body-rock.ts` | The three rock body draws: the plain tiers, the torch, and the coil drawn as the burning torch it will become |
 | `packages/render/src/handle-place.ts` | **Where a handle is standing**, as against where a finger may grab it |
 | `packages/render/src/crank-dial.ts` | THE CLAW's crank, drawn: the winder that brings the arm home |
 | `packages/render/src/crystal.ts` | THE CRYSTAL: a slick and a bulb joined at a thin middle, armoured all the way round |

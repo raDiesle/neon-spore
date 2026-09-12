@@ -198,7 +198,7 @@ export const WAVES_ACT_7: Wave[] = [
     guide: {
       both: "The trigger has stuck down: the shield is up over player 2's column on every beat, and nobody can put it away. New on the field is a rock inside a dome of its own. It comes in at the right wall and crosses to the left instead of falling, sinking at every wall it turns at, and nothing touches it while the dome is on. A dome the plate is standing under comes off — but the plate has to see it: a rock falling in the lane between them takes the whole reach, and while one is under a dome nothing happens at all. What comes out runs for the wall furthest from the plate. The charge jumps to another dome still standing and opens that one too. GUARD is dead on player 1's panel.",
       p1: "The bolt is on your screen and on nobody else's, so which dome opens next is yours to say. Call the column the moment it leaves — they have four beats. GUARD does nothing this wave.",
-      p2: "The plate is yours and the domes are on your screen, and the shield never goes away: a dome you stand under comes open unless something is falling between you. Say the route, and say what is in the lane.",
+      p2: "Do not shield! The plate is yours and it never goes away: a dome you stand under comes open, and what comes out is thrown at the ship from right there. Say the route, and say what is in the lane.",
       scene: "theCoil",
     },
     entries: [

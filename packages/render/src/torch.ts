@@ -62,6 +62,9 @@ export function torchRotation(x: number): number {
  * reads as a fall. `alpha` scales the whole thing down, for the effect that
  * keeps the tail alive a moment after the torch itself is gone
  * (`rock-impact.ts`) instead of it vanishing the instant the creature does.
+ * `from` is where the streak starts when it is not the top of the field: the
+ * dome a rock out of THE COIL was thrown from (`coil-flight.ts`), on whatever
+ * line that makes.
  */
 export function drawTorchTail(
   ctx: CanvasRenderingContext2D,
@@ -70,19 +73,26 @@ export function drawTorchTail(
   y: number,
   r: number,
   alpha = 1,
+  from?: { x: number; y: number },
 ): void {
-  const topY = tileCY(l, 0);
-  const tailGrad = ctx.createLinearGradient(x, topY, x, y);
+  const x0 = from ? from.x : x;
+  const y0 = from ? from.y : tileCY(l, 0);
+  const len = Math.hypot(x - x0, y - y0);
+  if (len < 1e-3) return;
+  // Across the streak, a unit to the left of the way it is going.
+  const nx = -(y - y0) / len;
+  const ny = (x - x0) / len;
+  const tailGrad = ctx.createLinearGradient(x0, y0, x, y);
   tailGrad.addColorStop(0, "rgba(255,122,47,0)");
   tailGrad.addColorStop(0.75, `rgba(255,122,47,${0.1 * alpha})`);
   tailGrad.addColorStop(1, `rgba(255,122,47,${0.3 * alpha})`);
   ctx.save();
   ctx.fillStyle = tailGrad;
   ctx.beginPath();
-  ctx.moveTo(x - r * 0.12, topY);
-  ctx.lineTo(x + r * 0.12, topY);
-  ctx.lineTo(x + r * 0.9, y);
-  ctx.lineTo(x - r * 0.9, y);
+  ctx.moveTo(x0 + nx * r * 0.12, y0 + ny * r * 0.12);
+  ctx.lineTo(x0 - nx * r * 0.12, y0 - ny * r * 0.12);
+  ctx.lineTo(x - nx * r * 0.9, y - ny * r * 0.9);
+  ctx.lineTo(x + nx * r * 0.9, y + ny * r * 0.9);
   ctx.closePath();
   ctx.fill();
   ctx.restore();
@@ -183,15 +193,37 @@ export function drawTorch(
   x: number,
   y: number,
   time: number,
+  /** Where its streak starts when it was thrown rather than fell: the dome
+   * a rock out of THE COIL left (`coil-flight.ts`). */
+  tailFrom?: { x: number; y: number },
 ): void {
   const r = rockRadius(l, spanOf(c));
-
   // No travel this beat, no trail: the beat a torch breaks off the queen it
   // stands still in the socket it grew in (`spit`, sim/boss.ts), and a streak
   // running off the top of the field behind it would read as a fall that has
   // not started yet.
-  if (c.row !== c.fromRow) drawTorchTail(ctx, l, x, y, r);
+  if (tailFrom) drawTorchTail(ctx, l, x, y, r, 1, tailFrom);
+  else if (c.row !== c.fromRow) drawTorchTail(ctx, l, x, y, r);
 
+  drawTorchStone(ctx, l, c, x, y, time);
+}
+
+/**
+ * The torch without its tail: the burning stone, its craters and its glow.
+ * What THE COIL is drawn as *inside* the dome (`creature-body.ts`) — the
+ * owner's ask, *when it has a shield it is already looking like a torch
+ * inside* — so that what comes out of a dome is seen to be the thing that
+ * was in it. A coil crosses the field and has no fall for a tail to be about.
+ */
+export function drawTorchStone(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  c: Creature,
+  x: number,
+  y: number,
+  time: number,
+): void {
+  const r = rockRadius(l, spanOf(c));
   ctx.save();
   ctx.translate(x, y);
   ctx.rotate(torchRotation(x));

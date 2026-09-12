@@ -33,4 +33,8 @@ export type Body = {
    * rather than read here because the throw that carries it is a transient
    * (`recoil-leap.ts`), and a draw path reads no transient of its own. */
   turn: number;
+  /** Where a torch's streak starts when it was thrown out of THE COIL's dome
+   * rather than fell: the dome's tile. Absent for every other body and for
+   * a torch that fell (`coil-flight.ts`). */
+  tailFrom?: { x: number; y: number };
 };

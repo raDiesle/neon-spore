@@ -4,6 +4,7 @@ import { BEATBOX_PER_HIT_MUL, BEATBOX_START_MUL } from "./beatbox.js";
 import type { BeatboxSilences } from "./beatbox-silence.js";
 import type { BeatboxWaves } from "./beatbox-wave.js";
 import type { ChoirQuake } from "./choir-quake.js";
+import type { CoilFlightFx } from "./coil-flight.js";
 import type { CrawlerFx } from "./crawler-fx.js";
 import type { Debris } from "./debris.js";
 import type { DeflectFx } from "./deflect.js";
@@ -32,6 +33,10 @@ export interface IngestOneCtx {
   sparks: Sparks;
   spriteBursts: SpriteBursts;
   rockImpactFx: RockImpactFx;
+  /** Which columns a rock out of THE COIL's dome is landing in this frame,
+   * so its impact draws no vertical tail over the line it actually flew
+   * (`coil-flight.ts`). */
+  coilFlight: CoilFlightFx;
   arrivals: Arrivals;
   deflectFx: DeflectFx;
   ship: ShipMoods;
@@ -137,6 +142,7 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
         burst: ctx.burst,
         rockImpactFx: ctx.rockImpactFx,
         arrivals: ctx.arrivals,
+        tail: !ctx.coilFlight.landed(e.col),
       });
       break;
     case "podTaken":

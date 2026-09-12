@@ -22,6 +22,34 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 · hit-looks — THE COIL's rock is thrown from the dome's tile to the far wall
+
+The owner: *the first hit by shield must have a torch falling, immediately;
+the torches must release from the exact position the coil was removing its
+shield, then fly in a diagonal to the farthest border; when it has a shield
+it is already looking like a torch inside; text "Do not shield!".* The freed
+rock used to appear at the far wall on the dome's row and fall a beat later.
+`popCoil` now leaves `fromCol`/`fromRow` on the dome's tile and puts the
+rock on the far wall's hull row, so the glide is the diagonal and it is
+resolved on the next beat line; a transient measures the throw from the
+frame the dome went (a late ward is a fast one), runs the tail from the dome
+and keeps the line lit a moment after the hit, and the impact's own vertical
+tail is off for it. The coil is drawn as the burning torch inside its dome.
+"Do not shield!" opens player 2's half of THE COIL's guide. About 30 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `sim/coil.ts`, `beat.ts`'s order, `hull.ts`'s arrival rule, `recoil-leap.ts`, `creatures.ts`, `torch.ts`, `rock-impact.ts` |
+| writing | 10 | `popCoil`, two sim tests, `coil-flight.ts`, the tail from anywhere, `creature-body-rock.ts` (the rock bodies moved out of a full file), the wiring, four render tests, the guide line |
+| looking | 5 | one film of a mid-beat ward — right first time |
+| friction | 5 | the probe's `waveWorld` started a wave without its fault, so the stuck shield never armed; fixed in the tool (`tools/probe/world.ts`) |
+| landing | 5 | `check:fast` twice (a guide half over 220 characters, a file at 251 lines, two index rows), the commit, `land --keep` |
+
+Bottleneck: **deciding the timing** — a dome opened late in a beat leaves the
+rock a fraction of a beat to fly, and every way of giving it a whole beat
+needed either a new field on the body or a picture that ended after the
+simulation had resolved it; the fast flight with a lit line behind it won.
+
 ## 2026-09-12 · hit-looks — THE CHOKE crawls along the hull to the cannon before it takes it
 
 The owner: *when the choke hits the ship, it fast crawls to the cannon

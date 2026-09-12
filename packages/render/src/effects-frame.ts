@@ -44,6 +44,7 @@ export function updateAll(e: Effects, dt: number, l: Layout): void {
   e.warden.update(dt);
   e.bodies.update(dt);
   e.recoilLeap.update(dt);
+  e.coilFlight.update(dt);
   e.crawler.update(dt);
   e.spriteBursts.update(dt);
   e.ghostTrail.update(dt);
@@ -71,6 +72,7 @@ export function drawAll(
   e.sparks.draw(ctx);
   e.debris.draw(ctx);
   e.bodies.draw(ctx, l, surfaceY);
+  e.coilFlight.draw(ctx, l);
   e.crawler.draw(ctx, l, surfaceY);
   e.spriteBursts.draw(ctx);
   e.beatboxWaves.draw(ctx, l);
@@ -95,6 +97,7 @@ export function resetAll(e: Effects): void {
   e.fleet.clear();
   e.bodies.clear();
   e.recoilLeap.clear();
+  e.coilFlight.clear();
   e.crawler.clear();
   e.spriteBursts.clear();
   e.coordGrid.clear();

@@ -1,4 +1,4 @@
-import { buildBoss, buildQueue, WAVES } from "@neon-spore/content";
+import { buildBoss, buildPods, buildQueue, WAVES } from "@neon-spore/content";
 import {
   createWorld,
   DEFAULT_CONFIG,
@@ -32,9 +32,13 @@ import {
  */
 
 /**
- * The wave with this id, stood at beat 0 with its queue and its boss on it —
- * the same three calls `startWave` takes everywhere else, so a probe is looking
- * at the game rather than at an arrangement of its parts.
+ * The wave with this id, stood at beat 0 with its queue, its pods, its boss
+ * and its fault on it — what `startWave` takes in the game (`apps/game/src/
+ * waves.ts`), so a probe is looking at the game rather than at an arrangement
+ * of its parts. The guide is left down: a probe steps the field, and a held
+ * wave steps nothing. It used to pass the queue and the boss alone, and a
+ * probe of THE COIL watched a plate stand under a dome for a whole wave with
+ * the shield never armed — the fault that arms it was not on the world.
  *
  * **By id, never by index.** A wave inserted earlier in the campaign moves
  * every index after it, and a number here would be a silent claim about the
@@ -49,7 +53,16 @@ export function waveWorld(id: string, seed = 1, cfg: SimConfig = DEFAULT_CONFIG)
     );
   }
   const world = createWorld(cfg, seed, []);
-  startWave(world, index, buildQueue(index, cfg.cols), [], buildBoss(index, cfg.cols));
+  startWave(
+    world,
+    index,
+    buildQueue(index, cfg.cols),
+    buildPods(index, cfg.cols),
+    buildBoss(index, cfg.cols),
+    false,
+    0,
+    WAVES[index]?.malfunction ?? null,
+  );
   return world;
 }
 

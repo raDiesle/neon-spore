@@ -207,14 +207,25 @@ describe("the ward opens a dome and what is left is a torch", () => {
     expect(only(left.world).col).toBe(CFG.cols - 1);
   });
 
-  it("is standing at that wall rather than drawn crossing to it", () => {
-    // `fromCol` goes with the column. A body drawn crossing eleven lanes in
-    // one beat is a carom, and a carom is a lead the pair reads a path off —
-    // this one has no path, and the only picture of where it came from is the
-    // dome bursting where it stood.
+  it("is thrown from the dome's tile to the ship at that wall, in one beat", () => {
+    // The owner's picture: the rock releases from the exact tile the dome was
+    // opened on and flies the diagonal to the far wall's hull. `fromCol` and
+    // `fromRow` stay the dome's, so the glide is that line, and it is on the
+    // ship's row already — resolved on the next beat line, when it is drawn
+    // touching (`hull.ts`).
     const { world } = run([coil(0, 8)], TPB * 2 - 1, [shieldTo(4, 8), guard(TPB)]);
     const body = only(world);
-    expect(body.fromCol).toBe(body.col);
+    expect(body.fromCol).not.toBe(body.col);
+    expect(body.fromRow).toBeLessThan(hullRow(CFG));
+    expect(body.row).toBe(hullRow(CFG));
+  });
+
+  it("hits the ship on the beat line after it was opened, and not before", () => {
+    const before = run([coil(0, 8)], TPB * 2 - 1, [shieldTo(4, 8), guard(TPB)]);
+    expect(before.world.creatures).toHaveLength(1);
+    const after = run([coil(0, 8)], TPB * 2 + 1, [shieldTo(4, 8), guard(TPB)]);
+    expect(after.world.creatures).toHaveLength(0);
+    expect(after.events.some((e) => e.type === "breach" && e.kind === "torch")).toBe(true);
   });
 
   it("pays scoreCoilBreak for it", () => {
@@ -330,15 +341,17 @@ describe("the charge jumps to another dome and opens that one too", () => {
 
   it("opens it coilJumpBeats later, and starts the next jump from there", () => {
     const beats = CFG.coilJumpBeats;
-    const { world, events } = run([coil(0, 8), coil(0, 6), coil(0, 4)], TPB * (beats + 3), [
+    const { world, events } = run([coil(0, 8), coil(0, 6), coil(0, 4)], TPB * (beats + 2) - 1, [
       shieldTo(4, 8),
       guard(TPB),
     ]);
     // The ward opened one and the chain has opened a second; the second's own
     // jump is in the air at the third. Deliberately counted in *events* rather
-    // than in bodies still standing: a torch falls thirteen rows a beat, so
-    // the first one is on the ship and off the field long before the second
-    // dome opens — which is the creature rather than an artefact of the test.
+    // than in bodies still standing: a freed rock is thrown to the ship in the
+    // beat it is freed, so the first one is off the field long before the
+    // second dome opens — which is the creature rather than an artefact of
+    // the test. Stopped a tick short of the second's own landing, so it is
+    // still standing on the ship's row to be found.
     expect(events.filter((e) => e.type === "coilBreak").length).toBeGreaterThanOrEqual(2);
     expect(events.filter((e) => e.type === "coilJump").length).toBeGreaterThanOrEqual(2);
     expect(world.creatures.some((c) => c.kind === "torch")).toBe(true);

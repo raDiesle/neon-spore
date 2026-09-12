@@ -60,6 +60,8 @@ interface Impact {
   /** Fires once, the frame the replay reaches the hull's skin. */
   onArrive: (x: number, y: number) => void;
   arrived: boolean;
+  /** Whether it drags the torch's streak from the top of the field. */
+  tail: boolean;
 }
 
 /**
@@ -100,6 +102,9 @@ export class RockImpactFx {
     fromRow: number,
     embed: boolean,
     onArrive: (x: number, y: number) => void,
+    /** False for a torch that did not fall here but was thrown
+     * (`coil-flight.ts`): its streak is that transient's to draw. */
+    tail = true,
   ): void {
     const mid = l.gridLeft + l.gridWidth / 2;
     const fallTiles = fallTilesPerBeat(kind);
@@ -117,6 +122,7 @@ export class RockImpactFx {
       t: 0,
       onArrive,
       arrived: false,
+      tail,
     });
   }
 
@@ -196,7 +202,7 @@ export class RockImpactFx {
 
       // Only the torch drags a tail (`drawTorch`) — a plain meteor tier
       // falls slowly enough on its own not to need one.
-      if (im.kind === "torch") {
+      if (im.kind === "torch" && im.tail) {
         const tailAlpha = falling ? 1 : Math.max(0, 1 - (im.t - im.fallLife) / TAIL_LIFE);
         if (tailAlpha > 0) drawTorchTail(ctx, l, x, y, im.r, tailAlpha);
       }

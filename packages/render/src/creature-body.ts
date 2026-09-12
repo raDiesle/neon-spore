@@ -13,6 +13,7 @@ import { drawChoir } from "./choir.js";
 import { drawChokeBody } from "./choke.js";
 import { drawCountMarks } from "./countdown.js";
 import type { Body } from "./creature-body-in.js";
+import { drawCoilBody, drawMeteorBody, drawTorchBody } from "./creature-body-rock.js";
 import { drawMagnetBody, drawStrandBody } from "./creature-body-worn.js";
 import { livingBodyMul } from "./creature-place.js";
 import type { Wash } from "./creature-tint.js";
@@ -21,10 +22,8 @@ import { drawGhost, showsGhostBody } from "./ghost.js";
 import { drawGumBody } from "./gum.js";
 import { drawLid } from "./lid.js";
 import { drawLiving } from "./living-draw.js";
-import { drawMeteor } from "./meteor.js";
 import { MOUNT_LOOK } from "./mount-look.js";
 import { rindWears } from "./rind-look.js";
-import { drawTorch } from "./torch.js";
 import { showsVeilCore } from "./veil.js";
 import { showsVolleyCore } from "./volley.js";
 import { drawWisp, showsWisp, wispJump } from "./wisp.js";
@@ -55,19 +54,6 @@ import { drawWisp, showsWisp, wispJump } from "./wisp.js";
 export type { Body } from "./creature-body-in.js";
 
 type BodyDraw = (b: Body) => void;
-
-/** The rock draw, and the only one a body gets from `isMeteorKind` alone. */
-function drawMeteorBody({ ctx, l, c, x, y, time }: Body): void {
-  drawMeteor(ctx, l, c, x, y, time);
-}
-
-/**
- * A torch is a rock by `isMeteorKind` and has a body of its own regardless, so
- * it sits in the table where the table wins.
- */
-function drawTorchBody({ ctx, l, c, x, y, time }: Body): void {
-  drawTorch(ctx, l, c, x, y, time);
-}
 
 /**
  * A ghost has a contour of its own that is not a blob, so it is routed away
@@ -191,7 +177,7 @@ const EXCLUSIVE: ReadonlyMap<CreatureKind, BodyDraw> = new Map<CreatureKind, Bod
   // THE COIL is a rock and **not** an `isMeteorKind` — the shield strips its
   // dome rather than turning it away — so without a row it would fall through
   // to `drawLiving` and ask a body with no contour for one.
-  ["coil", drawMeteorBody],
+  ["coil", drawCoilBody],
   ["ghost", drawGhostBody],
   ["wisp", drawWispBody],
   ["lid", drawLidBody],

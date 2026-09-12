@@ -107,21 +107,29 @@ function popCoil(world: World, c: Creature, ward: boolean): void {
   const span = spanOf(c);
   c.kind = "torch";
   c.span = span;
-  // **And it runs for the far wall.** The rock does not fall out of the dome
-  // where the dome stood: it is at the wall furthest from the plate on the
-  // same beat, and it comes down there (`escapeCol`). That is what makes
-  // opening a dome a *price* rather than a move — the plate that opened it is
-  // by construction the plate least able to catch what came out — and it is
-  // the whole reason a pair now talks about keeping the shield *out* of a
-  // coil's column.
+  // **And it runs for the far wall — from here, in one line, to the ship.**
+  // The rock leaves the tile the dome stood on and is thrown diagonally to
+  // the ship's row at the wall furthest from the plate (`escapeCol`), all of
+  // it in the rest of this beat: `fromCol`/`fromRow` are the dome's tile and
+  // `col`/`row` are where it hits, so the picture glides it down the diagonal
+  // and it is resolved on the next beat line, the beat it is drawn touching
+  // (`hull.ts`, `fromRow`). That is what makes opening a dome a *price*
+  // rather than a move — the plate that opened it is by construction the
+  // plate least able to catch what came out — and it is the whole reason a
+  // pair now talks about keeping the shield *out* of a coil's column.
   //
-  // `fromCol` goes with it so nothing glides: a body drawn crossing eleven
-  // columns in one beat is a carom, and a carom is a lead the pair reads a
-  // path off. This one has no path. It is at the wall, and the only picture of
-  // where it came from is the dome bursting where it stood
-  // (`render/effects-spark.ts` places that burst from the event's own column).
+  // It used to be put at the far wall on the dome's row with `fromCol` moved
+  // with it, so nothing glided, and fall from there a beat later. The owner,
+  // 11 September 2026: the torch must *release from the exact position the
+  // coil was removing its shield, then fly in a diagonal* — and immediately,
+  // because a rock that appeared at a wall a beat after the dome went was
+  // read as a second body rather than as the price of the first. A carom's
+  // reason for hiding a path does not hold here: this path is not a lead, it
+  // is the punishment being seen to come out of the thing that earned it.
+  c.fromCol = col;
+  c.fromRow = row;
   c.col = escapeCol(world);
-  c.fromCol = c.col;
+  c.row = hullRow(world.cfg);
   // It has stopped crossing and it is no longer holding a charge, so it holds
   // neither field. Cleared for `caromStruck`'s reason: the fingerprint of a
   // rock has to be the fingerprint of a rock whatever made it.

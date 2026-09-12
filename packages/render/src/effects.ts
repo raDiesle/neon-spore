@@ -4,6 +4,7 @@ import { BeatboxSilences } from "./beatbox-silence.js";
 import { BeatboxWaves } from "./beatbox-wave.js";
 import { ChoirQuake } from "./choir-quake.js";
 import { ClaspFrames } from "./clasp-frames.js";
+import { CoilFlightFx } from "./coil-flight.js";
 import { CoordGrid } from "./coord-grid.js";
 import { CrawlerFx } from "./crawler-fx.js";
 import { Debris } from "./debris.js";
@@ -71,6 +72,10 @@ export class Effects {
    * hit. Public: `drawCreatures` asks it where each recoil is drawn
    * (`recoil-leap.ts`), which is not a place a transient can paint. */
   readonly recoilLeap = new RecoilLeapFx();
+  /** THE COIL's rock thrown out of its dome to the far wall, from the frame
+   * the dome went. Public for the leap's reason: `drawCreatures` asks it
+   * where the torch is drawn (`coil-flight.ts`). */
+  readonly coilFlight = new CoilFlightFx();
   /** THE CRAWLER's three: a burst ring's goo, the swept lane, the burrow's
    * banks — each outliving what it is about (`crawler-fx.ts`). */
   readonly crawler = new CrawlerFx();
@@ -177,6 +182,7 @@ export class Effects {
     this.fleet.ingest(events, beatSeconds);
     this.bodies.ingest(events, l, cfg, beatSeconds, time);
     this.recoilLeap.ingest(events, beatSeconds);
+    this.coilFlight.ingest(events, l, beatSeconds);
     for (const e of events) {
       const spark = burstFor(e, l);
       if (spark) this.sparks.burst(spark.x, spark.y, breakSparks(e, spark.n), spark.hex);
@@ -192,6 +198,7 @@ export class Effects {
         sparks: this.sparks,
         spriteBursts: this.spriteBursts,
         rockImpactFx: this.rockImpact,
+        coilFlight: this.coilFlight,
         arrivals: this.arrivals,
         deflectFx: this.deflectFx,
         ship: this.ship,

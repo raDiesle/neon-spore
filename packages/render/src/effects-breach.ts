@@ -30,6 +30,11 @@ export interface BreachParts {
   burst: (x: number, y: number, n: number, hex: string) => void;
   rockImpactFx: RockImpactFx;
   arrivals: Arrivals;
+  /** Whether a torch drags its streak from the top of the field into the
+   * hull. False for one thrown out of THE COIL's dome, whose own line
+   * `coil-flight.ts` keeps lit behind it; a fall it never made would be drawn
+   * over it. */
+  tail?: boolean;
 }
 
 /** The colour a body's own burst is thrown in: what it was shot with, and
@@ -103,6 +108,7 @@ export function ingestBreach(
     e.fromRow,
     true,
     arrive,
+    parts.tail ?? true,
   );
 }
 
