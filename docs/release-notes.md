@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-12 · 7d31f913 — Three counts for THE COUNT, offered in VERSUS: a dial, an iris and a fuse
+
+The owner asked for THE COUNT's visuals improved. The shipped count is four notches cut into the rim on the pilot's screen and a halo on zero — legible at 26 px, and nothing more. A look is offered rather than replaced, so the creature's draw is now a record, `render/countdown-look.ts`: `over` is drawn on both screens on top of the living disc and may read nothing that changes with the count, `count` is drawn on the pilot's screen and the rig only. The body table reads the record and keeps `showsCount` as the gate.
+
 ## 2026-09-12 · bb6f2d71 — The band keeps its skin and grows POLYP's threads; the beads walk the cords instead of jumping
 
 The owner decided `panel:band-skin` from the VERSUS page: *keep current in game, but add the tiny polyp hanging down from the skin.* What hung from the skin on POLYP's side was its filaments — threads off the roof over each button and a few across the band, swaying, a drop at the tip of some — and those are now drawn over the seven pendants the band already had (`render/band-filaments.ts`, one path stroked twice and one fill). SUCKER and VESICLE were not taken; the slot is closed.
