@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-12 · 031ebc0a — The Mine, designed and drawn at: a wisp that stands still and is answered by a thumb
+
+An idea-store entry (`docs/spec/ideas.md`, Creatures) for the body the owner asked for on 12 September 2026 — a stationary wisp that goes off after a time — with the three forks decided with him first: the navigator sees it and the pilot taps the exact tile blind; a tap on one of the four neighbouring tiles is a hull hit in its colour, a tap farther away takes a beat off its fuse; the fuse — six beats — and the lettered grid are on both screens, so both know when and only one knows where. The tap is the pilot's field thumb, the one THE BEATBOX already gives the navigator; no new control. Nothing is built: it is on the director's NOT BUILT YET sheet with what is still unworked out.
+
 ## 2026-09-12 · 28a7203a — The tutorial's film stands phone-shaped on any stage, and its corner plate is a third smaller
 
 In briefing mode the director's TEST, P1 and P2 stages showed the film's hull cut off square at top-left and top-right: the film was laid out across the whole stage while its columns were bound by the height, so the field stopped short of the box on both sides with the band running on under it. The film now stands in the rectangle the game itself would take on that stage, for the seat it is showing, centred — `computeStage`, as the live game — with the nav bar still across the whole box (`render/guide-film.ts`). On a phone the film loses thirteen pixels a side to the nav bar's height and gains a hull that reaches its band.
