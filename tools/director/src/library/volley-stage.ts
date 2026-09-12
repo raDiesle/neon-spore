@@ -1,12 +1,12 @@
 import {
   computeLayout,
-  drawLiving,
+  drawVolleyCore,
   drawVolleyShell,
   showsVolleyCore,
   VOLLEY_LOOK,
   type VolleyLook,
 } from "@neon-spore/render";
-import { type Creature, DEFAULT_CONFIG } from "@neon-spore/sim";
+import { type Creature, createWorld, DEFAULT_CONFIG } from "@neon-spore/sim";
 import { type AssetContext, type AssetFrame, BEAT_SECONDS } from "./types.js";
 
 /**
@@ -24,8 +24,11 @@ import { type AssetContext, type AssetFrame, BEAT_SECONDS } from "./types.js";
  * because that is what the owner asked the slot to show and what EMBER argues
  * about: the seams burn wider as the ball opens. So the card walks the count
  * down, holding each state a few beats, and starts over. The body inside is
- * drawn by the field's own `drawLiving` once a plate is off, as the field
- * does; a red slick, because red is the colour the seams are read in first.
+ * what the field draws once a plate is off — `drawVolleyCore`, the smaller
+ * ball of the body's colour and, since 12 September 2026, the cut faces of
+ * the planet round it (`volley-cut.ts`). Until that day the card drew the
+ * whole living slick under the shell instead, which the field never does;
+ * red, because red is the colour the seams are read in first.
  */
 
 /** A tile that makes a ball most of a card wide. The grid's width is the
@@ -53,12 +56,15 @@ const VOLLEY: Creature = {
 
 /** Beats each plate count is held before the next ward is taken. */
 const HOLD_BEATS = 6;
+/** A world for the body row to read its config off; nothing in it moves. */
+const WORLD = createWorld(DEFAULT_CONFIG, 1);
+const NO_BLOCKS: ReadonlyMap<number, number> = new Map();
 
 export function drawVolleyStage(c: AssetContext, f: AssetFrame, look: VolleyLook): void {
   const { ctx, w, h } = c;
   const total = DEFAULT_CONFIG.volleyPlates;
-  // Whole, then one off, then two off, then whole again — never bare, because
-  // a volley out of plates is not a volley (`volley.ts`).
+  // Whole, then one, two and three off, then whole again — never bare,
+  // because a volley out of plates is not a volley (`volley.ts`).
   const wards = Math.floor(f.beat / HOLD_BEATS) % total;
   const body: Creature = { ...VOLLEY, volleyPlates: total - wards };
   const x = w / 2;
@@ -71,7 +77,21 @@ export function drawVolleyStage(c: AssetContext, f: AssetFrame, look: VolleyLook
   try {
     ctx.save();
     if (showsVolleyCore(DEFAULT_CONFIG, body)) {
-      drawLiving(ctx, LAYOUT, body, x, y, beats, f.beatPhase, f.t, 0, DEFAULT_CONFIG, 1);
+      drawVolleyCore({
+        ctx,
+        l: LAYOUT,
+        world: WORLD,
+        c: body,
+        x,
+        y,
+        time: f.t,
+        beats,
+        beatPhase: f.beatPhase,
+        // `near` is one: the card is at arm's length, and the haze is distance.
+        near: 1,
+        blocked: NO_BLOCKS,
+        turn: 0,
+      });
     }
     // `near` is one: the card is at arm's length, and the haze is distance.
     drawVolleyShell(ctx, LAYOUT, DEFAULT_CONFIG, body, x, y, f.t, f.beatPhase, 1);

@@ -144,6 +144,7 @@ export { anvil } from "./veil-mass.js";
 export { strata } from "./veil-strata.js";
 export { vortex } from "./veil-vortex.js";
 export { drawVolleyShell, showsVolleyCore } from "./volley.js";
+export { drawVolleyCore } from "./volley-core.js";
 export { emberSeams } from "./volley-ember.js";
 export { VOLLEY_LOOK, type VolleyLook, type VolleyShell } from "./volley-look.js";
 export { pittedStone } from "./volley-pitted.js";

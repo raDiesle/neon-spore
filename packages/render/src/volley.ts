@@ -200,6 +200,19 @@ export function drawVolleyShell(
 }
 
 /**
+ * The sector a ward has taken, as the angles it spans in the unturned frame
+ * — what `volley-cut.ts` paints the inside on. `null` while the ball is
+ * whole, and once it is bare, because then there is no shell to be inside.
+ */
+export function volleyGap(cfg: SimConfig, c: Creature): { from: number; to: number } | null {
+  const total = Math.max(1, cfg.volleyPlates);
+  const plates = volleyPlatesLeft(c);
+  if (plates >= total || plates <= 0) return null;
+  const lead = volleyIsClimbing(c) ? -Math.PI / 2 : Math.PI / 2;
+  return { from: lead, to: lead + ((Math.PI * 2) / total) * (total - plates) };
+}
+
+/**
  * The sectors still on, as one path. Laid from the leading edge round, so
  * sector zero is the face the shield meets and the break opens there first.
  */

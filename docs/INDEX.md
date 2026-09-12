@@ -805,6 +805,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/maze-heart.ts` | What is in the middle of THE MAZE: a heart, beating |
 | `packages/render/src/volley-cracks.ts` | **The damage on THE VOLLEY's shell**: the fractures a ward leaves across the stone that is still there |
 | `packages/render/src/volley-core.ts` | THE VOLLEY's core: a smaller glossy ball of the body's colour, wearing the shell's seams, drawn inside the shell once a ward has opened it |
+| `packages/render/src/volley-cut.ts` | THE VOLLEY's inside where a ward has cut the stone away: the two flat faces of a cutaway planet, the strata on them and the socket the core sits in |
 | `packages/render/src/volley-look.ts` | THE ONE RECORD A CANDIDATE VOLLEY LOOK PATCHES |
 | `packages/render/src/volley-ember.ts` | EMBER — THE VOLLEY's seams as the game draws them since 11 September 2026 |
 | `packages/render/src/volley-pitted.ts` | PITTED — a kept look for THE VOLLEY's stone, drawn only on the SHAPES page's LIBRARY |

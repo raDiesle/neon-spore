@@ -22,6 +22,27 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 · hit-looks — THE VOLLEY's gap is a cutaway planet
+
+The owner: *make the volley look inside like a full solid planet with a
+core in colour, so 3D — right now it is flat, like you cut a quarter of a
+planet.* A look asked for by name, so it went straight onto the field:
+`volley-cut.ts` paints the strata and the two cut faces in the sector a
+ward has taken, and the LIBRARY card now draws the game's own core instead
+of the living slick. About 25 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `volley.ts`, `volley-core.ts`, `volley-stone.ts`, EMBER, the library stage |
+| writing | 5 | `volley-cut.ts`, `volleyGap`, the card's switch to `drawVolleyCore` |
+| looking | 10 | the EMBER card at three plate counts and the film's warded ball, twice — the mantle was too dark and the lit face too grey the first time |
+| friction | 5 | the director's idle exit twice between shots, and a first read of the card that mistook three plates off for two |
+| landing | 0 | `check:fast` once, green |
+
+The bottleneck was looking: the card walks four states on its own clock,
+so each shot is a guess at the wait and a pixel read to know which state it
+caught.
+
 ## 2026-09-12 · hit-looks — the Mine: a wisp that stands still and is tapped, designed and drawn at, not built
 
 The owner: *a new enemy like the wisp but stationary; after some time it

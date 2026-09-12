@@ -4,7 +4,8 @@ import { colorTrio } from "./creature-tint.js";
 import { drawnRow, hazed } from "./depth.js";
 import { halo } from "./glow.js";
 import { sinHash } from "./hash.js";
-import { showsVolleyCore, volleyBallRadius } from "./volley.js";
+import { showsVolleyCore, volleyBallRadius, volleyGap } from "./volley.js";
+import { drawCutFaces } from "./volley-cut.js";
 import { seamPath } from "./volley-seams.js";
 
 /**
@@ -50,6 +51,11 @@ export function drawVolleyCore(b: Body): void {
   halo(ctx, x, y, r * 2.4, hex, 0.35 * lit);
   ctx.save();
   ctx.translate(x, y);
+  // The inside of the planet, where the shell is cut: under the core, over
+  // the halo, and only in the gap (`volley-cut.ts`). The shell drawn after
+  // covers the rest.
+  const gap = volleyGap(cfg, c);
+  if (gap) drawCutFaces(ctx, shell, gap, { hex, rim, dark }, time);
   // The sphere: lit from the upper left, dark at the far edge.
   const g = ctx.createRadialGradient(-r * 0.35, -r * 0.4, r * 0.1, 0, 0, r);
   g.addColorStop(0, rim);
