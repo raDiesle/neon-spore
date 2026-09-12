@@ -23,7 +23,7 @@ import { studdedContour } from "./studded.js";
  * rind's rim at the rind's other extreme — the rind wears many blunt knobs
  * (`render/rind-burr.ts`), this four points — so at 26 px the two are two
  * words. The draft's numbers whole, through `studdedContour` and
- * `walkedSilhouette`, THE CHOKE's route for TENDRIL.
+ * `walkedSilhouette`, the route THE GUM's sac takes for TENDRIL.
  *
  * Neither has a colour: nothing fired reaches either. Their material is the
  * malfunction's arc-blue (`render/palette.ts`), because that is what they

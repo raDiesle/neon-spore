@@ -1,5 +1,4 @@
 import {
-  chokeIsStuck,
   createWorld,
   DEFAULT_CONFIG,
   gumIsStuck,
@@ -25,10 +24,10 @@ import {
  *
  * On 12 September 2026 the owner asked for *images for every "On the Field"
  * control*. Most rows could point at a pose that already existed — the grip,
- * the cannon at rest, the shield armed, the lid's eye open — and five could
+ * the cannon at rest, the shield armed, the lid's eye open — and four could
  * not: nothing in the gallery had a rope held taut, a balloon with both hands
- * on it, a gum or a choke actually stuck to the ship, or the ready circles of
- * a guide. These are those five. `field-controls-page.ts` names them by their
+ * on it, a gum actually stuck to the ship, or the ready circles of a guide.
+ * These are those four. `field-controls-page.ts` names them by their
  * `name`, and `field-control-poses.test.ts` checks every name it uses is here
  * or in another group.
  *
@@ -116,21 +115,6 @@ const GUM_STUCK: Pose = {
   },
 };
 
-const CHOKE_STUCK: Pose = {
-  name: "CHOKE · ON THE CANNON",
-  note: "A choke that fell two lanes over and, on landing, went along the hull to the cannon and took it. The strip answers nobody now; every fresh press on it loosens the grip by one. Player 1's screen.",
-  lookAt: "the loops round the cannon, and the strip under them that the taps land on",
-  crop: "ship",
-  role: "p1",
-  build: () => {
-    const entry: SpawnEntry = { beat: 0, col: COL - 2, kind: "choke", color: null };
-    const w = fresh([entry]);
-    until(w, "a choke on the cannon", (x) => x.creatures.some(chokeIsStuck));
-    run(w, TPB * 2);
-    return w;
-  },
-};
-
 /**
  * The ready gate is the one state here `fresh` cannot make: a pose's world has
  * briefings off, and the guide is told to `startWave` rather than read off a
@@ -156,5 +140,5 @@ const GUIDE_HOLD: Pose = {
 export const FIELD_CONTROL_GROUP: PoseGroup = {
   title: "ON THE FIELD",
   note: "the moment a control touched on the field itself is answered in — controls.md, and the CONTROLS tab's ON THE FIELD page",
-  poses: [TETHER_TAUT, BALLOON_HELD, GUM_STUCK, CHOKE_STUCK, GUIDE_HOLD],
+  poses: [TETHER_TAUT, BALLOON_HELD, GUM_STUCK, GUIDE_HOLD],
 };

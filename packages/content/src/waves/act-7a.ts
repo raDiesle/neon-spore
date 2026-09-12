@@ -13,14 +13,22 @@ import type { Wave } from "../wave-types.js";
  * It is the third thing the act's faults can do to a control, and the one
  * the two before it leave open. THE JAM took the trigger and left the
  * steering; THE COIL took the trigger the other way, stuck down. This takes
- * the **steering** and leaves the trigger: a strand falls, cannot be shot or
- * warded, lands, and takes the cannon by the throat — the strip is dead and
- * the cannon walks wall to wall a column a beat — and the answer is not a
- * place to stand but a thing to keep doing. Player 1 taps the dead strip, a
- * lift between each, `chokeTaps` times; player 2 fires from a cannon neither
- * of them is steering, on the beat it passes under a body. The mistake it
- * punishes is a thumb that taps once and waits, and a trigger that waits for
- * a cannon that is not coming back (`sim/choke.ts`).
+ * the **steering** and leaves the trigger: the same thing hangs from the top
+ * of the field, its beam is on the cannon strip, and for the whole wave the
+ * strip is dead and the cannon walks wall to wall a column a beat
+ * (`sim/malfunction.ts`, `steerCol`). Nothing falls to cause it and nothing
+ * gets it off — a fault, THE JAM's and THE COIL's kind, authored on the wave
+ * and not a body — so the answer is not a place to stand but a beat to
+ * fire on. Player 2 fires from a cannon neither of them is steering, on the
+ * beat it passes under a body; player 1, the only seat shown the light
+ * along the hull toward the column it steps to next (`render/choke-hull.ts`),
+ * calls that column ahead. The mistake it punishes is a trigger that waits
+ * for a cannon that is not coming back, and a pilot who says nothing
+ * because there is nothing to press.
+ *
+ * It was a body once — a strand that fell, took the cannon, and was tapped
+ * off — and the owner asked for it to be the same kind of thing as the
+ * other two faults. The tap-off is on the NOT BUILT YET page.
  *
  * **THE LIMPET and THE LEECH are the fourth thing**, and the one that makes
  * *standing still* the mistake. Each falls like the choke, cannot be shot or
@@ -39,14 +47,13 @@ import type { Wave } from "../wave-types.js";
  * parking the cannon under a body to line the shot up is the thing it
  * punishes. Both are on the standard panel: nothing new is pressed.
  *
- * 1. Beats 0–4, two plain bodies, so the strip is used once before it is
- *    taken and the pair has a cannon to miss.
- * 2. Beat 6, the choke, alone, down the middle. It lands around beat 21 and
- *    from there the cannon is walking; a body every few beats after it gives
- *    player 2 something to hit on the pass while player 1 taps.
- * 3. Beat 38, a second one, so a pair that got the first off quickly is
- *    asked to do it again with less room — and a pair that did not has two
- *    on the hull, the second waiting for the first to let go.
+ * 1. Beats 0–8, plain bodies down the lanes the cannon walks through in
+ *    its first sweep, so the first pass is a shot that can be made.
+ * 2. Beats 14–30, bodies further from the middle, timed a beat or two off
+ *    the cannon's pass under them, so player 2 has to wait a pass or fire
+ *    early rather than on sight.
+ * 3. Beats 38–48, two at once on opposite walls: only one is under the
+ *    cannon this sweep, and which is player 1's call.
  *
  * The prose about the wave lives **here, above the array**, and not beside
  * the entry: `tools/director/src/serialize.ts` regenerates everything from
@@ -58,20 +65,25 @@ export const WAVES_ACT_7A: Wave[] = [
     id: "theChoke",
     name: "THE CHOKE",
     sentence:
-      "The one where the gun steers itself, and a thumb that taps once and waits is the mistake.",
+      "The one where the gun steers itself, and a trigger that waits for it to come back is the mistake.",
     guide: {
-      both: "A strand falling straight down one lane. No shot touches it and the shield does not stop it: it lands on the ship and takes the cannon. The cannon strip goes dead and the cannon walks wall to wall, a column a beat, until it is off. Getting it off takes both of you — one tapping, the other still firing.",
-      p1: "You cannot steer. Tap the dead strip, lift, tap again — every tap loosens its grip by one and it takes more than thirty. Count out loud, so player 2 knows when the cannon is yours again.",
-      p2: "Your trigger still works and the cannon is walking. Fire on the pass: watch which column it will be in on the next beat, and call the bodies out loud — player 1 is looking at the strip, not the field.",
+      both: "Something is hanging from the top of the field, and it has the steering. Its beam is on the cannon strip, and the cannon walks by itself, a column a beat, wall to wall and back, for the whole wave. The strip is dead and nothing reaches the thing holding it. The trigger still works.",
+      p1: "You cannot steer. The light off the cannon shows you where it goes next, and only you see it: call the column it will be under on the next beat, out loud, before it gets there — and say when it turns at a wall.",
+      p2: "Your trigger works and the cannon is walking. Fire on the pass: the shot that lands is the one fired on the beat the cannon is under a body, so wait for the call, not the sight of it.",
     },
     entries: [
-      { beat: 6, col: 3, kind: "choke", color: null },
-      { beat: 14, col: 2, color: "red" },
-      { beat: 18, col: 5, color: "cyan" },
-      { beat: 38, col: 1, kind: "choke", color: null },
-      { beat: 42, col: 4, color: "cyan" },
-      { beat: 48, col: 2, color: "red" },
+      { beat: 0, col: 4, color: "red" },
+      { beat: 4, col: 5, color: "cyan" },
+      { beat: 8, col: 2, color: "red" },
+      { beat: 14, col: 1, color: "cyan" },
+      { beat: 20, col: 6, color: "red" },
+      { beat: 26, col: 3, color: "cyan" },
+      { beat: 30, col: 0, color: "red" },
+      { beat: 42, col: 6, color: "red" },
+      { beat: 44, col: 0, color: "cyan" },
+      { beat: 48, col: 2, color: "cyan" },
     ],
+    malfunction: { kind: "steer" },
   },
   {
     id: "theLimpet",

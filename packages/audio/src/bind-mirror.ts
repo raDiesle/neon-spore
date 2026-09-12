@@ -3,8 +3,8 @@ import { type Cue, panForCol } from "./bind.js";
 import { MIRROR_STEP_SOUNDS } from "./bind-lookups.js";
 
 /**
- * THE MIRROR's four and THE MAZE's four, cut out of `bind.ts` when THE CHOKE
- * took that file to its 250-line limit — along the seam the two rounds
+ * THE MIRROR's four and THE MAZE's four, cut out of `bind.ts` when it
+ * reached its 250-line limit — along the seam the two rounds
  * already share: a step shown, a step answered, a verdict, and the round
  * going down, with the maze reading the mirror's own cues for every one of
  * them because what a shot into a mouth *is* is a turn handed over.

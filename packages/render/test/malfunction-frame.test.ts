@@ -67,6 +67,12 @@ describe("a wave played under a malfunction", () => {
       expect(ctx.calls).toBeGreaterThan(500);
     });
 
+    it(`draws a cannon that walks by itself on ${role}`, () => {
+      const world = faulted({ kind: "steer" });
+      const { ctx } = runFrames(world, role, 60 * 6);
+      expect(ctx.calls).toBeGreaterThan(500);
+    });
+
     it(`draws a shield that arms itself on ${role}`, () => {
       const world = faulted({ kind: "shield" });
       const { ctx } = runFrames(world, role, 60 * 6, {

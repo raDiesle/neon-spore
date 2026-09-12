@@ -113,7 +113,9 @@ const BY_ID: Record<string, Subject> = {
   // THE GUM taking hold. The card is the body in the air — the sac — because
   // the smear it becomes on the ship is drawn off the world and has no still.
   "creature.gumStick": shape("GUM"),
-  "creature.chokeDock": shape("CHOKE"),
+  // The dock is the clingers' now (`audio/bind-cling.ts`): the leech, since
+  // it is the one on the cannon, which is what the sound was written for.
+  "creature.chokeDock": shape("LEECH"),
   "creature.moult": shape("BULB"),
   // THE RECOIL bouncing. The slick, because a recoil arrives red in the wave
   // that introduces it — and because the body is the subject rather than the

@@ -63,7 +63,7 @@ table in a document cannot be wrong in a way a compiler notices.
 
 | Category | Answered by | Members today |
 |---|---|---|
-| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand`, `magnet`, `choir`, `gum`, `choke`, `countdown`, `leech` |
+| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand`, `magnet`, `choir`, `gum`, `countdown`, `leech` |
 | `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch`, `veer`, `coil`, `limpet` |
 | `mixed` | `aim` and `guard` | `queen`, `warden`, `clasp`, `carom`, `volley`, `crawler`, `fence`, `crystal` |
 | `special` | neither | `tether`, `mount`, `chute`, `beatbox`, `balloon` |
@@ -138,18 +138,20 @@ directly, `"suck"`, after what taking one in is called throughout the sim
 | **Gum** | THE WEIGHT's sac in the palette's venom green, falling straight down one lane; a flat smear across the plating with drips off it once it has landed | it cannot be shot and the shield does not stop it; it sticks to the ship and shuts the cannon in its columns until player 2 swipes it toward the nearer wall — which only works while player 1 has the cannon parked under it. The wrong way spreads it a lane wider |
 | **Throb** | six clubs on a small core, red down one side and cyan down the other, turning clockwise | colour *and* timing in one call |
 | **Lure** | a slick or a bulb that only the navigator can see through | do *not* hit it (costs the hull) |
-| **Choke** | TENDRIL's sac in the palette's bile yellow, tall and boneless, falling straight down one lane with two hooks under it; wound round the cannon's swelling once it has landed, and round player 1's strip node | it cannot be shot and the shield does not stop it; it lands, takes the cannon, and the cannon strip goes dead while the cannon walks wall to wall a column a beat. Player 2 keeps firing from wherever it is. Player 1 taps the dead strip, a lift between each — how many loops are still tight is the count, on both screens — `chokeTaps` times, and it lets go |
 | **Countdown** | the COUNTDOWN draft's disc — as near a plain circle as the roster has — with a socket and a bright core on both screens; on the pilot's, blades of the body closed over the core, one per beat left, the last sliding back through its beat, and on zero a hole to shoot into under a halo; on the navigator's an eye that never blinks (IRIS, 12 September 2026) | hit only while the count is at zero, in its colour; a shot on any other beat is a hit on the hull like a lure's — the wave is lost — and the body stays. The pilot counts down out loud, the navigator fires on the word — THE COUNT (act 3) teaches it |
 | **Limpet** | HOOK COLONY's round base in the malfunction's arc-blue, a rim of hooklets all curled the same way, falling straight down one lane; squatting on the shield's plate with the hooks turned down into the plating once it has landed | it cannot be shot and the shield does not stop it; it lands and takes hold of the plate. Every beat the plate is found in the column it was in a beat before is a beat of the fuse — `limpetStillBeats` of them and it goes off, a heavy hit on the hull at the plate's column, and the wave is lost. A beat the plate is found in a new column puts the fuse back and is one of the `limpetShakeMoves` that shake it off. **Only player 1, who has no plate, is shown the fuse** — a row of lights over the body going out one a beat — so *move* has to be said |
 | **Leech** | CALTROP in the same arc-blue, four needles off a round body, falling straight down one lane; on the cannon's swelling with the needles driven in once it has landed | THE LIMPET's twin on the cannon: the fuse runs `leechStillBeats` beats while the cannon stands in one column, a beat in a new column puts it back, `leechShakeMoves` of those and it comes off, and at the end of the fuse a heavy hit on the hull at the cannon's column. Only player 2, who has no cannon, is shown the fuse |
 | **Pod** | capsule with a blinking core | power-up |
 
-Built: slick, bulb, meteor, lure, throb, dart, veil, strand, torch, crystal, gum, choke, countdown, limpet, leech.
+Built: slick, bulb, meteor, lure, throb, dart, veil, strand, torch, crystal, gum, countdown, limpet, leech.
 
 The thirteenth was **Glyph** — a pattern across its skin, looked up in a
 table — and it left this list on 11 September 2026: THE MIRROR's Simon Says is
 that look-up, played on the pair's own controls (`bosses.md` 11.3,
-`docs/decisions.md` #28).
+`docs/decisions.md` #28). The **Choke** left it on 12 September: it was
+built as a body — a strand that fell, took the cannon and was tapped off —
+and the owner made it the third fault instead, THE CHOKE below under THE
+MALFUNCTION, with no body on the field (`docs/decisions.md` #31).
 Slick, bulb and meteor carry the teaching waves; the torch is the meteor's own
 widened relative, not one of the original thirteen. Lure, throb, dart, veil and
 strand are the next five of that thirteen — none of them needed a new control
@@ -463,12 +465,14 @@ and a lit vesicle, in the arc-blue the torn button bleeds — and a beam runs fr
 it to whatever the fault has taken on this screen: GUARD on the pilot's panel
 and the dome on the navigator's for a shield fault; RED and CYAN on the
 navigator's and the muzzle on the pilot's for a cannon fault, the beam in the
-colour of the next shot and flashing on each one. It stands in no column and
+colour of the next shot and flashing on each one; the cannon strip's node and
+the muzzle on the pilot's for a steer fault and the muzzle alone on the
+navigator's. It stands in no column and
 cannot be shot — a target that ended the fault would be the brake put back
 (`packages/render/src/fault-emitter.ts`).
 
-Two of them, and they are two mechanics rather than one because a pair who has
-played one has learnt nothing about the other:
+Three of them, and they are three mechanics rather than one because a pair
+who has played one has learnt nothing about the others:
 
 - **A cannon fault** fires up player 1's column on every beat. RED and CYAN go
   dead on player 2's panel. The ammunition is authored — red, cyan, or
@@ -479,12 +483,25 @@ played one has learnt nothing about the other:
   is warded for free — and every clasp it passes is opened for free too, on a
   beat nobody chose, which turns the navigator's route into a schedule of work
   for the pilot.
+- **A steer fault** — THE CHOKE (wave 56, act 7) — walks the cannon by itself,
+  a column every `chokeSweepBeats` beats, wall to wall and back from the
+  middle, for the whole wave (`steerCol`, `packages/sim/src/malfunction.ts`).
+  The cannon strip goes dead on player 1's panel; the trigger still works, so
+  player 2 fires from wherever the cannon happens to be. On the ship the grip
+  is drawn as a stack of bile-yellow loops round the cannon's swelling on both
+  screens, with a light along the hull toward the column it steps to next on
+  the pilot's alone, and the same loops round the strip's node
+  (`render/choke-hull.ts`, `render/choke-strip.ts`).
+  It was a body first — see `ideas.md` under Mechanics for the tap-off.
 
-**The broken half is never the half that moves**, and that is the whole design.
-The seat that still has a strip has to *aim the fault somewhere harmless* — off
-a lure's column, past a clasp the cannon is not ready for — which is why those
-creatures are what the faults were built for. A fault that took the strip
-instead would leave the pair with nothing to do about it.
+**In the two firing faults the broken half is never the half that moves**,
+and that is their whole design. The seat that still has a strip has to *aim
+the fault somewhere harmless* — off a lure's column, past a clasp the cannon
+is not ready for — which is why those creatures are what the faults were built
+for. The steer fault is the one that takes the strip, and what it leaves the
+pair to do is the mirror of that: the seat that can see where the cannon is
+going calls the column, and the seat with the trigger fires on the beat it
+passes under a body.
 
 **There is no brake, and the coupling is the calling.** The broken seat used to
 get one lobe back where its buttons were — a relief, two beats of quiet a tap at
@@ -492,7 +509,8 @@ a time — and the owner took it out on 6 September 2026: he did not want the
 button. So the seat with no control has nothing to press at all, and everything
 it knows has to leave its mouth. On THE JAM that is the colour the gun has
 loaded and which columns are lures; on THE TWITCH it is which dome the charge is
-travelling to. The other seat holds the only thing that can act on any of it,
+travelling to; on THE CHOKE it is the column the cannon will be under on the
+next beat. The other seat holds the only thing that can act on any of it,
 and a fault runs from the first beat of the wave to the last.
 
 **The rule is enforced in the simulation, not on the panel.** A lobe is not the
@@ -516,8 +534,8 @@ tearing; it does not decide anything.
   four?" is an eye test, not a communication task
 
 **Merged:** brood fibre and root are absorbed into the **Colony** · the
-Splitter is the **Crystal** · the Inverter is the **Choke**, built as wave
-THE CHOKE (`packages/content/src/waves/act-7a.ts`) · the runt cloud is
+Splitter is the **Crystal** · the Inverter is the **Choke**, built as THE
+CHOKE, the steer fault (`packages/content/src/waves/act-7a.ts`) · the runt cloud is
 a later stage of the retired **Runt**, whose slot THE LURE now holds
 
 **Name clash:** *Echo* used to be the name of a creature that appears one

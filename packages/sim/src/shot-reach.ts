@@ -58,9 +58,6 @@ export function firstAlong(
     // above. On the ship it stops the shot *before* it exists instead
     // (`gumOverCannon`, in `firePress`), which is the block the pair hears.
     if (c.kind === "gum") continue;
-    // Nor THE CHOKE, for the same reason: nothing fired reaches it, in the
-    // air or on the cannon (`choke.ts`).
-    if (c.kind === "choke") continue;
     // Nor THE LIMPET or THE LEECH: nothing fired reaches either, in the air
     // or on its control (`cling.ts`).
     if (c.kind === "limpet" || c.kind === "leech") continue;

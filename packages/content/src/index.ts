@@ -206,7 +206,6 @@ export {
   THROB,
   TORCH,
 } from "./silhouettes.js";
-export { CHOKE } from "./silhouettes-choke.js";
 export { LEECH, LIMPET } from "./silhouettes-cling.js";
 export { GUM, SAC_SKIN, type SacSkin, sacPoints } from "./silhouettes-gum.js";
 export { SNAKE_ROUNDS } from "./snake-rounds.js";

@@ -5,8 +5,8 @@ import { fresh, type Pose, type PoseGroup, run, POSE_TPB as TPB, until } from ".
  * The two bodies that hold a control and **go off if it stands still** —
  * THE LIMPET on the plate, THE LEECH on the cannon (`sim/cling.ts`).
  *
- * Their gum and choke cousins sit on the ON THE FIELD sheet because each is
- * answered by a hand landing on the field itself; these two are answered by
+ * Their gum cousin sits on the ON THE FIELD sheet because it is answered by
+ * a hand landing on the field itself; these two are answered by
  * the controls the band already has, moved, so they are a sheet of their own.
  * Both poses are on the seat that is *shown the fuse* — the one without the
  * control — with the count run down to its loud last two, since that row of

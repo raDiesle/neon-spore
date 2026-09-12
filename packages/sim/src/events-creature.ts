@@ -2,7 +2,6 @@ import type { BalloonEvent } from "./events-balloon.js";
 import type { BeatboxEvent } from "./events-beatbox.js";
 import type { CaromEvent } from "./events-carom.js";
 import type { ChoirEvent } from "./events-choir.js";
-import type { ChokeEvent } from "./events-choke.js";
 import type { ClingEvent } from "./events-cling.js";
 import type { CoilEvent } from "./events-coil.js";
 import type { CrawlerEvent } from "./events-crawler.js";
@@ -194,12 +193,10 @@ export type CreatureEvent =
   // this file over its limit. One arrival taken apart, rather than four
   // incidents that happen to share a creature.
   | CaromEvent
-  // And THE CRYSTAL's, THE GUM's, THE CHOKE's and the clingers', on the same
-  // terms (`events-crystal.ts`, `events-gum.ts`, `events-choke.ts`,
-  // `events-cling.ts`).
+  // And THE CRYSTAL's, THE GUM's and the clingers', on the same terms
+  // (`events-crystal.ts`, `events-gum.ts`, `events-cling.ts`).
   | CrystalEvent
   | GumEvent
-  | ChokeEvent
   | ClingEvent
   // And THE VOLLEY's two — the ward that sends it back and the shell bursting
   // over the body — are `events-volley.ts`, on exactly the same terms.
@@ -237,7 +234,6 @@ export type { BeatboxEvent } from "./events-beatbox.js";
 export type { CaromEvent } from "./events-carom.js";
 // Re-exported so nothing that reaches for one through this file has to move.
 export type { ChoirEvent } from "./events-choir.js";
-export type { ChokeEvent } from "./events-choke.js";
 export type { CoilEvent } from "./events-coil.js";
 export type { CrawlerEvent } from "./events-crawler.js";
 export type { CrystalEvent } from "./events-crystal.js";

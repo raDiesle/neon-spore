@@ -1,5 +1,4 @@
 import { markMoment } from "./balance.js";
-import { chokeLands } from "./choke.js";
 import { clingLands, isClingKind } from "./cling.js";
 import { hullRow } from "./config.js";
 import { fenceIsOpen } from "./fence.js";
@@ -73,16 +72,10 @@ export function resolveHull(world: World): void {
       survivors.push(c);
       continue;
     }
-    // And THE CHOKE, on the gum's terms exactly: it never breaks the hull,
-    // the shield has nothing to say to it, and on the beat it is drawn
-    // standing on the ship it takes the cannon (`choke.ts`).
-    if (c.kind === "choke") {
-      if (c.row >= shipRow) chokeLands(world, c, shipRow);
-      survivors.push(c);
-      continue;
-    }
-    // And THE LIMPET and THE LEECH, on the same terms: each takes its
-    // control on the beat it is drawn standing on the ship (`cling.ts`).
+    // And THE LIMPET and THE LEECH, on the gum's terms exactly: neither
+    // breaks the hull, the shield has nothing to say to either, and on the
+    // beat one is drawn standing on the ship it takes its control
+    // (`cling.ts`).
     if (isClingKind(c.kind)) {
       if (c.row >= shipRow) clingLands(world, c, shipRow);
       survivors.push(c);

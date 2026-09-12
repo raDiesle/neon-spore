@@ -123,15 +123,15 @@ export const PALETTE = {
   clownNose: "#FF4FD8",
   clownNoseRim: "#FFC2F2",
   /**
-   * THE CHOKE's material, and the argument is `venom`'s a second time: a body
+   * THE CHOKE's material, and the argument is `venom`'s a second time: a grip
    * on the ship that is nobody's ammunition and no seat's hull. It could not
-   * be `venom` itself — a strand that took the cannon in the gum's green
-   * would be the gum's word said about a different thing, and the two are
-   * the two bodies that stick to the ship. This sits at 64°, a plain bile
+   * be `venom` itself — a grip on the cannon in the gum's green would be the
+   * gum's word said about a different thing, and the two are the two things
+   * that hold onto the ship. This sits at 64°, a plain bile
    * yellow between the pod's amber at 40° and the venom's green at 85°, and
    * far from the red at 345° and the cyan at 185° a shot is made of; it
-   * appears on the strand, on the hull round the cannon while it has it, and
-   * on the dead strip — nowhere a shot could be aimed at.
+   * appears on the hull round the cannon while the fault has it, and on the
+   * dead strip — nowhere a shot could be aimed at.
    */
   bile: "#D8E24A",
   bileRim: "#F6F9C0",

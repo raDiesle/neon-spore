@@ -79,6 +79,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   beatbox: { wave: "theBeatbox" },
   cannonFault: { wave: "theJam" },
   shieldFault: { wave: "theTwitch" },
+  steerFault: { wave: "theChoke" },
   coil: { wave: "theCoil" },
   rockCross: { wave: "theCrossing" },
   strand: { wave: "theStrand" },
@@ -120,7 +121,6 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   volley: { wave: "theVolley" },
   crystal: { wave: "theCrystal" },
   gum: { wave: "theGum" },
-  choke: { wave: "theChoke" },
   limpet: { wave: "theLimpet" },
   leech: { wave: "theLeech" },
   // The six on the rim are watched in that same wave and can be watched

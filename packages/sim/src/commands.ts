@@ -1,7 +1,6 @@
 import { beatboxTapped } from "./beatbox-round.js";
 import { fire } from "./bullets.js";
 import { choirShaken } from "./choir-gesture.js";
-import { chokeSwallows } from "./choke.js";
 import { clampCol } from "./config-derived.js";
 import { closeGauge } from "./gauge-round.js";
 import { gripsCreature, setGrip } from "./grip.js";
@@ -71,11 +70,6 @@ export function applyCommand(world: World, timed: TimedCommand): void {
   // lobe, the gesture on the hull, a rehearsal's ghost thumb and the wire
   // (`malfunction.ts`).
   if (faultSwallows(world, c)) return;
-  // And the cannon strip while THE CHOKE has the cannon, for the fault's
-  // reason: the strip, the swipe on the hull and the wire are all one door,
-  // and the tap that answers it comes in as a grab, not a column
-  // (`choke.ts`).
-  if (chokeSwallows(world, c)) return;
 
   switch (c.kind) {
     case "cannonCol": {

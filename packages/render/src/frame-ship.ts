@@ -4,14 +4,15 @@ import { bandControlSet, drawBand } from "./band.js";
 import { bandLobes } from "./band-lobes.js";
 import { drawWaveOpening } from "./briefing.js";
 import type { Effects } from "./effects.js";
-import { drawFaultBeam, faultBeamEnds } from "./fault-emitter.js";
+import { faultBeamEnds } from "./fault-beam-ends.js";
+import { drawFaultBeam } from "./fault-emitter.js";
 import { drawFenceArcs } from "./fence-arc.js";
 import type { GuideStage } from "./guide-scene.js";
 import { drawControlHover } from "./hover.js";
 import { drawHud, drawOverlay } from "./hud.js";
 import { drawHull, type HullMood, hullSkinY, type LobePositions, surfaceSampler } from "./hull.js";
 import { frame, type HullFrame } from "./hull-frame.js";
-import type { Layout } from "./layout.js";
+import { type Layout, tileCX } from "./layout.js";
 import { drawMagnetAlarm } from "./magnet-alarm.js";
 import { drawMazeDrips } from "./maze-drips.js";
 import type { OpeningFx } from "./opening-fx.js";
@@ -177,8 +178,9 @@ export function drawOverlays(
 }
 
 /** The fault's beam ends are the band's own circles, read off the same set
- * the band was drawn from, plus the dome or the muzzle for the seat that has
- * the thing and not its button. */
+ * the band was drawn from — the cannon strip's node stands in the same
+ * list under the strip's id, for the seat that draws the strip — plus the
+ * dome or the muzzle for the seat that has the thing and not its button. */
 function drawFaultBeams(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -193,6 +195,10 @@ function drawFaultBeams(
     y: b.circle.y,
     r: b.circle.r,
   }));
+  if (setHas(set, "cannon") && showsCannon(view.role)) {
+    const s = l.cannonStrip;
+    lobes.push({ id: "cannon", x: tileCX(l, world.cannonCol), y: s.y, r: s.height * 0.6 });
+  }
   const ends = faultBeamEnds(l, world, lobes, showsCannon(view.role), showsShield(view.role));
   drawFaultBeam(ctx, l, world, ends, view.beatPhase, view.time);
 }

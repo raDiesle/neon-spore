@@ -884,3 +884,51 @@ group shows its empty line.
 **Reconsider if:** a boss is designed for one of the empty slots — it arrives
 as a numbered section and a name in the order, through `ideas.md`, not by
 restoring the list.
+
+## 31. THE CHOKE is a fault, not a body, and the roster loses a kind
+
+**Decision:** on 12 September 2026 the owner asked for THE CHOKE — built the
+day before as a creature that fell, took the cannon and was tapped off — to be
+*the same kind of control set modifier* as THE JAM and THE COIL, *no brush*.
+So `Malfunction` has a third kind, `steer`: authored on the wave like the other
+two, on from the wave's first beat to its last, with the emitter at the top of
+the field and its beam on player 1's cannon strip. The cannon walks a column
+every `chokeSweepBeats` beats from the middle, wall to wall and back
+(`steerCol`, `packages/sim/src/malfunction.ts`), stateless — the walk is a
+function of `waveBeat`, since `startWave` puts the cannon in the middle every
+wave. The strip goes dead for player 1; the trigger stays with player 2. The
+loops round the swelling and round the strip's node stay as the picture of
+the grip; the strand, the crawl and the tap-off are gone, and the tap-off is
+written up in `ideas.md` under Mechanics.
+
+**`"choke"` is removed from `CREATURE_KINDS`**, which that list's own comment
+says never to do: the index is the wire value, and a removal shifts every kind
+after it. It was done anyway, once, because the rule protects stored replays
+and builds in the field, and there were neither: the three kinds behind it
+(`choke`, `limpet`, `leech`) landed within one day on one machine, no build
+with `choke` in it left that machine, and the hash fixture was regenerated in
+the same commit. The roster comment in `creature-roster.ts` records the
+removal and the bar it had to clear, so the next one has to clear it too.
+
+**Why:** a fault is what THE CHOKE was — a control that stops answering its
+seat — and dressing it as a body gave it a brush, a silhouette, a radar
+owner, three events, a crawl, a drag target on the wire and a tap count, all
+to arrive at the state THE JAM arrives at by one field on the wave. The owner
+took the brake off the other two faults on 6 September (there is no relief
+lobe); a fault that could be tapped away was that brake back under another
+name. And the split it was built for — one seat sees where the cannon is
+going, the other has the trigger — needs none of the body's machinery: the
+walk and the beam say all of it.
+
+**Consequences:** `WaveMechanicId` has `steerFault`; THE CHOKE (wave 56)
+carries `malfunction: { kind: "steer" }` and ordinary targets timed against
+the walk; `controlBroken` says the `cannon` strip is dead under it and the
+band draws the strip that way; the director's fault picker offers STEER and
+`chokeSweepBeats` sits in the MALFUNCTION group. The director's roster count,
+long-axis and drawn-size tables, the shape sheet and the bestiary each lose
+the CHOKE subject. `creature.chokeDock` keeps its name and is the clingers'.
+
+**Reconsider if:** a fault that *arrives* mid-wave on a visible body, or one
+a gesture can win back, is wanted — that is the parked idea, and it comes back
+through `ideas.md` as a fourth fault with a body in front of it, not by
+putting `"choke"` back on the roster.

@@ -182,10 +182,9 @@ const LIVING_LOOK = {
   // would come out as one body growing evenly. `render/balloon.ts` draws it
   // off the pulls themselves.
   balloon: null,
-  // THE GUM and THE CHOKE wear a sac off the sheet in the air and are on the
-  // ship once they land: `render/gum.ts` and `render/choke.ts` draw both.
+  // THE GUM wears a sac off the sheet in the air and is on the ship once it
+  // lands: `render/gum.ts` draws both.
   gum: null,
-  choke: null,
   // THE LIMPET and THE LEECH fall as ordinary bodies off the sheet — HOOK
   // COLONY's base and CALTROP — and `render/cling.ts` draws them on the ship.
   limpet: { shape: LIMPET, motion: HOLD },

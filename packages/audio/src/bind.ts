@@ -17,7 +17,6 @@ import { beatboxCue } from "./bind-beatbox.js";
 import { breachCue } from "./bind-breach.js";
 import { caromCue } from "./bind-carom.js";
 import { choirCue } from "./bind-choir.js";
-import { chokeCue } from "./bind-choke.js";
 import { clingCue } from "./bind-cling.js";
 import { coilCue } from "./bind-coil.js";
 import { crawlerCue } from "./bind-crawler.js";
@@ -207,10 +206,6 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "gumFlung":
     case "gumSpread":
       return gumCue(e, cols, rows);
-    case "chokeGrip":
-    case "chokeTap":
-    case "chokeFreed":
-      return chokeCue(e, cols);
     case "clingGrip":
     case "clingShake":
     case "clingFreed":

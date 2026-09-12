@@ -92,7 +92,7 @@ grain changes the game's voice and should be rare; adding a sound is not.
 | `beat` | the click track | 4 of 8 |
 | `ship` | cannon, shield, maw, and THE GRIP | 13 of 19 |
 | `impact` | what a shot does when it arrives | 12 of 14 |
-| `hull` | the hull taking it | 5 of 10 |
+| `hull` | the hull taking it | 6 of 10 |
 | `pod` | hanging, loose, taken, lost | 5 of 10 |
 | `boss` | the bosses that are built, and the names holding a slot | 28 of 37 |
 | `mirror` | THE MIRROR's half of a sequence, and the verdict | 15 of 17 |
@@ -110,7 +110,7 @@ in a noisy room throws away.
 
 ## 5 · Built and unspent
 
-113 of the 219 are `spare`: finished, tested, and nothing plays them. That is
+112 of the 219 are `spare`: finished, tested, and nothing plays them. That is
 deliberate. A creature that is still a name in `bestiary.md` is easier to argue
 about once you can hear what it would sound like, and several idea-store entries stand or fall on exactly that — the
 countdown creature is three pips and a hole where the fourth should be, and
@@ -134,7 +134,7 @@ The `BOUND` stamp is not a label anyone maintains: the test reads `bind.ts`,
 `bind-creatures.ts`, `bind-carom.ts`, `bind-coil.ts`, `bind-crawler.ts`,
 `bind-fence.ts`,
 `bind-veil.ts`, `bind-volley.ts`,
-`bind-fleet.ts`, `bind-choir.ts`, `bind-beatbox.ts`, `bind-breach.ts`, `bind-gum.ts`, `bind-choke.ts`, `bind-mirror.ts`, `bind-lookups.ts`, `mixer.ts` and
+`bind-fleet.ts`, `bind-choir.ts`, `bind-beatbox.ts`, `bind-breach.ts`, `bind-gum.ts`, `bind-cling.ts`, `bind-mirror.ts`, `bind-lookups.ts`, `mixer.ts` and
 `mixer-boss.ts`, `mixer-pulse.ts` and fails if a sound claims to
 be wired and is not, or is
 played and claims to be spare. A handful of bound

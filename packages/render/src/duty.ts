@@ -145,11 +145,6 @@ const DUTY_WORD = {
   // The halves of the gesture, by seat: the cannon parked under it, and the
   // swipe toward the wall. Which wall is the picture's to say (`gum.ts`).
   gum: { p1: "PARK UNDER", p2: "SWIPE" },
-  // The halves by seat again: the pilot's is the gesture that gets it off,
-  // said the way the beatbox's is — a whole instruction — because a thumb
-  // that taps once and waits is the mistake; the navigator's is what she is
-  // still doing while the cannon is not hers to aim.
-  choke: { p1: "TAP AGAIN", p2: "FIRE ON THE PASS" },
   // The seat with the fuse says the word; the seat with the control does the
   // thing, whole instruction both, since standing still is the mistake.
   limpet: { p1: "SAY MOVE", p2: "KEEP MOVING" },

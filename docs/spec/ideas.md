@@ -428,6 +428,27 @@ Each names the slot it would fit.
   `6f902f6e`. It belongs, if anywhere, with a mode where a hit does *not*
   fail the wave, since that is the only game in which a second price means
   anything
+- **THE CHOKE's body and its tap-off** — for a day THE CHOKE was a creature:
+  TENDRIL's sac in bile yellow falling one lane at a slick's pace, unshootable
+  and unwardable, that landed, crawled along the plating to the cannon and
+  took it — the strip dead, the cannon walking a column a beat wall to wall —
+  until player 1 had tapped the dead strip `chokeTaps` times, a lift between
+  each, the loops round the swelling unwinding one per share and the same
+  loops on the strip's node, with a beckoning ring on the node between taps.
+  Taken out on 12 September 2026 at the owner's word — *should be the same
+  kind of control set modifier, no brush* — so THE CHOKE is the third fault
+  now, on for the whole wave with nothing to get it off
+  ([bestiary](bestiary.md#the-malfunction)). What is parked here is the
+  **body and the tap**: a fault that *arrives* partway through a wave on a
+  thing the pair can see coming, and a broken control that a gesture can win
+  back — the one fault with a brake, which is exactly what the owner took off
+  the other two on 6 September. To restore: the tree at `6b193880` holds all
+  of it — the sim's choke module and its events, `chokeTaps` in
+  `packages/sim/src/config-choke.ts`, the `"choke"` kind and drag target,
+  the render's choke, strand and crawl modules and content's choke
+  silhouette. It belongs, if
+  anywhere, on a *later* fault wave, where a pair that has learnt to live
+  with a fault is offered one they can fight
 - **The crystal's dive** — a wrong shot at THE CRYSTAL (wave 43) costs the
   pair a row: the body dives `crystalDiveRows` toward the ship, so fourteen
   beats becomes thirteen with every guess. Built and shipped on 11 September

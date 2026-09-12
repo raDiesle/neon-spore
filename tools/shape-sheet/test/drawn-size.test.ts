@@ -95,16 +95,18 @@ describe("drawn size against the 20-26 px floor", () => {
     // slick's own motion. The other three went with the slot.
     //
     // Two more on 11 September 2026: GUM, the sac THE WEIGHT's draft is drawn
-    // from, and CHOKE, TENDRIL's, both bodies the field sends now
-    // (`content/silhouettes-gum.ts`, `content/silhouettes-choke.ts`). And a
+    // from, and CHOKE, TENDRIL's, both bodies the field sent then
+    // (`content/silhouettes-gum.ts`; CHOKE's is gone with the body). And a
     // third the same day: COUNTDOWN, THE COUNT's disc, 42 × 42 on HOLD
     // (`content/silhouettes-countdown.ts`).
     //
     // Three more on 12 September 2026, drawn at the Mine in
     // `drafts/mine.ts`: CALTROP, REACHER and SINKER, all square. And two the
     // same day the field sends: LIMPET, HOOK COLONY's round base, and LEECH,
-    // CALTROP itself (`content/silhouettes-cling.ts`).
-    expect(SQUARE.length).toBe(107);
+    // CALTROP itself (`content/silhouettes-cling.ts`). One fewer the same
+    // day: CHOKE left the field when THE CHOKE became a fault with no body
+    // (docs/decisions.md #31).
+    expect(SQUARE.length).toBe(106);
   });
 
   it("clears the floor for every square card at the 92 px frame it actually gets", () => {

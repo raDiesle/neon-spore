@@ -87,10 +87,6 @@ const UNGRIPPABLE: readonly CreatureKind[] = [
   // it in the air, so a brake would show every sign of working and buy
   // nothing. What answers it is a hand *after* it lands (`gum.ts`).
   "gum",
-  // And THE CHOKE, for the gum's reason: nothing can be done to it in the
-  // air, and what answers it is a thumb on the strip after it has the cannon
-  // (`choke.ts`).
-  "choke",
   // And the two clingers, for the same reason (`cling.ts`).
   "limpet",
   "leech",

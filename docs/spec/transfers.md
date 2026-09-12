@@ -47,19 +47,20 @@ mechanism whose effect is a wobble in wall-clock time cannot exist here at all.
 |---|---|---|
 | The instruction is printed on the wrong person's device | the whole of [announcing](couplings.md), and the radar split | built, in its own form |
 | Controls named in absurd, precise words you must say exactly | naming rule 3, [bestiary](bestiary.md#naming) | half of it is new — see **Call signs** |
-| A panel that is destroyed and replaced mid-round | the **Choke**, which shuts one control | designed; see the note below |
+| A panel that is destroyed and replaced mid-round | THE MALFUNCTION — a fault on the wave that takes one control for the whole wave, THE JAM, THE COIL and THE CHOKE | built, as a fault and not a body; see the note below |
 | A timer bar on every instruction | the falling creature, the beat | built, and better — the clock is shared |
 | The wormhole: the screen flips over | nothing | new — see **The Flip** |
 | The asteroid: both swipe the same way at the same moment | [warding](couplings.md#1-warding--built) | built |
 | Everything generated fresh per round | refused; [structure](structure.md) fixes the choreography | refused, see below |
 
-**The Choke is the panel breaking, and it should be built as one.** The design
-already has a creature that "docks on, shuts one control"
-([bestiary](bestiary.md#101-the-first-thirteen)). What Spaceteam adds is the
-implementation note rather than the idea: control visibility is a per-wave
-constant today (`controlsForKinds`, [systems](systems.md#51-control-visibility-principle-a--built)),
-and the Choke is the same table asked again in the middle of a wave. Whoever
-builds it is changing when that function is called, not inventing a rule.
+**The Choke is the panel breaking, and it was built as one.** The design had
+a creature that "docks on, shuts one control", and for a day it was one — a
+strand that fell, took the cannon and was tapped off. On 12 September 2026 the
+owner made it the third fault instead ([bestiary](bestiary.md#the-malfunction)):
+a fact about the wave, not a body, on for the whole wave from its first beat
+like THE JAM and THE COIL. The Spaceteam note survives as the rule the faults
+follow: nothing is put back, and the broken control is swallowed in the
+simulation rather than hidden on the panel.
 
 ### Call signs
 

@@ -245,6 +245,5 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
   // the two answered by a control being *moved* in `creatures-cling.ts`.
   balloon: HANDED_CREATURES.balloon,
   gum: HANDED_CREATURES.gum,
-  choke: HANDED_CREATURES.choke,
   ...CLING_CREATURES,
 };

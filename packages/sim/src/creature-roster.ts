@@ -20,6 +20,13 @@ import type { CreatureKind } from "./creature-kinds.js";
  * **Append only.** The index *is* the wire value: reordering this list changes
  * what every existing replay hashes to, and two devices on different builds
  * would disagree about a world they are playing identically.
+ *
+ * One name has been taken out, once: `choke`, on 12 September 2026, when THE
+ * CHOKE stopped being a body and became a fault on the wave
+ * (`malfunction.ts`). The three names behind it had landed the same
+ * afternoon and no build carrying any of them had left the machine, and no
+ * replay is stored anywhere (`docs/decisions.md` #19) — so nothing that
+ * existed hashed differently afterwards. That is the bar for a second one.
  */
 export const CREATURE_KINDS = [
   "slick",
@@ -61,7 +68,6 @@ export const CREATURE_KINDS = [
   "balloon",
   "crystal",
   "gum",
-  "choke",
   "countdown",
   "limpet",
   "leech",

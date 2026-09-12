@@ -9,7 +9,7 @@ import { createWorld, type SimEvent, type SpawnEntry, step, type World } from ".
 /**
  * THE LIMPET and THE LEECH, and the one thing about them that is new to this
  * simulation: a body whose answer is **motion**. Each takes a control the
- * way THE CHOKE takes the cannon, and from then on the control's column is
+ * way THE GUM takes the plating, and from then on the control's column is
  * judged once a beat against the column it stood in a beat before — the same
  * column is a beat of the fuse, a different one puts the fuse back and is
  * one of the moves that shake it off. The fuse's end is a heavy hit on the
@@ -33,7 +33,7 @@ const spawn = (kind: ClingKind, col: number, beat = 0): SpawnEntry => ({
 
 /** A body authored at beat 0 falls a row a beat and is seen standing on the
  * ship — and takes its control — on the tick that starts beat `SHIP + 2`,
- * THE CHOKE's timing (`choke.test.ts`). Its first beat of fuse is judged one
+ * THE GUM's timing (`gum.test.ts`). Its first beat of fuse is judged one
  * beat after that: the grip beat itself is not counted. */
 const STUCK_BY = TPB * (SHIP + 2);
 

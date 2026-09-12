@@ -174,7 +174,6 @@ export const MECHANICS = {
   // THE BALLOON, next door in `mechanics-handed.ts`: named, so key order keeps.
   balloon: HANDED_MECHANICS.balloon,
   gum: HANDED_MECHANICS.gum,
-  choke: HANDED_MECHANICS.choke,
   limpet: HANDED_MECHANICS.limpet,
   leech: HANDED_MECHANICS.leech,
   // The five that are not a thing the field sends — a wave's own opening, the

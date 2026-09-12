@@ -62,17 +62,16 @@ export type RunMechanicId = "briefing" | "windup" | "lance" | "grip" | "lock";
  * is not a run switch either — a wave carries one or does not, exactly the way
  * a wave carries a boss.
  *
- * **Two ids for one `Malfunction`**, which is a decision and not a leak of the
- * union's shape. A mechanic is *a rule the pair has to learn*, and these are
- * two rules: one takes the colours off the navigator and hands the pilot a gun
- * that will not stop, the other takes the trigger off the pilot and hands the
- * navigator a plate that comes up whether or not anybody wants it. A pair who
- * has played one has learnt almost nothing about the other. Collapsing them
- * into a single row would say the game introduces this
- * once, and `test/waves.test.ts` would then hold that the second wave to carry
- * one must *not* explain itself.
+ * **Three ids for one `Malfunction`**, which is a decision and not a leak of
+ * the union's shape. A mechanic is *a rule the pair has to learn*, and these
+ * are three: the colours off the navigator and a gun that will not stop; the
+ * trigger off the pilot and a plate that comes up unasked; the steering off
+ * the pilot and a trigger on a cannon nobody steers. A pair who has played
+ * one has learnt almost nothing about the others, and a single row would
+ * say the game introduces this once — `test/waves.test.ts` would then hold
+ * that the second wave to carry one must *not* explain itself.
  */
-export type WaveMechanicId = "cannonFault" | "shieldFault";
+export type WaveMechanicId = "cannonFault" | "shieldFault" | "steerFault";
 
 /**
  * A mechanic a wave turns on **by a field on an arrival rather than by its
@@ -197,7 +196,8 @@ export function mechanicOn(cfg: SimConfig, id: MechanicId): boolean {
  * given to it is the authored one, since nothing here asks *where*.
  */
 export function faultMechanic(m: Malfunction): WaveMechanicId {
-  return m.kind === "cannon" ? "cannonFault" : "shieldFault";
+  if (m.kind === "cannon") return "cannonFault";
+  return m.kind === "shield" ? "shieldFault" : "steerFault";
 }
 
 export function mechanicsInWave(wave: Wave): Set<MechanicId> {

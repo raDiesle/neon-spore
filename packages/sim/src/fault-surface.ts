@@ -18,4 +18,7 @@ export {
   type MalfunctionColor,
   type MalfunctionKind,
   malfunctionColor,
+  steerCol,
+  steered,
+  steerHeading,
 } from "./malfunction.js";

@@ -14,8 +14,8 @@ import type { World } from "./world.js";
  * (`wave-fail.ts`). A beat the control is found in a *different* column puts
  * the fuse back to nought and is one move of `limpetShakeMoves`; that many
  * and it lets go. A move is counted once per beat however far the control
- * went, THE CHOKE's rule for a tap: a stream of small slides inside one beat
- * is one move, so the answer is a thing the pair has to keep doing.
+ * went: a stream of small slides inside one beat is one move, so the
+ * answer is a thing the pair has to keep doing.
  *
  * **Only the seat without the control is shown the fuse.** The plate is
  * player 2's and the fuse on a limpet is drawn on player 1's screen alone;
@@ -23,11 +23,10 @@ import type { World } from "./world.js";
  * The seat that can move sees the body and not how long it has left, and the
  * word that crosses the voice delay is *move* — said before the count runs
  * out, by somebody who can see it running (`render/cling.ts`). That is the
- * creature: the choke made a count the tapping seat could read for itself;
- * this makes one the moving seat cannot.
+ * creature: a count the moving seat cannot read for itself.
  *
  * **They cannot be evaded.** The lane they fall in does not matter — each
- * goes to its control wherever the control is, THE CHOKE's arrangement — and
+ * goes to its control wherever the control is, THE GUM's arrangement — and
  * there is no column to stand in, only the standing itself to give up.
  *
  * Both fall by the ordinary fall, land by the ordinary clamp (`beat.ts`),
@@ -92,7 +91,7 @@ export function clingShake(world: World, kind: ClingKind): number {
  * `col` is the control's from here, `fromCol` stays the lane it fell, so the
  * picture slides it along the plating to the thing it is taking. A second
  * one of the same kind arriving while the first has the control waits on
- * the hull where it landed, THE CHOKE's rule.
+ * the hull where it landed.
  */
 export function clingLands(world: World, c: Creature, shipRow: number): void {
   if (!isClingKind(c.kind) || c.clingStuck === true || c.fromRow < shipRow) return;

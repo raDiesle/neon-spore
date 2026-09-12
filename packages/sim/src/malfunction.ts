@@ -1,5 +1,7 @@
 import { fire } from "./bullets.js";
+import { clampCol } from "./config-derived.js";
 import { armShield } from "./hull-guard.js";
+import { spillPrime } from "./lance.js";
 import type { Color, Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -39,8 +41,17 @@ import type { World } from "./world.js";
  * boss.
  */
 
-/** Which control is broken. Two, because the field has two strips. */
-export const MALFUNCTION_KINDS = ["cannon", "shield"] as const;
+/**
+ * Which control is broken. `cannon` is the trigger, `shield` the guard — and
+ * `steer` is the cannon **strip**, THE CHOKE: the one fault that breaks the
+ * half that moves. The strip answers nobody and the cannon walks wall to
+ * wall a column every `chokeSweepBeats` beats, and player 2 goes on firing
+ * from wherever it is. It was a body once, a strand that fell, took the
+ * cannon and was tapped off; the owner made it a fault on 12 September 2026
+ * — the same kind of thing as the other two, authored on the wave, with the
+ * emitter as its cause and no brush — and, like them, it runs the whole wave.
+ */
+export const MALFUNCTION_KINDS = ["cannon", "shield", "steer"] as const;
 export type MalfunctionKind = (typeof MALFUNCTION_KINDS)[number];
 
 /**
@@ -61,7 +72,10 @@ export type MalfunctionColor = (typeof MALFUNCTION_COLORS)[number];
  * number an author could set and never see the effect of — the same argument
  * `cell-config.ts` makes about drawing no speed row on a shell.
  */
-export type Malfunction = { kind: "cannon"; color: MalfunctionColor } | { kind: "shield" };
+export type Malfunction =
+  | { kind: "cannon"; color: MalfunctionColor }
+  | { kind: "shield" }
+  | { kind: "steer" };
 
 /**
  * Whether this press falls into a control the fault has taken over.
@@ -81,7 +95,46 @@ export function faultSwallows(world: World, c: Command): boolean {
   // fault has taken over is pressed as a `prime` and would otherwise fill and
   // fire a lance out of a button the panel is drawing dead (`lance.ts`).
   if (m.kind === "cannon") return c.kind === "fire" || c.kind === "prime";
+  // The strip, the swipe on the hull and the wire are all one door to the
+  // cannon's column, and under THE CHOKE that door is shut.
+  if (m.kind === "steer") return c.kind === "cannonCol";
   return c.kind === "guard";
+}
+
+/**
+ * How many steps the steered cannon has taken by this beat: none until the
+ * wave's second beat, then one every `chokeSweepBeats`.
+ */
+function steerSteps(world: World): number {
+  const every = Math.max(1, Math.round(world.cfg.chokeSweepBeats));
+  return Math.floor(faultStep(world) / every);
+}
+
+/**
+ * **Where the steered cannon stands after `steps` steps**, and no state
+ * behind it. `startWave` puts the cannon in the middle of every wave, and
+ * from there the walk is a triangle wave: right to the wall, back to the
+ * other, and again — a function of the wave's beat, so nothing is added to
+ * the world or the hash. Away from the nearer wall first is what the middle
+ * gives for free: the first thing the pair sees is the cannon leaving.
+ */
+export function steerCol(cols: number, steps: number): number {
+  const last = cols - 1;
+  const period = Math.max(1, last * 2);
+  const x = (Math.floor(last / 2) + steps) % period;
+  return x <= last ? x : period - x;
+}
+
+/** Which way the steered cannon steps next, `1` toward the right wall. */
+export function steerHeading(world: World): -1 | 1 {
+  const cols = world.cfg.cols;
+  const steps = steerSteps(world);
+  return steerCol(cols, steps + 1) >= steerCol(cols, steps) ? 1 : -1;
+}
+
+/** Whether this wave's fault is THE CHOKE — the strip dead, the cannon walking. */
+export function steered(world: World): boolean {
+  return world.malfunction?.kind === "steer";
 }
 
 /**
@@ -127,6 +180,13 @@ export function malfunctionColor(world: World, m: Malfunction): Color {
 export function stepMalfunction(world: World): void {
   const m = world.malfunction;
   if (m === null) return;
+  if (m.kind === "steer") {
+    const from = world.cannonCol;
+    world.cannonCol = clampCol(world.cfg, steerCol(world.cfg.cols, steerSteps(world)));
+    if (from !== world.cannonCol && spillPrime(world))
+      world.events.push({ type: "lanceSpilled", col: from });
+    return;
+  }
   const every = Math.max(1, Math.round(world.cfg.malfunctionEveryBeats));
   if (faultStep(world) % every !== 0) return;
   if (m.kind === "cannon") fire(world, malfunctionColor(world, m));

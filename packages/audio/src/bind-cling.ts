@@ -3,7 +3,7 @@ import { type Cue, panForCol } from "./bind.js";
 
 /**
  * THE LIMPET's and THE LEECH's four, in a file of their own on
- * `bind-choke.ts`'s pattern.
+ * `bind-gum.ts`'s pattern.
  *
  * Everything the ear gets from these is about a **control**: something
  * taking hold of it, a move shaking the grip, the grip letting go — and the
@@ -18,7 +18,7 @@ export function clingCue(
 ): Cue | null {
   switch (e.type) {
     case "clingGrip":
-      // The clamp closing over a control — the choke's dock, a little lower
+      // The clamp closing over a control — the dock, a little lower
       // for the plate than for the cannon, so the two grips are two sounds.
       return {
         id: "creature.chokeDock",
@@ -26,7 +26,7 @@ export function clingCue(
         pitch: e.kind === "limpet" ? 0.85 : 1.1,
       };
     case "clingShake":
-      // The rail's detent, climbing a move at a time, the choke's tap: a
+      // The rail's detent, climbing a move at a time: a
       // pair moving on every beat hears the count go up.
       return {
         id: "ship.cannonStep",

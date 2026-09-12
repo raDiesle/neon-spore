@@ -19,7 +19,7 @@ import type { CreatureDef } from "./creatures.js";
  * trigger, and a second body answered by hands and nothing else has a place to
  * land rather than a table to overflow.
  */
-export type HandedKind = Extract<CreatureKind, "balloon" | "gum" | "choke">;
+export type HandedKind = Extract<CreatureKind, "balloon" | "gum">;
 
 export const HANDED_CREATURES: Record<HandedKind, CreatureDef> = {
   balloon: {
@@ -65,22 +65,5 @@ export const HANDED_CREATURES: Record<HandedKind, CreatureDef> = {
     radar: "p1",
     blurb:
       "A sticky mass that falls straight down one lane. No shot touches it and the shield does not stop it; it lands on the ship and sticks there, and the cannon cannot fire from any column it covers until it is gone. Player 1 parks the cannon under it and leaves it there; player 2 swipes it toward the nearer wall and it comes off. Swiped away from that wall it spreads a lane wider instead, and the hand has to lift before it can try again.",
-  },
-  choke: {
-    kind: "choke",
-    // `aim`, because it is the cannon it takes: a wave with one on it must
-    // show the strip it kills, or there is nothing for player 1 to tap. The
-    // taps are a gesture on that dead strip and no panel's, the gum's
-    // arrangement — which is why it is in this family and not among the
-    // bodies the cannon answers.
-    controls: ["aim"],
-    // No colour, and none authored: no bolt reaches it in any colour.
-    color: null,
-    // Player 1's strip: the seat whose cannon it is about to take is the seat
-    // that sees it coming, and the lane does not matter — it goes to the
-    // cannon wherever the cannon is.
-    radar: "p1",
-    blurb:
-      "A tall boneless body that falls straight down one lane. No shot touches it and the shield does not stop it; it lands on the ship and takes the cannon by the throat: the cannon strip goes dead and the cannon walks wall to wall a column a beat, and player 2 keeps firing from wherever it is. Player 1 taps the dead strip, again and again, a lift between each — every tap loosens its grip by one and enough of them get it off. Nowhere to stand: it cannot be evaded, only outlasted.",
   },
 };

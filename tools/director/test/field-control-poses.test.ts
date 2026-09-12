@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { chokeIsStuck, gumIsStuck, readyFraction, wardenTether } from "@neon-spore/sim";
+import { gumIsStuck, readyFraction, wardenTether } from "@neon-spore/sim";
 import { FIELD_CONTROLS } from "../src/field-controls-page.js";
 import { poseNamed } from "../src/poses.js";
 import { FIELD_CONTROL_GROUP } from "../src/poses-field-controls.js";
@@ -45,11 +45,6 @@ describe("ON THE FIELD rows and their pictures", () => {
     const gum = w.creatures.find(gumIsStuck);
     expect(gum).toBeDefined();
     expect(gum?.col).toBe(w.cannonCol);
-  });
-
-  test("the choke has the cannon", () => {
-    const w = poseNamed("CHOKE · ON THE CANNON").build();
-    expect(w.creatures.some(chokeIsStuck)).toBe(true);
   });
 
   test("one ready circle is part full and the other empty", () => {

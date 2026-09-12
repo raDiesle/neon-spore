@@ -43,6 +43,7 @@ import type { ControlDef, ControlId } from "./controls.js";
 export function controlBroken(id: ControlId, m: Malfunction | null | undefined): boolean {
   if (!m) return false;
   if (m.kind === "cannon") return id === "fireRed" || id === "fireCyan";
+  if (m.kind === "steer") return id === "cannon";
   return id === "guard";
 }
 

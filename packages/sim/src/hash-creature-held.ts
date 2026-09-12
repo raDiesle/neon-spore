@@ -49,17 +49,6 @@ export function heldHashParts(c: Creature): number[] {
   out.push(c.gumPull === undefined ? 0 : 1);
   out.push(c.gumPull ?? 0);
   out.push(c.gumSpent === true ? 1 : 0);
-  // THE CHOKE's four. Whether it has the cannon decides whether the strip
-  // answers and whether the cannon walks a column on the beat; the count
-  // decides the tap it lets go on; whether a thumb is down decides whether
-  // the next message is a tap at all; and the direction decides which column
-  // the cannon is in a beat later — the column player 2's shot goes up
-  // (`choke.ts`). `-1` for a count nobody has started, which is a value no
-  // count can take; the direction absent is 0, which is neither wall.
-  out.push(c.chokeStuck === true ? 1 : 0);
-  out.push(c.chokeTaps ?? -1);
-  out.push(c.chokeHeld === true ? 1 : 0);
-  out.push(c.chokeDir ?? 0);
   // The clingers' four (`cling.ts`): whether one has its control, how far
   // its fuse has run, how many moves are against it, and the column the next
   // beat is judged against. `-1` where absent, a value none of them takes.

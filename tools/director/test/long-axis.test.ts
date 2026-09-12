@@ -64,7 +64,7 @@ const axes = CATALOGUE.map((e) => ({
 }));
 
 describe("the catalogue's long axes", () => {
-  it("splits a hundred and fourteen bodies into wide, round and tall", () => {
+  it("splits a hundred and twenty-one bodies into wide, round and tall", () => {
     const count = (a: "x" | "y" | null) => axes.filter((e) => e.long === a).length;
     // 104 until 8 September 2026, when THROB · CROWN was filed in
     // `drafts/offered.ts` — a round card, so it lands in the middle count.
@@ -86,7 +86,9 @@ describe("the catalogue's long axes", () => {
     // field, a round card by this measure — taller than wide, but not by
     // enough to be upright.
     // 116 the same day: CHOKE, TENDRIL's sac brought onto the field the same
-    // way, and tall the way TENDRIL is — the fourteenth upright card.
+    // way, and tall the way TENDRIL is — the fourteenth upright card; gone
+    // again on 12 September, when THE CHOKE became a fault with no body
+    // (docs/decisions.md #31), so every count from here is one under.
     // 117 the same day: COUNTDOWN, THE COUNT's disc, brought onto the field
     // as a body of its own beside the COUNTDOWN · MARKS draft it was cut from
     // — a round card at 42 × 42, as round as the catalogue has.
@@ -97,7 +99,7 @@ describe("the catalogue's long axes", () => {
     // 122 the same day: LIMPET and LEECH, HOOK COLONY's base and CALTROP
     // brought onto the field as bodies of their own — both round, both
     // drawn at rx = ry.
-    expect(axes.length).toBe(122);
+    expect(axes.length).toBe(121);
     // One ring of THE CRAWLER is the thirty-ninth wide card, and it is wide by
     // more than any other: a ring reaches nearly a full tile past its own
     // column at each end, which is what makes a run of them one animal with no
@@ -110,17 +112,16 @@ describe("the catalogue's long axes", () => {
     // Which is the finding the grown bodies above make from the other side —
     // a part changes what a body looks like and not which way round it is —
     // reaching the opposite answer, because this part stands straight up.
-    expect(count("y")).toBe(14);
+    expect(count("y")).toBe(13);
   });
 
-  it("names the fourteen tall ones", () => {
+  it("names the thirteen tall ones", () => {
     expect(
       axes
         .filter((e) => e.long === "y")
         .map((e) => e.name)
         .sort(),
     ).toEqual([
-      "CHOKE",
       "COMB",
       "GHOST",
       "HUSK 1",

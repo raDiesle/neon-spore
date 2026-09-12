@@ -94,18 +94,6 @@ export type ManyKind =
    */
   | "gum"
   /**
-   * A tall boneless body that falls straight down one lane, cannot be shot,
-   * is not stopped by the shield and does not break the hull: it **takes the
-   * cannon by the throat**. From the beat it is drawn standing on the ship
-   * the cannon strip answers nobody and the cannon sweeps wall to wall a
-   * column a beat, and player 2 goes on firing from wherever it happens to
-   * be. What gets it off is player 1 tapping the dead strip, over and over —
-   * `chokeTaps` fresh presses, a lift between each — and every tap loosens
-   * its grip by one. `choke.ts` holds the whole of it; `Creature.chokeStuck`,
-   * `chokeTaps`, `chokeHeld` and `chokeDir` are the whole of its state.
-   */
-  | "choke"
-  /**
    * A round body with marks cut into its rim, one fewer each beat, that a
    * shot only reaches while none are left — and **only the pilot is drawn
    * the marks**; the navigator, who fires, sees a blank rim. A shot off zero

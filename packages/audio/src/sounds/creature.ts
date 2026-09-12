@@ -174,7 +174,7 @@ export const CREATURE_SOUNDS: SoundDef[] = [
     family: "creature",
     blurb: "A clamp closing over a control, and the control going dead under it.",
     status: "bound",
-    use: "THE CHOKE taking the cannon: the strip goes dead under it (`bind-choke.ts`).",
+    use: "THE LIMPET and THE LEECH taking hold of a control (`bind-cling.ts`). Named for THE CHOKE, which took the cannon this way before it became a fault.",
     level: 0.34,
     layers: [
       metal(140, 0.12, 0.5, 130),

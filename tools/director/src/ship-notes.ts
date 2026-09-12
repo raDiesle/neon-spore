@@ -197,7 +197,7 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "takes what is left; let it reach the far wall and it eats in, for as " +
     "much as the pair left on it. See crawler.ts.",
   "THE MALFUNCTION — a control that acts by itself":
-    "A wave in which one seat does not have its control any more — the control has it. A cannon fault fires up player 1's column every `malfunctionEveryBeats` beats and takes the two colours off player 2; a shield fault brings the dome up over player 2's column on the same clock and takes the trigger off player 1. The seat whose control broke gets nothing back and there is no way to hold a fault off: it runs for the whole wave. Which fault a wave carries is authored on the wave, beside its panel.",
+    "A wave in which one seat does not have its control any more — the control has it. A cannon fault fires up player 1's column every `malfunctionEveryBeats` beats and takes the two colours off player 2; a shield fault brings the dome up over player 2's column on the same clock and takes the trigger off player 1; a steer fault walks the cannon a column every `chokeSweepBeats` beats, wall to wall, and takes the strip off player 1 (THE CHOKE). The seat whose control broke gets nothing back and there is no way to hold a fault off: it runs for the whole wave. Which fault a wave carries is authored on the wave, beside its panel.",
   "THE FENCE — a live line with a way through it":
     "A wall of current the width of the field, with gaps burnt through it, " +
     "coming down two rows a beat. It is the one arrival the trigger cannot " +

@@ -1,4 +1,9 @@
-import { type ControlSet, controlSetForWave, setControls } from "@neon-spore/content";
+import {
+  type ControlSet,
+  controlBroken,
+  controlSetForWave,
+  setControls,
+} from "@neon-spore/content";
 import { mirrorHoldsControls, type World } from "@neon-spore/sim";
 import { drawStripFor } from "./band-channel.js";
 import { drawLobe } from "./band-control.js";
@@ -178,9 +183,10 @@ function drawHalf(
   for (const c of setControls(set, player)) {
     if (c.form !== "strip") continue;
     drawStripFor(ctx, l, world, c);
-    // Over the cannon strip while THE CHOKE has the cannon: the rail dead,
-    // the body on the node, and the tapping asked for (`choke-strip.ts`).
-    if (c.id === "cannon") drawChokeStrip(ctx, l, world, time, seatSkin(l.role));
+    // Over the cannon strip while THE CHOKE's fault has the cannon: the rail
+    // dead and the body on the node (`choke-strip.ts`).
+    if (controlBroken(c.id, world.malfunction) && c.id === "cannon")
+      drawChokeStrip(ctx, l, world, time, seatSkin(l.role));
   }
   // The lobes come from `bandLobes` rather than from named fields of the
   // layout, and `touchDown` asks it the same question with the same set — so

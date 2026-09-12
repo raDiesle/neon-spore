@@ -35,6 +35,7 @@ const CHOICES = [
   ["", "NONE — the pair keeps both controls"],
   ["cannon", "CANNON — the gun fires itself, player 2 loses both colours"],
   ["shield", "SHIELD — the dome arms itself, player 1 loses the trigger"],
+  ["steer", "STEER — the cannon walks itself, player 1 loses the strip"],
 ] as const;
 
 const COLOUR_LABEL: Record<MalfunctionColor, string> = {
@@ -81,7 +82,8 @@ export function bindFaultFields(host: HTMLElement | null): FaultFields {
     if (kind.field.value === "cannon") {
       return { kind: "cannon", color: colour.field.value as MalfunctionColor };
     }
-    return kind.field.value === "shield" ? { kind: "shield" } : undefined;
+    if (kind.field.value === "shield") return { kind: "shield" };
+    return kind.field.value === "steer" ? { kind: "steer" } : undefined;
   };
 
   const paint = (fault: Malfunction | undefined): void => {
@@ -90,12 +92,17 @@ export function bindFaultFields(host: HTMLElement | null): FaultFields {
     note.textContent =
       fault === undefined
         ? "This wave is played straight: both seats have every button their panel carries."
-        : // The one sentence an author actually has to hold in their head while
-          // composing the arrivals: which seat still has a strip to aim with,
-          // and therefore which body the wave can be *about*.
-          `Player ${fault.kind === "cannon" ? 2 : 1} loses their buttons and gets nothing back; player ${
-            fault.kind === "cannon" ? 1 : 2
-          } still has a strip and has to point the fault somewhere harmless.`;
+        : fault.kind === "steer"
+          ? // The steer fault is the one that takes a strip rather than buttons:
+            // the cannon walks a column a beat, wall to wall, and the wave is
+            // about firing on the beat it passes under a body.
+            "Player 1 loses the cannon strip and gets nothing back; the cannon walks a column a beat, wall to wall, and player 2 fires from wherever it is."
+          : // The one sentence an author actually has to hold in their head while
+            // composing the arrivals: which seat still has a strip to aim with,
+            // and therefore which body the wave can be *about*.
+            `Player ${fault.kind === "cannon" ? 2 : 1} loses their buttons and gets nothing back; player ${
+              fault.kind === "cannon" ? 1 : 2
+            } still has a strip and has to point the fault somewhere harmless.`;
   };
 
   const fire = (): void => {

@@ -98,15 +98,9 @@ export const INGEST_SILENT = [
   "gumBlock",
   "gumFlung",
   "gumSpread",
-  // THE CHOKE's three, for the gum's reason: whether it has the cannon, how
-  // many taps are in and which way the cannon is walking are all read off
-  // the world every frame (`choke.ts`), and `burstFor` has already thrown
-  // the sparks.
-  "chokeGrip",
-  "chokeTap",
-  "chokeFreed",
-  // And the clingers' four, for the choke's reason: the grip, the fuse and
-  // the moves are all read off the world every frame (`cling.ts`).
+  // The clingers' four, for the gum's reason: the grip, the fuse and the
+  // moves are all read off the world every frame (`cling.ts`), and
+  // `burstFor` has already thrown the sparks.
   "clingGrip",
   "clingShake",
   "clingFreed",

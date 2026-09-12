@@ -5,7 +5,7 @@ import { PALETTE } from "./palette.js";
 
 /**
  * The bursts for the bodies answered by hands alone (`creatures-handed.ts`),
- * cut out of `burstFor` when THE CHOKE's three took that file past its limit.
+ * cut out of `burstFor` when that file reached its limit.
  * The same table, the same rule — a burst is a request, scaled with what it
  * cost — and `burstFor`'s exhaustive switch still names every case here, so
  * an event added to one of these bodies and forgotten in both is a type error
@@ -22,9 +22,6 @@ export function handedBurst(
         | "gumStick"
         | "gumFlung"
         | "gumBlock"
-        | "chokeGrip"
-        | "chokeTap"
-        | "chokeFreed"
         | "clingGrip"
         | "clingShake"
         | "clingFreed"
@@ -49,19 +46,6 @@ export function handedBurst(
       return at(l, e.col, e.row, 24, PALETTE.venom);
     case "gumBlock":
       return { x: tileCX(l, e.col), y: l.hullY, n: 6, hex: PALETTE.venom };
-    // THE CHOKE in its own material: hitting the ship, in the lane it fell
-    // — it crawls from there to the cannon (`choke-crawl.ts`), so the burst
-    // is where it landed and not where it is going; every tap player 1
-    // lands, on the strip's knob rather than on the field — the one burst in
-    // this table that is on the band, because the thing that happened
-    // happened there and the pair has to see that a tap *did* something; and
-    // letting go, at the cannon (`choke.ts`).
-    case "chokeGrip":
-      return { x: tileCX(l, e.from), y: l.hullY, n: 14, hex: PALETTE.bile };
-    case "chokeTap":
-      return { x: tileCX(l, e.col), y: l.cannonStrip.y, n: 4, hex: PALETTE.bileRim };
-    case "chokeFreed":
-      return { x: tileCX(l, e.col), y: l.hullY, n: 24, hex: PALETTE.bile };
     // THE LIMPET and THE LEECH, in the malfunction's blue: the grab where it
     // landed, a move shaking sparks off it, letting go — and the blast, which
     // is the breach's own burst made louder in the fire's colour, because the

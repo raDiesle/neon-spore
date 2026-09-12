@@ -3,7 +3,7 @@ import type { ClingKind } from "./cling.js";
 /**
  * **Everything THE LIMPET and THE LEECH do**, as events: one takes hold of a
  * control, is shaken a move looser, lets go, or goes off. Its own file on
- * `events-choke.ts`' terms — one arrival taken apart — and one arm of
+ * `events-gum.ts`' terms — one arrival taken apart — and one arm of
  * `CreatureEvent`, so every consumer still switches over the whole list.
  * `kind` on every one, because the two are one module and one ear, and the
  * plate and the cannon are told apart by it.

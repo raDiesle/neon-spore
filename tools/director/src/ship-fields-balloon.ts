@@ -27,10 +27,6 @@ export const BALLOON_FIELDS = {
   // seam, a creature with a handle on it that player 2 works.
   gumSwipeMilli: "THE GUM — a mass stuck to the ship, swiped off by the seat without the cannon",
   gumSpreadCols: "THE GUM — a mass stuck to the ship, swiped off by the seat without the cannon",
-  // And THE CHOKE's three, on the gum's terms: a body on the ship with a
-  // gesture on it, this time the seat whose control it took.
-  chokeTaps: "THE CHOKE — a body on the cannon, tapped off by the seat whose cannon it was",
-  chokeSweepBeats: "THE CHOKE — a body on the cannon, tapped off by the seat whose cannon it was",
   // And the clingers' four: a body on a control, shaken off by moving it.
   limpetStillBeats: "THE LIMPET — a body on the plate that goes off if the plate stands still",
   limpetShakeMoves: "THE LIMPET — a body on the plate that goes off if the plate stands still",

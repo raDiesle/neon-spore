@@ -3,7 +3,7 @@ import { type Malfunction, malfunctionColor, type World } from "@neon-spore/sim"
 import { halo, strokeGlow } from "./glow.js";
 import { sinHash } from "./hash.js";
 import { rgba } from "./hex.js";
-import { type Layout, tileCX } from "./layout.js";
+import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /**
@@ -32,10 +32,14 @@ import { PALETTE, STROKE } from "./palette.js";
  * up. A cannon that fires by itself is a *pulsed* thing, so its beam is a
  * thread between shots and a flash on each one, in the colour the shot was —
  * red, then cyan — read off `malfunctionColor`, the same function that loads
- * the gun. Where the beam lands is where this screen shows the fault: the
- * GUARD lobe on the pilot's panel and the dome over the plate on the
- * navigator's; the two colour lobes on the navigator's panel and the muzzle
- * on the pilot's. The test view, which is both, gets both.
+ * the gun. A steering that has been taken is held too, so THE CHOKE's beam
+ * is the steady one. Where the beam lands is where this screen shows the
+ * fault (`fault-beam-ends.ts`): the GUARD lobe on the pilot's panel and the
+ * dome over the plate on the navigator's; the two colour lobes on the
+ * navigator's panel and the muzzle on the pilot's; the cannon strip's node
+ * and the muzzle on the pilot's and the muzzle alone on the navigator's,
+ * since the cannon is on the hull on both. The test view, which is both,
+ * gets both.
  */
 
 /** The emitter's centre and size: hanging in from the top edge of the grid,
@@ -145,10 +149,11 @@ export function drawFaultBeam(
   if (m === null || ends.length === 0) return;
   const v = vesicleAt(l);
   const color = beamColor(world, m);
-  // Steady for a held shield; a thread with a flash on each shot for a gun
-  // that fires by itself. `flash` is one on the shot and gone a third of a
-  // beat later, so between shots the thread is all that is left.
-  const held = m.kind === "shield";
+  // Steady for a held shield or a held steering; a thread with a flash on
+  // each shot for a gun that fires by itself. `flash` is one on the shot
+  // and gone a third of a beat later, so between shots the thread is all
+  // that is left.
+  const held = m.kind !== "cannon";
   const flash = held ? 0 : firedThisBeat(world) ? Math.max(0, 1 - beatPhase * 3) : 0;
   const breath = 0.8 + 0.2 * Math.sin(time * 2.6);
   const wide = held ? l.tile * 0.34 * breath : l.tile * (0.08 + 0.42 * flash);
@@ -214,37 +219,4 @@ function drawImpact(
     ctx.stroke();
   }
   ctx.globalAlpha = 1;
-}
-
-/**
- * The ends on this screen, from what the fault has taken: the pilot's panel
- * shows GUARD or the muzzle, the navigator's the dome or the two colour lobes
- * (`view-role.ts`). Handed the lobes rather than looking them up, so this
- * file reads no control set.
- */
-export function faultBeamEnds(
-  l: Layout,
-  world: World,
-  lobes: readonly { id: string; x: number; y: number; r: number }[],
-  showsCannon: boolean,
-  showsShield: boolean,
-): BeamEnd[] {
-  const m = world.malfunction;
-  if (m === null) return [];
-  const out: BeamEnd[] = [];
-  const lobe = (id: string) => lobes.find((c) => c.id === id);
-  if (m.kind === "shield") {
-    const guard = lobe("guard");
-    if (guard) out.push(guard);
-    if (showsShield)
-      out.push({ x: tileCX(l, world.shieldCol), y: l.hullY - l.tile * 0.35, r: l.tile * 0.5 });
-  } else {
-    const loading = malfunctionColor(world, m) === "red" ? "fireRed" : "fireCyan";
-    for (const id of ["fireRed", "fireCyan"]) {
-      const c = lobe(id);
-      if (c) out.push({ ...c, dim: id !== loading });
-    }
-    if (showsCannon) out.push({ x: tileCX(l, world.cannonCol), y: l.hullY, r: l.tile * 0.4 });
-  }
-  return out;
 }

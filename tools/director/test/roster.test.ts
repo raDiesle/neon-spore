@@ -17,8 +17,9 @@ describe("roster", () => {
     // Twelve of the first thirteen: the Glyph left the table when THE MIRROR's
     // Simon Says turned out to be it (docs/decisions.md #28). Thirteen again
     // the same day, when the Countdown was built (docs/decisions.md #29).
-    // Fifteen from 12 September 2026: THE LIMPET and THE LEECH.
-    expect(roster.creatures).toHaveLength(15);
+    // Fifteen from 12 September 2026: THE LIMPET and THE LEECH — and fourteen
+    // the same day, THE CHOKE a fault now and not a body (docs/decisions.md #31).
+    expect(roster.creatures).toHaveLength(14);
     // The Wisp alone — the nine idea rows beside it were retired the same day.
     expect(roster.accepted).toHaveLength(1);
     // Four named in the act order, plus THE MIRROR, which holds no slot in it

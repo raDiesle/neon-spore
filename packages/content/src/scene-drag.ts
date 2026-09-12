@@ -49,9 +49,6 @@ function tautMilli(target: DragTarget, cfg: SimConfig): number {
   // A gum is swiped one swipe's length, and the film says the side with `dir`
   // the way it says it for an arrow (`sim/gum.ts`).
   if (target === "gum") return cfg.gumSwipeMilli;
-  // A choke is tapped, not carried: the distance is nothing and is not read
-  // (`sim/choke.ts`), so a film's hand goes down and comes up where it was.
-  if (target === "choke") return 0;
   return cfg.mazeTurnMilli;
 }
 
@@ -78,8 +75,7 @@ function pullsDown(target: DragTarget): boolean {
     target !== "choirRight" &&
     target !== "balloonLeft" &&
     target !== "balloonRight" &&
-    target !== "gum" &&
-    target !== "choke"
+    target !== "gum"
   );
 }
 

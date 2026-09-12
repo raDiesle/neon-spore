@@ -2,12 +2,12 @@ import type { GroupName } from "./ship-groups.js";
 
 /**
  * The paragraph under each card for a **body that has a control of the
- * ship's** — THE GUM on the plating, THE CHOKE on the cannon, and the two
- * clingers, THE LIMPET on the plate and THE LEECH on the cannon.
+ * ship's** — THE GUM on the plating and the two clingers, THE LIMPET on
+ * the plate and THE LEECH on the cannon.
  *
  * Split out of `ship-notes.ts` when the clingers' two took that file past
  * its 250-line limit, along the seam `ship-notes-round.ts` cut before it and
- * for the same reason. These four are one family: a body no shot touches,
+ * for the same reason. These three are one family: a body no shot touches,
  * that the shield does not stop, that goes to a control on landing and stays
  * until the *other* seat's gesture gets it off — the seam is the family.
  *
@@ -22,12 +22,6 @@ export const HOLD_NOTES = {
     "while the cannon is parked in one of its columns: then player 2 swipes it gumSwipeMilli toward the nearer " +
     "side wall and it comes off for scoreGumFlung. A swipe toward the far wall spreads it gumSpreadCols wider " +
     "instead, once per hold. See gum.ts.",
-  "THE CHOKE — a body on the cannon, tapped off by the seat whose cannon it was":
-    "It falls straight down its lane like a slick, no shot touches it and the shield does not stop it, and " +
-    "when it lands it goes to the cannon wherever the cannon is. From then on the cannon strip answers nobody " +
-    "and the cannon walks a column every chokeSweepBeats beats toward a wall, turns there, and walks back; " +
-    "player 2 keeps firing from wherever it is. Player 1 gets it off by tapping the dead strip chokeTaps " +
-    "times, a lift between each — a thumb held down is one tap. Then it is gone for scoreChokeFreed. See choke.ts.",
   "THE LIMPET — a body on the plate that goes off if the plate stands still":
     "It falls straight down its lane like a slick, no shot touches it and the shield does not stop it, and " +
     "when it lands it goes to the plate wherever the plate is. Every beat the plate is found in the column " +

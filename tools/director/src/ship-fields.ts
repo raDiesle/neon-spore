@@ -37,6 +37,10 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   inputDelayTicks: "PLUMBING — not a dial a person turns",
   guardWindowMs: "GUARD — the shared defence",
   malfunctionEveryBeats: "THE MALFUNCTION — a control that acts by itself",
+  // THE CHOKE's pace is a fault's number: the steer fault walks the cannon
+  // on it (`sim/malfunction.ts`), the way the two before it fire on
+  // `malfunctionEveryBeats`.
+  chokeSweepBeats: "THE MALFUNCTION — a control that acts by itself",
   readyHoldMs: "OPENING — the introduction, the guide and the ready gate",
   intakeWindowMs: "MAW — taking a pod in",
   podFallTilesPerBeat: "POD — shot loose, then caught",

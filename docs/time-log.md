@@ -22,6 +22,31 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 · choke-fault — THE CHOKE becomes the steer fault
+
+The owner's mid-turn ask: *"Choke" enemy should be same kind of control set
+modifier, I guess, no brush.* Two forks asked first — the whole wave with no
+tap-off, and the emitter and beam only, no strand — then the body came out:
+the kind off the roster (argued in the roster comment and decision #31), its
+three events, crawl, strand, silhouette, drag target, brush, field-control
+row, pose, sounds and eight tests, and a third `Malfunction` kind `steer`
+went in with a stateless triangle walk, a beam end on the strip's node, the
+loops kept on the swelling and the node, a wave rewritten with targets timed
+against the walk, and the tap-off parked on the NOT BUILT YET page. About
+60 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | every file with `choke` in it — fifty-odd across six packages and three tools — and where the faults' beam, dead-button and picker logic live |
+| writing | 30 | `sim/malfunction.ts`'s `steer` branch; `render/choke-hull.ts`, `fault-beam-ends.ts` and the strip; content's tables and the wave; the director's picker, groups and notes; the docs and the decision |
+| looking | 5 | two frames, one per seat — the second showed the beam missing on player 2's screen, which was wrong, since both seats see the cannon on the hull |
+| friction | 10 | three scripts that stopped on their own assertions after half their edits had applied and had to be resumed by hand; a sound the clingers played that no listed wiring file read |
+| landing | 5 | `check:fast`, the index rows, the commit, `bun run land` |
+
+Bottleneck: the removal, not the addition — a body that landed yesterday had
+already been named in fifty files, and every one of them had to be read to
+know which mentioned a thing that still exists.
+
 ## 2026-09-12 · malfunction B — THE LIMPET and THE LEECH
 
 The second piece of the malfunction task: a body that falls to the shield

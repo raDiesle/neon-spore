@@ -231,9 +231,6 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "gumStick":
     case "gumFlung":
     case "gumBlock":
-    case "chokeGrip":
-    case "chokeTap":
-    case "chokeFreed":
     case "clingGrip":
     case "clingShake":
     case "clingFreed":

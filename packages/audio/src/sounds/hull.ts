@@ -61,8 +61,8 @@ export const HULL_SOUNDS: SoundDef[] = [
     id: "hull.crack",
     family: "hull",
     blurb: "A scar opening further, without anything having hit it.",
-    status: "spare",
-    use: "A crater growing after the impact that made it — waiting on a scar event to hang off.",
+    status: "bound",
+    use: "A clinger going off against the hull, over the breach it makes (`bind-cling.ts`) — written for a crater growing after its impact, still waiting on a scar event for that.",
     level: 0.26,
     layers: [
       noise(1600, { type: "bandpass", freq: 2400, toFreq: 900, q: 3.2 }, 0.001, 0.06, 0.5),
