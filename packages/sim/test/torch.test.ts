@@ -6,7 +6,6 @@ import {
   DEFAULT_CONFIG,
   fallTilesPerBeat,
   hashWorld,
-  hullPercent,
   hullRow,
   occupiesCol,
   record,
@@ -114,14 +113,14 @@ describe("the torch", () => {
       guard(IMPACT_TICK - 20),
     ]);
     expect(world.guard.deflected).toBe(1);
-    expect(hullPercent(world)).toBe(100);
+    expect(world.retries).toBe(0);
     expect(events.some((e) => e.type === "deflect" && e.span === 2)).toBe(true);
   });
 
   it("deflects when the shield is on its right column", () => {
     const { world } = run([torch(5)], IMPACT_TICK + 1, [shieldTo(10, 6), guard(IMPACT_TICK - 20)]);
     expect(world.guard.deflected).toBe(1);
-    expect(hullPercent(world)).toBe(100);
+    expect(world.retries).toBe(0);
   });
 
   it("does not deflect one column past either edge", () => {
@@ -139,7 +138,7 @@ describe("the torch", () => {
     const world = createWorld(noRegen, 0, [torch(5)]);
     const byTick = new Map<number, TimedCommand[]>();
     for (let t = 0; t < BREACH_TICK + 1; t++) step(world, byTick.get(t) ?? []);
-    expect(hullPercent(world)).toBe(100 - CFG.damageMeteor);
+    expect(world.retries).toBe(1);
     const scarredCols = new Set(world.scars.map((s) => s.col));
     expect(scarredCols).toEqual(new Set([5, 6]));
   });
@@ -192,7 +191,7 @@ describe("the torch", () => {
     });
     const world = runReplay(replay);
     expect(world.guard.deflected).toBe(1);
-    expect(hullPercent(world)).toBe(100);
+    expect(world.retries).toBe(0);
     expect(hashWorld(runReplay(replay))).toBe(replay.expectHash!);
   });
 });

@@ -173,7 +173,7 @@ describe("what a wrong move costs", () => {
     const ticks = TPB * (CFG.choirWindowBeats + 3);
     const { world, events } = run([choir(2, "red")], ticks, pull(ON_FIELD, "choirLeft", -FAR));
     expect(events.filter((e) => e.type === "choirSing")).toHaveLength(1);
-    expect(world.hullMilli).toBeLessThan(full);
+    expect(world.retries).toBe(1);
     // Still a membrane: a lapse costs the hull and never opens anything.
     expect(choirIsDots(only(world))).toBe(true);
     expect(choirArmed(world)).toBeNull();

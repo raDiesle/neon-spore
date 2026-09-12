@@ -27,6 +27,8 @@ import { createWorld, type SimEvent, type SpawnEntry, step, type World } from ".
  */
 
 const CFG = DEFAULT_CONFIG;
+/** The chain watched past the first freed rock's landing, which would otherwise stop the field. */
+const HULL_HELD = { ...CFG, hullInvulnerable: true };
 const TPB = ticksPerBeat(CFG);
 
 const coil = (beat: number, col: number): SpawnEntry => ({
@@ -46,8 +48,8 @@ interface Run {
   events: SimEvent[];
 }
 
-function run(queue: SpawnEntry[], ticks: number, inputs: TimedCommand[] = []): Run {
-  const world = createWorld({ ...CFG }, 7, queue);
+function run(queue: SpawnEntry[], ticks: number, inputs: TimedCommand[] = [], cfg = CFG): Run {
+  const world = createWorld({ ...cfg }, 7, queue);
   const byTick = new Map<number, TimedCommand[]>();
   for (const i of inputs) byTick.set(i.tick, [...(byTick.get(i.tick) ?? []), i]);
   const events: SimEvent[] = [];
@@ -341,10 +343,15 @@ describe("the charge jumps to another dome and opens that one too", () => {
 
   it("opens it coilJumpBeats later, and starts the next jump from there", () => {
     const beats = CFG.coilJumpBeats;
-    const { world, events } = run([coil(0, 8), coil(0, 6), coil(0, 4)], TPB * (beats + 2) - 1, [
-      shieldTo(4, 8),
-      guard(TPB),
-    ]);
+    // Watched with the hull held: the first freed rock reaches the ship a beat
+    // after the dome went, and a hit stops the field under the second dome
+    // (`wave-fail.ts`). The chain is what this test is about.
+    const { world, events } = run(
+      [coil(0, 8), coil(0, 6), coil(0, 4)],
+      TPB * (beats + 2) - 1,
+      [shieldTo(4, 8), guard(TPB)],
+      HULL_HELD,
+    );
     // The ward opened one and the chain has opened a second; the second's own
     // jump is in the air at the third. Deliberately counted in *events* rather
     // than in bodies still standing: a freed rock is thrown to the ship in the
@@ -359,10 +366,12 @@ describe("the charge jumps to another dome and opens that one too", () => {
 
   it("clears the whole field from one trigger, and stops when nothing is left", () => {
     const beats = CFG.coilJumpBeats;
-    const { world } = run([coil(0, 8), coil(0, 6), coil(0, 4)], TPB * (beats * 3 + 2), [
-      shieldTo(4, 8),
-      guard(TPB),
-    ]);
+    const { world } = run(
+      [coil(0, 8), coil(0, 6), coil(0, 4)],
+      TPB * (beats * 3 + 2),
+      [shieldTo(4, 8), guard(TPB)],
+      HULL_HELD,
+    );
     expect(world.creatures.some(coilIsDomed)).toBe(false);
   });
 

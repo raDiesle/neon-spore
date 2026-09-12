@@ -104,6 +104,7 @@ const SAMPLES: Record<string, SimEvent> = {
   eyeOpen: { type: "eyeOpen", col: 5, color: "red" },
   plate: { type: "plate", col: 5, row: 2, left: 3, color: "red" },
   wardenDown: { type: "wardenDown", col: 5, row: 2 },
+  waveFailed: { type: "waveFailed", wave: 2, retries: 1 },
   mirrorShow: { type: "mirrorShow", step: "guard", index: 1, of: 3, col: 3 },
   mirrorEcho: { type: "mirrorEcho", step: "guard", index: 2, of: 3 },
   mirrorVerdict: { type: "mirrorVerdict", right: false, col: 3, reason: "bait" },

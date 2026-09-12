@@ -5,7 +5,6 @@ import {
   DEFAULT_CONFIG,
   fallTilesPerBeat,
   hashWorld,
-  hullPercent,
   hullRow,
   record,
   runReplay,
@@ -92,20 +91,20 @@ describe("the hull", () => {
   it("takes damage and keeps a break where a creature landed", () => {
     const { world } = run([slick(4, "red")], BREACH_TICK + 1);
     expect(world.creatures).toHaveLength(0);
-    expect(hullPercent(world)).toBeLessThan(100);
+    expect(world.retries).toBe(1);
     expect(world.scars.map((s) => s.col)).toContain(4);
   });
 
-  it("regenerates slowly, and the break stays", () => {
-    const after = run([slick(4, "red")], BREACH_TICK + 1);
-    const later = run([slick(4, "red")], BREACH_TICK + CFG.tickHz);
-    expect(hullPercent(later.world)).toBeGreaterThan(hullPercent(after.world));
-    // A second of regeneration is worth exactly hullRegenPerSecond points.
-    expect(hullPercent(later.world) - hullPercent(after.world)).toBeCloseTo(
-      CFG.hullRegenPerSecond,
-      1,
-    );
-    expect(later.world.scars).toHaveLength(1);
+  it("holds the field from the hit, and asks for the same wave again", () => {
+    const { world, events } = run([slick(4, "red")], BREACH_TICK + TPB * (CFG.waveFailBeats + 1));
+    // Nothing more happens on the field: the break stays where it was seen,
+    // and after the pause the host is asked for this wave, not the next.
+    expect(world.scars).toHaveLength(1);
+    expect(world.retries).toBe(1);
+    expect(events.filter((e) => e.type === "waveFailed")).toHaveLength(1);
+    expect(events.filter((e) => e.type === "needWave")).toEqual([
+      { type: "needWave", wave: 0, retry: true },
+    ]);
   });
 });
 
@@ -118,7 +117,7 @@ describe("the shield", () => {
     expect(world.guard.deflected).toBe(1);
     expect(world.guard.mistimed).toBe(0);
     expect(world.guard.tries).toBe(1);
-    expect(hullPercent(world)).toBe(100);
+    expect(world.retries).toBe(0);
     expect(events.some((e) => e.type === "deflect")).toBe(true);
   });
 
@@ -132,7 +131,7 @@ describe("the shield", () => {
     const { world } = run([meteor(5)], BREACH_TICK + 1, [shieldTo(10, 5), guard(early)]);
     expect(world.guard.deflected).toBe(0);
     expect(world.guard.mistimed).toBe(1);
-    expect(hullPercent(world)).toBeLessThan(100);
+    expect(world.retries).toBe(1);
   });
 
   it("does nothing from the wrong column, however well timed", () => {
@@ -140,7 +139,7 @@ describe("the shield", () => {
     expect(world.guard.deflected).toBe(0);
     expect(world.guard.mistimed).toBe(0);
     expect(world.guard.tries).toBe(1);
-    expect(hullPercent(world)).toBeLessThan(100);
+    expect(world.retries).toBe(1);
   });
 
   it("position alone is not enough", () => {
@@ -165,7 +164,7 @@ describe("the shield", () => {
     expect(world.guard.tries).toBe(1);
     expect(world.guard.deflected).toBe(1);
     expect(world.score).toBeGreaterThanOrEqual(CFG.scoreDeflect);
-    expect(hullPercent(world)).toBe(100);
+    expect(world.retries).toBe(0);
     expect(events.some((e) => e.type === "deflect")).toBe(true);
   });
 });
@@ -178,7 +177,7 @@ describe("shots", () => {
     expect(world.creatures).toHaveLength(0);
     expect(events.some((e) => e.type === "destroy")).toBe(true);
     expect(world.score).toBeGreaterThanOrEqual(CFG.scoreDestroy);
-    expect(hullPercent(world)).toBe(100);
+    expect(world.retries).toBe(0);
   });
 
   it("bounce off a creature of the wrong colour", () => {
@@ -218,24 +217,30 @@ describe("shots", () => {
 
 describe("waves", () => {
   it("asks the host for the next wave once the field is clear", () => {
-    const { world, events } = run([slick(3, "red")], IMPACT_TICK + TPB * 5);
+    // The one slick is shot, so the wave is passed and not lost.
+    const { world, events } = run([slick(3, "red")], IMPACT_TICK + TPB * 5, [
+      aim(0, 3),
+      fire(TPB, "red"),
+    ]);
     const asks = events.filter((e) => e.type === "needWave");
     expect(asks).toHaveLength(1);
     expect(asks[0]).toEqual({ type: "needWave", wave: 1 });
     // Asked exactly once — the host has not answered, and it does not nag.
     expect(world.restBeat).toBe(-1);
+    expect(world.retries).toBe(0);
     expect(world.score).toBeGreaterThanOrEqual(CFG.scoreWave);
   });
 });
 
 describe("replays across waves", () => {
   it("plays on into a wave the replay carries, and stops at one it does not", () => {
+    // The first wave's slick is shot, or the hit would ask for wave 0 again.
     const two = record({
       name: "two waves",
       seed: 0,
       ticks: IMPACT_TICK + TPB * 6,
       queues: [[slick(3, "red")], [meteor(6)]],
-      inputs: [],
+      inputs: [aim(0, 3), fire(TPB, "red")],
     });
     const world = runReplay(two);
     expect(world.wave).toBe(1);

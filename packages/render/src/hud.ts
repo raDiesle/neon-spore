@@ -1,4 +1,4 @@
-import { hullPercent } from "@neon-spore/sim";
+import { hullPercent, playSeconds, type World } from "@neon-spore/sim";
 import { drawBalanceSheet } from "./balance.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -27,6 +27,19 @@ export function hullBarBox(l: Layout): { x: number; y: number; w: number; h: num
   return { x: l.width - w - 10, y: 14, w, h: 6 };
 }
 
+/**
+ * The run's clock and its retries, as the corner reads them: `3:42`, and
+ * `3:42 · 2 RETRIES` once a wave has been gone again. What the pair is
+ * measured by since 12 September 2026, in place of the points (`wave-fail.ts`).
+ */
+export function runLine(world: World): string {
+  const s = playSeconds(world);
+  const clock = `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+  const r = world.retries;
+  if (r === 0) return clock;
+  return `${clock} · ${r} ${r === 1 ? "RETRY" : "RETRIES"}`;
+}
+
 export function drawHud(ctx: CanvasRenderingContext2D, l: Layout, view: ViewState): void {
   const { world } = view;
   ctx.font = '10px "Courier New",monospace';
@@ -41,7 +54,7 @@ export function drawHud(ctx: CanvasRenderingContext2D, l: Layout, view: ViewStat
   drawHeart(ctx, bx - 9, by + bh / 2, 6, PALETTE.pod);
 
   ctx.fillStyle = PALETTE.dim;
-  ctx.fillText(`${world.score} P`, 10, 20);
+  ctx.fillText(runLine(world), 10, 20);
 
   // Four dots, the active one lit. The pulse both players share.
   const active = world.beat % 4;

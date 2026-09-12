@@ -91,7 +91,7 @@ describe("a body that sticks", () => {
     expect(c.row).toBe(SHIP);
     expect(events.filter((e) => e.type === "gumStick")).toHaveLength(1);
     expect(events.some((e) => e.type === "breach")).toBe(false);
-    expect(world.hullMilli).toBe(100_000);
+    expect(world.retries).toBe(0);
   });
 
   it("is not stuck before the beat it is seen standing on the hull", () => {

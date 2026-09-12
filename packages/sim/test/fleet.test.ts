@@ -10,7 +10,6 @@ import {
   fleetShipAt,
   shipSunk,
 } from "../src/fleet-board.js";
-import { hullPercent } from "../src/hull.js";
 import { step } from "../src/step.js";
 import type { Command, TimedCommand } from "../src/types.js";
 import { startWave } from "../src/wave-start.js";
@@ -212,11 +211,10 @@ describe("the clock", () => {
     // A round short enough to run out inside a test, and nothing else moved:
     // what is being checked is the cost, not the length.
     const world = fleetWorld({ ...DEFAULT_CONFIG, fleetRoundBeats: 4 });
-    const before = hullPercent(world);
     const perBeat = (world.cfg.tickHz * 60) / world.cfg.bpm;
     expect(fleetBeatsLeft(world, fleetRound(world)!)).toBe(4);
     tick(world, perBeat * 5);
     expect(world.boss).toBeNull();
-    expect(hullPercent(world)).toBeLessThan(before);
+    expect(world.retries).toBe(1);
   });
 });

@@ -101,7 +101,7 @@ describe("a rock the wave sends across", () => {
       expect(world.creatures).toHaveLength(0);
       // It left; it did not arrive. Nothing was broken and nothing was warded.
       expect(events.some((e) => e.type === "breach")).toBe(false);
-      expect(world.hullMilli).toBe(100 * 1000);
+      expect(world.retries).toBe(0);
     }
   });
 

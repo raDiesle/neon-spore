@@ -84,16 +84,18 @@ test("a full correct answer breaks the mirror and moves on to the next round", (
   expect(mirrorOf(world).round).toBe(1);
 });
 
-test("a wrong step breaks the hull and asks the same round again", () => {
+test("a wrong step breaks the hull, which fails the wave", () => {
   const world = install();
-  const before = world.hullMilli;
   answer(world, [{ kind: "guard" }]);
   const m = mirrorOf(world);
   expect(m.verdict).toBe(-1);
-  expect(world.hullMilli).toBe(before - CFG.damageEcho * 1000);
   expect(world.scars.length).toBe(1);
-  // Its own hull is untouched, and the round does not advance.
+  // Its own hull is untouched. The ship's took the step, and a hit is the
+  // wave lost since 12 September 2026: the field holds from that tick and the
+  // whole wave is asked for again (`wave-fail.ts`) — the round's own "same
+  // round again" is inside that.
   expect(m.hullMilli).toBe(100_000);
+  expect(world.retries).toBe(1);
   runTo(world, world.tick + TPB * 6);
   expect(mirrorOf(world).round).toBe(0);
 });
@@ -123,6 +125,10 @@ test("silence is a wrong answer", () => {
 
 test("its own cannon stands over the ship's whenever it is not performing", () => {
   const world = install();
+  // Sliding the cannon while it listens is a wrong answer, and a hit would
+  // stop the field for the retry (`wave-fail.ts`); the test is about the
+  // shadow, so the hull is held.
+  world.cfg = { ...CFG, hullInvulnerable: true };
   // Not during the demonstration: the controls are dead then, so the cannon
   // could not have moved for it to shadow in the first place.
   while (mirrorHoldsControls(world)) step(world, []);

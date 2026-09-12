@@ -181,7 +181,7 @@ describe("taking a pod in", () => {
 
   it("costs no hull when it is missed — a missed gift is not a punishment", () => {
     const { world } = run([{ beat: 0, col: 3, row: 4 }], ARRIVAL, shootLoose(3), STILL);
-    expect(hullPercent(world)).toBe(100);
+    expect(world.retries).toBe(0);
     expect(world.scars).toHaveLength(0);
   });
 });
@@ -202,7 +202,7 @@ describe("what a pod gives", () => {
       STILL,
     );
     expect(events.some((e) => e.type === "podTaken")).toBe(true);
-    expect(hullPercent(world)).toBe(100);
+    expect(world.retries).toBe(0);
   });
 
   it("carries the kind it was authored with on podTaken", () => {
@@ -294,7 +294,7 @@ describe("what a pod gives", () => {
       events2.push(...world.events);
     }
     expect(events2.some((e) => e.type === "deflect")).toBe(true);
-    expect(hullPercent(world)).toBe(100);
+    expect(world.retries).toBe(0);
   });
 
   it("without a ward, the same arriving meteor breaches the hull instead", () => {
@@ -326,7 +326,7 @@ describe("what a pod gives", () => {
     }
     expect(events2.some((e) => e.type === "deflect")).toBe(false);
     expect(events2.some((e) => e.type === "breach")).toBe(true);
-    expect(hullPercent(world)).toBeLessThan(100);
+    expect(world.retries).toBe(1);
   });
 });
 

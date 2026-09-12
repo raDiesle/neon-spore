@@ -11,7 +11,6 @@ import {
   dartPickDir,
   dartStepCol,
   hashWorld,
-  hullPercent,
   hullRow,
   isGrippable,
   record,
@@ -229,7 +228,7 @@ describe("the dart on the field", () => {
     const noRegen: SimConfig = { ...CFG, hullRegenPerSecond: 0 };
     const world = fly([dart(5)], HULL + 2, noRegen);
     expect(world.creatures).toHaveLength(0);
-    expect(hullPercent(world)).toBe(100 - CFG.damageCreature);
+    expect(world.retries).toBe(1);
   });
 
   /**

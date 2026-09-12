@@ -46,7 +46,6 @@ interface Played {
   dots: boolean[];
   /** Which arrow was standing out, per tick. */
   armed: (number | null)[];
-  hull: number[];
   events: SimEvent[];
 }
 
@@ -63,12 +62,11 @@ function play(acts: SceneAct[]): Played {
     ticks: SCENE.ticks,
   };
   const run = new SceneRun(script);
-  const out: Played = { dots: [], armed: [], hull: [], events: [] };
+  const out: Played = { dots: [], armed: [], events: [] };
   for (let t = 0; t < SCENE.ticks - 1; t++) {
     run.advance(out.events);
     out.dots.push(run.world.creatures.some(choirIsDots));
     out.armed.push(choirArmed(run.world));
-    out.hull.push(run.world.hullMilli);
   }
   return out;
 }
@@ -152,7 +150,7 @@ describe("a rehearsal that carries the two arrows", () => {
     const half = play([{ tick: 90, drag: "choirLeft", until: 120 }]);
     expect(merged(half), "one arrow merged the membrane").toBe(false);
     expect(sang(half), "the window shut and nothing happened").toBe(true);
-    expect(half.hull[half.hull.length - 1]).toBeLessThan(half.hull[0] as number);
+    expect(half.events.some((e) => e.type === "waveFailed")).toBe(true);
   });
 
   it("does nothing at all when the second trip is late", () => {

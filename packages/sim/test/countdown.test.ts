@@ -6,7 +6,6 @@ import {
   createWorld,
   DEFAULT_CONFIG,
   hashWorld,
-  hullPercent,
   record,
   runReplay,
   type SimConfig,
@@ -121,7 +120,7 @@ describe("the count", () => {
     expect(world.creatures).toHaveLength(1);
     expect(events.some((e) => e.type === "reject")).toBe(true);
     expect(events.some((e) => e.type === "destroy")).toBe(false);
-    expect(hullPercent(world)).toBe(100 - CFG.damageCountdown);
+    expect(world.retries).toBe(1);
   });
 
   it("dies to its colour on zero, for scoreCountdownKill", () => {
@@ -131,7 +130,7 @@ describe("the count", () => {
     expect(world.creatures).toHaveLength(0);
     expect(events.some((e) => e.type === "destroy" && e.kind === "countdown")).toBe(true);
     expect(world.score).toBeGreaterThanOrEqual(CFG.scoreCountdownKill);
-    expect(hullPercent(world)).toBe(100);
+    expect(world.retries).toBe(0);
   });
 
   it("books the wrong colour on zero as a colour miss, not as a shot off zero", () => {
@@ -140,7 +139,7 @@ describe("the count", () => {
     const { world, events } = run([count(COL)], at + TPB, [aim(at, COL), fire(at, "cyan")]);
     expect(world.creatures).toHaveLength(1);
     expect(events.some((e) => e.type === "reject")).toBe(true);
-    expect(hullPercent(world)).toBe(100);
+    expect(world.retries).toBe(0);
   });
 
   it("replays deterministically: the kill on zero, and the fingerprint pins it", () => {

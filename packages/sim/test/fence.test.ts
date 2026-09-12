@@ -11,7 +11,6 @@ import {
 import { fenceCrackAt, fenceCrackCols } from "../src/fence-crack.js";
 import { isGrippable } from "../src/grippable.js";
 import { hashWorld } from "../src/hash.js";
-import { hullPercent } from "../src/hull.js";
 import { fallTilesPerBeat, isMeteorKind, isWardable } from "../src/kinds.js";
 import { spanOf, spawnSpan } from "../src/span.js";
 import type { Creature, TimedCommand } from "../src/types.js";
@@ -148,7 +147,7 @@ describe("a fence reaching the ship", () => {
   it("goes over the ship when the dome is in the gap, with no trigger at all", () => {
     const { world, events } = run([fence([4])], ticksPast, [shieldTo(TPB, 4)]);
     expect(fenceOf(world)).toBeUndefined();
-    expect(hullPercent(world)).toBe(100);
+    expect(world.retries).toBe(0);
     expect(events.some((e) => e.type === "fencePass")).toBe(true);
     expect(world.guard.deflected).toBe(1);
     expect(world.score).toBeGreaterThanOrEqual(CFG.scoreDeflect);
@@ -166,7 +165,7 @@ describe("a fence reaching the ship", () => {
     // end of it is the damage minus however long the test happened to run.
     const breach = events.find((e) => e.type === "breach");
     expect(breach && breach.type === "breach" && breach.damage).toBe(CFG.fenceDamage);
-    expect(hullPercent(world)).toBeLessThan(100);
+    expect(world.retries).toBe(1);
     expect(world.guard.deflected).toBe(0);
     // Right column, wrong moment is a failure class this creature has not got.
     expect(world.guard.mistimed).toBe(0);
@@ -185,7 +184,7 @@ describe("a fence reaching the ship", () => {
     // — no cracks on the ship. `breachUnscarred` is where the two halves meet:
     // the points and the event, and nothing for `scars.ts` to tear open.
     const { world } = run([fence([4])], ticksPast, [shieldTo(TPB, 2)]);
-    expect(hullPercent(world)).toBeLessThan(100);
+    expect(world.retries).toBe(1);
     expect(world.scars).toEqual([]);
   });
 
@@ -204,14 +203,14 @@ describe("a fence reaching the ship", () => {
     // crossed the room late is still worth saying.
     const late = TPB * beatsToShield;
     const { world } = run([fence([4])], ticksPast, [shieldTo(late, 4)]);
-    expect(hullPercent(world)).toBe(100);
+    expect(world.retries).toBe(0);
     expect(world.guard.deflected).toBe(1);
   });
 
   it("passes through a fence with two gaps by either of them", () => {
     for (const col of [1, 6]) {
       const { world } = run([fence([1, 6])], ticksPast, [shieldTo(TPB, col)]);
-      expect(hullPercent(world)).toBe(100);
+      expect(world.retries).toBe(0);
     }
   });
 });
@@ -299,7 +298,7 @@ describe("a bolt and a fence", () => {
       shieldTo(TPB, 2),
       ...shootAt(2, TPB * 2),
     ]);
-    expect(hullPercent(world)).toBe(100);
+    expect(world.retries).toBe(0);
     expect(events.some((e) => e.type === "fencePass")).toBe(true);
   });
 
@@ -307,7 +306,7 @@ describe("a bolt and a fence", () => {
     // The same solid fence, left alone. Without the cannon there is no answer
     // at all, which is what makes authoring no gaps a decision.
     const { world } = run([fence([], [2])], ticksPast, [shieldTo(TPB, 2)]);
-    expect(hullPercent(world)).toBeLessThan(100);
+    expect(world.retries).toBe(1);
   });
 
   it("goes through a way that is already open, rather than dying on it", () => {

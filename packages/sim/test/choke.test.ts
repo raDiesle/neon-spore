@@ -90,7 +90,7 @@ describe("THE CHOKE takes the cannon", () => {
     expect(c.col).toBe(MID);
     expect(events.filter((e) => e.type === "chokeGrip")).toHaveLength(1);
     expect(events.some((e) => e.type === "breach")).toBe(false);
-    expect(world.hullMilli).toBe(100_000);
+    expect(world.retries).toBe(0);
   });
 
   it("walks the cannon a column a beat and turns at the walls", () => {

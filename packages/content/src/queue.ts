@@ -1,12 +1,4 @@
-import {
-  type BossEntry,
-  type Color,
-  createRng,
-  next,
-  nextInt,
-  type PodEntry,
-  type SpawnEntry,
-} from "@neon-spore/sim";
+import type { BossEntry, PodEntry, SpawnEntry } from "@neon-spore/sim";
 import { kindForColor } from "./creatures.js";
 import { WAVES, type Wave } from "./waves.js";
 
@@ -17,7 +9,6 @@ export { bossFromWave } from "./queue-boss.js";
 
 import { bossFromWave } from "./queue-boss.js";
 
-const COLORS: Color[] = ["red", "cyan"];
 /** The field waves are authored against. The real `cols` is remapped from it. */
 export const AUTHORED_COLS = 7;
 /**
@@ -39,10 +30,16 @@ export function mapCol(col: number, cols: number): number {
  * always plays out the same way — see the randomness rule in
  * docs/spec/structure.md: only what one player knows and the other does not
  * may be random.
+ *
+ * Past the last authored wave there is nothing: the run ends there
+ * (`apps/game/waves.ts`, 12 September 2026). Until then an index beyond
+ * `WAVES` got a seeded filler wave, and a run went on until the hull gave
+ * out; the run is measured in time and retries now, over the authored waves
+ * and no others (`sim/wave-fail.ts`).
  */
 export function buildQueue(waveIndex: number, cols: number): SpawnEntry[] {
   const wave: Wave | undefined = WAVES[waveIndex];
-  if (!wave) return buildContinuation(waveIndex, cols);
+  if (!wave) return [];
   return queueFromWave(wave, cols);
 }
 
@@ -152,14 +149,7 @@ export function queueFromWave(wave: Pick<Wave, "entries">, cols: number): SpawnE
 export function buildPods(waveIndex: number, cols: number): PodEntry[] {
   const wave: Wave | undefined = WAVES[waveIndex];
   if (wave) return podsFromWave(wave, cols);
-
-  // Beyond the authored waves, every third one carries a pod. Seeded off the
-  // wave index like everything else, and off a different stream from the
-  // spawns, so the pod does not land under the same creature every time.
-  const beyond = waveIndex - WAVES.length;
-  if (beyond % 3 !== 0) return [];
-  const rng = createRng(waveIndex + 9973);
-  return [{ beat: 1 + nextInt(rng, 3), col: nextInt(rng, cols), row: 2 + nextInt(rng, 3) }];
+  return [];
 }
 
 /**
@@ -178,24 +168,4 @@ export function buildBoss(waveIndex: number, cols: number): BossEntry | null {
   const wave: Wave | undefined = WAVES[waveIndex];
   if (wave) return bossFromWave(wave, cols);
   return null;
-}
-
-/** Beyond the authored waves: reproducible filler, clearly marked as such. */
-function buildContinuation(waveIndex: number, cols: number): SpawnEntry[] {
-  const rng = createRng(waveIndex);
-  const beyond = waveIndex - WAVES.length;
-  const creatures = Math.min(9, 3 + Math.floor(beyond / 2));
-  const rocks = Math.min(3, 1 + Math.floor(beyond / 4));
-  const queue: SpawnEntry[] = [];
-  for (let k = 0; k < creatures + rocks; k++) {
-    const isRock = k >= creatures;
-    const color = isRock ? null : COLORS[nextInt(rng, COLORS.length)]!;
-    queue.push({
-      beat: Math.floor(k * 1.6 + next(rng) * 1.4),
-      col: nextInt(rng, cols),
-      kind: color ? kindForColor(color) : "meteor",
-      color,
-    });
-  }
-  return queue.sort((a, b) => a.beat - b.beat);
 }

@@ -153,6 +153,12 @@ export function hashWorld(world: World): number {
   push(world.spawned);
   push(world.podSpawned);
   push(world.restBeat);
+  // A hit's hold and the run's two figures: two devices that disagree about
+  // whether the field is held after a hit, or about how many times the pair
+  // has gone again, are not playing one run (`wave-fail.ts`).
+  push(world.failTick);
+  push(world.retries);
+  push(world.playTicks);
   push(world.nextId);
 
   // The wave's opening. It is in the fingerprint because it decides whether

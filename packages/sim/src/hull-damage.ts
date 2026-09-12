@@ -1,4 +1,5 @@
 import { bodyCenterCol, type Color, type Creature, spanOf } from "./types.js";
+import { failWave } from "./wave-fail.js";
 import { MILLI, type World } from "./world.js";
 
 /**
@@ -19,16 +20,14 @@ import { MILLI, type World } from "./world.js";
 /**
  * Hull damage, shared by a single-column hit and a spanning one.
  *
- * `amount` is in whole hull points and is rounded into thousandths here, not
- * assumed to be an integer: a blast that splits one price between the places
- * it broke the hull in (`resolveLure`, bullet-hit.ts) hands this a third of a
- * number, and a stored `Milli` field that is not an integer is two devices
- * one rounding step apart (CLAUDE.md rule 3).
+ * It used to take `amount` off `hullMilli` and end the run at nought. Since
+ * 12 September 2026 a hit does not cost points, it costs the wave: the field
+ * stops and the same wave is gone again (`wave-fail.ts`). `amount` still
+ * travels on the `breach` event, where the sound and the burst are sized by
+ * it; the hull's own figure no longer moves, and is on its way out.
  */
-function applyHullDamage(world: World, amount: number): void {
-  if (world.cfg.hullInvulnerable) return;
-  world.hullMilli = Math.max(0, world.hullMilli - Math.round(amount * MILLI));
-  if (world.hullMilli <= 0) world.over = true;
+function applyHullDamage(world: World, _amount: number): void {
+  failWave(world);
 }
 
 /**

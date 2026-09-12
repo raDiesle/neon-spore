@@ -56,6 +56,7 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   maxHoles: "HULL — damage and repair",
   maxScars: "HULL — damage and repair",
   waveRestBeats: "THE BEAT",
+  waveFailBeats: "THE BEAT",
   scoreDestroy: "SCORE",
   scoreDeflect: "SCORE",
   scoreWave: "SCORE",

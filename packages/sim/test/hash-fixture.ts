@@ -284,6 +284,9 @@ export function populatedWorld(bossKind: BossEntry["kind"]): World {
   world.spawned = 1;
   world.podSpawned = 1;
   world.restBeat = 12;
+  world.failTick = 39;
+  world.retries = 2;
+  world.playTicks = 3_100;
   world.over = true;
   world.score = 450;
   world.rng.state = 123_456;

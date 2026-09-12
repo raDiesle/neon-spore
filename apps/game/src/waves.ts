@@ -1,6 +1,7 @@
 import { buildBoss, buildPods, buildQueue, WAVES, waveGuideSteps } from "@neon-spore/content";
 import { INTRO_SECONDS } from "@neon-spore/render";
 import {
+  endRun,
   introHolds,
   resetRun,
   type SimConfig,
@@ -93,22 +94,33 @@ export function createWaveProgression({
   /** Whether this run's final score has already been written down. */
   let ended = false;
 
-  const open = (wave: number): void => {
+  const open = (wave: number, retry = false): void => {
+    // The wave after the last authored one is the end of the run: the pair
+    // has cleared every wave the game has, and the balance sheet is what is
+    // left to see. There used to be generated waves out here, without end
+    // and without a lesson; the run's clock and its retries want a finish
+    // line (`sim/wave-fail.ts`).
+    if (wave >= WAVES.length) {
+      endRun(world);
+      return;
+    }
     // How far this device has got, remembered here because here is where a
     // wave is reached — and the score with it, so a run put down mid-way still
     // leaves the number it was on. Solo and per device: it never touches the
-    // room (`progress.ts`).
-    updateProgress((p) => scored(reached(p, wave), world.score));
+    // room (`progress.ts`). A wave gone again was reached already.
+    if (!retry) updateProgress((p) => scored(reached(p, wave), world.score));
     startWave(
       world,
       wave,
       buildQueue(wave, cfg.cols),
       buildPods(wave, cfg.cols),
       buildBoss(wave, cfg.cols),
-      WAVES[wave]?.guide !== undefined,
+      // A wave gone again after a hit opens on its introduction and not on
+      // its guide: the pair has read it, and what they need is the field.
+      !retry && WAVES[wave]?.guide !== undefined,
       // How many pages this wave's guide has, which is the whole of what the
       // simulation knows about a rehearsal (`sim/guide-steps.ts`).
-      waveGuideSteps(wave),
+      retry ? 0 : waveGuideSteps(wave),
       // And the fault it is played under, if it names one. Read off the wave
       // beside its boss, because it is the same kind of fact: whole-wave, read
       // once, and identical on both devices (`sim/malfunction.ts`).
@@ -121,7 +133,7 @@ export function createWaveProgression({
   const handle = (events: readonly SimEvent[]): void => {
     for (const e of events) {
       if (e.type !== "needWave") continue;
-      open(e.wave);
+      open(e.wave, e.retry === true);
     }
     // The end of a run is the one score worth keeping that no wave opening
     // will ever record, because there is no wave after it.

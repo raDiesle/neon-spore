@@ -1,5 +1,6 @@
 import { emptyRunStats } from "./balance.js";
 import { createRng } from "./rng.js";
+import { NOT_FAILED } from "./wave-fail.js";
 import { MILLI, type World } from "./world.js";
 
 /**
@@ -20,6 +21,9 @@ export function resetRun(world: World): void {
   world.scars = [];
   world.score = 0;
   world.over = false;
+  world.failTick = NOT_FAILED;
+  world.retries = 0;
+  world.playTicks = 0;
   world.guard.tries = 0;
   world.guard.deflected = 0;
   world.guard.mistimed = 0;
@@ -27,10 +31,10 @@ export function resetRun(world: World): void {
 }
 
 /**
- * End the run where it stands, without waiting for the hull to go. The game
- * never calls this — there the hull decides — but the director does, because
- * it plays with the hull held (`hullInvulnerable`) and the balance sheet is a
- * screen that has to be reachable to be judged.
+ * End the run where it stands. The game calls this when the last authored
+ * wave has been cleared — a hit no longer ends a run, it fails a wave
+ * (`wave-fail.ts`) — and the director does when it wants the balance sheet,
+ * a screen that has to be reachable to be judged.
  */
 export function endRun(world: World): void {
   world.over = true;

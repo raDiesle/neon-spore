@@ -48,6 +48,10 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
       return { id: "ui.waveOpen" };
     case "needWave":
       return null;
+    case "waveFailed":
+      // The alarm that used to repeat while the hull was low. A hit is the
+      // wave lost now (`sim/wave-fail.ts`), and that is what it says.
+      return { id: "hull.alarm" };
     case "fire":
       // A lance is a different sound, not a louder one: the pair spent three
       // beats of held thumb and a silence on it, and it has to be audible that

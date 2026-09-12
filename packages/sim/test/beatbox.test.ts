@@ -10,14 +10,7 @@ import {
 import { DEFAULT_CONFIG, ticksPerBeat } from "../src/config.js";
 import { hashWorld } from "../src/hash.js";
 import type { Creature, TimedCommand } from "../src/types.js";
-import {
-  createWorld,
-  MILLI,
-  type SimEvent,
-  type SpawnEntry,
-  step,
-  type World,
-} from "../src/world.js";
+import { createWorld, type SimEvent, type SpawnEntry, step, type World } from "../src/world.js";
 
 /**
  * THE BEATBOX, and the three things about it that are new to this simulation.
@@ -187,7 +180,7 @@ describe("a run", () => {
     expect(events.filter((e) => e.type === "beatboxSilent")).toHaveLength(1);
     expect(events.some((e) => e.type === "beatboxWave")).toBe(false);
     expect(world.score).toBe(CFG.scoreBeatboxSilence);
-    expect(world.hullMilli).toBe(100 * MILLI);
+    expect(world.retries).toBe(0);
   });
 
   it("counts one tap per beat, so a second inside one window is ignored", () => {
@@ -210,7 +203,12 @@ describe("a run", () => {
     // fresh run rather than making the first one three long, and the first is
     // committed at two against a box asking for three.
     const inputs = [...runOf(1, 2), tap(at(4), FIRST)];
-    const { world, events } = run([box(3, 3)], at(4) + 1, inputs);
+    // The wave the box sends lands on the hull first, and a hit would stop the
+    // field for the retry (`wave-fail.ts`); the count is what is watched.
+    const { world, events } = run([box(3, 3)], at(4) + 1, inputs, {
+      ...CFG,
+      hullInvulnerable: true,
+    });
     expect(events.filter((e) => e.type === "beatboxWave")).toHaveLength(1);
     // Still there, and counting again from the tap that broke the old run.
     expect(beatboxHitsMade(only(world))).toBe(1);
@@ -218,8 +216,6 @@ describe("a run", () => {
 });
 
 describe("a mistake is answered at once", () => {
-  const full = 100 * MILLI;
-
   it("judges a skipped beat when that beat's window shuts, not a beat later", () => {
     // Two taps against a box asking for three, and then nothing. The run is
     // over the moment beat 3's window closes — one tick past the deadline —
@@ -254,7 +250,7 @@ describe("a mistake is answered at once", () => {
     const wave = events.find((e) => e.type === "beatboxWave");
     expect(wave).toBeDefined();
     expect(wave?.hits).toBe(2);
-    expect(world.hullMilli).toBe(full - CFG.damageBeatboxWave * MILLI);
+    expect(world.retries).toBe(1);
     // The run is wiped rather than left standing at one: the tap that broke it
     // is not the first tap of a new run.
     expect(beatboxHitsMade(only(world))).toBe(0);
@@ -280,15 +276,13 @@ describe("a mistake is answered at once", () => {
 });
 
 describe("a wrong count", () => {
-  const full = 100 * MILLI;
-
   it("discharges at the hull and leaves the body falling", () => {
     // Two taps against a box asking for three: short, which is the mistake the
     // creature is built around — the pilot's number never arrived in time.
     const { world, events } = run([box(3, 3)], at(5), runOf(1, 2), NO_REGEN);
     const waves = events.filter((e) => e.type === "beatboxWave");
     expect(waves).toHaveLength(1);
-    expect(world.hullMilli).toBe(full - CFG.damageBeatboxWave * MILLI);
+    expect(world.retries).toBe(1);
     // The body is still there, and its run has been wiped so the height it has
     // left is another go at it.
     const c = only(world);
@@ -301,7 +295,7 @@ describe("a wrong count", () => {
     const { world, events } = run([box(3, 2)], at(6), runOf(1, 3), NO_REGEN);
     expect(events.filter((e) => e.type === "beatboxWave")).toHaveLength(1);
     expect(events.some((e) => e.type === "beatboxSilent")).toBe(false);
-    expect(world.hullMilli).toBeLessThan(full);
+    expect(world.retries).toBe(1);
   });
 
   it("leaves no scar, because nothing struck the ship", () => {

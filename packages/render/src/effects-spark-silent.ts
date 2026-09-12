@@ -111,6 +111,7 @@ export const SILENT = [
   "beat", // The click track and the HUD dots; no tile, nothing to burst.
   "waveStart", // The banner, not a burst — `banner.ts`, driven by the host.
   "needWave", // Bookkeeping between the host and the sim; nothing on the field.
+  "waveFailed", // The breach that failed it has its own burst; the field then holds.
   "fire", // The bolt leaving is drawn as a bolt, over the beats it travels.
   "lanceFull", // The lobe's own fill reads the mark; nothing else to add.
   "lanceSpilled", // Likewise — the fill emptying is the whole picture.

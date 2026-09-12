@@ -334,8 +334,17 @@ describe("wave content", () => {
   });
 
   it("builds the same queue every time", () => {
-    for (let i = 0; i < WAVES.length + 5; i++) {
+    for (let i = 0; i < WAVES.length; i++) {
       expect(buildQueue(i, 11)).toEqual(buildQueue(i, 11));
+    }
+  });
+
+  it("sends nothing past the last authored wave, where the run ends", () => {
+    // There used to be seeded filler out here; the run is the authored waves,
+    // in time and retries, and no others (`queue.ts`, `sim/wave-fail.ts`).
+    for (let i = WAVES.length; i < WAVES.length + 5; i++) {
+      expect(buildQueue(i, 11)).toEqual([]);
+      expect(buildPods(i, 11)).toEqual([]);
     }
   });
 

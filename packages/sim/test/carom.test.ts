@@ -7,7 +7,6 @@ import {
   DEFAULT_CONFIG,
   guardArmed,
   hashWorld,
-  hullPercent,
   hullRow,
   isGrippable,
   isMeteorKind,
@@ -255,7 +254,7 @@ describe("the two controls, in order", () => {
     const { world } = run([carom(0)], impact, inputs, noRegen);
     expect(guardArmed(world)).toBe(true);
     expect(world.guard.tries).toBe(0);
-    expect(hullPercent(world)).toBe(100 - CFG.damageCarom);
+    expect(world.retries).toBe(1);
   });
 
   it("is warded like any other rock once it has been cracked", () => {
@@ -280,7 +279,7 @@ describe("the two controls, in order", () => {
     // The rock is gone and the body it came out of is not: the shield answered
     // its half, and the cannon still owes the other one.
     expect(world.creatures.map((c) => c.kind)).toEqual(["chute"]);
-    expect(hullPercent(world)).toBe(100);
+    expect(world.retries).toBe(0);
     // Both halves paid: the crack and the deflection, which is the arithmetic
     // saying that one arrival took two controls.
     expect(world.score).toBeGreaterThanOrEqual(CFG.scoreCaromCrack + CFG.scoreDeflect);

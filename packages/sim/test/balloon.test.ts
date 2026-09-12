@@ -167,7 +167,7 @@ describe("a body that goes up", () => {
     const { world, events } = play([balloon(3)], TPB * (FIRST_STEP + steps * EVERY));
     expect(world.creatures).toHaveLength(0);
     expect(events.filter((e) => e.type === "balloonBurst")).toHaveLength(1);
-    expect(world.hullMilli).toBeLessThan(100 * 1000);
+    expect(world.retries).toBe(1);
     // Nothing struck the ship, so nothing is torn in the plating: the burst
     // happened a whole field away from the hull it cost (`burstBalloon`).
     expect(world.scars).toHaveLength(0);
@@ -328,7 +328,7 @@ describe("what a rub does", () => {
     // paid for it — the top's price, and no scar, because nothing struck the
     // plating (`burstBalloon`).
     expect(balloonSinks(only(world))).toBe(false);
-    expect(world.hullMilli).toBeLessThan(100 * 1000);
+    expect(world.retries).toBe(1);
     expect(world.scars).toHaveLength(0);
   });
 
@@ -352,7 +352,7 @@ describe("what a rub does", () => {
     // to agree all over again about the one that is left.
     expect(world.creatures).toHaveLength(1);
     expect(balloonSplitsLeft(world.creatures[0] as Creature)).toBe(0);
-    expect(world.hullMilli).toBe(100 * 1000);
+    expect(world.retries).toBe(0);
     expect(world.score).toBe(CFG.scoreBalloonRub + CFG.scoreBalloonPop);
   });
 });

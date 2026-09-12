@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { DEFAULT_CONFIG, hullPercent, SceneRun, type SimEvent } from "@neon-spore/sim";
+import { DEFAULT_CONFIG, SceneRun, type SimEvent } from "@neon-spore/sim";
 import { type ControlId, control, controlHeld, controlSetForWave, setHas } from "../src/index.js";
 import { dragSeat } from "../src/scene-drag.js";
 import { sceneScript } from "../src/scene-script.js";
@@ -221,10 +221,11 @@ describe("the rehearsals a guide can show", () => {
     // tutorial getting it wrong.
     //
     // The invariant that catches all of them needs no authored expectation:
-    // **a film costs the hull if and only if it has a page anchored at what
+    // **a film takes a hit if and only if it has a page anchored at what
     // the hull has left.** A shot that stops landing lets a body through and
-    // the hull pays for it; a deliberate miss that stops missing takes the
-    // mark away from under the page that is pointing at it.
+    // the hit fails the wave (`sim/wave-fail.ts`, counted in `retries`); a
+    // deliberate miss that stops missing takes the mark away from under the
+    // page that is pointing at it.
     //
     // `health` and not `hull`: the two are a cost and a place. The bar is only
     // ever pointed at to say something has been paid for, while the ship
@@ -233,15 +234,14 @@ describe("the rehearsals a guide can show", () => {
     // damage.
     for (const { wave, id } of USED) {
       const run = new SceneRun(sceneScript(id, wave, DEFAULT_CONFIG));
-      const full = hullPercent(run.world);
       const spent: SimEvent[] = [];
       for (let t = 0; t < SCENES[id].ticks - 1; t++) run.advance(spent);
       const paid = SCENES[id].steps.some((s) => s.anchor.at === "health");
       expect(
-        hullPercent(run.world) < full,
+        run.world.retries > 0,
         paid
           ? `${id} points a page at what the hull has left and never marks it`
-          : `${id} loses hull with no page saying why`,
+          : `${id} takes a hit with no page saying why`,
       ).toBe(paid);
     }
   });

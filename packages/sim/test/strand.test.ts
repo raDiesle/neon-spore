@@ -9,7 +9,6 @@ import {
   createWorld,
   DEFAULT_CONFIG,
   hashWorld,
-  hullPercent,
   hullRow,
   record,
   runReplay,
@@ -302,7 +301,7 @@ describe("the thread as an arrival", () => {
     const noRegen: SimConfig = { ...CFG, hullRegenPerSecond: 0 };
     const world = createWorld(noRegen, 0, [strand(2)]);
     for (let t = 0; t < BREACH_TICK + 1; t++) step(world, []);
-    expect(hullPercent(world)).toBe(100 - CFG.damageCreature * 2);
+    expect(world.retries).toBe(1);
   });
 
   it("charges nothing for a raisin, which has already been paid for", () => {
@@ -311,7 +310,7 @@ describe("the thread as an arrival", () => {
     for (let t = 0; t < TPB + 1; t++) step(world, []);
     shootHead(world);
     for (let t = 0; t < BREACH_TICK + 1; t++) step(world, []);
-    expect(hullPercent(world)).toBe(100 - CFG.damageCreature);
+    expect(world.retries).toBe(1);
   });
 
   it("comes down half as fast as anything else, and holds its lane", () => {

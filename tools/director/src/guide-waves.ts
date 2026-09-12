@@ -20,7 +20,7 @@ import { createWorld, DEFAULT_CONFIG, startWave, type World } from "@neon-spore/
  */
 const CARD_CFG = { ...DEFAULT_CONFIG, briefings: true, hullInvulnerable: true };
 
-/** How many waves are authored — past this, `WAVES[i]` is undefined filler. */
+/** How many waves are authored — past this there is nothing, and the run ends. */
 export const AUTHORED_WAVE_COUNT = WAVES.length;
 
 /** `WAVES[i]`'s own name, one-indexed the way the game names a wave out loud. */

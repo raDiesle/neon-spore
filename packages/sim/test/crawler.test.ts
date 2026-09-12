@@ -18,7 +18,6 @@ import {
   createWorld,
   DEFAULT_CONFIG,
   hashWorld,
-  hullPercent,
   linkIsEnd,
   linkOrder,
   record,
@@ -257,7 +256,7 @@ describe("the two ways a worm stops existing", () => {
     // left standing, because nothing is ever left standing any more.
     expect(beams).toHaveLength(1);
     expect(world.score - before).toBeGreaterThanOrEqual(CFG.scoreCrawlerBeam);
-    expect(hullPercent(world)).toBe(100);
+    expect(world.retries).toBe(0);
   });
 
   it("eats into the hull when its head reaches the far wall, and leaves", () => {
@@ -269,7 +268,7 @@ describe("the two ways a worm stops existing", () => {
     }
     expect(burrowed).toBe(true);
     expect(wormOf(world)).toHaveLength(0);
-    expect(hullPercent(world)).toBeLessThan(100);
+    expect(world.retries).toBe(1);
     // Broken in more than one column: a thing that digs throws material up on
     // both sides of itself.
     expect(new Set(world.scars.map((s) => s.col)).size).toBeGreaterThan(1);
@@ -279,7 +278,7 @@ describe("the two ways a worm stops existing", () => {
     const world = createWorld({ ...CFG }, 0, [crawler(3)]);
     for (let t = 0; t < TPB * 6; t++) step(world, []);
     expect(wormOf(world).length).toBeGreaterThan(0);
-    expect(hullPercent(world)).toBe(100);
+    expect(world.retries).toBe(0);
   });
 });
 

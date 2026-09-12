@@ -161,3 +161,18 @@ Why the short label is what fits today, and what each of the three costs.
 
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
+
+## The rounds' own second try is unreachable now that a hit fails the wave
+
+- **Found:** 2026-09-12, wave-fail
+- **Files:** `packages/sim/src/maze-verdict.ts`, `packages/sim/src/snake-open.ts`, `packages/sim/src/snake-move.ts`, `packages/sim/src/mirror.ts`, `packages/sim/src/config-rounds.ts`, `packages/sim/test/maze-round.test.ts`, `packages/sim/test/snake.test.ts`, `packages/sim/test/mirror.test.ts`
+
+Since `wave-fail.ts` a hit stops the field on its tick and the host opens the
+same wave again from the top. THE MAZE's stage rebuilt after a dead end, THE
+SNAKE's attempt started over after the wall (`repeats`, the stun) and THE
+MIRROR going on listening after a wrong step all ran *after* their hit, so in
+the game none of them happens any more — the tests reach them only by holding
+the hull (`hullInvulnerable`). Take the second-try paths out: a lost stage is
+the round's verdict and nothing after it, `repeats`/`snakeStunTicks` and the
+maze's rebuild go, and the tests say the verdict and the retry instead. Prove
+it with `bun test packages/sim` and `bun run check`.

@@ -3,7 +3,6 @@ import {
   createWorld,
   DEFAULT_CONFIG,
   hashWorld,
-  hullPercent,
   hullRow,
   isGrippable,
   isWardable,
@@ -186,7 +185,7 @@ describe("what a ward does", () => {
     expect(volleyPlatesLeft(body)).toBe(LANE.volleyPlates - 1);
     // Still a rock with something in it, and the hull is untouched.
     expect(body.kind).toBe("volley");
-    expect(hullPercent(world)).toBe(100);
+    expect(world.retries).toBe(0);
     // It counted as a ward, so the pair's record and their score say so.
     expect(world.guard.deflected).toBe(1);
     expect(world.score).toBe(LANE.scoreDeflect + LANE.scoreVolleyReturn);
@@ -245,7 +244,7 @@ describe("the count, and what is left at the end of it", () => {
     expect(returns(events).map((e) => e.left)).toEqual([2, 1, 0]);
     expect(hatches(events)).toHaveLength(1);
     expect(world.guard.deflected).toBe(LANE.volleyPlates);
-    expect(hullPercent(world)).toBe(100);
+    expect(world.retries).toBe(0);
     expect(only(world)!.kind).toBe("slick");
   });
 
@@ -276,7 +275,7 @@ describe("the count, and what is left at the end of it", () => {
     const { world, events } = run([volley(3, "red")], open + TPB * 7, inputs, LANE);
     expect(events.filter((e) => e.type === "destroy").length).toBeGreaterThan(0);
     expect(world.creatures).toHaveLength(0);
-    expect(hullPercent(world)).toBe(100);
+    expect(world.retries).toBe(0);
   });
 });
 
@@ -309,7 +308,7 @@ describe("the two controls, in order", () => {
   it("costs a rock's damage when nobody wards it", () => {
     const { world } = run([volley(3)], tickAtRow(HULL) + TPB + 1, [], LANE);
     expect(world.creatures).toHaveLength(0);
-    expect(hullPercent(world)).toBe(100 - LANE.damageMeteor);
+    expect(world.retries).toBe(1);
     expect(world.guard.tries).toBe(1);
   });
 

@@ -22,6 +22,31 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 · wave-fail — a hit fails the wave, and the run is a clock and a count
+
+The owner's rule, put in as a mechanic: every hull damage fails the wave, the
+field holds where it was struck for `waveFailBeats`, and the same wave is
+asked for again (`needWave` with `retry`). The run keeps `playTicks` and
+`retries` (both in the hash), the HUD's corner reads `3:42 · 2 RETRIES`
+where the points were, and the run ends after the last authored wave — the
+seeded filler waves past it are gone. `applyHullDamage` no longer drains a
+point; the hull's figure, bar, regeneration, mend pod and score come out in
+the next lane. Fifty-six sim tests read the hull's points as their tell for a
+hit and now read `retries`; the ones about what a round does *after* a hit
+hold the hull with `hullInvulnerable`. About 75 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | every path into `applyHullDamage`, how the opening hold shapes `step`, who hosts `needWave` (game, replay, director), what a rehearsal does with a hit |
+| writing | 35 | `wave-fail.ts` and `config-run.ts`, the step hold, the host's retry and finish line, the HUD line, the sound, and the test rewrite across 30 files |
+| looking | 0 | nothing visible moved that a frame would show — the corner's text, and the field standing still |
+| friction | 15 | the mechanical `hullMilli → retries` pass hit THE MIRROR's own hull; five round tests froze at their hit and had to be read one by one to see which were about the price and which about what comes after |
+| landing | 10 | `check:fast`, the index rows, the spec note, the queue item, the commit, `land --keep` |
+
+Bottleneck: **writing** — a fact fifty-six tests read off one number, and
+each had to be reread to say whether it asserted the price or the play that
+followed it.
+
 ## 2026-09-12 · guide-layout — no caption over the rail, a band two tiles shorter, a lower tutorial bar
 
 Three things the owner asked for by name. The strip's caption

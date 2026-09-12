@@ -5,7 +5,6 @@ import {
   createWorld,
   DEFAULT_CONFIG,
   hashWorld,
-  hullPercent,
   hullRow,
   mawOpen,
   type PodEntry,
@@ -159,16 +158,15 @@ describe("what it closes on", () => {
     const rock = world.creatures[0];
     expect(rock, "the wave sent a rock").toBeDefined();
     ticks(world, 1, [press(1, { kind: "cannonCol", col: rock?.col ?? 0 })]);
-    const hull = hullPercent(world);
     ticks(world, 1, [press(1, { kind: "reach" })]);
     ticks(world, TPB * 4);
     wind(world, TPB * 4);
     expect(world.creatures).toHaveLength(0);
-    const paid = hull - hullPercent(world);
     // And it left a scar where the hand closed, so the price is on the ship
-    // rather than only in a number.
+    // rather than only in a number — and the price is the wave, as any hit
+    // is (`wave-fail.ts`).
     expect(world.scars.length).toBeGreaterThan(0);
-    expect(paid).toBeGreaterThan(0);
+    expect(world.retries).toBe(1);
     // The whole of why reaching into a rock is an answer rather than a
     // mistake, and why this panel may carry rocks at all.
     expect(CFG.damageReach).toBeLessThan(CFG.damageMeteor);

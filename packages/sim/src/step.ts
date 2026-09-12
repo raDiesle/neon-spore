@@ -27,6 +27,7 @@ import { stepRound } from "./step-round.js";
 import type { TimedCommand } from "./types.js";
 import { stepWardenTether, wardenTetherHeard } from "./warden-rope.js";
 import { progressWave } from "./wave-end.js";
+import { countPlay, failHolds, stepFailHold } from "./wave-fail.js";
 import type { World } from "./world.js";
 
 /** Advance exactly one tick. The only way the world ever changes. */
@@ -57,6 +58,16 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
     stepReady(world);
     return;
   }
+  // A hit has failed the wave. The field stands where it was struck, for the
+  // same reason and by the same shape as the opening above — the tick counts,
+  // nothing else moves — until the pause is spent and the same wave has been
+  // asked for again (`wave-fail.ts`).
+  if (failHolds(world)) {
+    world.tick += 1;
+    stepFailHold(world);
+    return;
+  }
+  countPlay(world);
   // A round has the world: no spawn, no fall, no shot, no hull resolved.
   // "The field is gone" as an early return rather than a coat of paint, and
   // five of them now share the shape — which round is up, whose press it is,

@@ -252,11 +252,10 @@ describe("the mouth is player 1's, and it is a moment rather than a state", () =
     play(world);
     const snake = round(world);
     snake.struck = [0];
-    const hull = world.hullMilli;
     for (let i = 0; i < ROUNDS[0]!.stepTicks * 2 + 2; i++) step(world, []);
     expect(snake.taken).toEqual([]);
     expect(snake.repeats).toBe(1);
-    expect(world.hullMilli).toBeLessThan(hull);
+    expect(world.retries).toBe(1);
     // And the round is standing again, whole.
     expect(snake.struck).toEqual([]);
     expect(snake.body.length).toBe(CFG.snakeStartTiles);
@@ -306,10 +305,9 @@ describe("the four ways an attempt ends, which are one rule", () => {
     play(world);
     const snake = round(world);
     clearPath(snake);
-    const hull = world.hullMilli;
     for (let i = 0; i < ROUNDS[0]!.stepTicks * (CFG.snakeRows + 2); i++) step(world, []);
     expect(snake.repeats).toBeGreaterThan(0);
-    expect(world.hullMilli).toBeLessThan(hull);
+    expect(world.retries).toBe(1);
     expect(snake.phase).toBe("play");
   });
 
@@ -349,6 +347,9 @@ describe("the arena holds still between two attempts", () => {
   it("keeps the body where it was reset and does not step it", () => {
     const world = open();
     play(world);
+    // The hull is held: a crash is a hit, and a hit would stop the whole field
+    // for the retry (`wave-fail.ts`) — the stun is what is watched here.
+    world.cfg = { ...CFG, hullInvulnerable: true };
     const snake = crash(world);
     const at = snake.body.map((t) => ({ ...t }));
     for (let i = 0; i < CFG.snakeStunTicks - 1; i++) step(world, []);
@@ -426,12 +427,11 @@ describe("the rounds, and the two ways out of them", () => {
     const world = open();
     play(world);
     const snake = round(world);
-    const hull = world.hullMilli;
     snake.roundBeat = world.beat - ROUNDS[0]!.beats;
     step(world, []);
     expect(snake.phase).toBe("verdict");
     expect(snake.passed).toBe(false);
-    expect(world.hullMilli).toBeLessThan(hull);
+    expect(world.retries).toBe(1);
   });
 });
 

@@ -17,6 +17,7 @@ import { installSnake } from "./snake-round.js";
 import { WARDEN_COLS } from "./types.js";
 import { installVane } from "./vane.js";
 import { NO_TETHER } from "./warden-cycle.js";
+import { NOT_FAILED } from "./wave-fail.js";
 import type { BossEntry, PodEntry, SpawnEntry, World } from "./world.js";
 
 /**
@@ -54,6 +55,7 @@ export function startWave(
   world.waveBeat = 0;
   world.spawned = 0;
   world.restBeat = 0;
+  world.failTick = NOT_FAILED;
   world.queue = queue;
   world.podQueue = podQueue;
   world.podSpawned = 0;

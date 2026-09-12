@@ -17,7 +17,11 @@ import type { Color, Creature, PodKind } from "./types.js";
 export type SimEvent =
   | { type: "beat"; beat: number }
   | { type: "waveStart"; wave: number }
-  | { type: "needWave"; wave: number }
+  /** The host is asked for a wave's queue; `retry` when it is the same wave
+   * again after a hit (`wave-fail.ts`), which opens without its guide. */
+  | { type: "needWave"; wave: number; retry?: true }
+  /** A hit failed the wave: the field holds, then the wave is gone again. */
+  | { type: "waveFailed"; wave: number; retries: number }
   /** `lance` is true when the shot left a full lobe — see `lance.ts`. */
   | { type: "fire"; col: number; color: Color; lance: boolean }
   /** The lobe came full: from this moment the next shot out of it is a lance. */

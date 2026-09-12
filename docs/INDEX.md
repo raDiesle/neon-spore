@@ -190,6 +190,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/boss-surface.ts` | Every name the boss code puts on `@neon-spore/sim`'s surface, written out |
 | `packages/sim/src/handle-pull.ts` | a hand is carrying a handle and you need to know how far it may go — the taut length, the field it may not leave, and how taut is measured |
 | `packages/sim/src/wave-end.ts` | How a wave ends, in one place, because two paths reach it |
+| `packages/sim/src/wave-fail.ts` | A hit fails the wave, and the wave is played again |
 | `packages/sim/src/warden-rope.ts` | you are working on THE WARDEN's line — the hand on it, how taut it is, and when it is lowered or cut |
 | `packages/sim/src/snake-open.ts` | Opening a round and starting an attempt over — the two places a `SnakeState` is written from nothing |
 | `packages/sim/src/scene.ts` | you are changing what a guide's rehearsal is — a small world, built from a script and looped |
@@ -319,6 +320,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/crystal.ts` | THE CRYSTAL: two bodies in one shell, three tiles wide |
 | `packages/sim/src/bosses-round.ts` | The rounds, as their half of the boss barrel |
 | `packages/sim/src/config-rounds.ts` | The rounds' numbers, as one block of `SimConfig` |
+| `packages/sim/src/config-run.ts` | The run's own numbers: the rest after a wave, the pause after a hit |
 | `packages/sim/src/countdown.ts` | THE COUNT: a body that can only be hit on **zero**, and only the pilot can read the count |
 | `packages/sim/src/step-round.ts` | The rounds' own tick, and the one thing all five of them have in common |
 | `packages/sim/src/pinball-shot.ts` | One shot of PINBALL: where the ball waits, what firing it does, and putting the loop back to the start |

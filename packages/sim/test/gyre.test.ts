@@ -171,11 +171,10 @@ describe("the route", () => {
    */
   it("takes hull once it has sunk, without the hub ever arriving", () => {
     const world = withGyre();
-    const before = world.hullMilli;
     for (let i = 0; i < gyreRestRow(cfg) + GYRE_LAP_BEATS * (cfg.gyreSinkLaps + 2); i++) {
       onBeat(world);
     }
-    expect(world.hullMilli).toBeLessThan(before);
+    expect(world.retries).toBe(1);
     expect(gyreMountsLeft(world, hub(world).id)).toBeLessThan(GYRE_MOUNTS);
   });
 });

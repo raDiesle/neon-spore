@@ -20,6 +20,7 @@ import { POD_DEFAULTS, type PodConfig } from "./config-pod.js";
 import { RECOIL_DEFAULTS, type RecoilConfig } from "./config-recoil.js";
 import { ROCK_CROSS_DEFAULTS, type RockCrossConfig } from "./config-rock-cross.js";
 import { ROUND_DEFAULTS, type RoundConfig } from "./config-rounds.js";
+import { RUN_DEFAULTS, type RunConfig } from "./config-run.js";
 import { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
 import { STRAND_DEFAULTS, type StrandConfig } from "./config-strand.js";
 import { VEER_DEFAULTS, type VeerConfig } from "./config-veer.js";
@@ -53,6 +54,7 @@ export { ROCK_CROSS_DEFAULTS, type RockCrossConfig } from "./config-rock-cross.j
 // one by name — `FLEET_SHELL_BEATS` is the exception, and `bind-fleet.ts`
 // needs it to delay a splash.
 export { FLEET_SHELL_BEATS, ROUND_DEFAULTS, type RoundConfig } from "./config-rounds.js";
+export { RUN_DEFAULTS, type RunConfig } from "./config-run.js";
 export { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
 export { STRAND_DEFAULTS, type StrandConfig } from "./config-strand.js";
 export { VEER_DEFAULTS, type VeerConfig } from "./config-veer.js";
@@ -85,6 +87,7 @@ export interface SimConfig
     PairConfig,
     PodConfig,
     RoundConfig,
+    RunConfig,
     RecoilConfig,
     ShotConfig,
     StrandConfig,
@@ -154,12 +157,6 @@ export interface SimConfig
   gripPushPauseBeats: number;
   /** Hull points regained per second. */
   hullRegenPerSecond: number;
-  /**
-   * Damage is counted and shown but never subtracted. A test convenience, so a
-   * wave can be watched to its end; it is a config field rather than a flag in
-   * the app because a replay has to record that the run was played this way.
-   */
-  hullInvulnerable: boolean;
   /** Damage when a creature reaches the hull. */
   damageCreature: number;
   /** Damage when a meteor is not deflected. */
@@ -168,8 +165,6 @@ export interface SimConfig
   maxHoles: number;
   /** Breaks the hull remembers. Older ones are forgotten. */
   maxScars: number;
-  /** Beats of quiet between a wave being cleared and the next one starting. */
-  waveRestBeats: number;
   /** Score for destroying a creature. */
   scoreDestroy: number;
   /** Score for deflecting a meteor. */
@@ -214,6 +209,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   ...ROCK_CROSS_DEFAULTS,
   ...POD_DEFAULTS,
   ...ROUND_DEFAULTS,
+  ...RUN_DEFAULTS,
   ...SHOT_DEFAULTS,
   cols: 11,
   rows: 15,
@@ -226,12 +222,10 @@ export const DEFAULT_CONFIG: SimConfig = {
   gripPushMilli: 1000,
   gripPushPauseBeats: 1,
   hullRegenPerSecond: 3,
-  hullInvulnerable: false,
   damageCreature: 12,
   damageMeteor: 20,
   maxHoles: 10,
   maxScars: 30,
-  waveRestBeats: 3,
   readyHoldMs: 420,
   scoreDestroy: 100,
   scoreDeflect: 150,

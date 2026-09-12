@@ -143,7 +143,7 @@ describe("while the round is up", () => {
     expect(world.creatures.length).toBe(0);
     expect(world.spawned).toBe(0);
     expect(world.waveBeat).toBe(0);
-    expect(world.hullMilli).toBe(100_000);
+    expect(world.retries).toBe(0);
   });
 
   it("the beat is not: the metronome runs through it", () => {
@@ -206,7 +206,7 @@ describe("leaving the round", () => {
     const { result } = runToEnd(world, TPB * 200, talking);
     expect(result.marks).toBe(CFG.gaugeMarks);
     expect(result.passed).toBe(true);
-    expect(world.hullMilli).toBe(100_000);
+    expect(world.retries).toBe(0);
     expect(world.scars.length).toBe(0);
     // The round is spent rather than gone: it holds its own picture, and ends
     // its wave from there rather than through an empty field (`wave-end.ts`).
@@ -219,25 +219,26 @@ describe("leaving the round", () => {
   it("is failed by saying nothing, and that breaks the hull", () => {
     const world = open();
     world.score = 700;
-    world.hullMilli = 61_000;
-    const { result } = runToEnd(world, TPB * (CFG.gaugeRoundBeats + 20));
+    const { result, events } = runToEnd(world, TPB * (CFG.gaugeRoundBeats + 20));
     expect(result.passed).toBe(false);
     expect(result.marks).toBe(0);
-    // Time is still what a *call* costs; the round costs the hull. The wave's
-    // own clear is credited either way, and now on the tick the round spends
-    // itself rather than a beat later through an empty field.
-    expect(world.score).toBe(700 + CFG.scoreWave);
-    expect(world.hullMilli).toBe(61_000 - CFG.damageGauge * 1000);
+    // Time is still what a *call* costs; the round costs the hull — which is
+    // the wave, since 12 September 2026: the breach is on the ship, the field
+    // holds, and the same wave is asked for again rather than the next one
+    // credited (`wave-fail.ts`).
+    expect(events.filter((e) => e.type === "breach")).toHaveLength(1);
     expect(world.scars.length).toBe(1);
+    expect(world.retries).toBe(1);
+    expect(world.score).toBe(700);
+    expect(events.some((e) => e.type === "needWave" && e.wave === WAVE && e.retry)).toBe(true);
     expect(world.over).toBe(false);
   });
 
-  it("can end the run, which an interlude was never allowed to do", () => {
+  it("cannot end the run: a hit is the round again, never the sheet", () => {
     const world = open();
-    world.hullMilli = 5_000;
     runToEnd(world, TPB * (CFG.gaugeRoundBeats + 20));
-    expect(world.hullMilli).toBe(0);
-    expect(world.over).toBe(true);
+    expect(world.retries).toBe(1);
+    expect(world.over).toBe(false);
   });
 
   it("is left by a restart, from inside the round", () => {

@@ -280,7 +280,9 @@ describe("a full cycle, pinned", () => {
   }
 
   function play(seed: number): Run {
-    const world = createWorld({ ...CFG }, seed);
+    // The arm reaches the hull mid-cycle; the hull is held so the whole cycle
+    // is seen rather than the field stopping for the retry (`wave-fail.ts`).
+    const world = createWorld({ ...CFG, hullInvulnerable: true }, seed);
     startWave(
       world,
       0,

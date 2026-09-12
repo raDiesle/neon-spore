@@ -104,7 +104,7 @@ describe("the shield answers a rock where the shield is", () => {
     expect(world.guard.deflected).toBe(1);
     expect(world.guard.tries).toBe(1);
     expect(world.creatures).toHaveLength(0);
-    expect(hullPercent(world)).toBe(100);
+    expect(world.retries).toBe(0);
     expect(events.some((e) => e.type === "deflect")).toBe(true);
   });
 
@@ -128,7 +128,7 @@ describe("the shield answers a rock where the shield is", () => {
     const { world } = run([rock(5)], IMPACT_TICK + 1, [shieldTo(10, 5), guard(IMPACT_TICK - 20)]);
     expect(world.guard.deflected).toBe(1);
     expect(world.guard.tries).toBe(1);
-    expect(hullPercent(world)).toBe(100);
+    expect(world.retries).toBe(0);
   });
 
   it("counts one try for a rock that is answered three times and turned none of them", () => {
@@ -147,9 +147,9 @@ describe("the shield answers a rock where the shield is", () => {
     // stands on the plating for the beat render/ draws it arriving; the hull
     // is whole for all of that beat, and breaks at the end of it.
     const landing = run([rock(5)], IMPACT_TICK + 1);
-    expect(hullPercent(landing.world)).toBe(100);
+    expect(landing.world.retries).toBe(0);
     const late = run([rock(5)], BREACH_TICK + 1);
-    expect(hullPercent(late.world)).toBeLessThan(100);
+    expect(late.world.retries).toBe(1);
     // Last seen alive standing on the plating — the row it landed on and was
     // removed from, rather than a row short of it.
     expect(late.deepestRow).toBe(HULL);
@@ -168,7 +168,7 @@ describe("the shield answers a rock where the shield is", () => {
     ]);
     expect(world.guard.deflected).toBe(1);
     expect(world.guard.tries).toBe(1);
-    expect(hullPercent(world)).toBe(100);
+    expect(world.retries).toBe(0);
     expect(events.some((e) => e.type === "deflect")).toBe(true);
   });
 
@@ -212,7 +212,7 @@ describe("the shield answers a rock where the shield is", () => {
         deflected: 1,
         left: 0,
       });
-      expect(hullPercent(world)).toBe(100);
+      expect(world.retries).toBe(0);
     }
   });
 });

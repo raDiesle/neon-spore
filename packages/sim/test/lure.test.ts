@@ -2,8 +2,8 @@ import { describe, expect, it } from "bun:test";
 import {
   createWorld,
   DEFAULT_CONFIG,
+  failHolds,
   hashWorld,
-  hullPercent,
   hullRow,
   lureVanishRow,
   record,
@@ -62,7 +62,7 @@ describe("the lure", () => {
         events.push(...world.events);
       }
       expect(world.creatures).toHaveLength(0);
-      expect(hullPercent(world)).toBe(100 - CFG.damageLure);
+      expect(world.retries).toBe(1);
       expect(events.some((e) => e.type === "lureHit")).toBe(true);
     }
   });
@@ -81,7 +81,7 @@ describe("the lure", () => {
     expect(breaches).toHaveLength(CFG.lureBlastPlaces);
     // Several holes, one price. The mistake is not made three times worse by
     // being made visible in three places.
-    expect(hullPercent(world)).toBe(100 - CFG.damageLure);
+    expect(world.retries).toBe(1);
     // Three different columns, and the middle one is where the body stood.
     const cols = breaches.map((e) => (e.type === "breach" ? e.col : -1));
     expect(new Set(cols).size).toBe(CFG.lureBlastPlaces);
@@ -103,7 +103,7 @@ describe("the lure", () => {
       // folded two places onto one column at the edges and made them cheaper
       // to look at than the middle.
       expect(new Set(world.scars.map((s) => s.col)).size).toBe(CFG.lureBlastPlaces);
-      expect(hullPercent(world)).toBe(100 - CFG.damageLure);
+      expect(world.retries).toBe(1);
       for (const s of world.scars) {
         expect(s.col).toBeGreaterThanOrEqual(0);
         expect(s.col).toBeLessThan(CFG.cols);
@@ -135,19 +135,18 @@ describe("the lure", () => {
     ]);
     for (let t = 0; t < BEFORE_NEXT_BEAT; t++) step(world, byTick.get(t) ?? []);
     expect(world.creatures).toHaveLength(0);
-    expect(hullPercent(world)).toBe(100 - CFG.damageLure);
+    expect(world.retries).toBe(1);
   });
 
-  it("never takes the hull below zero", () => {
+  it("fails the wave once for its several places, and holds the field from that tick", () => {
     const world = createWorld({ ...noRegen }, 0, [lure(COL)]);
-    // Less hull left than one shot at a lure costs.
-    world.hullMilli = 1000;
     const byTick = new Map<number, TimedCommand[]>([
       [SHOT_TICK, [aim(SHOT_TICK, COL), fire(SHOT_TICK, "red")]],
     ]);
     for (let t = 0; t < BEFORE_NEXT_BEAT; t++) step(world, byTick.get(t) ?? []);
-    expect(hullPercent(world)).toBe(0);
-    expect(world.over).toBe(true);
+    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
+    expect(world.over).toBe(false);
   });
 
   it("stands the row two above the hull for one beat, then goes, hull untouched", () => {
@@ -173,7 +172,7 @@ describe("the lure", () => {
     expect(gone[0]).toMatchObject({ col: COL, row: vanishRow, color: "cyan" });
     expect(world.creatures).toHaveLength(0);
     // Nothing reached the hull, so nothing was breached and nothing was lost.
-    expect(hullPercent(world)).toBe(100);
+    expect(world.retries).toBe(0);
     expect(events.some((e) => e.type === "breach")).toBe(false);
     expect(world.scars).toHaveLength(0);
   });

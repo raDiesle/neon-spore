@@ -3,6 +3,18 @@
 > **Status: partly built.** Waves arrive as closed sets with a rest between
 > them, a score exists, and the run ends on the balance sheet. Saving, the
 > leaderboards and the first-appearance previews are design only.
+>
+> **Since 12 September 2026 a hit fails the wave.** The owner's rule: every
+> hull damage fails the wave, and the wave is played again; a wave is passed
+> only when everything it sent has been destroyed, evaded, sucked in or
+> shielded — each by its own mechanic. The field holds from the tick of the
+> hit for `waveFailBeats`, then the same wave is asked for (`needWave` with
+> `retry`). What a run keeps is **the time played and the number of
+> retries**, across every wave until the last authored one is cleared —
+> there are no generated waves past it any more. `sim/wave-fail.ts`; the HUD
+> shows the clock and the count where the score was. The hull's points, its
+> bar and regeneration, the mend pod and the point score are on their way
+> out (the next lane); until then they stand but nothing drains the hull.
 
 - Waves come **all at once as a closed set**, then a short rest, then the next
 - Wave length 30–60 s; the rests shrink as the wave number rises

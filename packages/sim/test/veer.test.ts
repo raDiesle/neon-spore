@@ -1,7 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG, hullRow, ticksPerBeat } from "../src/config.js";
 import { hashWorld } from "../src/hash.js";
-import { hullPercent } from "../src/hull.js";
 import { isMeteorKind, isWardable } from "../src/kinds.js";
 import { createRng } from "../src/rng.js";
 import type { Creature, TimedCommand } from "../src/types.js";
@@ -211,11 +210,11 @@ describe("THE VEER", () => {
     expect(landed).not.toBe(3);
 
     const stale = run([veer(3)], ticks, [shieldTo(0, 3), guard(tickOfRow(SHIELD))], SEED);
-    expect(hullPercent(stale.world)).toBeLessThan(100);
+    expect(stale.world.retries).toBe(1);
 
     const told = run([veer(3)], ticks, [shieldTo(0, landed), guard(tickOfRow(SHIELD))], SEED);
     expect(told.events.some((e) => e.type === "deflect")).toBe(true);
-    expect(hullPercent(told.world)).toBe(100);
+    expect(told.world.retries).toBe(0);
   });
 
   it("fingerprints the same twice", () => {
