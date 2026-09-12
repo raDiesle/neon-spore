@@ -205,6 +205,7 @@ of a copy, and the noise buries the one or two that might be.
 ## Fifty-six render call sites still build a `Path2D` from spline text
 
 - **Found:** 2026-09-12, render-test-time
+- **Taken:** 2026-09-12, claude/queue-fifty-six-render-call-sites-still-build-a-path2d
 - **Files:** `packages/render/src/spline.ts`, `packages/render/src/balloon.ts`, `packages/render/src/fault-emitter.ts`, `packages/render/src/warden.ts`, `docs/performance.md`
 
 The callers of `openSmoothPath`, `blobPath` and `catmullRomToBezierPath`
