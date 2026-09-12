@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-12 · 28a7203a — The tutorial's film stands phone-shaped on any stage, and its corner plate is a third smaller
+
+In briefing mode the director's TEST, P1 and P2 stages showed the film's hull cut off square at top-left and top-right: the film was laid out across the whole stage while its columns were bound by the height, so the field stopped short of the box on both sides with the band running on under it. The film now stands in the rectangle the game itself would take on that stage, for the seat it is showing, centred — `computeStage`, as the live game — with the nav bar still across the whole box (`render/guide-film.ts`). On a phone the film loses thirteen pixels a side to the nav bar's height and gains a hull that reaches its band.
+
 ## 2026-09-12 · 7d31f913 — Three counts for THE COUNT, offered in VERSUS: a dial, an iris and a fuse
 
 The owner asked for THE COUNT's visuals improved. The shipped count is four notches cut into the rim on the pilot's screen and a halo on zero — legible at 26 px, and nothing more. A look is offered rather than replaced, so the creature's draw is now a record, `render/countdown-look.ts`: `over` is drawn on both screens on top of the living disc and may read nothing that changes with the count, `count` is drawn on the pilot's screen and the rig only. The body table reads the record and keeps `showsCount` as the gate.
