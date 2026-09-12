@@ -847,3 +847,12 @@ of the body's interior squashed as one picture
 `packages/render/src/throb-pores.ts`.
 
 The other answers offered were `cap` and `girdle`; they went with the slot.
+
+## `panel:band-skin` — nothing taken, 2026-09-12
+
+the owner, 12 September 2026: keep the current skin in the game, add the tiny
+polyp hanging down from it — POLYP's filaments, now in
+render/band-filaments.ts over the pendants; SUCKER and VESICLE not taken
+
+The other answers offered were `polyp`, `sucker` and `vesicle`; they went with
+the slot.

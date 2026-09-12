@@ -22,6 +22,27 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 · hit-looks — the band keeps its skin and grows POLYP's threads; the beads walk the cords
+
+The owner, from the VERSUS page: *keep current in game, but add the tiny
+polyp hanging down from the skin; make the lightning pulse movement inside
+the veins fluent — right now it has a stuck, jumping movement.* POLYP's
+filaments moved into `render/band-filaments.ts` and are drawn over the
+shipped pendants; the beads on the cords interpolate between the sixteen
+points instead of standing on the nearest. `versus drop` closed the last open
+slot, which left the generated registry and pose map in a form Biome
+rejects and two director tests with no rows to read. About 25 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the POLYP candidate, `slime-look.ts`, `gland-cord.ts`, the registry and pose-row generators |
+| writing | 10 | the filaments file, the slime record, the bead interpolation, the empty forms in both generators and the two tests, four budget tables remeasured |
+| looking | 5 | the POLYP shot beside the band crop; the beads on a cord over four frames |
+| friction | 5 | the last slot closed left `[\n]` and `{\n}` behind, which lint refused and the pose test could not read — both generators now print the one-line form |
+| landing | 0 | `bun run land --keep` |
+
+Bottleneck: the first tree with no open VERSUS slot — the generators had never printed an empty list.
+
 ## 2026-09-12 · hit-looks — THE THROB wears PORES and is two tiles by two
 
 The owner, from the VERSUS page: *adopt 'CREATURE:THROB · PORES', remove

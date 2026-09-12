@@ -86,7 +86,17 @@ export function beadedCords(d: NerveDraw, beads: number): void {
     const period = c.hot ? 0.9 : 2.6;
     for (let v = 0; v < beads; v++) {
       const p = ((time + c.seed * 0.37) / period + v / beads) % 1;
-      const at = pts[Math.min(STEPS, Math.floor(p * STEPS))] as Point;
+      // Between the two points either side of it, not on the nearer one: the
+      // cord is sixteen segments, and a bead that stood on the nearest point
+      // moved in sixteen jumps a trip — the owner, 12 September 2026: *make
+      // the pulse movement inside the veins fluent; right now it has a
+      // stuck, jumping movement.*
+      const s = Math.min(STEPS - 1e-6, p * STEPS);
+      const i0 = Math.floor(s);
+      const f = s - i0;
+      const a = pts[i0] as Point;
+      const b = pts[i0 + 1] as Point;
+      const at = { x: a.x + (b.x - a.x) * f, y: a.y + (b.y - a.y) * f };
       const r = l.tile * (c.hot ? 0.11 : 0.075);
       halo(ctx, at.x, at.y, Math.round((r * 3) / 2) * 2, skin.tint, c.hot ? 0.4 : 0.18);
       ctx.fillStyle = rgba(skin.rim, c.hot ? 0.9 : 0.6);

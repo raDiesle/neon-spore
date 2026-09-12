@@ -6,8 +6,5 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
-import { SKIN_POLYP } from "./panel-band-skin/polyp/index.js";
-import { SKIN_SUCKER } from "./panel-band-skin/sucker/index.js";
-import { SKIN_VESICLE } from "./panel-band-skin/vesicle/index.js";
 
-export const VARIANTS: Variant[] = [SKIN_POLYP, SKIN_SUCKER, SKIN_VESICLE];
+export const VARIANTS: Variant[] = [];

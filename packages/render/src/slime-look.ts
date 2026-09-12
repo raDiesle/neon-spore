@@ -1,3 +1,4 @@
+import { filaments } from "./band-filaments.js";
 import { drawDrips } from "./band-slime.js";
 import type { Circle, Layout } from "./layout.js";
 import type { SeatSkin } from "./seat-skin.js";
@@ -36,10 +37,24 @@ export interface BandSlime {
   drips(d: SlimeDraw): void;
 }
 
-/** The shipped slime: seven pendants off the membrane, one path and one
- * stroke, with a bead released now and then. */
+/** The slime as it shipped: seven pendants off the membrane, one path and
+ * one stroke, with a bead released now and then. */
 export function pendants(d: SlimeDraw): void {
   drawDrips(d.ctx, d.l, d.time, d.skin, d.lobes);
 }
 
-export const BAND_SLIME: BandSlime = { drips: pendants };
+/** How many threads hang over each button (`band-filaments.ts`). */
+const THREADS_PER_LOBE = 3;
+
+/**
+ * The shipped slime, and the threads: `panel:band-skin` was decided on
+ * 12 September 2026 with the pendants kept and POLYP's filaments hung beside
+ * them — *keep current in game, but add the tiny polyp hanging down from the
+ * skin* (`band-filaments.ts`).
+ */
+export const BAND_SLIME: BandSlime = {
+  drips(d) {
+    pendants(d);
+    filaments(d, THREADS_PER_LOBE);
+  },
+};

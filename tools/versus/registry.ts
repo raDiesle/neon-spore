@@ -99,16 +99,16 @@ function exportedVariant(src: string): string | undefined {
 export function registryText(found: readonly Registered[]): string {
   const imports = found.map((f) => `import { ${f.symbol} } from "./${f.path}/index.js";`);
   const entries = found.map((f) => `  ${f.symbol},`);
-  return [
-    HEAD,
-    `import type { Variant } from "../variant.js";`,
-    ...imports,
-    "",
-    `export const VARIANTS: Variant[] = [`,
-    ...entries,
-    `];`,
-    "",
-  ].join("\n");
+  // An empty list is `[]` on the one line, which is the form Biome prints: a
+  // tree with every slot decided (12 September 2026 was the first) passes
+  // `bun run lint` without a hand touching a generated file.
+  const list =
+    entries.length === 0
+      ? [`export const VARIANTS: Variant[] = [];`]
+      : [`export const VARIANTS: Variant[] = [`, ...entries, `];`];
+  return [HEAD, `import type { Variant } from "../variant.js";`, ...imports, "", ...list, ""].join(
+    "\n",
+  );
 }
 
 /** Rewrite the file, and say whether it had anything to change. */

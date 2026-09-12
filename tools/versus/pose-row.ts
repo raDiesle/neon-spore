@@ -26,7 +26,10 @@ export function withoutPoseRow(source: string, slot: string): string {
     `^ {2}${JSON.stringify(slot).replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}: ".*",\\n`,
     "m",
   );
-  return source.replace(row, "");
+  const out = source.replace(row, "");
+  // The last row gone leaves `{\n}`, and the formatter wants `{}` — the state
+  // the map reached on 12 September 2026, when the last open slot was decided.
+  return out.replace(/(const SLOT_POSE: Record<string, string> = \{)\n\};/, "$1};");
 }
 
 /** Take the slot's row out of the map on disk, and say whether there was one. */

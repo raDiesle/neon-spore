@@ -126,21 +126,21 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       // One more stroke and one more clip than before the hull's light became a
       // barrel: `hull-barrel.ts` strokes the contour with a crown ramp, clipped
       // to the body. Every row in this file carries the same two.
-      stroke: 60,
-      fill: 53,
+      stroke: 62,
+      fill: 54,
       clip: 7,
       save: 46,
       drawImage: 16,
       createLinearGradient: 13,
       createRadialGradient: 5,
-      "new Path2D": 19,
+      "new Path2D": 20,
       fillText: 25,
     },
     hit: {
       fillRect: 82,
       // Two more than mid: the shockwave ring and the fireball's own contour.
-      stroke: 62,
-      fill: 51,
+      stroke: 64,
+      fill: 52,
       clip: 7,
       // Eight more: the burst opens one per shard it turns, and the shards are
       // the only thing in this picture drawn in a frame of its own.
@@ -152,7 +152,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       createLinearGradient: 12,
       // The fireball, and the one radial gradient this fight ever builds.
       createRadialGradient: 6,
-      "new Path2D": 19,
+      "new Path2D": 20,
       fillText: 25,
     },
   },
@@ -161,26 +161,26 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       fillRect: 62,
       // Nine fewer than the pilot's: five hulls, their spines and their scars
       // are the whole of what this seat is not shown (`fleet-hulls.ts`).
-      stroke: 66,
-      fill: 71,
+      stroke: 68,
+      fill: 72,
       clip: 7,
       save: 47,
       drawImage: 23,
       createLinearGradient: 16,
       createRadialGradient: 11,
-      "new Path2D": 19,
+      "new Path2D": 20,
       fillText: 24,
     },
     hit: {
       fillRect: 85,
-      stroke: 67,
-      fill: 69,
+      stroke: 69,
+      fill: 70,
       clip: 7,
       save: 55,
       drawImage: 26,
       createLinearGradient: 15,
       createRadialGradient: 12,
-      "new Path2D": 19,
+      "new Path2D": 20,
       // One fewer than the pilot's, every frame: the square's own name is on
       // both screens and the wave's own readouts are not all of them.
       fillText: 24,

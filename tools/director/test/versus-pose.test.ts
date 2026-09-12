@@ -21,8 +21,11 @@ function poseNamed(name: string) {
 async function slotPoseRows(): Promise<string[]> {
   const source = await Bun.file(join(import.meta.dirname, "..", "src", "versus-pose.ts")).text();
   const start = source.indexOf("const SLOT_POSE");
-  const end = source.indexOf("\n};", start);
   expect(start).toBeGreaterThan(-1);
+  // Every slot decided leaves `{}` on the one line — no rows at all, the state
+  // the map has been in since 12 September 2026.
+  if (/const SLOT_POSE: Record<string, string> = \{\};/.test(source)) return [];
+  const end = source.indexOf("\n};", start);
   expect(end).toBeGreaterThan(start);
   return source.slice(start, end).split("\n").slice(1);
 }
@@ -284,7 +287,8 @@ describe("poseForSlot", () => {
       expect(row, row).toMatch(/^ {2}"[a-z-]+:[a-z-]+": ".+",$/);
     }
     // The map shrinks as slots are decided — eleven were on 11 September 2026
-    // — so the floor is only that it is not empty.
-    expect(rows.length).toBeGreaterThan(0);
+    // and none by the next evening — so there is no floor: a row per open
+    // slot, and an empty map when there is no open slot.
+    expect(rows.length).toBe(slots(VARIANTS).length);
   });
 });

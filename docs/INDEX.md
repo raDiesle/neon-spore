@@ -769,6 +769,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/volley.ts` | THE VOLLEY's shell: the rock plating a slick or a bulb is sealed inside |
 | `packages/render/src/band-lobes.ts` | Where the round buttons on the band stand, for one seat and one panel |
 | `packages/render/src/band-join.ts` | THE ONE RECORD A CANDIDATE SHIP-AND-PANEL JOIN PATCHES |
+| `packages/render/src/band-filaments.ts` | Threads off the band's roof with a drop at the tip — the one part of POLYP the owner took, drawn over the pendants (12 September 2026) |
 | `packages/render/src/volley-seams.ts` | **The pattern painted on THE VOLLEY's shell**: the four seams a basketball has |
 | `packages/render/src/volley-stone.ts` | **The shipped paint of THE VOLLEY's shell**, in the two passes `volley-look.ts` names |
 | `packages/render/src/volley-shards.ts` | THE VOLLEY's broken pieces: curved fragments of the ball a ward takes off it, and the core's skin when it hatches — thrown, falling on the skin, kept in `Effects` |

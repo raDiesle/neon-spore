@@ -152,8 +152,8 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // (`action-face.ts`). They replaced two `fillText` calls, which is the
       // whole of the trade the owner chose — the word cost almost nothing and
       // could not be drawn at a sequence glyph's size at all.
-      stroke: 85,
-      fill: 63,
+      stroke: 87,
+      fill: 64,
       clip: 12,
       save: 49,
       drawImage: 47,
@@ -166,13 +166,13 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // emblems' membrane and crest, baked the same way and by the same
       // mechanism (`action-face.ts`'s `bakedCache`). The row below is the
       // proof — same seat, same size, one frame later, and back down.
-      "new Path2D": 46,
+      "new Path2D": 47,
       fillText: 2,
     },
     {
       fillRect: 55,
-      stroke: 87,
-      fill: 63,
+      stroke: 89,
+      fill: 64,
       clip: 12,
       save: 49,
       drawImage: 47,
@@ -182,7 +182,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // frame on.
       createLinearGradient: 12,
       createRadialGradient: 8,
-      "new Path2D": 21,
+      "new Path2D": 22,
       fillText: 2,
     },
   ],
@@ -194,11 +194,11 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // contour plus `strokeGlow`'s four passes round the creature inside it,
       // which is how the field draws that body and the whole of what the owner
       // asked for (`controls.ts`).
-      stroke: 89,
+      stroke: 91,
       // Three more, and all three are `drawDetails`: the bulb's one core and
       // the slick's two, drawn on the buttons now that the silhouettes are
       // bodies rather than stencils.
-      fill: 70,
+      fill: 71,
       clip: 12,
       // Two fewer: a fire button's face is one `paintLobe` doing fill and
       // stroke together where it used to be a fill and then a crosshair.
@@ -208,13 +208,13 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       createRadialGradient: 11,
       // Two more than p1's frame 0: the sheet, and the fire buttons'
       // silhouettes, which are on this seat's panel alone.
-      "new Path2D": 44,
+      "new Path2D": 45,
       fillText: 2,
     },
     {
       fillRect: 55,
-      stroke: 91,
-      fill: 70,
+      stroke: 93,
+      fill: 71,
       clip: 12,
       save: 51,
       drawImage: 46,
@@ -224,7 +224,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // fire buttons' silhouettes: every argument to them is a constant of the
       // colour, so `controls.ts` keeps the two paths rather than rebuilding
       // both every frame.
-      "new Path2D": 21,
+      "new Path2D": 22,
       fillText: 2,
     },
   ],
@@ -395,10 +395,10 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // each in a lit and a shadowed pass, and the seizing at the eye is a
       // path of its own (`tether-twist.ts`). `save` and `new Path2D` moved
       // with it and `fill` lost the old knot's dot.
-      stroke: 137,
+      stroke: 139,
       // Four more: the two patches of the wet film, the eyelids and their
       // pupils. Flat, whatever the openness.
-      fill: 78,
+      fill: 79,
       // Two more than the body's own: the film and the veins share a single
       // clip to it, and the lens opens one of its own so the lids can cut the
       // pupil instead of the pupil being sized to miss them (`eye-lens.ts`).
@@ -416,19 +416,19 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // Fourteen of them the panel's sheet, as on every frame 0 here. Four are
       // the skin's, and there are four of them however much of it is showing.
       // One is the lids' folds, and it is one however far apart they stand.
-      "new Path2D": 77,
+      "new Path2D": 78,
       fillText: 2,
     },
     {
       fillRect: 55,
-      stroke: 139,
-      fill: 78,
+      stroke: 141,
+      fill: 79,
       clip: 8,
       save: 47,
       drawImage: 29,
       createLinearGradient: 12,
       createRadialGradient: 8,
-      "new Path2D": 52,
+      "new Path2D": 53,
       fillText: 2,
     },
   ],
@@ -444,8 +444,8 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // **Four of these are the iris**: the aperture ring and every spoke go
       // into one path stroked once, so this row does not move when the spoke
       // count does (`eye-iris.ts`).
-      stroke: 112,
-      fill: 71,
+      stroke: 114,
+      fill: 72,
       // The one op this body's share of the new lens costs: the clip the lids
       // cut the pupil through (`eye-lens.ts`).
       clip: 8,
@@ -453,13 +453,13 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       drawImage: 29,
       createLinearGradient: 20,
       createRadialGradient: 17,
-      "new Path2D": 54,
+      "new Path2D": 55,
       fillText: 2,
     },
     {
       fillRect: 55,
-      stroke: 114,
-      fill: 71,
+      stroke: 116,
+      fill: 72,
       clip: 8,
       save: 44,
       drawImage: 29,
@@ -469,7 +469,7 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // layout-only slot (`render/eye.ts`). The other six are the leaves'
       // curls (`lid-iris.ts`).
       createRadialGradient: 14,
-      "new Path2D": 29,
+      "new Path2D": 30,
       fillText: 2,
     },
   ],
