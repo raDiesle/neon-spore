@@ -1,43 +1,7 @@
 import type { Command, TimedCommand } from "@neon-spore/sim";
+import { AHEAD_LIMIT_TICKS, type LockstepOptions } from "./lockstep-options.js";
 import type { ClientMessage, PlayerId, ServerMessage } from "./protocol.js";
 import { otherPlayer } from "./protocol.js";
-
-export interface LockstepOptions {
-  player: PlayerId;
-  /**
-   * Ticks between the screen being touched and the tick the command takes
-   * effect on — the "delayed" in delayed lockstep. It has to be longer than
-   * one trip to the peer, or every press arrives after the tick it was meant
-   * for and the run stalls instead of playing.
-   *
-   * The starting value only. `setDelayTicks` moves it as the link is measured,
-   * and `InputDelay` decides where to move it to.
-   */
-  delayTicks: number;
-  /**
-   * How far past the simulation a peer's word is allowed to reach, in ticks.
-   * Everything beyond it is refused — see `AHEAD_LIMIT_TICKS`. Defaults to ten
-   * seconds at 60 Hz; the caller passes its own tick rate where it has one.
-   */
-  aheadLimitTicks?: number;
-  send: (message: ClientMessage) => void;
-}
-
-/**
- * Ten seconds at 60 Hz, which is the default because that is the tick rate the
- * game runs at and a caller that knows better says so.
- *
- * The bound exists because `theirs` is a map the peer writes into. `receive`
- * files commands under whatever tick they name, up to 2**31, and `commandsFor`
- * frees only the tick it consumes — so commands filed under a tick the run
- * never reaches are never freed. One `input` at tick 2 000 000 000 is a leak
- * the run cannot drain, and a room code is four characters from a 25-letter
- * alphabet, so an uninvited seat is not exotic. A peer more than this far ahead
- * of the simulation is not a peer with a good connection; it is not playing
- * this run.
- */
-export const AHEAD_LIMIT_SECONDS = 10;
-const AHEAD_LIMIT_TICKS = 60 * AHEAD_LIMIT_SECONDS;
 
 /**
  * Delayed lockstep over a relay that never simulates anything.
@@ -52,6 +16,21 @@ const AHEAD_LIMIT_TICKS = 60 * AHEAD_LIMIT_SECONDS;
  * The timestamp is taken when the screen is touched, never when the packet
  * lands (docs/architecture.md, "Network"). That is what `press` means by
  * `head`: the tick the toucher was on, not the tick the peer happens to reach.
+ *
+ * **The promise is only worth anything over a transport that delivers in order
+ * and delivers everything.** `receive` refuses an `input` at or before the
+ * peer's horizon and counts it, so a frame that arrives *late* is caught. A
+ * frame that is *lost* while the `confirm` sent after it arrives is not: this
+ * device simulates the tick with nothing on it, the peer simulates it with a
+ * command, and the two worlds part with nobody the wiser until the next
+ * fingerprint. Nothing here can tell the difference, because a lost input
+ * looks exactly like a tick nobody pressed on. That is fine on a WebSocket — a
+ * stream does not deliver past a segment it is missing, so the `confirm` waits
+ * behind the frame it would have overtaken (`test/scheduler-faults.test.ts`
+ * plays it out) — and it is the reason **every `Command` goes through the
+ * socket's one stream**. A datagram transport, a second channel for something
+ * "small", a relay fanning out through two queues: any of those breaks
+ * lockstep and would read as a network bug.
  */
 export class Lockstep {
   readonly player: PlayerId;

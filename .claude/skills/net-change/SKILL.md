@@ -26,7 +26,7 @@ variant touches `packages/sim/src/command-types.ts` **and**
 `command-codec.ts` — a variant added without a decoder branch is rejected on the
 wire, so the feature works solo and fails in a room.
 
-## The four rules
+## The five rules
 
 1. **Decode without trusting.** Anything that is not a message this version
    knows comes back `null` rather than a half-built object. A frame with one bad
@@ -40,6 +40,13 @@ wire, so the feature works solo and fails in a room.
 4. **A new field on `World` goes into `hashWorld`.** The fingerprint is the only
    thing that catches the failure this whole layer exists to prevent, and
    `packages/sim/test/hash-coverage.test.ts` fails when it is forgotten.
+5. **Every `Command` travels in the socket's one ordered stream.** The
+   scheduler catches a frame that arrives late and cannot see one that is lost
+   while the `confirm` behind it arrives — the tick is simply simulated empty on
+   one device and full on the other. A WebSocket never delivers past a missing
+   segment, which is the whole defence; a datagram, a second channel or a relay
+   with two queues would break lockstep and read as a network bug
+   (`packages/net/src/lockstep.ts`, the header).
 
 ## Proving it
 

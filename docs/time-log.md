@@ -22,6 +22,25 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 — lockstep-transport — the scheduler says what it rests on
+
+Queue item: the one assumption delayed lockstep cannot check — that a frame is
+never lost while the `confirm` behind it arrives — was written only on a test's
+wire. It is a paragraph in `lockstep.ts`'s header now and the fifth rule of the
+`net-change` skill, and the header's growth pushed the file over 250 lines, so
+`LockstepOptions` and the ahead limit moved to `lockstep-options.ts`. About
+10 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the header, `receive` and `pump`, the test's comment on the lost frame, the skill's rules |
+| writing | 5 | the paragraph, the rule, the split, the INDEX row |
+| looking | 0 | nothing drawn |
+| friction | 0 | — |
+| landing | 5 | `check:fast`, the commit, `bun run land --keep` |
+
+The bottleneck was the line limit: a documentation paragraph cost a file split.
+
 ## 2026-09-12 — tunables-doc — every field of SimConfig named in a sheet
 
 Queue item, claimed with `bun run queue take 1`, answered by the owner with

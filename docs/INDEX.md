@@ -996,6 +996,7 @@ place — the generator keeps whatever is there.
 |---|---|
 | `packages/net/src/protocol.ts` | every message that crosses the wire, and how to distrust one |
 | `packages/net/src/lockstep.ts` | delayed lockstep: the promise each device makes to the other |
+| `packages/net/src/lockstep-options.ts` | What a `Lockstep` is built with, and the one bound it enforces on the peer |
 | `packages/net/src/clock.ts` | four-timestamp clock sync, median, moved gently |
 | `packages/net/src/desync.ts` | the fingerprint ledger — where `hash.ts` finally gets used |
 | `packages/net/src/status.ts` | what the network indicator may say, and nothing else may |

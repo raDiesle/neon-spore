@@ -162,27 +162,6 @@ Why the short label is what fits today, and what each of the three costs.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
-## `lockstep.ts` never says its promise rests on an ordered, reliable transport
-
-- **Found:** 2026-09-12, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-12, claude/queue-lockstep-ts-never-says-its-promise-rests-on-an-o
-- **Files:** `packages/net/src/lockstep.ts`, `.claude/skills/net-change/SKILL.md`
-
-The scheduler is safe against a frame that arrives late — an `input` at or
-before the peer's horizon is refused and counted — and it has no defence at all
-against a frame that is *lost* while the `confirm` sent after it arrives: the
-device then simulates that tick with nothing on it, the peer simulates it with
-a command, and the two worlds part with nobody the wiser until the next
-fingerprint. That is fine, because a WebSocket does not deliver past a segment
-it is missing. But the only place it is written down is a comment on a test's
-own wire in `two-devices.test.ts`, so the assumption is invisible from the file
-that depends on it: anything that later sends a `Command` outside the socket's
-stream — a datagram transport, a second channel for something "small", a relay
-that fans out through two queues — breaks lockstep and reads as a network bug.
-Add the paragraph to `lockstep.ts`'s header, and the sentence to the skill's
-four rules beside "decode without trusting". A document, so `bun run check`
-proves only that nothing else moved.
-
 ## No test drives a wave's opening through the scheduler
 
 - **Found:** 2026-09-12, claude/scheduler-tests-two-devices-klxkyt

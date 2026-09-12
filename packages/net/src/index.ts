@@ -2,7 +2,8 @@ export { type ClockSample, ClockSync } from "./clock.js";
 export { decodeCommands, MAX_COMMANDS_PER_FRAME } from "./command-codec.js";
 export { InputDelay, type InputDelayOptions } from "./delay.js";
 export { HashLedger, type HashVerdict } from "./desync.js";
-export { AHEAD_LIMIT_SECONDS, Lockstep, type LockstepOptions } from "./lockstep.js";
+export { Lockstep } from "./lockstep.js";
+export { AHEAD_LIMIT_SECONDS, type LockstepOptions } from "./lockstep-options.js";
 export {
   isName,
   NAME_MAX,
