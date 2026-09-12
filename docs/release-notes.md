@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-12 · ea81c522 — THE THROB wears PORES and is two tiles by two, taking two lanes as the torch does
+
+From the VERSUS page the owner adopted `creature:throb · pores` — seven pores pinned on the far hemisphere and carried round by the turn — and asked for the throb *big, of 2x2 tiles*; asked whether that meant two lanes, he took the torch's rule. A look the owner asked for by name. The slot is closed: CAP and GIRDLE are dropped, and GLOBE, the paint before it, is gone with them.
+
 ## 2026-09-12 · adf9f5d9 — THE WARDEN's rope is TWIST; all four ropes are kept and shown as real examples, and every ON THE FIELD control has its picture
 
 From the VERSUS page the owner kept every `creature:tether` candidate: TWIST is what the field draws now, and STROKE, CORD and SINEW stand in `render/tether-looks.ts` behind `useTetherLook` for the pull mechanics he wants later — a look the owner asked for by name. DOCUMENTATION → CONTROLS → ON THE FIELD draws a gallery pose at the top of every row, and under THE WARDEN'S TETHER the same taut rope four times, once in each look, with a line saying which is on the field and how a mechanic switches another on.
