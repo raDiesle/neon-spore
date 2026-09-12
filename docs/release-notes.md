@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-12 · 9b11f53b — The scheduler's reconnect holds against a real Durable Object
+
+The queue's unverified item from ef8cb3b6: a wrangler on this tree's port and all four relay checks against it — `relay:check`, `8 --split`, `8 --full`, `14 --rejoin`. In step at tick 900 with equal fingerprints; the split caught at tick 300; the third device told the room is full; the seat that left came back in step. Nothing in the code changed. Queued in its place: killing `apps/server/dev.ts` does not kill the wrangler under it on Windows, because the `npx` shell between them exits first.
+
 ## 2026-09-12 · 6e908236 — A worktree's director can be looked at from a session the harness opened in the main checkout
 
 `preview_start` with any `.claude/launch.json` entry starts the process in the directory the session was opened in — a probe entry showed it, and it is why a session that opened in `main` and made itself a worktree afterwards got main's director every time, serving main's code with nothing erroring. The entry cannot be given a `cwd` and the harness cannot be told a tree, so the tree is written down where every checkout can read it: `bun run here`, from inside the tree to be served, writes its path into the git directory the checkouts share (`tools/dev/here.ts`); `bun tools/dev/supervise.ts --here` binds to that tree instead of its own and spawns the server there, so the relative command resolves to that tree's `server.ts` and its `editing` line names it; the `director-here` launch entry and the `dev:here` script are that route. With no pointer, `--here` serves the tree it was started in, so a session opened in its worktree needs nothing. Run from `main`, `bun run here` points it back.
