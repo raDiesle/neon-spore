@@ -34,7 +34,6 @@ import { POSE_GROUPS } from "./poses.js";
  * so a slot showing it needs no dedicated one.
  */
 const SLOT_POSE: Record<string, string> = {
-  "creature:throb": "THROB · TURNING",
   "panel:band-skin": "SHIP · MEETING THE PANEL",
 };
 

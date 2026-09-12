@@ -1,4 +1,4 @@
-import { drawThrobHalf } from "./throb.js";
+import { pores } from "./throb-pores.js";
 
 /**
  * THE ONE RECORD A CANDIDATE THROB LOOK PATCHES.
@@ -48,7 +48,8 @@ export interface ThrobLook {
   half(h: ThrobHalf): void;
 }
 
-/** The shipped throb: the far colour bounded by its own meridian, projected —
- * an ellipse arc that swells to the body's full width and shuts to nothing,
- * twice a turn. `throb.ts` holds it. */
-export const THROB_LOOK: ThrobLook = { half: drawThrobHalf };
+/** The shipped throb — PORES, the owner's pick from `creature:throb` on
+ * 12 September 2026: the far colour bounded by its own meridian, and seven
+ * pores pinned on that hemisphere and carried round by the turn
+ * (`throb-pores.ts`). GLOBE, the paint before it, is gone with the slot. */
+export const THROB_LOOK: ThrobLook = { half: pores };

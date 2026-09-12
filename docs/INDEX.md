@@ -843,8 +843,9 @@ place — the generator keeps whatever is there.
 | `packages/render/src/strand-reel.ts` | THE STRAND's reel: the clock it rolls on, and the bad monitor over it |
 | `packages/render/src/strand-mark.ts` | THE STRAND's two marks: the bead that has to be shot next on the navigator's screen |
 | `packages/render/src/duty.ts` | The one word (or two) a seat owes the other while a split body is on the field |
-| `packages/render/src/throb.ts` | the plating over a throb's armoured half — the green that means a shot does nothing |
+| `packages/render/src/throb.ts` | where THE THROB's far half lies — the seam meridian this instant and the region the paint clips to |
 | `packages/render/src/throb-look.ts` | THE ONE RECORD A CANDIDATE THROB LOOK PATCHES |
+| `packages/render/src/throb-pores.ts` | THE THROB's far half, PORES — seven pores pinned on the far hemisphere and carried round by the turn |
 | `packages/render/src/crawler-fx.ts` | THE CRAWLER's three transients — the burst ring's splash, the swept lane, the burrow's mound |
 | `packages/render/src/crawler.ts` | THE CRAWLER, drawn — a maggot lying along the ship's surface, its rings overlapping |
 | `packages/render/src/crawler-ring.ts` | **One ring of a maggot, as a shape** — the three sets of proportions the parts of a worm are drawn at |

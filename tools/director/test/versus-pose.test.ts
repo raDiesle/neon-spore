@@ -135,12 +135,19 @@ describe("poseForSlot", () => {
       ).toBe(true);
     }
     // A derivation that quietly matches nothing is the same silence in a
-    // different place: the day `slots` or the naming changes shape, this line
-    // is what says so rather than a loop that ran zero times and passed.
-    expect(
-      checked.length,
-      "no open slot names a creature — say so out loud rather than pass empty",
-    ).toBeGreaterThan(0);
+    // different place: the day `slots` or the naming changes shape, a loop
+    // that ran zero times would pass. So an empty run has to be *explained*
+    // by the open slots themselves — every one is a panel, a surface or a
+    // slot `NOT_ONE_BODY` names — which is how it stood on 12 September 2026
+    // when `creature:throb`, the last creature slot, was decided.
+    if (checked.length === 0) {
+      for (const slot of slots(VARIANTS)) {
+        expect(
+          slot.slot.startsWith("creature:") ? Object.hasOwn(NOT_ONE_BODY, slot.slot) : true,
+          `${slot.slot} names a creature and was not checked`,
+        ).toBe(true);
+      }
+    }
   });
 
   test("the meteor is handed over unmarked, with a bolt still in the air", () => {

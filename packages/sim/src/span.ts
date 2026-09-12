@@ -71,7 +71,14 @@ export function colSpan(kind: CreatureKind): number {
   // than a seam between two — the shield and the cannon both have to be said
   // to be in it.
   if (kind === "crystal") return 3;
-  return kind === "torch" || kind === "carom" ? 2 : 1;
+  // THE THROB is two since 12 September 2026 — the owner: *make Throb big, of
+  // 2x2 tiles*, and asked whether that meant two lanes he took the torch's
+  // rule: it occupies its column and the next, a shot in either meets it, and
+  // the shield covers two lanes to turn it. A body twice the size is a body
+  // whose turning half can be read from the top of the field, which is the
+  // whole of what the pair does with it (`render/creature-place.ts`,
+  // `THROB_BODY_MUL`).
+  return kind === "torch" || kind === "carom" || kind === "throb" ? 2 : 1;
 }
 
 /**

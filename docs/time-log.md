@@ -22,6 +22,26 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 · hit-looks — THE THROB wears PORES and is two tiles by two
+
+The owner, from the VERSUS page: *adopt 'CREATURE:THROB · PORES', remove
+the other THROB candidates; make Throb big, of 2x2 tiles.* Asked whether
+2×2 meant two lanes, he took the torch's rule. `versus adopt` moved the
+paint into `render/throb-pores.ts` and closed the slot; GLOBE's paint went
+with it. `colSpan("throb")` is two and `THROB_BODY_MUL` doubles the drawn
+and grabbed body. About 15 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the PORES candidate, `throb.ts` and `throb-look.ts`, how a wide body is placed and sized (`span.ts`, `creature-place.ts`) |
+| writing | 5 | the adopt, GLOBE removed, the span and the multiplier, the bestiary line, the versus-pose test's empty-creature-slot guard |
+| looking | 5 | four frames of THE THROB on player 1's screen — two lanes lit, the body between them |
+| friction | 0 | — |
+| landing | 0 | `bun run land --keep` |
+
+**Bottleneck:** `creature-place.ts` at its line limit — the size constant's
+comment was trimmed twice before the file fit.
+
 ## 2026-09-12 · hit-looks — TWIST is THE WARDEN's rope; all four ropes kept and shown as real examples; a picture on every ON THE FIELD row
 
 The owner, from the VERSUS page: *I like all 'CREATURE:TETHER' alternatives;

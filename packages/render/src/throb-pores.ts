@@ -1,10 +1,9 @@
-import { LIGHT_HALF } from "../../../../../packages/content/src/light.js";
-import { facet, LAT_LIMIT, pin, surfaceDim } from "../../../../../packages/content/src/surface.js";
-import { strokeGlow } from "../../../../../packages/render/src/glow.js";
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import { litRound } from "../../../../../packages/render/src/key-light.js";
-import { farRegion, seamAt } from "../../../../../packages/render/src/throb.js";
-import type { ThrobHalf } from "../../../../../packages/render/src/throb-look.js";
+import { facet, LAT_LIMIT, LIGHT_HALF, pin, surfaceDim } from "@neon-spore/content";
+import { strokeGlow } from "./glow.js";
+import { rgba } from "./hex.js";
+import { litRound } from "./key-light.js";
+import { farRegion, seamAt } from "./throb.js";
+import type { ThrobHalf } from "./throb-look.js";
 
 /**
  * PORES — the far half wears marks that are *on* it: seven pores pinned at a

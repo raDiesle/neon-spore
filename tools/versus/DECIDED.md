@@ -832,3 +832,18 @@ mechanics he wants later
 
 The other answers offered were `cord`, `sinew` and `twist`; they went with the
 slot.
+
+## `creature:throb` / `pores` — taken, 2026-09-12
+
+the owner, 12 September 2026: adopt PORES; the far half wears marks that are
+on it, carried round by the turn
+
+seven pores pinned on the far hemisphere and carried round by the turn, each
+crossing the middle fast and crawling at the limb — marks on a ball, instead
+of the body's interior squashed as one picture
+
+`THROB_LOOK.half` is `pores`, moved from
+`tools/versus/candidates/creature-throb/pores/paint.ts` to
+`packages/render/src/throb-pores.ts`.
+
+The other answers offered were `cap` and `girdle`; they went with the slot.

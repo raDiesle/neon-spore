@@ -131,8 +131,14 @@ export function livingBodyMul(c: Creature): number {
   // frame — which is what separates them from the swell, a picture that
   // changes several times a beat and must not move a hit test (`beatbox.ts`).
   if (c.kind === "beatbox") return beatboxBodyMul(c);
+  if (c.kind === "throb") return THROB_BODY_MUL;
   return 1;
 }
+
+/** THE THROB's share: twice a body, for one that is two tiles by two by the
+ * owner's word (12 September 2026) — four fifths of its two tiles across, as a
+ * single body is of its one. `colSpan` (sim/span.ts) is the other half. */
+const THROB_BODY_MUL = 2;
 
 /**
  * What one of THE RIND's layers is worth in footprint. A whole body: the

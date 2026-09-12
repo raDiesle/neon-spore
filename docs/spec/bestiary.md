@@ -225,7 +225,11 @@ The throb's own-motion is `HOLD`, deliberately the smallest motion in
 to fire, and a body that also tilted or pumped on its own would be saying two
 things at once. `HOLD` never rotates and never scales — a second rotation
 above all, since that is not a competing signal but the same one made
-unreadable.
+unreadable. **It is two tiles by two** since 12 September 2026 — the owner's
+*make Throb big* — and takes two lanes the way the torch does (`colSpan`,
+`sim/span.ts`; `THROB_BODY_MUL`, `render/creature-place.ts`): a shot in either
+column meets it, and the half that faces the cannon is readable from the top
+of the field.
 
 **The pod is built, and it is not a creature.** It carries no colour, is never
 cleared and never blocks a wave, so it lives outside `CREATURES` entirely — its
