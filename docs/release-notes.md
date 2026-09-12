@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-12 · a2615f8e — THE VOLLEY is a round ball with a smaller ball inside, and breaks into pieces of itself
+
+The shell is a true circle rather than the faceted `METEOR` contour — a basketball, which is what the owner asked for by name. What shows through a break is no longer the slick or the bulb it will fall as but a glossy sphere of the body's colour at half the shell's radius, wearing the shell's own four seams and breathing (`volley-core.ts`), so the thing inside and the thing round it are one shape at two sizes. And a ward no longer answers with a spray of squares: `volley-shards.ts` throws curved fragments of the ball — the sector the ward took, as rind and stone with a burning length of seam on some — up and out off the shield, falling on the skin and stopping; the hatch throws a ring of the core's own skin, since by then the third ward has taken the last of the shell. The simulation is untouched: the core is a picture over the body the simulation holds, and the hatch's burst covers the moment it becomes the plain slick or bulb (`volleyBecomes`).
+
 ## 2026-09-12 · a8e8dbfd — THE CRYSTAL is a craft with an electric field round it, opened by a shield anywhere under it
 
 The owner's asks, 12 September 2026: the shield counts under any lane of the whole body, not only the middle; an electric field is drawn round all of it before, and is interrupted across the underside while the shield stands armed there, so the shot can hit the middle; it crosses slower (one lane a beat instead of two); a wrong shot no longer drives it a row down — it is caught and nothing else happens; and it looks like a space ship, with the slick and bulb inside replaced by red and cyan engine pods.
