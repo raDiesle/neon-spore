@@ -208,9 +208,9 @@ export class Canvas2DRenderer implements Renderer {
     // finished hull: its drips hang down the plating, which the ship pass
     // would otherwise cover (`gum.ts`).
     drawStuckGums(ctx, l, world, surfaceY, view.time);
-    // And THE CHOKE on the cannon, on the eased cannon the ship pass drew
-    // (`choke.ts`).
-    drawStuckChokes(ctx, l, world, hull.cannonX, surfaceY, view.time);
+    // And THE CHOKE on the cannon, on the eased cannon the ship pass drew —
+    // or still crawling along the plating toward it (`choke.ts`).
+    drawStuckChokes(ctx, l, world, hull.cannonX, surfaceY, view.time, this.held.chokeCrawl);
     drawOverlays(ctx, l, world, view, {
       armed: isArmed,
       open: isOpen,

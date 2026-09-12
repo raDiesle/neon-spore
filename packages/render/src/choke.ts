@@ -1,12 +1,8 @@
 import { CANNON_LOBE, CHOKE, livingPath } from "@neon-spore/content";
-import {
-  chokeHeading,
-  chokeIsStuck,
-  chokeTapsSoFar,
-  type SimConfig,
-  type World,
-} from "@neon-spore/sim";
+import { chokeHeading, chokeIsStuck, chokeTapsSoFar, type World } from "@neon-spore/sim";
 import { COILS, coilStack, drawCoils, drawTail, pincers } from "./choke-coil.js";
+import type { ChokeCrawlFx } from "./choke-crawl.js";
+import { drawCrawler, paintStrand, STRAND_R } from "./choke-strand.js";
 import type { Body } from "./creature-body-in.js";
 import { contourClock, livingScale } from "./creature-place.js";
 import { hazed } from "./depth.js";
@@ -25,7 +21,11 @@ import { PALETTE } from "./palette.js";
  * shape sheet (`content/silhouettes-choke.ts`), tall and boneless. On the
  * ship it is a stack of loops round the swelling the hull grows under the
  * cannon (`choke-coil.ts`), with its loose end hanging off the side — a body
- * that has taken hold of something is drawn *on* it, the gum's rule.
+ * that has taken hold of something is drawn *on* it, the gum's rule. And
+ * between the two, for most of a beat, the same sac crawling along the
+ * plating from the lane it fell in to the cannon (`choke-strand.ts`,
+ * `choke-crawl.ts`) — the owner's ask, so that the grip is seen to be
+ * *taken* rather than to appear.
  *
  * **Its own material, on both screens**: the palette's `bile`, a yellow that
  * is nobody's ammunition and no seat's hull, so the strand reads the same on
@@ -42,8 +42,6 @@ import { PALETTE } from "./palette.js";
  *    arrow, which is the whole of what player 2 has to fire by.
  */
 
-/** The falling strand's footprint, as a share of a tile. */
-const STRAND_R = 0.55;
 /** The loops' thickness and their vertical squash, in tiles. */
 const COIL_W = 0.09;
 const COIL_RY = 0.09;
@@ -61,7 +59,11 @@ export function drawChokeBody(b: Body): void {
   const s = livingScale(CHOKE, tile * STRAND_R);
   const path = new Path2D(livingPath(CHOKE, contourClock(c.id, time)));
   halo(ctx, x, y, tile * 0.9, hazed(world.cfg, PALETTE.bile, near), 0.28);
-  paintStrand(ctx, path, x, y, s, world.cfg, near);
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.scale(s, s);
+  paintStrand(ctx, path, s, world.cfg, near);
+  ctx.restore();
   // The hooks under it, opening as it nears the ship: reaching for the thing
   // it is about to take. Swinging a little, on the body's own clock.
   const foot = { x, y: y + CHOKE.ry * s * 0.62 };
@@ -74,7 +76,9 @@ export function drawChokeBody(b: Body): void {
  * cannon the ship pass drew, not the world's column, so the loops ride the
  * swelling through its glide rather than jumping a beat ahead of it; and
  * `surfaceY` is the membrane the swelling is a lobe of, sampled at its foot
- * and its crown for the loops' base and top.
+ * and its crown for the loops' base and top. `crawl` is how far along the
+ * plating each choke's picture has got: one still crawling is drawn as the
+ * strand on its way, and the loops go on when it arrives.
  */
 export function drawStuckChokes(
   ctx: CanvasRenderingContext2D,
@@ -83,16 +87,28 @@ export function drawStuckChokes(
   cannonX: number,
   surfaceY: SurfaceY,
   time: number,
+  crawl?: ChokeCrawlFx,
 ): void {
   const tile = l.tile;
   const cfg = world.cfg;
   for (const c of world.creatures) {
     if (!chokeIsStuck(c)) continue;
+    const way = crawl?.state(c.id);
+    if (way && way.u < 1) {
+      drawCrawler(ctx, tile, cfg, way, cannonX, surfaceY, time, c.id);
+      continue;
+    }
     const share = chokeTapsSoFar(c) / Math.max(1, cfg.chokeTaps);
     const half = CANNON_LOBE.halfTiles * tile;
     const top = surfaceY(cannonX) + tile * 0.08;
     const base = Math.max(surfaceY(cannonX - half), surfaceY(cannonX + half)) + tile * GRIP_DOWN;
     const dir = chokeHeading(cfg.cols, world.cannonCol, c);
+    // The grab: the loops flashing on as the crawl ends, a light that swells
+    // and goes in the moment it takes the throat.
+    if (way && way.grab < 1) {
+      const g = way.grab;
+      halo(ctx, cannonX, (top + base) / 2, tile * (1.4 + 1.2 * g), PALETTE.bileRim, 0.7 * (1 - g));
+    }
     // The light toward the column the cannon steps to on the beat.
     streak(ctx, cannonX, (top + base) / 2, tile, dir * STREAK * tile);
     halo(
@@ -136,44 +152,5 @@ function streak(
   ctx.fillStyle = g;
   const h = tile * 0.3;
   ctx.fillRect(Math.min(x, x + dx), y - h / 2, Math.abs(dx), h);
-  ctx.restore();
-}
-
-/** The falling strand: rim-light at the top through bile to its deep at the
- * bottom, its border on, and a gloss high on the left. */
-function paintStrand(
-  ctx: CanvasRenderingContext2D,
-  path: Path2D,
-  x: number,
-  y: number,
-  s: number,
-  cfg: SimConfig,
-  near: number,
-): void {
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.scale(s, s);
-  const g = ctx.createLinearGradient(0, -CHOKE.ry, 0, CHOKE.ry);
-  g.addColorStop(0, hazed(cfg, PALETTE.bileRim, near));
-  g.addColorStop(0.35, hazed(cfg, PALETTE.bile, near));
-  g.addColorStop(1, hazed(cfg, PALETTE.bileDeep, near));
-  ctx.fillStyle = g;
-  ctx.fill(path);
-  ctx.strokeStyle = hazed(cfg, PALETTE.bileRim, near);
-  ctx.lineWidth = 1.4 / s;
-  ctx.stroke(path);
-  ctx.globalAlpha = 0.45;
-  ctx.fillStyle = PALETTE.bileRim;
-  ctx.beginPath();
-  ctx.ellipse(
-    -CHOKE.rx * 0.3,
-    -CHOKE.ry * 0.5,
-    CHOKE.rx * 0.2,
-    CHOKE.ry * 0.12,
-    -0.3,
-    0,
-    Math.PI * 2,
-  );
-  ctx.fill();
   ctx.restore();
 }

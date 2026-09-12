@@ -14,8 +14,11 @@ export type ChokeEvent =
    * it is drawn standing on the hull — the beat every other body breaks the
    * hull on — and never again for the same body. `col` is the cannon's
    * column, which is where the body now is, and `from` the lane it fell.
+   * `id` is the body's, for the picture of it crawling from the one to the
+   * other (`render/choke-crawl.ts`), which has to know which choke it is
+   * drawing when a second one lands while the first has the cannon.
    */
-  | { type: "chokeGrip"; col: number; row: number; from: number }
+  | { type: "chokeGrip"; id: number; col: number; row: number; from: number }
   /**
    * Player 1 landed a fresh press on the dead strip. `taps` is how many so
    * far and `of` how many it takes, so the ear can climb as the grip loosens

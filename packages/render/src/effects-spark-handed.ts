@@ -45,13 +45,15 @@ export function handedBurst(
       return at(l, e.col, e.row, 24, PALETTE.venom);
     case "gumBlock":
       return { x: tileCX(l, e.col), y: l.hullY, n: 6, hex: PALETTE.venom };
-    // THE CHOKE in its own material: taking the cannon, on the hull; every tap
-    // player 1 lands, on the strip's knob rather than on the field — the one
-    // burst in this table that is on the band, because the thing that
-    // happened happened there and the pair has to see that a tap *did*
-    // something; and letting go, at the cannon (`choke.ts`).
+    // THE CHOKE in its own material: hitting the ship, in the lane it fell
+    // — it crawls from there to the cannon (`choke-crawl.ts`), so the burst
+    // is where it landed and not where it is going; every tap player 1
+    // lands, on the strip's knob rather than on the field — the one burst in
+    // this table that is on the band, because the thing that happened
+    // happened there and the pair has to see that a tap *did* something; and
+    // letting go, at the cannon (`choke.ts`).
     case "chokeGrip":
-      return { x: tileCX(l, e.col), y: l.hullY, n: 14, hex: PALETTE.bile };
+      return { x: tileCX(l, e.from), y: l.hullY, n: 14, hex: PALETTE.bile };
     case "chokeTap":
       return { x: tileCX(l, e.col), y: l.cannonStrip.y, n: 4, hex: PALETTE.bileRim };
     case "chokeFreed":

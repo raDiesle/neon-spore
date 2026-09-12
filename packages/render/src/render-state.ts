@@ -1,4 +1,5 @@
 import type { SimEvent, World } from "@neon-spore/sim";
+import { ChokeCrawlFx } from "./choke-crawl.js";
 import type { ClaspFrames } from "./clasp-frames.js";
 import { Effects } from "./effects.js";
 import { FenceShards } from "./fence-shards.js";
@@ -76,6 +77,12 @@ export class RenderState {
    * one that reaches it.
    */
   readonly lanceFlash = new LanceFlash();
+  /**
+   * THE CHOKE crawling along the plating to the cannon before the loops go
+   * on (`choke-crawl.ts`). Here for the strike's reason: it is drawn on the
+   * finished hull, by the same pass that draws the loops.
+   */
+  readonly chokeCrawl = new ChokeCrawlFx();
   /** Enough of last frame's world to notice a wave starting over — see `restarted`. */
   private seen: { world: World; wave: number; waveBeat: number } | null = null;
 
@@ -147,6 +154,8 @@ export class RenderState {
     this.fenceShards.update(dt, l);
     this.lanceFlash.ingest(events);
     this.lanceFlash.step(dt);
+    this.chokeCrawl.ingest(events, l);
+    this.chokeCrawl.update(dt);
   }
 
   restarted(world: World): boolean {
@@ -172,5 +181,6 @@ export class RenderState {
     this.fenceStrike.clear();
     this.fenceShards.clear();
     this.lanceFlash.clear();
+    this.chokeCrawl.clear();
   }
 }

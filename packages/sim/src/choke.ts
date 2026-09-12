@@ -81,7 +81,7 @@ export function chokeLands(world: World, c: Creature, shipRow: number): void {
   // cannon leaving — a step toward a wall it is standing against would be a
   // turn on the spot, and read as nothing having happened.
   c.chokeDir = world.cannonCol * 2 < world.cfg.cols - 1 ? 1 : -1;
-  world.events.push({ type: "chokeGrip", col: c.col, row: c.row, from });
+  world.events.push({ type: "chokeGrip", id: c.id, col: c.col, row: c.row, from });
 }
 
 /**

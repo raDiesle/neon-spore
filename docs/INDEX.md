@@ -917,7 +917,9 @@ place — the generator keeps whatever is there.
 | `packages/render/src/choir-skin.ts` | **The light THE CHOIR throws and the film it wears** — the surface half of this creature |
 | `packages/render/src/choir-look.ts` | THE ONE RECORD A CANDIDATE CHOIR SURFACE PATCHES |
 | `packages/render/src/choke-coil.ts` | **The coil, which is THE CHOKE's one word said in two places.** On the field the choke is wound round the… |
+| `packages/render/src/choke-crawl.ts` | THE CHOKE crawling along the hull to the cannon before it takes it |
 | `packages/render/src/choke-strip.ts` | **Player 1's cannon strip while THE CHOKE has the cannon.** Drawn over the strip the band has just drawn |
+| `packages/render/src/choke-strand.ts` | THE CHOKE's strand — the body itself, as opposed to the loops it becomes (`choke-coil.ts`) |
 | `packages/render/src/choke.ts` | THE CHOKE, drawn in its two states: a strand coming down a lane with its hooks opening |
 | `packages/render/src/action-face.ts` | Player 1's action buttons, showing the ship doing the thing instead of spelling its name |
 | `packages/render/src/beatbox-marks.ts` | THE BEATBOX's two half-pictures: the **count** over the box on player 1's screen |

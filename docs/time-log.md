@@ -22,6 +22,27 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 · hit-looks — THE CHOKE crawls along the hull to the cannon before it takes it
+
+The owner: *when the choke hits the ship, it fast crawls to the cannon
+first.* The grip was a cut — strand in its lane one frame, loops on the
+cannon the next. Now the `chokeGrip` event names the body, and a transient
+held with the hull-level ones draws the sac lying on the plating and surging
+toward the cannon in the beat the simulation already leaves before it walks
+anything, hooks reaching, with a flash as the loops go on. The landing burst
+moved to the lane it fell in. About 25 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `sim/choke.ts`, `render/choke.ts`, `render-state.ts`, `canvas2d.ts`, the handed burst table |
+| writing | 10 | `id` on the event, `choke-crawl.ts`, `choke-strand.ts` (the paint moved out of `choke.ts`, the crawler beside it), the wiring, four tests |
+| looking | 5 | one film, cropped to the hull — right first time |
+| friction | 0 | — |
+| landing | 5 | `check:fast`, the commit, `land --keep` |
+
+Bottleneck: **none worth the name** — the simulation had already left the
+beat the crawl needed.
+
 ## 2026-09-11 · hit-looks — THE STRAND's thread burns away like a fuse
 
 The owner: *when all bulb and slick are destroyed there must be a nice
