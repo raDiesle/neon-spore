@@ -221,10 +221,10 @@ function deskLabel(set: ControlSet, c: ControlDef): string {
 }
 
 /**
- * The two strips are labelled "PLAYER 1 · CANNON" in the content, because that
- * is what the band writes under them and the band has no other way to say
- * whose half it is. Here the seat is already the row's tag, so the prefix
- * would be said twice.
+ * The two strips are labelled "PLAYER 1 · CANNON" in the content, from the
+ * days the band wrote that over them (it writes nothing there since 12
+ * September 2026; the cord's colour says which control it is). Here the seat
+ * is already the row's tag, so the prefix would be said twice.
  */
 function seatLabel(label: string): string {
   const cut = label.indexOf("·");

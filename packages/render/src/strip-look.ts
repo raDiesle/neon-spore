@@ -33,7 +33,6 @@ export interface StripDraw {
   /** The control's own colour — the cannon's violet or the shield's cyan on
    * both seats, because it says *which control* (`docs/spec/controls.md`). */
   readonly hex: string;
-  readonly label: string;
   /** Whose panel this is: the cord lies in the seat's own flesh. */
   readonly skin: SeatSkin;
 }

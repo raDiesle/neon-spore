@@ -100,13 +100,12 @@ const NODE = [gradientSlot<Path2D>(), gradientSlot<Path2D>()] as const;
 const GLOSS = [gradientSlot<CanvasGradient>(), gradientSlot<CanvasGradient>()] as const;
 
 /** The rail as a lit cord through the flesh, a node per column and a swollen
- * wet node on the column held. */
+ * wet node on the column held. Nothing is written over it: the strip used to
+ * carry its control's name (`PLAYER 1 · CANNON`), and the owner had it taken
+ * off on 12 September 2026 — the cord's colour says which control it is, and
+ * a band names nothing of the game's construction. */
 export function spine(d: StripDraw): void {
-  const { ctx, l, which, y, h, col, hex, label, skin } = d;
-  ctx.fillStyle = hex;
-  ctx.globalAlpha = 0.85;
-  ctx.fillText(label, l.width / 2, y - h / 2 - 5);
-  ctx.globalAlpha = 1;
+  const { ctx, l, which, y, h, col, hex, skin } = d;
   const span = l.gridWidth + l.tile * 0.8;
   const left = l.gridLeft - l.tile * 0.4;
   const key = `${left}|${span}|${y}|${h}`;

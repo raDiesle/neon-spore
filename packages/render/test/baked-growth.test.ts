@@ -62,7 +62,12 @@ function entriesAfter(role: "p1" | "p2"): number {
 // One more on p2 from the same day: an organ button's bed — its veins, its
 // swelling, its shoulder and its gloss — is held per button position
 // (`gland-organ.ts`), and on the first wave only p2 has a button.
-const HELD = { p1: 39, p2: 48 } as const;
+// One fewer on each seat from 12 September 2026, when the owner had the solo
+// band cut two tiles shorter (`bandSoloPct`): at this harness's stage the
+// field was limited by its height and is limited by its width now, so the tile
+// grew, and a hull-coloured halo the first wave baked at 23 px is no longer at
+// a size of its own (`glow.ts`).
+const HELD = { p1: 38, p2: 47 } as const;
 
 describe("what the renderer keeps between frames", () => {
   for (const role of ["p1", "p2"] as const) {

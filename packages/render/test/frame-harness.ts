@@ -19,6 +19,7 @@ import {
 import { Canvas2DRenderer } from "../src/canvas2d.js";
 import type { ViewRole } from "../src/layout.js";
 import type { Viewport } from "../src/renderer.js";
+import { STRIP_LOOK } from "../src/strip-look.js";
 import type { ShipHand } from "../src/touch-ship.js";
 import type { StubContext } from "./canvas-stub.js";
 import { stubCanvas } from "./canvas-stub.js";
@@ -270,4 +271,25 @@ export function runFrames(
     options.onDrawn?.(ctx, frame++);
   }
   return { world, ctx, renderer, events: all };
+}
+
+/**
+ * Which strips `run` drew, by control. A strip used to be captioned with its
+ * control's name and a test about *which* panel a screen drew read that text
+ * off `fillText`; the caption is gone (`gland-fluid.ts`), so the tell is the
+ * draw itself — `STRIP_LOOK` is the one door every strip goes through.
+ */
+export function stripsDrawn(run: () => void): ("cannon" | "shield")[] {
+  const seen: ("cannon" | "shield")[] = [];
+  const draw = STRIP_LOOK.draw;
+  STRIP_LOOK.draw = (d) => {
+    seen.push(d.which === 0 ? "cannon" : "shield");
+    draw(d);
+  };
+  try {
+    run();
+  } finally {
+    STRIP_LOOK.draw = draw;
+  }
+  return seen;
 }

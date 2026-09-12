@@ -48,7 +48,6 @@ export function drawStripFor(
     h: s.height,
     col: cannon ? world.cannonCol : world.shieldCol,
     hex: cannon ? PALETTE.hull : PALETTE.shield,
-    label: c.label,
     skin: seatSkin(l.role),
   });
 }

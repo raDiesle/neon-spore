@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { buildQueue, CONTROL_SETS, control, controlSetForWave } from "@neon-spore/content";
+import { buildQueue, CONTROL_SETS, controlSetForWave } from "@neon-spore/content";
 import { createWorld, step, ticksPerBeat } from "@neon-spore/sim";
 import { bandControlSet } from "../src/band.js";
 import { bandLobes } from "../src/band-lobes.js";
@@ -12,6 +12,7 @@ import {
   installCanvasGlobals,
   ROLES,
   runFrames,
+  stripsDrawn,
   stubCanvas,
   VIEWPORT,
 } from "./frame-harness.js";
@@ -118,27 +119,22 @@ describe("the band draws the panel it is handed", () => {
   const claw = CONTROL_SETS.find((s) => s.id === "claw");
   if (!claw) throw new Error("no claw set registered");
 
-  function drawnNames(world: ReturnType<typeof createWorld>, controls?: typeof claw) {
-    const { canvas, ctx } = stubCanvas();
+  function drawnStrips(world: ReturnType<typeof createWorld>, controls?: typeof claw) {
+    const { canvas } = stubCanvas();
     const renderer = new Canvas2DRenderer(canvas);
     renderer.resize(VIEWPORT);
-    const seen: string[] = [];
-    const original = ctx.fillText.bind(ctx);
-    ctx.fillText = (text: string, x: number, y: number) => {
-      seen.push(text);
-      original(text, x, y);
-    };
-    renderer.draw({
-      world,
-      beatPhase: 0,
-      role: "test",
-      time: 0,
-      dt: 1 / 60,
-      events: [],
-      running: true,
-      controls,
-    });
-    return seen;
+    return stripsDrawn(() =>
+      renderer.draw({
+        world,
+        beatPhase: 0,
+        role: "test",
+        time: 0,
+        dt: 1 / 60,
+        events: [],
+        running: true,
+        controls,
+      }),
+    );
   }
 
   /** The ids on one seat's row of the band, or on both — `band.ts`'s own
@@ -179,11 +175,9 @@ describe("the band draws the panel it is handed", () => {
     expect(lobeIds(world, claw, 2)).toContain("mawTake");
     expect(lobeIds(world, claw, 1)).not.toContain("intake");
 
-    // And the strips, which are the only text a band still writes: the shipped
-    // panel gives player 2 a shield to slide and THE CLAW's does not.
-    const shipped = drawnNames(world);
-    const overridden = drawnNames(world, claw);
-    expect(shipped).toContain(control("shield").label);
-    expect(overridden).not.toContain(control("shield").label);
+    // And the strips: the shipped panel gives player 2 a shield to slide and
+    // THE CLAW's does not.
+    expect(drawnStrips(world)).toContain("shield");
+    expect(drawnStrips(world, claw)).not.toContain("shield");
   });
 });

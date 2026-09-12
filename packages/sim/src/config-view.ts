@@ -34,7 +34,11 @@ export interface ViewConfig {
   bandPct: number;
   /** The same share when a screen carries only one player's half of the band.
    * The finished game is one role per device, so the field gets the space the
-   * missing controls leave behind — see the view switch in `apps/game`. */
+   * missing controls leave behind — see the view switch in `apps/game`.
+   * Two tiles shorter since 12 September 2026, at the owner's word: the
+   * buttons and the rail keep their size (both are capped by the width on a
+   * phone, `panel-plan.ts`), so what went was the empty flesh above and below
+   * the rail. */
   bandSoloPct: number;
   /** Height of the radar strip above the grid, in CSS pixels. Read by render/. */
   radarHeightPx: number;
@@ -74,7 +78,7 @@ export interface ViewConfig {
 export const VIEW_DEFAULTS: ViewConfig = {
   bulletGlideMs: 130,
   bandPct: 31,
-  bandSoloPct: 27,
+  bandSoloPct: 19,
   radarHeightPx: 34,
   handleRadiusMilli: 300,
   depthNearScale: 1.125,

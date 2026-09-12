@@ -43,16 +43,19 @@ import { seatSkin } from "./seat-skin.js";
  * is not answered — the rule `bandLobes` already plays by one layer down.
  */
 
-/** How tall the bar under a page is: a row of dots, then a row of buttons. */
-export const NAV_H = 118;
+/** How tall the bar under a page is: a row of dots, then a row of buttons.
+ * 118 until 12 September 2026, when the owner asked for it shorter. */
+export const NAV_H = 86;
 /** How far the bar's shadow reaches up over the game it is lying on. */
 const LIFT = 16;
 /** How wide one of the three is, at most, and how tall. */
 const BTN_W = 96;
-const BTN_H = 52;
+const BTN_H = 46;
 const EDGE = 12;
-/** Where the row of dots sits inside the bar. */
-const DOTS_Y = 26;
+/** Where the row of dots sits inside the bar, and the buttons' clearance
+ * under it. */
+const DOTS_Y = 17;
+const FOOT = 11;
 
 export interface NavBox {
   x: number;
@@ -73,7 +76,7 @@ export interface NavButtons {
 export function navButtons(l: Layout): NavButtons {
   const top = l.height - NAV_H;
   const w = Math.min(BTN_W, Math.max(46, (l.width - EDGE * 4) / 3));
-  const y = top + NAV_H - BTN_H - 18;
+  const y = top + NAV_H - BTN_H - FOOT;
   return {
     bar: { x: 0, y: top, w: l.width, h: NAV_H },
     back: { x: EDGE, y, w, h: BTN_H },

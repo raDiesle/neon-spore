@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import type { ControlSet } from "@neon-spore/content";
-import { buildBoss, buildQueue, control, controlSet } from "@neon-spore/content";
+import { buildBoss, buildQueue, controlSet } from "@neon-spore/content";
 import {
   createWorld,
   PINBALL_MORPH_BEATS,
@@ -16,6 +16,7 @@ import {
   installCanvasGlobals,
   ROLES,
   runFrames,
+  stripsDrawn,
   thirdOf,
   waveWith,
 } from "./frame-harness.js";
@@ -50,7 +51,6 @@ function pinballFrames(
   role: ViewRole,
   ticks: number,
   controls?: ControlSet,
-  labels?: string[],
   sampling: { every?: number; phase?: number } = {},
 ) {
   const world = createWorld(CFG, 5);
@@ -63,17 +63,6 @@ function pinballFrames(
   const frames = runFrames(world, role, ticks, {
     ...sampling,
     controls,
-    // The stub logs a `fillText` by its coordinates and not its string, so a
-    // test about *which* label was drawn collects them on the way past.
-    onCanvas: labels
-      ? (ctx) => {
-          const write = ctx.fillText.bind(ctx);
-          ctx.fillText = (text: string, x: number, y: number) => {
-            labels.push(text);
-            write(text, x, y);
-          };
-        }
-      : undefined,
     onTick: (tick, w) => {
       const p = w.boss?.kind === "pinball" ? w.boss : null;
       const commands: TimedCommand[] = [];
@@ -117,7 +106,7 @@ describe("PINBALL draws on all three screens", () => {
   // Each seat draws a third of the morph and the board (`thirdOf`).
   for (const [i, role] of ROLES.entries()) {
     it(`draws the morph, the table and a ball in flight on ${role}`, () => {
-      const { ctx } = pinballFrames(role, TICKS, undefined, undefined, thirdOf(4, i));
+      const { ctx } = pinballFrames(role, TICKS, undefined, thirdOf(4, i));
       // The stub throws on a value a real canvas would refuse, so reaching
       // here at all is most of the assertion; the count is what tells a drawn
       // round from a frame that returned early.
@@ -137,14 +126,11 @@ describe("PINBALL draws on all three screens", () => {
     // and nothing else, so a screen that draws player 2's channel is a screen
     // drawing the set it was given.
     const ticks = ticksPerBeat(CFG) * (PINBALL_MORPH_BEATS + 4);
-    const shield = control("shield").label;
-    const handed: string[] = [];
-    pinballFrames("test", ticks, controlSet("default"), handed);
-    const own: string[] = [];
-    pinballFrames("test", ticks, undefined, own);
-    expect(handed).toContain(shield);
-    expect(own).not.toContain(shield);
-    expect(own).toContain(control("cannon").label);
+    const handed = stripsDrawn(() => pinballFrames("test", ticks, controlSet("default")));
+    const own = stripsDrawn(() => pinballFrames("test", ticks));
+    expect(handed).toContain("shield");
+    expect(own).not.toContain("shield");
+    expect(own).toContain("cannon");
   });
 
   it("really launched a ball and knocked something out, or the frames proved nothing", () => {

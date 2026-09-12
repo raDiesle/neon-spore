@@ -22,6 +22,31 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 · guide-layout — no caption over the rail, a band two tiles shorter, a lower tutorial bar
+
+Three things the owner asked for by name. The strip's caption
+(`PLAYER 2 · SHIELD`) is gone from `gland-fluid.ts` — the cord's colour says
+which control it is, and a band names nothing of the game's construction.
+The solo band is two tiles shorter at phone size (`bandSoloPct` 27 → 19):
+the buttons and the rail are capped by the width there and keep their size,
+so what went was the flesh above and below the rail. The tutorial's bar is
+86 px instead of 118 (`guide-nav.ts`), buttons 46 tall, the dots closer to
+its rim. Three tests read the caption as their tell for which strips a
+screen drew; they read the strip's draw now (`stripsDrawn` in the harness).
+About 30 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | where the caption is painted, how the band's height reaches the rows and radii, what the nav bar's geometry is and who hit-tests it, the three tests that read the caption |
+| writing | 10 | the caption out, the share, the bar, the harness helper and the three tests on it |
+| looking | 5 | the guide page rendered before and after |
+| friction | 5 | the bake-count rows moved by one on each seat — at the harness's stage the shorter band turns a height-limited field into a width-limited one and a halo loses a size of its own — found by running the old share against the new |
+| landing | 5 | `check:fast`, the commit, `land --keep` |
+
+Bottleneck: **reading** — the caption had become the tell in three tests for
+which panel a screen drew, and a replacement tell had to be one every strip
+goes through.
+
 ## 2026-09-12 · trim-guides — a guided wave carries its lesson and nothing else
 
 The owner's rule for the wave the pair plays: only the enemies the lesson

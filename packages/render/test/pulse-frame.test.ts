@@ -11,7 +11,14 @@ import {
   ticksPerBeat,
 } from "@neon-spore/sim";
 import type { ViewRole } from "../src/layout.js";
-import { CFG, installCanvasGlobals, ROLES, runFrames, waveWith } from "./frame-harness.js";
+import {
+  CFG,
+  installCanvasGlobals,
+  ROLES,
+  runFrames,
+  stripsDrawn,
+  waveWith,
+} from "./frame-harness.js";
 
 /**
  * THE PULSE over the whole stage, played rather than watched.
@@ -61,24 +68,13 @@ function commandsFor(boss: PulseState, tick: number): TimedCommand[] {
   return out;
 }
 
-function pulseFrames(role: ViewRole, ticks: number, labels?: string[]) {
+function pulseFrames(role: ViewRole, ticks: number) {
   const world = createWorld(CFG, 5);
   const index = waveWith("pulse");
   startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
   const watched: Watched = { phases: new Set(), judges: new Set(), lowest: 1000, veiled: 0 };
 
   const frames = runFrames(world, role, ticks, {
-    // The stub logs a `fillText` by its coordinates and not its string, so a
-    // test about *which* label was drawn collects them on the way past.
-    onCanvas: labels
-      ? (ctx) => {
-          const write = ctx.fillText.bind(ctx);
-          ctx.fillText = (text: string, x: number, y: number) => {
-            labels.push(text);
-            write(text, x, y);
-          };
-        }
-      : undefined,
     onTick: (tick, w) => {
       const p = w.boss?.kind === "pulse" ? w.boss : null;
       const commands: TimedCommand[] = [];
@@ -123,27 +119,30 @@ describe("THE PULSE draws on all three screens", () => {
     // would draw no strip and no buttons here for the same reason it draws
     // none on any other wave: `panelSlots` has no lobes to place.
     //
-    // The evidence used to be the word SUCK on the maw's face. There is no
-    // word on an action button any more (`action-face.ts`), and the two
-    // captions under the strips are what the standard panel writes and the
-    // round's own set does not.
+    // The evidence used to be the word SUCK on the maw's face, then the two
+    // captions under the strips. There is no word on an action button any
+    // more (`action-face.ts`) and none over a strip either, so the tell is
+    // the two strips themselves, which the standard panel draws and the
+    // round's own set does not — and the round's name, which the band writes.
     const labels: string[] = [];
     const world = createWorld(CFG, 5);
     const index = waveWith("pulse");
     startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
-    runFrames(world, "test", ticksPerBeat(CFG) * 2, {
-      controls: controlSet("default"),
-      onCanvas: (ctx) => {
-        const write = ctx.fillText.bind(ctx);
-        ctx.fillText = (text: string, x: number, y: number) => {
-          labels.push(text);
-          write(text, x, y);
-        };
-      },
-      onTick: (_tick, w) => step(w, []),
-    });
-    expect(labels).toContain("PLAYER 1 · CANNON");
-    expect(labels).toContain("PLAYER 2 · SHIELD");
+    const strips = stripsDrawn(() =>
+      runFrames(world, "test", ticksPerBeat(CFG) * 2, {
+        controls: controlSet("default"),
+        onCanvas: (ctx) => {
+          const write = ctx.fillText.bind(ctx);
+          ctx.fillText = (text: string, x: number, y: number) => {
+            labels.push(text);
+            write(text, x, y);
+          };
+        },
+        onTick: (_tick, w) => step(w, []),
+      }),
+    );
+    expect(strips).toContain("cannon");
+    expect(strips).toContain("shield");
     expect(labels).toContain("THE PULSE");
   });
 
