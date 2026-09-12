@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-12 · 0defb8b3 — THE WEIGHT: a body two thumbs crush, and neither thumb can see the other
+
+The owner asked for the idea on `docs/spec/transfers-bosses.md` as an ordinary arrival rather than the five-state boss that page argues for, so that is what this is: a heavy sac sinks a lane a beat, no bolt reaches it and the shield has nothing to say to it, and it gives to a hand from **each** seat on the body itself, held together for `weightCrushMs`. A weight nobody agrees about lands, and the wave is lost. The look is exempt as one the owner asked for by name.
+
 ## 2026-09-12 · 361b3a7c — The TEST view is the game's own stage and ship
 
 The director's TEST view (and the game's desk rig) took a taller control band than a phone — `bandPct`, 31 % against `bandSoloPct`'s 19 % — because it carries both seats' controls. A taller band leaves less height for the field, so the tile shrank, the stage narrowed to the columns with black at both sides, and the hull stood higher than in P1 or P2. The owner asked for the TEST view to have the game's own dimensions and the game's own ship height, always. The band is now one share in every role; both seats' rails and buttons share the band a phone gives one seat, in the arrangement `panel-plan.ts`'s test column already had. `bandPct` goes, with its slider row in the game's test panel and the director's TUNING page; the pointer test that assumed the narrower stage gets a wider canvas. A look the owner asked for by name.
