@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-12 · bb6f2d71 — The band keeps its skin and grows POLYP's threads; the beads walk the cords instead of jumping
+
+The owner decided `panel:band-skin` from the VERSUS page: *keep current in game, but add the tiny polyp hanging down from the skin.* What hung from the skin on POLYP's side was its filaments — threads off the roof over each button and a few across the band, swaying, a drop at the tip of some — and those are now drawn over the seven pendants the band already had (`render/band-filaments.ts`, one path stroked twice and one fill). SUCKER and VESICLE were not taken; the slot is closed.
+
 ## 2026-09-12 · ea81c522 — THE THROB wears PORES and is two tiles by two, taking two lanes as the torch does
 
 From the VERSUS page the owner adopted `creature:throb · pores` — seven pores pinned on the far hemisphere and carried round by the turn — and asked for the throb *big, of 2x2 tiles*; asked whether that meant two lanes, he took the torch's rule. A look the owner asked for by name. The slot is closed: CAP and GIRDLE are dropped, and GLOBE, the paint before it, is gone with them.
