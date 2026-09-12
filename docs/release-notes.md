@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-12 · 5743164d — Every contour render draws reaches the canvas as numbers, and a test keeps it that way
+
+The rest of the sweep `docs/performance.md`'s third round left: forty-five more `new Path2D(openSmoothPath|blobPath|catmullRomToBezierPath(...))` calls in thirty render files go through `splinePath`, the warden's two loops through `splineInto` on one path, the shell's sealed piece through the new `splineSealed`, and the queen's mark outline hands back a `Path2D` and its points instead of a `d` string (its test measures the points). One file keeps the text form — `pulse-shape.ts`, a per-lane outline mixed from three string builders and baked once — and `packages/render/test/path-text.test.ts` lists it as the allow list: a `src/` file that names one of the three builders outside it is a red check, so the next caller is caught before the next profile. Three comments that described the string round trip now describe what replaced it.
+
 ## 2026-09-12 · bbe32065 — The body table is in no import cycle, so the director's dev server no longer reads drawLimpetBody as null
 
 creature-body.ts builds its table of body draws at module load out of functions it imports, and cling.ts and creature-body-worn.ts imported drawLivingBody back from it. A bundle entered the cycle from the table's side and never noticed; bun run dev entered from canvas2d.ts through cling.ts, and the table was built while cling.ts was still evaluating, so every director page died on "Cannot read properties of null (reading 'drawLimpetBody')". drawLivingBody is its own module now, creature-body-living.ts, which imports nothing that draws a kind, and body-table-cycle.test.ts walks the value imports and fails on any path that leads back to the table.
