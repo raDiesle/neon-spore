@@ -28,7 +28,18 @@ import {
 } from "./claim.js";
 import { clearTaken, removeItem } from "./edit.js";
 import { type How, type Item, match, order, parseItems, pick, problemsIn } from "./queue.js";
-import { claim, drop, hasBranch, headBranch, onTrunk, PATHS, refs } from "./repo.js";
+import {
+  claim,
+  drop,
+  hasBranch,
+  headBranch,
+  onTrunk,
+  PATHS,
+  refs,
+  trunkRef,
+  trunkView,
+} from "./repo.js";
+import { staleLine, staleness } from "./stale.js";
 
 function load(): Item[] {
   const queue = parseItems(readFileSync(PATHS.queue, "utf8"), "queue");
@@ -64,6 +75,8 @@ if (!command || command === "list") {
   if (items.length === 0) {
     console.log("The queue is empty. Nothing is waiting.");
   } else {
+    // Read once for the whole listing: the tree is two thousand paths.
+    const trunk = trunkView();
     for (const [i, item] of items.entries()) {
       const held = claimOn(item, known);
       const parked = item.source === "parked" ? " (parked, half-done)" : "";
@@ -76,6 +89,10 @@ if (!command || command === "list") {
       console.log(`    ${item.files.join(", ")}`);
       if (item.asks) console.log(`    ${item.asks}`);
       if (held) console.log(`    taken — ${held}`);
+      // Said under the entry rather than in the count: the mark is for the
+      // session about to claim it, so it re-reads before it works (`stale.ts`).
+      const stale = staleLine(staleness(item, trunk), trunkRef());
+      if (stale) console.log(`    ${stale}`);
     }
     const free = unclaimed(items, known).length;
     console.log(`\n${items.length} in the queue, ${free} free, ${items.length - free} taken.`);
@@ -102,7 +119,9 @@ if (!command || command === "list") {
     const held = claimOn(item, known);
     if (held) throw new Error(`${JSON.stringify(item.title)} is already taken — ${held}`);
     const branch = claim(item);
-    console.log(`\n${promptFor(item, branch)}`);
+    console.log(
+      `\n${promptFor(item, branch, staleLine(staleness(item, trunkView()), trunkRef()))}`,
+    );
   }
 } else if (command === "take") {
   if (!arg) throw new Error("usage: bun run queue take <n|title>");

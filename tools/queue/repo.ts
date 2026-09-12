@@ -16,6 +16,7 @@ import { branchFor, takenMark } from "./claim.js";
 import { hasEntry, markTaken } from "./edit.js";
 import { commitOnRef, gitIn, gitWith } from "./git.js";
 import type { Item } from "./queue.js";
+import type { Trunk } from "./stale.js";
 
 export const ROOT = join(import.meta.dirname, "..", "..");
 export const PATHS = {
@@ -46,6 +47,23 @@ export function refs(): string[] {
     .split("\n")
     .map((s) => s.trim())
     .filter(Boolean);
+}
+
+/**
+ * The trunk as a ref this checkout can read: its own `main`, or origin's copy
+ * in a clone that checked out one lane by name and never made a `main`.
+ */
+export function trunkRef(): string {
+  return hasBranch(TRUNK) ? TRUNK : `origin/${TRUNK}`;
+}
+
+/** The trunk's files and log, the shape `stale.ts` reads an entry against. */
+export function trunkView(): Trunk {
+  const ref = trunkRef();
+  return {
+    tree: git("ls-tree", "-r", "--name-only", ref).out.split("\n").filter(Boolean),
+    log: (paths) => git("log", "-1", "--format=%h%x09%cs%x09%s", ref, "--", ...paths),
+  };
 }
 
 /** The worktree holding the trunk, or "" when nothing has it checked out. */

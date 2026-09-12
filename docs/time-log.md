@@ -22,6 +22,27 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 · queue-stale — `bun run queue` says when an entry has gone stale
+
+The owner, reading this log: the most frequent bottleneck is reading, and
+half of it is an entry the tree moved out from under. The listing now marks
+an entry `stale` when a file its `Files:` line names was changed on `main`
+after the entry's date — with the commit's sha and subject — or is not on
+`main` at all; the prompt from `queue next` opens with the same line. About
+10 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 0 | `queue.ts`, `run.ts`, `repo.ts`, the ref-commit test's fixture |
+| writing | 5 | `stale.ts`, its test against a fixture repository, two lines in the listing and the prompt, the preamble sentence |
+| looking | 0 | `bun run queue` on the empty queue |
+| friction | 5 | backslashes halved on the way into the shell, twice — the glob became a matcher without any |
+| landing | 0 | `check:fast` once, green |
+
+The bottleneck was friction: a regular expression with escapes in it does
+not survive the tool's shell, and the fix was to write the glob match
+without one.
+
 ## 2026-09-12 · hit-looks — a page about a body holds with it in the middle of the field
 
 The owner: *when tutorials stop, the explained enemy should be around the

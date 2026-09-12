@@ -168,12 +168,21 @@ export function statusLines(status: Status): string[] {
  * it names the branch that was already created for it, so the session checks
  * that branch out rather than inventing a name the queue cannot recognise.
  */
-export function promptFor(item: Item, branch: string): string {
+export function promptFor(item: Item, branch: string, stale?: string): string {
   const from = item.source === "parked" ? "docs/parked.md" : "docs/queue.md";
   const tree = branch.replace(/^claude\//, "");
   return [
     `Work this item on Neon Spore. Read CLAUDE.md first.`,
     "",
+    // The one thing the listing knows that the entry does not: the tree has
+    // moved under it since it was written (`stale.ts`).
+    ...(stale
+      ? [
+          `**The entry is ${stale}.** The files it names may have been split,`,
+          `renamed or already answered — check what is there now before you build.`,
+          "",
+        ]
+      : []),
     ...(item.asks
       ? [
           // The whole difference an `Asks:` makes, said at the top where a

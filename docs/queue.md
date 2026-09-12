@@ -61,7 +61,11 @@ time under sixty-two entries nobody could face, and that has not stopped being
 true — the new rule widens the door by one hinge, not off them.
 
 **Draining it.** `bun run queue` lists what is waiting, half-done work from
-`docs/parked.md` first, and says which items somebody is already on.
+`docs/parked.md` first, and says which items somebody is already on. **It also
+says when an entry has gone stale** — a file its `Files:` line names was
+changed on `main` by a commit dated after the entry, or is not on `main` any
+more — with the commit's sha and subject, so the session that claims it
+re-reads before it works; the entry itself is left as it was.
 `bun run queue next` *hands out* the first free one: it creates that item's
 branch, writes a `Taken:` line into the entry on `main` and pushes it, then
 prints a prompt naming the branch. The session checks that branch out in its own
