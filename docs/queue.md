@@ -235,6 +235,7 @@ boundary. `bun test packages/net` proves it.
 ## 158 of SimConfig's 234 fields are named in no document
 
 - **Found:** 2026-09-12, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-12, claude/queue-158-of-simconfigs-234-fields-are-named-in-no-doc
 - **Files:** `tools/test/doc-drift-allow.ts`, `tools/test/doc-drift.test.ts`, `docs/spec/bestiary.md`, `docs/spec/bosses.md`, `docs/spec/interludes.md`
 - **Asks:** Should every tunable get a sentence naming it, only the ones whose own spec sheet already argues about the figure, or none beyond the core?
 
