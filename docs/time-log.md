@@ -22,6 +22,24 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 — wave-boundary — two devices cross a wave boundary in step
+
+Queue item: the two-device wave test stopped on the `needWave` that ends
+FIRST STEP, exactly where the host takes over. It now answers the event the
+way `waves.ts` does — the same calls into `content`, on the tick it arrived,
+on both devices — plays CYAN through on presses counted from the tick the
+wave opened, and keeps the fingerprints crossing over the seam. About 10 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `waves.ts`'s `open` and `handle`, the test's loop, CYAN as `buildQueue` maps it |
+| writing | 5 | the test: `openNext`, presses by wave, the boundary branch, the assertions |
+| looking | 0 | nothing drawn |
+| friction | 0 | — |
+| landing | 5 | `check:fast`, the commit, `bun run land --keep` |
+
+The bottleneck was none: the test passed on the first run.
+
 ## 2026-09-12 — opening-lockstep — a wave's opening put through the scheduler
 
 Queue item: `briefings` is off in `DEFAULT_CONFIG`, so no two-device test had
