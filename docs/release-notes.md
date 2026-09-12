@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-12 · bbe32065 — The body table is in no import cycle, so the director's dev server no longer reads drawLimpetBody as null
+
+creature-body.ts builds its table of body draws at module load out of functions it imports, and cling.ts and creature-body-worn.ts imported drawLivingBody back from it. A bundle entered the cycle from the table's side and never noticed; bun run dev entered from canvas2d.ts through cling.ts, and the table was built while cling.ts was still evaluating, so every director page died on "Cannot read properties of null (reading 'drawLimpetBody')". drawLivingBody is its own module now, creature-body-living.ts, which imports nothing that draws a kind, and body-table-cycle.test.ts walks the value imports and fails on any path that leads back to the table.
+
 ## 2026-09-12 · 3a98c19f — The DESIGNS tab leaves NOT BUILT YET, and what it still held reads under MECHANIC IDEAS
 
 The tab read docs/versus.md, teaching.md and alive.md section by section as backlog, and none of the three was backlog any more: VERSUS is built and its file is a manual, THE CALL is one design rather than a list, and alive.md argued for numbers the game has since gone past. The tab, design-docs.ts and its test are gone. THE CALL and the three questions alive.md still leaves open are two entries under Mechanics in ideas.md, pointing at the files, and alive.md opens with a note saying it is a record of 27 August, not a plan.
