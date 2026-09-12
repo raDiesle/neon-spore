@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-12 · 3d2b2ae5 — The lockstep scheduler says its promise rests on an ordered, reliable transport
+
+Delayed lockstep catches an `input` that arrives late and cannot see one that is lost while the `confirm` behind it arrives — the tick is simulated empty on one device and full on the other, and nothing tells until the next fingerprint. A WebSocket never delivers past a missing segment, which is the whole defence, and the only place that was written down was a comment on a test's own wire. It is a paragraph in `lockstep.ts`'s header now, and the fifth rule of the `net-change` skill: every `Command` travels in the socket's one stream, and a datagram, a second channel or a relay with two queues would break lockstep and read as a network bug. The header took the file over 250 lines, so `LockstepOptions` and the ahead limit live in `lockstep-options.ts`.
+
 ## 2026-09-12 · 491c934e — Every field of SimConfig is named in a sheet, and the doc-drift allowlist is gone
 
 The owner's answer to the queue's question was *only the feel numbers*: the 105 tunables still frozen in `tools/test/doc-drift-allow.ts` each get one sentence, in plain words, in the sheet that describes the thing they are a dial for — what the number decides, with its config file named, not its value. The bosses' go in `docs/spec/bosses.md` (the queen, THE MIRROR, the Warden, THE VANE, PINBALL, THE PULSE, and a short 11.10 for THE MAZE, which had no section at all), THE GAUGE's and SNAKE's in `docs/spec/interludes.md`, the creatures' in `docs/spec/bestiary.md` — the ghost's and THE MALFUNCTION's in their own sections, the rest under a new *Each body's own numbers* — the shot box and the pod's steering in `docs/spec/systems.md`, and the field's depth in `docs/spec/graphics.md`. The allowlist emptied, so it is deleted with the test that policed it, and `tools/test/doc-drift.test.ts` now fails on any `SimConfig` field no document names.
