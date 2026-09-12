@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-12 · 1d66779f — Stopping apps/server's dev script stops the wrangler under it
+
+`dev.ts` ran `npx --yes wrangler dev …` through a shell, and on Windows the shell exited as soon as node was up, so a stop that reached the script took the shell and left wrangler's node and both `workerd` holding the port. It now spawns wrangler's own `wrangler-dist/cli.js` under `node` as a direct child, resolved from this tree's `wrangler` so the dev server, the deploy and the tests stay on one version, and forwards `SIGINT`/`SIGTERM` to it. `apps/server/test/dev-stop.test.ts` starts the relay on a free port, sees it answer, kills the tree the way anything outside a console does, and finds the port silent. The net-change skill now says to stop the wrangler by stopping `dev.ts` — and by its Windows pid: Git Bash's `$!` is an MSYS number that a tree kill cannot walk, which was the other half of today's orphans.
+
 ## 2026-09-12 · 9b11f53b — The scheduler's reconnect holds against a real Durable Object
 
 The queue's unverified item from ef8cb3b6: a wrangler on this tree's port and all four relay checks against it — `relay:check`, `8 --split`, `8 --full`, `14 --rejoin`. In step at tick 900 with equal fingerprints; the split caught at tick 300; the third device told the room is full; the seat that left came back in step. Nothing in the code changed. Queued in its place: killing `apps/server/dev.ts` does not kill the wrangler under it on Windows, because the `npx` shell between them exits first.
