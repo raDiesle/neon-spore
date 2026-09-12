@@ -162,17 +162,27 @@ Why the short label is what fits today, and what each of the three costs.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
-## Unverified at ef8cb3b6: the reconnect the two new tests model, against a real D…
+## Killing `apps/server/dev.ts` leaves wrangler and two `workerd` running
 
-- **Found:** 2026-09-12, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-12, claude/queue-unverified-at-ef8cb3b6-the-reconnect-the-two-new
-- **Files:** `docs/queue.md`, `docs/time-log.md`, `packages/net/test/clock.test.ts`, `packages/net/test/desync.test.ts`, `packages/net/test/lockstep.test.ts`, `packages/net/test/protocol.test.ts`, `packages/net/test/scheduler-faults.test.ts`
+- **Found:** 2026-09-12, relay-verified
+- **Files:** `apps/server/dev.ts`, `.claude/skills/net-change/SKILL.md`
 
-*`packages/net` says which failure modes the scheduler survives* landed from a session that could not look at it. What went unchecked:
+`dev.ts` spawns `npx --yes wrangler dev …` through a shell. On Windows that is
+`cmd → npx.cmd → node cli.js → workerd ×2`, and the shell in the middle exits
+as soon as node is up, so the tree is cut: `taskkill /T` on the `bun` process
+that ran `dev.ts` — or Ctrl-C reaching it, or the `&` job a check script
+started being killed — takes the shell and leaves `wrangler`'s node and both
+`workerd` holding the port. Running the four `relay:check`s today ended with
+three orphans found by `Get-Process` and killed by pid, after the script's own
+`taskkill //F //T` had reported the port free (the listener had moved to a
+child it could not see).
 
-- the reconnect the two new tests model, against a real Durable Object: bun run relay:check ws://127.0.0.1:8800 14 --rejoin
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
+What to do: spawn wrangler's own entry point with `node` directly —
+`node_modules/wrangler/wrangler-dist/cli.js`, resolved from the tree, the same
+file the `npx` chain ends in — so the process is `dev.ts`'s child and a tree
+kill reaches it; and forward `SIGINT`/`SIGTERM` from `dev.ts` to the child
+before exiting, the way `tools/dev/supervise.ts` does. Prove it with a test in
+`apps/server/test/` that starts `dev.ts` with a `RELAY_PORT` of its own, kills
+it, and finds nothing listening on that port a second later; and say in the
+net-change skill that the wrangler is stopped by stopping `dev.ts`, not by
+hunting for `workerd`.

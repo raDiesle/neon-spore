@@ -22,6 +22,26 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 — relay-verified — the reconnect, against a real Durable Object
+
+Queue item: the two scheduler tests' reconnect was unverified against a real
+relay. A wrangler was started on this tree's port and all four
+`relay:check`s run against it — plain, `--split`, `--full`, `--rejoin` — in
+one foreground script that killed the wrangler at the end. All four held:
+in step, the split caught at tick 300, the third device told the room is full,
+and the dropped seat came back in step. About 10 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the entry, the net-change skill, `apps/server/dev.ts` |
+| writing | 0 | nothing — a verification |
+| looking | 0 | the checks' own lines |
+| friction | 5 | the tree kill left wrangler's node and two `workerd` alive; found and killed by pid, queued |
+| landing | 0 | one commit of two documents, `bun run land --keep` |
+
+Bottleneck: friction — stopping wrangler cleanly took longer than running the
+four checks.
+
 ## 2026-09-12 — director-here — a worktree's director from a session opened in the main checkout
 
 Queue item: `preview_start` started the main checkout's director from a
