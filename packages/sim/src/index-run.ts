@@ -59,7 +59,7 @@ export { endRun, resetClock, resetRun } from "./run.js";
 export { SceneRun, type SceneScript } from "./scene.js";
 export { arrivingFirst, atBodyCol, type SceneCommand } from "./scene-aim.js";
 export { roundSpent } from "./wave-end.js";
-export { failHolds, playSeconds } from "./wave-fail.js";
+export { clockText, failHolds, playSeconds, retriesText } from "./wave-fail.js";
 export {
   type BossEntry,
   createWorld,

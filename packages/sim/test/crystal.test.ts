@@ -228,7 +228,6 @@ describe("what opens it", () => {
     hold(world, body);
     const col = body.col;
     const row = body.row;
-    const score = world.score;
     expect(resolve(world, bolt(body, crystalMiddleLane(world, body), "cyan"), body)).toBe(false);
     expect(of(world, "crystalSplit")).toHaveLength(1);
     expect(of(world, "destroy")).toHaveLength(0);
@@ -238,7 +237,6 @@ describe("what opens it", () => {
     expect([right.kind, right.color, right.col, right.row]).toEqual(["bulb", "cyan", col + 2, row]);
     expect(left.crystalDir).toBeUndefined();
     expect(spanOf(left)).toBe(1);
-    expect(world.score).toBe(score + CFG.scoreCrystalSplit);
   });
 
   it("falls straight as two plain bodies afterwards, killed by the matching cannon", () => {

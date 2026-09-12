@@ -144,6 +144,5 @@ export function chokeHeard(world: World, player: 1 | 2, command: Command): void 
   world.events.push({ type: "chokeTap", col: world.cannonCol, taps, of });
   if (taps < of) return;
   world.creatures = world.creatures.filter((k) => k !== c);
-  world.score += world.cfg.scoreChokeFreed;
   world.events.push({ type: "chokeFreed", col: world.cannonCol, row: c.row });
 }

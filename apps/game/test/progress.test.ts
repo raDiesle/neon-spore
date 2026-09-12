@@ -5,7 +5,7 @@ import {
   parseProgress,
   progressLine,
   reached,
-  scored,
+  timed,
 } from "../src/progress.js";
 
 /**
@@ -32,21 +32,23 @@ describe("reaching a wave", () => {
     expect(reached(NOTHING_YET, -3)).toEqual(NOTHING_YET);
   });
 
-  it("leaves the score alone", () => {
-    expect(reached({ furthest: 0, lastScore: 900 }, 4).lastScore).toBe(900);
+  it("leaves the clock alone", () => {
+    const p = reached({ furthest: 0, lastSeconds: 222, lastRetries: 2 }, 4);
+    expect([p.lastSeconds, p.lastRetries]).toEqual([222, 2]);
   });
 });
 
-describe("a score", () => {
-  it("is the last one seen, high or low", () => {
-    const after = scored({ furthest: 3, lastScore: 12_300 }, 400);
-    expect(after.lastScore).toBe(400);
+describe("the clock", () => {
+  it("is the last one seen, quick or slow", () => {
+    const after = timed({ furthest: 3, lastSeconds: 500, lastRetries: 4 }, 222, 2);
+    expect([after.lastSeconds, after.lastRetries]).toEqual([222, 2]);
     expect(after.furthest).toBe(3);
   });
 
-  it("ignores a score that is not one", () => {
-    expect(scored(NOTHING_YET, Number.NaN)).toEqual(NOTHING_YET);
-    expect(scored(NOTHING_YET, -1)).toEqual(NOTHING_YET);
+  it("ignores a figure that is not one", () => {
+    expect(timed(NOTHING_YET, Number.NaN, 0)).toEqual(NOTHING_YET);
+    expect(timed(NOTHING_YET, -1, 0)).toEqual(NOTHING_YET);
+    expect(timed(NOTHING_YET, 10, -1)).toEqual(NOTHING_YET);
   });
 });
 
@@ -56,8 +58,8 @@ describe("reading what was stored", () => {
   });
 
   it("reads a record it wrote", () => {
-    const written = JSON.stringify({ furthest: 6, lastScore: 12_300 });
-    expect(parseProgress(written)).toEqual({ furthest: 6, lastScore: 12_300 });
+    const written = JSON.stringify({ furthest: 6, lastSeconds: 222, lastRetries: 2 });
+    expect(parseProgress(written)).toEqual({ furthest: 6, lastSeconds: 222, lastRetries: 2 });
   });
 
   it("says never played rather than throwing on anything unreadable", () => {
@@ -68,13 +70,20 @@ describe("reading what was stored", () => {
   });
 
   it("drops fields that cannot have come from this code", () => {
-    const odd = JSON.stringify({ furthest: -4, lastScore: "12300" });
+    const odd = JSON.stringify({ furthest: -4, lastSeconds: "222", lastRetries: -1 });
     expect(parseProgress(odd)).toEqual(NOTHING_YET);
   });
 
   it("keeps the half it can read when the other half is nonsense", () => {
-    const half = JSON.stringify({ furthest: 6, lastScore: null });
-    expect(parseProgress(half)).toEqual({ furthest: 6, lastScore: 0 });
+    const half = JSON.stringify({ furthest: 6, lastSeconds: null });
+    expect(parseProgress(half)).toEqual({ furthest: 6, lastSeconds: 0, lastRetries: 0 });
+  });
+
+  it("reads a record written before the clock, as the wave alone", () => {
+    // The stored score is simply not there any more; the wave still is.
+    const old = JSON.stringify({ furthest: 6, lastScore: 12_300 });
+    expect(parseProgress(old)).toEqual({ furthest: 6, lastSeconds: 0, lastRetries: 0 });
+    expect(progressLine(parseProgress(old))).toBe("Furthest: wave 7");
   });
 });
 
@@ -85,8 +94,11 @@ describe("the line under the title", () => {
   });
 
   it("counts waves the way a player does, from one", () => {
-    expect(progressLine({ furthest: 6, lastScore: 12_300 })).toBe(
-      "Furthest: wave 7 · Last score 12300",
+    expect(progressLine({ furthest: 6, lastSeconds: 222, lastRetries: 2 })).toBe(
+      "Furthest: wave 7 · Last run 3:42 · 2 retries",
+    );
+    expect(progressLine({ furthest: 0, lastSeconds: 61, lastRetries: 0 })).toBe(
+      "Furthest: wave 1 · Last run 1:01 · no retries",
     );
   });
 });

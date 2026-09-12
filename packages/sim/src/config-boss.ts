@@ -63,16 +63,8 @@ export interface BossConfig {
   wardenTautMilli: number;
   /** Plates the ring wears. One comes off per opened eye, and the gap never fills. */
   wardenPlates: number;
-  /** Score for taking a plate off the Warden. */
-  scoreWardenPlate: number;
-  /** Score for bringing the Warden down. */
-  scoreWardenDown: number;
   /** The row THE MIRROR's own hull surface sits on — the ship's, upside down. */
   mirrorRow: number;
-  /** Score for answering one of THE MIRROR's sequences in full. */
-  scoreMirrorRound: number;
-  /** Score for breaking THE MIRROR. */
-  scoreMirrorDown: number;
   /**
    * Pins holding THE VANE's bearing. One comes out per opening answered, and
    * the arm slips a phase further out as they go — so this is both how long the
@@ -84,10 +76,6 @@ export interface BossConfig {
    * then have to agree with.
    */
   vanePins: number;
-  /** Score for taking a pin out of THE VANE's bearing. */
-  scoreVanePin: number;
-  /** Score for bringing THE VANE down. */
-  scoreVaneDown: number;
   /**
    * The row THE MAZE's mouths hang on — where a wrong answer comes back out of
    * the field and starts falling, the same job `mirrorRow` does.
@@ -134,14 +122,6 @@ export interface BossConfig {
    * holds both ends of that against these two numbers.
    */
   mazeSnapMilli: number;
-  /** Score for finding the mouth that reaches the core. */
-  scoreMazeRound: number;
-  /** Score for bringing THE MAZE down. */
-  scoreMazeDown: number;
-  /** Score for stripping a petal from the queen. */
-  scoreQueenPetal: number;
-  /** Score for bringing the queen down. */
-  scoreQueenDown: number;
 }
 
 /**
@@ -154,27 +134,17 @@ export interface BossConfig {
 export const BOSS_DEFAULTS: BossConfig = {
   queenRow: 2,
   queenEggGrowShare: 0.5,
-  scoreQueenPetal: 400,
-  scoreQueenDown: 2000,
   wardenRow: 2,
   wardenCycleBeats: 12,
   wardenHangRows: 5,
   wardenTautMilli: 7000,
   wardenPlates: 5,
-  scoreWardenPlate: 500,
-  scoreWardenDown: 2500,
   mirrorRow: 3,
-  scoreMirrorRound: 500,
-  scoreMirrorDown: 2500,
   vanePins: 5,
-  scoreVanePin: 500,
-  scoreVaneDown: 2500,
   mazeRow: 3,
   mazeSpanMilli: 857,
   mazeTurnMilli: 600,
   mazeDragMilliPerTile: 45_000,
   mazeDragBreakMilli: 80,
   mazeSnapMilli: 180,
-  scoreMazeRound: 500,
-  scoreMazeDown: 2500,
 };

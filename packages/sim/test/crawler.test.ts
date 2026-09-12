@@ -234,7 +234,6 @@ describe("what the shield does to a plate", () => {
 describe("the two ways a worm stops existing", () => {
   it("is finished by the ring that empties it, and the dome is what takes the ends", () => {
     const world = onField(2);
-    const before = world.score;
     // The two colour rings by the cannon...
     for (const link of wormOf(world)) {
       if (link.color !== null) linkStruck(world, bolt(link.col, link.color), link);
@@ -255,7 +254,6 @@ describe("the two ways a worm stops existing", () => {
     // Paid once, at the moment the run emptied — not a beat later off what was
     // left standing, because nothing is ever left standing any more.
     expect(beams).toHaveLength(1);
-    expect(world.score - before).toBeGreaterThanOrEqual(CFG.scoreCrawlerBeam);
     expect(world.retries).toBe(0);
   });
 

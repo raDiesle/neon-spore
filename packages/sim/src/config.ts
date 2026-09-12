@@ -7,7 +7,6 @@ import { CHOKE_DEFAULTS, type ChokeConfig } from "./config-choke.js";
 import { CLAW_DEFAULTS, type ClawConfig } from "./config-claw.js";
 import { COIL_DEFAULTS, type CoilConfig } from "./config-coil.js";
 import { CRAWLER_DEFAULTS, type CrawlerConfig } from "./config-crawler.js";
-import { CREATURE_SCORE_DEFAULTS, type CreatureScoreConfig } from "./config-creature-scores.js";
 import { CREATURE_DEFAULTS, type CreatureConfig } from "./config-creatures.js";
 import { CRYSTAL_DEFAULTS, type CrystalConfig } from "./config-crystal.js";
 import { FENCE_DEFAULTS, type FenceConfig } from "./config-fence.js";
@@ -36,7 +35,6 @@ export { CHOKE_DEFAULTS, type ChokeConfig } from "./config-choke.js";
 export { CLAW_DEFAULTS, type ClawConfig } from "./config-claw.js";
 export { COIL_DEFAULTS, type CoilConfig } from "./config-coil.js";
 export { CRAWLER_DEFAULTS, type CrawlerConfig } from "./config-crawler.js";
-export { CREATURE_SCORE_DEFAULTS, type CreatureScoreConfig } from "./config-creature-scores.js";
 export { CREATURE_DEFAULTS, type CreatureConfig } from "./config-creatures.js";
 export { CRYSTAL_DEFAULTS, type CrystalConfig } from "./config-crystal.js";
 export { FENCE_DEFAULTS, type FenceConfig } from "./config-fence.js";
@@ -78,7 +76,6 @@ export interface SimConfig
     GumConfig,
     ChokeConfig,
     CreatureConfig,
-    CreatureScoreConfig,
     GhostConfig,
     RockCrossConfig,
     FenceConfig,
@@ -159,14 +156,6 @@ export interface SimConfig
   maxHoles: number;
   /** Breaks the hull remembers. Older ones are forgotten. */
   maxScars: number;
-  /** Score for destroying a creature. */
-  scoreDestroy: number;
-  /** Score for deflecting a meteor. */
-  scoreDeflect: number;
-  /** Score for clearing a wave. */
-  scoreWave: number;
-  /** Score for taking a pod in. */
-  scorePod: number;
   /**
    * How many beats ahead the radar strip shows an arrival. Read by render/.
    * A creature needs at least a 3-second floor of warning (docs/spec/latency.md)
@@ -194,7 +183,6 @@ export const DEFAULT_CONFIG: SimConfig = {
   ...VEER_DEFAULTS,
   ...VOLLEY_DEFAULTS,
   ...CREATURE_DEFAULTS,
-  ...CREATURE_SCORE_DEFAULTS,
   ...CLAW_DEFAULTS,
   ...GHOST_DEFAULTS,
   ...FENCE_DEFAULTS,
@@ -218,10 +206,6 @@ export const DEFAULT_CONFIG: SimConfig = {
   maxHoles: 10,
   maxScars: 30,
   readyHoldMs: 420,
-  scoreDestroy: 100,
-  scoreDeflect: 150,
-  scoreWave: 300,
-  scorePod: 250,
   radarLead: 6,
   briefings: false,
 };

@@ -154,7 +154,6 @@ export function linkStruck(world: World, b: Bullet, hit: Creature): boolean {
   // ordinary ones: nothing about what this kill is *worth* has changed, only
   // what it looks like.
   metColor(world);
-  world.score += world.cfg.scoreDestroy;
   world.events.push({ type: "crawlerBreak", col: hit.col, row: hit.row, color: hit.color });
   const crawlerId = crawlerOf(hit);
   removeCreature(world, hit.id);
@@ -180,6 +179,5 @@ export function linkStruck(world: World, b: Bullet, hit: Creature): boolean {
  */
 export function crawlerCleared(world: World, crawlerId: number, col: number, row: number): void {
   if (crawlerId === -1 || crawlerLinks(world, crawlerId).length > 0) return;
-  world.score += world.cfg.scoreCrawlerBeam;
   world.events.push({ type: "crawlerBeam", col, row });
 }

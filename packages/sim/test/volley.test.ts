@@ -188,7 +188,6 @@ describe("what a ward does", () => {
     expect(world.retries).toBe(0);
     // It counted as a ward, so the pair's record and their score say so.
     expect(world.guard.deflected).toBe(1);
-    expect(world.score).toBe(LANE.scoreDeflect + LANE.scoreVolleyReturn);
   });
 
   /**

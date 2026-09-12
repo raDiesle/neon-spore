@@ -1,4 +1,4 @@
-import type { LinkStatus, PlayerId } from "@neon-spore/net";
+import type { LinkStatus, PlayerId, RunMark } from "@neon-spore/net";
 import type { SimConfig, TimedCommand, World } from "@neon-spore/sim";
 import type { RoomSocket, RoomSocketHandlers } from "./link-socket.js";
 import type { CommandSource } from "./relay.js";
@@ -47,7 +47,7 @@ export interface Link {
    * better of the two seats' figures and hands it back on the next `welcome`,
    * without ever reading it into game state — see `apps/server/src/tally.ts`.
    */
-  tally(wave: number, score: number): void;
+  tally(mark: RunMark): void;
   /** Whether the simulation may advance one tick. Always true when playing solo. */
   mayTick(): boolean;
   /** The commands for the current tick. Consumes the local input buffer. */

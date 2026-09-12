@@ -34,7 +34,6 @@ export function hashWorld(world: World): number {
   push(world.tick);
   push(world.beat);
   push(world.over ? 1 : 0);
-  push(world.score);
   push(world.cannonCol);
   push(world.shieldCol);
   push(world.shieldSinceTick);
@@ -158,6 +157,7 @@ export function hashWorld(world: World): number {
   push(world.failTick);
   push(world.retries);
   push(world.playTicks);
+  push(world.waveTries);
   push(world.nextId);
 
   // The wave's opening. It is in the fingerprint because it decides whether

@@ -187,7 +187,6 @@ export function volleyReturn(world: World, c: Creature, guardRow: number): boole
   c.fromRow = guardRow;
   c.row = guardRow;
   climb(world, c);
-  world.score += world.cfg.scoreVolleyReturn;
   world.events.push({ type: "volleyReturn", id: c.id, col: c.col, row: guardRow, left });
   return true;
 }

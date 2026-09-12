@@ -251,19 +251,7 @@ describe("what a shot is worth", () => {
   it("pays for every body the one it killed would have become", () => {
     const world = withEcho(5, "red");
     echoStruck(world, shot("red"), world.creatures[0]!);
-    expect(world.score).toBe(cfg.scoreEchoKill * (1 << cfg.echoSplits));
     expect(world.creatures).toHaveLength(0);
-  });
-
-  it("pays the same for the whole arrival taken one body at a time", () => {
-    const early = withEcho(5, "red");
-    echoStruck(early, shot("red"), early.creatures[0]!);
-
-    const late = withEcho(5, "red");
-    until(late, 1 << cfg.echoSplits);
-    for (const c of [...late.creatures]) echoStruck(late, shot("red"), c);
-
-    expect(late.score).toBe(early.score);
   });
 
   it("counts a wrong colour as an ordinary colour miss and leaves the body", () => {

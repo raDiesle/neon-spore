@@ -166,8 +166,8 @@ export class Room {
         return;
       case "stats":
         // Stored and never opened, the way a `Command` is relayed and never
-        // opened. Field by field, because one seat may hold the furthest wave
-        // and the other the higher score.
+        // opened. The further seat's whole, because the clock and the retries
+        // are read at the wave (`tally.ts`).
         void keepBest(this.ctx.storage, this.best, tallyFromWire(message)).then((next) => {
           this.best = next;
         });

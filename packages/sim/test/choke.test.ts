@@ -151,7 +151,6 @@ describe("player 1 taps it off", () => {
     expect(world.creatures).toHaveLength(0);
     expect(events.filter((e) => e.type === "chokeFreed")).toHaveLength(1);
     // Its own score, and the wave's for the field it left empty.
-    expect(world.score).toBe(CFG.scoreChokeFreed + CFG.scoreWave);
     expect(world.cannonCol).toBe(0);
     // One short, and it still has the cannon.
     const short = play([choke(1)], freedAt + TPB, taps(STUCK_BY + 1, n - 1, id));

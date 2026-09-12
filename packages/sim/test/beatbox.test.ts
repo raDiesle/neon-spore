@@ -149,7 +149,6 @@ describe("a box on the field", () => {
     expect(beatboxIsBox(only(world))).toBe(true);
     expect(events.some((e) => e.type === "reject")).toBe(true);
     expect(events.some((e) => e.type === "destroy")).toBe(false);
-    expect(world.score).toBe(0);
   });
 });
 
@@ -178,7 +177,6 @@ describe("a run", () => {
     expect(world.creatures.some(beatboxIsBox)).toBe(false);
     expect(events.filter((e) => e.type === "beatboxSilent")).toHaveLength(1);
     expect(events.some((e) => e.type === "beatboxWave")).toBe(false);
-    expect(world.score).toBe(CFG.scoreBeatboxSilence);
     expect(world.retries).toBe(0);
   });
 
@@ -287,7 +285,6 @@ describe("a wrong count", () => {
     const c = only(world);
     expect(beatboxIsBox(c)).toBe(true);
     expect(beatboxHitsMade(c)).toBe(0);
-    expect(world.score).toBe(0);
   });
 
   it("is a miss when the count is over as well as under", () => {

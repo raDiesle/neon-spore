@@ -138,7 +138,6 @@ export function stepCrystal(world: World, c: Creature): void {
  * shot, and that is the whole of it (`crystalCatch`).
  */
 export function crystalStruck(world: World, b: Bullet, hit: Creature): boolean {
-  const cfg = world.cfg;
   const middle = crystalMiddleLane(world, hit);
   const held = b.col === middle && crystalHeld(world, hit);
   if (!held || b.color !== hit.color) {
@@ -150,7 +149,6 @@ export function crystalStruck(world: World, b: Bullet, hit: Creature): boolean {
   }
 
   metColor(world);
-  world.score += cfg.scoreCrystalSplit;
   // The width, read before the kind changes: a slick answers one.
   const span = spanOf(hit);
   world.events.push({ type: "crystalSplit", col: middle, row: hit.row, color: b.color });

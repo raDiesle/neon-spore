@@ -183,23 +183,6 @@ describe("what a shot does", () => {
     expect(enough.events.filter((e) => e.type === "destroy")).toHaveLength(1);
   });
 
-  it("pays for each bounce, and for the body what a slick pays", () => {
-    const bounced = fresh([recoil(COL)]);
-    chase(bounced, CFG.recoilBounces);
-    expect(bounced.world.score).toBe(CFG.scoreRecoilBounce * CFG.recoilBounces);
-
-    // And the whole arrival against an ordinary one taken in one shot, which
-    // is the comparison that matters: everything else about the two runs — the
-    // kill, the wave cleared behind it — is the same, so the difference is
-    // exactly what the bounces were worth.
-    const killed = fresh([recoil(COL)]);
-    chase(killed, CFG.recoilBounces + 1);
-    const plain: SpawnEntry = { beat: 0, col: COL, kind: "slick", color: "red" };
-    const slick = fresh([plain]);
-    chase(slick, 1);
-    expect(killed.world.score - slick.world.score).toBe(CFG.scoreRecoilBounce * CFG.recoilBounces);
-  });
-
   it("counts a wrong colour as an ordinary colour miss and keeps every bounce", () => {
     const { world } = run([recoil(COL, "red")], TPB * 4, shot(TPB * 2, COL, "cyan"));
     expect(world.balance.colorMisses).toBe(1);

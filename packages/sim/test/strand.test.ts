@@ -175,7 +175,6 @@ describe("what a shot does", () => {
     // is both of them when two are left.
     const live = strandLive(world, id);
     expect(live.filter((c) => beadIsActive(world, c))).toHaveLength(1);
-    expect(world.score).toBe(CFG.scoreStrandBead);
     expect(world.events.filter((e) => e.type === "strandBead")).toHaveLength(1);
   });
 
@@ -211,7 +210,6 @@ describe("what a shot does", () => {
     expect(beadStruck(world, bolt(head.col, wrong), head)).toBe(false);
     expect(beadIsSpent(head)).toBe(false);
     expect(world.balance.colorMisses).toBe(1);
-    expect(world.score).toBe(0);
   });
 
   /** The creature, as a number: a landed shot at the wrong bead moves the pair
@@ -246,10 +244,8 @@ describe("what a shot does", () => {
     const world = onField(3);
     const raisin = threadOf(world)[0]!;
     shootHead(world);
-    const score = world.score;
     const misses = world.balance.colorMisses;
     expect(beadStruck(world, bolt(raisin.col, raisin.color ?? "red"), raisin)).toBe(false);
-    expect(world.score).toBe(score);
     expect(world.balance.colorMisses).toBe(misses);
     expect(strandLeft(world, beadStrand(raisin))).toBe(2);
   });
@@ -279,7 +275,6 @@ describe("the end of a thread", () => {
     for (let t = 0; t < TPB; t++) step(world, []);
     expect(threadOf(world)).toHaveLength(0);
     expect(world.creatures).toHaveLength(1);
-    expect(world.score).toBe(CFG.scoreStrandBead * 2 + CFG.scoreStrandBreak);
   });
 
   it("says so when it parts, and does not hold the wave open afterwards", () => {

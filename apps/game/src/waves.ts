@@ -3,6 +3,7 @@ import { INTRO_SECONDS } from "@neon-spore/render";
 import {
   endRun,
   introHolds,
+  playSeconds,
   resetRun,
   type SimConfig,
   type SimEvent,
@@ -11,7 +12,7 @@ import {
 } from "@neon-spore/sim";
 import type { GameAudio } from "./audio.js";
 import type { InputBuffer } from "./input.js";
-import { reached, scored, updateProgress } from "./progress.js";
+import { reached, timed, updateProgress } from "./progress.js";
 
 /**
  * Wave progression: the two ways a wave starts, and the clock that carries its
@@ -91,7 +92,7 @@ export function createWaveProgression({
   let left = 0;
   /** The world tick the acks were sent on, or -1 while none has been sent. */
   let sentAtTick = -1;
-  /** Whether this run's final score has already been written down. */
+  /** Whether this run's final clock has already been written down. */
   let ended = false;
 
   const open = (wave: number, retry = false): void => {
@@ -105,10 +106,10 @@ export function createWaveProgression({
       return;
     }
     // How far this device has got, remembered here because here is where a
-    // wave is reached — and the score with it, so a run put down mid-way still
-    // leaves the number it was on. Solo and per device: it never touches the
+    // wave is reached — and the clock with it, so a run put down mid-way still
+    // leaves the figures it was on. Solo and per device: it never touches the
     // room (`progress.ts`). A wave gone again was reached already.
-    if (!retry) updateProgress((p) => scored(reached(p, wave), world.score));
+    if (!retry) updateProgress((p) => timed(reached(p, wave), playSeconds(world), world.retries));
     startWave(
       world,
       wave,
@@ -135,11 +136,11 @@ export function createWaveProgression({
       if (e.type !== "needWave") continue;
       open(e.wave, e.retry === true);
     }
-    // The end of a run is the one score worth keeping that no wave opening
+    // The end of a run is the one clock worth keeping that no wave opening
     // will ever record, because there is no wave after it.
     if (world.over && !ended) {
       ended = true;
-      updateProgress((p) => scored(p, world.score));
+      updateProgress((p) => timed(p, playSeconds(world), world.retries));
     }
     if (!world.over) ended = false;
   };

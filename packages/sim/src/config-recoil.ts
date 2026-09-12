@@ -36,20 +36,10 @@ export interface RecoilConfig {
    * beats is about what the pair spends agreeing a column.
    */
   recoilRows: number;
-  /**
-   * What one bounce is worth. Above `scoreRindShed` and below `scoreDestroy`,
-   * and the ordering is the argument: a shed costs the pair a repeat of the
-   * same call, and a bounce costs them the colour and the lane as well. It is
-   * deliberately not nothing, for `scoreRindShed`'s reason — a mechanic that
-   * paid only at the end would teach the pair that the first three shots were
-   * a tax rather than the fight.
-   */
-  scoreRecoilBounce: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
 export const RECOIL_DEFAULTS: RecoilConfig = {
   recoilBounces: 3,
   recoilRows: 2,
-  scoreRecoilBounce: 60,
 };

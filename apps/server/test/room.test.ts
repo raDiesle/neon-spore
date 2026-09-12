@@ -560,7 +560,7 @@ describe("what the pair got to, and the run that nobody came back to", () => {
   test("is kept, and handed back on the next welcome", async () => {
     const one = await phone("AGAH", PROTOCOL_VERSION, mf, "Ada");
     await one.settle("welcome");
-    one.send({ t: "stats", wave: 8, score: 12_300 });
+    one.send({ t: "stats", wave: 8, seconds: 222, retries: 2 });
     // A tally is answered with nothing, so the fence is what says it is in:
     // the next arrival's welcome is built from whatever the room holds when
     // the join lands, and a join can land ahead of a message under load.
@@ -570,19 +570,19 @@ describe("what the pair got to, and the run that nobody came back to", () => {
     // it comes back, not anything the room did with it.
     const two = await phone("AGAH", PROTOCOL_VERSION, mf, "David");
     await two.settle("welcome");
-    expect(of(two.said, "welcome").at(-1)?.best).toEqual({ wave: 8, score: 12_300 });
+    expect(of(two.said, "welcome").at(-1)?.best).toEqual({ wave: 8, seconds: 222, retries: 2 });
     one.close();
     two.close();
   });
 
-  test("takes the better of the two seats' figures, field by field", async () => {
+  test("takes the further of the two seats' figures, whole", async () => {
     const one = await phone("AHAJ", PROTOCOL_VERSION, mf, "Ada");
     const two = await phone("AHAJ", PROTOCOL_VERSION, mf, "David");
     await two.settle("welcome");
-    // One seat saw the furthest wave, the other the higher score — a run where
-    // the hull broke on wave nine after a good wave eight.
-    one.send({ t: "stats", wave: 9, score: 100 });
-    two.send({ t: "stats", wave: 8, score: 12_300 });
+    // One seat saw the furthest wave; the other dropped early, with an
+    // earlier clock. The clock is read at the wave, so it travels with it.
+    one.send({ t: "stats", wave: 9, seconds: 300, retries: 1 });
+    two.send({ t: "stats", wave: 8, seconds: 200, retries: 0 });
     await one.caughtUp();
     await two.caughtUp();
     one.close();
@@ -590,7 +590,7 @@ describe("what the pair got to, and the run that nobody came back to", () => {
 
     const back = await phone("AHAJ", PROTOCOL_VERSION, mf, "Ada");
     await back.settle("welcome");
-    expect(of(back.said, "welcome").at(-1)?.best).toEqual({ wave: 9, score: 12_300 });
+    expect(of(back.said, "welcome").at(-1)?.best).toEqual({ wave: 9, seconds: 300, retries: 1 });
     back.close();
   });
 

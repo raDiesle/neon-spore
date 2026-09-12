@@ -148,7 +148,6 @@ describe("a shot into a cloud", () => {
     // The kill rides beside the reveal on the same tick — one score, one
     // burst, one sound for the body going, and the tear on top of it.
     expect(events.some((e) => e.type === "destroy")).toBe(true);
-    expect(after.score).toBeGreaterThanOrEqual(CFG.scoreVeilKill);
     expect(after.balance.colorHits).toBe(1);
   });
 

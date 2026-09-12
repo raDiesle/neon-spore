@@ -52,26 +52,10 @@ export interface StrandConfig {
    * stores integers, so half a tile is not a thing a body can move.
    */
   strandFallBeats: number;
-  /**
-   * What shrivelling one bead is worth. Half of `scoreDestroy`, on
-   * `scoreRindShed`'s terms and for its reason: a bead is one shot out of
-   * several against one arrival, and a mechanic that paid only when the thread
-   * parted would teach the pair that every bead but the last was a tax.
-   */
-  scoreStrandBead: number;
-  /**
-   * What the thread itself is worth when the last bead goes. `scoreDestroy`'s
-   * figure, so a whole strand pays as though the beads were bodies and the
-   * thread were one more — the pair has held an order across a voice delay for
-   * as many beats as it is long, and that is a kill in its own right.
-   */
-  scoreStrandBreak: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
 export const STRAND_DEFAULTS: StrandConfig = {
   strandBeads: 3,
   strandFallBeats: 2,
-  scoreStrandBead: 50,
-  scoreStrandBreak: 100,
 };

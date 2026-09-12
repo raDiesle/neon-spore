@@ -80,7 +80,6 @@ function rubBalloon(world: World, c: Creature): void {
   const left = balloonSplitsLeft(c);
   markMoment(world, true);
   if (left <= 0) {
-    world.score += world.cfg.scoreBalloonPop;
     world.events.push({ type: "balloonPop", col: c.col, row: c.row });
     // Beside it on the same tick, so the burst of particles a body going off
     // the field gets is the ordinary one and this file invents no picture of
@@ -100,7 +99,6 @@ function rubBalloon(world: World, c: Creature): void {
     removeCreature(world, c.id);
     return;
   }
-  world.score += world.cfg.scoreBalloonRub;
   world.events.push({ type: "balloonSplit", col: c.col, row: c.row });
   removeCreature(world, c.id);
   // Nothing above the top row and nothing on the ship's: a split must not put

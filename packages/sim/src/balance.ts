@@ -1,3 +1,4 @@
+import { playSeconds } from "./wave-fail.js";
 import type { World } from "./world.js";
 
 /**
@@ -81,7 +82,10 @@ export interface BalanceSheet {
   /** Longest run of joint moments with nothing missed. A shared memory. */
   bestStreak: number;
   wavesCleared: number;
-  score: number;
+  /** The run's clock, in whole seconds of play (`wave-fail.ts`). */
+  seconds: number;
+  /** How many times a wave was gone again. With the clock, what a run *is*. */
+  retries: number;
 }
 
 /** A tally as a whole percentage, or null when there was nothing to count. */
@@ -108,7 +112,8 @@ export function balanceSheet(world: World): BalanceSheet {
     podsFreed: b.podsFreed,
     bestStreak: b.bestStreak,
     wavesCleared: b.wavesCleared,
-    score: world.score,
+    seconds: playSeconds(world),
+    retries: world.retries,
   };
 }
 

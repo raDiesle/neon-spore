@@ -8,21 +8,22 @@ import type { World } from "./world.js";
  *
  * `beat.ts` is what happens on a beat and `startWave` is what happens at the
  * top of a wave; these three are neither. They wipe or rewind a whole run —
- * the hull, the score, the balance sheet, and in one case the clock itself —
+ * the scars, the run's figures, the balance sheet, and in one case the clock
+ * itself —
  * and they are called from outside the loop rather than from inside it.
  */
 
 /**
- * Wipe the run itself: scars, score, clock, retries and balance. Used by a
+ * Wipe the run itself: scars, clock, retries and balance. Used by a
  * restart from the balance sheet, and by jumping to a wave in the test build.
  */
 export function resetRun(world: World): void {
   world.scars = [];
-  world.score = 0;
   world.over = false;
   world.failTick = NOT_FAILED;
   world.retries = 0;
   world.playTicks = 0;
+  world.waveTries = 0;
   world.guard.tries = 0;
   world.guard.deflected = 0;
   world.guard.mistimed = 0;

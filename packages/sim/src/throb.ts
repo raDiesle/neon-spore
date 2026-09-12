@@ -118,7 +118,6 @@ export function throbStruck(world: World, b: Bullet, hit: Creature): void {
     return;
   }
   metColor(world);
-  world.score += world.cfg.scoreThrobHit;
   world.events.push({
     type: "destroy",
     col: hit.col,

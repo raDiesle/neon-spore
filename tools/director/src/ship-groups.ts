@@ -64,7 +64,6 @@ export type GroupName =
   | "THE GUM — a mass stuck to the ship, swiped off by the seat without the cannon"
   | "THE CHOKE — a body on the cannon, tapped off by the seat whose cannon it was"
   | "THE MALFUNCTION — a control that acts by itself"
-  | "SCORE"
   | "WARDEN"
   | "VANE"
   | "MIRROR"
@@ -115,7 +114,6 @@ export const GROUP_ORDER: GroupName[] = [
   "THE BALLOON — a body that goes up, opened by two hands at once",
   "THE GUM — a mass stuck to the ship, swiped off by the seat without the cannon",
   "THE CHOKE — a body on the cannon, tapped off by the seat whose cannon it was",
-  "SCORE",
   "WARDEN",
   "VANE",
   "MIRROR",

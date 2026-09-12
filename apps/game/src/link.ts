@@ -1,4 +1,4 @@
-import type { LinkState, LinkStatus, PlayerId, ServerMessage } from "@neon-spore/net";
+import type { LinkState, LinkStatus, PlayerId, RunMark, ServerMessage } from "@neon-spore/net";
 import { createRoomClock } from "./link-clock.js";
 import { reclaimingSeat, stateAfterRefusal, turnedAway, worthReaching } from "./link-refusal.js";
 import { report } from "./link-report.js";
@@ -45,7 +45,7 @@ export function createLink(o: LinkOptions): Link {
   /** What the two people are called, by seat, as the room last said. */
   let names: [string, string] = ["", ""];
   /** What this pair got to last time, as the room last said. */
-  let best: { wave: number; score: number } | null = null;
+  let best: RunMark | null = null;
 
   const run: Run = createRun({
     cfg: o.cfg,
@@ -216,8 +216,8 @@ export function createLink(o: LinkOptions): Link {
   const ready = (): void => socket?.send({ t: "ready" });
 
   /** How far this device has got, for the room to keep. Stored, never read. */
-  const tally = (wave: number, score: number): void => {
-    socket?.send({ t: "stats", wave, score });
+  const tally = (mark: RunMark): void => {
+    socket?.send({ t: "stats", ...mark });
   };
 
   return { join, leave, ready, tally, mayTick, drain: run.drain, checkpoint, frame, status };

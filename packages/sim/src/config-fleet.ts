@@ -40,12 +40,6 @@ export interface FleetConfig {
    * air was never a picture of anything.
    */
   fleetSalvoRestBeats: number;
-  /** Score for a salvo that finds a hull. */
-  scoreFleetHit: number;
-  /** Score for the salvo that takes the last square of a ship. */
-  scoreFleetSunk: number;
-  /** Score for the last ship of the fleet. */
-  scoreFleetDown: number;
 }
 
 /**
@@ -90,7 +84,4 @@ export const FLEET_DEFAULTS: FleetConfig = {
   // one decision (`FLEET_SHELL_BEATS`), and a pair of 2s here is how they come
   // apart the first time either is turned.
   fleetSalvoRestBeats: FLEET_SHELL_BEATS,
-  scoreFleetHit: 120,
-  scoreFleetSunk: 400,
-  scoreFleetDown: 1500,
 };

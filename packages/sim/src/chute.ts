@@ -130,7 +130,6 @@ export function chuteStruck(world: World, b: Bullet, hit: Creature): boolean {
   }
 
   metColor(world);
-  world.score += world.cfg.scoreDestroy;
   world.events.push({
     type: "chuteCut",
     col: hit.col,

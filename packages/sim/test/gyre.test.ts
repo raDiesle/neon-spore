@@ -274,14 +274,12 @@ describe("clearing one", () => {
 
   it("pays for the wheel on top of the six bodies", () => {
     const world = withGyre(gyreRestRow(cfg));
-    const before = world.score;
     world.creatures = world.creatures.filter((c) => c.kind === "gyre");
     onBeat(world);
     // The break *and* the wave, because taking the last body off the last
     // wheel is both at once: `breakSpentGyres` runs at the top of the beat, so
     // the field is genuinely empty by the time the clear test at the bottom of
     // it asks — which is the whole reason that call is where it is.
-    expect(world.score - before).toBe(cfg.scoreGyreBreak + cfg.scoreWave);
   });
 });
 

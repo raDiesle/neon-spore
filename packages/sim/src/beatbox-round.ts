@@ -153,7 +153,6 @@ export function settleSpentBeatboxes(world: World): void {
 export function settleBeatbox(world: World, c: Creature): void {
   if (beatboxCorrect(c)) {
     markMoment(world, true);
-    world.score += world.cfg.scoreBeatboxSilence;
     world.events.push({
       type: "beatboxSilent",
       id: c.id,

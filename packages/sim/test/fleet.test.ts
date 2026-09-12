@@ -160,11 +160,9 @@ describe("a salvo", () => {
   it("marks a hull, and spends the square rather than the ship", () => {
     const world = fleetWorld();
     const b = fleetRound(world)!;
-    const score = world.score;
     aimAt(world, 2, 1);
     salvo(world);
     expect(b.lastHit).toBe(true);
-    expect(world.score).toBe(score + world.cfg.scoreFleetHit);
     expect(fleetAfloat(b)).toBe(2);
     // The same square again is a press that meant nothing: it costs no rest
     // and it is not a second hit.
@@ -201,7 +199,6 @@ describe("a salvo", () => {
     }
     expect(world.boss).toBeNull();
     expect(world.retries).toBe(0);
-    expect(world.score).toBeGreaterThan(world.cfg.scoreFleetDown);
   });
 });
 

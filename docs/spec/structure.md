@@ -1,8 +1,9 @@
 # Game structure
 
 > **Status: partly built.** Waves arrive as closed sets with a rest between
-> them, a score exists, and the run ends on the balance sheet. Saving, the
-> leaderboards and the first-appearance previews are design only.
+> them, a run is its clock and its retries, and the run ends on the balance
+> sheet. Saving, the leaderboards and the first-appearance previews are
+> design only.
 >
 > **Since 12 September 2026 a hit fails the wave.** The owner's rule: every
 > hull damage fails the wave, and the wave is played again; a wave is passed
@@ -17,8 +18,11 @@
 > per-body damage numbers came out the same day (NOT BUILT YET → Mechanics in
 > [ideas](ideas.md)); a hit carries only a weight, for the ear. A pod not
 > taken in is a hit too, and a pod still hanging holds the wave open
-> ([systems](systems.md) 5.7). The point score still stands and is the next
-> lane's to remove, with the balance sheet led by time and retries.
+> ([systems](systems.md) 5.7). **There is no point score**: the figure, the
+> `score*` prices and the sheet's tally of it came out the same day (NOT BUILT
+> YET → Mechanics); the balance sheet leads with the clock and the retries,
+> the wave intro says `TRY n` on a retry, and the room's greeting and the
+> menu's line remember a run as *wave · time · retries*.
 
 - Waves come **all at once as a closed set**, then a short rest, then the next
 - Wave length 30–60 s; the rests shrink as the wave number rises
@@ -47,24 +51,30 @@ who places it.
   18 minutes. For two people coordinating by voice the limit is around 20–25
   minutes in one sitting — long enough to feel earned, short enough for an
   evening
-- **Only the wave reached is saved**, not the score — plus the previews already
+- **Only the wave reached is saved**, not the clock — plus the previews already
   seen (creatures and assist forms)
 - **The save belongs to the pair, not to the device.** A shared code, otherwise
   one of them has wave 40 and the other wave 20
 
-## 7.2 Score and balance sheet — partly built
+## 7.2 The run's figures and the balance sheet — partly built
 
-- One shared value, a bonus for waves survived, **no breakdown per player**
-  (otherwise it becomes an apportioning of blame)
+- A run is **the clock and the retries**, shared, **no breakdown per player**
+  (otherwise it becomes an apportioning of blame). The clock (`playTicks`)
+  runs only while a wave is live; the retries count every wave gone again.
+  There was a point score — one shared value with a bonus for waves survived —
+  and it came out on 12 September 2026, since once a hit costs the wave a
+  second currency counted nothing the clock did not (NOT BUILT YET →
+  Mechanics in [ideas](ideas.md))
 - **SYNC value** after the run: one shared percentage with sub-values (evasion
   sync, colour confidence, timing, reaction consistency). A sub-value from
   which it can be deduced who made the mistake is not one
 - **Shared memories** instead of only numbers: longest error-free sequence,
   first boss without damage, fastest joint reaction
 
-Built. The shared score (`scoreDestroy`, `scoreDeflect`, `scoreWave`), the ward
-balance in the HUD (`GuardStats`), and the sheet itself: the run ends on it
-rather than on a headline (`packages/render/src/balance.ts`).
+Built. The clock and the retries (`sim/wave-fail.ts`), the ward balance in
+the HUD (`GuardStats`), and the sheet itself: the run ends on it rather than
+on a headline (`packages/render/src/balance.ts`), the clock largest, then
+the retries and the waves, then SYNC.
 
 The SYNC value is the share of **joint moments** that went right, where a joint
 moment is an occasion neither player could have met alone — a rock at the hull,
@@ -83,8 +93,13 @@ the leaderboard. Not built.
 
 | List | Contents |
 |---|---|
-| **Run** | points from wave 1, without continuing |
+| **Run** | the clock from wave 1 to the last wave cleared, fewest retries first |
 | **Progress** | highest wave ever reached |
+
+What the room already keeps is the seed of both: one `RunMark` per room —
+wave, seconds, retries — taken whole, the further wave first, then fewer
+retries, then less time (`apps/server/src/tally.ts`), and said back as *Last
+time you two reached wave N · 3:42 · 2 retries* when the pair returns.
 
 ## 7.3 The randomness rule — built
 

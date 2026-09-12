@@ -1,4 +1,4 @@
-import { playSeconds, type World } from "@neon-spore/sim";
+import { clockText, playSeconds, retriesText, type World } from "@neon-spore/sim";
 import { drawBalanceSheet } from "./balance.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -31,11 +31,9 @@ export function runLineBox(l: Layout): { x: number; y: number; w: number; h: num
  * measured by since 12 September 2026, in place of the points (`wave-fail.ts`).
  */
 export function runLine(world: World): string {
-  const s = playSeconds(world);
-  const clock = `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
-  const r = world.retries;
-  if (r === 0) return clock;
-  return `${clock} · ${r} ${r === 1 ? "RETRY" : "RETRIES"}`;
+  const clock = clockText(playSeconds(world));
+  if (world.retries === 0) return clock;
+  return `${clock} · ${retriesText(world.retries)}`;
 }
 
 export function drawHud(ctx: CanvasRenderingContext2D, l: Layout, view: ViewState): void {

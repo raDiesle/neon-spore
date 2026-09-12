@@ -109,7 +109,6 @@ export function magnetStruck(world: World, b: Bullet, hit: Creature): void {
     return;
   }
   metColor(world);
-  world.score += world.cfg.scoreMagnetKill;
   world.events.push({
     type: "destroy",
     col: hit.col,

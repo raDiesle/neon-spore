@@ -102,7 +102,6 @@ export function breakClaspsInColumn(world: World): void {
     const color = c.color;
     c.kind = claspBecomes(c);
     markMoment(world, true);
-    world.score += world.cfg.scoreClaspBreak;
     world.events.push({
       type: "claspBreak",
       id: c.id,

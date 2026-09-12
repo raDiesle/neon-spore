@@ -197,7 +197,6 @@ function tileIndex(cfg: SimConfig, t: { col: number; row: number }): number {
  * is a rule about one creature, and that file is at its length limit.
  */
 export function wispStruck(world: World, b: Bullet, hit: Creature): void {
-  world.score += world.cfg.scoreWispKill;
   world.events.push({
     type: "destroy",
     col: hit.col,

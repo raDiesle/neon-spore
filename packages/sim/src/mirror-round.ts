@@ -44,7 +44,6 @@ export function right(world: World, m: MirrorState): void {
   m.hullMilli = Math.max(0, 100 * MILLI - Math.round((done * 100 * MILLI) / total));
   m.scars.push({ col, beat: world.beat, kind: "meteorFastest" });
   if (m.scars.length > world.cfg.maxScars) m.scars.shift();
-  world.score += world.cfg.scoreMirrorRound;
   world.events.push({ type: "mirrorVerdict", right: true, col, reason: "step" });
 }
 
@@ -56,7 +55,6 @@ export function right(world: World, m: MirrorState): void {
 export function settle(world: World, m: MirrorState): void {
   if (m.verdict === 1) {
     if (m.hullMilli <= 0) {
-      world.score += world.cfg.scoreMirrorDown;
       world.boss = null;
       // The bait goes with it. A pod hanging holds the wave open now
       // (`beat.ts`), and this one was never meant to be taken.

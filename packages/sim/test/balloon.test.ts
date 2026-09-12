@@ -293,7 +293,6 @@ describe("what a rub does", () => {
     const halves = byCol(world);
     expect(halves.map((c) => c.col)).toEqual([2, 4]);
     expect(halves.map((c) => balloonSinks(c))).toEqual([false, true]);
-    expect(world.score).toBe(CFG.scoreBalloonRub);
   });
 
   it("holds each half still for the swell before it moves", () => {
@@ -353,7 +352,6 @@ describe("what a rub does", () => {
     expect(world.creatures).toHaveLength(1);
     expect(balloonSplitsLeft(world.creatures[0] as Creature)).toBe(0);
     expect(world.retries).toBe(0);
-    expect(world.score).toBe(CFG.scoreBalloonRub + CFG.scoreBalloonPop);
   });
 });
 

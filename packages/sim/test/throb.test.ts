@@ -132,7 +132,6 @@ describe("the throb", () => {
     ]);
     expect(world.creatures).toHaveLength(0);
     expect(events.some((e) => e.type === "destroy")).toBe(true);
-    expect(world.score).toBeGreaterThanOrEqual(CFG.scoreThrobHit);
   });
 
   it("costs the hull exactly like any other missed creature if never hit", () => {

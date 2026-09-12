@@ -79,15 +79,6 @@ export interface CaromConfig {
    * they remember it is up there.
    */
   chuteFallBeats: number;
-  /**
-   * What cracking the crust open is worth. Above `scoreDestroy`, and it is the
-   * only kill in the game that is priced above an ordinary body: the shot that
-   * lands here is the harder half of a two-control answer, and it is the shot
-   * that *makes the other half possible*. The deflection that follows pays
-   * `scoreDeflect` on its own, so a carom taken properly is worth both — which
-   * is the arithmetic saying what the creature is.
-   */
-  scoreCaromCrack: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
@@ -96,5 +87,4 @@ export const CAROM_DEFAULTS: CaromConfig = {
   caromRows: 1,
   chuteRiseRows: 4,
   chuteFallBeats: 2,
-  scoreCaromCrack: 200,
 };

@@ -117,7 +117,6 @@ describe("the shot that takes one", () => {
     expect(events.some((e) => e.type === "destroy")).toBe(true);
     // The wave clears on the beat the field empties, so what the run is worth
     // is the kill plus that — and the kill is the half this is about.
-    expect(world.score).toBe(CFG.scoreGhostKill + CFG.scoreWave);
     expect(world.balance.colorHits).toBe(1);
   });
 

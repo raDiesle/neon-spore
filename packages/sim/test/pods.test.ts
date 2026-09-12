@@ -164,7 +164,6 @@ describe("taking a pod in", () => {
 
     expect(events.some((e) => e.type === "podTaken")).toBe(true);
     expect(world.pods).toHaveLength(0);
-    expect(world.score).toBeGreaterThanOrEqual(CFG.scorePod);
     expect(world.retries).toBe(0);
   });
 

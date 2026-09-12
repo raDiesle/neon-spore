@@ -160,7 +160,6 @@ describe("the bearing", () => {
     const world = beats(open(), 1);
     shoot(world, vaneWeakCol(CFG, world.waveBeat), vaneColor(vaneOpening(world.waveBeat)));
     expect(vane(world).pins).toBe(CFG.vanePins - 1);
-    expect(world.score).toBe(CFG.scoreVanePin);
   });
 
   it("refuses the wrong colour, and books it against the colour balance", () => {
@@ -230,7 +229,6 @@ describe("the bearing", () => {
     const world = beats(open(1), 1);
     shoot(world, vaneWeakCol(CFG, world.waveBeat), vaneColor(vaneOpening(world.waveBeat)));
     expect(world.boss).toBeNull();
-    expect(world.score).toBeGreaterThanOrEqual(CFG.scoreVanePin + CFG.scoreVaneDown);
   });
 });
 

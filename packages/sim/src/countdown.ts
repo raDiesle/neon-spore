@@ -83,7 +83,6 @@ export function countdownStruck(
   }
   if (colourIsArmoured(world, hit) || hit.color !== b.color) return "open";
   metColor(world);
-  world.score += world.cfg.scoreCountdownKill;
   world.events.push({
     type: "destroy",
     col: hit.col,

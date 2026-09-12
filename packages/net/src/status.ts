@@ -1,3 +1,5 @@
+import type { RunMark } from "./protocol.js";
+
 /**
  * What the network indicator may say. The list is closed on purpose.
  *
@@ -79,7 +81,7 @@ export interface LinkStatus {
    * What this pair got to last time, or null for a room never played in. The
    * room stores it and never reads it; the screen is what says it out loud.
    */
-  best: { wave: number; score: number } | null;
+  best: RunMark | null;
   /**
    * The lag this device is currently carrying between a touch and the tick it
    * lands on — `InputDelay` in milliseconds, 0 when playing alone. It is the

@@ -19,6 +19,7 @@ export {
   type PlayerId,
   PROTOCOL_VERSION,
   type RefusalCode,
+  type RunMark,
   type ServerMessage,
   VERSION_PARAM,
 } from "./protocol.js";

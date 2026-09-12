@@ -1,4 +1,4 @@
-import { type BalanceSheet, share } from "@neon-spore/sim";
+import { type BalanceSheet, clockText, share } from "@neon-spore/sim";
 
 /**
  * The balance sheet, as numbers.
@@ -51,7 +51,8 @@ export function sheetMemories(sheet: BalanceSheet): [string, string][] {
     ["longest clean run", `${sheet.bestStreak}`],
     ["pods shot loose", `${sheet.podsFreed}`],
     ["waves cleared", `${sheet.wavesCleared}`],
-    ["score", `${sheet.score}`],
+    ["time", clockText(sheet.seconds)],
+    ["retries", `${sheet.retries}`],
   ];
 }
 

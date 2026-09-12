@@ -222,7 +222,6 @@ function resolveIntake(world: World, pod: Pod): void {
   if (inColumn && inTime) {
     world.balance.podsTaken += 1;
     markMoment(world, true);
-    world.score += world.cfg.scorePod;
     switch (pod.kind) {
       case "purge":
         purge(world);

@@ -181,7 +181,6 @@ export function ghostStruck(world: World, b: Bullet, hit: Creature): boolean {
   }
 
   metColor(world);
-  world.score += world.cfg.scoreGhostKill;
   // Two events on one tick, and two pictures: the body letting go and climbing
   // out of the top of the field (`ghost-release.ts`), and the ordinary destroy
   // burst throwing its colour away from the tile it left. The kill is a kill —

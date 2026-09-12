@@ -99,10 +99,8 @@ export function vaneStruck(world: World, bullet: Bullet): void {
   metColor(world);
   b.spentOpening = opening;
   b.pins -= 1;
-  world.score += world.cfg.scoreVanePin;
   if (b.pins > 0) return;
 
-  world.score += world.cfg.scoreVaneDown;
   world.boss = null;
 }
 

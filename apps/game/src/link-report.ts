@@ -1,4 +1,4 @@
-import type { LinkState, LinkStatus, PlayerId } from "@neon-spore/net";
+import type { LinkState, LinkStatus, PlayerId, RunMark } from "@neon-spore/net";
 import type { RoomClock } from "./link-clock.js";
 import type { Run } from "./link-run.js";
 import type { RoomSocket } from "./link-socket.js";
@@ -29,7 +29,7 @@ export interface ReportParts {
   /** What the two people are called, by seat. "" for a seat with no name. */
   names: readonly [string, string];
   /** What this pair got to last time, or null. */
-  best: { wave: number; score: number } | null;
+  best: RunMark | null;
   clock: RoomClock;
   run: Run;
   /** Null before a room is joined, and after one is left. */

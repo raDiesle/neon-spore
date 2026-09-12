@@ -105,7 +105,6 @@ describe("the gesture", () => {
     expect(events.some((e) => e.type === "choirOpen")).toBe(false);
     // Nothing is paid until it opens: a run that ended halfway through a
     // closing has not opened anything.
-    expect(world.score).toBe(0);
   });
 
   it("becomes the body a beat later, in the lane it arrived in", () => {
@@ -120,7 +119,6 @@ describe("the gesture", () => {
     // whole time, so the column player 2 was given is the one that answers —
     // a merge that moved the lane would expire a number already said aloud.
     expect(body.col).toBe(2);
-    expect(world.score).toBe(CFG.scoreChoirMerge);
     // The gesture is spent: nothing is left armed to be finished twice.
     expect(choirArmed(world)).toBeNull();
   });

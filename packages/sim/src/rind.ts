@@ -102,7 +102,6 @@ export function rindStruck(world: World, b: Bullet, hit: Creature): boolean {
   const left = rindLayersLeft(hit) - 1;
   if (left >= 0) {
     hit.rindLayers = left;
-    world.score += world.cfg.scoreRindShed;
     world.events.push({
       type: "rindShed",
       col: hit.col,
@@ -118,7 +117,6 @@ export function rindStruck(world: World, b: Bullet, hit: Creature): boolean {
   // event, the same burst. Deliberately not a kill of its own — the last shot
   // at a rind is an ordinary shot at an ordinary body, and the pair has to be
   // able to feel that it is over.
-  world.score += world.cfg.scoreDestroy;
   world.events.push({
     type: "destroy",
     col: hit.col,

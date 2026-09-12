@@ -224,10 +224,10 @@ through, and then the whole ship lights from inside and goes out again. The
 flash is the receipt — player 1 knows the catch counted without reading a
 number. What the pod gives is what it was authored to carry, and every pod
 says: **PURGE** clears everything falling, **WARD** holds the shield armed
-for `wardBeats` without a trigger (`PodKind`, `pod-types.ts`), plus
-`scorePod`. There was a third, the plain pod that gave hull points back, and
-it went with the hull's points ([ideas](ideas.md), NOT BUILT YET →
-Mechanics). Slow motion and autopilot are still unbuilt and would be a third
+for `wardBeats` without a trigger (`PodKind`, `pod-types.ts`). There was a
+third, the plain pod that gave hull points back, and it went with the hull's
+points; the `scorePod` every pod paid on top went with the score ([ideas](ideas.md),
+NOT BUILT YET → Mechanics). Slow motion and autopilot are still unbuilt and would be a third
 kind of pod rather than a second way of collecting one.
 
 **Missing it is a hit.** A pod that arrives with the cannon elsewhere, or with

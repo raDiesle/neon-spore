@@ -142,7 +142,6 @@ describe("the swipe", () => {
   it("flings it off the ship toward the nearer wall, for the score", () => {
     const { world, events } = play([gum(2)], t + 4, [aim(t, 2), ...swipe(t + 1, AWAY * FAR, ID)]);
     expect(world.creatures).toHaveLength(0);
-    expect(world.score).toBe(CFG.scoreGumFlung);
     const flung = events.find((e) => e.type === "gumFlung");
     expect(flung).toMatchObject({ dir: AWAY, col: 2 });
   });
@@ -164,7 +163,6 @@ describe("the swipe", () => {
     // Pushed rightward, it grows to the right: the left edge stays.
     expect(c.col).toBe(2);
     expect(events.filter((e) => e.type === "gumSpread")).toHaveLength(1);
-    expect(world.score).toBe(0);
   });
 
   it("may be tried again after the hand lifts, and the cannon still under it flings it", () => {

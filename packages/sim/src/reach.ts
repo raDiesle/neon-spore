@@ -192,7 +192,6 @@ export function strikeReach(world: World): void {
   if (pod !== undefined) {
     world.reachHeld = pod.id;
     world.reachDir = -1;
-    world.score += world.cfg.scoreReachCatch;
     return;
   }
 

@@ -1,6 +1,6 @@
 import { decodeCommands, isTick, isUint32 } from "./command-codec.js";
 import { nameFromWire } from "./nickname.js";
-import type { ClientMessage, PlayerId, RefusalCode, ServerMessage } from "./protocol.js";
+import type { ClientMessage, PlayerId, RefusalCode, RunMark, ServerMessage } from "./protocol.js";
 
 /**
  * The distrusting half of the wire.
@@ -42,8 +42,8 @@ export function decodeClient(raw: string): ClientMessage | null {
     case "ready":
       return { t: "ready" };
     case "stats":
-      return isTick(m.wave) && isTick(m.score)
-        ? { t: "stats", wave: m.wave, score: m.score }
+      return isTick(m.wave) && isTick(m.seconds) && isTick(m.retries)
+        ? { t: "stats", wave: m.wave, seconds: m.seconds, retries: m.retries }
         : null;
     default:
       return null;
@@ -59,10 +59,12 @@ export function decodeClient(raw: string): ClientMessage | null {
 /** A pair's last result, or null. Anything that is not a pair of whole
  * numbers is null rather than a refusal: it is a line on a screen, and losing
  * a `welcome` over it would take the room with it. */
-function bestFromWire(value: unknown): { wave: number; score: number } | null {
-  const read = value as { wave?: unknown; score?: unknown } | null;
+function bestFromWire(value: unknown): RunMark | null {
+  const read = value as { wave?: unknown; seconds?: unknown; retries?: unknown } | null;
   if (!read || typeof read !== "object") return null;
-  return isTick(read.wave) && isTick(read.score) ? { wave: read.wave, score: read.score } : null;
+  return isTick(read.wave) && isTick(read.seconds) && isTick(read.retries)
+    ? { wave: read.wave, seconds: read.seconds, retries: read.retries }
+    : null;
 }
 
 function namesFromWire(value: unknown): [string, string] {

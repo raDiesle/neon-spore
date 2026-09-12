@@ -232,7 +232,6 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "up the field instead of off it and takes a plate of shell with it, and it " +
     "comes down the same lane again. Three wards, and the shell bursts in " +
     "mid-air over a body the cannon has to take. See volley.ts.",
-  SCORE: "What the run is worth, off the field's own events.",
   WARDEN: "The ring boss's own clocks, plates and worth.",
   VANE: "The arm boss's own pins and worth.",
   MIRROR: "The boss that throws a Simon sequence back, and its own worth.",

@@ -163,7 +163,6 @@ describe("the shield", () => {
     );
     expect(world.guard.tries).toBe(1);
     expect(world.guard.deflected).toBe(1);
-    expect(world.score).toBeGreaterThanOrEqual(CFG.scoreDeflect);
     expect(world.retries).toBe(0);
     expect(events.some((e) => e.type === "deflect")).toBe(true);
   });
@@ -176,7 +175,6 @@ describe("shots", () => {
     const { world, events } = run([slick(3, "red")], IMPACT_TICK, inputs);
     expect(world.creatures).toHaveLength(0);
     expect(events.some((e) => e.type === "destroy")).toBe(true);
-    expect(world.score).toBeGreaterThanOrEqual(CFG.scoreDestroy);
     expect(world.retries).toBe(0);
   });
 
@@ -228,7 +226,6 @@ describe("waves", () => {
     // Asked exactly once — the host has not answered, and it does not nag.
     expect(world.restBeat).toBe(-1);
     expect(world.retries).toBe(0);
-    expect(world.score).toBeGreaterThanOrEqual(CFG.scoreWave);
   });
 });
 

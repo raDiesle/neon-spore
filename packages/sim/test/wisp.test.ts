@@ -276,7 +276,6 @@ describe("the wisp", () => {
         if (world.creatures.length === 0) break;
       }
       expect(events.some((e) => e.type === "destroy")).toBe(true);
-      expect(world.score).toBeGreaterThanOrEqual(CFG.scoreWispKill);
     }
   });
 

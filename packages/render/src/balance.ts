@@ -1,4 +1,12 @@
-import { type BalanceSheet, balanceSheet, share, type Tally } from "@neon-spore/sim";
+import { WAVES } from "@neon-spore/content";
+import {
+  type BalanceSheet,
+  balanceSheet,
+  clockText,
+  retriesText,
+  share,
+  type Tally,
+} from "@neon-spore/sim";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { ViewState } from "./renderer.js";
@@ -9,9 +17,11 @@ import type { ViewState } from "./renderer.js";
  * It is the cheapest emotional payoff in the project and the numbers were
  * already in the world — every one of them was being counted while nobody was
  * being shown them. What it is *for* is making a pair start over, which is why
- * it opens with one shared percentage and not with a list of failures, and why
- * nothing on it can be read backwards to say who missed (docs/spec/structure.md
- * 7.2). The sim owns the arithmetic; this file owns nothing but the picture.
+ * it opens with what a run *is* since 12 September 2026 — the clock and the
+ * retries (`sim/wave-fail.ts`), the owner's measure in place of the points —
+ * then one shared percentage and not a list of failures, and why nothing on
+ * it can be read backwards to say who missed (docs/spec/structure.md 7.2).
+ * The sim owns the arithmetic; this file owns nothing but the picture.
  *
  * Both players see the same sheet on both devices. There is no per-role
  * variant and there must not be one — a screen that told player 1 something
@@ -37,14 +47,11 @@ export function drawBalanceSheet(ctx: CanvasRenderingContext2D, l: Layout, view:
   // narrow phone and on the director's wide stage alike.
   const colWidth = Math.min(l.width - 44, 300);
   const left = mid - colWidth / 2;
-  let y = Math.max(46, l.height * 0.5 - 190);
+  let y = Math.max(40, l.height * 0.5 - 220);
 
-  ctx.textAlign = "center";
-  ctx.fillStyle = PALETTE.red;
-  ctx.font = '600 15px "Courier New",monospace';
-  ctx.fillText("HULL BREACHED", mid, y);
+  y = drawHeadline(ctx, mid, y, sheet);
 
-  y += 46;
+  y += 44;
   y = drawSync(ctx, mid, y, sheet);
 
   y += 22;
@@ -61,9 +68,40 @@ export function drawBalanceSheet(ctx: CanvasRenderingContext2D, l: Layout, view:
   ctx.textAlign = "center";
   ctx.fillStyle = PALETTE.dim;
   ctx.font = '11px "Courier New",monospace';
-  ctx.fillText(`${sheet.score} points · wave ${view.world.wave + 1}`, mid, y);
-  ctx.fillText("tap to restart", mid, y + 22);
+  ctx.fillText("tap to restart", mid, y);
   ctx.textAlign = "left";
+}
+
+/**
+ * What the run was: how it ended, the clock, and the retries with the waves.
+ *
+ * A run ends when the last authored wave is cleared, so the line over the
+ * clock says so, as loudly as a wave's own clear does; the director can end
+ * one anywhere to look at this screen, and then it is only over. It used to
+ * read HULL BREACHED in red — the hull has nothing to breach any more.
+ */
+function drawHeadline(
+  ctx: CanvasRenderingContext2D,
+  mid: number,
+  y: number,
+  s: BalanceSheet,
+): number {
+  const cleared = s.wavesCleared >= WAVES.length;
+  ctx.textAlign = "center";
+  ctx.fillStyle = cleared ? PALETTE.cyan : PALETTE.dim;
+  ctx.font = '600 13px "Courier New",monospace';
+  ctx.fillText(cleared ? "EVERY WAVE CLEARED" : "RUN OVER", mid, y);
+
+  y += 44;
+  ctx.fillStyle = PALETTE.hullRim;
+  ctx.font = '600 44px "Courier New",monospace';
+  ctx.fillText(clockText(s.seconds), mid, y);
+
+  ctx.fillStyle = PALETTE.dim;
+  ctx.font = '10px "Courier New",monospace';
+  const waves = `${s.wavesCleared} ${s.wavesCleared === 1 ? "WAVE" : "WAVES"}`;
+  ctx.fillText(`${retriesText(s.retries)} · ${waves}`, mid, y + 18);
+  return y + 18;
 }
 
 /**
@@ -74,10 +112,10 @@ function drawSync(ctx: CanvasRenderingContext2D, mid: number, y: number, s: Bala
   ctx.textAlign = "center";
   ctx.fillStyle = PALETTE.dim;
   ctx.font = '10px "Courier New",monospace';
-  ctx.fillText("SYNC", mid, y - 34);
+  ctx.fillText("SYNC", mid, y - 26);
 
   ctx.fillStyle = syncColor(s.sync);
-  ctx.font = '600 44px "Courier New",monospace';
+  ctx.font = '600 30px "Courier New",monospace';
   ctx.fillText(s.sync === null ? "—" : `${s.sync}%`, mid, y);
 
   ctx.fillStyle = PALETTE.dim;
@@ -172,7 +210,6 @@ function memories(s: BalanceSheet): [string, string][] {
   return [
     ["longest clean run", `${s.bestStreak}`],
     ["pods shot loose", `${s.podsFreed}`],
-    ["waves cleared", `${s.wavesCleared}`],
   ];
 }
 

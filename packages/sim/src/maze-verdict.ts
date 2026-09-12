@@ -95,7 +95,6 @@ export function mazeRight(world: World, m: MazeState): void {
   m.hullMilli = Math.max(0, 100 * MILLI - Math.round((done * 100 * MILLI) / total));
   m.scars.push({ col, beat: world.beat, kind: "meteorFastest" });
   if (m.scars.length > world.cfg.maxScars) m.scars.shift();
-  world.score += world.cfg.scoreMazeRound;
   world.events.push({ type: "mazeVerdict", right: true, col, reason: "mouth" });
 }
 
@@ -148,7 +147,6 @@ export function mazeSettle(world: World, m: MazeState): void {
     return;
   }
   if (m.hullMilli <= 0) {
-    world.score += world.cfg.scoreMazeDown;
     world.boss = null;
     world.events.push({ type: "mazeDown", col: m.verdictCol });
     return;

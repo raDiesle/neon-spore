@@ -63,7 +63,7 @@ the code disagree, and the code is the truth for numbers.
 | `docs/spec/latency.md` | you change a speed, a distance or the beat |
 | `docs/spec/systems.md` | you touch control visibility, damage, shots or the grid |
 | `docs/spec/assists.md` | you work on helping a weaker partner |
-| `docs/spec/structure.md` | you touch waves, score, saving or randomness |
+| `docs/spec/structure.md` | you touch waves, the clock and retries, saving or randomness |
 | `docs/spec/briefings.md` | you teach the pair a mechanic or a creature |
 | `docs/spec/wave-design.md` | you author a wave or an act |
 | `docs/spec/graphics.md` | you draw anything |
@@ -111,7 +111,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/bullet-hit.ts` | what a shot does when it meets something, and whether it goes on |
 | `packages/sim/src/lance.ts` | THE LANCE: a lobe filled by one player, spent by the other |
 | `packages/sim/src/pods.ts` | pods: hanging, shot loose, falling, taken in |
-| `packages/sim/src/balance.ts` | the balance sheet: joint moments, SYNC, the streak |
+| `packages/sim/src/balance.ts` | the balance sheet: the clock, the retries, joint moments, SYNC, the streak |
 | `packages/sim/src/hash.ts` | world fingerprint — desync detection |
 | `packages/sim/src/replay.ts` | the test format: inputs in, fingerprint out |
 | `packages/sim/src/boss-state.ts` | everything the Bulb Queen encounter remembers between beats |
@@ -190,7 +190,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/boss-surface.ts` | Every name the boss code puts on `@neon-spore/sim`'s surface, written out |
 | `packages/sim/src/handle-pull.ts` | a hand is carrying a handle and you need to know how far it may go — the taut length, the field it may not leave, and how taut is measured |
 | `packages/sim/src/wave-end.ts` | How a wave ends, in one place, because two paths reach it |
-| `packages/sim/src/wave-fail.ts` | A hit fails the wave, and the wave is played again |
+| `packages/sim/src/wave-fail.ts` | A hit fails the wave, and the wave is played again; the clock and retries text |
 | `packages/sim/src/warden-rope.ts` | you are working on THE WARDEN's line — the hand on it, how taut it is, and when it is lowered or cut |
 | `packages/sim/src/snake-open.ts` | Opening a round and starting an attempt over — the two places a `SnakeState` is written from nothing |
 | `packages/sim/src/scene.ts` | you are changing what a guide's rehearsal is — a small world, built from a script and looped |
@@ -246,7 +246,6 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-gum.ts` | **Everything THE GUM does**, as events: it sticks, it refuses a shot, it is flung off, or it spreads |
 | `packages/sim/src/kind-code.ts` | **A kind as a number**, and the compile-time proof that every kind has one |
 | `packages/sim/src/lure-exit.ts` | **THE LURE leaving on its own**, which is the one thing in this game a body does at the end of a beat for no… |
-| `packages/sim/src/config-creature-scores.ts` | what one creature pays and what one costs, priced against each other |
 | `packages/sim/src/config-crystal.ts` | THE CRYSTAL's numbers: how it crosses the field, what splitting one is worth, what a whole one costs |
 | `packages/sim/src/creature-roster.ts` | **The fixed order every kind is written into the world fingerprint in.** Cut out of `creature-kinds.ts` when… |
 | `packages/sim/src/grippable.ts` | **Whether a hand may be put on a body at all**, and the fourteen refusals that answer it |
@@ -516,8 +515,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/effects.ts` | every transient the field keeps past its frame, and where each one is kept |
 | `packages/render/src/effects-frame.ts` | **What `Effects` does with a frame**, as opposed to what it owns |
 | `packages/render/src/sparks.ts` | the particles every impact spends, thrown out or drawn in |
-| `packages/render/src/balance.ts` | the screen after the run, drawn |
-| `packages/render/src/hud.ts` | the run line (time and retries), score, beat, the guard balance, overlays |
+| `packages/render/src/balance.ts` | the screen after the run, drawn: the clock largest, then retries, waves and SYNC |
+| `packages/render/src/hud.ts` | the run line (time and retries), beat, the guard balance, overlays |
 | `packages/render/src/band.ts` | the two control strips, trigger and colours |
 | `packages/render/src/canvas2d.ts` | the renderer, orchestrating the above |
 | `packages/render/src/canvas2d-takeover.ts` | **The two frames that are not the field**, and the clocks that run whether or not one of them is up |
@@ -625,7 +624,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/eye.ts` | you are drawing an eye — the wet film round it and the lashes and cilia off it, shared by THE LID and THE WARDEN; the lens itself is `eye-lens.ts` |
 | `packages/render/src/warden-fx.ts` | The one thing about THE WARDEN that outlives a frame |
 | `packages/render/src/warden.ts` | THE WARDEN, drawn: a ring with a hole you can see the field through |
-| `packages/render/src/wave-intro.ts` | The first of the two states a wave opens in: its number, its name and its sentence, as |
+| `packages/render/src/wave-intro.ts` | The first of the two states a wave opens in: its number, `TRY n` on a retry, its name and its sentence |
 | `packages/render/src/wrap-text.ts` | Greedy wrap against the measured width |
 | `packages/render/src/gradient-slot.ts` | A cache slot for one gradient that depends only on layout — never on time or an eased value |
 | `packages/render/src/never.ts` | The one way this repository closes a `switch` — a `default` that only type-checks once `x` has narrowed to |
@@ -1096,7 +1095,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/input-bindings.ts` | what the pointer rig is handed, and why each of it is read fresh |
 | `apps/game/src/input-buffer.ts` | the queue every listener in the app writes into, drained a tick at a time |
 | `apps/game/src/ship-hand.ts` | what this device's own hand is doing on the ship, between the event and the frame |
-| `apps/game/src/tally.ts` | how far this device has got, up to the room every few seconds |
+| `apps/game/src/tally.ts` | the run mark — wave, clock, retries — up to the room every few seconds |
 | `apps/game/src/menu-link.ts` | what a link changes on the front page: eight entries, the progress line, the seat lock |
 | `apps/game/src/menu-seats.ts` | the seat, as three cards with the job written on each, and the lock a room puts on them |
 | `apps/game/src/keys-guide.ts` | What a key means while a wave's guide is up, at a desk |
@@ -1126,7 +1125,7 @@ place — the generator keeps whatever is there.
 | `apps/server/src/names.ts` | The name registry: one Durable Object holding every claimed name |
 | `apps/server/src/room-open.ts` | Everything that must be true before a socket is worth accepting, in the order it is worth being false in |
 | `apps/server/src/room-tally.ts` | The tally's storage half, and giving up on a run nobody is playing |
-| `apps/server/src/tally.ts` | What a pair got to, kept by the room they share |
+| `apps/server/src/tally.ts` | What a pair got to, kept by the room they share: the further wave, then fewer retries, then less time |
 
 ### tools
 

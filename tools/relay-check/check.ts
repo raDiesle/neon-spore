@@ -158,7 +158,7 @@ await new Promise<void>((done) => {
     }
     if (split && !hasSplit && elapsed >= half) {
       hasSplit = true;
-      b.world.score += 1;
+      b.world.playTicks += 1;
     }
     if (c && !hasCrowded && elapsed >= half) {
       hasCrowded = true;

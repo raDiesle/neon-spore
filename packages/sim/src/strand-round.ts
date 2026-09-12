@@ -131,7 +131,6 @@ export function beadStruck(world: World, b: Bullet, hit: Creature): boolean {
   metColor(world);
   hit.strandSpent = true;
   lightStrandEnd(world, strandId);
-  world.score += world.cfg.scoreStrandBead;
   world.events.push({
     type: "strandBead",
     id: hit.id,
@@ -168,7 +167,6 @@ export function breakSpentStrands(world: World): void {
     if (strandLeft(world, id) > 0) continue;
     const beads = world.creatures.filter((c) => beadStrand(c) === id).sort((a, b) => a.col - b.col);
     for (const bead of beads) gone.push(bead.id);
-    world.score += world.cfg.scoreStrandBreak;
     // The middle of what was hanging there rather than the tile of the last
     // shot: what goes is the whole arrival — and every raisin on it, for the
     // picture of it going (`events-strand.ts`).

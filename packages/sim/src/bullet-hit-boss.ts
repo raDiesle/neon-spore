@@ -56,14 +56,12 @@ export function resolveQueen(world: World, b: Bullet, hit: Creature): void {
 
   metColor(world);
   hit.petals -= 1;
-  world.score += world.cfg.scoreQueenPetal;
   hit.color = null;
   if (world.boss?.kind === "queen") world.boss.closeBeat = world.beat;
   world.events.push({ type: "petal", col: b.col, row: hit.row, left: hit.petals });
 
   if (hit.petals <= 0) {
     removeCreature(world, hit.id);
-    world.score += world.cfg.scoreQueenDown;
     world.boss = null;
     world.events.push({ type: "queenDown", col: b.col, row: hit.row });
   }
@@ -104,12 +102,10 @@ export function resolveWarden(world: World, b: Bullet, hit: Creature): void {
   metColor(world);
   boss.eyeSpent = true;
   boss.plates -= 1;
-  world.score += world.cfg.scoreWardenPlate;
   world.events.push({ type: "plate", col: b.col, row: hit.row, left: boss.plates, color: rim });
 
   if (boss.plates <= 0) {
     removeCreatures(world, [hit.id, boss.tetherId]);
-    world.score += world.cfg.scoreWardenDown;
     world.boss = null;
     world.events.push({ type: "wardenDown", col: b.col, row: hit.row });
   }

@@ -287,7 +287,6 @@ export function populatedWorld(bossKind: BossEntry["kind"]): World {
   world.retries = 2;
   world.playTicks = 3_100;
   world.over = true;
-  world.score = 450;
   world.rng.state = 123_456;
 
   patchBoss(world);

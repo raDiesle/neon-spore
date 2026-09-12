@@ -37,7 +37,6 @@ export function purge(world: World): void {
       color: c.color as Color,
       kind: wornKind(c),
     });
-    world.score += world.cfg.scoreDestroy;
   }
   world.creatures = [];
 }

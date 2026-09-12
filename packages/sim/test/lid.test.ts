@@ -285,7 +285,6 @@ describe("what a shot does", () => {
     const { world, events } = run([lid(COL, "red")], TPB * 4, inputs);
     expect(world.creatures).toHaveLength(0);
     expect(events.filter((e) => e.type === "destroy")).toHaveLength(1);
-    expect(world.score).toBeGreaterThanOrEqual(CFG.scoreLidKill);
   });
 
   it("counts a wrong colour into a bare lens as an ordinary colour miss", () => {

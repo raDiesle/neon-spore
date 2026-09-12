@@ -25,17 +25,10 @@ export interface ChokeConfig {
    * and fast enough that nothing stays under the muzzle for long.
    */
   chokeSweepBeats: number;
-  /**
-   * What getting it off is worth. `scoreGumFlung`'s figure: like a gum it is
-   * a body answered without a shot, and it took two seats to survive — one
-   * tapping, the other firing from a cannon neither of them was steering.
-   */
-  scoreChokeFreed: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
 export const CHOKE_DEFAULTS: ChokeConfig = {
   chokeTaps: 32,
   chokeSweepBeats: 1,
-  scoreChokeFreed: 150,
 };

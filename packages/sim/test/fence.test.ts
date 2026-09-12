@@ -150,7 +150,6 @@ describe("a fence reaching the ship", () => {
     expect(world.retries).toBe(0);
     expect(events.some((e) => e.type === "fencePass")).toBe(true);
     expect(world.guard.deflected).toBe(1);
-    expect(world.score).toBeGreaterThanOrEqual(CFG.scoreDeflect);
   });
 
   it("breaks the hull when the dome is not, however hard the trigger is pressed", () => {

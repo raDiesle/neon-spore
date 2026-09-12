@@ -1,3 +1,4 @@
+import type { RunMark } from "@neon-spore/net";
 import type { Canvas2DRenderer } from "@neon-spore/render";
 import { type SimEvent, step, ticksPerBeat, type World } from "@neon-spore/sim";
 import type { GameAudio } from "./audio.js";
@@ -7,7 +8,7 @@ import type { Intro } from "./intro.js";
 import { startLoop } from "./loop.js";
 import { createMenuIdle } from "./menu-idle.js";
 import type { RunState } from "./run-state.js";
-import { throttledTally } from "./tally.js";
+import { runMark, throttledTally } from "./tally.js";
 
 /**
  * WHAT HAPPENS EVERY TICK, AND WHAT HAPPENS EVERY FRAME.
@@ -65,7 +66,7 @@ export interface FrameParts {
     drain: () => Parameters<typeof step>[1];
     checkpoint: () => void;
     frame: (ms: number) => void;
-    tally: (wave: number, score: number) => void;
+    tally: (mark: RunMark) => void;
     status: () => {
       names: Parameters<Canvas2DRenderer["draw"]>[0]["names"];
       /** This device's input delay in ticks — the lead THE PULSE's chart is
@@ -86,7 +87,7 @@ export interface Frames {
 
 export function startFrames(p: FrameParts): Frames {
   /** How far this device has got, up to the room now and then (`tally.ts`). */
-  const tellTally = throttledTally((wave, score) => p.link.tally(wave, score));
+  const tellTally = throttledTally((mark) => p.link.tally(mark));
 
   // Events are cleared every tick and a frame covers several ticks, so they are
   // collected here rather than read off the world.
@@ -158,7 +159,7 @@ export function startFrames(p: FrameParts): Frames {
       lastFrame = now;
       frameAlpha = alpha;
       p.link.frame(dt * 1000);
-      tellTally(p.world.wave, p.world.score);
+      tellTally(runMark(p.world));
       // The wave's name and sentence stand for a few seconds and pass on their
       // own — counted here, because nothing in `sim` may read a clock.
       p.progression.tickOpening(dt);

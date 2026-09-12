@@ -64,3 +64,16 @@ export function countPlay(world: World): void {
 export function playSeconds(world: World): number {
   return Math.floor(world.playTicks / world.cfg.tickHz);
 }
+
+/** Seconds as the clock reads them, `3:42`. One format for the HUD's corner,
+ * the balance sheet, the menu's line and the room's greeting. */
+export function clockText(seconds: number): string {
+  const s = Math.max(0, Math.floor(seconds));
+  return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+}
+
+/** A count of retries as a phrase: `NO RETRIES`, `1 RETRY`, `2 RETRIES`. */
+export function retriesText(retries: number): string {
+  if (retries === 0) return "NO RETRIES";
+  return `${retries} ${retries === 1 ? "RETRY" : "RETRIES"}`;
+}

@@ -51,14 +51,6 @@ export interface VolleyConfig {
    * the one moment this creature exists for.
    */
   volleyRiseBeats: number;
-  /**
-   * What one ward is worth, on top of `scoreDeflect` — which a return pays as
-   * well, because it *is* a deflection and the pair has to feel that their
-   * half worked. Above an ordinary rock's figure for `scoreCaromCrack`'s
-   * reason: this is the harder half of a two-control answer, and it is the
-   * half that makes the other one possible.
-   */
-  scoreVolleyReturn: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
@@ -66,5 +58,4 @@ export const VOLLEY_DEFAULTS: VolleyConfig = {
   volleyPlates: 3,
   volleyRiseRows: 3,
   volleyRiseBeats: 2,
-  scoreVolleyReturn: 120,
 };

@@ -13,12 +13,11 @@ import type { World } from "./world.js";
  * The wave is over. Credit it and start the rest before the next one.
  *
  * Asked on every beat once the field is clear, so it guards on `restBeat`:
- * only the first beat of a finished wave scores it.
+ * only the first beat of a finished wave credits it.
  */
 export function noteWaveCleared(world: World): void {
   if (world.restBeat !== 0) return;
   world.balance.wavesCleared += 1;
-  world.score += world.cfg.scoreWave;
   world.restBeat = world.beat + world.cfg.waveRestBeats;
 }
 

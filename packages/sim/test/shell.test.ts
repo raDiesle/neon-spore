@@ -152,7 +152,6 @@ describe("while the shell is on, the colour is not the question", () => {
     for (const color of ["red", "cyan"] as const) {
       const { world, events } = run([shell(COL)], TPB * 4, shot(TPB * 2, COL, color));
       expect(shellPiecesLeft(world.creatures[0]!)).toBe(SHELL_COLS - 1);
-      expect(world.score).toBeGreaterThanOrEqual(CFG.scoreShellPiece);
       const broke = events.find((e) => e.type === "shellBreak");
       expect(broke).toBeDefined();
       // Never a colour moment: nothing about the ammunition could have been

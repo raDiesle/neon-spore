@@ -61,14 +61,6 @@ export interface CoilConfig {
    * is drawn on, has time to do.
    */
   coilJumpBeats: number;
-  /**
-   * Opening one dome with the ward. `scoreClaspBreak`'s figure exactly, and
-   * that is the point rather than a coincidence: it is the same joint moment
-   * on the same two controls — player 2's column, player 1's trigger — and it
-   * sets up a kill rather than being one. A dome the *chain* opened pays the
-   * same, because the pair earned it with the ward that started the chain.
-   */
-  scoreCoilBreak: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
@@ -76,5 +68,4 @@ export const COIL_DEFAULTS: CoilConfig = {
   coilCols: 1,
   coilDropRows: 5,
   coilJumpBeats: 3,
-  scoreCoilBreak: 120,
 };

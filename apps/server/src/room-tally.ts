@@ -19,7 +19,8 @@ export async function readBest(storage: DurableObjectStorage): Promise<Tally> {
  * Take a tally in, keeping the better of the two seats' figures.
  *
  * Answers what the room should now hold. Writes only when something moved: a
- * client sends these periodically, and most of them say what the last one did.
+ * client sends these periodically, and most of them say what the last one did
+ * — `bestOf` hands `held` itself back then, which is the tell.
  */
 export async function keepBest(
   storage: DurableObjectStorage,
@@ -27,7 +28,7 @@ export async function keepBest(
   arriving: Tally,
 ): Promise<Tally> {
   const next = bestOf(held, arriving);
-  if (next.wave === held.wave && next.score === held.score) return held;
+  if (next === held) return held;
   await storage.put("best", next);
   return next;
 }

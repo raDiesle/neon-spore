@@ -24,14 +24,6 @@
  */
 export interface GhostConfig {
   /**
-   * What a ghost is worth. The veil's figure exactly, and that is the point
-   * rather than a coincidence: both are a body the pair can only reach by
-   * saying one thing out loud in time, and a pair that learned one of them
-   * priced above the other would be learning that one sentence is worth more
-   * than the other. The sentence is the same size — a colour and a number.
-   */
-  scoreGhostKill: number;
-  /**
    * The row a crossing ghost prowls along. Three: far enough down that it is
    * drawn at a size player 2 can actually read a column off, far enough up
    * that the dive at the end of its temper is a fall the pair watches rather
@@ -66,7 +58,6 @@ export interface GhostConfig {
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
 export const GHOST_DEFAULTS: GhostConfig = {
-  scoreGhostKill: 250,
   ghostCrossRow: 3,
   ghostCrossCols: 2,
   ghostChargeLaps: 3,

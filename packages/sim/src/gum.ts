@@ -111,7 +111,6 @@ export function gumHeard(world: World, player: 1 | 2, command: Command): void {
   const span = spanOf(held);
   if (dir === gumFlingDir(world.cfg.cols, held)) {
     world.creatures = world.creatures.filter((c) => c !== held);
-    world.score += world.cfg.scoreGumFlung;
     world.events.push({ type: "gumFlung", col: held.col, row: held.row, span, dir });
     return;
   }

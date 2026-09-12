@@ -1,11 +1,13 @@
+import { runMarkText } from "./tally.js";
+
 /**
  * How far this device has got, kept on this device.
  *
  * The front door knew only PLAY versus RESUME, so a player who put the phone
  * down at wave seven came back to a menu that offered them wave one and a
  * thirty-eight-line list to find their place in. What is remembered is the
- * smallest thing that answers that: the furthest wave reached, and the score
- * the last run left behind.
+ * smallest thing that answers that: the furthest wave reached, and the clock
+ * and retries the last run left behind (`sim/wave-fail.ts`).
  *
  * **Solo, per device, and never shared.** This is a convenience, not state two
  * people agree about — it never touches the room or the wire, because a record
@@ -22,16 +24,18 @@ export const PROGRESS_KEY = "neon-spore.progress";
 export interface Progress {
   /** The furthest wave reached, counted from 0 as `world.wave` is. */
   furthest: number;
-  /** The score the last run was on when it was last seen. */
-  lastScore: number;
+  /** The last run's clock, in whole seconds of play, when it was last seen. */
+  lastSeconds: number;
+  /** The last run's retries when it was last seen. */
+  lastRetries: number;
 }
 
 /** A device that has never played. Every field zero, and no line to draw. */
-export const NOTHING_YET: Progress = { furthest: 0, lastScore: 0 };
+export const NOTHING_YET: Progress = { furthest: 0, lastSeconds: 0, lastRetries: 0 };
 
 /** Whether there is anything worth showing a returning player. */
 export function hasProgress(p: Progress): boolean {
-  return p.furthest > 0 || p.lastScore > 0;
+  return p.furthest > 0 || p.lastSeconds > 0 || p.lastRetries > 0;
 }
 
 /**
@@ -44,10 +48,14 @@ export function reached(p: Progress, wave: number): Progress {
   return { ...p, furthest: Math.floor(wave) };
 }
 
-/** The record after a run is seen on a score. The last one wins, high or low. */
-export function scored(p: Progress, score: number): Progress {
-  if (!Number.isFinite(score) || score < 0 || Math.floor(score) === p.lastScore) return p;
-  return { ...p, lastScore: Math.floor(score) };
+/** The record after a run is seen on its clock. The last one wins, quick or slow. */
+export function timed(p: Progress, seconds: number, retries: number): Progress {
+  if (!Number.isFinite(seconds) || seconds < 0 || !Number.isFinite(retries) || retries < 0)
+    return p;
+  const s = Math.floor(seconds);
+  const r = Math.floor(retries);
+  if (s === p.lastSeconds && r === p.lastRetries) return p;
+  return { ...p, lastSeconds: s, lastRetries: r };
 }
 
 /**
@@ -66,7 +74,8 @@ export function parseProgress(raw: string | null): Progress {
     if (read === null || typeof read !== "object") return NOTHING_YET;
     return {
       furthest: whole(read.furthest),
-      lastScore: whole(read.lastScore),
+      lastSeconds: whole(read.lastSeconds),
+      lastRetries: whole(read.lastRetries),
     };
   } catch {
     return NOTHING_YET;
@@ -80,7 +89,11 @@ function whole(value: unknown): number {
 /** The line the menu draws under the title, or nothing when there is none. */
 export function progressLine(p: Progress): string {
   if (!hasProgress(p)) return "";
-  return `Furthest: wave ${p.furthest + 1} · Last score ${p.lastScore}`;
+  const last =
+    p.lastSeconds === 0 && p.lastRetries === 0
+      ? ""
+      : ` · Last run ${runMarkText({ seconds: p.lastSeconds, retries: p.lastRetries })}`;
+  return `Furthest: wave ${p.furthest + 1}${last}`;
 }
 
 /**

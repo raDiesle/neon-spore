@@ -189,7 +189,6 @@ export function recoilStruck(world: World, b: Bullet, hit: Creature): boolean {
     // red or cyan and `resolve` has already matched the bullet against it, so
     // there is no colourless branch to reach here.
     hit.color = otherColor(b.color);
-    world.score += world.cfg.scoreRecoilBounce;
     world.events.push({
       type: "recoilBounce",
       id: hit.id,
@@ -207,7 +206,6 @@ export function recoilStruck(world: World, b: Bullet, hit: Creature): boolean {
   // same event, the same burst. Deliberately not a kill of its own — the last
   // shot at a recoil is an ordinary shot at an ordinary body, and the pair has
   // to be able to feel that it is finally over.
-  world.score += world.cfg.scoreDestroy;
   world.events.push({
     type: "destroy",
     col: hit.col,

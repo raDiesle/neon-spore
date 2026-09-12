@@ -1,3 +1,6 @@
+import type { RunMark } from "@neon-spore/net";
+import { clockText, playSeconds, retriesText, type World } from "@neon-spore/sim";
+
 /**
  * How far this device has got, up to the room now and then.
  *
@@ -13,14 +16,22 @@
  */
 const EVERY_MS = 5000;
 
-export function throttledTally(
-  send: (wave: number, score: number) => void,
-): (wave: number, score: number) => void {
+export function throttledTally(send: (mark: RunMark) => void): (mark: RunMark) => void {
   let toldAt = 0;
-  return (wave, score) => {
+  return (mark) => {
     const now = performance.now();
     if (now - toldAt < EVERY_MS) return;
     toldAt = now;
-    send(wave, score);
+    send(mark);
   };
+}
+
+/** Where a run stands: the wave, the clock and the retries (`sim/wave-fail.ts`). */
+export function runMark(world: World): RunMark {
+  return { wave: world.wave, seconds: playSeconds(world), retries: world.retries };
+}
+
+/** A mark's clock and retries as a phrase: `3:42 · 2 retries`. */
+export function runMarkText(mark: { seconds: number; retries: number }): string {
+  return `${clockText(mark.seconds)} · ${retriesText(mark.retries).toLowerCase()}`;
 }

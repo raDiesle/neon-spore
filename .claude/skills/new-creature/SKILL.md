@@ -132,7 +132,7 @@ simulation and not to that table is a type error there.
 
 Add a replay in `packages/sim/test/` that spawns the creature and plays the
 inputs that beat it. Assert what the creature *does* — it died on the beat it
-should have, the score moved the way it should, the hull took what it should —
+should have, the wave was lost or held the way it should —
 and then that the run fingerprints the same twice.
 
 **Do not pin the fingerprint as a constant.** Nothing in this repository does,

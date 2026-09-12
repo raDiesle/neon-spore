@@ -287,7 +287,6 @@ describe("the fingerprint covers the world", () => {
         "retries",
         "rng",
         "scars",
-        "score",
         "shieldCol",
         "shieldSinceTick",
         "spawned",
@@ -295,6 +294,7 @@ describe("the fingerprint covers the world", () => {
         "wardUntilTick",
         "wave",
         "waveBeat",
+        "waveTries",
       ].sort(),
     );
   });

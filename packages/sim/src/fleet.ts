@@ -194,17 +194,14 @@ function salvo(world: World, b: FleetState): void {
   }
 
   b.lastHit = true;
-  world.score += cfg.scoreFleetHit;
   world.events.push({ type: "fleetHit", col, row });
   if (!shipSunk(cfg, b.ships[at]!, b.struck)) return;
 
   b.sunkBeat[at] = world.beat;
-  world.score += cfg.scoreFleetSunk;
   const left = fleetAfloat(b);
   world.events.push({ type: "fleetSunk", col, row, len: b.ships[at]!.len, left });
   if (left > 0) return;
 
-  world.score += cfg.scoreFleetDown;
   world.events.push({ type: "fleetDown", col, row });
   world.boss = null;
 }

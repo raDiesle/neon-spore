@@ -157,7 +157,6 @@ export function veilStruck(world: World, b: Bullet, hit: Creature): boolean {
   }
 
   metColor(world);
-  world.score += world.cfg.scoreVeilKill;
   // The cloud coming apart *and* the body inside it going, on one tick. The
   // two are separate events because they are two pictures: render/ tears the
   // cloud open and shows what was in it (`veil-tear.ts`) while the ordinary

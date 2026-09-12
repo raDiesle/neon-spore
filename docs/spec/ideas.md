@@ -92,7 +92,7 @@ filed rightly, and there is no second list to change.
   costs the hull if the beat runs out at row 14, and it should, or the last beat
   of a wave is free; how the pending state is drawn, since the draft has no
   marker for it and a hit that visibly does nothing reads as a miss; whether the
-  wasted second shot costs score or only time
+  wasted second shot costs anything beyond the time it took
 - **Moulting** — it changes which control answers it, halfway down. It falls
   armoured and faceted and shots only crater it, exactly as the meteor already
   does (`holes`, [systems](systems.md) 5.6); on a fixed beat the shell comes off
@@ -384,6 +384,28 @@ Each names the slot it would fit.
 
 ### Mechanics
 
+- **The point score** — one shared figure (`World.score`, in `hashWorld`),
+  paid at fifty-one places in the simulation from `score*` fields: the
+  ordinary body's `scoreDestroy` 100 and `scoreDeflect` 150, `scoreWave` 300
+  for a wave cleared, `scorePod` 250 for a pod taken in, and a price per
+  creature part — a throb hit, a shell piece, an opened clasp, a veil, a
+  wisp, an echo body, a rind layer, a lid, a coil break — argued against each
+  other in `config-creature-scores.ts`. The HUD's corner showed it, the
+  balance sheet closed on it, the room kept the higher of the two seats'
+  figures field by field beside the furthest wave, the menu said *Last score
+  12300*, and the director's ship editor had a SCORE group. Taken out on 12
+  September 2026, the day after the hull's points, by the same rule: once a
+  hit costs the wave and a run is *the time played and the retries*, a
+  second currency counted nothing the clock did not, and a number that only
+  went up told the pair less than one that could be beaten. What stands
+  where it stood: the clock and the retries lead the sheet and the corner,
+  the intro says `TRY n` on a retry, the room and the menu remember *wave ·
+  time · retries* (`RunMark`, `PROTOCOL_VERSION` 2). To restore: the fields
+  and their defaults from `config.ts` and `config-creature-scores.ts` at
+  `60978e54`, `score` back on `World` and in `hashWorld`, the `world.score +=`
+  lines the same commit's diff removed, and a `score` on `BalanceSheet`,
+  `RunMark` and `Progress`. It belongs, if anywhere, with a mode where a hit
+  does *not* fail the wave, beside the hull points below
 - **Hull points, the bar, regeneration and the mend pod** — the ship had a
   hull figure (`World.hullMilli`, 0–100 in thousandths), every body that
   reached it took a number off (`damageCreature` 12, `damageMeteor` 20 and a
@@ -509,8 +531,8 @@ Each names the slot it would fit.
   score — the field's own read on things going wrong deepening visibly as they
   do, the way a windscreen spreads a new crack with every impact rather than
   reporting one more hit as a number. The hull already has exactly this
-  machinery, `Scar` and `hullMilli`, drawn as the ship's own damage
-  ([systems](systems.md) 5.7). Unworked out, and this is most of it: whether
+  machinery, `Scar`, drawn as the ship's own damage ([systems](systems.md)
+  5.7). Unworked out, and this is most of it: whether
   "cockpit" means anything once the field is drawn from outside the ship
   rather than from within one, or whether the idea is really about the hull's
   own picture and the name is the free-flight assumption that has to go;
@@ -579,7 +601,7 @@ Each names the slot it would fit.
   sentence you say. If it gives away too much it belongs in
   [assists](assists.md) with a price on it, like sharing sight
 - **Handover** — the two control sets trade owners in the middle of a wave.
-  Roles are picked before a run and kept, with separate high scores per split as
+  Roles are picked before a run and kept, with a separate best run per split as
   the incentive to swap ([roles](roles.md)); this makes the swap something that
   happens *inside* a wave, announced by the ship rather than agreed beforehand.
   Everything each player has learned about their own half becomes something they

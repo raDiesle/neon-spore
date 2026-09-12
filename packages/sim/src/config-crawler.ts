@@ -44,21 +44,10 @@ export interface CrawlerConfig {
    * four if they are talking it through.
    */
   crawlerStepBeats: number;
-  /**
-   * What the beam is worth: the whole worm, paid once, when the last segment
-   * comes off and the two ends go up.
-   *
-   * `scoreWave`'s figure rather than `scoreDestroy`'s, because that is the
-   * size of the thing: every segment has already paid its own kill or its own
-   * deflection through the ordinary paths, and this is the bonus for having
-   * held one order across both controls for the length of a wave.
-   */
-  scoreCrawlerBeam: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
 export const CRAWLER_DEFAULTS: CrawlerConfig = {
   crawlerSegments: 5,
   crawlerStepBeats: 2,
-  scoreCrawlerBeam: 300,
 };

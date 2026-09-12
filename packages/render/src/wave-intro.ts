@@ -88,7 +88,10 @@ export function drawIntroduction(
   drop(ctx, mid, y, age, line++, out, () => {
     ctx.font = '600 11px "Courier New",monospace';
     ctx.fillStyle = PALETTE.pod;
-    ctx.fillText(`WAVE ${world.wave + 1}`, 0, 0);
+    // A wave gone again says which try this is, beside its number: the pair
+    // is counting, and the run counts with them (`wave-start.ts`).
+    const tries = world.waveTries > 1 ? ` · TRY ${world.waveTries}` : "";
+    ctx.fillText(`WAVE ${world.wave + 1}${tries}`, 0, 0);
   });
 
   y += NAME_DROP;

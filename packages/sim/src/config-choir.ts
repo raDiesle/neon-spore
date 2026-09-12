@@ -41,14 +41,6 @@ export interface ChoirConfig {
    * succeeded by the time this starts.
    */
   choirFuseBeats: number;
-  /**
-   * What one merge is worth. `scoreClaspBreak`'s figure exactly, and the
-   * pairing is the argument: both are a body that **stops being what it was**
-   * rather than dying, both are answered by a gesture only player 1 has, and
-   * both leave an ordinary slick or bulb the cannon still has to finish. Two
-   * prices for one shape of moment would say the two moments are different.
-   */
-  scoreChoirMerge: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
@@ -56,5 +48,4 @@ export const CHOIR_DEFAULTS: ChoirConfig = {
   choirPullMilli: 1500,
   choirWindowBeats: 2,
   choirFuseBeats: 1,
-  scoreChoirMerge: 120,
 };

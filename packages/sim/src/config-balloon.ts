@@ -116,16 +116,6 @@ export interface BalloonConfig {
    * control nobody grabs.
    */
   balloonHandleMilli: number;
-  /** What the first rub is worth — the one that splits a body in two rather
-   * than finishing it. `scoreClaspBreak`'s figure, and the pairing is the
-   * argument: both are a body that **stops being what it was** rather than
-   * dying, and two prices for one shape of moment would say the two moments
-   * are different. */
-  scoreBalloonRub: number;
-  /** What popping one is worth. `scoreDestroy`'s figure and no more: the pair
-   * has already been paid for the rub that made this body, so paying a
-   * premium here would price one arrival above two. */
-  scoreBalloonPop: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
@@ -137,6 +127,4 @@ export const BALLOON_DEFAULTS: BalloonConfig = {
   balloonTautMilli: 2000,
   balloonHoldBeats: 1,
   balloonHandleMilli: 1150,
-  scoreBalloonRub: 120,
-  scoreBalloonPop: 100,
 };

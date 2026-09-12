@@ -41,12 +41,14 @@ describe("the director's sheet", () => {
     w.balance.bestStreak = 12;
     w.balance.podsFreed = 4;
     w.balance.wavesCleared = 3;
-    w.score = 980;
+    w.playTicks = 222 * w.cfg.tickHz;
+    w.retries = 2;
     expect(sheetMemories(balanceSheet(w))).toEqual([
       ["longest clean run", "12"],
       ["pods shot loose", "4"],
       ["waves cleared", "3"],
-      ["score", "980"],
+      ["time", "3:42"],
+      ["retries", "2"],
     ]);
   });
 });

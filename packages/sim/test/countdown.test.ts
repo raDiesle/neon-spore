@@ -129,7 +129,6 @@ describe("the count", () => {
     const { world, events } = run([count(COL)], at + TPB, [aim(at, COL), fire(at, "red")]);
     expect(world.creatures).toHaveLength(0);
     expect(events.some((e) => e.type === "destroy" && e.kind === "countdown")).toBe(true);
-    expect(world.score).toBeGreaterThanOrEqual(CFG.scoreCountdownKill);
     expect(world.retries).toBe(0);
   });
 

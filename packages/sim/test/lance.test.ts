@@ -315,7 +315,6 @@ describe("what a lance does to a column", () => {
     const w = world(stack(3));
     play(w, goesAfter(4) + 2, holdAfter(4));
     expect(w.balance.colorHits).toBe(3);
-    expect(w.score).toBeGreaterThanOrEqual(CFG.scoreDestroy * 3);
   });
 });
 

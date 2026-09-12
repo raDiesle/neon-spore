@@ -23,17 +23,10 @@ export interface CrystalConfig {
    * lane, a colour, a shield in that lane and a trigger, all at one moment.
    */
   crystalRows: number;
-  /**
-   * What splitting one is worth. `scoreCaromCrack`'s figure, for its reason:
-   * the shot that lands here is the harder half of a four-hand answer, and it
-   * makes the two ordinary kills that follow possible.
-   */
-  scoreCrystalSplit: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
 export const CRYSTAL_DEFAULTS: CrystalConfig = {
   crystalCols: 1,
   crystalRows: 1,
-  scoreCrystalSplit: 200,
 };

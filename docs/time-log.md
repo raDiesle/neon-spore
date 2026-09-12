@@ -22,6 +22,25 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 · score-out — there is no point score; a run is its clock and its retries
+
+The last piece of the owner's rule. `World.score`, the fifty-one places that
+paid it and the `score*` prices come out; the balance sheet leads with the
+clock, then the retries and the waves; the intro says `TRY n` on a retry;
+the room and the menu remember a run as *wave · time · retries*
+(`RunMark`, protocol 2, the tally taken whole). About 20 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | who paid the score (51 sites, 8 config files), what the room's tally did field by field and why whole is right once the clock travels with the wave |
+| writing | 5 | four scripts across sim, render, net, server, game, director and the tests; the NOT BUILT YET note and §7.2 |
+| looking | 0 | the sheet's headline and clock are the owner's asked-for look; not drawn for an eye this lane |
+| friction | 5 | a script asserted on an `import` where the file had `import type`; `RunMark` not exported from the package; three test files rewritten by hand for the three-field mark |
+| landing | 5 | `check:fast`, the index rows, the commit, `land --keep` |
+
+Bottleneck: **reading** — deciding the tally's order (wave, then retries,
+then time) and what an old-wire room should still be able to say.
+
 ## 2026-09-12 · hull-out — the hull has no points, and a pod is taken or the wave is lost
 
 The second piece of the owner's rule. `World.hullMilli`, the bar, the

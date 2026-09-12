@@ -38,7 +38,6 @@ export function wardTurns(world: World, c: Creature, guardRow: number): boolean 
   // the shield in the column and the trigger on the beat, and a ward that
   // scored nothing because the thing came back would be the arithmetic telling
   // them their half did not work.
-  world.score += world.cfg.scoreDeflect;
 
   // A volley is hit back up the field rather than off it — a plate of shell
   // comes off and it falls again from higher up (`volley.ts`).

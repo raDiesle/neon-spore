@@ -182,7 +182,6 @@ function resolveFence(world: World, c: Creature, shipRow: number): boolean {
     world.guard.tries += 1;
     world.guard.deflected += 1;
     markMoment(world, true);
-    world.score += world.cfg.scoreDeflect;
     world.events.push({ type: "fencePass", col: world.shieldCol, row: c.row });
     return false;
   }

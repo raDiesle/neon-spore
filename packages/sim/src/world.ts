@@ -97,9 +97,11 @@ export interface World extends ShipState {
   retries: number;
   /** Ticks the pair has spent with a wave live, over the whole run. */
   playTicks: number;
+  /** Which try at the current wave this is: 1 on a clean open, one more for
+   * every retry (`wave-start.ts`). The intro says `TRY n` from 2. */
+  waveTries: number;
 
   over: boolean;
-  score: number;
 
   /** Cleared every tick. render/ and audio read this; nothing writes back. */
   events: SimEvent[];
@@ -140,8 +142,8 @@ export function createWorld(
     failTick: NOT_FAILED,
     retries: 0,
     playTicks: 0,
+    waveTries: 0,
     over: false,
-    score: 0,
     events: [],
   };
   if (queue || podQueue) startWave(world, 0, queue ?? [], podQueue);

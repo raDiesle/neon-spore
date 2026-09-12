@@ -155,7 +155,6 @@ export function caromStruck(world: World, b: Bullet, hit: Creature): boolean {
   }
 
   metColor(world);
-  world.score += world.cfg.scoreCaromCrack;
   // The width, written down before the kind changes. `spanOf` answers two for
   // a carom and one for a plain meteor, so a rock that inherited the fallback
   // would be half the thing the pair have been watching — and the shield would

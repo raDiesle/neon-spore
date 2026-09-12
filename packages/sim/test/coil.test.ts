@@ -228,11 +228,6 @@ describe("the ward opens a dome and what is left is a torch", () => {
     expect(after.world.creatures).toHaveLength(0);
     expect(after.events.some((e) => e.type === "breach" && e.kind === "torch")).toBe(true);
   });
-
-  it("pays scoreCoilBreak for it", () => {
-    const { world } = run([coil(0, 8)], TPB * 2 - 1, [shieldTo(4, 8), guard(TPB)]);
-    expect(world.score).toBe(CFG.scoreCoilBreak);
-  });
 });
 
 describe("the plate has to see the dome to open it", () => {

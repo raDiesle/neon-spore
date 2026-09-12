@@ -282,7 +282,6 @@ describe("the two controls, in order", () => {
     expect(world.retries).toBe(0);
     // Both halves paid: the crack and the deflection, which is the arithmetic
     // saying that one arrival took two controls.
-    expect(world.score).toBeGreaterThanOrEqual(CFG.scoreCaromCrack + CFG.scoreDeflect);
   });
 });
 
@@ -351,7 +350,6 @@ describe("the body it throws out", () => {
   it("is killed by the matching colour exactly the way a slick is", () => {
     const { world, chute } = ejected(6);
     for (let t = 0; t < TPB * 4; t++) step(world, []);
-    const before = world.score;
     const b: Bullet = {
       id: 2,
       col: chute.col,
@@ -364,7 +362,6 @@ describe("the body it throws out", () => {
     };
     expect(resolve(world, b, chute)).toBe(false);
     expect(world.creatures.some((c) => c.kind === "chute")).toBe(false);
-    expect(world.score - before).toBe(CFG.scoreDestroy);
   });
 
   /**

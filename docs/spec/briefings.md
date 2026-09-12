@@ -248,7 +248,7 @@ until the cannon stands in its column, and say which column.*
 P2: *Yours is the shield itself, and the two colours. Press red — nothing
 leaves the hull until you do.*
 
-The beat, the run line and the score are still explained nowhere. The voice
+The beat and the run line are still explained nowhere. The voice
 channel is deliberately not explained here either — that belongs to the menu,
 before a room is even joined.
 

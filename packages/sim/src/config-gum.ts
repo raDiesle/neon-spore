@@ -21,17 +21,10 @@ export interface GumConfig {
    * the ship cannot fire from until somebody swipes it the right way.
    */
   gumSpreadCols: number;
-  /**
-   * What flinging one off the ship is worth. `scoreDeflect`'s figure: like a
-   * ward it is a body answered without a shot, and it took two seats to do —
-   * one parking the cannon under it and the other swiping.
-   */
-  scoreGumFlung: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
 export const GUM_DEFAULTS: GumConfig = {
   gumSwipeMilli: 1000,
   gumSpreadCols: 1,
-  scoreGumFlung: 150,
 };

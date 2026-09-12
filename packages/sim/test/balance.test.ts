@@ -143,7 +143,6 @@ describe("the sheet", () => {
     world.balance.colorMisses = 4;
     world.balance.bestStreak = 9;
     world.balance.wavesCleared = 2;
-    world.score = 1240;
     return world;
   }
 

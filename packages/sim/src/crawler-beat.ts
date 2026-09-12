@@ -131,7 +131,6 @@ function wardLink(world: World, crawlerId: number): void {
   world.guard.tries += 1;
   world.guard.deflected += 1;
   markMoment(world, true);
-  world.score += world.cfg.scoreDeflect;
   world.events.push({
     type: "deflect",
     col: hit.col,

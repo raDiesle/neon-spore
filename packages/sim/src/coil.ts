@@ -136,7 +136,6 @@ function popCoil(world: World, c: Creature, ward: boolean): void {
   c.coilDir = undefined;
   c.coilLit = undefined;
   markMoment(world, true);
-  world.score += world.cfg.scoreCoilBreak;
   world.events.push({ type: "coilBreak", id: c.id, col, row, ward });
   chargeNextCoil(world, col, row);
 }

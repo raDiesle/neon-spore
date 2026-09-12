@@ -1,4 +1,5 @@
 import { type LinkStatus, linkLabel } from "@neon-spore/net";
+import { runMarkText } from "./tally.js";
 
 /**
  * The words the network wears: the chip's, the room screen's, and the two
@@ -138,6 +139,9 @@ export function startButton(status: LinkStatus): { label: string; enabled: boole
  */
 export function lastTimeLine(status: LinkStatus): string {
   const best = status.best;
-  if (!best || (best.wave === 0 && best.score === 0)) return "";
-  return `Last time you two reached wave ${best.wave + 1} · ${best.score}.`;
+  if (!best || (best.wave === 0 && best.seconds === 0 && best.retries === 0)) return "";
+  // A room that last played under the old wire holds a wave and nothing else;
+  // it is told the wave, not a clock at zero.
+  const at = best.seconds === 0 && best.retries === 0 ? "" : ` · ${runMarkText(best)}`;
+  return `Last time you two reached wave ${best.wave + 1}${at}.`;
 }

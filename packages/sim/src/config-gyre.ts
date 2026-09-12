@@ -69,10 +69,6 @@ export interface GyreConfig {
    * is where the foot of the rim reaches exactly the hull row — so a wheel
    * left alone grinds against the ship instead of settling above it. */
   gyreSinkLaps: number;
-  /** What a wheel is worth once the last body is off it. Twice `scoreDestroy`,
-   * beside the six kills it took: the wave is the wheel, and clearing one is
-   * the moment rather than the sixth shot that happened to land. */
-  scoreGyreBreak: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
@@ -83,5 +79,4 @@ export const GYRE_DEFAULTS: GyreConfig = {
   gyreSuckSpinMilli: 120,
   gyreSuckMs: 2400,
   gyreSinkLaps: 3,
-  scoreGyreBreak: 200,
 };

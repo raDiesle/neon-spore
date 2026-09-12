@@ -218,7 +218,6 @@ describe("leaving the round", () => {
 
   it("is failed by saying nothing, and that breaks the hull", () => {
     const world = open();
-    world.score = 700;
     const { result, events } = runToEnd(world, TPB * (CFG.gaugeRoundBeats + 20));
     expect(result.passed).toBe(false);
     expect(result.marks).toBe(0);
@@ -229,7 +228,6 @@ describe("leaving the round", () => {
     expect(events.filter((e) => e.type === "breach")).toHaveLength(1);
     expect(world.scars.length).toBe(1);
     expect(world.retries).toBe(1);
-    expect(world.score).toBe(700);
     expect(events.some((e) => e.type === "needWave" && e.wave === WAVE && e.retry)).toBe(true);
     expect(world.over).toBe(false);
   });

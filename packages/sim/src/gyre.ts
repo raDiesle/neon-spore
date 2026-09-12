@@ -220,7 +220,6 @@ export function breakSpentGyres(world: World): void {
   );
   if (spent.length === 0) return;
   for (const hub of spent) {
-    world.score += world.cfg.scoreGyreBreak;
     world.events.push({ type: "gyreBroke", col: hub.col, row: hub.row });
   }
   removeCreatures(

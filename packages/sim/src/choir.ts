@@ -197,7 +197,6 @@ export function stepChoirFuse(world: World): void {
     c.kind = choirBecomes(c);
     c.choirFuseTick = undefined;
     markMoment(world, true);
-    world.score += world.cfg.scoreChoirMerge;
     world.events.push({
       type: "choirOpen",
       id: c.id,

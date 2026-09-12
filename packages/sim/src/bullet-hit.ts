@@ -235,7 +235,6 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
 
   // Matching ammunition resonates the light organ until it bursts.
   metColor(world);
-  world.score += world.cfg.scoreDestroy;
   world.events.push({
     type: "destroy",
     col: hit.col,

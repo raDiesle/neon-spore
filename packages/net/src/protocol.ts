@@ -10,7 +10,18 @@ import type { Command } from "@neon-spore/sim";
  * implementation of the rules, and the whole point of lockstep is that there
  * is only one.
  */
-export const PROTOCOL_VERSION = 1;
+export const PROTOCOL_VERSION = 2;
+
+/**
+ * What a run is measured in: the furthest wave, the clock and the retries
+ * (`sim/wave-fail.ts`). It goes up in `stats` and comes back in `welcome`.
+ * Version 2 of the wire, because version 1 carried a score here.
+ */
+export interface RunMark {
+  wave: number;
+  seconds: number;
+  retries: number;
+}
 
 /**
  * The query parameter the version rides on, from `relay.ts` through the
@@ -80,11 +91,11 @@ export type ClientMessage =
    * How far this device has got, sent up now and then.
    *
    * The room stores it and never reads it into game state — a server that kept
-   * score would be a second implementation of the rules, which is the one
+   * the clock would be a second implementation of the rules, which is the one
    * thing lockstep exists to avoid. It is handed back on `welcome` so the room
    * screen can say one line to a pair who come back.
    */
-  | { t: "stats"; wave: number; score: number };
+  | ({ t: "stats" } & RunMark);
 
 export type ServerMessage =
   | {
@@ -112,7 +123,7 @@ export type ServerMessage =
        * What this pair got to last time, or null for a room that has never
        * been played in. Stored by the room and never read by it.
        */
-      best: { wave: number; score: number } | null;
+      best: RunMark | null;
     }
   /** Someone joined or left. Two is a game; one is a wait. */
   | { t: "peers"; peers: number; names: [string, string] }

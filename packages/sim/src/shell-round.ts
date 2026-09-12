@@ -70,7 +70,6 @@ export function shellStruck(world: World, b: Bullet, hit: Creature): void {
   }
 
   hit.shell = shellWithout(hit.shell, piece);
-  world.score += world.cfg.scoreShellPiece;
   world.events.push({
     type: "shellBreak",
     col: b.col,

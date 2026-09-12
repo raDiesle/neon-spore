@@ -135,22 +135,6 @@ describe("what a shot does", () => {
     expect(enough.events.filter((e) => e.type === "destroy")).toHaveLength(1);
   });
 
-  it("pays for each layer, and for the body what a slick pays", () => {
-    // While a body is still standing the wave is not cleared, so this is the
-    // sheds and nothing else.
-    const shed = run([rind(COL)], TPB * 8, shots(CFG.rindLayers, COL, "red"));
-    expect(shed.world.score).toBe(CFG.scoreRindShed * CFG.rindLayers);
-
-    // And the whole arrival against an ordinary one taken in one shot, which
-    // is the comparison that matters: everything else about the two runs — the
-    // kill, the wave cleared behind it — is the same, so the difference is
-    // exactly what the layers were worth.
-    const killed = run([rind(COL)], TPB * 10, shots(CFG.rindLayers + 1, COL, "red"));
-    const plain: SpawnEntry = { beat: 0, col: COL, kind: "slick", color: "red" };
-    const slick = run([plain], TPB * 10, shots(1, COL, "red"));
-    expect(killed.world.score - slick.world.score).toBe(CFG.scoreRindShed * CFG.rindLayers);
-  });
-
   it("counts a wrong colour as an ordinary colour miss and keeps every layer", () => {
     const { world } = run([rind(COL, "red")], TPB * 4, shots(1, COL, "cyan"));
     expect(world.balance.colorMisses).toBe(1);

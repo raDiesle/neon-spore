@@ -1,4 +1,4 @@
-import type { PlayerId } from "@neon-spore/net";
+import type { PlayerId, RunMark } from "@neon-spore/net";
 import { namesOf, type Seat, send } from "./seat.js";
 import type { StartGate } from "./start-gate.js";
 
@@ -26,7 +26,7 @@ export interface StartRoom {
   startMs: number;
   seats: Seat[];
   /** What this pair got to, handed back untouched. See `tally.ts`. */
-  best: { wave: number; score: number } | null;
+  best: RunMark | null;
   /** Write the new beat zero down, so a hibernating room keeps it. */
   persist: (startMs: number) => Promise<void>;
 }

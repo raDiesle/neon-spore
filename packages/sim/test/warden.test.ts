@@ -337,7 +337,6 @@ describe("the shot into the eye", () => {
     expect(run.world.boss).toBeNull();
     expect(run.world.creatures.filter((c) => c.kind === "tether")).toHaveLength(0);
     expect(run.events.some((e) => e.type === "wardenDown")).toBe(true);
-    expect(run.world.score).toBeGreaterThanOrEqual(CFG.scoreWardenDown);
   });
 });
 

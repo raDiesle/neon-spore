@@ -23,8 +23,6 @@ export interface ClawConfig {
    * ahead of a crossing pod the pair has to be talking.
    */
   reachTilesPerBeat: number;
-  /** Score for a pod the arm brings down and the mouth takes. */
-  scoreReachCatch: number;
   /**
    * How much rope one whole turn of the crank takes in, in tiles.
    *
@@ -63,6 +61,5 @@ export interface ClawConfig {
  */
 export const CLAW_DEFAULTS: ClawConfig = {
   reachTilesPerBeat: 9,
-  scoreReachCatch: 250,
   windTilesPerTurn: 4,
 };

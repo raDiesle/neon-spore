@@ -235,7 +235,6 @@ export function lidStruck(world: World, b: Bullet, hit: Creature): void {
     return;
   }
   metColor(world);
-  world.score += world.cfg.scoreLidKill;
   world.events.push({
     type: "destroy",
     col: hit.col,

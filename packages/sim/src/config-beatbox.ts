@@ -56,14 +56,6 @@ export interface BeatboxConfig {
    * simulation stores integers and there is no half a tile for it to stand on.
    */
   beatboxFallBeats: number;
-  /**
-   * What one silenced box is worth. `scoreChoirMerge`'s figure exactly, and
-   * the pairing is the argument: both are a body answered by a gesture that is
-   * on no panel, both need one seat to say a thing the other cannot see, and
-   * two prices for one shape of moment would say the two moments are
-   * different.
-   */
-  scoreBeatboxSilence: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
@@ -71,5 +63,4 @@ export const BEATBOX_DEFAULTS: BeatboxConfig = {
   beatboxBeats: 3,
   beatboxWindowMs: 200,
   beatboxFallBeats: 2,
-  scoreBeatboxSilence: 120,
 };
