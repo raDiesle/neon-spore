@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-12 · ef8cb3b6 — `packages/net` says which failure modes the scheduler survives
+
+Every behaviour claimed by the headers of `lockstep.ts`, `delay.ts`, `clock.ts` and `desync.ts`, matched against the test that proves it, and the eight with nothing behind them written: an input that arrives after its tick has been simulated, a frame lost and sent again, the relay handing a device its own word back, two presses from one seat on one tick, a phone that rebuilt its scheduler while its partner kept playing, the same two rebuilding together, a pong that overtakes one sent before it, and the ahead-window measured in the caller's own ticks rather than in sixtieths. No defect: `src` is untouched, and every new test was checked by breaking the line it is about and watching it, and only it, go red.
+
 ## 2026-09-12 · d0e14f3c — A hit fails the wave, and a run is measured in time and retries
 
 The owner's rule, 12 September 2026: every hull damage fails the wave, and the wave is played again; a wave is passed only when everything it sent has been destroyed, evaded, sucked in or shielded, each by its own mechanic. On the tick of a hit the field stops where it was struck — nothing falls, nothing fires, the tick still counts — for `waveFailBeats`; then the same wave is asked for once (`needWave` with `retry`) and the field stays held until the host opens it, on its introduction and not its guide. What a run keeps is `playTicks`, counted only while a wave is live, and `retries`; both are in the hash, and the HUD's corner reads `3:42 · 2 RETRIES` where the points were. The run ends after the last authored wave: the seeded filler past `WAVES` is gone, so the clock has a finish line. `sim/wave-fail.ts`, `config-run.ts` (the run's numbers, out of a `config.ts` at its limit).

@@ -213,3 +213,17 @@ about. `{ ...DEFAULT_CONFIG, ...PAIR_ON }` is the world to build
 assert the two worlds leave `OPENING_INTRO` on the same tick and hash equal
 through it. The guide's pages and its ready gate are the same case one step
 harder and can follow in the same test or the next one.
+
+## Unverified at ef8cb3b6: the reconnect the two new tests model, against a real D…
+
+- **Found:** 2026-09-12, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `docs/queue.md`, `docs/time-log.md`, `packages/net/test/clock.test.ts`, `packages/net/test/desync.test.ts`, `packages/net/test/lockstep.test.ts`, `packages/net/test/protocol.test.ts`, `packages/net/test/scheduler-faults.test.ts`
+
+*`packages/net` says which failure modes the scheduler survives* landed from a session that could not look at it. What went unchecked:
+
+- the reconnect the two new tests model, against a real Durable Object: bun run relay:check ws://127.0.0.1:8800 14 --rejoin
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
