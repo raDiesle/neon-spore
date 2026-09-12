@@ -165,6 +165,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## The rounds' own second try is unreachable now that a hit fails the wave
 
 - **Found:** 2026-09-12, wave-fail
+- **Taken:** 2026-09-12, claude/queue-the-rounds-own-second-try-is-unreachable-now-tha
 - **Files:** `packages/sim/src/maze-verdict.ts`, `packages/sim/src/snake-open.ts`, `packages/sim/src/snake-move.ts`, `packages/sim/src/mirror.ts`, `packages/sim/src/config-rounds.ts`, `packages/sim/test/maze-round.test.ts`, `packages/sim/test/snake.test.ts`, `packages/sim/test/mirror.test.ts`
 
 Since `wave-fail.ts` a hit stops the field on its tick and the host opens the
