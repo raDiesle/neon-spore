@@ -1,4 +1,4 @@
-import { countdownIsOpen, countdownMarks } from "@neon-spore/sim";
+import { countdownIsOpen, countdownMarks, countdownSlots } from "@neon-spore/sim";
 import { countDisc } from "./countdown.js";
 import type { Body } from "./creature-body-in.js";
 import { hazed } from "./depth.js";
@@ -69,7 +69,7 @@ export function dialCount(b: Body): void {
     ctx.fill();
     return;
   }
-  const slots = Math.max(1, cfg.countdownBeats);
+  const slots = countdownSlots(cfg);
   const marks = countdownMarks(cfg, world.beat, c);
   // The beats left as a share of the turn, the running beat draining as it
   // goes: the hand sweeps, and lands on a tick on the beat.

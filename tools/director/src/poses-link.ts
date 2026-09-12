@@ -1,4 +1,5 @@
 import {
+  beatSeconds,
   coilCharged,
   DEFAULT_CONFIG,
   type SpawnEntry,
@@ -60,7 +61,7 @@ const PRESS_TO_BEAT = 16.25;
  * jumps of `coilJumpBeats` each, and a beat for the last rock to be seen
  * running for the wall. Off the config, so a re-timed jump re-times the
  * replay with it. */
-const COIL_CADENCE_SECONDS = ((DEFAULT_CONFIG.coilJumpBeats * 2 + 2) * 60) / DEFAULT_CONFIG.bpm;
+const COIL_CADENCE_SECONDS = (DEFAULT_CONFIG.coilJumpBeats * 2 + 2) * beatSeconds(DEFAULT_CONFIG);
 
 /**
  * Three domes on the field and the ward opening the first, handed over on the
@@ -120,7 +121,7 @@ const CYCLE_BEATS = 6;
 /** Beats the build runs past the attach before the hand's clock starts, so
  * the line has glided down to where it hangs before anybody takes it. */
 const HANG_BEATS = 2;
-const TETHER_CADENCE_SECONDS = (DEFAULT_CONFIG.wardenCycleBeats * 60) / DEFAULT_CONFIG.bpm;
+const TETHER_CADENCE_SECONDS = DEFAULT_CONFIG.wardenCycleBeats * beatSeconds(DEFAULT_CONFIG);
 
 /** The hand coming off the rope. `pullCord` is the hand going on. */
 const letGo = (tick: number, id: number): TimedCommand => ({

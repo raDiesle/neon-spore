@@ -1,4 +1,4 @@
-import { countdownIsOpen, countdownMarks } from "@neon-spore/sim";
+import { countdownIsOpen, countdownMarks, countdownSlots } from "@neon-spore/sim";
 import { countDisc } from "./countdown.js";
 import type { Body } from "./creature-body-in.js";
 import { hazed } from "./depth.js";
@@ -91,7 +91,7 @@ export function irisCount(b: Body): void {
     ctx.stroke();
     return;
   }
-  const slots = Math.max(1, cfg.countdownBeats);
+  const slots = countdownSlots(cfg);
   const marks = countdownMarks(cfg, world.beat, c);
   ctx.fillStyle = trio.hex;
   ctx.strokeStyle = hazed(cfg, trio.rim, near);

@@ -156,7 +156,7 @@ export class GuideStage {
     if (from !== null && k < 1) drawSwitchSeam(ctx, l, l.width * (1 - k));
     ctx.restore();
 
-    const phase = (run.world.tick % ((cfg.tickHz * 60) / cfg.bpm)) / ((cfg.tickHz * 60) / cfg.bpm);
+    const phase = beatPhase(cfg, run.world.tick);
     drawCaption(ctx, l, run.world, set, step, run.tick, phase);
     drawHands(ctx, l, run, scene, set, step.seat, phase);
     drawGuideCorner(ctx, l, {

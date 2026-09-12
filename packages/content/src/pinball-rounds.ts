@@ -3,6 +3,7 @@ import {
   PIN_THIN_MILLI,
   type PinballRound,
   type PinPiece,
+  pinLaneFloorMilli,
   type SimConfig,
 } from "@neon-spore/sim";
 
@@ -48,7 +49,7 @@ const PIN_TOP_TILES = 1.5;
  * the grid it paints, so an author cannot draw a board the game would reject.
  */
 export function pinBoardRows(cfg: SimConfig = DEFAULT_CONFIG): number {
-  const floor = cfg.pinballRows - (cfg.pinballCatchMilli * 2) / 1000;
+  const floor = pinLaneFloorMilli(cfg) / 1000;
   const deepest = Math.max(TARGET_PEG_MILLI, BLOCK_H_MILLI, TARGET_BLOCK_H_MILLI);
   return Math.max(1, Math.floor(floor - PIN_TOP_TILES - 0.5 - deepest / 1000) + 1);
 }

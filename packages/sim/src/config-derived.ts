@@ -29,6 +29,18 @@ export function ticksPerBeat(cfg: SimConfig): number {
 }
 
 /**
+ * One beat in seconds — the tempo as the ear and the frame clock read it.
+ *
+ * `60 / bpm` was written out fifteen times across four packages before this
+ * existed, three of them as a module constant named `BEAT_SECONDS`; a tempo
+ * that ever became a per-wave number would have had fifteen places to be
+ * wrong about it.
+ */
+export function beatSeconds(cfg: SimConfig): number {
+  return 60 / cfg.bpm;
+}
+
+/**
  * A duration in milliseconds as a whole number of ticks.
  *
  * Every window is authored in milliseconds and lived in ticks, and that

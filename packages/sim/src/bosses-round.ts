@@ -18,6 +18,7 @@ export {
   GAUGE_PHASES,
   type GaugePhase,
   type GaugeState,
+  gaugeBeatsLeft,
   gaugeSeated,
 } from "./gauge.js";
 
@@ -46,6 +47,7 @@ export {
   pinCannonMilli,
   pinFieldCol,
   pinHeightMilli,
+  pinLaneFloorMilli,
   pinLaunchVelocity,
   pinPhysics,
   pinPower,
@@ -113,4 +115,5 @@ export {
 } from "./snake.js";
 
 export { snakeCrashed } from "./snake-arena.js";
+export { snakeResting } from "./snake-controls.js";
 export { SNAKE_MORPH_BEATS, SNAKE_VERDICT_BEATS, snakeHolds, snakeRound } from "./snake-round.js";

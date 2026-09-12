@@ -12,6 +12,7 @@
  */
 
 export {
+  faultFiresThisBeat,
   MALFUNCTION_COLORS,
   MALFUNCTION_KINDS,
   type Malfunction,

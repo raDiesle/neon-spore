@@ -151,6 +151,20 @@ function faultStep(world: World): number {
   return Math.max(0, world.waveBeat - 1);
 }
 
+/** How many beats apart the runaway cannon's shots are. Never below one. */
+function faultEvery(world: World): number {
+  return Math.max(1, Math.round(world.cfg.malfunctionEveryBeats));
+}
+
+/**
+ * Whether the runaway cannon or shield fires on the current beat. The emitter
+ * that draws the shot asks the same question as the step that fires it, and
+ * had its own copy of the answer until 12 September 2026.
+ */
+export function faultFiresThisBeat(world: World): boolean {
+  return faultStep(world) % faultEvery(world) === 0;
+}
+
 /**
  * What the runaway cannon has loaded on this beat.
  *
@@ -163,8 +177,7 @@ function faultStep(world: World): number {
 export function malfunctionColor(world: World, m: Malfunction): Color {
   if (m.kind !== "cannon") return "red";
   if (m.color !== "alternating") return m.color;
-  const every = Math.max(1, Math.round(world.cfg.malfunctionEveryBeats));
-  return Math.floor(faultStep(world) / every) % 2 === 0 ? "red" : "cyan";
+  return Math.floor(faultStep(world) / faultEvery(world)) % 2 === 0 ? "red" : "cyan";
 }
 
 /**
@@ -187,8 +200,7 @@ export function stepMalfunction(world: World): void {
       world.events.push({ type: "lanceSpilled", col: from });
     return;
   }
-  const every = Math.max(1, Math.round(world.cfg.malfunctionEveryBeats));
-  if (faultStep(world) % every !== 0) return;
+  if (!faultFiresThisBeat(world)) return;
   if (m.kind === "cannon") fire(world, malfunctionColor(world, m));
   else armShield(world);
 }

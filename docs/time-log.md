@@ -22,6 +22,27 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 — copies-sweep — seven rules the simulation owned were written out again elsewhere
+
+Queue item: nothing had swept for a re-derived rule since the copies table
+reached 46 rows. One grep per config field that a second package reads found
+seven — the tempo as seconds (fifteen copies across four packages), the tempo
+as ticks, the fault's firing beat, SNAKE's trigger rest, the pinball lane's
+floor, THE GAUGE's clock and the countdown's slots. Each got the function in
+`sim`, its callers, and a row in `copies-table.ts`; the table is 53 rows.
+About 15 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the config fields render, content, audio and the director read; which barrel exports each module |
+| writing | 5 | seven helpers, thirty-six files converted by one script, seven rows |
+| looking | 0 | nothing drawn changed |
+| friction | 0 | a heredoc turned a regex's backslash-n into a newline — one retry |
+| landing | 5 | the copies test, `check:fast`, the commit, `bun run land --keep` |
+
+Bottleneck: reading — finding which of five barrels a new sim export has to
+be threaded through takes longer than writing the export.
+
 ## 2026-09-12 — path-text-sweep — the rest of render's contours reach the canvas as numbers
 
 Queue item: fifty-six render call sites still built a `Path2D` from spline

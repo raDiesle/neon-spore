@@ -1,4 +1,4 @@
-import { DEFAULT_CONFIG, type SpawnEntry, type TimedCommand } from "@neon-spore/sim";
+import { beatSeconds, DEFAULT_CONFIG, type SpawnEntry, type TimedCommand } from "@neon-spore/sim";
 import {
   aim,
   EVENT_CADENCE_SECONDS,
@@ -80,7 +80,7 @@ const CYCLE_BEATS = 4;
  * under it for a taut pull, and a third cycle would open the plates part-way
  * and stop — a picture of the clamp rather than of the armour.
  */
-const LID_CADENCE_SECONDS = (CYCLE_BEATS * 2 * 60) / DEFAULT_CONFIG.bpm;
+const LID_CADENCE_SECONDS = CYCLE_BEATS * 2 * beatSeconds(DEFAULT_CONFIG);
 
 /** The hand coming off the cord. `pullCord` is the hand going on. */
 const letGo = (tick: number, id: number): TimedCommand => ({

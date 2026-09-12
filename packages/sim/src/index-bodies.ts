@@ -98,7 +98,12 @@ export {
   coilIsDomed,
   coilWardReaches,
 } from "./coil-state.js";
-export { countdownIsOpen, countdownMarks, countdownPeriod } from "./countdown.js";
+export {
+  countdownIsOpen,
+  countdownMarks,
+  countdownPeriod,
+  countdownSlots,
+} from "./countdown.js";
 export {
   type CrystalDir,
   crystalHeading,

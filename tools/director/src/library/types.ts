@@ -1,4 +1,4 @@
-import { DEFAULT_CONFIG } from "@neon-spore/sim";
+import { beatSeconds, DEFAULT_CONFIG } from "@neon-spore/sim";
 
 /**
  * What an asset in the LIBRARY is, and what it is told.
@@ -20,7 +20,7 @@ import { DEFAULT_CONFIG } from "@neon-spore/sim";
  */
 
 /** The page's heartbeat: the game's own tempo, not a number near it. */
-export const BEAT_SECONDS = 60 / DEFAULT_CONFIG.bpm;
+export const BEAT_SECONDS = beatSeconds(DEFAULT_CONFIG);
 
 /** The moment an asset is drawn at. One clock for every card in the frame, so
  * four fringes under four bells jump together and the thing compared is what

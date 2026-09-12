@@ -1,5 +1,5 @@
 import type { Pose } from "@neon-spore/content";
-import { DEFAULT_CONFIG } from "@neon-spore/sim";
+import { beatSeconds, DEFAULT_CONFIG } from "@neon-spore/sim";
 import type { HitMoment } from "../hits/types.js";
 
 /**
@@ -19,7 +19,7 @@ export const SVG = "http://www.w3.org/2000/svg";
  * `world.beat`, but a page whose pulse is a different tempo from the field's
  * is a page answering a question about a look nobody will ever see.
  */
-export const BEAT_SECONDS = 60 / DEFAULT_CONFIG.bpm;
+export const BEAT_SECONDS = beatSeconds(DEFAULT_CONFIG);
 
 /**
  * The moment a skin is being drawn at.

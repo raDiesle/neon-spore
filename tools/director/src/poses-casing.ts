@@ -1,4 +1,5 @@
 import {
+  beatSeconds,
   DEFAULT_CONFIG,
   fallTilesPerBeat,
   SHELL_COLS,
@@ -108,7 +109,7 @@ const TORCH_POSE: Pose = {
   // The last one arrives `TORCHES - 1` beats after the hand-over and takes its
   // own fall to land; then one more fall's worth of empty field, so the eye
   // re-reads before the next three come.
-  cadenceSeconds: (TORCHES - 1) * (60 / DEFAULT_CONFIG.bpm) + 2 * torchFallSeconds(),
+  cadenceSeconds: (TORCHES - 1) * beatSeconds(DEFAULT_CONFIG) + 2 * torchFallSeconds(),
   build: () => {
     const w = fresh(
       TORCH_COLS.slice(0, TORCHES).map((col, i) => ({

@@ -1,4 +1,4 @@
-import { DEFAULT_CONFIG, ghostRage } from "@neon-spore/sim";
+import { beatSeconds, DEFAULT_CONFIG, ghostRage } from "@neon-spore/sim";
 import {
   EVENT_CADENCE_SECONDS,
   firstOfKind,
@@ -184,7 +184,7 @@ export const GHOST_POSE: Pose = {
  * two-by-two and a different picture. Plus the beat the pose runs before it
  * is handed over, which the first wait is counted from.
  */
-const ECHO_CADENCE_SECONDS = ((DEFAULT_CONFIG.echoSplitBeats * 3 + 2) * 60) / DEFAULT_CONFIG.bpm;
+const ECHO_CADENCE_SECONDS = (DEFAULT_CONFIG.echoSplitBeats * 3 + 2) * beatSeconds(DEFAULT_CONFIG);
 
 /**
  * One echo, from the beat it arrives to the beat its halves have parted in

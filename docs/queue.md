@@ -176,33 +176,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## Nothing has swept for a re-derived rule since the copies table reached 46 rows
-
-- **Found:** 2026-09-12, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-12, claude/queue-nothing-has-swept-for-a-re-derived-rule-since-th
-- **Files:** `packages/sim/test/copies-table.ts`, `packages/sim/test/copies.test.ts`
-
-Every row in `copies-table.ts` exists because review caught a rule written out
-by hand somewhere that should have called it, and the check then stops the *next*
-file copying it. Forty-six rows, each one a defect that got through once. The
-table only ever grows by somebody noticing, and nothing has gone looking on
-purpose — so the rows are the copies that happened to be seen, not the ones that
-are there.
-
-The sweep: take the rules `packages/sim` owns that `render/` and `content/` have
-to consume — the projections, the clocks, the column maps, the windows counted in
-ticks — and for each one read its callers rather than its definition. A caller
-that spells the arithmetic out is a row. The value is in the finding, so the
-deliverable is either new rows or one dated line in `copies-table.ts`' header
-saying the sweep was done and found none; `bun run check` proves whichever it is.
-
-**One method that does not work, tried on 12 September 2026 so nobody tries it
-twice:** matching numeric literals in `packages/render/src` against
-`DEFAULT_CONFIG`'s values. Thirty-six distinctive figures produced 88 hits, and
-essentially all of them are coincidence — 250 as a pixel size, 120 as a degree,
-150 as a colour channel. A number agreeing with a config default is not evidence
-of a copy, and the noise buries the one or two that might be.
-
 ## The director cannot be started from a worktree for a look
 
 - **Found:** 2026-09-12, claude/limpet-cycle

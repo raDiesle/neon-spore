@@ -1,5 +1,10 @@
 import { blobPoints } from "@neon-spore/content";
-import { type Malfunction, malfunctionColor, type World } from "@neon-spore/sim";
+import {
+  faultFiresThisBeat,
+  type Malfunction,
+  malfunctionColor,
+  type World,
+} from "@neon-spore/sim";
 import { halo, strokeGlow } from "./glow.js";
 import { sinHash } from "./hash.js";
 import { rgba } from "./hex.js";
@@ -115,11 +120,10 @@ function beamColor(world: World, m: Malfunction): string {
   return malfunctionColor(world, m) === "red" ? PALETTE.red : PALETTE.cyan;
 }
 
-/** Whether the runaway cannon fired on the current beat (`stepMalfunction`
- * fires on the beats where the fault's step divides by `every`). */
+/** Whether the runaway cannon fired on the current beat — `stepMalfunction`'s
+ * own rule, asked rather than copied. */
 function firedThisBeat(world: World): boolean {
-  const every = Math.max(1, Math.round(world.cfg.malfunctionEveryBeats));
-  return Math.max(0, world.waveBeat - 1) % every === 0;
+  return faultFiresThisBeat(world);
 }
 
 /** Where a beam ends on this screen, and how wide the thing it hits is. */

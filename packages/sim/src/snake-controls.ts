@@ -4,6 +4,14 @@ import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
 /**
+ * Whether the trigger is still resting from its last shot. The panel greys the
+ * slab by the same rule the controls refuse the press by.
+ */
+export function snakeResting(world: World, snake: SnakeState): boolean {
+  return world.beat - snake.shotBeat < world.cfg.snakeFireRestBeats;
+}
+
+/**
  * The four verbs of the round, and the two seats they are split between.
  *
  * **Player 2 drives.** LEFT and RIGHT are a quarter turn each, relative to
@@ -42,7 +50,7 @@ export function snakeHeard(world: World, snake: SnakeState, player: 1 | 2, comma
     if (player !== 1) return;
     // A rest between two shots, so a thumb held on the trigger is not a way of
     // clearing a row without having been told where to point.
-    if (world.beat - snake.shotBeat < world.cfg.snakeFireRestBeats) return;
+    if (snakeResting(world, snake)) return;
     fireSnake(world, snake);
     return;
   }

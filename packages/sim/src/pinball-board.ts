@@ -24,6 +24,15 @@ export function pinHeightMilli(cfg: SimConfig): number {
   return cfg.pinballRows * 1000;
 }
 
+/**
+ * Where the launch lane begins, from the top: no piece may hang below it, or
+ * the ball would hit it before it had left the cannon. The catch's height
+ * twice — the bucket's mouth and the same again for the ball to clear it.
+ */
+export function pinLaneFloorMilli(cfg: SimConfig): number {
+  return pinHeightMilli(cfg) - cfg.pinballCatchMilli * 2;
+}
+
 /** The slice of `SimConfig` the ball is stepped against. */
 export function pinPhysics(cfg: SimConfig): PinPhysics {
   return {
@@ -84,7 +93,7 @@ export function pinballFault(pieces: readonly PinPiece[], cfg: SimConfig): strin
   }
   // The launch lane: a piece sitting on the cannon would be hit before the
   // ball had left, which reads as a shot that did not happen.
-  const floor = h - cfg.pinballCatchMilli * 2;
+  const floor = pinLaneFloorMilli(cfg);
   for (const piece of pieces) {
     const halfY = piece.kind === "peg" ? piece.wMilli : piece.hMilli;
     if (piece.yMilli + halfY > floor) return "a piece in the cannon's own lane";

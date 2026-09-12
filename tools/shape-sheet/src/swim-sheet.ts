@@ -4,7 +4,7 @@
 // filmstrip that worked the pose out a second way would be a picture of
 // something the page does not draw. `tools/director/src/` is not this lane's
 // to edit, only to call — see `CLAUDE.md`.
-import { DEFAULT_CONFIG } from "@neon-spore/sim";
+import { beatSeconds, DEFAULT_CONFIG } from "@neon-spore/sim";
 import {
   motionTransform,
   tilePixels,
@@ -46,7 +46,7 @@ const GAP = 4;
 const ROW = CELL + 46;
 
 /** Seconds in one cycle, from the beat the bell is actually keeping. */
-const CYCLE = (SWIM_PERIOD * 60) / DEFAULT_CONFIG.bpm;
+const CYCLE = SWIM_PERIOD * beatSeconds(DEFAULT_CONFIG);
 const TIMES = Array.from({ length: FRAMES }, (_, i) => (i / (FRAMES - 1)) * CYCLE);
 
 function row(entry: CatalogueEntry, index: number): string {

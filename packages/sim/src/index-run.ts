@@ -43,6 +43,7 @@ export {
   toReadyPage,
 } from "./briefing.js";
 export {
+  beatSeconds,
   DEFAULT_CONFIG,
   FLEET_SHELL_BEATS,
   hullRow,

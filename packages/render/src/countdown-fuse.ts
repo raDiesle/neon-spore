@@ -1,4 +1,4 @@
-import { countdownIsOpen, countdownMarks } from "@neon-spore/sim";
+import { countdownIsOpen, countdownMarks, countdownSlots } from "@neon-spore/sim";
 import { hash01 } from "./backdrop.js";
 import { countDisc } from "./countdown.js";
 import type { Body } from "./creature-body-in.js";
@@ -70,7 +70,7 @@ export function fuseCount(b: Body): void {
     ctx.fill();
     return;
   }
-  const slots = Math.max(1, cfg.countdownBeats);
+  const slots = countdownSlots(cfg);
   const marks = countdownMarks(cfg, world.beat, c);
   const loop = r * LOOP;
   // The cord ran a full turn clockwise from the cap; the far end is what was

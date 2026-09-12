@@ -1,4 +1,4 @@
-import { DEFAULT_CONFIG, type SpawnEntry, type TimedCommand } from "@neon-spore/sim";
+import { beatSeconds, DEFAULT_CONFIG, type SpawnEntry, type TimedCommand } from "@neon-spore/sim";
 import {
   aim,
   firstOfKind,
@@ -72,7 +72,7 @@ const CRACK_ROW = 10;
 function chuteLifeSeconds(): number {
   const cfg = DEFAULT_CONFIG;
   const climbBeats = Math.ceil(CRACK_ROW / cfg.chuteRiseRows);
-  return fallSeconds() * cfg.chuteFallBeats + (climbBeats * 60) / cfg.bpm;
+  return fallSeconds() * cfg.chuteFallBeats + climbBeats * beatSeconds(cfg);
 }
 
 /**

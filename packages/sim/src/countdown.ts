@@ -35,9 +35,14 @@ import type { World } from "./world.js";
  * generic tail; this file only decides whether the moment was right.
  */
 
+/** How many marks a count is made of — the slots every dial draws. Never below one. */
+export function countdownSlots(cfg: SimConfig): number {
+  return Math.max(1, cfg.countdownBeats);
+}
+
 /** Beats from one count's start to the next: the marks, then the open beats. */
 export function countdownPeriod(cfg: SimConfig): number {
-  return Math.max(1, cfg.countdownBeats) + Math.max(1, cfg.countdownOpenBeats);
+  return countdownSlots(cfg) + Math.max(1, cfg.countdownOpenBeats);
 }
 
 /** Rolled on the beat the body enters, from the world's stream, so both
@@ -57,7 +62,7 @@ export function countdownOnSpawn(world: World): { countPhase: number } {
 export function countdownMarks(cfg: SimConfig, beat: number, c: Creature): number {
   const period = countdownPeriod(cfg);
   const at = (((beat + (c.countPhase ?? 0)) % period) + period) % period;
-  return Math.max(0, Math.max(1, cfg.countdownBeats) - at);
+  return Math.max(0, countdownSlots(cfg) - at);
 }
 
 /** Whether a shot arriving on `beat` is let in at all. */

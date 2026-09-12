@@ -15,7 +15,14 @@
  * is noticed — the same arrangement `Effects.reset()` makes in render/.
  */
 
-import { guardArmed, hullRow, mawOpen, type SimEvent, type World } from "@neon-spore/sim";
+import {
+  beatSeconds,
+  guardArmed,
+  hullRow,
+  mawOpen,
+  type SimEvent,
+  type World,
+} from "@neon-spore/sim";
 import { cueFor, panForCol } from "./bind.js";
 import { sound } from "./catalogue.js";
 import { Engine } from "./engine.js";
@@ -107,7 +114,7 @@ export class Mixer {
       // by the shell's flight so the ear and the eye agree about when it got
       // there — the tempo is here and nowhere else, so the beats become
       // seconds here (`bind.ts`, `Cue.delayBeats`).
-      const delay = cue.delayBeats === undefined ? 0 : (cue.delayBeats * 60) / world.cfg.bpm;
+      const delay = cue.delayBeats === undefined ? 0 : cue.delayBeats * beatSeconds(world.cfg);
       this.play(cue.id, cue.pan, cue.pitch, cue.gain, delay);
     }
 

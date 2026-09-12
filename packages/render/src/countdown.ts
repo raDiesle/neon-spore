@@ -1,5 +1,5 @@
 import { livingMotion, poseClock } from "@neon-spore/content";
-import { countdownIsOpen, countdownMarks } from "@neon-spore/sim";
+import { countdownIsOpen, countdownMarks, countdownSlots } from "@neon-spore/sim";
 import type { Body } from "./creature-body-in.js";
 import { livingBodyMul, livingRadius } from "./creature-place.js";
 import { colorTrio, type Tint } from "./creature-tint.js";
@@ -78,7 +78,7 @@ export function drawCountMarks(b: Body): void {
     ctx.stroke();
     return;
   }
-  const slots = Math.max(1, cfg.countdownBeats);
+  const slots = countdownSlots(cfg);
   const marks = countdownMarks(cfg, world.beat, c);
   ctx.save();
   ctx.lineCap = "butt";

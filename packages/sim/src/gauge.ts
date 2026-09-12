@@ -111,6 +111,11 @@ export function openGauge(world: World): GaugeState {
   return gauge;
 }
 
+/** Beats left on the clock. Never below zero; display and the round both ask. */
+export function gaugeBeatsLeft(world: World, gauge: GaugeState): number {
+  return Math.max(0, world.cfg.gaugeRoundBeats - (world.beat - gauge.openBeat));
+}
+
 /**
  * One tick of the round, and whether it is over: `true` passed, `false` out of
  * time, `null` still going. The shell owns the phases and calls this only
@@ -130,7 +135,7 @@ export function stepGauge(world: World, gauge: GaugeState, onBeat: boolean): boo
   if (onBeat) driftBand(world, gauge);
 
   if (gauge.marks >= cfg.gaugeMarks) return true;
-  if (world.beat - gauge.openBeat >= cfg.gaugeRoundBeats) return false;
+  if (gaugeBeatsLeft(world, gauge) <= 0) return false;
   return null;
 }
 

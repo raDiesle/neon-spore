@@ -1,5 +1,5 @@
 import { controlSetForWave } from "@neon-spore/content";
-import { type SnakeState, snakeCrashed } from "@neon-spore/sim";
+import { type SnakeState, snakeCrashed, snakeResting } from "@neon-spore/sim";
 import type { Layout, ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { ViewState } from "./renderer.js";
@@ -124,7 +124,7 @@ export function drawControls(
   // `WAVES` for a host actually playing them, so an explicit `view.controls`
   // wins when one is given.
   const set = view.controls === undefined ? controlSetForWave(view.world.wave) : view.controls;
-  const resting = view.world.beat - round.shotBeat < view.world.cfg.snakeFireRestBeats;
+  const resting = snakeResting(view.world, round);
   for (const slab of slabPanel(l, set, view.role)) {
     const id = slab.control.id;
     const on =

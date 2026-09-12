@@ -215,6 +215,7 @@ export const DEFAULT_CONFIG: SimConfig = {
 };
 
 export {
+  beatSeconds,
   clampCol,
   hullRow,
   midCol,

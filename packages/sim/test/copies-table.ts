@@ -545,4 +545,67 @@ export const COPIES: Copy[] = [
     owner: "packages/render/src/break-piece.ts",
     pattern: /mixHex\(dark,\s*hex,\s*lit\)|mixHex\([^)]*\+\s*rnd\(\)/,
   },
+  {
+    // The tempo as ticks: `tickHz * 60 / bpm`. `guide-scene.ts` wrote it out
+    // twice on one line to take a phase from it, past the one function that
+    // also checks the quotient is whole — a beat that is 37.5 ticks long is
+    // exactly what that check exists to refuse, and a copy skips it.
+    call: "ticksPerBeat",
+    owner: "packages/sim/src/config-derived.ts",
+    pattern: /tickHz\s*\*\s*60\s*\)\s*\/\s*(?:\w+\.)*bpm/,
+  },
+  {
+    // The tempo as seconds: `60 / bpm`. Fifteen copies across four packages
+    // when the row was written — three of them a module constant each named
+    // `BEAT_SECONDS`, the rest inline in a cadence or a delay. The first
+    // alternative is the owner's own `ticksPerBeat`, which is the same quotient
+    // with the tick rate on top and is why the owner is `config-derived.ts`.
+    // `theme.bpm` in the music model is a theme's own tempo, not the sim's, and
+    // the pattern asks for a config on purpose.
+    call: "beatSeconds",
+    owner: "packages/sim/src/config-derived.ts",
+    pattern: /60\s*\)?\s*\/\s*(?:\w+\.)*(?:cfg(?:\(\))?|DEFAULT_CONFIG)\.bpm/,
+  },
+  {
+    // Whether the runaway cannon fires on this beat: the fault's step, counted
+    // from the wave's first beat, against `malfunctionEveryBeats` clamped to
+    // one. The emitter that draws the shot had the whole line again, and an
+    // author who moved the count's origin would have moved the shot and not
+    // the flash.
+    call: "faultFiresThisBeat",
+    owner: "packages/sim/src/malfunction.ts",
+    pattern: /Math\.round\(\s*(?:\w+\.)*cfg\.malfunctionEveryBeats/,
+  },
+  {
+    // The rest between two of SNAKE's shots. The panel greyed the trigger by
+    // its own copy of the comparison the controls refuse the press by.
+    call: "snakeResting",
+    owner: "packages/sim/src/snake-controls.ts",
+    pattern: /shotBeat\s*<\s*(?:\w+\.)*cfg\.snakeFireRestBeats/,
+  },
+  {
+    // Where the pinball table's launch lane begins: the catch's height twice
+    // off the floor. The content package's board-size arithmetic had it in
+    // tiles, the fault check in thousandths, and a bucket made deeper would
+    // have left the director offering rows the game rejects.
+    call: "pinLaneFloorMilli",
+    owner: "packages/sim/src/pinball-board.ts",
+    pattern: /pinballCatchMilli\s*\*\s*2/,
+  },
+  {
+    // Beats left on THE GAUGE's clock. The bar under the dial worked it out
+    // from `openBeat` again, the way THE FLEET's clock does not — it asks
+    // `fleetBeatsLeft`, and this is the same function for the same reason.
+    call: "gaugeBeatsLeft",
+    owner: "packages/sim/src/gauge.ts",
+    pattern: /openBeat[^;\n]*gaugeRoundBeats|gaugeRoundBeats[^;\n]*openBeat/,
+  },
+  {
+    // How many marks a count is made of. Four dials each clamped
+    // `countdownBeats` to one on their own before laying the slots out, beside
+    // the two functions in `countdown.ts` that had already done it.
+    call: "countdownSlots",
+    owner: "packages/sim/src/countdown.ts",
+    pattern: /Math\.max\(\s*1,\s*(?:\w+\.)*cfg\.countdownBeats\s*\)/,
+  },
 ];

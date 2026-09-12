@@ -1,4 +1,4 @@
-import { DEFAULT_CONFIG, lidIsOpen, type SpawnEntry } from "@neon-spore/sim";
+import { beatSeconds, DEFAULT_CONFIG, lidIsOpen, type SpawnEntry } from "@neon-spore/sim";
 import {
   firstOfKind,
   fresh,
@@ -62,7 +62,7 @@ const COL = 5;
  * a second copy of the rule that a body comes down a row a beat.
  */
 export function fallSeconds(): number {
-  return ((DEFAULT_CONFIG.rows + 0.5) * 60) / DEFAULT_CONFIG.bpm;
+  return (DEFAULT_CONFIG.rows + 0.5) * beatSeconds(DEFAULT_CONFIG);
 }
 
 /**

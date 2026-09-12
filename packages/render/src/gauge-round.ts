@@ -1,5 +1,5 @@
 import { controlSetForWave } from "@neon-spore/content";
-import { GAUGE_LEAD_BEATS, type GaugeState } from "@neon-spore/sim";
+import { GAUGE_LEAD_BEATS, type GaugeState, gaugeBeatsLeft } from "@neon-spore/sim";
 import { drawGauge, PLATE_PAD, showsGaugeMarks } from "./gauge.js";
 import { drawGaugeTitle, GAUGE_TITLE_DEPTH } from "./gauge-title.js";
 import type { Layout } from "./layout.js";
@@ -110,8 +110,7 @@ function drawTally(
     ctx.fill();
   }
 
-  const spent = view.world.beat - round.openBeat;
-  const left01 = Math.max(0, Math.min(1, 1 - spent / cfg.gaugeRoundBeats));
+  const left01 = Math.min(1, gaugeBeatsLeft(view.world, round) / cfg.gaugeRoundBeats);
   const barW = l.width * 0.5;
   const barX = (l.width - barW) / 2;
   ctx.fillStyle = "#241B4F";

@@ -1,4 +1,4 @@
-import type { SimConfig, SimEvent, World } from "@neon-spore/sim";
+import { beatSeconds, type SimConfig, type SimEvent, type World } from "@neon-spore/sim";
 import { Arrivals } from "./arrivals.js";
 import { BeatboxSilences } from "./beatbox-silence.js";
 import { BeatboxWaves } from "./beatbox-wave.js";
@@ -179,13 +179,13 @@ export class Effects {
   ): void {
     // Derived, not passed: `cfg` arrived for `claspBreakBeats`, and a second
     // parameter saying the same number is how two clocks start.
-    const beatSeconds = 60 / cfg.bpm;
+    const spb = beatSeconds(cfg);
     this.mirror.ingest(events);
     this.warden.ingest(events);
-    this.fleet.ingest(events, beatSeconds);
-    this.bodies.ingest(events, l, cfg, beatSeconds, time);
-    this.recoilLeap.ingest(events, beatSeconds);
-    this.coilFlight.ingest(events, l, beatSeconds);
+    this.fleet.ingest(events, spb);
+    this.bodies.ingest(events, l, cfg, spb, time);
+    this.recoilLeap.ingest(events, spb);
+    this.coilFlight.ingest(events, l, spb);
     this.volleyShards.ingest(events, l, cfg);
     for (const e of events) {
       const spark = burstFor(e, l);
@@ -197,7 +197,7 @@ export class Effects {
       ingestOne(e, {
         l,
         time,
-        beatSeconds,
+        beatSeconds: spb,
         creatureIdAt,
         sparks: this.sparks,
         spriteBursts: this.spriteBursts,

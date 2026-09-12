@@ -1,4 +1,4 @@
-import type { SimConfig } from "@neon-spore/sim";
+import { beatSeconds, type SimConfig } from "@neon-spore/sim";
 import { beatCount, currentWave, type Store } from "./state.js";
 
 /**
@@ -32,7 +32,7 @@ export function bindGridNote(store: Store, cfg: () => SimConfig): GridNote {
       return;
     }
     const beats = beatCount(wave);
-    const seconds = ((beats * 60) / cfg().bpm).toFixed(1);
+    const seconds = (beats * beatSeconds(cfg())).toFixed(1);
     const pods = wave.pods?.length ?? 0;
     note.textContent =
       `${wave.entries.length} entries · ${pods} pods · ${beats} beats ≈ ${seconds}s at ` +

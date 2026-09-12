@@ -1,4 +1,4 @@
-import { type FleetState, fleetBeatsLeft, type World } from "@neon-spore/sim";
+import { beatSeconds, type FleetState, fleetBeatsLeft, type World } from "@neon-spore/sim";
 import type { Chart } from "./fleet-chart.js";
 import { PALETTE } from "./palette.js";
 
@@ -30,7 +30,7 @@ const LATE = 0.125;
 /** Seconds left, smoothed through the beat so the numeral ticks once a second. */
 function secondsLeft(world: World, boss: FleetState, beatPhase: number): number {
   const beats = Math.max(0, fleetBeatsLeft(world, boss) - beatPhase);
-  return (beats * 60) / world.cfg.bpm;
+  return beats * beatSeconds(world.cfg);
 }
 
 /** `1:40`, and never `100`. Two people say minutes at this length. */

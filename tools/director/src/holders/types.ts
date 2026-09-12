@@ -1,4 +1,4 @@
-import { DEFAULT_CONFIG } from "@neon-spore/sim";
+import { beatSeconds, DEFAULT_CONFIG } from "@neon-spore/sim";
 
 /**
  * What a holder draft is, and what it is told.
@@ -17,7 +17,7 @@ import { DEFAULT_CONFIG } from "@neon-spore/sim";
  */
 
 /** The page's heartbeat. The game's own tempo, not a number near it. */
-export const BEAT_SECONDS = 60 / DEFAULT_CONFIG.bpm;
+export const BEAT_SECONDS = beatSeconds(DEFAULT_CONFIG);
 
 /** Beats in one hold-and-release cycle: three holding, one letting go. */
 export const CYCLE_BEATS = 4;
