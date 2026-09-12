@@ -179,6 +179,7 @@ what the rest of this file holds.
 ## The director cannot be started from a worktree for a look
 
 - **Found:** 2026-09-12, claude/limpet-cycle
+- **Taken:** 2026-09-12, claude/queue-the-director-cannot-be-started-from-a-worktree-f
 - **Files:** `.claude/launch.json`, `tools/dev/supervise.ts`, `.claude/skills/lane/SKILL.md`
 - **What to do:** `preview_start` with `director-once` from a worktree started
   the *main* checkout's server (its log said `editing …/neon-spore`), so a
