@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-12 · e70b57e7 — The indicator's vocabulary is closed, and a quiet phone never reads like a dead line
+
+`packages/net/src/status.ts` was the only one of `net-change`'s six files that move together with no test, and the three functions in `apps/game/src/join-words.ts` that carry the actual sentences — `explain`, `roomLine` and `chipText` — had none either. Twenty-five tests now hold what both file headers claim in prose and nothing enforced. The list of eleven states is closed and the test knows all of them by name, so a twelfth arrives here before it arrives on a screen; no two states share a word or a sentence; every word fits the chip; and `linkIsFault` names the socket closed, the room full and the two worlds parted — and never a stall.
+
 ## 2026-09-12 · 068d83c3 — Document drift is a test: seven stale paths and one unnamed config field
 
 `tools/index/drift.ts`' argument, applied to the spec. Prose is hand-written and worth keeping hand-written, so nothing regenerates over it, and the cost is that it goes quietly wrong — five INDEX rows were repaired by hand in one week and nothing in the repository would have failed if they had not been. `tools/test/doc-drift.test.ts` settles the three claims a document makes that the tree can answer without reading the argument: every backticked path under `docs/` names a file, every field of `SimConfig` is named somewhere in `docs/spec/` or a `docs/*.md`, and every `Files:` line in `docs/queue.md` and `docs/parked.md` names files that exist. It caught **seven stale paths across five documents** and **one undocumented core config field**, and all eight are fixed here.
