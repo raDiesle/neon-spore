@@ -22,6 +22,30 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 — tunables-doc — every field of SimConfig named in a sheet
+
+Queue item, claimed with `bun run queue take 1`, answered by the owner with
+*only the feel numbers*: the 105 fields still on the doc-drift allowlist each
+get one sentence in the sheet that describes the thing they are a dial for —
+the bosses' in `bosses.md` (with a short section for THE MAZE, which had
+none), the rounds' in `interludes.md`, the creatures' in `bestiary.md` under a
+new heading, the shot box and the pod's in `systems.md`, depth in
+`graphics.md`. The allowlist is empty and deleted, and the test now simply
+fails on any `SimConfig` field no document names. About 20 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the allowlist, the doc comment of each of the 105 fields across 25 `config-*.ts` files, and where each sheet's sections end |
+| writing | 10 | 279 lines of prose across five sheets, from one script; the test's header and second `it` |
+| looking | 0 | nothing drawn |
+| friction | 5 | the script's anchors and backslashes: three reruns for a `---` that was my own separator, a `
+` that the patch turned into a real newline, and a `\b` that came out single |
+| landing | 5 | `check:fast`, the commit, `bun run land --keep` |
+
+The bottleneck was patching the patch script rather than writing the prose:
+each of the three reruns cost a round trip that a first look at the anchor
+lines would have saved.
+
 ## 2026-09-12 — rounds-verdict — the rounds' own second try comes out
 
 Queue item, claimed with `bun run queue take 1`: since a hit fails the wave

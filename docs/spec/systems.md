@@ -157,6 +157,12 @@ A rock still stops it and the wrong colour still stops it — a lance is a line,
 not a licence ([graphics](graphics.md); a rock cannot be broken because it does
 not live).
 
+What a shot tests against is `hitHeightMilli` in
+`packages/sim/src/config-shot.ts`, the height of the invisible box in
+thousandths of a tile: one tile means a creature is hit over exactly the tile it
+looks like it stands on, more is generous, less asks for a precision the beat
+does not give. The width is always the column.
+
 ## 5.6 Destruction and damage — partly built
 
 Design:
@@ -236,6 +242,16 @@ again, exactly as a body reaching the hull loses it (`wave-fail.ts`). The
 same for a crossing pod that gets away off the side of the field. It used to
 cost nothing, a missed gift being no punishment; taking every pod in is part
 of passing the wave now.
+
+Three of the pod's numbers are in `packages/sim/src/config-pod.ts`.
+`podHomeTiles` is how close to the hull, in tiles, a falling pod has to be
+before it starts steering toward the cannon's column instead of drifting on its
+own. `podHomeTilesPerBeat` is its sideways speed once it is steering, in tiles
+per beat, and inside that distance it replaces `podDriftTilesPerBeat` entirely.
+`podCrossTilesPerBeat` is how fast a pod authored to *cross* the field travels
+along its row when the wave does not say — the pair's clock on THE CLAW's panel,
+because eleven columns at that speed is how long they have between a power-up
+entering and leaving.
 
 ## 5.8 Overall behaviour in the raster — built
 

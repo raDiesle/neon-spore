@@ -123,6 +123,12 @@ whether delegating implementation actually saves tokens — see
 `docs/delegation-cost.md`. Variant A was removed once the comparison was done;
 `boss.ts` is what was variant B.
 
+Two of her numbers are in `packages/sim/src/config-boss.ts`. `queenRow` is the
+row she holds at full health, and she sinks a tile for every petal lost.
+`queenEggGrowShare` is the share of a beat she takes to grow a torch back into
+the socket the last one broke off from — 1 is the whole beat, 0 is it simply
+being there again — and only the picture reads it.
+
 ## 11.1 The Mother — reactive, but announced
 
 She reacts to what the pair destroyed in the previous act, and brings it back.
@@ -205,6 +211,9 @@ is the same fight on both devices without a single draw from the rng.
 
 If the act structure ever wants it, its slot is The Echoes (90): a boss whose
 whole subject is repetition is the one the ninth pillar is already reaching for.
+
+Its one number in `packages/sim/src/config-boss.ts` is `mirrorRow`, the row its
+own hull surface sits on — the ship's, upside down.
 
 ## 11.4 The Warden — the gate one of you holds open
 
@@ -331,6 +340,13 @@ instead by the circle its handle is drawn in: `tetherHandleCircle` in
 `render/src/handles.ts` along with THE MAZE's string. The resting circle, never
 the swung one — by the time it has swung the pointer is captured.
 
+The circle itself is `handleRadiusMilli` in `packages/sim/src/config-view.ts`:
+how far a handle reaches from its own centre, in thousandths of a tile, and THE
+MAZE's string, this rope and THE LID's cord all wear the same one. It is a
+simulation number rather than a render one because the rule needs it — a pull
+may not carry a handle off the field (`handle-pull.ts`), and what has to stay on
+is the whole circle, so the bound is inset by exactly this.
+
 **How it is drawn — and this part is built.** The body is two lobed contours
 under different seeds, cut with an even-odd fill, the trick `circleSubpath`
 already plays for the hull's fire opening. The pupil sits off-centre and slides,
@@ -378,6 +394,10 @@ looked at by a human is whether the hatch reads as a proportion at phone size �
 whether a partner watching it can tell "nearly there" from "there" without being
 told a number, which is the whole of player 2's half of this fight and is a
 question no test can answer.
+
+`wardenHangRows` in `packages/sim/src/config-boss.ts` is how many rows below the
+rim the line's handle hangs once it has been lowered — far enough down that the
+rope reads as a rope rather than a stub under the ring, and it never falls.
 
 ### Retired designs from this fight
 
@@ -542,6 +562,11 @@ mechanism sweeping the top of the field or as a weapon hanging over it. That is
 the question the whole picture rests on — a vane is a thing that turns when
 something pushes it — and neither a still nor a test can answer it, because it
 is a question about motion at tempo.
+
+Its one number in `packages/sim/src/config-boss.ts` is `vanePins`, the pins
+holding the bearing: one comes out per opening answered and the arm slips a
+phase further out each time, so it is both how long the fight is and how much of
+the field it ends up folding.
 
 ## 11.6 THE FLEET — one of you has the map, the other has the sights
 
@@ -852,6 +877,23 @@ a half seconds of sweep is patient or tedious, and whether pegs or blocks are
 the better board. All three are questions about an eye and a hand, and no test
 can answer any of them.
 
+Its dials are in `packages/sim/src/config-pinball.ts`. `pinballCols` is the
+table's width in tiles, the field's own eleven. `pinballRows` is its height in
+tiles — portrait, and only just taller than the field, because the space under
+the lowest piece is the ball's way home and nothing else. `pinballBallMilli` is
+the ball's radius in thousandths of a tile. `pinballPegMilli` is a peg's radius,
+and every peg is that size. `pinballCatchMilli` is half the cannon's catch,
+which is also how high a ball rests above the floor and how deep the clear lane
+above the ship is — one number, because the mouth a ball comes out of is the
+mouth it has to come back into. `pinballGravityMilli` is what the ball gains
+downward each tick. `pinballLaunchMilli` is the speed a ball leaves the bucket
+at on a full-power launch, and `pinballWeakPermille` is the weakest launch as a
+fraction of it. `pinballPowerMilli` is how far the power bar travels each tick.
+`pinballSweepMilli` is how far the needle sweeps either side of straight up, in
+thousandths of a degree — THE MAZE's angle unit, because the sine comes off
+`mazeSinMilli`. `pinballWallPermille` is how much of the speed survives a bounce
+off a wall, deader than a peg on purpose.
+
 ## 11.8 THE PULSE — the same song, and neither of you can read all of it
 
 > The one where you both play the same chart and part of it only the other one
@@ -977,6 +1019,22 @@ a hundred and sixty-seven milliseconds of scroll is enough warning on a phone,
 whether the two judging windows are generous or slack under a thumb on glass,
 and whether four veiled arrivals in a minute is a spice or a rounding error. All
 three are questions about an eye and a hand, and no test can answer any of them.
+
+Its dials are in `packages/sim/src/config-pulse.ts`. `pulseStepTicks` is the
+ticks between one step of the grid and the next, and it must divide the beat.
+`pulseLeadTicks` is how long a note stands on the screen before the tick it is
+due — the scroll speed, and the one number a player would feel changed: two
+hundred ticks is about eight arrows on screen, a whole bar ahead of the line.
+`pulsePerfectTicks` is how many ticks either side of a note's own tick count as
+a clean hit, and `pulseGoodTicks` how many still count at all; beyond that the
+note is missed. The meter is one bar both seats feed and drain:
+`pulseMeterStartMilli` is what it starts a stage at, halfway up, and
+`pulseMeterMaxMilli` the most it can hold. `pulsePerfectMilli` is what a clean
+hit puts back and `pulseGoodMilli` what a scruffy one puts back — less, so the
+window is not a free pass. `pulseMissMilli` is what a missed note takes off, and
+`pulseStrayMilli` what a press with no note under it takes off, more per press
+than waiting costs, so a seat that cannot read its own arrow cannot hold all
+four buttons down through the bar and never be wrong.
 
 ## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen
 
@@ -1195,3 +1253,27 @@ ring has to be one the pair already knows from playing — the plate stopping a
 bolt is the only arrow the game teaches by itself — and the tell has to be a
 thing the game already shows, not a lobe filling on a body built for the
 purpose.
+
+## 11.10 THE MAZE — the wheel, in its numbers
+
+The fight itself is written where it is built, `packages/sim/src/maze-round.ts`
+and its neighbours: a drum of rims with exactly one gap in each that reaches the
+middle, turned by a string the pilot drags or by the held valve until a way in
+clicks onto a column, and a shot sent up that column that either finds the heart
+or comes back out of the same column as a hit. This sheet carries only its
+dials, all in `packages/sim/src/config-boss.ts`.
+
+`mazeSpanMilli` is how wide the wheel stands across the field, in thousandths of
+the field's width — about six sevenths, so the rim clears the hull and the
+cannon still slides under it. `mazeRow` is the row the mouths hang on, where a
+wrong answer comes back out of the field and starts falling, the same job
+`mirrorRow` does. `mazeTurnMilli` is how far the wheel turns in a tick while the
+valve is held, in thousandths of a degree — a whole turn at 200 is twenty-four
+beats. `mazeDragMilliPerTile` is how far it turns for one tile of hand travel on
+the string, forty-five degrees, so a pull is one hand movement rather than a
+series of them. `mazeSnapMilli` is how near a column's centre a way in has to
+come before it clicks onto it — wider than the rim moves in one tick, so a
+column cannot be turned straight past, and narrow enough that a lit mouth reads
+as standing on the column. `mazeDragBreakMilli` is how far the hand has to carry
+on past a click before it breaks: the detent's hysteresis, so a thumb jittering
+on the handle does not undo a click the pair had just agreed on.

@@ -165,6 +165,15 @@ scar is still there when the field comes back. A run can end in a round.
 
 What failure costs is a number in `SimConfig` and it is the owner's to turn.
 
+THE GAUGE's own dials are in `packages/sim/src/config-gauge.ts`.
+`gaugeRoundBeats` is how many beats the round lasts before time runs out.
+`gaugeMarks` is how many marks pass the round — four or five repetitions of one
+rule. `gaugeSpanMilli` is half the distance between the two marks, in
+thousandths. `gaugeDriftMilli` is how far the band walks each beat, which is the
+whole of the pressure. `gaugeTurnMilli` is how far the pilot's valve moves the
+needle each tick. `gaugeCallRestBeats` is the beats between two calls, landed or
+not, so a held thumb is slower than talking.
+
 What a round **may** do is give — a pod or two for the act about to start
 ([systems](systems.md#57-power-ups--the-pod-built)). That is not built. Pods are
 wave content and `startWave` replaces `podQueue` wholesale, so the giving needs
@@ -215,6 +224,19 @@ sentence the pair says most from "it is lined up" into "bring me to it", which
 is the sentence the round is for. The picture says so — the venom lands in
 mid-air when it found nothing, which is the pair being told the reach ran out
 rather than the aim did.
+
+**The rest of its numbers are in `packages/sim/src/config-snake.ts`.**
+`snakeCols` and `snakeRows` are the arena in tiles, and have nothing to do with
+the field's `cols`, because the field is gone. `snakeStartTiles` is how long the
+body is when a round opens, and `snakeGrowTiles` how many tiles a point adds —
+the body is the obstacle, so that one is the difficulty. `snakeFireRestBeats` is
+the beats between two shots, so a held trigger is not a cleared row.
+`snakeMawTicks` is how many ticks the mouth stands open on one press, and it is
+the one number here that decides how the round feels: the same window is a
+smaller share of a tile at a shorter step, so the mouth gets harder to time
+exactly as the body gets faster, with nothing authored to make it so.
+`snakeMawRestTicks` is the ticks between two openings, never shorter than the
+window, or a tapping thumb holds the jaws apart for the whole round.
 
 **A crash is the wave lost, and the round has no second try of its own.** A
 wall, its own body, a touched enemy or a point reached with the mouth shut is a

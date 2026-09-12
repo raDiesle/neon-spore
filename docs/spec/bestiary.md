@@ -340,6 +340,15 @@ true.
 field like a balloon released — the only thing in this game that ever travels
 up, and the only sight player 1 gets of the body they have been firing at.
 
+Its numbers are in `packages/sim/src/config-ghost.ts`. `ghostCrossRow` is the
+row a crossing ghost prowls along — three, far enough down to be drawn at a size
+player 2 can read a column off, far enough up that the dive is a fall the pair
+watches. `ghostCrossCols` is the columns it takes each beat, two, set by the
+length of the crossing rather than by how fast it should look. `ghostChargeLaps`
+is how many walls it turns at before it gives up and dives, three, a number the
+pair counts out loud while doing something else. `ghostDiveTiles` is the tiles a
+charging ghost falls each beat, `meteorFast`'s three.
+
 ## 10.2 Newly accepted
 
 | Creature | Pillar | Description |
@@ -518,6 +527,147 @@ only way into a `fire` or a `guard` — a swipe on the hull is a second, a
 rehearsal's ghost thumb a third and the wire a fourth — so a broken control is
 swallowed above the switch in `applyCommand`. render/ draws the button dead and
 tearing; it does not decide anything.
+
+Its one number is `malfunctionEveryBeats` in
+`packages/sim/src/config-malfunction.ts`, the beats between two automatic
+actions of a broken control — one, so the fault does exactly what the metronome
+does and the pair already knows when the next one is coming.
+
+## Each body's own numbers
+
+Every dial that decides how a body feels is a named field of `SimConfig`, and
+the bodies with a section above carry theirs there. The rest are here, a
+sentence each, in the config file that holds them — what the number is the dial for, not
+its value, which is the file's to say.
+
+**THE BALLOON** (`packages/sim/src/config-balloon.ts`). `balloonSwellBeats` is
+the beats it stands still, swelling, before it starts to climb — on the beat it
+appears and again after a rub splits it. `balloonClimbBeats` is the beats
+between one climb and the next, which is how slowly it leaves: a whole tile
+every second beat rather than half a tile every beat. `balloonRiseRows` is the
+rows it climbs on a climbing beat, and the columns it takes to the side on the
+same beat — one number, because the path is a diagonal. `balloonSplits` is how
+many times a fresh balloon comes apart before a rub finishes it: one, so the
+first rub splits it in two and the second pops each half.
+
+**THE BEATBOX** (`packages/sim/src/config-beatbox.ts`). `beatboxBeats` is how
+many beats a box asks for when the wave names no count — three, the shortest run
+that is still a rhythm rather than a press. `beatboxFallBeats` is the beats
+between the steps it takes down the field, two, half the speed of everything
+else that falls. `beatboxWindowMs` is how near a beat a tap has to land to
+count, in milliseconds either side, and it must stay under half a beat or two
+beats could claim one tap.
+
+**THE CAROM, and the body thrown clear of it**
+(`packages/sim/src/config-carom.ts`). `caromCols` is the columns it crosses each
+beat, three, and `caromRows` the rows it drops each beat, one — so the crossing
+is fourteen beats, room for a lead, a colour and a second control after the shot
+lands. `chuteRiseRows` is the rows the body thrown clear of a cracked carom
+climbs each beat until its canopy opens at the top of the field — four, because
+the picture has to say *thrown*. `chuteFallBeats` is the beats between one row
+and the next on the way back down, two, THE ECHO's rate.
+
+**THE CHOIR** (`packages/sim/src/config-choir.ts`). `choirPullMilli` is the
+thousandths of a tile a hand has to carry an arrow outward before it counts as
+moved, a tile and a half. `choirWindowBeats` is the beats between the first
+arrow moving and the second having to, two. `choirFuseBeats` is the beats the
+two bodies take to draw together once the gesture has landed — one, and it is
+the length of the picture, not a penalty.
+
+**THE CLASP** (`packages/sim/src/config-creatures.ts`). `claspBreakBeats` is the
+beats the broken shield goes on flying apart for — the picture's alone, but
+counted in beats, and the beat is the simulation's.
+
+**THE COIL** (`packages/sim/src/config-coil.ts`). `coilCols` is the columns it
+crosses each beat — one, so it can be in every column rather than every second
+one. `coilDropRows` is the rows it sinks each time it reaches a wall and turns,
+five, so an arrival at the top touches three walls before it is on the ship.
+`coilJumpBeats` is the beats the charge is in the air between one dome and the
+next, three, and the rock freed at the far end lands a beat later.
+
+**THE CRAWLER** (`packages/sim/src/config-crawler.ts`). `crawlerSegments` is the
+segments between the two ends when the wave does not author a count — five, one
+full turn of the red-cyan-armour cycle and most of a second. `crawlerStepBeats`
+is the beats between one column of walking and the next, two, so the column the
+pair just agreed on stays true for a whole beat.
+
+**THE CRYSTAL** (`packages/sim/src/config-crystal.ts`). `crystalCols` is the
+columns it crosses each beat, one, so the plate that found it is still under it
+when the shot is loaded. `crystalRows` is the rows it drops each beat, one, so
+the crossing is fourteen beats for the longest exchange in the game.
+
+**THE ECHO** (`packages/sim/src/config-creatures.ts`). `echoFallBeats` is the
+beats between one step down and the next, two, which is the whole of "half as
+fast". `echoSplitBeats` is the beats it waits before its first division, three,
+and each generation after that waits one more multiple of it. `echoSplits` is
+how many times it divides before it is done, three, so one arrival is eight
+bodies.
+
+**THE FENCE** (`packages/sim/src/config-fence.ts`). `fenceGapCols` is the
+columns each way through opens, an authored one and a burnt one alike — one,
+because a gap two columns wide is a gap the shield finds by being roughly right.
+
+**THE GYRE** (`packages/sim/src/config-gyre.ts`). `gyreSpinMilli` is the
+thousandths of a rim position the wheel turns on the beat it arrives, a click
+every third beat. `gyreSpinGainMilli` is the thousandths added to that for every
+beat the wheel stays up. `gyreSpinCapMilli` is the fastest the rim may ever
+turn, one whole position a beat — a cap, so a mount never steps past a tile.
+`gyreSuckMs` is how long one press of the maw holds a wheel, in milliseconds,
+long enough to cover a spoken exchange. `gyreSuckSpinMilli` is what the rim
+turns at while the maw is open, visibly stopped rather than merely slower.
+`gyreSinkLaps` is the laps of the diamond after which the circuit stops sinking,
+three, where the foot of the rim reaches the hull row.
+
+**THE LID** (`packages/sim/src/config-creatures.ts`). `lidCordMilli` is how far
+beside its own centre the cord hangs, toward the middle of the field, in
+thousandths of a tile — a whole tile, clear of the eye at every row.
+`lidTautMilli` is the thousandths of a tile player 1's hand must carry the cord
+for the plates to stand fully apart — `wardenTautMilli`'s figure exactly, the
+same gesture asked of the same thumb.
+
+**THE LURE** (`packages/sim/src/config-creatures.ts`). `lureBlastPlaces` is the
+places along the hull the blast breaks it in, with `damageLure` split between
+them — priced once, paid in several holes.
+
+**THE RECOIL** (`packages/sim/src/config-recoil.ts`). `recoilBounces` is how
+many times it survives a matching shot before one kills it, three, so one
+arrival is four shots. `recoilRows` is the rows a bounce throws it back up the
+field, two, which plainly undoes two beats of falling.
+
+**THE RIND** (`packages/sim/src/config-creatures.ts`). `rindLayers` is how many
+layers it sheds before an ordinary shot kills it, two, so one arrival is three
+shots and three sizes.
+
+**A crossing rock** (`packages/sim/src/config-rock-cross.ts`) — not a kind but a
+path any plain rock may be authored onto (`WaveEntry.cross`). `rockCrossCols` is
+the columns it takes each beat, two, THE GHOST's stride, so the column player 1
+calls has to be where the rock is going rather than where it is.
+
+**THE STRAND** (`packages/sim/src/config-strand.ts`). `strandBeads` is the beads
+on a thread when the wave does not author a count — three, the first count at
+which the order has to be kept. `strandFallBeats` is the beats between one step
+down and the next, two, the hardest creature on the field asking for room.
+
+**THE THROB** (`packages/sim/src/config-creatures.ts`). `throbFaceMilli` is the
+thousandths of every turn the authored colour is square to the cannon; the rest
+is the other colour's half.
+
+**THE VEER** (`packages/sim/src/config-veer.ts`). `veerRowsApart` is the rows
+between one change of lane and the next, three, which is how long a column said
+out loud stays true. `veerMaxDist` is the widest a single change can reach, in
+columns, four, and each change rolls a fresh distance up to it so the pilot's
+arrow is never the same-sized sentence twice.
+
+**THE VEIL** (`packages/sim/src/config-creatures.ts`). `veilArmourMs` is how
+long a wrong colour keeps it shut, in milliseconds — two seconds, long enough to
+cost the pair a morph boundary.
+
+**THE VOLLEY** (`packages/sim/src/config-volley.ts`). `volleyPlates` is the
+plates of shell it arrives wearing, which is how many wards it takes before the
+body inside is loose — three, and it is also the readout, one sector of the ball
+per plate still on. `volleyRiseRows` is the rows a ward throws it back up the
+field each beat of the climb, three. `volleyRiseBeats` is the beats the climb
+lasts, two, so a ward carries it six rows to the middle of the field.
 
 ## 10.3 Examined and rejected
 

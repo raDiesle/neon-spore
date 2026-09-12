@@ -4,7 +4,6 @@ import { join } from "node:path";
 import { DEFAULT_CONFIG } from "../../packages/sim/src/config.js";
 import { parseItems } from "../queue/queue.js";
 import { existsIn } from "../queue/stale.js";
-import { deadAllowances, UNDOCUMENTED_CONFIG_FIELDS } from "./doc-drift-allow.js";
 import { docFiles, ignoredByGit, namesAFile, pathClaimsIn, ROOT, TREE } from "./doc-paths.js";
 
 /**
@@ -27,10 +26,14 @@ import { docFiles, ignoredByGit, namesAFile, pathClaimsIn, ROOT, TREE } from "./
  * `doc-paths.ts`.
  *
  * **A tunable nobody names is a number the next session reverse-engineers** from
- * whatever reads it. 76 of `SimConfig`'s 234 fields are named in a document, and
- * they are exactly the ones `packages/sim/src/config.ts` declares itself; the
- * other 158 are frozen in `doc-drift-allow.ts` with the reason they share and the
- * `Asks:` entry the question went to.
+ * whatever reads it. When this landed, 76 of `SimConfig`'s 234 fields were named
+ * in a document — exactly the ones `packages/sim/src/config.ts` declares itself —
+ * and the other 158 sat on an allowlist beside this file with the question of
+ * what to do about them. The owner's answer, 12 September 2026, was one sentence
+ * each in the sheet that describes the thing the number is a dial for; the ones
+ * that were not feel numbers had been retired by then, the list emptied and was
+ * deleted, and every field of `SimConfig` is now named in a document or fails
+ * here.
  *
  * **A queue entry that names a file the tree has not got** cannot be picked up by
  * the cold session it was written for. `bun run queue` says so when somebody runs
@@ -105,20 +108,11 @@ describe("a field of SimConfig", () => {
     .map((doc) => readFileSync(join(ROOT, doc), "utf8"))
     .join("\n");
 
-  it("is named in a document, or is on the list of the ones that are not", () => {
-    const allowed = new Set(UNDOCUMENTED_CONFIG_FIELDS);
+  it("is named in a document", () => {
     const unnamed = Object.keys(DEFAULT_CONFIG).filter(
-      (field) => !allowed.has(field) && !new RegExp(`\\b${field}\\b`).test(specText),
+      (field) => !new RegExp(`\\b${field}\\b`).test(specText),
     );
     expect(unnamed).toEqual([]);
-  });
-
-  it("has left the list once a document names it, and left it when it left the config", () => {
-    // Both directions, because both rot: a name a document has since named is a
-    // line to delete, and a name renamed away is a line that describes nothing.
-    expect(deadAllowances()).toEqual([]);
-    const named = UNDOCUMENTED_CONFIG_FIELDS.filter((f) => new RegExp(`\\b${f}\\b`).test(specText));
-    expect(named).toEqual([]);
   });
 });
 

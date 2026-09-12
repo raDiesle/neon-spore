@@ -73,6 +73,15 @@ separate objects sitting on top of it.
 Lobe, hull, beat and ward are the fixed vocabulary. Do not invent synonyms —
 see `CLAUDE.md`.
 
+Two numbers in `packages/sim/src/config-view.ts` give the flat grid its depth,
+and only the picture reads them (`render/src/depth.ts`). `depthNearScale` is how
+much larger a body draws on the hull row than on the top row — 1 is the flat
+field, and it is never below 1, because a shrinking far row walks through the
+20–26 px floor under which a shape can no longer be named. `depthHaze` is how
+far a body on the top row has its colours mixed toward the field's far colour, 0
+to 1 and falling to 0 at the hull — one mix that pays for dimmer, cooler and
+lower contrast at once.
+
 ### The shield is a body, not a plate
 
 One lobe sliding along the hull reads as a lump being dragged over the skin. So
