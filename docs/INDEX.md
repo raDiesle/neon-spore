@@ -604,6 +604,10 @@ place — the generator keeps whatever is there.
 | `packages/render/src/sprite-burst.ts` | A baked animation, played from an atlas, over the field |
 | `packages/render/src/tether.ts` | THE WARDEN's rope, and the handle on it: the one thing on this field either player can put a hand on |
 | `packages/render/src/tether-look.ts` | THE ONE RECORD A CANDIDATE **TETHER** LOOK PATCHES |
+| `packages/render/src/tether-looks.ts` | THE FOUR THINGS A ROPE CAN BE, and the one the field draws |
+| `packages/render/src/tether-cord.ts` | CORD — the rope is round, and it has a side the light is on |
+| `packages/render/src/tether-sinew.ts` | SINEW — the rope is a piece of the boss, and pulling it is felt all the way up |
+| `packages/render/src/tether-twist.ts` | TWIST — the rope is two strands laid round each other, and the twist is what the tension does |
 | `packages/render/src/vane-draw.ts` | THE VANE, drawn: an arm sweeping the top of the field, and the bearing it turns on |
 | `packages/render/src/veil-bolt.ts` | THE VEIL's lightning: small bolts that break out of the cloud's own border, scattered round it, each in its |
 | `packages/render/src/veil-marks.ts` | What stands over a cloud, and it is a different thing in each seat |
@@ -1250,6 +1254,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/pose-art.ts` | A posed world, drawn — one frame of the shipping renderer, cut down to the part of the phone the pose is about |
 | `tools/director/src/pose-kit.ts` | The apparatus behind a posed frame: a world put into one named state |
 | `tools/director/src/poses-field.ts` | The states of the things a wave puts on the field: the creatures, and the two bosses that exist |
+| `tools/director/src/poses-field-controls.ts` | The states the ON THE FIELD tab needed a picture of and the gallery did not have |
 | `tools/director/src/poses-mechanics.ts` | What those hands add up to on the field: a hand on something falling, a shot in the air |
 | `tools/director/src/poses-ship.ts` | What a player's own hands put the ship into |
 | `tools/director/src/poses-surface.ts` | The states a candidate for a **surface** is judged on |
@@ -1554,6 +1559,8 @@ place — the generator keeps whatever is there.
 | `tools/director/src/field-controls-balloon.ts` | THE BALLOON's two handles, in a file of their own |
 | `tools/director/src/field-controls-gum.ts` | THE GUM's one handle, in a file of its own on `field-controls-balloon.ts`'s pattern |
 | `tools/director/src/field-controls-choke.ts` | THE CHOKE's one gesture, in a file of its own on `field-controls-gum.ts`'s pattern |
+| `tools/director/src/field-controls-rows.ts` | How one row of the ON THE FIELD tab is drawn |
+| `tools/director/src/field-controls-tether.ts` | THE WARDEN'S rope in each of the four looks the game keeps, drawn under its row on the ON THE FIELD tab |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-notes-round.ts` | The paragraph under each **round's** card |
 | `tools/style-guide/src/colour.ts` | the swatch grid and the hue dial — every colour under its rule, and the twelve body hues at their measured angles |

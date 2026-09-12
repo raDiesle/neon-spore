@@ -1,9 +1,9 @@
-import { circleSubpath, openSmoothPath } from "../../../../../packages/content/src/index.js";
-import { strokeGlow } from "../../../../../packages/render/src/glow.js";
-import { handleSag } from "../../../../../packages/render/src/handle-draw.js";
-import { mixHex, rgba } from "../../../../../packages/render/src/hex.js";
-import { STROKE } from "../../../../../packages/render/src/palette.js";
-import type { TetherDraw } from "../../../../../packages/render/src/tether-look.js";
+import { circleSubpath, openSmoothPath } from "@neon-spore/content";
+import { strokeGlow } from "./glow.js";
+import { handleSag } from "./handle-draw.js";
+import { mixHex, rgba } from "./hex.js";
+import { STROKE } from "./palette.js";
+import type { TetherDraw } from "./tether-look.js";
 
 /**
  * TWIST — the rope is two strands laid round each other, and the twist is

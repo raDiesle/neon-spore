@@ -822,3 +822,13 @@ rejected by the owner
 
 The other answers offered were `blaze`, `comet`, `forge` and `smoulder`; they
 went with the slot.
+
+## `creature:tether` — nothing taken, 2026-09-12
+
+all four kept, by the owner: TWIST is the rope on the field and STROKE, CORD
+and SINEW stand in render/tether-looks.ts, drawn as real examples under THE
+WARDEN'S TETHER on DOCUMENTATION → CONTROLS → ON THE FIELD, for the pull
+mechanics he wants later
+
+The other answers offered were `cord`, `sinew` and `twist`; they went with the
+slot.

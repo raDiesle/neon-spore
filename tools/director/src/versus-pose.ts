@@ -35,7 +35,6 @@ import { POSE_GROUPS } from "./poses.js";
  */
 const SLOT_POSE: Record<string, string> = {
   "creature:throb": "THROB · TURNING",
-  "creature:tether": "TETHER · PULLED",
   "panel:band-skin": "SHIP · MEETING THE PANEL",
 };
 

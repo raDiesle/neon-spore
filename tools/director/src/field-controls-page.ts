@@ -2,6 +2,7 @@ import type { FieldControlDef } from "./field-control-def.js";
 import { BALLOON_CONTROLS } from "./field-controls-balloon.js";
 import { CHOKE_CONTROLS } from "./field-controls-choke.js";
 import { GUM_CONTROLS } from "./field-controls-gum.js";
+import { tetherExamples } from "./field-controls-tether.js";
 
 /**
  * The other half of the CONTROLS tab (`controlsets-page.ts`) — split out on
@@ -15,7 +16,9 @@ import { GUM_CONTROLS } from "./field-controls-gum.js";
  * door in `tried-controls-page.ts`: this file went over its own limit in turn,
  * and those two lists only ever shared a tab. What one row *is* went the same
  * way when THE PUSH arrived — `field-control-def.ts`, re-exported below so
- * nothing that reached for a `FieldControlDef` through here had to move.
+ * nothing that reached for a `FieldControlDef` through here had to move. And
+ * how a row is *drawn* went to `field-controls-rows.ts` when every row got a
+ * picture (12 September 2026): each names the gallery pose it is shown by.
  */
 
 export type { FieldControlDef } from "./field-control-def.js";
@@ -32,6 +35,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
     source: "touch.ts — creatureAt() under touchDown()",
     holdKind: "grip",
     sends: ["grip"],
+    pose: "GRIP · ONE HAND",
   },
   {
     name: "THE PUSH",
@@ -48,6 +52,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
     holdKind: "grip",
     dragTarget: "gripBody",
     sends: ["drag"],
+    pose: "GRIP · THE PUSH PAUSE",
   },
   {
     name: "THE CANNON",
@@ -62,6 +67,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
     source: "touch-ship.ts — pilot() under shipUnder()",
     holdKind: "cannon",
     sends: ["cannonCol"],
+    pose: "HULL · AT REST",
   },
   {
     name: "THE MAW TAP",
@@ -77,6 +83,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
     source: "touch-ship.ts — pilot() under shipUnder(), sucksOnLift() on the lift",
     holdKind: "cannon",
     sends: ["intake"],
+    pose: "MAW · OPEN",
   },
   {
     name: "THE SHIELD PLATE",
@@ -89,6 +96,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
     source: "touch-ship.ts — navigator() under shipUnder()",
     holdKind: "shield",
     sends: ["shieldCol"],
+    pose: "SHIELD · ARMED",
   },
   {
     name: "THE SHIELD TRIGGER",
@@ -102,6 +110,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
     source: "touch-ship.ts — pilot() under shipUnder()",
     holdKind: "guard",
     sends: ["guard"],
+    pose: "WARD · DEFLECTED",
   },
   {
     name: "THE MUZZLE SWIPE",
@@ -116,6 +125,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
     source: "touch-ship.ts — navigator() under shipUnder(), swipeColor() on the lift",
     holdKind: "shot",
     sends: ["fire"],
+    pose: "SHOT · BEING LAID",
   },
   {
     name: "THE MAZE'S STRING",
@@ -127,6 +137,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
     holdKind: "drag",
     dragTarget: "mazeString",
     sends: ["drag"],
+    pose: "MAZE · THE WHEEL TO READ",
   },
   {
     name: "THE WARDEN'S TETHER",
@@ -140,6 +151,8 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
     holdKind: "drag",
     dragTarget: "wardenTether",
     sends: ["drag"],
+    pose: "TETHER · HELD TAUT",
+    examples: tetherExamples,
   },
   {
     name: "THE LID'S CORD",
@@ -155,6 +168,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
     holdKind: "drag",
     dragTarget: "lidString",
     sends: ["drag"],
+    pose: "LID · THE EYE OPEN",
   },
   {
     name: "THE CHOIR'S LEFT ARROW",
@@ -172,6 +186,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
     holdKind: "drag",
     dragTarget: "choirLeft",
     sends: ["drag"],
+    pose: "CHOIR · TWO VOICES",
   },
   {
     name: "THE CHOIR'S RIGHT ARROW",
@@ -187,6 +202,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
     holdKind: "drag",
     dragTarget: "choirRight",
     sends: ["drag"],
+    pose: "CHOIR · TWO VOICES",
   },
   // THE BALLOON's two, next door in `field-controls-balloon.ts` — spread in at
   // the position they belong in, after the four handles that are the pilot's
@@ -207,43 +223,6 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
       "same canvas rather than a case in touch.ts, by design",
     holdKind: null,
     sends: ["brief"],
+    pose: "GUIDE · THE READY CIRCLES",
   },
 ];
-
-function fieldControlRow(c: FieldControlDef): HTMLElement {
-  const section = document.createElement("section");
-  section.className = "field-control";
-
-  const h3 = document.createElement("h3");
-  const stamp = document.createElement("span");
-  stamp.className = "stamp";
-  stamp.textContent = c.gesture.toUpperCase();
-  h3.append(stamp, document.createTextNode(c.name));
-  section.appendChild(h3);
-
-  const dl = document.createElement("dl");
-  const row = (term: string, text: string, cls?: string): void => {
-    const dt = document.createElement("dt");
-    dt.textContent = term;
-    const dd = document.createElement("dd");
-    if (cls) dd.className = cls;
-    dd.textContent = text;
-    dl.append(dt, dd);
-  };
-  row("WHERE", c.where);
-  row("SEAT", c.seat);
-  row("DOES", c.does, "does");
-  row("SOURCE", c.source);
-  section.appendChild(dl);
-  return section;
-}
-
-/** ON THE FIELD, built once alongside PANELS — no canvas of its own, so
- * nothing here is worth deferring past `renderControlSets`'s own gate
- * (`controlsets-page.ts`). */
-export function renderFieldControls(): void {
-  const body = document.getElementById("fieldControlsBody");
-  if (!body) return;
-  body.replaceChildren();
-  for (const c of FIELD_CONTROLS) body.appendChild(fieldControlRow(c));
-}

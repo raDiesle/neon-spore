@@ -27,5 +27,6 @@ export const GUM_CONTROLS: readonly FieldControlDef[] = [
     holdKind: "drag",
     dragTarget: "gum",
     sends: ["drag"],
+    pose: "GUM · STUCK ON THE SHIP",
   },
 ];

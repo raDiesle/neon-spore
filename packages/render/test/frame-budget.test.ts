@@ -390,17 +390,22 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // **Four of these are the iris**: the aperture ring and every spoke go
       // into one path stroked once, so this row does not move when the spoke
       // count does (`eye-iris.ts`).
-      stroke: 132,
+      // **Five more on 12 September 2026, when the rope became TWIST** — the
+      // owner's pick from `creature:tether`: two strands where one stroke was,
+      // each in a lit and a shadowed pass, and the seizing at the eye is a
+      // path of its own (`tether-twist.ts`). `save` and `new Path2D` moved
+      // with it and `fill` lost the old knot's dot.
+      stroke: 137,
       // Four more: the two patches of the wet film, the eyelids and their
       // pupils. Flat, whatever the openness.
-      fill: 79,
+      fill: 78,
       // Two more than the body's own: the film and the veins share a single
       // clip to it, and the lens opens one of its own so the lids can cut the
       // pupil instead of the pupil being sized to miss them (`eye-lens.ts`).
       clip: 8,
       // Three of these are the ball: the dome, the iris on its own tangent
       // plane, and the wet point, each in a frame of its own (`eye-ball.ts`).
-      save: 46,
+      save: 47,
       // Two of these are the ball as well, and they are the whole of what it
       // costs: the dome is a sprite baked once per colour and size, and the wet
       // point is `halo`'s. Neither builds a gradient, which is why the two
@@ -411,19 +416,19 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // Fourteen of them the panel's sheet, as on every frame 0 here. Four are
       // the skin's, and there are four of them however much of it is showing.
       // One is the lids' folds, and it is one however far apart they stand.
-      "new Path2D": 75,
+      "new Path2D": 77,
       fillText: 2,
     },
     {
       fillRect: 55,
-      stroke: 134,
-      fill: 79,
+      stroke: 139,
+      fill: 78,
       clip: 8,
-      save: 46,
+      save: 47,
       drawImage: 29,
       createLinearGradient: 12,
       createRadialGradient: 8,
-      "new Path2D": 50,
+      "new Path2D": 52,
       fillText: 2,
     },
   ],

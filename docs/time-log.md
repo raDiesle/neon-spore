@@ -22,6 +22,32 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 · hit-looks — TWIST is THE WARDEN's rope; all four ropes kept and shown as real examples; a picture on every ON THE FIELD row
+
+The owner, from the VERSUS page: *I like all 'CREATURE:TETHER' alternatives;
+I will need them for special pull mechanics later on — document it all to be
+used later on, as real examples, on Documentation → Controls → On the Field;
+default TWIST; images for every On the Field control.* So the three
+candidates moved into render/ as `tether-{cord,sinew,twist}.ts`, the shipped
+stroke became `STROKE_LOOK`, and `tether-looks.ts` holds all four with
+`useTetherLook` as the switch — TWIST live. The ON THE FIELD tab names a
+gallery pose per row and draws it; five poses the gallery lacked were made
+(rope taut, both balloon hands, gum stuck, choke on the cannon, ready
+circles); under THE WARDEN'S TETHER the same taut frame is drawn four times,
+once per look. About 30 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the three candidates, `tether-look.ts`, the field-controls files, pose kit, the balloon/gum/choke/briefing sims for the states a pose needs |
+| writing | 15 | four render files, the looks table, `poses-field-controls.ts`, the rows and tether files, the def's `pose` field, the test, the warden budget rows |
+| looking | 5 | the page in this tree's director; the four ropes at field width were hairlines, so the examples were cut close under the eye |
+| friction | 5 | `bun run versus drop` loads candidates whose files had moved — imports pointed at render first; the frame-budget rows remeasured for the two-strand rope |
+| landing | 0 | `bun run land --keep` |
+
+**Bottleneck:** the four examples at a card's field width all read as one
+line — the picture had to be cut to the eye's underside before the four
+roots and ropes were tellable apart.
+
 ## 2026-09-12 · hit-looks — The rocks burn: BLAZE built in, COMET and SMOULDER worn by any rock, FORGE rejected
 
 The owner, from the VERSUS page: *build into game 'CREATURE:METEOR · BLAZE';

@@ -28,7 +28,10 @@ import { STROKE } from "./palette.js";
  *
  * **The shipped pair came through here with not one pixel moved.** `rope` is
  * the sag and the stroke `drawTether` carried inline, and `root` is its
- * `drawAnchor`, each with the arguments gathered into a record.
+ * `drawAnchor`, each with the arguments gathered into a record. It was
+ * offered against three candidates on the VERSUS page and the owner kept all
+ * four — TWIST on the field, the rest as looks a later pull mechanic may
+ * wear (`tether-looks.ts`).
  */
 
 /**
@@ -92,6 +95,10 @@ export interface TetherLook {
   root(d: TetherDraw): void;
 }
 
-/** The shipped rope: one glowing stroke that thins and brightens as it is
- * pulled, from a dot on the eye's underside. */
-export const TETHER_LOOK: TetherLook = { rope: line, root: knot };
+/**
+ * The stroke the rope was until 12 September 2026: one glowing line that thins
+ * and brightens as it is pulled, from a dot on the eye's underside. One of the
+ * four looks in `tether-looks.ts` now, where `TETHER_LOOK` — the live record
+ * `tether.ts` draws from — is set to TWIST.
+ */
+export const STROKE_LOOK: TetherLook = { rope: line, root: knot };

@@ -1,6 +1,7 @@
-import type { PoseGroup } from "./pose-kit.js";
+import type { Pose, PoseGroup } from "./pose-kit.js";
 import { CASING_GROUP } from "./poses-casing.js";
 import { FIELD_GROUPS } from "./poses-field.js";
+import { FIELD_CONTROL_GROUP } from "./poses-field-controls.js";
 import { LAYER_GROUP } from "./poses-layers.js";
 import { MECHANIC_POSES } from "./poses-mechanics.js";
 import { ROUND_GROUP } from "./poses-rounds.js";
@@ -35,9 +36,22 @@ export const POSE_GROUPS: PoseGroup[] = [
     poses: MECHANIC_POSES,
   },
   ...FIELD_GROUPS,
+  FIELD_CONTROL_GROUP,
   VERSUS_GROUP,
   SURFACE_GROUP,
   LAYER_GROUP,
   CASING_GROUP,
   ROUND_GROUP,
 ];
+
+/**
+ * A pose by its name, for a page that shows one beside a row of its own — the
+ * ON THE FIELD tab names the pose each control is pictured by. Throws on a
+ * name nobody has, so a renamed pose fails the page's test rather than
+ * leaving a row without its picture.
+ */
+export function poseNamed(name: string): Pose {
+  const pose = POSE_GROUPS.flatMap((g) => g.poses).find((p) => p.name === name);
+  if (pose === undefined) throw new Error(`no pose called ${name}`);
+  return pose;
+}

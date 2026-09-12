@@ -15,7 +15,7 @@ import {
   startWave,
   type World,
 } from "@neon-spore/sim";
-import { renderFieldControls } from "./field-controls-page.js";
+import { renderFieldControls } from "./field-controls-rows.js";
 import { frameWorld } from "./pose-art.js";
 import { bindTabs } from "./tabs.js";
 import { renderTriedControls } from "./tried-controls-page.js";

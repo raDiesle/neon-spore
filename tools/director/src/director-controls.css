@@ -59,6 +59,43 @@
 .field-control dd.does {
   color: var(--ink);
 }
+/* The picture on every row (12 September 2026), and the four ropes under
+   THE WARDEN'S TETHER — each the real frame, drawn by the game's renderer. */
+.field-control-shot {
+  margin: 6px 0 4px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+  background: #05040b;
+  width: fit-content;
+}
+.field-control-shot canvas {
+  display: block;
+}
+.field-control-look {
+  margin: 0 0 6px;
+  font-size: 0.8rem;
+  color: var(--dim);
+  max-width: 600px;
+}
+.tether-looks {
+  margin: 10px 0 0;
+}
+.tether-looks-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.tether-looks-grid figure {
+  margin: 0;
+  width: 330px;
+}
+.tether-looks-grid figcaption {
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--ink);
+  margin-top: 4px;
+}
 .tried-control {
   max-width: 700px;
   margin: 0 0 16px;

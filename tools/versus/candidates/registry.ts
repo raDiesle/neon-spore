@@ -6,9 +6,6 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
-import { TETHER_CORD } from "./creature-tether/cord/index.js";
-import { TETHER_SINEW } from "./creature-tether/sinew/index.js";
-import { TETHER_TWIST } from "./creature-tether/twist/index.js";
 import { THROB_CAP } from "./creature-throb/cap/index.js";
 import { THROB_GIRDLE } from "./creature-throb/girdle/index.js";
 import { THROB_PORES } from "./creature-throb/pores/index.js";
@@ -17,9 +14,6 @@ import { SKIN_SUCKER } from "./panel-band-skin/sucker/index.js";
 import { SKIN_VESICLE } from "./panel-band-skin/vesicle/index.js";
 
 export const VARIANTS: Variant[] = [
-  TETHER_CORD,
-  TETHER_SINEW,
-  TETHER_TWIST,
   THROB_CAP,
   THROB_GIRDLE,
   THROB_PORES,

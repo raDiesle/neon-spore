@@ -30,5 +30,6 @@ export const CHOKE_CONTROLS: readonly FieldControlDef[] = [
     holdKind: "drag",
     dragTarget: "choke",
     sends: ["drag"],
+    pose: "CHOKE · ON THE CANNON",
   },
 ];

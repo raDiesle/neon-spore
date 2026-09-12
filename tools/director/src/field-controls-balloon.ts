@@ -33,6 +33,7 @@ export const BALLOON_CONTROLS: readonly FieldControlDef[] = [
     holdKind: "drag",
     dragTarget: "balloonLeft",
     sends: ["drag"],
+    pose: "BALLOON · BOTH HANDS TAUT",
   },
   {
     name: "THE BALLOON'S RIGHT HANDLE",
@@ -54,5 +55,6 @@ export const BALLOON_CONTROLS: readonly FieldControlDef[] = [
     holdKind: "drag",
     dragTarget: "balloonRight",
     sends: ["drag"],
+    pose: "BALLOON · BOTH HANDS TAUT",
   },
 ];

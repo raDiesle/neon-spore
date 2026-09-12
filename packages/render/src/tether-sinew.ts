@@ -1,12 +1,9 @@
-import {
-  catmullRomToBezierPath,
-  openSmoothPath,
-} from "../../../../../packages/content/src/index.js";
-import { halo } from "../../../../../packages/render/src/glow.js";
-import { handleSag } from "../../../../../packages/render/src/handle-draw.js";
-import { mixHex, rgba } from "../../../../../packages/render/src/hex.js";
-import { STROKE } from "../../../../../packages/render/src/palette.js";
-import type { TetherDraw } from "../../../../../packages/render/src/tether-look.js";
+import { catmullRomToBezierPath, openSmoothPath } from "@neon-spore/content";
+import { halo } from "./glow.js";
+import { handleSag } from "./handle-draw.js";
+import { mixHex, rgba } from "./hex.js";
+import { STROKE } from "./palette.js";
+import type { TetherDraw } from "./tether-look.js";
 
 /**
  * SINEW — the rope is a piece of the boss, and pulling it is felt all the

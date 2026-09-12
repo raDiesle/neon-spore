@@ -19,7 +19,7 @@ import {
 import type { Circle, Layout } from "./layout.js";
 import { tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { TETHER_LOOK } from "./tether-look.js";
+import { TETHER_LOOK } from "./tether-looks.js";
 import { wardenRopeAnchor } from "./warden.js";
 
 /**

@@ -1,8 +1,7 @@
-import { openSmoothPath } from "../../../../../packages/content/src/index.js";
-import { KEY } from "../../../../../packages/content/src/light.js";
-import { handleSag } from "../../../../../packages/render/src/handle-draw.js";
-import { mixHex, rgba } from "../../../../../packages/render/src/hex.js";
-import type { TetherDraw } from "../../../../../packages/render/src/tether-look.js";
+import { KEY, openSmoothPath } from "@neon-spore/content";
+import { handleSag } from "./handle-draw.js";
+import { mixHex, rgba } from "./hex.js";
+import type { TetherDraw } from "./tether-look.js";
 
 /**
  * CORD — the rope is round, and it has a side the light is on.

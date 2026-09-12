@@ -113,6 +113,14 @@ export { SplashTrail } from "./splash-trail.js";
 export { BURST_SHEET, SpriteBursts, type SpriteSheet } from "./sprite-burst.js";
 export { type CanvasBox, pointOnStage } from "./stage-point.js";
 export { clearSurface } from "./surface-clear.js";
+// THE WARDEN's four ropes and the switch between them, for the ON THE FIELD
+// page to draw each as the real thing (`tether-looks.ts`).
+export {
+  DEFAULT_TETHER_LOOK,
+  TETHER_LOOKS,
+  type TetherLookName,
+  useTetherLook,
+} from "./tether-looks.js";
 // The torch's own rock, so a tool drafting what *holds* one can draw the real
 // thing rather than a stand-in (`tools/director/src/holders`). Drawing only —
 // it takes a radius and a time and reads no world.

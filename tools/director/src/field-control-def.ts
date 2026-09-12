@@ -65,4 +65,19 @@ export interface FieldControlDef {
    * no entry here claims.
    */
   sends: readonly Command["kind"][];
+  /**
+   * The gallery pose this control is pictured by — the name of one in
+   * `POSE_GROUPS`, drawn at the top of the row (`field-controls-rows.ts`).
+   * Every row has one since 12 September 2026, when the owner asked for
+   * *images for every "On the Field" control*: the state the control is
+   * answered in, on the seat that answers it. `field-control-poses.test.ts`
+   * fails on a name the gallery has not got.
+   */
+  pose: string;
+  /**
+   * More pictures under the row, built when the tab is opened — THE WARDEN'S
+   * TETHER shows its rope in each of the four looks the game keeps
+   * (`field-controls-tether.ts`). Absent on a row with nothing to add.
+   */
+  examples?: () => HTMLElement;
 }
