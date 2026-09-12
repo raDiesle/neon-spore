@@ -179,6 +179,7 @@ what the rest of this file holds.
 ## No two-device test crosses a wave boundary
 
 - **Found:** 2026-09-12, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-12, claude/queue-no-two-device-test-crosses-a-wave-boundary
 - **Files:** `packages/net/test/two-devices-wave.test.ts`, `apps/game/src/waves.ts`
 
 The new wave test plays content's first wave to its end and stops on the
