@@ -16,7 +16,7 @@ import { PALETTE } from "./palette.js";
  * **Nothing here is simulation.** `creatureCenter` stays exactly linear, no
  * number below reaches `hashWorld` (`cfg` is outside it by construction), and
  * the tunables are read from `SimConfig` the same way `radarLead` and
- * `bandPct` are. Two devices with different `depthNearScale` draw two
+ * `bandSoloPct` are. Two devices with different `depthNearScale` draw two
  * different pictures of the same world, and lockstep does not notice.
  */
 

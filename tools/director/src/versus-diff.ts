@@ -50,9 +50,8 @@ const BAND_TOUCH_THRESHOLD = 10;
  * itself makes (`computeStage` then `computeLayout`) rather than re-derived,
  * per `purity.test.ts`'s table of things that must be called and not copied.
  * `computeStage`'s `top` is always `0`, so the stage's own vertical offset
- * never enters this, and `bandSoloPct` (not `bandPct`) governs both `p1` and
- * `p2` alike — a solo seat's band, whichever half it is — so this returns the
- * same row for both, which is exactly why the two seats' stages are
+ * never enters this, and `bandSoloPct` governs every role alike — so this
+ * returns the same row for both seats, which is exactly why the two seats' stages are
  * pixel-identical in extent and only their content differs.
  */
 export function bandTopPx(cfg: SimConfig, role: ViewRole): number {

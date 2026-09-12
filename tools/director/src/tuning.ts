@@ -50,7 +50,6 @@ const SLIDERS: SliderSpec[] = [
     step: 0.05,
     unit: " × beat",
   },
-  { key: "bandPct", label: "Control band", min: 24, max: 44, step: 1, unit: " %" },
 ];
 
 type Preset = Partial<Record<NumericKey, number>>;

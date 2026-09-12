@@ -177,7 +177,7 @@ read worse in motion at tile size than the prototype's did. The prototype's
 *August 2026.* Recorded rather than acted on, per the milestone-1 brief.
 
 - **Split render-only tunables out of `SimConfig`.** `radarLead`,
-  `bulletGlideMs`, `bandPct` and `radarHeightPx` sit there today because the
+  `bulletGlideMs`, `bandSoloPct` and `radarHeightPx` sit there today because the
   convention says every tunable is a named field of `SimConfig`. They change no
   rule and enter no hash. A `RenderConfig` would be honest, at the cost of two
   config objects to thread through.
@@ -312,11 +312,13 @@ Only the test chrome, which no player gets, is allowed outside.
 per device, so a screen showing both halves of the control band is not the
 game's layout: it has controls the real screen does not carry, and the field is
 correspondingly smaller. `P1` and `P2` show one role's half and hide the rig;
-`TEST` shows everything. The band's share of the height is a named field either
-way — `bandPct` and `bandSoloPct` — never a literal.
+`TEST` shows everything, in the same band and at the same field size — it had
+a taller band of its own (`bandPct`) until 12 September 2026, when the owner
+asked for the test view to be the game's own dimensions, always. The band's
+share of the height is a named field — `bandSoloPct` — never a literal.
 
 Two smaller things came with it. The layout is now derived per frame rather
-than cached, because a tuning slider moves `bandPct` between two frames and a
+than cached, because a tuning slider moves `cols` between two frames and a
 cached layout would ignore it until the next resize. And `hullInvulnerable` is
 a `SimConfig` field rather than an app flag: it belongs to the run, and a
 replay has to record that the run was played with the hull holding.

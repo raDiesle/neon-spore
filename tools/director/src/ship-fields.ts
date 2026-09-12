@@ -130,7 +130,6 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   countdownOpenBeats: "THE COUNT — open on zero, and only the pilot can count",
   radarLead: "RADAR — what is coming",
   bulletGlideMs: "AIM — colour and column",
-  bandPct: "PLUMBING — not a dial a person turns",
   bandSoloPct: "PLUMBING — not a dial a person turns",
   radarHeightPx: "PLUMBING — not a dial a person turns",
   handleRadiusMilli: "GRIP — a hand on the field",

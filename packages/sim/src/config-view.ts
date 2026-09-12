@@ -24,21 +24,16 @@ export interface ViewConfig {
   /** How long a bullet takes to glide between two tiles, in ms. Read by render/. */
   bulletGlideMs: number;
   /**
-   * Share of the screen height the control band takes, in percent, on a screen
-   * carrying **both** halves — the desk rig and the director's TEST view, never
-   * a phone. It was 37, and the owner asked why the game looked smaller there:
-   * it is down to where the lobes stop being limited by the band's height and
-   * start being limited by the stage's width (`layout.ts`), which is the most
-   * it can give back before the buttons shrink. Read by render/.
-   */
-  bandPct: number;
-  /** The same share when a screen carries only one player's half of the band.
-   * The finished game is one role per device, so the field gets the space the
-   * missing controls leave behind — see the view switch in `apps/game`.
+   * Share of the screen height the control band takes, in percent — on a
+   * phone carrying one player's half, and on the desk rig and the director's
+   * TEST view carrying both. There was a second, taller share for the latter
+   * (`bandPct`, 31); it made the test view's field smaller and its ship taller
+   * than the game's, and the owner asked on 12 September 2026 for the test
+   * view to be the game's own dimensions, always (`layout.ts`).
    * Two tiles shorter since 12 September 2026, at the owner's word: the
    * buttons and the rail keep their size (both are capped by the width on a
    * phone, `panel-plan.ts`), so what went was the empty flesh above and below
-   * the rail. */
+   * the rail. Read by render/. */
   bandSoloPct: number;
   /** Height of the radar strip above the grid, in CSS pixels. Read by render/. */
   radarHeightPx: number;
@@ -77,7 +72,6 @@ export interface ViewConfig {
 
 export const VIEW_DEFAULTS: ViewConfig = {
   bulletGlideMs: 130,
-  bandPct: 31,
   bandSoloPct: 19,
   radarHeightPx: 34,
   handleRadiusMilli: 300,

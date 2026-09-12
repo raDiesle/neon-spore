@@ -1945,3 +1945,22 @@ cycle. About 30 min.
 
 Bottleneck: **friction** — starting a worktree's director for a look has no
 supported route; `.claude/launch.json` starts the main tree every time.
+
+## 2026-09-12 — test-view-band — the TEST view is the game's own dimensions
+
+The owner: the director's TEST view had a taller ship and black at both
+sides, and should be the same stage and the same ship as P1, P2 and the game,
+always. One band share for every role (`bandSoloPct`); `bandPct` removed with
+its slider rows. About 35 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `stage.ts`, `stage-point.ts`, `layout.ts`, `panel-plan.ts`, every `bandPct` reader |
+| writing | 5 | `bandHeightFor`, the field and its two slider rows, the comments, the test's wider canvas |
+| looking | 10 | `bun run shot` of the GAME column in TEST and P1, then SALVAGE in TEST for both seats' lobes in the shorter band |
+| friction | 5 | the browser pane's screenshot timed out twice; `bun run shot` against the tree's own director instead |
+| landing | 5 | `check:fast` (one test assumed the narrower stage), the commit, `land` |
+
+Bottleneck: **looking** — a shot of `#stage` is clipped to the wrong box, so
+the column had to be photographed instead, and a `--wave` for a wave with
+buttons on both seats had to be found by listing the control sets.

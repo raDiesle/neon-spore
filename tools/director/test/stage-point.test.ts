@@ -54,8 +54,14 @@ afterAll(() => {
   else g.window = hadWindow;
 });
 
-/** A panel the shape the director actually gives the stage. */
-const VIEWPORT = { width: 392, height: 700, dpr: 1 };
+/**
+ * A panel the shape the director actually gives the stage: wider than the
+ * phone-shaped rectangle cut out of it. It was 392 wide when the test view's
+ * band was taller than a phone's and the field correspondingly narrower;
+ * since the band is one share in every view (`layout.ts`) the field fills
+ * 391 of those, and the offset this file exists for needs a wider canvas.
+ */
+const VIEWPORT = { width: 460, height: 700, dpr: 1 };
 /** The canvas is laid out bigger than the renderer was told — browser zoom. */
 const ZOOM = 1.25;
 const RECT = { left: 100, top: 20 };

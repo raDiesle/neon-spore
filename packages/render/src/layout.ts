@@ -98,11 +98,18 @@ export interface Stage {
 const STAGE_ASPECT = 0.56;
 
 /**
- * The band is a share of the screen height and one role needs less of it, so
- * both the stage and the layout ask for it before anything else is placed.
+ * The band is a share of the screen height, and it is the same share in every
+ * view. The test view used to take a taller one (`bandPct`, 31 against 19)
+ * because it carries both seats' halves — and a taller band leaves less height
+ * for the field, so the tile shrank, the stage narrowed to the columns with
+ * black at both sides, and the hull stood higher than on either phone. The
+ * owner asked on 12 September 2026 that the test view be the game's own
+ * dimensions and the game's own ship, always; so both seats' controls now
+ * share the band a phone gives one seat (`panel-plan.ts`'s test column), and
+ * the stage and the layout ask for that one number before anything is placed.
  */
-function bandHeightFor(height: number, cfg: SimConfig, role: ViewRole): number {
-  return (height * (role === "test" ? cfg.bandPct : cfg.bandSoloPct)) / 100;
+function bandHeightFor(height: number, cfg: SimConfig, _role: ViewRole): number {
+  return (height * cfg.bandSoloPct) / 100;
 }
 
 /**

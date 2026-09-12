@@ -83,7 +83,7 @@ export class Canvas2DRenderer implements Renderer {
    * The layout is derived from the stage, not from the window: on a desktop
    * screen the window is far wider than any phone, and the hull is as wide as
    * the field. Cheap arithmetic, so it is redone every frame rather than
-   * cached — a test slider moves `bandPct` and `cols` between two frames.
+   * cached — a test slider moves `cols` between two frames.
    */
   private layoutFor(view: ViewState, stage: Stage): Layout {
     return computeLayout(
