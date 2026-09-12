@@ -165,6 +165,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## No test drives a wave's opening through the scheduler
 
 - **Found:** 2026-09-12, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-12, claude/queue-no-test-drives-a-waves-opening-through-the-sched
 - **Files:** `packages/net/test/two-devices.test.ts`, `packages/sim/src/briefing.ts`
 
 `briefings` is off in `DEFAULT_CONFIG` and on in the game, so every two-device
