@@ -1434,3 +1434,30 @@ it, go red. About 60 min.
 Bottleneck: **reading** — a documented behaviour is a sentence in a header, and
 deciding whether the suite already proves one means reading every test that
 touches the same field rather than searching for a name.
+
+## 2026-09-12 · two-devices-wave — content's first wave, played to its end by two devices
+
+FIRST STEP as `waves.ts` lists it, built the four ways `apps/game` builds a wave
+and played over a delayed link with a different delay in each hand. The run stops
+when the wave does — the `needWave` its clear produces, ten beats of a body
+falling and about 975 ticks — and the two worlds are not compared by reaching
+into both: every sixteenth tick each device fingerprints its own world, sends it
+over the same wire the inputs cross, and puts the peer's through `HashLedger`, so
+what the test asserts is the verdict the game would draw its DESYNC screen on.
+Sixty checkpoints, sixty agreements each way, and the two hashes equal at the
+end. The relay both two-device files drive is one file now
+(`test/relay.ts`, carrying `hash` beside `input` and `confirm`, which is exactly
+what `room.ts` relays); `packages/net` takes `@neon-spore/content` as a
+devDependency to reach the wave list. About 45 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `buildQueue`/`buildPods`/`buildBoss` and how `apps/game/src/waves.ts` calls them, `startWave` and what a wave's opening holds, `wave-end.ts` for what "over" is, `determinism.test.ts` for how a readable input script is written here |
+| writing | 20 | the wave test, the shared relay, the press script, the queue entry |
+| looking | 0 | nothing drawn |
+| friction | 5 | `@neon-spore/content` resolves nowhere until it is declared and installed, and the error names the import rather than the missing edge; `buildBoss` takes a column count the first draft did not pass, which `bun test` could not see and `tsc` could |
+| landing | 10 | a fingerprint perturbed on one side to watch the ledger catch it, `check:fast`, the commit, `land` |
+
+Bottleneck: **writing** — the script had to play the wave rather than fidget
+through it, which meant choosing the beat the red shot goes out on so the run
+covers the body's fall instead of ending on the first beat.

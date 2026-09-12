@@ -227,3 +227,22 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## No two-device test crosses a wave boundary
+
+- **Found:** 2026-09-12, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `packages/net/test/two-devices-wave.test.ts`, `apps/game/src/waves.ts`
+
+The new wave test plays content's first wave to its end and stops on the
+`needWave` the clear produces, which is exactly where the host takes over:
+`waves.ts`'s `handle` answers that event by calling `startWave` inside the frame
+it arrived in, so both devices reset every wave-local field on the same tick by
+construction — and nothing anywhere proves it. It is the kind of thing that
+holds until it does not: an opening deferred by a frame (the introduction's own
+seconds already run on a wall clock, which is the one part of a wave the sim may
+not count), a host that answered a retry on a different tick from its partner, or
+anything in `startWave` that read something other than the world. Answer
+`needWave` in the test the way `waves.ts` answers it — the same four calls into
+`content`, on the tick the event arrived, on both devices — carry the run into
+wave 1 (CYAN, two cyan bodies) and keep the fingerprints crossing over the
+boundary. `bun test packages/net` proves it.

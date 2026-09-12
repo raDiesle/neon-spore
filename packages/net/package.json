@@ -10,5 +10,8 @@
   },
   "dependencies": {
     "@neon-spore/sim": "workspace:*"
+  },
+  "devDependencies": {
+    "@neon-spore/content": "workspace:*"
   }
 }

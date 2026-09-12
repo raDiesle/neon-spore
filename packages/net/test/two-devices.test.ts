@@ -10,47 +10,12 @@ import {
   step,
   type World,
 } from "@neon-spore/sim";
-import { type ClientMessage, Lockstep, type PlayerId, type ServerMessage } from "../src/index.js";
+import { Lockstep, type PlayerId, type ServerMessage } from "../src/index.js";
+import { Relay } from "./relay.js";
 
 /** Ticks a packet spends in the air. Shorter than the input delay, or nothing works. */
 const LATENCY = 3;
 const TICKS = 900;
-
-/** A relay with a delay, standing in for the Durable Object and the two phones. */
-class Wire {
-  private air: { due: number; to: PlayerId; message: ServerMessage }[] = [];
-  private now = 0;
-
-  post(from: PlayerId, message: ClientMessage): void {
-    const to: PlayerId = from === 1 ? 2 : 1;
-    if (message.t === "input") {
-      this.air.push({
-        due: this.now + LATENCY,
-        to,
-        message: { t: "input", player: from, tick: message.tick, commands: message.commands },
-      });
-    } else if (message.t === "confirm") {
-      this.air.push({
-        due: this.now + LATENCY,
-        to,
-        message: { t: "confirm", player: from, tick: message.tick },
-      });
-    }
-  }
-
-  /**
-   * Time passes and whatever is due lands — in the order it was sent. That is
-   * not decoration: a `confirm` overtaking the `input` it was sent after is the
-   * peer breaking its own promise, and the scheduler is right to refuse the
-   * input. A WebSocket keeps the order, so the test has to as well.
-   */
-  advance(deliver: (to: PlayerId, message: ServerMessage) => void): void {
-    this.now++;
-    const landed = this.air.filter((p) => p.due <= this.now);
-    this.air = this.air.filter((p) => p.due > this.now);
-    for (const packet of landed) deliver(packet.to, packet.message);
-  }
-}
 
 const QUEUE: SpawnEntry[] = [
   { beat: 1, col: 2, kind: "slick", color: "red" },
@@ -97,7 +62,7 @@ function playTogether(
   delays: [number, number],
   retune?: (tick: number, a: Lockstep, b: Lockstep) => void,
 ): void {
-  const wire = new Wire();
+  const wire = new Relay(LATENCY);
   const make = (player: PlayerId): Device => ({
     world: createWorld({ ...DEFAULT_CONFIG }, 0, [...QUEUE.map((e) => ({ ...e }))]),
     lock: new Lockstep({
