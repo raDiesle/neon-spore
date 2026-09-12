@@ -31,7 +31,6 @@ export const ROUND_FIELD_GROUP = {
   snakeMawRestTicks: "SNAKE — a round the ship is the body of",
   snakeFireRestBeats: "SNAKE — a round the ship is the body of",
   snakeShotTiles: "SNAKE — a round the ship is the body of",
-  snakeStunTicks: "SNAKE — a round the ship is the body of",
   pinballCols: "PINBALL — a table the ship's cannon fires up into",
   pinballRows: "PINBALL — a table the ship's cannon fires up into",
   pinballBallMilli: "PINBALL — a table the ship's cannon fires up into",

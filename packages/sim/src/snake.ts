@@ -17,21 +17,24 @@
  * cannot line a shot up on its own. That is the whole round, and it is what
  * makes a game famously played by one person a game for two.
  *
- * **Getting it wrong repeats the round.** A wall, its own body, a touched
- * enemy, or a point swallowed with the mouth shut: all four put the body back
- * where it started with every enemy and every point standing again. The clock
- * starts over with it and the hull pays a little, so a repeat costs something
- * without being the end of anything.
+ * **Getting it wrong is the wave lost.** A wall, its own body, a touched
+ * enemy, or a point swallowed with the mouth shut: all four are a hit on the
+ * hull, and a hit fails the wave (`wave-fail.ts`) — the body stops where it
+ * stood, the field holds so the crash is seen, and the whole wave is played
+ * again from the top. The round has no second try of its own: it used to put
+ * the body back at the start with everything standing, and since a hit stops
+ * the field that path could never be reached (`docs/queue.md`, 12 September
+ * 2026).
  *
  * **Why the field's rule does not reach in here.** Nothing the players control
  * travels *on the field*, and this is not the field: there is no hull, no
  * cannon and no column to talk about (`docs/decisions.md` #21,
  * `docs/spec/interludes.md`). What is at stake is the same hull as ever —
- * `snake-move.ts` breaks it on a repeat and `snake-round.ts` on the clock.
+ * `snake-move.ts` breaks it on a crash and on the clock.
  *
  * This file is the shape of it and nothing else — the phases, the authored
  * map and every field the round remembers between ticks. Building one and
- * putting a body back where it started is `snake-open.ts`, which is the only
+ * standing the body up for a round is `snake-open.ts`, which is the only
  * half of the state that needs the world. What is standing on a given tile is
  * `snake-arena.ts`, the step is `snake-move.ts`, the four verbs are
  * `snake-controls.ts`, and the clock the whole thing hangs off is
@@ -147,40 +150,26 @@ export interface SnakeState {
   shotRow: number;
   /** Whether it found an enemy. Render only. */
   shotHit: boolean;
-  /** Attempts spent on this round beyond the first. Each one cost the hull. */
-  repeats: number;
-  /** `world.beat` of the last one, so the picture can flinch. -1 before the first. */
-  repeatBeat: number;
   /**
-   * `world.tick` of the last one, and the clock the pause after it runs on.
+   * `world.tick` of the crash, or -1 while there has not been one.
    *
-   * A beat is too coarse for it: the body steps on the tick, so the hold that
-   * stops it stepping has to be counted in the same unit or the pause would be
-   * a different length depending on where in the beat the crash landed.
+   * A tick and not a beat, because the body steps on the tick: the bump the
+   * picture draws off it (`render/snake-crash.ts`) would otherwise start a
+   * different fraction of a step late depending on where in the beat the
+   * head met the wall. There is at most one — a crash is the wave lost, so
+   * nothing is stepped after it.
    */
-  repeatTick: number;
+  crashTick: number;
   /**
    * The tile the head was trying to enter when it went wrong, or -1 before
-   * the first crash. A wall is off the board and that is deliberate: it is
-   * where the head *went*, not where it is allowed to be, and the picture
-   * bumps the nose against exactly that place.
+   * the crash. A wall is off the board and that is deliberate: it is where
+   * the head *went*, not where it is allowed to be, and the picture bumps the
+   * nose against exactly that place. The body itself is left standing as it
+   * was — nothing puts it back — so the picture folds `body` along
+   * `dirCol`/`dirRow` and needs no copy of either.
    */
   bumpCol: number;
   bumpRow: number;
-  /**
-   * The body as it stood on the tick of the crash, head first, and the way it
-   * was pointing.
-   *
-   * Kept because `resetBody` runs on the same tick: without it the only body
-   * on the state during the pause is the one standing at the start, and there
-   * would be nothing left to draw folding up. It is not read by any rule —
-   * only the picture asks for it — and it is fingerprinted all the same,
-   * because a field outside the fingerprint is a field that can desync two
-   * devices silently (CLAUDE.md, rule 4).
-   */
-  ghost: SnakeTile[];
-  ghostDirCol: number;
-  ghostDirRow: number;
 }
 
 /** The round being played. Clamped, so a state read after the last one still answers. */

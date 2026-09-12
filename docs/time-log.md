@@ -22,6 +22,30 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 — rounds-verdict — the rounds' own second try comes out
+
+Queue item, claimed with `bun run queue take 1`: since a hit fails the wave
+and the host opens it again from the top, THE MAZE's rebuilt stage, SNAKE's
+attempt started over after a pause, and THE MIRROR's same-round-again all ran
+after their hit and so never ran in the game — the tests reached them only by
+holding the hull. A lost stage is now the round's verdict and nothing after
+it: the snake's crash is a verdict like its clock, the body stays where it
+stopped and the picture keeps the bump but not the return, `repeats`, the
+stun and its number are gone, and a lost maze or mirror comes off the world
+once its verdict has stood, which is what a held hull sees. About 40 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the three rounds' verdict paths, `wave-fail.ts` and `step.ts` for where the hold cuts in, and every reader of the snake's crash state in render |
+| writing | 20 | `snake-move.ts`, `snake.ts`, `snake-open.ts`, `snake-arena.ts`, `snake-hash.ts`, `config-snake.ts`, `maze-verdict.ts`, `mirror-round.ts`; render's `snake-crash.ts`, `snake-round.ts`, `snake-panel.ts`; the three test files rewritten to say the verdict and the retry |
+| looking | 0 | nothing visible moved that a still frame would show: the snake's bump is the same bump, one frame of a held field |
+| friction | 5 | one tick off in a new test's expectation |
+| landing | 5 | `check:fast`, the queue's done, the commit, `bun run land` |
+
+Bottleneck: the render side — the queue item named sim files only, but the
+snake's stun number and its ghost body were read by three drawing files, and
+the return-to-start picture was the second try drawn, so it had to go too.
+
 ## 2026-09-12 · choke-fault — THE CHOKE becomes the steer fault
 
 The owner's mid-turn ask: *"Choke" enemy should be same kind of control set

@@ -43,16 +43,13 @@ export function snakeRockAt(snake: SnakeState, col: number, row: number): boolea
 }
 
 /**
- * Whether the round is still holding still after a crash.
- *
- * The one question three files ask and none of them may answer twice: the
- * step does not run while it is true (`snake-move.ts`), the trigger and the
- * mouth are dead (`snake-controls.ts`), and the picture spends it on the bump
- * and the return (`render/snake-crash.ts`). Written here beside every other
- * question asked about a round in progress.
+ * Whether the body has met something. The one question the verdict's own
+ * word (`render/snake-panel.ts`) and the bump (`render/snake-crash.ts`) both
+ * ask, written here beside every other question asked about a round, so
+ * neither reads the sentinel on `crashTick` for itself.
  */
-export function snakeStunned(world: World, snake: SnakeState): boolean {
-  return world.tick - snake.repeatTick < world.cfg.snakeStunTicks;
+export function snakeCrashed(snake: SnakeState): boolean {
+  return snake.crashTick >= 0;
 }
 
 /** Whether the mouth is open on this tick. Player 1's whole timing problem. */

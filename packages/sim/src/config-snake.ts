@@ -12,8 +12,8 @@
  * not its tuning — they change per round and a wave writes them out as a map
  * (`packages/content/src/snake-rounds.ts`, and the director edits it). What is
  * here is everything that is the same in every round of every snake wave there
- * will ever be: the size of the arena, how long the mouth stands open, what
- * starting over costs.
+ * will ever be: the size of the arena, how long the mouth stands open, how far
+ * the spit carries.
  *
  * Times are beats, except the one that cannot be: a step is faster than a beat
  * — a snake that moved once a beat would take forty seconds to cross the
@@ -24,7 +24,7 @@ export interface SnakeConfig {
   /** The arena, in tiles. Nothing to do with `cols`: the field is gone. */
   snakeCols: number;
   snakeRows: number;
-  /** Tiles the snake is long when it opens, and again after a repeat. */
+  /** Tiles the snake is long when a round opens. */
   snakeStartTiles: number;
   /** Tiles a point adds. The body is the obstacle, so this is the difficulty. */
   snakeGrowTiles: number;
@@ -60,17 +60,6 @@ export interface SnakeConfig {
    * "it is lined up" into "get me closer to it".
    */
   snakeShotTiles: number;
-  /**
-   * Ticks the arena holds still after a crash, before the body sets off again.
-   *
-   * The attempt used to start over on the same tick it ended, which is the
-   * one moment of this round nobody could read: the body was somewhere, then
-   * it was somewhere else, and neither seat could say what had happened. The
-   * pause is the round admitting it. Nothing is judged during it — the clock
-   * is pushed along with it and the trigger and the mouth are dead — so what
-   * it costs is only the time it takes to watch (`snake-move.ts`).
-   */
-  snakeStunTicks: number;
 }
 
 /**
@@ -97,8 +86,4 @@ export const SNAKE_DEFAULTS: SnakeConfig = {
   // Three tiles, which is the far side of the tile the head is entering plus
   // two. Short enough that the shot is a reason to steer.
   snakeShotTiles: 3,
-  // A second and a quarter: long enough for the bump, the body folding up and
-  // the empty arena to be three separate things the pair sees, and short
-  // enough that a repeat is still a repeat rather than an interruption.
-  snakeStunTicks: 150,
 };

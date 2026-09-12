@@ -2,11 +2,11 @@ import type { SnakeRound, SnakeState } from "./snake.js";
 import type { World } from "./world.js";
 
 /**
- * Opening a round and starting an attempt over — the two places a `SnakeState`
- * is written from nothing.
+ * Opening a round and standing the body up for the next one — the two places
+ * a `SnakeState` is written from nothing.
  *
- * Split off `snake.ts` when the pause after a crash took that file past the
- * 250-line ceiling, and the seam is the one the round already reads on: next
+ * Split off `snake.ts` when that file went past the 250-line ceiling, and the
+ * seam is the one the round already reads on: next
  * door is the *shape* of the state, which is types and needs no world, and
  * here is everything that has to ask the world what tick it is to fill one in.
  * `snakeCurrent` stays with the shape, because a round read out of the list is
@@ -49,24 +49,19 @@ export function openSnake(world: World, rounds: readonly SnakeRound[]): SnakeSta
     shotCol: -1,
     shotRow: -1,
     shotHit: false,
-    repeats: 0,
-    repeatBeat: -1,
-    repeatTick: LONG_AGO,
+    crashTick: -1,
     bumpCol: -1,
     bumpRow: -1,
-    ghost: [],
-    ghostDirCol: 0,
-    ghostDirRow: -1,
   };
   resetBody(world, snake);
   return snake;
 }
 
 /**
- * The body back to what it opens with: short, in the middle, at the bottom,
+ * The body as a round opens with it: short, in the middle, at the bottom,
  * heading up. Where the ship was and the way it points, which is what the
- * morph has just finished drawing — and after a repeat it is the same picture
- * again, so the pair always starts from a place they have a word for.
+ * morph has just finished drawing — and the next round opens on the same
+ * picture, so the pair always starts from a place they have a word for.
  */
 export function resetBody(world: World, snake: SnakeState): void {
   const cfg = world.cfg;
@@ -80,7 +75,7 @@ export function resetBody(world: World, snake: SnakeState): void {
   snake.dirRow = -1;
   snake.turn = 0;
   snake.grow = 0;
-  // A fresh interval, so the first step of an attempt is a whole one rather
+  // A fresh interval, so the first step of a round is a whole one rather
   // than whatever was left of the step the last one ended on.
   snake.stepTick = world.tick;
 }

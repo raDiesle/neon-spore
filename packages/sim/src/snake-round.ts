@@ -1,5 +1,3 @@
-import { midCol } from "./config.js";
-import { breachHull } from "./hull.js";
 import type { SnakePhase, SnakeRound, SnakeState } from "./snake.js";
 import { snakeHeard } from "./snake-controls.js";
 import { stepSnake } from "./snake-move.js";
@@ -27,9 +25,10 @@ import type { World } from "./world.js";
  * **The field is gone, and the hull is not.** `step` returns before a rule of
  * the field runs, so nothing spawns, falls or reaches the ship; `world.beat`
  * keeps going, because the metronome is the game's heartbeat. What the round
- * can still do is break the hull — a repeated attempt, in `snake-move.ts`, and
- * the clock running out, here — so a run can end in this round, and the scars
- * are on the hull when the field comes back.
+ * can still do is break the hull — a crash and the clock running out, both in
+ * `snake-move.ts` — and a hit is the wave lost, so the field holds and the
+ * wave is played again (`wave-fail.ts`); the scars are on the hull when the
+ * field comes back.
  */
 
 /**
@@ -96,18 +95,7 @@ export function stepSnakeRound(world: World): void {
   const verdict = stepSnake(world, round);
   if (verdict === null) return;
   round.passed = verdict;
-  if (!verdict) spendHull(world);
   enterPhase(round, "verdict", world.beat);
-}
-
-/**
- * What running out of time costs, and it is the hull. The middle column,
- * because the round has no columns of its own — `gauge-round.ts` argues it,
- * and a second round is not a second argument.
- */
-function spendHull(world: World): void {
-  const col = midCol(world.cfg);
-  breachHull(world, col, "meteorFastest", 0, "heavy");
 }
 
 /**

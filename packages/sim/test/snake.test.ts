@@ -2,8 +2,10 @@ import { describe, expect, it } from "bun:test";
 import {
   createWorld,
   DEFAULT_CONFIG,
+  failHolds,
   type SimConfig,
   type SnakeState,
+  snakeCrashed,
   snakeRound,
   startWave,
   step,
@@ -20,7 +22,8 @@ import { SNAKE_MORPH_BEATS } from "../src/snake-round.js";
  * Player 2 has both quarter turns and can see nothing standing in the arena;
  * player 1 has the shot and the mouth and cannot steer. Everything checked
  * here is either that split or what it costs to get it wrong — the four ways
- * an attempt ends, which are one rule wearing four coats.
+ * the body crashes, which are one rule wearing four coats, and the rule is
+ * the field's: a hit is the wave lost (`wave-fail.ts`).
  */
 
 const CFG: SimConfig = DEFAULT_CONFIG;
@@ -243,21 +246,22 @@ describe("the mouth is player 1's, and it is a moment rather than a state", () =
     for (let i = 0; i < ROUNDS[0]!.stepTicks * 2 - 20; i++) step(world, []);
     press(world, 1, { kind: "snakeMaw" }, 40);
     expect(snake.taken).toEqual([0]);
-    expect(snake.repeats).toBe(0);
+    expect(snakeCrashed(snake)).toBe(false);
     expect(snake.body.length).toBeGreaterThan(CFG.snakeStartTiles);
   });
 
-  it("starts the round over when the same point is reached with it shut", () => {
+  it("loses the wave when the same point is reached with it shut", () => {
     const world = open();
     play(world);
     const snake = round(world);
     snake.struck = [0];
     for (let i = 0; i < ROUNDS[0]!.stepTicks * 2 + 2; i++) step(world, []);
     expect(snake.taken).toEqual([]);
-    expect(snake.repeats).toBe(1);
+    expect(snakeCrashed(snake)).toBe(true);
     expect(world.retries).toBe(1);
-    // And the round is standing again, whole.
-    expect(snake.struck).toEqual([]);
+    // The body stands where it stopped, a tile short of the point: nothing
+    // puts it back, because the wave is the thing that goes again.
+    expect(snake.body[0]).toEqual({ col: 4, row: 7 });
     expect(snake.body.length).toBe(CFG.snakeStartTiles);
   });
 
@@ -299,19 +303,20 @@ describe("the mouth is player 1's, and it is a moment rather than a state", () =
   });
 });
 
-describe("the four ways an attempt ends, which are one rule", () => {
-  it("starts over on the wall", () => {
+describe("the four ways the body crashes, which are one rule", () => {
+  it("is the round's verdict on the wall, and the wave lost", () => {
     const world = open();
     play(world);
     const snake = round(world);
     clearPath(snake);
     for (let i = 0; i < ROUNDS[0]!.stepTicks * (CFG.snakeRows + 2); i++) step(world, []);
-    expect(snake.repeats).toBeGreaterThan(0);
+    expect(snakeCrashed(snake)).toBe(true);
+    expect(snake.phase).toBe("verdict");
+    expect(snake.passed).toBe(false);
     expect(world.retries).toBe(1);
-    expect(snake.phase).toBe("play");
   });
 
-  it("starts over on an enemy nobody shot", () => {
+  it("is the same on an enemy nobody shot", () => {
     const world = open();
     play(world);
     const snake = round(world);
@@ -319,69 +324,83 @@ describe("the four ways an attempt ends, which are one rule", () => {
     // holds nothing but the enemy at three.
     snake.taken = [0];
     for (let i = 0; i < ROUNDS[0]!.stepTicks * 3 + 2; i++) step(world, []);
-    expect(snake.repeats).toBe(1);
-    expect(snake.body[0]).toEqual({ col: 4, row: CFG.snakeRows - 3 });
+    expect(snakeCrashed(snake)).toBe(true);
+    // Stopped on the tile before it, and the tile it was going for is kept.
+    expect(snake.body[0]).toEqual({ col: 4, row: CFG.snakeRows - 5 });
+    expect({ col: snake.bumpCol, row: snake.bumpRow }).toEqual({ col: 4, row: 5 });
   });
 });
 
 /**
- * THE PAUSE AFTER A CRASH.
+ * A CRASH IS THE WAVE LOST.
  *
- * The attempt used to start over on the tick it ended, which is the one moment
- * of this round neither seat could read. Nothing is judged while it holds:
- * the body does not step, the clock does not run down, and player 1's two
- * verbs are dead — there is no head on the arena for either of them to leave.
+ * The round used to start the attempt over itself — the body back at the
+ * start, a pause to watch, the clock handed back. Since a hit stops the field
+ * on its tick and the same wave is opened again from the top
+ * (`wave-fail.ts`), none of that could ever run in the game, and it is gone:
+ * the body is left standing where it stopped, and what follows is the
+ * field's own hold and the field's own retry.
  */
-describe("the arena holds still between two attempts", () => {
+describe("the field holds where the body crashed", () => {
   /** Ticks a crash into the wall, and stops on the tick it happens. */
   function crash(world: World): SnakeState {
     const snake = round(world);
     clearPath(snake);
     for (let i = 0; i < ROUNDS[0]!.stepTicks * (CFG.snakeRows + 2); i++) {
       step(world, []);
-      if (snake.repeats > 0) return snake;
+      if (snakeCrashed(snake)) return snake;
     }
     throw new Error("the body never met the wall");
   }
 
-  it("keeps the body where it was reset and does not step it", () => {
+  it("fails the wave on that tick and asks for it again", () => {
     const world = open();
     play(world);
-    // The hull is held: a crash is a hit, and a hit would stop the whole field
-    // for the retry (`wave-fail.ts`) — the stun is what is watched here.
+    const snake = crash(world);
+    expect(snake.crashTick).toBe(world.tick);
+    expect(failHolds(world)).toBe(true);
+    expect(world.retries).toBe(1);
+    const seen: string[] = [];
+    for (let i = 0; i < (CFG.waveFailBeats + 1) * TPB; i++) {
+      step(world, []);
+      for (const e of world.events) if (e.type === "needWave") seen.push(String(e.retry));
+    }
+    expect(seen).toEqual(["true"]);
+  });
+
+  it("leaves the body where it stood, and steps it no further", () => {
+    const world = open();
+    play(world);
+    const snake = crash(world);
+    const at = snake.body.map((t) => ({ ...t }));
+    // Head at the top row, going for the tile above it, which is off the
+    // board — where the head *went*, kept for the picture's bump.
+    expect(at[0]).toEqual({ col: 4, row: 0 });
+    expect({ col: snake.bumpCol, row: snake.bumpRow }).toEqual({ col: 4, row: -1 });
+    expect([snake.dirCol, snake.dirRow]).toEqual([0, -1]);
+    for (let i = 0; i < ROUNDS[0]!.stepTicks * 3; i++) step(world, []);
+    expect(snake.body).toEqual(at);
+  });
+
+  it("steps it no further with the hull held either: the round is over", () => {
+    const world = open();
+    play(world);
+    // A held hull is the director's poses and the game's testing box: no
+    // hit, so no hold, and the round has to end by itself.
     world.cfg = { ...CFG, hullInvulnerable: true };
     const snake = crash(world);
     const at = snake.body.map((t) => ({ ...t }));
-    for (let i = 0; i < CFG.snakeStunTicks - 1; i++) step(world, []);
+    expect(world.retries).toBe(0);
+    expect(snake.phase).toBe("verdict");
+    for (let i = 0; i < 6 * TPB; i++) step(world, []);
     expect(snake.body).toEqual(at);
-    // And it sets off again on the far side of it.
-    for (let i = 0; i < ROUNDS[0]!.stepTicks + 2; i++) step(world, []);
-    expect(snake.body).not.toEqual(at);
+    expect(snake.phase).toBe("spent");
   });
 
-  it("keeps what it was doing and where it went wrong, for the picture", () => {
+  it("is deaf to the trigger and the mouth after it", () => {
     const world = open();
     play(world);
-    const snake = crash(world);
-    expect(snake.ghost.length).toBe(CFG.snakeStartTiles);
-    // Off the top of the board, which is where the head went rather than
-    // where it was allowed to be.
-    expect({ col: snake.bumpCol, row: snake.bumpRow }).toEqual({ col: 4, row: -1 });
-    expect([snake.ghostDirCol, snake.ghostDirRow]).toEqual([0, -1]);
-  });
-
-  it("hands the attempt its whole clock back", () => {
-    const world = open();
-    play(world);
-    const snake = crash(world);
-    for (let i = 0; i < CFG.snakeStunTicks - 1; i++) step(world, []);
-    expect(snake.roundBeat).toBe(world.beat);
-    expect(snake.phase).toBe("play");
-  });
-
-  it("is deaf to the trigger and the mouth while it holds", () => {
-    const world = open();
-    play(world);
+    world.cfg = { ...CFG, hullInvulnerable: true };
     const snake = crash(world);
     snake.struck = [];
     press(world, 1, { kind: "snakeFire" });

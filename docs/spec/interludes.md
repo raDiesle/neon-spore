@@ -216,17 +216,17 @@ is the sentence the round is for. The picture says so — the venom lands in
 mid-air when it found nothing, which is the pair being told the reach ran out
 rather than the aim did.
 
-**A failed attempt pauses before it starts again** (`snakeStunTicks`). The
-round used to reset on the tick it went wrong: the body was somewhere, and on
-the next frame it was three tiles long at the bottom with the whole arena
-standing. Neither seat could say what had happened, which in a round whose
-entire content is two people saying what is happening is the one thing it could
-not afford. So the arena holds still for a second and a quarter — the head
-knocks against whatever stopped it and the body folds up behind it, a dotted
-outline is left where it was, and then it is drawn back in at the starting
-square. Nothing is judged during it: the attempt's clock is carried along with
-the pause and player 1's two verbs are dead, because there is no head on the
-arena for either of them to leave.
+**A crash is the wave lost, and the round has no second try of its own.** A
+wall, its own body, a touched enemy or a point reached with the mouth shut is a
+hit on the hull, and since 12 September 2026 every hit fails the wave
+(`sim/wave-fail.ts`): the body stops where it stood, the field holds for
+`waveFailBeats` so the pair sees where it went wrong, and the whole wave is
+played again from the top. The round used to start the attempt over itself —
+the body back at the start with the arena standing, after a pause to watch —
+and once a hit stopped the field none of that could ever run, so it is gone.
+What is left of the pause is its first part, the bump: the head knocks against
+whatever stopped it and the body folds up behind it, then stands where it
+stopped under the verdict until the wave comes back (`render/snake-crash.ts`).
 
 **The meteors are the exception, and they are what proves the rule.** They can
 be neither shot nor swallowed, and a shot stops dead on one, so the only answer

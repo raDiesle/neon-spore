@@ -48,24 +48,28 @@ export function right(world: World, m: MirrorState): void {
 }
 
 /**
- * The verdict is over. A round answered moves on to the next one; a round
- * missed is asked again exactly as it was — the same sequence at the same
- * cadence, because the pair failed to remember it, not to keep up with it.
+ * The verdict is over. A round answered moves on to the next one.
+ *
+ * A round missed is the wave lost, and nothing after it: `wrong` hit the hull
+ * on the beat it was judged, the field has held from that tick and the whole
+ * wave is played again (`wave-fail.ts`) — the same sequence at the same
+ * cadence, because the pair failed to remember it, not to keep up with it,
+ * and now with the field's own restart in front of it. The mirror used to ask
+ * the same round again by itself, and that could not be reached once a hit
+ * stopped the field. What is left of the branch is for a held hull
+ * (`hullInvulnerable`): the round is over, lost, so the mirror and its bait
+ * come off the world and the empty field ends the wave.
  */
 export function settle(world: World, m: MirrorState): void {
-  if (m.verdict === 1) {
-    if (m.hullMilli <= 0) {
-      world.boss = null;
-      // The bait goes with it. A pod hanging holds the wave open now
-      // (`beat.ts`), and this one was never meant to be taken.
-      world.pods = [];
-      world.events.push({ type: "mirrorDown", col: m.verdictCol });
-      return;
-    }
+  if (m.verdict === 1 && m.hullMilli > 0) {
     mirrorOpenRound(world, m, m.round + 1);
     return;
   }
-  enterPhase(m, "lead", world.beat, world.cannonCol);
+  world.boss = null;
+  // The bait goes with it. A pod hanging holds the wave open now (`beat.ts`),
+  // and this one was never meant to be taken.
+  world.pods = [];
+  if (m.verdict === 1) world.events.push({ type: "mirrorDown", col: m.verdictCol });
 }
 
 /**

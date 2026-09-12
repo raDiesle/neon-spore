@@ -32,15 +32,15 @@ import { MILLI, type World } from "./world.js";
  * **Failure arrives through the door that already exists.** A shot down a way
  * in that dead-ends comes back out of the column it went up: `breachHull`, the
  * ordinary crater-and-crack every missed rock already is, which is how THE
- * MIRROR answers a wrong step. It is also what makes the *next* attempt worth
- * a sentence.
+ * MIRROR answers a wrong step — and a hit is the wave lost (`wave-fail.ts`),
+ * so the field holds where it was struck and the whole wave is played again.
  *
  * **A dead end brings the drum down.** Exactly one gap in each rim reaches
  * the middle (`content/maze-drawn.ts`); the rest open onto regions walled off
  * from it, and a shot sent down one of those is lost. The maze comes apart
- * over the ship and the same stage is built again from the top — so a wrong
- * gap costs the stage rather than an attempt (`maze-verdict.ts`). Only the
- * middle moves the fight on, and the next wheel comes up with a gap more.
+ * over the ship, and the stage seen again is the wave's own second try, not
+ * the round's (`maze-verdict.ts`). Only the middle moves the fight on, and
+ * the next wheel comes up with a gap more.
  */
 
 /**
@@ -104,10 +104,10 @@ export interface MazeState {
    * Why the last attempt was lost, or `null` when the last one was not.
    *
    * State rather than an event because two things downstream have to know
-   * after the fact: `mazeSettle` builds the stage again for a dead end and
-   * only for a dead end, and the picture shakes the drum apart for the same
-   * one (`render/maze-fall.ts`). An event is gone by the next tick, and both
-   * of those are asked on every tick of the verdict.
+   * after the fact: `mazeSettle` breaks the hull at the end of the verdict
+   * for a silence and only for one, and the picture shakes the drum apart or
+   * brings it down by the reason (`render/maze-fall.ts`). An event is gone by
+   * the next tick, and both are asked on every tick of the verdict.
    */
   lost: MazeVerdictReason | null;
   /** The column that verdict landed in — the one the shot went up. */

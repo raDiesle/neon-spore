@@ -4,7 +4,7 @@ import { PALETTE } from "./palette.js";
 import type { ViewState } from "./renderer.js";
 import { headerLift } from "./round-header.js";
 import { drawSnakeBody, snakeSlide } from "./snake-body.js";
-import { crash01, crashReturn, drawSnakeCrash } from "./snake-crash.js";
+import { crash01, drawSnakeCrash } from "./snake-crash.js";
 import {
   type Arena,
   drawArena,
@@ -89,19 +89,17 @@ function drawBodies(
   const shows = showsSnakeBody(view.role);
   drawSnakeRocks(ctx, arena, round);
   if (showsSnakeFood(view.role)) drawSnakeItems(ctx, arena, round, pulse);
-  // The pause after a crash. While it runs the body on the world is standing
-  // at the start doing nothing, so what is drawn is the one that crashed
-  // folding up, and the one at the start only once it is time for it to come
-  // back (`snake-crash.ts`).
-  const crash = crash01(round, view.world.tick, view.world.cfg.snakeStunTicks);
+  // The bump after a crash. While it runs the body is drawn folding up
+  // against what stopped it, in place of itself; once it is spent the body
+  // is drawn as ever, standing where it stopped, for as long as the field
+  // holds (`snake-crash.ts`).
+  const crash = crash01(round, view.world.tick);
   if (crash !== null) drawSnakeCrash(ctx, arena, round, shows, crash);
-  const grown = morphBodyGrowth(fold) * (crash === null ? 1 : crashReturn(crash));
+  const grown = crash === null ? morphBodyGrowth(fold) : 0;
   if (grown > 0) {
     ctx.save();
     // The body is extruded, not faded: while the fold runs, only the part of
-    // it that has come out of the ship is drawn at all. The return from a
-    // crash borrows the same ramp, which is what makes the two arrivals one
-    // picture rather than two.
+    // it that has come out of the ship is drawn at all.
     ctx.globalAlpha = Math.min(1, grown * 1.6);
     drawSnakeBody(
       ctx,

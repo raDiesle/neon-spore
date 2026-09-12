@@ -2,7 +2,7 @@ import { expect, test } from "bun:test";
 import { startWave } from "../src/beat.js";
 import { DEFAULT_CONFIG } from "../src/config.js";
 import { hashWorld } from "../src/hash.js";
-import { step, ticksPerBeat } from "../src/index.js";
+import { failHolds, step, ticksPerBeat } from "../src/index.js";
 import { mirrorHoldsControls } from "../src/mirror.js";
 import { MIRROR_HOLD_BEATS, type MirrorState, type MirrorStep } from "../src/simon.js";
 import type { Command, TimedCommand } from "../src/types.js";
@@ -11,7 +11,8 @@ import { createWorld, type SimEvent, type World } from "../src/world.js";
 /**
  * THE MIRROR's Simon rounds, played out headlessly. What is under test is the
  * loop the whole boss is: shown, answered, judged — and that a wrong answer
- * asks the same round again rather than moving on.
+ * is the wave lost, held where it was struck and played again from the top
+ * (`wave-fail.ts`), rather than a round the mirror asks again by itself.
  */
 
 // No regeneration: the echo strike's damage has to be readable as an exact
@@ -91,13 +92,30 @@ test("a wrong step breaks the hull, which fails the wave", () => {
   expect(m.verdict).toBe(-1);
   expect(world.scars.length).toBe(1);
   // Its own hull is untouched. The ship's took the step, and a hit is the
-  // wave lost since 12 September 2026: the field holds from that tick and the
-  // whole wave is asked for again (`wave-fail.ts`) — the round's own "same
-  // round again" is inside that.
+  // wave lost since 12 September 2026: the field holds from that tick, with
+  // the mirror standing in its verdict, and the whole wave is asked for again
+  // (`wave-fail.ts`). The round's own "same round again" is gone — it could
+  // never be reached from here.
   expect(m.hullMilli).toBe(100_000);
+  expect(failHolds(world)).toBe(true);
   expect(world.retries).toBe(1);
   runTo(world, world.tick + TPB * 6);
+  expect(mirrorOf(world).phase).toBe("verdict");
   expect(mirrorOf(world).round).toBe(0);
+});
+
+test("with the hull held, a wrong step ends the round", () => {
+  const world = install();
+  // The director's poses and the game's testing box hold the hull: no hit,
+  // so no hold, and the round has to be over by itself once its verdict has
+  // stood — mirror and bait off the world, rather than the same round again.
+  world.cfg = { ...CFG, hullInvulnerable: true };
+  answer(world, [{ kind: "guard" }]);
+  expect(mirrorOf(world).verdict).toBe(-1);
+  expect(world.retries).toBe(0);
+  runTo(world, world.tick + TPB * 6);
+  expect(world.boss).toBeNull();
+  expect(world.pods).toEqual([]);
 });
 
 test("answering every round brings it down and lets the wave end", () => {

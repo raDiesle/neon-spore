@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss } from "@neon-spore/content";
-import { createWorld, startWave, ticksPerBeat } from "@neon-spore/sim";
+import { createWorld, snakeCrashed, startWave, ticksPerBeat } from "@neon-spore/sim";
 import type { ViewRole } from "../src/layout.js";
 import {
   CFG,
@@ -25,12 +25,13 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * shape of the gap these files exist to close — every type right, every test
  * green, and the first frame of the round throws on a colour.
  *
- * Long enough to cross all three phases and to have crashed at least once,
- * which is the only frame where the body is drawn from a standing start while
- * a scar is on a hull nobody can see — and, since the pause was added, the
- * only frames that reach the bump, the folded body and the dotted outline it
- * leaves behind (`snake-crash.ts`). Nothing here drives, so the body meets the
- * enemy standing in front of it and the crash picture is unavoidable.
+ * Long enough to cross the morph and the play and to have crashed, which is
+ * the only way to reach the bump and the folded body (`snake-crash.ts`) and
+ * the verdict drawn over them. Nothing here drives, so the body meets the
+ * enemy standing in front of it and the crash picture is unavoidable — and
+ * a crash is a hit, so the field holds from that tick (`sim/wave-fail.ts`)
+ * and every frame after it is the hold: the bump, then the body standing
+ * where it stopped under the verdict.
  */
 
 beforeAll(installCanvasGlobals);
@@ -55,9 +56,9 @@ describe("SNAKE draws on all three screens", () => {
       // met a wall, which is the frame the verdict and the scar hang off.
       const boss = world.boss;
       expect(boss?.kind === "snake" && boss.phase !== "morph").toBe(true);
-      // And it went wrong at least once, so every line of the pause was drawn
-      // through the stub as well as every line of the body.
-      expect(boss?.kind === "snake" && boss.repeats > 0).toBe(true);
+      // And it went wrong, so every line of the bump was drawn through the
+      // stub as well as every line of the body.
+      expect(boss?.kind === "snake" && snakeCrashed(boss)).toBe(true);
     });
   }
 });

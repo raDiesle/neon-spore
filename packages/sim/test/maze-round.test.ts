@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test";
-import { type CreatureKind, isWardable, step } from "../src/index.js";
+import { type CreatureKind, failHolds, isWardable, step } from "../src/index.js";
 import { mazeBottomCol } from "../src/maze.js";
 import {
   MAZE_LEAD_BEATS,
@@ -25,9 +25,13 @@ import {
 /**
  * THE MAZE, played out headlessly: the round.
  *
- * The middle takes a share of the boss, a dead end breaks the hull in the
- * column the shot went up and leaves the wheel standing for another go, and
- * saying nothing at all costs the same as a dead end.
+ * The middle takes a share of the boss; a dead end breaks the hull in the
+ * column the shot went up, the wrong colour is thrown back by the heart, and
+ * saying nothing at all brings the drum down on the ship. Each of those is a
+ * hit, and a hit is the wave lost (`wave-fail.ts`): the field holds where it
+ * was struck and the whole wave is played again. The round has no second try
+ * of its own any more — the stage it used to build back for a dead end is
+ * the wave's own restart now.
  */
 
 test("the wheel opens quiet, and the string does nothing until it does not", () => {
@@ -69,14 +73,11 @@ test("the way in that reaches the middle takes a share of the boss", () => {
   expect(mazeOf(world).hullMilli).toBe(100_000 - Math.round(100_000 / WHEELS.length));
 });
 
-test("a dead end costs the hull and takes the whole stage with it", () => {
+test("a dead end costs the hull, and the wave", () => {
   const world = install();
   untilReading(world);
   const answer = mazeCoreEntrance(WHEELS[0]!);
   const dud = (answer + 1) % WHEELS[0]!.entrances.length;
-  // The hull is held: the test is about what the round does next, and a hit
-  // would otherwise stop the field for the retry (`wave-fail.ts`).
-  world.cfg = { ...CFG, hullInvulnerable: true };
   const col = (() => {
     const c = clickOnto(world, dud);
     send(world, 1, { kind: "cannonCol", col: c });
@@ -89,18 +90,35 @@ test("a dead end costs the hull and takes the whole stage with it", () => {
   expect(breach[0]).toMatchObject({ col });
   expect(mazeOf(world).lost).toBe("mouth");
 
-  // The verdict stands, the drum comes apart over the ship, and the *same*
-  // stage is built again from the top: back at its opening angle with nothing
-  // ruled out. The boss's own hull is untouched — a stage lost is a stage
-  // repeated, never a stage undone.
-  past(world, "verdict", TPB * (1 + 8));
-  expect(mazeOf(world).phase).toBe("lead");
-  expect(mazeOf(world).round).toBe(0);
-  expect(mazeOf(world).tried).toEqual([]);
-  expect(mazeOf(world).angleMilli).toBe(WHEELS[0]!.startMilli);
+  // The hit is the wave lost: the field holds from that tick, with the drum
+  // standing in its verdict for the picture to shake apart, and nothing the
+  // round used to do next — the same stage built again — happens. The boss's
+  // own hull is untouched: a stage lost is never a stage undone.
+  expect(failHolds(world)).toBe(true);
+  expect(world.retries).toBe(1);
+  for (let i = 0; i < TPB * (MAZE_VERDICT_BEATS + 8); i++) step(world, []);
+  expect(mazeOf(world).phase).toBe("verdict");
   expect(mazeOf(world).hullMilli).toBe(100_000);
+});
+
+test("with the hull held, a lost stage ends the round", () => {
+  const world = install();
   untilReading(world);
-  expect(mazeOf(world).phase).toBe("read");
+  // The director's poses and the game's testing box hold the hull: no hit,
+  // so no hold, and the round has to be over by itself — the drum comes off
+  // the world once its verdict has stood, rather than standing the same
+  // stage up again.
+  world.cfg = { ...CFG, hullInvulnerable: true };
+  const answer = mazeCoreEntrance(WHEELS[0]!);
+  const dud = (answer + 1) % WHEELS[0]!.entrances.length;
+  const col = clickOnto(world, dud);
+  send(world, 1, { kind: "cannonCol", col });
+  send(world, 2, { kind: "fire", color: "red" });
+  past(world, "travel", TPB * 200);
+  expect(mazeOf(world).lost).toBe("mouth");
+  expect(world.retries).toBe(0);
+  past(world, "verdict", TPB * (MAZE_VERDICT_BEATS + 8));
+  expect(world.boss).toBeNull();
 });
 
 /**
@@ -109,16 +127,13 @@ test("a dead end costs the hull and takes the whole stage with it", () => {
  * Nothing is charged on the beat the clock stops: the maze comes apart over
  * the ship across the verdict and the hull is broken when the pieces land,
  * which is the beat the picture has them touching it (`render/maze-fall.ts`).
- * So the hull is whole for the whole of the verdict and short by the end of
- * it — and the stage is built again from the top, because a drum that came
- * down on the ship is not standing where it was.
+ * So the hull is whole for the whole of the verdict and hit at the end of it
+ * — and that hit is the wave lost, with no drum standing anywhere, because a
+ * drum that came down on the ship is not a drum.
  */
 test("a clock run out brings the drum down on the ship", () => {
   const world = install();
   untilReading(world);
-  // The hull is held: the test is about what the round does next, and a hit
-  // would otherwise stop the field for the retry (`wave-fail.ts`).
-  world.cfg = { ...CFG, hullInvulnerable: true };
   const seen = past(world, "read", TPB * (mazeReadBeats(WHEELS[0]!.entrances.length) + 4));
   const verdict = seen.filter((e) => e.type === "mazeVerdict");
   expect(verdict).toHaveLength(1);
@@ -136,13 +151,10 @@ test("a clock run out brings the drum down on the ship", () => {
   // two arrivals for one failure (`sim/maze-verdict.ts`).
   expect(isWardable((breach[0] as { kind: CreatureKind }).kind)).toBe(false);
 
-  // The same stage over again, back at its opening angle with nothing ruled
-  // out — and the boss no better off for it.
-  expect(mazeOf(world).phase).toBe("lead");
-  expect(mazeOf(world).round).toBe(0);
-  expect(mazeOf(world).tried).toEqual([]);
-  expect(mazeOf(world).angleMilli).toBe(WHEELS[0]!.startMilli);
-  expect(mazeOf(world).hullMilli).toBe(100_000);
+  // The wave is lost on the beat it lands, and the drum is gone.
+  expect(failHolds(world)).toBe(true);
+  expect(world.retries).toBe(1);
+  expect(world.boss).toBeNull();
 });
 
 /**
@@ -156,9 +168,6 @@ test("the heart takes its own colour, and the other one costs the hull", () => {
   const world = install();
   untilReading(world);
   const wrong = mazeHeartColor(0) === "red" ? "cyan" : "red";
-  // The hull is held: the test is about what the round does next, and a hit
-  // would otherwise stop the field for the retry (`wave-fail.ts`).
-  world.cfg = { ...CFG, hullInvulnerable: true };
   const col = clickOnto(world, mazeCoreEntrance(WHEELS[0]!));
   send(world, 1, { kind: "cannonCol", col });
   send(world, 2, { kind: "fire", color: wrong });
@@ -181,11 +190,14 @@ test("the heart takes its own colour, and the other one costs the hull", () => {
   expect(breach[0]).toMatchObject({ color: mazeHeartColor(0) });
   expect(isWardable((breach[0] as { kind: CreatureKind }).kind)).toBe(false);
 
-  // And the wheel survives it. A shot the heart refused never touched the
-  // walls, so the drum is handed straight back standing where it was left —
-  // which is the whole difference between this and a dead end.
-  past(world, "verdict", TPB * (1 + 8));
-  expect(mazeOf(world).phase).toBe("read");
+  // And the wheel is standing through the hold. A shot the heart refused
+  // never touched the walls, so the picture is the spill down a whole drum —
+  // which is the whole difference between this and a dead end — and the hit
+  // is the wave lost, the same as one.
+  expect(failHolds(world)).toBe(true);
+  expect(world.retries).toBe(1);
+  for (let i = 0; i < TPB * (MAZE_VERDICT_BEATS + 8); i++) step(world, []);
+  expect(mazeOf(world).phase).toBe("verdict");
   expect(mazeOf(world).tried).toEqual([mazeCoreEntrance(WHEELS[0]!)]);
 });
 

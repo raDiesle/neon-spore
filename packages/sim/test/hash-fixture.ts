@@ -405,14 +405,9 @@ function patchBoss(world: World): void {
     boss.shotCol = 5;
     boss.shotRow = 2;
     boss.shotHit = true;
-    boss.repeats = 1;
-    boss.repeatBeat = 5;
-    boss.repeatTick = 41;
+    boss.crashTick = 41;
     boss.bumpCol = 2;
     boss.bumpRow = 7;
-    boss.ghost = [{ col: 4, row: 6 }];
-    boss.ghostDirCol = -1;
-    boss.ghostDirRow = 0;
     // One of each spent, so both lists can prove their own length is hashed.
     boss.struck = [0];
     boss.taken = [0];

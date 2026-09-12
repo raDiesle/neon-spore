@@ -16,8 +16,9 @@ import { MILLI, type World } from "./world.js";
 /**
  * Why an attempt was lost: a dead end, the wrong colour at the heart, or
  * nothing fired at all. All three cost the hull the same; what they are for is
- * the sentence the pair says before the next attempt, which is different in
- * each case — and, for a dead end, the fact that the drum does not survive it.
+ * the picture — a dead end shakes the drum apart, a silence brings it down,
+ * the wrong colour is a gout of the heart's blood — and the sentence the pair
+ * says before the wave is played again, which is different in each case.
  *
  * The list is ordered rather than a bare union because `mazeHashParts` sends
  * the *index* over the wire, the way `MAZE_PHASES` is sent.
@@ -99,51 +100,32 @@ export function mazeRight(world: World, m: MazeState): void {
 }
 
 /**
- * The verdict is over, and there are three ways on from it.
+ * The verdict is over, and there are two ways on from it.
  *
  * **The middle moves the fight to the next wheel.** That is the only way
  * forward there is.
  *
- * **A dead end takes the drum with it.** The shot is lost in a region that
- * does not join the middle, the whole maze comes apart over the ship, and the
- * *same* stage is built again from the top — back at its opening angle with
- * nothing ruled out. The owner asked for exactly that, and it is what makes a
- * wrong gap cost something a pair can feel: not a wasted attempt but the stage
- * over again. The heart is untouched by it — the hull it has already lost
- * stays lost, and the blood stays on the floor (`render/maze-blood.ts`), so
- * the fight never goes backwards even when a stage does.
- *
- * **The clock running out takes the drum with it too, and the ship wears it.**
- * A dead end breaks the drum *over* the ship and the pieces drift off; a
- * silence brings the whole thing **down on the hull**, and the owner asked for
- * exactly that in place of the meteor that used to fall for it. So this is
- * where that failure is paid for and not `mazeWrong` three beats earlier: the
- * pieces are drawn arriving at the hull across the verdict
- * (`render/maze-fall.ts`) and the hull is broken on the beat they get there,
- * which is the rule every other arrival on this field already follows. The
- * stage is then built again from the top, because a drum that landed on the
- * ship is not standing where it was.
- *
- * **Anything else goes straight back to reading the same wheel**, standing
- * exactly where it was left. A shot refused at the heart for its colour never
- * touched the walls, so there is nothing for them to be shaken by.
+ * **A lost stage is the round's verdict and nothing after it.** A dead end
+ * and the wrong colour hit the hull the beat they are judged (`mazeWrong`),
+ * and a hit is the wave lost (`wave-fail.ts`): the field holds from that
+ * tick, so this is never reached for either of them, and the whole wave is
+ * played again from the top — which is where the *same stage over again*
+ * that a dead end used to build for itself now comes from. The clock running
+ * out is paid for here rather than three beats earlier: the drum comes down
+ * on the ship across the verdict (`render/maze-fall.ts`) and the hull is
+ * broken on the beat the pieces land, which is the rule every other arrival
+ * on this field already follows — and then the drum is gone, because a drum
+ * that landed on the ship is not standing anywhere. Taking it off the world
+ * is also what a held hull sees (`hullInvulnerable`, the director's poses and
+ * the game's own testing box): the round is over, lost, and the empty field
+ * ends the wave the way a round's clock running out already did.
  */
 export function mazeSettle(world: World, m: MazeState): void {
   if (m.verdict !== 1) {
     if (m.lost === "silence") {
       breachHull(world, m.verdictCol, MAZE_WRECK, world.cfg.mazeRow, "heavy");
-      enterMazePhase(m, "lead", world.beat);
-      return;
     }
-    if (m.lost === "mouth") {
-      enterMazePhase(m, "lead", world.beat);
-      return;
-    }
-    m.way = -1;
-    m.shotColor = -1;
-    m.step = 0;
-    m.phase = "read";
-    m.phaseBeat = world.beat;
+    world.boss = null;
     return;
   }
   if (m.hullMilli <= 0) {

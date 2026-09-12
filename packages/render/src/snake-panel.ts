@@ -1,5 +1,5 @@
 import { controlSetForWave } from "@neon-spore/content";
-import type { SnakeState } from "@neon-spore/sim";
+import { type SnakeState, snakeCrashed } from "@neon-spore/sim";
 import type { Layout, ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { ViewState } from "./renderer.js";
@@ -104,8 +104,7 @@ export function drawTally(
   }
   ctx.fillStyle = PALETTE.dim;
   ctx.font = '9px "Courier New",monospace';
-  const again = round.repeats > 0 ? ` · ${round.repeats} AGAIN` : "";
-  ctx.fillText(`ROUND ${round.round + 1} OF ${round.rounds.length}${again}`, l.width / 2, y + 18);
+  ctx.fillText(`ROUND ${round.round + 1} OF ${round.rounds.length}`, l.width / 2, y + 18);
 }
 
 /**
@@ -144,18 +143,21 @@ export function drawControls(
   }
 }
 
-/** How it went, over the arena for a few beats. */
+/**
+ * How it went, over the arena for a few beats. Three ways out and a word for
+ * each: cleared, the clock, or the body meeting something — and a lost round
+ * is the wave lost, so the second line says what happens next rather than
+ * what it cost (`sim/wave-fail.ts`; the retry count is the HUD's corner).
+ */
 export function drawVerdict(ctx: CanvasRenderingContext2D, l: Layout, round: SnakeState): void {
   const y = l.playHeight * 0.42;
   ctx.fillStyle = "rgba(5,4,11,.78)";
   ctx.fillRect(0, y - 46, l.width, 96);
   ctx.fillStyle = round.passed ? PALETTE.good : PALETTE.ember;
   ctx.font = '600 20px "Courier New",monospace';
-  ctx.fillText(round.passed ? "CLEARED" : "OUT OF TIME", l.width / 2, y);
-  ctx.fillStyle = PALETTE.text;
-  ctx.font = '11px "Courier New",monospace';
-  ctx.fillText(`${round.repeats} started over`, l.width / 2, y + 20);
+  const word = round.passed ? "CLEARED" : snakeCrashed(round) ? "CRASHED" : "OUT OF TIME";
+  ctx.fillText(word, l.width / 2, y);
   ctx.fillStyle = round.passed ? PALETTE.dim : PALETTE.ember;
   ctx.font = '9px "Courier New",monospace';
-  ctx.fillText(round.passed ? "the field is next" : "THE HULL PAID FOR IT", l.width / 2, y + 38);
+  ctx.fillText(round.passed ? "the field is next" : "THE WAVE GOES AGAIN", l.width / 2, y + 30);
 }

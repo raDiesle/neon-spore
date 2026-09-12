@@ -1,65 +1,54 @@
-import type { SnakeState } from "@neon-spore/sim";
+import { type SnakeState, snakeCrashed } from "@neon-spore/sim";
 import { PALETTE } from "./palette.js";
 import { type Arena, arenaX, arenaY } from "./snake-draw.js";
 import { drawSnakeHead } from "./snake-head.js";
 import { drawJointRibbon } from "./snake-ribbon.js";
 
 /**
- * The pause between two attempts, as a picture.
+ * The crash, as a picture.
  *
- * The attempt used to start over on the tick it ended: the body was in one
- * place, and on the next frame it was three tiles long at the bottom of the
- * arena with everything standing again. Neither seat could say what had
- * happened, which in a round whose whole content is two people saying what is
- * happening is the one thing it could not afford.
+ * A crash is the wave lost: the simulation leaves the body exactly as it
+ * stood on the tick it went wrong and the field holds from that tick, so the
+ * pair sees where it happened before the whole wave is played again
+ * (`sim/wave-fail.ts`). What this file spends the first part of that hold on
+ * is **the bump** — the head drives its nose into whatever stopped it and
+ * comes back off it, and the body behind it folds up like an accordion: the
+ * segments crowd together and throw a zigzag out sideways, which is what a
+ * long thing does when the front of it stops and the back of it does not. The
+ * head is the same head as ever, drawn shut and with the tongue in: what is
+ * being said is that the animal ran into something, and an animal that ran
+ * into something is not tasting the air. When the bump is spent the round's
+ * own body is drawn again, standing where it stopped.
  *
- * So the simulation holds the arena still for `snakeStunTicks` and keeps the
- * body as it stood on the tick it went wrong (`SnakeState.ghost`), and this
- * file spends that pause on three separate things, in order:
+ * It used to go on from there — a dotted outline where the body had been, and
+ * the body drawn back in at the starting square — because the round started
+ * the attempt over itself. It does not any more, and a body coming back for
+ * an attempt that never begins was two arrivals for one failure: the wave's
+ * own restart is the one the pair gets.
  *
- * 1. **The bump.** The head drives its nose into whatever stopped it and comes
- *    back off it, and the body behind it folds up like an accordion — the
- *    segments crowd together and throw a zigzag out sideways, which is what a
- *    long thing does when the front of it stops and the back of it does not.
- *    The head is the same head as ever, drawn shut and with the tongue in:
- *    what is being said is that the animal ran into something, and an animal
- *    that ran into something is not tasting the air.
- * 2. **The dotted outline**, tile by tile, of where the body was. It is the
- *    placeholder the arena is left holding: the shape is gone and the mark it
- *    made is still there for a moment.
- * 3. **The return.** The body is drawn back in at the starting square, growing
- *    out of a ring the way it grew out of the ship at the top of the round.
- *
- * Stateless like everything else here: the whole of it is `world.tick` against
- * the round's own `repeatTick`, so two devices are at the same point of the
- * same crash and a restart has nothing to carry over.
+ * Stateless like everything else here: the whole of it is `world.tick`
+ * against the round's own `crashTick`, so two devices are at the same point
+ * of the same crash and a restart has nothing to carry over.
  */
-
-/** Where the bump ends and the outline is all that is left. */
-const BUMP_END = 0.36;
-/** Where the outline is gone and the body starts coming back. */
-const RETURN_START = 0.6;
 
 /**
- * How far through the pause this tick is, 0 to 1, or `null` when there is no
- * pause running — before the first crash, and after the body has set off.
+ * Ticks the bump takes, from the nose going in to the body standing still
+ * again. Under a beat: a fold that took longer read as rubber.
  */
-export function crash01(snake: SnakeState, tick: number, stunTicks: number): number | null {
-  if (stunTicks <= 0 || snake.ghost.length === 0) return null;
-  const age = tick - snake.repeatTick;
-  if (age < 0 || age >= stunTicks) return null;
-  return age / stunTicks;
-}
+const BUMP_TICKS = 54;
 
 /**
- * How much of the returning body to draw, 0 to 1. Called by the round so the
- * body it already knows how to draw can be faded in rather than drawn twice.
+ * How far through the bump this tick is, 0 to 1, or `null` when there is no
+ * bump running — before the crash, and once the body has come to rest.
  */
-export function crashReturn(crash: number): number {
-  return Math.max(0, Math.min(1, (crash - RETURN_START) / (1 - RETURN_START)));
+export function crash01(snake: SnakeState, tick: number): number | null {
+  if (!snakeCrashed(snake)) return null;
+  const age = tick - snake.crashTick;
+  if (age < 0 || age >= BUMP_TICKS) return null;
+  return age / BUMP_TICKS;
 }
 
-/** The bump and the mark it leaves. The returning body is the round's own. */
+/** The bump, in place of the round's own body while it runs. */
 export function drawSnakeCrash(
   ctx: CanvasRenderingContext2D,
   arena: Arena,
@@ -67,29 +56,17 @@ export function drawSnakeCrash(
   showBody: boolean,
   crash: number,
 ): void {
-  if (crash < BUMP_END) {
-    const fade = crash < BUMP_END * 0.7 ? 1 : 1 - (crash - BUMP_END * 0.7) / (BUMP_END * 0.3);
-    const joints = foldedJoints(arena, snake, crash / BUMP_END);
-    const head = joints[0];
-    ctx.save();
-    ctx.globalAlpha = Math.max(0, fade);
-    drawJointRibbon(ctx, arena, joints, showBody);
-    // Shut, and with no tongue out: `drawSnakeHead` takes a gape and a flick,
-    // and both are zero here on purpose.
-    if (head) drawSnakeHead(ctx, arena, head, snake.ghostDirCol, snake.ghostDirRow, 0, 0);
-    ctx.restore();
-    knock(ctx, arena, snake, crash / BUMP_END);
-  }
-  if (crash < RETURN_START) {
-    const fade = crash < BUMP_END ? 1 : 1 - (crash - BUMP_END) / (RETURN_START - BUMP_END);
-    outline(ctx, arena, snake, Math.max(0, fade));
-  }
-  const back = crashReturn(crash);
-  if (back > 0) ring(ctx, arena, snake, back);
+  const joints = foldedJoints(arena, snake, crash);
+  const head = joints[0];
+  drawJointRibbon(ctx, arena, joints, showBody);
+  // Shut, and with no tongue out: `drawSnakeHead` takes a gape and a flick,
+  // and both are zero here on purpose.
+  if (head) drawSnakeHead(ctx, arena, head, snake.dirCol, snake.dirRow, 0, 0);
+  knock(ctx, arena, snake, crash);
 }
 
 /**
- * The ghost body, squeezed.
+ * The body, squeezed.
  *
  * Two things happen to it at once and both come off the same number. It
  * **compresses**: every joint is pulled towards the head along the line it was
@@ -105,10 +82,10 @@ function foldedJoints(arena: Arena, snake: SnakeState, t: number): { x: number; 
   // and an impact is not symmetrical.
   const press = t < 0.2 ? t / 0.2 : 1 - (t - 0.2) / 0.8;
   const squash = Math.max(0, press);
-  const dx = snake.ghostDirCol;
-  const dy = snake.ghostDirRow;
+  const dx = snake.dirCol;
+  const dy = snake.dirRow;
   const nose = arena.tile * 0.3 * Math.sin(Math.min(1, t / 0.35) * Math.PI);
-  return snake.ghost.map((tile, i) => {
+  return snake.body.map((tile, i) => {
     const x = arenaX(arena, tile.col) + arena.tile / 2;
     const y = arenaY(arena, tile.row) + arena.tile / 2;
     // Along: towards the head by up to half a tile a segment.
@@ -136,7 +113,7 @@ function knock(ctx: CanvasRenderingContext2D, arena: Arena, snake: SnakeState, t
   if (t > 0.75) return;
   const x = arenaX(arena, snake.bumpCol) + arena.tile / 2;
   const y = arenaY(arena, snake.bumpRow) + arena.tile / 2;
-  const a = Math.atan2(snake.ghostDirRow, snake.ghostDirCol);
+  const a = Math.atan2(snake.dirRow, snake.dirCol);
   const grow = Math.min(1, t / 0.3);
 
   ctx.save();
@@ -158,60 +135,5 @@ function knock(ctx: CanvasRenderingContext2D, arena: Arena, snake: SnakeState, t
     ctx.stroke();
     ctx.globalAlpha /= dim;
   }
-  ctx.restore();
-}
-
-/**
- * The placeholder: one dashed square a tile, on every tile the body was
- * standing on. Dashed rather than filled, because what it says is "there was
- * something here", which is the one thing a solid shape cannot say.
- */
-function outline(
-  ctx: CanvasRenderingContext2D,
-  arena: Arena,
-  snake: SnakeState,
-  fade: number,
-): void {
-  if (fade <= 0.01) return;
-  ctx.save();
-  ctx.globalAlpha = fade * 0.7;
-  ctx.strokeStyle = PALETTE.shieldRim;
-  ctx.lineWidth = 1.4;
-  ctx.setLineDash([arena.tile * 0.16, arena.tile * 0.12]);
-  const pad = arena.tile * 0.18;
-  for (const tile of snake.ghost) {
-    ctx.strokeRect(
-      arenaX(arena, tile.col) + pad,
-      arenaY(arena, tile.row) + pad,
-      arena.tile - pad * 2,
-      arena.tile - pad * 2,
-    );
-  }
-  ctx.setLineDash([]);
-  ctx.restore();
-}
-
-/**
- * The seam the body comes back through: a ring on the starting square that
- * tightens as the body arrives. The morph's own mark, one round along — a
- * shape that only fades in reads as a shape appearing, and something has to
- * say *here*.
- */
-function ring(ctx: CanvasRenderingContext2D, arena: Arena, snake: SnakeState, back: number): void {
-  const head = snake.body[0];
-  if (!head || back >= 1) return;
-  ctx.save();
-  ctx.globalAlpha = 1 - back;
-  ctx.strokeStyle = PALETTE.hullRim;
-  ctx.lineWidth = 1.6;
-  ctx.beginPath();
-  ctx.arc(
-    arenaX(arena, head.col) + arena.tile / 2,
-    arenaY(arena, head.row) + arena.tile / 2,
-    arena.tile * (1.1 - 0.6 * back),
-    0,
-    Math.PI * 2,
-  );
-  ctx.stroke();
   ctx.restore();
 }

@@ -40,24 +40,15 @@ export function snakeHashParts(b: SnakeState): number[] {
   push(b.shotCol);
   push(b.shotRow);
   push(b.shotHit ? 1 : 0);
-  push(b.repeats);
-  push(b.repeatBeat);
-  push(b.repeatTick);
+  // The crash, tick and tile. Nothing but the picture reads the tile, and it
+  // is in here anyway: rule 4 has no clause for a field only the drawing
+  // wants, because a device that disagrees about one is a device drawing a
+  // different round.
+  push(b.crashTick);
   push(b.bumpCol);
   push(b.bumpRow);
   push(b.body.length);
   for (const tile of b.body) {
-    push(tile.col);
-    push(tile.row);
-  }
-  // The body as it stood on the tick of the last crash. Nothing but the
-  // picture reads it, and it is in here anyway: rule 4 has no clause for a
-  // field only the drawing wants, because a device that disagrees about one
-  // is a device drawing a different round.
-  push(b.ghostDirCol);
-  push(b.ghostDirRow);
-  push(b.ghost.length);
-  for (const tile of b.ghost) {
     push(tile.col);
     push(tile.row);
   }

@@ -128,6 +128,7 @@ export {
   shipCol,
   shipCovers,
   shipRow,
+  snakeCrashed,
   snakeHolds,
   snakeRound,
   stepBall,

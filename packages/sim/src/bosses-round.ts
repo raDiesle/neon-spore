@@ -112,4 +112,5 @@ export {
   type SnakeTile,
 } from "./snake.js";
 
+export { snakeCrashed } from "./snake-arena.js";
 export { SNAKE_MORPH_BEATS, SNAKE_VERDICT_BEATS, snakeHolds, snakeRound } from "./snake-round.js";

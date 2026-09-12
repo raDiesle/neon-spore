@@ -179,8 +179,12 @@ shield step would turn into two.
 **A wrong step is thrown back.** The mirror answers it with a rock out of its
 own body into whichever column the cannon is standing in: an ordinary hull
 breach, crater, crack and all, and the whole picture tips upside down over
-itself for half a second while it lands. Then it asks the same round again, at
-the same cadence — the pair failed to remember it, not to keep up with it.
+itself for half a second while it lands. A hit is the wave lost
+(`sim/wave-fail.ts`), so the field holds there and the whole wave is played
+again from the top — the same round at the same cadence, because the pair
+failed to remember it, not to keep up with it. The mirror used to ask the same
+round again by itself; that path could never be reached once a hit stopped the
+field, and it is gone.
 
 **A right answer is the same damage, turned around.** The round breaks the
 mirror in the column the cannon was standing in, by one round's share of its
