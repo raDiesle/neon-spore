@@ -9,6 +9,11 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-12 · b80cc858 — THE COUNT wears IRIS; DIAL and FUSE go to the SHAPES page for other timing enemies
+
+The owner's answer to `creature:countdown`, 12 September 2026: IRIS into the game, the other candidates to the SHAPES page. `COUNTDOWN_LOOK` is IRIS now (`render/countdown-iris.ts`, moved by `bun run versus adopt`): a socket with a bright core on both screens, and on the pilot's the blades of the body's own flesh closed over it, one per beat left, the last one sliding back into the rim through its beat — and on zero a hole to shoot into. The navigator sees an eye that never blinks. *A look the owner asked for by name.*
+
+## 2026-09-12 · 1d4c6cba — There is no point score; a run is its clock and its retries
 ## 2026-09-12 · dc89d573 — There is no point score; a run is its clock and its retries
 
 The last piece of the owner's rule of 12 September 2026. `World.score` is gone, with the fifty-one places in the simulation that paid it, the `score*` prices in eight config files (`config-creature-scores.ts` whole), the SCORE group in the director's ship editor and the figure in the HUD's corner: once a hit costs the wave and a run is *the time played and the retries*, a second currency counted nothing the clock did not, and a number that only went up told the pair less than one that could be beaten.
