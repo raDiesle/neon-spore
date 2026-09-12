@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-12 · 068d83c3 — Document drift is a test: seven stale paths and one unnamed config field
+
+`tools/index/drift.ts`' argument, applied to the spec. Prose is hand-written and worth keeping hand-written, so nothing regenerates over it, and the cost is that it goes quietly wrong — five INDEX rows were repaired by hand in one week and nothing in the repository would have failed if they had not been. `tools/test/doc-drift.test.ts` settles the three claims a document makes that the tree can answer without reading the argument: every backticked path under `docs/` names a file, every field of `SimConfig` is named somewhere in `docs/spec/` or a `docs/*.md`, and every `Files:` line in `docs/queue.md` and `docs/parked.md` names files that exist. It caught **seven stale paths across five documents** and **one undocumented core config field**, and all eight are fixed here.
+
 ## 2026-09-12 · 3aa51702 — Two devices play content's first wave to its end, fingerprints and all
 
 FIRST STEP as `waves.ts` lists it, built the four ways `apps/game` builds a wave and played over a delayed link with a different delay in each hand. The run stops when the wave does — the `needWave` its clear produces, ten beats of a body falling and about 975 ticks — rather than at a tick count a test chose. And the two worlds are not compared by reaching into both of them: every sixteenth tick each device fingerprints its own world, sends it over the same wire the inputs cross, and puts the peer's through `HashLedger`, so what the test asserts is the verdict the game itself would draw a DESYNC screen on. Sixty checkpoints, sixty agreements each way, no mismatch, and the two hashes equal at the end.
