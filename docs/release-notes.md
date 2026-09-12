@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-12 · f173bde7 — The rail has no caption, the band is two tiles shorter, the tutorial bar is lower
+
+Three looks the owner asked for by name, on 12 September 2026 — that exemption, for all three. The strip's caption (`PLAYER 1 · CANNON`, `PLAYER 2 · SHIELD`) is gone from over the rail: the cord's colour says which control it is, and a band names nothing of the game's construction. A single-seat band is two tiles shorter at phone size (`bandSoloPct` 27 → 19); the buttons and the rail are capped by the width there and keep their size, so what went was the flesh above and below the rail. The tutorial's bar is 86 px instead of 118, its buttons 46 tall, its dots nearer the rim — one geometry still, `navButtons`, drawn and hit-tested alike.
+
 ## 2026-09-12 · 3c33f539 — `bun run perf --unmeasured` blanks a baseline row whose wave changed under it
 
 A baseline row records what the wave sent when it was weighed, and `baseline.test.ts` fails a row whose wave sends something else now — figures for a wave that no longer exists. The fix it printed was a narrow perf run per wave, and a lane never owes one (`CLAUDE.md`): the trim of the guided waves in the commit before this left twenty-eight such rows, twelve minutes of runs. So the command the owner settled on for a wave nobody has weighed does the same for a wave nobody has weighed *as it is*: the row is blanked to unmeasured, named on the way out, and the next sweep fills it in. The twenty-eight rows are blanked here; `bun run perf` is what this lane could not verify.
