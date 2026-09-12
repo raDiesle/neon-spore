@@ -21,29 +21,31 @@ export const THE_RIND: GuideScene = {
   seed: 1,
   entries: [{ beat: 0, col: 5, kind: "rind", color: "red" }],
   acts: [
-    { tick: 330, control: "cannon", col: 3 },
-    { tick: 360, control: "cannon", col: 4 },
-    { tick: 390, control: "cannon", col: 5 },
-    { tick: 590, control: "fireRed" },
-    { tick: 700, control: "fireRed" },
-    { tick: 850, control: "fireRed" },
+    { tick: 510, control: "cannon", col: 3 },
+    { tick: 540, control: "cannon", col: 4 },
+    { tick: 570, control: "cannon", col: 5 },
+    { tick: 690, control: "fireRed" },
+    { tick: 750, control: "fireRed" },
+    { tick: 870, control: "fireRed" },
   ],
   steps: [
+    // Seven beats: the rind holds on row six, in the middle of the screen, and
+    // not lower because three shots still have to land under it.
     { tick: 0, seat: 1, text: "RIND · THREE LAYERS", anchor: { at: "body" } },
     {
-      tick: 240,
+      tick: 420,
       seat: 1,
       text: "STAY UNDER IT · ALL THREE",
       anchor: { at: "control", control: "cannon" },
     },
     {
-      tick: 500,
+      tick: 600,
       seat: 2,
       text: "SAME COLOUR, THREE TIMES",
       anchor: { at: "control", control: "fireRed" },
     },
     {
-      tick: 760,
+      tick: 780,
       seat: 2,
       text: "COUNT THEM DOWN OUT LOUD",
       anchor: { at: "control", control: "fireRed" },

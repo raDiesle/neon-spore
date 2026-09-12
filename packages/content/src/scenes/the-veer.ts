@@ -25,7 +25,7 @@ import type { GuideScene } from "../scene-types.js";
  * where a rolled step lands, and neither can the pair.
  */
 export const THE_VEER: GuideScene = {
-  ticks: 1020,
+  ticks: 1080,
   bpm: 120,
   seed: 1,
   // Column 3 of the seven a wave is authored in — the middle of the field, so
@@ -33,21 +33,27 @@ export const THE_VEER: GuideScene = {
   // beat in, so the page's words are on the screen before anything falls.
   entries: [{ beat: 1, col: 3, kind: "veer", color: null }],
   acts: [
-    { tick: 600, control: "shield", col: 3, atBody: true },
+    { tick: 750, control: "shield", col: 3, atBody: true },
+    // Fifty ticks after its page opens, less than the beat and a half the
+    // other films give, because the rock lands on tick 899 whatever the
+    // pages do and the three before this one are at the shortest a page
+    // may be.
     { tick: 855, control: "shield", col: 3, atBody: true },
     { tick: 890, control: "guard" },
   ],
   steps: [
+    // Eight beats: the rock has stepped three times and holds on row six, in
+    // the middle of the screen.
     { tick: 0, seat: 1, text: "THE ARROW IS ITS NEXT STEP", anchor: { at: "body" } },
-    { tick: 240, seat: 2, text: "PLAYER 2 SEES NO ARROW", anchor: { at: "body" } },
+    { tick: 480, seat: 2, text: "PLAYER 2 SEES NO ARROW", anchor: { at: "body" } },
     {
-      tick: 480,
+      tick: 660,
       seat: 2,
       text: "CARRY THE DOME · NEVER PARK",
       anchor: { at: "control", control: "shield" },
     },
     {
-      tick: 720,
+      tick: 840,
       seat: 1,
       text: "FIRE IT AS IT LANDS",
       anchor: { at: "control", control: "guard" },

@@ -27,28 +27,34 @@ export const THE_THIRD_SHOT: GuideScene = {
   seed: 1,
   entries: [{ beat: 0, col: 4, kind: "shell", color: "cyan" }],
   acts: [
-    { tick: 330, control: "cannon", col: 4 },
-    { tick: 590, control: "fireRed" },
-    { tick: 680, control: "cannon", col: 5 },
-    { tick: 730, control: "fireRed" },
-    { tick: 850, control: "fireCyan" },
+    { tick: 510, control: "cannon", col: 4 },
+    // The two chips sit a beat apart with the slide between them, closer than
+    // the other films press, because the shell is on row eleven by now and
+    // the finishing shot on the next page has to land before it reaches the
+    // hull.
+    { tick: 690, control: "fireRed" },
+    { tick: 720, control: "cannon", col: 5 },
+    { tick: 750, control: "fireRed" },
+    { tick: 870, control: "fireCyan" },
   ],
   steps: [
+    // Seven beats: the shell holds on row six, in the middle of the screen,
+    // and not lower because three shots still have to land under it.
     { tick: 0, seat: 1, text: "SHELL · A PIECE EACH SIDE", anchor: { at: "body" } },
     {
-      tick: 240,
+      tick: 420,
       seat: 1,
       text: "ONE PIECE, ONE COLUMN",
       anchor: { at: "control", control: "cannon" },
     },
     {
-      tick: 500,
+      tick: 600,
       seat: 2,
       text: "ANY COLOUR CHIPS ONE OFF",
       anchor: { at: "control", control: "fireRed" },
     },
     {
-      tick: 760,
+      tick: 780,
       seat: 2,
       text: "ITS OWN COLOUR FINISHES IT",
       anchor: { at: "control", control: "fireCyan" },

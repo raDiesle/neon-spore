@@ -27,15 +27,17 @@ export const THE_CAROM: GuideScene = {
   seed: 1,
   entries: [{ beat: 0, col: 0, kind: "carom", color: "red" }],
   acts: [
-    { tick: 470, control: "cannon", col: 2 },
+    { tick: 510, control: "cannon", col: 2 },
     { tick: 610, control: "fireRed" },
     { tick: 790, control: "shield", col: 2 },
     { tick: 850, control: "guard" },
   ],
   steps: [
+    // Seven beats: one turn at the wall and back into the field, holding on
+    // row six, in the middle of the screen.
     { tick: 0, seat: 1, text: "IT TURNS AT THE WALL", anchor: { at: "body" } },
     {
-      tick: 380,
+      tick: 420,
       seat: 2,
       text: "YOUR COLOUR CRACKS IT",
       anchor: { at: "control", control: "fireRed" },

@@ -22,25 +22,27 @@ import type { GuideScene } from "../scene-types.js";
  * under it.
  */
 export const THE_STRAND: GuideScene = {
-  ticks: 1200,
+  ticks: 1440,
   bpm: 120,
   seed: 1,
   entries: [{ beat: 1, col: 3, kind: "strand", color: "red", beads: 2 }],
   acts: [
-    { tick: 540, control: "cannon", col: 4 },
-    { tick: 780, control: "fireCyan" },
+    { tick: 1110, control: "cannon", col: 4 },
+    { tick: 1290, control: "fireCyan" },
   ],
   steps: [
+    // Fourteen beats: a strand falls a row every two, so the top bead is on
+    // row six — the middle of the screen — only now.
     { tick: 0, seat: 2, text: "ONE BEAD IS LIT · SAY WHICH", anchor: { at: "body" } },
-    { tick: 240, seat: 1, text: "PLAYER 1 SEES THE COLOURS", anchor: { at: "body" } },
+    { tick: 840, seat: 1, text: "PLAYER 1 SEES THE COLOURS", anchor: { at: "body" } },
     {
-      tick: 480,
+      tick: 1020,
       seat: 1,
       text: "CANNON UNDER THAT BEAD",
       anchor: { at: "control", control: "cannon" },
     },
     {
-      tick: 720,
+      tick: 1200,
       seat: 2,
       text: "FIRE THE COLOUR YOU HEARD",
       anchor: { at: "control", control: "fireCyan" },

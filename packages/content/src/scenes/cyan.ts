@@ -43,32 +43,37 @@ import type { GuideScene } from "../scene-types.js";
  * wasted on arrives (`test/scenes.test.ts`).
  */
 export const CYAN: GuideScene = {
-  ticks: 1380,
+  ticks: 1680,
   bpm: 120,
   seed: 1,
+  // The second bulb comes a beat after the first page has turned: a caption
+  // about a body rings the newest one on the field, and the first page holds
+  // eight beats in, with its bulb on row seven — the middle of the screen,
+  // where the owner asked for the explained enemy to stand when a tutorial
+  // stops, rather than three rows down under the corner plate.
   entries: [
     { beat: 0, col: 5, color: "cyan" },
-    { beat: 5, col: 5, color: "cyan" },
+    { beat: 9, col: 5, color: "cyan" },
   ],
   // Every press sits a beat and a half after the page that asks for it opens:
   // *before the slider starts moving it should briefly stay with the text.*
   acts: [
-    { tick: 330, control: "cannon", col: 3 },
-    { tick: 360, control: "cannon", col: 4 },
-    { tick: 390, control: "cannon", col: 5 },
-    { tick: 570, control: "fireCyan" },
-    { tick: 810, control: "fireRed" },
+    { tick: 570, control: "cannon", col: 3 },
+    { tick: 600, control: "cannon", col: 4 },
+    { tick: 630, control: "cannon", col: 5 },
+    { tick: 810, control: "fireCyan" },
+    { tick: 1050, control: "fireRed" },
   ],
   steps: [
     { tick: 0, seat: 1, text: "CYAN ENEMY", anchor: { at: "body" } },
     {
-      tick: 240,
+      tick: 480,
       seat: 1,
       text: "PLAYER 1 MOVES CANNON",
       anchor: { at: "control", control: "cannon" },
     },
     {
-      tick: 480,
+      tick: 720,
       seat: 2,
       text: "PLAYER 2 FIRES CYAN",
       anchor: { at: "control", control: "fireCyan" },
@@ -79,7 +84,7 @@ export const CYAN: GuideScene = {
     // the bolt goes up, meets a bulb that is exactly the one the pair just
     // killed, and is gone.
     {
-      tick: 720,
+      tick: 960,
       seat: 2,
       text: "RED IS SPENT ON IT",
       anchor: { at: "control", control: "fireRed" },
@@ -87,6 +92,6 @@ export const CYAN: GuideScene = {
     // And what that costs, which is the half a page about a wasted shot can
     // never say on its own: the body is still coming, and it arrives. It stays
     // on player 2's screen because the colour was player 2's to choose.
-    { tick: 1020, seat: 2, text: "AND IT REACHES THE HULL", anchor: { at: "health" } },
+    { tick: 1260, seat: 2, text: "AND IT REACHES THE HULL", anchor: { at: "health" } },
   ],
 };

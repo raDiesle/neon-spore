@@ -23,7 +23,7 @@ import type { GuideScene } from "../scene-types.js";
  * beats behind it.
  */
 export const THE_LURE: GuideScene = {
-  ticks: 1140,
+  ticks: 1380,
   bpm: 120,
   seed: 1,
   entries: [
@@ -31,17 +31,24 @@ export const THE_LURE: GuideScene = {
     // first three pages are about *looking*, and a cannon sliding under the
     // decoy would be the film answering its own question early.
     { beat: 0, col: 3, kind: "lure", color: "cyan", wears: "bulb" },
-    { beat: 8, col: 5, color: "cyan" },
+    // A beat after the second page has turned: a caption about a body rings
+    // the newest one on the field, and this one must not take the ring off
+    // the lure while a page is still about the lure.
+    { beat: 12, col: 5, color: "cyan" },
   ],
   acts: [
-    { tick: 510, control: "fireCyan" },
-    { tick: 770, control: "cannon", col: 4 },
-    { tick: 800, control: "cannon", col: 5 },
-    { tick: 900, control: "fireCyan" },
+    { tick: 750, control: "fireCyan" },
+    { tick: 1010, control: "cannon", col: 4 },
+    { tick: 1040, control: "cannon", col: 5 },
+    { tick: 1140, control: "fireCyan" },
   ],
   steps: [
+    // Two pages on one falling body, and both hold with it in the middle of
+    // the screen — row seven, then row ten — where the owner asked for the
+    // explained enemy to stand when a tutorial stops, rather than rows two
+    // and six with the field empty under it.
     { tick: 0, seat: 1, text: "PLAYER 1 SEES A TARGET", anchor: { at: "body" } },
-    { tick: 200, seat: 2, text: "PLAYER 2 SEES A LURE", anchor: { at: "body" } },
+    { tick: 480, seat: 2, text: "PLAYER 2 SEES A LURE", anchor: { at: "body" } },
     // The film's one shared page, spent on the thing neither screen owns: a
     // bolt fired at a lure does not merely miss, it sets the body off two rows
     // up and breaks the hull in three places for it (`resolveLure`,
@@ -49,9 +56,9 @@ export const THE_LURE: GuideScene = {
     // reading out loud. The words still point at the bar rather than at the
     // holes: the blast is the loudest thing on the screen by then, and the one
     // thing it does not say is how much of the run it just spent.
-    { tick: 420, seat: 2, text: "FIRING AT IT COSTS HULL", anchor: { at: "health" } },
+    { tick: 660, seat: 2, text: "FIRING AT IT COSTS HULL", anchor: { at: "health" } },
     {
-      tick: 680,
+      tick: 920,
       seat: 1,
       text: "THE REAL ONE IS ELSEWHERE",
       anchor: { at: "control", control: "cannon" },

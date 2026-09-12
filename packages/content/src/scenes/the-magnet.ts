@@ -23,26 +23,29 @@ import type { GuideScene } from "../scene-types.js";
  * navigator who fires before hearing the side is firing at a coin.
  */
 export const THE_MAGNET: GuideScene = {
-  ticks: 960,
+  ticks: 1020,
   bpm: 120,
   seed: 1,
   entries: [{ beat: 0, col: 3, kind: "magnet", color: "red" }],
   acts: [
-    { tick: 390, control: "cannon", col: 1 },
-    { tick: 450, grip: 1, col: 3, until: 900 },
-    { tick: 810, control: "fireRed" },
+    { tick: 510, control: "cannon", col: 1 },
+    // Half a beat after the slide, so the hold starts on row eight and the
+    // shot at the end lands with the magnet on row eleven, not at the hull.
+    { tick: 540, grip: 1, col: 3, until: 960 },
+    { tick: 870, control: "fireRed" },
   ],
   steps: [
+    // Seven beats: the magnet holds on row six, in the middle of the screen.
     { tick: 0, seat: 1, text: "NEVER STAND UNDER IT", anchor: { at: "body" } },
     {
-      tick: 300,
+      tick: 420,
       seat: 1,
       text: "STAND ASIDE AND HOLD IT",
       anchor: { at: "control", control: "cannon" },
     },
-    { tick: 540, seat: 2, text: "IT COMES IN FROM THE LEFT", anchor: { at: "held" } },
+    { tick: 600, seat: 2, text: "IT COMES IN FROM THE LEFT", anchor: { at: "held" } },
     {
-      tick: 720,
+      tick: 780,
       seat: 2,
       text: "THE LEFT POLE IS RED",
       anchor: { at: "control", control: "fireRed" },

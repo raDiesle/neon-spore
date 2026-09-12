@@ -22,6 +22,32 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 · hit-looks — a page about a body holds with it in the middle of the field
+
+The owner: *when tutorials stop, the explained enemy should be around the
+middle of the screen, not the top.* Every film's first page turned four
+beats in with its body on row two or three. Now a body page holds with the
+body no higher than row six (`scene-pages.test.ts`), which retimed
+twenty-eight films — the body page lengthened, every later press kept a
+beat and a half after its page opens where the fall left room, kills kept
+before the hull, second arrivals moved after the first body's hold. THE
+ECHO became one long first page, THE WISP holds after its first hop, THE
+LANCE's cannon page moved in front of its body page, THE CROSSING's second
+rock crosses on row six. About 55 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | every film's steps and acts, the sim's rules for the gyre, the wisp, the echo, the coil |
+| writing | 30 | twenty-eight scene files, the test, the hit pop's floor |
+| looking | 5 | `film.ts` per film after each edit, one real frame of FIRST STEP |
+| friction | 5 | four last pages a tick short of 1.5 s, a NaN in the hit pop when a body is taken below the ship's skin |
+| landing | 5 | `check:fast` twice — THE CROSSING's last page was the second red |
+
+The bottleneck was writing: each film has its own clock, and the ones with a
+route of their own — the gyre's walk, the wisp's hops, the echo's divisions,
+the lance's three-beat fill — needed a probe run before a tick could be
+chosen.
+
 ## 2026-09-12 · hit-looks — THE VOLLEY's gap is a cutaway planet
 
 The owner: *make the volley look inside like a full solid planet with a

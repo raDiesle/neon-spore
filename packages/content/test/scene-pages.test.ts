@@ -1,6 +1,7 @@
 import { describe, expect, it } from "bun:test";
-import { DEFAULT_CONFIG } from "@neon-spore/sim";
+import { DEFAULT_CONFIG, SceneRun } from "@neon-spore/sim";
 import { controlSetForWave, setHas } from "../src/index.js";
+import { sceneScript } from "../src/scene-script.js";
 import { SCENES, type SceneId, stepSpan } from "../src/scenes.js";
 import { WAVES } from "../src/waves.js";
 
@@ -41,6 +42,50 @@ describe("the pages a rehearsal is read off", () => {
           `${id}: "${scene.steps[i]?.text}" is a page that flickers past`,
         ).toBeGreaterThanOrEqual(1.5);
       }
+    }
+  });
+
+  it("holds a page about a body with that body around the middle of the screen", () => {
+    // A page plays once and stands on its last frame, and on a page about a
+    // body that frame is the picture the pair reads the words against. Every
+    // film used to turn its first page four beats in, with the body it was
+    // pointing at three rows down a fifteen-row field — under the corner
+    // plate, at the top of the screen, with the whole field empty below it.
+    // The owner, 12 September 2026: *when tutorials stop, the explained enemy
+    // should be around the middle of the screen, not the top.* So a page
+    // anchored at a body holds with that body no higher than row six — the
+    // top of the middle third of the screen on a phone — and the pages after
+    // it do their work lower on the field. A body that was never at the top
+    // (one that crawls in along the hull, one that sits on it) is lower than
+    // that already and passes.
+    //
+    // The body checked is the one the caption finds: the newest on the field,
+    // which is the one nearest the top (`render/caption-anchor.ts`).
+    //
+    // Two bodies are where their wave puts them and no timing moves them: a
+    // boss standing at the top of the field (THE WARDEN's ring on row two),
+    // and a body that crosses along a row the game gives it — THE COIL walks
+    // the top row wall to wall before it drops. Those hold where the wave will
+    // show them.
+    const MIDDLE_FROM = 6;
+    const ON_A_ROW_OF_ITS_OWN = new Set(["coil"]);
+    for (const { wave, id } of USED) {
+      const scene = SCENES[id];
+      const run = new SceneRun(sceneScript(id, wave, DEFAULT_CONFIG));
+      scene.steps.forEach((step, i) => {
+        if (step.anchor.at !== "body") return;
+        run.restart(stepSpan(scene, i).to);
+        let top: number | null = null;
+        for (const c of run.world.creatures) {
+          if (c.kind === scene.boss?.kind || ON_A_ROW_OF_ITS_OWN.has(c.kind)) continue;
+          top = top === null ? c.row : Math.min(top, c.row);
+        }
+        if (top === null) return;
+        expect(
+          top,
+          `${id}: "${step.text}" holds with its body at row ${top}, at the top of the screen`,
+        ).toBeGreaterThanOrEqual(MIDDLE_FROM);
+      });
     }
   });
 

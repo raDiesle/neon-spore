@@ -94,7 +94,13 @@ export function pop(ctx: CanvasRenderingContext2D, s: Strike): void {
   ctx.fill();
 
   // The flecks: beads of film falling to the ship and lying there wet.
+  //
+  // The floor is the ship's drawn skin under the body, and a body taken on
+  // the last row over a raised part of that skin is already below it — the
+  // floor comes in negative, and a square root of it is a NaN on the canvas.
+  // Such a bead has nowhere to fall: it lies at once, where it is.
   const t = s.age;
+  const floor = Math.max(0, s.floor);
   for (let i = 0; i < FLECKS; i++) {
     const a = Math.PI * (0.15 + 0.7 * hash01(s.seed + i));
     const speed = r * (1.2 + hash01(s.seed + 50 + i) * 1.6);
@@ -104,11 +110,11 @@ export function pop(ctx: CanvasRenderingContext2D, s: Strike): void {
     let x = vx * t;
     let y = vy * t + 0.5 * gr * t * t;
     let lying = false;
-    if (y >= s.floor) {
+    if (y >= floor) {
       // Landed: where it was when it crossed the line, held there.
-      const tl = (-vy + Math.sqrt(vy * vy + 2 * gr * s.floor)) / gr;
+      const tl = (-vy + Math.sqrt(vy * vy + 2 * gr * floor)) / gr;
       x = vx * tl;
-      y = s.floor;
+      y = floor;
       lying = true;
     }
     const size = Math.max(0.8, r * 0.12);

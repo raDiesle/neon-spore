@@ -22,19 +22,21 @@ import type { GuideScene } from "../scene-types.js";
  * goes quiet because nothing happened.
  */
 export const THE_BEATBOX: GuideScene = {
-  ticks: 960,
+  ticks: 1440,
   bpm: 120,
   seed: 1,
   entries: [{ beat: 0, col: 3, kind: "beatbox", color: null, beats: 3 }],
   acts: [
-    { tick: 540, tap: true, col: 3 },
-    { tick: 600, tap: true, col: 3 },
-    { tick: 660, tap: true, col: 3 },
+    { tick: 1020, tap: true, col: 3 },
+    { tick: 1080, tap: true, col: 3 },
+    { tick: 1140, tap: true, col: 3 },
   ],
   steps: [
+    // Twelve and a half beats: the box comes down slowly and holds on row
+    // six, in the middle of the screen, with the number over it.
     { tick: 0, seat: 1, text: "THE NUMBER IS YOURS ALONE", anchor: { at: "body" } },
-    { tick: 240, seat: 2, text: "PLAYER 2 SEES NO NUMBER", anchor: { at: "body" } },
-    { tick: 420, seat: 2, text: "TAP IT · ONCE A BEAT", anchor: { at: "body" } },
-    { tick: 630, seat: 2, text: "STOPPING IS THE ANSWER", anchor: { at: "body" } },
+    { tick: 750, seat: 2, text: "PLAYER 2 SEES NO NUMBER", anchor: { at: "body" } },
+    { tick: 930, seat: 2, text: "TAP IT · ONCE A BEAT", anchor: { at: "body" } },
+    { tick: 1170, seat: 2, text: "STOPPING IS THE ANSWER", anchor: { at: "body" } },
   ],
 };

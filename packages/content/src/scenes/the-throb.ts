@@ -26,38 +26,43 @@ import type { GuideScene } from "../scene-types.js";
  * order.
  */
 export const THE_THROB: GuideScene = {
-  ticks: 900,
+  ticks: 1080,
   bpm: 120,
   seed: 1,
   entries: [{ beat: 0, col: 5, kind: "throb", color: "red" }],
   acts: [
-    { tick: 330, control: "cannon", col: 3 },
-    { tick: 360, control: "cannon", col: 4 },
-    { tick: 390, control: "cannon", col: 5 },
+    { tick: 510, control: "cannon", col: 3 },
+    { tick: 540, control: "cannon", col: 4 },
+    { tick: 570, control: "cannon", col: 5 },
     // Both bolts arrive inside one cyan window. `throbSpinBeats` is 3 and each
     // half holds the cannon for half a turn, so the body authored red has its
-    // cyan side round over beats 9.75 to 11.25 — ticks 585 to 675 at this
+    // cyan side round over beats 12.75 to 14.25 — ticks 765 to 855 at this
     // tempo. The first press is red, the trigger that was right a moment ago
     // and is wrong now; the second is cyan, at the same place on the turn.
-    { tick: 575, control: "fireRed" },
-    { tick: 615, control: "fireCyan" },
+    { tick: 755, control: "fireRed" },
+    { tick: 795, control: "fireCyan" },
   ],
   steps: [
+    // Seven beats — one whole turn of the body later than the four it used
+    // to be, so every bolt below keeps its place on the spin — and the page
+    // holds with the throb on row six, in the middle of the screen, where
+    // the owner asked for the explained enemy to stand when a tutorial stops.
+    // Not eight: the two bolts have to land before the body does.
     { tick: 0, seat: 1, text: "THROB · RED SIDE, CYAN SIDE", anchor: { at: "body" } },
     {
-      tick: 240,
+      tick: 420,
       seat: 1,
       text: "PLAYER 1 CALLS WHICH FACES",
       anchor: { at: "control", control: "cannon" },
     },
     {
-      tick: 440,
+      tick: 620,
       seat: 2,
       text: "IT TURNED · RED IS WASTED",
       anchor: { at: "control", control: "fireRed" },
     },
     {
-      tick: 620,
+      tick: 800,
       seat: 2,
       text: "CYAN IS ROUND · CYAN LANDS",
       anchor: { at: "control", control: "fireCyan" },

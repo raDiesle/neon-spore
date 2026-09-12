@@ -20,21 +20,23 @@ export const THE_GHOST: GuideScene = {
   seed: 1,
   entries: [{ beat: 0, col: 5, kind: "ghost", color: "cyan" }],
   acts: [
-    { tick: 570, control: "cannon", col: 4 },
-    { tick: 600, control: "cannon", col: 5 },
-    { tick: 810, control: "fireCyan" },
+    { tick: 690, control: "cannon", col: 4 },
+    { tick: 720, control: "cannon", col: 5 },
+    { tick: 870, control: "fireCyan" },
   ],
   steps: [
+    // Seven beats: the ghost holds on row six, in the middle of the screen,
+    // and three beats later on row nine for the row he is given.
     { tick: 0, seat: 2, text: "ONLY PLAYER 2 SEES IT", anchor: { at: "body" } },
-    { tick: 240, seat: 1, text: "PLAYER 1 GETS A ROW", anchor: { at: "body" } },
+    { tick: 420, seat: 1, text: "PLAYER 1 GETS A ROW", anchor: { at: "body" } },
     {
-      tick: 480,
+      tick: 600,
       seat: 1,
       text: "PLAYER 1 TAKES THE COLUMN",
       anchor: { at: "control", control: "cannon" },
     },
     {
-      tick: 720,
+      tick: 780,
       seat: 2,
       text: "PLAYER 2 FIRES CYAN",
       anchor: { at: "control", control: "fireCyan" },

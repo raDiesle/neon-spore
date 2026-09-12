@@ -22,27 +22,29 @@ import type { GuideScene } from "../scene-types.js";
  * own sentence.
  */
 export const THE_VANE: GuideScene = {
-  ticks: 900,
+  ticks: 1020,
   bpm: 120,
   seed: 1,
   entries: [{ beat: 0, col: 4, color: "red" }],
   boss: { kind: "vane" },
   acts: [
-    { tick: 330, control: "cannon", col: 2 },
-    { tick: 370, control: "cannon", col: 1 },
-    { tick: 410, control: "cannon", col: 0 },
-    { tick: 590, control: "fireRed" },
+    { tick: 510, control: "cannon", col: 2 },
+    { tick: 550, control: "cannon", col: 1 },
+    { tick: 590, control: "cannon", col: 0 },
+    { tick: 770, control: "fireRed" },
   ],
   steps: [
+    // Seven beats: the folded slick holds on row six, in the middle of the
+    // screen, with the cannon's whole crossing still to come under it.
     { tick: 0, seat: 1, text: "THE ARM FOLDS WHAT ENTERS", anchor: { at: "body" } },
     {
-      tick: 240,
+      tick: 420,
       seat: 1,
       text: "COUNT FROM THE ARM",
       anchor: { at: "control", control: "cannon" },
     },
     {
-      tick: 500,
+      tick: 680,
       seat: 2,
       text: "PLAYER 2 FIRES RED",
       anchor: { at: "control", control: "fireRed" },

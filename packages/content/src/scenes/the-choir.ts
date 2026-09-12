@@ -65,7 +65,7 @@ export const THE_CHOIR: GuideScene = {
     { tick: 150, shake: true },
     // Under the membrane's own lane, which is where the merge stays.
     { tick: 240, control: "cannon", col: 2, atBody: true },
-    { tick: 420, control: "fireRed" },
+    { tick: 540, control: "fireRed" },
     // The two trips. Armed on the last message of the first carry and finished
     // on the last of the second, ninety ticks later — inside `choirWindowBeats`
     // with a beat to spare, which is what the pair has to say out loud.
@@ -82,6 +82,9 @@ export const THE_CHOIR: GuideScene = {
     { tick: 1230, drag: "choirLeft", until: 1260 },
   ],
   steps: [
+    // The membrane is answered on its top rows, so what this page holds on
+    // is what the gesture made of it: the slick it opened into, on row six
+    // in the middle of the screen, seven and a half beats in.
     {
       tick: 0,
       seat: 1,
@@ -89,7 +92,7 @@ export const THE_CHOIR: GuideScene = {
       anchor: { at: "body" },
     },
     {
-      tick: 300,
+      tick: 450,
       seat: 2,
       text: "PLAYER 2 FIRES ITS COLOUR",
       anchor: { at: "control", control: "fireRed" },
@@ -100,8 +103,11 @@ export const THE_CHOIR: GuideScene = {
       text: "PLAYER 1 CARRIES BOTH ARROWS",
       anchor: { at: "body" },
     },
+    // Opens a beat before the third membrane arrives, so the page before
+    // holds on the field the pilot cleared and not on a body that has
+    // nothing to do with it.
     {
-      tick: 1140,
+      tick: 1080,
       seat: 1,
       text: "HALF A PULL COSTS THE HULL",
       anchor: { at: "health" },

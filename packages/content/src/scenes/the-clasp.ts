@@ -23,23 +23,27 @@ import type { GuideScene } from "../scene-types.js";
  * a real wave never hands anybody.
  */
 export const THE_CLASP: GuideScene = {
-  ticks: 960,
+  ticks: 1080,
   bpm: 120,
   seed: 1,
   entries: [{ beat: 0, col: 2, kind: "clasp", color: "cyan" }],
   acts: [
-    { tick: 290, control: "shield", col: 3 },
-    { tick: 320, control: "shield", col: 2 },
-    { tick: 350, control: "shield", col: 2 },
-    { tick: 480, control: "cannon", col: 3 },
-    { tick: 510, control: "cannon", col: 2 },
-    { tick: 600, control: "guard" },
-    { tick: 750, control: "fireCyan" },
+    { tick: 510, control: "shield", col: 3 },
+    { tick: 540, control: "shield", col: 2 },
+    { tick: 570, control: "shield", col: 2 },
+    { tick: 690, control: "cannon", col: 3 },
+    { tick: 720, control: "cannon", col: 2 },
+    // The ward opens it on row eleven so the colour on the next page lands
+    // on row thirteen, a beat before the hull.
+    { tick: 750, control: "guard" },
+    { tick: 870, control: "fireCyan" },
   ],
   steps: [
+    // Seven beats: the clasp holds on row six, in the middle of the screen,
+    // and not lower because the ward and the shot still have to land under it.
     { tick: 0, seat: 2, text: "CLASP · SHOTS BOUNCE OFF", anchor: { at: "body" } },
     {
-      tick: 200,
+      tick: 420,
       seat: 2,
       text: "PLAYER 2 HOLDS THE COLUMN",
       anchor: { at: "control", control: "shield" },
@@ -48,13 +52,13 @@ export const THE_CLASP: GuideScene = {
     // and it is one movement to a person: he goes to the column and then to
     // the trigger, which is the order the wave asks for.
     {
-      tick: 390,
+      tick: 600,
       seat: 1,
       text: "THE WARD OPENS IT",
       anchor: { at: "control", control: "guard" },
     },
     {
-      tick: 660,
+      tick: 780,
       seat: 2,
       text: "NOW THE COLOUR LANDS",
       anchor: { at: "control", control: "fireCyan" },

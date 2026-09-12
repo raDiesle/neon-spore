@@ -34,12 +34,15 @@ export const THE_ROCK: GuideScene = {
   entries: [{ beat: 0, col: 3, kind: "meteor", color: null }],
   acts: [{ tick: 850, control: "guard" }],
   steps: [
+    // Eight beats, so the page holds with the rock on row seven — the middle
+    // of the screen, where the owner asked for the explained enemy to stand
+    // when a tutorial stops, rather than three rows down under the plate.
     { tick: 0, seat: 1, text: "ROCK · CANNOT BE SHOT", anchor: { at: "body" } },
     // Player 2's screen, pointing at the plate on the hull rather than at a
     // button: there is no button for it yet, and what this page has to say is
     // that the thing exists and is already standing in the way.
     {
-      tick: 240,
+      tick: 480,
       seat: 2,
       text: "THE PLATE IS ALREADY THERE",
       anchor: { at: "ship", control: "guard" },

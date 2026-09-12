@@ -28,28 +28,32 @@ export const THE_RECOIL: GuideScene = {
   seed: 3,
   entries: [{ beat: 0, col: 5, kind: "recoil", color: "red" }],
   acts: [
-    { tick: 150, control: "cannon", col: 4 },
-    { tick: 180, control: "cannon", col: 5 },
-    { tick: 330, control: "fireRed" },
-    { tick: 550, control: "cannon", col: 4 },
-    { tick: 770, control: "fireCyan" },
+    { tick: 300, control: "cannon", col: 4 },
+    { tick: 330, control: "cannon", col: 5 },
+    { tick: 510, control: "fireRed" },
+    { tick: 690, control: "cannon", col: 4 },
+    // It is thrown back from row eleven: the film ends before the second
+    // landing, so nothing here costs the hull.
+    { tick: 870, control: "fireCyan" },
   ],
   steps: [
+    // Seven beats: the recoil holds on row six, in the middle of the screen,
+    // and not lower because it is thrown back twice before the film ends.
     { tick: 0, seat: 1, text: "RECOIL · IN A SPRUNG CAGE", anchor: { at: "body" } },
     {
-      tick: 240,
+      tick: 420,
       seat: 2,
       text: "YOUR SHOT THROWS IT BACK",
       anchor: { at: "control", control: "fireRed" },
     },
     {
-      tick: 460,
+      tick: 600,
       seat: 1,
       text: "IT LANDS A LANE OVER",
       anchor: { at: "control", control: "cannon" },
     },
     {
-      tick: 680,
+      tick: 780,
       seat: 2,
       text: "AND THE COLOUR FLIPPED",
       anchor: { at: "control", control: "fireCyan" },

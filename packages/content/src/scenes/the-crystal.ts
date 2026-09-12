@@ -24,25 +24,27 @@ export const THE_CRYSTAL: GuideScene = {
   seed: 1,
   entries: [{ beat: 0, col: 0, kind: "crystal", color: "red" }],
   acts: [
-    { tick: 450, control: "shield", col: 1, atBody: true },
-    { tick: 470, control: "cannon", col: 1, atBody: true },
-    { tick: 520, control: "guard" },
-    { tick: 520, control: "fireRed" },
+    { tick: 720, control: "shield", col: 1, atBody: true },
+    { tick: 740, control: "cannon", col: 1, atBody: true },
+    { tick: 850, control: "guard" },
+    { tick: 850, control: "fireRed" },
   ],
   steps: [
+    // Seven beats at eighty: the crystal comes down its diagonal and holds on
+    // row six, in the middle of the screen.
     { tick: 0, seat: 1, text: "ONLY THE MIDDLE BREAKS", anchor: { at: "body" } },
     {
-      tick: 270,
+      tick: 630,
       seat: 2,
       text: "SHIELD UNDER THE CRAFT",
       anchor: { at: "control", control: "shield" },
     },
     {
-      tick: 480,
+      tick: 810,
       seat: 1,
       text: "GUARD AND SHOT, ONE BEAT",
       anchor: { at: "control", control: "guard" },
     },
-    { tick: 680, seat: 2, text: "TWO PLAIN BODIES NOW", anchor: { at: "body" } },
+    { tick: 1010, seat: 2, text: "TWO PLAIN BODIES NOW", anchor: { at: "body" } },
   ],
 };

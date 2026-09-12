@@ -38,7 +38,7 @@ import type { GuideScene } from "../scene-types.js";
  * the climbing half is still on the field at the end of it.
  */
 export const THE_BALLOON: GuideScene = {
-  ticks: 1680,
+  ticks: 1620,
   bpm: 120,
   seed: 1,
   entries: [{ beat: 1, col: 4, kind: "balloon", color: null }],
@@ -61,7 +61,9 @@ export const THE_BALLOON: GuideScene = {
       anchor: { at: "handle", target: "balloonRight" },
     },
     { tick: 540, seat: 2, text: "BOTH, AND HOLD TILL IT GIVES", anchor: { at: "body" } },
-    { tick: 900, seat: 1, text: "ONE CLIMBS ON, ONE SINKS", anchor: { at: "body" } },
-    { tick: 1380, seat: 1, text: "A HALF LEFT ALONE HITS YOU", anchor: { at: "health" } },
+    // Three beats, and it holds with the climbing half on row six — the last
+    // beat it is still in the middle of the screen — and the other on row ten.
+    { tick: 840, seat: 1, text: "ONE CLIMBS ON, ONE SINKS", anchor: { at: "body" } },
+    { tick: 1020, seat: 1, text: "A HALF LEFT ALONE HITS YOU", anchor: { at: "health" } },
   ],
 };

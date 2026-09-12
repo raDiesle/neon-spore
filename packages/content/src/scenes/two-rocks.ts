@@ -26,21 +26,25 @@ export const TWO_ROCKS: GuideScene = {
   // to travel from: a drag that is already where it is going draws nothing.
   entries: [{ beat: 0, col: 5, kind: "meteor", color: null }],
   acts: [
-    { tick: 330, control: "shield", col: 3 },
-    { tick: 360, control: "shield", col: 4 },
-    { tick: 390, control: "shield", col: 5 },
+    { tick: 570, control: "shield", col: 3 },
+    { tick: 600, control: "shield", col: 4 },
+    { tick: 630, control: "shield", col: 5 },
     { tick: 850, control: "guard" },
   ],
   steps: [
+    // Eight beats, so the page holds with the rock on row seven — the middle
+    // of the screen, where the owner asked for the explained enemy to stand
+    // when a tutorial stops. The carry comes a beat and a half after the next
+    // page opens, as every press does.
     { tick: 0, seat: 1, text: "ROCK · CANNOT BE SHOT", anchor: { at: "body" } },
     {
-      tick: 240,
+      tick: 480,
       seat: 2,
       text: "PLAYER 2 CARRIES THE PLATE",
       anchor: { at: "control", control: "shield" },
     },
     {
-      tick: 660,
+      tick: 690,
       seat: 1,
       text: "PLAYER 1 FIRES THE SHIELD",
       anchor: { at: "control", control: "guard" },
