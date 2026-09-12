@@ -22,6 +22,27 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 · hit-looks — the Mine: a wisp that stands still and is tapped, designed and drawn at, not built
+
+The owner: *a new enemy like the wisp but stationary; after some time it
+damages the ship and disappears; one player cannot see it and the other
+must tap its exact position; a tap on a neighbouring tile also damages the
+hull — show me some idea of nice visuals.* Three forks were put to him first
+(who sees and who taps, what a wrong tap costs, what the blind seat gets)
+and the answers went into one idea-store entry; three shapes were drawn at
+it on the SHAPES page. About 25 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `sim/wisp.ts`, the split tables, THE BEATBOX's tap, the draft files and the forms |
+| writing | 10 | the entry in `ideas.md`, three cards in `drafts/mine.ts`, the three ledgers that count cards |
+| looking | 5 | the three shapes at three moments each, twice — REACHER's arms and SINKER's roots were tuned once |
+| friction | 0 | — |
+| landing | 5 | `check:fast` twice — the first run caught the drafts file over 250 lines and two card counts |
+
+The bottleneck was the ledgers: four tests count the catalogue's cards
+by hand, and every new draft is four sentences to write before it is green.
+
 ## 2026-09-12 · hit-looks — the tutorial's film is phone-shaped on any stage, and its plate is compact
 
 The owner: *TEST, P1 and P2 in briefing mode should be the game's own screen

@@ -99,7 +99,10 @@ describe("drawn size against the 20-26 px floor", () => {
     // (`content/silhouettes-gum.ts`, `content/silhouettes-choke.ts`). And a
     // third the same day: COUNTDOWN, THE COUNT's disc, 42 × 42 on HOLD
     // (`content/silhouettes-countdown.ts`).
-    expect(SQUARE.length).toBe(102);
+    //
+    // Three more on 12 September 2026, drawn at the Mine in
+    // `drafts/mine.ts`: CALTROP, REACHER and SINKER, all square.
+    expect(SQUARE.length).toBe(105);
   });
 
   it("clears the floor for every square card at the 92 px frame it actually gets", () => {
@@ -162,7 +165,12 @@ describe("drawn size against the 20-26 px floor", () => {
     // One more under 26 on 11 September 2026: COUNTDOWN, a 42 px disc that
     // holds still, so its union is its own outline and nothing more — the
     // marks the pilot counts are cut by the renderer and are not in it.
-    expect(under26).toBe(62);
+    //
+    // Two more under 26 on 12 September 2026, CALTROP and SINKER of the
+    // Mine's three drafts, and none under 20. REACHER clears it: its four
+    // arms reach half again past the core, and a body measured across its
+    // arms is fitted larger — the grown bodies' finding above, once more.
+    expect(under26).toBe(64);
     expect(under20).toBe(23);
   });
 

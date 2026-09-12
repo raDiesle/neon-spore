@@ -48,6 +48,39 @@ filed rightly, and there is no second list to change.
   pair's disagreement legible) or not (which makes it real); whether a shot
   fired into the ghost's row hits anything; whether the lead stays one beat all
   the way down or grows as it falls
+- **Mine** — THE WISP standing still, and answered by a thumb rather than a
+  shot. It appears on a tile and never moves; player 2 alone sees it, and
+  player 1 — looking at an empty field — has to **tap the exact tile**. So it
+  is the wisp's split (`sim/wisp.ts`: neither half is worth anything alone)
+  with the aim taken out of it: not a column, a square, said in two words and
+  landed by a finger rather than a bolt. Decided with the owner on
+  12 September 2026: the navigator sees it and the pilot taps blind; **a tap
+  on one of the four neighbouring tiles** — left, right, above, below — **is a
+  hull hit** in its colour, drawn on the ship the way every hit is (the
+  minesweeper rule, which is where the working name comes from); a tap
+  anywhere farther away does no damage but **takes a beat off its fuse**, so
+  feeling around is never free; the **fuse** — six beats, room for one wrong
+  tap — is shown on **both** screens, and the lettered grid comes on for both
+  as it does for a wisp, so both know *when* and only one knows *where*. When
+  the fuse runs out it goes off: a hull hit and the body gone, on both
+  screens. It carries no trigger colour, like the wisp — nothing about it is
+  ammunition — but it has a skin colour, because damage to the ship is drawn
+  in the colour of what did it. The tap is the pilot's field thumb, the one
+  THE BEATBOX already gives the navigator, on the pilot's seat and on an
+  empty-looking tile — no new control. Communication test: it creates
+  information one seat has and the other needs, demands two words and a
+  time, and a wrong word costs the hull. Timing at the default config: six
+  beats is seven and a half seconds, enough to say "E nine", tap, be told
+  "no — F nine", and tap again. Placement: rows two to twelve, never the hull
+  row, never beside another mine. Three shapes are drawn at it on the SHAPES
+  page (CALTROP, REACHER and SINKER, `tools/shape-sheet/src/drafts/creatures.ts`)
+  — each says a different half of the rule: the four tiles that hurt, the
+  neighbours being alive, and a body fixed to the field. Unworked out: whether
+  the exact tap kills it outright or it takes two taps on the beat; whether
+  the navigator's screen marks the four neighbours or only the seeing eye
+  infers them; whether a second mine on the field shares the fuse or runs its
+  own; and whether the pilot's tap on the tile should also be a real tap for
+  THE BEATBOX's box when both are on one wave (they should never be)
 - **Reverb** — one body that arrives twice: it takes a hit without dying and
   dies one beat later, and a second shot fired inside that beat is spent on
   something that is already gone. A different thing from the Herald, which is

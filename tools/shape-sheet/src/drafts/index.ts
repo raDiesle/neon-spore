@@ -3,6 +3,7 @@ import { ARMOURED_DRAFTS } from "./armoured.js";
 import { BOSS_DRAFTS } from "./bosses.js";
 import { COLLECTED_DRAFTS } from "./collected.js";
 import { CREATURE_DRAFTS } from "./creatures.js";
+import { MINE_DRAFTS } from "./mine.js";
 import { OFFERED_DRAFTS } from "./offered.js";
 import { ROUND_DRAFTS } from "./rounds.js";
 import { SHIP_DRAFTS } from "./ship.js";
@@ -36,6 +37,7 @@ import { TOWER_DEFENCE_DRAFTS } from "./tower-defence.js";
  */
 export const DRAFTS: CatalogueEntry[] = [
   ...CREATURE_DRAFTS,
+  ...MINE_DRAFTS,
   ...BOSS_DRAFTS,
   ...COLLECTED_DRAFTS,
   ...TOWER_DEFENCE_DRAFTS,

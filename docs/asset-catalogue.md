@@ -1,6 +1,6 @@
 # The asset catalogue
 
-> **Status: thirty-three drafts, three claimed and two set free so far.** A draft is a picture
+> **Status: thirty-six drafts, three claimed and two set free so far.** A draft is a picture
 > offered to an idea, not a decision about it. Nothing on this page is in the
 > game until it is claimed — its parameters moving into `packages/content`, or
 > into `packages/render` where what was drawn is a mechanism rather than a

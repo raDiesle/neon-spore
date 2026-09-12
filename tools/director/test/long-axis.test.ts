@@ -90,13 +90,17 @@ describe("the catalogue's long axes", () => {
     // 117 the same day: COUNTDOWN, THE COUNT's disc, brought onto the field
     // as a body of its own beside the COUNTDOWN · MARKS draft it was cut from
     // — a round card at 42 × 42, as round as the catalogue has.
-    expect(axes.length).toBe(117);
+    // 120 from 12 September 2026: CALTROP, REACHER and SINKER, the three
+    // drawn at the Mine in `drafts/mine.ts` — all three round by this measure,
+    // the roots under SINKER included, which hang the box down by less than a
+    // body's width.
+    expect(axes.length).toBe(120);
     // One ring of THE CRAWLER is the thirty-ninth wide card, and it is wide by
     // more than any other: a ring reaches nearly a full tile past its own
     // column at each end, which is what makes a run of them one animal with no
     // gap in it rather than beads on a string (`content/crawler-shape.ts`).
     expect(count("x")).toBe(42);
-    expect(count(null)).toBe(61);
+    expect(count(null)).toBe(64);
     // THE VEER is the thirteenth tall card and the only one made tall by
     // something *on* a body rather than by the body: the stone under it is
     // round, and the rider's hat carries the box half as far again above it.
