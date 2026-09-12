@@ -1,11 +1,16 @@
-import { countDisc } from "../../../../../packages/render/src/countdown.js";
-import type { Body } from "../../../../../packages/render/src/creature-body-in.js";
-import { hazed } from "../../../../../packages/render/src/depth.js";
-import { halo } from "../../../../../packages/render/src/glow.js";
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import { countdownIsOpen, countdownMarks } from "../../../../../packages/sim/src/countdown.js";
+import { countdownIsOpen, countdownMarks } from "@neon-spore/sim";
+import { countDisc } from "./countdown.js";
+import type { Body } from "./creature-body-in.js";
+import { hazed } from "./depth.js";
+import { halo } from "./glow.js";
+import { rgba } from "./hex.js";
 
 /**
+ * IRIS — what THE COUNT wears since 12 September 2026, the owner's pick from
+ * `creature:countdown` on VERSUS over DIAL and FUSE (`countdown-dial.ts`,
+ * `countdown-fuse.ts`, kept for the SHAPES page's LIBRARY) and over the
+ * notches it was judged against (`drawCountMarks`, `countdown.ts`).
+ *
  * IRIS — a socket in the disc with a bright core at the bottom of it, and
  * blades of the body's own flesh closed over it: one blade per beat left,
  * the next to go sliding back into the rim through its beat. On zero there

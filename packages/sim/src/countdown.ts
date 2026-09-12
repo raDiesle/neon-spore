@@ -9,10 +9,11 @@ import type { World } from "./world.js";
 
 /**
  * THE COUNT: a body that can only be hit on **zero**, and only the pilot can
- * read the count. Marks are cut into its rim, one fewer each beat; when none
- * are left the body is open for `countdownOpenBeats`, and then it starts
- * again at `countdownBeats`. The navigator, who holds the triggers, is drawn a blank
- * rim — so the sentence the pair already says for warding, "column four, on
+ * read the count. It counts `countdownBeats` down, one fewer each beat (the
+ * pilot sees the blades of an iris, `render/countdown-iris.ts`); on zero the
+ * body is open for `countdownOpenBeats`, and then it starts again. The
+ * navigator, who holds the triggers, is drawn an eye that never blinks — so
+ * the sentence the pair already says for warding, "column four, on
  * the three", comes out of the other mouth and aims the cannon instead of the
  * shield (`docs/spec/ideas.md`, taken 11 September 2026).
  *
@@ -25,9 +26,9 @@ import type { World } from "./world.js";
  * both devices and a different one on every body, and nothing on player 2's
  * screen says where in the period this one is.
  *
- * **A shot off zero costs the hull**, the lure's price and for the lure's
- * reason: the mistake this creature exists to punish is firing on sight, and
- * the hull is the currency the pair actually feels. The count is not reset by
+ * **A shot off zero is a hit on the hull** — the wave is lost (`wave-fail.ts`)
+ * — the lure's price and for the lure's reason: the mistake this creature
+ * exists to punish is firing on sight. The count is not reset by
  * it — a reset was the owner's "punish that can strand a wave" — so the body
  * goes on falling and counting, and the next zero is still coming. A wrong
  * *colour* on zero is a colour miss like any other body's, in `bullet-hit.ts`'
@@ -46,10 +47,11 @@ export function countdownOnSpawn(world: World): { countPhase: number } {
 }
 
 /**
- * How many marks the rim shows on `beat`: `countdownBeats` down to one, then
- * nought for the open beats, then `countdownBeats` again. The one copy of the arithmetic, read by the
- * shot below and by the picture (`render/countdown.ts`), so the rim the pilot
- * counts off and the beat the bullet is let in on are one fact
+ * How many beats are left on `beat`: `countdownBeats` down to one, then
+ * nought for the open beats, then `countdownBeats` again. The one copy of the
+ * arithmetic, read by the shot below and by the picture
+ * (`render/countdown-look.ts`), so the count the pilot reads off and the
+ * beat the bullet is let in on are one fact
  * (`packages/sim/test/purity.test.ts`).
  */
 export function countdownMarks(cfg: SimConfig, beat: number, c: Creature): number {
@@ -64,8 +66,8 @@ export function countdownIsOpen(cfg: SimConfig, beat: number, c: Creature): bool
 }
 
 /**
- * A shot met the body. `"shut"` — off zero: the hull pays and the body stays.
- * `"killed"` — on zero in its colour: gone, for `scoreCountdownKill`.
+ * A shot met the body. `"shut"` — off zero: a hit on the hull, and the body
+ * stays. `"killed"` — on zero in its colour: gone.
  * `"open"` — on zero and not killed, for the caller's generic tail to book as
  * the colour miss (or the armoured refusal) it is.
  */

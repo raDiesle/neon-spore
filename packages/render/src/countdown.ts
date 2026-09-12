@@ -8,7 +8,7 @@ import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
 
 /**
- * THE COUNT: the COUNTDOWN draft's disc, and on one screen only, the marks.
+ * THE COUNT: the COUNTDOWN draft's disc, and on one screen only, the count.
  *
  * **On player 2's screen the body is bare.** `showsCount` is that sentence,
  * and it is the whole creature: the navigator holds the trigger and cannot
@@ -19,18 +19,21 @@ import type { Layout } from "./layout.js";
  * The reject spark and the hull breaking are what player 2 gets, and both
  * arrive after the shot.
  *
- * **On player 1's the marks are cut into the rim**, the draft's own idea: dark
+ * **On player 1's the count is drawn**, by whatever `COUNTDOWN_LOOK.count`
+ * is (`countdown-look.ts`) — IRIS's blades since 12 September 2026. What
+ * this file keeps is the look the game wore before that and every candidate
+ * was judged against: **marks cut into the rim**, the draft's own idea, dark
  * notches in the body's own shadow colour, `countdownBeats` slots round the
- * rim from twelve o'clock clockwise, and one goes each beat — a clock
- * draining. Cut across the rim rather than drawn inside it because the count
- * has to read at 26 px, and a notch through the edge is legible where a dot
- * inside is not. On zero there are none and the rim is lit instead: a halo in
- * the body's colour, held while it is open, so "open" is a thing seen and not
- * only the absence of marks.
+ * rim from twelve o'clock clockwise, one gone each beat — a clock draining.
+ * Cut across the rim rather than drawn inside it because the count has to
+ * read at 26 px, and a notch through the edge is legible where a dot inside
+ * is not. On zero there are none and the rim is lit instead: a halo in the
+ * body's colour, held while it is open. `drawCountMarks` is drawn only on the
+ * SHAPES page's LIBRARY now, as NOTCHES.
  *
- * The marks are read off `world.beat` through `countdownMarks`, the same
- * function the shot is judged by (`sim/countdown.ts`), so the rim the pilot
- * counts and the beat a bullet is let in on are one fact.
+ * Every look reads the count off `world.beat` through `countdownMarks`, the
+ * same function the shot is judged by (`sim/countdown.ts`), so the count the
+ * pilot reads and the beat a bullet is let in on are one fact.
  */
 
 /** Which screens draw the marks: the pilot's, and the test view that is both. */
@@ -59,9 +62,8 @@ export function countDisc(b: Body): { cx: number; cy: number; r: number; trio: T
   return { cx: x + pose.dx * l.tile, cy: y + pose.dy * l.tile, r, trio: colorTrio(c.color) };
 }
 
-/** The marks, over a body `drawLivingBody` has already drawn — the row in
- * `creature-body.ts` calls the two in that order, on the screens `showsCount`
- * names. */
+/** The notches, over a body `drawLivingBody` has already drawn — the shape
+ * every `CountdownLook.count` takes, and the LIBRARY's NOTCHES card. */
 export function drawCountMarks(b: Body): void {
   const { ctx, world, c, near } = b;
   const cfg = world.cfg;

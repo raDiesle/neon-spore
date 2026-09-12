@@ -856,3 +856,25 @@ render/band-filaments.ts over the pendants; SUCKER and VESICLE not taken
 
 The other answers offered were `polyp`, `sucker` and `vesicle`; they went with
 the slot.
+
+## `creature:countdown` / `iris` — taken, 2026-09-12
+
+the owner, 12 September 2026: CREATURE:COUNTDOWN · IRIS into the game; DIAL
+and FUSE to the SHAPES page for other timing enemies
+
+a socket with a bright core, both screens; on the pilot's, blades of the body
+closed over it, one per beat left, the last one sliding back through its beat
+— and on zero a hole to shoot into
+
+`COUNTDOWN_LOOK.over` is `irisOver`, moved from
+`tools/versus/candidates/creature-countdown/iris/paint.ts` to
+`packages/render/src/countdown-iris.ts`.
+
+`COUNTDOWN_LOOK.count` is `irisCount`, moved from
+`tools/versus/candidates/creature-countdown/iris/paint.ts` to
+`packages/render/src/countdown-iris.ts`.
+
+The other answers offered were `dial` and `fuse`; they went with the slot,
+and stand on the SHAPES page's LIBRARY as `render/countdown-dial.ts` and
+`render/countdown-fuse.ts`, beside the notches IRIS replaced, for other
+timing enemies.

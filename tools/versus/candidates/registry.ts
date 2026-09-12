@@ -6,8 +6,5 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
-import { COUNTDOWN_DIAL } from "./creature-countdown/dial/index.js";
-import { COUNTDOWN_FUSE } from "./creature-countdown/fuse/index.js";
-import { COUNTDOWN_IRIS } from "./creature-countdown/iris/index.js";
 
-export const VARIANTS: Variant[] = [COUNTDOWN_DIAL, COUNTDOWN_FUSE, COUNTDOWN_IRIS];
+export const VARIANTS: Variant[] = [];

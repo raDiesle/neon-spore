@@ -1,12 +1,22 @@
-import { hash01 } from "../../../../../packages/render/src/backdrop.js";
-import { countDisc } from "../../../../../packages/render/src/countdown.js";
-import type { Body } from "../../../../../packages/render/src/creature-body-in.js";
-import { hazed } from "../../../../../packages/render/src/depth.js";
-import { halo } from "../../../../../packages/render/src/glow.js";
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import { countdownIsOpen, countdownMarks } from "../../../../../packages/sim/src/countdown.js";
+import { countdownIsOpen, countdownMarks } from "@neon-spore/sim";
+import { hash01 } from "./backdrop.js";
+import { countDisc } from "./countdown.js";
+import type { Body } from "./creature-body-in.js";
+import { hazed } from "./depth.js";
+import { halo } from "./glow.js";
+import { rgba } from "./hex.js";
 
 /**
+ * FUSE — a kept look for THE COUNT, drawn only on the SHAPES page's
+ * LIBRARY.
+ *
+ * It stood in `creature:countdown` on VERSUS, decided 12 September 2026:
+ * IRIS went into the game (`countdown-iris.ts`) and the owner asked for the
+ * other candidates to go to the SHAPES page, for other timing enemies. It
+ * sits in this package, beside the record it once patched, because it is
+ * written against this package's internals; nothing on the field imports
+ * it, and the game's bundle drops it.
+ *
  * FUSE — a cord coiled once round the body just outside its rim, lit at the
  * far end and burning back toward a cap at twelve; what is left of the cord
  * is the count. On zero the cord is gone and the body is lit.

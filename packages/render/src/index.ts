@@ -16,6 +16,14 @@ export { edgeLit, faceHex, facet, type PiecePaint } from "./break-piece.js";
 export { drawWaveOpening } from "./briefing.js";
 export { Canvas2DRenderer } from "./canvas2d.js";
 export { ClaspFrames } from "./clasp-frames.js";
+// THE COUNT's looks, so the SHAPES page's LIBRARY can draw each on the real
+// disc: the iris it wears, the notches it wore, and the two kept beside it
+// (`countdown-look.ts`).
+export { drawCountMarks, showsCount } from "./countdown.js";
+export { dialCount, dialOver } from "./countdown-dial.js";
+export { fuseCount, fuseOver } from "./countdown-fuse.js";
+export { irisCount, irisOver } from "./countdown-iris.js";
+export { COUNTDOWN_LOOK, type CountdownLook } from "./countdown-look.js";
 export { drawLivingBody } from "./creature-body.js";
 export type { Body } from "./creature-body-in.js";
 export {

@@ -889,8 +889,11 @@ place — the generator keeps whatever is there.
 | `packages/render/src/reach-arm.ts` | THE CLAW's arm, drawn out of the swelling that was the gun |
 | `packages/render/src/comms-talker.ts` | one row per creature: which seat has to say something about it |
 | `packages/render/src/corner-light.ts` | One rounded light in the bottom-right corner of the sky |
-| `packages/render/src/countdown.ts` | THE COUNT: the COUNTDOWN draft's disc, and on one screen only, the marks |
-| `packages/render/src/countdown-look.ts` | THE COUNT's look as a record VERSUS can patch: `over` on both screens, `count` on the pilot's — the shipped pair filled in |
+| `packages/render/src/countdown.ts` | THE COUNT: the disc, `showsCount`, and the notches it wore — NOTCHES on the LIBRARY |
+| `packages/render/src/countdown-look.ts` | THE COUNT's look as a record VERSUS can patch: `over` on both screens, `count` on the pilot's — IRIS filled in |
+| `packages/render/src/countdown-dial.ts` | DIAL — a kept look for THE COUNT, drawn only on the SHAPES page's LIBRARY |
+| `packages/render/src/countdown-fuse.ts` | FUSE — a kept look for THE COUNT, drawn only on the SHAPES page's LIBRARY |
+| `packages/render/src/countdown-iris.ts` | IRIS — what THE COUNT wears: a socket and core on both screens, blades over it on the pilot's, a hole on zero |
 | `packages/render/src/fence-bolt.ts` | **One line of current between the wall and the dome.** Cut out of `fence-arc.ts` when the warning skull took… |
 | `packages/render/src/fence-crack.ts` | **The breaking point in a wall, on the screen that is shown it.** A gap is a hole the dome is steered into; a… |
 | `packages/render/src/fence-exit.ts` | **A wall leaving the ship it did not touch.** A fence that finds the dome standing in one of its ways through… |
@@ -1521,7 +1524,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/poses-casing.ts` | The states a candidate for what a body **wears** is judged on |
 | `tools/director/src/poses-cage.ts` | The pose a candidate for THE RECOIL's cage is judged on |
 | `tools/director/src/poses-crossing.ts` | The two states a candidate for a body that **goes somewhere** is judged on |
-| `tools/director/src/poses-count.ts` | COUNT · THREE MARKS LEFT — the one pose a `creature:countdown` candidate is judged on, player 1's screen |
+| `tools/director/src/poses-count.ts` | COUNT · THREE BLADES LEFT — the pose THE COUNT's looks were judged on, player 1's screen |
 | `tools/director/src/poses-damage.ts` | The two poses about **damage** — a rock being marked, and a body being destroyed |
 | `tools/director/src/poses-rounds.ts` | The states a candidate for an **interlude** is judged on |
 | `tools/director/src/poses-layers.ts` | the states a layer over a body is judged giving way in — a rind under fire, a lid under a hand — with `Pose.hand` |
@@ -1658,5 +1661,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/library/recoil-stage.ts` | The game's own recoil, drawn on a card inside a cage of the caller's choosing |
 | `tools/director/src/library/rind-assets.ts` | THE RIND's four sheds — the half-second in which a layer comes off |
 | `tools/director/src/library/rind-stage.ts` | The game's own rind, losing its layers on a card, each one drawn coming off by a shed of the caller's choosing |
+| `tools/director/src/library/countdown-assets.ts` | THE COUNT's four counts — how a body says how many beats are left, on the one screen that is shown it |
+| `tools/director/src/library/countdown-stage.ts` | The game's own count, drawn on a card wearing a look of the caller's choosing |
 
 <!-- index:code:end -->

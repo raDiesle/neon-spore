@@ -1,3 +1,9 @@
+import {
+  COUNTDOWN_DIAL,
+  COUNTDOWN_FUSE,
+  COUNTDOWN_IRIS,
+  COUNTDOWN_NOTCHES,
+} from "./countdown-assets.js";
 import { LID_BEVEL, LID_IRIS, LID_PLATES } from "./lid-assets.js";
 import { MOUNT_BARE, MOUNT_RASP, MOUNT_TAPROOT } from "./mount-assets.js";
 import { QUEEN_ARMOUR, QUEEN_CARAPACE, QUEEN_FACET, QUEEN_SCUTES } from "./queen-assets.js";
@@ -59,6 +65,10 @@ export const ASSETS: readonly Asset[] = [
   RIND_FLAKES,
   RIND_POD,
   RIND_SLOUGH,
+  COUNTDOWN_IRIS,
+  COUNTDOWN_NOTCHES,
+  COUNTDOWN_DIAL,
+  COUNTDOWN_FUSE,
 ];
 
 export type { Asset, AssetContext, AssetFrame } from "./types.js";

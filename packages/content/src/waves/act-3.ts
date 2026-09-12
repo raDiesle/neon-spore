@@ -125,9 +125,9 @@ export const WAVES_ACT_3: Wave[] = [
     name: "THE COUNT",
     sentence: "The one where firing on sight costs the hull, and only one of you can count.",
     guide: {
-      both: "A round body with marks cut into its rim, one fewer each beat. It can only be hit while no marks are left; a shot on any other beat breaks the hull and the body stays. Only one screen shows the marks.",
-      p1: "You can see the count. Say it down out loud — three, two, one, zero — the way you call a column, and say the lane with it.",
-      p2: "Your rim is blank. Load the colour, aim the lane, and fire on the word zero — not on sight, and not on your own count.",
+      both: "A round body with an eye shut by blades of its own flesh, one blade fewer each beat. It can only be hit while the eye is open; a shot on any other beat loses the wave and the body stays. Only one screen shows the blades.",
+      p1: "You can see the blades. Count them down out loud — three, two, one, zero — the way you call a column, and say the lane with it.",
+      p2: "Your eye never blinks. Load the colour, aim the lane, and fire on the word zero — not on sight, and not on your own count.",
     },
     entries: [
       { beat: 0, col: 3, kind: "countdown", color: "red" },

@@ -19,9 +19,9 @@ import { firstOfKind, fresh, type Pose, run, POSE_TPB as TPB, until } from "./po
 const COL = 5;
 
 export const COUNT_POSE: Pose = {
-  name: "COUNT · THREE MARKS LEFT",
-  note: "One red count falling down the middle with three beats to go before it opens. Player 1's screen: the count is drawn for this seat and player 2's disc is bare. Watch it through three marks, two open beats and the count starting again.",
-  lookAt: "the disc — how it says three, then two, then one, and what it does on zero",
+  name: "COUNT · THREE BLADES LEFT",
+  note: "One red count falling down the middle with three beats to go before it opens. Player 1's screen: the count is drawn for this seat and player 2's eye never blinks. Watch it through three blades, two open beats and the count starting again.",
+  lookAt: "the socket — how the blades say three, then two, then one, and the hole on zero",
   crop: "tile",
   span: 4,
   role: "p1",

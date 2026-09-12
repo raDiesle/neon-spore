@@ -62,7 +62,7 @@ export const SPLIT_MECHANICS = {
     waveNames: true,
   },
   countdown: {
-    what: "A round body with marks cut into its rim, one fewer each beat. While none are left it is open — two beats — and the matching colour kills it; on any other beat a shot that lands costs the hull and the body stays, still counting. A zero that passes unhit starts the count again. Only the pilot is drawn the marks; the navigator, who fires, sees a blank rim.",
+    what: "A round body with an eye shut by blades of its own flesh, one blade fewer each beat. While none are left it is open — two beats — and the matching colour kills it; on any other beat a shot that lands loses the wave and the body stays, still counting. A zero that passes unhit starts the count again. Only the pilot is drawn the blades; the navigator, who fires, sees an eye that never blinks.",
     reach: "spawn",
     // A wave names this kind and gives it a colour, the way it does for a
     // throb: the count says *when* and the colour says *which trigger*, and

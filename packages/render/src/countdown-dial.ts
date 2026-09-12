@@ -1,11 +1,21 @@
-import { countDisc } from "../../../../../packages/render/src/countdown.js";
-import type { Body } from "../../../../../packages/render/src/creature-body-in.js";
-import { hazed } from "../../../../../packages/render/src/depth.js";
-import { halo } from "../../../../../packages/render/src/glow.js";
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import { countdownIsOpen, countdownMarks } from "../../../../../packages/sim/src/countdown.js";
+import { countdownIsOpen, countdownMarks } from "@neon-spore/sim";
+import { countDisc } from "./countdown.js";
+import type { Body } from "./creature-body-in.js";
+import { hazed } from "./depth.js";
+import { halo } from "./glow.js";
+import { rgba } from "./hex.js";
 
 /**
+ * DIAL — a kept look for THE COUNT, drawn only on the SHAPES page's
+ * LIBRARY.
+ *
+ * It stood in `creature:countdown` on VERSUS, decided 12 September 2026:
+ * IRIS went into the game (`countdown-iris.ts`) and the owner asked for the
+ * other candidates to go to the SHAPES page, for other timing enemies. It
+ * sits in this package, beside the record it once patched, because it is
+ * written against this package's internals; nothing on the field imports
+ * it, and the game's bundle drops it.
+ *
  * DIAL — the disc is a clock face, and the count is a lit sector draining
  * clockwise from twelve with a hand at its leading edge.
  *

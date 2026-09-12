@@ -22,6 +22,27 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 · iris-in — THE COUNT wears IRIS; DIAL and FUSE to the SHAPES page
+
+The owner's decision on `creature:countdown`. `bun run versus adopt` took
+both function fields in one go; DIAL and FUSE were copied into render first
+so the slot's removal did not take them, and the LIBRARY got a stage that
+makes the field's three calls with a look handed in, and four cards: IRIS,
+NOTCHES, DIAL, FUSE, counting down together. The count's words — guide,
+blurb, mechanic, bestiary — say blades and an eye now, and the wave where
+they said the hull. About 15 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | how a slot is adopted, how the volley's kept looks reached the LIBRARY, what the field's countdown row does |
+| writing | 5 | two kept files, the adopt, the stage and the assets, the exports, the text sweep |
+| looking | 0 | one frame of THE COUNT on the pilot's screen, sent |
+| friction | 0 | `adopt` handled two fields from one file first time |
+| landing | 5 | render tests, the index rows, the commit, `land --keep` |
+
+Bottleneck: **reading** — finding that the LIBRARY, not the shape sheet's
+drafts, is where a kept canvas look goes.
+
 ## 2026-09-12 · score-out — there is no point score; a run is its clock and its retries
 
 The last piece of the owner's rule. `World.score`, the fifty-one places that
