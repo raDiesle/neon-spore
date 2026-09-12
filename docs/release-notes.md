@@ -9,6 +9,9 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-12 · 36ef8657 — The hull has no points, and a pod is taken or the wave is lost
+
+The second piece of the owner's rule of 12 September 2026. `World.hullMilli` is gone, with the bar and heart in the HUD's corner, the slow regeneration, the mend pod and its `+HULL` banner, and the twenty-three `damage*` fields that priced each body: a hit costs the wave, whatever hit, so a figure that drained by twelves was a second price nobody read. What a body carries to the hull is a **weight** now, heavy or light (`BreachWeight`, `sim/impact.ts` — rocks, the carom, the crystal, the coil and a charging ghost are heavy, everything that merely arrived is light), and the weight picks the breach sound and nothing else. THE MIRROR keeps its own hull and its rim still fades with it, through a `rimAlpha` on the skin rather than a hull figure the ship no longer has.
 ## 2026-09-12 · e70b57e7 — The indicator's vocabulary is closed, and a quiet phone never reads like a dead line
 
 `packages/net/src/status.ts` was the only one of `net-change`'s six files that move together with no test, and the three functions in `apps/game/src/join-words.ts` that carry the actual sentences — `explain`, `roomLine` and `chipText` — had none either. Twenty-five tests now hold what both file headers claim in prose and nothing enforced. The list of eleven states is closed and the test knows all of them by name, so a twelfth arrives here before it arrives on a screen; no two states share a word or a sentence; every word fits the chip; and `linkIsFault` names the socket closed, the room full and the two worlds parted — and never a stall.
