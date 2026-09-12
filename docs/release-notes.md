@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-12 · 3aa51702 — Two devices play content's first wave to its end, fingerprints and all
+
+FIRST STEP as `waves.ts` lists it, built the four ways `apps/game` builds a wave and played over a delayed link with a different delay in each hand. The run stops when the wave does — the `needWave` its clear produces, ten beats of a body falling and about 975 ticks — rather than at a tick count a test chose. And the two worlds are not compared by reaching into both of them: every sixteenth tick each device fingerprints its own world, sends it over the same wire the inputs cross, and puts the peer's through `HashLedger`, so what the test asserts is the verdict the game itself would draw a DESYNC screen on. Sixty checkpoints, sixty agreements each way, no mismatch, and the two hashes equal at the end.
+
 ## 2026-09-12 · ef8cb3b6 — `packages/net` says which failure modes the scheduler survives
 
 Every behaviour claimed by the headers of `lockstep.ts`, `delay.ts`, `clock.ts` and `desync.ts`, matched against the test that proves it, and the eight with nothing behind them written: an input that arrives after its tick has been simulated, a frame lost and sent again, the relay handing a device its own word back, two presses from one seat on one tick, a phone that rebuilt its scheduler while its partner kept playing, the same two rebuilding together, a pong that overtakes one sent before it, and the ahead-window measured in the caller's own ticks rather than in sixtieths. No defect: `src` is untouched, and every new test was checked by breaking the line it is about and watching it, and only it, go red.
