@@ -179,6 +179,7 @@ what the rest of this file holds.
 ## `packages/render` is seventy per cent of the test suite's time
 
 - **Found:** 2026-09-12, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-12, claude/queue-packages-render-is-seventy-per-cent-of-the-test
 - **Files:** `packages/render/test/*-frame.test.ts`, `tools/frames/test/opening.test.ts`, `docs/performance.md`
 
 `bun run test:profile` on 12 September 2026, on a cloud runner, 186 s of test
