@@ -518,3 +518,56 @@ for every file and changes no share. The total the report prints is the sum
 of those, the suite's *cost*; the wall clock is on `shard.ts`'s own last
 line, above the report. The table above is read in cost, the row for the
 whole suite in wall clock.
+
+### Two fifths of a drawn frame was text
+
+The third round, 12 September 2026, did not shorten a play. The queue said
+`packages/render` was seventy per cent of the suite's cost and named the frame
+tests, and the per-case table said the same four cases as before were the
+top: `briefing.test.ts`'s four walks, 53.8 s of the suite's 273 s on this
+machine, drawing every tick of every rehearsal once between them — which was
+already the cut with nothing left to thin. So the question moved from *how
+many frames* to *what a frame costs*, and a CPU profile of one walk
+(`bun --cpu-prof` over the test's own loop, 8 890 frames, 10.6 s) answered
+it: `toFixed` was 2.9 s of self time and `curveText` another 1.4 s, four
+seconds of ten spent formatting coordinates to two decimals into an SVG `d`
+string that `new Path2D(d)` then parsed back into the numbers it was made of.
+Under it was the band, every frame — `wetChamber`'s ribbons and ridges,
+`tube`, `drips`, `pendants`, `filaments`, `beadedCords`, `chamberPath` — and
+the cloaca's `eggContour`, all of them `openSmoothPath(...)` or
+`catmullRomToBezierPath(...)` straight into a `Path2D`.
+
+`spline.ts` had already taken the hull off that path in the first round and
+said why; this round takes the band and the maw off it the same way.
+`splineSealedInto` is an open run closed with one straight line (a tube's two
+banks, a drip's two sides — **not** a closed spline, whose end tangents would
+bend the mouth), `tube` writes into a `Path2D` and `tubeInto` lets a vein and
+its twigs share one, `chamberPath` is `splineSkirt`, and `content` grew
+`blobPoints` so a blob can be splined as numbers. **The picture is the same to
+within the rounding that was dropped**, as the first round argued: the
+coordinates now arrive unrounded, at most 0.005 px from where the text put
+them. Nothing about the frame changed, so the op-count budgets did not move.
+
+Same machine, eight shards, `bun run test:profile` before and after:
+
+| | before | after |
+|---|---|---|
+| one walk of `briefing.test.ts`, per frame drawn | 1.14 ms | 0.63 ms |
+| `packages/render/test/briefing.test.ts`, alone | 41.8 s | 22.3 s |
+| `packages/render/test/briefing.test.ts`, in the sharded run | 53.8 s | 29.5 s |
+| `packages/render`, as a package | 168.0 s | 112.0 s |
+| the whole suite, in cost | 273.3 s | 222.2 s |
+
+This one is a speed fix in the game as well as in the tests: the band is on
+screen in every frame of every wave, and the same strings were being built
+there. It claims nothing about a frame's cost on a phone — that is `bun run
+perf`, on its own week — only that the work it removed was never drawing.
+
+**The rule it leaves.** A `Path2D` built per frame is built from numbers
+through `spline.ts` — `splineInto`, `splinePath`, `splineSealedInto`,
+`splineSkirt`, `tube` — never from `openSmoothPath`, `blobPath` or
+`catmullRomToBezierPath` text. The text forms stay for what really takes text:
+`tools/shape-sheet`, the menu's `<path>` wordmark, a contour baked once and
+cached. Fifty-six calls in forty-eight render files still take the text form
+and are colder than these — a boss, a creature body, a bake — and are queued
+as one sweep rather than done here, because the profile did not reach them.

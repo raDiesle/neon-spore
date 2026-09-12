@@ -110,6 +110,30 @@ export function blobRadiusMul(
   return m;
 }
 
+/** The ring of points a blob's contour is splined through — `blobPath` as
+ * numbers, for a caller that writes a `Path2D` itself rather than parsing one
+ * back out of text (`render/spline.ts`). */
+export function blobPoints(
+  cx: number,
+  cy: number,
+  rx: number,
+  ry: number,
+  lobes: number,
+  depth: number,
+  wobble: number,
+  t: number,
+  seed: number,
+  N = 40,
+): Point[] {
+  const pts: Point[] = [];
+  for (let i = 0; i < N; i++) {
+    const a = (i / N) * Math.PI * 2;
+    const m = blobRadiusMul(a, lobes, depth, wobble, t, seed);
+    pts.push({ x: cx + Math.cos(a) * rx * m, y: cy + Math.sin(a) * ry * m });
+  }
+  return pts;
+}
+
 export function blobPath(
   cx: number,
   cy: number,
@@ -122,13 +146,7 @@ export function blobPath(
   seed: number,
   N = 40,
 ): string {
-  const pts: Point[] = [];
-  for (let i = 0; i < N; i++) {
-    const a = (i / N) * Math.PI * 2;
-    const m = blobRadiusMul(a, lobes, depth, wobble, t, seed);
-    pts.push({ x: cx + Math.cos(a) * rx * m, y: cy + Math.sin(a) * ry * m });
-  }
-  return catmullRomToBezierPath(pts);
+  return catmullRomToBezierPath(blobPoints(cx, cy, rx, ry, lobes, depth, wobble, t, seed, N));
 }
 
 /**

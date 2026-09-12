@@ -176,38 +176,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## `packages/render` is seventy per cent of the test suite's time
-
-- **Found:** 2026-09-12, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-12, claude/queue-packages-render-is-seventy-per-cent-of-the-test
-- **Files:** `packages/render/test/*-frame.test.ts`, `tools/frames/test/opening.test.ts`, `docs/performance.md`
-
-`bun run test:profile` on 12 September 2026, on a cloud runner, 186 s of test
-time across 412 files:
-
-```
-130.9s  packages/render      26.8s  tools/frames       9.3s  apps/server
-  7.0s  tools/shape-sheet     6.5s  tools/director     1.6s  packages/sim
-```
-
-The tail is a dozen frame tests at 1.5–2.9 s each — `veer-frame`, `dart-frame`,
-`fence-frame`, `crawler-frame`, `balloon-frame` — and five cases of
-`tools/frames/test/opening.test.ts`, which drives a real Chrome. Every lane pays
-this in `bun run check`, twice over on a landing that has to re-run it.
-
-**The technique is written down and has a precedent.** `docs/performance.md`
-records the last round: `packages/render/test/briefing.test.ts` went from 88.6 s
-to 24.1 s by drawing one tick in four with each walk taking a different one, so
-every tick is still drawn once and nothing the test asserts is weakened; the
-suite went 292 s → 214 s. Nobody has been back since, and the frame tests that
-were not touched then are the list above.
-
-Read the *cases* before the files — a file of fourteen tests is not slow, four of
-its tests are, which is what `test:profile`'s per-case table is for. Prove it the
-honest way: same machine, `bun run test:profile` before and after, and every test
-still green. It is not `bun run perf` and claims nothing about a frame's cost, so
-a cloud session may take the number.
-
 ## Nothing has swept for a re-derived rule since the copies table reached 46 rows
 
 - **Found:** 2026-09-12, claude/scheduler-tests-two-devices-klxkyt
@@ -233,3 +201,32 @@ twice:** matching numeric literals in `packages/render/src` against
 essentially all of them are coincidence — 250 as a pixel size, 120 as a degree,
 150 as a colour channel. A number agreeing with a config default is not evidence
 of a copy, and the noise buries the one or two that might be.
+
+## Fifty-six render call sites still build a `Path2D` from spline text
+
+- **Found:** 2026-09-12, render-test-time
+- **Files:** `packages/render/src/spline.ts`, `packages/render/src/balloon.ts`, `packages/render/src/fault-emitter.ts`, `packages/render/src/warden.ts`, `docs/performance.md`
+
+The callers of `openSmoothPath`, `blobPath` and `catmullRomToBezierPath`
+under `packages/render/src/`; three are named above, `grep` finds the rest.
+`docs/performance.md`, "Two fifths of a drawn frame was text": the band, the
+maw, the pods and the rock's flame now write their contours into a `Path2D`
+as numbers through `spline.ts`, and one drawn frame went from 1.14 ms to
+0.63 ms. `grep -l "openSmoothPath\|blobPath\|catmullRomToBezierPath"
+packages/render/src/*.ts` still lists forty-eight files, fifty-six calls —
+creature bodies, bosses, the balloon, `crystalPath`, bakes that run
+once. None was in the top of the profile, which is why they were left.
+
+The sweep: each `new Path2D(openSmoothPath(pts))` becomes `splinePath(pts,
+false)`, each `new Path2D(catmullRomToBezierPath(pts))` becomes `splinePath(pts,
+true)`, each `new Path2D(blobPath(...))` becomes `splinePath(blobPoints(...),
+true)`, and a string that is concatenated before it becomes a path becomes
+`splineInto` calls on one `Path2D`. A contour sealed with `" Z"` after an
+*open* spline is `splineSealedInto`, never a closed spline — the tangents
+differ. A call whose string goes somewhere other than a `Path2D` (a sheet, a
+`<path>`, a cache key) stays. Then a test in `packages/render/test/` that
+greps `packages/render/src` for the three names and lists the files allowed
+to keep them, so the next one is a red check rather than a profile. Prove it
+with `bun test packages/render` — the budget tests count ops and a
+`bezierCurveTo` path draws the same ops the string did — and
+`bun run test:profile` on one machine before and after.

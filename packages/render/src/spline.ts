@@ -32,6 +32,19 @@ export function splineInto(path: Path2D, pts: readonly Point[], closed: boolean)
   if (closed) path.closePath();
 }
 
+/**
+ * An open run sealed with one straight line back to where it began — a tube's
+ * two banks, a drip's two sides. It is **not** a closed spline: closing the
+ * Catmull-Rom would bend the run's two ends toward each other, and a tube's
+ * mouth is meant to be cut square. This is what `openSmoothPath(...) + " Z"`
+ * spelled out as text.
+ */
+export function splineSealedInto(path: Path2D, pts: readonly Point[]): void {
+  if (pts.length < 2) return;
+  splineInto(path, pts, false);
+  path.closePath();
+}
+
 /** The same contour as a path of its own — what most callers want. */
 export function splinePath(pts: readonly Point[], closed: boolean): Path2D {
   const path = new Path2D();

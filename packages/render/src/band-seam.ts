@@ -1,10 +1,11 @@
-import { openSmoothPath, type Point } from "@neon-spore/content";
+import type { Point } from "@neon-spore/content";
 import { BAND_JOIN } from "./band-join.js";
 import { gradientSlot, slotGradient } from "./gradient-slot.js";
 import { rgba } from "./hex.js";
 import type { Circle, Layout } from "./layout.js";
 import { CLIMB, seamBottom, seamRise, seamTop } from "./seam-line.js";
 import { P1_SKIN, type SeatSkin } from "./seat-skin.js";
+import { splineSkirt } from "./spline.js";
 
 export { hullBottom, seamBottom, seamRise, seamTop } from "./seam-line.js";
 
@@ -104,9 +105,8 @@ export function drawSeamFlesh(
  * the rim is gone, and a pair whose other half nothing asks for is a pair.
  */
 export function chamberPath(l: Layout, time: number, lobes: readonly Circle[] = []): Path2D {
-  const spline = openSmoothPath(seamPoints(l, time, lobes));
   const bottom = l.bandTop + l.bandHeight;
-  return new Path2D(`${spline} L ${l.width} ${bottom} L 0 ${bottom} Z`);
+  return splineSkirt(seamPoints(l, time, lobes), l.width, bottom, 0, bottom);
 }
 
 /** The slot the spill's gradient lives in — layout-only, so one is enough. */

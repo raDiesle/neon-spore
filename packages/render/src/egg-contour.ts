@@ -1,5 +1,6 @@
-import { catmullRomToBezierPath, type Point } from "@neon-spore/content";
+import type { Point } from "@neon-spore/content";
 import type { EggBeats } from "./egg-curve.js";
+import { splinePath } from "./spline.js";
 
 /**
  * The cloaca's own shape, for one frame — split out of `cannon-maw.ts` so that
@@ -45,5 +46,5 @@ export function eggContour(cx: number, cy: number, tile: number, t: number, b: E
       0.03 * Math.sin(a * 3 + t * 1.1);
     pts.push({ x: cx + Math.cos(a) * rx * mul, y: cy + down * ry * mul });
   }
-  return new Path2D(catmullRomToBezierPath(pts));
+  return splinePath(pts, true);
 }

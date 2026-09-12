@@ -2,7 +2,7 @@ import { blobPath, type Point } from "@neon-spore/content";
 import { hash01 } from "./backdrop.js";
 import { bakedCache } from "./baked.js";
 import { beadedCords } from "./gland-cord.js";
-import { curve, tube } from "./gland-tube.js";
+import { curve, tubeInto } from "./gland-tube.js";
 import { halo } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { LobeDraw } from "./lobe-look.js";
@@ -46,18 +46,26 @@ export interface OrganLook {
 }
 
 /** A branch off a vein: a short tube curving away from the fork. */
-function twig(fork: Point, heading: number, len: number, r: number): string {
+function twig(into: Path2D, fork: Point, heading: number, len: number, r: number): void {
   const tip = { x: fork.x + Math.cos(heading) * len, y: fork.y + Math.sin(heading) * len };
   const c = {
     x: fork.x + Math.cos(heading - 0.5) * len * 0.5,
     y: fork.y + Math.sin(heading - 0.5) * len * 0.5,
   };
-  return tube(curve(fork, tip, c, tip, 6), (p) => r * (0.05 - 0.042 * p));
+  tubeInto(into, curve(fork, tip, c, tip, 6), (p) => r * (0.05 - 0.042 * p));
 }
 
 /** One vein: a thick tube leaving the swelling, winding as it thins, and
  * forking twice on the way — a vessel, not a spine. */
-function vein(x: number, y: number, r: number, angle: number, len: number, seed: number): string {
+function vein(
+  into: Path2D,
+  x: number,
+  y: number,
+  r: number,
+  angle: number,
+  len: number,
+  seed: number,
+): void {
   const a = { x: x + Math.cos(angle) * r * 0.9, y: y + Math.sin(angle) * r * 0.9 };
   const bend = (hash01(seed) - 0.5) * 2.6;
   const end = angle + bend * 0.5;
@@ -71,15 +79,12 @@ function vein(x: number, y: number, r: number, angle: number, len: number, seed:
     y: y + Math.sin(angle + bend * 0.8) * len * 0.7,
   };
   const main = curve(a, b, c1, c2, 12);
-  const trunk = tube(main, (p) => r * (0.17 - 0.14 * p ** 0.8));
+  tubeInto(into, main, (p) => r * (0.17 - 0.14 * p ** 0.8));
   const swing = hash01(seed + 1) > 0.5 ? 1 : -1;
   const first = main[4] as Point;
   const second = main[8] as Point;
-  return (
-    trunk +
-    twig(first, end + swing * 1.1, len * 0.32, r) +
-    twig(second, end - swing * 0.9, len * 0.24, r * 0.8)
-  );
+  twig(into, first, end + swing * 1.1, len * 0.32, r);
+  twig(into, second, end - swing * 0.9, len * 0.24, r * 0.8);
 }
 
 /**
@@ -105,17 +110,17 @@ function bedFor(x: number, y: number, r: number, o: OrganLook): Bed {
   if (held) return held;
   if (beds.size > 8) beds.clear();
   const R = r * (1 + o.swell);
-  let veins = "";
+  const veins = new Path2D();
   for (let i = 0; i < o.veins; i++) {
     const angle = ((i + 0.5) / o.veins) * Math.PI * 2 + (hash01(i * 13 + 1) - 0.5) * 0.6;
-    veins += vein(x, y, r, angle, r * o.reach * (0.75 + hash01(i * 5 + 2) * 0.5), i * 7 + 3);
+    vein(veins, x, y, r, angle, r * o.reach * (0.75 + hash01(i * 5 + 2) * 0.5), i * 7 + 3);
   }
   const shoulder = new Path2D();
   shoulder.ellipse(x, y + r * 0.1, R * 0.86, R * 0.8, 0, Math.PI * 1.08, Math.PI * 1.55);
   const gloss = new Path2D();
   gloss.ellipse(x, y, r * 0.84, r * 0.84, 0, Math.PI * 1.12, Math.PI * 1.48);
   const bed: Bed = {
-    veins: new Path2D(veins),
+    veins,
     swell: new Path2D(blobPath(x, y + r * 0.12, R, R * 0.92, o.lobes, o.depth, 0.04, 0, 11, 44)),
     shoulder,
     gloss,

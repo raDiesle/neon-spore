@@ -176,6 +176,7 @@ export {
 } from "./scenes.js";
 export {
   blobPath,
+  blobPoints,
   blobRadiusMul,
   catmullRomSegments,
   catmullRomToBezierPath,

@@ -1,6 +1,7 @@
-import { blobRadiusMul, catmullRomToBezierPath, type Point } from "@neon-spore/content";
+import { blobRadiusMul, type Point } from "@neon-spore/content";
 import { rgba } from "./hex.js";
 import { PALETTE } from "./palette.js";
+import { splinePath } from "./spline.js";
 
 /**
  * THE FIRE ON A BURNING ROCK — the other half of `wake.ts`, split off for the
@@ -99,7 +100,7 @@ export function flame(
     const up = Math.min(1, Math.max(0, (y - py) / h));
     pts.push({ x: x + Math.cos(a) * w * m * (1 - 0.6 * up * up), y: py });
   }
-  const path = new Path2D(catmullRomToBezierPath(pts));
+  const path = splinePath(pts, true);
   ctx.save();
   ctx.globalCompositeOperation = "lighter";
   const g = ctx.createLinearGradient(0, y, 0, y - h);

@@ -1,8 +1,9 @@
-import { blobPath, POD } from "@neon-spore/content";
+import { blobPoints, POD } from "@neon-spore/content";
 import type { Pod, PodKind } from "@neon-spore/sim";
 import { halo, strokeGlow } from "./glow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { splinePath } from "./spline.js";
 
 /**
  * The pod, in its two states, which have to look nothing like each other.
@@ -57,7 +58,10 @@ export function drawPods(
 }
 
 function podPath(t: number): Path2D {
-  return new Path2D(blobPath(0, 0, POD.rx, POD.ry, POD.lobes, POD.depth, POD.wobble, t, POD.seed));
+  return splinePath(
+    blobPoints(0, 0, POD.rx, POD.ry, POD.lobes, POD.depth, POD.wobble, t, POD.seed),
+    true,
+  );
 }
 
 /** Hanging: a slow bob, a steady pulse, a wide calm halo. */

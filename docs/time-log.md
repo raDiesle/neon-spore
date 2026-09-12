@@ -22,6 +22,28 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 — render-test-time — two fifths of a drawn frame was text
+
+Queue item: `packages/render` was seventy per cent of the suite's cost, and
+its top four cases were `briefing.test.ts`'s walks, already thinned to every
+tick once. A CPU profile of one walk found four seconds of ten in `toFixed`
+and `curveText` — the band and the maw building SVG path strings that
+`new Path2D` parsed straight back. Those callers now write their contours
+into a `Path2D` as numbers through `spline.ts`; a drawn frame went from
+1.14 ms to 0.63 ms, `briefing.test.ts` from 53.8 s to 29.5 s, the suite from
+273 s to 222 s of cost. About 25 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `test:profile` twice, the walk under `--cpu-prof`, the eight hot callers and `spline.ts` |
+| writing | 5 | `splineSealedInto`, `tubeInto`, `blobPoints`, twelve call sites, `docs/performance.md`, the queue item for the fifty-six left |
+| looking | 0 | nothing drawn changed |
+| friction | 0 | — |
+| landing | 10 | render and content tests, `test:profile` after, `check:fast`, the commit, `bun run land --keep` |
+
+Bottleneck: the profile — three runs of the whole suite at four minutes each,
+before, after, and once more for the header the first `--top` cut off.
+
 ## 2026-09-12 — wave-boundary — two devices cross a wave boundary in step
 
 Queue item: the two-device wave test stopped on the `needWave` that ends

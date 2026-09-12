@@ -1,4 +1,4 @@
-import { openSmoothPath, type Point } from "@neon-spore/content";
+import type { Point } from "@neon-spore/content";
 import { hash01 } from "./backdrop.js";
 import type { BandAttach } from "./band-join.js";
 import { sameLight } from "./gland-join.js";
@@ -8,6 +8,7 @@ import type { HullSkin } from "./hull.js";
 import type { SheenPass } from "./hull-sheen.js";
 import type { Layout } from "./layout.js";
 import { sweep } from "./sheen.js";
+import { splineInto } from "./spline.js";
 
 /**
  * WET SKIN — the ship as a clear, light-reflecting surface, with **no grain**.
@@ -88,9 +89,8 @@ export function ridges(
   light: string,
   weight = 1,
 ): void {
-  let d = "";
-  for (const pts of lines) d += openSmoothPath(pts);
-  const path = new Path2D(d);
+  const path = new Path2D();
+  for (const pts of lines) splineInto(path, pts, false);
   ctx.lineCap = "round";
   ctx.save();
   ctx.translate(l.tile * 0.04, l.tile * 0.05);
@@ -205,7 +205,7 @@ export function ribbons(
       const u = Math.min(1, Math.max(0, (y - top) / (bottom - top)));
       return l.tile * (0.05 + 0.3 * Math.sin(Math.PI * u) ** 0.7);
     };
-    const shape = new Path2D(tube(pts, half));
+    const shape = tube(pts, half);
     const g = ctx.createLinearGradient(0, top, 0, bottom);
     g.addColorStop(0, rgba(flesh, 0.22));
     g.addColorStop(0.6, rgba(flesh, 0.12));

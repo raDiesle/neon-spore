@@ -1,4 +1,5 @@
-import { openSmoothPath, type Point } from "@neon-spore/content";
+import type { Point } from "@neon-spore/content";
+import { splineSealedInto } from "./spline.js";
 
 /**
  * A TUBE AND A CURVE — the two pieces of vector arithmetic every grown thing
@@ -13,17 +14,22 @@ import { openSmoothPath, type Point } from "@neon-spore/content";
  */
 
 /**
- * A tube of varying width around a centreline, as a closed path.
+ * A tube of varying width around a centreline, written into `path` as one
+ * closed contour — so a vein and its twigs can share a path and a fill.
  *
  * Offsetting the line by the half-width along its own normal rather than
  * horizontally is what lets a branch leave a trunk at an angle and still have
  * an even thickness — a horizontal offset thins every diagonal by its own
  * cosine, which is exactly the defect that makes a hand-drawn vein read as a
  * ribbon.
+ *
+ * It went to the canvas as text until 12 September 2026 — every bank point
+ * through `toFixed` and back through the `Path2D` parser — and building those
+ * strings was two fifths of a drawn frame (`docs/performance.md`).
  */
-export function tube(mid: readonly Point[], half: (p: number) => number): string {
+export function tubeInto(path: Path2D, mid: readonly Point[], half: (p: number) => number): void {
   const last = mid.length - 1;
-  if (last < 1) return "";
+  if (last < 1) return;
   const left: Point[] = [];
   const right: Point[] = [];
   for (let i = 0; i <= last; i++) {
@@ -38,7 +44,14 @@ export function tube(mid: readonly Point[], half: (p: number) => number): string
     right.push({ x: at.x - nx * w, y: at.y - ny * w });
   }
   right.reverse();
-  return `${openSmoothPath([...left, ...right])} Z`;
+  splineSealedInto(path, [...left, ...right]);
+}
+
+/** The tube as a path of its own. */
+export function tube(mid: readonly Point[], half: (p: number) => number): Path2D {
+  const path = new Path2D();
+  tubeInto(path, mid, half);
+  return path;
 }
 
 /** A cubic sampled into points — one vessel's centreline. */

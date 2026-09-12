@@ -1,8 +1,9 @@
-import { openSmoothPath, type Point } from "@neon-spore/content";
+import type { Point } from "@neon-spore/content";
 import { curve } from "./gland-tube.js";
 import { halo } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { NerveDraw } from "./ship-nerves.js";
+import { splineInto } from "./spline.js";
 
 /**
  * THE STRINGS RUNNING UP FROM THE BUTTONS — PLASM's, kept.
@@ -66,14 +67,13 @@ function cordLine(c: Cord, tile: number, time: number): Point[] {
 export function beadedCords(d: NerveDraw, beads: number): void {
   const { ctx, l, time, skin } = d;
   const all = cords(d);
-  let fine = "";
+  const path = new Path2D();
   const lines: Point[][] = [];
   for (const c of all) {
     const pts = cordLine(c, l.tile, time);
     lines.push(pts);
-    fine += openSmoothPath(pts);
+    splineInto(path, pts, false);
   }
-  const path = new Path2D(fine);
   ctx.lineCap = "round";
   ctx.strokeStyle = rgba(skin.ground[3], 0.45);
   ctx.lineWidth = Math.max(1.5, l.tile * 0.09);

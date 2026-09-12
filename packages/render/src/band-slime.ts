@@ -1,10 +1,11 @@
-import { openSmoothPath, type Point } from "@neon-spore/content";
+import type { Point } from "@neon-spore/content";
 import { hash01 } from "./backdrop.js";
 import { seamRise, seamTop, seamY } from "./band-seam.js";
 import { halo } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Circle, Layout } from "./layout.js";
 import { P1_SKIN, type SeatSkin } from "./seat-skin.js";
+import { splineSealedInto } from "./spline.js";
 
 /**
  * WHAT RUNS OFF THE MEMBRANE.
@@ -105,14 +106,14 @@ export function drawDrips(
 ): void {
   const all = drips(l, time, lobes);
   const over = seamRise(l) * OVER;
-  // One path string for every pendant and one `Path2D` from it — not one per
-  // drip: `frame-budget.test.ts` counts constructions, and three more a frame
-  // for a thing nobody looks straight at is exactly what it exists to refuse.
-  let d = "";
+  // One `Path2D` for every pendant — not one per drip: `frame-budget.test.ts`
+  // counts constructions, and three more a frame for a thing nobody looks
+  // straight at is exactly what it exists to refuse.
+  const body = new Path2D();
   const beads = new Path2D();
   let deepest = l.bandTop;
   for (const drip of all) {
-    d += pendant(drip, over);
+    pendant(body, drip, over);
     deepest = Math.max(deepest, drip.top + drip.length);
     if (drip.bead) {
       beads.ellipse(
@@ -126,7 +127,6 @@ export function drawDrips(
       );
     }
   }
-  const body = new Path2D(d);
 
   // Every colour of it is the seat’s: this is the ship’s own fluid, and a
   // violet drip off a golden hull was the loudest thing left on player two’s
@@ -181,7 +181,7 @@ const STEPS = 14;
  * chamber's own clip trims it to the contour to the pixel at every x it
  * spans: there is no height to guess and nothing to come away.
  */
-function pendant(d: Drip, over: number): string {
+function pendant(into: Path2D, d: Drip, over: number): void {
   const { x, top, width: w, length: len } = d;
   const from = top - over;
   const drop = Math.max(1, len + over);
@@ -201,5 +201,5 @@ function pendant(d: Drip, over: number): string {
     back.push({ x: x + half, y });
   }
   back.reverse();
-  return `${openSmoothPath([...down, ...back])} Z `;
+  splineSealedInto(into, [...down, ...back]);
 }

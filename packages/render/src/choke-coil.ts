@@ -114,7 +114,7 @@ export function drawTail(
     { x: to.x - sway, y: (belly.y + to.y) / 2 },
     12,
   );
-  const body = new Path2D(tube(mid, (p) => w * (0.55 - 0.25 * p)));
+  const body = tube(mid, (p) => w * (0.55 - 0.25 * p));
   ctx.save();
   ctx.fillStyle = PALETTE.bile;
   ctx.fill(body);

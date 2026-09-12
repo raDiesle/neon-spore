@@ -1,9 +1,10 @@
-import { openSmoothPath, type Point } from "@neon-spore/content";
+import type { Point } from "@neon-spore/content";
 import { hash01 } from "./backdrop.js";
 import { seamY } from "./band-seam.js";
 import { curve } from "./gland-tube.js";
 import { rgba } from "./hex.js";
 import type { SlimeDraw } from "./slime-look.js";
+import { splineInto } from "./spline.js";
 
 /**
  * Threads hanging from the band's roof, swaying, a drop at the end of some
@@ -22,9 +23,9 @@ import type { SlimeDraw } from "./slime-look.js";
  */
 export function filaments(d: SlimeDraw, perLobe: number): void {
   const { ctx, l, time, skin, lobes } = d;
-  // Every thread is one `M…` run in the same string, and the string is one
-  // Path2D: nine threads cost one allocation a frame rather than ten.
-  const runs: string[] = [];
+  // Every thread is one `moveTo` run in the same Path2D: nine threads cost one
+  // allocation a frame rather than ten.
+  const path = new Path2D();
   const tips: Point[] = [];
   const hang = (x: number, seed: number, down: number) => {
     const top = seamY(l, x, time, lobes);
@@ -36,7 +37,7 @@ export function filaments(d: SlimeDraw, perLobe: number): void {
       { x: x + sway * 1.2, y: top + down * 0.8 },
       6,
     );
-    runs.push(openSmoothPath(pts));
+    splineInto(path, pts, false);
     if (hash01(seed) < 0.5) tips.push(pts[6] as Point);
   };
   for (const [i, c] of lobes.entries()) {
@@ -51,7 +52,6 @@ export function filaments(d: SlimeDraw, perLobe: number): void {
     const x = l.width * ((k + 0.5) / 3 + (hash01(k * 17 + 5) - 0.5) * 0.15);
     hang(x, 40 + k, l.tile * (0.6 + hash01(k * 9 + 2) * 0.8));
   }
-  const path = new Path2D(runs.join(" "));
   ctx.lineCap = "round";
   ctx.strokeStyle = rgba(skin.flesh[0], 0.55);
   ctx.lineWidth = Math.max(1, l.tile * 0.05);
