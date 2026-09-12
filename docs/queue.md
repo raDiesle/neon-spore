@@ -165,6 +165,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## Killing `apps/server/dev.ts` leaves wrangler and two `workerd` running
 
 - **Found:** 2026-09-12, relay-verified
+- **Taken:** 2026-09-12, claude/queue-killing-apps-server-dev-ts-leaves-wrangler-and-t
 - **Files:** `apps/server/dev.ts`, `.claude/skills/net-change/SKILL.md`
 
 `dev.ts` spawns `npx --yes wrangler dev …` through a shell. On Windows that is
