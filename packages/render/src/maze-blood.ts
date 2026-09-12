@@ -1,5 +1,6 @@
-import { blobPath } from "@neon-spore/content";
+import { blobPoints } from "@neon-spore/content";
 import type { MazeState } from "@neon-spore/sim";
+import { splinePath } from "./spline.js";
 
 /**
  * What THE MAZE's heart leaves on the floor of its room when it is hit, and
@@ -121,7 +122,9 @@ export function drawMazeBlood(
       ctx.rotate(s.turn);
       // A splash is a body like everything else here: a lobed contour, not a
       // dot. Three lobes cut deep is what makes it read as thrown.
-      ctx.fill(new Path2D(blobPath(0, 0, size, size * 0.72, 3, 0.34, 0.12, s.seed, s.seed, 14)));
+      ctx.fill(
+        splinePath(blobPoints(0, 0, size, size * 0.72, 3, 0.34, 0.12, s.seed, s.seed, 14), true),
+      );
       ctx.restore();
     }
   }

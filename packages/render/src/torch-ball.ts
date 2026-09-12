@@ -1,8 +1,9 @@
-import { blobPath, facet, LAT_LIMIT, pin, surfaceDim } from "@neon-spore/content";
+import { blobPoints, facet, LAT_LIMIT, pin, surfaceDim } from "@neon-spore/content";
 import { bakedCache } from "./baked.js";
 import { haloSprite } from "./glow.js";
 import { rgba } from "./hex.js";
 import { PALETTE } from "./palette.js";
+import { splinePath } from "./spline.js";
 
 /**
  * THE BALL OF FIRE A TORCH FALLS INSIDE — everything outside the stone.
@@ -79,8 +80,9 @@ const shells = bakedCache<string, Path2D>();
 /**
  * One shell's contour, baked per radius and per step of its own wobble.
  *
- * `blobPath` builds a string and a `Path2D` parses it back, which is the single
- * dearest thing this fire ever did — twice a frame, on every torch. A shape is
+ * Splining the contour was the single dearest thing this fire ever did —
+ * twice a frame, on every torch, and in its first cut through a path string
+ * that a `Path2D` parsed back (`spline.ts` says why that is gone). A shape is
  * held instead of a picture, because a `Path2D` is a few hundred bytes where a
  * canvas of this size is a quarter of a megabyte, and thirty-two of them per
  * radius is a cache nothing notices.
@@ -91,7 +93,7 @@ function shellPath(rad: number, lobes: number, seed: number, step: number): Path
   if (held) return held;
   if (shells.size > STEPS * 6) shells.clear();
   const t = (step / STEPS) * Math.PI * 2;
-  const made = new Path2D(blobPath(0, 0, rad, rad, lobes, 0.2, 0.12, t, seed, 24));
+  const made = splinePath(blobPoints(0, 0, rad, rad, lobes, 0.2, 0.12, t, seed, 24), true);
   shells.set(key, made);
   return made;
 }

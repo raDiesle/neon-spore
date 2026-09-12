@@ -1,10 +1,11 @@
-import { blobPath, type IntroFigure } from "@neon-spore/content";
+import { blobPoints, type IntroFigure } from "@neon-spore/content";
 import { halo, strokeGlow } from "./glow.js";
 import { mixHex } from "./hex.js";
 import { body, drip, type FigureBox, hull, plate } from "./intro-parts.js";
 import { twoScreens, voice } from "./intro-screens.js";
 import { PALETTE } from "./palette.js";
 import { P1_SKIN } from "./seat-skin.js";
+import { splinePath } from "./spline.js";
 
 /**
  * THE SIX PICTURES ON THE INTRO'S PAGES.
@@ -61,7 +62,10 @@ function panel(ctx: CanvasRenderingContext2D, b: FigureBox, age: number): void {
     const x = b.x + b.w * (0.24 + i * 0.26);
     const r = b.h * 0.085;
     halo(ctx, x, cy, r * 2.2, hex, 0.5);
-    const lobe = new Path2D(blobPath(x, cy, r, r * 0.94, 3, 0.06, 0.04, age, 811 + i * 61, 24));
+    const lobe = splinePath(
+      blobPoints(x, cy, r, r * 0.94, 3, 0.06, 0.04, age, 811 + i * 61, 24),
+      true,
+    );
     ctx.fillStyle = mixHex(hex, "#0B0718", 0.7);
     ctx.fill(lobe);
     strokeGlow(ctx, lobe, hex, Math.max(1.2, r * 0.2), 1);
@@ -85,8 +89,9 @@ function boss(ctx: CanvasRenderingContext2D, b: FigureBox, age: number): void {
   const r = Math.min(b.w, b.h) * 0.3;
   const breath = 1 + 0.05 * Math.sin(age * 1.6);
   halo(ctx, cx, cy, r * 2.6, PALETTE.hull, 0.45);
-  const path = new Path2D(
-    blobPath(cx, cy, r * breath, r * 0.82 * breath, 5, 0.11, 0.06, age * 0.6, 2207, 48),
+  const path = splinePath(
+    blobPoints(cx, cy, r * breath, r * 0.82 * breath, 5, 0.11, 0.06, age * 0.6, 2207, 48),
+    true,
   );
   ctx.fillStyle = mixHex(PALETTE.hull, "#0B0718", 0.74);
   ctx.fill(path);
@@ -138,7 +143,10 @@ function run(ctx: CanvasRenderingContext2D, b: FigureBox, age: number): void {
     const h = b.h * (0.11 + 0.035 * ((i * 7) % 4));
     const hex = lit ? PALETTE.hull : PALETTE.grid;
     if (lit) halo(ctx, x, y, h * 1.8, hex, i > head - 1.2 ? 0.7 : 0.3);
-    const bar = new Path2D(blobPath(x, y, step * 0.2, h, 3, 0.05, 0.05, age + i, 907 + i * 31, 22));
+    const bar = splinePath(
+      blobPoints(x, y, step * 0.2, h, 3, 0.05, 0.05, age + i, 907 + i * 31, 22),
+      true,
+    );
     ctx.fillStyle = lit ? mixHex(hex, "#0B0718", 0.68) : "rgba(14,10,30,.8)";
     ctx.fill(bar);
     strokeGlow(ctx, bar, hex, Math.max(1, step * 0.06), lit ? 1 : 0.4);

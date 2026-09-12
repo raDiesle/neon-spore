@@ -1,7 +1,8 @@
-import { circleSubpath, openSmoothPath } from "@neon-spore/content";
+import { circleSubpath } from "@neon-spore/content";
 import { strokeGlow } from "./glow.js";
 import { handleSag } from "./handle-draw.js";
 import { STROKE } from "./palette.js";
+import { splinePath } from "./spline.js";
 
 /**
  * THE ONE RECORD A CANDIDATE **TETHER** LOOK PATCHES.
@@ -72,7 +73,7 @@ export function line(d: TetherDraw): void {
     waveHeld: 1.2,
     waveSlack: 3.5,
   });
-  const path = new Path2D(openSmoothPath(sag));
+  const path = splinePath(sag, false);
   strokeGlow(ctx, path, held ? rim : hex, STROKE.outline * (1 - pull * 0.35), 0.5 + pull * 1.5);
 }
 

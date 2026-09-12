@@ -89,6 +89,10 @@ describe("no re-derived rules", () => {
         offenders,
         `Call ${copy.call} from ${copy.owner} in: ${offenders.join(", ")}`,
       ).toHaveLength(0);
-    });
+      // The first rule to run reads and strips the whole tree — fifteen
+      // hundred files — and under `bun run check`'s eight shards on a busy
+      // machine that alone passed five seconds twice on 12 September 2026.
+      // Nothing here measures speed, so the budget is a guard, not a claim.
+    }, 30_000);
   }
 });

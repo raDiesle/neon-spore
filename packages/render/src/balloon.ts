@@ -1,4 +1,4 @@
-import { BALLOON, balloonKnot, balloonPath, openSmoothPath } from "@neon-spore/content";
+import { BALLOON, balloonKnot, balloonPath } from "@neon-spore/content";
 import {
   balloonHoldPhase,
   balloonSplitsLeft,
@@ -13,6 +13,7 @@ import { contourClock } from "./creature-place.js";
 import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { splinePath } from "./spline.js";
 
 /**
  * THE BALLOON, drawn — a skin with a knot under it, filling where it appears,
@@ -101,7 +102,7 @@ export function drawBalloon({ ctx, l, world, c, x, y, time, beats, near }: Body)
   const t = contourClock(c.id, time);
 
   const skin = new Path2D(balloonPath(rxLeft, rxRight, squashed, BALLOON.wobble, t, c.id % 16));
-  const knot = new Path2D(openSmoothPath(balloonKnot(squashed)));
+  const knot = splinePath(balloonKnot(squashed), false);
 
   ctx.save();
   ctx.translate(x, y);

@@ -1,7 +1,8 @@
-import { blobPath, livingPath, livingSilhouette, POD } from "@neon-spore/content";
+import { blobPoints, livingPath, livingSilhouette, POD } from "@neon-spore/content";
 import { halo, strokeGlow } from "./glow.js";
 import { PALETTE } from "./palette.js";
 import { type Arena, arenaX, arenaY } from "./snake-draw.js";
+import { splinePath } from "./spline.js";
 
 /**
  * What is standing in SNAKE's arena to be spent: the things to shoot and the
@@ -89,8 +90,9 @@ export function drawSnakePoint(
   const r = arena.tile * 0.32;
   const scale = r / Math.max(POD.rx, POD.ry);
   const t = pulse + (col + row * 2) * 0.53;
-  const path = new Path2D(
-    blobPath(0, 0, POD.rx, POD.ry, POD.lobes, POD.depth, POD.wobble, t, POD.seed),
+  const path = splinePath(
+    blobPoints(0, 0, POD.rx, POD.ry, POD.lobes, POD.depth, POD.wobble, t, POD.seed),
+    true,
   );
 
   // The wide calm halo a moored pod carries. It is what says "this is not

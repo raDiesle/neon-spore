@@ -1,6 +1,7 @@
-import { KEY, openSmoothPath } from "@neon-spore/content";
+import { KEY } from "@neon-spore/content";
 import { handleSag } from "./handle-draw.js";
 import { mixHex, rgba } from "./hex.js";
+import { splinePath } from "./spline.js";
 import type { TetherDraw } from "./tether-look.js";
 
 /**
@@ -55,10 +56,11 @@ export function cord(d: TetherDraw): void {
     waveSlack: 3.5,
   });
   const w = width(d);
-  const axis = new Path2D(openSmoothPath(pts));
+  const axis = splinePath(pts, false);
   const off = w * HIGH_OFF;
-  const high = new Path2D(
-    openSmoothPath(pts.map((p) => ({ x: p.x + KEY.x * off, y: p.y + KEY.y * off }))),
+  const high = splinePath(
+    pts.map((p) => ({ x: p.x + KEY.x * off, y: p.y + KEY.y * off })),
+    false,
   );
   ctx.save();
   ctx.lineCap = "round";

@@ -202,36 +202,6 @@ essentially all of them are coincidence — 250 as a pixel size, 120 as a degree
 150 as a colour channel. A number agreeing with a config default is not evidence
 of a copy, and the noise buries the one or two that might be.
 
-## Fifty-six render call sites still build a `Path2D` from spline text
-
-- **Found:** 2026-09-12, render-test-time
-- **Taken:** 2026-09-12, claude/queue-fifty-six-render-call-sites-still-build-a-path2d
-- **Files:** `packages/render/src/spline.ts`, `packages/render/src/balloon.ts`, `packages/render/src/fault-emitter.ts`, `packages/render/src/warden.ts`, `docs/performance.md`
-
-The callers of `openSmoothPath`, `blobPath` and `catmullRomToBezierPath`
-under `packages/render/src/`; three are named above, `grep` finds the rest.
-`docs/performance.md`, "Two fifths of a drawn frame was text": the band, the
-maw, the pods and the rock's flame now write their contours into a `Path2D`
-as numbers through `spline.ts`, and one drawn frame went from 1.14 ms to
-0.63 ms. `grep -l "openSmoothPath\|blobPath\|catmullRomToBezierPath"
-packages/render/src/*.ts` still lists forty-eight files, fifty-six calls —
-creature bodies, bosses, the balloon, `crystalPath`, bakes that run
-once. None was in the top of the profile, which is why they were left.
-
-The sweep: each `new Path2D(openSmoothPath(pts))` becomes `splinePath(pts,
-false)`, each `new Path2D(catmullRomToBezierPath(pts))` becomes `splinePath(pts,
-true)`, each `new Path2D(blobPath(...))` becomes `splinePath(blobPoints(...),
-true)`, and a string that is concatenated before it becomes a path becomes
-`splineInto` calls on one `Path2D`. A contour sealed with `" Z"` after an
-*open* spline is `splineSealedInto`, never a closed spline — the tangents
-differ. A call whose string goes somewhere other than a `Path2D` (a sheet, a
-`<path>`, a cache key) stays. Then a test in `packages/render/test/` that
-greps `packages/render/src` for the three names and lists the files allowed
-to keep them, so the next one is a red check rather than a profile. Prove it
-with `bun test packages/render` — the budget tests count ops and a
-`bezierCurveTo` path draws the same ops the string did — and
-`bun run test:profile` on one machine before and after.
-
 ## The director cannot be started from a worktree for a look
 
 - **Found:** 2026-09-12, claude/limpet-cycle

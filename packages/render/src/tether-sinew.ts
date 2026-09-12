@@ -1,8 +1,8 @@
-import { catmullRomToBezierPath, openSmoothPath } from "@neon-spore/content";
 import { halo } from "./glow.js";
 import { handleSag } from "./handle-draw.js";
 import { mixHex, rgba } from "./hex.js";
 import { STROKE } from "./palette.js";
+import { splinePath } from "./spline.js";
 import type { TetherDraw } from "./tether-look.js";
 
 /**
@@ -85,7 +85,7 @@ function sheathPath(pts: Point[], d: TetherDraw): Path2D {
   // One closed loop — down one edge and back up the other. Two open paths
   // added together each close on their own chord, and the sheath filled as a
   // straight-edged sliver beside the sag.
-  return new Path2D(catmullRomToBezierPath([...left, ...right.reverse()]));
+  return splinePath([...left, ...right.reverse()], true);
 }
 
 /** Where along the axis `t` lands, interpolated between the sag's points. */
@@ -113,7 +113,7 @@ export function sinew(d: TetherDraw): void {
   ctx.lineJoin = "round";
   ctx.stroke(band);
   // The core: hard and bright, brighter the tighter.
-  const core = new Path2D(openSmoothPath(pts));
+  const core = splinePath(pts, false);
   ctx.strokeStyle = held ? rim : rgba(rim, 0.6);
   ctx.lineWidth = STROKE.inner * (0.8 + 0.6 * pull);
   ctx.lineCap = "round";

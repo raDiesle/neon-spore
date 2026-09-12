@@ -170,14 +170,13 @@ export function drawMark(
   const shown: Color = queen.color ?? boss.tellColor ?? "cyan";
   const other: Color = shown === "red" ? "cyan" : "red";
   const k = morphShare(boss, beat, beatPhase);
-  const { d, norm, ryShare } = markOutline(other, shown, k, ball, t);
+  const { path, norm, ryShare } = markOutline(other, shown, k, ball, t);
   const scale = r / norm;
 
   const pump = Math.sin(t * breathSpeed);
   const sx = 1 + pump * 0.15;
   const sy = 1 - pump * 0.15;
 
-  const path = new Path2D(d);
   ctx.save();
   ctx.translate(cx, cy);
   ctx.scale(scale * sx, scale * sy);

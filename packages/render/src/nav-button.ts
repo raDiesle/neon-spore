@@ -1,8 +1,9 @@
-import { blobPath } from "@neon-spore/content";
+import { blobPoints } from "@neon-spore/content";
 import { bakedCache } from "./baked.js";
 import { halo } from "./glow.js";
 import { drawLobeGloss, drawLobeSocket } from "./lobe-shell.js";
 import type { SeatSkin } from "./seat-skin.js";
+import { splinePath } from "./spline.js";
 
 /**
  * One button on a guide's bar: a grown body in a wet socket, with a sign on it
@@ -46,7 +47,7 @@ export function navBlob(w: number, h: number): Path2D {
   const held = paths.get(key);
   if (held) return held;
   if (paths.size > 8) paths.clear();
-  const made = new Path2D(blobPath(0, 0, w / 2, h / 2, LOBES, DEPTH, 0.02, 0, SEED, 48));
+  const made = splinePath(blobPoints(0, 0, w / 2, h / 2, LOBES, DEPTH, 0.02, 0, SEED, 48), true);
   paths.set(key, made);
   return made;
 }

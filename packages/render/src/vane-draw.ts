@@ -1,4 +1,4 @@
-import { circleSubpath, openSmoothPath, type Point } from "@neon-spore/content";
+import { circleSubpath, type Point } from "@neon-spore/content";
 import {
   type SimConfig,
   type VaneState,
@@ -12,6 +12,7 @@ import {
 import { strokeGlow } from "./glow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { splinePath } from "./spline.js";
 
 /**
  * THE VANE, drawn: an arm sweeping the top of the field, and the bearing it
@@ -96,9 +97,7 @@ export function drawVane(
 
   drawCasing(ctx, l, cfg, b, px, py, hub, waveBeat, open, hex, rim);
 
-  const arm = new Path2D(
-    openSmoothPath(armPoints(px + Math.sign(tx - px) * hub * 0.6, py, tx, ty, whip)),
-  );
+  const arm = splinePath(armPoints(px + Math.sign(tx - px) * hub * 0.6, py, tx, ty, whip), false);
   strokeGlow(ctx, arm, PALETTE.rock, STROKE.outline * 1.6, 0.75);
 
   // The tip, which is the fold line and the only column anybody has to watch.

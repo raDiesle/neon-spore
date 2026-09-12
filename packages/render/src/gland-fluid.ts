@@ -1,10 +1,11 @@
-import { blobPath, openSmoothPath, type Point } from "@neon-spore/content";
+import { blobPoints, type Point } from "@neon-spore/content";
 import { hash01 } from "./backdrop.js";
 import { halo, strokeGlow } from "./glow.js";
 import { gradientSlot, slotGradient } from "./gradient-slot.js";
 import { rgba } from "./hex.js";
 import { tileCX } from "./layout.js";
 import type { SeatSkin } from "./seat-skin.js";
+import { splinePath } from "./spline.js";
 import type { StripDraw } from "./strip-look.js";
 
 /**
@@ -55,7 +56,7 @@ export function bubbles(
     lens.addColorStop(0.92, rgba(skin.flesh[0], 0.26));
     lens.addColorStop(1, rgba(skin.flesh[0], 0.34));
     g.fillStyle = lens;
-    const shape = new Path2D(blobPath(x, y, r, r * 0.94, 4, 0.08, 0.05, 0, i * 3 + 1, 24));
+    const shape = splinePath(blobPoints(x, y, r, r * 0.94, 4, 0.08, 0.05, 0, i * 3 + 1, 24), true);
     g.fill(shape);
     g.strokeStyle = rgba(skin.rim, 0.14);
     g.lineWidth = Math.max(0.6, w / 600);
@@ -118,7 +119,7 @@ export function spine(d: StripDraw): void {
         y: y + Math.sin(u * 5.3 + 1.1) * h * 0.14 + Math.sin(u * 12.7) * h * 0.05,
       });
     }
-    return { path: new Path2D(openSmoothPath(pts)), ys: pts.map((p) => p.y) };
+    return { path: splinePath(pts, false), ys: pts.map((p) => p.y) };
   });
   const yAt = (x: number): number => cord.ys[Math.round(((x - left) / span) * 24)] ?? y;
   ctx.lineCap = "round";
@@ -145,11 +146,8 @@ export function spine(d: StripDraw): void {
   ctx.fill(stations);
   const kx = tileCX(l, col);
   const ky = yAt(kx);
-  const node = slotGradient(
-    ctx,
-    NODE[which],
-    held,
-    () => new Path2D(blobPath(kx, ky, h * 0.5, h * 0.44, 3, 0.05, 0.02, 0, 3, 32)),
+  const node = slotGradient(ctx, NODE[which], held, () =>
+    splinePath(blobPoints(kx, ky, h * 0.5, h * 0.44, 3, 0.05, 0.02, 0, 3, 32), true),
   );
   halo(ctx, kx, ky, h * 1.1, hex, 0.5);
   ctx.fillStyle = hex;

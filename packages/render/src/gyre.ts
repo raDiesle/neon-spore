@@ -1,4 +1,3 @@
-import { catmullRomToBezierPath } from "@neon-spore/content";
 import {
   type Creature,
   GYRE_RADIUS,
@@ -12,6 +11,7 @@ import { GYRE_LOOK } from "./gyre-look.js";
 import { gyreCenter, gyreCorners, gyreFlow } from "./gyre-place.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { splinePath } from "./spline.js";
 
 /**
  * THE GYRE's armature: a membrane, a rim through the six bodies, the spokes
@@ -123,15 +123,14 @@ function membrane(x: number, y: number, r: number, flow: number, time: number): 
       y: y + Math.sin(a + flow * 0.25) * r * m,
     });
   }
-  return new Path2D(catmullRomToBezierPath(pts));
+  return splinePath(pts, true);
 }
 
 /** One of the two rim bands: the curve through the six drawn centres, scaled
  * about the hub so the pair of them reads as a vessel with a wall. */
 function band(x: number, y: number, at: readonly { x: number; y: number }[], k: number): Path2D {
-  return new Path2D(
-    catmullRomToBezierPath(at.map((p) => ({ x: x + (p.x - x) * k, y: y + (p.y - y) * k }))),
-  );
+  const scaled = at.map((p) => ({ x: x + (p.x - x) * k, y: y + (p.y - y) * k }));
+  return splinePath(scaled, true);
 }
 
 /**

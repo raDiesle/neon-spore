@@ -1,9 +1,10 @@
-import { blobPath, livingMotion, livingSilhouette, poseClock } from "@neon-spore/content";
+import { blobPoints, livingMotion, livingSilhouette, poseClock } from "@neon-spore/content";
 import type { Creature } from "@neon-spore/sim";
 import { contourClock } from "./creature-place.js";
 import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { splinePath } from "./spline.js";
 import type { WispJump } from "./wisp.js";
 import { WISP_LOOK } from "./wisp-look.js";
 import { drawBands, drawShards, wispBands } from "./wisp-static.js";
@@ -114,8 +115,8 @@ export function drawWispBody(
   // not in `silhouettes.ts` on purpose: the card on the shape sheet is asking
   // whether this contour is *nameable*, and a bell squashed toward its own
   // hem is a fact about a body that has a hem.
-  const bell = new Path2D(
-    blobPath(
+  const bell = splinePath(
+    blobPoints(
       0,
       -shape.ry * 0.16,
       shape.rx * 1.06,
@@ -127,6 +128,7 @@ export function drawWispBody(
       shape.seed,
       28,
     ),
+    true,
   );
 
   // The rim, once, continuous and soft — under the bands rather than over

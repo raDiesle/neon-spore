@@ -1,10 +1,11 @@
-import { blobPath } from "@neon-spore/content";
+import { blobPoints } from "@neon-spore/content";
 import { type Malfunction, malfunctionColor, type World } from "@neon-spore/sim";
 import { halo, strokeGlow } from "./glow.js";
 import { sinHash } from "./hash.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { splinePath } from "./spline.js";
 
 /**
  * **What is doing it.** The thing at the top of the field that has a control
@@ -87,7 +88,7 @@ export function drawFaultEmitter(
   }
   // The body: LANTERN's base, two lobes, taller than wide, in a material no
   // creature wears — near-black with the current showing through it.
-  const body = new Path2D(blobPath(e.x, e.y, e.r * 0.82, e.r, 2, 0.14, 0.05, time, 47, 32));
+  const body = splinePath(blobPoints(e.x, e.y, e.r * 0.82, e.r, 2, 0.14, 0.05, time, 47, 32), true);
   ctx.fillStyle = "#0B0A1E";
   ctx.fill(body);
   ctx.fillStyle = rgba(PALETTE.arc, 0.16);

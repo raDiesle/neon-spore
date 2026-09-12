@@ -81,7 +81,10 @@ describe("file size limits", () => {
       const lines = await lineCount(file);
       expect(lines, `${rel} has ${lines} lines, limit is ${LIMIT}`).toBeLessThanOrEqual(LIMIT);
     }
-  });
+    // Fifteen hundred files read in one case: under `bun run check`'s eight
+    // shards on a busy machine that passed five seconds on 12 September 2026.
+    // Nothing here measures speed, so the budget is a guard, not a claim.
+  }, 30_000);
 
   it("does not let a known long file grow", async () => {
     for (const file of files) {

@@ -1,9 +1,10 @@
-import { blobPath } from "@neon-spore/content";
+import { blobPoints } from "@neon-spore/content";
 import { halo, strokeGlow } from "./glow.js";
 import { mixHex } from "./hex.js";
 import { body, drip, type FigureBox, hull, plate } from "./intro-parts.js";
 import { PALETTE } from "./palette.js";
 import { P1_SKIN, P2_SKIN } from "./seat-skin.js";
+import { splinePath } from "./spline.js";
 
 /**
  * The two pictures that are about the *pair* rather than about the field: two
@@ -53,7 +54,10 @@ export function twoScreens(ctx: CanvasRenderingContext2D, b: FigureBox, age: num
     const cy = right.y + h * 0.56;
     const r = w * 0.14 * (1 + 0.08 * Math.sin(age * 2 + i * 2.1));
     halo(ctx, cx, cy, r * 2.4, hex, 0.55);
-    const lobe = new Path2D(blobPath(cx, cy, r, r * 0.92, 3, 0.07, 0.04, age, 1109 + i * 97, 26));
+    const lobe = splinePath(
+      blobPoints(cx, cy, r, r * 0.92, 3, 0.07, 0.04, age, 1109 + i * 97, 26),
+      true,
+    );
     ctx.fillStyle = mixHex(hex, "#0B0718", 0.7);
     ctx.fill(lobe);
     strokeGlow(ctx, lobe, hex, Math.max(1.2, r * 0.2), 1);

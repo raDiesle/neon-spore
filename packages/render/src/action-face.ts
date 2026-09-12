@@ -1,8 +1,9 @@
-import { openSmoothPath, type Point } from "@neon-spore/content";
+import type { Point } from "@neon-spore/content";
 import { bakedCache } from "./baked.js";
 import type { ActionFace, ActionKind } from "./controls.js";
 import { halo, strokeGlow } from "./glow.js";
 import { ARM_FINGER_TILES, ARM_SHAFT_TILES } from "./reach-arm.js";
+import { splinePath } from "./spline.js";
 
 /**
  * Player 1's action buttons, showing the ship doing the thing instead of
@@ -75,7 +76,7 @@ function skinAt(e: Emblem, t: number, r: number): Point {
 function sample(e: Emblem, r: number, span: number): Path2D {
   const pts: Point[] = [];
   for (let i = 0; i <= STEPS; i++) pts.push(skinAt(e, (-1 + (2 * i) / STEPS) * span, r));
-  return new Path2D(openSmoothPath(pts));
+  return splinePath(pts, false);
 }
 
 /**

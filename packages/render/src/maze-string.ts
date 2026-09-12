@@ -1,10 +1,11 @@
-import { circleSubpath, openSmoothPath, type Point } from "@neon-spore/content";
+import { circleSubpath, type Point } from "@neon-spore/content";
 import type { MazeState, SimConfig } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { drawHandleHint, HINT_LOUD, handleRadius } from "./handle-draw.js";
 import type { Circle, Layout, ViewRole } from "./layout.js";
 import { mazeDrum } from "./maze-walls.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { splinePath } from "./spline.js";
 
 /**
  * THE MAZE's string, and the handle on it: the one thing in this round either
@@ -132,7 +133,7 @@ export function drawMazeString(
       y: root.y + (rest.y - root.y) * t,
     });
   }
-  strokeGlow(ctx, new Path2D(openSmoothPath(pts)), live, STROKE.inner, 0.8);
+  strokeGlow(ctx, splinePath(pts, false), live, STROKE.inner, 0.8);
 
   const p = new Path2D(circleSubpath(x, rest.y, rest.r));
   ctx.save();

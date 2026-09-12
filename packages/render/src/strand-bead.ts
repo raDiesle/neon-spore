@@ -1,4 +1,4 @@
-import { blobPath } from "@neon-spore/content";
+import { blobPoints } from "@neon-spore/content";
 import type { Creature, SimConfig } from "@neon-spore/sim";
 import { contourClock, creatureCenter } from "./creature-place.js";
 import { drawnRow, hazed, nearness } from "./depth.js";
@@ -6,6 +6,7 @@ import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
 import type { LivingFrame } from "./living-frame.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { splinePath } from "./spline.js";
 import { drawReelStatic, REEL_JUMP, reelAt } from "./strand-reel.js";
 
 /**
@@ -146,8 +147,9 @@ export function drawReelBead(b: Bead): void {
   const rx = f.scale * f.shape.rx;
   const ry = f.scale * f.shape.ry * f.squash.sy;
   const y = f.y + f.jump;
-  const body = new Path2D(
-    blobPath(f.x, y, rx, ry, f.shape.lobes, f.shape.depth, f.shape.wobble, f.t, f.shape.seed),
+  const body = splinePath(
+    blobPoints(f.x, y, rx, ry, f.shape.lobes, f.shape.depth, f.shape.wobble, f.t, f.shape.seed),
+    true,
   );
   ctx.fillStyle = haze(PALETTE.background);
   ctx.fill(body);
@@ -232,7 +234,7 @@ export function drawRaisinAt(
   // Deep lobes and a slow wobble: a body that has lost its water pulls in
   // between its own ribs rather than staying round, and the creases are the
   // only thing this shape has to say.
-  const body = new Path2D(blobPath(x, y, r, r * 0.86, RAISIN_LOBES, 0.34, 0.02, t, 2.5));
+  const body = splinePath(blobPoints(x, y, r, r * 0.86, RAISIN_LOBES, 0.34, 0.02, t, 2.5), true);
   ctx.fillStyle = haze(DEAD);
   ctx.fill(body);
   ctx.strokeStyle = haze(DEAD_RIM);

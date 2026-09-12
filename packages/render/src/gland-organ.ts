@@ -1,4 +1,4 @@
-import { blobPath, type Point } from "@neon-spore/content";
+import { blobPoints, type Point } from "@neon-spore/content";
 import { hash01 } from "./backdrop.js";
 import { bakedCache } from "./baked.js";
 import { beadedCords } from "./gland-cord.js";
@@ -7,6 +7,7 @@ import { halo } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { LobeDraw } from "./lobe-look.js";
 import type { NerveDraw } from "./ship-nerves.js";
+import { splinePath } from "./spline.js";
 
 /**
  * A BUTTON GROWN AS AN ORGAN — the flesh it swells out of, the veins that feed
@@ -121,7 +122,10 @@ function bedFor(x: number, y: number, r: number, o: OrganLook): Bed {
   gloss.ellipse(x, y, r * 0.84, r * 0.84, 0, Math.PI * 1.12, Math.PI * 1.48);
   const bed: Bed = {
     veins,
-    swell: new Path2D(blobPath(x, y + r * 0.12, R, R * 0.92, o.lobes, o.depth, 0.04, 0, 11, 44)),
+    swell: splinePath(
+      blobPoints(x, y + r * 0.12, R, R * 0.92, o.lobes, o.depth, 0.04, 0, 11, 44),
+      true,
+    ),
     shoulder,
     gloss,
   };

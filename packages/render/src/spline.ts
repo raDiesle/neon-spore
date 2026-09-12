@@ -45,6 +45,13 @@ export function splineSealedInto(path: Path2D, pts: readonly Point[]): void {
   path.closePath();
 }
 
+/** A sealed run as a path of its own. */
+export function splineSealed(pts: readonly Point[]): Path2D {
+  const path = new Path2D();
+  splineSealedInto(path, pts);
+  return path;
+}
+
 /** The same contour as a path of its own — what most callers want. */
 export function splinePath(pts: readonly Point[], closed: boolean): Path2D {
   const path = new Path2D();

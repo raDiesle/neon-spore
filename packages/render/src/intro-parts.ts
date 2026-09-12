@@ -1,8 +1,9 @@
-import { blobPath } from "@neon-spore/content";
+import { blobPoints } from "@neon-spore/content";
 import { halo, strokeGlow } from "./glow.js";
 import { mixHex } from "./hex.js";
 import { drawNavFeeder } from "./nav-button.js";
 import { PALETTE } from "./palette.js";
+import { splinePath } from "./spline.js";
 
 /**
  * The parts the intro's six pictures are built out of: a plate, a blob, a
@@ -69,7 +70,7 @@ export function body(
   seed = 1907,
 ): void {
   halo(ctx, cx, cy, r * 2.2, hex, 0.45);
-  const path = new Path2D(blobPath(cx, cy, r, r * 0.88, 3, 0.1, 0.06, t, seed, 30));
+  const path = splinePath(blobPoints(cx, cy, r, r * 0.88, 3, 0.1, 0.06, t, seed, 30), true);
   // Deep rather than dark: an outline with nothing but the background inside
   // it reads as a hole cut in the page, and this is meant to look like
   // something wet standing on it.
@@ -102,7 +103,10 @@ export function hull(
   const r = b.h * 0.07;
   const cx = b.x + b.w * lobeAt;
   halo(ctx, cx, y - r * 0.5, r * 2.4, hex, 0.5);
-  const lobe = new Path2D(blobPath(cx, y - r * 0.5, r, r * 0.9, 3, 0.06, 0.03, t, 2207, 24));
+  const lobe = splinePath(
+    blobPoints(cx, y - r * 0.5, r, r * 0.9, 3, 0.06, 0.03, t, 2207, 24),
+    true,
+  );
   ctx.fillStyle = mixHex(hex, "#0B0718", 0.7);
   ctx.fill(lobe);
   strokeGlow(ctx, lobe, hex, Math.max(1.2, r * 0.22), 1);

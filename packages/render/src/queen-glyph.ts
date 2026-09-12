@@ -1,10 +1,6 @@
-import {
-  blobRadiusMul,
-  catmullRomToBezierPath,
-  livingSilhouette,
-  type Point,
-} from "@neon-spore/content";
+import { blobRadiusMul, livingSilhouette, type Point } from "@neon-spore/content";
 import { type Color, livingKindForColor } from "@neon-spore/sim";
+import { splinePath } from "./spline.js";
 
 /** Points around the contour — the same count `blobPath` itself walks. */
 const N = 40;
@@ -20,8 +16,10 @@ const INNER_SHARE = 0.6;
 
 /** The outline of a creature part-way through turning into something else. */
 export interface MarkOutline {
-  /** Path data in silhouette units, centred on the origin. */
-  d: string;
+  /** The contour in silhouette units, centred on the origin. */
+  path: Path2D;
+  /** The points it is splined through, for whoever has to measure it. */
+  pts: readonly Point[];
   /** Divide by this to reach radius-1 units — the creature's own half-extent,
    * never the ball's, so balling up genuinely shrinks the mark instead of
    * being normalised straight back to full size. */
@@ -79,7 +77,7 @@ export function markOutline(
     const m = mix(creature, 1, ball);
     pts.push({ x: Math.cos(a) * rx * m, y: Math.sin(a) * ry * m });
   }
-  return { d: catmullRomToBezierPath(pts), norm, ryShare: creatureRy / norm };
+  return { path: splinePath(pts, true), pts, norm, ryShare: creatureRy / norm };
 }
 
 /**

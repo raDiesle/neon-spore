@@ -1,9 +1,10 @@
-import { blobPath, type IntroFigure } from "@neon-spore/content";
+import { blobPoints, type IntroFigure } from "@neon-spore/content";
 import { smoothstep } from "./ease.js";
 import { halo, strokeGlow } from "./glow.js";
 import { mixHex } from "./hex.js";
 import type { FigureBox } from "./intro-parts.js";
 import { PALETTE } from "./palette.js";
+import { splinePath } from "./spline.js";
 
 /**
  * THE LOUD HALF OF THE INTRO: a headline on a lit slab, a price-tag flash, and
@@ -124,7 +125,10 @@ export function headline(
   // caches one canvas per colour and rounded radius, and a radius that follows
   // the cycle would bake a new one every frame (`glow.ts`).
   halo(ctx, mid, cy, h * 1.5, accent.hex, 0.18 + 0.3 * depth);
-  const slab = new Path2D(blobPath(mid, cy, w / 2, h / 2, 6, 0.035, 0.02, age * 0.7, 3313, 56));
+  const slab = splinePath(
+    blobPoints(mid, cy, w / 2, h / 2, 6, 0.035, 0.02, age * 0.7, 3313, 56),
+    true,
+  );
   ctx.fillStyle = mixHex(accent.hex, "#0B0718", 0.86);
   ctx.fill(slab);
   strokeGlow(ctx, slab, accent.hex, Math.max(1.4, h * 0.055), 0.85 + 0.6 * depth);
@@ -161,8 +165,9 @@ export function flashTag(
   // Faster than the page's own clock and on a beat of its own: a sign that
   // ticks is a sign somebody is standing behind.
   const beat = 1 + 0.05 * Math.sin(age * 4.6);
-  const burst = new Path2D(
-    blobPath(0, 0, r * beat, r * 0.82 * beat, 11, 0.19, 0.05, age * 0.9, 4409, 72),
+  const burst = splinePath(
+    blobPoints(0, 0, r * beat, r * 0.82 * beat, 11, 0.19, 0.05, age * 0.9, 4409, 72),
+    true,
   );
   ctx.fillStyle = accent.hex;
   ctx.fill(burst);

@@ -1,4 +1,3 @@
-import { openSmoothPath } from "@neon-spore/content";
 import {
   type Creature,
   lidIsHeld,
@@ -20,6 +19,7 @@ import {
 } from "./handle-draw.js";
 import type { Circle, Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { splinePath } from "./spline.js";
 
 /**
  * THE LID's cord, and the handle on the end of it.
@@ -139,7 +139,7 @@ function drawOne(
     waveHeld: 1.1,
     waveSlack: 2.4,
   });
-  const cord = new Path2D(openSmoothPath(sag));
+  const cord = splinePath(sag, false);
   strokeGlow(ctx, cord, held ? rim : hex, STROKE.outline * (1 - pull * 0.35), 0.4 + pull * 1.4);
 
   if (held) drawHandleRest(ctx, rest, hex);

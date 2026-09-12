@@ -1,8 +1,9 @@
-import { openSmoothPath, type Point } from "@neon-spore/content";
+import type { Point } from "@neon-spore/content";
 import type { SimConfig, SimEvent } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { type Layout, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { splinePath } from "./spline.js";
 
 /**
  * The one thing about THE WARDEN that outlives a frame.
@@ -78,7 +79,7 @@ export class WardenFx {
       }
       ctx.save();
       ctx.globalAlpha = Math.max(0, 1 - t) ** 1.2;
-      strokeGlow(ctx, new Path2D(openSmoothPath(pts)), PALETTE.rock, STROKE.inner, 0.8);
+      strokeGlow(ctx, splinePath(pts, false), PALETTE.rock, STROKE.inner, 0.8);
       ctx.restore();
     }
   }

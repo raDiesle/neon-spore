@@ -1,6 +1,7 @@
-import { blobPath, surfaceDim, surfaceLit } from "@neon-spore/content";
+import { blobPoints, surfaceDim, surfaceLit } from "@neon-spore/content";
 import { rgba } from "./hex.js";
 import { PALETTE } from "./palette.js";
+import { splinePath } from "./spline.js";
 
 /**
  * The surface in the middle of THE GYRE's wheel: the organelle the whole
@@ -64,7 +65,10 @@ const SKIN_POINTS = 26;
  * `packages/sim/test/purity.test.ts` says so.
  */
 export function gyreSkinPath(r: number, time: number): Path2D {
-  return new Path2D(blobPath(0, 0, r, r, LOBES, LOBE_DEPTH, SKIN_WOBBLE, time, 17, SKIN_POINTS));
+  return splinePath(
+    blobPoints(0, 0, r, r, LOBES, LOBE_DEPTH, SKIN_WOBBLE, time, 17, SKIN_POINTS),
+    true,
+  );
 }
 
 /** How much of the membrane the mass inside fills, as a fraction of the

@@ -1,6 +1,7 @@
-import { blobPath } from "@neon-spore/content";
+import { blobPoints } from "@neon-spore/content";
 import { bakedCache } from "./baked.js";
 import { P1_SKIN, type SeatSkin } from "./seat-skin.js";
+import { splinePath } from "./spline.js";
 
 /**
  * WHAT A BUTTON ON THE PANEL SITS IN, AND WHAT IT IS SHAPED LIKE.
@@ -46,7 +47,7 @@ export function lobeBlob(r: number): Path2D {
   const held = blobs.get(key);
   if (held) return held;
   if (blobs.size > 12) blobs.clear();
-  const made = new Path2D(blobPath(0, 0, key, key, LOBES, DEPTH, 0.02, 0, SEED, 44));
+  const made = splinePath(blobPoints(0, 0, key, key, LOBES, DEPTH, 0.02, 0, SEED, 44), true);
   blobs.set(key, made);
   return made;
 }

@@ -1,4 +1,5 @@
-import { blobPath } from "@neon-spore/content";
+import { blobPoints } from "@neon-spore/content";
+import { splinePath } from "./spline.js";
 
 /**
  * ONE BLOB OF THE MOUSE'S INK — its size, its sag, and how it is put down.
@@ -119,14 +120,16 @@ export function drawBlob(ctx: CanvasRenderingContext2D, b: Blob, t: number): voi
   // liquid rather than as a dot being turned down.
   const fade = k < 0.18 ? k / 0.18 : 1 - (k - 0.18) / 0.82;
   const r = b.r * (1 + (SWELL - 1) * k);
-  const skirt = new Path2D(
-    blobPath(b.x, b.y, r, r * 0.92, b.lobes, 0.16, 0.1, t + b.seed, b.seed, 22),
+  const skirt = splinePath(
+    blobPoints(b.x, b.y, r, r * 0.92, b.lobes, 0.16, 0.1, t + b.seed, b.seed, 22),
+    true,
   );
   ctx.fillStyle = neonHue(b.hue, 0.9, 0.5);
   ctx.globalAlpha = 0.13 * fade;
   ctx.fill(skirt);
-  const core = new Path2D(
-    blobPath(b.x, b.y, r * 0.44, r * 0.4, b.lobes, 0.2, 0.12, t * 1.3 + b.seed, b.seed, 18),
+  const core = splinePath(
+    blobPoints(b.x, b.y, r * 0.44, r * 0.4, b.lobes, 0.2, 0.12, t * 1.3 + b.seed, b.seed, 18),
+    true,
   );
   ctx.fillStyle = neonHue(b.hue, 0.5, 1);
   ctx.globalAlpha = 0.24 * fade * fade;

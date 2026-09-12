@@ -122,9 +122,8 @@ function paintedColours(role: ViewRole, queen: Creature, boss: QueenState, beat:
 }
 
 /** The largest |x| or |y| any vertex of a path string reaches. */
-function extent(d: string): number {
-  const nums = d.match(/-?\d+(?:\.\d+)?/g) ?? [];
-  return Math.max(...nums.map((n) => Math.abs(Number(n))));
+function extent(pts: readonly { x: number; y: number }[]): number {
+  return Math.max(...pts.flatMap((p) => [Math.abs(p.x), Math.abs(p.y)]));
 }
 
 /** How many target locks a role's mark draws — the four corner pips are the
@@ -200,8 +199,8 @@ describe("the queen's information split", () => {
       // Ball size shows up as the outline's extent: `markOutline` normalises
       // by the creature's own half-extent, never the ball's, so a spent mark
       // genuinely shrinks instead of being scaled back to full size.
-      const shut = extent(markOutline("cyan", "red", 1, 1, 0).d);
-      const real = extent(markOutline("cyan", "red", 1, 0, 0).d);
+      const shut = extent(markOutline("cyan", "red", 1, 1, 0).pts);
+      const real = extent(markOutline("cyan", "red", 1, 0, 0).pts);
       expect(shut).toBeLessThan(real * 0.6);
     });
 

@@ -1,8 +1,9 @@
-import { circleSubpath, openSmoothPath } from "@neon-spore/content";
+import { circleSubpath } from "@neon-spore/content";
 import { strokeGlow } from "./glow.js";
 import { handleSag } from "./handle-draw.js";
 import { mixHex, rgba } from "./hex.js";
 import { STROKE } from "./palette.js";
+import { splinePath } from "./spline.js";
 import type { TetherDraw } from "./tether-look.js";
 
 /**
@@ -97,7 +98,7 @@ export function twist(d: TetherDraw): void {
   ctx.lineJoin = "round";
   ctx.strokeStyle = mixHex(paint, SHADOW, 0.55);
   ctx.lineWidth = w;
-  for (const s of [a!, b!]) ctx.stroke(new Path2D(openSmoothPath(s.pts)));
+  for (const s of [a!, b!]) ctx.stroke(splinePath(s.pts, false));
   ctx.strokeStyle = rgba(paint, 0.85 + 0.15 * pull);
   for (const s of [a!, b!]) {
     ctx.beginPath();
@@ -115,7 +116,7 @@ export function twist(d: TetherDraw): void {
   ctx.restore();
   if (pull > 0) {
     // Under tension the whole lay glows, faintly, as the shipped stroke does.
-    const glow = new Path2D(openSmoothPath(a!.pts));
+    const glow = splinePath(a!.pts, false);
     strokeGlow(ctx, glow, rim, w * 0.5, pull * 1.2);
   }
 }

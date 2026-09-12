@@ -22,6 +22,26 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 — path-text-sweep — the rest of render's contours reach the canvas as numbers
+
+Queue item: fifty-six render call sites still built a `Path2D` from spline
+text. Forty-five went mechanically to `splinePath` (a balanced-paren rewrite,
+one script), the odd ones by hand — the warden's two loops on one path, the
+shell's sealed piece, the queen's mark outline returning a path and its
+points — and a test now refuses a new text caller outside a one-file allow
+list. About 20 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the fifty-six sites, which are regular and which are not, the mark outline's test |
+| writing | 10 | the rewrite script, six hand cases, `path-text.test.ts`, three stale comments, `docs/performance.md` |
+| looking | 0 | nothing drawn changed |
+| friction | 0 | — |
+| landing | 5 | render, shape-sheet and director tests, `check:fast`, the commit, `bun run land --keep` |
+
+Bottleneck: none worth the name — the sweep was mechanical once the first
+round had settled the forms.
+
 ## 2026-09-12 — bosses-page-summary — the NOT BUILT YET boss page, cut to what fits
 
 Owner's ask: drastically summarise the boss page's ideas — no names or shapes

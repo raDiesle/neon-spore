@@ -1,6 +1,7 @@
-import { blobPath } from "@neon-spore/content";
+import { blobPoints } from "@neon-spore/content";
 import { MAZE_VERDICT_BEATS, type MazeState } from "@neon-spore/sim";
 import { mazeScatter } from "./maze-blood.js";
+import { splinePath } from "./spline.js";
 
 /**
  * What a shot the heart refuses throws back, and how far it gets.
@@ -109,7 +110,9 @@ export function drawSpillDrop(
   ctx.save();
   ctx.translate(x, y);
   ctx.rotate(drop.turn);
-  ctx.fill(new Path2D(blobPath(0, 0, size, size * 0.7, 3, 0.36, 0.14, drop.seed, drop.seed, 14)));
+  ctx.fill(
+    splinePath(blobPoints(0, 0, size, size * 0.7, 3, 0.36, 0.14, drop.seed, drop.seed, 14), true),
+  );
   ctx.restore();
 }
 

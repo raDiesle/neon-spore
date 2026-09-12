@@ -27,7 +27,7 @@ import { wardenRopeAnchor } from "./warden.js";
  * player can put a hand on.
  *
  * It is the game's first **open** contour — a line with two ends rather than a
- * closed loop with lobes — and it is drawn by `openSmoothPath` for that reason.
+ * closed loop with lobes — and it is drawn by an open spline for that reason.
  *
  * **Four things have to be legible here, in order, with nobody told anything**
  * (the owner asked for them by name, which is what exempts this file from *a

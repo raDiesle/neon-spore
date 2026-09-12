@@ -1,9 +1,5 @@
-import {
-  blobRadiusMul,
-  type CreatureSilhouette,
-  openSmoothPath,
-  type Point,
-} from "@neon-spore/content";
+import { blobRadiusMul, type CreatureSilhouette, type Point } from "@neon-spore/content";
+import { splinePath, splineSealed } from "./spline.js";
 
 /**
  * WHERE A PLATE SITS ON A BODY — THE SHELL's armour as geometry and nothing
@@ -70,7 +66,7 @@ function armourAt(s: CreatureSilhouette, a: number, t: number): Point {
   return contourAt(s, a, t, ARMOUR_MUL);
 }
 
-/** One piece's span of a contour, as points, ready for `openSmoothPath`. */
+/** One piece's span of a contour, as points, ready for `splinePath`. */
 function arcPoints(s: CreatureSilhouette, piece: number, t: number, mul: number): Point[] {
   const { from, to } = pieceAngleSpan(piece);
   const pts: Point[] = [];
@@ -170,10 +166,10 @@ export function platePaths(
     // The split's two ends *are* the arc's two ends — same angle, same point —
     // so the loop takes the wander between them and nothing else. Repeating a
     // point would put a zero-length curve segment in the fill for no reason.
-    body: new Path2D(`${openSmoothPath([...arc, ...edge.slice(1, -1)])} Z`),
-    arc: new Path2D(openSmoothPath(arc)),
-    edge: new Path2D(openSmoothPath(edge)),
-    crack: new Path2D(openSmoothPath(crackPoints(s, piece, seed, t))),
+    body: splineSealed([...arc, ...edge.slice(1, -1)]),
+    arc: splinePath(arc, false),
+    edge: splinePath(edge, false),
+    crack: splinePath(crackPoints(s, piece, seed, t), false),
   };
 }
 
@@ -184,7 +180,7 @@ export function platePaths(
  * same half.
  */
 export function bareArc(s: CreatureSilhouette, piece: number, t: number): Path2D {
-  return new Path2D(openSmoothPath(arcPoints(s, piece, t, 1)));
+  return splinePath(arcPoints(s, piece, t, 1), false);
 }
 
 /**

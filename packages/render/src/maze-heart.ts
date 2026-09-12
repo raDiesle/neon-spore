@@ -1,9 +1,10 @@
-import { blobPath } from "@neon-spore/content";
+import { blobPoints } from "@neon-spore/content";
 import { type MazeState, mazeHeartColor } from "@neon-spore/sim";
 import { halo, strokeGlow } from "./glow.js";
 import { drawMazeBlood } from "./maze-blood.js";
 import { drawMazeClock, type MazeSkin, mazeClockRun } from "./maze-timer.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { splinePath } from "./spline.js";
 
 /**
  * What is in the middle of THE MAZE: a heart, beating, with veins running out
@@ -198,9 +199,8 @@ export function drawMazeHeart(
   ctx.translate(cx, cy);
   ctx.rotate(Math.PI / 2);
   const s = skinOf(body, time);
-  const skin = new Path2D(
-    blobPath(0, 0, s.rx, s.ry, s.lobes, s.depth, s.wobble, s.t, s.seed, SKIN_POINTS),
-  );
+  const ring = blobPoints(0, 0, s.rx, s.ry, s.lobes, s.depth, s.wobble, s.t, s.seed, SKIN_POINTS);
+  const skin = splinePath(ring, true);
 
   // Fluid filled *into* the skin rather than into a circle behind it: a
   // gradient disc under a contour is a lamp with a lid on, and the same

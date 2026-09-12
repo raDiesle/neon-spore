@@ -1,6 +1,7 @@
-import { catmullRomToBezierPath, openSmoothPath, type Point } from "@neon-spore/content";
+import type { Point } from "@neon-spore/content";
 import { strokeGlow } from "./glow.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { splinePath } from "./spline.js";
 import { drawWardenCilia } from "./warden-cilia.js";
 import { drawPlates, type WardenPlatesDraw } from "./warden-plates.js";
 import { drawWardenEyelets } from "./warden-skin.js";
@@ -61,14 +62,14 @@ export function drawWardenEdges(d: WardenSurfaceDraw): void {
   const { ctx, cut, outer, pupil, openness } = d;
   strokeGlow(
     ctx,
-    new Path2D(cut ? openSmoothPath(cut.edge) : catmullRomToBezierPath(outer)),
+    cut ? splinePath(cut.edge, false) : splinePath(outer, true),
     PALETTE.rock,
     STROKE.outline,
     0.7,
   );
   strokeGlow(
     ctx,
-    new Path2D(cut ? openSmoothPath(cut.lip) : catmullRomToBezierPath(pupil)),
+    cut ? splinePath(cut.lip, false) : splinePath(pupil, true),
     d.lip,
     STROKE.outline,
     0.6 + openness * 0.8,

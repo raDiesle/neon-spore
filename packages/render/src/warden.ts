@@ -1,9 +1,4 @@
-import {
-  catmullRomToBezierPath,
-  hullRadiusMul,
-  type Point,
-  wardenOpening,
-} from "@neon-spore/content";
+import { hullRadiusMul, type Point, wardenOpening } from "@neon-spore/content";
 import {
   type Creature,
   type SimConfig,
@@ -14,6 +9,7 @@ import {
 } from "@neon-spore/sim";
 import { type Circle, type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { splineInto } from "./spline.js";
 import { drawEye, drawHatch, HATCH } from "./warden-eye.js";
 import { WARDEN_LOOK } from "./warden-look.js";
 
@@ -159,13 +155,16 @@ export function drawWarden(
   // One closed subpath where the opening could be cut, and the old two-loop
   // ring where it could not — a pupil somewhere the walls cannot reach is
   // still a body, and drawing it whole is better than drawing it folded.
-  const shape = cut
-    ? catmullRomToBezierPath(cut.contour)
-    : `${catmullRomToBezierPath(outerPts)} ${catmullRomToBezierPath(pupilPts)}`;
+  const body2d = new Path2D();
+  if (cut) {
+    splineInto(body2d, cut.contour, true);
+  } else {
+    splineInto(body2d, outerPts, true);
+    splineInto(body2d, pupilPts, true);
+  }
 
   // Even-odd still, for the fallback's sake: it cuts that hole whichever way
   // either loop happens to wind, and on one contour it decides nothing.
-  const body2d = new Path2D(shape);
   ctx.save();
   ctx.fillStyle = PALETTE.rockDark;
   ctx.fill(body2d, "evenodd");

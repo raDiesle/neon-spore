@@ -568,6 +568,12 @@ through `spline.ts` — `splineInto`, `splinePath`, `splineSealedInto`,
 `splineSkirt`, `tube` — never from `openSmoothPath`, `blobPath` or
 `catmullRomToBezierPath` text. The text forms stay for what really takes text:
 `tools/shape-sheet`, the menu's `<path>` wordmark, a contour baked once and
-cached. Fifty-six calls in forty-eight render files still take the text form
-and are colder than these — a boss, a creature body, a bake — and are queued
-as one sweep rather than done here, because the profile did not reach them.
+cached. The sweep of the rest followed the same day: forty-five more calls in thirty
+render files went to `splinePath`, the warden's two loops to `splineInto` on
+one path, the shell's sealed piece to `splineSealed`, and the queen's mark
+outline now hands back a `Path2D` and its points rather than a `d` string.
+One file keeps the text form — `pulse-shape.ts`, a per-lane outline mixed from
+three string builders and baked once — and
+`packages/render/test/path-text.test.ts` holds the line: a `src/` file that
+names one of the three outside its allow list is a red check, so the next
+caller is caught before the next profile.
