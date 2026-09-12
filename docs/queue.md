@@ -165,6 +165,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 ## Unverified at ef8cb3b6: the reconnect the two new tests model, against a real D…
 
 - **Found:** 2026-09-12, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-12, claude/queue-unverified-at-ef8cb3b6-the-reconnect-the-two-new
 - **Files:** `docs/queue.md`, `docs/time-log.md`, `packages/net/test/clock.test.ts`, `packages/net/test/desync.test.ts`, `packages/net/test/lockstep.test.ts`, `packages/net/test/protocol.test.ts`, `packages/net/test/scheduler-faults.test.ts`
 
 *`packages/net` says which failure modes the scheduler survives* landed from a session that could not look at it. What went unchecked:
