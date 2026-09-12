@@ -22,6 +22,28 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 · malfunction A — a fault has a visible cause
+
+The first piece of the owner's rule *whenever there is a malfunction there
+must be an indication and a visible cause*: THE JAM and THE COIL get an
+emitter hanging from the top of the field from the first frame, and a beam
+from it to what the fault has taken on each screen — steady on the held
+trigger, flashing in the next shot's colour on the runaway gun. The guides
+and the mechanic rows name it; the cannon row also stops describing the
+brake that came out on 6 September. About 20 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the two passes, where the band's circles come from, which seat holds GUARD and which the colours, the LANTERN recipe |
+| writing | 5 | `fault-emitter.ts`, the two call sites, the guides, the mechanic rows, the bestiary |
+| looking | 5 | four frames — the beam too thin at first, both colour lobes equally bright, the emitter under the test view's header |
+| friction | 0 | — |
+| landing | 5 | render and content tests, the index row, the commit, `land --keep` |
+
+Bottleneck: **looking** — a beam that read as a wire at phone size, widened
+twice, and the unloaded colour's beam made a thread so the next shot can be
+read off it.
+
 ## 2026-09-12 · iris-in — THE COUNT wears IRIS; DIAL and FUSE to the SHAPES page
 
 The owner's decision on `creature:countdown`. `bun run versus adopt` took

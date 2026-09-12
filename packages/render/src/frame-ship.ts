@@ -1,8 +1,10 @@
 import { setHas } from "@neon-spore/content";
 import type { World } from "@neon-spore/sim";
 import { bandControlSet, drawBand } from "./band.js";
+import { bandLobes } from "./band-lobes.js";
 import { drawWaveOpening } from "./briefing.js";
 import type { Effects } from "./effects.js";
+import { drawFaultBeam, faultBeamEnds } from "./fault-emitter.js";
 import { drawFenceArcs } from "./fence-arc.js";
 import type { GuideStage } from "./guide-scene.js";
 import { drawControlHover } from "./hover.js";
@@ -21,6 +23,7 @@ import { seatSkin } from "./seat-skin.js";
 import { drawShipHand } from "./ship-hand.js";
 import { drawCommsSiren } from "./siren.js";
 import { drawTorchAlarm } from "./torch-alarm.js";
+import { showsCannon, showsShield } from "./view-role.js";
 
 /**
  * **The two passes that are about the ship**: the hull with its controls, and
@@ -149,6 +152,9 @@ export function drawOverlays(
     view.leadTicks ?? 0,
     surfaceY ?? null,
   );
+  // Over the finished band, from the emitter at the top of the field down to
+  // the button the fault has taken on this screen (`fault-emitter.ts`).
+  drawFaultBeams(ctx, l, world, view);
   // Over the finished band: whichever control a desk's mouse is resting on.
   drawControlHover(ctx, l, view);
   drawOverlay(ctx, l, view);
@@ -168,4 +174,25 @@ export function drawOverlays(
     names: view.names,
     pointer: view.pointer,
   });
+}
+
+/** The fault's beam ends are the band's own circles, read off the same set
+ * the band was drawn from, plus the dome or the muzzle for the seat that has
+ * the thing and not its button. */
+function drawFaultBeams(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  world: World,
+  view: ViewState,
+): void {
+  if (world.malfunction === null) return;
+  const set = bandControlSet(view.controls, world.wave);
+  const lobes = [...bandLobes(l, set, 1), ...bandLobes(l, set, 2)].map((b) => ({
+    id: b.control.id,
+    x: b.circle.x,
+    y: b.circle.y,
+    r: b.circle.r,
+  }));
+  const ends = faultBeamEnds(l, world, lobes, showsCannon(view.role), showsShield(view.role));
+  drawFaultBeam(ctx, l, world, ends, view.beatPhase, view.time);
 }

@@ -453,6 +453,18 @@ control has it.** Not a creature and not a panel: a fault is a fact about the
 wave, named beside `boss` and `controls` on `Wave`, and it reads the same on
 every set because it changes no button on any of them.
 
+**A fault has a visible cause** (the owner's rule of 12 September 2026:
+*whenever there is a malfunction there must be an indication and a visible
+cause*). From the first frame of the wave an emitter hangs from the top edge of
+the field, in the middle — the LANTERN body off the shapes page, two antennae
+and a lit vesicle, in the arc-blue the torn button bleeds — and a beam runs from
+it to whatever the fault has taken on this screen: GUARD on the pilot's panel
+and the dome on the navigator's for a shield fault; RED and CYAN on the
+navigator's and the muzzle on the pilot's for a cannon fault, the beam in the
+colour of the next shot and flashing on each one. It stands in no column and
+cannot be shot — a target that ended the fault would be the brake put back
+(`packages/render/src/fault-emitter.ts`).
+
 Two of them, and they are two mechanics rather than one because a pair who has
 played one has learnt nothing about the other:
 

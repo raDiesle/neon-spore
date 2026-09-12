@@ -898,6 +898,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/fence-crack.ts` | **The breaking point in a wall, on the screen that is shown it.** A gap is a hole the dome is steered into; a… |
 | `packages/render/src/fence-exit.ts` | **A wall leaving the ship it did not touch.** A fence that finds the dome standing in one of its ways through… |
 | `packages/render/src/fence-skull.ts` | **The skull the current draws over the dome when the wall above it is shut.** A fence is answered by the… |
+| `packages/render/src/fault-emitter.ts` | the malfunction's visible cause: the LANTERN emitter hanging from the top of the field and its beam down to the button, dome or muzzle the fault has taken on this screen |
 | `packages/render/src/grip-arrows.ts` | THE PUSH, said before it happens: the two white arrows beside a held rock, and the beat they go out for |
 | `packages/render/src/effects-ship.ts` | the ship's own clocks: the swallow, the fire opening, the deflection flash, the queen's shudder |
 | `packages/render/src/strand-still.ts` | One live bead on the navigator's screen that **no shot can answer this instant**: the reel drawn as a grey outline |

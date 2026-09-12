@@ -171,7 +171,7 @@ export const WAVES_ACT_7: Wave[] = [
     sentence:
       "The one where the gun will not stop, and the only thing left to decide is what it is pointed at.",
     guide: {
-      both: "The cannon has jammed on. It fires by itself, on every beat, up whichever column player 1 is standing in — and it alternates: red, cyan, red, cyan. RED and CYAN are dead, and nothing stops the gun.",
+      both: "Something is hanging from the top of the field, and it has the gun. Its beam is on RED and CYAN and on the muzzle, and the cannon fires by itself, on every beat, up whichever column player 1 is standing in — alternating: red, cyan, red, cyan. The beam is the colour of the next shot. RED and CYAN are dead, and nothing stops the gun or reaches the thing holding it.",
       p1: "You are not shooting any more, you are aiming. Slide onto a body on the beat its colour comes up, and be off a lure's column before the next shot lands.",
       p2: "You have no trigger this wave. Count the colours out loud so they know which beat is theirs, and call the lures — where the gun is pointed is the only thing either of you can still decide.",
       scene: "theJam",
@@ -193,7 +193,7 @@ export const WAVES_ACT_7: Wave[] = [
     name: "THE COIL",
     sentence: "The one where the shield never goes away, and it opens whatever it can see.",
     guide: {
-      both: "The trigger has stuck down: the shield is up over player 2's column on every beat, and nobody can put it away. New on the field is a rock inside a dome of its own. It comes in at the right wall and crosses to the left instead of falling, sinking at every wall it turns at, and nothing touches it while the dome is on. A dome the plate is standing under comes off — but the plate has to see it: a rock falling in the lane between them takes the whole reach, and while one is under a dome nothing happens at all. What comes out runs for the wall furthest from the plate. The charge jumps to another dome still standing and opens that one too. GUARD is dead on player 1's panel.",
+      both: "Something is hanging from the top of the field, and it has the trigger. Its beam is on GUARD and on the plate, and the shield is up over player 2's column on every beat; nobody can put it away and nothing reaches the thing holding it. New on the field is a rock inside a dome of its own. It comes in at the right wall and crosses to the left instead of falling, sinking at every wall it turns at, and nothing touches it while the dome is on. A dome the plate is standing under comes off — but the plate has to see it: a rock falling in the lane between them takes the whole reach, and while one is under a dome nothing happens at all. What comes out runs for the wall furthest from the plate. The charge jumps to another dome still standing and opens that one too. GUARD is dead on player 1's panel.",
       p1: "The bolt is on your screen and on nobody else's, so which dome opens next is yours to say. Call the column the moment it leaves — they have four beats. GUARD does nothing this wave.",
       p2: "Do not shield! The plate is yours and it never goes away: a dome you stand under comes open, and what comes out is thrown at the ship from right there. Say the route, and say what is in the lane.",
       scene: "theCoil",

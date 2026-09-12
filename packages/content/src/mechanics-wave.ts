@@ -18,11 +18,11 @@
  */
 export const WAVE_MECHANICS = {
   cannonFault: {
-    what: "The gun fires itself, up whatever column the pilot is standing in, on every beat. Both colours go dead on the navigator's panel and one button takes their place: a tap holds the fire for two beats, and the next tap is only answered six beats after the last. So the pilot is not choosing when to shoot any more, only what the shot is pointed at — and crossing a column a shot must not go up is something they have to ask for out loud.",
+    what: "A thing hanging from the top of the field has the gun: its beam is on the two colour lobes and on the muzzle, in the colour of the next shot, and the cannon fires by itself, up whatever column the pilot is standing in, on every beat. Both colours go dead on the navigator's panel, nothing brings them back and nothing reaches the thing holding them. So the pilot is not choosing when to shoot any more, only what the shot is pointed at — and crossing a column a shot must not go up is something they have to ask for out loud.",
     reach: "wave",
   },
   shieldFault: {
-    what: "The dome comes up by itself, over whatever column the navigator has left it in, on every beat. The trigger goes dead on the pilot's panel and stays dead. Every rock the plate is standing under is warded without anybody asking — and every clasp it passes is opened without anybody asking either, whether or not the cannon is ready for the body inside.",
+    what: "A thing hanging from the top of the field has the trigger: its beam is on GUARD and on the plate, and the dome comes up by itself, over whatever column the navigator has left it in, on every beat. The trigger goes dead on the pilot's panel and stays dead, and nothing reaches the thing holding it. Every rock the plate is standing under is warded without anybody asking — and every clasp it passes is opened without anybody asking either, whether or not the cannon is ready for the body inside.",
     reach: "wave",
   },
 } as const;

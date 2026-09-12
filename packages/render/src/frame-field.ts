@@ -9,6 +9,7 @@ import { drawCreatures } from "./creatures.js";
 import { drawDartGuides } from "./dart-path.js";
 import { drawDartQueries } from "./dart-query.js";
 import type { Effects } from "./effects.js";
+import { drawFaultEmitter } from "./fault-emitter.js";
 import { drawFences } from "./fence.js";
 import { drawBackground, drawGrid, drawRadar } from "./field.js";
 import { drawGhostRows } from "./ghost-row.js";
@@ -94,6 +95,10 @@ export function drawBodies(
 ): void {
   // Under the creatures: the mark is on the column, not on anything in it.
   drawLanceMark(ctx, l, world);
+  // And under them too, hanging from the top edge: what has the control a
+  // fault has taken (`fault-emitter.ts`). A body falling down the middle
+  // column crosses in front of it.
+  drawFaultEmitter(ctx, l, world, view.time);
   // The wind between every wheel and the mouth, under everything: it is the
   // one picture in the pass that must never cross in front of a colour, and
   // it reaches from the middle of the field down to the hull (`gyre-wind.ts`).
