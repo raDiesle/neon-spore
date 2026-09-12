@@ -24,8 +24,8 @@ export { dialCount, dialOver } from "./countdown-dial.js";
 export { fuseCount, fuseOver } from "./countdown-fuse.js";
 export { irisCount, irisOver } from "./countdown-iris.js";
 export { COUNTDOWN_LOOK, type CountdownLook } from "./countdown-look.js";
-export { drawLivingBody } from "./creature-body.js";
 export type { Body } from "./creature-body-in.js";
+export { drawLivingBody } from "./creature-body-living.js";
 export {
   contourClock,
   creatureAt,

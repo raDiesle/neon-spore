@@ -959,6 +959,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/balloon.ts` | THE BALLOON, drawn — a skin with a knot under it, filling where it appears, leaning the way it climbs |
 | `packages/render/src/creature-body-in.ts` | **What a body draw is handed.** Cut out of `creature-body.ts` when THE BALLOON's row took that file over its… |
 | `packages/render/src/creature-body-rock.ts` | The three rock body draws: the plain tiers, the torch, and the coil drawn as the burning torch it will become |
+| `packages/render/src/creature-body-living.ts` | The ordinary living body, on its own so the kinds that wear it can reach it without reaching the table |
 | `packages/render/src/handle-place.ts` | **Where a handle is standing**, as against where a finger may grab it |
 | `packages/render/src/crank-dial.ts` | THE CLAW's crank, drawn: the winder that brings the arm home |
 | `packages/render/src/crystal.ts` | THE CRYSTAL: a craft three tiles wide with an electric field round it — the order its parts go on in |

@@ -1,10 +1,5 @@
-import { beatboxArms, type CreatureSilhouette } from "@neon-spore/content";
-import {
-  beatboxHitsMade,
-  type CreatureKind,
-  colourArmourLeft,
-  isMeteorKind,
-} from "@neon-spore/sim";
+import { beatboxArms } from "@neon-spore/content";
+import { beatboxHitsMade, type CreatureKind, isMeteorKind } from "@neon-spore/sim";
 import { drawBalloon } from "./balloon.js";
 import { beatboxArmGrown, beatboxSwell } from "./beatbox.js";
 import { drawBeatboxAir } from "./beatbox-air.js";
@@ -14,19 +9,15 @@ import { drawLeechBody, drawLimpetBody } from "./cling.js";
 import { showsCount } from "./countdown.js";
 import { COUNTDOWN_LOOK } from "./countdown-look.js";
 import type { Body } from "./creature-body-in.js";
+import { drawLivingBody } from "./creature-body-living.js";
 import { drawCoilBody, drawMeteorBody, drawTorchBody } from "./creature-body-rock.js";
 import { drawMagnetBody, drawStrandBody } from "./creature-body-worn.js";
 import { livingBodyMul } from "./creature-place.js";
-import type { Wash } from "./creature-tint.js";
 import { drawCrystalBody } from "./crystal.js";
 import { drawGhost, showsGhostBody } from "./ghost.js";
 import { drawGumBody } from "./gum.js";
 import { drawLid } from "./lid.js";
-import { drawLiving } from "./living-draw.js";
 import { MOUNT_LOOK } from "./mount-look.js";
-import { rindWears } from "./rind-look.js";
-import { showsVeilCore } from "./veil.js";
-import { showsVolleyCore } from "./volley.js";
 import { drawVolleyCore } from "./volley-core.js";
 import { drawWisp, showsWisp, wispJump } from "./wisp.js";
 
@@ -139,38 +130,6 @@ function drawBeatboxBody(b: Body): void {
   drawBeatboxAir(b.ctx, b.world, b.c, b.x, b.y, r, b.beatPhase);
   const shape = beatboxArms(beatboxHitsMade(b.c), beatboxArmGrown(b.world, b.c));
   drawLivingBody(b, swell, shape, beatboxWash(b.world, b.c, b.beatPhase));
-}
-
-export function drawLivingBody(b: Body, swell = 1, shape?: CreatureSilhouette, wash?: Wash): void {
-  const { ctx, l, world, c, x, y, time, beats, beatPhase, near } = b;
-  if (c.kind === "veil" && !showsVeilCore(l)) return;
-  if (!showsVolleyCore(world.cfg, c)) return;
-  // A rind under a look that gives it a body of its own wears that body while
-  // it has a layer on, the way a soundbox wears its arms: a contour that is a
-  // fact about this body now rather than about its kind (`rind-look.ts`).
-  const over = shape ?? rindWears(c, world.cfg);
-  drawLiving(
-    ctx,
-    l,
-    c,
-    x,
-    y,
-    beats,
-    beatPhase,
-    time,
-    // The longer of the two: the spark render/ holds for a third of a second
-    // off any `reject`, and the window the simulation is really refusing shots
-    // in when the reject was a wrong colour. Read off the world rather than
-    // timed here, so the grey body and the shot that bounces off it can never
-    // be two different lengths (`sim/colour-armour.ts`).
-    Math.max(b.blocked.get(c.id) ?? 0, colourArmourLeft(world, c)),
-    world.cfg,
-    near,
-    b.turn,
-    swell,
-    over,
-    wash,
-  );
 }
 
 /** The kinds whose body is not the ordinary blob and not a rock. */

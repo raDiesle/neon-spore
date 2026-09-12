@@ -231,3 +231,16 @@ to keep them, so the next one is a red check rather than a profile. Prove it
 with `bun test packages/render` — the budget tests count ops and a
 `bezierCurveTo` path draws the same ops the string did — and
 `bun run test:profile` on one machine before and after.
+
+## The director cannot be started from a worktree for a look
+
+- **Found:** 2026-09-12, claude/limpet-cycle
+- **Files:** `.claude/launch.json`, `tools/dev/supervise.ts`, `.claude/skills/lane/SKILL.md`
+- **What to do:** `preview_start` with `director-once` from a worktree started
+  the *main* checkout's server (its log said `editing …/neon-spore`), so a
+  lane that wants to see the director on its own code has no supported route
+  and this one ran `bun --hot tools/director/server.ts` by absolute path under
+  `timeout 120`. Give the worktree a route the lane skill can name: a
+  `dev:here` script or a `supervise.ts` flag that binds to the tree it is run
+  from, and a line in the skill saying so. Prove it with a test that the
+  script exists and the server's `editing` line names `process.cwd()`.

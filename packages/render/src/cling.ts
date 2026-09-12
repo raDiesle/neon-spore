@@ -10,8 +10,8 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { drawClingFuse, showsClingFuse } from "./cling-fuse.js";
-import { drawLivingBody } from "./creature-body.js";
 import type { Body } from "./creature-body-in.js";
+import { drawLivingBody } from "./creature-body-living.js";
 import { contourClock, livingScale } from "./creature-place.js";
 import type { Wash } from "./creature-tint.js";
 import { hazed } from "./depth.js";

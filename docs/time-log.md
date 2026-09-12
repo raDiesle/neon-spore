@@ -1820,3 +1820,24 @@ questions of `alive.md` are two entries under MECHANIC IDEAS in `ideas.md`, and
 
 Bottleneck: **reading** — deciding what was stale meant checking each figure
 in `alive.md` against `silhouettes.ts`, not just reading the file.
+
+## 2026-09-12 · limpet-cycle — the director's dev server read `drawLimpetBody` as null
+
+`creature-body.ts` builds its table of body draws at module load out of functions
+it imports, and `cling.ts` and `creature-body-worn.ts` imported `drawLivingBody`
+back from it — a cycle. The bundle entered from the table's side and never
+noticed; `bun run dev` entered from `canvas2d.ts` through `cling.ts`, and the
+table was built while `cling.ts` was still evaluating. `drawLivingBody` is its
+own module now, and `body-table-cycle.test.ts` holds the table out of every
+cycle. About 30 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the table, `cling.ts`'s imports, who reaches `creature-body.ts` |
+| writing | 10 | `creature-body-living.ts`, the four import changes, the test |
+| looking | 5 | the director from this tree on 4387, console clean, the stage drawn |
+| friction | 10 | `preview_start director-once` served the main checkout, as the lane skill says it does; the tree's own server was run by absolute path under `timeout` instead. A scan script's import regex matched across two lines |
+| landing | 5 | lint, the index row, `check:fast`, the commit, `land` |
+
+Bottleneck: **friction** — starting a worktree's director for a look has no
+supported route; `.claude/launch.json` starts the main tree every time.
