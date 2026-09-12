@@ -22,6 +22,27 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 — opening-lockstep — a wave's opening put through the scheduler
+
+Queue item: `briefings` is off in `DEFAULT_CONFIG`, so no two-device test had
+ever sent an opening over the wire. `two-devices-opening.test.ts` plays three
+— the introduction and its two acks, a stepped guide paged at each seat's own
+speed with a lifted thumb emptying a circle, and a prose guide through the
+gate and then the introduction — with a different delay in each hand, and
+asserts both devices leave each state on the same tick, after the slower
+hand's word, with the fingerprints equal on every tick between. About 15 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `briefing.ts`, `ready-gate.ts`, `guide-steps.ts`, `step.ts`'s opening branch, the two sibling tests' loops |
+| writing | 5 | the test file, `relay.ts`'s note |
+| looking | 0 | nothing drawn |
+| friction | 0 | one run too short for the first body at 120 Hz — lengthened, not a workaround |
+| landing | 5 | `check:fast`, the commit, `bun run land --keep` |
+
+The bottleneck was reading three files to learn what a `brief` press does on
+each of the three states before the first press could be scripted.
+
 ## 2026-09-12 — lockstep-transport — the scheduler says what it rests on
 
 Queue item: the one assumption delayed lockstep cannot check — that a frame is

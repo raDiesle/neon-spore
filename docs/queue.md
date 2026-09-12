@@ -162,24 +162,6 @@ Why the short label is what fits today, and what each of the three costs.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
 
-## No test drives a wave's opening through the scheduler
-
-- **Found:** 2026-09-12, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-12, claude/queue-no-test-drives-a-waves-opening-through-the-sched
-- **Files:** `packages/net/test/two-devices.test.ts`, `packages/sim/src/briefing.ts`
-
-`briefings` is off in `DEFAULT_CONFIG` and on in the game, so every two-device
-test plays a wave that has already started and no test anywhere puts an opening
-through the wire. The opening is the one place `step` takes a different shape —
-two command kinds are read, everything below the branch is skipped, and the tick
-counter still moves — and the `brief` ack that ends it has to land on the same
-tick on both devices or one of them plays a wave the other is still reading
-about. `{ ...DEFAULT_CONFIG, ...PAIR_ON }` is the world to build
-(`config-pair.ts`); ack each seat through `Lockstep.press` a few ticks apart, and
-assert the two worlds leave `OPENING_INTRO` on the same tick and hash equal
-through it. The guide's pages and its ready gate are the same case one step
-harder and can follow in the same test or the next one.
-
 ## Unverified at ef8cb3b6: the reconnect the two new tests model, against a real D…
 
 - **Found:** 2026-09-12, claude/scheduler-tests-two-devices-klxkyt

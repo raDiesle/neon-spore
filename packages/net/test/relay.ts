@@ -15,8 +15,9 @@ import type { ClientMessage, PlayerId, ServerMessage } from "../src/index.js";
  * frame it is missing, so a test that let one overtake would be proving
  * something about a transport this game does not have.
  *
- * Shared by the two files that drive two worlds at once — the scheduler's own
- * run in `two-devices.test.ts` and the wave in `two-devices-wave.test.ts`. The
+ * Shared by the three files that drive two worlds at once — the scheduler's
+ * own run in `two-devices.test.ts`, the wave in `two-devices-wave.test.ts` and
+ * the opening in `two-devices-opening.test.ts`. The
  * wires in `lockstep.test.ts` and `scheduler-faults.test.ts` are deliberately
  * not this one: theirs move packets by hand, one at a time, because what they
  * are about is a packet arriving at a moment of the test's choosing.
