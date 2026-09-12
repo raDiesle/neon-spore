@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-12 · 491c934e — Every field of SimConfig is named in a sheet, and the doc-drift allowlist is gone
+
+The owner's answer to the queue's question was *only the feel numbers*: the 105 tunables still frozen in `tools/test/doc-drift-allow.ts` each get one sentence, in plain words, in the sheet that describes the thing they are a dial for — what the number decides, with its config file named, not its value. The bosses' go in `docs/spec/bosses.md` (the queen, THE MIRROR, the Warden, THE VANE, PINBALL, THE PULSE, and a short 11.10 for THE MAZE, which had no section at all), THE GAUGE's and SNAKE's in `docs/spec/interludes.md`, the creatures' in `docs/spec/bestiary.md` — the ghost's and THE MALFUNCTION's in their own sections, the rest under a new *Each body's own numbers* — the shot box and the pod's steering in `docs/spec/systems.md`, and the field's depth in `docs/spec/graphics.md`. The allowlist emptied, so it is deleted with the test that policed it, and `tools/test/doc-drift.test.ts` now fails on any `SimConfig` field no document names.
+
 ## 2026-09-12 · 37e6811b — A lost stage is the round's verdict and nothing after it: the rounds' own second tries come out
 
 Since a hit fails the wave and the host opens it again from the top, THE MAZE's stage rebuilt after a dead end, SNAKE's attempt started over after a pause, and THE MIRROR asking the same round again all ran after their hit — so none of them ever ran in the game, and the tests reached them only by holding the hull. Now a crash in SNAKE is a verdict the way its clock is: the body stays where it stopped, the field holds so the crash is seen, and the wave goes again; `repeats`, the stun and `snakeStunTicks` are gone. A lost maze stage or mirror round comes off the world once its verdict has stood, which is what a held hull sees — the drum still comes down on the ship for a silence, on the beat it lands.
