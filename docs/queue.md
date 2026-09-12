@@ -175,17 +175,3 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
-
-## The director cannot be started from a worktree for a look
-
-- **Found:** 2026-09-12, claude/limpet-cycle
-- **Taken:** 2026-09-12, claude/queue-the-director-cannot-be-started-from-a-worktree-f
-- **Files:** `.claude/launch.json`, `tools/dev/supervise.ts`, `.claude/skills/lane/SKILL.md`
-- **What to do:** `preview_start` with `director-once` from a worktree started
-  the *main* checkout's server (its log said `editing …/neon-spore`), so a
-  lane that wants to see the director on its own code has no supported route
-  and this one ran `bun --hot tools/director/server.ts` by absolute path under
-  `timeout 120`. Give the worktree a route the lane skill can name: a
-  `dev:here` script or a `supervise.ts` flag that binds to the tree it is run
-  from, and a line in the skill saying so. Prove it with a test that the
-  script exists and the server's `editing` line names `process.cwd()`.

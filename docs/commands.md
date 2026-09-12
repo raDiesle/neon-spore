@@ -10,8 +10,12 @@ it has that is not here is one line missing below.
 ```
 bun run dev            # the wave editor (the director) at 4174, hot reload — for a human
 bun run dev:once       # the same on a free port, beside one that is running
+bun run dev:here       # the same, in the tree `bun run here` last named — the
+                       # `director-here` launch entry, for a worktree's director
+                       # from a session the harness opened in the main checkout
+bun run here           # name this tree for `dev:here` (tools/dev/here.ts)
 bun run dev:game       # the game at localhost:3000, hot reload — for a human
-                       # all three restart themselves after a git operation, so
+                       # all of them restart themselves after a git operation, so
                        # a half-written bundle is never served (tools/dev/)
 bun run preview        # build, then serve dist/ on 4173 — how an agent verifies
 bun run preview:once   # the same on a free port nobody else can be holding

@@ -15,6 +15,8 @@
   "scripts": {
     "dev": "bun tools/dev/supervise.ts bun --hot tools/director/server.ts",
     "dev:once": "DIRECTOR_PORT=0 bun tools/dev/supervise.ts --pin=DIRECTOR_PORT bun --hot tools/director/server.ts",
+    "dev:here": "DIRECTOR_PORT=0 bun tools/dev/supervise.ts --here --pin=DIRECTOR_PORT bun --hot tools/director/server.ts",
+    "here": "bun tools/dev/here.ts",
     "dev:game": "bun tools/dev/supervise.ts bun --hot apps/game/index.html --port 3000",
     "build": "bun run build:game && bun run build:director",
     "build:game": "bun run --cwd apps/game build",

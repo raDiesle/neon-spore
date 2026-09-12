@@ -22,6 +22,29 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 — director-here — a worktree's director from a session opened in the main checkout
+
+Queue item: `preview_start` started the main checkout's director from a
+worktree. A probe launched through `.claude/launch.json` showed the harness
+starts an entry in the directory the *session* opened in — right for a
+session opened in its worktree, wrong for one that made the worktree after
+opening in `main`. So: `bun run here` writes the tree to serve into the git
+directory every checkout shares, `supervise.ts --here` binds to it, and
+`director-here` is the launch entry. Checked live: its log's `editing` line
+named this worktree. About 15 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `supervise.ts`, `tree-moves.ts`, the lane skill, what the harness passes a launched process |
+| writing | 5 | `here.ts`, the flag, two scripts, the entry, seven tests, the skill and commands docs |
+| looking | 0 | the server's own log line, not a picture |
+| friction | 0 | one lint warning for a comma operator |
+| landing | 5 | `check:fast`, the commit, `bun run land --keep` |
+
+Bottleneck: reading — one probe launch answered the question the queue item
+guessed at (where the harness starts a process), and the design followed from
+the answer.
+
 ## 2026-09-12 — copies-sweep — seven rules the simulation owned were written out again elsewhere
 
 Queue item: nothing had swept for a re-derived rule since the copies table

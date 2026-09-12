@@ -19,7 +19,11 @@
  * untouched for the case it is good at. The open page comes back on its own:
  * the dev client reconnects to the new server and reloads itself.
  *
- *   bun tools/dev/supervise.ts <command> [args…]
+ *   bun tools/dev/supervise.ts [--here] [--pin=ENV_VAR] <command> [args…]
+ *
+ * `--here` binds to the tree `bun run here` last named rather than to the one
+ * this file lives in — the route for looking at a worktree's director from a
+ * session the harness opened in the main checkout (`here.ts`).
  *
  * A git operation that also rewrote `bun.lock` brought dependencies with it,
  * so the restart is preceded by `bun install`: without it the fresh server
@@ -32,10 +36,20 @@
 import { watch } from "node:fs";
 import { freePort } from "../ports.js";
 import { announce } from "../running.js";
+import { hereRoot } from "./here.js";
 import { gitDirOf, isTreeMove, locked, lockStamp } from "./tree-moves.js";
 
-const root = Bun.fileURLToPath(new URL("../../", import.meta.url));
 const argv = process.argv.slice(2);
+
+/**
+ * Which tree the child serves. This file's own by default; with `--here`, the
+ * one the pointer names (or the directory this was started in, when there is
+ * no pointer). The child is spawned *in* that tree, so a relative command like
+ * `bun --hot tools/director/server.ts` resolves to that tree's server — which
+ * then names it on its `editing` line, the check the lane skill asks for.
+ */
+const here = argv[0] === "--here" && argv.shift() !== undefined;
+const root = here ? hereRoot(process.cwd()) : Bun.fileURLToPath(new URL("../../", import.meta.url));
 
 /**
  * `--pin=NAME`: an environment variable holding `0`, meaning "any free port",
@@ -54,9 +68,10 @@ if (argv[0]?.startsWith("--pin=")) {
 }
 
 if (argv.length === 0) {
-  console.error("usage: bun tools/dev/supervise.ts [--pin=ENV_VAR] <command> [args…]");
+  console.error("usage: bun tools/dev/supervise.ts [--here] [--pin=ENV_VAR] <command> [args…]");
   process.exit(1);
 }
+console.log(`supervising ${root}`);
 
 /**
  * How long the tree must hold still before the child is restarted. Long enough

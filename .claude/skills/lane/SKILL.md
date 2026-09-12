@@ -63,12 +63,18 @@ A port belongs to a tree (`tools/ports.ts`): the main checkout keeps 4173 for
 the preview and 4174 for the director, and every worktree derives its own stable
 number from its own path. So:
 
-- **Do not use `.claude/launch.json` in a worktree.** Its entries carry no
-  `cwd`, so they start the *main* checkout's server, which then serves main's
-  code with nothing erroring. That is a verified result taken off the wrong
-  bundle, which is the one failure the whole port arrangement exists to prevent.
-- Launch by absolute path inside your own tree, read the port out of the
-  server's own first line, and confirm who answered:
+- **The harness starts a `.claude/launch.json` entry in the directory the
+  session opened in.** A session that opened in the main checkout and made
+  this worktree afterwards therefore gets *main*'s server from every entry,
+  serving main's code with nothing erroring — a verified result taken off the
+  wrong bundle, which is the one failure the whole port arrangement exists to
+  prevent. The route for the director from such a session is `bun run here`
+  in this worktree, then `preview_start` with **`director-here`**: the entry
+  binds to the tree `here` last named (`tools/dev/here.ts`), and its log's
+  `editing` line must name this worktree. Point it back with `bun run here`
+  from the main checkout when the lane is done.
+- For the game, launch by absolute path inside your own tree. Either way, read
+  the port out of the server's own first line and confirm who answered:
 
 ```bash
 curl -s http://localhost:<port>/__preview
