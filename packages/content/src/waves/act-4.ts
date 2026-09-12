@@ -151,12 +151,8 @@ export const WAVES_ACT_4: Wave[] = [
     },
     entries: [
       { beat: 0, col: 3, kind: "wisp", color: null },
-      { beat: 10, col: 5, color: "cyan" },
       { beat: 14, col: 1, kind: "wisp", color: null },
-      { beat: 20, col: 2, color: "red" },
-      { beat: 22, col: 6, kind: "meteor", color: null },
       { beat: 28, col: 4, kind: "wisp", color: null },
-      { beat: 30, col: 0, color: "cyan" },
     ],
   },
   {
@@ -171,12 +167,8 @@ export const WAVES_ACT_4: Wave[] = [
     },
     entries: [
       { beat: 0, col: 2, kind: "ghost", color: "cyan" },
-      { beat: 5, col: 6, color: "red" },
       { beat: 10, col: 1, kind: "ghost", color: "red" },
-      { beat: 12, col: 5, color: "cyan" },
       { beat: 18, col: 1, kind: "ghost", color: "cyan", path: "across" },
-      { beat: 22, col: 4, kind: "meteor", color: null },
-      { beat: 26, col: 6, color: "red" },
     ],
   },
   {
@@ -209,7 +201,6 @@ export const WAVES_ACT_4: Wave[] = [
       { beat: 13, col: 6, color: "red" },
       { beat: 14, col: 0, color: "cyan" },
       { beat: 20, col: 2, kind: "echo", color: "cyan" },
-      { beat: 22, col: 5, kind: "meteor", color: null },
       { beat: 24, col: 4, kind: "echo", color: "red" },
     ],
   },
@@ -240,10 +231,7 @@ export const WAVES_ACT_4: Wave[] = [
     entries: [
       { beat: 0, col: 3, kind: "rind", color: "red" },
       { beat: 8, col: 1, kind: "rind", color: "cyan" },
-      { beat: 11, col: 5, color: "cyan" },
-      { beat: 12, col: 6, color: "red" },
       { beat: 18, col: 2, kind: "rind", color: "cyan" },
-      { beat: 20, col: 4, kind: "meteor", color: null },
       { beat: 21, col: 5, kind: "rind", color: "red" },
     ],
   },

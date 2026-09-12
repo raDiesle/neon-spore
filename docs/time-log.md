@@ -22,6 +22,27 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 · trim-guides — a guided wave carries its lesson and nothing else
+
+The owner's rule for the wave the pair plays: only the enemies the lesson
+needs and no other kind — rocks and every special kind that are not the
+lesson go, plain slicks stay only where the lesson needs a target, at the
+fewest. Thirty-two guided waves trimmed, 90 entries out; a stray rock was on
+most of them. `guided-entries.test.ts` holds it: a kind on a guided wave is
+the one it introduces or one a table says the lesson keeps, with the reason
+(THE VANE's rocks, THE JAM's lures, the fence waves' wire). About 30 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | every guided wave's entries by kind and its guide, to say for each which bodies the lesson needs |
+| writing | 10 | the trim as one script over the act files, the test and its table |
+| looking | 0 | — |
+| friction | 5 | the director's save test round-trips the act files on disk and went red once against a hand-trimmed single-entry list it then wrote canonical |
+| landing | 5 | `check:fast`, the commit, `land --keep` |
+
+Bottleneck: **reading** — whether a slick is a target the lesson needs or
+padding is a sentence per wave, and there were thirty-two.
+
 ## 2026-09-12 · room-tests — the room tests wait for what they read, and `check:fast` reaches them
 
 Two landings went red on `apps/server/test/room.test.ts` for lanes that had

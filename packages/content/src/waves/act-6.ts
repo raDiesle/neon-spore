@@ -121,9 +121,7 @@ export const WAVES_ACT_6: Wave[] = [
     entries: [
       { beat: 0, col: 3, kind: "veer", color: null },
       { beat: 18, col: 5, kind: "veer", color: null },
-      { beat: 20, col: 1, color: "red" },
       { beat: 34, col: 2, kind: "veer", color: null },
-      { beat: 36, col: 4, kind: "meteor", color: null },
       { beat: 38, col: 6, kind: "veer", color: null },
     ],
   },
@@ -140,9 +138,7 @@ export const WAVES_ACT_6: Wave[] = [
     entries: [
       { beat: 0, col: 3, kind: "strand", color: "red", beads: 2 },
       { beat: 18, col: 1, kind: "strand", color: "cyan", beads: 3 },
-      { beat: 22, col: 6, color: "red" },
       { beat: 36, col: 1, kind: "strand", color: "red", beads: 5 },
-      { beat: 40, col: 0, kind: "meteor", color: null },
     ],
   },
   {
@@ -158,9 +154,7 @@ export const WAVES_ACT_6: Wave[] = [
     entries: [
       { beat: 0, col: 0, kind: "crawler", color: null, segments: 3, side: "left" },
       { beat: 24, col: 6, kind: "crawler", color: null, segments: 5, side: "right" },
-      { beat: 30, col: 3, color: "cyan" },
       { beat: 48, col: 0, kind: "crawler", color: null, segments: 7, side: "left" },
-      { beat: 54, col: 5, kind: "meteor", color: null },
     ],
   },
   {
@@ -192,13 +186,9 @@ export const WAVES_ACT_6: Wave[] = [
     entries: [
       { beat: 0, col: 5, kind: "fence", color: null },
       { beat: 12, col: 1, kind: "fence", color: null },
-      { beat: 22, col: 1, kind: "meteor", color: null },
       { beat: 26, col: 6, kind: "fence", color: null },
-      { beat: 38, col: 2, color: "cyan" },
       { beat: 40, col: 0, kind: "fence", color: null },
-      { beat: 52, col: 4, kind: "meteorMedium", color: null },
       { beat: 56, col: 3, kind: "fence", color: null },
-      { beat: 60, col: 6, color: "red" },
     ],
   },
   {
@@ -213,13 +203,9 @@ export const WAVES_ACT_6: Wave[] = [
     },
     entries: [
       { beat: 0, col: 3, kind: "fence", color: null, gaps: [], cracksRed: [3] },
-      { beat: 10, col: 5, color: "red" },
       { beat: 16, col: 3, kind: "fence", color: null, gaps: [], cracksCyan: [5] },
-      { beat: 26, col: 1, kind: "meteor", color: null },
       { beat: 32, col: 3, kind: "fence", color: null, gaps: [], cracksRed: [1] },
-      { beat: 42, col: 6, color: "cyan" },
       { beat: 48, col: 3, kind: "fence", color: null, gaps: [], cracksCyan: [4] },
-      { beat: 56, col: 2, kind: "meteorMedium", color: null },
     ],
   },
 ];

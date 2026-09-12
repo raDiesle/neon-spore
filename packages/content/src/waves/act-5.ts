@@ -127,13 +127,7 @@ export const WAVES_ACT_5: Wave[] = [
       p2: "Do not call where a body is, call where it will be. One position round the rim per beat, and the colour two along is the other one — so say the colour and the beat together, or it has turned by the time they hear it.",
       scene: "theGyre",
     },
-    entries: [
-      { beat: 0, col: 3, kind: "gyre", color: null },
-      { beat: 12, col: 0, color: "red" },
-      { beat: 16, col: 6, color: "cyan" },
-      { beat: 20, col: 1, color: "red" },
-      { beat: 26, col: 5, kind: "meteor", color: null },
-    ],
+    entries: [{ beat: 0, col: 3, kind: "gyre", color: null }],
   },
   {
     id: "theLid",
@@ -148,9 +142,7 @@ export const WAVES_ACT_5: Wave[] = [
     entries: [
       { beat: 0, col: 3, kind: "lid", color: "cyan" },
       { beat: 14, col: 1, kind: "lid", color: "red" },
-      { beat: 16, col: 5, color: "cyan" },
       { beat: 24, col: 5, kind: "lid", color: "red" },
-      { beat: 26, col: 2, color: "red" },
     ],
   },
   {
@@ -166,9 +158,7 @@ export const WAVES_ACT_5: Wave[] = [
     entries: [
       { beat: 0, col: 3, kind: "recoil", color: "red" },
       { beat: 14, col: 1, kind: "recoil", color: "cyan" },
-      { beat: 16, col: 5, color: "red" },
       { beat: 24, col: 0, kind: "recoil", color: "red" },
-      { beat: 26, col: 3, kind: "meteor", color: null },
       { beat: 28, col: 6, kind: "recoil", color: "cyan" },
     ],
   },
@@ -185,7 +175,6 @@ export const WAVES_ACT_5: Wave[] = [
     entries: [
       { beat: 0, col: 0, kind: "carom", color: "red" },
       { beat: 12, col: 6, kind: "carom", color: "cyan" },
-      { beat: 16, col: 3, color: "cyan" },
       { beat: 24, col: 1, kind: "carom", color: "cyan" },
       { beat: 28, col: 5, kind: "carom", color: "red" },
     ],
@@ -203,7 +192,6 @@ export const WAVES_ACT_5: Wave[] = [
     entries: [
       { beat: 0, col: 0, kind: "crystal", color: "red" },
       { beat: 14, col: 6, kind: "crystal", color: "cyan" },
-      { beat: 18, col: 3, color: "cyan" },
       { beat: 28, col: 1, kind: "crystal", color: "cyan" },
       { beat: 34, col: 5, kind: "crystal", color: "red" },
     ],
@@ -223,10 +211,7 @@ export const WAVES_ACT_5: Wave[] = [
       { beat: 8, col: 1, color: "red" },
       { beat: 14, col: 5, kind: "gum", color: null },
       { beat: 20, col: 5, color: "cyan" },
-      { beat: 24, col: 3, color: "red" },
       { beat: 30, col: 3, kind: "gum", color: null },
-      { beat: 36, col: 2, color: "cyan" },
-      { beat: 38, col: 4, color: "red" },
     ],
   },
   {
@@ -241,10 +226,7 @@ export const WAVES_ACT_5: Wave[] = [
     },
     entries: [
       { beat: 0, col: 1, kind: "volley", color: "red" },
-      { beat: 22, col: 5, color: "cyan" },
       { beat: 26, col: 5, kind: "volley", color: "cyan" },
-      { beat: 40, col: 1, kind: "meteor", color: null },
-      { beat: 46, col: 3, color: "red" },
     ],
   },
 ];

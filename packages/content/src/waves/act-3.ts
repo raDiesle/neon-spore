@@ -104,11 +104,8 @@ export const WAVES_ACT_3: Wave[] = [
       { beat: 3, col: 5, color: "red" },
       { beat: 8, col: 3, kind: "lure", color: "red" },
       { beat: 9, col: 4, color: "red" },
-      { beat: 14, col: 0, color: "cyan" },
       { beat: 15, col: 2, kind: "lure", color: "cyan" },
       { beat: 16, col: 4, color: "cyan" },
-      { beat: 18, col: 6, color: "red" },
-      { beat: 20, col: 1, color: "red" },
     ],
   },
   {
@@ -135,7 +132,6 @@ export const WAVES_ACT_3: Wave[] = [
     entries: [
       { beat: 0, col: 3, kind: "countdown", color: "red" },
       { beat: 8, col: 1, kind: "countdown", color: "cyan" },
-      { beat: 10, col: 5, color: "red" },
       { beat: 18, col: 2, kind: "countdown", color: "red" },
       { beat: 19, col: 5, kind: "countdown", color: "cyan" },
     ],
@@ -152,7 +148,6 @@ export const WAVES_ACT_3: Wave[] = [
     },
     entries: [
       { beat: 0, col: 1, kind: "shell", color: "cyan" },
-      { beat: 4, col: 5, color: "red" },
       { beat: 10, col: 4, kind: "shell", color: "red" },
     ],
   },
@@ -170,11 +165,8 @@ export const WAVES_ACT_3: Wave[] = [
       { beat: 0, col: 3, kind: "clasp", color: "cyan" },
       { beat: 6, col: 1, kind: "clasp", color: "red" },
       { beat: 12, col: 5, kind: "clasp", color: "red" },
-      { beat: 13, col: 1, kind: "meteor", color: null },
       { beat: 20, col: 2, kind: "clasp", color: "cyan" },
-      { beat: 21, col: 6, kind: "meteorMedium", color: null },
       { beat: 28, col: 4, kind: "clasp", color: "cyan" },
-      { beat: 28, col: 0, color: "red" },
     ],
   },
   {
@@ -192,9 +184,7 @@ export const WAVES_ACT_3: Wave[] = [
       { beat: 8, col: 6, kind: "dart", color: "cyan" },
       { beat: 16, col: 1, kind: "dart", color: "red" },
       { beat: 17, col: 5, kind: "dart", color: "cyan" },
-      { beat: 20, col: 3, color: "red" },
       { beat: 26, col: 2, kind: "dart", color: "cyan" },
-      { beat: 30, col: 4, color: "cyan" },
     ],
   },
   {
@@ -209,12 +199,9 @@ export const WAVES_ACT_3: Wave[] = [
     },
     entries: [
       { beat: 0, col: 3, kind: "veil", color: null },
-      { beat: 4, col: 6, color: "cyan" },
       { beat: 10, col: 1, kind: "veil", color: null },
       { beat: 11, col: 5, kind: "veil", color: null },
       { beat: 18, col: 2, kind: "veil", color: null },
-      { beat: 20, col: 4, kind: "meteor", color: null },
-      { beat: 22, col: 6, color: "red" },
       { beat: 24, col: 0, kind: "veil", color: null },
     ],
   },
