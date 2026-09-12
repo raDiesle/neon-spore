@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-12 · 843df525 — `bun run queue` says when an entry has gone stale
+
+Across the last seventy lanes in docs/time-log.md the most frequent bottleneck is reading, and half of those are an entry written before something landed on the files it names. The listing now compares each entry's `Found:` date with the last commit on `main` that touched any file its `Files:` line names, and prints `stale` under the entry — with that commit's sha and subject — when a file changed after the entry was written. An entry naming a file that is not on `main` any more is marked too, naming the file. A pattern, a directory and a file are all names. Nothing is deleted or rewritten: the mark is for the session that claims the item, so it re-reads before it works, and the prompt from `queue next` opens with the same line. `tools/queue/stale.ts`, tested against a fixture repository with dated commits; the rule is one sentence in docs/queue.md's preamble.
+
 ## 2026-09-12 · a3b3c65f — A page about a body holds with that body in the middle of the field, not at the top
 
 The owner, 12 September 2026: when a tutorial stops, the explained enemy should be around the middle of the screen, not the top. Every film's first page turned four beats in with its body on row two or three, under the corner plate. A page anchored at a body now holds with that body no higher than row six of the fifteen — the test in `scene-pages.test.ts` — and the pages after it work lower on the field. Twenty-eight films are retimed for it: the body page is longer, every later press stays about a beat and a half after its page opens where the fall leaves room (THE VEER and THE DART say in a comment where it does not), kills land before the hull, and a second arrival enters after the first body's hold so the caption keeps ringing the body the page is about.
