@@ -1,7 +1,5 @@
-import { halo } from "./glow.js";
+import { type Box, drawPlate } from "./guide-plate.js";
 import type { Layout } from "./layout.js";
-import { drawLobeGloss, drawLobeSocket } from "./lobe-shell.js";
-import { drawNavFeeder, navBlob } from "./nav-button.js";
 import { PALETTE } from "./palette.js";
 import { type SeatNames, seatName } from "./seat-name.js";
 import { seatSkin } from "./seat-skin.js";
@@ -55,15 +53,28 @@ export const BANNER_TOP = 24;
 /** How far in from the screen's edge it sits. */
 const EDGE = 8;
 
-/** The two rows, and the distance between their baselines. */
-const TITLE_FONT = '700 18px "Courier New",monospace';
-const TAG_FONT = '700 10px "Courier New",monospace';
-const ROW_GAP = 23;
+/**
+ * The two rows, and the distance between their baselines.
+ *
+ * Smaller than they were, by a third: at eighteen points the name's row made
+ * a plate two thirds of a phone across, and on wave after wave it stood over
+ * the very body the page was about — the owner, 12 September 2026: *the round
+ * box which says "tutorial" often overlaps what is being explained, so you
+ * can't see what is explained; move it top left and have it more compact, but
+ * still visible.* The corner is the same corner; what changed is that the
+ * plate now ends where the HUD's own rows begin, and a body under the caption
+ * has the middle of the screen to itself.
+ */
+const TITLE_FONT = '700 12px "Courier New",monospace';
+const TAG_FONT = '700 8px "Courier New",monospace';
+const ROW_GAP = 14;
 /** What the tag's own row takes, top to bottom; the name's row is `ROW_GAP`. */
-const TAG_ROW = 21;
+const TAG_ROW = 12;
+/** Where the tag's baseline sits under the middle of its row. */
+const TAG_BASE = 3;
 /** Room for the dot in front of TUTORIAL, and how far in front it sits. */
-const DOT_R = 3;
-const DOT_GAP = 9;
+const DOT_R = 2.5;
+const DOT_GAP = 7;
 
 /**
  * How much bigger the plate is than the words it carries, across and down.
@@ -134,20 +145,20 @@ export function drawGuideCorner(ctx: CanvasRenderingContext2D, l: Layout, p: Cor
 
   const title = p.seat === undefined ? "" : `${seatName(p.seat, p.names)} · SCREEN`;
   const box = plateBox(ctx, l, title);
-  plate(ctx, l, box, skin?.tint ?? PALETTE.pod, flash, age);
+  drawPlate(ctx, l, box, skin?.tint ?? PALETTE.pod, flash, age);
 
   // Centred on the plate rather than set against its left edge, for the same
   // reason the plate is bigger than the words: a contour is widest through its
   // middle, so that is the one line every row can use the whole of.
   const cx = box.x + box.w / 2;
   const rows = title === "" ? 1 : 2;
-  const tagY = box.y + box.h / 2 + (rows === 1 ? 4 : 4 - ROW_GAP / 2);
+  const tagY = box.y + box.h / 2 + (rows === 1 ? TAG_BASE : TAG_BASE - ROW_GAP / 2);
   ctx.textAlign = "center";
   ctx.font = TAG_FONT;
   const tagW = ctx.measureText("TUTORIAL").width;
   ctx.fillStyle = PALETTE.pod;
   ctx.beginPath();
-  ctx.arc(cx - tagW / 2 - DOT_GAP, tagY - 3, DOT_R, 0, Math.PI * 2);
+  ctx.arc(cx - tagW / 2 - DOT_GAP, tagY - TAG_BASE, DOT_R, 0, Math.PI * 2);
   ctx.fill();
   ctx.fillStyle = PALETTE.text;
   ctx.globalAlpha = 0.72;
@@ -181,69 +192,7 @@ function plateBox(ctx: CanvasRenderingContext2D, l: Layout, title: string): Box 
   return {
     x: EDGE,
     y: BANNER_TOP,
-    w: Math.min(l.width - EDGE * 2, Math.round(words * FIT_X) + 14),
+    w: Math.min(l.width - EDGE * 2, Math.round(words * FIT_X) + 10),
     h: title === "" ? TAG_ONLY_H : BANNER_H,
   };
-}
-
-interface Box {
-  x: number;
-  y: number;
-  w: number;
-  h: number;
-}
-
-/**
- * The body under the words: the panel's button, stretched to a plate.
- *
- * Every line of it is the recipe a control on the band is drawn by — the round
- * socket and the round gloss become the long ones inside a horizontal stretch,
- * which is the same bargain `nav-button.ts` makes and the reason neither has to
- * bake a second set of sprites.
- */
-function plate(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  box: Box,
-  hex: string,
-  flash: number,
-  age: number,
-): void {
-  const cx = box.x + box.w / 2;
-  const cy = box.y + box.h / 2;
-  const r = box.h / 2;
-
-  if (flash > 0) halo(ctx, cx, cy, box.w * 0.8, hex, 0.5 * flash);
-  ctx.save();
-  ctx.translate(cx, cy);
-  ctx.scale(box.w / box.h, 1);
-  drawLobeSocket(ctx, 0, 0, r, l.dpr, undefined, false);
-  const body = ctx.createLinearGradient(0, -r, 0, r);
-  body.addColorStop(0, tint(hex, 0.24 + 0.4 * flash));
-  body.addColorStop(0.55, tint(hex, 0.1 + 0.24 * flash));
-  body.addColorStop(1, "rgba(8,5,20,.96)");
-  ctx.fillStyle = body;
-  const path = navBlob(box.h, box.h);
-  ctx.fill(path);
-  ctx.strokeStyle = hex;
-  ctx.lineWidth = 1.6 + 1.6 * flash;
-  ctx.globalAlpha = 0.55 + 0.45 * flash;
-  ctx.stroke(path);
-  ctx.globalAlpha = 1;
-  drawLobeGloss(ctx, 0, 0, r, l.dpr);
-  ctx.restore();
-
-  // Fed from underneath rather than from above: nothing hangs over the top of
-  // the screen, and a plate in this game is still not a thing that simply sits
-  // where it was put (`band-slime.ts`).
-  const foot = box.y + box.h;
-  for (const [i, at] of [0.3, 0.68].entries()) {
-    drawNavFeeder(ctx, box.x + box.w * at, foot - 2, foot + 11, hex, age * 1.1 + i * 2.3);
-  }
-}
-
-/** `#RRGGBB` at an alpha, for a gradient that has to carry the seat's colour. */
-function tint(hex: string, alpha: number): string {
-  const n = Number.parseInt(hex.slice(1), 16);
-  return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${alpha})`;
 }

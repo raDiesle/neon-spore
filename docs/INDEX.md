@@ -724,6 +724,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/recoil.ts` | THE RECOIL's cage: the sprung frame a slick or a bulb falls inside |
 | `packages/render/src/guide-nav.ts` | BACK, the page number, and NEXT: the bar a stepped guide is turned by |
 | `packages/render/src/guide-play.ts` | The clock a rehearsal runs on, and the page it is running |
+| `packages/render/src/guide-plate.ts` | The body under the tutorial's corner plate: the panel's button recipe stretched to a plate, split from `guide-switch.ts` |
 | `packages/render/src/opening-fx.ts` | The two things a wave's opening remembers between frames: how long the page that is up has been up |
 | `packages/render/src/ready-page.ts` | The last page of a stepped guide: the wave's own name, and the button that says this seat has finished reading |
 | `packages/render/src/rock-drift.ts` | **How a rock leaves the ship it broke** — the waiting and the rolling, and the arithmetic of both |
@@ -746,6 +747,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/radar-blip.ts` | Which arrivals this screen's warning strip is carrying, and where each one sits on it |
 | `packages/render/src/caption-anchor.ts` | Where a caption's subject is on the screen |
 | `packages/render/src/guide-hand.ts` | The hands that are **not** on the panel: one held on something falling |
+| `packages/render/src/guide-film.ts` | Where a rehearsal's film stands on its stage — phone-shaped and centred, less the nav bar — and the hands drawn on it |
 | `packages/render/src/gum-handle.ts` | THE GUM as a handle: the one thing on this field a hand takes hold of that is the whole body rather than a… |
 | `packages/render/src/gum.ts` | THE GUM, drawn in its two states: a heavy drop coming down a lane |
 | `packages/render/src/baked.ts` | Every cache in render/ that holds baked work between frames, in one place that can empty them all |

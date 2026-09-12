@@ -3,13 +3,12 @@ import { beatPhase, type World } from "@neon-spore/sim";
 import type { OpeningView } from "./briefing.js";
 import { smoothstep } from "./ease.js";
 import { drawCaption } from "./guide-caption.js";
-import { drawGripThumb, fieldThumb, gripThumb, handleThumb, tapThumb } from "./guide-hand.js";
-import { drawGuideNav, NAV_H } from "./guide-nav.js";
+import { drawHands, filmLayout, seatRole } from "./guide-film.js";
+import { drawGuideNav } from "./guide-nav.js";
 import { ScenePlay } from "./guide-play.js";
 import { SeatView } from "./guide-seat.js";
 import { BANNER_H, BANNER_TOP, drawGuideCorner, drawSwitchSeam } from "./guide-switch.js";
-import { drawGhostThumb, thumbAnchors } from "./guide-thumb.js";
-import { computeLayout, type Layout, type ViewRole } from "./layout.js";
+import type { Layout, ViewRole } from "./layout.js";
 
 /**
  * A guide's rehearsal: the game's own screen, at full size, playing the wave
@@ -138,15 +137,14 @@ export class GuideStage {
     // here, so the drawing still holds no state a rebuild would have to clear.
     const from = this.play.repeated ? null : previousSeat(scene, step);
     const k = from === null ? 1 : smoothstep(Math.min(1, (run.tick - step.tick) / SWITCH_TICKS));
-    // The stage minus the nav bar: the film is a whole phone screen, and BACK,
-    // the page number and NEXT get their own band under it rather than sitting
-    // on the one the film is teaching.
-    const l = computeLayout(
-      { width: box.width, height: Math.max(1, box.height - NAV_H), dpr: 1 },
-      run.world.cfg,
-      seatRole(step.seat),
-    );
+    // Phone-shaped and centred, whatever the stage is (`guide-film.ts`).
+    const cfg = run.world.cfg;
+    const { film, l } = filmLayout(box, cfg, step.seat);
 
+    // Everything down to the corner plate is drawn in the film's rectangle;
+    // only the nav bar under it is laid across the whole box.
+    ctx.save();
+    ctx.translate(film.left, 0);
     ctx.save();
     ctx.beginPath();
     ctx.rect(0, 0, l.width, l.height);
@@ -158,27 +156,9 @@ export class GuideStage {
     if (from !== null && k < 1) drawSwitchSeam(ctx, l, l.width * (1 - k));
     ctx.restore();
 
-    const cfg = run.world.cfg;
     const phase = (run.world.tick % ((cfg.tickHz * 60) / cfg.bpm)) / ((cfg.tickHz * 60) / cfg.bpm);
     drawCaption(ctx, l, run.world, set, step, run.tick, phase);
-    drawGhostThumb(ctx, thumbAnchors(scene, set, l, run.world), run.tick, l.lobeR, step.seat);
-    // And the other hand, if this seat has one on the field. It is drawn from
-    // the world rather than from the script, so it rides the body it is
-    // slowing (`guide-thumb.ts`).
-    const held = gripThumb(l, run.world, step.seat, phase);
-    if (held) drawGripThumb(ctx, held, l.lobeR);
-    // And the hand on the ship, for a film about reaching a control the other
-    // way (`SceneAct.onField`).
-    const onShip = fieldThumb(l, run.world, scene, run.tick, step.seat);
-    if (onShip) drawGripThumb(ctx, { ...onShip, r: l.lobeR }, l.lobeR * (onShip.press ? 0.86 : 1));
-    // And the hand carrying a cord, a string or a rope (`SceneAct.drag`). Read
-    // off the world like the other two, so it rides a handle that is falling.
-    const onCord = handleThumb(l, run.world, step.seat, phase);
-    if (onCord) drawGripThumb(ctx, onCord, l.lobeR);
-    // And the thumb on a box (`SceneAct.tap`), placed off the world like the
-    // three above it so it lands on the body the command lands on.
-    const onBox = tapThumb(l, run.world, scene, run.tick, step.seat, phase);
-    if (onBox) drawGripThumb(ctx, onBox, l.lobeR);
+    drawHands(ctx, l, run, scene, set, step.seat, phase);
     drawGuideCorner(ctx, l, {
       seat: step.seat,
       names,
@@ -188,6 +168,7 @@ export class GuideStage {
       flash: from === null ? 0 : Math.max(0, 1 - (run.tick - step.tick) / FLASH_TICKS),
       age: this.play.shown,
     });
+    ctx.restore();
     drawGuideNav(ctx, box, {
       page,
       pages: scene.steps.length + 1,
@@ -229,10 +210,6 @@ export class GuideStage {
     });
     ctx.restore();
   }
-}
-
-function seatRole(seat: 1 | 2): ViewRole {
-  return seat === 1 ? "p1" : "p2";
 }
 
 /**

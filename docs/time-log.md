@@ -22,6 +22,28 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-12 · hit-looks — the tutorial's film is phone-shaped on any stage, and its plate is compact
+
+The owner: *TEST, P1 and P2 in briefing mode should be the game's own screen
+width; the ship's skin is cut vertically at top-left and top-right.* The film
+was laid out across the whole stage while its columns were bound by the
+height, so the hull stopped short of the band on both sides; it now stands
+in the rectangle the game itself would take (`render/guide-film.ts`). The
+narrower film put the corner plate over the siren's seat chip, so the plate
+became a third smaller — the first item of the owner's later tutorial task,
+brought forward. About 35 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `guide-scene.ts`, `layout.ts`, `canvas2d-takeover.ts`, the plate in `guide-switch.ts` |
+| writing | 10 | the film rectangle, the plate's sizes, two files split off the length ceiling |
+| looking | 10 | the director stage in TEST, P1 and P2 through `shot` and the pane's canvas, phone frames of two guides |
+| friction | 5 | `dev:once` idled out mid-look and was restarted on a new port; `crop` takes only whole zooms |
+| landing | 5 | `check:fast` twice — the first run caught the two files over 250 lines |
+
+The bottleneck was looking: the director's stage has no `--role` flag for
+`shot`, so P1 and P2 were read out of the pane's canvas by hand.
+
 ## 2026-09-12 · hit-looks — three counts for THE COUNT, offered in VERSUS
 
 The owner: *improve the "Countdown" enemy visuals.* The shipped count is
