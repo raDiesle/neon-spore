@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-12 · ef2f8bd1 — THE CHOKE crawls along the hull to the cannon before it takes it
+
+The owner asked for it by name: when the choke hits the ship, it should fast crawl to the cannon first. Until now the grip was a cut — the strand landed in its lane and on the same frame the loops were round the cannon's swelling, wherever that stood. The simulation already leaves a beat between the landing and the first step it walks the cannon, so that beat is now the crawl: the `chokeGrip` event names the body, and a transient held with the hull-level pictures draws the sac lying on the plating, surging toward the cannon in fast reaches with its hooks opening ahead of it and a light running on the skin before it, then a flash as the loops go on. Never longer than the beat, however far it has to go; a moment even when it landed under the cannon. The landing burst is now in the lane it fell in, where it hit, rather than at the cannon it is going to.
+
 ## 2026-09-11 · c0307f47 — THE STRAND's thread burns away like a fuse when its last bead is spent
 
 The owner asked for it by name: when every bead is shrivelled, the string should go with a nice animation — like a fuse in the air, a bigger effect. Until now the thread parting was twenty-four grey particles at its middle, the same puff a wheel's hub gets. Now the `strandBroke` event carries every bead on the thread, in order, on the tiles they stood on, and a new body transient rebuilds the line from them with the thread's own sags, lights it at both ends and burns it inward: a white-hot spitting front at each end, the violet line still hanging between them, each raisin still on it until a front reaches it and pops it off, and a blast — ring, streaks, light — where the two fronts meet, on the tile the old burst stood on.
