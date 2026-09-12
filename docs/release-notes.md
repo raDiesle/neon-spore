@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-12 · 59467da3 — Two devices cross a wave boundary on one tick, and play the wave after it in step
+
+The two-device wave test stopped on the `needWave` that ends FIRST STEP — exactly where the host takes over, and nothing proved the two devices reset every wave-local field on the same tick. `two-devices-wave.test.ts` now answers the event the way `apps/game/src/waves.ts` does: the same calls into `content`, guide facts and malfunction included, inside the tick it arrived, on both devices. CYAN is played through on presses counted from the tick the wave opened, which is the run's to find and asserted the same on both, and the fingerprints keep crossing over the seam until the wave after CYAN is asked for.
+
 ## 2026-09-12 · 0c248cc8 — Two devices open a wave together: the introduction, a stepped guide and a prose guide, over the wire
 
 `briefings` is off in `DEFAULT_CONFIG` and on in the game, so every two-device test played a wave that had already started and nothing sent an opening through the scheduler — the one place `step` takes a different shape, and the place where the word that ends it has to land on the same tick on both devices or one of them plays a wave the other is still reading about. `packages/net/test/two-devices-opening.test.ts` plays three openings with a different delay in each hand: the introduction and its two acks; a guide of two pages, paged at each seat's own speed, with one thumb lifted before its circle is full and held again; and a prose guide through the gate and then the introduction. Each asserts both devices leave each state on the same tick, that it is after the slower hand's word, that the fingerprints agree on every tick between, and that the first body comes only once the field is open.
