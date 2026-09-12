@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-12 · adf9f5d9 — THE WARDEN's rope is TWIST; all four ropes are kept and shown as real examples, and every ON THE FIELD control has its picture
+
+From the VERSUS page the owner kept every `creature:tether` candidate: TWIST is what the field draws now, and STROKE, CORD and SINEW stand in `render/tether-looks.ts` behind `useTetherLook` for the pull mechanics he wants later — a look the owner asked for by name. DOCUMENTATION → CONTROLS → ON THE FIELD draws a gallery pose at the top of every row, and under THE WARDEN'S TETHER the same taut rope four times, once in each look, with a line saying which is on the field and how a mechanic switches another on.
+
 ## 2026-09-12 · 080e6fd0 — The rocks burn: BLAZE built in, COMET and SMOULDER worn by any rock, FORGE rejected
 
 The owner took three of the four `creature:meteor` candidates from VERSUS into the game and rejected the fourth. BLAZE — a scorched, cratered stone inside a torch's fireball, glowing pieces coming away up the wake — is the rock the game builds; COMET and SMOULDER are alternative looks any rock may wear, and asked how a rock should pick one he chose *by the rock itself*: each wears one of the three by its own id, two to one to one, blaze first (`meteor-looks.ts`), so a field of rocks is a field of different fires with nothing to author and no new field in the simulation. Every one of them is the same faceted contour at the same size, indestructible, and a shot leaves a pit on each — the material varies under one silhouette, which is why three looks on one kind is allowed. The grey stone stays as `STONE_LOOK` for THE VOLLEY's ball and for PINBALL's obstacles, which are meant to be the boring thing on the table by the owner's own instruction. The slot is closed; the pose test that opened it now builds `METEOR · A SHOT ARRIVING` by name, and THE WISP's budget rows are remeasured for the one burning rock on that frame.
