@@ -291,3 +291,60 @@ Hull points are the reason this is a question rather than a task: `score*` and
 them on their way out with the hull's own figure (`wave-fail.ts`, 12 September
 2026). Writing sentences about those 51 a month before they are deleted is the
 one outcome all three options should avoid.
+
+## `packages/render` is seventy per cent of the test suite's time
+
+- **Found:** 2026-09-12, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `packages/render/test/*-frame.test.ts`, `tools/frames/test/opening.test.ts`, `docs/performance.md`
+
+`bun run test:profile` on 12 September 2026, on a cloud runner, 186 s of test
+time across 412 files:
+
+```
+130.9s  packages/render      26.8s  tools/frames       9.3s  apps/server
+  7.0s  tools/shape-sheet     6.5s  tools/director     1.6s  packages/sim
+```
+
+The tail is a dozen frame tests at 1.5–2.9 s each — `veer-frame`, `dart-frame`,
+`fence-frame`, `crawler-frame`, `balloon-frame` — and five cases of
+`tools/frames/test/opening.test.ts`, which drives a real Chrome. Every lane pays
+this in `bun run check`, twice over on a landing that has to re-run it.
+
+**The technique is written down and has a precedent.** `docs/performance.md`
+records the last round: `packages/render/test/briefing.test.ts` went from 88.6 s
+to 24.1 s by drawing one tick in four with each walk taking a different one, so
+every tick is still drawn once and nothing the test asserts is weakened; the
+suite went 292 s → 214 s. Nobody has been back since, and the frame tests that
+were not touched then are the list above.
+
+Read the *cases* before the files — a file of fourteen tests is not slow, four of
+its tests are, which is what `test:profile`'s per-case table is for. Prove it the
+honest way: same machine, `bun run test:profile` before and after, and every test
+still green. It is not `bun run perf` and claims nothing about a frame's cost, so
+a cloud session may take the number.
+
+## Nothing has swept for a re-derived rule since the copies table reached 46 rows
+
+- **Found:** 2026-09-12, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `packages/sim/test/copies-table.ts`, `packages/sim/test/copies.test.ts`
+
+Every row in `copies-table.ts` exists because review caught a rule written out
+by hand somewhere that should have called it, and the check then stops the *next*
+file copying it. Forty-six rows, each one a defect that got through once. The
+table only ever grows by somebody noticing, and nothing has gone looking on
+purpose — so the rows are the copies that happened to be seen, not the ones that
+are there.
+
+The sweep: take the rules `packages/sim` owns that `render/` and `content/` have
+to consume — the projections, the clocks, the column maps, the windows counted in
+ticks — and for each one read its callers rather than its definition. A caller
+that spells the arithmetic out is a row. The value is in the finding, so the
+deliverable is either new rows or one dated line in `copies-table.ts`' header
+saying the sweep was done and found none; `bun run check` proves whichever it is.
+
+**One method that does not work, tried on 12 September 2026 so nobody tries it
+twice:** matching numeric literals in `packages/render/src` against
+`DEFAULT_CONFIG`'s values. Thirty-six distinctive figures produced 88 hits, and
+essentially all of them are coincidence — 250 as a pixel size, 120 as a degree,
+150 as a colour channel. A number agreeing with a config default is not evidence
+of a copy, and the noise buries the one or two that might be.

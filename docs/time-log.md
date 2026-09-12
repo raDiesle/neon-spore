@@ -1489,3 +1489,31 @@ About 100 min.
 Bottleneck: **friction** — every rule the check needed was discovered by reading
 a false positive, and each one cost a full re-run over 54 documents to find the
 next.
+
+## 2026-09-12 · status-words — what the indicator may say, and the one pair of sentences that must differ
+
+`packages/net/src/status.ts` was the only one of `net-change`'s six files with no
+test, and the three functions in `apps/game/src/join-words.ts` that carry the
+actual sentences — `explain`, `roomLine`, `chipText` — had none either;
+`readyLine`, `seatWord` and `startButton` already had `start-press.test.ts`.
+Twenty-five tests now hold what both headers claim and nothing held: the list of
+eleven states is closed and this test knows all of them, no two states share a
+word or a sentence, a word fits the chip, `linkIsFault` names the socket closed,
+the room full and the two worlds parted **and never a stall**, `SOLO_STATUS`
+reports no round trip rather than a round trip of nothing, and — the open
+question 10 rule, which is why `join-words.ts` is a file at all — a quiet phone
+and a dead line read differently on all three surfaces. No defect: `src` is
+untouched, and each assertion was checked by breaking the line it is about.
+About 55 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `status.ts` whole, `join-words.ts` whole, what `start-press.test.ts` already covers so the new file does not repeat it, and open question 10 in both headers to find what the load-bearing claim actually is |
+| writing | 20 | `packages/net/test/status.test.ts`, `apps/game/test/join-words.test.ts`, the two queue entries |
+| looking | 0 | nothing drawn |
+| friction | 5 | a coverage scan by file name said 262 render sources were untested, which is false — `frame.test.ts` reaches them transitively — so the scan was thrown away and the gap found by reading the package tables instead |
+| landing | 10 | six mutations of `src` to prove each assertion bites, `check:fast`, the commit, `land` |
+
+Bottleneck: **reading** — the tests worth writing were the two claims the file
+headers make in prose and nothing enforces, and those are found by reading the
+prose, not by looking at which exports have no assertions.
