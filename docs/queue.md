@@ -208,6 +208,7 @@ real provider is unverified from a cloud session.
 ## `docs/spec/briefings.md` still says one rehearsal exists
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-13, claude/queue-docs-spec-briefings-md-still-says-one-rehearsal
 - **Files:** `docs/spec/briefings.md`
 
 Its status block says *one rehearsal exists* and §3.2 is headed *the rehearsals
