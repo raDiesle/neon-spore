@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · 10a53cf7 — THE HANDOVER watched at phone size: the trade reads from both seats
+
+The unverified entry from the cloud session is out of the queue. Photographed from both seats with bun run frames: the lip counts PANELS TRADE IN 2, 1; on the beat the band flips to the other seat's colours with the other seat's controls and hidden reads on it, and the lip says THEIR PANEL — BACK IN 8 down to the return. Whether two beats is enough time and whether the trade is exciting are the owner's to say and are put to him; no performance run, because a lane never owes one.
+
 ## 2026-09-13 · 6b873c8d — A lost wave stops on a friendly screen: RETRY WAVE or QUIT
 
 A hit still fails the wave, but after the pause the field no longer reopens by itself: a screen over the greyed field, with the breach still where it was seen, says WAVE 1 · TRY 1, WAVE LOST, one line for the two of you, and two buttons — RETRY WAVE and QUIT. Either phone's press answers for both, first one wins. RETRY opens the same wave again; QUIT ends the run on both phones, the room stays open, and the menu comes up on PLAY saying who pressed it. Nothing happens by itself any more.
