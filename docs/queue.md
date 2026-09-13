@@ -347,6 +347,7 @@ what the rest of this file holds.
 ## Unverified at c988cd97: nothing drawn changed; the rewritten section read by an…
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-13, claude/queue-unverified-at-c988cd97-nothing-drawn-changed-the
 - **Files:** `docs/queue.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/test/scenes-prose.test.ts`
 
 *The briefings spec counts its own rehearsals, in a test* landed from a session that could not look at it. What went unchecked:
