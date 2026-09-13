@@ -1,8 +1,8 @@
-import { type ControlId, controlPress } from "@neon-spore/content";
+import { type ControlId, type ControlSet, controlPress } from "@neon-spore/content";
 import type { Command } from "@neon-spore/sim";
-import type { Circle } from "./layout.js";
+import { bandLobes, type Circle, hitCircle, type Layout } from "./layout.js";
 import { assertNever } from "./never.js";
-import type { Hold } from "./touch.js";
+import type { Hold, Touch } from "./touch.js";
 
 /**
  * Which lobes a finger can press, and what each of them says.
@@ -108,4 +108,31 @@ export function lobeMeans(
     default:
       return assertNever(id);
   }
+}
+
+/**
+ * A finger against one seat's lobes, and there is no list of them in here.
+ *
+ * `bandLobes` is asked for the circles with the wave's own set, which is the
+ * same call `band.ts` makes to draw them — so a button is answered exactly
+ * where it was drawn, and a control the set left out has no circle to be
+ * answered at. That is the whole reason this is a call and not five `if`s
+ * against named fields of the layout: five `if`s were a second, older list of
+ * what is on a panel, and it went on including the lance after the panel
+ * stopped. Moved here from `touch.ts` on that file's line limit, beside
+ * what a lobe *says*.
+ */
+export function lobeUnder(
+  l: Layout,
+  set: ControlSet,
+  player: 1 | 2,
+  x: number,
+  y: number,
+): Touch | null {
+  for (const lobe of bandLobes(l, set, player)) {
+    if (!hitCircle(lobe.circle, x, y)) continue;
+    const said = lobeMeans(lobe.control.id, lobe.circle);
+    if (said) return { player: lobe.control.player, ...said };
+  }
+  return null;
 }

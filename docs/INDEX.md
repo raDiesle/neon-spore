@@ -992,6 +992,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/crystal-craft.ts` | THE CRYSTAL's craft: the `SHELL` saucer, the red and cyan engine pods and the canopy over the middle |
 | `packages/render/src/crystal-field.ts` | THE CRYSTAL's electric field: arcs crawling round the whole craft, and the hole they open underneath while the shield stands there |
 | `packages/render/src/touch-drag.ts` | What a hand that already has hold of something says when it moves — a handle carried, a crank turned |
+| `packages/render/src/touch-well.ts` | THE WELL's screen as a control: the same two questions `touch.ts` asks of the flat field |
 | `packages/render/src/dart-torch.ts` | WHAT A DART'S THRUST IS DRAWN AS, in a file of its own beside `dart-look.ts` |
 | `packages/render/src/dart-shock.ts` | SHOCK — the flame has **structure inside it**: three bright knots strung down its axis |
 | `packages/render/src/magnet-coil.ts` | WHAT THE MAGNET IS DRAWN AS: a solid horseshoe, poles lit from their tips |

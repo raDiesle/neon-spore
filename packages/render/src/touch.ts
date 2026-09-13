@@ -1,9 +1,9 @@
-import { type ControlSet, controlPress, type Point, setHas } from "@neon-spore/content";
+import { controlPress, type Point, setHas } from "@neon-spore/content";
 import { NO_GRIP } from "@neon-spore/sim";
 import { beatboxUnder } from "./beatbox-tap.js";
 import { creatureAt } from "./creature-place.js";
 import { handleUnder } from "./handles.js";
-import { bandLobes, colFromX, hitCircle, type Layout, showsCannon, showsShield } from "./layout.js";
+import { colFromX, type Layout, showsCannon, showsShield } from "./layout.js";
 
 // What a hit test is handed, and what it hands back: both lifted out when this
 // file went over its limit, and re-exported so nothing reaching for a `Field`,
@@ -13,9 +13,11 @@ export type { Hold, Touch } from "./touch-hold.js";
 
 import { crankTurn, dragging } from "./touch-drag.js";
 import type { Field } from "./touch-field.js";
+import { sucksOnLift, swipeColor } from "./touch-hand.js";
 import type { Hold, Touch } from "./touch-hold.js";
-import { lobeMeans } from "./touch-lobe.js";
-import { shipUnder, sucksOnLift, swipeColor } from "./touch-ship.js";
+import { lobeUnder } from "./touch-lobe.js";
+import { shipUnder } from "./touch-ship.js";
+import { wellCol, wellColsFrom, wellSucksOnLift, wellUnder } from "./touch-well.js";
 
 /**
  * The control scheme as a pure function: a point on the layout, and what the
@@ -36,14 +38,13 @@ export function touchDown(l: Layout, x: number, y: number, field: Field): Touch 
   // Above the band is the field, and the field answers both players: a finger
   // held on something falling drags at it (`grip` in sim/grip.ts).
   if (y < l.bandTop) {
-    // **Nothing on the field answers a finger while the well is up.** Every hit
-    // test below is a circle cut out of the flat field — the hull's two lobes
-    // along the bottom, a body in its column — and on this screen the hull is a
-    // ring at the middle and the bodies are round it, so each one would be
-    // answered somewhere it is not drawn. The two rails reach both lobes and
-    // nothing else in a well wave takes a hand at all (`well.ts`); placing
-    // these in the circle is in `docs/queue.md`.
-    if (field.well) return null;
+    // **THE WELL's screen is asked its own two questions.** Every hit test
+    // below is a circle cut out of the flat field — the hull's two lobes along
+    // the bottom, a body in its column — and on that screen the hull is a ring
+    // at the middle and the bodies are round it, so each one would be answered
+    // somewhere it is not drawn. `touch-well.ts` asks the ring and the lanes
+    // instead; the handles and the soundboxes are not in any well wave.
+    if (field.well) return wellUnder(l, x, y, field);
     // Asked first, because a handle hangs over the field the creatures fall
     // through and a hand on it is not a hand on whatever is behind it
     // (`handles.ts`).
@@ -115,26 +116,6 @@ export function touchDown(l: Layout, x: number, y: number, field: Field): Touch 
 }
 
 /**
- * A finger against one seat's lobes, and there is no list of them in here.
- *
- * `bandLobes` is asked for the circles with the wave's own set, which is the
- * same call `band.ts` makes to draw them — so a button is answered exactly
- * where it was drawn, and a control the set left out has no circle to be
- * answered at. That is the whole reason this is a call and not five `if`s
- * against named fields of the layout: five `if`s were a second, older list of
- * what is on a panel, and it went on including the lance after the panel
- * stopped.
- */
-function lobeUnder(l: Layout, set: ControlSet, player: 1 | 2, x: number, y: number): Touch | null {
-  for (const lobe of bandLobes(l, set, player)) {
-    if (!hitCircle(lobe.circle, x, y)) continue;
-    const said = lobeMeans(lobe.control.id, lobe.circle);
-    if (said) return { player: lobe.control.player, ...said };
-  }
-  return null;
-}
-
-/**
  * The same finger, moved, and the two kinds of answer it can have.
  *
  * The strips are **absolute**: the finger's x is a column and where the press
@@ -157,17 +138,26 @@ function lobeUnder(l: Layout, set: ControlSet, player: 1 | 2, x: number, y: numb
  * still a column and nothing else — go on ignoring the second.
  */
 export function touchMove(l: Layout, hold: Hold, x: number, y: number): Touch | null {
+  // A hand taken on THE WELL's ring reads the hour under the finger, and in
+  // the seam it reads nothing: the cannon stays where it is, because the seam
+  // is the wall between the two ends of the rail (`touch-well.ts`).
   if (hold.kind === "cannon") {
-    return { player: 1, command: { kind: "cannonCol", col: colFromX(l, x) }, hold };
+    const col = hold.well ? wellCol(l, x, y) : colFromX(l, x);
+    return col === null ? null : { player: 1, command: { kind: "cannonCol", col }, hold };
   }
   if (hold.kind === "shield") {
-    return { player: 2, command: { kind: "shieldCol", col: colFromX(l, x) }, hold };
+    const col = hold.well ? wellCol(l, x, y) : colFromX(l, x);
+    return col === null ? null : { player: 2, command: { kind: "shieldCol", col }, hold };
   }
   if (hold.kind === "grip") {
     // Across only. How fast the body comes down is the grip's other half and a
     // *hold* rather than a distance (`sim/grip.ts`), so the y of this gesture
     // would be a number nothing reads — and an absent one is exactly nought.
-    const fromMilli = Math.round(((x - hold.originX) * 1000) / l.tile);
+    // On the well "across" is round the ring: a column per sector, from the
+    // hour the hand took hold at.
+    const fromMilli = hold.well
+      ? wellColsFrom(l, hold.well.angle, x, y)
+      : Math.round(((x - hold.originX) * 1000) / l.tile);
     const drag = { kind: "drag", target: "gripBody", on: true, fromMilli, id: hold.id } as const;
     return { player: hold.player, command: drag, hold };
   }
@@ -217,7 +207,9 @@ export function touchUp(l: Layout, hold: Hold, field: Field, at?: Point): Touch 
   // off the document — swallows nothing, for the muzzle's reason one line
   // below (`touch-ship.ts`).
   if (hold.kind === "cannon") {
-    const tapped = hold.suck !== undefined && sucksOnLift(l, hold.suck, at);
+    const tapped =
+      hold.suck !== undefined &&
+      (hold.well ? wellSucksOnLift(l, hold.suck, at) : sucksOnLift(l, hold.suck, at));
     return tapped ? { player: 1, command: { kind: "intake" }, hold: null } : null;
   }
   if (hold.kind === "shot") {

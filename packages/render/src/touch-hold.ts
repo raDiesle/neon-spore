@@ -55,8 +55,8 @@ export type Hold =
    * maw on it, so the presence of the field is the permission — nothing later
    * has to ask the control set again (`sucksOnLift`).
    */
-  | { kind: "cannon"; direct?: true; suck?: Point }
-  | { kind: "shield"; direct?: true }
+  | { kind: "cannon"; direct?: true; suck?: Point; well?: true }
+  | { kind: "shield"; direct?: true; well?: true }
   /**
    * Player 1's thumb resting on the shield lobe after triggering it. The guard
    * is sent by the press and the window is the simulation's from then on
@@ -76,7 +76,7 @@ export type Hold =
    * the field belongs to both players and a move is answered a long way from
    * anything that knows which phone it is on.
    */
-  | { kind: "grip"; id: number; player: 1 | 2; originX: number }
+  | { kind: "grip"; id: number; player: 1 | 2; originX: number; well?: { angle: number } }
   | { kind: "held"; control: ControlId; player: 1 | 2 }
   /**
    * Player 2's thumb on the muzzle. The press says nothing at all — it is the

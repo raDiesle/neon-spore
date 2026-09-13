@@ -176,28 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## THE WELL's screen answers no finger on the field
-
-- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-13, claude/queue-the-wells-screen-answers-no-finger-on-the-field
-- **Files:** `packages/render/src/touch.ts`, `packages/render/src/touch-ship.ts`, `packages/render/src/creature-place.ts`, `packages/render/src/touch-field.ts`
-
-`touchDown` returns null above the band whenever `Field.well` is set. Every hit
-test under that line is a circle cut out of the flat field — the hull's two
-lobes along the bottom, a body in its column — and on the well's screen the hull
-is a ring at the middle and the bodies are round it, so answering any of them
-would be answering a control where it is not drawn, which is the one thing that
-file exists to prevent. The rails and the buttons are untouched, so nothing is
-unreachable, and a well wave of living bodies takes no hand at all
-(`handMeans`) — but the refusal is wider than it has to be.
-
-What it needs is the polar version of two circles: `cannonGrab`/`shieldGrab` at
-`wellPlace(l, col, hullRow)` instead of on the hull line, and `creatureAt`
-measuring from `wellPlace` rather than `creatureCenter`. The drag is the part
-worth thinking about — carrying a thumb *around* a ring is not the same gesture
-as carrying it across a strip, and the seam is a wall the drag has to refuse to
-cross. `packages/render/test/touch.test.ts` holds the shape of the proof.
-
 ## THE WELL's guide is prose, and the picture it describes has never been shown
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
@@ -630,3 +608,26 @@ way `frame-field.ts` does, with the well's `WELL_BODY` scale applied to the
 ring's radius. The proof goes beside the placed-transient tests in
 `well-frame.test.ts`: a `gripP1` on a body in a well world, and the ring's
 `arc` at `wellPlace` of that body rather than at its tile.
+
+## THE WELL's cannon can be held now, but the hand's ring is not drawn on it
+
+- **Found:** 2026-09-13, claude/queue-the-wells-screen-answers-no-finger-on-the-field
+- **Files:** `packages/render/src/frame-ship.ts`, `packages/render/src/ship-hand.ts`, `packages/render/src/well-ship.ts`, `packages/render/src/touch-well.ts`, `packages/render/test/well-frame.test.ts`
+
+Found while making the well's screen answer a finger on the ship. The flat
+hull ends its pass with `drawShipHand`: a ring on whichever swelling this
+phone's own finger has hold of (`view.hand`), drawn at the world's column so it
+sits on the hit region. `frame-ship.ts` returns to `drawWellShip` before that
+call while `wellShown`, so a thumb on the well's cannon — which
+`touch-well.ts` now answers — gets no ring, and the one place a finger's own
+mark would tell the pilot which hour he has hold of is dark.
+
+The ring's centre on the well is `wellCannonGrab(l, col)` (`touch-well.ts`),
+which is where the press is answered — the same rule the flat mark follows.
+Give `drawShipHand` a `place: (part, col) => Circle` or draw a
+`drawWellShipHand` in `well-ship.ts` from `view.hand` and `world.cannonCol`,
+called at the end of `drawWellShip`'s pass, and prove it in
+`well-frame.test.ts` the way `frame.test.ts` proves the flat ring: an `arc` at
+`wellCannonGrab`'s centre when `hand.held === "cannon"`, none when the hand is
+empty. A fix to something wrong rather than unlovely: the control is
+answered where nothing shows it.

@@ -79,7 +79,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
       "column and the lift says nothing: one swelling, two gestures, and the " +
       "lift is what tells them apart — exactly as player 2's muzzle already " +
       "works one seat over. Only on a panel that has a maw on it at all.",
-    source: "touch-ship.ts — pilot() under shipUnder(), sucksOnLift() on the lift",
+    source: "touch-ship.ts — pilot() under shipUnder(); touch-hand.ts — sucksOnLift() on the lift",
     holdKind: "cannon",
     sends: ["intake"],
     pose: "MAW · OPEN",
@@ -121,7 +121,8 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
       "fires, the press says nothing, and a hand that comes back to the " +
       "middle fires nothing at all. Left and right are the order the two " +
       "colours stand in on player 2's own band.",
-    source: "touch-ship.ts — navigator() under shipUnder(), swipeColor() on the lift",
+    source:
+      "touch-ship.ts — navigator() under shipUnder(); touch-hand.ts — swipeColor() on the lift",
     holdKind: "shot",
     sends: ["fire"],
     pose: "SHOT · BEING LAID",

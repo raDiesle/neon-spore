@@ -1,13 +1,19 @@
 import { type ControlId, control, type Point, setHas } from "@neon-spore/content";
-import type { Color } from "@neon-spore/sim";
 import { type Circle, colFromX, hitCircle, type Layout, tileCX } from "./layout.js";
 import type { Field } from "./touch-field.js";
 import type { Touch } from "./touch-hold.js";
 
-// What a hand on the ship is *shown* as, lifted out when this file reached its
-// length limit and re-exported so nothing that reached for either through here
-// had to move (`touch-hand.ts`).
-export { type ShipHand, type ShipMark, shipHand } from "./touch-hand.js";
+// What a hand on the ship is *shown* as, and what a lift of it means — lifted
+// out when this file reached its length limit, twice, and re-exported so
+// nothing that reached for them through here had to move (`touch-hand.ts`).
+export {
+  type ShipHand,
+  type ShipMark,
+  shipHand,
+  sucksOnLift,
+  swipeColor,
+  TAP_TILES,
+} from "./touch-hand.js";
 
 /**
  * The ship as a control: the cannon lobe and the shield lobe answered **where
@@ -36,25 +42,10 @@ export { type ShipHand, type ShipMark, shipHand } from "./touch-hand.js";
 /** How far above the hull line each lobe's grab circle sits, in tiles. */
 const CANNON_UP = 0.25;
 const SHIELD_UP = 0.1;
-/** Grab radius, in tiles. `hitCircle` answers a ring 30% wider again. */
-const CANNON_R = 0.7;
-const SHIELD_R = 0.8;
-/**
- * How far the muzzle has to be carried before a colour locks in, in tiles.
- * Wide enough that a resting thumb fires nothing, short enough for one hand.
- */
-const SWIPE_TILES = 0.6;
-/**
- * How far player 1's hand may travel and still be a **tap** on the cannon
- * rather than a slide of it, in tiles.
- *
- * Shorter than the swipe above, and it has to be: the muzzle swipe is a
- * gesture a thumb sets out to make, while this is the gesture a thumb makes
- * by *not* making one. A hand that took hold of the cannon to carry it
- * somewhere has already left this circle by the time it lets go.
- */
-const TAP_TILES = 0.35;
-
+/** Grab radius, in tiles. `hitCircle` answers a ring 30% wider again. The
+ * well's ring uses the same two (`touch-well.ts`). */
+export const CANNON_R = 0.7;
+export const SHIELD_R = 0.8;
 /** Where the cannon stands on the hull, as something a finger can be inside. */
 export function cannonGrab(l: Layout, col: number): Circle {
   return { x: tileCX(l, col), y: l.hullY - l.tile * CANNON_UP, r: l.tile * CANNON_R };
@@ -85,52 +76,6 @@ export function shipCircle(
   const swelling = control(id).ship;
   if (swelling === undefined) return null;
   return swelling === "cannon" ? cannonGrab(l, field.cannonCol) : shieldGrab(l, field.shieldCol);
-}
-
-/**
- * Which colour a lift at `x` would fire, for a thumb that took hold of the
- * muzzle at `originX`. Null while the swipe is still short of the threshold,
- * which is both "nothing yet" to the eye and "nothing at all" to the lift —
- * one rule, read by the feedback and by `touchUp`, so what the muzzle lights
- * up as is what actually leaves it.
- *
- * Left is red and right is cyan because that is the order the two lobes stand
- * in on player 2's own band (`bandLobes` walks `setControls`, and `fireRed`
- * is listed first). A player who has learnt the panel already knows this one.
- *
- * `only` is a panel with one colour on it — the ladder's first two rungs — and
- * then the direction says nothing, because a single lobe has no order to read.
- * The swipe still has to clear the threshold: a thumb resting on the muzzle
- * fires nothing on any panel.
- */
-export function swipeColor(l: Layout, originX: number, x: number, only?: Color): Color | null {
-  const d = x - originX;
-  if (Math.abs(d) < l.tile * SWIPE_TILES) return null;
-  return only ?? (d < 0 ? "red" : "cyan");
-}
-
-/**
- * Whether a lift at `at` opens the maw, for a hand that took hold of the
- * cannon at `origin`.
- *
- * Two conditions, and both of them are the same sentence said twice so that
- * it is true whichever way it is read: **the hand has not travelled**, and
- * **the cannon has not moved**. A press that stayed inside the circle but
- * crossed a column boundary is still a slide as far as the ship is concerned,
- * and a tap that slid the cannon a column and swallowed as well would be one
- * gesture doing two things nobody asked for.
- *
- * Written once and read twice — by `touchUp`, which sends the maw open, and
- * by `shipHand`, which lights the mark that says it would. That is
- * `swipeColor`'s rule next door and it is here for its reason: what the
- * swelling lights up as has to be what actually happens on the lift.
- */
-export function sucksOnLift(l: Layout, origin: Point, at: Point | undefined): boolean {
-  if (at === undefined) return false;
-  const dx = at.x - origin.x;
-  const dy = at.y - origin.y;
-  if (dx * dx + dy * dy >= (l.tile * TAP_TILES) ** 2) return false;
-  return colFromX(l, at.x) === colFromX(l, origin.x);
 }
 
 /**
@@ -169,7 +114,8 @@ export function shipUnder(l: Layout, x: number, y: number, field: Field): Touch 
         : across(cannon, x) < across(shield, x)
           ? "cannon"
           : "shield";
-  return field.seat === 1 ? pilot(l, on, x, y, field) : navigator(l, on, x, field);
+  const col = colFromX(l, x);
+  return field.seat === 1 ? pilot(on, col, { x, y }, field) : navigator(on, col, x, field);
 }
 
 /** How far across a lobe's own column the finger is. */
@@ -188,19 +134,17 @@ function across(c: Circle, x: number): number {
  * let go without carrying it and it swallows. The press says the same
  * `cannonCol` either way — it is the *lift* that decides which of the two
  * happened, exactly as player 2's muzzle already works one seat over.
+ *
+ * `col` is the column under the press, worked out by the caller: the column
+ * under an x on the flat hull, the hour under the finger on THE WELL's ring
+ * (`touch-well.ts`) — the one thing the two pictures answer differently.
  */
-function pilot(
-  l: Layout,
-  on: "cannon" | "shield",
-  x: number,
-  y: number,
-  field: Field,
-): Touch | null {
+export function pilot(on: "cannon" | "shield", col: number, at: Point, field: Field): Touch | null {
   if (on === "cannon") {
     if (!setHas(field.controls, "cannon")) return null;
     return {
       player: 1,
-      command: { kind: "cannonCol", col: colFromX(l, x) },
+      command: { kind: "cannonCol", col },
       // Where the press landed rides along **only when the panel has a maw**,
       // and that is the whole permission check: a wave played on the lance
       // panel hands back a hold with no origin on it, so no lift of it can
@@ -208,7 +152,7 @@ function pilot(
       hold: {
         kind: "cannon",
         direct: true,
-        ...(setHas(field.controls, "intake") ? { suck: { x, y } } : {}),
+        ...(setHas(field.controls, "intake") ? { suck: at } : {}),
       },
     };
   }
@@ -227,12 +171,17 @@ function pilot(
  * or towards cyan, and let go. Nothing is sent until the lift, so a thumb that
  * changes its mind on the way back to the middle fires nothing.
  */
-function navigator(l: Layout, on: "cannon" | "shield", x: number, field: Field): Touch | null {
+export function navigator(
+  on: "cannon" | "shield",
+  col: number,
+  x: number,
+  field: Field,
+): Touch | null {
   if (on === "shield") {
     if (!setHas(field.controls, "shield")) return null;
     return {
       player: 2,
-      command: { kind: "shieldCol", col: colFromX(l, x) },
+      command: { kind: "shieldCol", col },
       hold: { kind: "shield", direct: true },
     };
   }

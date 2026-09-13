@@ -1,7 +1,7 @@
+import type { Point } from "@neon-spore/content";
 import type { Color } from "@neon-spore/sim";
-import type { Layout } from "./layout.js";
+import { colFromX, type Layout } from "./layout.js";
 import type { Hold } from "./touch-hold.js";
-import { sucksOnLift, swipeColor } from "./touch-ship.js";
 
 /**
  * What a hand on the ship should be *shown* as — the cup that says which
@@ -33,6 +33,68 @@ import { sucksOnLift, swipeColor } from "./touch-ship.js";
  * already wears, so the gesture and the button read as one control rather than
  * two (`band-control.ts`).
  */
+/**
+ * How far the muzzle has to be carried before a colour locks in, in tiles.
+ * Wide enough that a resting thumb fires nothing, short enough for one hand.
+ */
+const SWIPE_TILES = 0.6;
+/**
+ * How far player 1's hand may travel and still be a **tap** on the cannon
+ * rather than a slide of it, in tiles.
+ *
+ * Shorter than the swipe above, and it has to be: the muzzle swipe is a
+ * gesture a thumb sets out to make, while this is the gesture a thumb makes
+ * by *not* making one. A hand that took hold of the cannon to carry it
+ * somewhere has already left this circle by the time it lets go.
+ */
+export const TAP_TILES = 0.35;
+
+/**
+ * Which colour a lift at `x` would fire, for a thumb that took hold of the
+ * muzzle at `originX`. Null while the swipe is still short of the threshold,
+ * which is both "nothing yet" to the eye and "nothing at all" to the lift —
+ * one rule, read by the feedback and by `touchUp`, so what the muzzle lights
+ * up as is what actually leaves it.
+ *
+ * Left is red and right is cyan because that is the order the two lobes stand
+ * in on player 2's own band (`bandLobes` walks `setControls`, and `fireRed`
+ * is listed first). A player who has learnt the panel already knows this one.
+ *
+ * `only` is a panel with one colour on it — the ladder's first two rungs — and
+ * then the direction says nothing, because a single lobe has no order to read.
+ * The swipe still has to clear the threshold: a thumb resting on the muzzle
+ * fires nothing on any panel.
+ */
+export function swipeColor(l: Layout, originX: number, x: number, only?: Color): Color | null {
+  const d = x - originX;
+  if (Math.abs(d) < l.tile * SWIPE_TILES) return null;
+  return only ?? (d < 0 ? "red" : "cyan");
+}
+
+/**
+ * Whether a lift at `at` opens the maw, for a hand that took hold of the
+ * cannon at `origin`.
+ *
+ * Two conditions, and both of them are the same sentence said twice so that
+ * it is true whichever way it is read: **the hand has not travelled**, and
+ * **the cannon has not moved**. A press that stayed inside the circle but
+ * crossed a column boundary is still a slide as far as the ship is concerned,
+ * and a tap that slid the cannon a column and swallowed as well would be one
+ * gesture doing two things nobody asked for.
+ *
+ * Written once and read twice — by `touchUp`, which sends the maw open, and
+ * by `shipHand`, which lights the mark that says it would. That is
+ * `swipeColor`'s rule next door and it is here for its reason: what the
+ * swelling lights up as has to be what actually happens on the lift.
+ */
+export function sucksOnLift(l: Layout, origin: Point, at: Point | undefined): boolean {
+  if (at === undefined) return false;
+  const dx = at.x - origin.x;
+  const dy = at.y - origin.y;
+  if (dx * dx + dy * dy >= (l.tile * TAP_TILES) ** 2) return false;
+  return colFromX(l, at.x) === colFromX(l, origin.x);
+}
+
 export type ShipMark = "slide" | "suck" | "guard";
 
 export interface ShipHand {

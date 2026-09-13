@@ -2312,3 +2312,26 @@ fly. `drawWellArrivals` moved to `well-arrivals.ts` with it, on
 
 Bottleneck: **writing** — the arc's sense: canvas angles run the other way
 from the clock's, and the tail was drawn the long way round once.
+
+## 2026-09-13 · claude/queue-the-wells-screen-answers-no-finger-on-the-field — THE WELL's screen answers a finger on the ship and on a body
+
+The well drew the hull as a ring and the bodies round it, and `touchDown`
+answered every press against the flat field, so a thumb on the drawn cannon
+took nothing and a thumb on empty space took a body. `touch-well.ts` asks the
+same two questions of the circle: the cannon's grab circle at its hour on the
+hull ring, a body at `wellPlace` with the well's glide, the column under a
+finger as the hour under it, the seam at twelve as a wall. `touch.ts` and
+`touch-ship.ts` both sat at the line limit, so `lobeUnder` went to
+`touch-lobe.ts` and the lift rules to `touch-hand.ts`. About 55 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `touch.ts`, `touch-ship.ts`, `well-draw.ts`'s body placement, `well.ts` |
+| writing | 25 | `touch-well.ts`, the `well` marks on the holds, twelve tests |
+| looking | 0 | nothing visible moves in a still frame — the change is what a press answers |
+| friction | 10 | two files over the limit at once, a CRLF write, a five-argument `touchMove` the tests ran but the typecheck refused |
+| landing | 10 | `check:fast` twice, `bun run index`, the queue entry for the hand ring, the commit |
+
+Bottleneck: **writing** — the file limit: the well's answers were a fourth
+file's worth on top of two files already full, and both had to be split before
+the new one fitted.
