@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · 937ad7dc — The menu's front page, its face and the difficulty page, seen on a phone
+
+Three unverified entries closed by an eye at 390×844: three rows read as the front door with LEAVE ROOM the fourth once there is a room; the three rows behind PLAY and the SURE? START AGAIN / CANCEL question fit on one screen; Space Grotesk on the wordmark over monospace rows, on the lifted purples. The pictures went to the owner. The names entry is released, not closed: the siren chip only carries a name once a room knows two, which is two devices.
+
 ## 2026-09-13 · 3dba3d93 — The rehearsals section reads, and HULL · TRADED leaves the queue a second time
 
 `docs/spec/briefings.md` §3.2 as rewritten at `c988cd97`, read by an eye: the status block, §1's sixty-one of seventy and §3.2's fifty-six bar five agree with each other and with the five waves `scenes-prose.test.ts` names. The unverified entry comes out. So does the finished `HULL · TRADED` entry, again — a rebase in another session resolved `docs/queue.md` by keeping its own copy, which put the taken item back after it had landed.
