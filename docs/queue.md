@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## Unverified at f91ad6ab: Two phones actually parting and finding their way back:…
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-13, claude/queue-unverified-at-f91ad6ab-two-phones-actually-parti
 - **Files:** `apps/game/src/link-types.ts`, `apps/game/src/link.ts`, `apps/game/src/main.ts`, `apps/game/src/menu-bindings.ts`, `apps/game/src/menu-link.ts`, `apps/game/src/menu.ts`, `apps/game/src/shell.ts`, `apps/game/test/link-life.test.ts`
 
 *Two phones that have parted start again together, on the wave the room kept* landed from a session that could not look at it. The commit touched 7 more files. What went unchecked:
