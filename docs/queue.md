@@ -180,8 +180,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 
 - **Found:** 2026-09-13, queue-lanes — asked for by the owner
 - **Files:** `apps/game/src/nickname.ts`, `apps/game/src/join-name.ts`, `apps/game/src/menu-settings.ts`, `apps/server/src/names.ts`, `apps/server/src/index.ts`, `packages/net/src/nickname.ts`, `packages/net/src/protocol.ts`
-- **Where:** cloud
-- **Asks:** Google sign-in, an email link, or both — and which Google Cloud project's client id and which mail sender does the Worker get?
+- **Decided:** 2026-09-13, by the owner — Firebase Auth, Google and an email link now, Apple later; anonymous first, and a sign-in attached later is what makes the name recoverable. The Worker verifies Firebase's ID token itself; the Firebase project's config is the owner's to paste in.
 
 Today a device claims a nickname at the registry (`names.ts`) and is handed a
 **recovery code**, shown once, for getting the name back on a new browser.
