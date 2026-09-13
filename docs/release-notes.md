@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · d3ece0d4 — THE HANDOVER's window and a cycle of it are seen, and two findings queued
+
+The unverified item from a3703115 is taken out: THE HANDOVER's own window photographed around the trade, and a wave that keeps trading (six beats a cycle, three held) driven on the page by hand — the plate counts down, turns into THEIR PANEL — BACK IN N, and on a short cycle stands nearly all the time. Whether that reads as a fault is the owner's to say, and is asked. Two things found on the way are queued: the HUD counts a retry on the lost screen before anybody has pressed RETRY WAVE, and `bun run frames` has no way to give a fault numbers the wave does not carry.
+
 ## 2026-09-13 · d0c7f9e4 — The ready gate says READY under a thumb sooner: a 150 ms hold, not 420
 
 The owner asked, 13 September 2026, for the circle at the end of a guide to switch to READY much faster when pressed. The hold is 150 ms now: the circle is still seen to fill and a lift before it is full still empties it, so the gate keeps what it is for, and READY lands about where the press does. The header of `ready-gate.ts` and `docs/spec/briefings.md` say so; the one test that counted a partial hold in a literal number of ticks counts in the hold's own ticks.
