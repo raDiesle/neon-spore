@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## The menu is hard to read: a colour scheme with contrast, and a face from a CDN
 
 - **Found:** 2026-09-13, queue-lanes — asked for by the owner
+- **Taken:** 2026-09-13, claude/queue-the-menu-is-hard-to-read-a-colour-scheme-with-co
 - **Files:** `apps/game/src/menu.css`, `apps/game/src/game.css`, `apps/game/index.html`, `apps/game/src/menu-view.ts`
 - **Where:** cloud
 
