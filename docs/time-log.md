@@ -2885,3 +2885,20 @@ guide bar's own buttons. About 80 min.
 
 Bottleneck: **looking** — driving the world by hand stalls the live loop, so
 every look at the screen was a scripted browser with its clocks frozen.
+
+## 2026-09-13 · claude/handover-watched — THE HANDOVER watched at phone size
+
+The unverified entry from the cloud session, opened on a machine with a
+screen: the warning, the trade and the window photographed from both seats
+with `bun run frames .`. About 20 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the entry, `waves/act-8.ts`, `sim/handover.ts`, the frames tool's flags |
+| writing | 0 | — |
+| looking | 10 | strips at ticks 500–1450 for P1, the trade instant for P2: the lip counts 2, 1, the band flips to the other seat's colours and controls, the other seat's reads come with it |
+| friction | 0 | — |
+| landing | 5 | the queue, the commit |
+
+Bottleneck: **looking** — the panels coming home cannot be photographed
+headless, because a wave nobody answers is lost before the window closes.
