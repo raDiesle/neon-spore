@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · 8f9aa053 — THE CAIRN's card and the field's pile share one stack
+
+The shape sheet's CAIRN card stacked seven rocks its own way and the field stacked them another, so the silhouette the owner judged was not the one the game draws. `content/cairn-shape.ts` now holds the one table — four stones on the ground, two, one, and the bites between courses — and both `render/cairn.ts` and the sheet's `pile()` read it. The PULLED card drags the rightmost base stone right, where it now is.
+
 ## 2026-09-13 · 54ed8c91 — THE CAIRN's guide is a rehearsal: a still thumb, a carry, and the lane
 
 The wave that introduces THE CAIRN carried prose and no scene, for a gesture the game had taught only on a falling rock. Five pages now: the pilot's thumb resting on the pile and nothing happening, the same thumb carried right and one rock leaving that side, the pilot alone watching the lane the pile will drop into by itself, the navigator's dome sliding under the pulled rock, and the rock nobody pulled reaching the hull.
