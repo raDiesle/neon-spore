@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · 07d1480f — THE WELL's seam does not cost travel, and the spec says so
+
+The queue asked whether the cannon should be limited to a few columns a beat under THE WELL, so that the seam costs travel as well as reading. The owner's answer is to leave it: a step limit under one boss is a rule that exists on one wave, and the boss is deliberately a picture and not a change to the simulation. The item is closed and `docs/spec/bosses.md`, which pointed at it as an open question, records the decision instead. No code changes.
+
 ## 2026-09-13 · 213e72f1 — THE WELL's rehearsal shows the field folding into the clock
 
 THE WELL opened on three lines of prose about a picture nobody had been shown. Its film is one body and a seat switch: the navigator's flat field with a red body coming down the fourth column, then the pilot's screen — the clock — with the same body still falling, at four o'clock, and the caption naming the hour. The seat switch is the fold: a rehearsal lays each page out for the seat it shows and the well is drawn on the pilot's screen only, so no new machinery and no second projection. The third page folds back to the navigator firing down the same lane — nothing falls differently, nothing fires differently — and the fourth is the seam, the cannon carried from one o'clock to eleven the long way round the ring.
