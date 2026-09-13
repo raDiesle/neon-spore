@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · d0c7f9e4 — The ready gate says READY under a thumb sooner: a 150 ms hold, not 420
+
+The owner asked, 13 September 2026, for the circle at the end of a guide to switch to READY much faster when pressed. The hold is 150 ms now: the circle is still seen to fill and a lift before it is full still empties it, so the gate keeps what it is for, and READY lands about where the press does. The header of `ready-gate.ts` and `docs/spec/briefings.md` say so; the one test that counted a partial hold in a literal number of ticks counts in the hold's own ticks.
+
 ## 2026-09-13 · 6c5d3854 — The siren's chips stand clear of the ☰, and a long name clear of its glyph
 
 Two phones with twelve-character names in one room showed the right chip's last letters and its ear under the corner button, and the seat's own ring on top of it; a pad of ten pixels had put the whole P2 pill inside that box before there were names to lengthen it. The cluster now hangs off the button's left edge instead of the screen's, and the torch and magnet alarms that share the edge move with it. A long name's last letter also touched the speech and ear glyphs by a pixel and a half; the glyph has three more of air. P1 and P2 still measure thirty-four pixels, so a solo screen does not move.
