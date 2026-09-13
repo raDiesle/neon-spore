@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## A lost wave stops on a friendly screen: RETRY WAVE or QUIT
 
 - **Found:** 2026-09-13, claude/queue-a-player-signs-in-with-google-or-by-an-email-lin — asked for by the owner
+- **Taken:** 2026-09-13, claude/queue-a-lost-wave-stops-on-a-friendly-screen-retry-wav
 - **Files:** `packages/sim/src/wave-fail.ts`, `packages/sim/src/config-run.ts`, `packages/sim/src/command-types.ts`, `packages/sim/src/commands.ts`, `apps/game/src/waves.ts`, `packages/render/src/wave-intro.ts`, `packages/render/src/frame-passes.ts`, `apps/game/src/field-input.ts`, `docs/spec/structure.md`
 - **Decided:** 2026-09-13, by the owner — either phone's press restarts the wave, first one wins; QUIT on one phone ends the run for both, and the room stays.
 
