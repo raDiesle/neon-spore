@@ -10,6 +10,7 @@ import {
   dartNextHeading,
   dartPickDir,
   dartStepCol,
+  failHolds,
   hashWorld,
   hullRow,
   isGrippable,
@@ -228,7 +229,7 @@ describe("the dart on the field", () => {
     const PLAIN: SimConfig = { ...CFG };
     const world = fly([dart(5)], HULL + 2, PLAIN);
     expect(world.creatures).toHaveLength(0);
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
   });
 
   /**

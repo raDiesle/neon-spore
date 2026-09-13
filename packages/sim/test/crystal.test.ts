@@ -10,6 +10,7 @@ import {
 import {
   createWorld,
   DEFAULT_CONFIG,
+  failHolds,
   hashWorld,
   hullRow,
   isGrippable,
@@ -268,7 +269,7 @@ describe("what a whole one costs", () => {
     for (const i of inputs) byTick.set(i.tick, [...(byTick.get(i.tick) ?? []), i]);
     for (let t = 0; t < tickAtRow(HULL) + TPB + 1; t++) step(world, byTick.get(t) ?? []);
     expect(world.creatures).toHaveLength(0);
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
   });
 });
 

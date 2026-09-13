@@ -3081,3 +3081,24 @@ About 45 min, a third of it getting a picture with real names on it.
 
 Bottleneck: **looking** — names only exist over a relay, so one frame cost a
 wrangler start, two headless phones and a room.
+
+## 2026-09-13 · claude/retry-count — a retry is counted when it is taken, not on the hit
+
+Queue item: the lost screen read `0:09 · 1 RETRY` beside a QUIT button, and
+a pair that quit was recorded with a retry never taken. The count moves from
+`failWave` to `startWave`, on the tick a failed wave opens again, beside the
+try it becomes; the `waveFailed` event loses a number that had not changed,
+and the lost screen's line index follows. Thirty-one sim tests read
+`retries === 1` as "the wave was lost" and now ask `failHolds`. About 30 min,
+most of it the sweep.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `wave-fail.ts`, `wave-start.ts`, `lost-screen.ts`, `waves.ts`, `opening-fx.ts` for every reader of the count |
+| writing | 15 | the move, the pinning test, and a script over 31 test files |
+| looking | 5 | one frame of FIRST STEP lost |
+| friction | 0 | nothing failed |
+| landing | 5 | two trunk rebases before the siren lane could land (origin had THE LEAK) |
+
+Bottleneck: **writing** — a number thirty-one tests used as a flag, swept
+with one script rather than by hand.

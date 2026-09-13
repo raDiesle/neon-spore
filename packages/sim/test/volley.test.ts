@@ -2,6 +2,7 @@ import { describe, expect, it } from "bun:test";
 import {
   createWorld,
   DEFAULT_CONFIG,
+  failHolds,
   hashWorld,
   hullRow,
   isGrippable,
@@ -307,7 +308,7 @@ describe("the two controls, in order", () => {
   it("costs a rock's damage when nobody wards it", () => {
     const { world } = run([volley(3)], tickAtRow(HULL) + TPB + 1, [], LANE);
     expect(world.creatures).toHaveLength(0);
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
     expect(world.guard.tries).toBe(1);
   });
 

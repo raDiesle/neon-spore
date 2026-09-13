@@ -17,6 +17,7 @@ import {
   type Color,
   createWorld,
   DEFAULT_CONFIG,
+  failHolds,
   hashWorld,
   linkIsEnd,
   linkOrder,
@@ -266,7 +267,7 @@ describe("the two ways a worm stops existing", () => {
     }
     expect(burrowed).toBe(true);
     expect(wormOf(world)).toHaveLength(0);
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
     // Broken in more than one column: a thing that digs throws material up on
     // both sides of itself.
     expect(new Set(world.scars.map((s) => s.col)).size).toBeGreaterThan(1);

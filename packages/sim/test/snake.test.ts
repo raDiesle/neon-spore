@@ -258,7 +258,7 @@ describe("the mouth is player 1's, and it is a moment rather than a state", () =
     for (let i = 0; i < ROUNDS[0]!.stepTicks * 2 + 2; i++) step(world, []);
     expect(snake.taken).toEqual([]);
     expect(snakeCrashed(snake)).toBe(true);
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
     // The body stands where it stopped, a tile short of the point: nothing
     // puts it back, because the wave is the thing that goes again.
     expect(snake.body[0]).toEqual({ col: 4, row: 7 });
@@ -313,7 +313,7 @@ describe("the four ways the body crashes, which are one rule", () => {
     expect(snakeCrashed(snake)).toBe(true);
     expect(snake.phase).toBe("verdict");
     expect(snake.passed).toBe(false);
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
   });
 
   it("is the same on an enemy nobody shot", () => {
@@ -359,7 +359,7 @@ describe("the field holds where the body crashed", () => {
     const snake = crash(world);
     expect(snake.crashTick).toBe(world.tick);
     expect(failHolds(world)).toBe(true);
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
     const seen: string[] = [];
     for (let i = 0; i < (CFG.waveFailBeats + 1) * TPB; i++) {
       step(world, [{ tick: world.tick, player: 2, command: { kind: "retry" } }]);
@@ -450,7 +450,7 @@ describe("the rounds, and the two ways out of them", () => {
     step(world, []);
     expect(snake.phase).toBe("verdict");
     expect(snake.passed).toBe(false);
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
   });
 });
 

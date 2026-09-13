@@ -32,8 +32,11 @@ export function runLineBox(l: Layout): { x: number; y: number; w: number; h: num
 
 /**
  * The run's clock and its retries, as the corner reads them: `3:42`, and
- * `3:42 · 2 RETRIES` once a wave has been gone again. What the pair is
- * measured by since 12 September 2026, in place of the points (`wave-fail.ts`).
+ * `3:42 · 2 RETRIES` once a wave has been gone again — and not before: the
+ * count goes up when the failed wave opens again, so the lost screen reads
+ * the retries taken, not the one it is offering (`sim/wave-start.ts`). What
+ * the pair is measured by since 12 September 2026, in place of the points
+ * (`wave-fail.ts`).
  */
 export function runLine(world: World): string {
   const clock = clockText(playSeconds(world));

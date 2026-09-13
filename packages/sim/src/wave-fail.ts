@@ -15,8 +15,8 @@ import type { World } from "./world.js";
  * are on their way out (`docs/spec/structure.md`).
  *
  * **The moment of the hit is the moment the wave stops.** `failWave` is what
- * `applyHullDamage` does now: it marks the tick, counts the retry and says so
- * in an event. From then on `step` holds the field the way an opening does —
+ * `applyHullDamage` does now: it marks the tick and says so in an event. From
+ * then on `step` holds the field the way an opening does —
  * nothing falls, nothing fires, the tick still counts — for `waveFailBeats`,
  * so the breach is seen where it happened; then the pair is asked, on a
  * screen over the held field: RETRY WAVE or QUIT (`render/lost-screen.ts`).
@@ -26,6 +26,12 @@ import type { World } from "./world.js";
  * run for both, says who quit, and the room stays. Two devices agree about
  * all of it because every part is the world's: `failTick`, `retries` and
  * `playTicks` are in `hashWorld`, and the answer is a command in lockstep.
+ *
+ * **A retry is counted when it is taken, not when it is asked for.** The
+ * count goes up in `wave-start.ts`, on the tick the failed wave opens again,
+ * beside the try it becomes. Counted on the hit, the lost screen's own frame
+ * read `1 RETRY` under a QUIT button, and a pair that quit was recorded with
+ * a retry they never took (13 September 2026).
  *
  * **What the clock counts is play.** A tick goes on `playTicks` when the wave
  * is live — not while its opening or guide holds the field, not in the pause
@@ -45,8 +51,7 @@ export function failWave(world: World): void {
   if (world.cfg.hullInvulnerable || world.over) return;
   if (world.failTick !== NOT_FAILED) return;
   world.failTick = world.tick;
-  world.retries += 1;
-  world.events.push({ type: "waveFailed", wave: world.wave, retries: world.retries });
+  world.events.push({ type: "waveFailed", wave: world.wave });
 }
 
 /** Whether a hit is holding the field — the pause, and the wait for the host after it. */

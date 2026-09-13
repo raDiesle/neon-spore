@@ -62,7 +62,7 @@ describe("the lure", () => {
         events.push(...world.events);
       }
       expect(world.creatures).toHaveLength(0);
-      expect(world.retries).toBe(1);
+      expect(failHolds(world)).toBe(true);
       expect(events.some((e) => e.type === "lureHit")).toBe(true);
     }
   });
@@ -81,7 +81,7 @@ describe("the lure", () => {
     expect(breaches).toHaveLength(CFG.lureBlastPlaces);
     // Several holes, one price. The mistake is not made three times worse by
     // being made visible in three places.
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
     // Three different columns, and the middle one is where the body stood.
     const cols = breaches.map((e) => (e.type === "breach" ? e.col : -1));
     expect(new Set(cols).size).toBe(CFG.lureBlastPlaces);
@@ -103,7 +103,7 @@ describe("the lure", () => {
       // folded two places onto one column at the edges and made them cheaper
       // to look at than the middle.
       expect(new Set(world.scars.map((s) => s.col)).size).toBe(CFG.lureBlastPlaces);
-      expect(world.retries).toBe(1);
+      expect(failHolds(world)).toBe(true);
       for (const s of world.scars) {
         expect(s.col).toBeGreaterThanOrEqual(0);
         expect(s.col).toBeLessThan(CFG.cols);
@@ -121,7 +121,7 @@ describe("the lure", () => {
     ]);
     for (let t = 0; t < BEFORE_NEXT_BEAT; t++) step(world, byTick.get(t) ?? []);
     expect(world.creatures).toHaveLength(0);
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
   });
 
   it("fails the wave once for its several places, and holds the field from that tick", () => {
@@ -130,7 +130,7 @@ describe("the lure", () => {
       [SHOT_TICK, [aim(SHOT_TICK, COL), fire(SHOT_TICK, "red")]],
     ]);
     for (let t = 0; t < BEFORE_NEXT_BEAT; t++) step(world, byTick.get(t) ?? []);
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
     expect(failHolds(world)).toBe(true);
     expect(world.over).toBe(false);
   });

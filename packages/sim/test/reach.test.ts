@@ -4,6 +4,7 @@ import {
   crankBites,
   createWorld,
   DEFAULT_CONFIG,
+  failHolds,
   hashWorld,
   hullRow,
   mawOpen,
@@ -159,7 +160,7 @@ describe("what it closes on", () => {
     // rather than only in a number — and the price is the wave, as any hit
     // is (`wave-fail.ts`).
     expect(world.scars.length).toBeGreaterThan(0);
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
   });
 
   it("brings a pod home for the other seat's mouth", () => {

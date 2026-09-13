@@ -5,6 +5,7 @@ import { NO_GRIP } from "../src/grip.js";
 import { handMeans } from "../src/hand.js";
 import { hashWorld } from "../src/hash.js";
 import type { Creature, TimedCommand } from "../src/types.js";
+import { failHolds } from "../src/wave-fail.js";
 import { weightPressMilli, weightPressTicks } from "../src/weight.js";
 import { createWorld, type SimEvent, type SpawnEntry, step, type World } from "../src/world.js";
 
@@ -155,7 +156,7 @@ describe("a weight nobody stops", () => {
     // No shot reaches it and the shield has nothing to say to it, so a pair who
     // never agree on a beat lose the wave to it.
     const run = play([weight(3)], TPB * (SHIP + 3));
-    expect(run.world.retries).toBe(1);
+    expect(failHolds(run.world)).toBe(true);
     expect(run.events.some((e) => e.type === "waveFailed")).toBe(true);
   });
 

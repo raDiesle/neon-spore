@@ -5,6 +5,7 @@ import { balloonIsRubbed, balloonSideTaut } from "../src/balloon-pull.js";
 import { DEFAULT_CONFIG, hullRow, ticksPerBeat } from "../src/config.js";
 import { hashWorld } from "../src/hash.js";
 import type { Creature, DragTarget, TimedCommand } from "../src/types.js";
+import { failHolds } from "../src/wave-fail.js";
 import { createWorld, type SimEvent, type SpawnEntry, step, type World } from "../src/world.js";
 
 /**
@@ -167,7 +168,7 @@ describe("a body that goes up", () => {
     const { world, events } = play([balloon(3)], TPB * (FIRST_STEP + steps * EVERY));
     expect(world.creatures).toHaveLength(0);
     expect(events.filter((e) => e.type === "balloonBurst")).toHaveLength(1);
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
     // Nothing struck the ship, so nothing is torn in the plating: the burst
     // happened a whole field away from the hull it cost (`burstBalloon`).
     expect(world.scars).toHaveLength(0);
@@ -327,7 +328,7 @@ describe("what a rub does", () => {
     // paid for it — the top's price, and no scar, because nothing struck the
     // plating (`burstBalloon`).
     expect(balloonSinks(only(world))).toBe(false);
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
     expect(world.scars).toHaveLength(0);
   });
 

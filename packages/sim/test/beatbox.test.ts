@@ -10,6 +10,7 @@ import {
 import { DEFAULT_CONFIG, ticksPerBeat } from "../src/config.js";
 import { hashWorld } from "../src/hash.js";
 import type { Creature, TimedCommand } from "../src/types.js";
+import { failHolds } from "../src/wave-fail.js";
 import { createWorld, type SimEvent, type SpawnEntry, step, type World } from "../src/world.js";
 
 /**
@@ -247,7 +248,7 @@ describe("a mistake is answered at once", () => {
     const wave = events.find((e) => e.type === "beatboxWave");
     expect(wave).toBeDefined();
     expect(wave?.hits).toBe(2);
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
     // The run is wiped rather than left standing at one: the tap that broke it
     // is not the first tap of a new run.
     expect(beatboxHitsMade(only(world))).toBe(0);
@@ -279,7 +280,7 @@ describe("a wrong count", () => {
     const { world, events } = run([box(3, 3)], at(5), runOf(1, 2), CFG);
     const waves = events.filter((e) => e.type === "beatboxWave");
     expect(waves).toHaveLength(1);
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
     // The body is still there, and its run has been wiped so the height it has
     // left is another go at it.
     const c = only(world);
@@ -291,7 +292,7 @@ describe("a wrong count", () => {
     const { world, events } = run([box(3, 2)], at(6), runOf(1, 3), CFG);
     expect(events.filter((e) => e.type === "beatboxWave")).toHaveLength(1);
     expect(events.some((e) => e.type === "beatboxSilent")).toBe(false);
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
   });
 
   it("leaves no scar, because nothing struck the ship", () => {

@@ -2,6 +2,7 @@ import { describe, expect, it } from "bun:test";
 import {
   createWorld,
   DEFAULT_CONFIG,
+  failHolds,
   hashWorld,
   hullRow,
   record,
@@ -138,7 +139,7 @@ describe("the throb", () => {
     const PLAIN: SimConfig = { ...CFG };
     const world = createWorld(PLAIN, 0, [throb(COL)]);
     for (let t = 0; t < BREACH_TICK + 1; t++) step(world, []);
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
   });
 
   it("replays deterministically: hit on the turn, and the fingerprint pins that", () => {

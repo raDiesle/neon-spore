@@ -33,7 +33,8 @@ import { wrapText } from "./wrap-text.js";
  */
 
 /** One line for the pair, chosen by how many times they have gone again so
- * that both phones say the same one, and a second loss does not repeat it. */
+ * far — the count is up only once a retry is taken (`sim/wave-start.ts`) —
+ * so that both phones say the same one, and a second loss does not repeat it. */
 const LINES = [
   "Each of you saw a different half of that. Swap notes, then go again.",
   "It got through once. Say where, and it will not get through twice.",
@@ -104,7 +105,7 @@ export function drawLostScreen(
   });
   y += 28;
   ctx.font = BODY;
-  const line = LINES[(world.retries - 1 + LINES.length) % LINES.length] ?? LINES[0];
+  const line = LINES[world.retries % LINES.length] ?? LINES[0];
   for (const text of wrapText(ctx, line, l.width - 64)) {
     drop(ctx, mid, y, v.age, 2, 0, () => {
       ctx.font = BODY;

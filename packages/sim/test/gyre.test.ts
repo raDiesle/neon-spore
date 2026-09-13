@@ -20,6 +20,7 @@ import {
 } from "../src/gyre-rim.js";
 import { hashWorld } from "../src/hash.js";
 import type { Creature } from "../src/types.js";
+import { failHolds } from "../src/wave-fail.js";
 import { startWave } from "../src/wave-start.js";
 import { createWorld, type World } from "../src/world.js";
 
@@ -174,7 +175,7 @@ describe("the route", () => {
     for (let i = 0; i < gyreRestRow(cfg) + GYRE_LAP_BEATS * (cfg.gyreSinkLaps + 2); i++) {
       onBeat(world);
     }
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
     expect(gyreMountsLeft(world, hub(world).id)).toBeLessThan(GYRE_MOUNTS);
   });
 });

@@ -5,6 +5,7 @@ import {
   chuteIsOpen,
   createWorld,
   DEFAULT_CONFIG,
+  failHolds,
   guardArmed,
   hashWorld,
   hullRow,
@@ -254,7 +255,7 @@ describe("the two controls, in order", () => {
     const { world } = run([carom(0)], impact, inputs, PLAIN);
     expect(guardArmed(world)).toBe(true);
     expect(world.guard.tries).toBe(0);
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
   });
 
   it("is warded like any other rock once it has been cracked", () => {

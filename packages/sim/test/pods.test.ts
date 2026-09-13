@@ -2,6 +2,7 @@ import { describe, expect, it } from "bun:test";
 import {
   createWorld,
   DEFAULT_CONFIG,
+  failHolds,
   hullRow,
   type PodEntry,
   type SimConfig,
@@ -195,7 +196,7 @@ describe("taking a pod in", () => {
       shootLoose(3),
       STILL,
     );
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
     expect(world.scars).toHaveLength(0);
   });
 });
@@ -327,7 +328,7 @@ describe("what a pod gives", () => {
     }
     expect(events2.some((e) => e.type === "deflect")).toBe(false);
     expect(events2.some((e) => e.type === "breach")).toBe(true);
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
   });
 });
 

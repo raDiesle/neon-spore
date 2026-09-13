@@ -176,22 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## The HUD says `1 RETRY` on a lost wave before anybody has pressed RETRY WAVE
-
-- **Found:** 2026-09-13, claude/handover-window
-- **Taken:** 2026-09-13, claude/queue-the-hud-says-1-retry-on-a-lost-wave-before-anybo
-- **Files:** `packages/sim/src/wave-fail.ts`, `packages/sim/src/wave-start.ts`, `packages/render/src/lost-screen.ts`, `packages/render/src/hud.ts`, `packages/sim/test/rules.test.ts`
-
-`failWave` counts `world.retries` up on the tick the wave is lost, so the
-lost screen's own frame reads `0:09 · 1 RETRY` in the status line and
-`WAVE 70 · TRY 1` in its title at once — a retry that has not happened, on a
-screen whose other button is QUIT. A pair that quits is recorded with one
-retry they never took (`best.retries` on the room). Count the retry where the
-try is counted, in `wave-start.ts` when a failed wave opens again, and move
-the `waveFailed` event's `retries` and `lost-screen.ts`'s line index (which
-assumes the count is already up) with it. The hash order is untouched; the
-test that pins when the number moves goes beside `failWave`'s in `rules.test.ts`.
-
 ## `bun run frames` cannot photograph a fault with numbers the wave does not carry
 
 - **Found:** 2026-09-13, claude/handover-window

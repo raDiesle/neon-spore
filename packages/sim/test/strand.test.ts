@@ -8,6 +8,7 @@ import {
   beadStrand,
   createWorld,
   DEFAULT_CONFIG,
+  failHolds,
   hashWorld,
   hullRow,
   record,
@@ -296,7 +297,7 @@ describe("the thread as an arrival", () => {
     const PLAIN: SimConfig = { ...CFG };
     const world = createWorld(PLAIN, 0, [strand(2)]);
     for (let t = 0; t < BREACH_TICK + 1; t++) step(world, []);
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
   });
 
   it("charges nothing for a raisin, which has already been paid for", () => {
@@ -305,7 +306,7 @@ describe("the thread as an arrival", () => {
     for (let t = 0; t < TPB + 1; t++) step(world, []);
     shootHead(world);
     for (let t = 0; t < BREACH_TICK + 1; t++) step(world, []);
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
   });
 
   it("comes down half as fast as anything else, and holds its lane", () => {

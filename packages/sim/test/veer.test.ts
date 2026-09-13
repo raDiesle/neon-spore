@@ -12,6 +12,7 @@ import {
   veerRowsToChange,
   veerStepCol,
 } from "../src/veer.js";
+import { failHolds } from "../src/wave-fail.js";
 import { createWorld, type SimEvent, type SpawnEntry, step, type World } from "../src/world.js";
 
 /**
@@ -210,7 +211,7 @@ describe("THE VEER", () => {
     expect(landed).not.toBe(3);
 
     const stale = run([veer(3)], ticks, [shieldTo(0, 3), guard(tickOfRow(SHIELD))], SEED);
-    expect(stale.world.retries).toBe(1);
+    expect(failHolds(stale.world)).toBe(true);
 
     const told = run([veer(3)], ticks, [shieldTo(0, landed), guard(tickOfRow(SHIELD))], SEED);
     expect(told.events.some((e) => e.type === "deflect")).toBe(true);

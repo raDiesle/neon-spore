@@ -58,10 +58,16 @@ export function startWave(
   world.spawned = 0;
   world.restBeat = 0;
   // Which try this is. A wave opened while a hit still holds the field is the
-  // same wave gone again (`wave-fail.ts`); any other opening — the next wave,
-  // a jump, a replay — is a first try. Read off `failTick` rather than told,
-  // so two devices cannot be told differently.
-  world.waveTries = world.failTick === NOT_FAILED ? 1 : world.waveTries + 1;
+  // same wave gone again (`wave-fail.ts`), and that is the retry — counted
+  // here, where it is taken, and not on the hit that asked for it; any other
+  // opening — the next wave, a jump, a replay — is a first try. Read off
+  // `failTick` rather than told, so two devices cannot be told differently.
+  if (world.failTick === NOT_FAILED) {
+    world.waveTries = 1;
+  } else {
+    world.waveTries += 1;
+    world.retries += 1;
+  }
   world.failTick = NOT_FAILED;
   world.queue = queue;
   world.podQueue = podQueue;

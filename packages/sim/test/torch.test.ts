@@ -4,6 +4,7 @@ import {
   colSpan,
   createWorld,
   DEFAULT_CONFIG,
+  failHolds,
   fallTilesPerBeat,
   hashWorld,
   hullRow,
@@ -138,7 +139,7 @@ describe("the torch", () => {
     const world = createWorld(PLAIN, 0, [torch(5)]);
     const byTick = new Map<number, TimedCommand[]>();
     for (let t = 0; t < BREACH_TICK + 1; t++) step(world, byTick.get(t) ?? []);
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
     const scarredCols = new Set(world.scars.map((s) => s.col));
     expect(scarredCols).toEqual(new Set([5, 6]));
   });

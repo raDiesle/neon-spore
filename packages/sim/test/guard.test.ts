@@ -4,6 +4,7 @@ import { hashWorld } from "../src/hash.js";
 import { shieldRow } from "../src/hull.js";
 import { fallTilesPerBeat, type RockKind } from "../src/kinds.js";
 import type { TimedCommand } from "../src/types.js";
+import { failHolds } from "../src/wave-fail.js";
 import { createWorld, type SimEvent, type SpawnEntry, step, type World } from "../src/world.js";
 
 /**
@@ -149,7 +150,7 @@ describe("the shield answers a rock where the shield is", () => {
     const landing = run([rock(5)], IMPACT_TICK + 1);
     expect(landing.world.retries).toBe(0);
     const late = run([rock(5)], BREACH_TICK + 1);
-    expect(late.world.retries).toBe(1);
+    expect(failHolds(late.world)).toBe(true);
     // Last seen alive standing on the plating — the row it landed on and was
     // removed from, rather than a row short of it.
     expect(late.deepestRow).toBe(HULL);

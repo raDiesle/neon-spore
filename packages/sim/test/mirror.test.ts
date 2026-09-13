@@ -98,7 +98,7 @@ test("a wrong step breaks the hull, which fails the wave", () => {
   // never be reached from here.
   expect(m.hullMilli).toBe(100_000);
   expect(failHolds(world)).toBe(true);
-  expect(world.retries).toBe(1);
+  expect(failHolds(world)).toBe(true);
   runTo(world, world.tick + TPB * 6);
   expect(mirrorOf(world).phase).toBe("verdict");
   expect(mirrorOf(world).round).toBe(0);

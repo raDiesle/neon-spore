@@ -95,7 +95,7 @@ test("a dead end costs the hull, and the wave", () => {
   // round used to do next — the same stage built again — happens. The boss's
   // own hull is untouched: a stage lost is never a stage undone.
   expect(failHolds(world)).toBe(true);
-  expect(world.retries).toBe(1);
+  expect(failHolds(world)).toBe(true);
   for (let i = 0; i < TPB * (MAZE_VERDICT_BEATS + 8); i++) step(world, []);
   expect(mazeOf(world).phase).toBe("verdict");
   expect(mazeOf(world).hullMilli).toBe(100_000);
@@ -153,7 +153,7 @@ test("a clock run out brings the drum down on the ship", () => {
 
   // The wave is lost on the beat it lands, and the drum is gone.
   expect(failHolds(world)).toBe(true);
-  expect(world.retries).toBe(1);
+  expect(failHolds(world)).toBe(true);
   expect(world.boss).toBeNull();
 });
 
@@ -195,7 +195,7 @@ test("the heart takes its own colour, and the other one costs the hull", () => {
   // which is the whole difference between this and a dead end — and the hit
   // is the wave lost, the same as one.
   expect(failHolds(world)).toBe(true);
-  expect(world.retries).toBe(1);
+  expect(failHolds(world)).toBe(true);
   for (let i = 0; i < TPB * (MAZE_VERDICT_BEATS + 8); i++) step(world, []);
   expect(mazeOf(world).phase).toBe("verdict");
   expect(mazeOf(world).tried).toEqual([mazeCoreEntrance(WHEELS[0]!)]);

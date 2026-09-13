@@ -22,7 +22,7 @@ export type SimEvent =
    * again after a hit (`wave-fail.ts`), which opens without its guide. */
   | { type: "needWave"; wave: number; retry?: true }
   /** A hit failed the wave: the field holds, then the pair is asked. */
-  | { type: "waveFailed"; wave: number; retries: number }
+  | { type: "waveFailed"; wave: number }
   /** One seat answered QUIT on the lost screen: the run is over for both,
    * and the other phone is told who it was (`wave-fail.ts`). */
   | { type: "quit"; player: 1 | 2 }

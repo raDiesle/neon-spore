@@ -4,6 +4,7 @@ import { CHOIR_SHAKEN, choirArmed } from "../src/choir-gesture.js";
 import { DEFAULT_CONFIG, ticksPerBeat } from "../src/config.js";
 import { hashWorld } from "../src/hash.js";
 import type { Color, Creature, DragTarget, TimedCommand } from "../src/types.js";
+import { failHolds } from "../src/wave-fail.js";
 import { createWorld, type SimEvent, type SpawnEntry, step, type World } from "../src/world.js";
 
 /**
@@ -169,7 +170,7 @@ describe("what a wrong move costs", () => {
     const ticks = TPB * (CFG.choirWindowBeats + 3);
     const { world, events } = run([choir(2, "red")], ticks, pull(ON_FIELD, "choirLeft", -FAR));
     expect(events.filter((e) => e.type === "choirSing")).toHaveLength(1);
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
     // Still a membrane: a lapse costs the hull and never opens anything.
     expect(choirIsDots(only(world))).toBe(true);
     expect(choirArmed(world)).toBeNull();

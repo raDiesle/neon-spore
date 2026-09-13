@@ -12,6 +12,7 @@ import {
 } from "../src/fleet-board.js";
 import { step } from "../src/step.js";
 import type { Command, TimedCommand } from "../src/types.js";
+import { failHolds } from "../src/wave-fail.js";
 import { startWave } from "../src/wave-start.js";
 import { createWorld, type World } from "../src/world.js";
 
@@ -211,6 +212,6 @@ describe("the clock", () => {
     expect(fleetBeatsLeft(world, fleetRound(world)!)).toBe(4);
     tick(world, perBeat * 5);
     expect(world.boss).toBeNull();
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
   });
 });

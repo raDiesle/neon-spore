@@ -14,6 +14,7 @@ import { hashWorld } from "../src/hash.js";
 import { fallTilesPerBeat, isMeteorKind, isWardable } from "../src/kinds.js";
 import { spanOf, spawnSpan } from "../src/span.js";
 import type { Creature, TimedCommand } from "../src/types.js";
+import { failHolds } from "../src/wave-fail.js";
 import { createWorld, type SimEvent, type SpawnEntry, step, type World } from "../src/world.js";
 
 /**
@@ -162,7 +163,7 @@ describe("a fence reaching the ship", () => {
     // A fence lands heavy: it is a rock's arrival, not a body's brush.
     const breach = events.find((e) => e.type === "breach");
     expect(breach && breach.type === "breach" && breach.weight).toBe("heavy");
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
     expect(world.guard.deflected).toBe(0);
     // Right column, wrong moment is a failure class this creature has not got.
     expect(world.guard.mistimed).toBe(0);
@@ -181,7 +182,7 @@ describe("a fence reaching the ship", () => {
     // — no cracks on the ship. `breachUnscarred` is where the two halves meet:
     // the points and the event, and nothing for `scars.ts` to tear open.
     const { world } = run([fence([4])], ticksPast, [shieldTo(TPB, 2)]);
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
     expect(world.scars).toEqual([]);
   });
 
@@ -303,7 +304,7 @@ describe("a bolt and a fence", () => {
     // The same solid fence, left alone. Without the cannon there is no answer
     // at all, which is what makes authoring no gaps a decision.
     const { world } = run([fence([], [2])], ticksPast, [shieldTo(TPB, 2)]);
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
   });
 
   it("goes through a way that is already open, rather than dying on it", () => {

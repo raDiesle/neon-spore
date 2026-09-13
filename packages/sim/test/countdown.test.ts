@@ -5,6 +5,7 @@ import {
   countdownPeriod,
   createWorld,
   DEFAULT_CONFIG,
+  failHolds,
   hashWorld,
   record,
   runReplay,
@@ -120,7 +121,7 @@ describe("the count", () => {
     expect(world.creatures).toHaveLength(1);
     expect(events.some((e) => e.type === "reject")).toBe(true);
     expect(events.some((e) => e.type === "destroy")).toBe(false);
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
   });
 
   it("dies to its colour on zero, for scoreCountdownKill", () => {

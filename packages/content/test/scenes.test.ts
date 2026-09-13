@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { DEFAULT_CONFIG, SceneRun, type SimEvent } from "@neon-spore/sim";
+import { DEFAULT_CONFIG, failHolds, SceneRun, type SimEvent } from "@neon-spore/sim";
 import { type ControlId, control, controlHeld, controlSetForWave, setHas } from "../src/index.js";
 import { dragSeat } from "../src/scene-drag.js";
 import { sceneScript } from "../src/scene-script.js";
@@ -238,7 +238,7 @@ describe("the rehearsals a guide can show", () => {
       for (let t = 0; t < SCENES[id].ticks - 1; t++) run.advance(spent);
       const paid = SCENES[id].steps.some((s) => s.anchor.at === "retries");
       expect(
-        run.world.retries > 0,
+        failHolds(run.world),
         paid
           ? `${id} points a page at the retries and never costs one`
           : `${id} takes a hit with no page saying why`,

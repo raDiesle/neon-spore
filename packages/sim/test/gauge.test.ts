@@ -2,6 +2,7 @@ import { describe, expect, it } from "bun:test";
 import {
   createWorld,
   DEFAULT_CONFIG,
+  failHolds,
   type GaugeState,
   gaugeHolds,
   gaugeRound,
@@ -227,7 +228,7 @@ describe("leaving the round", () => {
     // rather than the next one credited (`wave-fail.ts`).
     expect(events.filter((e) => e.type === "breach")).toHaveLength(1);
     expect(world.scars.length).toBe(1);
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
     expect(events.some((e) => e.type === "needWave")).toBe(false);
     step(world, [{ tick: world.tick, player: 1, command: { kind: "retry" } }]);
     expect(world.events.some((e) => e.type === "needWave" && e.wave === WAVE && e.retry)).toBe(
@@ -239,7 +240,7 @@ describe("leaving the round", () => {
   it("cannot end the run: a hit is the round again, never the sheet", () => {
     const world = open();
     runToEnd(world, TPB * (CFG.gaugeRoundBeats + 20));
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
     expect(world.over).toBe(false);
   });
 

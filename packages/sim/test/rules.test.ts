@@ -3,6 +3,7 @@ import {
   type Color,
   createWorld,
   DEFAULT_CONFIG,
+  failHolds,
   fallTilesPerBeat,
   hashWorld,
   hullRow,
@@ -12,6 +13,7 @@ import {
   type SimConfig,
   type SimEvent,
   type SpawnEntry,
+  startWave,
   step,
   type TimedCommand,
   ticksPerBeat,
@@ -92,7 +94,7 @@ describe("the hull", () => {
   it("takes damage and keeps a break where a creature landed", () => {
     const { world } = run([slick(4, "red")], BREACH_TICK + 1);
     expect(world.creatures).toHaveLength(0);
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
     expect(world.scars.map((s) => s.col)).toContain(4);
   });
 
@@ -109,11 +111,31 @@ describe("the hull", () => {
     // and after the pause the screen is up and stays up. Nobody is asked for
     // a wave until a seat has answered it.
     expect(world.scars).toHaveLength(1);
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
     expect(events.filter((e) => e.type === "waveFailed")).toHaveLength(1);
     expect(events.filter((e) => e.type === "needWave")).toEqual([]);
     expect(lostAsks(world)).toBe(true);
     expect(world.over).toBe(false);
+  });
+
+  it("counts the retry when the wave opens again, not on the hit", () => {
+    // The lost screen's own frame used to read `1 RETRY` beside a QUIT button,
+    // and a pair that quit was recorded with a retry they never took. The hit
+    // asks; the count moves when the answer is taken (`wave-start.ts`).
+    const { world } = run([slick(4, "red")], ASKED_TICK + TPB, [
+      answer(ASKED_TICK + 3, 1, "retry"),
+    ]);
+    expect(failHolds(world)).toBe(true);
+    expect(world.retries).toBe(0);
+    expect(world.waveTries).toBe(1);
+    startWave(world, world.wave, [slick(4, "red")]);
+    expect(failHolds(world)).toBe(false);
+    expect(world.retries).toBe(1);
+    expect(world.waveTries).toBe(2);
+    // The next wave, or a jump, is a first try and costs nothing.
+    startWave(world, world.wave + 1, []);
+    expect(world.retries).toBe(1);
+    expect(world.waveTries).toBe(1);
   });
 
   it("asks for the same wave once a seat says RETRY, and only once", () => {
@@ -176,7 +198,7 @@ describe("the shield", () => {
     const { world } = run([meteor(5)], BREACH_TICK + 1, [shieldTo(10, 5), guard(early)]);
     expect(world.guard.deflected).toBe(0);
     expect(world.guard.mistimed).toBe(1);
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
   });
 
   it("does nothing from the wrong column, however well timed", () => {
@@ -184,7 +206,7 @@ describe("the shield", () => {
     expect(world.guard.deflected).toBe(0);
     expect(world.guard.mistimed).toBe(0);
     expect(world.guard.tries).toBe(1);
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
   });
 
   it("position alone is not enough", () => {

@@ -2,6 +2,7 @@ import { describe, expect, it } from "bun:test";
 import {
   createWorld,
   DEFAULT_CONFIG,
+  failHolds,
   hashWorld,
   hullRow,
   lidHandleMilli,
@@ -302,7 +303,7 @@ describe("the lid as an ordinary arrival", () => {
     const PLAIN: SimConfig = { ...CFG };
     const world = createWorld(PLAIN, 0, [lid(COL)]);
     for (let t = 0; t < BREACH_TICK + 1; t++) step(world, []);
-    expect(world.retries).toBe(1);
+    expect(failHolds(world)).toBe(true);
   });
 
   it("holds its lane and falls a tile a beat like anything else", () => {
