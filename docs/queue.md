@@ -357,6 +357,7 @@ cannot run and says so as unverified.
 ## The menu's front page is PLAY, one CONTINUE, and no TESTING row
 
 - **Found:** 2026-09-13, queue-lanes — asked for by the owner
+- **Taken:** 2026-09-13, claude/queue-the-menus-front-page-is-play-one-continue-and-no
 - **Files:** `apps/game/src/menu-entries.ts`, `apps/game/src/menu.ts`, `apps/game/src/menu-link.ts`, `apps/game/src/menu-view.ts`, `apps/game/src/menu-pages.ts`, `apps/game/src/menu-seats.ts`, `apps/game/src/intro.ts`, `apps/game/src/testing.ts`
 - **Where:** cloud
 
