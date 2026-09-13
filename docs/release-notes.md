@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · e9604c03 — `bun run frames --hand` puts this phone's thumb on the ship
+
+The ring under a finger (`render/ship-hand.ts`) is the input layer's, filled from pointer events, so no `--press` or `--hold` could photograph it; the lane that drew it on THE WELL's cannon stubbed a browser by hand and threw the procedure away. Now `--hand cannon|shield|muzzle[=red|cyan]` and `--hand-over` press there with the browser's own mouse: the page answers where the grab circle is in screen pixels (`neonSpore.shipGrab`, flat hull or THE WELL by what the screen is drawing, through a new `clientOfStage` inverse of `pointOnStage`) and the picture goes through the same listeners a thumb does. A tool, not a look.
+
 ## 2026-09-13 · a3703115 — THE HANDOVER's window is the wave's to name, and it may repeat
 
 The owner's answer to the question this lane filed with the fault: both shapes, defined for one wave, over a period of beat rows. So the fault's arm carries three optional numbers — `at`, the beat the first trade happens on; `beats`, how long it holds; `every`, the period after which it happens again — and a wave that names none of them plays the game's own figures, once, exactly as before.
