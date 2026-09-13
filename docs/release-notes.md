@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · 5211c16e — A player logs in with Google or an email link, and PLAY says who
+
+The four-letter recovery code is gone. A name is still claimed by the device alone, and nobody has to log in to play; what a log-in buys is that the name survives the phone. On the settings page, under YOUR NAME, a LOG IN row offers Google's chooser or a link sent to an email address — both through Firebase Auth, from the game's own buttons, with Firebase sending the mail — and the PLAY page's first line says "LOGGED IN AS <name>", or that the name is not logged in and what that costs. Logging in on a new phone gives the name back and moves it there; the phone it moved from is refused on its next visit, which is what a stolen one needs.
+
 ## 2026-09-13 · 937ad7dc — The menu's front page, its face and the difficulty page, seen on a phone
 
 Three unverified entries closed by an eye at 390×844: three rows read as the front door with LEAVE ROOM the fourth once there is a room; the three rows behind PLAY and the SURE? START AGAIN / CANCEL question fit on one screen; Space Grotesk on the wordmark over monospace rows, on the lifted purples. The pictures went to the owner. The names entry is released, not closed: the siren chip only carries a name once a room knows two, which is two devices.
