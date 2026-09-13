@@ -230,6 +230,7 @@ exactly the way it seats a wave's. `.claude/skills/new-tutorial` has the rules;
 ## The director's stage speaks for its role bar while the panels are traded
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-13, claude/queue-the-directors-stage-speaks-for-its-role-bar-whil
 - **Files:** `tools/director/src/stage.ts`, `tools/director/src/stage-touch.ts`, `tools/director/src/stage-rounds.ts`
 
 The stage draws a handover wave correctly — the renderer seats every frame
