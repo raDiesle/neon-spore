@@ -526,3 +526,17 @@ entirely clipped drew nothing — so prove it by the ordered canvas log: the
 diff must be only removed calls, and the picture the same. Nothing keyed on
 `time` may be cached to do it; the pile's *look* frozen per `units` is a look
 question and is with the owner, not here.
+
+## Unverified at 93caa4e4: The menu's new palette and face seen on a phone: whethe…
+
+- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `apps/game/index.html`, `apps/game/src/menu.css`, `apps/game/test/menu-contrast.test.ts`, `docs/queue.md`, `docs/time-log.md`
+
+*The menu's colours are named, measured, and set in a face that is not Courier* landed from a session that could not look at it. What went unchecked:
+
+- The menu's new palette and face seen on a phone: whether Space Grotesk suits a game drawn in monospace, and whether the lifted purples read as one family or as three — the ratios are measured by a test, the look is not
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
