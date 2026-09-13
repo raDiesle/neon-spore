@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE WELL draws none of the field's transients but a kill's burst
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-13, claude/queue-the-well-draws-none-of-the-fields-transients-but
 - **Files:** `packages/render/src/well-draw.ts`, `packages/render/src/effects.ts`, `packages/render/src/effects-frame.ts`, `packages/render/src/creature-place.ts`
 
 The well replaces the field's two passes, so everything `Effects` draws is
