@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · 0b79e104 — THE WELL's screen answers a finger on the ship and on a body
+
+While THE WELL was up, every press on the field was answered against the flat picture: a thumb on the cannon drawn on the hull ring took nothing, a thumb on an empty patch where a body's flat column would have been took hold of the body. `touch-well.ts` asks the flat field's two questions of the circle instead — the cannon and the dome as grab circles at their hour on the ring, a body at `wellPlace` with the same glide `drawWellBodies` places it by, the column under a finger as the hour under it. A hand taken on the well carries the cannon round the ring hour by hour, a grip round the ring steps its body a column per sector, and the seam at twelve is a wall: a finger in it sends nothing, and eleven and one are the two ends of the rail, not neighbours. The rails and the buttons are untouched and still reach everything; this is the second way to the same controls, for a thumb already up on the picture.
+
 ## 2026-09-13 · 37e9e6c6 — A crossing rock is announced on THE WELL, in the seam, on its row's circle
 
 The well bent the warning strip into a ring outside the rim and skipped every blip carrying a cross, so a rock coming over a side wall warned the pilot about nothing. The flat mark answers the two questions such a rock has instead of a column — the row and the side — with its height and the wall it is pushed against; on the circle a row is a radius and the two walls are the two edges of the seam at twelve, so the mark sits on that radius with its head just past the wall beside one o'clock (walking clockwise) or eleven (anticlockwise) and its tail back across the seam. Where it enters is asked of `rockEntryCol`, the spawn's own rule.
