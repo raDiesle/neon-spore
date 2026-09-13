@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · 1941df9b — The siren and both names sit top centre, and the four beat dots are gone
+
+The comms siren, its two seat chips and the duty word now hang from the middle of the screen's top, at the round header's height, instead of the left corner beside the run line. The four beat dots that ticked in the HUD's top left are removed; the beat is still visible on the shield ring and the wisp grid, and audible.
+
+## 2026-09-13 · 6ed5ad60 — Queued: VERSUS decided — apply handover:notice's hull to the game, reject every cairn:pile
+
+The owner's decision on 13 September 2026, written as one queue item for a cloud session: `bun run versus adopt handover:notice hull` and `bun run versus drop cairn:pile`, with the files each touches.
+
 ## 2026-09-13 · b82d01ad — The director's map, tapped on a phone-sized viewport, wears its row verbs on the tapped row alone
 
 Verified caaf6cac's phone claim on a 375-px touch viewport with playwright: the tapped row alone shows the insert lines and the trash, and the palette is not sticky there. Found and queued: the MAP view keeps the desktop two-column frame, so the map gets ~110 px beside the palette and its cell panel and trash sit off the right edge.
