@@ -208,6 +208,7 @@ real provider is unverified from a cloud session.
 ## The game says the players' nicknames where it now says Player 1 and Player 2
 
 - **Found:** 2026-09-13, queue-lanes — asked for by the owner
+- **Taken:** 2026-09-13, claude/queue-the-game-says-the-players-nicknames-where-it-now
 - **Files:** `packages/net/src/nickname.ts`, `packages/render/src/siren-seats.ts`, `packages/render/src/grip.ts`, `apps/game/src/menu-seats.ts`, `apps/game/src/menu-pages.ts`, `apps/game/src/view.ts`, `packages/content/src/scenes.ts`
 - **Where:** cloud
 
