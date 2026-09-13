@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · 54ed8c91 — THE CAIRN's guide is a rehearsal: a still thumb, a carry, and the lane
+
+The wave that introduces THE CAIRN carried prose and no scene, for a gesture the game had taught only on a falling rock. Five pages now: the pilot's thumb resting on the pile and nothing happening, the same thumb carried right and one rock leaving that side, the pilot alone watching the lane the pile will drop into by itself, the navigator's dome sliding under the pulled rock, and the rock nobody pulled reaching the hull.
+
 ## 2026-09-13 · 208601aa — THE WEIGHT's guide is a rehearsal: a thumb alone, twice, then both
 
 The wave that introduces THE WEIGHT carried three lines of prose and no scene, for a lesson that is a negative — a thumb held alone looks exactly like two thumbs held together. Four pages now: the pilot's thumb alone on the sac and nothing giving, the navigator's the same, both on one beat and the calipers closing, and a second sac left alone reaching the hull. Each seat sees only its own hand, which is the creature.
