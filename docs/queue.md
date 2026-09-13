@@ -176,25 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## A crossing rock has no blip on THE WELL's rim
-
-- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-13, claude/queue-a-crossing-rock-has-no-blip-on-the-wells-rim
-- **Files:** `packages/render/src/well-draw.ts`, `packages/render/src/radar-blip.ts`
-
-`drawWellArrivals` bends the warning strip into a ring outside the rim and skips
-every blip carrying a `cross`: a rock that comes over a side wall has no column
-at all, and the flat picture for one is drawn *inside* the field, against the
-wall it will come over, pointing the way it will fly (`radar-blip.ts` says why).
-The circle has no wall and no equivalent yet, so a well wave with a crossing
-rock in it warns the pilot about nothing.
-
-What it probably wants is the mark placed on the rim at the *row* it will hold —
-which in the well is a radius rather than a height — pointing along the ring
-rather than across the field. That is a picture decision rather than a
-mechanical one, so it wants an eye on it; `bun run frames . --wave "THE WELL"`
-is how to look.
-
 ## THE WELL's screen answers no finger on the field
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt

@@ -2293,3 +2293,22 @@ the other three verbs. About 30 min.
 
 Bottleneck: **looking** — finding the tick the breach fires took a probe;
 the frames tool cannot say when an event happened.
+
+## 2026-09-13 · queue-a-crossing-rock-has-no-blip — the crossing rock's mark in the seam
+
+A rock that will come over a side wall is now announced on the well: in the
+seam, on the circle of the row it will hold, its head just past the wall on
+its side and its tail back across the seam, pointing the way round it will
+fly. `drawWellArrivals` moved to `well-arrivals.ts` with it, on
+`well-draw.ts`'s line limit. About 25 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `radar-blip.ts`, the flat mark in `field.ts`, `rockEntryCol`, the well's polar helpers |
+| writing | 10 | `well-arrivals.ts`, four tests |
+| looking | 5 | THE WELL with two crossing rocks put in its queue for the picture only — the mark at one o'clock, the rock on the same circle at half past three, the second mark at eleven |
+| friction | 0 | — |
+| landing | 5 | `check:fast`, `bun run index`, the commit, `bun run land --keep` |
+
+Bottleneck: **writing** — the arc's sense: canvas angles run the other way
+from the clock's, and the tail was drawn the long way round once.

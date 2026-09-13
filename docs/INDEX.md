@@ -819,6 +819,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/well-draw.ts` | THE WELL's board and the bodies on it, in place of the flat field's two field passes |
 | `packages/render/src/well-face.ts` | THE WELL's clock face: the bowl, the lanes, the rings and the seam — the empty board, in the round |
 | `packages/render/src/well-ship.ts` | THE WELL's ship: the hull as a ring at the middle of the clock |
+| `packages/render/src/well-arrivals.ts` | THE WELL's warnings: the flat field's strip, bent into a ring outside the rim, and the crossing rock's mark |
 | `packages/render/src/well.ts` | THE WELL's projection: columns to hours, rows to radii, and the seam the two walls meet at |
 | `packages/render/src/queen-drop.ts` | NEXT TO FALL: the flank the queen's next torch comes off, said on player 2's screen and nowhere else |
 | `packages/render/src/queen-figure.ts` | Where the parts of the queen sit on her, and where the screen puts them |

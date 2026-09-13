@@ -13,17 +13,9 @@ import { drawBackground } from "./field.js";
 import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { blipColor, radarBlips } from "./radar-blip.js";
 import type { ViewState } from "./renderer.js";
-import {
-  WELL_BODY,
-  wellAngle,
-  wellAt,
-  wellFall,
-  wellPlace,
-  wellRim,
-  wellSectorAngle,
-} from "./well.js";
+import { WELL_BODY, wellFall, wellPlace } from "./well.js";
+import { drawWellArrivals } from "./well-arrivals.js";
 import { drawWellFace } from "./well-face.js";
 
 /**
@@ -44,13 +36,15 @@ import { drawWellFace } from "./well-face.js";
  * fall. A second answer to any of those would be a well that disagreed with
  * the field it is a picture of.
  *
+ * The warning ring outside the rim is `well-arrivals.ts`, cut off on the
+ * same line limit when the crossing rock's mark joined it.
+ *
  * **What it does not draw yet**, and each one is in `docs/queue.md`: the
  * transients drawn around a body or on the hull (a crater, a scar, a grip's
  * ring — `drawWellBodies` says which and why; a spark and a kill's sprite are
- * drawn), a crossing rock's blip, and the two hit tests that would let the
- * ship's own lobes be grabbed where they are drawn — until those land, the
- * pilot's field answers no finger at all on a well wave and the rails do
- * everything (`touch.ts`).
+ * drawn), and the two hit tests that would let the ship's own lobes be grabbed
+ * where they are drawn — until those land, the pilot's field answers no finger
+ * at all on a well wave and the rails do everything (`touch.ts`).
  */
 
 /** How far a body is allowed to be drawn outside the rim, in rows, before the
@@ -69,47 +63,6 @@ export function drawWellBack(
   drawBackground(ctx, l, world.wave, view.time);
   drawWellFace(ctx, l, flash);
   drawWellArrivals(ctx, l, world, view.time);
-}
-
-/**
- * The warning strip, bent into a ring outside the rim.
- *
- * It is the same walk, the same gate and the same colours the flat strip uses
- * (`radar-blip.ts`): a mark in the lane the thing is coming down, growing and
- * brightening as it nears. What it cannot carry is the strip's own second axis
- * — height for *how soon* — because outside the rim there is nowhere to put it,
- * so the size and the alpha the walk already computes do all of the telling.
- *
- * A crossing rock is skipped rather than placed: it has no column at all, and
- * the flat blip for one is drawn *inside* the field against the wall it comes
- * over, which is a picture the circle has no equivalent for yet.
- */
-function drawWellArrivals(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  world: World,
-  time: number,
-): void {
-  const rim = wellRim(l);
-  const pulse = 0.75 + 0.25 * Math.sin(time * 6);
-  for (const blip of radarBlips(l, world)) {
-    if (blip.cross !== undefined) continue;
-    const a = wellAngle(l, bodyCenterCol(blip.entry, blip.entry.col));
-    const tip = wellAt(l, a, rim + blip.s * 0.4);
-    const back = wellAt(l, a, rim + blip.s * 1.6);
-    const side = wellAt(l, a + wellSectorAngle(l) * 0.22 * blip.span, rim + blip.s * 1.3);
-    const other = wellAt(l, a - wellSectorAngle(l) * 0.22 * blip.span, rim + blip.s * 1.3);
-    ctx.globalAlpha = blip.alpha * pulse;
-    ctx.fillStyle = blipColor(blip.entry);
-    ctx.beginPath();
-    ctx.moveTo(tip.x, tip.y);
-    ctx.lineTo(side.x, side.y);
-    ctx.lineTo(back.x, back.y);
-    ctx.lineTo(other.x, other.y);
-    ctx.closePath();
-    ctx.fill();
-  }
-  ctx.globalAlpha = 1;
 }
 
 /**

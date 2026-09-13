@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { buildBoss, buildQueue } from "@neon-spore/content";
+import { buildBoss, buildQueue, queueFromWave } from "@neon-spore/content";
 import { createWorld, type SimEvent, startWave, ticksPerBeat, type World } from "@neon-spore/sim";
 import { Effects } from "../src/effects.js";
 import { computeLayout, type Layout, tileCX, tileCY, type ViewRole } from "../src/layout.js";
@@ -7,6 +7,7 @@ import {
   showsWell,
   wellAngle,
   wellAt,
+  wellCenter,
   wellFromFlat,
   wellHub,
   wellPlace,
@@ -16,6 +17,7 @@ import {
   wellSectors,
   wellShown,
 } from "../src/well.js";
+import { drawWellArrivals } from "../src/well-arrivals.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -261,5 +263,80 @@ describe("the well's transients", () => {
     const hub = wellPlace(L, 2, CFG.rows - 1.5);
     expect(well.x - hub.x).toBeCloseTo(flat.x - tileCX(FLAT, 2), 6);
     expect(well.y - hub.y).toBeCloseTo(flat.y - FLAT.hullY, 6);
+  });
+});
+
+/**
+ * The first point of every filled shape `drawWellArrivals` drew — the head of
+ * each mark — off a canvas that keeps nothing else. `moveTo` opens a mark and
+ * `arc` is only ever the crossing mark's tail.
+ */
+function markHeads(world: World, l: Layout): { x: number; y: number }[] {
+  const heads: { x: number; y: number }[] = [];
+  const ctx = {
+    globalAlpha: 1,
+    fillStyle: "",
+    strokeStyle: "",
+    lineWidth: 1,
+    beginPath: () => {},
+    moveTo: (x: number, y: number) => heads.push({ x, y }),
+    lineTo: () => {},
+    closePath: () => {},
+    fill: () => {},
+    arc: () => {},
+    stroke: () => {},
+  } as unknown as CanvasRenderingContext2D;
+  drawWellArrivals(ctx, l, world, 0);
+  return heads;
+}
+
+describe("the crossing rock's mark on the well", () => {
+  /** A well world whose queue is one rock, due next beat: crossing from the
+   * side given, or falling down column three when none is. */
+  const worldWith = (cross?: 1 | -1, row = 0): World => {
+    const world = createWorld(CFG, 4);
+    const entry =
+      cross === undefined
+        ? { beat: 0, col: 3, kind: "meteor" as const, color: null }
+        : { beat: 0, col: cross > 0 ? 0 : 6, kind: "meteor" as const, color: null, cross, row };
+    const queue = queueFromWave({ entries: [entry] }, CFG.cols);
+    startWave(world, WELL, queue, [], buildBoss(WELL, CFG.cols));
+    return world;
+  };
+  const polar = (l: Layout, p: { x: number; y: number }) => {
+    const c = wellCenter(l);
+    // Clockwise from up, the way `wellAngle` reads an hour.
+    const angle = (Math.atan2(p.x - c.x, c.y - p.y) + 2 * Math.PI) % (2 * Math.PI);
+    return { angle, radius: Math.hypot(p.x - c.x, p.y - c.y) };
+  };
+
+  it("is drawn at all — the flat field's mark was skipped here", () => {
+    expect(markHeads(worldWith(1, 5), L).length).toBe(1);
+  });
+
+  it("sits on the circle of the row the rock will hold", () => {
+    for (const row of [2, 5, 9]) {
+      const at = polar(L, markHeads(worldWith(1, row), L)[0]!);
+      expect(at.radius).toBeCloseTo(wellRadius(L, row), 6);
+    }
+  });
+
+  it("comes out of the seam beside one o'clock walking clockwise, beside eleven the other way", () => {
+    // The head stands just past the wall, inside the first column's sector on
+    // its side of the seam — never in the seam itself, never a whole column in.
+    const right = polar(L, markHeads(worldWith(1, 5), L)[0]!);
+    expect(right.angle).toBeGreaterThan(wellAngle(L, -0.5));
+    expect(right.angle).toBeLessThan(wellAngle(L, 0));
+    const left = polar(L, markHeads(worldWith(-1, 5), L)[0]!);
+    expect(left.angle).toBeLessThan(wellAngle(L, CFG.cols - 0.5));
+    expect(left.angle).toBeGreaterThan(wellAngle(L, CFG.cols - 1));
+    // And the two are mirror images about twelve.
+    expect(right.angle).toBeCloseTo(2 * Math.PI - left.angle, 6);
+  });
+
+  it("leaves a falling body's mark outside the rim, where the bent strip is", () => {
+    // A rock coming down a column, due next beat: the ring, not the seam.
+    const at = polar(L, markHeads(worldWith(), L)[0]!);
+    expect(at.radius).toBeGreaterThan(wellRim(L));
   });
 });
