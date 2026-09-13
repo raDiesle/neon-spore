@@ -64,6 +64,13 @@ export function drawGrips(
     // test spelled out again here (`sim/hand.ts`).
     const means = handMeans(c.kind, p1 ? 1 : 2);
     if (means === null) continue;
+    // **A press is not drawn here at all.** A hand on a weight is the one
+    // thing in the game a player is shown that their partner is not
+    // (`weight.ts`), and this loop draws for whichever seat is looking — so a
+    // ring and a "P1 AIMS" over the body were the split given away on the
+    // other phone, watched at tempo on 13 September 2026. The private mark and
+    // the calipers are `drawWeightPress`'s, seat by seat.
+    if (means === "press") continue;
 
     const { x, y } = creatureCenter(l, c, beatPhase);
     const r = Math.max(1, creatureRadius(l, c) * RING_MUL);

@@ -7,9 +7,18 @@ import {
   ticksPerBeat,
 } from "@neon-spore/sim";
 import { commsCall } from "../src/comms.js";
-import type { ViewRole } from "../src/layout.js";
+import { drawGrips } from "../src/grip.js";
+import { computeLayout, type ViewRole } from "../src/layout.js";
 import { pressSeats, showsOwnMark } from "../src/weight.js";
-import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, ROLES, runFrames } from "./frame-harness.js";
+import {
+  CFG,
+  FRAME_TIMEOUT_MS,
+  installCanvasGlobals,
+  ROLES,
+  runFrames,
+  stubCanvas,
+  VIEWPORT,
+} from "./frame-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -105,6 +114,27 @@ describe("a hand on a weight", () => {
     if (!c) return;
     for (const role of ["p1", "p2", "test"] as const) {
       expect(showsOwnMark({ role } as never, world, c)).toBe(false);
+    }
+  });
+
+  it("is not the ordinary grip's ring and label, on any screen", () => {
+    // `drawGrips` draws a hand for whichever seat is looking. On a weight
+    // that put a ring and "P1 AIMS" on the navigator's phone — the partner's
+    // thumb, which this creature exists to keep out of sight — so a press is
+    // the one hand that loop leaves alone (`grip.ts`).
+    for (const hands of [[1], [2], [1, 2]] as (1 | 2)[][]) {
+      const world = held(hands);
+      for (const role of ROLES) {
+        const { ctx } = stubCanvas();
+        drawGrips(
+          ctx as unknown as CanvasRenderingContext2D,
+          computeLayout(VIEWPORT, CFG, role),
+          world,
+          0.5,
+          1,
+        );
+        expect(ctx.calls).toBe(0);
+      }
     }
   });
 
