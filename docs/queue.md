@@ -244,27 +244,27 @@ auto`, so the palette stands above the map at the phone's full width and
 `#mapCol` scrolls sideways only for the grid. Add a test beside
 `stylesheet-order.test.ts` that reads the phone block and finds both rules.
 
-## The browser tests hang out their whole budget where Google cannot be reached
+## The built game reaches Google under test, and the frame tests take five minutes
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
 - **Files:** `tools/frames/capture.ts`, `tools/frames/test/opening.test.ts`, `apps/game/index.html`, `apps/game/src/sign-in.ts`
 
 Since the sign-in landed, loading the built game in a headless Chrome reaches
 out to Google — `fonts.googleapis.com`, `accounts.google.com` and
-`www.google.com`, 37 connections in one run of `tools/frames/test/opening.test.ts`
-alone. A cloud session runs behind an egress proxy that refuses them, and the
-page never settles: every case spends its whole `STARVED_MS` (120 seconds) and
-`bun run check` goes from about a minute to many. It is not a failure anybody
-reads as one, either — the run simply sits there, which is the worst shape a
-slow test can have.
+`www.google.com`, 37 refused connections in one run of
+`tools/frames/test/opening.test.ts` alone, behind the egress proxy a cloud
+session runs under. The file passes: thirteen cases, four minutes forty on this
+machine, and `bun run check` is green at about six minutes all told. So this is
+not a failure and not a hang — **the first version of this entry said it was
+both, on a run cut short at a hundred seconds, and that was wrong.**
 
-Confirmed on a clean `main` with nothing of this lane's on it, so it is the
-environment meeting the new page rather than any one change. The fix is
-probably one line in the capture harness — `page.route` refusing every request
-whose host is not the preview's own, which is also the honest thing for a test
-about *this* checkout's frames — or the fonts served from the bundle. Whoever
-takes it should check whether `bun run frames` and `bun run perf` pay the same
-tax on a machine with ordinary egress but no network at all.
+What is left is worth doing anyway, and it is cheap: a test about *this*
+checkout's frames should not put a single request on the network. One
+`page.route` in the capture harness, refusing every host but the preview's own,
+and the fonts served out of the bundle. Whoever takes it can settle the open
+question with a number rather than a guess — whether those refused connections
+are any of the four minutes forty, or whether the file simply costs that much
+here. Measure it before and after the route.
 
 ## THE LEAK's guide is prose, and what it has to show cannot be asserted
 
@@ -295,7 +295,7 @@ both of which the test names in its failure.
 *THE LEAK: the fault that takes the hold, not a button* landed from a session that could not look at it. The commit touched 18 more files. What went unchecked:
 
 - THE LEAK watched at tempo: whether a pair can cross the field and take three bodies at the far wall before they land, with no lance to shorten the column
-- THE LEAK's frame cost: its baseline row is UNMEASURED, and the browser-driven frame tests do not run in this session at all
+- THE LEAK's frame cost: its baseline row is UNMEASURED. (The commit's own message says the browser-driven frame tests do not run in this session; that was wrong — they run, they pass, and they take about five minutes. The entry above has the numbers.)
 
 Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
