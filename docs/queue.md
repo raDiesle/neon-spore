@@ -391,6 +391,7 @@ what the rest of this file holds.
 ## THE WELL's cannon can be held now, but the hand's ring is not drawn on it
 
 - **Found:** 2026-09-13, claude/queue-the-wells-screen-answers-no-finger-on-the-field
+- **Taken:** 2026-09-13, claude/queue-the-wells-cannon-can-be-held-now-but-the-hands-r
 - **Files:** `packages/render/src/frame-ship.ts`, `packages/render/src/ship-hand.ts`, `packages/render/src/well-ship.ts`, `packages/render/src/touch-well.ts`, `packages/render/test/well-frame.test.ts`
 
 Found while making the well's screen answer a finger on the ship. The flat
