@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · a0ff528a — The director's four open column tracks are held equal in code and stylesheet
+
+`OPEN_TRACKS` in `tools/director/src/columns.ts` and `main { grid-template-columns }` in `director-columns.css` are the same four tracks written twice, and a change to one was a column one width on a fresh page and another after the first click on a head. `columns.test.ts` now reads the stylesheet and holds the two equal, in the markup's own DOM order; the constant is exported for it, and its comment names the stylesheet rather than index.html.
+
 ## 2026-09-13 · 614a813d — THE HANDOVER's rehearsal is seen page by page, and its fourth page's caption is queued
 
 The unverified item from 47007bd2 is taken out: the film photographed with --guide-page, the second page across the trade. The band changes colour under the same PLAYER n · SCREEN plate, the lip counts down and then counts out, and the third page's thumb rests on a button that seat never had. Whether four pages are enough and whether the trade reads as the panels moving rather than the film is the owner's, and asked. Found and queued: the fourth page's caption, anchored on the cannon strip, covers THEIR PANEL — BACK IN N on the lip.
