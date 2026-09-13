@@ -390,6 +390,7 @@ what the rest of this file holds.
 ## `creatureCenter` assumes the flat field, so THE WELL draws nothing around a body
 
 - **Found:** 2026-09-13, claude/queue-the-well-draws-none-of-the-fields-transients-but
+- **Taken:** 2026-09-13, claude/queue-creaturecenter-assumes-the-flat-field-so-the-wel
 - **Files:** `packages/render/src/creature-place.ts`, `packages/render/src/effects-body.ts`, `packages/render/src/lock-mark.ts`, `packages/render/src/grip.ts`, `packages/render/src/well.ts`, `packages/render/test/well-frame.test.ts`
 
 The half of "THE WELL draws none of the field's transients" that lane left.
