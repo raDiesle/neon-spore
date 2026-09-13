@@ -208,6 +208,7 @@ real provider is unverified from a cloud session.
 ## A new game is started at a difficulty — Easy, Medium or Hard
 
 - **Found:** 2026-09-13, queue-lanes — asked for by the owner
+- **Taken:** 2026-09-13, claude/queue-a-new-game-is-started-at-a-difficulty-easy-mediu
 - **Files:** `packages/sim/src/config.ts`, `packages/sim/src/config-derived.ts`, `apps/game/src/progress.ts`, `apps/game/src/menu-entries.ts`, `apps/game/src/menu-link.ts`, `packages/net/src/protocol.ts`, `apps/server/src/room-start.ts`
 - **Where:** cloud
 - **Asks:** Is difficulty the tempo alone, or the tempo plus the hull's hits — and is today's speed Medium or Hard?
