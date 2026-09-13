@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · 213e72f1 — THE WELL's rehearsal shows the field folding into the clock
+
+THE WELL opened on three lines of prose about a picture nobody had been shown. Its film is one body and a seat switch: the navigator's flat field with a red body coming down the fourth column, then the pilot's screen — the clock — with the same body still falling, at four o'clock, and the caption naming the hour. The seat switch is the fold: a rehearsal lays each page out for the seat it shows and the well is drawn on the pilot's screen only, so no new machinery and no second projection. The third page folds back to the navigator firing down the same lane — nothing falls differently, nothing fires differently — and the fourth is the seam, the cannon carried from one o'clock to eleven the long way round the ring.
+
 ## 2026-09-13 · f91ad6ab — Two phones that have parted start again together, on the wave the room kept
 
 The owner played a two-device game, a phone dropped its socket and came back, and afterwards the two of them were on different waves — one in a guide, the other on the field — with nothing on either screen saying so. The fingerprints knew: `HashLedger` reports the first tick the two worlds parted, and all that was ever done with it was a line reading "The two worlds parted at tick N. This is a bug", which is true and is not an answer for two people holding phones.
