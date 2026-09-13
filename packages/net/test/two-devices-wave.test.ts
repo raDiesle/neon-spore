@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { buildBoss, buildPods, buildQueue, WAVES, waveGuideSteps } from "@neon-spore/content";
+import { bossFromWave, podsFromWave, queueFromWave, type Wave } from "@neon-spore/content";
 import {
   type Command,
   createWorld,
@@ -14,18 +14,31 @@ import { HashLedger, Lockstep, type PlayerId, type ServerMessage } from "../src/
 import { Relay } from "./relay.js";
 
 /**
- * Two waves of the real game, played to their end by two devices over a
- * delayed link, with the fingerprints exchanged as the game exchanges them.
+ * Two waves played to their end by two devices over a delayed link, with the
+ * fingerprints exchanged as the game exchanges them.
  *
  * `two-devices.test.ts` next door plays a queue written for it and stops at a
  * tick count. What this adds is the other half of the claim: the waves are
- * **content's** — the first two `waves.ts` lists, translated by `buildQueue`
- * the way `apps/game/src/waves.ts` translates them — and the run stops when the
- * second wave does, which is the simulation's own verdict rather than a number
- * in a test. And the two worlds are not compared by reaching into both of them:
+ * *authored* waves, translated by `queueFromWave` the way `apps/game/src/waves.ts`
+ * translates the ones `waves.ts` lists — and the run stops when the second
+ * wave does, which is the simulation's own verdict rather than a number in a
+ * test. And the two worlds are not compared by reaching into both of them:
  * every sixteenth tick each device fingerprints its own world, sends it, and
  * puts the peer's through `HashLedger`, so what the test asserts is the verdict
  * the game itself would draw a DESYNC screen on.
+ *
+ * **The waves are this file's own, not `WAVES[0]` and `WAVES[1]`.** They were,
+ * until 13 September 2026: the press script below was written by hand against
+ * FIRST STEP's one red body, and the owner then saved FIRST STEP from the wave
+ * editor with eight — which landed `main` red on a save that ran no test, and
+ * would again on the next one, because FIRST STEP is the wave the owner edits
+ * most. What this test proves is two devices crossing a wave boundary in step,
+ * and that needs a wave with a known body and a known clear, not the first one
+ * the game happens to ship. So the two are written here, in the authored
+ * columns, and go through the director's unsaved-wave path
+ * (`queueFromWave`, `podsFromWave`, `bossFromWave`) — the same translation
+ * `buildQueue` applies to a saved one, so nothing about the boundary is
+ * different, and no save can move a body out from under a press.
  *
  * **The boundary between the two is the point.** A wave ends on a `needWave`,
  * and the host answers it by calling `startWave` inside the frame the event
@@ -36,7 +49,22 @@ import { Relay } from "./relay.js";
  * fingerprints keep crossing over the boundary and through the second wave.
  */
 
-/** The first wave `waves.ts` lists; the run plays it and the one after. Both names are asserted below. */
+/**
+ * The two waves, in the seven authored columns `mapCol` spreads over the real
+ * field: authored 3 lands in column 5, 2 in 3 and 4 in 7, at eleven columns.
+ * The first is one red body; the second, two cyan bodies three beats apart.
+ */
+type Small = Pick<Wave, "entries" | "pods" | "boss">;
+const SMALL: Small[] = [
+  { entries: [{ beat: 0, col: 3, color: "red" }] },
+  {
+    entries: [
+      { beat: 0, col: 2, color: "cyan" },
+      { beat: 3, col: 4, color: "cyan" },
+    ],
+  },
+];
+/** The index the first is opened under; the run plays it and the one after. */
 const WAVE = 0;
 /** The world's seed, fixed so the run is the same one every time. */
 const SEED = 7;
@@ -61,62 +89,32 @@ const CEILING = 4500;
  * rolled, for `determinism.test.ts`'s reason: a script somebody can read is a
  * script somebody can tell is playing the wave rather than fidgeting through it.
  *
- * FIRST STEP sends eight red bodies over twenty-seven beats, down the columns
- * `buildQueue` maps the authored 3, 3, 4, 6, 5, 3, 0 and 6 onto — as the owner
- * saved it from the director on 13 September 2026, in place of the one body it
- * used to send. Seat 1 stands the cannon under the first, seat 2 spends two
- * cyan shots on it for nothing and then red, and between them the dome comes
- * up and the maw opens; the other seven each get the cannon under them once
- * they are two or three rows down, and one red shot. So the run covers thirty
- * beats of bodies falling, with the cannon crossing the whole field twice.
+ * The first wave sends one red body down column 5 on its first beat. Seat 1
+ * stands the cannon under it, seat 2 spends two cyan shots on it for nothing
+ * and then red, and between them the dome comes up and the maw opens — so the
+ * run covers ten beats of a body falling, with every control pressed once,
+ * before the clear.
  *
- * CYAN, the wave after, sends two cyan bodies down the columns authored 2 and
- * 4 map onto, three beats apart. Its presses are counted from the tick the
- * wave opened, because that tick is the run's to find rather than the test's
- * to know — and it is the same tick on both devices, which is asserted.
- *
- * It is written for **these** waves, which is why the names are asserted
- * above: a lane that reorders act one should be told that a column and a
- * colour here were about FIRST STEP and CYAN, not left with a test that passes
- * while proving nothing.
+ * The second sends two cyan bodies, down columns 3 and 7, three beats apart.
+ * Its presses are counted from the tick the wave opened, because that tick is
+ * the run's to find rather than the test's to know — and it is the same tick
+ * on both devices, which is asserted.
  */
 const PRESSES: { wave: number; tick: number; player: PlayerId; command: Command }[] = [
   { wave: 0, tick: 20, player: 1, command: { kind: "cannonCol", col: 5 } },
   { wave: 0, tick: 30, player: 2, command: { kind: "shieldCol", col: 5 } },
-  // Cyan, twice, on a body that is red: the wave's own lesson, and nothing
-  // comes apart. The body keeps falling, which is what makes this a run of
-  // beats rather than a shot on the first one.
+  // Cyan, twice, on a body that is red: the first wave's own lesson, and
+  // nothing comes apart. The body keeps falling, which is what makes this a
+  // run of beats rather than a shot on the first one.
   { wave: 0, tick: 200, player: 2, command: { kind: "fire", color: "cyan" } },
   { wave: 0, tick: 320, player: 1, command: { kind: "guard" } },
   { wave: 0, tick: 440, player: 2, command: { kind: "fire", color: "cyan" } },
   { wave: 0, tick: 560, player: 1, command: { kind: "intake" } },
-  // And red, in the column the cannon has been standing in all along — which
-  // takes the first body, and the second arrived in the same column at beat 4.
+  // And red, in the column the cannon has been standing in all along.
   { wave: 0, tick: 700, player: 2, command: { kind: "fire", color: "red" } },
-  { wave: 0, tick: 800, player: 2, command: { kind: "fire", color: "red" } },
-  // The other six, in arrival order: beat 7 in column 7, beat 10 in 10, beat
-  // 12 in 8, beat 16 in 5, beat 21 in 0, beat 27 in 10. A beat is 75 ticks.
-  { wave: 0, tick: 900, player: 1, command: { kind: "cannonCol", col: 7 } },
-  { wave: 0, tick: 920, player: 2, command: { kind: "shieldCol", col: 7 } },
-  { wave: 0, tick: 1000, player: 2, command: { kind: "fire", color: "red" } },
-  { wave: 0, tick: 1100, player: 1, command: { kind: "cannonCol", col: 10 } },
-  { wave: 0, tick: 1120, player: 2, command: { kind: "shieldCol", col: 10 } },
-  { wave: 0, tick: 1200, player: 2, command: { kind: "fire", color: "red" } },
-  { wave: 0, tick: 1300, player: 1, command: { kind: "cannonCol", col: 8 } },
-  { wave: 0, tick: 1320, player: 2, command: { kind: "shieldCol", col: 8 } },
-  { wave: 0, tick: 1400, player: 2, command: { kind: "fire", color: "red" } },
-  { wave: 0, tick: 1500, player: 1, command: { kind: "cannonCol", col: 5 } },
-  { wave: 0, tick: 1520, player: 2, command: { kind: "shieldCol", col: 5 } },
-  { wave: 0, tick: 1600, player: 2, command: { kind: "fire", color: "red" } },
-  { wave: 0, tick: 1800, player: 1, command: { kind: "cannonCol", col: 0 } },
-  { wave: 0, tick: 1820, player: 2, command: { kind: "shieldCol", col: 0 } },
-  { wave: 0, tick: 1900, player: 2, command: { kind: "fire", color: "red" } },
-  { wave: 0, tick: 2200, player: 1, command: { kind: "cannonCol", col: 10 } },
-  { wave: 0, tick: 2220, player: 2, command: { kind: "shieldCol", col: 10 } },
-  { wave: 0, tick: 2300, player: 2, command: { kind: "fire", color: "red" } },
-  // CYAN. The first body is in column 3 from the wave's own first beat, the
-  // second in column 7 from its fourth; each gets the cannon under it and one
-  // cyan shot once it is well down the field.
+  // The second wave. The first body is in column 3 from the wave's own first
+  // beat, the second in column 7 from its fourth; each gets the cannon under
+  // it and one cyan shot once it is well down the field.
   { wave: 1, tick: 20, player: 1, command: { kind: "cannonCol", col: 3 } },
   { wave: 1, tick: 40, player: 2, command: { kind: "shieldCol", col: 3 } },
   { wave: 1, tick: 300, player: 2, command: { kind: "fire", color: "cyan" } },
@@ -133,24 +131,27 @@ interface Device {
 }
 
 /**
- * A wave as content has it, opened the way `apps/game/src/waves.ts` opens one:
- * the same calls into `content`, in the same order, with the guide's facts
- * beside the boss's. `briefings` is off here, so the guide never stands — the
- * opening itself is `two-devices-opening.test.ts`'s subject — but the call is
- * the host's call and not a shorter one, so a field `startWave` starts reading
- * off a later argument is reset here the way it is in the game.
+ * A wave opened the way `apps/game/src/waves.ts` opens one: the same calls
+ * into `content`, in the same order, with the guide's facts beside the boss's.
+ * Neither wave here carries a guide or a malfunction, so those arguments are
+ * the ones a wave without either gets — the opening itself is
+ * `two-devices-opening.test.ts`'s subject — but the call is the host's call
+ * and not a shorter one, so a field `startWave` starts reading off a later
+ * argument is reset here the way it is in the game.
  */
 function openNext(world: World, wave: number): void {
   const cfg = world.cfg;
+  const small = SMALL[wave - WAVE];
+  if (!small) throw new Error(`no wave ${wave} to open`);
   startWave(
     world,
     wave,
-    buildQueue(wave, cfg.cols),
-    buildPods(wave, cfg.cols),
-    buildBoss(wave, cfg.cols),
-    WAVES[wave]?.guide !== undefined,
-    waveGuideSteps(wave),
-    WAVES[wave]?.malfunction ?? null,
+    queueFromWave(small, cfg.cols),
+    podsFromWave(small, cfg.cols),
+    bossFromWave(small, cfg.cols),
+    false,
+    0,
+    null,
   );
 }
 
@@ -160,11 +161,8 @@ function freshWorld(): World {
   return world;
 }
 
-describe("two devices playing content's first two waves", () => {
+describe("two devices playing two authored waves", () => {
   it("agree at every fingerprint, cross the boundary on one tick and end on the same world", () => {
-    expect(WAVES[WAVE]?.name).toBe("FIRST STEP");
-    expect(WAVES[WAVE + 1]?.name).toBe("CYAN");
-
     const wire = new Relay(LATENCY);
     const make = (player: PlayerId): Device => ({
       world: freshWorld(),
@@ -246,14 +244,14 @@ describe("two devices playing content's first two waves", () => {
       }
     }
 
-    // Both waves were played through: every body content sent arrived, was
-    // taken apart rather than let through, and the simulation asked for the
-    // wave after the second rather than for either again. The first wave took
-    // about 2625 ticks at these delays — thirty beats of play and the rest
+    // Both waves were played through: every body sent arrived, was taken
+    // apart rather than let through, and the simulation asked for the wave
+    // after the second rather than for either again. The first wave took
+    // about 975 ticks at these delays — ten beats of play and the rest
     // after the clear — and the boundary was crossed once, on a tick the run
     // found.
     expect(ended).toEqual({ type: "needWave", wave: WAVE + 2 });
-    expect(opened[WAVE + 1]).toBeGreaterThan(2400);
+    expect(opened[WAVE + 1]).toBeGreaterThan(900);
     expect(a.world.wave).toBe(WAVE + 1);
     expect(a.world.spawned).toBe(2);
     expect(a.world.creatures).toEqual([]);

@@ -2426,3 +2426,25 @@ first. About 60 min across the break.
 Bottleneck: **friction** — the log-comparison tests were written before any
 gradient outlived a frame, and finding why a warm second draw differed took
 longer than the fix.
+
+## 2026-09-13 · claude/queue-a-director-save-can-land-main-red-and-two-tests — a save marks the baseline, and the lockstep test owns its waves
+
+Two halves. The save now runs `bun run perf --unmeasured` in a fresh `bun`
+between the write and the commit — in-process it would read the `WAVES` the
+director loaded at start-up, not the files just written — and offers
+`tools/perf/baseline.json` to the commit, which takes it only if it moved;
+`DIRECTOR_NO_COMMIT` turns both off together. The lockstep test stopped
+reading `WAVES[0]` and `WAVES[1]`: it carries two small waves of its own
+through `queueFromWave`, and its press script shrank from thirty-three presses
+to thirteen with the wave it was actually about. About 25 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `waves-commit.ts`, `waves-api.ts`, `unmeasured.ts`, `run.ts`, the test |
+| writing | 15 | `waves-baseline.ts` and its test, the wiring, the test's two waves, `performance.md` |
+| looking | 0 | — |
+| friction | 0 | — |
+| landing | 5 | format, check:fast, index, the commit |
+
+Bottleneck: **writing** — the press script had to be cut back to the presses
+that were about the one body, and the tick the boundary falls on found again.

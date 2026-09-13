@@ -75,7 +75,11 @@ something else now — a figure for a wave that no longer exists. Re-measuring i
 is the perf run a lane never owes, so the same command blanks such a row to
 unmeasured (it says so, wave by wave), and the next sweep fills it in. On 12
 September 2026 a content lane trimmed twenty-eight guided waves in one commit;
-that was the first time.
+that was the first time. **A save in the wave editor runs it itself**, between
+the write and the commit, and commits the baseline with the act files
+(`tools/director/src/waves-baseline.ts`): on 13 September 2026 a save that
+turned FIRST STEP's one body into eight landed `main` red on the row, and a
+save runs no check by design.
 
 Nothing then lets that row be forgotten. It counts towards no median — a zero
 in the median would move the verdict on every wave that *was* weighed — and

@@ -291,32 +291,6 @@ The chosen level is part of the run: it goes in `progress.ts` beside
 desyncs at tick 0 rather than a minute later. `bun test packages/sim`
 already plays every wave from a seed; run it at the three tempi.
 
-## A director save can land `main` red, and two tests are the reason
-
-- **Found:** 2026-09-13, queue-lanes
-- **Taken:** 2026-09-13, claude/queue-a-director-save-can-land-main-red-and-two-tests
-- **Files:** `tools/director/src/waves-commit.ts`, `packages/net/test/two-devices-wave.test.ts`, `tools/perf/test/baseline.test.ts`, `tools/perf/unmeasured.ts`
-
-On 13 September 2026 the owner saved FIRST STEP from the wave editor — one
-red body became eight — and the save committed straight onto `main`
-(`waves-commit.ts` commits by path and runs no check, by design: a save must
-not fail). The next lane's `bun run land` found the trunk red with two
-failures that were nobody's lane: `baseline.test.ts` saying FIRST STEP
-"sends something else now", and `two-devices-wave.test.ts`, whose press
-script is written by hand against FIRST STEP's one body. This lane fixed
-both — `bun run perf --unmeasured` for the row, a new script for the eight
-bodies — and the next save of act one will break them again.
-
-Two things to do. **The save runs `bun run perf --unmeasured` itself** and
-commits `tools/perf/baseline.json` with the wave files: it is mechanical,
-needs no measurement, and is exactly the step a session that cannot run
-perf is told to take. **The lockstep test stops reading `WAVES[0]`**: what
-it proves is two devices crossing a wave boundary in step, which needs a
-wave with a known body and a known clear, not the wave the owner edits most
-— give it two small waves of its own through `queueFromWave` (the director's
-unsaved-wave path) and keep the name assertions only as a comment about why.
-`bun test packages/net tools/perf tools/director` proves both.
-
 ## The map editor inserts a beat row and removes one, shifting the rows after it
 
 - **Found:** 2026-09-13, director-repeat — asked for by the owner
