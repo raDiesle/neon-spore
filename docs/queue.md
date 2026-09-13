@@ -283,6 +283,7 @@ what the rest of this file holds.
 ## Unverified at b5356072: The difficulty page seen on a phone: whether three rows…
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-13, claude/queue-unverified-at-b5356072-the-difficulty-page-seen
 - **Files:** `apps/game/src/link-report.ts`, `apps/game/src/link-types.ts`, `apps/game/src/link.ts`, `apps/game/src/main.ts`, `apps/game/src/menu-bindings.ts`, `apps/game/src/menu-entries.ts`, `apps/game/src/menu-link.ts`, `apps/game/src/menu-parts.ts`
 
 *Three difficulties, and the one number they move* landed from a session that could not look at it. The commit touched 23 more files. What went unchecked:
