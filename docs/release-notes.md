@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · 6ecebe84 — THE LEAK: the fault that takes the hold, not a button
+
+The owner asked for a modifier on the standard panel where holding a cannon colour fires no beam, taught by a guide and a wave of its own, and asked whether the game already had one. It did not: there were five faults and every one of them takes a *control*. THE LEAK is the sixth and the first to take a **gesture**. The cannon lobe will not hold a charge — a thumb on a colour fills nothing however long it stays down, so no lance ever comes — and everything else is untouched: both colours answer the thumb, a tap is the bolt it has always been, and the lift after a long hold still fires the bolt it owes. That last half is the whole design. A fault that swallowed the press would have taken the trigger away rather than the weapon, and the pair would have found a dead panel instead of a missing answer.
+
 ## 2026-09-13 · a0ff528a — The director's four open column tracks are held equal in code and stylesheet
 
 `OPEN_TRACKS` in `tools/director/src/columns.ts` and `main { grid-template-columns }` in `director-columns.css` are the same four tracks written twice, and a change to one was a column one width on a fresh page and another after the first click on a head. `columns.test.ts` now reads the stylesheet and holds the two equal, in the markup's own DOM order; the constant is exported for it, and its comment names the stylesheet rather than index.html.

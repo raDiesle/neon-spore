@@ -281,3 +281,18 @@ the gesture this one takes away — the two are worth reading side by side, and 
 its shape will teach the absence faster than one written from nothing. Adding
 it means taking THE LEAK out of `STILL_PROSE` and moving §3.2's two counts,
 both of which the test names in its failure.
+
+## Unverified at 6ecebe84: THE LEAK watched at tempo: whether a pair can cross the…
+
+- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bestiary.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/control-fault.ts`, `packages/content/src/mechanics-wave.ts`, `packages/content/src/waves-demo.ts`
+
+*THE LEAK: the fault that takes the hold, not a button* landed from a session that could not look at it. The commit touched 18 more files. What went unchecked:
+
+- THE LEAK watched at tempo: whether a pair can cross the field and take three bodies at the far wall before they land, with no lance to shorten the column
+- THE LEAK's frame cost: its baseline row is UNMEASURED, and the browser-driven frame tests do not run in this session at all
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
