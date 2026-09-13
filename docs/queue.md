@@ -718,3 +718,18 @@ so the candidate is that motion applied to the hull for the length of the window
 against today's plate. Worth doing because the two are not exclusive — a mark on
 the ship says *which columns* changed hands and a plate says *when*, and the
 shot is what shows whether the pair of them is one signal too many.
+
+## Unverified at dcf8328c: THE HANDOVER watched at tempo: whether two beats of war…
+
+- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `apps/game/src/field-input.ts`, `apps/game/src/input-bindings.ts`, `apps/game/src/input.ts`, `docs/INDEX.md`, `docs/asset-catalogue.md`, `docs/queue.md`, `docs/spec/bestiary.md`, `docs/spec/ideas.md`
+
+*THE HANDOVER: the two panels change screens, and nobody changes seats* landed from a session that could not look at it. The commit touched 28 more files. What went unchecked:
+
+- THE HANDOVER watched at tempo: whether two beats of warning is enough to arrange two pairs of hands, whether the trade reads as exciting rather than as simply losing the wave, and whether a pair can find its own controls again when they come back
+- bun run perf on THE HANDOVER: the wave went in with --unmeasured, and a frame that draws the other seat's band over this seat's field is a path nothing has measured
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

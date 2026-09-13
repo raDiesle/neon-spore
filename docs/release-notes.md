@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · dcf8328c — THE HANDOVER: the two panels change screens, and nobody changes seats
+
+The fifth malfunction, and the first that ends before the wave does. Nine beats into wave 70 the two panels trade screens: the pilot's phone comes up in the navigator's colours, with the navigator's buttons, the navigator's radar and the navigator's hull, and the navigator's phone comes up as the pilot's. Eight beats later they come home. Both phones are counted down to it and counted back out of it on the lip of the band, because a warning only one of them could read would make the trade a thing that happens to the other one. It is the idea `docs/spec/ideas.md` carried as Handover, asked for by the owner as a control-set malfunction that swaps the controls at a set beat and gives them back at a set beat.
+
 ## 2026-09-13 · 7e9451d6 — A deflected rock keeps the look it fell in
 
 The shield's bounce and the replayed last step of a fall drew a grey stone from before the rocks had looks, so a blaze or a comet turned grey the frame the shield answered it. The deflect and breach events now carry the body's seed and pits, and `DeflectFx` and `RockImpactFx` draw it with `drawRockBody` by that seed — the same hand that drew it falling. The torch alone keeps its grey stone and ember ring. A fix to something wrong: the owner's report was that a reflected meteor switched to the old grey graphic.
