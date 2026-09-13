@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · caaf6cac — The map's rows carry their own verbs, and the map follows the beat playing
+
+Four things the owner asked for, all of them about writing a wave while it runs. The map now follows the marked beat and keeps the next four rows on screen with it, moving in steps rather than by the beat and standing aside the moment a hand scrolls — an author reading beat 20 while beat 8 plays is not interrupted until the transport leaves the screen. BRUSH sticks to the top of its column instead of going up with the map, so a stroke in the lower half of a long wave no longer costs a scroll to the palette and a scroll back. A row under the pointer draws a line in the gap above it and in the gap below, each opening a beat where it is drawn, and a trash at the row's right end that takes the row out; a tile clicked open keeps all three, so the hand can leave the map and come back to them. The `+` and `−` glyphs in the beat-number column go: they were where every editor puts them and where nobody found them.
+
 ## 2026-09-13 · 2c6172f6 — The game signs in against the owner's Firebase project, and the Worker trusts it
 
 `apps/game/src/sign-in-config.ts` carries the `neon-spore` web config the owner pasted, and `wrangler.jsonc` sets `FIREBASE_PROJECT` to the same id, so a token Google signs for that project is one the registry binds a name to. The LOG IN row is on SETTINGS and PLAY says who is not logged in; a press on LOG IN WITH GOOGLE reaches Google's chooser at `neon-spore.firebaseapp.com`. What the chooser answers, and the email link, are the owner's to try: a popup opens from a person's click only.

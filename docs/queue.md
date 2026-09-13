@@ -312,3 +312,17 @@ the ids and `columns.test.ts` already reads the real markup for them, so the
 fix is the same shape as `test/map-width.test.ts` next door: parse the four
 tracks out of the stylesheet and expect them to equal the `OPEN_TRACKS` values
 in DOM order. One test, no code moved.
+
+## Unverified at caaf6cac: The map on a phone: with no hover, a row's insert lines…
+
+- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/time-log.md`, `tools/director/src/columns.ts`, `tools/director/src/director-brush.css`, `tools/director/src/director-columns.css`, `tools/director/src/director-map.css`, `tools/director/src/grid-follow.ts`
+
+*The map's rows carry their own verbs, and the map follows the beat playing* landed from a session that could not look at it. The commit touched 6 more files. What went unchecked:
+
+- The map on a phone: with no hover, a row's insert lines and trash appear only on the row of the selected cell, and the sticky palette is desktop-only — neither seen on a real phone
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
