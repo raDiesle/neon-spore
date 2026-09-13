@@ -12,6 +12,8 @@ import {
 } from "@neon-spore/sim";
 import { Effects } from "../src/effects.js";
 import { computeLayout, type Layout, tileCX, tileCY, type ViewRole } from "../src/layout.js";
+import type { ShipHand } from "../src/touch-hand.js";
+import { wellCannonGrab } from "../src/touch-well.js";
 import {
   showsWell,
   wellAngle,
@@ -186,6 +188,30 @@ describe("the well, played", () => {
       seen.set(role, ctx.calls);
     }
     expect(seen.get("p1")).not.toBe(seen.get("p2"));
+  });
+
+  it("draws the ring under the pilot's own thumb on the cannon lobe, at the grab it answers", () => {
+    // The ship pass left for the well before `drawShipHand` until 13 September
+    // 2026, so a thumb the well answered on its cannon (`touch-well.ts`) had
+    // nothing drawn under it. The cup is a `Path2D.arc` centred on the grab
+    // circle — the world's column, the rule the flat ring follows — and the
+    // same frame with no hand has no arc there. Read off the canvas log, which
+    // rounds to a thousandth.
+    const cupsAt = (hand?: ShipHand): number => {
+      const log: string[] = [];
+      const { world } = runFrames(wellWorld(), "p1", 4, {
+        hand,
+        viewport: { width: 390, height: 844, dpr: 2 },
+        onCanvas: (ctx) => {
+          ctx.log = log;
+        },
+      });
+      const grab = wellCannonGrab(L, world.cannonCol);
+      const at = `Path2D.arc(${Math.round(grab.x * 1000) / 1000}, ${Math.round(grab.y * 1000) / 1000}, `;
+      return log.filter((line) => line.startsWith(at)).length;
+    };
+    expect(cupsAt()).toBe(0);
+    expect(cupsAt({ on: "cannon", held: true, color: null, marks: ["slide"] })).toBeGreaterThan(0);
   });
 });
 

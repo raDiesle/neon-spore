@@ -2592,3 +2592,27 @@ LEAVE ROOM is behind. About 60 min.
 Bottleneck: **writing** — three tempi is a one-line table and everything else is
 the path a chosen level takes: storage, wire, room, status, beat zero, and the
 one place it may be applied, which is a run that is starting anyway.
+
+## 2026-09-13 · claude/queue-the-wells-cannon-can-be-held-now-but-the-hands-r — the hand's ring on THE WELL's cannon
+
+`drawShipHand` takes a `PlaceHand` now — the grab circle and the turn its
+swelling stands at — and the well's ship pass calls it with `wellHandPlace`
+(`well-ship.ts`): `wellCannonGrab`/`wellShieldGrab` at the world's column,
+turned to the lobe's hour, so the cup, the slide arrows and the maw all sit on
+the lobe the way they sit on the flat hull. The turn is a rotation about the
+ring's own centre rather than a draw at the origin, so the canvas log still
+finds the cup at the grab and the proof reads it there: a `Path2D.arc` at
+`wellCannonGrab` with `held: true`, none without a hand. The picture needed a
+preview and a synthetic `pointerdown`, which is queued as the frames tool's
+gap. About 45 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `ship-hand.ts`, `well-ship.ts`, `touch-well.ts`, the canvas stub's log |
+| writing | 15 | `PlaceHand`, `wellHandPlace`, the well branch's call, the proof |
+| looking | 15 | a preview of this tree, a synthetic press on the lobe, one Playwright shot |
+| friction | 0 | — |
+| landing | 5 | format, check:fast, the queue entry, the commit |
+
+Bottleneck: **looking** — the frames tool has no flag for `view.hand`, so the
+one picture the lane owed took a preview, a browser pane and a scratch script.

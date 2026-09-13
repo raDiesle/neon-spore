@@ -4,6 +4,8 @@ import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { ViewState } from "./renderer.js";
 import { seatSkin } from "./seat-skin.js";
+import type { PlaceHand } from "./ship-hand.js";
+import { wellCannonGrab, wellShieldGrab } from "./touch-well.js";
 import { wellAngle, wellAt, wellCenter, wellHub, wellSectorAngle } from "./well.js";
 
 /**
@@ -15,6 +17,20 @@ import { wellAngle, wellAt, wellCenter, wellHub, wellSectorAngle } from "./well.
  * called from inside `drawShip`, in place of `drawHull`, so the pose it reads
  * is the eased one every other frame reads (`well.ts`).
  */
+
+/**
+ * Where this phone's own finger's ring goes on the well's ship: the grab
+ * circle `touch-well.ts` answers the press with — at the world's column, the
+ * rule the flat ring follows — turned to the lobe's hour, so the cup sits over
+ * the swelling's outward face rather than over its top on the screen. The
+ * ring was not drawn here at all until 13 September 2026: `drawShip` left for
+ * this pass before `drawShipHand`, and the one control on the well a thumb
+ * could hold showed nothing under it (`docs/queue.md`, closed that day).
+ */
+export const wellHandPlace: PlaceHand = (l, on, cannonCol, shieldCol) =>
+  on === "shield"
+    ? { at: wellShieldGrab(l, shieldCol), turn: wellAngle(l, shieldCol) }
+    : { at: wellCannonGrab(l, cannonCol), turn: wellAngle(l, cannonCol) };
 
 /**
  * The ship, at the middle: a ring of hull with **one sector missing**.

@@ -24,8 +24,38 @@ import { cannonGrab, shieldGrab } from "./touch-ship.js";
  * The seam against `touch-ship.ts` next door is the one `handles.ts` and
  * `handle-draw.ts` already draw: that file decides, this one paints, and the
  * circles both use come from there so a ring can never be drawn anywhere but
- * over the region that actually answers.
+ * over the region that actually answers. THE WELL's ship answers a finger
+ * elsewhere (`touch-well.ts`), so the circle is asked for through `PlaceHand`
+ * and the well hands in its own (`well-ship.ts`), with the turn its lobe
+ * stands at — the cup is drawn over the *top* of a swelling, and on the ring
+ * at the middle of the clock the top of the cannon is whichever way its hour
+ * points.
  */
+
+/**
+ * Where a hand's ring goes, and which way is up there. `turn` is the
+ * swelling's own up, clockwise from the screen's, in radians: nought on the
+ * flat hull, the lobe's hour on the well. Everything drawn on the ring — the
+ * cup, the arrows, the maw, the colours — is turned with it, so an arrow that
+ * says *this travels* points along the rail the swelling actually travels.
+ */
+export interface HandPlace {
+  at: Circle;
+  turn: number;
+}
+
+export type PlaceHand = (
+  l: Layout,
+  on: ShipHand["on"],
+  cannonCol: number,
+  shieldCol: number,
+) => HandPlace;
+
+/** The flat hull's: the grab circles `touch-ship.ts` answers a press with. */
+export const flatHandPlace: PlaceHand = (l, on, cannonCol, shieldCol) => ({
+  at: on === "shield" ? shieldGrab(l, shieldCol) : cannonGrab(l, cannonCol),
+  turn: 0,
+});
 
 /**
  * How far past level the cup reaches on each side, in radians.
@@ -57,14 +87,23 @@ export function drawShipHand(
   shieldCol: number,
   hand: ShipHand | undefined,
   time: number,
+  place: PlaceHand = flatHandPlace,
 ): void {
   if (!hand) return;
-  const at = hand.on === "shield" ? shieldGrab(l, shieldCol) : cannonGrab(l, cannonCol);
+  const { at, turn } = place(l, hand.on, cannonCol, shieldCol);
   const alpha = hand.held ? 1 : OVER_ALPHA;
   const r = at.r * RING_MUL[hand.on] * (1 + BREATH * Math.sin(time * BREATH_HZ * Math.PI * 2));
   const base = hand.on === "shield" ? PALETTE.shieldRim : PALETTE.hullRim;
 
   ctx.save();
+  // Turned about the ring's own centre rather than drawn at the origin, so
+  // every coordinate below stays the one the press was answered at — a test
+  // reading the canvas back finds the cup where the grab circle is.
+  if (turn !== 0) {
+    ctx.translate(at.x, at.y);
+    ctx.rotate(turn);
+    ctx.translate(-at.x, -at.y);
+  }
   halo(ctx, at.x, at.y, r * 1.4, base, 0.1 * alpha);
   const cup = new Path2D();
   cup.arc(at.x, at.y, r, Math.PI - CUP, 2 * Math.PI + CUP);

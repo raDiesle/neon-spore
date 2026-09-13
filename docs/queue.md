@@ -352,30 +352,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## THE WELL's cannon can be held now, but the hand's ring is not drawn on it
-
-- **Found:** 2026-09-13, claude/queue-the-wells-screen-answers-no-finger-on-the-field
-- **Taken:** 2026-09-13, claude/queue-the-wells-cannon-can-be-held-now-but-the-hands-r
-- **Files:** `packages/render/src/frame-ship.ts`, `packages/render/src/ship-hand.ts`, `packages/render/src/well-ship.ts`, `packages/render/src/touch-well.ts`, `packages/render/test/well-frame.test.ts`
-
-Found while making the well's screen answer a finger on the ship. The flat
-hull ends its pass with `drawShipHand`: a ring on whichever swelling this
-phone's own finger has hold of (`view.hand`), drawn at the world's column so it
-sits on the hit region. `frame-ship.ts` returns to `drawWellShip` before that
-call while `wellShown`, so a thumb on the well's cannon — which
-`touch-well.ts` now answers — gets no ring, and the one place a finger's own
-mark would tell the pilot which hour he has hold of is dark.
-
-The ring's centre on the well is `wellCannonGrab(l, col)` (`touch-well.ts`),
-which is where the press is answered — the same rule the flat mark follows.
-Give `drawShipHand` a `place: (part, col) => Circle` or draw a
-`drawWellShipHand` in `well-ship.ts` from `view.hand` and `world.cannonCol`,
-called at the end of `drawWellShip`'s pass, and prove it in
-`well-frame.test.ts` the way `frame.test.ts` proves the flat ring: an `arc` at
-`wellCannonGrab`'s centre when `hand.held === "cannon"`, none when the hand is
-empty. A fix to something wrong rather than unlovely: the control is
-answered where nothing shows it.
-
 ## Unverified at f91ad6ab: Two phones actually parting and finding their way back:…
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
@@ -453,3 +429,26 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## `bun run frames` cannot photograph a hand on the ship
+
+- **Found:** 2026-09-13, claude/queue-the-wells-cannon-can-be-held-now-but-the-hands-r
+- **Files:** `tools/frames/hold.ts`, `tools/frames/spec.ts`, `tools/frames/capture.ts`, `tools/frames/run.ts`, `apps/game/src/handle.ts`
+
+The ring under this phone's own finger (`render/ship-hand.ts`, `view.hand`)
+is the one thing on the screen the frames tool has no way to put there:
+`--press` sends commands into the world and `--hold` sets the sim-side drags
+(`prime`, `wardenTether`, `balloonLeft`…), but `view.hand` is the input
+layer's (`apps/game/src/ship-hand.ts`, filled from pointer events), so no
+flag reaches it. The lane that drew the ring on THE WELL's cannon had to
+start a preview, open the page in a browser pane, stub
+`canvas.setPointerCapture` and dispatch a synthetic `pointerdown` at the
+lobe's pixel to get its one picture — a procedure worked out by hand and
+thrown away. Add `--hand cannon|shield|muzzle` (with `held` on by default and
+`--hand-over` for the hover state, or `--hand muzzle=red` for player 2's
+colour): either expose `hand.down(layout(), hold, x, y)` on
+`window.neonSpore` and have `capture.ts` call it with the grab circle's centre
+(`cannonGrab`/`wellCannonGrab` by whether the well is shown), or dispatch the
+pointer event from the tool with the capture stubbed. Prove it with a run of
+`bun run frames . --wave 0 --hand cannon` whose log diff against the same run
+without the flag is the ring's own calls, in `tools/frames/test/`.
