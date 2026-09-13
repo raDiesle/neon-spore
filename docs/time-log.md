@@ -2682,3 +2682,18 @@ guide says out loud. About 30 min.
 Bottleneck: **writing** — the arithmetic is six lines and the care is in what a
 blank box means: an empty field is the wave saying nothing and not a zero, which
 is the difference between the game's own numbers and a trade that never ends.
+
+## 2026-09-13 · claude/queue-bun-run-frames-cannot-photograph-a-hand-on-the-s — `--hand` on the frames tool
+
+About 50 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `tools/frames/{capture,flags,spec}.ts`, `apps/game/src/{handle,field-input,viewport}.ts`, `render/stage-point.ts`, the lane that stubbed `setPointerCapture` by hand |
+| writing | 20 | `clientOfStage` and `Geometry.toClient`, `FieldInput.shipGrab`, the handle's `shipGrab`, `tools/frames/hand.ts`, the flag and the spec, six tests |
+| looking | 5 | one real `bun run frames . --wave 1 --seat p1 --hand cannon`, which showed the ring and the slide arrows on the lobe |
+| friction | 10 | `main.ts` at the 250-line ceiling; two tests that pin source text (`intro.test.ts`'s destructuring line, `pointer-conversion.test.ts`'s `clientX -` rule) caught the wiring |
+| landing | 5 | format, index, check:fast, the queue entry, the commit |
+
+Bottleneck: **writing** — the handle had to answer where the grab circle is in
+screen pixels, which meant an inverse of `pointOnStage` that did not exist.

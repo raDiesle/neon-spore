@@ -1,3 +1,4 @@
+import type { Circle } from "@neon-spore/render";
 import { type Command, type SimEvent, setBossRound, step, type World } from "@neon-spore/sim";
 import type { InputBuffer } from "./input.js";
 import { runPerfPage } from "./perf-page.js";
@@ -21,8 +22,14 @@ export interface HandleParts {
   world: World;
   buffer: InputBuffer;
   jumpToWave: (wave: number) => void;
-  /** A headless check has no thumbs, and a guide waits for two of them. */
-  dismissBriefing: () => void;
+  /**
+   * The field's own two answers to a caller with no thumbs: a guide waits for
+   * two of them, and a grab circle is where one would go (`field-input.ts`).
+   */
+  input: { dismissBriefing: () => void; shipGrab: (on: "cannon" | "shield") => Circle };
+  /** A point in the frame, as the `clientX`/`clientY` a pointer would carry
+   * to land on it (`viewport.ts`). */
+  toClient: (p: { x: number; y: number }) => { clientX: number; clientY: number };
   /** Runs the wave-opening clock, and folds any events a tick produced. */
   progression: { tickOpening: (seconds: number) => void; handle: (e: SimEvent[]) => void };
   /**
@@ -65,7 +72,27 @@ export function installTestingHandle(parts: HandleParts): PerfHandle {
   const handle = {
     world,
     jumpToWave: parts.jumpToWave,
-    dismissBriefing: parts.dismissBriefing,
+    dismissBriefing: parts.input.dismissBriefing,
+    /**
+     * Where a swelling on the ship is, as a place on the **screen** a real
+     * pointer can be put down: the grab circle's centre in `clientX`/`clientY`
+     * and its radius in the same pixels.
+     *
+     * The one thing on the screen `send` cannot reach is the ring under this
+     * phone's own finger (`render/ship-hand.ts`): it is the input layer's, not
+     * the world's, so no command lands it. Rather than expose the ring's
+     * setter — a picture taken by writing a field is a picture of a state the
+     * game cannot reach, which is `send`'s rule too — this answers *where to
+     * press*, and `bun run frames --hand` presses there with the browser's own
+     * mouse, through the same listeners a thumb goes through. Flat hull or
+     * THE WELL, by which one this screen is drawing.
+     */
+    shipGrab(on: "cannon" | "shield") {
+      const c = parts.input.shipGrab(on);
+      const { clientX, clientY } = parts.toClient({ x: c.x, y: c.y });
+      const { clientX: edge } = parts.toClient({ x: c.x + c.r, y: c.y });
+      return { clientX, clientY, r: edge - clientX };
+    },
     /**
      * The introduction passes on a timer this world does not read
      * (`briefing.ts` on why), so a headless caller cannot wait it out and

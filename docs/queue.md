@@ -359,30 +359,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## `bun run frames` cannot photograph a hand on the ship
-
-- **Found:** 2026-09-13, claude/queue-the-wells-cannon-can-be-held-now-but-the-hands-r
-- **Taken:** 2026-09-13, claude/queue-bun-run-frames-cannot-photograph-a-hand-on-the-s
-- **Files:** `tools/frames/hold.ts`, `tools/frames/spec.ts`, `tools/frames/capture.ts`, `tools/frames/run.ts`, `apps/game/src/handle.ts`
-
-The ring under this phone's own finger (`render/ship-hand.ts`, `view.hand`)
-is the one thing on the screen the frames tool has no way to put there:
-`--press` sends commands into the world and `--hold` sets the sim-side drags
-(`prime`, `wardenTether`, `balloonLeft`…), but `view.hand` is the input
-layer's (`apps/game/src/ship-hand.ts`, filled from pointer events), so no
-flag reaches it. The lane that drew the ring on THE WELL's cannon had to
-start a preview, open the page in a browser pane, stub
-`canvas.setPointerCapture` and dispatch a synthetic `pointerdown` at the
-lobe's pixel to get its one picture — a procedure worked out by hand and
-thrown away. Add `--hand cannon|shield|muzzle` (with `held` on by default and
-`--hand-over` for the hover state, or `--hand muzzle=red` for player 2's
-colour): either expose `hand.down(layout(), hold, x, y)` on
-`window.neonSpore` and have `capture.ts` call it with the grab circle's centre
-(`cannonGrab`/`wellCannonGrab` by whether the well is shown), or dispatch the
-pointer event from the tool with the capture stubbed. Prove it with a run of
-`bun run frames . --wave 0 --hand cannon` whose log diff against the same run
-without the flag is the ring's own calls, in `tools/frames/test/`.
-
 ## Unverified at a3703115: THE HANDOVER on a wave that names its own window, and o…
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt

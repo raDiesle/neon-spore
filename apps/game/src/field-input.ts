@@ -1,10 +1,15 @@
 import { controlSetForWave } from "@neon-spore/content";
 import {
+  type Circle,
+  cannonGrab,
   handedLayout,
   handedRole,
   type Layout,
+  shieldGrab,
   showsWell,
   type ViewRole,
+  wellCannonGrab,
+  wellShieldGrab,
 } from "@neon-spore/render";
 import { briefingHolds, guideHolds, handedOver, mazeRound, type World } from "@neon-spore/sim";
 import { type BriefingBinding, bindBriefing } from "./briefing.js";
@@ -45,9 +50,18 @@ export interface FieldInputOptions {
 }
 
 /** The keyboard's per-tick call and the two things a frame reads off a
- * pointer, plus the one way anything outside puts the guide away. */
+ * pointer, plus the two things a headless caller asks of the field: the one
+ * way it puts the guide away, and where a swelling on the ship is. */
 export interface FieldInput extends Controls {
   dismissBriefing: BriefingBinding["dismiss"];
+  /**
+   * The grab circle a finger takes hold of the cannon or the shield by, in
+   * the frame's own coordinates — the flat hull's or THE WELL's, by which one
+   * this screen is drawing (`render/touch-ship.ts`, `render/touch-well.ts`).
+   * The circle and never a hold: `bun run frames --hand` presses it with a
+   * real pointer, so what the picture shows is what a press there does.
+   */
+  shipGrab: (on: "cannon" | "shield") => Circle;
 }
 
 export function bindFieldInput(o: FieldInputOptions): FieldInput {
@@ -128,5 +142,13 @@ export function bindFieldInput(o: FieldInputOptions): FieldInput {
   // listener — neither player's band is the answer (`rounds.ts`).
   bindRounds({ canvas, buffer, world, layout, inStage, role });
 
-  return { ...controls, dismissBriefing: brief.dismiss };
+  const shipGrab = (on: "cannon" | "shield"): Circle => {
+    const l = layout();
+    const well = world.boss?.kind === "well" && showsWell(role());
+    if (on === "cannon")
+      return well ? wellCannonGrab(l, world.cannonCol) : cannonGrab(l, world.cannonCol);
+    return well ? wellShieldGrab(l, world.shieldCol) : shieldGrab(l, world.shieldCol);
+  };
+
+  return { ...controls, dismissBriefing: brief.dismiss, shipGrab };
 }

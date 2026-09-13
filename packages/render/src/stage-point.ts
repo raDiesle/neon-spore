@@ -52,3 +52,27 @@ export function pointOnStage(
     y: (client.clientY - box.top) * ky - stage.top,
   };
 }
+
+/**
+ * The same conversion the other way: a point the renderer drew at, as the
+ * `clientX`/`clientY` a pointer would have to carry to land on it.
+ *
+ * For a caller that has to *put* a pointer somewhere rather than read where
+ * one landed — `bun run frames --hand` presses the game's own grab circle
+ * with a real mouse, and the circle is known in the picture's coordinates
+ * (`touch-ship.ts`). Written beside `pointOnStage` so the two cannot drift:
+ * a point sent through both comes back where it started.
+ */
+export function clientOfStage(
+  p: { x: number; y: number },
+  box: CanvasBox,
+  viewport: Viewport,
+  stage: Stage,
+): { clientX: number; clientY: number } {
+  const kx = box.width > 0 ? viewport.width / box.width : 1;
+  const ky = box.height > 0 ? viewport.height / box.height : 1;
+  return {
+    clientX: box.left + (p.x + stage.left) / kx,
+    clientY: box.top + (p.y + stage.top) / ky,
+  };
+}

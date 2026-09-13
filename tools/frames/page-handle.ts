@@ -67,6 +67,13 @@ declare global {
        * parent of the commit that added it, so `--hold` says so by name rather
        * than failing as an undefined call somewhere in the page. */
       send?(player: 1 | 2, command: unknown): void;
+      /**
+       * Where a swelling on the ship is on the **screen** — the grab circle's
+       * centre as a `clientX`/`clientY` and its radius in the same pixels —
+       * so `--hand` can press it with a real mouse. Missing on a build from
+       * before it existed, so the flag says so by name (`hand.ts`).
+       */
+      shipGrab?(on: "cannon" | "shield"): { clientX: number; clientY: number; r: number };
       advance(ticks: number): void;
       /** `dt` is what this frame is worth. Optional twice over: a build from
        * before it existed ignores the argument and paints a sixtieth, which is

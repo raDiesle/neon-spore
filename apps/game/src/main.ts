@@ -75,7 +75,9 @@ const beatPhase = (): number => phaseOfBeat(cfg, world.tick);
 const view = bindViewSwitch(() => {
   // Nothing to rebuild: the layout is derived per frame and per event.
 });
-const { layout, inStage, onStage } = bindViewport(canvas, renderer, cfg, () => view.role());
+const { layout, inStage, onStage, toClient } = bindViewport(canvas, renderer, cfg, () =>
+  view.role(),
+);
 const progression = createWaveProgression({ world, cfg, audio, buffer });
 const jumpToWave = progression.jumpToWave;
 
@@ -109,12 +111,7 @@ const intro = bindIntro({
 // `pointer` is where a desk's mouse rests: written below, read by the frame.
 // Every listener on the canvas, as one knot — the field, a shake, the guide's
 // pages and a round's own buttons (`field-input.ts`).
-const {
-  tick: tickKeys,
-  hand,
-  pointer,
-  dismissBriefing,
-} = bindFieldInput({
+const input = bindFieldInput({
   canvas,
   buffer,
   world,
@@ -126,6 +123,7 @@ const {
   jumpToWave,
   replayGuide: () => renderer.replayGuide(),
 });
+const { tick: tickKeys, hand, pointer } = input;
 
 const testPanel = bindTestControls({ world, jumpToWave, run });
 
@@ -241,7 +239,8 @@ bindTesting(
     world,
     buffer,
     jumpToWave,
-    dismissBriefing,
+    input,
+    toClient,
     progression,
     frames,
     renderer,

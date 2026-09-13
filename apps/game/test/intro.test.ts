@@ -79,7 +79,7 @@ describe("the way it is wired", () => {
 
   it("is handed that offset by the one place that owns it", () => {
     expect(readFileSync(new URL("../src/main.ts", import.meta.url), "utf8")).toMatch(
-      /const \{ layout, inStage, onStage \} = bindViewport\(/,
+      /const \{ layout, inStage, onStage, toClient \} = bindViewport\(/,
     );
   });
 

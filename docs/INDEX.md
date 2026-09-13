@@ -1413,6 +1413,7 @@ place — the generator keeps whatever is there.
 | `tools/frames/capture.ts` | One picture, or a short strip of them, off the running game |
 | `tools/frames/chrome.ts` | Which browser `tools/frames` opens, and where it lives on the two machines this repository runs on |
 | `tools/frames/hold.ts` | `--hold` on the command line: the one thing this tool could not photograph |
+| `tools/frames/hand.ts` | `--hand` on the command line: **this phone's own finger on the ship** |
 | `tools/frames/opening.ts` | Getting a wave's own opening out of the way, so a capture can start on the field |
 | `tools/frames/run.ts` | `bun run frames <sha> --wave N` — a before-and-after picture for a landing |
 | `tools/frames/serve.ts` | Getting one *revision* of this game running, so a frame can be taken off it: a scratch worktree, an install |

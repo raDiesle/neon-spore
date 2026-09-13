@@ -29,6 +29,8 @@
  *   bun run frames <sha> --wave 20 --hold wardenTether=0,y=7000  a thumb on a cord
  *   bun run frames <sha> --wave 21 --hold balloonLeft=-1600,id=1 --hold balloonRight=1600,id=1   both hands
  *   bun run frames <sha> --wave 19 --hold mazeString=1400@240 --press 300:2:fire=cyan   turn, then shoot
+ *   bun run frames . --wave 0 --seat p1 --hand cannon   this phone's thumb on the lobe, and its ring
+ *   bun run frames . --wave 0 --seat p2 --hand muzzle=red --hand-over   the navigator's, carried; or resting
  *   bun run frames <sha> --wave 21 --press 60:1:cannonCol=3,64:2:fire=red   a shot, or 90:1:salvo
  *   bun run frames <sha> --wave 21 --press 60:1:grip=lowest   a hand on the body nearest the hull
  *   bun run frames <sha> --wave 21 --settle 8 --frames 6 --stride 0   a burst, as a strip
@@ -91,7 +93,7 @@ async function main(): Promise<void> {
     throw new Error(
       'usage: bun run frames <sha>|. --wave N|"NAME" [--ticks N] [--seat p1|p2|test] ' +
         "[--hold prime|mazeString=N|wardenTether=N[,y=N]|lidString=N,id=N][@TICK] (repeatable) " +
-        "[--hold-ticks N] " +
+        "[--hold-ticks N] [--hand cannon|shield|muzzle[=red|cyan]] [--hand-over] " +
         "[--settle N] [--at x,y,w,h] [--zoom N] [--boss-round N] [--raster] " +
         "[--press TICK:SEAT:control=value,…] [--opening intro|guide] [--out DIR]",
     );

@@ -124,7 +124,7 @@ export { drawSnakeRound } from "./snake-round.js";
 export { FIELD_TRAIL_SCALE, neonHue } from "./splash-blob.js";
 export { SplashTrail } from "./splash-trail.js";
 export { BURST_SHEET, SpriteBursts, type SpriteSheet } from "./sprite-burst.js";
-export { type CanvasBox, pointOnStage } from "./stage-point.js";
+export { type CanvasBox, clientOfStage, pointOnStage } from "./stage-point.js";
 export { clearSurface } from "./surface-clear.js";
 // THE WARDEN's four ropes and the switch between them, for the ON THE FIELD
 // page to draw each as the real thing (`tether-looks.ts`).
@@ -149,6 +149,9 @@ export {
   sucksOnLift,
   swipeColor,
 } from "./touch-ship.js";
+/** Where the two lobes ride THE WELL's ring, for a caller that has to put a
+ * pointer on one rather than read where one landed (`apps/game/src/field-input.ts`). */
+export { wellCannonGrab, wellShieldGrab } from "./touch-well.js";
 export { drawVane } from "./vane-draw.js";
 export { drawVeilCloud } from "./veil.js";
 export { foam } from "./veil-foam.js";

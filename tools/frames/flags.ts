@@ -1,4 +1,5 @@
 import { parseAt } from "./crop.js";
+import { parseHand } from "./hand.js";
 import { parseHoldFlag } from "./hold.js";
 import { parseOpening } from "./opening.js";
 import { parsePress } from "./press.js";
@@ -101,6 +102,15 @@ export function parseFrameSpec(
   const line = tickLine(pressValue === undefined ? [] : parsePress(pressValue), pressed);
   const press = line.length > 0 ? line : undefined;
 
+  // This phone's own finger on the ship, which no command can put there
+  // (`hand.ts`). The muzzle is checked against the seat here, where both
+  // flags are in hand.
+  const handValue = after("hand");
+  const hand = handValue === undefined ? undefined : parseHand(handValue, seat);
+  if (hand === undefined && argv.includes("--hand-over")) {
+    throw new Error("--hand-over says how the hand rests; it needs --hand to say where");
+  }
+
   const atValue = after("at");
   const waveValue = after("wave") ?? "";
   if (!waveValue) {
@@ -123,6 +133,8 @@ export function parseFrameSpec(
     raster: argv.includes("--raster"),
     hold,
     holdTicks: flag("hold-ticks", 30),
+    hand,
+    ...(argv.includes("--hand-over") ? { handOver: true } : {}),
     // Zero by default, which is what every capture before this flag existed
     // did: one painted frame per photograph, and nothing that lives in painted
     // seconds ever moving.

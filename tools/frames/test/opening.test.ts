@@ -426,6 +426,35 @@ describe("captureFrames past a wave's opening", () => {
     STARVED_MS,
   );
 
+  /**
+   * `--hand`: the ring under this phone's own thumb, which no command can put
+   * on the screen because it is the input layer's (`hand.ts`). Two captures of
+   * the same tick on the same seat, one with the mouse down on the cannon's
+   * grab circle and one without, and the whole frame differs — the difference
+   * is the ring, and the press went through the game's own listeners to draw
+   * it. A build whose handle cannot say where the circle is refuses by name.
+   */
+  it(
+    "puts this phone's thumb on the cannon, and the frame shows it",
+    async () => {
+      const bare = await captureFrames(
+        baseUrl,
+        { wave: 0, ticks: 60, seat: "p1" },
+        join(scratchOut, "no-hand"),
+        browser,
+      );
+      const held = await captureFrames(
+        baseUrl,
+        { wave: 0, ticks: 60, seat: "p1", hand: { on: "cannon" } },
+        join(scratchOut, "hand"),
+        browser,
+      );
+      expect(held.atTick).toEqual(bare.atTick);
+      expect(held.whole[0]).not.toEqual(bare.whole[0]);
+    },
+    STARVED_MS,
+  );
+
   it(
     "refuses a guide the wave has not got, rather than photographing the field",
     async () => {

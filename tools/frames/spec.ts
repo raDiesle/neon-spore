@@ -101,6 +101,16 @@ export interface FrameSpec {
    * filling — and short enough not to be a different moment of the wave. */
   holdTicks?: number;
   /**
+   * This phone's own finger on the ship, for the ring the frame draws under
+   * it (`render/ship-hand.ts`) — the one thing on the screen `hold` and
+   * `press` cannot put there, because it is the input layer's and not the
+   * world's. Pressed with the browser's own mouse where the page says the
+   * grab circle is, after the hold and before the picture (`hand.ts`).
+   */
+  hand?: HandSpec;
+  /** With `hand`: a mouse resting over the swelling, nothing pressed. */
+  handOver?: boolean;
+  /**
    * Presses sent at named `world.tick`s on the way to `ticks`, in order.
    *
    * `hold` is a thumb that stays down; this is the other half — the verbs that
@@ -202,6 +212,16 @@ export interface HoldSpec {
    * carries the number it means — `PICKS` in `press.ts` says why a grip cannot.
    */
   pick?: "first" | "lowest";
+}
+
+/**
+ * Where a finger goes on the ship: one of the two swellings, and for the
+ * navigator's thumb on the cannon's, which way it is carried. Parsed by
+ * `parseHand` in `hand.ts`, which is also where the muzzle is explained.
+ */
+export interface HandSpec {
+  on: "cannon" | "shield";
+  carry?: "red" | "cyan";
 }
 
 /** A `HoldSpec` with a tick to arrive on. Parsed by `parsePress` in `hold.ts`. */

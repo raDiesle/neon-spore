@@ -1,4 +1,5 @@
 import {
+  clientOfStage,
   computeLayout,
   computeStage,
   type Layout,
@@ -54,6 +55,13 @@ export interface Geometry {
     ctx: CanvasRenderingContext2D,
     draw: (ctx: CanvasRenderingContext2D, layout: Layout) => void,
   ) => void;
+  /**
+   * `inStage` the other way: a point in the frame's coordinates, as the
+   * `clientX`/`clientY` a pointer would carry to land on it. For the one
+   * caller that puts a pointer down rather than reading one — `bun run frames
+   * --hand` presses a grab circle with a real mouse (`handle.ts`).
+   */
+  toClient: (p: { x: number; y: number }) => { clientX: number; clientY: number };
 }
 
 export function bindViewport(
@@ -114,5 +122,8 @@ export function bindViewport(
     ctx.restore();
   };
 
-  return { layout, inStage, onStage };
+  const toClient = (p: { x: number; y: number }): { clientX: number; clientY: number } =>
+    clientOfStage(p, canvas.getBoundingClientRect(), viewport, stage());
+
+  return { layout, inStage, onStage, toClient };
 }

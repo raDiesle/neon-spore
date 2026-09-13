@@ -5,6 +5,7 @@ import { closeBrowser, launchBrowser } from "./browser.js";
 import { clipFor } from "./crop.js";
 import { makeDriver } from "./drive.js";
 import { filmHeld, filmTickHz } from "./guide-film.js";
+import { putHand } from "./hand.js";
 import { settleOpening } from "./opening-hold.js";
 import { openStage } from "./page.js";
 import { pictureDigest } from "./pixels.js";
@@ -34,7 +35,7 @@ export { type OpeningStop, parseOpening } from "./opening.js";
 /** The shape of what a capture asks for, and of the handle it drives. Its own
  * file because this one was at the ceiling CLAUDE.md sets, and because a caller
  * usually wants the spec without the browser behind it. */
-export type { FrameSpec, HoldSpec, PressSpec } from "./spec.js";
+export type { FrameSpec, HandSpec, HoldSpec, PressSpec } from "./spec.js";
 
 export interface CaptureResult {
   /** One path per frame, in capture order. */
@@ -159,6 +160,9 @@ export async function captureFrames(
         for (const one of spec.hold) await press({ ...one, tick: spec.ticks });
         await advance(spec.holdTicks ?? DEFAULT_HOLD_TICKS);
       }
+      // This phone's own thumb, with the browser's mouse and no ticks of its
+      // own: the ring is read by the paint, not by the world (`hand.ts`).
+      if (i === 0 && spec.hand) await putHand(page, spec.hand, spec.handOver === true);
 
       // **Painting with the world held still**, which is the only way an
       // effect that lives in painted seconds can be photographed at all: the
