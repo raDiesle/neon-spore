@@ -273,6 +273,7 @@ almost certainly right.
 ## Should THE HANDOVER trade once a wave, or keep trading?
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-13, claude/queue-should-the-handover-trade-once-a-wave-or-keep-tr
 - **Files:** `packages/sim/src/handover.ts`, `packages/sim/src/config-malfunction.ts`, `packages/content/src/waves/act-8.ts`
 - **Asks:** Should the panels trade once a wave, or keep trading on a cycle like THE CODEX's key?
 
