@@ -208,11 +208,14 @@ a local address (`?pwa=1` is for testing the install itself).
 ## Measuring what a frame costs
 
 **A performance run happens once a week, or when the owner asks for one — a
-lane never owes one**, not for a new shape, not for a new animation, and a
-cloud session never runs one. Do not list it as a step before landing, an
-unverified item or a queue entry. The per-lane measurement is the op-count
-budget tests (`packages/render/test/*-budget.test.ts`): a legitimate change
-that raises a row is remeasured and moved, with a sentence saying why. When a
+lane never owes one**, not for a new shape, not for a new animation, and **a
+cloud session never runs `bun run perf` at all, in any form** — the owner, 13
+September 2026; that includes `--unmeasured`, which measures nothing, so a
+cloud session the baseline blocks says so and parks it rather than running the
+command. Do not list a run as a step before landing, an unverified item or a
+queue entry. The per-lane measurement is the op-count budget tests
+(`packages/render/test/*-budget.test.ts`): a legitimate change that raises a
+row is remeasured and moved, with a sentence saying why. When a
 run is asked for, measure the waves the new things appear in:
 `bun run perf --wave "THE GRATE"`. A flagged reference wave means the machine
 was busy and the run says nothing. **Never `--save` to make a regression stop

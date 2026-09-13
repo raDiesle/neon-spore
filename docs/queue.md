@@ -299,3 +299,37 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## A cloud session that adds a wave cannot make the baseline test pass
+
+- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `tools/perf/test/baseline.test.ts`, `tools/perf/unmeasured.ts`, `tools/land/run.ts`, `docs/performance.md`, `CLAUDE.md`
+- **Asks:** should `bun run land` write the unmeasured rows itself, or should the baseline test stop requiring a row for a wave it has never seen?
+
+`tools/perf/test/baseline.test.ts` requires one row per wave the game ships, so
+a session that **adds** a wave lands red until the baseline has a row for it.
+The answer since 9 September 2026 was `bun run perf --unmeasured`, which opens
+no browser and measures nothing. On 13 September the owner said *do never run
+perf tests in Claude cloud*, and that closes the door a cloud session was using:
+THE LEAK's row was got that way, and the next wave written from a phone has no
+way to a green check at all.
+
+Both ways out are small and neither is obviously right, which is why this asks
+rather than does.
+
+**`land` writes them.** It already writes the release note and the unverified
+entries between the check and the fast-forward; `fillUnmeasured` is a pure
+function over the baseline and would sit beside them. The wave gets its row
+without anybody typing `perf`, and the rule stays a rule about the *command*.
+Against it: the baseline is a perf artefact, and a landing that edits one is a
+landing doing perf's job under another name.
+
+**The test tolerates a gap.** `baseline.test.ts` stops failing on a wave the
+file has never seen — an unweighed wave is exactly what a missing row means —
+and the next real sweep fills it in as it already fills in a blanked one.
+Against it: the one-row-per-wave rule is what stops the baseline comparing
+today against a game that no longer exists, and a silent gap is weaker than a
+row that says UNMEASURED out loud.
+
+Whichever it is, `docs/performance.md`'s *A wave nobody has weighed still gets
+a row* section and the CLAUDE.md line above it are rewritten with it.

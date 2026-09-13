@@ -3121,3 +3121,24 @@ now, under the shipped plate, for the length of the window. About 15 min.
 
 Bottleneck: none worth the name — the tool did the work, which is the whole
 argument for having it.
+
+## 2026-09-13 · claude/scheduler-tests-two-devices-klxkyt — no perf in the cloud, and the entry that broke the trunk
+
+Two small pieces after the VERSUS lane. The owner said *do never run perf tests
+in Claude cloud*, which closes a door a cloud session was told to use nine days
+ago — so the rule is written the way he said it and the collision it re-opens
+is queued as a question with both ways out named. And the VERSUS landing's own
+`--unverified` entry had named a file that landing deleted, which turns the
+trunk red on the next check; that is fixed at the source with a test. About
+20 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `docs/performance.md`'s two sections, `note-commit.ts`, the notes-repo harness |
+| writing | 10 | the CLAUDE.md clause, the doc's amendment, the queued question, `--diff-filter=d` and its test |
+| looking | 0 | — |
+| friction | 0 | — |
+| landing | 5 | the land, queue and doc tests, two commits |
+
+Bottleneck: **writing** — most of it was the queued question, which has to name
+both options well enough that the answer is one word.

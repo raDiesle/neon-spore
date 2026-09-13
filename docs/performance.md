@@ -48,6 +48,16 @@ one taken on a machine somebody is holding, and a number taken on a runner slow
 enough to be killed by its own timeout is not that number
 (`docs/cloud-session.md`).
 
+**And not `--unmeasured` either, as of 13 September 2026.** The owner's words
+were *do never run perf tests in Claude cloud*, said after a cloud session
+reported running `bun run perf --unmeasured` to get a new wave its baseline
+row. So the rule is now the whole command and not the measuring half of it: a
+cloud session does not type `bun run perf`, with any flag, for any reason. The
+section below was written against the older reading and is left standing
+because the collision it describes is real and is now unresolved — what a cloud
+session that adds a wave does instead is an open question in `docs/queue.md`,
+with the two ways out named.
+
 ## A wave nobody has weighed still gets a row
 
 `tools/perf/test/baseline.test.ts` requires one row per wave the game ships,
