@@ -221,31 +221,6 @@ rewrite the status block and §3.2's opening from `SCENES`, say which guides
 carry prose beside their film and which carry none, and keep the three
 overturned decisions where they are, because those are history and still true.
 
-## HULL · TRADED answers THE HANDOVER a second way and is not in VERSUS
-
-- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-13, claude/queue-hull-traded-answers-the-handover-a-second-way-an
-- **Files:** `tools/shape-sheet/src/drafts/ship.ts`, `tools/versus/candidates/`, `packages/render/src/handover-look.ts`
-
-The shape sheet carries `HULL · TRADED` — two lobes on the ship's own membrane
-exchanging what they carry, three columns apart, complementary heights, five
-seconds a cycle — drawn at the Handover idea while it was still an idea. The
-idea shipped on 13 September 2026 and the announcement that shipped with it is a
-plate on the lip of the band plus the band itself coming up in the other seat's
-colours, so the drawn pair of lobes is now an *alternative* to something the game
-draws rather than a picture offered to a concept.
-
-It was left `free` in the sheet in the lane that built the fault, because a draft
-that names a built concept orphans the sheet's join (`concept-art.test.ts`) and
-because carrying it across is not a rename: a VERSUS candidate patches a record
-and is judged against the shipped look in a pair of shots
-(`docs/versus.md`, `tools/versus/candidates/`). What to carry: the `traded`
-membrane feature is already written (`tools/shape-sheet/src/drafts/membrane.ts`),
-so the candidate is that motion applied to the hull for the length of the window,
-against today's plate. Worth doing because the two are not exclusive — a mark on
-the ship says *which columns* changed hands and a plate says *when*, and the
-shot is what shows whether the pair of them is one signal too many.
-
 ## Unverified at dcf8328c: THE HANDOVER watched at tempo: whether two beats of war…
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt

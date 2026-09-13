@@ -35,6 +35,7 @@ import { POSE_GROUPS } from "./poses.js";
  */
 const SLOT_POSE: Record<string, string> = {
   "cairn:pile": "CAIRN · THE PILE",
+  "handover:notice": "HANDOVER · THE TRADE",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

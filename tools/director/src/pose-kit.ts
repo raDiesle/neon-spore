@@ -40,7 +40,7 @@ import {
  */
 
 /** The hull is held: a pose must not be able to end the run it is posing. */
-const POSE_CONFIG: SimConfig = { ...DEFAULT_CONFIG, hullInvulnerable: true };
+export const POSE_CONFIG: SimConfig = { ...DEFAULT_CONFIG, hullInvulnerable: true };
 export const POSE_TPB = ticksPerBeat(POSE_CONFIG);
 
 /**

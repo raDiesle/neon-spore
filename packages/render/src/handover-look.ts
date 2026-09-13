@@ -1,6 +1,7 @@
 import { handedOver, handoverLeft, handoverWarning, type World } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import { rgba } from "./hex.js";
+import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 
@@ -50,6 +51,17 @@ export function handoverWords(l: Layout, world: World): string | null {
 }
 
 /**
+ * What the announcement is drawn from besides the world: where in the beat
+ * the frame is, and the membrane the ship pass drew, so a look that says the
+ * trade *on the hull* can stand on the skin rather than on a flat line. Null
+ * where no ship pass ran.
+ */
+export interface HandoverView {
+  beatPhase: number;
+  surfaceY: SurfaceY | null;
+}
+
+/**
  * The plate, over the finished band.
  *
  * It brightens on the beat and fades across it, the cadence the whole warning is
@@ -60,11 +72,11 @@ export function drawHandoverNotice(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   world: World,
-  beatPhase: number,
+  view: HandoverView,
 ): void {
   const text = handoverWords(l, world);
   if (text === null) return;
-  const beat = Math.max(0, 1 - beatPhase * 2);
+  const beat = Math.max(0, 1 - view.beatPhase * 2);
   ctx.save();
   ctx.font = FONT;
   ctx.textAlign = "center";
@@ -89,3 +101,18 @@ export function drawHandoverNotice(
   ctx.fillText(text, x, y);
   ctx.restore();
 }
+
+/**
+ * **The announcement the frame draws, as a record a candidate can patch.**
+ *
+ * `frame-ship.ts` calls `HANDOVER_LOOK.announce` rather than the function
+ * above, so a VERSUS candidate for `handover:notice` can stand its own answer
+ * in the same place — the shape-sheet's `HULL · TRADED`, two lobes on the hull
+ * exchanging their heights for the length of the window — against the plate,
+ * on the same world and the same beat (`tools/versus/candidates/`,
+ * `docs/versus.md`). The game itself draws the plate: nothing here is a look
+ * change, only the seam a look is compared through.
+ */
+export const HANDOVER_LOOK: {
+  announce: (ctx: CanvasRenderingContext2D, l: Layout, world: World, view: HandoverView) => void;
+} = { announce: drawHandoverNotice };

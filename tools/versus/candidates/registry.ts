@@ -8,5 +8,6 @@
 import type { Variant } from "../variant.js";
 import { CAIRN_BANKED } from "./cairn-pile/banked/index.js";
 import { CAIRN_STILL } from "./cairn-pile/still/index.js";
+import { HANDOVER_HULL } from "./handover-notice/hull/index.js";
 
-export const VARIANTS: Variant[] = [CAIRN_BANKED, CAIRN_STILL];
+export const VARIANTS: Variant[] = [CAIRN_BANKED, CAIRN_STILL, HANDOVER_HULL];

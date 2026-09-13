@@ -2734,3 +2734,21 @@ this is. About 40 min.
 Bottleneck: **friction** — both halves of it were the same thing: a traded page
 is the other seat's screen all the way down, and anything written against the
 page's own seat is written against a panel that is not there.
+## 2026-09-13 · claude/queue-hull-traded-answers-the-handover-a-second-way-an — HULL · TRADED goes to VERSUS
+
+Queue item: the shape-sheet's `HULL · TRADED` was drawn for THE HANDOVER
+before it was built and never carried to VERSUS. `handover:notice` / `hull`
+puts two exchanging lobes on the real hull for the length of the window,
+under the shipped plate; the announcement became a patchable record and the
+pose opens the pilot's phone a beat before the warning. About 15 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `handover-look.ts`, the cairn candidate's shape, `hull.ts`'s gradient and rim, the draft's `traded` |
+| writing | 5 | `HANDOVER_LOOK`, `paint.ts`, `index.ts`, the pose, the `SLOT_POSE` row |
+| looking | 5 | three shots: the first lobes covered the cannon's rim and read as a plate, so each lobe became its own path in the hull's own gradient |
+| friction | 0 | — |
+| landing | 5 | format, index, check:fast, the commit |
+
+Bottleneck: **looking** — the draft's flat-topped bump is right on a sheet and
+wrong on the hull, and only a shot said so.

@@ -8,7 +8,7 @@ import { faultBeamEnds } from "./fault-beam-ends.js";
 import { drawFaultBeam } from "./fault-emitter.js";
 import { drawFenceArcs } from "./fence-arc.js";
 import type { GuideStage } from "./guide-scene.js";
-import { drawHandoverNotice } from "./handover-look.js";
+import { HANDOVER_LOOK } from "./handover-look.js";
 import { drawControlHover } from "./hover.js";
 import { drawHud, drawOverlay } from "./hud.js";
 import { drawHull, type HullMood, hullSkinY, type LobePositions, surfaceSampler } from "./hull.js";
@@ -176,7 +176,7 @@ export function drawOverlays(
   // trades the two panels, and how many until it gives them back. The band under
   // it has already changed hands by then — this is the only part of the fault
   // that says *when* (`handover-look.ts`).
-  drawHandoverNotice(ctx, l, world, view.beatPhase);
+  HANDOVER_LOOK.announce(ctx, l, world, { beatPhase: view.beatPhase, surfaceY: surfaceY ?? null });
   // Over the finished band: whichever control a desk's mouse is resting on.
   drawControlHover(ctx, l, view);
   drawOverlay(ctx, l, view);

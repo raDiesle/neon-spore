@@ -1586,6 +1586,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/poses-layers.ts` | the states a layer over a body is judged giving way in — a rind under fire, a lid under a hand — with `Pose.hand` |
 | `tools/director/src/poses-link.ts` | The two states a candidate for something that **joins two things** is judged on |
 | `tools/director/src/poses-hold.ts` | The two bodies that hold a control and **go off if it stands still** — THE LIMPET on the plate |
+| `tools/director/src/poses-handover.ts` | the state `handover:notice` is judged on — the pilot's screen a beat before THE HANDOVER warns, replayed once a window |
 | `tools/director/src/versus-app.ts` | `versus.html` — the page a VERSUS door opens into, and the whole of its routing |
 | `tools/director/src/versus-one.ts` | One candidate, alone, on a page of its own — the live half of VERSUS |
 | `tools/director/src/versus-open.ts` | Where a look opens, and how a page links to it |
