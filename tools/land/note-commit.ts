@@ -90,6 +90,14 @@ export async function writeNotes(
  * The paths come from the landing rather than from the session, so an entry
  * cannot name files the commits did not touch — `git diff --name-only` over
  * exactly the commits that landed.
+ *
+ * **Deletions are left out**, and that is not tidiness: `docs/queue.md` is held
+ * to naming only files the tree has (`tools/test/doc-drift.test.ts`), so an
+ * entry that listed what the landing *removed* turned the trunk red on the
+ * commit after it. It happened on 13 September 2026, landing a VERSUS
+ * decision — the candidate directories go, and one of them was the eighth path
+ * in the diff and so the one the `Files:` line showed. Lowercase `d` is git's
+ * own way to say "every change except a deletion".
  */
 async function writeUnverified(
   tree: string,
@@ -101,7 +109,10 @@ async function writeUnverified(
   const oldest = landed[0]?.full ?? "";
   const newest = landed.at(-1);
   if (!newest) return false;
-  const diff = await git(["diff", "--name-only", `${oldest}^`, newest.full], tree);
+  const diff = await git(
+    ["diff", "--name-only", "--diff-filter=d", `${oldest}^`, newest.full],
+    tree,
+  );
   const files = diff
     .split(/\r?\n/)
     .map((line) => line.trim())
