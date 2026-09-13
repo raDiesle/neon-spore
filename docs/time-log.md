@@ -3040,3 +3040,23 @@ wave in a new act nine written on the figure THE LANCE was taught on. About
 Bottleneck: **friction** — none of it was about the mechanic. Half was a file
 that was already full, and half was a sandbox that cannot reach the fonts the
 sign-in brought in.
+
+## 2026-09-13 · claude/map-on-a-phone — the director's map tapped on a phone-sized viewport
+
+The unverified item from caaf6cac: on a 375-px viewport with touch, the
+tapped row alone wears the insert lines and the trash, and the palette is
+`position: static`. Both held. What did not: the MAP view keeps the desktop
+two-column frame, so the map is ~110 px wide beside the 250-px palette and
+its panel and trash sit off the right edge — queued with the fix named.
+About 25 min, most of it getting one script to tap the right cell.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `mobile-menu.ts`, `director-phone.css`, `director-brush.css` for the frame |
+| writing | 5 | the queue entry |
+| looking | 5 | two screenshots of the map view |
+| friction | 10 | the script: a `tail` that ate the error, a wait on a hidden cell, a menu tapped shut, a cell off the right edge |
+| landing | 0 | the commit, folded into writing |
+
+Bottleneck: **friction** — four reruns of a scratch script before one tap
+landed on a cell that was on the screen.

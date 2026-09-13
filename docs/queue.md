@@ -224,20 +224,24 @@ one that would cross the banner is treated — put it below the ring instead.
 Extend `guide-plate-room.test.ts` with THE HANDOVER's fourth page against the
 plate's box.
 
-## Unverified at caaf6cac: The map on a phone: with no hover, a row's insert lines…
+## The director's MAP view on a phone keeps the desktop two-column frame
 
-- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-13, claude/queue-unverified-at-caaf6cac-the-map-on-a-phone-with-n
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/time-log.md`, `tools/director/src/columns.ts`, `tools/director/src/director-brush.css`, `tools/director/src/director-columns.css`, `tools/director/src/director-map.css`, `tools/director/src/grid-follow.ts`
+- **Found:** 2026-09-13, claude/map-on-a-phone
+- **Files:** `tools/director/src/director-phone.css`, `tools/director/src/director-brush.css`, `tools/director/test/stylesheet-order.test.ts`
 
-*The map's rows carry their own verbs, and the map follows the beat playing* landed from a session that could not look at it. The commit touched 6 more files. What went unchecked:
-
-- The map on a phone: with no hover, a row's insert lines and trash appear only on the row of the selected cell, and the sticky palette is desktop-only — neither seen on a real phone
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
+Seen on a 375-px viewport with playwright (`hasTouch`, `isMobile`) on 13
+September 2026: the MAP view shows `section.brush-col` whole, and its
+`.column-body` is still the desktop grid `max-content minmax(var(--map-w),
+1fr)` with `#brushCol` at its fixed 250 px — so the map gets the ~110 px
+that are left, two columns of cells show, and the cell panel, the note and
+the row's trash sit off the right edge behind `#mapCol`'s own scroll. The
+row verbs themselves are right (the tapped row alone wears the insert lines
+and the trash, and the palette is `position: static`). Inside the
+`@media (max-width: 700px)` block of `director-phone.css`, give
+`main > section.brush-col > .column-body` one track and `#brushCol` `width:
+auto`, so the palette stands above the map at the phone's full width and
+`#mapCol` scrolls sideways only for the grid. Add a test beside
+`stylesheet-order.test.ts` that reads the phone block and finds both rules.
 
 ## The browser tests hang out their whole budget where Google cannot be reached
 
