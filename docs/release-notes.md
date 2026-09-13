@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · 1a155c5c — The map opens a beat row and takes one out, shifting the rows after it
+
+Each beat label on the director's map grows two glyphs on hover: `+` inserts an empty beat at that row and moves every later row one beat later; `−` takes the row out and moves every later row one beat earlier. The owner asked for both on 13 September 2026, having been making room in the middle of a wave one drag at a time. A row with anything on it is asked about in plain words before it goes, since the editor has no undo — and beat 0 can be removed like any other, so an insert before it has a way back. The edits are `insertBeat`/`removeBeat` in `paint.ts`, entries and pods together; the labels are `grid-rows.ts`.
+
 ## 2026-09-13 · 091f7df2 — The two people's names, in the three places the game wrote P1 and P2
 
 The owner asked for the nicknames wherever a person reads a seat's name in play. Three labels carry one mid-wave and each now says the person: the siren's chip, which is the instrument that says *whose turn it is to talk*; the word under a hand on a body, which used to read P2 PULLS and reads JEAN-LUC PULLS; and a rehearsal's caption, which content writes as PLAYER 2 SEES ONE WIRE. The menu's seat cards say who is sitting in each seat. Where the room knows no name — a device playing alone, a seat nobody has claimed, every frame test in the repository — every one of them draws exactly what it drew before.
