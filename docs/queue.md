@@ -264,6 +264,7 @@ with a number. Give it a row in `wave-budget.test.ts` while there.
 ## Two phones that reconnect on different waves restart the same wave together
 
 - **Found:** 2026-09-13, queue-lanes — asked for by the owner
+- **Taken:** 2026-09-13, claude/queue-two-phones-that-reconnect-on-different-waves-res
 - **Files:** `apps/game/src/link-run.ts`, `apps/game/src/link.ts`, `apps/game/src/hold.ts`, `apps/game/src/main.ts`, `apps/game/src/menu-link.ts`, `packages/net/src/protocol.ts`, `apps/server/src/room-start.ts`, `packages/net/src/desync.ts`
 - **Where:** cloud
 
