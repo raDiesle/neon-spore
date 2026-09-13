@@ -1594,6 +1594,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/cell-config-pod.ts` | The rows under the selected cell that configure the **pod** in it: the row it hangs at |
 | `tools/director/src/grid-note.ts` | The line of arithmetic under the map: how many entries and pods the wave carries, how long it runs |
 | `tools/director/src/grid-gestures.ts` | **Everything a hand can do to one cell of the map**: point at it, paint it, drag a stroke across it |
+| `tools/director/src/grid-rows.ts` | The map's beat labels: the number seeks, and on hover `+` opens a beat at that row and `−` takes it out, every later row shifting with it |
 | `tools/director/src/held.ts` | **What the author is carrying**: the brush that is armed, and — while a drag is in the air |
 | `tools/director/src/brush-hints.ts` | SHOW DESCRIPTIONS: whether each brush in the palette carries its sentence |
 | `tools/director/src/scene-marks.ts` | The marks: everything a scene draws that is not a body |

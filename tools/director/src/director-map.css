@@ -22,22 +22,54 @@
   font-size: 0.75rem;
 }
 #grid .beat {
-  color: var(--dim);
-  font-size: 0.8rem;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
+  gap: 1px;
+  width: 56px;
+}
+#grid .beat button {
+  color: var(--dim);
+  font-size: 0.8rem;
   border: 0;
   background: transparent;
   padding: 0;
-  width: 24px;
   cursor: pointer;
+  line-height: 1;
 }
-#grid .beat:hover {
+#grid .beat .seek {
+  width: 22px;
+  text-align: center;
+}
+#grid .beat:hover .seek {
   color: var(--ink);
 }
-#grid .beat.now {
+#grid .beat.now .seek {
   color: var(--gold);
+}
+/* The row glyphs: kept for hover so the numbers read as a column. `+` opens a
+ * beat at this row, `−` takes it out (`grid.ts`). */
+#grid .beat .rows {
+  display: flex;
+  gap: 1px;
+  visibility: hidden;
+}
+#grid .beat:hover .rows {
+  visibility: visible;
+}
+#grid .beat .rows button {
+  width: 14px;
+  height: 18px;
+  border-radius: 3px;
+  font-size: 0.95rem;
+  color: var(--dim);
+}
+#grid .beat .rows button:hover {
+  color: var(--ink);
+  background: #1a1333;
+}
+#grid .beat .rows .del:hover {
+  color: #f08a8a;
 }
 #grid .cell {
   width: 32px;

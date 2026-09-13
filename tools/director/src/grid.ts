@@ -4,6 +4,7 @@ import type { Brush } from "./brushes.js";
 import { fillCell } from "./grid-cell-art.js";
 import { bindCellGestures, watchStrokeEnd } from "./grid-gestures.js";
 import { bindGridNote } from "./grid-note.js";
+import { BEAT_LABEL_PX, beatLabel, bindRowVerbs } from "./grid-rows.js";
 import type { Held } from "./held.js";
 import type { Cell, Selection } from "./selection.js";
 import {
@@ -25,8 +26,9 @@ import {
  * express, and the remap would silently move it.
  *
  * What a cell *draws* is `grid-cell-art.ts`, what a hand *does* to one is
- * `grid-gestures.ts`, and what sits under the map is `grid-note.ts`; this file
- * is the map itself — the labels, the columns and the beats.
+ * `grid-gestures.ts`, what a beat's label does is `grid-rows.ts`, and what
+ * sits under the map is `grid-note.ts`; this file is the map itself — the
+ * columns and the beats.
  */
 export interface GridPanel {
   render(): void;
@@ -86,6 +88,9 @@ export function bindGrid(
     store.dirty = true;
     onEdit();
   };
+  // The two verbs on a beat label — a row opened, a row taken out — with
+  // their asking: `grid-rows.ts`.
+  const rows = bindRowVerbs(store, selection, onEdit);
 
   // Bound on the window rather than on a cell: the selection outlives the
   // element that made it — a re-render replaces every button in the grid — so
@@ -110,7 +115,7 @@ export function bindGrid(
     // places rather than points and a drag paints a stroke — and the cursor is
     // the only place that can be said without a label (`director-map.css`).
     grid.classList.toggle("armed", held.brush() !== null);
-    grid.style.gridTemplateColumns = `24px repeat(${AUTHORED_COLS}, 32px)`;
+    grid.style.gridTemplateColumns = `${BEAT_LABEL_PX}px repeat(${AUTHORED_COLS}, 32px)`;
     grid.appendChild(label("head", ""));
     for (let c = 0; c < AUTHORED_COLS; c++) {
       const mapped = mapCol(c, cfg().cols);
@@ -125,20 +130,10 @@ export function bindGrid(
     }
 
     for (let b = 0; b < beatCount(wave); b++) {
-      grid.appendChild(beatLabel(b));
+      grid.appendChild(beatLabel(b, rows, onSeek));
       for (let c = 0; c < AUTHORED_COLS; c++) grid.appendChild(cell(wave, b, c));
     }
     mark(markedBeat);
-  };
-
-  const beatLabel = (b: number): HTMLElement => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "beat";
-    button.textContent = String(b);
-    button.dataset.beat = String(b);
-    button.addEventListener("click", () => onSeek(b));
-    return button;
   };
 
   const cell = (wave: Wave, b: number, c: number): HTMLElement => {

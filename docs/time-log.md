@@ -2494,3 +2494,26 @@ drew before. About 55 min.
 Bottleneck: **writing** — the substitution is four lines and the geometry under
 it is the work: a pill that was 34 pixels wide in six expressions, one of them
 exported and read by the director.
+## 2026-09-13 · claude/queue-the-map-editor-inserts-a-beat-row-and-removes-on — a beat row opened and a beat row taken out
+
+The owner's two buttons on the map. `insertBeat` and `removeBeat` are the
+edits, in `paint.ts` beside the others; the labels grew two glyphs on hover
+and moved to `grid-rows.ts` when `grid.ts` went past the line limit with them
+in it. A removal of a row with something on it asks in plain words first.
+Checked in the browser against the worktree's own director: the glyphs show
+on hover beside the number, an insert at beat 4 moved FIRST STEP's seven later
+bodies down one, an empty row's remove brought them back, and the remove of a
+full row asked and, refused, changed nothing. One deliberate departure from
+the entry: beat 0 can be removed too, since an insert before it would
+otherwise have no way back in an editor with no undo. About 30 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `paint.ts`, `grid.ts`, the map's css, the selection |
+| writing | 15 | the two verbs, `grid-rows.ts`, the css, the tests |
+| looking | 5 | the director in the browser, the PNG |
+| friction | 0 | — |
+| landing | 5 | format, check:fast, index, the commit |
+
+Bottleneck: **writing** — the label was a button, and a button may not hold
+buttons, so the label and its verbs became a file of their own.

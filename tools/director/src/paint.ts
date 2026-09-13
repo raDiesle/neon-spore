@@ -113,6 +113,42 @@ export function cellIsEmpty(wave: Wave, beat: number, col: number): boolean {
 }
 
 /**
+ * **Make room for a beat.** Everything at `beat` or after moves one beat
+ * later, and the row is empty. The one way to open the middle of a wave that
+ * is not moving every later cell down by hand, one drag at a time — which is
+ * what the owner was doing on 13 September 2026 when he asked for the button.
+ * Entries and pods are all a wave places by beat; a boss has no cue to move.
+ */
+export function insertBeat(wave: Wave, beat: number): void {
+  for (const e of wave.entries) if (e.beat >= beat) e.beat += 1;
+  for (const p of wave.pods ?? []) if (p.beat >= beat) p.beat += 1;
+}
+
+/**
+ * **Take a beat out.** Whatever is on it is gone, and everything after moves
+ * one beat earlier — the inverse of `insertBeat`, so an empty row added by
+ * mistake can be taken back, beat 0 included: the editor has no undo, and a
+ * wave whose first beat is empty simply starts a beat late. A row with
+ * anything on it is the caller's to ask about first (`beatIsEmpty`).
+ */
+export function removeBeat(wave: Wave, beat: number): void {
+  wave.entries = wave.entries.filter((e) => e.beat !== beat);
+  for (const e of wave.entries) if (e.beat > beat) e.beat -= 1;
+  const pods = (wave.pods ?? []).filter((p) => p.beat !== beat);
+  for (const p of pods) if (p.beat > beat) p.beat -= 1;
+  wave.pods = pods.length ? pods : undefined;
+}
+
+/** How many things a beat row holds — entries and pods together — so a
+ * removal of a row with something on it can say so before it happens. */
+export function onBeat(wave: Wave, beat: number): number {
+  return (
+    wave.entries.filter((e) => e.beat === beat).length +
+    (wave.pods ?? []).filter((p) => p.beat === beat).length
+  );
+}
+
+/**
  * The brushes that make an entry. `pod` and `erase` are the two that do not:
  * a pod is not an entry, and an erase is not a thing but the absence of one.
  */
