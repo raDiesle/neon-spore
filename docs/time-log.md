@@ -2109,16 +2109,16 @@ the signal the web image already sets. Then six entries for the cloud, all
 his: two phones that reconnect on different waves, the menu's front page
 (PLAY, one CONTINUE, TESTING behind three presses on the spore), a readable
 colour scheme and face, a sign-in in place of the recovery code, nicknames
-where the game says Player 1 and 2, and a difficulty. About 45 min.
+where the game says Player 1 and 2, and a difficulty. About 70 min.
 
 | activity | minutes | what it was |
 |---|---|---|
 | reading | 15 | `queue.ts`, `run.ts`, `claim.ts` for the shape a field takes; `session-start.ts` for how a cloud session is known; then `menu-entries.ts`, `menu-link.ts`, `nickname.ts`, `names.ts`, `desync.ts`, `protocol.ts` and `config.ts`, so that each entry names real files and the right knob (falling speed is `bpm`) |
 | writing | 20 | `where.ts`, the field on `Item`, the three places in `run.ts`, seven tests, the queue's preamble and `cloud-session.md`, and the six entries |
 | looking | 0 | nothing drawn |
-| friction | 5 | a heredoc longer than the shell would take, twice; `queue.ts` two lines over the limit; two titles over 80 characters |
-| landing | 5 | `check:fast`, the commit, `bun run land` |
+| friction | 25 | a heredoc longer than the shell would take, twice; `queue.ts` two lines over the limit; two titles over 80 characters; then `main` red under the lane — the owner's director save of FIRST STEP had broken the perf baseline's row and the lockstep test's hand-written script, and both were fixed here so the lane could land (queued: the save should do the first itself, and the test should own its wave) |
+| landing | 10 | `check:fast` twice, the commit, `bun run land` twice |
 
-Bottleneck: **reading for the entries** — an entry a cold session can act on
-has to name the files and the seam, and each of the six is in a different
-corner of the app; the tool change itself was twenty minutes.
+Bottleneck: **friction** — a trunk that went red under the lane by a
+commit no check had seen; the tool change itself was twenty minutes and the
+six entries another twenty.

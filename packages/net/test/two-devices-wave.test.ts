@@ -54,18 +54,21 @@ const DELAYS: [number, number] = [12, 20];
  * stops when the wave does, and a wave that never ends fails on what it did not
  * reach instead of hanging the suite.
  */
-const CEILING = 3000;
+const CEILING = 4500;
 
 /**
  * The pair's presses, at the tick each thumb lands — written out rather than
  * rolled, for `determinism.test.ts`'s reason: a script somebody can read is a
  * script somebody can tell is playing the wave rather than fidgeting through it.
  *
- * FIRST STEP sends one red body down the column `buildQueue` maps the authored
- * column 2 onto. Seat 1 stands the cannon in it, seat 2 spends two cyan shots
- * on it for nothing and then red, and between them the dome comes up and the
- * maw opens — so the run covers ten beats of a body falling rather than one
- * shot on the first of them.
+ * FIRST STEP sends eight red bodies over twenty-seven beats, down the columns
+ * `buildQueue` maps the authored 3, 3, 4, 6, 5, 3, 0 and 6 onto — as the owner
+ * saved it from the director on 13 September 2026, in place of the one body it
+ * used to send. Seat 1 stands the cannon under the first, seat 2 spends two
+ * cyan shots on it for nothing and then red, and between them the dome comes
+ * up and the maw opens; the other seven each get the cannon under them once
+ * they are two or three rows down, and one red shot. So the run covers thirty
+ * beats of bodies falling, with the cannon crossing the whole field twice.
  *
  * CYAN, the wave after, sends two cyan bodies down the columns authored 2 and
  * 4 map onto, three beats apart. Its presses are counted from the tick the
@@ -78,8 +81,8 @@ const CEILING = 3000;
  * while proving nothing.
  */
 const PRESSES: { wave: number; tick: number; player: PlayerId; command: Command }[] = [
-  { wave: 0, tick: 20, player: 1, command: { kind: "cannonCol", col: 3 } },
-  { wave: 0, tick: 30, player: 2, command: { kind: "shieldCol", col: 3 } },
+  { wave: 0, tick: 20, player: 1, command: { kind: "cannonCol", col: 5 } },
+  { wave: 0, tick: 30, player: 2, command: { kind: "shieldCol", col: 5 } },
   // Cyan, twice, on a body that is red: the wave's own lesson, and nothing
   // comes apart. The body keeps falling, which is what makes this a run of
   // beats rather than a shot on the first one.
@@ -87,10 +90,30 @@ const PRESSES: { wave: number; tick: number; player: PlayerId; command: Command 
   { wave: 0, tick: 320, player: 1, command: { kind: "guard" } },
   { wave: 0, tick: 440, player: 2, command: { kind: "fire", color: "cyan" } },
   { wave: 0, tick: 560, player: 1, command: { kind: "intake" } },
-  // And red, in the column the cannon has been standing in all along.
+  // And red, in the column the cannon has been standing in all along — which
+  // takes the first body, and the second arrived in the same column at beat 4.
   { wave: 0, tick: 700, player: 2, command: { kind: "fire", color: "red" } },
-  { wave: 0, tick: 820, player: 1, command: { kind: "cannonCol", col: 5 } },
-  { wave: 0, tick: 860, player: 2, command: { kind: "shieldCol", col: 5 } },
+  { wave: 0, tick: 800, player: 2, command: { kind: "fire", color: "red" } },
+  // The other six, in arrival order: beat 7 in column 7, beat 10 in 10, beat
+  // 12 in 8, beat 16 in 5, beat 21 in 0, beat 27 in 10. A beat is 75 ticks.
+  { wave: 0, tick: 900, player: 1, command: { kind: "cannonCol", col: 7 } },
+  { wave: 0, tick: 920, player: 2, command: { kind: "shieldCol", col: 7 } },
+  { wave: 0, tick: 1000, player: 2, command: { kind: "fire", color: "red" } },
+  { wave: 0, tick: 1100, player: 1, command: { kind: "cannonCol", col: 10 } },
+  { wave: 0, tick: 1120, player: 2, command: { kind: "shieldCol", col: 10 } },
+  { wave: 0, tick: 1200, player: 2, command: { kind: "fire", color: "red" } },
+  { wave: 0, tick: 1300, player: 1, command: { kind: "cannonCol", col: 8 } },
+  { wave: 0, tick: 1320, player: 2, command: { kind: "shieldCol", col: 8 } },
+  { wave: 0, tick: 1400, player: 2, command: { kind: "fire", color: "red" } },
+  { wave: 0, tick: 1500, player: 1, command: { kind: "cannonCol", col: 5 } },
+  { wave: 0, tick: 1520, player: 2, command: { kind: "shieldCol", col: 5 } },
+  { wave: 0, tick: 1600, player: 2, command: { kind: "fire", color: "red" } },
+  { wave: 0, tick: 1800, player: 1, command: { kind: "cannonCol", col: 0 } },
+  { wave: 0, tick: 1820, player: 2, command: { kind: "shieldCol", col: 0 } },
+  { wave: 0, tick: 1900, player: 2, command: { kind: "fire", color: "red" } },
+  { wave: 0, tick: 2200, player: 1, command: { kind: "cannonCol", col: 10 } },
+  { wave: 0, tick: 2220, player: 2, command: { kind: "shieldCol", col: 10 } },
+  { wave: 0, tick: 2300, player: 2, command: { kind: "fire", color: "red" } },
   // CYAN. The first body is in column 3 from the wave's own first beat, the
   // second in column 7 from its fourth; each gets the cannon under it and one
   // cyan shot once it is well down the field.
@@ -226,10 +249,11 @@ describe("two devices playing content's first two waves", () => {
     // Both waves were played through: every body content sent arrived, was
     // taken apart rather than let through, and the simulation asked for the
     // wave after the second rather than for either again. The first wave took
-    // about 975 ticks at these delays — ten beats of play and the rest after
-    // the clear — and the boundary was crossed once, on a tick the run found.
+    // about 2625 ticks at these delays — thirty beats of play and the rest
+    // after the clear — and the boundary was crossed once, on a tick the run
+    // found.
     expect(ended).toEqual({ type: "needWave", wave: WAVE + 2 });
-    expect(opened[WAVE + 1]).toBeGreaterThan(900);
+    expect(opened[WAVE + 1]).toBeGreaterThan(2400);
     expect(a.world.wave).toBe(WAVE + 1);
     expect(a.world.spawned).toBe(2);
     expect(a.world.creatures).toEqual([]);

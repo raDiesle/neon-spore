@@ -13,12 +13,11 @@
       "id": "firstStep",
       "wave": 1,
       "name": "FIRST STEP",
-      "bodies": 1,
-      "arrivals": "1:b34c00c5",
-      "typical": 2.86,
-      "mean": 2.93,
-      "p90": 3.69,
-      "jitter": 0.332
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "cyan",
