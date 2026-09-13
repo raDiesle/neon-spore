@@ -213,7 +213,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   gripPushPauseBeats: 1,
   maxHoles: 10,
   maxScars: 30,
-  readyHoldMs: 420,
+  readyHoldMs: 150,
   radarLead: 6,
   briefings: false,
 };

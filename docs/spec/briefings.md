@@ -527,12 +527,14 @@ name: it is the switch on a feature that wants two people, not on one card. A
 determinism run, a shape sheet, `relay:check` and every sim test play with it
 off, and none of them has anything that would send the two acks a held wave
 waits for. `cfg.readyHoldMs` beside it is how long a circle takes to fill, and it is
-**420 ms**. It was 1200, which is long enough to feel like a penalty on the
+**150 ms**. It was 1200, which is long enough to feel like a penalty on the
 second run of a wave and long enough that a thumb put down and taken off again
-reads as a control that did not work. The gate's job is to prove the pair
-looked at the screen, and a fifth of a second of contact does that; the reading
-time is bought by the guide standing in front of them, not by the length of the
-hold. `packages/sim/src/ready-gate.ts` is where the gate's rules now live.
+reads as a control that did not work; then 420, which the owner still found
+slow to say READY under a thumb (13 September 2026). The gate's job is to
+prove the pair looked at the screen, and that much contact does that; the
+reading time is bought by the guide standing in front of them, not by the
+length of the hold. `packages/sim/src/ready-gate.ts` is where the gate's rules
+now live.
 
 ### 3.5 Two devices · built
 

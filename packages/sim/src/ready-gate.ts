@@ -58,9 +58,12 @@ import type { World } from "./world.js";
  * `cfg.readyHoldMs`, and it is short. It used to be 1200 ms, which is long
  * enough to feel like a penalty on the second run of a wave and long enough
  * that a thumb put down and taken off again reads as a control that did not
- * work. The gate's job is to prove the pair looked at the screen, and a fifth
- * of a second of contact does that; the reading time is bought by the guide
- * being in front of them at all, not by the length of the hold.
+ * work; then 420, which the owner still found slow to say READY under a thumb
+ * (13 September 2026). It is 150 now: the circle is seen to fill, a lift
+ * before it is full still empties it, and READY lands about where a press
+ * lands. The gate's job is to prove the pair looked at the screen, and that
+ * much contact does that; the reading time is bought by the guide being in
+ * front of them at all, not by the length of the hold.
  */
 
 /** How many ticks a seat has to hold before its circle says READY. */

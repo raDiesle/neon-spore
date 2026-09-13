@@ -68,8 +68,8 @@ describe("a circle filling", () => {
 
   it("counts one seat's hold and not the other's", () => {
     const world = atGuide();
-    press(world, 20, 1);
-    expect(readyFill(world, 1)).toBe(20);
+    press(world, FULL - 2, 1);
+    expect(readyFill(world, 1)).toBe(FULL - 2);
     expect(readyFill(world, 2)).toBe(0);
   });
 

@@ -2940,3 +2940,20 @@ both fixed here. About 30 min.
 Bottleneck: **looking** — the defect was a DOM button over a canvas instrument,
 which nothing in either package's tests could see; the two-phone run is the
 only thing that draws both.
+
+## 2026-09-13 · claude/ready-faster — the ready gate says READY under a thumb sooner
+
+The owner's `NEXT:` mid-turn: the circle at the end of a guide must switch to
+READY much faster when pressed. `readyHoldMs` 420 → 150; the header, the spec
+and the one test that counted in ticks follow. About 10 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `ready-gate.ts`, `briefing.ts`'s hold binding, `ready-circles.ts`, the config's history for the number |
+| writing | 5 | the number, its two paragraphs, `ready.test.ts` counting in `FULL` rather than 20 |
+| looking | 0 | — nothing a still frame shows; the sim test counts the ticks |
+| friction | 0 | — |
+| landing | 0 | `check:fast`, the commit, folded into writing |
+
+Bottleneck: **reading** — finding that the header already argued for a fifth of
+a second while the number said 420 took longer than changing either.
