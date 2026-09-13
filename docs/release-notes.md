@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · 6ed059a1 — A retry is counted when RETRY WAVE is pressed, not on the hit that asks for it
+
+The lost screen's own frame read `0:09 · 1 RETRY` in the corner and `WAVE 1 · TRY 1` in its title at once — a retry nobody had taken, beside a QUIT button — and a pair that quit was recorded on the room with one retry they never took. The count now goes up in `startWave`, on the tick a failed wave opens again, beside the try it becomes; `failWave` marks the tick and says so, and no more.
+
 ## 2026-09-13 · 1941df9b — The siren and both names sit top centre, and the four beat dots are gone
 
 The comms siren, its two seat chips and the duty word now hang from the middle of the screen's top, at the round header's height, instead of the left corner beside the run line. The four beat dots that ticked in the HUD's top left are removed; the beat is still visible on the shield ring and the wisp grid, and audible.
