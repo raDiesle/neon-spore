@@ -17,11 +17,11 @@
       { "name": "NAMES", "class_name": "Names" }
     ]
   },
-  // The Firebase project whose sign-ins the registry trusts (`sign-in.ts`).
-  // Empty until the owner pastes a project id: every claim is then anonymous,
-  // which is what a checkout without a project should do. `SIGN_IN_KEYS` is
-  // the test's, and is never set here.
-  "vars": { "FIREBASE_PROJECT": "" },
+  // The Firebase project whose sign-ins the registry trusts (`sign-in.ts`) —
+  // the `projectId` of `apps/game/src/sign-in-config.ts`, pasted by the owner
+  // on 13 September 2026. Emptied, every claim is anonymous again.
+  // `SIGN_IN_KEYS` is the test's, and is never set here.
+  "vars": { "FIREBASE_PROJECT": "neon-spore" },
   "migrations": [
     { "tag": "v1", "new_sqlite_classes": ["Room"] },
     { "tag": "v2", "new_sqlite_classes": ["Names"] }

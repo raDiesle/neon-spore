@@ -2832,3 +2832,19 @@ question tool, and the queue item went from cloud-only to done here. About 75 mi
 
 Bottleneck: **writing** — two ends and a menu page for one feature; nothing
 waited on anything.
+
+## 2026-09-13 · claude/sign-in-live — the game signs in against the owner's Firebase project
+
+The owner pasted the web config into `sign-in-config.ts`; the Worker got the
+matching project id and the row was watched come alive. About 15 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 0 | — |
+| writing | 5 | `wrangler.jsonc`, the config file's comment, the pasted block to Biome's shape |
+| looking | 5 | PLAY and SETTINGS at phone size; a press on LOG IN WITH GOOGLE reaching `neon-spore.firebaseapp.com` |
+| friction | 0 | — |
+| landing | 5 | `check:fast`, the commit |
+
+Bottleneck: **looking** — the popup opens only from a person's click, so the
+round trip stops at the chooser for me.
