@@ -222,8 +222,9 @@ makes two devices deal the same cards. Do not special-case it.)
 beats, `need: { p1: none, p2: none }`, so it passes on the floor.
 - p1, anchor `beats`: **THIS IS THE CLOCK.**
 - p2, anchor `beats`: **COUNT IT OUT LOUD.**
-Four HUD dots stepping off `world.beat % 4`, one per beat, bracketed on both
-screens. This is the one call whose halves share an anchor, and the exemption
+The beat as the shield's ring and the tick in the ear, bracketed on both
+screens (the four HUD dots that stepped off `world.beat % 4` were removed on
+13 September 2026). This is the one call whose halves share an anchor, and the exemption
 is principled: systems.md 5.2 lists the beat as the row of the split table
 that is deliberately *not* split. 2.5 s. No panel.
 

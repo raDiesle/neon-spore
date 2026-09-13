@@ -3060,3 +3060,24 @@ About 25 min, most of it getting one script to tap the right cell.
 
 Bottleneck: **friction** — four reruns of a scratch script before one tap
 landed on a cell that was on the screen.
+
+## 2026-09-13 · claude/siren-centre — the siren and both names sit top centre; the beat dots are gone
+
+The owner asked for it by name: "show the siren with names top centered.
+the beat dots helper left top we can remove anyway". `sirenCentre` now
+returns the middle of the screen at the round header's height, the two seat
+chips hang off it either side, and the four beat dots leave the HUD's top
+left — the beat is still on the shield ring, the wisp grid and in the audio.
+A test holds the cluster's reach inside `SIREN_PAD` with the longest names.
+About 45 min, a third of it getting a picture with real names on it.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `siren.ts`, `siren-seats.ts`, `hud.ts`, `round-header.ts`, the net-change skill for the relay |
+| writing | 15 | the move, the widened `headerTop`, the test, the four documents |
+| looking | 15 | a two-phone run over a local relay, stopped by its PID, for the frame with names |
+| friction | 5 | `headerTop` wanting a whole `ViewState`; Biome's import order |
+| landing | 0 | check:fast and the commit, folded into writing |
+
+Bottleneck: **looking** — names only exist over a relay, so one frame cost a
+wrangler start, two headless phones and a room.

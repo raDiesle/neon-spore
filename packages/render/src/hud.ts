@@ -6,7 +6,12 @@ import type { ViewState } from "./renderer.js";
 import { headerTop } from "./round-header.js";
 
 /**
- * Readouts over the field: hull, score, the beat, and the guard balance.
+ * Readouts over the field: the run's line and the guard balance.
+ *
+ * The four beat dots that stepped off `world.beat % 4` at the top left are
+ * gone, at the owner's word on 13 September 2026: the top row is the siren's
+ * now (`siren.ts`), and the beat is already on the shield's ring, on the wisp
+ * waves' grid, and in the ear (`beat.tick`, `beat.accent`).
  *
  * The balance is the point of the whole HUD. Spec 5.8 counts three numbers, not
  * one: attempts, deflections, and separately the tries that were in the right
@@ -44,16 +49,6 @@ export function drawHud(ctx: CanvasRenderingContext2D, l: Layout, view: ViewStat
   const line = runLineBox(l);
   ctx.fillStyle = PALETTE.dim;
   ctx.fillText(runLine(world), line.x, line.y + line.h - 3);
-
-  // Four dots, the active one lit. The pulse both players share.
-  const active = world.beat % 4;
-  for (let i = 0; i < 4; i++) {
-    const on = i === active;
-    ctx.fillStyle = on ? PALETTE.hull : "#3B3163";
-    ctx.beginPath();
-    ctx.arc(10 + i * 13, 34, on ? 4.5 : 3, 0, Math.PI * 2);
-    ctx.fill();
-  }
 
   if (world.guard.tries > 0) {
     ctx.font = '9px "Courier New",monospace';

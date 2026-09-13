@@ -117,7 +117,8 @@ incomplete or disturbed (the retired Blind One would have garbled it,
 - Silent mode: a pulsing screen border as a visible substitute
 
 Built: the clock itself at **96 BPM** (`bpm`, `ticksPerBeat`), the beat as
-something you can see — four beat dots in the HUD, a ring on the shield, and,
+something you can see — a ring on the shield (the four beat dots the HUD had
+went on 13 September 2026, for the siren's room) and,
 on the waves that carry a wisp, the grid lines and crossing points lighting up
 on every beat and fading — and, now, the beat
 as something you can hear: `beat.tick` and `beat.accent`, with tones for the

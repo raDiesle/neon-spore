@@ -18,20 +18,21 @@ import { hasSeatName, type SeatNames, seatName } from "./seat-name.js";
 
 /** The corner button — ☰, the way back to the menu — as `apps/game/src/menu.css`
  * places it: eight pixels in from the right, thirty-two wide, and over
- * everything. Furniture in fixed pixels like the hull bar and the beat dots,
- * so the instrument can know it is there without knowing the DOM. */
+ * everything. Furniture in fixed pixels like the run's line, so the
+ * instrument can know it is there without knowing the DOM. */
 const MENU_CHIP_REACH = 8 + 32;
 
-/** The gap between the cluster and the right edge of the screen. It lives here
+/** How far in from the right edge the top row's furniture stops. It lives here
  * with the chip's own box rather than in `siren.ts`, because the torch alarm's
  * line hangs off the same edge (`torch-alarm.ts`) and this file is the one
  * both can read without importing the instrument. One edge, named once.
  *
  * **Clear of the corner button, not of the edge.** The first two phones with
  * names on them (13 September 2026) showed the right chip's last letters and
- * its ear under the ☰, and the seat's own ring on top of it: the chips are
- * level with the button's bottom third, and a pad of ten pixels put the whole
- * P2 pill inside its box before there were names to lengthen it. */
+ * its ear under the ☰, and the seat's own ring on top of it, when the cluster
+ * was still pinned to that edge. It is centred now (`sirenCentre`), and this
+ * is what the cluster's reach at the longest names is held short of
+ * (`seat-names.test.ts`). */
 export const SIREN_PAD = MENU_CHIP_REACH + 6;
 
 /**

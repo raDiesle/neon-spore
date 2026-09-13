@@ -79,7 +79,7 @@ const SHARED: Callout[] = [
   },
   {
     name: "the siren",
-    says: "The round dial at the top right with a chip either side. It lights when a creature needs the two of you to talk; the chips say whose turn it is to speak.",
+    says: "The round dial at the top middle with a chip either side. It lights when a creature needs the two of you to talk; the chips say whose turn it is to speak.",
     side: "right",
     at: (l) => sirenCentre(l),
   },

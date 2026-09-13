@@ -1,6 +1,9 @@
 import { describe, expect, it } from "bun:test";
+import { DEFAULT_CONFIG } from "@neon-spore/sim";
 import { gripLabel } from "../src/grip.js";
+import { computeLayout } from "../src/layout.js";
 import { type SeatNames, seatName, withNames } from "../src/seat-name.js";
+import { sirenCentre } from "../src/siren.js";
 import { PILL_W, pillWidth, SIREN_PAD, seatChip } from "../src/siren-seats.js";
 
 /**
@@ -84,6 +87,34 @@ describe("the siren's chip", () => {
     const width = Number(/width:\s*(\d+)px/.exec(block)?.[1]);
     expect(right + width).toBeGreaterThan(0);
     expect(SIREN_PAD).toBeGreaterThanOrEqual(right + width);
+  });
+});
+
+describe("the siren's place", () => {
+  // The narrowest phone the game is drawn on, and no plate over it.
+  const l = computeLayout({ width: 320, height: 640, dpr: 2 }, DEFAULT_CONFIG, "p1");
+  /** The dial's radius and the gap to a chip, as `siren.ts` has them. */
+  const REACH = 15 + 3;
+
+  it("is the middle of the screen, whatever the names measure", () => {
+    // The owner asked for it in the middle on 13 September 2026, with the
+    // beat dots that held the top left gone. A cluster pinned to one edge
+    // grew towards the middle with every letter of a name; centred, a chip
+    // grows outward on its own side and the dial stays put.
+    expect(sirenCentre(l).x).toBe(160);
+    expect(sirenCentre(l, longest).x).toBe(160);
+  });
+
+  it("keeps the longest names clear of the corner button and of the left edge", () => {
+    const { x } = sirenCentre(l, longest);
+    expect(x + REACH + pillWidth(seatChip("p2", longest))).toBeLessThanOrEqual(l.width - SIREN_PAD);
+    expect(x - REACH - pillWidth(seatChip("p1", longest))).toBeGreaterThanOrEqual(0);
+  });
+
+  it("drops under a rehearsal's plate the way a round's header does", () => {
+    // The plate is top left and a long name's chip reaches under it.
+    expect(sirenCentre(l, longest, 60).y).toBeGreaterThan(sirenCentre(l, longest).y);
+    expect(sirenCentre(l, longest, 60).y).toBeGreaterThanOrEqual(60);
   });
 });
 

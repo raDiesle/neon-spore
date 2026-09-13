@@ -196,11 +196,11 @@ export function drawCoordGrid(
  *
  * **The letters hang at the *foot* of the first row, not at its head**, and
  * that is a defect repaired rather than a preference. The HUD reaches down
- * over the top edge of the field — the beat dots on the left, the seat pills
- * and the comms siren on the right (`siren.ts` starts 24 px from the top and
- * is 30 across) — so a letter drawn on the grid's own top edge came out
- * *behind* them, and the three right-hand columns had no readable label at
- * all. A whole tile lower clears every one of them, and a letter sitting on
+ * over the top edge of the field — the seat pills and the comms siren across
+ * the top middle (`siren.ts` starts 24 px from the top and is 30 across) —
+ * so a letter drawn on the grid's own top edge came out *behind* them, and
+ * the columns under the cluster had no readable label at all. A whole tile
+ * lower clears every one of them, and a letter sitting on
  * the line under its own column is where a board writes one anyway.
  */
 function drawAxes(ctx: CanvasRenderingContext2D, l: Layout, shown: number): void {

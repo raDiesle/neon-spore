@@ -5,12 +5,13 @@ import { halo } from "./glow.js";
 import { mixHex } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { headerTop } from "./round-header.js";
 import type { SeatNames } from "./seat-name.js";
 import { drawSeat, pillWidth, SIREN_PAD, seatChip } from "./siren-seats.js";
 
 /**
- * The warning siren, top right of the field beside the strip, and the two
- * seats' jobs under it.
+ * The warning siren, top centre of the field, and the two seats' jobs either
+ * side of it.
  *
  * **It replaces five private markings with one.** Every creature with a split
  * secret used to announce itself over its own body — a shut eye above a cloud
@@ -24,10 +25,17 @@ import { drawSeat, pillWidth, SIREN_PAD, seatChip } from "./siren-seats.js";
  * **Deliberately unlike everything else on this screen, which is the check it
  * owes.** `torch-alarm.ts` is a grey band across the strip; `lure-alarm.ts` is
  * a white ring in the field; `veil-marks.ts` is an off-white ring above a
- * body. This is a lit instrument in a corner nothing else uses, in the two
- * ammunition colours, and it never moves. Nothing about where it is depends on
- * where the creature is, because the answer it gives — *talk* — is the same
- * wherever the body happens to be standing.
+ * body. This is a lit instrument in the two ammunition colours, and it never
+ * moves. Nothing about where it is depends on where the creature is, because
+ * the answer it gives — *talk* — is the same wherever the body happens to be
+ * standing.
+ *
+ * **Top centre, since 13 September 2026.** It stood in the top right corner
+ * until the two people's names went on its chips; a cluster that grows with a
+ * name and is pinned to one edge grows *towards* the middle, and the owner
+ * asked for it in the middle to begin with, with the beat dots that held the
+ * top left taken away. The run's line keeps the left and the ☰ keeps the
+ * right; the instrument has the width between them.
  *
  * **Both seats are shown and the local one is lit.** The alternative was to
  * draw only your own job, which is less to look at and costs the thing the
@@ -43,10 +51,10 @@ const CASE_RIM = "#2A2547";
 const TICK = "#5B5486";
 
 /** Outer radius of the dial. Fixed pixels like the rest of the HUD (`hud.ts`
- * places the hull bar at 14 and the beat dots at 34), because it is furniture
- * on the screen rather than anything sized to a tile. */
+ * writes the run's line at 11), because it is furniture on the screen rather
+ * than anything sized to a tile. */
 const R = 15;
-/** Clear of the hull bar, which ends at y = 20. */
+/** Clear of the run's line, which ends at y = 23. */
 const TOP = 24;
 /** Between a chip and the dial. */
 const GAP = 3;
@@ -61,13 +69,18 @@ const DUTY_FONT = '700 8px "Courier New",monospace';
  * WORDINGS page, which points a label at it — from these numbers rather than
  * a copy of them, so the label follows the dial if it ever moves.
  *
- * **It depends on the names now**, because the chip on the right of the dial is
- * as wide as the word in it and the cluster is pinned to the right edge rather
- * than to the dial. A caller with no names gets exactly the arithmetic this had
- * before: two thirty-four-pixel pills, which is what P1 and P2 measure.
+ * The dial is the middle of the screen, whatever the names measure: a chip
+ * grows outward from it on its own side. `clearTop` is a rehearsal's corner
+ * plate (`ViewState.clearTop`): the plate is top left and a long name's chip
+ * reaches under it, so the cluster drops beneath the plate the way a round's
+ * header does (`round-header.ts`), by the same rule.
  */
-export function sirenCentre(l: Layout, names?: SeatNames): { x: number; y: number } {
-  return { x: l.width - SIREN_PAD - pillWidth(seatChip("p2", names)) - GAP - R, y: TOP + R };
+export function sirenCentre(
+  l: Layout,
+  _names?: SeatNames,
+  clearTop?: number,
+): { x: number; y: number } {
+  return { x: l.width / 2, y: headerTop({ clearTop }, TOP + R) };
 }
 
 export function drawCommsSiren(
@@ -79,6 +92,8 @@ export function drawCommsSiren(
    * to talk, and a name is what the other one would actually be called
    * (`siren-seats.ts`). */
   names?: SeatNames,
+  /** The bottom of a plate over the top left, when a rehearsal has one up. */
+  clearTop?: number,
 ): void {
   const call = commsCall(world);
   if (!call) return;
@@ -87,7 +102,7 @@ export function drawCommsSiren(
   // before player 2 everywhere else on the screen. Stacking both chips under
   // the dial put them in a column, and a column has no left and no right, so
   // there was nothing to line either of them up with.
-  const { x: cx, y: cy } = sirenCentre(l, names);
+  const { x: cx, y: cy } = sirenCentre(l, names, clearTop);
   // Each chip is as wide as the word in it, so the two reaches are worked out
   // one at a time rather than shared: a pair called Bo and Anne-Marie have
   // chips of two different widths and the dial stays between them.
@@ -120,12 +135,12 @@ function drawDuty(
   ctx.textBaseline = "middle";
   ctx.fillStyle = TICK;
   // Pulled back inside the screen when it is too wide to be centred under the
-  // dial, which sits close to the right edge. THE FENCE's own word is nineteen
-  // characters — FIND GAP FOR SHIELD, the owner's wording — and two kinds
-  // owing a word at once join theirs with a dot, so the line outgrew the
-  // corner it was written for. Clamped rather than shortened: the words are
-  // the instruction, and the one thing that must not happen is half of one
-  // running off the edge of the phone.
+  // dial. THE FENCE's own word is nineteen characters — FIND GAP FOR SHIELD,
+  // the owner's wording — and two kinds owing a word at once join theirs with
+  // a dot, so the line outgrew the corner it was first written for. The dial
+  // is in the middle now and the clamp is rarely reached, but it stays:
+  // the words are the instruction, and the one thing that must not happen is
+  // half of one running off the edge of the phone.
   const half = ctx.measureText(word).width / 2;
   const x = Math.min(Math.max(cx, SIREN_PAD + half), l.width - SIREN_PAD - half);
   ctx.fillText(word, x, y);

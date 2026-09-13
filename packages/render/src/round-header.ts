@@ -16,7 +16,7 @@ import type { ViewState } from "./renderer.js";
  * a frame test, the director. The rows under the name keep their distance
  * from it, so a header moves as one thing.
  */
-export function headerTop(view: ViewState, own: number): number {
+export function headerTop(view: Pick<ViewState, "clearTop">, own: number): number {
   const under = view.clearTop;
   return under === undefined ? own : Math.max(own, under + HEADER_ASCENT);
 }
