@@ -238,6 +238,6 @@ export const WAVES_ACT_8: Wave[] = [
       { beat: 18, col: 6, color: "red" },
       { beat: 24, col: 0, color: "cyan" },
     ],
-    malfunction: { kind: "handover" },
+    malfunction: { kind: "handover", at: 9, beats: 8 },
   },
 ];

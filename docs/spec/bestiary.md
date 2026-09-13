@@ -561,6 +561,19 @@ who has played one has learnt nothing about the others:
   (`handoverWarnBeats`, two), because a warning only one of them could read would
   make the trade a thing that happens *to* the other one.
 
+  **The window is authored on the wave, and it may repeat** (the owner, 13
+  September 2026, asked whether the panels should trade once or keep trading:
+  *both, defined for one wave over a period of beat rows*). The fault's arm
+  carries three optional numbers — `at`, the beat the first trade happens on;
+  `beats`, how long it holds; and `every`, the period after which it happens
+  again — and a wave that names none of them plays the three figures above, once.
+  THE HANDOVER names nine and eight, which is what its guide says out loud; a
+  wave that names `every` is THE CODEX's argument applied here, where the pair
+  never settles into either seat. A period shorter than the hold is read as one
+  window, because the panels have to be home before they can be taken again. The
+  director's fault panel has the three boxes, and an empty one is the wave saying
+  nothing rather than a zero.
+
   **Nothing in the simulation moves for it.** There is no state, nothing in the
   hash and no command swallowed: a panel is drawn by render/ and answered by a
   host, so the whole fault is a clock those two read off the wave's own beat

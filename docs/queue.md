@@ -227,35 +227,6 @@ rehearsal with no new machinery at all — the renderer seats a film's frames
 exactly the way it seats a wave's. `.claude/skills/new-tutorial` has the rules;
 `bun test packages/content` and the guide-page tests prove it.
 
-## Should THE HANDOVER trade once a wave, or keep trading?
-
-- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-13, claude/queue-should-the-handover-trade-once-a-wave-or-keep-tr
-- **Files:** `packages/sim/src/handover.ts`, `packages/sim/src/config-malfunction.ts`, `packages/content/src/waves/act-8.ts`
-- **Asks:** Should the panels trade once a wave, or keep trading on a cycle like THE CODEX's key?
-
-Built as **one window**: the panels change screens at `handoverAtBeat`, come back
-`handoverHoldBeats` later, and that is the whole of the fault. It is the reading
-of *swap, then back* the wave was asked for, and it makes the trade an event —
-counted down to, lived through, and over.
-
-The alternative is THE CODEX's shape, which is the other fault that takes nothing
-away: its key turns over every four beats all wave, deliberately, so that the
-pair has to *keep* calling it rather than learn one fact. A handover that kept
-trading would be that argument applied here — the pair never settles into either
-seat, and every arrival lands on whoever happens to be holding the thing that
-answers it.
-
-Three answers this picks between. **One window** is what is built: one number for
-the beat, one for the length, and the wave is authored around it (`act-8.ts`
-opens with two bodies in their own hands so the trade costs them something).
-**A cycle** is `handedOver` becoming `Math.floor(faultStep / hold) % 2`, one line,
-plus a third number and a wave authored evenly rather than around a moment; it
-also makes the countdown plate permanent furniture, which is a look nobody has
-seen. **Both, authored per wave** is the largest: `Malfunction` gains a field the
-way a cannon fault carries its colour, and the director's picker gains a row —
-worth it only if two waves would genuinely want different answers.
-
 ## HULL · TRADED answers THE HANDOVER a second way and is not in VERSUS
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt

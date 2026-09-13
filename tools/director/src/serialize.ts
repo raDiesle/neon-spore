@@ -13,7 +13,7 @@
  */
 import type { Wave, WaveEntry, WaveGuide } from "@neon-spore/content";
 import type { PodEntry } from "@neon-spore/sim";
-import { serializeBoss } from "./serialize-boss.js";
+import { faultLine, serializeBoss } from "./serialize-boss.js";
 
 function escapeString(s: string): string {
   return s
@@ -192,14 +192,15 @@ function serializeWave(wave: Wave): string {
   }
 
   // And after it, on the same terms: a wave with no fault writes no line, so
-  // every wave in the game but three round trips exactly as it did. One line
-  // rather than a block, because a `Malfunction` is one word or two — the
-  // shield arm carries nothing at all, and only the cannon arm has ammunition
-  // to name (`sim/malfunction.ts`).
+  // every wave in the game but a handful round trips exactly as it did. One
+  // line rather than a block, because a `Malfunction` is a word and at most
+  // three numbers — the shield arm carries nothing at all, the cannon arm has
+  // ammunition to name, and THE HANDOVER has the window the wave authors
+  // (`sim/malfunction.ts`). **Every field of the arm is written**, and that is
+  // the whole job: a field this misses is a field the editor deletes the first
+  // time somebody saves a wave.
   if (wave.malfunction) {
-    const m = wave.malfunction;
-    const colour = m.kind === "cannon" ? `, color: "${m.color}"` : "";
-    lines.push(`    malfunction: { kind: "${m.kind}"${colour} },`);
+    lines.push(`    malfunction: ${faultLine(wave.malfunction)},`);
   }
 
   lines.push("  },");

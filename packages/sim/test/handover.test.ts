@@ -121,6 +121,52 @@ describe("the window", () => {
   });
 });
 
+describe("a window the wave itself names", () => {
+  /** A world on a wave that authors its own trade (`Malfunction`). */
+  function authored(m: { at?: number; beats?: number; every?: number }, beat: number): World {
+    const world = createWorld({ ...CFG, hullInvulnerable: true }, 7);
+    startWave(world, 0, [...QUEUE], [], null, false, 0, { kind: "handover", ...m });
+    for (let t = 0; t <= (beat + 1) * TPB; t++) step(world, []);
+    return world;
+  }
+
+  it("trades on the beat the wave says rather than the game's own", () => {
+    expect(handedOver(authored({ at: 4, beats: 2 }, 3))).toBe(false);
+    expect(handedOver(authored({ at: 4, beats: 2 }, 4))).toBe(true);
+    expect(handedOver(authored({ at: 4, beats: 2 }, 5))).toBe(true);
+    expect(handedOver(authored({ at: 4, beats: 2 }, 6))).toBe(false);
+  });
+
+  it("keeps trading when the wave names a period, and comes home between", () => {
+    // The owner's answer: both shapes, defined on the wave over a period of
+    // beat rows. Two beats away every six, from the fourth.
+    const traded = (beat: number) => handedOver(authored({ at: 4, beats: 2, every: 6 }, beat));
+    expect([4, 5, 10, 11, 16].map(traded)).toEqual([true, true, true, true, true]);
+    expect([3, 6, 9, 12, 15].map(traded)).toEqual([false, false, false, false, false]);
+  });
+
+  it("counts down to the next trade, not only to the first", () => {
+    const left = (beat: number) => handoverWarning(authored({ at: 4, beats: 2, every: 6 }, beat));
+    expect(left(2)).toBe(2);
+    expect(left(8)).toBe(2);
+    expect(left(9)).toBe(1);
+  });
+
+  it("is one window when the period is shorter than the hold", () => {
+    // A cycle inside the hold would be a trade that never comes home, so it is
+    // read as the plain window it is nearest to.
+    expect(handedOver(authored({ at: 2, beats: 8, every: 3 }, 9))).toBe(true);
+    expect(handedOver(authored({ at: 2, beats: 8, every: 3 }, 10))).toBe(false);
+  });
+
+  it("falls back to the game's own numbers for whatever the wave leaves out", () => {
+    expect(handedOver(authored({}, AT))).toBe(true);
+    expect(handedOver(authored({}, AT - 1))).toBe(false);
+    expect(handedOver(authored({ at: 3 }, 3 + HOLD - 1))).toBe(true);
+    expect(handedOver(authored({ at: 3 }, 3 + HOLD))).toBe(false);
+  });
+});
+
 describe("the fault itself", () => {
   it("swallows nothing, on any beat of the window", () => {
     // Every kind the other four take away, at the moment this one is at its

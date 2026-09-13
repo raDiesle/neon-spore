@@ -34,6 +34,12 @@ import {
  * sixth fault is a build error in this file rather than a kind nobody can pick.
  */
 
+/** A whole number an author typed, or nothing at all for an empty box. */
+function whole(raw: string): number | undefined {
+  const n = Number(raw);
+  return raw.trim() !== "" && Number.isFinite(n) && n >= 1 ? Math.floor(n) : undefined;
+}
+
 export interface FaultFields {
   /** Repopulate the fields for the wave now on the stage. */
   render(wave: Wave | undefined): void;
@@ -67,14 +73,38 @@ const NOTE: Record<MalfunctionKind, string> = {
   codex:
     "Both seats keep every button. While the key is over, a bolt fired red kills what cyan kills — and the bands that say which way round it is are drawn on the pilot's screen alone.",
   handover:
-    "Both seats keep every button, and the two panels change screens: `handoverAtBeat` beats in, for `handoverHoldBeats`, each phone draws and answers the other seat's half. Nobody changes seats on the wire, so a wave with a hand on the field — a grip, a pull, a tap — is the wrong wave for it.",
+    "Both seats keep every button, and the two panels change screens: each phone draws and answers the other seat's half for the window below. Leave the three boxes empty and it plays the game's own numbers. Nobody changes seats on the wire, so a wave with a hand on the field — a grip, a pull, a tap — is the wrong wave for it.",
 };
+
+/** The three boxes THE HANDOVER's window is authored in, and what each one is
+ * for. Beats, like everything else an author reads off the map's rows. */
+const WINDOW_FIELDS = [
+  ["fFaultAt", "at", "Trades on beat"],
+  ["fFaultBeats", "beats", "Held for beats"],
+  ["fFaultEvery", "every", "And again every (blank: once)"],
+] as const;
 
 const COLOUR_LABEL: Record<MalfunctionColor, string> = {
   red: "RED — every shot",
   cyan: "CYAN — every shot",
   alternating: "ALTERNATING — red, cyan, red, cyan, on the beat",
 };
+
+/** A number an author may leave empty, which is what "the game's own" means
+ * here — the arm carries no field at all and `handover.ts` falls back. */
+function number(id: string, label: string): { row: HTMLElement; field: HTMLInputElement } {
+  const row = document.createElement("div");
+  const tag = document.createElement("label");
+  tag.className = "field";
+  tag.htmlFor = id;
+  tag.textContent = label;
+  const field = document.createElement("input");
+  field.id = id;
+  field.type = "number";
+  field.min = "1";
+  row.append(tag, field);
+  return { row, field };
+}
 
 function select(id: string, label: string): { row: HTMLElement; field: HTMLSelectElement } {
   const row = document.createElement("div");
@@ -94,6 +124,7 @@ export function bindFaultFields(host: HTMLElement | null): FaultFields {
 
   const kind = select("fFaultKind", "Malfunction");
   const colour = select("fFaultColor", "Runaway ammunition");
+  const window = WINDOW_FIELDS.map(([id, key, label]) => ({ key, ...number(id, label) }));
   const note = document.createElement("p");
   note.className = "note";
   for (const [value, text] of CHOICES) {
@@ -108,17 +139,31 @@ export function bindFaultFields(host: HTMLElement | null): FaultFields {
     opt.textContent = COLOUR_LABEL[value];
     colour.field.appendChild(opt);
   }
-  host.replaceChildren(kind.row, colour.row, note);
+  host.replaceChildren(kind.row, colour.row, ...window.map((w) => w.row), note);
 
   const read = (): Malfunction | undefined => {
     const k = kind.field.value;
     if (k === "cannon") return { kind: "cannon", color: colour.field.value as MalfunctionColor };
-    if (k === "shield" || k === "steer" || k === "codex" || k === "handover") return { kind: k };
+    if (k === "handover") {
+      // An empty box is not a zero: it is the wave saying nothing, so the game's
+      // own number stands (`sim/handover.ts`).
+      const at = whole(window[0]?.field.value ?? "");
+      const beats = whole(window[1]?.field.value ?? "");
+      const every = whole(window[2]?.field.value ?? "");
+      return {
+        kind: "handover",
+        ...(at === undefined ? {} : { at }),
+        ...(beats === undefined ? {} : { beats }),
+        ...(every === undefined ? {} : { every }),
+      };
+    }
+    if (k === "shield" || k === "steer" || k === "codex") return { kind: k };
     return undefined;
   };
 
   const paint = (fault: Malfunction | undefined): void => {
     colour.row.hidden = fault?.kind !== "cannon";
+    for (const w of window) w.row.hidden = fault?.kind !== "handover";
     note.textContent =
       fault === undefined
         ? "This wave is played straight: both seats have every button their panel carries."
@@ -132,12 +177,17 @@ export function bindFaultFields(host: HTMLElement | null): FaultFields {
   };
   kind.field.addEventListener("change", fire);
   colour.field.addEventListener("change", fire);
+  for (const w of window) w.field.addEventListener("change", fire);
 
   return {
     render(wave) {
       const fault = wave?.malfunction;
       kind.field.value = fault?.kind ?? "";
       colour.field.value = fault?.kind === "cannon" ? fault.color : "red";
+      for (const w of window) {
+        const had = fault?.kind === "handover" ? fault[w.key] : undefined;
+        w.field.value = had === undefined ? "" : String(had);
+      }
       paint(fault);
     },
     onChange(handler) {

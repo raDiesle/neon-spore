@@ -97,7 +97,15 @@ export type Malfunction =
   | { kind: "shield" }
   | { kind: "steer" }
   | { kind: "codex" }
-  | { kind: "handover" };
+  /**
+   * THE HANDOVER, and the one fault an author writes numbers on — the owner's
+   * answer of 13 September 2026, asked whether the panels trade once or keep
+   * trading: **both, defined on the wave, over a period of beat rows.** `at` is
+   * the beat the first trade happens on, `beats` how long it holds, `every` the
+   * period after which it happens again — absent, once. All three optional and
+   * falling back to `config-malfunction.ts` (`handover.ts`).
+   */
+  | { kind: "handover"; at?: number; beats?: number; every?: number };
 
 /**
  * Whether this press falls into a control the fault has taken over.

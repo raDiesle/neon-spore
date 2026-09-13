@@ -2661,3 +2661,24 @@ About 25 min.
 
 Bottleneck: **reading** — finding that the catalogue already held the sound
 took longer than binding it, and was worth it: nothing new was written.
+
+## 2026-09-13 — scheduler-tests-two-devices-klxkyt — THE HANDOVER's window, authored on the wave
+
+The owner's answer to the `Asks:` this lane filed yesterday: both shapes, and
+defined for one wave over a period of beat rows. The fault's arm carries three
+optional numbers now — the beat it trades on, how long it holds, and the period
+after which it does it again — and a wave that names none of them plays the
+game's own figures once. THE HANDOVER names nine and eight, which is what its
+guide says out loud. About 30 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `handover.ts`'s own `bounds`, and `serialize.ts`, because a field the editor cannot write is a field it deletes the first time somebody saves a wave |
+| writing | 20 | the three fields on the arm, `bounds` answering the window a beat is in or next to, the serializer, the director's three boxes, five tests and the bestiary's paragraph |
+| looking | 0 | none |
+| friction | 0 | — |
+| landing | 5 | `check:fast`, the commit, `bun run land` |
+
+Bottleneck: **writing** — the arithmetic is six lines and the care is in what a
+blank box means: an empty field is the wave saying nothing and not a zero, which
+is the difference between the game's own numbers and a trade that never ends.

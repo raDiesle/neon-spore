@@ -1,4 +1,4 @@
-import type { BossEntry } from "@neon-spore/sim";
+import type { BossEntry, Malfunction } from "@neon-spore/sim";
 
 /**
  * **A wave's boss, written back out**, and the nine shapes it can take.
@@ -77,4 +77,26 @@ export function serializeBoss(boss: BossEntry): string {
   const rounds = boss.rounds.map((r) => `        [${r.map((s) => `"${s}"`).join(", ")}],`);
   const lines = ["{", '      kind: "mirror",', "      rounds: [", ...rounds, "      ],", "    }"];
   return lines.join("\n");
+}
+
+/**
+ * **A `Malfunction` as its own source, arm by arm**, and every field of the arm
+ * is written: one this misses is one the editor deletes the first time somebody
+ * saves the wave that carried it.
+ *
+ * Here beside the boss's own line for the same reason that one is here — both
+ * are a *wave's* one-line fact written back out, and `serialize.ts` is the file
+ * that fills up (`sim/malfunction.ts`).
+ */
+export function faultLine(m: Malfunction): string {
+  const parts = [`kind: "${m.kind}"`];
+  if (m.kind === "cannon") parts.push(`color: "${m.color}"`);
+  if (m.kind === "handover") {
+    // THE HANDOVER's window, and the three are optional on purpose: a wave that
+    // names none of them plays the game's own numbers (`sim/handover.ts`).
+    if (m.at !== undefined) parts.push(`at: ${m.at}`);
+    if (m.beats !== undefined) parts.push(`beats: ${m.beats}`);
+    if (m.every !== undefined) parts.push(`every: ${m.every}`);
+  }
+  return `{ ${parts.join(", ")} }`;
 }
