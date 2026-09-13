@@ -79,7 +79,7 @@ const bounce: SimEvent = {
 function cage(c: Creature): { calls: number; log: string[] } {
   const { ctx } = stubCanvas();
   ctx.log = [];
-  drawRecoilCage(ctx as unknown as CanvasRenderingContext2D, L, CFG, c, 100, 200, 0, 0.5);
+  drawRecoilCage(ctx as unknown as CanvasRenderingContext2D, L, fieldOf(c), c, 100, 200, 0, 0.5);
   return { calls: ctx.calls, log: ctx.log ?? [] };
 }
 

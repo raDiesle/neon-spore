@@ -1,11 +1,4 @@
-import {
-  type Creature,
-  SHELL_COLS,
-  type SimConfig,
-  shellHasPiece,
-  shellIsBare,
-  type World,
-} from "@neon-spore/sim";
+import { type Creature, SHELL_COLS, shellHasPiece, shellIsBare, type World } from "@neon-spore/sim";
 import { hazed } from "./depth.js";
 import type { Layout } from "./layout.js";
 import { applyLivingFrame, livingFrame, livingPose } from "./living-frame.js";
@@ -64,19 +57,20 @@ export function drawShellArmour(
   const beats = world.beat + beatPhase;
   for (const c of world.creatures) {
     if (c.kind !== "shell" || shellIsBare(c)) continue;
-    drawOne(ctx, l, world.cfg, c, beats, time, beatPhase);
+    drawOne(ctx, l, world, c, beats, time, beatPhase);
   }
 }
 
 function drawOne(
   ctx: CanvasRenderingContext2D,
   l: Layout,
-  cfg: SimConfig,
+  world: World,
   c: Creature,
   beats: number,
   time: number,
   beatPhase: number,
 ): void {
+  const cfg = world.cfg;
   // The body inside the plating, and therefore the contour the plating hugs.
   // `wornKind`, never `c.kind`: a Shell-Slick and a Shell-Bulb wear the same
   // armour over two different shapes, and a plate cut to a shape the body is
@@ -84,7 +78,7 @@ function drawOne(
   // — the one copy of what `drawLiving` does to this same creature on this
   // same frame, shared with THE STRAND's plating so neither can drift off the
   // body it is supposed to sit on.
-  const f = livingFrame(l, c, beatPhase, time);
+  const f = livingFrame(l, world, c, beatPhase, time);
   const { shape, near, r, scale, t } = f;
 
   // The colour coming out of the cracks is the body's own, hazed by distance

@@ -102,7 +102,7 @@ export function drawDartGuides(
   for (const c of world.creatures) {
     if (c.kind !== "dart") continue;
     const legs = dartLegs(c, world.cfg.cols);
-    const from = creatureCenter(l, c, beatPhase);
+    const from = creatureCenter(l, world, c, beatPhase);
     const bend = { x: tileCX(l, legs.next.col), y: tileCY(l, legs.next.row) };
     const end = { x: tileCX(l, legs.after.col), y: tileCY(l, legs.after.row) };
     const hex = dartHex(c);

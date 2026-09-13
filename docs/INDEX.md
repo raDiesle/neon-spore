@@ -822,6 +822,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/well-face.ts` | THE WELL's clock face: the bowl, the lanes, the rings and the seam — the empty board, in the round |
 | `packages/render/src/well-ship.ts` | THE WELL's ship: the hull as a ring at the middle of the clock |
 | `packages/render/src/well-arrivals.ts` | THE WELL's warnings: the flat field's strip, bent into a ring outside the rim, and the crossing rock's mark |
+| `packages/render/src/well-body.ts` | Where a body stands on THE WELL — the one spelling of the well's placement, in its own file so `creature-place.ts` can read it |
 | `packages/render/src/well.ts` | THE WELL's projection: columns to hours, rows to radii, and the seam the two walls meet at |
 | `packages/render/src/queen-drop.ts` | NEXT TO FALL: the flank the queen's next torch comes off, said on player 2's screen and nowhere else |
 | `packages/render/src/queen-figure.ts` | Where the parts of the queen sit on her, and where the screen puts them |
@@ -874,6 +875,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/strand-bead.ts` | The two bodies THE STRAND draws that are **not** a slick or a bulb |
 | `packages/render/src/strand.ts` | THE STRAND's thread, and the mark on the bead that has to be shot next |
 | `packages/render/src/strand-reel.ts` | THE STRAND's reel: the clock it rolls on, and the bad monitor over it |
+| `packages/render/src/strand-raisin.ts` | THE STRAND's raisin: a shot bead, small and dark, drawn on both screens — the pair's one readout of how far along the thread they are |
 | `packages/render/src/strand-mark.ts` | THE STRAND's two marks: the bead that has to be shot next on the navigator's screen |
 | `packages/render/src/duty.ts` | The one word (or two) a seat owes the other while a split body is on the field |
 | `packages/render/src/throb.ts` | where THE THROB's far half lies — the seam meridian this instant and the region the paint clips to |
@@ -986,6 +988,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/creature-body-in.ts` | **What a body draw is handed.** Cut out of `creature-body.ts` when THE BALLOON's row took that file over its… |
 | `packages/render/src/creature-body-rock.ts` | The three rock body draws: the plain tiers, the torch, and the coil drawn as the burning torch it will become |
 | `packages/render/src/creature-body-living.ts` | The ordinary living body, on its own so the kinds that wear it can reach it without reaching the table |
+| `packages/render/src/creature-under.ts` | The creature under this seat's finger on the flat field — the touch layer's hit test, by the flat placement |
 | `packages/render/src/handle-place.ts` | **Where a handle is standing**, as against where a finger may grab it |
 | `packages/render/src/handover-look.ts` | **THE HANDOVER's announcement**: the plate on the lip of the band that counts the trade down and counts the panels back, in the same words on both screens |
 | `packages/render/src/handover.ts` | **Which seat this device is playing** — its own, or the other one's while THE HANDOVER has the panels traded. One function, called by the renderer on a frame and by the host on the layout a finger is tested against |

@@ -107,8 +107,8 @@ describe("the pilot's dart mark", () => {
     const c = world.creatures[0];
     if (!c) throw new Error("no dart on the field");
     const layout = computeLayout(SCREEN, CFG, "p1");
-    const { x, y } = creatureCenter(layout, c, 0.5);
-    const r = creatureRadius(layout, c, 0.5, CFG);
+    const { x, y } = creatureCenter(layout, world, c, 0.5);
+    const r = creatureRadius(layout, world, c, 0.5);
     // Every point of it outside the body's own contour. The frame goes round
     // the dart now rather than standing above it, so "clear" is a distance and
     // no longer a direction — but a line put down *on* the silhouette would

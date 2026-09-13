@@ -84,7 +84,7 @@ describe("a layer coming off a rind", () => {
     expect(calls).toBeGreaterThan(0);
     expect(radii.length).toBeGreaterThan(0);
 
-    const now = creatureRadius(L, body, 0, CFG);
+    const now = creatureRadius(L, fieldOf(body), body, 0);
     const was = (now * rindPrevBodyMul(body)) / livingBodyMul(body);
     // On the first frame the husk has not travelled, so every plate sits on
     // the old footprint, give or take the sliver of drift they break off with

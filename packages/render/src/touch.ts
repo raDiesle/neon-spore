@@ -1,7 +1,7 @@
 import { controlPress, type Point, setHas } from "@neon-spore/content";
 import { NO_GRIP } from "@neon-spore/sim";
 import { beatboxUnder } from "./beatbox-tap.js";
-import { creatureAt } from "./creature-place.js";
+import { creatureAt } from "./creature-under.js";
 import { handleUnder } from "./handles.js";
 import { colFromX, type Layout, showsCannon, showsShield } from "./layout.js";
 

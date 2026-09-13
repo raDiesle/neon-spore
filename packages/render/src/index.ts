@@ -28,7 +28,6 @@ export type { Body } from "./creature-body-in.js";
 export { drawLivingBody } from "./creature-body-living.js";
 export {
   contourClock,
-  creatureAt,
   creatureCenter,
   creatureRadius,
   livingBodyMul,
@@ -36,6 +35,7 @@ export {
   livingScale,
   rindPrevBodyMul,
 } from "./creature-place.js";
+export { creatureAt } from "./creature-under.js";
 export { drawnCol, drawnRow } from "./depth.js";
 export { smoothstep } from "./ease.js";
 export {

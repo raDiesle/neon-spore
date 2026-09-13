@@ -114,7 +114,7 @@ export function drawLit(
 ): void {
   const lit = on.find((c) => beadIsActive(world, c));
   if (!lit) return;
-  const { x, y } = creatureCenter(l, lit, beatPhase);
+  const { x, y } = creatureCenter(l, world, lit, beatPhase);
   const row = drawnRow(lit, beatPhase);
   const near = nearness(l, row);
   const k = depthScale(world.cfg, l, row);
@@ -186,7 +186,7 @@ export function drawGuess(
   time: number,
 ): void {
   if (!guess) return;
-  const { x, y } = creatureCenter(l, guess, beatPhase);
+  const { x, y } = creatureCenter(l, world, guess, beatPhase);
   const row = drawnRow(guess, beatPhase);
   const k = depthScale(world.cfg, l, row);
   const hex = hazed(world.cfg, MARK, nearness(l, row));

@@ -1,4 +1,4 @@
-import { type Creature, recoilBouncesLeft, type SimConfig } from "@neon-spore/sim";
+import { type Creature, recoilBouncesLeft, type SimConfig, type World } from "@neon-spore/sim";
 import { creatureRadius } from "./creature-place.js";
 import { colorTrio, turnedTrio } from "./creature-tint.js";
 import { hazed } from "./depth.js";
@@ -127,7 +127,7 @@ const SHIMMER_HZ_B = 0.7;
 export function drawRecoilCage(
   ctx: CanvasRenderingContext2D,
   l: Layout,
-  cfg: SimConfig,
+  world: World,
   c: Creature,
   x: number,
   y: number,
@@ -135,6 +135,7 @@ export function drawRecoilCage(
   near: number,
   turn = 1,
 ): void {
+  const cfg = world.cfg;
   // The body's own drawn radius, so the hoop is around what is actually there
   // rather than around a nominal tile — `creatureRadius` is the same rule the
   // grip's ring is drawn at, and a frame that disagreed with it would be a
@@ -145,7 +146,7 @@ export function drawRecoilCage(
   // left standing here is the body alone.
   if (left <= 0) return;
   const struts = strutsFor(cfg);
-  const r = creatureRadius(l, c, 0, cfg) * HOOP_MUL;
+  const r = creatureRadius(l, world, c, 0) * HOOP_MUL;
   // Under tension and let go, on the wall clock: `sinHash` off the id spreads
   // the phase so two cages never breathe together, and the amount tightens as
   // the ribs go — a frame with one rib left is visibly working harder.
@@ -192,7 +193,7 @@ export function drawRecoilCage(
     ctx,
     x,
     y,
-    inner: creatureRadius(l, c, 0, cfg),
+    inner: creatureRadius(l, world, c, 0),
     hoop,
     struts,
     left,

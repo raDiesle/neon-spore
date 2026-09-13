@@ -37,8 +37,9 @@ const BLOCKED_WIDTH = 2;
  * and coloured and torn, and the rest are outlines of it.
  */
 export function drawStillBead(b: Bead): void {
-  const { ctx, l, cfg, c, time, near } = b;
-  const f = reelFrame(l, c, b.beatPhase, time);
+  const { ctx, l, world, c, time, near } = b;
+  const cfg = world.cfg;
+  const f = reelFrame(l, b.world, c, b.beatPhase, time);
   // The squash goes into the silhouette rather than into the transform: a
   // context scaled unevenly draws an oval pen, and the two pixels below have
   // to be two pixels at the top of a flattened bead as much as at its side.

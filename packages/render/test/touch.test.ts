@@ -15,7 +15,7 @@ import {
   NO_GRIP,
   step,
 } from "@neon-spore/sim";
-import { creatureCenter } from "../src/creature-place.js";
+import { flatCenter } from "../src/creature-place.js";
 import { bandLobes, computeLayout, hitCircle, type ViewRole } from "../src/layout.js";
 import { mazeStringCircle } from "../src/maze-string.js";
 import { type Field, type Hold, touchDown, touchMove, touchUp } from "../src/touch.js";
@@ -250,7 +250,7 @@ describe("a press on the field", () => {
     const f = field(2);
     const c = f.creatures[0];
     if (!c) throw new Error("the field is empty");
-    const at = creatureCenter(l, c, f.beatPhase);
+    const at = flatCenter(l, c, f.beatPhase);
     expect(touchDown(l, at.x, at.y, f)).toEqual({
       player: 2,
       command: { kind: "grip", id: c.id },
@@ -271,7 +271,7 @@ describe("a press on the field", () => {
     for (let i = 0; i < 200; i++) step(living, []);
     const c = living.creatures[0];
     if (!c) throw new Error("the field is empty");
-    const at = creatureCenter(l, c, 0.5);
+    const at = flatCenter(l, c, 0.5);
     for (const seat of [1, 2] as const) {
       const f = { ...field(seat), creatures: living.creatures };
       const t = touchDown(l, at.x, at.y, f);
@@ -425,7 +425,7 @@ describe("a hand on THE MAZE's string", () => {
     const f = mazeField(1);
     const c = f.creatures[0];
     if (!c) throw new Error("the field is empty");
-    const at = creatureCenter(l, c, f.beatPhase);
+    const at = flatCenter(l, c, f.beatPhase);
     expect(hitCircle(handle(), at.x, at.y)).toBe(false);
     expect(touchDown(l, at.x, at.y, f)?.command).toEqual({ kind: "grip", id: c.id });
   });

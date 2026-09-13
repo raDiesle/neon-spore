@@ -11,7 +11,7 @@ import {
   rindPrevBodyMul,
   rindWears,
 } from "@neon-spore/render";
-import { type Creature, DEFAULT_CONFIG, wornKind } from "@neon-spore/sim";
+import { type Creature, createWorld, DEFAULT_CONFIG, wornKind } from "@neon-spore/sim";
 import { type AssetContext, type AssetFrame, BEAT_SECONDS } from "./types.js";
 
 /**
@@ -34,6 +34,10 @@ import { type AssetContext, type AssetFrame, BEAT_SECONDS } from "./types.js";
  * body is three footprints across with both layers on (`livingBodyMul`), and
  * the skin flies a further half of that outward. */
 const TILE = 70;
+/** A world for the size to read its config and picture off — the flat one,
+ * which is the only one a card draws (`countdown-stage.ts`). */
+const WORLD = createWorld(DEFAULT_CONFIG, 1);
+
 const LAYOUT = computeLayout(
   { width: TILE * DEFAULT_CONFIG.cols, height: TILE * DEFAULT_CONFIG.cols * 2, dpr: 1 },
   DEFAULT_CONFIG,
@@ -90,7 +94,7 @@ export function drawRindStage(c: AssetContext, f: AssetFrame, shed: (s: RindShed
     rindWears(body, DEFAULT_CONFIG),
   );
   if (step > 0 && held < LIFE) {
-    const now = creatureRadius(LAYOUT, body, f.beatPhase, DEFAULT_CONFIG);
+    const now = creatureRadius(LAYOUT, WORLD, body, f.beatPhase);
     const was = (now * rindPrevBodyMul(body)) / livingBodyMul(body);
     const shape = rindWears(body, DEFAULT_CONFIG, 1) ?? livingSilhouette(wornKind(body));
     const unit = Math.max(shape.rx, shape.ry) / (shape.sizeMul ?? 1);

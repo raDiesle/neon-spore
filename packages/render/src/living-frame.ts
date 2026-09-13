@@ -5,7 +5,7 @@ import {
   type Pose,
   poseClock,
 } from "@neon-spore/content";
-import { type Creature, type SimConfig, wornKind } from "@neon-spore/sim";
+import { type Creature, type SimConfig, type World, wornKind } from "@neon-spore/sim";
 import { contourClock, creatureCenter } from "./creature-place.js";
 import { depthScale, drawnRow, nearness } from "./depth.js";
 import type { Layout } from "./layout.js";
@@ -52,9 +52,15 @@ export interface LivingFrame {
  * the pose clock belongs to `applyLivingFrame`, which is the half of this that
  * actually moves the pen.
  */
-export function livingFrame(l: Layout, c: Creature, beatPhase: number, time: number): LivingFrame {
+export function livingFrame(
+  l: Layout,
+  world: World,
+  c: Creature,
+  beatPhase: number,
+  time: number,
+): LivingFrame {
   const shape = livingSilhouette(wornKind(c));
-  const { x, y } = creatureCenter(l, c, beatPhase);
+  const { x, y } = creatureCenter(l, world, c, beatPhase);
   const row = drawnRow(c, beatPhase);
   const r = l.tile * 0.4;
   return {

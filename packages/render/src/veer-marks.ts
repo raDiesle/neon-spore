@@ -107,7 +107,7 @@ export function drawVeerMarks(
   const tell = showsVeerArrow(l);
   for (const c of world.creatures) {
     if (c.kind !== "veer") continue;
-    const { x, y } = creatureCenter(l, c, beatPhase);
+    const { x, y } = creatureCenter(l, world, c, beatPhase);
     const r = rockRadius(l, spanOf(c));
     const above = y - r * LIFT;
     drawVeerNumber(ctx, x, y, r, veerDist(c));

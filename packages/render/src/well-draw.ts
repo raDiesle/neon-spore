@@ -1,23 +1,17 @@
-import {
-  bodyCenterCol,
-  bulletShown,
-  type Creature,
-  hullRow,
-  isBossBody,
-  recoilTurn,
-  type SimConfig,
-  type World,
-} from "@neon-spore/sim";
+import { bulletShown, isBossBody, recoilTurn, type World } from "@neon-spore/sim";
 import { bodyDraw } from "./creature-body.js";
-import { byDepth, depthScale, drawnCol, drawnRow, glidePhase, nearness } from "./depth.js";
+import { byDepth, depthScale, drawnCol, glidePhase, nearness } from "./depth.js";
 import type { Effects } from "./effects.js";
 import { drawBackground } from "./field.js";
 import { halo } from "./glow.js";
+import { drawGrips } from "./grip.js";
 import type { Layout } from "./layout.js";
+import { drawLockMarks } from "./lock-mark.js";
 import { PALETTE } from "./palette.js";
 import type { ViewState } from "./renderer.js";
 import { WELL_BODY, wellFall, wellPlace } from "./well.js";
 import { drawWellArrivals } from "./well-arrivals.js";
+import { wellBodyAt } from "./well-body.js";
 import { drawWellFace } from "./well-face.js";
 
 /**
@@ -41,37 +35,13 @@ import { drawWellFace } from "./well-face.js";
  * The warning ring outside the rim is `well-arrivals.ts`, cut off on the
  * same line limit when the crossing rock's mark joined it.
  *
- * **What it does not draw yet**, and each one is in `docs/queue.md`: the
- * transients drawn around a body or on the hull (a crater, a scar, a grip's
- * ring — `drawWellBodies` says which and why; a spark and a kill's sprite are
- * drawn), and the two hit tests that would let the ship's own lobes be grabbed
- * where they are drawn — until those land, the pilot's field answers no finger
- * at all on a well wave and the rails do everything (`touch.ts`).
+ * **What it does not draw yet**, and it is in `docs/queue.md`: the transients
+ * drawn *on the hull* — a crater, a scar, a deflected rock's tumble — which
+ * are placed against a hull line the ring at the middle has not got
+ * (`well-ship.ts`). Everything drawn *around a body* is drawn, since 13
+ * September 2026, by the same calls the flat pass makes: `creatureCenter`
+ * answers for this picture now (`creature-place.ts`).
  */
-
-/** How far a body is allowed to be drawn outside the rim, in rows, before the
- * well stops drawing it: an arrival glides in from above row nought and would
- * otherwise be placed *outside* its own clock. */
-const ABOVE_RIM = 0;
-
-/**
- * Where a body stands on the well and the row it stands at — **the one
- * spelling of the well's placement.** `drawWellBodies` draws by it, a caption
- * finds its subject by it (`caption-anchor.ts`) and a finger on the picture is
- * answered by it (`touch-well.ts`): a second spelling in any of the three is a
- * ring or a grab beside the shape instead of on it. The row is clamped the way
- * the flat field never needs — nothing is drawn past the hub or above the rim.
- */
-export function wellBodyAt(
-  l: Layout,
-  cfg: SimConfig,
-  c: Creature,
-  glide: number,
-): { x: number; y: number; row: number } {
-  const row = Math.min(hullRow(cfg), Math.max(ABOVE_RIM, drawnRow(c, glide)));
-  const at = wellPlace(l, bodyCenterCol(c, drawnCol(c, glide)), row);
-  return { x: at.x, y: at.y, row };
-}
 
 /** The board: the backdrop, the face, and what is about to come over the rim. */
 export function drawWellBack(
@@ -106,6 +76,10 @@ export function drawWellBodies(
   world: World,
   view: ViewState,
   effects: Effects,
+  /** Where the cannon lobe is *drawn*, in fractional columns — the eased one,
+   * for the lock's line back to it (`frame-field.ts` says why not
+   * `world.cannonCol`). */
+  cannonCol = world.cannonCol,
 ): void {
   const beats = world.beat + view.beatPhase;
   for (const c of byDepth(world.creatures, view.beatPhase)) {
@@ -136,24 +110,29 @@ export function drawWellBodies(
     });
     ctx.restore();
   }
+  // Over the bodies, in the flat pass's own order (`frame-field.ts`): the
+  // hand on one and, over the hand, the frame that says the cannon has it.
+  // Both place themselves by `creatureCenter`, which answers for this picture
+  // — a ring round a body at its hour, at `WELL_BODY` of its flat size.
+  drawGrips(ctx, l, world, view.beatPhase, view.time, view.names);
+  drawLockMarks(ctx, l, world, cannonCol, view.beatPhase, view.time);
   drawWellBolts(ctx, l, world);
   // And the transients that were *placed* when their event arrived — every
   // spark the game throws, a kill's sprite — already in their lanes, because
   // `Effects.ingest` was told this screen is the well and put each pixel
-  // through `wellFromFlat`. In the flat pass's own order (`effects-frame.ts`).
+  // through `wellFromFlat`. Then the ones drawn *around a creature the world
+  // still holds* — a clasp's shell coming apart, a rind's shed skin, a coil's
+  // charge — which find the body where this picture draws it, as above.
   //
-  // What is not drawn here, and why, in three classes. The transients drawn
-  // *around a creature the world still holds* — a grip's ring, the ward's
-  // bolts, a clasp's shell (`bodies.drawOnBodies`, `lock-mark.ts`) — ask
-  // `creatureCenter` each frame, which takes no world and cannot know the well
-  // is up; that signature is a lane of its own (`docs/queue.md`). The ones
-  // drawn *on the hull* — a rock's last step and its crater (`rockImpact`),
-  // a deflected rock's tumble — are placed against a hull line the ring at
-  // the middle has not got (`well-ship.ts`). And the ones that belong to a
-  // body no well wave carries — a worm's goo, a box's discharge, a salvo —
-  // would be drawn for nothing.
+  // What is not drawn here, and why, in two classes. The transients drawn
+  // *on the hull* — a rock's last step and its crater (`rockImpact`), a
+  // deflected rock's tumble — are placed against a hull line the ring at the
+  // middle has not got (`well-ship.ts`). And the ones that belong to a body
+  // no well wave carries — a worm's goo, a box's discharge, a salvo — would
+  // be drawn for nothing.
   effects.sparks.draw(ctx);
   effects.spriteBursts.draw(ctx);
+  effects.bodies.drawOnBodies(ctx, l, world, view.beatPhase, effects.recoilLeap);
 }
 
 /**

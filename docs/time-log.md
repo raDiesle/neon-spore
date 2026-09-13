@@ -2543,3 +2543,30 @@ of that now and the seams carry the colour. About 45 min.
 Bottleneck: **writing** — two bakes that are nearly the same twenty lines,
 kept apart because `adopt` moves a candidate's own siblings and nothing at the
 slot's level.
+
+## 2026-09-13 · claude/queue-creaturecenter-assumes-the-flat-field-so-the-wel — creatureCenter answers for the well
+
+`creatureCenter` and `creatureRadius` take the world now and ask `wellShown`
+before placing, so every mark drawn around a body — the hand's ring, the lock
+corners and their line, a shell's clasp, a rind's shed, a coil's charge —
+stands on the body where THE WELL draws it, at `WELL_BODY` of its flat size.
+`wellBodyAt` moved to `well-body.ts` to break the import loop with
+`well-draw.ts`; the touch layer keeps `flatCenter`/`flatRadius` by name
+(`creatureAt` moved to `creature-under.ts`). `drawWellBodies` draws the grips,
+the lock marks — radial on the well, from the cannon lobe straight to the body
+(`wellLockLink`) — and `bodies.drawOnBodies` after the bodies. The proof is a
+grip by p1 in a well world whose added arcs all sit at `wellBodyAt` and none at
+the tile. Thirty-odd call sites threaded the world; `strand-bead.ts` went over
+the limit and lost its raisin to `strand-raisin.ts`. About 90 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the two signatures' callers, `well-draw.ts`, `lock-mark.ts`, the frame harness |
+| writing | 45 | the world threaded through thirty files, `well-body.ts`, `creature-under.ts`, the radial lock link, the proof |
+| looking | 5 | one `bun run frames` of the pilot's hand at six o'clock |
+| friction | 15 | an import loop, a file at 250 lines, a second at 255, an unused import |
+| landing | 10 | format, check:fast twice, index, the commit |
+
+Bottleneck: **writing** — a signature that thirty files call, each with a
+`cfg` in hand and no world, so the world had to be carried down through the
+callers first.

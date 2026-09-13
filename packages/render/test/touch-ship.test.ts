@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { type ControlSet, controlSet } from "@neon-spore/content";
 import { createWorld, DEFAULT_CONFIG, step } from "@neon-spore/sim";
-import { creatureCenter } from "../src/creature-place.js";
+import { flatCenter } from "../src/creature-place.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import type { Field } from "../src/touch.js";
 import { touchDown, touchMove, touchUp } from "../src/touch.js";
@@ -181,7 +181,7 @@ describe("what the ship refuses", () => {
     const f = field(1);
     const c = f.creatures[0];
     if (!c) throw new Error("the field is empty");
-    const at = creatureCenter(l, c, f.beatPhase);
+    const at = flatCenter(l, c, f.beatPhase);
     expect(touchDown(l, at.x, at.y, f)?.command).toEqual({ kind: "grip", id: c.id });
   });
 

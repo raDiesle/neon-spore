@@ -178,7 +178,7 @@ export class ClaspBreakFx {
       // any more, and a ring left hanging in the column would say the shield
       // outlived the thing it was holding.
       if (!c) continue;
-      const { x, y } = creatureCenter(l, c, beatPhase);
+      const { x, y } = creatureCenter(l, world, c, beatPhase);
       const r = l.tile * CLASP_RADIUS_MUL * depthScale(world.cfg, l, drawnRow(c, beatPhase));
       drawClaspBreak(ctx, x, y, r, fx.life <= 0 ? 1 : fx.age / fx.life);
     }

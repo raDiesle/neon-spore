@@ -54,7 +54,7 @@ export function drawWispGround(
     drawAim(ctx, l, world.cfg, c, j, beatPhase);
     if (j.land > 0) drawImpact(ctx, l, here, j.land);
     if (j.crouch > 0) drawGather(ctx, l, here, j.crouch);
-    drawPool(ctx, l, c, beatPhase, j);
+    drawPool(ctx, l, world, c, beatPhase, j);
   }
 }
 
@@ -76,6 +76,7 @@ export function drawWispGround(
 function drawPool(
   ctx: CanvasRenderingContext2D,
   l: Layout,
+  world: World,
   c: Creature,
   beatPhase: number,
   j: WispJump,
@@ -83,7 +84,7 @@ function drawPool(
   // `creatureCenter` and not a second interpolation by hand: the pool has to
   // be under the body, and two copies of the glide are two places for it to
   // stop being.
-  const { x, y } = creatureCenter(l, c, beatPhase);
+  const { x, y } = creatureCenter(l, world, c, beatPhase);
   const rx = l.tile * (0.3 + 0.34 * j.arc + 0.16 * j.land + 0.06 * j.crouch);
   halo(ctx, x, y + l.tile * 0.28, rx * 2, PALETTE.wisp, 0.4 - 0.26 * j.arc);
 }

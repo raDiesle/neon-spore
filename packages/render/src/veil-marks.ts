@@ -76,7 +76,7 @@ export function drawVeilMarks(
   time: number,
 ): void {
   for (const c of veils(world)) {
-    const { x, y } = creatureCenter(l, c, beatPhase);
+    const { x, y } = creatureCenter(l, world, c, beatPhase);
     const r = l.tile * 0.4 * VEIL_RADIUS_MUL;
     if (showsVeilCore(l)) {
       drawClock(ctx, l.tile, world.cfg, world.beat, beatPhase, x, y - r * (VEIL_TOP + LIFT), c);

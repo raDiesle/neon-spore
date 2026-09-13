@@ -3,8 +3,8 @@ import { hazed, nearness } from "./depth.js";
 import { halo, strokeGlow } from "./glow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { drawRaisinAt } from "./strand-bead.js";
 import { drawFuseBlast, drawFuseFront, drawFusePop } from "./strand-fuse-draw.js";
+import { drawRaisinAt } from "./strand-raisin.js";
 
 /**
  * THE STRAND's thread going, drawn as a fuse.

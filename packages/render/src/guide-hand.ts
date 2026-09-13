@@ -54,8 +54,8 @@ export function gripThumb(
 ): { x: number; y: number; r: number } | null {
   for (const c of world.creatures) {
     if (!gripsCreature(world, seat, c.id)) continue;
-    const at = creatureCenter(l, c, beatPhase);
-    return { x: at.x, y: at.y, r: creatureRadius(l, c, beatPhase, world.cfg) };
+    const at = creatureCenter(l, world, c, beatPhase);
+    return { x: at.x, y: at.y, r: creatureRadius(l, world, c, beatPhase) };
   }
   return null;
 }
@@ -128,8 +128,8 @@ export function tapThumb(
       if (!on || c.row > on.row) on = c;
     }
     if (!on) continue;
-    const at = creatureCenter(l, on, beatPhase);
-    return { x: at.x, y: at.y, r: creatureRadius(l, on, beatPhase, world.cfg) };
+    const at = creatureCenter(l, world, on, beatPhase);
+    return { x: at.x, y: at.y, r: creatureRadius(l, world, on, beatPhase) };
   }
   return null;
 }

@@ -90,7 +90,7 @@ export class CoilJumpFx {
       // point of being able to see it coming.
       if (c?.kind !== "coil") continue;
       const t = Math.min(1, fx.age / fx.life);
-      const to = creatureCenter(l, c, beatPhase);
+      const to = creatureCenter(l, world, c, beatPhase);
       COIL_LOOK.charge({
         ctx,
         from: { x: fx.x, y: fx.y },

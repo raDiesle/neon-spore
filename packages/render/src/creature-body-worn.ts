@@ -3,7 +3,8 @@ import type { Body } from "./creature-body.js";
 import { drawLivingBody } from "./creature-body-living.js";
 import { MAGNET_LOOK } from "./magnet-look.js";
 import { showsBeadColor } from "./strand.js";
-import { drawRaisin, STRAND_LOOK } from "./strand-bead.js";
+import { STRAND_LOOK } from "./strand-bead.js";
+import { drawRaisin } from "./strand-raisin.js";
 import { drawStillBead } from "./strand-still.js";
 
 /**
@@ -63,7 +64,7 @@ export function drawMagnetBody(b: Body): void {
  */
 export function drawStrandBody(b: Body): void {
   const { ctx, l, world, c, x, y, time, near } = b;
-  const bead = { ctx, l, cfg: world.cfg, c, x, y, time, beatPhase: b.beatPhase, near };
+  const bead = { ctx, l, world, c, x, y, time, beatPhase: b.beatPhase, near };
   if (beadIsSpent(c)) {
     drawRaisin(bead);
     return;

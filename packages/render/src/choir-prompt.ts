@@ -62,7 +62,7 @@ export function drawChoirPrompt(
     // telling the pilot to shake a thing that is halfway shut. The arrows go
     // for the same reason and by the same test (`choirOnField`).
     if (!choirIsDots(c) || choirIsFusing(c)) continue;
-    const { x, y } = creatureCenter(l, c, beatPhase);
+    const { x, y } = creatureCenter(l, world, c, beatPhase);
     // On the tile's own centre, which is where the pair orbits: the two bodies
     // lean about it and neither of them is the middle of anything, so a frame
     // hung off one would swing with that one alone.

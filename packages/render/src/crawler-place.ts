@@ -1,5 +1,5 @@
 import type { Creature, World } from "@neon-spore/sim";
-import { creatureCenter } from "./creature-place.js";
+import { flatCenter } from "./creature-place.js";
 import { depthScale } from "./depth.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
@@ -74,7 +74,9 @@ export function linkCenter(
   beatPhase: number,
   surfaceY: SurfaceY = flatSurface(l),
 ): { x: number; y: number } {
-  const { x } = creatureCenter(l, c, beatPhase);
+  // The flat placement by name: a worm rides the flat hull's membrane, and
+  // THE WELL draws no worm (`well-draw.ts`).
+  const { x } = flatCenter(l, c, beatPhase);
   return { x, y: surfaceY(x) - l.tile * RIDE };
 }
 

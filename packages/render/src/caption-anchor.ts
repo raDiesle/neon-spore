@@ -10,8 +10,6 @@ import { queenMarksBox } from "./queen-figure.js";
 import { radarBlips } from "./radar-blip.js";
 import { slabFor, slabPanel } from "./slabs.js";
 import { shipCircle } from "./touch-ship.js";
-import { WELL_BODY, wellShown } from "./well.js";
-import { wellBodyAt } from "./well-draw.js";
 
 /**
  * Where a caption's subject is on the screen — the half of a page's words that
@@ -171,20 +169,17 @@ export function anchorPoint(
 }
 
 /**
- * A ring round a body, wherever this screen draws it. On the flat field that
- * is `creatureCenter`; on THE WELL's screen the same body is at its hour on
- * the row's circle, at `WELL_BODY` of its size (`well-draw.ts`), and a ring
- * placed from the flat centre would stand in the empty middle of the picture
- * — which is what THE WELL's film points at when it says *four o'clock*.
+ * A ring round a body, wherever this screen draws it. `creatureCenter` and
+ * `creatureRadius` answer for the picture this screen is drawing — on THE
+ * WELL's the same body is at its hour on the row's circle, at `WELL_BODY` of
+ * its size, and a ring placed from the flat centre would stand in the empty
+ * middle of the picture, which is what THE WELL's film points at when it
+ * says *four o'clock*. This branched on the well itself until 13 September
+ * 2026, when the two placements learned to.
  */
 function bodyRing(l: Layout, world: World, c: Creature, glide: number): AnchorPoint {
-  const r = creatureRadius(l, c, glide, world.cfg);
-  if (wellShown(l, world)) {
-    const at = wellBodyAt(l, world.cfg, c, glide);
-    return { x: at.x, y: at.y, r: r * WELL_BODY + 6, clear: CLEAR };
-  }
-  const at = creatureCenter(l, c, glide);
-  return { x: at.x, y: at.y, r: r + 6, clear: CLEAR };
+  const at = creatureCenter(l, world, c, glide);
+  return { x: at.x, y: at.y, r: creatureRadius(l, world, c, glide) + 6, clear: CLEAR };
 }
 
 /**

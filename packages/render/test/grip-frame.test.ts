@@ -8,7 +8,8 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
-import { creatureAt, creatureCenter } from "../src/creature-place.js";
+import { creatureCenter } from "../src/creature-place.js";
+import { creatureAt } from "../src/creature-under.js";
 import { drawGrips, gripLabel } from "../src/grip.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { stubCanvas } from "./canvas-stub.js";
@@ -195,7 +196,7 @@ describe("a finger on the field", () => {
 
   it("finds what it is pointing at, mid-glide", () => {
     for (const c of world.creatures) {
-      const at = creatureCenter(L, c, 0.5);
+      const at = creatureCenter(L, world, c, 0.5);
       expect(creatureAt(L, world.creatures, at.x, at.y, 0.5, 1)?.id).toBe(c.id);
     }
   });
@@ -203,7 +204,7 @@ describe("a finger on the field", () => {
   it("finds nothing in empty sky", () => {
     const c = world.creatures[0];
     if (!c) throw new Error("the field is empty");
-    const at = creatureCenter(L, c, 0.5);
+    const at = creatureCenter(L, world, c, 0.5);
     expect(creatureAt(L, world.creatures, at.x, at.y - L.tile * 3, 0.5, 1)).toBeNull();
   });
 
@@ -216,7 +217,7 @@ describe("a finger on the field", () => {
   it("offers a living body to the pilot and not to the navigator", () => {
     const slick = world.creatures.find((c) => c.kind === "slick");
     if (!slick) throw new Error("no slick");
-    const at = creatureCenter(L, slick, 0.5);
+    const at = creatureCenter(L, world, slick, 0.5);
     expect(creatureAt(L, world.creatures, at.x, at.y, 0.5, 1)?.id).toBe(slick.id);
     expect(creatureAt(L, world.creatures, at.x, at.y, 0.5, 2)).toBeNull();
   });
@@ -224,7 +225,7 @@ describe("a finger on the field", () => {
   it("offers a rock to both seats", () => {
     const rock = world.creatures.find((c) => c.kind === "torch");
     if (!rock) throw new Error("no torch");
-    const at = creatureCenter(L, rock, 0.5);
+    const at = creatureCenter(L, world, rock, 0.5);
     for (const seat of [1, 2] as const) {
       expect(creatureAt(L, world.creatures, at.x, at.y, 0.5, seat)?.id).toBe(rock.id);
     }
@@ -236,7 +237,7 @@ describe("a finger on the field", () => {
     startWave(boss, index, [], [], buildBoss(index, CFG.cols));
     const queen = boss.creatures.find((c) => c.kind === "queen");
     if (!queen) throw new Error("no queen");
-    const at = creatureCenter(L, queen, 0);
+    const at = creatureCenter(L, boss, queen, 0);
     expect(creatureAt(L, boss.creatures, at.x, at.y, 0, 1)).toBeNull();
   });
 });

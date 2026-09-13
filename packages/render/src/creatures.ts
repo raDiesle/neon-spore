@@ -117,7 +117,9 @@ export function drawCreatures(
     // glide would have — so the impact takes it over in the same place.
     const flown = c.kind === "torch" ? flights?.place(c, l, beats, skinY) : undefined;
     const placed =
-      onRim ?? flown ?? (leap ? centerAt(l, c, leap.row, leap.col) : creatureCenter(l, c, glide));
+      onRim ??
+      flown ??
+      (leap ? centerAt(l, c, leap.row, leap.col) : creatureCenter(l, world, c, glide));
     const x = placed.x;
     // A rock's landing beat ends half-sunk in the skin, where `RockImpactFx`
     // takes it over, and not under the membrane at the hull row's centre.
@@ -185,7 +187,7 @@ export function drawCreatures(
     // column of fire under it while it is still climbing and a canopy over it
     // once it has turned round (`chute.ts`). Both screens get the whole of it,
     // so there is no gate — only a draw of its own.
-    if (c.kind === "chute") drawChute(ctx, l, world.cfg, c, x, y, time, beatPhase, near);
+    if (c.kind === "chute") drawChute(ctx, l, world, c, x, y, time, beatPhase, near);
     // And THE VOLLEY's shell, on exactly the same terms: plating around a body
     // rather than a substitute for one, so `wornKind` has already drawn the
     // slick or the bulb sealed inside it. Both screens get the whole of it —
@@ -199,7 +201,7 @@ export function drawCreatures(
     // this bounce left it. Both screens get the whole of it — nothing about a
     // recoil is split — so there is no gate. The last argument is the turn the
     // body took, because the cage is lit in the body's colour (`recoil.ts`).
-    if (c.kind === "recoil") drawRecoilCage(ctx, l, world.cfg, c, x, y, time, near, turn);
+    if (c.kind === "recoil") drawRecoilCage(ctx, l, world, c, x, y, time, near, turn);
     // The clasp's shield goes on *after* the body, because it is a membrane
     // around one and not a substitute for one — `wornKind` has already drawn
     // the slick or the bulb inside, in its own colour, which is what player 2

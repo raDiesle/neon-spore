@@ -7,7 +7,7 @@ import {
   type SimConfig,
   type World,
 } from "@neon-spore/sim";
-import { creatureCenter } from "./creature-place.js";
+import { creatureCenter, flatCenter } from "./creature-place.js";
 import { strokeGlow } from "./glow.js";
 import {
   drawHandleHint,
@@ -63,7 +63,10 @@ import { splinePath } from "./spline.js";
  * hit-tested again.
  */
 export function lidCordCircle(l: Layout, cfg: SimConfig, c: Creature, beatPhase: number): Circle {
-  const { x, y } = creatureCenter(l, c, beatPhase);
+  // The flat placement by name, for `balloon-handles.ts`'s reason: the touch
+  // layer asks for this circle with no world in hand, and no well wave carries
+  // a lid.
+  const { x, y } = flatCenter(l, c, beatPhase);
   // How far beside the body it hangs, and on which side, are the simulation's
   // numbers too, not this file's: the clamp that keeps a pulled handle on the
   // field is written against exactly this rest (`sim/lid.ts`, `cordRest`).
@@ -103,22 +106,23 @@ export function drawLidCords(
 ): void {
   for (const c of world.creatures) {
     if (c.kind !== "lid") continue;
-    drawOne(ctx, l, world.cfg, c, beatPhase, time);
+    drawOne(ctx, l, world, c, beatPhase, time);
   }
 }
 
 function drawOne(
   ctx: CanvasRenderingContext2D,
   l: Layout,
-  cfg: SimConfig,
+  world: World,
   c: Creature,
   beatPhase: number,
   time: number,
 ): void {
+  const cfg = world.cfg;
   const hex = c.color === "red" ? PALETTE.red : PALETTE.cyan;
   const rim = c.color === "red" ? PALETTE.redRim : PALETTE.cyanRim;
   const rest = lidCordCircle(l, cfg, c, beatPhase);
-  const top = creatureCenter(l, c, beatPhase);
+  const top = creatureCenter(l, world, c, beatPhase);
   const held = lidIsHeld(c);
   const pull = lidOpenMilli(cfg, c) / 1000;
   // Where the handle is: the rest, riding the body, plus the hand's pull —

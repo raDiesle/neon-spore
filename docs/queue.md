@@ -388,33 +388,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## `creatureCenter` assumes the flat field, so THE WELL draws nothing around a body
-
-- **Found:** 2026-09-13, claude/queue-the-well-draws-none-of-the-fields-transients-but
-- **Taken:** 2026-09-13, claude/queue-creaturecenter-assumes-the-flat-field-so-the-wel
-- **Files:** `packages/render/src/creature-place.ts`, `packages/render/src/effects-body.ts`, `packages/render/src/lock-mark.ts`, `packages/render/src/grip.ts`, `packages/render/src/well.ts`, `packages/render/test/well-frame.test.ts`
-
-The half of "THE WELL draws none of the field's transients" that lane left.
-Every transient *placed* when its event arrives now goes through `wellFromFlat`
-(`effects-frame.ts`'s `ingestAll`, `IngestOneCtx.put`) and is drawn by
-`drawWellBodies`. What still cannot be drawn on the well is everything drawn
-*around a creature the world still holds*, each frame: the grip's ring, the
-lock frame, the ward's bolts, a clasp's shell, a rind's shed skin
-(`bodies.drawOnBodies`, `lock-mark.ts`). All of them ask `creatureCenter(l, c,
-beatPhase)`, which takes no world and places the body on the flat grid
-whichever screen is up — so on the well they would draw a ring around empty
-space, and `drawWellBodies` skips them.
-
-The honest fix is for `creatureCenter` to take the projection rather than
-assume it: a `place: (col, row) => XY` (flat: `tileCX`/`tileCY`; well:
-`wellPlace`) or the `World` it can read `wellShown` off, threaded through its
-thirty-seven call sites — which is why it is a lane of its own. Once it does,
-`drawWellBodies` can call `effects.bodies.drawOnBodies` and the lock marks the
-way `frame-field.ts` does, with the well's `WELL_BODY` scale applied to the
-ring's radius. The proof goes beside the placed-transient tests in
-`well-frame.test.ts`: a `gripP1` on a body in a well world, and the ring's
-`arc` at `wellPlace` of that body rather than at its tile.
-
 ## THE WELL's cannon can be held now, but the hand's ring is not drawn on it
 
 - **Found:** 2026-09-13, claude/queue-the-wells-screen-answers-no-finger-on-the-field

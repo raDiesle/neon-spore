@@ -118,7 +118,7 @@ export function drawGhostTrails(
   for (const c of world.creatures) {
     if (c.kind !== "ghost") continue;
     if (!showsGhostBody(l, cfg, c)) continue;
-    const { x, y } = creatureCenter(l, c, beatPhase);
+    const { x, y } = creatureCenter(l, world, c, beatPhase);
     const row = drawnRow(c, beatPhase);
     trail.note(c.id, {
       x,

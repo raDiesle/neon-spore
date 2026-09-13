@@ -1,5 +1,5 @@
 import { blobPoints } from "@neon-spore/content";
-import type { Creature, SimConfig } from "@neon-spore/sim";
+import type { Creature, World } from "@neon-spore/sim";
 import { contourClock, creatureCenter } from "./creature-place.js";
 import { drawnRow, hazed, nearness } from "./depth.js";
 import { halo, strokeGlow } from "./glow.js";
@@ -10,11 +10,12 @@ import { splinePath } from "./spline.js";
 import { drawReelStatic, REEL_JUMP, reelAt } from "./strand-reel.js";
 
 /**
- * Two of the three bodies THE STRAND draws that are **not** an ordinary slick
- * or bulb: the reel player 2 sees in place of one, and the raisin either seat
- * sees once it has been shot. The third is the same reel with the light taken
- * out of it, worn by every bead on that screen a shot cannot answer, and it is
- * in `strand-still.ts`.
+ * One of the three bodies THE STRAND draws that are **not** an ordinary slick
+ * or bulb: the reel player 2 sees in place of one. The second is the raisin
+ * either seat sees once a bead has been shot (`strand-raisin.ts`, since 13
+ * September 2026, when the placement grew a world and this file its limit);
+ * the third is the same reel with the light taken out of it, worn by every
+ * bead on that screen a shot cannot answer, and it is in `strand-still.ts`.
  *
  * Its own file beside `strand.ts`, which is the thread and the marks on it.
  * These are contours; that is a line between them, and the two change for
@@ -70,27 +71,14 @@ import { drawReelStatic, REEL_JUMP, reelAt } from "./strand-reel.js";
  * `wisp-static.ts` borrows `slabAt` — one copy of the three-frequency jitter
  * rather than two that drift apart. A ghost's bands are a body hiding from one
  * seat; these are a body that has not decided what it is.
- *
- * ## The raisin
- *
- * The same bead with the life taken out of it: small, dark, deeply lobed, no
- * glow — and drawn on *both* screens, because how far along the thread the
- * pair has got is the one fact about this creature that is not split. It is
- * also the only readout either of them has, since a shot at the wrong bead
- * swells one of these back (`strand-round.ts`).
  */
 
-/** How much of a body's footprint each of the two takes. A shade under one for
- * the reel, so a thread reads as beads on a line rather than a row of bodies;
- * less than half for a raisin, and the step is what says *this one is done* —
- * a size that eases is a body breathing, and a size that jumps is an event. */
+/** How much of a body's footprint the reel takes. A shade under one, so a
+ * thread reads as beads on a line rather than a row of bodies; the raisin's
+ * is less than half (`strand-raisin.ts`), and the step between the two is what
+ * says *this one is done* — a size that eases is a body breathing, and a size
+ * that jumps is an event. */
 const REEL_MUL = 0.86;
-const RAISIN_MUL = 0.42;
-
-/** A spent bead: the rock's dark, which is the one neutral in the palette that
- * is plainly not alive. */
-const DEAD = PALETTE.rockDark;
-const DEAD_RIM = PALETTE.sparkDim;
 
 /** The reel's one colour, for both faces: the palette's violet, which is the
  * hue a wisp wears for the same reason — a body neither trigger names. The
@@ -99,21 +87,18 @@ const DEAD_RIM = PALETTE.sparkDim;
 const REEL = PALETTE.wisp;
 const REEL_RIM = PALETTE.wispRim;
 
-/** Six shallow lobes on an ovoid — the raisin's contour, and nothing else's.
- * Six is free: slick is 2, dart 3, wisp 5, throb 6 and round where this is
- * not. */
-const RAISIN_LOBES = 6;
-
 /**
  * Everything a bead draw needs. A record rather than eight arguments, because
- * the two halves of this file and any candidate offered against them all take
- * the same set, and a candidate that took a different one could not be swapped
- * in.
+ * the reel, the raisin (`strand-raisin.ts`) and any candidate offered against
+ * them all take the same set, and a candidate that took a different one could
+ * not be swapped in.
  */
 export interface Bead {
   ctx: CanvasRenderingContext2D;
   l: Layout;
-  cfg: SimConfig;
+  /** The world rather than its config: the placement `reelFrame` reads asks
+   * which picture this screen is drawing (`creatureCenter`). */
+  world: World;
   c: Creature;
   x: number;
   y: number;
@@ -140,9 +125,9 @@ export interface StrandLook {
  * bodies it could be, in a colour that is neither.
  */
 export function drawReelBead(b: Bead): void {
-  const { ctx, l, cfg, c, time, near } = b;
-  const haze = (h: string): string => hazed(cfg, h, near);
-  const f = reelFrame(l, c, b.beatPhase, time);
+  const { ctx, l, world, c, time, near } = b;
+  const haze = (h: string): string => hazed(world.cfg, h, near);
+  const f = reelFrame(l, b.world, c, b.beatPhase, time);
   const { flat } = reelAt(c.id, time);
   const rx = f.scale * f.shape.rx;
   const ry = f.scale * f.shape.ry * f.squash.sy;
@@ -170,9 +155,15 @@ export function drawReelBead(b: Bead): void {
  * exactly the same place, and must not drift from it: a bead that changed size,
  * row or face on the frame it became answerable would read as two bodies.
  */
-export function reelFrame(l: Layout, c: Creature, beatPhase: number, time: number): ReelFrame {
+export function reelFrame(
+  l: Layout,
+  world: World,
+  c: Creature,
+  beatPhase: number,
+  time: number,
+): ReelFrame {
   const { shape, flat, face } = reelAt(c.id, time);
-  const { x, y } = creatureCenter(l, c, beatPhase);
+  const { x, y } = creatureCenter(l, world, c, beatPhase);
   const row = drawnRow(c, beatPhase);
   const r = l.tile * 0.4 * REEL_MUL;
   // The contour's own proportions, squashed toward the axis it rolls about.
@@ -206,42 +197,3 @@ export interface ReelFrame extends LivingFrame {
 /** The shipped answer. `creature-body.ts` reads this record on every frame, so
  * a candidate patched onto it reaches the field for the length of one draw. */
 export const STRAND_LOOK: StrandLook = { bead: drawReelBead };
-
-/**
- * One bead that has been shot: shrivelled, dark, and still hanging on the
- * thread. Drawn on both screens.
- */
-export function drawRaisin(b: Bead): void {
-  drawRaisinAt(b.ctx, b.l, b.cfg, b.c.id, b.x, b.y, b.time, b.near);
-}
-
-/** The same raisin from a point and an id — for the beads a thread still
- * carries while it burns, after the bodies have left the world
- * (`strand-fuse.ts`). */
-export function drawRaisinAt(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  cfg: SimConfig,
-  id: number,
-  x: number,
-  y: number,
-  time: number,
-  near: number,
-): void {
-  const haze = (h: string): string => hazed(cfg, h, near);
-  const r = l.tile * 0.4 * RAISIN_MUL;
-  const t = contourClock(id, time);
-  // Deep lobes and a slow wobble: a body that has lost its water pulls in
-  // between its own ribs rather than staying round, and the creases are the
-  // only thing this shape has to say.
-  const body = splinePath(blobPoints(x, y, r, r * 0.86, RAISIN_LOBES, 0.34, 0.02, t, 2.5), true);
-  ctx.fillStyle = haze(DEAD);
-  ctx.fill(body);
-  ctx.strokeStyle = haze(DEAD_RIM);
-  ctx.lineWidth = STROKE.inner;
-  ctx.stroke(body);
-  // The one thing left of it, and it is barely there: a spent bead throws no
-  // light of its own, so what stands in for the glow every living body has is
-  // the faintest lift off the thread it is hanging on.
-  halo(ctx, x, y, r * 1.6, haze(DEAD_RIM), 0.1);
-}

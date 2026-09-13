@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { type Creature, DEFAULT_CONFIG, NO_SHELL } from "@neon-spore/sim";
-import { creatureCenter, creatureRadius } from "../src/creature-place.js";
+import { flatCenter, flatRadius } from "../src/creature-place.js";
 import { byDepth, depthScale, drawnRow, hazed, nearness } from "../src/depth.js";
 import { computeLayout } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
@@ -84,8 +84,8 @@ describe("perspective by row", () => {
 
 describe("the drawn radius follows the row", () => {
   it("is the flat radius at the top and the scaled one at the hull", () => {
-    expect(creatureRadius(L, creature(0))).toBeCloseTo(L.tile * BODY_TILES, 10);
-    expect(creatureRadius(L, creature(CFG.rows - 1))).toBeCloseTo(
+    expect(flatRadius(L, CFG, creature(0), 0)).toBeCloseTo(L.tile * BODY_TILES, 10);
+    expect(flatRadius(L, CFG, creature(CFG.rows - 1), 0)).toBeCloseTo(
       L.tile * BODY_TILES * CFG.depthNearScale,
       10,
     );
@@ -95,9 +95,9 @@ describe("the drawn radius follows the row", () => {
     const c = { ...creature(9), fromRow: 8 };
     // The scale is a drawing decision and nothing else: a body mid-glide is
     // still at the arithmetic mean of the two rows it is between.
-    const mid = creatureCenter(L, c, 0.5);
-    const from = creatureCenter(L, { ...c, row: 8 }, 0);
-    const to = creatureCenter(L, { ...c, fromRow: 9 }, 0);
+    const mid = flatCenter(L, c, 0.5);
+    const from = flatCenter(L, { ...c, row: 8 }, 0);
+    const to = flatCenter(L, { ...c, fromRow: 9 }, 0);
     expect(mid.y).toBeCloseTo((from.y + to.y) / 2, 10);
     expect(drawnRow(c, 0.5)).toBeCloseTo(8.5, 10);
   });

@@ -1,6 +1,6 @@
 import { beatboxIsBox } from "@neon-spore/sim";
 import { beatboxSwell } from "./beatbox.js";
-import { creatureCenter, creatureRadius } from "./creature-place.js";
+import { flatCenter, flatRadius } from "./creature-place.js";
 import type { Layout } from "./layout.js";
 import type { Field, Touch } from "./touch.js";
 
@@ -45,9 +45,9 @@ export function beatboxUnder(l: Layout, field: Field, x: number, y: number): Tou
   let bestDist = Number.POSITIVE_INFINITY;
   for (const c of field.creatures) {
     if (!beatboxIsBox(c)) continue;
-    const { x: cx, y: cy } = creatureCenter(l, c, field.beatPhase);
+    const { x: cx, y: cy } = flatCenter(l, c, field.beatPhase);
     const swell = beatboxSwell(c, field.beat, field.beatPhase);
-    const reach = creatureRadius(l, c, field.beatPhase, field.cfg) * swell * REACH_MUL;
+    const reach = flatRadius(l, field.cfg, c, field.beatPhase) * swell * REACH_MUL;
     const d = Math.hypot(x - cx, y - cy);
     if (d > reach || d >= bestDist) continue;
     best = c.id;

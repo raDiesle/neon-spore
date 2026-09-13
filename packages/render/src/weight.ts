@@ -89,7 +89,7 @@ function drawOne(
   const mine = showsOwnMark(l, world, c);
   if (!both && !mine) return;
 
-  const at = creatureCenter(l, c, glidePhase(world.cfg, world.beat, c, beatPhase));
+  const at = creatureCenter(l, world, c, glidePhase(world.cfg, world.beat, c, beatPhase));
   const r = livingRadius(l.tile, 1);
 
   if (!both) {

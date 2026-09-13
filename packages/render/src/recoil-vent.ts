@@ -108,7 +108,7 @@ export class RecoilVentFx {
         const at = leaps?.drawnAt(body.id);
         const { x, y } = at
           ? centerAt(l, body, at.row, at.col)
-          : creatureCenter(l, body, beatPhase);
+          : creatureCenter(l, world, body, beatPhase);
         drawWake(ctx, fx, x, y, t);
       }
       drawPlume(ctx, fx, t);

@@ -96,8 +96,8 @@ function drawHandOn(
   time: number,
   names?: SeatNames,
 ): void {
-  const { x, y } = creatureCenter(l, c, beatPhase);
-  const r = Math.max(1, creatureRadius(l, c) * RING_MUL);
+  const { x, y } = creatureCenter(l, world, c, beatPhase);
+  const r = Math.max(1, creatureRadius(l, world, c) * RING_MUL);
   drawHandAt(ctx, l, world, c, means, p1, p2, x, y, r, time, names);
 }
 

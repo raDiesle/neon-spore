@@ -7,7 +7,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { balloonRy } from "./balloon.js";
-import { creatureCenter } from "./creature-place.js";
+import { creatureCenter, flatCenter } from "./creature-place.js";
 import { glidePhase } from "./depth.js";
 import { strokeGlow } from "./glow.js";
 import { drawHandleHint, drawHandleRing, type HintStyle, handleRadius } from "./handle-draw.js";
@@ -79,7 +79,10 @@ export function balloonHandleCircle(
 ): Circle {
   // The beat as well as the phase, because a balloon's step is spread over
   // several of them and the body is drawn part-way along it (`glidePhase`).
-  const { x, y } = creatureCenter(l, c, glidePhase(cfg, beat, c, beatPhase));
+  // The flat placement by name: a handle is asked for by the touch layer too,
+  // which has a field and no world (`handles.ts`), and no well wave carries a
+  // balloon — the flat field is the only picture this circle is ever on.
+  const { x, y } = flatCenter(l, c, glidePhase(cfg, beat, c, beatPhase));
   const r = handleRadius(l, cfg);
   // How far off the body it hangs is the simulation's number, not this file's:
   // it is the same figure the rule uses to place the thing a hand takes hold
@@ -142,7 +145,7 @@ function drawOne(
   // Whose it is on *this* screen. The rig sees both as its own, which is what
   // makes a two-seat control drawable in one frame for a test.
   const mine = l.role === "test" || (l.role === "p1") === (player === 1);
-  const body = creatureCenter(l, c, glidePhase(cfg, world.beat, c, beatPhase));
+  const body = creatureCenter(l, world, c, glidePhase(cfg, world.beat, c, beatPhase));
 
   // The tab: a short line from the skin out to the ring, so the handle reads
   // as attached to this body and not to the one in the next lane. It starts at

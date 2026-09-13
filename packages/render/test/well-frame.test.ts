@@ -1,6 +1,15 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue, queueFromWave } from "@neon-spore/content";
-import { createWorld, type SimEvent, startWave, ticksPerBeat, type World } from "@neon-spore/sim";
+import {
+  createWorld,
+  handMeans,
+  type SimEvent,
+  setGrip,
+  startWave,
+  step,
+  ticksPerBeat,
+  type World,
+} from "@neon-spore/sim";
 import { Effects } from "../src/effects.js";
 import { computeLayout, type Layout, tileCX, tileCY, type ViewRole } from "../src/layout.js";
 import {
@@ -18,6 +27,8 @@ import {
   wellShown,
 } from "../src/well.js";
 import { drawWellArrivals } from "../src/well-arrivals.js";
+import { wellBodyAt } from "../src/well-body.js";
+import { drawWellBodies } from "../src/well-draw.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -264,7 +275,62 @@ describe("the well's transients", () => {
     expect(well.x - hub.x).toBeCloseTo(flat.x - tileCX(FLAT, 2), 6);
     expect(well.y - hub.y).toBeCloseTo(flat.y - FLAT.hullY, 6);
   });
+
+  it("draws the pilot's hand as a ring round the body at its hour, not at its tile", () => {
+    // The marks drawn *around a body the world still holds* — a grip's ring
+    // first among them — place themselves by `creatureCenter`, which took no
+    // world until 13 September 2026 and answered for the flat field on both
+    // phones: the pilot's ring stood on the empty middle, over a tile the
+    // well had put somewhere else. The control is the same frame with no
+    // hand on it; every arc the hand adds is at the body's place on the well,
+    // and none is at the tile the flat field would give.
+    const world = wellWorld();
+    let held: (typeof world.creatures)[number] | undefined;
+    for (let t = 0; t < TPB * 12 && !held; t++) {
+      step(world, []);
+      held = world.creatures.find((c) => handMeans(c.kind, 1) !== null && c.row >= 1);
+    }
+    if (!held) throw new Error("no body the pilot could hold came in twelve beats");
+    const bare = arcsOf(world, L);
+    setGrip(world, 1, held.id);
+    const ring = arcsOf(world, L).filter((a) => !bare.some((b) => b.x === a.x && b.y === a.y));
+    expect(ring.length, "the hand added no ring").toBeGreaterThan(0);
+    const at = wellBodyAt(L, CFG, held, (world.tick % TPB) / TPB);
+    const tile = { x: tileCX(L, held.col), y: tileCY(L, held.row) };
+    for (const a of ring) {
+      expect(a.x).toBeCloseTo(at.x, 6);
+      expect(a.y).toBeCloseTo(at.y, 6);
+      expect(Math.hypot(a.x - tile.x, a.y - tile.y)).toBeGreaterThan(L.tile);
+    }
+  });
 });
+
+/**
+ * The centre of every `arc` the well's body pass drew at the phase the world
+ * is at, off a canvas that answers every other call with nothing — a body is
+ * arcs too, which is why a caller compares two frames rather than counting.
+ */
+function arcsOf(world: World, l: Layout): { x: number; y: number }[] {
+  const at: { x: number; y: number }[] = [];
+  const nothing: unknown = new Proxy(() => nothing, {
+    get: (_, key) => (key === Symbol.toPrimitive ? () => 0 : nothing),
+    apply: () => nothing,
+  });
+  const ctx = new Proxy({} as Record<string | symbol, unknown>, {
+    get: (bag, key) => {
+      if (key === "arc") return (x: number, y: number) => at.push({ x, y });
+      return key in bag ? bag[key] : nothing;
+    },
+    set: (bag, key, value) => {
+      bag[key] = value;
+      return true;
+    },
+  }) as unknown as CanvasRenderingContext2D;
+  const tpb = ticksPerBeat(world.cfg);
+  const view = { world, beatPhase: (world.tick % tpb) / tpb, role: l.role, time: 0, dt: 0 };
+  drawWellBodies(ctx, l, world, view as Parameters<typeof drawWellBodies>[3], new Effects());
+  return at;
+}
 
 /**
  * The first point of every filled shape `drawWellArrivals` drew — the head of

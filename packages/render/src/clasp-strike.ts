@@ -75,7 +75,7 @@ export class ClaspStrikeFx {
       // Full brightness on arrival, then out. A bolt does not fade in.
       const alpha = Math.max(0, 1 - t);
       if (alpha <= 0) continue;
-      const { x, y } = creatureCenter(l, c, beatPhase);
+      const { x, y } = creatureCenter(l, world, c, beatPhase);
       for (let k = 0; k < BOLTS; k++) {
         // Each bolt is redrawn from a different seed a few times over its
         // life, so the discharge crackles instead of holding one shape.

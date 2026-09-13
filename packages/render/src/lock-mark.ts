@@ -3,6 +3,7 @@ import { creatureCenter, creatureRadius } from "./creature-place.js";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawTargetLock } from "./target-lock.js";
+import { wellAngle, wellAt, wellHub, wellShown } from "./well.js";
 
 /**
  * THE LOCK, drawn: the frame that says *the cannon has this one*.
@@ -83,17 +84,32 @@ export function drawLockMarks(
   if (l.tile <= 0) return;
   for (const c of world.creatures) {
     if (!isLockedOn(world, c.id)) continue;
-    const { x, y } = creatureCenter(l, c, beatPhase);
-    const r = Math.max(1, creatureRadius(l, c, beatPhase) * BOX_MUL);
+    const { x, y } = creatureCenter(l, world, c, beatPhase);
+    const r = Math.max(1, creatureRadius(l, world, c, beatPhase) * BOX_MUL);
     // As wide as the body's footprint rather than as wide as it is tall: a
     // two-column body wears a frame over both of its columns, because both of
     // them are lanes a locked shot may arrive in.
     const halfW = Math.max(r, (spanOf(c) * l.tile) / 2);
     // The link first, so the frame is drawn over the end of it rather than the
-    // other way round: the line arrives at the body, it does not cross it.
-    drawLink(ctx, l, cannonCol, x, y, r * CLEAR, time);
+    // other way round: the line arrives at the body, it does not cross it. On
+    // THE WELL the cannon is on the ring at the middle and the body is up its
+    // lane, so the line is the lane itself rather than a climb and a turn.
+    const line = wellShown(l, world)
+      ? wellLockLink(l, cannonCol, x, y, r * CLEAR)
+      : lockLink(l, cannonCol, x, y, r * CLEAR);
+    if (line) drawLink(ctx, line, time);
     drawTargetLock(ctx, x, y, halfW, r, PALETTE.pod, time, 1, c.id);
   }
+}
+
+/** The muzzle end, the corner it turns at and the end that stops short. */
+interface LockLine {
+  fromX: number;
+  fromY: number;
+  cornerX: number;
+  cornerY: number;
+  toX: number;
+  toY: number;
 }
 
 /**
@@ -124,14 +140,7 @@ export function lockLink(
   toX: number,
   toY: number,
   clear: number,
-): {
-  fromX: number;
-  fromY: number;
-  cornerX: number;
-  cornerY: number;
-  toX: number;
-  toY: number;
-} | null {
+): LockLine | null {
   const fromX = tileCX(l, cannonCol);
   const fromY = l.hullY;
   // The corner: straight up the muzzle's own column to the body's own level,
@@ -160,19 +169,38 @@ export function lockLink(
   return { fromX, fromY, cornerX, cornerY: y, toX: cornerX, toY: y };
 }
 
-/** The same line, stroked. */
-function drawLink(
-  ctx: CanvasRenderingContext2D,
+/**
+ * The same line on THE WELL: straight from the cannon's seat on the ring to
+ * the body, stopping `clear` short of it. There is no corner — the cannon is
+ * *under* the body in the only sense the well has, which is inward along the
+ * lane — so the corner is the start of the line and `drawLink` strokes it as
+ * one leg.
+ */
+export function wellLockLink(
   l: Layout,
   cannonCol: number,
   toX: number,
   toY: number,
   clear: number,
-  time: number,
-): void {
-  const line = lockLink(l, cannonCol, toX, toY, clear);
-  if (!line) return;
+): LockLine | null {
+  const from = wellAt(l, wellAngle(l, cannonCol), wellHub(l));
+  const dx = toX - from.x;
+  const dy = toY - from.y;
+  const len = Math.hypot(dx, dy);
+  if (len <= clear) return null;
+  const end = (len - clear) / len;
+  return {
+    fromX: from.x,
+    fromY: from.y,
+    cornerX: from.x,
+    cornerY: from.y,
+    toX: from.x + dx * end,
+    toY: from.y + dy * end,
+  };
+}
 
+/** Either line, stroked. */
+function drawLink(ctx: CanvasRenderingContext2D, line: LockLine, time: number): void {
   ctx.save();
   ctx.strokeStyle = PALETTE.pod;
   ctx.lineCap = "round";

@@ -81,10 +81,10 @@ export class RindShedFx {
       // half-second. There is nothing left to be a skin *of*, and a husk
       // hanging in the column would say the body is still coming.
       if (!c) continue;
-      const { x, y } = creatureCenter(l, c, beatPhase);
+      const { x, y } = creatureCenter(l, world, c, beatPhase);
       // Both radii off the one rule: the husk is exactly the footprint the body
       // had a moment ago, the crush lands exactly on the one it has.
-      const now = creatureRadius(l, c, beatPhase, world.cfg);
+      const now = creatureRadius(l, world, c, beatPhase);
       const was = (now * rindPrevBodyMul(c)) / livingBodyMul(c);
       // The contour it was wearing: a look that gives a rind a body of its own
       // is asked for the one it had a layer ago, and everything else wears the

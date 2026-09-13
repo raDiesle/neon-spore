@@ -43,7 +43,7 @@ function marks(world: World): number {
   const c = world.creatures[0];
   if (!c) throw new Error("the field is empty");
   const { ctx } = stubCanvas();
-  const at = creatureCenter(L, c, 0);
+  const at = creatureCenter(L, world, c, 0);
   drawCarryArrows(
     ctx as unknown as CanvasRenderingContext2D,
     L,

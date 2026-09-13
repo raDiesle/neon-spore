@@ -194,10 +194,10 @@ export function drawBeatboxMarks(
   const tell = showsBeatboxCount(l);
   for (const c of world.creatures) {
     if (!beatboxIsBox(c)) continue;
-    const { x, y } = creatureCenter(l, c, beatPhase);
+    const { x, y } = creatureCenter(l, world, c, beatPhase);
     // The body's drawn radius, swell and all, so the marks stand clear of the
     // box at its largest rather than being swallowed by it on every beat.
-    const r = creatureRadius(l, c, beatPhase, world.cfg) * beatboxSwell(c, world.beat, beatPhase);
+    const r = creatureRadius(l, world, c, beatPhase) * beatboxSwell(c, world.beat, beatPhase);
     drawPips(ctx, x, y - r * PIP_LIFT, r, beatboxCount(world, c, tell));
     if (tell) drawCount(ctx, x, y, r, beatboxWanted(c));
     // The rig gets both, because `test` is the two seats on one screen.

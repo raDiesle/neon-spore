@@ -63,7 +63,7 @@ describe("a body on a rim", () => {
       const world = withGyre(beats);
       for (const phase of [0, 1]) {
         for (const m of mounts(world)) {
-          const want = creatureCenter(l, m, phase);
+          const want = creatureCenter(l, world, m, phase);
           const got = mountPlace(l, world, m, phase, 4.2);
           expect(got).not.toBeNull();
           expect(got?.x).toBeCloseTo(want.x, 6);
@@ -77,7 +77,7 @@ describe("a body on a rim", () => {
     const world = withGyre(18, true);
     for (const time of [0, 0.31, 1.7, 9.05]) {
       for (const m of mounts(world)) {
-        const want = creatureCenter(l, m, 1);
+        const want = creatureCenter(l, world, m, 1);
         const got = mountPlace(l, world, m, 1, time);
         expect(got?.x).toBeCloseTo(want.x, 6);
         expect(got?.y).toBeCloseTo(want.y, 6);

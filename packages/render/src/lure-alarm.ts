@@ -89,8 +89,8 @@ export function drawLureAlarms(
 ): void {
   if (!showsLureAlarm(l)) return;
   for (const c of lures(world)) {
-    const { x, y } = creatureCenter(l, c, beatPhase);
-    drawOne(ctx, l, x, y, creatureRadius(l, c, beatPhase, world.cfg), time, c.id, bare);
+    const { x, y } = creatureCenter(l, world, c, beatPhase);
+    drawOne(ctx, l, x, y, creatureRadius(l, world, c, beatPhase), time, c.id, bare);
   }
 }
 

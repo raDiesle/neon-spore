@@ -132,11 +132,11 @@ function drawThread(
   if (on.length < 2) return;
   const line = new Path2D();
   const first = on[0]!;
-  const start = creatureCenter(l, first, beatPhase);
+  const start = creatureCenter(l, world, first, beatPhase);
   line.moveTo(start.x, start.y);
   for (let i = 1; i < on.length; i++) {
-    const prev = creatureCenter(l, on[i - 1]!, beatPhase);
-    const here = creatureCenter(l, on[i]!, beatPhase);
+    const prev = creatureCenter(l, world, on[i - 1]!, beatPhase);
+    const here = creatureCenter(l, world, on[i]!, beatPhase);
     // The sag is a quadratic through the midpoint rather than a curve fitted
     // to the whole run: two beads that end up in the same column — which
     // cannot happen today and would if a thread ever moved — still get a line

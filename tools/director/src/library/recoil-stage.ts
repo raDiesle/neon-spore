@@ -5,7 +5,7 @@ import {
   drawRecoilCage,
   RECOIL_LOOK,
 } from "@neon-spore/render";
-import { type Creature, DEFAULT_CONFIG } from "@neon-spore/sim";
+import { type Creature, createWorld, DEFAULT_CONFIG } from "@neon-spore/sim";
 import { type AssetContext, type AssetFrame, BEAT_SECONDS } from "./types.js";
 
 /**
@@ -35,6 +35,10 @@ const LAYOUT = computeLayout(
   DEFAULT_CONFIG,
   "p2",
 );
+
+/** A world for the cage to read its config and picture off — the flat one,
+ * which is the only one a card draws; nothing in it moves (`countdown-stage.ts`). */
+const WORLD = createWorld(DEFAULT_CONFIG, 1);
 
 const RECOIL: Creature = {
   id: 13,
@@ -68,7 +72,7 @@ export function drawRecoilStage(c: AssetContext, f: AssetFrame, cage: (d: CageDr
     ctx.save();
     drawLiving(ctx, LAYOUT, body, x, y, beats, f.beatPhase, f.t, 0, DEFAULT_CONFIG, 1);
     // `near` is one: the card is at arm's length, and the haze is distance.
-    drawRecoilCage(ctx, LAYOUT, DEFAULT_CONFIG, body, x, y, f.t, 1);
+    drawRecoilCage(ctx, LAYOUT, WORLD, body, x, y, f.t, 1);
     ctx.restore();
   } finally {
     RECOIL_LOOK.cage = was;

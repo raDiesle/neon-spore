@@ -73,8 +73,8 @@ export function drawDartQueries(
   if (showsDartArrow(l)) return;
   for (const c of world.creatures) {
     if (c.kind !== "dart") continue;
-    const { x, y } = creatureCenter(l, c, beatPhase);
-    const r = creatureRadius(l, c, beatPhase, world.cfg);
+    const { x, y } = creatureCenter(l, world, c, beatPhase);
+    const r = creatureRadius(l, world, c, beatPhase);
     const above = y - r * ARROW_LIFT;
     drawDartArrow(ctx, x, above, r, -1, MARK, ALPHA);
     drawDartArrow(ctx, x, above, r, 1, MARK, ALPHA);

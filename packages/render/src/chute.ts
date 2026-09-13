@@ -1,4 +1,4 @@
-import { type Creature, chuteIsOpen, type SimConfig } from "@neon-spore/sim";
+import { type Creature, chuteIsOpen, type World } from "@neon-spore/sim";
 import { CHUTE_LOOK, type ChuteDraw } from "./chute-look.js";
 import { creatureRadius } from "./creature-place.js";
 import { hazed } from "./depth.js";
@@ -55,7 +55,7 @@ import { PALETTE } from "./palette.js";
 export function drawChute(
   ctx: CanvasRenderingContext2D,
   l: Layout,
-  cfg: SimConfig,
+  world: World,
   c: Creature,
   x: number,
   y: number,
@@ -63,7 +63,8 @@ export function drawChute(
   beatPhase: number,
   near: number,
 ): void {
-  const r = creatureRadius(l, c, beatPhase, cfg);
+  const cfg = world.cfg;
+  const r = creatureRadius(l, world, c, beatPhase);
   const d: ChuteDraw = {
     ctx,
     cfg,

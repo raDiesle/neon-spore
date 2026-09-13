@@ -1,6 +1,6 @@
 import type { Point } from "@neon-spore/content";
 import { type Creature, handMeans, isBossBody } from "@neon-spore/sim";
-import { creatureRadius } from "./creature-place.js";
+import { flatRadius } from "./creature-place.js";
 import { glidePhase } from "./depth.js";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
 import type { Field } from "./touch-field.js";
@@ -8,7 +8,7 @@ import { TAP_TILES } from "./touch-hand.js";
 import type { Touch } from "./touch-hold.js";
 import { CANNON_R, navigator, pilot, SHIELD_R } from "./touch-ship.js";
 import { WELL_BODY, wellAngle, wellAt, wellCenter, wellHub, wellSectorAngle } from "./well.js";
-import { wellBodyAt } from "./well-draw.js";
+import { wellBodyAt } from "./well-body.js";
 
 /**
  * THE WELL's screen as a control: the same two questions `touch.ts` asks of
@@ -167,7 +167,7 @@ export function wellCreatureAt(l: Layout, field: Field, x: number, y: number): C
     if (handMeans(c.kind, field.seat) === null) continue;
     const glide = glidePhase(field.cfg, field.beat, c, field.beatPhase);
     const at = wellBodyAt(l, field.cfg, c, glide);
-    const reach = creatureRadius(l, c, field.beatPhase, field.cfg) * WELL_BODY * 1.6;
+    const reach = flatRadius(l, field.cfg, c, field.beatPhase) * WELL_BODY * 1.6;
     const d = Math.hypot(x - at.x, y - at.y);
     if (d > reach || d >= bestDist) continue;
     best = c;

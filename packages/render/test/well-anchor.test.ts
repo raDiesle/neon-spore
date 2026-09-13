@@ -2,10 +2,10 @@ import { describe, expect, it } from "bun:test";
 import { buildBoss, buildQueue, controlSet } from "@neon-spore/content";
 import { createWorld, DEFAULT_CONFIG, startWave, step, type World } from "@neon-spore/sim";
 import { anchorPoint } from "../src/caption-anchor.js";
-import { creatureCenter } from "../src/creature-place.js";
+import { creatureCenter, flatCenter } from "../src/creature-place.js";
 import { glidePhase } from "../src/depth.js";
 import { computeLayout } from "../src/layout.js";
-import { wellBodyAt } from "../src/well-draw.js";
+import { wellBodyAt } from "../src/well-body.js";
 import { waveWith } from "./frame-harness.js";
 
 /**
@@ -46,7 +46,7 @@ describe("a caption about a body on THE WELL", () => {
     expect(at.x).toBeCloseTo(drawn.x, 6);
     expect(at.y).toBeCloseTo(drawn.y, 6);
     // And not where the flat field would have put it.
-    const flat = creatureCenter(PILOT, top, glidePhase(CFG, world.beat, top, 0.5));
+    const flat = flatCenter(PILOT, top, glidePhase(CFG, world.beat, top, 0.5));
     expect(Math.hypot(at.x - flat.x, at.y - flat.y)).toBeGreaterThan(PILOT.tile);
   });
 
@@ -56,7 +56,7 @@ describe("a caption about a body on THE WELL", () => {
     if (!top) throw new Error("no body");
     const at = anchorPoint(NAVIGATOR, world, SET, { at: "body" }, 0.5);
     if (!at) throw new Error("no anchor");
-    const flat = creatureCenter(NAVIGATOR, top, glidePhase(CFG, world.beat, top, 0.5));
+    const flat = creatureCenter(NAVIGATOR, world, top, glidePhase(CFG, world.beat, top, 0.5));
     expect(at.x).toBeCloseTo(flat.x, 6);
     expect(at.y).toBeCloseTo(flat.y, 6);
   });

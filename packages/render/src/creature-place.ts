@@ -2,27 +2,50 @@ import { bodyPhase } from "@neon-spore/content";
 import {
   bodyCenterCol,
   type Creature,
-  DEFAULT_CONFIG,
-  handMeans,
   isMeteorKind,
   rindLayersLeft,
   type SimConfig,
   spanOf,
+  type World,
 } from "@neon-spore/sim";
 import { beatboxBodyMul } from "./beatbox.js";
 import { depthScale, drawnCol, drawnRow } from "./depth.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { rockRadius } from "./torch.js";
+import { WELL_BODY, wellShown } from "./well.js";
+import { wellBodyAt } from "./well-body.js";
 
 type XY = { x: number; y: number };
 
 /**
- * Where a creature is on screen, between beats. The one place the glide is
- * written down: the grip's ring is drawn around the same shape the player is
- * looking at, and the app hit-tests a finger against it, so all three have to
- * agree about where the thing actually is.
+ * Where a creature is on screen, between beats, **on the picture this screen
+ * is drawing**. The one place the glide is written down: the grip's ring is
+ * drawn around the same shape the player is looking at, so both have to agree
+ * about where the thing actually is.
+ *
+ * The world goes in so the question can be asked of the right picture. Until
+ * 13 September 2026 this took none and placed every body on the flat grid
+ * whichever screen was up — so on THE WELL, where the same body stands at its
+ * hour on its row's circle, every mark drawn *around* a body the world still
+ * holds (a grip's ring, the lock's frame, a clasp's shell) would have stood in
+ * the empty middle of the picture, and `drawWellBodies` drew none of them.
+ * On the well the answer is `wellBodyAt`, the same call the body is drawn by.
  */
-export function creatureCenter(l: Layout, c: Creature, beatPhase: number): XY {
+export function creatureCenter(l: Layout, world: World, c: Creature, beatPhase: number): XY {
+  if (wellShown(l, world)) {
+    const at = wellBodyAt(l, world.cfg, c, beatPhase);
+    return { x: at.x, y: at.y };
+  }
+  return flatCenter(l, c, beatPhase);
+}
+
+/**
+ * The flat field's placement, whatever this screen shows — for the one layer
+ * that is handed a field and never a world (`touch.ts`, through `creatureAt`),
+ * and which asks THE WELL's own hit test when the well is up
+ * (`touch-well.ts`). A draw site asks `creatureCenter`.
+ */
+export function flatCenter(l: Layout, c: Creature, beatPhase: number): XY {
   // One tile per beat, linear (`drawnRow`). No easing: the movement must read
   // as an even glide so that "it lands on the four" is a statement both
   // players can act on. Exactly linear, and it stays that way — the depth cues
@@ -179,72 +202,25 @@ export function rindPrevBodyMul(c: Creature): number {
 const ECHO_BODY_MUL = 0.6;
 
 /**
- * How big it draws. A rock has its own sizes; everything living is one tile —
- * both then times the row's perspective scale, because a ring drawn around a
- * body that grew is a ring that has to grow with it.
+ * How big it draws, on the picture this screen is drawing. A rock has its own
+ * sizes; everything living is one tile — both then times the row's
+ * perspective scale, because a ring drawn around a body that grew is a ring
+ * that has to grow with it — and on THE WELL times `WELL_BODY`, the share of
+ * its flat footprint a body is drawn at there (`well-draw.ts`).
  *
- * `beatPhase` and `cfg` are optional so that a caller with neither still gets
- * the shape the game actually draws rather than the flat one: phase 0 puts the
- * body on the row it left, 0.9% of a radius from where it is mid-glide, and
- * `DEFAULT_CONFIG` is what every device runs. `grip.ts` is the one such
- * caller; a quarter of a pixel is under what its own `RING_MUL` spends, and it
- * is worth passing properly the next time that file is open.
+ * `beatPhase` is optional so that a caller with none still gets the shape the
+ * game draws rather than the flat one: phase 0 puts the body on the row it
+ * left, 0.9% of a radius from where it is mid-glide.
  */
-export function creatureRadius(
-  l: Layout,
-  c: Creature,
-  beatPhase = 0,
-  cfg: SimConfig = DEFAULT_CONFIG,
-): number {
+export function creatureRadius(l: Layout, world: World, c: Creature, beatPhase = 0): number {
+  const flat = flatRadius(l, world.cfg, c, beatPhase);
+  return wellShown(l, world) ? flat * WELL_BODY : flat;
+}
+
+/** The flat field's size — `flatCenter`'s reason, for the same two callers. */
+export function flatRadius(l: Layout, cfg: SimConfig, c: Creature, beatPhase: number): number {
   const flat = isMeteorKind(c.kind)
     ? rockRadius(l, spanOf(c))
     : livingRadius(l.tile, livingBodyMul(c));
   return flat * depthScale(cfg, l, drawnRow(c, beatPhase));
-}
-
-/**
- * The creature under **this seat's** finger, or null. Generous — a thumb covers
- * more than a silhouette and a falling target is not a button — and the nearest
- * wins when two overlap.
- *
- * **The seat is part of the question**, which it was not while a hand meant one
- * thing to everybody. A hand on a rock is a brake either seat may apply; a hand
- * on anything living is an aim, and only the pilot has one (`sim/hand.ts`). So
- * a navigator's thumb sweeping over a slick has to find *nothing* — a press
- * that was answered here and then refused by `setGrip` is a control that looks
- * live on one screen and does nothing at all, which is the exact defect the
- * refusals exist to prevent. `handMeans` is that rule asked rather than a list
- * of kinds kept in step with it, and it is also why a boss body, THE WARDEN's
- * rope and a ghost are not named here.
- *
- * The rope used to be answered here, along its whole length, because a hand was
- * the only thing that touched it. It is now *dragged* by a handle rather than
- * held, and a handle is a circle rather than a line: `tetherHandleCircle` in
- * `tether.ts` owns that hit test, beside the code that draws it.
- *
- * The rope used to be answered here, along its whole length, because a hand was
- * the only thing that touched it. It is now *dragged* by a handle rather than
- * held, and a handle is a circle rather than a line: `tetherHandleCircle` in
- * `tether.ts` owns that hit test, beside the code that draws it.
- */
-export function creatureAt(
-  l: Layout,
-  creatures: readonly Creature[],
-  x: number,
-  y: number,
-  beatPhase: number,
-  player: 1 | 2,
-): Creature | null {
-  let best: Creature | null = null;
-  let bestDist = Number.POSITIVE_INFINITY;
-  for (const c of creatures) {
-    if (handMeans(c.kind, player) === null) continue;
-    const { x: cx, y: cy } = creatureCenter(l, c, beatPhase);
-    const reach = creatureRadius(l, c, beatPhase) * 1.6;
-    const d = Math.hypot(x - cx, y - cy);
-    if (d > reach || d >= bestDist) continue;
-    best = c;
-    bestDist = d;
-  }
-  return best;
 }

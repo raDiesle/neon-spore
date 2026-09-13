@@ -107,7 +107,7 @@ export function drawBodies(
   skinY?: SurfaceY,
 ): void {
   if (wellShown(l, world)) {
-    drawWellBodies(ctx, l, world, view, effects);
+    drawWellBodies(ctx, l, world, view, effects, cannonCol);
     return;
   }
   // Under the creatures: the mark is on the column, not on anything in it.
