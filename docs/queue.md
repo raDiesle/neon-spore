@@ -390,6 +390,7 @@ what the rest of this file holds.
 ## `bun run frames` cannot photograph a hand on the ship
 
 - **Found:** 2026-09-13, claude/queue-the-wells-cannon-can-be-held-now-but-the-hands-r
+- **Taken:** 2026-09-13, claude/queue-bun-run-frames-cannot-photograph-a-hand-on-the-s
 - **Files:** `tools/frames/hold.ts`, `tools/frames/spec.ts`, `tools/frames/capture.ts`, `tools/frames/run.ts`, `apps/game/src/handle.ts`
 
 The ring under this phone's own finger (`render/ship-hand.ts`, `view.hand`)
