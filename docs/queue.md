@@ -176,20 +176,34 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## Unverified at a3703115: THE HANDOVER on a wave that names its own window, and o…
+## The HUD says `1 RETRY` on a lost wave before anybody has pressed RETRY WAVE
 
-- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-13, claude/queue-unverified-at-a3703115-the-handover-on-a-wave-th
-- **Files:** `docs/queue.md`, `docs/spec/bestiary.md`, `docs/time-log.md`, `packages/content/src/waves/act-8.ts`, `packages/sim/src/handover.ts`, `packages/sim/src/malfunction.ts`, `packages/sim/test/handover.test.ts`, `tools/director/src/fault-fields.ts`
+- **Found:** 2026-09-13, claude/handover-window
+- **Files:** `packages/sim/src/wave-fail.ts`, `packages/sim/src/wave-start.ts`, `packages/render/src/lost-screen.ts`, `packages/render/src/hud.ts`, `packages/sim/test/rules.test.ts`
 
-*THE HANDOVER's window is the wave's to name, and it may repeat* landed from a session that could not look at it. The commit touched 2 more files. What went unchecked:
+`failWave` counts `world.retries` up on the tick the wave is lost, so the
+lost screen's own frame reads `0:09 · 1 RETRY` in the status line and
+`WAVE 70 · TRY 1` in its title at once — a retry that has not happened, on a
+screen whose other button is QUIT. A pair that quits is recorded with one
+retry they never took (`best.retries` on the room). Count the retry where the
+try is counted, in `wave-start.ts` when a failed wave opens again, and move
+the `waveFailed` event's `retries` and `lost-screen.ts`'s line index (which
+assumes the count is already up) with it. The hash order is untouched; the
+test that pins when the number moves goes beside `failWave`'s in `rules.test.ts`.
 
-- THE HANDOVER on a wave that names its own window, and one that keeps trading: whether a cycle reads as a fault or as noise, and whether the countdown plate is right as permanent furniture
+## `bun run frames` cannot photograph a fault with numbers the wave does not carry
 
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
+- **Found:** 2026-09-13, claude/handover-window
+- **Files:** `tools/frames/flags.ts`, `tools/frames/spec.ts`, `tools/frames/page.ts`, `tools/frames/test/flags.test.ts`
+
+Verifying THE HANDOVER with a cycle meant a scratch script that set
+`world.malfunction = { kind: "handover", at, beats, every }` on the page by
+hand after `openStage`, because no wave in the tree repeats and the tool has
+no way to say so. A `--fault "handover:4,3,6"` flag (kind, then `at`, `beats`,
+`every` in that order, the director's three boxes) set on the world straight
+after `jumpToWave` and before the opening clears would make the picture a
+one-line command anybody can rerun. The same flag covers a runaway cannon or
+shield at a period the wave does not name.
 
 ## Unverified at 47007bd2: THE HANDOVER's rehearsal watched at tempo: whether the…
 

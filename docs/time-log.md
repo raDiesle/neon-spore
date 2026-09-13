@@ -2957,3 +2957,23 @@ and the one test that counted in ticks follow. About 10 min.
 
 Bottleneck: **reading** — finding that the header already argued for a fifth of
 a second while the number said 420 took longer than changing either.
+
+## 2026-09-13 · claude/handover-window — THE HANDOVER's window and a cycle of it, looked at
+
+The queued unverified item from a3703115: THE HANDOVER's own window (nine in,
+eight long) photographed around the trade with `bun run frames`, and a wave
+that keeps trading stood up with a scratch script that set the fault's
+numbers on the page, six beats a cycle with a three-beat hold. The arithmetic
+holds on both; whether the cycle reads as a fault and whether the plate can be
+permanent furniture are the owner's, asked. About 35 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `sim/handover.ts`'s `bounds`, `handover-look.ts`, `frames`'s `openStage` and `makeDriver` to drive a page by hand |
+| writing | 5 | the scratch script, a Python stacker for six band crops, two queue entries |
+| looking | 15 | thirteen frames of THE HANDOVER, sixteen of the cycle, the strip of six beats |
+| friction | 5 | no wave in the tree repeats and the tool cannot be told to — queued as a `--fault` flag |
+| landing | 0 | `check:fast`, the commit, folded into writing |
+
+Bottleneck: **looking** — a cycle is a thing seen across beats, and each beat
+was a frame opened on its own until the crops were stacked.
