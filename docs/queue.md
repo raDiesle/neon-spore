@@ -344,3 +344,17 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## Unverified at 47007bd2: THE HANDOVER's rehearsal watched at tempo: whether the…
+
+- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bestiary.md`, `docs/time-log.md`, `packages/content/src/scenes.ts`, `packages/content/src/scenes/the-handover.ts`, `packages/content/src/waves/act-8.ts`, `packages/render/src/guide-scene.ts`
+
+*THE HANDOVER's guide is a rehearsal, and a film's page is a device* landed from a session that could not look at it. The commit touched 2 more files. What went unchecked:
+
+- THE HANDOVER's rehearsal watched at tempo: whether the trade reads as the panels changing screens rather than as the film moving to the other player, and whether four pages is enough before the wave
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
