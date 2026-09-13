@@ -220,21 +220,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## Unverified at cb36a290: The menu's front page seen on a phone: whether four row…
-
-- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-13, claude/queue-unverified-at-cb36a290-the-menus-front-page-seen
-- **Files:** `apps/game/src/join-words.ts`, `apps/game/src/menu-door.ts`, `apps/game/src/menu-entries.ts`, `apps/game/src/menu-link.ts`, `apps/game/src/menu-pages.ts`, `apps/game/src/menu-parts.ts`, `apps/game/src/menu-view.ts`, `apps/game/src/menu.ts`
-
-*The menu's front page is four rows, and the rig is behind the spore* landed from a session that could not look at it. The commit touched 5 more files. What went unchecked:
-
-- The menu's front page seen on a phone: whether four rows read as the front door, whether CONTINUE's line is the right sentence at the moment a pair meets, and whether three presses on the spore is findable by the one person who wants the rig
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## Unverified at f91ad6ab: Two phones actually parting and finding their way back:…
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
@@ -250,21 +235,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## Unverified at 93caa4e4: The menu's new palette and face seen on a phone: whethe…
-
-- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-13, claude/queue-unverified-at-93caa4e4-the-menus-new-palette-and
-- **Files:** `apps/game/index.html`, `apps/game/src/menu.css`, `apps/game/test/menu-contrast.test.ts`, `docs/queue.md`, `docs/time-log.md`
-
-*The menu's colours are named, measured, and set in a face that is not Courier* landed from a session that could not look at it. What went unchecked:
-
-- The menu's new palette and face seen on a phone: whether Space Grotesk suits a game drawn in monospace, and whether the lifted purples read as one family or as three — the ratios are measured by a test, the look is not
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## Unverified at 091f7df2: The two people's names on a phone: whether a name at th…
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
@@ -273,21 +243,6 @@ what the rest of this file holds.
 *The two people's names, in the three places the game wrote P1 and P2* landed from a session that could not look at it. The commit touched 11 more files. What went unchecked:
 
 - The two people's names on a phone: whether a name at the siren chip's full width reads as fast as P1 did at a glance, and whether the cluster over the field's top row is affordable while a call is on
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at b5356072: The difficulty page seen on a phone: whether three rows…
-
-- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-13, claude/queue-unverified-at-b5356072-the-difficulty-page-seen
-- **Files:** `apps/game/src/link-report.ts`, `apps/game/src/link-types.ts`, `apps/game/src/link.ts`, `apps/game/src/main.ts`, `apps/game/src/menu-bindings.ts`, `apps/game/src/menu-entries.ts`, `apps/game/src/menu-link.ts`, `apps/game/src/menu-parts.ts`
-
-*Three difficulties, and the one number they move* landed from a session that could not look at it. The commit touched 23 more files. What went unchecked:
-
-- The difficulty page seen on a phone: whether three rows behind PLAY is where a pair looks for this, whether START AGAIN is the right word on the question in front of a level, and whether Hard is hard rather than merely quick
 
 Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.

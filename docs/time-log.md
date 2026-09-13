@@ -2793,3 +2793,25 @@ its own copy, which put the item back. About 5 min.
 
 Bottleneck: **landing** — two queue removals and a commit for five minutes of
 reading, and one of the removals is a landing somebody else's rebase undid.
+
+## 2026-09-13 · claude/queue-unverified-at-b5356072-the-difficulty-page-seen — three menu pages seen on a phone
+
+Three unverified items at once: the front page, the palette and face, and
+the difficulty page, each "seen on a phone". The preview served this tree,
+the browser pane at 375×812 and a playwright page at 390×844 with the intro
+already seen: three rows on the front door, three behind PLAY with the SURE?
+question under HARD, Space Grotesk on the wordmark and monospace on the rows,
+all on one screen with room under them. The pictures went to the owner; the
+entries come out. The names item was released rather than closed — the chip
+only carries a name once a room knows two, which is two devices. About 20 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the four entries, `menu-entries.ts` for when the fourth row shows, where names come from (`status.names`) |
+| writing | 5 | a scratch playwright script that sets the intro seen and walks the three pages |
+| looking | 5 | the pane at phone size, then the three PNGs |
+| friction | 5 | `bun run crop` refused its arguments; the pane's zoom returns the whole frame; a coordinate tap on HARD did not land and a ref tap did |
+| landing | 5 | the three removals, one release, the commit |
+
+Bottleneck: **friction** — getting a phone-sized PNG of a page behind the
+intro took a script, because `bun run shot` cannot mark the intro as seen.
