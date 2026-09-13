@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · f5831a7f — A cleared wave on the director's stage stops and asks REPEAT WAVE?
+
+The stage used to rebuild the wave the instant it cleared, so the author never saw it clear. Now it pauses under a grey veil that says REPEAT WAVE? and a click anywhere on the screen — or P, which the PAUSED line under the veil still names — runs it again from the top. A director change, not a look on the field. Queued for the map editor: an add and a remove button on each beat row, shifting the rows after it.
+
 ## 2026-09-13 · e44b5f47 — The lockstep test and the perf baseline follow FIRST STEP's eight bodies
 
 The owner saved FIRST STEP from the director with eight red bodies in place of one, and the save committed to `main` without a check: the perf baseline's row for the wave went stale and `two-devices-wave.test.ts`'s hand-written script played a wave that no longer existed. The row is marked unmeasured (`bun run perf --unmeasured`) and the script now takes all eight bodies, the cannon crossing the field twice. Queued: the save should blank the row itself, and the test should carry a wave of its own.
