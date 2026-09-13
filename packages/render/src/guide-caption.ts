@@ -4,6 +4,7 @@ import { anchorPoint } from "./caption-anchor.js";
 import { BANNER_H, BANNER_TOP } from "./guide-switch.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { type SeatNames, withNames } from "./seat-name.js";
 import { wrapText } from "./wrap-text.js";
 
 /**
@@ -46,6 +47,10 @@ export function drawCaption(
   step: SceneStep,
   tick: number,
   beatPhase: number,
+  /** The two people's names, where the room knows them: a caption that says
+   * PLAYER 2 says their name instead (`seat-name.ts`). Unset on a device
+   * playing alone, and then the caption is the one content wrote. */
+  names?: SeatNames,
 ): void {
   const point = anchorPoint(l, world, set, step.anchor, beatPhase);
   if (!point) return;
@@ -70,7 +75,7 @@ export function drawCaption(
   ctx.font = FONT;
   // Wrapped rather than clamped: a caption wider than the screen used to be
   // shoved sideways until it was no longer beside the thing it was about.
-  const lines = wrapText(ctx, step.text, l.width - 24 - PAD * 2);
+  const lines = wrapText(ctx, withNames(step.text, names), l.width - 24 - PAD * 2);
   const h = lines.length * LINE + 12;
   let w = 0;
   for (const line of lines) w = Math.max(w, ctx.measureText(line).width);

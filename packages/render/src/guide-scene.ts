@@ -157,7 +157,7 @@ export class GuideStage {
     ctx.restore();
 
     const phase = beatPhase(cfg, run.world.tick);
-    drawCaption(ctx, l, run.world, set, step, run.tick, phase);
+    drawCaption(ctx, l, run.world, set, step, run.tick, phase, names);
     drawHands(ctx, l, run, scene, set, step.seat, phase);
     drawGuideCorner(ctx, l, {
       seat: step.seat,

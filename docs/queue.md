@@ -205,34 +205,6 @@ stay in `packages/net/src/nickname.ts`, where both ends read them. The
 server's tests are `bun test apps/server`; the sign-in round trip against a
 real provider is unverified from a cloud session.
 
-## The game says the players' nicknames where it now says Player 1 and Player 2
-
-- **Found:** 2026-09-13, queue-lanes — asked for by the owner
-- **Taken:** 2026-09-13, claude/queue-the-game-says-the-players-nicknames-where-it-now
-- **Files:** `packages/net/src/nickname.ts`, `packages/render/src/siren-seats.ts`, `packages/render/src/grip.ts`, `apps/game/src/menu-seats.ts`, `apps/game/src/menu-pages.ts`, `apps/game/src/view.ts`, `packages/content/src/scenes.ts`
-- **Where:** cloud
-
-On the field, in the guides and on the menu's seat cards the two seats are
-called **P1 / P2** or **Player 1 / Player 2** (`siren-seats.ts` draws the
-letters, `grip.ts` writes "P2 PULLS", the guides' pages say "Player 1 holds
-…"). The owner wants the **nicknames** there instead, everywhere a person
-reads a seat's name in play — and to make that safe, the nickname's alphabet
-and length **limited** so a name never breaks a label: the field's labels are
-drawn in a fixed box at a fixed size, and a guide page has a line's width.
-
-The rules live in one place already — `packages/net/src/nickname.ts`,
-`isName`/`normalizeName` — so tighten them there (letters, digits, space and
-a hyphen; a length the widest label can carry, which `siren-seats.ts` and
-`grip.ts` decide, measured with the stub's `measureText`), and thread the
-names through: the room already sends both in `welcome.names`, the renderer
-gets them on the `View` it is handed each frame, and the guides take a
-`{p1, p2}` pair at page-build time rather than a literal. Where a name is
-absent (a one-device run, a seat not yet filled) the old words stay. The
-`docs/` prose and the director's sheets keep saying Player 1 and Player 2:
-they are about the seats, not the people. Frame tests (`grip-frame.test.ts`,
-the siren's) and the guide-page tests prove the substitution; a name at the
-length limit is one of the cases.
-
 ## A new game is started at a difficulty — Easy, Medium or Hard
 
 - **Found:** 2026-09-13, queue-lanes — asked for by the owner

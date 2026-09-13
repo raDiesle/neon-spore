@@ -2471,3 +2471,26 @@ Bottleneck: **writing** — the substitution is mechanical and the decision unde
 it is one line long: what a colour is *for*. Every token is named for a job, so
 the next lane picks a value by asking what it is writing rather than by matching
 a purple.
+
+## 2026-09-13 — scheduler-tests-two-devices-klxkyt — the two people's names, where P1 and P2 were
+
+Queue item, the owner's: the game called the two seats P1 and P2 in the three
+places a person reads one mid-wave, and he wanted the nicknames there. The
+siren's chip says the name and grows to it, the word under a hand says it, and
+a rehearsal's caption says it — by substitution on PLAYER 1 and PLAYER 2 rather
+than by teaching two hundred content strings a template. The menu's seat cards
+say who is sitting in each. A hyphen is a letter now, because Anne-Marie is a
+name. Everywhere a name is missing, every one of them draws exactly what it
+drew before. About 55 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `siren-seats.ts`'s fixed pill and the arithmetic the whole cluster hangs off it, `grip.ts`'s measured plate, `guide-caption.ts` for where a caption's words come from, and `seat-name.ts`, which had the mechanism already |
+| writing | 30 | the pill sized to its label, the cluster laid out from two widths, the names threaded down four draw chains, `withNames`, the seat cards, the hyphen, and 17 tests over four pure functions |
+| looking | 0 | none — a cloud session cannot see a chip, which is exactly what this one changes the size of |
+| friction | 5 | `packages/render` may not import `@neon-spore/net`, so the test that measures a chip against the longest name writes the twelve out and says why |
+| landing | 5 | `check:fast`, the commit, `bun run land` |
+
+Bottleneck: **writing** — the substitution is four lines and the geometry under
+it is the work: a pill that was 34 pixels wide in six expressions, one of them
+exported and read by the director.

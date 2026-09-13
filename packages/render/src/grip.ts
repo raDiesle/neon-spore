@@ -11,6 +11,7 @@ import { drawCarryArrows } from "./grip-arrows.js";
 import { drawBeam } from "./grip-beam.js";
 import type { Layout, ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { hasSeatName, type SeatNames, seatName } from "./seat-name.js";
 
 /**
  * THE GRIP, drawn — and **two hands, drawn differently**, which is the whole of
@@ -50,6 +51,10 @@ export function drawGrips(
   world: World,
   beatPhase: number,
   time: number,
+  /** The two people's names, where the room knows them — the label over a hand
+   * says *their* name rather than P2 (`seat-name.ts`). The box is measured, so
+   * a long one widens the plate rather than running out of it. */
+  names?: SeatNames,
 ): void {
   if (l.tile <= 0) return;
   for (const c of world.creatures) {
@@ -75,7 +80,7 @@ export function drawGrips(
     // at tempo, 13 September 2026). `drawBoss` draws that hand over the
     // stack instead (`cairn-hand.ts`).
     if (means === "pull") continue;
-    drawHandOn(ctx, l, world, c, means, p1, p2, beatPhase, time);
+    drawHandOn(ctx, l, world, c, means, p1, p2, beatPhase, time, names);
   }
 }
 
@@ -89,10 +94,11 @@ function drawHandOn(
   p2: boolean,
   beatPhase: number,
   time: number,
+  names?: SeatNames,
 ): void {
   const { x, y } = creatureCenter(l, c, beatPhase);
   const r = Math.max(1, creatureRadius(l, c) * RING_MUL);
-  drawHandAt(ctx, l, world, c, means, p1, p2, x, y, r, time);
+  drawHandAt(ctx, l, world, c, means, p1, p2, x, y, r, time, names);
 }
 
 /** The ring and the word, at a place a caller has already worked out —
@@ -109,6 +115,7 @@ export function drawHandAt(
   y: number,
   r: number,
   time: number,
+  names?: SeatNames,
 ): void {
   // Two hands pull harder, and the picture says so before the numbers do.
   const weight = p1 && p2 ? 1 : 0.62;
@@ -117,7 +124,7 @@ export function drawHandAt(
   // The two lanes out, and only a braked body has any: an aim does not move
   // what it is pointed at (`grip-arrows.ts`).
   if (means === "brake") drawCarryArrows(ctx, l, world, c, x, y, r, time);
-  drawLabel(ctx, l.role, x, y + r + 12, means, p1, p2);
+  drawLabel(ctx, l.role, x, y + r + 12, means, p1, p2, names);
 }
 
 /** Four arcs turning around the silhouette — a hand closed on it, not a target
@@ -172,8 +179,9 @@ function drawLabel(
   means: HandMeans,
   p1: boolean,
   p2: boolean,
+  names?: SeatNames,
 ): void {
-  const text = gripLabel(role, means, p1, p2);
+  const text = gripLabel(role, means, p1, p2, names);
   ctx.save();
   ctx.font = '600 9px "Courier New",monospace';
   ctx.textAlign = "center";
@@ -199,12 +207,25 @@ function drawLabel(
  * BOTH only ever appears over a pull. An aim is the pilot's alone, so there is
  * no second hand for it to be shared with (`sim/hand.ts`).
  */
-export function gripLabel(role: ViewRole, means: HandMeans, p1: boolean, p2: boolean): string {
+export function gripLabel(
+  role: ViewRole,
+  means: HandMeans,
+  p1: boolean,
+  p2: boolean,
+  names?: SeatNames,
+): string {
   // A brake and a pull are both a hand dragging at something; an aim is the
   // one that moves nothing, and the one word the partner has to read as such.
   const verb = means === "aim" ? "AIM" : "PULL";
   if (p1 && p2) return `BOTH ${verb}`;
   const who = p1 ? 1 : 2;
   const mine = role === (who === 1 ? "p1" : "p2");
-  return mine ? `YOU ${verb}` : `P${who} ${verb}S`;
+  if (mine) return `YOU ${verb}`;
+  // **Their name, where the room knows it.** P2 is what the game called the
+  // other seat when it had nothing else to call them; a pair who have given
+  // their names read the name instead, which is the word they would use out
+  // loud anyway. The plate under this is measured (`drawLabel`), so the longer
+  // word costs nothing but width.
+  const them = hasSeatName(who, names) ? seatName(who, names) : `P${who}`;
+  return `${them} ${verb}S`;
 }

@@ -2,6 +2,7 @@ import { type Creature, gripsCreature, type World } from "@neon-spore/sim";
 import { cairnUnits } from "./cairn.js";
 import { drawHandAt } from "./grip.js";
 import type { Layout } from "./layout.js";
+import type { SeatNames } from "./seat-name.js";
 
 /** How far outside the outermost stone the ring sits — a hand closed on the
  * pile, not a line through its rocks. */
@@ -21,6 +22,8 @@ export function drawPileHand(
   body: Creature,
   units: number,
   time: number,
+  /** The two people's names, for the word under the ring (`grip.ts`). */
+  names?: SeatNames,
 ): void {
   if (l.tile <= 0) return;
   const p1 = gripsCreature(world, 1, body.id);
@@ -36,5 +39,5 @@ export function drawPileHand(
   const x = (Math.min(...xs) + Math.max(...xs)) / 2;
   const y = (Math.min(...ys) + Math.max(...ys)) / 2;
   const r = Math.max(...stack.map((u) => Math.hypot(u.x - x, u.y - y) + u.r));
-  drawHandAt(ctx, l, world, body, "pull", p1, p2, x, y, r * RING_OUT, time);
+  drawHandAt(ctx, l, world, body, "pull", p1, p2, x, y, r * RING_OUT, time, names);
 }

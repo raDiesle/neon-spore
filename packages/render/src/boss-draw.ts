@@ -89,7 +89,7 @@ export function drawBoss(
     // A hand on it, over the stack rather than under it — the field's grip
     // pass runs before the boss is drawn, and a ring behind seven rocks was
     // no ring at all (`cairn-hand.ts`).
-    drawPileHand(ctx, l, world, body, boss.units, view.time);
+    drawPileHand(ctx, l, world, body, boss.units, view.time, view.names);
     // And, on one screen of the two, the lane the pile is about to drop one
     // into. After the pile, because it stands on the stone that is going and
     // has to be read over it (`cairn-settle.ts`).

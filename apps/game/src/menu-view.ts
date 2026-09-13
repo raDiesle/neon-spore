@@ -67,6 +67,8 @@ export interface MenuDom {
    * which seat this is instead of offering a choice that cannot be taken.
    */
   lockSeats: (locked: boolean, why: string) => void;
+  /** The two people's names on the two seat cards (`menu-seats.ts`). */
+  paintNames: (names: readonly [string, string]) => void;
   /** Re-label an entry, or take it off the page. Named by `key`. */
   setEntry: (key: string, next: { label?: string; desc?: string; on?: boolean }) => void;
   /**
@@ -175,7 +177,7 @@ export function buildMenu(h: MenuHandlers): MenuDom {
   // two of you settle while you are meeting, and a card offering a job to
   // somebody who has not said who they are playing with was the front page's
   // biggest block of text.
-  const { seatBlock, paintSeat, lockSeats } = buildSeats(h.onSeat);
+  const { seatBlock, paintSeat, lockSeats, paintNames } = buildSeats(h.onSeat);
   playPage.append(seatBlock);
 
   // The rig's door: three presses on the spore, inside a couple of seconds.
@@ -208,6 +210,7 @@ export function buildMenu(h: MenuHandlers): MenuDom {
     show,
     paintSeat,
     lockSeats,
+    paintNames,
     setEntry: (key, next) => {
       const found = entries.get(key);
       if (!found) return;

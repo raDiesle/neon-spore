@@ -9,9 +9,25 @@
  *
  * **The rules, decided by the owner on 3 September 2026.** A name is required.
  * `normalizeName` trims the ends, collapses any run of inner whitespace to one
- * space, and drops anything that is not a letter, a digit or one of those
- * spaces; `isName` then holds the result to 3 to 12 characters. Twelve because
- * a seat pill on a narrow phone is what has to hold it.
+ * space, and drops anything that is not a letter, a digit, one of those spaces
+ * or a hyphen; `isName` then holds the result to 3 to 12 characters.
+ *
+ * **The hyphen is the one piece of punctuation allowed**, added on 13 September
+ * 2026 when the game started writing these names where it used to write P1 and
+ * P2. Anne-Marie is a name and Anne Marie is a different one, and the rule that
+ * threw the hyphen away was the rule for a string nobody but the room ever
+ * read. Everything else still goes: a name is said out loud across a voice
+ * channel, and a name with a `~` in it cannot be.
+ *
+ * **Twelve, and the labels are what decide it.** A name is drawn in three
+ * places the pair reads mid-wave — the siren's seat chip, a hand's label over a
+ * body, and a rehearsal's caption — and all three now *measure* what they are
+ * given and grow (`siren-seats.ts`, `grip.ts`, `guide-caption.ts`). What twelve
+ * buys is that the widest of them, the chip, still leaves the field's top row
+ * visible on a narrow phone: at nine pixels of Courier that is about eighty
+ * pixels of pill, and two of them with the dial between comes to a little over
+ * half a phone — which is affordable only because the chips are drawn while a
+ * call is on and at no other time.
  *
  * Drawn upper case by CSS rather than stored that way: what is stored is what
  * was typed, so a person who writes "David" is not told the game thinks their
@@ -28,12 +44,13 @@ export const NAME_MAX = 12;
  *
  * Letters and digits from **any** script, not just the Latin alphabet: the
  * design vocabulary of this game is English and a player's own name is not
- * part of it. Punctuation and symbols go, because a name is said out loud
+ * part of it. One hyphen's worth of punctuation stays, for the reason at the
+ * top of this file; everything else goes, because a name is said out loud
  * across a voice channel and a name with a `~` in it cannot be.
  */
 export function normalizeName(raw: string): string {
   return raw
-    .replace(/[^\p{L}\p{N}\s]/gu, "")
+    .replace(/[^\p{L}\p{N}\s-]/gu, "")
     .replace(/\s+/gu, " ")
     .trim();
 }

@@ -99,6 +99,10 @@ export function paintLink({ dom, link, pairRoom, opened, wave }: LinkPaint): voi
     desc: `Back into the room you and ${partner} share. No code to read out.`,
   });
   dom.setEntry("leave", { on: room });
+  // Who is sitting in each seat, on the cards. Blank for a seat the room has
+  // not filled or a player who has given no name, which is what the cards said
+  // before there were any (`menu-seats.ts`).
+  dom.paintNames(link?.names ?? ["", ""]);
   dom.setEntry("room", {
     desc: link ? roomLine(link) : "Open a room, or type in the code you were told.",
   });

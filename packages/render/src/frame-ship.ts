@@ -155,7 +155,7 @@ export function drawOverlays(
   // every creature that needs it. It is an overlay rather than part of the
   // field because it is about the pair rather than about anything standing in
   // a column (`siren.ts`).
-  drawCommsSiren(ctx, l, world, view.time);
+  drawCommsSiren(ctx, l, world, view.time, view.names);
   drawBand(
     ctx,
     l,

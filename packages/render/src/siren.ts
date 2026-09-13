@@ -5,7 +5,8 @@ import { halo } from "./glow.js";
 import { mixHex } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { drawSeat, PILL_W, SIREN_PAD } from "./siren-seats.js";
+import type { SeatNames } from "./seat-name.js";
+import { drawSeat, pillWidth, SIREN_PAD, seatChip } from "./siren-seats.js";
 
 /**
  * The warning siren, top right of the field beside the strip, and the two
@@ -59,9 +60,14 @@ const DUTY_FONT = '700 8px "Courier New",monospace';
  * Where the dial's middle is on this screen. Exported for the director's
  * WORDINGS page, which points a label at it — from these numbers rather than
  * a copy of them, so the label follows the dial if it ever moves.
+ *
+ * **It depends on the names now**, because the chip on the right of the dial is
+ * as wide as the word in it and the cluster is pinned to the right edge rather
+ * than to the dial. A caller with no names gets exactly the arithmetic this had
+ * before: two thirty-four-pixel pills, which is what P1 and P2 measure.
  */
-export function sirenCentre(l: Layout): { x: number; y: number } {
-  return { x: l.width - SIREN_PAD - PILL_W - GAP - R, y: TOP + R };
+export function sirenCentre(l: Layout, names?: SeatNames): { x: number; y: number } {
+  return { x: l.width - SIREN_PAD - pillWidth(seatChip("p2", names)) - GAP - R, y: TOP + R };
 }
 
 export function drawCommsSiren(
@@ -69,6 +75,10 @@ export function drawCommsSiren(
   l: Layout,
   world: World,
   time: number,
+  /** The two people's names, where the room knows them: the chips say who has
+   * to talk, and a name is what the other one would actually be called
+   * (`siren-seats.ts`). */
+  names?: SeatNames,
 ): void {
   const call = commsCall(world);
   if (!call) return;
@@ -77,13 +87,17 @@ export function drawCommsSiren(
   // before player 2 everywhere else on the screen. Stacking both chips under
   // the dial put them in a column, and a column has no left and no right, so
   // there was nothing to line either of them up with.
-  const { x: cx, y: cy } = sirenCentre(l);
-  const reach = R + GAP + PILL_W / 2;
+  const { x: cx, y: cy } = sirenCentre(l, names);
+  // Each chip is as wide as the word in it, so the two reaches are worked out
+  // one at a time rather than shared: a pair called Bo and Anne-Marie have
+  // chips of two different widths and the dial stays between them.
+  const left = R + GAP + pillWidth(seatChip("p1", names)) / 2;
+  const right = R + GAP + pillWidth(seatChip("p2", names)) / 2;
 
   ctx.save();
   drawDial(ctx, cx, cy, time);
-  drawSeat(ctx, l, "p1", call.p1, cx - reach, cy, time);
-  drawSeat(ctx, l, "p2", call.p2, cx + reach, cy, time);
+  drawSeat(ctx, l, "p1", call.p1, cx - left, cy, time, names);
+  drawSeat(ctx, l, "p2", call.p2, cx + right, cy, time, names);
   // And, under it, the word or words this seat owes the other about whatever
   // split body is on the field. Nothing else in the game writes a word here
   // (`duty.ts`).

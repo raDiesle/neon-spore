@@ -80,6 +80,7 @@ function recorder(): { dom: MenuDom; on: Map<string, boolean>; desc: Map<string,
     },
     setProgress: () => {},
     lockSeats: () => {},
+    paintNames: () => {},
   } as unknown as MenuDom;
   return { dom, on, desc };
 }

@@ -27,6 +27,14 @@ describe("normalizeName", () => {
     expect(normalizeName("<script>")).toBe("script");
   });
 
+  it("keeps the one hyphen, because Anne-Marie is a name", () => {
+    // Added when the game started writing these names where it used to write
+    // P1 and P2: Anne Marie is a different person, and the rule that threw the
+    // hyphen away was the rule for a string only the room ever read.
+    expect(normalizeName("Anne-Marie")).toBe("Anne-Marie");
+    expect(normalizeName("Jean-Luc!")).toBe("Jean-Luc");
+  });
+
   it("keeps letters and digits from any script", () => {
     // The design vocabulary of this game is English; a player's own name is
     // not part of it.

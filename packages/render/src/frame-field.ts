@@ -221,7 +221,7 @@ export function drawBodies(
   drawChoirArrows(ctx, l, world, view.time);
   // Over the creatures, under everything the ship does: a hand on something
   // is not an effect this file owns — it is world state, read fresh.
-  drawGrips(ctx, l, world, view.beatPhase, view.time);
+  drawGrips(ctx, l, world, view.beatPhase, view.time, view.names);
   // And, over the hand, the frame that says the cannon has this one. After the
   // grips rather than inside them: a body can be held without being locked —
   // a rock is, and that is what the grip was built for — so the ring and the

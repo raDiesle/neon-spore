@@ -18,14 +18,21 @@ import { el } from "./menu-parts.js";
  * shape at all.
  */
 
-const SEATS: { role: ViewRole; tag: string; name: string; what: string }[] = [
+const SEATS: { role: ViewRole; seat?: 1 | 2; tag: string; name: string; what: string }[] = [
   {
     role: "p1",
+    seat: 1,
     tag: "P1",
     name: "PILOT",
     what: "Slides the cannon, opens the maw, triggers the guard.",
   },
-  { role: "p2", tag: "P2", name: "NAVIGATOR", what: "Slides the shield, fires red and cyan." },
+  {
+    role: "p2",
+    seat: 2,
+    tag: "P2",
+    name: "NAVIGATOR",
+    what: "Slides the shield, fires red and cyan.",
+  },
   {
     role: "test",
     tag: "BOTH",
@@ -34,11 +41,21 @@ const SEATS: { role: ViewRole; tag: string; name: string; what: string }[] = [
   },
 ];
 
-/** What `buildMenu` keeps of the block: the node, and the two ways to paint it. */
+/** What `buildMenu` keeps of the block: the node, and the three ways to paint it. */
 export interface SeatBlock {
   seatBlock: HTMLElement;
   paintSeat: (role: ViewRole) => void;
   lockSeats: (locked: boolean, why: string) => void;
+  /**
+   * The two people's names, as the room last said them.
+   *
+   * The tag on a card is P1 or P2 until the room knows who is sitting there,
+   * and then it is the person: a card that says DAVID · NAVIGATOR is the one
+   * sentence a pair setting up actually needs, and the letters were only ever
+   * the game's way of saying it with nothing to go on. The third card is the
+   * rig and has no person to name.
+   */
+  paintNames: (names: readonly [string, string]) => void;
 }
 
 export function buildSeats(onSeat: (role: ViewRole) => void): SeatBlock {
@@ -48,14 +65,15 @@ export function buildSeats(onSeat: (role: ViewRole) => void): SeatBlock {
   const buttons = SEATS.map((s) => {
     const button = el("button", "seat-card");
     button.type = "button";
-    button.append(el("span", "tag", s.tag));
+    const tag = el("span", "tag", s.tag);
+    button.append(tag);
     button.append(el("span", "name", s.name), el("span", "what", s.what));
     button.addEventListener("click", () => {
       if (button.disabled) return;
       onSeat(s.role);
     });
     block.append(button);
-    return { role: s.role, el: button };
+    return { role: s.role, seat: s.seat, tag, plain: s.tag, el: button };
   });
   block.append(note);
 
@@ -63,6 +81,12 @@ export function buildSeats(onSeat: (role: ViewRole) => void): SeatBlock {
     seatBlock: block,
     paintSeat: (role) => {
       for (const b of buttons) b.el.classList.toggle("on", b.role === role);
+    },
+    paintNames: (names) => {
+      for (const b of buttons) {
+        const given = b.seat === undefined ? "" : (names[b.seat - 1] ?? "").trim();
+        b.tag.textContent = given === "" ? b.plain : given.toUpperCase();
+      }
     },
     lockSeats: (locked, why) => {
       for (const b of buttons) {
