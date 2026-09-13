@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · b82d01ad — The director's map, tapped on a phone-sized viewport, wears its row verbs on the tapped row alone
+
+Verified caaf6cac's phone claim on a 375-px touch viewport with playwright: the tapped row alone shows the insert lines and the trash, and the palette is not sticky there. Found and queued: the MAP view keeps the desktop two-column frame, so the map gets ~110 px beside the palette and its cell panel and trash sit off the right edge.
+
 ## 2026-09-13 · 6ecebe84 — THE LEAK: the fault that takes the hold, not a button
 
 The owner asked for a modifier on the standard panel where holding a cannon colour fires no beam, taught by a guide and a wave of its own, and asked whether the game already had one. It did not: there were five faults and every one of them takes a *control*. THE LEAK is the sixth and the first to take a **gesture**. The cannon lobe will not hold a charge — a thumb on a colour fills nothing however long it stays down, so no lance ever comes — and everything else is untouched: both colours answer the thumb, a tap is the bolt it has always been, and the lift after a long hold still fires the bolt it owes. That last half is the whole design. A fault that swallowed the press would have taken the trigger away rather than the weapon, and the pair would have found a dead panel instead of a missing answer.
