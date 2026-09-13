@@ -329,66 +329,24 @@ on one wave, which this game has so far refused to do. **A step limit
 everywhere**, which is a change to the whole control scheme and would want its
 own argument — the rail is the one control that has never had a speed.
 
-## Unverified at 0defb8b3: THE WEIGHT watched at tempo: the private mark under one…
+## THE CAIRN paints at two and a half times the run's median
 
-- **Found:** 2026-09-12, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-13, claude/queue-unverified-at-0defb8b3-the-weight-watched-at-tem
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bestiary.md`, `docs/spec/ideas.md`, `docs/spec/transfers-bosses.md`, `docs/time-log.md`, `packages/audio/src/bind.ts`
+- **Found:** 2026-09-13, watch-cloud-waves
+- **Files:** `packages/render/src/cairn.ts`, `packages/render/src/meteor.ts`, `packages/render/src/meteor-blaze.ts`, `packages/render/test/wave-budget.test.ts`
 
-*THE WEIGHT: a body two thumbs crush, and neither thumb can see the other* landed from a session that could not look at it. The commit touched 46 more files. What went unchecked:
+The first measurement of the four waves the cloud session landed, taken three
+times on 13 September with `bun run perf --wave 66,67,68,69`: THE WEIGHT, THE
+CODEX and THE WELL sit at or under the run's median, and **THE CAIRN paints at
+11–12 ms typical, 13–15 ms at the ninetieth percentile — 2.5× the median and
+up to 90% of a 60 Hz frame** on the owner's Windows machine, with the game's
+dearest waves at 6.4–7.1 ms in the last full sweep. Every run was flagged (THE
+WALL moved against the baseline of 9 September, so no absolute figure was
+saved and the four rows stay unmeasured); the *share* held across all three.
 
-- THE WEIGHT watched at tempo: the private mark under one thumb, the calipers closing under two, and whether wave 66's three steps read as a lesson
-- bun run perf --wave "THE WEIGHT" — the wave landed with an unmeasured baseline row
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at ae31f4ba: THE CODEX watched at tempo: whether the shimmer reads a…
-
-- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-13, claude/queue-unverified-at-ae31f4ba-the-codex-watched-at-temp
-- **Files:** `docs/INDEX.md`, `docs/asset-catalogue.md`, `docs/queue.md`, `docs/spec/bestiary.md`, `docs/spec/ideas.md`, `docs/spec/transfers-bosses.md`, `docs/time-log.md`, `packages/content/src/mechanics-wave.ts`
-
-*THE CODEX: a fault that takes nothing away and changes what everything means* landed from a session that could not look at it. The commit touched 29 more files. What went unchecked:
-
-- THE CODEX watched at tempo: whether the shimmer reads as the air going wrong rather than as a flicker, and whether a pair can hold a key across the four-beat turn
-- bun run perf --wave "THE CODEX" — the wave landed with an unmeasured baseline row
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at cc5f5c5b: THE CAIRN watched at tempo: whether the seams between t…
-
-- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-13, claude/queue-unverified-at-cc5f5c5b-the-cairn-watched-at-temp
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bestiary.md`, `docs/spec/bosses.md`, `docs/spec/ideas.md`, `docs/spec/transfers-bosses.md`, `docs/time-log.md`
-
-*THE CAIRN: a boss you take apart by hand, into the rocks it is made of* landed from a session that could not look at it. The commit touched 52 more files. What went unchecked:
-
-- THE CAIRN watched at tempo: whether the seams between the seven units read as countable, whether a thumb carried across the pile feels like dragging a rock out of it, and whether the ring on the stone that is going is loud enough on the pilot's screen to be worth saying a column about
-- bun run perf --wave "THE CAIRN" — the wave landed with an unmeasured baseline row
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at 9e1c5a70: THE WELL watched at tempo: whether eleven lanes read as…
-
-- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-13, claude/queue-unverified-at-9e1c5a70-the-well-watched-at-tempo
-- **Files:** `apps/game/src/field-input.ts`, `apps/game/src/input-bindings.ts`, `apps/game/src/input.ts`, `docs/INDEX.md`, `docs/decisions.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/ideas.md`
-
-*THE WELL: the field turned inside out, and nothing else changed* landed from a session that could not look at it. The commit touched 45 more files. What went unchecked:
-
-- THE WELL watched at tempo: whether eleven lanes read as countable at a glance, whether a body arriving at the rim is still nameable, and whether the seam above the ship reads as a wall rather than as a gap in a dial
-- bun run perf on THE WELL: the wave went in with --unmeasured, and its clock face, its rings and its turned bodies are a draw path nothing has ever measured
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
+The pile is seven `drawRockBody` calls under one clip every frame, each with
+its look's fire (`meteor-blaze.ts`: a plume behind and a fire in front, per
+stone), for a body that never moves and changes only when a unit leaves. Do it
+by `.claude/skills/render-perf`: measure the pile alone with the stub's tally,
+then bake the standing stack once per `units` into an offscreen sprite and
+redraw the fire only — or cheapen the per-stone fire — and prove both halves
+with a number. Give it a row in `wave-budget.test.ts` while there.

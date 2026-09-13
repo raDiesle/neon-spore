@@ -2074,3 +2074,27 @@ and finding out how much of the frame it could honestly replace meant reading
 the whole field pass first. The thing that made it affordable was that a body
 draw already takes an `x` and a `y` (`creature-body.ts`), so every silhouette in
 the game came round the clock for nothing.
+
+## 2026-09-13 · watch-cloud-waves — four waves the cloud landed, watched at tempo on a real machine
+
+The cloud session that built THE WEIGHT, THE CODEX, THE CAIRN and THE WELL
+could prove its tests and nothing about the frame, so it queued the four as
+*unverified*. This lane opened each wave in the preview, drove it through the
+testing handle, and photographed it with `bun run frames`. Two of the four
+were wrong: a hand pressing THE WEIGHT was drawn on the partner's phone, giving
+away the split the boss is built on; a hand pulling at THE CAIRN was drawn
+under the pile and said AIM. Both fixed, both tested; THE CODEX and THE WELL
+observed and left as they are. About 130 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 30 | `briefing.ts` for the intro timer and READY? gate, `keys.ts` for why ArrowRight jumped waves, `grip.ts`/`frame-field.ts` for the draw order, `boss-draw.ts`/`cairn.ts` for where the pile is clipped |
+| writing | 30 | the `press`/`pull` skips in `drawGrips`, `cairn-hand.ts` drawing the ring round the standing stones from the boss pass, the `grip-beam.ts` split that kept `grip.ts` under the line, three tests and two INDEX rows |
+| looking | 45 | fourteen frames across the four waves, at both seats, before and after each fix; three `bun run perf` runs the machine flagged every time |
+| friction | 15 | guide pages did not turn under `send` until `advance(2)`; a `--press` at tick 60 landed on an empty field; a probe test at the repo root could not resolve `@neon-spore/content`; the cairn commit went through with `grip.ts` at 264 lines because a `tail` hid the check's exit code |
+| landing | 10 | `check:fast` twice, one amend, the queue and this entry, `bun run land` |
+
+Bottleneck: **looking** — a wave the cloud built has to be *seen*, at each
+seat, in the state where the defect would show, and the only way to that state
+is to drive the game there frame by frame; the fixes themselves were an hour
+of the four.
