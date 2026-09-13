@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE WEIGHT's guide is prose, and its lesson is a negative
 
 - **Found:** 2026-09-12, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-13, claude/queue-the-weights-guide-is-prose-and-its-lesson-is-a-n
 - **Files:** `packages/content/src/scenes.ts`, `packages/content/src/waves/act-8.ts`, `packages/content/src/scene-types.ts`
 
 The wave that introduces THE WEIGHT carries a three-line prose guide and no
