@@ -574,6 +574,18 @@ who has played one has learnt nothing about the others:
   director's fault panel has the three boxes, and an empty one is the wave saying
   nothing rather than a zero.
 
+  **The wave's guide is a rehearsal, because the fault is a change of picture.**
+  Three lines of prose can only assert that the band in front of you will become
+  the other one; the film lets it happen while the pair watches
+  (`packages/content/src/scenes/the-handover.ts`). Its four pages are the pilot
+  carrying the cannon, the navigator firing the colour that answers it, and then
+  the same two phones after the trade, each with a thumb on a button it has never
+  pressed. What makes that drawable is one line in `render/guide-scene.ts`: a
+  page belongs to a **device**, and the panel on it is whichever one that device
+  is holding this tick (`handedSeat`). The corner plate goes on saying which
+  phone it is — a page that traded the plate as well would just be a page about
+  the other player.
+
   **Nothing in the simulation moves for it.** There is no state, nothing in the
   hash and no command swallowed: a panel is drawn by render/ and answered by a
   host, so the whole fault is a clock those two read off the wave's own beat

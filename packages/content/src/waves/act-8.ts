@@ -228,6 +228,7 @@ export const WAVES_ACT_8: Wave[] = [
       both: "Nine beats in, your two panels change screens: yours comes up in their colours with their buttons on it, and theirs comes up as yours. Every button still works and none of them is the one you have been pressing all game. The lip of the band counts you down to it and counts you back out of it — eight beats, and then your own hands come home.",
       p1: "Until the count runs out the cannon and the guard are yours. After it you are holding their plate and their two colours, and the rock is still falling — so say where the cannon was going while it is still your strip.",
       p2: "Until the count runs out the plate and the two colours are yours. After it you have their strip and their guard, and you have never armed a dome — so make them call the beat, and put the cannon where they ask.",
+      scene: "theHandover",
     },
     entries: [
       { beat: 0, col: 3, color: "red" },

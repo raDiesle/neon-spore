@@ -67,3 +67,19 @@ export function handedView(view: ViewState): ViewState {
   const role = handedRole(view.role, view.world);
   return role === view.role ? view : { ...view, role };
 }
+
+/**
+ * The seat a **device** is playing, for a caller that holds a page's seat
+ * rather than a role — the rehearsal, whose pages belong to one phone or the
+ * other (`guide-scene.ts`).
+ *
+ * A page is a device and not a panel: the corner plate says PLAYER 1 · SCREEN
+ * for the whole of it, and what changes under that plate when the window opens
+ * is which half of the game is on it. That is the only way a film can show
+ * this fault at all — the words above it can assert a trade, and the picture
+ * can simply do it while the pair watches.
+ */
+export function handedSeat(seat: 1 | 2, world: World): 1 | 2 {
+  if (!handedOver(world)) return seat;
+  return seat === 1 ? 2 : 1;
+}

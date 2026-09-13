@@ -28,6 +28,7 @@ import { THE_GHOST } from "./scenes/the-ghost.js";
 import { THE_GUM } from "./scenes/the-gum.js";
 import { THE_GYRE } from "./scenes/the-gyre.js";
 import { THE_HAND } from "./scenes/the-hand.js";
+import { THE_HANDOVER } from "./scenes/the-handover.js";
 import { THE_JAM } from "./scenes/the-jam.js";
 import { THE_LANCE } from "./scenes/the-lance.js";
 import { THE_LID } from "./scenes/the-lid.js";
@@ -131,7 +132,8 @@ export type SceneId =
   | "theBeatbox"
   | "theWeight"
   | "theCairn"
-  | "theWell";
+  | "theWell"
+  | "theHandover";
 
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
@@ -189,6 +191,7 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theWeight: THE_WEIGHT,
   theCairn: THE_CAIRN,
   theWell: THE_WELL,
+  theHandover: THE_HANDOVER,
 };
 
 export type { GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";

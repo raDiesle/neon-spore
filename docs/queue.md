@@ -205,28 +205,20 @@ stay in `packages/net/src/nickname.ts`, where both ends read them. The
 server's tests are `bun test apps/server`; the sign-in round trip against a
 real provider is unverified from a cloud session.
 
-## THE HANDOVER's guide is prose, and the thing it teaches is a picture
+## `docs/spec/briefings.md` still says one rehearsal exists
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-13, claude/queue-the-handovers-guide-is-prose-and-the-thing-it-te
-- **Files:** `packages/content/src/scenes.ts`, `packages/content/src/waves/act-8.ts`, `packages/content/src/scene-types.ts`
+- **Files:** `docs/spec/briefings.md`
 
-The wave that introduces THE HANDOVER carries a three-line prose guide and no
-`scene`, the way THE WEIGHT's and THE CAIRN's do. It is worse here than for
-either of them, because what the fault does is **change the picture**: three
-sentences have to assert that the band the pair is looking at will become the
-other one, when a rehearsal could simply let it happen while they watch.
-
-What a rehearsal would show, in three pages: the seat's own band, named, with a
-ghost thumb on the control it has been using all game; the plate on the lip of
-the band counting down and the beam reaching for the panel; and the same screen
-after the trade, in the other seat's colours, with the ghost thumb landing on
-the button that is no longer there. `scenes.ts` holds the choreography and the
-scene carries its own `malfunction` already (`scene-script.ts`), so a scene
-naming this fault and stepping past `handoverAtBeat` trades inside the
-rehearsal with no new machinery at all — the renderer seats a film's frames
-exactly the way it seats a wave's. `.claude/skills/new-tutorial` has the rules;
-`bun test packages/content` and the guide-page tests prove it.
+Its status block says *one rehearsal exists* and §3.2 is headed *the rehearsals
+— one specimen built*, with "FIRST STEP has the only one; every other guide is
+still the three strings and the two circles". There are fifty-five films in
+`packages/content/src/scenes/`, and since this landing every guided wave in the
+game carries one. The paragraphs under the heading are still right about what a
+rehearsal *is* — it is the counting that is a year out of date. What to do:
+rewrite the status block and §3.2's opening from `SCENES`, say which guides
+carry prose beside their film and which carry none, and keep the three
+overturned decisions where they are, because those are history and still true.
 
 ## HULL · TRADED answers THE HANDOVER a second way and is not in VERSUS
 

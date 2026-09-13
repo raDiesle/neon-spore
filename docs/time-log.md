@@ -2713,3 +2713,24 @@ About 40 min.
 Bottleneck: **writing** — a trailing parameter on five marks is small, but it
 had to reach every call site in three looks without one being missed, and the
 log diff is what says none was.
+
+## 2026-09-13 — scheduler-tests-two-devices-klxkyt — THE HANDOVER's guide is a rehearsal
+
+The fault changes the picture, so the guide had to be one: four pages, the pair's
+own hands on the first two and the traded panels on the last two, with the lip of
+the band counting down through the middle of it. The line that made it drawable
+is that a film's page is a **device** and not a panel — `handedSeat` — so the
+other seat's half arrives under a corner plate that goes on saying whose phone
+this is. About 40 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `.claude/skills/new-tutorial` whole, `guide-scene.ts`, `guide-film.ts`, `caption-anchor.ts`, and the four scene tests that decide what a film may be |
+| writing | 15 | the seam, the film, the wave's `scene:` line, six tests, the bestiary's paragraph |
+| looking | 0 | none — a cloud session cannot watch a film, and it is queued unverified |
+| friction | 10 | a caption anchored at a control the traded panel has not got would land on nothing, which set where the window opens and closes; the band draws no words, so the first test read glyphs that are not there and had to ask `bandLobes` instead |
+| landing | 5 | format, index, check:fast, the queue entry, the commit |
+
+Bottleneck: **friction** — both halves of it were the same thing: a traded page
+is the other seat's screen all the way down, and anything written against the
+page's own seat is written against a panel that is not there.

@@ -8,6 +8,7 @@ import { drawGuideNav } from "./guide-nav.js";
 import { ScenePlay } from "./guide-play.js";
 import { SeatView } from "./guide-seat.js";
 import { BANNER_H, BANNER_TOP, drawGuideCorner, drawSwitchSeam } from "./guide-switch.js";
+import { handedSeat } from "./handover.js";
 import type { Layout, ViewRole } from "./layout.js";
 
 /**
@@ -139,7 +140,14 @@ export class GuideStage {
     const k = from === null ? 1 : smoothstep(Math.min(1, (run.tick - step.tick) / SWITCH_TICKS));
     // Phone-shaped and centred, whatever the stage is (`guide-film.ts`).
     const cfg = run.world.cfg;
-    const { film, l } = filmLayout(box, cfg, step.seat);
+    // **A page is a device, and the panel on it is whichever one that device is
+    // holding this tick.** On every wave but one those are the same thing; on a
+    // wave carrying THE HANDOVER the panels trade for a window, and a film that
+    // went on drawing the page's own half would be the one picture of this
+    // fault that does not show it (`handover.ts`). The corner plate keeps
+    // saying which phone this is, which is what makes the trade legible.
+    const shown = handedSeat(step.seat, run.world);
+    const { film, l } = filmLayout(box, cfg, shown);
 
     // Everything down to the corner plate is drawn in the film's rectangle;
     // only the nav bar under it is laid across the whole box.
@@ -151,14 +159,15 @@ export class GuideStage {
     ctx.clip();
     // The outgoing screen slides off to the left and the incoming one follows
     // it in from the right, so the eye is carried across rather than cut.
-    if (from !== null && k < 1) this.seat(ctx, l, from, -l.width * k, time, set);
-    this.seat(ctx, l, step.seat, from === null ? 0 : l.width * (1 - k), time, set);
+    if (from !== null && k < 1)
+      this.seat(ctx, l, handedSeat(from, run.world), -l.width * k, time, set);
+    this.seat(ctx, l, shown, from === null ? 0 : l.width * (1 - k), time, set);
     if (from !== null && k < 1) drawSwitchSeam(ctx, l, l.width * (1 - k));
     ctx.restore();
 
     const phase = beatPhase(cfg, run.world.tick);
     drawCaption(ctx, l, run.world, set, step, run.tick, phase, names);
-    drawHands(ctx, l, run, scene, set, step.seat, phase);
+    drawHands(ctx, l, run, scene, set, shown, phase);
     drawGuideCorner(ctx, l, {
       seat: step.seat,
       names,
