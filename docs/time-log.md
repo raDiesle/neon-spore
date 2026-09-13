@@ -2383,3 +2383,21 @@ shared by the drawing, the finger and the caption. About 45 min.
 Bottleneck: **friction** — timing a film against the real fall: the page
 boundaries were laid out for a row a beat and had to be doubled once the probe
 showed where the body actually was.
+
+## 2026-09-13 · claude/queue-should-the-wells-seam-cost-travel — the seam does not cost travel, decided
+
+A question item, answered before the sitting began: the owner chose *leave
+it* from the three the entry named, so THE WELL stays a pure projection and
+no step limit goes into `config-boss.ts`. The item is closed and the spec's
+sentence that pointed at it as an open question now records the answer. No
+code. About 5 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 0 | — |
+| writing | 5 | the sentence in `docs/spec/bosses.md` |
+| looking | 0 | — |
+| friction | 0 | — |
+| landing | 0 | `queue done`, the commit |
+
+Bottleneck: **none** — the answer was already in hand.

@@ -176,30 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## Should THE WELL's seam cost travel?
-
-- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-13, claude/queue-should-the-wells-seam-cost-travel
-- **Files:** `packages/sim/src/commands.ts`, `packages/sim/src/config-boss.ts`, `packages/render/src/well.ts`
-- **Asks:** Should the cannon be limited to a few columns a beat while THE WELL is installed, so that the seam costs travel as well as reading?
-
-THE WELL is built as a pure projection: nothing in the simulation changes
-(`bosses 11.12`). That leaves the seam — the sector above the ship where the
-field's two walls meet — costing the pair a **thumb and a glance** and nothing
-else, because `cannonCol` names a column outright and the cannon is there on the
-next tick. Eleven o'clock and one o'clock look like neighbours and are the two
-ends of the rail, which is a thing to learn once; it is not a thing the fight
-keeps charging for.
-
-Three answers, and they are different games. **Leave it** — the boss is a
-picture and is honest about it, and the wave is carried by the ordinary bodies
-under it. **A step limit under this boss only**: a `wellStepCols` in
-`config-boss.ts` clamping how far `cannonCol` may move in one beat, so crossing
-the field takes beats and the seam is a real distance; it is a rule that exists
-on one wave, which this game has so far refused to do. **A step limit
-everywhere**, which is a change to the whole control scheme and would want its
-own argument — the rail is the one control that has never had a speed.
-
 ## THE CAIRN paints at two and a half times the run's median
 
 - **Found:** 2026-09-13, watch-cloud-waves

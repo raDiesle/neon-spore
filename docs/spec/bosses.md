@@ -1362,9 +1362,11 @@ charges for crossing the field. What charges is the thumb and the eye — one
 hour of movement over the top of the picture is the whole width of the rail
 under it, and the picture offers a direction the control has not got, which is
 *round*. The rail never lies, and the answer is the hour said plainly rather
-than a lane described as next to another one. **Whether the seam should cost
-travel as well is an open question** in `docs/queue.md`: it would be a change to
-the simulation, and this boss is deliberately not one.
+than a lane described as next to another one. **The seam does not cost travel,
+and that is decided** (the owner, 13 September 2026): a step limit on the
+cannon under this boss would be a rule that exists on one wave, and this boss
+is deliberately a picture and not a change to the simulation. The wave is
+carried by the ordinary bodies under it.
 
 **Its figures are render's, not `SimConfig`'s.** The rim, the hub, the ring the
 numbers stand on and the bend that gives the near rows most of the radius are
