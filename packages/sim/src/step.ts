@@ -60,11 +60,11 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   }
   // A hit has failed the wave. The field stands where it was struck, for the
   // same reason and by the same shape as the opening above — the tick counts,
-  // nothing else moves — until the pause is spent and the same wave has been
-  // asked for again (`wave-fail.ts`).
+  // nothing else moves — until the pause is spent, a seat has answered the
+  // lost screen, and the same wave has been asked for again (`wave-fail.ts`).
   if (failHolds(world)) {
     world.tick += 1;
-    stepFailHold(world);
+    stepFailHold(world, commands);
     return;
   }
   countPlay(world);

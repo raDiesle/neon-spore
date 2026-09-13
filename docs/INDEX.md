@@ -765,6 +765,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/lay-echo.ts` | The part of the cannon's mouth that outlives a frame: the follow-through, and the burn's own clock |
 | `packages/render/src/seat-skin.ts` | WHICH SHIP THIS IS: player one's violet, player two's amber |
 | `packages/render/src/nav-button.ts` | One button on a guide's bar, and the contour every one of them is cut from |
+| `packages/render/src/nav-feeder.ts` | What feeds a button from the bar's own membrane |
 | `packages/render/src/seat-name.ts` | What to call a seat on a screen a person is reading |
 | `packages/render/src/seam-line.ts` | WHERE THE MEMBRANE MAY SWING — the numbers, and nothing that draws |
 | `packages/render/src/hover.ts` | WHAT A MOUSE IS RESTING ON, LIT |
@@ -851,6 +852,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/veer-look.ts` | THE ONE RECORD A CANDIDATE VEER LOOK PATCHES |
 | `packages/render/src/veer-rider.ts` | **The shipped rider**: the colours, the light and the order THE VEER's clown is drawn in |
 | `packages/render/src/lock-mark.ts` | THE LOCK, drawn: the frame that says *the cannon has this one* |
+| `packages/render/src/lost-screen.ts` | A lost wave stops on a friendly screen: RETRY WAVE or QUIT |
 | `packages/render/src/creature-tint.ts` | The three colours a body carries, and what they are mid-turn |
 | `packages/render/src/recoil-ribs.ts` | One rib of THE RECOIL's cage, and the piece of hoop it carries |
 | `packages/render/src/recoil-look.ts` | THE ONE RECORD A CANDIDATE **RECOIL** PATCHES |
@@ -1100,6 +1102,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/waves.ts` | the two ways a wave starts, and the banner that names it |
 | `apps/game/src/audio.ts` | the mixer wired to the loop: unlock on a gesture, clear on a restart, M to mute |
 | `apps/game/src/loop.ts` | fixed timestep; the only place wall-clock time exists |
+| `apps/game/src/lost.ts` | The two presses on a lost wave's screen: RETRY WAVE and QUIT (`render/lost-screen.ts`) |
 | `apps/game/src/viewport.ts` | the window's size, and the stage and layout derived from it |
 | `apps/game/src/input.ts` | pointers and capture; what a touch *means* is `touch.ts` |
 | `apps/game/src/field-input.ts` | Everything a finger on the glass reaches: the field itself, a shake |
@@ -1169,6 +1172,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/rounds.ts` | Every round that is not the field, bound to the canvas at once |
 | `apps/game/src/keys-crank.ts` | The desk key that turns THE CLAW's crank, which no key can do by itself |
 | `apps/game/src/trail.ts` | The surface the mouse's ink is drawn on, over every sheet, and nothing at all on a phone |
+| `apps/game/src/quit.ts` | Who pressed QUIT on the lost screen, for the menu to say |
 
 ### apps/server
 

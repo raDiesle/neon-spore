@@ -10,7 +10,7 @@ import {
   touchUp,
   type ViewRole,
 } from "@neon-spore/render";
-import { briefingHolds, type Command, type World } from "@neon-spore/sim";
+import { briefingHolds, type Command, lostAsks, type World } from "@neon-spore/sim";
 import { balloonBothHands } from "./stage-balloon-both.js";
 import { openingPress } from "./stage-opening.js";
 import type { StagePoint } from "./stage-point.js";
@@ -142,8 +142,8 @@ export function bindStageTouch({
     // ship while the wave is held (`step.ts`) — so the first press after the
     // opening is gone is the first one that can move anything. What it answers
     // there is `stage-opening.ts`, which is the same three targets the phone
-    // answers, from the same geometry.
-    if (briefingHolds(world())) {
+    // answers, from the same geometry — and the lost screen's two buttons.
+    if (briefingHolds(world()) || lostAsks(world())) {
       e.preventDefault();
       const speaksFor: readonly (1 | 2)[] = role() === "test" ? [1, 2] : [pointerSeat(role())];
       const seats = openingPress({

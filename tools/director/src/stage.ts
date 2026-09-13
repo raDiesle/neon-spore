@@ -118,10 +118,11 @@ export function bindStage(
   };
 
   // A cleared wave stops and asks REPEAT WAVE? rather than advancing — the
-  // next wave here is the one being edited (`stage-repeat.ts`).
+  // next wave here is the one being edited (`stage-repeat.ts`). A lost one has
+  // asked already, on the field's own screen: RETRY WAVE there is the answer.
   const handle = (events: readonly SimEvent[]): void => {
     for (const e of events) {
-      if (e.type === "needWave") repeat.ask();
+      if (e.type === "needWave") e.retry ? repeat.answer() : repeat.ask();
     }
   };
 

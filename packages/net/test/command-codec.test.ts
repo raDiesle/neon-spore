@@ -41,6 +41,8 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   { kind: "shake" },
   { kind: "restart" },
+  { kind: "retry" },
+  { kind: "quit" },
   // The four the guard below found missing from the codec altogether — THE
   // CLAW's arm and PINBALL's three. Every one of them was dropped on the wire,
   // so on two devices the arm never left the hull and the bucket never moved.
@@ -100,6 +102,8 @@ const EVERY_KIND: Record<Command["kind"], true> = {
   drag: true,
   shake: true,
   restart: true,
+  retry: true,
+  quit: true,
 };
 
 const EVERY_TARGET: Record<DragTarget, true> = {

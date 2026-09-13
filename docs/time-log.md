@@ -2867,3 +2867,21 @@ trash to remove it on hover, and a tile clicked open should keep both. About
 
 Bottleneck: **looking** — every one of the four asks is a thing you have to see,
 and none of them can be read off a unit test.
+
+## 2026-09-13 · claude/lost-wave-screen — a lost wave stops on a friendly screen, RETRY WAVE or QUIT
+
+Queue item 1. The owner decided the forks through the question tool — either
+phone's press answers for both, QUIT ends the run and the room stays, the
+menu says who — and the screen was built over the held field, with the
+guide bar's own buttons. About 80 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `wave-fail.ts`, `wave-opening.ts`, `nav-button.ts`, `briefing.ts`, `menu-link.ts`, the director's opening stage |
+| writing | 35 | the two commands and the `quit` event, `lost-screen.ts`, `lost.ts`, `quit.ts`, the director's press, the spec paragraph |
+| looking | 20 | the screen at phone size in the preview; QUIT to the menu's line and RETRY back into the wave, each through a real click |
+| friction | 10 | `stage.ts` over 250 lines; `ui.menuBack` with no picture; the baked-growth rows; `?play=1` binds no menu, so the QUIT check had to start from wave 01's button; the intro sheet over a fresh profile |
+| landing | 5 | `check:fast`, the index, the commit |
+
+Bottleneck: **looking** — driving the world by hand stalls the live loop, so
+every look at the screen was a scripted browser with its clocks frozen.

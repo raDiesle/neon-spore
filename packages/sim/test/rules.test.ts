@@ -6,6 +6,7 @@ import {
   fallTilesPerBeat,
   hashWorld,
   hullRow,
+  lostAsks,
   record,
   runReplay,
   type SimConfig,
@@ -95,16 +96,60 @@ describe("the hull", () => {
     expect(world.scars.map((s) => s.col)).toContain(4);
   });
 
-  it("holds the field from the hit, and asks for the same wave again", () => {
-    const { world, events } = run([slick(4, "red")], BREACH_TICK + TPB * (CFG.waveFailBeats + 1));
+  const ASKED_TICK = BREACH_TICK + TPB * CFG.waveFailBeats;
+  const answer = (tick: number, player: 1 | 2, kind: "retry" | "quit"): TimedCommand => ({
+    tick,
+    player,
+    command: { kind },
+  });
+
+  it("holds the field from the hit, then asks the pair rather than the host", () => {
+    const { world, events } = run([slick(4, "red")], ASKED_TICK + TPB * 4);
     // Nothing more happens on the field: the break stays where it was seen,
-    // and after the pause the host is asked for this wave, not the next.
+    // and after the pause the screen is up and stays up. Nobody is asked for
+    // a wave until a seat has answered it.
     expect(world.scars).toHaveLength(1);
     expect(world.retries).toBe(1);
     expect(events.filter((e) => e.type === "waveFailed")).toHaveLength(1);
+    expect(events.filter((e) => e.type === "needWave")).toEqual([]);
+    expect(lostAsks(world)).toBe(true);
+    expect(world.over).toBe(false);
+  });
+
+  it("asks for the same wave once a seat says RETRY, and only once", () => {
+    // Both phones press within a beat of each other: the first press is the
+    // answer, and the second lands on a world that has stopped asking.
+    const { world, events } = run([slick(4, "red")], ASKED_TICK + TPB * 4, [
+      answer(ASKED_TICK + 3, 2, "retry"),
+      answer(ASKED_TICK + 5, 1, "retry"),
+      answer(ASKED_TICK + 9, 1, "quit"),
+    ]);
     expect(events.filter((e) => e.type === "needWave")).toEqual([
       { type: "needWave", wave: 0, retry: true },
     ]);
+    expect(lostAsks(world)).toBe(false);
+    expect(world.over).toBe(false);
+  });
+
+  it("ends the run for both when a seat says QUIT, and says which seat", () => {
+    const { world, events } = run([slick(4, "red")], ASKED_TICK + TPB * 4, [
+      answer(ASKED_TICK + 3, 2, "quit"),
+      answer(ASKED_TICK + 5, 1, "retry"),
+    ]);
+    expect(world.over).toBe(true);
+    expect(events.filter((e) => e.type === "quit")).toEqual([{ type: "quit", player: 2 }]);
+    expect(events.filter((e) => e.type === "needWave")).toEqual([]);
+    expect(lostAsks(world)).toBe(false);
+  });
+
+  it("does not hear an answer before the pause is spent", () => {
+    // A thumb still on the button from the wave is not an answer to a
+    // question that has not been put yet.
+    const { world } = run([slick(4, "red")], ASKED_TICK + TPB, [
+      answer(BREACH_TICK + 2, 1, "quit"),
+    ]);
+    expect(world.over).toBe(false);
+    expect(lostAsks(world)).toBe(true);
   });
 });
 

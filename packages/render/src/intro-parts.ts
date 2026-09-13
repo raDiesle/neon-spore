@@ -1,7 +1,7 @@
 import { blobPoints } from "@neon-spore/content";
 import { halo, strokeGlow } from "./glow.js";
 import { mixHex } from "./hex.js";
-import { drawNavFeeder } from "./nav-button.js";
+import { drawNavFeeder } from "./nav-feeder.js";
 import { PALETTE } from "./palette.js";
 import { splinePath } from "./spline.js";
 

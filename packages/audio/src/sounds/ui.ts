@@ -61,8 +61,8 @@ export const UI_SOUNDS: SoundDef[] = [
     id: "ui.menuBack",
     family: "ui",
     blurb: "The same, downward. Nothing was decided.",
-    status: "spare",
-    use: "Leaving a page.",
+    status: "bound",
+    use: "One seat answered QUIT on the lost screen: the run is left, on both phones.",
     level: 0.24,
     layers: [
       { source: "sine", freq: 6400, toFreq: 4200, gain: 0.4, attack: 0.004, release: 0.09 },

@@ -9,6 +9,7 @@ import { type Intro, opensIntro, readIntroSeen } from "./intro.js";
 import { bindJoinScreen, type JoinScreen, roomRequested } from "./join.js";
 import { createLink, type Link } from "./link.js";
 import { bindMainMenu, type MainMenu, opensOnMenu } from "./menu.js";
+import { onQuit } from "./quit.js";
 import type { CommandSource } from "./relay.js";
 import type { RunState } from "./run-state.js";
 import { hasMotionChoice, readSettings } from "./settings.js";
@@ -113,6 +114,11 @@ export function bindShell(p: ShellParts): Link {
       parted = status.state === "desync";
     },
   });
+  // **One seat pressed QUIT on a lost wave.** The same door as the parted run,
+  // for the same reason: there is no field worth looking at under it any more,
+  // on either phone, and the PLAY page is where the way back in is — with the
+  // room's line saying whose press it was (`quit.ts`, `menu-link.ts`).
+  onQuit(() => menu?.open("play"));
 
   const hold = bindHoldCard({ leave: () => link.leave() });
   joinScreen = bindJoinScreen({

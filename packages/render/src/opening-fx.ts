@@ -1,4 +1,11 @@
-import { briefingHolds, guideHolds, guidePage, onReadyPage, type World } from "@neon-spore/sim";
+import {
+  briefingHolds,
+  guideHolds,
+  guidePage,
+  lostAsks,
+  onReadyPage,
+  type World,
+} from "@neon-spore/sim";
 import type { ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { P1_SKIN, P2_SKIN } from "./seat-skin.js";
@@ -223,6 +230,9 @@ export class OpeningFx {
  * arriving with the words already settled.
  */
 export function openingKey(world: World, role: ViewRole): string {
+  // The lost screen is a page too, and one that has to replay its entrance on
+  // every loss: keyed by the count so a second loss of one wave is a new page.
+  if (lostAsks(world)) return `${world.wave}|lost|${world.retries}`;
   if (!briefingHolds(world)) return "";
   const seat: 1 | 2 = role === "p2" ? 2 : 1;
   if (!guideHolds(world)) return `${world.wave}|intro`;

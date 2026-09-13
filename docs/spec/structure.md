@@ -9,11 +9,18 @@
 > hull damage fails the wave, and the wave is played again; a wave is passed
 > only when everything it sent has been destroyed, evaded, sucked in or
 > shielded — each by its own mechanic. The field holds from the tick of the
-> hit for `waveFailBeats`, then the same wave is asked for (`needWave` with
-> `retry`). What a run keeps is **the time played and the number of
-> retries**, across every wave until the last authored one is cleared —
-> there are no generated waves past it any more. `sim/wave-fail.ts`; the HUD
-> shows the clock and the count where the score was. **The hull has no
+> hit for `waveFailBeats`, the breach still in colour; then — **since 13
+> September 2026** — it stops on a screen: `WAVE LOST`, one line for the
+> pair, and two buttons, **RETRY WAVE** and **QUIT**. Either phone's press
+> answers for both, first press wins: RETRY asks for the same wave again
+> (`needWave` with `retry`), QUIT ends the run on both phones, the room
+> stays, and the menu comes up on PLAY with the room's greeting saying who
+> quit. Nothing happens by itself: a wave nobody answers stays lost.
+> What a run keeps is **the time played and the number of retries**, across
+> every wave until the last authored one is cleared — there are no generated
+> waves past it any more. `sim/wave-fail.ts`, `render/lost-screen.ts`,
+> `apps/game/src/lost.ts`, `apps/game/src/quit.ts`; the HUD shows the clock
+> and the count where the score was. **The hull has no
 > points**: the figure, its bar, its regeneration, the mend pod and the
 > per-body damage numbers came out the same day (NOT BUILT YET → Mechanics in
 > [ideas](ideas.md)); a hit carries only a weight, for the ear. A pod not

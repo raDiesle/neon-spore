@@ -129,6 +129,7 @@ export const INGEST_SILENT = [
   "waveStart",
   "needWave",
   "waveFailed",
+  "quit",
   "lanceFull",
   "lanceSpilled",
   "hole",

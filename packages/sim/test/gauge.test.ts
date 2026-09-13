@@ -223,12 +223,16 @@ describe("leaving the round", () => {
     expect(result.marks).toBe(0);
     // Time is still what a *call* costs; the round costs the hull — which is
     // the wave, since 12 September 2026: the breach is on the ship, the field
-    // holds, and the same wave is asked for again rather than the next one
-    // credited (`wave-fail.ts`).
+    // holds, and once a seat says RETRY the same wave is asked for again
+    // rather than the next one credited (`wave-fail.ts`).
     expect(events.filter((e) => e.type === "breach")).toHaveLength(1);
     expect(world.scars.length).toBe(1);
     expect(world.retries).toBe(1);
-    expect(events.some((e) => e.type === "needWave" && e.wave === WAVE && e.retry)).toBe(true);
+    expect(events.some((e) => e.type === "needWave")).toBe(false);
+    step(world, [{ tick: world.tick, player: 1, command: { kind: "retry" } }]);
+    expect(world.events.some((e) => e.type === "needWave" && e.wave === WAVE && e.retry)).toBe(
+      true,
+    );
     expect(world.over).toBe(false);
   });
 

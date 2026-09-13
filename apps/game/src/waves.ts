@@ -13,6 +13,7 @@ import {
 import type { GameAudio } from "./audio.js";
 import type { InputBuffer } from "./input.js";
 import { reached, timed, updateProgress } from "./progress.js";
+import { clearQuit, sayQuit } from "./quit.js";
 
 /**
  * Wave progression: the two ways a wave starts, and the clock that carries its
@@ -129,12 +130,15 @@ export function createWaveProgression({
     );
     left = INTRO_SECONDS;
     sentAtTick = -1;
+    clearQuit();
   };
 
   const handle = (events: readonly SimEvent[]): void => {
     for (const e of events) {
-      if (e.type !== "needWave") continue;
-      open(e.wave, e.retry === true);
+      if (e.type === "needWave") open(e.wave, e.retry === true);
+      // One seat answered QUIT on the lost screen: the run is over here and on
+      // the other phone alike, and the menu is about to say who (`quit.ts`).
+      else if (e.type === "quit") sayQuit(e.player);
     }
     // The end of a run is the one clock worth keeping that no wave opening
     // will ever record, because there is no wave after it.

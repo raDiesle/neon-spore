@@ -14,6 +14,7 @@ import {
 import { briefingHolds, guideHolds, handedOver, mazeRound, type World } from "@neon-spore/sim";
 import { type BriefingBinding, bindBriefing } from "./briefing.js";
 import { bindControls, type Controls, type InputBuffer } from "./input.js";
+import { bindLost } from "./lost.js";
 import { bindRounds } from "./rounds.js";
 import type { RunState } from "./run-state.js";
 import { bindShake } from "./shake.js";
@@ -141,6 +142,8 @@ export function bindFieldInput(o: FieldInputOptions): FieldInput {
   // Every round that is not the field brings its own buttons, on its own
   // listener — neither player's band is the answer (`rounds.ts`).
   bindRounds({ canvas, buffer, world, layout, inStage, role });
+  // And a lost wave's two, the same way (`lost.ts`).
+  bindLost({ canvas, buffer, world, layout, inStage });
 
   const shipGrab = (on: "cannon" | "shield"): Circle => {
     const l = layout();

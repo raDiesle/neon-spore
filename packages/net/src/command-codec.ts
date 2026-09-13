@@ -210,6 +210,11 @@ export function decodeCommand(x: unknown): Command | null {
       return { kind: "shake" };
     case "restart":
       return { kind: "restart" };
+    // The lost screen's two answers, from either seat (`sim/wave-fail.ts`).
+    case "retry":
+      return { kind: "retry" };
+    case "quit":
+      return { kind: "quit" };
     default:
       return null;
   }

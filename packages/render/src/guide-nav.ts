@@ -1,6 +1,7 @@
 import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
-import { drawNavButton, drawNavFeeder } from "./nav-button.js";
+import { drawNavButton } from "./nav-button.js";
+import { drawNavFeeder } from "./nav-feeder.js";
 import { PALETTE } from "./palette.js";
 import { seatSkin } from "./seat-skin.js";
 

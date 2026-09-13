@@ -18,11 +18,12 @@ import type { ControlSet } from "./control-sets.js";
  * a second list here is exactly the drift `purity.test.ts` keeps a table
  * against.
  *
- * **Six kinds are never a panel's to refuse**, and each is off the panel for
- * its own reason: `restart` and the two guide verbs are the *host* talking to
- * a run rather than a seat talking to a ship, `grip` and `drag` are a hand on
- * the field rather than on a button, and `shake` is the *device* being moved,
- * which no panel could carry at all (`sim/command-types.ts`).
+ * **Eight kinds are never a panel's to refuse**, and each is off the panel for
+ * its own reason: `restart`, the lost screen's `retry` and `quit`, and the two
+ * guide verbs are the *host* talking to a run rather than a seat talking to a
+ * ship, `grip` and `drag` are a hand on the field rather than on a button, and
+ * `shake` is the *device* being moved, which no panel could carry at all
+ * (`sim/command-types.ts`).
  *
  * `drag` has one exception inside it now — THE CLAW's crank is a `drag` sent
  * by a *button* — and it stays on the list anyway. The gate is about what a
@@ -47,6 +48,8 @@ export function panelSends(set: ControlSet, kind: Command["kind"]): boolean {
 
 const OFF_PANEL: ReadonlySet<Command["kind"]> = new Set([
   "restart",
+  "retry",
+  "quit",
   "brief",
   "guideStep",
   "grip",

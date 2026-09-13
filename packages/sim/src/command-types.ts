@@ -179,7 +179,16 @@ export type Command =
    * differently.
    */
   | { kind: "tap"; id: number }
-  | { kind: "restart" };
+  | { kind: "restart" }
+  /**
+   * The answer to a lost wave (`wave-fail.ts`). The field holds on a screen
+   * after the hit until one of these arrives from either seat: `retry` opens
+   * the same wave again, `quit` ends the run for both. Whichever seat presses
+   * first answers for both; a second answer lands on a world that is no
+   * longer asking and does nothing. Decided by the owner, 13 September 2026.
+   */
+  | { kind: "retry" }
+  | { kind: "quit" };
 
 // **The closed list of things a hand may take hold of** — `DragTarget`, and
 // the paragraph each of its eight names has earned — is `drag-targets.ts` next

@@ -4,6 +4,7 @@ import { roomLine } from "./join-words.js";
 import type { MenuDom } from "./menu-view.js";
 import { readPartners } from "./pairing.js";
 import { progressLine, readProgress } from "./progress.js";
+import { quitBy, quitLine } from "./quit.js";
 
 /**
  * WHAT A LINK CHANGES ON THE FRONT PAGE.
@@ -85,7 +86,10 @@ export function paintLink({ dom, link, pairRoom, opened, wave }: LinkPaint): voi
   // is the pair's rather than this device's, and off for a device that has
   // never played.
   const far = readProgress();
-  dom.setProgress(room ? "" : progressLine(far));
+  // A quit that stands is said here off the wire, where the room's row has
+  // nothing to say, and on the room's row in a room (`quit.ts`).
+  const quit = quitBy() !== 0 ? quitLine(link, wave) : "";
+  dom.setProgress(room ? "" : quit || progressLine(far));
   // **CONTINUE is offered only while both phones are in the room**, which is the
   // owner's rule and is about what a press can honestly do: the wave belongs to
   // two devices, so one of them starting it alone is two people playing two
@@ -123,7 +127,8 @@ export function paintLink({ dom, link, pairRoom, opened, wave }: LinkPaint): voi
   // before there were any (`menu-seats.ts`).
   dom.paintNames(link?.names ?? ["", ""]);
   dom.setEntry("room", {
-    desc: link ? roomLine(link) : "Open a room, or type in the code you were told.",
+    desc:
+      (room && quit) || (link ? roomLine(link) : "Open a room, or type in the code you were told."),
   });
   dom.lockSeats(
     room && (link?.player ?? 0) !== 0,

@@ -112,6 +112,7 @@ export const SILENT = [
   "waveStart", // The banner, not a burst — `banner.ts`, driven by the host.
   "needWave", // Bookkeeping between the host and the sim; nothing on the field.
   "waveFailed", // The breach that failed it has its own burst; the field then holds.
+  "quit", // The run ending is the menu opening (`apps/game`), not a mark on the field.
   "fire", // The bolt leaving is drawn as a bolt, over the beats it travels.
   "lanceFull", // The lobe's own fill reads the mark; nothing else to add.
   "lanceSpilled", // Likewise — the fill emptying is the whole picture.

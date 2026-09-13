@@ -1,7 +1,8 @@
 import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { drawLobeGloss, drawLobeSocket } from "./lobe-shell.js";
-import { drawNavFeeder, navBlob } from "./nav-button.js";
+import { navBlob } from "./nav-button.js";
+import { drawNavFeeder } from "./nav-feeder.js";
 
 /**
  * The body under the corner plate's words (`guide-switch.ts`): the panel's

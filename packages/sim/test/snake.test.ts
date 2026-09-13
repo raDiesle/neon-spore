@@ -353,7 +353,7 @@ describe("the field holds where the body crashed", () => {
     throw new Error("the body never met the wall");
   }
 
-  it("fails the wave on that tick and asks for it again", () => {
+  it("fails the wave on that tick and, on RETRY, asks for it again", () => {
     const world = open();
     play(world);
     const snake = crash(world);
@@ -362,7 +362,7 @@ describe("the field holds where the body crashed", () => {
     expect(world.retries).toBe(1);
     const seen: string[] = [];
     for (let i = 0; i < (CFG.waveFailBeats + 1) * TPB; i++) {
-      step(world, []);
+      step(world, [{ tick: world.tick, player: 2, command: { kind: "retry" } }]);
       for (const e of world.events) if (e.type === "needWave") seen.push(String(e.retry));
     }
     expect(seen).toEqual(["true"]);

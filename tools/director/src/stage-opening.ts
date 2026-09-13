@@ -1,5 +1,5 @@
-import { type Layout, navHit, onNavBar } from "@neon-spore/render";
-import { type Command, introHolds, onReadyPage, type World } from "@neon-spore/sim";
+import { type Layout, lostHit, navHit, onNavBar } from "@neon-spore/render";
+import { type Command, introHolds, lostAsks, onReadyPage, type World } from "@neon-spore/sim";
 
 /**
  * A press on the stage while a wave's opening is up.
@@ -16,6 +16,10 @@ import { type Command, introHolds, onReadyPage, type World } from "@neon-spore/s
  * own. Here it does not have to, because this is the tool somebody restarts a
  * wave on twenty times in an afternoon, and making them wait out the timer each
  * time is the thing that would get the whole opening switched off.
+ *
+ * The lost screen is answered here too (`render/lost-screen.ts`): its two
+ * buttons are where the phone draws them, and a press on either speaks for
+ * both seats, which is what the phone's press does as well.
  *
  * Its own file beside `stage-touch.ts` because that file is about the *ship* —
  * a hold, a hand, a column — and this is about the two screens in front of it.
@@ -40,6 +44,14 @@ export interface OpeningPress {
 
 export function openingPress(p: OpeningPress): readonly (1 | 2)[] | null {
   const { world, layout, seats, point, push } = p;
+  if (lostAsks(world)) {
+    const hit = lostHit(layout, point.x, point.y);
+    if (hit) {
+      push(1, { kind: hit });
+      push(2, { kind: hit });
+    }
+    return null;
+  }
   if (introHolds(world)) {
     push(1, { kind: "brief" });
     push(2, { kind: "brief" });

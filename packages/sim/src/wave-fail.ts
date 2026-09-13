@@ -1,4 +1,6 @@
+import type { TimedCommand } from "./command-types.js";
 import { ticksPerBeat } from "./config-derived.js";
+import { endRun } from "./run.js";
 import type { World } from "./world.js";
 
 /**
@@ -16,10 +18,14 @@ import type { World } from "./world.js";
  * `applyHullDamage` does now: it marks the tick, counts the retry and says so
  * in an event. From then on `step` holds the field the way an opening does —
  * nothing falls, nothing fires, the tick still counts — for `waveFailBeats`,
- * so the breach is seen where it happened; then the same wave is asked for
- * (`needWave` with `retry`), once, and the field stays held until the host
- * answers. Two devices agree about all of it because every part is the
- * world's: `failTick`, `retries` and `playTicks` are in `hashWorld`.
+ * so the breach is seen where it happened; then the pair is asked, on a
+ * screen over the held field: RETRY WAVE or QUIT (`render/lost-screen.ts`).
+ * Either seat's press answers for both, first one wins — decided by the owner
+ * on 13 September 2026. A retry asks the host for the same wave (`needWave`
+ * with `retry`) and the field stays held until it answers; a quit ends the
+ * run for both, says who quit, and the room stays. Two devices agree about
+ * all of it because every part is the world's: `failTick`, `retries` and
+ * `playTicks` are in `hashWorld`, and the answer is a command in lockstep.
  *
  * **What the clock counts is play.** A tick goes on `playTicks` when the wave
  * is live — not while its opening or guide holds the field, not in the pause
@@ -29,8 +35,10 @@ import type { World } from "./world.js";
 
 /** `failTick` while no hit has failed this opening of the wave. */
 export const NOT_FAILED = -1;
-/** `failTick` once the retry has been asked for — asked once, held until answered. */
+/** `failTick` while the screen is up: the pause is spent, the pair is asked. */
 const ASKED = -2;
+/** `failTick` once a seat answered RETRY: the host is asked, the field held until it answers. */
+const ANSWERED = -3;
 
 /** The hull took damage: the wave is lost, from this tick. */
 export function failWave(world: World): void {
@@ -46,12 +54,36 @@ export function failHolds(world: World): boolean {
   return world.failTick !== NOT_FAILED;
 }
 
-/** One tick of the hold: when the pause is spent, the same wave is asked for, once. */
-export function stepFailHold(world: World): void {
-  if (world.failTick < 0) return;
-  if (world.tick - world.failTick < world.cfg.waveFailBeats * ticksPerBeat(world.cfg)) return;
-  world.failTick = ASKED;
-  world.events.push({ type: "needWave", wave: world.wave, retry: true });
+/** Whether the lost screen is up and waiting for a press from either seat. */
+export function lostAsks(world: World): boolean {
+  return world.failTick === ASKED && !world.over;
+}
+
+/**
+ * One tick of the hold. The pause spends itself into the question; the
+ * question is answered by the first `retry` or `quit` to arrive, from either
+ * seat — the same wave asked for once, or the run ended for both. `restart`
+ * is not read here: it is the balance sheet's word, and the sheet is not up.
+ */
+export function stepFailHold(world: World, commands: readonly TimedCommand[]): void {
+  if (world.failTick >= 0) {
+    if (world.tick - world.failTick < world.cfg.waveFailBeats * ticksPerBeat(world.cfg)) return;
+    world.failTick = ASKED;
+    return;
+  }
+  if (!lostAsks(world)) return;
+  for (const c of commands) {
+    if (c.command.kind === "retry") {
+      world.failTick = ANSWERED;
+      world.events.push({ type: "needWave", wave: world.wave, retry: true });
+      return;
+    }
+    if (c.command.kind === "quit") {
+      endRun(world);
+      world.events.push({ type: "quit", player: c.player });
+      return;
+    }
+  }
 }
 
 /** One tick on the run's clock, if the wave is live. */

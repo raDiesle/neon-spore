@@ -176,51 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## A lost wave stops on a friendly screen: RETRY WAVE or QUIT
-
-- **Found:** 2026-09-13, claude/queue-a-player-signs-in-with-google-or-by-an-email-lin — asked for by the owner
-- **Taken:** 2026-09-13, claude/queue-a-lost-wave-stops-on-a-friendly-screen-retry-wav
-- **Files:** `packages/sim/src/wave-fail.ts`, `packages/sim/src/config-run.ts`, `packages/sim/src/command-types.ts`, `packages/sim/src/commands.ts`, `apps/game/src/waves.ts`, `packages/render/src/wave-intro.ts`, `packages/render/src/frame-passes.ts`, `apps/game/src/field-input.ts`, `docs/spec/structure.md`
-- **Decided:** 2026-09-13, by the owner — either phone's press restarts the wave, first one wins; QUIT on one phone ends the run for both, and the room stays.
-
-The owner's words, 13 September 2026: *when the hull is damaged, immediately
-show the damage, then pause the game with a grey overlay saying the round is
-lost, and ask to retry the wave or quit — a nice, friendly visual screen,
-something about co-op and communication and a friendly message to try again.
-Quit goes back to the menu.*
-
-What ships today: a hit fails the wave at once (`failWave`), the breach is
-drawn where it happened, the field holds for `waveFailBeats` (2), and then
-the host asks for the same wave again by itself (`stepFailHold` → `needWave`
-with `retry`, answered in `waves.ts`'s `handle`). There is no screen, no
-choice and no way to the menu but the ☰.
-
-What to build. **Sim:** the hold no longer times out into a retry — after
-`waveFailBeats` it waits for an answer, and the answer is a command
-(`command-types.ts`: `{ kind: "retry" }` and `{ kind: "quit" }`, beside
-`restart`), so both devices agree about it in lockstep; `quit` ends the run
-(`world.over`, the way the last wave does) and the app takes that to the
-menu. `failTick`'s `ASKED` state already exists for the wait.
-**Render:** the screen is drawn on the canvas over the held field —
-the field greyed, the damage still visible under it as the owner asked,
-`WAVE LOST` and `TRY n` the way `wave-intro.ts` writes them, and one short
-friendly line about the two of you (the register of the room's greeting and
-the balance sheet: *"one of you saw it — say it sooner next time"* is the
-kind of thing). Two buttons, RETRY WAVE and QUIT, drawn with the shipped
-control-panel look (grown contour, wet socket, gloss — never a flat plate:
-`new-buttons-reuse-the-panel-look`), placed where a thumb reaches, with
-`field-input.ts` turning the press into the command.
-**Look:** this changes what the game draws, and it is the exemption *a look
-the owner asked for by name* — say so in the commit. The words go through
-`bun run frames` as a PNG for the owner. **Spec:** `structure.md`'s
-paragraph on the hit and the retry says the retry is automatic; it is not
-any more.
-
-So: one `retry` command, first one wins, the other phone sees the field
-reopen — the way the ☰'s pause already works. One `quit` command ends the
-run for both; the app puts both phones on the menu with the room kept, and
-the room's greeting says who quit.
-
 ## Unverified at dcf8328c: THE HANDOVER watched at tempo: whether two beats of war…
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt

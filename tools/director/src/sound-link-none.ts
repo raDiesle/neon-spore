@@ -50,6 +50,8 @@ export const NO_SUBJECT: Record<string, string> = {
   "assist.handOver":
     "THE HANDOVER trading the panels. What changes is the whole band — the other seat's buttons in the other seat's colours — and the hull above it does not move for it; the sheet has cards for bodies and there is no body in a screen changing hands.",
   "assist.takeOver": "the same panels coming back. Same argument.",
+  "ui.menuBack":
+    "QUIT pressed on the lost screen. What ends is the run, on both phones at once, and the menu coming up is the picture of it; the screen the press was on is a veil over a held field rather than a body on one (render/lost-screen.ts).",
   // THE PULSE's twelve, which are next door: a song has no bodies in it at all
   // (`sound-link-pulse.ts`).
   ...PULSE_NO_SUBJECT,

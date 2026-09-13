@@ -21,8 +21,11 @@ export type SimEvent =
   /** The host is asked for a wave's queue; `retry` when it is the same wave
    * again after a hit (`wave-fail.ts`), which opens without its guide. */
   | { type: "needWave"; wave: number; retry?: true }
-  /** A hit failed the wave: the field holds, then the wave is gone again. */
+  /** A hit failed the wave: the field holds, then the pair is asked. */
   | { type: "waveFailed"; wave: number; retries: number }
+  /** One seat answered QUIT on the lost screen: the run is over for both,
+   * and the other phone is told who it was (`wave-fail.ts`). */
+  | { type: "quit"; player: 1 | 2 }
   /**
    * THE WEIGHT gave: both seats had a hand on it for `weightCrushMs`.
    *

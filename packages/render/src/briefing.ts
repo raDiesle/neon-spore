@@ -3,6 +3,7 @@ import {
   guidePage,
   guidePages,
   introHolds,
+  lostAsks,
   onReadyPage,
   type World,
 } from "@neon-spore/sim";
@@ -10,6 +11,7 @@ import { drawProsePage } from "./guide-prose.js";
 import type { GuideStage } from "./guide-scene.js";
 import { drawGuideCorner } from "./guide-switch.js";
 import type { Layout, ViewRole } from "./layout.js";
+import { drawLostScreen } from "./lost-screen.js";
 import { type OpeningFx, SETTLED_AGE } from "./opening-fx.js";
 import { drawReadyPage } from "./ready-page.js";
 import type { SeatNames } from "./seat-name.js";
@@ -73,6 +75,12 @@ export function drawWaveOpening(
   view: OpeningView,
 ): void {
   const { role, scene, fx, names } = view;
+  // A lost wave's screen stands where an opening would: the field is held
+  // under it, and the pair's answer is what opens the next page (`lost-screen.ts`).
+  if (lostAsks(world)) {
+    drawLostScreen(ctx, l, world, { age: fx?.age ?? SETTLED_AGE, pointer: view.pointer });
+    return;
+  }
   if (introHolds(world)) {
     drawIntroduction(ctx, l, world, fx?.age ?? SETTLED_AGE, true);
     return;

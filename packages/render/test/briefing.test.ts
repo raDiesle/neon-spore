@@ -4,14 +4,19 @@ import {
   ackBriefing,
   createWorld,
   DEFAULT_CONFIG,
+  failWave,
   guidePages,
   guideStepHeard,
+  lostAsks,
   startWave,
+  step,
+  ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
 import { drawWaveOpening } from "../src/briefing.js";
 import { GuideStage } from "../src/guide-scene.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
+import { lostButtons, lostHit } from "../src/lost-screen.js";
 import { OpeningFx } from "../src/opening-fx.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
@@ -263,6 +268,39 @@ describe("a wave's opening on the stage", () => {
     ackBriefing(guide, 2);
     stage.update(guide, 1 / 60, "p1");
     expect(stage.active).toBe(false);
+  });
+
+  it("draws the lost screen over a held field, falling in and settled, and knows its buttons", () => {
+    const { ctx } = stubCanvas();
+    for (const [w, h] of [
+      [900, 1600],
+      [240, 480],
+    ] as const) {
+      const l = computeLayout({ width: w, height: h, dpr: 2 }, CFG, "p1");
+      const world = createWorld(DEFAULT_CONFIG, 3);
+      startWave(world, 0, []);
+      failWave(world);
+      for (let i = 0; i <= DEFAULT_CONFIG.waveFailBeats * ticksPerBeat(DEFAULT_CONFIG); i++) {
+        step(world, []);
+      }
+      expect(lostAsks(world)).toBe(true);
+      const fx = new OpeningFx();
+      for (const age of [0.05, 0.4, 0.9, 4]) {
+        fx.update(age, `${world.wave}|lost|${world.retries}`);
+        const b = lostButtons(l);
+        const pointer = { x: b.retry.x + b.retry.w / 2, y: b.retry.y + b.retry.h / 2 };
+        drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, world, {
+          role: "p1",
+          fx,
+          pointer,
+        });
+        expect(lostHit(l, pointer.x, pointer.y)).toBe("retry");
+        expect(lostHit(l, b.quit.x + 2, b.quit.y + 2)).toBe("quit");
+        expect(lostHit(l, 1, 1)).toBeNull();
+      }
+      // And with no clock at all: a still of the screen is a settled one.
+      drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, world, { role: "p2" });
+    }
   });
 
   it("draws nothing at all once the field is playing", () => {

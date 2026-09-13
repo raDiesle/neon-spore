@@ -67,7 +67,12 @@ function entriesAfter(role: "p1" | "p2"): number {
 // field was limited by its height and is limited by its width now, so the tile
 // grew, and a hull-coloured halo the first wave baked at 23 px is no longer at
 // a size of its own (`glow.ts`).
-const HELD = { p1: 38, p2: 47 } as const;
+// Five more on each seat from 13 September 2026, when a lost wave stopped
+// asking for itself again and began to ask the pair (`lost-screen.ts`): this
+// harness answers nothing, so the screen stands for the rest of the run, and
+// its two buttons bake the bar's body at their one size and the beads beside
+// each word — one key per button part, the same set on every frame.
+const HELD = { p1: 43, p2: 52 } as const;
 
 describe("what the renderer keeps between frames", () => {
   for (const role of ["p1", "p2"] as const) {

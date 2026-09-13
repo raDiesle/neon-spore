@@ -11,27 +11,24 @@ import { splinePath } from "./spline.js";
  *
  * **It is the panel's own button, stretched wide.** They were flat plates with
  * a stroke round them, and the owner said so twice — *make the buttons look
- * attractive like the control set*, and then *they still don't look like the
- * cool design of the rest of the buttons: boring background colour, slime
- * missing*. The picture above this bar is the game's own screen, and a control
- * on it sits in a wet socket, carries a film of gloss and is fed by the ship.
- * So does this one. The whole button is drawn inside a horizontal stretch,
- * which turns the round socket and the round gloss the panel bakes into the
- * long ones a wide button needs, at no extra cost.
- *
- * **One outline, not two.** The socket's own lip ring sat outside the button's
- * stroke and read as a second border — *they have two borders, remove the outer
- * one* — so the pool is drawn without it (`lobe-shell.ts`).
+ * attractive like the control set*, then *boring background colour, slime
+ * missing*. A control on the game's own screen sits in a wet socket, carries a
+ * film of gloss and is fed by the ship; so does this one. The whole button is
+ * drawn inside a horizontal stretch, which turns the round socket and gloss
+ * the panel bakes into the long ones a wide button needs, at no extra cost.
+ * **One outline, not two:** the socket's own lip ring read as a second border
+ * — *they have two borders, remove the outer one* — so the pool is drawn
+ * without it (`lobe-shell.ts`).
  *
  * **A sign rather than a word.** BACK, REPLAY and NEXT were set in type, and he
  * asked for symbols that fit the game: *alien and slime if possible*. So the
  * arrows are grown from curves with a concave back and a blunt head, each with
- * a bead of slime hanging off it, and the loop has a bulb on its point. Nothing
- * on this bar is a glyph out of a font any more.
+ * a bead of slime hanging off it, and the loop has a bulb on its point.
  *
- * Its own file beside `guide-nav.ts` for the split that file always wanted:
- * next door decides where the buttons are and what the bar around them looks
- * like, and this decides what one of them looks like.
+ * Its own file beside `guide-nav.ts`: that decides where the buttons are and
+ * what the bar looks like, this decides what one of them looks like. The body
+ * without its sign is `drawNavBody`, for a button that carries a word instead
+ * (`lost-screen.ts`).
  */
 
 /** The contour every button on the bar is cut from — three lobes, shallow. */
@@ -55,12 +52,12 @@ export function navBlob(w: number, h: number): Path2D {
 /** Which sign a button carries. */
 export type NavSign = "back" | "replay" | "next";
 
-export interface NavPaint {
+/** A button with nothing on its face yet. */
+export interface NavBody {
   x: number;
   y: number;
   w: number;
   h: number;
-  sign: NavSign;
   /** Whether pressing it answers anything. */
   live: boolean;
   /** Its own colour, and how hard it is asking to be pressed, 0..1. */
@@ -74,11 +71,21 @@ export interface NavPaint {
   lip: SeatSkin["lip"];
 }
 
+export interface NavPaint extends NavBody {
+  sign: NavSign;
+}
+
 /**
  * One button. A spent one is still drawn: a gap would move the other two, and a
  * thumb that has learned where NEXT is should find it there on every page.
  */
 export function drawNavButton(ctx: CanvasRenderingContext2D, p: NavPaint): void {
+  drawNavBody(ctx, p);
+  sign(ctx, p, p.x + p.w / 2, p.y + p.h / 2, p.live && (p.hover ?? false));
+}
+
+/** The socket, the tissue and the gloss, with nothing on the face. */
+export function drawNavBody(ctx: CanvasRenderingContext2D, p: NavBody): void {
   const cx = p.x + p.w / 2;
   const cy = p.y + p.h / 2;
   const r = p.h / 2;
@@ -107,8 +114,6 @@ export function drawNavButton(ctx: CanvasRenderingContext2D, p: NavPaint): void 
   ctx.globalAlpha = 1;
   drawLobeGloss(ctx, 0, 0, r, p.dpr);
   ctx.restore();
-
-  sign(ctx, p, cx, cy, lit);
 }
 
 /** The sign on the face, unstretched — a sign is a shape and not a letter. */
@@ -124,17 +129,24 @@ function sign(
   ctx.strokeStyle = ctx.fillStyle;
   if (p.sign === "replay") loopSign(ctx, cx, cy, size);
   else arrowSign(ctx, cx, cy, size, p.sign === "next" ? 1 : -1);
-  // The bead that makes it the game's own sign rather than a font's: one drop
-  // hanging off the shape, and a smaller one already let go beneath it.
-  if (!p.live) return;
-  ctx.globalAlpha = 0.72;
-  ctx.beginPath();
-  ctx.arc(cx + size * 0.1, cy + size * 1.05, size * 0.15, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.globalAlpha = 0.4;
-  ctx.beginPath();
-  ctx.arc(cx + size * 0.1, cy + size * 1.5, size * 0.09, 0, Math.PI * 2);
-  ctx.fill();
+  if (p.live) drawBeads(ctx, cx + size * 0.1, cy + size * 1.05, size);
+}
+
+/**
+ * The bead that makes a sign the game's own rather than a font's: one drop
+ * hanging off the shape at `(x, y)`, and a smaller one already let go beneath
+ * it, in whatever `fillStyle` the sign was drawn in.
+ */
+export function drawBeads(ctx: CanvasRenderingContext2D, x: number, y: number, size: number): void {
+  for (const [dy, r, a] of [
+    [0, 0.15, 0.72],
+    [0.45, 0.09, 0.4],
+  ] as const) {
+    ctx.globalAlpha = a;
+    ctx.beginPath();
+    ctx.arc(x, y + size * dy, size * r, 0, Math.PI * 2);
+    ctx.fill();
+  }
   ctx.globalAlpha = 1;
 }
 
@@ -204,42 +216,6 @@ function loopHead(ctx: CanvasRenderingContext2D, s: number): void {
   ctx.quadraticCurveTo(-s * 0.12, 0, -s * 0.5, -s * 0.78);
   ctx.closePath();
   ctx.fill();
-}
-
-/**
- * What feeds a button from the bar's own membrane: a neck of slime running out
- * of the edge above and reaching down to the socket, thickening and thinning on
- * its own clock. The panel's answer to the same sentence, one layer up —
- * nothing down here sits on the ship, everything is fed by it
- * (`band-slime.ts`).
- */
-export function drawNavFeeder(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  top: number,
-  to: number,
-  hex: string,
-  phase: number,
-): void {
-  const reach = to - top;
-  if (reach <= 2) return;
-  const swell = 0.55 + 0.45 * Math.sin(phase);
-  const w = 2.6 + 2.2 * swell;
-  ctx.globalAlpha = 0.4;
-  ctx.fillStyle = hex;
-  ctx.beginPath();
-  ctx.moveTo(x - w, top);
-  ctx.quadraticCurveTo(x - w * 0.35, top + reach * 0.6, x, to);
-  ctx.quadraticCurveTo(x + w * 0.35, top + reach * 0.6, x + w, top);
-  ctx.closePath();
-  ctx.fill();
-  // A bead that has let go and is on its way down the neck.
-  const fall = (Math.sin(phase * 0.7) + 1) / 2;
-  ctx.globalAlpha = 0.3 * (1 - fall);
-  ctx.beginPath();
-  ctx.arc(x, top + reach * (0.2 + 0.85 * fall), w * 0.42, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.globalAlpha = 1;
 }
 
 /** `#RRGGBB` at an alpha, for a gradient that has to carry a button's colour. */
