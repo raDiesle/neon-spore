@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · 040c8a4e — A cloud session never runs `bun run perf`, in any form
+
+The owner, 13 September 2026: *do never run perf tests in Claude cloud*. The rule was already that a cloud session takes no measurement — a narrow run that costs 25 seconds on his machine was killed twice on a runner — but `bun run perf --unmeasured` had been carved out of it on 9 September, because it opens no browser, measures nothing, and is how a session that adds a wave gets the baseline row `tools/perf/test/baseline.test.ts` requires. THE LEAK's row was got that way this evening, which is what prompted this. So the rule is now the whole command, with any flag, for any reason, and CLAUDE.md says so in the words he used.
+
+## 2026-09-13 · 098754a5 — A landing's unverified entry never names a file the landing deleted
+
+`bun run land --unverified` reads its `Files:` line off `git diff --name-only` over exactly the commits that landed, which is what stops an entry naming files the session merely had open. A diff names both sides of a change, though, so a landing that **removes** something listed the paths it had just deleted — and `docs/queue.md` is held to naming only files the tree has (`tools/test/doc-drift.test.ts`), so the trunk went red on the commit after it.
+
 ## 2026-09-13 · 2e4f2acf — The ship trades the panels too: HANDOVER · HULL adopted, the cairn pile refused
 
 The owner's two answers from the VERSUS page on 13 September 2026, applied with the tool. **`handover:notice` takes `hull`**: two lobes rise out of the hull a column and a half either side of the middle and hand one height back and forth, `a` and `1 − a` of one lift with `a` going round once every four beats, so there is an instant each turn when they are equal and neither owns it. They stand for the length of the window and no longer — up over the two warning beats, turning while the panels are away, down over the last beat of the hold — painted from the seat's own skin, so the navigator's ship trades in amber. The plate is drawn first and unchanged: this went under what was already there rather than replacing it. The exemption is the first one: a look the owner asked for by name.
