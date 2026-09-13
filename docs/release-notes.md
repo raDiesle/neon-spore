@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · 6c7c55d3 — HULL · TRADED is offered against THE HANDOVER's plate in VERSUS
+
+`handover:notice` / `hull`: the shape-sheet's two exchanging lobes, on the real hull in the seat's own skin, rising over the warning, handing one height back and forth while the panels are away and gone over the hold's last beat — drawn under the shipped plate, so the pair judges whether the ship saying it too is news or one signal too many. A look offered in VERSUS, not a change to what the game draws: the announcement is now a patchable record (`HANDOVER_LOOK`) that the frame calls, and the field is the same frame it was.
+
 ## 2026-09-13 · 47007bd2 — THE HANDOVER's guide is a rehearsal, and a film's page is a device
 
 The wave that introduces the fault carried three lines of prose, and what the fault does is change the picture: the sentences had to assert that the band in front of you would become the other one. The film simply lets it happen. Four pages — the pilot carrying the cannon onto a body, the navigator firing the colour that answers it, and then the same two phones after the trade, each with a thumb on a button it has never pressed — with the lip of the band counting down through the second of them, which is the warning both phones get.
