@@ -8,6 +8,7 @@ import { SALVAGE } from "./scenes/salvage.js";
 import { SNAKE } from "./scenes/snake.js";
 import { THE_BALLOON } from "./scenes/the-balloon.js";
 import { THE_BEATBOX } from "./scenes/the-beatbox.js";
+import { THE_CAIRN } from "./scenes/the-cairn.js";
 import { THE_CAROM } from "./scenes/the-carom.js";
 import { THE_CHOIR } from "./scenes/the-choir.js";
 import { THE_CLASP } from "./scenes/the-clasp.js";
@@ -127,7 +128,8 @@ export type SceneId =
   | "thePulse"
   | "theBalloon"
   | "theBeatbox"
-  | "theWeight";
+  | "theWeight"
+  | "theCairn";
 
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
@@ -183,6 +185,7 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theBalloon: THE_BALLOON,
   theBeatbox: THE_BEATBOX,
   theWeight: THE_WEIGHT,
+  theCairn: THE_CAIRN,
 };
 
 export type { GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";

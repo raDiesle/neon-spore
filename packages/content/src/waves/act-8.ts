@@ -173,6 +173,7 @@ export const WAVES_ACT_8: Wave[] = [
       both: "A pile of seven rocks standing over the field, five columns wide. Nothing you fire touches it — it is rock, and rock cannot be shot — and the shield has nothing to turn, because it is not falling. Either of you takes hold of the pile and drags a thumb sideways: one rock comes out of that side and falls down that lane like any other rock. Every answer you give it is a rock in the air, and there is only one dome.",
       p1: "Only you can see the lane it is about to drop one into by itself, and it will if you leave it alone. Say that column out loud and keep saying it — your trigger reaches nothing in this fight.",
       p2: "Yours is the only thing that answers a rock, so the rate is yours to set: say how many you can take and make them pull to your side. A rock you pulled is one you knew about; the one they call out is the one you did not.",
+      scene: "theCairn",
     },
     entries: [],
     boss: { kind: "cairn" },

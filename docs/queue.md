@@ -176,28 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## THE CAIRN's guide is prose, and the gesture it asks for has never been shown
-
-- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-13, claude/queue-the-cairns-guide-is-prose-and-the-gesture-it-ask
-- **Files:** `packages/content/src/scenes.ts`, `packages/content/src/waves/act-8.ts`, `packages/content/src/scene-types.ts`
-
-The wave that introduces THE CAIRN carries a three-line prose guide and no
-`scene`, the way THE WEIGHT's does and for the same reason — the rehearsal was
-the half that did not fit in the lane. It is worse here in one specific way: the
-answer to this boss is *a hand carried sideways*, a gesture the game has taught
-only on a falling rock, and prose has to say "drag a thumb across it" where a
-rehearsal could show a thumb moving and a rock coming away.
-
-What a rehearsal would show, in three pages: the pile with a ghost thumb resting
-on it and nothing happening, because a still finger is worth nothing here; the
-thumb carried right, and one rock leaving the right of the pile; the same rock
-falling and a dome sliding under it, which is the sentence the whole fight is
-about. No new machinery — `scenes.ts` holds the choreography and `scene-drag.ts`
-already animates a carried hand for THE PUSH. `.claude/skills/new-tutorial` has
-the rules the owner has already corrected twice; `bun test packages/content` and
-the guide-page tests prove it.
-
 ## The shape sheet's CAIRN card and the field's pile are stacked differently
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt

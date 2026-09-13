@@ -2209,3 +2209,23 @@ frozen `paint` wrapper dropped `dt` — which is fixed in its own commit. About
 
 Bottleneck: **friction** — a camera that photographed twice the tick it was
 asked for cost as long as authoring the film.
+
+## 2026-09-13 · queue-the-cairns-guide — THE CAIRN's rehearsal
+
+Queue item: the wave that introduces THE CAIRN carried prose and no `scene`,
+for a gesture the game had taught only on a falling rock. Five pages now: a
+still thumb on the pile and nothing happening, the thumb carried right and a
+rock falling, the pilot alone watching the lane the pile will drop into, the
+navigator's dome under the pulled rock, and the rock nobody pulled reaching
+the hull. About 15 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `cairn.ts`, `grip-push.ts`, THE HAND's film for a carry authored on a running hold, `dragSeat` |
+| writing | 5 | `scenes/the-cairn.ts`, the wiring |
+| looking | 5 | a probe of the film tick by tick — the first draft's carry was the navigator's and `dragSeat` sends every carry as the pilot's, so the hand became the pilot's; two pages photographed |
+| friction | 0 | — |
+| landing | 5 | `check:fast`, `bun run index`, the commit, `bun run land --keep` |
+
+Bottleneck: **reading** — finding that a film's carry is always the pilot's
+took the one probe run that showed the pile ignoring the hand.
