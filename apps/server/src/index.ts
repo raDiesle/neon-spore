@@ -1,5 +1,6 @@
 import {
   isRoomCode,
+  NAME_MINE_ROUTE,
   NAME_PARAM,
   NAME_ROUTE,
   normalizeRoomCode,
@@ -9,7 +10,9 @@ import {
 export { Names } from "./names.js";
 export { Room } from "./room.js";
 
-export interface Env {
+import type { SignInEnv } from "./sign-in.js";
+
+export interface Env extends SignInEnv {
   ROOMS: DurableObjectNamespace;
   NAMES: DurableObjectNamespace;
 }
@@ -50,9 +53,11 @@ export default {
     // a room exists, and the relay stays a dumb relay that never looks inside
     // anything. So it is a plain HTTP route to the one registry object —
     // `idFromName("names")` is what makes it the one.
-    if (url.pathname === NAME_ROUTE) {
+    // `/net/name/mine` is the same object's second question — which name is
+    // this sign-in's — so the path travels with the request.
+    if (url.pathname === NAME_ROUTE || url.pathname === NAME_MINE_ROUTE) {
       const registry = env.NAMES.get(env.NAMES.idFromName("names"));
-      return registry.fetch(new Request("https://names/", request));
+      return registry.fetch(new Request(`https://names${url.pathname}`, request));
     }
 
     const match = ROOM_PATH.exec(url.pathname);

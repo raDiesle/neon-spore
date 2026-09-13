@@ -119,6 +119,7 @@ export const DEVICE_KEYS = [
   "neon-spore.settings",
   "neon-spore.name",
   "neon-spore.token",
+  "neon-spore.email",
   "neon-spore.pairs",
   "neon-spore.progress",
   "neon-spore.view",
@@ -129,8 +130,8 @@ export const DEVICE_KEYS = [
  *
  * For handing the phone to somebody else, or starting clean — and it is the
  * only way back out of a stored name. It clears these keys and nothing else:
- * the server-side claim on the name is deliberately left standing, which is
- * what the recovery code is for, and the button says so in one line.
+ * the server-side claim on the name is deliberately left standing — logging
+ * in again is what takes it back — and the button says so in one line.
  */
 export function forgetThisDevice(): void {
   for (const key of DEVICE_KEYS) {

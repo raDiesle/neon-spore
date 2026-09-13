@@ -76,11 +76,12 @@ export function nameFromWire(value: unknown): string {
 
 /**
  * The one sentence for both refusals a claim can meet: a name somebody else
- * holds, and a name whose recovery code was wrong.
+ * holds, and a name whose owner this is not — a signed-in device asking for
+ * a name that is bound to a different sign-in.
  *
  * They must read identically. If they did not, this route would be a way to
  * ask which names exist — one guess at a time, told apart by whether the
- * answer said "wrong code" or "not yours". `apps/server/test/names.test.ts`
+ * answer said "not yours" or "not anybody's". `apps/server/test/names.test.ts`
  * asserts the two answers are equal, field for field.
  */
-export const TAKEN_MESSAGE = "That name is taken. Choose another, or type its recovery code.";
+export const TAKEN_MESSAGE = "That name is taken. Choose another, or sign in if it is yours.";

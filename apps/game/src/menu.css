@@ -211,6 +211,16 @@
   color: var(--ink-soft);
 }
 
+/* Who this phone is, at the top of PLAY (`menu-who.ts`): the progress line's
+   size and colour, under the heading and above the rows. */
+#menu .who {
+  margin: -4px 0 14px;
+  font-size: 11px;
+  line-height: 1.6;
+  letter-spacing: 0.1em;
+  color: var(--ink-soft);
+}
+
 /* One page at a time: the entries, the wave list, or the keys. */
 #menu .page {
   display: none;
@@ -567,6 +577,12 @@ body[data-motion="off"] #menu .entry {
   padding: 14px;
   border: 1px solid var(--line);
   border-radius: 10px;
+}
+/* `display: grid` beats the browser's own `[hidden]`, so a row that is not
+   offered — the home screen on a browser that has not offered it, logging in
+   on a build with no project — drew as an empty frame. */
+#menu .setting[hidden] {
+  display: none;
 }
 #menu .setting .switch {
   justify-self: start;

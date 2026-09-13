@@ -1,17 +1,20 @@
 import { BUILD_STAMP } from "../../../tools/build-stamp.js";
 import { canVibrate } from "./haptics.js";
 import { backButton, el, type MenuPage } from "./menu-parts.js";
+import { signInRow } from "./menu-sign-in.js";
 import { claimName, readName, writeName } from "./nickname.js";
 import { forgetThisDevice, readSettings, type Settings, updateSettings } from "./settings.js";
+import { signOut } from "./sign-in.js";
 
 /**
  * The one durable place for "things about me".
  *
  * The room screen asks for a name once and never again; changing it lives
- * here, beside the switches, because that is where a person looks for it. So
- * does the way out — the button that forgets everything this device knows,
- * which is what a phone handed to somebody else needs and the only way back
- * out of a stored name.
+ * here, beside the switches, because that is where a person looks for it, and
+ * so does logging in (`menu-sign-in.ts`), which is what keeps the name past
+ * this phone. So does the way out — the button that forgets everything this
+ * device knows, which is what a phone handed to somebody else needs and the
+ * only way back out of a stored name.
  *
  * Everything here is a *preference*. Nothing on this page may change what the
  * simulation does: two devices in a room would then disagree about the world
@@ -81,7 +84,7 @@ export function buildSettings(show: (page: MenuPage) => void, hooks: SettingsHoo
     page.append(toggleRow(row, hooks));
   }
 
-  page.append(nameRow(), installRow(hooks), forgetRow());
+  page.append(nameRow(), signInRow(), installRow(hooks), forgetRow());
   // Which build this phone is running, so a bug report can say. Through
   // `BUILD_STAMP` rather than the identifier the build substitutes: that name
   // exists in a bundle and nowhere else, so under a dev server — the
@@ -148,30 +151,22 @@ function nameRow(): HTMLElement {
   label.htmlFor = "settingsName";
   input.id = "settingsName";
 
-  const code = el("input");
-  code.type = "text";
-  code.maxLength = 4;
-  code.spellcheck = false;
-  code.placeholder = "RECOVERY CODE";
-
   const button = el("button", "switch", "CHANGE");
   button.type = "button";
   const said = el("span", "s");
 
   button.addEventListener("click", () => {
-    void claimName(input.value, code.value).then((answer) => {
+    void claimName(input.value).then((answer) => {
       if (!answer.ok) {
         said.textContent = answer.why ?? "That name cannot be used.";
         return;
       }
       writeName(answer.name ?? input.value);
-      said.textContent = answer.code
-        ? `${answer.name} is yours. Write down ${answer.code}.`
-        : `You are ${answer.name}.`;
+      said.textContent = `You are ${answer.name}.`;
     });
   });
 
-  block.append(label, input, code, button, said);
+  block.append(label, input, button, said);
   return block;
 }
 
@@ -207,7 +202,7 @@ function forgetRow(): HTMLElement {
   const what = el(
     "span",
     "s",
-    "Forgets your name, who you have played with and how far you have got. The name itself stays yours — the recovery code is how you take it back.",
+    "Forgets your name, who you have played with and how far you have got, and logs you out. A name you logged in with stays yours: log in again to take it back.",
   );
   let armed = false;
   button.addEventListener("click", () => {
@@ -217,6 +212,7 @@ function forgetRow(): HTMLElement {
       return;
     }
     forgetThisDevice();
+    void signOut();
     button.textContent = "CLEARED";
     button.disabled = true;
   });

@@ -49,6 +49,7 @@ describe("what CLEAR THIS DEVICE forgets", () => {
     // The list is the one place they are written down. A key added elsewhere
     // and not added here is data a player asked to be rid of and still has.
     expect([...DEVICE_KEYS].sort()).toEqual([
+      "neon-spore.email",
       "neon-spore.name",
       "neon-spore.pairs",
       "neon-spore.progress",
@@ -64,7 +65,7 @@ describe("what CLEAR THIS DEVICE forgets", () => {
 });
 
 const sources = await Promise.all(
-  ["nickname", "pairing", "progress", "settings", "view"].map((name) =>
+  ["nickname", "pairing", "progress", "settings", "sign-in", "view"].map((name) =>
     Bun.file(Bun.fileURLToPath(new URL(`../src/${name}.ts`, import.meta.url))).text(),
   ),
 );
@@ -83,6 +84,6 @@ describe("every key this game stores", () => {
       expect(DEVICE_KEYS as readonly string[], `${key} is stored but never cleared`).toContain(key);
     }
     // And the sweep really found them, rather than finding nothing and passing.
-    expect(found.size).toBeGreaterThanOrEqual(5);
+    expect(found.size).toBeGreaterThanOrEqual(6);
   });
 });

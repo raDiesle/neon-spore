@@ -1150,6 +1150,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/tally.ts` | the run mark — wave, clock, retries — up to the room every few seconds |
 | `apps/game/src/menu-link.ts` | what a link changes on the front page: eight entries, the progress line, the seat lock |
 | `apps/game/src/menu-seats.ts` | the seat, as three cards with the job written on each, and the lock a room puts on them |
+| `apps/game/src/menu-sign-in.ts` | The settings row that makes a name survive the phone |
 | `apps/game/src/keys-guide.ts` | What a key means while a wave's guide is up, at a desk |
 | `apps/game/src/intro.ts` | THE SIX PAGES A PAIR SEES BEFORE THEY HAVE CHOSEN ANYTHING |
 | `apps/game/src/frame.ts` | WHAT HAPPENS EVERY TICK, AND WHAT HAPPENS EVERY FRAME |
@@ -1159,9 +1160,12 @@ place — the generator keeps whatever is there.
 | `apps/game/src/menu-idle.ts` | `?menuidle=<hz>` — how often the field is repainted while the main menu is up |
 | `apps/game/src/menu-door.ts` | Whether a URL opens on the menu or goes straight to the field |
 | `apps/game/src/menu-bindings.ts` | **What the menu is handed, and what it hands back** — the shape, away from the knot that reads one |
+| `apps/game/src/menu-who.ts` | The line at the top of the PLAY page saying who this phone is |
 | `apps/game/src/keys-grip.ts` | what the desk rig's grip key takes hold of, and how it carries it |
 | `apps/game/src/keys-slide.ts` | The desk keys that slide a swelling, and keep sliding while held |
 | `apps/game/src/shake.ts` | the device being shaken, which is THE CHOIR's control and the only input that is not a finger on the glass |
+| `apps/game/src/sign-in-config.ts` | The Firebase project the game signs in against — the owner's to paste |
+| `apps/game/src/sign-in.ts` | Who is holding this phone, proved by Google or by an email link |
 | `apps/game/src/rounds.ts` | Every round that is not the field, bound to the canvas at once |
 | `apps/game/src/keys-crank.ts` | The desk key that turns THE CLAW's crank, which no key can do by itself |
 | `apps/game/src/trail.ts` | The surface the mouse's ink is drawn on, over every sheet, and nothing at all on a phone |
@@ -1175,6 +1179,7 @@ place — the generator keeps whatever is there.
 | `apps/server/src/seat.ts` | A seat, and everything one does to a socket that holds one |
 | `apps/server/dev.ts` | `wrangler dev`, on a port that belongs to this tree |
 | `apps/server/src/start-gate.ts` | The two presses that stand between a full room and beat zero |
+| `apps/server/src/sign-in.ts` | Who signed in, read off a Firebase ID token — checked here, never trusted |
 | `apps/server/src/room-start.ts` | The gate's two sockets-facing halves: telling both phones who has pressed |
 | `apps/server/src/names.ts` | The name registry: one Durable Object holding every claimed name |
 | `apps/server/src/room-open.ts` | Everything that must be true before a socket is worth accepting, in the order it is worth being false in |

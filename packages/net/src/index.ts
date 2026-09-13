@@ -20,6 +20,7 @@ export {
 export {
   type ClientMessage,
   encode,
+  NAME_MINE_ROUTE,
   NAME_PARAM,
   NAME_ROUTE,
   type PlayerId,

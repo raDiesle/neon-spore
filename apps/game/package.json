@@ -9,6 +9,8 @@
     "preview:once": "bun run build && PREVIEW_PORT=0 bun preview.ts"
   },
   "dependencies": {
+    "@firebase/app": "^0.16.2",
+    "@firebase/auth": "^1.13.6",
     "@neon-spore/audio": "workspace:*",
     "@neon-spore/content": "workspace:*",
     "@neon-spore/net": "workspace:*",

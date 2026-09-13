@@ -44,7 +44,7 @@ export const VERSION_PARAM = "v";
 export const NAME_PARAM = "n";
 
 /**
- * Where a device claims a name, or moves one to itself with its recovery code.
+ * Where a device claims a name, or moves one to itself by signing in.
  *
  * A plain HTTP route beside the room socket rather than a message on it: a
  * claim happens once, before a room exists, and the relay stays a relay that
@@ -52,6 +52,12 @@ export const NAME_PARAM = "n";
  * string and neither may own it.
  */
 export const NAME_ROUTE = "/net/name";
+/**
+ * Where a signed-in device asks which name is its own. A player on a new
+ * phone signs in and is told their name rather than asked to remember it —
+ * and the claim moves to this device in the same answer.
+ */
+export const NAME_MINE_ROUTE = "/net/name/mine";
 
 /** 1 = pilot (cannon, trigger, maw), 2 = navigator (shield, colours). */
 export type PlayerId = 1 | 2;

@@ -6,6 +6,7 @@ import { buildDemos, buildHowTo, buildWaves } from "./menu-pages.js";
 import { backButton, el, type MenuPage, sporeSvg } from "./menu-parts.js";
 import { buildSeats } from "./menu-seats.js";
 import { buildSettings, type SettingsHooks } from "./menu-settings.js";
+import { whoLine } from "./menu-who.js";
 
 /**
  * The menu's markup, built here rather than written into index.html.
@@ -161,6 +162,7 @@ export function buildMenu(h: MenuHandlers): MenuDom {
   playPage.append(
     backButton((p) => show(p)),
     el("h2", undefined, "PLAY"),
+    whoLine(),
   );
   drawEntries(h.play, playPage);
 

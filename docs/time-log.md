@@ -2815,3 +2815,20 @@ only carries a name once a room knows two, which is two devices. About 20 min.
 
 Bottleneck: **friction** — getting a phone-sized PNG of a page behind the
 intro took a script, because `bun run shot` cannot mark the intro as seen.
+
+## 2026-09-13 · claude/queue-a-player-signs-in-with-google-or-by-an-email-lin — a player logs in with Google or an email link
+
+The owner asked which sign-in routes were easy and recommended, chose Firebase
+Auth (Google and an email link, Apple later) and anonymous-first through the
+question tool, and the queue item went from cloud-only to done here. About 75 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the queue item, `names.ts`, `nickname.ts`, `join-name.ts`, `menu-settings.ts`, the miniflare harness, the menu's CSS |
+| writing | 35 | `sign-in.ts` on both ends, the registry around a subject, the settings row, the PLAY line, the forged-token test helper |
+| looking | 10 | PLAY and SETTINGS at phone size, once with a dummy project to see the row |
+| friction | 5 | miniflare's `Response` is not `tsc`'s; `[hidden]` lost to `display: grid` on a settings row |
+| landing | 10 | the build, `check:fast`, the index, the commit |
+
+Bottleneck: **writing** — two ends and a menu page for one feature; nothing
+waited on anything.

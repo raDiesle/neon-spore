@@ -1,5 +1,6 @@
-import { isName, NAME_ROUTE, normalizeName } from "@neon-spore/net";
+import { isName, NAME_MINE_ROUTE, NAME_ROUTE, normalizeName } from "@neon-spore/net";
 import { httpOrigin } from "./origin.js";
+import { idToken } from "./sign-in.js";
 
 /**
  * This device's player name: asked once, kept here, carried into every room.
@@ -28,7 +29,9 @@ export const NAME_KEY = "neon-spore.name";
  * answers yes rather than "taken". It is not an account and identifies nobody
  * — it is a random string this browser happens to remember.
  *
- * It dies with the browser's storage, which is what the recovery code is for.
+ * It dies with the browser's storage, which is what a sign-in is for
+ * (`sign-in.ts`): a name claimed under one is given back to whichever device
+ * signs in as that person next.
  */
 export const TOKEN_KEY = "neon-spore.token";
 
@@ -47,6 +50,9 @@ export function readName(): string {
   }
 }
 
+/** Fired on `document` whenever the name changes, for what draws it (`menu-who.ts`). */
+export const NAME_EVENT = "neon-spore:name";
+
 /**
  * Keep a name. Answers whether it was one — a caller that gets `false` has a
  * player still standing in front of the field, and must say why.
@@ -60,6 +66,7 @@ export function writeName(raw: string): boolean {
     // Unstorable, but not unusable: the run in front of them still gets the
     // name, and the next visit asks again.
   }
+  if (typeof document !== "undefined") document.dispatchEvent(new Event(NAME_EVENT));
   return true;
 }
 
@@ -102,34 +109,58 @@ export function deviceToken(): string {
   return minted;
 }
 
-/** What the registry said. `code` arrives once, on a fresh claim only. */
+/** What the registry said. */
 export interface NameClaim {
   ok: boolean;
   name?: string;
-  code?: string;
   why?: string;
 }
 
 /**
- * Ask the registry for a name, offering a recovery code if one was typed.
+ * Ask the registry for a name, signed by whoever is signed in.
  *
  * A network that will not answer is not a refusal: the player keeps the name
  * on this device and plays. Uniqueness is worth having and it is not worth
  * standing between somebody and the game — the room still shows two names, and
  * the worst case is two people called DAVID who can both see that they are.
  */
-export async function claimName(raw: string, code = ""): Promise<NameClaim> {
+export async function claimName(raw: string): Promise<NameClaim> {
   const name = normalizeName(raw);
   if (!isName(name)) return { ok: false, why: nameProblem(raw) };
   try {
-    const res = await fetch(`${httpOrigin()}${NAME_ROUTE}`, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ name, token: deviceToken(), code }),
-    });
-    const answer = (await res.json()) as NameClaim;
+    const answer = await ask(NAME_ROUTE, { name });
     return typeof answer?.ok === "boolean" ? answer : { ok: true, name };
   } catch {
     return { ok: true, name };
   }
+}
+
+/**
+ * After a sign-in: the name this person already holds wins and is written
+ * here, so a new phone is told the name rather than asked for it; a person
+ * with no name yet has the device's own bound to them by claiming it again,
+ * now signed. Nothing to do while nobody is signed in.
+ */
+export async function syncName(): Promise<void> {
+  if ((await idToken()) === "") return;
+  try {
+    const mine = await ask(NAME_MINE_ROUTE, {});
+    if (mine.ok && mine.name) {
+      writeName(mine.name);
+      return;
+    }
+  } catch {
+    return;
+  }
+  if (hasName()) await claimName(readName());
+}
+
+/** One question to the registry, with this device's token and its sign-in. */
+async function ask(route: string, body: Record<string, string>): Promise<NameClaim> {
+  const res = await fetch(`${httpOrigin()}${route}`, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ ...body, token: deviceToken(), idToken: await idToken() }),
+  });
+  return (await res.json()) as NameClaim;
 }

@@ -176,35 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## A player signs in with Google or by an email link, and the menu says who
-
-- **Found:** 2026-09-13, queue-lanes — asked for by the owner
-- **Taken:** 2026-09-13, claude/queue-a-player-signs-in-with-google-or-by-an-email-lin
-- **Files:** `apps/game/src/nickname.ts`, `apps/game/src/join-name.ts`, `apps/game/src/menu-settings.ts`, `apps/server/src/names.ts`, `apps/server/src/index.ts`, `packages/net/src/nickname.ts`, `packages/net/src/protocol.ts`
-- **Decided:** 2026-09-13, by the owner — Firebase Auth, Google and an email link now, Apple later; anonymous first, and a sign-in attached later is what makes the name recoverable. The Worker verifies Firebase's ID token itself; the Firebase project's config is the owner's to paste in.
-
-Today a device claims a nickname at the registry (`names.ts`) and is handed a
-**recovery code**, shown once, for getting the name back on a new browser.
-The owner wants that replaced by a sign-in: **OAuth (Google is his example)
-combined with a freely chosen nickname**, or **an email address that is sent
-a link** which signs this browser in as that nickname. Whichever it is, the
-sign-in and the nickname are **remembered** so the next opening of the app
-is already signed in, and the PLAY page (the renamed TWO DEVICES page) shows
-**"logged in as <nickname>"** at its top.
-
-What the answer picks between. *Google only*: one OAuth client id, the
-Worker verifies the id token and binds its `sub` to the nickname — the least
-code and no mail to send, and a player without a Google account cannot play
-across devices. *Email link only*: the Worker needs a sender (Cloudflare
-Email Routing does not send; a Resend or MailChannels key does) and a signed,
-expiring token in the link — more moving parts, no third party at the door.
-*Both*: the two above behind one "who are you" screen. Either way the
-registry keeps `TOKEN_KEY`'s job — a browser known to the registry — and the
-recovery code goes, along with its page in settings. The nickname's rules
-stay in `packages/net/src/nickname.ts`, where both ends read them. The
-server's tests are `bun test apps/server`; the sign-in round trip against a
-real provider is unverified from a cloud session.
-
 ## Unverified at dcf8328c: THE HANDOVER watched at tempo: whether two beats of war…
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt

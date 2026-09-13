@@ -621,9 +621,8 @@ body.player-view #waveSkip {
   color: #ff5470;
   min-height: 1.2em;
 }
-/* The recovery code, shown once and only once, because it is minted once. A
-   player who does not write it down has not lost their name — they have lost
-   the way to take it to another phone. */
+/* "<name> is yours", said once, with where a log-in keeps it past this
+   phone (`join-name.ts`). */
 #joinName .keep {
   color: #22d6e7;
   line-height: 1.7;
