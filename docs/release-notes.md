@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · e44b5f47 — The lockstep test and the perf baseline follow FIRST STEP's eight bodies
+
+The owner saved FIRST STEP from the director with eight red bodies in place of one, and the save committed to `main` without a check: the perf baseline's row for the wave went stale and `two-devices-wave.test.ts`'s hand-written script played a wave that no longer existed. The row is marked unmeasured (`bun run perf --unmeasured`) and the script now takes all eight bodies, the cannon crossing the field twice. Queued: the save should blank the row itself, and the test should carry a wave of its own.
+
+## 2026-09-13 · ee3a8e61 — A queue entry can be reserved for a cloud or a local session
+
+`- **Where:** cloud` or `- **Where:** local` on an entry keeps it for that kind of session: the listing marks it CLOUD ONLY or LOCAL ONLY, `bun run queue next` passes over one kept for the other kind, and `next <n>` or `take <n>` naming it is refused with the reason. A session knows which kind it is by `CLAUDE_CODE_REMOTE`, the signal the web image sets. Without the line an entry is anybody's, as every entry was until today. Six new entries, all reserved for the cloud and all the owner's: two phones that reconnect on different waves, the menu's front page, a readable colour scheme and face, a sign-in in place of the recovery code, nicknames in place of Player 1 and 2, and a difficulty.
+
 ## 2026-09-13 · 5f699373 — Four waves the cloud landed are now watched, and THE CAIRN's frame cost is queued
 
 The four `Unverified at` queue items for THE WEIGHT, THE CODEX, THE CAIRN and THE WELL are done — each wave watched at tempo on a real machine, two of them fixed in the commits before this one. The perf figure the cloud could not take was taken three times and flagged three times, so nothing was saved; what held across all three runs, THE CAIRN painting at two and a half times the run's median, is a queue item of its own. Time-log entry for the lane.
