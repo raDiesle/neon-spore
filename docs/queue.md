@@ -343,3 +343,17 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## Unverified at c988cd97: nothing drawn changed; the rewritten section read by an…
+
+- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `docs/queue.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/test/scenes-prose.test.ts`
+
+*The briefings spec counts its own rehearsals, in a test* landed from a session that could not look at it. What went unchecked:
+
+- nothing drawn changed; the rewritten section read by an eye
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

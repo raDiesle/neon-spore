@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · c988cd97 — The briefings spec counts its own rehearsals, in a test
+
+`docs/spec/briefings.md` said *one rehearsal exists* and *FIRST STEP has the only one; every other guide is still the three strings and the two circles*, with fifty-six films in `packages/content/src/scenes/` and sixty-one of the seventy waves carrying a guide. The status block and §3.2 say what is true now: all but five guided waves open on a film, and the five that do not are named.
+
 ## 2026-09-13 · 6c7c55d3 — HULL · TRADED is offered against THE HANDOVER's plate in VERSUS
 
 `handover:notice` / `hull`: the shape-sheet's two exchanging lobes, on the real hull in the seat's own skin, rising over the warning, handing one height back and forth while the panels are away and gone over the hold's last beat — drawn under the shipped plate, so the pair judges whether the ship saying it too is news or one signal too many. A look offered in VERSUS, not a change to what the game draws: the announcement is now a patchable record (`HANDOVER_LOOK`) that the frame calls, and the field is the same frame it was.
