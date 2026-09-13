@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · 3dba3d93 — The rehearsals section reads, and HULL · TRADED leaves the queue a second time
+
+`docs/spec/briefings.md` §3.2 as rewritten at `c988cd97`, read by an eye: the status block, §1's sixty-one of seventy and §3.2's fifty-six bar five agree with each other and with the five waves `scenes-prose.test.ts` names. The unverified entry comes out. So does the finished `HULL · TRADED` entry, again — a rebase in another session resolved `docs/queue.md` by keeping its own copy, which put the taken item back after it had landed.
+
 ## 2026-09-13 · c988cd97 — The briefings spec counts its own rehearsals, in a test
 
 `docs/spec/briefings.md` said *one rehearsal exists* and *FIRST STEP has the only one; every other guide is still the three strings and the two circles*, with fifty-six films in `packages/content/src/scenes/` and sixty-one of the seventy waves carrying a guide. The status block and §3.2 say what is true now: all but five guided waves open on a film, and the five that do not are named.
