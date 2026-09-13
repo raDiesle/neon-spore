@@ -176,21 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## Unverified at 091f7df2: The two people's names on a phone: whether a name at th…
-
-- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-13, claude/queue-unverified-at-091f7df2-the-two-peoples-names-on
-- **Files:** `apps/game/src/menu-link.ts`, `apps/game/src/menu-seats.ts`, `apps/game/src/menu-view.ts`, `apps/game/test/menu-front.test.ts`, `docs/queue.md`, `docs/time-log.md`, `packages/net/src/nickname.ts`, `packages/net/test/nickname.test.ts`
-
-*The two people's names, in the three places the game wrote P1 and P2* landed from a session that could not look at it. The commit touched 11 more files. What went unchecked:
-
-- The two people's names on a phone: whether a name at the siren chip's full width reads as fast as P1 did at a glance, and whether the cluster over the field's top row is affordable while a call is on
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## Unverified at a3703115: THE HANDOVER on a wave that names its own window, and o…
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt

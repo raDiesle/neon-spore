@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { gripLabel } from "../src/grip.js";
 import { type SeatNames, seatName, withNames } from "../src/seat-name.js";
-import { PILL_W, pillWidth, seatChip } from "../src/siren-seats.js";
+import { PILL_W, pillWidth, SIREN_PAD, seatChip } from "../src/siren-seats.js";
 
 /**
  * **The two people's names, where the game used to write P1 and P2.**
@@ -69,6 +69,21 @@ describe("the siren's chip", () => {
     // (`packages/net/src/nickname.ts`), so it is worth measuring here.
     const cluster = pillWidth(seatChip("p1", longest)) + pillWidth(seatChip("p2", longest)) + 36;
     expect(cluster).toBeLessThan(320 * 0.75);
+  });
+
+  it("stands clear of the corner button, wherever menu.css puts it", async () => {
+    // The first two phones with names on them showed the right chip's last
+    // letters and its ear under the ☰ (13 September 2026). The button's box is
+    // read off the stylesheet rather than copied, so a moved button fails here
+    // instead of on a phone.
+    const css = await Bun.file(
+      Bun.fileURLToPath(new URL("../../../apps/game/src/menu.css", import.meta.url)),
+    ).text();
+    const block = css.slice(css.indexOf("#menuChip {"), css.indexOf("#menuChip.on"));
+    const right = Number(/right:\s*(\d+)px/.exec(block)?.[1]);
+    const width = Number(/width:\s*(\d+)px/.exec(block)?.[1]);
+    expect(right + width).toBeGreaterThan(0);
+    expect(SIREN_PAD).toBeGreaterThanOrEqual(right + width);
   });
 });
 

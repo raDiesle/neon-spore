@@ -16,11 +16,23 @@ import { hasSeatName, type SeatNames, seatName } from "./seat-name.js";
  * twenty pixels. They are argued about separately and they change separately.
  */
 
+/** The corner button — ☰, the way back to the menu — as `apps/game/src/menu.css`
+ * places it: eight pixels in from the right, thirty-two wide, and over
+ * everything. Furniture in fixed pixels like the hull bar and the beat dots,
+ * so the instrument can know it is there without knowing the DOM. */
+const MENU_CHIP_REACH = 8 + 32;
+
 /** The gap between the cluster and the right edge of the screen. It lives here
  * with the chip's own box rather than in `siren.ts`, because the torch alarm's
  * line hangs off the same edge (`torch-alarm.ts`) and this file is the one
- * both can read without importing the instrument. One edge, named once. */
-export const SIREN_PAD = 10;
+ * both can read without importing the instrument. One edge, named once.
+ *
+ * **Clear of the corner button, not of the edge.** The first two phones with
+ * names on them (13 September 2026) showed the right chip's last letters and
+ * its ear under the ☰, and the seat's own ring on top of it: the chips are
+ * level with the button's bottom third, and a pad of ten pixels put the whole
+ * P2 pill inside its box before there were names to lengthen it. */
+export const SIREN_PAD = MENU_CHIP_REACH + 6;
 
 /**
  * The chip's own box — the **narrowest** it is drawn at, which is what P1 and
@@ -36,9 +48,11 @@ const PILL_H = 20;
 const PILL_FONT = '700 9px "Courier New",monospace';
 const CHAR_W = 5.4;
 /** What is around the label inside the pill: the left inset, and the glyph at
- * the right end with its own air. */
+ * the right end with its own air — the glyph is centred nine pixels in and is
+ * eleven wide, so anything under fourteen and a half has a long name's last
+ * letter touching it, which is what the first phone with names showed. */
 const TEXT_LEFT = 4;
-const GLYPH_ROOM = 13;
+const GLYPH_ROOM = 16;
 
 /**
  * How wide this chip is, for the label it is carrying.

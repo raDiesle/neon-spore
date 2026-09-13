@@ -2920,3 +2920,23 @@ not — the room screen stood over the menu's CONTINUE — fixed here. About 20 
 
 Bottleneck: **looking** — the first two phones through a parting could not
 press CONTINUE at all, which no unit test and no relay check could have seen.
+
+## 2026-09-13 · claude/names-on-a-phone — two twelve-character names on the siren, seen on two phones
+
+Queue item 091f7df2, the look a cloud session could not take: two phones called
+ANNE-MARIE K and JEAN-LUC PIC in one room, put on THE VEIL by a parting and a
+CONTINUE, a veil on the field and the siren up. The right chip's last letters
+and its ear were under the ☰, and a long name's last letter touched its glyph —
+both fixed here. About 30 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the names commit, `siren.ts`, `siren-seats.ts`, `comms.ts`, `key-hint.ts`, `menu.css` for the ☰'s box |
+| writing | 5 | the two-phone script for names; `SIREN_PAD` clear of the corner button, `GLYPH_ROOM`, the test that reads the button's box off `menu.css` |
+| looking | 10 | three runs of the two phones: the key hint over the top row (a mouse, not the game), the chip under the ☰, then the fixed cluster |
+| friction | 5 | stopping the wrangler by command line matched too widely and killed other windows; Python heredocs wrote CRLF and the formatter refused it |
+| landing | 5 | `check:fast`, the queue, the commit |
+
+Bottleneck: **looking** — the defect was a DOM button over a canvas instrument,
+which nothing in either package's tests could see; the two-phone run is the
+only thing that draws both.
