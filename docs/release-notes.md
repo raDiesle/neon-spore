@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · ebc7bca6 — Two phones that part can now press CONTINUE: the room screen no longer stands over it
+
+The parting was driven for real — a local wrangler, two browser contexts in one room, one reaching into its own world — and the first thing the two phones found was that they could not press the one button that mends a parted run. The room screen opens itself on any link fault, a parting included, and it sits over the menu; so both phones showed the old "The two worlds parted at tick N. This is a bug, not a lag spike" beside a START that could not be pressed, with the menu's CONTINUE underneath. A fix to something wrong: the room screen no longer opens on a parting (`join.ts`), the parting edge closes it before the menu comes up (`shell.ts`), and when it is up anyway it says where to press (`join-words.ts`). With that, both press CONTINUE and both open WAVE 4 — the wave the room kept — at tick 0, in step.
+
 ## 2026-09-13 · 10a53cf7 — THE HANDOVER watched at phone size: the trade reads from both seats
 
 The unverified entry from the cloud session is out of the queue. Photographed from both seats with bun run frames: the lip counts PANELS TRADE IN 2, 1; on the beat the band flips to the other seat's colours with the other seat's controls and hidden reads on it, and the lip says THEIR PANEL — BACK IN 8 down to the return. Whether two beats is enough time and whether the trade is exciting are the owner's to say and are put to him; no performance run, because a lane never owes one.
