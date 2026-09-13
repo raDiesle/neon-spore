@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## The shape sheet's CAIRN card and the field's pile are stacked differently
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-13, claude/queue-the-shape-sheets-cairn-card-and-the-fields-pile
 - **Files:** `tools/shape-sheet/src/forms/pile.ts`, `tools/shape-sheet/src/drafts/collected.ts`, `packages/render/src/cairn.ts`
 
 The card draws seven units three, three and one — `courses()` in `pile.ts`
