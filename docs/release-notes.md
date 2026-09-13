@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · 091f7df2 — The two people's names, in the three places the game wrote P1 and P2
+
+The owner asked for the nicknames wherever a person reads a seat's name in play. Three labels carry one mid-wave and each now says the person: the siren's chip, which is the instrument that says *whose turn it is to talk*; the word under a hand on a body, which used to read P2 PULLS and reads JEAN-LUC PULLS; and a rehearsal's caption, which content writes as PLAYER 2 SEES ONE WIRE. The menu's seat cards say who is sitting in each seat. Where the room knows no name — a device playing alone, a seat nobody has claimed, every frame test in the repository — every one of them draws exactly what it drew before.
+
 ## 2026-09-13 · 93caa4e4 — The menu's colours are named, measured, and set in a face that is not Courier
 
 The owner reads the menu on a phone and said the text was hard to read. It was, and the number says how: the tagline was 3.8:1 against the ground and a row's description 2.2:1, where WCAG AA asks 4.5:1 for a line of text. Purple on purple, at ten pixels, at arm's length.
