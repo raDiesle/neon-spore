@@ -380,6 +380,7 @@ what the rest of this file holds.
 ## Unverified at 9e1c5a70: THE WELL watched at tempo: whether eleven lanes read as…
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-13, claude/queue-unverified-at-9e1c5a70-the-well-watched-at-tempo
 - **Files:** `apps/game/src/field-input.ts`, `apps/game/src/input-bindings.ts`, `apps/game/src/input.ts`, `docs/INDEX.md`, `docs/decisions.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/ideas.md`
 
 *THE WELL: the field turned inside out, and nothing else changed* landed from a session that could not look at it. The commit touched 45 more files. What went unchecked:
