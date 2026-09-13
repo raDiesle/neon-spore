@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## A crossing rock has no blip on THE WELL's rim
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-13, claude/queue-a-crossing-rock-has-no-blip-on-the-wells-rim
 - **Files:** `packages/render/src/well-draw.ts`, `packages/render/src/radar-blip.ts`
 
 `drawWellArrivals` bends the warning strip into a ring outside the rim and skips
