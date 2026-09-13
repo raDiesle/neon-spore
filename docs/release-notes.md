@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · 789b432c — Queued: a lost wave stops on a friendly screen, RETRY WAVE or QUIT
+
+The owner asked for it in chat on 13 September 2026 and decided the two forks through the question tool: either phone's press restarts the wave, and QUIT on one phone ends the run for both with the room kept. The entry names the sim command, the canvas screen over the greyed field with the damage still showing, the panel-look buttons, and the spec paragraph that still says the retry is automatic.
+
 ## 2026-09-13 · 5211c16e — A player logs in with Google or an email link, and PLAY says who
 
 The four-letter recovery code is gone. A name is still claimed by the device alone, and nobody has to log in to play; what a log-in buys is that the name survives the phone. On the settings page, under YOUR NAME, a LOG IN row offers Google's chooser or a link sent to an email address — both through Firebase Auth, from the game's own buttons, with Firebase sending the mail — and the PLAY page's first line says "LOGGED IN AS <name>", or that the name is not logged in and what that costs. Logging in on a new phone gives the name back and moves it there; the phone it moved from is refused on its next visit, which is what a stolen one needs.
