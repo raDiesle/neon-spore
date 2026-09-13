@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · 614a813d — THE HANDOVER's rehearsal is seen page by page, and its fourth page's caption is queued
+
+The unverified item from 47007bd2 is taken out: the film photographed with --guide-page, the second page across the trade. The band changes colour under the same PLAYER n · SCREEN plate, the lip counts down and then counts out, and the third page's thumb rests on a button that seat never had. Whether four pages are enough and whether the trade reads as the panels moving rather than the film is the owner's, and asked. Found and queued: the fourth page's caption, anchored on the cannon strip, covers THEIR PANEL — BACK IN N on the lip.
+
 ## 2026-09-13 · d3ece0d4 — THE HANDOVER's window and a cycle of it are seen, and two findings queued
 
 The unverified item from a3703115 is taken out: THE HANDOVER's own window photographed around the trade, and a wave that keeps trading (six beats a cycle, three held) driven on the page by hand — the plate counts down, turns into THEIR PANEL — BACK IN N, and on a short cycle stands nearly all the time. Whether that reads as a fault is the owner's to say, and is asked. Two things found on the way are queued: the HUD counts a retry on the lost screen before anybody has pressed RETRY WAVE, and `bun run frames` has no way to give a fault numbers the wave does not carry.
