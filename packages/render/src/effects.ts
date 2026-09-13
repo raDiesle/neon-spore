@@ -1,4 +1,4 @@
-import { beatSeconds, type SimConfig, type SimEvent, type World } from "@neon-spore/sim";
+import type { SimConfig, SimEvent, World } from "@neon-spore/sim";
 import { Arrivals } from "./arrivals.js";
 import { BeatboxSilences } from "./beatbox-silence.js";
 import { BeatboxWaves } from "./beatbox-wave.js";
@@ -10,11 +10,8 @@ import { CrawlerFx } from "./crawler-fx.js";
 import { Debris } from "./debris.js";
 import { DeflectFx } from "./deflect.js";
 import { BodyTransients } from "./effects-body.js";
-import { breakSparks } from "./effects-break.js";
-import { drawAll, resetAll, updateAll } from "./effects-frame.js";
-import { ingestOne } from "./effects-ingest.js";
+import { drawAll, ingestAll, resetAll, updateAll } from "./effects-frame.js";
 import { ShipMoods } from "./effects-ship.js";
-import { burstFor } from "./effects-spark.js";
 import { FleetFx } from "./fleet-fx.js";
 import { GhostTrail } from "./ghost-trail.js";
 import type { SurfaceY } from "./hull-frame.js";
@@ -28,7 +25,6 @@ import { Sparks } from "./sparks.js";
 import { SpriteBursts } from "./sprite-burst.js";
 import { VolleyShardsFx } from "./volley-shards.js";
 import { WardenFx } from "./warden-fx.js";
-import { wellFromFlat } from "./well.js";
 
 /**
  * Everything transient. Effects own their own state, are fed only by
@@ -171,55 +167,18 @@ export class Effects {
     return this.ship.charge;
   }
 
+  /** Every event applied to whatever here outlives its frame. The routing
+   * is `effects-frame.ts`'s `ingestAll`, beside the three other verbs the
+   * class says to its roster; what `well` means is written there. */
   ingest(
     events: readonly SimEvent[],
     l: Layout,
     time: number,
     creatureIdAt: (col: number, row: number) => number,
     cfg: SimConfig,
-    /** Whether this screen is THE WELL: the bursts are the one thing here
-     * placed off a flat field, so the one thing told (`wellFromFlat`). */
     well = false,
   ): void {
-    // Derived, not passed: `cfg` arrived for `claspBreakBeats`, and a second
-    // parameter saying the same number is how two clocks start.
-    const spb = beatSeconds(cfg);
-    this.mirror.ingest(events);
-    this.warden.ingest(events);
-    this.fleet.ingest(events, spb);
-    this.bodies.ingest(events, l, cfg, spb, time);
-    this.recoilLeap.ingest(events, spb);
-    this.coilFlight.ingest(events, l, spb);
-    this.volleyShards.ingest(events, l, cfg);
-    for (const e of events) {
-      const spark = burstFor(e, l);
-      const put = spark && well ? wellFromFlat(l, spark.x, spark.y) : spark;
-      if (spark && put) this.sparks.burst(put.x, put.y, breakSparks(e, spark.n), spark.hex);
-
-      // Everything past the burst table: `effects-ingest.ts`'s `ingestOne`,
-      // split out on this file's own line count. Its switch is exhaustive
-      // over `SimEvent`, not this call site — see its own comment.
-      ingestOne(e, {
-        l,
-        time,
-        beatSeconds: spb,
-        creatureIdAt,
-        sparks: this.sparks,
-        spriteBursts: this.spriteBursts,
-        rockImpactFx: this.rockImpact,
-        coilFlight: this.coilFlight,
-        arrivals: this.arrivals,
-        deflectFx: this.deflectFx,
-        ship: this.ship,
-        crawler: this.crawler,
-        quake: this.quake,
-        beatboxWaves: this.beatboxWaves,
-        beatboxSilences: this.beatboxSilences,
-        blockedUntil: this.blockedUntil,
-        debris: this.debris,
-        burst: (x, y, n, hex) => this.sparks.burst(x, y, n, hex),
-      });
-    }
+    ingestAll(this, events, l, time, creatureIdAt, cfg, well);
   }
 
   /** Every clock forward by `dt`, every transient drawn, and everything

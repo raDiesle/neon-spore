@@ -2273,3 +2273,23 @@ Bottleneck: **writing** — the six changes are one shape, so they land together
 not at all, and the keys are what hold the whole thing up: a row is addressed by
 `setEntry` from a file that does not know which page it is drawn on, so moving a
 row between pages is a rename everywhere or it is nothing.
+## 2026-09-13 · queue-the-well-draws-none-of-the-fields-transients — the well draws what was placed
+
+Every transient placed at a pixel when its event arrives — the burst table,
+a breach's and a deflection's bursts, a kill's sprite, a pod's implosion —
+now goes through one `put` (`wellFromFlat` on the well, identity on the
+flat field) and the well's pass draws the sparks and the sprites. The half
+that asks `creatureCenter` each frame is queued as its own lane. `effects.ts`
+went over its limit again, so `ingest` moved to `effects-frame.ts` beside
+the other three verbs. About 30 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `well-draw.ts`, `effects.ts`, `effects-ingest.ts`, `effects-breach.ts`, `effects-body.ts`, the well test |
+| writing | 5 | `put` in `ingestAll` and `IngestOneCtx`, `spawnSprite`, the two draws, three tests |
+| looking | 10 | strips of THE WELL around a kill and around the breach at tick 1200 — the authored columns are `mapCol`'d, so the cannon goes to column 5 for the first body |
+| friction | 5 | `effects.ts` at 263 lines: `ingest` moved out as `ingestAll` |
+| landing | 5 | `check:fast`, the queue entry for the other half, `bun run index`, the commit, `bun run land --keep` |
+
+Bottleneck: **looking** — finding the tick the breach fires took a probe;
+the frames tool cannot say when an event happened.

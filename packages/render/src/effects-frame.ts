@@ -1,17 +1,22 @@
-import type { World } from "@neon-spore/sim";
+import { beatSeconds, type SimConfig, type SimEvent, type World } from "@neon-spore/sim";
 import type { Effects } from "./effects.js";
+import { breakSparks } from "./effects-break.js";
+import { ingestOne } from "./effects-ingest.js";
+import { burstFor } from "./effects-spark.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
+import { wellFromFlat } from "./well.js";
 
 /**
  * **What `Effects` does with a frame**, as opposed to what it owns.
  *
- * All three of these are the same shape — walk every transient the class holds
- * and say one word to each — and all three grow by a line every time a round
- * brings a new one. `effects.ts` is the roster and the routing table, and it had
- * come back to its 250-line limit for the second time, so the next transient
- * anybody added there was going to cost a comment somewhere else in the file
- * before `limits.test.ts` went green again.
+ * All four of these are the same shape — walk every transient the class holds
+ * and say one word to each — and all four grow by a line every time a round
+ * brings a new one. `effects.ts` is the roster, and it had come back to its
+ * 250-line limit for the second time, so the next transient anybody added
+ * there was going to cost a comment somewhere else in the file before
+ * `limits.test.ts` went green again. `ingestAll` came over last, on 13
+ * September 2026, when the well's placement went in and took it over again.
  *
  * They are free functions rather than methods so the split is real rather than
  * cosmetic: the fields they walk are `readonly` on the class and read from here
@@ -24,6 +29,72 @@ import type { Layout } from "./layout.js";
  * transient added to `effects.ts` and forgotten here fails there rather than
  * appearing as a ghost in the next run weeks later.
  */
+
+/**
+ * Every event, applied to whatever `Effects` remembers past this frame.
+ *
+ * `well` says this screen is THE WELL. Every transient placed at a pixel when
+ * its event arrives — a burst, a kill's sprite, a pod's implosion — is placed
+ * off the flat field, and on the well goes through `put` (`wellFromFlat`) so
+ * the well's pass can draw it where the lane is (`well-draw.ts`). What is not
+ * told is the rest: a transient drawn *around a creature the world still
+ * holds* asks `creatureCenter` each frame, and is queued with it.
+ */
+export function ingestAll(
+  fx: Effects,
+  events: readonly SimEvent[],
+  l: Layout,
+  time: number,
+  creatureIdAt: (col: number, row: number) => number,
+  cfg: SimConfig,
+  well: boolean,
+): void {
+  // Derived, not passed: `cfg` arrived for `claspBreakBeats`, and a second
+  // parameter saying the same number is how two clocks start.
+  const spb = beatSeconds(cfg);
+  const put = well
+    ? (x: number, y: number) => wellFromFlat(l, x, y)
+    : (x: number, y: number) => ({ x, y });
+  const burst = (x: number, y: number, n: number, hex: string) => {
+    const at = put(x, y);
+    fx.sparks.burst(at.x, at.y, n, hex);
+  };
+  fx.mirror.ingest(events);
+  fx.warden.ingest(events);
+  fx.fleet.ingest(events, spb);
+  fx.bodies.ingest(events, l, cfg, spb, time);
+  fx.recoilLeap.ingest(events, spb);
+  fx.coilFlight.ingest(events, l, spb);
+  fx.volleyShards.ingest(events, l, cfg);
+  for (const e of events) {
+    const spark = burstFor(e, l);
+    if (spark) burst(spark.x, spark.y, breakSparks(e, spark.n), spark.hex);
+    // Everything past the burst table: `effects-ingest.ts`'s `ingestOne`. Its
+    // switch is exhaustive over `SimEvent`, not this call site — see its own
+    // comment.
+    ingestOne(e, {
+      l,
+      time,
+      beatSeconds: spb,
+      creatureIdAt,
+      sparks: fx.sparks,
+      spriteBursts: fx.spriteBursts,
+      rockImpactFx: fx.rockImpact,
+      coilFlight: fx.coilFlight,
+      arrivals: fx.arrivals,
+      deflectFx: fx.deflectFx,
+      ship: fx.ship,
+      crawler: fx.crawler,
+      quake: fx.quake,
+      beatboxWaves: fx.beatboxWaves,
+      beatboxSilences: fx.beatboxSilences,
+      blockedUntil: fx.blockedUntil,
+      debris: fx.debris,
+      put,
+      burst,
+    });
+  }
+}
 
 export function updateAll(e: Effects, dt: number, l: Layout): void {
   // Time does not run backwards and nor does a transient's age: every clock

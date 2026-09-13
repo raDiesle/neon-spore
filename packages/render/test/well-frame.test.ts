@@ -1,7 +1,8 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
-import { createWorld, startWave, ticksPerBeat, type World } from "@neon-spore/sim";
-import { computeLayout, tileCX, tileCY, type ViewRole } from "../src/layout.js";
+import { createWorld, type SimEvent, startWave, ticksPerBeat, type World } from "@neon-spore/sim";
+import { Effects } from "../src/effects.js";
+import { computeLayout, type Layout, tileCX, tileCY, type ViewRole } from "../src/layout.js";
 import {
   showsWell,
   wellAngle,
@@ -172,5 +173,93 @@ describe("the well, played", () => {
       seen.set(role, ctx.calls);
     }
     expect(seen.get("p1")).not.toBe(seen.get("p2"));
+  });
+});
+
+/**
+ * Where `Effects` put every spark it holds, read back off a canvas that keeps
+ * nothing but the squares: a spark is a 3 × 3 `fillRect` around its point
+ * (`sparks.ts`), so the rect's corner plus one and a half is the spark.
+ */
+function sparksOf(fx: Effects): { x: number; y: number }[] {
+  const at: { x: number; y: number }[] = [];
+  const ctx = {
+    globalAlpha: 1,
+    fillStyle: "",
+    fillRect: (x: number, y: number) => at.push({ x: x + 1.5, y: y + 1.5 }),
+  } as unknown as CanvasRenderingContext2D;
+  fx.sparks.draw(ctx);
+  return at;
+}
+
+function ingest(events: SimEvent[], l: Layout, well: boolean): Effects {
+  const fx = new Effects();
+  fx.ingest(events, l, 0, () => 0, CFG, well);
+  return fx;
+}
+
+describe("the well's transients", () => {
+  const killed: SimEvent = { type: "destroy", col: 4, row: 5, color: "red", kind: "slick" };
+
+  it("throws a kill's burst from the lane the body died in, not from the flat tile", () => {
+    // The flat pass is the control: the same event, told nothing, bursts at
+    // the tile centre. Told the well is up, the same burst starts where the
+    // lane puts that tile — and a spark starts *at* its point, so every one
+    // of them is there before the first `update` moves it.
+    const flat = sparksOf(ingest([killed], FLAT, false));
+    expect(flat.length).toBeGreaterThan(0);
+    for (const s of flat) {
+      expect(s.x).toBeCloseTo(tileCX(FLAT, 4), 6);
+      expect(s.y).toBeCloseTo(tileCY(FLAT, 5), 6);
+    }
+    const lane = wellPlace(L, 4, 5);
+    const well = sparksOf(ingest([killed], L, true));
+    expect(well.length).toBe(flat.length);
+    for (const s of well) {
+      expect(s.x).toBeCloseTo(lane.x, 6);
+      expect(s.y).toBeCloseTo(lane.y, 6);
+    }
+  });
+
+  it("throws a body's breach at the hub, where the hull line is on this screen", () => {
+    // A body brushing the plate goes through `ingestBreach`'s own `burst`
+    // rather than the burst table, which is the second door the sparks have —
+    // and the one a well wave whose body reached the hull found shut. The
+    // flat burst is at the hull line, half a tile above the last row's centre,
+    // and the well's is where the lane puts that height.
+    const breach: SimEvent = {
+      type: "breach",
+      col: 4,
+      weight: "light",
+      span: 1,
+      kind: "slick",
+      fromRow: CFG.rows - 2,
+      seed: 0,
+      holes: 0,
+      color: "red",
+      beat: 0,
+    };
+    const hull = wellPlace(L, 4, CFG.rows - 1.5);
+    const well = sparksOf(ingest([breach], L, true));
+    expect(well.length).toBeGreaterThan(0);
+    for (const s of well) {
+      expect(s.x).toBeCloseTo(hull.x, 6);
+      expect(s.y).toBeCloseTo(hull.y, 6);
+    }
+  });
+
+  it("draws a pod being swallowed in toward the hub, not toward a hull line", () => {
+    // An implosion is spawned on a jittered ring round its point, and the
+    // jitter is the same hash sequence on both screens — so the ring the well
+    // gets is the flat ring carried whole to the hub, and its mean sits off
+    // the hub by exactly what the flat mean sits off the hull line.
+    const taken: SimEvent = { type: "podTaken", col: 2, kind: "ward" };
+    const meanOf = (at: { x: number; y: number }[]) =>
+      at.reduce((m, s) => ({ x: m.x + s.x / at.length, y: m.y + s.y / at.length }), { x: 0, y: 0 });
+    const flat = meanOf(sparksOf(ingest([taken], FLAT, false)));
+    const well = meanOf(sparksOf(ingest([taken], L, true)));
+    const hub = wellPlace(L, 2, CFG.rows - 1.5);
+    expect(well.x - hub.x).toBeCloseTo(flat.x - tileCX(FLAT, 2), 6);
+    expect(well.y - hub.y).toBeCloseTo(flat.y - FLAT.hullY, 6);
   });
 });

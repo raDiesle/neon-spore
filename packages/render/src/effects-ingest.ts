@@ -51,11 +51,24 @@ export interface IngestOneCtx {
   /** The pieces a broken body leaves. Draws nothing until a candidate look
    * asks for a fracture at all (`break-look.ts`). */
   debris: Debris;
+  /** Where a pixel of the flat field is on this screen: itself, or its place
+   * in THE WELL's lane (`wellFromFlat`). Everything here that keeps a pixel
+   * past this frame is put through it, so the well's pass can draw it. */
+  put: (x: number, y: number) => { x: number; y: number };
+  /** `sparks.burst`, already through `put`. */
   burst: (x: number, y: number, n: number, hex: string) => void;
 }
 
 /** How long a wrong-colour hit's grey flash lasts. */
 const REJECT_FLASH = 0.35;
+
+/** The kill sprite over the tile a body died on, wherever this screen puts
+ * that tile. Sized off the flat tile on the well too: a sprite is a picture
+ * the atlas decided, not a body the depth scale grows. */
+function spawnSprite(ctx: IngestOneCtx, col: number, row: number): void {
+  const at = ctx.put(tileCX(ctx.l, col), tileCY(ctx.l, row));
+  ctx.spriteBursts.spawn(at.x, at.y, ctx.l.tile * 2.4);
+}
 
 /**
  * One event, applied to whatever `Effects` remembers past this frame. Split
@@ -106,7 +119,7 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
       // And the shipped kill sprite beside it, on the same terms as `destroy`
       // below: this is a cannon shot that killed the thing it hit, and the
       // pair should not have to learn a second reading of that.
-      ctx.spriteBursts.spawn(tileCX(ctx.l, e.col), tileCY(ctx.l, e.row), ctx.l.tile * 2.4);
+      spawnSprite(ctx, e.col, e.row);
       // And the body itself, on the same terms as `destroy` below, with the
       // kind named here because a link's event does not carry one: what died
       // is a segment of worm and nothing else it could be. THE CRAWLER is
@@ -125,7 +138,7 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
       // The one event this is hung on so far: a cannon shot that killed the
       // thing it hit. The sparks still fly — the sprite is offered beside the
       // shipped burst, not in place of it.
-      ctx.spriteBursts.spawn(tileCX(ctx.l, e.col), tileCY(ctx.l, e.row), ctx.l.tile * 2.4);
+      spawnSprite(ctx, e.col, e.row);
       // And the body itself, cut into the pieces it came apart into. Silent on
       // the shipped field for the sprite's own reason — it is offered beside
       // the burst, not in place of it (`effects-break.ts`).
@@ -145,12 +158,14 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
         tail: !ctx.coilFlight.landed(e.col),
       });
       break;
-    case "podTaken":
+    case "podTaken": {
       // Sparks flying *inwards*: the one moment in the game where the ship
       // takes something instead of losing it.
-      ctx.sparks.implode(tileCX(ctx.l, e.col), ctx.l.hullY, 22, PALETTE.pod, ctx.l.tile * 1.9);
+      const mouth = ctx.put(tileCX(ctx.l, e.col), ctx.l.hullY);
+      ctx.sparks.implode(mouth.x, mouth.y, 22, PALETTE.pod, ctx.l.tile * 1.9);
       ctx.ship.swallowPod(e.kind);
       break;
+    }
     case "volleyReturn":
       // The banner a ward earns, and the only half of a `deflect` a volley
       // takes: the pair put the shield in the column and the trigger on the

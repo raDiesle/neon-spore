@@ -45,10 +45,12 @@ import { drawWellFace } from "./well-face.js";
  * the field it is a picture of.
  *
  * **What it does not draw yet**, and each one is in `docs/queue.md`: the
- * transients (a spark, a crater, a scar, a grip's ring), a crossing rock's
- * blip, and the two hit tests that would let the ship's own lobes be grabbed
- * where they are drawn — until those land, the pilot's field answers no finger
- * at all on a well wave and the rails do everything (`touch.ts`).
+ * transients drawn around a body or on the hull (a crater, a scar, a grip's
+ * ring — `drawWellBodies` says which and why; a spark and a kill's sprite are
+ * drawn), a crossing rock's blip, and the two hit tests that would let the
+ * ship's own lobes be grabbed where they are drawn — until those land, the
+ * pilot's field answers no finger at all on a well wave and the rails do
+ * everything (`touch.ts`).
  */
 
 /** How far a body is allowed to be drawn outside the rim, in rows, before the
@@ -163,12 +165,23 @@ export function drawWellBodies(
     ctx.restore();
   }
   drawWellBolts(ctx, l, world);
-  // And the one transient a well wave can throw: the burst a kill leaves, in
-  // the lane it was killed in. It is ingested with the well in mind so the
-  // particles are already in the right place (`effects.ts`), and it is the only
-  // member of `Effects` drawn here — the rest are placed off a flat field and
-  // are queued with the two hit tests.
+  // And the transients that were *placed* when their event arrived — every
+  // spark the game throws, a kill's sprite — already in their lanes, because
+  // `Effects.ingest` was told this screen is the well and put each pixel
+  // through `wellFromFlat`. In the flat pass's own order (`effects-frame.ts`).
+  //
+  // What is not drawn here, and why, in three classes. The transients drawn
+  // *around a creature the world still holds* — a grip's ring, the ward's
+  // bolts, a clasp's shell (`bodies.drawOnBodies`, `lock-mark.ts`) — ask
+  // `creatureCenter` each frame, which takes no world and cannot know the well
+  // is up; that signature is a lane of its own (`docs/queue.md`). The ones
+  // drawn *on the hull* — a rock's last step and its crater (`rockImpact`),
+  // a deflected rock's tumble — are placed against a hull line the ring at
+  // the middle has not got (`well-ship.ts`). And the ones that belong to a
+  // body no well wave carries — a worm's goo, a box's discharge, a salvo —
+  // would be drawn for nothing.
   effects.sparks.draw(ctx);
+  effects.spriteBursts.draw(ctx);
 }
 
 /**

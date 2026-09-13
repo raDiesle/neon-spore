@@ -176,31 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## THE WELL draws none of the field's transients but a kill's burst
-
-- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-13, claude/queue-the-well-draws-none-of-the-fields-transients-but
-- **Files:** `packages/render/src/well-draw.ts`, `packages/render/src/effects.ts`, `packages/render/src/effects-frame.ts`, `packages/render/src/creature-place.ts`
-
-The well replaces the field's two passes, so everything `Effects` draws is
-skipped on that screen except `sparks`, which is ingested through
-`wellFromFlat` and drawn by hand at the end of `drawWellBodies`. A crater, a
-scar, a body's afterglow, a grip's ring, THE CRAWLER's goo and the rest are
-simply absent there. A well wave of living bodies produces none of them, which
-is why the wave was authored out of slicks and bulbs — but the next well wave
-somebody writes with a rock in it gets a landing with no impact.
-
-Two halves, and `wellFromFlat` is the tool for the first: every transient whose
-position is a pixel computed at ingest (`burstFor`'s table, `crawler.splash`,
-`spriteBursts`) can be mapped with one call each, the way the burst already is.
-The second half is the ones drawn *around a creature the world still holds* —
-`bodies.drawOnBodies`, the grip ring, `lock-mark.ts` — which all ask
-`creatureCenter`, and that function takes no world and cannot know the well is
-up. The honest fix there is for `creatureCenter` to take the projection rather
-than assume it, which is a signature change across about thirty call sites and
-wants a lane of its own. `packages/render/test/well-frame.test.ts` is where the
-proof goes.
-
 ## A crossing rock has no blip on THE WELL's rim
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
@@ -645,3 +620,29 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## `creatureCenter` assumes the flat field, so THE WELL draws nothing around a body
+
+- **Found:** 2026-09-13, claude/queue-the-well-draws-none-of-the-fields-transients-but
+- **Files:** `packages/render/src/creature-place.ts`, `packages/render/src/effects-body.ts`, `packages/render/src/lock-mark.ts`, `packages/render/src/grip.ts`, `packages/render/src/well.ts`, `packages/render/test/well-frame.test.ts`
+
+The half of "THE WELL draws none of the field's transients" that lane left.
+Every transient *placed* when its event arrives now goes through `wellFromFlat`
+(`effects-frame.ts`'s `ingestAll`, `IngestOneCtx.put`) and is drawn by
+`drawWellBodies`. What still cannot be drawn on the well is everything drawn
+*around a creature the world still holds*, each frame: the grip's ring, the
+lock frame, the ward's bolts, a clasp's shell, a rind's shed skin
+(`bodies.drawOnBodies`, `lock-mark.ts`). All of them ask `creatureCenter(l, c,
+beatPhase)`, which takes no world and places the body on the flat grid
+whichever screen is up — so on the well they would draw a ring around empty
+space, and `drawWellBodies` skips them.
+
+The honest fix is for `creatureCenter` to take the projection rather than
+assume it: a `place: (col, row) => XY` (flat: `tileCX`/`tileCY`; well:
+`wellPlace`) or the `World` it can read `wellShown` off, threaded through its
+thirty-seven call sites — which is why it is a lane of its own. Once it does,
+`drawWellBodies` can call `effects.bodies.drawOnBodies` and the lock marks the
+way `frame-field.ts` does, with the well's `WELL_BODY` scale applied to the
+ring's radius. The proof goes beside the placed-transient tests in
+`well-frame.test.ts`: a `gripP1` on a body in a well world, and the ring's
+`arc` at `wellPlace` of that body rather than at its tile.
