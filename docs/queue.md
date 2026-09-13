@@ -348,6 +348,7 @@ what the rest of this file holds.
 ## Unverified at ae31f4ba: THE CODEX watched at tempo: whether the shimmer reads a…
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-13, claude/queue-unverified-at-ae31f4ba-the-codex-watched-at-temp
 - **Files:** `docs/INDEX.md`, `docs/asset-catalogue.md`, `docs/queue.md`, `docs/spec/bestiary.md`, `docs/spec/ideas.md`, `docs/spec/transfers-bosses.md`, `docs/time-log.md`, `packages/content/src/mechanics-wave.ts`
 
 *THE CODEX: a fault that takes nothing away and changes what everything means* landed from a session that could not look at it. The commit touched 29 more files. What went unchecked:
