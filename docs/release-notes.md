@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · c3bf3546 — THE CAIRN's pile is a record, and two frozen piles stand beside it in VERSUS
+
+The pile's picture is `CAIRN_LOOK.pile` now (`cairn-look.ts`), filled by the shipped seven live fires under one clip (`cairn-pile.ts`) over geometry that moved to `cairn-units.ts`; the tell and the hand read that file. Nothing the game draws changed — the split is a refactor, and the look is offered, not replaced: `cairn:pile` opens with two answers. STILL is the same seven burning rocks painted once at one instant and blitted after; BANKED is grey stone painted once with the heat left live in the seams — an ember glow inside the outline and the seams breathing in the ember's colour. The pair is judged on `CAIRN · THE PILE` (`poses-cairn.ts`), the boss standing whole, cropped seven tiles wide on its middle stone.
+
 ## 2026-09-13 · 1a155c5c — The map opens a beat row and takes one out, shifting the rows after it
 
 Each beat label on the director's map grows two glyphs on hover: `+` inserts an empty beat at that row and moves every later row one beat later; `−` takes the row out and moves every later row one beat earlier. The owner asked for both on 13 September 2026, having been making room in the middle of a wave one drag at a time. A row with anything on it is asked about in plain words before it goes, since the editor has no undo — and beat 0 can be removed like any other, so an insert before it has a way back. The edits are `insertBeat`/`removeBeat` in `paint.ts`, entries and pods together; the labels are `grid-rows.ts`.
