@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · cc5f5c5b — THE CAIRN: a boss you take apart by hand, into the rocks it is made of
+
+The owner asked for the idea on `docs/spec/transfers-bosses.md` by name, and it shipped as the boss that page argues for rather than as an arrival taken out of it: seven of the field's own two-tile rocks in one outline five columns wide, standing at `cairnRow` and never moving. **Nothing either control does reaches it.** A bolt fired up one of its five lanes goes *past* it to whatever is above — not turned aside, not absorbed, simply not stopped — and the shield has nothing to say to a thing that is not falling. That is not a rule invented for a boss; it is the oldest rule the game has, taught in its first act, wearing a body: a rock cannot be shot. The look is exempt as one the owner asked for by name.
+
 ## 2026-09-13 · ae31f4ba — THE CODEX: a fault that takes nothing away and changes what everything means
 
 The owner asked for the idea on `docs/spec/ideas.md` as a **fault on a wave** rather than the boss that page imagined, so that is what this is. While its key is turned over, the two colours have each other's job: a bolt fired red kills what cyan kills, and cyan kills what red kills. Nothing about the shot says so — the bolt that leaves the muzzle is the colour the thumb pressed, it sounds like that colour, and the lobe lights like that colour — so the navigator finds out by watching a body refuse a colour that should have taken it. The look is exempt as one the owner asked for by name.
