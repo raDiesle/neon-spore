@@ -205,20 +205,24 @@ after `jumpToWave` and before the opening clears would make the picture a
 one-line command anybody can rerun. The same flag covers a runaway cannon or
 shield at a period the wave does not name.
 
-## Unverified at 47007bd2: THE HANDOVER's rehearsal watched at tempo: whether the…
+## THE HANDOVER's fourth rehearsal page captions over the plate on the lip
 
-- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-13, claude/queue-unverified-at-47007bd2-the-handovers-rehearsal-w
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bestiary.md`, `docs/time-log.md`, `packages/content/src/scenes.ts`, `packages/content/src/scenes/the-handover.ts`, `packages/content/src/waves/act-8.ts`, `packages/render/src/guide-scene.ts`
+- **Found:** 2026-09-13, claude/handover-guide
+- **Files:** `packages/render/src/guide-caption.ts`, `packages/render/src/caption-anchor.ts`, `packages/render/src/handover-look.ts`, `packages/render/test/guide-plate-room.test.ts`
 
-*THE HANDOVER's guide is a rehearsal, and a film's page is a device* landed from a session that could not look at it. The commit touched 2 more files. What went unchecked:
-
-- THE HANDOVER's rehearsal watched at tempo: whether the trade reads as the panels changing screens rather than as the film moving to the other player, and whether four pages is enough before the wave
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
+The film's fourth page anchors its caption on the cannon strip, and a strip
+anchor stands the box `CLEAR_STRIP` (4 px) above its ring — which on this
+wave is exactly where `drawHandoverNotice` has put THEIR PANEL — BACK IN N.
+Photographed on 13 September 2026 with `bun run frames . --wave "THE
+HANDOVER" --opening guide --guide-page 3 --ticks 120 --seat p1`: the caption
+covers all of the plate but its first two letters. Two texts in one place is
+the defect `guide-plate-room.test.ts` already guards for the round header
+and the corner plate. The fix is the caption's own floor rule: export the
+plate's box from `handover-look.ts` (the rectangle `drawHandoverNotice`
+fills), and in `guide-caption.ts` treat a box that would overlap it the way
+one that would cross the banner is treated — put it below the ring instead.
+Extend `guide-plate-room.test.ts` with THE HANDOVER's fourth page against the
+plate's box.
 
 ## `main`'s four column tracks are written out twice, and nothing checks they agree
 

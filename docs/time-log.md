@@ -2977,3 +2977,24 @@ permanent furniture are the owner's, asked. About 35 min.
 
 Bottleneck: **looking** — a cycle is a thing seen across beats, and each beat
 was a frame opened on its own until the crops were stacked.
+
+## 2026-09-13 · claude/handover-guide — THE HANDOVER's rehearsal, all four pages watched
+
+The queued unverified item from 47007bd2: the film photographed page by page
+with `--guide-page`, the second across the trade at thirty-tick strides. The
+band changes colour under the same corner plate, the lip counts down and then
+counts out, the third page's thumb is on a button it never had. Whether that
+reads as panels changing screens, and whether four pages are enough, are the
+owner's, asked. One thing wrong found: the fourth page's caption sits on the
+plate. Queued. About 25 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `scenes/the-handover.ts`, `turnGuide` and `heldPageNote` to learn a page holds until turned |
+| writing | 5 | one queue entry, this |
+| looking | 10 | seventeen frames of a held first page, eight across the trade, one of each later page |
+| friction | 5 | the first strip was seventeen pictures of one frame — a page holds, and `--guide-page` is the way past it |
+| landing | 0 | `check:fast`, the commit, folded into writing |
+
+Bottleneck: **looking** — the first strip had to be thrown away before the
+right flag was read.
