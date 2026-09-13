@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · 2c6172f6 — The game signs in against the owner's Firebase project, and the Worker trusts it
+
+`apps/game/src/sign-in-config.ts` carries the `neon-spore` web config the owner pasted, and `wrangler.jsonc` sets `FIREBASE_PROJECT` to the same id, so a token Google signs for that project is one the registry binds a name to. The LOG IN row is on SETTINGS and PLAY says who is not logged in; a press on LOG IN WITH GOOGLE reaches Google's chooser at `neon-spore.firebaseapp.com`. What the chooser answers, and the email link, are the owner's to try: a popup opens from a person's click only.
+
 ## 2026-09-13 · 789b432c — Queued: a lost wave stops on a friendly screen, RETRY WAVE or QUIT
 
 The owner asked for it in chat on 13 September 2026 and decided the two forks through the question tool: either phone's press restarts the wave, and QUIT on one phone ends the run for both with the room kept. The entry names the sim command, the canvas screen over the greyed field with the damage still showing, the panel-look buttons, and the spec paragraph that still says the retry is automatic.
