@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE WELL's guide is prose, and the picture it describes has never been shown
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-13, claude/queue-the-wells-guide-is-prose-and-the-picture-it-desc
 - **Files:** `packages/content/src/scenes.ts`, `packages/content/src/waves/act-8.ts`, `packages/content/src/scene-types.ts`
 
 The third wave in a row to land with a three-line prose guide and no `scene`
