@@ -230,6 +230,7 @@ exactly the way it seats a wave's. `.claude/skills/new-tutorial` has the rules;
 ## THE HANDOVER makes no sound
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-13, claude/queue-the-handover-makes-no-sound
 - **Files:** `packages/audio/src/catalogue.ts`, `packages/render/src/handover-look.ts`, `docs/spec/audio.md`
 
 The loudest moment the fault has — both panels changing screens on one beat — is
