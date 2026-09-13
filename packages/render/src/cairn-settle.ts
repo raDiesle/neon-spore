@@ -1,5 +1,5 @@
 import { type CairnState, type Creature, cairnWaited, type World } from "@neon-spore/sim";
-import { cairnUnits } from "./cairn.js";
+import { cairnUnits } from "./cairn-units.js";
 import { rgba } from "./hex.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";

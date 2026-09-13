@@ -1,5 +1,5 @@
 import { type Creature, gripsCreature, type World } from "@neon-spore/sim";
-import { cairnUnits } from "./cairn.js";
+import { cairnUnits } from "./cairn-units.js";
 import { drawHandAt } from "./grip.js";
 import type { Layout } from "./layout.js";
 import type { SeatNames } from "./seat-name.js";

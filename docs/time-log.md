@@ -2494,6 +2494,7 @@ drew before. About 55 min.
 Bottleneck: **writing** — the substitution is four lines and the geometry under
 it is the work: a pill that was 34 pixels wide in six expressions, one of them
 exported and read by the director.
+
 ## 2026-09-13 · claude/queue-the-map-editor-inserts-a-beat-row-and-removes-on — a beat row opened and a beat row taken out
 
 The owner's two buttons on the map. `insertBeat` and `removeBeat` are the
@@ -2517,3 +2518,28 @@ otherwise have no way back in an editor with no undo. About 30 min.
 
 Bottleneck: **writing** — the label was a button, and a button may not hold
 buttons, so the label and its verbs became a file of their own.
+
+## 2026-09-13 · versus-cairn-pile — THE CAIRN's pile is a record, and two frozen piles stand beside it in VERSUS
+
+The owner's answer to the pile question — VERSUS. `cairn.ts` split three
+ways: the geometry (`cairn-units.ts`), the shipped picture (`cairn-pile.ts`)
+and the record between them (`cairn-look.ts`, `CAIRN_LOOK.pile`); the tell and
+the hand read the geometry file directly. Two candidates on `cairn:pile`:
+STILL bakes the shipped seven fires once at one instant, BANKED bakes grey
+stone once and keeps only the heat live, an ember glow inside the outline and
+the seams breathing. A pose of the pile standing whole (`poses-cairn.ts`,
+`CAIRN · THE PILE`, a tile crop seven wide on the middle stone) and its row.
+BANKED's first shot had the glow washing every stone to white; it is a tenth
+of that now and the seams carry the colour. About 45 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the candidate format from git history, the pose kit, the pose test, `baked.ts` |
+| writing | 20 | the split, the two paints, the pose, the row |
+| looking | 5 | the two versus shots |
+| friction | 5 | a glow that made grey stone white, reshot once |
+| landing | 5 | format, check:fast, index, the commit |
+
+Bottleneck: **writing** — two bakes that are nearly the same twenty lines,
+kept apart because `adopt` moves a candidate's own siblings and nothing at the
+slot's level.

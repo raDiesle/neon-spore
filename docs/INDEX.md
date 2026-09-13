@@ -1018,6 +1018,9 @@ place — the generator keeps whatever is there.
 | `packages/render/src/canvas2d-takeover.ts` | **The two frames that are not the field**, and the clocks that run whether or not one of them is up |
 | `packages/render/src/cairn-settle.ts` | The lane THE CAIRN is about to drop a rock into, drawn on player 1's screen and on nothing player 2 is shown |
 | `packages/render/src/cairn-hand.ts` | The hand on THE CAIRN, drawn over the stack by the boss pass — the ordinary ring closed round every stone still standing, and the word PULL |
+| `packages/render/src/cairn-look.ts` | THE ONE RECORD A CANDIDATE **PILE** PATCHES |
+| `packages/render/src/cairn-pile.ts` | THE CAIRN's pile as the game draws it: seven live fires under one clip |
+| `packages/render/src/cairn-units.ts` | Where THE CAIRN's stones stand, and the outline they make together |
 | `packages/render/src/cairn.ts` | THE CAIRN, drawn: the field's own two-tile rocks stacked in courses, clipped to one silhouette so the seams between them stay countable |
 | `packages/render/src/effects-frame.ts` | **What `Effects` does with a frame**, as opposed to what it owns |
 | `packages/render/src/splash-blob.ts` | ONE BLOB OF THE MOUSE'S INK — its size, its sag, and how it is put down |
@@ -1566,6 +1569,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/poses-bodies.ts` | The pose a candidate for a *body* is judged on, as opposed to one for a mechanism firing |
 | `tools/director/src/poses-casing.ts` | The states a candidate for what a body **wears** is judged on |
 | `tools/director/src/poses-cage.ts` | The pose a candidate for THE RECOIL's cage is judged on |
+| `tools/director/src/poses-cairn.ts` | THE CAIRN standing whole, before the pair has pulled anything off it |
 | `tools/director/src/poses-crossing.ts` | The two states a candidate for a body that **goes somewhere** is judged on |
 | `tools/director/src/poses-count.ts` | COUNT · THREE BLADES LEFT — the pose THE COUNT's looks were judged on, player 1's screen |
 | `tools/director/src/poses-damage.ts` | The two poses about **damage** — a rock being marked, and a body being destroyed |

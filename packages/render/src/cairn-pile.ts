@@ -1,0 +1,58 @@
+import type { CairnState, Creature } from "@neon-spore/sim";
+import { cairnUnits, pilePath } from "./cairn-units.js";
+import type { Layout } from "./layout.js";
+import { drawRockBody } from "./meteor.js";
+import { meteorLookFor } from "./meteor-looks.js";
+import { PALETTE } from "./palette.js";
+
+/**
+ * THE CAIRN's pile as the game draws it: seven live fires under one clip.
+ *
+ * **Every unit is the game's two-tile rock and is drawn by the code that draws
+ * one** — `drawRockBody`, at `rockRadius(l, 2)`, under the look the pile drew
+ * once for the whole of itself. That is not a saving, it is the creature: the
+ * boss comes apart into ordinary rocks, so the parts have to *be* ordinary
+ * rocks while they are still stacked. A pile painted as one boss-shaped mass
+ * would promise a body, and what the pair gets when they pull is a stone.
+ *
+ * **One look for all seven**, taken from the body's own id rather than each
+ * unit's index: three materials mixed in one stack would read as a heap of
+ * different things somebody swept together, and this is one thing made of
+ * seven of the same thing.
+ *
+ * **The outline is a clip and the seams are a stroke.** Every unit's polygon
+ * goes into one `Path2D`; filling it would be the union, and clipping to it is
+ * the same union used the other way round — so the stones are painted inside
+ * the pile's own silhouette and nothing, halo included, reaches past it. Then
+ * the same path is stroked, which draws every unit's edge: the ones on the
+ * outside are the silhouette and the ones buried inside are the seams, and the
+ * seams are the point. Counting the units is counting the fight.
+ *
+ * This is the field of `CAIRN_LOOK` (`cairn-look.ts`), and it is what the
+ * first perf run of the wave pointed at: seven whole fires a frame, most of
+ * each under the stones above it. Whether the pile should instead be a
+ * picture taken once is a look, and it is asked in VERSUS rather than here.
+ */
+export function livePile(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  body: Creature,
+  boss: CairnState,
+  time: number,
+): void {
+  const stack = cairnUnits(l, body, boss.units, time);
+  if (stack.length === 0) return;
+  const look = meteorLookFor(body.id);
+  const path = pilePath(stack);
+  ctx.save();
+  ctx.clip(path);
+  for (const u of stack) {
+    drawRockBody(ctx, u.x, u.y, u.r, time, body.id * 31 + u.slot, 0, look);
+  }
+  // Inside the clip, so the silhouette's stroke keeps its inner half and the
+  // pile does not grow a rim half a line wider than the shape it is.
+  ctx.strokeStyle = PALETTE.rockDark;
+  ctx.lineWidth = Math.max(1, l.tile * 0.05);
+  ctx.stroke(path);
+  ctx.restore();
+}
