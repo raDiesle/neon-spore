@@ -293,6 +293,7 @@ already plays every wave from a seed; run it at the three tempi.
 ## A director save can land `main` red, and two tests are the reason
 
 - **Found:** 2026-09-13, queue-lanes
+- **Taken:** 2026-09-13, claude/queue-a-director-save-can-land-main-red-and-two-tests
 - **Files:** `tools/director/src/waves-commit.ts`, `packages/net/test/two-devices-wave.test.ts`, `tools/perf/test/baseline.test.ts`, `tools/perf/unmeasured.ts`
 
 On 13 September 2026 the owner saved FIRST STEP from the wave editor — one
