@@ -2734,6 +2734,7 @@ this is. About 40 min.
 Bottleneck: **friction** — both halves of it were the same thing: a traded page
 is the other seat's screen all the way down, and anything written against the
 page's own seat is written against a panel that is not there.
+
 ## 2026-09-13 · claude/queue-hull-traded-answers-the-handover-a-second-way-an — HULL · TRADED goes to VERSUS
 
 Queue item: the shape-sheet's `HULL · TRADED` was drawn for THE HANDOVER
@@ -2752,3 +2753,24 @@ pose opens the pilot's phone a beat before the warning. About 15 min.
 
 Bottleneck: **looking** — the draft's flat-topped bump is right on a sheet and
 wrong on the hull, and only a shot said so.
+
+## 2026-09-13 — scheduler-tests-two-devices-klxkyt — the briefings spec counts its own rehearsals
+
+`docs/spec/briefings.md` still said *one rehearsal exists* and *FIRST STEP has
+the only one* with fifty-six films in the tree. The status block and §3.2 say
+what is true — all but five guided waves open on a film — and the numbers in
+them are held by `scenes-prose.test.ts` rather than by a sentence nobody has a
+reason to open, which is the rule this repository already plays by for a copy of
+anything. About 20 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the status block, §1 and §3.2, and a count of guided waves against `SCENES` |
+| writing | 10 | the two rewritten passages and four tests, one per figure the document states |
+| looking | 0 | none — a document |
+| friction | 0 | — |
+| landing | 5 | format, check:fast, the queue entry, the commit |
+
+Bottleneck: **writing** — the rewrite was five minutes and the test was the
+point: the five waves still on prose are named in one place now, and a film
+written for one of them fails here rather than leaving the sentence wrong.
