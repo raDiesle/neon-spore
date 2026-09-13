@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · 7e9451d6 — A deflected rock keeps the look it fell in
+
+The shield's bounce and the replayed last step of a fall drew a grey stone from before the rocks had looks, so a blaze or a comet turned grey the frame the shield answered it. The deflect and breach events now carry the body's seed and pits, and `DeflectFx` and `RockImpactFx` draw it with `drawRockBody` by that seed — the same hand that drew it falling. The torch alone keeps its grey stone and ember ring. A fix to something wrong: the owner's report was that a reflected meteor switched to the old grey graphic.
+
 ## 2026-09-13 · f5831a7f — A cleared wave on the director's stage stops and asks REPEAT WAVE?
 
 The stage used to rebuild the wave the instant it cleared, so the author never saw it clear. Now it pauses under a grey veil that says REPEAT WAVE? and a click anywhere on the screen — or P, which the PAUSED line under the veil still names — runs it again from the top. A director change, not a look on the field. Queued for the map editor: an add and a remove button on each beat row, shifting the rows after it.
