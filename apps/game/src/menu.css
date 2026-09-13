@@ -8,7 +8,64 @@
  * largest single piece of chrome in the app and index.html was already close
  * to the size a file in this repository is allowed to reach. */
 
+/* THE MENU'S COLOURS, NAMED — and every one of them measured.
+ *
+ * The owner reads this on a phone and asked for a scheme with contrast, naming
+ * Material Design as the example. What was wrong was not the hue, it was the
+ * *value*: a tagline at #6f639f and a description at #4b4177 are 3.8:1 and
+ * 2.2:1 against this ground, and WCAG AA wants 4.5:1 for a line of text —
+ * purple on purple, at ten pixels, on a screen held at arm's length.
+ *
+ * So the page has six ink tokens and nothing else, each named for the job it
+ * does rather than for its colour, and the ratio against `--paper` is written
+ * beside it. `apps/game/test/menu-contrast.test.ts` measures them out of this
+ * file and fails on the next one that drops under AA — which is the half of
+ * "a good colour scheme" a session with no eyes can actually hold.
+ *
+ * The three accents are the game's own and are not up for discussion: cyan is
+ * a shot, amber is the ship, red is a hit, and the menu says the same things in
+ * the same colours the field does. They were already well clear of AA.
+ *
+ * The field's HUD keeps its own palette (`game.css`). This is the menu and the
+ * pages behind it. */
 #menu {
+  /* The ground everything here is measured against. */
+  --paper: #07060f;
+  /* A label, a heading, the wordmark: the brightest thing on the page. 16.8:1 */
+  --ink: #f2e9dc;
+  /* A line of prose meant to be read — a row's description, a page's lead. 10:1 */
+  --ink-soft: #b9b2d6;
+  /* The quiet furniture that is still text: the tagline, a footnote, the
+     caret in front of a row. It replaces both of the purples above. 8.1:1 */
+  --ink-faint: #a79fc9;
+  /* A key's cap and the one page that is a listing rather than prose. 11.6:1 */
+  --ink-key: #c7c0e2;
+  --accent: #2fe0f0;
+  --accent-deep: #22d6e7;
+  --accent-soft: #b6ecf4;
+  --warm: #ffc24b;
+  --alert: #ff5470;
+  /* Hairlines and plates. Not text, so AA does not reach them; they are the
+     edges of things whose contrast is carried by what is written inside. */
+  --line: #2a2250;
+  --line-lit: #3b3163;
+  --line-dim: #16112f;
+  --line-quiet: #1f1943;
+  --plate: #0e0a22;
+  --accent-line: #2f7f8f;
+  /* **The face, and the stack under it.** The owner asked for a better font
+     from a public CDN; Google Fonts is the one this app can reach, and the
+     `<link>` is in `index.html` beside the two stylesheets. Space Grotesk is a
+     geometric sans with the technical cut this game is drawn in, and it reads
+     at ten pixels in capitals, which is what most of this page is.
+     The stack under it is real and not a courtesy: the sheet is fetched over
+     the network, a phone on a train may not get it, and the page must not fall
+     back to Times. `font-display: swap` is the query string's, so the words are
+     on the screen from the first frame either way.
+     The field keeps Courier (`game.css`): the HUD is monospaced on purpose,
+     and the two are not the same surface. */
+  font-family:
+    "Space Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   position: fixed;
   inset: 0;
   z-index: 20;
@@ -17,8 +74,8 @@
 #menu.on {
   display: block;
 }
-/* An entry that does not apply right now — RESUME before anything has been
-   played, LEAVE ROOM while there is no room. Hidden rather than disabled: a
+/* An entry that does not apply right now — CONTINUE before both phones are in
+   the room, LEAVE ROOM while there is no room. Hidden rather than disabled: a
    greyed-out row is still a row to read past. */
 #menu .entry.off {
   display: none;
@@ -84,7 +141,7 @@
   font-size: clamp(26px, 11vw, 44px);
   letter-spacing: 0.2em;
   text-indent: 0.2em;
-  color: #f2e9dc;
+  color: var(--ink);
   text-shadow:
     0 0 18px rgba(255, 194, 75, 0.45),
     0 0 46px rgba(47, 224, 240, 0.3);
@@ -102,11 +159,11 @@
   text-shadow: none;
 }
 #menu h1::before {
-  color: #ff5470;
+  color: var(--alert);
   animation: menu-split-a 4.1s ease-in-out infinite;
 }
 #menu h1::after {
-  color: #2fe0f0;
+  color: var(--accent);
   animation: menu-split-b 4.1s ease-in-out infinite;
 }
 @keyframes menu-split-a {
@@ -141,7 +198,7 @@
   text-align: center;
   font-size: 10px;
   letter-spacing: 0.22em;
-  color: #6f639f;
+  color: var(--ink-faint);
 }
 
 /* How far this device has got. Quieter than the tagline above it: it is a
@@ -151,7 +208,7 @@
   text-align: center;
   font-size: 11px;
   letter-spacing: 0.1em;
-  color: #8b7fc4;
+  color: var(--ink-soft);
 }
 
 /* One page at a time: the entries, the wave list, or the keys. */
@@ -177,7 +234,7 @@
   margin: 0 0 12px;
   font-size: 10px;
   letter-spacing: 0.3em;
-  color: #2fe0f0;
+  color: var(--accent);
   font-weight: 600;
 }
 
@@ -193,10 +250,10 @@
   padding: 12px 13px;
   text-align: left;
   cursor: pointer;
-  border: 1px solid #2a2250;
+  border: 1px solid var(--line);
   border-radius: 11px;
   background: linear-gradient(100deg, rgba(42, 31, 78, 0.5), rgba(10, 7, 26, 0) 68%);
-  color: #ffc24b;
+  color: var(--warm);
   font:
     13px / 1 "Courier New",
     monospace;
@@ -210,7 +267,7 @@
     background 0.16s;
 }
 #menu .entry .mark {
-  color: #4b4177;
+  color: var(--ink-faint);
   transition:
     color 0.16s,
     transform 0.16s;
@@ -221,19 +278,19 @@
   font-size: 10px;
   letter-spacing: 0.05em;
   line-height: 1.55;
-  color: #9c8fd6;
+  color: var(--ink-soft);
 }
 #menu .entry:hover,
 #menu .entry:focus-visible {
   outline: none;
   transform: translateX(4px);
-  border-color: #2fe0f0;
-  color: #2fe0f0;
+  border-color: var(--accent);
+  color: var(--accent);
   background: linear-gradient(100deg, rgba(47, 224, 240, 0.15), rgba(10, 7, 26, 0) 70%);
 }
 #menu .entry:hover .mark,
 #menu .entry:focus-visible .mark {
-  color: #2fe0f0;
+  color: var(--accent);
   transform: translateX(2px);
 }
 @keyframes menu-rise {
@@ -265,7 +322,7 @@
   padding: 10px 11px;
   text-align: left;
   cursor: pointer;
-  border: 1px solid #2a2250;
+  border: 1px solid var(--line);
   border-radius: 10px;
   background: rgba(10, 7, 26, 0.55);
   font:
@@ -282,10 +339,10 @@
   text-align: center;
   font-size: 11px;
   letter-spacing: 0.1em;
-  color: #4b4177;
+  color: var(--ink-faint);
 }
 #menu .seat-card .name {
-  color: #9c8fd6;
+  color: var(--ink-soft);
   letter-spacing: 0.2em;
   font-size: 11px;
 }
@@ -295,20 +352,20 @@
   font-size: 9px;
   letter-spacing: 0.04em;
   line-height: 1.6;
-  color: #6f639f;
+  color: var(--ink-faint);
 }
 #menu .seat-card.on {
-  border-color: #ffc24b;
+  border-color: var(--warm);
   background: rgba(42, 31, 78, 0.6);
 }
 #menu .seat-card.on .tag,
 #menu .seat-card.on .name {
-  color: #ffc24b;
+  color: var(--warm);
 }
 #menu .seat-card:hover:not(.locked),
 #menu .seat-card:focus-visible:not(.locked) {
   outline: none;
-  border-color: #2fe0f0;
+  border-color: var(--accent);
 }
 /* The room hands the seat out, so while there is one the cards report it
    rather than offering a choice that cannot be taken. */
@@ -324,7 +381,7 @@
   font-size: 9px;
   line-height: 1.7;
   letter-spacing: 0.05em;
-  color: #4b4177;
+  color: var(--ink-faint);
 }
 
 #menu .wave {
@@ -336,10 +393,10 @@
   padding: 10px 11px;
   text-align: left;
   cursor: pointer;
-  border: 1px solid #1f1943;
+  border: 1px solid var(--line-quiet);
   border-radius: 9px;
   background: rgba(10, 7, 26, 0.55);
-  color: #f2e9dc;
+  color: var(--ink);
   font:
     12px / 1 "Courier New",
     monospace;
@@ -349,11 +406,11 @@
     color 0.16s;
 }
 #menu .wave .n {
-  color: #4b4177;
+  color: var(--ink-faint);
   font-size: 11px;
 }
 #menu .wave .boss {
-  color: #ffc24b;
+  color: var(--warm);
 }
 #menu .wave .s {
   grid-column: 2;
@@ -361,13 +418,13 @@
   font-size: 9px;
   letter-spacing: 0.04em;
   line-height: 1.55;
-  color: #6f639f;
+  color: var(--ink-faint);
 }
 #menu .wave:hover,
 #menu .wave:focus-visible {
   outline: none;
-  border-color: #2fe0f0;
-  color: #2fe0f0;
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 #menu .keys {
@@ -377,13 +434,13 @@
 }
 #menu .keys td {
   padding: 7px 6px;
-  border-bottom: 1px solid #16112f;
-  color: #9c8fd6;
+  border-bottom: 1px solid var(--line-dim);
+  color: var(--ink-soft);
   letter-spacing: 0.04em;
 }
 #menu .keys td:first-child {
   width: 78px;
-  color: #ffc24b;
+  color: var(--warm);
   letter-spacing: 0.12em;
   white-space: nowrap;
 }
@@ -392,18 +449,18 @@
   margin: 0 0 14px;
   padding: 7px 13px;
   cursor: pointer;
-  border: 1px solid #2a2250;
+  border: 1px solid var(--line);
   border-radius: 8px;
   background: transparent;
-  color: #9c8fd6;
+  color: var(--ink-soft);
   font:
     11px "Courier New",
     monospace;
   letter-spacing: 0.2em;
 }
 #menu .back:hover {
-  color: #2fe0f0;
-  border-color: #2fe0f0;
+  color: var(--accent);
+  border-color: var(--accent);
 }
 
 #menu .foot {
@@ -412,7 +469,7 @@
   font-size: 9px;
   line-height: 1.8;
   letter-spacing: 0.06em;
-  color: #4b4177;
+  color: var(--ink-faint);
 }
 
 /* The way back in, and the pause: one control, because on a phone they are one
@@ -428,9 +485,9 @@
   width: 32px;
   height: 32px;
   border-radius: 9px;
-  border: 1px solid #3b3163;
+  border: 1px solid var(--line-lit);
   background: rgba(20, 14, 45, 0.75);
-  color: #ffc24b;
+  color: var(--warm);
   font:
     14px / 1 "Courier New",
     monospace;
@@ -508,57 +565,57 @@ body[data-motion="off"] #menu .entry {
   gap: 6px;
   margin: 14px 0;
   padding: 14px;
-  border: 1px solid #2b2450;
+  border: 1px solid var(--line);
   border-radius: 10px;
 }
 #menu .setting .switch {
   justify-self: start;
   padding: 10px 14px;
-  border: 1px solid #3b3163;
+  border: 1px solid var(--line-lit);
   border-radius: 8px;
   background: none;
   font:
     600 12px "Courier New",
     monospace;
   letter-spacing: 0.14em;
-  color: #9c8fd6;
+  color: var(--ink-soft);
   cursor: pointer;
 }
 #menu .setting .switch.on {
-  border-color: #22d6e7;
-  color: #22d6e7;
+  border-color: var(--accent-deep);
+  color: var(--accent-deep);
 }
 #menu .setting .switch.danger {
-  border-color: #ff5470;
-  color: #ff5470;
+  border-color: var(--alert);
+  color: var(--alert);
 }
 #menu .setting .switch:disabled {
-  border-color: #2b2450;
-  color: #4b4177;
+  border-color: var(--line);
+  color: var(--ink-faint);
   cursor: default;
 }
 #menu .setting .s {
   font-size: 11px;
   line-height: 1.7;
-  color: #8b7fc4;
+  color: var(--ink-soft);
 }
 #menu .setting input {
   width: 100%;
   box-sizing: border-box;
   padding: 10px 12px;
-  border: 1px solid #3b3163;
+  border: 1px solid var(--line-lit);
   border-radius: 8px;
-  background: #0e0a22;
+  background: var(--plate);
   font:
     600 14px "Courier New",
     monospace;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #c8bdf5;
+  color: var(--ink-key);
 }
 #menu .setting label.sub {
   margin: 0;
-  color: #6f639f;
+  color: var(--ink-faint);
 }
 
 /* HOW TO PLAY: two paragraphs and the two seats between them. The seats are
@@ -569,7 +626,7 @@ body[data-motion="off"] #menu .entry {
   font-size: 12px;
   line-height: 1.75;
   letter-spacing: 0.04em;
-  color: #9c8fd6;
+  color: var(--ink-soft);
 }
 #menu .job {
   display: grid;
@@ -578,24 +635,24 @@ body[data-motion="off"] #menu .entry {
   align-items: baseline;
   margin: 12px 0;
   padding: 12px;
-  border: 1px solid #2b2450;
+  border: 1px solid var(--line);
   border-radius: 10px;
 }
 #menu .job .tag {
   grid-row: 1 / span 2;
   font-size: 13px;
   letter-spacing: 0.1em;
-  color: #6f639f;
+  color: var(--ink-faint);
 }
 #menu .job .name {
   font-size: 13px;
   letter-spacing: 0.16em;
-  color: #c8bdf5;
+  color: var(--ink-key);
 }
 #menu .job .s {
   font-size: 11px;
   line-height: 1.7;
-  color: #8b7fc4;
+  color: var(--ink-soft);
 }
 
 /* The sentence HOW TO PLAY exists to say. Brighter than the prose above it and
@@ -603,13 +660,13 @@ body[data-motion="off"] #menu .entry {
 #menu .page .rule {
   margin: 22px 0 8px;
   padding: 14px 16px;
-  border: 1px solid #2f7f8f;
+  border: 1px solid var(--accent-line);
   border-radius: 10px;
   background: rgba(34, 214, 231, 0.06);
   font-size: 12px;
   line-height: 1.75;
   letter-spacing: 0.04em;
-  color: #b6ecf4;
+  color: var(--accent-soft);
 }
 
 /* CONTROLS: one block per panel, both seats in it. The blocks are read rather
@@ -618,14 +675,14 @@ body[data-motion="off"] #menu .entry {
 #menu .panel {
   margin: 14px 0;
   padding: 13px 14px;
-  border: 1px solid #2b2450;
+  border: 1px solid var(--line);
   border-radius: 10px;
 }
 #menu .panel h3 {
   margin: 0;
   font-size: 11px;
   letter-spacing: 0.22em;
-  color: #ffc24b;
+  color: var(--warm);
   font-weight: 600;
 }
 #menu .panel .why {
@@ -633,13 +690,13 @@ body[data-motion="off"] #menu .entry {
   font-size: 10px;
   line-height: 1.65;
   letter-spacing: 0.04em;
-  color: #8b7fc4;
+  color: var(--ink-soft);
 }
 #menu .panel .form {
   margin: 6px 0 0;
   font-size: 9px;
   letter-spacing: 0.2em;
-  color: #4b4177;
+  color: var(--ink-faint);
 }
 #menu .panel .seat-half {
   display: grid;
@@ -647,12 +704,12 @@ body[data-motion="off"] #menu .entry {
   gap: 0 10px;
   margin-top: 11px;
   padding-top: 10px;
-  border-top: 1px solid #16112f;
+  border-top: 1px solid var(--line-dim);
 }
 #menu .panel .seat-half .tag {
   font-size: 10px;
   letter-spacing: 0.1em;
-  color: #6f639f;
+  color: var(--ink-faint);
 }
 #menu .panel .control {
   margin-bottom: 8px;
@@ -663,7 +720,7 @@ body[data-motion="off"] #menu .entry {
 #menu .panel .control .name {
   font-size: 10px;
   letter-spacing: 0.14em;
-  color: #c8bdf5;
+  color: var(--ink-key);
 }
 /* The key this button is on, on this panel. Beside the name rather than under
    it: it is the same button said a second way, for the one person at a desk,
@@ -673,7 +730,7 @@ body[data-motion="off"] #menu .entry {
   font-family: ui-monospace, monospace;
   font-size: 10px;
   letter-spacing: 0.08em;
-  color: #6f639f;
+  color: var(--ink-faint);
 }
 #menu .panel .s {
   display: block;
@@ -681,7 +738,7 @@ body[data-motion="off"] #menu .entry {
   font-size: 10px;
   line-height: 1.6;
   letter-spacing: 0.03em;
-  color: #8b7fc4;
+  color: var(--ink-soft);
 }
 
 /* A second heading inside a page — the phone, the panels, the desk. The first

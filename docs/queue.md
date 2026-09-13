@@ -176,29 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## The menu is hard to read: a colour scheme with contrast, and a face from a CDN
-
-- **Found:** 2026-09-13, queue-lanes — asked for by the owner
-- **Taken:** 2026-09-13, claude/queue-the-menu-is-hard-to-read-a-colour-scheme-with-co
-- **Files:** `apps/game/src/menu.css`, `apps/game/src/game.css`, `apps/game/index.html`, `apps/game/src/menu-view.ts`
-- **Where:** cloud
-
-The owner finds the menu's text hard to read on a phone — the purples on
-purple in `menu.css` (`#6f639f` on the dark ground, `#4b4177` for a
-description) are well under the contrast a body of text needs. He asks for
-**a good colour scheme, Material Design named as the example**, and **a
-better font from a public CDN**.
-
-Do it as a set of named custom properties at the top of `menu.css` — ink,
-paper, muted, accent, warning — with the pairs checked against WCAG AA (4.5:1
-for text, 3:1 for the large labels), and one face loaded with a `<link>` in
-`index.html` (Google Fonts is the public CDN the app can reach; pick a
-geometric sans with a real fallback stack, and keep the title's own glow
-treatment). The field's HUD (`game.css`) keeps its palette: this is the
-menu, and the pages behind it. It is a look the owner asked for by name, so
-it lands rather than going to VERSUS; a cloud session cannot see it and says
-so, and the local session that verifies it sends one PNG of the front page.
-
 ## A player signs in with Google or by an email link, and the menu says who
 
 - **Found:** 2026-09-13, queue-lanes — asked for by the owner

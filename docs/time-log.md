@@ -2448,3 +2448,26 @@ to thirteen with the wave it was actually about. About 25 min.
 
 Bottleneck: **writing** — the press script had to be cut back to the presses
 that were about the one body, and the tick the boundary falls on found again.
+
+## 2026-09-13 — scheduler-tests-two-devices-klxkyt — the menu's colours, named and measured
+
+Queue item, the owner's: the menu is hard to read on a phone. It was — a
+tagline at 3.8:1 and a description at 2.2:1, purple on purple at ten pixels.
+`menu.css` now opens with one block of named tokens, each with the job it does
+and its ratio against the ground beside it, and every colour in the file is one
+of them. The two the owner could not read are gone; nothing on the page is
+under 8:1. The face is Space Grotesk from Google Fonts, swapped in over a real
+stack, with the field's Courier left alone. About 30 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `menu.css`'s eighteen hexes and where each is used, `build.ts` for what the bundler does to a `<link href>`, and `game.css` for the line this must not cross |
+| writing | 15 | the token block, the eighteen substitutions, the face and its two preconnects, and a test that measures every ink token out of the file |
+| looking | 5 | `bun run build:game`, to see whether an absolute URL survives a bundler that hashes every link it can follow — it does, and the built page carries it |
+| friction | 0 | — |
+| landing | 5 | `check:fast`, the commit, `bun run land` |
+
+Bottleneck: **writing** — the substitution is mechanical and the decision under
+it is one line long: what a colour is *for*. Every token is named for a job, so
+the next lane picks a value by asking what it is writing rather than by matching
+a purple.
