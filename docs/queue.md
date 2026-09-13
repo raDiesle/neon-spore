@@ -300,3 +300,22 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## VERSUS decided: adopt `handover:notice` / `hull`, drop every `cairn:pile`
+
+- **Found:** 2026-09-13, claude/siren-centre — the owner's decision in chat, for a cloud session
+- **Files:** `tools/versus/candidates/handover-notice/hull/index.ts`, `tools/versus/candidates/handover-notice/hull/paint.ts`, `tools/versus/candidates/cairn-pile/banked/index.ts`, `tools/versus/candidates/cairn-pile/still/index.ts`, `tools/versus/DECIDED.md`, `packages/render/src/handover-look.ts`
+
+The owner looked at the VERSUS page on 13 September 2026 and said which
+way both open slots go: **`handover:notice` — apply `hull` to the game**
+(the two lobes on the hull handing one height back and forth for the length
+of the window, under the shipped plate), and **`cairn:pile` — reject all**,
+`banked` and `still` both. Apply them with the tool, never by hand:
+`bun run versus adopt handover:notice hull "<why, from the candidate's own
+argument>"` moves `paint.ts` into `packages/render` and writes the fields
+onto `HANDOVER_LOOK`; `bun run versus drop cairn:pile "<why not>"` removes
+the slot and records it in `DECIDED.md`. Both `git rm -r` their candidate
+directories and both are checked by `tools/versus/test/registry.test.ts`
+after `bun run versus index`. The adopted look is the exemption a commit
+must name: a look the owner asked for by name. `bun run check` proves it;
+the frame the hull now draws is a picture for the report, not a question.
