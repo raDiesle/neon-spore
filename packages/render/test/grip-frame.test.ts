@@ -90,6 +90,14 @@ describe("a grip", () => {
     expect(gripLabel("p1", "aim", true, false)).toBe("YOU AIM");
     expect(gripLabel("p2", "aim", true, false)).toBe("P1 AIMS");
   });
+
+  it("says PULL for a hand dragging a rock out of the pile", () => {
+    // THE CAIRN's hand used to fall through to AIM — the word for the one
+    // hand that moves nothing, over the one body the cannon cannot reach.
+    expect(gripLabel("p2", "pull", false, true)).toBe("YOU PULL");
+    expect(gripLabel("p1", "pull", false, true)).toBe("P2 PULLS");
+    expect(gripLabel("test", "pull", true, true)).toBe("BOTH PULL");
+  });
 });
 
 /**

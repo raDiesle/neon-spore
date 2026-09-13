@@ -1,7 +1,14 @@
-import { gripsCreature, type HandMeans, handMeans, type World } from "@neon-spore/sim";
+import {
+  type Creature,
+  gripsCreature,
+  type HandMeans,
+  handMeans,
+  type World,
+} from "@neon-spore/sim";
 import { creatureCenter, creatureRadius } from "./creature-place.js";
 import { halo } from "./glow.js";
 import { drawCarryArrows } from "./grip-arrows.js";
+import { drawBeam } from "./grip-beam.js";
 import type { Layout, ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -36,15 +43,6 @@ import { PALETTE } from "./palette.js";
 
 /** How far outside the silhouette the ring sits. */
 const RING_MUL = 1.5;
-/** Lights travelling up the beam, spread over its length. */
-const SPARKS = 4;
-/**
- * How wide one of them is, in tiles — the glow, and the lit core inside it.
- * Big enough to read as a light being drawn *up* the line at a glance: at a
- * third of this they were a texture on the beam rather than a direction.
- */
-const SPARK_TILES = 0.3;
-const SPARK_CORE = 0.1;
 
 export function drawGrips(
   ctx: CanvasRenderingContext2D,
@@ -71,64 +69,55 @@ export function drawGrips(
     // other phone, watched at tempo on 13 September 2026. The private mark and
     // the calipers are `drawWeightPress`'s, seat by seat.
     if (means === "press") continue;
-
-    const { x, y } = creatureCenter(l, c, beatPhase);
-    const r = Math.max(1, creatureRadius(l, c) * RING_MUL);
-    // Two hands pull harder, and the picture says so before the numbers do.
-    const weight = p1 && p2 ? 1 : 0.62;
-    if (means === "brake") drawBeam(ctx, l, x, y, time, weight);
-    drawRing(ctx, x, y, r, time, weight);
-    // The two lanes out, and only a braked body has any: an aim does not move
-    // what it is pointed at (`grip-arrows.ts`).
-    if (means === "brake") drawCarryArrows(ctx, l, world, c, x, y, r, time);
-    drawLabel(ctx, l.role, x, y + r + 12, means, p1, p2);
+    // **A pull is THE CAIRN's, and the pile is drawn after this pass** — so a
+    // ring and a word put here sat under seven rocks, and a thumb carried
+    // across the pile showed nothing at all until the unit came out (watched
+    // at tempo, 13 September 2026). `drawBoss` draws that hand over the
+    // stack instead (`cairn-hand.ts`).
+    if (means === "pull") continue;
+    drawHandOn(ctx, l, world, c, means, p1, p2, beatPhase, time);
   }
 }
 
-/**
- * The line back to the ship. It is the only part visible from across the
- * room, and it is drawn from the hull rather than from nowhere: the pull has
- * to come from the thing the pair is defending, or it reads as the creature's
- * own light.
- */
-function drawBeam(
+function drawHandOn(
   ctx: CanvasRenderingContext2D,
   l: Layout,
+  world: World,
+  c: Creature,
+  means: HandMeans,
+  p1: boolean,
+  p2: boolean,
+  beatPhase: number,
+  time: number,
+): void {
+  const { x, y } = creatureCenter(l, c, beatPhase);
+  const r = Math.max(1, creatureRadius(l, c) * RING_MUL);
+  drawHandAt(ctx, l, world, c, means, p1, p2, x, y, r, time);
+}
+
+/** The ring and the word, at a place a caller has already worked out —
+ * the pile's hand is one (`cairn-hand.ts`). */
+export function drawHandAt(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  world: World,
+  c: Creature,
+  means: HandMeans,
+  p1: boolean,
+  p2: boolean,
   x: number,
   y: number,
+  r: number,
   time: number,
-  weight: number,
 ): void {
-  const from = l.hullY;
-  if (from <= y) return;
-  const sway = Math.sin(time * 5) * l.tile * 0.06;
-
-  ctx.save();
-  ctx.globalAlpha = 0.14 + 0.1 * weight + 0.05 * Math.sin(time * 7);
-  ctx.strokeStyle = PALETTE.pod;
-  ctx.lineWidth = 1 + 2 * weight;
-  ctx.beginPath();
-  ctx.moveTo(x, from);
-  ctx.quadraticCurveTo(x + sway, (from + y) / 2, x, y);
-  ctx.stroke();
-  ctx.restore();
-
-  // Lights climbing the beam: the direction of the pull, so it never reads as
-  // something falling down the line instead. Each is a glow with a lit core in
-  // it — the glow on its own is soft enough to lose against the field.
-  for (let k = 0; k < SPARKS; k++) {
-    const t = (((time * 0.7 + k / SPARKS) % 1) + 1) % 1;
-    const sy = from - (from - y) * t;
-    const fade = 1 - t * 0.55;
-    halo(ctx, x, sy, l.tile * SPARK_TILES, PALETTE.pod, (0.34 * weight + 0.22) * fade);
-    ctx.save();
-    ctx.globalAlpha = 0.9 * fade;
-    ctx.fillStyle = PALETTE.podRim;
-    ctx.beginPath();
-    ctx.arc(x, sy, Math.max(1, l.tile * SPARK_CORE), 0, Math.PI * 2);
-    ctx.fill();
-    ctx.restore();
-  }
+  // Two hands pull harder, and the picture says so before the numbers do.
+  const weight = p1 && p2 ? 1 : 0.62;
+  if (means === "brake") drawBeam(ctx, l, x, y, time, weight);
+  drawRing(ctx, x, y, r, time, weight);
+  // The two lanes out, and only a braked body has any: an aim does not move
+  // what it is pointed at (`grip-arrows.ts`).
+  if (means === "brake") drawCarryArrows(ctx, l, world, c, x, y, r, time);
+  drawLabel(ctx, l.role, x, y + r + 12, means, p1, p2);
 }
 
 /** Four arcs turning around the silhouette — a hand closed on it, not a target
@@ -211,7 +200,9 @@ function drawLabel(
  * no second hand for it to be shared with (`sim/hand.ts`).
  */
 export function gripLabel(role: ViewRole, means: HandMeans, p1: boolean, p2: boolean): string {
-  const verb = means === "brake" ? "PULL" : "AIM";
+  // A brake and a pull are both a hand dragging at something; an aim is the
+  // one that moves nothing, and the one word the partner has to read as such.
+  const verb = means === "aim" ? "AIM" : "PULL";
   if (p1 && p2) return `BOTH ${verb}`;
   const who = p1 ? 1 : 2;
   const mine = role === (who === 1 ? "p1" : "p2");

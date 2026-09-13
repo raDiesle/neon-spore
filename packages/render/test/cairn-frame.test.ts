@@ -11,7 +11,9 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { cairnUnits } from "../src/cairn.js";
+import { drawPileHand } from "../src/cairn-hand.js";
 import { showsCairnSettle } from "../src/cairn-settle.js";
+import { drawGrips } from "../src/grip.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import {
   CFG,
@@ -19,6 +21,7 @@ import {
   installCanvasGlobals,
   ROLES,
   runFrames,
+  stubCanvas,
   waveWith,
 } from "./frame-harness.js";
 
@@ -131,6 +134,42 @@ describe("a pile through a canvas that refuses what a real one does", () => {
     );
     expect(ctx.calls).toBeGreaterThan(0);
     expect(pile(world)).toBeUndefined();
+  });
+});
+
+describe("a hand on the pile", () => {
+  /** The pile with the navigator's thumb on it, a tick in. */
+  function gripped(): World {
+    const world = cairnWorld();
+    const held = pile(world)?.id ?? 0;
+    step(world, [{ tick: 0, player: 2, command: { kind: "grip", id: held } }]);
+    step(world, []);
+    return world;
+  }
+
+  it("is drawn over the stack, by the boss pass, and not under it by the field's", () => {
+    // Watched at tempo on 13 September 2026: the field's grip pass runs before
+    // the boss is drawn, so the ring and the word for a thumb on the pile sat
+    // under seven rocks and a finger carried across it showed nothing at all.
+    const world = gripped();
+    expect(world.gripP2).toBeGreaterThan(0);
+    const body = pile(world) as Creature;
+    const field = stubCanvas().ctx;
+    drawGrips(field as unknown as CanvasRenderingContext2D, L, world, 0.5, 1);
+    expect(field.calls).toBe(0);
+    const over = stubCanvas().ctx;
+    over.texts = [];
+    drawPileHand(over as unknown as CanvasRenderingContext2D, L, world, body, boss(world).units, 1);
+    expect(over.calls).toBeGreaterThan(0);
+    expect(over.texts.map((t) => t.text)).toContain("P2 PULLS");
+  });
+
+  it("is nothing while nobody is holding it", () => {
+    const world = cairnWorld();
+    const body = pile(world) as Creature;
+    const { ctx } = stubCanvas();
+    drawPileHand(ctx as unknown as CanvasRenderingContext2D, L, world, body, boss(world).units, 1);
+    expect(ctx.calls).toBe(0);
   });
 });
 
