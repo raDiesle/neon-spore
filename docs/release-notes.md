@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · d72d717d — The director's stage answers a round's slabs on the seat the frame draws
+
+`bindStageGauge` and `bindStageSnake` placed their slabs with the role bar's own seat while the layout they were handed was already seated by `handedLayout` — so on a wave carrying THE HANDOVER, a round's buttons were answered where the untraded seat would have drawn them and the frame was drawing the other seat's. Both listeners read the seat off `layout().role` now and have no `role` of their own, which makes the disagreement impossible rather than fixed; the briefing gate's `speaksFor` and `pointerSeat` stay on the role bar, because those say who is pressing, not which panel is up (`render/handover.ts` draws that line). No shipped wave carries both a round and the fault, so the director was the one place to look, and `stage-gauge.test.ts` now stands a gauge round on a traded handover wave and presses the call where the pilot's screen draws it.
+
 ## 2026-09-13 · b5356072 — Three difficulties, and the one number they move
 
 The owner asked for Easy, Medium and Hard, chosen when a new game is started, and said what they should change: the falling speed of everything. On this field that is not a per-creature number and must not become one — everything falls a tile a beat, so the falling speed *is* the beat, and a level is one `bpm`. He put today's game at Medium, so Medium is 96 and nothing anybody has already played moves underneath them; Easy is 80 and Hard is 120.
