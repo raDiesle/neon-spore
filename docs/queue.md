@@ -227,6 +227,7 @@ plate's box.
 ## `main`'s four column tracks are written out twice, and nothing checks they agree
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-13, claude/queue-main-s-four-column-tracks-are-written-out-twice
 - **Files:** `tools/director/src/columns.ts`, `tools/director/src/director-columns.css`, `tools/director/test/columns.test.ts`
 
 `OPEN_TRACKS` in `columns.ts` and `main { grid-template-columns: … }` in
