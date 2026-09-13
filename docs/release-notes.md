@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · 68f6cc20 — THE CAIRN's pile stops building the fire its clip throws away
+
+Each stone in the pile drew its look's whole fire — plume, ball, tongues, smoke, chips — under the pile's clip, and for every stone but the base most of it lay outside the outline: the apex's plume alone was nine parts in ten sky. Now the pile tells each stone's fire where the outline is (the circles round the seven stones, `rock-window.ts`) and every mark asks with the circle that contains it before a gradient or a path exists. `fill` on the wave's p1 frame falls from 398 to 287 and the radial gradients from 154 to 79; the ordered canvas log with the window is the log without it minus whole marks, which `cairn-window.test.ts` holds. An identical change in the render-perf skill's sense — not a look.
+
 ## 2026-09-13 · e9604c03 — `bun run frames --hand` puts this phone's thumb on the ship
 
 The ring under a finger (`render/ship-hand.ts`) is the input layer's, filled from pointer events, so no `--press` or `--hold` could photograph it; the lane that drew it on THE WELL's cannon stubbed a browser by hand and threw the procedure away. Now `--hand cannon|shield|muzzle[=red|cyan]` and `--hand-over` press there with the browser's own mouse: the page answers where the grab circle is in screen pixels (`neonSpore.shipGrab`, flat hull or THE WELL by what the screen is drawing, through a new `clientOfStage` inverse of `pointOnStage`) and the picture goes through the same listeners a thumb does. A tool, not a look.
