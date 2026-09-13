@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · ae31f4ba — THE CODEX: a fault that takes nothing away and changes what everything means
+
+The owner asked for the idea on `docs/spec/ideas.md` as a **fault on a wave** rather than the boss that page imagined, so that is what this is. While its key is turned over, the two colours have each other's job: a bolt fired red kills what cyan kills, and cyan kills what red kills. Nothing about the shot says so — the bolt that leaves the muzzle is the colour the thumb pressed, it sounds like that colour, and the lobe lights like that colour — so the navigator finds out by watching a body refuse a colour that should have taken it. The look is exempt as one the owner asked for by name.
+
 ## 2026-09-12 · 0defb8b3 — THE WEIGHT: a body two thumbs crush, and neither thumb can see the other
 
 The owner asked for the idea on `docs/spec/transfers-bosses.md` as an ordinary arrival rather than the five-state boss that page argues for, so that is what this is: a heavy sac sinks a lane a beat, no bolt reaches it and the shield has nothing to say to it, and it gives to a hand from **each** seat on the body itself, held together for `weightCrushMs`. A weight nobody agrees about lands, and the wave is lost. The look is exempt as one the owner asked for by name.

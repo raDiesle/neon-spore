@@ -198,3 +198,18 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## Unverified at ae31f4ba: THE CODEX watched at tempo: whether the shimmer reads a…
+
+- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `docs/INDEX.md`, `docs/asset-catalogue.md`, `docs/queue.md`, `docs/spec/bestiary.md`, `docs/spec/ideas.md`, `docs/spec/transfers-bosses.md`, `docs/time-log.md`, `packages/content/src/mechanics-wave.ts`
+
+*THE CODEX: a fault that takes nothing away and changes what everything means* landed from a session that could not look at it. The commit touched 29 more files. What went unchecked:
+
+- THE CODEX watched at tempo: whether the shimmer reads as the air going wrong rather than as a flicker, and whether a pair can hold a key across the four-beat turn
+- bun run perf --wave "THE CODEX" — the wave landed with an unmeasured baseline row
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
